@@ -31,7 +31,6 @@ Michael Schmalle (mike at teotigraphix dot com)
 Michelle Yaiser (myaiser at adobe dot com)
 Nicholas Kwaitkowski (nicholas at spoon.as)
 Omar Gonzalez (omarg.developer at gmail dot com)
-Peter Elst (peter.elst at gmail dot com)
 Pratyoosh Sharma (pratyoosh.sharma at jpmorgan dot com)
 Rui Silva (rui.silva at alert-online dot com)
 Ryan Frishberg (Ryan.Frishberg at ubs dot com)
@@ -43,5 +42,6 @@ Stephen Gilson (smgilson at adobe dot com)
 ACCOUNTS CREATED:
 cframpton Carol Frampton (cframpto at adobe dot com)
 leifwells Leif Wells (leif.wells at gmail dot com)
+peterelst Peter Elst (peter.elst at gmail dot com)
 
 SVN SETUP OK:
