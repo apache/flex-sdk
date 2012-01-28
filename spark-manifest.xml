@@ -173,7 +173,8 @@
     <component id="WindowedApplication" class="spark.components.WindowedApplication" lookupOnly="true"/>
 	<component id="TitleBar" class="spark.components.windowClasses.TitleBar" lookupOnly="true"/>   
 
-	<!-- FTEText for Halo -->
+	<!-- FTE text for MX components -->
+	<component id="FTEDataGridItemRenderer" class="mx.controls.dataGridClasses.FTEDataGridItemRenderer"/>
     <component id="MXFTETextInput" class="mx.controls.MXFTETextInput"/>
 
 	<!-- Text Layout Framework (TLF) -->
