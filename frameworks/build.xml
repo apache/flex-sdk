@@ -49,6 +49,7 @@
 
 	<target name="clean" description="Cleans all SWCs and their resource bundles">
 		<!-- Delete AIR files from 'prepare' target -->
+		<delete file="${FLEX_HOME}/SDK license.pdf"/> <!-- from AIR Integration Kit -->
 		<delete file="${FLEX_HOME}/bin/adl"/>
 		<delete file="${FLEX_HOME}/bin/adl.exe"/>
 		<delete file="${FLEX_HOME}/bin/adt"/>
