@@ -119,6 +119,7 @@
     <component id="Move" class="spark.effects.Move"/>
     <component id="MovieClipSWFLoader" class="mx.controls.MovieClipSWFLoader" lookupOnly="true"/>
     <component id="Move3D" class="spark.effects.Move3D"/>
+    <component id="MultiDPIBitmapSource" class="spark.utils.MultiDPIBitmapSource"/>
     <component id="MultiValueInterpolator" class="spark.effects.interpolation.MultiValueInterpolator"/>
     <component id="MuteButton" class="spark.components.mediaClasses.MuteButton"/>
     <component id="NavigatorContent" class="spark.components.NavigatorContent"/>
