@@ -17,7 +17,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,prepare,javascript,framework,flex4,rpc,airframework,flex,utilities,haloclassic,wireframe,flash_integration" description="Clean build of all SWCs"/>
+	<target name="main" depends="clean,prepare,javascript,framework,flex4,rpc,airframework,flex,flash_integration,utilities,haloclassic,wireframe" description="Clean build of all SWCs"/>
 
 	<target name="doc" >
 		<ant dir="${basedir}/projects/framework" target="doc" />
