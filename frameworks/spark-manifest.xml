@@ -51,6 +51,7 @@
     <component id="ColumnAlign" class="spark.layouts.ColumnAlign"/>
     <component id="ColumnHeaderBar" class="spark.components.ColumnHeaderBar"/>
     <component id="ComboBox" class="spark.components.ComboBox"/>
+    <component id="ComboBoxGridItemEditor" class="spark.components.gridClasses.ComboBoxGridItemEditor" />
     <component id="ConstraintColumn" class="mx.containers.utilityClasses.ConstraintColumn" lookupOnly="true"/>
     <component id="ConstraintLayout" class="spark.layouts.ConstraintLayout"/>
     <component id="ConstraintRow" class="mx.containers.utilityClasses.ConstraintRow" lookupOnly="true"/>
@@ -87,6 +88,7 @@
     <component id="GraphicElement" class="spark.primitives.supportClasses.GraphicElement"/>
     <component id="Grid" class="spark.components.Grid"/>
     <component id="GridColumn" class="spark.components.supportClasses.GridColumn"/>
+    <component id="GridItemEditor" class="spark.components.gridClasses.GridItemEditor" />
     <component id="GridItemRenderer" class="spark.components.supportClasses.GridItemRenderer"/>
     <component id="Group" class="spark.components.Group"/>
     <component id="GroupBase" class="spark.components.supportClasses.GroupBase"/>
@@ -165,6 +167,7 @@
     <component id="StrokedElement" class="spark.primitives.supportClasses.StrokedElement"/>
     <component id="TabBar" class="spark.components.TabBar"/>
     <component id="TextArea" class="spark.components.TextArea"/>
+    <component id="TextGridItemEditor" class="spark.components.gridClasses.TextGridItemEditor" />
     <component id="TextBase" class="spark.components.supportClasses.TextBase"/>
     <component id="TextInput" class="spark.components.TextInput"/>
     <component id="TextSelectionHighlighting" class="spark.components.TextSelectionHighlighting"/>
