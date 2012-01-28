@@ -17,7 +17,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,prepare,javascript,framework,framework_textLayout,spark,sparkskins,rpc,airframework,flex,flash_integration,utilities,haloclassic,halo,wireframe,updateAIR" description="Clean build of all SWCs"/>
+	<target name="main" depends="clean,prepare,javascript,framework,framework_textLayout,spark,sparkskins,rpc,airframework,flex,flash_integration,utilities,halo,wireframe,updateAIR" description="Clean build of all SWCs"/>
 
 	<target name="doc" >
 		<ant dir="${basedir}/projects/framework" target="doc" />
@@ -28,7 +28,6 @@
 		<ant dir="${basedir}/projects/airframework" target="doc" />
 		<ant dir="${basedir}/projects/flex" target="doc" />
 		<ant dir="${basedir}/projects/utilities" target="doc" />
-		<ant dir="${basedir}/projects/haloclassic" target="doc" />
 		<ant dir="${basedir}/projects/halo" target="doc" />
 		<ant dir="${basedir}/projects/wireframe" target="doc" />
 		<ant dir="${basedir}/projects/flash-integration" target="doc" />
@@ -54,11 +53,7 @@
 		<ant dir="${basedir}/projects/halo"/>
     </target>
 
-    <target name="haloclassic" description="Clean build of haloclassic.swc">
-		<ant dir="${basedir}/projects/haloclassic"/>
-    </target>
-
-     <target name="spark" description="Clean build of spark.swc">
+    <target name="spark" description="Clean build of spark.swc">
 		<ant dir="${basedir}/projects/spark"/>
     </target>
 
@@ -110,7 +105,6 @@
 		<ant dir="${basedir}/projects/spark" target="clean"/>
 		<ant dir="${basedir}/projects/sparkskins" target="clean"/>
 		<ant dir="${basedir}/projects/utilities" target="clean"/>
-		<ant dir="${basedir}/projects/haloclassic" target="clean"/>
 		<ant dir="${basedir}/projects/halo" target="clean"/>
 		<ant dir="${basedir}/projects/wireframe" target="clean"/>
 		<ant dir="${basedir}/projects/flash-integration" target="clean"/>
@@ -149,7 +143,6 @@ tar -xjf "AIR Integration Kit.tbz2" .
 		<ant dir="${basedir}/projects/airframework" target="compile"/>
 		<ant dir="${basedir}/projects/flex" target="compile"/>
 		<ant dir="${basedir}/projects/utilities" target="compile"/>
-		<ant dir="${basedir}/projects/haloclassic" target="compile"/>
 		<ant dir="${basedir}/projects/halo" target="compile"/>
 		<ant dir="${basedir}/projects/spark" target="compile"/>
 		<ant dir="${basedir}/projects/sparkskins" target="compile"/>
