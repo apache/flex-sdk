@@ -360,10 +360,10 @@
       <policy-file-url></policy-file-url>
    </runtime-shared-library-path>
    @@-->
-   <!-- Flex4 SWC-->
+   <!-- Spark SWC-->
    <!--@@
     <runtime-shared-library-path>
-      <path-element>libs/flex4.swc</path-element>
+      <path-element>libs/spark.swc</path-element>
       <rsl-url>${hosted.rsl.url}/flex/${build.number}/flex4_${build.number}.swz</rsl-url>
       <policy-file-url>${hosted.rsl.url}/crossdomain.xml</policy-file-url>
       <rsl-url>flex4_${build.number}.swz</rsl-url>
