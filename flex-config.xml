@@ -67,6 +67,7 @@
       <!-- List of SWC files or directories that contain SWC files. -->
       <library-path>
          <path-element>libs</path-element>
+         <path-element>libs/mx</path-element>
          <path-element>libs/player</path-element>
          <path-element>libs/player/{targetPlayerMajorVersion}.{targetPlayerMinorVersion}</path-element>
          <path-element>locale/{locale}</path-element>
@@ -344,28 +345,35 @@
     <!-- Framework SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/framework.swc</path-element>
-		<rsl-url>framework_4.0.0.0.swf</rsl-url>
+		<rsl-url>framework_4.5.0.0.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
+   
+    <!-- MX SWC -->
+	<runtime-shared-library-path>
+		<path-element>libs/mx/mx.swc</path-element>
+		<rsl-url>mx_4.5.0.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
    
     <!-- Spark SWC-->
    	<runtime-shared-library-path>
 		<path-element>libs/spark.swc</path-element>
-		<rsl-url>spark_4.0.0.0.swf</rsl-url>
+		<rsl-url>spark_4.5.0.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
 	
     <!-- Sparkskins SWC-->
    	<runtime-shared-library-path>
 		<path-element>libs/sparkskins.swc</path-element>
-		<rsl-url>sparkskins_4.0.0.0.swf</rsl-url>
+		<rsl-url>sparkskins_4.5.0.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
 	 
 	<!-- RPC SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/rpc.swc</path-element>
-		<rsl-url>rpc_4.0.0.0.swf</rsl-url>
+		<rsl-url>rpc_4.5.0.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
     	
