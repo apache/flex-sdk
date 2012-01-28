@@ -15,6 +15,9 @@
     <!-- Specifies the minimum player version that will run the compiled SWF. -->
    <target-player>10.2.0</target-player>
 
+    <!-- Specifies the version of the compiled SWF -->
+    <swf-version>11</swf-version>
+
    <compiler>
 
       <!-- Turn on generation of accessible SWFs. -->
