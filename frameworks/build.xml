@@ -115,29 +115,6 @@ tar -xjf "AIR Integration Kit.tbz2" .
 
 	-->
 	
-	<target name="compc">
-		<java classname="flex2.tools.oem.internal.LibraryCompiler" fork="true" failonerror="true" dir="${basedir}">
-			<jvmarg line="${jvm.args}"/>
-			<classpath>
-				<pathelement location="${sdk.dir}/modules/compiler/classes"/>
-				<fileset dir="${sdk.dir}/lib" includes="flex-compiler-oem.jar"/>
-			</classpath>
-			<arg line="${compc.options}"/>
-		</java>
-    </target>
-
-    <target name="bundle">
-		<property file="${project.dir}/bundles.properties"/>
-		<java classname="flex2.tools.oem.internal.LibraryCompiler" fork="true" failonerror="true" dir="${basedir}">
-			<jvmarg line="${jvm.args}"/>
-			<classpath>
-				<pathelement location="${sdk.dir}/modules/compiler/classes"/>
-				<fileset dir="${sdk.dir}/lib" includes="*.jar"/>
-			</classpath>
-			<arg line="-include-resource-bundles ${bundles} ${bundle.options}"/>
-		</java>
-    </target>
-
 	<target name="mxmlc">
 		<java classname="flex2.tools.oem.internal.ApplicationCompiler" fork="true" failonerror="true" dir="${basedir}">
 			<jvmarg line="${jvm.args}"/>
