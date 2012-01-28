@@ -45,11 +45,11 @@
 
 	</metadata>
 
-	<metadata name="CollapseWhiteSpace" description="%collapseWhiteSpace.help" >
+	<metadata name="CollapseWhiteSpace" >
 
-		<context name="variable" type="String" />
-		<context name="getter" type="String" />
-		<context name="setter" type="String" />
+		<context name="variable" type="String" showHint="false" />
+		<context name="getter" type="String" showHint="false" />
+		<context name="setter" type="String" showHint="false" />
 
 	</metadata>
 
@@ -101,7 +101,7 @@
 
 	</metadata>
 	
-	<metadata name="Effect" description="%effect.help" >
+	<metadata name="Effect" >
 	
 		<context name="class" showHint="false"/>
 
@@ -219,11 +219,11 @@
 
 	</metadata>	 
 
-	<metadata name="InstanceType" description="%instanceType.help" >
+	<metadata name="InstanceType" >
 
-		<context name="variable" type="mx.core.IDeferredInstance" hint="classes" hintType="mx.core.IDeferredInstance" />
-		<context name="getter" type="mx.core.IDeferredInstance" hint="classes" hintType="mx.core.IDeferredInstance"  />
-		<context name="setter" type="mx.core.IDeferredInstance" hint="classes" hintType="mx.core.IDeferredInstance"  />
+		<context name="variable" type="mx.core.IDeferredInstance" showHint="false"  />
+		<context name="getter" type="mx.core.IDeferredInstance"  showHint="false"  />
+		<context name="setter" type="mx.core.IDeferredInstance" showHint="false" />
 		
 		<attribute type="Class" required="true" />
 
