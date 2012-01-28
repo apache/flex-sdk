@@ -274,7 +274,7 @@
 
 	<metadata name="RequiresDataBinding" >
 
-		<context name="class" />
+		<context name="class" showHint="false" />
 		
 		<attribute />
 
