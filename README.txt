@@ -16,6 +16,7 @@ Until the modules directory is donated you should follow these steps to build th
 
         JAVA_HOME
         ANT_HOME
+        ANT_OPTS - set max heap size to at least 256m (-Xmx256m)
 
     The PATH must include
 
@@ -39,11 +40,15 @@ Until the modules directory is donated you should follow these steps to build th
 
 Notes:
 
-- The following frameworks directories have not yet been approved by legal for donation to the ASF: flash-intergration, 
-  automation, automation_air, automation_airspark, automation_dmv, automation_flashflexkit and automation_spark.
-- The asdoc and doc directories will be contributed in a later drop.
-- The frameworks directory contains a build_framework.xml file and a build.xml file.  The build_framework.xml directory builds frameworks in the context of 
-  a downloaded kit so it uses the compiler in the bin directory.  The build.xml file builds frameworks in the context of the source tree which means it 
-  uses the compiler in the modules directory.  If you would prefer you can copy build_framework.xml to build.xml so you just have to type ant to build
-  frameworks.
+- The frameworks directory contains a build_framework.xml file and a build.xml file.  
+  The build_framework.xml directory builds frameworks in the context of a downloaded kit so it uses the compiler in the bin directory.  
+  The build.xml file builds frameworks in the context of the source tree which means it uses the compiler in the modules directory.  
+  If you would prefer you can copy build_framework.xml to build.xml so you just have to type ant to build frameworks.
+
+- The following frameworks directories have not yet been approved by legal for donation to the ASF:
+  flash-integration, javascript, tests, projects/automation, projects/automation_air, projects/automation_airspark,
+  projects/automation_dmv, projects/automation_flashflexkit, projects/automation_spark, 
+
+- The build files for the asdoc and doc directories will be added shortly.
+
 - While the official documentation says that J2SDK 1.5.0_13 is required, I use Java Version 1.6.0_29 from Apple Inc. without any issues.
