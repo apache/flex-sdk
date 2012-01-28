@@ -4,7 +4,9 @@ Adobe will be dropping subsets of the Adobe Flex code into the Apache Flex subve
 
 Until the modules directory is donated you should follow these steps to build the framework directory.
 
-1.  Make sure you have your build environment configured.
+1.  Download the Adobe Flex 4.6 Open Source Flex SDK from http://opensource.adobe.com/wiki/display/flexsdk/Download+Flex+4.6 and expand it.
+
+2.  Make sure you have your build environment configured.
 
     It requires the following software that is not under source control:
 
@@ -24,14 +26,14 @@ Until the modules directory is donated you should follow these steps to build th
         bin directory of Ant
         bin directory of Java
 
+    Per the instructions in {FLEX_HOME}/ant/README.txt, copy flexTasks.jar to the lib directory of your ant installation.
+
     For testing, the Flash Player's mm.cfg file must have the following entries
 
         ErrorReportingEnable=1
         TraceOutputFileEnable=1
 
     and a FlashPlayerTrust file must allow local SWFs to access local files.
-
-2.  Download the Adobe Flex 4.6 Open Source Flex SDK from http://opensource.adobe.com/wiki/display/flexsdk/Download+Flex+4.6 and expand it.
 
 3.  Delete the frameworks directory from the files you just expanded and replace it with the contents of the frameworks directory from the ASF svn repository.  
     The SVN-location is https://svn.apache.org/repos/asf/incubator/flex/trunk/frameworks
