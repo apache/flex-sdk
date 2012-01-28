@@ -82,7 +82,6 @@
     <component id="Move3D" class="spark.effects.Move3D"/>
     <component id="MultiValueInterpolator" class="spark.effects.interpolation.MultiValueInterpolator"/>
     <component id="MuteButton" class="spark.components.mediaClasses.MuteButton"/>
-    <component id="NavigatorChild" class="spark.components.NavigatorChild"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
     <component id="Panel" class="spark.components.Panel"/>
