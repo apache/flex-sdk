@@ -18,7 +18,7 @@
    <compiler>
 
       <!-- Turn on generation of accessible SWFs. -->
-      <accessible>false</accessible>
+      <accessible>true</accessible>
 
       <!-- Specifies the locales for internationalization. -->
       <locale>
