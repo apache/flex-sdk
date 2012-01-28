@@ -369,7 +369,8 @@ include "../styles/metadata/IconColorStyles.as"
 
 /**
  *  The class to use as the skin for a column that is being resized.
- *  @default mx.skins.halo.DataGridColumnResizeSkin
+ * 
+ *  @default mx.skins.halo.DataGridColumnResizeSkin (for both Halo and Spark themes)
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -382,7 +383,10 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  The class to use as the skin that defines the appearance of the  
  *  background of the column headers in a AdvancedDataGrid control.
- *  @default mx.skins.halo.DataGridHeaderSeparator
+ * 
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.DataGridHeaderBackgroundSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.DataGridHeaderBackgroundSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -394,8 +398,11 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  The class to use as the skin that defines the appearance of the 
  *  separator between column headers in a AdvancedDataGrid control.
- *  @default mx.skins.halo.DataGridHeaderSeparator
  *  
+  *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.DataGridHeaderSeparator</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.DataGridHeaderSeparatorSkin</code>.</p>
+*  
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
@@ -406,7 +413,7 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  The class to use as the skin that defines the appearance of the 
  *  separator between a column group and its children columns/column group headers
- *  in a AdvancedDataGrid control.
+ *  in an AdvancedDataGrid control.
  *  @default mx.skins.halo.AdvancedDataGridHeaderHorizontalSeparator
  *  
  *  @langversion 3.0
@@ -496,7 +503,7 @@ include "../styles/metadata/IconColorStyles.as"
  *  The class to use as the skin that indicates that 
  *  a column can be dropped in the current location.
  *
- *  @default mx.skins.halo.DataGridColumnDropIndicator
+ *  @default mx.skins.halo.DataGridColumnDropIndicator (for both Halo and Spark themes)
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -1013,11 +1020,11 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             var bold:Boolean = (fontWeight == "bold");
             var italic:Boolean = (fontStyle == "italic");
             var flexModuleFactory:IFlexModuleFactory = getFontContext(fontName, bold, italic);
-			
-			var c:Class = getStyle("defaultDataGridItemRenderer");
-			if (!c)
-				c = AdvancedDataGridItemRenderer;
-			
+            
+            var c:Class = getStyle("defaultDataGridItemRenderer");
+            if (!c)
+                c = AdvancedDataGridItemRenderer;
+            
             super.itemRenderer = new ContextualClassFactory(c, flexModuleFactory);
             
         }
@@ -1188,7 +1195,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         super.focusPane = value;
         
         if (value)
-			value.scrollRect = listSubContent ? listSubContent.scrollRect : null;
+            value.scrollRect = listSubContent ? listSubContent.scrollRect : null;
         
         if (!value && _focusPane)
             _focusPane.mask = null;
@@ -1231,7 +1238,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         {
             for (i = super.lockedColumnCount; i < value ;i++)
             {
-            	m = listItems.length;
+                m = listItems.length;
                 for(j = 0; j < m; j++)
                 {
                     if (listItems[j] && listItems[j][i])
@@ -1243,7 +1250,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         {
             for (i = value; i < super.lockedColumnCount ;i++)
             {
-            	m = listItems.length;
+                m = listItems.length;
                 for(j = 0; j < m; j++)
                 {
                     if (listItems[j] && listItems[j][i])
@@ -1399,27 +1406,27 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     {
         _draggableColumns = value;
     }
-	
-	//----------------------------------
-	//  enableIME
-	//----------------------------------
-	
-	/**
-	 *  A flag that indicates whether the IME should
-	 *  be enabled when the component receives focus.
-	 *
-	 *  If the editor is up, it will set enableIME
-	 *  accordingly.
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get enableIME():Boolean
-	{
-		return false;
-	}
+    
+    //----------------------------------
+    //  enableIME
+    //----------------------------------
+    
+    /**
+     *  A flag that indicates whether the IME should
+     *  be enabled when the component receives focus.
+     *
+     *  If the editor is up, it will set enableIME
+     *  accordingly.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get enableIME():Boolean
+    {
+        return false;
+    }
     
     //----------------------------------
     //  imeMode
@@ -2655,14 +2662,14 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                                   shiftKey:Boolean, ctrlKey:Boolean,
                                   transition:Boolean = true):Boolean
      {
-     	var val:Boolean = super.selectItem(item, shiftKey, ctrlKey, transition);
-     	
-     	// if item.data is AdvancedDataGridColumn, it means that a header is selected
+        var val:Boolean = super.selectItem(item, shiftKey, ctrlKey, transition);
+        
+        // if item.data is AdvancedDataGridColumn, it means that a header is selected
         // selectedItem should be null
         if (item.data is AdvancedDataGridColumn)
-        	_selectedItem = null;
-       	
-       	return val;
+            _selectedItem = null;
+        
+        return val;
      }
      
      /**
@@ -2671,11 +2678,11 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      */
      override mx_internal function addSelectionData(uid:String, selectionData:ListBaseSelectionData):void
      {
-     	// if data is AdvancedDataGridColumn, it means that a header is selected
+        // if data is AdvancedDataGridColumn, it means that a header is selected
         // it should not be added into the list
-    	if (selectionData.data is AdvancedDataGridColumn)
-    		return ;
-    	super.addSelectionData(uid, selectionData);
+        if (selectionData.data is AdvancedDataGridColumn)
+            return ;
+        super.addSelectionData(uid, selectionData);
      }
      
      /**
@@ -4288,7 +4295,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             
             if (getStyle("horizontalGridLines"))
             {
-            	var n:int = listItems.length;
+                var n:int = listItems.length;
                 for (var i:int = 0; i < n; i++)
                 {
                     drawHorizontalSeparator(lockedLinesBody, i, lineCol, rowInfo[i].y + rowInfo[i].height);
@@ -4829,7 +4836,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var colIndex:int = coord.columnIndex;
         if (displayableColumns.length != _columns.length)
         {
-        	var n:int = displayableColumns.length;
+            var n:int = displayableColumns.length;
             for (var i:int = 0; i < n; i++)
             {
                 if (displayableColumns[i].colNum >= colIndex)
@@ -5003,7 +5010,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     {
         if (displayableColumns.length != _columns.length)
         {
-        	var n:int = displayableColumns.length;
+            var n:int = displayableColumns.length;
             for (var i:int = 0; i < n; i++)
             {
                 if (displayableColumns[i].colNum >= colIndex)
@@ -5044,28 +5051,28 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             if (!itemEditorInstance)
             {
                 var itemEditor:IFactory = col.itemEditor;
-				if (itemEditor == AdvancedDataGridColumn.defaultItemEditorFactory)
-				{
-					// if it is the default factory, see if someone
-					// overrode it with this style
-					var c:Class = getStyle("defaultDataGridItemEditor");
-					if (c)
-					{
-						var fontName:String =
-							StringUtil.trimArrayElements(col.getStyle("fontFamily"), ",");
-						var fontWeight:String = col.getStyle("fontWeight");
-						var fontStyle:String = col.getStyle("fontStyle");
-						var bold:Boolean = (fontWeight == "bold");
-						var italic:Boolean = (fontStyle == "italic");
-						
-						var flexModuleFactory:IFlexModuleFactory =
-							getFontContext(fontName, bold, italic);
-						
-						itemEditor = col.itemEditor = new ContextualClassFactory(
-							c, flexModuleFactory);
-					}
-				}
-				
+                if (itemEditor == AdvancedDataGridColumn.defaultItemEditorFactory)
+                {
+                    // if it is the default factory, see if someone
+                    // overrode it with this style
+                    var c:Class = getStyle("defaultDataGridItemEditor");
+                    if (c)
+                    {
+                        var fontName:String =
+                            StringUtil.trimArrayElements(col.getStyle("fontFamily"), ",");
+                        var fontWeight:String = col.getStyle("fontWeight");
+                        var fontStyle:String = col.getStyle("fontStyle");
+                        var bold:Boolean = (fontWeight == "bold");
+                        var italic:Boolean = (fontStyle == "italic");
+                        
+                        var flexModuleFactory:IFlexModuleFactory =
+                            getFontContext(fontName, bold, italic);
+                        
+                        itemEditor = col.itemEditor = new ContextualClassFactory(
+                            c, flexModuleFactory);
+                    }
+                }
+                
                 dx = col.editorXOffset;
                 dy = col.editorYOffset;
                 dw = col.editorWidthOffset;
@@ -5360,7 +5367,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         }
         if(freeItemRenderersTable[c])
         {
-        	// remove item renderers
+            // remove item renderers
             var freeRenderers:Array = freeItemRenderersTable[c][c.itemRenderer] as Array;
             if (freeRenderers)
             {
@@ -5525,15 +5532,15 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             return;
         }
 
-		// Global coordinates.
+        // Global coordinates.
         var deltaX:Number = event.stageX - startX;
 
-		// If the mouse pointer over the right (layoutDirection=”ltr”) or 
-		// left (layoutDirection=”rtl”) half of the column, the drop indicator 
-		// should be shown before the next column.
-		var deltaXInLocalCoordinates:Number = 
-			(layoutDirection == LayoutDirection.LTR ? +deltaX : -deltaX);
-		
+        // If the mouse pointer over the right (layoutDirection=”ltr”) or 
+        // left (layoutDirection=”rtl”) half of the column, the drop indicator 
+        // should be shown before the next column.
+        var deltaXInLocalCoordinates:Number = 
+            (layoutDirection == LayoutDirection.LTR ? +deltaX : -deltaX);
+        
         // Move header selection.
         s = Sprite(selectionLayer.getChildByName("headerSelection"));
         if (s)
@@ -5587,7 +5594,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 isHeaderDragOutside = false;
 
                 // If the mouse pointer over the right (ltr) or left (rtl) half
-				// of the column, the drop indicator should be shown before the next column.
+                // of the column, the drop indicator should be shown before the next column.
                 if (pt.x > (columnXPos + headerInfo.column.width/2) || 
                     //Column groups which are partially visible should 
                     //show drag indicator at the right end only
@@ -5894,7 +5901,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         dispatchEvent(advancedDataGridEvent);
     }
 
-	/**
+    /**
      *  Returns the column index corresponding to the field name of a sortable field.
      *
      *  @param name The name of a sortable field of the data provider, as defined by 
@@ -5911,7 +5918,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     {
         if (collection && collection.sort)
         {
-        	var n:int = collection.sort.fields.length;
+            var n:int = collection.sort.fields.length;
             for (var i:int = 0; i < n; i++)
             {
                 if (collection.sort.fields[i]["name"] == name)
@@ -6369,9 +6376,9 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      */
     protected function isHeaderItemRenderer(item:IListItemRenderer):Boolean
     {
-    	// data is set to AdvancedDataGridColumn for header items
+        // data is set to AdvancedDataGridColumn for header items
         if (item != null && item.data is AdvancedDataGridColumn)
-        	return true;
+            return true;
 
         return false;
     }
@@ -6696,7 +6703,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         else if (getOptimumColumns() == displayableColumns)
             return absoluteToDisplayColumnIndex(colNum);
         else
-        	return -1;
+            return -1;
     }
 
     /**
@@ -6721,7 +6728,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         else if (getOptimumColumns() == displayableColumns)
             return displayToAbsoluteColumnIndex(columnIndex);
         else
-        	return -1;
+            return -1;
     }
 
     //--------------------------------------------------------------------------
@@ -7498,19 +7505,19 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         lastPt = new Point(event.stageX, event.stageY);
         lastPt = listContent.globalToLocal(lastPt);
 
-		/*      var n:int = separators.length;
-		    for (var i:int = 0; i < n; i++)
-		    {
-		    if (separators[i] == event.target)
-		    {
-		    resizingColumn = optimumColumns[i];
-		    break;
-		    }
-		    }
-		
-		    if (!resizingColumn)
-		    return;
-		*/
+        /*      var n:int = separators.length;
+            for (var i:int = 0; i < n; i++)
+            {
+            if (separators[i] == event.target)
+            {
+            resizingColumn = optimumColumns[i];
+            break;
+            }
+            }
+        
+            if (!resizingColumn)
+            return;
+        */
 
         resizingColumn = optimumColumns[index];
         var headerItem:IListItemRenderer = getHeaderInfo(optimumColumns[index]).headerItem;
@@ -8060,11 +8067,11 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         if (headerIndex == -1)
             return;
 
-		// If rtl layout, need to swap LEFT and RIGHT so correct action
-		// is done.
-		var keyCode:uint = mapKeycodeForLayoutDirection(event);
-		
-		var newColumnIndex:int;
+        // If rtl layout, need to swap LEFT and RIGHT so correct action
+        // is done.
+        var keyCode:uint = mapKeycodeForLayoutDirection(event);
+        
+        var newColumnIndex:int;
 
         if (keyCode == Keyboard.DOWN)
         {
@@ -8098,20 +8105,20 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         {
             if (sortableColumns && columns[headerIndex].sortable)
             {
-	            isKeyPressed = true;
-	            selectedHeaderInfo = getHeaderInfo(columns[headerIndex]);
-	            selectColumnHeader(headerIndex);
-	
-	            var advancedDataGridEvent:AdvancedDataGridEvent =
-	                new AdvancedDataGridEvent(AdvancedDataGridEvent.SORT, false, true);
-	
-	            advancedDataGridEvent.columnIndex     = headerIndex;
-	            advancedDataGridEvent.dataField       = columns[headerIndex].dataField;
-	            advancedDataGridEvent.multiColumnSort      = event.ctrlKey;
-	            advancedDataGridEvent.removeColumnFromSort = event.shiftKey;
-	
-	            dispatchEvent(advancedDataGridEvent);
-        	}
+                isKeyPressed = true;
+                selectedHeaderInfo = getHeaderInfo(columns[headerIndex]);
+                selectColumnHeader(headerIndex);
+    
+                var advancedDataGridEvent:AdvancedDataGridEvent =
+                    new AdvancedDataGridEvent(AdvancedDataGridEvent.SORT, false, true);
+    
+                advancedDataGridEvent.columnIndex     = headerIndex;
+                advancedDataGridEvent.dataField       = columns[headerIndex].dataField;
+                advancedDataGridEvent.multiColumnSort      = event.ctrlKey;
+                advancedDataGridEvent.removeColumnFromSort = event.shiftKey;
+    
+                dispatchEvent(advancedDataGridEvent);
+            }
         }
         // horizontal scrolling when focus is on header
         else if ( event.shiftKey
