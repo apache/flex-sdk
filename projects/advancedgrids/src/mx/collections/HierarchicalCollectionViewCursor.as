@@ -304,6 +304,9 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     /**
      *  @inheritDoc
      *  
+     *  <p>Note that for this class, the view does not need to be sorted in order to
+     *  call this method.</p>
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -340,6 +343,9 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     /**
      *  @inheritDoc
      *  
+     *  <p>Note that for this class, the view does not need to be sorted in order to
+     *  call this method.</p>
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -352,6 +358,9 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  <p>Note that for this class, the view does not need to be sorted in order to
+     *  call this method.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -421,8 +430,8 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                     try
                     {
                         currentNode = childCursor.current;
-						// update parent map
-						updateParentMap(currentNode);
+                        // update parent map
+                        updateParentMap(currentNode);
                     }
                     catch (e:ItemPendingError)
                     {
@@ -580,8 +589,8 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                 }
             } 
         }
-		
-		updateParentMap(currentNode);
+        
+        updateParentMap(currentNode);
 
         currentIndex++;
         return true;
@@ -739,7 +748,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
             }
         }
 
-		updateParentMap(currentNode);
+        updateParentMap(currentNode);
 
         currentIndex--; 
         return true;
@@ -899,20 +908,20 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         }
         return true;
     }
-	
-	/**
-	 * @private
-	 * Update the parent map.
-	 */ 
-	private function updateParentMap(currentNode:Object):void
-	{
-		if (currentNode != null)
-		{
-			var uid:String = UIDUtil.getUID(currentNode);
-			if (!collection.parentMap.hasOwnProperty(uid))
-				collection.parentMap[uid] = parentNodes[parentNodes.length - 1];
-		}
-	}
+    
+    /**
+     * @private
+     * Update the parent map.
+     */ 
+    private function updateParentMap(currentNode:Object):void
+    {
+        if (currentNode != null)
+        {
+            var uid:String = UIDUtil.getUID(currentNode);
+            if (!collection.parentMap.hasOwnProperty(uid))
+                collection.parentMap[uid] = parentNodes[parentNodes.length - 1];
+        }
+    }
 
     /**
      *  @private
@@ -1298,14 +1307,14 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
             // dispatch CURSOR_UPDATE event
             collection.dispatchEvent(new FlexEvent(FlexEvent.CURSOR_UPDATE));
         }
-		else if (event.kind == CollectionEventKind.REFRESH)
-		{
-			// find the correct index of the item
-			if (!(beforeFirst || afterLast))
-			{
-				findFirst(current);
-			}
-		}
+        else if (event.kind == CollectionEventKind.REFRESH)
+        {
+            // find the correct index of the item
+            if (!(beforeFirst || afterLast))
+            {
+                findFirst(current);
+            }
+        }
     }
 }
 
