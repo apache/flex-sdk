@@ -44,7 +44,7 @@
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="clean,framework,framework_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,charts,charts_rb,advancedgrids,advancedgrids_rb,core,wireframe,sparkskins,authoringsupport,spark_dmv"/>
+	<target name="main" depends="clean,thirdparty-downloads,framework,framework_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,charts,charts_rb,advancedgrids,advancedgrids_rb,core,wireframe,sparkskins,authoringsupport,spark_dmv"/>
 
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
@@ -366,7 +366,6 @@
                 <include name="textLayout.swc"/>
 				<include name="osmf.swc"/>
 			</external-library-path>
-			<include-file name="defaults.css" path="${spark_dmv.dir}/defaults.css"/>
 			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
@@ -378,7 +377,7 @@
 			<include-resource-bundles bundle="sparkEffects"/>
 			<include-resource-bundles bundle="layout"/>
 			<include-resource-bundles bundle="textLayout"/>
-            <include-resource-bundles bundle="osmf"/>
+            <!--include-resource-bundles bundle="osmf"/-->
 			<source-path path-element="${spark.dir}/bundles/${locale}"/>
 			<source-path path-element="${spark.dir}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
@@ -448,7 +447,62 @@
 		</compc>
 	</target>
 		
-	<target name="clean" description="Cleans all SWCs and their resource bundles">
+    <target name="thirdparty-downloads" depends="playerglobal-download, osmf-download, textLayout-download" description="Copies third-party software into place for build" />
+    
+    <target name="playerglobal-check">
+        <available file="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" property="playerglobal.swc.present"/>
+    </target>
+    
+    <target name="osmf-check">
+        <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
+    </target>
+    
+    <target name="textLayout-check">
+        <available file="${basedir}/libs/textLayout.swc" property="textLayout.swc.present"/>
+    </target>
+
+    <!-- playerglobal.swc -->
+    <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->
+    <target name="playerglobal-download" depends="playerglobal-check" unless="playerglobal.swc.present" description="Copies playerglobal.swc from the Adobe website">
+        <mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>
+        <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_0.swc" 
+            dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+
+    <!-- osmf.swc (Version 1.0) -->
+    <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
+    <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present" description="Copies Text Layout Framework from Sourceforge">
+        <mkdir dir="${FLEX_HOME}/in/downloads/OSMF_1.0"/>
+        <get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download" 
+            dest="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" 
+            verbose="false"/>
+        <unzip dest="${FLEX_HOME}/in/downloads/OSMF_1.0" src="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" />
+        <copy file="${FLEX_HOME}/in/downloads/OSMF_1.0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
+        <delete dir="${FLEX_HOME}/in/downloads/OSMF_1.0" failonerror="false"/>
+    </target>
+
+    <!-- textLayout.swc (Version 2.0.232) -->
+    <!-- Because this requires a network connection it downloads TLF only if it doesn't already exist. -->
+    <target name="textLayout-download" depends="textLayout-check" unless="textLayout.swc.present" description="Copies Text Layout Framework from Sourceforge">
+        <mkdir dir="${FLEX_HOME}/in/downloads/textLayout_build"/>
+        <get src="http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download" 
+            dest="${FLEX_HOME}/in/downloads/textLayout_build.zip" 
+            verbose="false"/>
+        <unzip dest="${FLEX_HOME}/in/downloads/textLayout_build" src="${FLEX_HOME}/in/downloads/textLayout_build.zip" />
+        <copy file="${FLEX_HOME}/in/downloads/textLayout_build/libs/textLayout.swc" todir="${basedir}/libs"/>
+        <copy todir="${basedir}/projects/textLayout">
+            <fileset dir="${FLEX_HOME}/in/downloads/textLayout_build">
+                <include name="**/**"/>
+                <exclude name="textLayout_build.zip"/>
+                <exclude name="build.xml"/>
+                <exclude name="libs/**"/>
+            </fileset>
+        </copy>
+        <delete dir="${FLEX_HOME}/in/downloads/textLayout_build" failonerror="false"/>
+    </target>
+
+	<target name="clean" depends="thirdparty-clean" description="Cleans all SWCs and their resource bundles">
 		<delete failonerror="false">
 			<fileset dir="${basedir}/libs">
 				<include name="air/airframework.swc"/>
@@ -476,4 +530,21 @@
 		</delete>
 	</target>
 
+    <target name="thirdparty-clean" description="Cleans thirdparty downloaded files.">
+        <delete failonerror="false" verbose="false">
+            <fileset dir="${basedir}/projects/textLayout">
+                <include name="**/**"/>
+                <exclude name="build.xml"/>
+                <exclude name="**/.settings/**"/>
+                <exclude name="**/.actionScriptProperties"/>
+                <exclude name="**/.flexLibProperties"/>
+                <exclude name="**/.project"/>
+            </fileset>
+        </delete>
+        <delete failonerror="false" verbose="true">
+            <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
+            <fileset dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+        </delete>
+        <delete dir="${FLEX_HOME}/in/downloads"/>
+    </target>	
 </project>
