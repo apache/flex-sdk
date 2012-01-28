@@ -49,7 +49,7 @@
     <property name="mobiletheme.dir" value="${projects.dir}/mobiletheme"/>
     <property name="wireframe.dir" value="${projects.dir}/wireframe"/>
     <property name="compc.jvm.args" value="-Xmx384m" />
-    <property name="playerglobal.version" value="11.0"/>
+    <property name="playerglobal.version" value="11.1"/>
     
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
