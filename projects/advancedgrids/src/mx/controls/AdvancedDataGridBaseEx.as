@@ -5226,7 +5226,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         // some other thing like a collection change has changed the
         // position, so bail and wait for commit to reset the editor.
         if (_proposedEditedItemPosition !== undefined)
-            return false;
+            return true;
 
         _editedItemPosition = lastEditedItemPosition;
 
@@ -5251,8 +5251,16 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 index += incr;
                 if (index > maxIndex || index < 0)
                 {
-                    loseFocus();
-                    return false;
+					if (endEdit(AdvancedDataGridEventReason.NEW_ROW))
+					{
+						// if we've fallen off the rows, we need to leave the grid. get rid of the editor
+						setEditedItemPosition(null);
+						
+						// set focus back to the grid so default handler will move it to the next component
+						deferFocus();
+						return false;
+					}
+                    return true;
                 }
             }
 
@@ -5363,7 +5371,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 if (itemEditorInstance && itemEditorInstance is UIComponent)
                     UIComponent(itemEditorInstance).drawFocus(false);
 
-                // must call removeChild() so FocusManager.lastFocus becomes null
+				// setfocus back to us so something on stage has focus
+				deferFocus();
+				
+				// must call removeChild() so FocusManager.lastFocus becomes null
                 itemEditorInstance.parent.removeChild(DisplayObject(itemEditorInstance));
 
                 // we are not setting the item renderer's visibility to false while creating an editor,
@@ -5416,6 +5427,18 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         return !(advancedDataGridEvent.isDefaultPrevented())
     }
+	
+	/**
+	 *  @private
+	 *  Sets focus back to the grid so default handler will move it to the 
+	 *  next component.
+	 */ 
+	private function deferFocus():void
+	{
+		losingFocus = true;
+		setFocus();
+		losingFocus = false;
+	}
 
     /**
      *  @private
@@ -7373,8 +7396,12 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 	                if (_columns[_editedItemPosition.columnIndex].editable &&
 	                    _columns[_editedItemPosition.columnIndex].visible)
 	                {
-                        foundOne = true;
-                        break;
+						var row:Array = listItems[_editedItemPosition.rowIndex];
+						if (row && row[_editedItemPosition.columnIndex])
+						{
+							foundOne = true;
+							break;
+						}
 	                }
 	            }
 
@@ -8136,8 +8163,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         if (itemEditorInstance)
         {
             endEdit(AdvancedDataGridEventReason.OTHER);
-            losingFocus = true;
-            setFocus();
+			losingFocus = true;
+			setFocus();
         }
     }
 
