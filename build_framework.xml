@@ -20,20 +20,21 @@
 	<property name="projects.dir" value="${FLEX_HOME}/frameworks/projects"/>
 	<property name="airframework.dir" value="${projects.dir}/airframework"/>
 	<property name="flex.dir" value="${projects.dir}/flex"/>
-	<property name="spark.dir" value="${projects.dir}/spark"/>
 	<property name="framework.dir" value="${projects.dir}/framework"/>
 	<property name="halo.dir" value="${projects.dir}/halo"/>
-	<property name="haloclassic.dir" value="${projects.dir}/haloclassic"/>
 	<property name="rpc.dir" value="${projects.dir}/rpc"/>
+	<property name="spark.dir" value="${projects.dir}/spark"/>
 	<property name="sparkskin.dir" value="${projects.dir}/sparkskins"/>
+	<property name="tlf.dir" value="${projects.dir}/textLayout"/>
 	<property name="utilities.dir" value="${projects.dir}/utilities"/>
 	<property name="wireframe.dir" value="${projects.dir}/wireframe"/>
+	
 	<property name="playerglobal.version" value="10"/>
 	
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="framework,framework_rb,spark,airframework,airframework_rb,rpc,rpc_rb,flex,halo,wireframe,sparkskins,haloclassic,utilities"/>
+	<target name="main" depends="framework,framework_rb,spark,textLayout,airframework,airframework_rb,rpc,rpc_rb,flex,halo,wireframe,sparkskins,utilities"/>
 
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
@@ -116,23 +117,6 @@
 			</external-library-path>
 		</compc>
 	</target>
-	
-	<target name="spark" description="Builds the spark.swc">
-		<compc include-classes="SparkClasses" output="${basedir}/libs/spark.swc" locale="" accessible="true">
-		    <target-player>10</target-player>
-			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${spark.dir}/manifest.xml"/>
-			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
-			<source-path path-element="${spark.dir}/src"/>
-			<library-path />
-			<external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
-				<include name="framework.swc"/>
-                <include name="textLayout.swc"/>
-				<include name="videoPlayer.swc"/>
-			</external-library-path>
-			<include-file name="defaults.css" path="${spark.dir}/defaults.css"/>
-		</compc>
-	</target>
 		
 	<target name="framework" description="Builds libs/framework.swc">
 		<compc include-classes="FrameworkClasses" output="${basedir}/libs/framework.swc" locale="" accessible="true">
@@ -202,21 +186,6 @@
 		</compc>
 	</target>
 	
-	<target name="haloclassic" description="Builds haloclassic.swc">
-		<compc include-classes="HaloClassicClasses" output="${basedir}/themes/HaloClassic/haloclassic.swc" locale="" accessible="true">
-            <target-player>10</target-player>
-			<source-path path-element="${haloclassic.dir}/src"/>
-			<external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
-				<include name="framework.swc"/>
-				<include name="textLayout.swc"/>
-			</external-library-path>
-			<library-path/>
-			<include-file name="defaults.css" path="${haloclassic.dir}/defaults.css"/>
-			<include-file name="Assets.swf" path="${haloclassic.dir}/assets/Assets.swf"/>
-		</compc>
-	</target>
-
 	<target name="rpc" description="Builds libs/rpc.swc">
 		<echo file="${basedir}/version.properties" append="false">build=${build.number}</echo>
 		<compc include-classes="RPCClasses" output="${basedir}/libs/rpc.swc" locale="" accessible="true">
@@ -253,6 +222,23 @@
 		</compc>
 	</target>
 	
+	<target name="spark" description="Builds the spark.swc">
+		<compc include-classes="SparkClasses" output="${basedir}/libs/spark.swc" locale="" accessible="true">
+		    <target-player>10</target-player>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${spark.dir}/manifest.xml"/>
+			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
+			<source-path path-element="${spark.dir}/src"/>
+			<library-path />
+			<external-library-path dir="${basedir}/libs">
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+				<include name="framework.swc"/>
+                <include name="textLayout.swc"/>
+				<include name="videoPlayer.swc"/>
+			</external-library-path>
+			<include-file name="defaults.css" path="${spark.dir}/defaults.css"/>
+		</compc>
+	</target>
+			
 	<target name="sparkskins" description="Builds the sparkskin.swc">
 		<compc fork="true"
 			   output="${basedir}/libs/sparkskins.swc">
@@ -270,6 +256,27 @@
 			<include-file name="assets/CalendarIcon.png" path="${sparkskin.dir}/assets/CalendarIcon.png"/>
 			<locale/>
 			<accessible>true</accessible>
+		</compc>
+	</target>
+	
+	<target name="textLayout" description="builds textlayout.swc">
+			<compc  locale="" accessible="true"
+			include-classes="flashx.textLayout.CoreClasses flashx.textLayout.EditClasses flashx.textLayout.ConversionClasses flashx.textLayout.TextFieldClasses" 
+			output="${basedir}/libs/textLayout.swc">
+			<jvmarg line="${compc.jvm.args}"/>
+			<include-namespaces uri="library:adobe/flashx/textLayout"/>
+			<namespace uri="library:adobe/flashx/textLayout" manifest="${tlf.dir}/textLayout_core/manifest.xml"/>
+			<namespace uri="library:adobe/flashx/textLayout" manifest="${tlf.dir}/textLayout_edit/manifest.xml"/>
+			<source-path path-element="${tlf.dir}/textLayout_core/src"/>
+			<source-path path-element="${tlf.dir}/textLayout_edit/src"/>
+			<source-path path-element="${tlf.dir}/textLayout_conversion/src"/>
+			<source-path path-element="${tlf.dir}/textLayout_textField/src"/>
+			<library-path/>
+			<external-library-path dir="${basedir}/libs" append="false">
+				<include name="player/${global.playerglobal.version}playerglobal.swc"/>
+			</external-library-path>
+			<define name="CONFIG::debug" value="false"/>
+			<define name="CONFIG::release" value="true"/>
 		</compc>
 	</target>
 	
