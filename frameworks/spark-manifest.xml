@@ -80,7 +80,7 @@
     <component id="Move" class="spark.effects.Move"/>
     <component id="Move3D" class="spark.effects.Move3D"/>
     <component id="MuteButton" class="spark.components.mediaClasses.MuteButton"/>
-	<component id="MXMLComponent" class="spark.components.MXMLComponent"/>
+	<component id="DataRenderer" class="spark.components.DataRenderer"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
     <component id="Panel" class="spark.components.Panel"/>
