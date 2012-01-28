@@ -129,7 +129,7 @@
 		<echo file="${FLEX_HOME}/air_unzip.sh">#!/bin/sh
 tar -xjf "AIR Integration Kit.tbz2" .
 		</echo>
-		<exec executable="C:/cygwin/bin/sh" dir="${FLEX_HOME}">
+		<exec executable="sh" dir="${FLEX_HOME}">
 			<arg line="${FLEX_HOME}/air_unzip.sh"/>
 		</exec>
 		<delete file="${FLEX_HOME}/air_unzip.sh"/>
