@@ -156,6 +156,7 @@
     <component id="Transition" class="mx.states.Transition"/>
     <component id="Tree" class="mx.controls.Tree"/>
     <component id="UIComponent" class="mx.core.UIComponent"/>
+    <component id="UnconstrainItemAction" class="mx.effects.UnconstrainItemAction"/>
     <component id="VBox" class="mx.containers.VBox"/>
     <component id="VDividedBox" class="mx.containers.VDividedBox"/>
     <component id="VideoDisplay" class="mx.controls.VideoDisplay"/>
