@@ -36,8 +36,10 @@
 		<antcall target="spark"/>
 		<antcall target="sparkskins"/>
 		<antcall target="airframework"/>
-            <antcall target="airspark"/>		
-            <antcall target="flex"/>
+        <antcall target="airspark"/>		
+        <antcall target="mobilecomponents"/>		
+        <antcall target="mobiletheme"/>		
+        <antcall target="flex"/>
 		<antcall target="flash_integration"/>
 		<antcall target="utilities"/>
 		<antcall target="halo"/>
@@ -55,7 +57,9 @@
 		<ant dir="${basedir}/projects/framework" target="other.locales"/>
 		<ant dir="${basedir}/projects/mx" target="other.locales"/>
 		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
-            <ant dir="${basedir}/projects/airspark" target="other.locales"/>
+        <ant dir="${basedir}/projects/airspark" target="other.locales"/>
+        <ant dir="${basedir}/projects/mobilecomponents" target="other.locales"/>
+        <ant dir="${basedir}/projects/mobiletheme" target="other.locales"/>
 		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
 		<ant dir="${basedir}/projects/datavisualization" target="other.locales"/>
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
@@ -75,6 +79,8 @@
 		<ant dir="${basedir}/projects/sparkskins" target="doc" />
 		<ant dir="${basedir}/projects/airframework" target="doc" />
 	    <ant dir="${basedir}/projects/airspark" target="doc" />
+	    <ant dir="${basedir}/projects/mobilecomponents" target="doc" />
+	    <ant dir="${basedir}/projects/mobiletheme" target="doc" />
     	<ant dir="${basedir}/projects/flex" target="doc" />
 		<ant dir="${basedir}/projects/utilities" target="doc" />
         <ant dir="${basedir}/projects/osmf" target="doc" />
@@ -105,6 +111,8 @@
 		<ant dir="${basedir}/projects/mx" target="clean"/>
 		<ant dir="${basedir}/projects/airframework" target="clean"/>
         <ant dir="${basedir}/projects/airspark" target="clean"/>
+        <ant dir="${basedir}/projects/mobilecomponents" target="clean"/>
+        <ant dir="${basedir}/projects/mobiletheme" target="clean"/>
 		<ant dir="${basedir}/projects/flex" target="clean"/>
 		<ant dir="${basedir}/projects/spark" target="clean"/>
 		<ant dir="${basedir}/projects/sparkskins" target="clean"/>
@@ -161,6 +169,14 @@ tar -xjf "AIR Integration Kit.tbz2"
 
     <target name="airspark" description="Clean build of airspark.swc">
 		<ant dir="${basedir}/projects/airspark"/>
+    </target>
+
+    <target name="mobilecomponents" description="Clean build of mobilecomponents.swc">
+		<ant dir="${basedir}/projects/mobilecomponents"/>
+    </target>
+
+    <target name="mobiletheme" description="Clean build of mobile.swc">
+		<ant dir="${basedir}/projects/mobiletheme"/>
     </target>
 
 	<target name="datavisualization" description="Clean build of datavisualization.swc">
