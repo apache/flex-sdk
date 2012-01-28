@@ -5000,7 +5000,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
                     lastColIndex = horizontalScrollPosition + visibleColumns.length - 1;
                     headerInfo = getHeaderInfo(visibleColumns[visibleColumns.length - 1]);
-                    partialCol = (headerInfo.headerItem.x + headerInfo.headerItem.width > listContent.width) ? 1 : 0;
+                    partialCol = (headerInfo.headerItem && headerInfo.headerItem.x + headerInfo.headerItem.width > listContent.width) ? 1 : 0;
                 }
             }
             // Need to get the index in visibleColumns
