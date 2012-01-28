@@ -17,37 +17,27 @@
 -->
 <componentPackage>
 
-    <!-- airframework -->
-    <component id="FileSystemComboBox" class="mx.controls.FileSystemComboBox"/>
-    <component id="FileSystemDataGrid" class="mx.controls.FileSystemDataGrid"/>
-    <component id="FileSystemHistoryButton" class="mx.controls.FileSystemHistoryButton"/>
-    <component id="FileSystemList" class="mx.controls.FileSystemList"/>
-    <component id="FileSystemTree" class="mx.controls.FileSystemTree"/>
-    <component id="FlexNativeMenu" class="mx.controls.FlexNativeMenu"/>
-    <component id="HTML" class="mx.controls.HTML"/>
-    <component id="Window" class="mx.core.Window"/>
-    <component id="WindowedApplication" class="mx.core.WindowedApplication"/>
-
     <!-- framework -->
     <component id="Accordion" class="mx.containers.Accordion"/>
     <component id="AddChild" class="mx.states.AddChild"/>
-    <component id="AddChildAction" class="mx.effects.AddChildAction"/>
+	<component id="AddChildAction" class="mx.effects.AddChildAction"/>
     <component id="AddItemAction" class="mx.effects.AddItemAction"/>
-    <component id="AnimateProperty" class="mx.effects.AnimateProperty"/>
+    <component id="AddItems" class="mx.states.AddItems"/>
+	<component id="AnimateProperty" class="mx.effects.AnimateProperty"/>
     <component id="Application" class="mx.core.Application"/>
     <component id="ApplicationControlBar" class="mx.containers.ApplicationControlBar"/>
     <component id="ArrayCollection" class="mx.collections.ArrayCollection"/>
     <component id="ArrayList" class="mx.collections.ArrayList"/>
-    <!--<component id="BevelFilter" class="flash.filters.BevelFilter" lookupOnly="true"/>-->
+    <component id="BevelFilter" class="flash.filters.BevelFilter" lookupOnly="true"/>
     <component id="BitmapFill" class="mx.graphics.BitmapFill"/>
     <component id="Blur" class="mx.effects.Blur"/>
-    <!--<component id="BlurFilter" class="flash.filters.BlurFilter" lookupOnly="true"/>-->
+    <component id="BlurFilter" class="flash.filters.BlurFilter" lookupOnly="true"/>
     <component id="Box" class="mx.containers.Box"/>
     <component id="Button" class="mx.controls.Button"/>
     <component id="ButtonBar" class="mx.controls.ButtonBar"/>
     <component id="Canvas" class="mx.containers.Canvas"/>
     <component id="CheckBox" class="mx.controls.CheckBox"/>
-    <!--<component id="ColorMatrixFilter" class="flash.filters.ColorMatrixFilter" lookupOnly="true"/>-->
+    <component id="ColorMatrixFilter" class="flash.filters.ColorMatrixFilter" lookupOnly="true"/>
     <component id="ColorPicker" class="mx.controls.ColorPicker"/>
     <component id="ComboBox" class="mx.controls.ComboBox"/>
     <component id="TransformOffsets" class="mx.geom.TransformOffsets"/>
@@ -55,7 +45,7 @@
     <component id="ConstraintRow" class="mx.containers.utilityClasses.ConstraintRow"/>
     <component id="Container" class="mx.core.Container"/>
     <component id="ControlBar" class="mx.containers.ControlBar"/>
-    <!--<component id="ConvolutionFilter" class="flash.filters.ConvolutionFilter" lookupOnly="true"/>-->
+    <component id="ConvolutionFilter" class="flash.filters.ConvolutionFilter" lookupOnly="true"/>
     <component id="CreditCardValidator" class="mx.validators.CreditCardValidator"/>
     <component id="CurrencyFormatter" class="mx.formatters.CurrencyFormatter"/>
     <component id="CurrencyValidator" class="mx.validators.CurrencyValidator"/>
@@ -68,10 +58,10 @@
     <component id="DateValidator" class="mx.validators.DateValidator"/>
     <component id="DefaultListEffect" class="mx.effects.DefaultListEffect"/>
     <component id="DefaultTileListEffect" class="mx.effects.DefaultTileListEffect"/>
-    <!--<component id="DisplacementMapFilter" class="flash.filters.DisplacementMapFilter" lookupOnly="true"/>-->
+    <component id="DisplacementMapFilter" class="flash.filters.DisplacementMapFilter" lookupOnly="true"/>
     <component id="Dissolve" class="mx.effects.Dissolve"/>
     <component id="DividedBox" class="mx.containers.DividedBox"/>
-    <!--<component id="DropShadowFilter" class="flash.filters.DropShadowFilter" lookupOnly="true"/>-->
+    <component id="DropShadowFilter" class="flash.filters.DropShadowFilter" lookupOnly="true"/>
     <component id="EffectTargetFilter" class="mx.effects.EffectTargetFilter"/>
     <component id="EmailValidator" class="mx.validators.EmailValidator"/>
     <component id="Fade" class="mx.effects.Fade"/>
@@ -79,10 +69,10 @@
     <component id="FormHeading" class="mx.containers.FormHeading"/>
     <component id="FormItem" class="mx.containers.FormItem"/>
     <component id="Glow" class="mx.effects.Glow"/>
-    <!--<component id="GlowFilter" class="flash.filters.GlowFilter" lookupOnly="true"/>-->
-    <!--<component id="GradientBevelFilter" class="flash.filters.GradientBevelFilter" lookupOnly="true"/>-->
+    <component id="GlowFilter" class="flash.filters.GlowFilter" lookupOnly="true"/>
+    <component id="GradientBevelFilter" class="flash.filters.GradientBevelFilter" lookupOnly="true"/>
     <component id="GradientEntry" class="mx.graphics.GradientEntry"/>
-    <!--<component id="GradientGlowFilter" class="flash.filters.GradientGlowFilter" lookupOnly="true"/>-->
+    <component id="GradientGlowFilter" class="flash.filters.GradientGlowFilter" lookupOnly="true"/>
     <component id="Grid" class="mx.containers.Grid"/>
     <component id="GridItem" class="mx.containers.GridItem"/>
     <component id="GridRow" class="mx.containers.GridRow"/>
@@ -201,93 +191,104 @@
     <component id="ToolTip" class="mx.controls.ToolTip" />
     <component id="UIComponent" class="mx.core.UIComponent" />
 
-    <!-- charts -->
-    <component id="AreaChart" class="mx.charts.AreaChart"/>
-    <component id="AreaRenderer" class="mx.charts.renderers.AreaRenderer"/>
-    <component id="AreaSeries" class="mx.charts.series.AreaSeries"/>
-    <component id="AreaSet" class="mx.charts.series.AreaSet"/>
-    <component id="AxisRenderer" class="mx.charts.AxisRenderer"/>
-    <component id="BarChart" class="mx.charts.BarChart"/>
-    <component id="BarSeries" class="mx.charts.series.BarSeries"/>
-    <component id="BarSet" class="mx.charts.series.BarSet"/>
-    <component id="BoxItemRenderer" class="mx.charts.renderers.BoxItemRenderer"/>
-    <component id="BubbleChart" class="mx.charts.BubbleChart"/>
-    <component id="BubbleSeries" class="mx.charts.series.BubbleSeries"/>
-    <component id="CandlestickChart" class="mx.charts.CandlestickChart"/>
-    <component id="CandlestickItemRenderer" class="mx.charts.renderers.CandlestickItemRenderer"/>
-    <component id="CandlestickSeries" class="mx.charts.series.CandlestickSeries"/>
-    <component id="CartesianChart" class="mx.charts.chartClasses.CartesianChart"/>
-    <component id="CartesianDataCanvas" class="mx.charts.chartClasses.CartesianDataCanvas"/>
-    <component id="CategoryAxis" class="mx.charts.CategoryAxis"/>
-    <component id="ChartBase" class="mx.charts.chartClasses.ChartBase"/>
-    <component id="CircleItemRenderer" class="mx.charts.renderers.CircleItemRenderer"/>
-    <component id="ColumnChart" class="mx.charts.ColumnChart"/>
-    <component id="ColumnSeries" class="mx.charts.series.ColumnSeries"/>
-    <component id="ColumnSet" class="mx.charts.series.ColumnSet"/>
-    <component id="CrossItemRenderer" class="mx.charts.renderers.CrossItemRenderer"/>
-    <component id="DateTimeAxis" class="mx.charts.DateTimeAxis"/>
-    <component id="DiamondItemRenderer" class="mx.charts.renderers.DiamondItemRenderer"/>
-    <component id="GridLines" class="mx.charts.GridLines"/>
-    <component id="HLOCChart" class="mx.charts.HLOCChart"/>
-    <component id="HLOCItemRenderer" class="mx.charts.renderers.HLOCItemRenderer"/>
-    <component id="HLOCSeries" class="mx.charts.series.HLOCSeries"/>
-    <component id="Legend" class="mx.charts.Legend"/>
-    <component id="LegendItem" class="mx.charts.LegendItem"/>
-    <component id="LinearAxis" class="mx.charts.LinearAxis"/>
-    <component id="LineChart" class="mx.charts.LineChart"/>
-    <component id="LineRenderer" class="mx.charts.renderers.LineRenderer"/>
-    <component id="LineSeries" class="mx.charts.series.LineSeries"/>
-    <component id="LogAxis" class="mx.charts.LogAxis"/>
-    <component id="PieChart" class="mx.charts.PieChart"/>
-    <component id="PieSeries" class="mx.charts.series.PieSeries"/>
-    <component id="PlotChart" class="mx.charts.PlotChart"/>
-    <component id="PlotSeries" class="mx.charts.series.PlotSeries"/>
-    <component id="PolarChart" class="mx.charts.chartClasses.PolarChart"/>
-    <component id="PolarDataCanvas" class="mx.charts.chartClasses.PolarDataCanvas"/>
-    <component id="SeriesEffect" class="mx.charts.effects.SeriesEffect"/>
-    <component id="SeriesInterpolate" class="mx.charts.effects.SeriesInterpolate"/>
-    <component id="SeriesSlide" class="mx.charts.effects.SeriesSlide"/>
-    <component id="SeriesZoom" class="mx.charts.effects.SeriesZoom"/>
-    <component id="ShadowBoxItemRenderer" class="mx.charts.renderers.ShadowBoxItemRenderer"/>
-    <component id="ShadowLineRenderer" class="mx.charts.renderers.ShadowLineRenderer"/>
-    <component id="TriangleItemRenderer" class="mx.charts.renderers.TriangleItemRenderer"/>
-    <component id="WedgeItemRenderer" class="mx.charts.renderers.WedgeItemRenderer"/>
+    <!-- airframework -->
+    <component id="FileSystemComboBox" class="mx.controls.FileSystemComboBox" lookupOnly="true"/>
+    <component id="FileSystemDataGrid" class="mx.controls.FileSystemDataGrid" lookupOnly="true"/>
+    <component id="FileSystemHistoryButton" class="mx.controls.FileSystemHistoryButton" lookupOnly="true"/>
+    <component id="FileSystemList" class="mx.controls.FileSystemList" lookupOnly="true"/>
+    <component id="FileSystemTree" class="mx.controls.FileSystemTree" lookupOnly="true"/>
+    <component id="FlexNativeMenu" class="mx.controls.FlexNativeMenu" lookupOnly="true"/>
+    <component id="HTML" class="mx.controls.HTML" lookupOnly="true"/>
+    <component id="Window" class="mx.core.Window" lookupOnly="true"/>
+    <component id="WindowedApplication" class="mx.core.WindowedApplication" lookupOnly="true"/>
+	
+	<!-- charts -->
+    <component id="AreaChart" class="mx.charts.AreaChart" lookupOnly="true"/>
+    <component id="AreaRenderer" class="mx.charts.renderers.AreaRenderer" lookupOnly="true"/>
+    <component id="AreaSeries" class="mx.charts.series.AreaSeries" lookupOnly="true"/>
+    <component id="AreaSet" class="mx.charts.series.AreaSet" lookupOnly="true"/>
+    <component id="AxisRenderer" class="mx.charts.AxisRenderer" lookupOnly="true"/>
+    <component id="BarChart" class="mx.charts.BarChart" lookupOnly="true"/>
+    <component id="BarSeries" class="mx.charts.series.BarSeries" lookupOnly="true"/>
+    <component id="BarSet" class="mx.charts.series.BarSet" lookupOnly="true"/>
+    <component id="BoxItemRenderer" class="mx.charts.renderers.BoxItemRenderer" lookupOnly="true"/>
+    <component id="BubbleChart" class="mx.charts.BubbleChart" lookupOnly="true"/>
+    <component id="BubbleSeries" class="mx.charts.series.BubbleSeries" lookupOnly="true"/>
+    <component id="CandlestickChart" class="mx.charts.CandlestickChart" lookupOnly="true"/>
+    <component id="CandlestickItemRenderer" class="mx.charts.renderers.CandlestickItemRenderer" lookupOnly="true"/>
+    <component id="CandlestickSeries" class="mx.charts.series.CandlestickSeries" lookupOnly="true"/>
+    <component id="CartesianChart" class="mx.charts.chartClasses.CartesianChart" lookupOnly="true"/>
+    <component id="CartesianDataCanvas" class="mx.charts.chartClasses.CartesianDataCanvas" lookupOnly="true"/>
+    <component id="CategoryAxis" class="mx.charts.CategoryAxis" lookupOnly="true"/>
+    <component id="ChartBase" class="mx.charts.chartClasses.ChartBase" lookupOnly="true"/>
+    <component id="CircleItemRenderer" class="mx.charts.renderers.CircleItemRenderer" lookupOnly="true"/>
+    <component id="ColumnChart" class="mx.charts.ColumnChart" lookupOnly="true"/>
+    <component id="ColumnSeries" class="mx.charts.series.ColumnSeries" lookupOnly="true"/>
+    <component id="ColumnSet" class="mx.charts.series.ColumnSet" lookupOnly="true"/>
+    <component id="CrossItemRenderer" class="mx.charts.renderers.CrossItemRenderer" lookupOnly="true"/>
+    <component id="DateTimeAxis" class="mx.charts.DateTimeAxis" lookupOnly="true"/>
+    <component id="DiamondItemRenderer" class="mx.charts.renderers.DiamondItemRenderer" lookupOnly="true"/>
+    <component id="GridLines" class="mx.charts.GridLines" lookupOnly="true"/>
+    <component id="HLOCChart" class="mx.charts.HLOCChart" lookupOnly="true"/>
+    <component id="HLOCItemRenderer" class="mx.charts.renderers.HLOCItemRenderer" lookupOnly="true"/>
+    <component id="HLOCSeries" class="mx.charts.series.HLOCSeries" lookupOnly="true"/>
+    <component id="Legend" class="mx.charts.Legend" lookupOnly="true"/>
+    <component id="LegendItem" class="mx.charts.LegendItem" lookupOnly="true"/>
+    <component id="LinearAxis" class="mx.charts.LinearAxis" lookupOnly="true"/>
+    <component id="LineChart" class="mx.charts.LineChart" lookupOnly="true"/>
+    <component id="LineRenderer" class="mx.charts.renderers.LineRenderer" lookupOnly="true"/>
+    <component id="LineSeries" class="mx.charts.series.LineSeries" lookupOnly="true"/>
+    <component id="LogAxis" class="mx.charts.LogAxis" lookupOnly="true"/>
+    <component id="PieChart" class="mx.charts.PieChart" lookupOnly="true"/>
+    <component id="PieSeries" class="mx.charts.series.PieSeries" lookupOnly="true"/>
+    <component id="PlotChart" class="mx.charts.PlotChart" lookupOnly="true"/>
+    <component id="PlotSeries" class="mx.charts.series.PlotSeries" lookupOnly="true"/>
+    <component id="PolarChart" class="mx.charts.chartClasses.PolarChart" lookupOnly="true"/>
+    <component id="PolarDataCanvas" class="mx.charts.chartClasses.PolarDataCanvas" lookupOnly="true"/>
+    <component id="SeriesEffect" class="mx.charts.effects.SeriesEffect" lookupOnly="true"/>
+    <component id="SeriesInterpolate" class="mx.charts.effects.SeriesInterpolate" lookupOnly="true"/>
+    <component id="SeriesSlide" class="mx.charts.effects.SeriesSlide" lookupOnly="true"/>
+    <component id="SeriesZoom" class="mx.charts.effects.SeriesZoom" lookupOnly="true"/>
+    <component id="ShadowBoxItemRenderer" class="mx.charts.renderers.ShadowBoxItemRenderer" lookupOnly="true"/>
+    <component id="ShadowLineRenderer" class="mx.charts.renderers.ShadowLineRenderer" lookupOnly="true"/>
+    <component id="TriangleItemRenderer" class="mx.charts.renderers.TriangleItemRenderer" lookupOnly="true"/>
+    <component id="WedgeItemRenderer" class="mx.charts.renderers.WedgeItemRenderer" lookupOnly="true"/>
 
     <!-- data visualization -->
-    <component id="AdvancedDataGrid" class="mx.controls.AdvancedDataGrid"/>
-    <component id="AdvancedDataGridBaseSelectionData" class="mx.controls.advancedDataGridClasses.AdvancedDataGridBaseSelectionData"/>
-    <component id="AdvancedDataGridBaseSelectionPending" class="mx.controls.advancedDataGridClasses.AdvancedDataGridBaseSelectionPending"/>
-    <component id="AdvancedDataGridColumn" class="mx.controls.advancedDataGridClasses.AdvancedDataGridColumn"/>
-    <component id="AdvancedDataGridColumnGroup" class="mx.controls.advancedDataGridClasses.AdvancedDataGridColumnGroup"/>
-    <component id="AdvancedDataGridGroupItemRenderer" class="mx.controls.advancedDataGridClasses.AdvancedDataGridGroupItemRenderer"/>
-    <component id="AdvancedDataGridHeaderRenderer" class="mx.controls.advancedDataGridClasses.AdvancedDataGridHeaderRenderer"/>
-    <component id="AdvancedDataGridHeaderHorizontalSeparator" class="mx.skins.halo.AdvancedDataGridHeaderHorizontalSeparator"/>
-    <component id="AdvancedDataGridItemRenderer" class="mx.controls.advancedDataGridClasses.AdvancedDataGridItemRenderer"/>
-    <component id="AdvancedDataGridRendererProvider" class="mx.controls.advancedDataGridClasses.AdvancedDataGridRendererProvider"/>
-    <component id="AdvancedDataGridSortItemRenderer" class="mx.controls.advancedDataGridClasses.AdvancedDataGridSortItemRenderer"/>
-    <component id="SortInfo" class="mx.controls.advancedDataGridClasses.SortInfo"/>
-    <component id="PrintAdvancedDataGrid" class="mx.printing.PrintAdvancedDataGrid"/>
-    <component id="PrintOLAPDataGrid" class="mx.printing.PrintOLAPDataGrid"/>
-    <component id="GroupingCollection" class="mx.collections.GroupingCollection"/>
-    <component id="Grouping" class="mx.collections.Grouping"/>
-    <component id="GroupingField" class="mx.collections.GroupingField"/>
-    <component id="HierarchicalCollectionView" class="mx.collections.HierarchicalCollectionView"/>
-    <component id="HierarchicalData" class="mx.collections.HierarchicalData"/>
-    <component id="SummaryRow" class="mx.collections.SummaryRow"/>
-    <component id="SummaryField" class="mx.collections.SummaryField"/>
+    <component id="AdvancedDataGrid" class="mx.controls.AdvancedDataGrid" lookupOnly="true"/>
+    <component id="AdvancedDataGridBaseSelectionData" class="mx.controls.advancedDataGridClasses.AdvancedDataGridBaseSelectionData" lookupOnly="true"/>
+    <component id="AdvancedDataGridBaseSelectionPending" class="mx.controls.advancedDataGridClasses.AdvancedDataGridBaseSelectionPending" lookupOnly="true"/>
+    <component id="AdvancedDataGridColumn" class="mx.controls.advancedDataGridClasses.AdvancedDataGridColumn" lookupOnly="true"/>
+    <component id="AdvancedDataGridColumnGroup" class="mx.controls.advancedDataGridClasses.AdvancedDataGridColumnGroup" lookupOnly="true"/>
+    <component id="AdvancedDataGridGroupItemRenderer" class="mx.controls.advancedDataGridClasses.AdvancedDataGridGroupItemRenderer" lookupOnly="true"/>
+    <component id="AdvancedDataGridHeaderRenderer" class="mx.controls.advancedDataGridClasses.AdvancedDataGridHeaderRenderer" lookupOnly="true"/>
+    <component id="AdvancedDataGridHeaderHorizontalSeparator" class="mx.skins.halo.AdvancedDataGridHeaderHorizontalSeparator" lookupOnly="true"/>
+    <component id="AdvancedDataGridItemRenderer" class="mx.controls.advancedDataGridClasses.AdvancedDataGridItemRenderer" lookupOnly="true"/>
+    <component id="AdvancedDataGridRendererProvider" class="mx.controls.advancedDataGridClasses.AdvancedDataGridRendererProvider" lookupOnly="true"/>
+    <component id="AdvancedDataGridSortItemRenderer" class="mx.controls.advancedDataGridClasses.AdvancedDataGridSortItemRenderer" lookupOnly="true"/>
+    <component id="SortInfo" class="mx.controls.advancedDataGridClasses.SortInfo" lookupOnly="true"/>
+    <component id="PrintAdvancedDataGrid" class="mx.printing.PrintAdvancedDataGrid" lookupOnly="true"/>
+    <component id="PrintOLAPDataGrid" class="mx.printing.PrintOLAPDataGrid" lookupOnly="true"/>
+    <component id="GroupingCollection" class="mx.collections.GroupingCollection" lookupOnly="true"/>
+    <component id="Grouping" class="mx.collections.Grouping" lookupOnly="true"/>
+    <component id="GroupingField" class="mx.collections.GroupingField" lookupOnly="true"/>
+    <component id="HierarchicalCollectionView" class="mx.collections.HierarchicalCollectionView" lookupOnly="true"/>
+    <component id="HierarchicalData" class="mx.collections.HierarchicalData" lookupOnly="true"/>
+    <component id="SummaryRow" class="mx.collections.SummaryRow" lookupOnly="true"/>
+    <component id="SummaryField" class="mx.collections.SummaryField" lookupOnly="true"/>
 
     <!-- olap -->
-    <component id="OLAPSchema" class="mx.olap.OLAPSchema"/>
-    <component id="OLAPCube" class="mx.olap.OLAPCube"/>
-    <component id="OLAPDimension" class="mx.olap.OLAPDimension"/>
-    <component id="OLAPHierarchy" class="mx.olap.OLAPHierarchy"/>
-    <component id="OLAPLevel" class="mx.olap.OLAPLevel"/>
-    <component id="OLAPMember" class="mx.olap.OLAPMember"/>
-    <component id="OLAPMeasure" class="mx.olap.OLAPMeasure"/>
-    <component id="OLAPAttribute" class="mx.olap.OLAPAttribute"/>
-    <component id="OLAPDataGrid" class="mx.controls.OLAPDataGrid"/>
-    <component id="OLAPDataGridItemRendererProvider" class="mx.controls.olapDataGridClasses.OLAPDataGridItemRendererProvider"/>
-    <component id="OLAPDataGridHeaderRendererProvider" class="mx.controls.olapDataGridClasses.OLAPDataGridHeaderRendererProvider"/>
+    <component id="OLAPSchema" class="mx.olap.OLAPSchema" lookupOnly="true"/>
+    <component id="OLAPCube" class="mx.olap.OLAPCube" lookupOnly="true"/>
+    <component id="OLAPDimension" class="mx.olap.OLAPDimension" lookupOnly="true"/>
+    <component id="OLAPHierarchy" class="mx.olap.OLAPHierarchy" lookupOnly="true"/>
+    <component id="OLAPLevel" class="mx.olap.OLAPLevel" lookupOnly="true"/>
+    <component id="OLAPMember" class="mx.olap.OLAPMember" lookupOnly="true"/>
+    <component id="OLAPMeasure" class="mx.olap.OLAPMeasure" lookupOnly="true"/>
+    <component id="OLAPAttribute" class="mx.olap.OLAPAttribute" lookupOnly="true"/>
+    <component id="OLAPDataGrid" class="mx.controls.OLAPDataGrid" lookupOnly="true"/>
+    <component id="OLAPDataGridItemRendererProvider" class="mx.controls.olapDataGridClasses.OLAPDataGridItemRendererProvider" lookupOnly="true"/>
+    <component id="OLAPDataGridHeaderRendererProvider" class="mx.controls.olapDataGridClasses.OLAPDataGridHeaderRendererProvider" lookupOnly="true"/>
 
     <!-- AS3 built-ins -->
     <component id="Array" class="Array" lookupOnly="true"/>
@@ -306,27 +307,27 @@
     <component id="XMLList" class="XMLList" lookupOnly="true"/>
 
     <!-- rpc -->
-    <component id="AMFChannel" class="mx.messaging.channels.AMFChannel"/>
-    <component id="CallResponder" class="mx.rpc.CallResponder"/>
-    <component id="ChannelSet" class="mx.messaging.ChannelSet"/>
-    <component id="Consumer" class="mx.messaging.Consumer"/>
-    <component id="HTTPChannel" class="mx.messaging.channels.HTTPChannel"/>
-    <component id="HTTPService" class="mx.rpc.http.mxml.HTTPService"/>
-    <component id="Producer" class="mx.messaging.Producer"/>
-    <component id="RemoteObject" class="mx.rpc.remoting.mxml.RemoteObject"/>
-    <component id="RemoteObjectOperation" class="mx.rpc.remoting.mxml.Operation"/>
-    <component id="RTMPChannel" class="mx.messaging.channels.RTMPChannel"/>
-    <component id="SecureAMFChannel" class="mx.messaging.channels.SecureAMFChannel"/>
-    <component id="SecureStreamingAMFChannel" class="mx.messaging.channels.SecureStreamingAMFChannel"/>
-    <component id="SecureHTTPChannel" class="mx.messaging.channels.SecureHTTPChannel"/>
-    <component id="SecureStreamingHTTPChannel" class="mx.messaging.channels.SecureStreamingHTTPChannel"/>
-    <component id="SecureRTMPChannel" class="mx.messaging.channels.SecureRTMPChannel"/>
-    <component id="StreamingAMFChannel" class="mx.messaging.channels.StreamingAMFChannel"/>
-    <component id="StreamingHTTPChannel" class="mx.messaging.channels.StreamingHTTPChannel"/>
-    <component id="WebService" class="mx.rpc.soap.mxml.WebService"/>
-    <component id="WebServiceOperation" class="mx.rpc.soap.mxml.Operation"/>
+    <component id="AMFChannel" class="mx.messaging.channels.AMFChannel" lookupOnly="true"/>
+    <component id="CallResponder" class="mx.rpc.CallResponder" lookupOnly="true"/>
+    <component id="ChannelSet" class="mx.messaging.ChannelSet" lookupOnly="true"/>
+    <component id="Consumer" class="mx.messaging.Consumer" lookupOnly="true"/>
+    <component id="HTTPChannel" class="mx.messaging.channels.HTTPChannel" lookupOnly="true"/>
+    <component id="HTTPService" class="mx.rpc.http.mxml.HTTPService" lookupOnly="true"/>
+    <component id="Producer" class="mx.messaging.Producer" lookupOnly="true"/>
+    <component id="RemoteObject" class="mx.rpc.remoting.mxml.RemoteObject" lookupOnly="true"/>
+    <component id="RemoteObjectOperation" class="mx.rpc.remoting.mxml.Operation" lookupOnly="true"/>
+    <component id="RTMPChannel" class="mx.messaging.channels.RTMPChannel" lookupOnly="true"/>
+    <component id="SecureAMFChannel" class="mx.messaging.channels.SecureAMFChannel" lookupOnly="true"/>
+    <component id="SecureStreamingAMFChannel" class="mx.messaging.channels.SecureStreamingAMFChannel" lookupOnly="true"/>
+    <component id="SecureHTTPChannel" class="mx.messaging.channels.SecureHTTPChannel" lookupOnly="true"/>
+    <component id="SecureStreamingHTTPChannel" class="mx.messaging.channels.SecureStreamingHTTPChannel" lookupOnly="true"/>
+    <component id="SecureRTMPChannel" class="mx.messaging.channels.SecureRTMPChannel" lookupOnly="true"/>
+    <component id="StreamingAMFChannel" class="mx.messaging.channels.StreamingAMFChannel" lookupOnly="true"/>
+    <component id="StreamingHTTPChannel" class="mx.messaging.channels.StreamingHTTPChannel" lookupOnly="true"/>
+    <component id="WebService" class="mx.rpc.soap.mxml.WebService" lookupOnly="true"/>
+    <component id="WebServiceOperation" class="mx.rpc.soap.mxml.Operation" lookupOnly="true"/>
 
     <!-- fds (now known as LCDS) -->
-    <component id="DataService" class="mx.data.mxml.DataService"/>
+    <component id="DataService" class="mx.data.mxml.DataService" lookupOnly="true"/>
 
 </componentPackage>
