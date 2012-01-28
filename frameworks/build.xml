@@ -17,10 +17,11 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,prepare,javascript,framework,flex4,rpc,airframework,flex,flash_integration,utilities,haloclassic,wireframe" description="Clean build of all SWCs"/>
+	<target name="main" depends="clean,prepare,javascript,framework,framework_textLayout,flex4,rpc,airframework,flex,flash_integration,utilities,haloclassic,wireframe" description="Clean build of all SWCs"/>
 
 	<target name="doc" >
 		<ant dir="${basedir}/projects/framework" target="doc" />
+		<ant dir="${basedir}/projects/framework_textLayout" target="doc" />
 		<ant dir="${basedir}/projects/flex4" target="doc" />
 		<ant dir="${basedir}/projects/rpc" target="doc" />
 		<ant dir="${basedir}/projects/airframework" target="doc" />
@@ -41,6 +42,10 @@
 
     <target name="framework" description="Clean build of framework.swc and its resource bundles">
 		<ant dir="${basedir}/projects/framework"/>
+    </target>
+
+    <target name="framework_textLayout" description="Clean build of framework_textLayout.swc">
+		<ant dir="${basedir}/projects/framework_textLayout"/>
     </target>
 
     <target name="haloclassic" description="Clean build of haloclassic.swc">
@@ -89,6 +94,7 @@
 		<delete dir="${FLEX_HOME}/templates/air"/>
 		<!-- Delete output from SWC projects -->
 		<ant dir="${basedir}/projects/framework" target="clean"/>
+		<ant dir="${basedir}/projects/framework_textLayout" target="clean"/>
 		<ant dir="${basedir}/projects/airframework" target="clean"/>
 		<ant dir="${basedir}/projects/flex" target="clean"/>
 		<ant dir="${basedir}/projects/flex4" target="clean"/>
