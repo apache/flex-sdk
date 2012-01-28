@@ -41,7 +41,7 @@
 		<context name="setter" >
 			<attribute name="event" type="String" hint="events" />
 		</context>
-		<attribute name="style" type="Boolean" defaultValue="true" />
+		<attribute name="style" type="Boolean" defaultValue="true" hint="boolean" />
 
 	</metadata>
 
@@ -118,9 +118,9 @@
 		<attribute name="source" type="Path" required="true" />
 		<attribute name="mimeType" type="String" 
 						values="image/gif,image/jpeg,image/png,image/svg,image/svg-xml,application/x-shockwave-flash,audio/mpeg,application/x-font-truetype,application/x-font,application/octet-stream" />
-		<attribute name="advancedAntiAliasing" type="Boolean"  />
-		<attribute name="compression" type="Boolean"  />
-		<attribute name="embedAsCFF" type="Boolean"  />
+		<attribute name="advancedAntiAliasing" type="Boolean" hint="boolean"  defaultValue="false" />
+		<attribute name="compression" type="Boolean"  hint="boolean"  defaultValue="true" />
+		<attribute name="embedAsCFF" type="Boolean"  hint="boolean"  defaultValue="true" />
 		<attribute name="encoding" type="String"  />
 		<attribute name="exportSymbol" type="String"  />
 		<attribute name="fontFamily" type="String"  />
@@ -134,7 +134,7 @@
 		<attribute name="scaleGridRight" type="Number"  />
 		<attribute name="scaleGridTop" type="Number"  />
 		<attribute name="skinClass" type="Class"  />
-		<attribute name="smoothing" type="Boolean"  />
+		<attribute name="smoothing" type="Boolean" hint="boolean"  defaultValue="true" />
 		<attribute name="sourceList" type="String"  />
 		<attribute name="symbol" type="String"  />
 		<attribute name="systemFont" type="String"  />
@@ -302,7 +302,7 @@
 		<context name="getter" />
 		<context name="setter" />
 		
-		<attribute name="required" type="Boolean" />
+		<attribute name="required" type="Boolean" hint="boolean" defaultValue="true" />
 		<attribute name="type" type="Class" />
 
 	</metadata>	 
