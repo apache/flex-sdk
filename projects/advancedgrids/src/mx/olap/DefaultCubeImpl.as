@@ -19,6 +19,8 @@ import mx.collections.ArrayCollection;
 import mx.collections.CursorBookmark;
 import mx.collections.IList;
 import mx.collections.IViewCursor;
+import mx.collections.ISort;
+import mx.collections.ISortField;
 import mx.collections.Sort;
 import mx.collections.SortField;
 import mx.core.mx_internal;
@@ -139,10 +141,10 @@ public class DefaultCubeImpl implements IOLAPCubeImpl
     private var iterator:IViewCursor = null;
 
 	//saved sort value
-    private var oldSort:Sort;
+    private var oldSort:ISort;
     
     //sort object used to gather members of dimensions 
-    private var newSort:Sort;
+    private var newSort:ISort;
 
 	//Cube builder instance
     private var nodeBuilder:CubeNodeBuilder;
@@ -372,7 +374,7 @@ public class DefaultCubeImpl implements IOLAPCubeImpl
                 newSort = new Sort;
                 var fields:Array = [];
                 
-                var field:SortField ;
+                var field:ISortField ;
                 for each (level in levels)
                 {
                 	if (level.attribute && level.attribute.userDataFunction)
@@ -1159,12 +1161,12 @@ public class DefaultCubeImpl implements IOLAPCubeImpl
         }
         
         // sort the data as it makes decision about completion of handling
-        var newSort:Sort = new Sort;
+        var newSort:ISort = new Sort;
         var fields:Array = [];
         
         for each (var level:OLAPLevel in levels)
         {
-            var field:SortField = new SortField(level.dataField);
+            var field:ISortField = new SortField(level.dataField);
             fields.push(field);
         }
         
