@@ -34,6 +34,7 @@
     <component id="BitmapImage" class="spark.primitives.BitmapImage"/>
     <component id="Block" class="spark.layouts.supportClasses.Block"/>
     <component id="BlurFilter" class="spark.filters.BlurFilter"/>
+    <component id="Bounce" class="spark.effects.easing.Bounce"/>
     <component id="Button" class="spark.components.Button"/>
     <component id="ButtonBar" class="spark.components.ButtonBar"/>
     <component id="ButtonBarButton" class="spark.components.ButtonBarButton"/>
@@ -51,6 +52,7 @@
     <component id="DisplacementMapFilter" class="spark.filters.DisplacementMapFilter"/>
     <component id="DropDownList" class="spark.components.DropDownList"/>
     <component id="DropShadowFilter" class="spark.filters.DropShadowFilter"/>
+    <component id="Elastic" class="spark.effects.easing.Elastic"/>
     <component id="Ellipse" class="spark.primitives.Ellipse"/>
     <component id="Fade" class="spark.effects.Fade"/>
     <component id="FilledElement" class="spark.primitives.supportClasses.FilledElement"/>
