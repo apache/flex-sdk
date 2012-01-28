@@ -2147,10 +2147,67 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     {
         super.adjustListContent(unscaledWidth, unscaledHeight);
 
+		if(getOptimumColumns() != visibleColumns)
+		{
+			var n:int = displayableColumns.length;
+			var listSubContentWidth:int = 0;
+			for(var i:int = lockedColumnCount; i < n; i++)
+			{
+				listSubContentWidth += displayableColumns[i].width;
+			}
+			
+			listSubContentWidth += getLastColumnResidualWidth() + 50; //Adding default sort renderer's width
+			listSubContent.setActualSize(listSubContentWidth,unscaledHeight);
+		}
+		
         // listSubContent scrollRect needs to be updated whenever
         // listContent size is adjusted
         updateSubContent();
     }
+	
+	/**
+	 *  @private
+	 */
+	private function getLastColumnResidualWidth():Number
+	{
+		var n:int = displayableColumns.length-1;
+		var displayWidth:int = unscaledWidth - viewMetrics.right - viewMetrics.left;
+		var totalWidth:Number = 0;
+		var i:int;
+		var numLockCols:int = Math.max(0, lockedColumnCount);
+		
+		//Find the scrollable width i.e displayWidth - { sum of width of locked columns}
+		if (numLockCols > 0 && numLockCols < visibleColumns.length)
+		{
+			for (i = 0; i < numLockCols; i++)
+			{
+				displayWidth -= displayableColumns[i].width;
+			}
+		}
+		
+		// Starting from the right most column in the displayableColumns array
+		// find out how many columns we will be able to 
+		// accumulate and how much width they will take
+		// when horizontal scroll bar is at the rightmost end
+		if (n>=0)
+		{
+			totalWidth = (isNaN(displayableColumns[n].explicitWidth) ? displayableColumns[n].preferredWidth : displayableColumns[n].explicitWidth); 
+		}
+		
+		for (i = n-1; i >= numLockCols; i--)
+		{
+			if (totalWidth + displayableColumns[i].width <= displayWidth)
+				totalWidth += displayableColumns[i].width;
+			else
+				break;
+		}
+		
+		// The residual width is the width which should be added to 
+		// the last column apriori, so that in future when we have horizontally
+		// scrolled to the right most position we don't need to create larger
+		// items for that column
+		return displayWidth - totalWidth;
+	}
     
     // horizontal page up, page down
     /**
