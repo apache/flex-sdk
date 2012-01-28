@@ -41,6 +41,7 @@
         <ant dir="${basedir}/projects/osmf" target="doc" />
 		<ant dir="${basedir}/projects/wireframe" target="doc" />
 		<ant dir="${basedir}/projects/flash-integration" target="doc" />
+		<ant dir="${basedir}/projects/textLayout" target="doc" />
 	</target>
 
     <target name="airframework" description="Clean build of airframework.swc">
