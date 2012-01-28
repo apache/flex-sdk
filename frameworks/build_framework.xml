@@ -131,8 +131,6 @@
 			</external-library-path>
 			<library-path/>
 			<include-file name="defaults.css" path="${framework.dir}/defaults.css"/>
-			<include-file name="defaults-2.0.0.css" path="${framework.dir}/defaults-2.0.0.css"/>
-			<include-file name="defaults-2.0.1.css" path="${framework.dir}/defaults-2.0.1.css"/>
 			<include-file name="defaults-3.0.0.css" path="${framework.dir}/defaults-3.0.0.css"/>
 			<include-file name="Assets.swf" path="${framework.dir}/assets/Assets.swf"/>
 			<keep-as3-metadata name="Bindable" />
