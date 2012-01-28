@@ -101,6 +101,7 @@
     <component id="Resize" class="spark.effects.Resize"/>
     <component id="RGBInterpolator" class="spark.effects.interpolation.RGBInterpolator"/>
     <component id="RichEditableText" class="spark.components.RichEditableText"/>
+    <component id="RichEditableText2" class="spark.components.RichEditableText2"/>
     <component id="RichText" class="spark.primitives.RichText"/>
     <component id="Rotate" class="spark.effects.Rotate"/>
     <component id="Rotate3D" class="spark.effects.Rotate3D"/>
