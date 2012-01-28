@@ -1623,6 +1623,16 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
         }
 
     }
+	
+	/**
+	 * @private
+	 */ 
+	override public function get specificity():int
+	{
+		// Return 10 as there is a sorting mechanism based on specificity now
+		// and there could be ancestor specificity also!!
+		return 10;
+	}
 
     //--------------------------------------------------------------------------
     //
@@ -1809,7 +1819,7 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
 
         return " ";
     }
-    
+	
     /**
      * @private
      * 
