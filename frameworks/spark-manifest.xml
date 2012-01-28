@@ -207,7 +207,7 @@
 	
 	<!-- Flex 3 Graphics -->
     <component id="BitmapFill" class="mx.graphics.BitmapFill" lookupOnly="true"/>
-    <component id="BitmapResizeMode" class="mx.graphics.BitmapResizeMode" lookupOnly="true"/>
+    <component id="BitmapFillMode" class="mx.graphics.BitmapFillMode" lookupOnly="true"/>
     <component id="CompoundTransform" class="mx.geom.CompoundTransform" lookupOnly="true"/>
     <component id="GradientEntry" class="mx.graphics.GradientEntry" lookupOnly="true"/>
     <component id="LinearGradient" class="mx.graphics.LinearGradient" lookupOnly="true"/>
