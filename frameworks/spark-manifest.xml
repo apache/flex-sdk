@@ -79,6 +79,7 @@
     <component id="MotionPath" class="spark.effects.MotionPath"/>
     <component id="Move" class="spark.effects.Move"/>
     <component id="Move3D" class="spark.effects.Move3D"/>
+    <component id="MuteButton" class="spark.components.mediaClasses.MuteButton"/>
 	<component id="MXMLComponent" class="spark.components.MXMLComponent"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
@@ -105,6 +106,7 @@
     <component id="ScrollBar" class="spark.components.supportClasses.ScrollBar"/>
     <component id="Scroller" class="spark.components.Scroller"/>
     <component id="ScrollerLayout" class="spark.components.supportClasses.ScrollerLayout"/>
+    <component id="ScrubBar" class="spark.components.mediaClasses.ScrubBar"/>
     <component id="SetAction" class="spark.effects.SetAction"/>
     <component id="ShaderFilter" class="spark.filters.ShaderFilter"/>
     <component id="SimpleMotionPath" class="spark.effects.SimpleMotionPath"/>
@@ -119,8 +121,8 @@
     <component id="SparkSkin" class="spark.skins.SparkSkin"/>
     <component id="Spinner" class="spark.components.Spinner"/>
     <component id="SpriteVisualElement" class="spark.core.SpriteVisualElement"/>
-    <component id="StreamingVideoSource" class="spark.components.supportClasses.StreamingVideoSource"/>
-    <component id="StreamItem" class="spark.components.supportClasses.StreamItem"/>
+    <component id="StreamingVideoSource" class="spark.components.mediaClasses.StreamingVideoSource"/>
+    <component id="StreamItem" class="spark.components.mediaClasses.StreamItem"/>
     <component id="StrokedElement" class="spark.primitives.supportClasses.StrokedElement"/>
     <component id="TextArea" class="spark.components.TextArea"/>
     <component id="TextBase" class="spark.components.supportClasses.TextBase"/>
@@ -141,9 +143,7 @@
     <component id="VGroup" class="spark.components.VGroup"/>
     <component id="VideoElement" class="spark.primitives.VideoElement"/>
     <component id="VideoPlayer" class="spark.components.VideoPlayer"/>
-    <component id="VideoPlayerScrubBar" class="spark.components.VideoPlayerScrubBar"/>
-    <component id="VideoPlayerVolumeBar" class="spark.components.VideoPlayerVolumeBar"/>
-    <component id="VideoPlayerVolumeBarMuteButton" class="spark.components.VideoPlayerVolumeBarMuteButton"/>
+    <component id="VolumeBar" class="spark.components.mediaClasses.VolumeBar"/>
     <component id="VScrollBar" class="spark.components.VScrollBar"/>
     <component id="VSlider" class="spark.components.VSlider"/>
     <component id="Wipe" class="spark.effects.Wipe"/>
