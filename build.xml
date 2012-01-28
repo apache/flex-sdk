@@ -57,7 +57,7 @@
 		<ant dir="${basedir}/projects/datavisualization" target="other.locales"/>
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
 		<ant dir="${basedir}/projects/osmf" target="other.locales"/>
-		<!--<ant dir="${basedir}/projects/textLayout" target="other.locales"/>-->
+		<ant dir="${basedir}/projects/textLayout" target="other.locales"/>
 		<ant dir="${basedir}/projects/playerglobal" target="other.locales" />
 		<ant dir="${basedir}/projects/automation" target="other.locales"/>
 		<ant dir="${basedir}/projects/automation_dmv" target="other.locales"/>
@@ -81,7 +81,7 @@
 		<ant dir="${basedir}/projects/flash-integration" target="doc" />
 		<!--<ant dir="${basedir}/projects/automation_dmv" target="doc" />-->
 		<ant dir="${basedir}/projects/automation_spark" target="doc" />
-	    <!--<ant dir="${basedir}/projects/textLayout" target="doc" />-->
+	    <ant dir="${basedir}/projects/textLayout" target="doc" />
 	</target>
    
 	<target name="clean" description="Cleans all SWCs and their resource bundles">
