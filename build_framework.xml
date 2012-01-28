@@ -306,6 +306,8 @@
 				<include name="osmf.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${spark.dir}/defaults.css"/>
+			<include-file name="assets/ErrorIndicator.png" path="${spark.dir}/assets/ErrorIndicator.png"/>
+            <include-file name="assets/RequiredIndicator.png" path="${spark.dir}/assets/RequiredIndicator.png"/>
 			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
