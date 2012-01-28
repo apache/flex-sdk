@@ -28,6 +28,8 @@
 	<property name="projects.dir" value="${FLEX_HOME}/frameworks/projects"/>
 	<property name="airframework.dir" value="${projects.dir}/airframework"/>
     <property name="airspark.dir" value="${projects.dir}/airspark"/>
+    <property name="mobilecomponents.dir" value="${projects.dir}/mobilecomponents"/>
+    <property name="mobiletheme.dir" value="${projects.dir}/mobiletheme"/>
 	<property name="charts.dir" value="${projects.dir}/charts"/>
 	<property name="advancedgrids.dir" value="${projects.dir}/advancedgrids"/>
 	<property name="core.dir" value="${projects.dir}/core"/>
@@ -46,7 +48,7 @@
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="clean,thirdparty-downloads,prepare,framework,framework_rb,mx,mx_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,charts,charts_rb,advancedgrids,advancedgrids_rb,core,wireframe,sparkskins,flash-integration,authoringsupport,spark_dmv"/>
+	<target name="main" depends="clean,thirdparty-downloads,prepare,framework,framework_rb,mx,mx_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,mobilecomponents,mobilecomponents_rb,mobiletheme,rpc,rpc_rb,charts,charts_rb,advancedgrids,advancedgrids_rb,core,wireframe,sparkskins,flash-integration,authoringsupport,spark_dmv"/>
 
 	<target name="prepare" depends="create-description" description="Copies manifests to project directories so the IDE can find them">
         <copy file="${FLEX_HOME}/frameworks/spark-manifest.xml" tofile="${FLEX_HOME}/frameworks/projects/spark/manifest.xml" overwrite="true"/>
@@ -171,6 +173,54 @@
 		</compc>
 	</target>
 
+    <target name="mobilecomponents" description="Builds libs/mobilecomponents.swc">
+        <compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="MobileComponentsClasses spark.transitions.FlipViewTransitionMode spark.transitions.ZoomViewTransitionMode" 
+            output="${basedir}/libs/mobile/mobilecomponents.swc" locale="" accessible="true">            
+            <namespace uri="library://ns.adobe.com/flex/spark" manifest="${mobilecomponents.dir}/manifest.xml"/>
+            <include-namespaces uri="library://ns.adobe.com/flex/spark"/>
+            <source-path path-element="${mobilecomponents.dir}/src"/>
+            <library-path/>
+            <external-library-path dir="${basedir}/libs">
+                <include name="air/airglobal.swc"/>
+                <include name="framework.swc"/>
+                <include name="spark.swc"/>
+                <include name="textLayout.swc"/>
+            </external-library-path>
+            <keep-as3-metadata name="SkinPart"/>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+            
+    <target name="mobilecomponents_rb" description="Builds locale/en_US/mobilecomponents_rb.swc">
+        <compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/locale/${locale}/mobilecomponents_rb.swc" 
+            locale="${locale}">
+            <include-resource-bundles bundle="core"/>
+            <source-path path-element="${framework.dir}/bundles/${locale}"/>
+            <source-path path-element="${framework.dir}/src"/>
+            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+            <library-path/>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+
+    <target name="mobiletheme" description="Builds themes/Mobile/mobiletheme.swc">
+        <compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="MobileThemeClasses" 
+            output="${basedir}/themes/Mobile/mobile.swc" locale="" accessible="true">            
+            <source-path path-element="${mobiletheme.dir}/src"/>
+            <library-path/>
+            <external-library-path dir="${basedir}/libs">
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+                <include name="mobile/mobilecomponents.swc"/>
+                <include name="framework.swc"/>
+                <include name="spark.swc"/>
+                <include name="textLayout.swc"/>
+                <include name="osmf.swc"/>
+            </external-library-path>
+            <include-file name="defaults.css" path="${mobiletheme.dir}/defaults.css"/>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+            
 	<target name="charts" description="Builds charts.swc">
 		<compc static-link-runtime-shared-libraries="true"  
 		fork="true" 
@@ -439,7 +489,7 @@
 			<include-resource-bundles bundle="sparkEffects"/>
 			<include-resource-bundles bundle="layout"/>
 			<include-resource-bundles bundle="textLayout"/>
-            <!--include-resource-bundles bundle="osmf"/-->
+            <include-resource-bundles bundle="osmf"/>
 			<source-path path-element="${spark.dir}/bundles/${locale}"/>
 			<source-path path-element="${spark.dir}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
@@ -614,7 +664,8 @@
 		<delete failonerror="false">
 			<fileset dir="${basedir}/libs">
 				<include name="air/airframework.swc"/>
-				<include name="air/airspark.swc"/>
+                <include name="air/airspark.swc"/>
+                <include name="mobile/mobilecomponents.swc"/>
 				<include name="spark_dmv.swc"/>
 				<include name="charts.swc"/>
 				<include name="advancedgrids.swc"/>
@@ -628,7 +679,8 @@
 			</fileset>
 			<fileset dir="${basedir}/locale/${locale}">
 				<include name="airframework_rb.swc"/>
-				<include name="airspark_rb.swc"/>
+                <include name="airspark_rb.swc"/>
+                <include name="mobilecomponents_rb.swc"/>
 				<include name="charts_rb.swc"/>
 				<include name="advancedgrids_rb.swc"/>
                 <include name="framework_rb.swc"/>
@@ -636,7 +688,8 @@
 				<include name="rpc_rb.swc"/>
 				<include name="spark_rb.swc"/>
 			</fileset>
-			<fileset dir="${basedir}/themes/Wireframe" includes="wireframe.swc"/>
+            <fileset dir="${basedir}/themes/Wireframe" includes="wireframe.swc"/>
+            <fileset dir="${basedir}/themes/Mobile" includes="mobiletheme.swc"/>
 		</delete>
         <delete dir="${basedir}/libs/mx"/>
 	</target>
