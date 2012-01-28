@@ -275,21 +275,21 @@
 	</target>
 	
 	<target name="utilities" description="Builds utilities.swc">
-		<compc include-classes="UtilitiesClasses" output="${basedir}/libs/utilities.swc" locale="" accessible="true">
-            <target-player>10</target-player>
+		<compc output="${basedir}/libs/utilities.swc">
+           <target-player>10</target-player>
+		   <include-classes>UtilitiesClasses</include-classes>
 			<source-path path-element="${utilities.dir}/src"/>
-            <library-path dir="${basedir}/projects/flash-integration/libs">
-				<include name="FlexComponentBase.swc"/>
-			</library-path>
-            <library-path dir="${utilities.dir}/libs">
-				<include name="FlexContentHolderThumbnail.swc"/>
-			</library-path>
+			<source-path path-element="${framework.dir}/src"/>
+			<library-path dir="${utilities.dir}/libs">
+                <include name="FlexContentHolder.swc"/>
+            </library-path>
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="textLayout.swc"/>
 			</external-library-path>
 			<locale/>
+			<accessible>true</accessible>
 		</compc>
 	</target>
 
