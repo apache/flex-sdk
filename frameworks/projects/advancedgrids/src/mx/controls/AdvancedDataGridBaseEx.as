@@ -32,10 +32,10 @@ import flash.utils.getTimer;
 
 import mx.collections.CursorBookmark;
 import mx.collections.ICollectionView;
-import mx.collections.IViewCursor;
-import mx.collections.ItemResponder;
 import mx.collections.ISort;
 import mx.collections.ISortField;
+import mx.collections.IViewCursor;
+import mx.collections.ItemResponder;
 import mx.collections.Sort;
 import mx.collections.SortField;
 import mx.collections.errors.ItemPendingError;
@@ -2071,7 +2071,11 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         if (bEditedItemPositionChanged)
         {
             bEditedItemPositionChanged = false;
-            commitEditedItemPosition(_proposedEditedItemPosition);
+			// don't do this if mouse is down on an item
+			// on mouse up, we'll let the edit session logic
+			// request a new position
+			if (!lastItemDown)
+            	commitEditedItemPosition(_proposedEditedItemPosition);
             _proposedEditedItemPosition = undefined;
             itemsSizeChanged = false;
         }
@@ -2392,7 +2396,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var oldVerticalScrollBar:Object = verticalScrollBar;
 
         var rowCount:int = listItems.length;
-        if (rowCount + headerItems.length== 0)////TODO
+		// check whether the header items are present
+		if (rowCount + getHeaderItemsLength() == 0)
         {
             // Get rid of any existing scrollbars.
             if (oldHorizontalScrollBar || oldVerticalScrollBar)
@@ -2809,6 +2814,16 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         }
         return newArray;
     }
+	
+	/**
+	 * Get the length of the header items
+	 * 
+	 *  @private
+	 */
+	protected function getHeaderItemsLength():int
+	{
+		return headerItems.length;
+	}
     
     /**
      *  @private
@@ -7201,15 +7216,24 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         {
             pos = itemRendererToIndices(r);
 
-            if (pos && pos.y >= 0 && displayableColumns[pos.x].editable && !dontEdit)
+            if (pos && pos.y >= 0 && !dontEdit)
             {
-                advancedDataGridEvent = new AdvancedDataGridEvent(AdvancedDataGridEvent.ITEM_EDIT_BEGINNING, false, true);
-                // ITEM_EDIT events are cancelable
-                advancedDataGridEvent.columnIndex = displayableColumns[pos.x].colNum;
-                advancedDataGridEvent.dataField = displayableColumns[pos.x].dataField;
-                advancedDataGridEvent.rowIndex = pos.y;
-                advancedDataGridEvent.itemRenderer = r;
-                dispatchEvent(advancedDataGridEvent);
+				if (displayableColumns[pos.x].editable)
+				{
+	                advancedDataGridEvent = new AdvancedDataGridEvent(AdvancedDataGridEvent.ITEM_EDIT_BEGINNING, false, true);
+	                // ITEM_EDIT events are cancelable
+	                advancedDataGridEvent.columnIndex = displayableColumns[pos.x].colNum;
+	                advancedDataGridEvent.dataField = displayableColumns[pos.x].dataField;
+	                advancedDataGridEvent.rowIndex = pos.y;
+	                advancedDataGridEvent.itemRenderer = r;
+	                dispatchEvent(advancedDataGridEvent);
+				}
+				else
+				{
+					// if the item is not editable, set lastPosition to it anyways
+					// so future tabbing starts from there
+					lastEditedItemPosition = { columnIndex: displayableColumns[pos.x].colNum, rowIndex: pos.y };
+				}
             }
         }
         else if (lastItemDown && lastItemDown != itemEditorInstance)
@@ -7279,27 +7303,25 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
             // start somewhere
             if (!_editedItemPosition)
-            {
                 _editedItemPosition = { rowIndex: 0, columnIndex: 0 };
 
-                for (;
-                     _editedItemPosition.columnIndex != _columns.length;
-                     _editedItemPosition.columnIndex++)
-                {
-                    // If the editedItemPosition is valid, focus it,
-                    // otherwise find one.
-                    if (_columns[_editedItemPosition.columnIndex].editable &&
-                        _columns[_editedItemPosition.columnIndex].visible)
-                    {
-                        var row:Array = listItems[_editedItemPosition.rowIndex];
-                        if (row && row[_editedItemPosition.columnIndex])
-                        {
-                            foundOne = true;
-                            break;
-                        }
-                    }
-                }
-            }
+            for (;
+                 _editedItemPosition.columnIndex != _columns.length;
+                 _editedItemPosition.columnIndex++)
+	            {
+	                // If the editedItemPosition is valid, focus it,
+	                // otherwise find one.
+	                if (_columns[_editedItemPosition.columnIndex].editable &&
+	                    _columns[_editedItemPosition.columnIndex].visible)
+	                {
+	                    var row:Array = listItems[_editedItemPosition.rowIndex];
+	                    if (row && row[_editedItemPosition.columnIndex])
+	                    {
+	                        foundOne = true;
+	                        break;
+	                    }
+	                }
+	            }
 
             if (foundOne)
             {
