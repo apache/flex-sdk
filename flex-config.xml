@@ -366,7 +366,7 @@
       <!-- OSMF SWC -->
      <runtime-shared-library-path>
 		<path-element>libs/osmf.swc</path-element>
-		<rsl-url>osmf_flex.4.0.0.13495.swf</rsl-url>
+		<rsl-url>osmf_1.0.0.16316.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
       
