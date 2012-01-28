@@ -32,7 +32,7 @@
 	<property name="authoringsupport.dir" value="${projects.dir}/authoringsupport"/>
 	<property name="wireframe.dir" value="${projects.dir}/wireframe"/>
 	<property name="compc.jvm.args" value="-Xmx384m" />
-	<property name="playerglobal.version" value="10.2"/>	
+	<property name="playerglobal.version" value="11.0"/>	
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
