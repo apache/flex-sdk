@@ -133,7 +133,7 @@
       <!-- List of CSS or SWC files to apply as a theme. -->
       <theme>
          <!-- default theme is mobile overlayed on top of spark -->
-         <filename>themes/Spark/spark.css</filename>
+         <filename>themes/Mobile/spark.css</filename>
          <filename>themes/Mobile/mobile.swc</filename>
       </theme>
       
