@@ -47,6 +47,9 @@
     <component id="ColorTransform" class="flash.geom.ColorTransform" lookupOnly="true"/>
     <component id="ColumnAlign" class="spark.layouts.ColumnAlign"/>
     <component id="ComboBox" class="spark.components.ComboBox"/>
+    <component id="ConstraintColumn" class="mx.containers.utilityClasses.ConstraintColumn" lookupOnly="true"/>
+    <component id="ConstraintLayout" class="spark.layouts.ConstraintLayout"/>
+    <component id="ConstraintRow" class="mx.containers.utilityClasses.ConstraintRow" lookupOnly="true"/>
     <component id="ConvolutionFilter" class="spark.filters.ConvolutionFilter"/>
     <component id="CrossFade" class="spark.effects.CrossFade"/>
     <component id="DataGroup" class="spark.components.DataGroup"/>
@@ -60,6 +63,11 @@
     <component id="Elastic" class="spark.effects.easing.Elastic"/>
     <component id="Ellipse" class="spark.primitives.Ellipse"/>
     <component id="Fade" class="spark.effects.Fade"/>
+    <component id="Form" class="spark.components.Form"/>
+    <component id="FormHeading" class="spark.components.FormHeading"/>
+    <component id="FormItem" class="spark.components.FormItem"/>
+    <component id="FormItemLayout" class="spark.layouts.FormItemLayout"/>
+    <component id="FormLayout" class="spark.layouts.FormLayout"/>
     <component id="FilledElement" class="spark.primitives.supportClasses.FilledElement"/>
     <component id="GlowFilter" class="spark.filters.GlowFilter"/>
     <component id="GradientBevelFilter" class="spark.filters.GradientBevelFilter"/>
