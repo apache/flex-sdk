@@ -113,6 +113,7 @@ AdvancedDataGridHeaderRenderer
 AdvancedListBase
 {
 	borderStyle: "solid";
+    _creationPolicy: "auto";
 	dropIndicatorSkin: ClassReference("mx.skins.halo.ListDropIndicator");
 	paddingBottom: 2;
 	paddingLeft: 2;
