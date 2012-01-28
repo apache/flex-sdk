@@ -126,6 +126,7 @@
     <component id="NumberFormatter" class="spark.formatters.NumberFormatter"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
     <component id="NumberValidator" class="spark.validators.NumberValidator"/>
+    <component id="NumericDataProvider" class="spark.collections.NumericDataProvider"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
     <component id="Panel" class="spark.components.Panel"/>
     <component id="Path" class="spark.primitives.Path"/>
