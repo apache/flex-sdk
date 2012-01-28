@@ -136,6 +136,7 @@
     <component id="TextInput" class="spark.components.TextInput"/>
     <component id="TextSelectionHighlighting" class="spark.components.TextSelectionHighlighting"/>
     <component id="TextUtil" class="spark.utils.TextUtil"/>
+    <component id="TileGroup" class="spark.components.TileGroup"/>
     <component id="TileLayout" class="spark.layouts.TileLayout"/>
     <component id="TileOrientation" class="spark.layouts.TileOrientation"/>
     <component id="Timeline" class="spark.effects.animation.Timeline"/>
