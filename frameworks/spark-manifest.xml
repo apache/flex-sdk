@@ -196,8 +196,9 @@
 	<component id="AddItems" class="mx.states.AddItems" lookupOnly="true"/>
 
 	<!-- airframework -->
+    <component id="TitleBar" class="spark.components.windowClasses.TitleBar" lookupOnly="true"/>   
+    <component id="Window" class="spark.components.Window" lookupOnly="true"/>
     <component id="WindowedApplication" class="spark.components.WindowedApplication" lookupOnly="true"/>
-	<component id="TitleBar" class="spark.components.windowClasses.TitleBar" lookupOnly="true"/>   
 
 	<!-- FTE text for MX components -->
 	<component id="FTEDataGridItemRenderer" class="mx.controls.dataGridClasses.FTEDataGridItemRenderer"/>
