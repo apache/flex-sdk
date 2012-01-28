@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<componentPackage>
+
+
+   <component id="AdvancedDataGrid"
+                 class="mx.controls.AdvancedDataGrid"/>
+      <component id="AdvancedDataGridBaseSelectionData"
+                 class="mx.controls.advancedDataGridClasses.AdvancedDataGridBaseSelectionData"/>
+      <component id="AdvancedDataGridBaseSelectionPending"
+                 class="mx.controls.advancedDataGridClasses.AdvancedDataGridBaseSelectionPending"/>
+      <component id="AdvancedDataGridColumn"
+                 class="mx.controls.advancedDataGridClasses.AdvancedDataGridColumn"/>
+      <component id="AdvancedDataGridColumnGroup"
+                 class="mx.controls.advancedDataGridClasses.AdvancedDataGridColumnGroup"/>
+      <component id="AdvancedDataGridGroupItemRenderer"
+                 class="mx.controls.advancedDataGridClasses.AdvancedDataGridGroupItemRenderer"/>
+      <component id="AdvancedDataGridHeaderRenderer"
+                 class="mx.controls.advancedDataGridClasses.AdvancedDataGridHeaderRenderer"/>
+      <component id="AdvancedDataGridHeaderHorizontalSeparator"
+                 class="mx.skins.halo.AdvancedDataGridHeaderHorizontalSeparator"/>
+      <component id="AdvancedDataGridItemRenderer"
+                 class="mx.controls.advancedDataGridClasses.AdvancedDataGridItemRenderer"/>
+  	<component id="AdvancedDataGridRendererProvider"
+                 class="mx.controls.advancedDataGridClasses.AdvancedDataGridRendererProvider"/>
+      <component id="AdvancedDataGridSortItemRenderer"
+                 class="mx.controls.advancedDataGridClasses.AdvancedDataGridSortItemRenderer"/>
+      <component id="SortInfo"
+                 class="mx.controls.advancedDataGridClasses.SortInfo"/>
+  	<component id="PrintAdvancedDataGrid"
+                 class="mx.printing.PrintAdvancedDataGrid"/>
+  	<component id="PrintOLAPDataGrid"
+                 class="mx.printing.PrintOLAPDataGrid"/>
+  	<component id="GroupingCollection"
+  	           class="mx.collections.GroupingCollection"/>
+  	<component id="GroupingCollection2"
+  	           class="mx.collections.GroupingCollection2"/>
+  	<component id="Grouping"
+  	           class="mx.collections.Grouping"/>
+  	<component id="GroupingField"
+  	           class="mx.collections.GroupingField"/>
+  	<component id="HierarchicalCollectionView"
+  	           class="mx.collections.HierarchicalCollectionView"/>
+  	<component id="HierarchicalData"
+  	           class="mx.collections.HierarchicalData"/>
+  	<component id="SummaryRow"
+  	           class="mx.collections.SummaryRow"/>
+  	<component id="SummaryField"
+	           class="mx.collections.SummaryField"/>
+  	<component id="SummaryField2"
+	           class="mx.collections.SummaryField2"/>
+
+  <!-- olap -->    
+
+    <component id="OLAPSchema"  class="mx.olap.OLAPSchema"/>
+    <component id="OLAPCube"  class="mx.olap.OLAPCube"/>
+    <component id="OLAPDimension"  class="mx.olap.OLAPDimension"/>
+    <component id="OLAPHierarchy"  class="mx.olap.OLAPHierarchy"/>
+    <component id="OLAPLevel"  class="mx.olap.OLAPLevel"/>
+    <component id="OLAPMember"  class="mx.olap.OLAPMember"/>
+    <component id="OLAPMeasure"  class="mx.olap.OLAPMeasure"/>
+    <component id="OLAPAttribute"  class="mx.olap.OLAPAttribute"/>
+    
+    
+  <!-- olapgrid--> 
+   <component id="OLAPDataGrid" class="mx.controls.OLAPDataGrid"/>
+   <component id="OLAPDataGridItemRendererProvider"  class="mx.controls.olapDataGridClasses.OLAPDataGridItemRendererProvider"/>
+   <component id="OLAPDataGridHeaderRendererProvider"  class="mx.controls.olapDataGridClasses.OLAPDataGridHeaderRendererProvider"/>
+
+</componentPackage>
