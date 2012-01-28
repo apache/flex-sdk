@@ -67,6 +67,7 @@
       <!-- List of SWC files or directories that contain SWC files. -->
       <library-path>
          <path-element>libs</path-element>
+         <path-element>libs/mx</path-element>
          <path-element>libs/air</path-element>
          <path-element>locale/{locale}</path-element>
       </library-path>
@@ -344,6 +345,13 @@
 	<runtime-shared-library-path>
 		<path-element>libs/framework.swc</path-element>
 		<rsl-url>framework_4.0.0.0.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
+   
+    <!-- MX SWC -->
+	<runtime-shared-library-path>
+		<path-element>libs/mx/mx.swc</path-element>
+		<rsl-url>mx_4.5.0.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
    
