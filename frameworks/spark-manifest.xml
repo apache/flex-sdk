@@ -46,6 +46,7 @@
     <component id="ColorMatrixFilter" class="spark.filters.ColorMatrixFilter"/>
     <component id="ColorTransform" class="flash.geom.ColorTransform" lookupOnly="true"/>
     <component id="ColumnAlign" class="spark.layouts.ColumnAlign"/>
+      <component id="ColumnHeaderBar" class="spark.components.ColumnHeaderBar"/>
     <component id="ComboBox" class="spark.components.ComboBox"/>
     <component id="ConstraintColumn" class="mx.containers.utilityClasses.ConstraintColumn" lookupOnly="true"/>
     <component id="ConstraintLayout" class="spark.layouts.ConstraintLayout"/>
@@ -53,8 +54,11 @@
     <component id="ContentCache" class="spark.core.ContentCache"/> 
     <component id="ConvolutionFilter" class="spark.filters.ConvolutionFilter"/>
     <component id="CrossFade" class="spark.effects.CrossFade"/>
+    <component id="DataGrid" class="spark.components.DataGrid"/>    
     <component id="DataGroup" class="spark.components.DataGroup"/>
     <component id="DataRenderer" class="spark.components.DataRenderer"/>
+    <component id="DefaultColumnHeaderRenderer" class="spark.components.supportClasses.DefaultColumnHeaderRenderer"/>
+<component id="DefaultTreeItemRenderer" class="spark.components.supportClasses.DefaultTreeItemRenderer"/>
     <component id="DisplacementMapFilter" class="spark.filters.DisplacementMapFilter"/>
     <component id="DropDownList" class="spark.components.DropDownList"/>
     <component id="DropLocation" class="spark.layouts.supportClasses.DropLocation"/>
@@ -76,6 +80,9 @@
     <component id="GradientGlowFilter" class="spark.filters.GradientGlowFilter"/>
     <component id="Graphic" class="spark.primitives.Graphic"/>
     <component id="GraphicElement" class="spark.primitives.supportClasses.GraphicElement"/>
+    <component id="Grid" class="spark.components.Grid"/>
+    <component id="GridColumn" class="spark.components.supportClasses.GridColumn"/>
+    <component id="GridItemRenderer" class="spark.components.supportClasses.GridItemRenderer"/>
     <component id="Group" class="spark.components.Group"/>
     <component id="GroupBase" class="spark.components.supportClasses.GroupBase"/>
     <component id="HGroup" class="spark.components.HGroup"/>
@@ -92,6 +99,7 @@
     <component id="Linear" class="spark.effects.easing.Linear"/>
 	<component id="List" class="spark.components.List"/>
     <component id="ListBase" class="spark.components.supportClasses.ListBase"/>
+    <component id="ListTreeView" class="spark.components.supportClasses.ListTreeView"/>
     <component id="MaskType" class="spark.core.MaskType"/>
     <component id="Matrix" class="flash.geom.Matrix" lookupOnly="true"/>
     <component id="Matrix3D" class="flash.geom.Matrix3D" lookupOnly="true"/>
@@ -103,6 +111,7 @@
     <component id="NavigatorContent" class="spark.components.NavigatorContent"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
+    <component id="ObjectTreeAdapter" class="spark.components.supportClasses.ObjectTreeAdapter"/>
     <component id="Panel" class="spark.components.Panel"/>
     <component id="Path" class="spark.primitives.Path"/>
 	<component id="PopUpAnchor" class="spark.components.PopUpAnchor"/>
@@ -161,6 +170,8 @@
     <component id="TrackBase" class="spark.components.supportClasses.TrackBase"/>
     <component id="Transform" class="mx.geom.Transform"/>
     <component id="TransformOffsets" class="mx.geom.TransformOffsets" lookupOnly="true"/>
+    <component id="Tree" class="spark.components.Tree"/>
+    <component id="TreeItemRenderer" class="spark.components.supportClasses.TreeItemRenderer"/>
     <component id="VerticalAlign" class="spark.layouts.VerticalAlign"/>
     <component id="VerticalLayout" class="spark.layouts.VerticalLayout"/>
     <component id="VGroup" class="spark.components.VGroup"/>
