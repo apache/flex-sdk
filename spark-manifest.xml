@@ -52,6 +52,7 @@
     <component id="DataRenderer" class="spark.components.DataRenderer"/>
     <component id="DisplacementMapFilter" class="spark.filters.DisplacementMapFilter"/>
     <component id="DropDownList" class="spark.components.DropDownList"/>
+    <component id="DropLocation" class="spark.layouts.supportClasses.DropLocation"/>
     <component id="DropShadowFilter" class="spark.filters.DropShadowFilter"/>
     <component id="Elastic" class="spark.effects.easing.Elastic"/>
     <component id="Ellipse" class="spark.primitives.Ellipse"/>
