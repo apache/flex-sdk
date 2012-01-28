@@ -21,8 +21,12 @@
 
 <project name="framework" default="main" basedir=".">
 
-    <property environment="env"/>
-    <echo message="ANT_OPTS is currently set to ${env.ANT_OPTS}".  Please make sure the max heap size is set to at least 256m (-Xmx256m)./>
+    <!--
+        ANT_OPTS should have maximum heap size set to at least 256m.  Use the -Xmx999m switch and replace 999 with value.
+
+       <property environment="env"/>
+       <echo message="ANT_OPTS is currently set to ${env.ANT_OPTS}.  Please make sure the max heap size is set to at least 256m (-Xmx256m)."/>
+    -->
 
     <property name="FLEX_HOME" value="${basedir}/.."/>
     <property name="locale" value="en_US"/>
