@@ -6319,6 +6319,11 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 else
                     setRowHeight(20);
             }
+			else
+			{
+				// fetch the itemRenderer so that it gets initialized
+				var obj:Object = itemRenderer;
+			}
         }
     }
 
