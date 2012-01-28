@@ -50,7 +50,7 @@
     <component id="ConstraintColumn" class="mx.containers.utilityClasses.ConstraintColumn" lookupOnly="true"/>
     <component id="ConstraintLayout" class="spark.layouts.ConstraintLayout"/>
     <component id="ConstraintRow" class="mx.containers.utilityClasses.ConstraintRow" lookupOnly="true"/>
-    <component id="ContentCache" class="spark.core.contentLoader.ContentCache"/> 
+    <component id="ContentCache" class="spark.core.ContentCache"/> 
     <component id="ConvolutionFilter" class="spark.filters.ConvolutionFilter"/>
     <component id="CrossFade" class="spark.effects.CrossFade"/>
     <component id="DataGroup" class="spark.components.DataGroup"/>
