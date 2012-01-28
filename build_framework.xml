@@ -20,22 +20,23 @@
 	<property name="projects.dir" value="${FLEX_HOME}/frameworks/projects"/>
 	<property name="airframework.dir" value="${projects.dir}/airframework"/>
 	<property name="airspark.dir" value="${projects.dir}/airspark"/>
-	<property name="datavis.dir" value="${projects.dir}/datavisualization"/>
-	<property name="flex.dir" value="${projects.dir}/flex"/>
+	<property name="charts.dir" value="${projects.dir}/charts"/>
+	<property name="advancedgrids.dir" value="${projects.dir}/advancedgrids"/>
+	<property name="core.dir" value="${projects.dir}/core"/>
 	<property name="framework.dir" value="${projects.dir}/framework"/>
 	<property name="halo.dir" value="${projects.dir}/halo"/>
 	<property name="rpc.dir" value="${projects.dir}/rpc"/>
 	<property name="spark.dir" value="${projects.dir}/spark"/>
 	<property name="sparkskin.dir" value="${projects.dir}/sparkskins"/>
 	<property name="spark_dmv.dir" value="${projects.dir}/spark_dmv"/>
-	<property name="utilities.dir" value="${projects.dir}/utilities"/>
+	<property name="authoringsupport.dir" value="${projects.dir}/authoringsupport"/>
 	<property name="wireframe.dir" value="${projects.dir}/wireframe"/>
 	<property name="compc.jvm.args" value="-Xmx384m" />
 	<property name="playerglobal.version" value="10.2"/>	
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="clean,framework,framework_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,datavisualization,datavisualization_rb,flex,wireframe,sparkskins,utilities,spark_dmv"/>
+	<target name="main" depends="clean,framework,framework_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,charts,charts_rb,advancedgrids,advancedgrids_rb,core,wireframe,sparkskins,authoringsupport,spark_dmv"/>
 
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
@@ -139,18 +140,56 @@
 			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
-	
-	<target name="datavisualization" description="Builds datavisualization.swc">
+
+	<target name="charts" description="Builds charts.swc">
 		<compc static-link-runtime-shared-libraries="true"  
 		fork="true" 
-		include-classes="AdvancedDataGridClasses ChartsClasses"
-		 output="${basedir}/libs/datavisualization.swc" 
+		include-classes="ChartsClasses"
+		 output="${basedir}/libs/charts.swc" 
 		locale="" 
 		accessible="true"
 		show-deprecation-warnings="false">
-            <namespace uri="http://www.adobe.com/2006/mxml" manifest="${datavis.dir}/manifest_datavisualization.xml"/>
+            <namespace uri="http://www.adobe.com/2006/mxml" manifest="${datavis.dir}/manifest_charts.xml"/>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
-			<source-path path-element="${datavis.dir}/src"/>
+			<source-path path-element="${charts.dir}/src"/>
+			<source-path path-element="${basedir}/projects/mx/src"/>
+			<library-path/>
+			<external-library-path dir="${basedir}/libs">
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+				<include name="framework.swc"/>
+				<include name="mx/mx.swc.swc"/>
+				<include name="rpc.swc"/>
+				<include name="textLayout.swc"/>
+             </external-library-path>
+			<include-file name="defaults.css" path="${datavis.dir}/charts.css"/>
+			<include-file name="defaults-3.0.0.css" path="${datavis.dir}/charts-3.0.0.css"/>
+			<jvmarg line="${compc.jvm.args}"/>
+		</compc>
+	</target>
+	
+	<target name="charts_rb" description="Builds locale/en_US/charts_rb.swc">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/locale/${locale}/charts_rb.swc" locale="${locale}">
+            value="10.2"
+            <include-resource-bundles bundle="charts"/>
+            <source-path path-element="${charts.dir}/bundles/${locale}"/>
+			<source-path path-element="${framework.dir}/src"/>
+			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+			<library-path/>
+			<jvmarg line="${compc.jvm.args}"/>
+		</compc>
+	</target>	
+
+	<target name="advancedgrids" description="Builds advancedgrids.swc">
+		<compc static-link-runtime-shared-libraries="true"  
+		fork="true" 
+		include-classes="AdvancedDataGridClasses"
+		 output="${basedir}/libs/advancedgrids.swc" 
+		locale="" 
+		accessible="true"
+		show-deprecation-warnings="false">
+            <namespace uri="http://www.adobe.com/2006/mxml" manifest="${datavis.dir}/manifest_advancedgrids.xml"/>
+			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
+			<source-path path-element="${advancedgrids.dir}/src"/>
 			<source-path path-element="${basedir}/projects/mx/src"/>
 			<library-path/>
 			<external-library-path dir="${basedir}/libs">
@@ -166,24 +205,23 @@
 		</compc>
 	</target>
 	
-	<target name="datavisualization_rb" description="Builds locale/en_US/datavisualization_rb.swc">
-		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/locale/${locale}/datavisualization_rb.swc" locale="${locale}">
+	<target name="advancedgrids_rb" description="Builds locale/en_US/advancedgrids_rb.swc">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/locale/${locale}/advancedgrids_rb.swc" locale="${locale}">
             value="10.2"
-            <include-resource-bundles bundle="charts"/>
             <include-resource-bundles bundle="datamanagement"/>
             <include-resource-bundles bundle="olap"/>
-            <source-path path-element="${datavis.dir}/bundles/${locale}"/>
+            <source-path path-element="${advancedgrids.dir}/bundles/${locale}"/>
 			<source-path path-element="${framework.dir}/src"/>
 			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
 			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>	
-	
-	<target name="flex" description="Builds flex.swc">
-		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="FlexClasses" output="${basedir}/libs/flex.swc" locale="" accessible="true">
+
+	<target name="core" description="Builds core.swc">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="CoreClasses" output="${basedir}/libs/core.swc" locale="" accessible="true">
             value="10.2"
-			<source-path path-element="${flex.dir}/src"/>
+			<source-path path-element="${core.dir}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
 			 <load-config filename="${framework.dir}/framework-config.xml"/>
 			<library-path/>
@@ -325,7 +363,7 @@
 				<include name="framework.swc"/>
 				<include name="mx/mx.swc"/>
 				<include name="spark.swc"/>
-				<include name="datavisualization.swc"/>
+				<include name="advancedgrids.swc"/>
                 <include name="textLayout.swc"/>
 				<include name="osmf.swc"/>
 			</external-library-path>
@@ -371,11 +409,11 @@
 		</compc>
 	</target>
 	    
-	<target name="utilities" description="Builds utilities.swc">
-		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/libs/utilities.swc" include-classes="UtilitiesClasses"
+	<target name="authoringsupport" description="Builds authoringsupport.swc">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/libs/authoringsupport.swc" include-classes="AuthoringSupportClasses"
 		locale="" accessible="true">
-			<source-path path-element="${utilities.dir}/src"/>
-			<library-path dir="${utilities.dir}/libs">
+			<source-path path-element="${authoringsupport.dir}/src"/>
+			<library-path dir="${authoringsupport.dir}/libs">
                 <include name="FlexContentHolderThumbnail.swc"/>
             </library-path>
 			<external-library-path dir="${basedir}/libs">
@@ -419,19 +457,21 @@
 			<fileset dir="${basedir}/libs">
 				<include name="air/airframework.swc"/>
 				<include name="air/airspark.swc"/>
-				<inclide name="spark_dmv.swc"/>
-				<include name="datavisualization.swc"/>
+				<include name="spark_dmv.swc"/>
+				<include name="charts.swc"/>
+				<include name="advancedgrids.swc"/>
 				<include name="framework.swc"/>
-				<include name="flex.swc"/>
+				<include name="core.swc"/>
 				<include name="rpc.swc"/>
 				<include name="sparkskins.swc"/>
 				<include name="spark.swc"/>
-				<include name="utilities.swc"/>
+				<include name="authoringsupport.swc"/>
 			</fileset>
 			<fileset dir="${basedir}/locale/${locale}">
 				<include name="airframework_rb.swc"/>
 				<include name="airspark_rb.swc"/>
-				<include name="datavisualization_rb.swc"/>
+				<include name="charts_rb.swc"/>
+				<include name="advancedgrids_rb.swc"/>
 				<include name="framework_rb.swc"/>
 				<include name="rpc_rb.swc"/>
 				<include name="spark_rb.swc"/>
