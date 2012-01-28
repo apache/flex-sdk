@@ -62,7 +62,6 @@
 		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
 		<ant dir="${basedir}/projects/datavisualization" target="other.locales"/>
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
-		<ant dir="${basedir}/projects/spark_dmv" target="other.locales"/>
 		<ant dir="${basedir}/projects/textLayout" target="other.locales"/>
 		<ant dir="${basedir}/projects/osmf" target="other.locales"/>
 		<ant dir="${basedir}/projects/playerglobal" target="other.locales" />
