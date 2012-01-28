@@ -180,6 +180,7 @@
 
     <!-- framework base classes with CSS type selectors -->
     <component id="Alert" class="mx.controls.Alert" />
+    <component id="AlertForm" class="mx.controls.alertClasses.AlertForm" lookupOnly="true"/>
     <component id="AccordionHeader" class="mx.containers.accordionClasses.AccordionHeader" />
     <component id="ButtonBarButton" class="mx.controls.buttonBarClasses.ButtonBarButton" />
     <component id="CalendarLayout" class="mx.controls.CalendarLayout" />
@@ -187,13 +188,18 @@
     <component id="DragManager" class="mx.managers.DragManager" />
     <component id="FormItemLabel" class="mx.controls.FormItemLabel" />
     <component id="ListBase" class="mx.controls.listClasses.ListBase" />
+    <component id="ListItemRenderer" class="mx.controls.listClasses.ListItemRenderer" lookupOnly="true"/>
     <component id="Menu" class="mx.controls.Menu" />
+    <component id="MenuBarItem" class="mx.controls.menuClasses.MenuBarItem" />
+    <component id="MenuItemRenderer" class="mx.controls.menuClasses.MenuItemRenderer" lookupOnly="true"/>
     <component id="ScrollBar" class="mx.controls.scrollClasses.ScrollBar" />
     <component id="ScrollControlBase" class="mx.core.ScrollControlBase" />
     <component id="Slider" class="mx.controls.sliderClasses.Slider" />
     <component id="SwatchPanel" class="mx.controls.colorPickerClasses.SwatchPanel" />
     <component id="Tab" class="mx.controls.tabBarClasses.Tab" />
+    <component id="TileListItemRenderer" class="mx.controls.listClasses.TileListItemRenderer" lookupOnly="true"/>
     <component id="ToolTip" class="mx.controls.ToolTip" />
+    <component id="TreeItemRenderer" class="mx.controls.treeClasses.TreeItemRenderer" lookupOnly="true"/>
     <component id="UIComponent" class="mx.core.UIComponent" />
 
     <!-- airframework -->
