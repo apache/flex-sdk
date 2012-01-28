@@ -88,7 +88,7 @@
          </namespace>
          <namespace>
             <uri>http://www.adobe.com/2006/mxml</uri>
-            <manifest>mx-manifest.xml</manifest>
+            <manifest>mxml-manifest.xml</manifest>
          </namespace>
       </namespaces>
       
