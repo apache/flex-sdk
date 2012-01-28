@@ -134,6 +134,7 @@
     <component id="StreamingVideoSource" class="spark.components.mediaClasses.StreamingVideoSource"/>
     <component id="StreamItem" class="spark.components.mediaClasses.StreamItem"/>
     <component id="StrokedElement" class="spark.primitives.supportClasses.StrokedElement"/>
+    <component id="TabBar" class="spark.components.TabBar"/>
     <component id="TextArea" class="spark.components.TextArea"/>
     <component id="TextBase" class="spark.components.supportClasses.TextBase"/>
     <component id="TextInput" class="spark.components.TextInput"/>
