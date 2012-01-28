@@ -68,7 +68,7 @@
       <library-path>
          <path-element>libs</path-element>
          <path-element>libs/mobile</path-element>
-         <path-element>libs/mx</path-element> <!-- TODO: Remove this entry! -->
+         <path-element>libs/air/servicemonitor.swc</path-element>
          <path-element>locale/{locale}</path-element>
       </library-path>
      
