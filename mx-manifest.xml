@@ -23,6 +23,7 @@
     <component id="FileSystemHistoryButton" class="mx.controls.FileSystemHistoryButton"/>
     <component id="FileSystemList" class="mx.controls.FileSystemList"/>
     <component id="FileSystemTree" class="mx.controls.FileSystemTree"/>
+    <component id="FlexNativeMenu" class="mx.controls.FlexNativeMenu"/>
     <component id="HTML" class="mx.controls.HTML"/>
     <component id="Window" class="mx.core.Window"/>
     <component id="WindowedApplication" class="mx.core.WindowedApplication"/>
