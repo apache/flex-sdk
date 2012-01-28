@@ -101,10 +101,10 @@ tar -xjf "AIR Integration Kit.tbz2" .
 		<ant dir="projects/haloclassic" target="compile"/>
 	</target>
 
-	<target name="bundles" description ="Builds all resource bundles">
-		<ant dir="projects/framework" target="bundles"/>
-		<ant dir="projects/airframework" target="bundles"/>
-		<ant dir="projects/rpc" target="bundles"/>
+	<target name="other.locales" description ="Builds resource SWCs for other locales">
+		<ant dir="projects/framework" target="other.locales"/>
+		<ant dir="projects/airframework" target="other.locales"/>
+		<ant dir="projects/rpc" target="other.locales"/>
 	</target>
 
     <!--
