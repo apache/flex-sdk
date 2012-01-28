@@ -17,8 +17,6 @@
 -->
 <componentPackage>
 
-   
-
  <!-- Flex4 Framework -->
     <component id="AddAction" class="spark.effects.AddAction"/>
     <component id="AddActionInstance" class="spark.effects.supportClasses.AddActionInstance"/>
@@ -32,6 +30,13 @@
     <component id="AnimateInstance" class="spark.effects.supportClasses.AnimateInstance"/>
     <component id="AnimateShaderTransition" class="spark.effects.AnimateShaderTransition"/>
     <component id="AnimateShaderTransitionInstance" class="spark.effects.supportClasses.AnimateShaderTransitionInstance"/>
+	<component id="AnimateTransform" class="spark.effects.AnimateTransform"/>
+    <component id="AnimateTransformMove" class="spark.effects.AnimateTransformMove"/>
+    <component id="AnimateTransformMove3D" class="spark.effects.AnimateTransformMove3D"/>
+    <component id="AnimateTransformRotate" class="spark.effects.AnimateTransformRotate"/>
+    <component id="AnimateTransformRotate3D" class="spark.effects.AnimateTransformRotate3D"/>
+    <component id="AnimateTransformScale" class="spark.effects.AnimateTransformScale"/>
+    <component id="AnimateTransformScale3D" class="spark.effects.AnimateTransformScale3D"/>
     <component id="Animation" class="spark.effects.animation.Animation"/>
     <component id="AnimationEvent" class="spark.events.AnimationEvent"/>
     <component id="AnimationProperty" class="spark.effects.AnimationProperty"/>
@@ -237,8 +242,8 @@
     <component id="TextGraphicElement" class="spark.primitives.supportClasses.TextGraphicElement"/>
 
 	<!-- airframework -->
-    <component id="WindowedApplication" class="mx.core.WindowedApplication" lookupOnly="true"/>
-	<component id="TitleBar" class="mx.core.windowClasses.TitleBar" lookupOnly="true"/>   
+    <component id="WindowedApplication" class="spark.components.WindowedApplication" lookupOnly="true"/>
+	<component id="TitleBar" class="spark.components.windowClasses.TitleBar" lookupOnly="true"/>   
 
    <!-- TCAL Text Framework -->
     <component id="br" class="flashx.textLayout.elements.BreakElement" lookupOnly="true"/>
