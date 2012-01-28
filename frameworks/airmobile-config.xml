@@ -27,7 +27,10 @@
       <locale>
           <locale-element>en_US</locale-element>
       </locale>
-      
+
+      <!-- Specifies that the target runtime is a mobile device. -->
+      <mobile>true</mobile>
+
       <!-- List of path elements that form the roots of ActionScript class hierarchies. -->
       <!-- not set -->
       <!--
