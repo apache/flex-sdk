@@ -2,7 +2,7 @@
 <componentPackage>
 
 
-   <component id="AdvancedDataGrid"
+      <component id="AdvancedDataGrid"
                  class="mx.controls.AdvancedDataGrid"/>
       <component id="AdvancedDataGridBaseSelectionData"
                  class="mx.controls.advancedDataGridClasses.AdvancedDataGridBaseSelectionData"/>
@@ -26,6 +26,8 @@
                  class="mx.controls.advancedDataGridClasses.AdvancedDataGridSortItemRenderer"/>
       <component id="SortInfo"
                  class="mx.controls.advancedDataGridClasses.SortInfo"/>
+      <component id="AdvancedListBase"
+                 class="mx.controls.listClasses.AdvancedListBase"/>
   	<component id="PrintAdvancedDataGrid"
                  class="mx.printing.PrintAdvancedDataGrid"/>
   	<component id="PrintOLAPDataGrid"
