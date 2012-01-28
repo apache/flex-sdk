@@ -247,7 +247,7 @@
 			<include-resource-bundles bundle="layout"/>
 			<source-path path-element="${spark.dir}/bundles/${locale}"/>
 			<source-path path-element="${spark.dir}/src"/>
-			<source-path path-element="${framework.dir}//src"/>
+			<source-path path-element="${framework.dir}/src"/>
 			<include-libraries/>
 			<library-path/>
            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
@@ -276,16 +276,14 @@
 	
 	<target name="textLayout" description="builds textlayout.swc">
 			<compc  locale="" accessible="true"
-			include-classes="flashx.textLayout.CoreClasses flashx.textLayout.EditClasses flashx.textLayout.ConversionClasses flashx.textLayout.TextFieldClasses" 
+			include-classes="flashx.textLayout.CoreClasses flashx.textLayout.EditClasses flashx.textLayout.ConversionClasses" 
 			output="${basedir}/libs/textLayout.swc">
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-namespaces uri="library:adobe/flashx/textLayout"/>
 			<namespace uri="library:adobe/flashx/textLayout" manifest="${tlf.dir}/textLayout_core/manifest.xml"/>
-			<namespace uri="library:adobe/flashx/textLayout" manifest="${tlf.dir}/textLayout_edit/manifest.xml"/>
 			<source-path path-element="${tlf.dir}/textLayout_core/src"/>
 			<source-path path-element="${tlf.dir}/textLayout_edit/src"/>
 			<source-path path-element="${tlf.dir}/textLayout_conversion/src"/>
-			<source-path path-element="${tlf.dir}/textLayout_textField/src"/>
 			<library-path/>
 			<external-library-path dir="${basedir}/libs" append="false">
 				<include name="player/${global.playerglobal.version}playerglobal.swc"/>
