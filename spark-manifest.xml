@@ -20,12 +20,10 @@
  <!-- Flex4 Framework -->
     <component id="AddAction" class="spark.effects.AddAction"/>
     <component id="Animate" class="spark.effects.Animate"/>
-    <component id="Animate3D" class="spark.effects.Animate3D"/>
     <component id="AnimateColor" class="spark.effects.AnimateColor"/>
     <component id="AnimateFilter" class="spark.effects.AnimateFilter"/>
     <component id="AnimateShaderTransition" class="spark.effects.AnimateShaderTransition"/>
 	<component id="AnimateTransform" class="spark.effects.AnimateTransform"/>
-    <component id="AnimateTransformRotate3D" class="spark.effects.AnimateTransformRotate3D"/>
     <component id="Animation" class="spark.effects.animation.Animation"/>
     <component id="Application" class="spark.components.Application"/>
     <component id="ArrayCollection" class="mx.collections.ArrayCollection" lookupOnly="true"/>
