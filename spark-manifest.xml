@@ -222,10 +222,14 @@
     <component id="Stroke" class="mx.graphics.Stroke" lookupOnly="true"/>
     <component id="Transform" class="mx.geom.Transform" lookupOnly="true"/>
 
-	<!-- Flex 3 Effects -->
-	<component id="Parallel" class="mx.effects.Parallel" lookupOnly="true"/>
-	<component id="Sequence" class="mx.effects.Sequence" lookupOnly="true"/>
-	<component id="Transition" class="mx.states.Transition" lookupOnly="true"/>
-	<component id="Pause" class="mx.effects.Pause" lookupOnly="true"/>
+    <!-- Flex 3 Effects -->
+    <component id="Parallel" class="mx.effects.Parallel" lookupOnly="true"/>
+    <component id="Sequence" class="mx.effects.Sequence" lookupOnly="true"/>
+    <component id="Transition" class="mx.states.Transition" lookupOnly="true"/>
+    <component id="Pause" class="mx.effects.Pause" lookupOnly="true"/>
+
+    <!-- Flex 3 Miscellaneous -->
+    <component id="MiniDebugTarget" class="mx.logging.targets.MiniDebugTarget" lookupOnly="true"/>
+    <component id="TraceTarget" class="mx.logging.targets.TraceTarget" lookupOnly="true"/>
 
 </componentPackage>
