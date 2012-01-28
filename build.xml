@@ -17,7 +17,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,prepare,javascript,framework,flex4,rpc,airframework,flex,utilities,haloclassic,flash_integration" description="Clean build of all SWCs"/>
+	<target name="main" depends="clean,prepare,javascript,framework,flex4,rpc,airframework,flex,utilities,haloclassic,wireframe,flash_integration" description="Clean build of all SWCs"/>
 
 	<target name="doc" >
 		<ant dir="${basedir}/projects/framework" target="doc" />
@@ -27,6 +27,7 @@
 		<ant dir="${basedir}/projects/flex" target="doc" />
 		<ant dir="${basedir}/projects/utilities" target="doc" />
 		<ant dir="${basedir}/projects/haloclassic" target="doc" />
+		<ant dir="${basedir}/projects/wireframe" target="doc" />
 		<ant dir="${basedir}/projects/flash-integration" target="doc" />
 	</target>
 
@@ -48,6 +49,10 @@
 
      <target name="flex4" description="Clean build of flex4.swc">
 		<ant dir="${basedir}/projects/flex4"/>
+    </target>
+
+    <target name="wireframe" description="Clean build of wireframe.swc">
+		<ant dir="${basedir}/projects/wireframe"/>
     </target>
 
 	<target name="flash_integration" description="Clean build of FlexComponentBase.swc">
@@ -88,6 +93,7 @@
 		<ant dir="${basedir}/projects/flex4" target="clean"/>
 		<ant dir="${basedir}/projects/utilities" target="clean"/>
 		<ant dir="${basedir}/projects/haloclassic" target="clean"/>
+		<ant dir="${basedir}/projects/wireframe" target="clean"/>
 		<ant dir="${basedir}/projects/flash-integration" target="clean"/>
 		<ant dir="${basedir}/projects/rpc" target="clean"/>
 		<ant dir="${basedir}/projects/utilities" target="clean"/>
@@ -98,6 +104,7 @@
 		<delete dir="${basedir}/libs/air"/>
 		<delete dir="${basedir}/locale"/>
 		<delete dir="${basedir}/themes/haloclassic"/>
+		<delete dir="${basedir}/themes/Wireframe"/>
 	</target>
 
 	<target name="prepare" description="Prepares for building framework SWCs">
@@ -126,6 +133,7 @@ tar -xjf "AIR Integration Kit.tbz2" .
 		<ant dir="${basedir}/projects/utilities" target="compile"/>
 		<ant dir="${basedir}/projects/haloclassic" target="compile"/>
 		<ant dir="${basedir}/projects/flex4" target="compile"/>
+		<ant dir="${basedir}/projects/wireframe" target="compile"/>
 
     </target>
 
