@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf8"?>
+<!--
+Refer
+1. http://fbdev.macromedia.com/wiki/index.php/Third_Party_Components_Revised
+2. http://flexteam.macromedia.com/flexwiki/index.php/AdvancedDataGrid_FlexBuilder_Integration
+-->
+<design>
+    <namespaces>
+        <namespace prefix="mx" uri="http://www.adobe.com/2006/mxml"/>
+    </namespaces>
+
+    <categories>
+        <category id="controls" label="Controls" defaultExpand="true"/>
+    </categories>
+
+    <components>
+        <component id="mx.controls.AdvancedDataGrid"
+            name="AdvancedDataGrid"
+            category="controls"
+            namespace="mx"
+            inserterClass="com.adobe.flexbuilder.editors.mxml.views.components.inserters.AdvancedDataGridInserter"
+            insertStyle="control">
+            <mxmlProperties>
+                <textfield attribute="dataProvider" label="Data provider:"/>
+                <textfield attribute="columnWidth" label="Column width:"/>
+                <combo attribute="selectionMode" label="Selection mode:"/>
+                <textfield attribute="selectedCells" label="Selection:" multiLine="true"/>
+                <combo attribute="editable" label="Editable:"/>
+                <combo attribute="enabled" label="Enabled:"/>
+                <textfield attribute="change" label="On change:"/>
+            </mxmlProperties>
+            <cssProperties>
+                <!-- TODO Will fill based on "ask peter what goes here :)" -->
+            </cssProperties>
+        </component>
+    </components>
+
+</design>
+
