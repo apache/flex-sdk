@@ -93,7 +93,9 @@ include "../../styles/metadata/PaddingStyles.as";
  *  The class to use as the skin for the arrow that indicates the column sort
  *  direction.
  * 
- *  @default mx.skins.halo.DataGridSortArrow
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.DataGridSortArrow</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.DataGridSortArrow</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
