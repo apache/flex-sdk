@@ -58,8 +58,6 @@
 		<ant dir="${basedir}/projects/mx" target="other.locales"/>
 		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
         <ant dir="${basedir}/projects/airspark" target="other.locales"/>
-        <ant dir="${basedir}/projects/mobilecomponents" target="other.locales"/>
-        <ant dir="${basedir}/projects/mobiletheme" target="other.locales"/>
 		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
 		<ant dir="${basedir}/projects/datavisualization" target="other.locales"/>
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
