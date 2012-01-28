@@ -27,6 +27,7 @@
 	<property name="rpc.dir" value="${projects.dir}/rpc"/>
 	<property name="spark.dir" value="${projects.dir}/spark"/>
 	<property name="sparkskin.dir" value="${projects.dir}/sparkskins"/>
+	<property name="spark_dmv.dir" value="${projects.dir}/spark_dmv"/>
 	<property name="utilities.dir" value="${projects.dir}/utilities"/>
 	<property name="wireframe.dir" value="${projects.dir}/wireframe"/>
 	<property name="compc.jvm.args" value="-Xmx384m" />
@@ -34,7 +35,7 @@
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="clean,framework,framework_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,datavisualization,datavisualization_rb,flex,wireframe,sparkskins,utilities"/>
+	<target name="main" depends="clean,framework,framework_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,datavisualization,datavisualization_rb,flex,wireframe,sparkskins,utilities,spark_dmv"/>
 
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
@@ -311,6 +312,27 @@
 			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
+
+	<target name="spark_dmv" description="Builds the spark_dmv.swc">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="SparkDmvClasses" output="${basedir}/libs/spark_dmv.swc" locale="" accessible="true">
+		    <target-player>10.1</target-player>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${spark_dmv.dir}/manifest_spark_dmv.xml"/>
+			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
+			<source-path path-element="${spark_dmv.dir}/src"/>
+			<library-path />
+			<external-library-path dir="${basedir}/libs">
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+				<include name="framework.swc"/>
+				<include name="mx/mx.swc"/>
+				<include name="spark.swc"/>
+				<include name="datavisualization.swc"/>
+                <include name="textLayout.swc"/>
+				<include name="osmf.swc"/>
+			</external-library-path>
+			<include-file name="defaults.css" path="${spark_dmv.dir}/defaults.css"/>
+			<jvmarg line="${compc.jvm.args}"/>
+		</compc>
+	</target>
 	
 	<target name="spark_rb">
 		<echo message="Compiling frameworks/locale/${locale}/spark_rb.swc"/>
@@ -397,6 +419,7 @@
 			<fileset dir="${basedir}/libs">
 				<include name="air/airframework.swc"/>
 				<include name="air/airspark.swc"/>
+				<inclide name="spark_dmv.swc"/>
 				<include name="datavisualization.swc"/>
 				<include name="framework.swc"/>
 				<include name="flex.swc"/>
