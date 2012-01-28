@@ -63,7 +63,7 @@
             <include-resource-bundles bundle="styles"/>
             <include-resource-bundles bundle="utils"/>
             <include-resource-bundles bundle="validators"/>
-			<source-path path-element="${framework.dir}/bundles/${locale}/src"/>
+			<source-path path-element="${framework.dir}/bundles/${locale}"/>
 			<source-path path-element="${framework.dir}/src"/>
 			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
@@ -122,10 +122,10 @@
             <include-resource-bundles bundle="formatters"/>                        
             <include-resource-bundles bundle="skins"/>
 			<include-resource-bundles bundle="styles"/>
-			<source-path path-element="${airframework.dir}/bundles/${locale}/src"/>
+			<source-path path-element="${airframework.dir}/bundles/${locale}"/>
 			<source-path path-element="${airframework.dir}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
-			<source-path path-element="${framework.dir}/bundles/${locale}/src"/>
+			<source-path path-element="${framework.dir}/bundles/${locale}"/>
 			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
 		</compc>
@@ -151,8 +151,8 @@
 			<include-resource-bundles bundle="rpc"/>
 			<include-resource-bundles bundle="styles"/>
 			<include-resource-bundles bundle="utils"/>
-			<source-path path-element="${rpc.dir}/bundles/${locale}/src"/>
-			<source-path path-element="${framework.dir}/bundles/${locale}/src"/>
+			<source-path path-element="${rpc.dir}/bundles/${locale}"/>
+			<source-path path-element="${framework.dir}/bundles/${locale}"/>
 			<source-path path-element="${framework.dir}/src"/>
 			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
@@ -182,7 +182,7 @@
 		<compc include-classes="UtilitiesClasses" output="${basedir}/libs/utilities.swc" locale="" accessible="true">
 			<source-path path-element="${utilities.dir}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
-			<source-path path-element="${framework.dir}/bundles/{locale}/src"/>
+			<source-path path-element="${framework.dir}/bundles/{locale}"/>
 			<library-path/>
 		</compc>
 	</target>
