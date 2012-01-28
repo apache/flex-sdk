@@ -72,6 +72,7 @@
     <component id="HSlider" class="spark.components.HSlider"/>
     <component id="ItemRenderer" class="spark.components.supportClasses.ItemRenderer"/>
     <component id="Keyframe" class="spark.effects.animation.Keyframe"/>
+    <component id="Label" class="spark.components.Label"/>
     <component id="LayoutBase" class="spark.layouts.supportClasses.LayoutBase"/>
     <component id="Line" class="spark.primitives.Line"/>
     <component id="Linear" class="spark.effects.easing.Linear"/>
@@ -102,8 +103,8 @@
     <component id="RemoveAction" class="spark.effects.RemoveAction"/>
     <component id="Resize" class="spark.effects.Resize"/>
     <component id="RGBInterpolator" class="spark.effects.interpolation.RGBInterpolator"/>
-    <component id="RichEditableText" class="spark.primitives.RichEditableText"/>
-    <component id="RichText" class="spark.primitives.RichText"/>
+    <component id="RichEditableText" class="spark.components.RichEditableText"/>
+    <component id="RichText" class="spark.components.RichText"/>
     <component id="Rotate" class="spark.effects.Rotate"/>
     <component id="Rotate3D" class="spark.effects.Rotate3D"/>
     <component id="RowAlign" class="spark.layouts.RowAlign"/>
@@ -116,7 +117,6 @@
     <component id="SetAction" class="spark.effects.SetAction"/>
     <component id="ShaderFilter" class="spark.filters.ShaderFilter"/>
     <component id="SimpleMotionPath" class="spark.effects.animation.SimpleMotionPath"/>
-    <component id="SimpleText" class="spark.primitives.SimpleText"/>
     <component id="Sine" class="spark.effects.easing.Sine"/>
     <component id="Skin" class="spark.components.supportClasses.Skin"/>
     <component id="SkinnableComponent" class="spark.components.supportClasses.SkinnableComponent"/>
@@ -132,7 +132,7 @@
     <component id="StreamItem" class="spark.components.mediaClasses.StreamItem"/>
     <component id="StrokedElement" class="spark.primitives.supportClasses.StrokedElement"/>
     <component id="TextArea" class="spark.components.TextArea"/>
-    <component id="TextGraphicElement" class="spark.primitives.supportClasses.TextGraphicElement"/>
+    <component id="TextBase" class="spark.components.supportClasses.TextBase"/>
     <component id="TextInput" class="spark.components.TextInput"/>
     <component id="TextSelectionHighlighting" class="spark.components.TextSelectionHighlighting"/>
     <component id="TextUtil" class="spark.utils.TextUtil"/>
@@ -158,9 +158,6 @@
     <!-- Special Components -->
     <component id="State" class="mx.states.State" lookupOnly="true"/>
 	<component id="AddItems" class="mx.states.AddItems" lookupOnly="true"/>
-		
-    <!-- Framework base classes with CSS type selectors -->
-    <component id="TextGraphicElement" class="spark.primitives.supportClasses.TextGraphicElement"/>
 
 	<!-- airframework -->
     <component id="WindowedApplication" class="spark.components.WindowedApplication" lookupOnly="true"/>
