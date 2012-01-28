@@ -22,6 +22,7 @@
     <component id="Boolean" class="Boolean" lookupOnly="true"/>
     <component id="Class" class="Class" lookupOnly="true"/>
     <component id="Date" class="Date" lookupOnly="true"/>
+    <component id="DesignLayer" class="mx.core.DesignLayer"/>
     <component id="Function" class="Function" lookupOnly="true"/>
     <component id="int" class="int" lookupOnly="true"/>
     <component id="Number" class="Number" lookupOnly="true"/>
