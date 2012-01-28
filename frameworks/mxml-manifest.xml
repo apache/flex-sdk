@@ -328,7 +328,7 @@
     <component id="WebService" class="mx.rpc.soap.mxml.WebService" lookupOnly="true"/>
     <component id="WebServiceOperation" class="mx.rpc.soap.mxml.Operation" lookupOnly="true"/>
 
-    <!-- fds (now known as LCDS) -->
+    <!-- LCDS (formerly known as FDS) -->
     <component id="DataService" class="mx.data.mxml.DataService" lookupOnly="true"/>
 
 </componentPackage>
