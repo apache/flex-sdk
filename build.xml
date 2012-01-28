@@ -166,6 +166,7 @@
         <delete failonerror="false" verbose="false">
             <fileset dir="${basedir}/projects/textLayout">
                 <include name="**/**"/>
+                <exclude name=".*/**"/>
                 <exclude name="build.xml"/>
             </fileset>
         </delete>
