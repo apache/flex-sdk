@@ -1,13 +1,19 @@
 <?xml version="1.0"?>
 
 <!--
+   Copyright 2011 Adobe Systems, Inc.
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2005-2007 Adobe Systems Incorporated
-	All Rights Reserved.
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
 
 -->
 
@@ -315,98 +321,6 @@
 
    </compiler>
 
-   <!-- compute-digest: writes a digest to the catalog.xml of a library. Use this when the library will be used as a
-                        cross-domain rsl.-->
-   <!-- compute-digest usage:
-   <compute-digest>boolean</compute-digest>
-   -->
-
-   <!-- remove-unused-rsls: remove RSLs that are not being used by the application-->
-   <remove-unused-rsls>true</remove-unused-rsls>
-
-   <!-- A list of runtime shared library URLs to be loaded before applications start. -->
-   <!-- not set -->
-   <!--
-   <runtime-shared-libraries>
-      <url>string</url>
-      <url>string</url>
-   </runtime-shared-libraries>
-   -->
-	
-	<!-- runtime-shared-library-path: specifies a SWC or directory to link against and an RSL URL to load with optional failover URLs -->
-      <!-- Framework SWC -->
-	<runtime-shared-library-path>
-		<path-element>libs/framework.swc</path-element>
-		<rsl-url>framework_4.6.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-   
-	<!-- TextLayout SWC -->
-      <runtime-shared-library-path>
-		<path-element>libs/textLayout.swc</path-element>
-		<rsl-url>textLayout_2.0.0.232.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-    
-      <!-- Spark SWC-->
-   	<runtime-shared-library-path>
-		<path-element>libs/spark.swc</path-element>
-		<rsl-url>spark_4.6.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-	
-      <!-- Sparkskins SWC-->
-   	<runtime-shared-library-path>
-		<path-element>libs/sparkskins.swc</path-element>
-		<rsl-url>sparkskins_4.6.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-	 
-	<!-- RPC SWC -->
-	<runtime-shared-library-path>
-		<path-element>libs/rpc.swc</path-element>
-		<rsl-url>rpc_4.6.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-    	
-      <!-- Charts SWC -->
-	<runtime-shared-library-path>
-		<path-element>libs/charts.swc</path-element>
-		<rsl-url>charts_4.6.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-
-      <!-- Spark_dmv SWC -->
-	<runtime-shared-library-path>
-		<path-element>libs/spark_dmv.swc</path-element>
-		<rsl-url>spark_dmv_4.6.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-
-      <!-- OSMF SWC -->
-     <runtime-shared-library-path>
-		<path-element>libs/osmf.swc</path-element>
-		<rsl-url>osmf_1.0.0.16316.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-      
-      <!-- MX SWC -->
-	<runtime-shared-library-path>
-		<path-element>libs/mx/mx.swc</path-element>
-		<rsl-url>mx_4.6.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-   
-      <!-- Advancedgrids SWC -->
-	<runtime-shared-library-path>
-		<path-element>libs/advancedgrids.swc</path-element>
-		<rsl-url>advancedgrids_4.6.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-
-	<!-- static-link-runtime-shared-libraries: statically link the libraries specified by the -runtime-shared-libraries-path option.-->
-	<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
-
    <!-- target-player: specifies the version of the player the application is targeting.
                        Features requiring a later version will not be compiled into the application.
                        The minimum value supported is "9.0.0".-->
@@ -419,7 +333,7 @@
 
    <!-- Metadata added to SWFs via the SWF Metadata tag. -->
    <metadata>
-      <title>Adobe Flex 4 Application</title>
+      <title>Apache Flex Application</title>
       <description>http://www.adobe.com/products/flex</description>
       <publisher>unknown</publisher>
       <creator>unknown</creator>
