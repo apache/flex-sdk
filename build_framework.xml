@@ -27,11 +27,13 @@
 	<property name="locale" value="en_US"/>
 	<property name="projects.dir" value="${FLEX_HOME}/frameworks/projects"/>
 	<property name="airframework.dir" value="${projects.dir}/airframework"/>
-	<property name="airspark.dir" value="${projects.dir}/airspark"/>
+    <property name="airspark.dir" value="${projects.dir}/airspark"/>
 	<property name="charts.dir" value="${projects.dir}/charts"/>
 	<property name="advancedgrids.dir" value="${projects.dir}/advancedgrids"/>
 	<property name="core.dir" value="${projects.dir}/core"/>
-	<property name="framework.dir" value="${projects.dir}/framework"/>
+    <property name="flash-integration.dir" value="${projects.dir}/flash-integration"/>
+    <property name="framework.dir" value="${projects.dir}/framework"/>
+    <property name="mx.dir" value="${projects.dir}/mx"/>
 	<property name="halo.dir" value="${projects.dir}/halo"/>
 	<property name="rpc.dir" value="${projects.dir}/rpc"/>
 	<property name="spark.dir" value="${projects.dir}/spark"/>
@@ -44,7 +46,7 @@
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="clean,thirdparty-downloads,prepare,framework,framework_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,charts,charts_rb,advancedgrids,advancedgrids_rb,core,wireframe,sparkskins,authoringsupport,spark_dmv"/>
+	<target name="main" depends="clean,thirdparty-downloads,prepare,framework,framework_rb,mx,mx_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,charts,charts_rb,advancedgrids,advancedgrids_rb,core,wireframe,sparkskins,flash-integration,authoringsupport,spark_dmv"/>
 
 	<target name="prepare" description="Copies manifests to project directories so the IDE can find them">
         <copy file="${FLEX_HOME}/frameworks/spark-manifest.xml" tofile="${FLEX_HOME}/frameworks/projects/spark/manifest.xml" overwrite="true"/>
@@ -59,7 +61,7 @@
 			<external-library-path dir="${basedir}/libs">
 				<include name="air/airglobal.swc"/>
 				<include name="framework.swc"/>
-				<include name="mx/mx.swc"/>
+				<include name="mx.swc"/>
                 <include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${airframework.dir}/defaults.css"/>
@@ -130,7 +132,7 @@
 				<include name="air/airglobal.swc"/>
 				<include name="air/airframework.swc"/>
 				<include name="framework.swc"/>
-				<include name="mx/mx.swc"/>
+				<include name="mx.swc"/>
                 <include name="textLayout.swc"/>
 				<include name="spark.swc"/>
 			</external-library-path>
@@ -206,7 +208,7 @@
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
-				<include name="mx/mx.swc.swc"/>
+				<include name="mx.swc"/>
 				<include name="rpc.swc"/>
 				<include name="textLayout.swc"/>
              </external-library-path>
@@ -298,6 +300,44 @@
 		</compc>
 	</target>	
 	
+   <target name="mx" description="Builds the mx.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" include-classes="MxClasses" output="${basedir}/libs/mx.swc" locale="" accessible="true">
+            <namespace uri="library://ns.adobe.com/flex/mx" manifest="${mx.dir}/manifest.xml"/>
+            <namespace uri="http://www.adobe.com/2006/mxml" manifest="${mx.dir}/manifest.xml"/>
+            <include-namespaces uri="library://ns.adobe.com/flex/mx"/>
+            <source-path path-element="${mx.dir}/src"/>
+            <library-path />
+            <external-library-path dir="${basedir}/libs">
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+                <include name="framework.swc"/>
+                <include name="textLayout.swc"/>
+            </external-library-path>
+            <include-file name="defaults.css" path="${mx.dir}/defaults.css"/>
+            <include-file name="defaults-3.0.0.css" path="${mx.dir}/defaults-3.0.0.css"/>
+            <jvmarg line="${compc.jvm.args}"/>
+            <keep-as3-metadata name="Bindable"/>
+            <keep-as3-metadata name="Managed"/>
+            <keep-as3-metadata name="ChangeEvent"/>
+            <keep-as3-metadata name="NonCommittingChangeEvent"/>
+            <keep-as3-metadata name="Transient"/>
+        </compc>
+    </target>
+	
+    <target name="mx_rb" description="Builds locale/en_US/mx_rb.swc">
+        <compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/locale/${locale}/mx_rb.swc" locale="${locale}">
+            <include-resource-bundles bundle="containers"/>
+            <source-path path-element="${mx.dir}/bundles/${locale}"/>
+            <source-path path-element="${mx.dir}/src"/>
+            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+            <external-library-path dir="${basedir}/libs">
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+                <include name="framework.swc"/>
+            </external-library-path>
+            <library-path/>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>   
+    
 	<target name="rpc" description="Builds libs/rpc.swc">
 		<echo file="${basedir}/version.properties" append="false">build=${build.number}</echo>
 		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="RPCClasses" output="${basedir}/libs/rpc.swc" locale="" accessible="true">
@@ -344,7 +384,7 @@
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
-				<include name="mx/mx.swc"/>
+				<include name="mx.swc"/>
                 <include name="textLayout.swc"/>
 				<include name="osmf.swc"/>
 			</external-library-path>
@@ -364,7 +404,7 @@
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
-				<include name="mx/mx.swc"/>
+				<include name="mx.swc"/>
 				<include name="spark.swc"/>
 				<include name="advancedgrids.swc"/>
                 <include name="textLayout.swc"/>
@@ -391,7 +431,6 @@
 		   	<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
-
 	
 	<target name="sparkskins" description="Builds the sparkskin.swc">
 		<compc static-link-runtime-shared-libraries="true"  fork="true" locale="" accessible="true" include-classes="SparkSkinsClasses"
@@ -410,23 +449,44 @@
 		</compc>
 	</target>
 	    
-	<target name="authoringsupport" description="Builds authoringsupport.swc">
-		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/libs/authoringsupport.swc" include-classes="AuthoringSupportClasses"
-		locale="" accessible="true">
-			<source-path path-element="${authoringsupport.dir}/src"/>
-			<library-path dir="${authoringsupport.dir}/libs">
+    <target name="flash-integration" description="Builds flash-integration.swc">
+        <compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/libs/flash-integration.swc"
+        locale="" accessible="true">        	
+            <namespace uri="http://www.adobe.com/someNonSensicalURI" manifest="${flash-integration.dir}/manifest.xml"/>
+            <!-- doesn't matter what we put in here as long as it links in the classes.
+                Flash Authoring ignores this and the namespace it's mapped too...
+                it just needs to be linked through a manifest file -->
+            <include-namespaces uri="http://www.adobe.com/someNonSensicalURI"/>
+            <source-path path-element="${flash-integration.dir}/src"/>
+            <load-config filename="${basedir}/projects/framework/framework-config.xml"/>
+            <library-path/>
+            <external-library-path dir="${basedir}/libs">
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+                <include name="textLayout.swc"/>
+                <include name="framework.swc"/>
+            </external-library-path>
+            <compute-digest>false</compute-digest>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
+	
+    <target name="authoringsupport" description="Builds authoringsupport.swc">
+        <compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/libs/authoringsupport.swc" include-classes="AuthoringSupportClasses"
+        locale="" accessible="true">
+            <source-path path-element="${authoringsupport.dir}/src"/>
+            <library-path dir="${authoringsupport.dir}/libs">
                 <include name="FlexContentHolderThumbnail.swc"/>
             </library-path>
-			<external-library-path dir="${basedir}/libs">
+            <external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
-				<include name="framework.swc"/>
-				<include name="mx/mx.swc"/>
-				<include name="flash-integration.swc"/>
-				<include name="textLayout.swc"/>
-			</external-library-path>
-			<jvmarg line="${compc.jvm.args}"/>
-		</compc>
-	</target>
+                <include name="framework.swc"/>
+                <include name="mx.swc"/>
+                <include name="flash-integration.swc"/>
+                <include name="textLayout.swc"/>
+            </external-library-path>
+            <jvmarg line="${compc.jvm.args}"/>
+        </compc>
+    </target>
 
 	<target name="wireframe" description="Builds the wireframe.swc">
 		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/themes/Wireframe/wireframe.swc">
@@ -463,6 +523,7 @@
 
     <target name="playerglobal-check" description="Checks if the Adobe Air SDK has been downloaded.">
         <available file="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" property="playerglobal.swc.present"/>
+        <echo message="Use the thirdparty-clean target to remove these."/> 
     </target>
     
     <target name="osmf-check" description="Checks if the Open Source Media Framework has been downloaded.">
@@ -540,19 +601,22 @@
 				<include name="spark_dmv.swc"/>
 				<include name="charts.swc"/>
 				<include name="advancedgrids.swc"/>
-				<include name="framework.swc"/>
+                <include name="framework.swc"/>
+                <include name="mx.swc"/>
 				<include name="core.swc"/>
 				<include name="rpc.swc"/>
 				<include name="sparkskins.swc"/>
 				<include name="spark.swc"/>
-				<include name="authoringsupport.swc"/>
+                <include name="authoringsupport.swc"/>
+			    <include name="flash-integration.swc"/>
 			</fileset>
 			<fileset dir="${basedir}/locale/${locale}">
 				<include name="airframework_rb.swc"/>
 				<include name="airspark_rb.swc"/>
 				<include name="charts_rb.swc"/>
 				<include name="advancedgrids_rb.swc"/>
-				<include name="framework_rb.swc"/>
+                <include name="framework_rb.swc"/>
+                <include name="mx_rb.swc"/>
 				<include name="rpc_rb.swc"/>
 				<include name="spark_rb.swc"/>
 			</fileset>
