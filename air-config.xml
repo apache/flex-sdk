@@ -13,7 +13,7 @@
 
 <flex-config>
     <!-- Specifies the minimum player version that will run the compiled SWF. -->
-   <target-player>9</target-player> 
+   <target-player>9.0.115</target-player> 
 
    <compiler>
 
