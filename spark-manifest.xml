@@ -178,6 +178,7 @@
     <component id="TrackBase" class="spark.components.supportClasses.TrackBase"/>
     <component id="Transform" class="mx.geom.Transform"/>
     <component id="TransformOffsets" class="mx.geom.TransformOffsets" lookupOnly="true"/>
+    <component id="UITextFieldGridItemRenderer" class="spark.skins.spark.UITextFieldGridItemRenderer"/>
     <component id="VerticalAlign" class="spark.layouts.VerticalAlign"/>
     <component id="VerticalLayout" class="spark.layouts.VerticalLayout"/>
     <component id="VGroup" class="spark.components.VGroup"/>
