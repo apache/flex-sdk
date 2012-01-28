@@ -13,7 +13,7 @@
 
 <flex-config>
     <!-- Specifies the minimum player version that will run the compiled SWF. -->
-   <target-player>9.0.115</target-player>
+   <target-player>10.0.0</target-player>
 
    <compiler>
 
@@ -76,8 +76,24 @@
       <!-- Specify a URI to associate with a manifest of components for use as MXML -->
       <!-- elements.                                                                -->
          <namespace>
+            <uri>library:adobe/flex/gumbo</uri>
+            <manifest>gumbo-manifest.xml</manifest>
+         </namespace>
+         <namespace>
+            <uri>library:adobe/flex/halo</uri>
+            <manifest>mxml-manifest.xml</manifest>
+         </namespace>
+         <namespace>
+            <uri>http://ns.adobe.com/mxml/2009</uri>
+            <manifest>mxml-2009-manifest.xml</manifest>
+         </namespace>
+         <namespace>
             <uri>http://www.adobe.com/2006/mxml</uri>
             <manifest>mxml-manifest.xml</manifest>
+         </namespace>
+         <namespace>
+            <uri>http://ns.adobe.com/fxg/2008</uri>
+            <manifest>fxg-manifest.xml</manifest>
          </namespace>
       </namespaces>
 
@@ -170,8 +186,8 @@
           <managers>
               <manager-class>flash.fonts.JREFontManager</manager-class>
               <manager-class>flash.fonts.AFEFontManager</manager-class>
-              <!-- <manager-class>flash.fonts.CFFFontManager</manager-class> -->
               <manager-class>flash.fonts.BatikFontManager</manager-class>
+              <manager-class>flash.fonts.CFFFontManager</manager-class>
           </managers>
 
           <!-- File containing cached system font licensing information produced via
@@ -317,9 +333,9 @@
    <!-- runtime-shared-library-path: specifies a SWC or directory to link against and an RSL URL to load with optional failover URLs -->
    <runtime-shared-library-path>
       <path-element>libs/framework.swc</path-element>
-      <rsl-url>framework_${build.number}.swz</rsl-url>
+      <rsl-url>framework_3.0.${build.number}.swz</rsl-url>
       <policy-file-url></policy-file-url>
-      <rsl-url>framework_${build.number}.swf</rsl-url>
+      <rsl-url>framework_3.0.${build.number}.swf</rsl-url>
       <policy-file-url></policy-file-url>
    </runtime-shared-library-path>
    <!-- static-link-runtime-shared-libraries: statically link the libraries specified by the -runtime-shared-libraries-path option.-->
