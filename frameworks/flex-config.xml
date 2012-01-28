@@ -321,6 +321,9 @@
    <compute-digest>boolean</compute-digest>
    -->
 
+   <!-- remove-unused-rsls: remove RSLs that are not being used by the application-->
+   <remove-unused-rsls>true</remove-unused-rsls>
+
    <!-- A list of runtime shared library URLs to be loaded before applications start. -->
    <!-- not set -->
    <!--
@@ -366,6 +369,20 @@
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
     	
+      <!-- Charts SWC -->
+	<runtime-shared-library-path>
+		<path-element>libs/charts.swc</path-element>
+		<rsl-url>charts_4.5.0.0.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
+
+      <!-- Spark_dmv SWC -->
+	<runtime-shared-library-path>
+		<path-element>libs/spark_dmv.swc</path-element>
+		<rsl-url>spark_dmv_4.5.0.0.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
+
       <!-- OSMF SWC -->
      <runtime-shared-library-path>
 		<path-element>libs/osmf.swc</path-element>
@@ -380,6 +397,13 @@
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
    
+      <!-- Advancedgrids SWC -->
+	<runtime-shared-library-path>
+		<path-element>libs/advancedgrids.swc</path-element>
+		<rsl-url>advancedgrids_4.5.0.0.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
+
 	<!-- static-link-runtime-shared-libraries: statically link the libraries specified by the -runtime-shared-libraries-path option.-->
 	<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
 
