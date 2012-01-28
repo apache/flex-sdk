@@ -22,6 +22,7 @@
 	<property name="flex.dir" value="${projects.dir}/flex"/>
 	<property name="framework.dir" value="${projects.dir}/framework"/>
 	<property name="halo.dir" value="${projects.dir}/halo"/>
+    <property name="osmf.dir" value="${projects.dir}/osmf"/>
 	<property name="rpc.dir" value="${projects.dir}/rpc"/>
 	<property name="spark.dir" value="${projects.dir}/spark"/>
 	<property name="sparkskin.dir" value="${projects.dir}/sparkskins"/>
@@ -34,7 +35,7 @@
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="framework,framework_rb,spark,spark_rb,textLayout,airframework,airframework_rb,rpc,rpc_rb,flex,halo,wireframe,sparkskins,utilities"/>
+	<target name="main" depends="framework,framework_rb,spark,spark_rb,textLayout,osmf,airframework,airframework_rb,rpc,rpc_rb,flex,halo,wireframe,sparkskins,utilities"/>
 
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
@@ -48,6 +49,7 @@
 			<external-library-path dir="${basedir}/libs">
 				<include name="air/airglobal.swc"/>
 				<include name="framework.swc"/>
+                <include name="osmf.swc"/>
 				<include name="spark.swc"/>
                 <include name="textLayout.swc"/>
 			</external-library-path>
@@ -114,6 +116,7 @@
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="textLayout.swc"/>
+                <include name="osmf.swc"/>
 			</external-library-path>
 		</compc>
 	</target>
@@ -128,6 +131,7 @@
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="textLayout.swc"/>
+                <include name="osmf.swc"/>
 			</external-library-path>
 			<library-path/>
 			<include-file name="defaults.css" path="${framework.dir}/defaults.css"/>
@@ -177,6 +181,7 @@
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="textLayout.swc"/>
+                <include name="osmf.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${halo.dir}/defaults.css"/>
 			<include-file name="Assets.swf" path="${halo.dir}/assets/Assets.swf"/>
@@ -197,6 +202,7 @@
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
                 <include name="textLayout.swc"/>
+                <include name="osmf.swc"/>
 			</external-library-path>
 			<library-path/>
 		</compc>
@@ -232,7 +238,7 @@
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
                 <include name="textLayout.swc"/>
-				<include name="videoPlayer.swc"/>
+				<include name="osmf.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${spark.dir}/defaults.css"/>
 		</compc>
@@ -268,6 +274,7 @@
 				<include name="framework.swc"/>
 				<include name="spark.swc"/>
 				<include name="textLayout.swc"/>
+                <include name="osmf.swc"/>
 			</external-library-path>
 			<locale/>
 			<accessible>true</accessible>
@@ -290,6 +297,23 @@
 			</external-library-path>
 			<define name="CONFIG::debug" value="false"/>
 			<define name="CONFIG::release" value="true"/>
+		</compc>
+	</target>
+    
+    <target name="osmf" description="builds osmf.swc">
+		<compc locale="" accessible="true"
+			include-classes="OSMFClasses" 
+			output="${basedir}/libs/osmf.swc">
+			<jvmarg line="${compc.jvm.args}"/>
+			<source-path path-element="${osmf.dir}/src"/>
+			<library-path/>
+			<external-library-path dir="${basedir}/libs" append="false">
+				<include name="player/${global.playerglobal.version}playerglobal.swc"/>
+			</external-library-path>
+			<define name="CONFIG::debug" value="false"/>
+			<define name="CONFIG::release" value="true"/>
+            <define name="CONFIG::FLASH_10_1" value="false"/>
+            <define name="CONFIG::LOGGING" value="false"/>
 		</compc>
 	</target>
 	
