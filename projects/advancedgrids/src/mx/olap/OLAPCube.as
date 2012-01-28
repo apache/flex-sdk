@@ -24,7 +24,7 @@ import flash.utils.getTimer;
 import mx.collections.ArrayCollection;
 import mx.collections.ICollectionView;
 import mx.collections.IList;
-import mx.collections.Sort;
+import mx.collections.ISort;
 import mx.core.mx_internal;
 import mx.events.CubeEvent;
 import mx.resources.ResourceManager;
@@ -156,7 +156,7 @@ public class OLAPCube extends Proxy implements IOLAPCube, IEventDispatcher
     private var prepare:Boolean = false;
     
     //saved sort property of the source dataProvider.
-    private var oldSort:Sort;
+    private var oldSort:ISort;
 
     // index of the dimension being processed.
     private var dimIndex:int = 0;
