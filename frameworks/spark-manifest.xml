@@ -22,7 +22,7 @@
 	<component id="TitleBar" class="mx.core.windowClasses.TitleBar"/>
 
     <!-- flex4 -->
-<component id="AddAction" class="spark.effects.AddAction"/>
+    <component id="AddAction" class="spark.effects.AddAction"/>
     <component id="AddActionInstance" class="spark.effects.supportClasses.AddActionInstance"/>
     <component id="Animate" class="spark.effects.Animate"/>
     <component id="Animate3D" class="spark.effects.Animate3D"/>
@@ -221,6 +221,9 @@
     <component id="WipeInstance" class="spark.effects.supportClasses.WipeInstance"/>
 
     <component id="State" class="mx.states.State"/>
+
+    <!-- framework base classes with CSS type selectors -->
+    <component id="TextGraphicElement" class="spark.primitives.supportClasses.TextGraphicElement" />
 
     <!-- TCAL Text Framework -->
     <component id="br" class="flashx.textLayout.elements.BreakElement"/>
