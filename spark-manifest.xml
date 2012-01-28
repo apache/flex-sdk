@@ -32,7 +32,6 @@
     <component id="BasicLayout" class="spark.layouts.BasicLayout"/>
     <component id="BevelFilter" class="spark.filters.BevelFilter"/>
     <component id="BitmapImage" class="spark.primitives.BitmapImage"/>
-    <component id="BitmapImageResizeMode" class="spark.primitives.BitmapImageResizeMode"/>
     <component id="Block" class="spark.layouts.supportClasses.Block"/>
     <component id="BlurFilter" class="spark.filters.BlurFilter"/>
     <component id="Button" class="spark.components.Button"/>
@@ -203,6 +202,7 @@
 	
 	<!-- Flex 3 Graphics -->
     <component id="BitmapFill" class="mx.graphics.BitmapFill" lookupOnly="true"/>
+    <component id="BitmapResizeMode" class="mx.graphics.BitmapResizeMode" lookupOnly="true"/>
     <component id="CompoundTransform" class="mx.geom.CompoundTransform" lookupOnly="true"/>
     <component id="GradientEntry" class="mx.graphics.GradientEntry" lookupOnly="true"/>
     <component id="LinearGradient" class="mx.graphics.LinearGradient" lookupOnly="true"/>
