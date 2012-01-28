@@ -45,7 +45,7 @@
 		<antcall target="automation"/>
 		<antcall target="automation_dmv"/>
 		<antcall target="automation_spark"/>
-		<!--<antcall target="automation_air"/>-->
+		<antcall target="automation_air"/>
 		<antcall target="automation_flashflexkit"/>
     </target>
 
@@ -60,9 +60,9 @@
 		<ant dir="${basedir}/projects/textLayout" target="other.locales"/>
 		<ant dir="${basedir}/projects/playerglobal" target="other.locales" />
 		<ant dir="${basedir}/projects/automation" target="other.locales"/>
-		<ant dir="${basedir}/projects/automation_dmv" target="other.locales"/>
+		<!--<ant dir="${basedir}/projects/automation_dmv" target="other.locales"/>
 		<ant dir="${basedir}/projects/automation_spark" target="other.locales"/>
-		<ant dir="${basedir}/projects/automation_flashflexkit" target="other.locales"/>
+		<ant dir="${basedir}/projects/automation_flashflexkit" target="other.locales"/>-->
 	</target>
 	
 	<target name="doc" >
@@ -79,8 +79,10 @@
         <ant dir="${basedir}/projects/osmf" target="doc" />
 		<ant dir="${basedir}/projects/wireframe" target="doc" />
 		<ant dir="${basedir}/projects/flash-integration" target="doc" />
-		<!--<ant dir="${basedir}/projects/automation_dmv" target="doc" />-->
+		<ant dir="${basedir}/projects/automation" target="doc" />
+		<ant dir="${basedir}/projects/automation_dmv" target="doc" />
 		<ant dir="${basedir}/projects/automation_spark" target="doc" />
+		<ant dir="${basedir}/projects/automation_air" target="doc" />
 	    <ant dir="${basedir}/projects/textLayout" target="doc" />
 	</target>
    
@@ -117,7 +119,7 @@
 		<ant dir="${basedir}/projects/utilities" target="clean"/>
 		<ant dir="${basedir}/projects/datavisualization" target="clean"/>
 		<ant dir="${basedir}/projects/automation" target="clean"/>
-		<!--<ant dir="${basedir}/projects/automation_air" target="clean"/>-->
+		<ant dir="${basedir}/projects/automation_air" target="clean"/>
 		<ant dir="${basedir}/projects/automation_dmv" target="clean"/>
 		<ant dir="${basedir}/projects/automation_flashflexkit" target="clean"/>
 		<ant dir="${basedir}/projects/automation_spark" target="clean"/>
