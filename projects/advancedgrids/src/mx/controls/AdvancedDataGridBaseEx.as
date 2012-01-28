@@ -66,6 +66,7 @@ import mx.core.IIMESupport;
 import mx.core.IInvalidating;
 import mx.core.IPropertyChangeNotifier;
 import mx.core.IUIComponent;
+import mx.core.LayoutDirection;
 import mx.core.ScrollPolicy;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
@@ -5529,7 +5530,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 		// left (layoutDirection=”rtl”) half of the column, the drop indicator 
 		// should be shown before the next column.
 		var deltaXInLocalCoordinates:Number = 
-			(layoutDirection == "ltr" ? +deltaX : -deltaX);
+			(layoutDirection == LayoutDirection.LTR ? +deltaX : -deltaX);
 		
         // Move header selection.
         s = Sprite(selectionLayer.getChildByName("headerSelection"));
