@@ -101,6 +101,7 @@
     <component id="RichEditableText" class="spark.components.RichEditableText"/>
     <component id="RichEditableText2" class="spark.components.RichEditableText2"/>
     <component id="RichText" class="spark.primitives.RichText"/>
+    <component id="RichText2" class="spark.primitives.RichText2"/>
     <component id="Rotate" class="spark.effects.Rotate"/>
     <component id="Rotate3D" class="spark.effects.Rotate3D"/>
     <component id="RowAlign" class="spark.layout.RowAlign"/>
@@ -111,6 +112,7 @@
     <component id="ShaderFilter" class="spark.filters.ShaderFilter"/>
     <component id="SimpleMotionPath" class="spark.effects.SimpleMotionPath"/>
     <component id="SimpleText" class="spark.primitives.SimpleText"/>
+    <component id="SimpleText2" class="spark.primitives.SimpleText2"/>
     <component id="Sine" class="spark.effects.easing.Sine"/>
     <component id="Skin" class="spark.components.supportClasses.Skin"/>
     <component id="SkinnableComponent" class="spark.components.supportClasses.SkinnableComponent"/>
