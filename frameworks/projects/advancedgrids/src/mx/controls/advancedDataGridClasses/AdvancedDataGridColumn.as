@@ -1226,8 +1226,10 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
      *  property is not a valid property of the data provider, the sort does
      *  not work or will generate an exception.
      *  If you specify a value of the <code>labelFunction</code> property,
-     *  you must also provide a function to the <code>sortCompareFunction</code> property,
-     *  unless sorting is not allowed on this column.
+     *  you typically also provide a function to the <code>sortCompareFunction</code> property,
+     *  unless sorting is not allowed on this column. 
+     *  That means you specify a function when the value from the column's <code>dataField</code> 
+     *  does not sort in the same way as the computed value from the <code>labelFunction</code> property.
      *
      *  <p>The AdvancedDataGrid control uses this function to sort the elements of the data
      *  provider collection. The function signature of
@@ -1826,7 +1828,7 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
             null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
                 fontName, bold, italic, this, flexModuleFactory, 
-				owner.systemManager);             
+                owner.systemManager);             
     }
     
     /**
@@ -1855,7 +1857,7 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
             null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
                 fontName, bold, italic, this, flexModuleFactory,
-				owner.systemManager);
+                owner.systemManager);
         return fontContext != oldEmbeddedFontContext;
     }
 
