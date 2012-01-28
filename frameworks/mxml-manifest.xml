@@ -30,6 +30,7 @@
     <component id="ArrayList" class="mx.collections.ArrayList"/>
     <component id="BevelFilter" class="flash.filters.BevelFilter" lookupOnly="true"/>
     <component id="BitmapFill" class="mx.graphics.BitmapFill"/>
+    <component id="BitmapResizeMode" class="mx.graphics.BitmapResizeMode"/>
     <component id="Blur" class="mx.effects.Blur"/>
     <component id="BlurFilter" class="flash.filters.BlurFilter" lookupOnly="true"/>
     <component id="Box" class="mx.containers.Box"/>
