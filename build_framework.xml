@@ -33,7 +33,7 @@
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="framework,framework_rb,flex4,airframework,airframework_rb,rpc,rpc_rb,flex,halo,wireframe,sparkskins,haloclassic,utilities"/>
+	<target name="main" depends="framework,framework_rb,spark,airframework,airframework_rb,rpc,rpc_rb,flex,halo,wireframe,sparkskins,haloclassic,utilities"/>
 
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
@@ -47,7 +47,7 @@
 			<external-library-path dir="${basedir}/libs">
 				<include name="air/airglobal.swc"/>
 				<include name="framework.swc"/>
-				<include name="flex4.swc"/>
+				<include name="spark.swc"/>
                 <include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${airframework.dir}/defaults.css"/>
@@ -117,8 +117,8 @@
 		</compc>
 	</target>
 	
-	<target name="flex4" description="Builds the flex4.swc">
-		<compc include-classes="Flex4Classes" output="${basedir}/libs/flex4.swc" locale="" accessible="true">
+	<target name="spark" description="Builds the spark.swc">
+		<compc include-classes="Flex4Classes" output="${basedir}/libs/spark.swc" locale="" accessible="true">
 		    <target-player>10</target-player>
 			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${flex4.dir}/manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
@@ -264,7 +264,7 @@
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
-				<include name="flex4.swc"/>
+				<include name="spark.swc"/>
 				<include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="assets/CalendarIcon.png" path="${sparkskin.dir}/assets/CalendarIcon.png"/>
@@ -303,7 +303,7 @@
             <external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
-				<include name="flex4.swc"/>
+				<include name="spark.swc"/>
 				<include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${wireframe.dir}/defaults.css"/>
@@ -320,7 +320,7 @@
 				<include name="utilities.swc"/>
 				<include name="rpc.swc"/>
 				<include name="sparkskins.swc"/>
-				<include name="flex4.swc"/>
+				<include name="spark.swc"/>
 			</fileset>
 			<fileset dir="${basedir}/libs/air" includes="airframework.swc"/>
 			<fileset dir="${basedir}/locale/${locale}">
