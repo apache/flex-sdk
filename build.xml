@@ -156,6 +156,7 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
 		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
+		<ant dir="${basedir}/projects/playerglobal" target="other.locales" />
 	</target>
 
     <target name="updateAIR" description="Rebuild a AIK SWC and SWF that depend on Flex" >
