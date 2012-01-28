@@ -206,7 +206,7 @@
     <!-- Special Components -->
     <component id="State" class="mx.states.State" lookupOnly="true"/>
 	<component id="AddItems" class="mx.states.AddItems" lookupOnly="true"/>
-    <component id="DataItem" class="spark.utils.DataItem" lookupOnly="true"/>
+    <component id="DataItem" class="spark.utils.DataItem"/>
 
 	<!-- airframework -->
     <component id="TitleBar" class="spark.components.windowClasses.TitleBar" lookupOnly="true"/>   
