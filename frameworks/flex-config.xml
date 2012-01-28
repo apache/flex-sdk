@@ -85,7 +85,7 @@
          </namespace>
          <namespace>
             <uri>http://www.adobe.com/2006/mxml</uri>
-            <manifest>mxml-manifest.xml</manifest>
+            <manifest>halo-manifest.xml</manifest>
          </namespace>
          <namespace>
             <uri>http://ns.adobe.com/fxg/2008</uri>
