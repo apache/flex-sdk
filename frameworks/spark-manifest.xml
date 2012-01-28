@@ -142,6 +142,7 @@
     <component id="TileLayout" class="spark.layouts.TileLayout"/>
     <component id="TileOrientation" class="spark.layouts.TileOrientation"/>
     <component id="Timeline" class="spark.effects.animation.Timeline"/>
+    <component id="TitleWindow" class="spark.components.TitleWindow"/>
     <component id="ToggleButton" class="spark.components.ToggleButton"/>
     <component id="ToggleButtonBase" class="spark.components.supportClasses.ToggleButtonBase"/>
     <component id="TrackBase" class="spark.components.supportClasses.TrackBase"/>
