@@ -2816,7 +2816,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     mx_internal function getMeasuringRenderer(c:AdvancedDataGridColumn, forHeader:Boolean, data:Object):IListItemRenderer
     {
         var factory:IFactory = columnItemRendererFactory(c,forHeader,data);
-
+		
+		if (!measuringObjects)
+			measuringObjects = new Dictionary(false);
+		
         var item:IListItemRenderer = measuringObjects[factory];
         if (!item)
         {
