@@ -26,7 +26,6 @@
 	<property name="rpc.dir" value="${projects.dir}/rpc"/>
 	<property name="spark.dir" value="${projects.dir}/spark"/>
 	<property name="sparkskin.dir" value="${projects.dir}/sparkskins"/>
-	<property name="tlf.dir" value="${projects.dir}/textLayout"/>
 	<property name="utilities.dir" value="${projects.dir}/utilities"/>
 	<property name="wireframe.dir" value="${projects.dir}/wireframe"/>
 	
@@ -35,7 +34,7 @@
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="framework,framework_rb,spark,spark_rb,textLayout,osmf,airframework,airframework_rb,rpc,rpc_rb,flex,halo,wireframe,sparkskins,utilities"/>
+	<target name="main" depends="framework,framework_rb,spark,spark_rb,osmf,airframework,airframework_rb,rpc,rpc_rb,flex,halo,wireframe,sparkskins,utilities"/>
 
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
@@ -280,26 +279,7 @@
 			<accessible>true</accessible>
 		</compc>
 	</target>
-	
-	<target name="textLayout" description="builds textlayout.swc">
-			<compc  locale="" accessible="true"
-			include-classes="flashx.textLayout.CoreClasses flashx.textLayout.EditClasses flashx.textLayout.ConversionClasses" 
-			output="${basedir}/libs/textLayout.swc">
-			<jvmarg line="${compc.jvm.args}"/>
-			<include-namespaces uri="library:adobe/flashx/textLayout"/>
-			<namespace uri="library:adobe/flashx/textLayout" manifest="${tlf.dir}/textLayout_core/manifest.xml"/>
-			<source-path path-element="${tlf.dir}/textLayout_core/src"/>
-			<source-path path-element="${tlf.dir}/textLayout_edit/src"/>
-			<source-path path-element="${tlf.dir}/textLayout_conversion/src"/>
-			<library-path/>
-			<external-library-path dir="${basedir}/libs" append="false">
-				<include name="player/${global.playerglobal.version}playerglobal.swc"/>
-			</external-library-path>
-			<define name="CONFIG::debug" value="false"/>
-			<define name="CONFIG::release" value="true"/>
-		</compc>
-	</target>
-    
+	    
     <target name="osmf" description="builds osmf.swc">
 		<compc locale="" accessible="true"
 			include-classes="OSMFClasses" 
