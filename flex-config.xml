@@ -168,7 +168,8 @@
           <!-- Enables advanced anti-aliasing for embedded fonts, which provides greater clarity for small -->
           <!-- fonts. This setting can be overriden in CSS for specific fonts. -->
           <!-- NOTE: flash-type has been deprecated. Please use advanced-anti-aliasing <flash-type>true</flash-type> -->
-          <advanced-anti-aliasing>true</advanced-anti-aliasing>
+          <!-- NOTE: For Apache Flex this must be false since fonts are proprietary to Adobe. -->
+          <advanced-anti-aliasing>false</advanced-anti-aliasing>
 
           <!-- The number of embedded font faces that are cached. -->
           <max-cached-fonts>20</max-cached-fonts>
