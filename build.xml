@@ -26,7 +26,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,prepare,javascript,osmf,framework,spark,sparkskins,rpc,airframework,flex,flash_integration,utilities,halo,wireframe,updateAIR" description="Clean build of all SWCs"/>
+	<target name="main" depends="clean,prepare,javascript,osmf,framework,spark,sparkskins,rpc,airframework,airspark,flex,flash_integration,utilities,halo,wireframe,updateAIR" description="Clean build of all SWCs"/>
 
 	<target name="doc" >
 		<ant dir="${basedir}/projects/framework" target="doc" />
@@ -34,6 +34,7 @@
 		<ant dir="${basedir}/projects/sparkskins" target="doc" />
 		<ant dir="${basedir}/projects/rpc" target="doc" />
 		<ant dir="${basedir}/projects/airframework" target="doc" />
+		<ant dir="${basedir}/projects/airspark" target="doc" />
 		<ant dir="${basedir}/projects/flex" target="doc" />
 		<ant dir="${basedir}/projects/utilities" target="doc" />
 		<ant dir="${basedir}/projects/halo" target="doc" />
@@ -44,6 +45,10 @@
 
     <target name="airframework" description="Clean build of airframework.swc">
 		<ant dir="${basedir}/projects/airframework"/>
+    </target>
+
+    <target name="airspark" description="Clean build of airspark.swc">
+		<ant dir="${basedir}/projects/airspark"/>
     </target>
 
     <target name="flex" description="Clean build of flex.swc">
@@ -114,8 +119,9 @@
 		<!-- Delete output from SWC projects -->
 		<ant dir="${basedir}/projects/framework" target="clean"/>
 		<ant dir="${basedir}/projects/airframework" target="clean"/>
+		<ant dir="${basedir}/projects/airspark" target="clean"/>
 		<ant dir="${basedir}/projects/flex" target="clean"/>
-        <ant dir="${basedir}/projects/osmf" target="clean"/>
+		<ant dir="${basedir}/projects/osmf" target="clean"/>
 		<ant dir="${basedir}/projects/spark" target="clean"/>
 		<ant dir="${basedir}/projects/sparkskins" target="clean"/>
 		<ant dir="${basedir}/projects/utilities" target="clean"/>
@@ -156,6 +162,7 @@ tar -xjf "AIR Integration Kit.tbz2"
         <ant dir="${basedir}/projects/osmf" target="compile"/>
 		<ant dir="${basedir}/projects/framework" target="compile"/>
 		<ant dir="${basedir}/projects/airframework" target="compile"/>
+		<ant dir="${basedir}/projects/airspark" target="compile"/>
 		<ant dir="${basedir}/projects/flex" target="compile"/>
 		<ant dir="${basedir}/projects/utilities" target="compile"/>
 		<ant dir="${basedir}/projects/halo" target="compile"/>
@@ -168,6 +175,7 @@ tar -xjf "AIR Integration Kit.tbz2"
 	<target name="other.locales" description ="Builds resource SWCs for other locales">
 		<ant dir="${basedir}/projects/framework" target="other.locales"/>
 		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
+		<ant dir="${basedir}/projects/airspark" target="other.locales"/>
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
 		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
 		<ant dir="${basedir}/projects/playerglobal" target="other.locales" />
