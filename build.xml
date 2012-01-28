@@ -13,7 +13,7 @@
 
 <project name="frameworks" default="main" basedir=".">
 
-	<property name="FLEX_HOME" location="${basedir}"/>
+	<property name="FLEX_HOME" location=".."/>
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
