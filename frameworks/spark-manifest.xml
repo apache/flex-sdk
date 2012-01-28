@@ -126,6 +126,7 @@
     <component id="ListBase" class="spark.components.supportClasses.ListBase"/>
     <component id="ListSkin" class="spark.skins.default.ListSkin"/>
     <component id="MaskType" class="spark.core.MaskType"/>
+    <component id="Matrix" class="flash.geom.Matrix" lookupOnly="true"/>
     <component id="MotionPath" class="spark.effects.MotionPath"/>
     <component id="MouseShieldUtil" class="spark.utils.MouseShieldUtil"/>
     <component id="Move" class="spark.effects.Move"/>
@@ -205,6 +206,7 @@
     <component id="ToggleButtonBase" class="spark.components.supportClasses.ToggleButtonBase"/>
     <component id="ToggleButtonSkin" class="spark.skins.default.ToggleButtonSkin"/>
     <component id="TrackBase" class="spark.components.supportClasses.TrackBase"/>
+    <component id="Transform" class="mx.geom.Transform"/>
     <component id="VerticalAlign" class="spark.layout.VerticalAlign"/>
     <component id="VerticalLayout" class="spark.layout.VerticalLayout"/>
     <component id="VGroup" class="spark.components.VGroup"/>
@@ -255,22 +257,6 @@
     <component id="tab" class="flashx.textLayout.elements.TabElement" lookupOnly="true"/>
     <component id="tcy" class="flashx.textLayout.elements.TCYElement" lookupOnly="true"/>
     <component id="TextFlow" class="flashx.textLayout.elements.TextFlow" lookupOnly="true"/>
-
-    <!-- AS3 built-ins -->
-    <component id="Array" class="Array" lookupOnly="true"/>
-    <component id="Boolean" class="Boolean" lookupOnly="true"/>
-    <component id="Class" class="Class" lookupOnly="true"/>
-    <component id="Date" class="Date" lookupOnly="true"/>
-    <component id="Function" class="Function" lookupOnly="true"/>
-    <component id="int" class="int" lookupOnly="true"/>
-    <component id="Number" class="Number" lookupOnly="true"/>
-    <component id="Object" class="Object" lookupOnly="true"/>
-    <component id="RegExp" class="RegExp" lookupOnly="true"/>
-    <component id="String" class="String" lookupOnly="true"/>
-    <component id="uint" class="uint" lookupOnly="true"/>
-	<component id="Vector" class="__AS3__.vec.Vector" lookupOnly="true"/>
-    <component id="XML" class="XML" lookupOnly="true"/>
-    <component id="XMLList" class="XMLList" lookupOnly="true"/>
 
     <!-- rpc -->
     <component id="AMFChannel" class="mx.messaging.channels.AMFChannel" lookupOnly="true"/>
