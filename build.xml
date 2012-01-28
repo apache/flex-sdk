@@ -77,7 +77,6 @@
 		<ant dir="${basedir}/projects/wireframe" target="doc" />
 		<ant dir="${basedir}/projects/flash-integration" target="doc" />
 		<ant dir="${basedir}/projects/automation" target="doc" />
-		<ant dir="${basedir}/projects/textLayout" target="doc" />
 	</target>
    
 	<target name="clean" description="Cleans all SWCs and their resource bundles">
