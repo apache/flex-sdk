@@ -20,10 +20,10 @@
     <!-- framework -->
     <component id="Accordion" class="mx.containers.Accordion"/>
     <component id="AddChild" class="mx.states.AddChild"/>
-	<component id="AddChildAction" class="mx.effects.AddChildAction"/>
+    <component id="AddChildAction" class="mx.effects.AddChildAction"/>
     <component id="AddItemAction" class="mx.effects.AddItemAction"/>
     <component id="AddItems" class="mx.states.AddItems"/>
-	<component id="AnimateProperty" class="mx.effects.AnimateProperty"/>
+    <component id="AnimateProperty" class="mx.effects.AnimateProperty"/>
     <component id="Application" class="mx.core.Application"/>
     <component id="ApplicationControlBar" class="mx.containers.ApplicationControlBar"/>
     <component id="ArrayCollection" class="mx.collections.ArrayCollection"/>
@@ -31,6 +31,8 @@
     <component id="BevelFilter" class="flash.filters.BevelFilter" lookupOnly="true"/>
     <component id="BitmapFill" class="mx.graphics.BitmapFill"/>
     <component id="BitmapFillMode" class="mx.graphics.BitmapFillMode"/>
+    <component id="BitmapScaleMode" class="mx.graphics.BitmapScaleMode"/>
+    <component id="BitmapSmoothingQuality" class="mx.graphics.BitmapSmoothingQuality"/>
     <component id="Blur" class="mx.effects.Blur"/>
     <component id="BlurFilter" class="flash.filters.BlurFilter" lookupOnly="true"/>
     <component id="Box" class="mx.containers.Box"/>
