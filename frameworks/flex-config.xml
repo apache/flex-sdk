@@ -84,10 +84,6 @@
             <manifest>spark-manifest.xml</manifest>
          </namespace>
          <namespace>
-            <uri>library://ns.adobe.com/flex/halo</uri>
-            <manifest>mx-manifest.xml</manifest>
-         </namespace>
-         <namespace>
             <uri>library://ns.adobe.com/flex/mx</uri>
             <manifest>mx-manifest.xml</manifest>
          </namespace>
