@@ -69,6 +69,8 @@
          <path-element>libs</path-element>
          <path-element>libs/mx</path-element>
          <path-element>locale/{locale}</path-element>
+         <!-- The following entry is because LCDS copies playerfds.swc in the player folder -->
+         <path-element>libs/player</path-element>
       </library-path>
 
       <namespaces>
