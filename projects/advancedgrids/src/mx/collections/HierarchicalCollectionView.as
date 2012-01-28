@@ -1425,7 +1425,12 @@ public class HierarchicalCollectionView extends EventDispatcher
         if (event is CollectionEvent)
         {
             var ce:CollectionEvent = CollectionEvent(event);
-            if (ce.kind == CollectionEventKind.RESET)
+			if (ce.kind == CollectionEventKind.REFRESH)
+			{
+				// collection refreshed, update length
+				updateLength();
+			}
+			else if (ce.kind == CollectionEventKind.RESET)
             {
                 // initialize the collection again - its source is modified
                 if (hierarchicalData)
