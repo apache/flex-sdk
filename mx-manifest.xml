@@ -119,7 +119,7 @@
     <component id="RadioButton" class="mx.controls.RadioButton"/>
     <component id="RadioButtonGroup" class="mx.controls.RadioButtonGroup"/>
     <component id="RegExpValidator" class="mx.validators.RegExpValidator"/>
-    <component id="RemoteListView" class="mx.collections.RemoteListView"/>
+    <component id="AsyncListView" class="mx.collections.AsyncListView"/>
     <component id="RemoveChild" class="mx.states.RemoveChild"/>
     <component id="RemoveChildAction" class="mx.effects.RemoveChildAction"/>
     <component id="RemoveItemAction" class="mx.effects.RemoveItemAction"/>
