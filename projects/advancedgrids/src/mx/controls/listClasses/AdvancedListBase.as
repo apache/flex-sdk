@@ -3440,8 +3440,6 @@ public class AdvancedListBase extends ScrollControlBase
     {
         // this code is nearly duplicating UIComponent.validateDisplayList();
 		
-		validateMatrix();
-		
         if (invalidateDisplayListFlag)
         {
             // Check if our parent is the top level system manager
@@ -3456,6 +3454,9 @@ public class AdvancedListBase extends ScrollControlBase
                                   getExplicitOrMeasuredHeight());
                 }
             }
+			
+			// Don't validate transform.matrix until after setting actual size
+			validateMatrix();
 
             if (runDataEffectNextUpdate)
             {
@@ -3470,6 +3471,10 @@ public class AdvancedListBase extends ScrollControlBase
 
             invalidateDisplayListFlag = false;
         }
+		else
+		{
+			validateMatrix();
+		}
     }
 
     /**
@@ -5617,6 +5622,9 @@ public class AdvancedListBase extends ScrollControlBase
     protected function moveSelectionHorizontally(code:uint, shiftKey:Boolean,
                                                  ctrlKey:Boolean):void
     {
+		// For Keyboard.LEFT and Keyboard.RIGHT and maybe Keyboard.UP and Keyboard.DOWN,
+		// need to account for layoutDirection="rtl".
+		
         return;
     }
 
