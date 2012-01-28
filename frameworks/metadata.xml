@@ -55,7 +55,7 @@
 
 	<metadata name="DataBindingInfo" >
 
-		<context name="class" />
+		<context name="class" showHint="false" />
 
 		<attribute type="String" />
 		<attribute type="String" />
@@ -64,7 +64,7 @@
 
 	<metadata name="DefaultBindingProperty" >
 
-		<context name="class" />
+		<context name="class" showHint="false" />
 
 		<attribute name="destination" type="String" required="true" hint="properties" />
 		<attribute name="source" type="String" hint="properties" />
@@ -81,7 +81,7 @@
 
 	<metadata name="DefaultTriggerEvent" >
 
-		<context name="class" />
+		<context name="class" showHint="false" />
 	
 		<attribute type="String" required="true" hint="events"/>
 
@@ -221,9 +221,9 @@
 
 	<metadata name="InstanceType" description="%instanceType.help" >
 
-		<context name="variable" type="mx.core.IDeferredInstance" />
-		<context name="getter" type="mx.core.IDeferredInstance" />
-		<context name="setter" type="mx.core.IDeferredInstance" />
+		<context name="variable" type="mx.core.IDeferredInstance" hint="classes" hintType="mx.core.IDeferredInstance" />
+		<context name="getter" type="mx.core.IDeferredInstance" hint="classes" hintType="mx.core.IDeferredInstance"  />
+		<context name="setter" type="mx.core.IDeferredInstance" hint="classes" hintType="mx.core.IDeferredInstance"  />
 		
 		<attribute type="Class" required="true" />
 
