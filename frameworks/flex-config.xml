@@ -341,14 +341,7 @@
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
    
-    <!-- Framework_textLayout SWC -->
-	<runtime-shared-library-path>
-		<path-element>libs/framework_textLayout.swc</path-element>
-		<rsl-url>framework_textLayout_4.0.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-
-   <!-- Spark SWC-->
+    <!-- Spark SWC-->
    	<runtime-shared-library-path>
 		<path-element>libs/spark.swc</path-element>
 		<rsl-url>spark_4.0.0.0.swf</rsl-url>
