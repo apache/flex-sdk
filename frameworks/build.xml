@@ -143,6 +143,9 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<delete file="${FLEX_HOME}/frameworks/libs/air/AIRAliases.js"/>
 		<delete file="${FLEX_HOME}/frameworks/libs/air/airglobal.abc"/>
 		<delete file="${FLEX_HOME}/frameworks/libs/air/servicemonitor.swf"/>
+		<delete file="${FLEX_HOME}/AIR SDK Readme.txt"/>
+		<delete dir="${FLEX_HOME}/lib/nai"/>
+		
 
 		<!-- Delete AIR files for 3.x support -->
 		<delete dir="${FLEX_HOME}/frameworks/libs/air/flex3" quiet="true" />
