@@ -149,7 +149,7 @@
 		locale="" 
 		accessible="true"
 		show-deprecation-warnings="false">
-            <namespace uri="http://www.adobe.com/2006/mxml" manifest="${advancedgrids.dir}/manifest_charts.xml"/>
+            <namespace uri="http://www.adobe.com/2006/mxml" manifest="${charts.dir}/manifest_charts.xml"/>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
 			<source-path path-element="${charts.dir}/src"/>
 			<source-path path-element="${basedir}/projects/mx/src"/>
