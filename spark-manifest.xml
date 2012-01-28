@@ -57,10 +57,12 @@
     <component id="ContentCache" class="spark.core.ContentCache"/> 
     <component id="ConvolutionFilter" class="spark.filters.ConvolutionFilter"/>
     <component id="CrossFade" class="spark.effects.CrossFade"/>
-    <component id="DataGrid" class="spark.components.DataGrid"/>    
+	<component id="CurrencyFormatter" class="spark.formatters.CurrencyFormatter"/>
+	<component id="DataGrid" class="spark.components.DataGrid"/>    
     <component id="DataGroup" class="spark.components.DataGroup"/>
     <component id="DataRenderer" class="spark.components.DataRenderer"/>
-    <component id="DefaultColumnHeaderRenderer" class="spark.components.supportClasses.DefaultColumnHeaderRenderer"/>
+	<component id="DateTimeFormatter" class="spark.formatters.DateTimeFormatter"/>
+	<component id="DefaultColumnHeaderRenderer" class="spark.components.supportClasses.DefaultColumnHeaderRenderer"/>
     <component id="DisplacementMapFilter" class="spark.filters.DisplacementMapFilter"/>
     <component id="DropDownList" class="spark.components.DropDownList"/>
     <component id="DropLocation" class="spark.layouts.supportClasses.DropLocation"/>
@@ -96,12 +98,14 @@
     <component id="ItemRenderer" class="spark.components.supportClasses.ItemRenderer"/>
     <component id="Keyframe" class="spark.effects.animation.Keyframe"/>
     <component id="Label" class="spark.components.Label"/>
+    <component id="LastOperationStatus" class="spark.globalization.LastOperationStatus"/>
     <component id="LayoutBase" class="spark.layouts.supportClasses.LayoutBase"/>
     <component id="Line" class="spark.primitives.Line"/>
     <component id="Linear" class="spark.effects.easing.Linear"/>
 	<component id="List" class="spark.components.List"/>
     <component id="ListBase" class="spark.components.supportClasses.ListBase"/>
     <component id="MaskType" class="spark.core.MaskType"/>
+    <component id="MatchingCollator" class="spark.globalization.MatchingCollator"/>
     <component id="Matrix" class="flash.geom.Matrix" lookupOnly="true"/>
     <component id="Matrix3D" class="flash.geom.Matrix3D" lookupOnly="true"/>
     <component id="MotionPath" class="spark.effects.animation.MotionPath"/>
@@ -110,6 +114,7 @@
     <component id="MultiValueInterpolator" class="spark.effects.interpolation.MultiValueInterpolator"/>
     <component id="MuteButton" class="spark.components.mediaClasses.MuteButton"/>
     <component id="NavigatorContent" class="spark.components.NavigatorContent"/>
+    <component id="NumberFormatter" class="spark.formatters.NumberFormatter"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
     <component id="Panel" class="spark.components.Panel"/>
@@ -149,9 +154,11 @@
     <component id="SliderBase" class="spark.components.supportClasses.SliderBase"/>
     <component id="Sort" class="mx.collections.Sort" lookupOnly="true"/>
     <component id="SortField" class="mx.collections.SortField" lookupOnly="true"/>
+    <component id="SortingCollator" class="spark.globalization.SortingCollator"/>
     <component id="SparkSkin" class="spark.skins.SparkSkin"/>
     <component id="Spinner" class="spark.components.Spinner"/>
     <component id="SpriteVisualElement" class="spark.core.SpriteVisualElement"/>
+    <component id="StringTools" class="spark.globalization.StringTools"/>
     <component id="StrokedElement" class="spark.primitives.supportClasses.StrokedElement"/>
     <component id="TabBar" class="spark.components.TabBar"/>
     <component id="TextArea" class="spark.components.TextArea"/>
