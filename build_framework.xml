@@ -23,6 +23,7 @@
 	<property name="haloclassic.dir" value="${basedir}/projects/haloclassic"/>
 	<property name="utilities.dir" value="${basedir}/projects/utilities"/>
 	<property name="locale" value="en_US"/>
+	<property name="playerglobal.version" value="9"/>
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
@@ -33,7 +34,7 @@
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${framework.dir}/manifest.xml"/>
 			<source-path path-element="${framework.dir}/src"/>
-			<external-library-path dir="${basedir}/libs/player" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
 			<include-file name="defaults.css" path="${framework.dir}/defaults.css"/>
 			<include-file name="defaults-2.0.0.css" path="${framework.dir}/defaults-2.0.0.css"/>
@@ -64,7 +65,7 @@
             <include-resource-bundles bundle="validators"/>
 			<source-path path-element="${framework.dir}/bundles/${locale}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
-			<external-library-path dir="${basedir}/libs/player" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
 		</compc>
 	</target>
@@ -125,7 +126,7 @@
 			<source-path path-element="${airframework.dir}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
 			<source-path path-element="${framework.dir}/bundles/${locale}/src"/>
-			<external-library-path dir="${basedir}/libs/player" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
 		</compc>
 	</target>
@@ -135,7 +136,7 @@
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${rpc.dir}/manifest.xml"/>
 			<source-path path-element="${rpc.dir}/src"/>
-			<external-library-path dir="${basedir}/libs/player" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<external-library-path dir="${basedir}/libs" includes="framework.swc"/>
 			<library-path/>
 		</compc>
@@ -153,7 +154,7 @@
 			<source-path path-element="${rpc.dir}/bundles/${locale}/src"/>
 			<source-path path-element="${framework.dir}/bundles/${locale}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
-			<external-library-path dir="${basedir}/libs/player" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
 		</compc>
 	</target>
@@ -169,7 +170,7 @@
 	<target name="haloclassic" description="Builds haloclassic.swc">
 		<compc include-classes="HaloClassicClasses" output="${basedir}/themes/HaloClassic/haloclassic.swc" locale="" accessible="true">
 			<source-path path-element="${haloclassic.dir}/src"/>
-			<external-library-path dir="${basedir}/libs/player" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<external-library-path dir="${basedir}/libs" includes="framework.swc"/>
 			<library-path/>
 			<include-file name="defaults.css" path="${haloclassic.dir}/defaults.css"/>
