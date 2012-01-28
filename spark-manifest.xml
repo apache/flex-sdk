@@ -86,6 +86,7 @@
     <component id="Panel" class="spark.components.Panel"/>
     <component id="Path" class="spark.primitives.Path"/>
 	<component id="PopUpAnchor" class="spark.components.PopUpAnchor"/>
+ 	<component id="PopUpPosition" class="spark.components.PopUpPosition"/>
     <component id="Power" class="spark.effects.easing.Power"/>
 	<component id="RadioButton" class="spark.components.RadioButton"/>
     <component id="RadioButtonGroup" class="spark.components.RadioButtonGroup"/>
@@ -93,7 +94,6 @@
     <component id="Rect" class="spark.primitives.Rect"/>
     <component id="RectangularDropShadow" class="spark.primitives.RectangularDropShadow"/>
     <component id="RemoveAction" class="spark.effects.RemoveAction"/>
-    <component id="RelativePosition" class="spark.core.RelativePosition"/>
     <component id="Resize" class="spark.effects.Resize"/>
     <component id="RGBInterpolator" class="spark.effects.interpolation.RGBInterpolator"/>
     <component id="RichEditableText" class="spark.primitives.RichEditableText"/>
