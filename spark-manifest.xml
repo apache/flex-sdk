@@ -46,6 +46,7 @@
     <component id="ColorMatrixFilter" class="spark.filters.ColorMatrixFilter"/>
     <component id="ColorTransform" class="flash.geom.ColorTransform" lookupOnly="true"/>
     <component id="ColumnAlign" class="spark.layouts.ColumnAlign"/>
+    <component id="ComboBox" class="spark.components.ComboBox"/>
     <component id="ConvolutionFilter" class="spark.filters.ConvolutionFilter"/>
     <component id="CrossFade" class="spark.effects.CrossFade"/>
     <component id="DataGroup" class="spark.components.DataGroup"/>
