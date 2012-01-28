@@ -68,7 +68,7 @@
       <library-path>
          <path-element>libs</path-element>
          <path-element>libs/player</path-element>
-         <path-element>libs/player/{targetPlayerMajorVersion}</path-element>
+         <path-element>libs/player/{targetPlayerMajorVersion}.{targetPlayerMinorVersion}</path-element>
          <path-element>locale/{locale}</path-element>
       </library-path>
 
