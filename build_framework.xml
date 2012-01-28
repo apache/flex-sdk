@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2006-2007 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<project name="framework" default="main" basedir=".">
+
+	<echo message="Please set the environment variable ANT_OPTS to -Xmx256m"/>
+
+	<property name="FLEX_HOME" value="${basedir}/.."/>
+	<property name="flex.dir" value="${basedir}/projects/flex"/>
+	<property name="framework.dir" value="${basedir}/projects/framework"/>
+	<property name="airframework.dir" value="${basedir}/projects/airframework"/>
+	<property name="haloclassic.dir" value="${basedir}/projects/haloclassic"/>
+	<property name="utilities.dir" value="${basedir}/projects/utilities"/>
+	<property name="locale" value="en_US"/>
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+
+	<target name="main" depends="flex,framework,airframework,utilities,haloclassic,framework_rb,airframework_rb"/>
+
+	<target name="flex" description="Builds flex.swc">
+		<compc accessible="true"
+			   output="libs/flex.swc"
+			   include-classes="FlexClasses">
+			<source-path path-element="${flex.dir}/src"/>
+			<source-path path-element="${framework.dir}/src"/>
+			<library-path/>
+		</compc>
+	</target>
+
+	<target name="framework" description="Builds framework.swc and its resource bundles">
+		<compc accessible="true"
+			   output="libs/framework.swc"
+			   include-classes="FrameworkClasses"
+                           locale="">
+			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
+			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${framework.dir}/manifest.xml"/>
+			<source-path path-element="${framework.dir}/src"/>
+			<external-library-path dir="libs/player" includes="playerglobal.swc"/>
+			<library-path/>
+			<include-file name="defaults.css" path="${framework.dir}/defaults.css"/>
+			<include-file name="defaults-2.0.0.css" path="${framework.dir}/defaults-2.0.0.css"/>
+			<include-file name="defaults-2.0.1.css" path="${framework.dir}/defaults-2.0.1.css"/>
+			<include-file name="Assets.swf" path="${framework.dir}/assets/Assets.swf"/>
+			<keep-as3-metadata name="Bindable" />
+			<keep-as3-metadata name="Managed" />
+			<keep-as3-metadata name="ChangeEvent" />
+			<keep-as3-metadata name="NonCommittingChangeEvent" />
+			<keep-as3-metadata name="Transient" />			
+		</compc>
+	</target>
+	
+		<target name="framework_rb" description="Builds framework.swc and its resource bundles">
+			<compc output="locale/${locale}/framework_rb.swc" locale="${locale}">
+                        <include-resource-bundles bundle="SharedResources"/>
+                        <include-resource-bundles bundle="collections"/>
+                        <include-resource-bundles bundle="containers"/>
+                        <include-resource-bundles bundle="controls"/>
+                        <include-resource-bundles bundle="core"/>
+                        <include-resource-bundles bundle="effects"/>
+                        <include-resource-bundles bundle="formatters"/>
+                        <include-resource-bundles bundle="logging"/>
+                        <include-resource-bundles bundle="skins"/>
+                        <include-resource-bundles bundle="states"/>
+                        <include-resource-bundles bundle="styles"/>
+                        <include-resource-bundles bundle="utils"/>
+                        <include-resource-bundles bundle="validators"/>
+			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${framework.dir}/manifest.xml"/>
+			<source-path path-element="${framework.dir}/bundles/${locale}/src"/>
+			<source-path path-element="${framework.dir}/src"/>
+			<external-library-path dir="libs/player" includes="playerglobal.swc"/>
+			<library-path/>
+		</compc>
+	</target>
+
+	<target name="airframework" description="Builds airframework.swc">
+		<compc accessible="true"
+			   output="libs/air/airframework.swc"
+			   include-classes="AIRFrameworkClasses"
+                           locale="">
+			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
+			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${airframework.dir}/manifest.xml"/>
+			<source-path path-element="${airframework.dir}/src"/>
+			<library-path/>
+			<external-library-path dir="libs/air" includes="airglobal.swc"/>
+			<external-library-path dir="libs" includes="framework.swc"/>
+			<include-file name="defaults.css" path="${airframework.dir}/defaults.css"/>
+			<include-file name="Assets.swf" path="${airframework.dir}/assets/Assets.swf"/>
+			<include-file name="ComputerIcon.swf" path="${airframework.dir}/assets/ComputerIcon.swf"/>
+			<include-file name="gripper_up.png" path="${airframework.dir}/assets/gripper_up.png"/>
+			<include-file name="mac_close_down.png" path="${airframework.dir}/assets/mac_close_down.png"/>
+			<include-file name="mac_close_over.png" path="${airframework.dir}/assets/mac_close_over.png"/>
+			<include-file name="mac_close_up.png" path="${airframework.dir}/assets/mac_close_up.png"/>
+			<include-file name="mac_max_dis.png" path="${airframework.dir}/assets/mac_max_dis.png"/>
+			<include-file name="mac_max_down.png" path="${airframework.dir}/assets/mac_max_down.png"/>
+			<include-file name="mac_max_over.png" path="${airframework.dir}/assets/mac_max_over.png"/>
+			<include-file name="mac_max_up.png" path="${airframework.dir}/assets/mac_max_up.png"/>
+			<include-file name="mac_min_dis.png" path="${airframework.dir}/assets/mac_min_dis.png"/>
+			<include-file name="mac_min_down.png" path="${airframework.dir}/assets/mac_min_down.png"/>
+			<include-file name="mac_min_over.png" path="${airframework.dir}/assets/mac_min_over.png"/>
+			<include-file name="mac_min_up.png" path="${airframework.dir}/assets/mac_min_up.png"/>
+			<include-file name="win_close_down.png" path="${airframework.dir}/assets/win_close_down.png"/>
+			<include-file name="win_close_over.png" path="${airframework.dir}/assets/win_close_over.png"/>
+			<include-file name="win_close_up.png" path="${airframework.dir}/assets/win_close_up.png"/>
+			<include-file name="win_max_dis.png" path="${airframework.dir}/assets/win_max_dis.png"/>
+			<include-file name="win_max_down.png" path="${airframework.dir}/assets/win_max_down.png"/>
+			<include-file name="win_max_over.png" path="${airframework.dir}/assets/win_max_over.png"/>
+			<include-file name="win_max_up.png" path="${airframework.dir}/assets/win_max_up.png"/>
+			<include-file name="win_min_dis.png" path="${airframework.dir}/assets/win_min_dis.png"/>
+			<include-file name="win_min_down.png" path="${airframework.dir}/assets/win_min_down.png"/>
+			<include-file name="win_min_over.png" path="${airframework.dir}/assets/win_min_over.png"/>
+			<include-file name="win_min_up.png" path="${airframework.dir}/assets/win_min_up.png"/>
+			<include-file name="win_restore_down.png" path="${airframework.dir}/assets/win_restore_down.png"/>
+			<include-file name="win_restore_over.png" path="${airframework.dir}/assets/win_restore_over.png"/>
+			<include-file name="win_restore_up.png" path="${airframework.dir}/assets/win_restore_up.png"/>
+		</compc>
+	</target>
+	<target name="airframework_rb" description="Builds airframework_rb.swc">
+		<compc output="locale/${locale}/airframework_rb.swc" locale="${locale}">
+                        <include-resource-bundles bundle="controls"/>
+						<include-resource-bundles bundle="styles"/>
+                        <include-resource-bundles bundle="core"/>
+                        <include-resource-bundles bundle="collections"/>
+                        <include-resource-bundles bundle="skins"/>
+                        <include-resource-bundles bundle="SharedResources"/>
+                        <include-resource-bundles bundle="effects"/>
+                        <include-resource-bundles bundle="aircontrols"/>
+                        <include-resource-bundles bundle="containers"/>
+                        <include-resource-bundles bundle="formatters"/>                        
+                        
+			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${framework.dir}/manifest.xml"/>
+			<source-path path-element="${airframework.dir}/bundles/${locale}/src"/>
+			<source-path path-element="${airframework.dir}/src"/>
+			<source-path path-element="${framework.dir}/src"/>
+			<source-path path-element="${framework.dir}/bundles/${locale}/src"/>
+			<external-library-path dir="libs/player" includes="playerglobal.swc"/>
+			<library-path/>
+		</compc>
+	</target>
+
+	<target name="haloclassic" description="Builds haloclassic.swc">
+		<compc accessible="true"
+			   output="themes/HaloClassic/haloclassic.swc"
+			   include-classes="HaloClassicClasses"
+                           locale="">
+			<source-path path-element="${haloclassic.dir}/src"/>
+			<external-library-path dir="libs/player" includes="playerglobal.swc"/>
+			<external-library-path dir="libs" includes="framework.swc"/>
+			<library-path/>
+			<include-file name="defaults.css" path="${haloclassic.dir}/defaults.css"/>
+			<include-file name="Assets.swf" path="${haloclassic.dir}/assets/Assets.swf"/>
+		</compc>
+	</target>
+
+	<target name="utilities" description="Builds utilities.swc">
+		<compc accessible="true"
+			   output="libs/utilities.swc"
+			   include-classes="UtilitiesClasses">
+			<source-path path-element="${utilities.dir}/src"/>
+			<source-path path-element="${framework.dir}/src"/>
+			<source-path path-element="${framework.dir}/bundles/{locale}/src"/>
+			<library-path/>
+		</compc>
+	</target>
+
+	<target name="clean" description="Cleans all SWCs and their resource bundles">
+		<delete failonerror="false">
+			<fileset dir="libs" includes="flex.swc,framework.swc,utilities.swc"/>
+			<fileset dir="libs/air" includes="airframework.swc"/>
+			<fileset dir="themes/HaloClassic" includes="haloclassic.swc"/>
+			<fileset dir="locale/${locale}" includes="framework_rb.swc,airframework_rb.swc"/>
+		</delete>
+	</target>
+</project>
