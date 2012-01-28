@@ -105,10 +105,10 @@ public class HierarchicalCollectionView extends EventDispatcher
     private var currentLength:int;
     
     /**
-	 *  @private
-	 *  Top level XML node if there is one
-	 */
-	private var parentNode:XML;
+     *  @private
+     *  Top level XML node if there is one
+     */
+    private var parentNode:XML;
 
     /**
      *  @private
@@ -496,10 +496,10 @@ public class HierarchicalCollectionView extends EventDispatcher
         
         while(parent != null)
         {
-        	parent = getParentItem(parent);
-        	depth++;
+            parent = getParentItem(parent);
+            depth++;
         }
-    	depth = (hasRoot && !showRoot) ? (depth - 1) : depth;
+        depth = (hasRoot && !showRoot) ? (depth - 1) : depth;
         
         // depth cant be less then 1
         return (depth < 1) ? 1 : depth;
@@ -559,8 +559,8 @@ public class HierarchicalCollectionView extends EventDispatcher
         // useful in sorting/filtering.
         if(childrenCollection)
         {
-        	// node might have changed, so update the childrenMap
-        	childrenMap[node] = childrenCollection;
+            // node might have changed, so update the childrenMap
+            childrenMap[node] = childrenCollection;
             return childrenCollection;
         }
         
@@ -619,12 +619,12 @@ public class HierarchicalCollectionView extends EventDispatcher
      */
     public function openNode(node:Object):void
     {
-		var uid:String = UIDUtil.getUID(node);
-		
-		// check if the node is already opened
-		if (_openNodes[uid] != null)
-			return;
-		
+        var uid:String = UIDUtil.getUID(node);
+        
+        // check if the node is already opened
+        if (_openNodes[uid] != null)
+            return;
+        
         // add the node to the openNodes object and update the length
         _openNodes[uid] = node;
         
@@ -645,7 +645,7 @@ public class HierarchicalCollectionView extends EventDispatcher
         }
         childrenCollection.refresh();
 
-		updateParentMapAndLength(childrenCollection, node);
+        updateParentMapAndLength(childrenCollection, node);
     }
     
     /**
@@ -663,28 +663,28 @@ public class HierarchicalCollectionView extends EventDispatcher
         // removes the node from the openNodes object and update the length
         delete _openNodes[UIDUtil.getUID(node)];
 
-		if (childrenCollection)
-		{
-			var cursor:IViewCursor = childrenCollection.createCursor();
-			while (!cursor.afterLast)
-			{
-				var uid:String = UIDUtil.getUID(cursor.current);
-				delete parentMap[uid];
+        if (childrenCollection)
+        {
+            var cursor:IViewCursor = childrenCollection.createCursor();
+            while (!cursor.afterLast)
+            {
+                var uid:String = UIDUtil.getUID(cursor.current);
+                delete parentMap[uid];
 
-				try
-				{
-					cursor.moveNext();
-				}
-				catch (e:ItemPendingError)
-				{
-					break;
-				}
+                try
+                {
+                    cursor.moveNext();
+                }
+                catch (e:ItemPendingError)
+                {
+                    break;
+                }
         
-			}
-		}
-		
-		// update the length
-		updateLength();
+            }
+        }
+        
+        // update the length
+        updateLength();
     }
     
     /**
@@ -949,7 +949,7 @@ public class HierarchicalCollectionView extends EventDispatcher
         // are we swallowing the root?
         if (hierarchicalData && !showRoot && hasRoot)
         {
-        	var obj:Object = treeData.createCursor().current;
+            var obj:Object = treeData.createCursor().current;
             if (hierarchicalData.hasChildren(obj))
             {
                 // then get rootItem children
@@ -969,11 +969,11 @@ public class HierarchicalCollectionView extends EventDispatcher
         
         // listen for reset/refresh events
         this.hierarchicalData.addEventListener(
-        							CollectionEvent.COLLECTION_CHANGE,
-                                 	collectionChangeHandler,
-                                 	false,
-                                 	EventPriority.DEFAULT_HANDLER,
-                                 	true);
+                                    CollectionEvent.COLLECTION_CHANGE,
+                                    collectionChangeHandler,
+                                    false,
+                                    EventPriority.DEFAULT_HANDLER,
+                                    true);
         
         // openNodes cant be null
         if (argOpenNodes)
@@ -984,42 +984,42 @@ public class HierarchicalCollectionView extends EventDispatcher
         //calc initial length
         currentLength = calculateLength();
     }
-	
-	/**
-	 *  @private
-	 *  
-	 *  Update the parent map and adjust the length.
-	 */ 
-	private function updateParentMapAndLength(collection:ICollectionView, node:Object):void
-	{
-		var cursor:IViewCursor = collection.createCursor();
-		currentLength += collection.length;
-		
-		while (!cursor.afterLast)
-		{
-			var item:Object = cursor.current;
-			var uid:String = UIDUtil.getUID(item);
-			parentMap[uid] = node;
-			
-			// check that the node is opened or not.
-			// If it is open, then update the length with the node's children.
-			if (_openNodes[uid] != null)
-			{
-				var childrenCollection:ICollectionView = getChildren(item);
-				if (childrenCollection)
-					updateParentMapAndLength(childrenCollection, item);
-			}
-			
-			try
-			{
-				cursor.moveNext();
-			}
-			catch (e:ItemPendingError)
-			{
-				break;
-			}
-		}
-	}
+    
+    /**
+     *  @private
+     *  
+     *  Update the parent map and adjust the length.
+     */ 
+    private function updateParentMapAndLength(collection:ICollectionView, node:Object):void
+    {
+        var cursor:IViewCursor = collection.createCursor();
+        currentLength += collection.length;
+        
+        while (!cursor.afterLast)
+        {
+            var item:Object = cursor.current;
+            var uid:String = UIDUtil.getUID(item);
+            parentMap[uid] = node;
+            
+            // check that the node is opened or not.
+            // If it is open, then update the length with the node's children.
+            if (_openNodes[uid] != null)
+            {
+                var childrenCollection:ICollectionView = getChildren(item);
+                if (childrenCollection)
+                    updateParentMapAndLength(childrenCollection, item);
+            }
+            
+            try
+            {
+                cursor.moveNext();
+            }
+            catch (e:ItemPendingError)
+            {
+                break;
+            }
+        }
+    }
     
     /**
      *  @private
@@ -1039,32 +1039,32 @@ public class HierarchicalCollectionView extends EventDispatcher
             // watch for page faults
             var modelCursor:IViewCursor = treeData.createCursor();
             if (modelCursor.beforeFirst)
-			{
-				// indicates that an IPE occured on the first item
-				return treeData.length;
-			}
+            {
+                // indicates that an IPE occured on the first item
+                return treeData.length;
+            }
             while (!modelCursor.afterLast)
             {
                 node = modelCursor.current;
                 if (node is XML)
-				{
-					if (firstNode)
-					{	
-						firstNode = false;
-						var parNode:* = node.parent();
-						if (parNode != null)
-						{
-							startTrackUpdates(parNode);
-							childrenMap[parNode] = treeData;
-							parentNode = parNode;
-						}
-					}
-					startTrackUpdates(node);
-				}
-				if (node === null)
-					length += 1;
-				else
-                	length += calculateLength(node, null) + 1;
+                {
+                    if (firstNode)
+                    {   
+                        firstNode = false;
+                        var parNode:* = node.parent();
+                        if (parNode != null)
+                        {
+                            startTrackUpdates(parNode);
+                            childrenMap[parNode] = treeData;
+                            parentNode = parNode;
+                        }
+                    }
+                    startTrackUpdates(node);
+                }
+                if (node === null)
+                    length += 1;
+                else
+                    length += calculateLength(node, null) + 1;
                 modelOffset++;
                 try
                 {
@@ -1098,8 +1098,8 @@ public class HierarchicalCollectionView extends EventDispatcher
                         childCursor.seek(CursorBookmark.FIRST);
                         while (!childCursor.afterLast)
                         {
-                        	if (node is XML)
-								startTrackUpdates(childCursor.current);
+                            if (node is XML)
+                                startTrackUpdates(childCursor.current);
                             length += calculateLength(childCursor.current, node) + 1;
                             modelOffset++;
                             
@@ -1138,8 +1138,8 @@ public class HierarchicalCollectionView extends EventDispatcher
         var needUpdate:Boolean = false;
         
         // apply filter function to all the collections including the child collections
-    	if (!(treeData.filterFunction == null && filterFunction == null))
-    	{
+        if (!(treeData.filterFunction == null && filterFunction == null))
+        {
             treeData.filterFunction = filterFunction;
             treeData.refresh();
             needUpdate = true;
@@ -1153,12 +1153,12 @@ public class HierarchicalCollectionView extends EventDispatcher
                 coll.filterFunction = filterFunction;
                 coll.refresh();
                 needUpdate = true
-           	}
+            }
         }
         
         // if filter is applied to any collection, only then update the length
         if (needUpdate)
-        	updateLength();  // length will change after filtering, so update it.
+            updateLength();  // length will change after filtering, so update it.
         
         
         // apply sort to all the collections including the child collections
@@ -1256,9 +1256,9 @@ public class HierarchicalCollectionView extends EventDispatcher
      */
     private function sortCanBeApplied(coll:ICollectionView):Boolean
     {
-    	if (sort == null)
-    		return true;
-    	
+        if (sort == null)
+            return true;
+        
         // get the current item
         var obj:Object = coll.createCursor().current;
         
@@ -1425,12 +1425,12 @@ public class HierarchicalCollectionView extends EventDispatcher
         if (event is CollectionEvent)
         {
             var ce:CollectionEvent = CollectionEvent(event);
-			if (ce.kind == CollectionEventKind.REFRESH)
-			{
-				// collection refreshed, update length
-				updateLength();
-			}
-			else if (ce.kind == CollectionEventKind.RESET)
+            if (ce.kind == CollectionEventKind.REFRESH)
+            {
+                // collection refreshed, update length
+                updateLength();
+            }
+            else if (ce.kind == CollectionEventKind.RESET)
             {
                 // initialize the collection again - its source is modified
                 if (hierarchicalData)
@@ -1452,7 +1452,7 @@ public class HierarchicalCollectionView extends EventDispatcher
                 {
                     node = ce.items[i];
                     if (node is XML)
-						startTrackUpdates(node);
+                        startTrackUpdates(node);
                     getVisibleNodes(node, null, convertedEvent.items);
                 }
                 currentLength += convertedEvent.items.length;
@@ -1471,7 +1471,7 @@ public class HierarchicalCollectionView extends EventDispatcher
                 {
                     node = ce.items[i];
                     if (node is XML)
-						stopTrackUpdates(node);
+                        stopTrackUpdates(node);
                     getVisibleNodes(node, null, convertedEvent.items);
                 }
                 currentLength -= convertedEvent.items.length;
@@ -1501,7 +1501,7 @@ public class HierarchicalCollectionView extends EventDispatcher
                 {
                     node = ce.items[i].oldValue;
                     if (node is XML)
-						stopTrackUpdates(node);
+                        stopTrackUpdates(node);
                     getVisibleNodes(node, null, convertedEvent.items);
                 }
 
@@ -1564,7 +1564,7 @@ public class HierarchicalCollectionView extends EventDispatcher
                 {
                     node = ce.items[i];
                     if (node is XML)
-						startTrackUpdates(node);
+                        startTrackUpdates(node);
                     parent = getParentItem(node);
                     if (parent != null)
                         getVisibleNodes(node, parent, convertedEvent.items);
@@ -1584,7 +1584,7 @@ public class HierarchicalCollectionView extends EventDispatcher
                 {
                     node = ce.items[i];
                     if (node is XML)
-						stopTrackUpdates(node);
+                        stopTrackUpdates(node);
                     parent = getParentItem(node);
                     if (parent != null)
                         getVisibleNodes(node, parent, convertedEvent.items);
@@ -1616,22 +1616,22 @@ public class HierarchicalCollectionView extends EventDispatcher
                 {
                     node = ce.items[i].oldValue;
                     parent = getParentItem(node);
-					
+                    
                     if (parent != null)
-					{
+                    {
                         getVisibleNodes(node, parent, convertedEvent.items);
-						// update the parent of the new item only 
-						// if the parent node is opened
-						if (_openNodes[UIDUtil.getUID(parent)] != null)
-						{
-							var newNode:Object = ce.items[i].newValue;
-							uid = UIDUtil.getUID(newNode);
-							parentMap[uid] = parent;
-							
-							// delete the parent map for the old node
-							delete parentMap[UIDUtil.getUID(node)];
-						}
-					}
+                        // update the parent of the new item only 
+                        // if the parent node is opened
+                        if (_openNodes[UIDUtil.getUID(parent)] != null)
+                        {
+                            var newNode:Object = ce.items[i].newValue;
+                            uid = UIDUtil.getUID(newNode);
+                            parentMap[uid] = parent;
+                            
+                            // delete the parent map for the old node
+                            delete parentMap[UIDUtil.getUID(node)];
+                        }
+                    }
                 }
 
                 // prune the replacements from this list
@@ -1639,8 +1639,8 @@ public class HierarchicalCollectionView extends EventDispatcher
                 for (i = 0; i < n; i++)
                 {
                     node = ce.items[i].oldValue;
-					if (node is XML)
-						stopTrackUpdates(node);
+                    if (node is XML)
+                        stopTrackUpdates(node);
                     while (convertedEvent.items[j] != node)
                         j++;
                     convertedEvent.items.splice(j, 1);
@@ -1672,10 +1672,11 @@ public class HierarchicalCollectionView extends EventDispatcher
     }
     
     /**
-     * Called whenever an XML object contained in our list is updated
-     * in some way.  The initial implementation stab is very lenient,
-     * any changeType will cause an update no matter how much further down
-     * in a hierarchy.  
+     *  @private
+     *  Called whenever an XML object contained in a list is updated
+     *  in some way.  The initial implementation stab is very lenient,
+     *  any changeType will cause an update no matter how much further down
+     *  in a hierarchy.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1691,144 +1692,144 @@ public class HierarchicalCollectionView extends EventDispatcher
         var prop:String;
         var oldValue:Object;
         var newValue:Object;
-		var children:XMLListCollection;
-		var location:int;
+        var children:XMLListCollection;
+        var location:int;
         var event:CollectionEvent;
-		var list:XMLListAdapter;
+        var list:XMLListAdapter;
         
-		// trace("currentTarget", currentTarget.toXMLString());
-		// trace("target", target.toXMLString());
-		// trace("value", value.toXMLString());
-		// trace("type", type);
+        // trace("currentTarget", currentTarget.toXMLString());
+        // trace("target", target.toXMLString());
+        // trace("value", value.toXMLString());
+        // trace("type", type);
 
-		if (currentTarget === target)
+        if (currentTarget === target)
         {
-	        switch(type)
-	        {
-	            case "nodeAdded":
-	            {
-					for (var q:* in childrenMap)
-					{
-						if (q === currentTarget)
-						{
-							list = childrenMap[q].list as XMLListAdapter;
-							if (list && !list.busy())
-							{
-								if (childrenMap[q] === treeData)
-								{
-									children = treeData as XMLListCollection;
-									if (parentNode != null)
-									{
-										children.mx_internal::dispatchResetEvent = false;
-										children.source = parentNode.*;
-										children.refresh();
-									}
-								}
-								else
-								{
-									// this should refresh the collection
-									children = getChildren(q) as XMLListCollection; 
-								}
-								if (children)
-								{
-									// now we fake an event on behalf of the
-									// child collection
-									location = value.childIndex();
-									event = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-									event.kind = CollectionEventKind.ADD;
-									event.location = location;
-									event.items = [ value ];
-									children.dispatchEvent(event);
-								}
-							}
-							break;
-						}
-					}
-	                break;
-	            }
+            switch(type)
+            {
+                case "nodeAdded":
+                {
+                    for (var q:* in childrenMap)
+                    {
+                        if (q === currentTarget)
+                        {
+                            list = childrenMap[q].list as XMLListAdapter;
+                            if (list && !list.busy())
+                            {
+                                if (childrenMap[q] === treeData)
+                                {
+                                    children = treeData as XMLListCollection;
+                                    if (parentNode != null)
+                                    {
+                                        children.mx_internal::dispatchResetEvent = false;
+                                        children.source = parentNode.*;
+                                        children.refresh();
+                                    }
+                                }
+                                else
+                                {
+                                    // this should refresh the collection
+                                    children = getChildren(q) as XMLListCollection; 
+                                }
+                                if (children)
+                                {
+                                    // now we fake an event on behalf of the
+                                    // child collection
+                                    location = value.childIndex();
+                                    event = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+                                    event.kind = CollectionEventKind.ADD;
+                                    event.location = location;
+                                    event.items = [ value ];
+                                    children.dispatchEvent(event);
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
 
-				/* needed?
-	            case "nodeChanged":
-	            {
-	                prop = value.localName();
-	                oldValue = detail;
-	                newValue = value;
-	                break;
-	            }
-				*/
+                /* needed?
+                case "nodeChanged":
+                {
+                    prop = value.localName();
+                    oldValue = detail;
+                    newValue = value;
+                    break;
+                }
+                */
 
-	            case "nodeRemoved":
-	            {
-					// lookup doesn't work, must scan instead
-					for (var p:* in childrenMap)
-					{
-						if (p === currentTarget)
-						{
-							children = childrenMap[p];
-							list = children.list as XMLListAdapter;
-							if (list && !list.busy())
-							{
-								var xmllist:XMLList = children.source as XMLList;
+                case "nodeRemoved":
+                {
+                    // lookup doesn't work, must scan instead
+                    for (var p:* in childrenMap)
+                    {
+                        if (p === currentTarget)
+                        {
+                            children = childrenMap[p];
+                            list = children.list as XMLListAdapter;
+                            if (list && !list.busy())
+                            {
+                                var xmllist:XMLList = children.source as XMLList;
 
-								if (childrenMap[p] === treeData)
-								{
-									children = treeData as XMLListCollection;
-									if (parentNode)
-									{
-										children.mx_internal::dispatchResetEvent = false;
-										children.source = parentNode.*;
-										children.refresh();
-									}
-								}
-								else
-								{
-									var oldChildren:XMLListCollection = children;
-									// this should refresh the collection
-									children = getChildren(p) as XMLListCollection;
-									if (!children)
-									{
-										// last item got removed so there's no child collection
-    									oldChildren.addEventListener(CollectionEvent.COLLECTION_CHANGE,
-    																  nestedCollectionChangeHandler, false, 0, true);
+                                if (childrenMap[p] === treeData)
+                                {
+                                    children = treeData as XMLListCollection;
+                                    if (parentNode)
+                                    {
+                                        children.mx_internal::dispatchResetEvent = false;
+                                        children.source = parentNode.*;
+                                        children.refresh();
+                                    }
+                                }
+                                else
+                                {
+                                    var oldChildren:XMLListCollection = children;
+                                    // this should refresh the collection
+                                    children = getChildren(p) as XMLListCollection;
+                                    if (!children)
+                                    {
+                                        // last item got removed so there's no child collection
+                                        oldChildren.addEventListener(CollectionEvent.COLLECTION_CHANGE,
+                                                                      nestedCollectionChangeHandler, false, 0, true);
 
-										event = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-										event.kind = CollectionEventKind.REMOVE;
-										event.location = 0;
-										event.items = [ value ];
-										oldChildren.dispatchEvent(event);
-    									oldChildren.removeEventListener(CollectionEvent.COLLECTION_CHANGE,
-    																  nestedCollectionChangeHandler);
+                                        event = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+                                        event.kind = CollectionEventKind.REMOVE;
+                                        event.location = 0;
+                                        event.items = [ value ];
+                                        oldChildren.dispatchEvent(event);
+                                        oldChildren.removeEventListener(CollectionEvent.COLLECTION_CHANGE,
+                                                                      nestedCollectionChangeHandler);
 
-									}
-								}
-								if (children)
-								{
-									var n:int = xmllist.length();
-									for (var i:int = 0; i < n; i++)
-									{
-										if (xmllist[i] === value)
-										{
-											event = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-											event.kind = CollectionEventKind.REMOVE;
-											event.location = location;
-											event.items = [ value ];
-											children.dispatchEvent(event);
-											break;
-										}
-									}
-								}
-							}
-							break;
-						}
-					}
-	                break;
-	            }
+                                    }
+                                }
+                                if (children)
+                                {
+                                    var n:int = xmllist.length();
+                                    for (var i:int = 0; i < n; i++)
+                                    {
+                                        if (xmllist[i] === value)
+                                        {
+                                            event = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+                                            event.kind = CollectionEventKind.REMOVE;
+                                            event.location = location;
+                                            event.items = [ value ];
+                                            children.dispatchEvent(event);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
 
-	            default:
-				{
-	                break;
-				}
-	        }
+                default:
+                {
+                    break;
+                }
+            }
         }
     }
 
