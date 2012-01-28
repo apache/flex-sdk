@@ -268,7 +268,6 @@
 				<include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="assets/CalendarIcon.png" path="${sparkskin.dir}/assets/CalendarIcon.png"/>
-			<include-file name="assets/MenuArrow.png" path="${sparkskin.dir}/assets/MenuArrow.png"/>
 			<locale/>
 			<accessible>true</accessible>
 		</compc>
