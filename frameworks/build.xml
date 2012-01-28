@@ -16,7 +16,7 @@
 	<property name="sdk.dir" value="${basedir}/.."/>
 	<property name="jvm.args" value="-Dassert -ea -DAS3 -DAVMPLUS -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
 
-	<target name="main" depends="clean,prepare,framework,rpc,airframework,flex,utilities,haloclassic,flash_integration" description="Clean build of all SWCs"/>
+	<target name="main" depends="clean,prepare,framework,rpc,airframework,flex,utilities,graphics,haloclassic,flash_integration" description="Clean build of all SWCs"/>
 
     <target name="airframework" description="Clean build of airframework.swc">
 		<ant dir="projects/airframework"/>
@@ -28,6 +28,10 @@
 
     <target name="framework" description="Clean build of framework.swc and its resource bundles">
 		<ant dir="projects/framework"/>
+    </target>
+
+    <target name="graphics" description="Clean build of graphics.swc">
+		<ant dir="projects/graphics"/>
     </target>
 
     <target name="haloclassic" description="Clean build of haloclassic.swc">
@@ -52,26 +56,24 @@
 		<delete file="${sdk.dir}/bin/adl.exe"/>
 		<delete file="${sdk.dir}/bin/adt"/>
 		<delete file="${sdk.dir}/bin/adt.bat"/>
-		<delete file="${sdk.dir}/frameworks/libs/apollo/apolloglobal.swc"/> <!-- old name -->
 		<delete file="${sdk.dir}/frameworks/libs/air/airglobal.swc"/>
 		<delete file="${sdk.dir}/frameworks/libs/air/servicemonitor.swc"/>
 		<delete file="${sdk.dir}/lib/adt.jar"/>
-		<delete dir="${sdk.dir}/runtime"/> <!-- old name -->
 		<delete dir="${sdk.dir}/runtimes"/>
 		<delete dir="${sdk.dir}/samples/badge"/>
+		<delete file="${sdk.dir}/samples/descriptor-sample.xml"/>
 		<delete dir="${sdk.dir}/samples/icons"/>
-		<delete dir="${sdk.dir}/src"/> <!-- old name -->
 		<delete dir="${sdk.dir}/templates/air"/>
 		<!-- Delete output from SWC projects -->
 		<ant dir="projects/framework" target="clean"/>
 		<ant dir="projects/airframework" target="clean"/>
 		<ant dir="projects/flex" target="clean"/>
 		<ant dir="projects/utilities" target="clean"/>
+		<ant dir="projects/graphics" target="clean"/>
 		<ant dir="projects/haloclassic" target="clean"/>
 		<ant dir="projects/flash-integration" target="clean"/>
 		<ant dir="projects/rpc" target="clean"/>
 		<!-- Delete empty folders -->
-		<delete dir="libs/apollo"/> <!-- old name -->
 		<delete dir="libs/air"/>
 		<delete dir="locale"/>
 		<delete dir="themes/haloclassic"/>
@@ -101,6 +103,7 @@ tar -xjf "AIR Integration Kit.tbz2" .
 		<ant dir="projects/airframework" target="compile"/>
 		<ant dir="projects/flex" target="compile"/>
 		<ant dir="projects/utilities" target="compile"/>
+		<ant dir="projects/graphics" target="compile"/>
 		<ant dir="projects/haloclassic" target="compile"/>
 	</target>
 
