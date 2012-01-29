@@ -1468,7 +1468,7 @@ public class Window extends LayoutContainer implements IWindow
 	private var _systemChrome:String = "standard";
 	
 	/**
-	 *  Specifies the type of system chrome the window has.
+	 *  Specifies the type of system chrome (if any) the window has.
 	 *  The set of possible values is defined by the constants
 	 *  in the NativeWindowSystemChrome class.
 	 *
@@ -1652,7 +1652,7 @@ public class Window extends LayoutContainer implements IWindow
     [Bindable("titleIconChanged")]
 
     /**
-     *  The Class (usually for an image) used to draw the title bar icon.
+     *  The Class (usually an image) used to draw the title bar icon.
      *
      *  @default null
      */
@@ -2261,7 +2261,7 @@ public class Window extends LayoutContainer implements IWindow
     //--------------------------------------------------------------------------
 
     /**
-     *  Closes the Window. This action is cancelable.
+     *  Closes the window. This action is cancelable.
      */
     public function close():void
     {
@@ -2324,7 +2324,7 @@ public class Window extends LayoutContainer implements IWindow
     }
 
  	/**
-     *  Maximizes the underlying NativeWindow, or does nothing it if it's already maximized.
+     *  Maximizes the window, or does nothing if it's already maximized.
      */
     public function maximize():void
     {
@@ -2347,7 +2347,7 @@ public class Window extends LayoutContainer implements IWindow
     }
 
     /**
-     *  Minimizes the underlying NativeWindow.
+     *  Minimizes the window.
      */
     public function minimize():void
     {
@@ -2364,7 +2364,7 @@ public class Window extends LayoutContainer implements IWindow
     }
 
     /**
-     *  Restores the underlying NativeWindow (unmaximizes it if it's maximized, or
+     *  Restores the window (unmaximizes it if it's maximized, or
      *  unminimizes it if it's minimized).
      */
 	public function restore():void
