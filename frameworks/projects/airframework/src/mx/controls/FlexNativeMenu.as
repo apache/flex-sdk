@@ -113,12 +113,26 @@ package mx.controls
  *  <tr>
  *    <td><code>cmdKey</code></td>
  *    <td>Boolean</td>
+ *    <td><strong>Note:</strong> this attribute is deprecated as of Flex 3.2. Use 
+ *        <code>commandKey</code> instead. Specifies whether the Command key is required as part 
+ *        of the key equivalent for the item.</td>
+ *  </tr>
+ *  <tr>
+ *    <td><code>commandKey</code></td>
+ *    <td>Boolean</td>
  *    <td>Specifies whether the Command key is required as part of the key equivalent for the item.</td>
+ *  </tr>
+ *  <tr>
+ *    <td><code>controlKey</code></td>
+ *    <td>Boolean</td>
+ *    <td>Specifies whether the Control key is required as part of the key equivalent for the item.</td>
  *  </tr>
  *  <tr>
  *    <td><code>ctrlKey</code></td>
  *    <td>Boolean</td>
- *    <td>Specifies whether the Control key is required as part of the key equivalent for the item.</td>
+ *    <td><strong>Note:</strong> this attribute is deprecated as of Flex 3.2. Use 
+ *        <code>controlKey</code> instead. Specifies whether the Control key is required as part 
+ *        of the key equivalent for the item.</td>
  *  </tr>
  *  <tr>
  *    <td><code>enabled</code></td>
@@ -724,9 +738,13 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     private function keyEquivalentModifiersDefaultFunction(data:Object):Array
 	{
 		var modifiers:Array = [];
-		var xmlModifiers:Array = ["@altKey", "@cmdKey", "@ctrlKey", "@shiftKey"];
-		var objectModifiers:Array = ["altKey", "cmdKey", "ctrlKey", "shiftKey"];
-        var keyboardModifiers:Array = [Keyboard.ALTERNATE, Keyboard.COMMAND, Keyboard.CONTROL, Keyboard.SHIFT];
+		var xmlModifiers:Array = ["@altKey", "@cmdKey", "@ctrlKey", 
+		                          "@shiftKey", "@commandKey", "@controlKey"];
+		var objectModifiers:Array = ["altKey", "cmdKey", "ctrlKey", 
+		                             "shiftKey", "commandKey", "controlKey"];
+        var keyboardModifiers:Array = [Keyboard.ALTERNATE, Keyboard.COMMAND, 
+                                       Keyboard.CONTROL, Keyboard.SHIFT, 
+                                       Keyboard.COMMAND, Keyboard.CONTROL];
 		
 		if (data is XML)
         {
@@ -770,8 +788,8 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
      *
      *  If you omit this property, Flex uses its own default function to determine the
      *  Array of modifiers by looking in the data provider data for the presence of
-	 *  the following (boolean) fields: <code>altKey</code>, <code>cmdKey</code>,
-	 *  <code>ctrlKey</code>, and <code>shiftKey</code>.
+	 *  the following (boolean) fields: <code>altKey</code>, <code>commandKey</code>,
+	 *  <code>controlKey</code>, and <code>shiftKey</code>.
      *
      *  <p>The <code>keyEquivalentModifiersFunction</code> property is good for handling
      *  formatting, localization, and platform independence.</p>
