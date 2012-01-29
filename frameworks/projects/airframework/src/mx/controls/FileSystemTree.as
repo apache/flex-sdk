@@ -122,6 +122,36 @@ use namespace mx_internal;
  *
  *  <p>If the user double-clicks a file node,
  *  this control dispatches a <code>select</code> event.</p>
+ * 
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:FileSystemTree&gt;</code> tag inherits all of the tag
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:FileSystemTree
+ *    <strong>Properties</strong>
+ *    directory="<i>null</i>"
+ *    enumerationMode="directoriesFirst"
+ *    extensions="<i>null</i>"
+ *    filterFunction="<i>null</i>"
+ *    nameCompareFunction="<i>null</i>"
+ *    openPaths="<i>null</i>"
+ *    selectedPath="<i>null</i>"
+ *    selectedPaths="<i>null</i>"
+ *    showExtensions="true"
+ *    showHidden="false"
+ *    showIcons="true"
+ * 
+ *    <strong>Events</strong>
+ *    directoryChange="<i>No default</i>"
+ *    directoryClosing="<i>No default</i>"
+ *    directoryOpening="<i>No default</i>"
+ *    fileChoose="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
+ * 
+ *  @see flash.filesystem.File
  */
 public class FileSystemTree extends Tree
 {
@@ -227,6 +257,10 @@ public class FileSystemTree extends Tree
 
     /**
      *  @copy mx.controls.FileSystemList#enumerationMode
+     *
+     *  @default FileSystemEnumerationMode.DIRECTORIES_FIRST
+     *
+     *  @see mx.controls.FileSystemEnumerationMode
      */
     public function get enumerationMode():String
     {
@@ -247,6 +281,8 @@ public class FileSystemTree extends Tree
 
     /**
      *  @copy mx.controls.FileSystemList#extensions
+     *
+     *  @default null
      */
     public function get extensions():Array /* of String */
     {
@@ -267,6 +303,8 @@ public class FileSystemTree extends Tree
 
     /**
      *  @copy mx.controls.FileSystemList#filterFunction
+     *
+     *  @default null
      */
     public function get filterFunction():Function
     {
@@ -287,6 +325,8 @@ public class FileSystemTree extends Tree
 
     /**
      *  @copy mx.controls.FileSystemList#nameCompareFunction
+     *
+     *  @default null
      */
     public function get nameCompareFunction():Function
     {
@@ -334,6 +374,11 @@ public class FileSystemTree extends Tree
 	
     /**
      *  @copy mx.controls.FileSystemList#selectedPath
+     *
+     *  @default null
+     *
+     *  @see mx.controls.listClasses.ListBase#selectedIndex
+     *  @see mx.controls.listClasses.ListBase#selectedItem
      */
     public function get selectedPath():String
     {
@@ -357,6 +402,11 @@ public class FileSystemTree extends Tree
 	
     /**
      *  @copy mx.controls.FileSystemList#selectedPaths
+     *
+     *  @default []
+     *
+     *  @see mx.controls.listClasses.ListBase#selectedIndex
+     *  @see mx.controls.listClasses.ListBase#selectedItem
      */
     public function get selectedPaths():Array /* of String */
     {
@@ -377,6 +427,8 @@ public class FileSystemTree extends Tree
 
     /**
      *  @copy mx.controls.FileSystemList#showExtensions
+     *
+     *  @default true
      */
     public function get showExtensions():Boolean
     {
@@ -397,6 +449,8 @@ public class FileSystemTree extends Tree
 
     /**
      *  @copy mx.controls.FileSystemList#showHidden
+     *
+     *  @default false
      */
     public function get showHidden():Boolean
     {
@@ -417,6 +471,8 @@ public class FileSystemTree extends Tree
 
     /**
      *  @copy mx.controls.FileSystemList#showIcons
+     *
+     *  @default true
      */
     public function get showIcons():Boolean
     {
