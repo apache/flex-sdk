@@ -86,6 +86,10 @@ use namespace mx_internal;
  * 
  *  @see mx.managers.SystemManager
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class WindowedSystemManager extends MovieClip implements ISystemManager, ISWFBridgeProvider
 {
@@ -165,6 +169,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
     /**
      *  Depth of this object in the containment hierarchy.
      *  This number is used by the measurement and layout code.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var nestLevel:int = 0;
 
@@ -280,6 +288,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get cursorChildren():IChildList
     {
@@ -336,6 +348,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get document():Object
     {
@@ -363,6 +379,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
     /**
      *  A table of embedded fonts in this application.  The 
      *  object is a table indexed by the font name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get embeddedFontList():Object
     {
@@ -407,6 +427,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @copy mx.core.UIComponent#focusPane
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get focusPane():Sprite
     {
@@ -467,6 +491,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      *  clicking in another windows which would normally
      *  activate the FocusManager in that window.  The PopUpManager
      *  modifies this count as it creates and destroys modal windows.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get numModalWindows():int
     {
@@ -492,6 +520,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get popUpChildren():IChildList
     {
@@ -548,6 +580,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get rawChildren():IChildList
     {
@@ -604,6 +640,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get screen():Rectangle
     {
@@ -630,6 +670,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get toolTipChildren():IChildList
     {
@@ -682,6 +726,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      *  Returns the SystemManager responsible for the application window.  This will be
      *  the same SystemManager unless this application has been loaded into another
      *  application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get topLevelSystemManager():ISystemManager
     {
@@ -731,6 +779,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      *  this should always be the width of the stage unless the application was loaded
      *  into another application.  If the application was not loaded
      *  into another application, setting this value will have no effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get width():Number
     {
@@ -770,6 +822,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      *  this should always be the width of the stage unless the application was loaded
      *  into another application.  If the application was not loaded
      *  into another application, setting this value has no effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get height():Number
     {
@@ -784,6 +840,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      * @inheritdoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function get swfBridge():IEventDispatcher
     {
@@ -795,6 +855,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
     
     /**
      * @inheritdoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function get childAllowsParent():Boolean
     {
@@ -812,6 +876,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      * @inheritdoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function get parentAllowsChild():Boolean
     {
@@ -835,6 +903,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function activate(f:IFocusManagerContainer):void
     {
@@ -890,6 +962,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function deactivate(f:IFocusManagerContainer):void
     {
@@ -1060,6 +1136,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      * Remote a remote form from the forms array.
      * 
      * form Locally created remote form.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function removeRemotePopUp(form:RemotePopUp):void
     {   
@@ -1136,6 +1216,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addFocusManager(f:IFocusManagerContainer):void
     {
@@ -1148,6 +1232,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeFocusManager(f:IFocusManagerContainer):void
     {
@@ -1236,6 +1324,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  This method is overridden in the autogenerated subclass.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function create(... params):Object
     {
@@ -1402,6 +1494,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
             // Add listener for the creationComplete event
 /*          IEventDispatcher(app).addEventListener(FlexEvent.CREATION_COMPLETE,
                                                    appCreationCompleteHandler);
+*  
+*  @langversion 3.0
+*  @playerversion AIR 1.1
+*  @productversion Flex 3
 */
             if (topLevel && stage)
             {
@@ -1593,6 +1689,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         
     /**
      * @inheritdoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function isTopLevelRoot():Boolean
     {
@@ -1602,6 +1702,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
     /**
      * The system manager proxy has only one child that is a focus manager container.
      * Iterate thru the children until we find it.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function findFocusManagerContainer(smp:SystemManagerProxy):IFocusManagerContainer
     {
@@ -1744,6 +1848,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      * 
      * @param bridge the bridge used to talk to the parent. 
      * @param owner the display object that owns the bridge.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function addChildBridge(bridge:IEventDispatcher, owner:DisplayObject):void
     {
@@ -1785,6 +1893,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      * Remove a child bridge.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeChildBridge(bridge:IEventDispatcher):void
     {
@@ -1801,6 +1913,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      * @inheritdoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function useSWFBridge():Boolean
     {
@@ -1856,6 +1972,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      * 
      * returns null if we are not on the display list or we don't have
      * access to the top level system manager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getTopLevelRoot():DisplayObject
     {
@@ -1887,6 +2007,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      * Go up our parent chain to get the top level system manager in this 
      * SecurityDomain
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getSandboxRoot():DisplayObject
     {
@@ -1944,6 +2068,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
     
    /**
      *  @inheritdoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
     {
@@ -1977,6 +2105,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
  
    /**
     *  @inheritdoc
+    *  
+    *  @langversion 3.0
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */  
     public function deployMouseShields(deploy:Boolean):void
     {
@@ -2067,6 +2199,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      * 
      * This method assumes the form variable has been set before calling
      * this function.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function updateLastActiveForm():void
     {
@@ -2120,6 +2256,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      * request the parent to add an event listener.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function addEventListenerToOtherSystemManagers(type:String, listener:Function, useCapture:Boolean = false, 
                 priority:int=0, useWeakReference:Boolean=false):void
@@ -2142,6 +2282,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      * request the parent to remove an event listener.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     private function removeEventListenerFromOtherSystemManagers(type:String, listener:Function, 
                                                       useCapture:Boolean = false):void 
@@ -2181,6 +2325,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  dispatch the event to all sandboxes except the specified one
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, 
                         trackClones:Boolean = false, toOtherSystemManagers:Boolean = false):void
@@ -2231,6 +2379,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
     }
     /**
      * request the parent to add an event listener.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function addEventListenerToSandboxes(type:String, listener:Function, useCapture:Boolean = false, 
                 priority:int=0, useWeakReference:Boolean=false, skip:IEventDispatcher = null):void
@@ -2265,6 +2417,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      * request the parent to remove an event listener.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     private function removeEventListenerFromSandboxes(type:String, listener:Function, 
                                                       useCapture:Boolean = false,
@@ -2476,6 +2632,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      *
      *  @return <code>true</code> if the given DisplayObject is the 
      *  top-level window.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isTopLevelWindow(object:DisplayObject):Boolean
     {
@@ -2485,6 +2645,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getDefinitionByName(name:String):Object
     {
@@ -2492,6 +2656,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
     /*      !topLevel && parent is Loader ?
             Loader(parent).contentLoaderInfo.applicationDomain :
             info()["currentDomain"] as ApplicationDomain;
+*  
+*  @langversion 3.0
+*  @playerversion AIR 1.1
+*  @productversion Flex 3
 */
         //trace("SysMgr.getDefinitionByName domain",domain,"currentDomain",info()["currentDomain"]);    
 
@@ -2508,6 +2676,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isTopLevel():Boolean
     {
@@ -2516,6 +2688,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isFontFaceEmbedded(textFormat:TextFormat):Boolean
     {
@@ -2952,6 +3128,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      *  The number of non-floating windows.  This is the main application window
      *  plus any other windows added to the SystemManager that are not popups,
      *  tooltips or cursors.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get numChildren():int
     {
@@ -3455,6 +3635,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      * Forward a form event update the parent chain. 
      * Takes care of removing object references and substituting
      * ids when an untrusted boundry is crossed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function forwardFormEvent(event:SWFBridgeEvent):Boolean
     {
@@ -3494,6 +3678,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      * @param eObj PopupRequest as and Object.
      * @param addPlaceholder true if adding a placeholder, false it removing a placeholder.
      * @return true if the request was forwared, false otherwise
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function forwardPlaceholderRequest(request:SWFBridgeRequest, addPlaceholder:Boolean):Boolean
     {
@@ -3544,6 +3732,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      * One of the system managers in another sandbox deactivated and sent a message
      * to the top level system manager. In response the top-level system manager
      * needs to find a new form to activate.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function deactivateFormSandboxEventHandler(event:Event):void
     {
@@ -3569,6 +3761,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      * The form being activate is identified. 
      * In response the top-level system manager needs to activate the given form
      * and deactivate the currently active form, if any.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function activateFormSandboxEventHandler(event:Event):void
     {
@@ -3584,6 +3780,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      * One of the system managers in another sandbox activated and sent a message
      * to the top level system manager to deactivate this form. In response the top-level system manager
      * needs to deactivate all other forms except the top level system manager's.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function activateApplicationSandboxEventHandler(event:Event):void
     {
@@ -3909,6 +4109,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      * system manager?
      *
      * Set the data property to indicate if the display object is a child
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function isBridgeChildHandler(event:Event):void
     {
@@ -3927,6 +4131,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      * is visible and is enabled. 
      *
      * Set the data property to indicate if can be activated
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function canActivateHandler(event:Event):void
     {
@@ -4033,6 +4241,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      * redispatch certian events to other top-level windows
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function multiWindowRedispatcher(event:Event):void
     {
@@ -4044,6 +4256,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      * Create the requested manager
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function initManagerHandler(event:Event):void
     {
@@ -4070,6 +4286,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  Add child to requested childList
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addChildToSandboxRoot(layer:String, child:DisplayObject):void
     {
@@ -4090,6 +4310,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      *  Remove child from requested childList
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeChildFromSandboxRoot(layer:String, child:DisplayObject):void
     {
@@ -4111,6 +4335,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
     /**
      * perform the requested action from a trusted dispatcher
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function systemManagerHandler(event:Event):void
     {
@@ -4207,6 +4435,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      *         player sees as having focus. If focus is currently
      *         in a sandbox the caller does not have access to
      *         null will be returned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getFocus():InteractiveObject
     {
