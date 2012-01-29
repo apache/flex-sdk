@@ -22,7 +22,6 @@ import flash.events.Event;
  *
  *  @see mx.controls.FlexNativeMenu
  * 
- *  @playerversion AIR 1.1
  */
 public class FlexNativeMenuEvent extends Event
 {
