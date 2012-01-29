@@ -22,9 +22,11 @@ import flash.events.Event;
 import flash.events.IEventDispatcher;
 import flash.events.MouseEvent;
 import flash.events.NativeDragEvent;
+import flash.geom.ColorTransform;
+import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.system.Capabilities;
-import flash.utils.getDefinitionByName
+import flash.utils.getDefinitionByName;
 
 import mx.core.DragSource;
 import mx.core.IFlexDisplayObject;
@@ -41,7 +43,6 @@ import mx.managers.dragClasses.DragProxy;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleManager2;
 import mx.styles.StyleManager;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -162,6 +163,8 @@ public class NativeDragManagerImpl implements IDragManager
     
     private var _relatedObject:InteractiveObject;
     
+    private var _imageAlpha:Number;
+    
     /**
      *  @private
      *  The highest place we can listen for events in our DOM
@@ -280,6 +283,7 @@ public class NativeDragManagerImpl implements IDragManager
         _dragInitiator = dragInitiator;
         _offset = new Point(xOffset, yOffset);
         _allowMove = allowMove;
+        _imageAlpha = imageAlpha;
         
         //adjust offsets for imagePlacement.
         _offset.y -= InteractiveObject(dragInitiator).mouseY;
@@ -325,7 +329,7 @@ public class NativeDragManagerImpl implements IDragManager
         }
 
         _dragImage = dragImage;     
-                        
+                     
         if (dragAutomationHandlerClass)
         {
             dragAutomationHandlerClass["recordAutomatableDragStart1"](dragInitiator as IUIComponent, mouseEvent);
@@ -382,7 +386,12 @@ public class NativeDragManagerImpl implements IDragManager
             dragBitmap = new BitmapData(_dragImage.width, _dragImage.height, true, 0x000000);
         else
             dragBitmap = new BitmapData(1, 1, true, 0x000000);
-        dragBitmap.draw(_dragImage);
+        
+        // Adjust the alpha while copying the image into the dragBitmap.
+        var colorTransform:ColorTransform = new ColorTransform();
+        colorTransform.alphaMultiplier = _imageAlpha;
+        
+        dragBitmap.draw(_dragImage, new Matrix(), colorTransform);
         
         if (removeImage && _dragImage is IUIComponent && _dragInitiator)        
         {
