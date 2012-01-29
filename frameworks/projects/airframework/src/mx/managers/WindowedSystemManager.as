@@ -878,16 +878,16 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
     //--------------------------------------------------------------------------
 
     /**
-	 *  This method is should not be called on WindowedSystemManager.  It is here
-     *  as part of the contract for IFlexModuleFactory.
+	 *  This method should not be called on WindowedSystemManager.
+	 *  It is here as part of the contract for IFlexModuleFactory.
    	 */
-    public function callInContext(fn:Function, thisArg:*, argsArray:*, returns:Boolean=true):*
+    public function callInContext(fn:Function, thisArg:Object, 
+								  argArray:Array, returns:Boolean = true):*
     {
         if (returns)
-            return fn.apply(thisArg, argsArray);
-
+            return fn.apply(thisArg, argArray);
         else
-            fn.apply(thisArg, argsArray);
+            fn.apply(thisArg, argArray);
     }
 
     /**
