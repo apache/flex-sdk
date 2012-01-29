@@ -2549,7 +2549,7 @@ public class WindowedApplication extends Application implements IWindow
             super.updateDisplayList(unscaledWidth, unscaledHeight);
     
             var bm:EdgeMetrics = borderMetrics;
-    
+                
             var leftOffset:Number = 10;
             var rightOffset:Number = 10;
     
@@ -3120,11 +3120,12 @@ public class WindowedApplication extends Application implements IWindow
      */
     protected function mouseDownHandler(event:MouseEvent):void
     {
+  
         if (systemManager.stage.nativeWindow.systemChrome != "none")
             return;
         if (event.target == gripperHit)
         {
-            startResize(NativeWindowResize.BOTTOM_RIGHT);
+            startResize(layoutDirection == "rtl" ? NativeWindowResize.BOTTOM_LEFT : NativeWindowResize.BOTTOM_RIGHT);
             event.stopPropagation();
         }
         else
