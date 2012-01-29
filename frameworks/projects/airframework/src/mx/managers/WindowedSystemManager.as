@@ -16,35 +16,30 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.InteractiveObject;
-import flash.display.Loader;
 import flash.display.MovieClip;
 import flash.display.Sprite;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
 import flash.events.MouseEvent;
-import flash.geom.Rectangle;
 import flash.geom.Point;
+import flash.geom.Rectangle;
 import flash.system.ApplicationDomain;
-import flash.system.Capabilities;
 import flash.text.Font;
 import flash.text.TextFormat;
 import flash.ui.ContextMenu;
-import flash.utils.describeType;
+
+import mx.core.FlexSprite;
 import mx.core.IChildList;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
 import mx.core.IUIComponent;
-import mx.core.mx_internal;
 import mx.core.Singleton;
+import mx.core.Window;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.managers.DragManager;
-import mx.managers.NativeDragManagerImpl;
-import mx.managers.SystemManagerGlobals;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
-import mx.core.IWindow;
-import mx.core.Window;
 
 
 use namespace mx_internal;
@@ -153,6 +148,34 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 	 *  Without the mouseCatcher, the Button wouldn't return to its "up" state.
 	 */
 	private var mouseCatcher:Sprite;
+	
+	//----------------------------------
+	//  applicationIndex
+	//----------------------------------
+
+	/**
+	 *  @private
+	 *  Storage for the applicationIndex property.
+	 */
+	private var _applicationIndex:int = 1;
+
+	/**
+	 *  @private
+	 *  The index of the main mx.core.Application window, which is
+	 *  effectively its z-order.
+	 */
+	mx_internal function get applicationIndex():int
+	{
+		return _applicationIndex;
+	}
+
+	/**
+	 *  @private
+	 */
+	mx_internal function set applicationIndex(value:int):void
+	{
+		_applicationIndex = value;
+	}
 	
 	//-----------------------------------
 	//  ISystemManager implementations
@@ -1002,6 +1025,40 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 			document = this;
 		}
 	
+		// because we have no preload done handler, we need to 
+		// do that work elsewhere
+		addChildAndMouseCatcher();
+	}
+	    	
+	/**
+	 *  @private
+	 *  Same as SystemManager's preload done handler.  It adds 
+	 *  the window to the application (and a mouse catcher)
+	 * 
+	 *  Called from initializeTopLevelWindow()
+	 */
+	private function addChildAndMouseCatcher():void
+	{
+		var app:IUIComponent = topLevelWindow;
+		// Add the mouseCatcher as child 0.
+		mouseCatcher = new FlexSprite();
+		mouseCatcher.name = "mouseCatcher";
+		
+		// Must use addChildAt because a creationComplete handler can create a
+		// dialog and insert it at 0.
+		noTopMostIndex++;
+		super.addChildAt(mouseCatcher, 0);	
+		resizeMouseCatcher();
+		
+		// topLevel seems to always be true, but keeping it here just in case
+		if (!topLevel)
+		{
+			mouseCatcher.visible = false;
+			mask = mouseCatcher;
+		}
+		
+		noTopMostIndex++;
+	    super.addChild(DisplayObject(app));
 	}
 
 	
@@ -1327,6 +1384,20 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 
 		return rawChildren_addChildAt(child, noTopMostIndex - 1);
 	}
+	
+	//----------------------------------
+    //  numChildren
+    //----------------------------------
+
+	/**
+	 *  The number of non-floating windows.  This is the main application window
+	 *  plus any other windows added to the SystemManager that are not popups,
+	 *  tooltips or cursors.
+	 */
+	override public function get numChildren():int
+	{
+		return noTopMostIndex - applicationIndex;
+	}
     
     /**
 	 *  @private
@@ -1338,7 +1409,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 		// before the "added" event is dispatched.
 		noTopMostIndex++;
 
-		return rawChildren_addChildAt(child, index);
+		return rawChildren_addChildAt(child, applicationIndex + index);
 	}
     
     /**
@@ -1362,7 +1433,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 		// before the "removed" event is dispatched.
 		noTopMostIndex--;
 
-		return rawChildren_removeChildAt(noTopMostIndex + index);
+		return rawChildren_removeChildAt(applicationIndex + index);
 	}
 
 	/**
@@ -1370,7 +1441,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 	 */
   	override public function getChildAt(index:int):DisplayObject
 	{
-		return super.getChildAt(noTopMostIndex + index)
+		return super.getChildAt(applicationIndex + index);
 	}
 
 	/**
@@ -1386,7 +1457,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 	 */
   	override public function getChildIndex(child:DisplayObject):int
 	{
-		return super.getChildIndex(child);
+		return super.getChildIndex(child) - applicationIndex;
 	}
 
 	/**
@@ -1394,7 +1465,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 	 */
 	override public function setChildIndex(child:DisplayObject, newIndex:int):void
 	{
-		super.setChildIndex(child, Math.min(noTopMostIndex + newIndex, numChildren-1));
+		super.setChildIndex(child, applicationIndex + newIndex);
 	}
 
 	/**
