@@ -44,7 +44,7 @@ public class StatusBarBackgroundSkin extends ProgrammaticSkin
 	//--------------------------------------------------------------------------
 
 	/**
-	 *  @private.
+	 *  @private
 	 */
 	override protected function updateDisplayList(unscaledWidth:Number,
 									  			  unscaledHeight:Number):void
