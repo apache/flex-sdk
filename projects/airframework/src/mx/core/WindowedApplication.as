@@ -498,6 +498,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 [Exclude(name="moveEffect", kind="effect")]
+[Exclude(name="scriptTimeLimit", kind="property")]
 
 //--------------------------------------
 //  Other metadata
