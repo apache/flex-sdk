@@ -1455,8 +1455,8 @@ public class WindowedApplication extends Application implements IWindow
     {
         if (_menu)
         {
-            _menu.automationOwner = null;
             _menu.automationParent = null;
+            _menu.automationOwner = null;
         }
         
         _menu = value;
