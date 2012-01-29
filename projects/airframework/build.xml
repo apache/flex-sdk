@@ -68,8 +68,8 @@
             <!-- If you change this, update ${local.playerglobal.version} above. -->
 		    <target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
-			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${basedir}/manifest.xml"/>
-			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/mxml-2009-manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${basedir}/halo-air-manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/spark-air-manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/halo"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
 			<include-classes>AIRFrameworkClasses</include-classes>
@@ -274,8 +274,8 @@
 
 		    <library-path/>
 
-			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${basedir}/manifest.xml"/>
-			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/mxml-2009-manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${basedir}/halo-air-manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/spark-air-manifest.xml"/>
 			<doc-namespaces uri="library://ns.adobe.com/flex/halo"/>
 			<doc-namespaces uri="library://ns.adobe.com/flex/spark"/>
 
