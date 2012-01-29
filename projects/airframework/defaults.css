@@ -123,7 +123,6 @@ mx|FileSystemTree
 
 mx|HTML
 {
-	backgroundColor: #FFFFFF;
 	borderStyle: "none";
 }
 
@@ -218,13 +217,11 @@ mx|Window
 {
 	borderColor: #A6A6A6;
 	borderStyle: "solid";
-	borderThickness: 1;
 	buttonPadding: 2;
 	closeButtonSkin: ClassReference("mx.skins.halo.WindowCloseButtonSkin");
 	cornerRadius: 0;
     backgroundAlpha: 1;
 	backgroundColor: #FFFFFF;
-	backgroundImage: ClassReference("mx.skins.halo.WindowBackground");
 	buttonAlignment: "auto";
 	gripperPadding: 3;
 	gripperStyleName: "gripperSkin";
@@ -254,13 +251,11 @@ mx|WindowedApplication
 {
 	borderColor: #A6A6A6;
 	borderStyle: "solid";
-	borderThickness: 1;
 	buttonPadding: 2;
 	closeButtonSkin: ClassReference("mx.skins.halo.WindowCloseButtonSkin");
 	cornerRadius: 0;
     backgroundAlpha: 1;
 	backgroundColor: #FFFFFF;
-	backgroundImage: ClassReference("mx.skins.halo.WindowBackground");
 	buttonAlignment: "auto";
 	gripperPadding: 3;
 	gripperStyleName: "gripperSkin";
