@@ -652,8 +652,7 @@ public class WindowedApplication extends Application implements IWindow
         var nativeApplication:NativeApplication = NativeApplication.nativeApplication;
         nativeApplication.addEventListener(Event.ACTIVATE, nativeApplication_activateHandler);
         nativeApplication.addEventListener(Event.DEACTIVATE, nativeApplication_deactivateHandler);
-        nativeApplication.addEventListener(Event.NETWORK_CHANGE,
-                               nativeApplication_networkChangeHandler);
+        nativeApplication.addEventListener(Event.NETWORK_CHANGE, dispatchEvent);
 
         nativeApplication.addEventListener(InvokeEvent.INVOKE, nativeApplication_invokeHandler);
         initialInvokes = new Array();
@@ -3245,14 +3244,6 @@ public class WindowedApplication extends Application implements IWindow
     private function nativeApplication_deactivateHandler(event:Event):void
     {
         dispatchEvent(new AIREvent(AIREvent.APPLICATION_DEACTIVATE));
-    }
-
-    /**
-     *  @private
-     */
-    private function nativeApplication_networkChangeHandler(event:Event):void
-    {
-        dispatchEvent(event);
     }
 
     /**
