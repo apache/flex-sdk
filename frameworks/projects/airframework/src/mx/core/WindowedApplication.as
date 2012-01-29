@@ -159,7 +159,7 @@ use namespace mx_internal;
  *  A value of <code>"right"</code> means the buttons are aligned
  *  at the right of the title bar.
  *  A value of <code>"auto"</code> means the buttons are aligned
- *  at the left of the title bar on the Macintosh and on the
+ *  at the left of the title bar on Mac OS X and on the
  *  right on Windows.</p>
  *
  *  @default "auto"
@@ -167,7 +167,7 @@ use namespace mx_internal;
 [Style(name="buttonAlignment", type="String", enumeration="left,right,auto", inherit="yes")]
 
 /**
- *  Defines the distance between the titleBar buttons
+ *  Defines the distance between the titleBar buttons.
  *
  *  @default 2
  */
@@ -220,43 +220,43 @@ use namespace mx_internal;
 
 /**
  *  Skin for restore button when using Flex chrome.
- *  (Does not affect Macintosh)
+ *  This style is ignored for Mac OS X.
  *
  *  @default mx.skins.halo.WindowRestoreButtonSkin
  */
 [Style(name="restoreButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")]
 
 /**
- *  Determines whether we display Flex Chrome, or depend on the developer
- *  to draw her own. Changing this style once the window is open has no effect.
+ *  Determines whether the window draws its own Flex Chrome or depends on the developer
+ *  to draw chrome. Changing this style once the window is open has no effect.
  *
  *  @default true
  */
 [Style(name="showFlexChrome", type="Boolean", inherit="no")]
 
 /**
- *  The statusBar background skin.
+ *  The status bar background skin.
  *
  *  @default mx.skins.halo.StatusBarBackgroundSkin
  */
 [Style(name="statusBarBackgroundSkin", type="Class", inherit="yes")]
 
 /**
- *  A colors used to draw the statusBar.
+ *  The colors used to draw the status bar.
  *
  *  @default 0xC0C0C0
  */
 [Style(name="statusBarBackgroundColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  Style declaration for status text.
+ *  Style declaration for the status text.
  *
  *  @default undefined
  */
 [Style(name="statusTextStyleName", type="String", inherit="yes")]
 
 /**
- *  Position of title in title bar.
+ *  Position of the title in title bar.
  *  The possible values are <code>"left"</code>,
  *  <code>"center"</code>, <code>"auto"</code>
  *
@@ -265,7 +265,7 @@ use namespace mx_internal;
  *  A value of <code>"center"</code> means the title is aligned
  *  at the center of the title bar.
  *  A value of <code>"auto"</code> means the title is aligned
- *  at the left on Windows and at the center on the Macintosh.</p>
+ *  at the left on Windows and at the center on Mac OS X.</p>
  *
  *  @default "auto"
  */
@@ -299,7 +299,7 @@ use namespace mx_internal;
 [Style(name="titleBarColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
 /**
- *  The style name for the title
+ *  The style name for the title text.
  *
  *  @default undefined
  */
@@ -346,9 +346,18 @@ use namespace mx_internal;
  *  of a Flex AIR application -- any visual controls defined in the WindowedApplication
  *  become the content of the initial window loaded by the AIR application.</p>
  *
+ *  <p>Note that because
+ *  the WindowedApplication only represents the visual content of a single window, and not
+ *  all the windows in a multi-window application, a WindowedApplication instance only dispatches
+ *  display-related events (events that the WindowedApplication class inherits from display object base
+ *  classes such as InteractiveObject or UIComponent) for its own stage and window, and not for
+ *  events that occur on other windows in the application. This differs from a browser-based application,
+ *  where an Application container dispatches events for all the windows in the application (because
+ *  technically those windows are all display objects rendered on the single Application stage).</p>
+ *
  *  @mxml
  *
- *  <p>The <code>&lt;mx:Application&gt;</code> tag inherits all of the tag
+ *  <p>The <code>&lt;mx:WindowedApplication&gt;</code> tag inherits all of the tag
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
@@ -619,10 +628,10 @@ public class WindowedApplication extends Application implements IWindow
 		invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
-        
+
         // the heightChanged event is dispatched in commitProperties instead of
-        // here because it can change based on user-interaction with the window   
-        // size and _height is set in there so don't want to prematurely 
+        // here because it can change based on user-interaction with the window
+        // size and _height is set in there so don't want to prematurely
         // dispatch here yet
 	}
 
@@ -636,7 +645,7 @@ public class WindowedApplication extends Application implements IWindow
 	private var _maxHeight:Number = 10000;
 
     [Bindable("maxHeightChanged")]
-    
+
 	/**
      *  @private
      */
@@ -653,7 +662,7 @@ public class WindowedApplication extends Application implements IWindow
 		_maxHeight = Math.min(value, NativeWindow.systemMaxSize.y);
         if (height > _maxHeight)
             height = _maxHeight;
-            
+
         dispatchEvent(new Event("maxHeightChanged"));
     }
 
@@ -665,9 +674,9 @@ public class WindowedApplication extends Application implements IWindow
      *  The maximum width of the application's window.
      */
     private var _maxWidth:Number = 10000;
-    
+
     [Bindable("maxWidthChanged")]
-    
+
 	/**
      *  @private
      */
@@ -684,7 +693,7 @@ public class WindowedApplication extends Application implements IWindow
         _maxWidth = Math.min(value, NativeWindow.systemMaxSize.x);
         if (width > _maxWidth)
             width = _maxWidth;
-            
+
         dispatchEvent(new Event("maxWidthChanged"));
     }
 
@@ -696,9 +705,9 @@ public class WindowedApplication extends Application implements IWindow
      *  @private
      */
     private var _minHeight:Number = 100;
-    
+
     [Bindable("minHeightChanged")]
-    
+
     /**
      *  Specifies the minimum height of the application's window.
      *
@@ -717,7 +726,7 @@ public class WindowedApplication extends Application implements IWindow
         _minHeight = Math.max(value, NativeWindow.systemMinSize.y);
         if (height < _minHeight)
             height = _minHeight;
-            
+
         dispatchEvent(new Event("minHeightChanged"));
     }
 
@@ -730,9 +739,9 @@ public class WindowedApplication extends Application implements IWindow
 	 *  Storage for the minWidth property.
      */
     private var _minWidth:Number = 100;
-    
+
     [Bindable("minWidthChanged")]
-        
+
     /**
      *  Specifies the minimum width of the application's window.
      */
@@ -749,7 +758,7 @@ public class WindowedApplication extends Application implements IWindow
         _minWidth = Math.max(value, NativeWindow.systemMinSize.x);
         if (width < _minWidth)
             width = _minWidth;
-            
+
         dispatchEvent(new Event("minWidthChanged"));
     }
 
@@ -760,7 +769,7 @@ public class WindowedApplication extends Application implements IWindow
 	[Bindable("hide")]
     [Bindable("show")]
     [Bindable("windowComplete")]
-    
+
 	/**
 	 *  @private
 	 *  Also sets the NativeWindow's visibility.
@@ -834,10 +843,10 @@ public class WindowedApplication extends Application implements IWindow
         invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
-        
+
         // the widthChanged event is dispatched in commitProperties instead of
-        // here because it can change based on user-interaction with the window   
-        // size and _width is set in there so don't want to prematurely 
+        // here because it can change based on user-interaction with the window
+        // size and _width is set in there so don't want to prematurely
         // dispatch here yet
      }
 
@@ -1160,9 +1169,11 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  If <code>true</code>, the gripper is visible.
-     *  On Mac OS X windows with <code>systemChrome="standard"</code>
-     *  always have a gripper, so this property is ignored
-     *  for those windows.
+	 *
+     *  <p>On Mac OS X a window with <code>systemChrome</code>
+	 *  set to <code>"standard"</code>
+     *  always has an operating system gripper, so this property is ignored
+     *  in that case.</p>
      *
      *  @default true
      */
@@ -1381,7 +1392,8 @@ public class WindowedApplication extends Application implements IWindow
     };
 
     /**
-     *  Set of styles to pass from the WindowedApplication to the statusBar.
+     *  Set of styles to pass from the WindowedApplication to the status bar.
+	 *
      *  @see mx.styles.StyleProxy
      */
     protected function get statusBarStyleFilters():Object
@@ -1724,10 +1736,10 @@ public class WindowedApplication extends Application implements IWindow
 	       	var dispatchWidthChangeEvent:Boolean = (_width != _bounds.width);
         	var dispatchHeightChangeEvent:Boolean = (_height != _bounds.height);
         	
-            systemManager.stage.stageWidth = _width = _bounds.width; 
+            systemManager.stage.stageWidth = _width = _bounds.width;
             systemManager.stage.stageHeight = _height =  _bounds.height;
             boundsChanged = false;
-            
+
             if (dispatchWidthChangeEvent)
         		dispatchEvent(new Event("widthChanged"));
         	if (dispatchHeightChangeEvent)
@@ -2208,9 +2220,8 @@ public class WindowedApplication extends Application implements IWindow
     }
 
     /**
-     *  Restores the application's nativeWindow.
-	 *  Unmaximizes it if it's maximized,
-     *  unminimizes it if it's minimized.
+     *  Restores the application's NativeWindow (unmaximizes it if it's maximized, or
+     *  unminimizes it if it's minimized).
      */
     public function restore():void
     {
@@ -2267,7 +2278,7 @@ public class WindowedApplication extends Application implements IWindow
      *  @param window The IWindow (Window or WindowedAplication)
      *  to order this window in front of.
      *
-     *  @return <code>true</code> if the window was succesfully sent in front of;
+     *  @return <code>true</code> if the window was succesfully sent in front;
      *  <code>false</code> if the window is invisible or minimized.
      */
      public function orderInFrontOf(window:IWindow):Boolean
