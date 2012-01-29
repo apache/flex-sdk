@@ -909,6 +909,7 @@ public class Window extends LayoutContainer implements IWindow
     }
 
     /**
+     *  @private
      *  Specifies the maximum height of the application's window.
      *  
      *  @default dependent on the operating system and the AIR systemChrome setting. 
@@ -956,6 +957,7 @@ public class Window extends LayoutContainer implements IWindow
     }
 
     /**
+     *  @private
      *  Specifies the maximum width of the application's window.
      *  
      *  @default dependent on the operating system and the AIR systemChrome setting. 
@@ -991,6 +993,7 @@ public class Window extends LayoutContainer implements IWindow
     [Bindable("windowComplete")]
 
     /**
+     *  @private
      *  Specifies the minimum height of the application's window.
      *  
      *  @default dependent on the operating system and the AIR systemChrome setting. 
@@ -1038,6 +1041,7 @@ public class Window extends LayoutContainer implements IWindow
     [Bindable("windowComplete")]
 
     /**
+     *  @private
      *  Specifies the minimum width of the application's window.
      *  
      *  @default dependent on the operating system and the AIR systemChrome setting. 
@@ -1073,6 +1077,7 @@ public class Window extends LayoutContainer implements IWindow
     [Bindable("windowComplete")]
     
     /**
+     *  @private
      *  Controls the window's visibility. Unlike the
      *  <code>UIComponent.visible</code> property of most Flex
      *  visual components, this property affects the visibility
@@ -1383,6 +1388,7 @@ public class Window extends LayoutContainer implements IWindow
     //  cursorManager
     //----------------------------------
     /**
+     *  @private
      *  Returns the cursor manager for this Window.
      *  
      *  @langversion 3.0
