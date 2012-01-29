@@ -33,6 +33,8 @@ s|TitleBar
 
 s|WindowedApplication
 {
+    backgroundAlpha: 1;
+    backgroundColor: #FFFFFF;
     resizeAffordanceWidth: 6;
     skinClass: ClassReference("spark.skins.spark.WindowedApplicationSkin");
 }
@@ -45,6 +47,8 @@ s|WindowedApplication
 
 s|Window
 {
+    backgroundAlpha: 1;
+    backgroundColor: #FFFFFF;
     resizeAffordanceWidth: 6;
     skinClass: ClassReference("spark.skins.spark.WindowedApplicationSkin");
 }
@@ -218,6 +222,7 @@ mx|Window
 	buttonPadding: 2;
 	closeButtonSkin: ClassReference("mx.skins.halo.WindowCloseButtonSkin");
 	cornerRadius: 0;
+    backgroundAlpha: 1;
 	backgroundColor: #FFFFFF;
 	backgroundImage: ClassReference("mx.skins.halo.WindowBackground");
 	buttonAlignment: "auto";
@@ -253,6 +258,7 @@ mx|WindowedApplication
 	buttonPadding: 2;
 	closeButtonSkin: ClassReference("mx.skins.halo.WindowCloseButtonSkin");
 	cornerRadius: 0;
+    backgroundAlpha: 1;
 	backgroundColor: #FFFFFF;
 	backgroundImage: ClassReference("mx.skins.halo.WindowBackground");
 	buttonAlignment: "auto";
