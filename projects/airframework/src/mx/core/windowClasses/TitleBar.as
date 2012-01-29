@@ -42,6 +42,10 @@ use namespace mx_internal;
  *  @see mx.core.Window
  *  @see mx.core.WindowedApplication
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TitleBar extends UIComponent
 {
@@ -69,6 +73,10 @@ public class TitleBar extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function TitleBar():void
     {
@@ -131,6 +139,10 @@ public class TitleBar extends UIComponent
 
     /**
      *  The Button object that defines the close button.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var closeButton:Button;
 
@@ -140,6 +152,10 @@ public class TitleBar extends UIComponent
 
     /**
      *  The Button object that defines the maximize button.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var maximizeButton:Button;
 
@@ -149,6 +165,10 @@ public class TitleBar extends UIComponent
 
     /**
      *  The Button object that defines the minimize button.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var minimizeButton:Button;
     
@@ -158,6 +178,10 @@ public class TitleBar extends UIComponent
 
     /**
      *  Storage for the title property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _title:String = "";
 
@@ -171,6 +195,10 @@ public class TitleBar extends UIComponent
      *  the dock or taskbar.
      *
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get title():String
     {
@@ -209,6 +237,10 @@ public class TitleBar extends UIComponent
      *  The icon displayed in the title bar.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get titleIcon():Class
     {
@@ -233,6 +265,10 @@ public class TitleBar extends UIComponent
 
     /**
      *  The UITextField in the title bar that displays the application title.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var titleTextField:IUITextField;
 
@@ -242,6 +278,10 @@ public class TitleBar extends UIComponent
 
     /**
      *  The IWindow that owns this TitleBar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function get window():IWindow
     {
@@ -499,6 +539,10 @@ public class TitleBar extends UIComponent
      *  @param styleProp the name of the style that's changed.
      *  In some cases, it can be null, usually when changing
      *  the global style or styleName.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function styleChanged(styleProp:String):void
     {
@@ -591,6 +635,10 @@ public class TitleBar extends UIComponent
      *
      *  @param cornerOffset how much to indent things to take into account
      *  corner radius
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function placeButtons(align:String,
                                     unscaledWidth:Number, unscaledHeight:Number,
@@ -654,6 +702,10 @@ public class TitleBar extends UIComponent
      *  @param rightOffset how much space to allow on right for corners, etc.
      *
      *  @param buttonAlign the way the buttons are aligned
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function placeTitle(titleAlign:String,
                                   leftOffset:Number, rightOffset:Number,
@@ -784,6 +836,10 @@ public class TitleBar extends UIComponent
     
     /**
      *  Handles a <code>doubleClick</code> event in a platform-appropriate manner.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function doubleClickHandler(event:MouseEvent):void
     {
