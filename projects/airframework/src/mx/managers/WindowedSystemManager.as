@@ -18,9 +18,11 @@ import flash.display.Graphics;
 import flash.display.InteractiveObject;
 import flash.display.MovieClip;
 import flash.display.Sprite;
+import flash.display.Stage;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
+import flash.events.IEventDispatcher;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -38,6 +40,11 @@ import mx.core.Singleton;
 import mx.core.Window;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.MarshalEvent;
+import mx.sandbox.ISandboxBridgeGroup;
+import mx.sandbox.SandboxBridgeGroup;
+import mx.events.SandboxBridgeRequest;
+import mx.events.SandboxBridgeEvent;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 
@@ -60,7 +67,7 @@ use namespace mx_internal;
  * 
  *  @playerversion AIR 1.1
  */
-public class WindowedSystemManager extends MovieClip implements ISystemManager
+public class WindowedSystemManager extends MovieClip implements ISystemManager, ISystemManager2
 {
 	
 	public function WindowedSystemManager(rootObj:IUIComponent)
@@ -117,7 +124,25 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 	 */
 	private var _topLevelSystemManager:ISystemManager;
 	
-		/**
+	/**
+	 *  @private
+	 *  Whether we are the stage root or not.
+	 *  We are only the stage root if we were the root
+	 *  of the first SWF that got loaded by the player.
+	 *  Otherwise we could be top level but not stage root
+	 *  if we are loaded by some other non-Flex shell
+	 *  or are sandboxed.
+	 */
+	private var isStageRoot:Boolean = true;
+
+	/**
+	 *  @private
+	 *  Whether we are the first SWF loaded into a bootstrap
+	 *  and therefore, the topLevelRoot
+	 */
+	private var isBootstrapRoot:Boolean = false;
+
+	/**
 	 *  Depth of this object in the containment hierarchy.
 	 *  This number is used by the measurement and layout code.
 	 */
@@ -471,6 +496,38 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 			_rawChildren = new WindowedSystemRawChildrenList(this);
 
 		return _rawChildren;
+	}
+
+	//--------------------------------------------------------------------------
+	//  sandbox bridge group
+	//--------------------------------------------------------------------------
+	
+	/**
+	 * @private
+	 * 
+	 * Represents the related parent and child sandboxs this SystemManager may 
+	 * communicate with.
+	 */
+	private var _sandboxBridgeGroup:ISandboxBridgeGroup;
+	
+	
+	public function get sandboxBridgeGroup():ISandboxBridgeGroup
+	{
+		if (topLevel)
+			return _sandboxBridgeGroup;
+		else if (topLevelSystemManager)
+			return ISystemManager2(topLevelSystemManager).sandboxBridgeGroup;
+			
+		return null;
+	}
+	
+	public function set sandboxBridgeGroup(bridgeGroup:ISandboxBridgeGroup):void
+	{
+		if (topLevel)
+			_sandboxBridgeGroup = bridgeGroup;
+		else if (topLevelSystemManager)
+			SystemManager(topLevelSystemManager).sandboxBridgeGroup = bridgeGroup;
+					
 	}
 
 	//--------------------------------------------------------------------------
@@ -1171,7 +1228,286 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
         defaultMenu.builtInItems.print = true;
         contextMenu = defaultMenu;
     }
-		/**
+		
+	/**
+	 * @inheritdoc
+	 */	
+	public function isTopLevelRoot():Boolean
+	{
+		return isStageRoot || isBootstrapRoot;
+	}
+
+	/**
+	 * @private
+	 * 
+	 * Listen to messages this System Manager needs to service from its children.
+	 */	
+	mx_internal function addChildBridgeListeners(bridge:IEventDispatcher):void
+	{
+		if (!topLevel && topLevelSystemManager)
+		{
+			SystemManager(topLevelSystemManager).addChildBridgeListeners(bridge);
+			return;
+		}
+		
+		/* Uncomment when needed
+		bridge.addEventListener(PopUpRequest.ADD, addPopupRequestHandler);
+		bridge.addEventListener(PopUpRequest.REMOVE, removePopupRequestHandler);
+		bridge.addEventListener(PopUpRequest.ADD_PLACEHOLDER, addPlaceholderPopupRequestHandler);
+		bridge.addEventListener(PopUpRequest.REMOVE_PLACEHOLDER, removePlaceholderPopupRequestHandler);
+		bridge.addEventListener(SandboxBridgeEvent.ACTIVATE_WINDOW, activateFormSandboxEventHandler);
+		bridge.addEventListener(SandboxBridgeEvent.DEACTIVATE_WINDOW, deactivateFormSandboxEventHandler); 
+		bridge.addEventListener(SandboxBridgeEvent.ACTIVATE_APPLICATION, activateApplicationSandboxEventHandler);
+		bridge.addEventListener(EventListenerRequest.ADD, eventListenerRequestHandler, false, 0, true);
+		bridge.addEventListener(EventListenerRequest.REMOVE, eventListenerRequestHandler, false, 0, true);
+		*/
+
+	}
+
+	/**
+	 * @private
+	 * 
+	 * Remove all child listeners.
+	 */
+	mx_internal function removeChildBridgeListeners(bridge:IEventDispatcher):void
+	{
+		if (!topLevel && topLevelSystemManager)
+		{
+			SystemManager(topLevelSystemManager).removeChildBridgeListeners(bridge);
+			return;
+		}
+		
+		/* Uncomment when needed
+		bridge.removeEventListener(PopUpRequest.ADD, addPopupRequestHandler);
+		bridge.removeEventListener(PopUpRequest.REMOVE, removePopupRequestHandler);
+		bridge.removeEventListener(PopUpRequest.ADD_PLACEHOLDER, addPlaceholderPopupRequestHandler);
+		bridge.removeEventListener(PopUpRequest.REMOVE_PLACEHOLDER, removePlaceholderPopupRequestHandler);
+		bridge.removeEventListener(SandboxBridgeEvent.ACTIVATE_WINDOW, activateFormSandboxEventHandler);
+		bridge.removeEventListener(SandboxBridgeEvent.DEACTIVATE_WINDOW, deactivateFormSandboxEventHandler); 
+		bridge.removeEventListener(SandboxBridgeEvent.ACTIVATE_APPLICATION, activateApplicationSandboxEventHandler);
+		bridge.removeEventListener(EventListenerRequest.ADD, eventListenerRequestHandler);
+		bridge.removeEventListener(EventListenerRequest.REMOVE, eventListenerRequestHandler);
+		*/
+	}
+
+	/**
+	 * Create the requested manager
+	 */
+	public function addChildToSandboxRoot(layer:String, child:DisplayObject):void
+	{
+		if (getSandboxRoot() == this)
+		{
+			this[layer].addChild(child);
+		}
+		else
+		{
+			addingChild(child);
+			var me:MarshalEvent = new MarshalEvent(MarshalEvent.SYSTEM_MANAGER);
+			me.name = layer + ".addChild";
+			me.value = child;
+			getSandboxRoot().dispatchEvent(me);
+			childAdded(child);
+		}
+	}
+
+	/**
+	 * Create the requested manager
+	 */
+	public function removeChildFromSandboxRoot(layer:String, child:DisplayObject):void
+	{
+		if (getSandboxRoot() == this)
+		{
+			this[layer].removeChild(child);
+		}
+		else
+		{
+			removingChild(child);
+			var me:MarshalEvent = new MarshalEvent(MarshalEvent.SYSTEM_MANAGER);
+			me.name = layer + ".removeChild";
+			me.value = child;
+			getSandboxRoot().dispatchEvent(me);
+			childRemoved(child);
+		}
+	}
+
+	/**
+	 * @private
+	 * 
+	 * Test if a display object is in an applcation we want to communicate with over a bridge.
+	 * 
+	 */
+	public function isDisplayObjectInABridgedApplication(displayObject:DisplayObject):Boolean
+	{
+		if (sandboxBridgeGroup)
+		{
+			var request:SandboxBridgeRequest = new SandboxBridgeRequest(SandboxBridgeRequest.IS_BRIDGE_CHILD,
+																		false, true, null, displayObject);
+			var children:Array = sandboxBridgeGroup.getChildBridges();
+			var n:int = children.length;
+			for (var i:int = 0; i < n; i++)
+			{
+				var childBridge:IEventDispatcher = IEventDispatcher(children[i]);
+				
+				// No need to test a child if it does not trust us, we will never see
+				// their display objects.
+				// Also, if the we don't trust the child don't send them a display object.
+				if (sandboxBridgeGroup.canAccessChildBridge(childBridge) &&
+					sandboxBridgeGroup.accessibleFromChildBridge(childBridge) &&
+					!childBridge.dispatchEvent(request))
+					return true;
+			}
+		}
+			
+		return false;
+	}
+
+	/**
+	 * Add a bridge to talk to the child owned by <code>owner</code>.
+	 * 
+	 * @param owner the display object that owns the bridge.
+	 * @param bridge the bridge used to talk to the parent. 
+	 */	
+	public function addChildSandboxBridge(owner:DisplayObject, bridge:IEventDispatcher):void
+	{
+		if (!sandboxBridgeGroup)
+			sandboxBridgeGroup = new SandboxBridgeGroup(this);
+
+   		sandboxBridgeGroup.addChildBridge(owner, bridge);
+        addChildBridgeListeners(bridge);
+		IFocusManagerContainer(document).focusManager.addFocusManagerBridge(bridge);
+	}
+
+	/**
+	 * Remove a child bridge.
+	 */
+	public function removeChildSandboxBridge(bridge:IEventDispatcher):void
+	{
+		IFocusManagerContainer(document).focusManager.removeFocusManagerBridge(bridge);
+   		sandboxBridgeGroup.removeChildBridge(bridge);
+        removeChildBridgeListeners(bridge);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function useBridge():Boolean
+	{
+		if (isStageRoot)
+			return false;
+			
+		if (!topLevel && topLevelSystemManager)
+			return ISystemManager2(topLevelSystemManager).useBridge();
+			
+		// if we're toplevel and we aren't the sandbox root, we need a bridge
+		if (topLevel && getSandboxRoot() != this)
+			return true;
+		
+		// we also need a bridge even if we're the sandbox root
+		// but not a stage root, but our parent loader is a bootstrap
+		// that is not the stage root
+		if (getSandboxRoot() == this)
+		{
+			try
+			{
+				if (root.loaderInfo.parentAllowsChild)
+				{
+					try
+					{
+						if (!parent.dispatchEvent(new Event("mx.managers.SystemManager.isStageRoot", false, true)))
+							return true;
+					}
+					catch (e:Error)
+					{
+					}
+				}
+				else
+					return true;
+			}
+			catch (e1:Error)
+			{
+				// we seem to get here when a SWF is being unloaded, has been unparented, but still
+				// has a stage and root property, but loaderInfo is invalid.
+				return false;
+			}
+		}
+
+		return false;
+	}
+	
+	/**
+	 * Go up our parent chain to get the top level system manager.
+	 * 
+	 * returns null if we are not on the display list or we don't have
+	 * access to the top level system manager.
+	 */
+	public function getTopLevelRoot():DisplayObject
+	{
+		// work our say up the parent chain to the root. This way we
+		// don't have to rely on this object being added to the stage.
+		try
+		{
+			var sm:ISystemManager2 = this;
+			if (sm.topLevelSystemManager)
+				sm = ISystemManager2(sm.topLevelSystemManager);
+			var parent:DisplayObject = DisplayObject(sm).parent;
+			var lastParent:DisplayObject = parent;
+			while (parent)
+			{
+				if (parent is Stage)
+					return lastParent;
+				lastParent = parent; 
+				parent = parent.parent;				
+			}
+		}
+		catch (error:SecurityError)
+		{
+		}		
+		
+		return null;
+	}
+
+	/**
+	 * Go up our parent chain to get the top level system manager in this 
+	 * SecurityDomain
+	 * 
+	 */
+	public function getSandboxRoot():DisplayObject
+	{
+		// work our say up the parent chain to the root. This way we
+		// don't have to rely on this object being added to the stage.
+		var sm:ISystemManager2 = this;
+
+		try
+		{
+			if (sm.topLevelSystemManager)
+				sm = ISystemManager2(sm.topLevelSystemManager);
+			var parent:DisplayObject = DisplayObject(sm).parent;
+			if (parent is Stage)
+				return DisplayObject(sm);
+			// test to see if parent is a Bootstrap
+			if (parent && !parent.dispatchEvent(new Event("mx.managers.SystemManager.isBootstrapRoot", false, true)))
+				return this;
+			var lastParent:DisplayObject = parent;
+			while (parent)
+			{
+				if (parent is Stage)
+					return lastParent;
+				// test to see if parent is a Bootstrap
+				if (!parent.dispatchEvent(new Event("mx.managers.SystemManager.isBootstrapRoot", false, true)))
+					return lastParent;
+				lastParent = parent; 
+				parent = parent.parent;				
+			}
+		}
+		catch (error:SecurityError)
+		{
+			// don't have access to parent	
+		}		
+		
+		return lastParent != null ? lastParent : DisplayObject(sm);
+	}
+
+	/**
 	 *  Returns <code>true</code> if the given DisplayObject is the 
 	 *  top-level window.
 	 *
@@ -1745,6 +2081,28 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 			return super.mouseY;
 		return _mouseY;
 	}
+
+	/**
+	 * Return the object the player sees as having focus.
+	 * 
+	 * @return An object of type InteractiveObject that the
+	 * 		   player sees as having focus. If focus is currently
+	 * 		   in a sandbox the caller does not have access to
+	 * 		   null will be returned.
+	 */
+	public function getFocus():InteractiveObject
+	{
+		try
+		{
+			return stage.focus;
+		}	
+		catch (e:SecurityError)
+		{
+			// trace("SM getFocus(): ignoring security error " + e);
+		}
+
+		return null;
+	}	
 
 	/**
 	 *  @private
