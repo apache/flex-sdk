@@ -258,7 +258,6 @@ use namespace mx_internal;
  *
  *  @see flash.filesystem.File
  * 
- *  @playerversion AIR 1.1
  */
 public class FileSystemDataGrid extends DataGrid
 {
@@ -359,10 +358,10 @@ public class FileSystemDataGrid extends DataGrid
      *     itemClick="fileSystemViewer.navigateBack(event.index);"/&gt;</pre>
      *
      *  @default []
-	 *
-	 *  @see #canNavigateBack
-	 *  @see #navigateBack()
-	 *  @see mx.controls.FileSystemHistoryButton
+     *
+     *  @see #canNavigateBack
+     *  @see #navigateBack()
+     *  @see mx.controls.FileSystemHistoryButton
      */
     public function get backHistory():Array
     {
@@ -392,9 +391,9 @@ public class FileSystemDataGrid extends DataGrid
      *      itemClick="fileSystemViewer.navigateBack(event.index);"/&gt;</pre>
      *
      *  @default false
-	 *
-	 *  @see #backHistory
-	 *  @see #navigateBack()
+     *
+     *  @see #backHistory
+     *  @see #navigateBack()
      */
     public function get canNavigateBack():Boolean
     {
@@ -424,8 +423,8 @@ public class FileSystemDataGrid extends DataGrid
      *      click="fileSystemViewer.navigateDown();"/&gt;</pre>
      *
      *  @default false
-	 *
-	 *  @see #navigateDown()
+     *
+     *  @see #navigateDown()
      */
     public function get canNavigateDown():Boolean
     {
@@ -455,9 +454,9 @@ public class FileSystemDataGrid extends DataGrid
      *      itemClick="fileSystemViewer.navigateForward(event.index);"/&gt;</pre>
      *
      *  @default false
-	 *
-	 *  @see #forwardHistory
-	 *  @see #navigateForward()
+     *
+     *  @see #forwardHistory
+     *  @see #navigateForward()
      */
     public function get canNavigateForward():Boolean
     {
@@ -488,8 +487,8 @@ public class FileSystemDataGrid extends DataGrid
      *      click="fileSystemViewer.navigateUp();"/&gt;</pre>
      *
      *  @default false
-	 *
-	 *  @see #navigateUp()
+     *
+     *  @see #navigateUp()
      */
     public function get canNavigateUp():Boolean
     {
@@ -523,10 +522,10 @@ public class FileSystemDataGrid extends DataGrid
     private var _dateFormatString:String;
 
     /**
-	 *  @private
-	 */
-	private var dateFormatStringOverride:String;
-	
+     *  @private
+     */
+    private var dateFormatStringOverride:String;
+    
     /**
      *  A String that determines how dates in the Created and Modified
      *  columns are formatted.
@@ -545,17 +544,17 @@ public class FileSystemDataGrid extends DataGrid
      */
     public function set dateFormatString(value:String):void
     {
-		dateFormatStringOverride = value;
+        dateFormatStringOverride = value;
 
-		_dateFormatString = value != null ?
-					   		value :
-					   		resourceManager.getString(
-								"aircontrols",
-								"fileSystemDataGrid_dateFormatString");
+        _dateFormatString = value != null ?
+                            value :
+                            resourceManager.getString(
+                                "aircontrols",
+                                "fileSystemDataGrid_dateFormatString");
 
         dateFormatter.formatString = _dateFormatString != null ?
-        							 _dateFormatString :
-        							 "";
+                                     _dateFormatString :
+                                     "";
 
         invalidateList();
     }
@@ -681,8 +680,8 @@ public class FileSystemDataGrid extends DataGrid
      *      itemClick="fileSystemViewer.navigateForward(event.index);"/&gt;</pre>
      *
      *  @default []
-	 *
-	 * @see mx.controls.FileSystemHistoryButton
+     *
+     * @see mx.controls.FileSystemHistoryButton
      */
     public function get forwardHistory():Array
     {
@@ -749,7 +748,7 @@ public class FileSystemDataGrid extends DataGrid
 
     [Bindable("change")]
     [Bindable("directoryChanged")]
-	
+    
     /**
      *  @copy mx.controls.FileSystemList#selectedPath
      *
@@ -942,47 +941,47 @@ public class FileSystemDataGrid extends DataGrid
 
         nameColumn = new CustomDataGridColumn();
         nameColumn.headerText = resourceManager.getString(
-        	"aircontrols", "fileSystemDataGrid_nameColumnHeader");
+            "aircontrols", "fileSystemDataGrid_nameColumnHeader");
         nameColumn.itemRenderer = new ClassFactory(NameColumnRenderer);
         nameColumn.labelFunction = helper.fileLabelFunction;
         nameColumn.sortCompareFunction = nameSortCompareFunction;
         measuredText = resourceManager.getString(
-        	"aircontrols", "fileSystemDataGrid_nameColumnMeasuredText");
+            "aircontrols", "fileSystemDataGrid_nameColumnMeasuredText");
         nameColumn.width = determineWidthToDisplay(measuredText);
 
         typeColumn = new CustomDataGridColumn();
         typeColumn.headerText = resourceManager.getString(
-        	"aircontrols", "fileSystemDataGrid_typeColumnHeader");
+            "aircontrols", "fileSystemDataGrid_typeColumnHeader");
         typeColumn.labelFunction = typeLabelFunction;
         typeColumn.sortCompareFunction = typeSortCompareFunction;
         measuredText = resourceManager.getString(
-        	"aircontrols", "fileSystemDataGrid_typeColumnMeasuredText");
+            "aircontrols", "fileSystemDataGrid_typeColumnMeasuredText");
         typeColumn.width = determineWidthToDisplay(measuredText);
 
         sizeColumn = new CustomDataGridColumn();
         sizeColumn.headerText = resourceManager.getString(
-        	"aircontrols", "fileSystemDataGrid_sizeColumnHeader");
+            "aircontrols", "fileSystemDataGrid_sizeColumnHeader");
         sizeColumn.labelFunction = sizeLabelFunction;
         sizeColumn.public::setStyle("textAlign", "right");
         sizeColumn.sortCompareFunction = sizeSortCompareFunction;
         measuredText = resourceManager.getString(
-        	"aircontrols", "fileSystemDataGrid_sizeColumnMeasuredText");
+            "aircontrols", "fileSystemDataGrid_sizeColumnMeasuredText");
         sizeColumn.width = determineWidthToDisplay(measuredText);
 
         creationDateColumn = new CustomDataGridColumn();
         creationDateColumn.headerText = resourceManager.getString(
-        	"aircontrols", "fileSystemDataGrid_creationDateColumnHeader");
+            "aircontrols", "fileSystemDataGrid_creationDateColumnHeader");
         creationDateColumn.labelFunction = creationDateLabelFunction;
         measuredText = resourceManager.getString(
-        	"aircontrols", "fileSystemDataGrid_creationDateColumnMeasuredText");
+            "aircontrols", "fileSystemDataGrid_creationDateColumnMeasuredText");
         creationDateColumn.width = determineWidthToDisplay(measuredText);
 
         modificationDateColumn = new CustomDataGridColumn();
         modificationDateColumn.headerText = resourceManager.getString(
-        	"aircontrols", "fileSystemDataGrid_modificationDateColumnHeader");
+            "aircontrols", "fileSystemDataGrid_modificationDateColumnHeader");
         modificationDateColumn.labelFunction = modificationDateLabelFunction;
         measuredText = resourceManager.getString(
-        	"aircontrols", "fileSystemDataGrid_modificationDateColumnMeasuredText");
+            "aircontrols", "fileSystemDataGrid_modificationDateColumnMeasuredText");
         modificationDateColumn.width = determineWidthToDisplay(measuredText);
 
         // If DataGridColumns haven't already been defined,
@@ -1037,53 +1036,53 @@ public class FileSystemDataGrid extends DataGrid
 
         if (nameColumn)
         {
- 	        nameColumn.headerText = resourceManager.getString(
-	        	"aircontrols", "fileSystemDataGrid_nameColumnHeader");
-	        measuredText = resourceManager.getString(
-	        	"aircontrols", "fileSystemDataGrid_nameColumnMeasuredText");
-	        nameColumn.width = determineWidthToDisplay(measuredText);
+            nameColumn.headerText = resourceManager.getString(
+                "aircontrols", "fileSystemDataGrid_nameColumnHeader");
+            measuredText = resourceManager.getString(
+                "aircontrols", "fileSystemDataGrid_nameColumnMeasuredText");
+            nameColumn.width = determineWidthToDisplay(measuredText);
         }
 
         if (typeColumn)
         {
-	        typeColumn.headerText = resourceManager.getString(
-	        	"aircontrols", "fileSystemDataGrid_typeColumnHeader");
-	        measuredText = resourceManager.getString(
-	        	"aircontrols", "fileSystemDataGrid_typeColumnMeasuredText");
-	        typeColumn.width = determineWidthToDisplay(measuredText);
+            typeColumn.headerText = resourceManager.getString(
+                "aircontrols", "fileSystemDataGrid_typeColumnHeader");
+            measuredText = resourceManager.getString(
+                "aircontrols", "fileSystemDataGrid_typeColumnMeasuredText");
+            typeColumn.width = determineWidthToDisplay(measuredText);
         }
 
         if (sizeColumn)
         {
-	        sizeColumn.headerText = resourceManager.getString(
-	        	"aircontrols", "fileSystemDataGrid_sizeColumnHeader");
-	        measuredText = resourceManager.getString(
-	        	"aircontrols", "fileSystemDataGrid_sizeColumnMeasuredText");
-	        sizeColumn.width = determineWidthToDisplay(measuredText);
+            sizeColumn.headerText = resourceManager.getString(
+                "aircontrols", "fileSystemDataGrid_sizeColumnHeader");
+            measuredText = resourceManager.getString(
+                "aircontrols", "fileSystemDataGrid_sizeColumnMeasuredText");
+            sizeColumn.width = determineWidthToDisplay(measuredText);
         }
 
         if (creationDateColumn)
         {
-	        creationDateColumn.headerText = resourceManager.getString(
-	        	"aircontrols", "fileSystemDataGrid_creationDateColumnHeader");
-	        measuredText = resourceManager.getString(
-	        	"aircontrols", "fileSystemDataGrid_creationDateColumnMeasuredText");
-	        creationDateColumn.width = determineWidthToDisplay(measuredText);
+            creationDateColumn.headerText = resourceManager.getString(
+                "aircontrols", "fileSystemDataGrid_creationDateColumnHeader");
+            measuredText = resourceManager.getString(
+                "aircontrols", "fileSystemDataGrid_creationDateColumnMeasuredText");
+            creationDateColumn.width = determineWidthToDisplay(measuredText);
         }
 
         if (modificationDateColumn)
         {
-	        modificationDateColumn.headerText = resourceManager.getString(
-	        	"aircontrols", "fileSystemDataGrid_modificationDateColumnHeader");
-	        measuredText = resourceManager.getString(
-	        	"aircontrols", "fileSystemDataGrid_modificationDateColumnMeasuredText");
-	        modificationDateColumn.width = determineWidthToDisplay(measuredText);
+            modificationDateColumn.headerText = resourceManager.getString(
+                "aircontrols", "fileSystemDataGrid_modificationDateColumnHeader");
+            measuredText = resourceManager.getString(
+                "aircontrols", "fileSystemDataGrid_modificationDateColumnMeasuredText");
+            modificationDateColumn.width = determineWidthToDisplay(measuredText);
         }
 
-		dateFormatString = dateFormatStringOverride;
+        dateFormatString = dateFormatStringOverride;
 
-		invalidateList();
-		invalidateSize();
+        invalidateList();
+        invalidateSize();
     }
 
     /**
@@ -1091,7 +1090,7 @@ public class FileSystemDataGrid extends DataGrid
      */
     override protected function itemToUID(data:Object):String
     {
-    	return helper.itemToUID(data);
+        return helper.itemToUID(data);
     }
 
     //--------------------------------------------------------------------------
@@ -1138,8 +1137,8 @@ public class FileSystemDataGrid extends DataGrid
      *  &lt;mx:Button label="Open"
      *      enabled="{fileSystemViewer.canNavigateDown}"
      *      click="fileSystemViewer.navigateDown();"/&gt;</pre>
-	 *
-	 *  @see #canNavigateDown
+     *
+     *  @see #canNavigateDown
      */
     public function navigateDown():void
     {
@@ -1169,8 +1168,8 @@ public class FileSystemDataGrid extends DataGrid
      *  &lt;mx:Button label="Up"
      *      enabled="{fileSystemViewer.canNavigateUp}"
      *      click="fileSystemViewer.navigateUp();"/&gt;</pre>
-	 *
-	 *  @see #canNavigateUp
+     *
+     *  @see #canNavigateUp
      */
     public function navigateUp():void
     {
@@ -1211,9 +1210,9 @@ public class FileSystemDataGrid extends DataGrid
      *  @param index The index in the <code>backHistory</code> array
      *  to navigate to.
      *  The default is 0, indicating the directory that is "closest back".
-	 *
-	 *  @see #backHistory
-	 *  @see #canNavigateBack
+     *
+     *  @see #backHistory
+     *  @see #canNavigateBack
      */
     public function navigateBack(index:int = 0):void
     {
@@ -1254,9 +1253,9 @@ public class FileSystemDataGrid extends DataGrid
      *  @param index The index in the <code>forwardHistory</code> array
      *  to navigate to.
      *  The default is 0, indicating the directory that is "closest forward".
-	 *
-	 *  @see #canNavigateForward
-	 *  @see #forwardHistory
+     *
+     *  @see #canNavigateForward
+     *  @see #forwardHistory
      */
     public function navigateForward(index:int = 0):void
     {
@@ -1313,7 +1312,7 @@ public class FileSystemDataGrid extends DataGrid
         if (item.isDirectory)
         {
             return resourceManager.getString(
-            	"aircontrols", "fileSystemDataGrid_typeFolder");
+                "aircontrols", "fileSystemDataGrid_typeFolder");
         }
 
         // If item is a file without an extension, return "File".
@@ -1321,13 +1320,13 @@ public class FileSystemDataGrid extends DataGrid
         if (!extension || extension == "")
         {
             return resourceManager.getString(
-            	"aircontrols", "fileSystemDataGrid_typeFileWithoutExtension");
+                "aircontrols", "fileSystemDataGrid_typeFileWithoutExtension");
         }
 
         // If item is a file with an extension, return a String like "TXT File".
         return resourceManager.getString(
-        	"aircontrols", "fileSystemDataGrid_typeFileWithExtension",
-        	[ extension.toUpperCase() ]);
+            "aircontrols", "fileSystemDataGrid_typeFileWithExtension",
+            [ extension.toUpperCase() ]);
     }
 
     /**
@@ -1358,32 +1357,32 @@ public class FileSystemDataGrid extends DataGrid
 
         try
         {
-	        if (item.isDirectory)
-	        {
-	            label = resourceManager.getString(
-	            	"aircontrols", "fileSystemDataGrid_sizeFolder");
-	        }
-	        else if (sizeDisplayMode == FileSystemSizeDisplayMode.KILOBYTES)
-	        {
-	            var kb:int = Math.ceil(item.size / 1024);
-	            label = resourceManager.getString(
-	            	"aircontrols", "fileSystemDataGrid_sizeKilobytes",
-					[ kb ]);
-	        }
-	        else if (sizeDisplayMode == FileSystemSizeDisplayMode.BYTES)
-	        {
-	            label = resourceManager.getString(
-	            	"aircontrols", "fileSystemDataGrid_sizeBytes",
-					[ item.size ]);
-	        }
+            if (item.isDirectory)
+            {
+                label = resourceManager.getString(
+                    "aircontrols", "fileSystemDataGrid_sizeFolder");
+            }
+            else if (sizeDisplayMode == FileSystemSizeDisplayMode.KILOBYTES)
+            {
+                var kb:int = Math.ceil(item.size / 1024);
+                label = resourceManager.getString(
+                    "aircontrols", "fileSystemDataGrid_sizeKilobytes",
+                    [ kb ]);
+            }
+            else if (sizeDisplayMode == FileSystemSizeDisplayMode.BYTES)
+            {
+                label = resourceManager.getString(
+                    "aircontrols", "fileSystemDataGrid_sizeBytes",
+                    [ item.size ]);
+            }
         }
         catch(e:Error)
         {
-        	// item.size throws a File I/O Error for some files,
-        	// such as /etc/master.passwd and /etc/sudoers on a Mac
-        	
-	        label = resourceManager.getString(
-	        	"aircontrols", "fileSystemDataGrid_sizeFolder");
+            // item.size throws a File I/O Error for some files,
+            // such as /etc/master.passwd and /etc/sudoers on a Mac
+            
+            label = resourceManager.getString(
+                "aircontrols", "fileSystemDataGrid_sizeFolder");
         }
 
         return label;
@@ -1397,24 +1396,24 @@ public class FileSystemDataGrid extends DataGrid
         var size1:Number;
         try
         {
-        	size1 = item1.isDirectory ? 0 : item1.size;
+            size1 = item1.isDirectory ? 0 : item1.size;
         }
         catch(e1:Error)
         {
-        	// item.size throws a File I/O Error for some files,
-        	// such as /etc/master.passwd and /etc/sudoers on a Mac
-        	
-        	size1 = 0;
+            // item.size throws a File I/O Error for some files,
+            // such as /etc/master.passwd and /etc/sudoers on a Mac
+            
+            size1 = 0;
         }
 
         var size2:Number;
         try
         {
-        	size2 = item2.isDirectory ? 0 : item2.size;
+            size2 = item2.isDirectory ? 0 : item2.size;
         }
         catch(e2:Error)
         {
-        	size2 = 0;
+            size2 = 0;
         }
 
         if (size1 < size2)
@@ -1606,14 +1605,14 @@ class NameColumnRenderer extends UIComponent
 
     /**
      *  @private
-	 *  The baselinePosition of a NameColumnRenderer is calculated
-	 *  for its label.
+     *  The baselinePosition of a NameColumnRenderer is calculated
+     *  for its label.
      */
     override public function get baselinePosition():Number
     {
-		if (!mx_internal::validateBaselinePosition())
-			return NaN;
-    	
+        if (!mx_internal::validateBaselinePosition())
+            return NaN;
+        
         return label.y + label.baselinePosition;
     }
 
