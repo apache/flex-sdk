@@ -24,6 +24,7 @@ import flash.events.MouseEvent;
 import flash.events.NativeDragEvent;
 import flash.geom.Point;
 import flash.system.Capabilities;
+import flash.utils.getDefinitionByName
 
 import mx.core.DragSource;
 import mx.core.IFlexDisplayObject;
@@ -237,6 +238,11 @@ public class NativeDragManagerImpl implements IDragManager
             imageAlpha:Number = 0.5,
             allowMove:Boolean = true):void
     {
+    	if (dragAutomationHandlerClass)
+		{
+			dragAutomationHandlerClass["storeAIRDragSourceDetails"](dragSource);
+		}
+    	
         var proxyWidth:Number;
         var proxyHeight:Number;
         
@@ -315,6 +321,11 @@ public class NativeDragManagerImpl implements IDragManager
         }
 
         _dragImage = dragImage;     
+        
+        if (dragAutomationHandlerClass)
+		{
+			dragAutomationHandlerClass["recordAutomatableDragStart1"](dragInitiator as IUIComponent, mouseEvent);
+		}
                         
         if (dragImage is IUIComponent && dragImage is ILayoutManagerClient && 
             !ILayoutManagerClient(dragImage).initialized && dragInitiator)
@@ -544,6 +555,48 @@ public class NativeDragManagerImpl implements IDragManager
 
     }
     
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Automation
+    //
+    //--------------------------------------------------------------------------
+    /**
+	 * @private
+	 * This function gets the class which is responsible for getting the 
+	 * drag automation handler class.
+	 */
+	 	 
+	 private var _dragAutomationHandlerClass:Class;
+	 
+	 /**
+	  *  @private
+	  */  
+	 private function get dragAutomationHandlerClass():Class
+	 {
+	 	if (!_dragAutomationHandlerClass)
+	 	{ 	
+	 	 	try
+		 	{
+		 		if (sm)
+		 		{
+		 			_dragAutomationHandlerClass = 
+		 				Class(sm.getDefinitionByName("mx.automation.delegates.DragManagerAutomationImpl"));
+		 		}
+		 		else
+		 		{
+		 			_dragAutomationHandlerClass = 
+		 				Class(getDefinitionByName("mx.automation.delegates.DragManagerAutomationImpl"));
+		 		}
+		 	}
+		 	catch (e:Error)
+		 	{
+		 		trace(e.message);
+		 	}
+	 	} 	
+	 	return _dragAutomationHandlerClass;
+	 }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -626,6 +679,20 @@ public class NativeDragManagerImpl implements IDragManager
             dragEvent.relatedObject = _relatedObject;
         else
             dragEvent.relatedObject = event.relatedObject;
+            
+        if (dragAutomationHandlerClass)
+		{
+			if (newType == DragEvent.DRAG_DROP)
+			{
+				dragAutomationHandlerClass["recordAutomatableDragDrop1"](target,dragEvent);
+			}
+			else if (newType == DragEvent.DRAG_COMPLETE)
+			{
+			   	dragAutomationHandlerClass["recordAutomatableDragCancel1"]
+			   		(NativeDragManager.dragInitiator as IUIComponent, dragEvent);
+			}
+		}    
+            
         // Resend the event as a DragEvent.
         _dispatchDragEvent(target, dragEvent);
                 
