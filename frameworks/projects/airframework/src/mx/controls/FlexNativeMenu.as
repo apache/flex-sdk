@@ -1515,6 +1515,8 @@ public class FlexNativeMenu extends EventDispatcher implements
 
     /**
      *  Sets the context menu of the InteractiveObject to the underlying native menu.
+     *
+     *  @param data The interactive object.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
@@ -1541,6 +1543,8 @@ public class FlexNativeMenu extends EventDispatcher implements
     /**
      *  Unsets the context menu of the InteractiveObject that has been set to
      *  the underlying native menu.
+     *
+     *  @param data The interactive object.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
@@ -1977,6 +1981,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  Determines the actual label to be used for the NativeMenuItem
      *  by removing underscore characters and converting escaped underscore
      *  characters, if there are any.
+     *
+     *  @param data The data to parse for the label.
+     *
+     *  @return The label.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
@@ -2003,6 +2011,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  Extracts the mnemonic index from a label based on the presence of
      *  an underscore character. It finds the leading underscore character if
      *  there is one and uses that as the index.
+     *
+     *  @param data The data to parse for the index.
+     *
+     *  @return The index.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
