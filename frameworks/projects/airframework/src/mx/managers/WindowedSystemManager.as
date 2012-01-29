@@ -2382,7 +2382,8 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
                             true, request.priority, request.useWeakReference);
                 if (getSandboxRoot() == this)
                 {
-                    if (isTopLevelRoot() && actualType == MouseEvent.MOUSE_UP)
+                    if (isTopLevelRoot() &&
+                       (actualType == MouseEvent.MOUSE_UP || actualType == MouseEvent.MOUSE_MOVE))
                     {
                         stage.addEventListener(actualType, eventProxy.marshalListener,
                             false, request.priority, request.useWeakReference);
@@ -2403,11 +2404,12 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
                             true, event.target as IEventDispatcher);
                 if (getSandboxRoot() == this)
                 {
-                    if (isTopLevelRoot() && actualType == MouseEvent.MOUSE_UP)
+                    if (isTopLevelRoot() &&
+                       (actualType == MouseEvent.MOUSE_UP || actualType == MouseEvent.MOUSE_MOVE))
                     {
                         stage.removeEventListener(actualType, eventProxy.marshalListener);
                     }
-
+    
                     super.removeEventListener(actualType, eventProxy.marshalListener, true);
                 }
             }
