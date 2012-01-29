@@ -1395,8 +1395,20 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function set menu(value:FlexNativeMenu):void
     {
+        if (_menu)
+        {
+            _menu.automationOwner = null;
+            _menu.automationParent = null;
+        }
+        
         _menu = value;
         menuChanged = true;
+        
+        if (_menu)
+        {
+            menu.automationParent = this;
+            menu.automationOwner = this;
+        }
     }
 
     //----------------------------------
