@@ -54,7 +54,7 @@ use namespace mx_internal;
  *
  *  <p>This event is cancelable.
  *  If you call <code>event.preventDefault()</code>,
- *  the directory will not be changed.</p>
+ *  the directory is not changed.</p>
  *
  *  <p>After the <code>directory</code> property has changed
  *  and the <code>dataProvider</code> contains File instances
@@ -112,8 +112,8 @@ use namespace mx_internal;
  *  <p>The information displayed for each item consists of its name
  *  (with optional generic icon), type, size, creation date,
  *  and modification date.
- *  To do this, FileSystemDataGrid automatically creates five instances
- *  of DataGridColumn -- <code>nameColumn</code>, <code>typeColumn</code>,
+ *  To do this, FileSystemDataGrid automatically creates five columns
+ *  (DataGridColumn instances) -- <code>nameColumn</code>, <code>typeColumn</code>,
  *  <code>sizeColumn</code>, <code>creationDateColumn</code>,
  *  and <code>modificationDateColumn</code> -- and sets
  *  the <code>columns</code> property to an array of these five instances.
@@ -134,8 +134,7 @@ use namespace mx_internal;
  *
  *  <p>You set the <code>directory</code> property to a File instance,
  *  as the following example shows:</p>
- *  <pre>
- *    &lt;mx:FileSystemDataGrid directory="{File.desktopDirectory}"/&gt;</pre>
+ *  <pre>&lt;mx:FileSystemDataGrid directory="{File.desktopDirectory}"/&gt;</pre>
  *
  *  <p>You can set the <code>enumerationMode</code> property to specify
  *  whether to show files, subdirectories, or both.
@@ -196,9 +195,9 @@ use namespace mx_internal;
  *  If the user attempts to change the directory being displayed,
  *  the control dispatches a cancelable <code>directoryChanging</code> event.
  *  If you don't cancel this event by calling
- *  <code>event.preventDefault()</code>, the control will display the
+ *  <code>event.preventDefault()</code>, the control displays the
  *  contents of the new directory and the <code>directory</code>
- *  property will change.
+ *  property changes.
  *  Whenever the <code>directory</code> property changes, for any reason,
  *  the controls dispatches a <code>directoryChange</code> event
  *  to let you know.</p>
@@ -225,6 +224,8 @@ use namespace mx_internal;
  *  Therefore the actual file system icons displayed in the operating system
  *  are not displayed in a FileSystemDataGrid, even though they are
  *  accessible in AIR via the <code>icon</code> property of a File.</p>
+ *
+ *  @see flash.filesystem.File
  */
 public class FileSystemDataGrid extends DataGrid
 {
@@ -319,13 +320,17 @@ public class FileSystemDataGrid extends DataGrid
      *  <pre>
      *  &lt;mx:FileSystemDataGrid id="fileSystemViewer" directory="{File.desktopDirectory}"/&gt;
      *  &lt;mx:FileSystemHistoryButton label="Back"
-     *      enabled="{fileSystemViewer.canNavigateBack}"
-     *      dataProvider="{fileSystemViewer.backHistory}"
-     *      click="fileSystemViewer.navigateBack();"
-     *      itemClick="fileSystemViewer.navigateBack(event.index);"/&gt;</pre>
+     *     enabled="{fileSystemViewer.canNavigateBack}"
+     *     dataProvider="{fileSystemViewer.backHistory}"
+     *     click="fileSystemViewer.navigateBack();"
+     *     itemClick="fileSystemViewer.navigateBack(event.index);"/&gt;</pre>
      *
      *  @default []
-      */
+	 *
+	 *  @see #canNavigateBack
+	 *  @see #navigateBack()
+	 *  @see mx.controls.FileSystemHistoryButton
+     */
     public function get backHistory():Array
     {
         return helper.backHistory;
@@ -354,6 +359,9 @@ public class FileSystemDataGrid extends DataGrid
      *      itemClick="fileSystemViewer.navigateBack(event.index);"/&gt;</pre>
      *
      *  @default false
+	 *
+	 *  @see #backHistory
+	 *  @see #navigateBack()
      */
     public function get canNavigateBack():Boolean
     {
@@ -383,6 +391,8 @@ public class FileSystemDataGrid extends DataGrid
      *      click="fileSystemViewer.navigateDown();"/&gt;</pre>
      *
      *  @default false
+	 *
+	 *  @see #navigateDown()
      */
     public function get canNavigateDown():Boolean
     {
@@ -412,6 +422,9 @@ public class FileSystemDataGrid extends DataGrid
      *      itemClick="fileSystemViewer.navigateForward(event.index);"/&gt;</pre>
      *
      *  @default false
+	 *
+	 *  @see #forwardHistory
+	 *  @see #navigateForward()
      */
     public function get canNavigateForward():Boolean
     {
@@ -442,6 +455,8 @@ public class FileSystemDataGrid extends DataGrid
      *      click="fileSystemViewer.navigateUp();"/&gt;</pre>
      *
      *  @default false
+	 *
+	 *  @see #navigateUp()
      */
     public function get canNavigateUp():Boolean
     {
@@ -625,6 +640,8 @@ public class FileSystemDataGrid extends DataGrid
      *      itemClick="fileSystemViewer.navigateForward(event.index);"/&gt;</pre>
      *
      *  @default []
+	 *
+	 * @see mx.controls.FileSystemHistoryButton
      */
     public function get forwardHistory():Array
     {
@@ -1053,14 +1070,14 @@ public class FileSystemDataGrid extends DataGrid
      *  <p>If a subdirectory is not selected, this method does nothing.</p>
      *
      *  <p>When this method returns, the <code>directory</code> property
-     *  will contain the File instance for the new directory.
-     *  The <code>dataProvider</code> property will be temporarily
+     *  contains the File instance for the new directory.
+     *  The <code>dataProvider</code> property is temporarily
      *  <code>null</code> until the new directory has been enumerated.
      *  After the enumeration, the <code>dataProvider</code> property
-     *  will contain an ArrayCollection of File instances
+     *  contains an ArrayCollection of File instances
      *  for the new directory's contents.</p>
      *
-     *  <p>The following example shows how to use this property
+     *  <p>The following example shows how to use this method
      *  along with the Button control to create an open button:</p>
      *
      *  <pre>
@@ -1068,6 +1085,8 @@ public class FileSystemDataGrid extends DataGrid
      *  &lt;mx:Button label="Open"
      *      enabled="{fileSystemViewer.canNavigateDown}"
      *      click="fileSystemViewer.navigateDown();"/&gt;</pre>
+	 *
+	 *  @see #canNavigateDown
      */
     public function navigateDown():void
     {
@@ -1082,11 +1101,11 @@ public class FileSystemDataGrid extends DataGrid
      *  (such as C: and D: on Microsoft Windows), this method does nothing.</p>
      *
      *  <p>When this method returns, the <code>directory</code> property
-     *  will contain the File instance for the new directory.
-     *  The <code>dataProvider</code> property will be temporarily
+     *  contains the File instance for the new directory.
+     *  The <code>dataProvider</code> property is temporarily
      *  <code>null</code> until the new directory has been enumerated.
      *  After the enumeration, the <code>dataProvider</code> property
-     *  will contain an ArrayCollection of File instances
+     *  contains an ArrayCollection of File instances
      *  for the new directory's contents.</p>
      *
      *  <p>The following example shows how to use this property
@@ -1097,6 +1116,8 @@ public class FileSystemDataGrid extends DataGrid
      *  &lt;mx:Button label="Up"
      *      enabled="{fileSystemViewer.canNavigateUp}"
      *      click="fileSystemViewer.navigateUp();"/&gt;</pre>
+	 *
+	 *  @see #canNavigateUp
      */
     public function navigateUp():void
     {
@@ -1111,11 +1132,11 @@ public class FileSystemDataGrid extends DataGrid
      *  an index that is not in that array, then this method does nothing.</p>
      *
      *  <p>When this method returns, the <code>directory</code> property
-     *  will contain the File instance for the new directory.
-     *  The <code>dataProvider</code> property will be temporarily
+     *  contains the File instance for the new directory.
+     *  The <code>dataProvider</code> property is temporarily
      *  <code>null</code> until the new directory has been enumerated.
      *  After the enumeration, the <code>dataProvider</code> property
-     *  will contain an ArrayCollection of File instances
+     *  contains an ArrayCollection of File instances
      *  for the new directory's contents.</p>
      *
      *  <p>The history list is left unchanged. However, the current index
@@ -1123,7 +1144,7 @@ public class FileSystemDataGrid extends DataGrid
      *  and <code>forwardHistory</code> properties.
      *  They have new values as soon as this method returns.</p>
      *
-     *  <p>The following example shows how to use this property
+     *  <p>The following example shows how to use this method
      *  along with the FileSystemHistoryButton control to create a back button:</p>
      *
      *  <pre>
@@ -1137,6 +1158,9 @@ public class FileSystemDataGrid extends DataGrid
      *  @param index The index in the <code>backHistory</code> array
      *  to navigate to.
      *  The default is 0, indicating the directory that is "closest back".
+	 *
+	 *  @see #backHistory
+	 *  @see #canNavigateBack
      */
     public function navigateBack(index:int = 0):void
     {
@@ -1151,11 +1175,11 @@ public class FileSystemDataGrid extends DataGrid
      *  an index that is not in that array, then this method does nothing.</p>
      *
      *  <p>When this method returns, the <code>directory</code> property
-     *  will contain the File instance for the new directory.
-     *  The <code>dataProvider</code> property will be temporarily
+     *  contains the File instance for the new directory.
+     *  The <code>dataProvider</code> property is temporarily
      *  <code>null</code> until the new directory has been enumerated.
      *  After the enumeration, the <code>dataProvider</code> property
-     *  will contain an ArrayCollection of File instances
+     *  contains an ArrayCollection of File instances
      *  for the new directory's contents.</p>
      *
      *  <p>The history list is left unchanged. However, the current index
@@ -1163,7 +1187,7 @@ public class FileSystemDataGrid extends DataGrid
      *  and <code>forwardHistory</code> properties.
      *  They have new values as soon as this method returns.</p>
      *
-     *  <p>The following example shows how to use this property
+     *  <p>The following example shows how to use this method
      *  along with the FileSystemHistoryButton control to create a forward button:</p>
      *
      *  <pre>
@@ -1177,6 +1201,9 @@ public class FileSystemDataGrid extends DataGrid
      *  @param index The index in the <code>forwardHistory</code> array
      *  to navigate to.
      *  The default is 0, indicating the directory that is "closest forward".
+	 *
+	 *  @see #canNavigateForward
+	 *  @see #forwardHistory
      */
     public function navigateForward(index:int = 0):void
     {
