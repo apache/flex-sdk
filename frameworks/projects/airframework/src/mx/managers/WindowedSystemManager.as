@@ -194,6 +194,14 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	 */
 	private var mouseCatcher:Sprite;
 	
+    /** 
+     *  @private
+     *  Map a bridge to a FocusManager. This is only for Focus Managers that is
+     *  not the focus manager for document. Since the bridges are not in document
+     *  they are bridges inside of pop ups.
+     */
+     private var bridgeToFocusManager:Dictionary;
+  	
 	//----------------------------------
 	//  applicationIndex
 	//----------------------------------
@@ -909,7 +917,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 				return forms[i];
 		}
 		
-		throw new Error();  // shouldn't get here		
+		return null;  // shouldn't get here		
 	}
 	
 	
@@ -1699,12 +1707,37 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	 */	
 	public function addChildBridge(bridge:IEventDispatcher, owner:DisplayObject):void
 	{
-		if (!swfBridgeGroup)
-			swfBridgeGroup = new SWFBridgeGroup(this);
+        // Is the owner in a pop up? If so let the focus manager manage the
+        // bridge instead of the system manager.
+        var fm:IFocusManager = null;
+        var o:DisplayObject = owner;
+
+        while (o)
+        {
+            if (o is IFocusManagerContainer)
+            {
+                fm = IFocusManagerContainer(o).focusManager;
+                break;
+            }
+
+            o = o.parent;
+        }
+        
+        if (!fm)
+            return;
+            
+        if (!swfBridgeGroup)
+            swfBridgeGroup = new SWFBridgeGroup(this);
 
         swfBridgeGroup.addChildBridge(bridge, ISWFBridgeProvider(owner));
+        fm.addSWFBridge(bridge, owner);
+        
+        if (!bridgeToFocusManager)
+            bridgeToFocusManager = new Dictionary();
+            
+        bridgeToFocusManager[bridge] = fm;
+
         addChildBridgeListeners(bridge);
-		IFocusManagerContainer(document).focusManager.addSWFBridge(bridge);
 	}
 
 	/**
@@ -1712,8 +1745,11 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	 */
 	public function removeChildBridge(bridge:IEventDispatcher):void
 	{
-		IFocusManagerContainer(document).focusManager.removeSWFBridge(bridge);
-   		swfBridgeGroup.removeChildBridge(bridge);
+        var fm:IFocusManager = IFocusManager(bridgeToFocusManager[bridge]);
+        fm.removeSWFBridge(bridge);
+        swfBridgeGroup.removeChildBridge(bridge);
+
+        delete bridgeToFocusManager[bridge];
         removeChildBridgeListeners(bridge);
 	}
 
@@ -2212,7 +2248,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      *   no other action is required.
      */ 
     private function preProcessModalWindowRequest(request:SWFBridgeRequest, 
-                                                  sm:ISystemManager,
                                                   sbRoot:DisplayObject):Boolean
     {
         // should we process this message?
@@ -2222,9 +2257,9 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
             // but don't skip the next one.
             request.data.skip = false;
            
-            if (sm.useSWFBridge())
+            if (useSWFBridge())
             {
-                var bridge:IEventDispatcher = sm.swfBridgeGroup.parentBridge;
+                var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
                 request.requestor = bridge;
                 bridge.dispatchEvent(request);
             }
@@ -2232,36 +2267,40 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         }
         
         // if we are not the sandbox root, dispatch the message to the sandbox root.
-        if (sm != sbRoot)
+        if (this != sbRoot)
         {
-            var forwardRequest:Boolean = false;
-
             // convert exclude component into a rectangle and forward to parent bridge.
             if (request.type == SWFBridgeRequest.CREATE_MODAL_WINDOW_REQUEST ||
                 request.type == SWFBridgeRequest.SHOW_MODAL_WINDOW_REQUEST)
             {
-                var exclude:ISWFLoader = sm.swfBridgeGroup.getChildBridgeProvider(request.requestor) 
+                var exclude:ISWFLoader = swfBridgeGroup.getChildBridgeProvider(request.requestor) 
                                                  as ISWFLoader;
-                var excludeRect:Rectangle = ISWFLoader(exclude).getVisibleApplicationRect();
-                request.data.excludeRect = excludeRect;
-                forwardRequest = true;
-            }
-            else if (request.type == SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST)
-                forwardRequest = true;
                 
-            if (forwardRequest)
-            {
-                bridge = sm.swfBridgeGroup.parentBridge;
-                request.requestor = bridge;
-         
-                // The HIDE request does not need to be processed by each
-                // application, so dispatch it directly to the sandbox root.       
-                if (request.type == SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST)
-                    sbRoot.dispatchEvent(request);
-                else 
-                    bridge.dispatchEvent(request);
-                return false;
+                // find the rectangle of the area to exclude                                                 
+                if (exclude)
+                {                    
+                    var excludeRect:Rectangle = ISWFLoader(exclude).getVisibleApplicationRect();
+                    request.data.excludeRect = excludeRect;
+
+                    // If the area to exclude is not contain by our document then it is in a 
+                    // pop up. From this point for set the useExclude flag to false to 
+                    // tell our parent not to exclude use from their modal window, only
+                    // the excludeRect we have just calculated.
+                    if (!DisplayObjectContainer(document).contains(DisplayObject(exclude)))
+                        request.data.useExclude = false;  // keep the existing excludeRect
+                }
             }
+                
+            bridge = swfBridgeGroup.parentBridge;
+            request.requestor = bridge;
+     
+            // The HIDE request does not need to be processed by each
+            // application, so dispatch it directly to the sandbox root.       
+            if (request.type == SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST)
+                sbRoot.dispatchEvent(request);
+            else 
+                bridge.dispatchEvent(request);
+            return false;
         }
 
         // skip aftering sending the message over a bridge.
@@ -2270,7 +2309,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         return true;
     }    
     
-
 	private function otherSystemManagerMouseListener(event:SandboxMouseEvent):void
 	{
 		if (dispatchingToSystemManagers)
@@ -2820,7 +2858,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 			var actualType:String = EventUtil.sandboxMouseEventMap[type];
 			if (actualType)
 			{
-				if (getSandboxRoot() == this)
+                if (getSandboxRoot() == this && eventProxy)
                     super.removeEventListener(actualType, eventProxy.marshalListener,
                             useCapture);
 				if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
@@ -3521,7 +3559,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         
         var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
             
-        if (!preProcessModalWindowRequest(request, this, getSandboxRoot()))
+        if (!preProcessModalWindowRequest(request, getSandboxRoot()))
             return;
                         
         // Ensure a PopUpManager exists and dispatch the request it is
@@ -3547,7 +3585,15 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         var rect:Rectangle = Rectangle(request.data);
         var owner:DisplayObject = DisplayObject(swfBridgeGroup.getChildBridgeProvider(request.requestor));
         var localRect:Rectangle;
+        var forwardRequest:Boolean = true;
         
+        // Check if the request in a pop up. If it is then don't 
+        // forward the request to our parent because we don't want
+        // to reduce the visible rect of the dialog base on the
+        // visible rect of applications in the main app. 
+        if (!DisplayObjectContainer(document).contains(owner))
+            forwardRequest = false;    
+                    
         if (owner is ISWFLoader)
             localRect = ISWFLoader(owner).getVisibleApplicationRect();
         else
@@ -3562,9 +3608,9 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         request.data = rect;
         
         // forward request 
-        if (useSWFBridge())
+        if (forwardRequest && useSWFBridge())
         { 
-        var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
+            var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
             request.requestor = bridge;
             bridge.dispatchEvent(request);
         }
@@ -4019,6 +4065,11 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 			event["value"] = currentSandboxEvent == event["value"];
 			return;
 		}
+		else if (event["name"] == "hasSWFBridges")
+		{
+			event["value"] = hasSWFBridges();
+			return;
+		}
 
 		// if we are broadcasting messages, ignore the messages
 		// we send to ourselves.
@@ -4060,6 +4111,13 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	    case "getVisibleApplicationRect":
 	        event["value"] = getVisibleApplicationRect(); 
 			break;
+        case "bringToFront":
+            if (event["value"].topMost)
+                popUpChildren.setChildIndex(DisplayObject(event["value"].popUp), popUpChildren.numChildren - 1);
+            else
+                setChildIndex(DisplayObject(event["value"].popUp), numChildren - 1);
+        
+            break;
 		}
 	}
 	
