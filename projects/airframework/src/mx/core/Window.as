@@ -3228,7 +3228,8 @@ public class Window extends LayoutContainer implements IWindow
             return;
         if (event.target == gripperHit)
         {
-            startResize(NativeWindowResize.BOTTOM_RIGHT);
+            startResize(layoutDirection == "rtl" ? NativeWindowResize.BOTTOM_LEFT 
+                                                 : NativeWindowResize.BOTTOM_RIGHT);
             event.stopPropagation();
         }
         else
