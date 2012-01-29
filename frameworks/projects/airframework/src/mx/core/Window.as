@@ -65,7 +65,7 @@ use namespace mx_internal;
 /**
  *  Dispatched after the window has been activated.
  *
- *  @eventType mx.events.AIREvent.WINDOW_DEACTIVATE
+ *  @eventType mx.events.AIREvent.WINDOW_ACTIVATE
  */
 [Event(name="windowActivate", type="mx.events.AIREvent")]
 
@@ -3030,7 +3030,7 @@ public class Window extends LayoutContainer implements IWindow
  	 */
  	private function nativeWindow_deactivateHandler(event:Event):void
  	{
- 		dispatchEvent(new AIREvent(AIREvent.WINDOW_ACTIVATE));
+ 		dispatchEvent(new AIREvent(AIREvent.WINDOW_DEACTIVATE));
  	}
  	
  	/**
