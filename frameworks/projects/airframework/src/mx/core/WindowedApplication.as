@@ -2035,24 +2035,6 @@ public class WindowedApplication extends Application implements IWindow
     }
 
     /**
-     *  @private
-     */     
-    private function measureChromeText(textField:UITextField):Rectangle
-    {
-        var textWidth:Number = 20;
-        var textHeight:Number = 14;
-        
-        if (textField && textField.text)
-        {
-            textField.validateNow();
-            textWidth = textField.textWidth;
-            textHeight = textField.textHeight;
-        }
-        
-        return new Rectangle(0, 0, textWidth, textHeight);
-    }
-
-    /**
      *  Maximizes the Application's window, or does nothing it if it's already maximized.
      */
     public function maximize():void
