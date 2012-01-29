@@ -40,7 +40,7 @@ internal class AIRFrameworkClasses
     import spark.skins.default.RestoreButtonSkin; RestoreButtonSkin;
     import spark.skins.default.TitleBarSkin; TitleBarSkin;
     import spark.skins.default.WindowedApplicationSkin; WindowedApplicationSkin;
-    import spark.components.windowClasses.WindowedApplication; WindowedApplication;
+    import spark.components.WindowedApplication; WindowedApplication;
 }
 
 }
