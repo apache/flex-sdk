@@ -2149,24 +2149,6 @@ public class Window extends LayoutContainer implements IWindow
         }
     }
 
-    /**
-     *  @private
-     */     
-    private function measureChromeText(textField:UITextField):Rectangle
-    {
-        var textWidth:Number = 20;
-        var textHeight:Number = 14;
-        
-        if (textField && textField.text)
-        {
-            textField.validateNow();
-            textWidth = textField.textWidth;
-            textHeight = textField.textHeight;
-        }
-        
-        return new Rectangle(0, 0, textWidth, textHeight);
-    }
-
  	/**
      *  Maximizes the Application's nativeWindow, or does nothing it if it's already maximized.
      */
