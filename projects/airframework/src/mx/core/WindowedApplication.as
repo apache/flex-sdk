@@ -836,7 +836,7 @@ public class WindowedApplication extends Application implements IWindow
 
         // the heightChanged event is dispatched in commitProperties instead of
         // here because it can change based on user-interaction with the window
-        // size and _height is set in there so don't want to prematurely
+        // size and super.height is set in there so don't want to prematurely
         // dispatch here yet
     }
 
@@ -1131,7 +1131,7 @@ public class WindowedApplication extends Application implements IWindow
 
         // the widthChanged event is dispatched in commitProperties instead of
         // here because it can change based on user-interaction with the window
-        // size and _width is set in there so don't want to prematurely
+        // size and super.width is set in there so don't want to prematurely
         // dispatch here yet
      }
 
@@ -2302,24 +2302,16 @@ public class WindowedApplication extends Application implements IWindow
                 systemChrome == NativeWindowSystemChrome.STANDARD)
                 nativeWindow.height = chromeHeight() + _bounds.height;
 
-            systemManager.stage.stageWidth = _width = _bounds.width;
-            systemManager.stage.stageHeight = _height =  _bounds.height;
+            systemManager.stage.stageWidth = super.width = _bounds.width;
+            systemManager.stage.stageHeight = super.height =  _bounds.height;
             boundsChanged = false;
-            
-            // don't know whether height or width changed
-            dispatchEvent(new Event("widthChanged"));
-            dispatchEvent(new Event("heightChanged"));
         }
 
         if (windowBoundsChanged)
         {
-            _bounds.width = _width = systemManager.stage.stageWidth;
-            _bounds.height = _height = systemManager.stage.stageHeight;
+            _bounds.width = super.width = systemManager.stage.stageWidth;
+            _bounds.height = super.height = systemManager.stage.stageHeight;
             windowBoundsChanged = false;
-            
-            // don't know whether height or width changed
-            dispatchEvent(new Event("widthChanged"));
-            dispatchEvent(new Event("heightChanged"));
         }
 
         if (menuChanged && !nativeWindow.closed)
