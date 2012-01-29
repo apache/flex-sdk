@@ -22,7 +22,7 @@ import mx.states.State;
  *  The skin for the maximize button in the TitleBar
  *  of a WindowedApplication or Window.
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public class WindowMaximizeButtonSkin extends UIComponent
 {
