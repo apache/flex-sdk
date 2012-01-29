@@ -1306,12 +1306,15 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */  
-    public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
+    public function getVisibleApplicationRect(bounds:Rectangle = null, skipToSandboxRoot:Boolean = false):Rectangle
     {
 		var request:Request = new Request("getVisibleApplicationRect", false, true);
 		if (!dispatchEvent(request)) 
 			return Rectangle(request.value);
 
+		if (skipToSandboxRoot && !topLevel)
+			return topLevelSystemManager.getVisibleApplicationRect(bounds, skipToSandboxRoot);
+		
         if (!bounds)
         {
             bounds = getBounds(DisplayObject(this));
@@ -1324,8 +1327,19 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
             bounds.width = s.width;
             bounds.height = s.height;
         }
-        
-        return bounds;
+		
+		if (!topLevel)
+		{
+			var obj:DisplayObjectContainer = parent.parent;
+			
+			if ("getVisibleApplicationRect" in obj)
+			{
+				var visibleRect:Rectangle = obj["getVisibleApplicationRect"](true);
+				bounds = bounds.intersection(visibleRect);
+			}
+		}
+
+		return bounds;
     }
  
    /**
