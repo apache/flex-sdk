@@ -22,7 +22,7 @@
 
 s|TitleBar
 {
-    skinClass: ClassReference("spark.skins.default.TitleBarSkin");
+    skinClass: ClassReference("spark.skins.spark.TitleBarSkin");
 }
 
 /*
@@ -33,7 +33,7 @@ s|TitleBar
 
 s|WindowedApplication
 {
-    skinClass: ClassReference("spark.skins.default.WindowedApplicationSkin");
+    skinClass: ClassReference("spark.skins.spark.WindowedApplicationSkin");
     backgroundColor: #FFFFFF;
 }
 
@@ -45,7 +45,7 @@ s|WindowedApplication
 
 s|Window
 {
-    skinClass: ClassReference("spark.skins.default.WindowedApplicationSkin");
+    skinClass: ClassReference("spark.skins.spark.WindowedApplicationSkin");
     backgroundColor: #FFFFFF;
 }
 
