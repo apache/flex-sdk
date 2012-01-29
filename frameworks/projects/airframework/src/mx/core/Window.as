@@ -32,6 +32,7 @@ import flash.system.Capabilities;
 import mx.controls.Button;
 import mx.controls.FlexNativeMenu;
 import mx.core.FlexGlobals;
+import mx.core.FlexVersion;
 import mx.core.windowClasses.StatusBar;
 import mx.core.windowClasses.TitleBar;
 import mx.events.AIREvent;
@@ -2769,6 +2770,22 @@ public class Window extends LayoutContainer implements IWindow
         return result;
     }
 
+    /**
+     *  @private 
+     *  Applications set estimated sizes for their children
+     */  
+    override public function setActualSize(w:Number, h:Number):void
+    {
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+        {
+            setEstimatedSize(w, h, false);
+            invalidateEstimatedSizesOfChildren();
+            validateEstimatedSizesOfChildren();
+        }
+        
+        super.setActualSize(w, h);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
