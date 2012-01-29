@@ -21,6 +21,8 @@ import flash.events.Event;
  *  activities in FlexNativeMenu.
  *
  *  @see mx.controls.FlexNativeMenu
+ * 
+ *  @productversion Apollo 1.0
  */
 public class FlexNativeMenuEvent extends Event
 {
