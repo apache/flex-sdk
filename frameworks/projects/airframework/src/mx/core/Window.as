@@ -54,18 +54,20 @@ use namespace mx_internal;
  *  @eventType mx.events.AIREvent.APPLICATION_ACTIVATE
  */
 [Event(name="applicationActivate", type="mx.events.AIREvent")]
- 
+
 /**
  *  Dispatched when this application gets deactivated.
  *
  *  @eventType mx.events.AIREvent.APPLICATION_DEACTIVATE
  */
 [Event(name="applicationDeactivate", type="mx.events.AIREvent")]
- 
+
 /**
  *  Dispatched before the window closes.
  *  This event is cancelable.
- * 
+ *
+ *  @eventType flash.events.Event.CLOSING
+ *
  *  @see flash.display.NativeWindow
  */
 [Event(name="closing", type="flash.events.Event")]
@@ -93,94 +95,94 @@ use namespace mx_internal;
  *  @eventType flash.events.NativeWindowBoundsEvent.MOVING
  */
 [Event(name="moving", type="flash.events.NativeWindowBoundsEvent")]
- 
+
 /**
- *  Dispatched when the computer connects to or disconnects from the network. 
+ *  Dispatched when the computer connects to or disconnects from the network.
  *
  *	@eventType flash.events.Event.NETWORK_CHANGE
  */
 [Event(name="networkChange", type="flash.events.Event")]
- 
-/*
+
+/**
  *  Dispatched before the underlying NativeWindow is resized
  *
- *  @eventType flash.events.WindowBoundsEvent.RESIZING
+ *  @eventType flash.events.NativeWindowBoundsEvent.RESIZING
  */
-[Event(name="resizing", type="flash.events.NativeWindowBoundsEvent")] 
- 
+[Event(name="resizing", type="flash.events.NativeWindowBoundsEvent")]
+
 /**
  *  Dispatched when the Window completes its initial layout
  *  and opens the underlying NativeWindow
- * 
+ *
  *  @eventType mx.events.AIREvent.WINDOW_COMPLETE
  */
 [Event(name="windowComplete", type="mx.events.AIREvent")]
 
 /**
- *  Dispatched after the window moves. 
+ *  Dispatched after the window moves.
  *
  *  @eventType mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE
  */
 [Event(name="windowMove", type="mx.events.FlexNativeWindowBoundsEvent")]
 
 /**
- *  Dispatched after the underlying NativeWindow is resized. 
+ *  Dispatched after the underlying NativeWindow is resized.
  *
  *  @eventType mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE
  */
-[Event(name="windowResize", type="mx.events.FlexNativeWindowBoundsEvent")] 
- 
+[Event(name="windowResize", type="mx.events.FlexNativeWindowBoundsEvent")]
+
 //--------------------------------------
 //  Styles
 //--------------------------------------
 
 /**
- *  Position of buttons in title bar. Possible values: <code>"left"</code>, 
- *  <code>"right"</code>, <code>"auto"</code>. 
- * 
- *  <p>A value of <code>"left"</code> means the buttons are aligned 
+ *  Position of buttons in title bar. Possible values: <code>"left"</code>,
+ *  <code>"right"</code>, <code>"auto"</code>.
+ *
+ *  <p>A value of <code>"left"</code> means the buttons are aligned
  *  at the left of the title bar.
- *  A value of <code>"right"</code> means the buttons are aligned 
+ *  A value of <code>"right"</code> means the buttons are aligned
  *  at the right of the title bar.
  *  A value of <code>"auto"</code> means the buttons are aligned
- *  at the left of the title bar on the Macintosh and on the 
+ *  at the left of the title bar on the Macintosh and on the
  *  right on Windows.</p>
  *
  *  @default "auto"
  */
 [Style(name="buttonAlignment", type="String", enumeration="left,right,auto", inherit="yes")]
-    
+
 /**
  *  Defines the distance between the titleBar buttons
- *  
- *  @default 2   
+ *
+ *  @default 2
  */
 [Style(name="buttonPadding", type="Number", inherit="yes")]
 
 /**
  *  Skin for close button when using Flex chrome.
- * 
+ *
  *  @default mx.skins.halo.WindowCloseButtonSkin
  */
-[Style(name="closeButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")] 
- 
+[Style(name="closeButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")]
+
 /**
  *  The extra space around the gripper. The total area of the gripper
- *  plus the padding around the edges is the hit area for the gripper resizing. 
+ *  plus the padding around the edges is the hit area for the gripper resizing.
  *
  *  @default 3
  */
 [Style(name="gripperPadding", type="Number", format="Length", inherit="no")]
 
 /**
- *  Style declaration for the skin of the gripper. 
- * 
+ *  Style declaration for the skin of the gripper.
+ *
  *  @default "gripperStyle"
  */
-[Style(name="gripperStyleName", type="String", inherit="no")] 
+[Style(name="gripperStyleName", type="String", inherit="no")]
 
 /**
- *  The explicit height of the header. If this style is not set, the header 
+ *  The explicit height of the header. If this style is not set, the header
  *  height is calculated from the largest of the text height, the button
  *  heights, and the icon height.
  *
@@ -190,22 +192,22 @@ use namespace mx_internal;
 
 /**
  *  Skin for maximize button when using Flex chrome.
- * 
+ *
  *  @default mx.skins.halo.WindowMaximizeButtonSkin
  */
-[Style(name="maximizeButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")] 
+[Style(name="maximizeButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")]
 
 /**
  *  Skin for minimize button when using Flex chrome.
- * 
+ *
  *  @default mx.skins.halo.WindowMinimizeButtonSkin
  */
-[Style(name="minimizeButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")] 
+[Style(name="minimizeButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")]
 
 /**
  *  Skin for restore button when using Flex chrome.
  *  (Does not affect Macintosh)
- * 
+ *
  *  @default mx.skins.halo.WindowRestoreButtonSkin
  */
 [Style(name="restoreButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")]
@@ -213,7 +215,7 @@ use namespace mx_internal;
 /**
  *  Determines whether we display Flex Chrome, or depend on the developer
  *  to draw her own. Changing this style once the window is open has no effect.
- * 
+ *
  *  @default true
  */
 [Style(name="showFlexChrome", type="Boolean", inherit="no")]
@@ -234,26 +236,26 @@ use namespace mx_internal;
 
 /**
  *  Style declaration for status text.
- * 
+ *
  *  @default undefined
  */
 [Style(name="statusTextStyleName", type="String", inherit="yes")]
 
 /**
- *  Position of title in title bar. 
- *  The possible values are <code>"left"</code>, 
- *  <code>"center"</code>, <code>"auto"</code> 
- *  
+ *  Position of title in title bar.
+ *  The possible values are <code>"left"</code>,
+ *  <code>"center"</code>, <code>"auto"</code>
+ *
  *  <p>A value of <code>"left"</code> means the title is aligned
  *  at the left of the title bar.
  *  A value of <code>"center"</code> means the title is aligned
  *  at the center of the title bar.
- *  A value of <code>"auto"</code> means the title is aligned 
+ *  A value of <code>"auto"</code> means the title is aligned
  *  at the left on Windows and at the center on the Macintosh.</p>
- * 
+ *
  *  @default "auto"
  */
-[Style(name="titleAlignment", type="String", enumeration="left,center,auto", inherit="yes")] 
+[Style(name="titleAlignment", type="String", enumeration="left,center,auto", inherit="yes")]
 
 /**
  *  The title background skin.
@@ -263,9 +265,9 @@ use namespace mx_internal;
 [Style(name="titleBarBackgroundSkin", type="Class", inherit="yes")]
 
 /**
- *  The distance between the furthest out title bar button and the 
+ *  The distance between the furthest out title bar button and the
  *  edge of the title bar.
- * 
+ *
  *  @default 5
  */
 [Style(name="titleBarButtonPadding", type="Number", inherit="true")]
@@ -337,7 +339,7 @@ use namespace mx_internal;
 public class Window extends LayoutContainer implements IWindow
 {
     include "../core/Version.as";
-    
+
     //--------------------------------------------------------------------------
     //
     //  Class constants
@@ -345,15 +347,15 @@ public class Window extends LayoutContainer implements IWindow
     //--------------------------------------------------------------------------
 
     /**
-     *  @private 
+     *  @private
      */
-    private static const HEADER_PADDING:Number = 4; 
-    
+    private static const HEADER_PADDING:Number = 4;
+
     /**
-     *  @private 
+     *  @private
      */
-    private static const MOUSE_SLACK:Number = 5; 
-    
+    private static const MOUSE_SLACK:Number = 5;
+
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -361,18 +363,18 @@ public class Window extends LayoutContainer implements IWindow
     //--------------------------------------------------------------------------
 
     /**
-     *  Returns the Window to which a component is parented. 
-     * 
+     *  Returns the Window to which a component is parented.
+     *
      *  @param component the component whose Window you wish to find.
      */
     public static function getWindow(component:UIComponent):Window
     {
-    	if (component.systemManager is WindowedSystemManager) 
+    	if (component.systemManager is WindowedSystemManager)
     		return WindowedSystemManager(component.systemManager).window;
     	
 		return null;
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -397,12 +399,12 @@ public class Window extends LayoutContainer implements IWindow
     //  Variables
     //
     //--------------------------------------------------------------------------
- 
+
     /**
-     *  @private 
+     *  @private
      */
     private var _nativeWindow:NativeWindow;
-    
+
 	/**
 	 *  @private
 	 */
@@ -423,78 +425,78 @@ public class Window extends LayoutContainer implements IWindow
      *  @private
      */
  	private var toMax:Boolean = false;
- 
+
     /**
      *  @private
      */
     private var appViewMetrics:EdgeMetrics;
-    
+
     /**
      *  @private
-     *  Ensures that the Window has finished drawing 
-     *  before it becomes visible. 
+     *  Ensures that the Window has finished drawing
+     *  before it becomes visible.
      */
     private var frameCounter:int = 0;
-    
+
     /**
      *  @private
      */
     private var gripper:Button;
-    
+
     /**
      *  @private
      */
     private var gripperHit:Sprite;
-    
+
     /**
      *  @private
      */
     private var flagForOpen:Boolean = false;
-    
+
     /**
      *   @private
      */
     private var openActive:Boolean = true;
-    
+
     /**
      *  @private
      *  A reference to this Application's title bar skin.
      *  This is a child of the titleBar.
      */
     mx_internal var titleBarBackground:IFlexDisplayObject;
-    
+
     /**
      *  @private
      *  A reference to this Application's status bar skin.
      *  This is a child of the statusBar.
      */
     mx_internal var statusBarBackground:IFlexDisplayObject;
-    
+
     /**
      *  @private
      */
     private var oldX:Number;
-    
+
     /**
      *  @private
      */
     private var oldY:Number;
-    
+
     /**
-     *  @private 
+     *  @private
      */
     private var prevX:Number;
-    
+
     /**
-     *  @private 
+     *  @private
      */
     private var prevY:Number;
-    
+
     /**
      *  @private
      */
     private var resizeHandlerAdded:Boolean = false;
-    
+
     /**
      *  @private
      *  This flag indicates whether the width of the Application instance
@@ -503,7 +505,7 @@ public class Window extends LayoutContainer implements IWindow
      *  width of the Application should be modified.
      */
     private var resizeWidth:Boolean = true;
-    
+
     /**
      *  @private
      *  This flag indicates whether the height of the Application instance
@@ -514,10 +516,10 @@ public class Window extends LayoutContainer implements IWindow
     private var resizeHeight:Boolean = true;
 
     /**
-     *  @private 
+     *  @private
      */
     private var windowBoundsChanged:Boolean = true;
-     
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -527,15 +529,15 @@ public class Window extends LayoutContainer implements IWindow
    	//----------------------------------
     //  height
     //----------------------------------
-    
+
     /**
-     *  @private  
+     *  @private
      */
 	override public function get height():Number
     {
     	return _bounds.height;
     }
-    
+
     /**
      *  @private
 	 *  Also sets the stage's height.
@@ -549,12 +551,12 @@ public class Window extends LayoutContainer implements IWindow
      	
 		_bounds.height = value;
      	boundsChanged = true;
-        
+
         invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
     }
-     
+
 	//----------------------------------
 	//  maxHeight
 	//----------------------------------
@@ -564,7 +566,7 @@ public class Window extends LayoutContainer implements IWindow
 	 *  Storage for the maxHeight property.
 	 */
 	private var _maxHeight:Number = 10000;
-	 
+	
 	/**
 	 *  The maximum height of the Window.
 	 */
@@ -572,7 +574,7 @@ public class Window extends LayoutContainer implements IWindow
 	{
 		return _maxHeight;
 	}
-	 
+	
 	/**
 	 *  @private
 	 */
@@ -582,7 +584,7 @@ public class Window extends LayoutContainer implements IWindow
 		if (height > _maxHeight)
 			height = _maxHeight;
 	}
-	 
+	
 	//----------------------------------
 	//  maxWidth
 	//----------------------------------
@@ -600,7 +602,7 @@ public class Window extends LayoutContainer implements IWindow
 	{
 		return _maxWidth;
 	}
-	 
+	
 	/**
 	 *  @private
 	 */
@@ -610,11 +612,11 @@ public class Window extends LayoutContainer implements IWindow
 	 	if (height > _maxWidth)
 	 		height = _maxWidth;
 	}
-	 
+	
 	 //---------------------------------
 	 //  minHeight
 	 //---------------------------------
-	 
+	
 	/**
 	 *  @private
 	 *  Storage for the minHeight property.
@@ -639,7 +641,7 @@ public class Window extends LayoutContainer implements IWindow
 		if (height < minHeight)
 			height = minHeight;
 	}
-	 
+	
 	//----------------------------------
 	//  minWidth
 	//----------------------------------
@@ -675,10 +677,10 @@ public class Window extends LayoutContainer implements IWindow
 	
 	/**
 	 *  Controls the Window's visibility. Unlike the normal
-	 *  UIComponent.visible property, this affects the underlying 
-	 *  NativeWindow as well. When it changes, it will 
-	 *  dispatch a FlexEvent.SHOW or FlexEvent.HIDE event. 
-	 * 
+	 *  UIComponent.visible property, this affects the underlying
+	 *  NativeWindow as well. When it changes, it will
+	 *  dispatch a FlexEvent.SHOW or FlexEvent.HIDE event.
+	 *
 	 *  @default true
 	 */	
 	override public function get visible():Boolean
@@ -722,12 +724,12 @@ public class Window extends LayoutContainer implements IWindow
 				}
 			}
 		}
-	} 
+	}
 	
    	//----------------------------------
     //  width
     //----------------------------------
-  
+
     /**
      *  @private
      */
@@ -735,7 +737,7 @@ public class Window extends LayoutContainer implements IWindow
     {
     	return _bounds.width;
     }
-    
+
     /**
      *  @private
 	 *  Also sets the stage's width.
@@ -749,12 +751,12 @@ public class Window extends LayoutContainer implements IWindow
      	
      	_bounds.width = value;
      	boundsChanged = true;
-        
+
         invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
     }
-     
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: Container
@@ -766,7 +768,7 @@ public class Window extends LayoutContainer implements IWindow
     //----------------------------------
 
     /**
-     *  @private  
+     *  @private
      */
     override public function get viewMetrics():EdgeMetrics
     {
@@ -775,23 +777,23 @@ public class Window extends LayoutContainer implements IWindow
         var vm:EdgeMetrics = new EdgeMetrics(bm.left, bm.top,
         									 bm.right, bm.bottom);
 		
-   		// Since the header covers the solid portion of the border,  
+   		// Since the header covers the solid portion of the border,
         // we need to use the larger of borderThickness or headerHeight
-        
+
 		if (showTitleBar)
         {
 	        var hHeight:Number = getHeaderHeight();
 	        if (!isNaN(hHeight))
 	            vm.top += hHeight;
         }
-        
+
 		if (showStatusBar)
         {
             var sHeight:Number = getStatusBarHeight();
             if (!isNaN(sHeight))
                 vm.bottom += sHeight;
         }
-        
+
 		if (controlBar && controlBar.includeInLayout)
         {
             vm.top += controlBar.getExplicitOrMeasuredHeight();
@@ -799,13 +801,13 @@ public class Window extends LayoutContainer implements IWindow
 
         return vm;
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-    
+
     //----------------------------------
     // alwaysInFront
     //----------------------------------
@@ -815,10 +817,10 @@ public class Window extends LayoutContainer implements IWindow
 	 *  Storage for the alwaysInFront property.
      */
     private var _alwaysInFront:Boolean = false;
-    
+
     /**
-	 *  Determines whether the underlying NativeWindow is alwaysInFront. 
-     */  
+	 *  Determines whether the underlying NativeWindow is alwaysInFront.
+     */
     public function get alwaysInFront():Boolean
     {
     	if (_nativeWindow && !_nativeWindow.closed)
@@ -842,13 +844,13 @@ public class Window extends LayoutContainer implements IWindow
     //----------------------------------
 
     /**
-     *  @private 
+     *  @private
      *  Storage for the bounds property.
      */
     private var _bounds:Rectangle = new Rectangle(0, 0, 0, 0);
-    
+
     /**
-     *  @private 
+     *  @private
      */
     private var boundsChanged:Boolean = false;
 
@@ -861,10 +863,10 @@ public class Window extends LayoutContainer implements IWindow
     {
         return _bounds;
     }
-    
+
     /**
      *  @private
-     */ 
+     */
     protected function set bounds(value:Rectangle):void
     {
         _bounds = value;
@@ -874,7 +876,7 @@ public class Window extends LayoutContainer implements IWindow
         invalidateSize();
         invalidateViewMetricsAndPadding();
     }
-    
+
    	//----------------------------------
     //  closed
     //----------------------------------
@@ -890,15 +892,15 @@ public class Window extends LayoutContainer implements IWindow
    	//----------------------------------
     //  controlBar
     //----------------------------------
-    
+
     /**
-     *  The ApplicationControlBar for this Window. 
+     *  The ApplicationControlBar for this Window.
      *
      *  @see mx.containers.ApplicationControlBar
      *  @default null
      */
     public var controlBar:IUIComponent;
-      
+
 	//----------------------------------
 	//  maximizable
 	//----------------------------------
@@ -951,13 +953,13 @@ public class Window extends LayoutContainer implements IWindow
     {
     	return _cursorManager;
     }
-   
-    
+
+
     /**
-     *  @private 
+     *  @private
      */
     private var menuChanged:Boolean = false;
-    
+
     /**
      *  @private
      */
@@ -965,7 +967,7 @@ public class Window extends LayoutContainer implements IWindow
     {
     	return _menu;
     }
-    
+
     /**
      *  The nativeApplication's menu.
 	 *  Some operating systems do not support nativeApplication menus.
@@ -975,7 +977,7 @@ public class Window extends LayoutContainer implements IWindow
     	_menu = value;
     	menuChanged = true;
     }
-	 
+	
 	//----------------------------------
 	//  minimizable
 	//----------------------------------
@@ -1013,7 +1015,7 @@ public class Window extends LayoutContainer implements IWindow
 	//----------------------------------
 
     /**
-     *  The NativeWindow that this Window uses. 
+     *  The NativeWindow that this Window uses.
      */
     public function get nativeWindow():NativeWindow
     {
@@ -1065,9 +1067,9 @@ public class Window extends LayoutContainer implements IWindow
      *  Storage for the showGripper property.
      */
     private var _showGripper:Boolean = true;
-    
+
     /**
-     *  @private 
+     *  @private
      */
     private var showGripperChanged:Boolean = true;
 
@@ -1075,7 +1077,7 @@ public class Window extends LayoutContainer implements IWindow
      *  If <code>true</code>, the gripper is visible.
      *  Macintosh windows with systemChrome="standard"
      *  always have grippers, so this property is ignored
-     *  for those windows. 
+     *  for those windows.
      *
      *  @default true
      */
@@ -1083,22 +1085,22 @@ public class Window extends LayoutContainer implements IWindow
     {
         return _showGripper;
     }
-    
+
     /**
      *  @private
-     */ 
+     */
     public function set showGripper(value:Boolean):void
     {
         if (_showGripper == value)
             return;
-        
+
         _showGripper = value;
         showGripperChanged = true;
-        
+
         invalidateProperties();
         invalidateDisplayList();
     }
-    
+
     //----------------------------------
     //  showStatusBar
     //----------------------------------
@@ -1107,9 +1109,9 @@ public class Window extends LayoutContainer implements IWindow
      *  Storage for the showStatusBar property.
      */
     private var _showStatusBar:Boolean = true;
-    
+
     /**
-     *  @private 
+     *  @private
      */
     private var showStatusBarChanged:Boolean = true;
 
@@ -1122,22 +1124,22 @@ public class Window extends LayoutContainer implements IWindow
     {
         return _showStatusBar;
     }
-    
+
     /**
      *  @private
-     */ 
+     */
     public function set showStatusBar(value:Boolean):void
     {
         if (_showStatusBar == value)
             return;
-        
+
         _showStatusBar = value;
         showStatusBarChanged = true;
-        
+
         invalidateProperties();
         invalidateDisplayList();
     }
-    
+
     //----------------------------------
     //  showTitleBar
     //----------------------------------
@@ -1146,9 +1148,9 @@ public class Window extends LayoutContainer implements IWindow
      *  Storage for the showTitleBar property.
      */
     private var _showTitleBar:Boolean = true;
-    
+
     /**
-     *  @private 
+     *  @private
      */
     private var showTitleBarChanged:Boolean = true;
 
@@ -1161,22 +1163,22 @@ public class Window extends LayoutContainer implements IWindow
     {
         return _showTitleBar;
     }
-    
+
     /**
      *  @private
-     */ 
+     */
     public function set showTitleBar(value:Boolean):void
     {
         if (_showTitleBar == value)
             return;
-        
+
         _showTitleBar = value;
         showTitleBarChanged = true;
-        
+
         invalidateProperties();
         invalidateDisplayList();
     }
-    
+
     //----------------------------------
     //  status
     //----------------------------------
@@ -1186,40 +1188,40 @@ public class Window extends LayoutContainer implements IWindow
 	 *  Storage for the status property.
      */
     private var _status:String = "";
-    
+
     /**
      *  @private
      */
     private var statusChanged:Boolean = false;
-    
+
     [Bindable("statusChanged")]
 
     /**
      *  The string that appears in the status bar, if it is visible.
-     * 
+     *
      *  @default ""
      */
     public function get status():String
     {
         return _status;
-    }    
+    }
 
     /**
      *  @private
      */
     public function set status(value:String):void
     {
-       
+
        	_status = value;
        	statusChanged = true;
 
         invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
-        
+
 		dispatchEvent(new Event("statusChanged"));
     }
-        
+
     //----------------------------------
     //  statusBar
     //----------------------------------
@@ -1227,17 +1229,17 @@ public class Window extends LayoutContainer implements IWindow
     /**
 	 *  @private
      *  Storage for the statusBar property.
-     */ 
+     */
     private var _statusBar:UIComponent;
-    
+
     /**
-     *  The UIComponent that displays the status bar. 
-     */ 
+     *  The UIComponent that displays the status bar.
+     */
     public function get statusBar():UIComponent
     {
     	return _statusBar;
     }
-    
+
     //----------------------------------
     //  statusBarFactory
     //----------------------------------
@@ -1259,7 +1261,7 @@ public class Window extends LayoutContainer implements IWindow
      *  The IFactory that creates an instance to use
      *  as the status bar.
      *  The default value is an IFactory for StatusBar.
-     * 
+     *
      *  <p>If you write a custom status bar class, it should expose
      *  a public property named <code>status</code>.</p>
      */
@@ -1267,7 +1269,7 @@ public class Window extends LayoutContainer implements IWindow
     {
         return _statusBarFactory;
     }
-    
+
     /**
      *  @private
      */
@@ -1280,17 +1282,17 @@ public class Window extends LayoutContainer implements IWindow
 
         dispatchEvent(new Event("statusBarFactoryChanged"));
     }
-    
+
     //----------------------------------
     //  statusBarStyleFilters
     //----------------------------------
-    
-    private static var _statusBarStyleFilters:Object = 
+
+    private static var _statusBarStyleFilters:Object =
     {
         "statusBarBackgroundColor" : "statusBarBackgroundColor",
         "statusBarBackgroundSkin" : "statusBarBackgroundSkin",
         "statusTextStyleName" : "statusTextStyleName"
-    }; 
+    };
 
     /**
      *  Set of styles to pass from the Window to the statusBar.
@@ -1300,7 +1302,7 @@ public class Window extends LayoutContainer implements IWindow
     {
         return _statusBarStyleFilters;
     }
-    
+
 	//----------------------------------
 	//  systemChrome
 	//----------------------------------
@@ -1343,7 +1345,7 @@ public class Window extends LayoutContainer implements IWindow
      *  Storage for the title property.
      */
     private var _title:String = "";
-        
+
     /**
      *  @private
      */
@@ -1352,16 +1354,16 @@ public class Window extends LayoutContainer implements IWindow
     [Bindable("titleChanged")]
 
     /**
-     *  The title that appears in the window title bar and 
+     *  The title that appears in the window title bar and
      *  the taskbar.
-     * 
+     *
      *  @default ""
      */
     public function get title():String
     {
         return _title;
     }
-    
+
     /**
      *  @private
      */
@@ -1369,7 +1371,7 @@ public class Window extends LayoutContainer implements IWindow
     {
        	titleChanged = true;
        	_title = value;
-        
+
         invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
@@ -1377,7 +1379,7 @@ public class Window extends LayoutContainer implements IWindow
 
         dispatchEvent(new Event("titleChanged"));
     }
-    
+
     //----------------------------------
     //  titleBar
     //----------------------------------
@@ -1385,17 +1387,17 @@ public class Window extends LayoutContainer implements IWindow
     /**
 	 *  @private
      *  Storage for the titleBar property.
-     */ 
+     */
     private var _titleBar:UIComponent;
-    
+
     /**
-     *  The UIComponent that displays the title bar. 
+     *  The UIComponent that displays the title bar.
      */
     public function get titleBar():UIComponent
     {
     	return _titleBar;
-    } 
-    
+    }
+
     //----------------------------------
     //  titleBarFactory
     //----------------------------------
@@ -1417,7 +1419,7 @@ public class Window extends LayoutContainer implements IWindow
      *  The IFactory that creates an instance to use
      *  as the title bar.
      *  The default value is an IFactory for TitleBar.
-     * 
+     *
      *  <p>If you write a custom title bar class, it should expose
      *  public properties named <code>titleIcon</code>
      *  and <code>title</code>.</p>
@@ -1426,7 +1428,7 @@ public class Window extends LayoutContainer implements IWindow
     {
         return _titleBarFactory;
     }
-    
+
     /**
      *  @private
      */
@@ -1443,8 +1445,8 @@ public class Window extends LayoutContainer implements IWindow
     //----------------------------------
     //  titleBarStyleFilters
     //----------------------------------
-    
-    private static var _titleBarStyleFilters:Object = 
+
+    private static var _titleBarStyleFilters:Object =
     {
 		"buttonAlignment" : "buttonAlignment",
 		"buttonPadding" : "buttonPadding",
@@ -1459,7 +1461,7 @@ public class Window extends LayoutContainer implements IWindow
 		"titleBarButtonPadding" : "titleBarButtonPadding",
 		"titleBarColors" : "titleBarColors",
 		"titleTextStyleName" : "titleTextStyleName"
-	}; 
+	};
 
     /**
      *  Set of styles to pass from the Window to the titleBar.
@@ -1479,24 +1481,24 @@ public class Window extends LayoutContainer implements IWindow
      *  Storage for the titleIcon property.
      */
     private var _titleIcon:Class;
-    
+
     /**
      *  @private
      */
     private var titleIconChanged:Boolean = false;
-    
+
     [Bindable("titleIconChanged")]
 
     /**
      *  The Class (usually for an image) used to draw the title bar icon.
-     * 
+     *
      *  @default null
      */
     public function get titleIcon():Class
     {
         return _titleIcon;
     }
-        
+
     /**
      *  @private
      */
@@ -1504,7 +1506,7 @@ public class Window extends LayoutContainer implements IWindow
     {
        	_titleIcon = value;
        	titleIconChanged = true;
-        
+
         invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
@@ -1512,7 +1514,7 @@ public class Window extends LayoutContainer implements IWindow
 
         dispatchEvent(new Event("titleIconChanged"));
     }
-    
+
 	//----------------------------------
 	//  transparent
 	//----------------------------------
@@ -1614,7 +1616,7 @@ public class Window extends LayoutContainer implements IWindow
         }
          super.initialize();
     }
-     
+
     /**
      *  @private
      */
@@ -1626,9 +1628,9 @@ public class Window extends LayoutContainer implements IWindow
         	height = minHeight;
         if (width < minWidth)
         	width = minWidth;
-        
+
 		super.createChildren();
-        
+
 		if (getStyle("showFlexChrome") == false ||
 			getStyle("showFlexChrome") == "false")
         {
@@ -1654,7 +1656,7 @@ public class Window extends LayoutContainer implements IWindow
         	var gripSkin:String = getStyle("gripperStyleName");
         	if (gripSkin)
         	{
-        		var tmp:CSSStyleDeclaration = 
+        		var tmp:CSSStyleDeclaration =
                     StyleManager.getStyleDeclaration("." + gripSkin);
                 gripper.styleName = gripSkin;
             }
@@ -1667,9 +1669,9 @@ public class Window extends LayoutContainer implements IWindow
     	if (systemManager.stage.nativeWindow.systemChrome != "none")
         {
 			setStyle("borderStyle", "none");
-            return;   
-        }  
-		                
+            return;
+        }
+		
         if (!_titleBar)
         {
             _titleBar = titleBarFactory.newInstance();
@@ -1678,7 +1680,7 @@ public class Window extends LayoutContainer implements IWindow
         	showTitleBarChanged = true;
 		}
     }
-    
+
     /**
      *  @private
      */
@@ -1701,12 +1703,12 @@ public class Window extends LayoutContainer implements IWindow
 			var sm:WindowedSystemManager = new WindowedSystemManager(this);
 			_nativeWindow.stage.addChild(sm);
 	    	systemManager = sm;
-	    	sm.addChild(this);  
+	    	sm.addChild(this);
 	    	sm.window = this;
 	    	_nativeWindow.alwaysInFront = _alwaysInFront;
 	    	initManagers(sm);
 	     	addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-	        
+	
 	        var nativeApplication:NativeApplication = NativeApplication.nativeApplication;
 	 		nativeApplication.addEventListener(Event.ACTIVATE, nativeApplication_activateHandler, false, 0, true);
 	 		nativeApplication.addEventListener(Event.DEACTIVATE, nativeApplication_deactivateHandler, false, 0, true);
@@ -1715,17 +1717,17 @@ public class Window extends LayoutContainer implements IWindow
  			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
  			//debug
  			var x:Object = StyleManager.stylesRoot;
- 			//'register' with WindowedSystemManager so it can cleanup when done. 
+ 			//'register' with WindowedSystemManager so it can cleanup when done.
  			sm.addWindow(this);
         }
-        
+
         if (boundsChanged)
         {
             systemManager.stage.stageWidth = _bounds.width;
             systemManager.stage.stageHeight = _bounds.height;
             boundsChanged = false;
         }
-        
+
         if (menuChanged && !nativeWindow.closed)
         {
 			menuChanged = false;
@@ -1741,7 +1743,7 @@ public class Window extends LayoutContainer implements IWindow
 		    		nativeWindow.menu = menu.nativeMenu;
 		    }
         }
-        
+
         if (titleBarFactoryChanged)
         {
         	if (_titleBar)
@@ -1756,21 +1758,21 @@ public class Window extends LayoutContainer implements IWindow
             titleBarFactoryChanged = false;
             invalidateDisplayList();
         }
-        
+
         if (showTitleBarChanged)
         {
         	if (_titleBar)
         		_titleBar.visible = _showTitleBar;
         	showTitleBarChanged = false;
         }
-        
+
         if (titleIconChanged)
         {
         	if (_titleBar && "titleIcon" in _titleBar)
         		_titleBar["titleIcon"] = _titleIcon;
         	titleIconChanged = false;
         }
-        
+
         if (titleChanged)
         {
             if (!nativeWindow.closed)
@@ -1779,7 +1781,7 @@ public class Window extends LayoutContainer implements IWindow
         		_titleBar["title"] = _title;
             titleChanged = false;
         }
-        
+
         if (statusBarFactoryChanged)
         {
         	if (_statusBar)
@@ -1799,21 +1801,21 @@ public class Window extends LayoutContainer implements IWindow
             showStatusBarChanged = true;
             invalidateDisplayList();
         }
-        
+
         if (showStatusBarChanged)
         {
             if (_statusBar)
 	            _statusBar.visible = _showStatusBar;
             showStatusBarChanged = false;
         }
-        
+
         if (statusChanged)
         {
         	if (_statusBar && "status" in _statusBar)
         		_statusBar["status"] = _status;
         	statusChanged = false;
         }
-        
+
         if (showGripperChanged)
         {
         	if (gripper)
@@ -1823,7 +1825,7 @@ public class Window extends LayoutContainer implements IWindow
         	}
         	showGripperChanged = false;
         }
-        
+
         if (toMax)
         {
         	toMax = false;
@@ -1845,10 +1847,10 @@ public class Window extends LayoutContainer implements IWindow
         	if (!nativeWindow.closed)
         		systemManager.stage.nativeWindow.maximize();
         }
-        
+
         super.measure();
     }
-    
+
 	/**
      *  @private
      */
@@ -1890,7 +1892,7 @@ public class Window extends LayoutContainer implements IWindow
 				}
 	            whiteBox.x = systemManager.stage.stageWidth - whiteBox.width;
 	            whiteBox.y = systemManager.stage.stageHeight - whiteBox.height;
-         	} 
+         	}
          	else if (!(horizontalScrollBar && verticalScrollBar))
          	{
          		if (whiteBox)
@@ -1913,7 +1915,7 @@ public class Window extends LayoutContainer implements IWindow
        					verticalScrollBar.height - (gripperHit.height - whiteBox.height));
        			if (gripperHit.width > whiteBox.width)
        				horizontalScrollBar.setActualSize(
-       						horizontalScrollBar.width - (gripperHit.width  - whiteBox.height), 
+       						horizontalScrollBar.width - (gripperHit.width  - whiteBox.height),
        						horizontalScrollBar.height);
        		}
        		else if (horizontalScrollBar)
@@ -1921,14 +1923,14 @@ public class Window extends LayoutContainer implements IWindow
        			horizontalScrollBar.setActualSize(
 					horizontalScrollBar.width - gripperHit.width,
 					horizontalScrollBar.height);
-       		} 
+       		}
        		else if (verticalScrollBar)
        		{
        			verticalScrollBar.setActualSize(
 					verticalScrollBar.width,
 					verticalScrollBar.height - gripperHit.height);
-       		} 
-  		} 
+       		}
+  		}
   		else if (whiteBox)//if there's no gripper, we need to show the white box, if appropriate
   			whiteBox.visible = true;
 	}
@@ -1936,13 +1938,13 @@ public class Window extends LayoutContainer implements IWindow
     /**
      *  @private
      */
-    override protected function updateDisplayList(unscaledWidth:Number, 
+    override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
-    {  
+    {
         if (!nativeWindow.closed)
         {
 	        super.updateDisplayList(unscaledWidth, unscaledHeight);
-	        // Application.updateDisplayList can change the width and height. 
+	        // Application.updateDisplayList can change the width and height.
 	        // We use their new values.
 	
 			resizeWidth = isNaN(explicitWidth);
@@ -1972,38 +1974,38 @@ public class Window extends LayoutContainer implements IWindow
 	        createBorder();
 	
 	        var bm:EdgeMetrics = borderMetrics;
-	        
+	
 	        var leftOffset:Number = 10;
 	        var rightOffset:Number = 10;
-	        
+	
 	        if (_statusBar)
 	        {
 	        	_statusBar.move(bm.left, unscaledHeight - bm.bottom - getStatusBarHeight());
 	        	_statusBar.setActualSize(unscaledWidth - bm.left - bm.right, getStatusBarHeight());
-	        
+	
 	        }
-	               
+	
 	        if (systemManager.stage.nativeWindow.systemChrome != "none")
 	            return;
 	
-	        var buttonAlign:String = 
+	        var buttonAlign:String =
 				String(getStyle("buttonAlignment"));
 	        if (titleBar)
 	        {
 		        titleBar.move(bm.left, bm.top);
-		        titleBar.setActualSize(unscaledWidth - bm.left - bm.right, 
+		        titleBar.setActualSize(unscaledWidth - bm.left - bm.right,
 		                               getHeaderHeight());
-	        }                
+	        }
 	        if (titleBar && controlBar)
 	        	controlBar.move(0, titleBar.height);
 	        if (gripper && showGripper)
 	       	{
 	       		var gripperPadding:Number = getStyle("gripperPadding");
-	       		gripper.setActualSize(gripper.measuredWidth, 
+	       		gripper.setActualSize(gripper.measuredWidth,
 	       							  gripper.measuredHeight);
 	       		gripperHit.graphics.beginFill(0xffffff, .0001);
 	       		gripperHit.graphics.drawRect(0, 0, gripper.width + (2 * gripperPadding), gripper.height + (2 * gripperPadding));
-	       		gripper.move(unscaledWidth - gripper.measuredWidth - gripperPadding, 
+	       		gripper.move(unscaledWidth - gripper.measuredWidth - gripperPadding,
 	       					unscaledHeight - gripper.measuredHeight - gripperPadding);
 	       		gripperHit.x = gripper.x - gripperPadding;
 	       		gripperHit.y = gripper.y - gripperPadding;
@@ -2045,7 +2047,7 @@ public class Window extends LayoutContainer implements IWindow
 			nativeWindow.bounds = tmp;
 		}
 	}
-    
+
 	/**
      *  @private
      *  Window also handles themeColor defined
@@ -2054,32 +2056,32 @@ public class Window extends LayoutContainer implements IWindow
     override mx_internal function initThemeColor():Boolean
     {
         var result:Boolean = super.initThemeColor();
-        
+
         if (!result)
         {
             var tc:Object;  // Can be number or string
             var rc:Number;
             var sc:Number;
-            var globalSelector:CSSStyleDeclaration = 
+            var globalSelector:CSSStyleDeclaration =
                 StyleManager.getStyleDeclaration("global");
-            
+
             if (globalSelector)
             {
                 tc = globalSelector.getStyle("themeColor");
                 rc = globalSelector.getStyle("rollOverColor");
                 sc = globalSelector.getStyle("selectionColor");
             }
-            
+
             if (tc && isNaN(rc) && isNaN(sc))
             {
                 setThemeColor(tc);
             }
             result = true;
         }
-        
+
         return result;
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -2103,7 +2105,7 @@ public class Window extends LayoutContainer implements IWindow
 	    	}
     	}
     }
-   
+
     /**
      *  @private
      *  Returns the height of the header.
@@ -2122,9 +2124,9 @@ public class Window extends LayoutContainer implements IWindow
 		        return(titleBar.getExplicitOrMeasuredHeight());
 	    }
 	    return 0;
-	    
-    }    
-    
+	
+    }
+
     /**
      *  @private
      *  Returns the height of the statusBar.
@@ -2135,7 +2137,7 @@ public class Window extends LayoutContainer implements IWindow
 	        return _statusBar.getExplicitOrMeasuredHeight();
 	    return 0;
     }
-    
+
     /**
      *  @private
      */
@@ -2160,7 +2162,7 @@ public class Window extends LayoutContainer implements IWindow
         {
          	var f:NativeWindowDisplayStateEvent = new NativeWindowDisplayStateEvent(
                         NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING,
-                        false, true, stage.nativeWindow.displayState, 
+                        false, true, stage.nativeWindow.displayState,
                         NativeWindowDisplayState.MAXIMIZED);
             stage.nativeWindow.dispatchEvent(f);
         	if (!f.isDefaultPrevented())
@@ -2171,7 +2173,7 @@ public class Window extends LayoutContainer implements IWindow
         	}
         }
     }
-    
+
     /**
      *  Minimizes the Application's window
      */
@@ -2180,7 +2182,7 @@ public class Window extends LayoutContainer implements IWindow
     	if (!nativeWindow.closed)
     	{
 	        var e:NativeWindowDisplayStateEvent = new NativeWindowDisplayStateEvent(
-	        		NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING, 
+	        		NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING,
 	        		false, true, nativeWindow.displayState,
 	        		NativeWindowDisplayState.MINIMIZED)
 	        stage.nativeWindow.dispatchEvent(e);
@@ -2188,9 +2190,9 @@ public class Window extends LayoutContainer implements IWindow
 	        	stage.nativeWindow.minimize();
      	}
     }
-    
+
     /**
-     *  Restores the application's nativeWindow. Unmaximizes it if it's maximized, 
+     *  Restores the application's nativeWindow. Unmaximizes it if it's maximized,
      *  unminimizes it if it's minimized.
      */
 	public function restore():void
@@ -2202,17 +2204,17 @@ public class Window extends LayoutContainer implements IWindow
 	        {
 	          	e = new NativeWindowDisplayStateEvent(
 	                        NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING,
-	                        false, true, NativeWindowDisplayState.MAXIMIZED, 
+	                        false, true, NativeWindowDisplayState.MAXIMIZED,
 	                        NativeWindowDisplayState.NORMAL);
 	            stage.nativeWindow.dispatchEvent(e);
 	            if (!e.isDefaultPrevented())
 	            	nativeWindow.restore();
-	        } 
+	        }
 	        else if (stage.nativeWindow.displayState == NativeWindowDisplayState.MINIMIZED)
 	        {
 	        	e = new NativeWindowDisplayStateEvent(
 	                NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING,
-	                false, true, NativeWindowDisplayState.MINIMIZED, 
+	                false, true, NativeWindowDisplayState.MINIMIZED,
 	                NativeWindowDisplayState.NORMAL);
 	            stage.nativeWindow.dispatchEvent(e);
 	            if (!e.isDefaultPrevented())
@@ -2220,7 +2222,7 @@ public class Window extends LayoutContainer implements IWindow
 	        }
 	    }
     }
-    
+
     /**
      *  Activates the nativeWindow (even if this Window's app is not the active one)
      */
@@ -2229,11 +2231,11 @@ public class Window extends LayoutContainer implements IWindow
     	if (!nativeWindow.closed)
     		_nativeWindow.activate();	
     }
-    
+
     /**
-     *  Creates the underlying NativeWindow and opens it. 
-     * 
-     *  @param  openWindowActive specifies whether the Window opens 
+     *  Creates the underlying NativeWindow and opens it.
+     *
+     *  @param  openWindowActive specifies whether the Window opens
      *  activated (that is, whether it has focus). Defaults to true.
      */
     public function open(openWindowActive:Boolean = true):void
@@ -2242,15 +2244,15 @@ public class Window extends LayoutContainer implements IWindow
     	openActive = openWindowActive;
     	commitProperties();
     }
-	    
+	
     /**
      *  Orders the window just behind another. To order the window behind
      *  a NativeWindow that does not implement IWindow, use this window's
      *  nativeWindow's method.
-     *  
+     *
      *  @param window The IWindow (Window or WindowedAplication)
      *  to order this window behind.
-     * 
+     *
      *  @return <code>true</code> if the window was succesfully sent behind;
      *          <code>false</code> if the window is invisible or minimized.
      */
@@ -2261,15 +2263,15 @@ public class Window extends LayoutContainer implements IWindow
      	else
      		return false;
     }
-     
+
     /**
-     *  Orders the window just in front of another. To order the window 
-     *  in front of a NativeWindow that does not implement IWindow, use this 
+     *  Orders the window just in front of another. To order the window
+     *  in front of a NativeWindow that does not implement IWindow, use this
      *  window's nativeWindow's method.
-     *  
+     *
      *  @param window The IWindow (Window or WindowedAplication)
      *  to order this window in front of.
-     * 
+     *
      *  @return <code>true</code> if the window was succesfully sent in front of;
      *          <code>false</code> if the window is invisible or minimized.
      */
@@ -2280,10 +2282,10 @@ public class Window extends LayoutContainer implements IWindow
      	else
      		return false;
     }
-     
+
 	/**
      *  Orders the window behind all others in the same application.
-     * 
+     *
      *  @return <code>true</code> if the window was succesfully sent to the back;
      *  <code>false</code> if the window is invisible or minimized.
      */
@@ -2294,10 +2296,10 @@ public class Window extends LayoutContainer implements IWindow
      	else
      		return false;
 	}
-     
+
 	/**
      *  Orders the window in front of all others in the same application.
-     * 
+     *
      *  @return <code>true</code> if the window was succesfully sent to the front;
      *  <code>false</code> if the window is invisible or minimized.
      */
@@ -2312,26 +2314,26 @@ public class Window extends LayoutContainer implements IWindow
     /**
      *  @private
      *  Starts a system move.
-     */ 
+     */
     private function startMove(event:MouseEvent):void
     {
         addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
         addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-        
+
         prevX = event.stageX;
         prevY = event.stageY;
     }
-    
+
     /**
      *  @private
      *  Starts a system resize.
-     */ 
+     */
     private function startResize(start:String):void
     {
         if (resizable && !nativeWindow.closed)
             stage.nativeWindow.startResize(start);
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -2356,7 +2358,7 @@ public class Window extends LayoutContainer implements IWindow
     	}
     	frameCounter++;
     }
-    
+
 	/**
 	 *  @private
 	 */
@@ -2374,15 +2376,15 @@ public class Window extends LayoutContainer implements IWindow
         	stage.nativeWindow.minimize();
         removeEventListener("effectEnd", windowMinimizeHandler);
     }
-    
+
     /**
      *  @private
      */
     private function windowUnminimizeHandler(event:Event):void
-    {   
+    {
         removeEventListener("effectEnd", windowUnminimizeHandler);
     }
-   
+
     /**
      *  @private
      */
@@ -2391,14 +2393,14 @@ public class Window extends LayoutContainer implements IWindow
 		var newEvent:FlexNativeWindowBoundsEvent =
 			new FlexNativeWindowBoundsEvent(
 				FlexNativeWindowBoundsEvent.WINDOW_MOVE,
-				event.bubbles, event.cancelable, 
+				event.bubbles, event.cancelable,
 				event.beforeBounds, event.afterBounds);
 		dispatchEvent(newEvent);
     }
-    
+
     /**
      *  @private
-     */ 
+     */
     private function window_displayStateChangeHandler(
                     		event:NativeWindowDisplayStateEvent):void
     {
@@ -2408,10 +2410,10 @@ public class Window extends LayoutContainer implements IWindow
         height = stage.stageHeight;
         width = stage.stageWidth;
     }
-    
+
     /**
      *  @private
-     */ 
+     */
     private function window_displayStateChangingHandler(
                     		event:NativeWindowDisplayStateEvent):void
     {
@@ -2419,47 +2421,47 @@ public class Window extends LayoutContainer implements IWindow
         dispatchEvent(event);
 
         if (event.isDefaultPrevented())
-        	return; 
+        	return;
         if (event.afterDisplayState == NativeWindowDisplayState.MINIMIZED)
         {
-            if (getStyle("minimizeEffect")) 
+            if (getStyle("minimizeEffect"))
             {
                 event.preventDefault();
                 addEventListener("effectEnd", windowMinimizeHandler);
-                dispatchEvent(new Event("windowMinimize")); 
-            } 
-        } 
-              
+                dispatchEvent(new Event("windowMinimize"));
+            }
+        }
+
         // After here, afterState is normal
         else if (event.beforeDisplayState == NativeWindowDisplayState.MINIMIZED)
         {
             addEventListener("effectEnd", windowUnminimizeHandler);
             dispatchEvent(new Event("windowUnminimize"));
-        } 
+        }
     }
-    
+
     /**
      *  @private
-     */ 
+     */
     private function windowMaximizeHandler(event:Event):void
     {
         removeEventListener("effectEnd", windowMaximizeHandler);
         if (!nativeWindow.closed)
         	stage.nativeWindow.maximize();
     }
-    
+
 	/**
      *  @private
-     */ 
+     */
     private function windowUnmaximizeHandler(event:Event):void
     {
         removeEventListener("effectEnd", windowUnmaximizeHandler);
         if (!nativeWindow.closed)
         	stage.nativeWindow.restore();
     }
-    
+
     /**
-     *  Manages mouse down events on border. 
+     *  Manages mouse down events on border.
      */
     protected function mouseDownHandler(event:MouseEvent):void
     {
@@ -2470,12 +2472,12 @@ public class Window extends LayoutContainer implements IWindow
        		startResize(NativeWindowResize.BOTTOM_RIGHT);
         	event.stopPropagation();
         }
-        else 
+        else
         {
 	        var dragWidth:int = Number(getStyle("borderThickness")) + 6;
 	        var cornerSize:int = 12;
 	        // we short the top a little
-	        
+	
 	        if (event.stageY < Number(getStyle("borderThickness")))
 	        {
 	            if (event.stageX < cornerSize)
@@ -2485,7 +2487,7 @@ public class Window extends LayoutContainer implements IWindow
 	            else
 	                startResize(NativeWindowResize.TOP);
 	        }
-	        
+	
 	        else if (event.stageY > (height - dragWidth))
 	        {
 	            if (event.stageX < cornerSize)
@@ -2495,7 +2497,7 @@ public class Window extends LayoutContainer implements IWindow
 	            else
 	                startResize(NativeWindowResize.BOTTOM);
 	        }
-	        
+	
 	        else if (event.stageX < dragWidth )
 	        {
 	            if (event.stageY < cornerSize)
@@ -2506,7 +2508,7 @@ public class Window extends LayoutContainer implements IWindow
 	                startResize(NativeWindowResize.LEFT);
 	            event.stopPropagation();
 	        }
-	        
+	
 	        else if (event.stageX > width - dragWidth)
 	        {
 	            if (event.stageY < cornerSize)
@@ -2521,15 +2523,15 @@ public class Window extends LayoutContainer implements IWindow
 
     /**
      *  @private
-     */ 
+     */
     private function closeButton_clickHandler(event:Event):void
     {
         if (!nativeWindow.closed)
        		stage.nativeWindow.close();
     }
-        
+
     /**
-     *  @private 
+     *  @private
      *  Triggered by a resize event of the stage.
      *  Sets the new width and height.
      *  After the SystemManager performs its function,
@@ -2549,14 +2551,14 @@ public class Window extends LayoutContainer implements IWindow
 
         var w:Number;
         var h:Number
-        
+
         if (resizeWidth)
         {
             if (isNaN(percentWidth))
             {
                 w = DisplayObject(systemManager).width;
             }
-            else 
+            else
             {
                 super.percentWidth = Math.max(percentWidth, 0);
                 super.percentWidth = Math.min(percentWidth, 100);
@@ -2573,7 +2575,7 @@ public class Window extends LayoutContainer implements IWindow
         {
             w = width;
         }
-        
+
         if (resizeHeight)
         {
             if (isNaN(percentHeight))
@@ -2586,7 +2588,7 @@ public class Window extends LayoutContainer implements IWindow
                 super.percentHeight = Math.min(percentHeight, 100);
                 h = percentHeight*screen.height/100;
             }
-            
+
             if (!isNaN(explicitMaxHeight))
                 h = Math.min(h, explicitMaxHeight);
 
@@ -2597,7 +2599,7 @@ public class Window extends LayoutContainer implements IWindow
         {
             h = height;
         }
-        
+
         if (w != width || h != height)
         {
             invalidateProperties();
@@ -2607,40 +2609,40 @@ public class Window extends LayoutContainer implements IWindow
         setActualSize(w, h);
 
         invalidateDisplayList();
-    }   
-        
+    }
+
     /**
      *  @private
-     */ 
+     */
     private function creationCompleteHandler(event:Event = null):void
     {
         systemManager.stage.nativeWindow.addEventListener(
             "closing", window_closingHandler);
-        
+
         systemManager.stage.nativeWindow.addEventListener(
             NativeWindowBoundsEvent.MOVING, window_boundsHandler);
-        
+
         systemManager.stage.nativeWindow.addEventListener(
             NativeWindowBoundsEvent.MOVE, window_moveHandler);
-        
+
         systemManager.stage.nativeWindow.addEventListener(
             NativeWindowBoundsEvent.RESIZING, window_boundsHandler);
-        
+
         systemManager.stage.nativeWindow.addEventListener(
-           NativeWindowBoundsEvent.RESIZE, window_resizeHandler); 
-           
+           NativeWindowBoundsEvent.RESIZE, window_resizeHandler);
+
     }
-    
+
     /**
      *  @private
-     */ 
+     */
     private function preinitializeHandler(event:FlexEvent):void
     {
     	systemManager.stage.nativeWindow.addEventListener(
-            NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING, 
+            NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING,
             window_displayStateChangingHandler);
         systemManager.stage.nativeWindow.addEventListener(
-            NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, 
+            NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE,
             window_displayStateChangeHandler);
     }
 
@@ -2652,22 +2654,22 @@ public class Window extends LayoutContainer implements IWindow
         stage.nativeWindow.x += event.stageX - prevX;
         stage.nativeWindow.y += event.stageY - prevY;
     }
-    
+
     /**
      *  @private
-     */ 
+     */
     private function mouseUpHandler(event:MouseEvent):void
     {
         removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
         removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
     }
-    
+
     /**
      *  @private
-     */ 
+     */
     private function window_boundsHandler(event:NativeWindowBoundsEvent):void
     {
-  
+
         var newBounds:Rectangle = event.afterBounds;
         var r:Rectangle;
         if (event.type == NativeWindowBoundsEvent.MOVING)
@@ -2719,17 +2721,17 @@ public class Window extends LayoutContainer implements IWindow
         oldX = newBounds.x;
         oldY = newBounds.y;
     }
-            
+
     /**
      *  @private
-     */ 
+     */
     private function window_closeEffectEndHandler(event:Event):void
     {
         removeEventListener("effectEnd", window_closeEffectEndHandler);
         if (!nativeWindow.closed)
         	stage.nativeWindow.close();
     }
-        
+
     /**
      *  @private
      */
@@ -2741,18 +2743,18 @@ public class Window extends LayoutContainer implements IWindow
         {
             event.preventDefault();
         }
-        else if (getStyle("closeEffect") && 
+        else if (getStyle("closeEffect") &&
                  stage.nativeWindow.transparent == true)
         {
             addEventListener("effectEnd", window_closeEffectEndHandler);
             dispatchEvent(new Event("windowClose"));
             event.preventDefault();
-        } 
+        }
     }
 
     /**
      *  @private
-     */ 
+     */
     private function window_resizeHandler(event:NativeWindowBoundsEvent):void
     {
         invalidateViewMetricsAndPadding();
@@ -2762,13 +2764,13 @@ public class Window extends LayoutContainer implements IWindow
         bounds.width = stage.stageWidth;
         bounds.height = stage.stageHeight;
         validateNow();
-        var e:FlexNativeWindowBoundsEvent = 
-        	new FlexNativeWindowBoundsEvent(FlexNativeWindowBoundsEvent.WINDOW_RESIZE, event.bubbles, event.cancelable, 
+        var e:FlexNativeWindowBoundsEvent =
+        	new FlexNativeWindowBoundsEvent(FlexNativeWindowBoundsEvent.WINDOW_RESIZE, event.bubbles, event.cancelable,
         			event.beforeBounds, event.afterBounds);
         dispatchEvent(e);
-        
+
     }
-     
+
  	/**
  	 *  @private
  	 */
@@ -2776,7 +2778,7 @@ public class Window extends LayoutContainer implements IWindow
  	{
  		dispatchEvent(new AIREvent(AIREvent.APPLICATION_ACTIVATE));
  	}
- 
+
  	/**
  	 *  @private
  	 */
@@ -2784,7 +2786,7 @@ public class Window extends LayoutContainer implements IWindow
  	{
  		dispatchEvent(new AIREvent(AIREvent.APPLICATION_DEACTIVATE));
  	}
- 
+
  	/**
  	 *  @private
  	 */
