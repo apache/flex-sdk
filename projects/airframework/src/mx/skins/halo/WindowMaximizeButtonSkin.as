@@ -22,6 +22,10 @@ import mx.states.State;
  *  The skin for the maximize button in the TitleBar
  *  of a WindowedApplication or Window.
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class WindowMaximizeButtonSkin extends UIComponent
 {
@@ -74,6 +78,10 @@ public class WindowMaximizeButtonSkin extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function WindowMaximizeButtonSkin()
     {
