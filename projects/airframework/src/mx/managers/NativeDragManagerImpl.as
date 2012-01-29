@@ -589,11 +589,16 @@ public class NativeDragManagerImpl implements IDragManager
 			 	
 		if (newType == DragEvent.DRAG_COMPLETE)
 		{
-			me = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
-			me.name = "endDrag";
-			// trace("-->dispatch endDrag for DragManagerImpl", sm);
-			sandboxRoot.dispatchEvent(me);
-			// trace("<--dispatch endDrag for DragManagerImpl", sm);
+		    if (sm == sandboxRoot)
+		        endDrag();
+		    else 
+		    {
+    			me = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
+    			me.name = "endDrag";
+    			// trace("-->dispatch endDrag for DragManagerImpl", sm);
+    			sandboxRoot.dispatchEvent(me);
+    			// trace("<--dispatch endDrag for DragManagerImpl", sm);
+    		}
 		}
 	}
 
