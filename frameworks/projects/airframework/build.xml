@@ -133,7 +133,6 @@
 			</external-library-path>
 		</compc>
 	</target>
-
 	<!-- Targets for compiling framework_rb.swc for various locales -->
 	
 	<target name="da_DK" description="Danish resources">
