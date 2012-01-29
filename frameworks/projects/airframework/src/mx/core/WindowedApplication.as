@@ -836,7 +836,7 @@ public class WindowedApplication extends Application implements IWindow
 
         // the heightChanged event is dispatched in commitProperties instead of
         // here because it can change based on user-interaction with the window
-        // size and super.height is set in there so don't want to prematurely
+        // size and _height is set in there so don't want to prematurely
         // dispatch here yet
     }
 
@@ -1131,7 +1131,7 @@ public class WindowedApplication extends Application implements IWindow
 
         // the widthChanged event is dispatched in commitProperties instead of
         // here because it can change based on user-interaction with the window
-        // size and super.width is set in there so don't want to prematurely
+        // size and _width is set in there so don't want to prematurely
         // dispatch here yet
      }
 
@@ -2302,15 +2302,25 @@ public class WindowedApplication extends Application implements IWindow
                 systemChrome == NativeWindowSystemChrome.STANDARD)
                 nativeWindow.height = chromeHeight() + _bounds.height;
 
-            systemManager.stage.stageWidth = super.width = _bounds.width;
-            systemManager.stage.stageHeight = super.height =  _bounds.height;
+            systemManager.stage.stageWidth = _bounds.width;
+            systemManager.stage.stageHeight = _bounds.height;
+
+            // Set _width and _height.  This will update the mirroring
+            // transform if applicable.
+            setActualSize(_bounds.width, _bounds.height);
+            
             boundsChanged = false;
         }
 
         if (windowBoundsChanged)
         {
-            _bounds.width = super.width = systemManager.stage.stageWidth;
-            _bounds.height = super.height = systemManager.stage.stageHeight;
+            _bounds.width = systemManager.stage.stageWidth;
+            _bounds.height = systemManager.stage.stageHeight;
+
+            // Set _width and _height.  This will update the mirroring
+            // transform if applicable.
+            setActualSize(_bounds.width, _bounds.height);
+            
             windowBoundsChanged = false;
         }
 
