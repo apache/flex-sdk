@@ -417,7 +417,7 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
      */
     private var _nativeMenu:NativeMenu = new NativeMenu();
 
-    [Bindable("nativeMenuUpdate")]
+    [Bindable("nativeMenuChange")]
 
     //----------------------------------
     //  nativeMenu
