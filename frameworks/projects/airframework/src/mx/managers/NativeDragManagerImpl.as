@@ -268,7 +268,8 @@ public class NativeDragManagerImpl implements IDragManager
 
 		_dragImage = dragImage; 	
 						
-		if (dragImage is IUIComponent && !UIComponent(dragImage).initialized && dragInitiator)		
+		if (dragImage is IUIComponent && dragImage is ILayoutManagerClient && 
+			!ILayoutManagerClient(dragImage).initialized && dragInitiator)
 		{
 			dragImage.addEventListener(FlexEvent.UPDATE_COMPLETE,initiateDrag);
 			dragInitiator.systemManager.popUpChildren.addChild(DisplayObject(dragImage));
@@ -290,8 +291,10 @@ public class NativeDragManagerImpl implements IDragManager
 				proxyHeight = dragImage.measuredHeight;
 			}
 			
-			if (dragImage is UIComponent)
-				(dragImage as UIComponent).validateNow();
+			if (dragImage is ILayoutManagerClient )
+			{
+				UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(dragImage));
+			}
 		}
 		else
 		{ 
