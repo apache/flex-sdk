@@ -19,7 +19,6 @@ package mx.controls
  *
  *  @see mx.controls.FileSystemDataGrid#enumerationMode
  * 
- *  @playerversion AIR 1.1
  */
 public final class FileSystemSizeDisplayMode
 {
