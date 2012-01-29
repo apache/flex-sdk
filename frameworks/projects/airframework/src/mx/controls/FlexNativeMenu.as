@@ -1919,6 +1919,22 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function createAutomationIDPartWithRequiredProperties(child:IAutomationObject, 
+                                                                 properties:Array):Object
+    {
+        if (automationDelegate)
+            return automationDelegate.createAutomationIDPartWithRequiredProperties(child, properties);
+        return null;
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 4
@@ -1942,6 +1958,21 @@ public class FlexNativeMenu extends EventDispatcher implements
     {
         if (automationDelegate)
             return automationDelegate.getAutomationChildAt(index);
+        return null;
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function getAutomationChildren():Array
+    {
+        if (automationDelegate)
+            return automationDelegate.getAutomationChildren();
         return null;
     }
     
