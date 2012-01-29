@@ -91,7 +91,7 @@ public class FileSystemDataGridNameColumnRenderer extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-        if (!mx_internal::validateBaselinePosition())
+        if (!validateBaselinePosition())
             return NaN;
         
         return label.y + label.baselinePosition;
