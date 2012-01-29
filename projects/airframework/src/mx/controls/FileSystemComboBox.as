@@ -116,6 +116,8 @@ use namespace mx_internal;
  *  @see flash.filesystem.File
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemTree
+ * 
+ *  @productversion Apollo 1.0
  */
 public class FileSystemComboBox extends ComboBox
 {
