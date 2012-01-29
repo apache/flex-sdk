@@ -172,6 +172,10 @@ public class NativeDragManagerImpl implements IDragManager
     /**
      *  Read-only property that returns <code>true</code>
      *  if a drag is in progress.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get isDragging():Boolean
     {
@@ -218,6 +222,10 @@ public class NativeDragManagerImpl implements IDragManager
      *  drag image. This argument is optional. If omitted, the default alpha
      *  value is 0.5. A value of 0.0 indicates that the image is transparent;
      *  a value of 1.0 indicates it is fully opaque. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function doDrag(
             dragInitiator:IUIComponent, 
@@ -339,6 +347,10 @@ public class NativeDragManagerImpl implements IDragManager
     
     /**
      *  Finish up the doDrag once the dragImage has been drawn
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     private function initiateDrag(event:FlexEvent, removeImage:Boolean = true):void
     {
@@ -369,6 +381,10 @@ public class NativeDragManagerImpl implements IDragManager
      *  <pre>DragManager.acceptDragDrop(event.target);</pre>
      *
      *  @param target The drop target accepting the drag.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function acceptDragDrop(target:IUIComponent):void
     {
@@ -396,6 +412,10 @@ public class NativeDragManagerImpl implements IDragManager
      *  <code>DragManager.LINK</code>, or <code>DragManager.NONE</code>.
      *
      *  @param feedback The type of feedback indicator to display.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function showFeedback(feedback:String):void
     {
@@ -426,6 +446,10 @@ public class NativeDragManagerImpl implements IDragManager
      *  @return  Possible return values are <code>DragManager.COPY</code>, 
      *  <code>DragManager.MOVE</code>,
      *  <code>DragManager.LINK</code>, or <code>DragManager.NONE</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getFeedback():String
     {
@@ -445,6 +469,10 @@ public class NativeDragManagerImpl implements IDragManager
     /**
      *  @Review
      *  Not Supported by NativeDragManagerImpl
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function endDrag():void
     {
@@ -527,6 +555,10 @@ public class NativeDragManagerImpl implements IDragManager
     
     /**
      *  Listens for all NativeDragEvents and then redispatches them as DragEvents 
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function nativeDragEventHandler(event:NativeDragEvent):void
     {
@@ -658,6 +690,10 @@ public class NativeDragManagerImpl implements IDragManager
 
     /**
      *  Marshal dispatchEvents
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function marshalDispatchEventHandler(event:Event):void
     {
@@ -694,6 +730,10 @@ public class NativeDragManagerImpl implements IDragManager
 
     /**
      *  Marshal dragManager
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function marshalDragManagerHandler(event:Event):void
     {
