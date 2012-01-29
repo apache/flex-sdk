@@ -22,7 +22,6 @@ package mx.controls
  *  @see mx.controls.FileSystemDataGrid#enumerationMode
  *  @see mx.controls.FileSystemTree#enumerationMode
  * 
- *  @playerversion AIR 1.1
  */
 public final class FileSystemEnumerationMode
 {
