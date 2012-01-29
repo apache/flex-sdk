@@ -17,6 +17,8 @@ import flash.geom.Point;
 import mx.core.IChildList;
 import mx.core.mx_internal;
 
+use namespace mx_internal;
+
 [ExcludeClass]
 
 /**
@@ -83,7 +85,7 @@ public class WindowedSystemRawChildrenList implements IChildList
 	 */
 	public function get numChildren():int
 	{
-		return owner.mx_internal::$numChildren;
+		return owner.$numChildren;
 	}
 
 	/**
@@ -95,7 +97,7 @@ public class WindowedSystemRawChildrenList implements IChildList
 	 */
   	public function getChildAt(index:int):DisplayObject
   	{
-		return owner.mx_internal::rawChildren_getChildAt(index);
+		return owner.rawChildren_getChildAt(index);
   	}
 
 	/**
@@ -107,7 +109,7 @@ public class WindowedSystemRawChildrenList implements IChildList
 	 */
 	public function addChild(child:DisplayObject):DisplayObject
   	{
-		return owner.mx_internal::rawChildren_addChild(child);
+		return owner.rawChildren_addChild(child);
   	}
 	
 	/**
@@ -119,7 +121,7 @@ public class WindowedSystemRawChildrenList implements IChildList
 	 */
 	public function addChildAt(child:DisplayObject, index:int):DisplayObject
   	{
-		return owner.mx_internal::rawChildren_addChildAt(child,index);
+		return owner.rawChildren_addChildAt(child,index);
   	}
 	
 	/**
@@ -131,7 +133,7 @@ public class WindowedSystemRawChildrenList implements IChildList
 	 */
 	public function removeChild(child:DisplayObject):DisplayObject
   	{
-		return owner.mx_internal::rawChildren_removeChild(child);
+		return owner.rawChildren_removeChild(child);
   	}
 	
 	/**
@@ -143,7 +145,7 @@ public class WindowedSystemRawChildrenList implements IChildList
 	 */
 	public function removeChildAt(index:int):DisplayObject
   	{
-		return owner.mx_internal::rawChildren_removeChildAt(index);
+		return owner.rawChildren_removeChildAt(index);
   	}
 	
 	/**
@@ -155,7 +157,7 @@ public class WindowedSystemRawChildrenList implements IChildList
 	 */
   	public function getChildByName(name:String):DisplayObject
   	{
-		return owner.mx_internal::rawChildren_getChildByName(name);
+		return owner.rawChildren_getChildByName(name);
 	}
 	
 	/**
@@ -167,7 +169,7 @@ public class WindowedSystemRawChildrenList implements IChildList
 	 */
   	public function getChildIndex(child:DisplayObject):int
   	{
-		return owner.mx_internal::rawChildren_getChildIndex(child);
+		return owner.rawChildren_getChildIndex(child);
   	}
 	
 	/**
@@ -179,7 +181,7 @@ public class WindowedSystemRawChildrenList implements IChildList
 	 */
 	public function setChildIndex(child:DisplayObject, newIndex:int):void
   	{
-		owner.mx_internal::rawChildren_setChildIndex(child, newIndex);
+		owner.rawChildren_setChildIndex(child, newIndex);
   	}
 	
 	/**
@@ -191,7 +193,7 @@ public class WindowedSystemRawChildrenList implements IChildList
 	 */
 	public function getObjectsUnderPoint(point:Point):Array
 	{
-		return owner.mx_internal::rawChildren_getObjectsUnderPoint(point);
+		return owner.rawChildren_getObjectsUnderPoint(point);
 	}
 	
 	/**
@@ -203,7 +205,7 @@ public class WindowedSystemRawChildrenList implements IChildList
 	 */
 	public function contains(child:DisplayObject):Boolean
 	{
-		return owner.mx_internal::rawChildren_contains(child);
+		return owner.rawChildren_contains(child);
 	}
 }
 
