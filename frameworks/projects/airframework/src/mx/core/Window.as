@@ -35,6 +35,7 @@ import mx.core.windowClasses.TitleBar;
 import mx.events.AIREvent;
 import mx.events.FlexEvent;
 import mx.events.FlexNativeWindowBoundsEvent;
+import mx.events.WindowExistenceEvent;
 import mx.managers.CursorManagerImpl;
 import mx.managers.FocusManager;
 import mx.managers.ICursorManager;
@@ -1964,8 +1965,7 @@ public class Window extends LayoutContainer implements IWindow
             _nativeWindow.addEventListener("deactivate", nativeWindow_deactivateHandler, false, 0, true);
             
  			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
- 			//debug
- 			var x:Object = StyleManager.stylesRoot;
+ 			
  			//'register' with WindowedSystemManager so it can cleanup when done.
  			sm.addWindow(this);
         }
@@ -2044,6 +2044,8 @@ public class Window extends LayoutContainer implements IWindow
 		    	if (NativeWindow.supportsMenu)
 		    		nativeWindow.menu = menu.nativeMenu;
 		    }
+		    
+		    dispatchEvent(new Event("menuChanged"));
         }
 
         if (titleBarFactoryChanged)
@@ -2667,18 +2669,28 @@ public class Window extends LayoutContainer implements IWindow
      */
     private function enterFrameHandler(e:Event):void
     {
-    	if (frameCounter == 2)
-    	{
-	    	removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
-	    	_nativeWindow.visible = _nativeWindowVisible;
-	    	dispatchEvent(new AIREvent(AIREvent.WINDOW_COMPLETE));
-	    	if (_nativeWindow.visible)
-	    	{
-	    		if (openActive)
-	    			_nativeWindow.activate();
-	    	}
-    	}
-    	frameCounter++;
+        if (frameCounter == 2)
+        {
+            removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+            _nativeWindow.visible = _nativeWindowVisible;
+            dispatchEvent(new AIREvent(AIREvent.WINDOW_COMPLETE));
+	    	
+            // Event for Automation so we know when windows 
+            // are created or destroyed.
+            if (ApplicationGlobals.application)
+            {
+                ApplicationGlobals.application.dispatchEvent(
+                    new WindowExistenceEvent(WindowExistenceEvent.WINDOW_CREATE, 
+                                             false, false, this));
+            }
+            
+            if (_nativeWindow.visible)
+            {
+                if (openActive)
+                    _nativeWindow.activate();
+            }
+        }
+        frameCounter++;
     }
 
 	/**
@@ -3085,6 +3097,15 @@ public class Window extends LayoutContainer implements IWindow
     private function window_closeHandler(event:Event):void
     {
         dispatchEvent(new Event("close"));
+        
+        // Event for Automation so we know when windows 
+        // are created or destroyed.
+        if (ApplicationGlobals.application)
+        {
+            ApplicationGlobals.application.dispatchEvent(
+                new WindowExistenceEvent(WindowExistenceEvent.WINDOW_CLOSE, 
+                                         false, false, this));
+        }
     }
     
     /**
