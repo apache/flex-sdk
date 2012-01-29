@@ -486,6 +486,7 @@ public class NativeDragManagerImpl implements IDragManager
 		sm.stage.addEventListener(NativeDragEvent.NATIVE_DRAG_EXIT, nativeDragEventHandler, true);
 		sm.stage.addEventListener(NativeDragEvent.NATIVE_DRAG_OVER, nativeDragEventHandler, true);
 		sm.stage.addEventListener(NativeDragEvent.NATIVE_DRAG_START, nativeDragEventHandler, true); 
+
 	}
 	
 	/**
@@ -507,6 +508,7 @@ public class NativeDragManagerImpl implements IDragManager
 		sm.stage.removeEventListener(NativeDragEvent.NATIVE_DRAG_EXIT, nativeDragEventHandler, true);
 		sm.stage.removeEventListener(NativeDragEvent.NATIVE_DRAG_OVER, nativeDragEventHandler, true);
 		sm.stage.removeEventListener(NativeDragEvent.NATIVE_DRAG_START, nativeDragEventHandler, true); 
+
 	}
 	
 	//--------------------------------------------------------------------------
