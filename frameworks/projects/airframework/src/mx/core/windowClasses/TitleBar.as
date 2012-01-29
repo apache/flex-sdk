@@ -16,23 +16,20 @@ import flash.display.DisplayObject;
 import flash.display.NativeWindowDisplayState;
 import flash.events.Event;
 import flash.events.MouseEvent;
-import flash.events.NativeWindowDisplayStateEvent;
 import flash.geom.Rectangle;
 import flash.system.Capabilities;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
+
 import mx.controls.Button;
-import mx.core.WindowedApplication;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUITextField;
 import mx.core.IWindow;
-import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.core.UITextField;
-import mx.styles.CSSStyleDeclaration;
+import mx.core.mx_internal;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
-import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
@@ -714,26 +711,30 @@ public class TitleBar extends UIComponent
         titleTextField.text = _title;
         titleTextField.validateNow();
 
-        var charWidth:Number = titleTextField.getLineMetrics(0).width /
-                               titleTextField.length;
+        var buttonsX:Number; // x point between buttons and title text
+        
+        if( buttonAlign == "left" )
+        {
+            buttonsX = Math.max((closeButton.x + closeButton.measuredWidth),
+                        (minimizeButton.x + minimizeButton.measuredWidth),
+                        (maximizeButton.x + maximizeButton.measuredWidth));
+        }
+        else
+        {
+            buttonsX = Math.min(closeButton.x, minimizeButton.x, maximizeButton.x);
+        }
 
         if (titleAlign == "left")
         {
             if (buttonAlign == "left")
             {
                 titleTextField.setActualSize(
-                    width - leftOffset - rightOffset - 2 -
-                    Math.max((closeButton.x + closeButton.measuredWidth),
-                    (minimizeButton.x + minimizeButton.measuredWidth),
-                    (maximizeButton.x + maximizeButton.measuredWidth)),
+                    width - rightOffset - 2 - buttonsX,
                     measureChromeText(titleTextField).height +
                     UITextField.TEXT_HEIGHT_PADDING);
 
                 titleTextField.move(
-                    leftOffset +
-                    Math.max((closeButton.x + closeButton.measuredWidth),
-                    (minimizeButton.x + minimizeButton.measuredWidth),
-                    (maximizeButton.x + maximizeButton.measuredWidth)),
+                    buttonsX,
                     (height - (measureChromeText(titleTextField).height +
                     UITextField.TEXT_HEIGHT_PADDING))/2);
 
@@ -742,9 +743,7 @@ public class TitleBar extends UIComponent
             else
             {
                 titleTextField.setActualSize(
-                    Math.max(0, Math.min(
-                    width - leftOffset - rightOffset,
-                    minimizeButton.x )) - 2,
+                    Math.max(0, buttonsX) - 2,
                     measureChromeText(titleTextField).height +
                     UITextField.TEXT_HEIGHT_PADDING);
 
@@ -759,43 +758,40 @@ public class TitleBar extends UIComponent
         else // titleAlign is center
         {
             var tf:TextFormat = new TextFormat();
-            tf.align = TextFormatAlign.CENTER;
+            tf.align = TextFormatAlign.LEFT;
             titleTextField.setTextFormat(tf);
 
+            var titleX:Number;
+            var textWidth:Number = titleTextField.getLineMetrics( 0 ).width;
+            titleTextField.truncateToFit();
+            
             if (buttonAlign == "left")
             {
                 titleTextField.setActualSize(
-                    width - leftOffset - rightOffset -
-                    Math.max((closeButton.x + closeButton.measuredWidth),
-                    (minimizeButton.x + minimizeButton.measuredWidth),
-                    (maximizeButton.x + maximizeButton.measuredWidth)) - 2,
+                    width - rightOffset - buttonsX - 2,
                     measureChromeText(titleTextField).height +
                     UITextField.TEXT_HEIGHT_PADDING);
 
-                titleTextField.move(
-                    Math.max((closeButton.x + closeButton.measuredWidth),
-                    (minimizeButton.x + minimizeButton.measuredWidth),
-                    (maximizeButton.x + maximizeButton.measuredWidth)),
+                titleX = Math.max(buttonsX, (width - leftOffset - rightOffset - textWidth)/2);
+                
+                titleTextField.move(titleX,
                     (height - (measureChromeText(titleTextField).height +
                     UITextField.TEXT_HEIGHT_PADDING))/2);
-
-                titleTextField.truncateToFit();
             }
             else
             {
                 titleTextField.setActualSize(
                     width - leftOffset - rightOffset -
-                    (width - Math.min(closeButton.x,
-                    minimizeButton.x, maximizeButton.x)) - 2,
+                    (width - buttonsX) - 2,
                     measureChromeText(titleTextField).height +
                     UITextField.TEXT_HEIGHT_PADDING);
 
+                titleX = Math.max(0, Math.min(buttonsX - textWidth - 2, (width - leftOffset - rightOffset - textWidth)/2));
+                
                 titleTextField.move(
-                    leftOffset,
+                    titleX,
                     (height - (measureChromeText(titleTextField).height +
                     UITextField.TEXT_HEIGHT_PADDING))/2);
-
-                titleTextField.truncateToFit();
             }
         }
     }
