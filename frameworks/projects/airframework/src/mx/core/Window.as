@@ -2225,6 +2225,7 @@ public class Window extends LayoutContainer implements IWindow
                 gripper.styleName = gripSkin;
             }
             gripper.tabEnabled = false;
+            gripper.tabFocusEnabled = false;
             rawChildren.addChild(gripper);
             gripperHit = new Sprite();
             rawChildren.addChild(gripperHit);
