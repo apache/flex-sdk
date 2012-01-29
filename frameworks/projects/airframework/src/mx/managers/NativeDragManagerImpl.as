@@ -38,6 +38,7 @@ import mx.events.InterManagerRequest;
 import mx.managers.dragClasses.DragProxy;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
+import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -305,7 +306,7 @@ public class NativeDragManagerImpl implements IDragManager
         {
             // No drag image specified, use default
             var dragManagerStyleDeclaration:CSSStyleDeclaration =
-                StyleManager.getStyleDeclaration("mx.managers.DragManager");
+                StyleManager.getStyleManager(sm as IFlexModuleFactory).getStyleDeclaration("mx.managers.DragManager");
             var dragImageClass:Class =
                 dragManagerStyleDeclaration.getStyle("defaultDragImageSkin");
             dragImage = new dragImageClass();
