@@ -35,6 +35,10 @@ use namespace mx_internal;
  *  changes for any reason.
  *
  *  @eventType mx.events.FileEvent.DIRECTORY_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="directoryChange", type="mx.events.FileEvent")]
 
@@ -50,6 +54,10 @@ use namespace mx_internal;
  *  <code>computerIcon="&#64;Embed(source='computerIcon.jpg');"</code>
  *
  *  @default null
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="computerIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -60,6 +68,10 @@ use namespace mx_internal;
  *  <code>directoryIcon="&#64;Embed(source='directoryIcon.jpg');"</code>
  *
  *  @default TreeNodeIcon
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="directoryIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -117,6 +129,10 @@ use namespace mx_internal;
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemTree
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FileSystemComboBox extends ComboBox
 {
@@ -133,6 +149,10 @@ public class FileSystemComboBox extends ComboBox
      *  representing a pseudo-top level directory named "Computer". This pseudo-directory
      *  contains the root directories
      *  (such as C:\ and D:\ on Windows or / on Macintosh).
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const COMPUTER:File = FileSystemControlHelper.COMPUTER;
 
@@ -144,6 +164,10 @@ public class FileSystemComboBox extends ComboBox
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FileSystemComboBox()
     {
@@ -203,6 +227,10 @@ public class FileSystemComboBox extends ComboBox
      *  as a separate entry in the dropdown list.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get directory():File
     {
@@ -236,6 +264,10 @@ public class FileSystemComboBox extends ComboBox
      *  The number of pixels to indent each entry in the dropdown list.
      *
      *  @default 8
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get indent():int
     {
@@ -265,6 +297,10 @@ public class FileSystemComboBox extends ComboBox
      *  before the directory names in the dropdown list.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showIcons():Boolean
     {
@@ -450,6 +486,10 @@ class FileSystemComboBoxRenderer extends ListItemRenderer
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FileSystemComboBoxRenderer()
     {
