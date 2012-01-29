@@ -1904,6 +1904,7 @@ public class Window extends LayoutContainer implements IWindow
                     StyleManager.getStyleDeclaration("." + gripSkin);
                 gripper.styleName = gripSkin;
             }
+			gripper.tabEnabled = false;
             rawChildren.addChild(gripper);
             gripperHit = new Sprite();
   			rawChildren.addChild(gripperHit);
