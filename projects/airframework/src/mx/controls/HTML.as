@@ -620,6 +620,13 @@ import mx.managers.IFocusManagerComponent;
      *  <p>Setting this property has the side effect of setting
      *  the <code>location</code> property to <code>null</code>,
      *  and vice versa.</p>
+	 * 
+	 *  <p>Content added via the <code>htmlText</code> property is put in the 
+	 *  application security sandbox. If an AIR application includes an HTML 
+	 *  control located in the application sandbox, and remote HTML code is 
+	 *  directly added into the control by setting the  <code>htmlText</code> 
+	 *  property, any script contained in the HTML text is executed in the 
+	 *  application sandbox.</p>
      *
      *  @default ""
      *
