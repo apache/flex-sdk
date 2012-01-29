@@ -27,6 +27,16 @@ import mx.styles.StyleManager;
 use namespace mx_internal;
 
 //--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="editable", kind="property")]
+[Exclude(name="editableDisabledSkin", kind="style")]
+[Exclude(name="editableDownSkin", kind="style")]
+[Exclude(name="editableOverSkin", kind="style")]
+[Exclude(name="editableUpSkin", kind="style")]
+
+//--------------------------------------
 //  Events
 //--------------------------------------
 
