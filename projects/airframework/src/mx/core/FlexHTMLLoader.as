@@ -24,7 +24,7 @@ import mx.utils.NameUtil;
  *  to return a string indicating the location of the object
  *  within the hierarchy of DisplayObjects in the application.
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexComponent
 {
