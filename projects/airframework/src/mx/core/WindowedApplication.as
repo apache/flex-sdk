@@ -1909,6 +1909,8 @@ public class WindowedApplication extends Application implements IWindow
 		    	else if (NativeWindow.supportsMenu)
 		    		nativeWindow.menu = menu.nativeMenu;
 		    }
+		    
+		    dispatchEvent(new Event("menuChanged"));
         }
 
         if (titleBarFactoryChanged)
