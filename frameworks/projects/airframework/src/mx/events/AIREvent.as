@@ -22,7 +22,6 @@ import flash.events.Event;
  *  @see mx.core.Window
  *  @see mx.core.WindowedApplication
  * 
- *  @playerversion AIR 1.1
  */
 public class AIREvent extends Event
 {
