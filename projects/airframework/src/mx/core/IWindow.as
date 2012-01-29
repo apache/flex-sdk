@@ -19,6 +19,10 @@ import flash.display.NativeWindow;
  *  containers in Flex-based AIR applications (containers that represent operating
  *  system windows).
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IWindow
 {
@@ -34,6 +38,10 @@ public interface IWindow
 
     /**
      *  Specifies whether the window can be maximized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get maximizable():Boolean;
     
@@ -43,6 +51,10 @@ public interface IWindow
 
     /**
      *  Specifies whether the window can be minimized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get minimizable():Boolean;
     
@@ -52,6 +64,10 @@ public interface IWindow
 
     /**
      *  The underlying NativeWindow that the Window component uses.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get nativeWindow():NativeWindow
 
@@ -61,6 +77,10 @@ public interface IWindow
 
     /**
      *  Specifies whether the window can be resized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get resizable():Boolean;
     
@@ -70,6 +90,10 @@ public interface IWindow
 
     /**
      *  The string that appears in the status bar, if it is visible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get status():String;
     
@@ -88,6 +112,10 @@ public interface IWindow
      *  in the NativeWindowSystemChrome class.
      *
      *  @see flash.display.NativeWindowSystemChrome
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get systemChrome():String;
     
@@ -98,6 +126,10 @@ public interface IWindow
     /**
      *  The title text that appears in the window title bar and
      *  the taskbar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get title():String;
     
@@ -112,6 +144,10 @@ public interface IWindow
 
     /**
      *  The Class (usually an image) used to draw the title bar icon.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get titleIcon():Class;
     
@@ -126,6 +162,10 @@ public interface IWindow
 
     /**
      *  Specifies whether the window is transparent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get transparent():Boolean;
     
@@ -139,6 +179,10 @@ public interface IWindow
      *  in the NativeWindowType class.
      *
      *  @see flash.display.NativeWindowType
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get type():String;
     
@@ -148,6 +192,10 @@ public interface IWindow
 
     /**
      *  Controls the window's visibility.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get visible():Boolean;
     
@@ -159,22 +207,38 @@ public interface IWindow
 
     /**
      *  Closes the window.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function close():void;
     
     /**
      *  Maximizes the window, or does nothing if it's already maximized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function maximize():void
     
     /**
      *  Minimizes the window.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function minimize():void;
     
     /**
      *  Restores the window (unmaximizes it if it's maximized, or
      *  unminimizes it if it's minimized).
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function restore():void;
 }
