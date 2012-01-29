@@ -2791,10 +2791,10 @@ public class Window extends LayoutContainer implements IWindow
         if (sm.isTopLevel())
         {
             focusManager = new FocusManager(this);
-			var awm:IActiveWindowManager = 
-				IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
-			if (awm)
-           		awm.activate(this);
+            var awm:IActiveWindowManager = 
+                IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
+            if (awm)
+                   awm.activate(this);
             else
                 focusManager.activate();
 
@@ -2905,6 +2905,10 @@ public class Window extends LayoutContainer implements IWindow
 
     /**
      *  Creates the underlying NativeWindow and opens it.
+     * 
+     *  After being closed, the Window object is still a valid reference, but 
+     *  accessing most properties and methods will not work.
+     *  Closed windows cannot be reopened.
      *
      *  @param  openWindowActive specifies whether the Window opens
      *  activated (that is, whether it has focus). The default value
@@ -2916,6 +2920,15 @@ public class Window extends LayoutContainer implements IWindow
      */
     public function open(openWindowActive:Boolean = true):void
     {
+        // Event for Automation so we know when windows 
+        // are created or destroyed.
+        if (FlexGlobals.topLevelApplication)
+        {
+            FlexGlobals.topLevelApplication.dispatchEvent(
+                new WindowExistenceEvent(WindowExistenceEvent.WINDOW_CREATING, 
+                    false, false, this));
+        }
+        
         flagForOpen = true;
         openActive = openWindowActive;
         commitProperties();
