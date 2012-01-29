@@ -757,6 +757,65 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 	}
 	
 	//--------------------------------------------------------------------------
+    //
+    //  Methods: Access to overridden methods of base classes
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  This method allows access to the Player's native implementation
+     *  of addChild(), which can be useful since components
+     *  can override addChild() and thereby hide the native implementation.
+     *  Note that this "base method" is final and cannot be overridden,
+     *  so you can count on it to reflect what is happening at the player level.
+     */
+    mx_internal final function $addChild(child:DisplayObject):DisplayObject
+    {
+        return super.addChild(child);
+    }
+
+    /**
+     *  @private
+     *  This method allows access to the Player's native implementation
+     *  of addChildAt(), which can be useful since components
+     *  can override addChildAt() and thereby hide the native implementation.
+     *  Note that this "base method" is final and cannot be overridden,
+     *  so you can count on it to reflect what is happening at the player level.
+     */
+    mx_internal final function $addChildAt(child:DisplayObject,
+                                           index:int):DisplayObject
+    {
+        return super.addChildAt(child, index);
+    }
+
+    /**
+     *  @private
+     *  This method allows access to the Player's native implementation
+     *  of removeChild(), which can be useful since components
+     *  can override removeChild() and thereby hide the native implementation.
+     *  Note that this "base method" is final and cannot be overridden,
+     *  so you can count on it to reflect what is happening at the player level.
+     */
+    mx_internal final function $removeChild(child:DisplayObject):DisplayObject
+    {
+        return super.removeChild(child);
+    }
+
+    /**
+     *  @private
+     *  This method allows access to the Player's native implementation
+     *  of removeChildAt(), which can be useful since components
+     *  can override removeChildAt() and thereby hide the native implementation.
+     *  Note that this "base method" is final and cannot be overridden,
+     *  so you can count on it to reflect what is happening at the player level.
+     */
+    mx_internal final function $removeChildAt(index:int):DisplayObject
+    {
+        return super.removeChildAt(index);
+    }
+	
+	//--------------------------------------------------------------------------
 	//
 	//  Methods: Initialization
 	//
