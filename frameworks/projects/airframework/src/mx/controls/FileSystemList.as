@@ -52,7 +52,7 @@ use namespace mx_internal;
  *
  *  <p>This event is cancelable.
  *  If you call <code>event.preventDefault()</code>,
- *  the directory will not be changed.</p>
+ *  the directory is not changed.</p>
  *
  *  <p>After the <code>directory</code> property has changed
  *  and the <code>dataProvider</code> contains File instances
@@ -177,9 +177,9 @@ use namespace mx_internal;
  *  If the user attempts to change the directory being displayed,
  *  the control dispatches a cancelable <code>directoryChanging</code> event.
  *  If you don't cancel this event by calling
- *  <code>event.preventDefault()</code>, the control will display the
+ *  <code>event.preventDefault()</code>, the control displays the
  *  contents of the new directory and the <code>directory</code>
- *  property will change.
+ *  property changes.
  *  Whenever the <code>directory</code> property changes, for any reason,
  *  the controls dispatches a <code>directoryChange</code> event
  *  to let you know.</p>
@@ -206,6 +206,8 @@ use namespace mx_internal;
  *  Therefore the actual file system icons displayed in the operating system
  *  are not displayed in a FileSystemList, even though they are
  *  accessible in AIR via the <code>icon</code> property of a File.</p>
+ *
+ * @see flash.filesystem.File
  */
 public class FileSystemList extends List
 {
@@ -218,10 +220,10 @@ public class FileSystemList extends List
     //--------------------------------------------------------------------------
 
     /**
-     * A constant that can be used as a value for the <code>directory</code> property,
-	 * representing a pseudo-top level directory named "Computer". This pseudo-directory
-     * contains the root directories
-     * (such as C:\ and D:\ on Windows or / on Macintosh).
+     *  A constant that can be used as a value for the <code>directory</code> property,
+	 *  representing a pseudo-top level directory named "Computer". This pseudo-directory
+     *  contains the root directories
+     *  (such as C:\ and D:\ on Windows or / on Macintosh).
      */
     public static const COMPUTER:File = FileSystemControlHelper.COMPUTER;
 
@@ -303,6 +305,10 @@ public class FileSystemList extends List
      *      itemClick="fileSystemViewer.navigateBack(event.index);"/&gt;</pre>
      *
      *  @default []
+	 *
+	 *  @see #canNavigateBack
+	 *  @see #navigateBack()
+	 *  @see mx.controls.FileSystemHistoryButton
      */
     public function get backHistory():Array
     {
@@ -332,6 +338,9 @@ public class FileSystemList extends List
      *      itemClick="fileSystemViewer.navigateBack(event.index);"/&gt;</pre>
      *
      *  @default false
+	 *
+	 *  @see #backHistory
+	 *  @see #navigateBack()
      */
     public function get canNavigateBack():Boolean
     {
@@ -361,6 +370,8 @@ public class FileSystemList extends List
      *      click="fileSystemViewer.navigateDown();"/&gt;</pre>
      *
      *  @default false
+	 *
+	 *  @see #navigateDown()
      */
     public function get canNavigateDown():Boolean
     {
@@ -390,6 +401,9 @@ public class FileSystemList extends List
      *      itemClick="fileSystemViewer.navigateForward(event.index);"/&gt;</pre>
      *
      *  @default false
+	 *
+	 *  @see #forwardHistory
+	 *  @see #navigateForward()
      */
     public function get canNavigateForward():Boolean
     {
@@ -421,6 +435,8 @@ public class FileSystemList extends List
      *      click="fileSystemViewer.navigateUp();"/&gt;</pre>
      *
      *  @default false
+	 *
+	 *  @see #navigateUp()
      */
     public function get canNavigateUp():Boolean
     {
@@ -536,7 +552,7 @@ public class FileSystemList extends List
      *  properties are also involved in determining which files
      *  appear in the control.
      *  For example, if this property is <code>[ ".htm", ".html" ]</code>,
-     *  an .html file will not be displayed if the
+     *  an .html file is not displayed if the
      *  <code>enumerationMode</code> property is
      *  <code>FileSystemEnumerationMode.DIRECTORIES_ONLY</code>,
      *  or if the <code>filterFunction</code> returns <code>false</code>
@@ -596,7 +612,7 @@ public class FileSystemList extends List
      *  not be <code>FileSystemEnumerationMode.FILES_ONLY</code> or
      *  <code>FileSystemEnumerationMode.DIRECTORIES_ONLY</code>,
      *  and the <code>extensions</code> property must be <code>null</code>.
-     *  Otherwise, these properties will cause pre-filtering to occur
+     *  Otherwise, these properties cause pre-filtering to occur
      *  before this filter function is called.</p>
      *
      *  <p>This property affects which subdirectories
@@ -659,6 +675,10 @@ public class FileSystemList extends List
      *      itemClick="fileSystemViewer.navigateForward(event.index);"/&gt;</pre>
      *
      *  @default []
+	 *
+	 *  @see #canNavigateForward
+	 *  @see #navigateForward()
+	 *  @see mx.controls.FileSystemHistoryButton
      */
     public function get forwardHistory():Array
     {
@@ -691,7 +711,7 @@ public class FileSystemList extends List
      *  <p>If you have set <code>enumerationMode</code> to either
      *  <code>FileSystemEnumerationMode.FILES_FIRST</code> or
      *  <code>FileSystemEnumerationMode.DIRECTORIES_FIRST</code>,
-     *  then this method will be used to compare names only within
+     *  then this method is used to compare names only within
      *  the separate groups of files and directories.</p>
      *
      *  <p>This property affects the order in which
@@ -996,14 +1016,14 @@ public class FileSystemList extends List
      *  <p>If a subdirectory is not selected, this method does nothing.</p>
      *
      *  <p>When this method returns, the <code>directory</code> property
-     *  will contain the File instance for the new directory.
-     *  The <code>dataProvider</code> property will be temporarily
+     *  contains the File instance for the new directory.
+     *  The <code>dataProvider</code> property is temporarily
      *  <code>null</code> until the new directory has been enumerated.
      *  After the enumeration, the <code>dataProvider</code> property
-     *  will contain an ArrayCollection of File instances
+     *  contains an ArrayCollection of File instances
      *  for the new directory's contents.</p>
      *
-     *  <p>The following example shows how to use this property
+     *  <p>The following example shows how to use this method
      *  along with the Button control to create an open button:</p>
      *
      *  <pre>
@@ -1011,6 +1031,8 @@ public class FileSystemList extends List
      *  &lt;mx:Button label="Open"
      *      enabled="{fileSystemViewer.canNavigateDown}"
      *      click="fileSystemViewer.navigateDown();"/&gt;</pre>
+	 *
+	 *  @see #canNavigateDown
      */
     public function navigateDown():void
     {
@@ -1025,14 +1047,14 @@ public class FileSystemList extends List
      *  (such as C: and D: on Microsoft Windows), this method does nothing.</p>
      *
      *  <p>When this method returns, the <code>directory</code> property
-     *  will contain the File instance for the new directory.
-     *  The <code>dataProvider</code> property will be temporarily
+     *  contains the File instance for the new directory.
+     *  The <code>dataProvider</code> property is temporarily
      *  <code>null</code> until the new directory has been enumerated.
      *  After the enumeration, the <code>dataProvider</code> property
-     *  will contain an ArrayCollection of File instances
+     *  contains an ArrayCollection of File instances
      *  for the new directory's contents.</p>
      *
-     *  <p>The following example shows how to use this property
+     *  <p>The following example shows how to use this method
      *  along with the Button control to create an up button:</p>
      *
      *  <pre>
@@ -1040,6 +1062,8 @@ public class FileSystemList extends List
      *  &lt;mx:Button label="Up"
      *      enabled="{fileSystemViewer.canNavigateUp}"
      *      click="fileSystemViewer.navigateUp();"/&gt;</pre>
+	 *
+	 *  @see #canNavigateUp
      */
     public function navigateUp():void
     {
@@ -1054,11 +1078,11 @@ public class FileSystemList extends List
      *  an index that is not in that array, then this method does nothing.</p>
      *
      *  <p>When this method returns, the <code>directory</code> property
-     *  will contain the File instance for the new directory.
-     *  The <code>dataProvider</code> property will be temporarily
+     *  contains the File instance for the new directory.
+     *  The <code>dataProvider</code> property is temporarily
      *  <code>null</code> until the new directory has been enumerated.
      *  After the enumeration, the <code>dataProvider</code> property
-     *  will contain an ArrayCollection of File instances
+     *  contains an ArrayCollection of File instances
      *  for the new directory's contents.</p>
      *
      *  <p>The history list is left unchanged. However, the current index
@@ -1066,7 +1090,7 @@ public class FileSystemList extends List
      *  and <code>forwardHistory</code> properties.
      *  They have new values as soon as this method returns.</p>
      *
-     *  <p>The following example shows how to use this property
+     *  <p>The following example shows how to use this method
      *  along with the FileSystemHistoryButton control to create a back button:</p>
      *
      *  <pre>
@@ -1080,6 +1104,9 @@ public class FileSystemList extends List
      *  @param index The index in the <code>backHistory</code> array
      *  to navigate to.
      *  The default is 0, indicating the directory that is "closest back".
+	 *
+	 *  @see #backHistory
+	 *  @see #canNavigateBack
      */
     public function navigateBack(index:int = 0):void
     {
@@ -1094,11 +1121,11 @@ public class FileSystemList extends List
      *  an index that is not in that array, then this method does nothing.</p>
      *
      *  <p>When this method returns, the <code>directory</code> property
-     *  will contain the File instance for the new directory.
-     *  The <code>dataProvider</code> property will be temporarily
+     *  contains the File instance for the new directory.
+     *  The <code>dataProvider</code> property is temporarily
      *  <code>null</code> until the new directory has been enumerated.
      *  After the enumeration, the <code>dataProvider</code> property
-     *  will contain an ArrayCollection of File instances
+     *  contains an ArrayCollection of File instances
      *  for the new directory's contents.</p>
      *
      *  <p>The history list is left unchanged. However, the current index
@@ -1106,7 +1133,7 @@ public class FileSystemList extends List
      *  and <code>forwardHistory</code> properties.
      *  They have new values as soon as this method returns.</p>
      *
-     *  <p>The following example shows how to use this property
+     *  <p>The following example shows how to use this method
      *  along with the FileSystemHistoryButton control to create a forward button:</p>
      *
      *  <pre>
@@ -1120,6 +1147,9 @@ public class FileSystemList extends List
      *  @param index The index in the <code>forwardHistory</code> array
      *  to navigate to.
      *  The default is 0, indicating the directory that is "closest forward".
+	 *
+	 *  @see #canNavigateForward
+	 *  @see #forwardHistory
      */
     public function navigateForward(index:int = 0):void
     {
