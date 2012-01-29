@@ -23,7 +23,7 @@ import flash.events.NativeWindowBoundsEvent;
  *  @see mx.core.Window
  *  @see mx.core.WindowedApplication
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public class FlexNativeWindowBoundsEvent extends NativeWindowBoundsEvent
 {
