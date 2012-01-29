@@ -31,6 +31,10 @@ use namespace mx_internal;
  *  Dispatched when a user selects an item from the pop-up menu.
  *
  *  @eventType mx.events.MenuEvent.ITEM_CLICK
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemClick", type="mx.events.MenuEvent")]
 
@@ -104,6 +108,10 @@ use namespace mx_internal;
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemDataGrid
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FileSystemHistoryButton extends PopUpButton
 {
@@ -117,6 +125,10 @@ public class FileSystemHistoryButton extends PopUpButton
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FileSystemHistoryButton()
     {
@@ -165,6 +177,10 @@ public class FileSystemHistoryButton extends PopUpButton
      *  be a collection of File objects containing directory locations -- commonly
      *  the <code>backHistory</code> or <code>forwardHistory</code> property of
      *  a FileSystemList or FileSystemDataGrid control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataProvider():Object
     {
