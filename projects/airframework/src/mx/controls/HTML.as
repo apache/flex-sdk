@@ -208,7 +208,6 @@ import mx.managers.IFocusManagerComponent;
  * 
  *  @see ../../flash/html/HTMLLoader.html HTMLLoader
  * 
- *  @playerversion AIR 1.1
  */
  public class HTML extends ScrollControlBase
     implements IDataRenderer, IDropInListItemRenderer,
