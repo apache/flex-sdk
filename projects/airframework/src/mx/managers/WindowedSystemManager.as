@@ -42,6 +42,7 @@ import mx.core.FlexSprite;
 import mx.core.IChildList;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
+import mx.core.IFlexModuleFactory;
 import mx.core.IUIComponent;
 import mx.core.Singleton;
 import mx.core.IWindow;
@@ -467,6 +468,26 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
      */
     private var _popUpChildren:WindowedSystemChildrenList;
 
+    //----------------------------------
+    //  preloadedRSLs
+    //----------------------------------
+    
+    /**
+     *  @private
+     * 
+     *  This is a stub to satisfy the IFlexModuleFactory interface.
+     * 
+     *  The RSLs loaded by this system manager before the application 
+     *  starts. RSLs loaded by the application are not included in this list.
+     * 
+     *  Information about preloadedRSLs is stored in a Dictionary. The key is
+     *  the RSL's LoaderInfo. The value is the url the RSL was loaded from.
+     */
+    public function  get preloadedRSLs():Dictionary
+    {
+        return null;                
+    }
+    
     /**
      *  @inheritDoc
      *  
@@ -1308,7 +1329,32 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 		dispatchEvent(dynamicEvent);
     }
     
+    /**
+     *  @private
+     * 
+     *  This is a stub to satisfy the IFlexModuleFactory interface.
+     * 
+     *  Calls Security.allowDomain() for the SWF associated with this SystemManager
+     *  plus all the SWFs assocatiated with RSLs preloaded by this SystemManager.
+     * 
+     */  
+    public function allowDomain(... domains):void
+    {
+    }
     
+    /**
+     *  @private
+     * 
+     *  This is a stub to satisfy the IFlexModuleFactory interface.
+     * 
+     *  Calls Security.allowInsecureDomain() for the SWF associated with this SystemManager
+     *  plus all the SWFs assocatiated with RSLs preloaded by this SystemManager.
+     * 
+     */  
+    public function allowInsecureDomain(... domains):void
+    {
+    }
+
     /**
      *  Returns <code>true</code> if the given DisplayObject is the 
      *  top-level window.
