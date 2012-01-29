@@ -22,7 +22,7 @@ package mx.controls
  *  @see mx.controls.FileSystemDataGrid#enumerationMode
  *  @see mx.controls.FileSystemTree#enumerationMode
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public final class FileSystemEnumerationMode
 {
