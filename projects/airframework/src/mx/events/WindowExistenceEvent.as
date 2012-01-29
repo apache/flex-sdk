@@ -39,7 +39,7 @@ public class WindowExistenceEvent extends Event
 
     /**
      *  The <code>WindowExistenceEvent.WINDOW_CREATE</code> constant defines the value of the 
-     *  <code>type</code> property of the event object for a <code>windowCreate</code> event. 
+     *  <code>type</code> property of the event object for a <code>globalNotifyWindowCreate</code> event. 
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -58,17 +58,17 @@ public class WindowExistenceEvent extends Event
      *       was created.</td></tr>
      *  </table>
      *
-     *  @eventType windowCreate
+     *  @eventType globalNotifyWindowCreate
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static const WINDOW_CREATE:String = "windowCreate";
+    public static const WINDOW_CREATE:String = "globalNotifyWindowCreate";
     
         /**
      *  The <code>WindowExistenceEvent.WINDOW_CLOSE</code> constant defines the value of the 
-     *  <code>type</code> property of the event object for a <code>windowClose</code> event. 
+     *  <code>type</code> property of the event object for a <code>globalNotifyWindowClose</code> event. 
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -87,13 +87,13 @@ public class WindowExistenceEvent extends Event
      *       was closed.</td></tr>
      *  </table>
      *
-     *  @eventType windowClose
+     *  @eventType globalNotifyWindowClose
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static const WINDOW_CLOSE:String = "windowClose";
+    public static const WINDOW_CLOSE:String = "globalNotifyWindowClose";
     
     //--------------------------------------------------------------------------
     //
