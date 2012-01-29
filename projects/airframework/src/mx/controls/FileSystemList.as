@@ -33,6 +33,10 @@ use namespace mx_internal;
  *  has changed for any reason.
  *
  *  @eventType mx.events.FileEvent.DIRECTORY_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="directoryChange", type="mx.events.FileEvent")]
 
@@ -60,6 +64,10 @@ use namespace mx_internal;
  *  the <code>directoryChange</code> event is dispatched.</p>
  *
  *  @eventType mx.events.FileEvent.DIRECTORY_OPENING
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="directoryChanging", type="mx.events.FileEvent")]
 
@@ -68,6 +76,10 @@ use namespace mx_internal;
  *  or by selecting it and pressing Enter.
  *
  *  @eventType mx.events.FileEvent.FILE_CHOOSE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="fileChoose", type="mx.events.FileEvent")]
 
@@ -82,6 +94,10 @@ use namespace mx_internal;
  *  <code>directoryIcon="&#64;Embed(source='directoryIcon.jpg');"</code>
  *
  *  @default TreeNodeIcon
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="directoryIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -92,6 +108,10 @@ use namespace mx_internal;
  *  <code>fileIcon="&#64;Embed(source='fileIcon.jpg');"</code>
  *
  *  @default TreeNodeIcon
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fileIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -239,6 +259,10 @@ use namespace mx_internal;
  *
  *  @see flash.filesystem.File
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FileSystemList extends List
 {
@@ -255,6 +279,10 @@ public class FileSystemList extends List
      *  representing a pseudo-top level directory named "Computer". This pseudo-directory
      *  contains the root directories
      *  (such as C:\ and D:\ on Windows or / on Macintosh).
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const COMPUTER:File = FileSystemControlHelper.COMPUTER;
 
@@ -266,6 +294,10 @@ public class FileSystemList extends List
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FileSystemList()
     {
@@ -340,6 +372,10 @@ public class FileSystemList extends List
      *  @see #canNavigateBack
      *  @see #navigateBack()
      *  @see mx.controls.FileSystemHistoryButton
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get backHistory():Array
     {
@@ -372,6 +408,10 @@ public class FileSystemList extends List
      *
      *  @see #backHistory
      *  @see #navigateBack()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get canNavigateBack():Boolean
     {
@@ -403,6 +443,10 @@ public class FileSystemList extends List
      *  @default false
      *
      *  @see #navigateDown()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get canNavigateDown():Boolean
     {
@@ -435,6 +479,10 @@ public class FileSystemList extends List
      *
      *  @see #forwardHistory
      *  @see #navigateForward()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get canNavigateForward():Boolean
     {
@@ -468,6 +516,10 @@ public class FileSystemList extends List
      *  @default false
      *
      *  @see #navigateUp()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get canNavigateUp():Boolean
     {
@@ -502,6 +554,10 @@ public class FileSystemList extends List
      *  to the upper-left corner.</p>
      *
      *  @default COMPUTER
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get directory():File
     {
@@ -546,6 +602,10 @@ public class FileSystemList extends List
      *  @default FileSystemEnumerationMode.DIRECTORIES_FIRST
      *
      *  @see mx.controls.FileSystemEnumerationMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get enumerationMode():String
     {
@@ -607,6 +667,10 @@ public class FileSystemList extends List
      *  to the upper-left corner.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get extensions():Array /* of String */
     {
@@ -660,6 +724,10 @@ public class FileSystemList extends List
      *  to the upper-left corner.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get filterFunction():Function
     {
@@ -710,6 +778,10 @@ public class FileSystemList extends List
      *  @see #canNavigateForward
      *  @see #navigateForward()
      *  @see mx.controls.FileSystemHistoryButton
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get forwardHistory():Array
     {
@@ -759,6 +831,10 @@ public class FileSystemList extends List
      *  to the upper-left corner.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nameCompareFunction():Function
     {
@@ -797,6 +873,10 @@ public class FileSystemList extends List
      *
      *  @see mx.controls.listClasses.ListBase#selectedIndex
      *  @see mx.controls.listClasses.ListBase#selectedItem
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedPath():String
     {
@@ -832,6 +912,10 @@ public class FileSystemList extends List
      *
      *  @see mx.controls.listClasses.ListBase#selectedIndex
      *  @see mx.controls.listClasses.ListBase#selectedItem
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedPaths():Array /* of String */
     {
@@ -862,6 +946,10 @@ public class FileSystemList extends List
      *  or the scroll position.</p>
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showExtensions():Boolean
     {
@@ -891,6 +979,10 @@ public class FileSystemList extends List
      *  to the upper-left corner.</p>
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showHidden():Boolean
     {
@@ -926,6 +1018,10 @@ public class FileSystemList extends List
      *  or the scroll position.</p>
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showIcons():Boolean
     {
@@ -1016,6 +1112,10 @@ public class FileSystemList extends List
      *  if no File was found with the specified path.
      *
      *  @see flash.filesystem.File#nativePath
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function findIndex(nativePath:String):int
     {
@@ -1034,6 +1134,10 @@ public class FileSystemList extends List
      *
      *  @return A File instance if one was found with the specified
      *  <code>nativePath</code>, or <code>null</code> if none was found.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function findItem(nativePath:String):File
     {
@@ -1064,6 +1168,10 @@ public class FileSystemList extends List
      *      click="fileSystemViewer.navigateDown();"/&gt;</pre>
      *
      *  @see #canNavigateDown
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function navigateDown():void
     {
@@ -1095,6 +1203,10 @@ public class FileSystemList extends List
      *      click="fileSystemViewer.navigateUp();"/&gt;</pre>
      *
      *  @see #canNavigateUp
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function navigateUp():void
     {
@@ -1138,6 +1250,10 @@ public class FileSystemList extends List
      *
      *  @see #backHistory
      *  @see #canNavigateBack
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function navigateBack(index:int = 0):void
     {
@@ -1181,6 +1297,10 @@ public class FileSystemList extends List
      *
      *  @see #canNavigateForward
      *  @see #forwardHistory
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function navigateForward(index:int = 0):void
     {
@@ -1192,6 +1312,10 @@ public class FileSystemList extends List
      *  directory.
      *
      *  @param file A file object representing a file or directory.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function navigateTo(directory:File):void
     {
@@ -1214,6 +1338,10 @@ public class FileSystemList extends List
      *
      *  <p>This method preserves any selected items (if they still exist)
      *  and the scroll position (if the first visible item still exists).</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function refresh():void
     {
@@ -1226,6 +1354,10 @@ public class FileSystemList extends List
      *  <p>This method sets the <code>dataProvider</code> to <code>null</code>
      *  but leaves the <code>directory</code> property unchanged.
      *  You can call <code>refresh</code> to populate this control again.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function clear():void
     {
