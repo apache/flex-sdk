@@ -831,6 +831,7 @@ public class TitleBar extends UIComponent
     }
     
     /**
+     *  @private
      *  Handles a <code>doubleClick</code> event in a platform-appropriate manner.
      *  
      *  @langversion 3.0
