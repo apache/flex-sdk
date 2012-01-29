@@ -69,13 +69,16 @@
 		    <target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
+			<namespace uri="http://ns.adobe.com/mxml/2009" manifest="${basedir}/mxml-2009-manifest.xml"/>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
+			<include-namespaces uri="http://ns.adobe.com/mxml/2009"/>
 			<include-classes>AIRFrameworkClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
 				<include name="air/airglobal.swc"/>
 				<include name="framework.swc"/>
+				<include name="flex4.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
 			<include-file name="Assets.swf" path="${basedir}/assets/Assets.swf"/>
@@ -107,7 +110,8 @@
 			<include-file name="win_restore_over.png" path="${basedir}/assets/win_restore_over.png"/>
 			<include-file name="win_restore_up.png" path="${basedir}/assets/win_restore_up.png"/>
 			<locale/>
-			<accessible>true</accessible>
+		        <keep-as3-metadata name="SkinPart"/>
+		        <accessible>true</accessible>
 		</compc>
 	</target>
 
