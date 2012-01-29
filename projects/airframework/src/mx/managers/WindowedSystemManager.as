@@ -1000,6 +1000,21 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
     {
         initialized = true;
 
+        // This listener is intended to run before any other KeyboardEvent listeners
+        // so that it can redispatch a cancelable=true copy of the event. 
+        if (getSandboxRoot() == this)
+        {
+            // keydown events on AIR are cancelable so we don't need to add a listener.
+            addEventListener(MouseEvent.MOUSE_WHEEL, mouseEventHandler, true, 1000);
+            addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler, true, 1000);
+        }
+        if (isTopLevelRoot() && stage)
+        {
+            // keydown events on AIR are cancelable so we don't need to add a listener.
+            stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseEventHandler, false, 1000);
+            stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler, false, 1000);
+        }
+        
         if (!parent)
             return;
         
@@ -1034,7 +1049,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
         }
 
         //  if (topLevel && stage)
-            stage.addEventListener(Event.RESIZE, Stage_resizeHandler, false, 0, true);
+        stage.addEventListener(Event.RESIZE, Stage_resizeHandler, false, 0, true);
 
         var app:IUIComponent;
         // Create a new instance of the toplevel class
@@ -2233,5 +2248,39 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
     {
     }
 
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  NOTE: The keyDownHandler in SystemManager is not needed in AIR because
+     *  AIR keyDown events are cancelable.
+     */ 
+    
+    /**
+     *  @private 
+     *  We want to re-dispatch 
+     *  mouse events that are cancellable.  Currently we are only doing 
+     *  this for a few mouse events and not all of them (MOUSE_WHEEL and 
+     *  MOUSE_DOWN).
+     */
+    private function mouseEventHandler(e:MouseEvent):void
+    {
+        if (!e.cancelable)
+        {
+            e.stopImmediatePropagation();
+            var cancelableEvent:MouseEvent = new MouseEvent(e.type, e.bubbles, 
+                true, e.localX,
+                e.localY, e.relatedObject, e.ctrlKey, e.altKey,
+                e.shiftKey, e.buttonDown, e.delta, 
+                e.commandKey, e.controlKey, e.clickCount);
+            
+            e.target.dispatchEvent(cancelableEvent);               
+        }
+    }
+    
+    
 }
 }
