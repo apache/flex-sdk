@@ -37,6 +37,8 @@ import mx.styles.StyleManager
 import mx.styles.CSSStyleDeclaration;
 import mx.managers.IFocusManagerComponent;
 
+use namespace mx_internal;
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -361,8 +363,8 @@ import mx.managers.IFocusManagerComponent;
     {
         super();
 
-        mx_internal::_horizontalScrollPolicy = ScrollPolicy.AUTO;
-        mx_internal::_verticalScrollPolicy = ScrollPolicy.AUTO;
+        _horizontalScrollPolicy = ScrollPolicy.AUTO;
+        _verticalScrollPolicy = ScrollPolicy.AUTO;
 
         tabEnabled = false;
         tabChildren = true;
