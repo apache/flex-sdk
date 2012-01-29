@@ -17,6 +17,10 @@ import mx.skins.ProgrammaticSkin;
 /**
  *  The skin for the StatusBar of a WindowedApplication or Window.
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class StatusBarBackgroundSkin extends ProgrammaticSkin
 {
@@ -30,6 +34,10 @@ public class StatusBarBackgroundSkin extends ProgrammaticSkin
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function StatusBarBackgroundSkin()
     {
