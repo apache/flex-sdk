@@ -33,7 +33,7 @@ use namespace mx_internal;
  *  @see mx.core.Window
  *  @see mx.core.WindowedApplication
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public class StatusBar extends UIComponent
 {
