@@ -51,6 +51,7 @@ import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.events.EventListenerRequest;
 import mx.events.Request;
+import mx.managers.systemClasses.ChildManager;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.utils.NameUtil;
@@ -86,6 +87,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
         _topLevelSystemManager = this;
         topLevelWindow = rootObj;
         SystemManagerGlobals.topLevelSystemManagers.push(this);
+        childManager = new ChildManager(this);
         //docFrameHandler(null);
         addEventListener(Event.ADDED, docFrameHandler);
     }
@@ -109,13 +111,14 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 	/**
 	 *  @private
 	 */
-	private var originalSystemManager:SystemManager;
-	
-	/**
-	 *  @private
-	 */
 	private var _topLevelSystemManager:ISystemManager;
 	
+    /**
+     *  @private
+     *  The childAdded/removed code
+     */
+    mx_internal var childManager:ISystemManagerChildManager;
+
 	/**
 	 *  @private
 	 *  Whether we are the stage root or not.
@@ -1944,11 +1947,11 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
      */
     mx_internal function rawChildren_addChild(child:DisplayObject):DisplayObject
     {
-        addingChild(child);
+        childManager.addingChild(child);
 
         super.addChild(child);
 
-        childAdded(child); // calls child.createChildren()
+        childManager.childAdded(child); // calls child.createChildren()
 
         return child;
     }
@@ -1959,11 +1962,14 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
     mx_internal function rawChildren_addChildAt(child:DisplayObject,
                                                 index:int):DisplayObject
     {
-        addingChild(child);
+        // preloader goes through here before childManager is set up
+        if (childManager) 
+            childManager.addingChild(child);
 
         super.addChildAt(child, index);
 
-        childAdded(child); // calls child.createChildren()
+        if (childManager) 
+            childManager.childAdded(child); // calls child.createChildren()
 
         return child;
     }
@@ -1973,11 +1979,9 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
      */
     mx_internal function rawChildren_removeChild(child:DisplayObject):DisplayObject
     {
-        removingChild(child);
-
+        childManager.removingChild(child);
         super.removeChild(child);
-
-        childRemoved(child);
+        childManager.childRemoved(child);
 
         return child;
     }
@@ -1989,11 +1993,11 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
     {
         var child:DisplayObject = super.getChildAt(index);
 
-        removingChild(child);
+        childManager.removingChild(child);
 
         super.removeChildAt(index);
 
-        childRemoved(child);
+        childManager.childRemoved(child);
 
         return child;
     }
