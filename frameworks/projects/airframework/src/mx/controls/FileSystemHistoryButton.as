@@ -76,9 +76,9 @@ use namespace mx_internal;
  *  Flex automatically updates them as the user navigates
  *  within the the FileSystemList or FileSystemDataGrid control.</p>
  *
- *  <p>The button does not cause navigation to occur by itself. You must write an
- * event listeners that respond to the <code>click</code> and <code>itemClick</code> events
- * in order to make the button functional. Typically your code
+ *  <p>The button does not cause navigation to occur by itself. You must write
+ *  event listeners that respond to the <code>click</code> and <code>itemClick</code> events
+ *  in order to make the button functional. Typically your code
  *  calls either the <code>navigateBack()</code>
  *  or the <code>navigateForward()</code> method of the FileSystemList
  *  or FileSystemDataGrid control to navigate the control.
@@ -145,7 +145,10 @@ public class FileSystemHistoryButton extends PopUpButton
     //----------------------------------
 
     /**
-     *  The data provider for the FileSystemHistoryButton control.
+     *  The data provider for the FileSystemHistoryButton control. This should
+	 *  be a collection of File objects containing directory locations -- commonly
+	 *  the <code>backHistory</code> or <code>forwardHistory</code> property of
+	 *  a FileSystemList or FileSystemDataGrid control.
      */
     public function get dataProvider():Object
     {
