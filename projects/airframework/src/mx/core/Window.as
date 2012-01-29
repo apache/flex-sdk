@@ -2633,6 +2633,10 @@ public class Window extends LayoutContainer implements IWindow
             {
                 resizeHandler(new Event(Event.RESIZE));
     
+                // Validate transform.matrix after setting actual size.  This is normally done
+                // by validateDisplayList() before our updateDisplayList() is called.
+                validateMatrix();
+                
                 if (!resizeHandlerAdded)
                 {
                     // weak reference
