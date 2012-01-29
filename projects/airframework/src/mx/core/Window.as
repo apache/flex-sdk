@@ -104,7 +104,8 @@ use namespace mx_internal;
 [Event(name="networkChange", type="flash.events.Event")]
 
 /**
- *  Dispatched before the underlying NativeWindow is resized
+ *  Dispatched before the underlying NativeWindow is resized, or
+ *  while the Window object boundaries are being dragged.
  *
  *  @eventType flash.events.NativeWindowBoundsEvent.RESIZING
  */
@@ -112,7 +113,7 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the Window completes its initial layout
- *  and opens the underlying NativeWindow
+ *  and opens the underlying NativeWindow.
  *
  *  @eventType mx.events.AIREvent.WINDOW_COMPLETE
  */
@@ -145,7 +146,7 @@ use namespace mx_internal;
  *  A value of <code>"right"</code> means the buttons are aligned
  *  at the right of the title bar.
  *  A value of <code>"auto"</code> means the buttons are aligned
- *  at the left of the title bar on the Macintosh and on the
+ *  at the left of the title bar on Mac OS X and on the
  *  right on Windows.</p>
  *
  *  @default "auto"
@@ -153,7 +154,7 @@ use namespace mx_internal;
 [Style(name="buttonAlignment", type="String", enumeration="left,right,auto", inherit="yes")]
 
 /**
- *  Defines the distance between the titleBar buttons
+ *  Defines the distance between the titleBar buttons.
  *
  *  @default 2
  */
@@ -206,43 +207,43 @@ use namespace mx_internal;
 
 /**
  *  Skin for restore button when using Flex chrome.
- *  (Does not affect Macintosh)
+ *  This style is ignored for Mac OS X.
  *
  *  @default mx.skins.halo.WindowRestoreButtonSkin
  */
 [Style(name="restoreButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")]
 
 /**
- *  Determines whether we display Flex Chrome, or depend on the developer
- *  to draw her own. Changing this style once the window is open has no effect.
+ *  Determines whether the window draws its own Flex Chrome or depends on the developer
+ *  to draw chrome. Changing this style once the window is open has no effect.
  *
  *  @default true
  */
 [Style(name="showFlexChrome", type="Boolean", inherit="no")]
 
 /**
- *  A colors used to draw the statusBar.
+ *  The colors used to draw the status bar.
  *
  *  @default 0xC0C0C0
  */
 [Style(name="statusBarBackgroundColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  The statusBar background skin.
+ *  The status bar background skin.
  *
  *  @default mx.skins.halo.StatusBarBackgroundSkin
  */
 [Style(name="statusBarBackgroundSkin", type="Class", inherit="yes")]
 
 /**
- *  Style declaration for status text.
+ *  Style declaration for the status text.
  *
  *  @default undefined
  */
 [Style(name="statusTextStyleName", type="String", inherit="yes")]
 
 /**
- *  Position of title in title bar.
+ *  Position of the title in title bar.
  *  The possible values are <code>"left"</code>,
  *  <code>"center"</code>, <code>"auto"</code>
  *
@@ -251,7 +252,7 @@ use namespace mx_internal;
  *  A value of <code>"center"</code> means the title is aligned
  *  at the center of the title bar.
  *  A value of <code>"auto"</code> means the title is aligned
- *  at the left on Windows and at the center on the Macintosh.</p>
+ *  at the left on Windows and at the center on Mac OS X.</p>
  *
  *  @default "auto"
  */
@@ -285,7 +286,7 @@ use namespace mx_internal;
 [Style(name="titleBarColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
 /**
- *  The style name for the title
+ *  The style name for the title text.
  *
  *  @default undefined
  */
@@ -334,7 +335,113 @@ use namespace mx_internal;
 
 /**
  *  The Window is a top-level container for additional windows
- *  in an  AIR desktop application
+ *  in an AIR desktop application.
+ *
+ *  <p>The Window container is a special kind of container in the sense
+ *  that it cannot be used within other layout containers. An mx:Window
+ *  component must be the top-level component in its MXML document.</p>
+ *
+ *  <p>The easiest way to use a Window component to define a native window is to
+ *  create an MXML document with an <code>&lt;mx:Window&gt;</code> tag
+ *  as the top-level tag in the document. You use the Window component
+ *  just as you do any other container, including specifying the layout
+ *  type, defining child controls, and so forth. Like any other custom
+ *  MXML component, when your application is compiled your MXML document
+ *  is compiled into a custom class that is a subclass of the Window
+ *  component.</p>
+ *
+ *  <p>In your application code, to make an instance of
+ *  your Window subclass appear on the screen you first create an instance
+ *  of the class in code (by defining a variable and calling the <code>new
+ *  MyWindowClass()</code> constructor. Next you set any properties you wish
+ *  to specify for the new window. Finally you call your Window component's
+ *  <code>open()</code> method to open the window on the screen.</p>
+ *
+ *  <p>Note that several of the Window class's properties can only be set
+ *  <strong>before</strong> calling the <code>open()</code> method to open
+ *  the window. Once the underlying NativeWindow is created, these initialization
+ *  properties can be read but cannot be changed. This restriction applies to
+ *  the following properties:</p>
+ *
+ *  <ul>
+ *    <li><code>maximizable</code></li>
+ *    <li><code>minimizable</code></li>
+ *    <li><code>resizable</code></li>
+ *    <li><code>systemChrome</code></li>
+ *    <li><code>transparent</code></li>
+ *    <li><code>type</code></li>
+ *  </ul>
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:Window&gt;</code> tag inherits all of the tag
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:Window
+ *    <strong>Properties</strong>
+ *    alwaysInFront="false"
+ *    maxHeight="10000"
+ *    maximizable="true"
+ *    maxWidth="10000"
+ *    menu="<i>null</i>"
+ *    minHeight="100"
+ *    minimizable="true"
+ *    minWidth="100"
+ *    resizable="true"
+ *    showGripper="true"
+ *    showStatusBar="true"
+ *    showTitleBar="true"
+ *    status=""
+ *    statusBarFactory="mx.core.ClassFactory"
+ *    systemChrome="standard"
+ *    title=""
+ *    titleBarFactory="mx.core.ClassFactory"
+ *    titleIcon="<i>null</i>"
+ *    transparent="false"
+ *    type="normal"
+ *    visible="true"
+ *
+ *    <strong>Styles</strong>
+ *    buttonAlignment="auto"
+ *    buttonPadding="2"
+ *    closeButtonSkin="mx.skins.halo.windowCloseButtonSkin"
+ *    gripperPadding="3"
+ *    gripperStyleName="gripperStyle"
+ *    headerHeight="<i>undefined</i>"
+ *    maximizeButtonSkin="mx.skins.halo.WindowMaximizeButtonSkin"
+ *    minimizeButtonSkin="mx.skins.halo.WindowMinimizeButtonSkin"
+ *    restoreButtonSkin="mx.skins.halo.WindowRestoreButtonSkin"
+ *    showFlexChrome="true"
+ *    statusBarBackgroundColor="0xC0C0C0"
+ *    statusBarBackgroundSkin="mx.skins.halo.StatusBarBackgroundSkin"
+ *    statusTextStyleName="<i>undefined</i>"
+ *    titleAlignment="auto"
+ *    titleBarBackgroundSkin="mx.skins.halo.ApplicationTitleBarBackgroundSkin"
+ *    titleBarButtonPadding="5"
+ *    titleBarColors="[ 0x000000, 0x000000 ]"
+ *    titleTextStyleName="<i>undefined</i>"
+ *
+ *    <strong>Effects</strong>
+ *    closeEffect="<i>No default</i>"
+ *    minimizeEffect="<i>No default</i>"
+ *    unminimizeEffect="<i>No default</i>"
+ *
+ *    <strong>Events</strong>
+ *    applicationActivate="<i>No default</i>"
+ *    applicationDeactivate="<i>No default</i>"
+ *    closing="<i>No default</i>"
+ *    displayStateChange="<i>No default</i>"
+ *    displayStateChanging="<i>No default</i>"
+ *    moving="<i>No default</i>"
+ *    networkChange="<i>No default</i>"
+ *    resizing="<i>No default</i>"
+ *    windowComplete="<i>No default</i>"
+ *    windowMove="<i>No default</i>"
+ *    windowResize="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
+ *
  */
 public class Window extends LayoutContainer implements IWindow
 {
@@ -524,11 +631,11 @@ public class Window extends LayoutContainer implements IWindow
    	//----------------------------------
     //  height
     //----------------------------------
-  
+
     [Bindable("heightChanged")]
     [Inspectable(category="General")]
     [PercentProxy("percentHeight")]
-    
+
     /**
      *  @private
      */
@@ -554,7 +661,7 @@ public class Window extends LayoutContainer implements IWindow
         invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
-        
+
 	    dispatchEvent(new Event("heightChanged"));
         // also dispatched in the resizeHandler
     }
@@ -572,7 +679,7 @@ public class Window extends LayoutContainer implements IWindow
 	[Bindable("maxHeightChanged")]
 	
 	/**
-	 *  The maximum height of the Window.
+	 *  The maximum height of the window.
 	 */
 	override public function get maxHeight():Number
 	{
@@ -604,7 +711,7 @@ public class Window extends LayoutContainer implements IWindow
 	[Bindable("maxWidthChanged")]
 
 	/**
-	 *  The maximum width of the Window.
+	 *  The maximum width of the window.
 	 */
 	 override public function get maxWidth():Number
 	{
@@ -637,7 +744,7 @@ public class Window extends LayoutContainer implements IWindow
 	[Bindable("minHeightChanged")]
 	
 	/**
-	 *  The minimum height of the Window.
+	 *  The minimum height of the window.
 	 */
 	override public function get minHeight():Number
 	{
@@ -670,7 +777,7 @@ public class Window extends LayoutContainer implements IWindow
 	[Bindable("minWidthChanged")]
 		
 	/**
-	 *  The minimum width of the Window.
+	 *  The minimum width of the window.
 	 */
 	override public  function get minWidth():Number
 	{
@@ -698,10 +805,15 @@ public class Window extends LayoutContainer implements IWindow
     [Bindable("windowComplete")]
 	
 	/**
-	 *  Controls the Window's visibility. Unlike the normal
-	 *  UIComponent.visible property, this affects the underlying
-	 *  NativeWindow as well. When it changes, it will
-	 *  dispatch a FlexEvent.SHOW or FlexEvent.HIDE event.
+	 *  Controls the window's visibility. Unlike the
+	 *  <code>UIComponent.visible</code> property of most Flex
+	 *  visual components, this property affects the visibility
+	 *  of the underlying NativeWindow (including operating system
+	 *  chrome) as well as the visibility of the Window's child
+	 *  controls.
+	 *
+	 *  <p>When this property changes, Flex dispatches a <codeshow</code>
+	 *  or <code>hide</code> event.</p>
 	 *
 	 *  @default true
 	 */	
@@ -750,7 +862,7 @@ public class Window extends LayoutContainer implements IWindow
    	//----------------------------------
     //  width
     //----------------------------------
-	  
+	
     [Bindable("widthChanged")]
     [Inspectable(category="General")]
     [PercentProxy("percentWidth")]
@@ -780,7 +892,7 @@ public class Window extends LayoutContainer implements IWindow
         invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
-        
+
 	    dispatchEvent(new Event("widthChanged"));
 	    // also dispatched in the resize handler
     }
@@ -847,7 +959,14 @@ public class Window extends LayoutContainer implements IWindow
     private var _alwaysInFront:Boolean = false;
 
     /**
-	 *  Determines whether the underlying NativeWindow is alwaysInFront.
+	 *  Determines whether the underlying NativeWindow is always in front
+	 *  of other windows (including those of other applications). Setting
+	 *  this property sets the <code>alwaysInFront</code> property of the
+	 *  underlying NativeWindow. See the <code>NativeWindow.alwaysInFront</code>
+	 *  property description for details of how this affects window stacking
+	 *  order.
+	 *
+	 *  @see flash.display.NativeWindow#alwaysInFront
      */
     public function get alwaysInFront():Boolean
     {
@@ -884,7 +1003,7 @@ public class Window extends LayoutContainer implements IWindow
 
     /**
      *  @private
-     *  A Rectangle specifying the Application's bounds,
+     *  A Rectangle specifying the window's bounds
 	 *  relative to the screen.
      */
     protected function get bounds():Rectangle
@@ -940,8 +1059,9 @@ public class Window extends LayoutContainer implements IWindow
 	private var _maximizable:Boolean = true;
 	
 	/**
-	 *  Specifies whether the window is maximizable
-	 *  Read-only after the window is opened.
+	 *  Specifies whether the window can be maximized.
+	 *  This property's value is read-only after the window
+	 *  has been opened.
 	 */
 	public function get maximizable():Boolean
 	{
@@ -975,7 +1095,7 @@ public class Window extends LayoutContainer implements IWindow
     //  cursorManager
     //----------------------------------
     /**
-     *  Returns instance of CursorManager for this Window
+     *  Returns the cursor manager for this Window.
      */
     override public function get cursorManager():ICursorManager
     {
@@ -997,8 +1117,9 @@ public class Window extends LayoutContainer implements IWindow
     }
 
     /**
-     *  The nativeApplication's menu.
-	 *  Some operating systems do not support nativeApplication menus.
+     *  The window menu for this window.
+	 *  Some operating systems do not support window menus,
+	 *  in which case this property is ignored.
      */
     public function set menu(value:FlexNativeMenu):void
     {
@@ -1017,8 +1138,9 @@ public class Window extends LayoutContainer implements IWindow
 	private var _minimizable:Boolean = true;
 	
 	/**
-	 *  Specifies whether the window is minimizable
-	 *  Read-only after the window is opened.
+	 *  Specifies whether the window can be minimized.
+	 *  This property is read-only after the window has
+	 *  been opened.
 	 */
 	public function get minimizable():Boolean
 	{
@@ -1043,7 +1165,7 @@ public class Window extends LayoutContainer implements IWindow
 	//----------------------------------
 
     /**
-     *  The NativeWindow that this Window uses.
+     *  The underlying NativeWindow that this Window component uses.
      */
     public function get nativeWindow():NativeWindow
     {
@@ -1064,8 +1186,9 @@ public class Window extends LayoutContainer implements IWindow
 	private var _resizable:Boolean = true;
 	
 	/**
-	 *  Specifies whether the window is resizable
-	 *  Read-only after the window is opened.
+	 *  Specifies whether the window can be resized.
+	 *  This property is read-only after the window
+	 *  has been opened.
 	 */
 	public function get resizable():Boolean
 	{
@@ -1103,9 +1226,11 @@ public class Window extends LayoutContainer implements IWindow
 
     /**
      *  If <code>true</code>, the gripper is visible.
-     *  Macintosh windows with systemChrome="standard"
-     *  always have grippers, so this property is ignored
-     *  for those windows.
+	 *
+     *  <p>On Mac OS X a window with <code>systemChrome</code>
+	 *  set to <code>"standard"</code>
+     *  always has an operating system gripper, so this property is ignored
+     *  in that case.</p>
      *
      *  @default true
      */
@@ -1183,7 +1308,7 @@ public class Window extends LayoutContainer implements IWindow
     private var showTitleBarChanged:Boolean = true;
 
     /**
-     *  If <code>true</code>, the status bar is visible.
+     *  If <code>true</code>, the window's title bar is visible.
      *
      *  @default true
      */
@@ -1323,7 +1448,8 @@ public class Window extends LayoutContainer implements IWindow
     };
 
     /**
-     *  Set of styles to pass from the Window to the statusBar.
+     *  Set of styles to pass from the window to the status bar.
+	 *
      *  @see mx.styles.StyleProxy
      */
     protected function get statusBarStyleFilters():Object
@@ -1342,9 +1468,16 @@ public class Window extends LayoutContainer implements IWindow
 	private var _systemChrome:String = "standard";
 	
 	/**
-	 *  Specifies the type of systemChrome the window will have
-	 *  Possible values are enumerated in NativeWindowSystemChrome
-	 *  Read-only once the window has been opened.
+	 *  Specifies the type of system chrome the window has.
+	 *  The set of possible values is defined by the constants
+	 *  in the NativeWindowSystemChrome class.
+	 *
+	 *  <p>This property is read-only once the window has been opened.</p>
+	 *
+	 *  <p>The default value is <code>NativeWindowSystemChrome.STANDARD</code>.</p>
+	 *
+	 *  @see flash.display.NativeWindowSystemChrome
+	 *  @see flash.display.NativeWindowInitOptions#systemChrome
 	 */
 	public function get systemChrome():String
 	{
@@ -1382,7 +1515,7 @@ public class Window extends LayoutContainer implements IWindow
     [Bindable("titleChanged")]
 
     /**
-     *  The title that appears in the window title bar and
+     *  The title text that appears in the window title bar and
      *  the taskbar.
      *
      *  @default ""
@@ -1493,6 +1626,7 @@ public class Window extends LayoutContainer implements IWindow
 
     /**
      *  Set of styles to pass from the Window to the titleBar.
+	 *
      *  @see mx.styles.StyleProxy
      */
     protected function get titleBarStyleFilters():Object
@@ -1554,8 +1688,11 @@ public class Window extends LayoutContainer implements IWindow
 	private var _transparent:Boolean = false;
 	
 	/**
-	 *  Specifies whether the window is transparent
-	 *  Read-only after the window is opened.
+	 *  Specifies whether the window is transparent. Setting this
+	 *  property to <code>true</code> for a window that uses
+	 *  system chrome is not supported.
+	 *
+	 *  <p>This property is read-only after the window has been opened.</p>
 	 */
 	public function get transparent():Boolean
 	{
@@ -1586,9 +1723,16 @@ public class Window extends LayoutContainer implements IWindow
 	private var _type:String = "normal";
 	
 	/**
-	 *  Specifies the NativeWindow's type.
-	 *  Types are enumerated in NativeWindowType.
-	 *  Read-only after the window has been created.
+	 *  Specifies the type of NativeWindow that this component
+	 *  represents. The set of possible values is defined by the constants
+	 *  in the NativeWindowType class.
+	 *
+	 *  <p>This property is read-only once the window has been opened.</p>
+	 *
+	 *  <p>The default value is <code>NativeWindowType.NORMAL</code>.</p>
+	 *
+	 *  @see flash.display.NativeWindowType
+	 *  @see flash.display.NativeWindowInitOptions#type
 	 */
 	public function get type():String
 	{
@@ -2117,7 +2261,7 @@ public class Window extends LayoutContainer implements IWindow
     //--------------------------------------------------------------------------
 
     /**
-     *  Closes the Window. Will dispatch cancelable event.
+     *  Closes the Window. This action is cancelable.
      */
     public function close():void
     {
@@ -2180,7 +2324,7 @@ public class Window extends LayoutContainer implements IWindow
     }
 
  	/**
-     *  Maximizes the Application's nativeWindow, or does nothing it if it's already maximized.
+     *  Maximizes the underlying NativeWindow, or does nothing it if it's already maximized.
      */
     public function maximize():void
     {
@@ -2203,7 +2347,7 @@ public class Window extends LayoutContainer implements IWindow
     }
 
     /**
-     *  Minimizes the Application's window
+     *  Minimizes the underlying NativeWindow.
      */
     public function minimize():void
     {
@@ -2220,8 +2364,8 @@ public class Window extends LayoutContainer implements IWindow
     }
 
     /**
-     *  Restores the application's nativeWindow. Unmaximizes it if it's maximized,
-     *  unminimizes it if it's minimized.
+     *  Restores the underlying NativeWindow (unmaximizes it if it's maximized, or
+     *  unminimizes it if it's minimized).
      */
 	public function restore():void
     {
@@ -2252,7 +2396,8 @@ public class Window extends LayoutContainer implements IWindow
     }
 
     /**
-     *  Activates the nativeWindow (even if this Window's app is not the active one)
+     *  Activates the underlying NativeWindow (even if this Window's application
+	 *  is not currently active).
      */
     public function activate():void
     {
@@ -2264,7 +2409,8 @@ public class Window extends LayoutContainer implements IWindow
      *  Creates the underlying NativeWindow and opens it.
      *
      *  @param  openWindowActive specifies whether the Window opens
-     *  activated (that is, whether it has focus). Defaults to true.
+     *  activated (that is, whether it has focus). The default value
+	 *  is <code>true</code>.
      */
     public function open(openWindowActive:Boolean = true):void
     {
@@ -2276,7 +2422,7 @@ public class Window extends LayoutContainer implements IWindow
     /**
      *  Orders the window just behind another. To order the window behind
      *  a NativeWindow that does not implement IWindow, use this window's
-     *  nativeWindow's method.
+     *  nativeWindow's <code>orderInBackOf()</code> method.
      *
      *  @param window The IWindow (Window or WindowedAplication)
      *  to order this window behind.
@@ -2295,12 +2441,12 @@ public class Window extends LayoutContainer implements IWindow
     /**
      *  Orders the window just in front of another. To order the window
      *  in front of a NativeWindow that does not implement IWindow, use this
-     *  window's nativeWindow's method.
+     *  window's nativeWindow's  <code>orderInFrontOf()</code> method.
      *
      *  @param window The IWindow (Window or WindowedAplication)
      *  to order this window in front of.
      *
-     *  @return <code>true</code> if the window was succesfully sent in front of;
+     *  @return <code>true</code> if the window was succesfully sent in front;
      *          <code>false</code> if the window is invisible or minimized.
      */
     public function orderInFrontOf(window:IWindow):Boolean
@@ -2491,7 +2637,7 @@ public class Window extends LayoutContainer implements IWindow
     }
 
     /**
-     *  Manages mouse down events on border.
+     *  Manages mouse down events on the window border.
      */
     protected function mouseDownHandler(event:MouseEvent):void
     {
@@ -2789,21 +2935,21 @@ public class Window extends LayoutContainer implements IWindow
     {
         invalidateViewMetricsAndPadding();
         invalidateDisplayList();
-        
+
         var dispatchWidthChangeEvent:Boolean = (bounds.width != stage.stageWidth);
         var dispatchHeightChangeEvent:Boolean = (bounds.height != stage.stageHeight);
-        
+
         bounds.x = stage.x;
         bounds.y = stage.y;
         bounds.width = stage.stageWidth;
         bounds.height = stage.stageHeight;
-        
+
         validateNow();
         var e:FlexNativeWindowBoundsEvent =
         	new FlexNativeWindowBoundsEvent(FlexNativeWindowBoundsEvent.WINDOW_RESIZE, event.bubbles, event.cancelable,
         			event.beforeBounds, event.afterBounds);
         dispatchEvent(e);
-   
+
         if (dispatchWidthChangeEvent)
     		dispatchEvent(new Event("widthChanged"));
     	if (dispatchHeightChangeEvent)
