@@ -52,6 +52,10 @@ use namespace mx_internal;
  *  Dispatched before a menu or submenu is displayed.
  *
  *  @eventType mx.events.FlexNativeMenuEvent.MENU_SHOW
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="menuShow", type="mx.events.FlexNativeMenuEvent")]
 
@@ -59,6 +63,10 @@ use namespace mx_internal;
  *  Dispatched when a menu item is selected.
  *
  *  @eventType mx.events.FlexNativeMenuEvent.ITEM_CLICK
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemClick", type="mx.events.FlexNativeMenuEvent")]
 
@@ -244,7 +252,9 @@ use namespace mx_internal;
  *  @see flash.display.NativeMenu
  *  @see mx.events.FlexNativeMenuEvent
  * 
+ *  @langversion 3.0
  *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FlexNativeMenu extends EventDispatcher implements 
     ILayoutManagerClient, IFlexContextMenu, IAutomationObject
@@ -261,6 +271,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  The character to use to indicate the mnemonic index in a label.  By
      *  default, it is the underscore character, so in "C_ut", u would become
      *  the character for the mnemonic index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private static var MNEMONIC_INDEX_CHARACTER:String = "_";
 
@@ -272,6 +286,10 @@ public class FlexNativeMenu extends EventDispatcher implements
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FlexNativeMenu()
     {
@@ -306,9 +324,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  The delegate object that handles the automation-related functionality.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function get automationDelegate():Object
     {
@@ -337,9 +354,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function get automationName():String
     {
@@ -363,9 +379,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @copy mx.automation.IAutomationObject#automationValue
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function get automationValue():Array
     {
@@ -379,9 +394,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function get numAutomationChildren():int
     {
@@ -394,9 +408,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function get automationTabularData():Object
     {
@@ -418,9 +431,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function get automationOwner():DisplayObjectContainer
     {
@@ -448,9 +460,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function get automationParent():DisplayObjectContainer
     {
@@ -473,9 +484,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function get automationEnabled():Boolean
     {
@@ -491,9 +501,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function get automationVisible():Boolean
     {
@@ -516,9 +525,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function get showInAutomationHierarchy():Boolean
     {
@@ -551,6 +559,10 @@ public class FlexNativeMenu extends EventDispatcher implements
 
     /**
      *  @copy mx.core.UIComponent#initialized
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get initialized():Boolean
     {
@@ -581,6 +593,10 @@ public class FlexNativeMenu extends EventDispatcher implements
 
     /**
      *  @copy mx.core.UIComponent#nestLevel
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nestLevel():int
     {
@@ -611,6 +627,10 @@ public class FlexNativeMenu extends EventDispatcher implements
 
     /**
      *  @copy mx.core.UIComponent#processedDescriptors
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get processedDescriptors():Boolean
     {
@@ -638,6 +658,10 @@ public class FlexNativeMenu extends EventDispatcher implements
     /**
      *  A flag that determines if an object has been through all three phases
      *  of layout validation (provided that any were required).
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get updateCompletePendingFlag():Boolean
     {
@@ -683,6 +707,10 @@ public class FlexNativeMenu extends EventDispatcher implements
       *  Any changes made directly to the underlying NativeMenu instance
       *  may be lost when changes are made to the menu or the underlying
       *  data provider.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
       */
     public function get nativeMenu() : NativeMenu
     {
@@ -730,6 +758,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *
      *  <p>The default value is an internal instance of the
      *  DefaultDataDescriptor class.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataDescriptor():IMenuDataDescriptor
     {
@@ -783,6 +815,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  </ul>
      *
      *  @default "undefined"
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataProvider():Object
     {
@@ -868,6 +904,10 @@ public class FlexNativeMenu extends EventDispatcher implements
 
     /**
      *  @copy mx.controls.Menu#hasRoot
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get hasRoot():Boolean
     {
@@ -901,6 +941,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *
      *  @default "keyEquivalent"
      *  @see flash.ui.Keyboard
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get keyEquivalentField():String
     {
@@ -952,6 +996,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *
      *  @default "undefined"
      *  @see flash.ui.Keyboard
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get keyEquivalentFunction():Function
     {
@@ -1053,6 +1101,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  <pre><code>myKeyEquivalentModifiersFunction(item:Object):Array</code></pre>
      *
      *  @default "undefined"
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get keyEquivalentModifiersFunction():Function
     {
@@ -1114,6 +1166,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  <p>Setting the <code>labelFunction</code> property causes this property to be ignored.</p>
      *
      *  @default "label"
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelField():String
     {
@@ -1167,6 +1223,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  <pre><code>myLabelFunction(item:Object):String</code></pre>
      *
      *  @default "undefined"
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelFunction():Function
     {
@@ -1220,6 +1280,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @default "mnemonicIndex"
      *
      *  @see #labelField
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get mnemonicIndexField():String
     {
@@ -1275,6 +1339,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  <pre><code>myMnemonicIndexFunction(item:Object):int</code></pre>
      *
      *  @default "undefined"
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get mnemonicIndexFunction():Function
     {
@@ -1327,6 +1395,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *
      *  @default true
      *  @see #hasRoot
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showRoot():Boolean
     {
@@ -1352,8 +1424,12 @@ public class FlexNativeMenu extends EventDispatcher implements
     //
     //--------------------------------------------------------------------------
        
-       /**
+    /**
      *  @copy mx.core.UIComponent#invalidateProperties()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function invalidateProperties():void
     {
@@ -1384,6 +1460,10 @@ public class FlexNativeMenu extends EventDispatcher implements
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function validateProperties():void
     {
@@ -1397,6 +1477,10 @@ public class FlexNativeMenu extends EventDispatcher implements
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function validateSize(recursive:Boolean = false):void
     {
@@ -1404,6 +1488,10 @@ public class FlexNativeMenu extends EventDispatcher implements
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function validateDisplayList():void
     {
@@ -1412,6 +1500,10 @@ public class FlexNativeMenu extends EventDispatcher implements
     /**
      *  Validates and updates the properties and layout of this object
      *  and redraws it, if necessary.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function validateNow():void
     {
@@ -1423,6 +1515,10 @@ public class FlexNativeMenu extends EventDispatcher implements
 
     /**
      *  Sets the context menu of the InteractiveObject to the underlying native menu.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setContextMenu(component:InteractiveObject):void
     {
@@ -1445,6 +1541,10 @@ public class FlexNativeMenu extends EventDispatcher implements
     /**
      *  Unsets the context menu of the InteractiveObject that has been set to
      *  the underlying native menu.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function unsetContextMenu(component:InteractiveObject):void
     {
@@ -1460,6 +1560,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  Processes the properties set on the component.
      *
      *  @see mx.core.UIComponent#commitProperties()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function commitProperties():void
     {
@@ -1521,6 +1625,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  Creates a menu and adds appropriate listeners
      *
      *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function createMenu():NativeMenu
     {
@@ -1647,6 +1755,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      * 
      *  @param y The number of vertical pixels, relative to the origin of stage, 
      *  at which to display this menu. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      public function display(stage:Stage, x:int, y:int):void
      {
@@ -1662,6 +1774,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @param data Object to be displayed.
      *
      *  @return The key equivalent based on the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function itemToKeyEquivalent(data:Object):String
     {
@@ -1716,7 +1832,11 @@ public class FlexNativeMenu extends EventDispatcher implements
      *
      *  @param data Object to be displayed.
      *
-     *  @return The array of key equivalent modifiers based on the data
+     *  @return The array of key equivalent modifiers based on the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function itemToKeyEquivalentModifiers(data:Object):Array
     {
@@ -1739,6 +1859,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @param data Object to be displayed.
      *
      *  @return The string to be displayed based on the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function itemToLabel(data:Object):String
     {
@@ -1797,6 +1921,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @param data Object to be displayed.
      *
      *  @return The mnemonic index based on the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function itemToMnemonicIndex(data:Object):int
     {
@@ -1849,6 +1977,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  Determines the actual label to be used for the NativeMenuItem
      *  by removing underscore characters and converting escaped underscore
      *  characters, if there are any.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function parseLabelToString(data:String):String
     {
@@ -1871,6 +2003,10 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  Extracts the mnemonic index from a label based on the presence of
      *  an underscore character. It finds the leading underscore character if
      *  there is one and uses that as the index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function parseLabelToMnemonicIndex(data:String):int
     {
@@ -1904,9 +2040,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function createAutomationIDPart(child:IAutomationObject):Object
     {
@@ -1919,9 +2054,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createAutomationIDPartWithRequiredProperties(child:IAutomationObject, 
                                                                  properties:Array):Object
@@ -1935,9 +2069,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function resolveAutomationIDPart(criteria:Object):Array
     {
@@ -1950,9 +2083,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function getAutomationChildAt(index:int):IAutomationObject
     {
@@ -1965,9 +2097,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getAutomationChildren():Array
     {
@@ -1980,9 +2111,8 @@ public class FlexNativeMenu extends EventDispatcher implements
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public function replayAutomatableEvent(event:Event):Boolean
     {
