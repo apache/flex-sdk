@@ -2341,7 +2341,12 @@ public class Window extends LayoutContainer implements IWindow
             // Work around an AIR issue setting the stageHeight to zero when 
             // using system chrome. The set of the stage.stageHeight property
             // is rejected unless the nativeWindow is first set to the proper height. 
-            if (_bounds.height == 0 && systemChrome == NativeWindowSystemChrome.STANDARD)
+            // Don't perform this workaround if the window has zero height due 
+            // to being minimized. Setting the nativeWindow height to non-zero 
+            // causes AIR to restore the window.
+            if (_bounds.height == 0 && 
+                nativeWindow.displayState != NativeWindowDisplayState.MINIMIZED &&
+                systemChrome == NativeWindowSystemChrome.STANDARD)
                 nativeWindow.height = chromeHeight() + _bounds.height;
 
             // We use temporary variables because when we set stageWidth or 
