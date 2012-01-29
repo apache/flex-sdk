@@ -1947,8 +1947,9 @@ public class Window extends LayoutContainer implements IWindow
 			var sm:WindowedSystemManager = new WindowedSystemManager(this);
 			_nativeWindow.stage.addChild(sm);
 	    	systemManager = sm;
-	    	sm.$addChild(this);
+	    	
 	    	sm.window = this;
+	    	
 	    	_nativeWindow.alwaysInFront = _alwaysInFront;
 	    	initManagers(sm);
 	     	addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
