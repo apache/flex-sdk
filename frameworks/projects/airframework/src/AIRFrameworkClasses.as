@@ -31,6 +31,7 @@ internal class AIRFrameworkClasses
     import mx.skins.halo.WindowMaximizeButtonSkin; WindowMaximizeButtonSkin;
     import mx.skins.halo.WindowRestoreButtonSkin; WindowRestoreButtonSkin;
     import spark.skins.default.CloseButtonSkin; CloseButtonSkin;
+    import spark.skins.default.FlexChromeSkin; FlexChromeSkin;
     import spark.skins.default.GripperSkin; GripperSkin;
     import spark.skins.default.MacCloseButtonSkin; MacCloseButtonSkin;
     import spark.skins.default.MacMaximizeButtonSkin; MacMaximizeButtonSkin;
