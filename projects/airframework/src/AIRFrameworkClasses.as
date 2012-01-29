@@ -20,7 +20,8 @@ package
  */
 internal class AIRFrameworkClasses
 {
-    import mx.core.FxWindowedApplication; FxWindowedApplication;
+    
+    
     import mx.managers.NativeDragManagerImpl; NativeDragManagerImpl;
     import mx.skins.halo.StatusBarBackgroundSkin; StatusBarBackgroundSkin;
     import mx.skins.halo.WindowBackground; WindowBackground
@@ -29,17 +30,17 @@ internal class AIRFrameworkClasses
     import mx.skins.halo.WindowMinimizeButtonSkin; WindowMinimizeButtonSkin;
     import mx.skins.halo.WindowMaximizeButtonSkin; WindowMaximizeButtonSkin;
     import mx.skins.halo.WindowRestoreButtonSkin; WindowRestoreButtonSkin;
-    import mx.skins.spark.FxCloseButtonSkin; FxCloseButtonSkin;
-    import mx.skins.spark.FxGripperSkin; FxGripperSkin;
-    import mx.skins.spark.FxMacCloseButtonSkin; FxMacCloseButtonSkin;
-    import mx.skins.spark.FxMacMaximizeButtonSkin; FxMacMaximizeButtonSkin;
-    import mx.skins.spark.FxMacMinimizeButtonSkin; FxMacMinimizeButtonSkin;
-    import mx.skins.spark.FxMaximizeButtonSkin; FxMaximizeButtonSkin;
-    import mx.skins.spark.FxMinimizeButtonSkin; FxMinimizeButtonSkin;
-    import mx.skins.spark.FxRestoreButtonSkin; FxRestoreButtonSkin;
-    import mx.skins.spark.FxTitleBarSkin; FxTitleBarSkin;
-    import mx.skins.spark.FxWindowedApplicationSkin; FxWindowedApplicationSkin;
-
+    import spark.skins.default.CloseButtonSkin; CloseButtonSkin;
+    import spark.skins.default.GripperSkin; GripperSkin;
+    import spark.skins.default.MacCloseButtonSkin; MacCloseButtonSkin;
+    import spark.skins.default.MacMaximizeButtonSkin; MacMaximizeButtonSkin;
+    import spark.skins.default.MacMinimizeButtonSkin; MacMinimizeButtonSkin;
+    import spark.skins.default.MaximizeButtonSkin; MaximizeButtonSkin;
+    import spark.skins.default.MinimizeButtonSkin; MinimizeButtonSkin;
+    import spark.skins.default.RestoreButtonSkin; RestoreButtonSkin;
+    import spark.skins.default.TitleBarSkin; TitleBarSkin;
+    import spark.skins.default.WindowedApplicationSkin; WindowedApplicationSkin;
+    import spark.components.windowClasses.WindowedApplication; WindowedApplication;
 }
 
 }
