@@ -1182,6 +1182,8 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 			if (systemManager is InteractiveObject)
         		InteractiveObject(systemManager).contextMenu = nativeMenu;
 		}
+		
+		component.dispatchEvent(new Event("flexContextMenuChanged"));
 	}
 	
 	/**
@@ -1191,6 +1193,8 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 	public function unsetContextMenu(component:InteractiveObject):void
 	{
 		component.contextMenu = null;
+		
+		component.dispatchEvent(new Event("flexContextMenuChanged"));
 	}
 
     /**
