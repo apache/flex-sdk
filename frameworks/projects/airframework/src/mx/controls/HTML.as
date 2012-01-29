@@ -47,7 +47,7 @@ import mx.managers.IFocusManagerComponent;
  *  property has completed.
  *
  *  <p>This event is always dispatched asynchronously,
- *  after the JavaScript <code>"load"</code> event
+ *  after the JavaScript <code>load</code> event
  *  has been dispatched in the HTML DOM.</p>
  *
  *  <p>An event handler for this event may call any method
@@ -76,7 +76,7 @@ import mx.managers.IFocusManagerComponent;
  *  <p>A handler for this event should not set any properties
  *  or call any methods which start another loading operation
  *  or which affect the URL for the current loading operation;
- *  doing so will cause either an ActionScript or a JavaScript exception.</p>
+ *  doing so causes either an ActionScript or a JavaScript exception.</p>
  *
  *  @eventType flash.events.Event.HTML_DOM_INITIALIZE
  *  @see location
@@ -88,9 +88,9 @@ import mx.managers.IFocusManagerComponent;
  *  Dispatched when this control's HTML content initially renders,
  *  and each time that it re-renders.
  *
- *  <p>An HTML control can dispatch many of these events,
- *  so minimize the amount of work you do
- *  in a <code>"render"</code> handler.</p>
+ *  <p>Because an HTML control can dispatch many of these events,
+ *  you should avoid significant processing in a <code>render</code>
+ *  handler that might negatively impact performance.</p>
  *
  *  @eventType flash.events.Event.HTML_RENDER
  */
@@ -165,9 +165,12 @@ import mx.managers.IFocusManagerComponent;
 /**
  *  The HTML control lets you display HTML content in your application.
  *
- *  <p>You can use the <code>location</code> property to specify the URL
- *  of an HTML page or the <code>htmlText</code> property to specify a String
- *  containing HTML-formatted text.</p>
+ *  <p>You use the <code>location</code> property to specify the URL
+ *  of an HTML page whose content is displayed in the control, or you
+ *  can set the <code>htmlText</code> property to specify a String
+ *  containing HTML-formatted text that is rendered in the control.</p>
+ *
+ *  @see flash.html.HTMLLoader
  */
  public class HTML extends ScrollControlBase
     implements IDataRenderer, IDropInListItemRenderer,
@@ -212,46 +215,46 @@ import mx.managers.IFocusManagerComponent;
      *
      *  <table class="innertable">
      *    <tr>
-     *      <th>PDFCapability constant</th>
-     *      <th>Meaning</th>
+     *     <th>PDFCapability constant</th>
+     *     <th>Meaning</th>
      *    </tr>
      *    <tr>
-     *      <td><code>STATUS_OK</code></td>
-     *      <td>A sufficient version (8.1 or later) of Acrobat Reader
-     *          is detected and PDF content can be loaded in an HTML object.
-     *      <p><em>Note:</em> On Windows, if a Acrobat Acrobat
-     *          or Acrobat Reader version 7.x or above
-     *      is currently running on the user's system,
-     *          that version is used even if a later version
-     *      that supports loading PDF loaded in an HTML object is installed.
-     *          In this case, if the the value of the
-     *          <code>pdfCampability</code> property is
-     *      <code>PDFCapability.STATUS_OK</code>,
-     *          when an AIR application attempts to load PDF content
+     *     <td><code>STATUS_OK</code></td>
+     *     <td>A sufficient version (8.1 or later) of Acrobat Reader
+     *         is detected and PDF content can be loaded in an HTML object.
+     *       <p><em>Note:</em> On Windows, if a Acrobat Acrobat
+     *         or Acrobat Reader version 7.x or above
+     *       is currently running on the user's system,
+     *         that version is used even if a later version
+     *       that supports loading PDF loaded in an HTML object is installed.
+     *         In this case, if the the value of the
+     *         <code>pdfCampability</code> property is
+     *       <code>PDFCapability.STATUS_OK</code>,
+     *         when an AIR application attempts to load PDF content
      *      into an HTML object, the older version of Acrobat or Reader
-     *          displays an alert, without an error message displayed the AIR runtime.
-     *          If this is a possible situation for your end users,
-     *          you may consider providing them with instructions to close Acrobat
+     *         displays an alert, without an error message displayed the AIR runtime.
+     *         If this is a possible situation for your end users,
+     *         you may consider providing them with instructions to close Acrobat
      *      while running your application.
-     *          You may consider displaying these instructions if the PDF
+     *         You may consider displaying these instructions if the PDF
      *      content does not load within an acceptable timeframe.</p></td>
      *    </tr>
      *    <tr>
-     *      <td><code>ERROR_INSTALLED_READER_NOT_FOUND</code></td>
-     *      <td>No version of Acrobat Reader is detected.
-     *          An HTML object cannot display PDF content.</td>
+     *     <td><code>ERROR_INSTALLED_READER_NOT_FOUND</code></td>
+     *     <td>No version of Acrobat Reader is detected.
+     *         An HTML object cannot display PDF content.</td>
      *    </tr>
      *    <tr>
-     *      <td><code>ERROR_INSTALLED_READER_TOO_OLD</code></td>
-     *      <td>Acrobat Reader has been detected, but the version is too old.
-     *          An HTML object cannot display PDF content.</td>
+     *     <td><code>ERROR_INSTALLED_READER_TOO_OLD</code></td>
+     *     <td>Acrobat Reader has been detected, but the version is too old.
+     *         An HTML object cannot display PDF content.</td>
      *    </tr>
      *    <tr>
-     *      <td><code>ERROR_PREFERED_READER_TOO_OLD</code></td>
-     *      <td>A sufficient version (8.1 or later) of Acrobat Reader is detected,
-     *          but the the version of Acrobat Reader that is setup
-     *          to handle PDF content is older than Reader 8.1.
-     *          An HTML object cannot display PDF content.</td>
+     *     <td><code>ERROR_PREFERED_READER_TOO_OLD</code></td>
+     *     <td>A sufficient version (8.1 or later) of Acrobat Reader is detected,
+     *         but the the version of Acrobat Reader that is setup
+     *         to handle PDF content is older than Reader 8.1.
+     *         An HTML object cannot display PDF content.</td>
      *    </tr>
      *  </table>
      */
@@ -448,7 +451,7 @@ import mx.managers.IFocusManagerComponent;
      *  object of the HTML content.
      *  Entries less than the current position are the "back" list;
      *  entries greater are "forward."
-     *  Attempts to set the position beyond the end will set it to the end.</p>
+     *  Attempting to set the position beyond the end sets it to the end.</p>
      */
     public function get historyPosition():int
     {
@@ -675,17 +678,17 @@ import mx.managers.IFocusManagerComponent;
     //----------------------------------
 
     /**
-     *  A flag which indicates whether the JavaScript <code>"load"</code> event
+     *  A flag which indicates whether the JavaScript <code>load</code> event
      *  corresponding to the previous loading operation
      *  has been delivered to the HTML DOM in this control.
      *
-     *  <p>This property will be <code>true</code>
-     *  before the <code>"complete"</code> event is dispatched.</p>
+     *  <p>This property is <code>true</code>
+     *  before the <code>complete</code> event is dispatched.</p>
      *
      *  <p>It is possible that this property
-     *  will never become <code>true</code>.
+     *  never becomes <code>true</code>.
      *  This happens in the same cases
-     *  in which the <code>"complete"</code> event is never dispatched.</p>
+     *  in which the <code>complete</code> event is never dispatched.</p>
      *
      *  @default false
      */
@@ -776,7 +779,7 @@ import mx.managers.IFocusManagerComponent;
      *
      *  <p>However, if any HTML element has its own opaque background color
      *  (specified by style="background-color:gray", for instance),
-     *  then that background will appear behind that element.</p>
+     *  then that background appears behind that element.</p>
      */
     public function get paintsDefaultBackground():Boolean
     {
@@ -815,7 +818,7 @@ import mx.managers.IFocusManagerComponent;
      *
      *  <p>If this property is <code>null</code>, or if it specifies
      *  an ApplicationDomain from a different security domain
-     *  than the HTML content, the HTML page will use a default
+     *  than the HTML content, the HTML page uses a default
      *  <code>ApplicationDomain</code> for the page's domain.</p>
      *
      *  @default null
@@ -1128,8 +1131,6 @@ import mx.managers.IFocusManagerComponent;
      *  <p>This method is equivalent to calling the <code>go()</code> method
      *  of the <code>window.history</code> property in JavaScript
      *  in the HTML content.</p>
-     *
-     *  <p>This function throws no errors.</p>
      *
      *  <p>This method does nothing if it is called before this component's
      *  internal HTMLLoader (the <code>htmlLoader</code> property) has been created.</p>
