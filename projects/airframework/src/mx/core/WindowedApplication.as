@@ -2891,14 +2891,22 @@ public class WindowedApplication extends Application implements IWindow
      */
     private function window_resizeHandler(event:NativeWindowBoundsEvent):void
     {
-        windowBoundsChanged= true;
-        invalidateProperties();
-        invalidateViewMetricsAndPadding();
-        invalidateDisplayList();
-        validateNow();
+        // Only validateNow if we don't already have a window bounds
+	// update pending. Otherwise, we'll miss a chance to layout with
+        // the modified bounds.  ** We really should revisit why we call
+        // validateNow here to begin with **.
+        if (!windowBoundsChanged)
+        {
+            windowBoundsChanged= true;
+            invalidateProperties();
+            invalidateViewMetricsAndPadding();
+            invalidateDisplayList();
+            validateNow();
+        }
+        
         var e:FlexNativeWindowBoundsEvent =
                 new FlexNativeWindowBoundsEvent(FlexNativeWindowBoundsEvent.WINDOW_RESIZE, event.bubbles, event.cancelable,
-                    event.beforeBounds, event.afterBounds);
+                event.beforeBounds, event.afterBounds);
         dispatchEvent(e);
      }
 
