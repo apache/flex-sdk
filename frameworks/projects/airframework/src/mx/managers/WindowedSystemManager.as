@@ -46,6 +46,7 @@ import mx.core.IUIComponent;
 import mx.core.Singleton;
 import mx.core.IWindow;
 import mx.core.mx_internal;
+import mx.events.SandboxMouseEvent;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.events.EventListenerRequest;
@@ -54,7 +55,6 @@ import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.utils.NameUtil;
 import mx.utils.ObjectUtil;
-
 
 use namespace mx_internal;
 
@@ -176,7 +176,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 	 */
 	private var mouseCatcher:Sprite;
 	
-    
     //----------------------------------
     //  applicationIndex
     //----------------------------------
@@ -1517,9 +1516,57 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 											  priority:int = 0,
 											  useWeakReference:Boolean = false):void
 	{
-		if (!dispatchEvent(new EventListenerRequest(EventListenerRequest.ADD_EVENT_LISTENER_REQUEST, false, true,
-						type, listener, useCapture, priority, useWeakReference)))
-			return;
+		if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN 
+				|| type == Event.ACTIVATE || type == Event.DEACTIVATE)
+		{
+			// also listen to stage if allowed
+			try
+			{
+				if (stage)
+				{
+                    // Use weak listener because we don't always know when we
+                    // no longer need this listener
+					stage.addEventListener(type, stageEventHandler, false, 0, true);
+				}
+			}
+			catch (error:SecurityError)
+			{
+			}
+		}
+
+        if (hasEventListener("addEventListener"))
+        {
+            var request:DynamicEvent = new DynamicEvent("addEventListener", false, true);
+            request.eventType = type;
+            request.listener = listener;
+            request.useCapture = useCapture;
+            request.priority = priority;
+            request.useWeakReference = useWeakReference;
+		    if (!dispatchEvent(request))
+			    return;
+        }
+
+        if (type == SandboxMouseEvent.MOUSE_UP_SOMEWHERE)
+        {
+            // If someone wants this event, also listen for mouseLeave.
+            // Use weak listener because we don't always know when we
+            // no longer need this listener
+            try
+            {
+			    if (stage)
+			    {
+				    stage.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler, false, 0, true);
+                }
+                else
+                {
+					super.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler, false, 0, true);
+                }
+			}
+			catch (error:SecurityError)
+			{
+				super.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler, false, 0, true);
+			}
+        }
 		
 		// These two events will dispatched to applications in sandboxes.
 		if (type == FlexEvent.RENDER || type == FlexEvent.ENTER_FRAME)
@@ -1565,9 +1612,15 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 	override public function removeEventListener(type:String, listener:Function,
 												 useCapture:Boolean = false):void
 	{
-		if (!dispatchEvent(new EventListenerRequest(EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST, false, true,
-						type, listener, useCapture)))
-			return;
+        if (hasEventListener("removeEventListener"))
+        {
+            var request:DynamicEvent = new DynamicEvent("removeEventListener", false, true);
+            request.eventType = type;
+            request.listener = listener;
+            request.useCapture = useCapture;
+		    if (!dispatchEvent(request))
+			    return;
+        }
 
 		// These two events will dispatched to applications in sandboxes.
 		if (type == FlexEvent.RENDER || type == FlexEvent.ENTER_FRAME)
@@ -1579,22 +1632,60 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 				
 			try
 			{
-			    // Remove both listeners in case the system manager was added
-			    // or removed from the stage after the listener was added.
 				if (stage)
 					stage.removeEventListener(type, listener, useCapture);
-
-					super.removeEventListener(type, listener, useCapture);
             }
             catch (error:SecurityError)
             {
-                super.removeEventListener(type, listener, useCapture);
             }
+			// Remove both listeners in case the system manager was added
+			// or removed from the stage after the listener was added.
+            super.removeEventListener(type, listener, useCapture);
         
             return;
         }
 
         super.removeEventListener(type, listener, useCapture);
+
+		if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN 
+				|| type == Event.ACTIVATE || type == Event.DEACTIVATE)
+		{
+            if (!hasEventListener(type))
+            {
+			    // also listen to stage if allowed
+			    try
+			    {
+				    if (stage)
+				    {
+					    stage.removeEventListener(type, stageEventHandler, false);
+				    }
+			    }
+			    catch (error:SecurityError)
+			    {
+			    }
+            }
+		}
+
+        if (type == SandboxMouseEvent.MOUSE_UP_SOMEWHERE)
+        {
+            if (!hasEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE))
+            {
+                // nobody wants this event any more for now
+                try
+                {
+			        if (stage)
+			        {
+				        stage.removeEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
+                    }
+			    }
+			    catch (error:SecurityError)
+			    {
+			    }
+			    // Remove both listeners in case the system manager was added
+			    // or removed from the stage after the listener was added.
+			    super.removeEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
+            }
+        }
 	}
 
     //--------------------------------------------------------------------------
@@ -2028,6 +2119,25 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
     {
         myWindow = win;
         myWindow.nativeWindow.addEventListener(Event.CLOSE, cleanup);
+    }
+
+    /**
+     *  @private
+     *  dispatch certain stage events from sandbox root
+     */
+    private function stageEventHandler(event:Event):void
+    {
+        if (event.target is Stage)
+            dispatchEvent(event);
+    }
+
+    /**
+     *  @private
+     *  convert MOUSE_LEAVE to MOUSE_UP_SOMEWHERE
+     */
+    private function mouseLeaveHandler(event:Event):void
+    {
+        dispatchEvent(new SandboxMouseEvent(SandboxMouseEvent.MOUSE_UP_SOMEWHERE));
     }
 }
 }
