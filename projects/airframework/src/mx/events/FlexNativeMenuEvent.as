@@ -17,8 +17,8 @@ import flash.display.NativeMenuItem;
 import flash.events.Event;
 
 /**
- *  The FlexNativeMenuEvent class represents events that are associated with menu 
- *  activities in FlexNativeMenu. 
+ *  The FlexNativeMenuEvent class represents events that are associated with menu
+ *  activities in FlexNativeMenu.
  *
  *  @see mx.controls.FlexNativeMenu
  */
@@ -87,20 +87,20 @@ public class FlexNativeMenuEvent extends Event
      *       <code>myButton.addEventListener()</code> to register an event listener,
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
      *     <tr><td><code>index</code></td>
-     *         <td>The index in the menu of the selected menu item.</td></tr>
+     *         <td>-1. This property is not set for this type of event.</td></tr>
      *     <tr><td><code>item</code></td>
-     *         <td>The item in the dataProvider that was selected.</td></tr>
+     *         <td>null. This property is not set for this type of event.</td></tr>
      *     <tr><td><code>label</code></td>
-     *         <td>The label text of the selected menu item.</td></tr>
+     *         <td>null. This property is not set for this type of event.</td></tr>
      *     <tr><td><code>nativeMenu</code></td>
      *          <td>The specific NativeMenu instance associated with this event.</td></tr>
      *     <tr><td><code>nativeMenuItem</code></td>
-     *          <td>The specific NativeMenuItem instance associated with this event.</td></tr>
+     *          <td>null. This property is not set for this type of event.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the
      *             event; it is not always the Object listening for the event.
      *             Use the <code>currentTarget</code> property to always access the
      *             Object listening for the event.</td></tr>
-     *     <tr><td><code>type</code></td><td>FlexNativeMenuEvent.ITEM_CLICK</td></tr>
+     *     <tr><td><code>type</code></td><td>FlexNativeMenuEvent.MENU_SHOW</td></tr>
      *  </table>
      *
      *  @eventType menuShow
@@ -115,8 +115,8 @@ public class FlexNativeMenuEvent extends Event
 
     /**
      *  Constructor.
-     * 
-     *  Normally called by the FlexNativeMenu object. 
+     *
+     *  Normally called by the FlexNativeMenu object.
      *
      *  @param type The event type; indicates the action that caused the event.
      *
@@ -127,17 +127,17 @@ public class FlexNativeMenuEvent extends Event
      *  associated with the event can be prevented.
      *
      *  @param nativeMenu The specific NativeMenu instance associated with the event.
-     * 
+     *
      *  @param nativeMenuItem The specific NativeMenuItem instance associated with the event.
      *
      *  @param item The item in the dataProvider of the associated menu item.
-     * 
+     *
      *  @param label The label text of the associated menu item.
-     * 
-     *  @param index The index in the menu of the associated menu item. 
+     *
+     *  @param index The index in the menu of the associated menu item.
      */
     public function FlexNativeMenuEvent(type:String, bubbles:Boolean = false,
-                              cancelable:Boolean = true, nativeMenu:NativeMenu = null, 
+                              cancelable:Boolean = true, nativeMenu:NativeMenu = null,
                               nativeMenuItem:NativeMenuItem = null, item:Object = null,
                               label:String = null, index:int = -1)
     {
@@ -149,7 +149,7 @@ public class FlexNativeMenuEvent extends Event
         this.label = label;
         this.index = index;
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -161,17 +161,17 @@ public class FlexNativeMenuEvent extends Event
     //----------------------------------
 
     /**
-     *  The index of the associated menu item within its parent menu or submenu. 
+     *  The index of the associated menu item within its parent menu or submenu.
      *  This is -1 for events that aren't associated with an individual item.
      */
     public var index:int;
-    
+
     //----------------------------------
     //  item
     //----------------------------------
 
     /**
-     *  The specific item in the dataProvider. 
+     *  The specific item in the dataProvider.
      *  This is null for events that aren't associated with an individual item.
      */
     public var item:Object;
@@ -195,14 +195,14 @@ public class FlexNativeMenuEvent extends Event
      *  such as the menu displayed.
      */
     public var nativeMenu:NativeMenu;
-    
+
     //----------------------------------
     //  nativeMenuItem
     //----------------------------------
 
     /**
      *  The specific NativeMenuItem instance associated with the event,
-     *  such as the item clicked.  This is null for events that aren't 
+     *  such as the item clicked.  This is null for events that aren't
      *  associated with an individual item.
      */
     public var nativeMenuItem:NativeMenuItem;
