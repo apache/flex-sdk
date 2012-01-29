@@ -1180,7 +1180,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
             if (sm.topLevelSystemManager)
                 sm = ISystemManager(sm.topLevelSystemManager);
             var parent:DisplayObject = DisplayObject(sm).parent;
-            var lastParent:DisplayObject = parent;
+            var lastParent:DisplayObject = DisplayObject(sm);
             while (parent)
             {
                 if (parent is Stage)
