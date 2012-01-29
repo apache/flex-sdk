@@ -24,7 +24,7 @@
 	<target name="clean">
 		<delete failonerror="false">
 			<fileset file="${basedir}/bundles.properties"/>
-			<fileset dir="${FLEX_HOME}/frameworks/libs">
+			<fileset dir="${FLEX_HOME}/frameworks/libs/air">
 				<include name="airframework.swc"/>
 				<include name="airframework.swc.incr"/>
 			</fileset>
@@ -32,11 +32,17 @@
 				<include name="*/airframework_rb.swc"/>
 				<include name="*/airframework_rb.swc.incr"/>
 			</fileset>
+			<!-- airframework.swc was mistakenly being compiled into this directory for awhile. -->
+			<!-- This can eventually be removed. -->
+			<fileset dir="${FLEX_HOME}/frameworks/libs">
+				<include name="airframework.swc"/>
+				<include name="airframework.swc.incr"/>
+			</fileset>
 		</delete>
 	</target>
 
 	<target name="compile" description="Compiles airframework.swc">
-		<echo message="Compiling frameworks/libs/airframework.swc"/>
+		<echo message="Compiling frameworks/libs/air/airframework.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -54,7 +60,7 @@
 			into the file bundles.properties in this directory.
 		-->
 		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/libs/airframework.swc"
+			   output="${FLEX_HOME}/frameworks/libs/air/airframework.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
