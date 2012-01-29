@@ -239,7 +239,7 @@ use namespace mx_internal;
  *
  *  @see flash.filesystem.File
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public class FileSystemList extends List
 {
