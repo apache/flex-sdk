@@ -19,6 +19,7 @@ import flash.display.NativeWindow;
 import flash.display.NativeWindowDisplayState;
 import flash.display.NativeWindowInitOptions;
 import flash.display.NativeWindowResize;
+import flash.display.NativeWindowSystemChrome;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
@@ -884,7 +885,7 @@ public class Window extends LayoutContainer implements IWindow
      *  @private
      *  Storage for the maxHeight property.
      */
-    private var _maxHeight:Number = 10000;
+    private var _maxHeight:Number = 2880;
     
     /**
      *  @private
@@ -910,6 +911,8 @@ public class Window extends LayoutContainer implements IWindow
     /**
      *  Specifies the maximum height of the application's window.
      *  
+     *  @default dependent on the operating system and the AIR systemChrome setting. 
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
@@ -929,7 +932,7 @@ public class Window extends LayoutContainer implements IWindow
      *  @private
      *  Storage for the maxWidth property.
      */
-    private var _maxWidth:Number = 10000;
+    private var _maxWidth:Number = 2880;
     
     /**
      *  @private
@@ -955,6 +958,8 @@ public class Window extends LayoutContainer implements IWindow
     /**
      *  Specifies the maximum width of the application's window.
      *  
+     *  @default dependent on the operating system and the AIR systemChrome setting. 
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
@@ -987,6 +992,8 @@ public class Window extends LayoutContainer implements IWindow
 
     /**
      *  Specifies the minimum height of the application's window.
+     *  
+     *  @default dependent on the operating system and the AIR systemChrome setting. 
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
@@ -1032,6 +1039,8 @@ public class Window extends LayoutContainer implements IWindow
 
     /**
      *  Specifies the minimum width of the application's window.
+     *  
+     *  @default dependent on the operating system and the AIR systemChrome setting. 
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
@@ -1812,7 +1821,7 @@ public class Window extends LayoutContainer implements IWindow
      *  @private
      *  Storage for the systemChrome property.
      */
-    private var _systemChrome:String = "standard";
+    private var _systemChrome:String = NativeWindowSystemChrome.STANDARD;
     
     /**
      *  Specifies the type of system chrome (if any) the window has.
@@ -2323,6 +2332,12 @@ public class Window extends LayoutContainer implements IWindow
 
         if (boundsChanged)
         {
+            // Work around an AIR issue setting the stageHeight to zero when 
+            // using system chrome. The set of the stage.stageHeight property
+            // is rejected unless the nativeWindow is first set to the proper height. 
+            if (_bounds.height == 0 && systemChrome == NativeWindowSystemChrome.STANDARD)
+                nativeWindow.height = chromeHeight() + _bounds.height;
+
             // We use temporary variables because when we set stageWidth or 
             // stageHeight _bounds will be overwritten when we receive 
             // a RESIZE event.
