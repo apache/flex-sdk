@@ -61,7 +61,7 @@ public class ApplicationTitleBarBackgroundSkin extends ProgrammaticSkin
         
         var cornerRadius:Number = getStyle("cornerRadius");
         var titleBarColors:Array = getStyle("titleBarColors");
-        StyleManager.getColorNames(titleBarColors);
+        styleManager.getColorNames(titleBarColors);
         graphics.clear();
         drawRoundRect(
             0, 0, unscaledWidth, unscaledHeight, {tl: cornerRadius, 
