@@ -239,7 +239,6 @@ use namespace mx_internal;
  *
  *  @see flash.filesystem.File
  * 
- *  @playerversion AIR 1.1
  */
 public class FileSystemList extends List
 {
@@ -253,7 +252,7 @@ public class FileSystemList extends List
 
     /**
      *  A constant that can be used as a value for the <code>directory</code> property,
-	 *  representing a pseudo-top level directory named "Computer". This pseudo-directory
+     *  representing a pseudo-top level directory named "Computer". This pseudo-directory
      *  contains the root directories
      *  (such as C:\ and D:\ on Windows or / on Macintosh).
      */
@@ -337,10 +336,10 @@ public class FileSystemList extends List
      *      itemClick="fileSystemViewer.navigateBack(event.index);"/&gt;</pre>
      *
      *  @default []
-	 *
-	 *  @see #canNavigateBack
-	 *  @see #navigateBack()
-	 *  @see mx.controls.FileSystemHistoryButton
+     *
+     *  @see #canNavigateBack
+     *  @see #navigateBack()
+     *  @see mx.controls.FileSystemHistoryButton
      */
     public function get backHistory():Array
     {
@@ -370,9 +369,9 @@ public class FileSystemList extends List
      *      itemClick="fileSystemViewer.navigateBack(event.index);"/&gt;</pre>
      *
      *  @default false
-	 *
-	 *  @see #backHistory
-	 *  @see #navigateBack()
+     *
+     *  @see #backHistory
+     *  @see #navigateBack()
      */
     public function get canNavigateBack():Boolean
     {
@@ -402,8 +401,8 @@ public class FileSystemList extends List
      *      click="fileSystemViewer.navigateDown();"/&gt;</pre>
      *
      *  @default false
-	 *
-	 *  @see #navigateDown()
+     *
+     *  @see #navigateDown()
      */
     public function get canNavigateDown():Boolean
     {
@@ -433,9 +432,9 @@ public class FileSystemList extends List
      *      itemClick="fileSystemViewer.navigateForward(event.index);"/&gt;</pre>
      *
      *  @default false
-	 *
-	 *  @see #forwardHistory
-	 *  @see #navigateForward()
+     *
+     *  @see #forwardHistory
+     *  @see #navigateForward()
      */
     public function get canNavigateForward():Boolean
     {
@@ -467,8 +466,8 @@ public class FileSystemList extends List
      *      click="fileSystemViewer.navigateUp();"/&gt;</pre>
      *
      *  @default false
-	 *
-	 *  @see #navigateUp()
+     *
+     *  @see #navigateUp()
      */
     public function get canNavigateUp():Boolean
     {
@@ -707,10 +706,10 @@ public class FileSystemList extends List
      *      itemClick="fileSystemViewer.navigateForward(event.index);"/&gt;</pre>
      *
      *  @default []
-	 *
-	 *  @see #canNavigateForward
-	 *  @see #navigateForward()
-	 *  @see mx.controls.FileSystemHistoryButton
+     *
+     *  @see #canNavigateForward
+     *  @see #navigateForward()
+     *  @see mx.controls.FileSystemHistoryButton
      */
     public function get forwardHistory():Array
     {
@@ -1063,8 +1062,8 @@ public class FileSystemList extends List
      *  &lt;mx:Button label="Open"
      *      enabled="{fileSystemViewer.canNavigateDown}"
      *      click="fileSystemViewer.navigateDown();"/&gt;</pre>
-	 *
-	 *  @see #canNavigateDown
+     *
+     *  @see #canNavigateDown
      */
     public function navigateDown():void
     {
@@ -1094,8 +1093,8 @@ public class FileSystemList extends List
      *  &lt;mx:Button label="Up"
      *      enabled="{fileSystemViewer.canNavigateUp}"
      *      click="fileSystemViewer.navigateUp();"/&gt;</pre>
-	 *
-	 *  @see #canNavigateUp
+     *
+     *  @see #canNavigateUp
      */
     public function navigateUp():void
     {
@@ -1136,9 +1135,9 @@ public class FileSystemList extends List
      *  @param index The index in the <code>backHistory</code> array
      *  to navigate to.
      *  The default is 0, indicating the directory that is "closest back".
-	 *
-	 *  @see #backHistory
-	 *  @see #canNavigateBack
+     *
+     *  @see #backHistory
+     *  @see #canNavigateBack
      */
     public function navigateBack(index:int = 0):void
     {
@@ -1179,9 +1178,9 @@ public class FileSystemList extends List
      *  @param index The index in the <code>forwardHistory</code> array
      *  to navigate to.
      *  The default is 0, indicating the directory that is "closest forward".
-	 *
-	 *  @see #canNavigateForward
-	 *  @see #forwardHistory
+     *
+     *  @see #canNavigateForward
+     *  @see #forwardHistory
      */
     public function navigateForward(index:int = 0):void
     {
