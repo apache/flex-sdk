@@ -2202,5 +2202,20 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
     {
         dispatchEvent(new SandboxMouseEvent(SandboxMouseEvent.MOUSE_UP_SOMEWHERE));
     }
+
+    /**
+     *  Attempts to notify the parent SWFLoader that the
+     *  Application's size has may have changed.  Not needed
+     *  for WindowedSystemManager so does nothing
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function invalidateParentSizeAndDisplayList():void
+    {
+    }
+
 }
 }
