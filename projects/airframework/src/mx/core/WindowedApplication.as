@@ -71,6 +71,29 @@ use namespace mx_internal;
 [Event(name="applicationDeactivate", type="mx.events.AIREvent")]
 
 /**
+ *  Dispatched after this application window has been activated.
+ *
+ *  @eventType mx.events.Event.ACTIVATE
+ */
+[Event(name="windowActivate", type="flash.events.Event")]
+
+/**
+ *  Dispatched after this application window has been deactivated.
+ *
+ *  @eventType mx.events.Event.DEACTIVATE
+ */
+[Event(name="windowDeactivate", type="flash.events.Event")]
+ 
+/**
+ *  Dispatched after this application window has been closed.
+ *
+ *  @eventType flash.events.Event.CLOSE
+ *
+ *  @see flash.display.NativeWindow
+ */
+[Event(name="close", type="flash.events.Event")]
+
+/**
  *  Dispatched before the WindowedApplication window closes.
  *  Cancelable.
  *
@@ -2578,7 +2601,20 @@ public class WindowedApplication extends Application implements IWindow
             window_displayStateChangeHandler)
         systemManager.stage.nativeWindow.addEventListener(
             "closing", window_closingHandler);
-
+        systemManager.stage.nativeWindow.addEventListener(
+            "close", window_closeHandler, false, 0, true);
+            
+        // For the edge case, e.g. visible is set to true in
+        // AIR xml file, we fabricate an activate event, since Flex 
+        // comes in late to the show.
+        if (systemManager.stage.nativeWindow.active) 
+            dispatchEvent(new Event("windowActivate"));
+                        
+        systemManager.stage.nativeWindow.addEventListener(
+            "activate", nativeWindow_activateHandler, false, 0, true);
+        systemManager.stage.nativeWindow.addEventListener(
+            "deactivate", nativeWindow_deactivateHandler, false, 0, true);
+                        
         systemManager.stage.nativeWindow.addEventListener(
             NativeWindowBoundsEvent.MOVING, window_boundsHandler);
 
@@ -2726,6 +2762,14 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  @private
      */
+    private function window_closeHandler(event:Event):void
+    {
+        dispatchEvent(new Event("close"));
+    }
+        
+    /**
+     *  @private
+     */
     private function window_resizeHandler(event:NativeWindowBoundsEvent):void
     {
         windowBoundsChanged= true;
@@ -2775,7 +2819,23 @@ public class WindowedApplication extends Application implements IWindow
     	else
     		dispatchEvent(event);
     }
+    
+    /**
+     * @private
+ 	 */
+ 	private function nativeWindow_activateHandler(event:Event):void
+ 	{
+ 		dispatchEvent(new Event("windowActivate"));
+ 	}
 
+ 	/**
+ 	 *  @private
+ 	 */
+ 	private function nativeWindow_deactivateHandler(event:Event):void
+ 	{
+ 		dispatchEvent(new Event("windowDeactivate"));
+ 	}
+ 	
     /**
      *  This is a temporary event handler which dispatches a initialLayoutComplete event after
      *  two updateCompletes. This event will only be dispatched after either setting the bounds or
