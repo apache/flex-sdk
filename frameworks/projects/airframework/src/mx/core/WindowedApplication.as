@@ -869,6 +869,7 @@ public class WindowedApplication extends Application implements IWindow
     }
 
     /**
+     *  @private
      *  Specifies the maximum height of the application's window.
      *  
      *  @default dependent on the operating system and the AIR systemChrome setting. 
@@ -916,6 +917,7 @@ public class WindowedApplication extends Application implements IWindow
     }
 
     /**
+     *  @private
      *  Specifies the maximum width of the application's window.
      *  
      *  @default dependent on the operating system and the AIR systemChrome setting. 
@@ -951,6 +953,7 @@ public class WindowedApplication extends Application implements IWindow
     [Bindable("windowComplete")]
 
     /**
+     *  @private
      *  Specifies the minimum height of the application's window.
      *  
      *  @default dependent on the operating system and the AIR systemChrome setting. 
@@ -998,6 +1001,7 @@ public class WindowedApplication extends Application implements IWindow
     [Bindable("windowComplete")]
 
     /**
+     *  @private
      *  Specifies the minimum width of the application's window.
      *  
      *  @default dependent on the operating system and the AIR systemChrome setting. 
