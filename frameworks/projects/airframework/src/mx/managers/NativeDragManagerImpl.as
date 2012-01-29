@@ -639,9 +639,14 @@ public class NativeDragManagerImpl implements IDragManager
             ctrlKey = event.commandKey;
         else
             ctrlKey = event.controlKey; 
+        
         //default to move if drag is from same app
-        if (NativeDragManager.dragInitiator != null)
-            flash.desktop.NativeDragManager.dropAction =  (ctrlKey || !_allowMove) ? DragManager.COPY : DragManager.MOVE;
+        if (NativeDragManager.dragInitiator && event.type == NativeDragEvent.NATIVE_DRAG_START)
+        {
+            flash.desktop.NativeDragManager.dropAction =  
+                (ctrlKey || !_allowMove) ? DragManager.COPY : DragManager.MOVE;
+        }
+            
         // Transfer clipboard data to dragSource    
         if (event.type != NativeDragEvent.NATIVE_DRAG_EXIT)
         {
