@@ -14,17 +14,15 @@ package mx.controls
 
 import flash.events.KeyboardEvent;
 import flash.filesystem.File;
-import mx.controls.DataGrid;
+
 import mx.controls.dataGridClasses.DataGridColumn;
 import mx.controls.fileSystemClasses.FileSystemControlHelper;
 import mx.core.ClassFactory;
-import mx.core.mx_internal;
+import mx.core.IUITextField;
 import mx.core.ScrollPolicy;
+import mx.core.mx_internal;
 import mx.events.ListEvent;
 import mx.formatters.DateFormatter;
-import mx.styles.CSSStyleDeclaration;
-import mx.styles.StyleManager;
-import mx.utils.DirectoryEnumeration;
 
 use namespace mx_internal;
 
@@ -1433,6 +1431,7 @@ import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.events.FlexEvent;
+import mx.core.IUITextField;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -1595,9 +1594,9 @@ class NameColumnRenderer extends UIComponent
     //----------------------------------
 
     /**
-     *  The internal UITextField that displays the text in this renderer.
+     *  The internal IUITextField that displays the text in this renderer.
      */
-    protected var label:UITextField;
+    protected var label:IUITextField;
 
     //----------------------------------
     //  listData
@@ -1647,9 +1646,9 @@ class NameColumnRenderer extends UIComponent
 
         if (!label)
         {
-            label = UITextField(createInFontContext(UITextField));
+            label = IUITextField(createInFontContext(UITextField));
             label.styleName = this;
-            addChild(label);
+            addChild(DisplayObject(label));
         }
     }
 
