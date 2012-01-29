@@ -57,7 +57,7 @@ use namespace mx_internal;
  *
  *  <p>This is a cancelable event.
  *  If you call <code>event.preventDefault()</code>,
- *  this control will continue to display the current directory
+ *  this control continues to display the current directory
  *  rather than changing to display the subdirectory which was
  *  double-clicked.</p>
  *
@@ -118,7 +118,7 @@ use namespace mx_internal;
  *  or clicks its disclosure icon,
  *  this control dispatches a <code>directoryClosing</code> event.
  *  A handler can cancel either event by calling
- *  <code>event.preventDefault()</code> in which case the node will not open.</p>
+ *  <code>event.preventDefault()</code> in which case the node doesn't open.</p>
  *
  *  <p>If the user double-clicks a file node,
  *  this control dispatches a <code>select</code> event.</p>
@@ -524,11 +524,11 @@ public class FileSystemTree extends Tree
      *  Re-enumerates the current directory being displayed by this control.
      *
      *  <p>When this method returns, the <code>directory</code> property
-     *  will contain the File instance for the same directory as before.
-     *  The <code>dataProvider</code> property will be temporarily
+     *  contains the File instance for the same directory as before.
+     *  The <code>dataProvider</code> property is temporarily
      *  <code>null</code> until the directory is re-enumerated.
      *  After the enumeration, the <code>dataProvider</code> property
-     *  will contain an ArrayCollection of File instances
+     *  contains an ArrayCollection of File instances
      *  for the directory's contents.</p>
      */
     public function refresh():void
@@ -558,7 +558,7 @@ public class FileSystemTree extends Tree
      *  an existing file system directory, or if that
      *  directory isn't within the directory that this control
      *  is displaying, then this method does nothing.</p>
-	 * 
+	 *
 	 *  @param file A String specifying the <code>nativePath</code>
      *  of a File item.
      */
@@ -626,7 +626,7 @@ public class FileSystemTree extends Tree
      *  <p>If the <code>nativePath</code> doesn't specify
      *  a directory being displayed within this control,
      *  then this method does nothing.</p>
-	 * 
+	 *
      *  @param file A String specifying the <code>nativePath</code>
      *  of a File item.
      */
