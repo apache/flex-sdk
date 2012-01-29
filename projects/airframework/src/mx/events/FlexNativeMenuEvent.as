@@ -22,6 +22,10 @@ import flash.events.Event;
  *
  *  @see mx.controls.FlexNativeMenu
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FlexNativeMenuEvent extends Event
 {
@@ -68,6 +72,10 @@ public class FlexNativeMenuEvent extends Event
      *  </table>
      *
      *  @eventType itemClick
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_CLICK:String = "itemClick";
 
@@ -105,6 +113,10 @@ public class FlexNativeMenuEvent extends Event
      *  </table>
      *
      *  @eventType menuShow
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const MENU_SHOW:String = "menuShow";
 
@@ -136,6 +148,10 @@ public class FlexNativeMenuEvent extends Event
      *  @param label The label text of the associated menu item.
      *
      *  @param index The index in the menu of the associated menu item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FlexNativeMenuEvent(type:String, bubbles:Boolean = false,
                               cancelable:Boolean = true, nativeMenu:NativeMenu = null,
@@ -164,6 +180,10 @@ public class FlexNativeMenuEvent extends Event
     /**
      *  The index of the associated menu item within its parent menu or submenu.
      *  This is -1 for events that aren't associated with an individual item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var index:int;
 
@@ -174,6 +194,10 @@ public class FlexNativeMenuEvent extends Event
     /**
      *  The specific item in the dataProvider.
      *  This is null for events that aren't associated with an individual item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var item:Object;
 
@@ -184,6 +208,10 @@ public class FlexNativeMenuEvent extends Event
     /**
      *  The label text of the associated menu item.
      *  This is null for events that aren't associated with an individual item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var label:String;
 
@@ -194,6 +222,10 @@ public class FlexNativeMenuEvent extends Event
     /**
      *  The specific NativeMenu instance associated with the event,
      *  such as the menu displayed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var nativeMenu:NativeMenu;
 
@@ -205,6 +237,10 @@ public class FlexNativeMenuEvent extends Event
      *  The specific NativeMenuItem instance associated with the event,
      *  such as the item clicked.  This is null for events that aren't
      *  associated with an individual item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var nativeMenuItem:NativeMenuItem;
 
