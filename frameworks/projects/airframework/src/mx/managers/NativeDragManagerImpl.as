@@ -293,7 +293,7 @@ public class NativeDragManagerImpl implements IDragManager
         {
             // No drag image specified, use default
             var dragManagerStyleDeclaration:CSSStyleDeclaration =
-                StyleManager.getStyleDeclaration("DragManager");
+                StyleManager.getStyleDeclaration("mx.managers.DragManager");
             var dragImageClass:Class =
                 dragManagerStyleDeclaration.getStyle("defaultDragImageSkin");
             dragImage = new dragImageClass();
