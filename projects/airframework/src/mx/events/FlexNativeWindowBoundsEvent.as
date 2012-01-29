@@ -23,6 +23,10 @@ import flash.events.NativeWindowBoundsEvent;
  *  @see mx.core.Window
  *  @see mx.core.WindowedApplication
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FlexNativeWindowBoundsEvent extends NativeWindowBoundsEvent
 {
@@ -52,6 +56,10 @@ public class FlexNativeWindowBoundsEvent extends NativeWindowBoundsEvent
      *  </table>
      *
      *  @eventType windowResize
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const WINDOW_RESIZE:String = "windowResize";
     
@@ -80,6 +88,10 @@ public class FlexNativeWindowBoundsEvent extends NativeWindowBoundsEvent
      *  </table>
      *
      *  @eventType windowMove
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const WINDOW_MOVE:String = "windowMove";
     
@@ -103,6 +115,10 @@ public class FlexNativeWindowBoundsEvent extends NativeWindowBoundsEvent
      *  @param beforeBounds The bounds of the window before the resize.
      *
      *  @param afterBounds The bounds of the window before the resize.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FlexNativeWindowBoundsEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false,
                     beforeBounds:Rectangle = null, afterBounds:Rectangle = null)
