@@ -1051,7 +1051,7 @@ public class WindowedApplication extends Application implements IWindow
     //----------------------------------
 
     /**
-     *  Whether the NativeWindow is maximizable.
+     *  Specifies whether the window can be maximized.
      */
     public function get maximizable():Boolean
     {
@@ -1066,7 +1066,7 @@ public class WindowedApplication extends Application implements IWindow
     //----------------------------------
 
     /**
-     *  Whether the underlying NativeWindow is minimizable.
+     *  Specifies whether the window can be minimized.
      */
     public function get minimizable():Boolean
     {
@@ -1131,7 +1131,7 @@ public class WindowedApplication extends Application implements IWindow
     //---------------------------------
 
     /**
-     *  Whether the NativeWindow is resizable.
+     *  Specifies whether the window can be resized.
      */
     public function get resizable():Boolean
     {
@@ -1406,7 +1406,9 @@ public class WindowedApplication extends Application implements IWindow
     //----------------------------------
 
     /**
-     *  What kind of system chrome (if any) the NativeWindow has.
+     *  Specifies the type of system chrome (if any) the window has.
+	 *  The set of possible values is defined by the constants
+	 *  in the NativeWindowSystemChrome class.
 	 *
 	 *  @see flash.display.NativeWindow#systemChrome
      */
@@ -1636,7 +1638,7 @@ public class WindowedApplication extends Application implements IWindow
     //----------------------------------
 
     /**
-     *  Whether the NativeWindow is transparent.
+     *  Specifies whether the window is transparent.
      */
     public function get transparent():Boolean
     {
@@ -1650,8 +1652,9 @@ public class WindowedApplication extends Application implements IWindow
     //----------------------------------
 
     /**
-     *  What type of NativeWindow the underlying NativeWindow is.
-     *  The values for this property are enumerated in the NativeWindowType class.
+     *  Specifies the type of NativeWindow that this component
+	 *  represents. The set of possible values is defined by the constants
+	 *  in the NativeWindowType class.
 	 *
 	 *  @see flash.display.NativeWindowType
      */
@@ -2126,7 +2129,7 @@ public class WindowedApplication extends Application implements IWindow
     }
 
     /**
-     *  Closes the application's NativeWindow. This action is cancelable.
+     *  Closes the application's NativeWindow (the initial native window opened by the application). This action is cancelable.
      */
     public function close():void
     {
@@ -2178,7 +2181,7 @@ public class WindowedApplication extends Application implements IWindow
     }
 
     /**
-     *  Maximizes the Application's window, or does nothing it if it's already maximized.
+     *  Maximizes the window, or does nothing if it's already maximized.
      */
     public function maximize():void
     {
@@ -2203,7 +2206,7 @@ public class WindowedApplication extends Application implements IWindow
     }
 
     /**
-     *  Minimizes the Application's window.
+     *  Minimizes the window.
      */
     public function minimize():void
     {
@@ -2220,7 +2223,7 @@ public class WindowedApplication extends Application implements IWindow
     }
 
     /**
-     *  Restores the application's NativeWindow (unmaximizes it if it's maximized, or
+     *  Restores the window (unmaximizes it if it's maximized, or
      *  unminimizes it if it's minimized).
      */
     public function restore():void
