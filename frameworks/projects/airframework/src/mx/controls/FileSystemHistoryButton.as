@@ -86,6 +86,21 @@ use namespace mx_internal;
  *  to these methods.
  *  For an <code>itemClick</code> event, pass <code>event.index</code>.</p>
  *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:FileSystemHistoryButton&gt;</code> tag inherits all of the tag
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:FileSystemHistoryButton
+ *    <strong>Properties</strong>
+ *    dataProvider="<i>undefined</i>"
+ * 
+ *    <strong>Events</strong>
+ *    itemClick="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
+ * 
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemDataGrid
  */
