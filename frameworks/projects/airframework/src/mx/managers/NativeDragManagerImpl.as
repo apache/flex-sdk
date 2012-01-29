@@ -42,7 +42,7 @@ use namespace mx_internal;
 /**
  *  @private
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public class NativeDragManagerImpl implements IDragManager
 {
