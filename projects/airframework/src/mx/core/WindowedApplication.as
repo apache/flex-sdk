@@ -504,6 +504,8 @@ use namespace mx_internal;
 
 [ResourceBundle("core")]
 
+[Alternative(replacement="spark.components.WindowedApplication", since="4.0")]
+
 /**
  *  The WindowedApplication defines the application container
  *  that you use to create Flex applications for AIR applications.
