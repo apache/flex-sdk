@@ -14,7 +14,7 @@ package mx.events
 {
 import flash.events.Event;
 
-import mx.core.Window;
+import mx.core.IWindow;
 
 [ExcludeClass]
 
@@ -119,7 +119,7 @@ public class WindowExistenceEvent extends Event
      *  @productversion Flex 3
      */
     public function WindowExistenceEvent(type:String, bubbles:Boolean = false,
-                                cancelable:Boolean = false, window:Window = null)
+                                cancelable:Boolean = false, window:IWindow = null)
     {
         super(type, bubbles, cancelable);
 
@@ -139,7 +139,7 @@ public class WindowExistenceEvent extends Event
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public var window:Window;
+    public var window:IWindow;
 
     //--------------------------------------------------------------------------
     //
