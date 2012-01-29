@@ -517,7 +517,7 @@ use namespace mx_internal;
  *  <p>A WindowedApplication is the top-level application of a Flex-based AIR application. It is not
  *  designed to be loaded by other Flex applications. If a WindowedApplication needs to load other
  *  applications, use the Application class as container for those applications. If other windows
- *  are required, use the Window class as a container for those windows.
+ *  are required, use the Window class as a container for those windows.</p>
  *  
  *  <p>Note that because
  *  the WindowedApplication only represents the visual content of a single window, and not
