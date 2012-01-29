@@ -203,7 +203,7 @@ package mx.controls
  *  <p>The <code>&lt;mx:FlexNativeMenu&gt</code> tag supports the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:MenuBar
+ *  &lt;mx:FlexNativeMenu
  *    <b>Properties</b>
  *    dataDescriptor="<i>mx.controls.treeClasses.DefaultDataDescriptor</i>"
  *    dataProvider="<i>undefined</i>"
