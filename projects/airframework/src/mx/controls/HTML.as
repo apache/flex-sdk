@@ -55,6 +55,7 @@ import mx.managers.IFocusManagerComponent;
  *  or its internal <code>htmlLoader</code>.</p>
  *
  *  @eventType flash.events.Event.COMPLETE
+ * 
  *  @see location
  *  @see htmlText
  */
@@ -79,6 +80,7 @@ import mx.managers.IFocusManagerComponent;
  *  doing so causes either an ActionScript or a JavaScript exception.</p>
  *
  *  @eventType flash.events.Event.HTML_DOM_INITIALIZE
+ * 
  *  @see location
  *  @see htmlText
  */
@@ -205,6 +207,8 @@ import mx.managers.IFocusManagerComponent;
  *  </pre>
  * 
  *  @see flash.html.HTMLLoader
+ * 
+ *  @productversion Apollo 1.0
  */
  public class HTML extends ScrollControlBase
     implements IDataRenderer, IDropInListItemRenderer,
