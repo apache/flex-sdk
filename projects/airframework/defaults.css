@@ -11,13 +11,52 @@
 ////////////////////////////////////////////////////////////////////////////////
 */
 
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/halo";
+
 /*
 //------------------------------
-//  FileSystemComboBox
+//  Spark TitleBar
 //------------------------------
 */
 
-FileSystemComboBox
+s|TitleBar
+{
+    skinClass: ClassReference("spark.skins.default.TitleBarSkin");
+}
+
+/*
+//------------------------------
+//  Spark WindowedApplication
+//------------------------------
+*/
+
+s|WindowedApplication
+{
+    skinClass: ClassReference("spark.skins.default.WindowedApplicationSkin");
+    backgroundColor: #FFFFFF;
+}
+
+/*
+//------------------------------
+//  Spark Window
+//------------------------------
+*/
+
+s|Window
+{
+    skinClass: ClassReference("spark.skins.default.WindowedApplicationSkin");
+    backgroundColor: #FFFFFF;
+}
+
+
+/*
+//------------------------------
+//  Halo FileSystemComboBox
+//------------------------------
+*/
+
+mx|FileSystemComboBox
 {
 	computerIcon: Embed(source="ComputerIcon.swf", symbol="ComputerIcon");
 	directoryIcon: Embed(source="Assets.swf", symbol="TreeFolderOpen");
@@ -25,11 +64,11 @@ FileSystemComboBox
 
 /*
 //------------------------------
-//  FileSystemDataGrid
+//  Halo FileSystemDataGrid
 //------------------------------
 */
 
-FileSystemDataGrid
+mx|FileSystemDataGrid
 {
 	directoryIcon: Embed(source="Assets.swf", symbol="TreeFolderClosed");
 	fileIcon: Embed(source="Assets.swf", symbol="TreeNodeIcon");
@@ -37,11 +76,11 @@ FileSystemDataGrid
 
 /*
 //------------------------------
-//  FileSystemList
+//  Halo FileSystemList
 //------------------------------
 */
 
-FileSystemList
+mx|FileSystemList
 {
 	directoryIcon: Embed(source="Assets.swf", symbol="TreeFolderClosed");
 	fileIcon: Embed(source="Assets.swf", symbol="TreeNodeIcon");
@@ -53,57 +92,12 @@ FileSystemList
 //------------------------------
 */
 
-FileSystemTree
+mx|FileSystemTree
 {
 	directoryIcon: Embed(source="Assets.swf", symbol="TreeFolderClosed");
 	fileIcon: Embed(source="Assets.swf", symbol="TreeNodeIcon");
 }
 
-/*
-//------------------------------
-//  FxStatusBar
-//------------------------------
-*/
-
-FxStatusBar
-{
-	skinClass: ClassReference("mx.skins.spark.FxStatusBarSkin");
-}
-
-/*
-//------------------------------
-//  FxTitleBar
-//------------------------------
-*/
-
-FxTitleBar
-{
-	skinClass: ClassReference("mx.skins.spark.FxTitleBarSkin");
-}
-
-/*
-//------------------------------
-//  FxWindowedApplication
-//------------------------------
-*/
-
-FxWindowedApplication
-{
-	skinClass: ClassReference("mx.skins.spark.FxWindowedApplicationSkin");
-	backgroundColor: #FFFFFF;
-}
-
-/*
-//------------------------------
-//  FxWindow
-//------------------------------
-*/
-
-FxWindow
-{
-	skinClass: ClassReference("mx.skins.spark.FxWindowedApplicationSkin");
-	backgroundColor: #FFFFFF;
-}
 
 /*
 //------------------------------
@@ -124,7 +118,7 @@ FxWindow
 //------------------------------
 */
 
-HTML
+mx|HTML
 {
 	backgroundColor: #FFFFFF;
 	borderStyle: "none";
@@ -217,7 +211,7 @@ HTML
 //------------------------------
 */
 
-Window
+mx|Window
 {
 	borderColor: #A6A6A6;
 	borderStyle: "solid";
@@ -252,7 +246,7 @@ Window
 //------------------------------
 */
 
-WindowedApplication
+mx|WindowedApplication
 {
 	borderColor: #A6A6A6;
 	borderStyle: "solid";
