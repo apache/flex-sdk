@@ -257,6 +257,8 @@ use namespace mx_internal;
  *  </pre>
  *
  *  @see flash.filesystem.File
+ * 
+ *  @productversion Apollo 1.0
  */
 public class FileSystemDataGrid extends DataGrid
 {
