@@ -33,8 +33,8 @@ s|TitleBar
 
 s|WindowedApplication
 {
+    resizeAffordanceWidth: 6;
     skinClass: ClassReference("spark.skins.spark.WindowedApplicationSkin");
-    backgroundColor: #FFFFFF;
 }
 
 /*
@@ -45,8 +45,8 @@ s|WindowedApplication
 
 s|Window
 {
+    resizeAffordanceWidth: 6;
     skinClass: ClassReference("spark.skins.spark.WindowedApplicationSkin");
-    backgroundColor: #FFFFFF;
 }
 
 /*
