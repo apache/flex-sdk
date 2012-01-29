@@ -62,6 +62,8 @@ use namespace mx_internal;
  *  manages tooltips, cursors, popups, and other content for the Window.</p>
  * 
  *  @see mx.managers.SystemManager
+ * 
+ *  @productversion Apollo 1.0
  */
 public class WindowedSystemManager extends MovieClip implements ISystemManager
 {
