@@ -29,6 +29,11 @@ use namespace mx_internal;
 
 /**
  *  The default status bar for a WindowedApplication or a Window.
+ * 
+ *  @see mx.core.Window
+ *  @see mx.core.WindowedApplication
+ * 
+ *  @productversion Apollo 1.0
  */
 public class StatusBar extends UIComponent
 {
