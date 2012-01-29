@@ -215,10 +215,10 @@ package mx.controls
  *    mnemonicIndexField="mnemonicIndex"
  *    mnemonicIndexFunction="<i>undefined</i>"
  *    showRoot="true"
- *
+ * 
  *    <b>Events</b>
- *    itemClick="<i>No default"</i>
- *    menuShow="<i>No default"</i>
+ *    itemClick="<i>No default</i>"
+ *    menuShow="<i>No default</i>"
  *  /&gt;
  *  </pre>
  *
