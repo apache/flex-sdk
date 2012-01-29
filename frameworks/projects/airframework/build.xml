@@ -134,8 +134,8 @@
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/${locale}"/>
 			<include-libraries/>
 			<library-path/>
-			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="player/playerglobal.swc"/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/9/playerglobal.swc"/>
 			</external-library-path>
 		</compc>
 	</target>
