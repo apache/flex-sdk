@@ -18,7 +18,8 @@ import mx.managers.IFocusManagerComplexComponent
 import mx.utils.NameUtil;
 
 /**
- *  FlexLoader is a subclass of the Player's Loader class.
+ *  FlexHTMLLoader is a subclass of the Player's HTMLLoader class used by the
+ *  Flex HTML control.
  *  It overrides the <code>toString()</code> method
  *  to return a string indicating the location of the object
  *  within the hierarchy of DisplayObjects in the application.
@@ -87,14 +88,14 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
 
     /**
      *  A flag that indicates whether the component can receive focus when selected.
-     * 
-     *  <p>As an optimization, if a child component in your component 
+     *
+     *  <p>As an optimization, if a child component in your component
      *  implements the IFocusManagerComponent interface, and you
      *  never want it to receive focus,
      *  you can set <code>focusEnabled</code>
      *  to <code>false</code> before calling <code>addChild()</code>
      *  on the child component.</p>
-     * 
+     *
      *  <p>This will cause the FocusManager to ignore this component
      *  and not monitor it for changes to the <code>tabEnabled</code>,
      *  <code>tabChildren</code>, and <code>mouseFocusEnabled</code> properties.
@@ -110,7 +111,7 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
     {
         return _focusEnabled;
     }
-    
+
     /**
      *  @private
      */
@@ -136,9 +137,9 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
     [Inspectable(defaultValue="true")]
 
     /**
-     *  Whether you can receive focus when clicked on.
+     *  Whether the component can receive focus when clicked on.
      *  If <code>false</code>, focus will be transferred to
-     *  the first parent that is <code>mouseFocusEnable</code> 
+     *  the first parent that is <code>mouseFocusEnable</code>
      *  set to <code>true</code>.
      *
      *  @default true
@@ -174,7 +175,7 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
 
     /**
      *  Called by the FocusManager when the component receives focus.
-     *  The component should draw or hide a graphic 
+     *  The component should draw or hide a graphic
      *  that indicates that the component has focus.
      *
      *  @param isFocused If <code>true</code>, draw the focus indicator,
@@ -187,9 +188,9 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
     /**
      *  Called by the FocusManager when the component receives focus.
      *  The component may in turn set focus to an internal component.
-     *  The components setFocus() method will still be called when focused by
+     *  The component's <code>setFocus()</code> method will still be called when focused by
      *  the mouse, but this method will be used when focus changes via the
-     *  keyboard
+     *  keyboard.
      *
      *  @param direction one of flash.display.FocusDirection
      */
@@ -211,9 +212,9 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
      *  is built by the <code>displayObjectToString()</code> method
      *  of the mx.utils.NameUtils class from the <code>name</code>
      *  property of the object and its ancestors.
-     *  
+     *
      *  @return A String indicating the location of this object
-     *  within the DisplayObject hierarchy. 
+     *  within the DisplayObject hierarchy.
      *
      *  @see flash.display.DisplayObject#name
      *  @see mx.utils.NameUtils#displayObjectToString()
