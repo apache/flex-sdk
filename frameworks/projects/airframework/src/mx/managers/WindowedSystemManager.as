@@ -1131,7 +1131,9 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
      */
     public function info():Object
     {
-        return {};
+        return {
+            currentDomain: ApplicationDomain.currentDomain
+        };
     }
     
     
