@@ -1862,6 +1862,17 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         return bounds;
     }
  
+   /**
+    *  @inheritdoc
+    */  
+    public function deployMouseShields(deploy:Boolean):void
+    {
+        var me:MarshalEvent = new MarshalEvent(MarshalEvent.DRAG_MANAGER, false, false,
+                                    "mouseShield", deploy);
+        getSandboxRoot().dispatchEvent(me);           
+    }
+    
+
 	/**
 	 * @private
 	 * 
