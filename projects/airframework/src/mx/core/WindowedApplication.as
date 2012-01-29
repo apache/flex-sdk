@@ -32,6 +32,7 @@ import flash.events.MouseEvent;
 import flash.events.NativeWindowBoundsEvent;
 import flash.events.NativeWindowDisplayStateEvent;
 import flash.filesystem.File;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.system.Capabilities;
 
@@ -636,6 +637,18 @@ public class WindowedApplication extends Application implements IWindow
     //  height
     //----------------------------------
 
+	[Bindable("heightChanged")]
+    [Inspectable(category="General")]
+    [PercentProxy("percentHeight")]
+
+    /**
+     *  @private
+     */
+	override public function get height():Number
+    {
+    	return _bounds.height;
+    }
+
     /**
      *  @private
 	 *  Also sets the stage's height.
@@ -665,18 +678,30 @@ public class WindowedApplication extends Application implements IWindow
     //----------------------------------
 
 	/**
-	 *  @private
-	 */
-	private var _maxHeight:Number = 10000;
+     *  @private
+	 *  Storage for the maxHeight property.
+     */
+	private var _maxHeight:Number = 0;
+	
+	/**
+     *  @private
+	 *  Keeps track of whether maxHeight property changed so we can
+	 *  handle it in commitProperties.
+     */
+    private var maxHeightChanged:Boolean = false;
 
     [Bindable("maxHeightChanged")]
+    [Bindable("windowComplete")]
 
 	/**
      *  @private
      */
     override public function get maxHeight():Number
     {
-		return _maxHeight;
+    	if (nativeWindow && !maxHeightChanged)
+    		return nativeWindow.maxSize.y - chromeHeight();
+        else
+        	return _maxHeight;
     }
 
 	/**
@@ -684,11 +709,9 @@ public class WindowedApplication extends Application implements IWindow
      */
     override public function set maxHeight(value:Number):void
     {
-		_maxHeight = Math.min(value, NativeWindow.systemMaxSize.y);
-        if (height > _maxHeight)
-            height = _maxHeight;
-
-        dispatchEvent(new Event("maxHeightChanged"));
+        _maxHeight = value;
+        maxHeightChanged = true;
+        invalidateProperties();
     }
 
     //----------------------------------
@@ -696,30 +719,40 @@ public class WindowedApplication extends Application implements IWindow
     //----------------------------------
 
     /**
-     *  The maximum width of the application's window.
+     *  @private
+	 *  Storage for the maxWidth property.
      */
-    private var _maxWidth:Number = 10000;
+    private var _maxWidth:Number = 0;
+    
+    /**
+     *  @private
+	 *  Keeps track of whether maxWidth property changed so we can
+	 *  handle it in commitProperties.
+     */
+    private var maxWidthChanged:Boolean = false;
 
     [Bindable("maxWidthChanged")]
+    [Bindable("windowComplete")]
 
 	/**
      *  @private
      */
     override public function get maxWidth():Number
     {
-        return _maxWidth;
+    	if (nativeWindow && !maxWidthChanged)
+    		return nativeWindow.maxSize.x - chromeWidth();
+        else
+        	return _maxWidth;
     }
 
     /**
-     *  Specifies the maximum height of the application's window.
+     *  Specifies the maximum width of the application's window.
      */
     override public function set maxWidth(value:Number):void
     {
-        _maxWidth = Math.min(value, NativeWindow.systemMaxSize.x);
-        if (width > _maxWidth)
-            width = _maxWidth;
-
-        dispatchEvent(new Event("maxWidthChanged"));
+        _maxWidth = value;
+        maxWidthChanged = true;
+        invalidateProperties();
     }
 
      //---------------------------------
@@ -729,18 +762,27 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  @private
      */
-    private var _minHeight:Number = 100;
+    private var _minHeight:Number = 0;
+	
+	/**
+     *  @private
+	 *  Keeps track of whether minHeight property changed so we can
+	 *  handle it in commitProperties.
+     */
+    private var minHeightChanged:Boolean = false;
 
     [Bindable("minHeightChanged")]
+    [Bindable("windowComplete")]
 
     /**
      *  Specifies the minimum height of the application's window.
-     *
-     *  @default 100;
      */
     override public function get minHeight():Number
     {
-        return _minHeight;
+    	if (nativeWindow && !minHeightChanged)
+    		return nativeWindow.minSize.y - chromeHeight();
+        else
+        	return _minHeight;
     }
 
     /**
@@ -748,11 +790,9 @@ public class WindowedApplication extends Application implements IWindow
      */
     override public function set minHeight(value:Number):void
     {
-        _minHeight = Math.max(value, NativeWindow.systemMinSize.y);
-        if (height < _minHeight)
-            height = _minHeight;
-
-        dispatchEvent(new Event("minHeightChanged"));
+        _minHeight = value;
+        minHeightChanged = true;
+        invalidateProperties();
     }
 
      //---------------------------------
@@ -763,16 +803,27 @@ public class WindowedApplication extends Application implements IWindow
      *  @private
 	 *  Storage for the minWidth property.
      */
-    private var _minWidth:Number = 100;
+    private var _minWidth:Number = 0;
+    
+   /**
+     *  @private
+	 *  Keeps track of whether minWidth property changed so we can
+	 *  handle it in commitProperties.
+     */
+    private var minWidthChanged:Boolean = false;
 
     [Bindable("minWidthChanged")]
+    [Bindable("windowComplete")]
 
     /**
      *  Specifies the minimum width of the application's window.
      */
     override public function get minWidth():Number
     {
-        return _minWidth;
+        if (nativeWindow && !minWidthChanged)
+    		return nativeWindow.minSize.x - chromeWidth();
+        else
+        	return _minWidth;
     }
 
     /**
@@ -780,11 +831,9 @@ public class WindowedApplication extends Application implements IWindow
      */
     override public function set minWidth(value:Number):void
     {
-        _minWidth = Math.max(value, NativeWindow.systemMinSize.x);
-        if (width < _minWidth)
-            width = _minWidth;
-
-        dispatchEvent(new Event("minWidthChanged"));
+        _minWidth = value;
+        minWidthChanged = true;
+        invalidateProperties();
     }
 
     //----------------------------------
@@ -850,6 +899,18 @@ public class WindowedApplication extends Application implements IWindow
     //----------------------------------
     //  width
     //----------------------------------
+
+	[Bindable("widthChanged")]
+    [Inspectable(category="General")]
+    [PercentProxy("percentWidth")]
+	
+    /**
+     *  @private
+     */
+    override public function get width():Number
+    {
+    	return _bounds.width;
+    }
 
     /**
      *  @private
@@ -1760,34 +1821,74 @@ public class WindowedApplication extends Application implements IWindow
     {
         super.commitProperties();
 
+		// minimum width and height
+		if (minWidthChanged || minHeightChanged)
+		{
+			var newMinWidth:Number = minWidthChanged ? _minWidth + chromeWidth() : nativeWindow.minSize.x;
+			var newMinHeight:Number = minHeightChanged ? _minHeight + chromeHeight() : nativeWindow.minSize.y;
+			
+			nativeWindow.minSize = new Point(newMinWidth, newMinHeight);
+			
+			if (minWidthChanged)
+			{
+				minWidthChanged = false;
+				if (width < minWidth)
+            		width = minWidth;
+        		dispatchEvent(new Event("minWidthChanged"));
+   			}
+        	if (minHeightChanged)
+        	{
+        		minHeightChanged = false;
+        		if (height < minHeight)
+            		height = minHeight;
+        		dispatchEvent(new Event("minHeightChanged"));
+        	}
+		}
+		
+		// maximum width and height
+		if (maxWidthChanged || maxHeightChanged)
+		{
+			var newMaxWidth:Number = maxWidthChanged ? _maxWidth + chromeWidth() : nativeWindow.maxSize.x;
+			var newMaxHeight:Number = maxHeightChanged ? _maxHeight + chromeHeight() : nativeWindow.maxSize.y;
+			
+			nativeWindow.maxSize = new Point(newMaxWidth, newMaxHeight);
+			
+			if (maxWidthChanged)
+			{
+				maxWidthChanged = false;
+				if (width > maxWidth)
+            		width = maxWidth;
+        		dispatchEvent(new Event("maxWidthChanged"));
+   			}
+			if (maxHeightChanged)
+			{
+				maxHeightChanged = false;
+				if (height > maxHeight)
+            		height = maxHeight;
+        		dispatchEvent(new Event("maxHeightChanged"));
+   			}
+		}
+
         if (boundsChanged)
-        {
-	       	var dispatchWidthChangeEvent:Boolean = (_width != _bounds.width);
-        	var dispatchHeightChangeEvent:Boolean = (_height != _bounds.height);
-        	
+        {      	
             systemManager.stage.stageWidth = _width = _bounds.width;
             systemManager.stage.stageHeight = _height =  _bounds.height;
             boundsChanged = false;
-
-            if (dispatchWidthChangeEvent)
-        		dispatchEvent(new Event("widthChanged"));
-        	if (dispatchHeightChangeEvent)
-        		dispatchEvent(new Event("heightChanged"));
+			
+			// don't know whether height or width changed
+        	dispatchEvent(new Event("widthChanged"));
+        	dispatchEvent(new Event("heightChanged"));
         }
 
         if (windowBoundsChanged)
         {
-        	dispatchWidthChangeEvent = (_width != systemManager.stage.stageWidth);
-        	dispatchHeightChangeEvent = (_height != systemManager.stage.stageHeight);
-        	
         	_bounds.width = _width = systemManager.stage.stageWidth;
         	_bounds.height = _height = systemManager.stage.stageHeight;
         	windowBoundsChanged = false;
         	
-        	if (dispatchWidthChangeEvent)
-        		dispatchEvent(new Event("widthChanged"));
-        	if (dispatchHeightChangeEvent)
-        		dispatchEvent(new Event("heightChanged"));
+        	// don't know whether height or width changed
+        	dispatchEvent(new Event("widthChanged"));
+        	dispatchEvent(new Event("heightChanged"));
         }
 
         if (menuChanged && !nativeWindow.closed)
@@ -2332,12 +2433,12 @@ public class WindowedApplication extends Application implements IWindow
      		return false;
      }
 
-     /**
-      *  Orders the window in front of all others in the same application.
-      *
-      *  @return <code>true</code> if the window was succesfully sent to the front;
-      *  <code>false</code> if the window is invisible or minimized.
-      */
+ /**
+  *  Orders the window in front of all others in the same application.
+  *
+  *  @return <code>true</code> if the window was succesfully sent to the front;
+  *  <code>false</code> if the window is invisible or minimized.
+  */
      public function orderToFront():Boolean
      {
      	if (nativeWindow && !nativeWindow.closed)
@@ -2345,6 +2446,24 @@ public class WindowedApplication extends Application implements IWindow
      	else
      		return false;
      }
+     
+    /**
+     *  @private
+     *  Returns the width of the chrome for the window
+     */
+    private function chromeWidth():Number
+    {
+        return nativeWindow.width - systemManager.stage.stageWidth;
+    }
+    
+    /**
+     *  @private
+     *  Returns the height of the chrome for the window
+     */
+    private function chromeHeight():Number
+    {
+        return nativeWindow.height - systemManager.stage.stageHeight;
+    }
      	
     /**
      *  @private
