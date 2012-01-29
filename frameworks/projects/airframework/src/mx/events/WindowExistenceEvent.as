@@ -26,7 +26,6 @@ import mx.core.Window;
  *  @see mx.core.Window
  *  @see mx.core.WindowedApplication
  * 
- *  @playerversion AIR 1.1
  */
 public class WindowExistenceEvent extends Event
 {
@@ -109,11 +108,11 @@ public class WindowExistenceEvent extends Event
      */
     public function WindowExistenceEvent(type:String, bubbles:Boolean = false,
                                 cancelable:Boolean = false, window:Window = null)
-	{
-	    super(type, bubbles, cancelable);
+    {
+        super(type, bubbles, cancelable);
 
         this.window = window;
-	}
+    }
 
     //--------------------------------------------------------------------------
     //
