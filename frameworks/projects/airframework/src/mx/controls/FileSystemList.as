@@ -1010,7 +1010,7 @@ public class FileSystemList extends List
      *  <p>You can set the <code>directoryIcon</code>
      *  and <code>fileIcon</code> styles to change the default icons.
      *  This control cannot display the actual icon that the operating system
-     *  displays for a file, because Apollo M2 does not support that feature.</p>
+     *  displays for a file, because AIR does not support that feature.</p>
      *
      *  <p>Setting this property does not affect which items
      *  are displayed, or the order in which they appear.
