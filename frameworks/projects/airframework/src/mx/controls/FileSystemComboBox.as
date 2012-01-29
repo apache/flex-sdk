@@ -78,7 +78,8 @@ use namespace mx_internal;
  *  You often use this control with the FileSystemList and FileSystemTree
  *  controls to change the current directory displayed by those controls.
  *
- *  <p>To populate the <code>dataProvider</code> property,
+ *  <p>Unlike the standard ComboBox control, to populate the FileSystemComboBox control's
+ *  <code>dataProvider</code> property,
  *  you set the <code>directory</code> property.
  *  This control then automatically sets the <code>dataProvider</code>
  *  property to an ArrayCollection of File objects
@@ -87,10 +88,11 @@ use namespace mx_internal;
  *  and ending with the specified directory.</p>
  *
  *  <p>When you select an entry in the dropdown list,
- *  this control dispatches an <code>Event.CHANGE event</code>.
- *  Afterwards the data provider, and therefore the dropdown list,
- *  contains the selected directory's ancestors.</p>
+ *  this control dispatches a <code>change</code> event.
+ *  After the event is dispatched data provider, and consequently the dropdown list,
+ *  contain the selected directory's ancestors.</p>
  *
+ *  @see flash.filesystem.File
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemTree
  */
@@ -105,10 +107,10 @@ public class FileSystemComboBox extends ComboBox
     //--------------------------------------------------------------------------
 
     /**
-     * A constant that can be used as a value for the <code>directory</code> property,
-	 * representing a pseudo-top level directory named "Computer". This pseudo-directory
-     * contains the root directories
-     * (such as C:\ and D:\ on Windows or / on Macintosh).
+     *  A constant that can be used as a value for the <code>directory</code> property,
+	 *  representing a pseudo-top level directory named "Computer". This pseudo-directory
+     *  contains the root directories
+     *  (such as C:\ and D:\ on Windows or / on Macintosh).
      */
     public static const COMPUTER:File = FileSystemControlHelper.COMPUTER;
 
