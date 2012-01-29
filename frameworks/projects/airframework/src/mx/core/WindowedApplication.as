@@ -1709,6 +1709,7 @@ public class WindowedApplication extends Application implements IWindow
 			_titleBar.styleName = new StyleProxy(this, titleBarStyleFilters);
         	rawChildren.addChild(DisplayObject(titleBar));
          	showTitleBarChanged = true;
+         	titleBarFactoryChanged = false;
         }
 
         if (!gripper)
