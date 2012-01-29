@@ -1230,7 +1230,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 	 *  to implementation classes which produce singleton instances,
 	 *  such as mx.managers.PopUpManagerImpl.
      */
-    private static var implMap:Object = {};
+    private var implMap:Object = {};
 
     /**
      *  @private
