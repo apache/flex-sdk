@@ -446,7 +446,7 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public class WindowedApplication extends Application implements IWindow
 {
