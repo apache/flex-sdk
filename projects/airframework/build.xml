@@ -17,8 +17,8 @@
 
     <property file="${FLEX_HOME}/build.properties"/>
 
-    <!-- overriding from build.properties -->
-    <property name="playerglobal.version" value="9"/>
+    <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
+    <property name="local.playerglobal.version" value="9"/>
 
 	<target name="main" depends="clean,compile,en_US,ja_JP" description="Clean build of airframework.swc and its English and Japanese resources"/>
 
@@ -65,6 +65,7 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/air/airframework.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
+            <!-- If you change this, update ${local.playerglobal.version} above. -->
 		    <target-player>9</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
@@ -120,6 +121,7 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/locale/${locale}/airframework_rb.swc"
 			   locale="${locale}">
+            <!-- If you change this, update ${local.playerglobal.version} above. -->
 			<target-player>9</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-resource-bundles bundle="SharedResources"/>
@@ -140,7 +142,7 @@
 			<include-libraries/>
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 			</external-library-path>
 		</compc>
 	</target>
