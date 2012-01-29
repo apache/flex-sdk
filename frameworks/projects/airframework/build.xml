@@ -62,7 +62,7 @@
 			Write a bundle list of referenced resource bundles
 			into the file bundles.properties in this directory.
 		-->
-		<compc fork="true" minimum-supported-version="3.0.0" enable-swc-version-filtering="false"
+		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/air/airframework.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
             <!-- If you change this, update ${local.playerglobal.version} above. -->
