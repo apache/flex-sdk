@@ -456,7 +456,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Played when the window is closed.
+ *  Played when the window is closed. 
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.1
@@ -2804,6 +2804,9 @@ public class Window extends LayoutContainer implements IWindow
      */
     public function minimize():void
     {
+        if (!minimizable)
+            return;
+            
         if (!nativeWindow.closed)
         {
             var e:NativeWindowDisplayStateEvent = new NativeWindowDisplayStateEvent(
