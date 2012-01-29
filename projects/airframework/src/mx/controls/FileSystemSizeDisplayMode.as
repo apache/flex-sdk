@@ -18,6 +18,8 @@ package mx.controls
  *  of the FileSystemDataGrid class.
  *
  *  @see mx.controls.FileSystemDataGrid#enumerationMode
+ * 
+ *  @productversion Apollo 1.0
  */
 public final class FileSystemSizeDisplayMode
 {
