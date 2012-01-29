@@ -401,7 +401,7 @@ use namespace mx_internal;
  *    transparent="false"
  *    type="normal"
  *    visible="true"
- *
+ * 
  *    <strong>Styles</strong>
  *    buttonAlignment="auto"
  *    buttonPadding="2"
@@ -421,12 +421,12 @@ use namespace mx_internal;
  *    titleBarButtonPadding="5"
  *    titleBarColors="[ 0x000000, 0x000000 ]"
  *    titleTextStyleName="<i>undefined</i>"
- *
+ * 
  *    <strong>Effects</strong>
  *    closeEffect="<i>No default</i>"
  *    minimizeEffect="<i>No default</i>"
  *    unminimizeEffect="<i>No default</i>"
- *
+ * 
  *    <strong>Events</strong>
  *    applicationActivate="<i>No default</i>"
  *    applicationDeactivate="<i>No default</i>"
