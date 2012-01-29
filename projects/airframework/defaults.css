@@ -45,7 +45,7 @@ s|WindowedApplication
 
 s|Window
 {
-    skinClass: ClassReference("spark.skins.default.WindowedApplicationSkin");
+    skinClass: ClassReference("spark.skins.default.WindowSkin");
     backgroundColor: #FFFFFF;
 }
 
