@@ -90,7 +90,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
         addEventListener(Event.ADDED, docFrameHandler);
     }
     
-	private var topLevel:Boolean = true;
+	mx_internal var topLevel:Boolean = true;
 	
 	private var initialized:Boolean = false;
 	
@@ -551,7 +551,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
      *  @private
      *  Storage for the screen property.
      */
-    private var _screen:Rectangle;
+    mx_internal var _screen:Rectangle;
 
     /**
      *  @inheritDoc
@@ -936,6 +936,19 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
             }
         }
         
+		c = Singleton.getClass("mx.managers::IActiveWindowManager");
+		if (c)
+		{
+            registerImplementation("mx.managers::IActiveWindowManager", new c(this));
+        }
+
+        // depends on having IActiveWindowManager installed first
+		c = Singleton.getClass("mx.managers::IMarshalSystemManager");
+		if (c)
+		{
+            registerImplementation("mx.managers::IMarshalSystemManager", new c(this));
+        }
+
     //  installCompiledResourceBundles();
 
         initializeTopLevelWindow(null);
