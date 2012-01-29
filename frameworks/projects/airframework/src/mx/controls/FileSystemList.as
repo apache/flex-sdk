@@ -206,6 +206,36 @@ use namespace mx_internal;
  *  Therefore the actual file system icons displayed in the operating system
  *  are not displayed in a FileSystemList, even though they are
  *  accessible in AIR via the <code>icon</code> property of a File.</p>
+ * 
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:FileSystemList&gt;</code> tag inherits all of the tag
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:FileSystemList
+ *    <strong>Properties</strong>
+ *    directory="<i>null</i>"
+ *    enumerationMode="directoriesFirst"
+ *    extensions="<i>null</i>"
+ *    filterFunction="<i>null</i>"
+ *    nameCompareFunction="<i>null</i>"
+ *    selectedPath="<i>null</i>"
+ *    selectedPaths="<i>null</i>"
+ *    showExtensions="true"
+ *    showHidden="false"
+ *    showIcons="true"
+ * 
+ *    <strong>Styles</strong>
+ *    directoryIcon="<i>TreeNodeIcon</i>"
+ *    fileIcon="<i>TreeNodeIcon</i>"
+ * 
+ *    <strong>Events</strong>
+ *    directoryChange="<i>No default</i>"
+ *    directoryChanging="<i>No default</i>"
+ *    fileChoose="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
  *
  * @see flash.filesystem.File
  */
