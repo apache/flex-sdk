@@ -63,6 +63,29 @@ use namespace mx_internal;
 [Event(name="applicationDeactivate", type="mx.events.AIREvent")]
 
 /**
+ *  Dispatched after the window has been activated.
+ *
+ *  @eventType mx.events.Event.ACTIVATE
+ */
+[Event(name="windowActivate", type="flash.events.Event")]
+
+/**
+ *  Dispatched after the window has been deactivated.
+ *
+ *  @eventType mx.events.Event.DEACTIVATE
+ */
+[Event(name="windowDeactivate", type="flash.events.Event")]
+
+/**
+ *  Dispatched after the window has been closed.
+ *
+ *  @eventType flash.events.Event.CLOSE
+ *
+ *  @see flash.display.NativeWindow
+ */
+[Event(name="close", type="flash.events.Event")]
+
+/**
  *  Dispatched before the window closes.
  *  This event is cancelable.
  *
@@ -1889,6 +1912,9 @@ public class Window extends LayoutContainer implements IWindow
 	 		nativeApplication.addEventListener(Event.DEACTIVATE, nativeApplication_deactivateHandler, false, 0, true);
 	 		nativeApplication.addEventListener(Event.NETWORK_CHANGE,
  				nativeApplication_networkChangeHandler, false, 0, true);
+ 			_nativeWindow.addEventListener("activate", nativeWindow_activateHandler, false, 0, true);
+            _nativeWindow.addEventListener("deactivate", nativeWindow_deactivateHandler, false, 0, true);
+            
  			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
  			//debug
  			var x:Object = StyleManager.stylesRoot;
@@ -2804,6 +2830,9 @@ public class Window extends LayoutContainer implements IWindow
             "closing", window_closingHandler);
 
         systemManager.stage.nativeWindow.addEventListener(
+            "close", window_closeHandler, false, 0, true);
+                        
+        systemManager.stage.nativeWindow.addEventListener(
             NativeWindowBoundsEvent.MOVING, window_boundsHandler);
 
         systemManager.stage.nativeWindow.addEventListener(
@@ -2939,6 +2968,14 @@ public class Window extends LayoutContainer implements IWindow
     /**
      *  @private
      */
+    private function window_closeHandler(event:Event):void
+    {
+        dispatchEvent(new Event("close"));
+    }
+    
+    /**
+     *  @private
+     */
     private function window_resizeHandler(event:NativeWindowBoundsEvent):void
     {
         invalidateViewMetricsAndPadding();
@@ -2980,6 +3017,22 @@ public class Window extends LayoutContainer implements IWindow
  		dispatchEvent(new AIREvent(AIREvent.APPLICATION_DEACTIVATE));
  	}
 
+ 	/**
+ 	 *  @private
+ 	 */
+ 	private function nativeWindow_activateHandler(event:Event):void
+ 	{
+ 		dispatchEvent(new Event("windowActivate"));
+ 	}	
+ 	
+ 	/**
+ 	 *  @private
+ 	 */
+ 	private function nativeWindow_deactivateHandler(event:Event):void
+ 	{
+ 		dispatchEvent(new Event("windowDeactivate"));
+ 	}
+ 	
  	/**
  	 *  @private
  	 */
