@@ -51,14 +51,10 @@ import mx.core.SWFBridgeGroup;
 import mx.core.Window;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.FocusRequest;
-import mx.events.ModalWindowRequest;
-import mx.events.PopUpRequest;
-import mx.events.SizeRequest;
 import mx.events.EventListenerRequest;
 import mx.events.InvalidateRequestData;
-import mx.events.SandboxRootRequest;
-import mx.events.SandboxRootMouseEvent;
+import mx.events.InterManagerRequest;
+import mx.events.SandboxMouseEvent;
 import mx.events.SWFBridgeRequest;
 import mx.events.SWFBridgeEvent;
 import mx.managers.systemClasses.RemotePopUp;
@@ -1224,16 +1220,16 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		
 		// every SM has to have this listener in case it is the SM for some child AD that contains a manager
 		// and the parent ADs don't have that manager.
-		getSandboxRoot().addEventListener(SandboxRootRequest.INIT_MANAGER_REQUEST, initManagerHandler, false, 0, true);
+		getSandboxRoot().addEventListener(InterManagerRequest.INIT_MANAGER_REQUEST, initManagerHandler, false, 0, true);
 		// once managers get initialized, they bounce things off the sandbox root
 		if (getSandboxRoot() == this)
 		{
-			addEventListener(SandboxRootRequest.SYSTEM_MANAGER_REQUEST, systemManagerHandler);
+			addEventListener(InterManagerRequest.SYSTEM_MANAGER_REQUEST, systemManagerHandler);
 
-			addEventListener(PopUpRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, addPlaceholderPopupRequestHandler);
-			addEventListener(PopUpRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, removePlaceholderPopupRequestHandler);
-			addEventListener(SWFBridgeEvent.NOTIFY_WINDOW_ACTIVATED, activateFormSandboxEventHandler);
-			addEventListener(SWFBridgeEvent.NOTIFY_WINDOW_DEACTIVATED, deactivateFormSandboxEventHandler); 
+			addEventListener(SWFBridgeRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, addPlaceholderPopupRequestHandler);
+			addEventListener(SWFBridgeRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, removePlaceholderPopupRequestHandler);
+			addEventListener(SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE, activateFormSandboxEventHandler);
+			addEventListener(SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE, deactivateFormSandboxEventHandler); 
 			addEventListener(SWFBridgeRequest.HIDE_MOUSE_CURSOR_REQUEST, hideMouseCursorRequestHandler);
 			addEventListener(SWFBridgeRequest.SHOW_MOUSE_CURSOR_REQUEST, showMouseCursorRequestHandler);
 			addEventListener(SWFBridgeRequest.RESET_MOUSE_CURSOR_REQUEST, resetMouseCursorRequestHandler);
@@ -1581,18 +1577,18 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 			return;
 		}
 		
-		bridge.addEventListener(PopUpRequest.ADD_POP_UP_REQUEST, addPopupRequestHandler);
-		bridge.addEventListener(PopUpRequest.REMOVE_POP_UP_REQUEST, removePopupRequestHandler);
-		bridge.addEventListener(PopUpRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, addPlaceholderPopupRequestHandler);
-		bridge.addEventListener(PopUpRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, removePlaceholderPopupRequestHandler);
-		bridge.addEventListener(SWFBridgeEvent.NOTIFY_WINDOW_ACTIVATED, activateFormSandboxEventHandler);
-		bridge.addEventListener(SWFBridgeEvent.NOTIFY_WINDOW_DEACTIVATED, deactivateFormSandboxEventHandler); 
-		bridge.addEventListener(SWFBridgeEvent.NOTIFY_APPLICATION_ACTIVATED, activateApplicationSandboxEventHandler);
+		bridge.addEventListener(SWFBridgeRequest.ADD_POP_UP_REQUEST, addPopupRequestHandler);
+		bridge.addEventListener(SWFBridgeRequest.REMOVE_POP_UP_REQUEST, removePopupRequestHandler);
+		bridge.addEventListener(SWFBridgeRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, addPlaceholderPopupRequestHandler);
+		bridge.addEventListener(SWFBridgeRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, removePlaceholderPopupRequestHandler);
+		bridge.addEventListener(SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE, activateFormSandboxEventHandler);
+		bridge.addEventListener(SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE, deactivateFormSandboxEventHandler); 
+		bridge.addEventListener(SWFBridgeEvent.BRIDGE_APPLICATION_ACTIVATE, activateApplicationSandboxEventHandler);
 		bridge.addEventListener(EventListenerRequest.ADD_EVENT_LISTENER_REQUEST, eventListenerRequestHandler, false, 0, true);
 		bridge.addEventListener(EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST, eventListenerRequestHandler, false, 0, true);
-        bridge.addEventListener(ModalWindowRequest.CREATE_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
-        bridge.addEventListener(ModalWindowRequest.SHOW_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
-        bridge.addEventListener(ModalWindowRequest.HIDE_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
+        bridge.addEventListener(SWFBridgeRequest.CREATE_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
+        bridge.addEventListener(SWFBridgeRequest.SHOW_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
+        bridge.addEventListener(SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
         bridge.addEventListener(SWFBridgeRequest.GET_VISIBLE_RECT_REQUEST, getVisibleRectRequestHandler);
         bridge.addEventListener(SWFBridgeRequest.HIDE_MOUSE_CURSOR_REQUEST, hideMouseCursorRequestHandler);
         bridge.addEventListener(SWFBridgeRequest.SHOW_MOUSE_CURSOR_REQUEST, showMouseCursorRequestHandler);
@@ -1612,18 +1608,18 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 			return;
 		}
 		
-		bridge.removeEventListener(PopUpRequest.ADD_POP_UP_REQUEST, addPopupRequestHandler);
-		bridge.removeEventListener(PopUpRequest.REMOVE_POP_UP_REQUEST, removePopupRequestHandler);
-		bridge.removeEventListener(PopUpRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, addPlaceholderPopupRequestHandler);
-		bridge.removeEventListener(PopUpRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, removePlaceholderPopupRequestHandler);
-		bridge.removeEventListener(SWFBridgeEvent.NOTIFY_WINDOW_ACTIVATED, activateFormSandboxEventHandler);
-		bridge.removeEventListener(SWFBridgeEvent.NOTIFY_WINDOW_DEACTIVATED, deactivateFormSandboxEventHandler); 
-		bridge.removeEventListener(SWFBridgeEvent.NOTIFY_APPLICATION_ACTIVATED, activateApplicationSandboxEventHandler);
+		bridge.removeEventListener(SWFBridgeRequest.ADD_POP_UP_REQUEST, addPopupRequestHandler);
+		bridge.removeEventListener(SWFBridgeRequest.REMOVE_POP_UP_REQUEST, removePopupRequestHandler);
+		bridge.removeEventListener(SWFBridgeRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, addPlaceholderPopupRequestHandler);
+		bridge.removeEventListener(SWFBridgeRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, removePlaceholderPopupRequestHandler);
+		bridge.removeEventListener(SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE, activateFormSandboxEventHandler);
+		bridge.removeEventListener(SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE, deactivateFormSandboxEventHandler); 
+		bridge.removeEventListener(SWFBridgeEvent.BRIDGE_APPLICATION_ACTIVATE, activateApplicationSandboxEventHandler);
 		bridge.removeEventListener(EventListenerRequest.ADD_EVENT_LISTENER_REQUEST, eventListenerRequestHandler);
 		bridge.removeEventListener(EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST, eventListenerRequestHandler);
-        bridge.removeEventListener(ModalWindowRequest.CREATE_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
-        bridge.removeEventListener(ModalWindowRequest.SHOW_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
-        bridge.removeEventListener(ModalWindowRequest.HIDE_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
+        bridge.removeEventListener(SWFBridgeRequest.CREATE_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
+        bridge.removeEventListener(SWFBridgeRequest.SHOW_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
+        bridge.removeEventListener(SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
         bridge.removeEventListener(SWFBridgeRequest.GET_VISIBLE_RECT_REQUEST, getVisibleRectRequestHandler);
         bridge.removeEventListener(SWFBridgeRequest.HIDE_MOUSE_CURSOR_REQUEST, hideMouseCursorRequestHandler);
         bridge.removeEventListener(SWFBridgeRequest.SHOW_MOUSE_CURSOR_REQUEST, showMouseCursorRequestHandler);
@@ -1645,8 +1641,8 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		}
 		
 		var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-		bridge.addEventListener(SizeRequest.SET_ACTUAL_SIZE_REQUEST, setActualSizeRequestHandler);
-		bridge.addEventListener(SizeRequest.GET_SIZE_REQUEST, getSizeRequestHandler);
+		bridge.addEventListener(SWFBridgeRequest.SET_ACTUAL_SIZE_REQUEST, setActualSizeRequestHandler);
+		bridge.addEventListener(SWFBridgeRequest.GET_SIZE_REQUEST, getSizeRequestHandler);
 
 		// need to listener to parent system manager to get broadcast messages.
 		bridge.addEventListener(SWFBridgeRequest.ACTIVATE_POP_UP_REQUEST, 
@@ -1674,8 +1670,8 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		}
 		
 		var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-		bridge.removeEventListener(SizeRequest.SET_ACTUAL_SIZE_REQUEST, setActualSizeRequestHandler);
-		bridge.removeEventListener(SizeRequest.GET_SIZE_REQUEST, getSizeRequestHandler);
+		bridge.removeEventListener(SWFBridgeRequest.SET_ACTUAL_SIZE_REQUEST, setActualSizeRequestHandler);
+		bridge.removeEventListener(SWFBridgeRequest.GET_SIZE_REQUEST, getSizeRequestHandler);
 
 		// need to listener to parent system manager to get broadcast messages.
 		bridge.removeEventListener(SWFBridgeRequest.ACTIVATE_POP_UP_REQUEST, 
@@ -1887,7 +1883,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
     */  
     public function deployMouseShields(deploy:Boolean):void
     {
-        var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.DRAG_MANAGER_REQUEST, false, false,
+        var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST, false, false,
                                     "mouseShield", deploy);
         getSandboxRoot().dispatchEvent(me);           
     }
@@ -1907,7 +1903,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		{
 			var sbRoot:DisplayObject = getSandboxRoot();
 			var sendToSbRoot:Boolean = sbRoot != this;
-			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.NOTIFY_WINDOW_ACTIVATED,
+			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE,
 																	    false, false,
 	       																sendToSbRoot ? window :
 	       																NameUtil.displayObjectToString(window));
@@ -1934,7 +1930,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		{
 			var sbRoot:DisplayObject = getSandboxRoot();
 			var sendToSbRoot:Boolean = sbRoot != this;
-			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.NOTIFY_WINDOW_DEACTIVATED,
+			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE,
 																	    false, 
 																	    false,
 	       																sendToSbRoot ? window :
@@ -1960,7 +1956,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		var bridge:IEventDispatcher = swfBridgeGroup ? swfBridgeGroup.parentBridge : null;
 		if (bridge)
 		{
-			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.NOTIFY_APPLICATION_ACTIVATED,
+			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_APPLICATION_ACTIVATE,
 																		false, false,
 																		bridge);
 			bridge.dispatchEvent(bridgeEvent);
@@ -2027,10 +2023,75 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	private var currentSandboxEvent:Event;
 
 	/**
+	 * request the parent to add an event listener.
+	 */
+	private function addEventListenerToOtherSystemManagers(type:String, listener:Function, useCapture:Boolean = false, 
+				priority:int=0, useWeakReference:Boolean=false):void
+	{
+		var arr:Array = SystemManagerGlobals.topLevelSystemManagers;
+		if (arr.length < 2)
+			return;
+
+		SystemManagerGlobals.changingListenersInOtherSystemManagers = true;
+		var n:int = arr.length;
+		for (var i:int = 0; i < n; i++)
+		{
+			if (arr[i] != this)
+			{
+				arr[i].addEventListener(type, listener, useCapture, priority, useWeakReference);
+			}
+		}
+		SystemManagerGlobals.changingListenersInOtherSystemManagers = false;
+	}
+
+	/**
+	 * request the parent to remove an event listener.
+	 */	
+	private function removeEventListenerFromOtherSystemManagers(type:String, listener:Function, 
+	                                                  useCapture:Boolean = false):void 
+	{
+		var arr:Array = SystemManagerGlobals.topLevelSystemManagers;
+		if (arr.length < 2)
+			return;
+
+		SystemManagerGlobals.changingListenersInOtherSystemManagers = true;
+		var n:int = arr.length;
+		for (var i:int = 0; i < n; i++)
+		{
+			if (arr[i] != this)
+			{
+				arr[i].removeEventListener(type, listener, useCapture);
+			}
+		}
+		SystemManagerGlobals.changingListenersInOtherSystemManagers = false;
+	}
+
+	private var dispatchingToSystemManagers:Boolean = false;
+
+	/**
 	 *  dispatch the event to all sandboxes except the specified one
 	 */
-	public function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, trackClones:Boolean = false):void
+	public function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, 
+						trackClones:Boolean = false, toOtherSystemManagers:Boolean = false):void
 	{
+		if (toOtherSystemManagers)
+		{
+			dispatchingToSystemManagers = true;
+			var arr:Array = SystemManagerGlobals.topLevelSystemManagers;
+			var n:int = arr.length;
+			for (var i:int = 0; i < n; i++)
+			{
+				if (arr[i] != this)
+				{
+					arr[i].dispatchEvent(event);
+				}
+			}
+			dispatchingToSystemManagers = false;
+		}
+
+		if (!swfBridgeGroup)
+			return;
+
 		var clone:Event;
 		// trace(">>dispatchEventFromSWFBridges", this, event.type);
 		clone = event.clone();
@@ -2043,7 +2104,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		}
 		
 		var children:Array = swfBridgeGroup.getChildBridges();
-		for (var i:int = 0; i < children.length; i++)
+		for (i = 0; i < children.length; i++)
 		{
 			if (children[i] != skip)
 			{
@@ -2064,6 +2125,9 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	private function addEventListenerToSandboxes(type:String, listener:Function, useCapture:Boolean = false, 
 				priority:int=0, useWeakReference:Boolean=false, skip:IEventDispatcher = null):void
 	{
+		if (!swfBridgeGroup)
+			return;
+
 		// trace(">>addEventListenerToSandboxes", this, type);
 
 		var request:EventListenerRequest = new EventListenerRequest(EventListenerRequest.ADD_EVENT_LISTENER_REQUEST, false, false,
@@ -2073,16 +2137,16 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 													useWeakReference);
 		
 		var parentBridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-		if (parentBridge)
-		{
+		if (parentBridge && parentBridge != skip)
 			parentBridge.addEventListener(type, listener, false, priority, useWeakReference);			
-		}
 		
 		var children:Array = swfBridgeGroup.getChildBridges();
 		for (var i:int; i < children.length; i++)
 		{
 		 	var childBridge:IEventDispatcher = IEventDispatcher(children[i]);
-			childBridge.addEventListener(type, listener, false, priority, useWeakReference);			
+		 	
+		 	if (childBridge != skip)
+			   childBridge.addEventListener(type, listener, false, priority, useWeakReference);			
 		}
 		
 		dispatchEventFromSWFBridges(request, skip);
@@ -2096,18 +2160,22 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	                                                  useCapture:Boolean = false,
 	                                                  skip:IEventDispatcher = null):void 
 	{
+		if (!swfBridgeGroup)
+			return;
+
 		// trace(">>removeEventListenerToSandboxes", this, type);
 		var request:EventListenerRequest = new EventListenerRequest(EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST, false, false,
 																				type, 
 																				useCapture);
 		var parentBridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-		if (parentBridge)
+		if (parentBridge && parentBridge != skip)
 			parentBridge.removeEventListener(type, listener, useCapture);
 		
 		var children:Array = swfBridgeGroup.getChildBridges();
 		for (var i:int; i < children.length; i++)
 		{
-			IEventDispatcher(children[i]).removeEventListener(type, listener, useCapture);			
+		    if (children[i] != skip)
+			   IEventDispatcher(children[i]).removeEventListener(type, listener, useCapture);			
 		}
 		
 		dispatchEventFromSWFBridges(request, skip);
@@ -2121,16 +2189,16 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      *   @return true if the message should be processed, false if 
      *   no other action is required.
      */ 
-    private function preProcessModalWindowRequest(request:ModalWindowRequest, 
+    private function preProcessModalWindowRequest(request:SWFBridgeRequest, 
                                                   sm:ISystemManager,
                                                   sbRoot:DisplayObject):Boolean
     {
         // should we process this message?
-        if (request.skip)
+        if (request.data.skip)
         {
             // skipping this sandbox, 
             // but don't skip the next one.
-            request.skip = false;
+            request.data.skip = false;
            
             if (sm.useSWFBridge())
             {
@@ -2147,16 +2215,16 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
             var forwardRequest:Boolean = false;
 
             // convert exclude component into a rectangle and forward to parent bridge.
-            if (request.type == ModalWindowRequest.CREATE_MODAL_WINDOW_REQUEST ||
-                request.type == ModalWindowRequest.SHOW_MODAL_WINDOW_REQUEST)
+            if (request.type == SWFBridgeRequest.CREATE_MODAL_WINDOW_REQUEST ||
+                request.type == SWFBridgeRequest.SHOW_MODAL_WINDOW_REQUEST)
             {
                 var exclude:ISWFLoader = sm.swfBridgeGroup.getChildBridgeProvider(request.requestor) 
                                                  as ISWFLoader;
                 var excludeRect:Rectangle = ISWFLoader(exclude).getVisibleApplicationRect();
-                request.data = excludeRect;
+                request.data.excludeRect = excludeRect;
                 forwardRequest = true;
             }
-            else if (request.type == ModalWindowRequest.HIDE_MODAL_WINDOW_REQUEST)
+            else if (request.type == SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST)
                 forwardRequest = true;
                 
             if (forwardRequest)
@@ -2166,7 +2234,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
          
                 // The HIDE request does not need to be processed by each
                 // application, so dispatch it directly to the sandbox root.       
-                if (request.type == ModalWindowRequest.HIDE_MODAL_WINDOW_REQUEST)
+                if (request.type == SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST)
                     sbRoot.dispatchEvent(request);
                 else 
                     bridge.dispatchEvent(request);
@@ -2175,25 +2243,44 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         }
 
         // skip aftering sending the message over a bridge.
-        request.skip = false;
+        request.data.skip = false;
                 
         return true;
     }    
     
 
+	private function otherSystemManagerMouseListener(event:SandboxMouseEvent):void
+	{
+		if (dispatchingToSystemManagers)
+			return;
+
+		dispatchEventFromSWFBridges(event);
+
+		// ask the sandbox root if it was the original dispatcher of this event
+		// if it was then don't dispatch to ourselves because we could have
+		// got this event by listening to sandboxRoot ourselves.
+		var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST);
+		me.name = "sameSandbox";
+		me.value = event;
+		getSandboxRoot().dispatchEvent(me);
+
+		if (!me.value)
+			dispatchEvent(event);
+	}
+
 	private function sandboxMouseListener(event:Event):void
 	{
 		// trace("sandboxMouseListener", this);
-		if (event is SandboxRootMouseEvent)
+		if (event is SandboxMouseEvent)
 			return;
 
-		var marshaledEvent:Event = SandboxRootMouseEvent.marshal(event);
+		var marshaledEvent:Event = SandboxMouseEvent.marshal(event);
 		dispatchEventFromSWFBridges(marshaledEvent, event.target as IEventDispatcher);
 
 		// ask the sandbox root if it was the original dispatcher of this event
 		// if it was then don't dispatch to ourselves because we could have
 		// got this event by listening to sandboxRoot ourselves.
-		var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.SYSTEM_MANAGER_REQUEST);
+		var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST);
 		me.name = "sameSandbox";
 		me.value = event;
 		getSandboxRoot().dispatchEvent(me);
@@ -2208,7 +2295,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 			return;
 
         var actualType:String;
-		var eventObj:Object = event;
+		var request:EventListenerRequest = EventListenerRequest.marshal(event);
 		if (event.type == EventListenerRequest.ADD_EVENT_LISTENER_REQUEST)
 		{
 			if (!eventProxy)
@@ -2216,32 +2303,36 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 				eventProxy = new EventProxy(this);
 			}
 			
-			// trace(">>eventListenerRequestHandler ADD ", this, eventObj.userType);
-
-			actualType = EventUtil.sandboxRootMouseEventMap[eventObj.userType];
+			actualType = EventUtil.sandboxMouseEventMap[request.eventType];
 			if (actualType)
 			{
-				addEventListenerToSandboxes(eventObj.userType, sandboxMouseListener,
-							eventObj.useCapture, eventObj.priority, eventObj.useWeakReference, event.target as IEventDispatcher);
+				if (isTopLevelRoot())
+				{
+					stage.addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
+				}
+				else
+				{
+					super.addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
+				}
+
+				addEventListenerToSandboxes(request.eventType, sandboxMouseListener,
+							request.useCapture, request.priority, request.useWeakReference, event.target as IEventDispatcher);
 				if (getSandboxRoot() == this)
                     super.addEventListener(actualType, eventProxy.marshalListener,
-                            eventObj.useCapture, eventObj.priority, eventObj.useWeakReference);
+                            request.useCapture, request.priority, request.useWeakReference);
 			}
-			// trace("<<eventListenerRequestHandler ADD ", this, eventObj.userType);
 		}
 		else if (event.type == EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST)
         {
-            // trace(">>eventListenerRequestHandler REMOVE ", this, eventObj.userType);
-            actualType = EventUtil.sandboxRootMouseEventMap[eventObj.userType];
+            actualType = EventUtil.sandboxMouseEventMap[request.eventType];
             if (actualType)
             {
-                removeEventListenerFromSandboxes(eventObj.userType, sandboxMouseListener,
-                            eventObj.useCapture, event.target as IEventDispatcher);
+                removeEventListenerFromSandboxes(request.eventType, sandboxMouseListener,
+                            request.useCapture, event.target as IEventDispatcher);
                 if (getSandboxRoot() == this)
                     super.removeEventListener(actualType, eventProxy.marshalListener,
-                            eventObj.useCapture);
+                            request.useCapture);
             }
-            // trace("<<eventListenerRequestHandler REMOVE ", this, eventObj.userType);
         }		
 	}
  
@@ -2590,20 +2681,20 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 			}
 		}
 		
-		if (hasSWFBridges())
+		if (hasSWFBridges() || SystemManagerGlobals.topLevelSystemManagers.length > 1)
 		{
 			if (!eventProxy)
 			{
 				eventProxy = new EventProxy(this);
 			}
 
-			var actualType:String = EventUtil.sandboxRootMouseEventMap[type];
+			var actualType:String = EventUtil.sandboxMouseEventMap[type];
 			if (actualType)
 			{
 				if (isTopLevelRoot())
 				{
 					stage.addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
-					addEventListenerToSandboxes(SandboxRootMouseEvent.MOUSE_MOVE_SOMEWHERE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
+					addEventListenerToSandboxes(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
 				}
 				else
 				{
@@ -2611,6 +2702,11 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 				}
 				
 				addEventListenerToSandboxes(type, sandboxMouseListener, useCapture, priority, useWeakReference);
+				if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
+					addEventListenerToOtherSystemManagers(type, otherSystemManagerMouseListener, useCapture, priority, useWeakReference)
+				if (getSandboxRoot() == this)
+                    super.addEventListener(actualType, eventProxy.marshalListener,
+                            useCapture, priority, useWeakReference);
 				
 				// Set useCapture to false because we will never see an event 
 				// marshalled in the capture phase.
@@ -2691,11 +2787,16 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 			}
 		}
 
-		if (hasSWFBridges())
+		if (hasSWFBridges() || SystemManagerGlobals.topLevelSystemManagers.length > 1)
 		{
-			var actualType:String = EventUtil.sandboxRootMouseEventMap[type];
+			var actualType:String = EventUtil.sandboxMouseEventMap[type];
 			if (actualType)
 			{
+				if (getSandboxRoot() == this)
+                    super.removeEventListener(actualType, eventProxy.marshalListener,
+                            useCapture);
+				if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
+					removeEventListenerFromOtherSystemManagers(type, otherSystemManagerMouseListener, useCapture);
 				removeEventListenerFromSandboxes(type, sandboxMouseListener, useCapture);
 				super.removeEventListener(type, listener, false);
 				return;
@@ -3073,10 +3174,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	 */
 	private function addPopupRequestHandler(event:Event):void
 	{
-		if (event.target != this && event is PopUpRequest)
+		if (event.target != this && event is SWFBridgeRequest)
 			return;
 
-		var popUpRequest:PopUpRequest = PopUpRequest.marshal(event);
+		var popUpRequest:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
 
 		// If there is not for mutual trust between us an the child that wants the 
 		// popup, then don't host the pop up.
@@ -3100,30 +3201,30 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		}
 		
 		// add popup as a child of this system manager
-        if (!popUpRequest.childList || popUpRequest.childList == PopUpManagerChildList.PARENT)
-            topMost = popUpRequest.parent && popUpChildren.contains(popUpRequest.parent);
+        if (!popUpRequest.data.childList || popUpRequest.data.childList == PopUpManagerChildList.PARENT)
+            topMost = popUpRequest.data.parent && popUpChildren.contains(popUpRequest.data.parent);
         else
-            topMost = (popUpRequest.childList == PopUpManagerChildList.POPUP);
+            topMost = (popUpRequest.data.childList == PopUpManagerChildList.POPUP);
 
         var children:IChildList;
         children = topMost ? popUpChildren : this;
-        children.addChild(DisplayObject(popUpRequest.window));
+        children.addChild(DisplayObject(popUpRequest.data.window));
         
-        if (popUpRequest.modal)    
+        if (popUpRequest.data.modal)    
 	        numModalWindows++;
         
 		// add popup to the list of managed forms
-		var remoteForm:RemotePopUp = new RemotePopUp(popUpRequest.window, popUpRequest.requestor);
+		var remoteForm:RemotePopUp = new RemotePopUp(popUpRequest.data.window, popUpRequest.requestor);
 		forms.push(remoteForm);
 		
 		if (!isTopLevelRoot() && swfBridgeGroup)
 		{
 			// We've added the popup as far as it can go.
 			// Add a placeholder to the top level root application
-			var request:PopUpRequest = new PopUpRequest(PopUpRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, false, false, 
-			                                            popUpRequest.window);
+			var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, false, false, null,
+													{ window: popUpRequest.data.window});
 			request.requestor = popUpRequest.requestor;
-			request.placeHolderId = NameUtil.displayObjectToString(DisplayObject(popUpRequest.window));
+			request.data.placeHolderId = NameUtil.displayObjectToString(DisplayObject(popUpRequest.data.window));
 			dispatchEvent(request);
 		}
 	}
@@ -3137,7 +3238,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	 */
 	private function removePopupRequestHandler(event:Event):void
 	{
-		var popUpRequest:PopUpRequest = PopUpRequest.marshal(event);
+		var popUpRequest:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
 
         if (swfBridgeGroup.parentBridge &&
             SecurityUtil.hasMutualTrustBetweenParentAndChild(this))
@@ -3147,23 +3248,23 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 			return;
 		}
 					
-        if (popUpChildren.contains(popUpRequest.window))
-            popUpChildren.removeChild(popUpRequest.window);
+        if (popUpChildren.contains(popUpRequest.data.window))
+            popUpChildren.removeChild(popUpRequest.data.window);
         else
-            removeChild(DisplayObject(popUpRequest.window));
+            removeChild(DisplayObject(popUpRequest.data.window));
         
-        if (popUpRequest.modal)    
+        if (popUpRequest.data.modal)    
 			numModalWindows--;
 
-		removeRemotePopUp(new RemotePopUp(popUpRequest.window, popUpRequest.requestor));
+		removeRemotePopUp(new RemotePopUp(popUpRequest.data.window, popUpRequest.requestor));
 		
 		if (!isTopLevelRoot() && swfBridgeGroup)
 		{
 			// if we got here we know the parent is untrusted, so remove placeholders
-			var request:PopUpRequest = new PopUpRequest(PopUpRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, false, false,
+			var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, false, false,
 														null);
 			request.requestor = swfBridgeGroup.parentBridge;
-			request.placeHolderId = NameUtil.displayObjectToString(popUpRequest.window);
+			request.data.placeHolderId = NameUtil.displayObjectToString(popUpRequest.data.window);
 			dispatchEvent(request);
 		}
 	}
@@ -3177,15 +3278,15 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	 */
 	 private function addPlaceholderPopupRequestHandler(event:Event):void
 	 {
-		var popUpRequest:PopUpRequest = PopUpRequest.marshal(event);
+		var popUpRequest:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
 
-		if (event.target != this && event is PopUpRequest)
+		if (event.target != this && event is SWFBridgeRequest)
 			return;
 	 	
 		if (!forwardPlaceholderRequest(popUpRequest, true))
 		{
 			// Create a RemotePopUp and add it.
-			var remoteForm:RemotePopUp = new RemotePopUp(popUpRequest.placeHolderId, popUpRequest.requestor);
+			var remoteForm:RemotePopUp = new RemotePopUp(popUpRequest.data.placeHolderId, popUpRequest.requestor);
 			forms.push(remoteForm);
 		}
 
@@ -3200,7 +3301,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	 */
 	 private function removePlaceholderPopupRequestHandler(event:Event):void
 	 {
-		var popUpRequest:PopUpRequest = PopUpRequest.marshal(event);
+		var popUpRequest:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
 	 	
 		if (!forwardPlaceholderRequest(popUpRequest, false))
 		{
@@ -3210,7 +3311,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 			{
 				if (isRemotePopUp(forms[i]))
 				{
-					if (forms[i].window == popUpRequest.placeHolderId &&
+					if (forms[i].window == popUpRequest.data.placeHolderId &&
 					    forms[i].bridge == popUpRequest.requestor)
 					{
 						forms.splice(i, 1);
@@ -3237,7 +3338,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		if (bridge)
 		{
 			var sbRoot:DisplayObject = getSandboxRoot();
-			eObj.sender =  bridge;
 			if (sbRoot == this)
 			{
 				if (!(eObj.data is String))
@@ -3278,26 +3378,26 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		// stop on the way up the parent chain.
 		var refObj:Object = null;
 		var oldId:String = null;
-		if (eObj.window)
+		if (eObj.data.window)
 		{
-			refObj = eObj.window;
+			refObj = eObj.data.window;
 			
 			// null this ref out so untrusted parent cannot see
-			eObj.window = null;
+			eObj.data.window = null;
 		}
 		else
 		{
 			refObj = eObj.requestor;
 			
 			// prefix the existing id with the id of this object
-			oldId = eObj.placeHolderId;
-			eObj.placeHolderId = NameUtil.displayObjectToString(this) + "." + eObj.placeHolderId;
+			oldId = eObj.data.placeHolderId;
+			eObj.data.placeHolderId = NameUtil.displayObjectToString(this) + "." + eObj.data.placeHolderId;
 		}
 
 		if (addPlaceholder)
-			addPlaceholderId(eObj.placeHolderId, oldId, eObj.requestor, refObj);
+			addPlaceholderId(eObj.data.placeHolderId, oldId, eObj.requestor, refObj);
 		else 
-			removePlaceholderId(eObj.placeHolderId);
+			removePlaceholderId(eObj.data.placeHolderId);
 				
 				
 		
@@ -3331,7 +3431,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 			// deactivate the form
 			if (isRemotePopUp(form) && 
 				RemotePopUp(form).window == eObj.data &&
-				RemotePopUp(form).bridge == eObj.sender)
+				RemotePopUp(form).bridge == eObj.target)
 				deactivateForm(form);
 		}
 	}
@@ -3350,7 +3450,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
 		if (!forwardFormEvent(eObj))
 			// just call activate on the remote form.
-			activateForm(new RemotePopUp(eObj.data, eObj.sender));			
+			activateForm(new RemotePopUp(eObj.data, eObj.target));			
 	}
 		
 	/**
@@ -3381,10 +3481,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      */  
     private function modalWindowRequestHandler(event:Event):void
     {
-        if (event is ModalWindowRequest)
+        if (event is SWFBridgeRequest)
             return;
         
-        var request:ModalWindowRequest = ModalWindowRequest.marshal(event);
+        var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
             
         if (!preProcessModalWindowRequest(request, this, getSandboxRoot()))
             return;
@@ -3458,7 +3558,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
             bridge.dispatchEvent(request);
         }
 		else if (eventProxy)
-			showMouseCursor = false;
+			SystemManagerGlobals.showMouseCursor = false;
 	}
 	
     /**
@@ -3483,7 +3583,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	        Object(event).data = request.data;           // update request
         }
 		else if (eventProxy)
-	        Object(event).data = showMouseCursor;
+	        Object(event).data = SystemManagerGlobals.showMouseCursor;
         
     }
 
@@ -3508,19 +3608,17 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
             bridge.dispatchEvent(request);
         }
 		else if (eventProxy)
-	        showMouseCursor = true;
+	        SystemManagerGlobals.showMouseCursor = true;
         
     }
-
-	private var showMouseCursor:Boolean = true;
 
 	private function resetMouseCursorTracking(event:Event):void
 	{
 		if (isTopLevelRoot())
 		{
-			showMouseCursor = true;
+			SystemManagerGlobals.showMouseCursor = true;
 		}
-		else
+		else if (swfBridgeGroup.parentBridge)
 		{
 			var cursorRequest:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.RESET_MOUSE_CURSOR_REQUEST);
 			var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
@@ -3676,8 +3774,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	 * Is the child in event.data this system manager or a child of this 
 	 * system manager?
 	 *
-	 * If the display object is a child event.preventDefault is called,
-	 * otherwise nothing is done. 
+	 * Set the data property to indicate if the display object is a child
 	 */
 	private function isBridgeChildHandler(event:Event):void
 	{
@@ -3688,18 +3785,14 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
 		var eObj:Object = Object(event);
 
-		if (eObj.data && rawChildren.contains(eObj.data as DisplayObject))
-		{
-			event.preventDefault();
-		}
+		eObj.data = eObj.data && rawChildren.contains(eObj.data as DisplayObject);
 	}
 	
 	/**
 	 * Can this form be activated. The current test is if the given pop up 
 	 * is visible and is enabled. 
 	 *
-	 * If the can be activated event.preventDefault is called,
-	 * otherwise nothing is done. 
+	 * Set the data proeprty to indicate if can be activated
 	 */
 	private function canActivateHandler(event:Event):void
 	{
@@ -3732,8 +3825,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 				 	if (popUp.bridge)
 				 	{
 				 		popUp.bridge.dispatchEvent(request);
-				 		if (request.isDefaultPrevented())
-				 			event.preventDefault();
+				 		eObj.data = true;
 				 	}
 					return;
 				}
@@ -3744,13 +3836,11 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		{
 			var smp:SystemManagerProxy = SystemManagerProxy(child);
 			var f:IFocusManagerContainer = findFocusManagerContainer(smp);
-			if (smp && f && canActivateLocalComponent(f))
-				event.preventDefault();
+			eObj.data = smp && f && canActivateLocalComponent(f);
 		}	
 		else if (child is IFocusManagerContainer)
 		{
-			if (canActivateLocalComponent(child))
-				event.preventDefault();
+			eObj.data = canActivateLocalComponent(child);
 		}
 		else if (child is IEventDispatcher)
 		{
@@ -3763,8 +3853,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 			if (bridge)
 			{
 				bridge.dispatchEvent(request);
-				if (request.isDefaultPrevented())
-					event.preventDefault();
+				eObj.data = true;
 			}
 		}
 		else 
@@ -3796,7 +3885,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 				var bp:ISWFBridgeProvider = swfBridgeGroup.getChildBridgeProvider(childBridge);
 				childBridge.dispatchEvent(request);
 				if (SecurityUtil.hasMutualTrustBetweenParentAndChild(bp) &&
-					request.data == false)
+					request.data == true)
 					return true;
 			}
 		}
@@ -3811,12 +3900,18 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	{
 		// if we are broadcasting messages, ignore the messages
 		// we send to ourselves.
-		if (event is SandboxRootRequest)
+		if (event is InterManagerRequest)
 			return;
 
 		// initialize the registered manager implementation
 		var name:String = event["name"];
-		Singleton.getInstance(name);
+		try
+		{
+			Singleton.getInstance(name);
+		}
+		catch (e:Error)
+		{
+		}
 	}
 
 	/**
@@ -3831,7 +3926,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		else
 		{
 			addingChild(child);
-			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.SYSTEM_MANAGER_REQUEST);
+			var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST);
 			me.name = layer + ".addChild";
 			me.value = child;
 			getSandboxRoot().dispatchEvent(me);
@@ -3851,7 +3946,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		else
 		{
 			removingChild(child);
-			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.SYSTEM_MANAGER_REQUEST);
+			var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST);
 			me.name = layer + ".removeChild";
 			me.value = child;
 			getSandboxRoot().dispatchEvent(me);
@@ -3873,7 +3968,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
 		// if we are broadcasting messages, ignore the messages
 		// we send to ourselves.
-		if (event is SandboxRootRequest)
+		if (event is InterManagerRequest)
 			return;
 
 		// initialize the registered manager implementation
