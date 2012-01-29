@@ -16,7 +16,7 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import mx.core.WindowedApplication;
 import mx.core.IFlexDisplayObject;
-import mx.core.IWindow;
+import mx.core.IUITextField;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.core.UITextField;
@@ -110,7 +110,7 @@ public class StatusBar extends UIComponent
 	/**
      *  A reference to the UITextField that displays the status bar's text.
      */
-    public var statusTextField:UITextField;
+    public var statusTextField:IUITextField;
     
     //--------------------------------------------------------------------------
     //
@@ -146,11 +146,11 @@ public class StatusBar extends UIComponent
       
 	    if (!statusTextField)
 	    {
-	        statusTextField = UITextField(createInFontContext(UITextField));
+	        statusTextField = IUITextField(createInFontContext(UITextField));
 	        statusTextField.text = _status;
 	        statusTextField.styleName = getStyle("statusTextStyleName");
 	        statusTextField.enabled = true;
-	        addChild(statusTextField);
+	        addChild(DisplayObject(statusTextField));
     	}
 	}
 	
