@@ -19,8 +19,8 @@
 
 	<target name="clean">
 		<delete file="bundles.properties"/>
-		<delete file="${frameworks.dir}/libs/apolloframework.swc"/> <!-- old name -->
 		<delete file="${frameworks.dir}/libs/air/airframework.swc"/>
+		<delete file="${frameworks.dir}/libs/air/airframework.swc.incr"/>
 		<ant dir="bundles/en_US" target="clean"/>
 		<ant dir="bundles/ja_JP" target="clean"/>
 	</target>
