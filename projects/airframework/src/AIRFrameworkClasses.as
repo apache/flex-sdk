@@ -20,8 +20,6 @@ package
  */
 internal class AIRFrameworkClasses
 {
-    
-    
     import mx.managers.NativeDragManagerImpl; NativeDragManagerImpl;
     import mx.skins.halo.StatusBarBackgroundSkin; StatusBarBackgroundSkin;
     import mx.skins.halo.ApplicationTitleBarBackgroundSkin; ApplicationTitleBarBackgroundSkin;
@@ -29,18 +27,6 @@ internal class AIRFrameworkClasses
     import mx.skins.halo.WindowMinimizeButtonSkin; WindowMinimizeButtonSkin;
     import mx.skins.halo.WindowMaximizeButtonSkin; WindowMaximizeButtonSkin;
     import mx.skins.halo.WindowRestoreButtonSkin; WindowRestoreButtonSkin;
-    import spark.skins.spark.windowChrome.CloseButtonSkin; CloseButtonSkin;
-    import spark.skins.spark.SparkChromeWindowedApplicationSkin; SparkChromeWindowedApplicationSkin;
-    import spark.skins.spark.windowChrome.GripperSkin; GripperSkin;
-    import spark.skins.spark.windowChrome.MacCloseButtonSkin; MacCloseButtonSkin;
-    import spark.skins.spark.windowChrome.MacMaximizeButtonSkin; MacMaximizeButtonSkin;
-    import spark.skins.spark.windowChrome.MacMinimizeButtonSkin; MacMinimizeButtonSkin;
-    import spark.skins.spark.windowChrome.MaximizeButtonSkin; MaximizeButtonSkin;
-    import spark.skins.spark.windowChrome.MinimizeButtonSkin; MinimizeButtonSkin;
-    import spark.skins.spark.windowChrome.RestoreButtonSkin; RestoreButtonSkin;
-    import spark.skins.spark.windowChrome.TitleBarSkin; TitleBarSkin;
-    import spark.skins.spark.WindowedApplicationSkin; WindowedApplicationSkin;
-    import spark.components.WindowedApplication; WindowedApplication;
 }
 
 }
