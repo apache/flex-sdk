@@ -39,36 +39,21 @@ import flash.utils.Dictionary;
 
 import mx.core.EventPriority;
 import mx.core.FlexSprite;
-import mx.core.IRawChildrenContainer;
-import mx.core.ISWFBridgeGroup;
-import mx.core.ISWFBridgeProvider;
-import mx.core.ISWFLoader;
 import mx.core.IChildList;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
 import mx.core.IUIComponent;
 import mx.core.Singleton;
-import mx.core.SWFBridgeGroup;
 import mx.core.IWindow;
 import mx.core.mx_internal;
+import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
-import mx.events.FlexChangeEvent;
 import mx.events.EventListenerRequest;
-import mx.events.InvalidateRequestData;
-import mx.events.InterManagerRequest;
-import mx.events.SandboxMouseEvent;
-import mx.events.SWFBridgeRequest;
-import mx.events.SWFBridgeEvent;
-import mx.managers.systemClasses.RemotePopUp;
-import mx.managers.systemClasses.EventProxy;
-import mx.managers.systemClasses.StageEventProxy;
-import mx.managers.systemClasses.PlaceholderData;
+import mx.events.Request;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
-import mx.utils.EventUtil;
 import mx.utils.NameUtil;
 import mx.utils.ObjectUtil;
-import mx.utils.SecurityUtil;
 
 
 use namespace mx_internal;
@@ -92,7 +77,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class WindowedSystemManager extends MovieClip implements ISystemManager, ISWFBridgeProvider
+public class WindowedSystemManager extends MovieClip implements ISystemManager
 {
     
     public function WindowedSystemManager(rootObj:IUIComponent)
@@ -105,61 +90,49 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         addEventListener(Event.ADDED, docFrameHandler);
     }
     
-        /**
-     *  @private
-     *  List of top level windows.
-     */
-    private var forms:Array = [];
+	private var topLevel:Boolean = true;
+	
+	private var initialized:Boolean = false;
+	
+	/**
+	 *  @private
+	 *  The top level window.
+	 */
+	mx_internal var topLevelWindow:IUIComponent;
+	
+	/**
+	 *  @private
+	 *  pointer to Window, for cleanup
+	 */
+	private var myWindow:IWindow;
+	
+	/**
+	 *  @private
+	 */
+	private var originalSystemManager:SystemManager;
+	
+	/**
+	 *  @private
+	 */
+	private var _topLevelSystemManager:ISystemManager;
+	
+	/**
+	 *  @private
+	 *  Whether we are the stage root or not.
+	 *  We are only the stage root if we were the root
+	 *  of the first SWF that got loaded by the player.
+	 *  Otherwise we could be top level but not stage root
+	 *  if we are loaded by some other non-Flex shell
+	 *  or are sandboxed.
+	 */
+	private var isStageRoot:Boolean = true;
 
-    /**
-     *  @private
-     *  The current top level window.
-     */
-    private var form:Object;
-    
-    private var topLevel:Boolean = true;
-    
-    private var initialized:Boolean = false;
-    
     /**
      *  @private
      *  Number of frames since the last mouse or key activity.
      */
     mx_internal var idleCounter:int = 0;
     
-    /**
-     *  @private
-     *  The top level window.
-     */
-    mx_internal var topLevelWindow:IUIComponent;
-    
-    /**
-     *  @private
-     *  pointer to Window, for cleanup
-     */
-    private var myWindow:IWindow;
-    
-    /**
-     *  @private
-     */
-    private var originalSystemManager:SystemManager;
-    
-    /**
-     *  @private
-     */
-    private var _topLevelSystemManager:ISystemManager;
-    
-    /**
-     *  @private
-     *  Whether we are the stage root or not.
-     *  We are only the stage root if we were the root
-     *  of the first SWF that got loaded by the player.
-     *  Otherwise we could be top level but not stage root
-     *  if we are loaded by some other non-Flex shell
-     *  or are sandboxed.
-     */
-    private var isStageRoot:Boolean = true;
-
     /**
      *  @private
      *  Whether we are the first SWF loaded into a bootstrap
@@ -177,31 +150,32 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      */
     mx_internal var nestLevel:int = 0;
 
-    /**
-     *  @private
-     *  The mouseCatcher is the 0th child of the SystemManager,
-     *  behind the application, which is child 1.
-     *  It is the same size as the stage and is filled with
-     *  transparent pixels; i.e., they've been drawn, but with alpha 0.
-     *
-     *  Its purpose is to make every part of the stage
-     *  able to detect the mouse.
-     *  For example, a Button puts a mouseUp handler on the SystemManager
-     *  in order to capture mouseUp events that occur outside the Button.
-     *  But if the children of the SystemManager don't have "drawn-on"
-     *  pixels everywhere, the player won't dispatch the mouseUp.
-     *  We can't simply fill the SystemManager itself with
-     *  transparent pixels, because the player's pixel detection
-     *  logic doesn't look at pixels drawn into the root DisplayObject.
-     *
-     *  Here is an example of what would happen without the mouseCatcher:
-     *  Run a fixed-size Application (e.g. width="600" height="600")
-     *  in the standalone player. Make the player window larger
-     *  to reveal part of the stage. Press a Button, drag off it
-     *  into the stage area, and release the mouse button.
-     *  Without the mouseCatcher, the Button wouldn't return to its "up" state.
-     */
-    private var mouseCatcher:Sprite;
+	/**
+	 *  @private
+	 *  The mouseCatcher is the 0th child of the SystemManager,
+	 *  behind the application, which is child 1.
+	 *  It is the same size as the stage and is filled with
+	 *  transparent pixels; i.e., they've been drawn, but with alpha 0.
+	 *
+	 *  Its purpose is to make every part of the stage
+	 *  able to detect the mouse.
+	 *  For example, a Button puts a mouseUp handler on the SystemManager
+	 *  in order to capture mouseUp events that occur outside the Button.
+	 *  But if the children of the SystemManager don't have "drawn-on"
+	 *  pixels everywhere, the player won't dispatch the mouseUp.
+	 *  We can't simply fill the SystemManager itself with
+	 *  transparent pixels, because the player's pixel detection
+	 *  logic doesn't look at pixels drawn into the root DisplayObject.
+	 *
+	 *  Here is an example of what would happen without the mouseCatcher:
+	 *  Run a fixed-size Application (e.g. width="600" height="600")
+	 *  in the standalone player. Make the player window larger
+	 *  to reveal part of the stage. Press a Button, drag off it
+	 *  into the stage area, and release the mouse button.
+	 *  Without the mouseCatcher, the Button wouldn't return to its "up" state.
+	 */
+	private var mouseCatcher:Sprite;
+	
     
     //----------------------------------
     //  applicationIndex
@@ -231,47 +205,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         _applicationIndex = value;
     }
     
-    //----------------------------------
-    //  bridgeToFocusManager
-    //----------------------------------
-
-    /** 
-     *  @private
-     *  Map a bridge to a FocusManager. 
-     *  This dictionary contains both the focus managers for this document as 
-     *  well as focus managers that are in documents contained inside of pop 
-     *  ups, if the system manager in that pop up requires a bridge to 
-     *  communicate with this system manager. 
-     *  
-     *  The returned object is an object of type IFocusManager.
-     */
-    private var _bridgeToFocusManager:Dictionary;
-
-    /** 
-     *   @private
-     *  
-     *   System Managers in child application domains use their parent's
-     *   bridgeToFocusManager's Dictionary. The swfBridgeGroup property
-     *   is maintained in the same way.
-     */
-    mx_internal function get bridgeToFocusManager():Dictionary
-    {
-        if (topLevel)
-            return _bridgeToFocusManager;
-        else if (topLevelSystemManager)
-            return SystemManager(topLevelSystemManager).bridgeToFocusManager;
-            
-        return null;
-    }
-    
-    mx_internal function set bridgeToFocusManager(bridgeToFMDictionary:Dictionary):void
-    {
-        if (topLevel)
-            _bridgeToFocusManager = bridgeToFMDictionary;
-        else if (topLevelSystemManager)
-            SystemManager(topLevelSystemManager).bridgeToFocusManager = bridgeToFMDictionary;
-                    
-    }
     
     //-----------------------------------
     //  ISystemManager implementations
@@ -460,9 +393,22 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
             _focusPane = null;
         }
     }
-        //----------------------------------
-    //  $numChildren
+
     //----------------------------------
+    //  isProxy
+    //----------------------------------
+
+	/**
+	 *  True if SystemManager is a proxy and not a root class
+	 */
+	public function get isProxy():Boolean
+	{
+		return false;
+	}
+
+	//----------------------------------
+	//  $numChildren
+	//----------------------------------
 
     /**
      *  @private
@@ -595,38 +541,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
             _rawChildren = new WindowedSystemRawChildrenList(this);
 
         return _rawChildren;
-    }
-
-    //--------------------------------------------------------------------------
-    //  sandbox bridge group
-    //--------------------------------------------------------------------------
-    
-    /**
-     * @private
-     * 
-     * Represents the related parent and child sandboxs this SystemManager may 
-     * communicate with.
-     */
-    private var _swfBridgeGroup:ISWFBridgeGroup;
-    
-    
-    public function get swfBridgeGroup():ISWFBridgeGroup
-    {
-        if (topLevel)
-            return _swfBridgeGroup;
-        else if (topLevelSystemManager)
-            return topLevelSystemManager.swfBridgeGroup;
-            
-        return null;
-    }
-    
-    public function set swfBridgeGroup(bridgeGroup:ISWFBridgeGroup):void
-    {
-        if (topLevel)
-            _swfBridgeGroup = bridgeGroup;
-        else if (topLevelSystemManager)
-            SystemManager(topLevelSystemManager).swfBridgeGroup = bridgeGroup;
-                    
     }
 
     //--------------------------------------------------------------------------
@@ -833,27 +747,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         return _height;
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  Properties: ISWFBridgeProvider
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     * @inheritdoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */    
-    public function get swfBridge():IEventDispatcher
-    {
-        if (swfBridgeGroup)
-            return swfBridgeGroup.parentBridge;
-            
-        return null;
-    }
-    
     /**
      * @inheritdoc
      *  
@@ -896,368 +789,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         return false;   // assume the worst
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  Methods: Focus
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function activate(f:IFocusManagerContainer):void
-    {
-        activateForm(f);
-    }
-
-    /**
-     * @private
-     * 
-     * New version of activate that does not require a
-     * IFocusManagerContainer.
-     */
-    private function activateForm(f:Object):void
-    {
-
-        // trace("SM: activate " + f + " " + forms.length);
-        if (form)
-        {
-            if (form != f && forms.length > 1)
-            {
-                // Switch the active form.
-                if (isRemotePopUp(form))
-                {
-                    if (!areRemotePopUpsEqual(form, f))
-                        deactivateRemotePopUp(form);                                                    
-                }
-                else
-                {
-                    var z:IFocusManagerContainer = IFocusManagerContainer(form);
-                    // trace("OLW " + f + " deactivating old form " + z);
-                    z.focusManager.deactivate();
-                }
-            }
-        }
-
-        form = f;
-
-        // trace("f = " + f);
-        if (isRemotePopUp(f))
-        {
-            activateRemotePopUp(f);
-        }
-        else if (f.focusManager)
-        {
-            // trace("has focus manager");
-            f.focusManager.activate();
-        }
-
-        updateLastActiveForm();
-        
-        // trace("END SM: activate " + f);
-    }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function deactivate(f:IFocusManagerContainer):void
-    {
-        deactivateForm(Object(f));
-    }
-    
-    /**
-     * @private
-     * 
-     * New version of deactivate that works with remote pop ups.
-     * 
-     */
-    private function deactivateForm(f:Object):void
-    {
-        // trace(">>SM: deactivate " + f);
-
-        if (form)
-        {
-            // If there's more than one form and this is it, find a new form.
-            if (form == f && forms.length > 1)
-            {
-                if (isRemotePopUp(form))
-                    deactivateRemotePopUp(form);
-                else
-                    form.focusManager.deactivate();
-                    
-                form = findLastActiveForm(f);
-                
-                // make sure we have a valid top level window.
-                // This can be null if top level window has been hidden for some reason.
-                if (form)
-                {
-                    if (isRemotePopUp(form))
-                        activateRemotePopUp(form);                  
-                    else 
-                        form.focusManager.activate();
-                }
-            }
-        }
-
-        // trace("<<SM: deactivate " + f);
-    }
-
-
-    /**
-     * @private
-     * 
-     * @param f form being deactivated
-     * 
-     * @return the next form to activate, excluding the form being deactivated.
-     */
-    private function findLastActiveForm(f:Object):Object
-    {
-        var n:int = forms.length;
-        for (var i:int = forms.length - 1; i >= 0; i--)
-        {
-            // Verify the form is visible and enabled
-            if (forms[i] != f && canActivatePopUp(forms[i]))
-                return forms[i];
-        }
-        
-        return null;  // shouldn't get here     
-    }
-    
-    
-    /**
-     * @private
-     * 
-     * @return true if the form can be activated, false otherwise.
-     */
-     private function canActivatePopUp(f:Object):Boolean
-     {
-        if (isRemotePopUp(f))
-        {
-            var remotePopUp:RemotePopUp = RemotePopUp(f);
-            var event:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.CAN_ACTIVATE_POP_UP_REQUEST, 
-                                                                  false, false, null,
-                                                                  remotePopUp.window);
-            IEventDispatcher(remotePopUp.bridge).dispatchEvent(event);
-            return event.data;
-        }
-        else if (canActivateLocalComponent(f))
-            return true;
-            
-        return false;
-     }
-     
-     
-     /**
-     * @private
-     * 
-     * Test is a local component can be activated.
-     */
-     private function canActivateLocalComponent(o:Object):Boolean
-     {
-        
-        if (o is Sprite && o is IUIComponent &&
-            Sprite(o).visible && IUIComponent(o).enabled)
-            return true;
-            
-        return false;
-     }
-     
-    /**
-     * @private
-     * 
-     * @return true if the form is a RemotePopUp, false if the form is IFocusManagerContainer.
-     *
-     */
-    private static function isRemotePopUp(form:Object):Boolean
-    {
-        return !(form is IFocusManagerContainer);
-    }
-
-    /**
-     * @private
-     * 
-     * @return true if form1 and form2 are both of type RemotePopUp and are equal, false otherwise.
-     */
-    private static function areRemotePopUpsEqual(form1:Object, form2:Object):Boolean
-    {
-        if (!(form1 is RemotePopUp))
-            return false;
-        
-        if (!(form2 is RemotePopUp))
-            return false;
-        
-        var remotePopUp1:RemotePopUp = RemotePopUp(form1);
-        var remotePopUp2:RemotePopUp = RemotePopUp(form2);
-        
-        if (remotePopUp1.window == remotePopUp2.window && 
-            remotePopUp1.bridge && remotePopUp2.bridge)
-            return true;
-        
-        return false;
-    }
-
-
-    /**
-     * @private
-     * 
-     * Find a remote form that is hosted by this system manager.
-     * 
-     * @param window unique id of popUp within a bridged application
-     * @param bridge bridge of owning application.
-     * 
-     * @return RemotePopUp if hosted by this system manager, false otherwise.
-     */
-    private function findRemotePopUp(window:Object, bridge:IEventDispatcher):RemotePopUp
-    {
-        // remove the placeholder from forms array
-        var n:int = forms.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            if (isRemotePopUp(forms[i]))
-            {
-                var popUp:RemotePopUp = RemotePopUp(forms[i]);
-                if (popUp.window == window && 
-                    popUp.bridge == bridge)
-                    return popUp;
-            }
-        }
-        
-        return null;
-    }
-    
-    /**
-     * Remote a remote form from the forms array.
-     * 
-     * form Locally created remote form.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function removeRemotePopUp(form:RemotePopUp):void
-    {   
-        // remove popup from forms array
-        var n:int = forms.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            if (isRemotePopUp(forms[i]))
-            {
-                if (forms[i].window == form.window &&
-                    forms[i].bridge == form.bridge)
-                {
-                    if (forms[i] == form)
-                        deactivateForm(form);
-                    forms.splice(i, 1);
-                    break;
-                }
-            }
-        }
-    }
-
-    /**
-     * @private
-     * 
-     * Activate a form that belongs to a system manager in another
-     * sandbox or peer application domain.
-     * 
-     * @param form  a RemotePopUp object.
-     * */ 
-    private function activateRemotePopUp(form:Object):void
-    {
-        var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.ACTIVATE_POP_UP_REQUEST, 
-                                                                    false, false,
-                                                                    form.bridge,
-                                                                    form.window);
-        var bridge:Object = form.bridge;
-        if (bridge)
-            bridge.dispatchEvent(request);
-    }
-    
-    
-    private function deactivateRemotePopUp(form:Object):void
-    {
-        var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.DEACTIVATE_POP_UP_REQUEST,
-                                                                    false, false,
-                                                                    form.bridge,
-                                                                    form.window);
-        var bridge:Object = form.bridge;
-        if (bridge)
-            bridge.dispatchEvent(request);
-    }
-    /**
-     * Test if two forms are equal.
-     * 
-     * @param form1 - may be of type a DisplayObjectContainer or a RemotePopUp
-     * @param form2 - may be of type a DisplayObjectContainer or a RemotePopUp
-     * 
-     * @return true if the forms are equal, false otherwise.
-     */
-    private function areFormsEqual(form1:Object, form2:Object):Boolean
-    {
-        if (form1 == form2)
-            return true;
-            
-        // if the forms are both remote forms, then compare them, otherwise
-        // return false.
-        if (form1 is RemotePopUp && form2 is RemotePopUp)
-        {
-            return areRemotePopUpsEqual(form1, form2);  
-        }
-        
-        return false;
-    }   
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function addFocusManager(f:IFocusManagerContainer):void
-    {
-        // trace("OLW: add focus manager" + f);
-
-        forms.push(f);
-
-        // trace("END OLW: add focus manager" + f);
-    }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function removeFocusManager(f:IFocusManagerContainer):void
-    {
-        // trace("OLW: remove focus manager" + f);
-
-        var n:int = forms.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            if (forms[i] == f)
-            {
-                if (form == f)
-                    deactivate(f);
-                forms.splice(i, 1);
-                // trace("END OLW: successful remove focus manager" + f);
-                return;
-            }
-        }
-
-        // trace("END OLW: remove focus manager" + f);
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Methods: Access to overridden methods of base classes
@@ -1338,45 +869,22 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         if (!mainClass)
             throw new Error("Class '" + mainClassName + "' not found.");
 
-        var instance:Object = new mainClass();
-        if (instance is IFlexModule)
-            (IFlexModule(instance)).moduleFactory = this;
-        return instance;
-    }
-    
-    /**
-     *  @private
-     *  This is attached as the framescript at the end of frame 2.
-     *  When this function is called, we know that the application
-     *  class has been defined and read in by the Player.
-     */
-    protected function docFrameHandler(event:Event = null):void
-    {
-        removeEventListener(Event.ADDED, docFrameHandler);
-        
-        // every SM has to have this listener in case it is the SM for some child AD that contains a manager
-        // and the parent ADs don't have that manager.
-        getSandboxRoot().addEventListener(InterManagerRequest.INIT_MANAGER_REQUEST, initManagerHandler, false, 0, true);
-        // once managers get initialized, they bounce things off the sandbox root
-        if (getSandboxRoot() == this)
-        {
-            addEventListener(InterManagerRequest.SYSTEM_MANAGER_REQUEST, systemManagerHandler);
-            addEventListener(InterManagerRequest.DRAG_MANAGER_REQUEST, multiWindowRedispatcher);
-            // listened for w/o use of constants because of dependency issues
-            //addEventListener(InterDragManagerEvent.DISPATCH_DRAG_EVENT, multiWindowRedispatcher);
-            addEventListener("dispatchDragEvent", multiWindowRedispatcher);
-
-            addEventListener(SWFBridgeRequest.ADD_POP_UP_REQUEST, addPopupRequestHandler);
-            addEventListener(SWFBridgeRequest.REMOVE_POP_UP_REQUEST, removePopupRequestHandler);
-            addEventListener(SWFBridgeRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, addPlaceholderPopupRequestHandler);
-            addEventListener(SWFBridgeRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, removePlaceholderPopupRequestHandler);
-            addEventListener(SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE, activateFormSandboxEventHandler);
-            addEventListener(SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE, deactivateFormSandboxEventHandler); 
-            addEventListener(SWFBridgeRequest.HIDE_MOUSE_CURSOR_REQUEST, hideMouseCursorRequestHandler);
-            addEventListener(SWFBridgeRequest.SHOW_MOUSE_CURSOR_REQUEST, showMouseCursorRequestHandler);
-            addEventListener(SWFBridgeRequest.RESET_MOUSE_CURSOR_REQUEST, resetMouseCursorRequestHandler);
-        }
-
+		var instance:Object = new mainClass();
+		if (instance is IFlexModule)
+			(IFlexModule(instance)).moduleFactory = this;
+		return instance;
+	}
+	
+	/**
+	 *  @private
+	 *  This is attached as the framescript at the end of frame 2.
+	 *  When this function is called, we know that the application
+	 *  class has been defined and read in by the Player.
+	 */
+	protected function docFrameHandler(event:Event = null):void
+	{
+		removeEventListener(Event.ADDED, docFrameHandler);
+		
         // Register singleton classes.
         // Note: getDefinitionByName() will return null
         // if the class can't be found.
@@ -1478,12 +986,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
             }
         }
 
-        // capture mouse down so we can switch top level windows and activate
-        // the right focus manager before the components inside start
-        // processing the event
-        addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, true); 
-
-    //  if (topLevel && stage)
+        //  if (topLevel && stage)
             stage.addEventListener(Event.RESIZE, Stage_resizeHandler, false, 0, true);
 
         var app:IUIComponent;
@@ -1492,14 +995,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 
         if (document)
         {
-            // Add listener for the creationComplete event
-/*          IEventDispatcher(app).addEventListener(FlexEvent.CREATION_COMPLETE,
-                                                   appCreationCompleteHandler);
-*  
-*  @langversion 3.0
-*  @playerversion AIR 1.1
-*  @productversion Flex 3
-*/
             if (topLevel && stage)
             {
             //  LoaderConfig._url = loaderInfo.url;
@@ -1590,91 +1085,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         return {};
     }
     
-    //--------------------------------------------------------------------------
-    //
-    //  Methods: Styles
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Call regenerateStyleCache() on all children of this SystemManager.
-     *  If the recursive parameter is true, continue doing this
-     *  for all descendants of these children.
-     */
-    mx_internal function regenerateStyleCache(recursive:Boolean):void
-    {
-        var foundTopLevelWindow:Boolean = false;
-
-        var n:int = rawChildren.numChildren;
-        for (var i:int = 0; i < n; i++)
-        {
-            var child:IStyleClient =
-                rawChildren.getChildAt(i) as IStyleClient;
-
-            if (child)
-                child.regenerateStyleCache(recursive);
-
-            if (isTopLevelWindow(DisplayObject(child)))
-                foundTopLevelWindow = true;
-
-            // Refetch numChildren because notifyStyleChangedInChildren()
-            // can add/delete a child and therefore change numChildren.
-            n = rawChildren.numChildren;
-        }
-
-        // During startup the top level window isn't added
-        // to the child list until late into the startup sequence.
-        // Make sure we call regenerateStyleCache()
-        // on the top level window even if it isn't a child yet.
-        if (!foundTopLevelWindow && topLevelWindow is IStyleClient)
-            IStyleClient(topLevelWindow).regenerateStyleCache(recursive);
-    }
-
-    /**
-     *  @private
-     *  Call styleChanged() and notifyStyleChangeInChildren()
-     *  on all children of this SystemManager.
-     *  If the recursive parameter is true, continue doing this
-     *  for all descendants of these children.
-     */
-    mx_internal function notifyStyleChangeInChildren(styleProp:String,
-                                                     recursive:Boolean):void
-    {
-        var foundTopLevelWindow:Boolean = false;
-
-        var n:int = rawChildren.numChildren;
-        for (var i:int = 0; i < n; i++)
-        {
-            var child:IStyleClient =
-                rawChildren.getChildAt(i) as IStyleClient;
-
-            if (child)
-            {
-                child.styleChanged(styleProp);
-                child.notifyStyleChangeInChildren(styleProp, recursive);
-            }
-
-            if (isTopLevelWindow(DisplayObject(child)))
-                foundTopLevelWindow = true;
-
-            // Refetch numChildren because notifyStyleChangedInChildren()
-            // can add/delete a child and therefore change numChildren.
-            n = rawChildren.numChildren;
-        }
-
-        // During startup the top level window isn't added
-        // to the child list until late into the startup sequence.
-        // Make sure we call notifyStyleChangeInChildren()
-        // on the top level window even if it isn't a child yet.
-        if (!foundTopLevelWindow && topLevelWindow is IStyleClient)
-        {
-            IStyleClient(topLevelWindow).styleChanged(styleProp);
-            IStyleClient(topLevelWindow).notifyStyleChangeInChildren(
-                styleProp, recursive);
-        }
-    }
-
     
     /**
      *  @private
@@ -1700,274 +1110,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         return isStageRoot || isBootstrapRoot;
     }
 
-    /**
-     * The system manager proxy has only one child that is a focus manager container.
-     * Iterate thru the children until we find it.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    mx_internal function findFocusManagerContainer(smp:SystemManagerProxy):IFocusManagerContainer
-    {
-        var children:IChildList = smp.rawChildren;
-        var numChildren:int = children.numChildren;
-        for (var i:int = 0; i < numChildren; i++)
-        {
-            var child:DisplayObject = children.getChildAt(i);
-            if (child is IFocusManagerContainer)
-            {
-                return IFocusManagerContainer(child);
-            }
-        }
-        
-        return null;
-    }
-
-    /**
-     * @private
-     * 
-     * Listen to messages this System Manager needs to service from its children.
-     */ 
-    mx_internal function addChildBridgeListeners(bridge:IEventDispatcher):void
-    {
-        if (!topLevel && topLevelSystemManager)
-        {
-            SystemManager(topLevelSystemManager).addChildBridgeListeners(bridge);
-            return;
-        }
-        
-        bridge.addEventListener(SWFBridgeRequest.ADD_POP_UP_REQUEST, addPopupRequestHandler);
-        bridge.addEventListener(SWFBridgeRequest.REMOVE_POP_UP_REQUEST, removePopupRequestHandler);
-        bridge.addEventListener(SWFBridgeRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, addPlaceholderPopupRequestHandler);
-        bridge.addEventListener(SWFBridgeRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, removePlaceholderPopupRequestHandler);
-        bridge.addEventListener(SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE, activateFormSandboxEventHandler);
-        bridge.addEventListener(SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE, deactivateFormSandboxEventHandler); 
-        bridge.addEventListener(SWFBridgeEvent.BRIDGE_APPLICATION_ACTIVATE, activateApplicationSandboxEventHandler);
-        bridge.addEventListener(EventListenerRequest.ADD_EVENT_LISTENER_REQUEST, eventListenerRequestHandler, false, 0, true);
-        bridge.addEventListener(EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST, eventListenerRequestHandler, false, 0, true);
-        bridge.addEventListener(SWFBridgeRequest.CREATE_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
-        bridge.addEventListener(SWFBridgeRequest.SHOW_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
-        bridge.addEventListener(SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
-        bridge.addEventListener(SWFBridgeRequest.GET_VISIBLE_RECT_REQUEST, getVisibleRectRequestHandler);
-        bridge.addEventListener(SWFBridgeRequest.HIDE_MOUSE_CURSOR_REQUEST, hideMouseCursorRequestHandler);
-        bridge.addEventListener(SWFBridgeRequest.SHOW_MOUSE_CURSOR_REQUEST, showMouseCursorRequestHandler);
-        bridge.addEventListener(SWFBridgeRequest.RESET_MOUSE_CURSOR_REQUEST, resetMouseCursorRequestHandler);
-    }
-
-    /**
-     * @private
-     * 
-     * Remove all child listeners.
-     */
-    mx_internal function removeChildBridgeListeners(bridge:IEventDispatcher):void
-    {
-        if (!topLevel && topLevelSystemManager)
-        {
-            SystemManager(topLevelSystemManager).removeChildBridgeListeners(bridge);
-            return;
-        }
-        
-        bridge.removeEventListener(SWFBridgeRequest.ADD_POP_UP_REQUEST, addPopupRequestHandler);
-        bridge.removeEventListener(SWFBridgeRequest.REMOVE_POP_UP_REQUEST, removePopupRequestHandler);
-        bridge.removeEventListener(SWFBridgeRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, addPlaceholderPopupRequestHandler);
-        bridge.removeEventListener(SWFBridgeRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, removePlaceholderPopupRequestHandler);
-        bridge.removeEventListener(SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE, activateFormSandboxEventHandler);
-        bridge.removeEventListener(SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE, deactivateFormSandboxEventHandler); 
-        bridge.removeEventListener(SWFBridgeEvent.BRIDGE_APPLICATION_ACTIVATE, activateApplicationSandboxEventHandler);
-        bridge.removeEventListener(EventListenerRequest.ADD_EVENT_LISTENER_REQUEST, eventListenerRequestHandler);
-        bridge.removeEventListener(EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST, eventListenerRequestHandler);
-        bridge.removeEventListener(SWFBridgeRequest.CREATE_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
-        bridge.removeEventListener(SWFBridgeRequest.SHOW_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
-        bridge.removeEventListener(SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST, modalWindowRequestHandler);
-        bridge.removeEventListener(SWFBridgeRequest.GET_VISIBLE_RECT_REQUEST, getVisibleRectRequestHandler);
-        bridge.removeEventListener(SWFBridgeRequest.HIDE_MOUSE_CURSOR_REQUEST, hideMouseCursorRequestHandler);
-        bridge.removeEventListener(SWFBridgeRequest.SHOW_MOUSE_CURSOR_REQUEST, showMouseCursorRequestHandler);
-        bridge.removeEventListener(SWFBridgeRequest.RESET_MOUSE_CURSOR_REQUEST, resetMouseCursorRequestHandler);
-    }
-
-    /**
-     * @private
-     * 
-     * Add listeners for events and requests we might receive from our parent if our
-     * parent is using a sandbox bridge to communicate with us.
-     */
-    mx_internal function addParentBridgeListeners():void
-    {
-        if (!topLevel && topLevelSystemManager)
-        {
-            SystemManager(topLevelSystemManager).addParentBridgeListeners();
-            return;
-        }
-        
-        var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-        bridge.addEventListener(SWFBridgeRequest.SET_ACTUAL_SIZE_REQUEST, setActualSizeRequestHandler);
-        bridge.addEventListener(SWFBridgeRequest.GET_SIZE_REQUEST, getSizeRequestHandler);
-
-        // need to listener to parent system manager to get broadcast messages.
-        bridge.addEventListener(SWFBridgeRequest.ACTIVATE_POP_UP_REQUEST, 
-                                activateRequestHandler); 
-        bridge.addEventListener(SWFBridgeRequest.DEACTIVATE_POP_UP_REQUEST, 
-                                deactivateRequestHandler); 
-        bridge.addEventListener(SWFBridgeRequest.IS_BRIDGE_CHILD_REQUEST, isBridgeChildHandler);
-        bridge.addEventListener(EventListenerRequest.ADD_EVENT_LISTENER_REQUEST, eventListenerRequestHandler);
-        bridge.addEventListener(EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST, eventListenerRequestHandler);
-        bridge.addEventListener(SWFBridgeRequest.CAN_ACTIVATE_POP_UP_REQUEST, canActivateHandler);
-    }
-    
-    /**
-     * @private
-     * 
-     * remove listeners for events and requests we might receive from our parent if 
-     * our parent is using a sandbox bridge to communicate with us.
-     */
-    mx_internal function removeParentBridgeListeners():void
-    {
-        if (!topLevel && topLevelSystemManager)
-        {
-            SystemManager(topLevelSystemManager).removeParentBridgeListeners();
-            return;
-        }
-        
-        var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-        bridge.removeEventListener(SWFBridgeRequest.SET_ACTUAL_SIZE_REQUEST, setActualSizeRequestHandler);
-        bridge.removeEventListener(SWFBridgeRequest.GET_SIZE_REQUEST, getSizeRequestHandler);
-
-        // need to listener to parent system manager to get broadcast messages.
-        bridge.removeEventListener(SWFBridgeRequest.ACTIVATE_POP_UP_REQUEST, 
-                                activateRequestHandler); 
-        bridge.removeEventListener(SWFBridgeRequest.DEACTIVATE_POP_UP_REQUEST, 
-                                deactivateRequestHandler); 
-        bridge.removeEventListener(SWFBridgeRequest.IS_BRIDGE_CHILD_REQUEST, isBridgeChildHandler);
-        bridge.removeEventListener(EventListenerRequest.ADD_EVENT_LISTENER_REQUEST, eventListenerRequestHandler);
-        bridge.removeEventListener(EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST, eventListenerRequestHandler);
-        bridge.removeEventListener(SWFBridgeRequest.CAN_ACTIVATE_POP_UP_REQUEST, canActivateHandler);
-    }
-
-    /**
-     * Add a bridge to talk to the child owned by <code>owner</code>.
-     * 
-     * @param bridge the bridge used to talk to the parent. 
-     * @param owner the display object that owns the bridge.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */ 
-    public function addChildBridge(bridge:IEventDispatcher, owner:DisplayObject):void
-    {
-        // Is the owner in a pop up? If so let the focus manager manage the
-        // bridge instead of the system manager.
-        var fm:IFocusManager = null;
-        var o:DisplayObject = owner;
-
-        while (o)
-        {
-            if (o is IFocusManagerContainer)
-            {
-                fm = IFocusManagerContainer(o).focusManager;
-                break;
-            }
-
-            o = o.parent;
-        }
-        
-        if (!fm)
-            return;
-            
-        if (!swfBridgeGroup)
-            swfBridgeGroup = new SWFBridgeGroup(this);
-
-        swfBridgeGroup.addChildBridge(bridge, ISWFBridgeProvider(owner));
-        fm.addSWFBridge(bridge, owner);
-        
-        if (!bridgeToFocusManager)
-            bridgeToFocusManager = new Dictionary();
-            
-        bridgeToFocusManager[bridge] = fm;
-
-        addChildBridgeListeners(bridge);
-        
-        // dispatch message that we are adding a bridge.
-        dispatchEvent(new FlexChangeEvent(FlexChangeEvent.ADD_CHILD_BRIDGE, false, false, bridge));
-    }
-
-    /**
-     * Remove a child bridge.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function removeChildBridge(bridge:IEventDispatcher):void
-    {
-        // dispatch message that we are removing a bridge.
-        dispatchEvent(new FlexChangeEvent(FlexChangeEvent.REMOVE_CHILD_BRIDGE, false, false, bridge));
-        
-        var fm:IFocusManager = IFocusManager(bridgeToFocusManager[bridge]);
-        fm.removeSWFBridge(bridge);
-        swfBridgeGroup.removeChildBridge(bridge);
-
-        delete bridgeToFocusManager[bridge];
-        removeChildBridgeListeners(bridge);
-    }
-
-    /**
-     * @inheritdoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function useSWFBridge():Boolean
-    {
-        if (isStageRoot)
-            return false;
-            
-        if (!topLevel && topLevelSystemManager)
-            return topLevelSystemManager.useSWFBridge();
-            
-        var sbRoot:DisplayObject = getSandboxRoot();
-        
-        // if we're toplevel and we aren't the sandbox root, we need a bridge
-        if (topLevel && sbRoot != this)
-            return true;
-        
-        // we also need a bridge even if we're the sandbox root
-        // but not a stage root, but our parent loader is a bootstrap
-        // that is not the stage root
-        if (sbRoot == this)
-        {
-            try
-            {
-                // check if the loader info is valid.
-                root.loaderInfo.parentAllowsChild;
-                
-                if (parentAllowsChild && childAllowsParent)
-                {
-                    try
-                    {
-                        if (!parent.dispatchEvent(new Event("mx.managers.SystemManager.isStageRoot", false, true)))
-                            return true;
-                    }
-                    catch (e:Error)
-                    {
-                    }
-                }
-                else
-                    return true;
-            }
-            catch (e1:Error)
-            {
-                // we seem to get here when a SWF is being unloaded, has been unparented, but still
-                // has a stage and root property, but loaderInfo is invalid.
-                return false;
-            }
-        }
-
-        return false;
-    }
-    
+   
     /**
      * Go up our parent chain to get the top level system manager.
      * 
@@ -2053,7 +1196,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
                 // If an object is listening for system manager request we assume it is a sandbox
                 // root. If not, don't assign lastParent to this parent because it may be a
                 // non-Flex application. We only want Flex apps to be returned as sandbox roots.
-                if (parent.hasEventListener(InterManagerRequest.SYSTEM_MANAGER_REQUEST))
+                if (parent.hasEventListener("systemManagerRequest"))
                     lastParent = parent; 
                 parent = parent.parent;             
             }
@@ -2067,6 +1210,46 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         return lastParent != null ? lastParent : DisplayObject(sm);
     }
     
+    /**
+     *  @private
+	 *  A map of fully-qualified interface names,
+	 *  such as "mx.managers::IPopUpManager",
+	 *  to implementation classes which produce singleton instances,
+	 *  such as mx.managers.PopUpManagerImpl.
+     */
+    private static var implMap:Object = {};
+
+    /**
+     *  @private
+	 *  Adds an interface-name-to-implementation-class mapping to the registry,
+	 *  if a class hasn't already been registered for the specified interface.
+	 *  The class must implement a getInstance() method which returns
+	 *  its singleton instance.
+     */
+    public function registerImplementation(interfaceName:String,
+										 impl:Object):void
+    {
+        var c:Object = implMap[interfaceName];
+		if (!c)
+            implMap[interfaceName] = impl;
+    }
+
+    /**
+     *  @private
+	 *  Returns the singleton instance of the implementation class
+	 *  that was registered for the specified interface,
+	 *  by looking up the class in the registry
+	 *  and calling its getInstance() method.
+	 *
+	 *  This method should not be called at static initialization time,
+	 *  because the factory class may not have called registerClass() yet.
+     */
+    public function getImplementation(interfaceName:String):Object
+    {
+        var c:Object = implMap[interfaceName];
+		return c;
+    }
+
    /**
      *  @inheritdoc
      *  
@@ -2076,6 +1259,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      */  
     public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
     {
+		var request:Request = new Request("getVisibleApplicationRect", false, true);
+		if (!dispatchEvent(request)) 
+			return Rectangle(request.value);
+
         if (!bounds)
         {
             bounds = getBounds(DisplayObject(this));
@@ -2089,23 +1276,11 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
             bounds.height = s.height;
         }
         
-        // send a message to parent for their visible rect.
-        if (useSWFBridge())
-        {
-            var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-            var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.GET_VISIBLE_RECT_REQUEST,
-                                                                    false, false,
-                                                                    bridge,
-                                                                    bounds);
-            bridge.dispatchEvent(request);
-            bounds = Rectangle(request.data);
-        }
-        
         return bounds;
     }
  
    /**
-    *  @inheritdoc
+    *  @inheritDoc
     *  
     *  @langversion 3.0
     *  @playerversion AIR 1.1
@@ -2113,517 +1288,11 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
     */  
     public function deployMouseShields(deploy:Boolean):void
     {
-        var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST, false, false,
-                                    "mouseShield", deploy);
-        getSandboxRoot().dispatchEvent(me);           
+		var dynamicEvent:DynamicEvent = new DynamicEvent("deployMouseShields");
+		dynamicEvent.deploy = deploy;
+		dispatchEvent(dynamicEvent);
     }
     
-    /**
-     * @private
-     * 
-     * Notify parent that a new window has been activated.
-     * 
-     * @param window window that was activated.
-     */
-    mx_internal function dispatchActivatedWindowEvent(window:DisplayObject):void
-    {
-        var bridge:IEventDispatcher = swfBridgeGroup ? swfBridgeGroup.parentBridge : null;
-        if (bridge)
-        {
-            var sbRoot:DisplayObject = getSandboxRoot();
-            var sendToSbRoot:Boolean = sbRoot != this;
-            var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE,
-                                                        false, false,
-                                                        { notifier: bridge,
-                                                          window: sendToSbRoot ? window :
-                                                                  NameUtil.displayObjectToString(window)
-                                                        });
-            if (sendToSbRoot)
-                sbRoot.dispatchEvent(bridgeEvent);
-            else
-                bridge.dispatchEvent(bridgeEvent);
-        }
-        
-    }
-
-    /**
-     * @private
-     * 
-     * Notify parent that a window has been deactivated.
-     * 
-     * @param id window display object or id string that was activated. Ids are used if
-     *        the message is going outside the security domain.
-     */
-    private function dispatchDeactivatedWindowEvent(window:DisplayObject):void
-    {
-        var bridge:IEventDispatcher = swfBridgeGroup ? swfBridgeGroup.parentBridge : null;
-        if (bridge)
-        {
-            var sbRoot:DisplayObject = getSandboxRoot();
-            var sendToSbRoot:Boolean = sbRoot != this;
-            var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE,
-                                                        false, 
-                                                        false,
-                                                        { notifier: bridge,
-                                                          window: sendToSbRoot ? window :
-                                                                  NameUtil.displayObjectToString(window)
-                                                        });
-            if (sendToSbRoot)
-                sbRoot.dispatchEvent(bridgeEvent);
-            else
-                bridge.dispatchEvent(bridgeEvent);
-        }
-        
-    }
-    
-    /**
-     * @private
-     * 
-     * Notify parent that an application has been activated.
-     */
-    private function dispatchActivatedApplicationEvent():void
-    {
-        // click on this system manager or one of its sub system managers
-        // If in a sandbox tell the top-level system manager we are active.
-        var bridge:IEventDispatcher = swfBridgeGroup ? swfBridgeGroup.parentBridge : null;
-        if (bridge)
-        {
-            var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_APPLICATION_ACTIVATE,
-                                                                        false, false);
-            bridge.dispatchEvent(bridgeEvent);
-        }
-    }
-
-    /**
-     * Adjust the forms array so it is sorted by last active. 
-     * The last active form will be at the end of the forms array.
-     * 
-     * This method assumes the form variable has been set before calling
-     * this function.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function updateLastActiveForm():void
-    {
-        // find "form" in the forms array and move that entry to 
-        // the end of the array.
-        var n:int = forms.length;
-        if (n < 2)
-            return; // zero or one forms, no need to update
-            
-        var index:int = -1;
-        for (var i:int = 0; i < n; i++)
-        {
-            if (areFormsEqual(form, forms[i]))
-            {
-                index = i;
-                break;
-            }
-        }
-        
-        if (index >= 0)
-        {
-            forms.splice(index, 1);
-            forms.push(form);
-        }
-        
-    }
-
-    /**
-     * @private
-     * 
-     * Add placeholder information to this instance's list of placeholder data.
-     */     
-    private function addPlaceholderId(id:String, previousId:String, bridge:IEventDispatcher, 
-                                      placeholder:Object):void
-    {
-        if (!bridge)
-            throw new Error();  // bridge is required.
-            
-        if (!idToPlaceholder)
-            idToPlaceholder = [];
-            
-        idToPlaceholder[id] = new PlaceholderData(previousId, bridge, placeholder); 
-    }
-    
-    private function removePlaceholderId(id:String):void
-    {
-        delete idToPlaceholder[id];
-    }
-
-    private var currentSandboxEvent:Event;
-
-    /**
-     * request the parent to add an event listener.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function addEventListenerToOtherSystemManagers(type:String, listener:Function, useCapture:Boolean = false, 
-                priority:int=0, useWeakReference:Boolean=false):void
-    {
-        var arr:Array = SystemManagerGlobals.topLevelSystemManagers;
-        if (arr.length < 2)
-            return;
-
-        SystemManagerGlobals.changingListenersInOtherSystemManagers = true;
-        var n:int = arr.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            if (arr[i] != this)
-            {
-                arr[i].addEventListener(type, listener, useCapture, priority, useWeakReference);
-            }
-        }
-        SystemManagerGlobals.changingListenersInOtherSystemManagers = false;
-    }
-
-    /**
-     * request the parent to remove an event listener.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */ 
-    private function removeEventListenerFromOtherSystemManagers(type:String, listener:Function, 
-                                                      useCapture:Boolean = false):void 
-    {
-        var arr:Array = SystemManagerGlobals.topLevelSystemManagers;
-        if (arr.length < 2)
-            return;
-
-        SystemManagerGlobals.changingListenersInOtherSystemManagers = true;
-        var n:int = arr.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            if (arr[i] != this)
-            {
-                arr[i].removeEventListener(type, listener, useCapture);
-            }
-        }
-        SystemManagerGlobals.changingListenersInOtherSystemManagers = false;
-    }
-
-    private var dispatchingToSystemManagers:Boolean = false;
-
-    private function dispatchEventToOtherSystemManagers(event:Event):void
-    {
-        dispatchingToSystemManagers = true;
-        var arr:Array = SystemManagerGlobals.topLevelSystemManagers;
-        var n:int = arr.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            if (arr[i] != this)
-            {
-                arr[i].dispatchEvent(event);
-            }
-        }
-        dispatchingToSystemManagers = false;
-    }
-
-    /**
-     *  dispatch the event to all sandboxes except the specified one
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, 
-                        trackClones:Boolean = false, toOtherSystemManagers:Boolean = false):void
-    {
-        if (toOtherSystemManagers)
-        {
-            dispatchEventToOtherSystemManagers(event);
-        }
-
-        if (!swfBridgeGroup)
-            return;
-
-        var clone:Event;
-        // trace(">>dispatchEventFromSWFBridges", this, event.type);
-        clone = event.clone();
-        if (trackClones)
-            currentSandboxEvent = clone;
-        var parentBridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-        if (parentBridge && parentBridge != skip)
-        {
-            // Ensure the requestor property has the correct bridge.
-            if (clone is SWFBridgeRequest)
-                SWFBridgeRequest(clone).requestor = parentBridge;
-                
-            parentBridge.dispatchEvent(clone);
-        }
-        
-        var children:Array = swfBridgeGroup.getChildBridges();
-        for (var i:int = 0; i < children.length; i++)
-        {
-            if (children[i] != skip)
-            {
-                // trace("send to child", i, event.type);
-                clone = event.clone();
-                if (trackClones)
-                    currentSandboxEvent = clone;
-
-                // Ensure the requestor property has the correct bridge.
-                if (clone is SWFBridgeRequest)
-                    SWFBridgeRequest(clone).requestor = IEventDispatcher(children[i]);
-                    
-                IEventDispatcher(children[i]).dispatchEvent(clone);
-            }
-        }
-        currentSandboxEvent = null;
-
-        // trace("<<dispatchEventFromSWFBridges", this, event.type);
-    }
-    /**
-     * request the parent to add an event listener.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function addEventListenerToSandboxes(type:String, listener:Function, useCapture:Boolean = false, 
-                priority:int=0, useWeakReference:Boolean=false, skip:IEventDispatcher = null):void
-    {
-        if (!swfBridgeGroup)
-            return;
-
-        // trace(">>addEventListenerToSandboxes", this, type);
-
-        var request:EventListenerRequest = new EventListenerRequest(EventListenerRequest.ADD_EVENT_LISTENER_REQUEST, false, false,
-                                                    type, 
-                                                    useCapture, 
-                                                    priority,
-                                                    useWeakReference);
-        
-        var parentBridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-        if (parentBridge && parentBridge != skip)
-            parentBridge.addEventListener(type, listener, false, priority, useWeakReference);           
-        
-        var children:Array = swfBridgeGroup.getChildBridges();
-        for (var i:int; i < children.length; i++)
-        {
-            var childBridge:IEventDispatcher = IEventDispatcher(children[i]);
-            
-            if (childBridge != skip)
-               childBridge.addEventListener(type, listener, false, priority, useWeakReference);         
-        }
-        
-        dispatchEventFromSWFBridges(request, skip);
-        // trace("<<addEventListenerToSandboxes", this, type);
-    }
-
-    /**
-     * request the parent to remove an event listener.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */ 
-    private function removeEventListenerFromSandboxes(type:String, listener:Function, 
-                                                      useCapture:Boolean = false,
-                                                      skip:IEventDispatcher = null):void 
-    {
-        if (!swfBridgeGroup)
-            return;
-
-        // trace(">>removeEventListenerToSandboxes", this, type);
-        var request:EventListenerRequest = new EventListenerRequest(EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST, false, false,
-                                                                                type, 
-                                                                                useCapture);
-        var parentBridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-        if (parentBridge && parentBridge != skip)
-            parentBridge.removeEventListener(type, listener, useCapture);
-        
-        var children:Array = swfBridgeGroup.getChildBridges();
-        for (var i:int; i < children.length; i++)
-        {
-            if (children[i] != skip)
-               IEventDispatcher(children[i]).removeEventListener(type, listener, useCapture);           
-        }
-        
-        dispatchEventFromSWFBridges(request, skip);
-        // trace("<<removeEventListenerToSandboxes", this, type);
-    }
-
-
-    /**
-     *   @private
-     * 
-     *   @return true if the message should be processed, false if 
-     *   no other action is required.
-     */ 
-    private function preProcessModalWindowRequest(request:SWFBridgeRequest, 
-                                                  sbRoot:DisplayObject):Boolean
-    {
-        // should we process this message?
-        if (request.data.skip)
-        {
-            // skipping this sandbox, 
-            // but don't skip the next one.
-            request.data.skip = false;
-           
-            if (useSWFBridge())
-            {
-                var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-                request.requestor = bridge;
-                bridge.dispatchEvent(request);
-            }
-            return false;
-        }
-        
-        // if we are not the sandbox root, dispatch the message to the sandbox root.
-        if (this != sbRoot)
-        {
-            // convert exclude component into a rectangle and forward to parent bridge.
-            if (request.type == SWFBridgeRequest.CREATE_MODAL_WINDOW_REQUEST ||
-                request.type == SWFBridgeRequest.SHOW_MODAL_WINDOW_REQUEST)
-            {
-                var exclude:ISWFLoader = swfBridgeGroup.getChildBridgeProvider(request.requestor) 
-                                                 as ISWFLoader;
-                
-                // find the rectangle of the area to exclude                                                 
-                if (exclude)
-                {                    
-                    var excludeRect:Rectangle = ISWFLoader(exclude).getVisibleApplicationRect();
-                    request.data.excludeRect = excludeRect;
-
-                    // If the area to exclude is not contain by our document then it is in a 
-                    // pop up. From this point for set the useExclude flag to false to 
-                    // tell our parent not to exclude use from their modal window, only
-                    // the excludeRect we have just calculated.
-                    if (!DisplayObjectContainer(document).contains(DisplayObject(exclude)))
-                        request.data.useExclude = false;  // keep the existing excludeRect
-                }
-            }
-                
-            bridge = swfBridgeGroup.parentBridge;
-            request.requestor = bridge;
-     
-            // The HIDE request does not need to be processed by each
-            // application, so dispatch it directly to the sandbox root.       
-            if (request.type == SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST)
-                sbRoot.dispatchEvent(request);
-            else 
-                bridge.dispatchEvent(request);
-            return false;
-        }
-
-        // skip aftering sending the message over a bridge.
-        request.data.skip = false;
-                
-        return true;
-    }    
-    
-    private function otherSystemManagerMouseListener(event:SandboxMouseEvent):void
-    {
-        if (dispatchingToSystemManagers)
-            return;
-
-        dispatchEventFromSWFBridges(event);
-
-        // ask the sandbox root if it was the original dispatcher of this event
-        // if it was then don't dispatch to ourselves because we could have
-        // got this event by listening to sandboxRoot ourselves.
-        var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST);
-        me.name = "sameSandbox";
-        me.value = event;
-        getSandboxRoot().dispatchEvent(me);
-
-        if (!me.value)
-            dispatchEvent(event);
-    }
-
-    private function sandboxMouseListener(event:Event):void
-    {
-        // trace("sandboxMouseListener", this);
-        if (event is SandboxMouseEvent)
-            return;
-
-        var marshaledEvent:Event = SandboxMouseEvent.marshal(event);
-        dispatchEventFromSWFBridges(marshaledEvent, event.target as IEventDispatcher);
-
-        // ask the sandbox root if it was the original dispatcher of this event
-        // if it was then don't dispatch to ourselves because we could have
-        // got this event by listening to sandboxRoot ourselves.
-        var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST);
-        me.name = "sameSandbox";
-        me.value = event;
-        getSandboxRoot().dispatchEvent(me);
-
-        if (!me.value)
-            dispatchEvent(marshaledEvent);
-    }
-
-    private function eventListenerRequestHandler(event:Event):void
-    {
-        if (event is EventListenerRequest)
-            return;
-
-        var actualType:String;
-        var request:EventListenerRequest = EventListenerRequest.marshal(event);
-        if (event.type == EventListenerRequest.ADD_EVENT_LISTENER_REQUEST)
-        {
-            if (!eventProxy)
-            {
-                eventProxy = new EventProxy(this);
-            }
-            
-            actualType = EventUtil.sandboxMouseEventMap[request.eventType];
-            if (actualType)
-            {
-                if (isTopLevelRoot())
-                {
-                    stage.addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
-                }
-                else
-                {
-                    super.addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
-                }
-
-                // add listeners in other sandboxes in capture mode so we don't miss anything
-                addEventListenerToSandboxes(request.eventType, sandboxMouseListener,
-                            true, request.priority, request.useWeakReference, event.target as IEventDispatcher);
-                addEventListenerToOtherSystemManagers(request.eventType, otherSystemManagerMouseListener, 
-                            true, request.priority, request.useWeakReference);
-                if (getSandboxRoot() == this)
-                {
-                    if (isTopLevelRoot() &&
-                       (actualType == MouseEvent.MOUSE_UP || actualType == MouseEvent.MOUSE_MOVE))
-                    {
-                        stage.addEventListener(actualType, eventProxy.marshalListener,
-                            false, request.priority, request.useWeakReference);
-                    }
-
-                    super.addEventListener(actualType, eventProxy.marshalListener,
-                        true, request.priority, request.useWeakReference);
-                }
-            }
-        }
-        else if (event.type == EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST)
-        {
-            actualType = EventUtil.sandboxMouseEventMap[request.eventType];
-            if (actualType)
-            {
-                removeEventListenerFromOtherSystemManagers(request.eventType, otherSystemManagerMouseListener, true);
-                removeEventListenerFromSandboxes(request.eventType, sandboxMouseListener,
-                            true, event.target as IEventDispatcher);
-                if (getSandboxRoot() == this)
-                {
-                    if (isTopLevelRoot() &&
-                       (actualType == MouseEvent.MOUSE_UP || actualType == MouseEvent.MOUSE_MOVE))
-                    {
-                        stage.removeEventListener(actualType, eventProxy.marshalListener);
-                    }
-    
-                    super.removeEventListener(actualType, eventProxy.marshalListener, true);
-                }
-            }
-        }       
-    }
     
     /**
      *  Returns <code>true</code> if the given DisplayObject is the 
@@ -2654,14 +1323,10 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
     public function getDefinitionByName(name:String):Object
     {
         var domain:ApplicationDomain = ApplicationDomain.currentDomain;
-    /*      !topLevel && parent is Loader ?
+            !topLevel && parent is Loader ?
             Loader(parent).contentLoaderInfo.applicationDomain :
             info()["currentDomain"] as ApplicationDomain;
-*  
-*  @langversion 3.0
-*  @playerversion AIR 1.1
-*  @productversion Flex 3
-*/
+
         //trace("SysMgr.getDefinitionByName domain",domain,"currentDomain",info()["currentDomain"]);    
 
         var definition:Object;
@@ -2757,128 +1422,37 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         _height = stage.stageHeight;
         
 //trace(_width, event.type);
-        if (event)
-        {
-            resizeMouseCatcher();
-            dispatchEvent(event);
-        }
-    }
+		if (event)
+		{
+			resizeMouseCatcher();
+			dispatchEvent(event);
+		}
+	}
+	
+	
+	/**
+	 * @private
+	 * 
+	 * Get the index of an object in a given child list.
+	 * 
+	 * @return index of f in childList, -1 if f is not in childList.
+	 */ 
+	private static function getChildListIndex(childList:IChildList, f:Object):int
+	{
+		var index:int = -1;
+		try
+		{
+			index = childList.getChildIndex(DisplayObject(f)); 
+		}
+		catch (e:ArgumentError)
+		{
+			// index has been preset to -1 so just continue.	
+		}
+		
+		return index; 
+	}
     
-    /**
-     *  @private
-     *  Track mouse clicks to see if we change top-level forms.
-     */
-    private function mouseDownHandler(event:MouseEvent):void
-    {
-        // Reset the idle counter.
-        idleCounter = 0;
-
-        // If an object was clicked that is inside another system manager 
-        // in a bridged application, activate the current document because
-        // the bridge application is considered part of the main application.
-        // We also see mouse clicks on dialogs popped up from compatible applications.
-        if (isDisplayObjectInABridgedApplication(event.target as DisplayObject))
-        {
-            // trace("SM:mouseDownHandler click in a bridged application");
-            if (isTopLevelRoot())
-                activateForm(document);
-            else
-                dispatchActivatedApplicationEvent();
-
-            return;
-        } 
-
-        if (numModalWindows == 0) // no modal windows are up
-        {
-            // Activate a window if we need to.
-            if (forms.length > 1)
-            {
-                var n:int = forms.length;
-                var p:DisplayObject = DisplayObject(event.target);
-                var isApplication:Boolean = document is IRawChildrenContainer ? 
-                                            IRawChildrenContainer(document).rawChildren.contains(p) :
-                                            document.contains(p);
-                while (p)
-                {
-                    for (var i:int = 0; i < n; i++)
-                    {
-                        var form_i:Object = isRemotePopUp(forms[i]) ? forms[i].window : forms[i];
-                        if (form_i == p)
-                        {
-                            var j:int = 0;
-                            var index:int;
-                            var newIndex:int;
-                            var childList:IChildList;
-
-                            if (p != form && p is IFocusManagerContainer)
-                                activate(IFocusManagerContainer(p));
-                            if (popUpChildren.contains(p))
-                                childList = popUpChildren;
-                            else
-                                childList = this;
-
-                            index = childList.getChildIndex(p); 
-                            newIndex = index;
-                            
-                            //we need to reset n because activating p's 
-                            //FocusManager could have caused 
-                            //forms.length to have changed. 
-                            n = forms.length;
-                            for (j = 0; j < n; j++)
-                            {
-                                var f:DisplayObject;
-                                var isRemotePopUp:Boolean = isRemotePopUp(forms[j]);
-                                if (isRemotePopUp)
-                                {
-                                    if (forms[j].window is String)
-                                        continue;
-                                    f = forms[j].window;
-                                }
-                                else 
-                                    f = forms[j];
-                                if (isRemotePopUp)
-                                {
-                                    var fChildIndex:int = getChildListIndex(childList, f);
-                                    if (fChildIndex > index)
-                                        newIndex = Math.max(fChildIndex, newIndex); 
-                                }
-                                else if (childList.contains(f))
-                                    if (childList.getChildIndex(f) > index)
-                                        newIndex = Math.max(childList.getChildIndex(f), newIndex);
-                            }
-                            if (newIndex > index && !isApplication)
-                                childList.setChildIndex(p, newIndex);
-                            return;
-                        }
-                    }
-                    p = p.parent;
-                }
-            }
-        }
-    }
     
-    /**
-     * @private
-     * 
-     * Get the index of an object in a given child list.
-     * 
-     * @return index of f in childList, -1 if f is not in childList.
-     */ 
-    private static function getChildListIndex(childList:IChildList, f:Object):int
-    {
-        var index:int = -1;
-        try
-        {
-            index = childList.getChildIndex(DisplayObject(f)); 
-        }
-        catch (e:ArgumentError)
-        {
-            // index has been preset to -1 so just continue.    
-        }
-        
-        return index; 
-    }
-
     /**
      *  @private
      *  Makes the mouseCatcher the same size as the stage,
@@ -2896,163 +1470,108 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         }
     }
 
-    /**
-     * @private
-     * 
-     * true if redipatching a resize event.
-     */
-    private var isDispatchingResizeEvent:Boolean;
-    
-    /**
-     * @private
-     * 
-     * Used to locate untrusted forms. Maps string ids to Objects.
-     * The object make be the SystemManagerProxy of a form or it may be
-     * the bridge to the child application where the object lives.
-     */
-    private var idToPlaceholder:Object;
-
-    private var eventProxy:EventProxy;
-    private var weakReferenceProxies:Dictionary = new Dictionary(true);
-    private var strongReferenceProxies:Dictionary = new Dictionary(false);
-
+	/**
+	 * @private
+	 * 
+	 * true if redipatching a resize event.
+	 */
+	private var isDispatchingResizeEvent:Boolean;
+	
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     *  Only create idle events if someone is listening.
-     */
-    override public function addEventListener(type:String, listener:Function,
-                                              useCapture:Boolean = false,
-                                              priority:int = 0,
-                                              useWeakReference:Boolean = false):void
-    {
-        // These two events will dispatched to applications in sandboxes.
-        if (type == FlexEvent.RENDER || type == FlexEvent.ENTER_FRAME)
-        {
-            if (type == FlexEvent.RENDER)
-                type = Event.RENDER;
-            else
-                type = Event.ENTER_FRAME;
-                
-            try
-            {
-                if (stage)
-                    stage.addEventListener(type, listener, useCapture, priority, useWeakReference);
-                else
-                    super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-            }
-            catch (error:SecurityError)
-            {
-                super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-            }
-        
-            if (stage && type == Event.RENDER)
-                stage.invalidate();
+	/**
+	 *  @private
+	 *  allows marshal implementation to add events
+	 */
+	mx_internal final function $addEventListener(type:String, listener:Function,
+											  useCapture:Boolean = false,
+											  priority:int = 0,
+											  useWeakReference:Boolean = false):void
+	{	
+		super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+	}
+
+	/**
+	 *  @private
+	 *  Only create idle events if someone is listening.
+	 */
+	override public function addEventListener(type:String, listener:Function,
+											  useCapture:Boolean = false,
+											  priority:int = 0,
+											  useWeakReference:Boolean = false):void
+	{
+		if (!dispatchEvent(new EventListenerRequest(EventListenerRequest.ADD_EVENT_LISTENER_REQUEST, false, true,
+						type, listener, useCapture, priority, useWeakReference)))
+			return;
+		
+		// These two events will dispatched to applications in sandboxes.
+		if (type == FlexEvent.RENDER || type == FlexEvent.ENTER_FRAME)
+		{
+			if (type == FlexEvent.RENDER)
+				type = Event.RENDER;
+			else
+				type = Event.ENTER_FRAME;
+				
+			try
+			{
+				if (stage)
+					stage.addEventListener(type, listener, useCapture, priority, useWeakReference);
+				else
+					super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+			}
+			catch (error:SecurityError)
+			{
+				super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+			}
+		
+			if (stage && type == Event.RENDER)
+				stage.invalidate();
 
             return;
         }
 
-        if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN 
-                || type == Event.ACTIVATE || type == Event.DEACTIVATE)
-        {
-            // also listen to stage if allowed
-            try
-            {
-                if (stage)
-                {
-                    var newListener:StageEventProxy = new StageEventProxy(listener);
-                    stage.addEventListener(type, newListener.stageListener, false, priority, useWeakReference);
-                    if (useWeakReference)
-                        weakReferenceProxies[listener] = newListener;
-                    else
-                        strongReferenceProxies[listener] = newListener;
-                }
-            }
-            catch (error:SecurityError)
-            {
-            }
-        }
-        
-        if (hasSWFBridges() || SystemManagerGlobals.topLevelSystemManagers.length > 1)
-        {
-            if (!eventProxy)
-            {
-                eventProxy = new EventProxy(this);
-            }
+		super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+	}
 
-            var actualType:String = EventUtil.sandboxMouseEventMap[type];
-            if (actualType)
-            {
-                if (isTopLevelRoot())
-                {
-                    stage.addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
-                    addEventListenerToSandboxes(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
-                }
-                else
-                {
-                    super.addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
-                }
-                
-                addEventListenerToSandboxes(type, sandboxMouseListener, useCapture, priority, useWeakReference);
-                if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
-                    addEventListenerToOtherSystemManagers(type, otherSystemManagerMouseListener, useCapture, priority, useWeakReference)
-                if (getSandboxRoot() == this)
-                    super.addEventListener(actualType, eventProxy.marshalListener,
-                            useCapture, priority, useWeakReference);
-                
-                // Set useCapture to false because we will never see an event 
-                // marshalled in the capture phase.
-                super.addEventListener(type, listener, false, priority, useWeakReference);
-                return;
-            }
-        }
-        
-        
-        super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-    }
-    
-    /**
-     * @private
-     * 
-     * Test if this system manager has any sandbox bridges.
-     * 
-     * @return true if there are sandbox bridges, false otherwise.
-     */
-    private function hasSWFBridges():Boolean
-    {
-        if (swfBridgeGroup)
-            return true;
-        
-        return false;
-    }
-    
-    /**
-     *  @private
-     */
-    override public function removeEventListener(type:String, listener:Function,
-                                                 useCapture:Boolean = false):void
-    {
-        // These two events will dispatched to applications in sandboxes.
-        if (type == FlexEvent.RENDER || type == FlexEvent.ENTER_FRAME)
-        {
-            if (type == FlexEvent.RENDER)
-                type = Event.RENDER;
-            else
-                type = Event.ENTER_FRAME;
-                
-            try
-            {
-                // Remove both listeners in case the system manager was added
-                // or removed from the stage after the listener was added.
-                if (stage)
-                    stage.removeEventListener(type, listener, useCapture);
+	/**
+	 *  @private
+	 */
+	mx_internal final function $removeEventListener(type:String, listener:Function,
+												 useCapture:Boolean = false):void
+	{
+		super.removeEventListener(type, listener, useCapture);
+	}
 
-                super.removeEventListener(type, listener, useCapture);
+	/**
+	 *  @private
+	 */
+	override public function removeEventListener(type:String, listener:Function,
+												 useCapture:Boolean = false):void
+	{
+		if (!dispatchEvent(new EventListenerRequest(EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST, false, true,
+						type, listener, useCapture)))
+			return;
+
+		// These two events will dispatched to applications in sandboxes.
+		if (type == FlexEvent.RENDER || type == FlexEvent.ENTER_FRAME)
+		{
+			if (type == FlexEvent.RENDER)
+				type = Event.RENDER;
+			else
+				type = Event.ENTER_FRAME;
+				
+			try
+			{
+			    // Remove both listeners in case the system manager was added
+			    // or removed from the stage after the listener was added.
+				if (stage)
+					stage.removeEventListener(type, listener, useCapture);
+
+					super.removeEventListener(type, listener, useCapture);
             }
             catch (error:SecurityError)
             {
@@ -3062,48 +1581,8 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
             return;
         }
 
-        if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN 
-                || type == Event.ACTIVATE || type == Event.DEACTIVATE)
-        {
-            // also listen to stage if allowed
-            try
-            {
-                if (stage)
-                {
-                    var newListener:StageEventProxy = weakReferenceProxies[listener];
-                    if (!newListener)
-                    {
-                        newListener = strongReferenceProxies[listener];
-                        if (newListener)
-                            delete strongReferenceProxies[listener];
-                    }
-                    if (newListener)
-                        stage.removeEventListener(type, newListener.stageListener, false);
-                }
-            }
-            catch (error:SecurityError)
-            {
-            }
-        }
-
-        if (hasSWFBridges() || SystemManagerGlobals.topLevelSystemManagers.length > 1)
-        {
-            var actualType:String = EventUtil.sandboxMouseEventMap[type];
-            if (actualType)
-            {
-                if (getSandboxRoot() == this && eventProxy)
-                    super.removeEventListener(actualType, eventProxy.marshalListener,
-                            useCapture);
-                if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
-                    removeEventListenerFromOtherSystemManagers(type, otherSystemManagerMouseListener, useCapture);
-                removeEventListenerFromSandboxes(type, sandboxMouseListener, useCapture);
-                super.removeEventListener(type, listener, false);
-                return;
-            }
-        }
-        
         super.removeEventListener(type, listener, useCapture);
-    }
+	}
 
     //--------------------------------------------------------------------------
     //
@@ -3463,954 +1942,11 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         return super.contains(child);
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  Sandbox Event handlers for messages from children
-    //
-    //--------------------------------------------------------------------------
+	// fake out mouseX/mouseY
+	mx_internal var _mouseX:*;
+	mx_internal var _mouseY:*;
 
-    /**
-     * @private
-     * 
-     * Add a popup request handler for domain local request and 
-     * remote domain requests.
-     */
-    private function addPopupRequestHandler(event:Event):void
-    {
-        if (event.target != this && event is SWFBridgeRequest)
-            return;
-
-        var popUpRequest:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
-
-        // If there is not for mutual trust between us an the child that wants the 
-        // popup, then don't host the pop up.
-        if (event.target != this)
-        {
-            var bridgeProvider:ISWFBridgeProvider = swfBridgeGroup.getChildBridgeProvider(
-                                                    IEventDispatcher(event.target));
-            if (!SecurityUtil.hasMutualTrustBetweenParentAndChild(bridgeProvider))
-            {
-                return;
-            }
-        }
-        
-        var topMost:Boolean;
-
-        // Need to have mutual trust between two application in order
-        // for an application to host another application's popup.
-        if (swfBridgeGroup.parentBridge &&
-            SecurityUtil.hasMutualTrustBetweenParentAndChild(this))
-        {
-            // ask the parent to host the popup
-            popUpRequest.requestor = swfBridgeGroup.parentBridge;
-            getSandboxRoot().dispatchEvent(popUpRequest);
-            return;
-        }
-        
-        // add popup as a child of this system manager
-        if (!popUpRequest.data.childList || popUpRequest.data.childList == PopUpManagerChildList.PARENT)
-            topMost = popUpRequest.data.parent && popUpChildren.contains(popUpRequest.data.parent);
-        else
-            topMost = (popUpRequest.data.childList == PopUpManagerChildList.POPUP);
-
-        var children:IChildList;
-        children = topMost ? popUpChildren : this;
-        children.addChild(DisplayObject(popUpRequest.data.window));
-        
-        if (popUpRequest.data.modal)    
-            numModalWindows++;
-        
-        // add popup to the list of managed forms
-        var remoteForm:RemotePopUp = new RemotePopUp(popUpRequest.data.window, popUpRequest.requestor);
-        forms.push(remoteForm);
-        
-        if (!isTopLevelRoot() && swfBridgeGroup)
-        {
-            // We've added the popup as far as it can go.
-            // Add a placeholder to the top level root application
-            var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, 
-                                                 false, false, 
-                                                 popUpRequest.requestor,
-                                                 { window: popUpRequest.data.window });
-            request.data.placeHolderId = NameUtil.displayObjectToString(DisplayObject(popUpRequest.data.window));
-            dispatchEvent(request);
-        }
-    }
     
-    /**
-     * @private
-     * 
-     * Message from a child system manager to 
-     * remove the popup that was added by using the
-     * addPopupRequestHandler.
-     */
-    private function removePopupRequestHandler(event:Event):void
-    {
-        var popUpRequest:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
-
-        if (swfBridgeGroup.parentBridge &&
-            SecurityUtil.hasMutualTrustBetweenParentAndChild(this))
-        {
-            // since there is mutual trust the popup is hosted by the parent.
-            popUpRequest.requestor = swfBridgeGroup.parentBridge;
-            getSandboxRoot().dispatchEvent(popUpRequest);
-            return;
-        }
-                    
-        if (popUpChildren.contains(popUpRequest.data.window))
-            popUpChildren.removeChild(popUpRequest.data.window);
-        else
-            removeChild(DisplayObject(popUpRequest.data.window));
-        
-        if (popUpRequest.data.modal)    
-            numModalWindows--;
-
-        removeRemotePopUp(new RemotePopUp(popUpRequest.data.window, popUpRequest.requestor));
-        
-        if (!isTopLevelRoot() && swfBridgeGroup)
-        {
-            // if we got here we know the parent is untrusted, so remove placeholders
-            var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, 
-                                                false, false, 
-                                                popUpRequest.requestor,
-                                                {placeHolderId: NameUtil.displayObjectToString(popUpRequest.data.window)
-                                                });
-            dispatchEvent(request);
-        }
-                    
-    }
-    
-    /**
-     * @private
-     * 
-     * Handle request to add a popup placeholder.
-     * The placeholder represents an untrusted form that is hosted 
-     * elsewhere.
-     */
-     private function addPlaceholderPopupRequestHandler(event:Event):void
-     {
-        var popUpRequest:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
-
-        if (event.target != this && event is SWFBridgeRequest)
-            return;
-        
-        if (!forwardPlaceholderRequest(popUpRequest, true))
-        {
-            // Create a RemotePopUp and add it.
-            var remoteForm:RemotePopUp = new RemotePopUp(popUpRequest.data.placeHolderId, popUpRequest.requestor);
-            forms.push(remoteForm);
-        }
-
-     }
-
-    /**
-     * @private
-     * 
-     * Handle request to add a popup placeholder.
-     * The placeholder represents an untrusted form that is hosted 
-     * elsewhere.
-     */
-     private function removePlaceholderPopupRequestHandler(event:Event):void
-     {
-        var popUpRequest:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
-        
-        if (!forwardPlaceholderRequest(popUpRequest, false))
-        {
-            // remove the placeholder from forms array
-            var n:int = forms.length;
-            for (var i:int = 0; i < n; i++)
-            {
-                if (isRemotePopUp(forms[i]))
-                {
-                    if (forms[i].window == popUpRequest.data.placeHolderId &&
-                        forms[i].bridge == popUpRequest.requestor)
-                    {
-                        forms.splice(i, 1);
-                        break;
-                    }
-                }
-            }
-        }               
-        
-     }
-
-    /**
-     * Forward a form event update the parent chain. 
-     * Takes care of removing object references and substituting
-     * ids when an untrusted boundry is crossed.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function forwardFormEvent(event:SWFBridgeEvent):Boolean
-    {
-        
-        if (isTopLevelRoot())
-            return false;           
-            
-        var bridge:IEventDispatcher = swfBridgeGroup.parentBridge; 
-        if (bridge)
-        {
-            var sbRoot:DisplayObject = getSandboxRoot();
-            event.data.notifier = bridge;
-            if (sbRoot == this)
-            {
-                if (!(event.data.window is String))
-                    event.data.window = NameUtil.displayObjectToString(DisplayObject(event.data.window));
-                else
-                    event.data.window = NameUtil.displayObjectToString(DisplayObject(this)) + "." + event.data.window;
-                
-                bridge.dispatchEvent(event);
-            }
-            else
-            {
-                if (event.data.window is String)
-                    event.data.window = NameUtil.displayObjectToString(DisplayObject(this)) + "." + event.data.window;
- 
-                sbRoot.dispatchEvent(event);
-            }
-        }
-
-        return true;
-    }
-    
-    /**
-     * Forward an AddPlaceholder request up the parent chain, if needed.
-     * 
-     * @param eObj PopupRequest as and Object.
-     * @param addPlaceholder true if adding a placeholder, false it removing a placeholder.
-     * @return true if the request was forwared, false otherwise
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function forwardPlaceholderRequest(request:SWFBridgeRequest, addPlaceholder:Boolean):Boolean
-    {
-        // Only the top level root tracks the placeholders.
-        // If we are not the top level root then keep passing
-        // the message up the parent chain.
-        if (isTopLevelRoot())
-            return false;
-            
-        // If the window object is passed, then this is the first
-        // stop on the way up the parent chain.
-        var refObj:Object = null;
-        var oldId:String = null;
-        if (request.data.window)
-        {
-            refObj = request.data.window;
-            
-            // null this ref out so untrusted parent cannot see
-            request.data.window = null;
-        }
-        else
-        {
-            refObj = request.requestor;
-            
-            // prefix the existing id with the id of this object
-            oldId = request.data.placeHolderId;
-            request.data.placeHolderId = NameUtil.displayObjectToString(this) + "." + request.data.placeHolderId;
-        }
-
-        if (addPlaceholder)
-            addPlaceholderId(request.data.placeHolderId, oldId, request.requestor, refObj);
-        else 
-            removePlaceholderId(request.data.placeHolderId);
-                
-        
-        var sbRoot:DisplayObject = getSandboxRoot();
-        var bridge:IEventDispatcher = swfBridgeGroup.parentBridge; 
-        request.requestor =  bridge;
-        if (sbRoot == this)
-            bridge.dispatchEvent(request);
-        else 
-            sbRoot.dispatchEvent(request);
-            
-        return true;
-    }
-
-    /**
-     * One of the system managers in another sandbox deactivated and sent a message
-     * to the top level system manager. In response the top-level system manager
-     * needs to find a new form to activate.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function deactivateFormSandboxEventHandler(event:Event):void
-    {
-        // trace("bridgeDeactivateFormEventHandler");
-
-        if (event is SWFBridgeRequest)
-            return;
-
-        var bridgeEvent:SWFBridgeEvent = SWFBridgeEvent.marshal(event);
-
-        if (!forwardFormEvent(bridgeEvent))
-        {
-            // deactivate the form
-            if (isRemotePopUp(form) && 
-                RemotePopUp(form).window == bridgeEvent.data.window &&
-                RemotePopUp(form).bridge == bridgeEvent.data.notifier)
-                deactivateForm(form);
-        }
-    }
-    
-    /**
-     * A form in one of the system managers in another sandbox has been activated. 
-     * The form being activate is identified. 
-     * In response the top-level system manager needs to activate the given form
-     * and deactivate the currently active form, if any.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function activateFormSandboxEventHandler(event:Event):void
-    {
-        // trace("bridgeActivateFormEventHandler");
-        var bridgeEvent:SWFBridgeEvent = SWFBridgeEvent.marshal(event);
-
-        if (!forwardFormEvent(bridgeEvent))
-            // just call activate on the remote form.
-            activateForm(new RemotePopUp(bridgeEvent.data.window, bridgeEvent.data.notifier));          
-    }
-        
-    /**
-     * One of the system managers in another sandbox activated and sent a message
-     * to the top level system manager to deactivate this form. In response the top-level system manager
-     * needs to deactivate all other forms except the top level system manager's.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function activateApplicationSandboxEventHandler(event:Event):void
-    {
-        // trace("bridgeActivateApplicationEventHandler");
-        if (!isTopLevelRoot())
-        {
-            swfBridgeGroup.parentBridge.dispatchEvent(event);
-            return;     
-        }
-
-        // An application was activated, active the main document.
-        activateForm(document);
-    }
-
-
-    /**
-     *  @private
-     * 
-     *  Re-dispatch events sent over the bridge to listeners on this
-     *  system manager. PopUpManager is expected to listen to these
-     *  events.
-     */  
-    private function modalWindowRequestHandler(event:Event):void
-    {
-        if (event is SWFBridgeRequest)
-            return;
-        
-        var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
-            
-        if (!preProcessModalWindowRequest(request, getSandboxRoot()))
-            return;
-                        
-        // Ensure a PopUpManager exists and dispatch the request it is
-        // listening for.
-        Singleton.getInstance("mx.managers::IPopUpManager");
-        dispatchEvent(request);
-    }
-
-    /**
-     *  @private
-     * 
-     *  Calculate the visible rectangle of the requesting application in this
-     *  application. Forward the request to our parent to see this the rectangle
-     *  is further reduced. Continue up the parent chain until the top level
-     *  root parent is reached.
-     */  
-    private function getVisibleRectRequestHandler(event:Event):void
-    {
-        if (event is SWFBridgeRequest)
-            return;
-        
-        var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
-        var rect:Rectangle = Rectangle(request.data);
-        var owner:DisplayObject = DisplayObject(swfBridgeGroup.getChildBridgeProvider(request.requestor));
-        var localRect:Rectangle;
-        var forwardRequest:Boolean = true;
-        
-        // Check if the request in a pop up. If it is then don't 
-        // forward the request to our parent because we don't want
-        // to reduce the visible rect of the dialog base on the
-        // visible rect of applications in the main app. 
-        if (!DisplayObjectContainer(document).contains(owner))
-            forwardRequest = false;    
-                    
-        if (owner is ISWFLoader)
-            localRect = ISWFLoader(owner).getVisibleApplicationRect();
-        else
-        {
-            localRect = owner.getBounds(this);
-            var pt:Point = localToGlobal(localRect.topLeft);
-            localRect.x = pt.x;
-            localRect.y = pt.y;
-        }        
-           
-        rect = rect.intersection(localRect); // update rect
-        request.data = rect;
-        
-        // forward request 
-        if (forwardRequest && useSWFBridge())
-        { 
-            var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-            request.requestor = bridge;
-            bridge.dispatchEvent(request);
-        }
-        
-        Object(event).data = request.data;           // update request
-    }
-
-    /**
-     *  @private
-     * 
-     *  Notify the topLevelRoot that we don't want the mouseCursor shown
-     *  Forward upward if necessary.
-     */  
-    private function hideMouseCursorRequestHandler(event:Event):void
-    {
-        if (!isTopLevelRoot() && event is SWFBridgeRequest)
-            return;
-
-        var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
-        
-        // forward request 
-        if (!isTopLevelRoot())
-        { 
-            var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-            request.requestor = bridge;
-            bridge.dispatchEvent(request);
-        }
-        else if (eventProxy)
-            SystemManagerGlobals.showMouseCursor = false;
-    }
-    
-    /**
-     *  @private
-     * 
-     *  Ask the topLevelRoot if anybody don't want the mouseCursor shown
-     *  Forward upward if necessary.
-     */  
-    private function showMouseCursorRequestHandler(event:Event):void
-    {
-        if (!isTopLevelRoot() && event is SWFBridgeRequest)
-            return;
-        
-        var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
-        
-        // forward request 
-        if (!isTopLevelRoot())
-        { 
-            var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-            request.requestor = bridge;
-            bridge.dispatchEvent(request);
-            Object(event).data = request.data;           // update request
-        }
-        else if (eventProxy)
-            Object(event).data = SystemManagerGlobals.showMouseCursor;
-        
-    }
-
-    /**
-     *  @private
-     * 
-     *  Ask the topLevelRoot if anybody don't want the mouseCursor shown
-     *  Forward upward if necessary.
-     */  
-    private function resetMouseCursorRequestHandler(event:Event):void
-    {
-        if (!isTopLevelRoot() && event is SWFBridgeRequest)
-            return;
-        
-        var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
-        
-        // forward request 
-        if (!isTopLevelRoot())
-        { 
-            var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-            request.requestor = bridge;
-            bridge.dispatchEvent(request);
-        }
-        else if (eventProxy)
-            SystemManagerGlobals.showMouseCursor = true;
-        
-    }
-
-    private function resetMouseCursorTracking(event:Event):void
-    {
-        if (isTopLevelRoot())
-        {
-            SystemManagerGlobals.showMouseCursor = true;
-        }
-        else if (swfBridgeGroup.parentBridge)
-        {
-            var cursorRequest:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.RESET_MOUSE_CURSOR_REQUEST);
-            var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
-            cursorRequest.requestor = bridge;
-            bridge.dispatchEvent(cursorRequest);
-        }
-
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Sandbox Event handlers for messages from parent
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     * @private
-     * 
-     * Sent by the SWFLoader to change the size of the application it loaded.
-     */
-    private function setActualSizeRequestHandler(event:Event):void
-    {
-        // empty.  This should never be the root of a SWF
-    }
-    
-    /**
-     * @private
-     * 
-     * Get the size of this System Manager.
-     * Sent by a SWFLoader.
-     */
-    private function getSizeRequestHandler(event:Event):void
-    {
-        // empty.  This should never be the root of a SWF
-    }
-    
-    /**
-     *  @private
-     * 
-     *  Handle request to activate a particular form.
-     * 
-     */
-    private function activateRequestHandler(event:Event):void
-    {
-        var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
-
-        // If data is a String, then we need to parse the id to find
-        // the form or the next bridge to pass the message to.
-        // If the data is a SystemMangerProxy we can just activate the
-        // form.
-        var child:Object = request.data; 
-        var nextId:String = null;
-        if (request.data is String)
-        {
-            var placeholder:PlaceholderData = idToPlaceholder[request.data];
-            child = placeholder.data;
-            nextId = placeholder.id;
-            
-            // check if the dialog is hosted on this system manager
-            if (nextId == null)
-            {
-                var popUp:RemotePopUp = findRemotePopUp(child, placeholder.bridge); 
-                
-                if (popUp)
-                {
-                    activateRemotePopUp(popUp);
-                    return;
-                }
-            }
-        }
-        
-        if (child is SystemManagerProxy)
-        {
-            // activate request from the top-level system manager.
-            var smp:SystemManagerProxy = SystemManagerProxy(child);
-            var f:IFocusManagerContainer = findFocusManagerContainer(smp);
-            if (smp && f)
-                smp.activateByProxy(f);
-        }   
-        else if (child is IFocusManagerContainer)
-            IFocusManagerContainer(child).focusManager.activate();
-        else if (child is IEventDispatcher)
-        {
-                request.data = nextId;
-                request.requestor = IEventDispatcher(child);
-                IEventDispatcher(child).dispatchEvent(request);
-        }
-        else 
-            throw new Error();  // should never get here
-    }
-
-    /**
-     *  @private
-     * 
-     *  Handle request to deactivate a particular form.
-     * 
-     */
-    private function deactivateRequestHandler(event:Event):void
-    {
-        var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
-        var child:Object = request.data; 
-        var nextId:String = null;
-        if (request.data is String)
-        {
-            var placeholder:PlaceholderData = idToPlaceholder[request.data];
-            child = placeholder.data;
-            nextId = placeholder.id;
-
-            // check if the dialog is hosted on this system manager
-            if (nextId == null)
-            {
-                var popUp:RemotePopUp = findRemotePopUp(child, placeholder.bridge); 
-                
-                if (popUp)
-                {
-                    deactivateRemotePopUp(popUp);
-                    return;
-                }
-            }
-        }
-        
-        if (child is SystemManagerProxy)
-        {
-            // deactivate request from the top-level system manager.
-            var smp:SystemManagerProxy = SystemManagerProxy(child);
-            var f:IFocusManagerContainer = findFocusManagerContainer(smp);
-            if (smp && f)
-                smp.deactivateByProxy(f);
-        }
-        else if (child is IFocusManagerContainer)
-            IFocusManagerContainer(child).focusManager.deactivate();
-            
-        else if (child is IEventDispatcher)
-        {
-            request.data = nextId;
-            request.requestor = IEventDispatcher(child);
-            IEventDispatcher(child).dispatchEvent(request);
-            return;
-        }
-        else
-            throw new Error();      
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Sandbox Event handlers for messages from either the
-    //  parent or child
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     * Is the child in event.data this system manager or a child of this 
-     * system manager?
-     *
-     * Set the data property to indicate if the display object is a child
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function isBridgeChildHandler(event:Event):void
-    {
-        // if we are broadcasting messages, ignore the messages
-        // we send to ourselves.
-        if (event is SWFBridgeRequest)
-            return;
-
-        var eObj:Object = Object(event);
-
-        eObj.data = eObj.data && rawChildren.contains(eObj.data as DisplayObject);
-    }
-    
-    /**
-     * Can this form be activated. The current test is if the given pop up 
-     * is visible and is enabled. 
-     *
-     * Set the data property to indicate if can be activated
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function canActivateHandler(event:Event):void
-    {
-        var eObj:Object = Object(event);
-
-        // If data is a String, then we need to parse the id to find
-        // the form or the next bridge to pass the message to.
-        // If the data is a SystemMangerProxy we can just activate the
-        // form.
-        var request:SWFBridgeRequest;
-        var child:Object = eObj.data; 
-        var nextId:String = null;
-        if (eObj.data is String)
-        {
-            var placeholder:PlaceholderData = idToPlaceholder[eObj.data];
-            child = placeholder.data;
-            nextId = placeholder.id;
-            
-            // check if the dialog is hosted on this system manager
-            if (nextId == null)
-            {
-                var popUp:RemotePopUp = findRemotePopUp(child, placeholder.bridge); 
-                
-                if (popUp)
-                {
-                    request = new SWFBridgeRequest(SWFBridgeRequest.CAN_ACTIVATE_POP_UP_REQUEST,
-                                                                false, false, 
-                                                                IEventDispatcher(popUp.bridge), 
-                                                                popUp.window);
-                    if (popUp.bridge)
-                    {
-                        popUp.bridge.dispatchEvent(request);
-                        eObj.data = request.data;
-                    }
-                    return;
-                }
-            }
-        }
-        
-        if (child is SystemManagerProxy)
-        {
-            var smp:SystemManagerProxy = SystemManagerProxy(child);
-            var f:IFocusManagerContainer = findFocusManagerContainer(smp);
-            eObj.data = smp && f && canActivateLocalComponent(f);
-        }   
-        else if (child is IFocusManagerContainer)
-        {
-            eObj.data = canActivateLocalComponent(child);
-        }
-        else if (child is IEventDispatcher)
-        {
-            var bridge:IEventDispatcher = IEventDispatcher(child);
-            request = new SWFBridgeRequest(SWFBridgeRequest.CAN_ACTIVATE_POP_UP_REQUEST,
-                                                            false, false, 
-                                                            bridge, 
-                                                            nextId);
-            
-            if (bridge)
-            {
-                bridge.dispatchEvent(request);
-                eObj.data = request.data;
-            }
-        }
-        else 
-            throw new Error();  // should never get here
-    }
-
-    /**
-     * @private
-     * 
-     * Test if a display object is in an applcation we want to communicate with over a bridge.
-     * 
-     */
-    public function isDisplayObjectInABridgedApplication(displayObject:DisplayObject):Boolean
-    {
-        if (swfBridgeGroup)
-        {
-            var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.IS_BRIDGE_CHILD_REQUEST,
-                                                                        false, false, null, displayObject);
-            var children:Array = swfBridgeGroup.getChildBridges();
-            var n:int = children.length;
-            for (var i:int = 0; i < n; i++)
-            {
-                var childBridge:IEventDispatcher = IEventDispatcher(children[i]);
-                
-                // No need to test a child if it does not trust us, we will never see
-                // their display objects.
-                // Also, if the we don't trust the child don't send them a display object.
-                var bp:ISWFBridgeProvider = swfBridgeGroup.getChildBridgeProvider(childBridge);
-                if (SecurityUtil.hasMutualTrustBetweenParentAndChild(bp))
-                {
-                    childBridge.dispatchEvent(request);
-                    if (request.data == true)
-                       return true;
-                       
-                    // reset data property
-                    request.data = displayObject;
-                }
-            }
-        }
-            
-        return false;
-    }
-
-    /**
-     * redispatch certian events to other top-level windows
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function multiWindowRedispatcher(event:Event):void
-    {
-        if (!dispatchingToSystemManagers)
-        {
-            dispatchEventToOtherSystemManagers(event);
-        }
-    }
-
-    /**
-     * Create the requested manager
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function initManagerHandler(event:Event):void
-    {
-        if (!dispatchingToSystemManagers)
-        {
-            dispatchEventToOtherSystemManagers(event);
-        }
-
-        // if we are broadcasting messages, ignore the messages
-        // we send to ourselves.
-        if (event is InterManagerRequest)
-            return;
-
-        // initialize the registered manager implementation
-        var name:String = event["name"];
-        try
-        {
-            Singleton.getInstance(name);
-        }
-        catch (e:Error)
-        {
-        }
-    }
-
-    /**
-     *  Add child to requested childList
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function addChildToSandboxRoot(layer:String, child:DisplayObject):void
-    {
-        if (getSandboxRoot() == this)
-        {
-            this[layer].addChild(child);
-        }
-        else
-        {
-            addingChild(child);
-            var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST);
-            me.name = layer + ".addChild";
-            me.value = child;
-            getSandboxRoot().dispatchEvent(me);
-            childAdded(child);
-        }
-    }
-
-    /**
-     *  Remove child from requested childList
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function removeChildFromSandboxRoot(layer:String, child:DisplayObject):void
-    {
-        if (getSandboxRoot() == this)
-        {
-            this[layer].removeChild(child);
-        }
-        else
-        {
-            removingChild(child);
-            var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST);
-            me.name = layer + ".removeChild";
-            me.value = child;
-            getSandboxRoot().dispatchEvent(me);
-            childRemoved(child);
-        }
-    }
-
-
-    /**
-     * perform the requested action from a trusted dispatcher
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private function systemManagerHandler(event:Event):void
-    {
-        if (event["name"] == "sameSandbox")
-        {
-            event["value"] = currentSandboxEvent == event["value"];
-            return;
-        }
-        else if (event["name"] == "hasSWFBridges")
-        {
-            event["value"] = hasSWFBridges();
-            return;
-        }
-
-        // if we are broadcasting messages, ignore the messages
-        // we send to ourselves.
-        if (event is InterManagerRequest)
-            return;
-
-        // initialize the registered manager implementation
-        var name:String = event["name"];
-
-        switch (name)
-        {
-        case "popUpChildren.addChild":
-            popUpChildren.addChild(event["value"]);
-            break;
-        case "popUpChildren.removeChild":
-            popUpChildren.removeChild(event["value"]);
-            break;
-        case "cursorChildren.addChild":
-            cursorChildren.addChild(event["value"]);
-            break;
-        case "cursorChildren.removeChild":
-            cursorChildren.removeChild(event["value"]);
-            break;
-        case "toolTipChildren.addChild":
-            toolTipChildren.addChild(event["value"]);
-            break;
-        case "toolTipChildren.removeChild":
-            toolTipChildren.removeChild(event["value"]);
-            break;
-        case "screen":
-            event["value"] = screen;
-            break;
-        case "application":
-            event["value"] = document;
-            break;
-        case "isTopLevelRoot":
-            event["value"] = isTopLevelRoot();
-            break;
-        case "getVisibleApplicationRect":
-            event["value"] = getVisibleApplicationRect(); 
-            break;
-        case "bringToFront":
-            if (event["value"].topMost)
-                popUpChildren.setChildIndex(DisplayObject(event["value"].popUp), popUpChildren.numChildren - 1);
-            else
-                setChildIndex(DisplayObject(event["value"].popUp), numChildren - 1);
-        
-            break;
-        }
-    }
-    
-    // fake out mouseX/mouseY
-    mx_internal var _mouseX:*;
-    mx_internal var _mouseY:*;
-
-
     /**
      *  @private
      */
