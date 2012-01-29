@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/halo"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    creationComplete="doCreationComplete();">
+
+    <fx:Script>
+        <![CDATA[
+            import mx.controls.FlexNativeMenu;
+            import mx.events.FlexNativeMenuEvent;
+
+            [Embed(source="TestImage.jpg")]
+            [Bindable]
+            public var TestImage:Class;
+
+            private var menu1:FlexNativeMenu;
+            private var menu2:FlexNativeMenu;
+
+            /**
+             * Set up the icon and menus.
+             **/
+            private function doCreationComplete():void {
+                setUpIcon();
+            
+                menu1 = new FlexNativeMenu();
+                menu1.addEventListener(mx.events.FlexNativeMenuEvent.ITEM_CLICK, handleMenuItemClick);
+                menu1.dataProvider = menuData1;
+                menu1.labelField = "@label";
+                menu1.showRoot = false;
+
+                menu2 = new FlexNativeMenu();
+                menu2.addEventListener(mx.events.FlexNativeMenuEvent.ITEM_CLICK, handleMenuItemClick);
+                menu2.dataProvider = menuData2;
+                menu2.labelField = "@label";
+                menu2.showRoot = false;
+
+                // Mac dock
+                dockIconMenu = menu1;
+        
+                // Windows system tray
+                systemTrayIconMenu = menu1;
+        
+                // Mac and Windows
+                menu = menu2;
+            }
+
+            /**
+             * Set up the icon which appears in the sytem tray (Win)
+             * or the dock (Mac).
+             **/
+            private function setUpIcon():void {
+                nativeApplication.icon.bitmaps = new Array(new TestImage().bitmapData);
+            }
+
+            /**
+             * If someone chooses Exit from either menu, then exit.
+             **/
+            private function handleMenuItemClick(e:mx.events.FlexNativeMenuEvent):void { 
+                if(e.label == "Exit"){
+                    exit();
+                }
+            }
+        ]]>
+    </fx:Script>
+
+    <fx:Declarations>
+        <!-- We use this one for the system tray or dock. -->
+        <fx:XML format="e4x" id="menuData1">
+            <root>
+                <menuitem label="Exit" />
+            </root>
+        </fx:XML>
+
+        <!-- We use this one for the menu on top. -->
+        <fx:XML format="e4x" id="menuData2">
+            <root>
+                <menuitem label="File" >
+                    <menuitem label="Exit" />
+                </menuitem>
+            </root>
+        </fx:XML>
+    </fx:Declarations>
+</s:WindowedApplication>
