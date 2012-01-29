@@ -59,6 +59,10 @@ public class WindowExistenceEvent extends Event
      *  </table>
      *
      *  @eventType windowCreate
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const WINDOW_CREATE:String = "windowCreate";
     
@@ -84,6 +88,10 @@ public class WindowExistenceEvent extends Event
      *  </table>
      *
      *  @eventType windowClose
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const WINDOW_CLOSE:String = "windowClose";
     
@@ -105,6 +113,10 @@ public class WindowExistenceEvent extends Event
      *  associated with the event can be prevented.
      *
      *  @param window The window object that was created or closed
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function WindowExistenceEvent(type:String, bubbles:Boolean = false,
                                 cancelable:Boolean = false, window:Window = null)
@@ -122,6 +134,10 @@ public class WindowExistenceEvent extends Event
     
     /**
      *  The window that was created or destroyed
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var window:Window;
 
