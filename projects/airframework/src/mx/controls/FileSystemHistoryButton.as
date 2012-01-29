@@ -104,7 +104,7 @@ use namespace mx_internal;
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemDataGrid
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public class FileSystemHistoryButton extends PopUpButton
 {
