@@ -153,7 +153,6 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
      *  @default false
      *  
      *  @langversion 4.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
@@ -240,7 +239,6 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
      *  @default true
      *  
      *  @langversion 4.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
