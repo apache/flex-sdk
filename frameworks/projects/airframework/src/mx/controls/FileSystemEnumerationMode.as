@@ -21,6 +21,8 @@ package mx.controls
  *  @see mx.controls.FileSystemList#enumerationMode
  *  @see mx.controls.FileSystemDataGrid#enumerationMode
  *  @see mx.controls.FileSystemTree#enumerationMode
+ * 
+ *  @productversion Apollo 1.0
  */
 public final class FileSystemEnumerationMode
 {
