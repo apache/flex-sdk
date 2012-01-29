@@ -25,7 +25,6 @@ import flash.filesystem.File;
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemTree
  * 
- *  @playerversion AIR 1.1
  */
 public class FileEvent extends Event
 {
