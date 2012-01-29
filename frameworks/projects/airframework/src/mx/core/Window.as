@@ -40,9 +40,11 @@ import mx.events.FlexNativeWindowBoundsEvent;
 import mx.events.WindowExistenceEvent;
 import mx.managers.CursorManagerImpl;
 import mx.managers.FocusManager;
+import mx.managers.IActiveWindowManager;
 import mx.managers.ICursorManager;
 import mx.managers.ISystemManager;
 import mx.managers.WindowedSystemManager;
+import mx.managers.systemClasses.ActiveWindowManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 import mx.styles.StyleProxy;
@@ -657,12 +659,17 @@ public class Window extends LayoutContainer implements IWindow
      */
     private static const DEFAULT_WINDOW_WIDTH:Number = 100;
 
-    //--------------------------------------------------------------------------
+   //--------------------------------------------------------------------------
     //
     //  Class methods
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
+    private static function weakDependency():void { ActiveWindowManager };
+    
     /**
      *  Returns the Window to which a component is parented.
      *
@@ -2749,7 +2756,13 @@ public class Window extends LayoutContainer implements IWindow
         if (sm.isTopLevel())
         {
             focusManager = new FocusManager(this);
-            sm.activate(this);
+			var awm:IActiveWindowManager = 
+				IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
+			if (awm)
+           		awm.activate(this);
+            else
+                focusManager.activate();
+
             _cursorManager = new CursorManagerImpl(sm);
         }
     }
