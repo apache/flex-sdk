@@ -25,6 +25,10 @@ import flash.filesystem.File;
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemTree
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FileEvent extends Event
 {
@@ -59,6 +63,10 @@ public class FileEvent extends Event
      *  </table>
      *
      *  @eventType directoryChange
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DIRECTORY_CHANGE:String = "directoryChange";
 
@@ -85,6 +93,10 @@ public class FileEvent extends Event
      *  </table>
      *
      *  @eventType directoryChanging
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DIRECTORY_CHANGING:String = "directoryChanging";
 
@@ -111,6 +123,10 @@ public class FileEvent extends Event
      *  </table>
      *
      *  @eventType directoryOpening
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DIRECTORY_OPENING:String = "directoryOpening";
 
@@ -137,6 +153,10 @@ public class FileEvent extends Event
      *  </table>
      *
      *  @eventType directoryClosing
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DIRECTORY_CLOSING:String = "directoryClosing";
 
@@ -163,6 +183,10 @@ public class FileEvent extends Event
      *  </table>
      *
      *  @eventType select
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const FILE_CHOOSE:String = "fileChoose";
 
@@ -185,6 +209,10 @@ public class FileEvent extends Event
      *  associated with the event can be prevented.
      *
      *  @param file The File instance associated with this event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FileEvent(type:String, bubbles:Boolean = false,
                               cancelable:Boolean = false,
@@ -207,6 +235,10 @@ public class FileEvent extends Event
 
     /**
      *  The File instance associated with this event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var file:File;
 
