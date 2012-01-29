@@ -21,6 +21,8 @@ import mx.states.State;
 /**
  *  The skin for the minimize button in the TitleBar
  *  of a WindowedApplication or Window.
+ * 
+ *  @productversion Apollo 1.0
  */
 public class WindowMinimizeButtonSkin extends UIComponent
 {
