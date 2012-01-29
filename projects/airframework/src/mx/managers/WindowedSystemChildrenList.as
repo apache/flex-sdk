@@ -47,6 +47,10 @@ public class WindowedSystemChildrenList implements IChildList
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function WindowedSystemChildrenList(owner:WindowedSystemManager,
 									   lowerBoundReference:QName,
@@ -96,6 +100,10 @@ public class WindowedSystemChildrenList implements IChildList
 
 	/**
 	 *  @copy mx.core.IChildList#numChildren
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get numChildren():int
 	{
@@ -104,6 +112,10 @@ public class WindowedSystemChildrenList implements IChildList
 
 	/**
 	 *  @copy mx.core.IChildList#addChild
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function addChild(child:DisplayObject):DisplayObject
 	{
@@ -115,6 +127,10 @@ public class WindowedSystemChildrenList implements IChildList
 
 	/**
 	 *  @copy mx.core.IChildList#addChildAt
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function addChildAt(child:DisplayObject, index:int):DisplayObject
 	{
@@ -126,6 +142,10 @@ public class WindowedSystemChildrenList implements IChildList
 
 	/**
 	 *  @copy mx.core.IChildList#removeChild
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function removeChild(child:DisplayObject):DisplayObject
 	{
@@ -141,6 +161,10 @@ public class WindowedSystemChildrenList implements IChildList
 
 	/**
 	 *  @copy mx.core.IChildList#removeChildAt
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function removeChildAt(index:int):DisplayObject
 	{
@@ -153,6 +177,10 @@ public class WindowedSystemChildrenList implements IChildList
 
 	/**
 	 *  @copy mx.core.IChildList#getChildAt
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
   	public function getChildAt(index:int):DisplayObject
   	{
@@ -164,6 +192,10 @@ public class WindowedSystemChildrenList implements IChildList
 
 	/**
 	 *  @copy mx.core.IChildList#getChildByName
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
   	public function getChildByName(name:String):DisplayObject
   	{
@@ -172,6 +204,10 @@ public class WindowedSystemChildrenList implements IChildList
 
 	/**
 	 *  @copy mx.core.IChildList#getChildIndex
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
   	public function getChildIndex(child:DisplayObject):int
   	{
@@ -182,6 +218,10 @@ public class WindowedSystemChildrenList implements IChildList
 
 	/**
 	 *  @copy mx.core.IChildList#setChildIndex
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function setChildIndex(child:DisplayObject, newIndex:int):void
 	{		
@@ -191,6 +231,10 @@ public class WindowedSystemChildrenList implements IChildList
 
 	/**
 	 *  @copy mx.core.IChildList#getObjectsUnderPoint
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function getObjectsUnderPoint(point:Point):Array
 	{
@@ -199,6 +243,10 @@ public class WindowedSystemChildrenList implements IChildList
 
 	/**
 	 *  @copy mx.core.IChildList#contains
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function contains(child:DisplayObject):Boolean
 	{
