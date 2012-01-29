@@ -51,6 +51,7 @@ import mx.core.SWFBridgeGroup;
 import mx.core.Window;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.FlexChangeEvent;
 import mx.events.EventListenerRequest;
 import mx.events.InvalidateRequestData;
 import mx.events.InterManagerRequest;
@@ -194,14 +195,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	 */
 	private var mouseCatcher:Sprite;
 	
-    /** 
-     *  @private
-     *  Map a bridge to a FocusManager. This is only for Focus Managers that is
-     *  not the focus manager for document. Since the bridges are not in document
-     *  they are bridges inside of pop ups.
-     */
-     private var bridgeToFocusManager:Dictionary;
-  	
 	//----------------------------------
 	//  applicationIndex
 	//----------------------------------
@@ -230,6 +223,48 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		_applicationIndex = value;
 	}
 	
+    //----------------------------------
+    //  bridgeToFocusManager
+    //----------------------------------
+
+    /** 
+     *  @private
+     *  Map a bridge to a FocusManager. 
+     *  This dictionary contains both the focus managers for this document as 
+     *  well as focus managers that are in documents contained inside of pop 
+     *  ups, if the system manager in that pop up requires a bridge to 
+     *  communicate with this system manager. 
+     *  
+     *  The returned object is an object of type IFocusManager.
+     */
+    private var _bridgeToFocusManager:Dictionary;
+
+    /** 
+     *   @private
+     *  
+     *   System Managers in child application domains use their parent's
+     *   bridgeToFocusManager's Dictionary. The swfBridgeGroup property
+     *   is maintained in the same way.
+     */
+    mx_internal function get bridgeToFocusManager():Dictionary
+    {
+        if (topLevel)
+            return _bridgeToFocusManager;
+        else if (topLevelSystemManager)
+            return SystemManager(topLevelSystemManager).bridgeToFocusManager;
+            
+        return null;
+    }
+    
+    mx_internal function set bridgeToFocusManager(bridgeToFMDictionary:Dictionary):void
+    {
+        if (topLevel)
+            _bridgeToFocusManager = bridgeToFMDictionary;
+        else if (topLevelSystemManager)
+            SystemManager(topLevelSystemManager).bridgeToFocusManager = bridgeToFMDictionary;
+                    
+    }
+    
 	//-----------------------------------
 	//  ISystemManager implementations
 	//-----------------------------------
@@ -1324,6 +1359,12 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		initContextMenu();
 		if (!topLevel)
 		{
+            // We are not top-level and don't have a parent. This can happen
+            // when the application has already been unloaded by the time
+            // we get to this point.
+            if (!parent)
+                return;
+
 			var obj:DisplayObjectContainer = parent.parent;
 
   			// if there is no grandparent at this point, we might have been removed and
@@ -1738,6 +1779,9 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
         bridgeToFocusManager[bridge] = fm;
 
         addChildBridgeListeners(bridge);
+        
+        // dispatch message that we are adding a bridge.
+        dispatchEvent(new FlexChangeEvent(FlexChangeEvent.ADD_CHILD_BRIDGE, false, false, bridge));
 	}
 
 	/**
@@ -1745,6 +1789,9 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 	 */
 	public function removeChildBridge(bridge:IEventDispatcher):void
 	{
+        // dispatch message that we are removing a bridge.
+        dispatchEvent(new FlexChangeEvent(FlexChangeEvent.REMOVE_CHILD_BRIDGE, false, false, bridge));
+	    
         var fm:IFocusManager = IFocusManager(bridgeToFocusManager[bridge]);
         fm.removeSWFBridge(bridge);
         swfBridgeGroup.removeChildBridge(bridge);
@@ -1764,14 +1811,16 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		if (!topLevel && topLevelSystemManager)
 			return topLevelSystemManager.useSWFBridge();
 			
-		// if we're toplevel and we aren't the sandbox root, we need a bridge
-		if (topLevel && getSandboxRoot() != this)
-			return true;
-		
-		// we also need a bridge even if we're the sandbox root
-		// but not a stage root, but our parent loader is a bootstrap
-		// that is not the stage root
-		if (getSandboxRoot() == this)
+        var sbRoot:DisplayObject = getSandboxRoot();
+        
+        // if we're toplevel and we aren't the sandbox root, we need a bridge
+        if (topLevel && sbRoot != this)
+            return true;
+        
+        // we also need a bridge even if we're the sandbox root
+        // but not a stage root, but our parent loader is a bootstrap
+        // that is not the stage root
+        if (sbRoot == this)
 		{
 			try
 			{
@@ -1856,7 +1905,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
             // test to see if parent is a Bootstrap
             if (parent && !parent.dispatchEvent(new Event("mx.managers.SystemManager.isBootstrapRoot", false, true)))
                 return this;
-  			var lastParent:DisplayObject = parent;
+  			var lastParent:DisplayObject = this;
 			while (parent)
 			{
 				if (parent is Stage)
@@ -1876,14 +1925,20 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 				    if (!loaderInfo.childAllowsParent)
 				        return loaderInfo.content;
 				}
-				lastParent = parent; 
+                
+                // If an object is listening for system manager request we assume it is a sandbox
+                // root. If not, don't assign lastParent to this parent because it may be a
+                // non-Flex application. We only want Flex apps to be returned as sandbox roots.
+                if (parent.hasEventListener(InterManagerRequest.SYSTEM_MANAGER_REQUEST))
+    				lastParent = parent; 
 				parent = parent.parent;				
 			}
 		}
-		catch (error:SecurityError)
-		{
-			// don't have access to parent	
-		}		
+        catch (error:Error)
+        {
+            // Either we don't have security access to a parent or
+            // the swf is unloaded and loaderInfo.childAllowsParent is throwing Error #2099.
+        }       
 		
 		return lastParent != null ? lastParent : DisplayObject(sm);
 	}
@@ -2037,8 +2092,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 			forms.splice(index, 1);
 			forms.push(form);
 		}
-		else
-			throw new Error();	// should never get here
 		
 	}
 
