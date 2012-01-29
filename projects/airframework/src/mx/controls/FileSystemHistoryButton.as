@@ -104,7 +104,6 @@ use namespace mx_internal;
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemDataGrid
  * 
- *  @playerversion AIR 1.1
  */
 public class FileSystemHistoryButton extends PopUpButton
 {
@@ -147,9 +146,9 @@ public class FileSystemHistoryButton extends PopUpButton
     mx_internal var helper:FileSystemControlHelper;
 
     /**
-	 *  @private
-	 */
-	private var popUpMenu:Menu;
+     *  @private
+     */
+    private var popUpMenu:Menu;
 
     //--------------------------------------------------------------------------
     //
@@ -163,9 +162,9 @@ public class FileSystemHistoryButton extends PopUpButton
 
     /**
      *  The data provider for the FileSystemHistoryButton control. This should
-	 *  be a collection of File objects containing directory locations -- commonly
-	 *  the <code>backHistory</code> or <code>forwardHistory</code> property of
-	 *  a FileSystemList or FileSystemDataGrid control.
+     *  be a collection of File objects containing directory locations -- commonly
+     *  the <code>backHistory</code> or <code>forwardHistory</code> property of
+     *  a FileSystemList or FileSystemDataGrid control.
      */
     public function get dataProvider():Object
     {
@@ -196,8 +195,8 @@ public class FileSystemHistoryButton extends PopUpButton
         // The name of the COMPUTER pseudo-directory is locale-dependent.
         if (popUpMenu)
         {
-        	popUpMenu.invalidateSize();
-        	popUpMenu.invalidateDisplayList();
+            popUpMenu.invalidateSize();
+            popUpMenu.invalidateDisplayList();
         }
     }
 
