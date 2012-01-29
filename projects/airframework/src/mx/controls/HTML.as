@@ -13,6 +13,7 @@ package mx.controls
 {
 
 import flash.events.Event;
+import flash.events.FocusEvent;
 import flash.events.HTMLUncaughtScriptExceptionEvent;
 import flash.events.MouseEvent;
 import flash.html.HTMLLoader;
@@ -20,6 +21,8 @@ import flash.html.HTMLHistoryItem;
 import flash.html.HTMLHost;
 import flash.net.URLRequest;
 import flash.system.ApplicationDomain;
+import flash.system.IME;
+import flash.system.IMEConversionMode;
 import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
@@ -27,6 +30,7 @@ import mx.core.ClassFactory;
 import mx.core.EdgeMetrics;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
+import mx.core.IIMESupport;
 import mx.core.FlexHTMLLoader;
 import mx.core.mx_internal;
 import mx.core.ScrollControlBase;
@@ -201,6 +205,8 @@ use namespace mx_internal;
 //--------------------------------------
 
 [IconFile("HTML.png")]
+
+[ResourceBundle("controls")]
 
 /**
  *  The HTML control lets you display HTML content in your application.
@@ -381,6 +387,11 @@ use namespace mx_internal;
      */
     private var textSet:Boolean;
 
+    /**
+     *  @private
+     */    
+    private var errorCaught:Boolean = false;
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -515,6 +526,7 @@ use namespace mx_internal;
 
         dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
     }
+
 
     //----------------------------------
     //  historyLength
@@ -765,6 +777,55 @@ use namespace mx_internal;
             return null;
 
         return htmlLoader.window;
+    }
+
+    //----------------------------------
+    //  imeMode
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _imeMode:String = null;
+
+    /**
+     *  Specifies the IME (input method editor) mode.
+     *  The IME enables users to enter text in Chinese, Japanese, and Korean.
+     *  Flex sets the specified IME mode when the control gets the focus,
+     *  and sets it back to the previous value when the control loses the focus.
+     *
+     *  <p>The flash.system.IMEConversionMode class defines constants for the
+     *  valid values for this property.
+     *  You can also specify <code>null</code> to specify no IME.</p>
+     *
+     *  @default null
+     * 
+     *  @see flash.system.IMEConversionMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get imeMode():String
+    {
+        return _imeMode;
+    }
+
+    /**
+     *  @private
+     */
+    public function set imeMode(value:String):void
+    {
+        _imeMode = value;
+        // We don't call IME.conversionMode here. We call it
+        // only on focusIn. Thus fringe cases like setting
+        // imeMode dynamically without moving focus, through
+        // keyboard events, wouldn't change the mode. Also
+        // getting imeMode asynch. from the server which gets
+        // delayed and set later after focusIn is not handled
+        // as having the text partly in one script and partly
+        // in another is not desirable.
     }
 
     //----------------------------------
@@ -1367,6 +1428,41 @@ use namespace mx_internal;
 
     /**
      *  @private
+     *  Gets called by internal field so we draw a focus rect around us.
+     */
+    override protected function focusInHandler(event:FocusEvent):void
+    {
+        super.focusInHandler(event);
+
+        if (_imeMode != null && 
+            (htmlLoader is IIMESupport && IIMESupport(htmlLoader).enableIME))
+        {
+            // When IME.conversionMode is unknown it cannot be
+            // set to anything other than unknown(English)
+            try
+            {
+                if (!errorCaught &&
+                    IME.conversionMode != IMEConversionMode.UNKNOWN)
+                {
+                    IME.conversionMode = _imeMode;
+                }
+                errorCaught = false;
+            }
+            catch(e:Error)
+            {
+                // Once an error is thrown, focusIn is called 
+                // again after the Alert is closed, throw error 
+                // only the first time.
+                errorCaught = true;
+                var message:String = resourceManager.getString(
+                    "controls", "unsupportedMode", [ _imeMode ]);
+                throw new Error(message);
+            }
+        }
+    }
+
+    /**
+     *  @private
      */
     override protected function scrollHandler(event:Event):void
     {
@@ -1424,6 +1520,10 @@ use namespace mx_internal;
         dispatchEvent(event);
 
         adjustScrollBars();
+
+        // we record this property here becuase it seems to
+        // change as you interact with the content
+        hasFocusableChildren = htmlLoader.hasFocusableContent;
     }
 
     /**
