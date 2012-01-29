@@ -61,6 +61,10 @@ use namespace mx_internal;
  *  Dispatched when this application is activated.
  *
  *  @eventType mx.events.AIREvent.APPLICATION_ACTIVATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="applicationActivate", type="mx.events.AIREvent")]
 
@@ -68,6 +72,10 @@ use namespace mx_internal;
  *  Dispatched when this application is deactivated.
  *
  *  @eventType mx.events.AIREvent.APPLICATION_DEACTIVATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="applicationDeactivate", type="mx.events.AIREvent")]
 
@@ -75,6 +83,10 @@ use namespace mx_internal;
  *  Dispatched after this application window has been activated.
  *
  *  @eventType mx.events.AIREvent.WINDOW_ACTIVATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="windowActivate", type="mx.events.AIREvent")]
 
@@ -82,6 +94,10 @@ use namespace mx_internal;
  *  Dispatched after this application window has been deactivated.
  *
  *  @eventType mx.events.AIREvent.WINDOW_DEACTIVATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="windowDeactivate", type="mx.events.AIREvent")]
  
@@ -91,6 +107,10 @@ use namespace mx_internal;
  *  @eventType flash.events.Event.CLOSE
  *
  *  @see flash.display.NativeWindow
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="close", type="flash.events.Event")]
 
@@ -101,6 +121,10 @@ use namespace mx_internal;
  *  @eventType flash.events.Event.CLOSING
  *
  *  @see flash.display.NativeWindow
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="closing", type="flash.events.Event")]
 
@@ -109,6 +133,10 @@ use namespace mx_internal;
  *  or restore.
  *
  *  @eventType flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="displayStateChange", type="flash.events.NativeWindowDisplayStateEvent")]
 
@@ -117,11 +145,19 @@ use namespace mx_internal;
  *  or restore.
  *
  *  @eventType flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="displayStateChanging", type="flash.events.NativeWindowDisplayStateEvent")]
 
 /**
  *  Dispatched when an application is invoked.
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="invoke", type="flash.events.InvokeEvent")]
 
@@ -130,6 +166,10 @@ use namespace mx_internal;
  *  or while the WindowedApplication object is being dragged.
  *
  *  @eventType flash.events.NativeWindowBoundsEvent.MOVING
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="moving", type="flash.events.NativeWindowBoundsEvent")]
 
@@ -137,6 +177,10 @@ use namespace mx_internal;
  *  Dispatched when the computer connects to or disconnects from the network.
  *
  *  @eventType flash.events.Event.NETWORK_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="networkChange", type="flash.events.Event")]
 
@@ -145,6 +189,10 @@ use namespace mx_internal;
  *  or while the WindowedApplication object boundaries are being dragged.
  *
  *  @eventType flash.events.NativeWindowBoundsEvent.RESIZING
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="resizing", type="flash.events.NativeWindowBoundsEvent")]
 
@@ -153,6 +201,10 @@ use namespace mx_internal;
  *  By default, the WindowedApplication will be visbile at this time.
  *
  *  @eventType mx.events.AIREvent.WINDOW_COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="windowComplete", type="mx.events.AIREvent")]
 
@@ -160,6 +212,10 @@ use namespace mx_internal;
  *  Dispatched after the WindowedApplication object moves.
  *
  *  @eventType mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="windowMove", type="mx.events.FlexNativeWindowBoundsEvent")]
 
@@ -167,6 +223,10 @@ use namespace mx_internal;
  *  Dispatched after the underlying NativeWindow object is resized.
  *
  *  @eventType mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="windowResize", type="mx.events.FlexNativeWindowBoundsEvent")]
 
@@ -187,6 +247,10 @@ use namespace mx_internal;
  *  right on Windows.</p>
  *
  *  @default "auto"
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="buttonAlignment", type="String", enumeration="left,right,auto", inherit="yes")]
 
@@ -194,6 +258,10 @@ use namespace mx_internal;
  *  Defines the distance between the titleBar buttons.
  *
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="buttonPadding", type="Number", inherit="yes")]
 
@@ -201,6 +269,10 @@ use namespace mx_internal;
  *  Skin for close button when using Flex chrome.
  *
  *  @default mx.skins.halo.WindowCloseButtonSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="closeButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")]
 
@@ -209,6 +281,10 @@ use namespace mx_internal;
  *  plus the padding around the edges is the hit area for the gripper resizing.
  *
  *  @default 3
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="gripperPadding", type="Number", format="Length", inherit="no")]
 
@@ -216,6 +292,10 @@ use namespace mx_internal;
  *  Style declaration for the skin of the gripper.
  *
  *  @default "gripperStyle"
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="gripperStyleName", type="String", inherit="no")]
 
@@ -225,6 +305,10 @@ use namespace mx_internal;
  *  heights, and the icon height.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerHeight", type="Number", format="Length", inherit="no")]
 
@@ -232,6 +316,10 @@ use namespace mx_internal;
  *  Skin for maximize button when using Flex chrome.
  *
  *  @default mx.skins.halo.WindowMaximizeButtonSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="maximizeButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")]
 
@@ -239,6 +327,10 @@ use namespace mx_internal;
  *  Skin for minimize button when using Flex chrome.
  *
  *  @default mx.skins.halo.WindowMinimizeButtonSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="minimizeButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")]
 
@@ -247,6 +339,10 @@ use namespace mx_internal;
  *  This style is ignored for Mac OS X.
  *
  *  @default mx.skins.halo.WindowRestoreButtonSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="restoreButtonSkin", type="Class", inherit="no",states="up, over, down, disabled")]
 
@@ -255,6 +351,10 @@ use namespace mx_internal;
  *  to draw chrome. Changing this style once the window is open has no effect.
  *
  *  @default true
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="showFlexChrome", type="Boolean", inherit="no")]
 
@@ -262,6 +362,10 @@ use namespace mx_internal;
  *  The status bar background skin.
  *
  *  @default mx.skins.halo.StatusBarBackgroundSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="statusBarBackgroundSkin", type="Class", inherit="yes")]
 
@@ -269,6 +373,10 @@ use namespace mx_internal;
  *  The colors used to draw the status bar.
  *
  *  @default 0xC0C0C0
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="statusBarBackgroundColor", type="uint", format="Color", inherit="yes")]
 
@@ -276,6 +384,10 @@ use namespace mx_internal;
  *  Style declaration for the status text.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="statusTextStyleName", type="String", inherit="yes")]
 
@@ -292,6 +404,10 @@ use namespace mx_internal;
  *  at the left on Windows and at the center on Mac OS X.</p>
  *
  *  @default "auto"
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="titleAlignment", type="String", enumeration="left,center,auto", inherit="yes")]
 
@@ -299,6 +415,10 @@ use namespace mx_internal;
  *  The title background skin.
  *
  *  @default mx.skins.halo.ApplicationTitleBarBackgroundSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="titleBarBackgroundSkin", type="Class", inherit="yes")]
 
@@ -307,6 +427,10 @@ use namespace mx_internal;
  *  edge of the title bar.
  *
  *  @default 5
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="titleBarButtonPadding", type="Number", inherit="true")]
 
@@ -319,6 +443,10 @@ use namespace mx_internal;
  *  panel background.
  *
  *  @default [ 0x000000, 0x000000 ]
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="titleBarColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
@@ -326,6 +454,10 @@ use namespace mx_internal;
  *  The style name for the title text.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="titleTextStyleName", type="String", inherit="yes")]
 
@@ -335,16 +467,28 @@ use namespace mx_internal;
 
 /**
  *  Played when the window is closed.
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="closeEffect", event="windowClose")]
 
 /**
  *  Played when the component is minimized.
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="minimizeEffect", event="windowMinimize")]
 
 /**
  *  Played when the component is unminimized.
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="unminimizeEffect", event="windowUnminimize")]
 
@@ -446,6 +590,10 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class WindowedApplication extends Application implements IWindow
 {
@@ -487,6 +635,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function WindowedApplication()
     {
@@ -705,6 +857,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies the maximum height of the application's window.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set maxHeight(value:Number):void
     {
@@ -746,6 +902,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies the maximum width of the application's window.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set maxWidth(value:Number):void
     {
@@ -775,6 +935,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies the minimum height of the application's window.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get minHeight():Number
     {
@@ -816,6 +980,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies the minimum width of the application's window.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get minWidth():Number
     {
@@ -988,6 +1156,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  The identifier that AIR uses to identify the application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get applicationID():String
     {
@@ -1008,6 +1180,10 @@ public class WindowedApplication extends Application implements IWindow
      *  Determines whether the underlying NativeWindow is always in front of other windows.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get alwaysInFront():Boolean
     {
@@ -1036,6 +1212,10 @@ public class WindowedApplication extends Application implements IWindow
      *  window closes or will continue running in the background.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get autoExit():Boolean
     {
@@ -1093,6 +1273,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Returns true when the underlying window has been closed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get closed():Boolean
     {
@@ -1111,6 +1295,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  The dock icon menu. Some operating systems do not support dock icon menus.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dockIconMenu():FlexNativeMenu
     {
@@ -1137,6 +1325,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies whether the window can be maximized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maximizable():Boolean
     {
@@ -1152,6 +1344,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies whether the window can be minimized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minimizable():Boolean
     {
@@ -1180,6 +1376,10 @@ public class WindowedApplication extends Application implements IWindow
      *  The application menu for operating systems that support an application menu,
      *  or the window menu of the application's initial window for operating
      *  systems that support window menus.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get menu():FlexNativeMenu
     {
@@ -1202,6 +1402,10 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  The NativeWindow used by this WindowedApplication component (the initial
      *  native window of the application).
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nativeWindow():NativeWindow
     {
@@ -1217,6 +1421,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies whether the window can be resized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get resizable():Boolean
     {
@@ -1231,6 +1439,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  The NativeApplication object representing the AIR application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nativeApplication():NativeApplication
     {
@@ -1261,6 +1473,10 @@ public class WindowedApplication extends Application implements IWindow
      *  in that case.</p>
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showGripper():Boolean
     {
@@ -1301,6 +1517,10 @@ public class WindowedApplication extends Application implements IWindow
      *  If <code>true</code>, the status bar is visible.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showStatusBar():Boolean
     {
@@ -1341,6 +1561,10 @@ public class WindowedApplication extends Application implements IWindow
      *  If <code>true</code>, the window's title bar is visible.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showTitleBar():Boolean
     {
@@ -1383,6 +1607,10 @@ public class WindowedApplication extends Application implements IWindow
      *  The string that appears in the status bar, if it is visible.
      *
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get status():String
     {
@@ -1416,6 +1644,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  The UIComponent that displays the status bar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get statusBar():UIComponent
     {
@@ -1446,6 +1678,10 @@ public class WindowedApplication extends Application implements IWindow
      *
      *  <p>If you write a custom status bar class, it should expose
      *  a public property named <code>status</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get statusBarFactory():IFactory
     {
@@ -1480,6 +1716,10 @@ public class WindowedApplication extends Application implements IWindow
      *  Set of styles to pass from the WindowedApplication to the status bar.
      *
      *  @see mx.styles.StyleProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get statusBarStyleFilters():Object
     {
@@ -1496,6 +1736,10 @@ public class WindowedApplication extends Application implements IWindow
      *  in the NativeWindowSystemChrome class.
      *
      *  @see flash.display.NativeWindow#systemChrome
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get systemChrome():String
     {
@@ -1516,6 +1760,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  The system tray icon menu. Some operating systems do not support system tray icon menus.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get systemTrayIconMenu():FlexNativeMenu
     {
@@ -1562,6 +1810,10 @@ public class WindowedApplication extends Application implements IWindow
      *  you may see the title from the XML file appear briefly first.
      *
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get title():String
     {
@@ -1595,6 +1847,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  The UIComponent that displays the title bar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get titleBar():UIComponent
     {
@@ -1626,6 +1882,10 @@ public class WindowedApplication extends Application implements IWindow
      *  <p>If you write a custom title bar class, it should expose
      *  public properties named <code>titleIcon</code>
      *  and <code>title</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get titleBarFactory():IFactory
     {
@@ -1669,6 +1929,10 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  Set of styles to pass from the WindowedApplication to the titleBar.
      *  @see mx.styles.StyleProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get titleBarStyleFilters():Object
     {
@@ -1696,6 +1960,10 @@ public class WindowedApplication extends Application implements IWindow
      *  The Class (usually an image) used to draw the title bar icon.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get titleIcon():Class
     {
@@ -1724,6 +1992,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies whether the window is transparent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get transparent():Boolean
     {
@@ -1742,6 +2014,10 @@ public class WindowedApplication extends Application implements IWindow
      *  in the NativeWindowType class.
      *
      *  @see flash.display.NativeWindowType
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get type():String
     {
@@ -2249,6 +2525,10 @@ public class WindowedApplication extends Application implements IWindow
     
     /**
      *  Activates the underlying NativeWindow (even if this application is not the active one).
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function activate():void
     {
@@ -2258,6 +2538,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Closes the application's NativeWindow (the initial native window opened by the application). This action is cancelable.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function close():void
     {
@@ -2272,6 +2556,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Closes the window and exits the application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function exit():void
     {
@@ -2310,6 +2598,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Maximizes the window, or does nothing if it's already maximized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function maximize():void
     {
@@ -2335,6 +2627,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Minimizes the window.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function minimize():void
     {
@@ -2353,6 +2649,10 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  Restores the window (unmaximizes it if it's maximized, or
      *  unminimizes it if it's minimized).
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function restore():void
     {
@@ -2392,6 +2692,10 @@ public class WindowedApplication extends Application implements IWindow
      *
      *  @return <code>true</code> if the window was succesfully sent behind;
      *  <code>false</code> if the window is invisible or minimized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      public function orderInBackOf(window:IWindow):Boolean
      {
@@ -2411,6 +2715,10 @@ public class WindowedApplication extends Application implements IWindow
      *
      *  @return <code>true</code> if the window was succesfully sent in front;
      *  <code>false</code> if the window is invisible or minimized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      public function orderInFrontOf(window:IWindow):Boolean
      {
@@ -2425,6 +2733,10 @@ public class WindowedApplication extends Application implements IWindow
       *
       *  @return <code>true</code> if the window was succesfully sent to the back;
       *  <code>false</code> if the window is invisible or minimized.
+      *  
+      *  @langversion 3.0
+      *  @playerversion AIR 1.1
+      *  @productversion Flex 3
       */
      public function orderToBack():Boolean
      {
@@ -2439,6 +2751,10 @@ public class WindowedApplication extends Application implements IWindow
   *
   *  @return <code>true</code> if the window was succesfully sent to the front;
   *  <code>false</code> if the window is invisible or minimized.
+  *  
+  *  @langversion 3.0
+  *  @playerversion AIR 1.1
+  *  @productversion Flex 3
   */
      public function orderToFront():Boolean
      {
@@ -2641,6 +2957,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Manages mouse down events on the window border.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function mouseDownHandler(event:MouseEvent):void
     {
@@ -2968,6 +3288,10 @@ public class WindowedApplication extends Application implements IWindow
      *  This is a temporary event handler which dispatches a initialLayoutComplete event after
      *  two updateCompletes. This event will only be dispatched after either setting the bounds or
      *  maximizing the window at startup.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function updateComplete_handler(event:FlexEvent):void
     {
