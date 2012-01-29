@@ -17,6 +17,8 @@ import mx.styles.StyleManager;
 
 /**
  *  The skin for the TitleBar of a WindowedApplication or Window.
+ * 
+ *  @productversion Apollo 1.0
  */
 public class ApplicationTitleBarBackgroundSkin extends ProgrammaticSkin
 {
