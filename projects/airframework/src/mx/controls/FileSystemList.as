@@ -237,7 +237,9 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  *
- * @see flash.filesystem.File
+ *  @see flash.filesystem.File
+ * 
+ *  @productversion Apollo 1.0
  */
 public class FileSystemList extends List
 {
