@@ -38,6 +38,11 @@ use namespace mx_internal;
 
 /**
  *  The default title bar for a WindowedApplication or a Window.
+ * 
+ *  @see mx.core.Window
+ *  @see mx.core.WindowedApplication
+ * 
+ *  @productversion Apollo 1.0
  */
 public class TitleBar extends UIComponent
 {
