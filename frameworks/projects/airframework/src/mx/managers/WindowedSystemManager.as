@@ -58,7 +58,7 @@ use namespace mx_internal;
  * 
  *  @see mx.managers.SystemManager
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public class WindowedSystemManager extends MovieClip implements ISystemManager
 {
