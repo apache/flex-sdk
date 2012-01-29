@@ -30,7 +30,7 @@ import mx.utils.NameUtil;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexComponent
+public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexComponent, IIMESupport
 {
     include "../core/Version.as";
 
@@ -79,6 +79,8 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
             // In this case, we ignore the error and toString() will
             // use the name assigned in the Flash authoring tool.
         }
+
+        addEventListener(Event.HTML_RENDER, htmlRenderHandler);
     }
 
     //--------------------------------------------------------------------------
@@ -86,6 +88,28 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
     //  Methods
     //
     //--------------------------------------------------------------------------
+
+    // AIR 1.5 unexpectedly changes hasFocusableContent during interaction
+    // so we cache it on RENDER.  It seems to be correct then.
+    private var _hasFocusableContent:Boolean;
+
+    //----------------------------------
+    //  enableIME
+    //----------------------------------
+
+    /**
+     *  A flag that indicates whether the IME should
+     *  be enabled when the component receives focus. 
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get enableIME():Boolean
+    {
+        return _hasFocusableContent;
+    }
 
     //----------------------------------
     //  focusEnabled
@@ -171,6 +195,41 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
             _hasFocusableChildren = value;
             dispatchEvent(new Event("hasFocusableChildrenChange"));
         }
+    }
+
+    //----------------------------------
+    //  imeMode
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _imeMode:String = null;
+
+    /**
+     *  This is just a stub to support the interface.
+     *  The parent mx.controls.HTML contains the conversionMode and
+     *  applies it.
+     */
+    public function get imeMode():String
+    {
+        return _imeMode;
+    }
+
+    /**
+     *  @private
+     */
+    public function set imeMode(value:String):void
+    {
+        _imeMode = value;
+        // We don't call IME.conversionMode here. We call it
+        // only on focusIn. Thus fringe cases like setting
+        // imeMode dynamically without moving focus, through
+        // keyboard events, wouldn't change the mode. Also
+        // getting imeMode asynch. from the server which gets
+        // delayed and set later after focusIn is not handled
+        // as having the text partly in one script and partly
+        // in another is not desirable.
     }
 
     //----------------------------------
@@ -310,6 +369,20 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
     public function assignFocus(direction:String):void
     {
         stage.assignFocus(this, direction);
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private  function htmlRenderHandler(event:Event):void
+    {
+        _hasFocusableContent = hasFocusableContent;
     }
 
     //--------------------------------------------------------------------------
