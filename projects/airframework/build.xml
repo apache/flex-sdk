@@ -18,7 +18,7 @@
     <property file="${FLEX_HOME}/build.properties"/>
 
     <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
-    <property name="local.playerglobal.version" value="9"/>
+    <property name="local.playerglobal.version" value="10"/>
 
 	<target name="main" depends="clean,compile,en_US,ja_JP" description="Clean build of airframework.swc and its English and Japanese resources"/>
 
@@ -66,7 +66,7 @@
 			   output="${FLEX_HOME}/frameworks/libs/air/airframework.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
             <!-- If you change this, update ${local.playerglobal.version} above. -->
-		    <target-player>9</target-player>
+		    <target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
@@ -122,7 +122,7 @@
 			   output="${FLEX_HOME}/frameworks/locale/${locale}/airframework_rb.swc"
 			   locale="${locale}">
             <!-- If you change this, update ${local.playerglobal.version} above. -->
-			<target-player>9</target-player>
+			<target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-resource-bundles bundle="SharedResources"/>
 			<include-resource-bundles bundle="aircontrols"/>
