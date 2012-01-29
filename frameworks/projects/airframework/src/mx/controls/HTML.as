@@ -366,7 +366,7 @@ use namespace mx_internal;
         _horizontalScrollPolicy = ScrollPolicy.AUTO;
         _verticalScrollPolicy = ScrollPolicy.AUTO;
 
-        tabEnabled = false;
+        tabFocusEnabled = false;
     }
 
     //--------------------------------------------------------------------------
