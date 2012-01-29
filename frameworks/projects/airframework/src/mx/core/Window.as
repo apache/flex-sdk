@@ -2224,7 +2224,7 @@ public class Window extends LayoutContainer implements IWindow
             if (gripSkin)
             {
                 var tmp:CSSStyleDeclaration =
-                    StyleManager.getStyleDeclaration("." + gripSkin);
+                    styleManager.getStyleDeclaration("." + gripSkin);
                 gripper.styleName = gripSkin;
             }
             gripper.tabEnabled = false;
@@ -2707,7 +2707,7 @@ public class Window extends LayoutContainer implements IWindow
             var rc:Number;
             var sc:Number;
             var globalSelector:CSSStyleDeclaration =
-                StyleManager.getStyleDeclaration("global");
+                styleManager.getStyleDeclaration("global");
 
             if (globalSelector)
             {
