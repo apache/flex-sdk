@@ -48,6 +48,7 @@ import mx.events.FlexEvent;
 import mx.events.FlexNativeWindowBoundsEvent;
 import mx.managers.DragManager;
 import mx.managers.NativeDragManagerImpl;
+import mx.managers.SystemManagerGlobals;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 import mx.styles.StyleProxy;
@@ -654,7 +655,7 @@ public class WindowedApplication extends Application implements IWindow
     public function WindowedApplication()
     {
         super();
-
+        
         addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
         addEventListener(FlexEvent.PREINITIALIZE, preinitializeHandler);
         addEventListener(FlexEvent.UPDATE_COMPLETE, updateComplete_handler);
@@ -792,7 +793,7 @@ public class WindowedApplication extends Application implements IWindow
      *  @private
      */
     private var ucCount:Number = 0;
-
+        
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -3368,8 +3369,12 @@ public class WindowedApplication extends Application implements IWindow
     {
         dispatchEvent(new AIREvent(AIREvent.APPLICATION_ACTIVATE));
         
+        // Only the initial WindowedApplication instance manages background framerate.
+        var isPrimaryApplication:Boolean = 
+            SystemManagerGlobals.topLevelSystemManagers[0] == systemManager;
+        
         // Restore throttled framerate if appropriate when application is activated.
-        if (prevActiveFrameRate >= 0 && stage)
+        if (prevActiveFrameRate >= 0 && stage && isPrimaryApplication)
         {
             stage.frameRate = prevActiveFrameRate;  
             prevActiveFrameRate = -1;
@@ -3383,11 +3388,15 @@ public class WindowedApplication extends Application implements IWindow
     {
         dispatchEvent(new AIREvent(AIREvent.APPLICATION_DEACTIVATE));
         
+        // Only the initial WindowedApplication instance manages background framerate.
+        var isPrimaryApplication:Boolean = 
+            SystemManagerGlobals.topLevelSystemManagers[0] == systemManager;
+                
         // Throttle framerate if appropriate when application is deactivated.
         // Ensure we've received an updateComplete on the chance our layout
         // manager is using phased instantiation (we don't wish to store a
         // maxed out (1000fps) framerate).
-        if ((_backgroundFrameRate >= 0) && (ucCount > 0) && stage)
+        if ((_backgroundFrameRate >= 0) && (ucCount > 0) && stage && isPrimaryApplication)
         {
             prevActiveFrameRate = stage.frameRate;
             stage.frameRate = _backgroundFrameRate; 
