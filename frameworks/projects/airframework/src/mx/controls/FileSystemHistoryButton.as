@@ -103,6 +103,8 @@ use namespace mx_internal;
  * 
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemDataGrid
+ * 
+ *  @productversion Apollo 1.0
  */
 public class FileSystemHistoryButton extends PopUpButton
 {
