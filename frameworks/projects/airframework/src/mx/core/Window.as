@@ -505,6 +505,8 @@ use namespace mx_internal;
 
 [ResourceBundle("core")]
 
+[Alternative(replacement="spark.components.Window", since="4.0")]
+
 /**
  *  The Window is a top-level container for additional windows
  *  in an AIR desktop application.
