@@ -515,11 +515,6 @@ public class Window extends LayoutContainer implements IWindow
      */
     private var resizeHeight:Boolean = true;
 
-    /**
-     *  @private
-     */
-    private var windowBoundsChanged:Boolean = true;
-
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -529,7 +524,11 @@ public class Window extends LayoutContainer implements IWindow
    	//----------------------------------
     //  height
     //----------------------------------
-
+  
+    [Bindable("heightChanged")]
+    [Inspectable(category="General")]
+    [PercentProxy("percentHeight")]
+    
     /**
      *  @private
      */
@@ -555,6 +554,9 @@ public class Window extends LayoutContainer implements IWindow
         invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
+        
+	    dispatchEvent(new Event("heightChanged"));
+        // also dispatched in the resizeHandler
     }
 
 	//----------------------------------
@@ -566,6 +568,8 @@ public class Window extends LayoutContainer implements IWindow
 	 *  Storage for the maxHeight property.
 	 */
 	private var _maxHeight:Number = 10000;
+	
+	[Bindable("maxHeightChanged")]
 	
 	/**
 	 *  The maximum height of the Window.
@@ -583,6 +587,8 @@ public class Window extends LayoutContainer implements IWindow
 		_maxHeight = value;
 		if (height > _maxHeight)
 			height = _maxHeight;
+			
+		dispatchEvent(new Event("maxHeightChanged"));
 	}
 	
 	//----------------------------------
@@ -594,6 +600,8 @@ public class Window extends LayoutContainer implements IWindow
 	 *  Storage for the maxWidth property.
 	 */
 	private var _maxWidth:Number = 10000;
+
+	[Bindable("maxWidthChanged")]
 
 	/**
 	 *  The maximum width of the Window.
@@ -611,6 +619,8 @@ public class Window extends LayoutContainer implements IWindow
 		_maxWidth = value;
 	 	if (height > _maxWidth)
 	 		height = _maxWidth;
+	 		
+	 	dispatchEvent(new Event("maxWidthChanged"));
 	}
 	
 	 //---------------------------------
@@ -623,6 +633,8 @@ public class Window extends LayoutContainer implements IWindow
 	 */
 	private var _minHeight:Number =
 		Math.max(NativeWindow.systemMinSize.y, 100);
+	
+	[Bindable("minHeightChanged")]
 	
 	/**
 	 *  The minimum height of the Window.
@@ -640,6 +652,8 @@ public class Window extends LayoutContainer implements IWindow
 		_minHeight = value;
 		if (height < minHeight)
 			height = minHeight;
+			
+		dispatchEvent(new Event("minHeightChanged"));
 	}
 	
 	//----------------------------------
@@ -652,6 +666,8 @@ public class Window extends LayoutContainer implements IWindow
 	 */
 	private var _minWidth:Number =
 		Math.max(NativeWindow.systemMinSize.x, 100);
+		
+	[Bindable("minWidthChanged")]
 		
 	/**
 	 *  The minimum width of the Window.
@@ -669,11 +685,17 @@ public class Window extends LayoutContainer implements IWindow
 		_minWidth = value;
 		if (width < _minWidth)
 			width = _minWidth;
+			
+		dispatchEvent(new Event("minWidthChanged"));
 	}
 	
 	//----------------------------------
 	//  visible
 	//----------------------------------
+	
+	[Bindable("hide")]
+    [Bindable("show")]
+    [Bindable("windowComplete")]
 	
 	/**
 	 *  Controls the Window's visibility. Unlike the normal
@@ -705,9 +727,9 @@ public class Window extends LayoutContainer implements IWindow
 			var e:FlexEvent;
 			if (value)
 			{
+				_nativeWindow.visible = value;
 				e = new FlexEvent(FlexEvent.SHOW);
 				dispatchEvent(e);
-				_nativeWindow.visible = value;
 			}
 			else
 			{
@@ -715,12 +737,11 @@ public class Window extends LayoutContainer implements IWindow
 				if (getStyle("hideEffect"))
     			{
              		addEventListener("effectEnd", hideEffectEndHandler);
-					dispatchEvent(e);
 				}
 				else
 				{
-					dispatchEvent(e);
 					_nativeWindow.visible = value;
+					dispatchEvent(e);
 				}
 			}
 		}
@@ -729,7 +750,11 @@ public class Window extends LayoutContainer implements IWindow
    	//----------------------------------
     //  width
     //----------------------------------
-
+	  
+    [Bindable("widthChanged")]
+    [Inspectable(category="General")]
+    [PercentProxy("percentWidth")]
+	
     /**
      *  @private
      */
@@ -755,6 +780,9 @@ public class Window extends LayoutContainer implements IWindow
         invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
+        
+	    dispatchEvent(new Event("widthChanged"));
+	    // also dispatched in the resize handler
     }
 
     //--------------------------------------------------------------------------
@@ -2365,6 +2393,8 @@ public class Window extends LayoutContainer implements IWindow
 	private function hideEffectEndHandler(event:Event):void
 	{
 		_nativeWindow.visible = false;
+		
+		dispatchEvent(new FlexEvent(FlexEvent.HIDE));
 	}
 
     /**
@@ -2759,16 +2789,25 @@ public class Window extends LayoutContainer implements IWindow
     {
         invalidateViewMetricsAndPadding();
         invalidateDisplayList();
+        
+        var dispatchWidthChangeEvent:Boolean = (bounds.width != stage.stageWidth);
+        var dispatchHeightChangeEvent:Boolean = (bounds.height != stage.stageHeight);
+        
         bounds.x = stage.x;
         bounds.y = stage.y;
         bounds.width = stage.stageWidth;
         bounds.height = stage.stageHeight;
+        
         validateNow();
         var e:FlexNativeWindowBoundsEvent =
         	new FlexNativeWindowBoundsEvent(FlexNativeWindowBoundsEvent.WINDOW_RESIZE, event.bubbles, event.cancelable,
         			event.beforeBounds, event.afterBounds);
         dispatchEvent(e);
-
+   
+        if (dispatchWidthChangeEvent)
+    		dispatchEvent(new Event("widthChanged"));
+    	if (dispatchHeightChangeEvent)
+    		dispatchEvent(new Event("heightChanged"));
     }
 
  	/**
