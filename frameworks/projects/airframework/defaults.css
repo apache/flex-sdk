@@ -225,7 +225,7 @@ Window
 	buttonPadding: 2;
 	closeButtonSkin: ClassReference("mx.skins.halo.WindowCloseButtonSkin");
 	cornerRadius: 8;
-	backgroundColor: #C0C0C0;
+	backgroundColor: #FFFFFF;
 	backgroundImage: ClassReference("mx.skins.halo.WindowBackground");
 	buttonAlignment: "auto";
 	gripperPadding: 3;
@@ -260,7 +260,7 @@ WindowedApplication
 	buttonPadding: 2;
 	closeButtonSkin: ClassReference("mx.skins.halo.WindowCloseButtonSkin");
 	cornerRadius: 8;
-	backgroundColor: #C0C0C0;
+	backgroundColor: #FFFFFF;
 	backgroundImage: ClassReference("mx.skins.halo.WindowBackground");
 	buttonAlignment: "auto";
 	gripperPadding: 3;
