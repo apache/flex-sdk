@@ -1494,7 +1494,15 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     }
 
     /**
-     *  @copy flash.display.NativeMenu#display()
+     *  Pops up this menu at the specified location.
+     *
+     *  @param stage The Stage object on which to display this menu.
+     *  
+     *  @param x The number of horizontal pixels, relative to the origin of stage, 
+     *  at which to display this menu. 
+     *  
+     *  @param y The number of vertical pixels, relative to the origin of stage, 
+     *  at which to display this menu. 
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
