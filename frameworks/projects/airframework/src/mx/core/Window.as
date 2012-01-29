@@ -670,7 +670,7 @@ public class Window extends LayoutContainer implements IWindow
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static function getWindow(component:UIComponent):Window
+    public static function getWindow(component:UIComponent):IWindow
     {
         if (component.systemManager is WindowedSystemManager)
             return WindowedSystemManager(component.systemManager).window;
