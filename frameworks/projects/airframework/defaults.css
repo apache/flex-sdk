@@ -61,6 +61,52 @@ FileSystemTree
 
 /*
 //------------------------------
+//  FxStatusBar
+//------------------------------
+*/
+
+FxStatusBar
+{
+	skinClass: ClassReference("mx.skins.spark.FxStatusBarSkin");
+}
+
+/*
+//------------------------------
+//  FxTitleBar
+//------------------------------
+*/
+
+FxTitleBar
+{
+	skinClass: ClassReference("mx.skins.spark.FxTitleBarSkin");
+}
+
+/*
+//------------------------------
+//  FxWindowedApplication
+//------------------------------
+*/
+
+FxWindowedApplication
+{
+	skinClass: ClassReference("mx.skins.spark.FxWindowedApplicationSkin");
+	backgroundColor: #FFFFFF;
+}
+
+/*
+//------------------------------
+//  FxWindow
+//------------------------------
+*/
+
+FxWindow
+{
+	skinClass: ClassReference("mx.skins.spark.FxWindowedApplicationSkin");
+	backgroundColor: #FFFFFF;
+}
+
+/*
+//------------------------------
 //  .gripperSkin
 //------------------------------
 */
