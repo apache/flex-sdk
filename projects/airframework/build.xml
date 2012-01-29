@@ -268,13 +268,16 @@
 		    </external-library-path>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">
 		    	<include name="framework.swc" />
-		    </external-library-path>
+          <include name="flex4.swc" />
+        </external-library-path>
 
 		    <library-path/>
 
 		    <doc-namespaces uri="http://www.adobe.com/2006/mxml"/>
 		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
-		    <jvmarg line="${asdoc.jvm.args}"/>
+        <doc-namespaces uri="http://ns.adobe.com/mxml/2009"/>
+        <namespace uri="http://ns.adobe.com/mxml/2009" manifest="${basedir}/mxml-2009-manifest.xml"/>
+      <jvmarg line="${asdoc.jvm.args}"/>
 		</asdoc>
 
 		<!-- updates airframework.swc with asdoc xml -->
