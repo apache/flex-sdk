@@ -206,7 +206,7 @@ import mx.managers.IFocusManagerComponent;
  *  /&gt;
  *  </pre>
  * 
- *  @see flash.html.HTMLLoader
+ *  @see ../../flash/html/HTMLLoader.html HTMLLoader
  * 
  *  @playerversion AIR 1.1
  */
@@ -317,8 +317,8 @@ import mx.managers.IFocusManagerComponent;
         mx_internal::_horizontalScrollPolicy = ScrollPolicy.AUTO;
         mx_internal::_verticalScrollPolicy = ScrollPolicy.AUTO;
 
-		tabEnabled = false;
-		tabChildren = true;
+        tabEnabled = false;
+        tabChildren = true;
     }
 
     //--------------------------------------------------------------------------
@@ -490,8 +490,8 @@ import mx.managers.IFocusManagerComponent;
      *  Entries less than the current position are the "back" list;
      *  entries greater are "forward."
      *  Attempting to set the position beyond the end sets it to the end.</p>
-	 * 
-	 *  @default 0
+     * 
+     *  @default 0
      */
     public function get historyPosition():int
     {
@@ -535,7 +535,7 @@ import mx.managers.IFocusManagerComponent;
     /**
      *  The IFactory that creates an HTMLLoader-derived instance
      *  to use as the htmlLoader.
-	 *
+     *
      *  <p>The default value is an IFactory for HTMLLoader.</p>
      */
     public function get htmlLoaderFactory():IFactory
@@ -550,7 +550,7 @@ import mx.managers.IFocusManagerComponent;
     {
         _htmlLoaderFactory = value;
 
-		dispatchEvent(new Event("htmlLoaderFactoryChanged"));
+        dispatchEvent(new Event("htmlLoaderFactoryChanged"));
     }
 
     //----------------------------------
@@ -578,8 +578,8 @@ import mx.managers.IFocusManagerComponent;
      *  override its member functions
      *  to handle various user interface changes in the HTML content,
      *  and set this property to an instance of your subclass.</p>
-	 * 
-	 *  @default null
+     * 
+     *  @default null
      */
     public function get htmlHost():HTMLHost
     {
@@ -620,13 +620,13 @@ import mx.managers.IFocusManagerComponent;
      *  <p>Setting this property has the side effect of setting
      *  the <code>location</code> property to <code>null</code>,
      *  and vice versa.</p>
-	 * 
-	 *  <p>Content added via the <code>htmlText</code> property is put in the 
-	 *  application security sandbox. If an AIR application includes an HTML 
-	 *  control located in the application sandbox, and remote HTML code is 
-	 *  directly added into the control by setting the  <code>htmlText</code> 
-	 *  property, any script contained in the HTML text is executed in the 
-	 *  application sandbox.</p>
+     * 
+     *  <p>Content added via the <code>htmlText</code> property is put in the 
+     *  application security sandbox. If an AIR application includes an HTML 
+     *  control located in the application sandbox, and remote HTML code is 
+     *  directly added into the control by setting the  <code>htmlText</code> 
+     *  property, any script contained in the HTML text is executed in the 
+     *  application sandbox.</p>
      *
      *  @default ""
      *
@@ -827,8 +827,8 @@ import mx.managers.IFocusManagerComponent;
      *  <p>However, if any HTML element has its own opaque background color
      *  (specified by style="background-color:gray", for instance),
      *  then that background appears behind that element.</p>
-	 * 
-	 *  @default false;
+     * 
+     *  @default false;
      */
     public function get paintsDefaultBackground():Boolean
     {
@@ -1245,10 +1245,10 @@ import mx.managers.IFocusManagerComponent;
      */
     override protected function mouseWheelHandler(event:MouseEvent):void
     {
-    	// Ignore mouseWheel events that are bubbling up
-    	// from the HTMLLoader; they have already been handled there.
-    	if (event.target != this)
-    		return;
+        // Ignore mouseWheel events that are bubbling up
+        // from the HTMLLoader; they have already been handled there.
+        if (event.target != this)
+            return;
 
         // Magnify the scrolling to approximate what browsers do.
         event.delta *= 6;
@@ -1318,7 +1318,7 @@ import mx.managers.IFocusManagerComponent;
      */
     private function htmlLoader_scrollHandler(event:Event):void
     {
-    	horizontalScrollPosition = htmlLoader.scrollH;
+        horizontalScrollPosition = htmlLoader.scrollH;
         verticalScrollPosition = htmlLoader.scrollV;
     }
 
