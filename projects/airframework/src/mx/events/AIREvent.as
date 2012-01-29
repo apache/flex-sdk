@@ -16,7 +16,11 @@ import flash.events.Event;
 
 /**
  *  The AIREvent class represents the event object passed to
- *  the event listener for several AIR-specific events.
+ *  the event listener for several AIR-specific events dispatched by the Window
+ *  and WindowedApplication components.
+ *
+ *  @see mx.core.Window
+ *  @see mx.core.WindowedApplication
  */
 public class AIREvent extends Event
 {
@@ -29,23 +33,79 @@ public class AIREvent extends Event
     //--------------------------------------------------------------------------
 
     /**
-     *  Dispatched when this application gets activated.
+     *  The AIREvent.APPLICATION_ACTIVATE constant defines the value of the
+     *  <code>type</code> property of the event object for an
+     *  <code>applicationActivate</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>file</code></td><td>The File object associated with this event.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>AIREvent.APPLICATION_ACTIVATE</td></tr>
+     *  </table>
      *
      *  @eventType applicationActivate
      */
     public static const APPLICATION_ACTIVATE:String = "applicationActivate";
 
     /**
-     *  Dispatched when this application gets deactivated.
+     *  The AIREvent.APPLICATION_DEACTIVATE constant defines the value of the
+     *  <code>type</code> property of the event object for an
+     *  <code>applicationDeactivate</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>file</code></td><td>The File object associated with this event.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>AIREvent.APPLICATION_DEACTIVATE</td></tr>
+     *  </table>
      *
      *  @eventType applicationDeactivate
      */
     public static const APPLICATION_DEACTIVATE:String = "applicationDeactivate";
-    
+
     /**
-     *  Dispatched when the Window or WindowedApplication becomes visible
-     *  after completing its initial layout
-     * 
+     *  The AIREvent.WINDOW_COMPLETE constant defines the value of the
+     *  <code>type</code> property of the event object for an
+     *  <code>windowComplete</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>file</code></td><td>The File object associated with this event.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>AIREvent.WINDOW_COMPLETE</td></tr>
+     *  </table>
+     *
      *  @eventType windowComplete
      */
     public static const WINDOW_COMPLETE:String = "windowComplete";
