@@ -446,7 +446,6 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  * 
- *  @playerversion AIR 1.1
  */
 public class WindowedApplication extends Application implements IWindow
 {
@@ -474,11 +473,11 @@ public class WindowedApplication extends Application implements IWindow
     //
     //--------------------------------------------------------------------------
 
-	/**
+    /**
      *  @private
      *  This is here to force linkage of NativeDragManagerImpl.
      */
-  	private static var _forceLinkNDMI:NativeDragManagerImpl;
+    private static var _forceLinkNDMI:NativeDragManagerImpl;
 
     //--------------------------------------------------------------------------
     //
@@ -498,7 +497,7 @@ public class WindowedApplication extends Application implements IWindow
         addEventListener(FlexEvent.UPDATE_COMPLETE, updateComplete_handler);
         addEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
 
-		var nativeApplication:NativeApplication = NativeApplication.nativeApplication;
+        var nativeApplication:NativeApplication = NativeApplication.nativeApplication;
         nativeApplication.addEventListener(Event.ACTIVATE, nativeApplication_activateHandler);
         nativeApplication.addEventListener(Event.DEACTIVATE, nativeApplication_deactivateHandler);
         nativeApplication.addEventListener(Event.NETWORK_CHANGE,
@@ -523,11 +522,11 @@ public class WindowedApplication extends Application implements IWindow
      */
     private var _nativeWindow:NativeWindow;
 
-	/**
-	 *  @private
-	 */
-	private var _nativeWindowVisible:Boolean = true;
-	
+    /**
+     *  @private
+     */
+    private var _nativeWindowVisible:Boolean = true;
+    
     /**
      *  @private
      */
@@ -627,7 +626,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     private var ucCount:Number = 0;
 
-   	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
     //
@@ -637,33 +636,33 @@ public class WindowedApplication extends Application implements IWindow
     //  height
     //----------------------------------
 
-	[Bindable("heightChanged")]
+    [Bindable("heightChanged")]
     [Inspectable(category="General")]
     [PercentProxy("percentHeight")]
 
     /**
      *  @private
      */
-	override public function get height():Number
+    override public function get height():Number
     {
-    	return _bounds.height;
+        return _bounds.height;
     }
 
     /**
      *  @private
-	 *  Also sets the stage's height.
+     *  Also sets the stage's height.
      */
-	override public function set height(value:Number):void
-	{
+    override public function set height(value:Number):void
+    {
         if (value < minHeight)
             value = minHeight;
         else if (value > maxHeight)
             value = maxHeight;
 
-		_bounds.height = value;
+        _bounds.height = value;
         boundsChanged = true;
 
-		invalidateProperties();
+        invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
 
@@ -671,40 +670,40 @@ public class WindowedApplication extends Application implements IWindow
         // here because it can change based on user-interaction with the window
         // size and _height is set in there so don't want to prematurely
         // dispatch here yet
-	}
+    }
 
     //----------------------------------
     //  maxHeight
     //----------------------------------
 
-	/**
+    /**
      *  @private
-	 *  Storage for the maxHeight property.
+     *  Storage for the maxHeight property.
      */
-	private var _maxHeight:Number = 0;
-	
-	/**
+    private var _maxHeight:Number = 0;
+    
+    /**
      *  @private
-	 *  Keeps track of whether maxHeight property changed so we can
-	 *  handle it in commitProperties.
+     *  Keeps track of whether maxHeight property changed so we can
+     *  handle it in commitProperties.
      */
     private var maxHeightChanged:Boolean = false;
 
     [Bindable("maxHeightChanged")]
     [Bindable("windowComplete")]
 
-	/**
+    /**
      *  @private
      */
     override public function get maxHeight():Number
     {
-    	if (nativeWindow && !maxHeightChanged)
-    		return nativeWindow.maxSize.y - chromeHeight();
+        if (nativeWindow && !maxHeightChanged)
+            return nativeWindow.maxSize.y - chromeHeight();
         else
-        	return _maxHeight;
+            return _maxHeight;
     }
 
-	/**
+    /**
      *  Specifies the maximum height of the application's window.
      */
     override public function set maxHeight(value:Number):void
@@ -720,29 +719,29 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  @private
-	 *  Storage for the maxWidth property.
+     *  Storage for the maxWidth property.
      */
     private var _maxWidth:Number = 0;
     
     /**
      *  @private
-	 *  Keeps track of whether maxWidth property changed so we can
-	 *  handle it in commitProperties.
+     *  Keeps track of whether maxWidth property changed so we can
+     *  handle it in commitProperties.
      */
     private var maxWidthChanged:Boolean = false;
 
     [Bindable("maxWidthChanged")]
     [Bindable("windowComplete")]
 
-	/**
+    /**
      *  @private
      */
     override public function get maxWidth():Number
     {
-    	if (nativeWindow && !maxWidthChanged)
-    		return nativeWindow.maxSize.x - chromeWidth();
+        if (nativeWindow && !maxWidthChanged)
+            return nativeWindow.maxSize.x - chromeWidth();
         else
-        	return _maxWidth;
+            return _maxWidth;
     }
 
     /**
@@ -763,11 +762,11 @@ public class WindowedApplication extends Application implements IWindow
      *  @private
      */
     private var _minHeight:Number = 0;
-	
-	/**
+    
+    /**
      *  @private
-	 *  Keeps track of whether minHeight property changed so we can
-	 *  handle it in commitProperties.
+     *  Keeps track of whether minHeight property changed so we can
+     *  handle it in commitProperties.
      */
     private var minHeightChanged:Boolean = false;
 
@@ -779,10 +778,10 @@ public class WindowedApplication extends Application implements IWindow
      */
     override public function get minHeight():Number
     {
-    	if (nativeWindow && !minHeightChanged)
-    		return nativeWindow.minSize.y - chromeHeight();
+        if (nativeWindow && !minHeightChanged)
+            return nativeWindow.minSize.y - chromeHeight();
         else
-        	return _minHeight;
+            return _minHeight;
     }
 
     /**
@@ -801,14 +800,14 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  @private
-	 *  Storage for the minWidth property.
+     *  Storage for the minWidth property.
      */
     private var _minWidth:Number = 0;
     
    /**
      *  @private
-	 *  Keeps track of whether minWidth property changed so we can
-	 *  handle it in commitProperties.
+     *  Keeps track of whether minWidth property changed so we can
+     *  handle it in commitProperties.
      */
     private var minWidthChanged:Boolean = false;
 
@@ -821,9 +820,9 @@ public class WindowedApplication extends Application implements IWindow
     override public function get minWidth():Number
     {
         if (nativeWindow && !minWidthChanged)
-    		return nativeWindow.minSize.x - chromeWidth();
+            return nativeWindow.minSize.x - chromeWidth();
         else
-        	return _minWidth;
+            return _minWidth;
     }
 
     /**
@@ -837,84 +836,84 @@ public class WindowedApplication extends Application implements IWindow
     }
 
     //----------------------------------
-	//  visible
-	//----------------------------------
-	
-	[Bindable("hide")]
+    //  visible
+    //----------------------------------
+    
+    [Bindable("hide")]
     [Bindable("show")]
     [Bindable("windowComplete")]
 
-	/**
-	 *  @private
-	 *  Also sets the NativeWindow's visibility.
-	 */	
-	override public function get visible():Boolean
-	{
-		if (nativeWindow && nativeWindow.closed)
-			return false;
-		if (nativeWindow)
-			return nativeWindow.visible;
-		else
-			return _nativeWindowVisible;
-	}
+    /**
+     *  @private
+     *  Also sets the NativeWindow's visibility.
+     */ 
+    override public function get visible():Boolean
+    {
+        if (nativeWindow && nativeWindow.closed)
+            return false;
+        if (nativeWindow)
+            return nativeWindow.visible;
+        else
+            return _nativeWindowVisible;
+    }
 
-	/**
+    /**
      *  @private
      */
-	override public function set visible(value:Boolean):void
-	{
-		if (!nativeWindow)
-		{
-			_nativeWindowVisible = value;
-			invalidateProperties();
-		}
-		else
-		{
-			if (!nativeWindow.closed)
-			{
-				var e:FlexEvent;
-				if (value)
-				{
-					e = new FlexEvent(FlexEvent.SHOW);
-					_nativeWindow.visible = value;
-					dispatchEvent(e);
-				}
-				else
-				{
-					e = new FlexEvent(FlexEvent.HIDE);
-					if (getStyle("hideEffect"))
-	    			{
-	             		addEventListener("effectEnd", hideEffectEndHandler);
-					}
-					else
-					{
-						_nativeWindow.visible = value;
-						dispatchEvent(e);
-					}
-				}
-			}				
-		}
-	}
+    override public function set visible(value:Boolean):void
+    {
+        if (!nativeWindow)
+        {
+            _nativeWindowVisible = value;
+            invalidateProperties();
+        }
+        else
+        {
+            if (!nativeWindow.closed)
+            {
+                var e:FlexEvent;
+                if (value)
+                {
+                    e = new FlexEvent(FlexEvent.SHOW);
+                    _nativeWindow.visible = value;
+                    dispatchEvent(e);
+                }
+                else
+                {
+                    e = new FlexEvent(FlexEvent.HIDE);
+                    if (getStyle("hideEffect"))
+                    {
+                        addEventListener("effectEnd", hideEffectEndHandler);
+                    }
+                    else
+                    {
+                        _nativeWindow.visible = value;
+                        dispatchEvent(e);
+                    }
+                }
+            }               
+        }
+    }
 
     //----------------------------------
     //  width
     //----------------------------------
 
-	[Bindable("widthChanged")]
+    [Bindable("widthChanged")]
     [Inspectable(category="General")]
     [PercentProxy("percentWidth")]
-	
+    
     /**
      *  @private
      */
     override public function get width():Number
     {
-    	return _bounds.width;
+        return _bounds.width;
     }
 
     /**
      *  @private
-	 *  Also sets the stage's width.
+     *  Also sets the stage's width.
      */
      override public function set width(value:Number):void
      {
@@ -960,24 +959,24 @@ public class WindowedApplication extends Application implements IWindow
         // Since the header covers the solid portion of the border,
         // we need to use the larger of borderThickness or headerHeight
 
-		if (showTitleBar)
+        if (showTitleBar)
         {
             var hHeight:Number = getHeaderHeight();
             if (!isNaN(hHeight))
                 vm.top += hHeight;
         }
 
-		if (_showStatusBar)
+        if (_showStatusBar)
         {
             var sHeight:Number = getStatusBarHeight();
             if (!isNaN(sHeight))
                 vm.bottom += sHeight;
         }
 
-		return vm;
+        return vm;
     }
 
-   	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Properties
     //
@@ -992,7 +991,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function get applicationID():String
     {
-    	return nativeApplication.applicationID;
+        return nativeApplication.applicationID;
     }
 
     //----------------------------------
@@ -1001,32 +1000,32 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  @private
-	 *  Storage for the alwaysInFront property.
+     *  Storage for the alwaysInFront property.
      */
     private var _alwaysInFront:Boolean = false;
 
     /**
-	 *  Determines whether the underlying NativeWindow is always in front of other windows.
-	 *
-	 *  @default false
+     *  Determines whether the underlying NativeWindow is always in front of other windows.
+     *
+     *  @default false
      */
     public function get alwaysInFront():Boolean
     {
-    	if (_nativeWindow && !_nativeWindow.closed)
-    		return nativeWindow.alwaysInFront;
-    	else
-    		return _alwaysInFront;
+        if (_nativeWindow && !_nativeWindow.closed)
+            return nativeWindow.alwaysInFront;
+        else
+            return _alwaysInFront;
     }
-	
-	/**
+    
+    /**
      *  @private
-	 */
-	public function set alwaysInFront(value:Boolean):void
-	{
-		_alwaysInFront = value;
-		if (_nativeWindow && !_nativeWindow.closed)
-			nativeWindow.alwaysInFront = value;
-	}
+     */
+    public function set alwaysInFront(value:Boolean):void
+    {
+        _alwaysInFront = value;
+        if (_nativeWindow && !_nativeWindow.closed)
+            nativeWindow.alwaysInFront = value;
+    }
 
     //----------------------------------
     //  autoExit
@@ -1035,20 +1034,20 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  Specifies whether the AIR application will quit when the last
      *  window closes or will continue running in the background.
-	 *
-	 *  @default true
+     *
+     *  @default true
      */
- 	public function get autoExit():Boolean
- 	{
- 		return nativeApplication.autoExit;
- 	}
- 	
+    public function get autoExit():Boolean
+    {
+        return nativeApplication.autoExit;
+    }
+    
     /**
      *  @private
      */
     public function set autoExit(value:Boolean):void
     {
-    	nativeApplication.autoExit = value;
+        nativeApplication.autoExit = value;
     }
 
     //----------------------------------
@@ -1088,7 +1087,7 @@ public class WindowedApplication extends Application implements IWindow
         invalidateViewMetricsAndPadding();
     }
 
-   	//----------------------------------
+    //----------------------------------
     //  closed
     //----------------------------------
 
@@ -1097,7 +1096,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function get closed():Boolean
     {
-    	return nativeWindow.closed;
+        return nativeWindow.closed;
     }
 
     //----------------------------------
@@ -1106,7 +1105,7 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  @private
-	 *  Storage for the dockIconMenu property.
+     *  Storage for the dockIconMenu property.
      */
     private var _dockIconMenu:FlexNativeMenu;
 
@@ -1115,7 +1114,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function get dockIconMenu():FlexNativeMenu
     {
-    	return _dockIconMenu;
+        return _dockIconMenu;
     }
 
     /**
@@ -1123,13 +1122,13 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function set dockIconMenu(value:FlexNativeMenu):void
     {
-    	_dockIconMenu = value;
+        _dockIconMenu = value;
 
-		if (NativeApplication.supportsDockIcon)
-		{
-			if (nativeApplication.icon is DockIcon)
-				DockIcon(nativeApplication.icon).menu = value.nativeMenu;
-		}
+        if (NativeApplication.supportsDockIcon)
+        {
+            if (nativeApplication.icon is DockIcon)
+                DockIcon(nativeApplication.icon).menu = value.nativeMenu;
+        }
     }
 
     //----------------------------------
@@ -1142,9 +1141,9 @@ public class WindowedApplication extends Application implements IWindow
     public function get maximizable():Boolean
     {
         if (!nativeWindow.closed)
-        	return nativeWindow.maximizable;
+            return nativeWindow.maximizable;
         else
-        	return false;
+            return false;
     }
 
     //----------------------------------
@@ -1157,9 +1156,9 @@ public class WindowedApplication extends Application implements IWindow
     public function get minimizable():Boolean
     {
         if (!nativeWindow.closed)
-        	return nativeWindow.minimizable;
+            return nativeWindow.minimizable;
         else
-        	return false;
+            return false;
     }
 
     //----------------------------------
@@ -1168,7 +1167,7 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  @private
-	 *  Storage for the menu property.
+     *  Storage for the menu property.
      */
     private var _menu:FlexNativeMenu;
 
@@ -1179,12 +1178,12 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  The application menu for operating systems that support an application menu,
-	 *  or the window menu of the application's initial window for operating
-	 *  systems that support window menus.
+     *  or the window menu of the application's initial window for operating
+     *  systems that support window menus.
      */
     public function get menu():FlexNativeMenu
     {
-    	return _menu;
+        return _menu;
     }
 
     /**
@@ -1192,8 +1191,8 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function set menu(value:FlexNativeMenu):void
     {
-    	_menu = value;
-    	menuChanged = true;
+        _menu = value;
+        menuChanged = true;
     }
 
     //----------------------------------
@@ -1202,14 +1201,14 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  The NativeWindow used by this WindowedApplication component (the initial
-	 *  native window of the application).
+     *  native window of the application).
      */
     public function get nativeWindow():NativeWindow
     {
-      	if ((systemManager != null) && (systemManager.stage != null))
-        	return systemManager.stage.nativeWindow;
-	
-		return null;
+        if ((systemManager != null) && (systemManager.stage != null))
+            return systemManager.stage.nativeWindow;
+    
+        return null;
     }
 
     //---------------------------------
@@ -1222,7 +1221,7 @@ public class WindowedApplication extends Application implements IWindow
     public function get resizable():Boolean
     {
         if (nativeWindow.closed)
-        	return false;
+            return false;
         return nativeWindow.resizable;
     }
 
@@ -1235,7 +1234,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function get nativeApplication():NativeApplication
     {
-     	return NativeApplication.nativeApplication;
+        return NativeApplication.nativeApplication;
     }
 
     //----------------------------------
@@ -1255,9 +1254,9 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  If <code>true</code>, the gripper is visible.
-	 *
+     *
      *  <p>On Mac OS X a window with <code>systemChrome</code>
-	 *  set to <code>"standard"</code>
+     *  set to <code>"standard"</code>
      *  always has an operating system gripper, so this property is ignored
      *  in that case.</p>
      *
@@ -1289,7 +1288,7 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  @private
-	 *  Storage for the showStatusBar property.
+     *  Storage for the showStatusBar property.
      */
     private var _showStatusBar:Boolean = true;
 
@@ -1329,7 +1328,7 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  @private
-	 *  Storage for the showTitleBar property.
+     *  Storage for the showTitleBar property.
      */
     private var _showTitleBar:Boolean = true;
 
@@ -1369,7 +1368,7 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  @private
-	 *  Storage for the status property.
+     *  Storage for the status property.
      */
     private var _status:String = "";
 
@@ -1418,29 +1417,29 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  The UIComponent that displays the status bar.
      */
-	public function get statusBar():UIComponent
+    public function get statusBar():UIComponent
     {
-    	return _statusBar;
+        return _statusBar;
     }
 
     //----------------------------------
     //  statusBarFactory
     //----------------------------------
-	
-	/**
-	 *  @private
-	 *  Storage for the statusBarFactory property
-	 */
-	private var _statusBarFactory:IFactory = new ClassFactory(StatusBar);
-	
-	/**
-	 *  @private
-	 */
-	private var statusBarFactoryChanged:Boolean = false;
-	
-	[Bindable("statusBarFactoryChanged")]
-	
-	/**
+    
+    /**
+     *  @private
+     *  Storage for the statusBarFactory property
+     */
+    private var _statusBarFactory:IFactory = new ClassFactory(StatusBar);
+    
+    /**
+     *  @private
+     */
+    private var statusBarFactoryChanged:Boolean = false;
+    
+    [Bindable("statusBarFactoryChanged")]
+    
+    /**
      *  The IFactory that creates an instance to use
      *  as the status bar.
      *  The default value is an IFactory for StatusBar.
@@ -1459,9 +1458,9 @@ public class WindowedApplication extends Application implements IWindow
     public function set statusBarFactory(value:IFactory):void
     {
         _statusBarFactory = value;
-		statusBarFactoryChanged = true;
+        statusBarFactoryChanged = true;
 
-		invalidateProperties();
+        invalidateProperties();
 
         dispatchEvent(new Event("statusBarFactoryChanged"));
     }
@@ -1479,7 +1478,7 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Set of styles to pass from the WindowedApplication to the status bar.
-	 *
+     *
      *  @see mx.styles.StyleProxy
      */
     protected function get statusBarStyleFilters():Object
@@ -1493,15 +1492,15 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies the type of system chrome (if any) the window has.
-	 *  The set of possible values is defined by the constants
-	 *  in the NativeWindowSystemChrome class.
-	 *
-	 *  @see flash.display.NativeWindow#systemChrome
+     *  The set of possible values is defined by the constants
+     *  in the NativeWindowSystemChrome class.
+     *
+     *  @see flash.display.NativeWindow#systemChrome
      */
     public function get systemChrome():String
     {
         if (nativeWindow.closed)
-        	return "";
+            return "";
         return nativeWindow.systemChrome;
     }
 
@@ -1511,7 +1510,7 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  @private
-	 *  Storage for the systemTrayIconMenu property.
+     *  Storage for the systemTrayIconMenu property.
      */
     private var _systemTrayIconMenu:FlexNativeMenu;
 
@@ -1520,7 +1519,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function get systemTrayIconMenu():FlexNativeMenu
     {
-    	return _systemTrayIconMenu;
+        return _systemTrayIconMenu;
     }
 
     /**
@@ -1528,13 +1527,13 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function set systemTrayIconMenu(value:FlexNativeMenu):void
     {
-    	_systemTrayIconMenu = value;
+        _systemTrayIconMenu = value;
 
-		if (NativeApplication.supportsSystemTrayIcon)
-		{
-			if (nativeApplication.icon is SystemTrayIcon)
-				SystemTrayIcon(nativeApplication.icon).menu = value.nativeMenu;
-		}
+        if (NativeApplication.supportsSystemTrayIcon)
+        {
+            if (nativeApplication.icon is SystemTrayIcon)
+                SystemTrayIcon(nativeApplication.icon).menu = value.nativeMenu;
+        }
     }
 
     //----------------------------------
@@ -1543,7 +1542,7 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  @private
-	 *  Storage for the title property.
+     *  Storage for the title property.
      */
     private var _title:String = "";
 
@@ -1590,7 +1589,7 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  @private
-	 *  Storage for the titleBar property.
+     *  Storage for the titleBar property.
      */
     private var _titleBar:UIComponent;
 
@@ -1599,27 +1598,27 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function get titleBar():UIComponent
     {
-    	return _titleBar;
+        return _titleBar;
     }
 
     //----------------------------------
     //  titleBarFactory
     //----------------------------------
-	
-	/**
-	 *  @private
-	 *  Storage for the titleBarFactory property
-	 */
-	private var _titleBarFactory:IFactory = new ClassFactory(TitleBar);
-	
-	/**
+    
+    /**
+     *  @private
+     *  Storage for the titleBarFactory property
+     */
+    private var _titleBarFactory:IFactory = new ClassFactory(TitleBar);
+    
+    /**
      *  @private
      */
-	private var titleBarFactoryChanged:Boolean = false;
-		
-	[Bindable("titleBarFactoryChanged")]
-	
-	/**
+    private var titleBarFactoryChanged:Boolean = false;
+        
+    [Bindable("titleBarFactoryChanged")]
+    
+    /**
      *  The IFactory that creates an instance to use
      *  as the title bar.
      *  The default value is an IFactory for TitleBar.
@@ -1639,9 +1638,9 @@ public class WindowedApplication extends Application implements IWindow
     public function set titleBarFactory(value:IFactory):void
     {
         _titleBarFactory = value;
-		titleBarFactoryChanged = true;
+        titleBarFactoryChanged = true;
 
-		invalidateProperties();
+        invalidateProperties();
 
         dispatchEvent(new Event("titleBarFactoryChanged"));
     }
@@ -1652,20 +1651,20 @@ public class WindowedApplication extends Application implements IWindow
 
     private static var _titleBarStyleFilters:Object =
     {
-		"buttonAlignment" : "buttonAlignment",
-		"buttonPadding" : "buttonPadding",
-		"closeButtonSkin" : "closeButtonSkin",
-		"cornerRadius" : "cornerRadius",
-		"headerHeight" : "headerHeight",
-		"maximizeButtonSkin" : "maximizeButtonSkin",
-		"minimizeButtonSkin" : "minimizeButtonSkin",
-		"restoreButtonSkin" : "restoreButtonSkin",
-		"titleAlignment" : "titleAlignment",
-		"titleBarBackgroundSkin" : "titleBarBackgroundSkin",
-		"titleBarButtonPadding" : "titleBarButtonPadding",
-		"titleBarColors" : "titleBarColors",
-		"titleTextStyleName" : "titleTextStyleName"
-	};
+        "buttonAlignment" : "buttonAlignment",
+        "buttonPadding" : "buttonPadding",
+        "closeButtonSkin" : "closeButtonSkin",
+        "cornerRadius" : "cornerRadius",
+        "headerHeight" : "headerHeight",
+        "maximizeButtonSkin" : "maximizeButtonSkin",
+        "minimizeButtonSkin" : "minimizeButtonSkin",
+        "restoreButtonSkin" : "restoreButtonSkin",
+        "titleAlignment" : "titleAlignment",
+        "titleBarBackgroundSkin" : "titleBarBackgroundSkin",
+        "titleBarButtonPadding" : "titleBarButtonPadding",
+        "titleBarColors" : "titleBarColors",
+        "titleTextStyleName" : "titleTextStyleName"
+    };
 
     /**
      *  Set of styles to pass from the WindowedApplication to the titleBar.
@@ -1686,11 +1685,11 @@ public class WindowedApplication extends Application implements IWindow
      */
     private var _titleIcon:Class;
 
-	/**
+    /**
      *  @private
      */
-	private var titleIconChanged:Boolean = false;
-		
+    private var titleIconChanged:Boolean = false;
+        
     [Bindable("titleIconChanged")]
 
     /**
@@ -1729,7 +1728,7 @@ public class WindowedApplication extends Application implements IWindow
     public function get transparent():Boolean
     {
         if (nativeWindow.closed)
-        	return false;
+            return false;
         return nativeWindow.transparent;
     }
 
@@ -1739,15 +1738,15 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies the type of NativeWindow that this component
-	 *  represents. The set of possible values is defined by the constants
-	 *  in the NativeWindowType class.
-	 *
-	 *  @see flash.display.NativeWindowType
+     *  represents. The set of possible values is defined by the constants
+     *  in the NativeWindowType class.
+     *
+     *  @see flash.display.NativeWindowType
      */
     public function get type():String
     {
         if (nativeWindow.closed)
-        	return "standard";
+            return "standard";
 
         return nativeWindow.type;
     }
@@ -1766,7 +1765,7 @@ public class WindowedApplication extends Application implements IWindow
         super.createChildren();
 
         if (getStyle("showFlexChrome") == false ||
-			getStyle("showFlexChrome") == "false")
+            getStyle("showFlexChrome") == "false")
         {
             setStyle("borderStyle", "none");
             setStyle("backgroundAlpha", 0);
@@ -1775,10 +1774,10 @@ public class WindowedApplication extends Application implements IWindow
 
         if (!_statusBar)
         {
-          	_statusBar = statusBarFactory.newInstance();
+            _statusBar = statusBarFactory.newInstance();
             _statusBar.styleName = new StyleProxy(this, statusBarStyleFilters);
             rawChildren.addChild(DisplayObject(_statusBar));
-			showStatusBarChanged = true;
+            showStatusBarChanged = true;
         }
 
         if (systemManager.stage.nativeWindow.systemChrome != "none")
@@ -1790,15 +1789,15 @@ public class WindowedApplication extends Application implements IWindow
         if (!_titleBar)
         {
             _titleBar = titleBarFactory.newInstance();
-			_titleBar.styleName = new StyleProxy(this, titleBarStyleFilters);
-        	rawChildren.addChild(DisplayObject(titleBar));
-         	showTitleBarChanged = true;
-         	titleBarFactoryChanged = false;
+            _titleBar.styleName = new StyleProxy(this, titleBarStyleFilters);
+            rawChildren.addChild(DisplayObject(titleBar));
+            showTitleBarChanged = true;
+            titleBarFactoryChanged = false;
         }
 
         if (!gripper)
         {
-			gripper = new Button();
+            gripper = new Button();
             var gripSkin:String = getStyle("gripperStyleName");
             if (gripSkin)
             {
@@ -1821,103 +1820,103 @@ public class WindowedApplication extends Application implements IWindow
     {
         super.commitProperties();
 
-		// minimum width and height
-		if (minWidthChanged || minHeightChanged)
-		{
-			var newMinWidth:Number = minWidthChanged ? _minWidth + chromeWidth() : nativeWindow.minSize.x;
-			var newMinHeight:Number = minHeightChanged ? _minHeight + chromeHeight() : nativeWindow.minSize.y;
-			
-			nativeWindow.minSize = new Point(newMinWidth, newMinHeight);
-			
-			if (minWidthChanged)
-			{
-				minWidthChanged = false;
-				if (width < minWidth)
-            		width = minWidth;
-        		dispatchEvent(new Event("minWidthChanged"));
-   			}
-        	if (minHeightChanged)
-        	{
-        		minHeightChanged = false;
-        		if (height < minHeight)
-            		height = minHeight;
-        		dispatchEvent(new Event("minHeightChanged"));
-        	}
-		}
-		
-		// maximum width and height
-		if (maxWidthChanged || maxHeightChanged)
-		{
-			var newMaxWidth:Number = maxWidthChanged ? _maxWidth + chromeWidth() : nativeWindow.maxSize.x;
-			var newMaxHeight:Number = maxHeightChanged ? _maxHeight + chromeHeight() : nativeWindow.maxSize.y;
-			
-			nativeWindow.maxSize = new Point(newMaxWidth, newMaxHeight);
-			
-			if (maxWidthChanged)
-			{
-				maxWidthChanged = false;
-				if (width > maxWidth)
-            		width = maxWidth;
-        		dispatchEvent(new Event("maxWidthChanged"));
-   			}
-			if (maxHeightChanged)
-			{
-				maxHeightChanged = false;
-				if (height > maxHeight)
-            		height = maxHeight;
-        		dispatchEvent(new Event("maxHeightChanged"));
-   			}
-		}
+        // minimum width and height
+        if (minWidthChanged || minHeightChanged)
+        {
+            var newMinWidth:Number = minWidthChanged ? _minWidth + chromeWidth() : nativeWindow.minSize.x;
+            var newMinHeight:Number = minHeightChanged ? _minHeight + chromeHeight() : nativeWindow.minSize.y;
+            
+            nativeWindow.minSize = new Point(newMinWidth, newMinHeight);
+            
+            if (minWidthChanged)
+            {
+                minWidthChanged = false;
+                if (width < minWidth)
+                    width = minWidth;
+                dispatchEvent(new Event("minWidthChanged"));
+            }
+            if (minHeightChanged)
+            {
+                minHeightChanged = false;
+                if (height < minHeight)
+                    height = minHeight;
+                dispatchEvent(new Event("minHeightChanged"));
+            }
+        }
+        
+        // maximum width and height
+        if (maxWidthChanged || maxHeightChanged)
+        {
+            var newMaxWidth:Number = maxWidthChanged ? _maxWidth + chromeWidth() : nativeWindow.maxSize.x;
+            var newMaxHeight:Number = maxHeightChanged ? _maxHeight + chromeHeight() : nativeWindow.maxSize.y;
+            
+            nativeWindow.maxSize = new Point(newMaxWidth, newMaxHeight);
+            
+            if (maxWidthChanged)
+            {
+                maxWidthChanged = false;
+                if (width > maxWidth)
+                    width = maxWidth;
+                dispatchEvent(new Event("maxWidthChanged"));
+            }
+            if (maxHeightChanged)
+            {
+                maxHeightChanged = false;
+                if (height > maxHeight)
+                    height = maxHeight;
+                dispatchEvent(new Event("maxHeightChanged"));
+            }
+        }
 
         if (boundsChanged)
-        {      	
+        {       
             systemManager.stage.stageWidth = _width = _bounds.width;
             systemManager.stage.stageHeight = _height =  _bounds.height;
             boundsChanged = false;
-			
-			// don't know whether height or width changed
-        	dispatchEvent(new Event("widthChanged"));
-        	dispatchEvent(new Event("heightChanged"));
+            
+            // don't know whether height or width changed
+            dispatchEvent(new Event("widthChanged"));
+            dispatchEvent(new Event("heightChanged"));
         }
 
         if (windowBoundsChanged)
         {
-        	_bounds.width = _width = systemManager.stage.stageWidth;
-        	_bounds.height = _height = systemManager.stage.stageHeight;
-        	windowBoundsChanged = false;
-        	
-        	// don't know whether height or width changed
-        	dispatchEvent(new Event("widthChanged"));
-        	dispatchEvent(new Event("heightChanged"));
+            _bounds.width = _width = systemManager.stage.stageWidth;
+            _bounds.height = _height = systemManager.stage.stageHeight;
+            windowBoundsChanged = false;
+            
+            // don't know whether height or width changed
+            dispatchEvent(new Event("widthChanged"));
+            dispatchEvent(new Event("heightChanged"));
         }
 
         if (menuChanged && !nativeWindow.closed)
         {
-			menuChanged = false;
-			
-			if (menu == null)
-			{
-				if (NativeApplication.supportsMenu)
-		    		nativeApplication.menu = null;
-		    	else if (NativeWindow.supportsMenu)
-		    		nativeWindow.menu = null;
-			}
-			else if (menu.nativeMenu)
-			{
-		    	if (NativeApplication.supportsMenu)
-		    		nativeApplication.menu = menu.nativeMenu;
-		    	else if (NativeWindow.supportsMenu)
-		    		nativeWindow.menu = menu.nativeMenu;
-		    }
-		    
-		    dispatchEvent(new Event("menuChanged"));
+            menuChanged = false;
+            
+            if (menu == null)
+            {
+                if (NativeApplication.supportsMenu)
+                    nativeApplication.menu = null;
+                else if (NativeWindow.supportsMenu)
+                    nativeWindow.menu = null;
+            }
+            else if (menu.nativeMenu)
+            {
+                if (NativeApplication.supportsMenu)
+                    nativeApplication.menu = menu.nativeMenu;
+                else if (NativeWindow.supportsMenu)
+                    nativeWindow.menu = menu.nativeMenu;
+            }
+            
+            dispatchEvent(new Event("menuChanged"));
         }
 
         if (titleBarFactoryChanged)
         {
-        	if (_titleBar)
+            if (_titleBar)
             {
-            	// Remove old titleBar.
+                // Remove old titleBar.
                 rawChildren.removeChild(DisplayObject(titleBar));
                 _titleBar = null;
             }
@@ -1937,23 +1936,23 @@ public class WindowedApplication extends Application implements IWindow
 
         if (titleIconChanged)
         {
-        	if (_titleBar && "titleIcon" in _titleBar)
-        		_titleBar["titleIcon"] = _titleIcon;
-        	titleIconChanged = false;
+            if (_titleBar && "titleIcon" in _titleBar)
+                _titleBar["titleIcon"] = _titleIcon;
+            titleIconChanged = false;
         }
 
         if (titleChanged)
         {
             if (!nativeWindow.closed)
-            	systemManager.stage.nativeWindow.title = _title;
-        	if (_titleBar && "title" in _titleBar)
-        		_titleBar["title"] = _title;
-			titleChanged = false;
+                systemManager.stage.nativeWindow.title = _title;
+            if (_titleBar && "title" in _titleBar)
+                _titleBar["title"] = _title;
+            titleChanged = false;
         }
 
         if (statusBarFactoryChanged)
         {
-        	if (_statusBar)
+            if (_statusBar)
             {
                 // Remove old statusBar.
                 rawChildren.removeChild(DisplayObject(_statusBar));
@@ -1963,9 +1962,9 @@ public class WindowedApplication extends Application implements IWindow
             _statusBar.styleName = new StyleProxy(this, statusBarStyleFilters);
             // Add it underneath the gripper.
             if (gripper)
-            	rawChildren.addChildAt(DisplayObject(_statusBar), rawChildren.getChildIndex(gripper));
+                rawChildren.addChildAt(DisplayObject(_statusBar), rawChildren.getChildIndex(gripper));
             else
-            	rawChildren.addChild(DisplayObject(_statusBar));
+                rawChildren.addChild(DisplayObject(_statusBar));
             statusBarFactoryChanged = false;
             showStatusBarChanged = true;
             invalidateDisplayList();
@@ -1980,8 +1979,8 @@ public class WindowedApplication extends Application implements IWindow
 
         if (statusChanged)
         {
-        	if (_statusBar && "status" in _statusBar)
-        		_statusBar["status"] = _status;
+            if (_statusBar && "status" in _statusBar)
+                _statusBar["status"] = _status;
             statusChanged = false;
         }
 
@@ -1999,94 +1998,94 @@ public class WindowedApplication extends Application implements IWindow
         {
             toMax = false;
             if (!nativeWindow.closed)
-            	nativeWindow.maximize();
+                nativeWindow.maximize();
         }
      }
 
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     override public function validateDisplayList():void
     {
         super.validateDisplayList();
         if (!nativeWindow.closed)
         {
-	        if (Capabilities.os.substring(0, 3) == "Mac" && systemChrome == "standard")
-	        {
-	        	//need to move the scroll bars to not overlap the systemChrome gripper
-	        	//if both scrollbars are already visible, this has been done for us
-	        	if ((horizontalScrollBar || verticalScrollBar) && !(horizontalScrollBar && verticalScrollBar) && !showStatusBar)
-	        	{
-	            	if (!whiteBox)
-		            {
-		                whiteBox = new FlexShape();
-		                whiteBox.name = "whiteBox";
-		
-		                var g:Graphics = whiteBox.graphics;
-		                g.beginFill(0xFFFFFF);
-		                g.drawRect(0, 0, verticalScrollBar ? verticalScrollBar.minWidth : 15, horizontalScrollBar ? horizontalScrollBar.minHeight : 15);
-		                g.endFill()
-		
-		                rawChildren.addChild(whiteBox);
-		            }
-	        		whiteBox.visible = true;
-	        		
-	        	
-		        	if (horizontalScrollBar)
-					{
-		                horizontalScrollBar.setActualSize(
-							horizontalScrollBar.width - whiteBox.width,
-							horizontalScrollBar.height);
-					}
-		            if (verticalScrollBar)
-					{
-		                verticalScrollBar.setActualSize(
-							verticalScrollBar.width,
-							verticalScrollBar.height - whiteBox.height);
-					}
-		            whiteBox.x = systemManager.stage.stageWidth - whiteBox.width;
-		            whiteBox.y = systemManager.stage.stageHeight - whiteBox.height;
-	         	}
-	         	else if (!(horizontalScrollBar && verticalScrollBar))
-	         	{
-	         		if (whiteBox)
-		            {
-		                rawChildren.removeChild(whiteBox);
-		                whiteBox = null;
-		            }
-	          	}
-	        }
-	        else if (gripper && showGripper && !showStatusBar)
-	        {
-	            //see if there are both scrollbars
-	            if (whiteBox)
-	            {
-	                whiteBox.visible = false;
-	                //if gripper + padding > whiteBox size, we need to move scrollbars
-	                //this is, um, generally non-optimal looking
-	                if (gripperHit.height > whiteBox.height)
-	                    verticalScrollBar.setActualSize(verticalScrollBar.width,
-	                        verticalScrollBar.height - (gripperHit.height - whiteBox.height));
-	                if (gripperHit.width > whiteBox.width)
-	                    horizontalScrollBar.setActualSize(
-	                            horizontalScrollBar.width - (gripperHit.width  - whiteBox.height),
-	                            horizontalScrollBar.height);
-	            }
-	            else if (horizontalScrollBar)
-	            {
-	                horizontalScrollBar.setActualSize(
-						horizontalScrollBar.width - gripperHit.width,
-						horizontalScrollBar.height);
-	            }
-	            else if (verticalScrollBar)
-	            {
-	                verticalScrollBar.setActualSize(
-						verticalScrollBar.width,
-						verticalScrollBar.height - gripperHit.height);
-	            }
-	        }
-	        else if (whiteBox)//if there's no gripper, we need to show the white box, if appropriate
-	            whiteBox.visible = true;
+            if (Capabilities.os.substring(0, 3) == "Mac" && systemChrome == "standard")
+            {
+                //need to move the scroll bars to not overlap the systemChrome gripper
+                //if both scrollbars are already visible, this has been done for us
+                if ((horizontalScrollBar || verticalScrollBar) && !(horizontalScrollBar && verticalScrollBar) && !showStatusBar)
+                {
+                    if (!whiteBox)
+                    {
+                        whiteBox = new FlexShape();
+                        whiteBox.name = "whiteBox";
+        
+                        var g:Graphics = whiteBox.graphics;
+                        g.beginFill(0xFFFFFF);
+                        g.drawRect(0, 0, verticalScrollBar ? verticalScrollBar.minWidth : 15, horizontalScrollBar ? horizontalScrollBar.minHeight : 15);
+                        g.endFill()
+        
+                        rawChildren.addChild(whiteBox);
+                    }
+                    whiteBox.visible = true;
+                    
+                
+                    if (horizontalScrollBar)
+                    {
+                        horizontalScrollBar.setActualSize(
+                            horizontalScrollBar.width - whiteBox.width,
+                            horizontalScrollBar.height);
+                    }
+                    if (verticalScrollBar)
+                    {
+                        verticalScrollBar.setActualSize(
+                            verticalScrollBar.width,
+                            verticalScrollBar.height - whiteBox.height);
+                    }
+                    whiteBox.x = systemManager.stage.stageWidth - whiteBox.width;
+                    whiteBox.y = systemManager.stage.stageHeight - whiteBox.height;
+                }
+                else if (!(horizontalScrollBar && verticalScrollBar))
+                {
+                    if (whiteBox)
+                    {
+                        rawChildren.removeChild(whiteBox);
+                        whiteBox = null;
+                    }
+                }
+            }
+            else if (gripper && showGripper && !showStatusBar)
+            {
+                //see if there are both scrollbars
+                if (whiteBox)
+                {
+                    whiteBox.visible = false;
+                    //if gripper + padding > whiteBox size, we need to move scrollbars
+                    //this is, um, generally non-optimal looking
+                    if (gripperHit.height > whiteBox.height)
+                        verticalScrollBar.setActualSize(verticalScrollBar.width,
+                            verticalScrollBar.height - (gripperHit.height - whiteBox.height));
+                    if (gripperHit.width > whiteBox.width)
+                        horizontalScrollBar.setActualSize(
+                                horizontalScrollBar.width - (gripperHit.width  - whiteBox.height),
+                                horizontalScrollBar.height);
+                }
+                else if (horizontalScrollBar)
+                {
+                    horizontalScrollBar.setActualSize(
+                        horizontalScrollBar.width - gripperHit.width,
+                        horizontalScrollBar.height);
+                }
+                else if (verticalScrollBar)
+                {
+                    verticalScrollBar.setActualSize(
+                        verticalScrollBar.width,
+                        verticalScrollBar.height - gripperHit.height);
+                }
+            }
+            else if (whiteBox)//if there's no gripper, we need to show the white box, if appropriate
+                whiteBox.visible = true;
         }
     }
 
@@ -2098,45 +2097,45 @@ public class WindowedApplication extends Application implements IWindow
     {
         if (!nativeWindow.closed)
         {
-	        super.updateDisplayList(unscaledWidth, unscaledHeight);
-	
-	        var bm:EdgeMetrics = borderMetrics;
-	
-	        var leftOffset:Number = 10;
-	        var rightOffset:Number = 10;
-	
-	        if (_statusBar)
-	        {
-	            _statusBar.move(bm.left, unscaledHeight - bm.bottom - getStatusBarHeight());
-	            _statusBar.setActualSize(unscaledWidth - bm.left - bm.right, getStatusBarHeight());
-	
-	        }
-	
-	        if (systemManager.stage.nativeWindow.systemChrome != "none" || systemManager.stage.nativeWindow.closed)
-	            return;
-	
-	        var buttonAlign:String =
-	            String(getStyle("buttonAlignment"));
-	        if (titleBar)
-	        {
-	            titleBar.move(bm.left, bm.top);
-	            titleBar.setActualSize(unscaledWidth - bm.left - bm.right,
-	                                   getHeaderHeight());
-	        }
-	        if (titleBar && controlBar)
-	            controlBar.move(0, titleBar.height);
-	        if (gripper && showGripper)
-	        {
-	            _gripperPadding = getStyle("gripperPadding");
-	            gripper.setActualSize(gripper.measuredWidth,
-	                                    gripper.measuredHeight);
-	            gripperHit.graphics.beginFill(0xffffff, .0001);
-	            gripperHit.graphics.drawRect(0, 0, gripper.width + (2 * _gripperPadding), gripper.height + (2 * _gripperPadding));
-	            gripper.move(unscaledWidth - gripper.measuredWidth - _gripperPadding,
-	                        unscaledHeight - gripper.measuredHeight - _gripperPadding);
-	            gripperHit.x = gripper.x - _gripperPadding;
-	            gripperHit.y = gripper.y - _gripperPadding;
-	        }
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+    
+            var bm:EdgeMetrics = borderMetrics;
+    
+            var leftOffset:Number = 10;
+            var rightOffset:Number = 10;
+    
+            if (_statusBar)
+            {
+                _statusBar.move(bm.left, unscaledHeight - bm.bottom - getStatusBarHeight());
+                _statusBar.setActualSize(unscaledWidth - bm.left - bm.right, getStatusBarHeight());
+    
+            }
+    
+            if (systemManager.stage.nativeWindow.systemChrome != "none" || systemManager.stage.nativeWindow.closed)
+                return;
+    
+            var buttonAlign:String =
+                String(getStyle("buttonAlignment"));
+            if (titleBar)
+            {
+                titleBar.move(bm.left, bm.top);
+                titleBar.setActualSize(unscaledWidth - bm.left - bm.right,
+                                       getHeaderHeight());
+            }
+            if (titleBar && controlBar)
+                controlBar.move(0, titleBar.height);
+            if (gripper && showGripper)
+            {
+                _gripperPadding = getStyle("gripperPadding");
+                gripper.setActualSize(gripper.measuredWidth,
+                                        gripper.measuredHeight);
+                gripperHit.graphics.beginFill(0xffffff, .0001);
+                gripperHit.graphics.drawRect(0, 0, gripper.width + (2 * _gripperPadding), gripper.height + (2 * _gripperPadding));
+                gripper.move(unscaledWidth - gripper.measuredWidth - _gripperPadding,
+                            unscaledHeight - gripper.measuredHeight - _gripperPadding);
+                gripperHit.x = gripper.x - _gripperPadding;
+                gripperHit.y = gripper.y - _gripperPadding;
+            }
         }
     }
 
@@ -2146,33 +2145,33 @@ public class WindowedApplication extends Application implements IWindow
     override public function styleChanged(styleProp:String):void
     {
         super.styleChanged(styleProp);
-		if (!nativeWindow.closed)
-		{
-	        if (!(getStyle("showFlexChrome") == "false" || getStyle("showFlexChrome") == false))
-	        {
-	            if (styleProp == null || styleProp == "headerHeight" || styleProp == "gripperPadding")
-	            {
-	                invalidateViewMetricsAndPadding();
-	                invalidateDisplayList();
-	                invalidateSize();
-	            }
-	        }
-		}
+        if (!nativeWindow.closed)
+        {
+            if (!(getStyle("showFlexChrome") == "false" || getStyle("showFlexChrome") == false))
+            {
+                if (styleProp == null || styleProp == "headerHeight" || styleProp == "gripperPadding")
+                {
+                    invalidateViewMetricsAndPadding();
+                    invalidateDisplayList();
+                    invalidateSize();
+                }
+            }
+        }
     }
 
     /**
      *  @private
      */
     override public function move(x:Number, y:Number):void
-	{
-		if (nativeWindow && !nativeWindow.closed)
-		{
-			var tmp:Rectangle = nativeWindow.bounds;
-			tmp.x = x;
-			tmp.y = y;
-			nativeWindow.bounds = tmp;
-		}
-	}
+    {
+        if (nativeWindow && !nativeWindow.closed)
+        {
+            var tmp:Rectangle = nativeWindow.bounds;
+            tmp.x = x;
+            tmp.y = y;
+            nativeWindow.bounds = tmp;
+        }
+    }
 
     /**
      *  @private
@@ -2184,62 +2183,62 @@ public class WindowedApplication extends Application implements IWindow
      */
     override protected function menuItemSelectHandler(event:Event):void
     {
-    	const vsLoc:File = File.applicationDirectory.resolvePath(viewSourceURL);
-    	if (vsLoc.exists)
-    	{
-    		const screenRect:Rectangle = Screen.mainScreen.visibleBounds;
-    		const screenWidth:int = screenRect.width;
-    		const screenHeight:int = screenRect.height;
+        const vsLoc:File = File.applicationDirectory.resolvePath(viewSourceURL);
+        if (vsLoc.exists)
+        {
+            const screenRect:Rectangle = Screen.mainScreen.visibleBounds;
+            const screenWidth:int = screenRect.width;
+            const screenHeight:int = screenRect.height;
 
-    		// roughly golden-ratio based on 90% of the smaller screen dimension
-			// should be pleasing to the eye...
-    		const minDim:Number = Math.min(screenWidth, screenHeight);
-    		const winWidth:int = minDim * 0.9;
-    		const winHeight:int = winWidth * 0.618;
-    		
-    		const winX:int = (screenWidth - winWidth) / 2;
-    		const winY:int = (screenHeight - winHeight) / 2;
-    		
-	    	const html:HTML = new HTML();
-	    	{
-				html.width  = winWidth;
-				html.height = winHeight;
-				html.location = vsLoc.url;
-	    	}
-	
-			const win:Window = new Window();
-			{
-				win.type = NativeWindowType.UTILITY;
-				win.systemChrome = NativeWindowSystemChrome.STANDARD;
-				
-				win.title = resourceManager.getString("core", "viewSource");
-				
-				win.width  = winWidth;
-				win.height = winHeight;
-				
-				win.addChild(html);
-				
-				// handle resizing since the HTML should take the whole stage
-				win.addEventListener(
-					FlexNativeWindowBoundsEvent.WINDOW_RESIZE,
-					viewSourceResizeHandler(html),
-					false, 0, true);
+            // roughly golden-ratio based on 90% of the smaller screen dimension
+            // should be pleasing to the eye...
+            const minDim:Number = Math.min(screenWidth, screenHeight);
+            const winWidth:int = minDim * 0.9;
+            const winHeight:int = winWidth * 0.618;
+            
+            const winX:int = (screenWidth - winWidth) / 2;
+            const winY:int = (screenHeight - winHeight) / 2;
+            
+            const html:HTML = new HTML();
+            {
+                html.width  = winWidth;
+                html.height = winHeight;
+                html.location = vsLoc.url;
+            }
+    
+            const win:Window = new Window();
+            {
+                win.type = NativeWindowType.UTILITY;
+                win.systemChrome = NativeWindowSystemChrome.STANDARD;
+                
+                win.title = resourceManager.getString("core", "viewSource");
+                
+                win.width  = winWidth;
+                win.height = winHeight;
+                
+                win.addChild(html);
+                
+                // handle resizing since the HTML should take the whole stage
+                win.addEventListener(
+                    FlexNativeWindowBoundsEvent.WINDOW_RESIZE,
+                    viewSourceResizeHandler(html),
+                    false, 0, true);
 
-				// links should open in the system web browser (e.g. the .zip links)
-				html.htmlLoader.navigateInSystemBrowser = true;
-				
-				// close the View Source window when this WindowedApp closes
-				addEventListener(Event.CLOSING, viewSourceCloseHandler(win), false, 0, true);
-			}
-			
-			// make it so
-			win.open();
-			win.move(winX, winY);
-    	}
-    	else
-    	{
-    		Alert.show(resourceManager.getString("core", "badFile"));
-    	}
+                // links should open in the system web browser (e.g. the .zip links)
+                html.htmlLoader.navigateInSystemBrowser = true;
+                
+                // close the View Source window when this WindowedApp closes
+                addEventListener(Event.CLOSING, viewSourceCloseHandler(win), false, 0, true);
+            }
+            
+            // make it so
+            win.open();
+            win.move(winX, winY);
+        }
+        else
+        {
+            Alert.show(resourceManager.getString("core", "badFile"));
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -2247,14 +2246,14 @@ public class WindowedApplication extends Application implements IWindow
     //  Methods
     //
     //--------------------------------------------------------------------------
-   	
-   	/**
+    
+    /**
      *  Activates the underlying NativeWindow (even if this application is not the active one).
      */
     public function activate():void
     {
-    	if (!systemManager.stage.nativeWindow.closed)
-    		systemManager.stage.nativeWindow.activate();	
+        if (!systemManager.stage.nativeWindow.closed)
+            systemManager.stage.nativeWindow.activate();    
     }
 
     /**
@@ -2262,22 +2261,22 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function close():void
     {
-		if (!nativeWindow.closed)
- 		{
-	        var e:Event = new Event("closing", true, true);
-	        stage.nativeWindow.dispatchEvent(e);
-	        if (!e.isDefaultPrevented())
-	            stage.nativeWindow.close();
-    	}
+        if (!nativeWindow.closed)
+        {
+            var e:Event = new Event("closing", true, true);
+            stage.nativeWindow.dispatchEvent(e);
+            if (!e.isDefaultPrevented())
+                stage.nativeWindow.close();
+        }
     }
 
-	/**
-	 *  Closes the window and exits the application.
-	 */
-	public function exit():void
-	{
-		nativeApplication.exit();
-	}
+    /**
+     *  Closes the window and exits the application.
+     */
+    public function exit():void
+    {
+        nativeApplication.exit();
+    }
 
     /**
      *  @private
@@ -2287,12 +2286,12 @@ public class WindowedApplication extends Application implements IWindow
     {
         if (!nativeWindow.closed)
         {
-	        if (getStyle("headerHeight") != null)
-	            return getStyle("headerHeight");
-	        if (systemManager.stage.nativeWindow.systemChrome != "none")
-	            return 0;
-	        if (titleBar)
-	            return(titleBar.getExplicitOrMeasuredHeight());
+            if (getStyle("headerHeight") != null)
+                return getStyle("headerHeight");
+            if (systemManager.stage.nativeWindow.systemChrome != "none")
+                return 0;
+            if (titleBar)
+                return(titleBar.getExplicitOrMeasuredHeight());
         }
         return 0;
     }
@@ -2306,7 +2305,7 @@ public class WindowedApplication extends Application implements IWindow
         if (_statusBar)
             return _statusBar.getExplicitOrMeasuredHeight();
 
-		return 0;
+        return 0;
     }
 
     /**
@@ -2314,7 +2313,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function maximize():void
     {
-    	
+        
         if (!nativeWindow || !nativeWindow.maximizable || nativeWindow.closed)
             return;
         if (systemManager.stage.nativeWindow.displayState!= NativeWindowDisplayState.MAXIMIZED)
@@ -2339,16 +2338,16 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function minimize():void
     {
-    	if (!nativeWindow.closed)
-    	{
-	        var e:NativeWindowDisplayStateEvent = new NativeWindowDisplayStateEvent(
-	                NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING,
-	                false, true, nativeWindow.displayState,
-	                NativeWindowDisplayState.MINIMIZED)
-	        stage.nativeWindow.dispatchEvent(e);
-	        if (!e.isDefaultPrevented())
-	            stage.nativeWindow.minimize();
-     	}
+        if (!nativeWindow.closed)
+        {
+            var e:NativeWindowDisplayStateEvent = new NativeWindowDisplayStateEvent(
+                    NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING,
+                    false, true, nativeWindow.displayState,
+                    NativeWindowDisplayState.MINIMIZED)
+            stage.nativeWindow.dispatchEvent(e);
+            if (!e.isDefaultPrevented())
+                stage.nativeWindow.minimize();
+        }
     }
 
     /**
@@ -2359,28 +2358,28 @@ public class WindowedApplication extends Application implements IWindow
     {
         if (!nativeWindow.closed)
         {
-	        var e:NativeWindowDisplayStateEvent;
-	        if (stage.nativeWindow.displayState == NativeWindowDisplayState.MAXIMIZED)
-	        {
-	            e = new NativeWindowDisplayStateEvent(
-	                        NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING,
-	                        false, true, NativeWindowDisplayState.MAXIMIZED,
-	                        NativeWindowDisplayState.NORMAL);
-	            stage.nativeWindow.dispatchEvent(e);
-	            if (!e.isDefaultPrevented())
-	                nativeWindow.restore();
-	        }
-	        else if (stage.nativeWindow.displayState == NativeWindowDisplayState.MINIMIZED)
-	        {
-	            e = new NativeWindowDisplayStateEvent(
-	                NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING,
-	                false, true, NativeWindowDisplayState.MINIMIZED,
-	                NativeWindowDisplayState.NORMAL);
-	            stage.nativeWindow.dispatchEvent(e);
-	            if (!e.isDefaultPrevented())
-	                nativeWindow.restore();
-	        }
-	    }
+            var e:NativeWindowDisplayStateEvent;
+            if (stage.nativeWindow.displayState == NativeWindowDisplayState.MAXIMIZED)
+            {
+                e = new NativeWindowDisplayStateEvent(
+                            NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING,
+                            false, true, NativeWindowDisplayState.MAXIMIZED,
+                            NativeWindowDisplayState.NORMAL);
+                stage.nativeWindow.dispatchEvent(e);
+                if (!e.isDefaultPrevented())
+                    nativeWindow.restore();
+            }
+            else if (stage.nativeWindow.displayState == NativeWindowDisplayState.MINIMIZED)
+            {
+                e = new NativeWindowDisplayStateEvent(
+                    NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING,
+                    false, true, NativeWindowDisplayState.MINIMIZED,
+                    NativeWindowDisplayState.NORMAL);
+                stage.nativeWindow.dispatchEvent(e);
+                if (!e.isDefaultPrevented())
+                    nativeWindow.restore();
+            }
+        }
     }
 
     /**
@@ -2396,10 +2395,10 @@ public class WindowedApplication extends Application implements IWindow
      */
      public function orderInBackOf(window:IWindow):Boolean
      {
-     	if (nativeWindow && !nativeWindow.closed)
-     		return nativeWindow.orderInBackOf(window.nativeWindow);
-     	else
-     		return false;
+        if (nativeWindow && !nativeWindow.closed)
+            return nativeWindow.orderInBackOf(window.nativeWindow);
+        else
+            return false;
      }
 
     /**
@@ -2415,10 +2414,10 @@ public class WindowedApplication extends Application implements IWindow
      */
      public function orderInFrontOf(window:IWindow):Boolean
      {
-     	if (nativeWindow && !nativeWindow.closed)
-     		return nativeWindow.orderInFrontOf(window.nativeWindow);
-     	else
-     		return false;
+        if (nativeWindow && !nativeWindow.closed)
+            return nativeWindow.orderInFrontOf(window.nativeWindow);
+        else
+            return false;
      }
 
      /**
@@ -2429,10 +2428,10 @@ public class WindowedApplication extends Application implements IWindow
       */
      public function orderToBack():Boolean
      {
-     	if (nativeWindow && !nativeWindow.closed)
-     		return nativeWindow.orderToBack();
-     	else
-     		return false;
+        if (nativeWindow && !nativeWindow.closed)
+            return nativeWindow.orderToBack();
+        else
+            return false;
      }
 
  /**
@@ -2443,10 +2442,10 @@ public class WindowedApplication extends Application implements IWindow
   */
      public function orderToFront():Boolean
      {
-     	if (nativeWindow && !nativeWindow.closed)
-     		return nativeWindow.orderToFront();
-     	else
-     		return false;
+        if (nativeWindow && !nativeWindow.closed)
+            return nativeWindow.orderToFront();
+        else
+            return false;
      }
      
     /**
@@ -2466,7 +2465,7 @@ public class WindowedApplication extends Application implements IWindow
     {
         return nativeWindow.height - systemManager.stage.stageHeight;
     }
-     	
+        
     /**
      *  @private
      *  Starts a system move.
@@ -2487,8 +2486,8 @@ public class WindowedApplication extends Application implements IWindow
     protected function startResize(start:String):void
     {
         if (!nativeWindow.closed)
-        	if (nativeWindow.resizable)
-            	stage.nativeWindow.startResize(start);
+            if (nativeWindow.resizable)
+                stage.nativeWindow.startResize(start);
     }
 
     //--------------------------------------------------------------------------
@@ -2496,62 +2495,62 @@ public class WindowedApplication extends Application implements IWindow
     //  Event handlers
     //
     //--------------------------------------------------------------------------
- 	
- 	/**
+    
+    /**
      *  @private
      */
-	private function creationCompleteHandler(event:Event):void
-	{
-		addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-		_nativeWindow = systemManager.stage.nativeWindow;
-	}
-  	
-  	/**
-     *  @private
-     */
-  	private function enterFrameHandler(e:Event):void
+    private function creationCompleteHandler(event:Event):void
     {
-    	removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+        addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+        _nativeWindow = systemManager.stage.nativeWindow;
+    }
+    
+    /**
+     *  @private
+     */
+    private function enterFrameHandler(e:Event):void
+    {
+        removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
 
-    	// If nativeApplication.nativeApplication.exit() has been called,
-    	// the window will already be closed.
-    	if (stage.nativeWindow.closed)
-    		return;
+        // If nativeApplication.nativeApplication.exit() has been called,
+        // the window will already be closed.
+        if (stage.nativeWindow.closed)
+            return;
 
-    	//window properties that have been stored till window exists
-    	//now get applied to window
-    	stage.nativeWindow.visible = _nativeWindowVisible;
-    	dispatchEvent(new AIREvent(AIREvent.WINDOW_COMPLETE));
-    	
-    	// Now let any invoke events received from nativeApplication
-    	// during initialization, flow to our listeners.
-    	dispatchPendingInvokes();
-    	
-    	if (_nativeWindowVisible && activateOnOpen)
-    		stage.nativeWindow.activate();
-    	stage.nativeWindow.alwaysInFront = _alwaysInFront;
+        //window properties that have been stored till window exists
+        //now get applied to window
+        stage.nativeWindow.visible = _nativeWindowVisible;
+        dispatchEvent(new AIREvent(AIREvent.WINDOW_COMPLETE));
+        
+        // Now let any invoke events received from nativeApplication
+        // during initialization, flow to our listeners.
+        dispatchPendingInvokes();
+        
+        if (_nativeWindowVisible && activateOnOpen)
+            stage.nativeWindow.activate();
+        stage.nativeWindow.alwaysInFront = _alwaysInFront;
     }
 
     /**
-	 *  @private
-	 */
-	private function dispatchPendingInvokes():void
-	{
-		invokesPending = false;
-		for each (var event:InvokeEvent in initialInvokes)
-		    dispatchEvent(event);
-		initialInvokes = null;
-	}
-	
+     *  @private
+     */
+    private function dispatchPendingInvokes():void
+    {
+        invokesPending = false;
+        for each (var event:InvokeEvent in initialInvokes)
+            dispatchEvent(event);
+        initialInvokes = null;
+    }
+    
     /**
-	 *  @private
-	 */
-	private function hideEffectEndHandler(event:Event):void
-	{
-		_nativeWindow.visible = false;
-		
-		dispatchEvent(new FlexEvent(FlexEvent.HIDE));
-	}
+     *  @private
+     */
+    private function hideEffectEndHandler(event:Event):void
+    {
+        _nativeWindow.visible = false;
+        
+        dispatchEvent(new FlexEvent(FlexEvent.HIDE));
+    }
 
     /**
      *  @private
@@ -2559,7 +2558,7 @@ public class WindowedApplication extends Application implements IWindow
     private function windowMinimizeHandler(event:Event):void
     {
         if (!nativeWindow.closed)
-        	stage.nativeWindow.minimize();
+            stage.nativeWindow.minimize();
         removeEventListener("effectEnd", windowMinimizeHandler);
     }
 
@@ -2627,7 +2626,7 @@ public class WindowedApplication extends Application implements IWindow
     {
         removeEventListener("effectEnd", windowMaximizeHandler);
         if (!nativeWindow.closed)
-        	stage.nativeWindow.maximize();
+            stage.nativeWindow.maximize();
     }
 
     /**
@@ -2637,7 +2636,7 @@ public class WindowedApplication extends Application implements IWindow
     {
         removeEventListener("effectEnd", windowUnmaximizeHandler);
         if (!nativeWindow.closed)
-        	stage.nativeWindow.restore();
+            stage.nativeWindow.restore();
     }
 
     /**
@@ -2749,7 +2748,7 @@ public class WindowedApplication extends Application implements IWindow
            NativeWindowBoundsEvent.RESIZE, window_resizeHandler);
 
         systemManager.stage.addEventListener(
-        	FullScreenEvent.FULL_SCREEN, stage_fullScreenHandler);
+            FullScreenEvent.FULL_SCREEN, stage_fullScreenHandler);
     }
 
     /**
@@ -2791,39 +2790,39 @@ public class WindowedApplication extends Application implements IWindow
                 return;
             var cancel:Boolean = false;
            if (newBounds.width < nativeWindow.minSize.x)
-        	{	
-        		cancel = true;
-        		if (newBounds.x != event.beforeBounds.x && !isNaN(oldX))
-        			newBounds.x = oldX;
-        		newBounds.width = nativeWindow.minSize.x;
-        	}
-        	else if (newBounds.width > nativeWindow.maxSize.x)
-        	{
-        		cancel = true;
-        		if (newBounds.x != event.beforeBounds.x && !isNaN(oldX))
-        			newBounds.x = oldX;
-        		newBounds.width = nativeWindow.maxSize.x;
-        	}
-        	if (newBounds.height < nativeWindow.minSize.y)
-        	{
-        		cancel = true;
-        		if (event.afterBounds.y != event.beforeBounds.y && !isNaN(oldY))
- 	       			newBounds.y = oldY;
-        		newBounds.height = nativeWindow.minSize.y;
-        	}
-        	else if (newBounds.height > nativeWindow.maxSize.y)
-        	{
-        		cancel = true;
-        		if (event.afterBounds.y != event.beforeBounds.y && !isNaN(oldY))
- 	       			newBounds.y = oldY;
-        		newBounds.height = nativeWindow.maxSize.y;
-        	}
+            {   
+                cancel = true;
+                if (newBounds.x != event.beforeBounds.x && !isNaN(oldX))
+                    newBounds.x = oldX;
+                newBounds.width = nativeWindow.minSize.x;
+            }
+            else if (newBounds.width > nativeWindow.maxSize.x)
+            {
+                cancel = true;
+                if (newBounds.x != event.beforeBounds.x && !isNaN(oldX))
+                    newBounds.x = oldX;
+                newBounds.width = nativeWindow.maxSize.x;
+            }
+            if (newBounds.height < nativeWindow.minSize.y)
+            {
+                cancel = true;
+                if (event.afterBounds.y != event.beforeBounds.y && !isNaN(oldY))
+                    newBounds.y = oldY;
+                newBounds.height = nativeWindow.minSize.y;
+            }
+            else if (newBounds.height > nativeWindow.maxSize.y)
+            {
+                cancel = true;
+                if (event.afterBounds.y != event.beforeBounds.y && !isNaN(oldY))
+                    newBounds.y = oldY;
+                newBounds.height = nativeWindow.maxSize.y;
+            }
             if (cancel)
             {
                 event.preventDefault();
                 stage.nativeWindow.bounds = newBounds;
-         		windowBoundsChanged = true;
-				invalidateProperties();
+                windowBoundsChanged = true;
+                invalidateProperties();
             }
         }
         oldX = newBounds.x;
@@ -2835,21 +2834,21 @@ public class WindowedApplication extends Application implements IWindow
      */
     private function stage_fullScreenHandler(event:FullScreenEvent):void
     {
-    	//work around double events
-    	if (stage.displayState != lastDisplayState)
-    	{
-    		lastDisplayState = stage.displayState;
-    		if (stage.displayState == StageDisplayState.FULL_SCREEN ||
-    			stage.displayState == StageDisplayState.FULL_SCREEN_INTERACTIVE)
-    		{
-    			shouldShowTitleBar = showTitleBar;
-    			showTitleBar = false;
-    		}
-    		else
-    			showTitleBar = shouldShowTitleBar;
-    	}
-    }		
-    	
+        //work around double events
+        if (stage.displayState != lastDisplayState)
+        {
+            lastDisplayState = stage.displayState;
+            if (stage.displayState == StageDisplayState.FULL_SCREEN ||
+                stage.displayState == StageDisplayState.FULL_SCREEN_INTERACTIVE)
+            {
+                shouldShowTitleBar = showTitleBar;
+                showTitleBar = false;
+            }
+            else
+                showTitleBar = shouldShowTitleBar;
+        }
+    }       
+        
     /**
      *  @private
      */
@@ -2857,7 +2856,7 @@ public class WindowedApplication extends Application implements IWindow
     {
         removeEventListener("effectEnd", window_closeEffectEndHandler);
         if (!nativeWindow.closed)
-        	stage.nativeWindow.close();
+            stage.nativeWindow.close();
     }
 
     /**
@@ -2894,7 +2893,7 @@ public class WindowedApplication extends Application implements IWindow
     private function window_resizeHandler(event:NativeWindowBoundsEvent):void
     {
         // Only validateNow if we don't already have a window bounds
-	// update pending. Otherwise, we'll miss a chance to layout with
+    // update pending. Otherwise, we'll miss a chance to layout with
         // the modified bounds.  ** We really should revisit why we call
         // validateNow here to begin with **.
         if (!windowBoundsChanged)
@@ -2941,30 +2940,30 @@ public class WindowedApplication extends Application implements IWindow
      */
     private function nativeApplication_invokeHandler(event:InvokeEvent):void
     {
-    	// Because of the behavior with the nativeApplication invoke event
-    	// we queue events up until windowComplete
-    	if (invokesPending)
-    	    initialInvokes.push(event);
-    	else
-    		dispatchEvent(event);
+        // Because of the behavior with the nativeApplication invoke event
+        // we queue events up until windowComplete
+        if (invokesPending)
+            initialInvokes.push(event);
+        else
+            dispatchEvent(event);
     }
     
     /**
      * @private
- 	 */
- 	private function nativeWindow_activateHandler(event:Event):void
- 	{
- 		dispatchEvent(new AIREvent(AIREvent.WINDOW_ACTIVATE));
- 	}
+     */
+    private function nativeWindow_activateHandler(event:Event):void
+    {
+        dispatchEvent(new AIREvent(AIREvent.WINDOW_ACTIVATE));
+    }
 
- 	/**
- 	 *  @private
- 	 */
- 	private function nativeWindow_deactivateHandler(event:Event):void
- 	{
- 		dispatchEvent(new AIREvent(AIREvent.WINDOW_DEACTIVATE));
- 	}
- 	
+    /**
+     *  @private
+     */
+    private function nativeWindow_deactivateHandler(event:Event):void
+    {
+        dispatchEvent(new AIREvent(AIREvent.WINDOW_DEACTIVATE));
+    }
+    
     /**
      *  This is a temporary event handler which dispatches a initialLayoutComplete event after
      *  two updateCompletes. This event will only be dispatched after either setting the bounds or
@@ -2972,15 +2971,15 @@ public class WindowedApplication extends Application implements IWindow
      */
     private function updateComplete_handler(event:FlexEvent):void
     {
-    	if (ucCount == 1)
-	    {
-	        dispatchEvent(new Event("initialLayoutComplete"));
-	        removeEventListener(FlexEvent.UPDATE_COMPLETE, updateComplete_handler);
-	    }
-    	else
-    	{
-    		ucCount++;
-    	}
+        if (ucCount == 1)
+        {
+            dispatchEvent(new Event("initialLayoutComplete"));
+            removeEventListener(FlexEvent.UPDATE_COMPLETE, updateComplete_handler);
+        }
+        else
+        {
+            ucCount++;
+        }
     }
 
     /**
@@ -2989,12 +2988,12 @@ public class WindowedApplication extends Application implements IWindow
      */
     private function viewSourceResizeHandler(html:HTML):Function
     {
-    	return function (e:FlexNativeWindowBoundsEvent):void
-		{
-			const win:DisplayObject = e.target;
-		   	html.width  = win.width;
-			html.height = win.height;
-		};
+        return function (e:FlexNativeWindowBoundsEvent):void
+        {
+            const win:DisplayObject = e.target;
+            html.width  = win.width;
+            html.height = win.height;
+        };
     }
 
     /**
@@ -3003,7 +3002,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     private function viewSourceCloseHandler(win:Window):Function
     {
-    	return function ():void { win.close(); };
+        return function ():void { win.close(); };
     }
 }
 
