@@ -49,6 +49,20 @@ import mx.core.Window;
 
 use namespace mx_internal;
 
+/**
+ *  The WindowedSystemManager class manages any non-Application windows in a 
+ *  Flex-based AIR application. This includes all windows that are instances of 
+ *  the Window component or a Window subclass, but not a WindowedApplication 
+ *  window. For those windows, the WindowedSystemManager serves the same role 
+ *  that a SystemManager serves for a WindowedApplication instance or an 
+ *  Application instance in a browser-based Flex application.
+ * 
+ *  <p>As this comparison suggests, the WindowedSystemManager class serves 
+ *  many roles. For instance, it is the root display object of a Window, and 
+ *  manages tooltips, cursors, popups, and other content for the Window.</p>
+ * 
+ *  @see mx.managers.SystemManager
+ */
 public class WindowedSystemManager extends MovieClip implements ISystemManager
 {
 	
