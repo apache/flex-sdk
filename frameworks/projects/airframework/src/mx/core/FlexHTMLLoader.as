@@ -148,26 +148,7 @@ public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexCo
     [Inspectable(defaultValue="true")]
 
     /**
-     *  A flag that indicates whether child objects can receive focus
-     * 
-     *  <p>This is similar to the <code>tabChildren</code> property
-     *  used by the Flash Player.</p>
-     * 
-     *  <p>This is usually <code>false</code> because most components
-     *  either receive focus themselves or delegate focus to a single
-     *  internal sub-component and appear as if the component has
-     *  received focus.  For example, a TextInput contains a focusable
-     *  child RichEditableText control, but while the RichEditableText
-     *  sub-component actually receives focus, it appears as if the
-     *  TextInput has focus.  TextInput sets <code>hasFocusableChildren</code>
-     *  to <code>false</code> because TextInput is considered the
-     *  component that has focus.  Its internal structure is an
-     *  abstraction.</p>
-     *
-     *  <p>Usually only navigator components like TabNavigator and
-     *  Accordion have this flag set to <code>true</code> because they
-     *  receive focus on Tab but focus goes to components in the child
-     *  containers on further Tabs</p>
+     *  @copy mx.core.UIComponent#hasFocusableChildren
      *  
      *  @default false
      *  
