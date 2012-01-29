@@ -73,16 +73,16 @@ use namespace mx_internal;
 /**
  *  Dispatched after this application window has been activated.
  *
- *  @eventType mx.events.Event.ACTIVATE
+ *  @eventType mx.events.AIREvent.WINDOW_DEACTIVATE
  */
-[Event(name="windowActivate", type="flash.events.Event")]
+[Event(name="windowActivate", type="mx.events.AIREvent")]
 
 /**
  *  Dispatched after this application window has been deactivated.
  *
- *  @eventType mx.events.Event.DEACTIVATE
+ *  @eventType mx.events.AIREvent.WINDOW_DEACTIVATE
  */
-[Event(name="windowDeactivate", type="flash.events.Event")]
+[Event(name="windowDeactivate", type="mx.events.AIREvent")]
  
 /**
  *  Dispatched after this application window has been closed.
@@ -2608,7 +2608,7 @@ public class WindowedApplication extends Application implements IWindow
         // AIR xml file, we fabricate an activate event, since Flex 
         // comes in late to the show.
         if (systemManager.stage.nativeWindow.active) 
-            dispatchEvent(new Event("windowActivate"));
+            dispatchEvent(new AIREvent(AIREvent.APPLICATION_ACTIVATE));
                         
         systemManager.stage.nativeWindow.addEventListener(
             "activate", nativeWindow_activateHandler, false, 0, true);
@@ -2825,7 +2825,7 @@ public class WindowedApplication extends Application implements IWindow
  	 */
  	private function nativeWindow_activateHandler(event:Event):void
  	{
- 		dispatchEvent(new Event("windowActivate"));
+ 		dispatchEvent(new AIREvent(AIREvent.APPLICATION_ACTIVATE));
  	}
 
  	/**
@@ -2833,7 +2833,7 @@ public class WindowedApplication extends Application implements IWindow
  	 */
  	private function nativeWindow_deactivateHandler(event:Event):void
  	{
- 		dispatchEvent(new Event("windowDeactivate"));
+ 		dispatchEvent(new AIREvent(AIREvent.APPLICATION_DEACTIVATE));
  	}
  	
     /**
