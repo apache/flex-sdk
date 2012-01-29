@@ -2947,7 +2947,13 @@ public class Window extends LayoutContainer implements IWindow
     public function activate():void
     {
         if (!nativeWindow.closed)
+        {
             _nativeWindow.activate();   
+            
+            // activate makes the native window visible so this 
+            // component should become visible as well.
+            visible = true;     	    
+        }
     }
 
     /**
