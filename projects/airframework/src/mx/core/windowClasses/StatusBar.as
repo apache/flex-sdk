@@ -33,7 +33,6 @@ use namespace mx_internal;
  *  @see mx.core.Window
  *  @see mx.core.WindowedApplication
  * 
- *  @playerversion AIR 1.1
  */
 public class StatusBar extends UIComponent
 {
@@ -45,21 +44,21 @@ public class StatusBar extends UIComponent
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 */
-	public function StatusBar():void
-	{
-		super();
-	}
-	
+    /**
+     *  Constructor.
+     */
+    public function StatusBar():void
+    {
+        super();
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Variables
     //
     //--------------------------------------------------------------------------
 
-	/**
+    /**
      *  @private
      *  A reference to the status bar's skin.
      */
@@ -71,13 +70,13 @@ public class StatusBar extends UIComponent
     //
     //--------------------------------------------------------------------------
 
-	//----------------------------------
+    //----------------------------------
     //  status
     //----------------------------------
 
     /**
      *  @private
-	 *  Storage for the status property.
+     *  Storage for the status property.
      */
     private var _status:String = "";
     
@@ -108,11 +107,11 @@ public class StatusBar extends UIComponent
         invalidateSize();
     }
     
-	//----------------------------------
+    //----------------------------------
     //  statusTextField
     //----------------------------------
 
-	/**
+    /**
      *  A reference to the UITextField that displays the status bar's text.
      */
     public var statusTextField:IUITextField;
@@ -126,12 +125,12 @@ public class StatusBar extends UIComponent
     /**
      *  @private
      */
-	override protected function createChildren():void
-	{
+    override protected function createChildren():void
+    {
         super.createChildren();
 
         var statusBarBackgroundClass:Class =
-        	getStyle("statusBarBackgroundSkin");
+            getStyle("statusBarBackgroundSkin");
         if (statusBarBackgroundClass) 
         {
             statusBarBackground = new statusBarBackgroundClass();
@@ -149,24 +148,24 @@ public class StatusBar extends UIComponent
             addChild(DisplayObject(statusBarBackground));
         }
       
-	    if (!statusTextField)
-	    {
-	        statusTextField = IUITextField(createInFontContext(UITextField));
-	        statusTextField.text = _status;
-	        statusTextField.styleName = getStyle("statusTextStyleName");
-	        statusTextField.enabled = true;
-	        addChild(DisplayObject(statusTextField));
-    	}
-	}
-	
+        if (!statusTextField)
+        {
+            statusTextField = IUITextField(createInFontContext(UITextField));
+            statusTextField.text = _status;
+            statusTextField.styleName = getStyle("statusTextStyleName");
+            statusTextField.enabled = true;
+            addChild(DisplayObject(statusTextField));
+        }
+    }
+    
     /**
      *  @private
      */
     override protected function commitProperties():void
     {
-		super.commitProperties();
+        super.commitProperties();
 
-    	if (statusChanged)
+        if (statusChanged)
         {
             statusTextField.text = _status;
             statusChanged = false;
@@ -176,79 +175,79 @@ public class StatusBar extends UIComponent
     /**
      *  @private
      */
-	override protected function measure():void
-	{
-		super.measure();
+    override protected function measure():void
+    {
+        super.measure();
 
-		statusTextField.validateNow();
-		if (statusTextField.textHeight == 0)
-		{
-			statusTextField.text = " ";
-			statusTextField.validateNow();
-		}
+        statusTextField.validateNow();
+        if (statusTextField.textHeight == 0)
+        {
+            statusTextField.text = " ";
+            statusTextField.validateNow();
+        }
 
-		measuredHeight = statusTextField.textHeight +
-						 UITextField.TEXT_HEIGHT_PADDING;
-		measuredWidth = statusTextField.textWidth;
-	}
-	
+        measuredHeight = statusTextField.textHeight +
+                         UITextField.TEXT_HEIGHT_PADDING;
+        measuredWidth = statusTextField.textWidth;
+    }
+    
     /**
      *  @private
      */
-	override protected function updateDisplayList(unscaledWidth:Number,
-												  unscaledHeight:Number):void
-	{
-		super.updateDisplayList(unscaledWidth, unscaledHeight);
-		
-		statusBarBackground.setActualSize(unscaledWidth, unscaledHeight);
-		statusTextField.text = _status;
-		statusTextField.width = unscaledWidth;
-		statusTextField.truncateToFit("...");
-	}
-	
+    override protected function updateDisplayList(unscaledWidth:Number,
+                                                  unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        
+        statusBarBackground.setActualSize(unscaledWidth, unscaledHeight);
+        statusTextField.text = _status;
+        statusTextField.width = unscaledWidth;
+        statusTextField.truncateToFit("...");
+    }
+    
     /**
      *  @private
      */
     override public function styleChanged(styleProp:String):void
     {
         super.styleChanged(styleProp);
-		
-		invalidateDisplayList();
-		
+        
+        invalidateDisplayList();
+        
         var allStyles:Boolean = !styleProp || styleProp == "styleName";
-		
-		if (allStyles || styleProp == "statusBarBackgroundSkin")
-		{
-			var statusBarBackgroundClass:Class =
-	        	getStyle("statusBarBackgroundSkin");
-	        if (statusBarBackgroundClass) 
-	        {
-	            if (statusBarBackground)
-	            {
-	            	  removeChild(DisplayObject(statusBarBackground));
-	                  statusBarBackground = null;
-	            }
-	            statusBarBackground = new statusBarBackgroundClass();
-	            var backgroundUIComponent:IStyleClient =
-	                statusBarBackground as IStyleClient;     
-	            if (backgroundUIComponent)
-	            {
-	                backgroundUIComponent.setStyle("backgroundImage",
-	                                               undefined);
-	            }
-	            var backgroundStyleable:ISimpleStyleClient =
-	                statusBarBackground as ISimpleStyleClient;
-	            if (backgroundStyleable)
-	                backgroundStyleable.styleName = this;
-	            addChildAt(DisplayObject(statusBarBackground), 0);
-	        }
-	 	}
+        
+        if (allStyles || styleProp == "statusBarBackgroundSkin")
+        {
+            var statusBarBackgroundClass:Class =
+                getStyle("statusBarBackgroundSkin");
+            if (statusBarBackgroundClass) 
+            {
+                if (statusBarBackground)
+                {
+                      removeChild(DisplayObject(statusBarBackground));
+                      statusBarBackground = null;
+                }
+                statusBarBackground = new statusBarBackgroundClass();
+                var backgroundUIComponent:IStyleClient =
+                    statusBarBackground as IStyleClient;     
+                if (backgroundUIComponent)
+                {
+                    backgroundUIComponent.setStyle("backgroundImage",
+                                                   undefined);
+                }
+                var backgroundStyleable:ISimpleStyleClient =
+                    statusBarBackground as ISimpleStyleClient;
+                if (backgroundStyleable)
+                    backgroundStyleable.styleName = this;
+                addChildAt(DisplayObject(statusBarBackground), 0);
+            }
+        }
 
-	 	if (allStyles || styleProp == "statusTextStyleName")
-	 	{
-	 		if (statusTextField)
-				statusTextField.styleName = getStyle("statusTextStyleName");
-	 	}
+        if (allStyles || styleProp == "statusTextStyleName")
+        {
+            if (statusTextField)
+                statusTextField.styleName = getStyle("statusTextStyleName");
+        }
     }
 }
 
