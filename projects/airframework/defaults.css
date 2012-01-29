@@ -217,7 +217,7 @@ mx|Window
 	borderThickness: 1;
 	buttonPadding: 2;
 	closeButtonSkin: ClassReference("mx.skins.halo.WindowCloseButtonSkin");
-	cornerRadius: 8;
+	cornerRadius: 0;
 	backgroundColor: #FFFFFF;
 	backgroundImage: ClassReference("mx.skins.halo.WindowBackground");
 	buttonAlignment: "auto";
@@ -230,7 +230,7 @@ mx|Window
 	roundedBottomCorners: false;
 	showFlexChrome: true;
 	statusBarBackgroundSkin: ClassReference("mx.skins.halo.StatusBarBackgroundSkin");
-	statusBarBackgroundColor: #CCCCCC;
+	statusBarBackgroundColor: #DDDDDD;
 	statusTextStyleName: "statusTextStyle";
 	titleAlignment: "auto";
 	titleBarBackgroundSkin: ClassReference("mx.skins.halo.ApplicationTitleBarBackgroundSkin");
@@ -252,7 +252,7 @@ mx|WindowedApplication
 	borderThickness: 1;
 	buttonPadding: 2;
 	closeButtonSkin: ClassReference("mx.skins.halo.WindowCloseButtonSkin");
-	cornerRadius: 8;
+	cornerRadius: 0;
 	backgroundColor: #FFFFFF;
 	backgroundImage: ClassReference("mx.skins.halo.WindowBackground");
 	buttonAlignment: "auto";
@@ -265,7 +265,7 @@ mx|WindowedApplication
 	roundedBottomCorners: false;
 	showFlexChrome: true;
 	statusBarBackgroundSkin: ClassReference("mx.skins.halo.StatusBarBackgroundSkin");
-	statusBarBackgroundColor: #CCCCCC;
+	statusBarBackgroundColor: #DDDDDD;
 	statusTextStyleName: "statusTextStyle";
 	titleAlignment: "auto";
 	titleBarBackgroundSkin: ClassReference("mx.skins.halo.ApplicationTitleBarBackgroundSkin");
