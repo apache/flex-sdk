@@ -86,6 +86,10 @@ public class FileSystemControlHelper
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function FileSystemControlHelper(owner:Object, hierarchical:Boolean)
 	{
@@ -488,6 +492,10 @@ public class FileSystemControlHelper
      *  This Array is empty if no subdirectories are open.
      * 
      *  @default []
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get openPaths():Array /* of String */
     {
@@ -704,6 +712,10 @@ public class FileSystemControlHelper
 	/**
 	 *  Fills the list by enumerating the current directory
 	 *  and setting the dataProvider.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	mx_internal function fill():void
 	{
