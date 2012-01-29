@@ -2210,6 +2210,7 @@ public class Window extends LayoutContainer implements IWindow
                 _statusBar.styleName = new StyleProxy(this, statusBarStyleFilters);
                 rawChildren.addChild(DisplayObject(_statusBar));
                 showStatusBarChanged = true;
+                statusBarFactoryChanged = false;
             }
         }
 
@@ -2427,13 +2428,17 @@ public class Window extends LayoutContainer implements IWindow
             }
             _statusBar = statusBarFactory.newInstance();
             _statusBar.styleName = new StyleProxy(this, statusBarStyleFilters);
+
             // Add it underneath the gripper.
+            rawChildren.addChild(DisplayObject(_statusBar));
             if (gripper)
-                rawChildren.addChildAt(DisplayObject(_statusBar), rawChildren.getChildIndex(gripper));
-            else
-                rawChildren.addChild(DisplayObject(_statusBar));
+            {
+                var gripperIndex:int = rawChildren.getChildIndex(DisplayObject(gripper)); 
+                rawChildren.setChildIndex(DisplayObject(_statusBar), gripperIndex);
+            }
             statusBarFactoryChanged = false;
             showStatusBarChanged = true;
+            statusChanged = true;
             invalidateDisplayList();
         }
 
