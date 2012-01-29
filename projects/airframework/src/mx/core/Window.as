@@ -65,16 +65,16 @@ use namespace mx_internal;
 /**
  *  Dispatched after the window has been activated.
  *
- *  @eventType mx.events.Event.ACTIVATE
+ *  @eventType mx.events.AIREvent.WINDOW_DEACTIVATE
  */
-[Event(name="windowActivate", type="flash.events.Event")]
+[Event(name="windowActivate", type="mx.events.AIREvent")]
 
 /**
  *  Dispatched after the window has been deactivated.
  *
- *  @eventType mx.events.Event.DEACTIVATE
+ *  @eventType mx.events.AIREvent.WINDOW_DEACTIVATE
  */
-[Event(name="windowDeactivate", type="flash.events.Event")]
+[Event(name="windowDeactivate", type="mx.events.AIREvent")]
 
 /**
  *  Dispatched after the window has been closed.
@@ -3022,7 +3022,7 @@ public class Window extends LayoutContainer implements IWindow
  	 */
  	private function nativeWindow_activateHandler(event:Event):void
  	{
- 		dispatchEvent(new Event("windowActivate"));
+ 		dispatchEvent(new AIREvent(AIREvent.WINDOW_ACTIVATE));
  	}	
  	
  	/**
@@ -3030,7 +3030,7 @@ public class Window extends LayoutContainer implements IWindow
  	 */
  	private function nativeWindow_deactivateHandler(event:Event):void
  	{
- 		dispatchEvent(new Event("windowDeactivate"));
+ 		dispatchEvent(new AIREvent(AIREvent.WINDOW_ACTIVATE));
  	}
  	
  	/**
