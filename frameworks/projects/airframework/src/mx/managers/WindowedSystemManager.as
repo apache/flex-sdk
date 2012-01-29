@@ -2016,7 +2016,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
                      is NativeDragManagerImpl)
             NativeDragManagerImpl(Singleton.getClass("mx.managers::IDragManager").getInstance()).unregisterSystemManager(this);
         SystemManagerGlobals.topLevelSystemManagers.splice(SystemManagerGlobals.topLevelSystemManagers.indexOf(this), 1);
-        myWindow.nativeWindow.removeEventListener("close", cleanup);
+        myWindow.nativeWindow.removeEventListener(Event.CLOSE, cleanup);
         myWindow = null;
     }
 
@@ -2027,7 +2027,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
     mx_internal function addWindow(win:IWindow):void
     {
         myWindow = win;
-        myWindow.nativeWindow.addEventListener("close", cleanup);
+        myWindow.nativeWindow.addEventListener(Event.CLOSE, cleanup);
     }
 }
 }
