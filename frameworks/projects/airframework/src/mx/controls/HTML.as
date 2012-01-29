@@ -367,7 +367,6 @@ use namespace mx_internal;
         _verticalScrollPolicy = ScrollPolicy.AUTO;
 
         tabEnabled = false;
-        tabChildren = true;
     }
 
     //--------------------------------------------------------------------------
