@@ -117,7 +117,7 @@ use namespace mx_internal;
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemTree
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public class FileSystemComboBox extends ComboBox
 {
