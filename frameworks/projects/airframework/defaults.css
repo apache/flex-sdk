@@ -22,7 +22,7 @@
 
 s|TitleBar
 {
-    skinClass: ClassReference("spark.skins.spark.TitleBarSkin");
+    skinClass: ClassReference("spark.skins.spark.windowChrome.TitleBarSkin");
 }
 
 /*
