@@ -39,6 +39,7 @@ import flash.utils.Dictionary;
 
 import mx.core.EventPriority;
 import mx.core.FlexSprite;
+import mx.core.IRawChildrenContainer;
 import mx.core.ISWFBridgeGroup;
 import mx.core.ISWFBridgeProvider;
 import mx.core.ISWFLoader;
@@ -48,7 +49,7 @@ import mx.core.IFlexModule;
 import mx.core.IUIComponent;
 import mx.core.Singleton;
 import mx.core.SWFBridgeGroup;
-import mx.core.Window;
+import mx.core.IWindow;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.FlexChangeEvent;
@@ -136,7 +137,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      *  @private
      *  pointer to Window, for cleanup
      */
-    private var myWindow:Window;
+    private var myWindow:IWindow;
     
     /**
      *  @private
@@ -795,14 +796,14 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
     /**
      *  @private
      */ 
-    private var _window:Window = null;
+    private var _window:IWindow = null;
     
-    mx_internal function get window():Window
+    mx_internal function get window():IWindow
     {
         return _window;
     }
     
-    mx_internal function set window(value:Window):void
+    mx_internal function set window(value:IWindow):void
     {
         _window = value;
     }
@@ -2794,7 +2795,9 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
             {
                 var n:int = forms.length;
                 var p:DisplayObject = DisplayObject(event.target);
-                var isApplication:Boolean = document.rawChildren.contains(p);
+                var isApplication:Boolean = document is IRawChildrenContainer ? 
+                                            IRawChildrenContainer(document).rawChildren.contains(p) :
+                                            document.contains(p);
                 while (p)
                 {
                     for (var i:int = 0; i < n; i++)
@@ -4464,7 +4467,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
                      is NativeDragManagerImpl)
             NativeDragManagerImpl(Singleton.getClass("mx.managers::IDragManager").getInstance()).unregisterSystemManager(this);
         SystemManagerGlobals.topLevelSystemManagers.splice(SystemManagerGlobals.topLevelSystemManagers.indexOf(this), 1);
-        myWindow.removeEventListener("close", cleanup);
+        myWindow.nativeWindow.removeEventListener("close", cleanup);
         myWindow = null;
     }
 
@@ -4472,7 +4475,7 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
      *  @private
      *  only registers Window for later cleanup.
      */
-    mx_internal function addWindow(win:Window):void
+    mx_internal function addWindow(win:IWindow):void
     {
         myWindow = win;
         myWindow.nativeWindow.addEventListener("close", cleanup);
