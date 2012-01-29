@@ -42,6 +42,8 @@ import mx.events.FlexNativeMenuEvent;
 import mx.managers.ILayoutManagerClient;
 import mx.managers.ISystemManager;
 
+use namespace mx_internal;
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -784,9 +786,9 @@ public class FlexNativeMenu extends EventDispatcher implements
      */
     public function get dataProvider():Object
     {
-        if (mx_internal::_rootModel)
+        if (_rootModel)
         {
-            return mx_internal::_rootModel;
+            return _rootModel;
         }
         else return null;
     }
@@ -796,9 +798,9 @@ public class FlexNativeMenu extends EventDispatcher implements
      */
     public function set dataProvider(value:Object):void
     {
-        if (mx_internal::_rootModel)
+        if (_rootModel)
         {
-            mx_internal::_rootModel.removeEventListener(CollectionEvent.COLLECTION_CHANGE,
+            _rootModel.removeEventListener(CollectionEvent.COLLECTION_CHANGE,
                                            collectionChangeHandler);
         }
 
@@ -815,18 +817,18 @@ public class FlexNativeMenu extends EventDispatcher implements
             _hasRoot = true;
             var xl:XMLList = new XMLList();
             xl += value;
-            mx_internal::_rootModel = new XMLListCollection(xl);
+            _rootModel = new XMLListCollection(xl);
         }
         //if already a collection dont make new one
         else if (value is ICollectionView)
         {
-            mx_internal::_rootModel = ICollectionView(value);
-            if (mx_internal::_rootModel.length == 1)
+            _rootModel = ICollectionView(value);
+            if (_rootModel.length == 1)
                 _hasRoot = true;
         }
         else if (value is Array)
         {
-            mx_internal::_rootModel = new ArrayCollection(value as Array);
+            _rootModel = new ArrayCollection(value as Array);
         }
         //all other types get wrapped in an ArrayCollection
         else if (value is Object)
@@ -835,14 +837,14 @@ public class FlexNativeMenu extends EventDispatcher implements
             // convert to an array containing this one item
             var tmp:Array = [];
             tmp.push(value);
-            mx_internal::_rootModel = new ArrayCollection(tmp);
+            _rootModel = new ArrayCollection(tmp);
         }
         else
         {
-            mx_internal::_rootModel = new ArrayCollection();
+            _rootModel = new ArrayCollection();
         }
         //add listeners as weak references
-        mx_internal::_rootModel.addEventListener(CollectionEvent.COLLECTION_CHANGE,
+        _rootModel.addEventListener(CollectionEvent.COLLECTION_CHANGE,
                                     collectionChangeHandler, false, 0, true);
         //flag for processing in commitProps
         dataProviderChanged = true;
@@ -1361,8 +1363,8 @@ public class FlexNativeMenu extends EventDispatcher implements
         if (!invalidatePropertiesFlag && nestLevel > 0)
         {
             invalidatePropertiesFlag = true;
-            if (UIComponentGlobals.mx_internal::layoutManager)
-                UIComponentGlobals.mx_internal::layoutManager.invalidateProperties(this);
+            if (UIComponentGlobals.layoutManager)
+                UIComponentGlobals.layoutManager.invalidateProperties(this);
             else
             {
                 var myTimer:Timer = new Timer(100, 1);
@@ -1479,16 +1481,16 @@ public class FlexNativeMenu extends EventDispatcher implements
             dataDescriptorChanged = false;
 
             // are we swallowing the root?
-            if (mx_internal::_rootModel && !_showRoot && _hasRoot)
+            if (_rootModel && !_showRoot && _hasRoot)
             {
-                var rootItem:* = mx_internal::_rootModel.createCursor().current;
+                var rootItem:* = _rootModel.createCursor().current;
                 if (rootItem != null &&
-                    _dataDescriptor.isBranch(rootItem, mx_internal::_rootModel) &&
-                    _dataDescriptor.hasChildren(rootItem, mx_internal::_rootModel))
+                    _dataDescriptor.isBranch(rootItem, _rootModel) &&
+                    _dataDescriptor.hasChildren(rootItem, _rootModel))
                 {
                     // then get rootItem children
                     tmpCollection =
-                        _dataDescriptor.getChildren(rootItem, mx_internal::_rootModel);
+                        _dataDescriptor.getChildren(rootItem, _rootModel);
                 }
             }
 
@@ -1497,10 +1499,10 @@ public class FlexNativeMenu extends EventDispatcher implements
             clearMenu(_nativeMenu);
 
             // make top level items
-            if (mx_internal::_rootModel)
+            if (_rootModel)
             {
                 if (!tmpCollection)
-                    tmpCollection = mx_internal::_rootModel;
+                    tmpCollection = _rootModel;
                 // not really a default handler, but we need to
                 // be later than the wrapper
                 tmpCollection.addEventListener(CollectionEvent.COLLECTION_CHANGE,
@@ -1595,7 +1597,7 @@ public class FlexNativeMenu extends EventDispatcher implements
             nativeMenuItem.checked = type == "check" && dataDescriptor.isToggled(data);
             
             // data
-            nativeMenuItem.data = dataDescriptor.getData(data, mx_internal::_rootModel);
+            nativeMenuItem.data = dataDescriptor.getData(data, _rootModel);
             
             // key equivalent
             nativeMenuItem.keyEquivalent = itemToKeyEquivalent(data);
@@ -1622,12 +1624,12 @@ public class FlexNativeMenu extends EventDispatcher implements
             nativeMenuItem.addEventListener(flash.events.Event.SELECT, itemSelectHandler, false, 0, true);
             
             // recursive
-            if (dataDescriptor.isBranch(data, mx_internal::_rootModel) &&
-                dataDescriptor.hasChildren(data, mx_internal::_rootModel))
+            if (dataDescriptor.isBranch(data, _rootModel) &&
+                dataDescriptor.hasChildren(data, _rootModel))
             {
                 nativeMenuItem.submenu = createMenu();
                 populateMenu(nativeMenuItem.submenu,
-                    dataDescriptor.getChildren(data, mx_internal::_rootModel));
+                    dataDescriptor.getChildren(data, _rootModel));
             }
         }
         
