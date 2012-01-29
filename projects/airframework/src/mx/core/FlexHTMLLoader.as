@@ -23,6 +23,8 @@ import mx.utils.NameUtil;
  *  It overrides the <code>toString()</code> method
  *  to return a string indicating the location of the object
  *  within the hierarchy of DisplayObjects in the application.
+ * 
+ *  @productversion Apollo 1.0
  */
 public class FlexHTMLLoader extends HTMLLoader implements IFocusManagerComplexComponent
 {
