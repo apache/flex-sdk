@@ -28,13 +28,12 @@ import flash.system.Capabilities;
 import mx.core.DragSource;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
-import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.DragEvent;
 import mx.events.FlexEvent;
-import mx.events.InterManagerRequest;
 import mx.events.InterDragManagerEvent;
+import mx.events.InterManagerRequest;
 import mx.managers.dragClasses.DragProxy;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
@@ -46,6 +45,7 @@ use namespace mx_internal;
 /**
  *  @private
  * 
+ *  @playerversion AIR 1.1
  */
 public class NativeDragManagerImpl implements IDragManager
 {
@@ -285,8 +285,14 @@ public class NativeDragManagerImpl implements IDragManager
         for (var i:int = 0; i < dragSource.formats.length; i++)
         {
             var format:String = dragSource.formats[i] as String;
-            var data:Object = dragSource.dataForFormat(format);
-            _clipboard.setData(format, data);
+			
+			// Create an object to store a reference to the format and dragSource.
+			// This delays copying over the drag data until it is needed
+			var dataFetcher:DragDataFormatFetcher = new DragDataFormatFetcher();
+			dataFetcher.dragSource = dragSource;
+			dataFetcher.format = format;
+						
+			_clipboard.setDataHandler(format, dataFetcher.getDragSourceData, false);
         }   
         
         if (!dragImage)
@@ -591,8 +597,13 @@ public class NativeDragManagerImpl implements IDragManager
                 format = origFormats[i];
                 if (clipboard.hasFormat(format))
                 {
-                    data = clipboard.getData(format); 
-                    dragSource.addData(data,format);
+					// Create an object to store a reference to the format and clipboard.
+					// This delays copying over the drag data until it is needed					
+					var dataFetcher:DragDataFormatFetcher = new DragDataFormatFetcher();
+					dataFetcher.clipboard = clipboard;
+					dataFetcher.format = format;
+						
+					dragSource.addHandler(dataFetcher.getClipboardData, format);	
                 }
             }
         } 
@@ -791,5 +802,77 @@ public class NativeDragManagerImpl implements IDragManager
     }
 }
 
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Helper class: DragDataFormatFetcher
+//
+////////////////////////////////////////////////////////////////////////////////
+
+import flash.desktop.Clipboard;
+import mx.core.DragSource;
+
+
+/**
+ *  @private
+ *  Helper class used to provide a way to access the clipboard or dragSource data
+ *  at a later time. 
+ */
+class DragDataFormatFetcher
+{
+
+	include "../core/Version.as";
+
+	//--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor.
+     */
+	public function DragDataFormatFetcher()
+	{
+		super();
+	}
+	
+	/**
+     *  @private
+     */
+	public var clipboard:Clipboard;
+	
+	/**
+     *  @private
+     */
+	public var dragSource:DragSource;
+	
+	/**
+     *  @private
+     */
+	public var format:String;
+	
+	/**
+     *  @private
+     */
+	public function getClipboardData():Object
+	{
+		if (clipboard)
+			return clipboard.getData(format);
+		else
+			return null;
+	}
+	
+	/**
+     *  @private
+     */
+	public function getDragSourceData():Object
+	{
+		if (dragSource)
+			return dragSource.dataForFormat(format);
+		else
+			return null;
+	}
 }
 
