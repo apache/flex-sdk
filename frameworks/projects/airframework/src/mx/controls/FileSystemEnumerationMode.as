@@ -22,6 +22,10 @@ package mx.controls
  *  @see mx.controls.FileSystemDataGrid#enumerationMode
  *  @see mx.controls.FileSystemTree#enumerationMode
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class FileSystemEnumerationMode
 {
@@ -35,26 +39,46 @@ public final class FileSystemEnumerationMode
 
     /**
      *  Specifies to show files but not directories.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const FILES_ONLY:String = "filesOnly";
 
     /**
      *  Specifies to show directories but not files.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DIRECTORIES_ONLY:String = "directoriesOnly";
 
     /**
      *  Specifies to show files first, then directories.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const FILES_FIRST:String = "filesFirst";
 
     /**
      *  Specifies to show directories, then files.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DIRECTORIES_FIRST:String = "directoriesFirst";
 
     /**
      *  Specifies to show both files and directories, mixed together.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      public static const FILES_AND_DIRECTORIES:String = "filesAndDirectories";
 }
