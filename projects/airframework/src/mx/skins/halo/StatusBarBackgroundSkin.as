@@ -16,6 +16,8 @@ import mx.skins.ProgrammaticSkin;
 
 /**
  *  The skin for the StatusBar of a WindowedApplication or Window.
+ * 
+ *  @productversion Apollo 1.0
  */
 public class StatusBarBackgroundSkin extends ProgrammaticSkin
 {
