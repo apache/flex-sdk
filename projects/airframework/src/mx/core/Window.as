@@ -812,7 +812,7 @@ public class Window extends LayoutContainer implements IWindow
 	 *  chrome) as well as the visibility of the Window's child
 	 *  controls.
 	 *
-	 *  <p>When this property changes, Flex dispatches a <codeshow</code>
+	 *  <p>When this property changes, Flex dispatches a <code>show</code>
 	 *  or <code>hide</code> event.</p>
 	 *
 	 *  @default true
