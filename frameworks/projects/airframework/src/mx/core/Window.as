@@ -24,8 +24,10 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.events.NativeWindowBoundsEvent;
 import flash.events.NativeWindowDisplayStateEvent;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.system.Capabilities;
+
 import mx.controls.Button;
 import mx.controls.FlexNativeMenu;
 import mx.core.windowClasses.StatusBar;
@@ -33,10 +35,10 @@ import mx.core.windowClasses.TitleBar;
 import mx.events.AIREvent;
 import mx.events.FlexEvent;
 import mx.events.FlexNativeWindowBoundsEvent;
-import mx.managers.FocusManager;
-import mx.managers.ISystemManager;
-import mx.managers.ICursorManager;
 import mx.managers.CursorManagerImpl;
+import mx.managers.FocusManager;
+import mx.managers.ICursorManager;
+import mx.managers.ISystemManager;
 import mx.managers.WindowedSystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
@@ -404,13 +406,14 @@ use namespace mx_internal;
  *  &lt;mx:Window
  *    <strong>Properties</strong>
  *    alwaysInFront="false"
+ *    height="100"
  *    maxHeight="10000"
  *    maximizable="true"
  *    maxWidth="10000"
  *    menu="<i>null</i>"
- *    minHeight="100"
+ *    minHeight="0"
  *    minimizable="true"
- *    minWidth="100"
+ *    minWidth="0"
  *    resizable="true"
  *    showGripper="true"
  *    showStatusBar="true"
@@ -424,6 +427,7 @@ use namespace mx_internal;
  *    transparent="false"
  *    type="normal"
  *    visible="true"
+ *    width="100"
  * 
  *    <strong>Styles</strong>
  *    buttonAlignment="auto"
@@ -488,6 +492,18 @@ public class Window extends LayoutContainer implements IWindow
      *  @private
      */
     private static const MOUSE_SLACK:Number = 5;
+    
+    /**
+     *  The default height for a window (SDK-14399) 
+     *  @private
+     */
+    private static const DEFAULT_WINDOW_HEIGHT:Number = 100;
+    
+    /**
+     *  The default width for a window (SDK-14399) 
+     *  @private
+     */
+    private static const DEFAULT_WINDOW_WIDTH:Number = 100;
 
     //--------------------------------------------------------------------------
     //
@@ -693,134 +709,167 @@ public class Window extends LayoutContainer implements IWindow
     }
 
 	//----------------------------------
-	//  maxHeight
-	//----------------------------------
-	
+    //  maxHeight
+    //----------------------------------
+
 	/**
-	 *  @private
+     *  @private
 	 *  Storage for the maxHeight property.
-	 */
+     */
 	private var _maxHeight:Number = 10000;
 	
-	[Bindable("maxHeightChanged")]
-	
 	/**
-	 *  The maximum height of the window.
-	 */
-	override public function get maxHeight():Number
-	{
-		return _maxHeight;
-	}
-	
+     *  @private
+	 *  Keeps track of whether maxHeight property changed so we can
+	 *  handle it in commitProperties.
+     */
+    private var maxHeightChanged:Boolean = false;
+
+    [Bindable("maxHeightChanged")]
+    [Bindable("windowComplete")]
+
 	/**
-	 *  @private
-	 */
-	override public function set maxHeight(value:Number):void
-	{
-		_maxHeight = value;
-		if (height > _maxHeight)
-			height = _maxHeight;
-			
-		dispatchEvent(new Event("maxHeightChanged"));
-	}
-	
-	//----------------------------------
-	//  maxWidth
-	//----------------------------------
-	
+     *  @private
+     */
+    override public function get maxHeight():Number
+    {
+    	if (nativeWindow && !maxHeightChanged)
+    		return nativeWindow.maxSize.y - chromeHeight();
+        else
+        	return _maxHeight;
+    }
+
 	/**
-	 *  @private
+     *  Specifies the maximum height of the application's window.
+     */
+    override public function set maxHeight(value:Number):void
+    {
+        _maxHeight = value;
+        maxHeightChanged = true;
+        invalidateProperties();
+    }
+
+    //----------------------------------
+    //  maxWidth
+    //----------------------------------
+
+    /**
+     *  @private
 	 *  Storage for the maxWidth property.
-	 */
-	private var _maxWidth:Number = 10000;
+     */
+    private var _maxWidth:Number = 10000;
+    
+    /**
+     *  @private
+	 *  Keeps track of whether maxWidth property changed so we can
+	 *  handle it in commitProperties.
+     */
+    private var maxWidthChanged:Boolean = false;
 
-	[Bindable("maxWidthChanged")]
+    [Bindable("maxWidthChanged")]
+    [Bindable("windowComplete")]
 
 	/**
-	 *  The maximum width of the window.
-	 */
-	 override public function get maxWidth():Number
-	{
-		return _maxWidth;
-	}
+     *  @private
+     */
+    override public function get maxWidth():Number
+    {
+    	if (nativeWindow && !maxWidthChanged)
+    		return nativeWindow.maxSize.x - chromeWidth();
+        else
+        	return _maxWidth;
+    }
+
+    /**
+     *  Specifies the maximum width of the application's window.
+     */
+    override public function set maxWidth(value:Number):void
+    {
+        _maxWidth = value;
+        maxWidthChanged = true;
+        invalidateProperties();
+    }
+
+     //---------------------------------
+     //  minHeight
+     //---------------------------------
+
+    /**
+     *  @private
+     */
+    private var _minHeight:Number = 0;
 	
 	/**
-	 *  @private
-	 */
-	override public function set maxWidth(value:Number):void
-	{
-		_maxWidth = value;
-	 	if (height > _maxWidth)
-	 		height = _maxWidth;
-	 		
-	 	dispatchEvent(new Event("maxWidthChanged"));
-	}
-	
-	 //---------------------------------
-	 //  minHeight
-	 //---------------------------------
-	
-	/**
-	 *  @private
-	 *  Storage for the minHeight property.
-	 */
-	private var _minHeight:Number =
-		Math.max(NativeWindow.systemMinSize.y, 100);
-	
-	[Bindable("minHeightChanged")]
-	
-	/**
-	 *  The minimum height of the window.
-	 */
-	override public function get minHeight():Number
-	{
-		return _minHeight;
-	}
-	
-	/**
-	 *  @private
-	 */
-	override public  function set minHeight(value:Number):void
-	{
-		_minHeight = value;
-		if (height < minHeight)
-			height = minHeight;
-			
-		dispatchEvent(new Event("minHeightChanged"));
-	}
-	
-	//----------------------------------
-	//  minWidth
-	//----------------------------------
-	
-	/**
-	 *  @private
+     *  @private
+	 *  Keeps track of whether minHeight property changed so we can
+	 *  handle it in commitProperties.
+     */
+    private var minHeightChanged:Boolean = false;
+
+    [Bindable("minHeightChanged")]
+    [Bindable("windowComplete")]
+
+    /**
+     *  Specifies the minimum height of the application's window.
+     */
+    override public function get minHeight():Number
+    {
+    	if (nativeWindow && !minHeightChanged)
+    		return nativeWindow.minSize.y - chromeHeight();
+        else
+        	return _minHeight;
+    }
+
+    /**
+     *  @private
+     */
+    override public function set minHeight(value:Number):void
+    {
+        _minHeight = value;
+        minHeightChanged = true;
+        invalidateProperties();
+    }
+
+     //---------------------------------
+     //  minWidth
+     //---------------------------------
+
+    /**
+     *  @private
 	 *  Storage for the minWidth property.
-	 */
-	private var _minWidth:Number =
-		Math.max(NativeWindow.systemMinSize.x, 100);
-		
-	[Bindable("minWidthChanged")]
-		
-	/**
-	 *  The minimum width of the window.
-	 */
-	override public  function get minWidth():Number
-	{
-		return _minWidth;
-	}
-	
-	/**
-	 *  @private
-	 */
-	override public  function set minWidth(value:Number):void
-	{
-		_minWidth = value;
-		if (width < _minWidth)
-			width = _minWidth;
-			
-		dispatchEvent(new Event("minWidthChanged"));
-	}
+     */
+    private var _minWidth:Number = 0;
+    
+   /**
+     *  @private
+	 *  Keeps track of whether minWidth property changed so we can
+	 *  handle it in commitProperties.
+     */
+    private var minWidthChanged:Boolean = false;
+
+    [Bindable("minWidthChanged")]
+    [Bindable("windowComplete")]
+
+    /**
+     *  Specifies the minimum width of the application's window.
+     */
+    override public function get minWidth():Number
+    {
+        if (nativeWindow && !minWidthChanged)
+    		return nativeWindow.minSize.x - chromeWidth();
+        else
+        	return _minWidth;
+    }
+
+    /**
+     *  @private
+     */
+    override public function set minWidth(value:Number):void
+    {
+        _minWidth = value;
+        minWidthChanged = true;
+        invalidateProperties();
+    }
 	
 	//----------------------------------
 	//  visible
@@ -1020,7 +1069,7 @@ public class Window extends LayoutContainer implements IWindow
      *  @private
      *  Storage for the bounds property.
      */
-    private var _bounds:Rectangle = new Rectangle(0, 0, 0, 0);
+    private var _bounds:Rectangle = new Rectangle(0, 0, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
 
     /**
      *  @private
@@ -1820,12 +1869,9 @@ public class Window extends LayoutContainer implements IWindow
      */
     override protected function createChildren():void
     {
-        minHeight = Math.max(minHeight, NativeWindow.systemMinSize.y);
-        minWidth = Math.max(minWidth, NativeWindow.systemMinSize.x);
-        if (height < minHeight)
-        	height = minHeight;
-        if (width < minWidth)
-        	width = minWidth;
+    	// this is to help initialize the stage
+        width = _bounds.width;
+        height = _bounds.height;
 
 		super.createChildren();
 
@@ -1921,6 +1967,54 @@ public class Window extends LayoutContainer implements IWindow
  			//'register' with WindowedSystemManager so it can cleanup when done.
  			sm.addWindow(this);
         }
+        
+        // minimum width and height
+		if (minWidthChanged || minHeightChanged)
+		{
+			var newMinWidth:Number = minWidthChanged ? _minWidth + chromeWidth() : nativeWindow.minSize.x;
+			var newMinHeight:Number = minHeightChanged ? _minHeight + chromeHeight() : nativeWindow.minSize.y;
+			
+			nativeWindow.minSize = new Point(newMinWidth, newMinHeight);
+			
+			if (minWidthChanged)
+			{
+				minWidthChanged = false;
+				if (width < minWidth)
+            		width = minWidth;
+        		dispatchEvent(new Event("minWidthChanged"));
+   			}
+        	if (minHeightChanged)
+        	{
+        		minHeightChanged = false;
+        		if (height < minHeight)
+            		height = minHeight;
+        		dispatchEvent(new Event("minHeightChanged"));
+        	}
+		}
+		
+		// maximum width and height
+		if (maxWidthChanged || maxHeightChanged)
+		{
+			var newMaxWidth:Number = maxWidthChanged ? _maxWidth + chromeWidth() : nativeWindow.maxSize.x;
+			var newMaxHeight:Number = maxHeightChanged ? _maxHeight + chromeHeight() : nativeWindow.maxSize.y;
+			
+			nativeWindow.maxSize = new Point(newMaxWidth, newMaxHeight);
+			
+			if (maxWidthChanged)
+			{
+				maxWidthChanged = false;
+				if (width > maxWidth)
+            		width = maxWidth;
+        		dispatchEvent(new Event("maxWidthChanged"));
+   			}
+			if (maxHeightChanged)
+			{
+				maxHeightChanged = false;
+				if (height > maxHeight)
+            		height = maxHeight;
+        		dispatchEvent(new Event("maxHeightChanged"));
+   			}
+		}
 
         if (boundsChanged)
         {
@@ -2518,6 +2612,24 @@ public class Window extends LayoutContainer implements IWindow
      	else
      		return false;
 	}
+	
+	/**
+     *  @private
+     *  Returns the width of the chrome for the window
+     */
+    private function chromeWidth():Number
+    {
+        return nativeWindow.width - systemManager.stage.stageWidth;
+    }
+    
+    /**
+     *  @private
+     *  Returns the height of the chrome for the window
+     */
+    private function chromeHeight():Number
+    {
+        return nativeWindow.height - systemManager.stage.stageHeight;
+    }
 	
     /**
      *  @private
