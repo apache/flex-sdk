@@ -24,6 +24,8 @@ import flash.filesystem.File;
  *  @see mx.controls.FileSystemDataGrid
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemTree
+ * 
+ *  @productversion Apollo 1.0
  */
 public class FileEvent extends Event
 {
