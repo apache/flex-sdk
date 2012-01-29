@@ -30,10 +30,12 @@ import flash.system.Capabilities;
 
 import mx.controls.Button;
 import mx.controls.FlexNativeMenu;
+import mx.core.FlexGlobals;
 import mx.core.windowClasses.StatusBar;
 import mx.core.windowClasses.TitleBar;
 import mx.events.AIREvent;
 import mx.events.FlexEvent;
+
 import mx.events.FlexNativeWindowBoundsEvent;
 import mx.events.WindowExistenceEvent;
 import mx.managers.CursorManagerImpl;
@@ -2996,9 +2998,9 @@ public class Window extends LayoutContainer implements IWindow
             
             // Event for Automation so we know when windows 
             // are created or destroyed.
-            if (ApplicationGlobals.application)
+            if (FlexGlobals.topLevelApplication)
             {
-                ApplicationGlobals.application.dispatchEvent(
+                FlexGlobals.topLevelApplication.dispatchEvent(
                     new WindowExistenceEvent(WindowExistenceEvent.WINDOW_CREATE, 
                                              false, false, this));
             }
@@ -3423,9 +3425,9 @@ public class Window extends LayoutContainer implements IWindow
         
         // Event for Automation so we know when windows 
         // are created or destroyed.
-        if (ApplicationGlobals.application)
+        if (FlexGlobals.topLevelApplication)
         {
-            ApplicationGlobals.application.dispatchEvent(
+            FlexGlobals.topLevelApplication.dispatchEvent(
                 new WindowExistenceEvent(WindowExistenceEvent.WINDOW_CLOSE, 
                                          false, false, this));
         }
