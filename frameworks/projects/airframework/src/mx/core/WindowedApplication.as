@@ -2146,7 +2146,7 @@ public class WindowedApplication extends Application implements IWindow
             if (gripSkin)
             {
                 var tmp:CSSStyleDeclaration =
-                    StyleManager.getStyleDeclaration("." + gripSkin);
+                    styleManager.getStyleDeclaration("." + gripSkin);
                 gripper.styleName = gripSkin;
             }
             rawChildren.addChild(gripper);
