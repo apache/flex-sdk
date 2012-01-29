@@ -677,6 +677,8 @@ public class Window extends LayoutContainer implements IWindow
      *  Returns the Window to which a component is parented.
      *
      *  @param component the component whose Window you wish to find.
+     *
+     *  @return The Window to which a component is parented.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
@@ -2952,7 +2954,7 @@ public class Window extends LayoutContainer implements IWindow
             
             // activate makes the native window visible so this 
             // component should become visible as well.
-            visible = true;     	    
+            visible = true;             
         }
     }
 
@@ -3230,6 +3232,7 @@ public class Window extends LayoutContainer implements IWindow
     }
 
     /**
+     *  @private
      *  Manages mouse down events on the window border.
      *  
      *  @langversion 3.0
