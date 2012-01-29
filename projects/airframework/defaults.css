@@ -11,47 +11,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 */
 
-@namespace s "library://ns.adobe.com/flex/spark";
 @namespace mx "library://ns.adobe.com/flex/mx";
-
-/*
-//------------------------------
-//  Spark TitleBar
-//------------------------------
-*/
-
-s|TitleBar
-{
-    skinClass: ClassReference("spark.skins.spark.windowChrome.TitleBarSkin");
-}
-
-/*
-//------------------------------
-//  Spark WindowedApplication
-//------------------------------
-*/
-
-s|WindowedApplication
-{
-    backgroundAlpha: 1;
-    backgroundColor: #FFFFFF;
-    resizeAffordanceWidth: 6;
-    skinClass: ClassReference("spark.skins.spark.WindowedApplicationSkin");
-}
-
-/*
-//------------------------------
-//  Spark Window
-//------------------------------
-*/
-
-s|Window
-{
-    backgroundAlpha: 1;
-    backgroundColor: #FFFFFF;
-    resizeAffordanceWidth: 6;
-    skinClass: ClassReference("spark.skins.spark.WindowedApplicationSkin");
-}
 
 /*
 //------------------------------
