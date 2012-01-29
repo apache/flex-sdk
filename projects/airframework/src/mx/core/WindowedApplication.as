@@ -13,10 +13,10 @@ package mx.core
 {
 
 import flash.desktop.DockIcon;
+import flash.desktop.NativeApplication;
 import flash.desktop.SystemTrayIcon;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
-import flash.desktop.NativeApplication;
 import flash.display.NativeWindow;
 import flash.display.NativeWindowDisplayState;
 import flash.display.NativeWindowResize;
@@ -619,6 +619,11 @@ public class WindowedApplication extends Application implements IWindow
 		invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
+        
+        // the heightChanged event is dispatched in commitProperties instead of
+        // here because it can change based on user-interaction with the window   
+        // size and _height is set in there so don't want to prematurely 
+        // dispatch here yet
 	}
 
     //----------------------------------
@@ -630,6 +635,8 @@ public class WindowedApplication extends Application implements IWindow
 	 */
 	private var _maxHeight:Number = 10000;
 
+    [Bindable("maxHeightChanged")]
+    
 	/**
      *  @private
      */
@@ -646,6 +653,8 @@ public class WindowedApplication extends Application implements IWindow
 		_maxHeight = Math.min(value, NativeWindow.systemMaxSize.y);
         if (height > _maxHeight)
             height = _maxHeight;
+            
+        dispatchEvent(new Event("maxHeightChanged"));
     }
 
     //----------------------------------
@@ -656,7 +665,9 @@ public class WindowedApplication extends Application implements IWindow
      *  The maximum width of the application's window.
      */
     private var _maxWidth:Number = 10000;
-
+    
+    [Bindable("maxWidthChanged")]
+    
 	/**
      *  @private
      */
@@ -673,6 +684,8 @@ public class WindowedApplication extends Application implements IWindow
         _maxWidth = Math.min(value, NativeWindow.systemMaxSize.x);
         if (width > _maxWidth)
             width = _maxWidth;
+            
+        dispatchEvent(new Event("maxWidthChanged"));
     }
 
      //---------------------------------
@@ -683,7 +696,9 @@ public class WindowedApplication extends Application implements IWindow
      *  @private
      */
     private var _minHeight:Number = 100;
-
+    
+    [Bindable("minHeightChanged")]
+    
     /**
      *  Specifies the minimum height of the application's window.
      *
@@ -702,6 +717,8 @@ public class WindowedApplication extends Application implements IWindow
         _minHeight = Math.max(value, NativeWindow.systemMinSize.y);
         if (height < _minHeight)
             height = _minHeight;
+            
+        dispatchEvent(new Event("minHeightChanged"));
     }
 
      //---------------------------------
@@ -713,7 +730,9 @@ public class WindowedApplication extends Application implements IWindow
 	 *  Storage for the minWidth property.
      */
     private var _minWidth:Number = 100;
-
+    
+    [Bindable("minWidthChanged")]
+        
     /**
      *  Specifies the minimum width of the application's window.
      */
@@ -730,12 +749,18 @@ public class WindowedApplication extends Application implements IWindow
         _minWidth = Math.max(value, NativeWindow.systemMinSize.x);
         if (width < _minWidth)
             width = _minWidth;
+            
+        dispatchEvent(new Event("minWidthChanged"));
     }
 
     //----------------------------------
 	//  visible
 	//----------------------------------
 	
+	[Bindable("hide")]
+    [Bindable("show")]
+    [Bindable("windowComplete")]
+    
 	/**
 	 *  @private
 	 *  Also sets the NativeWindow's visibility.
@@ -768,8 +793,8 @@ public class WindowedApplication extends Application implements IWindow
 				if (value)
 				{
 					e = new FlexEvent(FlexEvent.SHOW);
-					dispatchEvent(e);
 					_nativeWindow.visible = value;
+					dispatchEvent(e);
 				}
 				else
 				{
@@ -777,12 +802,11 @@ public class WindowedApplication extends Application implements IWindow
 					if (getStyle("hideEffect"))
 	    			{
 	             		addEventListener("effectEnd", hideEffectEndHandler);
-						dispatchEvent(e);
 					}
 					else
 					{
-						dispatchEvent(e);
 						_nativeWindow.visible = value;
+						dispatchEvent(e);
 					}
 				}
 			}				
@@ -810,6 +834,11 @@ public class WindowedApplication extends Application implements IWindow
         invalidateProperties();
         invalidateSize();
         invalidateViewMetricsAndPadding();
+        
+        // the widthChanged event is dispatched in commitProperties instead of
+        // here because it can change based on user-interaction with the window   
+        // size and _width is set in there so don't want to prematurely 
+        // dispatch here yet
      }
 
     //--------------------------------------------------------------------------
@@ -1692,16 +1721,32 @@ public class WindowedApplication extends Application implements IWindow
 
         if (boundsChanged)
         {
-            systemManager.stage.stageWidth = _width = _bounds.width;
+	       	var dispatchWidthChangeEvent:Boolean = (_width != _bounds.width);
+        	var dispatchHeightChangeEvent:Boolean = (_height != _bounds.height);
+        	
+            systemManager.stage.stageWidth = _width = _bounds.width; 
             systemManager.stage.stageHeight = _height =  _bounds.height;
             boundsChanged = false;
+            
+            if (dispatchWidthChangeEvent)
+        		dispatchEvent(new Event("widthChanged"));
+        	if (dispatchHeightChangeEvent)
+        		dispatchEvent(new Event("heightChanged"));
         }
 
         if (windowBoundsChanged)
         {
+        	dispatchWidthChangeEvent = (_width != systemManager.stage.stageWidth);
+        	dispatchHeightChangeEvent = (_height != systemManager.stage.stageHeight);
+        	
         	_bounds.width = _width = systemManager.stage.stageWidth;
         	_bounds.height = _height = systemManager.stage.stageHeight;
         	windowBoundsChanged = false;
+        	
+        	if (dispatchWidthChangeEvent)
+        		dispatchEvent(new Event("widthChanged"));
+        	if (dispatchHeightChangeEvent)
+        		dispatchEvent(new Event("heightChanged"));
         }
 
         if (menuChanged && !nativeWindow.closed)
@@ -2343,6 +2388,8 @@ public class WindowedApplication extends Application implements IWindow
 	private function hideEffectEndHandler(event:Event):void
 	{
 		_nativeWindow.visible = false;
+		
+		dispatchEvent(new FlexEvent(FlexEvent.HIDE));
 	}
 
     /**
