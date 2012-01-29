@@ -1972,7 +1972,8 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
      */
     mx_internal function childAdded(child:DisplayObject):void
     {
-        child.dispatchEvent(new FlexEvent(FlexEvent.ADD));
+        if (child.hasEventListener(FlexEvent.ADD))
+            child.dispatchEvent(new FlexEvent(FlexEvent.ADD));
 
         if (child is IUIComponent)
             IUIComponent(child).initialize(); // calls child.createChildren()
@@ -1983,7 +1984,8 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
      */
     mx_internal function removingChild(child:DisplayObject):void
     {
-        child.dispatchEvent(new FlexEvent(FlexEvent.REMOVE));
+        if (child.hasEventListener(FlexEvent.REMOVE))
+            child.dispatchEvent(new FlexEvent(FlexEvent.REMOVE));
     }
 
     /**
