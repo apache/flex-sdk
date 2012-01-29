@@ -170,6 +170,40 @@ import mx.managers.IFocusManagerComponent;
  *  can set the <code>htmlText</code> property to specify a String
  *  containing HTML-formatted text that is rendered in the control.</p>
  *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:HTML&gt;</code> tag inherits all of the tag
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:HTML
+ *    <strong>Properties</strong>
+ *    data="<i>null</i>"
+ *    historyPosition="0"
+ *    htmlHost="<i>null</i>"
+ *    htmlLoaderFactory="mx.core.ClassFactory"
+ *    htmlText=""
+ *    listData="<i>null</i>"
+ *    location=""
+ *    paintsDefaultBackground="false"
+ *    runtimeApplicationDomain="<i>null</i>"
+ *    userAgent="<i>null</i>"
+ * 
+ *    <strong>Styles</strong>
+ *    paddingBottom="0"
+ *    paddingLeft="0"
+ *    paddingRight="0"
+ *    paddingTop="0"
+ * 
+ *    <strong>Events</strong>
+ *    complete="<i>No default</i>"
+ *    htmlDOMInitialize="<i>No default</i>"
+ *    htmlRender="<i>No default</i>"
+ *    locationChange="<i>No default</i>"
+ *    uncaughtScriptException="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
+ * 
  *  @see flash.html.HTMLLoader
  */
  public class HTML extends ScrollControlBase
@@ -452,6 +486,8 @@ import mx.managers.IFocusManagerComponent;
      *  Entries less than the current position are the "back" list;
      *  entries greater are "forward."
      *  Attempting to set the position beyond the end sets it to the end.</p>
+	 * 
+	 *  @default 0
      */
     public function get historyPosition():int
     {
@@ -538,8 +574,8 @@ import mx.managers.IFocusManagerComponent;
      *  override its member functions
      *  to handle various user interface changes in the HTML content,
      *  and set this property to an instance of your subclass.</p>
-     *
-     *  @see flash.html.HTMLHost
+	 * 
+	 *  @default null
      */
     public function get htmlHost():HTMLHost
     {
@@ -780,6 +816,8 @@ import mx.managers.IFocusManagerComponent;
      *  <p>However, if any HTML element has its own opaque background color
      *  (specified by style="background-color:gray", for instance),
      *  then that background appears behind that element.</p>
+	 * 
+	 *  @default false;
      */
     public function get paintsDefaultBackground():Boolean
     {
