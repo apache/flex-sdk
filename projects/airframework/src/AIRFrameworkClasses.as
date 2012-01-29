@@ -20,14 +20,26 @@ package
  */
 internal class AIRFrameworkClasses
 {
-	import mx.managers.NativeDragManagerImpl; NativeDragManagerImpl;
-	import mx.skins.halo.StatusBarBackgroundSkin; StatusBarBackgroundSkin;
-	import mx.skins.halo.WindowBackground; WindowBackground
-	import mx.skins.halo.ApplicationTitleBarBackgroundSkin; ApplicationTitleBarBackgroundSkin;
-	import mx.skins.halo.WindowCloseButtonSkin; WindowCloseButtonSkin;
-	import mx.skins.halo.WindowMinimizeButtonSkin; WindowMinimizeButtonSkin;
-	import mx.skins.halo.WindowMaximizeButtonSkin; WindowMaximizeButtonSkin;
-	import mx.skins.halo.WindowRestoreButtonSkin; WindowRestoreButtonSkin;
+    import mx.core.FxWindowedApplication; FxWindowedApplication;
+    import mx.managers.NativeDragManagerImpl; NativeDragManagerImpl;
+    import mx.skins.halo.StatusBarBackgroundSkin; StatusBarBackgroundSkin;
+    import mx.skins.halo.WindowBackground; WindowBackground
+    import mx.skins.halo.ApplicationTitleBarBackgroundSkin; ApplicationTitleBarBackgroundSkin;
+    import mx.skins.halo.WindowCloseButtonSkin; WindowCloseButtonSkin;
+    import mx.skins.halo.WindowMinimizeButtonSkin; WindowMinimizeButtonSkin;
+    import mx.skins.halo.WindowMaximizeButtonSkin; WindowMaximizeButtonSkin;
+    import mx.skins.halo.WindowRestoreButtonSkin; WindowRestoreButtonSkin;
+    import mx.skins.spark.FxCloseButtonSkin; FxCloseButtonSkin;
+    import mx.skins.spark.FxGripperSkin; FxGripperSkin;
+    import mx.skins.spark.FxMacCloseButtonSkin; FxMacCloseButtonSkin;
+    import mx.skins.spark.FxMacMaximizeButtonSkin; FxMacMaximizeButtonSkin;
+    import mx.skins.spark.FxMacMinimizeButtonSkin; FxMacMinimizeButtonSkin;
+    import mx.skins.spark.FxMaximizeButtonSkin; FxMaximizeButtonSkin;
+    import mx.skins.spark.FxMinimizeButtonSkin; FxMinimizeButtonSkin;
+    import mx.skins.spark.FxRestoreButtonSkin; FxRestoreButtonSkin;
+    import mx.skins.spark.FxTitleBarSkin; FxTitleBarSkin;
+    import mx.skins.spark.FxWindowedApplicationSkin; FxWindowedApplicationSkin;
+
 }
 
 }
