@@ -275,18 +275,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
     }
     
     //----------------------------------
-    //  densityScale
-    //----------------------------------
-    
-    /**
-     *  @private 
-     */
-    public function get densityScale():Number
-    {
-        return 1;
-    }
-    
-    //----------------------------------
     //  document
     //----------------------------------
 
