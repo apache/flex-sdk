@@ -30,16 +30,16 @@ internal class AIRFrameworkClasses
     import mx.skins.halo.WindowMinimizeButtonSkin; WindowMinimizeButtonSkin;
     import mx.skins.halo.WindowMaximizeButtonSkin; WindowMaximizeButtonSkin;
     import mx.skins.halo.WindowRestoreButtonSkin; WindowRestoreButtonSkin;
-    import spark.skins.spark.CloseButtonSkin; CloseButtonSkin;
-    import spark.skins.spark.FlexChromeSkin; FlexChromeSkin;
-    import spark.skins.spark.GripperSkin; GripperSkin;
-    import spark.skins.spark.MacCloseButtonSkin; MacCloseButtonSkin;
-    import spark.skins.spark.MacMaximizeButtonSkin; MacMaximizeButtonSkin;
-    import spark.skins.spark.MacMinimizeButtonSkin; MacMinimizeButtonSkin;
-    import spark.skins.spark.MaximizeButtonSkin; MaximizeButtonSkin;
-    import spark.skins.spark.MinimizeButtonSkin; MinimizeButtonSkin;
-    import spark.skins.spark.RestoreButtonSkin; RestoreButtonSkin;
-    import spark.skins.spark.TitleBarSkin; TitleBarSkin;
+    import spark.skins.spark.windowChrome.CloseButtonSkin; CloseButtonSkin;
+    import spark.skins.spark.SparkChromeWindowedApplicationSkin; SparkChromeWindowedApplicationSkin;
+    import spark.skins.spark.windowChrome.GripperSkin; GripperSkin;
+    import spark.skins.spark.windowChrome.MacCloseButtonSkin; MacCloseButtonSkin;
+    import spark.skins.spark.windowChrome.MacMaximizeButtonSkin; MacMaximizeButtonSkin;
+    import spark.skins.spark.windowChrome.MacMinimizeButtonSkin; MacMinimizeButtonSkin;
+    import spark.skins.spark.windowChrome.MaximizeButtonSkin; MaximizeButtonSkin;
+    import spark.skins.spark.windowChrome.MinimizeButtonSkin; MinimizeButtonSkin;
+    import spark.skins.spark.windowChrome.RestoreButtonSkin; RestoreButtonSkin;
+    import spark.skins.spark.windowChrome.TitleBarSkin; TitleBarSkin;
     import spark.skins.spark.WindowedApplicationSkin; WindowedApplicationSkin;
     import spark.components.WindowedApplication; WindowedApplication;
 }
