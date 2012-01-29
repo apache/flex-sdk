@@ -46,27 +46,189 @@ package mx.controls
 /**
  *  Dispatched before a menu or submenu is displayed.
  *
- *  @eventType mx.events.FlexNativeMenuEvent.MENU_SHOW 
+ *  @eventType mx.events.FlexNativeMenuEvent.MENU_SHOW
  */
 [Event(name="menuShow", type="mx.events.FlexNativeMenuEvent")]
 
 /**
- *  Dispatched when a menu item is selected. 
+ *  Dispatched when a menu item is selected.
  *
  *  @eventType mx.events.FlexNativeMenuEvent.ITEM_CLICK
  */
 [Event(name="itemClick", type="mx.events.FlexNativeMenuEvent")]
 
 /**
- *  FlexNativeMenu is a wrapper class for AIR's NativeMenu.  It presents a Flex 
- *  interface by allowing you to use dataProviders to specify your menu content. 
- * 
+ *  The FlexNativeMenu component provides a wrapper for AIR's NativeMenu class. The FlexNativeMenu
+ *  provides a way to define native operating system menus (such as window, application, and
+ *  context menus) using techniques that are familiar to Flex developers and consistent with
+ *  other Flex menu components, such as using MXML and data providers to specify menu structure.
+ *  However, unlike Flex menu components, the menus that are defined by a FlexNativeMenu
+ *  component are rendered by the host operating system as part of an AIR application, rather
+ *  than being created as visual components by Flex.
+ *
+ *  <p>Like other Flex menu components, to define the structure of a menu represented by a
+ *  FlexNativeMenu component, you create a data provider such as an XML hierarchy or an array
+ *  of objects containing data to be used to define the menu. Several properties can be set to
+ *  define how the data provider data is interpreted, such as the <code>labelField</code> property
+ *  to specify the data field that is used for the menu item label, the <code>keyEquivalentField</code>
+ *  property to specify the field that defines a keyboard equivalent shortcut for the menu item,
+ *  and the <code>mnemonicIndexField</code> property to specify the field that defines the index
+ *  position of the character in the label that is used as the menu item's mnemonic.</p>
+ *
+ *  <p>The data provider for FlexNativeMenu items can specify several attributes that determine how
+ *  the item is displayed and behaves, as the following XML data provider shows:</p>
+ *  <pre>
+ *   &lt;mx:XML format=&quot;e4x&quot; id=&quot;myMenuData&quot;&gt;
+ *     &lt;root&gt;
+ *        &lt;menuitem label=&quot;MenuItem A&quot;&gt;
+ *            &lt;menuitem label=&quot;SubMenuItem A-1&quot; enabled=&quot;False&quot;/&gt;
+ *            &lt;menuitem label=&quot;SubMenuItem A-2&quot;/&gt;
+ *        &lt;/menuitem&gt;
+ *        &lt;menuitem label=&quot;MenuItem B&quot; type=&quot;check&quot; toggled=&quot;true&quot;/&gt;
+ *        &lt;menuitem label=&quot;MenuItem C&quot; type=&quot;check&quot; toggled=&quot;false&quot;/&gt;
+ *        &lt;menuitem type=&quot;separator&quot;/&gt;
+ *        &lt;menuitem label=&quot;MenuItem D&quot;&gt;
+ *            &lt;menuitem label=&quot;SubMenuItem D-1&quot;/&gt;
+ *            &lt;menuitem label=&quot;SubMenuItem D-2&quot;/&gt;
+ *            &lt;menuitem label=&quot;SubMenuItem D-3&quot;/&gt;
+ *        &lt;/menuitem&gt;
+ *    &lt;/root&gt;
+ * &lt;/mx:XML&gt;</pre>
+ *
+ *  <p>The following table lists the attributes you can specify,
+ *  their data types, their purposes, and how the data provider must represent
+ *  them if the menu uses the DefaultDataDescriptor class to parse the data provider:</p>
+ *
+ *  <table class="innertable">
+ *  <tr>
+ *    <th>Attribute</th>
+ *    <th>Type</th>
+ *    <th>Description</th>
+ *  </tr>
+ *  <tr>
+ *    <td><code>altKey</code></td>
+ *    <td>Boolean</td>
+ *    <td>Specifies whether the Alt key is required as part of the key equivalent for the item.</td>
+ *  </tr>
+ *  <tr>
+ *    <td><code>cmdKey</code></td>
+ *    <td>Boolean</td>
+ *    <td>Specifies whether the Command key is required as part of the key equivalent for the item.</td>
+ *  </tr>
+ *  <tr>
+ *    <td><code>ctrlKey</code></td>
+ *    <td>Boolean</td>
+ *    <td>Specifies whether the Control key is required as part of the key equivalent for the item.</td>
+ *  </tr>
+ *  <tr>
+ *    <td><code>enabled</code></td>
+ *    <td>Boolean</td>
+ *    <td>Specifies whether the user can select the menu item (<code>true</code>),
+ *      or not (<code>false</code>). If not specified, Flex treats the item as if
+ *      the value were <code>true</code>.
+ *      If you use the default data descriptor, data providers must use an <code>enabled</code>
+ *      XML attribute or object field to specify this characteristic.</td>
+ *  </tr>
+ *  <tr>
+ *    <td><code>keyEquivalent</code></td>
+ *    <td>String</td>
+ *    <td>Specifies a keyboard character which, when pressed, triggers an event as though
+ *        the menu item was selected. The menu's <code>keyEquivalentField</code> or
+ *        <code>keyEquivalentFunction</code> property determines the name of the field
+ *        in the data that specifies the key equivalent, or a function for determining
+ *        the key equivalents. (If the data provider is in E4X XML format, you must specify
+ *        one of these properties to assign a key equivalent.)</td>
+ *  </tr>
+ *  <tr>
+ *    <td><code>label</code></td>
+ *    <td>String</td>
+ *    <td>Specifies the text that appears in the control. This item is used for all
+ *      menu item types except <code>separator</code>.
+ *      The menu's <code>labelField</code> or <code>labelFunction</code> property
+ *      determines the name of the field in the data that specifies the label,
+ *      or a function for determining the labels. (If the data provider is in E4X XML format,
+ *      you must specify one of these properties to display a label.)
+ *      If the data provider is an Array of Strings, Flex uses the String value as the label.</td>
+ *  </tr>
+ *  <tr>
+ *    <td><code>mnemonicIndex</code></td>
+ *    <td>Integer</td>
+ *    <td>Specifies the index position of the character in the label that is used as the
+ *        mnemonic for the menu item. The menu's <code>mnemonicIndexField</code> or
+ *        <code>mnemonicIndexFunction</code> property determines the name of the field
+ *        in the data that specifies the mnemonic index, or a function for determining
+ *        mnemonic index. (If the data provider is in E4X XML format, you must specify
+ *        one of these properties to specify a mnemonic index in the data.) Alternatively,
+ *        you can indicate that a character in the label is the menu item's mnemonic by
+ *        including an underscore immediately to the left of that character.</td>
+ *  </tr>
+ *  <tr>
+ *    <td><code>shiftKey</code></td>
+ *    <td>Boolean</td>
+ *    <td>Specifies whether the Shift key is required as part of the key equivalent for the item.</td>
+ *  </tr>
+ *  <tr>
+ *    <td><code>toggled</code></td>
+ *    <td>Boolean</td>
+ *    <td>Specifies whether a check item is selected.
+ *      If not specified, Flex treats the item as if the value were <code>false</code>
+ *      and the item is not selected.
+ *      If you use the default data descriptor, data providers must use a <code>toggled</code>
+ *      XML attribute or object field to specify this characteristic.</td>
+ *  </tr>
+ *  <tr>
+ *    <td><code>type</code></td>
+ *    <td>String</td>
+ *    <td>Specifies the type of menu item. Meaningful values are <code>separator</code> and
+ *      <code>check</code>. Flex treats all other values,
+ *      or nodes with no type entry, as normal menu entries.
+ *      If you use the default data descriptor, data providers must use a <code>type</code>
+ *      XML attribute or object field to specify this characteristic.</td>
+ *  </tr>
+ * </table>
+ *
+ *  <p>To create a window menu, set the FlexNativeMenu as the <code>menu</code> property of the
+ *  Window or WindowedApplication instance on which the menu should appear. To create an application
+ *  menu, assign the FlexNativeMenu as the <code>menu</code> property of the application's
+ *  WindowedApplication. To assign a FlexNativeMenu as the context menu for a portion of the user interface,
+ *  call the FlexNativeMenu instance's <code>setContextMenu()</code> method, passing the UI object
+ *  as an argument. Call the FlexNativeMenu component's <code>display()</code> method to display the
+ *  menu as a pop-up menu anywhere on one of the application's windows.</p>
+ *
+ *  <p>To detect when menu items commands are triggered, register a listener for the <code>itemClick</code>
+ *  event. You can also register a listener for the <code>menuShow</code> event to determine when
+ *  any menu or submenu is opened.</p>
+ *
+ *  @mxml
+ *  <p>The <code>&lt;mx:FlexNativeMenu&gt</code> tag supports the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:MenuBar
+ *    <b>Properties</b>
+ *    dataDescriptor="<i>mx.controls.treeClasses.DefaultDataDescriptor</i>"
+ *    dataProvider="<i>undefined</i>"
+ *    keyEquivalentField="keyEquivalent"
+ *    keyEquivalentFunction="<i>undefined</i>"
+ *    keyEquivalentModifiersFunction="<i>undefined</i>"
+ *    labelField="label"
+ *    labelFunction="<i>undefined</i>"
+ *    mnemonicIndexField="mnemonicIndex"
+ *    mnemonicIndexFunction="<i>undefined</i>"
+ *    showRoot="true"
+ *
+ *    <b>Events</b>
+ *    itemClick="<i>No default"</i>
+ *    menuShow="<i>No default"</i>
+ *  /&gt;
+ *  </pre>
+ *
  *  @see flash.display.NativeMenu
+ *  @see mx.events.FlexNativeMenuEvent
  */
-public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerClient, IFlexContextMenu 
+public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerClient, IFlexContextMenu
 {
     include "../core/Version.as";
-    
+
     //--------------------------------------------------------------------------
     //
     //  Class variables
@@ -74,12 +236,12 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     //--------------------------------------------------------------------------
 
     /**
-     *  The character to use to indicate the mnemonic index in a label.  By 
+     *  The character to use to indicate the mnemonic index in a label.  By
      *  default, it is the underscore character, so in "C_ut", u would become
      *  the character for the mnemonic index.
      */
     private static var MNEMONIC_INDEX_CHARACTER:String = "_";
-    
+
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -92,19 +254,19 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     public function FlexNativeMenu()
     {
         super();
-        
+
         _nativeMenu.addEventListener(Event.DISPLAYING, menuDisplayHandler, false, 0, true);
     }
-       
+
     //--------------------------------------------------------------------------
     //
     //  Variables
     //
     //--------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------
 	//
-	//  Properties: ILayoutManagerClient 
+	//  Properties: ILayoutManagerClient
 	//
 	//--------------------------------------------------------------------------
 
@@ -144,10 +306,10 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 	 */
 	private var _nestLevel:int = 1;
 	
-	// no one will likely set nestLevel (but there's a setter in case 
-	// someone wants to.  We default nestLevel to 1 as it's a top-level 
+	// no one will likely set nestLevel (but there's a setter in case
+	// someone wants to.  We default nestLevel to 1 as it's a top-level
 	// component that goes in the chrome.
-    
+
 	/**
      *  @copy mx.core.UIComponent#nestLevel
      */
@@ -220,7 +382,7 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 	{
 		_updateCompletePendingFlag = value;
 	}
-    
+
     //--------------------------------------------------------------------------
     //
     //  Variables: Invalidation
@@ -233,24 +395,25 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
      *  commitProperties() method called.
      */
     private var invalidatePropertiesFlag:Boolean = false;
-    
+
     /**
      * @private
      */
     private var _nativeMenu:NativeMenu = new NativeMenu();
-    
+
     [Bindable("nativeMenuUpdate")]
-    
+
     //----------------------------------
     //  nativeMenu
     //----------------------------------
-    
+
     /**
-      *  Returns the flash.display.NativeMenu managed by this object, 
+      *  Returns the flash.display.NativeMenu managed by this object,
       *  or null if there is not one.
       *
-      *  Modifications to the underlying nativeMenu may be lost when changes
-      *  to the menu or the underlying dataProvider are made.
+      *  Any changes made directly to the underlying NativeMenu instance
+	  *  may be lost when changes are made to the menu or the underlying
+	  *  data provider.
       */
 	public function get nativeMenu() : NativeMenu
 	{
@@ -275,12 +438,12 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     [Inspectable(category="Data")]
 
     /**
-     *  The object that accesses and manipulates data in the data provider. 
-     *  The FlexNativeMenu control delegates to the data descriptor for information 
-     *  about its data. This data is then used to parse and move about the 
+     *  The object that accesses and manipulates data in the data provider.
+     *  The FlexNativeMenu control delegates to the data descriptor for information
+     *  about its data. This data is then used to parse and move about the
      *  data source. The data descriptor defined for the FlexNativeMenu is used for
-     *  all child menus and submenus. 
-     * 
+     *  all child menus and submenus.
+     *
      *  <p>When you specify this property as an attribute in MXML, you must
      *  use a reference to the data descriptor, not the string name of the
      *  descriptor. Use the following format for setting the property:</p>
@@ -310,7 +473,7 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     public function set dataDescriptor(value:IMenuDataDescriptor):void
     {
         _dataDescriptor = value;
-        
+
         dataDescriptorChanged = true;
     }
 	
@@ -322,7 +485,7 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
      *  @private
      */
     private var dataProviderChanged:Boolean = false;
-    
+
     /**
      *  @private
      *  Storage variable for the original dataProvider
@@ -333,30 +496,29 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     [Inspectable(category="Data")]
 
     /**
-     *  The hierarchy of objects that are displayed as NativeMenu items. 
-     *  The top-level children all become NativeMenu items, and their children 
-     *  become the items in the menus and submenus. 
-     * 
-     *  The FlexNativeMenu control handles the source data object as follows:
-     *  <p>
+     *  The hierarchy of objects that are used to define the structure
+	 *  of menu items in the NativeMenu. Individual data objects define
+	 *  menu items, and items with child items become menus and submenus.
+     *
+     *  <p>The FlexNativeMenu control handles the source data object as follows:</p>
+	 *
      *  <ul>
-     *  <li>A String containing valid XML text is converted to an XML object.</li>
-     *  <li>An XMLNode is converted to an XML object.</li>
-     *  <li>An XMLList is converted to an XMLListCollection.</li>
-     *  <li>Any object that implements the ICollectionView interface is cast to
-     *  an ICollectionView.</li>
-     *  <li>An Array is converted to an ArrayCollection.</li>
-     *  <li>Any other type object is wrapped in an Array with the object as its sole
-     *  entry.</li>
+     *    <li>A String containing valid XML text is converted to an XML object.</li>
+     *    <li>An XMLNode is converted to an XML object.</li>
+     *    <li>An XMLList is converted to an XMLListCollection.</li>
+     *    <li>Any object that implements the ICollectionView interface is cast to
+     *        an ICollectionView.</li>
+     *    <li>An Array is converted to an ArrayCollection.</li>
+     *    <li>Any other type object is wrapped in an Array with the object as its sole
+     *        entry.</li>
      *  </ul>
-     *  </p>
-     * 
+     *
      *  @default "undefined"
      */
     public function get dataProvider():Object
     {
         if (mx_internal::_rootModel)
-        {   
+        {
             return mx_internal::_rootModel;
         }
         else return null;
@@ -369,10 +531,10 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     {
         if (mx_internal::_rootModel)
         {
-            mx_internal::_rootModel.removeEventListener(CollectionEvent.COLLECTION_CHANGE, 
+            mx_internal::_rootModel.removeEventListener(CollectionEvent.COLLECTION_CHANGE,
                                            collectionChangeHandler);
         }
-                            
+
         // handle strings and xml
         if (typeof(value)=="string")
             value = new XML(value);
@@ -380,7 +542,7 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
             value = new XML(XMLNode(value).toString());
         else if (value is XMLList)
             value = new XMLListCollection(value as XMLList);
-        
+
         if (value is XML)
         {
             _hasRoot = true;
@@ -418,18 +580,18 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
         //flag for processing in commitProps
         dataProviderChanged = true;
         invalidateProperties();
-        
+
         var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
         event.kind = CollectionEventKind.RESET;
         collectionChangeHandler(event);
         dispatchEvent(event);
     }
-    
+
     //----------------------------------
     //  hasRoot
     //----------------------------------
 
-    /** 
+    /**
      *  @private
      *  Flag to indicate if the model has a root
      */
@@ -442,7 +604,7 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     {
         return _hasRoot;
     }
-    
+
     //----------------------------------
     //  keyEquivalentField
     //----------------------------------
@@ -461,12 +623,12 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     [Inspectable(category="Data", defaultValue="keyEquivalent")]
 
     /**
-     *  The name of the field in the data provider that determines the 
-     *  key equivalent for each menu item.  For the proper name, especially 
-     *  for control characters, such as Home, Insert, etc..., look at the 
-     *  Keyboard API KEYNAME_XXX constants.
-     * 
-     *  Setting the <code>keyEquivalentFunction</code> property overrides this property.
+     *  The name of the field in the data provider that determines the
+     *  key equivalent for each menu item.  The set of values is defined
+	 *  in the Keyboard class, in the <code>KEYNAME_XXXX</code> constants. For example,
+	 *  consult that list for the value for a control character such as Home, Insert, etc.
+     *
+     *  <p>Setting the <code>keyEquivalentFunction</code> property causes this property to be ignored.</p>
      *
      *  @default "keyEquivalent"
      *  @see flash.ui.Keyboard
@@ -485,9 +647,9 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
         {
             _keyEquivalentField = value;
             keyEquivalentFieldChanged = true;
-            
+
             invalidateProperties();
-            
+
             dispatchEvent(new Event("keyEquivalentFieldChanged"));
         }
     }
@@ -506,21 +668,18 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 
     /**
      *  The function that determines the key equivalent for each menu item.
-     *  For the proper name, especially for control characters, such as 
-     *  Home, Insert, etc..., look at the Keyboard API KEYNAME_XXX constants.
-     * 
      *  If you omit this property, Flex uses the contents of the field or
      *  attribute specified by the <code>keyEquivalentField</code> property.
      *  If you specify this property, Flex ignores any <code>keyEquivalentField</code>
      *  property value.
      *
-     *  The <code>keyEquivalentFunction</code> property is good for handling formatting, 
-     *  localization, and platform independence.
+     *  <p>The <code>keyEquivalentFunction</code> property is good for handling formatting,
+     *  localization, and platform independence.</p>
      *
-     *  <p>The key equivalent function must take a single argument which is the item
-     *  in the data provider and return a String.</p>
-     *  <pre>
-     *  <code>myKeyEquivalentFunction(item:Object):String</code> </pre>
+     *  <p>The key equivalent function must take a single argument, which is the item
+     *  in the data provider, and must return a String.</p>
+	 *
+     *  <pre><code>myKeyEquivalentFunction(item:Object):String</code></pre>
      *
      *  @default "undefined"
      *  @see flash.ui.Keyboard
@@ -539,13 +698,13 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
         {
             _keyEquivalentFunction = value;
             keyEquivalentFieldChanged = true;
-            
+
             invalidateProperties();
-            
+
             dispatchEvent(new Event("keyEquivalentFunctionChanged"));
         }
     }
-    
+
     //----------------------------------
     //  keyEquivalentModifiersFunction
     //----------------------------------
@@ -597,7 +756,7 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 	            }
         	}
         }
-        
+
         return modifiers;
     }
 
@@ -606,18 +765,19 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 
     /**
      *  The function that determines the key equivalent modifiers for each menu item.
-     * 
+     *
      *  If you omit this property, Flex uses its own default function to determine the
-     *  Array of modifiers.  It looks for boolean fields, altKey, ctrlKey, shiftKey, 
-     *  and cmdKey.
+     *  Array of modifiers by looking in the data provider data for the presence of
+	 *  the following (boolean) fields: <code>altKey</code>, <code>cmdKey</code>,
+	 *  <code>ctrlKey</code>, and <code>shiftKey</code>.
      *
-     *  The <code>keyEquivalentModifiersFunction</code> property is good for handling 
-     *  formatting, localization, and platform independence.
+     *  <p>The <code>keyEquivalentModifiersFunction</code> property is good for handling
+     *  formatting, localization, and platform independence.</p>
      *
-     *  <p>The key equivalent modifiers function must take a single argument which 
-     *  is the item in the data provider and return an array of modifiers.</p>
-     *  <pre>
-     *  <code>myKeyEquivalentModifiersFunction(item:Object):Array</code> </pre>
+     *  <p>The key equivalent modifiers function must take a single argument, which
+     *  is the item in the data provider, and must return an array of modifier key names.</p>
+	 *
+     *  <pre><code>myKeyEquivalentModifiersFunction(item:Object):Array</code></pre>
      *
      *  @default "undefined"
      */
@@ -635,13 +795,13 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
         {
             _keyEquivalentModifiersFunction = value;
             keyEquivalentModifiersFunctionChanged = true;
-            
+
             invalidateProperties();
-            
+
             dispatchEvent(new Event("keyEquivalentModifiersFunctionChanged"));
         }
     }
-    
+
     //----------------------------------
     //  labelField
     //----------------------------------
@@ -660,22 +820,25 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     [Inspectable(category="Data", defaultValue="label")]
 
     /**
-     *  The name of the field in the data provider that determines the 
-     *  text to display for each menu item. If the data provider is an Array of 
-     *  Strings, Flex uses each string value as the label. If the data 
-     *  provider is an E4X XML object, you must set this property explicitly. 
-     *  For example, use @label to specify the label attribute in an E4X XML Object 
-     *  as the text to display for each menu item.
-     * 
-     *  In a label, you can specify the character to be used as the mnemonic index 
-     *  by preceding it with an underscore (Example: C_ut sets mnemonic index to 1). 
-     *  Only the first underscore present is used for this purpose.  To get an 
-     *  underscore to display in the label, you need to escape it with another 
-     *  underscore.  So for example: (C__u_t) would show up as (C_ut) with a mnemonic 
-     *  index of 3 (on the "t" character). The mnemonicIndex 
-     *  property, if greater than zero, takes precedence over this value.  
-     * 
-     *  Setting the <code>labelFunction</code> property overrides this property.
+     *  The name of the field in the data provider that determines the
+     *  text to display for each menu item. If the data provider is an Array of
+     *  Strings, Flex uses each string value as the label. If the data
+     *  provider is an E4X XML object, you must set this property explicitly.
+     *  For example, if each XML elementin an E4X XML Object includes a "label"
+	 *  attribute containing the text to display for each menu item, set
+	 *  the labelField to <code>"&#064;label"</code>.
+     *
+     *  <p>In a label, you can specify the character to be used as the mnemonic index
+     *  by preceding it with an underscore. For example, a label value of <code>"C_ut"</code>
+	 *  sets the mnemonic index to 1. Only the first underscore present is used for this
+	 *  purpose.  To display a literal underscore character in the label, you can escape it
+	 *  using a double underscore. For example, a label value of <code>"C__u_t"</code> would
+	 *  result in a menu item with the label "C_ut" and a mnemonic index of 3 (the "t"
+	 *  character). If the field defined in the <code>mnemonicIndexField</code> property
+	 *  is present and set to a value greater than zero, that value takes precedence over
+	 *  any underscore-specified mnemonic index value.</p>
+     *
+     *  <p>Setting the <code>labelFunction</code> property causes this property to be ignored.</p>
      *
      *  @default "label"
      */
@@ -693,9 +856,9 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
         {
             _labelField = value;
             labelFieldChanged = true;
-            
+
             invalidateProperties();
-            
+
             dispatchEvent(new Event("labelFieldChanged"));
         }
     }
@@ -714,29 +877,21 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 
     /**
      *  The function that determines the text to display for each menu item.
-     *  The label function must find the appropriate field or fields in the 
+     *  The label function must find the appropriate field or fields in the
      *  data provider and return a displayable string.
-     * 
-     *  If you omit this property, Flex uses the contents of the field or
+     *
+     *  <p>If you omit this property, Flex uses the contents of the field or
      *  attribute specified by the <code>labelField</code> property.
      *  If you specify this property, Flex ignores any <code>labelField</code>
-     *  property value.
-     * 
-     *  In a label, you can specify the character to be used as the mnemonic index 
-     *  by preceding it with an underscore (Example: C_ut sets mnemonic index to 1). 
-     *  Only the first underscore present is used for this purpose.  To get an 
-     *  underscore to display in the label, you need to escape it with another 
-     *  underscore.  So for example: (C__u_t) would show up as (C_ut) with a mnemonic 
-     *  index of 3 (on the "t" character). The mnemonicIndex 
-     *  property, if greater than zero, takes precedence over this value. 
+     *  property value.</p>
      *
-     *  The <code>labelFunction</code> property is good for handling formatting, 
-     *  localization, and platform-independence.
+     *  <p>The <code>labelFunction</code> property can be helpful for handling formatting,
+     *  localization, and platform-independence.</p>
      *
-     *  <p>The label function must take a single argument which is the item
-     *  in the data provider and return a String.</p>
-     *  <pre>
-     *  <code>myLabelFunction(item:Object):String</code> </pre>
+     *  <p>The label function must take a single argument, which is the item
+     *  in the data provider, and must return a String.</p>
+	 *
+     *  <pre><code>myLabelFunction(item:Object):String</code></pre>
      *
      *  @default "undefined"
      */
@@ -754,13 +909,13 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
         {
             _labelFunction = value;
             labelFieldChanged = true;
-            
+
             invalidateProperties();
-            
+
             dispatchEvent(new Event("labelFunctionChanged"));
         }
     }
-    
+
     //----------------------------------
     //  mnemonicIndexField
     //----------------------------------
@@ -779,15 +934,19 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     [Inspectable(category="Data", defaultValue="mnemonicIndex")]
 
     /**
-     *  The name of the field in the data provider that determines the 
+     *  The name of the field in the data provider that determines the
      *  mnemonic index for each menu item.
-     * 
-     *  If this field returns a number greater than zero, this mnemonic index 
-     *  takes precedence over the one specified by an underscore in the label.
-     * 
-     *  Setting the <code>mnemonicIndexFunction</code> property overrides this property.
+     *
+     *  <p>If the field specified by this property contains a number greater
+	 *  than zero, that mnemonic index
+     *  takes precedence over one specified by an underscore in the label.</p>
+     *
+     *  <p>Setting the <code>mnemonicIndexFunction</code> property causes
+	 *  this property to be ignored.</p>
      *
      *  @default "mnemonicIndex"
+	 *
+	 *  @see #labelField
      */
     public function get mnemonicIndexField():String
     {
@@ -803,9 +962,9 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
         {
             _mnemonicIndexField = value;
             mnemonicIndexFieldChanged = true;
-            
+
             invalidateProperties();
-            
+
             dispatchEvent(new Event("mnemonicIndexFieldChanged"));
         }
     }
@@ -824,22 +983,23 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 
     /**
      *  The function that determines the mnemonic index for each menu item.
-     * 
-     *  If you omit this property, Flex uses the contents of the field or
+     *
+     *  <p>If you omit this property, Flex uses the contents of the field or
      *  attribute specified by the <code>mnemonicIndexField</code> property.
      *  If you specify this property, Flex ignores any <code>mnemonicIndexField</code>
-     *  property value.
+     *  property value.</p>
      *
-     *  If this returns a number greater than zero, this mnemonic index 
-     *  takes precedence over the one specified by an underscore in the label.
-     * 
-     *  The <code>mnemonicIndexFunction</code> property is good for handling formatting, 
-     *  localization, and platform independence.
+     *  <p>If this property is defined and the function returns a number greater than
+	 *  zero for a data item, the returned mnemonic index
+     *  takes precedence over one specified by an underscore in the label.</p>
+     *
+     *  <p>The <code>mnemonicIndexFunction</code> property is good for handling formatting,
+     *  localization, and platform independence.</p>
      *
      *  <p>The mnemonic index function must take a single argument which is the item
      *  in the data provider and return an int.</p>
-     *  <pre>
-     *  <code>myMnemonicIndexFunction(item:Object):int</code> </pre>
+	 *
+     *  <pre><code>myMnemonicIndexFunction(item:Object):int</code></pre>
      *
      *  @default "undefined"
      */
@@ -857,13 +1017,13 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
         {
             _mnemonicIndexFunction = value;
             mnemonicIndexFieldChanged = true;
-            
+
             invalidateProperties();
-            
+
             dispatchEvent(new Event("mnemonicIndexFunctionChanged"));
         }
     }
-    
+
     //----------------------------------
     //  showRoot
     //----------------------------------
@@ -878,19 +1038,19 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
      *  @private
      */
     private var showRootChanged:Boolean = false;
-    
+
     [Inspectable(category="Data", enumeration="true,false", defaultValue="false")]
 
     /**
-     *  A Boolean flag that specifies whether to display the data provider's 
+     *  A Boolean flag that specifies whether to display the data provider's
      *  root node.
      *
-     *  If the data provider has a root node, and the <code>showRoot</code> property 
-     *  is set to <code>false</code>, the items on the FlexNativeMenu control correspond to
-     *  the immediate descendants of the root node.  
-     * 
-     *  This flag has no effect on data providers without root nodes, 
-     *  like Lists and Arrays. 
+     *  <p>If the data provider has a root node, and the <code>showRoot</code> property
+     *  is set to <code>false</code>, the top-level menu items displayed by the
+	 *  FlexNativeMenu control correspond to the immediate descendants of the root node.</p>
+     *
+     *  <p>This flag has no effect when using a data provider without a root nodes,
+     *  such as a List or Array.</p>
      *
      *  @default true
      *  @see #hasRoot
@@ -940,7 +1100,7 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 			}
 		}
     }
-    
+
     /**
      *  @private
      */
@@ -948,7 +1108,7 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     {
         validateProperties();
     }
-    
+
     /**
      *  @inheritDoc
      */
@@ -961,24 +1121,24 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
             invalidatePropertiesFlag = false;
         }
     }
-    
+
     /**
      *  @inheritDoc
      */
     public function validateSize(recursive:Boolean = false):void
     {
     }
-    
+
     /**
      *  @inheritDoc
      */
     public function validateDisplayList():void
     {
     }
-    
+
     /**
-	 *  Validate and update the properties and layout of this object
-	 *  and redraw it, if necessary.
+	 *  Validates and updates the properties and layout of this object
+	 *  and redraws it, if necessary.
 	 */
 	public function validateNow():void
 	{
@@ -989,7 +1149,7 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 	}
 
 	/**
-	 *  Sets the native menu on the underlying InteractiveObject to the AIR menu
+	 *  Sets the context menu of the InteractiveObject to the underlying native menu.
 	 */
 	public function setContextMenu(component:InteractiveObject):void
 	{
@@ -1005,37 +1165,38 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 	}
 	
 	/**
-	 *  Unsets the native menu on the underlying InteractiveObject to the AIR menu
+	 *  Unsets the context menu of the InteractiveObject that has been set to
+	 *  the underlying native menu.
 	 */
 	public function unsetContextMenu(component:InteractiveObject):void
 	{
 		component.contextMenu = null;
 	}
-    
+
     /**
      *  Processes the properties set on the component.
 	 *
 	 *  @see mx.core.UIComponent#commitProperties()
      */
     protected function commitProperties():void
-    {        
+    {
         if (showRootChanged)
         {
             if (!_hasRoot)
-                showRootChanged = false;            
+                showRootChanged = false;
         }
 
-        if (dataProviderChanged ||showRootChanged || 
+        if (dataProviderChanged ||showRootChanged ||
         	labelFieldChanged || dataDescriptorChanged)
         {
             var tmpCollection:ICollectionView;
-            
-            //reset flags 
+
+            //reset flags
             dataProviderChanged = false;
             showRootChanged = false;
             labelFieldChanged = false;
             dataDescriptorChanged = false;
-        
+
             // are we swallowing the root?
             if (mx_internal::_rootModel && !_showRoot && _hasRoot)
             {
@@ -1045,37 +1206,37 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
                     _dataDescriptor.hasChildren(rootItem, mx_internal::_rootModel))
                 {
                     // then get rootItem children
-                    tmpCollection = 
+                    tmpCollection =
                         _dataDescriptor.getChildren(rootItem, mx_internal::_rootModel);
                 }
             }
-            
+
             // remove all items first.  This is better than creating a new NativeMenu
             // as the root since we have the same reference
             clearMenu(_nativeMenu);
-            
-            // make top level items            
+
+            // make top level items
             if (mx_internal::_rootModel)
             {
                 if (!tmpCollection)
                     tmpCollection = mx_internal::_rootModel;
-                // not really a default handler, but we need to 
+                // not really a default handler, but we need to
                 // be later than the wrapper
                 tmpCollection.addEventListener(CollectionEvent.COLLECTION_CHANGE,
                                                collectionChangeHandler,
                                                false,
                                                EventPriority.DEFAULT_HANDLER, true);
-             
-             	populateMenu(_nativeMenu, tmpCollection);                             
+
+             	populateMenu(_nativeMenu, tmpCollection);
             }
-            
+
             dispatchEvent(new Event("nativeMenuChange"));
         }
     }
-    
+
     /**
      *  Creates a menu and adds appropriate listeners
-     * 
+     *
      *  @private
      */
     private function createMenu():NativeMenu
@@ -1083,13 +1244,13 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
         var menu:NativeMenu = new NativeMenu();
         // need to do this in the constructor for the root nativeMenu
         menu.addEventListener(Event.DISPLAYING, menuDisplayHandler, false, 0, true);
-        
+
         return menu;
     }
-    
+
     /**
      *  Clears out all items in a given menu
-     * 
+     *
      *  @private
      */
     private function clearMenu(menu:NativeMenu):void
@@ -1100,10 +1261,10 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     		menu.removeItemAt(0);
     	}
     }
-    
+
     /**
      *  Populates a menu and the related submenus given a collection
-     * 
+     *
      *  @private
      */
     private function populateMenu(menu:NativeMenu, collection:ICollectionView):NativeMenu
@@ -1120,14 +1281,14 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
                 //we probably dont need to actively recover from here
             }
         }
-        
+
         return menu;
     }
-    
+
     /**
      *  Adds the NativeMenuItem to the NativeMenu.  This methods looks at the
      *  properties of the data sent in and sets them properly on the NativeMenuItem.
-     * 
+     *
      *  @private
      */
     private function insertMenuItem(menu:NativeMenu, index:int, data:Object):void
@@ -1180,11 +1341,11 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 			nativeMenuItem.addEventListener(flash.events.Event.SELECT, itemSelectHandler, false, 0, true);
 			
 			// recursive
-			if (dataDescriptor.isBranch(data, mx_internal::_rootModel) && 
+			if (dataDescriptor.isBranch(data, mx_internal::_rootModel) &&
 				dataDescriptor.hasChildren(data, mx_internal::_rootModel))
 			{
 				nativeMenuItem.submenu = createMenu();
-				populateMenu(nativeMenuItem.submenu, 
+				populateMenu(nativeMenuItem.submenu,
 					dataDescriptor.getChildren(data, mx_internal::_rootModel));
 			}
 		}
@@ -1192,7 +1353,7 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 		// done!
 		menu.addItem(nativeMenuItem);
     }
-    
+
     /**
      *  @copy flash.display.NativeMenu#display()
      */
@@ -1200,12 +1361,12 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
      {
      	nativeMenu.display(stage, x, y);     	
      }
-     
+
     /**
      *  Returns the key equivalent for the given data object
-     *  based on the keyEquivalentField and keyEquivalentFunction properties.
-     *  If the method cannot convert the parameter to a string, it returns an
-     *  empty string
+     *  based on the <code>keyEquivalentField</code> and <code>keyEquivalentFunction</code>
+	 *  properties. If the method cannot convert the parameter to a String, it returns an
+     *  empty string.
      *
      *  @param data Object to be displayed.
      *
@@ -1255,12 +1416,12 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 
         return "";
     }
-    
+
     /**
      *  Returns the key equivalent modifiers for the given data object
-     *  based on the keyEquivalentModifiersFunction property.
-     *  If the method cannot convert the parameter to an array of modifiers, 
-     *  it returns an empty array
+     *  based on the <code>keyEquivalentModifiersFunction</code> property.
+     *  If the method cannot convert the parameter to an Array of modifiers,
+     *  it returns an empty Array.
      *
      *  @param data Object to be displayed.
      *
@@ -1276,11 +1437,12 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 
         return [];
     }
-    
+
     /**
-     *  Returns the string to display for the given data object
-     *  based on the labelField and labelFunction properties.
-     *  If the method cannot convert the parameter to a string, it returns a
+     *  Returns the String to use as the menu item label for the given data
+	 *  object, based on the <code>labelField</code> and <code>labelFunction</code>
+	 *  properties.
+     *  If the method cannot convert the parameter to a String, it returns a
      *  single space.
      *
      *  @param data Object to be displayed.
@@ -1335,12 +1497,11 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 
         return " ";
     }
-    
+
     /**
      *  Returns the mnemonic index for the given data object
-     *  based on the mnemonicIndexField and mnemonicIndexFunction properties.
-     *  If the method cannot convert the parameter to an integer, it returns an
-     *  -1.
+     *  based on the <code>mnemonicIndexField</code> and <code>mnemonicIndexFunction</code>
+	 *  properties. If the method cannot convert the parameter to an integer, it returns -1.
      *
      *  @param data Object to be displayed.
      *
@@ -1350,7 +1511,7 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     {
         if (data == null)
             return -1;
-            
+
         var mnemonicIndex:int;
 
         if (mnemonicIndexFunction != null)
@@ -1392,11 +1553,11 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
 
         return -1;
     }
-    
+
     /**
-     *  Returns the actual label sent to the NativeMenuItem.
-     *  It takes out the leading underscore character if 
-     *  there is one
+     *  Determines the actual label to be used for the NativeMenuItem
+     *  by removing underscore characters and converting escaped underscore
+	 *  characters, if there are any.
      */
     protected function parseLabelToString(data:String):String
     {
@@ -1414,10 +1575,10 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     	
     	return dataWithoutEscapedUnderscores.join(MNEMONIC_INDEX_CHARACTER);
     }
-    
+
     /**
-     *  Returns the mnemonic index sent to the NativeMenuItem.
-     *  It finds the leading underscore character if 
+     *  Extracts the mnemonic index from a label based on the presence of
+	 *  an underscore character. It finds the leading underscore character if
      *  there is one and uses that as the index.
      */
     protected function parseLabelToMnemonicIndex(data:String):int
@@ -1454,17 +1615,17 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
     private function itemSelectHandler(event:Event):void
     {
         var nativeMenuItem:NativeMenuItem = event.target as NativeMenuItem;
-        
+
         var type:String = dataDescriptor.getType(nativeMenuItem.data).toLowerCase();
         if (type == "check")
         {
         	var checked:Boolean = !dataDescriptor.isToggled(nativeMenuItem.data);
         	nativeMenuItem.checked = checked;
         	dataDescriptor.setToggled(nativeMenuItem.data, checked);
-        	// this causes an update event which ends up re-creating 
+        	// this causes an update event which ends up re-creating
         	// the whole menu... (SDK-13109)
         }
-        
+
         var menuEvent:FlexNativeMenuEvent = new FlexNativeMenuEvent(FlexNativeMenuEvent.ITEM_CLICK);
         menuEvent.nativeMenu = nativeMenuItem.menu;
         menuEvent.index = nativeMenuItem.menu.getItemIndex(nativeMenuItem);
@@ -1473,14 +1634,14 @@ public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerCli
         menuEvent.item = nativeMenuItem.data;
         dispatchEvent(menuEvent);
     }
-    
+
     /**
      *  @private
      */
     private function menuDisplayHandler(event:Event):void
     {
         var nativeMenu:NativeMenu = event.target as NativeMenu;
- 
+
         var menuEvent:FlexNativeMenuEvent = new FlexNativeMenuEvent(FlexNativeMenuEvent.MENU_SHOW);
         menuEvent.nativeMenu = nativeMenu;
         dispatchEvent(menuEvent);
