@@ -224,6 +224,37 @@ use namespace mx_internal;
  *  Therefore the actual file system icons displayed in the operating system
  *  are not displayed in a FileSystemDataGrid, even though they are
  *  accessible in AIR via the <code>icon</code> property of a File.</p>
+ * 
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:FileSystemDataGrid&gt;</code> tag inherits all of the tag
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:FileSystemDataGrid
+ *    <strong>Properties</strong>
+ *    dateFormatString=""
+ *    directory="<i>null</i>"
+ *    enumerationMode="directoriesFirst"
+ *    extensions="<i>null</i>"
+ *    filterFunction="<i>null</i>"
+ *    nameCompareFunction="<i>null</i>"
+ *    selectedPath="<i>null</i>"
+ *    selectedPaths="<i>null</i>"
+ *    showExtensions="true"
+ *    showHidden="false"
+ *    showIcons="true"
+ * 
+ *    <strong>Styles</strong>
+ *    directoryIcon="<i>TreeNodeIcon</i>"
+ *    fileIcon="<i>TreeNodeIcon</i>"
+ * 
+ *    <strong>Events</strong>
+ *    directoryChange="<i>No default</i>"
+ *    directoryChanging="<i>No default</i>"
+ *    fileChoose="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
  *
  *  @see flash.filesystem.File
  */
@@ -555,6 +586,10 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#enumerationMode
+     *
+     *  @default FileSystemEnumerationMode.DIRECTORIES_FIRST
+     *
+     *  @see mx.controls.FileSystemEnumerationMode
      */
     public function get enumerationMode():String
     {
@@ -575,6 +610,8 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#extensions
+     *
+     *  @default null
      */
     public function get extensions():Array /* of String */
     {
@@ -595,6 +632,8 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#filterFunction
+     *
+     *  @default null
      */
     public function get filterFunction():Function
     {
@@ -686,6 +725,8 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#nameCompareFunction
+     *
+     *  @default null
      */
     public function get nameCompareFunction():Function
     {
@@ -709,6 +750,11 @@ public class FileSystemDataGrid extends DataGrid
 	
     /**
      *  @copy mx.controls.FileSystemList#selectedPath
+     *
+     *  @default null
+     *
+     *  @see mx.controls.listClasses.ListBase#selectedIndex
+     *  @see mx.controls.listClasses.ListBase#selectedItem
      */
     public function get selectedPath():String
     {
@@ -732,6 +778,11 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#selectedPaths
+     *
+     *  @default []
+     *
+     *  @see mx.controls.listClasses.ListBase#selectedIndex
+     *  @see mx.controls.listClasses.ListBase#selectedItem
      */
     public function get selectedPaths():Array /* of String */
     {
