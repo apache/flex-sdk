@@ -24,7 +24,6 @@ internal class AIRFrameworkClasses
     
     import mx.managers.NativeDragManagerImpl; NativeDragManagerImpl;
     import mx.skins.halo.StatusBarBackgroundSkin; StatusBarBackgroundSkin;
-    import mx.skins.halo.WindowBackground; WindowBackground
     import mx.skins.halo.ApplicationTitleBarBackgroundSkin; ApplicationTitleBarBackgroundSkin;
     import mx.skins.halo.WindowCloseButtonSkin; WindowCloseButtonSkin;
     import mx.skins.halo.WindowMinimizeButtonSkin; WindowMinimizeButtonSkin;
