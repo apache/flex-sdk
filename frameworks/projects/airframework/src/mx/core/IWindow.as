@@ -19,7 +19,7 @@ import flash.display.NativeWindow;
  *  containers in Flex-based AIR applications (containers that represent operating
  *  system windows).
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public interface IWindow
 {
