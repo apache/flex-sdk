@@ -441,7 +441,10 @@ use namespace mx_internal;
  *    windowResize="<i>No default</i>"
  *  /&gt;
  *  </pre>
- *
+ * 
+ *  @see mx.core.WindowedApplication
+ * 
+ *  @productversion Apollo 1.0
  */
 public class Window extends LayoutContainer implements IWindow
 {
