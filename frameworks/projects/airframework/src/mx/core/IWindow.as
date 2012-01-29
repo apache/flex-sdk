@@ -18,6 +18,8 @@ import flash.display.NativeWindow;
  *  The IWindow interface defines the API for components that serve as top-level
  *  containers in Flex-based AIR applications (containers that represent operating
  *  system windows).
+ * 
+ *  @productversion Apollo 1.0
  */
 public interface IWindow
 {
