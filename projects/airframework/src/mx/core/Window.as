@@ -2255,6 +2255,8 @@ public class Window extends LayoutContainer implements IWindow
         // Create and open window.
         if (flagForOpen && !_nativeWindow)
         {
+            flagForOpen = false;
+            
             var init:NativeWindowInitOptions = new NativeWindowInitOptions();
             init.maximizable = _maximizable;
             init.minimizable = _minimizable;
