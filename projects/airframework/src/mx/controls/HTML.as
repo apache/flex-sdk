@@ -1405,7 +1405,7 @@ import mx.managers.IFocusManagerComponent;
          dispatchEvent(event);
     }
 
-    /*
+    /**
      *  @private
      */
     private function htmlLoader_completeHandler(event:Event):void
