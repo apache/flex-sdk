@@ -68,9 +68,9 @@
             <!-- If you change this, update ${local.playerglobal.version} above. -->
 		    <target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
-			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${basedir}/halo-air-manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/mx-air-manifest.xml"/>
 			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/spark-air-manifest.xml"/>
-			<include-namespaces uri="library://ns.adobe.com/flex/halo"/>
+			<include-namespaces uri="library://ns.adobe.com/flex/mx"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
 			<include-classes>AIRFrameworkClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
@@ -338,9 +338,9 @@
 
 		    <library-path/>
 
-			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${basedir}/halo-air-manifest.xml"/>
+            <namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/mx-air-manifest.xml"/>
 			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/spark-air-manifest.xml"/>
-			<doc-namespaces uri="library://ns.adobe.com/flex/halo"/>
+			<doc-namespaces uri="library://ns.adobe.com/flex/mx"/>
 			<doc-namespaces uri="library://ns.adobe.com/flex/spark"/>
 
       <jvmarg line="${asdoc.jvm.args}"/>
