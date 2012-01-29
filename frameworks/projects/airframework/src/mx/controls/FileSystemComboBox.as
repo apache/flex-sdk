@@ -117,7 +117,6 @@ use namespace mx_internal;
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemTree
  * 
- *  @playerversion AIR 1.1
  */
 public class FileSystemComboBox extends ComboBox
 {
@@ -131,7 +130,7 @@ public class FileSystemComboBox extends ComboBox
 
     /**
      *  A constant that can be used as a value for the <code>directory</code> property,
-	 *  representing a pseudo-top level directory named "Computer". This pseudo-directory
+     *  representing a pseudo-top level directory named "Computer". This pseudo-directory
      *  contains the root directories
      *  (such as C:\ and D:\ on Windows or / on Macintosh).
      */
@@ -220,7 +219,7 @@ public class FileSystemComboBox extends ComboBox
 
         invalidateProperties();
 
-		dispatchEvent(new Event("directoryChanged"));
+        dispatchEvent(new Event("directoryChanged"));
     }
 
     //----------------------------------
@@ -298,9 +297,9 @@ public class FileSystemComboBox extends ComboBox
             dataProvider = getParentChain(_directory);
             selectedItem = _directory;
 
-			var event:FileEvent = new FileEvent(FileEvent.DIRECTORY_CHANGE);
-			event.file = _directory;
-			dispatchEvent(event);
+            var event:FileEvent = new FileEvent(FileEvent.DIRECTORY_CHANGE);
+            event.file = _directory;
+            dispatchEvent(event);
 
             directoryChanged = false;
         }
@@ -316,16 +315,16 @@ public class FileSystemComboBox extends ComboBox
         // The name of the COMPUTER pseudo-directory is localizable.
         // It appears at the top of the dropdown,
         // and may also be displayed as the selected item.
-		invalidateSize();
+        invalidateSize();
         invalidateDisplayList();
-		selectedIndex = selectedIndex;
+        selectedIndex = selectedIndex;
     }
 
     /**
      *  @private
      */
     override protected function calculatePreferredSizeFromData(count:int):Object
-	{
+    {
         var maxW:Number = 0;
         var maxH:Number = 0;
 
@@ -349,7 +348,7 @@ public class FileSystemComboBox extends ComboBox
 
             lineMetrics = measureText(txt);
 
-			lineMetrics.width += i * indent;
+            lineMetrics.width += i * indent;
 
             maxW = Math.max(maxW, lineMetrics.width);
             maxH = Math.max(maxH, lineMetrics.height);
@@ -372,7 +371,7 @@ public class FileSystemComboBox extends ComboBox
             iterator.seek(bookmark, 0);
 
         return { width: maxW, height: maxH };
-	}
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -479,11 +478,11 @@ class FileSystemComboBoxRenderer extends ListItemRenderer
             return;
 
         var iconClass:Class = comboBox.getStyle(
-        	comboBox.helper.isComputer(File(data)) ?
+            comboBox.helper.isComputer(File(data)) ?
             "computerIcon" :
             "directoryIcon");
 
-		if (iconClass)
+        if (iconClass)
         {
             icon = new iconClass();
             addChild(DisplayObject(icon));
