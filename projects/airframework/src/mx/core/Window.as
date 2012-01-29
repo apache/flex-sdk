@@ -2790,6 +2790,7 @@ public class Window extends LayoutContainer implements IWindow
             stage.nativeWindow.dispatchEvent(e);
             if (!(e.isDefaultPrevented()))
             {
+                removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
                 stage.nativeWindow.close();
                 _nativeWindow = null;
                 systemManager.removeChild(this);
