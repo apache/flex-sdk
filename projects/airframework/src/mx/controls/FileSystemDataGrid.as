@@ -35,6 +35,10 @@ use namespace mx_internal;
  *  changes for any reason.
  *
  *  @eventType mx.events.FileEvent.DIRECTORY_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="directoryChange", type="mx.events.FileEvent")]
 
@@ -62,6 +66,10 @@ use namespace mx_internal;
  *  the <code>directoryChange</code> event is dispatched.</p>
  *
  *  @eventType mx.events.FileEvent.DIRECTORY_OPENING
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="directoryChanging", type="mx.events.FileEvent")]
 
@@ -70,6 +78,10 @@ use namespace mx_internal;
  *  or by selecting it and pressing Enter.
  *
  *  @eventType mx.events.FileEvent.FILE_CHOOSE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="fileChoose", type="mx.events.FileEvent")]
 
@@ -84,6 +96,10 @@ use namespace mx_internal;
  *  <code>directoryIcon="&#64;Embed(source='directoryIcon.jpg');"</code>
  *
  *  @default TreeNodeIcon
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="directoryIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -94,6 +110,10 @@ use namespace mx_internal;
  *  <code>fileIcon="&#64;Embed(source='fileIcon.jpg');"</code>
  *
  *  @default TreeNodeIcon
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fileIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -258,6 +278,10 @@ use namespace mx_internal;
  *
  *  @see flash.filesystem.File
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FileSystemDataGrid extends DataGrid
 {
@@ -271,6 +295,10 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#COMPUTER
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const COMPUTER:File = FileSystemControlHelper.COMPUTER;
 
@@ -282,6 +310,10 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FileSystemDataGrid()
     {
@@ -317,6 +349,10 @@ public class FileSystemDataGrid extends DataGrid
     /**
      *  The DateFormatter object used to format the dates
      *  in the Created and Modified columns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var dateFormatter:DateFormatter = new DateFormatter();
 
@@ -362,6 +398,10 @@ public class FileSystemDataGrid extends DataGrid
      *  @see #canNavigateBack
      *  @see #navigateBack()
      *  @see mx.controls.FileSystemHistoryButton
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get backHistory():Array
     {
@@ -394,6 +434,10 @@ public class FileSystemDataGrid extends DataGrid
      *
      *  @see #backHistory
      *  @see #navigateBack()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get canNavigateBack():Boolean
     {
@@ -425,6 +469,10 @@ public class FileSystemDataGrid extends DataGrid
      *  @default false
      *
      *  @see #navigateDown()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get canNavigateDown():Boolean
     {
@@ -457,6 +505,10 @@ public class FileSystemDataGrid extends DataGrid
      *
      *  @see #forwardHistory
      *  @see #navigateForward()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get canNavigateForward():Boolean
     {
@@ -489,6 +541,10 @@ public class FileSystemDataGrid extends DataGrid
      *  @default false
      *
      *  @see #navigateUp()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get canNavigateUp():Boolean
     {
@@ -508,6 +564,10 @@ public class FileSystemDataGrid extends DataGrid
      *  To remove this column entirely, or to change the column order,
      *  set the <code>columns</code> property to an array such as
      *  <code>[ nameColumn, modificationDateColumn, sizeColumn ]</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var creationDateColumn:DataGridColumn;
 
@@ -533,6 +593,10 @@ public class FileSystemDataGrid extends DataGrid
      *  of an internal DateFormatter that this control creates.
      *
      *  @see mx.formatters.DateFormatter#formatString
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dateFormatString():String
     {
@@ -567,6 +631,10 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#directory
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get directory():File
     {
@@ -591,6 +659,10 @@ public class FileSystemDataGrid extends DataGrid
      *  @default FileSystemEnumerationMode.DIRECTORIES_FIRST
      *
      *  @see mx.controls.FileSystemEnumerationMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get enumerationMode():String
     {
@@ -613,6 +685,10 @@ public class FileSystemDataGrid extends DataGrid
      *  @copy mx.controls.FileSystemList#extensions
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get extensions():Array /* of String */
     {
@@ -635,6 +711,10 @@ public class FileSystemDataGrid extends DataGrid
      *  @copy mx.controls.FileSystemList#filterFunction
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get filterFunction():Function
     {
@@ -682,6 +762,10 @@ public class FileSystemDataGrid extends DataGrid
      *  @default []
      *
      * @see mx.controls.FileSystemHistoryButton
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get forwardHistory():Array
     {
@@ -701,6 +785,10 @@ public class FileSystemDataGrid extends DataGrid
      *  To remove this column entirely, or to change the column order,
      *  set the <code>columns</code> property to an array such as
      *  <code>[ nameColumn, modificationDateColumn, sizeColumn ]</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var modificationDateColumn:DataGridColumn;
 
@@ -717,6 +805,10 @@ public class FileSystemDataGrid extends DataGrid
      *  To remove this column entirely, or to change the column order,
      *  set the <code>columns</code> property to an array such as
      *  <code>[ nameColumn, modificationDateColumn, sizeColumn ]</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var nameColumn:DataGridColumn;
 
@@ -728,6 +820,10 @@ public class FileSystemDataGrid extends DataGrid
      *  @copy mx.controls.FileSystemList#nameCompareFunction
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nameCompareFunction():Function
     {
@@ -756,6 +852,10 @@ public class FileSystemDataGrid extends DataGrid
      *
      *  @see mx.controls.listClasses.ListBase#selectedIndex
      *  @see mx.controls.listClasses.ListBase#selectedItem
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedPath():String
     {
@@ -784,6 +884,10 @@ public class FileSystemDataGrid extends DataGrid
      *
      *  @see mx.controls.listClasses.ListBase#selectedIndex
      *  @see mx.controls.listClasses.ListBase#selectedItem
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedPaths():Array /* of String */
     {
@@ -804,6 +908,10 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#showExtensions
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showExtensions():Boolean
     {
@@ -824,6 +932,10 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#showHidden
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showHidden():Boolean
     {
@@ -844,6 +956,10 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#showIcons
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showIcons():Boolean
     {
@@ -871,6 +987,10 @@ public class FileSystemDataGrid extends DataGrid
      *  To remove this column entirely, or to change the column order,
      *  set the <code>columns</code> property to an array such as
      *  <code>[ nameColumn, modificationDateColumn, sizeColumn ]</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var sizeColumn:DataGridColumn;
 
@@ -892,6 +1012,10 @@ public class FileSystemDataGrid extends DataGrid
      *  by the FileSystemSizeDisplayMode class.
      *
      *  @see mx.controls.FileSystemSizeDisplayMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get sizeDisplayMode():String
     {
@@ -921,6 +1045,10 @@ public class FileSystemDataGrid extends DataGrid
      *  To remove this column entirely, or to change the column order,
      *  set the <code>columns</code> property to an array such as
      *  <code>[ nameColumn, modificationDateColumn, sizeColumn ]</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var typeColumn:DataGridColumn;
 
@@ -1101,6 +1229,10 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#findIndex()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function findIndex(nativePath:String):int
     {
@@ -1109,6 +1241,10 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#findItem()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function findItem(nativePath:String):File
     {
@@ -1139,6 +1275,10 @@ public class FileSystemDataGrid extends DataGrid
      *      click="fileSystemViewer.navigateDown();"/&gt;</pre>
      *
      *  @see #canNavigateDown
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function navigateDown():void
     {
@@ -1170,6 +1310,10 @@ public class FileSystemDataGrid extends DataGrid
      *      click="fileSystemViewer.navigateUp();"/&gt;</pre>
      *
      *  @see #canNavigateUp
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function navigateUp():void
     {
@@ -1213,6 +1357,10 @@ public class FileSystemDataGrid extends DataGrid
      *
      *  @see #backHistory
      *  @see #canNavigateBack
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function navigateBack(index:int = 0):void
     {
@@ -1256,6 +1404,10 @@ public class FileSystemDataGrid extends DataGrid
      *
      *  @see #canNavigateForward
      *  @see #forwardHistory
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function navigateForward(index:int = 0):void
     {
@@ -1264,6 +1416,10 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#navigateTo()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function navigateTo(directory:File):void
     {
@@ -1272,6 +1428,10 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#refresh()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function refresh():void
     {
@@ -1280,6 +1440,10 @@ public class FileSystemDataGrid extends DataGrid
 
     /**
      *  @copy mx.controls.FileSystemList#clear()
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function clear():void
     {
@@ -1531,6 +1695,10 @@ class CustomDataGridColumn extends DataGridColumn
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function CustomDataGridColumn(columnName:String = null)
     {
@@ -1576,6 +1744,10 @@ class NameColumnRenderer extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function NameColumnRenderer()
     {
@@ -1641,6 +1813,10 @@ class NameColumnRenderer extends UIComponent
      *  to trigger a relayout of the component.
      *
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -1665,6 +1841,10 @@ class NameColumnRenderer extends UIComponent
 
     /**
      *  The internal IFlexDisplayObject that displays the icon in this renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var icon:IFlexDisplayObject;
 
@@ -1674,6 +1854,10 @@ class NameColumnRenderer extends UIComponent
 
     /**
      *  The internal IUITextField that displays the text in this renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var label:IUITextField;
 
@@ -1694,6 +1878,10 @@ class NameColumnRenderer extends UIComponent
      *  as defined by the IDropInListItemRenderer interface.
      *
      *  @see mx.controls.listClasses.IDropInListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get listData():BaseListData
     {
