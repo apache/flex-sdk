@@ -1898,8 +1898,13 @@ public class Window extends LayoutContainer implements IWindow
 
         if (boundsChanged)
         {
-            systemManager.stage.stageWidth = _bounds.width;
-            systemManager.stage.stageHeight = _bounds.height;
+            // We use temporary variables because when we set stageWidth or 
+            // stageHeight _bounds will be overwritten when we receive 
+            // a RESIZE event.
+            var newWidth:Number  = _bounds.width;
+            var newHeight:Number = _bounds.height;
+            systemManager.stage.stageWidth = newWidth;
+            systemManager.stage.stageHeight = newHeight;
             boundsChanged = false;
         }
 
