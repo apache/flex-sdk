@@ -421,6 +421,8 @@ use namespace mx_internal;
  *    windowResize="<i>No default</i>"
  *  /&gt;
  *  </pre>
+ * 
+ *  @productversion Apollo 1.0
  */
 public class WindowedApplication extends Application implements IWindow
 {
