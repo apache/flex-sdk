@@ -2193,6 +2193,7 @@ public class WindowedApplication extends Application implements IWindow
             var newMaxWidth:Number = maxWidthChanged ? _maxWidth + chromeWidth() : nativeWindow.maxSize.x;
             var newMaxHeight:Number = maxHeightChanged ? _maxHeight + chromeHeight() : nativeWindow.maxSize.y;
             
+            windowBoundsChanged = true;
             nativeWindow.maxSize = new Point(newMaxWidth, newMaxHeight);
             
             if (maxWidthChanged)
