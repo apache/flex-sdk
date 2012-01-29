@@ -2200,6 +2200,8 @@ public class WindowedApplication extends Application implements IWindow
                     styleManager.getStyleDeclaration("." + gripSkin);
                 gripper.styleName = gripSkin;
             }
+            gripper.skinLayoutDirection = undefined;
+            
             rawChildren.addChild(gripper);
 
             gripperHit = new Sprite();
