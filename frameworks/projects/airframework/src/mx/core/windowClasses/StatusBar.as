@@ -33,6 +33,10 @@ use namespace mx_internal;
  *  @see mx.core.Window
  *  @see mx.core.WindowedApplication
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class StatusBar extends UIComponent
 {
@@ -46,6 +50,10 @@ public class StatusBar extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function StatusBar():void
     {
@@ -89,6 +97,10 @@ public class StatusBar extends UIComponent
      *  The string that appears in the status bar, if it is visible.
      * 
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get status():String
     {
@@ -113,6 +125,10 @@ public class StatusBar extends UIComponent
 
     /**
      *  A reference to the UITextField that displays the status bar's text.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var statusTextField:IUITextField;
     
