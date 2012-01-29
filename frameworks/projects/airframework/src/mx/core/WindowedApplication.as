@@ -557,6 +557,7 @@ use namespace mx_internal;
  *    title=""
  *    titleBarFactory="mx.core.ClassFactory"
  *    titleIcon="<i>null</i>"
+ *    useNativeDragManager="true"
  * 
  *    <strong>Styles</strong>
  *    buttonAlignment="auto"
@@ -2105,10 +2106,31 @@ public class WindowedApplication extends Application implements IWindow
     [Inspectable(defaultValue="true")]
     
     /**
-     *  Specifies if the DragManager should use the NativeDragManagerImpl implementation class.
-     *  If false, then the DragManagerImpl class will be used. 
+     *  If <code>true</code>, the DragManager should use the NativeDragManagerImpl implementation class.
+     *  If <code>false</code>, then the DragManagerImpl class will be used. 
      *   
-     *  <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     *  <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.
+     *  That means you cannot change its value at run time.</p>
+     *
+     *  <p>By default, the DragManager  for AIR applications built in Flex uses the 
+     *  NativeDragManagerImpl class as the implementation class. 
+     *  Flash Player applications build in Flex use the DragManagerImpl class. </p>
+     *
+     *  <p>The NativeDragManagerImpl class is a bridge between the AIR NativeDragManager API 
+     *  and the Flex DragManager API. 
+     *  The AIR NativeDragManager class uses the operating system's drag and drop APIs. 
+     *  It supports dragging between AIR windows and between the operating system and AIR. 
+     *  Because the operating system controls the drag-and-drop operation, 
+     *  it is not possible to customize the cursors during a drag. 
+     *  Also, you have no control over the drop animation. 
+     *  The behavior is dependent upon the operating system and has some inconsistencies across different platforms.</p>
+     *
+     *  <p>The DragManagerImpl class does not use the operating system for drag-and-drop. 
+     *  Instead, it controls the entire drag-and-drop process. 
+     *  It supports customizing the cursors and provides a drop animation. 
+     *  However, it does not allow dragging between AIR windows and between the operating system or AIR window.</p>
+     *
+     *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
