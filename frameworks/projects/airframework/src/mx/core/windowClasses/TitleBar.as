@@ -24,6 +24,7 @@ import flash.text.TextFormatAlign;
 import mx.controls.Button;
 import mx.core.WindowedApplication;
 import mx.core.IFlexDisplayObject;
+import mx.core.IUITextField;
 import mx.core.IWindow;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
@@ -229,7 +230,7 @@ public class TitleBar extends UIComponent
     /**
      *  The UITextField in the title bar that displays the application title.
      */ 
-    public var titleTextField:UITextField;
+    public var titleTextField:IUITextField;
     
     //----------------------------------
     //  window
@@ -280,11 +281,11 @@ public class TitleBar extends UIComponent
         
         if (!titleTextField)
         {
-            titleTextField = UITextField(createInFontContext(UITextField));
+            titleTextField = IUITextField(createInFontContext(UITextField));
             titleTextField.text = _title;
             titleTextField.styleName = getStyle("titleTextStyleName");
             titleTextField.enabled = true;
-            addChild(titleTextField);
+            addChild(DisplayObject(titleTextField));
         }
  
         if (!titleIconObject && _titleIcon)
@@ -746,7 +747,7 @@ public class TitleBar extends UIComponent
     /**
      *  @private
      */     
-    private function measureChromeText(textField:UITextField):Rectangle
+    private function measureChromeText(textField:IUITextField):Rectangle
     {
         var textWidth:Number = 20;
         var textHeight:Number = 14;
