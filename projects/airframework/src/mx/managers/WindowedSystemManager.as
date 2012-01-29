@@ -1507,6 +1507,41 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager, 
 		return lastParent != null ? lastParent : DisplayObject(sm);
 	}
 
+
+    /**
+     *  @inheritdoc
+     */  
+    public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
+    {
+        if (!bounds)
+        {
+            bounds = getBounds(DisplayObject(this));
+            
+            var s:Rectangle = screen;        
+            var pt:Point = new Point(bounds.x, bounds.y);
+            pt = localToGlobal(pt);
+            bounds.x = pt.x;
+            bounds.y = pt.y;
+            bounds.width = s.width;
+            bounds.height = s.height;
+        }
+        
+        // send a message to parent for their visible rect.
+        if (useBridge())
+        {
+            var bridge:IEventDispatcher = sandboxBridgeGroup.parentBridge;
+            var request:SandboxBridgeRequest = new SandboxBridgeRequest(SandboxBridgeRequest.GET_VISIBLE_RECT,
+                                                                    false, false,
+                                                                    bridge,
+                                                                    bounds);
+            bridge.dispatchEvent(request);
+            bounds = Rectangle(request.data);
+        }
+        
+        return bounds;
+    }
+ 
+	
 	/**
 	 *  Returns <code>true</code> if the given DisplayObject is the 
 	 *  top-level window.
