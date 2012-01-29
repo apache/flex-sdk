@@ -274,10 +274,11 @@
 
 		    <library-path/>
 
-		    <doc-namespaces uri="http://www.adobe.com/2006/mxml"/>
-		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
-        <doc-namespaces uri="http://ns.adobe.com/mxml/2009"/>
-        <namespace uri="http://ns.adobe.com/mxml/2009" manifest="${basedir}/mxml-2009-manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${basedir}/manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/mxml-2009-manifest.xml"/>
+			<doc-namespaces uri="library://ns.adobe.com/flex/halo"/>
+			<doc-namespaces uri="library://ns.adobe.com/flex/spark"/>
+
       <jvmarg line="${asdoc.jvm.args}"/>
 		</asdoc>
 
