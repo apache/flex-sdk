@@ -2681,7 +2681,8 @@ public class WindowedApplication extends Application implements IWindow
     	if (stage.displayState != lastDisplayState)
     	{
     		lastDisplayState = stage.displayState;
-    		if (stage.displayState == StageDisplayState.FULL_SCREEN)
+    		if (stage.displayState == StageDisplayState.FULL_SCREEN ||
+    			stage.displayState == StageDisplayState.FULL_SCREEN_INTERACTIVE)
     		{
     			shouldShowTitleBar = showTitleBar;
     			showTitleBar = false;
