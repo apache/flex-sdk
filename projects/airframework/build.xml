@@ -149,7 +149,7 @@
 			</external-library-path>
 		</compc>
 	</target>
-	 
+
 	<!-- updates airframework_rb.swc with asdoc xml -->
 	<target name="fat-swc">
 		<mkdir dir="${basedir}/bundles/${locale}/docs" />
@@ -159,7 +159,7 @@
             </zipfileset>
         </zip>
 	</target>
-	
+
 	<!-- Targets for compiling airframework_rb.swc for various locales -->
 
 	<target name="da_DK" description="Danish resources">
@@ -329,7 +329,6 @@
 		    </external-library-path>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">
 		    	<include name="framework.swc" />
-          		<include name="spark.swc" />
           		<include name="textLayout.swc" />
 			</external-library-path>
 
