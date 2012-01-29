@@ -44,6 +44,7 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
 import mx.core.IUIComponent;
+import mx.core.RSLData;
 import mx.core.Singleton;
 import mx.core.IWindow;
 import mx.core.mx_internal;
@@ -474,12 +475,6 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
      *  @private
      * 
      *  This is a stub to satisfy the IFlexModuleFactory interface.
-     * 
-     *  The RSLs loaded by this system manager before the application 
-     *  starts. RSLs loaded by the application are not included in this list.
-     * 
-     *  Information about preloadedRSLs is stored in a Dictionary. The key is
-     *  the RSL's LoaderInfo. The value is the url the RSL was loaded from.
      */
     public function  get preloadedRSLs():Dictionary
     {
@@ -1371,6 +1366,15 @@ public class WindowedSystemManager extends MovieClip implements ISystemManager
 		dispatchEvent(dynamicEvent);
     }
     
+    /**
+     *  @private
+     * 
+     *  This is a stub to satisfy the IFlexModuleFactory interface.
+     */ 
+    public function addPreloadedRSL(loaderInfo:LoaderInfo, rsl:Vector.<RSLData>):void
+    {
+    }
+
     /**
      *  @private
      * 
