@@ -224,6 +224,8 @@ package mx.controls
  *
  *  @see flash.display.NativeMenu
  *  @see mx.events.FlexNativeMenuEvent
+ * 
+ *  @productversion Apollo 1.0
  */
 public class FlexNativeMenu extends EventDispatcher implements ILayoutManagerClient, IFlexContextMenu
 {
