@@ -15,7 +15,9 @@ package mx.core
 import flash.display.NativeWindow;
 
 /**
- *  Documentation is not currently available.
+ *  The IWindow interface defines the API for components that serve as top-level
+ *  containers in Flex-based AIR applications (containers that represent operating
+ *  system windows).
  */
 public interface IWindow
 {
@@ -30,7 +32,7 @@ public interface IWindow
     //----------------------------------
 
 	/**
-	 *  Documentation is not currently available.
+	 *  Specifies whether the window can be maximized.
 	 */
 	function get maximizable():Boolean;
 	
@@ -39,7 +41,7 @@ public interface IWindow
     //----------------------------------
 
 	/**
-	 *  Documentation is not currently available.
+	 *  Specifies whether the window can be minimized.
 	 */
 	function get minimizable():Boolean;
 	
@@ -48,7 +50,7 @@ public interface IWindow
     //----------------------------------
 
 	/**
-	 *  Documentation is not currently available.
+	 *  The underlying NativeWindow that the Window component uses.
 	 */
 	function get nativeWindow():NativeWindow
 
@@ -57,7 +59,7 @@ public interface IWindow
     //----------------------------------
 
 	/**
-	 *  Documentation is not currently available.
+	 *  Specifies whether the window can be resized.
 	 */
 	function get resizable():Boolean;
 	
@@ -66,7 +68,7 @@ public interface IWindow
     //----------------------------------
 
 	/**
-	 *  Documentation is not currently available.
+	 *  The string that appears in the status bar, if it is visible.
 	 */
 	function get status():String;
 	
@@ -80,7 +82,11 @@ public interface IWindow
     //----------------------------------
 
 	/**
-	 *  Documentation is not currently available.
+	 *  Specifies the type of system chrome (if any) the window has.
+	 *  The set of possible values is defined by the constants
+	 *  in the NativeWindowSystemChrome class.
+	 *
+     *  @see flash.display.NativeWindowSystemChrome
 	 */
 	function get systemChrome():String;
 	
@@ -89,7 +95,8 @@ public interface IWindow
     //----------------------------------
 
 	/**
-	 *  Documentation is not currently available.
+	 *  The title text that appears in the window title bar and
+     *  the taskbar.
 	 */
 	function get title():String;
 	
@@ -103,7 +110,7 @@ public interface IWindow
     //----------------------------------
 
 	/**
-	 *  Documentation is not currently available.
+	 *  The Class (usually an image) used to draw the title bar icon.
 	 */
 	function get titleIcon():Class;
 	
@@ -117,7 +124,7 @@ public interface IWindow
     //----------------------------------
 
 	/**
-	 *  Documentation is not currently available.
+	 *  Specifies whether the window is transparent.
 	 */
 	function get transparent():Boolean;
 	
@@ -126,7 +133,11 @@ public interface IWindow
     //----------------------------------
 
 	/**
-	 *  Documentation is not currently available.
+	 *  Specifies the type of NativeWindow that this component
+	 *  represents. The set of possible values is defined by the constants
+	 *  in the NativeWindowType class.
+	 *
+	 *  @see flash.display.NativeWindowType
 	 */
 	function get type():String;
 	
@@ -135,10 +146,10 @@ public interface IWindow
     //----------------------------------
 
 	/**
-	 *  Documentation is not currently available.
+	 *  Controls the window's visibility.
 	 */
 	function get visible():Boolean;
-	 
+	
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -146,22 +157,23 @@ public interface IWindow
     //--------------------------------------------------------------------------
 
 	/**
-	 *  Documentation is not currently available.
+	 *  Closes the window.
 	 */
-	function close():void; 
-	 
+	function close():void;
+	
 	/**
-	 *  Documentation is not currently available.
+	 *  Maximizes the window, or does nothing if it's already maximized.
 	 */
 	function maximize():void
 	
 	/**
-	 *  Documentation is not currently available.
+	 *  Minimizes the window.
 	 */
 	function minimize():void;
 	
 	/**
-	 *  Documentation is not currently available.
+	 *  Restores the window (unmaximizes it if it's maximized, or
+     *  unminimizes it if it's minimized).
 	 */
 	function restore():void;
 }
