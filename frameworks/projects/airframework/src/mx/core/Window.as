@@ -1840,6 +1840,8 @@ public class Window extends LayoutContainer implements IWindow
      */
     private var _systemChrome:String = NativeWindowSystemChrome.STANDARD;
     
+    [Inspectable(enumeration="none,standard", defaultValue="standard" )]
+
     /**
      *  Specifies the type of system chrome (if any) the window has.
      *  The set of possible values is defined by the constants
