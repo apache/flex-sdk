@@ -91,7 +91,28 @@ use namespace mx_internal;
  *  this control dispatches a <code>change</code> event.
  *  After the event is dispatched data provider, and consequently the dropdown list,
  *  contain the selected directory's ancestors.</p>
+ * 
+ *  @mxml
  *
+ *  <p>The <code>&lt;mx:FileSystemComboBox&gt;</code> tag inherits all of the tag
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:FileSystemComboBox
+ *    <strong>Properties</strong>
+ *    directory="<i>null</i>"
+ *    indent="8"
+ *    showIcons="true"
+ * 
+ *    <strong>Styles</strong>
+ *    computerIcon="<i>null</i>"
+ *    directoryIcon="<i>TreeNodeIcon</i>"
+ * 
+ *    <strong>Events</strong>
+ *    directoryChange="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
+ * 
  *  @see flash.filesystem.File
  *  @see mx.controls.FileSystemList
  *  @see mx.controls.FileSystemTree
