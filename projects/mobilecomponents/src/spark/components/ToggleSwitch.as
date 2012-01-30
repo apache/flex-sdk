@@ -232,8 +232,6 @@ public class ToggleSwitch extends ToggleButtonBase
         var newValue:Number = selectedToPosition(value);
         slideToPosition = newValue;
         setThumbPosition(newValue);
-        // ToggleButtonBase issues this on buttonRelease, which we override
-        dispatchEvent(new Event(Event.CHANGE));
     }
     
     //----------------------------------------------------------------------------------------------
@@ -376,7 +374,7 @@ public class ToggleSwitch extends ToggleButtonBase
         {
             // we are either at the destination position, 
             // or we should update immediately
-            selected = positionToSelected(newPosition);
+            setSelected(positionToSelected(newPosition));
         }
     }
     
@@ -395,6 +393,18 @@ public class ToggleSwitch extends ToggleButtonBase
             
             animateToPosition(animator, thumbPosition, newPosition, MouseDragUtil.MAX_UPDATE_RATE);
         } 
+    }
+    
+    /**
+     *  When the selection is changed by user interactions, fire a change event
+     *  when appropriate.
+     */
+    private function setSelected(value:Boolean):void
+    {
+        var valueChanged:Boolean = value != selected;
+        selected = value;
+        if (valueChanged)
+            dispatchEvent(new Event(Event.CHANGE));
     }
     
     /**
@@ -635,7 +645,7 @@ public class ToggleSwitch extends ToggleButtonBase
      */
     private function animationEndHandler(animation:Animation):void
     {
-        selected = positionToSelected(slideToPosition);
+        setSelected(positionToSelected(slideToPosition));
     }
     
 }
