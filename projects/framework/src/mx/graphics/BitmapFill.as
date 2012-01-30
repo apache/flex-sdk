@@ -16,8 +16,6 @@ import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
-import flash.display.Loader;
-import flash.display.LoaderInfo;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IOErrorEvent;
@@ -539,9 +537,6 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *   and creates a bitmap rendering of it.</li>
 	 *   <li>An instance of a DisplayObject.
 	 *   The BitmapFill copies it into a Bitmap for filling.</li>
-	 *   <li>The name of a subclass of DisplayObject.
-	 *   The BitmapFill loads the class, instantiates it, 
-	 *   and creates a bitmap rendering of it.</li>
 	 *  </ul>
 	 *
 	 *  @default null
@@ -574,10 +569,6 @@ public class BitmapFill extends EventDispatcher implements IFill
 				var cls:Class = Class(value);
 				value = new cls();
 			}
-            else if (value is String)
-            {
-                loadExternal(value as String);
-            }
 			
 			if (value is BitmapData)
 			{
@@ -993,100 +984,6 @@ public class BitmapFill extends EventDispatcher implements IFill
         _bitmapData = bitmapData;
         
         dispatchFillChangedEvent("bitmapData", null, null);
-    }
-    
-    /**
-     *  @private
-     */
-    private function validImageFile(url:String):Boolean
-    {
-        // We only accept .jpg, .jpeg, .gif, and .png files
-        // NOTE: This means queries that return images are not accepted: ie: myserver.com/fetch.php?image=12345
-        var exten:String = url.substr(Math.max(url.length - 5, 0), Math.min(url.length, 5)).toLowerCase();
-        
-        if (exten.indexOf(".jpg") == -1 &&
-            exten.indexOf(".jpeg") == -1 &&
-            exten.indexOf(".gif") == -1 &&
-            exten.indexOf(".png") == -1)
-            return false;
-        
-        return true;
-    }
-    
-    /**
-     *  @private
-     */
-    private function loadExternal(url:String):void
-    {
-        if (!validImageFile(url))
-            return;
-        
-        var loader:Loader = new Loader();
-        var loaderContext:LoaderContext = new LoaderContext();
-        
-        loaderContext.checkPolicyFile = true;
-        loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loader_completeHandler, false, 0, true);
-        loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, loader_ioErrorHandler, false, 0, true);
-        loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, loader_securityErrorHandler, false, 0, true);
-        try
-        {
-            loader.load(new URLRequest(url), loaderContext);
-        }
-        catch (error:SecurityError)
-        {
-            handleSecurityError(error);
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    private function loader_completeHandler(event:Event):void
-    {
-        var image:Bitmap = null;
-        
-        try
-        {
-            image = Bitmap((event.target as LoaderInfo).content);
-            setBitmapData(image.bitmapData);
-        }
-        catch (error:SecurityError)
-        {
-            handleSecurityError(error);
-        } 
-    }
-    
-    /**
-     *  @private
-     */
-    private function loader_ioErrorHandler(error:IOErrorEvent):void
-    {
-        // clear any current image
-        setBitmapData(null);
-        
-        // forward the error
-        dispatchEvent(error);
-    }
-    
-    /**
-     *  @private
-     */
-    private function loader_securityErrorHandler(error:SecurityErrorEvent):void
-    {
-        // clear any current image
-        setBitmapData(null);
-        
-        // forward the error
-        dispatchEvent(error);
-    }
-    
-    /**
-     *  @private
-     */
-    private function handleSecurityError(error:SecurityError):void
-    {
-        setBitmapData(null);
-        dispatchEvent(new SecurityErrorEvent(SecurityErrorEvent.SECURITY_ERROR, false, false, error.message));
     }
 }
 
