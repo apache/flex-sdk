@@ -56,7 +56,6 @@ import mx.core.Singleton;
 import mx.core.mx_internal;
 import mx.events.Request;
 import mx.events.DynamicEvent;
-import mx.events.EventListenerRequest;
 import mx.events.FlexEvent;
 import mx.events.ResizeEvent;
 import mx.preloaders.Preloader;
@@ -1360,9 +1359,17 @@ public class SystemManager extends MovieClip
 											  priority:int = 0,
 											  useWeakReference:Boolean = false):void
 	{
-		if (!dispatchEvent(new EventListenerRequest(EventListenerRequest.ADD_EVENT_LISTENER_REQUEST, false, true,
-						type, listener, useCapture, priority, useWeakReference)))
-			return;
+        if (hasEventListener("addEventListener"))
+        {
+            var request:DynamicEvent = new DynamicEvent("addEventListener", false, true);
+            request.eventType = type;
+            request.listener = listener;
+            request.useCapture = useCapture;
+            request.priority = priority;
+            request.useWeakReference = useWeakReference;
+		    if (!dispatchEvent(request))
+			    return;
+        }
 		
 		// These two events will dispatched to applications in sandboxes.
 		if (type == FlexEvent.RENDER || type == FlexEvent.ENTER_FRAME)
@@ -1423,9 +1430,15 @@ public class SystemManager extends MovieClip
 	override public function removeEventListener(type:String, listener:Function,
 												 useCapture:Boolean = false):void
 	{
-		if (!dispatchEvent(new EventListenerRequest(EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST, false, true,
-						type, listener, useCapture)))
-			return;
+        if (hasEventListener("removeEventListener"))
+        {
+            var request:DynamicEvent = new DynamicEvent("removeEventListener", false, true);
+            request.eventType = type;
+            request.listener = listener;
+            request.useCapture = useCapture;
+		    if (!dispatchEvent(request))
+			    return;
+        }
 
 		// These two events will dispatched to applications in sandboxes.
 		if (type == FlexEvent.RENDER || type == FlexEvent.ENTER_FRAME)
@@ -2777,11 +2790,14 @@ public class SystemManager extends MovieClip
         }
         catch (error:SecurityError)
         {
-            dispatchEvent(new Event("getScreen"));
-            if (_screen)
+            if (hasEventListener("getScreen"))
             {
-                w = _screen.width;
-                h = _screen.height;
+                dispatchEvent(new Event("getScreen"));
+                if (_screen)
+                {
+                    w = _screen.width;
+                    h = _screen.height;
+                }
             }
         }
         
@@ -3134,10 +3150,13 @@ public class SystemManager extends MovieClip
      */
     public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
     {
-		var request:Request = new Request("getVisibleApplicationRect", false, true);
-		if (!dispatchEvent(request)) 
-			return Rectangle(request.value);
-            
+        if (hasEventListener("getVisibleApplicationRect"))
+        {
+		    var request:Request = new Request("getVisibleApplicationRect", false, true);
+		    if (!dispatchEvent(request)) 
+			    return Rectangle(request.value);
+        }
+        
         if (!bounds)
         {
             bounds = getBounds(DisplayObject(this));
@@ -3164,9 +3183,12 @@ public class SystemManager extends MovieClip
      */
     public function deployMouseShields(deploy:Boolean):void
     {
-		var dynamicEvent:DynamicEvent = new DynamicEvent("deployMouseShields");
-		dynamicEvent.deploy = deploy;
-		dispatchEvent(dynamicEvent);
+        if (hasEventListener("deployMouseShields"))
+        {
+		    var dynamicEvent:DynamicEvent = new DynamicEvent("deployMouseShields");
+		    dynamicEvent.deploy = deploy;
+		    dispatchEvent(dynamicEvent);
+        }
     }
 }
 
