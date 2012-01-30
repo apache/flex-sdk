@@ -74,9 +74,9 @@ public class HSliderThumbSkin extends MobileSkin
                 hitZoneSideLength = 80;
 
 				// chromeColor ellipse goes up to the thumb border
-				chromeColorEllipseWidth = chromeColorEllipseHeight = 54;
-				chromeColorEllipseX = 2;
-				chromeColorEllipseY = 2;
+				chromeColorEllipseWidth = chromeColorEllipseHeight = 56;
+				chromeColorEllipseX = 1;
+				chromeColorEllipseY = 1;
 				
 				break;				
 			}
@@ -110,8 +110,8 @@ public class HSliderThumbSkin extends MobileSkin
                 hitZoneSideLength = 40;
 
 				// chromeColor ellipse goes up to the thumb border
-                chromeColorEllipseWidth = chromeColorEllipseHeight = 27;
-                chromeColorEllipseX = chromeColorEllipseY = 1;
+                chromeColorEllipseWidth = chromeColorEllipseHeight = 29;
+                chromeColorEllipseX = chromeColorEllipseY = 0;
                 
                 break;
             }
