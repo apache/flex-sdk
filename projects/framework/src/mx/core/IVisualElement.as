@@ -10,8 +10,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package mx.core
 {
-import flash.display.DisplayObjectContainer;    
-    
+import flash.display.DisplayObjectContainer;
+
 import mx.geom.ITransformable;
 import mx.geom.TransformOffsets;
 
@@ -390,5 +390,6 @@ public interface IVisualElement extends ITransformable
      */
     function get explicitMaxHeight():Number;
     function set explicitMaxHeight(value:Number):void;
+
 }
 }
