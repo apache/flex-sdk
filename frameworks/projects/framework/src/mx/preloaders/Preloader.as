@@ -47,6 +47,11 @@ import mx.events.RSLEvent;
  *
  *  @see mx.preloaders.DownloadProgressBar
  *  @see mx.preloaders.Preloader
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Preloader extends Sprite
 {
@@ -60,6 +65,11 @@ public class Preloader extends Sprite
 
 	/**
 	 *	Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function Preloader()
 	{
@@ -139,6 +149,11 @@ public class Preloader extends Sprite
 	 *
 	 *  @param resourceModuleURLs Array of Strings specifying URLs
 	 *  from which to preload resource modules.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */ 
 	public function initialize(showDisplay:Boolean, 
 							   displayClassName:Class,
@@ -247,6 +262,11 @@ public class Preloader extends Sprite
 	 *  do not call it yourself.
 	 *
 	 *  @param app The application object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function registerApplication(app:IEventDispatcher):void
 	{
