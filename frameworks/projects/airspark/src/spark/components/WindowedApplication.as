@@ -628,7 +628,7 @@ public class WindowedApplication extends Application implements IWindow
      *  @private
      *  Storage for the maxHeight property.
      */
-    private var _maxHeight:Number = 0;
+    private var _maxHeight:Number = 2880;
     
     /**
      *  @private
@@ -654,7 +654,7 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  Specifies the maximum height of the application's window.
      *
-     *  @default 10000
+     *  @default dependent on the operating system and the AIR systemChrome setting. 
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -675,7 +675,7 @@ public class WindowedApplication extends Application implements IWindow
      *  @private
      *  Storage for the maxWidth property.
      */
-    private var _maxWidth:Number = 0;
+    private var _maxWidth:Number = 2880;
     
     /**
      *  @private
@@ -701,7 +701,7 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  Specifies the maximum width of the application's window.
      *
-     *  @default 10000
+     *  @default dependent on the operating system and the AIR systemChrome setting. 
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -736,7 +736,7 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  Specifies the minimum height of the application's window.
      *
-     *  @default 100
+     *  @default dependent on the operating system and the AIR systemChrome setting. 
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -783,7 +783,7 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  Specifies the minimum width of the application's window.
      *
-     *  @default 100 
+     *  @default dependent on the operating system and the AIR systemChrome setting. 
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -1700,8 +1700,15 @@ public class WindowedApplication extends Application implements IWindow
 
         if (boundsChanged)
         {       
+            // Work around an AIR issue setting the stageHeight to zero when 
+            // using system chrome. The set of the stage.stageHeight property
+            // is rejected unless the nativeWindow is first set to the proper height. 
+            if (_bounds.height == 0 && systemChrome == NativeWindowSystemChrome.STANDARD)
+                nativeWindow.height = chromeHeight() + _bounds.height;
+                
             systemManager.stage.stageWidth = _width = _bounds.width;
             systemManager.stage.stageHeight = _height =  _bounds.height;
+
             boundsChanged = false;
             
             // don't know whether height or width changed
