@@ -188,9 +188,8 @@ public class ViewNavigator extends ViewNavigatorBase
     */
     public var actionBar:ActionBar;
 
-    // FIXME (chiedozi): Docs
     /**
-     *  A skin part that defines the default transition to play when
+     *  An internal property that defines the default transition to play when
      *  a view is pushed onto the navigation stack. 
      *  
      *  @langversion 3.0
@@ -201,7 +200,7 @@ public class ViewNavigator extends ViewNavigatorBase
     mx_internal var defaultPushTransition:ViewTransition;
     
     /**
-     *  A skin part that defines the default transition to play when
+     *  An internal property that defines the default transition to play when
      *  a view is popped off the navigation stack. 
      *  
      *  @langversion 3.0
@@ -544,7 +543,7 @@ public class ViewNavigator extends ViewNavigatorBase
     //----------------------------------
     
     /**
-     *  @private
+     *  Returns the number of views being managed by the navigator.
      */
     public function get length():int
     {
@@ -604,7 +603,7 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     //----------------------------------
-    //  returnedObject
+    //  poppedViewReturnedObject
     //----------------------------------
     // FIXME (chiedozi): PARB - HTTPService uses lastResult, maybe we should match - lastReturnedObject?
     private var _poppedViewReturnedObject:ViewReturnObject = null;
@@ -965,9 +964,9 @@ public class ViewNavigator extends ViewNavigatorBase
      * 
      *  @param viewClass The class used to create the view
      *  @param data The data object to pass to the view
-     *  @param context An arbitrary string that can be used to describe the context
-     *         of the push.  When the new view is created, it will be able to reference
-     *         this property.
+     *  @param context An arbitrary object used to describe the context
+     *         of the push.  When the new view is created, it will be 
+     *         able to reference this property.
      *  @param transition The view transition to play
      * 
      *  @langversion 3.0
@@ -991,9 +990,9 @@ public class ViewNavigator extends ViewNavigatorBase
      * 
      *  @param viewClass The class used to create the view
      *  @param data The data object to pass to the view
-     *  @param context An arbitrary string that can be used to describe the context
-     *         of the push.  When the new view is created, it will be able to reference
-     *         this property.
+     *  @param context An arbitrary object used to describe the context
+     *         of the push.  When the new view is created, it will be 
+     *         able to reference this property.
      *  @param transition The view transition to play
      * 
      *  @langversion 3.0
@@ -1387,7 +1386,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function commitVisibilityChanges():void
+    private function commitVisibilityChanges():void
     {
         // TODO (chiedozi): Check if spark effects handles include in layout for you
         // Can't change the visibility during a view transition
@@ -1541,7 +1540,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
-    protected function captureAnimationValues(component:UIComponent):Object
+    private function captureAnimationValues(component:UIComponent):Object
     {
         var values:Object = {   x:component.x,
                                 y:component.y,
@@ -1568,7 +1567,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function createActionBarVisibilityEffect(hiding:Boolean, props:Object):IEffect
+    private function createActionBarVisibilityEffect(hiding:Boolean, props:Object):IEffect
     {
         var animate:Animate = new Animate();
         animate.target = actionBar;
@@ -1597,7 +1596,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function createContentVisibilityEffect(hiding:Boolean, props:Object):IEffect
+    private function createContentVisibilityEffect(hiding:Boolean, props:Object):IEffect
     {
         var animate:Animate = new Animate();
         animate.target = contentGroup;
@@ -1843,7 +1842,7 @@ public class ViewNavigator extends ViewNavigatorBase
         if (viewProxy.data == null && viewProxy.persistenceData != null)
             viewProxy.data = view.deserializePersistedData(viewProxy.persistenceData);
         
-        view.navigator = this;
+        view.setNavigator(this);
         view.data = viewProxy.data;
         view.percentWidth = view.percentHeight = 100;
         
@@ -1906,7 +1905,7 @@ public class ViewNavigator extends ViewNavigatorBase
             lastAction == ViewNavigatorAction.REPLACE_VIEW || 
             currentView.destructionPolicy != ContainerDestructionPolicy.NEVER)
         {
-            currentView.navigator = null;
+            currentView.setNavigator(null);
             viewProxy.instance = null;
         }
     }
@@ -1950,7 +1949,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function viewAdded(transition:ViewTransition = null):void
+    private function viewAdded(transition:ViewTransition = null):void
     {
         var currentView:View;
         var pendingView:View;
