@@ -209,9 +209,9 @@ public class StringUtil
      *  @return The repeated string.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.1
      */
     public static function repeat(str:String, n:int):String
     {
@@ -241,9 +241,9 @@ public class StringUtil
      *  that are not allowed by the restriction string.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.1
      */
     public static function restrict(str:String, restrict:String):String
     {
