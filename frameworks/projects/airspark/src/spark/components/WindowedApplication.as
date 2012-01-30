@@ -369,8 +369,8 @@ use namespace mx_internal;
  *  </pre>
  * 
  *  @see spark.components.Windowed
- *  @see spark.skins.default.FlexChromeSkin
- *  @see spark.skins.default.WindowedApplicationSkin
+ *  @see spark.skins.spark.FlexChromeSkin
+ *  @see spark.skins.spark.WindowedApplicationSkin
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
