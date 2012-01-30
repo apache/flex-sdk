@@ -482,7 +482,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @productversion Flex 4.5
      */
     // TODO (chiedozi): This is not module safe
-    public function restoreViewData(value:Object):void
+    public function loadViewData(value:Object):void
     {
         label = value.label;
         
@@ -520,7 +520,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    mx_internal function backKeyHandler():void
+    mx_internal function backKeyUpHandler():void
     {
     }
     
@@ -561,10 +561,6 @@ public class ViewNavigatorBase extends SkinnableContainer
     mx_internal function stage_orientationChangeHandler(event:StageOrientationEvent):void
     {
         invalidateSkinState();
-
-        // FIXME (chiedozi): Try to figure out why we need this, file a bug
-        if (skin)
-            skin.invalidateDisplayList();
     }
     
     //--------------------------------------------------------------------------
