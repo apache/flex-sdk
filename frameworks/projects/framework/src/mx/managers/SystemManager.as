@@ -2146,17 +2146,20 @@ public class SystemManager extends MovieClip
 	{
 		if (isStageRoot) return;
 
-		_width = newWidth;
-		_height = newHeight;
+        if (_width != newWidth || _height != newHeight)
+        {
+		    _width = newWidth;
+		    _height = newHeight;
 
-		// mouseCatcher is a mask if not stage root
-		if (mouseCatcher)
-		{
-			mouseCatcher.width = newWidth;
-			mouseCatcher.height = newHeight;
-		}
+		    // mouseCatcher is a mask if not stage root
+		    if (mouseCatcher)
+		    {
+			    mouseCatcher.width = newWidth;
+			    mouseCatcher.height = newHeight;
+		    }
 
-		dispatchEvent(new Event(Event.RESIZE));
+		    dispatchEvent(new Event(Event.RESIZE));
+        }
 	}
 
 
