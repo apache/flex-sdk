@@ -100,11 +100,25 @@ public class BitmapFill extends EventDispatcher implements IFill
     
     private var _alpha:Number = 1;
         
+    /**
+     *  The transparency of a fill.
+     *  Possible values are 0.0 (invisible) through 1.0 (opaque). 
+     *  
+     *  @default 1.0. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
     public function get alpha():Number
     {
         return _alpha;
     }
     
+    /**
+     *  @private
+     */
     public function set alpha(value:Number):void
     {
         if (_alpha == value)
@@ -131,13 +145,7 @@ public class BitmapFill extends EventDispatcher implements IFill
     [Inspectable(category="General")]
     
     /**
-     *  By default, the LinearGradientStroke defines a transition
-     *  from left to right across the control. 
-     *  Use the <code>rotation</code> property to control the transition direction. 
-     *  For example, a value of 180.0 causes the transition
-     *  to occur from right to left, rather than from left to right.
-     *
-     *  @default 0.0
+     *  An array of values used for matrix transformation.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -357,7 +365,7 @@ public class BitmapFill extends EventDispatcher implements IFill
     [Inspectable(category="General", enumeration="clip,repeat,scale", defaultValue="scale")]
     
     /**
-     *  The fillMode determines how the bitmap fills in the dimensions. If you set the value
+     *  Determines how the bitmap fills in the dimensions. If you set the value
      *  of this property in a tag, use the string (such as "repeat"). If you set the value of 
      *  this property in ActionScript, use the constant (such as <code>BitmapFillMode.CLIP</code>).
      * 
