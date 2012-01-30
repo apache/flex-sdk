@@ -23,7 +23,7 @@ package mx.utils
  *
  *  @see mx.utils.DirectoryEnumeration#enumerationMode
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public final class DirectoryEnumerationMode
 {
