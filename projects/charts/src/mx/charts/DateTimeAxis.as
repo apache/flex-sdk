@@ -515,7 +515,7 @@ public class DateTimeAxis extends NumericAxis
     {
         return _dataUnits;
     }
-	
+    
     /**
      *  @private
      */
@@ -807,9 +807,9 @@ public class DateTimeAxis extends NumericAxis
     public function set maximum(value:Date):void
     {
         if (value != null)
-        	assignedMaximum = value.getTime();
-		else
-			assignedMaximum = NaN;
+            assignedMaximum = value.getTime();
+        else
+            assignedMaximum = NaN;
         
         invalidateCache();
 
@@ -845,10 +845,10 @@ public class DateTimeAxis extends NumericAxis
      */
     public function set minimum(value:Date):void
     {
-    	if (value != null)
-        	assignedMinimum = value.getTime();
-		else
-			assignedMinimum = NaN;
+        if (value != null)
+            assignedMinimum = value.getTime();
+        else
+            assignedMinimum = NaN;
         invalidateCache();
 
         dispatchEvent(new Event("mappingChange"));
@@ -994,22 +994,22 @@ public class DateTimeAxis extends NumericAxis
             {           
                 diff = dateRangeUtilities.calculateDisabledRange(computedMinimum,cache[i][field]);
                 if(direction == "inverted")
-                	cache[i][convertedField] = 1 - (cache[i][field] - diff - computedMinimum) / alen;
+                    cache[i][convertedField] = 1 - (cache[i][field] - diff - computedMinimum) / alen;
                 else
-					cache[i][convertedField] = (cache[i][field] - diff - computedMinimum) / alen;                	                               
+                    cache[i][convertedField] = (cache[i][field] - diff - computedMinimum) / alen;                                                  
             }
         }
         else
         {
-        	var r:Number = computedMaximum - computedMinimum; 
+            var r:Number = computedMaximum - computedMinimum; 
 
-        	for (i = 0; i < n; i++)
-        	{
-            	if(direction == "inverted")
-                	cache[i][convertedField] = 1 - (cache[i][field] - computedMinimum) / r;
+            for (i = 0; i < n; i++)
+            {
+                if(direction == "inverted")
+                    cache[i][convertedField] = 1 - (cache[i][field] - computedMinimum) / r;
                 else
-                	cache[i][convertedField] = (cache[i][field] - computedMinimum) / r;
-        	}
+                    cache[i][convertedField] = (cache[i][field] - computedMinimum) / r;
+            }
         }
         
     }
@@ -1332,7 +1332,7 @@ public class DateTimeAxis extends NumericAxis
                 v = cache[i];               
                 var d:Date = parseFunction(v[field]);
                 if (d != null)
-                	v[convertedField] = d.getTime();
+                    v[convertedField] = d.getTime();
             }       
         }
         else
@@ -1349,7 +1349,7 @@ public class DateTimeAxis extends NumericAxis
                 {
                     v = cache[i];
                     if (!v[field])
-                    	continue;
+                        continue;
                     v[convertedField] = Date.parse(v[field]);
                 }
             }
@@ -1363,7 +1363,7 @@ public class DateTimeAxis extends NumericAxis
                     {
                         v = cache[i];
                         if (!v[field])
-                    		continue;
+                            continue;
                         v[convertedField] = Date.parse(v[field].toString());
                     }
                 }
@@ -1373,7 +1373,7 @@ public class DateTimeAxis extends NumericAxis
                     {
                         v = cache[i];
                         if (!v[field])
-                    		continue;
+                            continue;
                         v[convertedField] = Number(v[field].toString());
                     }
                 }
@@ -1384,7 +1384,7 @@ public class DateTimeAxis extends NumericAxis
                 {
                     v = cache[i];
                     if (!v[field])
-                    	continue;
+                        continue;
                     v[convertedField] = v[field].getTime();
                 }
             }
@@ -1394,7 +1394,7 @@ public class DateTimeAxis extends NumericAxis
                 {
                     v = cache[i];
                     if (!v[field])
-                    	continue;
+                        continue;
                     v[convertedField] = v[field];
                 }
             }
@@ -1486,24 +1486,24 @@ public class DateTimeAxis extends NumericAxis
                         if (!(dateRangeUtilities.isDisabled(dTime)))
                         {
                             if(direction == "inverted")
-                            	labelCache.push(new AxisLabel(
-                             		1 - (dTime - computedMinimum - diff) / r, new Date(dTime),
-                             		lfunc(labelDate, previousValue, this)));
+                                labelCache.push(new AxisLabel(
+                                    1 - (dTime - computedMinimum - diff) / r, new Date(dTime),
+                                    lfunc(labelDate, previousValue, this)));
                             else
-                            	labelCache.push(new AxisLabel(
-                            		(dTime - computedMinimum - diff) / r, new Date(dTime),
-                            		lfunc(labelDate, previousValue, this)));            
+                                labelCache.push(new AxisLabel(
+                                    (dTime - computedMinimum - diff) / r, new Date(dTime),
+                                    lfunc(labelDate, previousValue, this)));            
                         }
                     }
                     else
-                    	if(direction == "inverted")
-                    		labelCache.push(new AxisLabel(
-                            	1 - (dTime - computedMinimum) / r, new Date(dTime),
-                            	lfunc(labelDate, previousValue, this)));
+                        if(direction == "inverted")
+                            labelCache.push(new AxisLabel(
+                                1 - (dTime - computedMinimum) / r, new Date(dTime),
+                                lfunc(labelDate, previousValue, this)));
                         else
-                        	labelCache.push(new AxisLabel(
-                            	(dTime - computedMinimum) / r, new Date(dTime),
-                        		lfunc(labelDate, previousValue, this)));
+                            labelCache.push(new AxisLabel(
+                                (dTime - computedMinimum) / r, new Date(dTime),
+                                lfunc(labelDate, previousValue, this)));
                     
                     if (previousValue == null)
                         previousValue = new Date(dTime);
@@ -1556,11 +1556,11 @@ public class DateTimeAxis extends NumericAxis
                         if (!(dateRangeUtilities.isDisabled(dTime)))
                         {
                             if(direction == "inverted")
-                            	labelCache.push(new AxisLabel(
+                                labelCache.push(new AxisLabel(
                                         1 - (dTime - computedMinimum - diff) / r, new Date(dTime),
                                         lfunc(labelDate, previousValue, this)));
                             else
-                            	labelCache.push(new AxisLabel(
+                                labelCache.push(new AxisLabel(
                                         (dTime - computedMinimum - diff) / r, new Date(dTime),
                                         lfunc(labelDate, previousValue, this)));
                         } 
@@ -1568,13 +1568,13 @@ public class DateTimeAxis extends NumericAxis
                     else
                     {
                         if(direction == "inverted")
-                        	labelCache.push(new AxisLabel(
-                            	1 - (dTime - computedMinimum) / r, new Date(dTime),
-                            	lfunc(labelDate, previousValue, this)));
+                            labelCache.push(new AxisLabel(
+                                1 - (dTime - computedMinimum) / r, new Date(dTime),
+                                lfunc(labelDate, previousValue, this)));
                         else
-                        	labelCache.push(new AxisLabel(
-                            	(dTime - computedMinimum) / r, new Date(dTime),
-                            	lfunc(labelDate, previousValue, this)));             
+                            labelCache.push(new AxisLabel(
+                                (dTime - computedMinimum) / r, new Date(dTime),
+                                lfunc(labelDate, previousValue, this)));             
                     }
                     if (previousValue == null)
                         previousValue = new Date(dTime);
@@ -1607,18 +1607,18 @@ public class DateTimeAxis extends NumericAxis
                 {                   
                     d = new Date(i);
                     if (disabledDays|| disabledRanges)
-                    {                    	
+                    {                       
                         if (previousValue != null)
-                        	diff =  dateRangeUtilities.getDisabledRange(previousValue.getTime() + 1, i, _labelUnits);                        
+                            diff =  dateRangeUtilities.getDisabledRange(previousValue.getTime() + 1, i, _labelUnits);                        
                         else
                             diff =  dateRangeUtilities.getDisabledRange(computedMinimum, i, _labelUnits);
                           
                         if (!(dateRangeUtilities.isDisabled(i)))
                         { 
                              if(direction == "inverted")
-                             	labelCache.push(new AxisLabel(1 - (i - computedMinimum - diff)/r , d, lfunc(d, previousValue, this)));
+                                labelCache.push(new AxisLabel(1 - (i - computedMinimum - diff)/r , d, lfunc(d, previousValue, this)));
                              else
-                             	labelCache.push(new AxisLabel((i - computedMinimum - diff)/r , d, lfunc(d, previousValue, this)));
+                                labelCache.push(new AxisLabel((i - computedMinimum - diff)/r , d, lfunc(d, previousValue, this)));
                             if (!firstLabelAdded)
                                 firstLabelAdded = true;
                         }
@@ -1627,77 +1627,77 @@ public class DateTimeAxis extends NumericAxis
                             i += MILLISECONDS_IN_DAY;
                         else
                         {
-                        	var tmp:Date = new Date(i);
-                        	if (_labelUnits == "weeks")
+                            var tmp:Date = new Date(i);
+                            if (_labelUnits == "weeks")
                             {
-                            	tmp.dateUTC = tmp.dateUTC + 7 * computedInterval;
-                        		i = tmp.time;
+                                tmp.dateUTC = tmp.dateUTC + 7 * computedInterval;
+                                i = tmp.time;
                             }
-                        	else if (_labelUnits == "hours")
+                            else if (_labelUnits == "hours")
                             {
-                            	tmp.hoursUTC = tmp.hoursUTC + computedInterval;
-                        		i = tmp.time;
-                            }	
+                                tmp.hoursUTC = tmp.hoursUTC + computedInterval;
+                                i = tmp.time;
+                            }   
                             else if (_labelUnits == "minutes")
                             {
-                            	tmp.minutesUTC = tmp.minutesUTC + computedInterval;
-                        		i = tmp.time;
+                                tmp.minutesUTC = tmp.minutesUTC + computedInterval;
+                                i = tmp.time;
                             }
                             else if (_labelUnits == "seconds")
                             {
-                            	tmp.secondsUTC = tmp.secondsUTC + computedInterval;
-                        		i = tmp.time;
+                                tmp.secondsUTC = tmp.secondsUTC + computedInterval;
+                                i = tmp.time;
                             }
                             else if (_labelUnits == "milliseconds")
                             {
-                            	tmp.millisecondsUTC = tmp.millisecondsUTC + computedInterval;
-                        		i = tmp.time;
+                                tmp.millisecondsUTC = tmp.millisecondsUTC + computedInterval;
+                                i = tmp.time;
                             }
                             else
-                        	{
-                        		tmp.dateUTC = tmp.dateUTC + computedInterval;
-                        		i = tmp.time;
-                        	}
+                            {
+                                tmp.dateUTC = tmp.dateUTC + computedInterval;
+                                i = tmp.time;
+                            }
                         }
                     }
                     else
                     {
-                    	if(direction == "inverted")
-                    		labelCache.push(new AxisLabel(1 - (i - computedMinimum)/r , d, lfunc(d, previousValue, this)));
-                    	else
-                        	labelCache.push(new AxisLabel((i - computedMinimum)/r , d, lfunc(d, previousValue, this)));
+                        if(direction == "inverted")
+                            labelCache.push(new AxisLabel(1 - (i - computedMinimum)/r , d, lfunc(d, previousValue, this)));
+                        else
+                            labelCache.push(new AxisLabel((i - computedMinimum)/r , d, lfunc(d, previousValue, this)));
                         previousValue = d;
                         tmp = new Date(i);
                         if (_labelUnits == "weeks")
                         {
-                        	tmp.dateUTC = tmp.dateUTC + 7 * computedInterval;
-                        	i = tmp.time;
+                            tmp.dateUTC = tmp.dateUTC + 7 * computedInterval;
+                            i = tmp.time;
                         }
                         else if (_labelUnits == "hours")
                             {
-                            	tmp.hoursUTC = tmp.hoursUTC + computedInterval;
-                        		i = tmp.time;
-                            }	
+                                tmp.hoursUTC = tmp.hoursUTC + computedInterval;
+                                i = tmp.time;
+                            }   
                             else if (_labelUnits == "minutes")
                             {
-                            	tmp.minutesUTC = tmp.minutesUTC + computedInterval;
-                        		i = tmp.time;
+                                tmp.minutesUTC = tmp.minutesUTC + computedInterval;
+                                i = tmp.time;
                             }
                             else if (_labelUnits == "seconds")
                             {
-                            	tmp.secondsUTC = tmp.secondsUTC + computedInterval;
-                        		i = tmp.time;
+                                tmp.secondsUTC = tmp.secondsUTC + computedInterval;
+                                i = tmp.time;
                             }
                             else if (_labelUnits == "milliseconds")
                             {
-                            	tmp.millisecondsUTC = tmp.millisecondsUTC + computedInterval;
-                        		i = tmp.time;
+                                tmp.millisecondsUTC = tmp.millisecondsUTC + computedInterval;
+                                i = tmp.time;
                             }
                             else
-                        	{
-                        		tmp.dateUTC = tmp.dateUTC + computedInterval;
-                        		i = tmp.time;
-                        	}
+                            {
+                                tmp.dateUTC = tmp.dateUTC + computedInterval;
+                                i = tmp.time;
+                            }
                     }                     
                 }
 
@@ -1709,7 +1709,17 @@ public class DateTimeAxis extends NumericAxis
     }
 
     /** 
-     *  @inheritDoc
+     *  Invoked when an AxisRenderer is unable to cleanly render
+     *  the labels without overlap, and would like the Axis object
+     *  to reduce the set of labels.
+     *  The method is passed the two labels that are overlapping.
+     *
+     *  @param intervalStart The start of the interval where labels overlap.
+     *
+     *  @param intervalEnd The end of the interval where labels overlap.
+     *
+     *  @return A new label set that resolves the overlap by reducing
+     *  the number of labels.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1963,34 +1973,34 @@ public class DateTimeAxis extends NumericAxis
                     var tmp:Date = new Date(i);
                     if (_minorTickUnits == "weeks")
                     {
-                    	tmp.dateUTC = tmp.dateUTC + 7 * _minorTickInterval;
-                    	i = tmp.time;
+                        tmp.dateUTC = tmp.dateUTC + 7 * _minorTickInterval;
+                        i = tmp.time;
                     }
                     else if (_minorTickUnits == "hours")
                     {
-                      	tmp.hoursUTC = tmp.hoursUTC + _minorTickInterval;
-                   		i = tmp.time;
-                    }	
+                        tmp.hoursUTC = tmp.hoursUTC + _minorTickInterval;
+                        i = tmp.time;
+                    }   
                     else if (_minorTickUnits == "minutes")
                     {
-                       	tmp.minutesUTC = tmp.minutesUTC + _minorTickInterval;
-                   		i = tmp.time;
+                        tmp.minutesUTC = tmp.minutesUTC + _minorTickInterval;
+                        i = tmp.time;
                     }
                     else if (_minorTickUnits == "seconds")
                     {
-                      	tmp.secondsUTC = tmp.secondsUTC + _minorTickInterval;
-                   		i = tmp.time;
+                        tmp.secondsUTC = tmp.secondsUTC + _minorTickInterval;
+                        i = tmp.time;
                     }
                     else if (_minorTickUnits == "milliseconds")
                     {
-                      	tmp.millisecondsUTC = tmp.millisecondsUTC + _minorTickInterval;
-                   		i = tmp.time;
+                        tmp.millisecondsUTC = tmp.millisecondsUTC + _minorTickInterval;
+                        i = tmp.time;
                     }
                     else
                     {
-                    	tmp.dateUTC = tmp.dateUTC + _minorTickInterval;
+                        tmp.dateUTC = tmp.dateUTC + _minorTickInterval;
                         i = tmp.time;
-                   	} 
+                    } 
                 }
                 break;
             }
@@ -2332,7 +2342,7 @@ public class DateTimeAxis extends NumericAxis
         var m:String = d[millisecondsP].toString();
         if (m.length < 4)
         {
-        	var n:int = m.length;
+            var n:int = m.length;
             for (var i:int = n; i < 4; i++)
             {
                 m = "0" + m;
