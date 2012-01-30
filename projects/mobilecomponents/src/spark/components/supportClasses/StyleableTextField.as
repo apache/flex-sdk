@@ -58,6 +58,12 @@ import spark.events.TextOperationEvent;
 
 use namespace mx_internal;
 
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
+include "../../styles/metadata/StyleableTextFieldTextStyles.as"
+
 [ResourceBundle("core")]
 
 //
