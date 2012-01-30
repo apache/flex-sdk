@@ -269,8 +269,8 @@ package spark.automation.delegates.components
 		 * @private
 		 */
 		protected function recordDGHeaderClickEvent(item:IGridItemRenderer,
-												   trigger:Event, 
-												   cacheable:Boolean=false):void
+													trigger:Event, 
+													cacheable:Boolean=false):void
 		{
 			//recordAutomatableEvent(event, cacheable);
 		}
@@ -548,19 +548,22 @@ package spark.automation.delegates.components
 			for (var col:int = 0; col < listItems[row].length; col++)
 			{
 				var i:IVisualElement = listItems[row][col];
-				if(i == grid.editor.editedItemRenderer)
-					i = grid.itemEditorInstance;
-				var itemDelegate:IAutomationObject = i as IAutomationObject;
-				var s:String = (useName
-					? itemDelegate.automationName
-					: itemDelegate.automationValue.join(" | "));
-				if ( i == item )
+				if(i != null)	//can be null if column is not visible
 				{
-					// we got a valid item renderer
-					s= "*" + s + "*";
-					validItemRendererFound= true;
-				}               
-				result.push(s);
+					if(i == grid.editor.editedItemRenderer)
+						i = grid.itemEditorInstance;
+					var itemDelegate:IAutomationObject = i as IAutomationObject;
+					var s:String = (useName
+						? itemDelegate.automationName
+						: itemDelegate.automationValue.join(" | "));
+					if ( i == item )
+					{
+						// we got a valid item renderer
+						s= "*" + s + "*";
+						validItemRendererFound= true;
+					}               
+					result.push(s);
+				}
 			}
 			
 			if(isHeader && (validItemRendererFound==false))
@@ -673,7 +676,7 @@ package spark.automation.delegates.components
 				case KeyboardEvent.KEY_DOWN:
 				{
 					grid.setFocus();
-					return help.replayKeyDownKeyUp(uiComponent, KeyboardEvent(interaction).keyCode);
+					return help.replayKeyDownKeyUp(uiComponent, KeyboardEvent(interaction).keyCode, KeyboardEvent(interaction).ctrlKey, KeyboardEvent(interaction).shiftKey, KeyboardEvent(interaction).altKey);
 				}
 				case SparkDataGridItemSelectEvent.SELECT_INDEX:
 				case SparkDataGridItemSelectEvent.SELECT:
