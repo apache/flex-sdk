@@ -501,7 +501,7 @@ public class SoundEffectInstance extends EffectInstance
         resumedPosition = startTime;
                 
         _soundChannel = sound.play(startTime, loops, transform);
-        _soundChannel.addEventListener("soundComplete", soundCompleteHandler);
+        _soundChannel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
     }
 
     /**
@@ -553,7 +553,7 @@ public class SoundEffectInstance extends EffectInstance
         resumedPosition += pausedPosition;
         
         _soundChannel = sound.play(resumedPosition, loops, pausedTransform);    
-        _soundChannel.addEventListener("soundComplete", soundCompleteHandler);
+        _soundChannel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
     }
     
     /**
