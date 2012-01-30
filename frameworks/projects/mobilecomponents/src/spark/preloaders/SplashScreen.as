@@ -81,25 +81,28 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @private
      *  The splash image 
      */
-    private var splashImage:DisplayObject;      // The splash image
-    private var splashImageWidth:Number;        // original pre-transform width
-    private var splashImageHeight:Number;       // original pre-transform height
-    private var SplashImageClass:Class = null;  // The class of the generated splash image
+    private var splashImage:DisplayObject;              // The splash image
+    private var splashImageWidth:Number;                // original pre-transform width
+    private var splashImageHeight:Number;               // original pre-transform height
+    private var SplashImageClass:Class;                 // The class of the generated splash image
+    private var dynamicSourceAttempted:Boolean = false; // Have we tried to create the dynamicSource instance?
+    private var dynamicSource:SplashScreenImage;        // Instance of the SplashScreenImage sub-class if one is passed in 
+                                                        // as the value of Application's splashScreenImage property. 
     
     /**
      *  @private
      *  The resize mode for the splash image
      */
-    private var info:Object = null;             // The systemManager's info object
-    private var scaleMode:String = "none";      // One of "none", "stretch", "letterbox" and "zoom".
+    private var info:Object = null;                     // The systemManager's info object
+    private var scaleMode:String = "none";              // One of "none", "stretch", "letterbox" and "zoom".
 
     /**
      *  @private 
      *  Minimum time for the image to be visible 
      */    
-    private var minimumDisplayTime:Number = 1000;   // in ms
-    private var checkWaitTime:Boolean = false;      // obey minimumDisplayTime only valid if splashImage is valid
-    private var displayTimeStart:int = -1;          // the start time of the image being displayed
+    private var minimumDisplayTime:Number = 1000;       // in ms
+    private var checkWaitTime:Boolean = false;          // obey minimumDisplayTime only valid if splashImage is valid
+    private var displayTimeStart:int = -1;              // the start time of the image being displayed
     
     //--------------------------------------------------------------------------
     //
@@ -320,14 +323,27 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    mx_internal function getImageClass(dpi:Number, aspectRatio:String):Class
-    {
-        if ("splashScreenImage" in info)
-            return info["splashScreenImage"]; 
-        
-        return null;
+    mx_internal function getImageClass(aspectRatio:String, dpi:Number, resolution:Number):Class
+    {        
+        var sourceClass:Class;
+
+        // If we don't have a dynamic source, then get the class from the info object  
+        if (!dynamicSource)
+        {
+            sourceClass = info["splashScreenImage"];
+            
+            // Is this class a dynamicSource?
+            if (sourceClass && !dynamicSourceAttempted)
+            {
+                dynamicSourceAttempted = true
+                dynamicSource = new sourceClass() as SplashScreenImage;
+            }
+        }
+     
+        // If we have a dynamic source, call its method to get the appropriate class
+        return dynamicSource ? dynamicSource.getImageClass(aspectRatio, dpi, resolution) : sourceClass; 
     }
-    
+
     private function prepareSplashScreen():void
     {
         // Grab the application's dpi provider class.  If one doesn't exist,
@@ -338,7 +354,7 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
         // Capture device dpi and orientation
         var dpi:Number = dpiProvider.runtimeDPI;
         var aspectRatio:String = (stage.stageWidth < stage.stageHeight) ? StageAspectRatio.PORTRAIT : StageAspectRatio.LANDSCAPE;
-        var imageClass:Class = getImageClass(dpi, aspectRatio);
+        var imageClass:Class = getImageClass(aspectRatio, dpi, Math.max(stage.stageWidth, stage.stageHeight));
         
         // The SplashImageClass will only be set if a splash screen image has
         // already be generated.  If the desired imageClass differs from the
