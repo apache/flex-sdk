@@ -488,6 +488,10 @@ public class DataGridAccImpl extends ListBaseAccImpl
 	 */
 	override protected function eventHandler(event:Event):void
 	{
+		// Let AccImpl class handle the events
+		// that all accessible UIComponents understand.
+		$eventHandler(event);
+
 		var dataGrid:DataGrid = DataGrid(master);
 
 		switch (event.type)
