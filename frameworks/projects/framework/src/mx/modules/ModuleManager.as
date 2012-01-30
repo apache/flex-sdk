@@ -14,6 +14,7 @@ package mx.modules
 
 import flash.utils.ByteArray;
 import mx.core.IFlexModuleFactory;
+import mx.events.Request;
 
 /**
  *  The ModuleManager class centrally manages dynamically loaded modules.
@@ -119,6 +120,7 @@ import mx.modules.IModuleInfo;
 //  Helper class: ModuleManagerImpl
 //
 ////////////////////////////////////////////////////////////////////////////////
+import mx.events.Request;
 
 /**
  *  @private
@@ -217,6 +219,7 @@ class ModuleManagerImpl extends EventDispatcher
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+
 /**
  *  @private
  *  The ModuleInfo class encodes the loading state of a module.
@@ -276,7 +279,11 @@ class ModuleInfo extends EventDispatcher
      */
     private var numReferences:int = 0;
 
-
+    /**
+     *  @private
+     */
+    private var parentModuleFactory:IFlexModuleFactory;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -420,7 +427,8 @@ class ModuleInfo extends EventDispatcher
      */
     public function load(applicationDomain:ApplicationDomain = null,
                          securityDomain:SecurityDomain = null,
-                         bytes:ByteArray = null):void
+                         bytes:ByteArray = null,
+                         moduleFactory:IFlexModuleFactory = null):void
     {
         if (_loaded)
             return;
@@ -428,7 +436,8 @@ class ModuleInfo extends EventDispatcher
         _loaded = true;
 
         limbo = null;
-
+        parentModuleFactory = moduleFactory;
+        
         // If bytes are supplied, then load the bytes instead of loading
         // from the url.
         if (bytes)
@@ -464,7 +473,7 @@ class ModuleInfo extends EventDispatcher
             IOErrorEvent.IO_ERROR, errorHandler);
         loader.contentLoaderInfo.addEventListener(
             SecurityErrorEvent.SECURITY_ERROR, errorHandler);
-
+        
         loader.load(r, c);
     }
 
@@ -577,6 +586,8 @@ class ModuleInfo extends EventDispatcher
                 {
                     loader.content.removeEventListener("ready", readyHandler);
                     loader.content.removeEventListener("error", moduleErrorHandler);
+                    loader.content.removeEventListener(Request.GET_FLEX_MODULE_FACTORY_REQUEST, 
+                                                       getFlexModuleFactoryRequestHandler);            
                 }
             }
             catch(error:Error)
@@ -704,6 +715,8 @@ class ModuleInfo extends EventDispatcher
 
         loader.content.addEventListener("ready", readyHandler);
         loader.content.addEventListener("error", moduleErrorHandler);
+        loader.content.addEventListener(Request.GET_FLEX_MODULE_FACTORY_REQUEST, 
+                                        getFlexModuleFactoryRequestHandler);            
 
         try
         {
@@ -761,6 +774,14 @@ class ModuleInfo extends EventDispatcher
         //trace("child load of " + _url + " generated an error " + event);
     }
 
+    /**
+     *  @private
+     */
+    public function getFlexModuleFactoryRequestHandler(request:Request):void
+    {
+        request.value = parentModuleFactory;
+    }
+    
     /**
      *  @private
      */
@@ -1050,7 +1071,8 @@ class ModuleInfoProxy extends EventDispatcher implements IModuleInfo
      */
     public function load(applicationDomain:ApplicationDomain = null,
                          securityDomain:SecurityDomain = null,
-                         bytes:ByteArray = null):void
+                         bytes:ByteArray = null,
+                         moduleFactory:IFlexModuleFactory = null):void
     {
         info.resurrect();
 
@@ -1092,7 +1114,7 @@ class ModuleInfoProxy extends EventDispatcher implements IModuleInfo
         }
         else
         {
-            info.load(applicationDomain, securityDomain, bytes);
+            info.load(applicationDomain, securityDomain, bytes, moduleFactory);
         }
     }
 
