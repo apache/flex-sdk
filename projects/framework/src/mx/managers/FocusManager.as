@@ -839,8 +839,10 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         form.addEventListener(KeyboardEvent.KEY_DOWN, defaultButtonKeyHandler);
         form.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
         // AIR Window events, but don't want to link in AIREvent
-        form.addEventListener("windowActivate", activateWindowHandler);
-        form.addEventListener("windowDeactivate", deactivateWindowHandler);
+        // use capture phase because these get sent by the main Window
+        // and we might be managing a popup in that window
+        sm.addEventListener("windowActivate", activateWindowHandler, true, 0, true);
+        sm.addEventListener("windowDeactivate", deactivateWindowHandler, true, 0, true);
 
         activated = true;
         dispatchEvent(new FlexEvent(FlexEvent.FLEX_WINDOW_ACTIVATE));
@@ -1010,7 +1012,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
      */
     private function sortFocusableObjectsTabIndex():void
     {
-        //// trace("FocusableObjectsTabIndex");
+        // trace("FocusableObjectsTabIndex");
         
         focusableCandidates = [];
         
