@@ -17,6 +17,11 @@ package mx.core
  *  must implement in order to work properly with the MXML compiler.
  *  Currently, the only supported method is the <code>initialized()</code>
  *  method.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IMXMLObject
 {
@@ -36,6 +41,11 @@ public interface IMXMLObject
 	 *  to this object.
 	 *  If the object is a deep property on <code>document</code>,
 	 *  <code>id</code> is null.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function initialized(document:Object, id:String):void;
 }
