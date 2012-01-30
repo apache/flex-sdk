@@ -14,7 +14,6 @@ package mx.utils
 import flash.utils.Proxy;
 import flash.utils.flash_proxy;
 import mx.utils.object_proxy;
-import mx.utils.ObjectUtil;
 
 use namespace flash_proxy;
 use namespace object_proxy;
