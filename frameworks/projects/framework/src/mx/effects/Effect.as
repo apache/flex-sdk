@@ -715,6 +715,7 @@ public class Effect extends EventDispatcher implements IEffect
     private var _targets:Array = [];
     
     [Inspectable(arrayType="Object")]
+    [ArrayElementType("Object")]
 
     /**
      *  @copy mx.effects.IEffect#targets
