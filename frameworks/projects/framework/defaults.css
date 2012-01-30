@@ -29,7 +29,7 @@ global
   	borderCapColor: #919999;
 	borderColor: #696969;
 	borderSides: "left top right bottom";
-    /*borderSkin: ClassReference("mx.skins.spark.BorderSkin");*/
+    borderSkin: ClassReference("mx.skins.spark.BorderSkin");
 	borderStyle: "inset";
 	borderThickness: 1;
     borderVisible: true;
