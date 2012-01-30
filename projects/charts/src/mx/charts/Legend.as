@@ -221,31 +221,7 @@ package mx.charts
 	 *  @productversion Flex 3
 	 */
 	[Event(name="dataChange", type="mx.events.FlexEvent")]
-	
-	/**
-	 *  Dispatched when the user manually scrolls the container.
-	 *
-	 *  <p>The event is dispatched when the scroll position is changed using
-	 *  either the mouse (e.g. clicking on the scrollbar's "down" button)
-	 *  or the keyboard (e.g., clicking on the down-arrow key).
-	 *  However, this event is not dispatched if the scroll position
-	 *  is changed programatically (e.g., setting the value of the
-	 *  <code>horizontalScrollPosition</code> property).
-	 *  The <code>viewChanged</code> event is delivered whenever the
-	 *  scroll position is changed, either manually or programatically.</p>
-	 *
-	 *  <p>At the time when this event is dispatched, the scrollbar has
-	 *  been updated to the new position, but the container's child objects
-	 *  have not been shifted to reflect the new scroll position.</p>
-	 *
-	 *  @eventType mx.events.ScrollEvent.SCROLL
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	[Event(name="scroll", type="mx.events.ScrollEvent")]
+
 	
 	//--------------------------------------
 	//  Styles
@@ -430,18 +406,6 @@ package mx.charts
 	[Style(name="horizontalAlign", type="String", enumeration="left,center,right", inherit="no")]
 	
 	/**
-	 *  The name of the horizontal scrollbar style.
-	 *
-	 *  @default undefined
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	[Style(name="horizontalScrollBarStyleName", type="String", inherit="no")]
-	
-	/**
 	 *  Specifies the label placement of the legend element.
 	 *  Valid values are <code>"top"</code>, <code>"bottom"</code>,
 	 *  <code>"right"</code>, and <code>"left"</code>.
@@ -542,18 +506,6 @@ package mx.charts
 	 */
 	[Style(name="verticalAlign", type="String", enumeration="bottom,middle,top", inherit="no")]
 	
-	/**
-	 *  The name of the vertical scrollbar style.
-	 *
-	 *  @default undefined
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	[Style(name="verticalScrollBarStyleName", type="String", inherit="no")]	
-	
 	[ResourceBundle("core")]
 	
 	//--------------------------------------
@@ -611,15 +563,9 @@ package mx.charts
 	 *    creationPolicy="auto|all|queued|none"
 	 *    dataProvider="<i>No default</i>"
 	 *    direction="horizontal|vertical"
-	 *    horizontalLineScrollSize="5"
-	 *    horizontalPageScrollSize="0"
-	 *    horizontalScrollBar="null"
 	 *    horizontalScrollPosition="0"
 	 *    legendItemClass="<i>No default</i>"
-	 *    verticalLineScrollSize="5"
-	 *    verticalPageScrollSize="0"
-	 *    verticalScrollBar="null"
-	 *    verticalScrollPosition="0"	 *    
+	 *    verticalScrollPosition="0"   
 	 * 
 	 *    <strong>Styles</strong>
 	 *    backgroundAlpha="1.0"
@@ -650,7 +596,6 @@ package mx.charts
 	 *    fontWeight="normal"
 	 *    horizontalAlign="left|center|right"
 	 *    horizontalGap="<i>8</i>"
-	 *    horizontalScrollBarStyleName="undefined"
 	 *    labelPlacement="right|left|top|bottom"
 	 *    markerHeight="15"
 	 *    markerWidth="10"
@@ -666,7 +611,6 @@ package mx.charts
 	 *    textIndent="0"
 	 *    verticalAlign="top|middle|bottom"
 	 *    verticalGap="<i>6</i>"
-	 *    verticalScrollBarStyleName="undefined"
 	 *    
 	 *    <strong>Events</strong>
 	 *    childAdd="<i>No default</i>"
@@ -678,7 +622,6 @@ package mx.charts
 	 *    itemMouseOut="<i>Event; no default</i>"
 	 *    itemMouseOver="<i>Event; no default</i>"
 	 *    itemMouseUp="<i>Event; no default</i>"
-     *    scroll="<i>No default</i>"
 	 *  /&gt;
 	 *  </pre>
 	 *
@@ -916,7 +859,6 @@ package mx.charts
 		 *  @private
 		 *  Flags that remember what work to do during the next updateDisplayList().
 		 */
-		private var scrollPropertiesChanged:Boolean = false;
 		private var scrollPositionChanged:Boolean = true;
 		private var horizontalScrollPositionPending:Number;
 		private var verticalScrollPositionPending:Number;
@@ -1286,12 +1228,6 @@ package mx.charts
 		override public function set enabled(value:Boolean):void
 		{
 			super.enabled = value;
-			
-			// Scrollbars must be enabled/disabled when this container is.
-			/*if (horizontalScrollBar)
-				horizontalScrollBar.enabled = value;
-			if (verticalScrollBar)
-				verticalScrollBar.enabled = value;*/
 			
 			invalidateProperties();
 			
@@ -2028,131 +1964,6 @@ package mx.charts
 		}
 		
 		//----------------------------------
-		//  horizontalLineScrollSize
-		//----------------------------------
-		
-		/**
-		 *  @private
-		 *  Storage for the horizontalLineScrollSize property.
-		 */
-		private var _horizontalLineScrollSize:Number = 5;
-		
-		[Bindable("horizontalLineScrollSizeChanged")]
-		[Inspectable(defaultValue="5")]
-		
-		/**
-		 *  Number of pixels to move when the left- or right-arrow
-		 *  button in the horizontal scroll bar is pressed.
-		 *  
-		 *  @default 5
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion Flash 9
-		 *  @playerversion AIR 1.1
-		 *  @productversion Flex 3
-		 */
-		public function get horizontalLineScrollSize():Number
-		{
-			return _horizontalLineScrollSize;
-		}
-		
-		/**
-		 *  @private
-		 */
-		public function set horizontalLineScrollSize(value:Number):void
-		{
-			scrollPropertiesChanged = true;
-			
-			_horizontalLineScrollSize = value;
-			
-			invalidateDisplayList();
-			
-			dispatchEvent(new Event("horizontalLineScrollSizeChanged"));
-		}
-		
-		//----------------------------------
-		//  horizontalPageScrollSize
-		//----------------------------------
-		
-		/**
-		 *  @private
-		 *  Storage for the horizontalPageScrollSize property.
-		 */
-		private var _horizontalPageScrollSize:Number = 0;
-		
-		[Bindable("horizontalPageScrollSizeChanged")]
-		[Inspectable(defaultValue="0")]
-		
-		/**
-		 *  Number of pixels to move when the track in the
-		 *  horizontal scroll bar is pressed.
-		 *  A value of 0 means that the page size
-		 *  will be calculated to be a full screen.
-		 * 
-		 *  @default 0
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion Flash 9
-		 *  @playerversion AIR 1.1
-		 *  @productversion Flex 3
-		 */
-		public function get horizontalPageScrollSize():Number
-		{
-			return _horizontalPageScrollSize;
-		}
-		
-		/**
-		 *  @private
-		 */
-		public function set horizontalPageScrollSize(value:Number):void
-		{
-			scrollPropertiesChanged = true;
-			
-			_horizontalPageScrollSize = value;
-			
-			invalidateDisplayList();
-			
-			dispatchEvent(new Event("horizontalPageScrollSizeChanged"));
-		}
-		
-		//----------------------------------
-		//  horizontalScrollBar
-		//----------------------------------
-		
-		/**
-		 *  @private
-		 *  The horizontal scrollbar (null if not present).
-		 */
-		//private var _horizontalScrollBar:ScrollBar;
-		
-		/**
-		 *  The horizontal scrollbar used in this container.
-		 *  This property is null if no horizontal scroll bar
-		 *  is currently displayed.
-		 *  In general you do not access this property directly.
-		 *  Manipulation of the <code>horizontalScrollPolicy</code> 
-		 *  and <code>horizontalScrollPosition</code>
-		 *  properties should provide sufficient control over the scroll bar.
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion Flash 9
-		 *  @playerversion AIR 1.1
-		 *  @productversion Flex 3
-		 */
-	/*	public function get horizontalScrollBar():ScrollBar
-		{
-			return null;
-		}
-		
-		/**
-		 *  @private
-		 */
-		/*public function set horizontalScrollBar(value:ScrollBar):void
-		{
-			_horizontalScrollBar = value;
-		}*/
-		
-		//----------------------------------
 		//  horizontalScrollPosition
 		//----------------------------------
 		
@@ -2549,132 +2360,6 @@ package mx.charts
 			// Containers, by default, always use padding.
 			return true;
 		}
-		
-		//----------------------------------
-		//  verticalLineScrollSize
-		//----------------------------------
-		
-		/**
-		 *  @private
-		 *  Storage for the verticalLineScrollSize property.
-		 */
-		private var _verticalLineScrollSize:Number = 5;
-		
-		[Bindable("verticalLineScrollSizeChanged")]
-		[Inspectable(defaultValue="5")]
-		
-		/**
-		 *  Number of pixels to scroll when the up- or down-arrow
-		 *  button in the vertical scroll bar is pressed,
-		 *  or when you scroll by using the mouse wheel.
-		 *  
-		 *  @default 5
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion Flash 9
-		 *  @playerversion AIR 1.1
-		 *  @productversion Flex 3
-		 */
-		public function get verticalLineScrollSize():Number
-		{
-			return _verticalLineScrollSize;
-		}
-		
-		/**
-		 *  @private
-		 */
-		public function set verticalLineScrollSize(value:Number):void
-		{
-			scrollPropertiesChanged = true;
-			
-			_verticalLineScrollSize = value;
-			
-			invalidateDisplayList();
-			
-			dispatchEvent(new Event("verticalLineScrollSizeChanged"));
-		}
-		
-		//----------------------------------
-		//  verticalPageScrollSize
-		//----------------------------------
-		
-		/**
-		 *  @private
-		 *  Storage for the verticalPageScrollSize property.
-		 */
-		private var _verticalPageScrollSize:Number = 0;
-		
-		[Bindable("verticalPageScrollSizeChanged")]
-		[Inspectable(defaultValue="0")]
-		
-		/**
-		 *  Number of pixels to scroll when the track
-		 *  in the vertical scroll bar is pressed.
-		 *  A value of 0 means that the page size
-		 *  will be calculated to be a full screen.
-		 * 
-		 *  @default 0   
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion Flash 9
-		 *  @playerversion AIR 1.1
-		 *  @productversion Flex 3
-		 */
-		public function get verticalPageScrollSize():Number
-		{
-			return _verticalPageScrollSize;
-		}
-		
-		/**
-		 *  @private
-		 */
-		public function set verticalPageScrollSize(value:Number):void
-		{
-			scrollPropertiesChanged = true;
-			
-			_verticalPageScrollSize = value;
-			
-			invalidateDisplayList();
-			
-			dispatchEvent(new Event("verticalPageScrollSizeChanged"));
-		}
-		
-		//----------------------------------
-		//  verticalScrollBar
-		//----------------------------------
-		
-		/**
-		 *  @private
-		 *  The vertical scrollbar (null if not present).
-		 */
-		//private var _verticalScrollBar:ScrollBar;
-		
-		/**
-		 *  The vertical scrollbar used in this container.
-		 *  This property is null if no vertical scroll bar
-		 *  is currently displayed.
-		 *  In general you do not access this property directly.
-		 *  Manipulation of the <code>verticalScrollPolicy</code> 
-		 *  and <code>verticalScrollPosition</code>
-		 *  properties should provide sufficient control over the scroll bar.
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion Flash 9
-		 *  @playerversion AIR 1.1
-		 *  @productversion Flex 3
-		 */
-		/*public function get verticalScrollBar():ScrollBar
-		{
-			return _verticalScrollBar;
-		}
-		
-		/**
-		 *  @private
-		 */
-		/*public function set verticalScrollBar(value:ScrollBar):void
-		{
-			_verticalScrollBar = value;
-		}*/
 		
 		//----------------------------------
 		//  verticalScrollPosition
@@ -4063,24 +3748,7 @@ package mx.charts
 				
 				scrollPositionChanged = false;
 			}
-			
-			if (scrollPropertiesChanged)
-			{
-				/*if (horizontalScrollBar)
-				{
-					horizontalScrollBar.lineScrollSize = horizontalLineScrollSize;
-					horizontalScrollBar.pageScrollSize = horizontalPageScrollSize;
-				}
-				
-				if (verticalScrollBar)
-				{
-					verticalScrollBar.lineScrollSize = verticalLineScrollSize;
-					verticalScrollBar.pageScrollSize = verticalPageScrollSize;
-				}*/
-				
-				scrollPropertiesChanged = false;
-			}
-			
+						
 			if (contentPane && contentPane.scrollRect)
 			{
 				// Draw content pane
@@ -4364,28 +4032,6 @@ package mx.charts
 				styleManager.isSizeInvalidatingStyle(styleProp))
 			{
 				invalidateViewMetricsAndPadding();
-			}
-			
-			if (allStyles || styleProp == "horizontalScrollBarStyleName")
-			{
-				/*if (horizontalScrollBar && horizontalScrollBar is ISimpleStyleClient)
-				{
-					var horizontalScrollBarStyleName:String =
-						getStyle("horizontalScrollBarStyleName");
-					ISimpleStyleClient(horizontalScrollBar).styleName =
-						horizontalScrollBarStyleName;
-				}*/
-			}
-			
-			if (allStyles || styleProp == "verticalScrollBarStyleName")
-			{
-				/*if (verticalScrollBar && verticalScrollBar is ISimpleStyleClient)
-				{
-					var verticalScrollBarStyleName:String =
-						getStyle("verticalScrollBarStyleName");
-					ISimpleStyleClient(verticalScrollBar).styleName =
-						verticalScrollBarStyleName;
-				}*/
 			}
 		}
 		
@@ -5721,13 +5367,6 @@ package mx.charts
 				changed = true;
 			}
 			
-			// Set the position of the horizontal scrollbar's thumb.
-			/*if (horizontalScrollBar &&
-				horizontalScrollBar.scrollPosition != _horizontalScrollPosition)
-			{
-				horizontalScrollBar.scrollPosition = _horizontalScrollPosition;
-			}*/
-			
 			// Clamp verticalScrollPosition to the range
 			// 0 through maxVerticalScrollPosition.
 			// If verticalScrollBar doesn't exist,
@@ -5742,13 +5381,6 @@ package mx.charts
 				_verticalScrollPosition = maxVerticalScrollPosition;
 				changed = true;
 			}
-			
-			// Set the position of the vertical scrollbar's thumb.
-			/*if (verticalScrollBar &&
-				verticalScrollBar.scrollPosition != _verticalScrollPosition)
-			{
-				verticalScrollBar.scrollPosition = _verticalScrollPosition;
-			}*/
 			
 			return changed;
 		}
@@ -5833,13 +5465,7 @@ package mx.charts
 			{
 				x += _horizontalScrollPosition;
 				
-				/*if (horizontalScrollBar)
-					w = viewableWidth;*/
-				
 				y += _verticalScrollPosition;
-				
-				/*if (verticalScrollBar)
-					h = viewableHeight;*/
 			}
 			else
 			{
@@ -5871,22 +5497,6 @@ package mx.charts
 			{
 				IRectangularBorder(border).layoutBackgroundImage();
 			}
-		}
-		
-		/**
-		 *  @private
-		 */
-		private function dispatchScrollEvent(direction:String,
-											 oldPosition:Number,
-											 newPosition:Number,
-											 detail:String):void
-		{
-			/*var event:ScrollEvent = new ScrollEvent(ScrollEvent.SCROLL);
-			event.direction = direction;
-			event.position = newPosition;
-			event.delta = newPosition - oldPosition;
-			event.detail = detail;
-			dispatchEvent(event);*/
 		}
 		
 		/**
@@ -5967,115 +5577,8 @@ package mx.charts
 			// If the KeyBoardEvent can be canceled and a descendant has done so,
 			// don't process it at all.  
 			if (event.isDefaultPrevented())
-				return;
+				return;		
 			
-			var direction:String;
-			var oldPos:Number;
-			
-			/*if (verticalScrollBar)
-			{
-				direction = ScrollEventDirection.VERTICAL;
-				oldPos = verticalScrollPosition;
-				
-				switch (event.keyCode)
-				{
-					case Keyboard.DOWN:
-					{
-						verticalScrollPosition += verticalLineScrollSize;
-						dispatchScrollEvent(direction, oldPos,
-							verticalScrollPosition,
-							ScrollEventDetail.LINE_DOWN);
-						event.stopPropagation();
-						break;
-					}
-						
-					case Keyboard.UP:
-					{
-						verticalScrollPosition -= verticalLineScrollSize;
-						dispatchScrollEvent(direction, oldPos,
-							verticalScrollPosition,
-							ScrollEventDetail.LINE_UP);
-						event.stopPropagation();
-						break;
-					}
-						
-					case Keyboard.PAGE_UP:
-					{
-						verticalScrollPosition -= verticalPageScrollSize;
-						dispatchScrollEvent(direction, oldPos,
-							verticalScrollPosition,
-							ScrollEventDetail.PAGE_UP);
-						event.stopPropagation();
-						break;
-					}
-						
-					case Keyboard.PAGE_DOWN:
-					{
-						verticalScrollPosition += verticalPageScrollSize;
-						dispatchScrollEvent(direction, oldPos,
-							verticalScrollPosition,
-							ScrollEventDetail.PAGE_DOWN);
-						event.stopPropagation();
-						break;
-					}
-						
-					case Keyboard.HOME:
-					{
-						verticalScrollPosition =
-							verticalScrollBar.minScrollPosition;
-						dispatchScrollEvent(direction, oldPos,
-							verticalScrollPosition,
-							ScrollEventDetail.AT_TOP);
-						
-						event.stopPropagation();
-						break;
-					}
-						
-					case Keyboard.END:
-					{
-						verticalScrollPosition =
-							verticalScrollBar.maxScrollPosition;
-						dispatchScrollEvent(direction, oldPos,
-							verticalScrollPosition,
-							ScrollEventDetail.AT_BOTTOM);
-						event.stopPropagation();
-						break;
-					}
-				}
-			}*/
-			
-			/*if (horizontalScrollBar)
-			{
-				direction = ScrollEventDirection.HORIZONTAL;
-				oldPos = horizontalScrollPosition;
-				
-				// If rtl layout, need to swap LEFT and RIGHT so correct action
-				// is done.
-				var keyCode:uint = mapKeycodeForLayoutDirection(event);
-				
-				switch (keyCode)
-				{
-					case Keyboard.LEFT:
-					{
-						horizontalScrollPosition -= horizontalLineScrollSize;
-						dispatchScrollEvent(direction, oldPos,
-							horizontalScrollPosition,
-							ScrollEventDetail.LINE_LEFT);
-						event.stopPropagation();
-						break;
-					}
-						
-					case Keyboard.RIGHT:
-					{
-						horizontalScrollPosition += horizontalLineScrollSize;
-						dispatchScrollEvent(direction, oldPos,
-							horizontalScrollPosition,
-							ScrollEventDetail.LINE_RIGHT);
-						event.stopPropagation();
-						break;
-					}
-				}
-			}*/
 		}
 		
 		//--------------------------------------------------------------------------
@@ -6092,30 +5595,6 @@ package mx.charts
 		{
 			// If this Container has a vertical scrollbar, then handle the event
 			// and prevent further bubbling
-			/*if (verticalScrollBar && !event.isDefaultPrevented())
-			{
-				var scrollDirection:int = event.delta <= 0 ? 1 : -1;
-				
-				var lineScrollSize:int = verticalScrollBar ?
-					verticalScrollBar.lineScrollSize :
-					1;
-				
-				// Make sure we scroll by at least one line
-				var scrollAmount:Number =
-					Math.max(Math.abs(event.delta), lineScrollSize);
-				
-				// Multiply by 3 to make scrolling a little faster
-				var oldPosition:Number = verticalScrollPosition;
-				verticalScrollPosition += 3 * scrollAmount * scrollDirection;
-				
-				dispatchScrollEvent(ScrollEventDirection.VERTICAL,
-					oldPosition, verticalScrollPosition,
-					event.delta <= 0 ?
-					ScrollEventDetail.LINE_UP :
-					ScrollEventDetail.LINE_DOWN);
-				
-				event.preventDefault();
-			}*/
 		}
 		
 		/**
@@ -6138,17 +5617,6 @@ package mx.charts
 				else if (horizontalScrollPositionPending > maxHorizontalScrollPosition)
 					horizontalScrollPositionPending = maxHorizontalScrollPosition;
 				
-				// Set the position of the horizontal scrollbar's thumb.
-				/*if (horizontalScrollBar &&
-					horizontalScrollBar.scrollPosition !=
-					horizontalScrollPositionPending)
-				{
-					_horizontalScrollPosition = horizontalScrollPositionPending;
-					horizontalScrollBar.scrollPosition =
-						horizontalScrollPositionPending;
-					needToScrollChildren = true;
-				}*/
-				
 				horizontalScrollPositionPending = NaN;
 			}
 			
@@ -6160,14 +5628,6 @@ package mx.charts
 					verticalScrollPositionPending = 0;
 				else if (verticalScrollPositionPending > maxVerticalScrollPosition)
 					verticalScrollPositionPending = maxVerticalScrollPosition;
-				
-				// Set the position of the vertical scrollbar's thumb.
-				/*if (verticalScrollBar && verticalScrollBar.scrollPosition != verticalScrollPositionPending)
-				{
-					_verticalScrollPosition = verticalScrollPositionPending;
-					verticalScrollBar.scrollPosition = verticalScrollPositionPending;
-					needToScrollChildren = true;
-				}*/
 				
 				verticalScrollPositionPending = NaN;
 			}
@@ -6184,46 +5644,6 @@ package mx.charts
 			numChildrenCreated--;
 			if (numChildrenCreated <= 0)
 				dispatchEvent(new FlexEvent("childrenCreationComplete"));
-		}
-		
-		/**
-		 *  @private
-		 *  This method is called if the user interactively moves
-		 *  the horizontal scrollbar thumb.
-		 */
-		private function horizontalScrollBar_scrollHandler(event:Event):void
-		{
-			// TextField.scroll bubbles so you might see it here
-			/*if (event is ScrollEvent)
-			{
-				var oldPos:Number = horizontalScrollPosition;
-				horizontalScrollPosition = horizontalScrollBar.scrollPosition;
-				
-				dispatchScrollEvent(ScrollEventDirection.HORIZONTAL,
-					oldPos,
-					horizontalScrollPosition,
-					ScrollEvent(event).detail);
-			}*/
-		}
-		
-		/**
-		 *  @private
-		 *  This method is called if the user interactively moves
-		 *  the vertical scrollbar thumb.
-		 */
-		private function verticalScrollBar_scrollHandler(event:Event):void
-		{
-			// TextField.scroll bubbles so you might see it here
-			/*if (event is ScrollEvent)
-			{
-				var oldPos:Number = verticalScrollPosition;
-				verticalScrollPosition = verticalScrollBar.scrollPosition;
-				
-				dispatchScrollEvent(ScrollEventDirection.VERTICAL,
-					oldPos,
-					verticalScrollPosition,
-					ScrollEvent(event).detail);
-			}*/
 		}
 		
 		/**
