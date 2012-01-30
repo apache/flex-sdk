@@ -1869,7 +1869,13 @@ public class WindowedApplication extends Application implements IWindow
         if (instance == titleBar)
         {
             if (!nativeWindow.closed)
-                systemManager.stage.nativeWindow.title = _title;
+            {
+                if (_title == "" && systemManager.stage.nativeWindow.title != null)
+                    _title = systemManager.stage.nativeWindow.title;
+                else
+                    systemManager.stage.nativeWindow.title = _title;                
+            }
+            
             titleBar.title = _title;
             titleChanged = false;
         }
@@ -2202,7 +2208,7 @@ public class WindowedApplication extends Application implements IWindow
      *   the NativeWindowResize to indicate the edit or corner that was clicked. If
      *   no edge or corner were clicked then return NativeWindowResize.NONE.
      */
-    private function hitTestResizeEdge(event:MouseEvent):String
+    mx_internal function hitTestResizeEdge(event:MouseEvent):String
     {
         // If we clicked on a child of the contentGroup, then don't resize
         if (event.target is DisplayObject && event.target != contentGroup)
@@ -2417,21 +2423,20 @@ public class WindowedApplication extends Application implements IWindow
      */
     protected function mouseDownHandler(event:MouseEvent):void
     {
-        if (systemManager.stage.nativeWindow.systemChrome != "none")
-            return;
         if (event.target == gripper)
         {
             startResize(NativeWindowResize.BOTTOM_RIGHT);
             event.stopPropagation();
         }
-        else
+
+        if (systemManager.stage.nativeWindow.systemChrome != "none")
+            return;
+
+        var edgeOrCorner:String = mx_internal::hitTestResizeEdge(event);
+        if (edgeOrCorner != NativeWindowResize.NONE)
         {
-            var edgeOrCorner:String = hitTestResizeEdge(event);
-            if (edgeOrCorner != NativeWindowResize.NONE)
-            {
-                startResize(edgeOrCorner);
-                event.stopPropagation();
-            }
+            startResize(edgeOrCorner);
+            event.stopPropagation();
         }
     }
 
