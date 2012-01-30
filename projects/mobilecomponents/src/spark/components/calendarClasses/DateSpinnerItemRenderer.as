@@ -16,7 +16,7 @@ import mx.core.mx_internal;
 
 import spark.components.SpinnerList;
 import spark.components.SpinnerListItemRenderer;
-	
+    
 use namespace mx_internal;
 
 /**
@@ -30,17 +30,17 @@ use namespace mx_internal;
  */ 
 public class DateSpinnerItemRenderer extends SpinnerListItemRenderer
 {
-	/**
-	 *  Constructor.
-	 *        
-	 *  @langversion 3.0
-	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.6
-	 */ 
-	public function DateSpinnerItemRenderer()
-	{
-		super();
-	}
+    /**
+     *  Constructor.
+     *        
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
+     */ 
+    public function DateSpinnerItemRenderer()
+    {
+        super();
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -49,36 +49,50 @@ public class DateSpinnerItemRenderer extends SpinnerListItemRenderer
     //--------------------------------------------------------------------------
 
     private var _colorName:String = "color";
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties: UIComponent
-	//
-	//--------------------------------------------------------------------------
-	
-	override public function get enabled():Boolean
-	{
-		var result:Boolean = true;
-		
-		// If data is a String or other primitive, this call will fail
-		try 
-		{
-			result = data[SpinnerList.ENABLED_PROPERTY_NAME] == undefined || data[SpinnerList.ENABLED_PROPERTY_NAME];
-		}
-		catch (e:Error)
-		{
-			
-		}
-		
-		return result;
-	}
     
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
     
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
+     */
+    override public function get enabled():Boolean
+    {
+        var result:Boolean = true;
+        
+        // If data is a String or other primitive, this call will fail
+        try 
+        {
+            result = data[SpinnerList.ENABLED_PROPERTY_NAME] == undefined || data[SpinnerList.ENABLED_PROPERTY_NAME];
+        }
+        catch (e:Error)
+        {
+            
+        }
+        
+        return result;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
+     */
     override public function set data(value:Object):void
     {
         super.data = value;
@@ -98,6 +112,13 @@ public class DateSpinnerItemRenderer extends SpinnerListItemRenderer
         setTextProperties();
     }
     
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
+     */
     override protected function createChildren():void
     {
         super.createChildren();
