@@ -116,6 +116,7 @@
 			<include-resource-bundles bundle="effects"/>
 			<include-resource-bundles bundle="formatters"/>
 			<include-resource-bundles bundle="logging"/>
+			<include-resource-bundles bundle="modules"/>
 			<include-resource-bundles bundle="skins"/>
 			<include-resource-bundles bundle="states"/>
 			<include-resource-bundles bundle="styles"/>
