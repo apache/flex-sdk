@@ -1809,7 +1809,41 @@ public class UIComponent extends FlexSprite
 
         dispatchEvent(new Event("scaleYChanged"));
     }
+    
+    /**
+     *  This property allows access to the Player's native implementation
+     *  of the <code>scaleX</code> property, which can be useful since components
+     *  can override <code>scaleX</code> and thereby hide the native implementation.
+     *  Note that this "base property" is final and cannot be overridden,
+     *  so you can count on it to reflect what is happening at the player level.
+     */
+    mx_internal final function get $scaleX():Number
+    {
+        return super.scaleX;
+    }
 
+    mx_internal final function set $scaleX(value:Number):void
+    {
+        super.scaleX = value;
+    }
+    
+    /**
+     *  This property allows access to the Player's native implementation
+     *  of the <code>scaleY</code> property, which can be useful since components
+     *  can override <code>scaleY</code> and thereby hide the native implementation.
+     *  Note that this "base property" is final and cannot be overridden,
+     *  so you can count on it to reflect what is happening at the player level.
+     */
+    mx_internal final function get $scaleY():Number
+    {
+        return super.scaleY;
+    }
+
+    mx_internal final function set $scaleY(value:Number):void
+    {
+        super.scaleY = value;
+    }
+    
     //----------------------------------
     //  visible
     //----------------------------------
@@ -5808,7 +5842,7 @@ public class UIComponent extends FlexSprite
         }
        
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Methods: Measurement
