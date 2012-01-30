@@ -1711,6 +1711,10 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             lastAction = ViewNavigatorAction.NONE;
             viewChanging = false;
+            
+            // Notify listeners that the view change is complete
+            if (hasEventListener(Event.COMPLETE))
+                dispatchEvent(new Event(Event.COMPLETE));
         }
     }
     
