@@ -450,86 +450,87 @@ public class View extends Group implements IDataRenderer
         _navigationGroupLayout = value;
         dispatchEvent(changeEvent);
     }
-    
-    //----------------------------------
-    //  showActionBar
-    //----------------------------------
-    private var _showActionBar:Boolean = true;
-    
-    /**
-     *  Flag indicating whether a view should show the action bar or not.
-     *  This doesn't necessarily correlate to the visible property of the
-     *  navigator's ActionBar.  In the end, ViewNavigator and the developer
-     *  have the last say as to what's visible.
-     *
-     *  @default true
+	
+	//----------------------------------
+	//  actionBarVisible
+	//----------------------------------
+	private var _actionBarVisible:Boolean = true;
+	
+	/**
+	 *  Flag indicating whether a view should show the action bar or not.
+	 *  This doesn't necessarily correlate to the visible property of the
+	 *  navigator's ActionBar.  In the end, ViewNavigator and the developer
+	 *  have the last say as to what's visible.
+	 *
+	 *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     */
-    public function get showActionBar():Boolean
-    {
-        return _showActionBar;
-    }
+	 */
+	public function get actionBarVisible():Boolean
+	{
+		return _actionBarVisible;
+	}
     
     /**
      *  @private
      */ 
-    public function set showActionBar(value:Boolean):void
-    {
-        _showActionBar = value;
-        
-        // Immediately request actionBar's visibility be toggled
-        if (active && navigator)
-        {
-            if (_showActionBar)
-                navigator.showActionBar();
-            else
-                navigator.hideActionBar();
-        }
-    }
-    //----------------------------------
-    //  showTabBar
-    //----------------------------------
-    private var _showTabBar:Boolean = true;
+	public function set actionBarVisible(value:Boolean):void
+	{
+        _actionBarVisible = value;
+		
+		// Immediately request actionBar's visibility be toggled
+		if (active && navigator)
+		{
+			if (_actionBarVisible)
+				navigator.showActionBar();
+			else
+				navigator.hideActionBar();
+		}
+	}
     
-    /**
-     *  Flag indicating whether a view should show the action bar or not.
-     *  This doesn't necessarily correlate to the visible property of the
-     *  navigator's ActionBar.  In the end, ViewNavigator and the developer
-     *  have the last say as to what's visible.
-     *
-     *  @default true
+	//----------------------------------
+	//  tabBarVisible
+	//----------------------------------
+	private var _tabBarVisible:Boolean = true;
+	
+	/**
+	 *  Flag indicating whether a view should show the action bar or not.
+	 *  This doesn't necessarily correlate to the visible property of the
+	 *  navigator's ActionBar.  In the end, ViewNavigator and the developer
+	 *  have the last say as to what's visible.
+	 *
+	 *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     */
-    public function get showTabBar():Boolean
-    {
-        return _showTabBar;
-    }
+	 */
+	public function get tabBarVisible():Boolean
+	{
+		return _tabBarVisible;
+	}
     
     /**
      *  @private
      */
-    public function set showTabBar(value:Boolean):void
-    {
-        _showTabBar = value;
-        
-        // Immediately request actionBar's visibility be toggled
-        if (active && navigator)
-        {
-            if (_showTabBar)
-                navigator.showTabBar();
-            else
-                navigator.hideTabBar();
-        }
-    }
-    
+	public function set tabBarVisible(value:Boolean):void
+	{
+		_tabBarVisible = value;
+		
+		// Immediately request actionBar's visibility be toggled
+		if (active && navigator)
+		{
+			if (_tabBarVisible)
+				navigator.showTabBar();
+			else
+				navigator.hideTabBar();
+		}
+	}
+	
     //----------------------------------
     //  title
     //----------------------------------
