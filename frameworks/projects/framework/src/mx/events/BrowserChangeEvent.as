@@ -18,6 +18,11 @@ import flash.events.Event;
  *  The BrowserChangeEvent class represents event objects specific to 
  *  the BrowserManager.
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class BrowserChangeEvent extends Event
 {
@@ -53,6 +58,11 @@ public class BrowserChangeEvent extends Event
      *  </table>
      *
      *  @eventType applicationURLChange
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const APPLICATION_URL_CHANGE:String = "applicationURLChange";
 
@@ -80,6 +90,11 @@ public class BrowserChangeEvent extends Event
      *  </table>
      *
      *  @eventType browserURLChange
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const BROWSER_URL_CHANGE:String = "browserURLChange";
 
@@ -107,6 +122,11 @@ public class BrowserChangeEvent extends Event
      *  </table>
      *
      *  @eventType urlChange
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const URL_CHANGE:String = "urlChange";
 
@@ -128,6 +148,11 @@ public class BrowserChangeEvent extends Event
      *  @param url Current URL in the browser.
      *  
      *  @param lastURL Previous URL in the browser.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function BrowserChangeEvent(type:String, bubbles:Boolean = false,
                                cancelable:Boolean = false, 
@@ -151,6 +176,11 @@ public class BrowserChangeEvent extends Event
 
     /**
      *  The previous value of the <code>url</code> property in the BrowserManager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var lastURL:String;
 
@@ -160,6 +190,11 @@ public class BrowserChangeEvent extends Event
 
     /**
      *  The new value of the <code>url</code> property in the BrowserManager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var url:String;
 
