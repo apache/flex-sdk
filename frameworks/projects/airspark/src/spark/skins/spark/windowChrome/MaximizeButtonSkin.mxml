@@ -13,9 +13,9 @@
 <!--- The default skin class for the maximize button in the title bar of the Spark WindowedApplication component
       and Spark Window component when you use Flex chrome.  
       The Flex chrome is defined by the FlexChromeSkin skin class 
-      in the spark.skins.default package. 
+      in the spark.skins.spark package. 
       To use the Flex chrome, set <code>systemChrome</code> to "none" in the application's .xml file,
-      and set the <code>skinClass</code> style to spark.skins.default.FlexChromeSkin. 
+      and set the <code>skinClass</code> style to spark.skins.spark.FlexChromeSkin. 
 
       @see spark.components.WindowedApplication
       @see spark.components.Window
