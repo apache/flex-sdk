@@ -40,8 +40,8 @@ use namespace mx_internal;
 
 /**
  *  Appearance of the <code>contentGroup</code>. 
- *  Valid MXML values are <code>inset</code>
- *  <code>flat</code> and <code>transparent</code>.
+ *  Valid MXML values are <code>inset</code>, 
+ *  <code>flat</code>, and <code>none</code>.
  *
  *  <p>In ActionScript, you can use the following constants
  *  to set this property:
