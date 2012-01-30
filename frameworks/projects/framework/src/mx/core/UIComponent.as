@@ -8146,18 +8146,12 @@ public class UIComponent extends FlexSprite
             IRawChildrenContainer(this).rawChildren :
             IChildList(this);
 
-        var elementContainer:Boolean = childList is IVisualElementContainer;
-         
         // Recursively call this method on each child.
-        var n:int = elementContainer ? 
-            IVisualElementContainer(childList).numElements : 
-            childList.numChildren;
+        var n:int = childList.numChildren;
             
         for (var i:int = 0; i < n; i++)
         {
-            var child:Object = elementContainer ?
-                IVisualElementContainer(childList).getElementAt(i) :
-                childList.getChildAt(i);
+            var child:Object = childList.getChildAt(i);
 
             if (child is IStyleClient)
             {
@@ -8264,13 +8258,11 @@ public class UIComponent extends FlexSprite
                         styleProp:String, recursive:Boolean):void
     {
         cachedTextFormat = null;
-        var elementContainer:Boolean = this is IVisualElementContainer;
-        var n:int = elementContainer ? IVisualElementContainer(this).numElements : numChildren;
+        
+        var n:int = numChildren;
         for (var i:int = 0; i < n; i++)
         {
-            var child:ISimpleStyleClient = elementContainer ?
-                IVisualElementContainer(this).getElementAt(i) as ISimpleStyleClient :
-                getChildAt(i) as ISimpleStyleClient;
+            var child:ISimpleStyleClient = getChildAt(i) as ISimpleStyleClient;
                 
             if (child)
             {
