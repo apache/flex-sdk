@@ -1,4 +1,35 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2009 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
 
+// This script does the following:
+// 
+// 1. Check for a selection in the Library. If nothing is selected, 
+//    alert the user and abort the script.
+//
+// 2. Prepare the document for Flex, if needed. This includes:
+//    a) Changing publish properties to set player version to at least
+//       9, ActionScript version to at least 3, turning on Export SWC,
+//       and turning on Permit Debugging.
+//    b) Setting the frame rate to 24
+//    c) Import FlexComponentBase SWC from the components panel into the library
+//    d) Tracing the changes that occurred in the document
+//
+// 3. For each MovieClip selected in the Library, the following changes
+//    are made:
+//    a) Set Export for ActionScript to true
+//    b) Set Export in First Frame to true
+//    c) Set Base Class to mx.flash.UIMovieClip
+//    d) Set class name to match the symbol name
+//    e) Make sure class name is valid (no spaces, etc.)
+//    
 
 var doc = null;
 
