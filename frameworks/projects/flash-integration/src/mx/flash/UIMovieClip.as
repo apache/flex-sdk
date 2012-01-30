@@ -65,6 +65,11 @@ import mx.utils.MatrixUtil;
  *  <code>rawChildren.addChildAt()</code> method, the event is not dispatched.
  * 
  *  @eventType mx.events.FlexEvent.ADD
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="add", type="mx.events.FlexEvent")]
 
@@ -74,6 +79,11 @@ import mx.utils.MatrixUtil;
  *  <code>initialize</code> event.
  *
  *  @eventType mx.events.FlexEvent.CREATION_COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="creationComplete", type="mx.events.FlexEvent")]
 
@@ -81,6 +91,11 @@ import mx.utils.MatrixUtil;
  *  Dispatched when an object's state changes from visible to invisible.
  *
  *  @eventType mx.events.FlexEvent.HIDE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="hide", type="mx.events.FlexEvent")]
 
@@ -89,6 +104,11 @@ import mx.utils.MatrixUtil;
  *  and has all initialization properties set.
  *
  *  @eventType mx.events.FlexEvent.INITIALIZE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="initialize", type="mx.events.FlexEvent")]
 
@@ -117,6 +137,11 @@ import mx.utils.MatrixUtil;
  *  until after the property changes.</p>
  *
  *  @eventType mx.events.MoveEvent.MOVE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="move", type="mx.events.MoveEvent")]
 
@@ -131,6 +156,11 @@ import mx.utils.MatrixUtil;
  *  have not yet been created.
  *
  *  @eventType mx.events.FlexEvent.PREINITIALIZE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="preinitialize", type="mx.events.FlexEvent")]
 
@@ -142,6 +172,11 @@ import mx.utils.MatrixUtil;
  *  <code>rawChildren.removeChildAt()</code> method, the event is not dispatched.
  *
  *  @eventType mx.events.FlexEvent.REMOVE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="remove", type="mx.events.FlexEvent")]
 
@@ -168,6 +203,11 @@ import mx.utils.MatrixUtil;
  *  dispatched until after the property changes.</p>
  *
  *  @eventType mx.events.ResizeEvent.RESIZE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="resize", type="mx.events.ResizeEvent")]
 
@@ -175,6 +215,11 @@ import mx.utils.MatrixUtil;
  *  Dispatched when an object's state changes from invisible to visible.
  *
  *  @eventType mx.events.FlexEvent.SHOW
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="show", type="mx.events.FlexEvent")]
 
@@ -187,6 +232,11 @@ import mx.utils.MatrixUtil;
  *  when the user clicks outside it.
  *
  *  @eventType mx.events.FlexMouseEvent.MOUSE_DOWN_OUTSIDE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="mouseDownOutside", type="mx.events.FlexMouseEvent")]
 
@@ -195,6 +245,11 @@ import mx.utils.MatrixUtil;
  *  when the user scrolls the mouse wheel outside it.
  *
  *  @eventType mx.events.FlexMouseEvent.MOUSE_WHEEL_OUTSIDE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="mouseWheelOutside", type="mx.events.FlexMouseEvent")]
 
@@ -233,6 +288,11 @@ import mx.utils.MatrixUtil;
  *  @see mx.managers.DragManager
  *
  *  @eventType mx.events.DragEvent.DRAG_ENTER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dragEnter", type="mx.events.DragEvent")]
 
@@ -261,6 +321,11 @@ import mx.utils.MatrixUtil;
  *  @see mx.managers.DragManager
  *
  *  @eventType mx.events.DragEvent.DRAG_OVER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dragOver", type="mx.events.DragEvent")]
 
@@ -273,6 +338,11 @@ import mx.utils.MatrixUtil;
  *  <code>dragEnter</code> or <code>dragOver</code> event.</p>
  *
  *  @eventType mx.events.DragEvent.DRAG_EXIT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dragExit", type="mx.events.DragEvent")]
 
@@ -287,6 +357,11 @@ import mx.utils.MatrixUtil;
  *  it prevents the drop.</p>
  *
  *  @eventType mx.events.DragEvent.DRAG_DROP
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dragDrop", type="mx.events.DragEvent")]
 
@@ -308,6 +383,11 @@ import mx.utils.MatrixUtil;
  *  it prevents the drop.</p>
  *
  *  @eventType mx.events.DragEvent.DRAG_COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dragComplete", type="mx.events.DragEvent")]
 
@@ -320,6 +400,11 @@ import mx.utils.MatrixUtil;
  *  but before the view state changes.
  *
  *  @eventType mx.events.StateChangeEvent.CURRENT_STATE_CHANGING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="currentStateChanging", type="mx.events.StateChangeEvent")]
 
@@ -327,6 +412,11 @@ import mx.utils.MatrixUtil;
  *  Dispatched after the view state has changed.
  *
  *  @eventType mx.events.StateChangeEvent.CURRENT_STATE_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="currentStateChange", type="mx.events.StateChangeEvent")]
 
@@ -350,6 +440,11 @@ import mx.utils.MatrixUtil;
  *  and <code>toolTipEnd</code>.</p>
  *
  *  @eventType mx.events.ToolTipEvent.TOOL_TIP_CREATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="toolTipCreate", type="mx.events.ToolTipEvent")]
 
@@ -367,6 +462,11 @@ import mx.utils.MatrixUtil;
  *  and <code>toolTipEnd</code>.</p>
  *
  *  @eventType mx.events.ToolTipEvent.TOOL_TIP_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="toolTipEnd", type="mx.events.ToolTipEvent")]
 
@@ -383,6 +483,11 @@ import mx.utils.MatrixUtil;
  *  and <code>toolTipEnd</code>.</p>
  *
  *  @eventType mx.events.ToolTipEvent.TOOL_TIP_HIDE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="toolTipHide", type="mx.events.ToolTipEvent")]
 
@@ -400,6 +505,11 @@ import mx.utils.MatrixUtil;
  *  and <code>toolTipEnd</code>.</p>
  *
  *  @eventType mx.events.ToolTipEvent.TOOL_TIP_SHOW
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="toolTipShow", type="mx.events.ToolTipEvent")]
 
@@ -416,6 +526,11 @@ import mx.utils.MatrixUtil;
  *  and <code>toolTipEnd</code>.</p>
  *
  *  @eventType mx.events.ToolTipEvent.TOOL_TIP_SHOWN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="toolTipShown", type="mx.events.ToolTipEvent")]
 
@@ -429,6 +544,11 @@ import mx.utils.MatrixUtil;
  *  and <code>toolTipEnd</code>.</p>
  *
  *  @eventType mx.events.ToolTipEvent.TOOL_TIP_START
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="toolTipStart", type="mx.events.ToolTipEvent")]
 
@@ -461,6 +581,11 @@ import mx.utils.MatrixUtil;
  *  <p>For more information, see the documentation that ships with the 
  *  Flex/Flash Integration Kit at 
  *  <a href="http://www.adobe.com/go/flex3_cs3_swfkit">http://www.adobe.com/go/flex3_cs3_swfkit</a>.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public dynamic class UIMovieClip extends MovieClip 
     implements IDeferredInstantiationUIComponent, IToolTipManagerClient, 
@@ -475,6 +600,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function UIMovieClip()
     {
@@ -501,6 +631,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      * @copy mx.core.UIComponent#initialized
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var initialized:Boolean = false;
     
@@ -571,6 +706,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  container because the default value is 0.</p>
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get x():Number
     {
@@ -617,6 +757,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  container because the default value is 0.</p>
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get y():Number
     {
@@ -646,6 +791,11 @@ public dynamic class UIMovieClip extends MovieClip
     [Bindable("zChanged")]
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get z():Number
     {
@@ -677,6 +827,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  If omitted, the actual content size of the component is used instead.</p>
      *
      *  @default "boundingBox"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var boundingBoxName:String = "boundingBox";
     
@@ -700,6 +855,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  that has the layout property set to <code>absolute</code>.</p>
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get baseline():Object
     {
@@ -734,6 +894,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  that has the layout property set to <code>absolute</code>.</p>
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bottom():Object
     {
@@ -768,6 +933,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  that has the layout property set to <code>absolute</code>.</p>
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get horizontalCenter():Object
     {
@@ -802,6 +972,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  that has the layout property set to <code>absolute</code>.</p>
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get left():Object
     {
@@ -836,6 +1011,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  that has the layout property set to <code>absolute</code>.</p>
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get right():Object
     {
@@ -870,6 +1050,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  that has the layout property set to <code>absolute</code>.</p>
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get top():Object
     {
@@ -904,6 +1089,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  that has the layout property set to <code>absolute</code>.</p>
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get verticalCenter():Object
     {
@@ -937,6 +1127,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  If <code>cachePolicy</code> is <code>UIComponentCachePolicy.AUTO</code>, 
      *  then <code>cacheHeuristic</code>
      *  is used to control the object's <code>cacheAsBitmap</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set cacheHeuristic(value:Boolean):void
     {
@@ -968,6 +1163,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  </ul></p>
      *
      *  @default UIComponentCachePolicy.AUTO
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get cachePolicy():String
     {
@@ -987,6 +1187,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  was not created from a descriptor, this property is null.
      *
      *  @see mx.core.UIComponentDescriptor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get descriptor():UIComponentDescriptor
     {
@@ -1016,6 +1221,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  a meaningful id. Testing tools use ids to represent the control in their scripts and
      *  having a meaningful name can make scripts more readable. For example, set the
      *  value of a button to submit_button rather than b1 or button1.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get id():String
     {
@@ -1044,6 +1254,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  If the indices are null, it creates a simple non-Array reference.
      *
      *  @param parentDocument The parent of this IUIComponent object. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createReferenceOnParentDocument(
                         parentDocument:IFlexDisplayObject):void
@@ -1062,6 +1277,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  If the indices are null, it deletes the simple non-Array reference.
      *
      *  @param parentDocument The parent of this IUIComponent object. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function deleteReferenceOnParentDocument(
                                 parentDocument:IFlexDisplayObject):void
@@ -1087,6 +1307,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  scenarios, is anticipated for updater 1.
      *
      *  @param recurse Recursively execute bindings for children of this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function executeBindings(recurse:Boolean = false):void
     {
@@ -1101,6 +1326,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  as one of the event listeners.
      *
      *  @param effects An Array of strings of effect names.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerEffects(effects:Array /* of String*/):void
     {
@@ -1120,6 +1350,11 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  The y-coordinate of the baseline
      *  of the first line of text of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get baselinePosition():Number
     {
@@ -1134,6 +1369,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  @copy mx.core.IUIComponent#document
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get document():Object
     {
@@ -1160,6 +1400,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  If no height is explicitly specified, the value is <code>NaN</code>.
      *
      *  @see mx.core.UIComponent#explicitHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitHeight():Number
     {
@@ -1187,6 +1432,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  in pixels, as the component's coordinates. 
      *
      *  @see mx.core.UIComponent#explicitMaxHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitMaxHeight():Number
     {
@@ -1210,6 +1460,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  in pixels, as the component's coordinates. 
      *
      *  @see mx.core.UIComponent#explicitMaxWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitMaxWidth():Number
     {
@@ -1234,6 +1489,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  in pixels, as the component's coordinates. 
      *
      *  @see mx.core.UIComponent#explicitMinHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitMinHeight():Number
     {
@@ -1257,6 +1517,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  in pixels, as the component's coordinates. 
      *
      *  @see mx.core.UIComponent#explicitMinWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitMinWidth():Number
     {
@@ -1281,6 +1546,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  If no width is explicitly specified, the value is <code>NaN</code>.
      *
      *  @see mx.core.UIComponent#explicitWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitWidth():Number
     {
@@ -1307,6 +1577,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  not if the component implements the IFocusManagerComponent interface.
      *
      *  @see mx.core.UIComponent#focusPane
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get focusPane():Sprite
     {
@@ -1336,6 +1611,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  computing the position of the next child.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get includeInLayout():Boolean
     {
@@ -1359,6 +1639,11 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  Set to <code>true</code> by the PopUpManager to indicate
      *  that component has been popped up.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get isPopUp():Boolean
     {
@@ -1382,6 +1667,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  in pixels, as the component's coordinates.
      *
      *  @see mx.core.UIComponent#maxHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxHeight():Number
     {
@@ -1402,6 +1692,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  in pixels, as the component's coordinates.
      *
      *  @see mx.core.UIComponent#maxWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxWidth():Number
     {
@@ -1422,6 +1717,11 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  The default minimum height of the component, in pixels.
      *  This value is set by the <code>measure()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredMinHeight():Number
     {
@@ -1445,6 +1745,11 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  The default minimum width of the component, in pixels.
      *  This value is set by the <code>measure()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredMinWidth():Number
     {
@@ -1468,6 +1773,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  in pixels, as the component's coordinates. 
      *
      *  @see mx.core.UIComponent#minHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minHeight():Number
     {
@@ -1491,6 +1801,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  in pixels, as the component's coordinates. 
      *
      *  @see mx.core.UIComponent#minWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minWidth():Number
     {
@@ -1521,6 +1836,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  by each component. 
      *  Therefore, if you popup a component,
      *  you should set this property accordingly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get owner():DisplayObjectContainer
     {
@@ -1545,6 +1865,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  Number that specifies the height of a component as a 
      *  percentage of its parent's size.
      *  Allowed values are 0 to 100.     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get percentHeight():Number
     {
@@ -1567,6 +1892,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  Number that specifies the width of a component as a 
      *  percentage of its parent's size.
      *  Allowed values are 0 to 100.     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get percentWidth():Number
     {
@@ -1587,6 +1917,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  A reference to the SystemManager object for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get systemManager():ISystemManager
     {
@@ -1648,6 +1983,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  Used by EffectManager.
      *  Returns non-null if a component
      *  is not using the EffectManager to execute a Tween.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get tweeningProperties():Array
     {
@@ -1691,6 +2031,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  The height of this object, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     [PercentProxy("percentHeight")]
     override public function get height():Number
@@ -1726,6 +2071,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  to also be an ILayoutManagerClient so a <code>measure()</code>
      *  method will be called at an appropriate time,
      *  giving you an opportunity to compute a <code>measuredHeight</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredHeight():Number
     {
@@ -1750,6 +2100,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  to also be an ILayoutManagerClient so a <code>measure()</code>
      *  method will be called at an appropriate time,
      *  giving you an opportunity to compute a <code>measuredHeight</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredWidth():Number
     {
@@ -1768,6 +2123,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  The width of this object, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     [PercentProxy("percentWidth")]
     override public function get width():Number
@@ -1806,6 +2166,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  the <code>visible</code> property to <code>false</code> to hide the component.</p>
      *
      *  @default 1.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get scaleX():Number
     {
@@ -1872,6 +2237,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  the <code>visible</code> property to <code>false</code> to hide the component.</p>
      *
      *  @default 1.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get scaleY():Number
     {
@@ -1936,6 +2306,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  <p>This property is ignored during calculation by any of Flex's 2D layouts. </p>
      *
      *  @default 1.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get scaleZ():Number
     {
@@ -1971,6 +2346,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  Text to display in the ToolTip.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get toolTip():String
     {
@@ -2024,6 +2404,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  programmatically in your <code>setFocus()</code> method;
      *  it just tells the FocusManager to ignore this IFocusManagerComponent
      *  component in the Tab and mouse searches.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get focusEnabled():Boolean
     {
@@ -2047,6 +2432,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  when selected with the mouse.
      *  If <code>false</code>, focus will be transferred to
      *  the first parent that is <code>mouseFocusEnabled</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get mouseFocusEnabled():Boolean
     {
@@ -2061,6 +2451,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @copy mx.core.IConstraintClient#getConstraintValue()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getConstraintValue(constraintName:String):*
     {
@@ -2069,6 +2464,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @copy mx.core.IConstraintClient#setConstraintValue()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setConstraintValue(constraintName:String, value:*):void
     {
@@ -2086,6 +2486,11 @@ public dynamic class UIMovieClip extends MovieClip
      * defaults to 0
      * 
      * @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get layer():Number
     {
@@ -2110,6 +2515,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get transformX():Number
     {
@@ -2131,6 +2541,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get transformY():Number
     {
@@ -2152,6 +2567,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get transformZ():Number
     {
@@ -2173,6 +2593,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get rotation():Number
     {
@@ -2219,6 +2644,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get rotationZ():Number
     {
@@ -2239,6 +2669,11 @@ public dynamic class UIMovieClip extends MovieClip
      * 360 to obtain a value within the range.
      * 
      * This property is ignored during calculation by any of Flex's 2D layouts. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get rotationX():Number
     {
@@ -2267,6 +2702,11 @@ public dynamic class UIMovieClip extends MovieClip
      * 360 to obtain a value within the range.
      * 
      * This property is ignored during calculation by any of Flex's 2D layouts. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get rotationY():Number
     {
@@ -2294,6 +2734,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  for a component that will be rotated 90 degrees, you set the component's <code>rotation</code> property. 
      *  If you want the layout to <i>not</i> adjust for the component being rotated, you set its <code>offsets.rotationZ</code> 
      *  property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set offsets(value:TransformOffsets):void
     {
@@ -2321,6 +2766,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get transform():flash.geom.Transform
     {
@@ -2385,6 +2835,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  When true, the component will keep its projection matrix centered on the
      *  middle of its bounding box.  If no projection matrix is defined on the
      *  component, one will be added automatically.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set maintainProjectionCenter(value:Boolean):void
     {
@@ -2405,6 +2860,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getLayoutMatrix():Matrix
     {
@@ -2425,6 +2885,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setLayoutMatrix(value:Matrix, triggerLayout:Boolean):void
     {
@@ -2450,6 +2915,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getLayoutMatrix3D():Matrix3D
     {
@@ -2464,6 +2934,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setLayoutMatrix3D(value:Matrix3D, triggerLayout:Boolean):void
     {
@@ -2506,6 +2981,11 @@ public dynamic class UIMovieClip extends MovieClip
      * @param rx,ry,rz the new values for the rotation of the transform
      * @param sx,sy,sz the new values for the scale of the transform
      * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
     {
@@ -2541,6 +3021,11 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  Helper method to invalidate parent size and display list if
      *  this object affects its layout (includeInLayout is true).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function invalidateParentSizeAndDisplayList():void
     {
@@ -2581,6 +3066,11 @@ public dynamic class UIMovieClip extends MovieClip
      * advanced layout features of a component.  Call this function before attempting to use any of the 
      * features implemented by the AdvancedLayoutFeatures object.
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function initAdvancedLayoutFeatures():void
     {
@@ -2612,6 +3102,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      * Commits the computed matrix built from the combination of the layout matrix and the transform offsets to the flash displayObject's transform.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function applyComputedMatrix():void
     {
@@ -2670,6 +3165,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getPreferredBoundsWidth(postTransform:Boolean=true):Number
     {
@@ -2683,6 +3183,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getMinBoundsWidth(postTransform:Boolean=true):Number
     {
@@ -2696,6 +3201,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getMaxBoundsWidth(postTransform:Boolean=true):Number
     {
@@ -2709,6 +3219,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getLayoutBoundsWidth(postTransform:Boolean=true):Number
     {
@@ -2722,6 +3237,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getLayoutBoundsX(postTransform:Boolean=true):Number
     {
@@ -2735,6 +3255,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setLayoutBoundsPosition(x:Number, y:Number, postTransform:Boolean=true):void
     {
@@ -2743,6 +3268,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setLayoutBoundsSize(width:Number = Number.NaN,
                                   height:Number = Number.NaN,
@@ -2782,6 +3312,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  The unscaled bounds of the content.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get bounds():Rectangle
     {
@@ -2813,6 +3348,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  The document containing this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get parentDocument():Object
     {
@@ -2843,6 +3383,11 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  The current state of this component. For UIMovieClip, the value of the 
      *  <code>currentState</code> property is the current frame label.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currentState():String
     {
@@ -3011,6 +3556,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  Initialize the object.
      *
      *  @see mx.core.UIComponent#initialize()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialize():void
     {
@@ -3053,6 +3603,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  Developers typically never need to call this method.
      *
      *  @param p The parent of this UIComponent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function parentChanged(p:DisplayObjectContainer):void
     {
@@ -3076,6 +3631,11 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  @return A Number which is explicitWidth if defined
      *  or measuredWidth if not.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getExplicitOrMeasuredWidth():Number
     {
@@ -3101,6 +3661,11 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  @return A Number which is explicitHeight if defined
      *  or measuredHeight if not.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getExplicitOrMeasuredHeight():Number
     {
@@ -3132,6 +3697,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  If <code>false</code>, dispatch a <code>show</code> event when 
      *  the component becomes visible, and a <code>hide</code> event when 
      *  the component becomes invisible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setVisible(value:Boolean, noEvent:Boolean = false):void
     {
@@ -3148,6 +3718,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  @param child A UIComponent.
      *
      *  @return <code>true</code> if the child is parented or owned by this UIComponent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function owns(displayObject:DisplayObject):Boolean
     {
@@ -3175,6 +3750,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  @param x The new x-position for this object.
      * 
      *  @param y The new y-position for this object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function move(x:Number, y:Number):void
     {       
@@ -3228,6 +3808,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  @param newWidth The new width for this object.
      * 
      *  @param newHeight The new height for this object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setActualSize(newWidth:Number, newHeight:Number):void
     {
@@ -3254,6 +3839,11 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  Called by the FocusManager when the component receives focus.
      *  The component may in turn set focus to an internal component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setFocus():void
     {
@@ -3268,6 +3858,11 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  @param isFocused If <code>true</code>, draw the focus indicator,
      *  otherwise hide it.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function drawFocus(isFocused:Boolean):void
     {
@@ -3283,6 +3878,11 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  Validate the measuredWidth and measuredHeight properties to match the 
      *  current size of the content.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function validateMeasuredSize():void
     {
@@ -3297,6 +3897,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  Notify our parent that our size has changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function notifySizeChanged():void
     {
@@ -3353,6 +3958,11 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  Recursively finds all children that have tabEnabled=true and adds them
      *  to the focusableObjects array.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function findFocusCandidates(obj:DisplayObjectContainer):void
     {
@@ -3380,6 +3990,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  Build a map of state name to labels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function buildStateMap():void
     {
@@ -3401,6 +4016,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  The main function that watches our size and progesses through transitions.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function enterFrameHandler(event:Event):void
     {
@@ -3478,6 +4098,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  Add the focus event listeners.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function addFocusEventListeners():void
     {
@@ -3488,6 +4113,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  Remove our focus event listeners.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function removeFocusEventListeners():void
     {
@@ -3503,6 +4133,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  If we are at the end of our focusable items (first item for Shift+TAB, or
      *  last item for TAB), remove our event handlers to give control back
      *  to the Flex focus manager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function keyFocusChangeHandler(event:FocusEvent):void
     {
@@ -3519,6 +4154,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  Called when focus is entering any of our children. Make sure our
      *  focus event handlers are called so we can take control from the
      *  Flex focus manager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function focusInHandler(event:FocusEvent):void
     {
@@ -3530,6 +4170,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  Called when focus is leaving an object. We check to see if the new
      *  focus item is in our focusableObjects list, and if not we remove
      *  our event listeners to give control back to the Flex focus manager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function focusOutHandler(event:FocusEvent):void
     {
@@ -3541,6 +4186,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  Called during event capture phase when keyboard navigation is changing
      *  focus. All we do here is set a flag so we know which direction the
      *  focus is changing - TAB = forward; Shift+TAB = reverse.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function keyFocusChangeCaptureHandler(event:FocusEvent):void
     {
@@ -3565,6 +4215,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  The delegate object that handles the automation-related functionality.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get automationDelegate():Object
     {
@@ -3591,6 +4246,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get automationName():String
     {
@@ -3612,6 +4272,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @copy mx.automation.IAutomationObject#automationValue
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get automationValue():Array
     {
@@ -3633,6 +4298,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showInAutomationHierarchy():Boolean
     {
@@ -3650,6 +4320,11 @@ public dynamic class UIMovieClip extends MovieClip
 
 /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createAutomationIDPart(child:IAutomationObject):Object
     {
@@ -3660,6 +4335,11 @@ public dynamic class UIMovieClip extends MovieClip
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function resolveAutomationIDPart(criteria:Object):Array
     {
@@ -3670,6 +4350,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getAutomationChildAt(index:int):IAutomationObject
     {
@@ -3680,6 +4365,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get numAutomationChildren():int
     {
@@ -3690,6 +4380,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get automationTabularData():Object
     {
@@ -3700,6 +4395,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function replayAutomatableEvent(event:Event):Boolean
     {
