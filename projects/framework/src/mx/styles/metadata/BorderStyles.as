@@ -72,8 +72,8 @@
 
 /**
  *  Background image of a component.  This can be an absolute or relative
- *  URL or class.  You can either have both a <code>backgroundColor</code> and a
- *  <code>backgroundImage</code> set at the same time. The background image is displayed
+ *  URL or class.  You can set either the <code>backgroundColor</code> or the
+ *  <code>backgroundImage</code>. The background image is displayed
  *  on top of the background color.
  *  The default value is <code>undefined</code>, meaning "not set".
  *  If this style and the <code>backgroundColor</code> style are undefined,
