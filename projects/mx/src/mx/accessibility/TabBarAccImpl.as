@@ -311,6 +311,8 @@ public class TabBarAccImpl extends AccImpl
 				{
 					Accessibility.sendEvent(master, index + 1,
 											AccConst.EVENT_OBJECT_SELECTION);
+					Accessibility.sendEvent(master, index + 1,
+											AccConst.EVENT_OBJECT_FOCUS);
 				}
 				break;
 			}
