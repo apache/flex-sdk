@@ -208,7 +208,7 @@ public final class MatrixUtil
         else
             t1 = Math.atan((d * ry) / (b * rx));            
     
-        // TODO EGeorgie: optimize
+        // FIXME (egeorgie): optimize
         var x1:Number = a * Math.cos(t) * rx + c * Math.sin(t) * ry;             
         var x2:Number = -x1;
         x1 += a * cx + c * cy + matrix.tx;
@@ -307,7 +307,7 @@ public final class MatrixUtil
 	 */
 	public static function transformSize(bounds:Point, matrix:Matrix):Point
 	{
-		// TODO EGeorgie: don't use new points, but do the math ourselves?
+		// FIXME (egeorgie): don't use new points, but do the math ourselves?
 	    var pt1:Point = matrix.deltaTransformPoint(bounds);
 	    var pt2:Point = matrix.deltaTransformPoint(new Point());
 	    var pt3:Point = matrix.deltaTransformPoint(new Point(bounds.x, 0));
@@ -340,7 +340,7 @@ public final class MatrixUtil
 	 */
 	public static function transformBounds(bounds:Point, matrix:Matrix, topLeft:Point = null):Point
 	{
-		// TODO EGeorgie: don't use new points, but do the math ourselves?
+		// FIXME (egeorgie): don't use new points, but do the math ourselves?
 		var x:Number = 0;
 		var y:Number = 0;
 		
