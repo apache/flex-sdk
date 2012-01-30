@@ -118,6 +118,9 @@ public class PopUpManager
      *  <code>PopUpManagerChildList.POPUP</code>, 
      *  or <code>PopUpManagerChildList.PARENT</code> (default).
      *
+     *  @param moduleFactory The moduleFactory where this pop-up should look for
+     *  its embedded fonts and style manager.
+     *
      *  @return Reference to new top-level window.
      *
      *  @see PopUpManagerChildList
@@ -130,9 +133,10 @@ public class PopUpManager
     public static function createPopUp(parent:DisplayObject,
                                        className:Class,
                                        modal:Boolean = false,
-                                       childList:String = null):IFlexDisplayObject
+                                       childList:String = null,
+                                       moduleFactory:IFlexModuleFactory = null):IFlexDisplayObject
     {   
-		return impl.createPopUp(parent, className, modal, childList);
+		return impl.createPopUp(parent, className, modal, childList, moduleFactory);
     }
     
     /**
