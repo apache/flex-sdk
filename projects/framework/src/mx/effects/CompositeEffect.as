@@ -490,8 +490,12 @@ public class CompositeEffect extends Effect
                 m = childTargets.length;
                 for (j = 0; j < m; j++)
                 {
-                    if (childTargets[j] != null) // Don't include null targets
+                    // Don't include null or duplicate targets
+                    if (child.targets[j] != null && 
+                        resultsArray.indexOf(child.targets[j]) < 0)
+                    {
                         resultsArray.push(childTargets[j]);
+                    }
                 }
             }   
             else if (child.targets != null)
@@ -499,8 +503,12 @@ public class CompositeEffect extends Effect
                 m = child.targets.length;
                 for (j = 0; j < m; j++)
                 {
-                    if (child.targets[j] != null) // Don't include null targets
+                    // Don't include null or duplicate targets
+                    if (child.targets[j] != null && 
+                        resultsArray.indexOf(child.targets[j]) < 0)
+                    {
                         resultsArray.push(child.targets[j]);
+                    }
                 }
             }
         }
@@ -509,8 +517,12 @@ public class CompositeEffect extends Effect
         n = targets.length;
         for (i = 0; i < n; i++)
         {
-            if (targets[i] != null) // Don't include null targets
+            // Don't include null or duplicate targets
+            if (targets[i] != null && 
+                resultsArray.indexOf(targets[i]) < 0)
+            {
                 resultsArray.push(targets[i]);
+            }
         }
         
         return resultsArray;
