@@ -10,29 +10,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 package mx.core
 {
-	import flash.events.Event;
-	import flash.geom.Matrix;
-	import flash.geom.Matrix3D;
-	import flash.geom.Point;
-	import flash.geom.Vector3D;
-	import flash.system.Capabilities;
-	
-	import mx.geom.CompoundTransform;
-	import mx.geom.TransformOffsets;
+    import flash.events.Event;
+    import flash.geom.Matrix;
+    import flash.geom.Matrix3D;
+    import flash.geom.Point;
+    import flash.geom.Vector3D;
+    import flash.system.Capabilities;
+    
+    import mx.geom.CompoundTransform;
+    import mx.geom.TransformOffsets;
 
-	use namespace mx_internal;	
-	
-	/**
-	 *  Transform Offsets can be assigned to any Component or GraphicElement to modify the transform
-	 *  of the object beyond where its parent layout places it.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public class AdvancedLayoutFeatures
-	{
+    use namespace mx_internal;  
+    
+    /**
+     *  @private
+     *  Transform Offsets can be assigned to any Component or GraphicElement to modify the transform
+     *  of the object beyond where its parent layout places it.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public class AdvancedLayoutFeatures
+    {
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -46,20 +47,20 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-		public function AdvancedLayoutFeatures()
-		{
-			layout = new CompoundTransform();
-		}
-		
-			
+        public function AdvancedLayoutFeatures()
+        {
+            layout = new CompoundTransform();
+        }
+        
+            
 
     /**
      * @private
      * a flag for use by the owning object indicating whether the owning object has a pending update
      * to the computed matrix.  it is the owner's responsibility to set this flag.
      */
-	public var updatePending:Boolean = false;
-	
+    public var updatePending:Boolean = false;
+    
     /**
      * storage for the depth value. Layering is considered 'advanced' layout behavior, and not something
      * that gets used by the majority of the components out there.  So if a component has a non-zero depth,
@@ -70,72 +71,72 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public var depth:Number = 0;
+    public var depth:Number = 0;
 
 
-	
+    
     /**
      * @private
      * slots for the various 2D and 3D matrices for layout, offset, and computed transforms.  Note that 
      * these are only allocated and computed on demand -- many component instances will never use a 3D
      * matrix, for example. 
      */
-	protected var _computedMatrix:Matrix;
-	protected var _computedMatrix3D:Matrix3D;
-	
-	/**
-	 * @private
-	 * the layout visible transform as defined by the user and parent layout.
-	 */
-	protected var layout:CompoundTransform;
-	
-	/**
-	 * @private
-	 * offset values applied by the user
-	 */
-	private var _postLayoutTransformOffsets:TransformOffsets;
-	
+    protected var _computedMatrix:Matrix;
+    protected var _computedMatrix3D:Matrix3D;
+    
+    /**
+     * @private
+     * the layout visible transform as defined by the user and parent layout.
+     */
+    protected var layout:CompoundTransform;
+    
+    /**
+     * @private
+     * offset values applied by the user
+     */
+    private var _postLayoutTransformOffsets:TransformOffsets;
+    
     /**
      * @private
      * bit field flags for indicating which transforms are valid -- the layout properties, the matrices,
      * and the 3D matrices.  Since developers can set any of the three programmatically, the last one set
      * will always be valid, and the others will be invalid until validated on demand.
      */
-	private static const COMPUTED_MATRIX_VALID:uint 	= 0x1;
-	private static const COMPUTED_MATRIX3D_VALID:uint 	= 0x2;
-	
+    private static const COMPUTED_MATRIX_VALID:uint     = 0x1;
+    private static const COMPUTED_MATRIX3D_VALID:uint   = 0x2;
+    
     /**
      * @private
      * general storage for all of our flags.  
      */
-	private var _flags:uint = 0;
-	
-	/**
-	 * @private
-	 * static data used by utility methods below
-	 */
-	private static var reVT:Vector3D = new Vector3D(0,0,0);
-	private static var reVR:Vector3D = new Vector3D(0,0,0);
-	private static var reVS:Vector3D = new Vector3D(1,1,1);
-	
-	private static var reV:Vector.<Vector3D> = new Vector.<Vector3D>();
-	reV.push(reVT);
-	reV.push(reVR);
-	reV.push(reVS);
+    private var _flags:uint = 0;
+    
+    /**
+     * @private
+     * static data used by utility methods below
+     */
+    private static var reVT:Vector3D = new Vector3D(0,0,0);
+    private static var reVR:Vector3D = new Vector3D(0,0,0);
+    private static var reVS:Vector3D = new Vector3D(1,1,1);
+    
+    private static var reV:Vector.<Vector3D> = new Vector.<Vector3D>();
+    reV.push(reVT);
+    reV.push(reVR);
+    reV.push(reVS);
 
 
-	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
+    private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
 
-	private static const ZERO_REPLACEMENT_IN_3D:Number = .00000000000001;
-	
-	private static var tempTransformCenter:Vector3D;
-	
+    private static const ZERO_REPLACEMENT_IN_3D:Number = .00000000000001;
+    
+    private static var tempTransformCenter:Vector3D;
+    
     /**
      * @private
      * a pointer to the function we use to transform vectors, to work around a bug
      * in early versions of the flash player.
      */
-	private static var transformVector:Function = initTransformVectorFunction;
+    private static var transformVector:Function = initTransformVectorFunction;
 
     /**
      * @private
@@ -144,12 +145,12 @@ package mx.core
      */
     private static function pre10_0_22_87_transformVector(m:Matrix3D,v:Vector3D):Vector3D
     {
-    	var r:Vector.<Number> = m.rawData;
-    	return new Vector3D(
-    		r[0] * v.x + r[4] * v.y + r[8] * v.z + r[12], 
-    		r[1] * v.x + r[5] * v.y + r[9] * v.z + r[13], 
-    		r[2] * v.x + r[6] * v.y + r[10] * v.z + r[14],
-    		1); 
+        var r:Vector.<Number> = m.rawData;
+        return new Vector3D(
+            r[0] * v.x + r[4] * v.y + r[8] * v.z + r[12], 
+            r[1] * v.x + r[5] * v.y + r[9] * v.z + r[13], 
+            r[2] * v.x + r[6] * v.y + r[10] * v.z + r[14],
+            1); 
     }
 
     /**
@@ -157,39 +158,39 @@ package mx.core
      * a  function to transform vectors using the built in player API, if we're in a late enough player version
      * that we won't run into bugs.s
      */
-	private static function nativeTransformVector(m:Matrix3D,v:Vector3D):Vector3D
-	{
-		return m.transformVector(v);
-	}
-	
+    private static function nativeTransformVector(m:Matrix3D,v:Vector3D):Vector3D
+    {
+        return m.transformVector(v);
+    }
+    
     /**
      * @private
      * the first time someone calls transformVector, they'll get this function.  It checks the player version,
      * and if decides which implementation to use based on whether a bug is present or not.
      */
-	private static function initTransformVectorFunction(m:Matrix3D,v:Vector3D):Vector3D
-	{
-		var canUseNative:Boolean = false;
-		var version:Array = Capabilities.version.split(' ')[1].split(',');
-		if(parseFloat(version[0]) > 10)
-			canUseNative  = true;
-		else if (parseFloat(version[1]) > 0)
-			canUseNative  = true;
-		else if (parseFloat(version[2]) > 22)
-			canUseNative  = true;
-		else if (parseFloat(version[3]) >= 87)
-			canUseNative  = true;
-		if(canUseNative)
-			transformVector = nativeTransformVector;
-		else
-			transformVector = pre10_0_22_87_transformVector;
-		
-		return transformVector(m,v);
-	}
-	
-	
-	//------------------------------------------------------------------------------
-	
+    private static function initTransformVectorFunction(m:Matrix3D,v:Vector3D):Vector3D
+    {
+        var canUseNative:Boolean = false;
+        var version:Array = Capabilities.version.split(' ')[1].split(',');
+        if(parseFloat(version[0]) > 10)
+            canUseNative  = true;
+        else if (parseFloat(version[1]) > 0)
+            canUseNative  = true;
+        else if (parseFloat(version[2]) > 22)
+            canUseNative  = true;
+        else if (parseFloat(version[3]) >= 87)
+            canUseNative  = true;
+        if(canUseNative)
+            transformVector = nativeTransformVector;
+        else
+            transformVector = pre10_0_22_87_transformVector;
+        
+        return transformVector(m,v);
+    }
+    
+    
+    //------------------------------------------------------------------------------
+    
     /**
      * layout transform convenience property.  Represents the x value of the layout matrix used in layout and in 
      * the computed transform.
@@ -199,19 +200,19 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function set layoutX(value:Number):void
-	{
-		layout.x = value;
-		invalidate();
-	}
+    public function set layoutX(value:Number):void
+    {
+        layout.x = value;
+        invalidate();
+    }
 
     /**
      * @private
      */
-	public function get layoutX():Number
-	{
-		return layout.x;
-	}
+    public function get layoutX():Number
+    {
+        return layout.x;
+    }
     /**
      * layout transform convenience property.  Represents the y value of the layout matrix used in layout and in 
      * the computed transform.
@@ -221,20 +222,20 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function set layoutY(value:Number):void
-	{
-		layout.y = value;
-		invalidate();
-	}
-	
+    public function set layoutY(value:Number):void
+    {
+        layout.y = value;
+        invalidate();
+    }
+    
     /**
      * @private
      */
-	public function get layoutY():Number
-	{
-		return layout.y;
-	}
-	
+    public function get layoutY():Number
+    {
+        return layout.y;
+    }
+    
     /**
      * layout transform convenience property.  Represents the z value of the layout matrix used in layout and in 
      * the computed transform.
@@ -244,78 +245,78 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function set layoutZ(value:Number):void
-	{
-		layout.z = value;
-		invalidate();
-	}
-	
+    public function set layoutZ(value:Number):void
+    {
+        layout.z = value;
+        invalidate();
+    }
+    
     /**
      * @private
      */
-	public function get layoutZ():Number
-	{
-		return layout.z;
-	}
-	
-	//------------------------------------------------------------------------------
-	
+    public function get layoutZ():Number
+    {
+        return layout.z;
+    }
+    
+    //------------------------------------------------------------------------------
+    
     /**
      * @private
      * the x value of the point around which any rotation and scale is performed in both the layout and computed matrix.
      */
-	public function set transformX(value:Number):void
-	{
-		layout.transformX = value;
-		invalidate();
-	}
+    public function set transformX(value:Number):void
+    {
+        layout.transformX = value;
+        invalidate();
+    }
     /**
      * @private
      */
-	public function get transformX():Number
-	{
-		return layout.transformX;
-	}
-	
+    public function get transformX():Number
+    {
+        return layout.transformX;
+    }
+    
     /**
      * @private
      * the y value of the point around which any rotation and scale is performed in both the layout and computed matrix.
      */
-	public function set transformY(value:Number):void
-	{
-		layout.transformY = value;
-		invalidate();
-	}
-	
+    public function set transformY(value:Number):void
+    {
+        layout.transformY = value;
+        invalidate();
+    }
+    
     /**
      * @private
      */
-	public function get transformY():Number
-	{
-		return layout.transformY;
-	}
-	
+    public function get transformY():Number
+    {
+        return layout.transformY;
+    }
+    
     /**
      * @private
      * the z value of the point around which any rotation and scale is performed in both the layout and computed matrix.
      */
-	public function set transformZ(value:Number):void
-	{
-		layout.transformZ = value;	
-		invalidate();
-	}
-	
+    public function set transformZ(value:Number):void
+    {
+        layout.transformZ = value;  
+        invalidate();
+    }
+    
     /**
      * @private
      */
-	public function get transformZ():Number
-	{
-		return layout.transformZ;
-	}
+    public function get transformZ():Number
+    {
+        return layout.transformZ;
+    }
 
 //------------------------------------------------------------------------------
-	
-	
+    
+    
     /**
      * layout transform convenience property.  Represents the rotation around the X axis of the layout matrix used in layout and in 
      * the computed transform.
@@ -325,20 +326,20 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function set layoutRotationX(value:Number):void
-	{
-		layout.rotationX= value;
-		invalidate();
-	}
-	
+    public function set layoutRotationX(value:Number):void
+    {
+        layout.rotationX= value;
+        invalidate();
+    }
+    
     /**
      * @private
      */
-	public function get layoutRotationX():Number
-	{
-		return layout.rotationX;
-	}
-	
+    public function get layoutRotationX():Number
+    {
+        return layout.rotationX;
+    }
+    
     /**
      * layout transform convenience property.  Represents the rotation around the Y axis of the layout matrix used in layout and in 
      * the computed transform.
@@ -348,20 +349,20 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function set layoutRotationY(value:Number):void
-	{
-		layout.rotationY= value;
-		invalidate();
-	}
-	
+    public function set layoutRotationY(value:Number):void
+    {
+        layout.rotationY= value;
+        invalidate();
+    }
+    
     /**
      * @private
      */
-	public function get layoutRotationY():Number
-	{
-		return layout.rotationY;
-	}
-	
+    public function get layoutRotationY():Number
+    {
+        return layout.rotationY;
+    }
+    
     /**
      * layout transform convenience property.  Represents the rotation around the Z axis of the layout matrix used in layout and in 
      * the computed transform.
@@ -371,23 +372,23 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function set layoutRotationZ(value:Number):void
-	{
-		layout.rotationZ= value;
-		invalidate();
-	}
-	
+    public function set layoutRotationZ(value:Number):void
+    {
+        layout.rotationZ= value;
+        invalidate();
+    }
+    
     /**
      * @private
      */
-	public function get layoutRotationZ():Number
-	{
-		return layout.rotationZ;
-	}
-	
-	//------------------------------------------------------------------------------
-	
-	
+    public function get layoutRotationZ():Number
+    {
+        return layout.rotationZ;
+    }
+    
+    //------------------------------------------------------------------------------
+    
+    
     /**
      * layout transform convenience property.  Represents the scale along the X axis of the layout matrix used in layout and in 
      * the computed transform.
@@ -397,20 +398,20 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function set layoutScaleX(value:Number):void
-	{
-		layout.scaleX = value;
-		invalidate();
-	}
-	
+    public function set layoutScaleX(value:Number):void
+    {
+        layout.scaleX = value;
+        invalidate();
+    }
+    
     /**
      * @private
      */
-	public function get layoutScaleX():Number
-	{
-		return layout.scaleX;
-	}
-	
+    public function get layoutScaleX():Number
+    {
+        return layout.scaleX;
+    }
+    
     /**
      * layout transform convenience property.  Represents the scale along the Y axis of the layout matrix used in layout and in 
      * the computed transform.
@@ -420,21 +421,21 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function set layoutScaleY(value:Number):void
-	{
-		layout.scaleY= value;
-		invalidate();
-	}
-	
+    public function set layoutScaleY(value:Number):void
+    {
+        layout.scaleY= value;
+        invalidate();
+    }
+    
     /**
      * @private
      */
-	public function get layoutScaleY():Number
-	{
-		return layout.scaleY;
-	}
-	
-	
+    public function get layoutScaleY():Number
+    {
+        return layout.scaleY;
+    }
+    
+    
     /**
      * layout transform convenience property.  Represents the scale along the Z axis of the layout matrix used in layout and in 
      * the computed transform.
@@ -444,19 +445,19 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function set layoutScaleZ(value:Number):void
-	{
-		layout.scaleZ= value;
-		invalidate();
-	}
-	
+    public function set layoutScaleZ(value:Number):void
+    {
+        layout.scaleZ= value;
+        invalidate();
+    }
+    
     /**
      * @private
      */
-	public function get layoutScaleZ():Number
-	{
-		return layout.scaleZ;
-	}
+    public function get layoutScaleZ():Number
+    {
+        return layout.scaleZ;
+    }
 
     /**
      * @private
@@ -466,22 +467,22 @@ package mx.core
      * This matrix is used in the calculation of the computed transform if possible. Under certain circumstances, such as when 
      * offsets are provided, the decomposed layout properties will be used instead.
      */
-	public function set layoutMatrix(value:Matrix):void
-	{
-		layout.matrix = value;
-		invalidate();
-	}
-	
-	
+    public function set layoutMatrix(value:Matrix):void
+    {
+        layout.matrix = value;
+        invalidate();
+    }
+    
+    
     /**
      * @private
      */
-	public function get layoutMatrix():Matrix
-	{
-		return layout.matrix;
-							
-	}
-	
+    public function get layoutMatrix():Matrix
+    {
+        return layout.matrix;
+                            
+    }
+    
 
     /**
      * @private
@@ -492,82 +493,82 @@ package mx.core
      * This matrix is used in the calculation of the computed transform if possible. Under certain circumstances, such as when 
      * offsets are provided, the decomposed layout properties will be used instead.
      */
-	public function set layoutMatrix3D(value:Matrix3D):void
-	{
-		layout.matrix3D = value;
-		invalidate();
-	}
-	
+    public function set layoutMatrix3D(value:Matrix3D):void
+    {
+        layout.matrix3D = value;
+        invalidate();
+    }
+    
     /**
      * @private
      */
-	public function get layoutMatrix3D():Matrix3D
-	{
-		return layout.matrix3D;
-	}
-	
-	/**
-	 * true if the computed transform has 3D values.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get is3D():Boolean
-	{
-		return (layout.is3D || (postLayoutTransformOffsets != null && postLayoutTransformOffsets.is3D));
-	}
+    public function get layoutMatrix3D():Matrix3D
+    {
+        return layout.matrix3D;
+    }
+    
+    /**
+     * true if the computed transform has 3D values.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get is3D():Boolean
+    {
+        return (layout.is3D || (postLayoutTransformOffsets != null && postLayoutTransformOffsets.is3D));
+    }
 
-	/**
-	 * true if the layout transform has 3D values.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get layoutIs3D():Boolean
-	{
-		return layout.is3D;
-	}
+    /**
+     * true if the layout transform has 3D values.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get layoutIs3D():Boolean
+    {
+        return layout.is3D;
+    }
 
-	//------------------------------------------------------------------------------
-	
-	/** offsets to the transform convenience properties that are applied when a component is rendered. If this 
-	 * property is set, its values will be added to the layout transform properties to determine the true matrix used to render
-	 * the component
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function set postLayoutTransformOffsets(value:TransformOffsets):void
-	{
-		if(_postLayoutTransformOffsets != null)
-		{
-			_postLayoutTransformOffsets.removeEventListener(Event.CHANGE,postLayoutTransformOffsetsChangedHandler);
-			_postLayoutTransformOffsets.owner = null;
-		}
-		_postLayoutTransformOffsets = value;
-		if(_postLayoutTransformOffsets != null)
-		{
-			_postLayoutTransformOffsets.addEventListener(Event.CHANGE,postLayoutTransformOffsetsChangedHandler);
-			_postLayoutTransformOffsets.owner = this;
-		}
-		invalidate();		
-	}
-	
-	public function get postLayoutTransformOffsets():TransformOffsets
-	{
-		return _postLayoutTransformOffsets;
-	}
-	
-	private function postLayoutTransformOffsetsChangedHandler(e:Event):void
-	{
-		invalidate();		
-	}
+    //------------------------------------------------------------------------------
+    
+    /** offsets to the transform convenience properties that are applied when a component is rendered. If this 
+     * property is set, its values will be added to the layout transform properties to determine the true matrix used to render
+     * the component
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function set postLayoutTransformOffsets(value:TransformOffsets):void
+    {
+        if(_postLayoutTransformOffsets != null)
+        {
+            _postLayoutTransformOffsets.removeEventListener(Event.CHANGE,postLayoutTransformOffsetsChangedHandler);
+            _postLayoutTransformOffsets.owner = null;
+        }
+        _postLayoutTransformOffsets = value;
+        if(_postLayoutTransformOffsets != null)
+        {
+            _postLayoutTransformOffsets.addEventListener(Event.CHANGE,postLayoutTransformOffsetsChangedHandler);
+            _postLayoutTransformOffsets.owner = this;
+        }
+        invalidate();       
+    }
+    
+    public function get postLayoutTransformOffsets():TransformOffsets
+    {
+        return _postLayoutTransformOffsets;
+    }
+    
+    private function postLayoutTransformOffsetsChangedHandler(e:Event):void
+    {
+        invalidate();       
+    }
 
     //----------------------------------
     //  stretchX
@@ -623,48 +624,48 @@ package mx.core
         invalidate();
     }
 
-	//------------------------------------------------------------------------------
-	
-	/**
-	 * @private
-	 * invalidates our various cached values.  Any change to the AdvancedLayoutFeatures object that affects
-	 * the various transforms should call this function. 	
+    //------------------------------------------------------------------------------
+    
+    /**
+     * @private
+     * invalidates our various cached values.  Any change to the AdvancedLayoutFeatures object that affects
+     * the various transforms should call this function.    
      * @param reason - the code indicating what changes to cause the invalidation.
      * @param affects3D - a flag indicating whether the change affects the 2D/3D nature of the various transforms.
      * @param dispatchChangeEvent - if true, the AdvancedLayoutFeatures will dispatch a change indicating that its underlying transforms
      * have been modified. 
-  	 */
-	private function invalidate():void
-	{						
-		_flags &= ~COMPUTED_MATRIX_VALID;
-		_flags &= ~COMPUTED_MATRIX3D_VALID;
-	}
-	
-	
-	/**
-	 * the computed matrix, calculated by combining the layout matrix and  and any offsets provided..
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get computedMatrix():Matrix
-	{
-		if(_flags & COMPUTED_MATRIX_VALID)
-			return _computedMatrix;
-	
-		if(!postLayoutTransformOffsets && stretchX == 1 && stretchY == 1)
-		{
-			return layout.matrix;
-		}			
-		
-		var m:Matrix = _computedMatrix;
-		if(m == null)
-			m = _computedMatrix = new Matrix();
-		else
-			m.identity();
-			
+     */
+    private function invalidate():void
+    {                       
+        _flags &= ~COMPUTED_MATRIX_VALID;
+        _flags &= ~COMPUTED_MATRIX3D_VALID;
+    }
+    
+    
+    /**
+     * the computed matrix, calculated by combining the layout matrix and  and any offsets provided..
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get computedMatrix():Matrix
+    {
+        if(_flags & COMPUTED_MATRIX_VALID)
+            return _computedMatrix;
+    
+        if(!postLayoutTransformOffsets && stretchX == 1 && stretchY == 1)
+        {
+            return layout.matrix;
+        }           
+        
+        var m:Matrix = _computedMatrix;
+        if(m == null)
+            m = _computedMatrix = new Matrix();
+        else
+            m.identity();
+            
         var tx:Number = layout.transformX;
         var ty:Number = layout.transformY;
         var sx:Number = layout.scaleX;
@@ -686,35 +687,35 @@ package mx.core
             m.scale(stretchX, stretchY);
         build2DMatrix(m, tx, ty, sx, sy, rz, x, y);
         
-		_flags |= COMPUTED_MATRIX_VALID;
-		return m;
-	}
-	
-	/**
-	 * the computed 3D matrix, calculated by combining the 3D layout matrix and  and any offsets provided..
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get computedMatrix3D():Matrix3D
-	{
-		if(_flags & COMPUTED_MATRIX3D_VALID)
-			return _computedMatrix3D;
-	
-	
-		if(!postLayoutTransformOffsets && stretchX == 1 && stretchY == 1)
-		{
-			return layout.matrix3D;
-		}
+        _flags |= COMPUTED_MATRIX_VALID;
+        return m;
+    }
+    
+    /**
+     * the computed 3D matrix, calculated by combining the 3D layout matrix and  and any offsets provided..
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get computedMatrix3D():Matrix3D
+    {
+        if(_flags & COMPUTED_MATRIX3D_VALID)
+            return _computedMatrix3D;
+    
+    
+        if(!postLayoutTransformOffsets && stretchX == 1 && stretchY == 1)
+        {
+            return layout.matrix3D;
+        }
 
-		var m:Matrix3D = _computedMatrix3D;
-		if(m == null)
-			m = _computedMatrix3D = new Matrix3D();
-		else
-			m.identity();
-			
+        var m:Matrix3D = _computedMatrix3D;
+        if(m == null)
+            m = _computedMatrix3D = new Matrix3D();
+        else
+            m.identity();
+            
         var tx:Number = layout.transformX;
         var ty:Number = layout.transformY;
         var tz:Number = layout.transformZ;
@@ -740,71 +741,71 @@ package mx.core
             y += postLayoutTransformOffsets.y;
             z += postLayoutTransformOffsets.z;
         }
-			
-		build3DMatrix(m, tx, ty, tz, sx, sy, sz, rx, ry, rz, x, y, z);
-		// Always prepend last
+            
+        build3DMatrix(m, tx, ty, tz, sx, sy, sz, rx, ry, rz, x, y, z);
+        // Always prepend last
         if (stretchX != 1 || stretchY != 1)
             m.prependScale(stretchX, stretchY, 1);  
 
-		_flags |= COMPUTED_MATRIX3D_VALID;
-		return m;			
-	}
-	
-	
-	/**
-	 * @private
-	 * convenience function for building a 2D matrix from the convenience properties 
-	 */
-	public static function build2DMatrix(m:Matrix,
-									tx:Number,ty:Number,
-									sx:Number,sy:Number,
-									rz:Number,
-									x:Number,y:Number):void
-	{
-		m.translate(-tx,-ty);
-		m.scale(sx,sy);
-		m.rotate(rz* RADIANS_PER_DEGREES);
-		m.translate(x+tx,y+ty);			
-	}
+        _flags |= COMPUTED_MATRIX3D_VALID;
+        return m;           
+    }
+    
+    
+    /**
+     * @private
+     * convenience function for building a 2D matrix from the convenience properties 
+     */
+    public static function build2DMatrix(m:Matrix,
+                                    tx:Number,ty:Number,
+                                    sx:Number,sy:Number,
+                                    rz:Number,
+                                    x:Number,y:Number):void
+    {
+        m.translate(-tx,-ty);
+        m.scale(sx,sy);
+        m.rotate(rz* RADIANS_PER_DEGREES);
+        m.translate(x+tx,y+ty);         
+    }
 
 
-	/**
-	 * @private
-	 * convenience function for building a 3D matrix from the convenience properties 
-	 */
-	public static function build3DMatrix(m:Matrix3D,
-										tx:Number,ty:Number,tz:Number,
-										sx:Number,sy:Number,sz:Number,
-										rx:Number,ry:Number,rz:Number,
-										x:Number,y:Number,z:Number):void
-	{
-		reVR.x = rx * RADIANS_PER_DEGREES;
-		reVR.y = ry * RADIANS_PER_DEGREES;
-		reVR.z = rz * RADIANS_PER_DEGREES;
-		m.recompose(reV);
-		if(sx == 0)
-			sx = ZERO_REPLACEMENT_IN_3D;
-		if(sy == 0)
-			sy = ZERO_REPLACEMENT_IN_3D;
-		if(sz == 0)
-			sz = ZERO_REPLACEMENT_IN_3D;
-		m.prependScale(sx,sy,sz);
-		m.prependTranslation(-tx,-ty,-tz);
-		m.appendTranslation(tx+x,ty+y,tz+z);
-	}									
-						
+    /**
+     * @private
+     * convenience function for building a 3D matrix from the convenience properties 
+     */
+    public static function build3DMatrix(m:Matrix3D,
+                                        tx:Number,ty:Number,tz:Number,
+                                        sx:Number,sy:Number,sz:Number,
+                                        rx:Number,ry:Number,rz:Number,
+                                        x:Number,y:Number,z:Number):void
+    {
+        reVR.x = rx * RADIANS_PER_DEGREES;
+        reVR.y = ry * RADIANS_PER_DEGREES;
+        reVR.z = rz * RADIANS_PER_DEGREES;
+        m.recompose(reV);
+        if(sx == 0)
+            sx = ZERO_REPLACEMENT_IN_3D;
+        if(sy == 0)
+            sy = ZERO_REPLACEMENT_IN_3D;
+        if(sz == 0)
+            sz = ZERO_REPLACEMENT_IN_3D;
+        m.prependScale(sx,sy,sz);
+        m.prependTranslation(-tx,-ty,-tz);
+        m.appendTranslation(tx+x,ty+y,tz+z);
+    }                                   
+                        
 
-	/**
-	 * A utility method to update the rotation and scale of the transform 
-	 * while keeping a particular point, specified in the component's 
-	 * own coordinate space, fixed in the parent's coordinate space.  
-	 * This function will assign the rotation and scale values provided, 
-	 * then update the x/y/z properties as necessary to keep tx/ty/tz fixed.
-	 * @param rx,ry,rz the new values for the rotation of the transform
-	 * @param sx,sy,sz the new values for the scale of the transform
-	 * @param tx,ty,tz the point, in the component's own coordinates, 
-	 * to keep fixed relative to its parent.
-	 */
+    /**
+     * A utility method to update the rotation and scale of the transform 
+     * while keeping a particular point, specified in the component's 
+     * own coordinate space, fixed in the parent's coordinate space.  
+     * This function will assign the rotation and scale values provided, 
+     * then update the x/y/z properties as necessary to keep tx/ty/tz fixed.
+     * @param rx,ry,rz the new values for the rotation of the transform
+     * @param sx,sy,sz the new values for the scale of the transform
+     * @param tx,ty,tz the point, in the component's own coordinates, 
+     * to keep fixed relative to its parent.
+     */
     public function transformPointToParent(propertyIs3D:Boolean,
         transformCenter:Vector3D, currentPosition:Vector3D,
         currentPostLayoutPosition:Vector3D):void
@@ -959,8 +960,8 @@ package mx.core
         if(needOffsets)
             _postLayoutTransformOffsets = new TransformOffsets();                                               
 
-		// now if they gave us a non-trivial transform center, and didn't tell us where they want it, 
-		// we need to calculate where it is so that we can make sure we keep it there.             
+        // now if they gave us a non-trivial transform center, and didn't tell us where they want it, 
+        // we need to calculate where it is so that we can make sure we keep it there.             
         if (transformCenter != null && 
             (transformCenterPosition == null || postLayoutTransformCenterPosition == null))
         {           
@@ -980,7 +981,7 @@ package mx.core
         var targetPosition:Vector3D = (transformCenterPosition == null)? staticTranslation:transformCenterPosition;
         var postLayoutTargetPosition:Vector3D = (postLayoutTransformCenterPosition == null)? staticOffsetTranslation:postLayoutTransformCenterPosition;
 
-		// now update our transform values.		
+        // now update our transform values.     
         if (rotation != null)
         {
             if (!isNaN(rotation.x))
@@ -1012,11 +1013,11 @@ package mx.core
             _postLayoutTransformOffsets.scaleY = postLayoutScale.y;
             _postLayoutTransformOffsets.scaleZ = postLayoutScale.z;
         }
-		
-		// if they didn't pass us a transform center, 
-		// then we assume it's the origin. In that case, it's trivially easy
-		// to make sure the origin is at a particular point...we simply set 
-		// the transformCenterPosition portion of our transforms to that point. 
+        
+        // if they didn't pass us a transform center, 
+        // then we assume it's the origin. In that case, it's trivially easy
+        // to make sure the origin is at a particular point...we simply set 
+        // the transformCenterPosition portion of our transforms to that point. 
         if (transformCenter == null)
         {
             if (transformCenterPosition != null)
