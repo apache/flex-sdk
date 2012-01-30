@@ -1694,6 +1694,7 @@ public class UIComponent extends FlexSprite
 
         addEventListener(Event.ADDED, addedHandler);
         addEventListener(Event.REMOVED, removedHandler);
+        addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 
         // Register for focus and keyboard events.
         if (this is IFocusManagerComponent)
@@ -12343,7 +12344,7 @@ public class UIComponent extends FlexSprite
     {
         if (event.eventPhase != EventPhase.AT_TARGET)
             return;
-
+        
         try
         {
             if (parent is IContainer && IContainer(parent).creatingContentPane)
@@ -12354,9 +12355,16 @@ public class UIComponent extends FlexSprite
         }
         catch (error:SecurityError)
         {
-
+            
         }
-        invalidateSystemManager();
+    }
+    
+    /**
+     *  @private
+     */
+    private function removedFromStageHandler(event:Event):void
+    {
+        _systemManagerDirty = true;
     }
 
     /**
