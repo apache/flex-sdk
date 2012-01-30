@@ -180,6 +180,7 @@ public class UIComponentAccProps extends AccessibilityProperties
     protected function eventHandler(event:Event):void
     {
         var pos:int;
+
         switch (event.type)
         {
             case "errorStringChanged":
@@ -205,6 +206,7 @@ public class UIComponentAccProps extends AccessibilityProperties
                 }
 
                 Accessibility.updateProperties();
+				break;
             }
 
             case "toolTipChanged":
@@ -230,6 +232,7 @@ public class UIComponentAccProps extends AccessibilityProperties
                 }
 
                 Accessibility.updateProperties();
+				break;
             }
         }
     }
