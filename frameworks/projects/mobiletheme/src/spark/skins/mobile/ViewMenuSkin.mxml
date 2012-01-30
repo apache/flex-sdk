@@ -57,60 +57,8 @@ in accordance with the terms of the license agreement accompanying it.
         {
             border.visible = getStyle("borderVisible") == true;            
             super.updateDisplayList(unscaledWidth, unscaledHeight);
-            
-            // Draw the separators after the contentGroup has laid out the menu items
-            addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
         }
-        
-        private function updateCompleteHandler(event:FlexEvent):void
-        {
-            removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
-            drawSeparators();
-        }
-            
-        /**
-         *  Draws separators into the separatorsDisplay
-         */
-        private function drawSeparators():void
-        {
-            var layoutTarget:GroupBase = contentGroup;
-            if (layoutTarget && separatorsDisplay)
-            {
-                var g:Graphics = separatorsDisplay.graphics;       
-                
-                g.clear();
-                            
-                g.lineStyle(1,0xE0E1E0, .9);
-                
-                var rowCount:int = ViewMenuLayout(contentGroup.layout).rowCount;
-                var columnCount:int = ViewMenuLayout(contentGroup.layout).columnCount;
-                
-                var rowItemIndex:int = columnCount;
-                
-                // Draw all of the row separators. Note that the row and column
-                // separators overlap. However, this won't be visible to the naked eye
-                // even if the separators are very transparent. 
-                for (var i:int = 1; i < rowCount; i++)
-                {
-                    var sepWidth:Number = separatorsDisplay.getLayoutBoundsWidth();
-                        
-                    var rowY:Number = layoutTarget.getElementAt(rowItemIndex).getLayoutBoundsY() - 1;
-                    g.moveTo(0, rowY);
-                    g.lineTo(separatorsDisplay.getLayoutBoundsWidth(), rowY);
-                    rowItemIndex += columnCount;
-                }
-                
-                // Draw all of the column separators. 
-                for (var j:int = 1; j < columnCount; j++)
-                {
-                    var sepHeight:Number = separatorsDisplay.getLayoutBoundsHeight();
-                    var colX:Number = layoutTarget.getElementAt(j).getLayoutBoundsX() - 1;
-                    g.moveTo(colX, 0);
-                    g.lineTo(colX, separatorsDisplay.getLayoutBoundsHeight());
-                }
-            }
-        
-    }
+
             ]]>
     </fx:Script>
     
@@ -123,17 +71,25 @@ in accordance with the terms of the license agreement accompanying it.
     
     <!-- border -->
     <!--- @private -->
-    <s:Rect left="0" right="0" top="0" bottom="0" id="border">
+    <s:Rect left="0" right="0" top="1" bottom="0" id="border">
         <s:stroke>
-            <s:LinearGradientStroke id="borderStroke" rotation = "90">
-                <s:GradientEntry color="#919191" ratio="0" alpha="1"/>
-                <s:GradientEntry color="#d6d6d6" ratio="0.16" alpha="1"/>
-                <s:GradientEntry color="#dadada" ratio="0.17" alpha="1"/>
-                <s:GradientEntry color="#ffffff" ratio="1" alpha="1"/>          
-            </s:LinearGradientStroke>
+            <s:SolidColorStroke color="#000000" alpha=".35"/>   
         </s:stroke>
     </s:Rect>
+    
+    <!-- Divider line -->
+    <s:Rect left="0" right="0" top="0" height="0">
+        <s:stroke>
+            <s:SolidColorStroke color="#000000" alpha=".7"/>   
+        </s:stroke>
+    </s:Rect> 
 
+    <!-- Background -->
+    <s:Rect left="1" right="1" top="1" bottom="1">
+        <s:fill>
+            <s:SolidColor color="#000000" alpha=".30"/>
+        </s:fill>
+    </s:Rect>
     
     <!--
     Note: setting the minimum size to 0 here so that changes to the host component's
@@ -141,13 +97,10 @@ in accordance with the terms of the license agreement accompanying it.
     more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
     -->
     <!--- @copy spark.components.SkinnableContainer#contentGroup -->
-    <s:Group id="contentGroup" left="1" right="1" top="1" bottom="1" minWidth="0" minHeight="0">
+    <s:Group id="contentGroup" left="3" right="3" top="4" bottom="3" minWidth="0" minHeight="0">
         <s:layout>
-            <s:ViewMenuLayout horizontalGap="1" verticalGap="1" requestedColumnCount="3"
-                                requestedColumnCount.landscapeGroup="6"/>
+            <s:ViewMenuLayout horizontalGap="2" verticalGap="1"
+                           requestedMaxColumnCount="3" requestedMaxColumnCount.landscapeGroup="6"/>
         </s:layout>
-    </s:Group>
-    
-    <s:Group id="separatorsDisplay" left="1" right="1" top="1" bottom="1"/>        
-    
+    </s:Group>    
 </s:SparkSkin>
