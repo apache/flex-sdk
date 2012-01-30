@@ -67,7 +67,7 @@ include "../styles/metadata/GapStyles.as"
  *  Name of the CSS Style declaration to use for the styles for the
  *  message component.
  * 
- *  @default mobileIconItemRendererMessageStyle
+ *  @default iconItemRendererMessageStyle
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -79,7 +79,7 @@ include "../styles/metadata/GapStyles.as"
 // FIXME (rfrishbe): add verticalGap
 
 /**
- *  The MobileIconItemRenderer class is a performant item 
+ *  The IconItemRenderer class is a performant item 
  *  renderer optimized for mobile devices.  
  *  It displays four optional parts for each item in the 
  *  list-based control: 
@@ -95,7 +95,7 @@ include "../styles/metadata/GapStyles.as"
  *  </ul>
  *
  *  <p>To apply CSS styles to the single-line text label, such as font size and color, 
- *  set the styles on the MobileIconItemRenderer class. 
+ *  set the styles on the IconItemRenderer class. 
  *  To set styles on the multi-line message, use the <code>messageStyleNameM</code> style property. 
  *  The following example sets the text styles for both the text label and message:</p>
  *
@@ -113,7 +113,7 @@ include "../styles/metadata/GapStyles.as"
  *         labelField="firstName"&gt;
  *         &lt;s:itemRenderer&gt;
  *             &lt;fx:Component&gt;
- *                 &lt;s:MobileIconItemRenderer messageStyleName="myFontStyle" fontSize="25"
+ *                 &lt;s:IconItemRenderer messageStyleName="myFontStyle" fontSize="25"
  *                     labelField="firstName"
  *                     messageField="lastName" 
  *                     decoratorClass="&#64;Embed(source='assets/logo_small.jpg')"/&gt;
@@ -132,14 +132,14 @@ include "../styles/metadata/GapStyles.as"
  *  @see mx.core.IDataRenderer
  *  @see spark.components.IItemRenderer
  *  @see spark.components.supportClasses.ItemRenderer
- *  @see spark.components.MobileItemRenderer
+ *  @see spark.components.LabelItemRenderer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class MobileIconItemRenderer extends MobileItemRenderer 
+public class IconItemRenderer extends LabelItemRenderer 
     implements IGraphicElementContainer, ISharedDisplayObject
 {
     
@@ -169,7 +169,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function MobileIconItemRenderer()
+    public function IconItemRenderer()
     {
         super();
         
@@ -278,8 +278,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      * 
      *  @inheritDoc
      * 
-     *  @see spark.components.MobileIconItemRenderer#labelField
-     *  @see spark.components.MobileIconItemRenderer#labelFunction
+     *  @see spark.components.IconItemRenderer#labelField
+     *  @see spark.components.IconItemRenderer#labelFunction
      *  @see spark.components.IItemRenderer#label
      * 
      *  @langversion 3.0
@@ -289,6 +289,9 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      */
     override public function set label(value:String):void
     {
+		if (value == label)
+			return;
+		
         super.label = value;
         
         labelChanged = true;
@@ -315,7 +318,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  Optional custom image loader, such as an image cache or queue, to
      *  associate with content loader client.
      * 
-     *  <p>The default value is a static content cache defined on MobileIconItemRenderer
+     *  <p>The default value is a static content cache defined on IconItemRenderer
      *  that allows up to 100 entries.</p>
      * 
      *  @langversion 3.0
@@ -431,7 +434,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  <code>""</code> (the empty string),
      *  then no label appears.</p>
      * 
-     *  @see spark.components.MobileIconItemRenderer#labelFunction
+     *  @see spark.components.IconItemRenderer#labelFunction
      *  @see spark.components.IItemRenderer#label
      *
      *  @default null
@@ -492,7 +495,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  <code>""</code> (the empty string),
      *  then no label appears.</p>
      * 
-     *  @see spark.components.MobileIconItemRenderer#labelFunction
+     *  @see spark.components.IconItemRenderer#labelFunction
      *  @see spark.components.IItemRenderer#label
      *
      *  @default null
@@ -543,7 +546,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     
     /**
      *  @private
-     *  The class to use when instantiating the icon for MobileIconItemRenderer.
+     *  The class to use when instantiating the icon for IconItemRenderer.
      *  This class must extend spark.primitives.BitmapImage.
      *  This property was added for Design View so they can set this to a special
      *  subclass of BitmapImage that knows how to load and resolve resources in Design View.
@@ -554,7 +557,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  The bitmap image component used to 
      *  display the icon data of the item renderer.
      * 
-     *  <p>Because MobileIconItemRenderer implements ISharedDisplayObject 
+     *  <p>Because IconItemRenderer implements ISharedDisplayObject 
      *  and IGraphicElementContainer, we don't need to wrap iconDisplay 
      *  in a Group; however, it does require a little more work when instantiating 
      *  and destroying iconDisplay.</p>
