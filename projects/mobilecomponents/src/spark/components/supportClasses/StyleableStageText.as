@@ -15,12 +15,12 @@ import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.PixelSnapping;
-import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.SoftKeyboardEvent;
+import flash.events.TimerEvent;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -30,15 +30,13 @@ import flash.text.ReturnKeyLabel;
 import flash.text.SoftKeyboardType;
 import flash.text.StageText;
 import flash.text.StageTextInitOptions;
-import flash.text.TextField;
-import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 import flash.ui.Keyboard;
+import flash.utils.Timer;
 
 import flashx.textLayout.formats.LineBreak;
 
-import mx.core.DPIClassification;
 import mx.core.FlexGlobals;
 import mx.core.IRawChildrenContainer;
 import mx.core.IUIComponent;
@@ -59,8 +57,10 @@ import spark.components.Application;
 import spark.components.ViewNavigator;
 import spark.core.IEditableText;
 import spark.core.ISoftKeyboardHintClient;
+import spark.effects.Fade;
 import spark.events.PopUpEvent;
 import spark.events.TextOperationEvent;
+import spark.transitions.supportClasses.ViewTransitionUtil;
 
 use namespace mx_internal;
 
@@ -364,7 +364,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     mx_internal static var androidHeightMultiplier:Number = 1.15;
     private static const isAndroid:Boolean = Capabilities.version.indexOf("AND") == 0;
-    
+    private static const isDesktop:Boolean = (Capabilities.os.indexOf("Windows") != -1 || Capabilities.os.indexOf("Mac OS") != -1);    
+
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -426,13 +427,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //--------------------------------------------------------------------------
     
     /**
-     *  Flag indicating a change has been made to the runtime StageText object 
-     *  that requires asynchronous processing before a bitmap may be captured
-     *  from it.
-     */
-    private var completeEventPending:Boolean = false;
-    
-    /**
      *  The runtime StageText object that this field uses for text display and
      *  editing. 
      */
@@ -480,9 +474,25 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      *  gestures intended for other components. In transitons, it allows text to
      *  animate smoothly.
      */
-    private var textImage:Bitmap = null;
-    private var showTextImage:Boolean = false;
+    private var proxyImage:Bitmap = null;
+    private var showProxyImage:Boolean = false;
     private var numEffectsRunning:int = 0;
+    
+    /**
+     *  The proxy bitmap has been updated once during a view transition. Further
+     *  updates during the transition will not be visible and only serve to slow
+     *  the transition's frame rate.
+     */    
+    private var ignoreProxyUpdatesDuringTransition:Boolean = false;
+    
+    /**
+     *  Some transitions cause components to be reparented temporarily. As an
+     *  optimization, we ignore the remove and re-adds that these reparenting
+     *  operations cause. However, if this component is removed from the stage
+     *  and not re-added during the transition, we need to clean up after the
+     *  transition is complete.
+     */
+    private var removedDuringTransition:Boolean = false;
     
     /**
      *  Because StageText exists outside of the display hierarchy, its visiblity
@@ -507,7 +517,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     private var stageTextVisibleChangePending:Boolean = false;
     private var stageTextVisible:Boolean;
-    private var viewChanging:Boolean = false;
+    private var viewTransitionRunning:Boolean = false;
     
     //--------------------------------------------------------------------------
     //
@@ -1284,6 +1294,59 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         _softKeyboardType = value;
     }
     
+    //----------------------------------
+    //  completeEventPending
+    //----------------------------------
+    
+    /**
+     *  Storage for the completeEventPending private property.
+     */
+    private var _completeEventPending:Boolean = false;
+    private var completeEventBackstop:Timer = null;
+    
+    /**
+     *  Flag indicating a change has been made to the runtime StageText object 
+     *  that requires asynchronous processing before a bitmap may be captured
+     *  from it.
+     */
+    private function get completeEventPending():Boolean
+    {
+        return _completeEventPending;
+    }
+    
+    private function set completeEventPending(value:Boolean):void
+    {
+        if (_completeEventPending != value)
+        {
+            _completeEventPending = value;
+            
+            if (value)
+            {
+                completeEventBackstop = new Timer(1000, 1);
+                completeEventBackstop.addEventListener(TimerEvent.TIMER, completeEventBackstop_timerHandler);
+                completeEventBackstop.start();
+            }
+            else
+            {
+                completeEventBackstop.removeEventListener(TimerEvent.TIMER, completeEventBackstop_timerHandler);
+                completeEventBackstop = null;
+                
+                // The suspend/resume of transitions for bitmap capture is to
+                // fix framerate issues on Android. While the suspend/resume
+                // should work on iOS as well, it isn't necessary. In the spirit
+                // of keeping this change as localized as possible, we are
+                // limiting transition suspend/resume to Android.
+                if (!isDesktop && viewTransitionRunning && isAndroid)
+                    ViewTransitionUtil.resumeTransitions();
+            }
+        }
+        else if (_completeEventPending)
+        {
+            completeEventBackstop.reset();
+            completeEventBackstop.start();
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -1315,7 +1378,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         // The proxy bitmap should not be showing and somebody is trying to set
         // focus on us. Make sure the proxy bitmap really is gone and the
         // StageText is visible.
-        if (!showTextImage && !alwaysShowProxyImage)
+        if (!showProxyImage && !alwaysShowProxyImage)
             commitVisible(true);
         
         // Do not set focus if the StageText is invisible (it has been replaced
@@ -1394,7 +1457,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         // creates the proxy bitmap. In that case, make sure the proxy bitmap
         // gets created here.
         var proxyCreated:Boolean = false;
-        if (alwaysShowProxyImage && !showTextImage)
+        if (alwaysShowProxyImage && !showProxyImage)
         {
             createProxyImage();
             proxyCreated = true;
@@ -1404,7 +1467,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             stageText.editable = _editable && effectiveEnabled;
         
         if (!proxyCreated)
-            commitVisible(false);
+            commitVisible();
         
         if (invalidateViewPortFlag)
         {
@@ -1416,7 +1479,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             updateProxyImageForTopmostForm();
         }
         
-        if (!proxyCreated)
+        if (!proxyCreated && showProxyImage)
             updateProxyImage();
     }
     
@@ -1459,14 +1522,14 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      *  be hidden. This will not happen automatically because the StageText is
      *  not part of the display hierarchy.
      */
-    private function commitVisible(immediate:Boolean):void
+    private function commitVisible(immediate:Boolean = false):void
     {
-        if (showTextImage)
+        if (showProxyImage)
         {
-            if (textImage != null)
+            if (proxyImage != null)
             {
-                textImage.x = 0;
-                textImage.y = 0;
+                proxyImage.x = 0;
+                proxyImage.y = 0;
                 
                 if (stageText != null)
                 {
@@ -1497,13 +1560,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                     
                     // Do not remove the proxy bitmap until after stageText has been
                     // made visible to reduce flicker.
-                    if (stageText.visible && textImage != null)
-                    {
-                        removeChild(textImage);
-                        textImage.bitmapData.dispose();
-                        textImage = null;
-                    }
-                    
+                    disposeProxyImage();
                     stageTextVisibleChangePending = false;
                     removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
                 }
@@ -1724,6 +1781,30 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         return bitmap;
     }
     
+    private function beginAnimation():void
+    {
+        // The first effect affecting the StageText that starts causes us to
+        // replace the StageText with a bitmap.
+        if (numEffectsRunning++ == 0)
+        {
+            // Unlike other places where bitmap swapping is necessary (popups),
+            // effects may run immediately after a text component is created.
+            // So, we need to make sure anything that could affect the size or
+            // contents of the bitmap (viewPort and styles) are saved to the
+            // StageText before creating a new bitmap. Effects may play too
+            // quickly to rely on subsequent updates to correct the bitmap.
+            if (invalidateViewPortFlag)
+            {
+                // Update the viewport now so a subsequent "complete" event will
+                // allow us to get a bitmap of the correct size
+                updateViewPort();
+                invalidateViewPortFlag = false
+            }
+            
+            createProxyImage();
+        }
+    }
+    
     /**
      *  Generate an image that represents this StageText and replace the live
      *  StageText display with that image. Used for display while effects are
@@ -1731,18 +1812,18 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     private function createProxyImage():void
     {
-        if (!showTextImage && textImage != null)
+        if (!showProxyImage && proxyImage != null)
         {
             // In this case, we have just received an event that causes us to
             // dispose the proxy image, but havent disposed it yet 
             // (commitProperties hasn't been called yet). So, we don't need to
             // create a new text image. Just update the one we have and update
             // our state variables.
-            showTextImage = true;
+            showProxyImage = true;
             updateProxyImage();
             commitVisible(true);
         } 
-        else if (textImage == null)
+        else if (proxyImage == null)
         {
             var imageData:BitmapData = captureBitmapData();
             
@@ -1750,19 +1831,48 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             {
                 if (densityScale == 1)
                 {
-                    textImage = new Bitmap(imageData);
+                    proxyImage = new Bitmap(imageData);
                 }
                 else
                 {
-                    textImage = new Bitmap(imageData, PixelSnapping.NEVER, true);
-                    textImage.scaleX = 1.0 / densityScale;
-                    textImage.scaleY = 1.0 / densityScale;
+                    proxyImage = new Bitmap(imageData, PixelSnapping.NEVER, true);
+                    proxyImage.scaleX = 1.0 / densityScale;
+                    proxyImage.scaleY = 1.0 / densityScale;
                 }
                 
-                addChild(textImage);
+                // This order seems backwards, but it isn't. Setting the
+                // visibility of a StageText does not happen immediately. To
+                // reduce the amount of time where both the StageText and the
+                // bitmap are visible, we tell the StageText to hide before we
+                // show the proxy bitmap.
+                showProxyImage = true;
+                commitVisible();
+                addChild(proxyImage);
+            }
+        }
+    }
+    
+    private function endAnimation():void
+    {
+        // The last effect affecting the StageText to end causes us to put
+        // the live StageText back and remove the bitmap.
+        // If alwaysShowProxyImage is set, don't dispose the image.
+        if (--numEffectsRunning == 0 && !alwaysShowProxyImage)
+        {
+            if (removedDuringTransition)
+            {
+                removedFromStageHandler(null);
+            }
+            else
+            {
+                updateViewPort();
                 
-                showTextImage = true;
-                commitVisible(true);
+                // The effect may have played while a popup is open. If so, we
+                // need to make sure the proxy image stays.
+                if (awm)
+                    updateProxyImageForTopmostForm();
+                else
+                    disposeProxyImageLater();
             }
         }
     }
@@ -1824,7 +1934,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         globalRect.y = Math.floor(Math.min(globalTopLeft.y, globalBottomRight.y));
         globalRect.width = Math.ceil(Math.abs(globalBottomRight.x - globalTopLeft.x));
         globalRect.height = Math.ceil(Math.abs(globalBottomRight.y - globalTopLeft.y));
-
+        
         return globalRect;
     }
     
@@ -1879,17 +1989,44 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (stageText == null || completeEventPending)
             return;
         
-        if (textImage != null)
+        if (ignoreProxyUpdatesDuringTransition)
+            return;
+        
+        if (proxyImage != null)
         {
             var newImageData:BitmapData = captureBitmapData();
             
             if (newImageData)
             {
-                var oldImageData:BitmapData = textImage.bitmapData;
+                var oldImageData:BitmapData = proxyImage.bitmapData;
                 
-                textImage.bitmapData = newImageData;
+                proxyImage.bitmapData = newImageData;
                 oldImageData.dispose();
             }
+        }
+    }
+    
+    private function disposeProxyImage():void
+    {
+        if (proxyImage != null)
+        {
+            var fade:Fade = new Fade(proxyImage);
+            
+            fade.alphaTo = 0;
+            fade.duration = 125;
+            
+            fade.addEventListener(EffectEvent.EFFECT_END,
+                function (event:EffectEvent):void
+                {
+                    if (proxyImage)
+                    {
+                        removeChild(proxyImage);
+                        proxyImage.bitmapData.dispose();
+                        proxyImage = null;
+                    }
+                }, false, 0, true);
+
+            fade.play();
         }
     }
     
@@ -1897,11 +2034,11 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      *  Destroy any previously created proxy image and restore the visibility of
      *  the StageText display that the proxy image had represented.
      */
-    private function disposeProxyImage():void
+    private function disposeProxyImageLater():void
     {
-        if (showTextImage)
+        if (showProxyImage)
         {
-            showTextImage = false;
+            showProxyImage = false;
             invalidateProperties();
         }
     }
@@ -1923,7 +2060,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             if (form.focusManager != focusManager && hasOverlappingForm())
                 createProxyImage();
             else
-                disposeProxyImage();
+                disposeProxyImageLater();
         }
     }
     
@@ -1960,8 +2097,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             if (stageText.stage)
             {
                 var globalRect:Rectangle = getGlobalViewPort();
-                
-                if (stageText.viewPort != globalRect)
+
+                if (!globalRect.equals(stageText.viewPort))
                 {
                     if (stageText.viewPort.width != globalRect.width || stageText.viewPort.height != globalRect.height)
                         completeEventPending = true;
@@ -2061,8 +2198,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 ancestor.removeEventListener(FlexEvent.HIDE, ancestor_hideHandler);
                 ancestor.removeEventListener(PopUpEvent.CLOSE, ancestor_closeHandler);
                 ancestor.removeEventListener(PopUpEvent.OPEN, ancestor_openHandler);
-                ancestor.removeEventListener("viewChangeStart", ancestor_viewChangeStartHandler);
-                ancestor.removeEventListener("viewChangeComplete", ancestor_viewChangeCompleteHandler);
             }
         }
         
@@ -2081,16 +2216,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 {
                     newAncestor.addEventListener(PopUpEvent.CLOSE, ancestor_closeHandler, false, 0, true);
                     newAncestor.addEventListener(PopUpEvent.OPEN, ancestor_openHandler, false, 0, true);
-                }
-                
-                if (newAncestor is ViewNavigator)
-                {
-                    // If one of our ancestors is a ViewNavigator, we need to
-                    // make sure that the visibility of the StageText does not
-                    // change during a view transition.
-                    newAncestor.addEventListener("viewChangeStart", ancestor_viewChangeStartHandler);
-                    newAncestor.addEventListener("viewChangeComplete", ancestor_viewChangeCompleteHandler);
-                    viewChanging = (newAncestor as ViewNavigator).viewChanging;
                 }
             }
         }
@@ -2146,8 +2271,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             ancestor.removeEventListener(FlexEvent.HIDE, ancestor_hideHandler);
             ancestor.removeEventListener(PopUpEvent.CLOSE, ancestor_closeHandler);
             ancestor.removeEventListener(PopUpEvent.OPEN, ancestor_openHandler);
-            ancestor.removeEventListener("viewChangeStart", ancestor_viewChangeStartHandler);
-            ancestor.removeEventListener("viewChangeComplete", ancestor_viewChangeCompleteHandler);
         }
     }
     
@@ -2191,7 +2314,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     mx_internal function getStageText(create:Boolean = false):StageText
     {
         if (stageText == null && create)
-            stageText = new StageText(new StageTextInitOptions(_multiline));
+            stageText = StageTextPool.acquireStageText(this);
         
         return stageText;
     }
@@ -2281,12 +2404,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function ancestor_viewChangeStartHandler(event:Event):void
     {
-        viewChanging = true;
+        viewTransitionRunning = true;
     }
     
     private function ancestor_viewChangeCompleteHandler(event:Event):void
     {
-        viewChanging = false;
+        viewTransitionRunning = false;
         
         if (stageTextVisibleChangePending)
             enterFrameHandler(null);
@@ -2324,6 +2447,11 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         updateProxyImageForTopmostForm(removedForm);
     }
     
+    private function completeEventBackstop_timerHandler(event:TimerEvent):void
+    {
+        completeEventPending = false;
+    }
+    
     private function form_moveHandler(event:MoveEvent):void
     {
         updateProxyImageForTopmostForm();
@@ -2355,6 +2483,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     {
         completeEventPending = false;
         updateProxyImage();
+        
+        if (!isDesktop && viewTransitionRunning && isAndroid)
+            ignoreProxyUpdatesDuringTransition = true;
     }
     
     private function stageText_focusInHandler(event:FocusEvent):void
@@ -2394,7 +2525,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             {
                 var fm:FocusManager = focusManager as FocusManager;
                 var lastFocus:Object = fm.lastFocus as Object;
-
+                
                 if (lastFocus && lastFocus.hasOwnProperty("textDisplay") && lastFocus.textDisplay == this)
                     fm.lastFocus = null;
             }
@@ -2449,42 +2580,16 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function stage_effectStartHandler(event:EffectEvent):void
     {
-        // The first effect affecting the StageText that starts causes us
-        // to replace the StageText with a bitmap.
-        if (numEffectsRunning++ == 0)
-        {
-            // Unlike other places where bitmap swapping is necessary (popups),
-            // effects may run immediately after a text component is created.
-            // So, we need to make sure anything that could affect the size or
-            // contents of the bitmap (viewPort and styles) are saved to the
-            // StageText before creating a new bitmap. Effects may play too
-            // quickly to rely on subsequent updates to correct the bitmap.
-            if (invalidateViewPortFlag)
-            {
-                // Update the viewport now so a subsequent "complete" event will
-                // allow us to get a bitmap of the correct size
-                updateViewPort();
-                invalidateViewPortFlag = false
-            }
-            
-            createProxyImage();
-        }
+        // An effect is starting, but the effect will only affect the StageText
+        // if its target is an ancestor of it.
+        if (eventTargetsAncestor(event))
+            beginAnimation();
     }
     
     private function stage_effectEndHandler(event:EffectEvent):void
     {
-        // The last effect affecting the StageText to end causes us to put
-        // the live StageText back and remove the bitmap.
-        // If alwaysShowProxyImage is set, don't dispose the image.
-        if (--numEffectsRunning == 0 && !alwaysShowProxyImage)
-        {
-            // The effect may have played while a popup is open. If so, we
-            // need to make sure the proxy image stays.
-            if (awm)
-                updateProxyImageForTopmostForm();
-            else
-                disposeProxyImage();
-        }
+        if (eventTargetsAncestor(event))
+            endAnimation();
     }
     
     private function stage_enabledChangedHandler(event:Event):void
@@ -2503,6 +2608,49 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         // visibility and geometry changes.
         if (eventTargetsAncestor(event))
             updateWatchedAncestors();
+    }
+    
+    private function viewTransition_prepareHandler(event:Event):void
+    {
+        // When a view transition runs, the first event that we see is
+        // "prepare", which is dispatched by the ViewTransitionUtil singleton.
+        // This event gives StyleableStageText a chance to suspend the
+        // transition. Suspension of the transition is necessary if the 
+        // StageText is not ready to give us a bitmap. Otherwise, by the time
+        // the StageText is ready to give us a bitmap, capturing one would
+        // case a noticeable stutter during the transition. If we suspend the
+        // transition here, the next "complete" event we receive from the
+        // StageText will cause us to resume transitions.
+        
+        // The suspend/resume of transitions for bitmap capture is to
+        // fix framerate issues on Android. While the suspend/resume
+        // should work on iOS as well, it isn't necessary. In the spirit
+        // of keeping this change as localized as possible, we are
+        // limiting transition suspend/resume to Android.
+        if (!isDesktop && isAndroid)
+        {
+            if (completeEventPending)
+                ViewTransitionUtil.suspendTransitions();
+            else
+                ignoreProxyUpdatesDuringTransition = true;
+        }
+        
+        viewTransitionRunning = true;
+        beginAnimation();
+    }
+    
+    private function stage_transitionEndHandler(event:FlexEvent):void
+    {
+        endAnimation();
+        ignoreProxyUpdatesDuringTransition = false;
+
+        viewTransitionRunning = false;
+
+        // If stageTextVisibleChangePending is true, a visibility change which
+        // we ignored happened during the transition. Apply that visibility
+        // change now.
+        if (stageTextVisibleChangePending)
+            enterFrameHandler(null);
     }
     
     private function addHierarchyListeners():void
@@ -2529,6 +2677,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function addedToStageHandler(event:Event):void
     {
+        if (numEffectsRunning > 0)
+        {
+            removedDuringTransition = false;
+            return;
+        }
+        
         var needsRestore:Boolean = false;
         
         if (!awm)
@@ -2543,8 +2697,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         
         if (stageText == null)
         {
+            needsRestore = !StageTextPool.hasCachedStageText(this);
             getStageText(true);
-            needsRestore = true;
         }
         
         // Don't let the StageText show up until we've calculated its correct
@@ -2556,6 +2710,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         
         stageText.stage.addEventListener(EffectEvent.EFFECT_START, stage_effectStartHandler, true, 0, true);
         stageText.stage.addEventListener(EffectEvent.EFFECT_END, stage_effectEndHandler, true, 0, true);
+        stageText.stage.addEventListener(FlexEvent.TRANSITION_END, stage_transitionEndHandler, false, 0, true);
+        ViewTransitionUtil.instance.addEventListener("prepare", viewTransition_prepareHandler, false, 0, true);
         
         stageText.stage.addEventListener("enabledChanged", stage_enabledChangedHandler, true, 0, true);
         
@@ -2580,10 +2736,10 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private function enterFrameHandler(event:Event):void
     {
         removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
-
+        
         // If a transition is running, delay pending changes to the visibility
         // of the StageText until the transition is complete.
-        if (!viewChanging && stageTextVisibleChangePending)
+        if (!viewTransitionRunning && stageTextVisibleChangePending)
         {
             stageText.visible = stageTextVisible;
             
@@ -2600,19 +2756,19 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             
             // Do not remove the proxy bitmap until after stageText has been
             // made visible to reduce flicker.
-            if (stageTextVisible && textImage != null)
-            {
-                removeChild(textImage);
-                textImage.bitmapData.dispose();
-                textImage = null;
-            }
-            
+            disposeProxyImage();
             stageTextVisibleChangePending = false;
         }
     }
     
     private function removedFromStageHandler(event:Event):void
     {
+        if (numEffectsRunning > 0)
+        {
+            removedDuringTransition = true;
+            return;
+        }
+        
         if (awm)
         {
             awm.removeEventListener("activatedForm", awm_activatedFormHandler);
@@ -2629,6 +2785,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         
         stageText.stage.removeEventListener(EffectEvent.EFFECT_START, stage_effectStartHandler, true);
         stageText.stage.removeEventListener(EffectEvent.EFFECT_END, stage_effectEndHandler, true);
+        stageText.stage.removeEventListener(FlexEvent.TRANSITION_END, stage_transitionEndHandler);
+        ViewTransitionUtil.instance.removeEventListener("prepare", viewTransition_prepareHandler);
         
         stageText.stage.removeEventListener("enabledChanged", stage_enabledChangedHandler, true);
         
@@ -2646,26 +2804,260 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         stageText.removeEventListener(KeyboardEvent.KEY_DOWN, stageText_keyDownHandler);
         stageText.removeEventListener(KeyboardEvent.KEY_UP, stageText_keyUpHandler);
         
-        stageText.dispose();
+        StageTextPool.releaseStageText(this, stageText);
         stageText = null;
         
         removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+        stageTextVisibleChangePending = false;
         
         // This component may be removed from the stage by a Fade effect. In
         // that case, we will not receive the EFFECT_END event, but should still
         // reset the effect running state and remove any bitmap representation
         // of the StageText.
-        disposeProxyImage();
-        if (textImage != null)
+        showProxyImage = false;
+        if (proxyImage != null)
         {
             // If a textImage exists, we need to get rid of it to keep it in
             // sync with our proxy image state. disposeProxyImage does not do
             // this. It only sets a flag and invalidates properties.
-            removeChild(textImage);
-            textImage.bitmapData.dispose();
-            textImage = null;
+            removeChild(proxyImage);
+            proxyImage.bitmapData.dispose();
+            proxyImage = null;
         }
         numEffectsRunning = 0;
+        
+        removedDuringTransition = false;
     }
 }
+}
+
+import flash.events.TimerEvent;
+import flash.text.StageText;
+import flash.text.StageTextInitOptions;
+import flash.utils.Dictionary;
+import flash.utils.Timer;
+
+import spark.components.supportClasses.StyleableStageText;
+
+class StageTextPool
+{
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+    
+    private static const poolReserve:Number = 5;
+    private static const poolTimerInterval:Number = 10000;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+
+    private static var map_StyleableStageText_to_StageText:Dictionary = new Dictionary(true);
+    private static var map_StageText_to_StyleableStageText:Dictionary = new Dictionary(true);
+    
+    private static var multilinePool:Vector.<StageText> = new Vector.<StageText>();
+    private static var multilinePoolTimer:Timer;
+    
+    private static var singleLinePool:Vector.<StageText> = new Vector.<StageText>();
+    private static var singleLinePoolTimer:Timer;
+    
+    private static var cleanProperties:Object = null;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Acquires a StageText and removes it from the pool. If the host
+     *  StyleableStageText has recently released a StageText and that StageText
+     *  is still in the pool, that StageText will be returned.
+     */
+    public static function acquireStageText(host:StyleableStageText):StageText
+    {
+        var result:StageText = map_StyleableStageText_to_StageText[host];
+        
+        if (!result)
+        {
+            if (host.multiline)
+            {
+                if (multilinePool.length == 0)
+                    while (multilinePool.length < poolReserve)
+                        multilinePool.push(new StageText(new StageTextInitOptions(true)));
+                
+                result = multilinePool.pop();
+            }
+            else
+            {
+                if (singleLinePool.length == 0)
+                    while (singleLinePool.length < poolReserve)
+                        singleLinePool.push(new StageText(new StageTextInitOptions(false)));
+                
+                result = singleLinePool.pop();
+            }
+            
+            // The first time a StageText is acquired, it's guaranteed to have been
+            // newly-created. Take that opportunity to stash away the StageText's
+            // defaults for properties that StyleableStageText may not necessarily
+            // overwrite during its initialization. This is necessary because this
+            // object pool "recycles" StageTexts and we need to ensure that those
+            // StageTexts are clean when they are reused.
+            if (!cleanProperties)
+            {
+                cleanProperties = new Object();
+                
+                cleanProperties["autoCapitalize"] = result.autoCapitalize;
+                cleanProperties["autoCorrect"] = result.autoCorrect;
+                //cleanProperties["color"] = result.color;              // Set in commitStyles
+                cleanProperties["displayAsPassword"] = result.displayAsPassword;
+                //cleanProperties["editable"] = result.editable;        // Set in commitProperties
+                //cleanProperties["fontFamily"] = result.fontFamily;    // Set in commitStyles
+                //cleanProperties["fontPosture"] = result.fontPosture;  // Set in commitStyles
+                //cleanProperties["fontSize"] = result.fontSize;        // Set in commitStyles
+                //cleanProperties["fontWeight"] = result.fontWeight;    // Set in commitStyles
+                //cleanProperties["locale"] = result.locale;            // Set in commitStyles
+                cleanProperties["maxChars"] = result.maxChars;
+                cleanProperties["restrict"] = result.restrict;
+                cleanProperties["returnKeyLabel"] = result.returnKeyLabel;
+                cleanProperties["softKeyboardType"] = result.softKeyboardType;
+                cleanProperties["text"] = result.text;
+                //cleanProperties["textAlign"] = result.textAlign;      // Set in commitStyles
+                //cleanProperties["visible"] = result.visible;          // Set in commitVisible
+            }
+            else
+            {
+                for (var prop:String in cleanProperties)
+                    result[prop] = cleanProperties[prop];
+            }
+        }
+        else
+        {
+            var index:int;
+            
+            if (host.multiline)
+            {
+                index = multilinePool.indexOf(result);
+                multilinePool.splice(index, 1);
+            }
+            else
+            {
+                index = singleLinePool.indexOf(result);
+                singleLinePool.splice(index, 1);
+            }
+        }
+        
+        uncacheStageText(result);
+        
+        return result;
+    }
+    
+    /**
+     *  Returns true if the StageText that would be returned by acquireStageText
+     *  for the given StyleableStageText will be the same as the last StageText
+     *  it released.
+     */
+    public static function hasCachedStageText(host:StyleableStageText):Boolean
+    {
+        return map_StyleableStageText_to_StageText[host] !== undefined;
+    }
+    
+    /**
+     *  Puts a StageText back into the pool and caches the StyleableStageText/
+     *  StageText pair so the same StageText may be returned if the
+     *  StyleableStageText re-acquires it. If this causes the pool to grow
+     *  larger than its reserve size, this starts a timer to check and reduce
+     *  the size of the pool poolTimerInterval milliseconds later.
+     */
+    public static function releaseStageText(host:StyleableStageText, stageText:StageText):void
+    {
+        map_StyleableStageText_to_StageText[host] = stageText;
+        map_StageText_to_StyleableStageText[stageText] = host;
+        
+        if (host.multiline)
+        {
+            multilinePool.push(stageText);
+            
+            if (multilinePool.length > poolReserve)
+            {
+                if (!multilinePoolTimer)
+                {
+                    multilinePoolTimer = new Timer(poolTimerInterval, 1);
+                    multilinePoolTimer.addEventListener(TimerEvent.TIMER,
+                        function (event:TimerEvent):void
+                        {
+                            shrinkPool(true);
+                            multilinePoolTimer = null;
+                        }, false, 0, true);
+                }
+                
+                multilinePoolTimer.reset();
+                multilinePoolTimer.start();
+            }
+        }
+        else
+        {
+            singleLinePool.push(stageText);
+            
+            if (singleLinePool.length > poolReserve)
+            {
+                if (!singleLinePoolTimer)
+                {
+                    singleLinePoolTimer = new Timer(poolTimerInterval, 1);
+                    singleLinePoolTimer.addEventListener(TimerEvent.TIMER,
+                        function (event:TimerEvent):void
+                        {
+                            shrinkPool(false);
+                            singleLinePoolTimer = null;
+                        }, false, 0, true);
+                }
+                
+                singleLinePoolTimer.reset();
+                singleLinePoolTimer.start();
+            }
+        }
+    }
+    
+    /**
+     *  Return the pool to its reserve size.
+     */
+    private static function shrinkPool(multiline:Boolean):void
+    {
+        var oldStageText:StageText;
+        
+        if (multiline)
+        {
+            while (multilinePool.length > poolReserve)
+            {
+                oldStageText = multilinePool.shift();
+                uncacheStageText(oldStageText);
+                oldStageText.dispose();
+            }
+        }
+        else
+        {
+            while (singleLinePool.length > poolReserve)
+            {
+                oldStageText = singleLinePool.shift();
+                uncacheStageText(oldStageText);
+                oldStageText.dispose();
+            }
+        }
+    }
+    
+    /**
+     *  Remove a StageText and its last known StyleableStageText host from the
+     *  cache.
+     */
+    private static function uncacheStageText(stageText:StageText):void
+    {
+        var host:StyleableStageText = map_StageText_to_StyleableStageText[stageText];
+        
+        delete map_StyleableStageText_to_StageText[host];
+        delete map_StageText_to_StyleableStageText[stageText];
+    }
 }
