@@ -46,8 +46,10 @@ public class SpinnerListSkin extends MobileSkin
 			default:
 			{
 				borderThickness = 1;
-			}
+			}	
 		}
+		
+		minWidth = 112;
 	}
 	
 	//--------------------------------------------------------------------------
