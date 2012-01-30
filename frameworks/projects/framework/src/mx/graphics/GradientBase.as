@@ -351,7 +351,7 @@ public class GradientBase extends EventDispatcher
      *  A value from the SpreadMethod class
      *  that specifies which spread method to use.
      *
-     *  <p>Value values are <code>SpreadMethod.PAD</code>, 
+     *  <p>Valid values are <code>SpreadMethod.PAD</code>, 
      *  <code>SpreadMethod.REFLECT</code>,
      *  and <code>SpreadMethod.REPEAT</code>.</p>
      *  
