@@ -152,6 +152,14 @@ public class ButtonSkin extends ButtonSkinBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Defines the corner radius.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */  
     protected var layoutCornerEllipseSize:uint;
     
     //--------------------------------------------------------------------------
@@ -165,6 +173,14 @@ public class ButtonSkin extends ButtonSkinBase
     
     private var borderClass:Class;
     
+    /**
+     *  Defines the shadow for the Button control's label.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */  
     public var labelDisplayShadow:StyleableTextField;
     
     /**
