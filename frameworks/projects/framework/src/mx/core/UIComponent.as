@@ -9204,7 +9204,7 @@ public class UIComponent extends FlexSprite
      *  Get the bounds of this object that are visible to the user
      *  on the screen.
      * 
-     *  @param stopParent The parent to stop at when calculating the visible
+     *  @param targetParent The parent to stop at when calculating the visible
      *  bounds. If null, this object's system manager will be used as
      *  the parent.
      * 
@@ -9212,20 +9212,19 @@ public class UIComponent extends FlexSprite
      *  object. The rectangle is in the coordinate system relative to the
      *  <code>stopParent</code> parameter.
      */  
-    public function getVisibleRect(stopParent:DisplayObject):Rectangle
+    public function getVisibleRect(targetParent:DisplayObject):Rectangle
     {
-        if (!stopParent)
-            stopParent = DisplayObject(systemManager);
+        if (!targetParent)
+            targetParent = DisplayObject(systemManager);
             
-        var pt:Point = new Point();
-        pt.x = x;
-        pt.y = y;
+        var pt:Point = new Point(x, y);
         pt = $parent.localToGlobal(pt);
-        pt = stopParent.globalToLocal(pt);
+        
+        // bounds of this object to return. Keep in global coordinates
+        // until the end and set back to targetParent coordinates.
         var bounds:Rectangle = new Rectangle(pt.x, pt.y, width, height);
         var current:DisplayObject = this;
-        var currentRect:Rectangle;
-        var currentParent:DisplayObject;
+        var currentRect:Rectangle = new Rectangle();
         
         do
         {
@@ -9234,27 +9233,21 @@ public class UIComponent extends FlexSprite
             else
                 current = current.parent;
                 
-            currentRect = current.scrollRect;
-            if (currentRect)
+            if (current.scrollRect)
             {
-                if (current is UIComponent)
-                    currentParent = UIComponent(current).$parent;
-                else
-                    currentParent = current.parent;
-                    
-                pt.x = current.x;
-                pt.y = current.y;
-                
-                pt = currentParent.localToGlobal(pt);
-                pt = stopParent.globalToLocal(pt);
+                // clip the bounds by the scroll rect
+                currentRect = current.scrollRect.clone();
+                pt = current.localToGlobal(currentRect.topLeft);
                 currentRect.x = pt.x;
                 currentRect.y = pt.y;
-                currentRect.width = currentRect.width;
-                currentRect.height = currentRect.height;
                 bounds = bounds.intersection(currentRect);
             }
-        } while (current != stopParent); 
-        
+        } while (current != targetParent); 
+
+        // convert the rect relative to the stop parent
+        pt = targetParent.globalToLocal(bounds.topLeft);
+        bounds.x = pt.x;
+        bounds.y = pt.y;
         return bounds;       
     }
 
