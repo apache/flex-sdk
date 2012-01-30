@@ -61,6 +61,11 @@ import mx.events.PropertyChangeEvent;
  *  </pre>
  *
  *  @see flash.display.Graphics
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SolidColorStroke extends EventDispatcher implements IStroke
 {
@@ -110,6 +115,11 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  @param miterLimit Indicates the limit at which a miter is cut off.
 	 *  Valid values range from 0 to 255.
 	 *  The default value is 0.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SolidColorStroke(color:uint = 0x000000,
 	                                 weight:Number = 1,
@@ -152,6 +162,11 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  Possible values are 0.0 (invisible) through 1.0 (opaque). 
 	 *  
 	 *  @default 1.0. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get alpha():Number
 	{
@@ -181,6 +196,11 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  Specifies the type of caps at the end of lines.
 	 *  Valid values are: <code>"round"</code>, <code>"square"</code>,
 	 *  and <code>"none"</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get caps():String
 	{
@@ -210,6 +230,11 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  The line color. 
 	 *  
 	 *  @default 0x000000 (black). 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get color():uint
 	{
@@ -239,6 +264,11 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  Specifies the type of joint appearance used at angles.
 	 *  Valid values are <code>"round"</code>, <code>"miter"</code>,
 	 *  and <code>"bevel"</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get joints():String
 	{
@@ -269,6 +299,11 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  Valid values range from 0 to 255.
 	 *  
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get miterLimit():Number
 	{
@@ -300,6 +335,11 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  and the line stroke size itself.
 	 *  
 	 *  @default false
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get pixelHinting():Boolean
 	{
@@ -352,6 +392,11 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
      *  </ul>
      * 
      *  @default LineScaleMode.NORMAL
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get scaleMode():String
 	{
@@ -384,6 +429,11 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	/**
 	 *  The line weight, in pixels.
 	 *  For many charts, the default value is 1 pixel.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get weight():Number
 	{
@@ -413,6 +463,11 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  Applies the properties to the specified Graphics object.
 	 *  
 	 *  @param g The Graphics object to which the SolidColorStroke's styles are applied.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function apply(g:Graphics):void
 	{
