@@ -326,6 +326,8 @@ public class BitmapAsset extends FlexBitmap
     
     private var _layoutDirection:String = LayoutDirection.LTR;
     
+    [Inspectable(category="General", enumeration="ltr,rtl")]
+    
     /**
      *  @inheritDoc
      *  
