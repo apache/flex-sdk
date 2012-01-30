@@ -547,7 +547,7 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
         var item:Object = null;
         try
         {
-            return list.getItemAt(index);
+            return list.getItemAt(index, prefetch);
         }
         catch (ipe:ItemPendingError)
         {
