@@ -14,30 +14,24 @@ package mx.accessibility
 
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityProperties;
-import flash.display.DisplayObjectContainer;
 import flash.events.Event;
-import mx.containers.Form;
-import mx.containers.FormHeading;
-import mx.containers.FormItem;
+import mx.accessibility.AccImpl;
 import mx.controls.FormItemLabel;
-import mx.controls.Label;
 import mx.controls.scrollClasses.ScrollBar;
-import mx.core.Container;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.managers.SystemManager;
 
 use namespace mx_internal;
 
 /**
- *  The UIComponentAccImpl class is the accessibility class for UIComponent.
- *  It is used to provide accessibility to FormView, ToolTip, and Error ToolTip.
+ *  The UIComponentAccProps class is the accessibility class for UIComponent.
+ *  It is used to provide accessibility to Form, ToolTip, and Error ToolTip.
  *
  *  @helpid 3030
  *  @tiptext This is the UIComponent Accessibility Class.
  *  @review
  */
-public class UIComponentAccImpl extends AccessibilityProperties
+public class UIComponentAccProps extends AccessibilityProperties
 {
     include "../core/Version.as";
 
@@ -50,7 +44,7 @@ public class UIComponentAccImpl extends AccessibilityProperties
     /**
      *  @private
      *  Static variable triggering the hookAccessibility() method.
-     *  This is used for initializing UIComponentAccImpl class to hook its
+     *  This is used for initializing UIComponentAccProps class to hook its
      *  createAccessibilityImplementation() method to UIComponent class 
      *  before it gets called from UIComponent.initialize().
      */
@@ -60,7 +54,7 @@ public class UIComponentAccImpl extends AccessibilityProperties
      *  @private
      *  Static Method for swapping the
      *  createAccessibilityImplementation method of UIComponent with
-     *  the UIComponentAccImpl class.
+     *  the UIComponentAccProps class.
      */
     private static function hookAccessibility():Boolean
     {
@@ -86,7 +80,7 @@ public class UIComponentAccImpl extends AccessibilityProperties
                                             component:UIComponent):void
     {
         component.accessibilityProperties =
-            new UIComponentAccImpl(component);
+            new UIComponentAccProps(component);
     }
     
     /**
@@ -98,83 +92,6 @@ public class UIComponentAccImpl extends AccessibilityProperties
     {
     }
 
-    /**
-     *  Method for supporting Form Accessibility.
-     *  @review
-     */
-    public static function getFormName(component:UIComponent):String
-    {
-        var formName:String = "";
-        
-        // Return nothing if we are a container 
-        if (component is Container)
-            return formName;
-
-        // keeping this DisplayObjectContainer since parent returns
-        // that as root is not a UIComponent.
-        var par:DisplayObjectContainer = component.parent; 
-        // continue looking up the parent chain
-        // until root (or application) or FormItem is found.
-        while (par && !(par is FormItem) &&
-               !(par is SystemManager) && par != component.root)
-        {
-            par = par.parent;
-        }
-
-        if (par && par is FormItem)
-            formName = updateFormItemString(FormItem(par));
-
-        return formName;
-    }
-    
-    /**
-     *  @private
-     *  Method for supporting Form Accessibility.
-     */
-    private static function updateFormItemString(formItem:FormItem):String
-    {
-        var formName:String = "";
-        
-        const itemLabel:Label = formItem.itemLabel;
-        const accProp:AccessibilityProperties = (itemLabel ? itemLabel.accessibilityProperties : null);
-        if (accProp && accProp.silent)
-            return accProp.name;
-
-        var form:UIComponent = UIComponent(formItem.parent);
-
-        // If we are located within a Form, then look for the first FormHeading
-        // that is a sibling that is above us in the parent's child hierarchy
-        if (form is Form)
-        {
-            var formItemIndex:int = form.getChildIndex(formItem);
-            for (var i:int = formItemIndex; i >= 0; i--)
-            {
-                var child:UIComponent = UIComponent(form.getChildAt(i));
-                if (child is FormHeading)
-                {
-                    formName = FormHeading(child).label + " ";
-                    break;
-                }
-            }
-        }
-
-        // Add in text if we are a required field
-        if (formItem.required)
-            formName += "Required Field ";
-
-        // Add in the label from the formItem
-        if (formItem.label != "")
-            formName += formItem.label + " ";
-
-        if (accProp && !accProp.silent)
-        {
-            accProp.silent = true;
-            accProp.name = formName;
-        }
-
-        return formName;
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -184,10 +101,10 @@ public class UIComponentAccImpl extends AccessibilityProperties
     /**
      *  Constructor.
      *
-     *  @param master The UIComponent instance that this AccImpl instance
-     *  is making accessible.
+     *  @param master The UIComponent instance that this
+     *  AccessibilityProperties instance is making accessible.
      */
-    public function UIComponentAccImpl(component:UIComponent)
+    public function UIComponentAccProps(component:UIComponent)
     {
         super();
 
@@ -217,12 +134,12 @@ public class UIComponentAccImpl extends AccessibilityProperties
         }
         else if (master is FormItemLabel)
         {
-            name = getFormName(master);
+            name = AccImpl.getFormName(master);
             silent = true;
         }
         else
         {
-            var formName:String = getFormName(master);
+            var formName:String = AccImpl.getFormName(master);
 
             if (formName && formName.length != 0)
                 name = formName + name;  
@@ -283,7 +200,7 @@ public class UIComponentAccImpl extends AccessibilityProperties
 
     /**
      *  Generic event handler.
-     *  All UIComponentAccImpl subclasses must implement this
+     *  All UIComponentAccProps subclasses must implement this
      *  to listen for events from its master component. 
      */
     protected function eventHandler(event:Event):void
