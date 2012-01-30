@@ -43,9 +43,9 @@
          *  Exclude the titleBar because it is a SparkSkin and we 
          *  don't want to colorize it twice.
          */
-        static private const exclusions:Array = ["backgroundRect", "bgFill", "contentGroup", "titleBar",
-                                                 "titleBarBackgroundRect", "titleBarBgFill", "statusText",
-                                                 "borderBgFill", "border"];
+        static private const exclusions:Array = ["backgroundRect", "contentGroup", "titleBar",
+                                                 "titleBarBackgroundRect", "statusText",
+                                                 "borderBgFill"];
 
         /** 
          * @inheritDoc
