@@ -44,7 +44,7 @@ package mx.automation.air
 			{
 				var automationManager:IAutomationManager2 = Automation.automationManager2;
 				if(automationManager)
-					_appWindow = automationManager.getAirWindow(windowId);
+					_appWindow = automationManager.getAIRWindow(windowId);
 			}
 		}
 		
