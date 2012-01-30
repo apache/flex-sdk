@@ -1682,17 +1682,18 @@ public class UIComponent extends FlexSprite
     //------------------------------------------------------------------------
 
     /**
-     *  A convenience accessor for the 'silent' property
-     *  in this UIComponent's accessibilityProperties object.
+     *  A convenience accessor for the <code>silent</code> property
+     *  in this UIComponent's <code>accessibilityProperties</code> object.
      *
-     *  Note that accessibilityEnabled has the opposite sense from silent;
-     *  accessibilityEnabled is true when silent is false and vice versa.
+     *  <p>Note that <code>accessibilityEnabled</code> has the opposite sense from silent;
+     *  <code>accessibilityEnabled</code> is <code>true</code> 
+     *  when <code>silent</code> is <code>false</code>.</p>
      *
-     *  The getter simply returns accessibilityProperties.silent,
-     *  or true if accessibilityProperties is null.
-     *  The setter first checks whether accessibilityProperties is null, and if it is,
-     *  sets it to a new AccessibilityProperties instance;
-     *  then it sets accessibilityProperties.silent.
+     *  <p>The getter simply returns <code>accessibilityProperties.silent</code>,
+     *  or <code>true</code> if <code>accessibilityProperties</code> is null.
+     *  The setter first checks whether <code>accessibilityProperties</code> is null, 
+     *  and if it is, sets it to a new AccessibilityProperties instance.
+     *  Then it sets <code>accessibilityProperties.silent</code>.</p>
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1717,14 +1718,14 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  A convenience accessor for the 'name' property
-     *  in this UIComponent's accessibilityProperties object.
+     *  A convenience accessor for the <code>name</code> property
+     *  in this UIComponent's <code>accessibilityProperties</code> object.
      *
-     *  The getter simply returns accessibilityProperties.name,
+     *  <p>The getter simply returns <code>accessibilityProperties.name</code>,
      *  or "" if accessibilityProperties is null.
-     *  The setter first checks whether accessibilityProperties is null, and if it is,
-     *  sets it to a new AccessibilityProperties instance;
-     *  then it sets accessibilityProperties.name.
+     *  The setter first checks whether <code>accessibilityProperties</code> is null, 
+     *  and if it is, sets it to a new AccessibilityProperties instance.
+     *  Then it sets <code>accessibilityProperties.name</code>.</p>
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1749,14 +1750,14 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  A convenience accessor for the 'description' property
-     *  in this UIComponent's accessibilityProperties object.
+     *  A convenience accessor for the <code>description</code> property
+     *  in this UIComponent's <code>accessibilityProperties</code> object.
      *
-     *  The getter simply returns accessibilityProperties.description,
-     *  or "" if accessibilityProperties is null.
-     *  The setter first checks whether accessibilityProperties is null, and if it is,
-     *  sets it to a new AccessibilityProperties instance;
-     *  then it sets accessibilityProperties.description.
+     *  <p>The getter simply returns <code>accessibilityProperties.description</code>,
+     *  or "" if <code>accessibilityProperties</code> is null.
+     *  The setter first checks whether <code>accessibilityProperties</code> is null, 
+     *  and if it is, sets it to a new AccessibilityProperties instance.
+     *  Then it sets <code>accessibilityProperties.description</code>.</p>
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1781,14 +1782,14 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  A convenience accessor for the 'shortcut' property
-     *  in this UIComponent's accessibilityProperties object.
+     *  A convenience accessor for the <code>shortcut</code> property
+     *  in this UIComponent's <code>accessibilityProperties</code> object.
      *
-     *  The getter simply returns accessibilityProperties.shortcut,
-     *  or "" if accessibilityProperties is null.
-     *  The setter first checks whether accessibilityProperties is null, and if it is,
-     *  sets it to a new AccessibilityProperties instance;
-     *  then it sets accessibilityProperties.shortcut.
+     *  <p>The getter simply returns <code>accessibilityProperties.shortcut</code>,
+     *  or "" if <code>accessibilityProperties</code> is null.
+     *  The setter first checks whether <code>accessibilityProperties</code> is null, 
+     *  and if it is, sets it to a new AccessibilityProperties instance.
+     *  Then it sets <code>accessibilityProperties.shortcut</code>.</p>
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
