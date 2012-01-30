@@ -74,7 +74,8 @@ use namespace mx_internal;
  
 /**
  *  The StyleableTextField class is a text primitive for use in ActionScript
- *  skins and item renderers. It cannot be used in MXML markup.
+ *  skins and item renderers. It cannot be used in MXML markup and is not
+ *  compatible with effects.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
