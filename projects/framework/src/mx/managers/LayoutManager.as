@@ -12,19 +12,17 @@
 package mx.managers
 {
 
+import flash.display.DisplayObject;
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
 import mx.core.ApplicationGlobals;
+import mx.core.IFlexDisplayObject;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.FlexEvent;
 import mx.managers.layoutClasses.PriorityQueue;
-
-// VERSION_SKEW
-import mx.core.IFlexDisplayObject;
-import flash.display.DisplayObject;
 
 use namespace mx_internal;
 
@@ -327,7 +325,6 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 			// While we're doing phased instantiation, temporarily increase
 			// the frame rate.  That will cause the enterFrame and render
 			// events to fire more promptly, which improves performance.
-			// VERSION_SKEW
 			try {
 				var sm:ISystemManager = SystemManagerGlobals.topLevelSystemManagers[0];
 				var stage:Stage = SystemManagerGlobals.topLevelSystemManagers[0].stage;
