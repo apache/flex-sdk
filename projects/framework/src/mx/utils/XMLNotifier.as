@@ -26,6 +26,11 @@ use namespace mx_internal;
  *  function that you would pass to XML.notification.
  *  Use <code>unwatchXML()</code> to remove that notification.
  *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class XMLNotifier
 {
@@ -51,6 +56,11 @@ public class XMLNotifier
 
     /**
      *  Get the singleton instance of the XMLNotifier.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getInstance():XMLNotifier
     {
@@ -99,6 +109,11 @@ public class XMLNotifier
 	 *  the <code>new</code> operator to create multiple instances of it.
 	 *  Instead, call the static method <code>XMLNotifider.getInstance()</code>
 	 *  to get the sole instance of this class.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function XMLNotifier(x:XMLNotifierSingleton)
     {
@@ -118,6 +133,11 @@ public class XMLNotifier
      *  @param xml XML/XMLList object to watch.
      *  @param notification Function that needs to be called.
 	 *  @param optional UID for object
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function watchXML(xml:Object, notifiable:IXMLNotifiable, uid:String = null):void
     {
@@ -162,6 +182,11 @@ public class XMLNotifier
 	 *
 	 *  @param xml XML/XMLList object to un-watch.
      *  @param notification Function notification function.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function unwatchXML(xml:Object, notifiable:IXMLNotifiable):void
     {
@@ -216,6 +241,11 @@ class XMLNotifierSingleton
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function XMLNotifierSingleton()
 	{
