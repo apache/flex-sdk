@@ -11,20 +11,15 @@
 package spark.components
 {
 import flash.events.Event;
-import flash.utils.getTimer;
 
 import mx.collections.ArrayCollection;
 import mx.collections.IList;
 import mx.collections.ISort;
-import mx.core.ClassFactory;
 import mx.core.IFactory;
 import mx.core.IVisualElementContainer;
-import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.resources.Locale;
 
-import spark.accessibility.ListAccImpl;
 import spark.collections.Sort;
 import spark.collections.SortField;
 import spark.components.supportClasses.SkinnableComponent;
@@ -334,11 +329,11 @@ public class DateSpinner extends SkinnableComponent
     //  displayMode
     //----------------------------------
     
-    // default value is DATE
     private var _displayMode:String;
     
-    // set to true initially so lists will be created
-    private var displayModeChanged:Boolean = true;
+    private var displayModeChanged:Boolean;
+    
+    [Inspectable(category="General", enumeration="date,time,dateAndTime", defaultValue="date")]
     
     /**
      *  Mode the DateSpinner is currently using for display. See 
@@ -395,7 +390,7 @@ public class DateSpinner extends SkinnableComponent
             _maxDateDefault.fullYear += Math.floor(DEFAULT_YEAR_RANGE / 2);
         }
         
-        syncSelectedDate = true; // force lists to spin to selected date
+        syncSelectedDate = true; // force lists to spin to current selected date
         
         invalidateProperties();
     }
@@ -485,11 +480,11 @@ public class DateSpinner extends SkinnableComponent
     private var minuteStepSizeChanged:Boolean = false;
     
     /**
-     * Minute interval to be used when displaying minutes. Only
-     * applicable in TIME and DATEANDTIME modes. Valid values must
-     * be evenly divisible into 60; invalid values will revert to
-     * the default interval of 1. For example, a value of "15" will show
-     * the values 0, 15, 30, 45.
+     *  Minute interval to be used when displaying minutes. Only
+     *  applicable in TIME and DATEANDTIME modes. Valid values must
+     *  be evenly divisible into 60; invalid values will revert to
+     *  the default interval of 1. For example, a value of "15" will show
+     *  the values 0, 15, 30, 45.
      *  
      *  @default 1
      *  @langversion 3.0
@@ -564,7 +559,7 @@ public class DateSpinner extends SkinnableComponent
     {
         super.commitProperties();
         
-        var listsCreated:Boolean = false;
+        var listsNewlyCreated:Boolean = false;
         
         // TODO: CHECK ON THIS ASSUMPTION
         // TODO: Jason says this is wrong; just use styleName = DateSpinner to link styles
@@ -587,186 +582,27 @@ public class DateSpinner extends SkinnableComponent
             refreshDateTimeFormatter = false;
         }
         
-        // an array of the list and position objects that will be sorted by position
-        var fieldPositionObjArray:ArrayCollection = new ArrayCollection();
-        var listSort:ISort = new Sort();
-        listSort.fields = [new SortField("position")];
-        fieldPositionObjArray.sort = listSort;
-
         // ==================================================
         // switch out lists if the display mode changed
+        
         if (displayModeChanged)
         {
-            // clean out the container and all existing lists
-            // they may be in different positions, which will affect how they
-            // need to be (re)created
-            cleanContainer();
+            setupDateItemLists();
             
-            var fieldPosition:int = 0;
-            var listItem:Object;
-            var tempList:SpinnerList;
-            var numItems:int;
-            
-            // configure the correct lists to use
-            if (displayMode == DateSelectorDisplayMode.TIME ||
-                displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
-            {
-                fieldPositionObjArray.addItem(generateFieldPositionObject(HOUR_ITEM, dateTimeFormatterEx.getHourPosition()));
-                fieldPositionObjArray.addItem(generateFieldPositionObject(MINUTE_ITEM, dateTimeFormatterEx.getMinutePosition()));
-                
-                if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
-                    fieldPositionObjArray.addItem(generateFieldPositionObject(DATE_ITEM, dateTimeFormatterEx.getMonthPosition()));
-                
-                if (!use24HourTime)
-                    fieldPositionObjArray.addItem(generateFieldPositionObject(MERIDIAN_ITEM, dateTimeFormatterEx.getAmPmPosition()));
-                
-                // sort fieldPosition objects by position               
-                fieldPositionObjArray.refresh();
-                
-                numItems = fieldPositionObjArray.length;
-                
-                for each (listItem in fieldPositionObjArray)
-                {
-                    switch(listItem.dateItem)
-                    {
-                        case HOUR_ITEM:
-                        {
-                            hourList = createDateItemList(HOUR_ITEM, fieldPosition++, numItems);
-                            tempList = hourList;
-                            break;
-                        }
-                        case MINUTE_ITEM:
-                        {
-                            minuteList = createDateItemList(MINUTE_ITEM, fieldPosition++, numItems);
-                            tempList = minuteList;
-                            break;
-                        }
-                        case MERIDIAN_ITEM:
-                        {
-                            meridianList = createDateItemList(MERIDIAN_ITEM, fieldPosition++, numItems);
-                            tempList = meridianList;
-                            break;
-                        }	
-                        case DATE_ITEM:
-                        {
-                            dateList = createDateItemList(DATE_ITEM, fieldPosition++, numItems);
-                            tempList = dateList;
-                            break;
-                        }
-                    }
-                    tempList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
-                    listContainer.addElement(tempList);
-                }
-            }
-            else // default case: DATE mode
-            {
-                fieldPositionObjArray.addItem(generateFieldPositionObject(MONTH_ITEM, dateTimeFormatterEx.getMonthPosition()));
-                fieldPositionObjArray.addItem(generateFieldPositionObject(DATE_ITEM, dateTimeFormatterEx.getDayOfMonthPosition()));
-                fieldPositionObjArray.addItem(generateFieldPositionObject(YEAR_ITEM, dateTimeFormatterEx.getYearPosition()));
-
-                // sort fieldPosition objects by position 
-                fieldPositionObjArray.refresh();
-                
-                numItems = fieldPositionObjArray.length;
-                
-                for each (listItem in fieldPositionObjArray)
-                {
-                    switch(listItem.dateItem)
-                    {
-                        case MONTH_ITEM:
-                        {
-                            monthList = createDateItemList(MONTH_ITEM, fieldPosition++, numItems);
-                            tempList = monthList;
-                            break;
-                        }
-                        case DATE_ITEM:
-                        {
-                            dateList = createDateItemList(DATE_ITEM, fieldPosition++, numItems);
-                            tempList = dateList;
-                            break;
-                        }
-                        case YEAR_ITEM:
-                        {
-                            yearList = createDateItemList(YEAR_ITEM, fieldPosition++, numItems);
-                            tempList = yearList;
-                            break;
-                        }	
-                    }
-                    tempList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
-                    listContainer.addElement(tempList);
-                }
-                // set item renderers prototype
-                // yearList.itemRenderer = new ClassFactory(DefaultDateSpinnnerItemRendererThingy);
-            }
             displayModeChanged = false;
-            listsCreated = true;
+            listsNewlyCreated = true;
+            syncSelectedDate = true;
         }
 
         // ==================================================
-        var today:Date = new Date();
+        // populate the lists with the appropriate data providers
         
-        // populate lists that are being shown
-        if (yearList && populateYearDataProvider)
-        {
-            yearList.dataProvider = generateYears(today);
-            //			yearList.dataProvider = new YearRangeList(localeStr, minDate.fullYear, maxDate.fullYear);
-            populateYearDataProvider = false;
-            
-            yearList.typicalItem = getLongestLabel(yearList.dataProvider);
-        }
-        if (monthList && populateMonthDataProvider)
-        {
-            monthList.dataProvider = generateMonths(today);
-            populateMonthDataProvider = false;
-            
-            // set size
-            monthList.typicalItem = getLongestLabel(monthList.dataProvider);
-        }
-        if (dateList && populateDateDataProvider)
-        {
-            if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
-            {
-                dateList.dataProvider = new DateAndTimeRangeList(minDate, maxDate,
-                    localeStr, today, getStyle("accentColor"));
-                
-                // set size to longest string
-                dateList.typicalItem = dateList.dataProvider.getItemAt(0); // TODO: localize? better way to do this? add a dot? ask Masa
-            }
-            else
-            {
-                dateList.dataProvider = generateMonthOfDates(today);
-                
-                // set size to width of longest visible value
-                dateList.typicalItem = getLongestLabel(dateList.dataProvider);
-            }
-            
-            populateDateDataProvider = false;
-        }
-        if (hourList && populateHourDataProvider)
-        {
-            hourList.dataProvider = generateHours(use24HourTime);
-            hourList.typicalItem = getLongestLabel(hourList.dataProvider);
-            populateHourDataProvider = false;
-        }
-        if (minuteList && populateMinuteDataProvider)
-        {
-            minuteList.dataProvider = generateMinutes();
-            minuteList.typicalItem = getLongestLabel(minuteList.dataProvider);
-            populateMinuteDataProvider = false;
-        }
-        if (meridianList && populateMeridianDataProvider)
-        {
-            var amObject:Object = generateAmPm(AM);
-            var pmObject:Object = generateAmPm(PM);
-            meridianList.dataProvider = new ArrayCollection([amObject, pmObject]);
-            meridianList.typicalItem = getLongestLabel(meridianList.dataProvider);
-            populateMeridianDataProvider = false;
-        }
+        populateDateItemLists(localeStr);
         
         // ==================================================
         
         // correct any integrity violations
-        if (minDateChanged || maxDateChanged || syncSelectedDate || listsCreated || minuteStepSizeChanged)
+        if (minDateChanged || maxDateChanged || syncSelectedDate || listsNewlyCreated || minuteStepSizeChanged)
         {        
             // check min <= max
             if (minDate.time > maxDate.time)
@@ -783,72 +619,42 @@ public class DateSpinner extends SkinnableComponent
             
             // check minDate <= selectedDate <= maxDate
             if (!selectedDate || selectedDate.time < minDate.time)
-                selectedDate = minDate;
+            {
+                _selectedDate = minDate;
+            }
             else if (selectedDate.time > maxDate.time)
-                selectedDate = maxDate;
+            {
+                _selectedDate = maxDate;
+            }
             
             minDateChanged = false;
             maxDateChanged = false;
             
-            // verify minutes are a multiple of minuteStepSize
-            if (minuteList && selectedDate.minutes % minuteStepSize != 0)
+            if (minuteStepSizeChanged)
             {
-                selectedDate.minutes -= selectedDate.minutes % minuteStepSize;
+                // verify minutes are a multiple of minuteStepSize
+                if (minuteList && ((selectedDate.minutes % minuteStepSize) != 0))
+                {
+                    _selectedDate.minutes -= (selectedDate.minutes % minuteStepSize);
+                    
+                    // last adjustment to make sure we didn't accidentally go below minDate
+                    if (selectedDate.time < minDate.time)
+                        _selectedDate.minutes += minuteStepSize;
+                }
                 
-                // last adjustment to make sure we didn't accidentally go below minDate
-                if (selectedDate.time < minDate.time)
-                    selectedDate.minutes += minuteStepSize;
+                minuteStepSizeChanged = false;
             }
-            
+
             disableInvalidSpinnerValues(selectedDate);
+            
+            syncSelectedDate = true;
         }
         
         // ==================================================
         // update selections on the lists if necessary
         if (syncSelectedDate)
         {
-            var newIndex:int;
-            if (yearList)
-            {
-                // TODO: use math for the year instead of iterating through each one; remove that function
-                newIndex = findDateItemIndexInDataProvider(selectedDate.fullYear, yearList.dataProvider);
-                goToIndex(yearList, newIndex, listsCreated);
-            }
-
-            if (monthList)
-                goToIndex(monthList, selectedDate.month, listsCreated);
-            
-            if (dateList)
-            {
-                if (displayMode == DateSelectorDisplayMode.DATE)
-                {
-                    goToIndex(dateList, selectedDate.date - 1, listsCreated);
-                }
-                else // DATE_AND_TIME mode
-                {
-                    newIndex = findDateIndex(selectedDate, dateList.dataProvider);
-                    goToIndex(dateList, newIndex, listsCreated);
-                }
-            }
-            if (hourList)
-            {
-                // TODO: double-check the math
-                newIndex = use24HourTime ? selectedDate.hours : (selectedDate.hours + 11) % 12;
-                goToIndex(hourList, newIndex, listsCreated);
-            }
-            if (minuteList)
-            {
-                // TODO: calculate instead of iterate?
-                newIndex = findDateItemIndexInDataProvider(selectedDate.minutes, minuteList.dataProvider);
-                goToIndex(minuteList, newIndex, listsCreated);
-            }
-            if (!use24HourTime && meridianList)
-            {
-                newIndex = selectedDate.hours < 12 ? 0 : 1;
-                goToIndex(meridianList, newIndex, listsCreated);
-            }
-            
-            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+            updateListsToSelectedDate(listsNewlyCreated);
             syncSelectedDate = false;
         }
         
@@ -883,8 +689,6 @@ public class DateSpinner extends SkinnableComponent
         }
     }
     
-    
-    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -909,8 +713,193 @@ public class DateSpinner extends SkinnableComponent
         // if itemIndex == itemCount - 1, align as last column
         
         var s:SpinnerList = SpinnerList(createDynamicPartInstance("dateItemList"));
-        //		s.itemRenderer = // ...;
+//        s.addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START, dateItemList_touchEventHandler);
+//        s.addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END, dateItemList_touchEventHandler);
+        //		TODO: s.itemRenderer = // ...; for first column (or equivalent)
         return s;
+    }
+    
+    /**
+     *  Sets up the date item lists based on the current mode. Clears pre-existing lists.
+     * 
+     */    
+    private function setupDateItemLists():void
+    {
+        // an array of the list and position objects that will be sorted by position
+        var fieldPositionObjArray:ArrayCollection = new ArrayCollection();
+        var listSort:ISort = new Sort();
+        listSort.fields = [new SortField("position")];
+        fieldPositionObjArray.sort = listSort;
+        
+        // clean out the container and all existing lists
+        // they may be in different positions, which will affect how they
+        // need to be (re)created
+        cleanContainer();
+        
+        var fieldPosition:int = 0;
+        var listItem:Object;
+        var tempList:SpinnerList;
+        var numItems:int;
+        
+        // configure the correct lists to use
+        if (displayMode == DateSelectorDisplayMode.TIME ||
+            displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
+        {
+            fieldPositionObjArray.addItem(generateFieldPositionObject(HOUR_ITEM, dateTimeFormatterEx.getHourPosition()));
+            fieldPositionObjArray.addItem(generateFieldPositionObject(MINUTE_ITEM, dateTimeFormatterEx.getMinutePosition()));
+            
+            if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
+                fieldPositionObjArray.addItem(generateFieldPositionObject(DATE_ITEM, dateTimeFormatterEx.getMonthPosition()));
+            
+            if (!use24HourTime)
+                fieldPositionObjArray.addItem(generateFieldPositionObject(MERIDIAN_ITEM, dateTimeFormatterEx.getAmPmPosition()));
+            
+            // sort fieldPosition objects by position               
+            fieldPositionObjArray.refresh();
+            
+            numItems = fieldPositionObjArray.length;
+            
+            for each (listItem in fieldPositionObjArray)
+            {
+                switch(listItem.dateItem)
+                {
+                    case HOUR_ITEM:
+                    {
+                        hourList = createDateItemList(HOUR_ITEM, fieldPosition++, numItems);
+                        tempList = hourList;
+                        break;
+                    }
+                    case MINUTE_ITEM:
+                    {
+                        minuteList = createDateItemList(MINUTE_ITEM, fieldPosition++, numItems);
+                        tempList = minuteList;
+                        break;
+                    }
+                    case MERIDIAN_ITEM:
+                    {
+                        meridianList = createDateItemList(MERIDIAN_ITEM, fieldPosition++, numItems);
+                        tempList = meridianList;
+                        break;
+                    }	
+                    case DATE_ITEM:
+                    {
+                        dateList = createDateItemList(DATE_ITEM, fieldPosition++, numItems);
+                        tempList = dateList;
+                        break;
+                    }
+                }
+                tempList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
+                listContainer.addElement(tempList);
+            }
+        }
+        else // default case: DATE mode
+        {
+            fieldPositionObjArray.addItem(generateFieldPositionObject(MONTH_ITEM, dateTimeFormatterEx.getMonthPosition()));
+            fieldPositionObjArray.addItem(generateFieldPositionObject(DATE_ITEM, dateTimeFormatterEx.getDayOfMonthPosition()));
+            fieldPositionObjArray.addItem(generateFieldPositionObject(YEAR_ITEM, dateTimeFormatterEx.getYearPosition()));
+            
+            // sort fieldPosition objects by position 
+            fieldPositionObjArray.refresh();
+            
+            numItems = fieldPositionObjArray.length;
+            
+            for each (listItem in fieldPositionObjArray)
+            {
+                switch(listItem.dateItem)
+                {
+                    case MONTH_ITEM:
+                    {
+                        monthList = createDateItemList(MONTH_ITEM, fieldPosition++, numItems);
+                        tempList = monthList;
+                        break;
+                    }
+                    case DATE_ITEM:
+                    {
+                        dateList = createDateItemList(DATE_ITEM, fieldPosition++, numItems);
+                        tempList = dateList;
+                        break;
+                    }
+                    case YEAR_ITEM:
+                    {
+                        yearList = createDateItemList(YEAR_ITEM, fieldPosition++, numItems);
+                        // remove this if we go with the year range dataprovider
+                        yearList.wrapElements = false;
+                        tempList = yearList;
+                        break;
+                    }	
+                }
+                tempList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
+                listContainer.addElement(tempList);
+            }
+        }
+    }
+    
+    /**
+     *  Populate the currently existing date item lists with correct data providers using the
+     *  provided locale to format the 
+     */    
+    private function populateDateItemLists(localeStr:String):void
+    {
+        var today:Date = new Date();
+        
+        // populate lists that are being shown
+        if (yearList && populateYearDataProvider)
+        {
+            yearList.dataProvider = generateYears(today);
+            //			yearList.dataProvider = new YearRangeList(localeStr, minDate.fullYear, maxDate.fullYear);
+            
+            yearList.typicalItem = getLongestLabel(yearList.dataProvider);
+        }
+        if (monthList && populateMonthDataProvider)
+        {
+            monthList.dataProvider = generateMonths(today);
+            
+            // set size
+            monthList.typicalItem = getLongestLabel(monthList.dataProvider);
+        }
+        if (dateList && populateDateDataProvider)
+        {
+            if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
+            {
+                dateList.dataProvider = new DateAndTimeRangeList(minDate, maxDate,
+                    localeStr, today, getStyle("accentColor"));
+                
+                // set size to longest string
+                dateList.typicalItem = dateList.dataProvider.getItemAt(0); // TODO: localize? better way to do this? add a dot? ask Masa
+            }
+            else
+            {
+                dateList.dataProvider = generateMonthOfDates(today);
+                
+                // set size to width of longest visible value
+                dateList.typicalItem = getLongestLabel(dateList.dataProvider);
+            }
+        }
+        if (hourList && populateHourDataProvider)
+        {
+            hourList.dataProvider = generateHours(use24HourTime);
+            hourList.typicalItem = getLongestLabel(hourList.dataProvider);
+        }
+        if (minuteList && populateMinuteDataProvider)
+        {
+            minuteList.dataProvider = generateMinutes();
+            minuteList.typicalItem = getLongestLabel(minuteList.dataProvider);
+        }
+        if (meridianList && populateMeridianDataProvider)
+        {
+            var amObject:Object = generateAmPm(AM);
+            var pmObject:Object = generateAmPm(PM);
+            meridianList.dataProvider = new ArrayCollection([amObject, pmObject]);
+            meridianList.typicalItem = getLongestLabel(meridianList.dataProvider);
+        }
+
+        // reset all flags
+        populateYearDataProvider = false;
+        populateMonthDataProvider = false;
+        populateDateDataProvider = false;
+        populateHourDataProvider = false;
+        populateMinuteDataProvider = false;
+        populateMeridianDataProvider = false;
     }
     
     // set the selected index on the SpinnerList. use animation only if the lists
@@ -1063,6 +1052,52 @@ public class DateSpinner extends SkinnableComponent
         return null;
     }
     
+    private function updateListsToSelectedDate(listsNewlyCreated:Boolean):void
+    {
+        var newIndex:int;
+        if (yearList)
+        {
+            // TODO: use math for the year instead of iterating through each one; remove that function
+            newIndex = findDateItemIndexInDataProvider(selectedDate.fullYear, yearList.dataProvider);
+            goToIndex(yearList, newIndex, listsNewlyCreated);
+        }
+        
+        if (monthList)
+            goToIndex(monthList, selectedDate.month, listsNewlyCreated);
+        
+        if (dateList)
+        {
+            if (displayMode == DateSelectorDisplayMode.DATE)
+            {
+                goToIndex(dateList, selectedDate.date - 1, listsNewlyCreated);
+            }
+            else // DATE_AND_TIME mode
+            {
+                newIndex = findDateIndex(selectedDate, dateList.dataProvider);
+                goToIndex(dateList, newIndex, listsNewlyCreated);
+            }
+        }
+        if (hourList)
+        {
+            // TODO: double-check the math
+            newIndex = use24HourTime ? selectedDate.hours : (selectedDate.hours + 11) % 12;
+            goToIndex(hourList, newIndex, listsNewlyCreated);
+        }
+        if (minuteList)
+        {
+            // TODO: calculate instead of iterate?
+            newIndex = findDateItemIndexInDataProvider(selectedDate.minutes, minuteList.dataProvider);
+            goToIndex(minuteList, newIndex, listsNewlyCreated);
+        }
+        if (!use24HourTime && meridianList)
+        {
+            newIndex = selectedDate.hours < 12 ? 0 : 1;
+            goToIndex(meridianList, newIndex, listsNewlyCreated);
+        }
+        
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+    }
+    
     // modify existing date item spinner list data providers to mark
     // as disabled any combinations that could result by moving one spinner
     // where the resulting new date would be invalid, either by definition
@@ -1167,7 +1202,7 @@ public class DateSpinner extends SkinnableComponent
         return days;
     }
     
-    // clean out the container: remove all elements detach event listeners, null out
+    // clean out the container: remove all elements, detach event listeners, null out references
     private function cleanContainer():void
     {
         listContainer.removeAllElements();
@@ -1204,6 +1239,7 @@ public class DateSpinner extends SkinnableComponent
         }
     }
     
+    // convenience method to generate the standard object format for data in the list dataproviders
     private function generateDateItemObject(label:String, data:*, enabled:Boolean = true):Object
     {
         var obj:Object = { label:label, data:data, enabled:enabled };
@@ -1305,5 +1341,15 @@ public class DateSpinner extends SkinnableComponent
         selectedDate = newDate;
     }
     
+//    private var animatingList:Vector.<SpinnerList> = new Vector.<SpinnerList>();
+    
+//    private function dateItemList_touchEventHandler(event:TouchInteractionEvent):void
+//    {
+//        if (event.type == TouchInteractionEvent.TOUCH_INTERACTION_START)
+//        {
+//            if (animatingList.c ...
+//        }
+//        trace("touch event [" + event.type + "] start on: " + event.target);
+//    }
 }
 }
