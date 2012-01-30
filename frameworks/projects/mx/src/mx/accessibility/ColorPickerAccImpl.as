@@ -162,27 +162,24 @@ public class ColorPickerAccImpl extends ComboBaseAccImpl
 	 */
 	override protected function getName(childID:uint):String
 	{
-		if (childID == 0 || childID > 0xFFF)
+		if (childID == 0)
 			return "";
 
 		var colorPicker:ColorPicker = ColorPicker(master);
+
 		var iterator:IViewCursor = colorPicker.collectionIterator;
 		iterator.seek(CursorBookmark.FIRST, childID - 1);
 		var item:Object = iterator.current;
-		
 		
 		if (typeof(item) != "object")
 		{
 			var str:String = item.toString(16);
 			var x:String =  formatColorString(str);
-	//		trace(x);
 			return x;
 		}
 			
 		return !item.label ? item.data : item.label;
 	}
-
-
 	
 	/**
 	 *  @private
