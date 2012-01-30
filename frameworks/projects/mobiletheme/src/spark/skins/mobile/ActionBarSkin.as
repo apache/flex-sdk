@@ -14,6 +14,7 @@ package spark.skins.mobile
 import flash.display.GradientType;
 import flash.events.Event;
 import flash.geom.Matrix;
+import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 
 import mx.core.ILayoutElement;
@@ -248,10 +249,19 @@ public class ActionBarSkin extends MobileSkin
             titleCompWidth = titleCompWidth - (titlePaddingLeft + titlePaddingRight);
             
             // align titleDisplay to the absolute center
-            if (hostComponent.getStyle("titleAlign") == "center")
-            {
+            var titleAlign:String = getStyle("titleAlign");
+            if (titleAlign == "center")
+            { 
+                // use LEFT instead of CENTER
+                titleDisplay.setStyle("textAlign", TextFormatAlign.LEFT);
                 titleCompWidth = titleDisplay.getExplicitOrMeasuredWidth();
-                titleCompX = Math.floor((unscaledWidth - titleCompWidth)/ 2);
+                
+                // use x position of titleDisplay to implement CENTER
+                titleCompX = Math.floor((unscaledWidth - titleCompWidth)/ 2); 
+            }
+            else
+            {
+                titleDisplay.setStyle("textAlign", titleAlign);
             }
                 
             // shrink and/or move titleDisplay width if there is any overlap after padding
