@@ -14,6 +14,7 @@ package spark.components.supportClasses
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.display.PixelSnapping;
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -363,7 +364,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     mx_internal static var androidHeightMultiplier:Number = 1.15;
     private static const isAndroid:Boolean = Capabilities.version.indexOf("AND") == 0;
-    private static const isDesktop:Boolean = (Capabilities.os.indexOf("Windows") != -1 || Capabilities.os.indexOf("Mac OS") != -1);    
+    private static const isDesktop:Boolean = Capabilities.os.indexOf("Windows") != -1 || Capabilities.os.indexOf("Mac OS") != -1;    
 
     //--------------------------------------------------------------------------
     //
@@ -1988,6 +1989,29 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     }
     
     /**
+     *  Determine whether the given form is owned by an ancestor of this
+     *  StyleableStageText. This is used by bitmap swapping for popups. If a
+     *  text component or ancestor of one owns the popup, the text component
+     *  should not be swapped for a bitmap to support workflows where performing
+     *  an action within the text component displays the callout or determines
+     *  the callout's content.
+     */
+    private function isFormOwnedByAncestor(form:Object):Boolean
+    {
+        var result:Boolean = false;
+        
+        if (form is UIComponent)
+        {
+            var formComponent:UIComponent = form as UIComponent;
+            var formOwner:DisplayObjectContainer = formComponent.owner;
+            
+            result = formOwner != null && formOwner.contains(this);
+        }
+        
+        return result;
+    }
+    
+    /**
      *  Replace the existing proxy image representing this StageText with a new
      *  one. Call this whenever the StageText's properties, contents, or
      *  geometry changes. This does nothing if there is no proxy image, so it is
@@ -2067,10 +2091,15 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         
         if (form && form.hasOwnProperty("focusManager"))
         {
-            if (form.focusManager != focusManager && hasOverlappingForm())
+            if (form.focusManager != focusManager 
+                && (!isFormOwnedByAncestor(form) || hasOverlappingForm()))
+            {
                 createProxyImage();
+            }
             else
+            {
                 disposeProxyImageLater();
+            }
         }
     }
     
@@ -2564,7 +2593,11 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             event.charCode, event.keyCode, event.keyLocation, event.ctrlKey, 
             event.altKey, event.shiftKey, event.controlKey, event.commandKey));
         
-        event.preventDefault();
+        if ((event.keyCode == Keyboard.ENTER || event.keyCode == Keyboard.NEXT)
+            && !_multiline && !isDesktop)
+        {
+            event.preventDefault();
+        }
     }
     
     private function stageText_keyUpHandler(event:KeyboardEvent):void
@@ -2576,7 +2609,11 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             event.charCode, event.keyCode, event.keyLocation, event.ctrlKey, 
             event.altKey, event.shiftKey, event.controlKey, event.commandKey));
         
-        event.preventDefault();
+        if ((event.keyCode == Keyboard.ENTER || event.keyCode == Keyboard.NEXT)
+            && !_multiline && !isDesktop)
+        {
+            event.preventDefault();
+        }
     }
     
     private function stageText_softKeyboardHandler(event:SoftKeyboardEvent):void
