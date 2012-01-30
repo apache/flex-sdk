@@ -972,7 +972,7 @@ public class Effect extends EventDispatcher implements IEffect
         // If the effect is not yet playing, it should still be possible
         // to seek into it. playing and then pausing it provides that
         // capability
-        // FIXME (chaase): Need better overall mechanism to seek into a
+        // TODO (chaase): Need better overall mechanism to seek into a
         // non-playing effect. The internals of seeking in Animation
         // are complicated and don't end up giving us the behavior we
         // want, especially for successive seeks.
@@ -1197,10 +1197,6 @@ public class Effect extends EventDispatcher implements IEffect
 
             // Revalidate after applying the start values, to get everything
             // back the way it should be before starting the animation
-            // FIXME (chaase): should we skip this step if the effect has asked
-            // to disable layout while it runs? Otherwise we are about to validate
-            // the targets in a layout that has potentially been set to a post-effect
-            // value
             LayoutManager.getInstance().validateNow();
             
             applyEndValuesWhenDone = true;
