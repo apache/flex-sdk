@@ -27,6 +27,17 @@ import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
 
+[Exclude(name="height", kind="property")]
+[Exclude(name="minHeight", kind="property")]
+[Exclude(name="maxHeight", kind="property")]
+[Exclude(name="width", kind="property")]
+[Exclude(name="minWidth", kind="property")]
+[Exclude(name="maxWidth", kind="property")]
+[Exclude(name="scaleX", kind="property")]
+[Exclude(name="scaleY", kind="property")]
+[Exclude(name="scaleZ", kind="property")]
+[Exclude(name="z", kind="property")]
+
 //--------------------------------------
 //  Events
 //--------------------------------------
