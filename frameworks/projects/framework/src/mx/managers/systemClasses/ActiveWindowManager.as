@@ -276,7 +276,7 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 		 
 		var e:Request = new Request("canActivateForm", false, true);
 		e.value = f;
-	 	if (dispatchEvent(e))
+	 	if (!dispatchEvent(e))
 	 	{
 			return e.value;
 	 	}
