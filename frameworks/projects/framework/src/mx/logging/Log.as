@@ -81,6 +81,11 @@ import mx.resources.ResourceManager;
  *  } 
  *  ...
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Log
 {
@@ -153,6 +158,11 @@ public class Log
      *  log target.
      *
      *  @return true if a fatal level log event will be logged; otherwise false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isFatal():Boolean
     {
@@ -164,6 +174,11 @@ public class Log
      *  log target.
      *
      *  @return true if an error level log event will be logged; otherwise false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isError():Boolean
     {
@@ -175,6 +190,11 @@ public class Log
      *  log target.
      *
      *  @return true if a warn level log event will be logged; otherwise false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isWarn():Boolean
     {
@@ -186,6 +206,11 @@ public class Log
      *  log target.
      *
      *  @return true if an info level log event will be logged; otherwise false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static function isInfo():Boolean
     {
@@ -197,6 +222,11 @@ public class Log
      *  log target.
      *
      *  @return true if a debug level log event will be logged; otherwise false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isDebug():Boolean
     {
@@ -208,6 +238,11 @@ public class Log
      *  events.
      *
      *  @param The specific target that should capture log events.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function addTarget(target:ILoggingTarget):void
     {
@@ -245,6 +280,11 @@ public class Log
      *  events.
      *
      *  @param The specific target that should capture log events.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function removeTarget(target:ILoggingTarget):void
     {
@@ -294,6 +334,11 @@ public class Log
      *  @return An instance of a logger object for the specified name.
      *  If the name doesn't exist, a new instance with the specified
      *  name is returned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getLogger(category:String):ILogger
     {
@@ -327,6 +372,11 @@ public class Log
      *  Subsquent calls to the <code>getLogger()</code> method return new instances
      *  of loggers rather than any previous instances with the same category.
      *  This method is intended for use in debugging only.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function flush():void
     {
@@ -343,6 +393,11 @@ public class Log
      *                []~$^&amp;\/(){}&lt;&gt;+=`!#%?,:;'"&#64;
      *  @return   <code>true</code> if there are any illegal characters found,
      *            <code>false</code> otherwise
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function hasIllegalCharacters(value:String):Boolean
     {
