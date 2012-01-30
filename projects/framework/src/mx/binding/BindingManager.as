@@ -158,6 +158,52 @@ public class BindingManager
     }
 
     /**
+     *  Enable or disable all bindings that bind into the specified object
+     *  and match the input destStr.
+     *
+     *  @param document The document that this binding relates to.
+     *
+     *  @param destStr The destination field that needs to be refreshed.
+     * 
+     *  @param enable If true enables the specified binding(s), otherwise
+     *  disables.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2/5
+     *  @productversion Flex 4.5
+     */
+    public static function enableBindings(document:Object,
+                                          destStr:String,
+                                          enable:Boolean = true):void
+    {
+        // See implementation comments above for executeBindings as this
+        // method follows the same logic.
+        
+        if (!destStr || (destStr == ""))
+            return;
+       
+        if (document &&
+            (document is IBindingClient || document.hasOwnProperty("_bindingsByDestination")) &&
+            document._bindingsByDestination &&
+            document._bindingsBeginWithWord[getFirstWord(destStr)])
+        {
+            for (var binding:String in document._bindingsByDestination)
+            {
+                if (binding.charAt(0) == destStr.charAt(0))
+                {
+                    if (binding.indexOf(destStr + ".") == 0 ||
+                        binding.indexOf(destStr + "[") == 0 ||
+                        binding == destStr)
+                    {
+                        document._bindingsByDestination[binding].isEnabled = enable;
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
 	 *  @private
 	 */
 	private static function getFirstWord(destStr:String):String
