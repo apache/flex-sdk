@@ -1450,6 +1450,13 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @private
+     *  hold the setStyles() calls that have been deferred untils a moduleFactory
+     *  is set.
+     */
+    private var deferredSetStyles:Array;
+    
+    /**
+     *  @private
      *  There is a bug (139381) where we occasionally get callLaterDispatcher()
      *  even though we didn't expect it.
      *  That causes us to do a removeEventListener() twice,
@@ -1480,7 +1487,6 @@ public class UIComponent extends FlexSprite
     private var transitionFromState:String;
     private var transitionToState:String;
     
-
     //--------------------------------------------------------------------------
     //
     //  Variables: Creation
@@ -4012,7 +4018,7 @@ public class UIComponent extends FlexSprite
         var n:int = numChildren;
         for (var i:int = 0; i < n; i++)
         {
-            var child:UIComponent = getChildAt(i) as UIComponent;
+            var child:IFlexModule = getChildAt(i) as IFlexModule;
             if (!child)
                 continue;
 
@@ -4023,6 +4029,8 @@ public class UIComponent extends FlexSprite
         }
 
         _moduleFactory = factory;
+
+        setDeferredStyles();
     }
 
     //--------------------------------------------------------------------------
@@ -6737,16 +6745,16 @@ public class UIComponent extends FlexSprite
         }
 
         // Propagate moduleFactory to the child, but don't overwrite an existing moduleFactory.
-        if (child is UIComponent && UIComponent(child).moduleFactory == null)
+        if (child is IFlexModule && IFlexModule(child).moduleFactory == null)
         {
             if (moduleFactory != null)
-                UIComponent(child).moduleFactory = moduleFactory;
+                IFlexModule(child).moduleFactory = moduleFactory;
 
             else if (document is IFlexModule && document.moduleFactory != null)
-                UIComponent(child).moduleFactory = document.moduleFactory;
+                IFlexModule(child).moduleFactory = document.moduleFactory;
 
-            else if (parent is UIComponent && UIComponent(parent).moduleFactory != null)
-                UIComponent(child).moduleFactory = UIComponent(parent).moduleFactory;
+            else if (parent is IFlexModule && IFlexModule(parent).moduleFactory != null)
+                IFlexModule(child).moduleFactory = IFlexModule(parent).moduleFactory;
         }
 
         // Set the font context in non-UIComponent children.
@@ -9939,7 +9947,46 @@ public class UIComponent extends FlexSprite
      */
     public function setStyle(styleProp:String, newValue:*):void
     {
-        StyleProtoChain.setStyle(this, styleProp, newValue);
+        // If there is no module factory then defer the set
+        // style until a module factory is set.
+        if (moduleFactory)
+        {
+            StyleProtoChain.setStyle(this, styleProp, newValue);
+        }
+        else
+        {
+            if (!deferredSetStyles)
+                deferredSetStyles = [];
+            deferredSetStyles.push(styleProp);
+            deferredSetStyles.push(newValue);
+        }   
+    }
+
+    
+    /**
+     *  @private
+     *  Set style that were deferred because a module factory was not
+     *  set yet.
+     */
+    private function setDeferredStyles():void
+    {
+        if (!deferredSetStyles)
+            return;
+        
+        var styleProp:String;
+        var newValue:*;
+        
+        var n:int = deferredSetStyles.length;
+        var i:int = 0;
+        while (i < n)
+        {
+            styleProp = deferredSetStyles[i++];
+            newValue = deferredSetStyles[i++];
+
+            StyleProtoChain.setStyle(this, styleProp, newValue);
+        }
+        
+        deferredSetStyles = null;
     }
 
     /**
