@@ -15,6 +15,11 @@ package mx.containers.errors
 /**
  *  This error is thrown when a constraint expression is not configured properly;
  *  for example, if the GridColumn reference is invalid.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ConstraintError extends Error
 {
@@ -30,6 +35,11 @@ public class ConstraintError extends Error
      *  Constructor.
 	 *
 	 *  @param message A message providing information about the error cause.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ConstraintError(message:String)
     {
