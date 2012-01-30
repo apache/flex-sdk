@@ -167,12 +167,12 @@ public class CompositeEffect extends Effect
             // Remove this effect as the parent of the old child effects
             for (i = 0; i < _children.length; ++i)
                 if (_children[i])
-                    Effect(_children[i]).mx_internal::parentCompositeEffect = null;
+                    Effect(_children[i]).parentCompositeEffect = null;
         _children = value;
         if (_children)
             for (i = 0; i < _children.length; ++i)
                 if (_children[i])
-                    Effect(_children[i]).mx_internal::parentCompositeEffect = this;
+                    Effect(_children[i]).parentCompositeEffect = this;
     }
     
     /**
@@ -256,7 +256,7 @@ public class CompositeEffect extends Effect
     override protected function filterInstance(propChanges:Array,
                                                targ:Object):Boolean
     {
-        if (mx_internal::filterObject)
+        if (filterObject)
         {
             // If we don't have any targets, then that means
             // we are nested inside of another CompositeEffect.
@@ -269,7 +269,7 @@ public class CompositeEffect extends Effect
             var n:int = targs.length;
             for (var i:int = 0; i < n; i++)
             {
-                if (mx_internal::filterObject.filterInstance(propChanges, effectTargetHost, targs[i]))
+                if (filterObject.filterInstance(propChanges, effectTargetHost, targs[i]))
                     return true;
             }
             
@@ -286,8 +286,7 @@ public class CompositeEffect extends Effect
     {
         super.initInstance(instance);
         
-        var compInst:CompositeEffectInstance =
-            CompositeEffectInstance(instance);
+        var compInst:CompositeEffectInstance = CompositeEffectInstance(instance);
 
         var targets:Object = childTargets;
         if (!(targets is Array))
@@ -301,19 +300,17 @@ public class CompositeEffect extends Effect
                 var childEffect:Effect = children[i];
                 
                 // Pass the propertyChangesArray to each child
-                if (mx_internal::propertyChangesArray != null)
+                if (propertyChangesArray != null)
                 {
-                    childEffect.mx_internal::propertyChangesArray =
-                        mx_internal::propertyChangesArray;
+                    childEffect.propertyChangesArray = propertyChangesArray;
                 }
                 
                 // Pass the filterObject down to the child
                 // if it doesn't have a filterObject.
-                if (childEffect.mx_internal::filterObject == null &&
-                    mx_internal::filterObject)
+                if (childEffect.filterObject == null &&
+                    filterObject)
                 {
-                    childEffect.mx_internal::filterObject =
-                        mx_internal::filterObject;
+                    childEffect.filterObject = filterObject;
                 }
 
 				// TODO This doesn't seem good enough...
@@ -346,18 +343,18 @@ public class CompositeEffect extends Effect
         var childTargets:Array = getChildrenTargets();
         
         // Generate the PropertyChanges array
-        mx_internal::propertyChangesArray = [];
+        propertyChangesArray = [];
         
         var n:int = childTargets.length;
         for (var i:int = 0; i < n; i++)
         {
-            mx_internal::propertyChangesArray.push(
+            propertyChangesArray.push(
                 new PropertyChanges(childTargets[i]));
         }
         
         // call captureValues
-        mx_internal::propertyChangesArray = 
-            captureValues(mx_internal::propertyChangesArray, true);
+        propertyChangesArray = 
+            captureValues(propertyChangesArray, true);
             
         endValuesCaptured = false;
     }
@@ -397,10 +394,9 @@ public class CompositeEffect extends Effect
                                      child.targets :
                                      targets;
             
-            if (child.mx_internal::filterObject == null &&
-                mx_internal::filterObject)
+            if (child.filterObject == null && filterObject)
             {
-                child.mx_internal::filterObject = mx_internal::filterObject;
+                child.filterObject = filterObject;
             }
             
             child.applyStartValues(propChanges, childTargets);
@@ -422,10 +418,9 @@ public class CompositeEffect extends Effect
                                      child.targets :
                                      targets;
             
-            if (child.mx_internal::filterObject == null &&
-                mx_internal::filterObject)
+            if (child.filterObject == null && filterObject)
             {
-                child.mx_internal::filterObject = mx_internal::filterObject;
+                child.filterObject = filterObject;
             }
             
             child.applyEndValues(propChanges, childTargets);
@@ -463,7 +458,7 @@ public class CompositeEffect extends Effect
         // Null out the list of affected properties,
         // so that it gets recalculated to include the new child.
         _affectedProperties = null;
-        Effect(childEffect).mx_internal::parentCompositeEffect = this;
+        Effect(childEffect).parentCompositeEffect = this;
     }
     
     /**
