@@ -160,7 +160,7 @@ public class ViewNavigatorSkin extends MobileSkin
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        var actionBarHeight:Number;
+        var actionBarHeight:Number = 0;
         
         // The action bar is always placed at 0,0 and stretches the entire
         // width of the navigator
@@ -195,7 +195,6 @@ public class ViewNavigatorSkin extends MobileSkin
     		if (contentGroup.includeInLayout)
     		{
     			var contentGroupHeight:Number = Math.max(unscaledHeight - actionBarHeight, 0);
-                
     			
                 contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
                 contentGroup.setLayoutBoundsPosition(0, actionBarHeight);
