@@ -20,12 +20,13 @@ import mx.charts.renderers.DiamondItemRenderer;
 import mx.charts.styles.HaloDefaults;
 import mx.core.ClassFactory;
 import mx.core.IFactory;
-import mx.graphics.IFill;
-import mx.graphics.SolidColor;
-import mx.graphics.Stroke;
-import mx.styles.CSSStyleDeclaration;
 import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
+import mx.graphics.IFill;
+import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
+import mx.graphics.Stroke;
+import mx.styles.CSSStyleDeclaration;
 
 use namespace mx_internal;
 
@@ -116,11 +117,15 @@ public class PlotChart extends CartesianChart
     {
         HaloDefaults.init(styleManager);
         
-        var plotChartStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.PlotChart", styleManager);
-        
         var plotChartSeriesStyles:Array /* of Object */ = [];
         
+		var plotChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.PlotChart");
+		plotChartStyle.setStyle("chartSeriesStyles", plotChartSeriesStyles);
+		plotChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+		plotChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		plotChartStyle.setStyle("horizontalAxisStyleNames", ["blockNumericAxis"]);
+		plotChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+		
         var defaultSkins:Array /* of IFactory */ = [ new ClassFactory(DiamondItemRenderer),
             new ClassFactory(CircleItemRenderer),
             new ClassFactory(BoxItemRenderer) ];
@@ -151,21 +156,7 @@ public class PlotChart extends CartesianChart
                 defaultSizes[i % defaultSizes.length]);
         }
         
-        plotChartStyle.defaultFactory = function():void
-        {
-            this.axisColor = 0xD5DEDD;
-            this.chartSeriesStyles = plotChartSeriesStyles;
-            this.dataTipRenderer = DataTip;
-            this.fill = new SolidColor(0xFFFFFF, 0);
-            this.calloutStroke = new Stroke(0x888888,2);            
-            this.fontSize = 10;
-            this.gridLinesStyleName = "bothGridLines";
-            this.textAlign = "left";
-            this.horizontalAxisStyleNames = ["blockNumericAxis"];
-            this.verticalAxisStyleNames = ["blockNumericAxis"];
-        }
-        
-        return true;
+       return true;
     }
 
     
