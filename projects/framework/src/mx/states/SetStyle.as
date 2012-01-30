@@ -349,6 +349,11 @@ public class SetStyle extends OverrideBase
             {
                 obj.setStyle(name, value);
             }
+            
+            // Disable bindings for the base style if appropriate. If the binding
+            // fires while our override is applied, the correct value will automatically
+            // be applied when the binding is later enabled.
+            enableBindings(obj, name, false);
         }
         else if (!applied)
         {
@@ -394,6 +399,11 @@ public class SetStyle extends OverrideBase
                 obj.clearStyle(name);
             }
     
+            // Re-enable bindings for the base style if appropriate. If the binding
+            // fired while our override was applied, the current value will automatically
+            // be applied once enabled.
+            enableBindings(obj, name);
+            
             var relatedProps:Array = RELATED_PROPERTIES[name] ?
                                      RELATED_PROPERTIES[name] :
                                      null;
@@ -406,6 +416,7 @@ public class SetStyle extends OverrideBase
                     obj[relatedProps[i]] = oldRelatedValues[i];
                 }
             }
+            
         }
         else
         {
