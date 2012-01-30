@@ -1778,6 +1778,11 @@ public class ViewNavigator extends ViewNavigatorBase
      */ 
     private function completeViewCommitProcess():void
     {
+        // The viewChanging flag is set to false right before the current view 
+        // activates so that navigation operations run during VIEW_ACTIVATE
+        // are properly executed by the navigator 
+        viewChanging = false;
+        
         // At this point, currentViewDescriptor points to the new view.
         // The navigator needs to listen for property change events on the
         // view so that it can be notified when the template properties
@@ -1801,7 +1806,6 @@ public class ViewNavigator extends ViewNavigatorBase
             dispatchEvent(new Event("viewChangeComplete"));
             
         lastAction = ViewNavigatorAction.NONE;
-        viewChanging = false;
     }
     
     /**
