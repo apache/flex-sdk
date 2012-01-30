@@ -352,6 +352,7 @@ import mx.managers.IActiveWindowManager;
 import mx.managers.IFocusManagerContainer;
 import mx.managers.IMarshalSystemManager;
 import mx.managers.ISystemManager;
+import mx.managers.SystemManagerProxy;
 import mx.utils.NameUtil;
 import mx.utils.SecurityUtil;
 
@@ -451,6 +452,7 @@ class SystemManagerProxyActivePopUpManager implements IActiveWindowManager
 	 */
 	public function removeFocusManager(f:IFocusManagerContainer):void
 	{
+        deactivate(f);        
     }
 
 }
