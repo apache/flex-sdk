@@ -42,6 +42,11 @@ import mx.core.UIComponent;
  *  @see mx.effects.RemoveChildAction
  *
  *  @includeExample examples/StatesExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RemoveChild extends OverrideBase implements IOverride
 {
@@ -57,6 +62,11 @@ public class RemoveChild extends OverrideBase implements IOverride
      *  Constructor.
      *
      *  @param target The child to remove from the view.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RemoveChild(target:DisplayObject = null)
     {
@@ -102,6 +112,11 @@ public class RemoveChild extends OverrideBase implements IOverride
 
     /**
      *  The child to remove from the view.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var target:Object;
 
@@ -115,6 +130,11 @@ public class RemoveChild extends OverrideBase implements IOverride
      *  IOverride interface method; this class implements it as an empty method.
      * 
      *  @copy IOverride#initialize()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialize():void
     {
@@ -122,6 +142,11 @@ public class RemoveChild extends OverrideBase implements IOverride
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function apply(parent:UIComponent):void
     {
@@ -140,6 +165,11 @@ public class RemoveChild extends OverrideBase implements IOverride
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function remove(parent:UIComponent):void
     {
