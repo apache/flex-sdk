@@ -20,6 +20,7 @@ import spark.components.Button;
 import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.HSliderTrack;
 import spark.skins.mobile240.assets.HSliderTrack;
+import spark.skins.mobile320.assets.HSliderTrack;
 
 /**
  *  Actionscript based skin for the HSlider track skin part on mobile applications. 
@@ -54,19 +55,27 @@ public class HSliderTrackSkin extends MobileSkin
         // set the right assets and dimensions to use based on the screen density
         switch (authorDensity)
         {
+			case DeviceDensity.PPI_320:
+			{
+				trackWidth = 320;
+				trackHeight = 18;
+				
+                visibleTrackWidth = 280;
+                visibleTrackLeftOffset = 20;
+                
+				trackClass = spark.skins.mobile320.assets.HSliderTrack;
+				
+				break;
+			}
             case DeviceDensity.PPI_240:
             {
-                trackWidth = 240;
-                trackHeight = 65;
+                trackWidth = 192;
+                trackHeight = 13;
 
-                trackClass = spark.skins.mobile240.assets.HSliderTrack;
+                visibleTrackWidth = 160;
+                visibleTrackLeftOffset = 16;
                 
-                visibleTrackRectLeft = 10;
-                visibleTrackRectRight = 11;
-                visibleTrackRectTop = 26;
-                visibleTrackRectHeight = 13;
-                visibleTrackEllipseHeight = 13;
-                visibleTrackEllipseWidth = 13;
+                trackClass = spark.skins.mobile240.assets.HSliderTrack;
                 
                 break;
             }
@@ -74,16 +83,12 @@ public class HSliderTrackSkin extends MobileSkin
             {
                 // default PPI160
                 trackWidth = 160;
-                trackHeight = 40;
+                trackHeight = 9;
+                
+                visibleTrackWidth = 140;
+                visibleTrackLeftOffset = 10;
                 
                 trackClass = spark.skins.mobile160.assets.HSliderTrack;
-                
-                visibleTrackRectLeft = 5;
-                visibleTrackRectRight = 5;
-                visibleTrackRectTop = 16;
-                visibleTrackRectHeight = 9;
-                visibleTrackEllipseHeight = 9;
-                visibleTrackEllipseWidth = 9;
                 
                 break;
             }
@@ -146,72 +151,28 @@ public class HSliderTrackSkin extends MobileSkin
      *  @productversion Flex 4.5
      */
     protected var trackHeight:int;
-    
-    /**
-     *  Specifies the distance of the actual visible track from the left
-     *  of the track image
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    private var visibleTrackRectLeft:int;
-    
-    /**
-     *  Specifies the distance of the actual visible track from the right
-     *  of the track image
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    private var visibleTrackRectRight:int;
 
     /**
-     *  Specifies the distance of the actual visible track from the top
-     *  of the track image
+     *  Specifies the offset from the left edge to where
+     *  the visible track begins
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private var visibleTrackRectTop:int;
+    protected var visibleTrackLeftOffset:int;
     
     /**
-     *  Specifies the actual visible track Rect height
+     *  Specifies the width of the actual visible track
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private var visibleTrackRectHeight:int;
-    
-    /**
-     *  Specifies the actual visible track Ellipse height (i.e. the
-     *  ellipse which provides the rounded ends of the track)
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    private var visibleTrackEllipseHeight:int;
-    
-    /**
-     *  Specifies the actual visible track Ellipse width (i.e. the
-     *  ellipse which provides the rounded ends of the track)
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    private var visibleTrackEllipseWidth:int;
-    
+    protected var visibleTrackWidth:int;
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -251,19 +212,15 @@ public class HSliderTrackSkin extends MobileSkin
      *  @private 
      */ 
     override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
-    {
-        // calculate the track Y location: the visible track is vertically centered as height grows
-        var trackY:int = Math.max(visibleTrackRectTop, Math.round(visibleTrackRectTop / trackHeight * unscaledHeight));
-        
-        // calculated track width: excludes gaps on the left and right
-        var trackWidth:int = unscaledWidth - visibleTrackRectLeft - visibleTrackRectRight; 
+    {        
+        var calculatedTrackWidth:int = unscaledWidth - (2 * visibleTrackLeftOffset);
         
         // draw the round rect
         var chromeColor:uint = getChromeColor();
         chromeColorGraphics.beginFill(chromeColor, 1);
-        chromeColorGraphics.drawRoundRect(visibleTrackRectLeft, trackY,
-                                          trackWidth, visibleTrackRectHeight,
-                                          visibleTrackEllipseWidth, visibleTrackEllipseHeight);
+        chromeColorGraphics.drawRoundRect(visibleTrackLeftOffset, 0,
+                                          calculatedTrackWidth, trackHeight,
+                                          trackHeight, trackHeight);
         chromeColorGraphics.endFill();
     }
 }
