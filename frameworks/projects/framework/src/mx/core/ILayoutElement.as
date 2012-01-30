@@ -721,8 +721,8 @@ public interface ILayoutElement extends IEventDispatcher
      *  computed matrix.  For example <code>UIComponent</code>
      *  defines the <code>offsets</code> property.</p>
      * 
-     *  @return <p>Returns the layout transform Matrix3D for this element.
-     *  Don't directly modify the return value but call setLayoutMatrix instead.</p>
+     *  @return The layout transform Matrix3D for this element.
+     *  Don't directly modify the return value but call setLayoutMatrix instead.
      *  
      *  @see #getLayoutMatrix
      *  @see #setLayoutMatrix
