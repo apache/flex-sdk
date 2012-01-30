@@ -26,7 +26,6 @@ import spark.skins.mobile.ButtonSkin; spark.skins.mobile.ButtonSkin;
 import spark.skins.mobile.CheckBoxSkin; spark.skins.mobile.CheckBoxSkin;
 import spark.skins.mobile.RadioButtonSkin; spark.skins.mobile.RadioButtonSkin;
 import spark.skins.mobile.HScrollBarSkin; spark.skins.mobile.HScrollBarSkin;
-import spark.skins.mobile.IconItemRenderer; spark.skins.mobile.IconItemRenderer;
 import spark.skins.mobile.ListSkin; spark.skins.mobile.ListSkin;
 import spark.skins.mobile.MobileApplicationSkin; MobileApplicationSkin;
 import spark.skins.mobile.SliderSkin; SliderSkin;
