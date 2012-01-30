@@ -306,6 +306,8 @@ public class View extends SkinnableContainer implements IDataRenderer
     //  destructionPolicy
     //----------------------------------
     
+    private var _destructionPolicy:String = ContainerDestructionPolicy.AUTO;
+    
     [Inspectable(category="General", enumeration="auto,never", defaultValue="auto")]
     /**
      *  Defines the destruction policy the view's navigator should use
@@ -320,7 +322,18 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var destructionPolicy:String = ContainerDestructionPolicy.AUTO;
+    public function get destructionPolicy():String
+    {
+        return _destructionPolicy;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set destructionPolicy(value:String):void
+    {
+        _destructionPolicy = value;    
+    }
     
     //----------------------------------
     //  navigator
