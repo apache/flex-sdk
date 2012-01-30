@@ -311,11 +311,7 @@ public class BarChart extends CartesianChart
 			this.calloutStroke = new Stroke(0x888888,2);			
 			this.fontSize = 10;
 			this.gridLinesStyleName = "horizontalGridLines";
-			this.horizontalAxisStyleName = "blockNumericAxis";
-			this.secondHorizontalAxisStyleName = "blockNumericAxis";
-			this.secondVerticalAxisStyleName = "blockCategoryAxis";
 			this.textAlign = "left";			
-			this.verticalAxisStyleName = "blockCategoryAxis";
 			this.horizontalAxisStyleNames = ["blockNumericAxis"];
 			this.verticalAxisStyleNames = ["blockCategoryAxis"];
 		}
@@ -498,20 +494,6 @@ public class BarChart extends CartesianChart
 	//  Overridden methods: CartesianChart
 	//
 	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	override protected function initSecondaryMode():void
-	{
-		super.initSecondaryMode();
-		
-		if (!secondHorizontalAxis)
-			secondHorizontalAxis = new LinearAxis();
-
-		if (!secondHorizontalAxisRenderer)
-			secondHorizontalAxisRenderer = new AxisRenderer();			
-	}
 	
 	/**
 	 * Determines positions and dimensions of labels for all series in the chart
@@ -612,7 +594,7 @@ public class BarChart extends CartesianChart
 					{
 						if (v.x > (isNaN(v.min) ? base : v.min))
 						{
-							v.labelWidth = dataToLocal(NumericAxis(barSeries.dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS)).computedMaximum,0).x - dataToLocal(v.xNumber,0).x;
+							v.labelWidth = barSeries.dataToLocal(NumericAxis(barSeries.dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS)).computedMaximum,0).x - barSeries.dataToLocal(v.xNumber,0).x;
 							v.labelX = v.x;
 							if (v.labelWidth == 0)
 							{
@@ -622,7 +604,7 @@ public class BarChart extends CartesianChart
 						}
 						else
 						{
-							v.labelWidth = dataToLocal(v.xNumber,0).x - dataToLocal(NumericAxis(barSeries.dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS)).computedMinimum,0).x;
+							v.labelWidth = barSeries.dataToLocal(v.xNumber,0).x - barSeries.dataToLocal(NumericAxis(barSeries.dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS)).computedMinimum,0).x;
 							v.labelX = v.x - v.labelWidth;
 							if (v.labelWidth == 0)
 							{
@@ -768,13 +750,6 @@ public class BarChart extends CartesianChart
 			if (_needLabels)
 				return;
 			getSeriesLabelPos(series[i]);
-		}
-		n = secondSeries.length;
-		for (i = 0; i < n; i++)
-		{
-			if (_needLabels)
-				return;
-			getSeriesLabelPos(secondSeries[i]);
 		}
 	}
 	 
