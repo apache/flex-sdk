@@ -737,9 +737,9 @@ public class SystemManager extends MovieClip
     {
         if (isNaN(_densityScale))
         {    
-            var applicationDPI:int = info()["applicationDPI"];
-            var deviceDensity:int = DensityUtil.classifyDPI(flash.system.Capabilities.screenDPI);
-            _densityScale = DensityUtil.getDPIScale(applicationDPI, deviceDensity);
+            var applicationDPI:Number = info()["applicationDPI"];
+            var runtimeDPI:Number = DensityUtil.getRuntimeDPI();
+            _densityScale = DensityUtil.getDPIScale(applicationDPI, runtimeDPI);
             if (isNaN(_densityScale))
                 _densityScale = 1;
         }
@@ -1915,6 +1915,10 @@ public class SystemManager extends MovieClip
      */
     mx_internal function initialize():void
     {
+        var runtimeDPIProviderClass:Class = info()["runtimeDPIProvider"] as Class;
+        if (runtimeDPIProviderClass)
+            Singleton.registerClass("mx.core::RuntimeDPIProvider", runtimeDPIProviderClass);
+        
         if (isStageRoot)
         {
             // TODO: Finalize scaling behavior
