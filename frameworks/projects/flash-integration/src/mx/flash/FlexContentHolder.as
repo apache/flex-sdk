@@ -269,8 +269,6 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
                 // then reinitialize the children's proto chains.
                 if (flexContent is uiComponentClass)
                 {     
-                    flexContent.mx_internal::_parent = this;
-
                     var child:Object = flexContent;
                     
                     // Set the nestLevel of the child to be one greater
