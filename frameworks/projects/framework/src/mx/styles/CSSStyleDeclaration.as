@@ -337,19 +337,38 @@ public class CSSStyleDeclaration extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
-     * Determines whether this style declaration applies to the given component
-     * based on a match of the selector chain.
-     * 
-     * @return true if this style declaration applies to the component, or
-     * false if not. 
-     */
-    public function isMatch(object:IAdvancedStyleClient, ignoreType:Boolean=false):Boolean
+     * @private
+     * Determines whether this style declaration has an advanced selector.
+     */  
+    public function isAdvanced():Boolean
     {
-        return selector.isMatch(object, ignoreType);
+        if (selector != null &&
+           (selector.kind == CSSSelectorKind.DESCENDANT_SELECTOR ||
+           (selector.kind == CSSSelectorKind.CONDITIONAL_SELECTOR &&
+                subject != "global")))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     /**
-     * @private
+     *  Determines whether this style declaration applies to the given component
+     *  based on a match of the selector chain.
+     * 
+     *  @return true if this style declaration applies to the component, or
+     *  false if not. 
+     */
+    public function isMatch(object:IAdvancedStyleClient):Boolean
+    {
+        return selector.isMatch(object);
+    }
+
+    /**
+     *  @private
+     *  Determines whether the selector chain for this style declaration makes
+     *  use of a pseudo selector.
      */  
     public function isPseudoSelector():Boolean
     {
