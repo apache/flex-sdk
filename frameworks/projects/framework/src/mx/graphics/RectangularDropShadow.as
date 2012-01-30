@@ -50,6 +50,11 @@ import mx.utils.GraphicsUtil;
  *  
  *  @see flash.filters.DropShadowFilter
  *  @see flash.display.DisplayObject
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RectangularDropShadow
 {
@@ -63,6 +68,11 @@ public class RectangularDropShadow
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RectangularDropShadow()
     {
@@ -129,6 +139,11 @@ public class RectangularDropShadow
 
     /**
      *  @copy flash.filters.DropShadowFilter#alpha
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get alpha():Number
     {
@@ -161,6 +176,11 @@ public class RectangularDropShadow
 
     /**
      *  @copy flash.filters.DropShadowFilter#angle
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get angle():Number
     {
@@ -193,6 +213,11 @@ public class RectangularDropShadow
 
     /**
      *  @copy flash.filters.DropShadowFilter#color
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get color():int
     {
@@ -225,6 +250,11 @@ public class RectangularDropShadow
 
     /**
      *  @copy flash.filters.DropShadowFilter#distance
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get distance():Number
     {
@@ -259,6 +289,11 @@ public class RectangularDropShadow
      *  The corner radius of the top left corner
 	 *  of the rounded rectangle that is casting the shadow.
 	 *  May be zero for non-rounded rectangles.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get tlRadius():Number
     {
@@ -293,6 +328,11 @@ public class RectangularDropShadow
      *  The corner radius of the top right corner
 	 *  of the rounded rectangle that is casting the shadow.
 	 *  May be zero for non-rounded rectangles.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get trRadius():Number
     {
@@ -328,6 +368,11 @@ public class RectangularDropShadow
 	 *  of the rounded rectangle that is casting the shadow.
 	 *  May be zero for non-rounded
      *  rectangles.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get blRadius():Number
     {
@@ -362,6 +407,11 @@ public class RectangularDropShadow
      *  The corner radius of the bottom right corner
 	 *  of the rounded rectangle that is casting the shadow.
 	 *  May be zero for non-rounded rectangles.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get brRadius():Number
     {
@@ -400,6 +450,11 @@ public class RectangularDropShadow
      *  @param width The width of the shadow, in pixels.
      *  
      *  @param height The height of the shadow, in pixels.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
 	public function drawShadow(g:Graphics, 
 							   x:Number, y:Number, 
