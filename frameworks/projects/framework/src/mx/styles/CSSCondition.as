@@ -17,6 +17,11 @@ package mx.styles
  *  components based on a particular property.
  * 
  *  @see mx.styles.CSSConditionKind
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CSSCondition
 {
@@ -32,6 +37,11 @@ public class CSSCondition
      *  @param kind The kind of condition. For valid values see the
      *  CSSConditionKind enumeration.
      *  @param value The condition value (without CSS syntax).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function CSSCondition(kind:uint, value:String)
     {
@@ -60,6 +70,11 @@ public class CSSCondition
      *  id and pseudo.
      * 
      *  @see mx.styles.CSSConditionKind
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get kind():uint
     {
@@ -94,6 +109,11 @@ public class CSSCondition
     /**
      *  The value of this condition without any CSS syntax. To get a String
      *  representation that includes CSS syntax, call the toString() method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get value():String
     {
@@ -111,6 +131,11 @@ public class CSSCondition
      * 
      *  @param object The component to which the condition may apply.
      *  @return true if component is a match, otherwise false. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isMatch(object:IAdvancedStyleClient):Boolean
     {
@@ -148,6 +173,11 @@ public class CSSCondition
 
     /**
      *  @return A String representation of this condition, including CSS syntax.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function toString():String
     {
