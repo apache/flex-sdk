@@ -44,7 +44,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:accentColor
  * 
- *  @default #0099FF
+ *  @default 0x0099FF
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -91,6 +91,8 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:focusColor
+ *
+ *  @default 0x70B2EE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -102,7 +104,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 /**
  *  Color of text shadows.
  * 
- *  @default #FFFFFF
+ *  @default 0xFFFFFF
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -225,7 +227,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [SkinState("titleContentWithActionAndNavigation")]
 
 /**
- *  The ActionBar class defines a component that includes title, navigation 
+ *  The ActionBar class defines a component that includes title, navigation, 
  *  and action content groups. 
  *  The ActionBar control provides a standard area for navigation and action controls. 
  *  It lets you define global controls that can be used from anywhere in the application, 
@@ -283,9 +285,29 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *    titleContent="null"
  *    titleLayout="HorizontalLayout"
  * 
- *   <strong>Styles</strong>
+ *   <strong>Common Styles</strong>
+ *    color="<i>Theme dependent</i>"
+ *    fontFamily="<i>Theme dependent</i>"
+ *    fontSize="<i>Theme dependent</i>"
+ *    fontStyle="normal"
+ *    fontWeight="normal"
+ *    leading="0"
+ *    letterSpacing="0"
+ *    textAlign="center"
+ *    textDecoration="none"
+ *    textIndent="0"
+ * 
+ *   <strong>Mobile Styles</strong>
+ *    accentColor="0x0099FF"
  *    backgroundAlpha="1.0"
- *    titleAlign="left"
+ *    color="<i>Theme dependent</i>"
+ *    contentBackgroundAlpha="1.0"
+ *    contentBackgroundColor="0xFFFFFF"
+ *    focusColor="0x70B2EE"
+ *    textShadowAlpha="0.55"
+ *    textShadowColor="0xFFFFFF"
+ *    titleAlign="center"
+ * 
  *  &gt;
  *  </pre>
  *
@@ -656,12 +678,15 @@ public class ActionBar extends SkinnableComponent
      *  Defines the layout of the <code>titleGroup</code> 
      *  and <code>titleDisplay</code> skin parts.
      * 
-     *  <p>If <code>titleContent</code> is null, <code>titleDisplay</code> 
-     *  is displayed in place of <code>titleGroup</code>. 
-     *  In this case, <code>titleDisplay</code> is positioned 
+     *  <p>If the <code>titleContent</code> property is null, 
+     *  the <code>titleDisplay</code> skin part is displayed  
+     *  in place of the <code>titleGroup</code> skin part. 
+     *  The <code>titleDisplay</code> skin part is positioned 
+     *  in the center of the ActionBar control
      *  by using the padding specified by the 
-     *  <code>paddingLeft</code> and <code>paddingRight</code> properties of
-     *  <code>titleLayout</code>, if defined.</p>
+     *  <code>paddingLeft</code> and <code>paddingRight</code> properties 
+     *  of the layout class specified by the 
+     *  <code>titleLayout</code> property.</p>
      *
      *  @default HorizontalLayout
      *  @see #titleContent
