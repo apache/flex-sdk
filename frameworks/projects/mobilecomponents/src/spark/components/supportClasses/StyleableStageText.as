@@ -3080,6 +3080,11 @@ class StageTextPool
             // overwrite during its initialization. This is necessary because this
             // object pool "recycles" StageTexts and we need to ensure that those
             // StageTexts are clean when they are reused.
+            // While the "editable" property is set in commitProperties, there is a
+            // bug on Android devices where setting editable to false fails to make
+            // the StageText read-only if it's already false. So, make sure
+            // "editable" is one of the properties that gets restored to its
+            // default value.
             if (!cleanProperties)
             {
                 cleanProperties = new Object();
@@ -3088,7 +3093,7 @@ class StageTextPool
                 cleanProperties["autoCorrect"] = result.autoCorrect;
                 //cleanProperties["color"] = result.color;              // Set in commitStyles
                 cleanProperties["displayAsPassword"] = result.displayAsPassword;
-                //cleanProperties["editable"] = result.editable;        // Set in commitProperties
+                cleanProperties["editable"] = result.editable;
                 //cleanProperties["fontFamily"] = result.fontFamily;    // Set in commitStyles
                 //cleanProperties["fontPosture"] = result.fontPosture;  // Set in commitStyles
                 //cleanProperties["fontSize"] = result.fontSize;        // Set in commitStyles
