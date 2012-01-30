@@ -794,7 +794,7 @@ include "../styles/metadata/AnchorStyles.as";
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="baseColor", type="uint", format="Color", inherit="yes")]
+[Style(name="baseColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Color of the component highlight when validation fails.
@@ -867,7 +867,7 @@ include "../styles/metadata/AnchorStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="themeColor", type="uint", format="Color", inherit="yes")]
+[Style(name="themeColor", type="uint", format="Color", inherit="yes", theme="halo")]
 
 //--------------------------------------
 //  Effects
