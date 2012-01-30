@@ -679,15 +679,12 @@ public class UITextField extends FlexTextField
 
     /**
      *  Number that specifies the maximum height of the component, 
-     *  in pixels, in the component's coordinates. 
-     *
-     *  <p>This value is used by the container in calculating the size 
-     *  and position of the component. 
-     *  It is not used by the component itself in determining its default size. 
-     *  Thus this property may not have any effect if parented by Container, 
-     *  or containers that don't factor in this property. 
-     *  Because the value is in component coordinates, the true <code>maxHeight</code> 
-     *  with respect to its parent is affected by the <code>scaleY</code> property.</p>
+     *  in pixels, in the component's coordinates, if the maxHeight property
+     *  is set. Because maxHeight is read-only, this method returns NaN. 
+     *  You must override this method and add a setter to use this
+     *  property.
+     *  
+     *  @see mx.core.UIComponent#explicitMaxHeight
      *  
      *  @default NaN
      */
@@ -702,15 +699,12 @@ public class UITextField extends FlexTextField
 
     /**
      *  Number that specifies the maximum width of the component, 
-     *  in pixels, in the component's coordinates. 
-     *
-     *  <p>This value is used by the container in calculating the size 
-     *  and position of the component. 
-     *  It is not used by the component itself in determining its default size. 
-     *  Thus this property may not have any effect if parented by Container, 
-     *  or containers that don't factor in this property. 
-     *  Because the value is in component coordinates, the true <code>maxWidth</code> 
-     *  with respect to its parent is affected by the <code>scaleX</code> property.</p>
+     *  in pixels, in the component's coordinates, if the maxWidth property
+     *  is set. Because maxWidth is read-only, this method returns NaN. 
+     *  You must override this method and add a setter to use this
+     *  property.
+     *  
+     *  @see mx.core.UIComponent#explicitMaxWidth
      *  
      *  @default NaN
      */
