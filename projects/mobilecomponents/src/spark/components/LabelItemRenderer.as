@@ -669,7 +669,7 @@ public class LabelItemRenderer extends UIComponent
 	 *  @playerversion AIR 2.5
 	 *  @productversion Flex 4.5
 	 */
-	public function get applicationDPI():int
+	public function get applicationDPI():Number
 	{
 		return FlexGlobals.topLevelApplication.applicationDPI;
 	}
