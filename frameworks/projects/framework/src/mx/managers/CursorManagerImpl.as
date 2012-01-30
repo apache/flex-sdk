@@ -107,10 +107,10 @@ public class CursorManagerImpl implements ICursorManager
 		sandboxRoot.dispatchEvent(me);
 		// trace("<---update request for CursorManagerImpl", sm);
 		
-		// If available, get soft-link to the TextView class to use in mouseMoveHandler().
+		// If available, get soft-link to the RichEditableText class to use in mouseMoveHandler().
         // ToDo: revisit the correct way to do this for modules.
-        if (ApplicationDomain.currentDomain.hasDefinition("mx.components.TextView"))
-            textViewClass = Class(ApplicationDomain.currentDomain.getDefinition("mx.components.TextView"));
+        if (ApplicationDomain.currentDomain.hasDefinition("spark.components.RichEditableText"))
+            textViewClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.RichEditableText"));
     }
 
     //--------------------------------------------------------------------------
@@ -585,7 +585,7 @@ public class CursorManagerImpl implements ICursorManager
 		}
 
         var cursorManagerStyleDeclaration:CSSStyleDeclaration =
-            StyleManager.getStyleDeclaration("CursorManager");
+            StyleManager.getStyleDeclaration("mx.managers.CursorManager");
         
         var busyCursorClass:Class =
             cursorManagerStyleDeclaration.getStyle("busyCursor");
