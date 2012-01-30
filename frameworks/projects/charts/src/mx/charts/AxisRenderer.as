@@ -2896,7 +2896,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
             if (!_labelRenderer)
             {
                 _labelCache.properties =
-                    { selectable: false, styleName: this};
+                    { selectable: false, styleName: this, truncateToFit: false};
             }
             else
             {
