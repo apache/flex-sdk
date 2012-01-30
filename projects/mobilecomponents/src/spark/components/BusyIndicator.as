@@ -653,8 +653,23 @@ public class BusyIndicator extends UIComponent
         {
             if (!current.visible)
             {
-                effectiveVisibility = false;
-                break;
+                if (!(current is IUIComponent) || !IUIComponent(current).isPopUp)
+                {
+                    // Treat all pop ups as if they were visible. This is to 
+                    // fix a bug where the BusyIndicator does not spin when it 
+                    // is inside modal popup. The problem is in we do not get 
+                    // an event when the modal window is made visible in 
+                    // PopUpManagerImpl.fadeInEffectEndHandler(). When the modal
+                    // window is made visible, setVisible() is passed "true" so 
+                    // as to not send an event. When do get events when the 
+                    // non-modal windows are popped up. Only modal windows are
+                    // a problem.
+                    // The downside of this fix is BusyIndicator components that are
+                    // inside of hidden, non-modal, popup windows will paint themselves
+                    // on a timer.
+                    effectiveVisibility = false;
+                    break;					
+                }
             }
             
             current = current.parent as IVisualElement;
