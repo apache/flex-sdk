@@ -1,0 +1,136 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2005-2007 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+package mx.managers
+{
+
+import flash.display.DisplayObject;  
+import flash.events.Event;
+import flash.events.IEventDispatcher;  
+import flash.geom.Rectangle;
+import mx.core.ISWFBridgeGroup;  
+
+/**
+ */
+public interface IMarshalSystemManager
+{
+	//--------------------------------------------------------------------------
+	//
+	//  Properties
+	//
+	//--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  swfBridgeGroup
+    //----------------------------------
+
+    /**
+     *  Contains all the bridges to other applications
+     *  that this application is connected to.
+     */
+    function get swfBridgeGroup():ISWFBridgeGroup;
+    function set swfBridgeGroup(value:ISWFBridgeGroup):void;
+    
+	//--------------------------------------------------------------------------
+	//
+	//  Methods
+	//
+	//--------------------------------------------------------------------------
+
+	/** 
+     *  Adds a child bridge to the system manager.
+     *  Each child bridge represents components in another sandbox
+     *  or compiled with a different version of Flex.
+     *
+     *  @param bridge The bridge for the child.
+     *
+     *  @param owner The SWFLoader for the child.
+     */
+    function addChildBridge(bridge:IEventDispatcher, owner:DisplayObject):void;
+
+    /** 
+     *  Adds a child bridge to the system manager.
+     *  Each child bridge represents components in another sandbox
+     *  or compiled with a different version of Flex.
+     *
+     *  @param bridge The bridge for the child
+     */
+    function removeChildBridge(bridge:IEventDispatcher):void;
+    
+	/**
+	 *  Dispatch a message to all parent and child applications in this SystemManager's SWF bridge group, regardless of
+	 *  whether they are in the same SecurityDomain or not. You can optionally exclude an application with this method's parameters.
+	 *
+     	 *  @param event The event to dispatch.
+     	 *  
+     	 *  @param skip Specifies an IEventDispatcher that you do not want to dispatch a message to. This is typically used to skip the
+     	 *  IEventDispatcher that originated the event.
+	 * 
+     	 *  @param trackClones Whether to keep a reference to the events as they are dispatched.
+     	 *  
+     	 *  @param toOtherSystemManagers Whether to dispatch the event to other top-level SystemManagers in AIR.
+	 */
+	function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, trackClones:Boolean = false, toOtherSystemManagers:Boolean = false):void
+
+    /**
+     *  Determines if the caller using this system manager
+     *  should should communicate directly with other managers
+     *  or if it should communicate with a bridge.
+     * 
+     *  @return <code>true</code> if the caller using this system manager
+     *  should  communicate using sandbox bridges.
+     *  If <code>false</code> the system manager may directly call
+     *  other managers directly via references.
+     */
+    function useSWFBridge():Boolean;
+    
+    /** 
+     *  Adds child to sandbox root in the layer requested.
+     *
+     *  @param layer Name of IChildList in SystemManager
+     *
+     *  @param child DisplayObject to add
+     */
+    function addChildToSandboxRoot(layer:String, child:DisplayObject):void;
+
+    /** 
+     *  Removes child from sandbox root in the layer requested.
+     *
+     *  @param layer Name of IChildList in SystemManager
+     *
+     *  @param child DisplayObject to add
+     */
+    function removeChildFromSandboxRoot(layer:String, child:DisplayObject):void;
+    
+    /**
+     *  Tests if a display object is in a child application
+     *  that is loaded in compatibility mode or in an untrusted sandbox.
+     * 
+     *  @param displayObject The DisplayObject to test.
+     * 
+     *  @return <code>true</code> if <code>displayObject</code>
+     *  is in a child application that is loaded in compatibility mode
+     *  or in an untrusted sandbox, and <code>false</code> otherwise.
+     */
+    function isDisplayObjectInABridgedApplication(
+                        displayObject:DisplayObject):Boolean;
+    
+	/**
+	 * @private
+	 * 
+	 * Notify parent that a new window has been activated.
+	 * 
+	 * @param window window that was activated.
+	 */
+	function dispatchActivatedWindowEvent(window:DisplayObject):void
+}
+
+}
