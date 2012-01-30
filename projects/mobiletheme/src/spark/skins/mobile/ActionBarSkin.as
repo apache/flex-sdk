@@ -34,7 +34,7 @@ import spark.skins.mobile320.assets.ActionBarBackground;
 use namespace mx_internal;
 
 /**
- *  The default skin class for the Spark ActionBar component.  
+ *  The default skin class for the Spark ActionBar component in mobile applications.  
  *  
  *  @see spark.components.ActionBar
  *  
@@ -140,6 +140,9 @@ public class ActionBarSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    /** 
+     *  @copy spark.skins.spark.ApplicationSkin#hostComponent
+     */
     public var hostComponent:ActionBar;
     
     private var _navigationVisible:Boolean = false;
