@@ -256,7 +256,7 @@ public interface IVisualElement extends ILayoutElement
     function set postLayoutTransformOffsets(value:TransformOffsets):void;
     
     /**
-     *  Contains <code>true</code>, when the element is in 3D. 
+     *  Contains <code>true</code> when the element is in 3D. 
      *  The element can be in 3D either because
      *  it has 3D transform properties or it has 3D post layout transform offsets or both.
      *
