@@ -131,21 +131,17 @@ public class ActionBarButtonSkinBase extends ButtonSkin
     //
     //--------------------------------------------------------------------------
     
-    /**
-     *  ActionBar buttons only draw chromeColor in the down state.
-     */
-    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        // omit super.drawBackground() to drawRect instead
+        // only draw chromeColor in down state (transparent hit zone otherwise)
         var isDown:Boolean = (currentState == "down");
-        var chromeColor:uint = isDown ? getChromeColor() : 0;
+        var chromeColor:uint = isDown ? getStyle("chromeColor") : 0;
         var chromeAlpha:Number = isDown ? 1 : 0;
         
-        chromeColorGraphics.beginFill(chromeColor, chromeAlpha);
-    }
-    
-    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
-    {
-        chromeColorGraphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+        graphics.beginFill(chromeColor, chromeAlpha);
+        graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+        graphics.endFill();
     }
 }
 }
