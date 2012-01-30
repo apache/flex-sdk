@@ -248,7 +248,7 @@ public class RadialGradient extends GradientBase implements IFill
      */
     public function get scaleX():Number
     {
-        return _scaleX; 
+        return compoundTransform ? compoundTransform.scaleX : _scaleX;
     }
     
     /**
@@ -256,10 +256,20 @@ public class RadialGradient extends GradientBase implements IFill
      */
     public function set scaleX(value:Number):void
     {
-        var oldValue:Number = _scaleX;
-        if (value != oldValue && !compoundTransform)
+        if (value != scaleX)
         {
-            _scaleX = value;
+            var oldValue:Number = scaleX;
+            
+            if (compoundTransform)
+            {
+                // If we have a compoundTransform, only non-NaN values are allowed
+                if (!isNaN(value))
+                    compoundTransform.scaleX = value;
+            }
+            else
+            {
+                _scaleX = value;
+            }
             dispatchGradientChangedEvent("scaleX", oldValue, value);
         }
     }
@@ -283,7 +293,7 @@ public class RadialGradient extends GradientBase implements IFill
      */
     public function get scaleY():Number
     {
-    	return _scaleY;	
+        return compoundTransform ? compoundTransform.scaleY : _scaleY;
     }
     
 	/**
@@ -291,12 +301,22 @@ public class RadialGradient extends GradientBase implements IFill
 	 */
     public function set scaleY(value:Number):void
     {
-    	var oldValue:Number = _scaleY;
-    	if (value != oldValue && !compoundTransform)
-    	{
-    		_scaleY = value;
-    		dispatchGradientChangedEvent("scaleY", oldValue, value);
-    	}
+        if (value != scaleY)
+        {
+            var oldValue:Number = scaleY;
+            
+            if (compoundTransform)
+            {
+                // If we have a compoundTransform, only non-NaN values are allowed
+                if (!isNaN(value))
+                    compoundTransform.scaleY = value;
+            }
+            else
+            {
+                _scaleY = value;
+            }
+            dispatchGradientChangedEvent("scaleY", oldValue, value);
+        }
     }
     
     //--------------------------------------------------------------------------
