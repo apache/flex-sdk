@@ -1056,7 +1056,11 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 
     private function doPhasedInstantiationCallback(event:Event):void
     {
-
+        // if our background processing is suspended, then we shouldn't do any 
+        // validation
+        if (UIComponentGlobals.callLaterSuspendCount > 0)
+            return;
+        
         systemManager.removeEventListener(Event.ENTER_FRAME, doPhasedInstantiationCallback);
         systemManager.removeEventListener(Event.RENDER, doPhasedInstantiationCallback);
 
