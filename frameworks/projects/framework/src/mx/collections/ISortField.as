@@ -14,7 +14,7 @@ package mx.collections
 /**
  *  The <code>ISortField</code> interface defines the interface for classes that
  *  are used with <code>ISort</code> classes, to provide the sorting information
- *  required to sort the specific fields or property a collection view.
+ *  required to sort the specific fields or property in a collection view.
  * 
  *  @langversion 3.0
  *  @playerversion Flash 9
