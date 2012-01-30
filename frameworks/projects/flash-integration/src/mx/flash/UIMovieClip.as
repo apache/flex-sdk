@@ -2725,7 +2725,7 @@ public dynamic class UIMovieClip extends MovieClip
      *  
      *  @default true
      *  
-     *  @langversion 4.0
+     *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
@@ -2794,7 +2794,7 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  @default true
      *  
-     *  @langversion 4.0
+     *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
@@ -3087,34 +3087,34 @@ public dynamic class UIMovieClip extends MovieClip
     {
         rotation = value;
     }
-	
-	//----------------------------------
-	//  layoutDirection
-	//----------------------------------
-	
-	private var _layoutDirection:String = null;
+    
+    //----------------------------------
+    //  layoutDirection
+    //----------------------------------
+    
+    private var _layoutDirection:String = null;
     
     /**
      *  @inheritDoc
      */
-	public function get layoutDirection():String
-	{
+    public function get layoutDirection():String
+    {
         if (_layoutDirection != null)
             return _layoutDirection;
         
         const parentElt:IVisualElement = parent as IVisualElement;
         return (parentElt) ? parentElt.layoutDirection : LayoutDirection.LTR;
-	}
-	
+    }
+    
     /**
      *  @private
      */
-	public function set layoutDirection(value:String):void
-	{
-		if (_layoutDirection == value)
-			return;
-		
-		_layoutDirection = value;
+    public function set layoutDirection(value:String):void
+    {
+        if (_layoutDirection == value)
+            return;
+        
+        _layoutDirection = value;
         invalidateLayoutDirection();
     }
     
@@ -3141,7 +3141,7 @@ public dynamic class UIMovieClip extends MovieClip
             invalidateParentSizeAndDisplayList();            
         }
     }        
-	
+    
     /**
      *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
      *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
@@ -3576,7 +3576,7 @@ public dynamic class UIMovieClip extends MovieClip
         features.layoutX = x;
         features.layoutY = y;
         features.layoutZ = z;
-		features.layoutWidth = _width;  // for the mirror transform			
+        features.layoutWidth = _width;  // for the mirror transform         
         
         // Initialize the internal variable last,
         // since the transform getters depend on it.
