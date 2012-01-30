@@ -28,6 +28,11 @@ import mx.utils.UIDUtil;
  *  It handles the validation of filter expressions and provides a default level 
  *  property.
  *  No implementation of the <code>logEvent()</code> method is provided.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class AbstractTarget implements ILoggingTarget, IMXMLObject
 {
@@ -41,6 +46,11 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function AbstractTarget()
     {
@@ -118,6 +128,11 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      *           Log.addTarget(traceLogger);
      *     </pre>
      *  </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get filters():Array
     {
@@ -184,6 +199,11 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
     /**
      *  @prviate
      *  Storage for the id property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _id:String;
 
@@ -193,6 +213,11 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
       *  Provides access to the id of this target.
       *  The id is assigned at runtime by the mxml compiler if used as an mxml 
       *  tag, or internally if used within a script block
+      *  
+      *  @langversion 3.0
+      *  @playerversion Flash 9
+      *  @playerversion AIR 1.1
+      *  @productversion Flex 3
       */
      public function get id():String
      {
@@ -233,6 +258,11 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      *      <li><code>LogEventLevel.ALL (0)</code> intended to force a target to
      *      process all messages.</li>
      *    </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get level():int
     {
@@ -261,6 +291,11 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      *  This allows this target to receive log events from the specified logger.
      *
      *  @param logger The ILogger that this target should listen to.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addLogger(logger:ILogger):void
     {
@@ -275,6 +310,11 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      *  Stops this target from receiving events from the specified logger.
      *
      *  @param logger The ILogger that this target should ignore.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeLogger(logger:ILogger):void
     {
@@ -293,6 +333,11 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      *
      *  @param id Used by the document to refer to this object.
      *  If the object is a deep property on the document, id is null.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialized(document:Object, id:String):void
     {
@@ -310,6 +355,11 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      *  <p><b><i>NOTE: Descendants must override this method to make it useful.</i></b></p>
      *  
      *  @param event An event from an associated logger.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function logEvent(event:LogEvent):void
     {
