@@ -2196,7 +2196,12 @@ public class IconItemRenderer extends LabelItemRenderer
             //    messageDisplay.text = messageText;
             //messageDisplay.truncateToFit();
         }
-
+        else
+        {
+            if (messageDisplay)
+                setElementSize(messageDisplay, 0, 0);
+        }
+        
         // Position the text components now that we know all heights so we can respect verticalAlign style
         var totalHeight:Number = 0;
         var labelComponentsY:Number = 0; 
