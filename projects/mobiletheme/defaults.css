@@ -139,10 +139,10 @@ IconItemRenderer
 
 LabelItemRenderer
 {
-    paddingBottom: 20;
+    paddingBottom: 24;
     paddingLeft: 15;
     paddingRight: 15;
-    paddingTop: 20;
+    paddingTop: 24;
     verticalAlign: "middle";
     selectionColor: #70B2EE;
 }
@@ -401,12 +401,26 @@ global
         fontSize: 12;
     }
     
+	IconItemRenderer
+	{
+		paddingBottom: 8;
+		paddingTop: 8;
+		horizontalGap: 8;
+		verticalGap: 6;
+	}
+
+	.iconItemRendererMessageStyle
+	{
+		fontSize: 13;
+	}
+
+
     LabelItemRenderer
     {
         paddingBottom: 16;
         paddingLeft: 10;
         paddingRight: 10;
-        paddingTop: 16;    
+        paddingTop: 16;
     }
 
     TextArea
@@ -454,12 +468,25 @@ global
         fontSize: 24;
     }
     
+	IconItemRenderer
+	{
+		paddingBottom: 16;
+		paddingTop: 16;
+		horizontalGap: 16;
+		verticalGap: 12;
+	}
+
+	.iconItemRendererMessageStyle
+	{
+		fontSize: 26;
+	}
+
     LabelItemRenderer
     {
         paddingBottom: 32;
         paddingLeft: 20;
         paddingRight: 20;
-        paddingTop: 32;    
+        paddingTop: 32;  
     }
 
     TextArea
