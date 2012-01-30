@@ -46,47 +46,47 @@ import flash.geom.Point;
 public interface ILayoutItem
 {
     /**
-     * @copy mx.core.IVisualItem#left
+     * @copy mx.core.IVisualElement#left
      */
     function get left():Object;
 
     /**
-     * @copy mx.core.IVisualItem#right
+     * @copy mx.core.IVisualElement#right
      */
     function get right():Object;
 
     /**
-     * @copy mx.core.IVisualItem#top
+     * @copy mx.core.IVisualElement#top
      */
     function get top():Object;
 
     /**
-     * @copy mx.core.IVisualItem#bottom
+     * @copy mx.core.IVisualElement#bottom
      */
     function get bottom():Object;
 
     /**
-     * @copy mx.core.IVisualItem#horizontalCenter
+     * @copy mx.core.IVisualElement#horizontalCenter
      */
     function get horizontalCenter():Object;
 
     /**
-     * @copy mx.core.IVisualItem#verticalCenter
+     * @copy mx.core.IVisualElement#verticalCenter
      */
     function get verticalCenter():Object;
 
     /**
-     * @copy mx.core.IVisualItem#baseline
+     * @copy mx.core.IVisualElement#baseline
      */
     function get baseline():Object;
 
     /**
-     * @copy mx.core.IVisualItem#percentWidth
+     * @copy mx.core.IVisualElement#percentWidth
      */
     function get percentWidth():Number;
 
     /**
-     * @copy mx.core.IVisualItem#percentHeight
+     * @copy mx.core.IVisualElement#percentHeight
      */
     function get percentHeight():Number;
 
