@@ -209,67 +209,6 @@ public class TextAreaSkin extends TextSkinBase
 		
 		super.setLayoutBoundsSize(width, height, postLayoutTransform);
 	}
-	
-	/**
-	 *  @private
-	 */
-	override protected function layoutContents(unscaledWidth:Number, 
-									  unscaledHeight:Number):void
-	{
-		// don't call super.layoutContents() since we're doing it 
-		// differently in here
-		
-		// position & size border
-		if (border)
-		{
-			resizeElement(border, unscaledWidth, unscaledHeight);
-			positionElement(border, 0, 0);
-		}
-		
-		// position & size the text
-		var paddingLeft:Number = getStyle("paddingLeft");
-		var paddingRight:Number = getStyle("paddingRight");
-		var paddingTop:Number = getStyle("paddingTop");
-		var paddingBottom:Number = getStyle("paddingBottom");
-		
-		var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
-		var unscaledTextHeight:Number = unscaledHeight - paddingTop;
-		var textTopPosition:Number = getTextTop(unscaledHeight, paddingTop, paddingBottom);
-		
-		if (textDisplay)
-		{
-			textDisplay.commitStyles();
-			
-			// because the text is multi-line, measuring and layout 
-			// can be somewhat tricky
-			
-			// grab old textDisplay height before resizing it
-			var oldTextDisplayMeasuredHeight:Number = getElementPreferredHeight(textDisplay);
-			
-			resizeElement(textDisplay, unscaledTextWidth, unscaledTextHeight);
-			positionElement(textDisplay, paddingLeft, textTopPosition);
-			
-			// grab new textDisplay height after the textDisplay has taken its final size
-			var newTextDisplayMeasuredHeight:Number = getElementPreferredHeight(textDisplay);
-			
-			// if the resize caused the textDisplay's height to change (because of 
-			// text reflow), then we need to remeasure ourselves with our new estimatedWidth
-			if (oldTextDisplayMeasuredHeight != newTextDisplayMeasuredHeight)
-			{
-				// if unscaledWidth is 0, we're in an edge case, so let's not invalidateSize() here
-				// as we're not really visible anyways, so why do an extra invalidation
-				if (unscaledWidth > 0)
-					invalidateSize();
-			}
-		}
-		
-		if (promptDisplay)
-		{
-			promptDisplay.commitStyles();
-			resizeElement(promptDisplay, unscaledTextWidth, unscaledTextHeight);
-			positionElement(promptDisplay, paddingLeft, textTopPosition);
-		}
-	}
     
     /**
      *  @private
