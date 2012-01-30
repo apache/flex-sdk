@@ -14,20 +14,14 @@ package spark.skins.mobile
 import mx.core.IContainerInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.mx_internal;
-import mx.effects.IEffect;
-import mx.states.State;
-import mx.states.Transition;
 import mx.managers.ILayoutManagerContainerClient;
-use namespace mx_internal;
 
 import spark.components.ActionBar;
-import spark.components.ButtonBar;
 import spark.components.Group;
 import spark.components.ViewNavigator;
-import spark.effects.Move;
 import spark.skins.mobile.supportClasses.MobileSkin;
-import spark.transitions.SlideViewTransition;
-import spark.transitions.ViewTransitionBase;
+
+use namespace mx_internal;
 
 /**
  *  The ActionScript-based skin for view navigators in mobile
@@ -91,6 +85,8 @@ public class ViewNavigatorSkin extends MobileSkin
     // Methods
     //
     //--------------------------------------------------------------------------
+
+    private var _isOverlay:Boolean;
     
     /**
      *  @private
@@ -105,23 +101,6 @@ public class ViewNavigatorSkin extends MobileSkin
         
         addChild(contentGroup);
         addChild(actionBar);
-    }
-    
-    /**
-     *  @private
-     *  When the current state is set, need to invalidate the display list
-     *  so that a validation pass runs. 
-     */
-    override public function set currentState(value:String):void
-    {
-        if (super.currentState != value)
-        {
-            super.currentState = value;
-            
-            // Force a layout pass on the components
-            invalidateSize();
-            invalidateDisplayList();
-        }
     }
     
     /**
@@ -179,6 +158,17 @@ public class ViewNavigatorSkin extends MobileSkin
         }
     }
     
+    override protected function commitCurrentState():void
+    {
+        super.commitCurrentState();
+        
+        _isOverlay = (currentState.indexOf("Overlay") >= 1);
+        
+        // Force a layout pass on the components
+        invalidateSize();
+        invalidateDisplayList();
+    }
+    
     /**
      *  @private
      */
@@ -197,37 +187,20 @@ public class ViewNavigatorSkin extends MobileSkin
             actionBar.setLayoutBoundsSize(unscaledWidth, actionBarHeight);
             actionBar.setLayoutBoundsPosition(0, 0);
             actionBarHeight = actionBar.getLayoutBoundsHeight();
+            
+            var backgroundAlpha:Number = (_isOverlay) ? 0.75 : 1;
+            actionBar.setStyle("backgroundAlpha", backgroundAlpha);
         }
         
         // If the hostComponent is in overlay mode, the contentGroup extends
         // the entire bounds of the navigator and the alpha for the action 
         // bar changes
         // If this changes, also update validateEstimatedSizesOfChild
-        if (currentState == "portraitAndOverlay" || currentState == "landscapeAndOverlay")
-        {
-            // FIXME (chiedozi): Update when XD spec is written
-            actionBar.alpha = .6;
-            
-            if (contentGroup.includeInLayout)
-            {
-                contentGroup.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
-                contentGroup.setLayoutBoundsPosition(0, 0);
-            }
-        }
-        else
-        {
-            actionBar.alpha = 1.0;
-            
-            // The content group is placed below the actionBar and spans the
-            // remaining space of the navigator.
-            if (contentGroup.includeInLayout)
-            {
-                var contentGroupHeight:Number = Math.max(unscaledHeight - actionBarHeight, 0);
-                
-                contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
-                contentGroup.setLayoutBoundsPosition(0, actionBarHeight);
-            }
-        }
+        var contentGroupHeight:Number = (_isOverlay) ? unscaledHeight : Math.max(unscaledHeight - actionBarHeight, 0);
+        var contentGroupPosition:Number = (_isOverlay) ? 0 : actionBarHeight;
+        
+        contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
+        contentGroup.setLayoutBoundsPosition(0, contentGroupPosition);
     }
 }
 }
