@@ -4,6 +4,8 @@ package spark.skins.mobile
     import spark.components.ButtonBar;
     import spark.components.Group;
     import spark.components.ViewNavigator;
+    import spark.effects.IViewTransition;
+    import spark.effects.SlideViewTransition;
     
     public class ViewNavigatorSkin extends SliderSkin
     {
@@ -23,9 +25,15 @@ package spark.skins.mobile
         //
         //--------------------------------------------------------------------------
         public var hostComponent:ViewNavigator;
+        
+        // Groups and UIControls
         public var contentGroup:Group;
         public var actionBar:ActionBar;
         public var tabBar:ButtonBar;
+        
+        // Transitions
+        public var defaultPushTransition:IViewTransition;
+        public var defaultPopTransition:IViewTransition;
         
         //--------------------------------------------------------------------------
         //
@@ -52,6 +60,9 @@ package spark.skins.mobile
             addChild(tabBar);
             
             tabBar.dataProvider = hostComponent;
+            
+            defaultPushTransition = new SlideViewTransition(300, SlideViewTransition.SLIDE_LEFT);
+            defaultPopTransition = new SlideViewTransition(300, SlideViewTransition.SLIDE_RIGHT);
         }
         
         /**
