@@ -8,7 +8,7 @@
                width="75%" height="75%"
                horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                     text="A Box container with vertically aligned children."/>
 
             <mx:Box direction="vertical" borderStyle="solid" 
@@ -19,7 +19,7 @@
                 <s:DropDownList />
             </mx:Box>
 
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                     text="A Box container with horizontally aligned children."/>
 
             <mx:Box direction="horizontal" borderStyle="solid" 
