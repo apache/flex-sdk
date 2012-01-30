@@ -86,7 +86,7 @@ public class StyleProtoChain
         var className:String = object.className;
         var advancedObject:IAdvancedStyleClient = object as IAdvancedStyleClient;
 
-        var typeHierarchy:OrderedObject = getUnqualifiedTypeHierarchy(object);
+        var typeHierarchy:OrderedObject = getTypeHierarchy(object, false);
         var types:Array = typeHierarchy.propertyList;
         var typeCount:int = types.length;
         var classDecls:Array = null;
@@ -107,7 +107,7 @@ public class StyleProtoChain
             var type:String = types[i].toString();
             if (StyleManager.hasAdvancedSelectors() && advancedObject != null)
             {
-                var decls:Object = StyleManager.getStyleDeclarations(type);
+                var decls:Array = StyleManager.getStyleDeclarations(type);
                 if (decls)
                 {
                     var matchingDecls:Array = matchStyleDeclarations(decls, advancedObject);
@@ -745,9 +745,10 @@ public class StyleProtoChain
     /**
      *  @private
      */
-    public static function isAssignableToType(object:IAdvancedStyleClient, type:String):Boolean
+    public static function isTypeSelectorMatch(object:IAdvancedStyleClient, type:String):Boolean
     {
-        return getUnqualifiedTypeHierarchy(object)[type] != null;
+        var typeHierarchy:OrderedObject = getTypeHierarchy(object, false);
+        return typeHierarchy[type] != null;
     }
 
     /**
@@ -770,7 +771,7 @@ public class StyleProtoChain
             styleDeclarations = [];
 
         // First, look for universal selectors
-        var universalDecls:Object = StyleManager.getStyleDeclarations("*");
+        var universalDecls:Array = StyleManager.getStyleDeclarations("*");
         styleDeclarations = matchStyleDeclarations(universalDecls, object).concat(styleDeclarations);
 
         // Next, look for type selectors (includes ActionScript supertype matches)
@@ -791,14 +792,16 @@ public class StyleProtoChain
 
     /**
      *  @private
-     *  Returns an ordered map of unqualified class names, starting with the
-     *  object's class name and then each super class name until we hit a stop
-     *  class, such as mx.core::UIComponent.
+     *  @param object - the IStyleClient to be introspected  
+     *  @param qualified - whether qualified type names should be used
+     *  @return an ordered map of class names, starting with the object's class
+     *  name and then each super class name until we hit a stop class, such as
+     *  mx.core::UIComponent.
      */
-    private static function getUnqualifiedTypeHierarchy(object:IStyleClient):OrderedObject
+    private static function getTypeHierarchy(object:IStyleClient, qualified:Boolean=true):OrderedObject
     {
         var className:String = getQualifiedClassName(object);
-        var hierarchy:OrderedObject = StyleManager.typeHierarchyCache[className];
+        var hierarchy:OrderedObject = StyleManager.typeHierarchyCache[className] as OrderedObject;
         if (hierarchy == null)
         {
             hierarchy = new OrderedObject();
@@ -822,7 +825,12 @@ public class StyleProtoChain
             {
                 try
                 {
-                    var type:String = NameUtil.getUnqualifiedClassName(className);
+                    var type:String;
+                    if (qualified)
+                        type = className.replace("::", ".");
+                    else
+                        type = NameUtil.getUnqualifiedClassName(className);
+
                     hierarchy[type] = true;
                     className = getQualifiedSuperclassName(
                         myApplicationDomain.getDefinition(className));
@@ -861,15 +869,14 @@ public class StyleProtoChain
      *  @return An unsorted Array of matching style declarations for the given
      *  subject.
      */
-    private static function matchStyleDeclarations(declarations:Object,
+    private static function matchStyleDeclarations(declarations:Array,
             object:IAdvancedStyleClient):Array // of CSSStyleDeclaration
     {
         var matchingDecls:Array = [];
 
         // Find the subset of declarations that match this component
-        for (var selector:String in declarations)
+        for each (var decl:CSSStyleDeclaration in declarations)
         {
-            var decl:CSSStyleDeclaration = declarations[selector];
             if (decl.isMatch(object))
                 matchingDecls.push(decl);
         }
