@@ -26,6 +26,7 @@ import flash.geom.Transform;
 import flash.geom.Vector3D;
 import flash.utils.Timer;
 
+import mx.core.DesignLayer;
 import mx.core.DPIClassification;
 import mx.core.FlexGlobals;
 import mx.core.IUIComponent;
@@ -241,6 +242,23 @@ public class BusyIndicator extends UIComponent
             _applicationDPI = application["applicationDPI"];
 
         return _applicationDPI; 
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set designLayer(value:DesignLayer):void
+    {
+        super.designLayer = value;
+
+        effectiveVisibilityChanged = true;
+        invalidateProperties();
     }
     
     //--------------------------------------------------------------------------
@@ -689,15 +707,22 @@ public class BusyIndicator extends UIComponent
      */
     private function computeEffectiveVisibility():void
     {
-        // start out with true visibility and enablement
-        // then loop up parent-chain to see if any of them are false
+        
+        // Check our design layer first.
+        if (designLayer && !designLayer.effectiveVisibility)
+        {
+            effectiveVisibility = false;
+            return;
+        }
+        
+        // Start out with true visibility and enablement
+        // then loop up parent-chain to see if any of them are false.
         effectiveVisibility = true;
         var current:IVisualElement = this;
         
         while (current)
         {
-            if (!current.visible || 
-                (current.designLayer && !current.designLayer.effectiveVisibility))
+            if (!current.visible)
             {
                 effectiveVisibility = false;
                 break;
@@ -721,13 +746,6 @@ public class BusyIndicator extends UIComponent
             current.addEventListener(FlexEvent.HIDE, visibilityChangedHandler, false, 0, true);
             current.addEventListener(FlexEvent.SHOW, visibilityChangedHandler, false, 0, true);
             
-            // add listeners to the design layer too
-            if (current.designLayer)
-            {
-                current.designLayer.addEventListener("layerPropertyChange", 
-                    designLayer_layerPropertyChangeHandler, false, 0, true);
-            }
-            
             current = current.parent as IVisualElement;
         }
     }
@@ -744,13 +762,27 @@ public class BusyIndicator extends UIComponent
             current.removeEventListener(FlexEvent.HIDE, visibilityChangedHandler, false);
             current.removeEventListener(FlexEvent.SHOW, visibilityChangedHandler, false);
             
-            if (current.designLayer)
-            {
-                current.designLayer.removeEventListener("layerPropertyChange", 
-                    designLayer_layerPropertyChangeHandler, false);
-            }
-            
             current = current.parent as IVisualElement;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden event handlers: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override protected function layer_PropertyChange(event:PropertyChangeEvent):void
+    {
+        super.layer_PropertyChange(event);
+        
+        if (event.property == "effectiveVisibility")
+        {
+            effectiveVisibilityChanged = true;
+            invalidateProperties();
         }
     }
     
@@ -794,20 +826,6 @@ public class BusyIndicator extends UIComponent
     {
         effectiveVisibilityChanged = true;
         invalidateProperties();
-    }
-    
-    /**
-     *  @private
-     *  Event call back whenever the visibility of our designLayer or one of our parent's
-     *  designLayers change.
-     */
-    private function designLayer_layerPropertyChangeHandler(event:PropertyChangeEvent):void
-    {
-        if (event.property == "effectiveVisibility")
-        {
-            effectiveVisibilityChanged = true;
-            invalidateProperties();
-        }
     }
     
     /**
