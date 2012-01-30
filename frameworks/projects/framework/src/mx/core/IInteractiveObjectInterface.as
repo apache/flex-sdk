@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-/**
+/*
  *  The methods here would normally just be in IInteractiveObject,
  *  but for backward compatibility, their ancestor methods have to be included
  *  directly into IFlexDisplayObject, so these also have to be kept in 
