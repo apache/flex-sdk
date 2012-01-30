@@ -154,6 +154,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     //
     //--------------------------------------------------------------------------
     
+    [Bindable]
     [SkinPart(required="false")]
     /**
      *  A skin part that defines the tab bar of the navigator. 
@@ -256,6 +257,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     //  activeNavigator
     //----------------------------------
     
+    [Bindable("change")]
     /**
      *  Returns the active navigator for the TabbedViewNavigator.  Only one
      *  navigator can be active at a time.  The active navigator can be
@@ -504,7 +506,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function calculateFinalUIPositions():void
+    private function calculateFinalUIPositions():void
     {
         var animateTabBarUp:Boolean;
         
@@ -772,7 +774,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function createTabBarShowEffect():IEffect
+    protected function createTabBarShowEffect():IEffect
     {
         return createTabBarVisibilityEffect();
     }
@@ -785,7 +787,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    public function createTabBarHideEffect():IEffect
+    protected function createTabBarHideEffect():IEffect
     {
         return createTabBarVisibilityEffect();
     }
@@ -909,6 +911,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */ 
     override public function loadViewData(value:Object):void
     {
+        super.loadViewData(value);
+        
         var savedStacks:Vector.<Object>;
         var savedSelectedIndex:Number = value.selectedIndex as Number;
         
@@ -1039,16 +1043,21 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     private function visibilityAnimation_completeHandler(event:EffectEvent):void
     {
         event.target.removeEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
-
-        tabBar.visible = tabBar.includeInLayout = tabBarProps.end.visible;
-        tabBar.cacheAsBitmap = tabBarProps.start.cacheAsBitmap;
-        
-        contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
-        contentGroup.cacheAsBitmap = contentGroupProps.start.cacheAsBitmap;
-        
         tabBarVisibilityEffect = null;
-        tabBarProps = null;
-        contentGroupProps = null;
+
+        if (tabBarProps)
+        {
+            tabBar.visible = tabBar.includeInLayout = tabBarProps.end.visible;
+            tabBar.cacheAsBitmap = tabBarProps.start.cacheAsBitmap;
+            tabBarProps = null;
+        }
+        
+        if (contentGroupProps)
+        {
+            contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
+            contentGroup.cacheAsBitmap = contentGroupProps.start.cacheAsBitmap;
+            contentGroupProps = null;
+        }
     }
     
     //--------------------------------------------------------------------------
