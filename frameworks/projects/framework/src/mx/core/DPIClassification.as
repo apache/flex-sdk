@@ -15,26 +15,26 @@ package mx.core
 /**
  *  An enum of the device screen density classess.  
  *
- *  When working with density, Flex collapses similar DPIs into density classes.
+ *  When working with DPI, Flex collapses similar DPI values into DPI classes.
  *
- *  @see spark.components.Appliction#authorDensity
- *  @see mx.core.DensityUtil
+ *  @see spark.components.Application#applicationDPI
+ *  @see spark.components.Application#runtimeDPI
  */
-public final class DeviceDensity
+public final class DPIClassification
 {
     /**
      *  Density value for low-density devices.
      */
-    public static const PPI_160:String = "160ppi";
+    public static const DPI_160:int = 160;
 
     /**
      *  Density value for medium-density devices.
      */
-    public static const PPI_240:String = "240ppi";
+    public static const DPI_240:int = 240;
 
     /**
      *  Density value for high-density devices.
      */
-    public static const PPI_320:String = "320ppi";
+    public static const DPI_320:int = 320;
 }
 }
