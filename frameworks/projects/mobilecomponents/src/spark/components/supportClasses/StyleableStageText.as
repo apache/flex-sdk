@@ -304,6 +304,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     {
         super();
         
+        // This needs to be true so that we can show the soft keyboard if the
+        // user taps on the padding instead of on the StageText. If 
+        // needsSoftKeyboard isn't set to true, requestSoftKeyboard would do
+        // nothing.
+        needsSoftKeyboard = true;
+        
         _multiline = multiline;
         getStageText(true);
         
@@ -323,6 +329,10 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         _displayAsPassword = stageText.displayAsPassword;
         _maxChars = stageText.maxChars;
         _restrict = stageText.restrict;
+        
+        // Flex's default for autoCorrect is now true, so we need to turn on
+        // autoCorrect on the runtime side during construction.
+        stageText.autoCorrect = _autoCorrect;
         
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler, false, 0, true);
         addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler, false, 0, true);
@@ -944,6 +954,11 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     public function set text(value:String):void
     {
+        // This is to match legacy behavior. Setting text to null really just
+        // sets it to the empty string.
+        if (value == null)
+            value = "";
+        
         if (stageText != null)
             stageText.text = value;
         _text = value;
@@ -1023,7 +1038,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     /**
      *  Storage for the autoCorrect property.
      */
-    private var _autoCorrect:Boolean = false;
+    private var _autoCorrect:Boolean = true;
     
     /**
      *  @private
@@ -1174,7 +1189,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         {
             super.setFocus();
             if (stageText != null)
+            {
+                // assignFocus doesn't bring up the soft keyboard. We need to
+                // ask for it.
+                requestSoftKeyboard();
                 stageText.assignFocus();
+            }
         }
     }
     
@@ -1520,6 +1540,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 textImage.scaleY = 1.0 / densityScale;
                 addChild(textImage);
                 
+                // Don't just invalidate the viewport. Update it now so the
+                // StageText doesn't lag the animation.
                 updateViewPort();
             }
         }
@@ -1537,7 +1559,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             textImage.bitmapData.dispose();
             textImage = null;
             
-            updateViewPort();
+            // The animation is done playing. It isn't necessary (and isn't
+            // desirable on Android) to udpate the viewport immediately. On
+            // Android, this may result in a hidden StageText flashing because
+            // its ancestors' visibility hasn't been udpated yet.
+            invalidateViewPortFlag = true;
+            invalidateProperties();
         }
     }
     
@@ -1552,8 +1579,20 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         {
             if (stageText.stage)
             {
-                var globalPoint:Point = parent.localToGlobal(localViewPort.topLeft);
-                var globalRect:Rectangle = new Rectangle(globalPoint.x, globalPoint.y);
+                var globalTopLeft:Point = parent.localToGlobal(localViewPort.topLeft);
+
+                // Transform the bottom-right corner of the local rect
+                // instead of setting width/height to account for any
+                // transformations applied to ancestor objects.
+                var globalBottomRight:Point = parent.localToGlobal(localViewPort.bottomRight);
+                var globalRect:Rectangle = new Rectangle();
+                
+                // StageText can't deal with upside-down or mirrored rectangles
+                // or non-integer values. Fix those here.
+                globalRect.x = Math.floor(Math.min(globalTopLeft.x, globalBottomRight.x));
+                globalRect.y = Math.floor(Math.min(globalTopLeft.y, globalBottomRight.y));
+                var globalWidth:Number = Math.ceil(Math.abs(globalBottomRight.x - globalTopLeft.x));
+                var globalHeight:Number = Math.ceil(Math.abs(globalBottomRight.y - globalTopLeft.y));
     
                 if (_visible && calcAncestorsVisible()) 
                 {
@@ -1564,12 +1603,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                     }
                     else
                     {
-                        // Transform the bottom-right corner of the local rect
-                        // instead of setting width/height to account for any
-                        // transformations applied to ancestor objects.
-                        globalRect.bottomRight = parent.localToGlobal(localViewPort.bottomRight);
-                        globalRect.width = Math.floor(globalRect.width);
-                        globalRect.height = Math.floor(globalRect.height);
+                        globalRect.width = globalWidth;
+                        globalRect.height = globalHeight;
                     }
                 }
                 
@@ -1762,7 +1797,10 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         super.focusInHandler(event);
         
         if (stageText != null && focusedStageText != stageText && effectiveEnabled)
+        {
+            requestSoftKeyboard();
             stageText.assignFocus();
+        }
     }
     
     //--------------------------------------------------------------------------
