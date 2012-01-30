@@ -18,7 +18,13 @@ import mx.core.UIComponent;
 import mx.utils.OnDemandEventDispatcher;
 
 /**
- * @private 
+ *  The OverrideBase class is the base class for the 
+ *  override classes used by view states. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class OverrideBase extends OnDemandEventDispatcher
 {
@@ -27,6 +33,14 @@ public class OverrideBase extends OnDemandEventDispatcher
     //  Constructor
     //
     //--------------------------------------------------------------------------
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
     public function OverrideBase() {}
     
     //--------------------------------------------------------------------------
