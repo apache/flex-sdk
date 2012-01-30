@@ -122,6 +122,7 @@ public class MobileApplicationBase extends Application
     
     private var currentViewMenu:ViewMenu; 
     private var lastFocus:InteractiveObject;
+    
     //----------------------------------
     //  activeView
     //----------------------------------
@@ -313,13 +314,16 @@ public class MobileApplicationBase extends Application
     }
     
     /**
-     * 
+     *  @private
+     *  This property is used to determine whether the application should 
+     *  exit when the back key is pressed.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    public function get exitApplicationOnBackKey():Boolean
+    mx_internal function get exitApplicationOnBackKey():Boolean
     {
         return true;   
     }
