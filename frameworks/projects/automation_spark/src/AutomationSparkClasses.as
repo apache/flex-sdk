@@ -27,6 +27,7 @@ package
 		import spark.automation.delegates.components.SparkButtonBarButtonAutomationImpl;SparkButtonBarButtonAutomationImpl;
 		import spark.automation.delegates.components.SparkCheckBoxAutomationImpl;SparkCheckBoxAutomationImpl;
 		import spark.automation.delegates.components.SparkComboBoxAutomationImpl;SparkComboBoxAutomationImpl;
+		import spark.automation.delegates.components.SparkDataGridAutomationImpl;SparkDataGridAutomationImpl;
 		import spark.automation.delegates.components.SparkDataGroupAutomationImpl;SparkDataGroupAutomationImpl;
 		import spark.automation.delegates.components.SparkDropDownListAutomationImpl;SparkDropDownListAutomationImpl;
 		import spark.automation.delegates.components.SparkFormAutomationImpl;SparkFormAutomationImpl;
@@ -47,6 +48,7 @@ package
 		import spark.automation.delegates.components.SparkTileGroupAutomationImpl;SparkTileGroupAutomationImpl;
 		import spark.automation.delegates.components.SparkTitleWindowAutomationImpl;SparkTitleWindowAutomationImpl;
 		import spark.automation.delegates.components.SparkVideoPlayerAutomationImpl;SparkVideoPlayerAutomationImpl;
+		import spark.automation.delegates.components.SparkRichEditableTextAutomationImpl;SparkRichEditableTextAutomationImpl;
 
 		import spark.automation.delegates.components.mediaClasses.SparkMuteButtonAutomationImpl;SparkMuteButtonAutomationImpl;
 		import spark.automation.delegates.components.mediaClasses.SparkVolumeBarAutomationImpl;SparkVolumeBarAutomationImpl;
@@ -64,10 +66,12 @@ package
 		import spark.automation.delegates.components.supportClasses.SparkToggleButtonBaseAutomationImpl;SparkToggleButtonBaseAutomationImpl;
 		import spark.automation.delegates.components.supportClasses.SparkSkinnableTextBaseAutomationImpl;SparkSkinnableTextBaseAutomationImpl;
 	
-		import spark.automation.delegates.components.SparkRichEditableTextAutomationImpl;SparkRichEditableTextAutomationImpl;
 		import spark.automation.delegates.skins.spark.SparkDefaultComplexItemRendererAutomationImpl;SparkDefaultComplexItemRendererAutomationImpl;
+		import spark.automation.delegates.skins.spark.SparkDefaultGridItemRendererAutomationImpl;SparkDefaultGridItemRendererAutomationImpl;
 		import spark.automation.delegates.skins.spark.SparkDefaultItemRendererAutomationImpl;SparkDefaultItemRendererAutomationImpl;
+		
 		import spark.automation.tabularData.SkinnableContainerTabularData;SkinnableContainerTabularData;
+		import spark.automation.tabularData.SparkDataGridTabularData;SparkDataGridTabularData;
 		
 		
 		//Maintain alphabetical order
