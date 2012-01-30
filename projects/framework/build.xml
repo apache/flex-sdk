@@ -199,6 +199,7 @@
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
                 <include name="textLayout.swc"/>
 			</external-library-path>
+			<load-config filename="framework-config.xml"/>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
 			<include-file name="defaults-3.0.0.css" path="${basedir}/defaults-3.0.0.css"/>
 			<include-file name="Assets.swf" path="${basedir}/assets/Assets.swf"/>
