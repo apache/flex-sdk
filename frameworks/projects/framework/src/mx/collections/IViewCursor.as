@@ -292,14 +292,10 @@ public interface IViewCursor extends IEventDispatcher
      *  <code>false</code> if the <code>current</code> value initially was or
      *  now is <code>beforeFirst</code>.
      *
-     *  @see #current
-     *  @see #moveNext()
-     *  @see mx.collections.errors.ItemPendingError
-     *
-     *  @example
+     *  For example:
      *  <pre>
      *  var myArrayCollection:ICollectionView = new ArrayCollection([ "Bobby", "Mark", "Trevor", "Jacey", "Tyler" ]);
-     *  var cursor:ICursor = myArrayCollection.createCursor();
+     *  var cursor:IViewCursor = myArrayCollection.createCursor();
      *  cursor.seek(CursorBookmark.last);
      *  while (!cursor.beforeFirst)
      *  {
@@ -307,6 +303,10 @@ public interface IViewCursor extends IEventDispatcher
      *      cursor.movePrevious();
      *  }
      *  </pre>
+     *
+     *  @see #current
+     *  @see #moveNext()
+     *  @see mx.collections.errors.ItemPendingError
      */
     function movePrevious():Boolean;
 
