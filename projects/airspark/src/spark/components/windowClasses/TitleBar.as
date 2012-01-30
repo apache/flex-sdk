@@ -427,7 +427,7 @@ public class TitleBar extends SkinnableComponent
      *  Button component could return the String "up", "down", "over", or "disabled" 
      *  to specify the state.
      * 
-     *  <p>A subclass of FxComponent must override this method to return a value.</p>
+     *  <p>A subclass of SkinnableComponent must override this method to return a value.</p>
      * 
      *  @return A string specifying the name of the state to apply to the skin.
      *  
