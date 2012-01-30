@@ -368,7 +368,7 @@ public class SortField extends EventDispatcher implements ISortField
     /**
      *  @inheritDoc
      *
-     *  @default false
+     *  @default null
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
