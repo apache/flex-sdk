@@ -21,6 +21,11 @@ import flash.events.ProgressEvent;
  *  by calling the <code>loadResourceModule()</code> method.
  *
  *  @see mx.resources.ResourceManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ResourceEvent extends ProgressEvent
 {
@@ -54,6 +59,11 @@ public class ResourceEvent extends ProgressEvent
      *  </table>
      *
      *  @eventType complete
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const COMPLETE:String = "complete";
     
@@ -81,6 +91,11 @@ public class ResourceEvent extends ProgressEvent
      *  </table>
      *
      *  @eventType error
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ERROR:String = "error";
 
@@ -108,6 +123,11 @@ public class ResourceEvent extends ProgressEvent
      *  </table>
      *
      *  @eventType progress
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const PROGRESS:String = "progress"; 
     
@@ -140,6 +160,11 @@ public class ResourceEvent extends ProgressEvent
      *
      *  @param errorText The error message of the error
      *  when <code>type</code> is <code>ResourceEvent.ERROR</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function ResourceEvent(type:String, bubbles:Boolean = false,
                                   cancelable:Boolean = false,
@@ -164,6 +189,11 @@ public class ResourceEvent extends ProgressEvent
     /**
      *  The error message if the <code>type</code> is <code>ERROR</code>;
      *  otherwise, it is <code>null</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var errorText:String;
     
