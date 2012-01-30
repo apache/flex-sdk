@@ -251,7 +251,7 @@ public class FlipViewTransition extends ViewTransitionBase
         // Snapshot the entire navigator.
         var oldVisibility:Boolean = endView.visible;
         endView.visible = false;
-        cachedNavigator = getSnapshot(targetNavigator, 0);
+        cachedNavigator = getSnapshot(targetNavigator, 0, cachedNavigatorGlobalPosition);
         endView.visible = oldVisibility;
     }
             
@@ -695,15 +695,16 @@ public class FlipViewTransition extends ViewTransitionBase
         // while we animate.
         transitionGroup = new Group();
         transitionGroup.includeInLayout = false;
+        transitionGroup.x = 0; 
+        transitionGroup.y = 0;
 
         // Add the transition group at the same index of the target navigator
         addComponentToContainerAt(transitionGroup, DisplayObject(targetNavigator).parent as UIComponent, navigatorProps.childIndex);
         
         transitionGroup.addElement(targetNavigator);
         cachedNavigator.includeInLayout = false;
-        transitionGroup.addElement(cachedNavigator);
+        addCachedElementToGroup(transitionGroup, cachedNavigator, cachedNavigatorGlobalPosition);
         
-        transitionGroup.x = transitionGroup.y = 0;
         transitionGroup.width = cachedNavigator.width;
         transitionGroup.height = cachedNavigator.height;
         
