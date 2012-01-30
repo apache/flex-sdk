@@ -299,10 +299,6 @@ public class SetProperty extends OverrideBase
                 propName = name;
             }
         }
-        else
-        {
-            propName = name;
-        }
         return propName;
     }
     
