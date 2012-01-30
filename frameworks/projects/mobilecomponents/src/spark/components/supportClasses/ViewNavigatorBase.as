@@ -13,6 +13,7 @@ package spark.components.supportClasses
 {
 import flash.display.StageOrientation;
 import flash.events.StageOrientationEvent;
+import flash.system.Capabilities;
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
 
@@ -21,11 +22,13 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.managers.SystemManager;
+import mx.utils.DensityUtil;
 
 import spark.components.SkinnableContainer;
 import spark.components.View;
 import spark.core.ContainerDestructionPolicy;
 import spark.events.DisplayLayerObjectExistenceEvent;
+import spark.utils.MultiDPIBitmapSource;
 
 use namespace mx_internal;
 
@@ -233,7 +236,7 @@ public class ViewNavigatorBase extends SkinnableContainer
     //  icon
     //----------------------------------
     
-    private var _icon:Class;
+    private var _icon:Object;
     
     /**
      *  The icon used when this navigator is represented
@@ -246,7 +249,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get icon():Class
+    public function get icon():Object
     {
         return _icon;    
     }
@@ -254,11 +257,11 @@ public class ViewNavigatorBase extends SkinnableContainer
     /**
      *  @private
      */
-    public function set icon(value:Class):void
+    public function set icon(value:Object):void
     {
         if (_icon != value)
         {
-            var oldValue:Class = _icon;
+            var oldValue:Object = _icon;
             _icon = value;
             
             if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
@@ -514,7 +517,26 @@ public class ViewNavigatorBase extends SkinnableContainer
      */
     public function saveViewData():Object
     {
-        return {label:label, iconClassName:getQualifiedClassName(icon)};
+        var iconData:Object = icon;
+        
+        if (iconData is MultiDPIBitmapSource)
+        {
+            var app:Object = FlexGlobals.topLevelApplication;
+            var dpi:int;
+            if ("runtimeDPI" in app)
+                dpi = app["runtimeDPI"];
+            else
+                dpi = DensityUtil.classifyDPI(Capabilities.screenDPI);
+
+            iconData = MultiDPIBitmapSource(iconData).getSource(dpi);
+        }
+        
+        if (iconData is Class)
+            return {label:label, iconClassName:getQualifiedClassName(iconData)};
+        if (iconData is String)
+            return {label:label, iconStringName: iconData};
+        
+        return {label:label};
     }
     
     /**
@@ -536,7 +558,7 @@ public class ViewNavigatorBase extends SkinnableContainer
         label = value.label;
         
         var iconClassName:String = value.iconClassName;
-        icon = (iconClassName == "null") ? null : getDefinitionByName(iconClassName) as Class;
+        icon = (iconClassName == "null") ? value.iconStringName : getDefinitionByName(iconClassName) as Class;
     }
     
     /**
