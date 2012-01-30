@@ -27,6 +27,7 @@ import flash.events.TimerEvent;
 import flash.net.URLLoader;
 import flash.net.URLLoaderDataFormat;
 import flash.net.URLRequest;
+import flash.system.ApplicationDomain;
 import flash.utils.Timer;
 
 import mx.core.mx_internal;
@@ -105,13 +106,38 @@ public class Preloader extends Sprite
 	/**
 	 *  @private
 	 */
+	private var resourceModuleListLoader:RSLListLoader;
+
+	/**
+	 *  @private
+	 */
 	private var rslDone:Boolean = false;
 	
 	/**
 	 *  @private
 	 */
+	private var loadingRSLs:Boolean = false;
+
+	/**
+	 *  @private
+	 */
+	private var waitingToLoadResourceModules:Boolean = false;
+
+	/**
+	 *  @private
+	 */
+	private var sentDocFrameReady:Boolean = false;
+
+	/**
+	 *  @private
+	 */
 	private var app:IEventDispatcher = null;
 	
+	/**
+	 *  @private
+	 */
+	private var applicationDomain:ApplicationDomain = null;
+
 	//--------------------------------------------------------------------------
 	//
 	//  Methods
@@ -166,13 +192,16 @@ public class Preloader extends Sprite
 							   libs:Array = null,
 							   sizes:Array = null,
 							   rslList:Array = null,
-							   resourceModuleURLs:Array = null):void
+							   resourceModuleURLs:Array = null,
+							   applicationDomain:ApplicationDomain = null):void
 	{
         if ((libs != null || sizes != null) && rslList != null)
         {
             // both args can't be used at the same time
             throw new Error("RSLs may only be specified by using libs and sizes or rslList, not both.");  // $NON-NLS-1$
         }
+
+		this.applicationDomain = applicationDomain;
 
 		root.loaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
 	
@@ -196,21 +225,23 @@ public class Preloader extends Sprite
 			}
 		}
 
+		var resourceModuleList:Array = [];
 		// Preloading resource modules is similar enough to loading RSLs
 		// that we can simply create ResourceModuleRSLItems for them
-		// and append these to the rslList.
 		if (resourceModuleURLs && resourceModuleURLs.length > 0)
 		{
 			n = resourceModuleURLs.length;
 			for (i = 0; i < n; i++)
 			{
 				var resourceModuleNode:ResourceModuleRSLItem =
-					new ResourceModuleRSLItem(resourceModuleURLs[i]);
-				rslList.push(resourceModuleNode);
+					new ResourceModuleRSLItem(resourceModuleURLs[i], applicationDomain);
+				resourceModuleList.push(resourceModuleNode);
 			}
 		}
 
         rslListLoader = new RSLListLoader(rslList);
+		if (resourceModuleList.length)
+			resourceModuleListLoader = new RSLListLoader(resourceModuleList);
 		
 		this.showDisplay = showDisplay;
 
@@ -249,6 +280,25 @@ public class Preloader extends Sprite
 							   mx_internal::rslErrorHandler,
 							   mx_internal::rslErrorHandler,
 							   mx_internal::rslErrorHandler);
+			loadingRSLs = true;
+		}
+		else if (resourceModuleListLoader && resourceModuleListLoader.getItemCount() > 0)
+		{
+			if (applicationDomain.hasDefinition("mx.resources::ResourceManager"))
+			{
+				rslListLoader = resourceModuleListLoader;
+				// Start loading the resourceModules
+				rslListLoader.load(mx_internal::rslProgressHandler,
+								   mx_internal::rslCompleteHandler,
+								   mx_internal::rslErrorHandler,
+								   mx_internal::rslErrorHandler,
+								   mx_internal::rslErrorHandler);
+			}
+			else
+			{
+				waitingToLoadResourceModules = true;
+				rslDone = true;
+			}
 		}
 		else
 		{
@@ -328,6 +378,7 @@ public class Preloader extends Sprite
 	    
 	    
 		var rslEvent:RSLEvent = new RSLEvent(RSLEvent.RSL_PROGRESS);
+		rslEvent.isResourceModule = (rslListLoader == resourceModuleListLoader);
 		rslEvent.bytesLoaded = event.bytesLoaded;
 		rslEvent.bytesTotal = event.bytesTotal;
 		rslEvent.rslIndex = index;
@@ -345,7 +396,9 @@ public class Preloader extends Sprite
 	{
 	    var index:int = rslListLoader.getIndex();
 	    var item:RSLItem = rslListLoader.getItem(index);
+
 		var rslEvent:RSLEvent = new RSLEvent(RSLEvent.RSL_COMPLETE);
+		rslEvent.isResourceModule = (rslListLoader == resourceModuleListLoader);
 		rslEvent.bytesLoaded = item.total;
 		rslEvent.bytesTotal = item.total;
 		rslEvent.rslIndex = index;
@@ -353,6 +406,13 @@ public class Preloader extends Sprite
 		rslEvent.url = item.urlRequest;
 		dispatchEvent(rslEvent);
 		
+		if (loadingRSLs && resourceModuleListLoader && index + 1 == rslEvent.rslTotal)
+		{
+			loadingRSLs = false;
+			waitingToLoadResourceModules = true;
+			// timer will switch over to loading resource modules
+		}
+
 		rslDone = (index + 1 == rslEvent.rslTotal);
 	}
 		
@@ -366,6 +426,7 @@ public class Preloader extends Sprite
 	    var index:int = rslListLoader.getIndex();
 	    var item:RSLItem = rslListLoader.getItem(index);
 		var rslEvent:RSLEvent = new RSLEvent(RSLEvent.RSL_ERROR);
+		rslEvent.isResourceModule = (rslListLoader == resourceModuleListLoader);
 		rslEvent.bytesLoaded = 0;
 		rslEvent.bytesTotal = 0;
 		rslEvent.rslIndex = index;
@@ -402,20 +463,62 @@ public class Preloader extends Sprite
 		dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS,
 										false, false, loaded, total));
 
+		if (waitingToLoadResourceModules)
+		{
+			if (applicationDomain.hasDefinition("mx.resources::ResourceManager"))
+			{
+				waitingToLoadResourceModules = false;
+				rslListLoader = resourceModuleListLoader;
+				rslDone = false;
+				// Start loading the resourceModules
+				rslListLoader.load(mx_internal::rslProgressHandler,
+								   mx_internal::rslCompleteHandler,
+								   mx_internal::rslErrorHandler,
+								   mx_internal::rslErrorHandler,
+								   mx_internal::rslErrorHandler);
+			}
+		}
+
 		// Check if we are finished
 		if (rslDone &&
 			((loaded >= total && total > 0) || (total == 0 && loaded > 0) || (root is MovieClip && (MovieClip(root).totalFrames > 2) && (MovieClip(root).framesLoaded >= 2)) ))
 		{
+			if (!sentDocFrameReady)
+			{
+				sentDocFrameReady = true;
+				// Dispatch a Frame1 done event.
+				dispatchEvent(new FlexEvent(FlexEvent.PRELOADER_DOC_FRAME_READY));
+				return;
+			}
+
+			if (waitingToLoadResourceModules)
+			{
+				if (applicationDomain.hasDefinition("mx.resources::ResourceManager"))
+				{
+					waitingToLoadResourceModules = false;
+					rslListLoader = resourceModuleListLoader;
+					rslDone = false;
+					// Start loading the resourceModules
+					rslListLoader.load(mx_internal::rslProgressHandler,
+									   mx_internal::rslCompleteHandler,
+									   mx_internal::rslErrorHandler,
+									   mx_internal::rslErrorHandler,
+									   mx_internal::rslErrorHandler);
+					return;
+				}
+			}
+
 			timer.removeEventListener(TimerEvent.TIMER, timerHandler);
 			
 			// Stop the timer.
 			timer.reset();
-			
+		
 			// Dispatch a complete event.
 			dispatchEvent(new Event(Event.COMPLETE));
 			
 			// Dispatch an initProgress event.
 			dispatchEvent(new FlexEvent(FlexEvent.INIT_PROGRESS));
+
 		}
 	}
 
