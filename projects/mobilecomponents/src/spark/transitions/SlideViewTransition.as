@@ -312,15 +312,23 @@ public class SlideViewTransition extends ViewTransition
             
             if (targetNavigator is TabbedViewNavigator)
             {
-                targets.push(TabbedViewNavigator(targetNavigator).tabBar);
-                explicitIncludeInLayout = TabbedViewNavigator(targetNavigator).tabBar.includeInLayout; 
-                TabbedViewNavigator(targetNavigator).tabBar.includeInLayout = false;
+                var tabBar:ButtonBarBase = TabbedViewNavigator(targetNavigator).tabBar;
+                
+                if (tabBar)
+                {
+                    targets.push(tabBar);
+                    explicitIncludeInLayout = tabBar.includeInLayout; 
+                    tabBar.includeInLayout = false;
+                }
             }
             else if (targetNavigator is ViewNavigator)
             {
-                targets.push(ViewNavigator(targetNavigator).actionBar);
-                explicitIncludeInLayout = ViewNavigator(targetNavigator).actionBar.includeInLayout; 
-                ViewNavigator(targetNavigator).actionBar.includeInLayout = false;
+                if (actionBar)
+                {
+                    targets.push(actionBar);
+                    explicitIncludeInLayout = actionBar.includeInLayout; 
+                    actionBar.includeInLayout = false;
+                }
             }
             
             if (cachedNavigator)
@@ -397,13 +405,15 @@ public class SlideViewTransition extends ViewTransition
             
             if (targetNavigator is TabbedViewNavigator)
             {
-                TabbedViewNavigator(targetNavigator).tabBar.includeInLayout = 
-                    explicitIncludeInLayout;
+                var tabBar:ButtonBarBase = TabbedViewNavigator(targetNavigator).tabBar;
+                
+                if (tabBar)
+                    tabBar.includeInLayout = explicitIncludeInLayout;
             }
             else if (targetNavigator is ViewNavigator)
             {
-                ViewNavigator(targetNavigator).actionBar.includeInLayout = 
-                    explicitIncludeInLayout;
+                if (actionBar)
+                    actionBar.includeInLayout = explicitIncludeInLayout;
             }
         }
         else
@@ -428,7 +438,9 @@ public class SlideViewTransition extends ViewTransition
             if (actionBar && actionBar.titleDisplay
                 && (actionBar.titleDisplay is DisplayObject)
                 && DisplayObject(actionBar.titleDisplay).visible)
+            {
                 DisplayObject(actionBar.titleDisplay).cacheAsBitmap = false;
+            }
             
             if (cachedTitleGroup)
                 removeComponentFromContainerSkin(cachedTitleGroup, actionBar.skin);
@@ -633,12 +645,17 @@ public class SlideViewTransition extends ViewTransition
         if (targetNavigator == parentNavigator)
         {
             if (targetNavigator is TabbedViewNavigator)
-                TabbedViewNavigator(targetNavigator).tabBar.x = -slideDistance;
+            {
+                var tabBar:ButtonBarBase = TabbedViewNavigator(targetNavigator).tabBar;
+                
+                if (tabBar)
+                    tabBar.x = -slideDistance;
+            }
         }
         else
         {
-            if (targetNavigator is ViewNavigator)
-                ViewNavigator(targetNavigator).actionBar.x = -slideDistance;
+            if (targetNavigator is ViewNavigator && actionBar)
+                actionBar.x = -slideDistance;
         }
         
         targetNavigator.contentGroup.x = -slideDistance;
