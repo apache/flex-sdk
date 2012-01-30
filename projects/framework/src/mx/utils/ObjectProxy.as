@@ -508,6 +508,9 @@ public dynamic class ObjectProxy extends Proxy
      *  the server flex.messaging.io.ObjectProxy instance serializes itself
      *  as a Map that will be returned as a plain ActionScript object. 
      *  You can then set the object_proxy object property to this value.
+     *
+     *  @param input The source object from which the ObjectProxy is
+     *  deserialized. 
      */
     public function readExternal(input:IDataInput):void
     {
@@ -518,7 +521,11 @@ public dynamic class ObjectProxy extends Proxy
     /**
      *  Since Flex only serializes the inner ActionScript object that it wraps,
      *  the server flex.messaging.io.ObjectProxy populates itself
-     *  with this anonymous object's contents and appears to the user as a Map.
+     *  with this anonymous object's contents and appears to the user
+     *  as a Map.
+     *
+     *  @param output The source object from which the ObjectProxy is
+     *  deserialized.
      */
     public function writeExternal(output:IDataOutput):void
     {
