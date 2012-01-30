@@ -42,7 +42,7 @@
          *  Exclude the titleBar and scroller because they are SparkSkins and we 
          *  don't want to colorize them twice.
          */
-        static private const exclusions:Array = ["background", "bgFill", "titleIconImage", "titleText"];
+        static private const exclusions:Array = ["titleIconImage", "titleText"];
         /**
          *  @inheritDoc
          */
