@@ -44,6 +44,7 @@ internal class FrameworkClasses
 	import mx.containers.utilityClasses.FlexChildInfo; FlexChildInfo;
 	import mx.containers.utilityClasses.IConstraintLayout; IConstraintLayout;
 	import mx.controls.colorPickerClasses.WebSafePalette; WebSafePalette;
+	import mx.controls.listClasses.IDropInListItemRenderer; IDropInListItemRenderer;
 	import mx.controls.listClasses.IListItemRenderer; IListItemRenderer;
 	import mx.core.BitmapAsset; BitmapAsset;
 	import mx.core.ButtonAsset; ButtonAsset;
@@ -62,6 +63,7 @@ internal class FrameworkClasses
 	import mx.core.INavigatorContent; INavigatorContent;
 	import mx.core.ISelectableList; ISelectableList;
 	import mx.core.ISystemCursorClient; ISystemCursorClient;
+	import mx.core.ITextInput; ITextInput;
 	import mx.core.IUID; IUID;
 	import mx.core.MovieClipAsset; MovieClipAsset;
 	import mx.core.MovieClipLoaderAsset; MovieClipLoaderAsset;
