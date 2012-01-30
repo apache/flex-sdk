@@ -179,8 +179,41 @@ public class ParallelInstance extends CompositeEffectInstance
             var instances:Array = childSets[i];            
             var m:int = instances.length;
             for (var j:int = 0; j < m; j++)
-                instances[j].playheadTime = childPlayheadTime;
+                instances[j].playheadTime = playReversed ?
+                    Math.max(0, (childPlayheadTime - 
+                                 (durationWithoutRepeat - instances[j].actualDuration))) :
+                    childPlayheadTime;
         }
+
+        // Add any effects waiting on the replayQueue, which holds the
+        // effects waiting to be played at the right time when reversing
+        if (playReversed && replayEffectQueue != null && replayEffectQueue.length > 0)
+        {
+            var position:Number = durationWithoutRepeat - playheadTime;
+            var numDone:int = replayEffectQueue.length;	        
+            for (i = numDone - 1; i >= 0; i--)
+            {
+                var childEffect:EffectInstance = replayEffectQueue[i];
+                
+                // If the position is less than the child duration, then
+                // we must be either in or past the child effect, so we 
+                // should start that effect
+                if (position <= childEffect.actualDuration)
+                {
+                    // Move the effect from the done queue back onto the active one
+                    if (activeEffectQueue == null)
+                        activeEffectQueue = [];
+                    activeEffectQueue.push(childEffect);
+                    replayEffectQueue.splice(i,1);
+                    
+                    childEffect.playReversed = playReversed;
+                    childEffect.startEffect();
+                    // Note that we've already set the playheadTime on these
+                    // queued effects in the previous loop on childSets
+                }
+            }
+        }
+        
     }
 
 	//--------------------------------------------------------------------------
@@ -547,6 +580,8 @@ public class ParallelInstance extends CompositeEffectInstance
 			if (position <= childEffect.actualDuration)
 			{
 				// Move the effect from the done queue back onto the active one
+                if (activeEffectQueue == null)
+                    activeEffectQueue = [];
 				activeEffectQueue.push(childEffect);
 				replayEffectQueue.splice(i,1);
 				
