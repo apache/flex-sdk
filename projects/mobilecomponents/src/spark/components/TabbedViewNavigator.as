@@ -400,7 +400,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         var contentArray:Array = new Array();
         
         for each (var navigator:ViewNavigatorBase in value)
+        {
             contentArray.push(navigator);
+            setupNavigator(navigator);
+        }
         
         mxmlContent = contentArray;
         
