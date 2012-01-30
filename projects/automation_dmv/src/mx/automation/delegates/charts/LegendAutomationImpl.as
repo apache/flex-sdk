@@ -17,7 +17,7 @@ package mx.automation.delegates.charts
 	
 	import mx.automation.Automation;
 	import mx.automation.IAutomationObjectHelper;
-	import mx.automation.delegates.core.ContainerAutomationImpl;
+	import mx.automation.delegates.core.UIComponentAutomationImpl;
 	import mx.charts.Legend;
 	import mx.charts.events.LegendMouseEvent;
 	
@@ -35,7 +35,7 @@ package mx.automation.delegates.charts
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public class LegendAutomationImpl extends ContainerAutomationImpl 
+	public class LegendAutomationImpl extends UIComponentAutomationImpl 
 	{
 		include "../../../core/Version.as";
 		
