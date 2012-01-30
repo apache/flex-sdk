@@ -104,8 +104,6 @@ public class CompositeEffect extends Effect
         super(target);
         
         instanceClass = CompositeEffectInstance;
-        
-        mx_internal::applyTransitionEndProperties = true;
     }   
     
     //--------------------------------------------------------------------------
