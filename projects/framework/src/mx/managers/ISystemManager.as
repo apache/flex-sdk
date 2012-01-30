@@ -166,7 +166,7 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
     //----------------------------------
 
 	/**
-	 *  The LoaderInfo object that represents information about the application.
+	 *  True if the ISystemManager is a proxy and not a root class.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
