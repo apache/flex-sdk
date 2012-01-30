@@ -49,7 +49,6 @@ internal class FrameworkClasses
 	import mx.core.FlexLoader; FlexLoader;
 	import mx.core.FontAsset; FontAsset;
 	import mx.core.IDeferredInstance; IDeferredInstance;
-	import mx.core.IID; IID;
 	import mx.core.IUID; IUID;
 	import mx.core.MovieClipAsset; MovieClipAsset;
 	import mx.core.MovieClipLoaderAsset; MovieClipLoaderAsset;
