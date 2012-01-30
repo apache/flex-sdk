@@ -149,6 +149,8 @@ global
     trackingRight: 0;
     typographicCase: "default";
     unfocusedTextSelectionColor: #E8E8E8;
+    showErrorSkin: true;
+    showErrorTip: true;
 	useRollOver: true;
 	version: "4.0.0";
 	verticalAlign: "top";
