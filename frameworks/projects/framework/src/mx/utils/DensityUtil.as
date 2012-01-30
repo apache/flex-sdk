@@ -12,6 +12,8 @@
 package mx.utils
 {
 import mx.core.DPIClassification;
+import mx.core.RuntimeDPIProvider;
+import mx.core.Singleton;
 
 [ExcludeClass]
 
@@ -28,50 +30,55 @@ import mx.core.DPIClassification;
 public class DensityUtil
 {
     /**
-     *  Matches the specified DPI to a <code>DPIClassification</code> value.
-     *
-     *  Flex uses this method to calculate the current dpi value when an Application
-     *  authored for a specific dpi is adapted to the current one through scaling.
-     * 
-     *  A number of devices can have slightly different DPI values and Flex maps these
-     *  into the several dpi buckets.
-     * 
-     *  Flex uses the <code>flash.system.Capabilities.screenDPI</code> to calculate the
-     *  current device dpi.
-     * 
-     *  @param dpi The DPI value.  
-     *  @return The corresponding <code>DPIClassification</code> value.
-     * 
-     *  @see #getDPIScale 
-     *  @see mx.core.DPIClassification
+     *  Cached runtimeDPI value, which is computed from the runtimeDPIProvider class.
      */
-    public static function classifyDPI(dpi:Number):int
+    private static var runtimeDPI:Number;
+    
+    /**
+     *  Returns the current runtimeDPI value which is calculated by 
+     *  an instance of the runtimeDPIProvider class.
+     *  If a runtimeDPIProvider class is not provided to the Application,
+     *  Flex uses the default class, RuntimeDPIProvider.
+     *
+     *  @see #getDPIScale 
+     *  @see mx.core.RuntimeDPIProvider
+     */
+    public static function getRuntimeDPI():Number
     {
-        if (dpi < 200)
-            return DPIClassification.DPI_160;
+        if (!isNaN(runtimeDPI))
+            return runtimeDPI;
         
-        if (dpi <= 280)
-            return DPIClassification.DPI_240;
+        var runtimeDPIProviderClass:Class = Singleton.getClass("mx.core::RuntimeDPIProvider");
         
-        return DPIClassification.DPI_320; 
+        // Default to RuntimeDPIProvider
+        if (!runtimeDPIProviderClass)
+            runtimeDPIProviderClass = RuntimeDPIProvider;
+        
+        var instance:RuntimeDPIProvider = (new runtimeDPIProviderClass()) as RuntimeDPIProvider;
+        if (!instance)
+            return NaN;
+        
+        runtimeDPI = instance.runtimeDPI;
+        
+        return runtimeDPI;
     }
     
     /**
      *  Calculates a scale factor to be used when element authored for 
      *  <code>sourceDPI</code> is rendered at <code>targetDPI</code>.
      *  
-     *  @param sourceDPI The <code>DPIClassification</code> value for which a
-     *  resource is optimized.
+     *  @param sourceDPI The <code>DPIClassification</code> dpi value for which
+     *  a resource is optimized.
      * 
      *  @param targetDPI The <code>DPIClassification</code> dpi value at
      *  which a resource is rendered.
      * 
      *  @return The scale factor to be applied to the resource at render time.
      *
-     *  @see #classifyDPI
+     *  @see #getRuntimeDPI
      *  @see mx.core.DPIClassification
      */
-    public static function getDPIScale(sourceDPI:int, targetDPI:int):Number
+    public static function getDPIScale(sourceDPI:Number, targetDPI:Number):Number
     {
         // Unknown dpi returns NaN
         if ((sourceDPI != DPIClassification.DPI_160 && sourceDPI != DPIClassification.DPI_240 && sourceDPI != DPIClassification.DPI_320) ||
@@ -80,7 +87,7 @@ public class DensityUtil
             return NaN;
         }
 
-        return Number(targetDPI) / Number(sourceDPI);
+        return targetDPI / sourceDPI;
     }
 }
 
