@@ -134,6 +134,7 @@ public class UIComponentAccProps extends AccessibilityProperties
                 name = formName + name;  
 
             if (master.toolTip && master.toolTip.length != 0)
+                if (!component.accessibilityProperties || (component.accessibilityProperties && !component.accessibilityProperties.name))
             {
                 oldToolTip = " " + master.toolTip;
                 name += oldToolTip;
@@ -249,11 +250,14 @@ public class UIComponentAccProps extends AccessibilityProperties
 
                 if (master.toolTip && master.toolTip.length != 0)
                 {
-                    if (!name)
-                        name = "";
+                    if (!master.accessibilityProperties || (master.accessibilityProperties && !master.accessibilityProperties.name))
+                    {
+                        if (!name)
+                            name = "";
 
-                    oldToolTip = " " + master.toolTip;
-                    name += oldToolTip;
+                        oldToolTip = " " + master.toolTip;
+                        name += oldToolTip;
+                    }
                 }
 
                 Accessibility.updateProperties();
