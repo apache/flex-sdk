@@ -2347,47 +2347,7 @@ public dynamic class UIMovieClip extends MovieClip
         invalidateTransform();
         //invalidateProperties();
     }
-
-    //----------------------------------
-    //  mirror
-    //----------------------------------
-
-    public function get mirror():Boolean
-    {
-        return _layoutFeatures && _layoutFeatures.mirror;
-    }
     
-    public function set mirror(value:Boolean):void
-    {
-        if (value == mirror)
-            return;
-
-        if (value == mirror)
-            return;
-            
-        if (_layoutFeatures == null)
-            initAdvancedLayoutFeatures();
-        _layoutFeatures.mirror = value;
-        invalidateTransform();
-    }
-
-    //----------------------------------
-    //  dir
-    //----------------------------------
-
-    private var _dir:String;
-    
-    public function get dir():String
-    {
-        return _dir;
-    }
-    
-    public function set dir(value:String):void
-    {
-        _dir = value;
-        // TBD
-    }
-
     //--------------------------------------------------------------------------
     //
     //  IToolTipManagerClient properties
@@ -3222,7 +3182,6 @@ public dynamic class UIMovieClip extends MovieClip
         features.layoutX = x;
         features.layoutY = y;
         features.layoutZ = z;
-	features.layoutWidth = width;
         _layoutFeatures = features;
         invalidateTransform();
     }
