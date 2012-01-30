@@ -13,6 +13,7 @@ package spark.transitions
 {
     
 import flash.display.DisplayObject;
+import flash.events.Event;
 import flash.geom.Point;
 
 import mx.core.IVisualElement;
@@ -149,6 +150,32 @@ public class SlideViewTransition extends ViewTransitionBase
      *  @private
      */
     private var transitionGroup:Group;
+    
+    /**
+     *  @private
+     *  Indicates whether the end view needs explicit validations during the 
+     *  transition, which will be the case when the view is in advanced 
+     *  layout mode.
+     */ 
+    private var endViewNeedsValidations:Boolean;
+    
+    /**
+     *  @private
+     *  Indicates whether the start view needs explicit validations during the 
+     *  transition, which will be the case when the view is in advanced 
+     *  layout mode.
+     */ 
+    private var startViewNeedsValidations:Boolean;
+    
+    /**
+     *  @private
+     */ 
+    private var moveEffect:Move;
+    
+    /**
+     *  @private
+     */ 
+    private var consolidatedEffect:Animate;
     
     //--------------------------------------------------------------------------
     //
@@ -317,6 +344,9 @@ public class SlideViewTransition extends ViewTransitionBase
 
         var slideTargets:Array = new Array();
         
+        endViewNeedsValidations = false;
+        startViewNeedsValidations = false;
+        
         if (startView)
         {
             startViewProps = { includeInLayout:startView.includeInLayout,
@@ -335,7 +365,11 @@ public class SlideViewTransition extends ViewTransitionBase
             }
             
             if (mode != SlideViewTransitionMode.COVER)
+            {
+                if (startView.transformRequiresValidations())
+                    startViewNeedsValidations = true;
                 slideTargets.push(startView);
+            }
         }
         
         if (endView)
@@ -356,7 +390,11 @@ public class SlideViewTransition extends ViewTransitionBase
             }
                 
             if (mode != SlideViewTransitionMode.UNCOVER)
+            {
+                if (endView.transformRequiresValidations())
+                    endViewNeedsValidations = true;
                 slideTargets.push(endView);
+            }
             
             if (mode == SlideViewTransitionMode.UNCOVER)
                 setComponentChildIndex(endView, navigator, 0);  
@@ -409,9 +447,23 @@ public class SlideViewTransition extends ViewTransitionBase
             animation.yBy = slideDistance + slideOffset;
         else
             animation.xBy = slideDistance + slideOffset;
+        if (startViewNeedsValidations || endViewNeedsValidations)
+            animation.addEventListener("effectUpdate", effectUpdateHandler);
+        moveEffect = animation;
         return animation;
     }
         
+    private function effectUpdateHandler(e:Event):void
+    {
+        // Note that the calls to validateDisplayList here should
+        // really only result in validateMatrix, which is fairly
+        // lightweight.
+        if (startViewNeedsValidations)
+            startView.validateDisplayList();
+        if (endViewNeedsValidations)
+            endView.validateDisplayList();
+    }
+    
     /**
      *  @private
      * 
@@ -425,6 +477,9 @@ public class SlideViewTransition extends ViewTransitionBase
         // the start of our transition, ensuring that they are cached as 
         // surfaces, and adjust z-order if necessary.
         var slideTargets:Array = new Array();
+        
+        endViewNeedsValidations = false;
+        startViewNeedsValidations = false;
         
         // Remove the navigator's contentGroup from layout
         navigatorProps.navigatorContentGroupIncludeInLayout = navigator.contentGroup.includeInLayout;
@@ -444,10 +499,18 @@ public class SlideViewTransition extends ViewTransitionBase
         // Add the necessary views to the slide targets array.  When in PUSH mode,
         // both start and end views are added.
         if (startView && mode == SlideViewTransitionMode.PUSH)
+        {
+            if (startView.transformRequiresValidations())
+                startViewNeedsValidations = true;
             slideTargets.push(startView);
+        }
         
         if (mode != SlideViewTransitionMode.UNCOVER)
+        {
+            if (endView.transformRequiresValidations())
+                endViewNeedsValidations = true;
             slideTargets.push(endView);
+        }
         
         // Ensure the views are in the right stacking order based on our
         // transition mode (cover vs. uncover for instance).
@@ -552,22 +615,22 @@ public class SlideViewTransition extends ViewTransitionBase
                 if (mode != SlideViewTransitionMode.UNCOVER)
                 {
                     slideTargets.push(tabBar);
-                    
+                
                     // When Uncovering, the cachedTabBar is not needed because the transition
                     // animates a cachedBitamp
-                    if (cachedTabBar)
-                    {
+                if (cachedTabBar)
+                {
                         localPos = transitionGroup.globalToLocal(cachedTabBarGlobalPosition);
                         
-                        // Need to removed the 4 pixel buffer
+                    // Need to removed the 4 pixel buffer
                         cachedTabBar.x = localPos.x;
                         cachedTabBar.y = localPos.y;
                     
-                        cachedTabBar.includeInLayout = false;
-                        transitionGroup.addElement(cachedTabBar);
-                    }
+                    cachedTabBar.includeInLayout = false;
+                    transitionGroup.addElement(cachedTabBar);
                 }
             }
+        }
         }
         
         var slideDistance:Number;
@@ -644,6 +707,9 @@ public class SlideViewTransition extends ViewTransitionBase
         animate.duration = duration;
         animate.easer = easer;
         animate.targets = slideTargets;
+        if (startViewNeedsValidations || endViewNeedsValidations)
+            animate.addEventListener("effectUpdate", effectUpdateHandler);
+        consolidatedEffect = animate;
         return animate;
     }
     
@@ -684,6 +750,8 @@ public class SlideViewTransition extends ViewTransitionBase
                 }
                 endViewProps = null;
             }
+            moveEffect.removeEventListener("effectUpdate", effectUpdateHandler);
+            moveEffect = null;
         }
         else
         {
@@ -738,6 +806,8 @@ public class SlideViewTransition extends ViewTransitionBase
                     removeComponentFromContainer(transitionGroup, targetNavigator.skin);
                 }
             }
+            consolidatedEffect.removeEventListener("effectUpdate", effectUpdateHandler);
+            consolidatedEffect = null;
         }
 
         transitionGroup = null;
