@@ -584,8 +584,11 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         // If a Stage* object (such as StageText or StageWebView) has focus,
         // stage.focus will be set to null. Much of the focus framework is not
         // set up to handle this. So, if stage.focus is null, we return the last
-        // IFocusManagerComponent that had focus.
-        if (!o && _lastFocus)
+        // IFocusManagerComponent that had focus.  In ADL, focus works slightly
+        // different than it does on device when using StageText.  In ADL, when
+        // the focus is a StageText component, a TextField whose parent is the 
+        // stage is assigned focus.  
+        if ((!o && _lastFocus) || (o is TextField && o.parent == stage))
             return _lastFocus;
         
         return findFocusManagerComponent(o);
