@@ -123,6 +123,11 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	/**
 	 *  @private
 	 */
+	private var _downloadComplete:Boolean = false;
+
+	/**
+	 *  @private
+	 */
 	private var _displayStartCount:uint = 0; 
 
 	/**
@@ -594,6 +599,9 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 */
 	protected function setDownloadProgress(completed:Number, total:Number):void
 	{
+        if (!_barFrameSprite)
+            return;
+
 		const outerHighlightColors:Array = [0xFFFFFF, 0xFFFFFF];
 		const outerHighlightAlphas:Array = [0.12, 0.80];
 		const fillColors:Array = [0xA9A9A9, 0xBDBDBD];
@@ -626,6 +634,9 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 		g.lineTo(2, 2);
 		g.lineTo(w - 2, 2);
 		g.lineTo(w - 2, h - 1);
+
+        if (completed == total)
+            _downloadComplete = true
 	}
 	
 	
@@ -678,6 +689,24 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 */
 	private function show():void
 	{
+        // swfobject reports 0 sometimes at startup
+        // if we get zero, wait and try on next attempt
+        if (stageWidth == 0 && stageHeight == 0)
+        {
+            try
+            {
+                stageWidth = stage.stageWidth;
+                stageHeight = stage.stageHeight
+            }
+            catch (e:Error)
+            {
+                stageWidth = loaderInfo.width;
+                stageHeight = loaderInfo.height;
+            }
+            if (stageWidth == 0 && stageHeight == 0)
+                return;
+        }
+
 		_showingDisplay = true;
 		createChildren();
 	}
@@ -1003,6 +1032,11 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 
 		if (_showingDisplay)
 		{
+            // if show() did not actually show because of SWFObject bug
+            // then we may need to draw the download bar background here
+            if (!_downloadComplete)
+    			setDownloadProgress(100, 100);
+
 			setInitProgress(_initProgressCount, initProgressTotal);
 		}
 	}
