@@ -1125,6 +1125,13 @@ public class StyleableTextField extends TextField
 			// Early exit if the event isn't a SCROLL event or doesn't have a Scroller
 			if (event.reason != TouchInteractionReason.SCROLL || !scroller)
 				return;
+            
+            // if already in text selection mode with another scroller, cancel this scroller
+            if (scrollerInTextSelectionMode)
+            {
+                event.preventDefault();
+                return;
+            }
 			
 			var minVScrollPos:Number;
 			var maxVScrollPos:Number;
@@ -1162,6 +1169,7 @@ public class StyleableTextField extends TextField
 			maxHScrollPos = pt.x - scroller.width;
 			maxVScrollPos = pt.y - scroller.height;
 			
+            scrollerInTextSelectionMode = scroller;
 			scroller.enableTextSelectionAutoScroll(true, minHScrollPos, maxHScrollPos,
 				minVScrollPos, maxVScrollPos);
 		}
@@ -1192,6 +1200,7 @@ public class StyleableTextField extends TextField
 			var scroller:Scroller = event.relatedObject as Scroller;
 			
 			// Turn off text selection auto-scroll.
+            scrollerInTextSelectionMode = null;
 			if (scroller)
 				scroller.enableTextSelectionAutoScroll(false);
 		}
@@ -1825,7 +1834,14 @@ public class StyleableTextField extends TextField
 	 *  @private
 	 */
 	private var _baselineBottomOffset:Number;
-	
+    
+    /**
+     *  @private
+     *  Used to keep track if this StyleableTextField is already in "scrolling mode"
+     *  and what scroller it is using to scroll.  This is so we can respond appropriately 
+     *  to other touchInteractionStarting and touchInteractionEnd events.
+     */
+    private var scrollerInTextSelectionMode:Scroller;
 	
     /**
      *  @private
