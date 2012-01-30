@@ -15,6 +15,11 @@ package mx.effects
 import mx.effects.effectClasses.BlurInstance;
 
 /**
+ *  In Flex 4, use the AnimateFilter effect with a Blur bitmap filter.
+ */
+[Alternative(replacement="spark.effects.AnimateFilter", since="4.0")]
+
+/**
  *  The Blur effect lets you apply a blur visual effect to a component. 
  *  A Blur effect softens the details of an image. 
  *  You can produce blurs that range from a softly unfocused look to a Gaussian
