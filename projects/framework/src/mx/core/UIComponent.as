@@ -9907,10 +9907,15 @@ public class UIComponent extends FlexSprite
     {
         if(_layoutFeatures != null)
         {
-            return _layoutFeatures.layoutMatrix;            
+			// esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+			// since this is an internal class, we don't need to worry about developers
+			// accidentally messing with this matrix, _unless_ we hand it out. Instead,
+			// we hand out a clone.
+            return _layoutFeatures.layoutMatrix.clone();            
         }
         else
         {
+        	// flash also returns copies.
             return super.transform.matrix;
         }
     }
@@ -9922,11 +9927,14 @@ public class UIComponent extends FlexSprite
     {
         if(_layoutFeatures == null)
         {
+        	// flash will make a copy of this on assignment.
             super.transform.matrix = value;
             invalidateSize();
         }
         else
         {
+	        // layout features will internally make a copy of this matrix rather than
+    	    // holding onto a reference to it.
             _layoutFeatures.layoutMatrix = value;
             invalidateTransform();
             invalidateParentSizeAndDisplayList();
@@ -9945,6 +9953,8 @@ public class UIComponent extends FlexSprite
         }
         else
         {
+	        // layout features will internally make a copy of this matrix rather than
+    	    // holding onto a reference to it.
             _layoutFeatures.layoutMatrix = value;
             invalidateTransform(false /*triggerPropertyInvalidation*/);
         }
@@ -9958,6 +9968,8 @@ public class UIComponent extends FlexSprite
     {
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
+        // layout features will internally make a copy of this matrix rather than
+   	    // holding onto a reference to it.
         _layoutFeatures.layoutMatrix3D = value;
         invalidateTransform(false /*triggerPropertyInvalidation*/);
     }
@@ -10014,6 +10026,9 @@ public class UIComponent extends FlexSprite
     public function set layoutMatrix3D(value:Matrix3D):void
     {
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        
+        // layout features will internally make a copy of this matrix rather than
+        // holding onto a reference to it.
         _layoutFeatures.layoutMatrix3D = value;
         invalidateTransform();
         invalidateParentSizeAndDisplayList();
@@ -10025,7 +10040,11 @@ public class UIComponent extends FlexSprite
     public function get layoutMatrix3D():Matrix3D
     {
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
-        return _layoutFeatures.layoutMatrix3D;          
+		// esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+		// since this is an internal class, we don't need to worry about developers
+		// accidentally messing with this matrix, _unless_ we hand it out. Instead,
+		// we hand out a clone.
+        return _layoutFeatures.layoutMatrix3D.clone();          
     }
 
 
