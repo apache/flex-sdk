@@ -23,29 +23,30 @@ import mx.managers.ISystemManager;
 [ExcludeClass]
 
 /**
+ * @private
  * An object that marshals events to other sandboxes
  */
 public class EventProxy extends EventDispatcher
 {
-	private var systemManager:ISystemManager;
+    private var systemManager:ISystemManager;
 
-	public function EventProxy(systemManager:ISystemManager)
-	{
-		this.systemManager = systemManager;
-	}
+    public function EventProxy(systemManager:ISystemManager)
+    {
+        this.systemManager = systemManager;
+    }
 
-	public function marshalListener(event:Event):void
-	{
-		if (event is MouseEvent)
-		{
-			var me:MouseEvent = event as MouseEvent;;
-			var mme:SandboxMouseEvent= new SandboxMouseEvent(EventUtil.mouseEventMap[event.type],
-				false, false, me.ctrlKey, me.altKey, me.shiftKey, me.buttonDown);
-			// trace(">>marshalListener", systemManager, mme.type);
-			systemManager.dispatchEventFromSWFBridges(mme, null, true, true);
-			// trace("<<marshalListener", systemManager);
-		}
-	}
+    public function marshalListener(event:Event):void
+    {
+        if (event is MouseEvent)
+        {
+            var me:MouseEvent = event as MouseEvent;;
+            var mme:SandboxMouseEvent= new SandboxMouseEvent(EventUtil.mouseEventMap[event.type],
+                false, false, me.ctrlKey, me.altKey, me.shiftKey, me.buttonDown);
+            // trace(">>marshalListener", systemManager, mme.type);
+            systemManager.dispatchEventFromSWFBridges(mme, null, true, true);
+            // trace("<<marshalListener", systemManager);
+        }
+    }
 
 }
 
