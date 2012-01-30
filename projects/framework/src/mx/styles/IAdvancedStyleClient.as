@@ -127,6 +127,27 @@ public interface IAdvancedStyleClient extends IStyleClient
      *  @productversion Flex 4
      */ 
     function matchesCSSType(cssType:String):Boolean;
+
+
+    /**
+     *  Returns <code>true</code> if <code>currentCSSState</code> is not <code>null</code>.
+     *  Typically, you do not call this method directly. 
+     *  It is called by the <code>mx.styles.CSSCondition.matchesStyleClient()</code> method.
+     *
+     *  <p>Note Spark components use their skin state as the pseudo state.
+     *  Halo components use the <code>currentState</code> property.</p>
+     *
+     *  @return <code>true</code> if <code>currentCSSState</code> is not <code>null</code>. 
+     *  By default, <code>currentCSSState</code> is the same as <code>currentState</code>.
+     *  If no state exists, return false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.6
+     */
+    function hasCSSState():Boolean;
+    
 }
 
 }
