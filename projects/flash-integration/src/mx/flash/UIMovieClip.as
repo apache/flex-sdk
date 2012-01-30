@@ -3365,10 +3365,16 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if (_layoutFeatures == null)
         {
+            // TODO (chaase): should provide a way to return to having no
+            // layoutFeatures if we call this later with a more trivial
+            // situation
             var needAdvancedLayout:Boolean = 
-                (scale != null && scale.z != 1 && !isNaN(scale.z)) ||
+                (scale != null && ((!isNaN(scale.x) && scale.x != 1) || 
+                    (!isNaN(scale.y) && scale.y != 1) ||
+                    (!isNaN(scale.z) && scale.z != 1))) || 
                 (rotation != null && ((!isNaN(rotation.x) && rotation.x != 0) || 
-                                     (!isNaN(rotation.y) && rotation.y != 0))) || 
+                    (!isNaN(rotation.y) && rotation.y != 0) ||
+                    (!isNaN(rotation.z) && rotation.z != 0))) || 
                 (translation != null && translation.z != 0 && !isNaN(translation.z)) ||
                 postLayoutScale != null ||
                 postLayoutRotation != null ||
