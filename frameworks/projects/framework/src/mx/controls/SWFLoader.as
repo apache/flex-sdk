@@ -17,13 +17,13 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Loader;
 import flash.display.LoaderInfo;
-import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.HTTPStatusEvent;
 import flash.events.IEventDispatcher;
 import flash.events.IOErrorEvent;
+import flash.events.MouseEvent;
 import flash.events.ProgressEvent;
 import flash.events.SecurityErrorEvent;
 import flash.geom.Point;
@@ -38,22 +38,17 @@ import flash.utils.ByteArray;
 import mx.core.FlexGlobals;
 import mx.core.FlexLoader;
 import mx.core.FlexVersion;
-import mx.core.ISWFLoader;
 import mx.core.IFlexDisplayObject;
-import mx.core.ISWFBridgeProvider;
 import mx.core.ISWFLoader;
 import mx.core.IUIComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.InvalidateRequestData;
 import mx.events.InterManagerRequest;
+import mx.events.InvalidateRequestData;
 import mx.events.SWFBridgeEvent;
 import mx.events.SWFBridgeRequest;
 import mx.managers.CursorManager;
-import mx.managers.FocusManager;
-import mx.managers.IFocusManager;
-import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManagerGlobals;
 import mx.styles.ISimpleStyleClient;
@@ -394,6 +389,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 
         addEventListener(FlexEvent.INITIALIZE, initializeHandler);
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+        addEventListener(MouseEvent.CLICK, clickHandler);
 
         showInAutomationHierarchy = false;
     }
@@ -418,6 +414,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  @private
      */
     private var scaleContentChanged:Boolean = false;
+
+    /**
+     *  @private
+     */
+    private var smoothBitmapContentChanged:Boolean = false;
 
     /**
      *  @private
@@ -1098,6 +1099,49 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     }
 
     //----------------------------------
+    //  smoothBitmapContent
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the smoothBitmapContent property.
+     */
+    private var _smoothBitmapContent:Boolean = false;
+
+    [Bindable("smoothBitmapContentChanged")]
+    [Inspectable(category="General", defaultValue="false")]
+
+    /**
+     *  A flag that indicates whether to smooth the content when it
+     *  is scaled. Only Bitmap content can be smoothed.
+     *  If <code>true</code>, and the content is a Bitmap then smoothing property 
+     *  of the content is set to <code>true</code>. 
+     *  If <code>false</code>, the content isn't smoothed. 
+     *
+     *  @default false
+     */
+    public function get smoothBitmapContent():Boolean
+    {
+        return _smoothBitmapContent;
+    }
+
+    /**
+     *  @private
+     */
+    public function set smoothBitmapContent(value:Boolean):void
+    {
+        if (_smoothBitmapContent != value)
+        {
+            _smoothBitmapContent = value;
+
+            smoothBitmapContentChanged = true;
+            invalidateDisplayList();
+        }
+
+        dispatchEvent(new Event("smoothBitmapContentChanged"));
+    }
+
+    //----------------------------------
     //  source
     //----------------------------------
 
@@ -1408,6 +1452,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 doScaleLoader();
 
             scaleContentChanged = false;
+            
+            if (smoothBitmapContentChanged) {
+            	doSmoothBitmapContent();
+            	smoothBitmapContentChanged = false;
+            }
         }
 
         if (brokenImage && !brokenImageBorder)
@@ -1560,7 +1609,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         if (!_source || _source == "")
             return;
 
-        contentHolder = loadContent(_source);
+        loadContent(_source);
     }
 
     /**
@@ -1637,7 +1686,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  RectangularBorder.updateDisplayList()
      *  to see if changes are needed there as well.
      */
-    private function loadContent(classOrString:Object):DisplayObject
+    private function loadContent(classOrString:Object):void
     {
         var child:DisplayObject;
         var cls:Class;
@@ -1691,13 +1740,15 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         else if (byteArray)
         {
             loader = new FlexLoader();
-            child = loader;
+            contentHolder = child = loader;
             addChild(child);
             
             loader.contentLoaderInfo.addEventListener(
                 Event.COMPLETE, contentLoaderInfo_completeEventHandler);
             loader.contentLoaderInfo.addEventListener(
                 Event.INIT, contentLoaderInfo_initEventHandler);
+            loader.contentLoaderInfo.addEventListener(
+                IOErrorEvent.IO_ERROR, contentLoaderInfo_ioErrorEventHandler);
             loader.contentLoaderInfo.addEventListener(
                 Event.UNLOAD, contentLoaderInfo_unloadEventHandler);
             
@@ -1709,7 +1760,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         {
             // Create an instance of the Flash Player Loader class to do all the work
             loader = new FlexLoader();
-            child = loader;
+            contentHolder = child = loader;
 
             // addChild needs to be called before load()
             addChild(loader);
@@ -1812,8 +1863,6 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         }
 
         invalidateDisplayList();
-
-        return child;
     }
 
     /**
@@ -2059,6 +2108,15 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 
         contentHolder.x = (w - contentHolderWidth) * getHorizontalAlignValue();
         contentHolder.y = (h - contentHolderHeight) * getVerticalAlignValue();
+    }
+    
+    /**
+     *  @private
+     */
+    private function doSmoothBitmapContent():void
+    {
+    	if (content is Bitmap) 
+    		(content as Bitmap).smoothing = _smoothBitmapContent;
     }
 
     /**
@@ -2543,6 +2601,24 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 
         return pt;
     }
+    
+    /**
+     *  The default handler for the <code>MouseEvent.CLICK</code> event.
+     *
+     *  @param The event object.
+     */    
+    protected function clickHandler(event:MouseEvent):void
+    {
+        if (!enabled)
+        {
+            // Prevent the propagation of click from a disabled component.
+            // This is conceptually a higher-level event and
+            // developers will expect their click handlers not to fire
+            // if the Button is disabled.
+            event.stopImmediatePropagation();
+            return;
+        }
+    }      
 }
 
 }
