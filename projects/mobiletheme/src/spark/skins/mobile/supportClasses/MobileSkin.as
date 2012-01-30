@@ -500,10 +500,6 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
         {
             return IFlexDisplayObject(element).measuredWidth;
         }
-        else if (element is StyleableTextField)
-        {
-            return StyleableTextField(element).measuredTextSize.x;
-        }
         else
         {
             return element.width;
@@ -542,11 +538,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
         {
             return IFlexDisplayObject(element).measuredHeight;
         }
-        else if (element is StyleableTextField)
-        {
-            return StyleableTextField(element).measuredTextSize.y;
-        }
-        else
+		else
         {
             return element.height;
         }
