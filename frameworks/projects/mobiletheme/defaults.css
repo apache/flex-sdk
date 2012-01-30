@@ -117,6 +117,22 @@ MobileIconItemRenderer
 {
     horizontalGap: 5;
     verticalGap: 5;
+    headerStyleName: "mobileIconItemRendererHeaderStyle";
+    subTextStyleName: "mobileIconItemRendererSubTextStyle";
+}
+
+.mobileIconItemRendererHeaderStyle
+{
+    font-size: 24;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.mobileIconItemRendererSubTextStyle
+{
+    font-size: 20;
+    color: #CCCCCC;
+    font-weight: normal;
 }
 
 MuteButton
