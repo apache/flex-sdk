@@ -13,12 +13,14 @@ package mx.flash
 {
 
 import flash.display.DisplayObjectContainer;
-import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.geom.Rectangle;
 
 import mx.core.IUIComponent;
+import mx.core.IVisualElement;
+import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
+import mx.managers.ILayoutManagerClient;
 
 [DefaultProperty("content")]
 
@@ -68,7 +70,7 @@ import mx.core.mx_internal;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public dynamic class ContainerMovieClip extends UIMovieClip
+public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualElementContainer
 {
 
     //--------------------------------------------------------------------------
@@ -207,6 +209,7 @@ public dynamic class ContainerMovieClip extends UIMovieClip
     
     private var _fillContentToSize:Boolean = false;
     
+    [Inspectable(category="General", enumeration="false,true", defaultValue="false")]
     /**
      *  Whether the flex content is sized to be the same size as the flash 
      *  container.
@@ -219,9 +222,9 @@ public dynamic class ContainerMovieClip extends UIMovieClip
      *  @default false
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get fillContentToSize():Boolean
     {
@@ -244,6 +247,7 @@ public dynamic class ContainerMovieClip extends UIMovieClip
     
     private var _scaleContent:Boolean = false;
     
+    [Inspectable(category="General", enumeration="false,true", defaultValue="false")]
     /**
      *  Whether the scale of the container due to sizing 
      *  affects the scale of the flex content.
@@ -259,9 +263,9 @@ public dynamic class ContainerMovieClip extends UIMovieClip
      *  @default false
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get scaleContent():Boolean
     {
@@ -275,7 +279,8 @@ public dynamic class ContainerMovieClip extends UIMovieClip
     {
         _scaleContent = value;
         
-        sizeContentHolder();
+        if (initialized)
+            sizeContentHolder();
     }
 
     //--------------------------------------------------------------------------
@@ -293,7 +298,7 @@ public dynamic class ContainerMovieClip extends UIMovieClip
         
         sizeContentHolder();
     }
-    
+        
     /**
      *  @private
      * 
@@ -307,58 +312,24 @@ public dynamic class ContainerMovieClip extends UIMovieClip
             // secretScale is the amount we scaled by to change the width and height
             var secretScaleX:Number = mx_internal::$scaleX/scaleX;
             var secretScaleY:Number = mx_internal::$scaleY/scaleY;
-            
+
             // width and height are what we actually want our content
             // to fill up, but it doesn't take in to account our secretScale.
             if (!scaleContent)
             {
-                // apply inverse of the scale and set the width/height normally
+                // apply inverse of the scale
                 contentHolderObj.scaleX = 1/secretScaleX;
                 contentHolderObj.scaleY = 1/secretScaleY;
-                
-                contentHolderObj.setActualSize(width, height);
             }
             else
             {
                 // apply the scale to the width/height
                 contentHolderObj.scaleX = 1;
                 contentHolderObj.scaleY = 1;
-                
-                contentHolderObj.setActualSize(width / secretScaleX, 
-                                               height / secretScaleY);
             }
+            
+            contentHolderObj.sizeFlexContent();
         }
-    }
-    
-    override protected function get bounds():Rectangle
-    {
-        if (!trackSizeChanges)
-            return super.bounds;
-        
-        // we don't want our bounds to include the bounds of our child
-        // otherwise we can get into a scenario where we're telling our
-        // child to be width, height from setActualSize above and they are 
-        // actually a bit bigger due to drawing outside the lines.
-        // then when we get bounds next time, we're also a tad bigger, 
-        // and this goes on and on in this fashion until we're infinitely large
-        var contentHolderIndex:int = -1;
-        var myContentHolder:FlexContentHolder;
-        
-        if (contentHolderObj && contentHolderObj.parent == this)
-        {
-            myContentHolder = contentHolderObj;
-            contentHolderIndex = getChildIndex(contentHolderObj);
-            removeChild(contentHolderObj);
-        }
-        
-       var myBounds:Rectangle = super.bounds;
-        
-        if (myContentHolder)
-        {
-            addChildAt(myContentHolder, contentHolderIndex);
-        }
-        
-        return myBounds;
     }
 
    /**
@@ -375,6 +346,209 @@ public dynamic class ContainerMovieClip extends UIMovieClip
     override protected function focusInHandler(event:FocusEvent):void
     {
         // No-op. Flex focus management does all the work.
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: IVisualElementContainer
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Returns 1 if there is a viewport, 0 otherwise.
+     * 
+     *  @return The number of visual elements in this visual container
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get numElements():int
+    {
+        return content ? 1 : 0;
+    }
+    
+    /**
+     *  Returns the viewport if there is a viewport and the 
+     *  index passed in is 0.  Otherwise, it throws a RangeError.
+     *
+     *  @param index The index of the element to retrieve.
+     *
+     *  @return The element at the specified index.
+     * 
+     *  @throws RangeError If the index position does not exist in the child list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    public function getElementAt(index:int):IVisualElement
+    {
+        if (content && index == 0)
+            return content as IVisualElement;
+        else
+            throw new RangeError("Index " + index + " is out of range.");
+    }
+    
+    /**
+     *  Returns the 0 if the element passed in is the viewport.  
+     *  Otherwise, it throws an ArgumentError.
+     *
+     *  @param element The element to identify.
+     *
+     *  @return The index position of the element to identify.
+     * 
+     *  @throws ArgumentError If the element is not a child of this object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    public function getElementIndex(element:IVisualElement):int
+    {
+        if (element != null && element == content)
+            return 0;
+        else
+            throw ArgumentError(element + " is not found in this container.");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in ContainerMovieClip.  ContainerMovieClip 
+     *  only has one child.  Use the <code>content</code> property to manipulate 
+     *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function addElement(element:IVisualElement):IVisualElement
+    {
+        throw new ArgumentError("This operation is not supported.");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in ContainerMovieClip.  ContainerMovieClip 
+     *  only has one child.  Use the <code>content</code> property to manipulate 
+     *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function addElementAt(element:IVisualElement, index:int):IVisualElement
+    {
+        throw new ArgumentError("This operation is not supported.");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in ContainerMovieClip.  ContainerMovieClip 
+     *  only has one child.  Use the <code>content</code> property to manipulate 
+     *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function removeElement(element:IVisualElement):IVisualElement
+    {
+        throw new ArgumentError("This operation is not supported.");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in ContainerMovieClip.  ContainerMovieClip 
+     *  only has one child.  Use the <code>content</code> property to manipulate 
+     *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function removeElementAt(index:int):IVisualElement
+    {
+        throw new ArgumentError("This operation is not supported.");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in ContainerMovieClip.  ContainerMovieClip 
+     *  only has one child.  Use the <code>content</code> property to manipulate 
+     *  it.</p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function removeAllElements():void
+    {
+        throw new ArgumentError("This operation is not supported.");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in ContainerMovieClip.  ContainerMovieClip 
+     *  only has one child.  Use the <code>content</code> property to manipulate 
+     *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function setElementIndex(element:IVisualElement, index:int):void
+    {
+        throw new ArgumentError("This operation is not supported.");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in ContainerMovieClip.  ContainerMovieClip 
+     *  only has one child.  Use the <code>content</code> property to manipulate 
+     *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function swapElements(element1:IVisualElement, element2:IVisualElement):void
+    {
+        throw new ArgumentError("This operation is not supported.");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in ContainerMovieClip.  ContainerMovieClip 
+     *  only has one child.  Use the <code>content</code> property to manipulate 
+     *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function swapElementsAt(index1:int, index2:int):void
+    {
+        throw new ArgumentError("This operation is not supported.");
     }
 }
 }
