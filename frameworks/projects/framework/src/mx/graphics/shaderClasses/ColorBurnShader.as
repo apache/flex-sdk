@@ -14,14 +14,14 @@ package mx.graphics.shaderClasses
 import flash.display.Shader;
 	
 /**
- *  The ColorBurnShader class creates a blend shader that is equivalent to 
+ *  Creates a blend shader that is equivalent to 
  *  the 'Color Burn' blend mode for RGB premultiplied colors available 
  *  in Adobe Creative Suite tools. This blend mode is not native to Flash, 
  *  but is available in tools like Adobe Illustrator and Adobe Photoshop. 
  * 
- *  The 'colorburn' blend mode can be set on Flex groups and graphic  
+ *  <p>The 'colorburn' blend mode can be set on Flex groups and graphic  
  *  elements and the visual appearance in tools like Adobe Illustrator and 
- *  Adobe Photoshop will be mimicked through this blend shader.  
+ *  Adobe Photoshop will be mimicked through this blend shader.</p>  
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
