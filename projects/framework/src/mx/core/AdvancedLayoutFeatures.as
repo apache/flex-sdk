@@ -24,6 +24,11 @@ package mx.core
 	/**
 	 *  Transform Offsets can be assigned to any Component or GraphicElement to modify the transform
 	 *  of the object beyond where its parent layout places it.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public class AdvancedLayoutFeatures
 	{
@@ -34,6 +39,11 @@ package mx.core
     //--------------------------------------------------------------------------
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 		public function AdvancedLayoutFeatures()
 		{
@@ -53,6 +63,11 @@ package mx.core
      * storage for the layer value. Layering is considered 'advanced' layout behavior, and not something
      * that gets used by the majority of the components out there.  So if a component has a non-zero layer,
      * it will allocate a AdvancedLayoutFeatures object and store the value here.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public var layer:Number = 0;
 
@@ -117,6 +132,11 @@ package mx.core
     /**
      * layout transform convenience property.  Represents the x value of the layout matrix used in layout and in 
      * the computed transform.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function set layoutX(value:Number):void
 	{
@@ -134,6 +154,11 @@ package mx.core
     /**
      * layout transform convenience property.  Represents the y value of the layout matrix used in layout and in 
      * the computed transform.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function set layoutY(value:Number):void
 	{
@@ -152,6 +177,11 @@ package mx.core
     /**
      * layout transform convenience property.  Represents the z value of the layout matrix used in layout and in 
      * the computed transform.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function set layoutZ(value:Number):void
 	{
@@ -228,6 +258,11 @@ package mx.core
     /**
      * layout transform convenience property.  Represents the rotation around the X axis of the layout matrix used in layout and in 
      * the computed transform.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function set layoutRotationX(value:Number):void
 	{
@@ -246,6 +281,11 @@ package mx.core
     /**
      * layout transform convenience property.  Represents the rotation around the Y axis of the layout matrix used in layout and in 
      * the computed transform.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function set layoutRotationY(value:Number):void
 	{
@@ -264,6 +304,11 @@ package mx.core
     /**
      * layout transform convenience property.  Represents the rotation around the Z axis of the layout matrix used in layout and in 
      * the computed transform.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function set layoutRotationZ(value:Number):void
 	{
@@ -285,6 +330,11 @@ package mx.core
     /**
      * layout transform convenience property.  Represents the scale along the X axis of the layout matrix used in layout and in 
      * the computed transform.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function set layoutScaleX(value:Number):void
 	{
@@ -303,6 +353,11 @@ package mx.core
     /**
      * layout transform convenience property.  Represents the scale along the Y axis of the layout matrix used in layout and in 
      * the computed transform.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function set layoutScaleY(value:Number):void
 	{
@@ -322,6 +377,11 @@ package mx.core
     /**
      * layout transform convenience property.  Represents the scale along the Z axis of the layout matrix used in layout and in 
      * the computed transform.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function set layoutScaleZ(value:Number):void
 	{
@@ -387,6 +447,11 @@ package mx.core
 	
 	/**
 	 * true if the computed transform has 3D values.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get is3D():Boolean
 	{
@@ -395,6 +460,11 @@ package mx.core
 
 	/**
 	 * true if the layout transform has 3D values.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get layoutIs3D():Boolean
 	{
@@ -406,6 +476,11 @@ package mx.core
 	/** offsets to the transform convenience properties that are applied when a component is rendered. If this 
 	 * property is set, its values will be added to the layout transform properties to determine the true matrix used to render
 	 * the component
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set offsets(value:TransformOffsets):void
 	{
@@ -453,6 +528,11 @@ package mx.core
 	
 	/**
 	 * the computed matrix, calculated by combining the layout matrix and  and any offsets provided..
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get computedMatrix():Matrix
 	{
@@ -481,6 +561,11 @@ package mx.core
 	
 	/**
 	 * the computed 3D matrix, calculated by combining the 3D layout matrix and  and any offsets provided..
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get computedMatrix3D():Matrix3D
 	{
@@ -697,6 +782,11 @@ package mx.core
 	 * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
 	 * affectLayout: whether the rotation and scale should be applied to the layout transform or the offsets.  Note that the offsets might be updated
 	 * even when the new values are being applied to the layout.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number,affectLayout:Boolean = true):void
 	{
