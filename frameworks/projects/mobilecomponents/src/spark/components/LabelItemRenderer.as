@@ -62,9 +62,9 @@ include "../styles/metadata/PaddingStyles.as"
 include "../styles/metadata/MobileTextFieldTextStyles.as"
 
 /**
- *  The colors to use for the backgrounds of the items in the list. 
- *  The value is an array of two or more colors. 
- *  The backgrounds of the list items alternate among the colors in the array. 
+ *  The colors to use for the background of the items in the list. 
+ *  The value is an Array of two or more colors. 
+ *  The backgrounds of the list items alternate among the colors in the Array. 
  * 
  *  @default undefined
  * 
@@ -77,7 +77,7 @@ include "../styles/metadata/MobileTextFieldTextStyles.as"
 // FIXME (rfrishbe): what to do about theme?
 
 /**
- *  Color of focus ring when the component is in focus
+ *  Color of focus ring when the component is in focus.
  *   
  *  @default 0x70B2EE
  *  
@@ -89,7 +89,8 @@ include "../styles/metadata/MobileTextFieldTextStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
- *  Number of pixels between the bottom border and the text component.
+ *  Number of pixels between the bottom border and the text component
+ *  of the item renderer.
  * 
  *  @default 5
  *  
@@ -101,7 +102,8 @@ include "../styles/metadata/MobileTextFieldTextStyles.as"
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
 /**
- *  Number of pixels between the top border and the text component.
+ *  Number of pixels between the top border and the text component
+ *  of the item renderer.
  * 
  *  @default 5
  *  
@@ -113,7 +115,7 @@ include "../styles/metadata/MobileTextFieldTextStyles.as"
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
 /**
- *  Color of the highlights when the mouse is over the component
+ *  The color of the background of an item renderer when the user rolls over it.
  *   
  *  @default 0xCEDBEF
  *  
@@ -125,7 +127,7 @@ include "../styles/metadata/MobileTextFieldTextStyles.as"
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  Color of the highlights when the item is selected
+ *  The color of the background of an item renderer when the user selects it.
  *   
  *  @default 0xB2B2B2
  *  
@@ -138,8 +140,9 @@ include "../styles/metadata/MobileTextFieldTextStyles.as"
 // FIXME (rfrishbe): figure out why this isn't on defaultitemrenderer or itemrenderer
 
 /**
- *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
- *  the arrow of a scroll button
+ *  Color of any symbol of a component. 
+ *  Examples include the check mark of a CheckBox or
+ *  the arrow of a scroll button.
  *   
  *  @default 0x000000
  * 
@@ -154,7 +157,7 @@ include "../styles/metadata/MobileTextFieldTextStyles.as"
 /**
  *  The vertical alignment of the content when it does not have
  *  a one-to-one aspect ratio.
- *  Possible values are <code>"top"</code>, <code>"middle"</code>,
+ *  Possible values are <code>"top"</code>, <code>"center"</code>,
  *  and <code>"bottom"</code>.
  *  
  *  @default "center"
@@ -175,15 +178,22 @@ include "../styles/metadata/MobileTextFieldTextStyles.as"
 
 /**
  *  The MobileItemRenderer class defines the default item renderer
- *  for a List control in the mobile theme.  This is a simple item 
- *  renderer with a single text component.
+ *  for a list-based control in the mobile theme.  
+ *  This is a simple item renderer with a single text component.
  *
- *  <p>If creating a custom item renderer for use on mobile devices, 
- *  it is recommended that you try to use 
- *  <code>spark.components.MobileIconItemRenderer</code> or 
+ *  <p>The item renderer creates a single MobileTextField control 
+ *  to display a String. 
+ *  The name of the MobileTextField control in the item renderer is <code>labelDisplay</code>. 
+ *  Use the <code>labelField</code> property of the list-based control to specify 
+ *  a field of the data item to display in the MobileTextField control.</p>
+ *
+ *  <p>To create a custom item renderer for use on mobile devices, 
+ *  Adobe recommends that you use 
+ *  spark.components.MobileIconItemRenderer or 
  *  create a new ActionScript item renderer that extends 
  *  this class.</p>
  *
+ *  @see spark.components.MobileIconItemRenderer
  *  @see spark.components.List
  *  @see mx.core.IDataRenderer
  *  @see spark.components.IItemRenderer
@@ -620,13 +630,15 @@ public class MobileItemRenderer extends UIComponent
      *  Renders a background for the item renderer.
      * 
      *  <p>This method, along with <code>layoutContents()</code>, is called 
-     *  by <code>updateDisplayList()</code>.</p>
+     *  by the <code>updateDisplayList()</code> method.</p>
      * 
-     *  <p>This method is in charge of drawing the background, the outline, 
-     *  and the seperators for this item renderer.  When not selected or hovered, 
-     *  the background is transparent.  However, when alternatingItemColors is set, 
-     *  the background is drawn in this method.  To change the appearance of 
-     *  the background, override this method.</p>
+     *  <p>This method draws the background, the outline, 
+     *  and the separators for this item renderer.  
+     *  When not selected or hovered, the background is transparent.  
+     *  However, when <code>alternatingItemColors</code> is set to <code>true</code>, 
+     *  the background is drawn by this method.  
+     *  Override this method to change the appearance of the background of 
+     *  the item renderer.</p>
      * 
      *  @param unscaledWidth Specifies the width of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
@@ -713,10 +725,10 @@ public class MobileItemRenderer extends UIComponent
      *  Positions the children for this item renderer.
      * 
      *  <p>This method, along with <code>drawBackground()</code>, is called 
-     *  by <code>updateDisplayList()</code>.</p>
+     *  by the <code>updateDisplayList()</code> method.</p>
      * 
-     *  <p>For MobileItemRenderer, this method positions the labelDisplay.  
-     *  Subclasses should override this and position their children in here.</p>
+     *  <p>This method positions the <code>labelDisplay</code> component.  
+     *  Subclasses should override this to position their children.</p>
      * 
      *  @param unscaledWidth Specifies the width of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
@@ -858,10 +870,16 @@ public class MobileItemRenderer extends UIComponent
     }
     
     /**
-     *  A helper method for positioning skin parts.
+     *  A helper method to position the children of this item renderer.
      * 
-     *  Developers can use this method instead of checking for and using
-     *  various interfaces such as ILayoutElement, IFlexDisplayObject, etc.
+     *  <p>You can use this method instead of checking for and using
+     *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+     *
+     *  @param part The child to position.
+     *
+     *  @param x The x-coordinate of the child.
+     *
+     *  @param y The y-coordinate of the child.
      *
      *  @see #resizeElement  
      * 
@@ -888,10 +906,16 @@ public class MobileItemRenderer extends UIComponent
     }
     
     /**
-     *  A helper method for resizing skin parts.
+     *  A helper method to size the children of this item renderer.
      * 
-     *  Developers can use this method instead of checking for and using
-     *  various interfaces such as ILayoutElement, IFlexDisplayObject, etc.
+     *  <p>You can use this method instead of checking for and using
+     *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+     *
+     *  @param part The child to position.
+     *
+     *  @param x The width of the child.
+     *
+     *  @param y The height of the child.
      *
      *  @see #positionElement  
      * 
