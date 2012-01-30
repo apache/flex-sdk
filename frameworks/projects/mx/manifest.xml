@@ -71,6 +71,7 @@
     <component id="PopUpButton" class="mx.controls.PopUpButton"/>
     <component id="PopUpMenuButton" class="mx.controls.PopUpMenuButton"/>
     <component id="PrintDataGrid" class="mx.printing.PrintDataGrid"/>
+    <component id="ProgressBar" class="mx.controls.ProgressBar"/>
     <component id="RadioButton" class="mx.controls.RadioButton"/>
     <component id="RadioButtonGroup" class="mx.controls.RadioButtonGroup"/>
     <component id="RemoveChildAction" class="mx.effects.RemoveChildAction"/>
