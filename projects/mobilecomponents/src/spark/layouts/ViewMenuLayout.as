@@ -19,21 +19,39 @@ import spark.layouts.supportClasses.LayoutBase;
 
 /**
  *  The ViewMenuLayout class defines the layout of the ViewMenu container.
+ *  The menu can have multiple rows depending on the number of menu items.
+ *
+ *  <p>The <code>requestedMaxColumnCount</code> property 
+ *  defines the maximum number of menu items in a row. 
+ *  By default, the property is set to three.</p>
  *
  *  <p>The ViewMenuLayout class define the layout as follows: </p>
  *  
  *  <ul>
- *    <li>If you define three or fewer menu items, the menu items are displayed 
- *       in a single row, and each menu item has the same size. 
- *       <p>If you define four or more menu items, the ViewMenu container 
- *       creates multiple rows.</p></li>
- *    <li>If you define an even number of menu items, the ViewMenu container 
- *       sets each menu item to the same size. Each row of the menu  
- *       displays the same number of items.</li>
- *    <li>If you define an odd number of menu items, each row 
- *       alternates between displaying two and three menu items. 
- *       The buttons in the rows with two menu items are larger than 
- *       the buttons in the rows with three menu items. </li>
+ *    <li>If you define three or fewer menu items, 
+ *       where the <code>requestedMaxColumnCount</code> property contains 
+ *       the default value of three, the menu items are displayed in a single row. 
+ *       Each menu item has the same size. 
+ *       <p>If you define four or more menu items, meaning more menu items 
+ *       than specified by the <code>requestedMaxColumnCount</code> property, 
+ *       the ViewMenu container creates multiple rows.</p></li>
+ *    <li>If the number of menu items is evenly divisible by 
+ *       the <code>requestedMaxColumnCount</code> property, 
+ *       each row contains the same number of menu items. 
+ *       Each menu item is the same size.
+ *       <p>For example the <code>requestedMaxColumnCount</code> property 
+ *       is set to the default value of three and you define six menu items. 
+ *       The menu displays two rows, each containing three menu items. </p></li>
+ *    <li>If the number of menu items is not evenly divisible by 
+ *       the <code>requestedMaxColumnCount</code> property, 
+ *       rows can contain a different number of menu items. 
+ *       The size of the menu items depends on the number of menu items 
+ *       in the row. 
+ *       <p>For example the <code>requestedMaxColumnCount</code> property 
+ *       is set to the default value of three and you define eight menu items. 
+ *       The menu displays three rows. 
+ *       The first row contains two menu items. 
+ *       The second and third rows each contains three items. </p></li>
  *  </ul>
  *  
  *  <p>You can create your own custom layout for the menu by creating your own layout class. </p>
