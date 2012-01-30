@@ -565,7 +565,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  This property contains the object that represents
      *  the content that was loaded in the SWFLoader control. 
      *
-     *  @tiptext Returns the content of the SWFLoader
+     *  @tiptext Returns the content of the SWFLoader.
      *  @helpid 3134
      */
     public function get content():DisplayObject
@@ -616,17 +616,17 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             {
                 try
                 {
-                	if (systemManager.swfBridgeGroup)
-                	{
-                	    var bridge:IEventDispatcher = swfBridge;
-                	    if (bridge)
-                	    {
-                	    	var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.GET_SIZE_REQUEST);
-                	    	bridge.dispatchEvent(request);
-                	    	return request.data.height;
-                	    }
-                	}
-                	
+                        if (systemManager.swfBridgeGroup)
+                        {
+                            var bridge:IEventDispatcher = swfBridge;
+                            if (bridge)
+                            {
+                                var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.GET_SIZE_REQUEST);
+                                bridge.dispatchEvent(request);
+                                return request.data.height;
+                            }
+                        }
+                        
                     var content:IFlexDisplayObject =
                         Loader(contentHolder).content as IFlexDisplayObject;
                     if (content)
@@ -681,13 +681,13 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             {
                 try
                 {
-                	if (swfBridge)
-                	{
-            	    	var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.GET_SIZE_REQUEST);
-            	    	swfBridge.dispatchEvent(request);
-            	    	return request.data.width;
-                	}
-                	
+                        if (swfBridge)
+                        {
+                        var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.GET_SIZE_REQUEST);
+                        swfBridge.dispatchEvent(request);
+                        return request.data.width;
+                        }
+                        
                     var content:IFlexDisplayObject =
                         Loader(contentHolder).content as IFlexDisplayObject;
                     if (content)
@@ -790,7 +790,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     public function set loaderContext(value:LoaderContext):void
     {
         _loaderContext = value;
-		explicitLoaderContext = true;
+                explicitLoaderContext = true;
 
         dispatchEvent(new Event("loaderContextChanged"));
     }
@@ -835,7 +835,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     //----------------------------------
     //  sandBoxBridge (read only)
     //----------------------------------
-	private var _swfBridge:IEventDispatcher;
+        private var _swfBridge:IEventDispatcher;
 
     //----------------------------------
     //  percentLoaded (read only)
@@ -1236,7 +1236,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         if (brokenImageBorder)
             brokenImageBorder.setActualSize(unscaledWidth, unscaledHeight);
 
-		sizeShield();
+                sizeShield();
     }
 
     //--------------------------------------------------------------------------
@@ -1285,20 +1285,20 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                         // b/c we may cause a security violation trying to do it
                     }
                 
-					if (_swfBridge)
-					{
-						var request:SWFBridgeEvent = new SWFBridgeEvent(
-																	SWFBridgeEvent.BRIDGE_APPLICATION_UNLOADING,
-																	false, false,
-																	_swfBridge);
-						 _swfBridge.dispatchEvent(request);
+                                        if (_swfBridge)
+                                        {
+                                                var request:SWFBridgeEvent = new SWFBridgeEvent(
+                                                                                                                                        SWFBridgeEvent.BRIDGE_APPLICATION_UNLOADING,
+                                                                                                                                        false, false,
+                                                                                                                                        _swfBridge);
+                                                 _swfBridge.dispatchEvent(request);
 
-					}
+                                        }
 
                     Loader(contentHolder).unload();
 
-					if (!explicitLoaderContext)
-						_loaderContext = null;
+                                        if (!explicitLoaderContext)
+                                                _loaderContext = null;
                 }
                 else
                 {
@@ -1325,26 +1325,26 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 }
             }
 
-			// when SWFLoader/Image is used with renderer
-			// recycling and the content is a DisplayObject instance
-			// the instance can be stolen from us while
-			// we're on the free list
-			try
-			{
-				if (contentHolder.parent == this)
-					removeChild(contentHolder);
-			}
+                        // when SWFLoader/Image is used with renderer
+                        // recycling and the content is a DisplayObject instance
+                        // the instance can be stolen from us while
+                        // we're on the free list
+                        try
+                        {
+                                if (contentHolder.parent == this)
+                                        removeChild(contentHolder);
+                        }
             catch(error:Error)
             {
-				try
-				{
-					// just try to remove it anyway
-					removeChild(contentHolder);
-				}
-				catch(error1:Error)
-				{
-					// Ignore any errors thrown by removeChild()
-				}
+                                try
+                                {
+                                        // just try to remove it anyway
+                                        removeChild(contentHolder);
+                                }
+                                catch(error1:Error)
+                                {
+                                        // Ignore any errors thrown by removeChild()
+                                }
             }
 
             contentHolder = null;
@@ -1521,21 +1521,21 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 // an application domain free of framework classes. 
                 if (loadForCompatibility) 
                 {
-                	// the AD.currentDomain.parentDomain could be null, 
-                	// the domain of the top-level system manager, or
-                	// the bootstrap loader. The bootstrap loader will always be topmost
-                	// if it is present.
-        			var currentDomain:ApplicationDomain = ApplicationDomain.currentDomain.parentDomain;
-        			var topmostDomain:ApplicationDomain = null;
-        			while (currentDomain)
-        			{
-						topmostDomain = currentDomain;
-						currentDomain = currentDomain.parentDomain;
-        			}
-                	lc.applicationDomain = new ApplicationDomain(topmostDomain);
-		                	
+                        // the AD.currentDomain.parentDomain could be null, 
+                        // the domain of the top-level system manager, or
+                        // the bootstrap loader. The bootstrap loader will always be topmost
+                        // if it is present.
+                                var currentDomain:ApplicationDomain = ApplicationDomain.currentDomain.parentDomain;
+                                var topmostDomain:ApplicationDomain = null;
+                                while (currentDomain)
+                                {
+                                                topmostDomain = currentDomain;
+                                                currentDomain = currentDomain.parentDomain;
+                                }
+                        lc.applicationDomain = new ApplicationDomain(topmostDomain);
+                                        
                 }
-                	
+                        
                 if (trustContent)
                 {
                     lc.securityDomain = SecurityDomain.currentDomain;
@@ -1586,14 +1586,14 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             {
                 try 
                 {
-                   	if (Loader(contentHolder).content is IFlexDisplayObject)
-						flexContent = true;
-					else
-	                    flexContent = swfBridge != null;
+                        if (Loader(contentHolder).content is IFlexDisplayObject)
+                                                flexContent = true;
+                                        else
+                            flexContent = swfBridge != null;
                 }
                 catch(e:Error)
                 {
-                	// trace("contentLoader: " + e);
+                        // trace("contentLoader: " + e);
                     flexContent = swfBridge != null;
                 }
             }
@@ -1704,29 +1704,29 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                     // don't resize contentHolder until after it is layed out
                     if (getContentSize().x > 0)
                     {
-                    	var sizeSet:Boolean = false;
-                    	
-	                    if (holder.contentLoaderInfo.contentType == "application/x-shockwave-flash")
-    	                {
-							if (childAllowsParent)
-							{
-								if (holder.content is IFlexDisplayObject)
-								{
-									IFlexDisplayObject(holder.content).setActualSize(w, h);
-									sizeSet = true;
-								}
-							}
-							
-							if (!sizeSet) 
-							{
-								if (swfBridge)
-								{
-									swfBridge.dispatchEvent(new SWFBridgeRequest(SWFBridgeRequest.SET_ACTUAL_SIZE_REQUEST, false, false, null,
-																						{ width: w, height: h}));
-									sizeSet = true;
-								}
-							}        	            	
-            	        }
+                        var sizeSet:Boolean = false;
+                        
+                            if (holder.contentLoaderInfo.contentType == "application/x-shockwave-flash")
+                        {
+                                                        if (childAllowsParent)
+                                                        {
+                                                                if (holder.content is IFlexDisplayObject)
+                                                                {
+                                                                        IFlexDisplayObject(holder.content).setActualSize(w, h);
+                                                                        sizeSet = true;
+                                                                }
+                                                        }
+                                                        
+                                                        if (!sizeSet) 
+                                                        {
+                                                                if (swfBridge)
+                                                                {
+                                                                        swfBridge.dispatchEvent(new SWFBridgeRequest(SWFBridgeRequest.SET_ACTUAL_SIZE_REQUEST, false, false, null,
+                                                                                                                                                                                { width: w, height: h}));
+                                                                        sizeSet = true;
+                                                                }
+                                                        }                               
+                        }
 //                        if (holder.content is IFlexDisplayObject)
 //                        {
 //                            IFlexDisplayObject(holder.content).setActualSize(w, h);
@@ -1768,9 +1768,9 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 }
                 
                 if (!parentAllowsChild)
-                	contentHolder.scrollRect = new Rectangle(0, 0, 
-                											 w / contentHolder.scaleX, 
-                											 h / contentHolder.scaleY);
+                        contentHolder.scrollRect = new Rectangle(0, 0, 
+                                                                                                         w / contentHolder.scaleX, 
+                                                                                                         h / contentHolder.scaleY);
             }
             else
             {
@@ -1911,7 +1911,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             if (_autoLoad)
                 load(_source);
         }
-	}
+        }
 
     /**
      *  @private
@@ -1944,7 +1944,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         contentLoaded();
         
         if (contentHolder is Loader) 
-   			removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
+                        removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
 
     }
 
@@ -1968,36 +1968,36 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         
         // if we are loading a swf listen of a message if it ends up needing to
         // use a sandbox bridge to communicate.
-		addInitSystemManagerCompleteListener(LoaderInfo(event.target).loader.contentLoaderInfo);
+                addInitSystemManagerCompleteListener(LoaderInfo(event.target).loader.contentLoaderInfo);
     }
 
 
-	/**
-	 * If we are loading a swf, listen for a message from the swf telling us it was loading
-	 * into an application domain where it needs to use a sandbox bridge to communicate.
-	 */
-	private function addInitSystemManagerCompleteListener(loaderInfo:LoaderInfo):void
-	{
-   		if (loaderInfo.contentType == "application/x-shockwave-flash")
-   		{
-			var bridge:EventDispatcher = loaderInfo.sharedEvents;
-			bridge.addEventListener(SWFBridgeEvent.BRIDGE_NEW_APPLICATION, 
-			 					  initSystemManagerCompleteEventHandler);
-   		}
-	}
-	
-	/**
-	 * Remove the listener after the swf is loaded.
-	 */
-	private function removeInitSystemManagerCompleteListener(loaderInfo:LoaderInfo):void
-	{
-   		if (loaderInfo.contentType == "application/x-shockwave-flash")
-   		{
-			var bridge:EventDispatcher = loaderInfo.sharedEvents;			
-			bridge.removeEventListener(SWFBridgeEvent.BRIDGE_NEW_APPLICATION, 
-				 					  initSystemManagerCompleteEventHandler);
-   		}
-	}
+        /**
+         * If we are loading a swf, listen for a message from the swf telling us it was loading
+         * into an application domain where it needs to use a sandbox bridge to communicate.
+         */
+        private function addInitSystemManagerCompleteListener(loaderInfo:LoaderInfo):void
+        {
+                if (loaderInfo.contentType == "application/x-shockwave-flash")
+                {
+                        var bridge:EventDispatcher = loaderInfo.sharedEvents;
+                        bridge.addEventListener(SWFBridgeEvent.BRIDGE_NEW_APPLICATION, 
+                                                                  initSystemManagerCompleteEventHandler);
+                }
+        }
+        
+        /**
+         * Remove the listener after the swf is loaded.
+         */
+        private function removeInitSystemManagerCompleteListener(loaderInfo:LoaderInfo):void
+        {
+                if (loaderInfo.contentType == "application/x-shockwave-flash")
+                {
+                        var bridge:EventDispatcher = loaderInfo.sharedEvents;                   
+                        bridge.removeEventListener(SWFBridgeEvent.BRIDGE_NEW_APPLICATION, 
+                                                                          initSystemManagerCompleteEventHandler);
+                }
+        }
 
     /**
      *  @private
@@ -2023,7 +2023,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             dispatchEvent(event);
         
         if (contentHolder is Loader)
-   			removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
+                        removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
 
     }
 
@@ -2068,7 +2068,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         dispatchEvent(event);
         
         if (contentHolder is Loader)
-   			removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
+                        removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
     }
 
     /**
@@ -2086,40 +2086,40 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                                                invalidateRequestHandler);
                                                
             var sm:ISystemManager = systemManager;
-			sm.removeChildBridge(_swfBridge);
-			_swfBridge = null;
+                        sm.removeChildBridge(_swfBridge);
+                        _swfBridge = null;
         }
 
         if (contentHolder is Loader)
-   			removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
+                        removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
 
     }
 
-	/**
-	 *	@private
-	 * 
-	 * 	Message dispatched from System Manager. This gives us the child bridge
-	 *  of the application we loaded.
-	 */
-	private function initSystemManagerCompleteEventHandler(event:Event):void
-	{
-		var eObj:Object = Object(event);
-		
-		// make sure this is the child we created by checking the loader info.
-		if (contentHolder is Loader && 
-			eObj.data == Loader(contentHolder).contentLoaderInfo.sharedEvents)
-		{
-			_swfBridge = Loader(contentHolder).contentLoaderInfo.sharedEvents;
-			
-			var sm:ISystemManager = systemManager;
-			sm.addChildBridge(_swfBridge, this);
-			removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
-			
+        /**
+         *      @private
+         * 
+         *      Message dispatched from System Manager. This gives us the child bridge
+         *  of the application we loaded.
+         */
+        private function initSystemManagerCompleteEventHandler(event:Event):void
+        {
+                var eObj:Object = Object(event);
+                
+                // make sure this is the child we created by checking the loader info.
+                if (contentHolder is Loader && 
+                        eObj.data == Loader(contentHolder).contentLoaderInfo.sharedEvents)
+                {
+                        _swfBridge = Loader(contentHolder).contentLoaderInfo.sharedEvents;
+                        
+                        var sm:ISystemManager = systemManager;
+                        sm.addChildBridge(_swfBridge, this);
+                        removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
+                        
             _swfBridge.addEventListener(SWFBridgeRequest.INVALIDATE_REQUEST, 
                                        invalidateRequestHandler);
-		}
-	}
-	
+                }
+        }
+        
     /**
      *  @private
      * 
@@ -2154,54 +2154,54 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     }
     
 
-	/**
-	 *	@private
-	 * 
-	 * 	Put up or takedown a mouseshield that covers the content
-	 *  of the application we loaded.
-	 */
-	private function mouseShieldHandler(event:Event):void
-	{
-		if (event["name"] != "mouseShield")
-			return;
+        /**
+         *      @private
+         * 
+         *      Put up or takedown a mouseshield that covers the content
+         *  of the application we loaded.
+         */
+        private function mouseShieldHandler(event:Event):void
+        {
+                if (event["name"] != "mouseShield")
+                        return;
 
-		if (parentAllowsChild)
-			return;
+                if (parentAllowsChild)
+                        return;
 
-		if (event["value"])
-		{
-			if (!mouseShield)
-			{
-				mouseShield = new Sprite();
-				mouseShield.graphics.beginFill(0, 0);
-				mouseShield.graphics.drawRect(0, 0, 100, 100);
-				mouseShield.graphics.endFill();
-			}
-			if (!mouseShield.parent)
-				addChild(mouseShield);
-			sizeShield();
+                if (event["value"])
+                {
+                        if (!mouseShield)
+                        {
+                                mouseShield = new Sprite();
+                                mouseShield.graphics.beginFill(0, 0);
+                                mouseShield.graphics.drawRect(0, 0, 100, 100);
+                                mouseShield.graphics.endFill();
+                        }
+                        if (!mouseShield.parent)
+                                addChild(mouseShield);
+                        sizeShield();
 
-		}
-		else
-		{
-			if (mouseShield && mouseShield.parent)
-				removeChild(mouseShield)
-		}
-	}
-	
-	/**
-	 *	@private
-	 * 
-	 * 	size the shield if needed
-	 */
-	private function sizeShield():void
-	{
-		if (mouseShield && mouseShield.parent)
-		{
-			mouseShield.width = unscaledWidth;
-			mouseShield.height = unscaledHeight;
-		}
-	}
+                }
+                else
+                {
+                        if (mouseShield && mouseShield.parent)
+                                removeChild(mouseShield)
+                }
+        }
+        
+        /**
+         *      @private
+         * 
+         *      size the shield if needed
+         */
+        private function sizeShield():void
+        {
+                if (mouseShield && mouseShield.parent)
+                {
+                        mouseShield.width = unscaledWidth;
+                        mouseShield.height = unscaledHeight;
+                }
+        }
 
     /**
      *  @private
@@ -2223,7 +2223,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         {
             // Ignore any errors trying to access the content
             // b/c we may cause a security violation trying to do it
-			// Also ignore if the sm doesn't have a regenerateStyleCache method
+                        // Also ignore if the sm doesn't have a regenerateStyleCache method
         }
     }
 
@@ -2247,43 +2247,43 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         {
             // Ignore any errors trying to access the content
             // b/c we may cause a security violation trying to do it
-			// Also ignore if the sm doesn't have a notifyStyleChangeInChildren method
+                        // Also ignore if the sm doesn't have a notifyStyleChangeInChildren method
         }
     }
     
-	private function getContentSize():Point
-	{
-		var pt:Point = new Point();
-		
-		if (!contentHolder is Loader)
-			return pt;
-			
-		var holder:Loader = Loader(contentHolder);
-		if (holder.contentLoaderInfo.childAllowsParent)
-		{
-			pt.x = holder.content.width;
-			pt.y = holder.content.height;
-		}
-		else
-		{
-			var bridge:IEventDispatcher = swfBridge;
-			if (bridge)
-			{
-				var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.GET_SIZE_REQUEST);
-				bridge.dispatchEvent(request);
-				pt.x = request.data.width;
-				pt.y = request.data.height;
-			}
-		}
-	
-		// don't return zero out of here otherwise the Loader's scale goes to zero
-		if (pt.x == 0)
-			pt.x = holder.contentLoaderInfo.width;
-		if (pt.y == 0)
-			pt.y = holder.contentLoaderInfo.height;
+        private function getContentSize():Point
+        {
+                var pt:Point = new Point();
+                
+                if (!contentHolder is Loader)
+                        return pt;
+                        
+                var holder:Loader = Loader(contentHolder);
+                if (holder.contentLoaderInfo.childAllowsParent)
+                {
+                        pt.x = holder.content.width;
+                        pt.y = holder.content.height;
+                }
+                else
+                {
+                        var bridge:IEventDispatcher = swfBridge;
+                        if (bridge)
+                        {
+                                var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.GET_SIZE_REQUEST);
+                                bridge.dispatchEvent(request);
+                                pt.x = request.data.width;
+                                pt.y = request.data.height;
+                        }
+                }
+        
+                // don't return zero out of here otherwise the Loader's scale goes to zero
+                if (pt.x == 0)
+                        pt.x = holder.contentLoaderInfo.width;
+                if (pt.y == 0)
+                        pt.y = holder.contentLoaderInfo.height;
 
-		return pt;
-	}
+                return pt;
+        }
 }
 
 }
