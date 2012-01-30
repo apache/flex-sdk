@@ -5002,7 +5002,12 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
         var proxyOrigin:Point = event.target.localToGlobal(
 						new Point(event.localX, event.localY));
 		proxyOrigin = globalToLocal(proxyOrigin);
-		var xOffset:Number = - (proxyOrigin.x - event.localX);
+		
+		var xOffset:Number;
+		if(layoutDirection == "rtl")
+			xOffset = - (proxyOrigin.x + event.localX);
+		else
+			xOffset = - (proxyOrigin.x - event.localX);
 		var yOffset:Number = - (proxyOrigin.y - event.localY);
 		DragManager.doDrag(this, dragSource, event, dragImage,
                            xOffset, yOffset, 0.5, dragMoveEnabled);
