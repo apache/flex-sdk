@@ -4448,7 +4448,8 @@ public class UIComponent extends FlexSprite
     [Inspectable(defaultValue="true")]
 
     /**
-     *  A flag that indicates whether child objects can receive focus
+     *  A flag that indicates whether this object can receive focus
+     *  via the TAB key
      * 
      *  <p>This is similar to the <code>tabEnabled</code> property
      *  used by the Flash Player.</p>
@@ -8958,14 +8959,14 @@ public class UIComponent extends FlexSprite
 
             var focusClass:Class = getStyle("focusSkin");
 
+            if (!focusClass)
+                return;
+
             if (focusObj && !(focusObj is focusClass))
             {
                 focusPane.removeChild(focusObj);
                 focusObj = null;
             }
-            
-            if (!focusClass)
-                return;
 
             if (!focusObj)
             {
@@ -11056,9 +11057,10 @@ public class UIComponent extends FlexSprite
      *  @private
      *  Called when this component resizes. Adjust the focus rect.
      */
-    private function focusObj_resizeHandler(event:ResizeEvent):void
+    private function focusObj_resizeHandler(event:Event):void
     {
-        adjustFocusRect();
+        if (event is ResizeEvent)
+            adjustFocusRect();
     }
 
     /**
