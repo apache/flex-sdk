@@ -919,10 +919,10 @@ public class StyleProtoChain
      */ 
     private static function sortOnSpecificity(decls:Array):Array // of CSSStyleDeclaration 
     {
-        // FIXME (pfarland): Copied algorithm from Group.sortOnLayer as a temporary measure.
-        // We may consider replacing this insertion sort with an efficient but
-        // stable merge sort or the like if many style declarations need to
-        // sorted.
+        // TODO (pfarland): Copied algorithm from Group.sortOnLayer as the
+        // number of declarations to be sorted is usually small. We may consider
+        // replacing this insertion sort with an efficient but stable merge sort
+        // or the like if many style declarations need to sorted.
         var len:Number = decls.length;
         var tmp:CSSStyleDeclaration;
 
