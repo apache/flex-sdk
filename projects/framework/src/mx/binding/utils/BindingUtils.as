@@ -67,7 +67,7 @@ public class BindingUtils
      *    from the host. 
      *    For example, to bind the property <code>host.a.b.c</code>, 
      *    call the method as:
-     *    <code>bindProperty(host, ["a","b","c"], ...)</code>.</li>
+     *    <code>bindProperty(site, prop, host, ["a","b","c"])</code>.</li>
      *  </ul>
      *
      *  <p>Note: The property or properties named in the <code>chain</code> argument
