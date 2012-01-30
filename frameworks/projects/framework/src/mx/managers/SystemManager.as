@@ -3151,8 +3151,6 @@ public class SystemManager extends MovieClip
         _screen.width = w;
         _screen.height = h;
 
-        // FIXME (egeorgie): better handling of screen reesize,
-        // refactor this code?
         if (isStageRoot)
         {
             var scale:Number = densityScale;
