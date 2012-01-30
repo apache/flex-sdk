@@ -110,6 +110,11 @@ use namespace mx_internal;
  *  If you do not have access to the UIComponent object, 
  *  you can also access the LayoutManager using the static 
  *  <code>LayoutManager.getInstance()</code> method.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface ILayoutManager extends IEventDispatcher
 {
@@ -149,6 +154,11 @@ public interface ILayoutManager extends IEventDispatcher
 	 *  this property.</p>
 	 *
 	 *  <p>If <code>false</code>, all three phases are completed before the screen is updated.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get usePhasedInstantiation():Boolean;
 
@@ -180,6 +190,11 @@ public interface ILayoutManager extends IEventDispatcher
 	 *  applying new property values.
 	 *
 	 *  @param obj The object whose property changed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function invalidateProperties(obj:ILayoutManagerClient ):void;
 
@@ -207,6 +222,11 @@ public interface ILayoutManager extends IEventDispatcher
 	 *  parent.</p>
 	 *
 	 *  @param obj The object whose size changed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function invalidateSize(obj:ILayoutManagerClient ):void;
 
@@ -219,6 +239,11 @@ public interface ILayoutManager extends IEventDispatcher
 	 *  a new size by its parent.
 	 *
 	 *  @param obj The object that changed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function invalidateDisplayList(obj:ILayoutManagerClient ):void;
 
@@ -237,6 +262,11 @@ public interface ILayoutManager extends IEventDispatcher
 	 *  guarantee that the values are updated, you can call the <code>validateNow()</code> method.  
 	 *  It updates all properties in all components before returning.  
 	 *  Call this method only when necessary as it is a computationally intensive call.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function validateNow():void;
 
@@ -263,6 +293,11 @@ public interface ILayoutManager extends IEventDispatcher
 	 *	@param skipDisplayList If <code>true</code>, 
 	 *  does not call the <code>validateDisplayList()</code> 
 	 *  and <code>updateDisplayList()</code> methods.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function validateClient(target:ILayoutManagerClient, skipDisplayList:Boolean = false):void;
 
@@ -272,6 +307,11 @@ public interface ILayoutManager extends IEventDispatcher
          *  
          * @return Returns <code>true</code> if there are components that need validating;
 	 *  <code>false</code> if all components have been validated.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function isInvalid():Boolean;
 }
