@@ -825,10 +825,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  TabBar and the content group of the navigator.
      * 
      *  <p>TabbedViewNavigator will expect the <code>includeInLayout</code>
-     *  and <code>visible</code> properties of the tabBar to be true
+     *  and <code>visible</code> properties of the TabBar to be <code>true</code>
      *  after this effect is run.</p>
      * 
-     *  @return An effect to play when the TabBar control is hidden.
+     *  @return An effect to play when the TabBar control appears.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 2.5
@@ -844,9 +844,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  The produced effect is responsible for animating both the 
      *  TabBar and the content group of the navigator.
      * 
-     *  <p>TabbedViewNavigator will expect the <code>includeInLayout</code>
-     *  and <code>visible</code> properties of the tabBar to be false
-     *  after this effect is run.</p>
+     *  <p>TabbedViewNavigator expects the <code>includeInLayout</code>
+     *  and <code>visible</code> properties of the TabBar to be <code>false</code>
+     *  after this effect runs.</p>
      * 
      *  @return An effect to play when the TabBar control is hidden.
      * 
