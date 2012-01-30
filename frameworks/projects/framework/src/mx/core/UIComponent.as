@@ -12344,7 +12344,7 @@ public class UIComponent extends FlexSprite
     {
         if (event.eventPhase != EventPhase.AT_TARGET)
             return;
-        
+
         try
         {
             if (parent is IContainer && IContainer(parent).creatingContentPane)
@@ -12355,7 +12355,7 @@ public class UIComponent extends FlexSprite
         }
         catch (error:SecurityError)
         {
-            
+
         }
     }
     
@@ -13149,6 +13149,29 @@ public class UIComponent extends FlexSprite
     protected function initAdvancedLayoutFeatures():void
     {
         internal_initAdvancedLayoutFeatures();
+    }
+
+    
+    /**
+     *  @private
+     */
+    mx_internal function transformRequiresValidations():Boolean
+    {
+        return (_layoutFeatures != null);        
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function clearAdvancedLayoutFeatures():void
+    {
+        if (_layoutFeatures)
+        {
+            // Make sure the matrix is validated before we free the 
+            // layout features. 
+            validateMatrix();
+            _layoutFeatures = null;
+        }
     }
 
     /**
