@@ -1053,19 +1053,13 @@ public class BarSeries extends Series implements IStackable2, IBar
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-        
-        var barSeriesStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.series.BarSeries", styleManager);   
-        
-        barSeriesStyle.defaultFactory = function():void
-        {
-            this.fill = new SolidColor(0);
-            this.fills = [];
-            this.itemRenderer = new ClassFactory(BoxItemRenderer);
-            this.stroke = HaloDefaults.emptyStroke;
-            this.labelSizeLimit = 9;
-        }
-        
+		
+		var barSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.BarSeries");
+		barSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.BoxItemRenderer));
+		barSeriesStyle.setStyle("fill", new SolidColor(0x000000));
+		barSeriesStyle.setStyle("fills", []);
+		barSeriesStyle.setStyle("stroke", HaloDefaults.emptyStroke);
+		
         return true;
     }
     
@@ -2079,7 +2073,7 @@ public class BarSeries extends Series implements IStackable2, IBar
      */
     override public function stylesInitialized():void
     {
-        _localFills = getStyle('fills');
+		_localFills = getStyle('fills');
         if (_localFills != null)
             _fillCount = _localFills.length;
         else
