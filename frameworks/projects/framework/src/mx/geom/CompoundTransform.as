@@ -20,7 +20,8 @@ package mx.geom
 	import flash.geom.Point;
 	
 	/**
-	 *  A CompoundTransform represents a 2D or 3D matrix transform. It can be used in the offsets property on a UIComponent or GraphicElement.
+	 *  A CompoundTransform represents a 2D or 3D matrix transform.  A compound transform represents a matrix that can be queried or set either as a 2D matrix,
+	 *  a 3D matrix, or as individual convenience transform properties such as x, y, scaleX, rotationZ, etc. 
 	 */
 	public class CompoundTransform
 	{
@@ -377,8 +378,7 @@ package mx.geom
 	
 	//------------------------------------------------------------------------------
 	/**
-	 * @private
-	 * the transformX of the transform
+	 * the x value of the tansform center.  The transform center is kept fixed as rotation and scale are applied. 
 	 */
 	public function set transformX(value:Number):void
 	{
@@ -399,8 +399,7 @@ package mx.geom
 
 	//------------------------------------------------------------------------------
 	/**
-	 * @private
-	 * the transformY of the transform
+	 * the y value of the tansform center.  The transform center is kept fixed as rotation and scale are applied. 
 	 */
 	public function set transformY(value:Number):void
 	{
@@ -420,8 +419,7 @@ package mx.geom
 	}
 	//------------------------------------------------------------------------------
 	/**
-	 * @private
-	 * the transformZ of the transform
+	 * the z value of the tansform center.  The transform center is kept fixed as rotation and scale are applied. 
 	 */
 	public function set transformZ(value:Number):void
 	{
@@ -521,6 +519,9 @@ package mx.geom
 	}
 	
 	
+	/** applies the delta to the transforms translation component. Unlike setting the x/y/z properties directly,.
+	 * this method can be safely called without changing the transform's concept of 'the source of truth.'
+	*/
 	public function translateBy(x:Number,y:Number,z:Number = 0):void
 	{
 		if(_flags & MATRIX_VALID)
