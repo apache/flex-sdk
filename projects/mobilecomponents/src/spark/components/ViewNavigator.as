@@ -187,7 +187,7 @@ public class ViewNavigator extends ViewNavigatorBase
     /**     
      *  @private
      */
-    private static var viewTransitonSuspendCount:int = 0;
+    private static var viewTransitionSuspendCount:int = 0;
     private static var eventDispatcher:EventDispatcher;
     
     //--------------------------------------------------------------------------
@@ -2160,7 +2160,7 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         
         // Only dispatch this event if the stage exists.
-        if (stage && viewTransitonSuspendCount > 0)
+        if (stage && viewTransitionSuspendCount > 0)
         {
            if (!eventDispatcher)
                eventDispatcher = new EventDispatcher();
@@ -2178,7 +2178,7 @@ public class ViewNavigator extends ViewNavigatorBase
      */ 
     mx_internal static function suspendTransitions():void
     {
-        viewTransitonSuspendCount++;   
+        viewTransitionSuspendCount++;   
     }
     
     /**
@@ -2186,12 +2186,12 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     mx_internal static function resumeTransitions():void
     {
-        if (viewTransitonSuspendCount == 0)
+        if (viewTransitionSuspendCount == 0)
             return;
         
-        viewTransitonSuspendCount--;
+        viewTransitionSuspendCount--;
         
-        if (viewTransitonSuspendCount == 0)
+        if (viewTransitionSuspendCount == 0)
             eventDispatcher.dispatchEvent(new Event("viewTransitionReady"));
     }
     
