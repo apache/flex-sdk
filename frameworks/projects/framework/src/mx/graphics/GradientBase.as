@@ -271,12 +271,9 @@ public class GradientBase extends EventDispatcher
     {
     	var oldValue:Matrix = matrix;
     	
-    	var oldScaleX:Number = scaleX;
     	var oldX:Number = x;
     	var oldY:Number = y;
     	var oldRotation:Number = rotation;
-    	
-    	scaleX = NaN; // Clear scaleX
     	
     	if (value == null)
     	{
@@ -347,45 +344,7 @@ public class GradientBase extends EventDispatcher
         }
     }
 
-    
     //----------------------------------
-	//  scaleX
-	//----------------------------------
-    
-    private var _scaleX:Number;
-    
-    [Bindable("propertyChange")]
-    [Inspectable(category="General")]
-    
-    /**
-     *  The horizontal scale of the gradient transform, which defines the width of the (unrotated) gradient
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function get scaleX():Number
-    {
-    	return _scaleX;	
-    }
-    
-	/**
-	 *  @private
-	 */
-    public function set scaleX(value:Number):void
-    {
-    	// Once a matrix is set, scaleX can no longer be set
-    	if (_scaleX != value && !compoundTransform)
-    	{
-    		var oldValue:Number = scaleX;
-			_scaleX = value;
-                        
-    		dispatchGradientChangedEvent("scaleX", oldValue, value);
-    	}
-    }
-    
-	//----------------------------------
 	//  spreadMethod
 	//----------------------------------
 	
