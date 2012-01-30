@@ -127,7 +127,8 @@ public dynamic class ImageSnapshot
      *  @param smoothing A Boolean value that determines whether a 
      *  BitmapData object is smoothed when scaled.
      *
-     *  @return A BitmapData object representing the captured snapshot.
+     *  @return A BitmapData object representing the captured snapshot or null if 
+     *  the source has no visible bounds.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -206,6 +207,10 @@ public dynamic class ImageSnapshot
             data = new BitmapData(scaledWidth, scaledHeight, true, 0x00000000);
             data.draw(source, matrix, colorTransform,
                       blendMode, clipRect, smoothing);
+        }
+        catch(e:Error)
+        {
+            data = null;
         }
         finally
         {
