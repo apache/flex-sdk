@@ -77,7 +77,7 @@ public class UIComponentGlobals
      *  @private
      *  A global flag that can be read by any component to determine
      *  whether it is currently executing in the context of a design
-     *  tool such as Flex Builder's design view.  Most components will
+     *  tool such as Flash Builder's design view.  Most components will
      *  never need to check this flag, but if a component needs to
      *  have different behavior at design time than at runtime, then it
      *  can check this flag.
@@ -87,7 +87,7 @@ public class UIComponentGlobals
     /**
      *  A global flag that can be read by any component to determine
      *  whether it is currently executing in the context of a design
-     *  tool such as Flex Builder's design view.  Most components will
+     *  tool such as Flash Builder's design view.  Most components will
      *  never need to check this flag, but if a component needs to
      *  have different behavior at design time than at runtime, then it
      *  can check this flag.
