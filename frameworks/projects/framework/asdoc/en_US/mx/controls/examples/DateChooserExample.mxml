@@ -7,7 +7,7 @@
     <fx:Script>
         <![CDATA[
             // Event handler function to write the selected
-            // date to the Spark SimpleText control.
+            // date to the Spark Label control.
             private function displayDate(date:Date):void {
                 if (date == null) {
                     selection.text = "Date selected: ";
@@ -27,24 +27,24 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                     text="Select a date in the Halo DateChooser control."/>
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                     text="Select it again while holding down the Control key to clear it."/>
 
             <s:HGroup gap="25">
               <s:VGroup>
-                  <s:SimpleText text="Simple Halo DateChooser control."/>
+                  <s:Label text="Simple Halo DateChooser control."/>
                   <mx:DateChooser id="dateChooser1" yearNavigationEnabled="true"
                           change="displayDate(DateChooser(event.target).selectedDate)"/>
-                  <s:SimpleText id="selection"  color="blue" text="Date selected:"/>
+                  <s:Label id="selection"  color="blue" text="Date selected:"/>
               </s:VGroup>
 
               <s:VGroup>
-                  <s:SimpleText text="Disable dates before June 1, 2006."/>
+                  <s:Label text="Disable dates before June 1, 2006."/>
                   <mx:DateChooser id="dateChooser2" yearNavigationEnabled="true"
                           disabledRanges="{[ {rangeEnd: new Date(2006, 5, 1)} ]}"/>
-                  <s:SimpleText color="blue" text="Date selected: {df.format(dateChooser2.selectedDate)}"/>
+                  <s:Label color="blue" text="Date selected: {df.format(dateChooser2.selectedDate)}"/>
               </s:VGroup>
             </s:HGroup>
         </s:VGroup>
