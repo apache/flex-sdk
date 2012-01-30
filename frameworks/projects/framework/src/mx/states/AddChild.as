@@ -14,10 +14,6 @@ package mx.states
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import mx.containers.ApplicationControlBar;
-import mx.containers.ControlBar;
-import mx.containers.Panel;
-import mx.core.Application;
 import mx.core.ContainerCreationPolicy;
 import mx.core.IDeferredInstance;
 import mx.core.mx_internal;
@@ -460,22 +456,6 @@ use namespace mx_internal;
             default:
             {
                 obj.addChild(target);
-                
-                // Hopefully this is a temporary fix for SDK-9478. If the child is a control bar, and 
-                // the parent is a Panel, call createComponentsFromDescriptors() so the ControlBar will
-                // be recognized by the Panel.
-                // This should be changed when we get a proper API for adding/removing a ControlBar
-                if (target is ControlBar && obj is Panel)
-                {
-                    Panel(obj).createComponentsFromDescriptors();
-                }
-                else if (target is ApplicationControlBar && ApplicationControlBar(target).dock) 
-                {
-                    var applicationClass:Class = Class(ApplicationControlBar(target).systemManager.getDefinitionByName("mx.core::Application"));
-                    if (applicationClass && obj is applicationClass)                    
-                        ApplicationControlBar(target).resetDock(true);
-                }
-                
                 break;
             }
         }
@@ -522,20 +502,7 @@ use namespace mx_internal;
             case "lastChild":
             default:
             {
-                // Hopefully this is a temporary fix for SDK-9478. If the child is a ControlBar,
-                // it needs to be removed from the rawChildren list.
-                // This should be changed when we get a proper API for adding/removing a ControlBar
-                if (target is ControlBar && obj is Panel)
-                {
-                    Panel(obj).rawChildren.removeChild(target);
-                    Panel(obj).createComponentsFromDescriptors();
-                }
-                else if (target is ApplicationControlBar && ApplicationControlBar(target).dock)
-                {
-                    Application(obj).dockControlBar(ApplicationControlBar(target), false);
-                    Application(obj).removeChild(target);
-                }
-                else if (obj == target.parent)
+                if (obj == target.parent)
                 {
                     obj.removeChild(target);
                 }
