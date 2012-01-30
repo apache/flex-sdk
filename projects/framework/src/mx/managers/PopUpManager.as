@@ -14,6 +14,7 @@ package mx.managers
 
 import flash.display.DisplayObject;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.Singleton;
 
 /**
@@ -169,6 +170,9 @@ public class PopUpManager
      *  <code>PopUpManagerChildList.POPUP</code>, 
      *  or <code>PopUpManagerChildList.PARENT</code> (default).
      *
+     *  @param moduleFactory The moduleFactory where this pop-up should look for
+     *  its embedded fonts and style manager.
+     * 
      *  @see PopUpManagerChildList
      *  
      *  @langversion 3.0
@@ -179,9 +183,10 @@ public class PopUpManager
     public static function addPopUp(window:IFlexDisplayObject,
                     parent:DisplayObject,
                     modal:Boolean = false,
-                    childList:String = null):void
+                    childList:String = null,
+                    moduleFactory:IFlexModuleFactory = null):void
     {
-		impl.addPopUp(window, parent, modal, childList);
+		impl.addPopUp(window, parent, modal, childList, moduleFactory);
     }
 
     /**
