@@ -69,7 +69,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo, spark")]
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo, spark, mobile")]
 
 /**
  *  Number of pixels between the container's bottom border and its content area.
