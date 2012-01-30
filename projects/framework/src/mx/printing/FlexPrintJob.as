@@ -37,6 +37,11 @@ use namespace mx_internal;
  *  @includeExample examples/FormPrintView.mxml -noswf
  *  @includeExample examples/PrintDataGridExample.mxml
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FlexPrintJob
 {
@@ -50,6 +55,11 @@ public class FlexPrintJob
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FlexPrintJob()
     {
@@ -87,6 +97,11 @@ public class FlexPrintJob
      *  The height  of the printable area on the printer page; 
      *  it does not include any user-set margins. 
      *  It is set after start() method returns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get pageHeight():Number
     {
@@ -107,6 +122,11 @@ public class FlexPrintJob
      *  The width of the printable area on the printer page;
      *  it does not include any user-set margins.
      *  This property is set after <code>start()</code> method returns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get pageWidth():Number
     {
@@ -134,6 +154,11 @@ public class FlexPrintJob
      *  <code>false</code>.
      * 
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get printAsBitmap():Boolean
     {
@@ -163,6 +188,11 @@ public class FlexPrintJob
      *  @return <code>true</code> if the user clicks OK
      *  when the print dialog box appears, or <code>false</code> if the user
      *  clicks Cancel or if an error occurs.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function start():Boolean
     {
@@ -194,6 +224,11 @@ public class FlexPrintJob
      *  object fits on one or more printed pages. 
      *  Must be one of the constant values defined in the FlexPrintJobScaleType
      *  class.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addObject(obj:IUIComponent,
                               scaleType:String = "matchWidth"):void
@@ -464,6 +499,11 @@ public class FlexPrintJob
      *  Sends the added objects to the printer to start printing.
      *  Call this method after you have used the <code>addObject()</code>
      *  method to add the print pages.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function send():void
     {
