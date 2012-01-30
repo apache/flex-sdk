@@ -1754,7 +1754,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         // trace("FocusManager focusInHandler in  = " + this._form.systemManager.loaderInfo.url);
         // trace("FM " + this + " focusInHandler " + target);
 
-        if (lastFocus && !isEnabledAndVisible(DisplayObject(lastFocus)))
+        if (lastFocus && !isEnabledAndVisible(DisplayObject(lastFocus)) && DisplayObject(form).stage)
         {
             DisplayObject(form).stage.focus = null;
             lastFocus = null;
