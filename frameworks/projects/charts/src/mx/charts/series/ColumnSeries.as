@@ -1041,19 +1041,13 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-        
-        var columnSeriesStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.series.ColumnSeries", styleManager);    
-        
-        columnSeriesStyle.defaultFactory = function():void
-        {
-            this.fill = new SolidColor(0);
-            this.fills = [];
-            this.itemRenderer = new ClassFactory(BoxItemRenderer);
-            this.stroke = HaloDefaults.emptyStroke;
-            this.labelSizeLimit = 9;
-        }
-        
+		
+		var columnSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.ColumnSeries");
+		columnSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.BoxItemRenderer));
+		columnSeriesStyle.setStyle("fill", new SolidColor(0x000000));
+		columnSeriesStyle.setStyle("fills", []);
+		columnSeriesStyle.setStyle("stroke", HaloDefaults.emptyStroke);
+		
         return true;
     }
 
@@ -1149,7 +1143,7 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
      */
      override public function stylesInitialized():void
      {
-        _localFills = getStyle('fills');
+		_localFills = getStyle('fills');
         if (_localFills != null)
             _fillCount = _localFills.length;
         else
