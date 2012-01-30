@@ -90,7 +90,7 @@ use namespace mx_internal;
 
 /**
  *  Provides a margin of error around a window's border so a resize
- *  and be more easily started. A click on a window is considered a
+ *  can be more easily started. A click on a window is considered a
  *  click on the window's border if the click occurs with the resizeAffordance
  *  number of pixels from the outside edge of the window.
  *  
