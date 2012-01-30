@@ -89,6 +89,12 @@ public class ResourceManager
     {
         if (!instance)
         {
+            CONFIG::performanceInstrumentation
+            {
+                var perfUtil:mx.utils.PerfUtil = mx.utils.PerfUtil.getInstance();
+                perfUtil.markTime("ResourceManager.getInstance().start");
+            }
+            
 			if (!Singleton.getClass("mx.resources::IResourceManager"))
 				// install ResourceManagerImpl if not registered already
 				Singleton.registerClass("mx.resources::IResourceManager",
@@ -110,6 +116,11 @@ public class ResourceManager
 				// its own ResourceManagerImpl.
 				instance = new ResourceManagerImpl();
 			}
+
+            CONFIG::performanceInstrumentation
+            {
+                perfUtil.markTime("ResourceManager.getInstance().end");
+            }
         }
         
         return instance;
