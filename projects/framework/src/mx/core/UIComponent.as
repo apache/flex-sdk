@@ -11647,6 +11647,11 @@ public class UIComponent extends FlexSprite
                 xformPt.x = transformCenter.x;
                 xformPt.y = transformCenter.y;
             }
+            else
+            {
+                xformPt.x = 0;
+                xformPt.y = 0;
+            }
             var tmp:Point = (super.transform.matrix != null) ?
                 super.transform.matrix.transformPoint(xformPt) :
                 xformPt;
