@@ -111,9 +111,6 @@ public class SplitViewNavigator extends ViewNavigatorBase
     public function SplitViewNavigator()
     {
         super();
-		
-        addEventListener(ElementExistenceEvent.ELEMENT_ADD, elementAddHandler);
-        addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, elementRemoveHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -168,7 +165,6 @@ public class SplitViewNavigator extends ViewNavigatorBase
     
     private var _autoHideFirstViewNavigator:Boolean = false;
     
-    [Bindable("autoHideChanged")]
 	[Inspectable(category="General", defaultValue="false")]
     /**
      *  This flag indicates whether the visibility of the first view navigator should 
@@ -198,9 +194,6 @@ public class SplitViewNavigator extends ViewNavigatorBase
 			return;
 		
         _autoHideFirstViewNavigator = value;
-        
-        if (hasEventListener("autoHideChanged"))
-            dispatchEvent(new Event("autoHideChanged"));
     }
 	
     //----------------------------------
@@ -210,6 +203,9 @@ public class SplitViewNavigator extends ViewNavigatorBase
     /**
      *  The first ViewNavigator of this component.
      *  
+     *  @return Returns the first navigator being managed by the container, or
+     *  <code>null</code> if there are no children.
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
@@ -225,6 +221,9 @@ public class SplitViewNavigator extends ViewNavigatorBase
     
     /**
      *  The second ViewNavigator of this component.
+     *  
+     *  @return Returns the second navigator being managed by the container, or
+     *  <code>null</code> if there are fewer than two children.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -355,6 +354,9 @@ public class SplitViewNavigator extends ViewNavigatorBase
         // the current indicies of the child navigatos.
         if (_calloutNavigatorIndex != -1 && _calloutNavigatorIndex < index)
             index--;
+        
+        if (index >= numElements)
+            return null;
         
         return getElementAt(index) as ViewNavigatorBase;
     }
@@ -518,6 +520,10 @@ public class SplitViewNavigator extends ViewNavigatorBase
 		// a navigator is hidden, its container is removed from layout.
 		navigator.addEventListener(FlexEvent.HIDE, navigator_visibilityChangedHandler, false, EventPriority.DEFAULT, true);
 		navigator.addEventListener(FlexEvent.SHOW, navigator_visibilityChangedHandler, false, EventPriority.DEFAULT, true);
+        
+        // Remove the navigator from layout if it isn't visible
+        if (navigator.visible == false)
+            navigator.includeInLayout = false;
 	}
 	
 	/**
@@ -572,7 +578,12 @@ public class SplitViewNavigator extends ViewNavigatorBase
         
         // Restore each navigators persistence data
         for (var i:int = 0; i < numNavigators; i++)
+        {
+            if (i >= dataArray.length)
+                break;
+            
             getViewNavigatorAt(i).loadViewData(dataArray[i]);
+        }
     }
     
     /**
@@ -605,6 +616,35 @@ public class SplitViewNavigator extends ViewNavigatorBase
     // 
     //--------------------------------------------------------------------------
 	
+    /**
+     *  @private
+     */ 
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+        // Add event listeners before the child are added to the contentGroup
+        if (instance == contentGroup)
+        {
+            contentGroup.addEventListener(ElementExistenceEvent.ELEMENT_ADD, elementAddHandler);
+            contentGroup.addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, elementRemoveHandler);
+        }
+        
+        super.partAdded(partName, instance);
+    }
+    
+    /**
+     *  @private
+     */ 
+    override protected function partRemoved(partName:String, instance:Object):void
+    {
+        super.partRemoved(partName, instance);
+        
+        if (instance == contentGroup)
+        {
+            contentGroup.removeEventListener(ElementExistenceEvent.ELEMENT_ADD, elementAddHandler);
+            contentGroup.removeEventListener(ElementExistenceEvent.ELEMENT_REMOVE, elementRemoveHandler);
+        }
+    }
+    
     /**
      *  @private
      */ 
