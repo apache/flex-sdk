@@ -25,6 +25,7 @@ import mx.events.ResizeEvent;
 import spark.components.supportClasses.ViewNavigatorBase;
 import spark.events.ElementExistenceEvent;
 import spark.events.PopUpEvent;
+import spark.transitions.ViewTransitionBase;
 
 use namespace mx_internal;
 
@@ -393,6 +394,11 @@ public class SplitViewNavigator extends ViewNavigatorBase
         if (!viewNavigatorPopUp|| !viewNavigatorPopUp.isOpen)
             return;
         
+        // Since view transitions can temporarily alter the display tree, we
+        // need to end all view transitions so that the display tree is restored
+        // to a correct state.
+        ViewTransitionBase.endTransitions();
+        
         viewNavigatorPopUp.addEventListener(PopUpEvent.CLOSE, navigatorPopUp_closeHandler);
         viewNavigatorPopUp.close(true);
         viewNavigatorPopUp.removeEventListener('mouseDownOutside', navigatorPopUp_mouseDownOutsideHandler);
@@ -414,15 +420,21 @@ public class SplitViewNavigator extends ViewNavigatorBase
         // it is already open.
         if (index >= numElements || !viewNavigatorPopUp|| viewNavigatorPopUp.isOpen)
             return;
-        
+
+        // Since view transitions can temporarily alter the display tree, we
+        // need to end all view transitions so that the display tree is restored
+        // to a correct state.
+        ViewTransitionBase.endTransitions();
+
         _popUpNavigatorIndex = index;
         _popUpNavigator = getElementAt(index) as ViewNavigatorBase;
         
         viewNavigatorPopUp.addEventListener('mouseDownOutside', navigatorPopUp_mouseDownOutsideHandler, false, 0, true);
         viewNavigatorPopUp.addElement(_popUpNavigator);
         
-        // Make sure the first navigator is visible
-        _popUpNavigator.visible = true;
+        // Make sure the first navigator is visible and prevent the
+        // SHOW event from being dispatched.
+        _popUpNavigator.setVisible(true, true);
         
         // Open the popup
         viewNavigatorPopUp.open(owner, true);
@@ -504,6 +516,11 @@ public class SplitViewNavigator extends ViewNavigatorBase
             return;
         
         lastAspectRatio = aspectRatio;
+
+        // Since view transitions can temporarily alter the display tree, we
+        // need to end all view transitions so that the display tree is restored
+        // to a correct state.
+        ViewTransitionBase.endTransitions();
         
         if (autoHideFirstViewNavigator)
         {
