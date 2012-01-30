@@ -165,20 +165,6 @@
 [Style(name="borderVisible", type="Boolean", inherit="no", theme="spark")]
 
 /**
- *  Radius of component corners.
- *  The default value depends on the component class;
- *  if not overridden for the class, the default value
- *  for the Halo theme is 0 and for the Spark theme is 2.
- *  The default value for ApplicationControlBar is 5.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo, spark")]
-
-/**
  *  Boolean property that specifies whether the component has a visible
  *  drop shadow.
  *  This style is used with <code>borderStyle="solid"</code>.
