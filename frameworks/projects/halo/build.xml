@@ -53,7 +53,6 @@
             <!-- If you change this, update ${local.playerglobal.version} above. -->
             <target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
-			<source-path path-element="${basedir}/src"/>
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
