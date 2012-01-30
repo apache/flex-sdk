@@ -15,6 +15,7 @@ package mx.flash
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
+import flash.events.Event;
 import flash.utils.getDefinitionByName;
 
 import mx.core.IUIComponent;
@@ -49,7 +50,13 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
         super();
         trackSizeChanges = false;
         showInAutomationHierarchy = false;
-
+        
+        _width = this.width;
+        _height = this.height;
+        mx_internal::$scaleX = mx_internal::$scaleY = 1;
+        
+        // No need to listen to enterFrameHandler events for the contentHolder
+        removeEventListener(Event.ENTER_FRAME, enterFrameHandler, false);
     }
     
     //--------------------------------------------------------------------------
@@ -325,16 +332,14 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
                  }
                 
                 flexContent.initialize();
-                
-                 sizeFlexContent();
             }
         }
     }
-
+    
     /**
      *  @private
      */
-    protected function sizeFlexContent():void
+    public function sizeFlexContent():void
     {
         if (!flexContent)
             return;
@@ -354,8 +359,6 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
             
             if (flexContent.explicitHeight)
                 contentHeight = Math.min(contentHeight, flexContent.explicitHeight);
-                
-            flexContent.setActualSize(contentWidth, contentHeight);
         }
         else
         {
@@ -365,13 +368,26 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
             // We don't do anything too fancy here for layout, like make sure 
             // our size is large enough to hold our content in the first place
             
-            contentWidth = Math.max(flexContent.minWidth, 
-                Math.min(_width, flexContent.getExplicitOrMeasuredWidth()));
-            contentHeight = Math.max(flexContent.minHeight, 
-                Math.min(_height, flexContent.getExplicitOrMeasuredHeight()));
-            
-            flexContent.setActualSize(contentWidth, contentHeight);
+            contentWidth = Math.min(_width, flexContent.getExplicitOrMeasuredWidth());
+            contentHeight = Math.min(_height, flexContent.getExplicitOrMeasuredHeight());
         }
+        
+        // width and height are what we actually want our content
+        // to fill up, but it doesn't take in to account our secretScale.
+        if (!myParent.scaleContent)
+        {
+            // apply the scale to the width/height
+            var secretScaleX:Number = myParent.mx_internal::$scaleX/myParent.scaleX;
+            var secretScaleY:Number = myParent.mx_internal::$scaleY/myParent.scaleY;
+            
+            contentWidth *= secretScaleX;
+            contentHeight *= secretScaleY;
+        }
+        
+        contentWidth = Math.max(flexContent.minWidth, contentWidth);
+        contentHeight = Math.max(flexContent.minHeight, contentHeight);
+        
+        flexContent.setActualSize(contentWidth, contentHeight);
     }
 }
 }
