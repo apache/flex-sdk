@@ -13,8 +13,8 @@ package mx.core
 {
     
     /**
-     *  Values for the <code>interactionMode</code> property
-     *  of the UIComponent classes.
+     *  The InteractionMode class defines the alues for the 
+     *  <code>interactionMode</code> property of the UIComponent class.
      *
      *  @see mx.core.Container
      *  @see mx.core.ScrollControlBase
