@@ -1550,8 +1550,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             // commit styles to get an accurate measurement
             labelDisplay.commitStyles();
             
-            labelWidth = labelDisplay.textWidth + UITextField.TEXT_WIDTH_PADDING;
-            labelHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
+            labelWidth = labelDisplay.measuredWidth;
+            labelHeight = labelDisplay.measuredHeight;
         }
             
         if (messageDisplay)
@@ -1560,8 +1560,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             // FIXME (rfrishbe): should take in to account constrainedWidth here
             messageDisplay.commitStyles();
             
-            messageWidth = messageDisplay.textWidth + UITextField.TEXT_WIDTH_PADDING;
-            messageHeight = messageDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
+            messageWidth = messageDisplay.measuredWidth;
+            messageHeight = messageDisplay.measuredHeight;
         }
 
         var verticalGap:Number = (labelDisplay && messageDisplay) ? getStyle("verticalGap") : 0;
