@@ -83,7 +83,7 @@ use namespace mx_internal;
 /**
  *  Dispatched when the current view has been activated.
  * 
- *  @eventType mx.events.ViewNavigatorEvent.VIEW_ACTIVATE
+ *  @eventType spark.events.ViewNavigatorEvent.VIEW_ACTIVATE
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
@@ -94,7 +94,7 @@ use namespace mx_internal;
 /**
  *  Dispatched when the current view has been deactivated.
  * 
- *  @eventType mx.events.ViewNavigatorEvent.VIEW_DEACTIVATE
+ *  @eventType spark.events.ViewNavigatorEvent.VIEW_DEACTIVATE
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
@@ -108,7 +108,7 @@ use namespace mx_internal;
  *  Calling <code>preventDefault()</code> 
  *  while handling this event cancels the screen change.
  * 
- *  @eventType mx.events.ViewNavigatorEvent.REMOVING
+ *  @eventType spark.events.ViewNavigatorEvent.REMOVING
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
