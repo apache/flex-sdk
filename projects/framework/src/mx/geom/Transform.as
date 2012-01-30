@@ -28,7 +28,7 @@ import mx.core.mx_internal;
 use namespace mx_internal;
 	
 /**
- *  TODO  
+ *  FIXME (jszeto): comment
  * 
  * 
  *  @langversion 3.0
@@ -39,7 +39,7 @@ use namespace mx_internal;
 public class Transform extends flash.geom.Transform
 {
 	/**
-	 *  TODO  
+	 *  FIXME (jszeto): comment
 	 * 
 	 * 
 	 *  @langversion 3.0
@@ -166,7 +166,7 @@ public class Transform extends flash.geom.Transform
 	 */ 	
 	override public function set perspectiveProjection(value:PerspectiveProjection):void
 	{
-		// TODO!!! jszeto
+		// FIXME (jszeto): !!!
 		var oldValue:PerspectiveProjection = super.perspectiveProjection;
 		super.perspectiveProjection = value;	
 		
@@ -211,7 +211,7 @@ public class Transform extends flash.geom.Transform
 	private var _target:IVisualElement;
 
 	/**
-	 *  TODO
+	 *  FIXME (jszeto): comment
 	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
