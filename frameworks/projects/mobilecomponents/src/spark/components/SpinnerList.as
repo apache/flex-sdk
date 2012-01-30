@@ -48,15 +48,13 @@ use namespace mx_internal;
 
 [IconFile("SpinnerList.png")]
 
-/*
-	
-TODO
-	Prevent the changing event from getting dispatched
-*/
-
 /**
  *  The SpinnerList component displays a list of items. The item in the center of the 
  *  list is always the selectedItem. By default, the list wraps around.
+ * 
+ *  @includeExample examples/SpinnerListExample.mxml -noswf
+ *  @includeExample examples/SpinnerListContainerExample.mxml -noswf
+ *
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
@@ -322,7 +320,7 @@ public class SpinnerList extends ListBase
 		
 		Animate(event.currentTarget).removeEventListener(EffectEvent.EFFECT_END, animateToIndex_effectEndHandler);
 	}
-	
+	    
 	//--------------------------------------------------------------------------
 	//
 	//  Event handlers
