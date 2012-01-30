@@ -190,7 +190,9 @@ public class StyleProtoChain
         var p:IStyleClient = null;
         if (object is IVisualElement)
             p = IVisualElement(object).parent as IStyleClient;
-
+        else if (object is IAdvancedStyleClient) 
+            p = IAdvancedStyleClient(object).styleParent as IStyleClient;
+			
         if (p)
         {
             var inheritChain:Object = p.inheritingStyles;
