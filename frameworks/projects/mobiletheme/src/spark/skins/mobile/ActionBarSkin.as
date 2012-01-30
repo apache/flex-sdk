@@ -44,7 +44,6 @@ use namespace mx_internal;
  *  @see spark.skins.mobile.ActionRoundedButtonSkin
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -71,7 +70,6 @@ public class ActionBarSkin extends MobileSkin
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -124,6 +122,13 @@ public class ActionBarSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  FXG Class reference for the ActionBar background border graphic.
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected var borderClass:Class;
     
     //--------------------------------------------------------------------------
@@ -137,10 +142,31 @@ public class ActionBarSkin extends MobileSkin
      */
     private var borderSize:uint;
     
+    /**
+     *  Height of shadow embedded in borderClass graphic.
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected var layoutShadowHeight:uint;
     
+    /**
+     *  Default height for navigationGroup, titleGroup and actionGroup.
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected var layoutContentGroupHeight:uint;
     
+    /**
+     *  Default horizontal padding for the titleGroup and titleDisplay.
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected var layoutTitleGroupHorizontalPadding:uint;
     
     //--------------------------------------------------------------------------
@@ -180,13 +206,25 @@ public class ActionBarSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @copy spark.components.ActionBar#navigationGroup
+     */
     public var navigationGroup:Group;
     
+    /**
+     *  @copy spark.components.ActionBar#titleGroup
+     */
     public var titleGroup:Group;
     
+    /**
+     *  @copy spark.components.ActionBar#actionGroup
+     */
     public var actionGroup:Group;
     
     /**
+     *  @copy spark.components.ActionBar#titleDisplay
+     * 
+     *  @private
      *  Wraps a StyleableTextField in a UIComponent to be compatible with
      *  ViewTransition effects.
      */
