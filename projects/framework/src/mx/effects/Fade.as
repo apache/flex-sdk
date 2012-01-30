@@ -14,6 +14,8 @@ package mx.effects
 
 import mx.effects.effectClasses.FadeInstance;
 
+[Alternative(replacement="spark.effects.Fade", since="4.0")]
+
 /**
  *  The Fade effect animates the <code>alpha</code> property of a component,
  *  either from transparent to opaque, or from opaque to transparent. 
