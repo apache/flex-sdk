@@ -28,7 +28,7 @@ use namespace mx_internal;
 /**
  *  Dispatched when the current view has been activated.
  * 
- *  @eventType mx.events.FlexEvent.ACTIVATE
+ *  @eventType mx.events.FlexEvent.VIEW_ACTIVATE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -40,14 +40,14 @@ use namespace mx_internal;
 /**
  *  Dispatched when the current view has been deactivated.
  * 
- *  @eventType mx.events.FlexEvent.DEACTIVATE
+ *  @eventType mx.events.FlexEvent.VIEW_DEACTIVATE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Event(name="deactivate", type="mx.events.FlexEvent")]
+[Event(name="viewDeactivate", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched when the screen is about to be removed in response
@@ -125,7 +125,7 @@ public class View extends Group implements IDataRenderer
         {
             _active = value;
             
-            var eventName:String = _active ? FlexEvent.VIEW_ACTIVATE : FlexEvent.DEACTIVATE;
+            var eventName:String = _active ? FlexEvent.VIEW_ACTIVATE : FlexEvent.VIEW_DEACTIVATE;
             if (hasEventListener(eventName))
                 dispatchEvent(new FlexEvent(eventName));
         }
