@@ -33,27 +33,9 @@ public class LayoutElementUIComponentUtils
      */
     private static function getPreferredUBoundsWidth(obj:IUIComponent):Number
     {
-    	var result:Number;
-        // explicit trumps measured.
-        // measured is restricted by explicitMin and then by explicitMax.
-        if (!isNaN(obj.explicitWidth))
-        {
-			result = obj.explicitWidth;
-        }
-        else
-        {
-            result = obj.measuredWidth;
-
-            // We don't check against measuredMinHeight, since
-            // measuredMinWidth <= measuredWidth is expected always to be true.
-            if (!isNaN(obj.explicitMinWidth))
-               result = Math.max(result,
-                                                 obj.explicitMinWidth);
-            if (!isNaN(obj.explicitMaxWidth))
-               result = Math.min(result,
-                                                 obj.explicitMaxWidth);
-        }
-
+        // explicit trumps measured. measuredWidth should already be
+        // constraint between min & max during measure phase.
+        var result:Number = obj.getExplicitOrMeasuredWidth();
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
         {
             // We are already taking scale into account from the transform,
@@ -70,28 +52,9 @@ public class LayoutElementUIComponentUtils
      */
     private static function getPreferredUBoundsHeight(obj:IUIComponent):Number
     {
-    	var result:Number;
-
-        // explicit trumps measured.
-        // measured is restricted by explicitMin and then by explicitMax.
-        if (!isNaN(obj.explicitHeight))
-        {
-            result = obj.explicitHeight;
-        }
-        else
-        {
-            result = obj.measuredHeight;
-
-            // We don't check against measuredMinHeight, since
-            // measuredMinHeight <= measuredHeight is expected always to be true.
-            if (!isNaN(obj.explicitMinHeight))
-                result = Math.max(result,
-                                                   obj.explicitMinHeight);
-            if (!isNaN(obj.explicitMaxHeight))
-                result = Math.min(result,
-                                                   obj.explicitMaxHeight);
-        }
-    
+        // explicit trumps measured. measuredWidth should already be
+        // constraint between min & max during measure phase. 
+        var result:Number = obj.getExplicitOrMeasuredHeight();
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
         {
             // We are already taking scale into account from the transform,
