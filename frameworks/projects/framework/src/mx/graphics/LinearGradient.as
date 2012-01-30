@@ -180,7 +180,7 @@ public class LinearGradient extends GradientBase implements IFill
      */
     public function get scaleX():Number
     {
-        return _scaleX; 
+        return compoundTransform ? compoundTransform.scaleX : _scaleX;
     }
     
     /**
@@ -188,10 +188,20 @@ public class LinearGradient extends GradientBase implements IFill
      */
     public function set scaleX(value:Number):void
     {
-        var oldValue:Number = _scaleX;
-        if (value != oldValue && !compoundTransform)
+        if (value != scaleX)
         {
-            _scaleX = value;
+            var oldValue:Number = scaleX;
+
+            if (compoundTransform)
+            {
+                // If we have a compoundTransform, only non-NaN values are allowed
+                if (!isNaN(value))
+                    compoundTransform.scaleX = value;
+            }
+            else
+            {
+                _scaleX = value;
+            }
             dispatchGradientChangedEvent("scaleX", oldValue, value);
         }
     }
