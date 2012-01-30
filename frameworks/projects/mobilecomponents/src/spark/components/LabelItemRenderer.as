@@ -24,7 +24,8 @@ import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
-import spark.components.supportClasses.ItemRendererInteractionStateDetector;
+import spark.components.supportClasses.InteractionState;
+import spark.components.supportClasses.InteractionStateDetector;
 import spark.components.supportClasses.StyleableTextField;
 
 use namespace mx_internal;
@@ -73,9 +74,14 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 // FIXME (rfrishbe): what to do about theme?
 
 /**
- *  The color of the background of an item renderer when the item is pressed down.
+ *  The color of the background of an item renderer when the item is being pressed down.
  * 
- *  <p>This style is only applicable in touch <code>interactionMode</code>.</p>
+ *  <p>If <code>downColor</code> is set to <code>undefined</code>, 
+ *  <code>downColor</code> is not used.</p>
+ * 
+ *  <p>The default value in the 
+ *  spark theme is <code>undefined</code>.  The default value in the 
+ *  mobile theme is <code>0xB2B2B2</code>.</p>
  *   
  *  @default 0xB2B2B2
  *  
@@ -235,8 +241,8 @@ public class MobileItemRenderer extends UIComponent
     {
         super();
         
-        itemRendererInteractionStateDetector = new ItemRendererInteractionStateDetector(this);
-        itemRendererInteractionStateDetector.addEventListener(Event.CHANGE, itemRendererInteractionStateDetector_changeHandler);
+        interactionStateDetector = new InteractionStateDetector(this);
+        interactionStateDetector.addEventListener(Event.CHANGE, interactionStateDetector_changeHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -249,7 +255,7 @@ public class MobileItemRenderer extends UIComponent
      *  @private
      *  Helper class to help determine when we are in the hovered or down states
      */
-    private var itemRendererInteractionStateDetector:ItemRendererInteractionStateDetector;
+    private var interactionStateDetector:InteractionStateDetector;
     
     //--------------------------------------------------------------------------
     //
@@ -345,9 +351,6 @@ public class MobileItemRenderer extends UIComponent
     
     /**
      *  Set to <code>true</code> when the user is pressing down on an item renderer.
-     * 
-     *  <p>This property is only applicable when <code>interactionMode</code>
-     *  is set to <code>"touch"</code>.</p>
      *
      *  @default false
      */    
@@ -378,10 +381,7 @@ public class MobileItemRenderer extends UIComponent
     private var _hovered:Boolean = false;
     
     /**
-     *  Set to <code>true</code> when the mouse is hovered over the item renderer.
-     * 
-     *  <p>This property is only applicable when <code>interactionMode</code>
-     *  is set to <code>"mouse"</code>.</p>
+     *  Set to <code>true</code> when the user is hovered over the item renderer.
      *
      *  @default false
      */    
@@ -672,7 +672,7 @@ public class MobileItemRenderer extends UIComponent
         
         layoutContents(unscaledWidth, unscaledHeight);
     }
-    
+
     /**
      *  @private
      */
@@ -727,10 +727,11 @@ public class MobileItemRenderer extends UIComponent
         // figure out backgroundColor
         var backgroundColor:uint;
         var drawBackground:Boolean = true;
+        var downColor:* = getStyle("downColor");
         
-        if (down)
+        if (down && downColor !== undefined)
         {
-            backgroundColor = getStyle("downColor");
+            backgroundColor = downColor;
         }
         else if (selected)
         {
@@ -956,10 +957,10 @@ public class MobileItemRenderer extends UIComponent
     /**
      *  @private
      */
-    private function itemRendererInteractionStateDetector_changeHandler(event:Event):void
+    private function interactionStateDetector_changeHandler(event:Event):void
     {
-        hovered = itemRendererInteractionStateDetector.hovered;
-        down = itemRendererInteractionStateDetector.down;
+        down = (interactionStateDetector.state == InteractionState.DOWN);
+        hovered = (interactionStateDetector.state == InteractionState.OVER);
     }
 }
 }
