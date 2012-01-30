@@ -239,8 +239,9 @@ public class LinearGradientStroke extends GradientStroke
         if (!compoundTransform)
         {
             var w:Number = !isNaN(scaleX) ? scaleX : rect.width;
-            var bX:Number = !isNaN(x) ? x + rect.left : rect.left;
+            var bX:Number = !isNaN(x) ? x + rect.left : rect.left + (rect.width - w) / 2;
             var bY:Number = !isNaN(y) ? y + rect.top : rect.top;
+            
             
             matrix.createGradientBox(w, rect.height, 
                                     !isNaN(_angle) ? 
