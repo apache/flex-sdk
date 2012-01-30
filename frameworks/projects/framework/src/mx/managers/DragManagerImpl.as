@@ -22,6 +22,7 @@ import flash.geom.Point;
 
 import mx.core.DragSource;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.IUIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -272,7 +273,8 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 		{
 			// No drag image specified, use default
 			var dragManagerStyleDeclaration:CSSStyleDeclaration =
-				StyleManager.getStyleDeclaration("mx.managers.DragManager");
+				StyleManager.getStyleManager(sm as IFlexModuleFactory).
+                getStyleDeclaration("mx.managers.DragManager");
 			var dragImageClass:Class =
 				dragManagerStyleDeclaration.getStyle("defaultDragImageSkin");
 			dragImage = new dragImageClass();
