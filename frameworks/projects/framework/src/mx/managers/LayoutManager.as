@@ -21,6 +21,7 @@ import mx.core.ILayoutElement;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
+import mx.core.FlexVersion;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.managers.layoutClasses.PriorityQueue;
@@ -625,6 +626,27 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
     }
 
     /**
+     *  Validates the estimatedWidth and estimatedHeight on
+     *  components in the queue.  It goes top-down even though
+     *  it uses a copy of the invalidateSize queue which goes
+     *  bottom-up
+     */
+    private function validateEstimatedSizes(queue:PriorityQueue):void
+    {
+        var obj:ILayoutManagerClient = ILayoutManagerClient(queue.removeSmallest());
+        while (obj)
+        {
+            var client:ILayoutManagerContainerClient = obj as ILayoutManagerContainerClient;
+            if (client && client.nestLevel)
+            {
+                currentObject = obj;
+                client.validateEstimatedSizesOfChildren();
+            }
+            obj = ILayoutManagerClient(queue.removeSmallest());
+        }
+    }
+    
+    /**
      *  Validates all components whose properties have changed and have called
      *  the <code>invalidateSize()</code> method.  
      *  It calls the <code>validateSize()</code> method on those components
@@ -648,6 +670,9 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
             perfUtil.markTime("validateSize().start");
         }
 
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+            validateEstimatedSizes(invalidateSizeQueue.clone());
+        
         var obj:ILayoutManagerClient = ILayoutManagerClient(invalidateSizeQueue.removeLargest());
         while (obj)
         {
@@ -973,7 +998,9 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
                 invalidatePropertiesFlag = false;
                 invalidateClientPropertiesFlag = false;
             }
-            
+
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+                validateEstimatedSizes(invalidateSizeQueue.clone(target))
             // trace("--- LayoutManager: validateSize --->");
 
             obj = ILayoutManagerClient(invalidateSizeQueue.removeLargestChild(target));
