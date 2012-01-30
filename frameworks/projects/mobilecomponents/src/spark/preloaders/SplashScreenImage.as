@@ -95,7 +95,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */    
 public class SplashScreenImage implements IMXMLObject
 {
@@ -110,7 +110,7 @@ public class SplashScreenImage implements IMXMLObject
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function SplashScreenImage()
     {
@@ -144,7 +144,7 @@ public class SplashScreenImage implements IMXMLObject
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get mxmlContent():Array
     {
@@ -187,7 +187,7 @@ public class SplashScreenImage implements IMXMLObject
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function getImageClass(aspectRatio:String, dpi:Number, resolution:Number):Class
     {
@@ -220,7 +220,7 @@ public class SplashScreenImage implements IMXMLObject
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function initialized(document:Object, id:String):void
     {
