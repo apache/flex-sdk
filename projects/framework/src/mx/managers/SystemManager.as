@@ -244,13 +244,6 @@ public class SystemManager extends MovieClip
         // Make sure to stop the playhead on the current frame.
         stop();
 
-        // Add safeguard in case bug 129782 shows up again.
-        if (topLevel && currentFrame != 1)
-        {
-            throw new Error("The SystemManager constructor was called when the currentFrame was at " + currentFrame +
-                            " Please add this SWF to bug 129782.");
-        }
-
         // Listen for the last frame (param is 0-indexed) to be executed.
         //addFrameScript(totalFrames - 1, frameEndHandler);
 
