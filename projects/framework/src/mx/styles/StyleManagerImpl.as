@@ -203,6 +203,8 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
             lineBreak: true,
             lineHeight: true,
             lineThrough: true,
+            listStylePosition: true,
+            listStyleType: true,
             locale: true,
             marginBottom: true,
             marginLeft: true,
