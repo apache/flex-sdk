@@ -100,6 +100,12 @@ use namespace mx_internal;
  */
 [Event(name="valueCommit", type="mx.events.FlexEvent")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[IconFile("TabbedViewNavigator.png")]
+
 /**
  *  The TabbedViewNavigator class is a container that manages a collection
  *  of view navigator containers.  
