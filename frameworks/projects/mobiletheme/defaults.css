@@ -336,7 +336,7 @@ global
     fontSize: 24;
     color: #000000;
     textShadowColor: #FFFFFF;
-    textShadowAlpha: .55;
+    textShadowAlpha: .45;
     
     /* Behaviors */
     autoThumbVisibility: true;
