@@ -842,9 +842,9 @@ package mx.core
             {
             
                 var currentPositionPt:Point = layoutMatrix.transformPoint(centerP);
-                currentPostLayoutPosition.x = currentPositionPt.x;
-                currentPostLayoutPosition.y = currentPositionPt.y;
-                currentPostLayoutPosition.z = 0;
+                currentPosition.x = currentPositionPt.x;
+                currentPosition.y = currentPositionPt.y;
+                currentPosition.z = 0;
             }
             
             if (currentPostLayoutPosition != null)
@@ -958,38 +958,28 @@ package mx.core
                 postLayoutTransformCenterPosition != null);
         if(needOffsets)
             _offsets = new TransformOffsets();                                               
-                                                        
-        // if the caller passed in a transformCenterPosition, then we know that the transformCenterPosition they passed in is actually the
-        // target position.  If that's the case, we'll deal with that later. If they passed in null, it means they want 
-        // to keep the transformCenter locked at its current position.  In which case, we need to calculate it.
-        // so we set targetPosition to a temp vector to store the calculated value.
-        var targetPosition:Vector3D = 
-            (transformCenterPosition == null) ? 
-            staticTranslation:
-            null; 
-            
-        // same is true for post layout transform center.
-        var postLayoutTargetPosition:Vector3D = 
-            (postLayoutTransformCenterPosition == null) ? 
-            staticOffsetTranslation:
-            null;
 
 		// now if they gave us a non-trivial transform center, and didn't tell us where they want it, 
 		// we need to calculate where it is so that we can make sure we keep it there.             
         if (transformCenter != null && 
             (transformCenter.x != 0 || transformCenter.y != 0 || transformCenter.z != 0) &&
-            (targetPosition != null || postLayoutTargetPosition != null))
+            (transformCenterPosition == null || postLayoutTransformCenterPosition == null))
         {           
-            transformPointToParent(is3D, transformCenter, targetPosition,
-                postLayoutTargetPosition);
+            transformPointToParent(is3D, transformCenter, staticTranslation,
+                staticOffsetTranslation);
+            if(postLayoutTransformCenterPosition == null && transformCenterPosition != null)
+            {
+                staticOffsetTranslation.x = transformCenterPosition.x + staticOffsetTranslation.x - staticTranslation.x;
+                staticOffsetTranslation.y = transformCenterPosition.y + staticOffsetTranslation.y - staticTranslation.y;
+                staticOffsetTranslation.z = transformCenterPosition.z + staticOffsetTranslation.z - staticTranslation.z;
+            }
+                     
         }
         // if targetPosition/postLayoutTargetPosition is null here, it might be because the caller passed in
         // requested values, so we haven't calculated it yet.  So that means our target position is the values
         // they passed in.        
-        if (targetPosition == null)
-            targetPosition = transformCenterPosition;
-        if (postLayoutTargetPosition == null)
-            postLayoutTargetPosition = postLayoutTransformCenterPosition;
+        var targetPosition:Vector3D = (transformCenterPosition == null)? staticTranslation:transformCenterPosition;
+        var postLayoutTargetPosition:Vector3D = (postLayoutTransformCenterPosition == null)? staticOffsetTranslation:postLayoutTransformCenterPosition;
 
 		// now update our transform values.		
         if (rotation != null)
