@@ -12,10 +12,8 @@
 package mx.utils
 {
 
-[ExcludeClass]
-
 /**
- *  The IXMLNotifiable interface is for internal use only.
+ *  The IXMLNotifiable interface.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
