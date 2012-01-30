@@ -2182,9 +2182,9 @@ public class IconItemRenderer extends LabelItemRenderer
 		var messageAlignmentHeight:Number = 0; 
 		
 		if (hasLabel)
-			labelAlignmentHeight = labelDisplay.textTopToLastBaselineHeight;
+			labelAlignmentHeight = getElementPreferredHeight(labelDisplay);
 		if (hasMessage)
-			messageAlignmentHeight = messageDisplay.textTopToLastBaselineHeight;
+			messageAlignmentHeight = getElementPreferredHeight(messageDisplay);
 
 		totalHeight = labelAlignmentHeight + messageAlignmentHeight + verticalGap;			
 		labelComponentsY = Math.round(vAlign * (viewHeight - totalHeight)) + paddingTop;
