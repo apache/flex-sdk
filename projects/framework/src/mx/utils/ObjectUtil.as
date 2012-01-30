@@ -1272,6 +1272,10 @@ public class ObjectUtil
     private static function byteArrayCompare(a:ByteArray, b:ByteArray):int
     {
         var result:int = 0;
+        
+        if (a == b)
+            return result;
+            
         if (a.length != b.length)
         {
             if (a.length < b.length)
@@ -1281,11 +1285,9 @@ public class ObjectUtil
         }
         else
         {
-            a.position = 0;
-            b.position = 0;
             for (var i:int = 0; i < a.length; i++)
             {
-                result = numericCompare(a.readByte(), b.readByte());
+                result = numericCompare(a[i], b[i]);
                 if (result != 0)
                 {
                     i = a.length;
