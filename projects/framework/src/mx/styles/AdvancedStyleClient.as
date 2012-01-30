@@ -42,6 +42,11 @@ import mx.utils.NameUtil;
  *
  *  @see mx.core.styles.IAdvancedStyleClient
  *  @see #initialized
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class AdvancedStyleClient extends EventDispatcher
                         implements IAdvancedStyleClient,IFlexModule,IMXMLObject
@@ -58,7 +63,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  Constructor.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -114,7 +119,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  style client instance.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -153,7 +158,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  Developers typically never need to access this property directly.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -181,7 +186,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @see mx.styles.CSSStyleDeclaration
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -212,7 +217,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  Returns the StyleManager instance used by this component.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -241,7 +246,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -267,7 +272,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -292,7 +297,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -305,7 +310,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -326,7 +331,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  children's children.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -343,7 +348,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @param recursive Regenerate the proto chains of the children.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -359,7 +364,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @param effects An Array of Strings of effect names.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -386,7 +391,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  style client have changed.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -417,7 +422,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -463,7 +468,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -486,7 +491,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  advanced style declarations.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -504,7 +509,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -516,7 +521,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -530,7 +535,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -558,7 +563,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  non-visual style client instance.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -594,7 +599,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @param id The identifier used by the document object to refer to
      *  this object.
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
