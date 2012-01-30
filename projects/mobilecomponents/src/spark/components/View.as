@@ -397,6 +397,16 @@ public class View extends SkinnableContainer implements IDataRenderer
         }
     }
     
+    /**
+     *  @private
+     *  Method called by parent navigator to update the actionBarVisible
+     *  flag as a result of the showActionBar() or hideActionBar() methods.
+     */ 
+    mx_internal function setActionBarVisible(value:Boolean):void
+    {
+        _actionBarVisible = value;
+    }
+    
     //----------------------------------
     //  actionContent
     //----------------------------------
@@ -615,7 +625,17 @@ public class View extends SkinnableContainer implements IDataRenderer
             }
 		}
 	}
-	
+    
+    /**
+     *  @private
+     *  Method called by parent navigator to update the actionBarVisible
+     *  flag as a result of the showTabBar() or hideTabBar() methods.
+     */ 
+    mx_internal function setTabBarVisible(value:Boolean):void
+    {
+        _tabBarVisible = value;
+    }
+    
     //----------------------------------
     //  title
     //----------------------------------
@@ -845,7 +865,17 @@ public class View extends SkinnableContainer implements IDataRenderer
     override public function initialize():void
     {
     	super.initialize();
+        
+        addEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
+    }
     
+    /**
+     *  @private
+     */ 
+    private function creationCompleteHandler(event:FlexEvent):void
+    {
+        removeEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
+        
         // Create a weak listener so stage doesn't hold a reference to the view
         systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
             stage_orientationChangeHandler, false, 0, true);
