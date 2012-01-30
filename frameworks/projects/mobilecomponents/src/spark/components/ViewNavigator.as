@@ -38,6 +38,7 @@ import spark.layouts.supportClasses.LayoutBase;
 import spark.transitions.SlideViewTransition;
 import spark.transitions.ViewTransitionBase;
 import spark.transitions.ViewTransitionDirection;
+import spark.transitions.supportClasses.ViewTransitionUtil;
 
 use namespace mx_internal;
 
@@ -2106,7 +2107,6 @@ public class ViewNavigator extends ViewNavigatorBase
         if (pendingViewDescriptor)
         {
             pendingView = pendingViewDescriptor.instance;
-            pendingView.visible = true;
             pendingView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                             view_propertyChangeHandler);
         }
@@ -2117,10 +2117,36 @@ public class ViewNavigator extends ViewNavigatorBase
             activeTransition.startView = currentView;
             activeTransition.endView = pendingView;
             activeTransition.navigator = this;
+            activeTransition.preInit();
             
-            // Give the transition a chance to prepare before the view updates
-            activeTransition.captureStartValues();
+            ViewTransitionUtil.notifyTransitionPreparation();
         }
+        
+        if (ViewTransitionUtil.suspendCount > 0)
+        {
+            ViewTransitionUtil.instance.addEventListener("ready", completeTransitionPreparations);
+        }
+        else
+        {
+            completeTransitionPreparations();
+        }
+    }
+    
+    private function completeTransitionPreparations(event:Event = null):void
+    {
+        if (event)
+            event.target.removeEventListener("ready", completeTransitionPreparations);
+        
+        var pendingView:View;
+        if (pendingViewDescriptor)
+        {
+            pendingView = pendingViewDescriptor.instance;
+            pendingView.visible = true;
+        }
+        
+        // Give the transition a chance to prepare before the view updates
+        if (activeTransition)
+            activeTransition.captureStartValues();
 
         // This event is dispatched here to allow developers to incorporate
         // length specific changes into the view navigator transitions
@@ -2161,23 +2187,31 @@ public class ViewNavigator extends ViewNavigatorBase
         }
     }
 
+    private var enterFrameCount:int = 0;
+    
     /**
      *  @private
      *  Starts the view transition.
      */
     private function startViewTransition(event:Event):void
     {
-        removeEventListener(Event.ENTER_FRAME, startViewTransition);
+        enterFrameCount++;
         
+        if (enterFrameCount < 2)
+            return;
+        
+        enterFrameCount = 0;
+        removeEventListener(Event.ENTER_FRAME, startViewTransition);
+
+        if (hasEventListener(FlexEvent.TRANSITION_START))
+            dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_START, false, false));
+
         // Force the master clock of the animation engine to update its
         // current time so that the overhead of creating the view and preparing
         // the transition is not included in our animation interpolation.
         // See SDK-27793
         Animation.pulse();
         activeTransition.play();
-        
-        if (hasEventListener(FlexEvent.TRANSITION_START))
-            dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_START, false, false));
     }
     
     /**
