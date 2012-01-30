@@ -14,7 +14,7 @@ package spark.skins.mobile
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 
-import mx.core.DeviceDensity;
+import mx.core.DPIClassification;
 
 import spark.components.Button;
 import spark.primitives.Graphic;
@@ -61,16 +61,16 @@ public class HSliderThumbSkin extends MobileSkin
         useChromeColor = true;
         
         // set the right assets and dimensions to use based on the screen density
-        switch (authorDensity)
+        switch (applicationDPI)
         {
-            case DeviceDensity.PPI_320:
-            {
-                thumbImageWidth = 58;
-                thumbImageHeight = 58;
-                
-                thumbNormalClass = spark.skins.mobile320.assets.HSliderThumb_normal;
-                thumbPressedClass = spark.skins.mobile320.assets.HSliderThumb_pressed;
-                
+			case DPIClassification.DPI_320:
+			{
+				thumbImageWidth = 58;
+				thumbImageHeight = 58;
+				
+				thumbNormalClass = spark.skins.mobile320.assets.HSliderThumb_normal;
+				thumbPressedClass = spark.skins.mobile320.assets.HSliderThumb_pressed;
+				
                 hitZoneOffset = 10;
                 hitZoneSideLength = 80;
 
@@ -81,7 +81,7 @@ public class HSliderThumbSkin extends MobileSkin
                 
                 break;              
             }
-            case DeviceDensity.PPI_240:
+            case DPIClassification.DPI_240:
             {
                 thumbImageWidth = 44;
                 thumbImageHeight = 44;
