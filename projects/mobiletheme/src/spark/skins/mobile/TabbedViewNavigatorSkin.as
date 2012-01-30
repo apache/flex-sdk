@@ -136,9 +136,12 @@ public class TabbedViewNavigatorSkin extends MobileSkin
             tabBar.setStyle("backgroundAlpha", backgroundAlpha);
         }
         
-        var contentGroupHeight:Number = (_isOverlay) ? unscaledHeight : Math.max(unscaledHeight - tabBarHeight, 0);
-        contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
-        contentGroup.setLayoutBoundsPosition(0, 0);
+        if (contentGroup.includeInLayout)
+        {
+            var contentGroupHeight:Number = (_isOverlay) ? unscaledHeight : Math.max(unscaledHeight - tabBarHeight, 0);
+            contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
+            contentGroup.setLayoutBoundsPosition(0, 0);
+        }
     }
 }
 }
