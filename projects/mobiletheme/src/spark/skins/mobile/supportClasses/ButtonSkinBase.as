@@ -22,6 +22,8 @@ package spark.skins.mobile.supportClasses
     import flash.text.TextFormatAlign;
     import flash.text.TextLineMetrics;
     
+    import mx.core.IFlexDisplayObject;
+    import mx.core.ILayoutElement;
     import mx.core.IUITextField;
     import mx.core.UIComponent;
     import mx.core.UITextField;
@@ -229,13 +231,14 @@ package spark.skins.mobile.supportClasses
             var iconHeight:Number = iconInstance ? iconInstance.height : 0;
             var w:Number = 0;
             var h:Number = 0;
-            
+
+            // FIXME (egeorgie): should be checking for & using ILayoutElement interface, IFlexDisplayObject
             if (iconInstance is UIComponent)
             {
                 iconWidth = UIComponent(iconInstance).getExplicitOrMeasuredWidth();
                 iconHeight = UIComponent(iconInstance).getExplicitOrMeasuredHeight();
             }
-            
+
             if (iconPlacement == IconPlacement.LEFT ||
                 iconPlacement == IconPlacement.RIGHT)
             {
@@ -314,10 +317,10 @@ package spark.skins.mobile.supportClasses
             
             if (iconInstance)
             {
-                if (iconInstance is UIComponent)
+                if (iconInstance is ILayoutElement)
                 {
-                    iconWidth = UIComponent(iconInstance).getExplicitOrMeasuredWidth();
-                    iconHeight = UIComponent(iconInstance).getExplicitOrMeasuredHeight();
+                    iconWidth = ILayoutElement(iconInstance).getPreferredBoundsWidth();
+                    iconHeight = ILayoutElement(iconInstance).getPreferredBoundsHeight();
                 }
                 else
                 {
@@ -423,10 +426,8 @@ package spark.skins.mobile.supportClasses
             }
             
             labelDisplay.commitStyles();
-            labelDisplay.x = Math.max(0, Math.round(labelX));
-            labelDisplay.y = Math.max(0, Math.round(labelY));
-            labelDisplay.height = labelHeight;
-            labelDisplay.width = labelWidth;
+            resizePart(labelDisplay, labelWidth, labelHeight);
+            positionPart(labelDisplay, Math.max(0, Math.round(labelX)), Math.max(0, Math.round(labelY))); 
             
             // before truncating text, we need to reset it to its original value
             if (hostComponent && labelDisplay.isTruncated)
@@ -438,10 +439,8 @@ package spark.skins.mobile.supportClasses
             }
             
             labelDisplayShadow.commitStyles();
-            labelDisplayShadow.x = Math.max(0, Math.round(labelX));
-            labelDisplayShadow.y = Math.max(0, Math.round(labelY + 1));
-            labelDisplayShadow.height = labelHeight;
-            labelDisplayShadow.width = labelWidth;
+            resizePart(labelDisplayShadow, labelWidth, labelHeight);
+            positionPart(labelDisplayShadow, Math.max(0, Math.round(labelX)), Math.max(0, Math.round(labelY + 1))); 
             
             // if labelDisplay is truncated, then push it down here as well.
             // otherwise, it would have gotten pushed in the labelDisplay_valueCommitHandler()
@@ -449,9 +448,9 @@ package spark.skins.mobile.supportClasses
                 labelDisplayShadow.text = labelDisplay.text;
             
             if (iconInstance)
-            {                
-                iconInstance.x = Math.max(0, Math.round(iconX));
-                iconInstance.y = Math.max(0, Math.round(iconY));
+            {
+                resizePart(iconInstance, iconWidth, iconHeight);
+                positionPart(iconInstance, Math.max(0, Math.round(iconX)), Math.max(0, Math.round(iconY))); 
             }        
         }
         
