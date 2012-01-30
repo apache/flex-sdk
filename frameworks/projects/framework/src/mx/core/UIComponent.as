@@ -1343,7 +1343,7 @@ public class UIComponent extends FlexSprite
      *  Single registry in the system.
      *  Used to look up the moduleFactory of a font.
      */
-    private static function get embeddedFontRegistry():IEmbeddedFontRegistry
+    mx_internal static function get embeddedFontRegistry():IEmbeddedFontRegistry
     {
         if (!_embeddedFontRegistry && !noEmbeddedFonts)
         {
