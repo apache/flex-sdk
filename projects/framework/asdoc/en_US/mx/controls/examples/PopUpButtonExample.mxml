@@ -39,7 +39,7 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                     text="Button label contains the name of the last selected menu item." />
             <mx:PopUpButton id="popB" label="Edit" creationComplete="initMenu();" width="135" />
 
