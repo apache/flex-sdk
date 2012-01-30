@@ -512,7 +512,8 @@ public class SoundEffectInstance extends EffectInstance
         resumedPosition = startTime;
                 
         _soundChannel = sound.play(startTime, loops, transform);
-        _soundChannel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
+        if (soundChannel)
+            soundChannel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
     }
 
     /**
@@ -526,11 +527,13 @@ public class SoundEffectInstance extends EffectInstance
             volumeTween.pause();
         if (panTween)
             panTween.pause();       
-        
-        pausedPosition = _soundChannel.position; // Save the paused position
-        pausedTransform = _soundChannel.soundTransform;
-        
-        _soundChannel.stop();
+        if (soundChannel)
+        {
+            pausedPosition = soundChannel.position; // Save the paused position
+            pausedTransform = soundChannel.soundTransform;
+            
+            soundChannel.stop();
+        }
     }
 
     /**
@@ -545,7 +548,8 @@ public class SoundEffectInstance extends EffectInstance
         if (panTween)
             panTween.stop();
 
-        _soundChannel.stop();
+        if (soundChannel)
+            soundChannel.stop();
     }   
     
     /**
@@ -565,8 +569,9 @@ public class SoundEffectInstance extends EffectInstance
         
         if (sound)
         {
-            _soundChannel = sound.play(resumedPosition, loops, pausedTransform);    
-            _soundChannel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
+            _soundChannel = sound.play(resumedPosition, loops, pausedTransform);
+            if (soundChannel)
+                soundChannel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
         }
     }
     
@@ -592,8 +597,8 @@ public class SoundEffectInstance extends EffectInstance
      */
     override public function finishEffect():void
     {
-        if (_soundChannel)
-            _soundChannel.stop();
+        if (soundChannel)
+            soundChannel.stop();
         
         super.finishEffect();
     }
@@ -609,10 +614,13 @@ public class SoundEffectInstance extends EffectInstance
      */
     mx_internal function onVolumeTweenUpdate(value:Object):void
     {
-        // Need to reset the soundTransform object in order
-        var copyTransform:SoundTransform = _soundChannel.soundTransform;
-        copyTransform.volume = Number(value);
-        _soundChannel.soundTransform = copyTransform;
+        if (soundChannel)
+        {
+            // Need to reset the soundTransform object in order
+            var copyTransform:SoundTransform = soundChannel.soundTransform;
+            copyTransform.volume = Number(value);
+            soundChannel.soundTransform = copyTransform;
+        }
     }
 
     /**
@@ -630,10 +638,13 @@ public class SoundEffectInstance extends EffectInstance
      */
     mx_internal function onPanTweenUpdate(value:Object):void
     {
-        // Need to reset the soundTransform object in order
-        var copyTransform:SoundTransform = _soundChannel.soundTransform;
-        copyTransform.pan = Number(value);
-        _soundChannel.soundTransform = copyTransform;
+        if (soundChannel)
+        {
+            // Need to reset the soundTransform object in order
+            var copyTransform:SoundTransform = soundChannel.soundTransform;
+            copyTransform.pan = Number(value);
+            soundChannel.soundTransform = copyTransform;
+        }
     }
 
     /**
@@ -653,8 +664,8 @@ public class SoundEffectInstance extends EffectInstance
     {
         if (tweenCount == 0 || --tweenCount == 0)
         {
-            if (_soundChannel)
-                _soundChannel.stop();
+            if (soundChannel)
+                soundChannel.stop();
 
             finishRepeat(); 
         }
