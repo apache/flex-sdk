@@ -1412,6 +1412,8 @@ public class WindowedApplication extends Application implements IWindow
     //  systemChrome
     //----------------------------------
 
+    private var _systemChrome:String = NativeWindowSystemChrome.STANDARD;
+    
     /**
      *  Specifies the type of system chrome (if any) the window has.
      *  The set of possible values is defined by the constants
@@ -1425,9 +1427,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function get systemChrome():String
     {
-        if (nativeWindow.closed)
-            return "";
-        return nativeWindow.systemChrome;
+        return _systemChrome;
     }
 
     //----------------------------------
@@ -1592,10 +1592,8 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function get type():String
     {
-        if (nativeWindow.closed)
-            return "standard";
-
-        return nativeWindow.type;
+        // The initial window is always of type "normal".
+        return NativeWindowType.NORMAL;
     }
 
     //--------------------------------------------------------------------------
@@ -1603,8 +1601,7 @@ public class WindowedApplication extends Application implements IWindow
     //  Overridden methods: UIComponent
     //
     //--------------------------------------------------------------------------
-
-
+    
     /**
      *  @private
      */
@@ -1756,6 +1753,19 @@ public class WindowedApplication extends Application implements IWindow
                 nativeWindow.maximize();
         }
      }
+
+    /**
+     *  @private
+     */
+    override public function initialize():void
+    {
+        // initialize _nativeWindow as soon as possible and
+        // get the value of systemChrome.
+        _nativeWindow = systemManager.stage.nativeWindow;
+        _systemChrome = _nativeWindow.systemChrome;
+        
+        super.initialize();
+    }
 
     /**
      *  @private
@@ -2131,7 +2141,7 @@ public class WindowedApplication extends Application implements IWindow
             return "disabled";
 
         if (nativeWindow.active)
-            return enabled ? "normal" : "disabledActive";
+            return enabled ? "normal" : "disabled";
         else
             return enabled ? "normalInactive" : "disabledInactive";
 
@@ -2261,7 +2271,6 @@ public class WindowedApplication extends Application implements IWindow
     private function creationCompleteHandler(event:Event):void
     {
         addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-        _nativeWindow = systemManager.stage.nativeWindow;
     }
     
     /**
