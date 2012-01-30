@@ -13,21 +13,16 @@ package spark.components
 {
 import flash.display.Stage;
 import flash.events.Event;
-import flash.geom.Rectangle;
 
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.IEffect;
 import mx.effects.Parallel;
-import mx.events.CollectionEvent;
-import mx.events.CollectionEventKind;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
-import mx.events.PropertyChangeEventKind;
 import mx.managers.LayoutManager;
-import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.NavigationStack;
 import spark.components.supportClasses.ViewDescriptor;
@@ -36,15 +31,10 @@ import spark.components.supportClasses.ViewNavigatorBase;
 import spark.components.supportClasses.ViewReturnObject;
 import spark.core.ContainerDestructionPolicy;
 import spark.effects.Animate;
-import spark.effects.Fade;
-import spark.effects.Move;
-import spark.effects.Resize;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
-import spark.events.IndexChangeEvent;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.transitions.SlideViewTransition;
-import spark.transitions.SlideViewTransitionMode;
 import spark.transitions.ViewTransitionBase;
 import spark.transitions.ViewTransitionDirection;
 
@@ -397,7 +387,7 @@ public class ViewNavigator extends ViewNavigatorBase
                 else
                 {
                     // Wait until the view validates before activating it
-                    activeView.addEventListener(FlexEvent.UPDATE_COMPLETE, completeViewCommitProcess);
+                    activeView.addEventListener(FlexEvent.UPDATE_COMPLETE, view_updateCompleteHandler);
                 }
             }
             
@@ -1756,21 +1746,38 @@ public class ViewNavigator extends ViewNavigatorBase
             // Wait a frame before sending the complete event so that the player 
             // has the chance to render the last frame before any custom actionscript 
             // is run in response to a VIEW_ACTIVATE event.
-            addEventListener(Event.ENTER_FRAME, completeViewCommitProcess);
+            addEventListener(Event.ENTER_FRAME, enterFrameHandler);
         }
     }
 
     /**
      *  @private
-     *  Activates the current view.  Called on the frame following the
-     *  navigator commit or when a TabbedViewNavigator activates a new
-     *  view.
+     *  Called when the activeView has received its first updateComplete event
+     *  after the navigator has been activated.  See setActive().
      */ 
-    private function completeViewCommitProcess(event:Event = null):void
+    private function view_updateCompleteHandler(event:FlexEvent):void
     {
-        if (event)
-            removeEventListener(Event.ENTER_FRAME, completeViewCommitProcess);
-        
+        event.target.removeEventListener(FlexEvent.UPDATE_COMPLETE, view_updateCompleteHandler);
+        completeViewCommitProcess();
+    }
+    
+    /**
+     *  @private
+     *  Called after a navigation operation is complete.  See 
+     *  navigatorActionCommitted().
+     */   
+    private function enterFrameHandler(event:Event):void
+    {
+        removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+        completeViewCommitProcess();    
+    }
+    
+    /**
+     *  @private
+     *  Activates the current view and completes the view change process.
+     */ 
+    private function completeViewCommitProcess():void
+    {
         // At this point, currentViewDescriptor points to the new view.
         // The navigator needs to listen for property change events on the
         // view so that it can be notified when the template properties
