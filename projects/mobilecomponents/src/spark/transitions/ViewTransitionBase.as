@@ -12,7 +12,6 @@
 package spark.transitions
 {
     
-import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
@@ -21,27 +20,22 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.effects.Effect;
 import mx.effects.IEffect;
 import mx.effects.Parallel;
-import mx.effects.Pause;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 
 import spark.components.ActionBar;
 import spark.components.Group;
-import spark.components.Image;
 import spark.components.TabbedViewNavigator;
 import spark.components.View;
 import spark.components.ViewNavigator;
 import spark.components.supportClasses.ButtonBarBase;
 import spark.components.supportClasses.ViewNavigatorBase;
 import spark.effects.Animate;
-import spark.effects.Fade;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.effects.easing.IEaser;
@@ -639,23 +633,29 @@ public class ViewTransitionBase extends EventDispatcher
     {
         // Remember some common references.
         parentNavigator = navigator.parentNavigator;
-        targetNavigator = parentNavigator ? parentNavigator : navigator;
         
-        if (navigator is ViewNavigator)
-            actionBar = ViewNavigator(navigator).actionBar;
+        if (parentNavigator is TabbedViewNavigator)
+        {
+           targetNavigator = parentNavigator;
+           tabBar = TabbedViewNavigator(parentNavigator).tabBar;
+        }
+        else
+        {
+            targetNavigator = navigator;
+        }
         
-        if (targetNavigator is TabbedViewNavigator)
-            tabBar = TabbedViewNavigator(targetNavigator).tabBar;
+        if (navigator)
+            actionBar = navigator.actionBar;
         
         // Determine first if we're able to transition our control bars independently
         // of our view content.  If we are, then capture the necessary action bar
         // bitmap snapshots for use later by our default action bar transition.
-        consolidatedTransition = consolidatedTransition ? 
-            consolidatedTransition : !canTransitionControlBarContent();
+        if (!consolidatedTransition)
+            consolidatedTransition = !canTransitionControlBarContent();
         
         // Snapshot component parts of action bar in preparation for our 
         // default action bar transition, (if appropriate).
-        if (!consolidatedTransition && navigator is ViewNavigator)
+        if (!consolidatedTransition)
         {
             if (componentIsVisible(actionBar))
             {
@@ -852,14 +852,12 @@ public class ViewTransitionBase extends EventDispatcher
             case ViewTransitionDirection.DOWN:
                 animatedProperty = "y";
                 slideDistance = -actionBar.height / 2.5;
-                transitionGroup.clipAndEnableScrolling = true;
                 verticalTransition = true;
                 break;
             
             case ViewTransitionDirection.UP:
                 animatedProperty = "y";
                 slideDistance = actionBar.height / 2.5;
-                transitionGroup.clipAndEnableScrolling = true;
                 verticalTransition = true;
                 break;
             
@@ -869,6 +867,8 @@ public class ViewTransitionBase extends EventDispatcher
                 slideDistance = actionBar.width / 2.5;
                 break;
         }
+        
+        transitionGroup.clipAndEnableScrolling = true;
         
         // Suppress slide if our action bar transition behavior is fade-only.
         if (actionBarTransitionMode == ACTION_BAR_MODE_FADE)
