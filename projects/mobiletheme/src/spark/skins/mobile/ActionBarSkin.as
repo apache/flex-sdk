@@ -51,7 +51,6 @@ public class ActionBarSkin extends SliderSkin
         hLayout.gap = 0;
         hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10;
         titleGroup.layout = hLayout;
-        titleGroup.clipAndEnableScrolling = true;
         addChild(titleGroup);
         
         actionGroup = new Group();
@@ -64,6 +63,8 @@ public class ActionBarSkin extends SliderSkin
         addChild(actionGroup);
         
         titleDisplay = new Label();
+		titleDisplay.maxDisplayedLines = 1;
+		titleDisplay.percentWidth = 100;
         titleDisplay.setStyle("fontSize", "18");
         titleDisplay.setStyle("verticalAlign", "middle");
         titleDisplay.setStyle("color", "0xFFFFFF");
@@ -105,7 +106,7 @@ public class ActionBarSkin extends SliderSkin
         var titleGroupWidth:Number = right - left;
         if (titleGroupWidth < 0)
         	titleGroupWidth = 0;
-        
+		
         titleGroup.setLayoutBoundsPosition(left, 0);
         titleGroup.setLayoutBoundsSize(titleGroupWidth, unscaledHeight);
         
