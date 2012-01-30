@@ -196,13 +196,10 @@ public class TabbedMobileApplication extends MobileApplicationBase
     {
         super.restoreApplicationState();
         
-        if (persistenceManager.enabled)
-        {
-            var savedState:Object = persistenceManager.getProperty("navigatorState");
-            
-            if (savedState)
-                navigator.restoreViewData(savedState);
-        }
+        var savedState:Object = persistenceManager.getProperty("navigatorState");
+        
+        if (savedState)
+            navigator.restoreViewData(savedState);
     }
     
     //--------------------------------------------------------------------------
