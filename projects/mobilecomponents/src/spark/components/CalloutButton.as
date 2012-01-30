@@ -766,7 +766,15 @@ public class CalloutButton extends Button
      *  @private
      */
     private function callout_closeHandler(event:PopUpEvent):void
-    {   
+    {
+        // Sanity check. Was callout closed without calling closeDropDown()? 
+        // If so, call closeDropDown directly to remove event listeners. This 
+        // callout_closeHandler will only be called once since the 2nd call
+        // to close() in dropDownController_closeHandler() will not dispatch
+        // another PopUpEvent.CLOSE.
+        if (dropDownController.isOpen)
+            closeDropDown();
+        
         if (calloutDestructionPolicy == ContainerDestructionPolicy.AUTO)
             destroyCallout();
         
