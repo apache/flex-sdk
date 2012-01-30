@@ -12,6 +12,7 @@
 package mx.core
 {
 
+import flash.display.LoaderInfo;
 import flash.display.MovieClip;
 import flash.events.ErrorEvent;
 import flash.events.Event;
@@ -576,7 +577,8 @@ public class FlexModuleFactory extends MovieClip
     private function rslCompleteHandler(event:Event):void
     {
         var rsl:RSLItem = rslListLoader.getItem(rslListLoader.getIndex());
-        preloadedRSLs[event.target] = rsl.urlRequest.url;
+        if (event.target is LoaderInfo)
+            preloadedRSLs[event.target] = rsl.urlRequest.url;
         update();
     }
 
