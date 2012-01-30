@@ -55,9 +55,14 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
         super();
         showInAutomationHierarchy = false;
         
+        // grab our width and height before setting scaleX=scaleY=1
         _width = this.width;
         _height = this.height;
         
+        // set scaleX, scaleY to 1 in case the user scaled the 
+        // FlexContentHolder when creating this ContainerMovieClip.
+        // If we don't set scale here, then the content in the container
+        // would be scaled as well
         $scaleX = $scaleY = 1;
         
         removeEventListener(Event.ADDED, addedHandler);
@@ -373,8 +378,11 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
         if (!myParent.scaleContentWhenResized)
         {
             // apply the scale to the width/height
-            containerWidth *= myParent.scaleXDueToSizing;
-            containerHeight *= myParent.scaleYDueToSizing;
+            if (myParent._layoutFeatures != null)
+            {
+                containerWidth *= myParent._layoutFeatures.stretchX;
+                containerHeight *= myParent._layoutFeatures.stretchY;
+            }
         }
         
         // Size the flex content to what they want to be, 
