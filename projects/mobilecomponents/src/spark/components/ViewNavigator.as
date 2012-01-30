@@ -1414,14 +1414,13 @@ public class ViewNavigator extends ViewNavigatorBase
                                             createActionBarHideEffect();
                                                 
                 actionBarVisibilityEffect.addEventListener(EffectEvent.EFFECT_END, 
-                    visibilityAnimation_completeHandler);
+                                                           visibilityAnimation_completeHandler);
 				
                 actionBarVisibilityEffect.play();
             }
             else
             {
-                if (actionBarVisibilityInvalidated)
-                    actionBar.visible = actionBar.includeInLayout = !actionBar.visible;
+                actionBar.visible = actionBar.includeInLayout = !actionBar.visible;
             }
         }
         
@@ -1442,7 +1441,7 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     protected function createActionBarHideEffect():IEffect
     {
-        return createActionBarVisibilityEffect();
+        return createActionBarVisibilityEffect(false);
     }
     
     
@@ -1460,49 +1459,42 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     protected function createActionBarShowEffect():IEffect
     {
-        return createActionBarVisibilityEffect();
+        return createActionBarVisibilityEffect(true);
     }
     
     /**
      *  @private
      */   
-    private function createActionBarVisibilityEffect():IEffect
-    {
-        var effect:IEffect;
-        var finalEffect:Parallel = new Parallel();
+	private function createActionBarVisibilityEffect(showAnimation:Boolean):IEffect
+	{
+		var effect:IEffect;
+		var finalEffect:Parallel = new Parallel();
         
         // Grab initial values
         actionBarProps = { target:actionBar, start:captureAnimationValues(actionBar) };
         contentGroupProps = { target:contentGroup, start:captureAnimationValues(contentGroup) };
         
-        // Update actionBar layout properties
-        if (actionBarVisibilityInvalidated)
-            actionBar.visible = actionBar.includeInLayout = !actionBarProps.start.visible;
+        // Update actionBar layout properties so we can capture the final state of
+        // of the navigator
+        actionBar.visible = actionBar.includeInLayout = showAnimation;
         
-        // Calculate final positions.  This method will force a validation
-        calculateFinalUIPositions();
+        // Calculate final positions and position actionBar.  This method will force a validation
+        prepareActionBarForAnimation(showAnimation);
+		
+        // Create animation for action bar 
+        var animate:Animate = new Animate();
+        animate.target = actionBar;
+        animate.duration = ACTION_BAR_ANIMATION_DURATION;
+        animate.motionPaths = new Vector.<MotionPath>();
+        animate.motionPaths.push(new SimpleMotionPath("y", actionBarProps.start.y, actionBarProps.end.y));
         
-        // The actionbar will be visible if we are animating it
-        if (actionBar.visible)
-        {
-            var animate:Animate = new Animate();
-            animate.target = actionBar;
-            animate.duration = ACTION_BAR_ANIMATION_DURATION;
-            animate.motionPaths = new Vector.<MotionPath>();
-            animate.motionPaths.push(new SimpleMotionPath("y", actionBarProps.start.y, actionBarProps.end.y));
-            
-            actionBar.includeInLayout = false;
-            actionBar.cacheAsBitmap = true;
-            
-            effect = animate;
-            effect.target = actionBar;
-            
-            finalEffect.addChild(effect);
-        }
-        
-        effect = createContentVisibilityEffect(actionBar.visible, contentGroupProps);
+        // Add action bar effect to final parallel effect
+        effect = animate;        
+        finalEffect.addChild(effect);
+		
+        // Create animation for content group
+        effect = createContentVisibilityEffect(contentGroupProps);
         effect.target = contentGroup;
-        
         finalEffect.addChild(effect);
         
         return finalEffect;
@@ -1519,15 +1511,15 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function calculateFinalUIPositions():void
+    private function prepareActionBarForAnimation(showAnimation:Boolean):void
     {
         var animateActionBarUp:Boolean;
         
         // Determine whether the action bar should be animated up or down
         if (overlayControls)
         {
-            // The actionBar is animated up if the actionBar is above the center
-            // of the navigator
+            // If the control is overlaid on top, the actionBar is animated up if 
+            // the actionBar is above the center of the navigator
             animateActionBarUp = (actionBar.y + (actionBar.height / 2)) <= height / 2;
         }
         else
@@ -1548,25 +1540,24 @@ public class ViewNavigator extends ViewNavigatorBase
         
         // Update the end position of the animation based on whether the
         // actionBar is showing/hiding and if it is animating up or down.
-        if (actionBarVisibilityInvalidated)
+        if (animateActionBarUp)
         {
-            if (animateActionBarUp)
-            {
-                if (actionBarProps.start.visible)
-                    actionBarProps.end.y = -actionBar.height;
-                else
-                    actionBarProps.start.y = -actionBar.height;
-            }
+            if (showAnimation)
+                actionBarProps.start.y = -actionBar.height;
             else
-            {
-                if (actionBarProps.start.visible)
-                    actionBarProps.end.y = this.height;
-                else
-                    actionBarProps.start.y = this.height;
-            }
-            
-            actionBar.visible = true;
+                actionBarProps.end.y = -actionBar.height;
         }
+        else
+        {
+            if (showAnimation)
+                actionBarProps.start.y = this.height;
+            else
+                actionBarProps.end.y = this.height;
+        }
+        
+        actionBar.visible = true;
+        actionBar.includeInLayout = false;
+        actionBar.cacheAsBitmap = true;
     }
     
     /**
@@ -1611,7 +1602,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function createContentVisibilityEffect(hiding:Boolean, props:Object):IEffect
+    private function createContentVisibilityEffect(props:Object):IEffect
     {
         var animate:Animate = new Animate();
         animate.target = contentGroup;
@@ -1634,23 +1625,28 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function visibilityAnimation_completeHandler(event:EffectEvent):void
-    {
-        // Update the actionBar visibility and includeInLayout flags        
-        actionBar.visible = actionBar.includeInLayout = !actionBarProps.start.visible;
-        
-        // Restore includeInLayout and cacheAsBitmap properties for each component
-        actionBar.cacheAsBitmap = actionBarProps.start.cacheAsBitmap;
-        contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
-        contentGroup.cacheAsBitmap = contentGroupProps.start.cacheAsBitmap;
+	private function visibilityAnimation_completeHandler(event:EffectEvent):void
+	{
+        event.target.removeEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
         
         // Clear flags and temporary properties
-        actionBarVisibilityEffect = null;
-        actionBarProps = null;
-        contentGroupProps = null;
-        actionBarVisibilityInvalidated = false;
+		actionBarVisibilityEffect = null;
+		actionBarVisibilityInvalidated = false;
         
-        event.target.removeEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
+        if (actionBarProps)
+        {
+            // Update the actionBar visibility, includeInLayout and cacheAsBitmap flags		
+    		actionBar.visible = actionBar.includeInLayout = !actionBarProps.start.visible;
+            actionBar.cacheAsBitmap = actionBarProps.start.cacheAsBitmap;
+    		actionBarProps = null;
+        }
+        
+        if (contentGroupProps)
+        {
+		    contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
+		    contentGroup.cacheAsBitmap = contentGroupProps.start.cacheAsBitmap;
+    		contentGroupProps = null;
+        }
     }
     
     /**
