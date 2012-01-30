@@ -52,7 +52,7 @@ public interface IFocusManagerComponent
 	 * 
 	 *  <p>This will cause the FocusManager to ignore this component
 	 *  and not monitor it for changes to the <code>tabEnabled</code>,
-	 *  <code>tabChildren</code>, and <code>mouseFocusEnabled</code> properties.
+	 *  <code>hasFocusableChildren</code>, and <code>mouseFocusEnabled</code> properties.
 	 *  This also means you cannot change this value after
 	 *  <code>addChild()</code> and expect the FocusManager to notice.</p>
 	 *
@@ -72,6 +72,44 @@ public interface IFocusManagerComponent
 	 *  @private
 	 */
 	function set focusEnabled(value:Boolean):void;
+
+	//----------------------------------
+	//  hasFocusableChildren
+	//----------------------------------
+
+	/**
+	 *  A flag that indicates whether child objects can receive focus
+	 * 
+	 *  <p>This is similar to the <code>tabChildren</code> property
+     *  used by the Flash Player.
+	 * 
+	 *  <p>This is usually <code>false</code> because most components
+     *  either receive focus themselves or delegate focus to a single
+     *  internal sub-component and appear as if the component has
+     *  received focus.  For example, a TextInput contains a focusable
+     *  child RichEditableText control, but while the RichEditableText
+     *  sub-component actually receives focus, it appears as if the
+     *  TextInput has focus.  TextInput sets <code>hasFocusableChildren</code>
+     *  to <code>false</code> because TextInput is considered the
+     *  component that has focus.  Its internal structure is an
+     *  abstraction.</p>
+     *
+	 *  <p>Usually only navigator components like TabNavigator and
+     *  Accordion have this flag set to <code>true</code> because they
+     *  receive focus on Tab but focus goes to components in the child
+     *  containers on further Tabs.</p>
+	 *  
+	 *  @langversion 4.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	function get hasFocusableChildren():Boolean;
+	
+	/**
+	 *  @private
+	 */
+	function set hasFocusableChildren(value:Boolean):void;
 
 	//----------------------------------
 	//  mouseFocusEnabled
