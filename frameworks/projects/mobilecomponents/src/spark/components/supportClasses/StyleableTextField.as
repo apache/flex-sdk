@@ -127,6 +127,14 @@ public class StyleableTextField extends TextField
         // RichEditableText is double-clickable by default, so we will be too.
         doubleClickEnabled = true;
         
+        // make our width 400 by default.  this is just a heuristic, but it helps
+        // get the right measurement the first time for a multi-line TextField.
+        // The developer should still be setting the textField's width to 
+        // the estimatedWidth to get a more accurate representation, but 
+        // sometimes there is no estimated width, and this will be a good
+        // heuristic in cases where they forget to do that.
+        width = 400;
+        
         // Add a high priority change handler so we can capture the event
         // and re-dispatch as a TextOperationEvent
         addEventListener(Event.CHANGE, changeHandler, false, 100);
@@ -766,9 +774,11 @@ public class StyleableTextField extends TextField
     public function setStyle(styleProp:String, value:*):void
     {
         if (!_inlineStyleObject)
-            _inlineStyleObject = {styleProp: value};
-        else
-            _inlineStyleObject[styleProp] = value;
+            _inlineStyleObject = {};
+        
+        _inlineStyleObject[styleProp] = value;
+		
+		styleChanged(styleProp);
     }
     
     /**
