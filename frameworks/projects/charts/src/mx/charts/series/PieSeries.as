@@ -1261,6 +1261,7 @@ public class PieSeries extends Series
         _measuringField = IUITextField(createInFontContext(UITextField));
         _measuringField.visible = false;
         _measuringField.styleName = this;
+		
         _measuringField.autoSize = TextFieldAutoSize.LEFT;
         addChild(DisplayObject(_measuringField));
         
@@ -1890,7 +1891,11 @@ public class PieSeries extends Series
 
         // the flash player screws up display of device fonts at very small point sizes...it blows out to large sizes instead. So if it looks
         // like fonts will be displayed at a tiny point size, just don't show them at all.
-        var actualScale:Number = r2.x - r1.x;
+        var actualScale:Number;
+		if(chart && chart.layoutDirection == "rtl")
+			actualScale = r1.x - r2.x;
+		else
+			actualScale = r2.x - r1.x;
         if (getStyle("fontSize")*actualScale < 2)
             labelPosition = "none";
         
@@ -2641,10 +2646,11 @@ public class PieSeries extends Series
 
 
             label = ld.label = labels[firstLabelIndex++];
+			label.scaleX = label.scaleY = labelScale;
             label.x = ld.labelX;
             label.y = ld.labelY;
             label.text = ld.labelText;
-            label.scaleX = label.scaleY = labelScale;
+            
 
             endRad = (ld.labelSin == 0)? leftEdge:((label.y + label.height/2 - o.y)/ld.labelSin);
 
@@ -2693,10 +2699,11 @@ public class PieSeries extends Series
 
 
             label = ld.label = labels[firstLabelIndex++];
+			label.scaleX = label.scaleY = labelScale;
             label.x = ld.labelX;
             label.y = ld.labelY;
             label.text = ld.labelText;
-            label.scaleX = label.scaleY = labelScale;
+            
 
             endRad = (label.y + label.height/2 - o.y)/ld.labelSin;
 
