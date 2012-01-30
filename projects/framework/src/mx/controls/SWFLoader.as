@@ -72,6 +72,11 @@ use namespace mx_internal;
  *  by an autoload or an explicit call to the <code>load()</code> method.</p>
  *
  *  @eventType flash.events.Event.COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="complete", type="flash.events.Event")]
 
@@ -80,6 +85,11 @@ use namespace mx_internal;
  *  and Flash Player or AIR can detect the HTTP status code.
  * 
  *  @eventType flash.events.HTTPStatusEvent.HTTP_STATUS
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="httpStatus", type="flash.events.HTTPStatusEvent")]
 
@@ -95,6 +105,11 @@ use namespace mx_internal;
  *  </ul>
  * 
  *  @eventType flash.events.Event.INIT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="init", type="flash.events.Event")]
 
@@ -103,6 +118,11 @@ use namespace mx_internal;
  *  @see flash.events.IOErrorEvent
  *
  *  @eventType flash.events.IOErrorEvent.IO_ERROR
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="ioError", type="flash.events.IOErrorEvent")]
 
@@ -110,6 +130,11 @@ use namespace mx_internal;
  *  Dispatched when a network operation starts.
  * 
  *  @eventType flash.events.Event.OPEN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="open", type="flash.events.Event")]
 
@@ -126,6 +151,11 @@ use namespace mx_internal;
  *  This can happen when the loaded content is a local file.</p>
  *
  *  @eventType flash.events.ProgressEvent.PROGRESS
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="progress", type="flash.events.ProgressEvent")]
 
@@ -134,6 +164,11 @@ use namespace mx_internal;
  *  For more information, see the SecurityErrorEvent class.
  *
  *  @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="securityError", type="flash.events.SecurityErrorEvent")]
 
@@ -143,6 +178,11 @@ use namespace mx_internal;
  *  and the original content is removed prior to the new load beginning.
  * 
  *  @eventType flash.events.Event.UNLOAD
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="unload", type="flash.events.Event")]
 
@@ -154,6 +194,11 @@ use namespace mx_internal;
  *  The name of class to use as the SWFLoader border skin if the control cannot
  *  load the content.
  *  @default BrokenImageBorderSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="brokenImageBorderSkin", type="Class", inherit="no")]
 
@@ -161,6 +206,11 @@ use namespace mx_internal;
  *  The name of the class to use as the SWFLoader skin if the control cannot load
  *  the content.
  *  The default value is the "__brokenImage" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="brokenImageSkin", type="Class", inherit="no")]
 
@@ -170,6 +220,11 @@ use namespace mx_internal;
  *  Possible values are <code>"left"</code>, <code>"center"</code>,
  *  and <code>"right"</code>.
  *  @default "left"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalAlign", type="String", enumeration="left,center,right", inherit="no")]
 
@@ -179,6 +234,11 @@ use namespace mx_internal;
  *  Possible values are <code>"top"</code>, <code>"middle"</code>,
  *  and <code>"bottom"</code>.
  *  @default "top"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalAlign", type="String", enumeration="bottom,middle,top", inherit="no")]
 
@@ -188,6 +248,11 @@ use namespace mx_internal;
 
 /**
  *  An effect that is started when the complete event is dispatched.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="completeEffect", event="complete")]
 
@@ -295,6 +360,11 @@ use namespace mx_internal;
  *  @includeExample examples/SimpleLoader.mxml
  *
  *  @see mx.controls.Image
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SWFLoader extends UIComponent implements ISWFLoader
 {
@@ -308,6 +378,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function SWFLoader()
     {
@@ -459,6 +534,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  If <code>false</code>, you must call the <code>load()</code> method.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get autoLoad():Boolean
     {
@@ -508,6 +588,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  If <code>false</code>, the content loaded into a child ApplicationDomain.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get loadForCompatibility():Boolean
     {
@@ -547,6 +632,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 
     /**
      *  The number of bytes of the SWF or image file already loaded.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bytesLoaded():Number
     {
@@ -567,6 +657,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 
     /**
      *  The total size of the SWF or image file.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bytesTotal():Number
     {
@@ -583,6 +678,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *
      *  @tiptext Returns the content of the SWFLoader.
      *  @helpid 3134
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get content():DisplayObject
     {
@@ -606,6 +706,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  You can get the value after the <code>updateComplete</code> event is triggered.</p>
      *
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get contentHeight():Number
     {
@@ -752,6 +857,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  You can get the value after the <code>updateComplete</code> event is triggered.</p>
      *
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get contentWidth():Number
     {
@@ -794,6 +904,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  @see flash.system.LoaderContext
      *  @see flash.system.ApplicationDomain
      *  @see flash.system.SecurityDomain
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get loaderContext():LoaderContext
     {
@@ -831,6 +946,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  height to width as the original image.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maintainAspectRatio():Boolean
     {
@@ -863,6 +983,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  The percentage of the image or SWF file already loaded.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get percentLoaded():Number
     {
@@ -896,6 +1021,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  If <code>false</code>, the SWFLoader scales to fit the content. 
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scaleContent():Boolean
     {
@@ -940,6 +1070,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  @default false
      *
      *  @see mx.managers.CursorManager
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showBusyCursor():Boolean
     {
@@ -1015,6 +1150,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  you should build them as custom components. </p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get source():Object
     {
@@ -1081,6 +1221,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  @default false
      *  @see flash.system.SecurityDomain
      *  @see flash.system.ApplicationDomain
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get trustContent():Boolean
     {
@@ -1112,6 +1257,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function get swfBridge():IEventDispatcher
     {
@@ -1120,6 +1270,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function get childAllowsParent():Boolean
     {
@@ -1143,6 +1298,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function get parentAllowsChild():Boolean
     {
@@ -1288,6 +1448,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *
      *  @param url Absolute or relative URL of the GIF, JPEG, PNG,
      *  or SWF file to load.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function load(url:Object = null):void
     {
@@ -1427,6 +1592,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  performance. However, if the parameter is set to <code>false</code>, media
      *  and display objects of the child SWF file might persist in memory after
      *  the child SWF has been unloaded.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function unloadAndStop(invokeGarbageCollector:Boolean = true):void
     {
@@ -1445,6 +1615,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public function getVisibleApplicationRect(allApplications:Boolean=false):Rectangle
     {
@@ -2044,6 +2219,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         /**
          * If we are loading a swf, listen for a message from the swf telling us it was loading
          * into an application domain where it needs to use a sandbox bridge to communicate.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
          */
         private function addInitSystemManagerCompleteListener(loaderInfo:LoaderInfo):void
         {
@@ -2057,6 +2237,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         
     /**
      * Remove the listener after the swf is loaded.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function removeInitSystemManagerCompleteListener(loaderInfo:LoaderInfo):void
     {
