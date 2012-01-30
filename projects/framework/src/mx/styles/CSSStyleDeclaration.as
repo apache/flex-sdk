@@ -487,6 +487,8 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  Determines whether this style declaration applies to the given component
      *  based on a match of the selector chain.
      * 
+     *  @param object The component to match the style declaration against.     
+     * 
      *  @return true if this style declaration applies to the component, 
      *  otherwise false. 
      *  
@@ -689,7 +691,7 @@ public class CSSStyleDeclaration extends EventDispatcher
             for (i = 0; i < n; i++)
             {
                 sm = sms[i];
-			    cm = sm.getImplementation("mx.managers::ISystemManagerChildManager");
+                cm = sm.getImplementation("mx.managers::ISystemManagerChildManager");
                 cm.regenerateStyleCache(true);
             }
         }
@@ -697,7 +699,7 @@ public class CSSStyleDeclaration extends EventDispatcher
         for (i = 0; i < n; i++)
         {
             sm = sms[i];
-		    cm = sm.getImplementation("mx.managers::ISystemManagerChildManager");
+            cm = sm.getImplementation("mx.managers::ISystemManagerChildManager");
             cm.notifyStyleChangeInChildren(styleProp, true);
         }
     }
