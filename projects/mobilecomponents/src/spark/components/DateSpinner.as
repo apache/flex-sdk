@@ -855,13 +855,7 @@ public class DateSpinner extends SkinnableComponent
      */
     protected function createDateItemList(datePart:String, itemIndex:int, itemCount:int):SpinnerList
     {
-        // itemIndex and itemCount not used yet; will be used when localization support
-        // is put in place, e.g.
-        // if itemIndex == 0, align as first column,
-        // if itemIndex == itemCount - 1, align as last column
-        
-        var s:SpinnerList = SpinnerList(createDynamicPartInstance("dateItemList"));
-        return s;
+        return SpinnerList(createDynamicPartInstance("dateItemList"));
     }
     
     /**
@@ -1004,6 +998,8 @@ public class DateSpinner extends SkinnableComponent
                 longestYearItem = findLongestYearItem();
             
             yearList.typicalItem = longestYearItem;
+            
+            alignList(yearList);
         }
         if (monthList && populateMonthDataProvider)
         {
@@ -1011,6 +1007,8 @@ public class DateSpinner extends SkinnableComponent
             
             // set size
             monthList.typicalItem = getLongestLabel(monthList.dataProvider);
+            
+            alignList(monthList);
         }
         if (dateList && populateDateDataProvider)
         {
@@ -1032,16 +1030,22 @@ public class DateSpinner extends SkinnableComponent
                 // set size to width of longest visible value
                 dateList.typicalItem = getLongestLabel(dateList.dataProvider);
             }
+            
+            alignList(dateList);
         }
         if (hourList && populateHourDataProvider)
         {
             hourList.dataProvider = generateHours(use24HourTime);
             hourList.typicalItem = getLongestLabel(hourList.dataProvider);
+            
+            alignList(hourList);
         }
         if (minuteList && populateMinuteDataProvider)
         {
             minuteList.dataProvider = generateMinutes();
             minuteList.typicalItem = getLongestLabel(minuteList.dataProvider);
+            
+            alignList(minuteList);
         }
         if (meridianList && populateMeridianDataProvider)
         {
@@ -1049,6 +1053,8 @@ public class DateSpinner extends SkinnableComponent
             var pmObject:Object = generateAmPm(PM);
             meridianList.dataProvider = new ArrayCollection([amObject, pmObject]);
             meridianList.typicalItem = getLongestLabel(meridianList.dataProvider);
+            
+            alignList(meridianList);
         }
 
         // reset all flags
@@ -1196,6 +1202,47 @@ public class DateSpinner extends SkinnableComponent
             return list.getItemAt(idx);
         
         return null;
+    }
+    
+    // set textAlign on list based on position, listType, or typicalItem content type:
+    // left list => align right
+    // right list => align left
+    // HOUR list => align right
+    // MINUTE list => align left
+    // numeric or (numeric + text) => align right
+    // (text + numeric) => align left
+    // all other cases => align center
+    mx_internal function alignList(list:SpinnerList):void
+    {
+        // set outside alignments tight; set alignments for HOUR and MINUTE
+        if (list == listContainer.getElementAt(0))
+            list.setStyle("textAlign", "right");
+        else if (list == listContainer.getElementAt(listContainer.numElements - 1))
+            list.setStyle("textAlign", "left");
+        else if (list == hourList)
+            list.setStyle("textAlign", "right");
+        else if (list == minuteList)
+            list.setStyle("textAlign", "left");
+        else
+        {
+            var testString:String = list.typicalItem["label"];
+            if (testString == null)
+            {
+                // nothing to test; use default
+                list.setStyle("textAlign", "center");
+                return;
+            }
+            
+            var numericPattern:RegExp = /^\d+$/;
+            var numericWithTextRight:RegExp = /^\d+\D+$/;
+            var numericWithTextLeft:RegExp = /^\D+\d+$/;
+            if (numericPattern.test(testString) || numericWithTextRight.test(testString)) // e.g. ja-JP month
+                list.setStyle("textAlign", "right");
+            else if (numericWithTextLeft.test(testString))
+                list.setStyle("textAlign", "left");
+            else
+                list.setStyle("textAlign", "center"); // default
+        }
     }
     
     private function updateListsToSelectedDate(useAnimation:Boolean):void
