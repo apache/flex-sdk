@@ -30,31 +30,30 @@ import spark.core.managers.PersistenceManager;
 [Exclude(name="controlBarLayout", kind="property")]
 [Exclude(name="controlBarVisible", kind="property")]
 [Exclude(name="layout", kind="property")]
-[Exclude(name="preloaderChromeColor", kind="property")] // TODO (chiedozi): Check this
-[Exclude(name="rollOverColor", kind="style")]   // TODO (chiedozi): Check this
-[Exclude(name="backgroundAlpha", kind="style")] // TODO (chiedozi): Check this
+[Exclude(name="preloaderChromeColor", kind="property")]
+[Exclude(name="backgroundAlpha", kind="style")]
 
 //--------------------------------------
 //  Events
 //--------------------------------------
 
 /**
- *  @inheritDoc
+ *  
  */
 [Event(name="applicationPersist", type="mx.events.FlexEvent")]
 
 /**
- *  @inheritDoc
+ *  
  */
 [Event(name="applicationPersisting", type="mx.events.FlexEvent")]
 
 /**
- *  @inheritDoc
+ *  
  */
 [Event(name="applicationRestore", type="mx.events.FlexEvent")]
 
 /**
- *  @inheritDoc
+ *  
  */
 [Event(name="applicationRestoring", type="mx.events.FlexEvent")]
 
@@ -94,6 +93,7 @@ public class MobileApplicationBase extends Application
     {
         return _persistenceManager;
     }
+    
     /**
      *  @private
      */
@@ -124,6 +124,7 @@ public class MobileApplicationBase extends Application
     {
         return _sessionCachingEnabled;
     }
+    
     /**
      * @private
      */ 
@@ -137,8 +138,13 @@ public class MobileApplicationBase extends Application
     //  Methods
     //
     //--------------------------------------------------------------------------
+    
     /**
-     *
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     protected function addApplicationListeners():void
     {
@@ -165,16 +171,24 @@ public class MobileApplicationBase extends Application
             NativeApplication.nativeApplication.
                 addEventListener(Event.DEACTIVATE, applicationDeactivateHandler);
     }
-     
+    
     /**
-     *
-     */ 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */  
     protected function applicationActivateHandler(event:Event):void
     {
     }
     
     /**
-     *
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     protected function applicationDeactivateHandler(event:Event):void
     {
@@ -199,7 +213,11 @@ public class MobileApplicationBase extends Application
     }
     
     /**
-     *
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     protected function backKeyHandler():void
     {
@@ -207,9 +225,13 @@ public class MobileApplicationBase extends Application
     }
     
     /**
-     *
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
-    public function canCancelDefaultBackKeyBehavior():Boolean
+    public function get canCancelBackKeyBehavior():Boolean
     {
         return false;   
     }
@@ -224,14 +246,22 @@ public class MobileApplicationBase extends Application
     }
     
     /**
-     *
-     */ 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */  
     protected function orientationChangeHandler(event:StageOrientationEvent):void
     {
-    }  
+    } 
     
     /**
-     *
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     protected function persistApplicationState():void
     {
@@ -246,21 +276,33 @@ public class MobileApplicationBase extends Application
     }
     
     /**
-     *
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     protected function registerPeristenceClassAliases():void
     {
     }
     
     /**
-     *
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     protected function restoreApplicationState():void
     {
     }
     
     /**
-     *
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     // TODO (chiedozi): Do we need to support unknown orientation?
     public function get landscapeOrientation():Boolean
@@ -270,7 +312,11 @@ public class MobileApplicationBase extends Application
     }
     
     /**
-     *
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     protected function deviceKeyDownHandler(event:KeyboardEvent):void
     {
@@ -278,18 +324,22 @@ public class MobileApplicationBase extends Application
         
         // We want to prevent the default down behavior for back key if 
         // the navigator has a view to pop back to
-        if (key == Keyboard.BACK && canCancelDefaultBackKeyBehavior())
+        if (key == Keyboard.BACK && canCancelBackKeyBehavior)
             event.preventDefault();
     }
     
     /**
-     *
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     protected function deviceKeyUpHandler(event:KeyboardEvent):void
     {
         var key:uint = event.keyCode;
         
-        if (key == Keyboard.BACK && canCancelDefaultBackKeyBehavior())
+        if (key == Keyboard.BACK && canCancelBackKeyBehavior)
             backKeyHandler();
     }
     
