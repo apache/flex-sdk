@@ -187,6 +187,9 @@ public class SequenceInstance extends CompositeEffectInstance
             // appropriate child effects
             if (activeEffectQueue && activeEffectQueue.length > 0)
             {
+                // If we end up skipping past all child effects, then 
+                // finish this Sequence effect when we're done
+                var finishWhenDone:Boolean = true;
                 var cumulativeDuration:Number = 0;
                 for (var i:int = 0; i < activeEffectQueue.length; ++i)
                 {
@@ -196,6 +199,7 @@ public class SequenceInstance extends CompositeEffectInstance
                         instances[0].actualDuration;
                     if (value < endTime)
                     {
+                        finishWhenDone = false;
                         // These are the effects that should be active
                         // simply seek to the right time in the effect
                         if (currentSetIndex != i)
@@ -210,31 +214,45 @@ public class SequenceInstance extends CompositeEffectInstance
                     }
                     else
                     {
+                        // setting endEffectCalled works around a side-effect
+                        // of the onEffectEnd() handler where it will
+                        // automatically launch the next child effect
+                        endEffectCalled = true;
+
                         // if we're seeking past the currently playing
                         // instance, end it
                         if (currentSetIndex == i)
                         {
                             for (var j:int = 0; j < instances.length; j++)
-                            {
-                                // setting endEffectCalled works around a side-effect
-                                // of the onEffectEnd() handler where it will
-                                // automatically launch the next child effect
-                                endEffectCalled = true;
                                 instances[j].end();
-                                endEffectCalled = false;
-                            }
-                            currentSetIndex = -1;
                         }
                         else
                         {
+                            // more child effects to go: set up currentSet vars
+                            // to point to the appropriate ones
+                            currentSetIndex = i;
+                            var nextInstances:Array = activeEffectQueue[currentSetIndex];                                
+                            currentSet = [];
+                            var childEffect:EffectInstance;
+                            for (var l:int = 0; l < nextInstances.length; l++)
+                            {
+                                childEffect = nextInstances[l];                                    
+                                currentSet.push(childEffect);
+                            }
                             // Skip past effects by playing them with no duration
-                            for (var l:int = 0; l < instances.length; l++)
+                            for (l = 0; l < instances.length; l++)
                                 instances[l].playWithNoDuration();
                         }
+                        endEffectCalled = false;
                     }
                     cumulativeDuration = endTime;
                 }
-                
+                if (finishWhenDone)
+                {
+                    finishRepeat();
+                    currentSetIndex = -1;
+                }
+                    
             }
         }
         // Seek in the SequenceInstance itself, which advances the
@@ -411,11 +429,13 @@ public class SequenceInstance extends CompositeEffectInstance
             
             // Call end on the currently playing set
             var currentInstances:Array = queueCopy[currentSetIndex];
-            var currentCount:int = currentInstances.length;
-            
-            for (var i:int = 0; i < currentCount; i++)
+            if (currentInstances)
             {
-                currentInstances[i].end();
+                var currentCount:int = currentInstances.length;                
+                for (var i:int = 0; i < currentCount; i++)
+                {
+                    currentInstances[i].end();
+                }
             }
             
             var n:int = queueCopy.length;
