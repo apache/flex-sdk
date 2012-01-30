@@ -43,44 +43,44 @@ public class AddItems extends OverrideBase
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Documentation is not currently available.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public static const FIRST:String = "first";
 
-	/**
-	 *  Documentation is not currently available.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public static const LAST:String = "last";
 
-	/**
-	 *  Documentation is not currently available.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public static const BEFORE:String = "before";
 
-	/**
-	 *  Documentation is not currently available.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public static const AFTER:String = "after";
 
     //--------------------------------------------------------------------------
@@ -90,14 +90,14 @@ public class AddItems extends OverrideBase
     //--------------------------------------------------------------------------
 
     /**
-	 *  Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function AddItems()
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function AddItems()
     {
         super();
     }
@@ -220,7 +220,7 @@ public class AddItems extends OverrideBase
      *
      *  @default "never"
      *  
-     *  @langversion 4.0
+     *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
@@ -674,7 +674,7 @@ public class AddItems extends OverrideBase
             } 
             else
             {
-            	// For destinations like ArrayCollection we don't want to 
+                // For destinations like ArrayCollection we don't want to 
                 // affect the array in-place in some cases, as ListCollectionView a
                 // attempts to compare the "before" and "after" state of the array
                 assign(dest, propertyName, new Array());
