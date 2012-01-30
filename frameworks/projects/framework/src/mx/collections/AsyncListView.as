@@ -61,10 +61,10 @@ use namespace mx_internal;  // for mx_internal functions pendingItemSucceeded,Fa
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class RemoteListView extends OnDemandEventDispatcher implements IList
+public class AsyncListView extends OnDemandEventDispatcher implements IList
 {
     /**
-     *  RemoteListView constructor.
+     *  AsyncListView constructor.
      *
      *  @param list Initial value of the list property, the IList we're delegating to.
      *  
@@ -73,7 +73,7 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function RemoteListView(list:IList = null)
+    public function AsyncListView(list:IList = null)
     {
         super();
         this.list = list;
@@ -147,7 +147,7 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  Fixup the pendingResponders array after a change to the list.  Generally speaking,
      *  if a list[index] item changes, the pending responder for that index is no longer needed.
      *  
-     *  All "collectionChange" events are redispatched to the RemoteListView listeners.
+     *  All "collectionChange" events are redispatched to the AsyncListView listeners.
      */
     private function handleCollectionChangeEvent(e:Event):void
     {
@@ -186,7 +186,7 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  Delete the ListItemResponder at the specified index, if any.  
      *  This method assumes that the responder hasn't run yet, it sets
      *  the ListItemResponder index to -1 to prevent it from updating
-     *  this RemoteListView later.
+     *  this AsyncListView later.
      */
     private function deletePendingResponder(index:int):void
     {
@@ -663,21 +663,21 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
 }
 
 import mx.rpc.IResponder;
-import mx.collections.RemoteListView;
+import mx.collections.AsyncListView;
 import mx.core.mx_internal;
 
 use namespace mx_internal;  // for mx_internal functions pendingItemSucceeded,Failed()
 
 class ListItemResponder implements IResponder
 {
-    private var remoteListView:RemoteListView;
+    private var asyncListView:AsyncListView;
     public var index:int = -1;
     public var item:Object = null;
     
-    public function ListItemResponder(remoteListView:RemoteListView, index:int, item:Object)
+    public function ListItemResponder(asyncListView:AsyncListView, index:int, item:Object)
     {
         super();
-        this.remoteListView = remoteListView;
+        this.asyncListView = asyncListView;
         this.index = index;
         this.item = item;
     }
@@ -685,12 +685,12 @@ class ListItemResponder implements IResponder
     public function result(info:Object):void
     {
         if (index != -1)
-            remoteListView.pendingRequestSucceeded(index, info);
+            asyncListView.pendingRequestSucceeded(index, info);
     }
     
     public function fault(info:Object):void
     {
         if (index != -1)
-            remoteListView.pendingRequestFailed(index, info);
+            asyncListView.pendingRequestFailed(index, info);
     }
 }
