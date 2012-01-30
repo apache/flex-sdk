@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    title="Home">
+    <s:layout>
+        <s:VerticalLayout paddingTop="10"/>
+    </s:layout>
+    
+    <!-- Define a single Lable control in the View. -->
+    <s:Label text="The home screen"/>
+</s:View>
