@@ -97,8 +97,7 @@ public class ToolTipManagerImpl extends EventDispatcher
         if (instance)
             throw new Error("Instance already exists.");
 
-		this.systemManager = ApplicationGlobals.application.systemManager as ISystemManager2;
-
+		this.systemManager = SystemManagerGlobals.topLevelSystemManagers[0] as ISystemManager2;
 		sandboxRoot = this.systemManager.getSandboxRoot();
 		sandboxRoot.addEventListener(MarshalEvent.TOOLTIP_MANAGER, marshalToolTipManagerHandler, false, 0, true);
 		var me:MarshalEvent = new MarshalEvent(MarshalEvent.TOOLTIP_MANAGER);
