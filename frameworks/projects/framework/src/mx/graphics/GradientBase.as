@@ -233,6 +233,7 @@ public class GradientBase extends EventDispatcher
      */
     private var _rotation:Number = 0.0;
     
+    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
