@@ -9752,6 +9752,9 @@ public class UIComponent extends FlexSprite
             textFormat.gridFitType = _inheritingStyles.fontGridFitType;
             textFormat.sharpness = _inheritingStyles.fontSharpness;
             textFormat.thickness = _inheritingStyles.fontThickness;
+            
+            textFormat.useTLF =
+				getTextFieldClassName() == "mx.core::UITLFTextField";
 
             cachedTextFormat = textFormat;
         }
@@ -10935,29 +10938,52 @@ public class UIComponent extends FlexSprite
     protected function createInFontContext(classObj:Class):Object
     {
         hasFontContextBeenSaved = true;
-        
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
-            classObj = getStyle("textFieldClass");
-                    
+                         
         var fontName:String = StringUtil.trimArrayElements(getStyle("fontFamily"), ",");
         var fontWeight:String = getStyle("fontWeight");
         var fontStyle:String = getStyle("fontStyle");
         var bold:Boolean = (fontWeight == "bold");
         var italic:Boolean = (fontStyle == "italic");
 
-        // save for hasFontContextChanged()
+        // Save for hasFontContextChanged().
         oldEmbeddedFontContext = getFontContext(fontName, bold, italic);
+        
+        var moduleContext:IFlexModuleFactory = oldEmbeddedFontContext ?
+                                               oldEmbeddedFontContext :
+                                               moduleFactory;
+                                               		
+		var className:String = getQualifiedClassName(classObj);
 
-        // not in font registry so create in this font context.
-        var obj:Object = createInModuleContext(oldEmbeddedFontContext ?
-                                               oldEmbeddedFontContext : moduleFactory,
-                                               getQualifiedClassName(classObj));
+		// If the caller requests a UITextField,
+		// we may actually return a UITLFTextField,
+		// depending on the version number
+		// and the value of the textFieldClass style.
+		if (className == "mx.core::UITextField")
+			className = getTextFieldClassName();
+        					   
+        // Not in font registry, so create in this font context.
+        var obj:Object = createInModuleContext(moduleContext, className);
+
         if (obj == null)
             obj = new classObj;
 
         return obj;
     }
 
+    /**
+	 *  @private
+	 *  Returns either "mx.core::UITextField" or "mx.core::UITLFTextField",
+	 *  based on the version number and the textFieldClass style.
+	 */
+	private function getTextFieldClassName():String
+    {
+    	var c:Class = getStyle("textFieldClass");
+    	
+		if (!c || FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+    		return "mx.core::UITextField";
+    	
+    	return getQualifiedClassName(c);
+    }
 
     /**
      *  Creates the object using a given moduleFactory.
