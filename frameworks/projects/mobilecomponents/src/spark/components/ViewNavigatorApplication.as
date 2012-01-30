@@ -25,6 +25,15 @@ use namespace mx_internal;
 
 [DefaultProperty("sections")]
 
+[Exclude(name="controlBarContent", kind="property")]
+[Exclude(name="controlBarGroup", kind="property")]
+[Exclude(name="controlBarLayout", kind="property")]
+[Exclude(name="controlBarVisible", kind="property")]
+[Exclude(name="layout", kind="property")]
+[Exclude(name="preloaderChromeColor", kind="property")]
+[Exclude(name="rollOverColor", kind="style")]
+[Exclude(name="backgroundAlpha", kind="style")]
+
 //--------------------------------------
 //  Events
 //--------------------------------------
