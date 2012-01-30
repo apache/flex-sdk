@@ -6784,6 +6784,12 @@ public class UIComponent extends FlexSprite
      *  Storage for errorString property.
      */
     mx_internal var _errorString:String = "";
+    
+    /**
+     *  @private
+     *  Storage for previous errorString property.
+     */
+    private var oldErrorString:String = "";
 
     /**
      *  @private
@@ -6838,13 +6844,8 @@ public class UIComponent extends FlexSprite
      */
     public function set errorString(value:String):void
     {
-        var oldValue:String = _errorString;
+        oldErrorString = _errorString;
         _errorString = value;
-
-        var showErrorTip:Boolean = getStyle("showErrorTip");
-        
-        if (showErrorTip)
-            ToolTipManager.registerErrorString(this, oldValue, value);
 
         errorStringChanged = true;
         invalidateProperties();
@@ -8103,8 +8104,13 @@ public class UIComponent extends FlexSprite
         if (errorStringChanged)
         {
             errorStringChanged = false;
+                        
+            if (getStyle("showErrorTip"))
+                ToolTipManager.registerErrorString(this, oldErrorString, errorString);
+            
             setBorderColorForErrorString();
         }
+
         if (blendModeChanged)
         {
             blendModeChanged = false; 
