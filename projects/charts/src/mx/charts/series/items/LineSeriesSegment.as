@@ -35,39 +35,39 @@ public class LineSeriesSegment
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *	@param element The owning series.
-	 *
-	 *	@param index The index of the segment in the Array of segments
-	 *  representing the line series.
-	 *
-	 *	@param items The Array of LineSeriesItems
-	 *  representing the full line series.
-	 *
-	 *	@param start The index in the items Array
-	 *  of the first item in this segment.
-	 *
-	 *	@param end The index in the items Array
-	 *  of the last item in this segment, inclusive.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function LineSeriesSegment(element:LineSeries, index:uint,
-									  items:Array /* of LineSeriesItem */, start:uint, end:uint)
-	{
-		super();
+    /**
+     *  Constructor.
+     *
+     *  @param element The owning series.
+     *
+     *  @param index The index of the segment in the Array of segments
+     *  representing the line series.
+     *
+     *  @param items The Array of LineSeriesItems
+     *  representing the full line series.
+     *
+     *  @param start The index in the items Array
+     *  of the first item in this segment.
+     *
+     *  @param end The index in the items Array
+     *  of the last item in this segment, inclusive.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function LineSeriesSegment(element:LineSeries, index:uint,
+                                      items:Array /* of LineSeriesItem */, start:uint, end:uint)
+    {
+        super();
 
-		this.element = element;
-		this.items = items;
-		this.index = index;
-		this.start = start;
-		this.end = end;
-	}
+        this.element = element;
+        this.items = items;
+        this.index = index;
+        this.start = start;
+        this.end = end;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -76,87 +76,87 @@ public class LineSeriesSegment
     //--------------------------------------------------------------------------
 
     //----------------------------------
-	//  element
+    //  element
     //----------------------------------
 
-	[Inspectable(environment="none")]
+    [Inspectable(environment="none")]
 
-	/**
-	 *  The series or element that owns this segment.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var element:LineSeries;
-
-    //----------------------------------
-	//  end
-    //----------------------------------
-
-	[Inspectable(environment="none")]
-
-	/**
-	 *  The index into the items array of the last item
-	 *  in this segment, inclusive.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var end:uint;
+    /**
+     *  The series or element that owns this segment.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var element:LineSeries;
 
     //----------------------------------
-	//  index
+    //  end
     //----------------------------------
 
-	[Inspectable(environment="none")]
+    [Inspectable(environment="none")]
 
-	/**
-	 *  The index of this segment in the array of segments
-	 *  representing the line series.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var index:uint;
-
-    //----------------------------------
-	//  items
-    //----------------------------------
-
-	[Inspectable(environment="none")]
-
-	/**
-	 *  The array of chartItems representing the full line series
-	 *  that owns this segment.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var items:Array /* of LineSeriesItem */;
+    /**
+     *  The index into the items array of the last item
+     *  in this segment, inclusive.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var end:uint;
 
     //----------------------------------
-	//  start
+    //  index
     //----------------------------------
 
-	[Inspectable(environment="none")]
+    [Inspectable(environment="none")]
 
-	/**
-	 *  The index into the items array of the first item in this segment.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var start:uint;
+    /**
+     *  The index of this segment in the array of segments
+     *  representing the line series.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var index:uint;
+
+    //----------------------------------
+    //  items
+    //----------------------------------
+
+    [Inspectable(environment="none")]
+
+    /**
+     *  The array of chartItems representing the full line series
+     *  that owns this segment.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var items:Array /* of LineSeriesItem */;
+
+    //----------------------------------
+    //  start
+    //----------------------------------
+
+    [Inspectable(environment="none")]
+
+    /**
+     *  The index into the items array of the first item in this segment.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var start:uint;
 
     //--------------------------------------------------------------------------
     //
@@ -164,18 +164,20 @@ public class LineSeriesSegment
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Returns a copy of this segment.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function clone():LineSeriesSegment
-	{
-		return new LineSeriesSegment(element, index, items, start, end);		
-	}
+    /**
+     *  Returns a copy of this segment.
+     *  
+     *  @return A copy of this segment.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function clone():LineSeriesSegment
+    {
+        return new LineSeriesSegment(element, index, items, start, end);        
+    }
 }
 
 }
