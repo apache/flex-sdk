@@ -26,8 +26,8 @@ import spark.components.supportClasses.SkinnableComponent;
 import spark.primitives.BitmapImage;
 import spark.primitives.SimpleText;
 import spark.skins.*;
-import spark.skins.spark.MacTitleBarSkin;
-import spark.skins.spark.TitleBarSkin;
+import spark.skins.spark.windowChrome.MacTitleBarSkin;
+import spark.skins.spark.windowChrome.TitleBarSkin;
 
 use namespace mx_internal;
 
