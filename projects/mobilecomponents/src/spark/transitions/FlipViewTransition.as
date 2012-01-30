@@ -812,6 +812,8 @@ public class FlipViewTransition extends ViewTransitionBase
                     comp.scaleX /= scale;
                     comp.scaleY /= scale;
                 }
+                
+                comp.validateDisplayList();
             }
         }
     }
