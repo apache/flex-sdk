@@ -845,36 +845,10 @@ public class FlipViewTransition extends ViewTransitionBase
     
     /**
      *  @private
-     *  Override transitionComplete so that we can defer clean up 
-     *  until after we've rendered the last frame of the 3d transition.
-     */
-    override protected function transitionComplete():void
-    {
-        navigator.addEventListener("enterFrame", enterFrameHandler);
-    }
-    
-    /**
-     *  @private
-     */
-    private function enterFrameHandler(e:Event):void
-    {
-        navigator.removeEventListener("enterFrame", enterFrameHandler);
-        
-        // Invoke our cleanup now that we've rendered the last frame of
-        // animation.
-        deferredCleanUp();
-        
-        // Now dispatch our transition end event.
-        if (hasEventListener(FlexEvent.TRANSITION_END))
-            dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_END));
-    }
-    
-    /**
-     *  @private
      *  Cleanup method which restores any temporary properties set up 
      *  on our view elements.
      */
-    protected function deferredCleanUp():void
+    override protected function cleanUp():void
     {
         // Work-around for SDK-29118
         // Clean-up any scale that we have applied to the elements
