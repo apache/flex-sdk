@@ -200,17 +200,24 @@ public interface IVisualElement extends ILayoutElement
     function set y(value:Number):void;
     
     /**
-     *  Specifies the optional runtime DesignLayer associated
-     *  with this visual element.  
+     *  Specifies the optional DesignLayer instance associated with this visual 
+     *  element.  
      *
-     *  When a DesignLayer is assigned, a visual element 
-     *  must listen for "layerPropertyChange" notifications from 
-     *  the associated layer parent.  When the "computedAlpha" or
-     *  "computedVisibility" of the layer changes, the element must
-     *  then compute its own effective visibility (or alpha)
-     *  and apply it accordingly. 
+     *  <p>When a DesignLayer is assigned, a visual element must consider the  
+     *  visibility and alpha of its parent layer when ultimately committing its  
+     *  own effective visibility or alpha to its backing DisplayObject 
+     *  (if applicable).</p>
      *
-     *  This property should not be set within MXML directly.
+     *  <p>A visual element must listen for <code>layerPropertyChange</code>
+     *  notifications from the associated layer parent.  When the 
+     *  <code>effectiveAlpha</code> or <code>effectiveVisibility</code> of the 
+     *  layer changes, the element must then compute its own effective visibility 
+     *  (or alpha) and apply it accordingly.</p>
+     *
+     *  <p>The <code>layer</code> property is not used for z-order control, 
+     *  please @see #depth.</p>
+     *
+     *  <p>This property should not be set within MXML directly.</p>
      *    
      *  @default null
      *  
@@ -219,11 +226,11 @@ public interface IVisualElement extends ILayoutElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    function get layer():DesignLayer;
+    function get designLayer():DesignLayer;
     
     /**
      *  @private
      */
-    function set layer(value:DesignLayer):void;
+    function set designLayer(value:DesignLayer):void;
 }
 }
