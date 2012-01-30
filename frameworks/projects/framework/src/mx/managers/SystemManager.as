@@ -458,9 +458,10 @@ public class SystemManager extends MovieClip
     /**
      *  @private
      *  Array of RSLData objects that represent the list of RSLs this
-     *  module factory is loading.
+     *  module factory is loading. Each element of the Array is an 
+     *  Array of RSLData.
      */ 
-    private var rslDataList:Array;
+    private var rslDataList:Array
     
     //--------------------------------------------------------------------------
     //
@@ -1037,14 +1038,8 @@ public class SystemManager extends MovieClip
     //----------------------------------
     
     /**
-     *  The RSLs loaded by this SystemManager or FlexModuleFactory before the
-     *  application starts. RSLs loaded by the application are not included in 
-     *  this list. This dictionary may also include RSLs loaded into this 
-     *  module factory's application domain by other modules or 
-     *  sub-applications. 
-     * 
-     *  Information about preloadedRSLs is stored in a Dictionary. The key is
-     *  the RSL's LoaderInfo. The value is the RSL's RSLData.
+     *  @inheritDoc 
+     *  
      */
     public function  get preloadedRSLs():Dictionary
     {
@@ -1053,17 +1048,14 @@ public class SystemManager extends MovieClip
     }
     
     /**
-     *  @private
-     *  Add an RSL to the preloadedRSLs list. This method is called by child
-     *  module factories when they add load an RSL into this module factory's
-     *  application domain.
-     * 
-     *  @param loaderInfo The loaderInfo of the loaded RSL.
-     *  @param rsl The rsl configuration information. An array of RSLData.
-     *  The first element in the array is the primary RSL. The remaining 
-     *  elements are failover RSLs.
+     *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
      */ 
-    public function addPreloadedRSL(loaderInfo:LoaderInfo, rsl:Array):void
+    public function addPreloadedRSL(loaderInfo:LoaderInfo, rsl:Vector.<RSLData>):void
     {
         preloadedRSLs[loaderInfo] = rsl;
         if (hasEventListener(RSLEvent.RSL_ADD_PRELOADED))
@@ -1959,6 +1951,9 @@ public class SystemManager extends MovieClip
         // Append RSL information in the RSL list.
         if (rsls != null && rsls.length > 0)
         {
+            if (rslDataList == null)
+                rslDataList = [];
+            
             if (normalizedURL == null)
                 normalizedURL = LoaderUtil.normalizeURL(this.loaderInfo);
 
@@ -1969,6 +1964,8 @@ public class SystemManager extends MovieClip
                                                normalizedURL,
                                                this);
                 rslItemList.push(node);
+                rslDataList.push([new RSLData(rsls[i].url, null, null, null, 
+                                  false, false, "current")]);
             }
         }
 
@@ -2591,15 +2588,15 @@ public class SystemManager extends MovieClip
     {
         if (!event.isResourceModule && event.loaderInfo)
         {
-            var rsl:Array = rslDataList[event.rslIndex];
+            var rsl:Vector.<RSLData> = Vector.<RSLData>(rslDataList[event.rslIndex]);
             var moduleFactory:IFlexModuleFactory = this;
             if (rsl && rsl[0].moduleFactory)
                 moduleFactory = rsl[0].moduleFactory; 
 
             if (moduleFactory == this)
                 preloadedRSLs[event.loaderInfo] =  rsl;
-            else if ("addPreloadedRSL" in moduleFactory)
-                moduleFactory["addPreloadedRSL"](event.loaderInfo, rsl);
+            else
+                moduleFactory.addPreloadedRSL(event.loaderInfo, rsl);
         }
     }
     
