@@ -216,7 +216,7 @@ public class DragProxy extends UIComponent
     {
         var newCursorClass:Class = cursorClass;
 		var styleSheet:CSSStyleDeclaration =
-						StyleManager.getStyleDeclaration("DragManager");
+						StyleManager.getStyleDeclaration("mx.managers.DragManager");
 
         if (action == DragManager.COPY)
             newCursorClass = styleSheet.getStyle("copyCursor");
