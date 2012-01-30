@@ -90,6 +90,7 @@ public class SpinnerList extends ListBase
 	
 	private var scrollToSelection:Boolean = false;
 	private var numElementsChanged:Boolean = false;
+    private var dispatchChangeEventOnAnimate:Boolean = false;
 	
 	private function get spinnerLayout():VerticalSpinnerLayout
 	{
@@ -303,14 +304,17 @@ public class SpinnerList extends ListBase
 	/**
 	 *   Animate a spin from the current position to the new index
 	 */ 
-	mx_internal function animateToSelectedIndex(index:int):void
+	mx_internal function animateToSelectedIndex(index:int, dispatchChangeEvent:Boolean = false):void
 	{
 		if (scroller)
 		{
 			var animate:Animate = scroller.snapElement(
 				spinnerLayout.getUnwrappedElementIndex(index), true);
 			if (animate)
+            {
 				animate.addEventListener(EffectEvent.EFFECT_END, animateToIndex_effectEndHandler);
+                dispatchChangeEventOnAnimate = dispatchChangeEvent;
+            }
 		}
 	}
 	
@@ -320,7 +324,10 @@ public class SpinnerList extends ListBase
 		{
 			// Commit the center item as the selectedItem
 			var centerElementIndex:int = spinnerLayout.getIndexAtVerticalCenter();
-			selectedIndex = centerElementIndex;
+            if (dispatchChangeEventOnAnimate)
+                setSelectedIndex(centerElementIndex, true);
+            else
+			    selectedIndex = centerElementIndex;
 		}
 		
 		Animate(event.currentTarget).removeEventListener(EffectEvent.EFFECT_END, animateToIndex_effectEndHandler);
@@ -407,7 +414,7 @@ public class SpinnerList extends ListBase
 		// If an item is disabled, then don't animate to that item
 		if (event.currentTarget["enabled"] == undefined ||
 			event.currentTarget["enabled"] == true)
-			animateToSelectedIndex(newIndex);
+			animateToSelectedIndex(newIndex, true);
 	}
 	
 	/**
