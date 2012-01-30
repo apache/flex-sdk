@@ -20,6 +20,11 @@ package mx.logging.errors
  *    <li><code>ILoggerTarget.filters</code> if a filter expression
  *    in this listis malformed.</li>
  *  </ul>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class InvalidFilterError extends Error
 {
@@ -35,6 +40,11 @@ public class InvalidFilterError extends Error
 	 *  Constructor.
 	 *
 	 *  @param message The message that describes this error.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function InvalidFilterError(message:String)
     {
@@ -51,6 +61,11 @@ public class InvalidFilterError extends Error
 	 *  Returns the messge as a String.
 	 *  
 	 *  @return The message.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public function toString():String
     {
