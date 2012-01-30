@@ -520,10 +520,10 @@ public class TitleBar extends SkinnableComponent
         else
         {
             window.maximize();
-
-            // work around bug  Bug SDK-9547
-            maximizeButton.dispatchEvent(new MouseEvent(MouseEvent.ROLL_OUT));
         }
+        
+        // work around for bugs SDK-9547 & SDK-21190
+        maximizeButton.dispatchEvent(new MouseEvent(MouseEvent.ROLL_OUT));
 
         invalidateSkinState();
 
