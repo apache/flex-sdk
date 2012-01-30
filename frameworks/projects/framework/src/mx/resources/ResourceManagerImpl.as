@@ -31,6 +31,11 @@ import mx.utils.StringUtil;
 
 /**
  *  @copy mx.resources.IResourceManager#change
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="flash.events.Event")]
 
@@ -75,6 +80,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
      *  This object manages all localized resources for a Flex application.
      *  
      *  @return An object implementing IResourceManager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getInstance():IResourceManager
     {
@@ -92,6 +102,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ResourceManagerImpl()
     {
@@ -145,6 +160,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#localeChain
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get localeChain():Array /* of String */
     {
@@ -323,6 +343,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#initializeLocaleChain()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initializeLocaleChain(compiledLocales:Array):void
     {
@@ -332,6 +357,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
 
     /**
      *  @copy mx.resources.IResourceManager#loadResourceModule()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function loadResourceModule(url:String, updateFlag:Boolean = true,
                                        applicationDomain:ApplicationDomain = null,
@@ -416,6 +446,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
 
     /**
      *  @copy mx.resources.IResourceManager#unloadResourceModule()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function unloadResourceModule(url:String, update:Boolean = true):void
     {
@@ -424,6 +459,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#addResourceBundle()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addResourceBundle(resourceBundle:IResourceBundle):void
     {
@@ -438,6 +478,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#getResourceBundle()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getResourceBundle(locale:String,
                                       bundleName:String):IResourceBundle
@@ -451,6 +496,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#removeResourceBundle()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeResourceBundle(locale:String, bundleName:String):void
     {
@@ -465,6 +515,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#removeResourceBundlesForLocale()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeResourceBundlesForLocale(locale:String):void
     {
@@ -473,6 +528,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#update()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function update():void
     {
@@ -481,6 +541,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
 
     /**
      *  @copy mx.resources.IResourceManager#getLocales()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getLocales():Array /* of String */
     {
@@ -494,6 +559,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
 
     /**
      *  @copy mx.resources.IResourceManager#getPreferredLocaleChain()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getPreferredLocaleChain():Array /* of String */
     {
@@ -503,6 +573,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#getBundleNamesForLocale()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getBundleNamesForLocale(locale:String):Array /* of String */
     {
@@ -516,6 +591,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
 
     /**
      *  @copy mx.resources.findResourceBundleWithResource
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function findResourceBundleWithResource(
                         bundleName:String, resourceName:String):IResourceBundle
@@ -547,6 +627,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#getObject()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getObject(bundleName:String, resourceName:String,
                               locale:String = null):*
@@ -563,6 +648,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#getString()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getString(bundleName:String, resourceName:String,
                               parameters:Array = null,
@@ -585,6 +675,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#getStringArray()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getStringArray(bundleName:String,
                                    resourceName:String,
@@ -612,6 +707,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#getNumber()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getNumber(bundleName:String, resourceName:String,
                               locale:String = null):Number
@@ -630,6 +730,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#getInt()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getInt(bundleName:String, resourceName:String,
                            locale:String = null):int
@@ -648,6 +753,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#getUint()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getUint(bundleName:String, resourceName:String,
                             locale:String = null):uint
@@ -666,6 +776,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#getBoolean()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getBoolean(bundleName:String, resourceName:String,
                                locale:String = null):Boolean
@@ -684,6 +799,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     
     /**
      *  @copy mx.resources.IResourceManager#getClass()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getClass(bundleName:String, resourceName:String,
                              locale:String = null):Class
@@ -802,6 +922,11 @@ class ResourceModuleInfo
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ResourceModuleInfo(moduleInfo:IModuleInfo,
                                        readyHandler:Function,
@@ -876,6 +1001,11 @@ class ResourceEventDispatcher extends EventDispatcher
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ResourceEventDispatcher(moduleInfo:IModuleInfo)
     {
