@@ -280,13 +280,59 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 		for (var i:int = forms.length - 1; i >= 0; i--)
 		{
 			// Verify the form is visible and enabled
-			if (forms[i] != f && canActivatePopUp(forms[i]))
+			if (!areFormsEqual(forms[i], f) && canActivatePopUp(forms[i]))
 				return forms[i];
 		}
 		
         return null;  // should never get here
 	}
 	
+    /**
+     * Test if two forms are equal.
+     * 
+     * @param form1 - may be of type a DisplayObjectContainer or a RemotePopUp
+     * @param form2 - may be of type a DisplayObjectContainer or a RemotePopUp
+     * 
+     * @return true if the forms are equal, false otherwise.
+     */
+    private function areFormsEqual(form1:Object, form2:Object):Boolean
+    {
+        if (form1 == form2)
+            return true;
+        
+        // if the forms are both remote forms, then compare them, otherwise
+        // return false.
+        if (form1 is RemotePopUp && form2 is RemotePopUp)
+        {
+            return areRemotePopUpsEqual(form1, form2);	
+        }
+        
+        return false;
+    }
+    
+    /**
+     * @private
+     * 
+     * @return true if form1 and form2 are both of type RemotePopUp and are equal, false otherwise.
+     */
+    private static function areRemotePopUpsEqual(form1:Object, form2:Object):Boolean
+    {
+        if (!(form1 is RemotePopUp))
+            return false;
+        
+        if (!(form2 is RemotePopUp))
+            return false;
+        
+        var remotePopUp1:RemotePopUp = RemotePopUp(form1);
+        var remotePopUp2:RemotePopUp = RemotePopUp(form2);
+        
+        if (remotePopUp1.window == remotePopUp2.window && 
+            remotePopUp1.bridge && remotePopUp2.bridge)
+            return true;
+        
+        return false;
+    }
+    
 	
 	/**
 	 * @private
