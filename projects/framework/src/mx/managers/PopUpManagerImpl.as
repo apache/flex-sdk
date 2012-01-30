@@ -189,6 +189,11 @@ public class PopUpManagerImpl implements IPopUpManager
      *  @return Reference to new top-level window.
      *
      *  @see PopUpManagerChildList
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createPopUp(parent:DisplayObject,
                                 className:Class,
@@ -236,6 +241,11 @@ public class PopUpManagerImpl implements IPopUpManager
      *  or <code>PopUpManagerChildList.PARENT</code> (default).
      *
      *  @see PopUpManagerChildList
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addPopUp(window:IFlexDisplayObject,
                              parent:DisplayObject,
@@ -430,6 +440,11 @@ public class PopUpManagerImpl implements IPopUpManager
      *  popup window before centering it.</p>
      *
      *  @param The IFlexDisplayObject representing the popup.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function centerPopUp(popUp:IFlexDisplayObject):void
     {
@@ -530,6 +545,11 @@ public class PopUpManagerImpl implements IPopUpManager
      *  the <code>createPopUp()</code> or <code>addPopUp()</code> method.
      *  
      *  @param window The IFlexDisplayObject representing the popup window.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removePopUp(popUp:IFlexDisplayObject):void
     {
@@ -568,6 +588,11 @@ public class PopUpManagerImpl implements IPopUpManager
      *  but otherwise you have to take care of this yourself.
      *
      *  @param The IFlexDisplayObject representing the popup.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function bringToFront(popUp:IFlexDisplayObject):void
     {
@@ -1626,6 +1651,11 @@ class PopUpData
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function PopUpData()
     {
