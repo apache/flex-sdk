@@ -113,7 +113,9 @@ use namespace mx_internal;
  *  &gt;
  *  </pre>
  *
- *  
+ *  @includeExample examples/BusyIndicatorExample.mxml -noswf
+ *  @includeExample examples/views/BusyIndicatorExampleHomeView.mxml -noswf
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
