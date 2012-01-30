@@ -31,6 +31,7 @@ import mx.charts.styles.HaloDefaults;
 import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
 
@@ -421,24 +422,14 @@ public class ColumnChart extends CartesianChart
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-        
-        var columnChartStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.ColumnChart", styleManager);
-        
-        columnChartStyle.defaultFactory = function():void
-        {
-            this.axisColor = 0xD5DEDD;
-            this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;       
-            this.columnWidthRatio = 0.65;
-            this.dataTipRenderer = DataTip;
-            this.fontSize = 10;
-            this.fill = new SolidColor(0xFFFFFF, 0);
-            this.calloutStroke = new Stroke(0x888888,2);            
-            this.textAlign = "left";
-            this.horizontalAxisStyleNames = ["blockCategoryAxis"];
-            this.verticalAxisStyleNames = ["blockNumericAxis"];
-        }
-        
+		
+		var columnChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.ColumnChart");
+		columnChartStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
+		columnChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+		columnChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		columnChartStyle.setStyle("horizontalAxisStyleNames", ["blockCategoryAxis"]);
+		columnChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+		
         return true;
     }
 
