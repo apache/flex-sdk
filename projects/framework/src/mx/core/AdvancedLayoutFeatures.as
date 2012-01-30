@@ -109,7 +109,7 @@ package mx.core
 
 	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
 
-		
+	private static const ZERO_REPLACEMENT_IN_3D:Number = .00000000000001;
 	
 	//------------------------------------------------------------------------------
 	
@@ -544,6 +544,12 @@ package mx.core
 		reVR.y = ry * RADIANS_PER_DEGREES;
 		reVR.z = rz * RADIANS_PER_DEGREES;
 		m.recompose(reV);
+		if(sx == 0)
+			sx = ZERO_REPLACEMENT_IN_3D;
+		if(sy == 0)
+			sy = ZERO_REPLACEMENT_IN_3D;
+		if(sz == 0)
+			sz = ZERO_REPLACEMENT_IN_3D;
 		m.prependScale(sx,sy,sz);
 		m.prependTranslation(-tx,-ty,-tz);
 		m.appendTranslation(tx+x,ty+y,tz+z);
