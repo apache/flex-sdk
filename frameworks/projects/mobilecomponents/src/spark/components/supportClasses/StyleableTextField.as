@@ -416,8 +416,30 @@ public class MobileTextField extends TextField implements IEditableText
      */
     public function insertText(text:String):void
     {
-        replaceSelectedText(text);
+        replaceText(selectionAnchorPosition, selectionActivePosition, text);
+		dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
+	
+	/**
+	 *  Appends the specified text to the end of the text component,
+	 *  as if you had clicked at the end and typed.
+	 *
+	 *  <p>An insertion point is then set after the new text.
+	 *  If necessary, the text will scroll to ensure
+	 *  that the insertion point is visible.</p>
+	 *
+	 *  @param text The text to be appended.
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.1
+	 *  @playerversion AIR 2.0
+	 *  @productversion Flex 4.5
+	 */
+	override public function appendText(text:String):void
+	{
+		super.appendText(text);
+		dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+	}
     
     /**
      *  Selects a specified range of characters.
