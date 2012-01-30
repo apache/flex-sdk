@@ -142,7 +142,7 @@ public class VerticalSpinnerLayout extends VerticalLayout
 		var rowsToMeasure:int = getRowsToMeasure(target.numElements);
 		
 		// Calculate the height by multiplying the number of elements time the row height
-		target.measuredHeight = Math.ceil(rowsToMeasure * rowHeight);
+		target.measuredHeight = Math.ceil(rowsToMeasure * Math.max(5, rowHeight));
 		target.measuredWidth = preferredWidth;
 	}
 	
