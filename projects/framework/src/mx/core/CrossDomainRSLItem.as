@@ -115,11 +115,11 @@ public class CrossDomainRSLItem extends RSLItem
      * 
      * Load an RSL. 
     * 
-    * @param progressHandler       receives ProgressEvent.PROGRESS events, may be null
-    * @param completeHandler       receives Event.COMPLETE events, may be null
-    * @param ioErrorHandler        receives IOErrorEvent.IO_ERROR events, may be null
-    * @param securityErrorHandler  receives SecurityErrorEvent.SECURITY_ERROR events, may be null
-    * @param rslErrorHandler       receives RSLEvent.RSL_ERROR events, may be null
+    * @param progressHandler       receives ProgressEvent.PROGRESS events, may be null.
+    * @param completeHandler       receives Event.COMPLETE events, may be null.
+    * @param ioErrorHandler        receives IOErrorEvent.IO_ERROR events, may be null.
+    * @param securityErrorHandler  receives SecurityErrorEvent.SECURITY_ERROR events, may be null.
+    * @param rslErrorHandler       receives RSLEvent.RSL_ERROR events, may be null.
     * 
     */
     override public function load(progressHandler:Function,
