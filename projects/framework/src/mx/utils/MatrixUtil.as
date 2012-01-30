@@ -39,6 +39,25 @@ public final class MatrixUtil
     //--------------------------------------------------------------------------
 	
 	/**
+	 *  Returns rotation value clamped between -180 and 180 degreeds.
+	 *  This mimicks the Flash player behavior. 
+	 */
+	public static function clampRotation(value:Number):Number
+	{
+	 	// Flash player doesn't handle values larger than 2^15 - 1 (FP-749).
+		if (value > 180 || value < -180)
+		{
+			value = value % 360;
+			
+			if (value > 180)
+				value = value - 360;
+			else if (value < -180)
+				value = value + 360;
+		}
+		return value;
+	}
+	
+	/**
 	 *  Retunrns a static Point object with the result.
 	 *  If matrix is null, point is untransformed. 
 	 */
