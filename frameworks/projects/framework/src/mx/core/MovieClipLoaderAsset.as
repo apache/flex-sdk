@@ -23,12 +23,22 @@ import flash.utils.ByteArray;
  *  Dispatched after the SWF asset has been fully loaded.
  *
  *  @eventType flash.events.Event.COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="complete", type="flash.events.Event")]
 
 /**
  *  MovieClipLoaderAsset is a subclass of the MovieClipAsset class
  *  which represents SWF files that you embed in a Flex application.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class MovieClipLoaderAsset extends MovieClipAsset
 								  implements IFlexAsset, IFlexDisplayObject
@@ -43,6 +53,11 @@ public class MovieClipLoaderAsset extends MovieClipAsset
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function MovieClipLoaderAsset()
 	{
@@ -101,12 +116,22 @@ public class MovieClipLoaderAsset extends MovieClipAsset
 	/**
 	 *  Backing storage for the <code>measuredWidth</code> property.
 	 *  Subclasses should set this value in the constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected var initialWidth:Number = 0;
 	
 	/**
 	 *  Backing storage for the <code>measuredHeight</code> property.
 	 *  Subclasses should set this value in the constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected var initialHeight:Number = 0;
 
@@ -207,6 +232,11 @@ public class MovieClipLoaderAsset extends MovieClipAsset
 	/**
 	 *  A ByteArray containing the inner content.
 	 *  Overridden in subclasses.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get movieClipData():ByteArray
 	{
