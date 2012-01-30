@@ -206,15 +206,9 @@ public class SliderAccImpl extends AccImpl
 	 */
 	override public function getChildIDArray():Array
 	{
-		var childIDs:Array = [];
-		
-		var n:Number = Slider(master).thumbCount;
-		for (var i:int = 0; i < n; i++)
-		{
-			childIDs[i] = i + 1;
-		}
+		var n:int = Slider(master).thumbCount;
 
-		return childIDs;
+		return createChildIDArray(n);
 	}
 
 	/**
