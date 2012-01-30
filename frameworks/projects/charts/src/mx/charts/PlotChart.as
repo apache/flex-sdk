@@ -160,11 +160,7 @@ public class PlotChart extends CartesianChart
 			this.calloutStroke = new Stroke(0x888888,2);			
 			this.fontSize = 10;
 			this.gridLinesStyleName = "bothGridLines";
-			this.horizontalAxisStyleName = "blockNumericAxis";
-			this.secondHorizontalAxisStyleName = "blockNumericAxis";
-			this.secondVerticalAxisStyleName = "blockNumericAxis";
 			this.textAlign = "left";
-			this.verticalAxisStyleName = "blockNumericAxis";
 			this.horizontalAxisStyleNames = ["blockNumericAxis"];
 			this.verticalAxisStyleNames = ["blockNumericAxis"];
 		}
@@ -192,35 +188,6 @@ public class PlotChart extends CartesianChart
 		
 		// our style settings
 		initStyles();
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: CartesianChart
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	override protected function initSecondaryMode():void
-	{
-		super.initSecondaryMode();
-		
-		if (!secondVerticalAxis)
-			secondVerticalAxis = new LinearAxis();
-		
-		if (!secondHorizontalAxis)
-			secondHorizontalAxis = new LinearAxis();
-		
-		if (!secondVerticalAxisRenderer)
-			secondVerticalAxisRenderer = new AxisRenderer();			
-
-		if (!secondHorizontalAxis)
-			secondHorizontalAxis = new LinearAxis();
-		
-		if (!secondHorizontalAxisRenderer)
-			secondHorizontalAxisRenderer = new AxisRenderer();			
 	}
 }
 
