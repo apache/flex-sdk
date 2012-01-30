@@ -24,6 +24,7 @@ internal class MobileComponentsClasses
  *  but ButtonSkin needs to be in framework.swc along with Button.
  */
     import spark.preloaders.SplashScreen; SplashScreen;
+    import spark.components.supportClasses.StyleableStageText; StyleableStageText;
     import spark.components.supportClasses.StyleableTextField; StyleableTextField;
     import spark.components.ActionBarDefaultButtonAppearance; ActionBarDefaultButtonAppearance;
 }
