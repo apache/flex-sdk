@@ -11,10 +11,9 @@
 
 package spark.skins.mobile
 {
-import flash.display.Graphics;
-
 import mx.core.DPIClassification;
 
+import spark.skins.mobile.supportClasses.ButtonBarButtonSkinBase;
 import spark.skins.mobile160.assets.ButtonBarLastButton_down;
 import spark.skins.mobile160.assets.ButtonBarLastButton_selected;
 import spark.skins.mobile160.assets.ButtonBarLastButton_up;
@@ -24,7 +23,6 @@ import spark.skins.mobile240.assets.ButtonBarLastButton_up;
 import spark.skins.mobile320.assets.ButtonBarLastButton_down;
 import spark.skins.mobile320.assets.ButtonBarLastButton_selected;
 import spark.skins.mobile320.assets.ButtonBarLastButton_up;
-import spark.skins.mobile.supportClasses.ButtonBarButtonSkinBase;
 
 /**
  *  Button skin for the last Button in a ButtonBar.
@@ -49,8 +47,6 @@ public class ButtonBarLastButtonSkin extends ButtonBarButtonSkinBase
     public function ButtonBarLastButtonSkin()
     {
         super();
-        
-        useChromeColor = true;
         
         switch (applicationDPI)
         {
@@ -97,20 +93,13 @@ public class ButtonBarLastButtonSkin extends ButtonBarButtonSkinBase
     /**
      *  @private
      */
-    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        var chromeColor:uint = getChromeColor();
-        chromeColorGraphics.beginFill(getChromeColor());
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
-    {
+        // omit super.drawBackground() to drawRoundRectComplex instead
         // draw a rounded rect with rounded corners on the right side only
-        chromeColorGraphics.drawRoundRectComplex(0, 0, unscaledWidth, unscaledHeight, 0, cornerRadius, 0, cornerRadius);
-        chromeColorGraphics.endFill();
+        graphics.beginFill(getStyle("chromeColor"));
+        graphics.drawRoundRectComplex(0, 0, unscaledWidth, unscaledHeight, 0, cornerRadius, 0, cornerRadius);
+        graphics.endFill();
     }
 }
 }
