@@ -32,7 +32,7 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                text="A Halo HorizontalList control displays items in a single row."/>
 
             <mx:HorizontalList id="CameraSelection" height="250" columnCount="3" columnWidth="125">
