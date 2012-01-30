@@ -19,10 +19,11 @@ import flash.events.MouseEvent;
 import flash.geom.Rectangle;
 import mx.core.FlexSprite;
 import mx.core.IFlexModuleFactory;
+import mx.core.ISWFBridgeProvider;
 import mx.core.mx_internal;
-import mx.events.SandboxBridgeEvent;
+import mx.events.SWFBridgeEvent;
 import mx.utils.NameUtil;
-import mx.utils.SandboxUtil;
+import mx.utils.SecurityUtil;
 
 use namespace mx_internal;
 
@@ -48,7 +49,7 @@ public class SystemManagerProxy extends SystemManager
 	 *  @param systemManager The system manager that this class is a proxy for.
 	 *  This is the system manager in the same application domain as the popup.
 	 */
-	public function SystemManagerProxy(systemManager:ISystemManager2)
+	public function SystemManagerProxy(systemManager:ISystemManager)
 	{
 		super();
 
@@ -93,14 +94,14 @@ public class SystemManagerProxy extends SystemManager
 	/**
      *  @private
      */
-    private var _systemManager:ISystemManager2;
+    private var _systemManager:ISystemManager;
 
     /**
      *  The SystemManager that is being proxied.
      *  This is the SystemManager of the application that created this proxy
      *  and the pop up window that is a child of this proxy.
      */	
-	public function get systemManager():ISystemManager2
+	public function get systemManager():ISystemManager
 	{
 		return _systemManager;
 	}
@@ -130,7 +131,7 @@ public class SystemManagerProxy extends SystemManager
     /**
      *  @inheritDoc
      */
-	override public function useBridge():Boolean
+	override public function useSWFBridge():Boolean
 	{
 		return false; // proxy does not want to use the bridge
 	}	
@@ -145,18 +146,18 @@ public class SystemManagerProxy extends SystemManager
 		// Activate the proxied SystemManager.
 
 		var bridge:IEventDispatcher =
-            _systemManager.sandboxBridgeGroup ? 
-			_systemManager.sandboxBridgeGroup.parentBridge :
+            _systemManager.swfBridgeGroup ? 
+			_systemManager.swfBridgeGroup.parentBridge :
             null;
 
 		if (bridge)
 		{
 			var mutualTrust:Boolean =
-                SandboxUtil.hasMutualTrustWithParent(_systemManager);
+                SecurityUtil.hasMutualTrustBetweenParentAndChild(ISWFBridgeProvider(_systemManager));
 
-			var bridgeEvent:SandboxBridgeEvent = new SandboxBridgeEvent(
-                SandboxBridgeEvent.ACTIVATE_WINDOW,
-                false, false, bridge,
+			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(
+                SWFBridgeEvent.NOTIFY_WINDOW_ACTIVATED,
+                false, false,
 				mutualTrust ? this : NameUtil.displayObjectToString(this));
 			
             bridge.dispatchEvent(bridgeEvent);
@@ -172,19 +173,19 @@ public class SystemManagerProxy extends SystemManager
 
         // Deactivate the proxied SystemManager.
 
-		var sm:ISystemManager2 = ISystemManager2(_systemManager);
+		var sm:ISystemManager = _systemManager;
 		
         var bridge:IEventDispatcher =
-            sm.sandboxBridgeGroup ? sm.sandboxBridgeGroup.parentBridge : null;
+            sm.swfBridgeGroup ? sm.swfBridgeGroup.parentBridge : null;
 		
         if (bridge)
 		{
 			var mutualTrust:Boolean =
-                SandboxUtil.hasMutualTrustWithParent(_systemManager);
+                SecurityUtil.hasMutualTrustBetweenParentAndChild(ISWFBridgeProvider(_systemManager));
 			
-            var bridgeEvent:SandboxBridgeEvent = new SandboxBridgeEvent(
-                SandboxBridgeEvent.DEACTIVATE_WINDOW,
-				false, false, bridge,
+            var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(
+                SWFBridgeEvent.NOTIFY_WINDOW_DEACTIVATED,
+				false, false,
 				mutualTrust ? this : NameUtil.displayObjectToString(this));
 
 			bridge.dispatchEvent(bridgeEvent);
@@ -213,7 +214,7 @@ public class SystemManagerProxy extends SystemManager
      * 
      *  @param f The top-level window whose FocusManager should be activated.
      */
-	public function activateProxy(f:IFocusManagerContainer):void
+	public function activateByProxy(f:IFocusManagerContainer):void
 	{
 		super.activate(f);	
 	}
@@ -224,7 +225,7 @@ public class SystemManagerProxy extends SystemManager
      * 
      *  @param f The top-level window whose FocusManager should be deactivated.
      */
-	public function deactivateProxy(f:IFocusManagerContainer):void
+	public function deactivateByProxy(f:IFocusManagerContainer):void
 	{
 		if (f)
             f.focusManager.deactivate();
