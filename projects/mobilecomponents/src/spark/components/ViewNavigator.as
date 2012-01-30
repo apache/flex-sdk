@@ -1278,6 +1278,9 @@ public class ViewNavigator extends ViewNavigatorBase
         
         delayedNavigationActions.push({action:action, viewClass:viewClass, 
             data:data, transition:transition, context:context});
+        
+        if (activeView)
+            activeView.dispatchEvent(new FlexEvent(FlexEvent.VIEW_HIDE));
     }
     
     /**
