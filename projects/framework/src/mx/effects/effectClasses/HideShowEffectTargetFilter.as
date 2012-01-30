@@ -20,6 +20,11 @@ import mx.effects.EffectTargetFilter;
  *  by modifying their <code>visible</code> property.
  *  If you set the Effect.filter property to <code>hide</code>
  *  or <code>show</code>, one of these is used.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class HideShowEffectTargetFilter extends EffectTargetFilter
 {
@@ -33,6 +38,11 @@ public class HideShowEffectTargetFilter extends EffectTargetFilter
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function HideShowEffectTargetFilter()
 	{
@@ -55,6 +65,11 @@ public class HideShowEffectTargetFilter extends EffectTargetFilter
 	 *  Determines if this is a show or hide filter.
 	 * 
 	 *  @default true
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var show:Boolean = true;
 	
