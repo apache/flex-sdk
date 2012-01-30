@@ -131,17 +131,16 @@ public class TextSkinBase extends MobileSkin
             border = new borderClass();
             addChild(border);
         }
-        
-        createPromptDisplay();
     }
     
-    protected function createPromptDisplay():void
+    protected function createPromptDisplay():StyleableTextField
     {
-        promptDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-        promptDisplay.styleName = this;
-        promptDisplay.editable = false;
-        promptDisplay.mouseEnabled = false;
-        addChild(promptDisplay);
+        var prompt:StyleableTextField = StyleableTextField(createInFontContext(StyleableTextField));
+        prompt.styleName = this;
+        prompt.editable = false;
+        prompt.mouseEnabled = false;
+        
+        return prompt;
     }
     
     /**
@@ -304,13 +303,16 @@ public class TextSkinBase extends MobileSkin
         
         if (showPrompt && !promptDisplay)
         {
-            createPromptDisplay();
+            promptDisplay = createPromptDisplay();
+            addChild(promptDisplay);
         }
         else if (!showPrompt && promptDisplay)
         {
             removeChild(promptDisplay);
             promptDisplay = null;
         }
+        
+        invalidateDisplayList();
     }
 }
 }
