@@ -30,6 +30,11 @@ import mx.core.Singleton;
  *
  *  @see mx.managers.IBrowserManager
  *  @see mx.managers.HistoryManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class BrowserManager
 {
@@ -64,6 +69,11 @@ public class BrowserManager
      *
      *  @return Returns the sole instance of this Singleton class;
      *  creates it if it does not already exist.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getInstance():IBrowserManager
     {
