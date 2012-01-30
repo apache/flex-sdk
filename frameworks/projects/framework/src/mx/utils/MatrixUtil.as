@@ -256,7 +256,6 @@ public final class MatrixUtil
         else
             t1 = Math.atan((d * ry) / (b * rx));            
     
-        // FIXME (egeorgie): optimize
         var x1:Number = a * Math.cos(t) * rx + c * Math.sin(t) * ry;             
         var x2:Number = -x1;
         x1 += a * cx + c * cy + matrix.tx;
@@ -344,7 +343,8 @@ public final class MatrixUtil
     }
 
 	/**
-	 *  @param bounds Bounds to be transformed.
+	 *  @param width The width of the bounds to be transformed.
+	 *  @param height The height of the bounds to be transformed.
 	 *  @param matrix The transfomration matrix. 
 	 *  
 	 *  @param vec If vec is non-null it will be set to the vector from the
@@ -355,77 +355,106 @@ public final class MatrixUtil
 	 *  <code>x + vec.x</code> and <code>y + vec.y</code> respectively
 	 *  will offset the transformed bounds top left corner by x,y.
 	 *
-	 *  @return Returns the transformed bounds.
+	 *  @return Returns the transformed bounds. Note that the Point object returned will be reused
+     *  by other MatrixUtil methods.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public static function transformSize(bounds:Point, matrix:Matrix):Point
+	public static function transformSize(width:Number, height:Number, matrix:Matrix):Point
 	{
-		// FIXME (egeorgie): don't use new points, but do the math ourselves?
-	    var pt1:Point = matrix.deltaTransformPoint(bounds);
-	    var pt2:Point = matrix.deltaTransformPoint(new Point());
-	    var pt3:Point = matrix.deltaTransformPoint(new Point(bounds.x, 0));
-	    var pt4:Point = matrix.deltaTransformPoint(new Point(0, bounds.y));
+        const a:Number = matrix.a;
+        const b:Number = matrix.b;
+        const c:Number = matrix.c;
+        const d:Number = matrix.d;
+        
+        // transform point (0,0)
+        var x1:Number = 0;
+        var y1:Number = 0;
+        
+        // transform point (width, 0)
+        var x2:Number = width * a;
+        var y2:Number = width * b;
+        
+        // transform point (0, height)
+        var x3:Number = height * c;
+        var y3:Number = height * d;
 
-        var maxX:Number = Math.max(Math.max(pt1.x, pt2.x), Math.max(pt3.x, pt4.x));
-        var minX:Number = Math.min(Math.min(pt1.x, pt2.x), Math.min(pt3.x, pt4.x));
-        var maxY:Number = Math.max(Math.max(pt1.y, pt2.y), Math.max(pt3.y, pt4.y));
-        var minY:Number = Math.min(Math.min(pt1.y, pt2.y), Math.min(pt3.y, pt4.y));
-
-	    pt1.x = maxX - minX;
-	    pt1.y = maxY - minY;
-	    return pt1;
+        // transform point (width, height)
+        var x4:Number = x2 + x3;
+        var y4:Number = y2 + y3;
+        
+        var minX:Number = Math.min(Math.min(x1, x2), Math.min(x3, x4));
+        var maxX:Number = Math.max(Math.max(x1, x2), Math.max(x3, x4));
+        var minY:Number = Math.min(Math.min(y1, y2), Math.min(y3, y4));
+        var maxY:Number = Math.max(Math.max(y1, y2), Math.max(y3, y4));
+        
+        staticPoint.x = maxX - minX;
+        staticPoint.y = maxY - minY;
+        return staticPoint;
 	}
 
 	/**
-	 *  @param bounds width and height to be transformed.
-	 *  @param matrix The transfomration matrix. 
+	 *  @param width The width of the bounds to be transformed.
+	 *  @param height The height of the bounds to be transformed.
+	 *  @param matrix The transfomration matrix.
 	 *  
 	 *  @param topleft If topLeft is non-null it will be used as the origin of the bounds
 	 *  rectangle to be transformed.  On return, it will be set to the top left of the rectangle
 	 *  after transformation.
 	 *
-	 *  @return Returns the transformed width and height
+	 *  @return Returns the transformed width and height. Note that the Point object returned will be reused
+     *  by other MatrixUtil methods.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public static function transformBounds(bounds:Point, matrix:Matrix, topLeft:Point = null):Point
+	public static function transformBounds(width:Number, height:Number, matrix:Matrix, topLeft:Point = null):Point
 	{
-		// FIXME (egeorgie): don't use new points, but do the math ourselves?
-		var x:Number = 0;
-		var y:Number = 0;
-		
-		if (topLeft)
-		{
-			x = topLeft.x;
-			y = topLeft.y;
-		}	 
-		
-	    var pt1:Point = matrix.transformPoint(new Point(bounds.x + x, bounds.y + y));
-	    var pt2:Point = matrix.transformPoint(new Point(x, y));
-	    var pt3:Point = matrix.transformPoint(new Point(bounds.x + x, 0 + y));
-	    var pt4:Point = matrix.transformPoint(new Point(0 + x, bounds.y + y));
+        const a:Number = matrix.a;
+        const b:Number = matrix.b;
+        const c:Number = matrix.c;
+        const d:Number = matrix.d;
+        
+        // transform point (0,0)
+        var x1:Number = 0;
+        var y1:Number = 0;
 
-	    var maxX:Number = Math.max(Math.max(pt1.x, pt2.x), Math.max(pt3.x, pt4.x));
-	    var minX:Number = Math.min(Math.min(pt1.x, pt2.x), Math.min(pt3.x, pt4.x));
-	    var maxY:Number = Math.max(Math.max(pt1.y, pt2.y), Math.max(pt3.y, pt4.y));
-	    var minY:Number = Math.min(Math.min(pt1.y, pt2.y), Math.min(pt3.y, pt4.y));
+        // transform point (width, 0)
+        var x2:Number = width * a;
+        var y2:Number = width * b;
+        
+        // transform point (0, height)
+        var x3:Number = height * c;
+        var y3:Number = height * d;
+        
+        // transform point (width, height)
+        var x4:Number = x2 + x3;
+        var y4:Number = y2 + y3;
+        
+        var minX:Number = Math.min(Math.min(x1, x2), Math.min(x3, x4));
+        var maxX:Number = Math.max(Math.max(x1, x2), Math.max(x3, x4));
+        var minY:Number = Math.min(Math.min(y1, y2), Math.min(y3, y4));
+        var maxY:Number = Math.max(Math.max(y1, y2), Math.max(y3, y4));
 
-	    if (topLeft )
-	    {
-	        topLeft.x = minX;
-	        topLeft.y = minY;
+        staticPoint.x = maxX - minX;
+        staticPoint.y = maxY - minY;
+
+        if (topLeft)
+        {
+            const tx:Number = matrix.tx;
+            const ty:Number = matrix.ty;
+            const x:Number = topLeft.x;
+            const y:Number = topLeft.y;
+
+	        topLeft.x = minX + a * x + b * y + tx;
+	        topLeft.y = minY + c * x + d * y + ty;
 		}
-
-	    pt1.x = maxX - minX;
-	    pt1.y = maxY - minY;
-	    return pt1;
+        return staticPoint;
 	}
 	
 	/**
@@ -558,7 +587,7 @@ public final class MatrixUtil
                                                           maxWidth, maxHeight);
 
                 // If we fit the width, but not the height                                                          
-                if (actualSize && transformSize(actualSize, matrix).y > height)
+                if (actualSize && transformSize(actualSize.x, actualSize.y, matrix).y > height)
                 {
                     actualSize = calcUBoundsToFitTBoundsHeight(height, matrix,
                                                                preferredWidth, preferredHeight, 
@@ -566,7 +595,7 @@ public final class MatrixUtil
                                                                maxWidth, maxHeight);
 
                     // If we fit the height, but not the width
-                    if (actualSize && transformSize(actualSize, matrix).x > width)
+                    if (actualSize && transformSize(actualSize.x, actualSize.y, matrix).x > width)
                        actualSize = null; // No solution
                 }
             }
@@ -711,7 +740,7 @@ public final class MatrixUtil
                 b * x + d1 * y < 0 ) // Satisfy Case2
             {
                 // If there is no solution, or the new solution yields smaller value, pick the new solution.
-                if (!s || transformSize(s, matrix).x > transformSize(new Point(x,y), matrix).x)
+                if (!s || transformSize(s.x, s.y, matrix).x > transformSize(x, y, matrix).x)
                    s = new Point(x, y);
             }
         }
@@ -729,7 +758,7 @@ public final class MatrixUtil
                 b * x + d1 * y >= 0) // Satisfy Case3
             {
                 // If there is no solution, or the new solution yields smaller value, pick the new solution.
-                if (!s || transformSize(s, matrix).x > transformSize(new Point(x,y), matrix).x)
+                if (!s || transformSize(s.x, s.y, matrix).x > transformSize(x, y, matrix).x)
                    s = new Point(x, y);
             }
             
@@ -741,7 +770,7 @@ public final class MatrixUtil
                 b * x + d1 * y < 0) // Satisfy Case4
             {
                 // If there is no solution, or the new solution yields smaller value, pick the new solution.
-                if (!s || transformSize(s, matrix).x > transformSize(new Point(x,y), matrix).x)
+                if (!s || transformSize(s.x, s.y, matrix).x > transformSize(x, y, matrix).x)
                    s = new Point(x, y);
             }
         }
@@ -880,7 +909,7 @@ public final class MatrixUtil
                 a * x + c1 * y < 0 ) // Satisfy Case2
             {
                 // If there is no solution, or the new solution yields smaller value, pick the new solution.
-                if (!s || transformSize(s, matrix).y > transformSize(new Point(x,y), matrix).y)
+                if (!s || transformSize(s.x, s.y, matrix).y > transformSize(x, y, matrix).y)
                    s = new Point(x, y);
             }
         }
@@ -898,7 +927,7 @@ public final class MatrixUtil
                 a * x + c1 * y >= 0) // Satisfy Case3
             {
                 // If there is no solution, or the new solution yields smaller value, pick the new solution.
-                if (!s || transformSize(s, matrix).y > transformSize(new Point(x,y), matrix).y)
+                if (!s || transformSize(s.x, s.y, matrix).y > transformSize(x, y, matrix).y)
                    s = new Point(x, y);
             }
             
@@ -910,7 +939,7 @@ public final class MatrixUtil
                 a * x + c1 * y < 0) // Satisfy Case4
             {
                 // If there is no solution, or the new solution yields smaller value, pick the new solution.
-                if (!s || transformSize(s, matrix).y > transformSize(new Point(x,y), matrix).y)
+                if (!s || transformSize(s.x, s.y, matrix).y > transformSize(x, y, matrix).y)
                    s = new Point(x, y);
             }
         }
