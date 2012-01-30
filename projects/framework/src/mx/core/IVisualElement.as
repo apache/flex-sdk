@@ -23,7 +23,7 @@ import mx.geom.TransformOffsets;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public interface IVisualElement extends ILayoutElement, ILayoutDirection
+public interface IVisualElement extends ILayoutElement
 {
 
     /**
@@ -269,5 +269,42 @@ public interface IVisualElement extends ILayoutElement, ILayoutDirection
      *  @productversion Flex 4
      */
     function get is3D():Boolean;
+    
+    /**
+     *  Specifies the desired layout direction for a visual element: one of "ltr" 
+     *  (left to right), "rtl" (right to left).   
+     * 
+     *  This property is typically backed by an inheriting style.  Classes like GraphicElement,
+     *  which implement IVisualElement but do not support styles, must additionally support an 
+     *  explicit "inherit" value for this property. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.1
+     */
+    function get layoutDirection():String;
+    
+    /**
+     *  @private
+     */
+    function set layoutDirection(value:String):void;
+    
+    /**
+     *  Must be called when an element or its parent's layoutDirection changes.
+     *  
+     *  If they differ, the X axis is scaled by -1 and the x coordinate of the origin
+     *  is translated by the element's width.  
+     * 
+     *  The net effect of this "mirror" transform is to reverse the direction 
+     *  that the X axis increases without changing the element's 
+     *  location relative to the parent's origin.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.1
+     */
+    function invalidateLayoutDirection():void;
 }
 }
