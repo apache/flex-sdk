@@ -17,6 +17,7 @@ package mx.automation.delegates.core
 	import flash.events.Event;
 	
 	import mx.automation.Automation; 
+	import mx.automation.AutomationConstants;
 	import mx.automation.IAutomationObject;
 	import mx.core.UITextField;
 	
@@ -96,7 +97,7 @@ package mx.automation.delegates.core
 		//---------------------------------
 		public function get automationEnabled():Boolean
 		{
-			trace ("This method should not be called on delegate.Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UITextFieldAutomationImpl", "get automationEnabled()",AutomationConstants.invalidDelegateMethodCall);
 			if(uiTextField)
 				return uiTextField.enabled;
 			
@@ -108,7 +109,7 @@ package mx.automation.delegates.core
 		//---------------------------------
 		public function get automationOwner():DisplayObjectContainer
 		{
-			trace ("This method should not be called on delegate.Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UITextFieldAutomationImpl", "get automationOwner()",AutomationConstants.invalidDelegateMethodCall);
 			
 			if(uiTextField)
 				return uiTextField.owner;
@@ -121,7 +122,7 @@ package mx.automation.delegates.core
 		//---------------------------------
 		public function get automationParent():DisplayObjectContainer
 		{
-			trace ("This method should not be called on delegate.Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UITextFieldAutomationImpl", "get automationParent()",AutomationConstants.invalidDelegateMethodCall);
 			
 			if(uiTextField)
 				return uiTextField.parent;
@@ -134,7 +135,7 @@ package mx.automation.delegates.core
 		//---------------------------------
 		public function get automationVisible():Boolean
 		{
-			trace ("This method should not be called on delegate.Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UITextFieldAutomationImpl", "get automationVisible()",AutomationConstants.invalidDelegateMethodCall);
 			if(uiTextField)
 				return uiTextField.visible;
 			
@@ -277,7 +278,7 @@ package mx.automation.delegates.core
 		 */
 		public function set automationDelegate(val:Object):void
 		{
-			trace("Invalid setter function call. Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UITextFieldAutomationImpl", "set automationDelegate()", AutomationConstants.invalidDelegateMethodCall);
 		}
 		
 		/**
@@ -285,7 +286,7 @@ package mx.automation.delegates.core
 		 */
 		public function get automationDelegate():Object
 		{
-			trace("Invalid setter function call. Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UITextFieldAutomationImpl", "get automationDelegate()", AutomationConstants.invalidDelegateMethodCall);
 			return this;
 		}
 		
