@@ -80,7 +80,7 @@ use namespace mx_internal;
  *  The transparency of this component can be modified using the <code>alpha</code> property,
  *  but the alpha value of each spoke cannot be modified.
  *
- *  <p>The following images shows the BusyIndicator at the bottom of the screen next 
+ *  <p>The following image shows the BusyIndicator at the bottom of the screen next 
  *  to the Submit button:</p>
  *
  * <p>
