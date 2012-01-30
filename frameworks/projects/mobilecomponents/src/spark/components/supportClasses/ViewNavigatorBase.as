@@ -11,9 +11,8 @@
 
 package spark.components.supportClasses
 {
-import flash.display.StageOrientation;
+import flash.display.Stage;
 import flash.events.StageOrientationEvent;
-import flash.system.Capabilities;
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
 
@@ -22,14 +21,10 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
-import mx.managers.IFocusManagerComponent;
-import mx.managers.SystemManager;
 import mx.utils.DensityUtil;
 
 import spark.components.SkinnableContainer;
 import spark.components.View;
-import spark.core.ContainerDestructionPolicy;
-import spark.events.DisplayLayerObjectExistenceEvent;
 import spark.utils.MultiDPIBitmapSource;
 
 use namespace mx_internal;
@@ -60,7 +55,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
-public class ViewNavigatorBase extends SkinnableContainer implements IFocusManagerComponent
+public class ViewNavigatorBase extends SkinnableContainer
 {
     //--------------------------------------------------------------------------
     //
@@ -607,6 +602,21 @@ public class ViewNavigatorBase extends SkinnableContainer implements IFocusManag
         // Add weak listener so stage doesn't hold a reference to the navigator
         systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
             stage_orientationChangeHandler, false, 0, true);
+    }
+    
+	/**
+	 *  @private
+	 */
+	mx_internal function updateFocus():void
+	{
+		var stage:Stage = systemManager.stage;
+		if (!stage.focus || !stage.focus.stage || stage.focus == this)
+		{
+			if (activeView)
+				stage.focus = activeView;
+			else
+				stage.focus = this;
+		}
     }
     
     /**
