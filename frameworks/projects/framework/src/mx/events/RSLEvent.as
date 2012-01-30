@@ -33,11 +33,11 @@ public class RSLEvent extends ProgressEvent
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  The <code>RSLEvent.RSL_ADD_PRELOADED</code> constant defines the value of the
@@ -72,14 +72,14 @@ public class RSLEvent extends ProgressEvent
      */
     public static const RSL_ADD_PRELOADED:String = "rslAddPreloaded";
     
-	/**
-	 *  Dispatched when the RSL has finished downloading. 	
-	 *  The <code>RSLEvent.RSL_COMPLETE</code> constant defines the value of the 
-	 *  <code>type</code> property of the event object for a <code>rslComplete</code> event.
+    /**
+     *  Dispatched when the RSL has finished downloading.   
+     *  The <code>RSLEvent.RSL_COMPLETE</code> constant defines the value of the 
+     *  <code>type</code> property of the event object for a <code>rslComplete</code> event.
      *
-	 *  <p>The properties of the event object have the following values:</p>
-	 *  <table class="innertable">
-	 *     <tr><th>Property</th><th>Value</th></tr>
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>bytesLoaded</code></td><td>The number of bytes loaded.</td></tr>
      *     <tr><td><code>bytesTotal</code></td><td>The total number of bytes to load.</td></tr>
@@ -90,7 +90,7 @@ public class RSLEvent extends ProgressEvent
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
      *     <tr><td><code>errorText</code></td><td>Empty</td></tr>
      *     <tr><td><code>isResourceModule</code></td><td>True if we loaded a resourceModule
-	 *        instead of an RSL</td></tr>
+     *        instead of an RSL</td></tr>
      *     <tr><td><code>rslIndex</code></td><td>The index number of the RSL 
      *       currently being downloaded. </td></tr>
      *     <tr><td><code>rslTotal</code></td><td>The total number of RSLs 
@@ -101,25 +101,25 @@ public class RSLEvent extends ProgressEvent
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>url</code></td><td>The URLRequest object that represents 
      *       the location of the RSL being downloaded.</td></tr>
-	 *  </table>
-	 *
-     *  @eventType rslComplete
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static const RSL_COMPLETE:String = "rslComplete";
-	
-	/**
-	 *  Dispatched when there is an error downloading the RSL.
-	 *  The <code>RSLEvent.RSL_ERROR</code> constant defines the value of the 
-	 *  <code>type</code> property of the event object for a <code>rslError</code> event.
+     *  </table>
      *
-	 *  <p>The properties of the event object have the following values:</p>
-	 *  <table class="innertable">
-	 *     <tr><th>Property</th><th>Value</th></tr>
+     *  @eventType rslComplete
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const RSL_COMPLETE:String = "rslComplete";
+    
+    /**
+     *  Dispatched when there is an error downloading the RSL.
+     *  The <code>RSLEvent.RSL_ERROR</code> constant defines the value of the 
+     *  <code>type</code> property of the event object for a <code>rslError</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>bytesLoaded</code></td><td>Empty</td></tr>
      *     <tr><td><code>bytesTotal</code></td><td>Empty</td></tr>
@@ -130,7 +130,7 @@ public class RSLEvent extends ProgressEvent
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
      *     <tr><td><code>errorText</code></td>An error message.<td></td></tr>
      *     <tr><td><code>isResourceModule</code></td><td>True if we loaded a resourceModule
-	 *        instead of an RSL</td></tr>
+     *        instead of an RSL</td></tr>
      *     <tr><td><code>rslIndex</code></td><td>The index number of the RSL 
      *       currently being downloaded. </td></tr>
      *     <tr><td><code>rslTotal</code></td><td>The total number of RSLs 
@@ -141,25 +141,25 @@ public class RSLEvent extends ProgressEvent
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>url</code></td><td>The URLRequest object that represents 
      *       the location of the RSL being downloaded.</td></tr>
-	 *  </table>
-	 *
-     *  @eventType rslError
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static const RSL_ERROR:String = "rslError";
-
-	/**
-	 *  Dispatched when the RSL is downloading.
-	 *  The <code>RSLEvent.RSL_PROGRESS</code> constant defines the value of the 
-	 *  <code>type</code> property of the event object for a <code>rslProgress</code> event.
+     *  </table>
      *
-	 *  <p>The properties of the event object have the following values:</p>
-	 *  <table class="innertable">
-	 *     <tr><th>Property</th><th>Value</th></tr>
+     *  @eventType rslError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const RSL_ERROR:String = "rslError";
+
+    /**
+     *  Dispatched when the RSL is downloading.
+     *  The <code>RSLEvent.RSL_PROGRESS</code> constant defines the value of the 
+     *  <code>type</code> property of the event object for a <code>rslProgress</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>bytesLoaded</code></td><td>The number of bytes loaded.</td></tr>
      *     <tr><td><code>bytesTotal</code></td><td>The total number of bytes to load.</td></tr>
@@ -170,7 +170,7 @@ public class RSLEvent extends ProgressEvent
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
      *     <tr><td><code>errorText</code></td>Empty<td></td></tr>
      *     <tr><td><code>isResourceModule</code></td><td>True if we loaded a resourceModule
-	 *        instead of an RSL</td></tr>
+     *        instead of an RSL</td></tr>
      *     <tr><td><code>rslIndex</code></td><td>The index number of the RSL 
      *       currently being downloaded. </td></tr>
      *     <tr><td><code>rslTotal</code></td><td>The total number of RSLs 
@@ -181,175 +181,177 @@ public class RSLEvent extends ProgressEvent
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>url</code></td><td>The URLRequest object that represents 
      *       the location of the RSL being downloaded.</td></tr>
-	 *  </table>
-	 *
+     *  </table>
+     *
      *  @eventType rslProgress
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static const RSL_PROGRESS:String = "rslProgress"; 
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const RSL_PROGRESS:String = "rslProgress"; 
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 * 
-	 *  @param type The type of the event. Possible values are:
-	 *  <ul>
-	 *     <li>"rslProgress" (<code>RSLEvent.RSL_PROGRESS</code>);</li>
-	 *     <li>"rslComplete" (<code>RSLEvent.RSL_COMPLETE</code>);</li>
-	 *     <li>"rslError" (<code>RSLEvent.RSL_ERROR</code>);</li>
-	 *  </ul>
-	 *
-	 *  @param bubbles  Determines whether the Event object participates in the bubbling stage of the event flow.
-	 *
-	 *  @param cancelable Determines whether the Event object can be cancelled.
-	 *
-	 *  @param bytesLoaded The number of bytes loaded at the time the listener processes the event.
-	 *
-	 *  @param bytesTotal The total number of bytes that will ultimately be loaded if the loading process succeeds.
-	 *
-	 *  @param rslIndex The index number of the RSL relative to the total. This should be a value between 0 and <code>total - 1</code>.
-	 *
-	 *  @param rslTotal The total number of RSLs being loaded.
-	 *
-	 *  @param url The location of the RSL.
-	 *
-	 *  @param errorText The error message of the error when type is RSLEvent.RSL_ERROR.
-	 *
-	 *  @param isResourceModule True if the event occurred when loading a ResourceModule.
-	 *
-	 *  @tiptext Constructor for <code>RSLEvent</code> objects.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */	
-	public function RSLEvent(type:String,  bubbles:Boolean = false,
-							 cancelable:Boolean = false,
-							 bytesLoaded:int = -1, bytesTotal:int = -1,
-							 rslIndex:int = -1, rslTotal:int = -1,
-							 url:URLRequest = null, errorText:String = null,
-							 isResourceModule:Boolean = false,
+    /**
+     *  Constructor.
+     * 
+     *  @param type The type of the event. Possible values are:
+     *  <ul>
+     *     <li>"rslProgress" (<code>RSLEvent.RSL_PROGRESS</code>);</li>
+     *     <li>"rslComplete" (<code>RSLEvent.RSL_COMPLETE</code>);</li>
+     *     <li>"rslError" (<code>RSLEvent.RSL_ERROR</code>);</li>
+     *  </ul>
+     *
+     *  @param bubbles  Determines whether the Event object participates in the bubbling stage of the event flow.
+     *
+     *  @param cancelable Determines whether the Event object can be cancelled.
+     *
+     *  @param bytesLoaded The number of bytes loaded at the time the listener processes the event.
+     *
+     *  @param bytesTotal The total number of bytes that will ultimately be loaded if the loading process succeeds.
+     *
+     *  @param rslIndex The index number of the RSL relative to the total. This should be a value between 0 and <code>total - 1</code>.
+     *
+     *  @param rslTotal The total number of RSLs being loaded.
+     *
+     *  @param url The location of the RSL.
+     *
+     *  @param errorText The error message of the error when type is RSLEvent.RSL_ERROR.
+     *
+     *  @param isResourceModule True if the event occurred when loading a ResourceModule.
+     *
+     *  @param loaderInfo The LoaderInfo object associated with this event.
+     *
+     *  @tiptext Constructor for <code>RSLEvent</code> objects.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */ 
+    public function RSLEvent(type:String,  bubbles:Boolean = false,
+                             cancelable:Boolean = false,
+                             bytesLoaded:int = -1, bytesTotal:int = -1,
+                             rslIndex:int = -1, rslTotal:int = -1,
+                             url:URLRequest = null, errorText:String = null,
+                             isResourceModule:Boolean = false,
                              loaderInfo:LoaderInfo = null)
-	{
-		super(type, bubbles, cancelable, bytesLoaded, bytesTotal);
-		
-		this.rslIndex = rslIndex;
-		this.rslTotal = rslTotal;
-		this.url = url;
-		this.errorText = errorText;
-		this.isResourceModule = isResourceModule;
+    {
+        super(type, bubbles, cancelable, bytesLoaded, bytesTotal);
+        
+        this.rslIndex = rslIndex;
+        this.rslTotal = rslTotal;
+        this.url = url;
+        this.errorText = errorText;
+        this.isResourceModule = isResourceModule;
         this.loaderInfo = loaderInfo;
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  errorText
-	//----------------------------------
-
-	/**
-	 *  The error message if the type is RSL_ERROR; otherwise, it is null;
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var errorText:String;
-	
     //----------------------------------
-	//  isResourceModule
-	//----------------------------------
+    //  errorText
+    //----------------------------------
 
-	/**
-	 *  True if the event is for loading a resourceModule instead of an RSL
-	 */
-	public var isResourceModule:Boolean;
-	
+    /**
+     *  The error message if the type is RSL_ERROR; otherwise, it is null;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var errorText:String;
+    
+    //----------------------------------
+    //  isResourceModule
+    //----------------------------------
+
+    /**
+     *  True if the event is for loading a resourceModule instead of an RSL
+     */
+    public var isResourceModule:Boolean;
+    
     //----------------------------------
     //  loaderInfo
     //----------------------------------
     
     /**
-     *  The loaderInfo associated with this event. This is only set in the 
+     *  The LoaderInfo object associated with this event. This is only set in the 
      *  RSLEvent.RSL_COMPLETE event. Otherwise loaderInfo will be null.
      */
     public var loaderInfo:LoaderInfo;
 
     //----------------------------------
-	//  rslIndex
-	//----------------------------------
+    //  rslIndex
+    //----------------------------------
 
-	/**
-	 *  The index number of the RSL currently being downloaded.
-	 *  This is a number between 0 and <code>rslTotal - 1</code>.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var rslIndex:int;
+    /**
+     *  The index number of the RSL currently being downloaded.
+     *  This is a number between 0 and <code>rslTotal - 1</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var rslIndex:int;
 
-	//----------------------------------
-	//  rslTotal
-	//----------------------------------
+    //----------------------------------
+    //  rslTotal
+    //----------------------------------
 
-	/**
-	 *  The total number of RSLs being downloaded by the preloader
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var rslTotal:int;
-	
-	//----------------------------------
-	//  url
-	//----------------------------------
+    /**
+     *  The total number of RSLs being downloaded by the preloader
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var rslTotal:int;
+    
+    //----------------------------------
+    //  url
+    //----------------------------------
 
-	/**
-	 *  The URLRequest object that represents the location
-	 *  of the RSL being downloaded.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var url:URLRequest;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties: Event
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  The URLRequest object that represents the location
+     *  of the RSL being downloaded.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var url:URLRequest;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties: Event
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override public function clone():Event
-	{
-		return new RSLEvent(type, bubbles, cancelable,
-							bytesLoaded, bytesTotal, rslIndex,
-							rslTotal, url, errorText, isResourceModule,
+    /**
+     *  @private
+     */
+    override public function clone():Event
+    {
+        return new RSLEvent(type, bubbles, cancelable,
+                            bytesLoaded, bytesTotal, rslIndex,
+                            rslTotal, url, errorText, isResourceModule,
                             loaderInfo);
-	}
+    }
 }
 
 }
