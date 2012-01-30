@@ -50,19 +50,6 @@ public class MediaQueryParser
      }
     
      /**
-      *  Mixin initialization
-      * 
-      *  @langversion 3.0
-      *  @playerversion Flash 10.2
-      *  @playerversion AIR 2.6
-      *  @productversion Flex 4.5
-      */
-     public static function init(moduleFactory:IFlexModuleFactory):void
-     {
-         _instance = new MediaQueryParser(moduleFactory);
-     }
-
-     /**
       *  @private
       */
      private static var _instance:MediaQueryParser;
