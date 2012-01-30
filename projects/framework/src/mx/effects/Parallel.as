@@ -124,30 +124,6 @@ public class Parallel extends CompositeEffect
         return parallelDuration;
     }
 
-    // Note that we implement seek() in the instance class for Sequence,
-    // but in the factory class for Parallel. This is because we can do
-    // it at the factory level for Parallel, but for Sequence we need
-    // extra functionality that is only available in the instance class.
-    /**
-     * @inheritDoc
-     * 
-     * In a Parallel effect, seek will cause all child effects to seek to
-     * the same <code>seekTime</code>. This may cause child effects to 
-     * lessen their startDelay (if they are currently waiting to be played),
-     * start playing (if the seekTime is greater than their startDelay), or
-     * come to an end (if the seekTime is greater than their startDelay plus
-     * their duration).
-     */
-    override public function seek(seekTime:Number):void
-    {
-        // This will seek in the Parallel's instance
-        super.seek(seekTime);
-        // Tell all of our active children to seek()        
-        for (var i:int = 0; i < children.length; i++)
-        {
-            children[i].seek(seekTime);
-        }
-    }
 }
 
 }
