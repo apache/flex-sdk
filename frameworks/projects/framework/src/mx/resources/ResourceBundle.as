@@ -12,11 +12,12 @@
 package mx.resources
 {
 
-import flash.utils.describeType;
 import flash.system.ApplicationDomain;
+
 import mx.core.mx_internal;
-import mx.managers.ISystemManager;
 import mx.utils.StringUtil;
+
+use namespace mx_internal;
 
 /**
  *  Provides an implementation of the IResourceBundle interface.
@@ -113,7 +114,7 @@ public class ResourceBundle implements IResourceBundle
         var className:String;
         var bundleClass:Class;
 
-        className = mx_internal::locale + "$" + baseName + "_properties";
+        className = locale + "$" + baseName + "_properties";
         bundleClass = getClassByName(className, currentDomain);
 
         if (!bundleClass)
@@ -128,15 +129,15 @@ public class ResourceBundle implements IResourceBundle
             bundleClass = getClassByName(className, currentDomain);
         }
 
-        if (!bundleClass && mx_internal::backupApplicationDomain)
+        if (!bundleClass && backupApplicationDomain)
         {
             className = baseName + "_properties";
-            bundleClass = getClassByName(className, mx_internal::backupApplicationDomain);
+            bundleClass = getClassByName(className, backupApplicationDomain);
 
             if (!bundleClass)
             {
                 className = baseName;
-                bundleClass = getClassByName(className, mx_internal::backupApplicationDomain);
+                bundleClass = getClassByName(className, backupApplicationDomain);
             }
         }
 
@@ -199,8 +200,8 @@ public class ResourceBundle implements IResourceBundle
         
         super();
         
-        mx_internal::_locale = locale;
-        mx_internal::_bundleName = bundleName;
+        _locale = locale;
+        _bundleName = bundleName;
 
         _content = getContent();
     }  
@@ -231,7 +232,7 @@ public class ResourceBundle implements IResourceBundle
      */     
     public function get bundleName():String
     {
-        return mx_internal::_bundleName;
+        return _bundleName;
     }
 
     //----------------------------------
@@ -277,7 +278,7 @@ public class ResourceBundle implements IResourceBundle
      */     
     public function get locale():String
     {
-        return mx_internal::_locale;
+        return _locale;
     }
 
     //--------------------------------------------------------------------------
