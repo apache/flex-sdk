@@ -2269,13 +2269,14 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         // use a sandbox bridge to communicate.
         var loaderInfo:LoaderInfo = LoaderInfo(event.target);
         addInitSystemManagerCompleteListener(loaderInfo.loader.contentLoaderInfo);
-        
-        if (loaderInfo.parentAllowsChild && loaderInfo.childAllowsParent 
-            && loaderInfo.loader.content)
-        {
-            loaderInfo.content.addEventListener(Request.GET_FLEX_MODULE_FACTORY_REQUEST, 
-                                            loader_content_getFlexModuleFactoryRequestHandler);            
-        }
+
+//        Comment out for Beta2. Part of Per-Module Styles feature. 
+//        if (loaderInfo.parentAllowsChild && loaderInfo.childAllowsParent 
+//            && loaderInfo.content)
+//        {
+//            loaderInfo.content.addEventListener(Request.GET_FLEX_MODULE_FACTORY_REQUEST, 
+//                                            loader_content_getFlexModuleFactoryRequestHandler);            
+//        }
 
     }
 
@@ -2417,12 +2418,13 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             var contentLoaderInfo:LoaderInfo = Loader(contentHolder).contentLoaderInfo
             removeInitSystemManagerCompleteListener(contentLoaderInfo);
 
-            if (contentLoaderInfo.parentAllowsChild && contentLoaderInfo.childAllowsParent 
-                && contentLoaderInfo.loader.content)
-            {
-                contentLoaderInfo.content.removeEventListener(Request.GET_FLEX_MODULE_FACTORY_REQUEST, 
-                    loader_content_getFlexModuleFactoryRequestHandler);            
-            }
+//            Comment out for Beta2. Part of Per-Module Styles feature. 
+//            if (contentLoaderInfo.content && contentLoaderInfo.parentAllowsChild && 
+//                contentLoaderInfo.childAllowsParent)
+//            {
+//                contentLoaderInfo.content.removeEventListener(Request.GET_FLEX_MODULE_FACTORY_REQUEST, 
+//                    loader_content_getFlexModuleFactoryRequestHandler);            
+//            }
         }
         
     }
