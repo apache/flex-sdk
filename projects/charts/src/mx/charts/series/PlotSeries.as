@@ -179,7 +179,7 @@ public class PlotSeries extends Series
     //--------------------------------------------------------------------------
 
     /**
-     *  Constructor
+     *  Constructor.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -203,11 +203,11 @@ public class PlotSeries extends Series
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false; 
-	
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false; 
+    
     /**
      *  @private
      */
@@ -384,7 +384,7 @@ public class PlotSeries extends Series
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function get fillFunction():Function
+    public function get fillFunction():Function
     {
         return _fillFunction;
     }
@@ -619,50 +619,50 @@ public class PlotSeries extends Series
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var seriesStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.series.PlotSeries", styleManager);
-		
-		seriesStyle.defaultFactory = function():void
-		{
-			this.fill = new SolidColor(0x4444AA);
-			this.fills = [];
-			this.itemRenderer = new ClassFactory(DiamondItemRenderer);
-			this.radius = 5;
-			this.adjustedRadius = 2;
-		}
-		
-		return true;
-	}
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var seriesStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.series.PlotSeries", styleManager);
+        
+        seriesStyle.defaultFactory = function():void
+        {
+            this.fill = new SolidColor(0x4444AA);
+            this.fills = [];
+            this.itemRenderer = new ClassFactory(DiamondItemRenderer);
+            this.radius = 5;
+            this.adjustedRadius = 2;
+        }
+        
+        return true;
+    }
 
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
-	
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
+    
     /**
      *  @inheritDoc
      *  
@@ -799,9 +799,9 @@ public class PlotSeries extends Series
     {
         _localFills = getStyle('fills');
         if (_localFills != null)
-        	_fillCount = _localFills.length;
+            _fillCount = _localFills.length;
         else
-        	_fillCount = 0;
+            _fillCount = 0;
         super.stylesInitialized();
     }
     
@@ -817,9 +817,9 @@ public class PlotSeries extends Series
         {
             _localFills = getStyle('fills');
             if (_localFills != null)
-        		_fillCount = _localFills.length;
-        	else
-        		_fillCount = 0;                
+                _fillCount = _localFills.length;
+            else
+                _fillCount = 0;                
         }
         if (styleProp == "itemRenderer")
         {
@@ -969,7 +969,7 @@ public class PlotSeries extends Series
                 minItems.push(v);
         }
 
-		n = minItems.length;
+        n = minItems.length;
         for (i = 0; i < n; i++)
         {
             var item:PlotSeriesItem = minItems[i];
@@ -1056,15 +1056,15 @@ public class PlotSeries extends Series
         cacheIndexValues(_xField, _renderData.cache, "xValue");
         cacheDefaultValues(_yField, _renderData.cache, "yValue");
         
-		if(dataTransform && dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is NumericAxis &&
-			!(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is DateTimeAxis) && 
-        	(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")  
-        	_renderData.cache = reverseYValues(_renderData.cache);
+        if(dataTransform && dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is NumericAxis &&
+            !(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is DateTimeAxis) && 
+            (dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")  
+            _renderData.cache = reverseYValues(_renderData.cache);
         if(dataTransform && dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is NumericAxis &&
-        	!(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is DateTimeAxis) &&
-        	(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")  
-        	_renderData.cache = reverseXValues(_renderData.cache);
-        	
+            !(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is DateTimeAxis) &&
+            (dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")  
+            _renderData.cache = reverseXValues(_renderData.cache);
+            
         super.updateData();
 
         var radius:Number = getStyle("radius");
@@ -1235,14 +1235,14 @@ public class PlotSeries extends Series
         return arrItems;
     }
 
-	 
+     
     /**
      * @private
      */ 
     override protected function defaultFilterFunction(cache:Array /*of PlotSeriesItem */ ):Array /*of PlotSeriesItem*/
     {
-    	var filteredCache:Array /*of PlotSeriesItem*/ = [];	
-    	if (filterDataValues == "outsideRange")
+        var filteredCache:Array /*of PlotSeriesItem*/ = []; 
+        if (filterDataValues == "outsideRange")
         {
             filteredCache = cache.concat();
 
@@ -1268,7 +1268,7 @@ public class PlotSeries extends Series
         }
         return filteredCache;
     }
-	
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -1333,24 +1333,24 @@ public class PlotSeries extends Series
      
     private function reverseYValues(cache:Array):Array
     {
-    	var i:int = 0;
+        var i:int = 0;
         var n:int = cache.length;
         for(i = 0; i < n ; i++)
         {
-        	cache[i]["yValue"] = -(cache[i]["yValue"]);
+            cache[i]["yValue"] = -(cache[i]["yValue"]);
         }  
-    	return cache;
+        return cache;
     }
     
     private function reverseXValues(cache:Array):Array
     {
-    	var i:int = 0;
+        var i:int = 0;
         var n:int = cache.length;
         for(i = 0; i < n ; i++)
         {
-        	cache[i]["xValue"] = -(cache[i]["xValue"]);
+            cache[i]["xValue"] = -(cache[i]["xValue"]);
         }  
-    	return cache;
+        return cache;
     }
 }
 
