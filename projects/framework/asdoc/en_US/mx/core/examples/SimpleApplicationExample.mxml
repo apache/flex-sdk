@@ -3,10 +3,9 @@
 <mx:Application name="SimpleApplicationExample"
         xmlns:fx="http://ns.adobe.com/mxml/2009"
         xmlns:s="library://ns.adobe.com/flex/spark"
-        xmlns:mx="library://ns.adobe.com/flex/halo"
-        backgroundGradientColors="[0xCCCCCC, 0x66CCFF]"
+        xmlns:mx="library://ns.adobe.com/flex/mx"
         backgroundColor="0xCCCCCC"
-        horizontalAlign="center" verticalAlign="center"
+        horizontalAlign="center" verticalAlign="middle"
         applicationComplete="appComplete();">
 
     <fx:Script>
@@ -27,10 +26,10 @@
     </fx:Script>
 
     <mx:ApplicationControlBar dock="true">
-        <s:Button label="Set Solid Fill" 
-                click="this.setStyle('backgroundGradientColors', [0xCCCCCC, 0xCCCCCC]);"/>
-        <s:Button label="Set Gradient Fill" 
-                click="this.setStyle('backgroundGradientColors', [0xCCCCCC, 0x66CCFF]);"/>
+        <s:Button label="Set Grey Background" 
+                click="this.setStyle('backgroundColor',0xCCCCCC);"/>
+        <s:Button label="Set Blue Background" 
+                click="this.setStyle('backgroundColor', 0x66CCFF);"/>
     </mx:ApplicationControlBar> 
 
     <s:Panel title="Application Container Example"
