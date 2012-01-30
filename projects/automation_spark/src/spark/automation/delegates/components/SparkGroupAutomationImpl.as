@@ -82,33 +82,7 @@ package spark.automation.delegates.components
 		 */
 		override public function get automationName():String
 		{
-			if (group.id)
-				return group.id;
-			else
-			{
-				var result:String ;
-				
-				var childList:Array = getAutomationChildren();
-				var n:int = childList ? childList.length:0;
-				for (var i:int = 0; i < n; i++)
-				{
-					var child:IAutomationObject = childList[i];
-					if(child != null) // we can have non automation elements like graphic elements also.
-					{
-						if((result == null) || (result == ""))
-							result = child.automationName;
-						else
-							result = result + "|" + child.automationName;
-					}
-				}
-				
-				if(result == "")
-					return super.automationName;
-				else
-					return result;
-			}
-			
-			
+			return group.id || super.automationName;
 		}
 		
 		//----------------------------------
