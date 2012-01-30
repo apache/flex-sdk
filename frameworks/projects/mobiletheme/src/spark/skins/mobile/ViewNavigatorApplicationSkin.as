@@ -27,7 +27,6 @@ import spark.skins.mobile.supportClasses.MobileSkin;
  * @see spark.components.ViewNavigatorApplication
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -42,7 +41,6 @@ public class ViewNavigatorApplicationSkin extends MobileSkin
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -63,7 +61,6 @@ public class ViewNavigatorApplicationSkin extends MobileSkin
      * The navigator for the application.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
