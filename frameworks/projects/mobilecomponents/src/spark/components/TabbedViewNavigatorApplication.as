@@ -96,6 +96,21 @@ public class TabbedMobileApplication extends MobileApplicationBase
      */
     private var navigatorProperties:Object = {};
     
+    //----------------------------------
+    //  activeView
+    //----------------------------------
+    
+    /**
+     *  @private
+     */ 
+    override mx_internal function get activeView():View
+    {
+        if (navigator)
+            return navigator.activeView;
+        
+        return null;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
