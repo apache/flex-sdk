@@ -1,4 +1,41 @@
+/*
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2005-2007 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+*/
 
+/* Global style declaration */
+global
+{
+	backgroundAlpha: 1.0; /* this runs the opacity of nearly every square piece of the components */
+	/* backgroundDisabledColor: #DDDDDD; */
+	backgroundSize: "auto";
+	bevel: true;
+	borderAlpha: 1.0;
+  	borderCapColor: #919999;
+	borderColor: #B7BABC;
+	borderSides: "left top right bottom";
+	borderSkin: ClassReference("mx.skins.halo.HaloBorder");
+	borderStyle: "inset";
+	borderThickness: 1;
+	buttonColor: #6F7777;
+	closeDuration: 250;
+	color: #0B333C;
+	cornerRadius: 0;
+	disabledColor: #AAB3B3;
+	disabledIconColor: #999999;
+	dropShadowColor: #000000;
+	dropShadowEnabled: false;
+	embedFonts: false;
+	errorColor: #FF0000;
+	fillAlphas: 0.6, 0.4, 0.75, 0.65; /* last pair are for OVER state */
 	fillColor: #FFFFFF; /* kill this?? */
 	fillColors: #FFFFFF, #CCCCCC, #FFFFFF, #EEEEEE;
 	filled: true;
