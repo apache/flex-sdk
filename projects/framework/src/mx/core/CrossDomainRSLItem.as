@@ -262,6 +262,13 @@ public class CrossDomainRSLItem extends RSLItem
         else 
             context.applicationDomain = ApplicationDomain.currentDomain;
         
+        // TODO (dloverin): For now, load all RSLs into the top-level application
+        // domain. Remove this code once we have cooperative loading implemented. 
+        while (context.applicationDomain && context.applicationDomain.parentDomain)
+        {
+            context.applicationDomain = context.applicationDomain.parentDomain;
+        }
+        
         context.securityDomain = null;
         
         // If the AIR flag is available then set it to true so we can
