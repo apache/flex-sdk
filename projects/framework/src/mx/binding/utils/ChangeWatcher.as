@@ -150,12 +150,15 @@ public class ChangeWatcher
 
     /**
      *  Lets you determine if the host exposes a data-binding event
-     *  on the property.
+     *  on the property. 
+     * 
+     *  <p>NOTE: Property chains are not supported by the <code>canWatch()</code> method.
+     * They are supported by the <code>watch()</code> method.</p>
      *
      *  @param host The host of the property.
      *  See the <code>watch()</code> method for more information.
      *
-     *  @param name The name of the property, or property chain.
+     *  @param name The name of the property.
      *  See the <code>watch()</code> method for more information.
      *
      *  @param commitOnly Set to <code>true</code> if the handler
