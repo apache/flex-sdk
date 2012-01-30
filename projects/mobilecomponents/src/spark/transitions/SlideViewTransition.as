@@ -12,6 +12,7 @@
 package spark.transitions
 {
     
+import flash.display.DisplayObject;
 import flash.geom.Point;
 
 import mx.core.IVisualElement;
@@ -273,13 +274,13 @@ public class SlideViewTransition extends ViewTransitionBase
         
         // Save the position of the action in global coordinates
 		if (actionBar)
-        	cachedActionBarGlobalPosition = getGlobalCoordinates(actionBar);
+        	cachedActionBarGlobalPosition = getTargetNavigatorCoordinates(actionBar);
         
         // Cache the tab bar bitmap and location
         if (tabBar)
         {
             cachedTabBar = getSnapshot(TabbedViewNavigator(targetNavigator).tabBar);
-            cachedTabBarGlobalPosition = getGlobalCoordinates(tabBar);
+            cachedTabBarGlobalPosition = getTargetNavigatorCoordinates(tabBar);
             navigatorProps.tabBarIncludeInLayout = tabBar.includeInLayout;
             navigatorProps.tabBarCacheAsBitmap = tabBar.cacheAsBitmap;
         }
@@ -289,7 +290,7 @@ public class SlideViewTransition extends ViewTransitionBase
         
         if (startView)
         {
-            cachedStartViewGlobalPosition = getGlobalCoordinates(startView);
+            cachedStartViewGlobalPosition = getTargetNavigatorCoordinates(startView);
             navigatorProps.startViewIncludeInLayout = startView.includeInLayout;
             startView.includeInLayout = false;
         }
@@ -495,7 +496,7 @@ public class SlideViewTransition extends ViewTransitionBase
             navigatorProps.startViewX = startView.x;
             navigatorProps.startViewY = startView.y;
             
-            var globalPoint:Point = getGlobalCoordinates(startView);
+            var globalPoint:Point = getTargetNavigatorCoordinates(startView);
             
             var delta:int = globalPoint.x - cachedStartViewGlobalPosition.x;
             if (delta != 0)
@@ -756,12 +757,14 @@ public class SlideViewTransition extends ViewTransitionBase
     
     /**
      *  @private
-     *  Utility function that converts a components position to global coordinates
-     *  using its parent.
+     *  Utility function that converts a components position to the coordinate space
+     *  of the targetNavigator.  This method doesn't use stage coordinates because
+     *  that would return inaccurate results when dpi scaling is enabled.
      */
-    private function getGlobalCoordinates(component:IVisualElement):Point
+    private function getTargetNavigatorCoordinates(component:IVisualElement):Point
     {
-        return component.parent.localToGlobal(new Point(component.x, component.y));
+        var stagePoint:Point = DisplayObject(component).localToGlobal(new Point());
+        return targetNavigator.globalToLocal(stagePoint);
     }
     
 }
