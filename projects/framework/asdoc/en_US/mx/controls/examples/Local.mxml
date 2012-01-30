@@ -1,8 +1,10 @@
-<?xml version="1.0"?>
-<!-- Flex application loaded by the SWFLoader control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" height="75" width="350">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Flex application loaded by the Halo SWFLoader control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:mx="library://ns.adobe.com/flex/halo"
+		width="350" height="75">
 
-    <mx:Label color="blue" text="The Label control of the embedded application."/>
+    <s:SimpleText color="blue" text="The SimpleText control of the embedded application."/>
 
-</mx:Application>
-       
+</s:Application>
