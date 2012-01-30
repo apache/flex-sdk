@@ -1430,6 +1430,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             // stop any asynch operation:
             if (iconSetterDelayTimer)
             {
+				loadingIconSource = null
                 iconSetterDelayTimer.stop();
                 iconSetterDelayTimer.reset();
             }
@@ -1448,6 +1449,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         // since we're not going to use it anymore
         if (iconSetterDelayTimer)
         {
+			loadingIconSource = null
             iconSetterDelayTimer.stop();
             iconSetterDelayTimer.reset();
         }
@@ -1558,6 +1560,28 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         var myMeasuredHeight:Number = 0;
         var myMeasuredMinWidth:Number = 0;
         var myMeasuredMinHeight:Number = 0;
+		
+		// calculate padding and horizontal gap
+		// verticalGap is already handled above when there's a label
+		// and a message since that's the only place verticalGap matters.
+		// if we handled verticalGap here, it might add it to the icon if 
+		// the icon was the tallest item.
+		var numHorizontalSections:int = 0;
+		if (iconDisplay)
+			numHorizontalSections++;
+		
+		if (decoratorDisplay)
+			numHorizontalSections++;
+		
+		if (labelDisplay || messageDisplay)
+			numHorizontalSections++;
+		
+		var paddingAndGapWidth:Number = getStyle("paddingLeft") + getStyle("paddingRight");
+		if (numHorizontalSections > 0)
+			paddingAndGapWidth += (getStyle("horizontalGap") * (numHorizontalSections - 1));
+		
+		var verticalGap:Number = (labelDisplay && messageDisplay) ? getStyle("verticalGap") : 0;
+		var paddingHeight:Number = getStyle("paddingTop") + getStyle("paddingBottom");
         
         // Icon is on left
 		var myIconWidth:Number = 0;
@@ -1603,7 +1627,6 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             labelWidth = getElementPreferredWidth(labelDisplay);
             labelHeight = getElementPreferredHeight(labelDisplay);
         }
-        
 		
         if (messageDisplay)
         {
@@ -1619,32 +1642,14 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         }
 		
         myMeasuredWidth += Math.max(labelWidth, messageWidth);
-        myMeasuredHeight = Math.max(myMeasuredHeight, labelHeight + messageHeight);
-		
-		// now to add on padding and horizontal gap
-		// verticalGap is already handled above when there's a label
-		// and a message since that's the only place verticalGap matters
-		var numHorizontalSections:int = 0;
-		if (iconDisplay)
-			numHorizontalSections++;
-		
-		if (decoratorDisplay)
-			numHorizontalSections++;
-		
-		if (labelDisplay || messageDisplay)
-			numHorizontalSections++;
-		
-		var paddingAndGapWidth:Number = getStyle("paddingLeft") + getStyle("paddingRight");
-		if (numHorizontalSections > 0)
-			paddingAndGapWidth += (getStyle("horizontalGap") * (numHorizontalSections - 1));
-		
-		var verticalGap:Number = (labelDisplay && messageDisplay) ? getStyle("verticalGap") : 0;
-		var paddingAndGapHeight:Number = getStyle("paddingTop") + getStyle("paddingBottom") + verticalGap;
+        myMeasuredHeight = Math.max(myMeasuredHeight, labelHeight + messageHeight + verticalGap);
 		
 		myMeasuredWidth += paddingAndGapWidth;
 		myMeasuredMinWidth += paddingAndGapWidth;
-		myMeasuredHeight += paddingAndGapHeight;
-		myMeasuredMinHeight += paddingAndGapHeight;
+		
+		// verticalGap handled in label and message
+		myMeasuredHeight += paddingHeight;
+		myMeasuredMinHeight += paddingHeight;
         
         // now set the local variables to the member variables.  Make sure it means our
         // minimum height of 80
@@ -1852,25 +1857,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             messageWidth = Math.max(labelComponentsViewWidth, 0);
             messageHeight = Math.max(viewHeight - labelHeight - verticalGap, 0);
             
-            // grab old messageDisplay height before resizing it
-            var oldMessageMeasuredHeight:Number = getElementPreferredHeight(messageDisplay);
-            
             resizeElement(messageDisplay, messageWidth, messageHeight);
-            
-            // grab new messageDisplay height after the messageDisplay has taken its final size
-            var newMessageMeasuredHeight:Number = getElementPreferredHeight(messageDisplay);
-			
-            // if the resize caused the messageDisplay's height to change (because of 
-            // text reflow), then we need to remeasure ourselves with our new estimatedWidth
-            if (oldMessageMeasuredHeight != newMessageMeasuredHeight)
-            {
-				// if unscaledWidth is 0, we're in an edge case, so let's not invalidateSize() here
-				// as we're not really visible anyways, so why do an extra invalidation
-				if (unscaledWidth > 0)
-	                invalidateSize();
-            }
-			
-            messageHeight = Math.max(0, Math.min(messageHeight, newMessageMeasuredHeight));
+            messageHeight = Math.max(0, Math.min(messageHeight, getElementPreferredHeight(messageDisplay)));
             
             // since it's multi-line, no need to truncate
             //if (messageDisplay.isTruncated)
