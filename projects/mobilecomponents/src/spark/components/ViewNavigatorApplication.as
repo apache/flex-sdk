@@ -294,7 +294,7 @@ package spark.components
         }
         
         //----------------------------------
-        //  actionGroupLayout
+        //  actionLayout
         //----------------------------------
         
         /**
@@ -307,26 +307,26 @@ package spark.components
          *  @playerversion AIR 2.5
          *  @productversion Flex 4.5
          */
-        public function get actionGroupLayout():LayoutBase
+        public function get actionLayout():LayoutBase
         {
             if (navigator)
-                return navigator.actionGroupLayout;
+                return navigator.actionLayout;
             else
-                return navigatorProperties.actionGroupLayout;
+                return navigatorProperties.actionLayout;
         }
         /**
          *  @private
          */
-        public function set actionGroupLayout(value:LayoutBase):void
+        public function set actionLayout(value:LayoutBase):void
         {
             if (navigator)
             {
-                navigator.actionGroupLayout = value;
+                navigator.actionLayout = value;
                 navigatorProperties = BitFlagUtil.update(navigatorProperties as uint, 
                                             ACTION_LAYOUT_PROPERTY_FLAG, value != null);
             }
             else
-                navigatorProperties.actionGroupLayout = value;
+                navigatorProperties.actionLayout = value;
         }
         
         //----------------------------------
@@ -369,7 +369,7 @@ package spark.components
         }
         
         //----------------------------------
-        //  navigationGroupLayout
+        //  navigationLayout
         //----------------------------------
         
         /**
@@ -383,26 +383,26 @@ package spark.components
          *  @productversion Flex 4.5
          */
         
-        public function get navigationGroupLayout():LayoutBase
+        public function get navigationLayout():LayoutBase
         {
             if (navigator)
-                return navigator.navigationGroupLayout;
+                return navigator.navigationLayout;
             else
-                return navigatorProperties.navigationGroupLayout;
+                return navigatorProperties.navigationLayout;
         }
         /**
          *  @private
          */
-        public function set navigationGroupLayout(value:LayoutBase):void
+        public function set navigationLayout(value:LayoutBase):void
         {
             if (navigator)
             {
-                navigator.navigationGroupLayout = value;
+                navigator.navigationLayout = value;
                 navigatorProperties = BitFlagUtil.update(navigatorProperties as uint, 
                     NAVIGATION_LAYOUT_PROPERTY_FLAG, value != null);
             }
             else
-                navigatorProperties.navigationGroupLayout = value;
+                navigatorProperties.navigationLayout = value;
         }
         
         //----------------------------------
@@ -475,7 +475,7 @@ package spark.components
         }
         
         //----------------------------------
-        //  titleGroupLayout
+        //  titleLayout
         //----------------------------------
         
         /**
@@ -488,26 +488,26 @@ package spark.components
          *  @playerversion AIR 2.5
          *  @productversion Flex 4.5
          */
-        public function get titleGroupLayout():LayoutBase
+        public function get titleLayout():LayoutBase
         {
             if (navigator)
-                return navigator.titleGroupLayout;
+                return navigator.titleLayout;
             else
-                return navigatorProperties.titleGroupLayout;
+                return navigatorProperties.titleLayout;
         }
         /**
          *  @private
          */
-        public function set titleGroupLayout(value:LayoutBase):void
+        public function set titleLayout(value:LayoutBase):void
         {
             if (navigator)
             {
-                navigator.titleGroupLayout = value;
+                navigator.titleLayout = value;
                 navigatorProperties = BitFlagUtil.update(navigatorProperties as uint, 
                     NAVIGATION_LAYOUT_PROPERTY_FLAG, value != null);
             }
             else
-                navigatorProperties.titleGroupLayout = value;
+                navigatorProperties.titleLayout = value;
         }
         
         //--------------------------------------------------------------------------
@@ -709,9 +709,9 @@ package spark.components
                                                     ACTION_CONTENT_PROPERTY_FLAG, true);
                 }
                 
-                if (navigatorProperties.actionGroupLayout != undefined)
+                if (navigatorProperties.actionLayout != undefined)
                 {
-                    navigator.actionGroupLayout = navigatorProperties.actionGroupLayout;
+                    navigator.actionLayout = navigatorProperties.actionLayout;
                     newNavigatorProperties = BitFlagUtil.update(newNavigatorProperties, 
                         ACTION_LAYOUT_PROPERTY_FLAG, true);
                 }
@@ -724,9 +724,9 @@ package spark.components
                         NAVIGATION_CONTENT_PROPERTY_FLAG, true);
                 }
                 
-                if (navigatorProperties.navigationGroupLayout != undefined)
+                if (navigatorProperties.navigationLayout != undefined)
                 {
-                    navigator.navigationGroupLayout = navigatorProperties.navigationGroupLayout;
+                    navigator.navigationLayout = navigatorProperties.navigationLayout;
                     newNavigatorProperties = BitFlagUtil.update(newNavigatorProperties, 
                         NAVIGATION_LAYOUT_PROPERTY_FLAG, true);
                 }
@@ -745,9 +745,9 @@ package spark.components
                         TITLE_CONTENT_PROPERTY_FLAG, true);
                 }
                 
-                if (navigatorProperties.titleGroupLayout != undefined)
+                if (navigatorProperties.titleLayout != undefined)
                 {
-                    navigator.titleGroupLayout = navigatorProperties.titleGroupLayout;
+                    navigator.titleLayout = navigatorProperties.titleLayout;
                     newNavigatorProperties = BitFlagUtil.update(newNavigatorProperties, 
                         TITLE_LAYOUT_PROPERTY_FLAG, true);
                 }
@@ -775,13 +775,13 @@ package spark.components
                     newNavigatorProperties.actionContent = navigator.actionContent;
                 
                 if (BitFlagUtil.isSet(navigatorProperties as uint, ACTION_LAYOUT_PROPERTY_FLAG))
-                    newNavigatorProperties.actionGroupLayout = navigator.actionGroupLayout;
+                    newNavigatorProperties.actionLayout = navigator.actionLayout;
                 
                 if (BitFlagUtil.isSet(navigatorProperties as uint, NAVIGATION_CONTENT_PROPERTY_FLAG))
                     newNavigatorProperties.navigationContent = navigator.navigationContent;
                 
                 if (BitFlagUtil.isSet(navigatorProperties as uint, NAVIGATION_LAYOUT_PROPERTY_FLAG))
-                    newNavigatorProperties.navigationGroupLayout = navigator.navigationGroupLayout;
+                    newNavigatorProperties.navigationLayout = navigator.navigationLayout;
                 
                 if (BitFlagUtil.isSet(navigatorProperties as uint, TITLE_PROPERTY_FLAG))
                     newNavigatorProperties.title = navigator.title;
@@ -790,7 +790,7 @@ package spark.components
                     newNavigatorProperties.titleContent = navigator.titleContent;
                 
                 if (BitFlagUtil.isSet(navigatorProperties as uint, TITLE_LAYOUT_PROPERTY_FLAG))
-                    newNavigatorProperties.titleGroupLayout = navigator.titleGroupLayout;
+                    newNavigatorProperties.titleLayout = navigator.titleLayout;
                 
                 navigatorProperties = newNavigatorProperties;
             }
