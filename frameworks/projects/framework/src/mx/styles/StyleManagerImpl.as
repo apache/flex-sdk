@@ -1007,7 +1007,7 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
                         {
                             matchingSubject = true;
                             if (decls.length == 1)
-                                delete _subjects[styleDeclaration.subject];
+                                delete _subjects[decl.subject];
                             else
                                 decls.splice(i, 1);
                         }
