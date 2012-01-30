@@ -201,12 +201,14 @@ public class Watcher
             //   Error #1010: undefined has no properties.
             //   Error #1055: - has no properties.
             //   Error #1069: Property - not found on - and there is no default value
+            //   Error #1507: - invalid null argument.
             // We allow any other errors to be thrown.
             if ((error.errorID != 1006) &&
                 (error.errorID != 1009) &&
                 (error.errorID != 1010) &&
                 (error.errorID != 1055) &&
-                (error.errorID != 1069))
+                (error.errorID != 1069) &&
+                (error.errorID != 1507))
             {
                 throw error;
             }
