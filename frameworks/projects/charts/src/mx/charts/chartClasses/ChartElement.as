@@ -205,6 +205,8 @@ public class ChartElement extends DualStyleObject implements IChartElement2
      */
     public function set dataProvider(value:Object):void
     {
+		if(_userDataProvider == value)
+			return;
         _userDataProvider = value;
         processNewDataProvider(value);
     }
