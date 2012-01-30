@@ -49,35 +49,35 @@ import mx.utils.MatrixUtil;
  */
 public class BitmapFill extends EventDispatcher implements IFill
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
- 	/**
-	 *  Constructor.
- 	 *  
- 	 *  @langversion 3.0
- 	 *  @playerversion Flash 9
- 	 *  @playerversion AIR 1.1
- 	 *  @productversion Flex 3
- 	 */
-	public function BitmapFill()
- 	{
-		super();
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
-	
-	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
-	private static var transformMatrix:Matrix = new Matrix();
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function BitmapFill()
+    {
+        super();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
+    private static var transformMatrix:Matrix = new Matrix();
     private var nonRepeatAlphaSource:BitmapData;
     private var _bitmapData:BitmapData;
     
@@ -88,11 +88,11 @@ public class BitmapFill extends EventDispatcher implements IFill
     private var nonRepeatSourceCreated:Boolean = false;
     private var bitmapDataCreated:Boolean = false;
     
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
     //----------------------------------
     //  alpha
@@ -146,6 +146,15 @@ public class BitmapFill extends EventDispatcher implements IFill
     //  compoundTransform
     //----------------------------------
     
+    /**
+     *  Holds the matrix and the convenience transform properties (<code>x</code>, <code>y</code>, and <code>rotation</code>).
+     *  The compoundTransform is only created when the <code>matrix</code> property is set. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
     protected var compoundTransform:CompoundTransform;        
     
     //----------------------------------
@@ -183,7 +192,7 @@ public class BitmapFill extends EventDispatcher implements IFill
         if (value == null)
         {
             compoundTransform = null;
-        }	
+        }   
         else
         {
             // Create the transform if none exists. 
@@ -199,171 +208,171 @@ public class BitmapFill extends EventDispatcher implements IFill
         }
     }
     
-	//----------------------------------
-	//  originX
-	//----------------------------------
+    //----------------------------------
+    //  originX
+    //----------------------------------
 
-	private var _originX:Number = 0;
-
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]	
-	[Deprecated(replacement="transformX", since="4.0")]
-	
-	/**
-	 *  The horizontal origin for the bitmap fill.
-	 *  The bitmap fill is offset so that this point appears at the origin.
-	 *  Scaling and rotation of the bitmap are performed around this point.
-	 *
-	 *  @default 0 
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get originX():Number
-	{
-		return transformX;
-	}
-	
-	public function set originX(value:Number):void
-	{
-		transformX = value;
-	}
-	
-	//----------------------------------
-	//  originY
-	//----------------------------------
-
-	private var _originY:Number = 0;
-
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]	
-	[Deprecated(replacement="transformY", since="4.0")]
-	
-	/**
-	 *  The vertical origin for the bitmap fill.
-	 *  The bitmap fill is offset so that this point appears at the origin.
-	 *  Scaling and rotation of the bitmap are performed around this point.
-	 *
-	 *  @default 0 
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get originY():Number
-	{
-		return transformY;
-	}
-	
-	public function set originY(value:Number):void
-	{
-		transformY = value;
-	}
-
-	//----------------------------------
-	//  offsetX
-	//----------------------------------
+    private var _originX:Number = 0;
 
     [Bindable("propertyChange")]
-	[Inspectable(category="General")]	
-	[Deprecated(replacement="x", since="4.0")]
-	
-	/**
-	 *  How far the bitmap is horizontally offset from the origin.
-	 *  This adjustment is performed after rotation and scaling.
-	 *
-	 *  @default 0
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get offsetX():Number
-	{
-		return isNaN(x) ? 0 : x;
-	}
-	
-	public function set offsetX(value:Number):void
-	{
+    [Inspectable(category="General")]   
+    [Deprecated(replacement="transformX", since="4.0")]
+    
+    /**
+     *  The horizontal origin for the bitmap fill.
+     *  The bitmap fill is offset so that this point appears at the origin.
+     *  Scaling and rotation of the bitmap are performed around this point.
+     *
+     *  @default 0 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get originX():Number
+    {
+        return transformX;
+    }
+    
+    public function set originX(value:Number):void
+    {
+        transformX = value;
+    }
+    
+    //----------------------------------
+    //  originY
+    //----------------------------------
+
+    private var _originY:Number = 0;
+
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]   
+    [Deprecated(replacement="transformY", since="4.0")]
+    
+    /**
+     *  The vertical origin for the bitmap fill.
+     *  The bitmap fill is offset so that this point appears at the origin.
+     *  Scaling and rotation of the bitmap are performed around this point.
+     *
+     *  @default 0 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get originY():Number
+    {
+        return transformY;
+    }
+    
+    public function set originY(value:Number):void
+    {
+        transformY = value;
+    }
+
+    //----------------------------------
+    //  offsetX
+    //----------------------------------
+
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]   
+    [Deprecated(replacement="x", since="4.0")]
+    
+    /**
+     *  How far the bitmap is horizontally offset from the origin.
+     *  This adjustment is performed after rotation and scaling.
+     *
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get offsetX():Number
+    {
+        return isNaN(x) ? 0 : x;
+    }
+    
+    public function set offsetX(value:Number):void
+    {
         var oldValue:Number = isNaN(x) ? 0 : x; // Avoid warning since the offsetY getter is deprecated
-		x = value;
+        x = value;
         dispatchFillChangedEvent("offsetX", oldValue, value);
-	}
+    }
 
-	//----------------------------------
-	//  offsetY
-	//----------------------------------
+    //----------------------------------
+    //  offsetY
+    //----------------------------------
 
     [Bindable("propertyChange")]
-	[Inspectable(category="General")]	
-	[Deprecated(replacement="y", since="4.0")]
-	
-	/**
-	 *  How far the bitmap is vertically offset from the origin.
-	 *  This adjustment is performed after rotation and scaling.
-	 *
-	 *  @default 0
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get offsetY():Number
-	{
-		return isNaN(y) ? 0 : y;
-	}
-	
-	public function set offsetY(value:Number):void
-	{
+    [Inspectable(category="General")]   
+    [Deprecated(replacement="y", since="4.0")]
+    
+    /**
+     *  How far the bitmap is vertically offset from the origin.
+     *  This adjustment is performed after rotation and scaling.
+     *
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get offsetY():Number
+    {
+        return isNaN(y) ? 0 : y;
+    }
+    
+    public function set offsetY(value:Number):void
+    {
         var oldValue:Number = isNaN(y) ? 0 : y; // Avoid warning since the offsetY getter is deprecated
-		y = value;
+        y = value;
         dispatchFillChangedEvent("offsetY", oldValue, value);
-	}
+    }
 
-	//----------------------------------
-	//  repeat
-	//----------------------------------
+    //----------------------------------
+    //  repeat
+    //----------------------------------
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
-	[Deprecated(replacement="fillMode", since="4.0")]
-	
-	/**
-	 *  Whether the bitmap is repeated to fill the area.
-	 *  Set to <code>true</code> to cause the fill to tile outward
-	 *  to the edges of the filled region.
-	 *  Set to <code>false</code> to end the fill at the edge of the region.
-	 *
-	 *  @default true
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get repeat():Boolean
-	{
-		return _fillMode == BitmapFillMode.REPEAT; 
-	}
-	
-	public function set repeat(value:Boolean):void
-	{
-		var oldValue:Boolean = (_fillMode == BitmapFillMode.REPEAT);  
-		if (value != oldValue)
-		{
-			//Setting repeat just sets fillMode to repeat 
-			fillMode = value ? BitmapFillMode.REPEAT : BitmapFillMode.SCALE; 
-			dispatchFillChangedEvent("repeat", oldValue, value);
-		}
-	}
-	
-	//----------------------------------
+    [Deprecated(replacement="fillMode", since="4.0")]
+    
+    /**
+     *  Whether the bitmap is repeated to fill the area.
+     *  Set to <code>true</code> to cause the fill to tile outward
+     *  to the edges of the filled region.
+     *  Set to <code>false</code> to end the fill at the edge of the region.
+     *
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get repeat():Boolean
+    {
+        return _fillMode == BitmapFillMode.REPEAT; 
+    }
+    
+    public function set repeat(value:Boolean):void
+    {
+        var oldValue:Boolean = (_fillMode == BitmapFillMode.REPEAT);  
+        if (value != oldValue)
+        {
+            //Setting repeat just sets fillMode to repeat 
+            fillMode = value ? BitmapFillMode.REPEAT : BitmapFillMode.SCALE; 
+            dispatchFillChangedEvent("repeat", oldValue, value);
+        }
+    }
+    
+    //----------------------------------
     //  fillMode
     //----------------------------------
 
@@ -405,7 +414,7 @@ public class BitmapFill extends EventDispatcher implements IFill
      */
     public function set fillMode(value:String):void
     {
-    	var oldValue:String = _fillMode; 
+        var oldValue:String = _fillMode; 
         if (value != _fillMode)
         {
             _fillMode = value;
@@ -413,33 +422,33 @@ public class BitmapFill extends EventDispatcher implements IFill
         }
     }
 
-	//----------------------------------
-	//  rotation
-	//----------------------------------
-	
-	private var _rotation:Number = 0;
+    //----------------------------------
+    //  rotation
+    //----------------------------------
+    
+    private var _rotation:Number = 0;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]	
-	
-	/**
-	 *  The number of degrees to rotate the bitmap.
-	 *  Valid values range from 0.0 to 360.0.
-	 *  
-	 *  @default 0
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get rotation():Number
-	{
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]   
+    
+    /**
+     *  The number of degrees to rotate the bitmap.
+     *  Valid values range from 0.0 to 360.0.
+     *  
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get rotation():Number
+    {
         return compoundTransform ? compoundTransform.rotationZ : _rotation;
-	}
-	
-	public function set rotation(value:Number):void
-	{      
+    }
+    
+    public function set rotation(value:Number):void
+    {      
         if (value != rotation)
         {
             var oldValue:Number = rotation;
@@ -450,39 +459,39 @@ public class BitmapFill extends EventDispatcher implements IFill
                 _rotation = value;   
             dispatchFillChangedEvent("rotation", oldValue, value);
         }
-	}
+    }
 
-	//----------------------------------
-	//  scaleX
-	//----------------------------------
-	
-	private var _scaleX:Number;
-	
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]	
-	
-	/**
-	 *  The percent to horizontally scale the bitmap when filling,
-	 *  from 0.0 to 1.0.
-	 *  If 1.0, the bitmap is filled at its natural size.
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get scaleX():Number
-	{
+    //----------------------------------
+    //  scaleX
+    //----------------------------------
+    
+    private var _scaleX:Number;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]   
+    
+    /**
+     *  The percent to horizontally scale the bitmap when filling,
+     *  from 0.0 to 1.0.
+     *  If 1.0, the bitmap is filled at its natural size.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get scaleX():Number
+    {
         return compoundTransform ? compoundTransform.scaleX : _scaleX;
-	}
-	
+    }
+    
     /**
      *  @private
      */  
-	public function set scaleX(value:Number):void
-	{
-		if (value != scaleX)
-		{
+    public function set scaleX(value:Number):void
+    {
+        if (value != scaleX)
+        {
             var oldValue:Number = scaleX;
 
             if (compoundTransform)
@@ -493,41 +502,41 @@ public class BitmapFill extends EventDispatcher implements IFill
             }
             else
             {
-			    _scaleX = value;
+                _scaleX = value;
             }
-			dispatchFillChangedEvent("scaleX", oldValue, value);
-		}
-	}
+            dispatchFillChangedEvent("scaleX", oldValue, value);
+        }
+    }
 
-	//----------------------------------
-	//  scaleY
-	//----------------------------------
-	
-	private var _scaleY:Number;
-	
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]	
-	
-	/**
-	 *  The percent to vertically scale the bitmap when filling,
-	 *  from 0.0 to 1.0.
-	 *  If 1.0, the bitmap is filled at its natural size.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get scaleY():Number
-	{
+    //----------------------------------
+    //  scaleY
+    //----------------------------------
+    
+    private var _scaleY:Number;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]   
+    
+    /**
+     *  The percent to vertically scale the bitmap when filling,
+     *  from 0.0 to 1.0.
+     *  If 1.0, the bitmap is filled at its natural size.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get scaleY():Number
+    {
         return compoundTransform ? compoundTransform.scaleY : _scaleY;
-	}
-	
+    }
+    
     /**
      *  @private
      */ 
-	public function set scaleY(value:Number):void
-	{
+    public function set scaleY(value:Number):void
+    {
         if (value != scaleY)
         {
             var oldValue:Number = scaleY;
@@ -544,89 +553,89 @@ public class BitmapFill extends EventDispatcher implements IFill
             }
             dispatchFillChangedEvent("scaleY", oldValue, value);
         }
-	}
+    }
 
-	//----------------------------------
-	//  source
-	//----------------------------------
+    //----------------------------------
+    //  source
+    //----------------------------------
 
-	private var _source:Object;
+    private var _source:Object;
 
     [Inspectable(category="General")]
 
-	/**
-	 *  The source used for the bitmap fill.
-	 *  The fill can render from various graphical sources,
-	 *  including the following: 
-	 *  <ul>
-	 *   <li>A Bitmap or BitmapData instance.</li>
-	 *   <li>A class representing a subclass of DisplayObject.
-	 *   The BitmapFill instantiates the class
-	 *   and creates a bitmap rendering of it.</li>
-	 *   <li>An instance of a DisplayObject.
-	 *   The BitmapFill copies it into a Bitmap for filling.</li>
-	 *  </ul>
-	 *
-	 *  @default null
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get source():Object 
-	{
-		return _source;
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set source(value:Object):void
-	{
-		if (value != _source)
+    /**
+     *  The source used for the bitmap fill.
+     *  The fill can render from various graphical sources,
+     *  including the following: 
+     *  <ul>
+     *   <li>A Bitmap or BitmapData instance.</li>
+     *   <li>A class representing a subclass of DisplayObject.
+     *   The BitmapFill instantiates the class
+     *   and creates a bitmap rendering of it.</li>
+     *   <li>An instance of a DisplayObject.
+     *   The BitmapFill copies it into a Bitmap for filling.</li>
+     *  </ul>
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get source():Object 
+    {
+        return _source;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set source(value:Object):void
+    {
+        if (value != _source)
         {
-			var tmpSprite:DisplayObject;
-			var oldValue:Object = _source;
-			_source = value;
-			
-			var bitmapData:BitmapData;    
+            var tmpSprite:DisplayObject;
+            var oldValue:Object = _source;
+            _source = value;
+            
+            var bitmapData:BitmapData;    
             var bitmapCreated:Boolean = false; 
             
-			if (value is Class)
-			{
-				var cls:Class = Class(value);
-				value = new cls();
-				bitmapCreated = true;
-			} 
-			
-			if (value is BitmapData)
-			{
-				bitmapData = BitmapData(value);
-			}
-			else if (value is Bitmap)
-			{
-				bitmapData = value.bitmapData;
-			}
-			else if (value is DisplayObject)
-			{
-				tmpSprite = value as DisplayObject;
-			}
-			else if (value == null)
-			{
-				// This will set source to null
-			}
-			else
-			{
-				return;
-			}
-				
-			if (!bitmapData && tmpSprite)
-			{
-				bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height, true, 0);
-				bitmapData.draw(tmpSprite, new Matrix());
+            if (value is Class)
+            {
+                var cls:Class = Class(value);
+                value = new cls();
                 bitmapCreated = true;
-			}
+            } 
+            
+            if (value is BitmapData)
+            {
+                bitmapData = BitmapData(value);
+            }
+            else if (value is Bitmap)
+            {
+                bitmapData = value.bitmapData;
+            }
+            else if (value is DisplayObject)
+            {
+                tmpSprite = value as DisplayObject;
+            }
+            else if (value == null)
+            {
+                // This will set source to null
+            }
+            else
+            {
+                return;
+            }
+                
+            if (!bitmapData && tmpSprite)
+            {
+                bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height, true, 0);
+                bitmapData.draw(tmpSprite, new Matrix());
+                bitmapCreated = true;
+            }
             
             // If the bitmapData isn't transparent (ex. JPEG) and alpha != 1, 
             // then copy it into a transparent bitmapData
@@ -639,47 +648,47 @@ public class BitmapFill extends EventDispatcher implements IFill
             }
             
             setBitmapData(bitmapData, bitmapCreated);
-            			
-			dispatchFillChangedEvent("source", oldValue, value);
+                        
+            dispatchFillChangedEvent("source", oldValue, value);
         }
-	}
+    }
 
-	//----------------------------------
-	//  smooth
-	//----------------------------------
+    //----------------------------------
+    //  smooth
+    //----------------------------------
 
-	private var _smooth:Boolean = false;
-	
-	[Inspectable(category="General")]
-	[Bindable("propertyChange")]	
-	
-	/**
-	 *  A flag indicating whether to smooth the bitmap data
-	 *  when filling with it.
-	 *
-	 *  @default false
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get smooth():Boolean
-	{
-		return _smooth;
-	}
-	
-	public function set smooth(value:Boolean):void
-	{
-		var oldValue:Boolean = _smooth;
-		if (value != oldValue)
-		{
-			_smooth = value;
-			dispatchFillChangedEvent("smooth", oldValue, value);
-		}
-	}
-	
-	//----------------------------------
+    private var _smooth:Boolean = false;
+    
+    [Inspectable(category="General")]
+    [Bindable("propertyChange")]    
+    
+    /**
+     *  A flag indicating whether to smooth the bitmap data
+     *  when filling with it.
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get smooth():Boolean
+    {
+        return _smooth;
+    }
+    
+    public function set smooth(value:Boolean):void
+    {
+        var oldValue:Boolean = _smooth;
+        if (value != oldValue)
+        {
+            _smooth = value;
+            dispatchFillChangedEvent("smooth", oldValue, value);
+        }
+    }
+    
+    //----------------------------------
     //  transformX
     //----------------------------------
     
@@ -757,11 +766,11 @@ public class BitmapFill extends EventDispatcher implements IFill
         dispatchFillChangedEvent("transformY", oldValue, value);
     }
 
-	
-	//----------------------------------
-	//  x
-	//----------------------------------
-	
+    
+    //----------------------------------
+    //  x
+    //----------------------------------
+    
     private var _x:Number;
     
     [Bindable("propertyChange")]
@@ -780,9 +789,9 @@ public class BitmapFill extends EventDispatcher implements IFill
         return compoundTransform ? compoundTransform.x : _x;
     }
     
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     public function set x(value:Number):void
     {
         var oldValue:Number = x;
@@ -803,8 +812,8 @@ public class BitmapFill extends EventDispatcher implements IFill
     }
     
     //----------------------------------
-	//  y
-	//----------------------------------
+    //  y
+    //----------------------------------
     
     private var _y:Number;
     
@@ -847,21 +856,21 @@ public class BitmapFill extends EventDispatcher implements IFill
         }
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	public function begin(target:Graphics, targetBounds:Rectangle, targetOrigin:Point):void
-	{		
+    /**
+     *  @private
+     */
+    public function begin(target:Graphics, targetBounds:Rectangle, targetOrigin:Point):void
+    {       
         var sourceAsBitmapData:BitmapData = _bitmapData;
         
-		if (!sourceAsBitmapData)
-			return;        
+        if (!sourceAsBitmapData)
+            return;        
         
         var repeatFill:Boolean = (fillMode == BitmapFillMode.REPEAT); 
         
@@ -1004,27 +1013,27 @@ public class BitmapFill extends EventDispatcher implements IFill
         if (nonRepeatAlphaSource)
             sourceAsBitmapData = nonRepeatAlphaSource;
         
-		target.beginBitmapFill(sourceAsBitmapData, transformMatrix, repeatFill, smooth);
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function end(target:Graphics):void
-	{
-		target.endFill();
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function dispatchFillChangedEvent(prop:String, oldValue:*,
-											  value:*):void
-	{
+        target.beginBitmapFill(sourceAsBitmapData, transformMatrix, repeatFill, smooth);
+    }
+    
+    /**
+     *  @private
+     */
+    public function end(target:Graphics):void
+    {
+        target.endFill();
+    }
+    
+    /**
+     *  @private
+     */
+    private function dispatchFillChangedEvent(prop:String, oldValue:*,
+                                              value:*):void
+    {
         dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop,
-															oldValue, value));
+                                                            oldValue, value));
         regenerateNonRepeatSource = true;
-	}
+    }
     
     /**
      *  @private
