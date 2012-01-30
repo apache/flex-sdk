@@ -500,6 +500,8 @@ public interface IEffect extends IAbstractEffect
     /**
      *  Removes event listeners from an instance
      *  and removes it from the list of instances.
+     *
+     *  @param instance The effect instance.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
