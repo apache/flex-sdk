@@ -31,7 +31,7 @@ package spark.skins.mobile
     import mx.states.State;
     import mx.utils.ColorUtil;
     
-    import spark.components.Button;
+    import spark.components.supportClasses.ButtonBase;
     import spark.skins.MobileSkin;
     
     use namespace mx_internal;
@@ -76,18 +76,20 @@ package spark.skins.mobile
         //
         //--------------------------------------------------------------------------
         
-        private var textField:IUITextField;
-        private var textFieldShadow:IUITextField;      
+        private var iconClassChanged:Boolean = true;
+        
+        protected var textField:IUITextField;
+        protected var textFieldShadow:IUITextField;      
         
         // Holds the icon
-        private var iconDisplay:DisplayObject;
+        protected var iconDisplay:DisplayObject;
         
         // TODO (jszeto) Either static consts or styles
-        private static const gap:int = 7;
-        private static const paddingLeft:int = 15;
-        private static const paddingRight:int = 15;
-        private static const paddingTop:int = 7;
-        private static const paddingBottom:int = 7;
+        protected static const gap:int = 15;
+        protected static const paddingLeft:int = 15;
+        protected static const paddingRight:int = 15;
+        protected static const paddingTop:int = 15;
+        protected static const paddingBottom:int = 15;
         
         private static var TEXT_WIDTH_PADDING:Number = UITextField.TEXT_WIDTH_PADDING + 1;
         
@@ -100,7 +102,7 @@ package spark.skins.mobile
         /** 
          * @copy spark.skins.spark.ApplicationSkin#hostComponent
          */
-        public var hostComponent:Button; // SkinnableComponent will popuplate
+        public var hostComponent:ButtonBase; // SkinnableComponent will popuplate
         
         //--------------------------------------------------------------------------
         //
@@ -133,42 +135,43 @@ package spark.skins.mobile
                     hostComponent_contentChangeHandler, 
                     false, 0, true);
             }
-            
-            var iconClass:Class = getStyle("iconClass");
-            
-            if (iconClass)
-            {
-                // Should be a bitmap
-                iconDisplay = new iconClass();
-                addChild(iconDisplay);
-            }
         }
         
         /**
          *  @private 
          */ 
-        override public function styleChanged(styleProp:String):void {
-            // TODO: Refactor to check whether styleProp is one of three following value types and update 
-            // the styles accordingly:
-            // 1) Individual style name (e.g. "fontSize"). 2) "styleName". 3) null. 
-            // If 1) reset only individual style. If 2) or 3), reset all styles
-            
-            // Only deal with text if a hostComponent exists and text fields are not empty
-            /*if(hostComponent != null && textField != null && textFieldShadow != null) {
-            var tf:TextFormat = textField.defaultTextFormat;
-            
-            tf = setTextFormat(tf);
-            
-            //textField.setTextFormat(tf);
-            tf.color = 0x000000;
-            textFieldShadow.setTextFormat(tf);
-            textFieldShadow.alpha = .20;
-            }*/
-            
-            // TODO Reapply the color to the textFieldShadow
-            // TODO (jszeto) Add check for change to iconClass
+        override public function styleChanged(styleProp:String):void 
+        {    
+            if (!styleProp || 
+                styleProp == "styleName" || styleProp == "iconClass")
+            {
+                iconClassChanged = true;
+                invalidateProperties();
+            }
             
             super.styleChanged(styleProp);
+        }
+        
+        override protected function commitProperties():void
+        {
+            super.commitProperties();
+            
+            if (iconClassChanged)
+            {
+                if (iconDisplay)
+                    removeChild(iconDisplay);
+                
+                var iconClass:Class = getStyle("iconClass");
+                
+                if (iconClass)
+                {
+                    // Should be a bitmap
+                    iconDisplay = new iconClass();
+                    addChild(iconDisplay);
+                }
+                
+                iconClassChanged = false;
+            }
         }
         
         /**
