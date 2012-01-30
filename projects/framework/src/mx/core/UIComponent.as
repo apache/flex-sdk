@@ -1656,13 +1656,7 @@ public class UIComponent extends FlexSprite
         {
             invalidateProperties();
             invalidateDisplayList();
-
-            var p:IInvalidating = parent as IInvalidating;
-            if (p && includeInLayout)
-            {
-                p.invalidateSize();
-                p.invalidateDisplayList();
-            }
+            invalidateParentSizeAndDisplayList();            
 
             _width = value;
 
@@ -1729,13 +1723,7 @@ public class UIComponent extends FlexSprite
         {
             invalidateProperties();
             invalidateDisplayList();
-
-            var p:IInvalidating = parent as IInvalidating;
-            if (p && includeInLayout)
-            {
-                p.invalidateSize();
-                p.invalidateDisplayList();
-            }
+            invalidateParentSizeAndDisplayList();            
 
             _height = value;
 
@@ -3391,12 +3379,7 @@ public class UIComponent extends FlexSprite
 
         _percentWidth = value;
 
-        var p:IInvalidating = parent as IInvalidating;
-        if (p)
-        {
-            p.invalidateSize();
-            p.invalidateDisplayList();
-        }
+         invalidateParentSizeAndDisplayList();            
     }
 
     //----------------------------------
@@ -3442,12 +3425,7 @@ public class UIComponent extends FlexSprite
 
         _percentHeight = value;
 
-        var p:IInvalidating = parent as IInvalidating;
-        if (p)
-        {
-            p.invalidateSize();
-            p.invalidateDisplayList();
-        }
+        invalidateParentSizeAndDisplayList();            
     }
 
     //----------------------------------
@@ -3723,13 +3701,7 @@ public class UIComponent extends FlexSprite
         // We invalidate size because locking in width
         // may change the measured height in flow-based components.
         invalidateSize();
-
-        var p:IInvalidating = parent as IInvalidating;
-        if (p)
-        {
-            p.invalidateSize();
-            p.invalidateDisplayList();
-        }
+        invalidateParentSizeAndDisplayList();            
 
         dispatchEvent(new Event("explicitMinWidthChanged"));
     }
@@ -3791,13 +3763,7 @@ public class UIComponent extends FlexSprite
         // We invalidate size because locking in height
         // may change the measured width in flow-based components.
         invalidateSize();
-
-        var p:IInvalidating = parent as IInvalidating;
-        if (p)
-        {
-            p.invalidateSize();
-            p.invalidateDisplayList();
-        }
+        invalidateParentSizeAndDisplayList();            
 
         dispatchEvent(new Event("explicitMinHeightChanged"));
     }
@@ -3862,13 +3828,7 @@ public class UIComponent extends FlexSprite
         // Se invalidate size because locking in width
         // may change the measured height in flow-based components.
         invalidateSize();
-
-        var p:IInvalidating = parent as IInvalidating;
-        if (p)
-        {
-            p.invalidateSize();
-            p.invalidateDisplayList();
-        }
+        invalidateParentSizeAndDisplayList();            
 
         dispatchEvent(new Event("explicitMaxWidthChanged"));
     }
@@ -3933,13 +3893,7 @@ public class UIComponent extends FlexSprite
         // Se invalidate size because locking in height
         // may change the measured width in flow-based components.
         invalidateSize();
-
-        var p:IInvalidating = parent as IInvalidating;
-        if (p)
-        {
-            p.invalidateSize();
-            p.invalidateDisplayList();
-        }
+        invalidateParentSizeAndDisplayList();            
 
         dispatchEvent(new Event("explicitMaxHeightChanged"));
     }
@@ -3996,13 +3950,7 @@ public class UIComponent extends FlexSprite
         // We invalidate size because locking in width
         // may change the measured height in flow-based components.
         invalidateSize();
-
-        var p:IInvalidating = parent as IInvalidating;
-        if (p && includeInLayout)
-        {
-            p.invalidateSize();
-            p.invalidateDisplayList();
-        }
+        invalidateParentSizeAndDisplayList();            
 
         dispatchEvent(new Event("explicitWidthChanged"));
     }
@@ -4059,13 +4007,7 @@ public class UIComponent extends FlexSprite
         // We invalidate size because locking in height
         // may change the measured width in flow-based components.
         invalidateSize();
-
-        var p:IInvalidating = parent as IInvalidating;
-        if (p && includeInLayout)
-        {
-            p.invalidateSize();
-            p.invalidateDisplayList();
-        }
+        invalidateParentSizeAndDisplayList();            
 
         dispatchEvent(new Event("explicitHeightChanged"));
     }
@@ -5557,6 +5499,23 @@ public class UIComponent extends FlexSprite
                 UIComponentGlobals.layoutManager.invalidateSize(this);
         }
     }
+    
+	/**
+	 *  Helper method to invalidate parent size and display list if 
+	 *  this object affects its layout (includeInLayout is true).
+	 */
+    protected function invalidateParentSizeAndDisplayList():void
+    {
+        if (!includeInLayout)
+            return;
+
+        var p:IInvalidating = parent as IInvalidating;
+        if (!p)
+            return;
+
+        p.invalidateSize();
+        p.invalidateDisplayList();
+    }
 
     /**
      *  Marks a component so that its <code>updateDisplayList()</code>
@@ -5917,14 +5876,10 @@ public class UIComponent extends FlexSprite
 
             if (sizeChanging && includeInLayout)
             {
+                // TODO EGeorgie: we don't need this invalidateDisplayList() here
+                // because we'll call it if the parent sets new actual size?
                 invalidateDisplayList();
-
-                var p:IInvalidating = parent as IInvalidating;
-                if (p)
-                {
-                    p.invalidateSize();
-                    p.invalidateDisplayList();
-                }
+                invalidateParentSizeAndDisplayList();            
             }
         }
     }
@@ -6235,12 +6190,7 @@ public class UIComponent extends FlexSprite
         // may change the measured height in flow-based components.
         invalidateSize();
 
-        var p:IInvalidating = parent as IInvalidating;
-        if (p && includeInLayout)
-        {
-            p.invalidateSize();
-            p.invalidateDisplayList();
-        }
+        invalidateParentSizeAndDisplayList();            
     }
 
     /**
@@ -6280,12 +6230,7 @@ public class UIComponent extends FlexSprite
         // may change the measured width in flow-based components.
         invalidateSize();
 
-        var p:IInvalidating = parent as IInvalidating;
-        if (p && includeInLayout)
-        {
-            p.invalidateSize();
-            p.invalidateDisplayList();
-        }
+        invalidateParentSizeAndDisplayList();            
     }
 
     /**
@@ -6367,6 +6312,7 @@ public class UIComponent extends FlexSprite
             lastUnscaledWidth = unscaledWidth;
             lastUnscaledHeight = unscaledHeight;
             
+            // TODO EGeorgie: should we reset the flag immediately after we check it?
             invalidateDisplayListFlag = false;
         }
     }
