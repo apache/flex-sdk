@@ -30,6 +30,7 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
 import mx.events.ResizeEvent;
+import mx.managers.SystemManager;
 
 import spark.components.Application;
 import spark.components.View;
@@ -629,18 +630,25 @@ public class ViewNavigatorApplicationBase extends Application
      *  @private
      */ 
     private function openViewMenu():void
-    {
+    {                
         if (!currentViewMenu)
         {
             currentViewMenu = ViewMenu(viewMenu.newInstance());
             currentViewMenu.items = activeView.viewMenuItems;
             
+            // Remember the focus, we'll restore it when the menu closes
+            lastFocus = getFocus();
+            
+            // If the softKeyboard is open, close it first
+            if (isSoftKeyboardActive)
+            {
+                systemManager.stage.focus = null;
+            }
+            
             // Size the menu as big as the app
             currentViewMenu.width = getLayoutBoundsWidth();
             currentViewMenu.height = getLayoutBoundsHeight();
             
-            // Remember the focus, we'll restore it when the menu closes
-            lastFocus = getFocus();
             currentViewMenu.setFocus();
             
             currentViewMenu.addEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
@@ -649,6 +657,7 @@ public class ViewNavigatorApplicationBase extends Application
             currentViewMenu.addEventListener(PopUpEvent.OPEN, viewMenuOpen_handler);
             addEventListener(ResizeEvent.RESIZE, resizeHandler);
         }
+        
         
         // Block interaction with the rest of the application
         attachMouseShield();
