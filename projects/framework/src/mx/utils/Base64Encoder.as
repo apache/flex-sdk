@@ -16,6 +16,11 @@ import flash.utils.ByteArray;
 
 /**
  * A utility class to encode a String or ByteArray as a Base64 encoded String.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Base64Encoder
 {
@@ -32,6 +37,11 @@ public class Base64Encoder
      * denote a new line if <code>insertNewLines</code> is true.
      * 
      * The default is <code>10</code> to represent the line feed <code>\n</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static var newLine:int = 10;
 
@@ -43,6 +53,11 @@ public class Base64Encoder
 
     /**
      * Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Base64Encoder()
     {
@@ -62,6 +77,11 @@ public class Base64Encoder
      * to wrap the encoded output.
      * 
      * The default is true.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var insertNewLines:Boolean = true;
 
@@ -99,6 +119,11 @@ public class Base64Encoder
      * @param data The String to encode.
      * @param offset The character position from which to start encoding.
      * @param length The number of characters to encode from the offset.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function encode(data:String, offset:uint=0, length:uint=0):void
     {
@@ -132,6 +157,11 @@ public class Base64Encoder
      * encoded String.
      * 
      * @param data The String to encode.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function encodeUTFBytes(data:String):void
     {
@@ -150,6 +180,11 @@ public class Base64Encoder
      * @param data The ByteArray to encode.
      * @param offset The index from which to start encoding.
      * @param length The number of bytes to encode from the offset.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function encodeBytes(data:ByteArray, offset:uint=0, length:uint=0):void
     {
@@ -194,6 +229,11 @@ public class Base64Encoder
 
     /**
      * Clears all buffers and resets the encoder to its initial state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function reset():void
     {
@@ -212,6 +252,11 @@ public class Base64Encoder
      * encoder to its initial state.
      * 
      * @return The Base64 encoded String.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function toString():String
     {
@@ -267,6 +312,11 @@ public class Base64Encoder
 
     /**
      * An Array of buffer Arrays.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _buffers:Array;
     private var _count:uint;
@@ -293,6 +343,11 @@ public class Base64Encoder
         'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
         'w', 'x', 'y', 'z', '0', '1', '2', '3',
         '4', '5', '6', '7', '8', '9', '+', '/'
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     private static const ALPHABET_CHAR_CODES:Array =
     [
