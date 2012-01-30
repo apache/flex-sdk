@@ -34,6 +34,7 @@ global
     borderVisible: true;
     breakOpportunity: "auto";
 	buttonColor: #6F7777;
+    caretColor: #0167FF;
     cffHinting: "horizontalStem";
     chromeColor: #CCCCCC;
 	closeDuration: 50;
