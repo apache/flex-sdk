@@ -96,8 +96,8 @@ public class FocusManagerMarshalMixin
 		focusManager.addEventListener("showFocusIndicator", showFocusIndicatorHandler);
 		focusManager.addEventListener("setFocus", setFocusHandler);
 		focusManager.addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
-		focusManager.addEventListener(Event.ACTIVATE, activateHandler);
-		focusManager.addEventListener(Event.DEACTIVATE, deactivateHandler);
+		focusManager.addEventListener("activateFM", activateHandler);
+		focusManager.addEventListener("deactivateFM", deactivateHandler);
 		focusManager.addEventListener("focusWrapping", focusWrappingHandler);
 		focusManager.addEventListener("setFocusToComponent", setFocusToComponentHandler);
 		focusManager.addEventListener("setFocusToNextIndex", focusWrappingHandler); // yes, this is the same code snippet so reuse handler
