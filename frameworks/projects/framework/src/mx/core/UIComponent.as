@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 package mx.core
-{	
+{   
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityProperties;
 import flash.display.BlendMode;
@@ -2843,14 +2843,14 @@ public class UIComponent extends FlexSprite
             invalidateParentSizeAndDisplayList();
 
             _width = value;
-			
-			// The width is needed for the _layoutFeatures' mirror transform.
-			if (_layoutFeatures)
-			{
-				_layoutFeatures.layoutWidth = _width;
-				invalidateTransform();
-			}
-			
+            
+            // The width is needed for the _layoutFeatures' mirror transform.
+            if (_layoutFeatures)
+            {
+                _layoutFeatures.layoutWidth = _width;
+                invalidateTransform();
+            }
+            
             if (hasEventListener("widthChanged"))
                 dispatchEvent(new Event("widthChanged"));
         }
@@ -3184,7 +3184,7 @@ public class UIComponent extends FlexSprite
     {
         super.scaleY = value;
     }
-	
+    
     //----------------------------------
     //  visible
     //----------------------------------
@@ -4170,16 +4170,16 @@ public class UIComponent extends FlexSprite
 
             updateCallbacks();
 
-			value ++;
-		}
-		else if (value == 0)
-			_nestLevel = value = 0;
-		else
-			value ++;
-			
-		var childList:IChildList = (this is IRawChildrenContainer) ?
-			IRawChildrenContainer(this).rawChildren : IChildList(this);
-		
+            value ++;
+        }
+        else if (value == 0)
+            _nestLevel = value = 0;
+        else
+            value ++;
+            
+        var childList:IChildList = (this is IRawChildrenContainer) ?
+            IRawChildrenContainer(this).rawChildren : IChildList(this);
+        
         var n:int = childList.numChildren;
         for (var i:int = 0; i < n; i++)
         {
@@ -5018,6 +5018,8 @@ public class UIComponent extends FlexSprite
      *  For example, you can set this property to <code>false</code>
      *  on a Button control so that you can use the Tab key to move focus
      *  to the control, but not have the control get focus when you click on it.
+     *
+     * <p>The default value is <code>true</code> for most subclasses, except the Spark TabBar. In that case, the default is <code>false</code>.</p>
      *
      *  @default true
      *  
@@ -6140,8 +6142,8 @@ public class UIComponent extends FlexSprite
             {
                 p.invalidateSize();
                 p.invalidateDisplayList();
-				if (value && parent is IContainerInvalidating)
-					(IContainerInvalidating(parent)).invalidateEstimatedSizesOfChildren();
+                if (value && parent is IContainerInvalidating)
+                    (IContainerInvalidating(parent)).invalidateEstimatedSizesOfChildren();
             }
 
             dispatchEvent(new Event("includeInLayoutChanged"));
@@ -7437,7 +7439,7 @@ public class UIComponent extends FlexSprite
         // trace("               " + p);
         parentChangedFlag = true;
     }
-	
+    
     /**
      *  @private
      */
@@ -8478,17 +8480,17 @@ public class UIComponent extends FlexSprite
             }
         }
         child.setEstimatedSize(cw, ch);
-		if (child is ILayoutManagerContainerClient)
-		{
-			var sameWidth:Boolean = isNaN(cw) && isNaN(oldcw) || cw == oldcw;
-			var sameHeight:Boolean = isNaN(ch) && isNaN(oldch) || ch == oldch;
+        if (child is ILayoutManagerContainerClient)
+        {
+            var sameWidth:Boolean = isNaN(cw) && isNaN(oldcw) || cw == oldcw;
+            var sameHeight:Boolean = isNaN(ch) && isNaN(oldch) || ch == oldch;
             if (!(sameHeight && sameWidth))
             {
                 if (child is IContainerInvalidating)
                     IContainerInvalidating(child).invalidateEstimatedSizesOfChildren();
                 ILayoutManagerContainerClient(child).validateEstimatedSizesOfChildren();
             }
-		}
+        }
     }    
     
     /**
@@ -8516,9 +8518,9 @@ public class UIComponent extends FlexSprite
         {
             var layoutElement:ILayoutElement = childList.getChildAt(i) as ILayoutElement;
             if (!layoutElement)
-				continue;
-			if (!layoutElement.includeInLayout)
-				continue;
+                continue;
+            if (!layoutElement.includeInLayout)
+                continue;
             validateEstimatedSizesOfChild(layoutElement);
         }
         childEstimatedSizesChanged = false;
@@ -8534,7 +8536,7 @@ public class UIComponent extends FlexSprite
      */
     public function setEstimatedSize(estimatedWidth:Number = NaN, 
                                        estimatedHeight:Number = NaN,
-										invalidateSize:Boolean = true):void
+                                        invalidateSize:Boolean = true):void
     {
         _estimatedWidth = estimatedWidth;
         _estimatedHeight = estimatedHeight;
@@ -9832,11 +9834,11 @@ public class UIComponent extends FlexSprite
         if (_width != w)
         {
             _width = w;
-			if(_layoutFeatures)
+            if(_layoutFeatures)
             {
-				_layoutFeatures.layoutWidth = w;  // for the mirror transform
-				invalidateTransform();
-			}			
+                _layoutFeatures.layoutWidth = w;  // for the mirror transform
+                invalidateTransform();
+            }           
             if (hasEventListener("widthChanged"))
                 dispatchEvent(new Event("widthChanged"));
             changed = true;
@@ -13308,7 +13310,7 @@ public class UIComponent extends FlexSprite
         features.layoutX = x;
         features.layoutY = y;
         features.layoutZ = z;
-		features.layoutWidth = width;  // for the mirror transform		
+        features.layoutWidth = width;  // for the mirror transform      
         _layoutFeatures = features;
         invalidateTransform();
     }
