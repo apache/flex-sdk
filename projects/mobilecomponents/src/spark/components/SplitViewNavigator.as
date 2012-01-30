@@ -451,11 +451,16 @@ public class SplitViewNavigator extends ViewNavigatorBase
                                      explicitWidth: _popUpNavigator.explicitWidth,
                                      explicitHeight: _popUpNavigator.explicitHeight };
         
-        // Explicitly set the width and height of the navigator to match its
-        // preferred bounds so that it will size to fit the callout.
-        _popUpNavigator.width = _popUpNavigator.getPreferredBoundsWidth();
-        _popUpNavigator.height = _popUpNavigator.getPreferredBoundsHeight();
+        // If an explict width or height is not set on the navigator, change
+        // the percent bounds to 100% so that the navigator fills the entire
+        // bounds of the popup.
+        if (isNaN(_popUpNavigator.explicitWidth))
+            _popUpNavigator.percentWidth = 100;
         
+        if (isNaN(_popUpNavigator.explicitHeight))
+            _popUpNavigator.percentHeight = 100;
+        
+        viewNavigatorPopUp.addEventListener(PopUpEvent.OPEN, viewNavigatorPopUp_openHandler);
         viewNavigatorPopUp.addEventListener('mouseDownOutside', navigatorPopUp_mouseDownOutsideHandler, false, 0, true);
         viewNavigatorPopUp.addElement(_popUpNavigator);
         
@@ -464,6 +469,26 @@ public class SplitViewNavigator extends ViewNavigatorBase
         
         // Open the popup
         viewNavigatorPopUp.open(owner, true);
+    }
+
+    /**
+     *  @private
+     */
+    private function viewNavigatorPopUp_openHandler(event:Event):void
+    {
+        event.target.removeEventListener(PopUpEvent.OPEN, viewNavigatorPopUp_openHandler);
+        
+        _popUpNavigatorSizeCache.viewNavigatorPopUpWidth = viewNavigatorPopUp.explicitWidth;
+        _popUpNavigatorSizeCache.viewNavigatorPopUpHeight = viewNavigatorPopUp.explicitHeight;
+        
+        // If the width or height of the popup isn't explicitly set, we size the
+        // popup so that the size doesn't change as the active view of the navigator
+        // changes.
+        if (isNaN(viewNavigatorPopUp.explicitWidth))
+            viewNavigatorPopUp.explicitWidth = viewNavigatorPopUp.width;
+        
+        if (isNaN(viewNavigatorPopUp.explicitHeight))
+            viewNavigatorPopUp.explicitHeight = viewNavigatorPopUp.height;
     }
     
     /**
@@ -487,6 +512,9 @@ public class SplitViewNavigator extends ViewNavigatorBase
     private function restoreNavigatorInPopUp():void
     {
         // Restore old layout constraints
+        viewNavigatorPopUp.explicitWidth = _popUpNavigatorSizeCache.viewNavigatorPopUpWidth;
+        viewNavigatorPopUp.explicitHeight = _popUpNavigatorSizeCache.viewNavigatorPopUpHeight;
+        
         _popUpNavigator.percentWidth = _popUpNavigatorSizeCache.percentWidth;
         _popUpNavigator.percentHeight = _popUpNavigatorSizeCache.percentHeight;
         _popUpNavigator.explicitWidth = _popUpNavigatorSizeCache.explicitWidth;
