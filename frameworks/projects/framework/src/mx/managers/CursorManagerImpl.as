@@ -416,7 +416,7 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
 		    event.value = [ cursorClass, priority, xOffset, yOffset ];
 		    if (!dispatchEvent(event))
 		    {
-			    return currentCursorID;
+			    return event.value as int;
 		    }
         }
 
