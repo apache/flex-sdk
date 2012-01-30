@@ -41,6 +41,9 @@ public class DeferredInstanceFromFunction implements ITransientDeferredInstance
      *
      *  @param generator A function that creates and returns an instance
      *  of the required object.
+     *
+     *  @param destructor An optional function used to cleanup outstanding
+     *  references when <code>reset()</code> is called.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
