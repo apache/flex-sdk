@@ -10277,6 +10277,11 @@ public class UIComponent extends FlexSprite
     {
         var repeaterArray:Array = repeaters;
 
+        // If repeaterArray has no items the caller is not
+        // in a repeater.  Return null.
+        if (repeaterArray.length == 0)
+            return null;
+            
         // If whichRepeater isn't specified, assume the
         // innermost Repeater. This lets authors simply write
         //   myRepeater.getRepeaterItem()
