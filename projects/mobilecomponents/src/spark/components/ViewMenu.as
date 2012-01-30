@@ -29,6 +29,10 @@ use namespace mx_internal;
 
 [DefaultProperty("items")]
 
+//--------------------------------------
+//  States
+//--------------------------------------
+
 /**
  *  Normal and landscape state.
  *  
@@ -39,6 +43,15 @@ use namespace mx_internal;
 [SkinState("normalAndLandscape")]
 
 /**
+ *  Closed and landscape state.
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[SkinState("closedAndLandscape")]
+
+/**
  *  Disabled and landscape state.
  *  
  *  @langversion 3.0
@@ -46,6 +59,16 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 [SkinState("disabledAndLandscape")]
+
+/**
+ *  Disabled and closed and landscape state.
+ *
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[SkinState("disabledAndClosedAndLandscape")]
 
 /**
  *  The ViewMenu container defines a menu in a View container.
@@ -91,18 +114,8 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
-
-/*
-
-TODO:
-
-- add transitions
-- use PopUpAnchor instead of PopUpManager
-- Investigate performance impact of View.viewMenuItems being instances
-  instead of getting created when the menu is opened. 
-*/
-
-public class ViewMenu extends SkinnableContainer implements IFocusManagerComponent
+public class ViewMenu extends SkinnablePopUpContainer
+                      implements IFocusManagerComponent
 {
     //--------------------------------------------------------------------------
     //
@@ -215,7 +228,6 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
         }
         
         mxmlContent = elements;
-        
     }
     
     //--------------------------------------------------------------------------
@@ -260,24 +272,23 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
         adjustSelectionAndCaretUponNavigation(event); 
     }
     
-     /**
+    /**
      *  @private
      */   
-   override protected function getCurrentSkinState():String
+    override protected function getCurrentSkinState():String
     {
-        // TODO (jszeto): Just concat "AndLandscape" with super call if in landscape orientation
+        var skinState:String = super.getCurrentSkinState();
         if (FlexGlobals.topLevelApplication.aspectRatio == "portrait")
             return super.getCurrentSkinState();
         else
-            return enabled ? "normalAndLandscape" : "disabledAndLandscape";                
+            return skinState + "AndLandscape";                
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
-    
     
     /**
      *  Adjusts the selection based on what keystroke or 
@@ -292,11 +303,10 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
      *
      *  @param event The Keyboard Event encountered
      * 
-     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     private function adjustSelectionAndCaretUponNavigation(event:KeyboardEvent):void
     {
@@ -331,9 +341,11 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
             setShowsCaret(caretIndex, true);
         }
     }
-    
    
-    // Called when a particular item is selected using the ENTER or SPACE key 
+    /**
+     *  Called when a particular item is selected using the ENTER or SPACE key 
+     *  @private
+     */
     private function selectItemAt(index:int):void
     {
         if (index < 0 || !items || index >= items.length)
@@ -345,7 +357,10 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
             item.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
     }
     
-    // Helper function which updates the item's caret state
+    /**
+     *  Helper function which updates the item's caret state
+     *  @private
+     */
     private function setShowsCaret(index:int, showsCaret:Boolean):void
     {
         if (index < 0 || !items || index >= items.length)
@@ -376,12 +391,9 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
         systemManager.stage.removeEventListener(StageOrientationEvent.ORIENTATION_CHANGE, orientationChangeHandler, true);
     }
     
-    // Update the size and display if orientation has changed
     private function orientationChangeHandler(event:StageOrientationEvent):void
     {
         invalidateSkinState();
-        invalidateSize();
-        invalidateDisplayList();
     }
     
     private function mouseDownHandler(event:MouseEvent):void
