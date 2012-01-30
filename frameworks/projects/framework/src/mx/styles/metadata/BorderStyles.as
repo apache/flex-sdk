@@ -128,6 +128,8 @@
  *  The default value depends on the component class;
  *  if not overridden for the class, the default value is <code>"inset"</code>.
  *  The default value for most Containers is <code>"none"</code>.
+ *  The <code>"inset"</code> and <code>"outset"</code> values are only
+ *  valid with the halo theme.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
