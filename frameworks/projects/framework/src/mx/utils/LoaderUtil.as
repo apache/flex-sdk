@@ -68,32 +68,30 @@ import flash.system.Security;
         var absoluteURL:String = url;
 
         // make relative paths relative to the SWF loading it, not the top-level SWF
-        if (!(url.indexOf(":") > -1 || url.indexOf("/") == 0 || url.indexOf("\\") == 0))
+        if (rootURL &&
+            !(url.indexOf(":") > -1 || url.indexOf("/") == 0 || url.indexOf("\\") == 0))
         {
-            if (rootURL)
+            // If the url starts from the current directory, then just skip
+            // over the "./".
+            // If the url start from the parent directory, the we need to
+            // modify the rootURL.
+            var lastIndex:int = Math.max(rootURL.lastIndexOf("\\"), rootURL.lastIndexOf("/"));
+            if (url.indexOf("./") == 0)
             {
-                // If the url starts from the current directory, then just skip
-                // over the "./".
-                // If the url start from the parent directory, the we need to
-                // modify the rootURL.
-                var lastIndex:int = Math.max(rootURL.lastIndexOf("\\"), rootURL.lastIndexOf("/"));
-                if (url.indexOf("./") == 0)
-                {
-                    url = url.substring(2);
-                }
-                else
-                {
-                    while (url.indexOf("../") == 0)
-                    {
-                        url = url.substring(3);
-                        lastIndex = Math.max(rootURL.lastIndexOf("\\", lastIndex - 1), 
-                                                       rootURL.lastIndexOf("/", lastIndex - 1));
-                    }
-                }
-                                            
-                if (lastIndex != -1)
-                    absoluteURL = rootURL.substr(0, lastIndex + 1) + url;
+                url = url.substring(2);
             }
+            else
+            {
+                while (url.indexOf("../") == 0)
+                {
+                    url = url.substring(3);
+                    lastIndex = Math.max(rootURL.lastIndexOf("\\", lastIndex - 1), 
+                                                   rootURL.lastIndexOf("/", lastIndex - 1));
+                }
+            }
+                                        
+            if (lastIndex != -1)
+                absoluteURL = rootURL.substr(0, lastIndex + 1) + url;
         }
 
         return absoluteURL;
