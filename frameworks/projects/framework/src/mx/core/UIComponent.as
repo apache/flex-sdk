@@ -7391,7 +7391,7 @@ public class UIComponent extends FlexSprite
 
         CONFIG::performanceInstrumentation
         {
-            perfUtil.markEnd(this.toString() + ".createChildren()", token, 0 /*tolerance*/);
+            perfUtil.markEnd(".createChildren()", token, 2 /*tolerance*/, this);
         }
 
         childrenCreated();
