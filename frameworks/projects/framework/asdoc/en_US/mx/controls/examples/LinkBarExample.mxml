@@ -8,7 +8,7 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" 
+            <s:Label width="100%" 
                     text="Select a link in the Halo LinkBar control to set the active child of the Halo ViewStack container."/>
 
             <mx:LinkBar color="#0000FF" fontWeight="bold" dataProvider="{myViewStack}"/>
