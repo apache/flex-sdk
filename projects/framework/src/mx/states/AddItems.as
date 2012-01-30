@@ -9,11 +9,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.states 
+package mx.states 
 {
 import flash.display.DisplayObject;
-import flex.component.ItemsComponent;
-import flex.core.Group;
+import mx.components.FxItemsComponent;
+import mx.components.Group;
 import mx.collections.ArrayCollection;
 import mx.collections.ArrayList;
 import mx.core.Container;
@@ -381,7 +381,7 @@ public class AddItems extends OverrideBase implements IOverride
                 break;
         }    
         
-        if ( (propertyName == null || propertyName == "content") && (dest is Group || dest is ItemsComponent))
+        if ( (propertyName == null || propertyName == "content") && (dest is Group || dest is FxItemsComponent))
         {
             addItemsToContentHolder(dest, localItems);
         }
@@ -421,7 +421,7 @@ public class AddItems extends OverrideBase implements IOverride
         else
             localItems = [items];
              
-        if ((propertyName == null || propertyName == "content") && (dest is Group || dest is ItemsComponent))
+        if ((propertyName == null || propertyName == "content") && (dest is Group || dest is FxItemsComponent))
         {
             for (i = 0; i < numAdded; i++)
                 dest.removeItemAt(startIndex);
@@ -462,7 +462,7 @@ public class AddItems extends OverrideBase implements IOverride
     {
         try
         {
-            if (propertyName == null && (dest is Group || dest is ItemsComponent))
+            if (propertyName == null && (dest is Group || dest is FxItemsComponent))
                 return dest.getItemIndex(object);
             
             if (propertyName == null && dest is Container)
