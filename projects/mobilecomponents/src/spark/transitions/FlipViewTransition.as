@@ -41,14 +41,19 @@ import spark.primitives.BitmapImage;
 use namespace mx_internal;
 
 /**
- *  The FlipViewTransition class serves as a simple flip transition for 
- *  views.  The flip transition supports two modes (card and cube)
+ *  The FlipViewTransition class performs a simple flip transition for  views.  
+ *  The flip transition supports two modes (card and cube)
  *  as well as an optional direction (up, down, left, or right).
  * 
- *  The default duration of a FlipViewTransition is 400 ms.
+ *  <p>The default duration of a FlipViewTransition is 400 ms.</p>
+ *
+ *  <p><strong>Note:</strong>Create and configure view transitions in ActionScript;
+ *  you cannot create them in MXML.</p>
+ *
+ *  @see FlipViewTransitionMode
+ *  @see ViewTransitionDirection
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -64,7 +69,6 @@ public class FlipViewTransition extends ViewTransitionBase
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -164,9 +168,10 @@ public class FlipViewTransition extends ViewTransitionBase
      *  Specifies the direction of flip transition.
      *
      *  @default ViewTransitionDirection.LEFT
+     *
+     *  @see ViewTransitionDirection
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -193,9 +198,10 @@ public class FlipViewTransition extends ViewTransitionBase
      *  Specifies the type of flip transition to perform.
      *
      *  @default FlipViewTransitionMode.CARD
+     *
+     *  @see FlipViewTransitionMode
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -219,10 +225,9 @@ public class FlipViewTransition extends ViewTransitionBase
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -242,10 +247,9 @@ public class FlipViewTransition extends ViewTransitionBase
     }
             
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -261,10 +265,9 @@ public class FlipViewTransition extends ViewTransitionBase
     }
         
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -286,10 +289,9 @@ public class FlipViewTransition extends ViewTransitionBase
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -404,7 +406,7 @@ public class FlipViewTransition extends ViewTransitionBase
                 startView.visible = false;
             else
                 cachedNavigator.visible = false;
-			
+            
             event.target.removeEventListener("effectUpdate", effectUpdateHandler);
         }
     }
