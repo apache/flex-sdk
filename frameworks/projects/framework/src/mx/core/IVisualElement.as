@@ -72,8 +72,8 @@ public interface IVisualElement extends ILayoutElement
 	/**
      *  Determines the order in which items inside of groups and datagroups 
      *  are rendered. Groups and DataGroups order their items based on their 
-     *  layer property, with the lowest layer in the back, and the higher in 
-     *  the front.  items with the same layer value will appear in the order
+     *  depth property, with the lowest depth in the back, and the higher in 
+     *  the front.  items with the same depth value will appear in the order
      *  they are added to the Groups item list.
      * 
      *  @default 0
@@ -83,12 +83,12 @@ public interface IVisualElement extends ILayoutElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    function set layer(value:Number):void;
+    function set depth(value:Number):void;
     
     /**
      *  @private
      */
-    function get layer():Number;
+    function get depth():Number;
 
     /**
      *  Controls the visibility of this visual element. If <code>true</code>,
