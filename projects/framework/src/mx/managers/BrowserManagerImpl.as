@@ -28,6 +28,11 @@ import mx.events.BrowserChangeEvent;
  *  or by code setting the property.
  *
  *  @eventType mx.events.BrowserChangeEvent.URL_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="urlChange", type="flash.events.Event")]
 
@@ -36,6 +41,11 @@ import mx.events.BrowserChangeEvent;
  *  by the browser.
  *
  *  @eventType mx.events.BrowserChangeEvent.BROWSER_URL_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="browserURLChange", type="mx.events.BrowserChangeEvent")]
 
@@ -44,6 +54,11 @@ import mx.events.BrowserChangeEvent;
  *  by the application via setFragment
  *
  *  @eventType mx.events.BrowserChangeEvent.APPLICATION_URL_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="applicationURLChange", type="mx.events.BrowserChangeEvent")]
 
@@ -114,6 +129,11 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function BrowserManagerImpl()
     {
@@ -190,6 +210,11 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
     /**
      *  The portion of current URL before the '#' as it appears 
      *  in the browser address bar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get base():String
     {
@@ -208,6 +233,11 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
      *  in the browser address bar, or the default fragment
 	 *  used in setup() if there is nothing after the '#'.  
 	 *  Use setFragment to change this value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get fragment():String
     {
@@ -227,6 +257,11 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
     /**
      *  The title of the app as it should appear in the
      *  browser history
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get title():String
     {
@@ -242,6 +277,11 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
     [Bindable("urlChange")]
     /**
      *  The current URL as it appears in the browser address bar.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get url():String
     {
@@ -261,6 +301,11 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
      *
      *  @param defaultFragment the fragment to use if no fragment in the initial URL.
      *  @param defaultTitle the title to use if no fragment in the initial URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function init(defaultFragment:String = "", defaultTitle:String = ""):void
     {
@@ -277,6 +322,11 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
 	 *  not supported, so the init() method sets 
 	 *  ApplicationGlobals.application.historyManagementEnabled to false to disable
 	 *  the HistoryManager
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function initForHistoryManager():void
 	{
@@ -345,6 +395,11 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
      *
      *  When set, the APPLICATION_URL_CHANGE event is sent.  If the event
      *  is cancelled the setBrowserURL() will not be called.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setFragment(value:String):void
     {
@@ -387,6 +442,11 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
      *  Change the title in the browser.
      *  Does not affect the browser's
      *  history.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setTitle(value:String):void
     {
