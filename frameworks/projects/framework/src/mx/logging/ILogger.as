@@ -81,9 +81,6 @@ public interface ILogger extends IEventDispatcher
      *    <li><code>LogEventLevel.DEBUG</code> designates informational
      *    level messages that are fine grained and most helpful when
      *    debugging an application.</li>
-     *
-     *    <li><code>LogEventLevel.ALL</code> intended to force a target to
-     *    process all messages.</li>
      *  </ul>
      *
      *  @param message The information to log.
