@@ -696,42 +696,91 @@ use namespace mx_internal;
 [Event(name="exitState", type="mx.events.FlexEvent")]
 
 //--------------------------------------
-//  TouchScroll events
+//  GestureCapture events
 //--------------------------------------
 
 /**
- *  A cancellable event, dispatched just before a touch scroll
- *  user gesture is about to take place.
+ *  A cancellable event, dispatched by a component in an attempt to 
+ *  respond to a user gesture.
  * 
- *  <p>The event is a bubbling event dispatched by the 
- *  Scroller on the DisplayObject that the user gesture 
- *  started on (where the mouseDown/touchBegin occurred).</p>
+ *  <p>The event is a bubbling event dispatched on the 
+ *  DisplayObject that the user gesture 
+ *  started (where the mouseDown/touchBegin occurred).</p>
+ * 
+ *  <p>Components responding to user gestures should listen for
+ *  gesture capture events to coordinate with other components around 
+ *  what type of gesture the user intended to make and which component 
+ *  is responding to that gesture.</p>
+ * 
+ *  <p>A Scroller component will dispatch a gestureCaptureStarting event 
+ *  to alert other components that may be responding to the same user 
+ *  gesture that it would like to take control of this user gesture.
+ *  This is an opportunity for other components to cancel the Scroller's 
+ *  action and to maintain control over this user gesture.</p>
  *
- *  @eventType mx.events.TouchScrollEvent.TOUCH_SCROLL_STARTING
+ *  @eventType mx.events.GestureCaptureEvent.GESTURE_CAPTURE_STARTING
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="touchScrollStarting", type="mx.events.TouchScrollEvent")]
+[Event(name="gestureCaptureStarting", type="mx.events.GestureCaptureEvent")]
 
 /**
- *  A non-cancellable event, dispatched when touch scroll
- *  user gesture is about to take place.
+ *  A non-cancellable event, dispatched by a component when it starts
+ *  responding to a user gesture.
  * 
- *  <p>The event is a bubbling event dispatched by the 
- *  Scroller on the DisplayObject that the user gesture 
- *  started on (where the mouseDown/touchBegin occurred).</p>
+ *  <p>The event is a bubbling event dispatched on the 
+ *  DisplayObject that the user gesture 
+ *  started (where the mouseDown/touchBegin occurred).</p>
+ * 
+ *  <p>Components responding to user gestures should listen for
+ *  gesture capture events to coordinate with other components around 
+ *  what type of gesture the user intended to make and which component 
+ *  is responding to that gesture.</p>
+ * 
+ *  <p>A Scroller component will dispatch a gestureCaptureStart event 
+ *  to alert other components that may be responding to the same user 
+ *  gesture that it is taking control of this user gesture.
+ *  When they see this event, other components should stop responding 
+ *  to the user gesture, remove any visual indications that it is 
+ *  responding to the user gesture, and perform other clean up.</p>
  *
- *  @eventType mx.events.TouchScrollEvent.TOUCH_SCROLL_START
+ *  @eventType mx.events.GestureCaptureEvent.GESTURE_CAPTURE_START
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="touchScrollStart", type="mx.events.TouchScrollEvent")]
+[Event(name="gestureCaptureStart", type="mx.events.GestureCaptureEvent")]
+
+/**
+ *  A non-cancellable event, dispatched by a component when it starts
+ *  responding to a user gesture.
+ * 
+ *  <p>The event is a bubbling event dispatched on the 
+ *  DisplayObject that the user gesture 
+ *  started (where the mouseDown/touchBegin occurred).</p>
+ * 
+ *  <p>Components responding to user gestures should listen for
+ *  gesture capture events to coordinate with other components around 
+ *  what type of gesture the user intended to make and which component 
+ *  is responding to that gesture.</p>
+ * 
+ *  <p>A Scroller component will dispatch a gestureCaptureEnd event 
+ *  to alert other components that it is done responding to the user
+ *  gesture.</p>
+ *
+ *  @eventType mx.events.GestureCaptureEvent.GESTURE_CAPTURE_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="gestureCaptureEnd", type="mx.events.GestureCaptureEvent")]
 
 //--------------------------------------
 //  Tooltip events
