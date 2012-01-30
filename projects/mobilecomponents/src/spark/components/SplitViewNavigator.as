@@ -379,10 +379,12 @@ public class SplitViewNavigator extends ViewNavigatorBase
         
         viewNavigatorCallout.addEventListener('mouseDownOutside', navigatorCallout_mouseDownOutsideHandler, false, 0, true);
         viewNavigatorCallout.addElement(_calloutNavigator);
-        viewNavigatorCallout.open(owner, true);
         
         // Make sure the first navigator is visible
         _calloutNavigator.visible = true;
+        
+        // Open the callout
+        viewNavigatorCallout.open(owner, true);
     }
     
     /**
