@@ -29,6 +29,7 @@
 				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
 					<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 					<include name="framework.swc"/>
+					<include name="mx/mx.swc"/>
 				</external-library-path>
 			</compc>
 		</sequential>
@@ -150,6 +151,7 @@
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
+				<include name="mx/mx.swc"/>
 				<include name="automation_agent.swc"/>
 				<include name="qtp.swc"/>
 				<include name="qtp_air.swc"/>
