@@ -25,7 +25,7 @@ package mx.utils
 public final class HSBColor
 {
     /**
-     * Constructs an HSVColor with optional parameters
+     * Constructs an HSBColor with optional parameters
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -42,8 +42,8 @@ public final class HSBColor
     
     private var _hue:Number;
     /**
-     * The hue value for the HSV color. This represents an angle, in 
-     * degrees, around the HSV cone. The supplied value will be modulated
+     * The hue value for the HSB color. This represents an angle, in 
+     * degrees, around the HSB cone. The supplied value will be modulated
      * by 360 so that the stored value of hue will be in the range [0,360).
      *  
      *  @langversion 3.0
@@ -62,9 +62,9 @@ public final class HSBColor
     
     private var _saturation:Number;
     /**
-     * The saturation parameter for this HSV color. This is a value between
+     * The saturation parameter for this HSB color. This is a value between
      * 0 (black) and 1 (full saturation), which represents the distance
-     * from the center in the HSV cone.
+     * from the center in the HSB cone.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
