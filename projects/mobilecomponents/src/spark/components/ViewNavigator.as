@@ -206,6 +206,11 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
 	private var currentAnimation:IEffect;
 	
     /**
+     *  @private
+     */ 
+    private var emptyViewData:ViewHistoryData = null;
+    
+    /**
      * @private
      * This following property stores the <code>mouseEnabled</code>
      * value defined on the navigator so that it can be
@@ -356,7 +361,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      */
     public function get activeView():View
     {
-        if (currentViewData)
+        if (currentViewData && currentViewData != emptyViewData)
             return currentViewData.instance;
         
         return null;
@@ -654,7 +659,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      */
     public function popAll(transition:IViewTransition = null):void
     {
-        if (currentSection.length == 0 || !canRemoveCurrentView())
+        if (!currentSection || currentSection.length == 0 || !canRemoveCurrentView())
             return;
              
         lastAction = POP_ACTION;
@@ -685,7 +690,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      */    
     public function popView(transition:IViewTransition = null):void
     {
-        if (currentSection.length == 0 || !canRemoveCurrentView())
+        if (!currentSection || currentSection.length == 0 || !canRemoveCurrentView())
             return;
         
         lastAction = POP_ACTION;
@@ -716,7 +721,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      */
     public function popToFirstView(transition:IViewTransition = null):void
     {
-        if (currentSection.length < 2 || !canRemoveCurrentView())
+        if (!currentSection || currentSection.length < 2 || !canRemoveCurrentView())
             return;
         
         lastAction = POP_ACTION;
@@ -749,7 +754,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
                              initializationData:Object = null,
                              transition:IViewTransition = null):void
     {
-        if (!canRemoveCurrentView())
+        if (!currentSection || viewFactory == null || !canRemoveCurrentView())
             return;
         
         lastAction = PUSH_ACTION;
@@ -1259,7 +1264,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         
         // Check if we need to push the root view
-        if (currentSection && currentSection.length == 0)
+        if (currentSection && currentSection.length == 0 && currentSection.firstView != null)
             currentSection.push(currentSection.firstView, currentSection.firstViewData);
         
         pendingViewTransition = null;
@@ -1540,6 +1545,10 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         currentViewData = pendingViewData;
         pendingViewData = null;
 
+        // Clear empty flag if necessary
+        if (emptyViewData && currentViewData != emptyViewData)
+            emptyViewData = null;
+        
         // Clear all property invalidation flags
         actionBarVisibilityInvalidated = false;
         tabBarVisibilityInvalidated = false;
@@ -1556,7 +1565,6 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
                 
                 currentViewData.persistedData = currentView.getPersistenceData();
                 currentView.active = true;
-                
             }
         }
         
@@ -1570,7 +1578,6 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             currentViewChanged = true;
             executeViewChange();
         }
-        
         
         lastAction = NO_ACTION;
         viewChanging = false;
@@ -1609,7 +1616,13 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (currentSection)
             pendingViewData = currentSection.topView;
         
-        if (pendingViewData && pendingViewData.factory != null)
+        if (pendingViewData == null)
+        {
+            emptyViewData = new ViewHistoryData(View);
+            pendingViewData = emptyViewData;
+        }
+        
+        if (pendingViewData.factory != null)
         {
             var view:View;
             
@@ -1639,11 +1652,18 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             
             view.setCurrentState(view.getCurrentViewState(landscapeOrientation), false);
             addElement(view);
+            
+            // Put this before viewAdded() so that another validation pass can run if needed during viewAdded
+            currentViewChanged = false; 
+            viewAdded(transitionsEnabled ? pendingViewTransition : null);
+        }
+        else
+        {
+            // Cancel operation if the factory class is null
+            currentViewChanged = false;
+            endViewChange();
         }
         
-        // Put this before viewAdded() so another validation pass won't cause this to happen
-        currentViewChanged = false; 
-        viewAdded(transitionsEnabled ? pendingViewTransition : null);
         pendingViewTransition = null;
     }
     
