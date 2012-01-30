@@ -112,24 +112,6 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	function get cursorChildren():IChildList;
 	
     //----------------------------------
-    //  densityScale
-    //----------------------------------
-    
-    /**
-     *  The density scale factor of the application.
-     * 
-     *  When density scaling is enabled, Flex applies a scale factor based on
-     *  the application author density and the density of the current device
-     *  that Flex is running on. 
-     * 
-     *  Returns 1.0 when there is no scaling.
-     * 
-     *  @see spark.components.Application#authorDensity
-     *  @see mx.core.DensityUtil
-     */
-    function get densityScale():Number;
-    
-    //----------------------------------
     //  document
     //----------------------------------
 
