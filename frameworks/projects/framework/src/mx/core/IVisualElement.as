@@ -48,6 +48,10 @@ public interface IVisualElement extends ILayoutElement
      *  @productversion Flex 3
      */
     function get owner():DisplayObjectContainer;
+    
+    /**
+     *  @private
+     */
     function set owner(value:DisplayObjectContainer):void;
     
     /**
@@ -74,14 +78,18 @@ public interface IVisualElement extends ILayoutElement
      *  they are added to the Groups item list.
      * 
      *  @default 0
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	function set layer(value:Number):void;
-	function get layer():Number;
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    function set layer(value:Number):void;
+    
+    /**
+     *  @private
+     */
+    function get layer():Number;
 
     /**
      *  The y-coordinate of the baseline
@@ -125,6 +133,10 @@ public interface IVisualElement extends ILayoutElement
      *  @productversion Flex 3
      */
     function get visible():Boolean;
+    
+    /**
+     *  @private
+     */
     function set visible(value:Boolean):void;
 
 }
