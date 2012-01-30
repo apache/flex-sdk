@@ -14,6 +14,7 @@ package mx.accessibility
 
 import flash.accessibility.Accessibility;
 import flash.events.Event;
+import mx.accessibility.AccConst;
 import mx.controls.DateField;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -32,22 +33,6 @@ use namespace mx_internal;
 public class DateFieldAccImpl extends AccImpl
 {
     include "../core/Version.as";
-
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_FOCUS:uint =  0x8005;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_SELECTION:uint =  0x8006;
 
 	//--------------------------------------------------------------------------
 	//
@@ -111,7 +96,7 @@ public class DateFieldAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x2e; // ROLE_SYSTEM_COMBOBOX
+		role = AccConst.ROLE_SYSTEM_COMBOBOX;
 	}
 
 	//--------------------------------------------------------------------------
@@ -239,8 +224,8 @@ public class DateFieldAccImpl extends AccImpl
 				if (dateField.selectedDate != null)
 					childID += dateField.selectedDate.getDate();
 				
-				Accessibility.sendEvent(master, childID, EVENT_OBJECT_FOCUS);
-				Accessibility.sendEvent(master, childID, EVENT_OBJECT_SELECTION);
+				Accessibility.sendEvent(master, childID, AccConst.EVENT_OBJECT_FOCUS);
+				Accessibility.sendEvent(master, childID, AccConst.EVENT_OBJECT_SELECTION);
 				break;
 			}
 
