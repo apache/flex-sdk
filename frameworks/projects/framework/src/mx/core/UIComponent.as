@@ -1664,7 +1664,24 @@ public class UIComponent extends FlexSprite
             return;
 
         if(_layoutFeatures == null)
+        {
+            // clamp the rotation value between -180 and 180.  This is what 
+            // the Flash player does and what we mimic in CompoundTransform;
+            // however, the Flash player doesn't handle values larger than 
+            // 2^15 - 1 (FP-749), so we need to clamp even when we're 
+            // just setting super.rotation.
+            if (value > 180 || value < -180)
+            {
+                value = value % 360;
+            
+                if (value > 180)
+                    value = value - 360;
+                else if (value < -180)
+                    value = value + 360;
+            }
+            
 	        super.rotation = value;
+	    }
 	   	else
 	   	{
 	   		_layoutFeatures.layoutRotationZ = value;
@@ -9757,7 +9774,7 @@ public class UIComponent extends FlexSprite
 		_layoutFeatures.updatePending = false;
 		if(_layoutFeatures.is3D)
 		{
-			super.transform.matrix3D = _layoutFeatures.computedMatrix3D;				
+			super.transform.matrix3D = _layoutFeatures.computedMatrix3D;
 		}
 		else
 		{
