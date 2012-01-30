@@ -859,6 +859,21 @@ include "../styles/metadata/AnchorStyles.as";
 [Style(name="errorColor", type="uint", format="Color", inherit="yes")]
 
 /**
+ *  The primary input mode for this component.  The acceptable values are: 
+ *  <code>mouse</code> and <code>touch</code>.
+ *
+ *  The default value for the Halo theme is <code>mouse</code>.
+ *  The default value for the Spark theme is <code>mouse</code>.
+ *  The default value for the Mobile theme is <code>touch</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="inputMode", type="String", enumeration="mouse,touch", inherit="yes")]
+
+/**
  *  Blend mode used by the focus rectangle.
  *  For more information, see the <code>blendMode</code> property
  *  of the flash.display.DisplayObject class.
@@ -13622,6 +13637,21 @@ public class UIComponent extends FlexSprite
         {
             return super.transform.matrix;
         }
+    }
+    
+    private var _keepControlOfMouseDown:Boolean = false;
+    
+    public function get keepControlOfMouseDown():Boolean
+    {
+        return _keepControlOfMouseDown;
+    }
+    
+    public function set keepControlOfMouseDown(value:Boolean):void
+    {
+        if (_keepControlOfMouseDown == value)
+            return;
+        
+        _keepControlOfMouseDown = value;
     }
 }
 
