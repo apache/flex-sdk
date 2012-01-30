@@ -25,6 +25,7 @@ import mx.core.mx_internal;
 import spark.components.Button;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.supportClasses.TextBase;
+import spark.events.SkinPartEvent;
 import spark.primitives.BitmapImage;
 import spark.skins.*;
 import spark.skins.spark.windowChrome.MacTitleBarSkin;
@@ -127,7 +128,7 @@ public class TitleBar extends SkinnableComponent
      *  This is the actual object created from the _titleIcon class
      */
     mx_internal var titleIconObject:Object;
-
+    
     //--------------------------------------------------------------------------
     //
     //  Skin Parts
@@ -382,9 +383,17 @@ public class TitleBar extends SkinnableComponent
                                             button_mouseDownHandler);
             maximizeButton.addEventListener(MouseEvent.CLICK,
                                             maximizeButton_clickHandler);
-            DisplayObject(window).addEventListener(
+            
+            var targetWindow:DisplayObject = DisplayObject(window);
+            targetWindow.addEventListener(
                 NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE,
                 window_displayStateChangeHandler, false, 0, true);
+            
+            // Add this listener so we can remove the display state change handler
+            // if our window is reskinned. This fixes an RTE when the titleBar
+            // display state handler ran without a window after being reskinned.
+            targetWindow.addEventListener(SkinPartEvent.PART_REMOVED, partRemovedHandler,
+                false, 0, true);
         }
     }
 
@@ -412,9 +421,12 @@ public class TitleBar extends SkinnableComponent
                                             button_mouseDownHandler);
             maximizeButton.removeEventListener(MouseEvent.CLICK,
                                             maximizeButton_clickHandler);
-            DisplayObject(window).removeEventListener(
+
+            var targetWindow:DisplayObject = DisplayObject(window);
+            targetWindow.removeEventListener(
                 NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE,
                 window_displayStateChangeHandler);
+            targetWindow.removeEventListener(SkinPartEvent.PART_REMOVED, partRemovedHandler);
         }
         
     }
@@ -449,8 +461,6 @@ public class TitleBar extends SkinnableComponent
         }
         
     }
-
-
 
     //--------------------------------------------------------------------------
     //
@@ -587,6 +597,21 @@ public class TitleBar extends SkinnableComponent
             event.afterDisplayState == NativeWindowDisplayState.NORMAL)
         {
             invalidateSkinState();
+        }
+    }
+    
+    /** 
+     *  @private
+     */
+    private function partRemovedHandler(event:SkinPartEvent):void
+    {
+        if (event.instance == this)
+        {
+            var targetWindow:DisplayObject = DisplayObject(window);
+            targetWindow.removeEventListener(
+                NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE,
+                window_displayStateChangeHandler);
+            targetWindow.removeEventListener(SkinPartEvent.PART_REMOVED, partRemovedHandler);
         }
     }
     
