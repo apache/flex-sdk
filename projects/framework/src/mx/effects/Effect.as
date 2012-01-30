@@ -346,7 +346,7 @@ public class Effect extends EventDispatcher implements IEffect
     public function set customFilter(value:EffectTargetFilter):void
     {
         _customFilter = value;
-        mx_internal::filterObject = value;
+        filterObject = value;
     }
     
     //----------------------------------
@@ -376,10 +376,10 @@ public class Effect extends EventDispatcher implements IEffect
      */
     public function get duration():Number
     {
-        if (!mx_internal::durationExplicitlySet &&
-            mx_internal::parentCompositeEffect)
+        if (!durationExplicitlySet &&
+            parentCompositeEffect)
         {
-            return mx_internal::parentCompositeEffect.duration;
+            return parentCompositeEffect.duration;
         }
         else
         {
@@ -392,7 +392,7 @@ public class Effect extends EventDispatcher implements IEffect
      */
     public function set duration(value:Number):void
     {
-        mx_internal::durationExplicitlySet = true;
+        durationExplicitlySet = true;
         _duration = value;
     }
     
@@ -489,9 +489,9 @@ public class Effect extends EventDispatcher implements IEffect
                 case "add":
                 case "remove":
                 {
-                    mx_internal::filterObject =
+                    filterObject =
                         new AddRemoveEffectTargetFilter();
-                    AddRemoveEffectTargetFilter(mx_internal::filterObject).add =
+                    AddRemoveEffectTargetFilter(filterObject).add =
                         (value == "add");
                     break;
                 }
@@ -499,62 +499,62 @@ public class Effect extends EventDispatcher implements IEffect
                 case "hide":
                 case "show":
                 {
-                    mx_internal::filterObject =
+                    filterObject =
                         new HideShowEffectTargetFilter();
-                    HideShowEffectTargetFilter(mx_internal::filterObject).show =
+                    HideShowEffectTargetFilter(filterObject).show =
                         (value == "show");
                     break;
                 }
                 
                 case "move":
                 {
-                    mx_internal::filterObject =
+                    filterObject =
                         new EffectTargetFilter();
-                    mx_internal::filterObject.filterProperties =
+                    filterObject.filterProperties =
                         [ "x", "y" ];
                     break;
                 }
                 
                 case "resize":
                 {
-                    mx_internal::filterObject =
+                    filterObject =
                         new EffectTargetFilter();
-                    mx_internal::filterObject.filterProperties =
+                    filterObject.filterProperties =
                         [ "width", "height" ];
                     break;
                 }
                 
                 case "addItem":
                 {
-                    mx_internal::filterObject = new EffectTargetFilter();
-                    mx_internal::filterObject.requiredSemantics = {added:true};
+                    filterObject = new EffectTargetFilter();
+                    filterObject.requiredSemantics = {added:true};
                     break;
                 }         
 
                 case "removeItem":
                 {
-                    mx_internal::filterObject = new EffectTargetFilter();
-                    mx_internal::filterObject.requiredSemantics = {removed:true};
+                    filterObject = new EffectTargetFilter();
+                    filterObject.requiredSemantics = {removed:true};
                     break;
                 }                
                 
                 case "replacedItem":
                 {
-                    mx_internal::filterObject = new EffectTargetFilter();
-                    mx_internal::filterObject.requiredSemantics = {replaced:true};
+                    filterObject = new EffectTargetFilter();
+                    filterObject.requiredSemantics = {replaced:true};
                     break;
                 }                
                 
                 case "replacementItem":
                 {
-                    mx_internal::filterObject = new EffectTargetFilter();
-                    mx_internal::filterObject.requiredSemantics = {replacement:true};
+                    filterObject = new EffectTargetFilter();
+                    filterObject.requiredSemantics = {replacement:true};
                     break;
                 }                
 
                 default:
                 {
-                    mx_internal::filterObject = null;
+                    filterObject = null;
                     break;          
                 }
             }
@@ -1063,10 +1063,10 @@ public class Effect extends EventDispatcher implements IEffect
         var create:Boolean = true;
         var setPropsArray:Boolean = false;
                 
-        if (mx_internal::propertyChangesArray)
+        if (propertyChangesArray)
         {
             setPropsArray = true;
-            create = filterInstance(mx_internal::propertyChangesArray,
+            create = filterInstance(propertyChangesArray,
                                     target);    
         }
          
@@ -1078,13 +1078,13 @@ public class Effect extends EventDispatcher implements IEffect
             
             if (setPropsArray)
             {
-                var n:int = mx_internal::propertyChangesArray.length;
+                var n:int = propertyChangesArray.length;
                 for (var i:int = 0; i < n; i++)
                 {
-                    if (mx_internal::propertyChangesArray[i].target == target)
+                    if (propertyChangesArray[i].target == target)
                     {
                         newInstance.propertyChanges =
-                            mx_internal::propertyChangesArray[i];
+                            propertyChangesArray[i];
                     }
                 }
             }
@@ -1175,19 +1175,19 @@ public class Effect extends EventDispatcher implements IEffect
         // If we have a propertyChangesArray, capture the current values
         // if they haven't been captured already, strip out any unchanged 
         // values, then apply the start values.
-        if (targets == null && mx_internal::propertyChangesArray != null)
+        if (targets == null && propertyChangesArray != null)
         {
             if (_callValidateNow)
                 LayoutManager.getInstance().validateNow();
             
             if (!endValuesCaptured)
-                mx_internal::propertyChangesArray =
-                    captureValues(mx_internal::propertyChangesArray, false);
+                propertyChangesArray =
+                    captureValues(propertyChangesArray, false);
             
-            mx_internal::propertyChangesArray =
-                stripUnchangedValues(mx_internal::propertyChangesArray);
+            propertyChangesArray =
+                stripUnchangedValues(propertyChangesArray);
             
-            applyStartValues(mx_internal::propertyChangesArray,
+            applyStartValues(propertyChangesArray,
                              this.targets);
 
             // Revalidate after applying the start values, to get everything
@@ -1341,8 +1341,8 @@ public class Effect extends EventDispatcher implements IEffect
      */
     protected function filterInstance(propChanges:Array, target:Object):Boolean 
     {
-        if (mx_internal::filterObject)
-            return mx_internal::filterObject.filterInstance(propChanges, effectTargetHost, target);
+        if (filterObject)
+            return filterObject.filterInstance(propChanges, effectTargetHost, target);
         
         return true;
     }
@@ -1360,7 +1360,7 @@ public class Effect extends EventDispatcher implements IEffect
         if (targets.length > 0)
         {
             // Reset the PropertyChanges array by passing in 'null'
-            mx_internal::propertyChangesArray = captureValues(null, true);
+            propertyChangesArray = captureValues(null, true);
 
             _callValidateNow = true;
         }
@@ -1382,8 +1382,8 @@ public class Effect extends EventDispatcher implements IEffect
             // make temporary PropertyChangesArray
             var additionalPropertyChangesArray:Array = captureValues(null, true);
             
-            mx_internal::propertyChangesArray = 
-                mx_internal::propertyChangesArray.concat(additionalPropertyChangesArray);
+            propertyChangesArray = 
+                propertyChangesArray.concat(additionalPropertyChangesArray);
         }
     }
     
@@ -1399,8 +1399,8 @@ public class Effect extends EventDispatcher implements IEffect
     {
         // captureValues will create propertyChangesArray if it does not
         // yet exist
-        mx_internal::propertyChangesArray =
-            captureValues(mx_internal::propertyChangesArray, false);
+        propertyChangesArray =
+            captureValues(propertyChangesArray, false);
         endValuesCaptured = true;
     }
         
@@ -1425,10 +1425,10 @@ public class Effect extends EventDispatcher implements IEffect
         }
                     
         // Merge Effect.filterProperties and filterObject.filterProperties
-        var effectProps:Array = !mx_internal::filterObject ?
+        var effectProps:Array = !filterObject ?
                                 relevantProperties :
                                 mergeArrays(relevantProperties,
-                                mx_internal::filterObject.filterProperties);
+                                filterObject.filterProperties);
         
         var valueMap:Object;
         var target:Object;      
@@ -1464,10 +1464,10 @@ public class Effect extends EventDispatcher implements IEffect
             }
         }
         
-        var styles:Array = !mx_internal::filterObject ?
+        var styles:Array = !filterObject ?
                            relevantStyles :
                            mergeArrays(relevantStyles,
-                           mx_internal::filterObject.filterStyles);
+                           filterObject.filterStyles);
         
         if (styles && styles.length > 0)
         {         
@@ -1804,7 +1804,7 @@ public class Effect extends EventDispatcher implements IEffect
     {
         // Transitions should set the end values when done
         if (applyEndValuesWhenDone && !effectStopped)   
-            applyEndValues(mx_internal::propertyChangesArray, targets);
+            applyEndValues(propertyChangesArray, targets);
 
         var instance:IEffectInstance = IEffectInstance(event.effectInstance);
         
