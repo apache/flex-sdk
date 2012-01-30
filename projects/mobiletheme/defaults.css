@@ -18,16 +18,18 @@
 ActionBar
 {
     skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
-}
-
-ActionBar Group#actionGroup Button
-{
-	skinClass: ClassReference("spark.skins.mobile.ActionButtonSkin");
+    color: #FFFFFF;
+    verticalAlign: "middle";
 }
 
 ActionBar Group#navigationGroup Button
 {
 	skinClass: ClassReference("spark.skins.mobile.NavigationButtonSkin");
+}
+
+ActionBar Group#actionGroup Button
+{
+    skinClass: ClassReference("spark.skins.mobile.ActionButtonSkin");
 }
 
 Application
