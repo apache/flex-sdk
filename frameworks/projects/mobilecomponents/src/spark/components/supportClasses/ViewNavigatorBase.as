@@ -97,11 +97,14 @@ public class ViewNavigatorBase extends SkinnableContainer
      * Setting the active state is hidden and should be managed my
      * the components that manage navigators.
      */
-    mx_internal function setActive(value:Boolean):void
+    mx_internal function setActive(value:Boolean, clearNavigationStack:Boolean = false):void
     {
         if (_active != value)
         {
             _active = value;
+            
+            if (clearNavigationStack)
+                _navigationStack.popToFirstView();
             
             if (activeView)
                 activeView.setActive(value);
@@ -129,7 +132,7 @@ public class ViewNavigatorBase extends SkinnableContainer
     }
     
     //----------------------------------
-    //  canCancelBackKeyBehavior
+    //  exitApplicationOnBackKey
     //----------------------------------
     /**
      *  This method determines if a device's default back key handler can
@@ -149,10 +152,9 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    // TODO (chiedozi): PARB? exitOnBack?
-    public function get canCancelBackKeyBehavior():Boolean
+    public function get exitApplicationOnBackKey():Boolean
     {
-        return false;
+        return true;
     }
     
     //----------------------------------
@@ -307,6 +309,31 @@ public class ViewNavigatorBase extends SkinnableContainer
     }
     
     //----------------------------------
+    //  lastAction
+    //----------------------------------
+    
+    private var _lastAction:String = ViewNavigatorAction.NONE;
+    
+    /**
+     *  @private
+     *  The last action performed by the navigator.
+     *
+     *  @see spark.components.supportClasses.ViewNavigatorAction
+     */
+    mx_internal function get lastAction():String
+    {
+        return _lastAction;
+    }
+    
+    /**
+     *  @private
+     */ 
+    mx_internal function set lastAction(value:String):void
+    {
+        _lastAction = value;    
+    }
+    
+    //----------------------------------
     //  navigationStack
     //----------------------------------
     
@@ -435,39 +462,6 @@ public class ViewNavigatorBase extends SkinnableContainer
         _transitionsEnabled = value;
     }
     
-    //----------------------------------
-    //  useDefaultTransitions
-    //----------------------------------
-    
-    private var _useDefaultTransitions:Boolean = true;
-    
-    /**
-     *  This flag indicates whether the navigator should play its
-     *  built-in default animations for its navigation operations.
-     *  If set to false, animations will not be played when a view
-     *  is changed unless passed as the <code>transition</code> parameter 
-     *  for one of the navigation operations.
-     *  
-     *  @default true
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */ 
-    public function get useDefaultTransitions():Boolean
-    {
-        return _useDefaultTransitions;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set useDefaultTransitions(value:Boolean):void
-    {
-        _useDefaultTransitions = value;
-    }
-    
     //--------------------------------------------------------------------------
     //
     // Public Methods
@@ -483,13 +477,15 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function backKeyHandler():void
+    mx_internal function backKeyHandler():void
     {
     }
     
     /**
+     *  @private
      *  This method checks if the current view can be removed
-     *  from the display list.
+     *  from the display list. This is mx_internal because the
+     *  TabbedViewNavigator needs to call it on its children.
      * 
      *  @return Returns true if the screen can be removed
      *  
@@ -498,7 +494,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function canRemoveCurrentView():Boolean
+    mx_internal function canRemoveCurrentView():Boolean
     {
     	// This is a method instead of a property because the default
     	// implementation in ViewNavigator has a side effect
