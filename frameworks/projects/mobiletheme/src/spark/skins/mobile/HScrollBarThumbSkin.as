@@ -47,9 +47,11 @@ public class HScrollBarThumbSkin extends MobileSkin
     {
         var g:Graphics = graphics;
         
+        var chromeColor:uint = getStyle("chromeColor");
         g.clear();
-        g.beginFill(0, 0.25);
-        g.drawRoundRect(0, 0, unscaledWidth, unscaledHeight, 8, 8);
+        g.lineStyle(1, chromeColor);
+        g.beginFill(chromeColor, 0.5);
+        g.drawRoundRect(0.5, 0.5, unscaledWidth, unscaledHeight, 7, 7);
         g.endFill();
     }
     
