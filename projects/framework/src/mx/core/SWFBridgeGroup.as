@@ -14,8 +14,10 @@ package mx.core
 	
 import flash.display.DisplayObject;
 import flash.utils.Dictionary;
+import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 	
+import mx.events.DynamicEvent;
 import mx.managers.ISystemManager;
 	
 /**
@@ -27,7 +29,7 @@ import mx.managers.ISystemManager;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class SWFBridgeGroup implements ISWFBridgeGroup
+public class SWFBridgeGroup extends EventDispatcher implements ISWFBridgeGroup
 {
 	include "../core/Version.as";
 
@@ -137,6 +139,11 @@ public class SWFBridgeGroup implements ISWFBridgeGroup
 			_childBridges = new Dictionary();
 
 		_childBridges[bridge] = bridgeProvider;
+
+		var event:DynamicEvent = new DynamicEvent("addChildBridge");
+		event.bridge = bridge;
+		event.bridgeProvider = bridgeProvider;
+		dispatchEvent(event);
 	}
 
 	/**
@@ -157,6 +164,10 @@ public class SWFBridgeGroup implements ISWFBridgeGroup
 			if (iter == bridge)
 				delete _childBridges[iter];
 		}
+
+		var event:DynamicEvent = new DynamicEvent("removeChildBridge");
+		event.bridge = bridge;
+		dispatchEvent(event);
 	}
 
 	/**
