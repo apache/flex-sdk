@@ -16,14 +16,33 @@ import mx.managers.IToolTipManagerClient;
 /**
  *  NavigatorContent is an IDeferredContentOwner with label and icon properties
  *  that dispatch notifications when those properties change
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public interface INavigatorContent extends IDeferredContentOwner, IToolTipManagerClient
 {
     [Bindable("labelChanged")]
-	function get label():String;
+    /**
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get label():String;
 
     [Bindable("iconChanged")]
-	function get icon():Class;
+    /**
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get icon():Class;
 }
 
 }
