@@ -22,9 +22,9 @@ import mx.core.DPIClassification;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
+import spark.components.Group;
 import spark.components.Scroller;
 import spark.components.TextArea;
-import spark.components.VGroup;
 import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.supportClasses.TextSkinBase;
 import spark.skins.mobile160.assets.TextInput_border;
@@ -150,7 +150,7 @@ public class TextAreaSkin extends TextSkinBase
     //
     //--------------------------------------------------------------------------
     
-    private var textDisplayGroup:VGroup;
+    private var textDisplayGroup:Group;
     
     private var _isIOS:Boolean;
     
@@ -170,6 +170,7 @@ public class TextAreaSkin extends TextSkinBase
             textDisplay.editable = true;
             textDisplay.lineBreak = getStyle("lineBreak");
             textDisplay.useTightTextBounds = false;
+			textDisplay.scrollToRangeDelegate = scrollToRange;
             
             // on iOS, resize the TextField and let the native control handle scrolling
             _isIOS = (Capabilities.version.indexOf("IOS") == 0);
@@ -180,8 +181,13 @@ public class TextAreaSkin extends TextSkinBase
             textDisplay.addEventListener(Event.CHANGE, textDisplay_changeHandler);
             textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, textDisplay_changeHandler);
             
+			textDisplay.left = getStyle("paddingLeft");
+			textDisplay.top = getStyle("paddingTop");
+			textDisplay.right = getStyle("paddingRight");
+			textDisplay.bottom = getStyle("paddingBottom");
+			
             // wrap StyleableTextComponent in Group for viewport
-            textDisplayGroup = new VGroup();
+            textDisplayGroup = new Group();
             textDisplayGroup.clipAndEnableScrolling = true;
             textDisplayGroup.addElement(textDisplay);
         }
@@ -192,6 +198,7 @@ public class TextAreaSkin extends TextSkinBase
             scroller.minViewportInset = 0;
             scroller.measuredSizeIncludesScrollBars = false;
             scroller.ensureElementIsVisibleForSoftKeyboard = false;
+			
             addChild(scroller);
         }
         
@@ -248,6 +255,14 @@ public class TextAreaSkin extends TextSkinBase
         // Use the old textDisplay width as an estimte for the new one.  
         // If we are wrong, we'll find out in updateDisplayList()
         textDisplay.commitStyles();
+		
+		// Clear min sizes first.
+		textDisplay.minWidth = textDisplay.minHeight = NaN;
+		
+		// If lineBreak == explicit, always use NaN for estimated width
+		if (getStyle("lineBreak") == "explicit")
+			textDisplayEstimatedWidth = NaN;
+		
         setElementSize(textDisplay, textDisplayEstimatedWidth, NaN);
         
         measuredHeight = getElementPreferredHeight(textDisplay) + paddingTop + paddingBottom;
@@ -269,23 +284,23 @@ public class TextAreaSkin extends TextSkinBase
         setElementPosition(scroller, 0, 0);
         
         // position & size the text
+		var explicitLineBreak:Boolean = getStyle("lineBreak") == "explicit";
         var paddingLeft:Number = getStyle("paddingLeft");
         var paddingRight:Number = getStyle("paddingRight");
         var paddingTop:Number = getStyle("paddingTop");
         var paddingBottom:Number = getStyle("paddingBottom");
         
-        textDisplayGroup.paddingLeft = paddingLeft;
-        textDisplayGroup.paddingRight = paddingRight;
-        textDisplayGroup.paddingTop = paddingTop;
-        textDisplayGroup.paddingBottom = paddingBottom;
-        
         var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
         var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
         var textHeight:Number = unscaledTextHeight;
+		var textWidth:Number = explicitLineBreak ? textDisplay.measuredTextSize.x : unscaledTextWidth;
+        
+        // grab old measured textDisplay height before resizing it
+        var oldPreferredTextHeight:Number = getElementPreferredHeight(textDisplay);
         
         // set width first to measure height correctly
         textDisplay.commitStyles();
-        textDisplay.width = unscaledTextWidth;
+        textDisplay.setLayoutBoundsSize(textWidth, NaN);
         
         // TextField height should match its content or the TextArea bounds at minimum
         // iOS special case to prevent Flex Scroller scrolling when editable
@@ -311,9 +326,6 @@ public class TextAreaSkin extends TextSkinBase
         if (textDisplay.scrollV > 1)
             textDisplay.scrollV = 1;
         
-        // grab old measured textDisplay height before resizing it
-        var oldPreferredTextHeight:Number = getElementPreferredHeight(textDisplay);
-        
         // keep track of oldUnscaledWidth so we have a good guess as to the width 
         // of the textDisplay on the next measure() pass
         oldUnscaledWidth = unscaledWidth;
@@ -321,7 +333,12 @@ public class TextAreaSkin extends TextSkinBase
         // set the width of textDisplay to textWidth.
         // set the height to oldTextHeight.  If the height's actually wrong, 
         // we'll invalidateSize() and go through this layout pass again anyways
-        setElementSize(textDisplay, unscaledTextWidth, textHeight);
+        setElementSize(textDisplay, textWidth, textHeight);
+		
+		// Set minWidth/Height on the text so the textDisplayGroup sizes accordingly
+		textDisplay.minWidth = textWidth;
+		textDisplay.minHeight = textHeight;
+		textDisplayGroup.invalidateDisplayList();
         
         // grab new measured textDisplay height after the textDisplay has taken its final width
         var newPreferredTextHeight:Number = getElementPreferredHeight(textDisplay);
@@ -344,11 +361,25 @@ public class TextAreaSkin extends TextSkinBase
             // getCharBoundaries() returns null for new lines
             if (!caretBounds)
             {
-                // temporarily insert a character at the caretIndex
-                textDisplay.replaceText(charIndex, charIndex, "W");
-                caretBounds = textDisplay.getCharBoundaries(charIndex);
-                lineIndex = textDisplay.getLineIndexOfChar(charIndex);
-                textDisplay.replaceText(charIndex, charIndex + 1, "");
+				// Optimization: if the charIndex is the end of the text, set vsp to
+				// textHeight and let snapTextScrollPosition validate it
+				
+				if (charIndex == textDisplay.text.length)
+				{
+					// Make sure textDisplayGroup is validated, otherwise the 
+					// verticalScrollPosition may be out of bounds, which will
+					// cause a bounce effect.
+					textDisplayGroup.validateNow();
+					textDisplayGroup.verticalScrollPosition = textHeight;
+				}
+				else
+				{
+					// temporarily insert a character at the caretIndex
+					textDisplay.replaceText(charIndex, charIndex, "W");
+					caretBounds = textDisplay.getCharBoundaries(charIndex);
+					lineIndex = textDisplay.getLineIndexOfChar(charIndex);
+					textDisplay.replaceText(charIndex, charIndex + 1, "");
+				}
             }
             
             if (caretBounds)
@@ -399,8 +430,57 @@ public class TextAreaSkin extends TextSkinBase
             
             invalidateCaretPosition = false;
         }
+		
+		// Make sure final scroll position is valid
+		snapTextScrollPosition();
     }
-    
+
+	/**
+	 *  @private
+	 *  Make sure the scroll positions are valid, and adjust if needed.
+	 */
+	private function snapTextScrollPosition():void
+	{
+		var maxHsp:Number = textDisplayGroup.contentWidth > textDisplayGroup.width ? 
+			textDisplayGroup.contentWidth-textDisplayGroup.width : 0; 
+		textDisplayGroup.horizontalScrollPosition = 
+			Math.min(Math.max(0,textDisplayGroup.horizontalScrollPosition),maxHsp);
+		
+		var maxVsp:Number = textDisplayGroup.contentHeight > textDisplayGroup.height ? 
+			textDisplayGroup.contentHeight-textDisplayGroup.height : 0; 
+		textDisplayGroup.verticalScrollPosition = 
+			Math.min(Math.max(0,textDisplayGroup.verticalScrollPosition),maxVsp);
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function scrollToRange(anchorPosition:int, activePosition:int):void
+	{
+		var pos:int = Math.min(anchorPosition, activePosition);
+		var bounds:Rectangle = textDisplay.getCharBoundaries(pos);
+		var vsp:int = textDisplayGroup.verticalScrollPosition;
+		var paddingTop:Number = getStyle("paddingTop");
+		var paddingBottom:Number = getStyle("paddingBottom");
+		
+		if (bounds && (bounds.top < vsp - paddingTop || 
+			 bounds.bottom > vsp + unscaledHeight - paddingTop - paddingBottom))
+		{
+			textDisplayGroup.verticalScrollPosition = bounds.top + paddingTop;
+			snapTextScrollPosition();
+		}
+	}
+	
+	/**
+	 *  @private
+	 *  Returns true if scroller can scroll.
+	 */
+	private function isScrollingActive():Boolean
+	{
+		return textDisplayGroup.height < textDisplayGroup.contentHeight ||
+			   textDisplayGroup.width < textDisplayGroup.contentWidth;
+	}
+	
     /**
      *  @private
      *  Handle size and caret position changes that occur when text content
@@ -408,19 +488,12 @@ public class TextAreaSkin extends TextSkinBase
      */
     private function textDisplay_changeHandler(event:Event):void
     {
-        invalidateDisplayList();
-        invalidateCaretPosition = true;
-        
-        if (isNaN(hostComponent.explicitHeight))
-        {
-            // invalidate TextAreaSkin size to grow/shrink with content
-            invalidateSize();
-        }
-        else
-        {
-            // invalidate the Group size to update the Scroller
-            textDisplayGroup.invalidateSize();
-        }
+		invalidateSize();
+		if (isScrollingActive())
+		{
+	        invalidateDisplayList();
+	        invalidateCaretPosition = true;   
+		}
     }
     
     /**
@@ -430,15 +503,24 @@ public class TextAreaSkin extends TextSkinBase
     private function textDisplay_keyHandler(event:KeyboardEvent):void
     {
         // update scroll position when caret changes
-        if (!isNaN(hostComponent.explicitHeight) &&
-            (event.keyCode == Keyboard.UP
+        if ((event.keyCode == Keyboard.UP
                 || event.keyCode == Keyboard.DOWN
                 || event.keyCode == Keyboard.LEFT
                 || event.keyCode == Keyboard.RIGHT))
         {
-            invalidateDisplayList();
-            invalidateCaretPosition = true;
+			if (isScrollingActive())
+			{
+	            invalidateDisplayList();
+	            invalidateCaretPosition = true;
+			}
         }
+		
+		// Change event is not always sent when delete key is pressed, so
+		// invalidate the size here
+		if (event.keyCode == Keyboard.BACKSPACE)
+		{
+			invalidateSize();
+		}
     }
     
     /**
@@ -451,6 +533,18 @@ public class TextAreaSkin extends TextSkinBase
         // propogate styleChanged explicitly to textDisplay
         if (textDisplay)
             textDisplay.styleChanged(styleProp);
+		
+		// Check for padding style changes
+		if (!styleProp || styleProp == "styleName" || styleProp.indexOf("padding") >= 0)
+		{
+			if (textDisplay)
+			{
+				textDisplay.left = getStyle("paddingLeft");
+				textDisplay.top = getStyle("paddingTop");
+				textDisplay.right = getStyle("paddingRight");
+				textDisplay.bottom = getStyle("paddingBottom");
+			}
+		}
     }
 }
 }
