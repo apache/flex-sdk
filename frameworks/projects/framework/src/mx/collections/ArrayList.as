@@ -95,8 +95,6 @@ public class ArrayList extends EventDispatcher
     /**
      *  Construct a new ArrayList using the specified array as its source.
      *  If no source is specified an empty array will be used.
-     * 
-     *  @param source The Array to use as a source for the ArrayList.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
