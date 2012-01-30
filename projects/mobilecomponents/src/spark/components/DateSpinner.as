@@ -22,10 +22,13 @@ import mx.events.FlexEvent;
 
 import spark.collections.Sort;
 import spark.collections.SortField;
+import spark.components.calendarClasses.DateAndTimeProvider;
 import spark.components.calendarClasses.DateSelectorDisplayMode;
+import spark.components.calendarClasses.YearProvider;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.events.IndexChangeEvent;
 import spark.formatters.DateTimeFormatter;
+import spark.formatters.NumberFormatter;
 import spark.globalization.supportClasses.CalendarDate;
 import spark.globalization.supportClasses.DateTimeFormatterEx;
 
@@ -182,7 +185,7 @@ public class DateSpinner extends SkinnableComponent
     private static const DEFAULT_YEAR_RANGE:int = 200;
     
     // number of days to show by default in DATE_AND_TIME mode
-    private static const DEFAULT_DATE_RANGE:int = 200;
+    private static const DEFAULT_DATE_RANGE:int = 730;
     
     private static const MS_IN_DAY:Number = 1000 * 60 * 60 * 24;
     
@@ -240,11 +243,15 @@ public class DateSpinner extends SkinnableComponent
     // the longest dateList item in DATE_AND_TIME mode
     private var dayMonthDateFormatter:DateTimeFormatterEx;
     
+    // the NumberFormatter to identify the longest yearList item in DATE mode
+    private var numberFormatter:NumberFormatter;
+    
     private var dateObj:Date = new Date();
     private var use24HourTime:Boolean;
     
     // stores the longest dateList item and updates only when locale changes
     private var longestDateItem:Object;
+    private var longestYearItem:Object;
     
     //--------------------------------------------------------------------------
     //
@@ -719,6 +726,7 @@ public class DateSpinner extends SkinnableComponent
             syncSelectedDate = true;
             
             longestDateItem = null;
+            longestYearItem = null;
             
             invalidateProperties();
         }
@@ -819,6 +827,7 @@ public class DateSpinner extends SkinnableComponent
                     case DATE_ITEM:
                     {
                         dateList = createDateItemList(DATE_ITEM, fieldPosition++, numItems);
+                        dateList.wrapElements = false;
                         tempList = dateList;
                         break;
                     }
@@ -860,7 +869,6 @@ public class DateSpinner extends SkinnableComponent
                     case YEAR_ITEM:
                     {
                         yearList = createDateItemList(YEAR_ITEM, fieldPosition++, numItems);
-                        // remove this if we go with the year range dataprovider
                         yearList.wrapElements = false;
                         tempList = yearList;
                         break;
@@ -886,10 +894,14 @@ public class DateSpinner extends SkinnableComponent
         // populate lists that are being shown
         if (yearList && populateYearDataProvider)
         {
-            yearList.dataProvider = generateYears(today);
-            // yearList.dataProvider = new YearRangeList(localeStr, minDate.fullYear, maxDate.fullYear);
+            yearList.dataProvider = new YearProvider(localeStr, minDate.fullYear,
+                maxDate.fullYear, today, getStyle("accentColor"));
             
-            yearList.typicalItem = getLongestLabel(yearList.dataProvider);
+            // set size to longest string
+            if (!longestYearItem)
+                longestYearItem = findLongestYearItem();
+            
+            yearList.typicalItem = longestYearItem;
         }
         if (monthList && populateMonthDataProvider)
         {
@@ -902,8 +914,8 @@ public class DateSpinner extends SkinnableComponent
         {
             if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
             {
-                dateList.dataProvider = new DateAndTimeRangeList(minDate, maxDate,
-                    localeStr, today, getStyle("accentColor"));
+                dateList.dataProvider = new DateAndTimeProvider(localeStr, minDate, maxDate,
+                    today, getStyle("accentColor"));
                 
                 // set size to longest string
                 if (!longestDateItem)
@@ -952,28 +964,6 @@ public class DateSpinner extends SkinnableComponent
     {
         listsCreated ? list.selectedIndex = newIndex
             : list.animateToSelectedIndex(newIndex);
-    }
-    
-    // generate objects to populate a SpinnerList with years
-    private function generateYears(today:Date):IList
-    {
-        var ac:ArrayCollection = new ArrayCollection();
-        var todayYear:int = today.getFullYear();
-        
-        dateTimeFormatter.dateTimePattern = dateTimeFormatterEx.getYearPattern();
-        
-        for (var i:Number = minDate.fullYear; i <= maxDate.fullYear; i++)
-        {
-            dateObj.fullYear = i;
-            var item:Object = generateDateItemObject(dateTimeFormatter.format(dateObj), i);
-            
-            if (i == todayYear)
-                item["accentColor"] = getStyle("accentColor");
-            
-            ac.addItem(item);
-        }
-        
-        return ac;
     }
     
     // generate objects to populate a SpinnerList with months
@@ -1101,8 +1091,8 @@ public class DateSpinner extends SkinnableComponent
         var newIndex:int;
         if (yearList)
         {
-            // TODO: use math for the year instead of iterating through each one; remove that function
-            newIndex = findDateItemIndexInDataProvider(selectedDate.fullYear, yearList.dataProvider);
+            dateTimeFormatter.dateTimePattern = dateTimeFormatterEx.getYearPattern();
+            newIndex = yearList.dataProvider.getItemIndex( generateDateItemObject(dateTimeFormatter.format(selectedDate), selectedDate.fullYear) );
             goToIndex(yearList, newIndex, listsNewlyCreated);
         }
         
@@ -1117,7 +1107,7 @@ public class DateSpinner extends SkinnableComponent
             }
             else // DATE_AND_TIME mode
             {
-                newIndex = findDateIndex(selectedDate, dateList.dataProvider);
+                newIndex = dateList.dataProvider.getItemIndex( generateDateItemObject(dayMonthDateFormatter.format(selectedDate), selectedDate.time) );
                 goToIndex(dateList, newIndex, listsNewlyCreated);
             }
         }
@@ -1205,7 +1195,7 @@ public class DateSpinner extends SkinnableComponent
             tempDate = new Date(thisDate.time);
             
             listData = monthList.dataProvider;
-            for (i = 0; i < 11; i++)
+            for (i = 0; i < 12; i++)
             {
                 newEnabledValue = true;
                 
@@ -1219,7 +1209,7 @@ public class DateSpinner extends SkinnableComponent
                 curObj = listData[i];
                 if (curObj[SpinnerList.ENABLED_PROPERTY_NAME] != newEnabledValue)
                 {
-                    generateDateItemObject(curObj.label, curObj.data, newEnabledValue);
+                    o = generateDateItemObject(curObj.label, curObj.data, newEnabledValue);
                     o["accentColor"] = curObj["accentColor"];
                     listData[i] = o;
                 }
@@ -1227,23 +1217,6 @@ public class DateSpinner extends SkinnableComponent
         }
         
         // TODO: if we're using YearRangeList, recreate that to match new dates
-    }
-    
-    private function findDateIndex(selectedDate:Date, dateList:IList):int
-    {
-        // index is how many days between the selected date and the first date
-        var firstDate:Date = new Date(dateList.getItemAt(0).data);
-        
-        // set firstDate's hour/min/second to the same values
-        firstDate.hours = selectedDate.hours;
-        firstDate.minutes = selectedDate.minutes;
-        firstDate.seconds = selectedDate.seconds;
-        firstDate.milliseconds = selectedDate.milliseconds;
-        
-        var diff:Number = selectedDate.time - firstDate.time;
-        var days:int = diff / MS_IN_DAY;
-        
-        return days;
     }
     
     // clean out the container: remove all elements, detach event listeners, null out references
@@ -1287,7 +1260,7 @@ public class DateSpinner extends SkinnableComponent
     // convenience method to generate the standard object format for data in the list dataproviders
     private function generateDateItemObject(label:String, data:*, enabled:Boolean = true):Object
     {
-        var obj:Object = { label:label, data:data};
+        var obj:Object = { label:label, data:data };
         obj[SpinnerList.ENABLED_PROPERTY_NAME] = enabled;
         return obj;
     }
@@ -1319,22 +1292,11 @@ public class DateSpinner extends SkinnableComponent
     // identify the dateList item that has the longest width in DATE_AND_TIME mode    
     private function findLongestDateItem():Object
     {
-        if (!dayMonthDateFormatter)
-        {
-            dayMonthDateFormatter = new DateTimeFormatterEx();
-            dayMonthDateFormatter.dateTimeSkeletonPattern = DateTimeFormatterEx.DATESTYLE_MMMEEEd;
-        }
+        updateDayMonthDateFormatter();
         
-        var localeStr:String = getStyle("locale");
-        if (localeStr)
-            dayMonthDateFormatter.setStyle("locale", localeStr);
-        else
-            dayMonthDateFormatter.clearStyle("locale");
-        
-        // TODO: talk with the global team to make it much faster.
         dateTimeFormatter.dateTimePattern =  dayMonthDateFormatter.getMonthPattern();
         
-        var longestDateItem:Object;
+        var longestDateItemObj:Object = dateList.dataProvider.getItemAt(0);
         var longestMonth:int = 0;
         var labelWidth:Number = -1;
         var maxWidth:int = 0;
@@ -1365,11 +1327,106 @@ public class DateSpinner extends SkinnableComponent
             if (labelWidth > maxWidth)
             {
                 maxWidth = labelWidth;
-                longestDateItem = dateStr;
+                // TODO: dateObj.time for second argument?
+                longestDateItemObj = generateDateItemObject(dateStr, dateObj.time);
             }
         }
         
-        return longestDateItem;
+        return longestDateItemObj;
+    }
+    
+    // TODO: rename variable names and relocate the function.
+    // identify the yearList item that has the longest width in DATE mode 
+    // the range of year should be from 1601 to 9999
+    private function findLongestYearItem():Object
+    {
+        // TODO: create functions e.g. getLongestDigit(6) returns the longest digit among 6, 7, 8, 9
+        var longestDigitIncludingZero:int;
+        var longestDigitExcludingZero:int;
+        var longestDigitOf6789:int;
+        var longestDigitOf789:int;
+        
+        var maxWidthForlongestDigitIncludingZero:Number = 0;
+        var maxWidthForlongestDigitExcludingZero:Number = 0;
+        var maxWidthForlongestDigitOf6789:Number = 0;
+        var maxWidthForlongestDigitOf789:Number = 0;
+        
+        var labelWidth:Number;
+        
+        // instantiate the number formatter and update its locale
+        updateNumberFormatter();
+        
+        // find the four types of the longest digit 
+        for (var i:int = 0; i < 10; i++) 
+        {
+            labelWidth = measureText(numberFormatter.format(i)).width;
+            
+            if (labelWidth > maxWidthForlongestDigitIncludingZero)
+            {
+                maxWidthForlongestDigitIncludingZero = labelWidth;
+                longestDigitIncludingZero = i;
+            }
+            
+            if (i >= 1 && labelWidth > maxWidthForlongestDigitExcludingZero)
+            {
+                maxWidthForlongestDigitExcludingZero = labelWidth;
+                longestDigitExcludingZero = i;
+            }
+            
+            if (i >= 6 && labelWidth > maxWidthForlongestDigitOf6789)
+            {
+                maxWidthForlongestDigitOf6789 = labelWidth;
+                longestDigitOf6789 = i;
+            }
+            
+            if (i >= 7 && labelWidth > maxWidthForlongestDigitOf789)
+            {
+                maxWidthForlongestDigitOf789 = labelWidth;
+                longestDigitOf789 = i;
+            }
+        }
+        
+        // generate the longest width year
+        var longestYear:int = longestDigitExcludingZero * 1000;
+        
+        if (longestDigitExcludingZero > 1)
+            longestYear += longestDigitIncludingZero * 111;
+        else // longestDigitExcludingZero == 1
+            longestYear += ((longestDigitIncludingZero == 0)? longestDigitOf789 : longestDigitOf6789) * 100 +
+                longestDigitIncludingZero * 10 + longestDigitIncludingZero;
+
+        dateObj.fullYear = longestYear;
+        dateTimeFormatter.dateTimePattern = dateTimeFormatterEx.getYearPattern();
+        return generateDateItemObject(dateTimeFormatter.format(dateObj), longestYear);
+    }
+    
+    // instantiate the number formatter and update its locale property
+    private function updateNumberFormatter():void
+    {
+        if(!numberFormatter)
+            numberFormatter = new NumberFormatter();
+        
+        var localeStr:String = getStyle("locale");
+        if (localeStr)
+            numberFormatter.setStyle("locale", localeStr);
+        else
+            numberFormatter.clearStyle("locale");
+    }
+    
+    // instantiate the dayMonthDateFormatter and update its locale property
+    private function updateDayMonthDateFormatter():void
+    {
+        if (!dayMonthDateFormatter)
+        {
+            dayMonthDateFormatter = new DateTimeFormatterEx();
+            dayMonthDateFormatter.dateTimeSkeletonPattern = DateTimeFormatterEx.DATESTYLE_MMMEEEd;
+        }
+        
+        var localeStr:String = getStyle("locale");
+        if (localeStr)
+            dayMonthDateFormatter.setStyle("locale", localeStr);
+        else
+            dayMonthDateFormatter.clearStyle("locale");
     }
     
     //----------------------------------------------------------------------------------------------
