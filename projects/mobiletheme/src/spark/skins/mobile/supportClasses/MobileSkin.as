@@ -455,8 +455,8 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
 		{
 			// commit styles to get an accurate measurement
 			StyleableTextField(element).commitStyles();
-            
-            return StyleableTextField(element).measuredTextSize.x;
+			
+			return StyleableTextField(element).measuredWidth;
 		}
 		else
 		{
@@ -495,7 +495,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
 			// commit styles to get an accurate measurement
 			StyleableTextField(element).commitStyles();
 			
-			return StyleableTextField(element).measuredTextSize.y;
+			return StyleableTextField(element).measuredHeight;
 		}
 		else
 		{
