@@ -97,7 +97,7 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
                 downSymbolIconSelectedClass = spark.skins.mobile320.assets.RadioButton_downSymbolSelected;
                 
                 layoutGap = 20;
-                layoutMeasuredWidth = 64;
+                minWidth = 64;
                 
                 break;
             }
@@ -113,7 +113,7 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
                 downSymbolIconSelectedClass = spark.skins.mobile240.assets.RadioButton_downSymbolSelected;
                 
                 layoutGap = 15;
-                layoutMeasuredWidth = 48;
+                minWidth = 48;
                 
                 break;
             }
@@ -129,7 +129,7 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
                 downSymbolIconSelectedClass = spark.skins.mobile160.assets.RadioButton_downSymbolSelected;
                 
                 layoutGap = 10;
-                layoutMeasuredWidth = 32;
+                minWidth = 32;
                 
                 break;
             }
