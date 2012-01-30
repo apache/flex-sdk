@@ -11,16 +11,16 @@
 
 package spark.skins.mobile 
 {
-    
-import flash.display.DisplayObject;
+
 import flash.events.Event;
 
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
 import spark.components.TextArea;
-import spark.components.supportClasses.StyleableTextField;
-import spark.skins.mobile.assets.TextInput_border;
-import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile.supportClasses.TextSkinBase;
+
+use namespace mx_internal;
 
 /**
  *  Actionscript based skin for mobile text input. 
@@ -30,23 +30,13 @@ import spark.skins.mobile.supportClasses.MobileSkin;
  *  @playerversion AIR 2.5 
  *  @productversion Flex 4.5
  */
- public class TextAreaSkin extends MobileSkin 
- {      
-     //--------------------------------------------------------------------------
-     //
-     //  Class statics
-     //
-     //--------------------------------------------------------------------------
-     private static const HORIZONTAL_PADDING:int = 8;
-     private static const VERTICAL_PADDING:int = 12;
-     private static const TEXT_HEIGHT_PADDING:int = 6;
-     private static const CORNER_ELLIPSE_SIZE:uint = 16;
-     
-     //--------------------------------------------------------------------------
-     //
-     //  Constructor
-     //
-     //--------------------------------------------------------------------------
+public class TextAreaSkin extends TextSkinBase 
+{
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
     public function TextAreaSkin()
     {
         super();
@@ -56,18 +46,6 @@ import spark.skins.mobile.supportClasses.MobileSkin;
      *  A strongly typed property that references the component to which this skin is applied.
      */
     public var hostComponent:TextArea; // SkinnableComponent will populate
-      
-    /**
-     *  textDisplay skin part.
-     */
-    public var textDisplay:StyleableTextField;
-    
-    /**
-     *  @private
-     * 
-     *  Instance of the border graphics.
-     */
-    private var border:DisplayObject;
     
     //--------------------------------------------------------------------------
     //
@@ -82,17 +60,8 @@ import spark.skins.mobile.supportClasses.MobileSkin;
     {
         super.createChildren();
         
-        border = new TextInput_border;
-        addChild(border);
-        
-        textDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-        textDisplay.styleProvider = this;
-        textDisplay.editable = true;
-        textDisplay.multiline = true;
-        textDisplay.wordWrap = true;
         textDisplay.addEventListener(Event.CHANGE, textDisplay_changeHandler);
         textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, textDisplay_changeHandler);
-        addChild(textDisplay);
     }
     
     /**
@@ -102,6 +71,9 @@ import spark.skins.mobile.supportClasses.MobileSkin;
     {
         super.measure();
         
+        var paddingTop:Number = getStyle("paddingTop");
+        var paddingBottom:Number = getStyle("paddingBottom");
+        
         // TextDisplay always defaults to 440 pixels wide, and tall enough to 
         // show all text.
         // 
@@ -109,54 +81,17 @@ import spark.skins.mobile.supportClasses.MobileSkin;
         // is not true: setting an explicit height will not adjust the width accordingly.
         textDisplay.commitStyles();
         measuredWidth = 440;
-        measuredHeight = Math.max(textDisplay.textHeight + (VERTICAL_PADDING * 2), 55);
+        measuredHeight = Math.max(textDisplay.textHeight + paddingTop + paddingBottom + (TEXT_HEIGHT_PADDING * 2), 55);
     }
     
     /**
      *  @private
+     *  Default verticalAlign="top"
      */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override mx_internal function getTextTop(unscaledHeight:Number, paddingTop:Number):Number
     {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-
-        // Draw the contentBackgroundColor
-        graphics.clear();
-        graphics.beginFill(getStyle("contentBackgroundColor"), getStyle("contentBackgroundAlpha"));
-    	graphics.drawRoundRect(1, 1, unscaledWidth - 2, unscaledHeight - 2, CORNER_ELLIPSE_SIZE, CORNER_ELLIPSE_SIZE);
-        graphics.endFill();
-
-        // position & size border
-        resizePart(border, unscaledWidth, unscaledHeight);
-        positionPart(border, 0, 0);
-
-        // position & size the text
-        textDisplay.commitStyles();
-        resizePart(textDisplay, unscaledWidth - (HORIZONTAL_PADDING * 2), unscaledHeight - (VERTICAL_PADDING * 2) + TEXT_HEIGHT_PADDING);
-        positionPart(textDisplay, HORIZONTAL_PADDING, VERTICAL_PADDING); 
+        return paddingTop;
     }
-
-    /**
-     *  @private
-     */
-    override public function styleChanged(styleProp:String):void
-    {
-        if (textDisplay)
-            textDisplay.styleChanged(styleProp);
-        super.styleChanged(styleProp);
-    }
-	
-	/**
-	 *  @private
-	 */
-	override protected function commitCurrentState():void
-	{
-		super.commitCurrentState();
-		
-		if (currentState == "normal")
-			alpha = 1;
-		else
-			alpha = 0.5;
-	}
     
     /**
      *  @private
