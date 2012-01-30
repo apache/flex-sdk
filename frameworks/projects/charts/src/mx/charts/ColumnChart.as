@@ -12,7 +12,9 @@
 package mx.charts
 {
 
+import flash.display.DisplayObject;
 import flash.filters.DropShadowFilter;
+import flash.system.ApplicationDomain;
 
 import mx.charts.chartClasses.CartesianChart;
 import mx.charts.chartClasses.CartesianTransform;
@@ -26,12 +28,11 @@ import mx.charts.series.ColumnSeries;
 import mx.charts.series.ColumnSet;
 import mx.charts.series.items.ColumnSeriesItem;
 import mx.charts.styles.HaloDefaults;
-import mx.controls.Label;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.SolidColor;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -71,6 +72,21 @@ use namespace mx_internal;
  *  @productversion Flex 3
  */
 [Style(name="maxColumnWidth", type="Number", format="Length", inherit="no")]
+
+/**
+ *  The class that is used by this component to render labels.
+ *
+ *  <p>It can be set to either the mx.controls.Label class
+ *  or the spark.components.Label class.</p>
+ *
+ *  @default spark.components.Label
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.2
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4
+ */
+[Style(name="labelClass", type="Class", inherit="no")]
 
 //--------------------------------------
 //  Other metadata
@@ -218,7 +234,7 @@ public class ColumnChart extends CartesianChart
     /**
      * @private
      */
-    private var _tempField:Label;   
+    private var _tempField:Object;   
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -454,13 +470,32 @@ public class ColumnChart extends CartesianChart
     override protected function createChildren():void
     {
         super.createChildren();
-        _tempField = new Label();
+		var labelClass:Class = getLabelClass();
+        _tempField = new labelClass();
         _tempField.visible = false;
         _tempField.text = "W...";
         _tempField.toolTip = "";
-        addChild(_tempField);
+        addChild(_tempField as DisplayObject);
         _tempField.validateNow();
     }
+	
+	private function getLabelClass():Class
+	{
+		var labelClass:Class = getStyle("labelClass");
+		if(labelClass == null)
+		{
+			try{
+				labelClass = Class(ApplicationDomain.currentDomain.
+					getDefinition("spark.components::Label"));
+			}
+			catch(e:Error)
+			{
+				labelClass = Class(ApplicationDomain.currentDomain.
+					getDefinition("mx.controls::Label"));
+			}
+		}
+		return labelClass;
+	}
 
     /**
      *  @private
@@ -757,10 +792,11 @@ public class ColumnChart extends CartesianChart
                         else
                         {
                             _tempField.setStyle('fontSize',size);
-                            if (_tempField.textWidth > v.labelWidth || columnSeries.measuringField.textHeight > v.labelHeight)
+							_tempField.validateNow();
+                            if (_tempField.measuredWidth > v.labelWidth || columnSeries.measuringField.textHeight > v.labelHeight)
                             {
-                                labelScale = v.labelWidth / _tempField.textWidth;
-                                labelScale = Math.min(labelScale, v.labelHeight / (columnSeries.measuringField.textHeight));
+                                labelScale = v.labelWidth / _tempField.measuredWidth;
+                                labelScale = Math.min(labelScale, v.labelHeight / (columnSeries.measuringField.measuredHeight));
                                 if (size * labelScale > labelSizeLimit)
                                 {
                                     columnSeries.seriesRenderData.labelScale = Math.min(labelScale,columnSeries.seriesRenderData.labelScale);   
@@ -903,9 +939,10 @@ public class ColumnChart extends CartesianChart
                         else
                         {
                             _tempField.setStyle('fontSize',size);
-                            if (_tempField.textWidth > v.labelWidth || columnSeries.measuringField.textHeight > v.labelHeight)
+							_tempField.validateNow();
+                            if (_tempField.measuredWidth > v.labelWidth || columnSeries.measuringField.textHeight > v.labelHeight)
                             {
-                                labelScale = v.labelWidth / _tempField.textWidth;
+                                labelScale = v.labelWidth / _tempField.measuredWidth;
                                 labelScale = Math.min(labelScale, v.labelHeight / (columnSeries.measuringField.textHeight));
                                 if (size * labelScale > labelSizeLimit)
                                 {
