@@ -84,6 +84,11 @@ import mx.core.FlexBitmap;
  *
  *  <pre>
  *  &lt;mx:Image id="logo" source="{logoClass}"/&gt;</pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class BitmapAsset extends FlexBitmap
                          implements IFlexAsset, IFlexDisplayObject
@@ -105,6 +110,11 @@ public class BitmapAsset extends FlexBitmap
      *  to the nearest pixel.
      *
      *  @param smoothing Whether or not the bitmap is smoothed when scaled. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function BitmapAsset(bitmapData:BitmapData = null,
                                 pixelSnapping:String = "auto",
@@ -125,6 +135,11 @@ public class BitmapAsset extends FlexBitmap
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredHeight():Number
     {
@@ -140,6 +155,11 @@ public class BitmapAsset extends FlexBitmap
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredWidth():Number
     {
@@ -157,6 +177,11 @@ public class BitmapAsset extends FlexBitmap
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function move(x:Number, y:Number):void
     {
@@ -166,6 +191,11 @@ public class BitmapAsset extends FlexBitmap
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setActualSize(newWidth:Number, newHeight:Number):void
     {
