@@ -26,6 +26,11 @@ use namespace mx_internal;
 /**
  *  The GradientBase class is the base class for
  *  LinearGradient, LinearGradientStroke, and RadialGradient.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class GradientBase extends EventDispatcher
 {
@@ -37,6 +42,11 @@ public class GradientBase extends EventDispatcher
 	
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function GradientBase() 
 	{
@@ -90,6 +100,11 @@ public class GradientBase extends EventDispatcher
      *  to occur from right to left, rather than from left to right.
      *
      *  @default 0.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get angle():Number
     {
@@ -126,6 +141,11 @@ public class GradientBase extends EventDispatcher
 	 *  defining the fill patterns for the gradient fill.
 	 *
 	 *  @default []
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get entries():Array
 	{
@@ -165,6 +185,11 @@ public class GradientBase extends EventDispatcher
      *  and <code>InterpolationMethod.RGB</code>.</p>
      *  
      *  @default InterpolationMethod.RGB
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get interpolationMethod():String
     {
@@ -205,6 +230,11 @@ public class GradientBase extends EventDispatcher
      *  to occur from right to left, rather than from left to right.
      *
      *  @default 0.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get matrix():Matrix
     {
@@ -244,6 +274,11 @@ public class GradientBase extends EventDispatcher
      *  to occur from right to left, rather than from left to right.
      *
      *  @default 0.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get rotation():Number
     {
@@ -275,6 +310,11 @@ public class GradientBase extends EventDispatcher
     
     /**
      *  The horizontal scale of the gradient transform, which defines the width of the (unrotated) gradient
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scaleX():Number
     {
@@ -316,6 +356,11 @@ public class GradientBase extends EventDispatcher
      *  and <code>SpreadMethod.REPEAT</code>.</p>
      *  
      *  @default SpreadMethod.PAD
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get spreadMethod():String
     {
@@ -346,6 +391,11 @@ public class GradientBase extends EventDispatcher
     
     /**
      *  The distance by which to translate each point along the x axis.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get x():Number
     {
@@ -376,6 +426,11 @@ public class GradientBase extends EventDispatcher
     
      /**
      *  The distance by which to translate each point along the y axis.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get y():Number
     {
@@ -473,6 +528,11 @@ public class GradientBase extends EventDispatcher
 
 	/**
 	 *  Dispatch a gradientChanged event.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	mx_internal function dispatchGradientChangedEvent(prop:String,
 													  oldValue:*, value:*):void
