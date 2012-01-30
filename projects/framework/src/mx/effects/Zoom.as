@@ -17,6 +17,8 @@ import mx.effects.effectClasses.ZoomInstance;
 
 use namespace mx_internal;
 
+[Alternative(replacement="spark.effects.Scale", since="4.0")]
+
 /**
  *  The Zoom effect zooms the object in or out on a center point.
  *
