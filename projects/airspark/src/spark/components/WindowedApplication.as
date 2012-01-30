@@ -1759,7 +1759,7 @@ public class WindowedApplication extends Application implements IWindow
      *  Opens the window where AIR decides, sized to the parent application.
      *  It will close when the parent WindowedApplication closes.
      */
-    protected function menuItemSelectHandler(event:Event):void
+    override protected function menuItemSelectHandler(event:Event):void
     {
         const vsLoc:File = File.applicationDirectory.resolvePath(viewSourceURL);
         if (vsLoc.exists)
@@ -1794,23 +1794,22 @@ public class WindowedApplication extends Application implements IWindow
                 win.width  = winWidth;
                 win.height = winHeight;
                 
-                win.addChild(html);
-                
                 // handle resizing since the HTML should take the whole stage
                 win.addEventListener(
                     FlexNativeWindowBoundsEvent.WINDOW_RESIZE,
                     viewSourceResizeHandler(html),
                     false, 0, true);
 
-                // links should open in the system web browser (e.g. the .zip links)
-                html.htmlLoader.navigateInSystemBrowser = true;
-                
                 // close the View Source window when this WindowedApp closes
                 addEventListener(Event.CLOSING, viewSourceCloseHandler(win), false, 0, true);
             }
             
             // make it so
             win.open();
+            win.contentGroup.addElement(html);
+
+            // links should open in the system web browser (e.g. the .zip links)
+            html.htmlLoader.navigateInSystemBrowser = true;
             win.move(winX, winY);
         }
         else
