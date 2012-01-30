@@ -55,7 +55,7 @@ public class HSliderTrackSkin extends MobileSkin
         {
             case DPIClassification.DPI_320:
             {
-                trackWidth = 320;
+                trackWidth = 640;
                 trackHeight = 18;
                 
                 visibleTrackWidth = 280;
@@ -67,7 +67,7 @@ public class HSliderTrackSkin extends MobileSkin
             }
             case DPIClassification.DPI_240:
             {
-                trackWidth = 192;
+                trackWidth = 768;
                 trackHeight = 13;
                 
                 visibleTrackWidth = 160;
@@ -80,10 +80,10 @@ public class HSliderTrackSkin extends MobileSkin
             default:
             {
                 // default PPI160
-                trackWidth = 160;
+                trackWidth = 640;
                 trackHeight = 10;
                 
-                visibleTrackWidth = 140;
+                visibleTrackWidth = 300;
                 visibleTrackLeftOffset = 10;
                 
                 trackClass = spark.skins.mobile160.assets.HSliderTrack;
