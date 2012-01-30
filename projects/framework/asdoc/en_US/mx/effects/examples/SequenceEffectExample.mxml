@@ -20,7 +20,7 @@
     <s:Panel title="Sequence Effect Example" width="75%" height="75%" >
         <s:VGroup left="20" right="20" top="20" bottom="20">
 
-        <s:SimpleText width="100%" color="blue"
+        <s:Label width="100%" color="blue"
 		    text="Click the phone image to start the Sequence effect. The effect pauses for 2 seconds between moves."/>
 
         <mx:Image
