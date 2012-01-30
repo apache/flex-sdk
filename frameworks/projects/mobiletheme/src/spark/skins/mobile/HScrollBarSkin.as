@@ -3,9 +3,10 @@ package spark.skins.mobile
 
 import spark.components.Button;
 import spark.components.HScrollBar;
+import spark.skins.MobileSkin;
 
 
-public class HScrollBarSkin extends SliderSkin {
+public class HScrollBarSkin extends MobileSkin {
     
     public function HScrollBarSkin()
     {
