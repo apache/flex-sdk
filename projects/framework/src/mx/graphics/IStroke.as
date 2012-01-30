@@ -52,6 +52,10 @@ public interface IStroke
 	 */
 	function set weight(value:Number):void;
 	
+    //----------------------------------
+    //  scaleMode
+    //----------------------------------
+
     /**
      *  A value from the LineScaleMode class
      *  that  specifies which scale mode to use.
@@ -86,6 +90,39 @@ public interface IStroke
      *  @productversion Flex 3
      */
     function get scaleMode():String;
+    
+    //----------------------------------
+    //  miterLimit
+    //----------------------------------
+
+    /**
+     *  Indicates the limit at which a miter is cut off.
+     *  Valid values range from 0 to 255.
+     *  
+     *  @default 3
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    function get miterLimit():Number;
+    
+    //----------------------------------
+    //  joints
+    //----------------------------------
+    
+    /**
+     *  Specifies the type of joint appearance used at angles.
+     *  Valid values are <code>JointStyle.ROUND</code>, <code>JointStyle.MITER</code>,
+     *  and <code>JointStyle.BEVEL</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    function get joints():String;
 	
 	//--------------------------------------------------------------------------
 	//
