@@ -245,28 +245,44 @@ public class StyleableTextField extends TextField
             }
             else
             {
+                // for consistent, scaled measurement:
+                // If on the stage, use width and height
+                // If not on the stage, scale the TextField then inverse scale
+                // the width and height 
+                
                 // Use TextFieldAutoSize.LEFT to compact the text field. 
                 // Using autoSize will change the current size.
                 // Must save, then restore current state.
                 var oldWidth:Number = width;
                 var oldHeight:Number = height;
                 var oldAutoSize:String = autoSize;
-                var oldScaleX:Number = this.scaleX;
-                var oldScaleY:Number = this.scaleY;
+                
+                // right and bottom edges close-in on text content
                 autoSize = TextFieldAutoSize.LEFT;
                 
-                // apply application scale factor
-                this.scaleX *= textScaleX;
-                this.scaleY *= textScaleY;
-            
-                // apply inverse scaling on the on the scaled TextField size
-                // this accounts for font scaling behavior in the player
-                _measuredTextSize.x = Math.round(width / textScaleX);
-                _measuredTextSize.y = Math.round(height / textScaleY);
-                
-                // remove application scale factor
-                this.scaleX = oldScaleX;
-                this.scaleY = oldScaleY;
+                // apply application scale factor while off stage
+                if (!stage)
+                {
+                    var oldScaleX:Number = this.scaleX;
+                    var oldScaleY:Number = this.scaleY;
+                    
+                    this.scaleX *= textScaleX;
+                    this.scaleY *= textScaleY;
+                    
+                    // apply inverse scaling on the on the scaled TextField size
+                    // this accounts for font scaling behavior in the player
+                    _measuredTextSize.x = Math.round(width / textScaleX);
+                    _measuredTextSize.y = Math.round(height / textScaleY);
+                    
+                    // remove application scale factor
+                    this.scaleX = oldScaleX;
+                    this.scaleY = oldScaleY;
+                }
+                else
+                {
+                    _measuredTextSize.x = width;
+                    _measuredTextSize.y = height;
+                }
                 
                 // restore previous size
                 autoSize = oldAutoSize;
