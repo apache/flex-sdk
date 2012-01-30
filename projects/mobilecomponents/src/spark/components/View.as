@@ -718,9 +718,9 @@ public class View extends Group implements IDataRenderer
         if (landscape && hasState("landscape"))
             return "landscape";
         
-        // If none of the above states are defined in the view will
-        // return the empty string. 
-        return null;
+        // If the appropriate state for the orientation of the device
+        // isn't defined, return the current state
+        return currentState;
     }
     
     //--------------------------------------------------------------------------
