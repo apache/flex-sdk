@@ -10535,8 +10535,10 @@ public class UIComponent extends FlexSprite
             }
             catch(e:Error)
             {
+                // Dispatch a callLaterError dynamic event for Design View. 
                 var callLaterErrorEvent:DynamicEvent = new DynamicEvent("callLaterError");
                 callLaterErrorEvent.error = e;
+                callLaterErrorEvent.source = this; 
                 systemManager.dispatchEvent(callLaterErrorEvent);
             }
         }
