@@ -336,8 +336,6 @@ use namespace mx_internal;
 //  Other metadata
 //--------------------------------------
 
-[AccessibilityClass(implementation="spark.accessibility.WindowAccImpl")]
-
 /**
  *  The frameworks must be initialized by WindowedSystemManager.
  *  This factoryClass will be automatically subclassed by any
@@ -453,18 +451,6 @@ use namespace mx_internal;
 public class Window extends SkinnableContainer implements IWindow
 {
     include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class mixins
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Placeholder for mixin by WindowAccImpl.
-     */
-    mx_internal static var createAccessibilityImplementation:Function;
 
     //--------------------------------------------------------------------------
     //
@@ -1705,15 +1691,6 @@ public class Window extends SkinnableContainer implements IWindow
     //  Overridden methods: UIComponent
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    override protected function initializeAccessibility():void
-    {
-        if (Window.createAccessibilityImplementation != null)
-            Window.createAccessibilityImplementation(this);
-    }
 
     /**
      *  @private
