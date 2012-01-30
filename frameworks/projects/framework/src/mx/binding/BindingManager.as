@@ -43,6 +43,11 @@ public class BindingManager
      *  @param destStr The destination field of this binding.
 	 *
      *  @param b The binding itself.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function addBinding(document:Object, destStr:String,
 									  b:Binding):void
@@ -61,6 +66,11 @@ public class BindingManager
      *  Set isEnabled for all bindings associated with a document.
      *
      *  @param document The document that contains the bindings.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function setEnabled(document:Object, isEnabled:Boolean):void
     {
@@ -85,6 +95,11 @@ public class BindingManager
 	 *
      *  @param destObj The actual destination object
 	 *  (used for RepeatableBinding).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function executeBindings(document:Object,
                                            destStr:String,
@@ -173,6 +188,11 @@ public class BindingManager
      *  destination string.
      *
      *  @param destinationString The Binding's destination string.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function debugBinding(destinationString:String):void
     {
