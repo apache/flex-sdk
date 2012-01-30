@@ -158,7 +158,7 @@ package mx.geom
 		if (value == _x)
 			return;
 		translateBy(value-_x,0,0);
-		invalidate(INVALIDATE_FROM_NONE,false);
+		invalidate(INVALIDATE_FROM_PROPERTY,false);
 	}
     /**
      * @private
@@ -183,7 +183,7 @@ package mx.geom
 		if (value == _y)
 			return;
 		translateBy(0,value-_y,0);
-		invalidate(INVALIDATE_FROM_NONE,false);
+		invalidate(INVALIDATE_FROM_PROPERTY,false);
 	}
 	
     /**
@@ -209,7 +209,7 @@ package mx.geom
 		if (value == _z)
 			return;
 		translateBy(0,0,value-_z);
-		invalidate(INVALIDATE_FROM_NONE,true);
+		invalidate(INVALIDATE_FROM_PROPERTY,true);
 	}
 	
     /**
