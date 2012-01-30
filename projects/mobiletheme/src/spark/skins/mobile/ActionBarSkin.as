@@ -101,7 +101,7 @@ public class ActionBarSkin extends MobileSkin
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 borderSize = 1;
                 layoutShadowHeight = 3;
                 layoutContentGroupHeight = 43;
@@ -329,7 +329,7 @@ public class ActionBarSkin extends MobileSkin
         var actionGroupWidth:Number = 0;
         
         // remove top and bottom padding from content group height
-        var contentGroupsHeight:Number = unscaledHeight - paddingTop - paddingBottom;
+        var contentGroupsHeight:Number = Math.max(0, unscaledHeight - paddingTop - paddingBottom);
         
         // FXG uses scale-9, drop shadow is drawn outside the bounds
         setElementSize(border, unscaledWidth, unscaledHeight + layoutShadowHeight);
