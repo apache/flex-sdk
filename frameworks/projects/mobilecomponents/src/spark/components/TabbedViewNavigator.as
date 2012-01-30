@@ -594,27 +594,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     /**
      *  @private
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */    
-    private function captureAnimationValues(component:UIComponent):Object
-    {
-        var values:Object = {   x:component.x,
-                                y:component.y,
-                                width:component.width,
-                                height:component.height,
-                                visible: component.visible,
-                                includeInLayout: component.includeInLayout,
-                                cacheAsBitmap: component.cacheAsBitmap };
-        
-        return values;
-    }
-     
-    /**
-     *  @private
      */ 
     private function setupNavigator(navigator:ViewNavigatorBase):void
     {
@@ -739,6 +718,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         if (tabBarVisibilityChanged)
             commitVisibilityChanges();
+        
+        // When true, this flag prevents tab bar animations from running.  This flag 
+        // is only set to  true if the application received an orientation event this 
+        // frame (See ViewNavigatorBase).  The flag is reset at the end of commitProperties 
+        // so that animations run again.
+        if (disableNextControlAnimation)
+            disableNextControlAnimation = false;
     }
     
     /**
@@ -794,7 +780,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                                          createTabBarHideEffect();
                 
                 tabBarVisibilityEffect.addEventListener(EffectEvent.EFFECT_END, 
-                    visibilityAnimation_completeHandler);
+                                                        visibilityAnimation_effectEndHandler);
                 tabBarVisibilityEffect.play();
             }
             else
@@ -804,10 +790,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 
                 if (activeView)
                     activeView.setTabBarVisible(showingTabBar);
-
-                // When this flag is true, the animations should only be disabled for the 
-                // current frame, so reset the flag so animations play on subsequent frames.
-                disableNextControlAnimation = false;
             }
         }
 
@@ -1100,9 +1082,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function visibilityAnimation_completeHandler(event:EffectEvent):void
+    private function visibilityAnimation_effectEndHandler(event:EffectEvent):void
     {
-        event.target.removeEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
+        event.target.removeEventListener(EffectEvent.EFFECT_END, visibilityAnimation_effectEndHandler);
         tabBarVisibilityEffect = null;
         
         if (activeView)
@@ -1123,6 +1105,18 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         {
             contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
             contentGroup.cacheAsBitmap = contentGroupProps.start.cacheAsBitmap;
+            
+            // The default tab bar hide and show animation will animate the width and height
+            // of the navigator's contentGroup.  If the explicitWidth or explicitHeight properties
+            // were NaN before the animation, they'll be set to real values by the animation.  As
+            // a result, it is necessary to restore them to NaN so that layout properly sizes these
+            // components. 
+            if (isNaN(contentGroupProps.start.explicitHeight))
+                contentGroup.explicitHeight = NaN;
+            
+            if (isNaN(contentGroupProps.start.explicitWidth))
+                contentGroup.explicitWidth = NaN;
+            
             contentGroupProps = null;
         }
     }
