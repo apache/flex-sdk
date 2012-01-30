@@ -28,6 +28,11 @@ use namespace mx_internal;
  *  you do not create one yourself.
  *
  *  @see mx.effects.Sequence
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class SequenceInstance extends CompositeEffectInstance
 {
@@ -44,6 +49,11 @@ public class SequenceInstance extends CompositeEffectInstance
 	 *
 	 *  @param target This argument is ignored for Sequence effects.
 	 *  It is included only for consistency with other types of effects.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SequenceInstance(target:Object)
 	{
@@ -257,6 +267,11 @@ public class SequenceInstance extends CompositeEffectInstance
 	 *  Interrupts any effects that are currently playing, skips over
 	 *  any effects that haven't started playing, and jumps immediately
 	 *  to the end of the composite effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function end():void
 	{
@@ -306,6 +321,11 @@ public class SequenceInstance extends CompositeEffectInstance
 	*  This method implements the method of the superclass.
 	*
 	*  @param childEffect The child effect.
+	*  
+	*  @langversion 3.0
+	*  @playerversion Flash 9
+	*  @playerversion AIR 1.1
+	*  @productversion Flex 3
 	*/
 	override protected function onEffectEnd(childEffect:IEffectInstance):void
 	{
@@ -352,6 +372,11 @@ public class SequenceInstance extends CompositeEffectInstance
      * when they would have ended). Note that 'skipping' a child effect may
      * entail playing it with zero duration to avoid side-effects that may
      * occur from not playing the effect at all.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function seek(seekTime:Number):void
     {
@@ -375,6 +400,11 @@ public class SequenceInstance extends CompositeEffectInstance
         *   - else end the currently playing effects and start over from
         *   the beginning (playing effects with no duration or skipping,
         *   then playing/seeking for the correct child effect
+        *  
+        *  @langversion 3.0
+        *  @playerversion Flash 9
+        *  @playerversion AIR 1.1
+        *  @productversion Flex 3
         */
         // TODO (chaase): handle startDelay     
         
@@ -474,6 +504,11 @@ public class SequenceInstance extends CompositeEffectInstance
                 offset = isNaN(offset) ? 0 : offset;
                 TweenEffectInstance(childEffect).seek(offset);
             }
+            *  
+            *  @langversion 3.0
+            *  @playerversion Flash 9
+            *  @playerversion AIR 1.1
+            *  @productversion Flex 3
             */
             
             currentSet.push(childEffect);
@@ -535,6 +570,11 @@ public class SequenceInstance extends CompositeEffectInstance
 		}
 		
 		currentInstanceDuration += childEffect.duration;
+		*  
+		*  @langversion 3.0
+		*  @playerversion Flash 9
+		*  @playerversion AIR 1.1
+		*  @productversion Flex 3
 		*/
 
 		return true;
