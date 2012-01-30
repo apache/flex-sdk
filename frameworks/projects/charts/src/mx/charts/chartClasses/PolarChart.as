@@ -238,7 +238,12 @@ public class PolarChart extends ChartBase
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function commitProperties():void
     {
