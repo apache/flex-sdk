@@ -165,7 +165,7 @@ public class Effect extends EventDispatcher implements IEffect
         // Go through and remove any before/after values that are the same.
         for (var i:int = 0; i < propChanges.length; i++)
         {
-            if(propChanges[i].stripUnchangedValues == false)
+            if (propChanges[i].stripUnchangedValues == false)
                 continue;
 
             for (var prop:Object in propChanges[i].start)
