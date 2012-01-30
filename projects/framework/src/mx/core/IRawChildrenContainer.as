@@ -23,6 +23,11 @@ package mx.core
  *  and dividers.
  *
  *  @see mx.core.Container
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IRawChildrenContainer
 {
@@ -40,6 +45,11 @@ public interface IRawChildrenContainer
 	 *  Returns an IChildList representing all children.
 	 *  This is used by FocusManager to find non-content children that may
 	 *  still receive focus (for example, components in ControlBars).
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get rawChildren():IChildList;
 }
