@@ -131,6 +131,7 @@ public class ViewNavigatorSkin extends MobileSkin
         _isOverlay = (currentState.indexOf("Overlay") >= 1);
         
         // Force a layout pass on the components
+        invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
     }
@@ -138,9 +139,9 @@ public class ViewNavigatorSkin extends MobileSkin
     /**
      *  @private
      */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        super.layoutContents(unscaledWidth, unscaledHeight);
         
         var actionBarHeight:Number = 0;
         
@@ -153,6 +154,7 @@ public class ViewNavigatorSkin extends MobileSkin
             actionBar.setLayoutBoundsPosition(0, 0);
             actionBarHeight = actionBar.getLayoutBoundsHeight();
             
+            // update ActionBar backgroundAlpha when in overlay mode
             var backgroundAlpha:Number = (_isOverlay) ? 0.75 : 1;
             actionBar.setStyle("backgroundAlpha", backgroundAlpha);
         }
