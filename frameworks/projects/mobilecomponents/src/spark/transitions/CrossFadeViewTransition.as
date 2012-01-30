@@ -145,12 +145,11 @@ public class CrossFadeViewTransition extends ViewTransitionBase
         transitionGroup.validateNow();
         
         // Construction fade animation sequence.
-        var animation:Animate = new Animate();
+        var animation:Animate = new Animate(transitionGroup);
         var vector:Vector.<MotionPath> = new Vector.<MotionPath>();
         vector.push(new SimpleMotionPath("alpha", 1, 0));
         animation.motionPaths = vector;
         animation.easer = easer;
-        animation.targets = [transitionGroup];
         animation.duration = duration;
         
         return animation;
