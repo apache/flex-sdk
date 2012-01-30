@@ -2041,10 +2041,8 @@ public class WindowedApplication extends Application implements IWindow
             systemManager.stage.nativeWindow.dispatchEvent(f);
             if (!f.isDefaultPrevented())
             {
-                invalidateProperties();
-                invalidateSize();
-                invalidateDisplayList();
                 toMax = true;
+                invalidateProperties();
             }
         }
     }
@@ -2430,6 +2428,15 @@ public class WindowedApplication extends Application implements IWindow
             dispatchEvent(new Event("windowUnminimize"));
         }
 
+        // If we have been maximized or restored then invalidate so we can
+        // resize.
+        if (event.afterDisplayState == NativeWindowDisplayState.MAXIMIZED ||
+            event.afterDisplayState == NativeWindowDisplayState.NORMAL)
+        {
+            invalidateSize();
+            invalidateDisplayList();
+        }
+        
     }
 
     /**
