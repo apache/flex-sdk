@@ -11,6 +11,7 @@
 package spark.components
 {
 import flash.events.Event;
+import flash.utils.Dictionary;
 
 import mx.collections.ArrayCollection;
 import mx.collections.IList;
@@ -67,7 +68,9 @@ use namespace mx_internal;
  *  The locale of the component. Controls how dates are formatted, e.g. in what order the fields
  *  are listed and what additional date-related characters are shown if any. Uses standard locale
  *  identifiers as described in Unicode Technical Standard #35. For example "en", "en_US" and "en-US"
- *  are all English, "ja" is Japanese.
+ *  are all English, "ja" is Japanese. If the specified locale is not supported on the platform, "en_US"
+ *  will be used. To determine if a locale is supported, use 
+ *  <code>DateTimeFormatter.getAvailableLocaleIDNames()</code>
  *
  *  <p>The default value is undefined. This property inherits its value from an ancestor; if still
  *  undefined, it inherits from the global <code>locale</code> style.</p>
@@ -181,9 +184,6 @@ public class DateSpinner extends SkinnableComponent
      */
     protected static const MERIDIAN_ITEM:String = "meridianItem";
     
-    // number of days to show by default in DATE_AND_TIME mode
-    private static const DEFAULT_DATE_RANGE:int = 730;
-    
     private static const MS_IN_DAY:Number = 1000 * 60 * 60 * 24;
     
     // choosing January 1980 to guarantee 31 days in the month
@@ -192,7 +192,7 @@ public class DateSpinner extends SkinnableComponent
     // meridian
     private static const AM:String = "am";
     private static const PM:String = "pm";
-    
+
     // default min/max date
     private static const MIN_DATE_DEFAULT:Date = new Date(1601, 0, 1);
     private static const MAX_DATE_DEFAULT:Date = new Date(9999, 11, 31, 23, 59, 59, 999);
@@ -222,6 +222,9 @@ public class DateSpinner extends SkinnableComponent
     //  Variables
     //
     //--------------------------------------------------------------------------
+    
+    private var dispatchValueCommitEvent:Boolean = false;
+    private var dispatchChangeEvent:Boolean = false;
     
     private var populateYearDataProvider:Boolean = true;
     private var populateMonthDataProvider:Boolean = true;
@@ -254,6 +257,12 @@ public class DateSpinner extends SkinnableComponent
     private var longestDateItem:Object;
     private var longestYearItem:Object;
     
+    // controls whether we should snap to or animate to spinner values
+    private var useAnimationToSetSelectedDate:Boolean = false;
+    
+    // keep track of which lists are currently animating for programmatic animations
+    private var listsBeingAnimated:Dictionary = new Dictionary();
+
     //--------------------------------------------------------------------------
     //
     //  Skin parts 
@@ -545,8 +554,6 @@ public class DateSpinner extends SkinnableComponent
         return _selectedDate;
     }
     
-    private var selectedDateModifiedByUser:Boolean;
-    
     /**
      *  @private
      */
@@ -554,7 +561,7 @@ public class DateSpinner extends SkinnableComponent
     {
         // no-op if null; there must always be a selectedDate
         if (value == null)
-            return;
+            value = new Date();
         
         // short-circuit if no change
         if (value.time == _selectedDate.time)
@@ -563,7 +570,24 @@ public class DateSpinner extends SkinnableComponent
         _selectedDate = value;
         syncSelectedDate = true;
         
+        dispatchValueCommitEvent = true;
+
         invalidateProperties();
+    }
+    
+    mx_internal function animateToSelectedDate(value:Date):void
+    {
+        // no-op if null; there must always be a selectedDate
+        if (value == null)
+            value = new Date();
+            
+        // short-circuit if no change
+        if (value.time == _selectedDate.time)
+            return;
+
+        selectedDate = value;
+        
+        useAnimationToSetSelectedDate = true;
     }
     
     //----------------------------------
@@ -604,8 +628,6 @@ public class DateSpinner extends SkinnableComponent
     {
         super.commitProperties();
         
-        var listsNewlyCreated:Boolean = false;
-        
         // TODO: CHECK ON THIS ASSUMPTION
         // TODO: Jason says this is wrong; just use styleName = DateSpinner to link styles
         //       but having trouble getting that to work
@@ -635,7 +657,6 @@ public class DateSpinner extends SkinnableComponent
             setupDateItemLists();
             
             displayModeChanged = false;
-            listsNewlyCreated = true;
             syncSelectedDate = true;
         }
 
@@ -647,7 +668,7 @@ public class DateSpinner extends SkinnableComponent
         // ==================================================
         
         // correct any integrity violations
-        if (minDateChanged || maxDateChanged || syncSelectedDate || listsNewlyCreated || minuteStepSizeChanged)
+        if (minDateChanged || maxDateChanged || syncSelectedDate || minuteStepSizeChanged)
         {        
             // check min <= max
             if (minDate.time > maxDate.time)
@@ -661,6 +682,8 @@ public class DateSpinner extends SkinnableComponent
                 else
                     _maxDate.time = _minDate.time + MS_IN_DAY; // max date was changed past min
             }
+            
+            var origSelectedDate:Date = new Date(_selectedDate.time);
             
             // check minDate <= selectedDate <= maxDate
             if (!selectedDate || selectedDate.time < minDate.time)
@@ -689,6 +712,9 @@ public class DateSpinner extends SkinnableComponent
                 
                 minuteStepSizeChanged = false;
             }
+            
+            if (origSelectedDate.time != _selectedDate.time)
+                dispatchValueCommitEvent = true;
 
             disableInvalidSpinnerValues(selectedDate);
             
@@ -699,16 +725,34 @@ public class DateSpinner extends SkinnableComponent
         // update selections on the lists if necessary
         if (syncSelectedDate)
         {
-            updateListsToSelectedDate(listsNewlyCreated);
+            updateListsToSelectedDate(useAnimationToSetSelectedDate);
             syncSelectedDate = false;
+            
+            if (dispatchChangeEvent || dispatchValueCommitEvent)
+            {
+                // dispatch the events: now or after animation?
+                if (useAnimationToSetSelectedDate)
+                {
+                    // we animated the list ourselves; wait for lists
+                    // to report VALUE_COMMIT before dispatching our events
+                    var numEls:int = listContainer.numElements;
+                    var sl:SpinnerList;
+                    for (var elIdx:int = 0; elIdx < numEls; elIdx++)
+                    {
+                        sl = listContainer.getElementAt(elIdx) as SpinnerList;
+                        sl.addEventListener(FlexEvent.VALUE_COMMIT, waitForSpinnerListValueCommit_handler);
+                    }
+                }
+                else
+                {
+                    // dispatch our events immediately
+                    dispatchSelectedDateChangedEvents();
+                }
+            }
         }
-        
-        if (selectedDateModifiedByUser)
-        {
-            selectedDateModifiedByUser = false;
-            if (hasEventListener(Event.CHANGE))
-                dispatchEvent(new Event(Event.CHANGE));
-        }
+
+        // reset flags
+        useAnimationToSetSelectedDate = false;
     }
     
     override public function styleChanged(styleProp:String):void
@@ -762,9 +806,7 @@ public class DateSpinner extends SkinnableComponent
         // if itemIndex == itemCount - 1, align as last column
         
         var s:SpinnerList = SpinnerList(createDynamicPartInstance("dateItemList"));
-        //        s.addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START, dateItemList_touchEventHandler);
-        //        s.addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END, dateItemList_touchEventHandler);
-        //      TODO: s.itemRenderer = // ...; for first column (or equivalent)
+        s.percentHeight = 100;
         return s;
     }
     
@@ -964,12 +1006,22 @@ public class DateSpinner extends SkinnableComponent
         populateMeridianDataProvider = false;
     }
     
-    // set the selected index on the SpinnerList. use animation only if the lists
-    // were not newly created
-    private function goToIndex(list:SpinnerList, newIndex:int, listsCreated:Boolean):void
+    // set the selected index on the SpinnerList. use animation only if requested
+    private function goToIndex(list:SpinnerList, newIndex:int, useAnimation:Boolean):void
     {
-        listsCreated ? list.selectedIndex = newIndex
-            : list.animateToSelectedIndex(newIndex);
+        // don't do anything if it's already on that index
+        if (list.selectedIndex == newIndex)
+            return;
+        
+        if (useAnimation)
+        {
+            list.animateToSelectedIndex(newIndex);
+            listsBeingAnimated[list] = true;
+        }
+        else
+        {
+            list.selectedIndex = newIndex;
+        }
     }
     
     // generate objects to populate a SpinnerList with months
@@ -1092,51 +1144,48 @@ public class DateSpinner extends SkinnableComponent
         return null;
     }
     
-    private function updateListsToSelectedDate(listsNewlyCreated:Boolean):void
+    private function updateListsToSelectedDate(useAnimation:Boolean):void
     {
         var newIndex:int;
         if (yearList)
         {
             dateTimeFormatter.dateTimePattern = dateTimeFormatterEx.getYearPattern();
             newIndex = yearList.dataProvider.getItemIndex( generateDateItemObject(dateTimeFormatter.format(selectedDate), selectedDate.fullYear) );
-            goToIndex(yearList, newIndex, listsNewlyCreated);
+            goToIndex(yearList, newIndex, useAnimation);
         }
         
         if (monthList)
-            goToIndex(monthList, selectedDate.month, listsNewlyCreated);
+            goToIndex(monthList, selectedDate.month, useAnimation);
         
         if (dateList)
         {
             if (displayMode == DateSelectorDisplayMode.DATE)
             {
-                goToIndex(dateList, selectedDate.date - 1, listsNewlyCreated);
+                goToIndex(dateList, selectedDate.date - 1, useAnimation);
             }
             else // DATE_AND_TIME mode
             {
                 newIndex = dateList.dataProvider.getItemIndex( generateDateItemObject(dayMonthDateFormatter.format(selectedDate), selectedDate.time) );
-                goToIndex(dateList, newIndex, listsNewlyCreated);
+                goToIndex(dateList, newIndex, useAnimation);
             }
         }
         if (hourList)
         {
             // TODO: double-check the math
             newIndex = use24HourTime ? selectedDate.hours : (selectedDate.hours + 11) % 12;
-            goToIndex(hourList, newIndex, listsNewlyCreated);
+            goToIndex(hourList, newIndex, useAnimation);
         }
         if (minuteList)
         {
             // TODO: calculate instead of iterate?
             newIndex = findDateItemIndexInDataProvider(selectedDate.minutes, minuteList.dataProvider);
-            goToIndex(minuteList, newIndex, listsNewlyCreated);
+            goToIndex(minuteList, newIndex, useAnimation);
         }
         if (!use24HourTime && meridianList)
         {
             newIndex = selectedDate.hours < 12 ? 0 : 1;
-            goToIndex(meridianList, newIndex, listsNewlyCreated);
+            goToIndex(meridianList, newIndex, useAnimation);
         }
-        
-        if (hasEventListener(FlexEvent.VALUE_COMMIT))
-            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
     
     // modify existing date item spinner list data providers to mark
@@ -1223,6 +1272,7 @@ public class DateSpinner extends SkinnableComponent
                 }
             }
         }
+
         
         // disable hours that fall outside of the min/max dates
         if (hourList && (displayMode == DateSelectorDisplayMode.TIME || displayMode == DateSelectorDisplayMode.DATE_AND_TIME))
@@ -1302,8 +1352,6 @@ public class DateSpinner extends SkinnableComponent
                 }
             }
         }
-        
-        // TODO: if we're using YearRangeList, recreate that to match new dates
     }
     
     // clean out the container: remove all elements, detach event listeners, null out references
@@ -1558,6 +1606,55 @@ public class DateSpinner extends SkinnableComponent
             dayMonthDateFormatter.clearStyle("locale");
     }
     
+    // used to delay the dispatch of change events from this DateSpinner until
+    // the underlying SpinnerLists have stopped animating (signified by
+    // a VALUE_COMMIT event)
+    private function waitForSpinnerListValueCommit_handler(event:FlexEvent):void
+    {
+        // if listsBeingAnimated contains event.target remove it
+        if (listsBeingAnimated[event.target])
+        {
+            delete listsBeingAnimated[event.target];
+        }
+
+        // if we're still waiting on any lists, don't dispatch yet
+        for (var key:Object in listsBeingAnimated)
+        {
+            return;
+        }
+        
+        // if no more in listsBeingAnimated, dispatch
+        dispatchSelectedDateChangedEvents();
+        
+        // clean up
+        var numEls:int = listContainer.numElements;
+        var sl:SpinnerList;
+        for (var elIdx:int = 0; elIdx < numEls; elIdx++)
+        {
+            sl = listContainer.getElementAt(elIdx) as SpinnerList;
+            sl.removeEventListener(FlexEvent.VALUE_COMMIT, waitForSpinnerListValueCommit_handler);
+        }
+    }
+    
+    // dispatch the appropriate events when selectedDate changed
+    private function dispatchSelectedDateChangedEvents():void
+    {
+        if (dispatchChangeEvent)
+        {
+            if (hasEventListener(Event.CHANGE))
+                dispatchEvent(new Event(Event.CHANGE));
+
+            dispatchChangeEvent = false;
+        }
+        if (dispatchValueCommitEvent)
+        {
+            if (hasEventListener(FlexEvent.VALUE_COMMIT))
+                dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+                        
+            dispatchValueCommitEvent = false;
+        }
+    }
+    
     //----------------------------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1581,8 +1678,6 @@ public class DateSpinner extends SkinnableComponent
 
         var tempDate:Date;
         var cd:CalendarDate;
-        
-        selectedDateModifiedByUser = true;
         
         var numLists:int = listContainer.numElements;
         var currentList:SpinnerList;
@@ -1632,7 +1727,10 @@ public class DateSpinner extends SkinnableComponent
                         tempDate = new Date(newValue.data, selectedDate.month, 1);
                         cd = new CalendarDate(tempDate);
                         if (dateList.selectedItem.data > cd.numDaysInMonth)
+                        {
                             newDate.date = cd.numDaysInMonth;
+                            dateRolledBack = true;
+                        }
                     }
                     newDate.fullYear = newValue.data;
                     break;
@@ -1659,12 +1757,15 @@ public class DateSpinner extends SkinnableComponent
                     break;
                 default:
                     // unknown list; don't know how to handle
-                    selectedDateModifiedByUser = false;
                     break;
             }
         }
 
-        selectedDate = newDate;
+        dispatchChangeEvent = true;
+        if (dateRolledBack)
+            animateToSelectedDate(newDate);
+        else
+            selectedDate = newDate;
     }
 }
 }
