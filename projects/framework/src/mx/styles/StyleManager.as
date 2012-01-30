@@ -27,6 +27,11 @@ import mx.core.Singleton;
  *  </ul>
  *
  *  @see mx.styles.CSSStyleDeclaration
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class StyleManager
 {
@@ -41,6 +46,11 @@ public class StyleManager
     /**
      *  The <code>getColorName()</code> method returns this value if the passed-in
      *  String is not a legitimate color name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const NOT_A_COLOR:uint = 0xFFFFFFFF;
 
@@ -164,6 +174,11 @@ public class StyleManager
      *  Class selectors are prepended with a period.
      *  
      *  @return An Array of all of the selectors
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static function get selectors():Array
     {
@@ -174,6 +189,11 @@ public class StyleManager
      *  Determines whether any of the selectors declared a pseudo selector
      *  for the given state. This is used to avoid unnecessary style
      *  regeneration between state changes.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static function hasPseudoSelector(state:String):Boolean
     {
@@ -184,6 +204,11 @@ public class StyleManager
      *  Determines whether any of the selectors registered with the style
      *  manager have been advanced selectors (descendant selector, id selector,
      *  non-global class selector, pseudo selector).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static function hasAdvancedSelectors():Boolean
     {
@@ -196,6 +221,11 @@ public class StyleManager
      * 
      *  @param subject The style subject.
      *  @return Array of style declarations for this subject.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static function getStyleDeclarations(subject:String):Array
     {
@@ -226,6 +256,11 @@ public class StyleManager
      *  @param selector The name of the CSS selector.
      *
      *  @return The style declaration whose name matches the <code>selector</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getStyleDeclaration(
                                 selector:String):CSSStyleDeclaration
@@ -280,6 +315,11 @@ public class StyleManager
      *  because one of these style declaration methods might not yet have been called with the 
      *  <code>update</code> property set to <code>true</code>.</p>
      *  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function setStyleDeclaration(
                                 selector:String,
@@ -310,6 +350,11 @@ public class StyleManager
      *  method.
      *  
      *  @see #setStyleDeclaration()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function clearStyleDeclaration(selector:String,
                                                  update:Boolean):void
@@ -336,6 +381,11 @@ public class StyleManager
      *  already used becomes inheriting.</p>
      *
      *  @param styleName The name of the style that is added to the list of styles that can inherit values.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function registerInheritingStyle(styleName:String):void
     {
@@ -348,6 +398,11 @@ public class StyleManager
      *  @param styleName The name of the style that you test to see if it is inheriting.
      *
      *  @return Returns <code>true</code> if the specified style is inheriting.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isInheritingStyle(styleName:String):Boolean
     {
@@ -361,6 +416,11 @@ public class StyleManager
      *
      *  @return Returns <code>true</code> if the specified TextFormat style
      *  is inheriting.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isInheritingTextFormatStyle(styleName:String):Boolean
     {
@@ -375,6 +435,11 @@ public class StyleManager
      *  to make its measured size get recalculated later.
      *
      *  @param styleName The name of the style that you add to the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function registerSizeInvalidatingStyle(styleName:String):void
     {
@@ -392,6 +457,11 @@ public class StyleManager
      *
      *  @return Returns <code>true</code> if the specified style is one
      *  which may affect the measured size of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isSizeInvalidatingStyle(styleName:String):Boolean
     {
@@ -407,6 +477,11 @@ public class StyleManager
      *  later.</p>
      *
      *  @param styleName The name of the style to register.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function registerParentSizeInvalidatingStyle(styleName:String):void
     {
@@ -426,6 +501,11 @@ public class StyleManager
      *  @return Returns <code>true</code> if the specified style is one
      *  which may affect the measured size of the component's
      *  parent container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isParentSizeInvalidatingStyle(styleName:String):Boolean
     {
@@ -440,6 +520,11 @@ public class StyleManager
      *  parent container to make it redraw and/or relayout its children.
      *
      *  @param styleName The name of the style to register.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function registerParentDisplayListInvalidatingStyle(
                                 styleName:String):void
@@ -460,6 +545,11 @@ public class StyleManager
      *  @return Returns <code>true</code> if the specified style is one
      *  which may affect the appearance or layout of the component's
      *  parent container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isParentDisplayListInvalidatingStyle(
                                 styleName:String):Boolean
@@ -474,6 +564,11 @@ public class StyleManager
      *  If you later access this color name, the value is not case-sensitive.
      *
      *  @param colorValue Color value, for example, 0x0000FF.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function registerColorName(colorName:String, colorValue:uint):void
     {
@@ -488,6 +583,11 @@ public class StyleManager
      *
      *  @return Returns <code>true</code> if <code>colorName</code> is an alias
      *  for a color.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isColorName(colorName:String):Boolean
     {
@@ -517,6 +617,11 @@ public class StyleManager
      *
      *  @return Returns a uint that represents the color value or <code>NOT_A_COLOR</code>
      *  if the value of the <code>colorName</code> property is not an alias for a color.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getColorName(colorName:Object):uint
     {
@@ -532,6 +637,11 @@ public class StyleManager
      *  such as <code>"#FF0000"</code>..
      *
      *  @param colors An Array of color names.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getColorNames(colors:Array /* of Number or String */):void
     {
@@ -556,6 +666,11 @@ public class StyleManager
      *  to this method, it returns <code>true</code> if the style
      *  was set and <code>false</code> if it was not set.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isValidStyleValue(value:*):Boolean
     {
@@ -591,6 +706,11 @@ public class StyleManager
      *          StyleEvent.ERROR.
      *
      *  @see #setStyleDeclaration()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function loadStyleDeclarations(
                          url:String, update:Boolean = true,
@@ -612,6 +732,11 @@ public class StyleManager
      *  method.
      *  
      *  @see #setStyleDeclaration()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function unloadStyleDeclarations(
                                 url:String, update:Boolean = true):void
