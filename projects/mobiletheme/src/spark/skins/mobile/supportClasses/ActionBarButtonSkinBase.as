@@ -17,9 +17,13 @@ import flash.display.Graphics;
 import flash.geom.Matrix;
 
 import mx.core.DeviceDensity;
+import mx.core.mx_internal;
 import mx.utils.ColorUtil;
 
+import spark.skins.mobile.ActionBarSkin;
 import spark.skins.mobile.ButtonSkin;
+
+use namespace mx_internal;
 
 /**
  *  Base skin class for ActionBar buttons. Adds flat-look button border and
@@ -40,11 +44,6 @@ public class ActionBarButtonSkinBase extends ButtonSkin
     
     private static var matrix:Matrix = new Matrix();
     
-    // Used for gradient background
-    private static const alphas:Array = [1, 1, 1];
-    
-    private static const ratios:Array = [0, 127.5, 255];
-    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -56,10 +55,22 @@ public class ActionBarButtonSkinBase extends ButtonSkin
         
         switch (authorDensity)
         {
+            case DeviceDensity.PPI_320:
+            {
+                layoutBorderSize = 1;
+                layoutPaddingTop = 12;
+                layoutPaddingBottom = 10;
+                layoutPaddingLeft = 20;
+                layoutPaddingRight = 20;
+                layoutMeasuredWidth = 106;
+                layoutMeasuredHeight = 86;
+                
+                break;
+            }
             case DeviceDensity.PPI_240:
             {
                 layoutBorderSize = 1;
-                layoutPaddingTop = 8;
+                layoutPaddingTop = 9;
                 layoutPaddingBottom = 8;
                 layoutPaddingLeft = 16;
                 layoutPaddingRight = 16;
@@ -72,17 +83,33 @@ public class ActionBarButtonSkinBase extends ButtonSkin
             {
                 // default PPI160
                 layoutBorderSize = 1;
-                layoutPaddingTop = 7
-                layoutPaddingBottom = 7;
+                layoutPaddingTop = 6;
+                layoutPaddingBottom = 5;
                 layoutPaddingLeft = 10;
                 layoutPaddingRight = 10;
-                layoutMeasuredWidth = 55;
-                layoutMeasuredHeight = 44;
+                layoutMeasuredWidth = 53;
+                layoutMeasuredHeight = 43;
                 
                 break;
             }
         }
     }
+    
+    /**
+     * @private
+     * Disabled state for ActionBar buttons only applies to label and icon
+     */
+    override protected function commitDisabled(isDisabled:Boolean):void
+    {
+        labelDisplay.alpha = (isDisabled) ? 0.5 : 1;
+        labelDisplayShadow.alpha = (isDisabled) ? 0.5 : 1;
+        
+        var icon:DisplayObject = getIconDisplay();
+        
+        if (icon != null)
+            icon.alpha = (isDisabled) ? 0.5 : 1;
+    }
+    
     
     //--------------------------------------------------------------------------
     //
@@ -100,34 +127,33 @@ public class ActionBarButtonSkinBase extends ButtonSkin
         measuredHeight =  Math.max(layoutMeasuredHeight, measuredHeight);
     }
     
-    override protected function layoutBorder(bgImg:DisplayObject, unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
     {
-        // extend 1px outside measured width to overlap highlight borders
-        setElementSize(bgImg, unscaledWidth + layoutBorderSize, unscaledHeight);
-        setElementPosition(bgImg, 0, 0);
+        var chromeColor:uint = getChromeColor();
+        
+        // solid color fill in down state
+        if (currentState == "down")
+        {
+            chromeColorGraphics.beginFill(chromeColor);
+            return;
+        }
+        
+        var colors:Array = [];
+        
+        // FIXME (jasonsj): overlayMode alpha on background only or entire ActionBar?
+        var backgroundAlphas:Array = [1, 1];
+        
+        // Draw the gradient background
+        matrix.createGradientBox(unscaledWidth - layoutBorderSize, unscaledHeight, Math.PI / 2, 0, 0);
+        colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
+        colors[1] = chromeColor;
+        
+        chromeColorGraphics.beginGradientFill(GradientType.LINEAR, colors, backgroundAlphas, ActionBarSkin.ACTIONBAR_CHROME_COLOR_RATIOS, matrix);
     }
     
     override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
     {
-        drawBackgroundOffset(chromeColorGraphics, 0, unscaledWidth, unscaledHeight);
-    }
-    
-    protected function drawBackgroundOffset(chromeColorGraphics:Graphics, xOffset:Number, backgroundWidth:Number, backgroundHeight:Number):void
-    {
-        var colors:Array = [];
-        
-        // Draw the gradient background
-        matrix.createGradientBox(backgroundWidth, backgroundHeight, Math.PI / 2, 0, 0);
-        var chromeColor:uint = getChromeColor();
-        colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
-        colors[1] = chromeColor;
-        colors[2] = ColorUtil.adjustBrightness2(chromeColor, -20);
-        
-        chromeColorGraphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
-        
-        // adjust for separator
-        chromeColorGraphics.drawRect(xOffset, 0, backgroundWidth, backgroundHeight);
-        chromeColorGraphics.endFill();
+        chromeColorGraphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
     }
 }
 }
