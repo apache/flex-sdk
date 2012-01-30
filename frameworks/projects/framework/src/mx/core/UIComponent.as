@@ -46,6 +46,7 @@ import flash.utils.getQualifiedClassName;
 import mx.automation.IAutomationObject;
 import mx.binding.BindingManager;
 import mx.controls.IFlexContextMenu;
+import mx.core.LayoutDirection;
 import mx.effects.EffectManager;
 import mx.effects.IEffect;
 import mx.effects.IEffectInstance;
@@ -7599,7 +7600,7 @@ public class UIComponent extends FlexSprite
         
         const mirror:Boolean = (parentElt) 
             ? (parentElt.layoutDirection != thisLayoutDirection)
-            : ("ltr" != thisLayoutDirection);
+            : (LayoutDirection.LTR != thisLayoutDirection);
       
         if ((_layoutFeatures) ? (mirror != _layoutFeatures.mirror) : mirror)
         {
@@ -9797,7 +9798,7 @@ public class UIComponent extends FlexSprite
      *  switch statement of the keyDownHandler, map Keyboard.LEFT to
      *  Keyboard.RIGHT, and similiarly for Keyboard.RIGHT.  
      * 
-     *  Optionally, Keyboard.UP and can tied with Keyboard.LEFT and 
+     *  Optionally, Keyboard.UP can be tied with Keyboard.LEFT and 
      *  Keyboard.DOWN can be tied with Keyboard.RIGHT since some components 
      *  do this.
      * 
@@ -9817,26 +9818,26 @@ public class UIComponent extends FlexSprite
             case Keyboard.DOWN:
             {
                 // typically, if ltr, the same as RIGHT
-                if (mapUpDown && layoutDirection == "rtl")
+                if (mapUpDown && layoutDirection == LayoutDirection.RTL)
                     keyCode = Keyboard.LEFT;
                 break;
             }
             case Keyboard.RIGHT:
             {
-                if (layoutDirection == "rtl")
+                if (layoutDirection == LayoutDirection.RTL)
                     keyCode = Keyboard.LEFT;
                 break;
             }
             case Keyboard.UP:
             {
                 // typically, if ltr, the same as LEFT
-                if (mapUpDown && layoutDirection == "rtl")
+                if (mapUpDown && LayoutDirection.RTL)
                     keyCode = Keyboard.RIGHT;                
                 break;
             }
             case Keyboard.LEFT:
             {
-                if (layoutDirection == "rtl")
+                if (layoutDirection == LayoutDirection.RTL)
                     keyCode = Keyboard.RIGHT;                
                 break;
             }
@@ -12516,7 +12517,7 @@ public class UIComponent extends FlexSprite
     /**
      *  @private
      *  Helper function to update the storage vairable _transform.
-     *  Also updates the <code>target</code> proeprty of the new and the old
+     *  Also updates the <code>target</code> property of the new and the old
      *  values.
      */
     private function setTransform(value:flash.geom.Transform):void
