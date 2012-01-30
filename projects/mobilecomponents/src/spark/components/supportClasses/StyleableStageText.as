@@ -2540,8 +2540,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function stageText_keyDownHandler(event:KeyboardEvent):void
     {
-        if (event.keyCode == Keyboard.ENTER && !_multiline)
+        // Taps on the Enter key on soft keyboards may send us the Next keycode
+        if ((event.keyCode == Keyboard.ENTER || event.keyCode == Keyboard.NEXT)
+            && !_multiline)
+        {
             dispatchEvent(new FlexEvent(FlexEvent.ENTER));
+        }
         
         // Keyboard events are documented as bubbling. However, all events
         // coming from StageText are set to not bubble. So we need to create an
@@ -2549,6 +2553,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         dispatchEvent(new KeyboardEvent(event.type, true, event.cancelable, 
             event.charCode, event.keyCode, event.keyLocation, event.ctrlKey, 
             event.altKey, event.shiftKey, event.controlKey, event.commandKey));
+        
+        event.preventDefault();
     }
     
     private function stageText_keyUpHandler(event:KeyboardEvent):void
@@ -2559,6 +2565,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         dispatchEvent(new KeyboardEvent(event.type, true, event.cancelable, 
             event.charCode, event.keyCode, event.keyLocation, event.ctrlKey, 
             event.altKey, event.shiftKey, event.controlKey, event.commandKey));
+        
+        event.preventDefault();
     }
     
     private function stageText_softKeyboardHandler(event:SoftKeyboardEvent):void
@@ -2641,10 +2649,10 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function stage_transitionEndHandler(event:FlexEvent):void
     {
+        viewTransitionRunning = false;
+        
         endAnimation();
         ignoreProxyUpdatesDuringTransition = false;
-
-        viewTransitionRunning = false;
 
         // If stageTextVisibleChangePending is true, a visibility change which
         // we ignored happened during the transition. Apply that visibility
@@ -2718,7 +2726,18 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         addHierarchyListeners();
         
         if (needsRestore)
+        {
             restoreStageText();
+        }
+        else if (savedSelectionAnchorIndex > 0 || savedSelectionActiveIndex > 0)
+        {
+            // Even if the StageText has been retrieved from the cache, its
+            // selection is not preserved. Restore the selection if necessary.
+            if (savedSelectionAnchorIndex <= _text.length && savedSelectionActiveIndex <= _text.length)
+                stageText.selectRange(savedSelectionAnchorIndex, savedSelectionActiveIndex);
+            savedSelectionAnchorIndex = 0;
+            savedSelectionActiveIndex = 0;
+        }
         
         if (deferredViewPortUpdate)
             updateViewPort();
