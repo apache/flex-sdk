@@ -651,7 +651,8 @@ public class BitmapAsset extends FlexBitmap
             if (p is ILayoutDirectionElement)
             {
                 // mirror is true if our layoutDirection differs from our parent's.
-                var mirror:Boolean = (_layoutDirection != null) &&
+                var mirror:Boolean = _layoutDirection != null && 
+                    ILayoutDirectionElement(p).layoutDirection != null &&
                     (_layoutDirection != ILayoutDirectionElement(p).layoutDirection);
                 
                 // If our layoutDirection is different from our parent's and if it used to
