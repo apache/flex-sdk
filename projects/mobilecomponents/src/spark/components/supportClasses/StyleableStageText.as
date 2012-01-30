@@ -217,7 +217,7 @@ use namespace mx_internal;
 
 /**
  *  Determines whether the text is boldface.
- *  Recognized values are <code>normal</code> and <code>bold</code>.
+ *  Recognized values are <code>"normal"</code> and <code>"bold"</code>.
  * 
  *  @default "normal"
  *  
@@ -241,9 +241,9 @@ use namespace mx_internal;
 [Style(name="textAlign", type="String", enumeration="left,center,right", inherit="yes")]
 
 /**
- *  The StageTextField class is a text primitive for use in ActionScript skins.
- *  It cannot be used in MXML markup and is not compatible with effects or the
- *  subset of styles enumerated above.
+ *  The StyleableStageText class is a text primitive for use in ActionScript
+ *  skins. It cannot be used in MXML markup, is not compatible with effects, and
+ *  is not compatible with transformations such as rotation, scale, and skew.
  * 
  *  @see flash.text.StageText
  *
@@ -403,11 +403,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var invalidateEffectiveEnabledFlag:Boolean = true;
     
     /**
-     *  @copy mx.core.UIComponent#enabled
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @private
      */
     override public function set enabled(value:Boolean):void
     {
@@ -450,11 +446,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //----------------------------------
     
     /**
-     *  @copy flash.display.DisplayObject#height
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @private
      */
     override public function get height():Number
     {
@@ -474,7 +466,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (!localViewPort)
             localViewPort = new Rectangle();
         
-        localViewPort.height = value;
+        localViewPort.height = Math.max(0, value);
         
         invalidateViewPortFlag = true;
         invalidateProperties();
@@ -485,16 +477,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //----------------------------------
     
     /**
-     * Storage for the visible property.
+     *  Storage for the visible property.
      */
     private var _visible:Boolean = true;
     
     /**
-     *  @copy flash.display.DisplayObject#visible
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @private
      */
     override public function get visible():Boolean
     {
@@ -519,11 +507,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //----------------------------------
     
     /**
-     *  @copy flash.display.DisplayObject#width
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @private
      */
     override public function get width():Number
     {
@@ -543,7 +527,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (!localViewPort)
             localViewPort = new Rectangle();
         
-        localViewPort.width = value;
+        localViewPort.width = Math.max(0, value);
         
         invalidateViewPortFlag = true;
         invalidateProperties();
@@ -554,11 +538,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //----------------------------------
     
     /**
-     *  @copy flash.display.DisplayObject#x
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @private
      */
     override public function get x():Number
     {
@@ -589,11 +569,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //----------------------------------
     
     /**
-     *  @copy flash.display.DisplayObject#y
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @private
      */
     override public function get y():Number
     {
@@ -1001,15 +977,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var _autoCapitalize:String = AutoCapitalize.NONE;
     
     /**
-     *  @private
-     *  Hint indicating what captialization behavior soft keyboards should use.
-     *
-     *  Supported values are defined in flash.text.AutoCapitalize:
-     *      "none" - no automatic capitalization
-     *      "word" - capitalize the first letter following any space or
-     *          punctuation
-     *      "sentence" - captitalize the first letter following any period
-     *      "all" - capitalize every letter
+     *  @copy flash.text.StageText#autoCapitalize
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3.0
@@ -1041,9 +1009,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var _autoCorrect:Boolean = true;
     
     /**
-     *  @private
-     *  Hint indicating whether a soft keyboard should use its auto-correct
-     *  behavior, if supported.
+     *  @copy flash.text.StageText#autoCorrect
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3.0
@@ -1072,17 +1038,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var _returnKeyLabel:String = ReturnKeyLabel.DEFAULT;
     
     /**
-     *  @private
-     *  Hint indicating what label should be displayed for the return key on
-     *  soft keyboards.
-     *
-     *  Supported values are defined in flash.text.ReturnKeyLabel:
-     *      "default" - default icon or label text
-     *      "done" - icon or label text indicating completed text entry
-     *      "go" - icon or label text indicating that an action should start
-     *      "next" - icon or label text indicating a move to the next field
-     *      "search" - icon or label text indicating that the entered text
-     *          should be searched for
+     *  @copy flash.text.StageText#returnKeyLabel
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3.0
@@ -1114,20 +1070,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var _softKeyboardType:String = SoftKeyboardType.DEFAULT;
     
     /**
-     *  @private
-     *  Hint indicating what kind of soft keyboard should be displayed for this
-     *  component.
-     *
-     *  Supported values are defined in flash.text.SoftKeyboardType:
-     *      "default" - the default keyboard
-     *      "punctuation" - puts the keyboard into punctuation/symbol entry mode
-     *      "url" - present soft keys appropriate for URL entry, such as a
-     *          specialized key that inserts '.com'
-     *      "number" - puts the keyboard into numeric keypad mode
-     *      "contact" - puts the keyboard into a mode appropriate for entering
-     *          contact information
-     *      "email" - puts the keyboard into e-mail addres entry mode, which may
-     *          make it easier to enter the at sign or '.com'
+     *  @copy flash.text.StageText#softKeyboardType
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3.0
@@ -1156,11 +1099,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //--------------------------------------------------------------------------
 
     /**
-     *  @copy mx.core.UIComponent#move()
-     * 
-     *  @langversion 3.0
-     *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @private
      */
     override public function move(x:Number, y:Number):void
     {
@@ -1177,11 +1116,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     }
     
     /**
-     *  Set focus to this text field.
-     * 
-     *  @langversion 3.0
-     *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @private
      */ 
     override public function setFocus():void
     {
@@ -1199,13 +1134,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     }
     
     /**
-     *  @copy mx.core.UIComponent#styleChanged()
-     * 
-     *  @param styleProp The style property that changed.
-     * 
-     *  @langversion 3.0
-     *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @private
      */
     override public function styleChanged(styleProp:String):void
     {
@@ -1219,11 +1148,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     }
     
     /**
-     *  @copy mx.core.UIComponent#setActualSize()
-     * 
-     *  @langversion 3.0
-     *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @private
      */
     override public function setActualSize(w:Number, h:Number):void
     {
@@ -1232,19 +1157,15 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (!localViewPort)
             localViewPort = new Rectangle();
         
-        localViewPort.width = w;
-        localViewPort.height = h;
+        localViewPort.width = Math.max(0, w);
+        localViewPort.height = Math.max(0, h);
         
         invalidateViewPortFlag = true;
         invalidateProperties();
     }
     
     /**
-     *  @copy mx.core.UIComponent#measure()
-     * 
-     *  @langversion 3.0
-     *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @private
      */
     override protected function measure():void
     {
@@ -1269,6 +1190,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         }
     }
     
+    /**
+     *  @private
+     */
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -1393,6 +1317,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     /**
      *  Selects all of the text.
      * 
+     *  <p>On iOS, for non multiline StyleableStageText objects, this function
+     *  is not supported and does nothing.</p>
+     * 
+     *  <p>For some devices or operating systems, the selection may only be
+     *  visible when the StageText object has focus.</p>
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
      *  @productversion Flex 4.5.2
@@ -1404,15 +1334,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     }
     
     /**
-     *  Selects a specified range of characters.
-     * 
-     *  <p>If either position is negative, it will deselect the text range.</p>
-     * 
-     *  @param anchorIndex The character position specifying the end of the
-     *  selection that stays fixed when the selection is extended.
-     * 
-     *  @param activeIndex The character position specifying the end of the
-     *  selection that moves when the selection is extended.
+     *  @copy flash.text.StageText#selectRange()
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
@@ -1789,11 +1711,11 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     /**
      *  @private
-     *  Forward the focus event to the StageText. The focusedStageText flag is
-     *  modified by the StageText's focus event handlers, not this one.
      */
     override protected function focusInHandler(event:FocusEvent):void
     {
+        //  Forward the focus event to the StageText. The focusedStageText flag
+        //  is modified by the StageText's focus event handlers, not this one.
         super.focusInHandler(event);
         
         if (stageText != null && focusedStageText != stageText && effectiveEnabled)
