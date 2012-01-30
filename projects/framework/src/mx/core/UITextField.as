@@ -431,9 +431,17 @@ public class UITextField extends FlexTextField
      */
     override public function set width(value:Number):void  
     {
+        var changed:Boolean = super.width != value;
+        
         super.width = value;
         if (mirror)
             validateTransformMatrix();
+        
+        // Since changing the width may reflow the text which can
+        // change the textWidth and/or textHeight dispatch an event so 
+        // that listeners can react to this.
+        if (changed)
+            dispatchEvent(new Event("textFieldWidthChange"));
     }
     
     //----------------------------------
@@ -460,7 +468,7 @@ public class UITextField extends FlexTextField
             defaultTextFormat = cachedTextFormat;
             
         super.htmlText = value;
-
+        
         // Remember the htmlText that we've set,
         // because the TextField doesn't remember it for us.
         // We need it so that we can re-apply the HTML markup
