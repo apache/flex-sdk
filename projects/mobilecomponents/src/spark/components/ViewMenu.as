@@ -61,16 +61,6 @@ use namespace mx_internal;
 [SkinState("disabledAndLandscape")]
 
 /**
- *  Disabled and closed and landscape state.
- *
- *  
- *  @langversion 3.0
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
- */
-[SkinState("disabledAndClosedAndLandscape")]
-
-/**
  *  The ViewMenu container defines a menu in a View container.
  *  Each menu item is defined by using the ViewMenuItem control. 
  *  The application container automatically creates and displays a 
