@@ -1415,10 +1415,12 @@ public class StyleManagerImpl implements IStyleManager2
 	 */
 	public function loadStyleDeclarations(
 						url:String, update:Boolean = true,
-                        trustContent:Boolean = false):
+                        trustContent:Boolean = false,
+                        applicationDomain:ApplicationDomain = null,
+                        securityDomain:SecurityDomain = null):
 						IEventDispatcher
 	{
-		return loadStyleDeclarations2(url, update);
+		return loadStyleDeclarations2(url, update, applicationDomain, securityDomain);
 	}
 
     /**
@@ -1447,15 +1449,16 @@ public class StyleManagerImpl implements IStyleManager2
 						IEventDispatcher
     {
         var module:IModuleInfo = ModuleManager.getModule(url);
-
+        var thisStyleManager:IStyleManager2 = this;
+        
         var readyHandler:Function = function(moduleEvent:ModuleEvent):void
         {
             var styleModule:IStyleModule =
                 IStyleModule(moduleEvent.module.factory.create());
             
             // Register the style module to use this style manager.
-            moduleEvent.module.factory.registerImplementation("mx.styles::IStyleManager2", instance);
-            styleModule.setStyleDeclarations(instance);
+            moduleEvent.module.factory.registerImplementation("mx.styles::IStyleManager2", thisStyleManager);
+            styleModule.setStyleDeclarations(thisStyleManager);
             styleModules[moduleEvent.module.url].styleModule = styleModule;
             
             if (update)
