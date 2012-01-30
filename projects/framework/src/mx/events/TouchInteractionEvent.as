@@ -16,7 +16,7 @@ import flash.events.Event;
 import flash.geom.Point;
 
 /**
- *  GestureCaptureEvents are used to coordinate gestures recognition and response 
+ *  TouchInteractionEvents are used to coordinate touch intraction and response 
  *  among different components.  
  * 
  *  @langversion 3.0
@@ -24,7 +24,7 @@ import flash.geom.Point;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class GestureCaptureEvent extends Event
+public class TouchInteractionEvent extends Event
 {
     
     //--------------------------------------------------------------------------
@@ -34,8 +34,8 @@ public class GestureCaptureEvent extends Event
     //--------------------------------------------------------------------------
     
     /**
-     *  The <code>GestureCaptureEvent.GESTURE_CAPTURE_STARTING</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>gestureCaptureStarting</code> event.
+     *  The <code>TouchInteractionEvent.TOUCH_INTERACTION_STARTING</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>touchInteractionStarting</code> event.
      *
      *	<p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -46,28 +46,28 @@ public class GestureCaptureEvent extends Event
      *       event listener that handles the event. For example, if you use
      *       <code>myButton.addEventListener()</code> to register an event listener,
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>reason</code></td><td>The reason for the gesture capture event.  See 
-     *       <code>mx.events.GestureCaptureReason</code>.</td></tr>
-     *     <tr><td><code>relatedObject</code></td><td>The object associated with this gesture capture event.</td></tr>
+     *     <tr><td><code>reason</code></td><td>The reason for the touch interaction event.  See 
+     *       <code>mx.events.TouchInteractionReason</code>.</td></tr>
+     *     <tr><td><code>relatedObject</code></td><td>The object associated with this touch interaction event.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
      *       it is not always the Object listening for the event.
      *       Use the <code>currentTarget</code> property to always access the
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType gestureCaptureStarting
-     *  @see mx.events.GestureCaptureReason
+     *  @eventType touchInteractionStarting
+     *  @see mx.events.TouchInteractionReason
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public static const GESTURE_CAPTURE_STARTING:String = "gestureCaptureStarting";
+    public static const TOUCH_INTERACTION_STARTING:String = "touchInteractionStarting";
     
     /**
-     *  The <code>GestureCaptureEvent.GESTURE_CAPTURE_START</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>gestureCaptureStart</code> event.
+     *  The <code>TouchInteractionEvent.TOUCH_INTERACTION_START</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>touchInteractionStart</code> event.
      *
      *	<p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -78,28 +78,28 @@ public class GestureCaptureEvent extends Event
      *       event listener that handles the event. For example, if you use
      *       <code>myButton.addEventListener()</code> to register an event listener,
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>reason</code></td><td>The reason for the gesture capture event.  See 
-     *       <code>mx.events.GestureCaptureReason</code>.</td></tr>
-     *     <tr><td><code>relatedObject</code></td><td>The object associated with this gesture capture event.</td></tr>
+     *     <tr><td><code>reason</code></td><td>The reason for the touch interaction event.  See 
+     *       <code>mx.events.TouchInteractionReason</code>.</td></tr>
+     *     <tr><td><code>relatedObject</code></td><td>The object associated with this touch interaction event.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
      *       it is not always the Object listening for the event.
      *       Use the <code>currentTarget</code> property to always access the
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType gestureCaptureStart
-     *  @see mx.events.GestureCaptureReason
+     *  @eventType touchInteractionStart
+     *  @see mx.events.TouchInteractionReason
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public static const GESTURE_CAPTURE_START:String = "gestureCaptureStart";
+    public static const TOUCH_INTERACTION_START:String = "touchInteractionStart";
     
     /**
-     *  The <code>GestureCaptureEvent.GESTURE_CAPTURE_END</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>gestureCaptureEnd</code> event.
+     *  The <code>TouchInteractionEvent.TOUCH_INTERACTION_END</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>touchInteractionEnd</code> event.
      *
      *	<p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -110,24 +110,24 @@ public class GestureCaptureEvent extends Event
      *       event listener that handles the event. For example, if you use
      *       <code>myButton.addEventListener()</code> to register an event listener,
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>reason</code></td><td>The reason for the gesture capture event.  See 
-     *       <code>mx.events.GestureCaptureReason</code>.</td></tr>
-     *     <tr><td><code>relatedObject</code></td><td>The object associated with this gesture capture event.</td></tr>
+     *     <tr><td><code>reason</code></td><td>The reason for the touch interaction event.  See 
+     *       <code>mx.events.TouchInteractionReason</code>.</td></tr>
+     *     <tr><td><code>relatedObject</code></td><td>The object associated with this touch interaction event.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
      *       it is not always the Object listening for the event.
      *       Use the <code>currentTarget</code> property to always access the
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType gestureCaptureEnd
-     *  @see mx.events.GestureCaptureReason
+     *  @eventType touchInteractionEnd
+     *  @see mx.events.TouchInteractionReason
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public static const GESTURE_CAPTURE_END:String = "gestureCaptureEnd";
+    public static const TOUCH_INTERACTION_END:String = "touchInteractionEnd";
     
     //--------------------------------------------------------------------------
     //
@@ -151,7 +151,7 @@ public class GestureCaptureEvent extends Event
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function GestureCaptureEvent(type:String, bubbles:Boolean = false,
+    public function TouchInteractionEvent(type:String, bubbles:Boolean = false,
                                         cancelable:Boolean = false)
     {
         super(type, bubbles, cancelable);
@@ -170,7 +170,7 @@ public class GestureCaptureEvent extends Event
     /**
      *  The reason for this geture capture event.
      * 
-     *  @see mx.events.GestureCaptureReason
+     *  @see mx.events.TouchInteractionReason
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -184,7 +184,7 @@ public class GestureCaptureEvent extends Event
     //----------------------------------
     
     /**
-     *  The object attempting to capture this user gesture.
+     *  The object attempting to capture this touch interaction.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -204,7 +204,7 @@ public class GestureCaptureEvent extends Event
      */
     override public function clone():Event
     {
-        var clonedEvent:GestureCaptureEvent = new GestureCaptureEvent(type, bubbles, cancelable);
+        var clonedEvent:TouchInteractionEvent = new TouchInteractionEvent(type, bubbles, cancelable);
         
         clonedEvent.reason = reason;
         clonedEvent.relatedObject = relatedObject;
