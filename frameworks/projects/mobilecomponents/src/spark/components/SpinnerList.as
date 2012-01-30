@@ -44,6 +44,7 @@ use namespace mx_internal;
 //--------------------------------------
 //  Other metadata
 //--------------------------------------
+[DefaultTriggerEvent("change")]
 
 [IconFile("SpinnerList.png")]
 
@@ -250,7 +251,7 @@ public class SpinnerList extends ListBase
 		// SnapElement requires a layout pass in order to properly center the selection
 		// The listener for updateComplete calls commitSelection
 		if (initialized && spinnerLayout)
-			scroller.snapElement(spinnerLayout.getUnwrappedElementIndex(selectedIndex), false);
+			scroller.snapElement(spinnerLayout.getClosestUnwrappedElementIndex(selectedIndex), false);
 		
 		return result;
 	}
@@ -298,7 +299,7 @@ public class SpinnerList extends ListBase
 		if (scroller && spinnerLayout)
 		{
 			var animate:Animate = scroller.snapElement(
-				spinnerLayout.getUnwrappedElementIndex(index), true);
+				spinnerLayout.getClosestUnwrappedElementIndex(index), true);
 			if (animate)
             {
 				animate.addEventListener(EffectEvent.EFFECT_END, animateToIndex_effectEndHandler);
@@ -423,7 +424,7 @@ public class SpinnerList extends ListBase
 		if (scrollToSelection && spinnerLayout)
 		{
 			scrollToSelection = false;
-			scroller.snapElement(spinnerLayout.getUnwrappedElementIndex(selectedIndex), false);
+			scroller.snapElement(spinnerLayout.getClosestUnwrappedElementIndex(selectedIndex), false);
 			
 			removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
 		}
