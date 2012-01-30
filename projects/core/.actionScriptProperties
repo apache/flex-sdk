@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties mainApplicationPath="flex.as" projectUUID="5580cc92-7a74-4070-8f3a-f764df2cda9a" version="6">
+<actionScriptProperties mainApplicationPath="core.as" projectUUID="5580cc92-7a74-4070-8f3a-f764df2cda9a" version="6">
   <compiler additionalCompilerArguments="-source-path+=../../framework/src -load-config+=../../framework/framework-config.xml -keep-as3-metadata name=Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient -resource-bundle-list=bundles.properties -library-path= -locale=" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
@@ -9,8 +9,9 @@
     <sourceAttachmentPath/>
   </compiler>
   <applications>
-    <application path="flex.as"/>
+    <application path="core.as"/>
   </applications>
   <modules/>
   <buildCSSFiles/>
 </actionScriptProperties>
+
