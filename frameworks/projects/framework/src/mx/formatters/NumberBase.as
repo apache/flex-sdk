@@ -333,6 +333,12 @@ public class NumberBase
 		var isNegative:Boolean = (v < 0);
 		
 		var numStr:String = Math.abs(v).toString();
+		
+		numStr.toLowerCase();
+        var e:int = numStr.indexOf("e")
+        if (e != -1)  //deal with exponents
+            numStr = expandExponents(numStr);
+            
 		var numArr:Array =
 			numStr.split((numStr.indexOf(decimalSeparatorTo) != -1) ? decimalSeparatorTo : ".");
 		var numLen:int = String(numArr[0]).length;
@@ -542,6 +548,54 @@ public class NumberBase
 
 		return isNegative ? "-" + num : num;
 	}
+	
+    /**
+     *  Formats a number in exponent notation, into 
+     *  a number in decimal notation.
+     *
+     *  @param str String to process in exponent notation.
+     *
+     *  @return Formatted number.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */    
+    public function expandExponents(value:String):String
+    {
+        //Break string into component parts
+        var regExp:RegExp = /^([+-])?(\d+).?(\d*)[eE]([-+]?\d+)$/;
+        var result:Array = regExp.exec(value);
+        var sign:String = result[1];
+        var first:String = result[2];
+        var last:String =  result[3];
+        var exp:int =  int(result[4]);
+                
+        //if we didn't get a good exponent to begin with, return what we can figure out
+        if (!exp)
+        {
+            return (sign ? sign : "") + (first ? first : "0") + (last ? "." + last : "");
+        }
+                
+        var r:String = first + last;
+                
+        var decimal:Boolean = exp < 0;
+                
+        if (decimal)
+        {   
+            var o:Number = -1 * (first.length + exp) + 1;
+            return (sign ? sign : "") + "0." + new Array(o).join("0") + r;
+        }
+        else
+        {
+            var i:Number = exp + first.length;
+            if (i >= r.length)
+                return (sign ? sign : "") + r + new Array(i - r.length + 1).join("0");
+            else
+                return (sign ? sign : "") + r.substr(0,i) + "." + r.substr(i); 
+        }
+    }
 }
 
 }
