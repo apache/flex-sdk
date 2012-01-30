@@ -11,12 +11,13 @@
 
 package spark.components
 {
+import flash.events.Event;
+
 import mx.core.ClassFactory;
 import mx.core.IFactory;
 import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
 
-import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
 import spark.core.ContainerDestructionPolicy;
 import spark.events.DropDownEvent;
@@ -689,7 +690,12 @@ public class CalloutButton extends Button
             setCallout(createDynamicPartInstance("dropDown") as Callout);
         
         if (callout)
+        {
+            // close the callout if the CalloutButton is removed
+            addEventListener(Event.REMOVED_FROM_STAGE, button_removedFromStage);
+            
             callout.open(this, false);
+        }
     }
     
     /**
@@ -703,8 +709,9 @@ public class CalloutButton extends Button
         // destroyed by calloutDestructionPolicy
         if (callout)
         {
-            // TODO (jasonsj): close params?
+            removeEventListener(Event.REMOVED_FROM_STAGE, button_removedFromStage);
             
+            // TODO (jasonsj): close params?
             // Dispatch the close event after the callout's PopUpEvent.CLOSE fires
             callout.close();
         }
@@ -727,6 +734,21 @@ public class CalloutButton extends Button
             destroyCallout();
         
         dispatchEvent(new DropDownEvent(DropDownEvent.CLOSE));
+    }
+    
+    /**
+     *  @private
+     */
+    private function button_removedFromStage(event:Event):void
+    {
+        if (!isDropDownOpen)
+            return;
+        
+        // Hide the callout immediately instead of waiting for the skin
+        // state to transition to "closed"
+        callout.visible = false;
+
+        closeDropDown();
     }
 }
 }
