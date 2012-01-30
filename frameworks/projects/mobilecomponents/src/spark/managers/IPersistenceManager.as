@@ -52,7 +52,7 @@ public interface IPersistenceManager
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    function flush():void;
+    function save():Boolean;
     
     /**
      *  Initializes the persistence manager.
@@ -62,7 +62,7 @@ public interface IPersistenceManager
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    function initialize():void;
+    function load():Boolean;
     
     /**
      *  Returns the value of a property stored in the persistence manager.
