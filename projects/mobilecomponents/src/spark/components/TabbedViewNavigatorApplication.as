@@ -37,24 +37,6 @@ public class TabbedMobileApplication extends MobileApplicationBase
 {
     //--------------------------------------------------------------------------
     //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-    
-    // The following constants are used to indicate whether the developer
-    // has explicitly set one of the navigator template properties.  This
-    // allows us to properly store these set properties if the navigator skin
-    // changes.
-    
-    // TODO (chiedozi): Just use a variable instead of a bitfield
-    /**
-     *  @private
-     */
-    private static const NAVIGATORS_PROPERTY_FLAG:uint = 1 << 0;
-    private static const MAINTAIN_NAVIGATION_STACK_PROPERTY_FLAG:uint = 1 << 1;
-
-    //--------------------------------------------------------------------------
-    //
     //  Skin Parts
     //
     //--------------------------------------------------------------------------
@@ -98,6 +80,11 @@ public class TabbedMobileApplication extends MobileApplicationBase
      *  @private
      */
     private var navigatorProperties:Object = {};
+    
+    /**
+     *  @private
+     */ 
+    private var maintainNavigationStackPropSet:Boolean = false;
     
     //----------------------------------
     //  activeView
@@ -196,11 +183,7 @@ public class TabbedMobileApplication extends MobileApplicationBase
     public function set navigators(value:Vector.<ViewNavigatorBase>):void
     {
         if (navigator)
-        {
             navigator.navigators = value;
-            navigatorProperties = BitFlagUtil.update(navigatorProperties as uint,
-                NAVIGATORS_PROPERTY_FLAG, value != null);
-        }
         else
             navigatorProperties.navigators = value;
     }
@@ -240,8 +223,7 @@ public class TabbedMobileApplication extends MobileApplicationBase
         if (navigator)
         {
             navigator.maintainNavigationStack = value;
-            navigatorProperties = BitFlagUtil.update(navigatorProperties as uint,
-                MAINTAIN_NAVIGATION_STACK_PROPERTY_FLAG, true);
+            maintainNavigationStackPropSet = true;
         }
         else
             navigatorProperties.maintainNavigationStack = value;
@@ -256,9 +238,9 @@ public class TabbedMobileApplication extends MobileApplicationBase
     /**
      *  @private
      */
-    override protected function nativeApplication_invokeHandler(event:InvokeEvent):void
+    override protected function invokeHandler(event:InvokeEvent):void
     {
-        super.nativeApplication_invokeHandler(event);
+        super.invokeHandler(event);
         
         // Set the stage focus to the navigator's active view
         if (systemManager.stage.focus == null && navigator)
@@ -273,61 +255,47 @@ public class TabbedMobileApplication extends MobileApplicationBase
     /**
      *  @private
      */ 
-    override protected function nativeApplication_deactivateHandler(event:Event):void
+    override protected function deactivateHandler(event:Event):void
     {
         if (navigator && navigator.activeView)
             navigator.activeView.setActive(false);
         
         // super is called after so that the active view can get the
         // viewDeactive event before the persistence process begins.
-        super.nativeApplication_deactivateHandler(event);
+        super.deactivateHandler(event);
     }
     
     /**
      *  @private
      */ 
-    override protected function backKeyHandler(event:KeyboardEvent):void
+    override protected function backKeyUpHandler(event:KeyboardEvent):void
     {
         if (navigator)
-            navigator.backKeyHandler();
+            navigator.backKeyUpHandler();
     }
     
     /**
      *  @private
      */
-    // TODO (chiedozi): PARB
-    override protected function persistApplicationState():void
+    override protected function saveNavigatorState():void
     {
-        super.persistApplicationState();
+        super.saveNavigatorState();
         
         if (navigators.length > 0)
             persistenceManager.setProperty("navigatorState", navigator.saveViewData());
     }
-    
+
     /**
      *  @private
      */
-    override protected function registerPersistenceClassAliases():void
+    override protected function loadNavigatorState():void
     {
-        super.registerPersistenceClassAliases();
-        
-        // Register aliases for custom classes that will be written to
-        // persistence store by navigator
-        registerClassAlias("ViewDescriptor", ViewDescriptor);
-        registerClassAlias("NavigationStack", NavigationStack);
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function restoreApplicationState():void
-    {
-        super.restoreApplicationState();
+        super.loadNavigatorState();
         
         var savedState:Object = persistenceManager.getProperty("navigatorState");
         
         if (savedState)
-            navigator.restoreViewData(savedState);
+            navigator.loadViewData(savedState);
     }
     
     //--------------------------------------------------------------------------
@@ -352,15 +320,12 @@ public class TabbedMobileApplication extends MobileApplicationBase
             if (navigatorProperties.navigators !== undefined)
             {
                 navigator.navigators = navigatorProperties.navigators;
-                newNavigatorProperties = BitFlagUtil.update(newNavigatorProperties, 
-                    NAVIGATORS_PROPERTY_FLAG, true);
             }
             
             if (navigatorProperties.maintainNavigationStack !== undefined)
             {
                 navigator.maintainNavigationStack = navigatorProperties.maintainNavigationStack;
-                newNavigatorProperties = BitFlagUtil.update(newNavigatorProperties, 
-                    MAINTAIN_NAVIGATION_STACK_PROPERTY_FLAG, true);
+                maintainNavigationStackPropSet = true;
             }
             
             // Set the stage focus to the navigator
@@ -377,10 +342,13 @@ public class TabbedMobileApplication extends MobileApplicationBase
         
         if (instance == navigator)
         {
-        	// FIXME (chiedozi): maintainNavigationStack check ISSET
-            // Always want to save the navigation stack
-            navigatorProperties = {navigators:navigator.navigators,
-                                   maintainNavigationStack:navigator.maintainNavigationStack};
+        	// Always want to save the navigation stack
+            var newNavigatorProperties:Object = {navigationStack: navigator.navigationStack};
+            
+            if (maintainNavigationStackPropSet)
+                newNavigatorProperties.maintainNavigationStack = navigator.maintainNavigationStack;
+            
+            navigatorProperties = newNavigatorProperties;
         }
     }
 }
