@@ -25,6 +25,11 @@ import mx.managers.dragClasses.DragProxy;
  *  Cursor displayed during a copy operation.
  * 
  *  The default value is the "mx.skins.cursor.DragCopy" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="copyCursor", type="Class", inherit="no")]
 
@@ -33,6 +38,11 @@ import mx.managers.dragClasses.DragProxy;
  *  which is also called the drag proxy.
  * 
  *  @default mx.skins.halo.DefaultDragImage
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="defaultDragImageSkin", type="Class", inherit="no")]
 
@@ -40,6 +50,11 @@ import mx.managers.dragClasses.DragProxy;
  *  Cursor displayed during a link operation.
  * 
  *  The default value is the "mx.skins.cursor.DragLink" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="linkCursor", type="Class", inherit="no")]
 
@@ -47,6 +62,11 @@ import mx.managers.dragClasses.DragProxy;
  *  Cursor displayed during a move operation.
  * 
  *  The default value is the "mx.skins.cursor.DragMove" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="moveCursor", type="Class", inherit="no")]
 
@@ -54,6 +74,11 @@ import mx.managers.dragClasses.DragProxy;
  *  Cursor displayed for a reject operation.
  * 
  *  The default value is the "mx.skins.cursor.DragReject" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="rejectCursor", type="Class", inherit="no")]
 
@@ -87,6 +112,11 @@ import mx.managers.dragClasses.DragProxy;
  *  @see mx.core.DragSource
  *  @see mx.events.DragEvent
  *  @see mx.core.UIComponent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DragManager
 {
@@ -100,21 +130,41 @@ public class DragManager
 
 	/**
 	 *  Constant that specifies that the type of drag action is "none".
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const NONE:String = "none";
 
 	/**
 	 *  Constant that specifies that the type of drag action is "copy".
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const COPY:String = "copy";
 
 	/**
 	 *  Constant that specifies that the type of drag action is "move".
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const MOVE:String = "move";
 
 	/**
 	 *  Constant that specifies that the type of drag action is "link".
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const LINK:String = "link";
 	
@@ -181,6 +231,11 @@ public class DragManager
 	/**
 	 *  Read-only property that returns <code>true</code>
 	 *  if a drag is in progress.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function get isDragging():Boolean
 	{
@@ -228,6 +283,11 @@ public class DragManager
 	 *  a value of 1.0 indicates it is fully opaque. 
          *
          *  @param allowMove Indicates if a drop target is allowed to move the dragged data.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function doDrag(
 			dragInitiator:IUIComponent, 
@@ -253,6 +313,11 @@ public class DragManager
 	 *  <pre>DragManager.acceptDragDrop(event.target);</pre>
 	 *
 	 *	@param target The drop target accepting the drag.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function acceptDragDrop(target:IUIComponent):void
 	{
@@ -265,6 +330,11 @@ public class DragManager
 	 *  <code>DragManager.LINK</code>, or <code>DragManager.NONE</code>.
 	 *
 	 *  @param feedback The type of feedback indicator to display.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function showFeedback(feedback:String):void
 	{
@@ -277,6 +347,11 @@ public class DragManager
 	 *  @return  Possible return values are <code>DragManager.COPY</code>, 
 	 *  <code>DragManager.MOVE</code>,
 	 *  <code>DragManager.LINK</code>, or <code>DragManager.NONE</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function getFeedback():String
 	{
