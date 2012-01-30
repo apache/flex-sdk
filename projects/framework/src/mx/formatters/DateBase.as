@@ -32,6 +32,11 @@ use namespace mx_internal;
  *  used independently.
  *
  *  @see mx.formatters.DateFormatter
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DateBase
 {
@@ -98,6 +103,11 @@ public class DateBase
 	 * 
 	 *  @default [Sunday", "Monday", "Tuesday", "Wednesday",
 	 *  "Thursday", "Friday", "Saturday"]
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function get dayNamesLong():Array /* of String */
 	{
@@ -138,6 +148,11 @@ public class DateBase
 	 *  Short format of day names.
 	 * 
 	 *  @default ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function get dayNamesShort():Array /* of String */
 	{
@@ -193,6 +208,11 @@ public class DateBase
 	 *
 	 *  @default ["January", "February", "March", "April", "May", "June", 
 	 *  "July", "August", "September", "October", "November", "December"].
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function get monthNamesLong():Array /* of String */
 	{
@@ -253,6 +273,11 @@ public class DateBase
 	 *
 	 *  @default ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 	 *  "Jul", "Aug", "Sep", "Oct","Nov", "Dec"]
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function get monthNamesShort():Array /* of String */
 	{
@@ -311,6 +336,11 @@ public class DateBase
 	 *  Time of day names.
 	 * 
 	 *  @default ["AM", "PM"]
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function get timeOfDay():Array /* of String */ 
 	{
