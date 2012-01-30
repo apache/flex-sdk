@@ -338,10 +338,10 @@ public class RadialGradientStroke extends GradientStroke
 	        matrix.translate(regX, regY);	    
         }             
         else
-        {
-            matrix.scale (rect.width / GRADIENT_DIMENSION, rect.height / GRADIENT_DIMENSION);
-            matrix.translate(rect.left, rect.top);
+        {         
+            matrix.scale(1 / GRADIENT_DIMENSION, 1 / GRADIENT_DIMENSION);
             matrix.concat(compoundTransform.matrix);
+            matrix.translate(rect.left, rect.top);
         }   
     }
     
