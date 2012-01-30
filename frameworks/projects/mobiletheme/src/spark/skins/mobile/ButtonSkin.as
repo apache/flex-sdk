@@ -173,6 +173,8 @@ public class ButtonSkin extends ButtonSkinBase
     
     private var borderClass:Class;
     
+    mx_internal var fillColorStyleName:String = "chromeColor";
+    
     /**
      *  Defines the shadow for the Button control's label.
      * 
@@ -326,8 +328,8 @@ public class ButtonSkin extends ButtonSkinBase
     override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.drawBackground(unscaledWidth, unscaledHeight);
-
-        var chromeColor:uint = getStyle("chromeColor");
+        
+        var chromeColor:uint = getStyle(fillColorStyleName);
         
         // In the down state, the fill shadow is defined in the FXG asset
         if (currentState == "down")
