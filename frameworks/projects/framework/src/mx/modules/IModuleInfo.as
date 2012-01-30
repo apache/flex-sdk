@@ -27,6 +27,11 @@ import mx.core.IFlexModuleFactory;
  *  module loading.
  *
  *  @eventType mx.events.ModuleEvent.ERROR
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="error", type="mx.events.ModuleEvent")]
 
@@ -35,6 +40,11 @@ import mx.core.IFlexModuleFactory;
  *  while the module is being loaded.
  *
  *  @eventType mx.events.ModuleEvent.PROGRESS
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="progress", type="mx.events.ModuleEvent")]
 
@@ -44,6 +54,11 @@ import mx.core.IFlexModuleFactory;
  *  <code>IFlexModuleFactory.create()</code> method.
  *
  *  @eventType mx.events.ModuleEvent.READY
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="ready", type="mx.events.ModuleEvent")]
 
@@ -53,6 +68,11 @@ import mx.core.IFlexModuleFactory;
  *  the <code>IFlexModuleFactory.info()</code> method.
  *
  *  @eventType mx.events.ModuleEvent.SETUP
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="setup", type="mx.events.ModuleEvent")]
 
@@ -60,6 +80,11 @@ import mx.core.IFlexModuleFactory;
  *  Dispatched by the backing ModuleInfo when the module data is unloaded.
  *
  *  @eventType mx.events.ModuleEvent.UNLOAD
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="unload", type="mx.events.ModuleEvent")]
 
@@ -67,6 +92,11 @@ import mx.core.IFlexModuleFactory;
  *  An interface that acts as a handle for a particular module.
  *  From this interface, the module status can be queried,
  *  its inner factory can be obtained, and it can be loaded or unloaded.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IModuleInfo extends IEventDispatcher
 {
@@ -83,6 +113,11 @@ public interface IModuleInfo extends IEventDispatcher
     /**
      *  User data that can be associated with the singleton IModuleInfo
      *  for a given URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get data():Object;
     
@@ -101,6 +136,11 @@ public interface IModuleInfo extends IEventDispatcher
      *  
      *  <p>This flag is <code>true</code> when the ModuleManager dispatches the
      *  <code>ModuleEvent.ERROR</code> event.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get error():Boolean;
     
@@ -117,6 +157,11 @@ public interface IModuleInfo extends IEventDispatcher
      *  Once a <code>ModuleEvent.READY</code> event is dispatched
      *  (or the <code>IModuleInfo.ready()</code> method returns <code>true</code>),
      *  it is possible to call the <code>IFlexModuleFactory.create()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get factory():IFlexModuleFactory;
     
@@ -127,6 +172,11 @@ public interface IModuleInfo extends IEventDispatcher
     /**
      *  A flag that is <code>true</code> if the <code>load()</code>
      *  method has been called on this module.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get loaded():Boolean;
     
@@ -141,6 +191,11 @@ public interface IModuleInfo extends IEventDispatcher
      *  
      *  <p>This flag is <code>true</code> when the ModuleManager dispatches the
      *  <code>ModuleEvent.READY</code> event.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get ready():Boolean;
     
@@ -155,6 +210,11 @@ public interface IModuleInfo extends IEventDispatcher
      *  
      *  <p>This flag is <code>true</code> when the ModuleManager dispatches the
      *  <code>ModuleEvent.SETUP</code> event.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get setup():Boolean;
     
@@ -167,6 +227,11 @@ public interface IModuleInfo extends IEventDispatcher
      *  "http://somedomain.com/modules/MyImageModule.swf". The URL can be local or remote, but 
      *  if it is remote, you must establish a trust between the module's domain and the 
      *  application that loads it.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get url():String;
     
@@ -191,6 +256,11 @@ public interface IModuleInfo extends IEventDispatcher
      *  is specified the module will be loaded from the ByteArray. If this 
      *  parameter is null the module will be loaded from the url specified in
      *  the url property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function load(applicationDomain:ApplicationDomain = null,
                   securityDomain:SecurityDomain = null,
@@ -203,6 +273,11 @@ public interface IModuleInfo extends IEventDispatcher
      *  to have only a limited number of loaded modules.
      *  
      *  @see mx.modules.ModuleManager
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function release():void;
 
@@ -211,6 +286,11 @@ public interface IModuleInfo extends IEventDispatcher
      *  Flash Player and AIR will not fully unload and garbage collect this module if
      *  there are any outstanding references to definitions inside the
      *  module.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function unload():void;
 
@@ -222,6 +302,11 @@ public interface IModuleInfo extends IEventDispatcher
      *  @param factory The class that implements the module's IFlexModuleFactory interface.
      *  
      *  @see mx.modules.ModuleManager
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function publish(factory:IFlexModuleFactory):void;
 
