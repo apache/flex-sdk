@@ -85,6 +85,8 @@ internal class FrameworkClasses
     import mx.events.IndexChangedEvent; IndexChangedEvent;
 	import mx.events.ItemClickEvent; ItemClickEvent;
 	import mx.events.ModuleEvent; ModuleEvent;
+    import mx.events.GestureCaptureEvent; GestureCaptureEvent;
+    import mx.events.GestureCaptureReason; GestureCaptureReason;
 	import mx.filters.BaseFilter; BaseFilter;
 	import mx.filters.BaseDimensionFilter; BaseDimensionFilter;
 	import mx.filters.IBitmapFilter; IBitmapFilter;
