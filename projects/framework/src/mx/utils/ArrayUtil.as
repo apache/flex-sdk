@@ -18,6 +18,11 @@ package mx.utils
  *  You do not create instances of ArrayUtil;
  *  instead you call static methods such as the 
  *  <code>ArrayUtil.toArray()</code> method.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ArrayUtil
 {
@@ -44,6 +49,11 @@ public class ArrayUtil
      * 	the original Array is returned. Otherwise, a new Array whose
      *  only element is the Object is returned or an empty Array if 
      *  the Object was null. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function toArray(obj:Object):Array
     {
@@ -68,6 +78,11 @@ public class ArrayUtil
      *  @param source The Array to search for the item.
      * 
      *  @return The index of the item, and -1 if the item is not in the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getItemIndex(item:Object, source:Array):int
     {
