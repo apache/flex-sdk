@@ -65,7 +65,7 @@ global
 	fontAntiAliasType: "advanced";
 	fontFamily: "Arial";
 	fontGridFitType: "pixel";
-    fontLookup: "device";
+    fontLookup: "auto";
 	fontSharpness: 0;
 	fontSize: 12;
 	fontStyle: "normal";
