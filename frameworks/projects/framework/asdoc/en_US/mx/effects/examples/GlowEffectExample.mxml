@@ -20,7 +20,7 @@
     <s:Panel title="Halo Glow Effect Example" width="75%" height="75%" >
         <s:VGroup left="20" right="20" top="20" bottom="20">
 
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                 text="Click and hold the mouse on the image to see glowImage effect. Release the mouse to see unglowImage effect."/>
 
             <mx:Image source="@Embed(source='assets/Nokia_6630.png')"
