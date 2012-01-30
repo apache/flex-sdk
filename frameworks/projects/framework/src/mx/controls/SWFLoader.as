@@ -1803,11 +1803,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                     rootURL = LoaderUtil.normalizeURL(DisplayObject(systemManager).loaderInfo);
 
                 if (rootURL)
-                {
-                    var lastIndex:int = Math.max(rootURL.lastIndexOf("\\"), rootURL.lastIndexOf("/"));
-                    if (lastIndex != -1)
-                        url = rootURL.substr(0, lastIndex + 1) + url;
-                }
+                    url = LoaderUtil.createAbsoluteURL(rootURL, url);
             }
 
             requestedURL = new URLRequest(url);
@@ -1825,19 +1821,18 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 // an application domain free of framework classes. 
                 if (loadForCompatibility) 
                 {
-                        // the AD.currentDomain.parentDomain could be null, 
-                        // the domain of the top-level system manager, or
-                        // the bootstrap loader. The bootstrap loader will always be topmost
-                        // if it is present.
-                                var currentDomain:ApplicationDomain = ApplicationDomain.currentDomain.parentDomain;
-                                var topmostDomain:ApplicationDomain = null;
-                                while (currentDomain)
-                                {
-                                                topmostDomain = currentDomain;
-                                                currentDomain = currentDomain.parentDomain;
-                                }
-                        lc.applicationDomain = new ApplicationDomain(topmostDomain);
-                                        
+                    // the AD.currentDomain.parentDomain could be null, 
+                    // the domain of the top-level system manager, or
+                    // the bootstrap loader. The bootstrap loader will always be topmost
+                    // if it is present.
+                    var currentDomain:ApplicationDomain = ApplicationDomain.currentDomain.parentDomain;
+                    var topmostDomain:ApplicationDomain = null;
+                    while (currentDomain)
+                    {
+                        topmostDomain = currentDomain;
+                        currentDomain = currentDomain.parentDomain;
+                    }
+                    lc.applicationDomain = new ApplicationDomain(topmostDomain);
                 }
                         
                 if (trustContent)
