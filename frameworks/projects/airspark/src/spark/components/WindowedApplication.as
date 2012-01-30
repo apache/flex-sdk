@@ -348,11 +348,11 @@ use namespace mx_internal;
  *    autoExit="true"
  *    backgroundFrameRate="1"
  *    dockIconMenu="<i>null</i>"
- *    maxHeight="10000"
- *    maxWidth="10000"
+ *    maxHeight="2880 less the height of the system chrome"
+ *    maxWidth="2880 less the width of the system chrome"
  *    menu="<i>null</i>"
- *    minHeight="100"
- *    minWidth="100"
+ *    minHeight="dependent on the operating system and the AIR systemChrome setting"
+ *    minWidth="dependent on the operating system and the AIR systemChrome setting"
  *    showStatusBar="true"
  *    status=""
  *    systemTrayIconMenu="<i>null</i>"
@@ -2124,19 +2124,6 @@ public class WindowedApplication extends Application implements IWindow
         
     /**
      *  @private
-     *  Starts a system move.
-     */
-    private function startMove(event:MouseEvent):void
-    {
-        addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
-        addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-
-        prevX = event.stageX;
-        prevY = event.stageY;
-    }
-
-    /**
-     *  @private
      *  Starts a system resize.
      */
     protected function startResize(start:String):void
@@ -2377,14 +2364,6 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  @private
      */
-    private function closeButton_clickHandler(event:Event):void
-    {
-       stage.nativeWindow.close();
-    }
-
-    /**
-     *  @private
-     */
     private function preinitializeHandler(event:Event = null):void
     {
         systemManager.stage.nativeWindow.addEventListener(
@@ -2421,24 +2400,6 @@ public class WindowedApplication extends Application implements IWindow
         systemManager.stage.nativeWindow.addEventListener(
            NativeWindowBoundsEvent.RESIZE, window_resizeHandler);
 
-    }
-
-    /**
-     *  @private
-     */
-    private function mouseMoveHandler(event:MouseEvent):void
-    {
-        stage.nativeWindow.x += event.stageX - prevX;
-        stage.nativeWindow.y += event.stageY - prevY;
-    }
-
-    /**
-     *  @private
-     */
-    private function mouseUpHandler(event:MouseEvent):void
-    {
-        removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
-        removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
     }
 
     /**
