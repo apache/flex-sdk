@@ -36,7 +36,25 @@ public interface ITextInput
 	//
 	//--------------------------------------------------------------------------
 	
-	//----------------------------------
+    //----------------------------------
+    //  selectionActivePosition
+    //----------------------------------
+    
+    /**
+     *  Documentation is not currently available.
+     */
+    function get selectionActivePosition():int;
+    
+    //----------------------------------
+    //  selectionAnchorPosition
+    //----------------------------------
+    
+    /**
+     *  Documentation is not currently available.
+     */
+    function get selectionAnchorPosition():int;
+
+    //----------------------------------
 	//  editable
 	//----------------------------------
 
@@ -187,7 +205,7 @@ public interface ITextInput
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    function selectRange(anchorIndex:int, activeIndex:int):void;
+    function selectRange(anchorPosition:int, activePosition:int):void;
 }
 
 }
