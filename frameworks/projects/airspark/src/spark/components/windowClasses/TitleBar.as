@@ -55,6 +55,12 @@ use namespace mx_internal;
  */
 [SkinState("disabledAndMaximized")]
 
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="focusThickness", kind="style")]
+
 /**
  *  The TitleBar class defines the default title bar for a 
  *  WindowedApplication or a Window container.
