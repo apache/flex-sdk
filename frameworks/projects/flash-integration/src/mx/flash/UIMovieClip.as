@@ -724,7 +724,7 @@ public dynamic class UIMovieClip extends MovieClip
 
         _autoUpdateMeasuredSize = value;
 
-        if(_autoUpdateMeasuredSize)
+        if (_autoUpdateMeasuredSize)
         {
             addEventListener(Event.ENTER_FRAME, autoUpdateMeasuredSizeEnterFrameHandler, false, 0, true);
         }
@@ -777,7 +777,7 @@ public dynamic class UIMovieClip extends MovieClip
 
         _autoUpdateCurrentState = value;
 
-        if(_autoUpdateCurrentState)
+        if (_autoUpdateCurrentState)
         {
             addEventListener(Event.ENTER_FRAME, autoUpdateCurrentStateEnterFrameHandler, false, 0, true);
         }
@@ -815,7 +815,7 @@ public dynamic class UIMovieClip extends MovieClip
      */
     override public function get x():Number
     {
-        return (_layoutFeatures == null)? super.x:_layoutFeatures.layoutX;
+        return (_layoutFeatures == null) ? super.x : _layoutFeatures.layoutX;
     }
 
     /**
@@ -826,7 +826,7 @@ public dynamic class UIMovieClip extends MovieClip
         if (x == value)
             return;
 
-        if(_layoutFeatures == null)
+        if (_layoutFeatures == null)
         {
             super.x  = value;
         }
@@ -868,7 +868,7 @@ public dynamic class UIMovieClip extends MovieClip
      */
     override public function get y():Number
     {
-        return (_layoutFeatures == null)? super.y:_layoutFeatures.layoutY;
+        return (_layoutFeatures == null) ? super.y : _layoutFeatures.layoutY;
     }
 
     /**
@@ -879,7 +879,7 @@ public dynamic class UIMovieClip extends MovieClip
         if (y == value)
             return;
 
-        if(_layoutFeatures == null)
+        if (_layoutFeatures == null)
         {
             super.y  = value;
         }
@@ -893,13 +893,18 @@ public dynamic class UIMovieClip extends MovieClip
         invalidateParentSizeAndDisplayList();
     }
     
-    [Bindable("zChanged")]
-    /**
+	//----------------------------------
+	//  z
+	//----------------------------------
+
+	[Bindable("zChanged")]
+
+	/**
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     override public function get z():Number
@@ -914,16 +919,24 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if (z == value)
             return;
-        if (_layoutFeatures == null)
+
+		if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
-        _layoutFeatures.layoutZ = value;
+
+		hasDeltaIdentityTransform = false;
+		_layoutFeatures.layoutZ = value;
         invalidateTransform();
         //invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
     
-    [Inspectable]
-    /**
+	//----------------------------------
+	//  boundingBoxName
+	//----------------------------------
+
+	[Inspectable]
+
+	/**
      *  Name of the object to use as the bounding box.
      *
      *  <p>The bounding box is an object that is used by Flex to determine
@@ -1412,7 +1425,7 @@ public dynamic class UIMovieClip extends MovieClip
     {
         var bindingsHost:Object = descriptor && descriptor.document ? descriptor.document : parentDocument;
         var mgr:* = ApplicationDomain.currentDomain.getDefinition("mx.binding.BindingManager");
-        if(mgr != null)             
+        if (mgr != null)             
             mgr.executeBindings(bindingsHost, id, this);
     }
 
@@ -2277,7 +2290,7 @@ public dynamic class UIMovieClip extends MovieClip
         // if it's been set, layoutFeatures won't be null.  Otherwise, return 1 as
         // super.scaleX might be some other value since we change the width/height 
         // through scaling
-        return ((_layoutFeatures == null)? 1:_layoutFeatures.layoutScaleX);
+        return (_layoutFeatures == null) ? 1 : _layoutFeatures.layoutScaleX;
     }
     
     override public function set scaleX(value:Number):void
@@ -2285,15 +2298,11 @@ public dynamic class UIMovieClip extends MovieClip
         if (value == scaleX)
             return;
         
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
-        var prevValue:Number = _layoutFeatures.layoutScaleX;
-        if (prevValue == value)
-            return;
+        if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
 
         hasDeltaIdentityTransform = false;
 
-        // trace("set scaleX:" + this + "value = " + value); 
-        
         _layoutFeatures.layoutScaleX = value;
         invalidateTransform();
         //invalidateProperties();
@@ -2387,15 +2396,11 @@ public dynamic class UIMovieClip extends MovieClip
         if (value == scaleY)
             return;
         
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
-        var prevValue:Number = _layoutFeatures.layoutScaleY;
-        if (prevValue == value)
-            return;
+        if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
             
         hasDeltaIdentityTransform = false;
 
-        // trace("set scaleY:" + this + "value = " + value); 
-        
         _layoutFeatures.layoutScaleY = value;
         invalidateTransform();
         //invalidateProperties();
@@ -2476,7 +2481,7 @@ public dynamic class UIMovieClip extends MovieClip
      */
     override public function get scaleZ():Number
     {
-        return ((_layoutFeatures == null)? super.scaleZ:_layoutFeatures.layoutScaleZ);
+        return (_layoutFeatures == null) ? super.scaleZ : _layoutFeatures.layoutScaleZ;
     }
 
     /**
@@ -2486,10 +2491,14 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if (scaleZ == value)
             return;
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
-        _layoutFeatures.layoutScaleZ = value;
+        if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+		
+		hasDeltaIdentityTransform = false;
+		_layoutFeatures.layoutScaleZ = value;
         invalidateTransform();
         //invalidateProperties();
+		invalidateParentSizeAndDisplayList();
     }
     
     //--------------------------------------------------------------------------
@@ -2724,12 +2733,14 @@ public dynamic class UIMovieClip extends MovieClip
      */
     public function set depth(value:Number):void
     {
-        if(value == depth)
+        if (value == depth)
             return;
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+		
         _layoutFeatures.depth = value;      
         dispatchEvent(new FlexEvent("layerChange"));
-        if(parent != null && "invalidateLayering" in parent && parent["invalidateLayering"] is Function)
+        if (parent != null && "invalidateLayering" in parent && parent["invalidateLayering"] is Function)
             parent["invalidateLayering"]();
         // FIXME (rfrishbe): should be in some interface...
     }
@@ -2753,7 +2764,9 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if (transformX == value)
             return;
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+		
         _layoutFeatures.transformX = value;
         invalidateTransform();
         //invalidateProperties();
@@ -2779,7 +2792,9 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if (transformY == value)
             return;
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+
         _layoutFeatures.transformY = value;
         invalidateTransform();
         //invalidateProperties();
@@ -2805,7 +2820,9 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if (transformZ == value)
             return;
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+
         _layoutFeatures.transformZ = value;
         invalidateTransform();
         //invalidateProperties();
@@ -2813,7 +2830,7 @@ public dynamic class UIMovieClip extends MovieClip
     }
     
     /**
-     * @inheritDoc
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -2834,71 +2851,33 @@ public dynamic class UIMovieClip extends MovieClip
             return;
 
         hasDeltaIdentityTransform = false;
-        if(_layoutFeatures == null)
-        {
-            // clamp the rotation value between -180 and 180.  This is what 
-            // the Flash player does and what we mimic in CompoundTransform;
-            // however, the Flash player doesn't handle values larger than 
-            // 2^15 - 1 (FP-749), so we need to clamp even when we're 
-            // just setting super.rotation.
-            if (value > 180 || value < -180)
-            {
-                value = value % 360;
-            
-                if (value > 180)
-                    value = value - 360;
-                else if (value < -180)
-                    value = value + 360;
-            }
-            
-            super.rotation = value;
-        }
+        if (_layoutFeatures == null)
+            super.rotation = MatrixUtil.clampRotation(value);
         else
-        {
             _layoutFeatures.layoutRotationZ = value;
-        }
 
         invalidateTransform();
         //invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
 
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    override public function get rotationZ():Number
-    {
-        return rotation;
-    }
-    /**
-     *  @private
-     */
-    override public function set rotationZ(value:Number):void
-    {
-        rotation = value;
-    }
-
-    /**
-     * Indicates the x-axis rotation of the DisplayObject instance, in degrees, from its original orientation 
-     * relative to the 3D parent container. Values from 0 to 180 represent clockwise rotation; values 
-     * from 0 to -180 represent counterclockwise rotation. Values outside this range are added to or subtracted from 
-     * 360 to obtain a value within the range.
-     * 
-     * This property is ignored during calculation by any of Flex's 2D layouts. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
+	/**
+	 *  Indicates the x-axis rotation of the DisplayObject instance, in degrees,
+	 *  from its original orientation relative to the 3D parent container.
+	 *  Values from 0 to 180 represent clockwise rotation; values from 0 to -180
+	 *  represent counterclockwise rotation. Values outside this range are added
+	 *  to or subtracted from 360 to obtain a value within the range.
+	 * 
+	 *  This property is ignored during calculation by any of Flex's 2D layouts. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 3
+	 */
     override public function get rotationX():Number
     {
-        return (_layoutFeatures == null)? super.rotationX:_layoutFeatures.layoutRotationX;
+        return (_layoutFeatures == null) ? super.rotationX : _layoutFeatures.layoutRotationX;
     }
 
     /**
@@ -2909,7 +2888,8 @@ public dynamic class UIMovieClip extends MovieClip
         if (rotationX == value)
             return;
 
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
         _layoutFeatures.layoutRotationX = value;
         invalidateTransform();
         //invalidateProperties();
@@ -2917,21 +2897,22 @@ public dynamic class UIMovieClip extends MovieClip
     }
 
     /**
-     * Indicates the y-axis rotation of the DisplayObject instance, in degrees, from its original orientation 
-     * relative to the 3D parent container. Values from 0 to 180 represent clockwise rotation; values 
-     * from 0 to -180 represent counterclockwise rotation. Values outside this range are added to or subtracted from 
-     * 360 to obtain a value within the range.
+	 *  Indicates the y-axis rotation of the DisplayObject instance, in degrees,
+	 *  from its original orientation relative to the 3D parent container.
+	 *  Values from 0 to 180 represent clockwise rotation; values from 0 to -180
+	 *  represent counterclockwise rotation. Values outside this range are added
+	 *  to or subtracted from 360 to obtain a value within the range.
      * 
      * This property is ignored during calculation by any of Flex's 2D layouts. 
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     override public function get rotationY():Number
     {
-        return (_layoutFeatures == null)? super.rotationY:_layoutFeatures.layoutRotationY;
+        return (_layoutFeatures == null) ? super.rotationY : _layoutFeatures.layoutRotationY;
     }
 
     /**
@@ -2942,13 +2923,35 @@ public dynamic class UIMovieClip extends MovieClip
         if (rotationY == value)
             return;
 
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
         _layoutFeatures.layoutRotationY = value;
         invalidateTransform();
         //invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
     
+	/**
+	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 3
+	 */
+	override public function get rotationZ():Number
+	{
+		return rotation;
+	}
+
+	/**
+	 *  @private
+	 */
+	override public function set rotationZ(value:Number):void
+	{
+		rotation = value;
+	}
+	
     /**
      *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
      *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
@@ -2963,12 +2966,14 @@ public dynamic class UIMovieClip extends MovieClip
      */
     public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+
         
-        if(_layoutFeatures.postLayoutTransformOffsets != null)
+        if (_layoutFeatures.postLayoutTransformOffsets != null)
             _layoutFeatures.postLayoutTransformOffsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
         _layoutFeatures.postLayoutTransformOffsets = value;
-        if(_layoutFeatures.postLayoutTransformOffsets != null)
+        if (_layoutFeatures.postLayoutTransformOffsets != null)
             _layoutFeatures.postLayoutTransformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
         invalidateTransform();
     }
@@ -3025,9 +3030,9 @@ public dynamic class UIMovieClip extends MovieClip
         
         setTransform(value);
         
-        if(m != null)
+        if (m != null)
             setLayoutMatrix(m.clone(), true /*triggerLayoutPass*/);
-        else if(m3 != null)
+        else if (m3 != null)
             setLayoutMatrix3D(m3.clone(), true /*triggerLayoutPass*/);
 
         super.transform.colorTransform = ct;
@@ -3062,7 +3067,7 @@ public dynamic class UIMovieClip extends MovieClip
     public function set maintainProjectionCenter(value:Boolean):void
     {
         _maintainProjectionCenter = value;
-        if(value && super.transform.perspectiveProjection == null)
+        if (value && super.transform.perspectiveProjection == null)
         {
             super.transform.perspectiveProjection = new PerspectiveProjection();
         }
@@ -3086,7 +3091,7 @@ public dynamic class UIMovieClip extends MovieClip
      */
     public function getLayoutMatrix():Matrix
     {
-        if(_layoutFeatures != null)
+        if (_layoutFeatures != null)
         {
             // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
             // since this is an internal class, we don't need to worry about developers
@@ -3286,7 +3291,7 @@ public dynamic class UIMovieClip extends MovieClip
         }
         else
         {
-            if(xformPt == null)
+            if (xformPt == null)
                 xformPt = new Point();
             if (transformCenter)
             {
@@ -3312,11 +3317,6 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  Helper method to invalidate parent size and display list if
      *  this object affects its layout (includeInLayout is true).
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     protected function invalidateParentSizeAndDisplayList():void
     {
@@ -3338,32 +3338,33 @@ public dynamic class UIMovieClip extends MovieClip
      */
     private var _layoutFeatures:AdvancedLayoutFeatures;
     
-    /**
-     * @private
-     *
-     * when true, the transform on this component consists only of translation.  Otherwise, it may be arbitrarily complex.
-     */
+	/**
+	 *  @private
+	 *  When true, the transform on this component consists only of translation.
+	 *  Otherwise, it may be arbitrarily complex.
+	 */
     protected var hasDeltaIdentityTransform:Boolean = true;
     
-    /**
-     * @private
-     *
-     * storage for the modified Transform object that can dispatch change events correctly.
-     */
+	/**
+	 *  @private
+	 *  Storage for the modified Transform object that can dispatch
+	 *  change events correctly.
+	 */
     private var _transform:flash.geom.Transform;
     
-    /**
-     * Initializes the implementation and storage of some of the less frequently used
-     * advanced layout features of a component.  Call this function before attempting to use any of the 
-     * features implemented by the AdvancedLayoutFeatures object.
-     * 
-     *  
+	/**
+	 *  @private
+	 *  Initializes the implementation and storage of some of the less
+	 *  frequently used advanced layout features of a component.
+	 *  Call this function before attempting to use any of the
+	 *  features implemented by the AdvancedLayoutFeatures object.
+	 * 
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    protected function initAdvancedLayoutFeatures():void
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+	 */
+    private function initAdvancedLayoutFeatures():void
     {
         var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
 
@@ -3378,13 +3379,17 @@ public dynamic class UIMovieClip extends MovieClip
         features.layoutX = x;
         features.layoutY = y;
         features.layoutZ = z;
+		
+		// Initialize the internal variable last,
+		// since the transform getters depend on it.
         _layoutFeatures = features;
-        invalidateTransform();
+
+		invalidateTransform();
     }
     
     private function invalidateTransform():void
     {
-        if(_layoutFeatures && _layoutFeatures.updatePending == false)
+        if (_layoutFeatures && _layoutFeatures.updatePending == false)
         {
             _layoutFeatures.updatePending = true; 
             applyComputedMatrix();
@@ -3411,7 +3416,7 @@ public dynamic class UIMovieClip extends MovieClip
         _layoutFeatures.layoutScaleX = _layoutFeatures.layoutScaleX * scaleXDueToSizing;
         _layoutFeatures.layoutScaleY = _layoutFeatures.layoutScaleY * scaleYDueToSizing;
         
-        if(_layoutFeatures.is3D)
+        if (_layoutFeatures.is3D)
         {
             super.transform.matrix3D = _layoutFeatures.computedMatrix3D;
         }
@@ -3427,7 +3432,7 @@ public dynamic class UIMovieClip extends MovieClip
     private function applyPerspectiveProjection():void
     {
         var pmatrix:PerspectiveProjection = super.transform.perspectiveProjection;
-        if(pmatrix != null)
+        if (pmatrix != null)
         {
             // width, height instead of unscaledWidth, unscaledHeight
             pmatrix.projectionCenter = new Point(width/2,height/2);
@@ -3594,7 +3599,11 @@ public dynamic class UIMovieClip extends MovieClip
         LayoutElementUIComponentUtils.setLayoutBoundsSize(this,width,height,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
     
-    protected function nonDeltaLayoutMatrix():Matrix
+	/**
+	 *  @private
+	 *  Returns the layout matrix, or null if it only consists of translations.
+	 */
+    private function nonDeltaLayoutMatrix():Matrix
     {
         if (hasDeltaIdentityTransform)
             return null; 
@@ -3608,9 +3617,8 @@ public dynamic class UIMovieClip extends MovieClip
             // if scale is actually set (and it's not just our "secret scale"), then 
             // layoutFeatures wont' be null and we won't be down here
             return MatrixUtil.composeMatrix(x, y, 1, 1, rotation,
-                        transformX, transformY);
+                        					transformX, transformY);
         }
-                
     }
     
     //--------------------------------------------------------------------------
@@ -3823,7 +3831,7 @@ public dynamic class UIMovieClip extends MovieClip
                 
                 // If the new transition is starting inside the current transition, start from
                 // the current frame location.
-                if(currentFrame < Math.min(startFrame, endFrame) || currentFrame > Math.max(startFrame, endFrame))
+                if (currentFrame < Math.min(startFrame, endFrame) || currentFrame > Math.max(startFrame, endFrame))
                     gotoAndStop(startFrame);
                 else
                     startFrame = currentFrame;
@@ -4092,7 +4100,7 @@ public dynamic class UIMovieClip extends MovieClip
 
         if (x != this.x)
         {
-            if(_layoutFeatures == null)
+            if (_layoutFeatures == null)
                 super.x  = x;
             else
                 _layoutFeatures.layoutX = x;
@@ -4103,7 +4111,7 @@ public dynamic class UIMovieClip extends MovieClip
 
         if (y != this.y)
         {
-            if(_layoutFeatures == null)
+            if (_layoutFeatures == null)
                 super.y  = y;
             else
                 _layoutFeatures.layoutY = y;
