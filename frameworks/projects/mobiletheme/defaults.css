@@ -248,6 +248,7 @@ SpinnerListItemRenderer
 SplitViewNavigator
 {
 	skinClass: ClassReference("spark.skins.mobile.SplitViewNavigatorSkin");
+    backgroundColor: #000000;
 }
 
 TabbedViewNavigatorApplication
