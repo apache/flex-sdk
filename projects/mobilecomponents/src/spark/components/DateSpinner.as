@@ -680,9 +680,6 @@ public class DateSpinner extends SkinnableComponent
     {
         super.commitProperties();
         
-        // TODO: CHECK ON THIS ASSUMPTION
-        // TODO: Jason says this is wrong; just use styleName = DateSpinner to link styles
-        //       but having trouble getting that to work
         var localeStr:String = getStyle("locale");
         if (refreshDateTimeFormatter)
         {
