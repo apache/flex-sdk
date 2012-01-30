@@ -566,6 +566,10 @@ public class WindowedApplication extends Application implements IWindow
     [SkinPart (required="false")]
     public var statusText:SimpleText;
     
+    //----------------------------------
+    //  titleBar
+    //----------------------------------
+
     /**
      *  The UIComponent that displays the title bar.
      *  
@@ -575,6 +579,10 @@ public class WindowedApplication extends Application implements IWindow
      */
     [SkinPart (required="false")]
     public var titleBar:TitleBar;
+
+    //----------------------------------
+    //  titleBarBackgroundRect
+    //----------------------------------
 
     /**
      *  The background behind the title bar. A white background
