@@ -82,6 +82,11 @@ use namespace mx_internal;
  *    &lt;/mx:children&gt;
  *  &lt;/mx:<i>tagname</i>&gt;
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CompositeEffect extends Effect
 {
@@ -98,6 +103,11 @@ public class CompositeEffect extends Effect
      * 
      *  @param target This argument is ignored for composite effects.
      *  It is included only for consistency with other types of effects.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function CompositeEffect(target:Object = null)
     {
@@ -136,6 +146,11 @@ public class CompositeEffect extends Effect
     
     /**
      *  An Array containing the child effects of this CompositeEffect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _children:Array = [];
     
@@ -165,6 +180,11 @@ public class CompositeEffect extends Effect
      * all child effects. This takes into account the startDelay and repetition
      * info for all child effects, along with their durations, and returns the
      * appropriate result.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get compositeDuration():Number
     {
@@ -428,6 +448,11 @@ public class CompositeEffect extends Effect
      *
      *  @param childEffect Child effect to be added
      *  to the composite effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addChild(childEffect:IEffect):void
     {
