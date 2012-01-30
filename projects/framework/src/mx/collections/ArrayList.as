@@ -52,6 +52,7 @@ import mx.utils.UIDUtil;
 
 [ResourceBundle("collections")]
 
+[DefaultProperty("source")]
 /**
  *  @private
  *  A simple implementation of IList that uses a backing Array.
