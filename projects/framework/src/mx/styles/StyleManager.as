@@ -44,18 +44,6 @@ public class StyleManager
      */
     public static const NOT_A_COLOR:uint = 0xFFFFFFFF;
 
-    /**
-     *  @private
-     *  The inheritingStyles and nonInheritingStyles properties
-     *  are initialized to this empty Object.
-     *  This allows the getStyle() and getStyle()
-     *  methods to simply access inheritingStyles[] and nonInheritingStyles[]
-     *  without needing to first check whether those objects exist.
-     *  If they were simply initialized to {}, we couldn't determine
-     *  whether the style chain has already been built or not.
-     */
-    mx_internal static const STYLE_UNINITIALIZED:Object = {};
-
     //--------------------------------------------------------------------------
     //
     //  Class variables
