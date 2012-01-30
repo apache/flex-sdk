@@ -2677,7 +2677,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function addedToStageHandler(event:Event):void
     {
-        if (numEffectsRunning > 0)
+        if (viewTransitionRunning)
         {
             removedDuringTransition = false;
             return;
@@ -2763,7 +2763,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function removedFromStageHandler(event:Event):void
     {
-        if (numEffectsRunning > 0)
+        if (viewTransitionRunning)
         {
             removedDuringTransition = true;
             return;
