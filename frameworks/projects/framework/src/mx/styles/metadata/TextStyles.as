@@ -12,7 +12,8 @@
 /**
  *  Color of text in the component, including the component label.
  *
- *  @default 0x0B333C
+ *  The default value for the Halo theme is <code>0x0B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -94,7 +95,8 @@
  *  If you specify a generic font name,
  *  it is converted to an appropriate device font.
  * 
- *  @default "Verdana"
+ *  The default font for the Halo theme is <code>"Verdana"</code>.
+ *  The default font for the Spark theme is <code>"Arial"</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -158,8 +160,11 @@
 /**
  *  Height of the text, in pixels.
  *
- *  The default value is 10 for all controls except the ColorPicker control. 
- *  For the ColorPicker control, the default value is 11. 
+ *  In the Halo theme, the default value is 10 for all controls except
+ *  the ColorPicker control. For the Halo themed ColorPicker control,
+ *  the default value is 11. In the Spark theme, the default value is
+ *  12 for all controls except the ColorPicker control. For the Spark 
+ *  themed ColorPicker control, the default value is 11.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
