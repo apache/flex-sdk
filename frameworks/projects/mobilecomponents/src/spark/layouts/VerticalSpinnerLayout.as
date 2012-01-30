@@ -15,6 +15,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.ILayoutElement;
+import mx.core.IVisualElement;
 import mx.core.mx_internal;
 
 import spark.components.supportClasses.GroupBase;
@@ -47,7 +48,7 @@ public class VerticalSpinnerLayout extends VerticalLayout
 	
 	// If true, then when the layout encounters a disabled element, it will scroll past it
 	// in ascending index order. If false, then it will scroll in the descending index order
-	mx_internal var autoScrollAscending:Boolean = true;
+	mx_internal var autoScrollAscending:Boolean = false;
 	
 	mx_internal static const FORCE_NO_WRAP_ELEMENTS_CHANGE:String = "forceNoWrapElementsChange";
 	
@@ -117,9 +118,10 @@ public class VerticalSpinnerLayout extends VerticalLayout
 		var preferredWidth:Number = 0;  // max of the elt preferred widths
 		
 		var element:ILayoutElement;
-		
-		var iter:LayoutIterator = new LayoutIterator(target);
-		
+		var startIndex:int = 0;
+        
+		var iter:LayoutIterator = new LayoutIterator(target, startIndex);
+        
 		if (useVirtualLayout)
 		{
 			if (typicalLayoutElement)
@@ -127,18 +129,17 @@ public class VerticalSpinnerLayout extends VerticalLayout
 		}
 		else
 		{
-			while (iter.visitedElementCount < target.numElements)
-			{
-				element = iter.nextWrappedElement();
-				
-				if (element)
-				{
-					// Get the largest width
-					preferredWidth = Math.max(Math.ceil(element.getPreferredBoundsWidth()), preferredWidth);
-				}
-			}
+            do
+            {
+                element = iter.getCurrentElement();
+                if (element && element.includeInLayout)
+                    preferredWidth = Math.max(Math.ceil(element.getPreferredBoundsWidth()), preferredWidth);
+                iter.next();
+            } 
+            while (startIndex != iter.currentIndex); // Loop until we are back at the start
+                
 		}
-		
+		        
 		var rowsToMeasure:int = getRowsToMeasure(target.numElements);
 		
 		// Calculate the height by multiplying the number of elements time the row height
@@ -166,46 +167,56 @@ public class VerticalSpinnerLayout extends VerticalLayout
             normalizeScrollPosition(verticalScrollPosition) : 
             verticalScrollPosition;
 		
-		// TODO (jszeto) Modify LayoutIterator to not require seeding w/ index - 1
-        var itemIndex:int = -1;
+        var itemIndex:int = 0;
         var yPos:Number = 0;
-        var numVisibleElements:int = -1;
+        
+        var foundLastVisibleElement:Boolean = false;
+        var numVisibleElements:int = 0;
+        var numVisitedElements:int = 0;
         
         // Translate the vsp to the item index
         if (wrapElements)
         {
-            itemIndex = Math.floor(scrollPosition / rowHeight) - 1;
+            itemIndex = Math.floor(scrollPosition / rowHeight);
             // The top item might only be partially visible. 
             yPos = -(scrollPosition % rowHeight);
         }
         else
         {
             // If wrapElements == false, then start at the first index
+            // TODO (jszeto) Fix bug. Need to start at first visible index
             yPos = -scrollPosition;
         }			
         
         // Start at the top index
         var iter:LayoutIterator = new LayoutIterator(target, itemIndex);
         
-        while (iter.visitedElementCount < numElements)
+        do
         {
-            element = iter.nextWrappedElement();
-            
-            element.setLayoutBoundsSize(width, rowHeight);
-            element.setLayoutBoundsPosition(0, yPos);
-            
-            yPos += rowHeight;
-            
-            // If we are using virtual layout, only size and position 
-            // the visible elements
-            if (yPos > height && numVisibleElements != 0)
+            element = iter.getCurrentElement();
+            if (element && element.includeInLayout)
             {
-				// Keep track of the number of elements visible in the viewing area
-                numVisibleElements = iter.visitedElementCount;
-                if (useVirtualLayout)
-                    break;
+                numVisitedElements++;
+                
+                element.setLayoutBoundsSize(width, rowHeight);
+                element.setLayoutBoundsPosition(0, yPos);
+                
+                yPos += rowHeight;
+                
+                // If we are using virtual layout, only size and position 
+                // the visible elements
+                if (yPos > height && !foundLastVisibleElement)
+                {
+                    foundLastVisibleElement = true;
+                    // Keep track of the number of elements visible in the viewing area
+                    numVisibleElements = numVisitedElements;
+                    if (useVirtualLayout)
+                        break;
+                }
             }
-        }
+            iter.next();
+        } 
+        while (itemIndex != iter.currentIndex)
         
         setRowCount(numVisibleElements);
         
@@ -263,42 +274,48 @@ public class VerticalSpinnerLayout extends VerticalLayout
 		var index:int = Math.floor(position.y / rowHeight); // may be larger than numElements to indicate wrapping
 		
 		var element:ILayoutElement;
-		var currentIndex:int = index % target.numElements;
+		var startIndex:int = index % target.numElements;
+        var distance:int = 0;
+        var direction:int = autoScrollAscending ? 1 : -1;
+		if (startIndex < 0)
+            startIndex += target.numElements;
 		
-		if (currentIndex < 0)
-			currentIndex += target.numElements;
-		
-		// If the element at index % numElements) is not selectable, find the nearest one that is 
-		var iter:LayoutIterator = new LayoutIterator(target, currentIndex - (autoScrollAscending ? 1 : -1));
-		while (iter.visitedElementCount < target.numElements)
-		{
-			if (autoScrollAscending)
-				element = iter.nextWrappedElement();
-			else
-				element = iter.prevWrappedElement();
-			
-			try 
-			{
-				if (!element || element["enabled"] == undefined || element["enabled"] == true)
-					break;
-			}
-			catch (e:Error)
-			{
-				
-			}
-			
-			if (autoScrollAscending)
-				index++;
-			else
-				index--;
-		}
-		
+		// If the element at index % numElements) is not selectable, find the nearest one that is              
+        var iter:LayoutIterator = new LayoutIterator(target, startIndex);
+        
+        while (Math.abs(distance) <= (target.numElements / 2) + 1)
+        {
+            // Try searching in one direction
+            iter.currentIndex = startIndex + distance * direction;
+            element = iter.getCurrentElement();    
+            
+            if (isElementEnabled(element))
+                break;
+            
+            if (distance != 0)
+            {
+                // Flip the direction
+                direction *= -1;
+                
+                // Try searching in the other direction
+                iter.currentIndex = startIndex + distance * direction;
+                element = iter.getCurrentElement();    
+                
+                if (isElementEnabled(element))
+                    break;
+                
+                // Flip the direction back
+                direction *= -1;
+            }
+            
+            distance++;
+        }
 		
 		// If we don't allow wrapping, then cap the max index
 		if(!wrapElements)
 			index = Math.max(0, Math.min(index, target.numElements - 1));
 		
-		return index;
+		return index + distance * direction;
 	}
 		
 	//--------------------------------------------------------------------------
@@ -351,6 +368,18 @@ public class VerticalSpinnerLayout extends VerticalLayout
 		
 		return vsp;
 	}
+    
+    // Helper function to return whether an element is enabled or not
+    private function isElementEnabled(element:Object):Boolean
+    {
+        // Element is false if it was a simple type and didn't survive the 
+        // casting as an object
+        if (!element || element["enabled"] == undefined || element["enabled"] == true)
+            return true;
+       
+        
+        return false;
+    }
 }
 }
 
@@ -376,7 +405,7 @@ class LayoutIterator
 	 *  @param target The GroupBase target that contains the elements
 	 *  @param index The starting index for the iterator  
 	 */ 
-	public function LayoutIterator(target:GroupBase, index:int = -1):void
+	public function LayoutIterator(target:GroupBase, index:int = 0):void
 	{
 		totalElements = target.numElements;
 		_target = target;
@@ -391,8 +420,6 @@ class LayoutIterator
 	//--------------------------------------------------------------------------
 	
 	private var _curIndex:int;
-	private var _loopIndex:int = -1;
-	private var _visitedElementCount:int = 0;
 	private var _target:GroupBase;
 	private var _useVirtual:Boolean;
 	private var totalElements:int;
@@ -410,94 +437,52 @@ class LayoutIterator
 	{
 		return _curIndex;
 	}
-	
-	/**
-	 *  The number of elements the iterator has visited 
-	 */ 
-	public function get visitedElementCount():int
-	{
-		return _visitedElementCount;
-	}
-	
+    
+    public function set currentIndex(value:int):void
+    {
+        _curIndex = value;
+    }
+		
 	//--------------------------------------------------------------------------
 	//
 	//  Methods
 	//
 	//--------------------------------------------------------------------------
-	
 	/**
-	 *  Returns the element after the currentIndex. Returns null if the current index
-	 *  is the last element.  
-	 */ 
-	public function nextElement():ILayoutElement
-	{
-		while (_curIndex < totalElements - 1)
-		{
-			var el:ILayoutElement = _useVirtual ? _target.getVirtualElementAt(++_curIndex) :
-				_target.getElementAt(++_curIndex);
-			if (el && el.includeInLayout)
-			{
-				++_visitedElementCount;
-				return el;
-			}
-		}
-		return null;
-	}
-	
-	/**
-	 *  Returns the element before the currentIndex. Returns null if the current index
-	 *  is the first element.  
-	 */
-	public function prevElement():ILayoutElement
-	{
-		while (_curIndex > 0)
-		{
-			var el:ILayoutElement = _useVirtual ? _target.getVirtualElementAt(--_curIndex) :
-				_target.getElementAt(--_curIndex);
-			if (el && el.includeInLayout)
-			{
-				++_visitedElementCount;
-				return el;
-			}
-		}
-		return null;
-	}
-	
-	/**
-	 *  Returns the element after the currentIndex. Returns the first element if the current index
-	 *  is the last element.  
-	 */
-	public function nextWrappedElement():ILayoutElement
-	{
-		if (_loopIndex == -1)
-			_loopIndex = _curIndex;
-		else if (_loopIndex == _curIndex)
-			return null;
-		
-		var el:ILayoutElement = nextElement();
-		if (el)
-			return el;
-		else if (_curIndex == totalElements - 1)
-			_curIndex = -1;
-		return nextElement();
-	}
-	
-	/**
-	 *  Returns the element before the currentIndex. Returns the last element if the current index
-	 *  is the first element.  
-	 */
-	public function prevWrappedElement():ILayoutElement
-	{
-		if (_loopIndex == -1)
-			_loopIndex = _curIndex;
-		else if (_loopIndex == _curIndex)
-			return null;
-		
-		var el:ILayoutElement = prevElement();
-		if (el)
-			return el;
-		else if (_curIndex == 0)
-			_curIndex = totalElements;
-		return prevElement();
-	}
+     *  Get the element at the currentIndex 
+     */ 
+    public function getCurrentElement():ILayoutElement
+    {
+        return _useVirtual ? _target.getVirtualElementAt(_curIndex) :
+                             _target.getElementAt(_curIndex);
+    }
+    
+    /**
+     *  Move the currentIndex to the next index. If the currentIndex is at
+     *  the last index, then it is set to the first index. 
+     */
+    public function next():int
+    {
+        if (_curIndex == totalElements - 1)
+            _curIndex = 0;
+        else
+            _curIndex++;
+        
+        return _curIndex;
+    }
+    
+    /**
+     *  Move the currentIndex to the previous index. If the currentIndex is at
+     *  the fist index, then it is set to the last index. 
+     */
+    public function prev():int
+    {
+        if (_curIndex == 0)
+            _curIndex = totalElements - 1;
+        else
+            _curIndex--;
+        
+        return _curIndex;
+    }
+
 }
