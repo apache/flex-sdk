@@ -824,7 +824,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 	/**
 	 *  @private
 	 */
-	public function begin(target:Graphics, bounds:Rectangle):void
+	public function begin(target:Graphics, targetBounds:Rectangle, targetOrigin:Point):void
 	{		
         var sourceAsBitmapData:BitmapData = _bitmapData;
         
@@ -843,7 +843,7 @@ public class BitmapFill extends EventDispatcher implements IFill
         if (compoundTransform)
         {
             transformMatrix = compoundTransform.matrix;
-            transformMatrix.translate(bounds.left, bounds.top);
+            transformMatrix.translate(targetBounds.left, targetBounds.top);
         }
         else
         {
@@ -852,21 +852,21 @@ public class BitmapFill extends EventDispatcher implements IFill
             
             // If fillMode is scale and our bitmapdata width and height are > 0, scale to fill the content area  
             if (fillMode == BitmapFillMode.SCALE && sourceAsBitmapData.width > 0 && sourceAsBitmapData.height > 0)
-                transformMatrix.scale((bounds.width/sourceAsBitmapData.width), (bounds.height/sourceAsBitmapData.height)); 
+                transformMatrix.scale((targetBounds.width/sourceAsBitmapData.width), (targetBounds.height/sourceAsBitmapData.height)); 
             
             transformMatrix.scale(scaleX, scaleY);
             transformMatrix.rotate(rotation * RADIANS_PER_DEGREES);
-            transformMatrix.translate(x + bounds.left + transformX, y + bounds.top + transformY);
+            transformMatrix.translate(x + targetBounds.left + transformX, y + targetBounds.top + transformY);
         }
         
         // If repeat is true, fillMode is repeat, or if the source bitmap size  
-        // equals or exceeds the bounds, just use the source bitmap
+        // equals or exceeds the targetBounds, just use the source bitmap
         if (repeatFill || 
             (MatrixUtil.isDeltaIdentity(transformMatrix) && 
-             transformMatrix.tx == bounds.left &&
-             transformMatrix.ty == bounds.top &&
-             bounds.width <= sourceAsBitmapData.width && 
-             bounds.height <= sourceAsBitmapData.height))
+             transformMatrix.tx == targetBounds.left &&
+             transformMatrix.ty == targetBounds.top &&
+             targetBounds.width <= sourceAsBitmapData.width && 
+             targetBounds.height <= sourceAsBitmapData.height))
         {
             if (nonRepeatAlphaSource && nonRepeatSourceCreated)
             {
@@ -882,8 +882,8 @@ public class BitmapFill extends EventDispatcher implements IFill
             // Regenerate the nonRepeatSource if it wasn't previously created or if the bounds 
             // dimensions have changed.
             if (regenerateNonRepeatSource || 
-                lastBoundsWidth != bounds.width || 
-                lastBoundsHeight != bounds.height)
+                lastBoundsWidth != targetBounds.width || 
+                lastBoundsHeight != targetBounds.height)
             {
                 // Release the old bitmap data
                 if (nonRepeatAlphaSource)
@@ -923,8 +923,8 @@ public class BitmapFill extends EventDispatcher implements IFill
                 // We need to restore both the matrix translation and the rotation translation
                 transformMatrix.translate(tx + bitmapTopLeft.x - 1, ty + bitmapTopLeft.y - 1);
                 // Save off the bounds so we can compare it the next time this function is called
-                lastBoundsWidth = bounds.width;
-                lastBoundsHeight = bounds.height;
+                lastBoundsWidth = targetBounds.width;
+                lastBoundsHeight = targetBounds.height;
                 
                 nonRepeatSourceCreated = true;
                 
