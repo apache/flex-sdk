@@ -203,7 +203,7 @@ public class SystemManagerProxy extends SystemManager
 		_systemManager.removeEventListenerFromStage(type, listener, useCapture);		
 	}
 	
-		/**
+	/**
 	 *  @inheritDoc
 	 */
 	override public function activate(f:IFocusManagerContainer):void
@@ -241,7 +241,6 @@ public class SystemManagerProxy extends SystemManager
 																		NameUtil.displayObjectToString(this));
 			bridge.dispatchEvent(bridgeEvent);
 		}
-				
 	}
 
 	public function activateProxy(f:IFocusManagerContainer):void
