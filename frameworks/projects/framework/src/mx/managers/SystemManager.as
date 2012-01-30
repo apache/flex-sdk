@@ -3503,7 +3503,8 @@ public class SystemManager extends MovieClip
 		if (SandboxUtil.hasMutualTrustWithParent(this))
 		{
 			// ask the parent to host the popup
-			sandboxBridgeGroup.parentBridge.dispatchEvent(event);
+			popUpRequest.bridge = sandboxBridgeGroup.parentBridge;
+			sandboxBridgeGroup.parentBridge.dispatchEvent(popUpRequest);
 			return;
 		}
 		
@@ -3791,10 +3792,11 @@ public class SystemManager extends MovieClip
         if (event is ModalWindowRequest)
             return;
         
-        // make sure this ApplicationDomain has an instance of pop up manager.    
-        Singleton.getInstance("mx.managers::IPopUpManager");
-        
         var request:ModalWindowRequest = ModalWindowRequest.marshal(event);
+            
+        // Ensure a PopUpManager exists and dispatch the request it is
+        // listening for.
+        Singleton.getInstance("mx.managers::IPopUpManager");
         dispatchEvent(request);
     }
 
