@@ -52,7 +52,6 @@ global
 	fillColors: #FFFFFF, #CCCCCC, #FFFFFF, #EEEEEE;
 	filled: true;
     firstBaselineOffset: "ascent";
-    firstBaselineOffsetBasis: "roman";
 	focusAlpha: 0.4;
 	focusBlendMode: "normal";
 	focusRoundedCorners: "tl tr bl br";
@@ -90,10 +89,6 @@ global
     lineHeight: "120%";
     lineThrough: false;
     locale: "en";
-    marginBottom: 0;
-    marginLeft: 0;
-    marginRight: 0;
-    marginTop: 0;
 	modalTransparency: 0.5;
 	modalTransparencyBlur: 3;
 	modalTransparencyColor: #DDDDDD;
@@ -121,6 +116,7 @@ global
 	textDecoration: "none";
 	textFieldClass: ClassReference("mx.core.UITextField");
 	textIndent: 0;
+	textJustify: "interWord";
 	textRollOverColor: #2B333C;
     textRotation: "auto";
 	textSelectedColor: #2B333C;
