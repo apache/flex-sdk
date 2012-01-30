@@ -28,10 +28,8 @@ import flash.events.KeyboardEvent;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.system.ApplicationDomain;
 import flash.text.TextLineMetrics;
 import flash.utils.getQualifiedClassName;
-import flash.utils.getQualifiedSuperclassName;
 
 import mx.automation.IAutomationObject;
 import mx.binding.BindingManager;
@@ -40,7 +38,6 @@ import mx.effects.EffectManager;
 import mx.effects.IEffect;
 import mx.effects.IEffectInstance;
 import mx.events.ChildExistenceChangedEvent;
-import mx.events.DragEvent;
 import mx.events.DynamicEvent;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
@@ -48,7 +45,6 @@ import mx.events.MoveEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 import mx.events.StateChangeEvent;
-import mx.events.ToolTipEvent;
 import mx.events.ValidationResultEvent;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
@@ -65,7 +61,6 @@ import mx.managers.SystemManager;
 import mx.managers.SystemManagerGlobals;
 import mx.managers.SystemManagerProxy;
 import mx.managers.ToolTipManager;
-import mx.modules.ModuleManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.states.State;
@@ -81,7 +76,6 @@ import mx.utils.ObjectUtil;
 import mx.utils.StringUtil;
 import mx.validators.IValidatorListener;
 import mx.validators.ValidationResult;
-import flash.system.Security;
 
 use namespace mx_internal;
 
@@ -854,15 +848,11 @@ include "../styles/metadata/AnchorStyles.as";
  *  @see mx.core.UIComponent
  */
 public class UIComponent extends FlexSprite
-       implements IAutomationObject, IChildList,
-                         IDeferredInstantiationUIComponent, IFlexDisplayObject,
-                         IFlexModule,
-                         IInvalidating, ILayoutManagerClient,
-                         IPropertyChangeNotifier, IRepeaterClient,
-                         ISimpleStyleClient, IStyleClient,
-                         IToolTipManagerClient, IUIComponent,
-                         IValidatorListener, IStateClient,
-                         IConstraintClient
+    implements IAutomationObject, IChildList, IConstraintClient,
+    IDeferredInstantiationUIComponent, IFlexDisplayObject, IFlexModule,
+    IInvalidating, ILayoutManagerClient, IPropertyChangeNotifier,
+    IRepeaterClient, IStateClient, IStyleClient, IToolTipManagerClient,
+    IUIComponent, IValidatorListener 
 {
     include "../core/Version.as";
     
@@ -1433,7 +1423,7 @@ public class UIComponent extends FlexSprite
     /**
      *  @private
      */
-    private var _owner:DisplayObjectContainer;
+    mx_internal var _owner:DisplayObjectContainer;
 
     /**
      *  The owner of this UIComponent. By default, it is the parent of this UIComponent.
@@ -5604,40 +5594,7 @@ public class UIComponent extends FlexSprite
      */
     public function styleChanged(styleProp:String):void
     {
-
-        // If font changed, then invalidateProperties so
-        // we can re-create the text field in commitProperties
-        if (this is IFontContextComponent && hasFontContextChanged())
-            invalidateProperties();
-        
-        // Check to see if this is one of the style properties
-        // that is known to affect layout.
-        if (!styleProp ||
-            styleProp == "styleName" ||
-            StyleManager.isSizeInvalidatingStyle(styleProp))
-        {
-            // This style property change may affect the layout of this
-            // object. Signal the LayoutManager to re-measure the object.
-            invalidateSize();
-        }
-
-        if (!styleProp || 
-            styleProp == "styleName" ||
-            styleProp == "themeColor")
-        {
-            initThemeColor();
-        }
-        
-        invalidateDisplayList();
-
-        if (parent is IInvalidating)
-        {
-            if (StyleManager.isParentSizeInvalidatingStyle(styleProp))
-                IInvalidating(parent).invalidateSize();
-
-            if (StyleManager.isParentDisplayListInvalidatingStyle(styleProp))
-                IInvalidating(parent).invalidateDisplayList();
-        }
+        StyleProtoChain.styleChanged(this, styleProp);
     }
 
     /**
@@ -7442,115 +7399,7 @@ public class UIComponent extends FlexSprite
     //  Note that initProtoChain is 99% copied into DataGridItemRenderer
     mx_internal function initProtoChain():void
     {
-        var classSelectors:Array = [];
-
-        if (styleName)
-        {
-            if (styleName is CSSStyleDeclaration)
-            {
-                // Get the style sheet referenced by the styleName property
-                classSelectors.push(CSSStyleDeclaration(styleName));
-            }
-            else if (styleName is IFlexDisplayObject || styleName is IStyleClient)
-            {
-                // If the styleName property is a UIComponent, then there's a
-                // special search path for that case.
-                StyleProtoChain.initProtoChainForUIComponentStyleName(this);
-                return;
-            }
-            else if (styleName is String)
-            {
-                // Get the style sheets referenced by the styleName property             
-                var styleNames:Array = styleName.split(/\s+/);
-                for (var c:int=0; c < styleNames.length; c++)
-                {
-                    if (styleNames[c].length) {
-                        classSelectors.push(StyleManager.getStyleDeclaration("." + 
-                            styleNames[c]));
-                    }
-                }
-            }
-        }
-
-        // To build the proto chain, we start at the end and work forward.
-        // Referring to the list at the top of this function, we'll start by
-        // getting the tail of the proto chain, which is:
-        //  - for non-inheriting styles, the global style sheet
-        //  - for inheriting styles, my parent's style object
-        var nonInheritChain:Object = StyleManager.stylesRoot;
-
-        if (nonInheritChain && nonInheritChain.effects)
-            registerEffects(nonInheritChain.effects);
-
-        var p:IStyleClient = parent as IStyleClient;
-        if (p)
-        {
-            var inheritChain:Object = p.inheritingStyles;
-            if (inheritChain == StyleProtoChain.STYLE_UNINITIALIZED)
-                inheritChain = nonInheritChain;
-        }
-        else
-        {
-            // Pop ups inheriting chain starts at Application instead of global.
-            // This allows popups to grab styles like themeColor that are
-            // set on Application.
-            if (isPopUp)
-            {
-                if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0 && 
-                        _owner && _owner is IStyleClient)
-                    inheritChain = IStyleClient(_owner).inheritingStyles;
-                else
-                    inheritChain = ApplicationGlobals.application.inheritingStyles;
-            }
-            else
-                inheritChain = StyleManager.stylesRoot;
-        }
-
-        // Working backwards up the list, the next element in the
-        // search path is the type selector
-        var typeSelectors:Array = getClassStyleDeclarations();
-        var n:int = typeSelectors.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            var typeSelector:CSSStyleDeclaration = typeSelectors[i];
-            inheritChain =
-                typeSelector.addStyleToProtoChain(inheritChain, this);
-
-            nonInheritChain =
-                typeSelector.addStyleToProtoChain(nonInheritChain, this);
-
-            if (typeSelector.effects)
-                registerEffects(typeSelector.effects);
-        }
-
-        // Next are the class selectors
-        for (i = 0; i < classSelectors.length; i++)
-        {
-            var classSelector:CSSStyleDeclaration = classSelectors[i];
-            if (classSelector)
-            {
-                inheritChain =
-                    classSelector.addStyleToProtoChain(inheritChain, this);
-
-                nonInheritChain =
-                    classSelector.addStyleToProtoChain(nonInheritChain, this);
-
-                if (classSelector.effects)
-                    registerEffects(classSelector.effects);
-            }
-        }
-
-        // Finally, we'll add the in-line styles
-        // to the head of the proto chain.
-        inheritingStyles =
-            _styleDeclaration ?
-            _styleDeclaration.addStyleToProtoChain(inheritChain, this) :
-            inheritChain;
-
-        nonInheritingStyles =
-            _styleDeclaration ?
-            _styleDeclaration.addStyleToProtoChain(nonInheritChain, this) :
-            nonInheritChain;
+        StyleProtoChain.initProtoChain(this);
     }
 
     /**
@@ -7566,92 +7415,8 @@ public class UIComponent extends FlexSprite
      */
     public function getClassStyleDeclarations():Array
     {
-        var myApplicationDomain:ApplicationDomain;
-
-        var factory:IFlexModuleFactory = ModuleManager.getAssociatedFactory(this);
-        if (factory != null)
-        {
-            myApplicationDomain = ApplicationDomain(factory.info()["currentDomain"]);
-        }
-        else
-        {
-            var myRoot:DisplayObject = SystemManager.getSWFRoot(this);
-            if (!myRoot)
-                return [];
-            myApplicationDomain = myRoot.loaderInfo.applicationDomain;
-        }
-
-        var className:String = getQualifiedClassName(this)
-        className = className.replace("::", ".");
-        var cache:Array;
-        cache = StyleManager.typeSelectorCache[className];
-        if (cache)
-            return cache;
-        
-        // trace("getClassStyleDeclaration", className);
-        var decls:Array = [];
-        var classNames:Array = [];
-        var caches:Array = [];
-        var declcache:Array = [];
-
-        while (className != null &&
-               className != "mx.core.UIComponent" &&
-               className != "mx.core.UITextField")
-        {
-            var s:CSSStyleDeclaration;
-            cache = StyleManager.typeSelectorCache[className];
-            if (cache)
-            {
-                decls = decls.concat(cache);
-                break;
-            }
-
-            s = StyleManager.getStyleDeclaration(className);
-            
-            if (s)
-            {
-                decls.unshift(s);
-                // we found one so the next set define the selectors for this
-                // found class and its ancestors.  Save the old list and start
-                // a new list
-                classNames.push(className);
-                caches.push(classNames);
-                declcache.push(decls);
-                decls = [];
-                classNames = [];
-                // trace("   ", className);
-                // break;
-            }
-            else
-                classNames.push(className);
-
-            try
-            {
-                className = getQualifiedSuperclassName(myApplicationDomain.getDefinition(className));
-                className = className.replace("::", ".");
-            }
-            catch(e:ReferenceError)
-            {
-                className = null;
-            }
-        }
-
-        caches.push(classNames);
-        declcache.push(decls);
-        decls = [];
-        while (caches.length)
-        {
-            classNames = caches.pop();
-            decls = decls.concat(declcache.pop());
-            while (classNames.length)
-            {
-                StyleManager.typeSelectorCache[classNames.pop()] = decls;
-            }
-        }
-
-        return decls;
+        return StyleProtoChain.getClassStyleDeclarations(this);
     }
-
 
     /**
      *  Builds or rebuilds the CSS style cache for this component
@@ -7776,54 +7541,7 @@ public class UIComponent extends FlexSprite
      */
     public function setStyle(styleProp:String, newValue:*):void
     {
-        if (styleProp == "styleName")
-        {
-            // Let the setter handle this one, see UIComponent.
-            styleName = newValue;
-
-            // Short circuit, because styleName isn't really a style.
-            return;
-        }
-
-        if (EffectManager.getEventForEffectTrigger(styleProp) != "")
-            EffectManager.setStyle(styleProp,this);
-
-        /*
-        if (StyleManager.isEffectStyle(styleProp))
-            EffectManager.setStyle(styleProp,this);
-        */
-
-        // If this UIComponent didn't previously have any inline styles,
-        // then regenerate the UIComponent's proto chain (and the proto chains
-        // of this UIComponent's descendants).
-        var isInheritingStyle:Boolean =
-            StyleManager.isInheritingStyle(styleProp);
-        var isProtoChainInitialized:Boolean =
-            inheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED;
-        var valueChanged:Boolean = getStyle(styleProp) != newValue;
-        
-        if (!_styleDeclaration)
-        {
-            _styleDeclaration = new CSSStyleDeclaration();
-           
-            _styleDeclaration.mx_internal::setStyle(styleProp, newValue);
-
-            // If inheritingStyles is undefined, then this object is being
-            // initialized and we haven't yet generated the proto chain.  To
-            // avoid redundant work, don't bother to create the proto chain here.
-            if (isProtoChainInitialized)
-                regenerateStyleCache(isInheritingStyle);
-        }
-        else
-        {
-            _styleDeclaration.mx_internal::setStyle(styleProp, newValue);
-        }
-
-        if (isProtoChainInitialized && valueChanged)
-        {
-            styleChanged(styleProp);
-            notifyStyleChangeInChildren(styleProp, isInheritingStyle);
-        }
+        StyleProtoChain.setStyle(this, styleProp, newValue);
     }
 
     /**
