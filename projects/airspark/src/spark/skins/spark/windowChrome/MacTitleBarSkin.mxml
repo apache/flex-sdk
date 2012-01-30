@@ -13,10 +13,10 @@
       The title bar skin includes the close, minimize, and maximize buttons, the 
       title icon, and the title text.
       
-      <p>The Flex chrome is defined by the FlexChromeSkin skin class 
+      <p>The Flex chrome is defined by the SparkChromeWindowedApplicationSkin skin class 
       in the spark.skins.spark package. 
       To use the Flex chrome, set <code>systemChrome</code> to "none" in the application's .xml file,
-      and set the <code>skinClass</code> style to spark.skins.spark.FlexChromeSkin. </p>
+      and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowedApplicationSkin. </p>
 
       @see spark.components.WindowedApplication
       @see spark.components.Window
@@ -74,37 +74,37 @@
         <!-- close button -->
         <!--- 
             Defines the Button control for the close button in the title bar. 
-            By default, the button uses the spark.skins.spark.MacMinimizeButtonSkin class
+            By default, the button uses the spark.skins.spark.windowChrome.MacMinimizeButtonSkin class
             to define the skin for the close button.
             
-            @see spark.skins.spark.MacCloseButtonSkin 
+            @see spark.skins.spark.windowChrome.MacCloseButtonSkin 
         -->
         <s:Button id="closeButton" 
-            skinClass="spark.skins.spark.MacCloseButtonSkin"
+            skinClass="spark.skins.spark.windowChrome.MacCloseButtonSkin"
             verticalCenter="0" />
     
         <!-- mac minimize button --> 
         <!--- 
             Defines the Button control for the mimimized button in the title bar. 
-            By default, the button uses the spark.skins.spark.MacMinimizeButtonSkin class
+            By default, the button uses the spark.skins.spark.windowChrome.MacMinimizeButtonSkin class
             to define the skin for the mimimized button.
             
-            @see spark.skins.spark.MacMinimizeButtonSkin 
+            @see spark.skins.spark.windowChrome.MacMinimizeButtonSkin 
         -->
         <s:Button id="minimizeButton"
-            skinClass="spark.skins.spark.MacMinimizeButtonSkin"
+            skinClass="spark.skins.spark.windowChrome.MacMinimizeButtonSkin"
             top="2" bottom="2" verticalCenter="0" />
         
         <!-- maximize button -->
         <!--- 
             Defines the Button control for the maximized button in the title bar. 
-            By default, the button uses the spark.skins.spark.MacMinimizeButtonSkin class
+            By default, the button uses the spark.skins.spark.windowChrome.MacMinimizeButtonSkin class
             to define the skin for the maximized button.
             
-            @see spark.skins.spark.MacMaximizeButtonSkin 
+            @see spark.skins.spark.windowChrome.MacMaximizeButtonSkin 
         -->
         <s:Button id="maximizeButton" 
-            skinClass="spark.skins.spark.MacMaximizeButtonSkin"
+            skinClass="spark.skins.spark.windowChrome.MacMaximizeButtonSkin"
             verticalCenter="0" />
                         
         <!-- Spacer. Create enough space move the titleIcon and titleText to the
