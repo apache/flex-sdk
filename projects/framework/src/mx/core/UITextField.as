@@ -46,6 +46,16 @@ include "../styles/metadata/LeadingStyle.as"
 include "../styles/metadata/PaddingStyles.as"
 include "../styles/metadata/TextStyles.as"
 
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="direction", kind="style")]
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
 [ResourceBundle("core")]
     
 /**
