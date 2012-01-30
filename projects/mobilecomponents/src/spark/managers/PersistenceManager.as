@@ -15,16 +15,18 @@ import flash.net.SharedObject;
     
 /**
  *  The PersistenceManager class is a basic persistence manager that 
- *  is backed by a shared object.  When initialized, it will load a
+ *  is backed by a shared object.  When initialized, it loads a
  *  shared object that matches its id.  If one is not found, one will
  *  be created.
  * 
  *  <p>When storing values in the manager, it is important that all
  *  values can be properly be written to a shared object.  Complex
- *  objects that store classes or non-standard flash primitives will
- *  need to implement flash.net.IExternalizable to work properly.
- *  Saving incompatible objects will not cause an RTE, but will create
+ *  objects that store classes or non-standard flash primitives 
+ *  must implement flash.net.IExternalizable interface to work properly.
+ *  Saving incompatible objects will not cause an RTE, but create
  *  undefined behavior when read from disk.</p>
+ *
+ *  @see flash.net.IExternalizable
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
