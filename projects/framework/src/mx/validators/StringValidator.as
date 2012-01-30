@@ -46,333 +46,333 @@ import mx.utils.StringUtil;
  */
 public class StringValidator extends Validator
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Convenience method for calling a validator.
-	 *  Each of the standard Flex validators has a similar convenience method.
-	 *
-	 *  @param validator The StringValidator instance.
-	 *
-	 *  @param value A field to validate.
-	 *
-	 *  @param baseField Text representation of the subfield
-	 *  specified in the <code>value</code> parameter.
-	 *  For example, if the <code>value</code> parameter specifies
-	 *  value.mystring, the <code>baseField</code> value
-	 *  is <code>"mystring"</code>.
+    /**
+     *  Convenience method for calling a validator.
+     *  Each of the standard Flex validators has a similar convenience method.
      *
-	 *  @return An Array of ValidationResult objects, with one
-	 *  ValidationResult  object for each field examined by the validator. 
-	 *
-	 *  @see mx.validators.ValidationResult
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static function validateString(validator:StringValidator,
-										  value:Object,
-										  baseField:String = null):Array
-	{
-		var results:Array = [];
-		
-		// Resource-backed properties of the validator.
-		var maxLength:Number = Number(validator.maxLength);
-		var minLength:Number = Number(validator.minLength);
+     *  @param validator The StringValidator instance.
+     *
+     *  @param value A field to validate.
+     *
+     *  @param baseField Text representation of the subfield
+     *  specified in the <code>value</code> parameter.
+     *  For example, if the <code>value</code> parameter specifies
+     *  value.mystring, the <code>baseField</code> value
+     *  is <code>"mystring"</code>.
+     *
+     *  @return An Array of ValidationResult objects, with one
+     *  ValidationResult  object for each field examined by the validator. 
+     *
+     *  @see mx.validators.ValidationResult
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function validateString(validator:StringValidator,
+                                          value:Object,
+                                          baseField:String = null):Array
+    {
+        var results:Array = [];
+        
+        // Resource-backed properties of the validator.
+        var maxLength:Number = Number(validator.maxLength);
+        var minLength:Number = Number(validator.minLength);
 
-		var val:String = value != null ? String(value) : "";
+        var val:String = value != null ? String(value) : "";
 
-		if (!isNaN(maxLength) && val.length > maxLength)
-		{
-			results.push(new ValidationResult(
-				true, baseField, "tooLong",
-				StringUtil.substitute(validator.tooLongError, maxLength)));
-			return results;
-		}
+        if (!isNaN(maxLength) && val.length > maxLength)
+        {
+            results.push(new ValidationResult(
+                true, baseField, "tooLong",
+                StringUtil.substitute(validator.tooLongError, maxLength)));
+            return results;
+        }
 
-		if (!isNaN(minLength) && val.length < minLength)
-		{
-			results.push(new ValidationResult(
-				true, baseField, "tooShort",
-				StringUtil.substitute(validator.tooShortError, minLength)));
-			return results;
-		}
+        if (!isNaN(minLength) && val.length < minLength)
+        {
+            results.push(new ValidationResult(
+                true, baseField, "tooShort",
+                StringUtil.substitute(validator.tooShortError, minLength)));
+            return results;
+        }
 
-		return results;
-	}
+        return results;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function StringValidator()
-	{
-		super();
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-
-	//----------------------------------
-	//  maxLength
-	//----------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
     /**
-	 *  @private
-	 *  Storage for the maxLength property.
-	 */
-	private var _maxLength:Object;
-	
-    /**
-	 *  @private
-	 */
-	private var maxLengthOverride:Object;
-	
-	[Inspectable(category="General", defaultValue="null")]
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function StringValidator()
+    {
+        super();
+    }
 
-	/** 
-	 *  Maximum length for a valid String. 
-	 *  A value of NaN means this property is ignored.
-	 *
-	 *  @default NaN
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get maxLength():Object
-	{
-		return _maxLength;
-	}
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	public function set maxLength(value:Object):void
-	{
-		maxLengthOverride = value;
-
-		_maxLength = value != null ?
-					 Number(value) :
-					 resourceManager.getNumber(
-					     "validators", "maxLength");
-	}
-	
-	//----------------------------------
-	//  minLength
-	//----------------------------------
+    //----------------------------------
+    //  maxLength
+    //----------------------------------
 
     /**
-	 *  @private
-	 *  Storage for the minLength property.
-	 */
-	private var _minLength:Object;
-	
+     *  @private
+     *  Storage for the maxLength property.
+     */
+    private var _maxLength:Object;
+    
     /**
-	 *  @private
-	 */
-	private var minLengthOverride:Object;
-	
-	[Inspectable(category="General", defaultValue="null")]
+     *  @private
+     */
+    private var maxLengthOverride:Object;
+    
+    [Inspectable(category="General", defaultValue="null")]
 
-	/** 
-	 *  Minimum length for a valid String.
-	 *  A value of NaN means this property is ignored.
-	 *
-	 *  @default NaN
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get minLength():Object
-	{
-		return _minLength;
-	}
-
-	/**
-	 *  @private
-	 */
-	public function set minLength(value:Object):void
-	{
-		minLengthOverride = value;
-
-		_minLength = value != null ?
-					 Number(value) :
-					 resourceManager.getNumber(
-					     "validators", "minLength");
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Properties: Errors
-	//
-	//--------------------------------------------------------------------------
-
-	//----------------------------------
-	//  tooLongError
-	//----------------------------------
-
-	/**
-	 *  @private
-	 *  Storage for the tooLongError property.
-	 */
-	private var _tooLongError:String;
+    /** 
+     *  Maximum length for a valid String. 
+     *  A value of NaN means this property is ignored.
+     *
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get maxLength():Object
+    {
+        return _maxLength;
+    }
 
     /**
-	 *  @private
-	 */
-	private var tooLongErrorOverride:String;
-	
+     *  @private
+     */
+    public function set maxLength(value:Object):void
+    {
+        maxLengthOverride = value;
+
+        _maxLength = value != null ?
+                     Number(value) :
+                     resourceManager.getNumber(
+                         "validators", "maxLength");
+    }
+    
+    //----------------------------------
+    //  minLength
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the minLength property.
+     */
+    private var _minLength:Object;
+    
+    /**
+     *  @private
+     */
+    private var minLengthOverride:Object;
+    
+    [Inspectable(category="General", defaultValue="null")]
+
+    /** 
+     *  Minimum length for a valid String.
+     *  A value of NaN means this property is ignored.
+     *
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get minLength():Object
+    {
+        return _minLength;
+    }
+
+    /**
+     *  @private
+     */
+    public function set minLength(value:Object):void
+    {
+        minLengthOverride = value;
+
+        _minLength = value != null ?
+                     Number(value) :
+                     resourceManager.getNumber(
+                         "validators", "minLength");
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties: Errors
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  tooLongError
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the tooLongError property.
+     */
+    private var _tooLongError:String;
+
+    /**
+     *  @private
+     */
+    private var tooLongErrorOverride:String;
+    
     [Inspectable(category="Errors", defaultValue="null")]
 
-	/** 
-	 *  Error message when the String is longer
-	 *  than the <code>maxLength</code> property.
-	 *
-	 *  @default "This string is longer than the maximum allowed length. This must be less than {0} characters long."
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get tooLongError():String 
-	{
-		return _tooLongError;
-	}
+    /** 
+     *  Error message when the String is longer
+     *  than the <code>maxLength</code> property.
+     *
+     *  @default "This string is longer than the maximum allowed length. This must be less than {0} characters long."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get tooLongError():String 
+    {
+        return _tooLongError;
+    }
 
-	/*
-	 *  @private
-	 */
-	public function set tooLongError(value:String):void
+    /**
+     *  @private
+     */
+    public function set tooLongError(value:String):void
     {
         tooLongErrorOverride = value;
 
-		_tooLongError = value != null ?
-						value :
-						resourceManager.getString(
-							"validators", "tooLongError");
+        _tooLongError = value != null ?
+                        value :
+                        resourceManager.getString(
+                            "validators", "tooLongError");
     }
 
-	//----------------------------------
-	//  tooShortError
-	//----------------------------------
+    //----------------------------------
+    //  tooShortError
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the tooShortError property.
-	 */
-	private var _tooShortError:String;
-	
     /**
-	 *  @private
-	 */
-	private var tooShortErrorOverride:String;
-	
-	[Inspectable(category="Errors", defaultValue="null")]
+     *  @private
+     *  Storage for the tooShortError property.
+     */
+    private var _tooShortError:String;
+    
+    /**
+     *  @private
+     */
+    private var tooShortErrorOverride:String;
+    
+    [Inspectable(category="Errors", defaultValue="null")]
 
-	/** 
-	 *  Error message when the string is shorter
-	 *  than the <code>minLength</code> property.
-	 *
-	 *  @default "This string is shorter than the minimum allowed length. This must be at least {0} characters long."
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get tooShortError():String 
-	{
-		return _tooShortError;
-	}
+    /** 
+     *  Error message when the string is shorter
+     *  than the <code>minLength</code> property.
+     *
+     *  @default "This string is shorter than the minimum allowed length. This must be at least {0} characters long."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get tooShortError():String 
+    {
+        return _tooShortError;
+    }
 
-	/*
-	 *  @private
-	 */
-	public function set tooShortError(value:String):void
+    /**
+     *  @private
+     */
+    public function set tooShortError(value:String):void
     {
         tooShortErrorOverride = value;
 
-		_tooShortError = value != null ?
-						 value :
-						 resourceManager.getString(
-						     "validators", "tooShortError");
+        _tooShortError = value != null ?
+                         value :
+                         resourceManager.getString(
+                             "validators", "tooShortError");
     }
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
 
     /**
-	 *  @private    
+     *  @private    
      */
-	override protected function resourcesChanged():void
-	{
-		super.resourcesChanged();
+    override protected function resourcesChanged():void
+    {
+        super.resourcesChanged();
 
-		maxLength = maxLengthOverride;
-		minLength = minLengthOverride;
+        maxLength = maxLengthOverride;
+        minLength = minLengthOverride;
 
-		tooLongError = tooLongErrorOverride;
-		tooShortError = tooShortErrorOverride;
-	}
+        tooLongError = tooLongErrorOverride;
+        tooShortError = tooShortErrorOverride;
+    }
 
-	/**
+    /**
      *  Override of the base class <code>doValidation()</code> method
      *  to validate a String.
      *
-	 *  <p>You do not call this method directly;
-	 *  Flex calls it as part of performing a validation.
-	 *  If you create a custom Validator class, you must implement this method.</p>
-	 *
+     *  <p>You do not call this method directly;
+     *  Flex calls it as part of performing a validation.
+     *  If you create a custom Validator class, you must implement this method.</p>
+     *
      *  @param value Object to validate.
      *
-	 *  @return An Array of ValidationResult objects, with one ValidationResult 
-	 *  object for each field examined by the validator. 
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override protected function doValidation(value:Object):Array
+     *  @return An Array of ValidationResult objects, with one ValidationResult 
+     *  object for each field examined by the validator. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override protected function doValidation(value:Object):Array
     {
-		var results:Array = super.doValidation(value);
-		
-		// Return if there are errors
-		// or if the required property is set to false and length is 0.
-		var val:String = value ? String(value) : "";
-		if (results.length > 0 || ((val.length == 0) && !required))
-			return results;
-		else
-		    return StringValidator.validateString(this, value, null);
+        var results:Array = super.doValidation(value);
+        
+        // Return if there are errors
+        // or if the required property is set to false and length is 0.
+        var val:String = value ? String(value) : "";
+        if (results.length > 0 || ((val.length == 0) && !required))
+            return results;
+        else
+            return StringValidator.validateString(this, value, null);
     }
 }
 
