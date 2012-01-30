@@ -11,7 +11,11 @@
 
 package spark.skins.mobile
 {
+import mx.core.ClassFactory;
+import mx.core.IFactory;
+
 import spark.components.MobileApplication;
+import spark.components.ViewMenu;
 import spark.components.ViewNavigator;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
@@ -43,6 +47,8 @@ public class MobileApplicationSkin extends MobileSkin
     public function MobileApplicationSkin()
     {
         super();
+        
+        viewMenu = new ClassFactory(ViewMenu);
     }
     
     //--------------------------------------------------------------------------
@@ -60,6 +66,12 @@ public class MobileApplicationSkin extends MobileSkin
      *  @productversion Flex 4.5
      */
     public var navigator:ViewNavigator;
+    
+    
+    /**
+     *  Creates an action menu from this factory when the menu button is pressed 
+     */ 
+    public var viewMenu:IFactory;
 
     //--------------------------------------------------------------------------
     //
