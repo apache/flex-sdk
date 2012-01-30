@@ -373,7 +373,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             return null;
         
         // When this class was first released, navigators was typed Vector
-        // and not Array.  In 4.5.2, TabbedViewNavigator moved away from this 
+        // and not Array.  In 4.6, TabbedViewNavigator moved away from this 
         // model and uses mxmlContent to manage children.  To maintain backwards 
         // compatibility, the return type for this method remained the same.
         // As a result, the mxmlContent array will need to converted.
@@ -386,7 +386,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     public function set navigators(value:Vector.<ViewNavigatorBase>):void
     {
         // When this class was first released, navigators was typed Vector
-        // and not Array.  In 4.5.2, TabbedViewNavigator moved away from this
+        // and not Array.  In 4.6, TabbedViewNavigator moved away from this
         // model and uses mxmlContent to manage children.  To maintain backwards 
         // compatibility, the return type for this method remained the same.
         // As a result, the value vector needs to be converted to an array
