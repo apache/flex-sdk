@@ -192,9 +192,8 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
      *  of a Flash container, you do not use the <code>addChild()</code> or <code>addChildAt()</code> method. 
      *  Instead, you assign the child directly to the content property.  </p>
      *
-     *  @example
-     *  The following example assigns a container to the <code>ContainerMovieClip.content</code> property.
-     * <listing version="3.0">
+     *  <p>The following example assigns a container to the <code>ContainerMovieClip.content</code> property.</p>
+     *  <pre>
      *  &lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
      *     xmlns:myComps="~~"&gt;
      *     
@@ -226,9 +225,7 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
      * 
      *     &lt;myComps:MyPictureFrameContainer id="pFrame" 
      *         initialize="init();"/&gt;
-     * &lt;/mx:Application&gt;
-     * </listing>
-     *
+     * &lt;/mx:Application&gt;</pre>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
