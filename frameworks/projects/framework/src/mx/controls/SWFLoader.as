@@ -18,10 +18,13 @@ import flash.display.DisplayObjectContainer;
 import flash.display.Loader;
 import flash.display.LoaderInfo;
 import flash.events.Event;
+import flash.events.EventDispatcher;
 import flash.events.HTTPStatusEvent;
+import flash.events.IEventDispatcher;
 import flash.events.IOErrorEvent;
 import flash.events.ProgressEvent;
 import flash.events.SecurityErrorEvent;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.net.URLRequest;
 import flash.system.ApplicationDomain;
@@ -37,12 +40,22 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.events.SandboxBridgeEvent;
 import mx.events.FlexEvent;
+import mx.events.FocusRequest;
 import mx.managers.CursorManager;
+import mx.managers.FocusManager;
+import mx.managers.IFocusManager;
+import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
+import mx.managers.ISystemManager2;
 import mx.managers.SystemManagerGlobals;
 import mx.styles.ISimpleStyleClient;
 import mx.utils.LoaderUtil;
+import mx.managers.IFocusManagerBridge;
+import mx.sandbox.IChildAccess;
+import mx.sandbox.ISandboxBridgeProvider;
+import mx.events.SizeRequest;
 
 use namespace mx_internal;
 
@@ -247,6 +260,7 @@ use namespace mx_internal;
  *  &lt;mx:SWFLoader
  *    <strong>Properties</strong>
  *    autoLoad="true|false"
+ *    compatibleLoad="true|false"
  *    loaderContext="null"
  *    maintainAspectRatio="true|false"
  *    scaleContent="true|false"
@@ -280,7 +294,7 @@ use namespace mx_internal;
  *
  *  @see mx.controls.Image
  */
-public class SWFLoader extends UIComponent
+public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChildAccess
 {
     include "../core/Version.as";
 
@@ -447,6 +461,55 @@ public class SWFLoader extends UIComponent
     }
 
     //----------------------------------
+    //  compatibleLoad
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the compatibleLoad property.
+     */
+    private var _compatibleLoad:Boolean = false;
+
+    [Bindable("compatibleLoadChanged")]
+    [Inspectable(defaultValue="false")]
+
+    /**
+     *  A flag that indictes whether content is loaded into a peer
+     *  AppicationDomain. Loading into a peer ApplicationDomain 
+     *  will allow the loaded application to interop with applications build with other verions of Flex.
+     *  This flag is not respected if the content needs to be loaded into differnt
+     *  SecurityDomain.
+     *  If <code>true</code>, the content loads into a peer ApplicationDomain. 
+     *  If <code>false</code>, the content loaded into a child ApplicationDomain.
+     *
+     *  @default false
+     */
+    public function get compatibleLoad():Boolean
+    {
+        return _compatibleLoad;
+    }
+
+    /**
+     *  @private
+     */
+    public function set compatibleLoad(value:Boolean):void
+    {
+        if (_compatibleLoad != value)
+        {
+            _compatibleLoad = value;
+
+			// TODODJL: is the content really changed?
+            contentChanged = true;
+
+            invalidateProperties();
+            invalidateSize();
+            invalidateDisplayList();
+
+            dispatchEvent(new Event("compatibleLoadChanged"));
+        }
+    }
+
+    //----------------------------------
     //  bytesLoaded (read only)
     //----------------------------------
 
@@ -545,6 +608,17 @@ public class SWFLoader extends UIComponent
             {
                 try
                 {
+                	if (ISystemManager2(systemManager).sandboxBridgeGroup)
+                	{
+                	    var bridge:IEventDispatcher = ISystemManager2(systemManager).sandboxBridgeGroup.getChildBridge(this);
+                	    if (bridge)
+                	    {
+                	    	var request:SizeRequest = new SizeRequest(SizeRequest.GET_SIZE);
+                	    	bridge.dispatchEvent(request);
+                	    	return request.height;
+                	    }
+                	}
+                	
                     var content:IFlexDisplayObject =
                         Loader(contentHolder).content as IFlexDisplayObject;
                     if (content)
@@ -599,6 +673,17 @@ public class SWFLoader extends UIComponent
             {
                 try
                 {
+                	if (ISystemManager2(systemManager).sandboxBridgeGroup)
+                	{
+                	    var bridge:IEventDispatcher = ISystemManager2(systemManager).sandboxBridgeGroup.getChildBridge(this);
+                	    if (bridge)
+                	    {
+                	    	var request:SizeRequest = new SizeRequest(SizeRequest.GET_SIZE);
+                	    	bridge.dispatchEvent(request);
+                	    	return request.width;
+                	    }
+                	}
+                	
                     var content:IFlexDisplayObject =
                         Loader(contentHolder).content as IFlexDisplayObject;
                     if (content)
@@ -742,6 +827,11 @@ public class SWFLoader extends UIComponent
         dispatchEvent(new Event("maintainAspectRatioChanged"));
     }
 
+
+    //----------------------------------
+    //  sandBoxBridge (read only)
+    //----------------------------------
+	private var _sandboxBridge:IEventDispatcher;
 
     //----------------------------------
     //  percentLoaded (read only)
@@ -1211,6 +1301,42 @@ public class SWFLoader extends UIComponent
         contentHolder = loadContent(_source);
     }
 
+
+    //--------------------------------------------------------------------------
+    //
+    //  IChildAccess
+    //
+    //--------------------------------------------------------------------------
+	
+	/**
+	 * @inheritdoc
+	 */
+	public function canAccessChild():Boolean
+	{
+		if (!isContentLoaded)
+			return false;
+			
+		if (contentHolder is Loader)
+			return Loader(contentHolder).contentLoaderInfo.childAllowsParent;
+		
+		return true;
+	} 
+
+	/**
+	 * @inheritdoc
+	 */
+	public function accessibleFromChild():Boolean
+	{
+		if (!isContentLoaded)
+			return false;
+		
+		if (contentHolder is Loader)
+			return Loader(contentHolder).contentLoaderInfo.parentAllowsChild;
+		
+		return true;
+	} 
+	
+	
     /**
      *  @private
      *  If changes are made to this method, make sure to look at
@@ -1346,11 +1472,34 @@ public class SWFLoader extends UIComponent
             {
                 lc = new LoaderContext();
                 _loaderContext = lc;
+                
+                // To get a peer application domain (relative to framework classes), 
+                // get the topmost parent domain of the current domain. This
+                // will either be the application domain of the 
+                // bootstrap loader (non-framework classes), or null. Either way we get
+                // an application domain free of framework classes. 
+                if (compatibleLoad) 
+                {
+                	// the AD.currentDomain.parentDomain could be null, 
+                	// the domain of the top-level system manager, or
+                	// the bootstrap loader. The bootstrap loader will always be topmost
+                	// if it is present.
+        			var currentDomain:ApplicationDomain = ApplicationDomain.currentDomain.parentDomain;
+        			var topmostDomain:ApplicationDomain = null;
+        			while (currentDomain)
+        			{
+						topmostDomain = currentDomain;
+						currentDomain = currentDomain.parentDomain;
+        			}
+                	lc.applicationDomain = new ApplicationDomain(topmostDomain);
+		                	
+                }
+                	
                 if (trustContent)
                 {
                     lc.securityDomain = SecurityDomain.currentDomain;
                 }
-                else
+                else if (!compatibleLoad)
                 {
                     attemptingChildAppDomain = true;
                     // assume the best, which is that it is in the same domain and
@@ -1396,11 +1545,17 @@ public class SWFLoader extends UIComponent
             {
                 try 
                 {
-                    flexContent = Loader(contentHolder).content is IFlexDisplayObject;
+                   	if (Loader(contentHolder).content is IFlexDisplayObject)
+						flexContent = true;
+					else
+	                    flexContent = ISystemManager2(systemManager).sandboxBridgeGroup && 
+											ISystemManager2(systemManager).sandboxBridgeGroup.getChildBridge(this) != null;
                 }
                 catch(e:Error)
                 {
-                    flexContent = false;
+                	// trace("contentLoader: " + e);
+                    flexContent = ISystemManager2(systemManager).sandboxBridgeGroup && 
+											ISystemManager2(systemManager).sandboxBridgeGroup.getChildBridge(this) != null;
                 }
             }
         }
@@ -1409,7 +1564,8 @@ public class SWFLoader extends UIComponent
         {
             if (tabChildren &&
                 contentHolder is Loader &&
-                Loader(contentHolder).content is DisplayObjectContainer)
+                (loaderInfo.contentType == "application/x-shockwave-flash" ||
+                Loader(contentHolder).content is DisplayObjectContainer))
             {
                 Loader(contentHolder).tabChildren = true;
                 DisplayObjectContainer(Loader(contentHolder).content).tabChildren = true;
@@ -1507,12 +1663,46 @@ public class SWFLoader extends UIComponent
                 try
                 {
                     // don't resize contentHolder until after it is layed out
-                    if (holder.content.width > 0)
+                    if (getContentSize().x > 0)
                     {
-                        if (holder.content is IFlexDisplayObject)
-                        {
-                            IFlexDisplayObject(holder.content).setActualSize(w, h);
-                        }
+                    	// VERSION_SKEW
+	                    if (holder.contentLoaderInfo.contentType == "application/x-shockwave-flash")
+    	                {
+							var bridge:IEventDispatcher;
+
+							if (holder.contentLoaderInfo.childAllowsParent)
+							{
+								if (holder.content is IFlexDisplayObject)
+									IFlexDisplayObject(holder.content).setActualSize(w, h);
+								else
+								{
+									bridge = ISystemManager2(systemManager).
+																	sandboxBridgeGroup.getChildBridge(this);
+									if (bridge)
+									{
+										bridge.dispatchEvent(new SizeRequest(SizeRequest.SET_ACTUAL_SIZE, w, h));
+									}
+									else
+									{
+										contentHolder.width = w;
+										contentHolder.height = h;
+									}
+								}
+							}
+							else 
+							{
+								bridge = ISystemManager2(systemManager).
+																sandboxBridgeGroup.getChildBridge(this);
+								if (bridge)
+								{
+									bridge.dispatchEvent(new SizeRequest(SizeRequest.SET_ACTUAL_SIZE, w, h));
+								}
+							}        	            	
+            	        }
+//                        if (holder.content is IFlexDisplayObject)
+//                        {
+//                            IFlexDisplayObject(holder.content).setActualSize(w, h);
+//                        }
                         else
                         {
                             // Bug 142705 - we can't just set width and height here. If the SWF content
@@ -1544,6 +1734,11 @@ public class SWFLoader extends UIComponent
                     contentHolder.width = w;
                     contentHolder.height = h;
                 }
+                
+                if (!accessibleFromChild())
+                	contentHolder.scrollRect = new Rectangle(0, 0, 
+                											 w / contentHolder.scaleX, 
+                											 h / contentHolder.scaleY);
             }
             else
             {
@@ -1576,7 +1771,8 @@ public class SWFLoader extends UIComponent
         var h:Number = unscaledHeight;
 
         if ((contentHolderWidth > w) ||
-            (contentHolderHeight > h))
+            (contentHolderHeight > h) ||
+             !accessibleFromChild())
         {
             contentHolder.scrollRect = new Rectangle(0, 0, w, h);
         }
@@ -1599,6 +1795,7 @@ public class SWFLoader extends UIComponent
         contentHolder.x = 0;
         contentHolder.y = 0;
     }
+
 
     /**
      *  @private
@@ -1652,6 +1849,7 @@ public class SWFLoader extends UIComponent
         }
     }
 
+    
     /**
      *  @private
      */
@@ -1671,6 +1869,10 @@ public class SWFLoader extends UIComponent
         dispatchEvent(event);
 
         contentLoaded();
+        
+        if (contentHolder is Loader) 
+   			removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
+
     }
 
     /**
@@ -1690,7 +1892,39 @@ public class SWFLoader extends UIComponent
     {
         // Redispatch the event from this SWFLoader.
         dispatchEvent(event);
+        
+        // if we are loading a swf listen of a message if it ends up needing to
+        // use a sandbox bridge to communicate.
+		addInitSystemManagerCompleteListener(LoaderInfo(event.target).loader.contentLoaderInfo);
     }
+
+
+	/**
+	 * If we are loading a swf, listen for a message from the swf telling us it was loading
+	 * into an application domain where it needs to use a sandbox bridge to communicate.
+	 */
+	private function addInitSystemManagerCompleteListener(loaderInfo:LoaderInfo):void
+	{
+   		if (loaderInfo.contentType == "application/x-shockwave-flash")
+   		{
+			var bridge:EventDispatcher = loaderInfo.sharedEvents;
+			bridge.addEventListener(SandboxBridgeEvent.NEW_BRIDGED_APPLICATION, 
+			 					  initSystemManagerCompleteEventHandler);
+   		}
+	}
+	
+	/**
+	 * Remove the listener after the swf is loaded.
+	 */
+	private function removeInitSystemManagerCompleteListener(loaderInfo:LoaderInfo):void
+	{
+   		if (loaderInfo.contentType == "application/x-shockwave-flash")
+   		{
+			var bridge:EventDispatcher = loaderInfo.sharedEvents;			
+			bridge.removeEventListener(SandboxBridgeEvent.NEW_BRIDGED_APPLICATION, 
+				 					  initSystemManagerCompleteEventHandler);
+   		}
+	}
 
     /**
      *  @private
@@ -1714,6 +1948,10 @@ public class SWFLoader extends UIComponent
         // a runtime error is displayed.
         if (hasEventListener(event.type))
             dispatchEvent(event);
+        
+        if (contentHolder is Loader)
+   			removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
+
     }
 
     /**
@@ -1755,6 +1993,9 @@ public class SWFLoader extends UIComponent
 
         // Redispatch the event from this SWFLoader.
         dispatchEvent(event);
+        
+        if (contentHolder is Loader)
+   			removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
     }
 
     /**
@@ -1764,8 +2005,57 @@ public class SWFLoader extends UIComponent
     {
         // Redispatch the event from this SWFLoader.
         dispatchEvent(event);
+        
+        // remove the sandbox bridge if we had one.
+        if (_sandboxBridge)
+        {
+			var sm:ISystemManager2 = ISystemManager2(systemManager);
+			sm.removeChildSandboxBridge(_sandboxBridge);
+			_sandboxBridge = null;
+        }
+
+        if (contentHolder is Loader)
+   			removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
+
     }
 
+	/**
+	 *	@private
+	 * 
+	 * 	Message dispatched from System Manager. This gives us the child bridge
+	 *  of the application we loaded.
+	 */
+	private function initSystemManagerCompleteEventHandler(event:Event):void
+	{
+		var eObj:Object = Object(event);
+		
+		// make sure this is the child we created by checking the loader info.
+		if (contentHolder is Loader && 
+			eObj.data == Loader(contentHolder).contentLoaderInfo.sharedEvents)
+		{
+			_sandboxBridge = Loader(contentHolder).contentLoaderInfo.sharedEvents;
+			
+			var sm:ISystemManager2 = ISystemManager2(systemManager);
+			sm.addChildSandboxBridge(this, _sandboxBridge);
+			removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
+			
+			// Tell the child who the top-level system manager is.
+			// If our system manager is the root system manager, than use our child bridge.
+			// Otherwise use the existing value of top level system manager in the sandbox
+			// bridge group.
+//			var topLevelBridge:IEventDispatcher = sm.sandboxBridgeGroup.topLevelSystemManagerBridge;
+//			if (!topLevelBridge)
+//				topLevelBridge = _sandboxBridge;
+//																		
+//			var request:SandboxBridgeEvent = new SandboxBridgeEvent(SandboxBridgeEvent.TOP_LEVEL_APPLICATION,
+//																	false,
+//																	false,
+//																	null,
+//																	topLevelBridge);
+//			_sandboxBridge.dispatchEvent(request);
+		}
+	}
+	
     /**
      *  @private
      * 
@@ -1814,6 +2104,42 @@ public class SWFLoader extends UIComponent
         }
     }
     
+	/**
+	 * @inheritdoc
+	 */    
+    public function get sandboxBridge():IEventDispatcher
+    {
+		return _sandboxBridge;
+    }
+    
+	private function getContentSize():Point
+	{
+		var pt:Point = new Point();
+		
+		if (!contentHolder is Loader)
+			return pt;
+			
+		var holder:Loader = Loader(contentHolder);
+		if (holder.contentLoaderInfo.childAllowsParent)
+		{
+			pt.x = holder.content.width;
+			pt.y = holder.content.height;
+		}
+		else
+		{
+			var bridge:IEventDispatcher = ISystemManager2(systemManager).
+										  	sandboxBridgeGroup.getChildBridge(this);
+			if (bridge)
+			{
+				var request:SizeRequest = new SizeRequest(SizeRequest.GET_SIZE);
+				bridge.dispatchEvent(request);
+				pt.x = request.width;
+				pt.y = request.height;
+			}
+		}
+		
+		return pt;
+	}
 }
 
 }
