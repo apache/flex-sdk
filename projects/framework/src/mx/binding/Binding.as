@@ -27,7 +27,19 @@ public class Binding
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
+    // Certain errors are normal during binding execution, so we swallow them.
+    // 1507 - invalid null argument 
+    // 2005 - argument error (null gets converted to 0) 
+    mx_internal static var allowedErrors:Object = generateAllowedErrors();
+    mx_internal static function generateAllowedErrors():Object
+    {
+        var o:Object = {};
+        o[1507] = 1;
+        o[2005] = 1;
+        return o;
+    }
+    
+    //--------------------------------------------------------------------------
 	//
 	//  Constructor
 	//
@@ -322,9 +334,7 @@ public class Binding
         }
         catch(error:Error)
         {
-            // Certain errors are normal during binding execution, so we swallow them.
-            // 1507 - invalid null argument 
-            if (error.errorID != 1507) 
+            if (allowedErrors[error.errorID] == null)
                 throw error;
         }
         finally
