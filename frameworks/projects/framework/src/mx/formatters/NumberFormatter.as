@@ -63,6 +63,11 @@ import mx.managers.SystemManager;
  *  
  *  @see mx.formatters.NumberBase
  *  @see mx.formatters.NumberBaseRoundType
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class NumberFormatter extends Formatter
 {
@@ -76,6 +81,11 @@ public class NumberFormatter extends Formatter
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function NumberFormatter()
     {
@@ -116,6 +126,11 @@ public class NumberFormatter extends Formatter
      *  @default "."
      *
      *  @see #format()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get decimalSeparatorFrom():String
     {
@@ -163,6 +178,11 @@ public class NumberFormatter extends Formatter
      *  @default "."
      *
      *  @see #format()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get decimalSeparatorTo():String
     {
@@ -209,6 +229,11 @@ public class NumberFormatter extends Formatter
      *  rounding, return a value based on that rounding type.
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get precision():Object
     {
@@ -257,6 +282,11 @@ public class NumberFormatter extends Formatter
      *  @default NumberBaseRoundType.NONE
      *
      *  @see mx.formatters.NumberBaseRoundType
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get rounding():String
     {
@@ -304,6 +334,11 @@ public class NumberFormatter extends Formatter
      *  @default ","
      *
      *  @see #format()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get thousandsSeparatorFrom():String
     {
@@ -352,6 +387,11 @@ public class NumberFormatter extends Formatter
      *  @default ","
      *
      *  @see #format()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get thousandsSeparatorTo():String
     {
@@ -396,6 +436,11 @@ public class NumberFormatter extends Formatter
      *  surrounded by parentheses, for example (400).
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get useNegativeSign():Object
     {
@@ -437,6 +482,11 @@ public class NumberFormatter extends Formatter
      *  by using a separator character.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get useThousandsSeparator():Object
     {
@@ -487,6 +537,11 @@ public class NumberFormatter extends Formatter
      *  @param value Value to format.
      *
      *  @return Formatted String. Empty if an error occurs.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function format(value:Object):String
     {
