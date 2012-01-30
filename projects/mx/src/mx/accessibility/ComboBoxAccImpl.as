@@ -13,6 +13,7 @@ package mx.accessibility
 {
 
 import mx.collections.CursorBookmark;
+import mx.collections.IViewCursor;
 import mx.controls.ComboBox;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -103,12 +104,12 @@ public class ComboBoxAccImpl extends ComboBaseAccImpl
 			return "";
 
 		var comboBox:ComboBox = ComboBox(master);
-		comboBox.collectionIterator.seek(CursorBookmark.FIRST, childID - 1);
-		var item:Object = comboBox.collectionIterator.current;
-		
-		var mofn:String = " " + childID + " of " + comboBox.dataProvider.length;
-		
-		return comboBox.itemToLabel(item) + mofn;
+
+		var iterator:IViewCursor = comboBox.collectionIterator;
+		iterator.seek(CursorBookmark.FIRST, childID - 1);
+		var item:Object = iterator.current;
+				
+		return comboBox.itemToLabel(item);
 	}
 }
 
