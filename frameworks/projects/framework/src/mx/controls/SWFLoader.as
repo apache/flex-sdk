@@ -1942,7 +1942,15 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      **/
     private function OSToPlayerURI(url:String, local:Boolean):String 
     {
-        url = decodeURI(url);
+		try
+		{
+        	url = decodeURI(url);
+		}
+		catch (e:Error)
+		{
+			// malformed url, but some are legal on the file system
+			return url;
+		}
         
         if (local && flash.system.Capabilities.playerType == "ActiveX")
             return url;
