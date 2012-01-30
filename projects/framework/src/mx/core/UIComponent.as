@@ -1927,7 +1927,7 @@ public class UIComponent extends FlexSprite
      *
      * storage for advanced layout and transform properties.
      */
-    private var _layoutFeatures:AdvancedLayoutFeatures;
+    mx_internal var _layoutFeatures:AdvancedLayoutFeatures;
 
     /**
      * @private
@@ -6859,6 +6859,7 @@ public class UIComponent extends FlexSprite
         return child;
     }
 
+    
     /**
      *  @private
      */
