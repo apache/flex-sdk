@@ -61,6 +61,7 @@ import mx.effects.IEffect;
  *    effect=""
  *    fromState="&#42;"
  *    toState="&#42;"
+ *    autoReverse="false"
  *  /&gt;
  *  </pre>
  *
@@ -143,6 +144,36 @@ public class Transition
      *  @default "&#42;"
 	 */
 	public var toState:String = "*";
+	
+    /**
+     *  Whether the transition should automatically reverse itself 
+     *  when the opposite state transition begins playing.
+     *
+     *  <p>Flex does not currently play multiple transitions simultaneously.
+     *  This means that when a new state transition occurs, if there
+     *  is already one playing it is stopped by calling <code>end()</code>
+     *  on it, which snaps it to its end values. The new transition
+     *  then starts playing from that state.</p>
+     * 
+     *  <p>The <code>autoReverse</code> flag allows the developer to
+     *  control whether the default snap-to-end behavior occurs, or whether,
+     *  instead, the previous effect is stopped in place and the new
+     *  effect is played from that intermediate state instead. Internally,
+     *  the transition code calculates how much of the previous effect
+     *  has been played and then plays the next effect for the inverse of that
+     *  time.</p>
+     * 
+     *  <p>This flag is only checked when the new transition is going in the
+     *  exact opposite direction of the currently playing one. That is, if
+     *  a transition is playing between states A and B and then a transition
+     *  to return to A is started, this flag will be checked. But if the
+     *  application is going from state A to B and a transition to state C is
+     *  started, then the default behavior of snapping to the end of the A->B
+     *  transition, then playing the B->C transition will occur.</p>
+     * 
+     *  @default false 
+     */
+	public var autoReverse:Boolean = false;
 }
 
 }
