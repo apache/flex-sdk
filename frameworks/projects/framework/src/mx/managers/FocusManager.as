@@ -155,6 +155,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         container.addEventListener(Event.REMOVED, removedHandler);
         container.addEventListener(FlexEvent.SHOW, showHandler);
         container.addEventListener(FlexEvent.HIDE, hideHandler);
+        container.addEventListener(FlexEvent.HIDE, childHideHandler, true);
         
         //special case application and window
         if (container.systemManager is SystemManager)
@@ -990,6 +991,10 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             if (!o.visible) 
                 return false;
             o = o.parent;
+
+            // if no parent, then not on display list
+            if (!o)
+                return false;
         }
         return true;
     }
@@ -1714,6 +1719,22 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     /**
      *  @private
      */
+    private function childHideHandler(event:Event):void
+    {
+        var target:DisplayObject = DisplayObject(event.target);
+        // trace("FocusManager focusInHandler in  = " + this._form.systemManager.loaderInfo.url);
+        // trace("FM " + this + " focusInHandler " + target);
+
+        if (lastFocus && !isEnabledAndVisible(DisplayObject(lastFocus)))
+        {
+            DisplayObject(form).stage.focus = null;
+            lastFocus = null;
+        }
+    }
+
+    /**
+     *  @private
+     */
     private function creationCompleteHandler(event:FlexEvent):void
     {
         var o:DisplayObject = DisplayObject(form);
@@ -1893,7 +1914,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             // trace("tabHandled by " + this);
             setFocusToNextObject(event);
 
-			if (focusChanged)
+            // if we changed focus or if we're the main app
+            // eat the event
+			if (focusChanged || sm == sm.getTopLevelRoot())
             	event.preventDefault();
         }
     }
