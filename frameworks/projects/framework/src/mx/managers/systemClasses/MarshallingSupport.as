@@ -141,6 +141,7 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 		systemManager.addEventListener("getScreen", Stage_resizeHandler);
 		var awm:ActiveWindowManager = 
 			ActiveWindowManager(systemManager.getImplementation("mx.managers::IActiveWindowManager"));
+		awm.addEventListener("removeFocusManager", removeFocusManagerHandler);
 		awm.addEventListener("activateForm", activateFormHandler);
 		awm.addEventListener("activatedForm", activatedFormHandler);
 		awm.addEventListener("deactivateForm", deactivateFormHandler);
@@ -766,7 +767,7 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 	/**
 	 *  @inheritDoc
 	 */
-    public function removeFocusManager(event:FocusEvent):void
+    public function removeFocusManagerHandler(event:FocusEvent):void
 	{
 		dispatchDeactivatedWindowEvent(DisplayObject(event.relatedObject));
 	}
