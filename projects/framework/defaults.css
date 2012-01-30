@@ -357,11 +357,13 @@ ButtonBar
 
 ButtonBarButton.buttonBarFirstButtonStyle
 {
+    focusRoundedCorners: "tl bl";
 	skin: ClassReference("mx.skins.spark.ButtonBarFirstButtonSkin");
 }
 
 ButtonBarButton.buttonBarLastButtonStyle
 {
+    focusRoundedCorners: "tr br";
 	skin: ClassReference("mx.skins.spark.ButtonBarLastButtonSkin");
 }
 
