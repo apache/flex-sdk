@@ -27,6 +27,16 @@ import spark.effects.animation.SimpleMotionPath;
 
 use namespace mx_internal;
     
+/**
+ *  The SlideViewTransition class serves as a simple slide transition for 
+ *  views.  The slide transition supports several modes (push, cover, and
+ *  uncover) as well as an optional direction (up, down, left, or right).
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
 public class SlideViewTransition extends ViewTransitionBase
 {
     //--------------------------------------------------------------------------
