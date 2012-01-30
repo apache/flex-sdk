@@ -24,6 +24,11 @@ import mx.events.PropertyChangeEventKind;
  * This event is also used by the Flex data binding mechanism.
  * 
  * @see PropertyChangeEventKind
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class PropertyChangeEvent extends Event
 {
@@ -65,6 +70,11 @@ public class PropertyChangeEvent extends Event
      *
      *  @eventType propertyChange
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const PROPERTY_CHANGE:String = "propertyChange";
 
@@ -91,6 +101,11 @@ public class PropertyChangeEvent extends Event
      *
      *  @return A newly constructed PropertyChangeEvent
      *  with the specified properties. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function createUpdateEvent(
                                     source:Object,
@@ -139,6 +154,11 @@ public class PropertyChangeEvent extends Event
      *  @param newValue The value of the property after the change.
      *
      *  @param source The object that the change occured on.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function PropertyChangeEvent(type:String, bubbles:Boolean = false,
                                         cancelable:Boolean = false,
@@ -171,6 +191,11 @@ public class PropertyChangeEvent extends Event
      *  Specifies the kind of change.
      *  The possible values are <code>PropertyChangeEventKind.UPDATE</code>,
      *  <code>PropertyChangeEventKind.DELETE</code>, and <code>null</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var kind:String;
 
@@ -180,6 +205,11 @@ public class PropertyChangeEvent extends Event
 
     /**
      *  The value of the property after the change.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var newValue:Object;
 
@@ -189,6 +219,11 @@ public class PropertyChangeEvent extends Event
  
     /**
      *  The value of the property before the change.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var oldValue:Object;
 
@@ -198,6 +233,11 @@ public class PropertyChangeEvent extends Event
 
     /**
      *  A String, QName, or int specifying the property that changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var property:Object;
 
@@ -207,6 +247,11 @@ public class PropertyChangeEvent extends Event
 
     /**
      *  The object that the change occured on.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var source:Object;
 
