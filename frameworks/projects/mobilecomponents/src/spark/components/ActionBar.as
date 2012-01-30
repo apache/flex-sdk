@@ -374,7 +374,8 @@ public class ActionBar extends SkinnableComponent
     //--------------------------------------------------------------------------
     
     /**
-     *  Constructor
+     *  Constructor.
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -453,7 +454,16 @@ public class ActionBar extends SkinnableComponent
     /**
      *  The skin part that defines the appearance of the 
      *  title text in the component.
-     *
+     * 
+     *  You can use CSS to declare styles on the ActionBar's titleDisplay skin part, as the following example shows:
+     *  
+     *  <pre>
+     *  &#64;namespace s "library://ns.adobe.com/flex/spark"; 
+     *  s|ActionBar #titleDisplay { 
+     *     color:red; 
+     *  }
+     * </pre>
+     * 
      *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
