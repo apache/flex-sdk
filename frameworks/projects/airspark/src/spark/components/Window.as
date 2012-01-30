@@ -58,6 +58,25 @@ import spark.primitives.supportClasses.TextGraphicElement;
 use namespace mx_internal;
 
 //--------------------------------------
+//  Styles
+//--------------------------------------
+
+/**
+ *  Provides a margin of error around the application's border so a resize
+ *  and be more easily started. A click on the application is considered a
+ *  click on the application's border if the click occurs with the resizeAffordance
+ *  number of pixels from the outside edge of the application's window.
+ *  
+ *  @default 6
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="resizeAffordanceWidth", type="Number", format="length", inherit="no")]
+
+//--------------------------------------
 //  Events
 //--------------------------------------
 
@@ -274,7 +293,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[SkinState("normalActive")]
+[SkinState("normalAndInactive")]
 
 /**
  *  The application is disabled and inactive.
@@ -284,7 +303,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[SkinState("disabledInactive")]
+[SkinState("disabledAndInactive")]
 
 //--------------------------------------
 //  Other metadata
@@ -709,6 +728,7 @@ public class Window extends SkinnableContainer implements IWindow
     }
 
     /**
+     *  @private
      *  Specifies the maximum height of the application's window.
      *  
      *  @default dependent on the operating system and the AIR systemChrome setting. 
@@ -756,6 +776,7 @@ public class Window extends SkinnableContainer implements IWindow
     }
 
     /**
+     *  @private
      *  Specifies the maximum width of the application's window.
      *  
      *  @default dependent on the operating system and the AIR systemChrome setting. 
@@ -791,6 +812,7 @@ public class Window extends SkinnableContainer implements IWindow
     [Bindable("windowComplete")]
 
     /**
+     *  @private
      *  Specifies the minimum height of the application's window.
      *  
      *  @default dependent on the operating system and the AIR systemChrome setting. 
@@ -838,6 +860,7 @@ public class Window extends SkinnableContainer implements IWindow
     [Bindable("windowComplete")]
 
     /**
+     *  @private
      *  Specifies the minimum width of the application's window.
      *  
      *  @default dependent on the operating system and the AIR systemChrome setting. 
@@ -873,6 +896,7 @@ public class Window extends SkinnableContainer implements IWindow
     [Bindable("windowComplete")]
     
     /**
+     *  @private
      *  Controls the window's visibility. Unlike the
      *  <code>UIComponent.visible</code> property of most Flex
      *  visual components, this property affects the visibility
@@ -1208,6 +1232,7 @@ public class Window extends SkinnableContainer implements IWindow
     //  cursorManager
     //----------------------------------
     /**
+     *  @private
      *  Returns the cursor manager for this Window.
      *  
      *  @langversion 3.0
@@ -1342,73 +1367,6 @@ public class Window extends SkinnableContainer implements IWindow
         }
     }
     
-    //---------------------------------
-    //  resizeAffordance
-    //---------------------------------
-
-    /**
-     *  Provides a margin of error around the application's border so a resize
-     *  and be more easily started. A click on the application is considered a
-     *  click on the application's border if the click occurs with the resizeAffordance
-     *  number of pixels from the outside edge of the application's window.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var resizeAffordance:Number = 6;
-        
-    //----------------------------------
-    //  showGripper
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the showGripper property.
-     */
-    private var _showGripper:Boolean = true;
-
-    /**
-     *  @private
-     */
-    private var showGripperChanged:Boolean = true;
-
-    /**
-     *  If <code>true</code>, the gripper is visible.
-     *
-     *  <p>On Mac OS X a window with <code>systemChrome</code>
-     *  set to <code>"standard"</code>
-     *  always has an operating system gripper, so this property is ignored
-     *  in that case.
-     *  On other systems, the gripper button only appears when using 
-     *  the Flex Chrome, not the system chrome.</p>
-     *
-     *  @default true
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 3
-     */
-    public function get showGripper():Boolean
-    {
-        return _showGripper;
-    }
-
-    /**
-     *  @private
-     */
-    public function set showGripper(value:Boolean):void
-    {
-        if (_showGripper == value)
-            return;
-
-        _showGripper = value;
-        showGripperChanged = true;
-
-        invalidateProperties();
-        invalidateDisplayList();
-    }
-
     //----------------------------------
     //  showStatusBar
     //----------------------------------
@@ -1455,53 +1413,6 @@ public class Window extends SkinnableContainer implements IWindow
 
         _showStatusBar = value;
         showStatusBarChanged = true;
-
-        invalidateProperties();
-        invalidateDisplayList();
-    }
-
-    //----------------------------------
-    //  showTitleBar
-    //----------------------------------
-
-    /**
-     *  Storage for the showTitleBar property.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 3
-     */
-    private var _showTitleBar:Boolean = true;
-
-    /**
-     *  @private
-     */
-    private var showTitleBarChanged:Boolean = true;
-
-    /**
-     *  If <code>true</code>, the window's title bar is visible.
-     *
-     *  @default true
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 3
-     */
-    public function get showTitleBar():Boolean
-    {
-        return _showTitleBar;
-    }
-
-    /**
-     *  @private
-     */
-    public function set showTitleBar(value:Boolean):void
-    {
-        if (_showTitleBar == value)
-            return;
-
-        _showTitleBar = value;
-        showTitleBarChanged = true;
 
         invalidateProperties();
         invalidateDisplayList();
@@ -1975,17 +1886,6 @@ public class Window extends SkinnableContainer implements IWindow
             dispatchEvent(new Event("menuChanged"));
         }
 
-        if (showTitleBarChanged)
-        {
-            if (titleBar) 
-            {
-                titleBar.visible = _showTitleBar;
-                titleBar.includeInLayout = _showTitleBar;
-            }
-
-            showTitleBarChanged = false;
-        }
-
         if (titleIconChanged)
         {
             if (titleBar)
@@ -2014,15 +1914,6 @@ public class Window extends SkinnableContainer implements IWindow
             if (statusText)
                 statusText.text = _status;
             statusChanged = false;
-        }
-
-        if (showGripperChanged)
-        {
-            if (gripper)
-            {
-                gripper.visible = _showGripper;
-            }
-            showGripperChanged = false;
         }
 
         if (toMax)
@@ -2303,6 +2194,7 @@ public class Window extends SkinnableContainer implements IWindow
     //--------------------------------------------------------------------------
 
     /**
+     *  @private
      *  Returns the name of the state to be applied to the skin. For example, a
      *  Button component could return the String "up", "down", "over", or "disabled" 
      *  to specify the state.
@@ -2324,7 +2216,7 @@ public class Window extends SkinnableContainer implements IWindow
         if (nativeWindow.active)
             return enabled ? "normal" : "disabled";
         else
-            return enabled ? "normalInactive" : "disabledInactive";
+            return enabled ? "normalAndInactive" : "disabledAndInactive";
 
     }    
     
@@ -2649,8 +2541,9 @@ public class Window extends SkinnableContainer implements IWindow
         }
             
         var hitTestResults:String = NativeWindowResize.NONE;
-        var borderWidth:int = resizeAffordance;           
-        var cornerSize:int = resizeAffordance * 2;
+        var resizeAfforanceWidth:Number = getStyle("resizeAffordanceWidth");
+        var borderWidth:int = resizeAfforanceWidth;
+        var cornerSize:int = resizeAfforanceWidth * 2;
         
         if (event.stageY < borderWidth)
         {
