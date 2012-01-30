@@ -17,6 +17,11 @@
  *  <p>The default value for the ComboBox control is 5.</p>
  *  <p>The default value for the Form container is 16.</p>
  *  <p>The default value for the Tree control is 2.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingLeft", type="Number", format="Length", inherit="no")]
 
@@ -27,5 +32,10 @@
  *  <p>The default value for a Button control is 10.</p>
  *  <p>The default value for the ComboBox control is 5.</p>
  *  <p>The default value for the Form container is 16.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingRight", type="Number", format="Length", inherit="no")]
