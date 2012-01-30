@@ -45,8 +45,7 @@ public class ViewReturnObject
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    // TODO (chiedozi): PARB constructor params
-    public function ViewReturnObject(object:Object, context:String)
+    public function ViewReturnObject(object:Object = null, context:Object = null)
     {
     	super();
     	
@@ -75,8 +74,7 @@ public class ViewReturnObject
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    // TODO (chiedozi): PARB - should this be an object?
-    public var context:String = null;
+    public var context:Object = null;
     
     //----------------------------------
     //  object
