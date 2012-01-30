@@ -66,146 +66,146 @@ public class LineChart extends CartesianChart
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class initialization
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class initialization
+    //
+    //--------------------------------------------------------------------------
 
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function LineChart()
-	{
-		super();
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function LineChart()
+    {
+        super();
 
-		LinearAxis(horizontalAxis).autoAdjust = false;
+        LinearAxis(horizontalAxis).autoAdjust = false;
 
-		seriesFilters = [ new DropShadowFilter() ];
-	}
+        seriesFilters = [ new DropShadowFilter() ];
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  horizontalAxis
-	//----------------------------------
+    //----------------------------------
+    //  horizontalAxis
+    //----------------------------------
 
     [Inspectable(category="Data")]
 
-	/**
-	 *  @private
-	 */
-	override public function set horizontalAxis(value:IAxis):void
-	{
-		if (value is CategoryAxis)
-			CategoryAxis(value).padding = 0;
-			
-		super.horizontalAxis = value;
-	}	
+    /**
+     *  @private
+     */
+    override public function set horizontalAxis(value:IAxis):void
+    {
+        if (value is CategoryAxis)
+            CategoryAxis(value).padding = 0;
+            
+        super.horizontalAxis = value;
+    }   
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: UIComponent
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var lineChartStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.LineChart", styleManager);
-		
-		var lineChartSeriesStyles:Array /* of Object */ = [];
-		
-		lineChartStyle.defaultFactory = function():void
-		{
-			this.axisColor = 0xD5DEDD;
-			this.chartSeriesStyles = lineChartSeriesStyles;
-			this.dataTipRenderer = DataTip;
-			this.fill = new SolidColor(0xFFFFFF, 0);
-			this.calloutStroke = new Stroke(0x888888,2);			
-			this.fontSize = 10;
-			this.textAlign = "left";
-			this.horizontalAxisStyleNames = ["hangingCategoryAxis"];
-			this.verticalAxisStyleNames = ["blockNumericAxis"];
-		}
-		
-		var n:int = HaloDefaults.defaultColors.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			var styleName:String = "haloLineSeries" + i;
-			lineChartSeriesStyles[i] = styleName;
-			
-			var o:CSSStyleDeclaration =
-				HaloDefaults.createSelector("." + styleName, styleManager);
-			
-			var f:Function = function(o:CSSStyleDeclaration, stroke:Stroke):void
-			{
-				o.defaultFactory = function():void
-				{
-					this.lineStroke = stroke;
-					this.stroke = stroke;
-					this.lineSegmentRenderer = new ClassFactory(LineRenderer);
-				}
-			}
-			
-			f(o, new Stroke(HaloDefaults.defaultColors[i], 3, 1));
-		}
-		
-		return true;
-	}
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var lineChartStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.LineChart", styleManager);
+        
+        var lineChartSeriesStyles:Array /* of Object */ = [];
+        
+        lineChartStyle.defaultFactory = function():void
+        {
+            this.axisColor = 0xD5DEDD;
+            this.chartSeriesStyles = lineChartSeriesStyles;
+            this.dataTipRenderer = DataTip;
+            this.fill = new SolidColor(0xFFFFFF, 0);
+            this.calloutStroke = new Stroke(0x888888,2);            
+            this.fontSize = 10;
+            this.textAlign = "left";
+            this.horizontalAxisStyleNames = ["hangingCategoryAxis"];
+            this.verticalAxisStyleNames = ["blockNumericAxis"];
+        }
+        
+        var n:int = HaloDefaults.defaultColors.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var styleName:String = "haloLineSeries" + i;
+            lineChartSeriesStyles[i] = styleName;
+            
+            var o:CSSStyleDeclaration =
+                HaloDefaults.createSelector("." + styleName, styleManager);
+            
+            var f:Function = function(o:CSSStyleDeclaration, stroke:Stroke):void
+            {
+                o.defaultFactory = function():void
+                {
+                    this.lineStroke = stroke;
+                    this.stroke = stroke;
+                    this.lineSegmentRenderer = new ClassFactory(LineRenderer);
+                }
+            }
+            
+            f(o, new Stroke(HaloDefaults.defaultColors[i], 3, 1));
+        }
+        
+        return true;
+    }
+    
+    /**
+     *   A module factory is used as context for using embedded fonts and for finding the style manager that controls the styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
 }
 
 }
