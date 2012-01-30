@@ -15,10 +15,11 @@ package mx.graphics
 import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.mx_internal;
-
+    
 use namespace mx_internal;
 
 /**
@@ -135,6 +136,11 @@ public class LinearGradient extends GradientBase implements IFill
 		super();
 	}
 
+    /**
+     *  @private
+     */
+    private static var commonMatrix:Matrix = new Matrix();
+    
 	//--------------------------------------------------------------------------
 	//
 	//
@@ -197,16 +203,6 @@ public class LinearGradient extends GradientBase implements IFill
 	//
 	//--------------------------------------------------------------------------
 
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-	private static var commonMatrix:Matrix = new Matrix();
-
 	/**
 	 *  @inheritDoc
 	 *  
@@ -215,7 +211,7 @@ public class LinearGradient extends GradientBase implements IFill
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public function begin(target:Graphics, bounds:Rectangle):void
+	public function begin(target:Graphics, targetBounds:Rectangle, targetOrigin:Point):void
 	{
 		commonMatrix.identity();
 		
@@ -243,18 +239,18 @@ public class LinearGradient extends GradientBase implements IFill
 					if (normalizedAngle > 90)
 						normalizedAngle = 180 - normalizedAngle;
 					
-					var side:Number = bounds.width;
+					var side:Number = targetBounds.width;
 					// Get the hypotenuse of the largest triangle that can fit in the bounds
-					var hypotenuse:Number = Math.sqrt(bounds.width * bounds.width + bounds.height * bounds.height);
+					var hypotenuse:Number = Math.sqrt(targetBounds.width * targetBounds.width + targetBounds.height * targetBounds.height);
 					// Get the angle of that largest triangle
-					var hypotenuseAngle:Number =  Math.acos(bounds.width / hypotenuse) * 180 / Math.PI;
+					var hypotenuseAngle:Number =  Math.acos(targetBounds.width / hypotenuse) * 180 / Math.PI;
 					
 					// If the angle is larger than the hypotenuse angle, then use the height 
 					// as the adjacent side of the triangle
 					if (normalizedAngle > hypotenuseAngle)
 					{
 						normalizedAngle = 90 - normalizedAngle;
-						side = bounds.height;
+						side = targetBounds.height;
 					}
 					
 					// Solve for the hypotenuse given an adjacent side and an angle. 
@@ -263,7 +259,7 @@ public class LinearGradient extends GradientBase implements IFill
 				else 
 				{
 					// Use either width or height based on the rotation
-					length = (rotation % 180) == 0 ? bounds.width : bounds.height;
+					length = (rotation % 180) == 0 ? targetBounds.width : targetBounds.height;
 				}
 	    	}
 	    	
@@ -287,17 +283,21 @@ public class LinearGradient extends GradientBase implements IFill
 	    	 
 		    commonMatrix.rotate (!isNaN(_angle) ? _angle : rotationInRadians);
 		    if (isNaN(tx))
-	    		tx = bounds.width / 2;
+	    		tx = targetBounds.left + targetBounds.width / 2;
+            else
+                tx += targetOrigin.x;
 		    if (isNaN(ty))
-	    		ty = bounds.height / 2;
-	    	commonMatrix.translate(tx + bounds.left, ty + bounds.top);	
+	    		ty = targetBounds.top + targetBounds.height / 2;
+            else
+                ty += targetOrigin.y;
+	    	commonMatrix.translate(tx, ty);	
 		}
 		else
 		{
             commonMatrix.translate(GRADIENT_DIMENSION / 2, GRADIENT_DIMENSION / 2);
             commonMatrix.scale(1 / GRADIENT_DIMENSION, 1 / GRADIENT_DIMENSION);
             commonMatrix.concat(compoundTransform.matrix);
-            commonMatrix.translate(bounds.left, bounds.top);
+            commonMatrix.translate(targetOrigin.x, targetOrigin.y);
 		}			 
 		
 		target.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios,
