@@ -36,6 +36,11 @@ public class ItemWrapper
 	 *  Constructs an instance of the wrapper with the specified data.
 	 * 
 	 *  @param data The data element to be wrapped.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ItemWrapper(data:Object)
 	{
@@ -57,6 +62,11 @@ public class ItemWrapper
 
 	/**
 	 *  The data item being wrapped.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */ 
     public var data:Object;
 
