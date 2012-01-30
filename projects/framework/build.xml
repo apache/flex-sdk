@@ -17,15 +17,15 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-    <!-- 
+    <!--
     NOTE: We are continuing to build against player 9 so that airframework.swc
           can externally link against framework.swc, since air is player 9.
           If you change this, update <target-player/> in the <compc/> tasks.
     -->
 	<property name="local.playerglobal.version" value="10"/>
 
-	<target name="main" depends="clean,compile,en_US,ja_JP" description="Clean build of framework.swc and its English and Japanese resources"/>
-	
+	<target name="main" depends="clean,compile,en_US,ja_JP,doc" description="Clean build of framework.swc and its English and Japanese resources"/>
+
 	<target name="other.locales" depends="da_DK,de_DE,es_ES,fi_FI,fr_FR,it_IT,ko_KR,nb_NO,nl_NL,pt_BR,sv_SE,zh_CN,zh_TW" description="Build other locale SWCs"/>
 
 	<target name="clean">
@@ -130,7 +130,7 @@
 	</target>
 
 	<!-- Targets for compiling framework_rb.swc for various locales -->
-	
+
 	<target name="da_DK" description="Danish resources">
 		<antcall target="bundle">
 			<param name="locale" value="da_DK"/>
@@ -148,25 +148,25 @@
 			<param name="locale" value="en_US"/>
 		</antcall>
 	</target>
-	
+
 	<target name="es_ES" description="Spanish resources">
 		<antcall target="bundle">
 			<param name="locale" value="es_ES"/>
 		</antcall>
 	</target>
-	
+
 	<target name="fi_FI" description="Finnish resources">
 		<antcall target="bundle">
 			<param name="locale" value="fi_FI"/>
 		</antcall>
 	</target>
-	
+
 	<target name="fr_FR" description="French resources">
 		<antcall target="bundle">
 			<param name="locale" value="fr_FR"/>
 		</antcall>
 	</target>
-	
+
 	<target name="it_IT" description="Italian resources">
 		<antcall target="bundle">
 			<param name="locale" value="it_IT"/>
@@ -221,4 +221,24 @@
 		</antcall>
 	</target>
 
+	<target name="doc" depends="clean-temp-docs" description="updates framework.swc with asdoc xml">
+
+		<!-- Call asdoc to generate dita xml files -->
+		<exec executable="${FLEX_HOME}/bin/asdoc.exe" failonerror="true">
+			<arg line="-doc-classes FrameworkClasses -doc-namespaces http://www.adobe.com/2006/mxml -namespace http://www.adobe.com/2006/mxml ${basedir}/manifest.xml -sp ${basedir}/src -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
+		</exec>
+
+		<!-- updates framework.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/libs/framework.swc" update="true">
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+	</target>
+
+	<target name="clean-temp-docs">
+		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+	</target>
 </project>
