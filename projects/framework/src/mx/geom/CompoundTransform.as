@@ -158,7 +158,7 @@ package mx.geom
 		if (value == _x)
 			return;
 		translateBy(value-_x,0,0);
-		invalidate(INVALIDATE_FROM_PROPERTY,false);
+		invalidate(INVALIDATE_FROM_PROPERTY, false /*affects3D*/);
 	}
     /**
      * @private
@@ -183,7 +183,7 @@ package mx.geom
 		if (value == _y)
 			return;
 		translateBy(0,value-_y,0);
-		invalidate(INVALIDATE_FROM_PROPERTY,false);
+		invalidate(INVALIDATE_FROM_PROPERTY, false /*affects3D*/);
 	}
 	
     /**
@@ -209,7 +209,7 @@ package mx.geom
 		if (value == _z)
 			return;
 		translateBy(0,0,value-_z);
-		invalidate(INVALIDATE_FROM_PROPERTY,true);
+		invalidate(INVALIDATE_FROM_PROPERTY, true /*affects3D*/);
 	}
 	
     /**
@@ -242,7 +242,7 @@ package mx.geom
 		if (value == _rotationX)
 			return;
 		_rotationX = value;
-		invalidate(INVALIDATE_FROM_PROPERTY,true);
+		invalidate(INVALIDATE_FROM_PROPERTY, true /*affects3D*/);
 	}
 	
     /**
@@ -272,7 +272,7 @@ package mx.geom
 		if (value == _rotationY)
 			return;
 		_rotationY = value;
-		invalidate(INVALIDATE_FROM_PROPERTY,true);
+		invalidate(INVALIDATE_FROM_PROPERTY, true /*affects3D*/);
 	}
 	
     /**
@@ -302,7 +302,7 @@ package mx.geom
 		if (value == _rotationZ)
 			return;
 		_rotationZ = value;
-		invalidate(INVALIDATE_FROM_PROPERTY,false);
+		invalidate(INVALIDATE_FROM_PROPERTY, false /*affects3D*/);
 	}
 	
     /**
@@ -331,7 +331,7 @@ package mx.geom
 		if (value == _scaleX)
 			return;
 		_scaleX = value;
-		invalidate(INVALIDATE_FROM_PROPERTY,false);
+		invalidate(INVALIDATE_FROM_PROPERTY, false /*affects3D*/);
 	}
 	
     /**
@@ -357,7 +357,7 @@ package mx.geom
 		if (value == _scaleY)
 			return;
 		_scaleY = value;
-		invalidate(INVALIDATE_FROM_PROPERTY,false);
+		invalidate(INVALIDATE_FROM_PROPERTY, false /*affects3D*/);
 	}
 	
     /**
@@ -384,7 +384,7 @@ package mx.geom
 		if (value == _scaleZ)
 			return;
 		_scaleZ = value;
-		invalidate(INVALIDATE_FROM_PROPERTY,true);
+		invalidate(INVALIDATE_FROM_PROPERTY, true /*affects3D*/);
 	}
 	
     /**
@@ -423,7 +423,7 @@ package mx.geom
 		if (value == _transformX)
 			return;
 		_transformX = value;
-		invalidate(INVALIDATE_FROM_PROPERTY,true);
+		invalidate(INVALIDATE_FROM_PROPERTY, true /*affects3D*/);
 	}
 
     /**
@@ -449,7 +449,7 @@ package mx.geom
 		if (value == _transformY)
 			return;
 		_transformY = value;
-		invalidate(INVALIDATE_FROM_PROPERTY,true);
+		invalidate(INVALIDATE_FROM_PROPERTY, true /*affects3D*/);
 	}
 	
     /**
@@ -474,7 +474,7 @@ package mx.geom
 		if (value == _transformZ)
 			return;
 		_transformZ = value;
-		invalidate(INVALIDATE_FROM_PROPERTY,true);
+		invalidate(INVALIDATE_FROM_PROPERTY, true /*affects3D*/);
 	}
 	
     /**
@@ -496,7 +496,7 @@ package mx.geom
      * @param dispatchChangeEvent - if true, the CompoundTransform will dispatch a change indicating that its underlying transforms
      * have been modified. 
   	 */
-	private function invalidate(reason:uint,affects3D:Boolean):void
+	private function invalidate(reason:uint, affects3D:Boolean):void
 	{
 		//race("invalidating: " + reason);
 		switch(reason)
@@ -572,14 +572,14 @@ package mx.geom
 	
 	
 	/** 
-    *  Applies the delta to the transform's translation component. Unlike setting the x, y, or z properties directly,
-	*  this method can be safely called without changing the transform's concept of 'the source of truth'.
-	*  
-	*  @langversion 3.0
-	*  @playerversion Flash 9
-	*  @playerversion AIR 1.1
-	*  @productversion Flex 3
-	*/
+     *  Applies the delta to the transform's translation component. Unlike setting the x, y, or z properties directly,
+	 *  this method can be safely called without changing the transform's concept of 'the source of truth'.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
 	public function translateBy(x:Number,y:Number,z:Number = 0):void
 	{
 		if (_flags & MATRIX_VALID)
@@ -601,7 +601,7 @@ package mx.geom
 			data[14] += z;
 			_matrix3D.rawData = data;			
 		}	
-		invalidate(INVALIDATE_FROM_NONE,z != 0);
+		invalidate(INVALIDATE_FROM_NONE, z != 0 /*affects3D*/);
 	}
 	
 
@@ -651,7 +651,9 @@ package mx.geom
 			_matrix.identity();	
 			_matrix.concat(v);			
 		}
-		invalidate(INVALIDATE_FROM_MATRIX,false);
+
+        // affects3D is true since setting matrix changes the transform to 2D
+		invalidate(INVALIDATE_FROM_MATRIX, true /*affects3D*/);
 	}
 	
 	/**
@@ -753,7 +755,7 @@ package mx.geom
 			if (v)
 				_matrix3D.append(v);			
 		}
-		invalidate(INVALIDATE_FROM_MATRIX3D,true);
+		invalidate(INVALIDATE_FROM_MATRIX3D, true /*affects3D*/);
 	}
 
 }
