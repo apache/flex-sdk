@@ -29,11 +29,9 @@ import mx.managers.SystemManager;
 use namespace mx_internal;
 
 /**
- *  The AccImpl class is the base class for accessibility in components.
- *  AccImpl supports system roles, object based events, and states.
- *
- *  @helpid 3001
- *  @tiptext The base class for accessibility in components.
+ *  The AccImpl class is Flex's base class for implementing accessibility
+ *  in UIComponents.
+ *  It is a subclass of the Flash Player's AccessibilityImplementation class.
  */ 
 public class AccImpl extends AccessibilityImplementation
 {
@@ -47,7 +45,6 @@ public class AccImpl extends AccessibilityImplementation
 
 	/**
 	 *  @private
-	 *  Default state for all the components.
 	 */
 	private static const STATE_SYSTEM_NORMAL:uint = 0x00000000;
 
@@ -77,27 +74,8 @@ public class AccImpl extends AccessibilityImplementation
 	//
 	//--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  All subclasses must implement this function.
-	 */	
-	mx_internal static function createAccessibilityImplementation(
-								component:UIComponent):void
-	{
-	}
-
-	/**
-	 *  Method call for enabling accessibility for a component.
-	 *  This method is required for the compiler to activate
-	 *  the accessibility classes for a component.
-	 */
-	public static function enableAccessibility():void
-	{
-	}	
-
     /**
      *  Method for supporting Form Accessibility.
-     *  @review
      */
     public static function getFormName(component:UIComponent):String
     {
@@ -220,8 +198,7 @@ public class AccImpl extends AccessibilityImplementation
 	protected var master:UIComponent;
 	
 	/**
-	 *  Accessibility Role of the component being made accessible.
-	 *  @review
+	 *  Accessibility role of the component being made accessible.
 	 */
 	protected var role:uint;
 	
@@ -286,7 +263,7 @@ public class AccImpl extends AccessibilityImplementation
 		}
 
 		accName += getName(childID) + getStatusName();
-
+		
 		return (accName != null && accName != "") ? accName : null;
 	}
 	
