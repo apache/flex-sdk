@@ -2772,12 +2772,6 @@ public class UIComponent extends FlexSprite
      */
     public function get parentApplication():Object
     {
-    	// TODODJL: I think the below check can be removed since we are now using 
-    	// SystemManagerProxy to host a form on the top-level system manager.
-    	// systemManager could be null if the systemManager of this component lives in another sandbox.
-    	if (!systemManager)
-    		return null;
-
         // Look for the SystemManager's document,
         // which should be the Application.
         var o:Object = systemManager.document;
@@ -9257,6 +9251,67 @@ public class UIComponent extends FlexSprite
         return false;
     }
     
+    
+    /**
+     *  @private
+     * 
+     *  Get the bounds of this object that are visible to the user
+     *  on the screen.
+     * 
+     *  @param stopParent The parent to stop at when calculating the visible
+     *  bounds. If null, this object's system manager will be used as
+     *  the parent.
+     * 
+     *  @return a <code>Rectangle</code> including the visible portion of the this 
+     *  object. The rectangle is in the coordinate system relative to the
+     *  <code>stopParent</code> parameter.
+     */  
+    public function getVisibleRect(stopParent:DisplayObject):Rectangle
+    {
+        if (!stopParent)
+            stopParent = DisplayObject(systemManager);
+            
+        var pt:Point = new Point();
+        pt.x = x;
+        pt.y = y;
+        pt = $parent.localToGlobal(pt);
+        pt = stopParent.globalToLocal(pt);
+        var bounds:Rectangle = new Rectangle(pt.x, pt.y, width, height);
+        var current:DisplayObject = this;
+        var currentRect:Rectangle;
+        var currentParent:DisplayObject;
+        
+        do
+        {
+            if (current is UIComponent)
+                current = UIComponent(current).$parent;
+            else
+                current = current.parent;
+                
+            currentRect = current.scrollRect;
+            if (currentRect)
+            {
+                if (current is UIComponent)
+                    currentParent = UIComponent(current).$parent;
+                else
+                    currentParent = current.parent;
+                    
+                pt.x = current.x;
+                pt.y = current.y;
+                
+                pt = currentParent.localToGlobal(pt);
+                pt = stopParent.globalToLocal(pt);
+                currentRect.x = pt.x;
+                currentRect.y = pt.y;
+                currentRect.width = currentRect.width;
+                currentRect.height = currentRect.height;
+                bounds = bounds.intersection(currentRect);
+            }
+        } while (current != stopParent); 
+        
+        return bounds;       
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Diagnostics
