@@ -15,30 +15,34 @@ package mx.managers.dragClasses
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
-import flash.events.IEventDispatcher;
 import flash.events.Event;
+import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.system.ApplicationDomain;
 import flash.utils.getQualifiedClassName;
+
 import mx.core.DragSource;
+import mx.core.IFlexModule;
 import mx.core.IUIComponent;
-import mx.core.mx_internal;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.effects.EffectInstance;
 import mx.effects.Move;
 import mx.effects.Zoom;
 import mx.events.DragEvent;
 import mx.events.EffectEvent;
 import mx.events.InterDragManagerEvent;
-import mx.events.SandboxMouseEvent;
 import mx.events.InterManagerRequest;
+import mx.events.SandboxMouseEvent;
 import mx.managers.CursorManager;
 import mx.managers.DragManager;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
 import mx.styles.CSSStyleDeclaration;
+import mx.styles.IStyleManager2;
+import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
@@ -115,6 +119,21 @@ public class DragProxy extends UIComponent
 			setFocus();
 	}
 
+    /**
+     *  @private
+     */
+    override public function get styleManager():IStyleManager2
+    {
+        // If the dragInitiator has a styleManager, use that one.
+        // In a situation where a main application that loads a module with drag initiator,
+        // the main application may not link in the DragManager and appropriate styles.
+        // We want to use the styles of the module of the dragInitiator. See SDK-24324.
+        if (this.dragInitiator is IFlexModule)
+            return StyleManager.getStyleManager(IFlexModule(dragInitiator).moduleFactory);
+        
+        return super.styleManager;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Variables
