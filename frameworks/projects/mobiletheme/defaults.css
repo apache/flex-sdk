@@ -21,9 +21,21 @@ application-dpi=240.
 ActionBar
 {
     chromeColor: #484848;
+    defaultButtonAppearance: normal;
     skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
     textShadowAlpha: .65;
     textShadowColor: #000000;
+    paddingBottom: 1;
+    paddingLeft: 0;
+    paddingRight: 0;
+    paddingTop: 1;
+}
+
+ActionBar.beveled
+{
+    paddingLeft: 7;
+    paddingRight: 7;
+    titleAlign: center;
 }
 
 ActionBar #titleDisplay
@@ -40,24 +52,24 @@ ActionBar ButtonBase
 
 ActionBar Group#navigationGroup Button
 {
-    skinClass: ClassReference("spark.skins.mobile.NavigationButtonSkin");
+    skinClass: ClassReference("spark.skins.mobile.TransparentNavigationButtonSkin");
 }
 
-ActionBar Group#navigationGroup Button.ios
+ActionBar.beveled Group#navigationGroup Button
 {
     fontSize: 18;
-    skinClass: ClassReference("spark.skins.mobile.NavigationBackButtonSkin");
+    skinClass: ClassReference("spark.skins.mobile.BeveledBackButtonSkin");
 }
 
 ActionBar Group#actionGroup Button
 {
-    skinClass: ClassReference("spark.skins.mobile.ActionButtonSkin");
+    skinClass: ClassReference("spark.skins.mobile.TransparentActionButtonSkin");
 }
 
-ActionBar Group#actionGroup Button.ios
+ActionBar.beveled Group#actionGroup Button
 {
     fontSize: 18;
-    skinClass: ClassReference("spark.skins.mobile.ActionRoundedButtonSkin");
+    skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
 }
 
 Application
@@ -262,7 +274,7 @@ TabbedViewNavigator #tabBar
     fontWeight: normal;
     iconPlacement: top;
     interactionMode: mouse;
-    skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorButtonBarSkin");
+    skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorTabBarSkin");
     textShadowAlpha: .65;
     textShadowColor: #000000;
 }
@@ -278,12 +290,12 @@ TextArea
 
 TextArea VScrollBar
 {
-    skinClass: ClassReference("spark.skins.mobile.supportClasses.TextAreaVScrollBarSkin");
+    skinClass: ClassReference("spark.skins.mobile.TextAreaVScrollBarSkin");
 }
 
 TextArea HScrollBar
 {
-    skinClass: ClassReference("spark.skins.mobile.supportClasses.TextAreaHScrollBarSkin");
+    skinClass: ClassReference("spark.skins.mobile.TextAreaHScrollBarSkin");
 }
 
 TextInput
@@ -335,9 +347,6 @@ ViewMenuItem
     paddingRight: 8;
     paddingTop: 8;
     skinClass : ClassReference("spark.skins.mobile.ViewMenuItemSkin");
-    textAlign : "center";
-    verticalAlign: "middle";
-    verticalGap: 10;
 }
 
 ViewNavigator
@@ -404,17 +413,31 @@ global
 
 @media (application-dpi: 160)
 {
+    ActionBar
+    {
+        paddingBottom: 1;
+        paddingLeft: 0;
+        paddingRight: 0;
+        paddingTop: 1;
+    }
+    
+    ActionBar.beveled
+    {
+        paddingLeft: 5;
+        paddingRight: 5;
+    }
+    
     ActionBar #titleDisplay
     {
         fontSize: 18pt;
     }
 
-    ActionBar Group#navigationGroup Button.ios
+    ActionBar.beveled Group#navigationGroup Button
     {
         fontSize: 12;
     }
     
-    ActionBar Group#actionGroup Button.ios
+    ActionBar.beveled Group#actionGroup Button
     {
         fontSize: 12;
     }
@@ -471,17 +494,31 @@ global
 
 @media (application-dpi: 320)
 {
+    ActionBar
+    {
+        paddingBottom: 2;
+        paddingLeft: 0;
+        paddingRight: 0;
+        paddingTop: 2;
+    }
+    
+    ActionBar.beveled
+    {
+        paddingLeft: 10;
+        paddingRight: 10;
+    }
+    
     ActionBar #titleDisplay
     {
         fontSize: 36pt;
     }
 
-    ActionBar Group#navigationGroup Button.ios
+    ActionBar.beveled Group#navigationGroup Button
     {
         fontSize: 24;
     }
     
-    ActionBar Group#actionGroup Button.ios
+    ActionBar.beveled Group#actionGroup Button
     {
         fontSize: 24;
     }
