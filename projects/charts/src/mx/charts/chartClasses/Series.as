@@ -2331,8 +2331,12 @@ public class Series extends ChartElement
     }
     
     /**
-     *  This is used if user does not set any custom function as filterFunction for the series.
+     *  This is used if you do not set a custom function as the filterFunction for the series.
      *  Individual series should overwrite this.
+     * 
+     *  @param cache An array of objects.
+     * 
+     *  @return An array of objects.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 9
