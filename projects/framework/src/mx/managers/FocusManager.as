@@ -1045,7 +1045,6 @@ public class FocusManager implements IFocusManager
                     // adds for the individual children
                     for (i = 0; i < doc.numChildren; i++)
                     {
-                    	// VERSION_SKEW
                         try
                         {
                             addFocusables(doc.getChildAt(i));
