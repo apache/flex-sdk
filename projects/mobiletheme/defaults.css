@@ -327,6 +327,7 @@ global
     backgroundImageFillMode : "scale";
     borderVisible : true;
     borderWeight : 1;
+    downColor: #A8C6EE; /* set in here and not in framework's default.css because it only is really applicable for touch interactions*/
     focusThickness: 3;
     symbolColor: #000000;
     fontLookup: "embeddedCFF";
