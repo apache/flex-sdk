@@ -15,33 +15,29 @@ package mx.managers
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
-import flash.display.LoaderInfo;
 import flash.display.Sprite;
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.FocusEvent;
-import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.system.Capabilities;
 import flash.system.IME;
 import flash.text.TextField;
 import flash.ui.Keyboard;
-import flash.utils.Dictionary;
 
-import mx.core.Application;
 import mx.core.FlexSprite;
 import mx.core.IButton;
 import mx.core.IChildList;
 import mx.core.IIMESupport;
 import mx.core.IRawChildrenContainer;
+import mx.core.ISWFLoader;
 import mx.core.IToggleButton;
 import mx.core.IUIComponent;
-import mx.core.ISWFLoader;
+import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.utils.DisplayUtil;
 
 use namespace mx_internal;
 
@@ -986,6 +982,11 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             if (o is IUIComponent)
                 if (!IUIComponent(o).enabled)
                     return false;
+            
+            if (o is IVisualElement)
+                if (IVisualElement(o).designLayer && !IVisualElement(o).designLayer.effectiveVisibility)
+                    return false;
+            
             if (!o.visible) 
                 return false;
             o = o.parent;
