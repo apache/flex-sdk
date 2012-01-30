@@ -325,11 +325,11 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
         {
             // width and height are what we actually want our content
             // to fill up, but it doesn't take in to account our secretScale.
-            if (!scaleContentWhenResized)
+            if (!scaleContentWhenResized && _layoutFeatures != null)
             {
                 // apply inverse of the scale
-                contentHolderObj.scaleX = 1/scaleXDueToSizing;
-                contentHolderObj.scaleY = 1/scaleYDueToSizing;
+                contentHolderObj.scaleX = 1/_layoutFeatures.stretchX;
+                contentHolderObj.scaleY = 1/_layoutFeatures.stretchY;
             }
             else
             {
