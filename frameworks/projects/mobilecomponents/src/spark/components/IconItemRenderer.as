@@ -57,9 +57,9 @@ include "../styles/metadata/GapStyles.as"
  *  @default 500
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Style(name="iconDelay", type="Number", format="Time", inherit="no")]
 
@@ -70,9 +70,9 @@ include "../styles/metadata/GapStyles.as"
  *  @default mobileIconItemRendererMessageStyle
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Style(name="messageStyleName", type="String", inherit="no")]
 
@@ -240,7 +240,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  The source to set iconDisplay to, after waiting an appropriate delay period
      */
     private var loadingIconSource:Object;
-	
+    
     //--------------------------------------------------------------------------
     //
     //  Public Properties: Overridden
@@ -252,11 +252,11 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      */
     override public function set data(value:Object):void
     {
-		// FIXME (rfrishbe): early return if the data object has not changed. 
-		// This should be removed when SDK-28656 is fixed.
-		if (data == value)
-			return;
-		
+        // FIXME (rfrishbe): early return if the data object has not changed. 
+        // This should be removed when SDK-28656 is fixed.
+        if (data == value)
+            return;
+        
         super.data = value;
         
         iconChanged = true;
@@ -1430,7 +1430,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             // stop any asynch operation:
             if (iconSetterDelayTimer)
             {
-				loadingIconSource = null
+                loadingIconSource = null
                 iconSetterDelayTimer.stop();
                 iconSetterDelayTimer.reset();
             }
@@ -1449,7 +1449,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         // since we're not going to use it anymore
         if (iconSetterDelayTimer)
         {
-			loadingIconSource = null
+            loadingIconSource = null
             iconSetterDelayTimer.stop();
             iconSetterDelayTimer.reset();
         }
@@ -1514,36 +1514,36 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         
         super.validateSize(recursive);
     }
-	
-	/**
-	 *  @private
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.0
-	 *  @productversion Flex 4.5
-	 */
-	override public function setEstimatedSize(estimatedWidth:Number = NaN, 
-											  estimatedHeight:Number = NaN,
-											  invalidateSizeAllowed:Boolean = true):void
-	{
-		var oldcw:Number = this.estimatedWidth;
-		var oldch:Number = this.estimatedHeight;
-		
-		super.setEstimatedSize(estimatedWidth, estimatedHeight, invalidateSizeAllowed);
-		
-		var sameWidth:Boolean = isNaN(estimatedWidth) && isNaN(oldcw) || estimatedWidth == oldcw;
-		var sameHeight:Boolean = isNaN(estimatedHeight) && isNaN(oldch) || estimatedHeight == oldch;
-		if (!(sameHeight && sameWidth))
-		{
-			if (!isNaN(explicitWidth) &&
-				!isNaN(explicitHeight))
-				return;
-			
-			if (invalidateSizeAllowed)
-				invalidateSize();
-		}
-	}
+    
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    override public function setEstimatedSize(estimatedWidth:Number = NaN, 
+                                              estimatedHeight:Number = NaN,
+                                              invalidateSizeAllowed:Boolean = true):void
+    {
+        var oldcw:Number = this.estimatedWidth;
+        var oldch:Number = this.estimatedHeight;
+        
+        super.setEstimatedSize(estimatedWidth, estimatedHeight, invalidateSizeAllowed);
+        
+        var sameWidth:Boolean = isNaN(estimatedWidth) && isNaN(oldcw) || estimatedWidth == oldcw;
+        var sameHeight:Boolean = isNaN(estimatedHeight) && isNaN(oldch) || estimatedHeight == oldch;
+        if (!(sameHeight && sameWidth))
+        {
+            if (!isNaN(explicitWidth) &&
+                !isNaN(explicitHeight))
+                return;
+            
+            if (invalidateSizeAllowed)
+                invalidateSize();
+        }
+    }
     
     /**
      *  @private
@@ -1560,58 +1560,58 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         var myMeasuredHeight:Number = 0;
         var myMeasuredMinWidth:Number = 0;
         var myMeasuredMinHeight:Number = 0;
-		
-		// calculate padding and horizontal gap
-		// verticalGap is already handled above when there's a label
-		// and a message since that's the only place verticalGap matters.
-		// if we handled verticalGap here, it might add it to the icon if 
-		// the icon was the tallest item.
-		var numHorizontalSections:int = 0;
-		if (iconDisplay)
-			numHorizontalSections++;
-		
-		if (decoratorDisplay)
-			numHorizontalSections++;
-		
-		if (labelDisplay || messageDisplay)
-			numHorizontalSections++;
-		
-		var paddingAndGapWidth:Number = getStyle("paddingLeft") + getStyle("paddingRight");
-		if (numHorizontalSections > 0)
-			paddingAndGapWidth += (getStyle("horizontalGap") * (numHorizontalSections - 1));
-		
-		var verticalGap:Number = (labelDisplay && messageDisplay) ? getStyle("verticalGap") : 0;
-		var paddingHeight:Number = getStyle("paddingTop") + getStyle("paddingBottom");
+        
+        // calculate padding and horizontal gap
+        // verticalGap is already handled above when there's a label
+        // and a message since that's the only place verticalGap matters.
+        // if we handled verticalGap here, it might add it to the icon if 
+        // the icon was the tallest item.
+        var numHorizontalSections:int = 0;
+        if (iconDisplay)
+            numHorizontalSections++;
+        
+        if (decoratorDisplay)
+            numHorizontalSections++;
+        
+        if (labelDisplay || messageDisplay)
+            numHorizontalSections++;
+        
+        var paddingAndGapWidth:Number = getStyle("paddingLeft") + getStyle("paddingRight");
+        if (numHorizontalSections > 0)
+            paddingAndGapWidth += (getStyle("horizontalGap") * (numHorizontalSections - 1));
+        
+        var verticalGap:Number = (labelDisplay && messageDisplay) ? getStyle("verticalGap") : 0;
+        var paddingHeight:Number = getStyle("paddingTop") + getStyle("paddingBottom");
         
         // Icon is on left
-		var myIconWidth:Number = 0;
-		var myIconHeight:Number = 0;
+        var myIconWidth:Number = 0;
+        var myIconHeight:Number = 0;
         if (iconDisplay)
         {
-			myIconWidth = (isNaN(iconWidth) ? getElementPreferredWidth(iconDisplay) : iconWidth);
-			myIconHeight = (isNaN(iconHeight) ? getElementPreferredHeight(iconDisplay) : iconHeight);
+            myIconWidth = (isNaN(iconWidth) ? getElementPreferredWidth(iconDisplay) : iconWidth);
+            myIconHeight = (isNaN(iconHeight) ? getElementPreferredHeight(iconDisplay) : iconHeight);
             
             myMeasuredWidth += myIconWidth;
             myMeasuredMinWidth += myIconWidth;
-			myMeasuredHeight = Math.max(myMeasuredHeight, myIconHeight);
+            myMeasuredHeight = Math.max(myMeasuredHeight, myIconHeight);
             myMeasuredMinHeight = Math.max(myMeasuredMinHeight, myIconHeight);
         }
-		
-		// Decorator is up next
-		var decoratorWidth:Number = 0;
-		var decoratorHeight:Number = 0;
-		
-		if (decoratorDisplay)
-		{
-			decoratorWidth = getElementPreferredWidth(decoratorDisplay);
-			decoratorHeight = getElementPreferredHeight(decoratorDisplay);
-			
-			myMeasuredWidth += decoratorWidth;
-			myMeasuredMinWidth += decoratorWidth;
-			myMeasuredHeight = Math.max(myMeasuredHeight, decoratorHeight);
-			myMeasuredMinHeight = Math.max(myMeasuredHeight, decoratorHeight);
-		}
-		
+        
+        // Decorator is up next
+        var decoratorWidth:Number = 0;
+        var decoratorHeight:Number = 0;
+        
+        if (decoratorDisplay)
+        {
+            decoratorWidth = getElementPreferredWidth(decoratorDisplay);
+            decoratorHeight = getElementPreferredHeight(decoratorDisplay);
+            
+            myMeasuredWidth += decoratorWidth;
+            myMeasuredMinWidth += decoratorWidth;
+            myMeasuredHeight = Math.max(myMeasuredHeight, decoratorHeight);
+            myMeasuredMinHeight = Math.max(myMeasuredHeight, decoratorHeight);
+        }
+        
         // Text is aligned next to icon
         var labelWidth:Number = 0;
         var labelHeight:Number = 0;
@@ -1627,29 +1627,29 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             labelWidth = getElementPreferredWidth(labelDisplay);
             labelHeight = getElementPreferredHeight(labelDisplay);
         }
-		
+        
         if (messageDisplay)
         {
-			// now we need to measure messageDisplay's height.  Unfortunately, this is tricky and 
-			// is dependent on messageDisplay's width
-			// if we have an estimated width, use it to calculate messageDisplay's width.  
-			// Otherwise, we'll keep it the same width as it was before
-			if (!isNaN(estimatedWidth))
-				messageDisplay.width = estimatedWidth - paddingAndGapWidth - decoratorWidth - myIconWidth;
-				
+            // now we need to measure messageDisplay's height.  Unfortunately, this is tricky and 
+            // is dependent on messageDisplay's width
+            // if we have an estimated width, use it to calculate messageDisplay's width.  
+            // Otherwise, we'll keep it the same width as it was before
+            if (!isNaN(estimatedWidth))
+                messageDisplay.width = estimatedWidth - paddingAndGapWidth - decoratorWidth - myIconWidth;
+                
             messageWidth = getElementPreferredWidth(messageDisplay);
             messageHeight = getElementPreferredHeight(messageDisplay);
         }
-		
+        
         myMeasuredWidth += Math.max(labelWidth, messageWidth);
         myMeasuredHeight = Math.max(myMeasuredHeight, labelHeight + messageHeight + verticalGap);
-		
-		myMeasuredWidth += paddingAndGapWidth;
-		myMeasuredMinWidth += paddingAndGapWidth;
-		
-		// verticalGap handled in label and message
-		myMeasuredHeight += paddingHeight;
-		myMeasuredMinHeight += paddingHeight;
+        
+        myMeasuredWidth += paddingAndGapWidth;
+        myMeasuredMinWidth += paddingAndGapWidth;
+        
+        // verticalGap handled in label and message
+        myMeasuredHeight += paddingHeight;
+        myMeasuredMinHeight += paddingHeight;
         
         // now set the local variables to the member variables.  Make sure it means our
         // minimum height of 80
@@ -1659,55 +1659,55 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         measuredMinWidth = myMeasuredMinWidth;
         measuredMinHeight = Math.max(80, myMeasuredMinHeight);
     }
-	
-	/**
-	 *  @private
-	 *  We override the setLayoutBoundsSize to determine whether to perform
-	 *  text reflow. This is a convenient place, as the layout passes NaN
-	 *  for a dimension not constrained to the parent.
-	 */
-	override public function setLayoutBoundsSize(width:Number,
-												 height:Number,
-												 postLayoutTransform:Boolean = true):void
-	{
-		var newEstimates:Boolean = false;
-		var cw:Number = estimatedWidth;
-		var ch:Number = estimatedHeight;
-		var oldcw:Number = cw;
-		var oldch:Number = ch;
-		// we got lied to, probably the constraints weren't accurate or
-		// couldn't be computed
-		if (!isNaN(width))
-		{
-			if (isNaN(estimatedWidth) || width != estimatedWidth)
-			{
-				cw = width;
-				newEstimates = true;
-			}
-		}
-		// we got lied to, probably the constraints weren't accurate or
-		// couldn't be computed
-		if (!isNaN(height))
-		{
-			if (isNaN(estimatedHeight) || height != estimatedHeight)
-			{
-				ch = height;
-				newEstimates = true;
-			}
-		}
-		if (newEstimates)
-		{
-			setEstimatedSize(cw, ch);
-			
-			// re-measure with the new estimated size
-			UIComponentGlobals.layoutManager.validateClient(this, true);
-			
-			// set estimated size back to what it was
-			setEstimatedSize(oldcw, oldch, false);
-		}
-		
-		super.setLayoutBoundsSize(width, height, postLayoutTransform);
-	}
+    
+    /**
+     *  @private
+     *  We override the setLayoutBoundsSize to determine whether to perform
+     *  text reflow. This is a convenient place, as the layout passes NaN
+     *  for a dimension not constrained to the parent.
+     */
+    override public function setLayoutBoundsSize(width:Number,
+                                                 height:Number,
+                                                 postLayoutTransform:Boolean = true):void
+    {
+        var newEstimates:Boolean = false;
+        var cw:Number = estimatedWidth;
+        var ch:Number = estimatedHeight;
+        var oldcw:Number = cw;
+        var oldch:Number = ch;
+        // we got lied to, probably the constraints weren't accurate or
+        // couldn't be computed
+        if (!isNaN(width))
+        {
+            if (isNaN(estimatedWidth) || width != estimatedWidth)
+            {
+                cw = width;
+                newEstimates = true;
+            }
+        }
+        // we got lied to, probably the constraints weren't accurate or
+        // couldn't be computed
+        if (!isNaN(height))
+        {
+            if (isNaN(estimatedHeight) || height != estimatedHeight)
+            {
+                ch = height;
+                newEstimates = true;
+            }
+        }
+        if (newEstimates)
+        {
+            setEstimatedSize(cw, ch);
+            
+            // re-measure with the new estimated size
+            UIComponentGlobals.layoutManager.validateClient(this, true);
+            
+            // set estimated size back to what it was
+            setEstimatedSize(oldcw, oldch, false);
+        }
+        
+        super.setLayoutBoundsSize(width, height, postLayoutTransform);
+    }
     
     /**
      *  @private
