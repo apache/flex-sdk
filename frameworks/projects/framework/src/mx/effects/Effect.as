@@ -30,8 +30,8 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the effect finishes playing,
- *  either when the effect finishes playing or when the effect has 
- *  been interrupted by a call to the <code>end()</code> method.
+ *  either when the effect finishes playing or when the effect 
+ *  is interrupted by a call to the <code>end()</code> method.
  *
  *  @eventType mx.events.EffectEvent.EFFECT_END
  *  
@@ -44,9 +44,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the effect has been stopped,
- *  which only occurs when the effect has 
- *  been interrupted by a call to the <code>stop()</code> method.
- *  The EFFECT_END event will also be dispatched to indicate that
+ *  which only occurs when the effect is
+ *  interrupted by a call to the <code>stop()</code> method.
+ *  The EFFECT_END event is also dispatched to indicate that
  *  the effect has ended. This extra event is sent first, as an
  *  indicator to listeners that the effect did not reach its
  *  end state.
@@ -239,7 +239,7 @@ public class Effect extends EventDispatcher implements IEffect
     // can choose to have the older behavior instead.
     /**
      * This flag controls whether the effect, when run in a transition,
-     * will automatically apply the property values according to the end
+     * automatically applies the property values according to the end
      * state, as opposed to leaving values as set by the effect itself.
      * 
      * @default true
@@ -275,7 +275,7 @@ public class Effect extends EventDispatcher implements IEffect
     
     /**
      *  @private
-	 *  Used in applyValueToTarget()
+     *  Used in applyValueToTarget()
      */
     mx_internal var applyActualDimensions:Boolean = true;
     
@@ -360,9 +360,9 @@ public class Effect extends EventDispatcher implements IEffect
     private var _duration:Number = 500;
     
     /**
-	 *  @private
-	 */
-	mx_internal var durationExplicitlySet:Boolean = false;
+     *  @private
+     */
+    mx_internal var durationExplicitlySet:Boolean = false;
 
     [Inspectable(category="General", defaultValue="500", minValue="0.0")]
     
@@ -401,10 +401,10 @@ public class Effect extends EventDispatcher implements IEffect
     //----------------------------------
 
     /**
-	 *  @private
-	 *  Storage for the effectTargetHost property.
-	 */
-	private var _effectTargetHost:IEffectTargetHost;
+     *  @private
+     *  Storage for the effectTargetHost property.
+     */
+    private var _effectTargetHost:IEffectTargetHost;
     
     /**
      *  @copy mx.effects.IEffect#effectTargetHost
@@ -433,13 +433,13 @@ public class Effect extends EventDispatcher implements IEffect
 
     /**
      *  A flag containing <code>true</code> if the end values
-	 *  of an effect have already been determined, 
+     *  of an effect have already been determined, 
      *  or <code>false</code> if they should be acquired from the
-	 *  current properties of the effect targets when the effect runs. 
+     *  current properties of the effect targets when the effect runs. 
      *  This property is required by data effects because the sequence
-	 *  of setting up the data effects, such as DefaultListEffect
-	 *  and DefaultTileListEffect, is more complicated than for
-	 *  normal effects.
+     *  of setting up the data effects, such as DefaultListEffect
+     *  and DefaultTileListEffect, is more complicated than for
+     *  normal effects.
      *
      *  @default false
      *  
@@ -565,11 +565,11 @@ public class Effect extends EventDispatcher implements IEffect
     //  hideFocusRing
     //----------------------------------
     
-	/**
-	 *  @private
-	 *  Storage for the hideFocusRing property.
-	 */
-	private var _hideFocusRing:Boolean = false;
+    /**
+     *  @private
+     *  Storage for the hideFocusRing property.
+     */
+    private var _hideFocusRing:Boolean = false;
 
     /**
      *  @copy mx.effects.IEffect#hideFocusRing
@@ -608,7 +608,7 @@ public class Effect extends EventDispatcher implements IEffect
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public var instanceClass:Class = IEffectInstance;
+    public var instanceClass:Class = IEffectInstance;
 
     
     //----------------------------------
@@ -632,11 +632,11 @@ public class Effect extends EventDispatcher implements IEffect
     //  perElementOffset
     //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the perElementOffset property.
-	 */
-	private var _perElementOffset:Number = 0;
+    /**
+     *  @private
+     *  Storage for the perElementOffset property.
+     */
+    private var _perElementOffset:Number = 0;
 
     [Inspectable(defaultValue="0", category="General", verbose="0", minValue="0.0")]
 
@@ -649,17 +649,17 @@ public class Effect extends EventDispatcher implements IEffect
      *  @productversion Flex 3
      */ 
     public function get perElementOffset():Number
-	{
-		return _perElementOffset;
-	}
+    {
+        return _perElementOffset;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set perElementOffset(value:Number):void
-	{
-		_perElementOffset = value;
-	}
+    /**
+     *  @private
+     */
+    public function set perElementOffset(value:Number):void
+    {
+        _perElementOffset = value;
+    }
     
     //----------------------------------
     //  relevantProperties
@@ -701,7 +701,7 @@ public class Effect extends EventDispatcher implements IEffect
     
     /**
      *  @private
-	 *  Storage for the relevantStyles property.
+     *  Storage for the relevantStyles property.
      */
     private var _relevantStyles:Array /* of String */ = [];
         
@@ -808,10 +808,10 @@ public class Effect extends EventDispatcher implements IEffect
      *  However, the property should be set to <code>false</code>
      *  if either of the following is true:</p>
      *  <ul>
-     *    <li>User input may arrive while the effect is playing,
+     *    <li>User input can arrive while the effect is playing,
      *    and the application must respond to the user input
      *    before the effect finishes playing.</li>
-     *    <li>A response may arrive from the server while the effect
+     *    <li>A response can arrive from the server while the effect
      *    is playing, and the application must process the response
      *    while the effect is still playing.</li>
      *  </ul>
@@ -919,9 +919,9 @@ public class Effect extends EventDispatcher implements IEffect
      *  @productversion Flex 3
      */
     public function get triggerEvent():Event
-	{
-		return _triggerEvent;
-	}
+    {
+        return _triggerEvent;
+    }
     
     /**
      *  @private
@@ -1115,7 +1115,7 @@ public class Effect extends EventDispatcher implements IEffect
      *
      *  <p>When you create a custom effect, override this method to 
      *  copy properties from the Effect class to the effect instance class. 
-     *  In your override, you must call <code>super.initInstance()</code>. </p>
+     *  In your override, call <code>super.initInstance()</code>. </p>
      *
      *  @param EffectInstance The effect instance to initialize.
      *  
@@ -1129,8 +1129,8 @@ public class Effect extends EventDispatcher implements IEffect
         instance.duration = duration;
         Object(instance).durationExplicitlySet = durationExplicitlySet;
         instance.effect = this;
-		instance.effectTargetHost = effectTargetHost;
-		instance.hideFocusRing = hideFocusRing;
+        instance.effectTargetHost = effectTargetHost;
+        instance.hideFocusRing = hideFocusRing;
         instance.repeatCount = repeatCount;
         instance.repeatDelay = repeatDelay;
         instance.startDelay = startDelay;
@@ -1148,7 +1148,7 @@ public class Effect extends EventDispatcher implements IEffect
     public function deleteInstance(instance:IEffectInstance):void
     {
         EventDispatcher(instance).removeEventListener(
-			EffectEvent.EFFECT_START, effectStartHandler);
+            EffectEvent.EFFECT_START, effectStartHandler);
         EventDispatcher(instance).removeEventListener(
             EffectEvent.EFFECT_STOP, effectStopHandler);
         EventDispatcher(instance).removeEventListener(
@@ -1414,8 +1414,8 @@ public class Effect extends EventDispatcher implements IEffect
      *  Used internally to grab the values of the relevant properties
      */
     mx_internal function captureValues(propChanges:Array,
-									   setStartValues:Boolean,
-									   targetsToCapture:Array = null):Array
+                                       setStartValues:Boolean,
+                                       targetsToCapture:Array = null):Array
     {
         var n:int;
         var i:int;
@@ -1775,7 +1775,7 @@ public class Effect extends EventDispatcher implements IEffect
     }
     
     /**
-     *  Called when an effect instance has been stopped by a call
+     *  Called when an effect instance has stopped by a call
      *  to the <code>stop()</code> method. 
      *  If you override this method, ensure that you call the super method.
      *
