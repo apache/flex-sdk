@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!-- Simple example to demonstrate the States class. -->
+<s:Application name="StateExample2.mxml"
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
+
+    <!-- Define both states. -->
+    <s:states>
+        <s:State name="Login" />
+        <s:State name="Register" />
+    </s:states>
+
+    <!-- Define stateful changes in the components which have to change. -->
+    <mx:Panel id="loginPanel" title.Login="Login" title.Register="Register"  
+            horizontalScrollPolicy="off" verticalScrollPolicy="off"
+            paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10"
+            horizontalCenter="0" top="50">
+
+        <mx:Text width="100%" color="blue"
+            text="Click the 'Need to Register?' link to change state. Click the 'Return to Login' link to return to the base state."/>
+
+        <mx:Form id="loginForm" >
+            <mx:FormItem label="Username:">
+                <s:TextInput/>
+            </mx:FormItem>
+            <mx:FormItem label="Password:">
+                <s:TextInput/>
+            </mx:FormItem>
+            <mx:FormItem id="confirm" label="Confirm:" includeIn="Register">
+                <s:TextInput/>
+            </mx:FormItem>
+        </mx:Form>
+        <mx:ControlBar>
+            <mx:LinkButton id="registerLink"
+                label.Login="Need to Register?" label.Register="Return to Login"
+                click.Login="currentState='Register'" click.Register="currentState='Login'"/>
+            <mx:Spacer width="100%" id="spacer1"/>
+            <mx:Button label.Login="Login" label.Register="Register" color.Register="blue" id="loginButton"/>
+        </mx:ControlBar>
+    </mx:Panel>
+
+</s:Application>
