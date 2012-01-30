@@ -28,8 +28,8 @@ import flash.system.ApplicationDomain;
 import flash.text.TextField;
 import flash.text.TextFieldType;
 import flash.ui.Mouse;
-import mx.core.ApplicationGlobals;
 import mx.core.EventPriority;
+import mx.core.FlexGlobals;
 import mx.core.FlexSprite;
 import mx.core.mx_internal;
 import mx.core.IUIComponent;
@@ -462,7 +462,7 @@ public class CursorManagerImpl implements ICursorManager
         if (systemManager)
         	item.systemManager = systemManager;
         else
-        	item.systemManager = ApplicationGlobals.application.systemManager;
+        	item.systemManager = FlexGlobals.topLevelApplication.systemManager;
         
         // Push it onto the cursor list.
         cursorList.push(item);
