@@ -1,38 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Simple example to demonstrate the DateField control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the Halo DateField control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
-      <![CDATA[
+    <fx:Script>
+        <![CDATA[
+            // Event handler for the Halo DateField change event.
+            private function dateChanged(date:Date):void {
+                if (date == null) {
+                    selection.text = "Date selected: ";
+                } else {
+                    selection.text = "Date selected: " + date.getFullYear().toString() + '/' + (date.getMonth()+1).toString() + '/' + date.getDate();
+                }
+            }
+        ]]>
+    </fx:Script>
 
-         // Event handler for the DateField change event.
-         private function dateChanged(date:Date):void {
-            if (date == null)
-                selection.text = "Date selected: ";                
-            else
-                selection.text = "Date selected: " + date.getFullYear().toString() + 
-                    '/' + (date.getMonth()+1).toString() + '/' + date.getDate();
-         }
-      ]]>
-    </mx:Script>
- 
- <mx:DateFormatter id="df"/>
+    <fx:Declarations>
+        <mx:DateFormatter id="df"/>
+    </fx:Declarations>
 
-    <mx:Panel title="DateField Control Example" height="75%" width="75%" 
-        paddingTop="10" paddingLeft="10" paddingRight="10">
+    <s:Panel title="Halo DateField Control Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%"  color="blue"
+                    text="Select a date in the Halo DateField control. Select it again to clear it."/>
 
-        <mx:Label width="100%"  color="blue"
-            text="Select a date in the DateField control. Select it again to clear it."/>
+            <s:SimpleText text="Basic Halo DateField:"/>
+            <mx:DateField id="dateField1" yearNavigationEnabled="true" 
+                change="dateChanged(DateField(event.target).selectedDate)" />
+            <s:SimpleText id="selection"  color="blue" text="Date selected:" />
 
-        <mx:Label text="Basic DateField:"/>
-        <mx:DateField id="dateField1" yearNavigationEnabled="true" 
-            change="dateChanged(DateField(event.target).selectedDate)" />
-        <mx:Label id="selection"  color="blue" text="Date selected:" />
+            <mx:Spacer height="30" />
 
-        <mx:Label text="Disable dates on or before June 1, 2006."/>
-        <mx:DateField id="dateField2" yearNavigationEnabled="true" 
-            disabledRanges="{[ {rangeEnd: new Date(2006, 5, 1)} ]}" />
-        <mx:Label  color="blue" text="Date selected: {df.format(dateField2.selectedDate)}"/>
+            <s:SimpleText text="Disable dates on or before June 1, 2006."/>
+            <mx:DateField id="dateField2" yearNavigationEnabled="true" 
+                disabledRanges="{[ {rangeEnd: new Date(2006, 5, 1)} ]}" />
+            <s:SimpleText  color="blue" text="Date selected: {df.format(dateField2.selectedDate)}"/>
+        </s:VGroup>
+    </s:Panel>
 
-    </mx:Panel>
-</mx:Application>
+</s:Application>
