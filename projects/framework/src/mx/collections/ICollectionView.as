@@ -120,7 +120,7 @@ public interface ICollectionView extends IEventDispatcher
 	//----------------------------------
 
     /**
-     *  The Sort that will be applied to the ICollectionView.
+     *  The ISort that will be applied to the ICollectionView.
 	 *  Setting the sort does not automatically refresh the view,
 	 *  so you must call the <code>refresh()</code> method
 	 *  after setting this property.
@@ -139,12 +139,12 @@ public interface ICollectionView extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function get sort():Sort;
+    function get sort():ISort;
     
 	/**
 	 *  @private
 	 */
-    function set sort(value:Sort):void;
+    function set sort(value:ISort):void;
 
 	//--------------------------------------------------------------------------
 	//
