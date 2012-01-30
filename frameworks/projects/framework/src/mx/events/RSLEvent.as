@@ -39,6 +39,39 @@ public class RSLEvent extends ProgressEvent
 	//
 	//--------------------------------------------------------------------------
 
+    /**
+     *  The <code>RSLEvent.RSL_ADD_PRELOADED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for an 
+     *  <code>rslAddPreloaded</code> event. This event is dispatched from an 
+     *  IFlexModuleFactory after a child IFlexModuleFactory preloads an RSL
+     *  into its application domain. 
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>loaderInfo</code></td><td>The LoaderInfo instance 
+     *     associated with this RSL.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType rslAddPreloaded
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public static const RSL_ADD_PRELOADED:String = "rslAddPreloaded";
+    
 	/**
 	 *  Dispatched when the RSL has finished downloading. 	
 	 *  The <code>RSLEvent.RSL_COMPLETE</code> constant defines the value of the 
@@ -205,7 +238,8 @@ public class RSLEvent extends ProgressEvent
 							 bytesLoaded:int = -1, bytesTotal:int = -1,
 							 rslIndex:int = -1, rslTotal:int = -1,
 							 url:URLRequest = null, errorText:String = null,
-							 isResourceModule:Boolean = false)
+							 isResourceModule:Boolean = false,
+                             loaderInfo:LoaderInfo = null)
 	{
 		super(type, bubbles, cancelable, bytesLoaded, bytesTotal);
 		
@@ -214,6 +248,7 @@ public class RSLEvent extends ProgressEvent
 		this.url = url;
 		this.errorText = errorText;
 		this.isResourceModule = isResourceModule;
+        this.loaderInfo = loaderInfo;
 	}
 	
 	//--------------------------------------------------------------------------
@@ -312,7 +347,8 @@ public class RSLEvent extends ProgressEvent
 	{
 		return new RSLEvent(type, bubbles, cancelable,
 							bytesLoaded, bytesTotal, rslIndex,
-							rslTotal, url, errorText, isResourceModule);
+							rslTotal, url, errorText, isResourceModule,
+                            loaderInfo);
 	}
 }
 
