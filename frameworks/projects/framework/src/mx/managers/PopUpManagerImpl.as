@@ -501,7 +501,6 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             var appHeight:Number;
             var parentWidth:Number;
             var parentHeight:Number;
-            var s:Rectangle;            // the screen
             var rect:Rectangle;
             var clippingOffset:Point = new Point();
             var pt:Point;
@@ -522,17 +521,18 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             {
                 // The sandbox root is the top level root.
                 // The application width is just the screen width.
-                s = systemManager.screen;
-                appWidth = s.width;
-                appHeight = s.height;
+                var screen:Rectangle = systemManager.screen;
+                appWidth = screen.width;
+                appHeight = screen.height;
             }            
             else
             {
                 rect = systemManager.getVisibleApplicationRect();
+                rect.topLeft = DisplayObject(systemManager).globalToLocal(rect.topLeft);
+                rect.bottomRight = DisplayObject(systemManager).globalToLocal(rect.bottomRight);
             
                 // Offset the top, left of the window to bring it into view.        
-                clippingOffset = new Point(rect.x, rect.y);
-                clippingOffset = DisplayObject(systemManager).globalToLocal(clippingOffset);
+                clippingOffset = rect.topLeft.clone();
                 appWidth = rect.width;
                 appHeight = rect.height;
             } 
@@ -720,7 +720,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 		
         modalWindow.tabEnabled = false;
         
-        const s:Rectangle = sm.screen;
+        const screen:Rectangle = sm.screen;
         const g:Graphics = modalWindow.graphics;
         
         var c:Number = 0xFFFFFF;
@@ -744,7 +744,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         // trace("createModalWindow: drawing modal " + s);
         g.clear();
         g.beginFill(c, 100);
-        g.drawRect(s.x, s.y, s.width, s.height);
+        g.drawRect(screen.x, screen.y, screen.width, screen.height);
         g.endFill();
 
         if (hasEventListener("updateModalMask"))
