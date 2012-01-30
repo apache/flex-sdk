@@ -97,6 +97,8 @@ public class ViewNavigatorApplicationSkin extends MobileSkin
     override protected function createChildren():void
     {
         navigator = new ViewNavigator();
+        navigator.id = "navigator";
+        
         addChild(navigator);
     }
     
