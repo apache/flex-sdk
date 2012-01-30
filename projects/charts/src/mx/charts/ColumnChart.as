@@ -195,12 +195,12 @@ public class ColumnChart extends CartesianChart
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false;
-	
-	
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false;
+    
+    
     /**
      *  @private
      */
@@ -415,62 +415,62 @@ public class ColumnChart extends CartesianChart
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var columnChartStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.ColumnChart", styleManager);
-		
-		columnChartStyle.defaultFactory = function():void
-		{
-			this.axisColor = 0xD5DEDD;
-			this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;       
-			this.columnWidthRatio = 0.65;
-			this.dataTipRenderer = DataTip;
-			this.fontSize = 10;
-			this.fill = new SolidColor(0xFFFFFF, 0);
-			this.calloutStroke = new Stroke(0x888888,2);            
-			this.textAlign = "left";
-			this.horizontalAxisStyleNames = ["blockCategoryAxis"];
-			this.verticalAxisStyleNames = ["blockNumericAxis"];
-		}
-		
-		return true;
-	}
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var columnChartStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.ColumnChart", styleManager);
+        
+        columnChartStyle.defaultFactory = function():void
+        {
+            this.axisColor = 0xD5DEDD;
+            this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;       
+            this.columnWidthRatio = 0.65;
+            this.dataTipRenderer = DataTip;
+            this.fontSize = 10;
+            this.fill = new SolidColor(0xFFFFFF, 0);
+            this.calloutStroke = new Stroke(0x888888,2);            
+            this.textAlign = "left";
+            this.horizontalAxisStyleNames = ["blockCategoryAxis"];
+            this.verticalAxisStyleNames = ["blockNumericAxis"];
+        }
+        
+        return true;
+    }
 
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
-	
+    
+    /**
+     *   A module factory is used as context for using embedded fonts and for finding the style manager that controls the styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
+    
     /**
      * @private
      */
     override protected function createChildren():void
     {
         super.createChildren();
-		var labelClass:Class = getLabelClass();
+        var labelClass:Class = getLabelClass();
         _tempField = new labelClass();
         _tempField.visible = false;
         _tempField.text = "W...";
@@ -478,24 +478,24 @@ public class ColumnChart extends CartesianChart
         addChild(_tempField as DisplayObject);
         _tempField.validateNow();
     }
-	
-	private function getLabelClass():Class
-	{
-		var labelClass:Class = getStyle("labelClass");
-		if(labelClass == null)
-		{
-			try{
-				labelClass = Class(ApplicationDomain.currentDomain.
-					getDefinition("spark.components::Label"));
-			}
-			catch(e:Error)
-			{
-				labelClass = Class(ApplicationDomain.currentDomain.
-					getDefinition("mx.controls::Label"));
-			}
-		}
-		return labelClass;
-	}
+    
+    private function getLabelClass():Class
+    {
+        var labelClass:Class = getStyle("labelClass");
+        if(labelClass == null)
+        {
+            try{
+                labelClass = Class(ApplicationDomain.currentDomain.
+                    getDefinition("spark.components::Label"));
+            }
+            catch(e:Error)
+            {
+                labelClass = Class(ApplicationDomain.currentDomain.
+                    getDefinition("mx.controls::Label"));
+            }
+        }
+        return labelClass;
+    }
 
     /**
      *  @private
@@ -551,31 +551,31 @@ public class ColumnChart extends CartesianChart
     {
         var columnWidthRatio:Number = getStyle("columnWidthRatio");
         var maxColumnWidth:Number = getStyle("maxColumnWidth");
-		var g:IChartElement;
-		
+        var g:IChartElement;
+        
         switch (_type)
         {
             case "stacked":
             case "100%":
             {
                 var n:int = seriesSet.length;
-				var i:int;
+                var i:int;
                 for (i = 0; i < n; i++)
                 {
                     seriesSet[i].offset = 0;
-				}
+                }
 
                 var newSeriesGlyph:ColumnSet = new ColumnSet();
-				newSeriesGlyph.owner = this;
+                newSeriesGlyph.owner = this;
                 newSeriesGlyph.series = seriesSet;
                 for (i = 0; i < n; i++)
                 {
-                	g = seriesSet[i] as IChartElement;
-					newSeriesGlyph.series[i].owner = newSeriesGlyph;
-					if (!g)
-						continue;
-					if (g.labelContainer) 			
- 						newSeriesGlyph.labelContainer.addChild(seriesSet[i].labelContainer);
+                    g = seriesSet[i] as IChartElement;
+                    newSeriesGlyph.series[i].owner = newSeriesGlyph;
+                    if (!g)
+                        continue;
+                    if (g.labelContainer)           
+                        newSeriesGlyph.labelContainer.addChild(seriesSet[i].labelContainer);
                 }
                 
                 if (!isNaN(columnWidthRatio))
@@ -594,32 +594,32 @@ public class ColumnChart extends CartesianChart
             case "clustered":
             default:
             {
-				
-				var columnSeriesCount:int = 0;
-				for each(var series:Series in seriesSet) {
-					if(series is ColumnSet || series is ColumnSeries)
-						columnSeriesCount++;
-				}
-				
-				_perSeriescolumnWidthRatio = columnWidthRatio / columnSeriesCount;
+                
+                var columnSeriesCount:int = 0;
+                for each(var series:Series in seriesSet) {
+                    if(series is ColumnSet || series is ColumnSeries)
+                        columnSeriesCount++;
+                }
+                
+                _perSeriescolumnWidthRatio = columnWidthRatio / columnSeriesCount;
                 _perSeriesMaxColumnWidth = maxColumnWidth / columnSeriesCount;
                 
                 _leftOffset = (1 - columnWidthRatio) / 2 +
                               _perSeriescolumnWidthRatio / 2 - 0.5;
 
-				n = seriesSet.length;
-				var count:int = 0;
-				for (i = 0; i < n; i++)
-				{
-					var newSeries:IChartElement = seriesSet[i];
-					if (newSeries is ColumnSeries || newSeries is ColumnSet)
-					{
-						customizeSeries(Series(seriesSet[i]), count);
-						count++;
-					}
-				}
-				
-				return seriesSet;
+                n = seriesSet.length;
+                var count:int = 0;
+                for (i = 0; i < n; i++)
+                {
+                    var newSeries:IChartElement = seriesSet[i];
+                    if (newSeries is ColumnSeries || newSeries is ColumnSet)
+                    {
+                        customizeSeries(Series(seriesSet[i]), count);
+                        count++;
+                    }
+                }
+                
+                return seriesSet;
             }
 
             case "overlaid":
@@ -792,7 +792,7 @@ public class ColumnChart extends CartesianChart
                         else
                         {
                             _tempField.setStyle('fontSize',size);
-							_tempField.validateNow();
+                            _tempField.validateNow();
                             if (_tempField.measuredWidth > v.labelWidth || columnSeries.measuringField.textHeight > v.labelHeight)
                             {
                                 labelScale = v.labelWidth / _tempField.measuredWidth;
@@ -939,7 +939,7 @@ public class ColumnChart extends CartesianChart
                         else
                         {
                             _tempField.setStyle('fontSize',size);
-							_tempField.validateNow();
+                            _tempField.validateNow();
                             if (_tempField.measuredWidth > v.labelWidth || columnSeries.measuringField.textHeight > v.labelHeight)
                             {
                                 labelScale = v.labelWidth / _tempField.measuredWidth;
@@ -1164,8 +1164,8 @@ public class ColumnChart extends CartesianChart
      */
      private function findChartItems(series:Series):void
      {
-     	var n:int;
-     	var i:int;
+        var n:int;
+        var i:int;
         if (series is ColumnSeries)
         {
             var columnSeries:ColumnSeries = ColumnSeries(series);
