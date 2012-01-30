@@ -3,7 +3,7 @@
   <compiler additionalCompilerArguments="--locale=" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
-      <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/player/10.1/playerglobal.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/player/10.2/playerglobal.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/projects/utilities/libs/FlexContentHolderThumbnail.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/textLayout.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="/flash-integration/bin/flash-integration.swc" useDefaultLinkType="false"/>
