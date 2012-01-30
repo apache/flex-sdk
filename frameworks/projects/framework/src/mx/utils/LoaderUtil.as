@@ -74,6 +74,27 @@ import flash.system.Security;
                     lastIndex = rootURL.length - 1;  // adding one later
                 }
 
+                // If the url starts from the current directory, then just skip
+                // over the "./".
+                // If the url start from the parent directory, the we need to
+                // modify the rootURL.
+                if (url.indexOf("./") == 0)
+                {
+                    url = url.substring(2);
+                }
+                else
+                {
+                    while (url.indexOf("../") == 0)
+                    {
+                        url = url.substring(3);
+                        var parentIndex:int = Math.max(rootURL.lastIndexOf("\\", lastIndex - 1), 
+                                                       rootURL.lastIndexOf("/", lastIndex - 1));
+                        if (parentIndex <= 8)
+                            parentIndex = lastIndex;
+                        lastIndex = parentIndex;
+                    }
+                }
+                                            
                 if (lastIndex != -1)
                     absoluteURL = rootURL.substr(0, lastIndex + 1) + url;
             }
