@@ -234,9 +234,22 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	private var _initProgressCount:uint = 0;
 
 	/**
-	 *  @private
+	 *  The total number of validation events you expect to get
+	 *  in the initializing phase.  This should be an integer
+	 *  greater or equal to 4 (and note that if it is greater than 4
+	 *  you might have an inefficiency in your initialization code)
+	 *  The default is 12 because it is hard to need more phases
+	 *  than that and if we set it smaller, someone would notice
+	 *  occasional overruns.  
+	 *
+	 *  @default 12
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 4
 	 */
-	private var _initProgressTotal:uint = 12;
+	protected var initProgressTotal:uint = 12;
 
 	//--------------------------------------------------------------------------
 	//
@@ -1654,7 +1667,8 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 			_displayStartCount = _initProgressCount;
 			show();
 		}
-		else if (_showingDisplay)
+
+		if (_showingDisplay)
 		{
 			if (!_startedInit)
 			{
@@ -1664,7 +1678,7 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 			}
 
 			var loaded:Number = 100 * _initProgressCount /
-								(_initProgressTotal - _displayStartCount);
+								(initProgressTotal - _displayStartCount);
 
 			setProgress(loaded, 100);
 		}
