@@ -282,9 +282,9 @@ public class StyleProxy implements IAdvancedStyleClient
      *  @copy mx.styles.IAdvancedStyleClient#id
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function get id():String
     {
@@ -299,9 +299,9 @@ public class StyleProxy implements IAdvancedStyleClient
      *  @copy mx.styles.IAdvancedStyleClient#styleParent
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function get styleParent():IAdvancedStyleClient
     {
@@ -427,43 +427,29 @@ public class StyleProxy implements IAdvancedStyleClient
     //--------------------------------------------------------------------------
 
     /**
-     *  @copy mx.styles.IAdvancedStyleClient#isPseudoSelectorMatch()
+     *  @copy mx.styles.IAdvancedStyleClient#matchesCSSState()
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    public function isPseudoSelectorMatch(pseudoState:String):Boolean
+    public function matchesCSSState(cssState:String):Boolean
     {
-        return _advancedSource ? _advancedSource.isPseudoSelectorMatch(pseudoState) : false;
+        return _advancedSource ? _advancedSource.matchesCSSState(cssState) : false;
     }
 
     /**
-     *  @copy mx.styles.IAdvancedStyleClient#isTypeSelectorMatch()
+     *  @copy mx.styles.IAdvancedStyleClient#matchesCSSType()
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
-    public function isTypeSelectorMatch(type:String):Boolean
+    public function matchesCSSType(cssType:String):Boolean
     {
-        return _advancedSource ? _advancedSource.isTypeSelectorMatch(type) : false;
-    }
-
-    /**
-     *  @copy mx.styles.IAdvancedStyleClient#applyStateStyles()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function applyStateStyles(oldState:String, newState:String, recursive:Boolean):void
-    {
-        if (_advancedSource)
-            _advancedSource.applyStateStyles(oldState, newState, recursive);        
+        return _advancedSource ? _advancedSource.matchesCSSType(cssType) : false;
     }
 }
 
