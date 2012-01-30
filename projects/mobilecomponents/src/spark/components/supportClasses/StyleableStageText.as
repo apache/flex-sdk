@@ -1220,12 +1220,11 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         
         var minMetrics:TextLineMetrics = measureText("Wj");
         var currentMetrics:TextLineMetrics = measureText(text);
-        var padding:Point = calculateInternalPadding();
         
-        measuredMinWidth = minMetrics.width + 2 * padding.x;
-        measuredMinHeight = minMetrics.height + 2 * padding.y;
-        measuredWidth = Math.max(measuredMinWidth, currentMetrics.width + 2 * padding.x);
-        measuredHeight = Math.max(measuredMinHeight, currentMetrics.height + 2 * padding.y);
+        measuredMinWidth = minMetrics.width;
+        measuredMinHeight = minMetrics.height;
+        measuredWidth = Math.max(measuredMinWidth, currentMetrics.width);
+        measuredHeight = Math.max(measuredMinHeight, currentMetrics.height);
     }
     
     override protected function commitProperties():void
@@ -1555,49 +1554,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         }
     }
     
-    mx_internal function calculateInternalPadding():Point
-    {
-        // TODO: This shouldn't be necessary once we get an API to determine
-        // what a StageText's height should be
-        const applicationDPI:Number = FlexGlobals.topLevelApplication.applicationDPI;
-        const isAndroid:Boolean = Capabilities.version.indexOf("AND") == 0;
-        
-        var verticalPad:Number = 0;
-        var horizontalPad:Number = 0;
-        
-        if (isAndroid)
-        {
-            var androidDensityScale:Number = 1.0;
-            
-            // Android uses different density classifications from Flex.
-            // No scaling is applied to 160 DPI.
-            // Low density is assumed to be 120 DPI (scale factor 0.75)
-            // High density is assumed to be 240 DPI (scale factor 1.5)
-            // Flex's scale (the ratio between application and device DPI) has
-            // been set to the application and StageText appears to be using
-            // that, so use only application DPI when determining scale here.
-            if (applicationDPI < DPIClassification.DPI_160)
-                androidDensityScale = 0.75;
-            else if (applicationDPI == DPIClassification.DPI_240)
-                androidDensityScale = 1.5;
-            else if (applicationDPI == DPIClassification.DPI_320)
-                androidDensityScale = 2.0;
-            
-            // Part of the padding that Android uses is based only on resolution
-            // Magic numbers have been determined through experimentation
-            horizontalPad = 9 * androidDensityScale;
-            verticalPad = 10 * androidDensityScale;
-            
-            // Some of the vertical padding is based on the height of the font
-            // Magic numbers have been determined through experimentation
-            var minMetrics:TextLineMetrics = measureText("Wj");
-            var halfHeight:Number = Math.ceil(0.5 * minMetrics.height);
-            verticalPad += Math.floor(halfHeight / 7);
-        }
-        
-        return new Point(horizontalPad, verticalPad);
-    }
-    
     /**
      *  StageText does not have any provision for measuring text. To get
      *  approximate sizing, this uses UIComponent's text measurement method on a
@@ -1608,9 +1564,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private function measureTextLineHeight():Number
     {
         var lineMetrics:TextLineMetrics = measureText("Wj");
-        var internalPadding:Point = calculateInternalPadding();
-        
-        return lineMetrics.height + internalPadding.y;
+        return lineMetrics.height;
     }
     
     private var ancestorsVisible:Boolean;
