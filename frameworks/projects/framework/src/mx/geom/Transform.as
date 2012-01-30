@@ -11,6 +11,9 @@ package mx.geom
 	
 	import mx.events.PropertyChangeEvent;
 	import flash.display.DisplayObject;
+	import flash.geom.PerspectiveProjection;
+	import mx.core.IInvalidating;
+	
 	
 	public class Transform extends flash.geom.Transform implements IEventDispatcher
 	{
@@ -22,9 +25,9 @@ package mx.geom
 			
 			if(src == null)
 				src = new Shape();
-			super(src);				
+			super(src);		
 		}
-		
+
 		[Bindable("propertyChange")]
 		override public function set matrix(value:Matrix):void
 		{
@@ -34,6 +37,16 @@ package mx.geom
 			dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "matrix", oldMatrix, value));
 
 		}
+		
+		[Bindable("propertyChange")]
+		override public function set perspectiveProjection(value:PerspectiveProjection):void
+		{
+			var oldValue:PerspectiveProjection = super.perspectiveProjection;
+			super.perspectiveProjection = value;	
+			
+			dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "perspectiveProjection", oldValue, value));
+		}
+		
 		
 		[Bindable("propertyChange")]
 		override public function set colorTransform(value:ColorTransform):void
