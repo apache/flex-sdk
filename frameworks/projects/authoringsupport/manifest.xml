@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<!-- blank manifest so that we can include it in the swc
+     so that no MXML code-hinting happens -->
+<componentPackage>
+</componentPackage>
