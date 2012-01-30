@@ -243,8 +243,8 @@ public class HSliderTrackSkin extends MobileSkin
 	{
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-		resizeElement(trackSkin, unscaledWidth, unscaledHeight);
-		positionElement(trackSkin, 0, 0);
+		setElementSize(trackSkin, unscaledWidth, unscaledHeight);
+		setElementPosition(trackSkin, 0, 0);
 	}
     
     /**
