@@ -1,5 +1,6 @@
 package spark.skins.mobile
 {
+import flash.display.GradientType;
 import flash.display.Graphics;
 
 import mx.core.mx_internal;
@@ -47,9 +48,32 @@ public class ViewMenuItemSkin extends ButtonSkin
         return borderClass;
     }
      
+    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
+    {
+        if (currentState == "showsCaret" || currentState == "down")
+        {
+            chromeColorGraphics.beginFill(getStyle("focusColor"));
+        }
+        else
+        {
+            matrix.createGradientBox(unscaledWidth, unscaledHeight, Math.PI / 2, 0, 0);
+            var chromeColor:uint = getStyle("chromeColor");
+            
+            chromeColorGraphics.beginGradientFill(GradientType.LINEAR,
+                                                  [chromeColor, chromeColor],
+                                                  [0.8, 0.9],
+                                                  [0, 255],
+                                                  matrix);
+        }
+    }
+    
     override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
     {
-        // Don't do anything. The fxg files contain the background
+        // bottom line is a shadow
+        if (currentState == "down")
+            chromeColorGraphics.drawRect(1, 1, unscaledWidth - 2, unscaledHeight - 2);
+        else
+            chromeColorGraphics.drawRect(0, 0, unscaledWidth, unscaledHeight - 1);
     }
 }
 }
