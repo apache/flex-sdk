@@ -18,6 +18,7 @@ import flash.display.GraphicsSolidFill;
 import flash.display.GraphicsStroke;
 import flash.display.JointStyle;
 import flash.events.EventDispatcher;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.events.PropertyChangeEvent;
@@ -469,16 +470,14 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	//--------------------------------------------------------------------------
 
 	/**
-	 *  Applies the properties to the specified Graphics object.
-	 *  
-	 *  @param g The Graphics object to which the SolidColorStroke's styles are applied.
+	 *  @inheritDoc
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public function apply(graphics:Graphics, bounds:Rectangle = null):void
+	public function apply(graphics:Graphics, targetBounds:Rectangle, targetOrigin:Point):void
 	{
 		graphics.lineStyle(weight, color, alpha, pixelHinting,
 					scaleMode, caps, joints, miterLimit);
@@ -487,7 +486,7 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
     /**
      *  @inheritDoc 
      */
-	public function createGraphicsStroke(bounds:Rectangle):GraphicsStroke
+	public function createGraphicsStroke(targetBounds:Rectangle, targetOrigin:Point):GraphicsStroke
 	{
 	    // Construct a new GraphicsStroke object and set all of 
         // its properties to match the SolidColorStroke's 
