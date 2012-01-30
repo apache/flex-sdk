@@ -63,7 +63,6 @@
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="spark.swc"/>
-				<include name="airspark.swc"/>
                 <include name="textLayout.swc"/>
                 <include name="osmf.swc"/>
 			</external-library-path>
