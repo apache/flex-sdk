@@ -18,11 +18,13 @@ import flash.display.DisplayObject;
 import flash.display.Graphics;
 import flash.events.EventDispatcher;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.getDefinitionByName;
 
 import mx.events.PropertyChangeEvent;
 import mx.geom.CompoundTransform;
+import mx.utils.MatrixUtil;
 
 
 /** 
@@ -70,7 +72,10 @@ public class BitmapFill extends EventDispatcher implements IFill
 	
 	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
 	private static var transformMatrix:Matrix = new Matrix();
-    
+    private var nonRepeatSource:BitmapData;
+    private var regenerateNonRepeatSource:Boolean = true;
+    private var lastBoundsWidth:Number = 0;
+    private var lastBoundsHeight:Number = 0;
     
 	//--------------------------------------------------------------------------
 	//
@@ -298,7 +303,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 		var oldValue:Boolean = _repeat;
 		if (value != oldValue)
 		{
-			_repeat = value;
+			_repeat = value;        
 			dispatchFillChangedEvent("repeat", oldValue, value);
 		}
 	}
@@ -474,8 +479,8 @@ public class BitmapFill extends EventDispatcher implements IFill
 			var tmpSprite:DisplayObject;
 			var oldValue:Object = _source;
 			
-			var bitmapData:BitmapData;
-			
+			var bitmapData:BitmapData;        
+            
 			if (value is Class)
 			{
 				var cls:Class = Class(value);
@@ -723,8 +728,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 	public function begin(target:Graphics, bounds:Rectangle):void
 	{		
 		if (!source)
-			return;
-		
+			return;        
+        
+        var bd:BitmapData;
+        var sourceAsBitmapData:BitmapData = source as BitmapData;
+        
         if (compoundTransform)
         {
             transformMatrix = compoundTransform.matrix;
@@ -738,7 +746,75 @@ public class BitmapFill extends EventDispatcher implements IFill
             transformMatrix.rotate(rotation * RADIANS_PER_DEGREES);
             transformMatrix.translate(x + bounds.left + transformX, y + bounds.top + transformY);
         }
-		target.beginBitmapFill(source as BitmapData, transformMatrix, repeat, smooth);
+
+        // If repeat is true or if the source bitmap size equals or exceeds the bounds, 
+        // just use the source bitmap
+        if (repeat || 
+            (MatrixUtil.isDeltaIdentity(transformMatrix) && 
+             transformMatrix.tx == bounds.left &&
+             transformMatrix.ty == bounds.top &&
+             bounds.width <= sourceAsBitmapData.width && 
+             bounds.height <= sourceAsBitmapData.height))
+        {
+            if (nonRepeatSource)
+                nonRepeatSource.dispose();
+            
+            bd = sourceAsBitmapData;
+        }
+        else 
+        {
+            // Regenerate the nonRepeatSource if it wasn't previously created or if the bounds 
+            // dimensions have changed.
+            if (regenerateNonRepeatSource || 
+                lastBoundsWidth != bounds.width || 
+                lastBoundsHeight != bounds.height)
+            {
+                // Release the old bitmap data
+                if (nonRepeatSource)
+                    nonRepeatSource.dispose();
+                
+                var bitmapTopLeft:Point = new Point();
+                // We want the top left corner of the bitmap to be at (0,0) when we copy it. 
+                // Save the translation and reapply it after the we have copied the bitmap
+                var tx:Number = transformMatrix.tx;
+                var ty:Number = transformMatrix.ty; 
+                
+                transformMatrix.tx = 0;
+                transformMatrix.ty = 0;
+                
+                // Get the bounds of the transformed bitmap (minus translation)
+                var bitmapSize:Point = MatrixUtil.transformBounds(
+                                        new Point(sourceAsBitmapData.width, sourceAsBitmapData.height), 
+                                        transformMatrix, 
+                                        bitmapTopLeft);
+                
+                // Get the size of the bitmap using the bounds              
+                // Pad the new bitmap size so that the borders are empty
+                var newW:Number = Math.ceil(bitmapSize.x) + 2;
+                var newY:Number = Math.ceil(bitmapSize.y) + 2;
+      
+                // Translate a rotated bitmap to ensure that the top left post-transformed corner is at (1,1)
+                transformMatrix.translate(1 - bitmapTopLeft.x, 1 - bitmapTopLeft.y);
+                
+                // Draw the transformed bitmapData into a new bitmapData that is the size of the bounds
+                // This will prevent the edge pixels getting repeated to fill the empty space
+                nonRepeatSource = new BitmapData(newW, newY);
+                nonRepeatSource.draw(sourceAsBitmapData, transformMatrix);
+                
+                // The transform matrix has already been applied to the source, so just use identity
+                // for the beginBitmapFill call
+                transformMatrix.identity();
+                // We need to restore both the matrix translation and the rotation translation
+                transformMatrix.translate(tx + bitmapTopLeft.x - 1, ty + bitmapTopLeft.y - 1);
+                // Save off the bounds so we can compare it the next time this function is called
+                lastBoundsWidth = bounds.width;
+                lastBoundsHeight = bounds.height;
+            }
+            
+            bd = nonRepeatSource;
+        }
+        
+		target.beginBitmapFill(bd, transformMatrix, repeat, smooth);
 	}
 	
 	/**
@@ -757,6 +833,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 	{
         dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop,
 															oldValue, value));
+        regenerateNonRepeatSource = true;
 	}
 }
 
