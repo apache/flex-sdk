@@ -11,16 +11,9 @@
 
 package spark.skins.mobile
 {
-import mx.core.IContainerInvalidating;
-import mx.core.ILayoutElement;
-import mx.core.mx_internal;
-import mx.managers.ILayoutManagerContainerClient;
-
 import spark.components.Group;
 import spark.components.SkinnableContainer;
 import spark.skins.mobile.supportClasses.MobileSkin;
-
-use namespace mx_internal;
 
 /**
  *  ActionScript-based skin for SkinnableContainer.
@@ -121,46 +114,12 @@ public class SkinnableContainerSkin extends MobileSkin
     /**
      *  @private
      */
-    override mx_internal function validateEstimatedSizesOfChild(child:ILayoutElement):void
-    {
-        var cw:Number;
-        var ch:Number;
-        var c:Number;
-        var oldcw:Number = child.estimatedWidth;
-        var oldch:Number = child.estimatedHeight;
-        // the child contentGroup is constrained to the size of the skin
-        cw = estimatedWidth;
-        if (isNaN(cw) && !isNaN(explicitWidth))
-            cw = explicitWidth;
-        ch = estimatedHeight;
-        if (isNaN(ch) && !isNaN(explicitHeight))
-            ch = explicitHeight;
-        
-        child.setEstimatedSize(cw, ch);
-        if (child is ILayoutManagerContainerClient)
-        {
-            var sameWidth:Boolean = isNaN(cw) && isNaN(oldcw) || cw == oldcw;
-            var sameHeight:Boolean = isNaN(ch) && isNaN(oldch) || ch == oldch;
-            if (!(sameHeight && sameWidth))
-            {
-                if (child is IContainerInvalidating)
-                    IContainerInvalidating(child).invalidateEstimatedSizesOfChildren();
-                ILayoutManagerContainerClient(child).validateEstimatedSizesOfChildren();
-            }
-        }
-    }    
-    
-    /**
-     *  @private
-     */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         graphics.clear();
         
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        // contentGroup is constrained to the size of the skin.
-        // if you change this, also update validateEstimatedSizesOfChild
         contentGroup.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
         contentGroup.setLayoutBoundsPosition(0, 0);
         
