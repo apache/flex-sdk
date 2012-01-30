@@ -1,25 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
-//
-//  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2005-2010 Adobe Systems Incorporated
-//  All Rights Reserved.
-//
-//  NOTICE: Adobe permits you to use, modify, and distribute this file
-//  in accordance with the terms of the license agreement accompanying it.
-//
-////////////////////////////////////////////////////////////////////////////////
 
-/**
- *  Color of text in the component, including the component label.
- *
- *  The default value for the Halo theme is <code>0x0B333C</code>.
- *  The default value for the Spark theme is <code>0x000000</code>.
- *  The default value for the Mobile theme is <code>0xFFFFFF</code>.
- *  
- *  @langversion 3.0
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
- */
 [Style(name="color", type="uint", format="Color", inherit="yes")]
 
 /**
