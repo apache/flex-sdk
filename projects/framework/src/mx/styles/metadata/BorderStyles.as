@@ -240,6 +240,23 @@
 [Style(name="dropShadowEnabled", type="Boolean", inherit="no", theme="halo")]
 
 /**
+ *  Boolean property that specifies whether the component has a visible
+ *  drop shadow.
+ *  The default value is <code>false</code>.
+ *
+ *  <p><b>Note:</b> For drop shadows to appear on containers, set
+ *  <code>contentBackgroundColor</code> property.
+ *  Otherwise, the shadow appears behind the container because
+ *  the default background of a container is transparent.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="dropShadowVisible", type="Boolean", inherit="no", theme="spark")]
+
+/**
  *  Color of the drop shadow.
  *
  *  @default 0x000000
