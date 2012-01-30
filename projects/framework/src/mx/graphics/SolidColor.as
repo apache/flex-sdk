@@ -25,6 +25,11 @@ import mx.events.PropertyChangeEvent;
  *  including a color and an alpha value. 
  *  
  *  @see mx.graphics.IFill
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SolidColor extends EventDispatcher implements IFill
 {
@@ -46,6 +51,11 @@ public class SolidColor extends EventDispatcher implements IFill
 	 *  Valid values range from 0.0 (completely transparent)
 	 *  to 1.0 (completely opaque).
 	 *  The default value is 1.0.
+ 	 *  
+ 	 *  @langversion 3.0
+ 	 *  @playerversion Flash 9
+ 	 *  @playerversion AIR 1.1
+ 	 *  @productversion Flex 3
  	 */
 	public function SolidColor(color:uint = 0x000000, alpha:Number = 1.0)
  	{
@@ -75,6 +85,11 @@ public class SolidColor extends EventDispatcher implements IFill
 	 *  Possible values are 0.0 (invisible) through 1.0 (opaque). 
 	 *  
 	 *  @default 1.0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get alpha():Number
 	{
@@ -102,6 +117,11 @@ public class SolidColor extends EventDispatcher implements IFill
 
 	/**
 	 *  A color value. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get color():uint
 	{
@@ -126,6 +146,11 @@ public class SolidColor extends EventDispatcher implements IFill
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function begin(target:Graphics, rc:Rectangle):void
 	{
@@ -134,6 +159,11 @@ public class SolidColor extends EventDispatcher implements IFill
 	
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function end(target:Graphics):void
 	{
