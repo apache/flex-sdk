@@ -718,18 +718,21 @@ public class MobileItemRenderer extends UIComponent
         
         graphics.endFill();
         
-        // FIXME (rfrishbe): separators should be stylable
-        
-        // draw seperators: two lines
-        // 1 pixel from bottom
-        graphics.lineStyle(1, 0x1C1C1C);
-        graphics.moveTo(0, unscaledHeight-1);
-        graphics.lineTo(unscaledWidth, unscaledHeight-1);
-        
-        // line on the bottom
-        graphics.lineStyle(1, 0x606060);
-        graphics.moveTo(0, unscaledHeight);
-        graphics.lineTo(unscaledWidth, unscaledHeight);
+        if (!showsCaret)
+        {
+            // FIXME (rfrishbe): separators should be stylable
+            
+            // draw seperators: two lines
+            // 1 pixel from bottom
+            graphics.lineStyle(1, 0x1C1C1C);
+            graphics.moveTo(0, unscaledHeight-1);
+            graphics.lineTo(unscaledWidth, unscaledHeight-1);
+            
+            // line on the bottom
+            graphics.lineStyle(1, 0x606060);
+            graphics.moveTo(0, unscaledHeight);
+            graphics.lineTo(unscaledWidth, unscaledHeight);
+        }
     }
     
     /**
