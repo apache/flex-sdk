@@ -229,6 +229,66 @@ public class FlexModuleFactory extends MovieClip
 	//--------------------------------------------------------------------------
 
     //----------------------------------
+    //  allowDomainsInNewRSLs
+    //----------------------------------
+    
+    /**
+     *  @private
+     */ 
+    private var _allowDomainsInNewRSLs:Boolean = true;
+    
+    /**
+     *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.6
+     *  @productversion Flex 4.5
+     */   
+    public function get allowDomainsInNewRSLs():Boolean
+    {
+        return _allowDomainsInNewRSLs;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set allowDomainsInNewRSLs(value:Boolean):void
+    {
+        _allowDomainsInNewRSLs = value;
+    }
+    
+    //----------------------------------
+    //  allowInsecureDomainsInNewRSLs
+    //----------------------------------
+    
+    /**
+     *  @private
+     */ 
+    private var _allowInsecureDomainsInNewRSLs:Boolean = true;
+    
+    /**
+     *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.6
+     *  @productversion Flex 4.5
+     */   
+    public function get allowInsecureDomainsInNewRSLs():Boolean
+    {
+        return _allowInsecureDomainsInNewRSLs;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set allowInsecureDomainsInNewRSLs(value:Boolean):void
+    {
+        _allowInsecureDomainsInNewRSLs = value;
+    }
+    
+    //----------------------------------
     //  preloadedRSLs
     //----------------------------------
     
@@ -241,6 +301,12 @@ public class FlexModuleFactory extends MovieClip
         // Overridden by compiler generate code.
         return null;                
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: IFlexModuleFactory
+    //
+    //--------------------------------------------------------------------------
     
     /**
      *  @inheritDoc 
@@ -261,12 +327,6 @@ public class FlexModuleFactory extends MovieClip
         }
         
     }
-        
-    //--------------------------------------------------------------------------
-    //
-    //  Methods: IFlexModuleFactory
-    //
-    //--------------------------------------------------------------------------
     
     /**
    	 *  @private
