@@ -96,6 +96,20 @@ import mx.utils.ObjectUtil;
  *  /&gt;
  *  </pre>
  *
+ *  <p>In case items have inconsistent data types or items have complex data 
+ *  types, the use of the default built-in compare functions is not recommended.
+ *  Inconsistent sorting results may occur in such cases. To avoid such problem,
+ *  provide a custom compare function and/or make the item types consistent.</p>
+ *
+ *  <p>Just like any other <code>AdvancedStyleClient</code>-based classes, 
+ *  the <code>Sort</code> and <code>SortField</code> classes do not have a 
+ *  parent-child relationship in terms of event handling. Locale changes in a 
+ *  <code>Sort</code> instance are not dispatched to its <code>SortField</code> 
+ *  instances automatically. The only exceptional case is the internal default 
+ *  <code>SortField</code> instance used when no explicit fields are provided.
+ *  In this case, the internal default <code>SortField</code> instance follows 
+ *  the locale style that the owner <code>Sort</code> instance has.</p>
+ *
  *  @see mx.collections.ICollectionView
  *  @see ISortField
  *  @see spark.collections.Sort
