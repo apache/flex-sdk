@@ -105,8 +105,7 @@ include "../../styles/metadata/StyleableTextFieldTextStyles.as"
  *  compatible with effects.
  *
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 public class StyleableTextField extends FlexTextField
@@ -141,7 +140,6 @@ public class StyleableTextField extends FlexTextField
      *  Constructor.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -337,8 +335,7 @@ public class StyleableTextField extends FlexTextField
      *  Developers typically never need to access this property directly.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get styleDeclaration():CSSStyleDeclaration
@@ -368,8 +365,7 @@ public class StyleableTextField extends FlexTextField
      *  The class style used by this component. This should be an IStyleClient.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get styleName():Object /* UIComponent */
@@ -441,7 +437,7 @@ public class StyleableTextField extends FlexTextField
             var metrics:TextLineMetrics = getLineMetrics(0);
             
             // bottom gutter and descent
-            var bottomOffset:Number = StyleableTextField.TEXT_HEIGHT_PADDING/2 + metrics.descent;	
+            var bottomOffset:Number = StyleableTextField.TEXT_HEIGHT_PADDING/2 + metrics.descent;   
             if (numLines == 1) // account for the extra leading on single line text
                 bottomOffset += metrics.leading;
             
@@ -527,8 +523,7 @@ public class StyleableTextField extends FlexTextField
      *  @default ""
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     override public function get text():String
@@ -582,8 +577,7 @@ public class StyleableTextField extends FlexTextField
      *  or not, <code>false</code>.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get isTruncated():Boolean
@@ -626,8 +620,7 @@ public class StyleableTextField extends FlexTextField
      *  @default true if type is TextFieldType.INPUT, otherwise false.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get editable():Boolean
@@ -666,8 +659,7 @@ public class StyleableTextField extends FlexTextField
      *  @default true
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get focusEnabled():Boolean
@@ -694,8 +686,7 @@ public class StyleableTextField extends FlexTextField
      *  of the <code>mouseEnabled</code> property to <code>false</code>.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get enabled():Boolean
@@ -716,8 +707,7 @@ public class StyleableTextField extends FlexTextField
      *  The horizontal scroll position of the text.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get horizontalScrollPosition():Number
@@ -746,8 +736,7 @@ public class StyleableTextField extends FlexTextField
      *  <code>flashx.textLayout.formats.FormatValue.INHERIT</code>.</p>
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get lineBreak():String
@@ -770,8 +759,7 @@ public class StyleableTextField extends FlexTextField
      *  this is the last character of the selection.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get selectionActivePosition():int
@@ -790,8 +778,7 @@ public class StyleableTextField extends FlexTextField
      *  this is the first character of the selection.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get selectionAnchorPosition():int
@@ -808,8 +795,7 @@ public class StyleableTextField extends FlexTextField
      *  The vertical scroll position of the text.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get verticalScrollPosition():Number
@@ -835,8 +821,7 @@ public class StyleableTextField extends FlexTextField
      *  @param activePosition The active position of the selection range.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function scrollToRange(anchorPosition:int, activePosition:int):void
@@ -872,8 +857,7 @@ public class StyleableTextField extends FlexTextField
      *  @param text The text to be inserted.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function insertText(text:String):void
@@ -895,8 +879,7 @@ public class StyleableTextField extends FlexTextField
      *  @param text The text to be appended.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     override public function appendText(text:String):void
@@ -924,8 +907,7 @@ public class StyleableTextField extends FlexTextField
      *  of the selection that moves when the selection is extended.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function selectRange(anchorIndex:int, activeIndex:int):void
@@ -938,8 +920,7 @@ public class StyleableTextField extends FlexTextField
      *  Selects all of the text.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function selectAll():void
@@ -951,8 +932,7 @@ public class StyleableTextField extends FlexTextField
      *  Set focus to this text field.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function setFocus():void
@@ -985,8 +965,7 @@ public class StyleableTextField extends FlexTextField
      *  This method does nothing if the styles have already been committed.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function commitStyles():void
@@ -1055,8 +1034,7 @@ public class StyleableTextField extends FlexTextField
      *  @copy mx.core.UIComponent#getStyle()
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function getStyle(styleProp:String):*
@@ -1085,8 +1063,7 @@ public class StyleableTextField extends FlexTextField
      *  @param newValue New value for the style.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function setStyle(styleProp:String, value:*):void
@@ -1105,8 +1082,7 @@ public class StyleableTextField extends FlexTextField
      *  @param styleProp The style property that changed.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function styleChanged(styleProp:String):void
@@ -1134,7 +1110,6 @@ public class StyleableTextField extends FlexTextField
      *  @return <code>true</code> if the text needed truncation.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -2032,7 +2007,6 @@ public class StyleableTextField extends FlexTextField
      *  this object affects its layout (includeInLayout is true).
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
