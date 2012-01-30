@@ -541,6 +541,7 @@ Container
 {
     borderSkin: ClassReference("mx.skins.spark.ContainerBorderSkin");
 	borderStyle: "none";
+    cornerRadius: 0;
 }
 
 /*
@@ -1312,6 +1313,7 @@ ScrollBar
 ScrollControlBase 
 {
 	borderSkin: ClassReference("mx.skins.spark.BorderSkin");
+    cornerRadius: 0;
 }
 
 
