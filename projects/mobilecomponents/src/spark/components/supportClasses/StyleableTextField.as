@@ -162,7 +162,9 @@ public class MobileTextField extends TextField implements IEditableText
 
         super.text = value;
         _isTruncated = false;
-        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+        
+        if (hasEventListener(FlexEvent.VALUE_COMMIT))
+            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
             
     //----------------------------------
@@ -649,7 +651,10 @@ public class MobileTextField extends TextField implements IEditableText
         
         // Dispatch "isTruncatedChange"
         if (_isTruncated != oldIsTruncated)
-            dispatchEvent(new Event("isTruncatedChanged"));
+        {
+            if (hasEventListener("isTruncatedChanged"))
+                dispatchEvent(new Event("isTruncatedChanged"));
+        }
         
         return _isTruncated;
     }
