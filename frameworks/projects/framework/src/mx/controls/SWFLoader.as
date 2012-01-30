@@ -393,6 +393,22 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  @private
      */
     private var mouseShield:Sprite;
+    
+    /**
+     *  @private
+     * 
+     *  When unloading a swf, check this flag to see if we
+     *  should use unload() or unloadAndStop().
+     */
+    private var useUnloadAndStop:Boolean;
+
+    /**
+     *  @private
+     * 
+     *  When using unloadAndStop, pass this flag
+     *  as the gc parameter.
+     */
+    private var unloadAndStopGC:Boolean;
 
     //--------------------------------------------------------------------------
     //
@@ -1285,20 +1301,25 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                         // b/c we may cause a security violation trying to do it
                     }
                 
-                                        if (_swfBridge)
-                                        {
-                                                var request:SWFBridgeEvent = new SWFBridgeEvent(
-                                                                                                                                        SWFBridgeEvent.BRIDGE_APPLICATION_UNLOADING,
-                                                                                                                                        false, false,
-                                                                                                                                        _swfBridge);
-                                                 _swfBridge.dispatchEvent(request);
+                    if (_swfBridge)
+                    {
+                        var request:SWFBridgeEvent = new SWFBridgeEvent(
+                                                        SWFBridgeEvent.BRIDGE_APPLICATION_UNLOADING,
+                                                        false, false,
+                                                        _swfBridge);
+                         _swfBridge.dispatchEvent(request);
+                    }
 
-                                        }
+                    // Use the new unloadAndStop method in FP10 if this object's
+                    // unloadAndStop method was called. Otherwise call unload
+                    // as usual.
+                    if (useUnloadAndStop)
+                        Loader(contentHolder).unloadAndStop(unloadAndStopGC);
+                    else 
+                        Loader(contentHolder).unload();
 
-                    Loader(contentHolder).unload();
-
-                                        if (!explicitLoaderContext)
-                                                _loaderContext = null;
+                    if (!explicitLoaderContext)
+                        _loaderContext = null;
                 }
                 else
                 {
@@ -1325,26 +1346,26 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 }
             }
 
-                        // when SWFLoader/Image is used with renderer
-                        // recycling and the content is a DisplayObject instance
-                        // the instance can be stolen from us while
-                        // we're on the free list
-                        try
-                        {
-                                if (contentHolder.parent == this)
-                                        removeChild(contentHolder);
-                        }
+            // when SWFLoader/Image is used with renderer
+            // recycling and the content is a DisplayObject instance
+            // the instance can be stolen from us while
+            // we're on the free list
+            try
+            {
+                if (contentHolder.parent == this)
+                    removeChild(contentHolder);
+            }
             catch(error:Error)
             {
-                                try
-                                {
-                                        // just try to remove it anyway
-                                        removeChild(contentHolder);
-                                }
-                                catch(error1:Error)
-                                {
-                                        // Ignore any errors thrown by removeChild()
-                                }
+                try
+                {
+                    // just try to remove it anyway
+                    removeChild(contentHolder);
+                }
+                catch(error1:Error)
+                {
+                    // Ignore any errors thrown by removeChild()
+                }
             }
 
             contentHolder = null;
@@ -1352,6 +1373,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 
         isContentLoaded = false;
         brokenImage = false;
+        useUnloadAndStop = false;
 
         if (!_source || _source == "")
             return;
@@ -1359,6 +1381,44 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         contentHolder = loadContent(_source);
     }
 
+    /**
+     *  Unloads an image or SWF file. After this method returns the 
+     *  <code>source</code> property will be null. This is only supported
+     *  if the host Flash Player is version 10 or greater. If the host Flash 
+     *  Player is less than version 10, then this method will unload the 
+     *  content the same way as if <code>source</code> was set to null. 
+     * 
+     *  This method attempts to unload SWF files by removing references to 
+     *  EventDispatcher, NetConnection, Timer, Sound, or Video objects of the
+     *  child SWF file. As a result, the following occurs for the child SWF file
+     *  and the child SWF file's display list: 
+     *  <ul>
+     *  <li>Sounds are stopped.</li>
+     *  <li>Stage event listeners are removed.</li>
+     *  <li>Event listeners for <code>enterFrame</code>, 
+     *  <code>frameConstructed</code>, <code>exitFrame</code>,
+     *  <code>activate</code> and <code>deactivate</code> are removed.</li>
+     *  <li>Timers are stopped.</li>
+     *  <li>Camera and Microphone instances are detached</li>
+     *  <li>Movie clips are stopped.</li>
+     *  </ul>
+     * 
+     *  @param invokeGarbageCollector (default = <code>true</code>)
+     *  <code></code> &mdash; Provides a hint to the garbage collector to run
+     *  on the child SWF objects (<code>true</code>) or not (<code>false</code>).
+     *  If you are unloading many objects asynchronously, setting the 
+     *  <code>gc</code> parameter to <code>false</code> might improve application
+     *  performance. However, if the parameter is set to <code>false</code>, media
+     *  and display objects of the child SWF file might persist in memory after
+     *  the child SWF has been unloaded.  
+     */
+    public function unloadAndStop(invokeGarbageCollector:Boolean = true):void
+    {
+        useUnloadAndStop = true;
+        unloadAndStopGC = invokeGarbageCollector;
+        source = null;        // this will cause an unload
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  ISWFLoader
