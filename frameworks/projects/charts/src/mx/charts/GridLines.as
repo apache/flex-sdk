@@ -14,18 +14,20 @@ package mx.charts
 
 import flash.display.Graphics;
 import flash.geom.Rectangle;
+
 import mx.charts.chartClasses.CartesianChart;
 import mx.charts.chartClasses.ChartElement;
 import mx.charts.chartClasses.ChartState;
 import mx.charts.chartClasses.GraphicsUtilities;
 import mx.charts.chartClasses.IAxisRenderer;
 import mx.charts.styles.HaloDefaults;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.IFill;
 import mx.graphics.IStroke;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -344,48 +346,15 @@ public class GridLines extends ChartElement
 	{
 		HaloDefaults.init(styleManager);
 		
-		var gridlinesStyleName:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.GridLines", styleManager);
+		var gridLinesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.GridLines");
+		gridLinesStyle.setStyle("horizontalOriginStroke", new SolidColorStroke(0xB0C1D0, 1));
+		gridLinesStyle.setStyle("horizontalStroke", new SolidColorStroke(0xEEEEEE, 0));
+		gridLinesStyle.setStyle("verticalOriginStroke", new SolidColorStroke(0xB0C1D0, 1));
+		gridLinesStyle.setStyle("verticalStroke", new SolidColorStroke(0xEEEEEE, 0));
 		
-		gridlinesStyleName.defaultFactory = function():void
-		{
-			this.gridDirection = "horizontal";
-			this.horizontalOriginStroke = new Stroke(0xB0C1D0, 1);
-			this.horizontalShowOrigin = true;
-			this.horizontalStroke = new Stroke(0xEEEEEE, 0);
-			this.horizontalTickAligned = true;
-			this.verticalOriginStroke = new Stroke(0xB0C1D0, 1);
-			this.verticalShowOrigin = false;
-			this.verticalStroke = new Stroke(0xEEEEEE, 0);
-			this.verticalTickAligned= true;
-		}
-		
-		var hgridlinesStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector(".horizontalGridLines", styleManager);
-		
-		hgridlinesStyle.defaultFactory = function():void
-		{
-			this.gridDirection = "vertical";
-			this.horizontalFill = null;
-			this.horizontalShowOrigin = false;
-			this.horizontalTickAligned = true;
-			this.verticalFill = null;
-			this.verticalShowOrigin = true;
-			this.verticalTickAligned= true;
-		}
-		
-		var bothGridLines:CSSStyleDeclaration =
-			HaloDefaults.createSelector(".bothGridLines", styleManager);
-		
-		bothGridLines.defaultFactory = function():void
-		{
-			this.gridDirection = "both";
-			this.horizontalShowOrigin = true;
-			this.horizontalTickAligned= true;
-			this.verticalShowOrigin = true;
-			this.verticalTickAligned= true;
-		}
-		
+		var hgridLinesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration(".horizontalGridLines");
+		hgridLinesStyle.setStyle("horizontalFill", null);
+		hgridLinesStyle.setStyle("verticalFill", null);
 		return true;
 	}
 	
@@ -660,7 +629,7 @@ public class GridLines extends ChartElement
 				g.lineTo(cache[0].x - sWidth / 2, $height);
 			}
 		}
-	}
+	}	
 
 	//--------------------------------------------------------------------------
 	//
