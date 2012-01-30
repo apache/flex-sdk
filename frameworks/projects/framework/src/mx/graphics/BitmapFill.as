@@ -248,9 +248,8 @@ public class BitmapFill extends EventDispatcher implements IFill
 	//----------------------------------
 	//  offsetX
 	//----------------------------------
-	private var _offsetX:Number = 0;
-	
-	[Bindable("propertyChange")]
+
+    [Bindable("propertyChange")]
 	[Inspectable(category="General")]	
 	[Deprecated(replacement="x", since="4.0")]
 	
@@ -267,20 +266,21 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function get offsetX():Number
 	{
-		return x;
+		return isNaN(x) ? 0 : x;
 	}
 	
 	public function set offsetX(value:Number):void
 	{
+        var oldValue:Number = isNaN(x) ? 0 : x; // Avoid warning since the offsetY getter is deprecated
 		x = value;
+        dispatchFillChangedEvent("offsetX", oldValue, value);
 	}
 
 	//----------------------------------
 	//  offsetY
 	//----------------------------------
-	private var _offsetY:Number = 0;
-	
-	[Bindable("propertyChange")]
+
+    [Bindable("propertyChange")]
 	[Inspectable(category="General")]	
 	[Deprecated(replacement="y", since="4.0")]
 	
@@ -297,12 +297,14 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function get offsetY():Number
 	{
-		return y;
+		return isNaN(y) ? 0 : y;
 	}
 	
 	public function set offsetY(value:Number):void
 	{
+        var oldValue:Number = isNaN(y) ? 0 : y; // Avoid warning since the offsetY getter is deprecated
 		y = value;
+        dispatchFillChangedEvent("offsetY", oldValue, value);
 	}
 
 	//----------------------------------
@@ -436,7 +438,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 	//  scaleX
 	//----------------------------------
 	
-	private var _scaleX:Number = 1.0;
+	private var _scaleX:Number;
 	
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
@@ -446,8 +448,6 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  from 0.0 to 1.0.
 	 *  If 1.0, the bitmap is filled at its natural size.
 	 *
-	 *  @default 1.0
-	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
@@ -466,11 +466,17 @@ public class BitmapFill extends EventDispatcher implements IFill
 		if (value != scaleX)
 		{
             var oldValue:Number = scaleX;
-            
+
             if (compoundTransform)
-                compoundTransform.scaleX = value;
+            {
+                // If we have a compoundTransform, only non-NaN values are allowed
+                if (!isNaN(value))
+                    compoundTransform.scaleX = value;
+            }
             else
+            {
 			    _scaleX = value;
+            }
 			dispatchFillChangedEvent("scaleX", oldValue, value);
 		}
 	}
@@ -479,7 +485,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 	//  scaleY
 	//----------------------------------
 	
-	private var _scaleY:Number = 1.0;
+	private var _scaleY:Number;
 	
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
@@ -488,8 +494,6 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  The percent to vertically scale the bitmap when filling,
 	 *  from 0.0 to 1.0.
 	 *  If 1.0, the bitmap is filled at its natural size.
-	 *
-	 *  @default 1.0 
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -511,9 +515,15 @@ public class BitmapFill extends EventDispatcher implements IFill
             var oldValue:Number = scaleY;
             
             if (compoundTransform)
-                compoundTransform.scaleY = value;
+            {
+                // If we have a compoundTransform, only non-NaN values are allowed
+                if (!isNaN(value))
+                    compoundTransform.scaleY = value;
+            }
             else
+            {
                 _scaleY = value;
+            }
             dispatchFillChangedEvent("scaleY", oldValue, value);
         }
 	}
@@ -733,14 +743,14 @@ public class BitmapFill extends EventDispatcher implements IFill
 	//  x
 	//----------------------------------
 	
-    private var _x:Number = 0;
+    private var _x:Number;
     
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
      *  The distance by which to translate each point along the x axis.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -748,7 +758,7 @@ public class BitmapFill extends EventDispatcher implements IFill
      */
     public function get x():Number
     {
-        return compoundTransform ? compoundTransform.x : _x;	
+        return compoundTransform ? compoundTransform.x : _x;
     }
     
 	/**
@@ -760,9 +770,15 @@ public class BitmapFill extends EventDispatcher implements IFill
         if (value != oldValue)
         {
             if (compoundTransform)
-                compoundTransform.x = value; 
+            {
+                // If we have a compoundTransform, only non-NaN values are allowed
+                if (!isNaN(value))
+                    compoundTransform.x = value; 
+            }
             else
+            {
                 _x = value;
+            }
             dispatchFillChangedEvent("x", oldValue, value);
         }
     }
@@ -771,12 +787,12 @@ public class BitmapFill extends EventDispatcher implements IFill
 	//  y
 	//----------------------------------
     
-    private var _y:Number = 0;
+    private var _y:Number;
     
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
-     /**
+    /**
      *  The distance by which to translate each point along the y axis.
      *  
      *  @langversion 3.0
@@ -786,7 +802,7 @@ public class BitmapFill extends EventDispatcher implements IFill
      */
     public function get y():Number
     {
-        return compoundTransform ? compoundTransform.y : _y;	
+        return compoundTransform ? compoundTransform.y : _y;
     }
     
     /**
@@ -798,9 +814,15 @@ public class BitmapFill extends EventDispatcher implements IFill
         if (value != oldValue)
         {
             if (compoundTransform)
-                compoundTransform.y = value;
+            {
+                // If we have a compoundTransform, only non-NaN values are allowed
+                if (!isNaN(value))
+                    compoundTransform.y = value;
+            }
             else
+            {
                 _y = value;                
+            }
             
             dispatchFillChangedEvent("y", oldValue, value);
         }
@@ -834,22 +856,42 @@ public class BitmapFill extends EventDispatcher implements IFill
         if (compoundTransform)
         {
             transformMatrix = compoundTransform.matrix;
-            transformMatrix.translate(targetBounds.left, targetBounds.top);
+            transformMatrix.translate(targetOrigin.x, targetOrigin.y);
         }
         else
         {
+            // Calculate default scaleX, scaleY
+            var defaultScaleX:Number = scaleX;
+            var defaultScaleY:Number = scaleY;
+
+            // If fillMode is scale then scale to fill the content area  
+            if (fillMode == BitmapFillMode.SCALE)
+            {
+                // calculate defaultScaleX only if explicit scaleX is not specified
+                if (isNaN(scaleX) && sourceAsBitmapData.width > 0)
+                    defaultScaleX = targetBounds.width / sourceAsBitmapData.width;
+                
+                // calculate defaultScaleY if it's not already specified
+                if (isNaN(scaleY) && sourceAsBitmapData.height > 0)
+                    defaultScaleY = targetBounds.height / sourceAsBitmapData.height;
+            }
+
+            if (isNaN(defaultScaleX))
+                defaultScaleX = 1;
+            if (isNaN(defaultScaleY))
+                defaultScaleY = 1;
+
+            // Calculate default x, y
+            var regX:Number =  !isNaN(x) ? x + targetOrigin.x : targetBounds.left;
+            var regY:Number =  !isNaN(y) ? y + targetOrigin.y : targetBounds.top;
+
             transformMatrix.identity();
             transformMatrix.translate(-transformX, -transformY);
-            
-            // If fillMode is scale and our bitmapdata width and height are > 0, scale to fill the content area  
-            if (fillMode == BitmapFillMode.SCALE && sourceAsBitmapData.width > 0 && sourceAsBitmapData.height > 0)
-                transformMatrix.scale((targetBounds.width/sourceAsBitmapData.width), (targetBounds.height/sourceAsBitmapData.height)); 
-            
-            transformMatrix.scale(scaleX, scaleY);
+            transformMatrix.scale(defaultScaleX, defaultScaleY);
             transformMatrix.rotate(rotation * RADIANS_PER_DEGREES);
-            transformMatrix.translate(x + targetBounds.left + transformX, y + targetBounds.top + transformY);
+            transformMatrix.translate(regX + transformX, regY + transformY);
         }
-        
+
         // If repeat is true, fillMode is repeat, or if the source bitmap size  
         // equals or exceeds the targetBounds, just use the source bitmap
         if (repeatFill || 
@@ -906,7 +948,7 @@ public class BitmapFill extends EventDispatcher implements IFill
                 // Draw the transformed bitmapData into a new bitmapData that is the size of the bounds
                 // This will prevent the edge pixels getting repeated to fill the empty space
                 nonRepeatAlphaSource = new BitmapData(newW, newY, true, 0xFFFFFF);
-                nonRepeatAlphaSource.draw(sourceAsBitmapData, transformMatrix);
+                nonRepeatAlphaSource.draw(sourceAsBitmapData, transformMatrix, null, null, null, smooth);
                 
                 // The transform matrix has already been applied to the source, so just use identity
                 // for the beginBitmapFill call
