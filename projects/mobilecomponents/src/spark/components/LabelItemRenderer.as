@@ -324,6 +324,12 @@ public class LabelItemRenderer extends UIComponent
      */
     private var interactionStateDetector:InteractionStateDetector;
     
+	/**
+	 *  @private
+	 *  Whether or not we're the last element in the list
+	 */
+	private var isLastItem:Boolean = false;
+	
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -484,6 +490,17 @@ public class LabelItemRenderer extends UIComponent
      */    
     public function set itemIndex(value:int):void
     {
+		var wasLastItem:Boolean = isLastItem;		
+		var dataGroup:DataGroup = parent as DataGroup;
+		isLastItem = (dataGroup && (value == dataGroup.numElements - 1));
+		
+		// if whether or not we are the last item in the last has changed then
+		// invalidate our display. note:  even if our new index has not changed,
+		// whether or not we're the last item may have so we perform this check 
+		// before the value == _itemIndex check below
+		if (wasLastItem != isLastItem) 
+			invalidateDisplayList();
+
         if (value == _itemIndex)
             return;
         
@@ -887,10 +904,6 @@ public class LabelItemRenderer extends UIComponent
 		bottomSeparatorColor = 0x000000;
 		bottomSeparatorAlpha = .3;
 		
-		
-		var dataGroup:DataGroup = parent as DataGroup;
-		var isLast:Boolean = (dataGroup && (itemIndex == dataGroup.numElements - 1));
-
 			
 		// draw separators
 		// don't draw top separator for down and selected states
@@ -902,7 +915,7 @@ public class LabelItemRenderer extends UIComponent
 		}
 		
 		graphics.beginFill(bottomSeparatorColor, bottomSeparatorAlpha);
-		graphics.drawRect(0, unscaledHeight - (isLast ? 0 : 1), unscaledWidth, 1);
+		graphics.drawRect(0, unscaledHeight - (isLastItem ? 0 : 1), unscaledWidth, 1);
 		graphics.endFill();
 		
 		
@@ -917,7 +930,7 @@ public class LabelItemRenderer extends UIComponent
 		}
 		
 		// bottom
-		if (isLast)
+		if (isLastItem)
 		{
 			// we want to offset the bottom by 1 so that we don't get
 			// a double line at the bottom of the list if there's a 
