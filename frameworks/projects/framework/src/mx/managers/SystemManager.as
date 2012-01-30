@@ -2560,7 +2560,9 @@ public class SystemManager extends MovieClip
         Singleton.registerClass("mx.core::IEmbeddedFontRegistry",
                 Class(getDefinitionByName("mx.core::EmbeddedFontRegistry")));
                 
-
+        Singleton.registerClass("mx.styles::IStyleManager",
+            Class(getDefinitionByName("mx.styles::StyleManagerImpl")));
+        
         Singleton.registerClass("mx.styles::IStyleManager2",
             Class(getDefinitionByName("mx.styles::StyleManagerImpl")));
 
