@@ -7507,9 +7507,18 @@ public class UIComponent extends FlexSprite
                 _currentStateDeferred = null;
                 currentState = newState;
             }
-
+           
             oldScaleX = scaleX;
             oldScaleY = scaleY;
+        }
+        
+        // Typically state changes occur immediately, but during
+        // component initialization we defer until commitProperties to 
+        // reduce a bit of the startup noise.
+        if (_currentStateChanged && !initialized)
+        {
+            _currentStateChanged = false;
+            commitCurrentState();
         }
 
         if (x != oldX || y != oldY)
@@ -7527,7 +7536,6 @@ public class UIComponent extends FlexSprite
             errorStringChanged = false;
             setBorderColorForErrorString();
         }
-
     }
 
     //--------------------------------------------------------------------------
@@ -9279,13 +9287,7 @@ public class UIComponent extends FlexSprite
             else
             {
                 _currentStateChanged = true;
-
-                // We need to wait until we're fully initialized before commiting
-                // the current state. Otherwise children may not be created
-                // (if we're inside a deferred instantiation container), or
-                // bindings may not be fired yet.
-                addEventListener(FlexEvent.CREATION_COMPLETE,
-                                 creationCompleteHandler);
+                invalidateProperties();
             }
         }
     }
@@ -10915,34 +10917,6 @@ public class UIComponent extends FlexSprite
         }
 
         // trace("  <<calllaterdispatcher2 " + this);
-    }
-
-    /**
-     *  @private
-     *  Event handler called when creation is complete and we have a pending
-     *  current state change. We commit the current state change here instead
-     *  of inside commitProperties since the state may have bindings to children
-     *  that have not been created yet if we are inside a deferred instantiation
-     *  container.
-     */
-    private function creationCompleteHandler(event:FlexEvent):void
-    {
-        if (_currentStateChanged)
-        {
-            _currentStateChanged = false;
-            commitCurrentState();
-
-            // Need to call validateNow() to avoid screen flicker. This handler
-            // is called immediately before the component is displayed, and
-            // changing states takes a frame to commit the changes, which
-            // results in the base state flashing quickly on the screen before
-            // the desired state is entered.
-            var newState:State = getState(currentState);
-            if (newState && newState.overrides.length > 0)
-                validateNow();
-        }
-
-        removeEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
     }
 
     //--------------------------------------------------------------------------
