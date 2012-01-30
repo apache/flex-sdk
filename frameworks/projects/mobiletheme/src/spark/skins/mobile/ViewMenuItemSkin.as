@@ -61,7 +61,7 @@ public class ViewMenuItemSkin extends ButtonSkin
                 downBorderSkin = spark.skins.mobile.assets.ViewMenuItem_down;
                 showsCaretBorderSkin = spark.skins.mobile.assets.ViewMenuItem_showsCaret;
                 
-                layoutGap = 8;  // FIXME (jasonsj): should be 9?
+                layoutGap = 8;
                 layoutPaddingLeft = 8;
                 layoutPaddingRight = 8;
                 layoutPaddingTop = 8;
