@@ -7467,9 +7467,24 @@ public class UIComponent extends FlexSprite
     {
         if (!obj)
             obj = this;
+        
+        // Make sure that when we calculate the size of the Focus rect we
+        // work with post-scale width & height.
+        var width:Number;
+        var height:Number;
+        if (obj is UIComponent)
+        {
+            width = UIComponent(obj).unscaledWidth * Math.abs(obj.scaleX);
+            height = UIComponent(obj).unscaledHeight * Math.abs(obj.scaleY);
+        }
+        else
+        {
+            width = obj.width;
+            height = obj.height;
+        }
 
         // Something inside the lisder has a width and height of NaN
-        if (isNaN(obj.width) || isNaN(obj.height))
+        if (isNaN(width) || isNaN(height))
             return;
 
         var fm:IFocusManager = focusManager;
@@ -7494,8 +7509,8 @@ public class UIComponent extends FlexSprite
             //if (getStyle("focusColor") != rectCol)
             //  setStyle("focusColor", rectCol);
 
-            focusObj.setActualSize(obj.width + 2 * thickness,
-                             obj.height + 2 * thickness);
+            focusObj.setActualSize(width + 2 * thickness,
+                                   height + 2 * thickness);
 
             var pt:Point;
 
