@@ -176,7 +176,7 @@ public class SlideViewTransition extends ViewTransition
             targets.push(nextView);
         }
         
-        var effect:Parallel = new Parallel();
+        effect = new Parallel();
         
         // Determine if we are doing an internal actionbar transition
         // or sliding in a new one
@@ -188,7 +188,7 @@ public class SlideViewTransition extends ViewTransition
                 currentView.overlayControls == nextView.overlayControls)
             {
                 doInternalActionBarAnimation = true;
-                appendActionBarAnimations(effect);
+                appendActionBarAnimations(Parallel(effect));
             }
             else
             {
@@ -251,7 +251,7 @@ public class SlideViewTransition extends ViewTransition
         }
 		
 		// Create view animations
-		effect.addChild(createViewAnimations(targets));
+		Parallel(effect).addChild(createViewAnimations(targets));
 		effect.addEventListener(EffectEvent.EFFECT_END, transitionComplete);
 		
 		effect.play();
@@ -349,8 +349,10 @@ public class SlideViewTransition extends ViewTransition
         
         if (tabBar)
             tabBar.includeInLayout = tabBarExplicitIncludeInLayout;
-        
+
+        // TODO (chiedozi): Comment why clean up happens before transitionComplete
         super.transitionComplete(event);
+        effect = null;
     }
     
     //--------------------------------------------------------------------------
