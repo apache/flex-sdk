@@ -99,7 +99,7 @@ package spark.automation.delegates.components
 			updateItemRenderers();
 			obj.addEventListener(Event.ADDED, childAddedHandler, false, 0, true);
 			obj.addEventListener(GridEvent.GRID_DOUBLE_CLICK, recordAutomatableEvent, false, 0 , true);
-			obj.grid.addEventListener(GridEvent.GRID_MOUSE_UP, gridMouseUpHandler, false, 100, true);
+			obj.grid.addEventListener(GridEvent.GRID_MOUSE_UP, gridMouseUpHandler, false, 1001, true);
 			obj.addEventListener(GridEvent.SEPARATOR_MOUSE_UP, columnStretchHandler, false, 0, true);
 			obj.addEventListener(GridEvent.GRID_CLICK, gridClickHandler, false, 0 , true);
 			obj.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);			
