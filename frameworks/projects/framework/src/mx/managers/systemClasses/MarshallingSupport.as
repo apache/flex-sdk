@@ -53,6 +53,11 @@ import mx.managers.ISystemManager;
 import mx.managers.ISystemManagerChildManager;
 import mx.managers.SystemManagerGlobals;
 import mx.managers.SystemManagerProxy;
+import mx.managers.marshalClasses.CursorManagerMarshalMixin;
+import mx.managers.marshalClasses.DragManagerMarshalMixin;
+import mx.managers.marshalClasses.FocusManagerMarshalMixin;
+import mx.managers.marshalClasses.PopUpManagerMarshalMixin;
+import mx.managers.marshalClasses.ToolTipManagerMarshalMixin;
 import mx.utils.EventUtil;
 import mx.utils.NameUtil;
 import mx.utils.SecurityUtil;
@@ -62,7 +67,7 @@ use namespace mx_internal;
 [ExcludeClass]
 [Mixin]
 
-public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
+public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProvider
 {
     include "../../core/Version.as";
 
@@ -74,8 +79,35 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 	
 	public static function init(fbs:IFlexModuleFactory):void
 	{
-		Singleton.registerClass("mx.managers::IMarshalSystemManager", MarshallPlan);
+		Singleton.registerClass("mx.managers::IMarshalSystemManager", MarshallingSupport);
 	}
+
+    /**
+     *  @private
+     */
+    private static function weakDependency():void { CursorManagerMarshalMixin};
+
+    /**
+     *  @private
+     */
+    private static function weakDependency2():void { DragManagerMarshalMixin };
+
+    /**
+     *  @private
+     */
+    private static function weakDependency3():void { FocusManagerMarshalMixin };
+
+    /**
+     *  @private
+     */
+    private static function weakDependency4():void { PopUpManagerMarshalMixin };
+
+    /**
+     *  @private
+     */
+    private static function weakDependency5():void { ToolTipManagerMarshalMixin };
+
+
 
 	//--------------------------------------------------------------------------
 	//
@@ -91,7 +123,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
          *  Flash Player instantiates an instance of this class,
 	 *  causing this constructor to be called.</p>
 	 */
-	public function MarshallPlan(systemManager:ISystemManager = null)
+	public function MarshallingSupport(systemManager:ISystemManager = null)
 	{
 		super();
 
@@ -102,8 +134,8 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 
 		systemManager.addEventListener(FlexEvent.CREATION_COMPLETE, appCreationCompleteHandler);
 
-		systemManager.addEventListener(EventListenerRequest.ADD_EVENT_LISTENER_REQUEST, systemManagerEventListenerRequestHandler);
-		systemManager.addEventListener(EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST, systemManagerEventListenerRequestHandler);
+		systemManager.addEventListener("addEventListener", addEventListenerHandler);
+		systemManager.addEventListener("removeEventListener", removeEventListenerHandler);
 		systemManager.addEventListener("getVisibleApplicationRect", getVisibleApplicationRectHandler);
 		systemManager.addEventListener("deployMouseShields", deployMouseShieldsHandler);
 		systemManager.addEventListener("getScreen", Stage_resizeHandler);
@@ -211,7 +243,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
             return _bridgeToFocusManager;
         else if (systemManager.topLevelSystemManager)
         {
-            var topMP:MarshallPlan = MarshallPlan(systemManager.topLevelSystemManager.
+            var topMP:MarshallingSupport = MarshallingSupport(systemManager.topLevelSystemManager.
                         getImplementation("mx.managers::IMarshalSystemManager"));
             return topMP.bridgeToFocusManager;
         }
@@ -224,7 +256,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
             _bridgeToFocusManager = bridgeToFMDictionary;
         else if (systemManager.topLevelSystemManager)
         {
-            var topMP:MarshallPlan = MarshallPlan(systemManager.topLevelSystemManager.
+            var topMP:MarshallingSupport = MarshallingSupport(systemManager.topLevelSystemManager.
                         getImplementation("mx.managers::IMarshalSystemManager"));
             topMP.bridgeToFocusManager = bridgeToFMDictionary;
         }
@@ -1968,8 +2000,8 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 	{
 		if (!systemManager.isTopLevel() && systemManager.topLevelSystemManager)
 		{
-			var mp:MarshallPlan = 
-				MarshallPlan(systemManager.topLevelSystemManager.getImplementation("mx.managers::IMarshalSystemManager"));
+			var mp:MarshallingSupport = 
+				MarshallingSupport(systemManager.topLevelSystemManager.getImplementation("mx.managers::IMarshalSystemManager"));
 			mp.addChildBridgeListeners(bridge);
 			return;
 		}
@@ -2001,8 +2033,8 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 	{
 		if (!systemManager.isTopLevel() && systemManager.topLevelSystemManager)
 		{
-			var mp:MarshallPlan = 
-				MarshallPlan(systemManager.topLevelSystemManager.getImplementation("mx.managers::IMarshalSystemManager"));
+			var mp:MarshallingSupport = 
+				MarshallingSupport(systemManager.topLevelSystemManager.getImplementation("mx.managers::IMarshalSystemManager"));
 
 			mp.removeChildBridgeListeners(bridge);
 			return;
@@ -2036,8 +2068,8 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 	{
 		if (!systemManager.isTopLevel() && systemManager.topLevelSystemManager)
 		{
-			var mp:MarshallPlan = 
-				MarshallPlan(systemManager.topLevelSystemManager.getImplementation("mx.managers::IMarshalSystemManager"));
+			var mp:MarshallingSupport = 
+				MarshallingSupport(systemManager.topLevelSystemManager.getImplementation("mx.managers::IMarshalSystemManager"));
 
 			mp.addParentBridgeListeners();
 			return;
@@ -2069,8 +2101,8 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 	{
 		if (!systemManager.isTopLevel() && systemManager.topLevelSystemManager)
 		{
-			var mp:MarshallPlan = 
-				MarshallPlan(systemManager.topLevelSystemManager.getImplementation("mx.managers::IMarshalSystemManager"));
+			var mp:MarshallingSupport = 
+				MarshallingSupport(systemManager.topLevelSystemManager.getImplementation("mx.managers::IMarshalSystemManager"));
 
 			mp.removeParentBridgeListeners();
 			return;
@@ -2796,19 +2828,19 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 	}
 
 
-	private function systemManagerEventListenerRequestHandler(request:EventListenerRequest):void
+	private function addEventListenerHandler(request:DynamicEvent):void
 	{
-		if (request.type == EventListenerRequest.ADD_EVENT_LISTENER_REQUEST)
-		{
-            if (!addEventListener(request.eventType, request.listener, request.useCapture,
+        if (!addEventListener(request.eventType, request.listener, request.useCapture,
                                 request.priority, request.useWeakReference))
-                request.preventDefault();
-        }
-        else
-        {
-            if (!removeEventListener(request.eventType, request.listener, request.useCapture))
-                request.preventDefault();
-        }
+            request.preventDefault();
+    }
+
+
+	private function removeEventListenerHandler(request:DynamicEvent):void
+    {
+        if (!removeEventListener(request.eventType, request.listener, request.useCapture))
+            request.preventDefault();
+        
     }
 }
 
