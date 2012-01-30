@@ -55,11 +55,10 @@ public class HSliderTrackSkin extends MobileSkin
         {
             case DPIClassification.DPI_320:
             {
-                trackWidth = 640;
+                trackWidth = 600;
                 trackHeight = 18;
                 
-                visibleTrackWidth = 280;
-                visibleTrackLeftOffset = 20;
+                visibleTrackOffset = 20;
                 
                 trackClass = spark.skins.mobile320.assets.HSliderTrack;
                 
@@ -67,11 +66,10 @@ public class HSliderTrackSkin extends MobileSkin
             }
             case DPIClassification.DPI_240:
             {
-                trackWidth = 768;
+                trackWidth = 440;
                 trackHeight = 13;
                 
-                visibleTrackWidth = 160;
-                visibleTrackLeftOffset = 16;
+                visibleTrackOffset = 16;
                 
                 trackClass = spark.skins.mobile240.assets.HSliderTrack;
                 
@@ -80,11 +78,10 @@ public class HSliderTrackSkin extends MobileSkin
             default:
             {
                 // default PPI160
-                trackWidth = 640;
+                trackWidth = 300;
                 trackHeight = 10;
                 
-                visibleTrackWidth = 300;
-                visibleTrackLeftOffset = 10;
+                visibleTrackOffset = 10;
                 
                 trackClass = spark.skins.mobile160.assets.HSliderTrack;
                 
@@ -151,26 +148,16 @@ public class HSliderTrackSkin extends MobileSkin
     protected var trackHeight:int;
     
     /**
-     *  Specifies the offset from the left edge to where
-     *  the visible track begins
+     *  Specifies the offset from the left and right edge to where
+     *  the visible track begins. This should match the offset in the FXG assets.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected var visibleTrackLeftOffset:int;
-    
-    /**
-     *  Specifies the width of the actual visible track
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    protected var visibleTrackWidth:int;
-    
+    protected var visibleTrackOffset:int;
+        
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -213,12 +200,12 @@ public class HSliderTrackSkin extends MobileSkin
     {        
         super.drawBackground(unscaledWidth, unscaledHeight);
 
-        var calculatedTrackWidth:int = unscaledWidth - (2 * visibleTrackLeftOffset);
+        var unscaledTrackWidth:int = unscaledWidth - (2 * visibleTrackOffset);
         
         // draw the round rect
         graphics.beginFill(getStyle("chromeColor"), 1);
-        graphics.drawRoundRect(visibleTrackLeftOffset, 0,
-            calculatedTrackWidth, trackHeight,
+        graphics.drawRoundRect(visibleTrackOffset, 0,
+            unscaledTrackWidth, trackHeight,
             trackHeight, trackHeight);
         graphics.endFill();
     }
