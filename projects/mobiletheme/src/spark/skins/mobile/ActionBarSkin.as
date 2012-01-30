@@ -16,7 +16,6 @@ import flash.display.Graphics;
 import flash.events.Event;
 import flash.geom.Matrix;
 import flash.text.TextFormatAlign;
-import flash.text.TextLineMetrics;
 
 import mx.core.UIComponent;
 import mx.core.UITextField;
@@ -448,20 +447,26 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
     {
         var textWidth:Number = 0;
         var textHeight:Number = 0;
-        var lineMetrics:TextLineMetrics;
+        
+        // reset text if it was truncated before.
+        if (titleDisplay.isTruncated)
+            titleDisplay.text = title;
+        titleDisplay.commitStyles();
         
         if (title != "")
         {
-            lineMetrics = measureText(title);
-            textWidth = lineMetrics.width + TEXT_WIDTH_PADDING;
+            textWidth = titleDisplay.textWidth + TEXT_WIDTH_PADDING;
+            textHeight = titleDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
+            descent = titleDisplay.getLineMetrics(0).descent;
         }
         else
         {
-            lineMetrics = measureText("Wj");
+            // ignore text width...we just need textHeight, but we need to use 
+            // measureText("Wj") to figure this out
+            var lineMetrics:TextLineMetrics = measureText("Wj");
+            textHeight = measureText("Wj").height + UITextField.TEXT_HEIGHT_PADDING;
+            descent = lineMetrics.descent;
         }
-        
-        textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
-        descent = lineMetrics.descent;
         
         measuredWidth = textWidth;
         measuredHeight = textHeight;
@@ -471,13 +476,15 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        titleDisplay.commitStyles();
         titleDisplay.width = unscaledWidth;
         titleDisplay.height = unscaledHeight;
         
-        // before truncating text, we need to reset it to its original value
+        // reset text if it was truncated before.
         if (titleDisplay.isTruncated)
             titleDisplay.text = title;
+        titleDisplay.commitStyles();
+        
+        // now truncate the text
         titleDisplay.truncateToFit();
         
         titleDisplayShadow.commitStyles();
