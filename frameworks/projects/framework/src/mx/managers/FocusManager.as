@@ -928,6 +928,9 @@ public class FocusManager implements IFocusManager
         var a:DisplayObject = DisplayObject(aa);
         var b:DisplayObject = DisplayObject(bb);
 
+		//TODO esg:  If a component lives inside of a group, we care about not its display object index, but
+		// its index within the group.
+		
         while (a != DisplayObject(form) && a.parent)
         {
             index = getChildIndex(a.parent, a);
@@ -939,6 +942,7 @@ public class FocusManager implements IFocusManager
             val1 = tmp2 + val1;
             a = a.parent;
         }
+        
         while (b != DisplayObject(form) && b.parent)
         {
             index = getChildIndex(b.parent, b);
