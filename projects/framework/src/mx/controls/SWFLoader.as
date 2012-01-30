@@ -1486,101 +1486,9 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     {
         if (url)
             _source = url;
-
-        if (contentHolder)
-        {
-            if (isContentLoaded)
-            {
-                // can get rid of bitmap data if it's an image on unload
-                // this helps with garbage collection (SDK-9533)
-                var imageData:Bitmap;
-                
-                if (contentHolder is Loader)
-                {
-                    try
-                    {
-                        if (Loader(contentHolder).content is Bitmap)
-                        {
-                            imageData = Bitmap(Loader(contentHolder).content);
-                            if (imageData.bitmapData)
-                                imageData.bitmapData = null; 
-                        }
-                    }
-                    catch(error:Error)
-                    {
-                        // Ignore any errors trying to access the Bitmap
-                        // b/c we may cause a security violation trying to do it
-                    }
-                
-                    if (_swfBridge)
-                    {
-                        var request:SWFBridgeEvent = new SWFBridgeEvent(
-                                                        SWFBridgeEvent.BRIDGE_APPLICATION_UNLOADING,
-                                                        false, false,
-                                                        _swfBridge);
-                         _swfBridge.dispatchEvent(request);
-                    }
-
-                    // try the new "unloadAndStop" in FP10. If not available
-                    // then call unload.
-                    if (useUnloadAndStop && "unloadAndStop" in contentHolder)
-                        contentHolder["unloadAndStop"](unloadAndStopGC);
-                    else 
-                        Loader(contentHolder).unload();
-
-                    if (!explicitLoaderContext)
-                        _loaderContext = null;
-                }
-                else
-                {
-                    if (contentHolder is Bitmap)
-                    {
-                        imageData = Bitmap(contentHolder);
-                        if (imageData.bitmapData)
-                            imageData.bitmapData = null;
-                    }
-                }
-            }
-            else
-            {
-                if (contentHolder is Loader)
-                {
-                    try
-                    {
-                        Loader(contentHolder).close();
-                    }
-                    catch(error:Error)
-                    {
-                        // Ignore any errors thrown by close()
-                    }
-                }
-            }
-
-            // when SWFLoader/Image is used with renderer
-            // recycling and the content is a DisplayObject instance
-            // the instance can be stolen from us while
-            // we're on the free list
-            try
-            {
-                if (contentHolder.parent == this)
-                    removeChild(contentHolder);
-            }
-            catch(error:Error)
-            {
-                try
-                {
-                    // just try to remove it anyway
-                    removeChild(contentHolder);
-                }
-                catch(error1:Error)
-                {
-                    // Ignore any errors thrown by removeChild()
-                }
-            }
-
-            contentHolder = null;
-        }
-
+        
+        unloadContent();
+        
         isContentLoaded = false;
         brokenImage = false;
         useUnloadAndStop = false;
@@ -1659,6 +1567,119 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         return rect;
     }
  
+
+    /**
+     *  @private
+     *  
+     *  Unload any existing content.
+     */
+    private function unloadContent():void
+    {
+        if (contentHolder)
+        {
+            if (isContentLoaded)
+            {
+                // can get rid of bitmap data if it's an image on unload
+                // this helps with garbage collection (SDK-9533)
+                var imageData:Bitmap;
+                
+                if (contentHolder is Loader)
+                {
+                    var contentLoader:Loader = Loader(contentHolder);
+                    
+                    try
+                    {
+                        if (contentLoader.content is Bitmap)
+                        {
+                            imageData = Bitmap(contentLoader.content);
+                            if (imageData.bitmapData)
+                                imageData.bitmapData = null; 
+                        }
+                    }
+                    catch(error:Error)
+                    {
+                        // Ignore any errors trying to access the Bitmap
+                        // b/c we may cause a security violation trying to do it
+                    }
+                    
+                    if (_swfBridge)
+                    {
+                        var request:SWFBridgeEvent = new SWFBridgeEvent(
+                            SWFBridgeEvent.BRIDGE_APPLICATION_UNLOADING,
+                            false, false,
+                            _swfBridge);
+                        _swfBridge.dispatchEvent(request);
+                    }
+                    
+                    if (contentLoader.contentLoaderInfo.contentType == "application/x-shockwave-flash" &&
+                        contentLoader.contentLoaderInfo.parentAllowsChild && 
+                        contentLoader.contentLoaderInfo.childAllowsParent &&
+                        contentLoader.content)
+                    {
+                        contentLoader.content.removeEventListener(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST, 
+                            loader_content_getFlexModuleFactoryRequestHandler);            
+                    }
+
+                    if (useUnloadAndStop)
+                        contentLoader.unloadAndStop(unloadAndStopGC);
+                    else 
+                        contentLoader.unload();
+                    
+                    if (!explicitLoaderContext)
+                        _loaderContext = null;
+                }
+                else
+                {
+                    if (contentHolder is Bitmap)
+                    {
+                        imageData = Bitmap(contentHolder);
+                        if (imageData.bitmapData)
+                            imageData.bitmapData = null;
+                    }
+                }
+            }
+            else
+            {
+                if (contentHolder is Loader)
+                {
+                    try
+                    {
+                        Loader(contentHolder).close();
+                    }
+                    catch(error:Error)
+                    {
+                        // Ignore any errors thrown by close()
+                    }
+                }
+            }
+            
+            // when SWFLoader/Image is used with renderer
+            // recycling and the content is a DisplayObject instance
+            // the instance can be stolen from us while
+            // we're on the free list
+            try
+            {
+                if (contentHolder.parent == this)
+                    removeChild(contentHolder);
+            }
+            catch(error:Error)
+            {
+                try
+                {
+                    // just try to remove it anyway
+                    removeChild(contentHolder);
+                }
+                catch(error1:Error)
+                {
+                    // Ignore any errors thrown by removeChild()
+                }
+            }
+            
+            contentHolder = null;
+        }
+        
+    }
+    
     /**
      *  @private
      *  If changes are made to this method, make sure to look at
@@ -2246,13 +2267,14 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         var loaderInfo:LoaderInfo = LoaderInfo(event.target);
         addInitSystemManagerCompleteListener(loaderInfo.loader.contentLoaderInfo);
 
-//        Comment out for Beta2. Part of Per-Module Styles feature. 
-//        if (loaderInfo.parentAllowsChild && loaderInfo.childAllowsParent 
-//            && loaderInfo.content)
-//        {
-//            loaderInfo.content.addEventListener(Request.GET_FLEX_MODULE_FACTORY_REQUEST, 
-//                                            loader_content_getFlexModuleFactoryRequestHandler);            
-//        }
+        // Listen for requests to get the flex module factory.
+        if (loaderInfo.contentType == "application/x-shockwave-flash" &&
+            loaderInfo.parentAllowsChild && loaderInfo.childAllowsParent && 
+            loaderInfo.content)
+        {
+            loaderInfo.content.addEventListener(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST, 
+                                            loader_content_getFlexModuleFactoryRequestHandler);            
+        }
 
     }
 
@@ -2393,14 +2415,6 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         {
             var contentLoaderInfo:LoaderInfo = Loader(contentHolder).contentLoaderInfo
             removeInitSystemManagerCompleteListener(contentLoaderInfo);
-
-//            Comment out for Beta2. Part of Per-Module Styles feature. 
-//            if (contentLoaderInfo.content && contentLoaderInfo.parentAllowsChild && 
-//                contentLoaderInfo.childAllowsParent)
-//            {
-//                contentLoaderInfo.content.removeEventListener(Request.GET_FLEX_MODULE_FACTORY_REQUEST, 
-//                    loader_content_getFlexModuleFactoryRequestHandler);            
-//            }
         }
         
     }
