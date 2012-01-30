@@ -1,59 +1,59 @@
 <?xml version="1.0"?>
-<!-- Simple example to demonstrate the CheckBox control -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<!-- Simple example to demonstrate the Halo CheckBox control -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
+            import mx.controls.Alert;
 
-           import mx.controls.Alert;         
-         
-           // This event handler adds and deletes items from the shopping cart.
-           private function modifyCart():void 
-           {
+            // This event handler adds and deletes items from the shopping cart.
+            private function modifyCart():void {
                 cartItems.text = "";
-	    	
-    	    	if(milkCB.selected == true) {	    	  
-    	    	    cartItems.text += "milk" + '\n' ;
-	    	    }
-	   	
-	   	        if(eggsCB.selected == true) {
-    	    	    cartItems.text += "eggs" + '\n';
-	    	    }
-	    	
-	    	    if(breadCB.selected == true) { 
-    	    	    cartItems.text +="bread" + '\n';
-	    	    }
-      	    }
-      	   
-           // This event handler opens the Alert control.
-	       private function sendMessage():void 
-	       {
-                if(couponCB.selected == true) {
-		          Alert.show('You will receive coupons.');
-		        }
-		        else {
-		            Alert.show('You will not receive any coupons.');
-		        }
-	       }    
+
+                if(milkCB.selected) {
+                    cartItems.text += "milk" + "\n";
+                }
+
+                if(eggsCB.selected) {
+                    cartItems.text += "eggs" + "\n";
+                }
+
+                if(breadCB.selected) { 
+                    cartItems.text +="bread" + "\n";
+                }
+            }
+
+           // This event handler opens the Halo Alert control.
+           private function sendMessage():void {
+                if(couponCB.selected) {
+                    Alert.show("You will receive coupons.");
+                } else {
+                    Alert.show("You will not receive any coupons.");
+                }
+           }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:Panel title="CheckBox Control Example" 
-        height="75%" width="75%" layout="horizontal"
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+    <s:Panel title="Halo CheckBox Control Example" 
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:HGroup left="10" right="10" top="10" bottom="10">
+            <s:VGroup>
+                <mx:CheckBox id="milkCB" label="milk" click="modifyCart();"/>
+                <mx:CheckBox id="eggsCB" label="eggs" click="modifyCart();"/>
+                <mx:CheckBox id="breadCB" label="bread" click="modifyCart();"/>
+            </s:VGroup>
 
-        <mx:VBox>
-            <mx:CheckBox id="milkCB" label="milk" click="modifyCart()"/>
-            <mx:CheckBox id="eggsCB" label="eggs" click="modifyCart()"/>
-            <mx:CheckBox id="breadCB" label="bread" click="modifyCart()"/>
-        </mx:VBox>
+            <s:VGroup>
+                <s:SimpleText text="Items in my cart "/>
+                <s:TextArea id="cartItems" width="300" height="50" verticalScrollPolicy="off"/>
+                <!-- Event handler sendMessages() is used to handle event click -->
+                <mx:CheckBox id="couponCB" label="Send me coupons for items in my cart"
+                        click="sendMessage();" selected="true" color="blue"/>
+            </s:VGroup>
+        </s:HGroup>
+    </s:Panel>
 
-        <mx:VBox>
-            <mx:Label text="Items in my cart "/>
-            <mx:TextArea id="cartItems" width="300" height="50" verticalScrollPolicy="off"/>
-            <!-- Event handler sendMessages() is used to handle event click -->
-            <mx:CheckBox id="couponCB" label="Send me coupons for items in my cart"
-                click="sendMessage()" selected="true" color="blue"/>
-        </mx:VBox>
-    </mx:Panel>
-</mx:Application>
+</s:Application>
