@@ -35,6 +35,7 @@ public class TabbedViewNavigatorTabBarSkin extends ButtonBarSkin
     //--------------------------------------------------------------------------
     
     /**
+     *  Constructor.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -89,6 +90,9 @@ public class TabbedViewNavigatorTabBarSkin extends ButtonBarSkin
         }
     }
     
+    /**
+     *  @private
+     */
     override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.drawBackground(unscaledWidth, unscaledHeight);
