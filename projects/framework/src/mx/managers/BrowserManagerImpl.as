@@ -12,10 +12,13 @@
 package mx.managers
 {
 
+import flash.display.Stage;
+import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.external.ExternalInterface;
 import mx.events.BrowserChangeEvent;
 import mx.core.ApplicationGlobals;
+import mx.managers.SystemManagerGlobals;
 
 /**
  *  Dispatched when the fragment property is changed either
@@ -108,6 +111,46 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
     public function BrowserManagerImpl()
     {
         super();
+
+		// we want to reduce dependencies for non-flex apps that use resources (e.g. rpc)
+		var systemManager:Object = SystemManagerGlobals.topLevelSystemManagers;
+		if (systemManager)
+			systemManager = systemManager[0];
+
+		if (systemManager)
+		{
+			// figure out if we're top level, even if bootstrapped
+			var sandboxRoot:Object = systemManager.getSandboxRoot();
+			if (!sandboxRoot.dispatchEvent(new Event("mx.managers::BrowserManager", false, true)))
+			{
+				// if someone answered, then we're not the first BM
+				browserMode = false;
+				return;
+			}
+			
+			try
+			{
+				// see if we can walk to the stage
+				var parent:Object = sandboxRoot.parent;
+				while (parent)
+				{
+					if (sandboxRoot.parent is Stage)
+					{
+						break;
+					}
+					else
+					{
+						parent = parent.parent;
+					}
+				}
+			}
+			catch (e:Error)
+			{
+				browserMode = false;
+				return;
+			}
+			sandboxRoot.addEventListener("mx.managers::BrowserManager", sandboxBrowserManagerHandler, false, 0, true);
+		}    
 
         try
         {
@@ -356,6 +399,12 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
             dispatchEvent(new BrowserChangeEvent(BrowserChangeEvent.URL_CHANGE, false, false, url, lastURL));
         }
     }
+
+	private function sandboxBrowserManagerHandler(event:Event):void
+	{
+		// cancel event to indicate that the message was heard
+		event.preventDefault();
+	}
 
     //--------------------------------------------------------------------------
     //
