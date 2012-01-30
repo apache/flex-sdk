@@ -289,10 +289,6 @@ public class SystemManager extends MovieClip
 			compiledLocales[0] :
 			"en_US";
 
-        // This listener is intended to run before any other KeyboardEvent listeners
-        // so that it can redispatch a cancelable=true copy of the event. 
-        addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true, 1000);
-        
 		executeCallbacks();
 
 		// Make sure to stop the playhead on the current frame.
@@ -2937,6 +2933,10 @@ public class SystemManager extends MovieClip
 			addEventListener(SWFBridgeRequest.HIDE_MOUSE_CURSOR_REQUEST, hideMouseCursorRequestHandler);
 			addEventListener(SWFBridgeRequest.SHOW_MOUSE_CURSOR_REQUEST, showMouseCursorRequestHandler);
 			addEventListener(SWFBridgeRequest.RESET_MOUSE_CURSOR_REQUEST, resetMouseCursorRequestHandler);
+
+            // This listener is intended to run before any other KeyboardEvent listeners
+            // so that it can redispatch a cancelable=true copy of the event. 
+            addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true, 1000);
 		}
 
 	    var docFrame:int = (totalFrames == 1)? 0 : 1;
