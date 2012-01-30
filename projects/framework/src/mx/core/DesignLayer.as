@@ -196,8 +196,9 @@ package mx.core
         //----------------------------------
         
         /**
-         *  Returns the effective visibility of this design layer (which considers 
-         *  the visibility of this layer as well as any ancestor layers).  
+         *  Returns the effective visibility of this design layer.
+         *  This value takes into consideration the  visibility of 
+         *  this layer and any ancestor layers.  
          * 
          *  @default true
          * 
@@ -252,7 +253,7 @@ package mx.core
         private var _alpha:Number = 1.0;
         
         /**
-         *  The alpha for this design layer instance.
+         *  The alpha for this design layer instance, between 0.0 and 1.0.
          *
          *  <p>When updated, the appropriate change event for <code>effectiveAlpha</code> 
          *  will be dispatched to all <code>layerPropertyChange</code> listeners 
@@ -288,9 +289,10 @@ package mx.core
         //----------------------------------
         
         /**
-         *  Property that returns the effective alpha of this design layer
-         *  (which considers the alpha of this layer multiplied with the alpha of 
-         *  any ancestor layers).  
+         *  Property that returns the effective alpha, between 0.0 and 1.0,
+         *  of this design layer. 
+         *  This value multiplies the alpha of this layer by the alpha of 
+         *  any ancestor layers.  
          * 
          *  @default 1.0
          * 
