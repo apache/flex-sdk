@@ -41,12 +41,12 @@ import mx.core.FlexBitmap;
  *  by writing</p>
  *
  *  <pre>
- *  &lt;mx:Style&gt;
- *      Application
- *      {
+ *  &lt;fx:Style&gt;
+ *      &#64;namespace mx "library://ns.adobe.com/flex/mx"
+ *      mx|Application {
  *          backgroundImage: Embed(source="Logo.gif")
  *      }
- *  &lt;mx:Style/&gt;</pre>
+ *  &lt;fx:Style/&gt;</pre>
  *
  *  <p>without having to understand that the MXML compiler has created
  *  a subclass of BitmapAsset for you.</p>
