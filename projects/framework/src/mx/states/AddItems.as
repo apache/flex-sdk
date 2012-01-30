@@ -16,7 +16,7 @@ import flash.display.DisplayObject;
 import mx.collections.IList;
 import mx.core.ContainerCreationPolicy;
 import mx.core.IChildList;
-import mx.core.IDeferredInstance;
+import mx.core.ITransientDeferredInstance;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
@@ -188,6 +188,55 @@ public class AddItems extends OverrideBase implements IOverride
     }
 
     //------------------------------------
+    //  destructionPolicy
+    //------------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the destructionPolicy property.
+     */
+    private var _destructionPolicy:String = "never";
+
+    [Inspectable(category="General")]
+
+    /**
+     *  The destruction policy for the items.
+     *  This property determines when the <code>itemsFactory</code> will destroy
+     *  the deferred instances it manages.  By default once instantiated, all
+     *  instances are cached (destruction policy of 'never').
+     *  Flex uses this property only if you specify an <code>itemsFactory</code> property.
+     *  The following values are valid:
+     * 
+     *  <p></p>
+     * <table class="innertable">
+     *     <tr><th>Value</th><th>Meaning</th></tr>
+     *     <tr><td><code>never</code></td><td>(default)Once created never destroy
+     *        the instance.</td></tr>
+     *     <tr><td><code>auto</code></td><td>Destroy the instance when the override
+     *         no longer applies.</td></tr>
+     * </table>
+     *
+     *  @default "never"
+     *  
+     *  @langversion 4.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get destructionPolicy():String
+    {
+        return _destructionPolicy;
+    }
+
+    /**
+     *  @private
+     */
+    public function set destructionPolicy(value:String):void
+    {
+        _destructionPolicy = value;
+    }
+    
+    //------------------------------------
     //  destination
     //------------------------------------
 
@@ -258,7 +307,7 @@ public class AddItems extends OverrideBase implements IOverride
      *  @private
      *  Storage for the itemsFactory property.
      */
-    private var _itemsFactory:IDeferredInstance;
+    private var _itemsFactory:ITransientDeferredInstance;
 
     [Inspectable(category="General")]
 
@@ -280,7 +329,7 @@ public class AddItems extends OverrideBase implements IOverride
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get itemsFactory():IDeferredInstance
+    public function get itemsFactory():ITransientDeferredInstance
     {
         return _itemsFactory;
     }
@@ -288,7 +337,7 @@ public class AddItems extends OverrideBase implements IOverride
     /**
      *  @private
      */
-    public function set itemsFactory(value:IDeferredInstance):void
+    public function set itemsFactory(value:ITransientDeferredInstance):void
     {
         _itemsFactory = value;
 
@@ -418,7 +467,7 @@ public class AddItems extends OverrideBase implements IOverride
             items = itemsFactory.getInstance();
         }
     }
-
+ 
     /**
      *  @inheritDoc
      *  
@@ -545,7 +594,24 @@ public class AddItems extends OverrideBase implements IOverride
                 assignArray(dest, propertyName, new Array());
             }      
         }
+        
+        if (destructionPolicy == "auto")
+            destroyInstance();
+            
         added = false;
+    }
+       
+    /**
+     *  @private
+     */
+    private function destroyInstance():void
+    {
+        if (_itemsFactory)
+        {
+            instanceCreated = false;
+            items = null;
+            _itemsFactory.reset();
+        }
     }
     
     /**
