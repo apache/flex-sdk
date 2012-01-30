@@ -24,7 +24,7 @@ import spark.skins.mobile.supportClasses.StageTextSkinBase;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0 
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class StageTextInputSkin extends StageTextSkinBase
 {
@@ -39,7 +39,7 @@ public class StageTextInputSkin extends StageTextSkinBase
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function StageTextInputSkin()
     {
