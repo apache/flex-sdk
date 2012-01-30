@@ -157,6 +157,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         container.addEventListener(FlexEvent.SHOW, showHandler);
         container.addEventListener(FlexEvent.HIDE, hideHandler);
         container.addEventListener(FlexEvent.HIDE, childHideHandler, true);
+        container.addEventListener(FlexEvent.VIEW_HIDE,viewHideHandler, true);
         
         //special case application and window
         if (container.systemManager is SystemManager)
@@ -1762,6 +1763,20 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             DisplayObject(form).stage.focus = null;
             lastFocus = null;
         }
+    }
+    
+    /**
+     *  @private
+     */
+    private function viewHideHandler(event:FlexEvent):void
+    {
+        // Target is the active view that is about to be hidden
+        var target:DisplayObjectContainer = event.target as DisplayObjectContainer;
+        var lastFocusDO:DisplayObject = lastFocus as DisplayObject;
+       
+        // If the lastFocus is in the view about to be hidden, clear focus
+        if (target && lastFocusDO && target.contains(lastFocusDO))
+            lastFocus = null;
     }
 
     /**
