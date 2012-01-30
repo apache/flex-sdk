@@ -70,7 +70,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */  
 public class SplashScreenImageSource
 {
@@ -85,7 +85,7 @@ public class SplashScreenImageSource
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function SplashScreenImageSource()
     {
@@ -114,7 +114,7 @@ public class SplashScreenImageSource
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public var aspectRatio:String = null;
     
@@ -133,7 +133,7 @@ public class SplashScreenImageSource
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public var dpi:Number = NaN;
     
@@ -160,7 +160,7 @@ public class SplashScreenImageSource
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public var minResolution:Number = NaN;
     
@@ -190,7 +190,7 @@ public class SplashScreenImageSource
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public var source:Class;
 
