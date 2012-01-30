@@ -99,7 +99,7 @@ public class SlideViewTransition extends ViewTransitionBase
      *  so that the transition can properly position the cached actionbar
      *  when added to the display list.
      */ 
-    private var cachedActionBarGlobalPosition:Point;
+    private var cachedActionBarGlobalPosition:Point = new Point();
     
     /**
      *  @private
@@ -123,7 +123,7 @@ public class SlideViewTransition extends ViewTransitionBase
      *  so that the transition can properly position the cached actionbar
      *  when added to the display list.
      */
-    private var cachedTabBarGlobalPosition:Point;
+    private var cachedTabBarGlobalPosition:Point = new Point();
     
     /**
      *  @private
@@ -280,40 +280,21 @@ public class SlideViewTransition extends ViewTransitionBase
             endView.visible = false;
             
             if (targetNavigator is TabbedViewNavigator && !animateTabBar)
-            {
-                cachedNavigator = getSnapshot(targetNavigator.contentGroup, 0);
-                cachedNavigator.x = targetNavigator.contentGroup.x;
-                cachedNavigator.y = targetNavigator.contentGroup.y;
-            }
+                cachedNavigator = getSnapshot(targetNavigator.contentGroup, 0, cachedNavigatorGlobalPosition);
             else                
-                cachedNavigator = getSnapshot(targetNavigator, 0);
+                cachedNavigator = getSnapshot(targetNavigator, 0, cachedNavigatorGlobalPosition);
                 
             endView.visible = oldVisibility;
         }
         else
         {
-            cachedActionBar = getSnapshot(navigator.actionBar);
-            
-            if (cachedActionBar)
-            {
-                // Save the global position of the cached actionBar image.  The getSnapshot method
-                // will position the image based on the original components parent.
-                p = new Point(cachedActionBar.x, cachedActionBar.y);
-                cachedActionBarGlobalPosition = actionBar.parent.localToGlobal(p);
-            }
+            cachedActionBar = getSnapshot(navigator.actionBar, 4, cachedActionBarGlobalPosition);
         }
         
         // Cache the tab bar bitmap and location
         if (tabBar)
         {
-            cachedTabBar = getSnapshot(TabbedViewNavigator(targetNavigator).tabBar);
-            
-            if (cachedTabBar)
-            {
-                p = new Point(cachedTabBar.x, cachedTabBar.y);
-                cachedTabBarGlobalPosition = tabBar.parent.localToGlobal(p);
-            }
-            
+            cachedTabBar = getSnapshot(TabbedViewNavigator(targetNavigator).tabBar, 4, cachedTabBarGlobalPosition);
             navigatorProps.tabBarIncludeInLayout = tabBar.includeInLayout;
             navigatorProps.tabBarCacheAsBitmap = tabBar.cacheAsBitmap;
         }
@@ -521,7 +502,7 @@ public class SlideViewTransition extends ViewTransitionBase
             // end view and ui controls will then animate on top of this image to create
             // the cover effect.
             addComponentToContainerAt(transitionGroup, targetNavigator.skin, 0);
-            transitionGroup.addElement(cachedNavigator);
+            addCachedElementToGroup(transitionGroup, cachedNavigator, cachedNavigatorGlobalPosition);
         }
         else if (mode == SlideViewTransitionMode.UNCOVER)
         {
@@ -588,17 +569,10 @@ public class SlideViewTransition extends ViewTransitionBase
             endView.contentGroup.cacheAsBitmap = true;
         }
         
-        var localPos:Point;
         if (cachedActionBar)
         {
-            // Reposition the cached actionBar
-            localPos = transitionGroup.globalToLocal(cachedActionBarGlobalPosition);
-            
-            cachedActionBar.x = localPos.x;
-            cachedActionBar.y = localPos.y;
-            
             cachedActionBar.includeInLayout = false;
-            transitionGroup.addElement(cachedActionBar);
+            addCachedElementToGroup(transitionGroup, cachedActionBar, cachedActionBarGlobalPosition);
         }
         
         if (tabBar)
@@ -616,18 +590,12 @@ public class SlideViewTransition extends ViewTransitionBase
                 {
                     slideTargets.push(tabBar);
                 
-                    // When Uncovering, the cachedTabBar is not needed because the transition
-                    // animates a cachedBitamp
+                // When Uncovering, the cachedTabBar is not needed because the transition
+                // animates a cachedBitamp
                 if (cachedTabBar)
                 {
-                        localPos = transitionGroup.globalToLocal(cachedTabBarGlobalPosition);
-                        
-                    // Need to removed the 4 pixel buffer
-                        cachedTabBar.x = localPos.x;
-                        cachedTabBar.y = localPos.y;
-                    
                     cachedTabBar.includeInLayout = false;
-                    transitionGroup.addElement(cachedTabBar);
+                    addCachedElementToGroup(transitionGroup, cachedTabBar, cachedTabBarGlobalPosition);
                 }
             }
         }
@@ -680,7 +648,7 @@ public class SlideViewTransition extends ViewTransitionBase
             if (cachedNavigator)
             {
                 cachedNavigator.includeInLayout = false;
-                transitionGroup.addElement(cachedNavigator);
+                addCachedElementToGroup(transitionGroup, cachedNavigator, cachedNavigatorGlobalPosition);
             }
         }
         
@@ -813,9 +781,7 @@ public class SlideViewTransition extends ViewTransitionBase
         transitionGroup = null;
         cachedNavigator = null;
         cachedActionBar = null;
-        cachedActionBarGlobalPosition = null;
         cachedTabBar = null;
-        cachedTabBarGlobalPosition = null;
         
         super.cleanUp();
     }
