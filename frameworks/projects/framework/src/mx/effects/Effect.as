@@ -165,6 +165,9 @@ public class Effect extends EventDispatcher implements IEffect
         // Go through and remove any before/after values that are the same.
         for (var i:int = 0; i < propChanges.length; i++)
         {
+            if(propChanges[i].stripUnchangedValues == false)
+                continue;
+
             for (var prop:Object in propChanges[i].start)
             {
                 if ((propChanges[i].start[prop] ==
@@ -1079,7 +1082,7 @@ public class Effect extends EventDispatcher implements IEffect
          
         if (create) 
         {
-            newInstance = IEffectInstance(new instanceClass(target))
+            newInstance = IEffectInstance(new instanceClass(target));
             
             initInstance(newInstance);
             
@@ -1452,7 +1455,12 @@ public class Effect extends EventDispatcher implements IEffect
                 m = effectProps.length;
                 for (j = 0; j < m; j++)
                 {
-                    valueMap[effectProps[j]] = getValueFromTarget(target,effectProps[j]);
+                    // Don't clobber values already set
+                    if (valueMap[effectProps[j]] === undefined)
+                    {
+                        valueMap[effectProps[j]] = 
+                            getValueFromTarget(target,effectProps[j]);
+                    }
                 }
             }
         }
@@ -1554,8 +1562,7 @@ public class Effect extends EventDispatcher implements IEffect
                 m = effectProps.length;
                 for (j = 0; j < m; j++)
                 {
-                    if (effectProps[j] in propChanges[i].start &&
-                        effectProps[j] in target)
+                    if (effectProps[j] in propChanges[i].start)
                     {
                         applyValueToTarget(target, effectProps[j],
                                 propChanges[i].start[effectProps[j]],
@@ -1615,8 +1622,7 @@ public class Effect extends EventDispatcher implements IEffect
                 m = effectProps.length;
                 for (j = 0; j < m; j++)
                 {
-                    if (effectProps[j] in propChanges[i].end &&
-                        effectProps[j] in target)
+                    if (effectProps[j] in propChanges[i].end)
                     {
                         applyValueToTarget(target, effectProps[j],
                                 propChanges[i].end[effectProps[j]],
