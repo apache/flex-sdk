@@ -11775,7 +11775,7 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     * Commits the computed matrix built from the combination of the layout matrix and the transform offsets to the flash displayObject's transform.
+     *  Commits the computed matrix built from the combination of the layout matrix and the transform offsets to the flash displayObject's transform.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -11795,6 +11795,29 @@ public class UIComponent extends FlexSprite
         }
     }
 
+    /**
+     *  Specifies a transform stretch factor in the horizontal and vertical direction.
+     *  The stretch factor is applied to the computed matrix before any other transformation.
+     *  @param stretchX The horizontal component of the stretch factor.
+     *  @param stretchY The vertical component of the stretch factor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    protected function setStretchXY(stretchX:Number, stretchY:Number):void
+    {
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        if (stretchX != _layoutFeatures.stretchX ||
+            stretchY != _layoutFeatures.stretchY)
+        {            
+            _layoutFeatures.stretchX = stretchX;
+            _layoutFeatures.stretchY = stretchY;
+            invalidateTransform();
+        }
+    }
 
     //--------------------------------------------------------------------------
     //
