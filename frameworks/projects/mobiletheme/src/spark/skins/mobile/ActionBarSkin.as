@@ -11,16 +11,13 @@
 
 package spark.skins.mobile
 {
-import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.text.TextLineMetrics;
 
-import mx.core.FlexGlobals;
 import mx.core.ILayoutElement;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
-import mx.styles.ISimpleStyleClient;
 
 import spark.components.ActionBar;
 import spark.components.Group;
@@ -67,9 +64,13 @@ public class ActionBarSkin extends MobileSkin
     public var hostComponent:ActionBar;
     
     public var navigationGroup:Group;
+    
     public var titleGroup:Group;
+    
     public var actionGroup:Group;
+    
     public var titleDisplay:TitleDisplayComponent;
+    
     private var border:SpriteVisualElement;
     
     // FIXME (jasonsj): pending mobile styling spec
@@ -89,40 +90,39 @@ public class ActionBarSkin extends MobileSkin
         navigationGroup = new Group();
         var hLayout:HorizontalLayout = new HorizontalLayout();
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
-        hLayout.verticalAlign = VerticalAlign.JUSTIFY;
+        hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
         hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = 
             hLayout.paddingBottom = 0;
         navigationGroup.layout = hLayout;
-        addChild(navigationGroup);
         
         titleGroup = new Group();
         hLayout = new HorizontalLayout();
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
-        hLayout.verticalAlign = VerticalAlign.JUSTIFY;
+        hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
         hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = 
             hLayout.paddingBottom = 0;
         titleGroup.layout = hLayout;
-        addChild(titleGroup);
         
         actionGroup = new Group();
         hLayout = new HorizontalLayout();
         hLayout.horizontalAlign = HorizontalAlign.RIGHT;
-        hLayout.verticalAlign = VerticalAlign.JUSTIFY;
+        hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
         hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = 
             hLayout.paddingBottom = 0;
         actionGroup.layout = hLayout;
-        addChild(actionGroup);
         
-        var titleDisplayComp:TitleDisplayComponent = new TitleDisplayComponent();
-        titleDisplayComp.percentWidth = 100;
-        titleDisplayComp.styleName = this;
-        titleDisplay = titleDisplayComp;
-        addChild(titleDisplayComp);
+        titleDisplay = new TitleDisplayComponent();
+        titleDisplay.percentWidth = 100;
         
         initializeStyles();
+        
+        addChild(navigationGroup);
+        addChild(titleGroup);
+        addChild(actionGroup);
+        addChild(titleDisplay);
     }
     
     protected function initializeStyles():void
@@ -131,21 +131,23 @@ public class ActionBarSkin extends MobileSkin
         navigationGroup.id = "navigationGroup";
         titleGroup.id = "titleGroup";
         actionGroup.id = "actionGroup";
+        titleDisplay.id = "titleDisplay";
     }
     
     override protected function measure():void
     {
-        var titleComponent:ILayoutElement = (titleGroup.numElements > 0) ? titleGroup : null;
         var titleWidth:Number = 0;
         var titleHeight:Number = 0;
         
-        if (!titleComponent && (titleDisplay is ILayoutElement))
-            titleComponent = ILayoutElement(titleDisplay);
-        
-        if (titleComponent)
+        if (titleGroup && (titleGroup.numElements > 0))
         {
-            titleWidth = titleComponent.getPreferredBoundsWidth();
-            titleHeight = titleComponent.getPreferredBoundsHeight();
+            titleWidth = titleGroup.getPreferredBoundsWidth();
+            titleHeight = titleGroup.getPreferredBoundsHeight();
+        }
+        else if (titleDisplay)
+        {
+            titleWidth = titleDisplay.getPreferredBoundsWidth() + (TITLE_PADDING * 2);
+            titleHeight = titleDisplay.getPreferredBoundsHeight();
         }
         
         measuredMinWidth = measuredWidth =
@@ -257,7 +259,6 @@ public class ActionBarSkin extends MobileSkin
 }
 }
 import flash.events.Event;
-import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 
 import mx.core.UIComponent;
@@ -294,9 +295,6 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
     {
         super.createChildren();
         
-        // FIXME (jasonsj): pending mobile styling spec:
-        //                  drop shadow style
-        //                  textAlign
         titleDisplay = MobileTextField(createInFontContext(MobileTextField));
         titleDisplay.styleProvider = this;
         titleDisplay.editable = false;
