@@ -680,6 +680,9 @@ public class StyleableTextField extends TextField
     public function setFocus():void
     {
         stage.focus = this;
+		
+		if (editable)
+			requestSoftKeyboard();
     }
     
     //--------------------------------------------------------------------------
