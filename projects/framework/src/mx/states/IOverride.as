@@ -20,6 +20,11 @@ import mx.core.UIComponent;
  *  property array must implement this interface.
  *
  *  @see mx.states.State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IOverride
 {
@@ -31,6 +36,11 @@ public interface IOverride
  	 *
 	 *  <p>Flex calls this method automatically when the state is entered.
 	 *  It should not be called directly.</p>
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     function initialize():void
 
@@ -44,6 +54,11 @@ public interface IOverride
 	 *  @param parent The parent of the state object containing this override.
 	 *  The override should use this as its target if an explicit target was
 	 *  not specified.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function apply(parent:UIComponent):void;
 
@@ -57,6 +72,11 @@ public interface IOverride
 	 *  @param parent The parent of the state object containing this override.
 	 *  The override should use this as its target if an explicit target was
 	 *  not specified.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function remove(parent:UIComponent):void;
 }
