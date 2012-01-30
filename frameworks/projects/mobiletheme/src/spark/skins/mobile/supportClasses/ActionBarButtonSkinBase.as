@@ -26,8 +26,10 @@ import spark.skins.mobile.ButtonSkin;
 use namespace mx_internal;
 
 /**
- *  Base skin class for ActionBar buttons. Adds flat-look button border and
+ *  Base skin class for ActionBar buttons in mobile applications. Adds flat-look button border and
  *  background color.
+ * 
+ * @see spark.components.ActionBar
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
