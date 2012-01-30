@@ -26,7 +26,6 @@ import mx.core.UIComponentGlobals;
 import mx.core.UITextField;
 import mx.core.UITextFormat;
 import mx.core.mx_internal;
-import mx.events.FlexEvent;
 import mx.graphics.BitmapFillMode;
 import mx.graphics.BitmapScaleMode;
 import mx.styles.CSSStyleDeclaration;
@@ -214,8 +213,6 @@ public class IconItemRenderer extends LabelItemRenderer
             _imageCache.enableCaching = true;
             _imageCache.maxCacheEntries = 100;
         }
-        
-        addEventListener(FlexEvent.MEASURED_SIZE_PRELIMINARY, measuredSizePreliminaryHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -1635,37 +1632,7 @@ public class IconItemRenderer extends LabelItemRenderer
         
         super.validateSize(recursive);
     }
-    
-    /**
-     *  @private
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    override public function setEstimatedSize(estimatedWidth:Number = NaN, 
-                                              estimatedHeight:Number = NaN,
-                                              invalidateSizeAllowed:Boolean = true):void
-    {
-        var oldcw:Number = this.estimatedWidth;
-        var oldch:Number = this.estimatedHeight;
         
-        super.setEstimatedSize(estimatedWidth, estimatedHeight, invalidateSizeAllowed);
-        
-        var sameWidth:Boolean = isNaN(estimatedWidth) && isNaN(oldcw) || estimatedWidth == oldcw;
-        var sameHeight:Boolean = isNaN(estimatedHeight) && isNaN(oldch) || estimatedHeight == oldch;
-        if (!(sameHeight && sameWidth))
-        {
-            if (!isNaN(explicitWidth) &&
-                !isNaN(explicitHeight))
-                return;
-            
-            if (invalidateSizeAllowed)
-                invalidateSize();
-        }
-    }
-    
     /**
      *  @private
      */
@@ -1754,9 +1721,11 @@ public class IconItemRenderer extends LabelItemRenderer
         
         if (hasMessage)
         {
+            // FIXME: (aharui)
+            var estimatedWidth:Number = 480;
             // now we need to measure messageDisplay's height.  Unfortunately, this is tricky and 
             // is dependent on messageDisplay's width
-            // if we have an estimated width, use it to calculate messageDisplay's width.  
+            // if we have an explicit width, use it to calculate messageDisplay's width.  
             // Otherwise, we'll keep it the same width as it was before
             if (!isNaN(estimatedWidth))
                 messageDisplay.width = estimatedWidth - paddingAndGapWidth - decoratorWidth - myIconWidth;
@@ -1783,55 +1752,6 @@ public class IconItemRenderer extends LabelItemRenderer
         
         measuredMinWidth = myMeasuredMinWidth;
         measuredMinHeight = Math.max(itemMinimumHeight, myMeasuredMinHeight);
-    }
-    
-    /**
-     *  @private
-     *  We override the setLayoutBoundsSize to determine whether to perform
-     *  text reflow. This is a convenient place, as the layout passes NaN
-     *  for a dimension not constrained to the parent.
-     */
-    override public function setLayoutBoundsSize(width:Number,
-                                                 height:Number,
-                                                 postLayoutTransform:Boolean = true):void
-    {
-        var newEstimates:Boolean = false;
-        var cw:Number = estimatedWidth;
-        var ch:Number = estimatedHeight;
-        var oldcw:Number = cw;
-        var oldch:Number = ch;
-        // we got lied to, probably the constraints weren't accurate or
-        // couldn't be computed
-        if (!isNaN(width))
-        {
-            if (isNaN(estimatedWidth) || width != estimatedWidth)
-            {
-                cw = width;
-                newEstimates = true;
-            }
-        }
-        // we got lied to, probably the constraints weren't accurate or
-        // couldn't be computed
-        if (!isNaN(height))
-        {
-            if (isNaN(estimatedHeight) || height != estimatedHeight)
-            {
-                ch = height;
-                newEstimates = true;
-            }
-        }
-        if (newEstimates)
-        {
-            setEstimatedSize(cw, ch);
-            
-            // re-measure with the new estimated size
-            UIComponentGlobals.layoutManager.validateClient(this, true);
-            
-            // set estimated size back to what it was
-            setEstimatedSize(oldcw, oldch, false);
-        }
-        
-        super.setLayoutBoundsSize(width, height, postLayoutTransform);
     }
     
     /**
@@ -2029,17 +1949,6 @@ public class IconItemRenderer extends LabelItemRenderer
             ISharedDisplayObject(iconDisplay.displayObject).redrawRequested = false;
             iconDisplay.validateDisplayList();
         }
-    }
-    
-    /**
-     *  @private
-     */
-    private function measuredSizePreliminaryHandler(event:FlexEvent):void
-    {
-        // block the event if there is no icon to display
-        // otherwise the size will not get cached
-        if (iconDisplay && iconDisplay.source == null)
-            event.stopImmediatePropagation();
     }
     
 }
