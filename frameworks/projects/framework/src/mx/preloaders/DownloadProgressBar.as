@@ -1581,7 +1581,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 */
 	protected function rslCompleteHandler(event:RSLEvent):void
 	{
-		label = "Loaded library " + event.rslIndex + " of " + event.rslTotal;
+		var word:String = "library";
+		if (event.isResourceModule)
+			word = "module";
+
+		label = "Loaded " + word + " " + event.rslIndex + " of " + event.rslTotal;
 	}
 	
 	/**
