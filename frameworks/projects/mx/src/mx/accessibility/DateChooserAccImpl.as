@@ -14,6 +14,7 @@ package mx.accessibility
 
 import flash.accessibility.Accessibility;
 import flash.events.Event;
+import mx.accessibility.AccConst;
 import mx.controls.DateChooser;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -32,22 +33,6 @@ use namespace mx_internal;
 public class DateChooserAccImpl extends AccImpl
 {
     include "../core/Version.as";
-
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_FOCUS:uint = 0x8005;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_SELECTION:uint = 0x8006;
 
 	//--------------------------------------------------------------------------
 	//
@@ -109,7 +94,7 @@ public class DateChooserAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x09; // ROLE_SYSTEM_WINDOW
+		role = AccConst.ROLE_SYSTEM_WINDOW;
 	}
 
 	//--------------------------------------------------------------------------
@@ -295,11 +280,11 @@ public class DateChooserAccImpl extends AccImpl
 
 					Accessibility.sendEvent(master,
 											randomDate + selDate.getDate() + 100,
-											EVENT_OBJECT_FOCUS);
+											AccConst.EVENT_OBJECT_FOCUS);
 					
 					Accessibility.sendEvent(master,
 											randomDate + selDate.getDate() + 100,
-											EVENT_OBJECT_SELECTION);
+											AccConst.EVENT_OBJECT_SELECTION);
 				}
 				lastSelectedDate = selDate;
 
@@ -312,10 +297,10 @@ public class DateChooserAccImpl extends AccImpl
 				monthFlag = true;
 
 				Accessibility.sendEvent(master, randomDate,
-										EVENT_OBJECT_FOCUS);
+										AccConst.EVENT_OBJECT_FOCUS);
 
 				Accessibility.sendEvent(master, randomDate,
-										EVENT_OBJECT_SELECTION);
+										AccConst.EVENT_OBJECT_SELECTION);
 
 				break;
 			}
