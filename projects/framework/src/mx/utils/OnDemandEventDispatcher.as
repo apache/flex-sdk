@@ -49,7 +49,7 @@ package mx.utils
      */
         public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
         {
-            if(_dispatcher == null)
+            if (_dispatcher == null)
             {
                 _dispatcher = new EventDispatcher(this);
             }
@@ -67,7 +67,7 @@ package mx.utils
      */
         public function dispatchEvent(event:Event):Boolean
         {
-            if(_dispatcher != null)
+            if (_dispatcher != null)
                 return _dispatcher.dispatchEvent(event);
             return true; 
         }
@@ -82,7 +82,7 @@ package mx.utils
      */
         public function hasEventListener(type:String):Boolean
         {
-            if(_dispatcher != null)
+            if (_dispatcher != null)
                 return _dispatcher.hasEventListener(type);
             return false; 
         }
@@ -97,7 +97,7 @@ package mx.utils
      */
         public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
         {
-            if(_dispatcher != null)
+            if (_dispatcher != null)
                 _dispatcher.removeEventListener(type,listener,useCapture);         
         }
     
@@ -111,7 +111,7 @@ package mx.utils
      */
         public function willTrigger(type:String):Boolean
         {
-            if(_dispatcher != null)
+            if (_dispatcher != null)
                 return _dispatcher.willTrigger(type);
             return false; 
         }
