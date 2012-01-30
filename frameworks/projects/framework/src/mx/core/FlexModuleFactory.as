@@ -25,7 +25,7 @@ import flash.text.engine.TextBlock;
 import flash.text.engine.TextLine;
 import flash.utils.Timer;
 import flash.utils.getDefinitionByName;
-import flashx.textLayout.elements.ITextLineCreator;
+import flashx.textLayout.compose.ITextLineCreator;
 import mx.core.RSLItem;
 import mx.core.RSLListLoader;
 import mx.events.ModuleEvent;
