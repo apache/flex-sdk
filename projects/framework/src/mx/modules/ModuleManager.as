@@ -13,6 +13,7 @@ package mx.modules
 {
 
 import flash.utils.ByteArray;
+
 import mx.core.IFlexModuleFactory;
 import mx.events.Request;
 
@@ -111,6 +112,7 @@ import flash.utils.ByteArray;
 import flash.utils.Dictionary;
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
+
 import mx.core.IFlexModuleFactory;
 import mx.events.ModuleEvent;
 import mx.modules.IModuleInfo;
@@ -158,7 +160,7 @@ class ModuleManagerImpl extends EventDispatcher
     /**
      *  @private
      */
-    private var moduleList:Object = {};
+    private var moduleDictionary:Dictionary = new Dictionary(true);
 
     //--------------------------------------------------------------------------
     //
@@ -172,8 +174,8 @@ class ModuleManagerImpl extends EventDispatcher
     public function getAssociatedFactory(object:Object):IFlexModuleFactory
     {
         var className:String = getQualifiedClassName(object);
-
-        for each (var m:Object in moduleList)
+        
+        for (var m:Object in moduleDictionary)
         {
             var info:ModuleInfo = m as ModuleInfo;
 
@@ -181,15 +183,12 @@ class ModuleManagerImpl extends EventDispatcher
                 continue;
 
             var domain:ApplicationDomain = info.applicationDomain;
-
-            try
+            
+            if (domain.hasDefinition(className))
             {
                 var cls:Class = Class(domain.getDefinition(className));
-                if (object is cls)
+                if (cls && (object is cls))
                     return info.factory;
-            }
-            catch(error:Error)
-            {
             }
         }
 
@@ -201,12 +200,22 @@ class ModuleManagerImpl extends EventDispatcher
      */
     public function getModule(url:String):IModuleInfo
     {
-        var info:ModuleInfo = moduleList[url] as ModuleInfo;
+        var info:ModuleInfo = null;
+
+        for (var m:Object in moduleDictionary)
+        {
+            var mi:ModuleInfo = m as ModuleInfo;
+            if (moduleDictionary[mi] == url)
+            {
+                info = mi;
+                break;
+            }
+        }
 
         if (!info)
         {
             info = new ModuleInfo(url);
-            moduleList[url] = info;
+            moduleDictionary[info] = url;
         }
 
         return new ModuleInfoProxy(info);
@@ -267,11 +276,6 @@ class ModuleInfo extends EventDispatcher
     /**
      *  @private
      */
-    private var limbo:Dictionary;
-
-    /**
-     *  @private
-     */
     private var loader:Loader;
 
     /**
@@ -299,7 +303,7 @@ class ModuleInfo extends EventDispatcher
      */
     public function get applicationDomain():ApplicationDomain
     {
-        return !limbo && factoryInfo ? factoryInfo.applicationDomain : null;
+        return factoryInfo ? factoryInfo.applicationDomain : null;
     }
 
     //----------------------------------
@@ -317,7 +321,7 @@ class ModuleInfo extends EventDispatcher
      */
     public function get error():Boolean
     {
-        return !limbo ? _error : false;
+        return _error;
     }
 
     //----------------------------------
@@ -329,7 +333,7 @@ class ModuleInfo extends EventDispatcher
      */
     public function get factory():IFlexModuleFactory
     {
-        return !limbo && factoryInfo ? factoryInfo.factory : null;
+        return factoryInfo ? factoryInfo.factory : null;
     }
 
     //----------------------------------
@@ -347,7 +351,7 @@ class ModuleInfo extends EventDispatcher
      */
     public function get loaded():Boolean
     {
-        return !limbo ? _loaded : false;
+        return _loaded;
     }
 
     //----------------------------------
@@ -365,7 +369,7 @@ class ModuleInfo extends EventDispatcher
      */
     public function get ready():Boolean
     {
-        return !limbo ? _ready : false;
+        return _ready;
     }
 
     //----------------------------------
@@ -383,7 +387,7 @@ class ModuleInfo extends EventDispatcher
      */
     public function get setup():Boolean
     {
-        return !limbo ? _setup : false;
+        return _setup;
     }
 
     //----------------------------------
@@ -395,7 +399,7 @@ class ModuleInfo extends EventDispatcher
      */
     public function get size():int
     {
-        return !limbo && factoryInfo ? factoryInfo.bytesTotal : 0;
+        return factoryInfo ? factoryInfo.bytesTotal : 0;
     }
 
     //----------------------------------
@@ -435,7 +439,6 @@ class ModuleInfo extends EventDispatcher
 
         _loaded = true;
 
-        limbo = null;
         parentModuleFactory = moduleFactory;
         
         // If bytes are supplied, then load the bytes instead of loading
@@ -521,19 +524,6 @@ class ModuleInfo extends EventDispatcher
         
         //trace("Module[", url, "] resurrect");
         
-        if (!factoryInfo && limbo)
-        {
-            //trace("trying to resurrect ", _url, "...");
-            for (var f:Object in limbo)
-            {
-                //trace("found it!");
-                factoryInfo = f as FactoryInfo;
-                break;
-            }
-
-            limbo = null;
-        }
-
         if (!factoryInfo)
         {
             if (_loaded)
@@ -552,15 +542,9 @@ class ModuleInfo extends EventDispatcher
      */
     public function release():void
     {
-        if (_ready && !limbo)
-        {
-            // We can try to keep a fully functional factory around
-            //trace("putting factory for ", _url, " on ice...");
-            limbo = new Dictionary(true);
-            limbo[factoryInfo] = 1;
-            factoryInfo = null;
-        }
-        else
+        // If the module is ready, then keep it in the 
+        // module dictionary.
+        if (!_ready)
         {
             // Otherwise we just drop it
             unload();
@@ -639,7 +623,6 @@ class ModuleInfo extends EventDispatcher
         if (_loaded)
             dispatchEvent(new ModuleEvent(ModuleEvent.UNLOAD));
 
-        limbo = null;
         factoryInfo = null;
         parentModuleFactory = null;
         _loaded = false;
