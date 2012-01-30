@@ -12,7 +12,9 @@
 package mx.binding
 {
 
+import flash.events.IEventDispatcher;
 import mx.core.mx_internal;
+import mx.events.PropertyChangeEvent;
 
 use namespace mx_internal;
 
@@ -55,6 +57,49 @@ public class BindingManager
 
         document._bindingsByDestination[destStr] = b;
         document._bindingsBeginWithWord[getFirstWord(destStr)] = true;
+    }
+
+    /**
+     * Helper function used by the generated support code for Bindable.
+     *
+     * @param owner The instance or Class that owns the property to be set.
+     *
+     * @param userNamespace The namespace that the property is defined
+     *                      in.  Can be null.
+     *
+     * @param propertyName The name of the original property.
+     *
+     * @param backingPropertyName The name of renamed backing property.
+     *
+     * @param oldValue The previous value.
+     *
+     * @param newValue The value to be set.
+     *
+     * @param eventDispatcher The EventDispatcher used to dispatch the
+     *                        PropertyChangeEvent.  If the owner is an
+     *                        instance, then this is the same as the
+     *                        owner.  If the owner is a Class, then
+     *                        this is the generated static event
+     *                        dispatcher.
+     */
+    public static function set(owner:Object, userNamespace:Namespace,
+                               propertyName:String, backingPropertyName:String,
+                               oldValue:Object, newValue:Object,
+                               eventDispatcher:IEventDispatcher):void
+    {
+        if (oldValue !== newValue)
+        {
+            if (userNamespace)
+            {
+                owner.userNamespace::[backingPropertyName] = newValue;
+            }
+            else
+            {
+                owner[backingPropertyName] = newValue;
+            }
+
+            eventDispatcher.dispatchEvent(PropertyChangeEvent.createUpdateEvent(owner, propertyName, oldValue, newValue));
+        }
     }
 
     /**
