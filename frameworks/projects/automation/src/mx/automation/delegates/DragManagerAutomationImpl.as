@@ -191,7 +191,8 @@ package mx.automation.delegates
 			var p:Point;
 			
 			// code modified to avoid the usage of getAutomationChildAt in a loop.
-			var childList:Array = delegate.getAutomationChildren();
+			//var childList:Array = delegate.getAutomationChildren();
+			var childList:Array =  Automation.automationManager2.getAutomationChildrenArray(delegate);
 			var n:int = childList ? childList.length:0;
 			for (var i:int = 0; i < n; ++i)
 			{
@@ -504,7 +505,8 @@ package mx.automation.delegates
 				var maxY:int = 0;
 				// code modified below to avoid the usage of numAutomationChildren and
 				// getAutomationChildAt in a loop
-				var childList:Array = delegate.getAutomationChildren();
+				//var childList:Array = delegate.getAutomationChildren();
+				var childList:Array =  Automation.automationManager2.getAutomationChildrenArray(delegate);
 				var numAChildCount:int =  childList ? childList.length :0 ;
 				
 				// if (realTarget is DisplayObjectContainer &&delegate.numAutomationChildren != 0)
