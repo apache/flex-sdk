@@ -469,6 +469,15 @@ public class CalloutSkin extends MobileSkin
         {
             isOpen = isNormal || isDisabled;
             
+            // handle re-opening the Callout while fading out
+            if (fade && fade.isPlaying)
+            {
+                // Do not dispatch a state change complete.
+                // SkinnablePopUpContainer handles state interruptions.
+                fade.removeEventListener(EffectEvent.EFFECT_END, stateChangeComplete);
+                fade.stop();
+            }
+            
             if (isNormal)
                 alpha = 1;
             else if (isDisabled)
