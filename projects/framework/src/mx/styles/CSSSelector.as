@@ -19,6 +19,11 @@ import mx.core.mx_internal;
  *  CSS style declarations to components.
  * 
  *  @see mx.styles.CSSSelectorKind
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CSSSelector
 {
@@ -40,6 +45,11 @@ public class CSSSelector
      *  @param ancestor An optional selector to match on a component that
      *  descends from an arbitrary ancestor.
      *  conditions are supported.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function CSSSelector(kind:uint, value:String, conditions:Array=null,
             ancestor:CSSSelector=null)
@@ -68,6 +78,11 @@ public class CSSSelector
     /**
      *  If this selector is part of a descendant selector it may have a further
      *  selector defined for an arbitrary ancestor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get ancestor():CSSSelector
     {
@@ -90,6 +105,11 @@ public class CSSSelector
      *  'pseudo' condition in CSS).
      * 
      *  @return Array of CSSCondition specified for this selector.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get conditions():Array
     {
@@ -110,6 +130,11 @@ public class CSSSelector
      *  conditional or descendant.
      * 
      *  @see mx.styles.CSSSelectorKind
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get kind():uint
     {
@@ -130,6 +155,11 @@ public class CSSSelector
      *  higher specificity override selectors of lower specificity. If
      *  selectors have equival specificity, the declaration order determines
      *  the precedence (i.e. the last one wins).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get specificity():uint
     {
@@ -169,6 +199,11 @@ public class CSSSelector
      *  If this selector represents the root node of a potential chain of
      *  selectors, the value also represents the subject of the entire selector
      *  expression.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get value():String
     {
@@ -186,6 +221,11 @@ public class CSSSelector
      * 
      *  @param object The component to which the selector may apply.
      *  @return true if component is a match, or false if not. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function isMatch(object:IAdvancedStyleClient):Boolean
     {
@@ -270,6 +310,11 @@ public class CSSSelector
     /**
      *  @return A String representation of this selector including all of its
      *  syntax, conditions and ancestors.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function toString():String
     {
