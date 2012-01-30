@@ -2,60 +2,54 @@ package spark.skins.mobile
 {
 import flash.display.Graphics;
 
+import mx.core.mx_internal;
+
+import spark.skins.mobile.assets.ViewMenuItem_down;
+import spark.skins.mobile.assets.ViewMenuItem_showsCaret;
+import spark.skins.mobile.assets.ViewMenuItem_up;
 import spark.skins.mobile.supportClasses.ButtonSkinBase;
+
+use namespace mx_internal;
 
 /**
  *  Default skin for ViewMenuItem. Supports a label, icon and iconPlacement and draws a background.   
  */ 
-public class ViewMenuItemSkin extends ButtonSkinBase
+public class ViewMenuItemSkin extends ButtonSkin
 {
     public function ViewMenuItemSkin()
     {
         super();
+        
+        upBorderSkin = ViewMenuItem_up;
+        downBorderSkin = ViewMenuItem_down;
+        showsCaretBorderSkin = ViewMenuItem_showsCaret; 
     }
     
     /**
-     *  @private
-     */  
-    override protected function commitCurrentState():void
+     *  Class to use for the border in the showsCaret state.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     *       
+     *  @default Button_down
+     */ 
+    protected var showsCaretBorderSkin:Class;
+   
+    override protected function getBorderClassForCurrentState():Class
     {
-        super.commitCurrentState();       
-        invalidateDisplayList();    
+        var borderClass:Class = super.getBorderClassForCurrentState();
+        
+        if (currentState == "showsCaret")
+            borderClass = showsCaretBorderSkin;  
+        
+        return borderClass;
     }
-    
-    /**
-     *  @private
-     */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+     
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
-        // Draw the background
-        graphics.clear();
-        
-        // No border. The ViewMenuLayout will draw separators
-        graphics.lineStyle(0,0,0);
-        
-        // TODO (jszeto) Need to figure out which styles are supported
-        var bgColor:uint = getStyle("backgroundColor");
-        var bgAlpha:Number = 1
-        
-        if (currentState == "down")
-        {
-            bgColor = getStyle("selectionColor");
-        }
-        else if (currentState == "showsCaret")
-        {
-            bgColor = 0xCC6600;
-        }
-        else
-        {
-            bgAlpha = getStyle("backgroundAlpha");
-        }
-        
-        graphics.beginFill(bgColor, bgAlpha);
-        graphics.drawRect(0,0,unscaledWidth, unscaledHeight);
-        graphics.endFill();
+        // Don't do anything. The fxg files contain the background
     }
 }
 }
