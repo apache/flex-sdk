@@ -19,7 +19,7 @@ package spark.components
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */ 
     
 [Exclude(name="backgroundAlpha", kind="style")]
@@ -32,7 +32,7 @@ public class SpinnerListContainer extends SkinnableContainer
 	 *        
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */ 	
 	public function SpinnerListContainer()
 	{
