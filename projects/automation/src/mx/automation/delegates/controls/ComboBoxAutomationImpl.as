@@ -292,7 +292,8 @@ package mx.automation.delegates.controls
 		{
 			var delegate:IAutomationObject = comboBox.dropdown as IAutomationObject;
 			
-			return delegate.getAutomationChildren();
+			//return delegate.getAutomationChildren();
+			return Automation.automationManager2.getAutomationChildrenArray(delegate);
 		}
 		/**
 		 *  @private
