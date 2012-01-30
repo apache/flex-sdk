@@ -104,6 +104,9 @@ import mx.validators.ValidationResult;
 
 use namespace mx_internal;
 
+// Excluding the property to enable code hinting for the layoutDirection style
+[Exclude(name="layoutDirection", kind="property")]
+
 //--------------------------------------
 //  Lifecycle events
 //--------------------------------------
