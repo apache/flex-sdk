@@ -35,8 +35,8 @@ import flash.ui.Keyboard;
 import flash.utils.Dictionary;
 
 import mx.core.DesignLayer;
-import mx.core.IInvalidating;
 import mx.core.FlexGlobals;
+import mx.core.IInvalidating;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -278,8 +278,8 @@ public class StyleableTextField extends TextField
                     
                     // apply inverse scaling on the on the scaled TextField size
                     // this accounts for font scaling behavior in the player
-                    _measuredTextSize.x = Math.round(width / textScaleX);
-                    _measuredTextSize.y = Math.round(height / textScaleY);
+                    _measuredTextSize.x = width / textScaleX;
+                    _measuredTextSize.y = height / textScaleY;
                     
                     // remove application scale factor
                     this.scaleX = oldScaleX;
@@ -301,11 +301,16 @@ public class StyleableTextField extends TextField
                 }
             }
             
-			// Multi-line text enables internal scrolling if we use textHeight. Adding
-			// half of the padding (2 pixels) solves that problem.
-			if (numLines > 1)
-				_measuredTextSize.y += TEXT_HEIGHT_PADDING / 2;
-			
+            // Multi-line text enables internal scrolling if we use textHeight. Adding
+            // half of the padding (2 pixels) solves that problem.
+            if (numLines > 1)
+                _measuredTextSize.y += TEXT_HEIGHT_PADDING / 2;
+            
+            // account for floating point errors to fix accidental clipping
+            // or truncation
+            _measuredTextSize.x = Math.ceil(_measuredTextSize.x);
+            _measuredTextSize.y = Math.ceil(_measuredTextSize.y);
+            
             invalidateTextSizeFlag = false;
         }
         
@@ -585,25 +590,25 @@ public class StyleableTextField extends TextField
     {
         return _isTruncated;
     }
-	
-	//----------------------------------
-	//  minHeight
-	//----------------------------------
-
-	/**
-	 *  @copy mx.core.UIComponent#minHeight
-	 */
+    
+    //----------------------------------
+    //  minHeight
+    //----------------------------------
+    
+    /**
+     *  @copy mx.core.UIComponent#minHeight
+     */
     public var minHeight:Number;
-	
-	//----------------------------------
-	//  minWidth
-	//----------------------------------
-	
-	/**
-	 *  @copy mx.core.UIComponent#minWidth
-	 */
-	public var  minWidth:Number;
-	
+    
+    //----------------------------------
+    //  minWidth
+    //----------------------------------
+    
+    /**
+     *  @copy mx.core.UIComponent#minWidth
+     */
+    public var  minWidth:Number;
+    
     //--------------------------------------------------------------------------
     //
     //  IEditableText implementation
@@ -828,13 +833,13 @@ public class StyleableTextField extends TextField
      */
     public function scrollToRange(anchorPosition:int, activePosition:int):void
     {
-		// Pass to delegate, if defined
-		if (scrollToRangeDelegate != null)
-		{
-			scrollToRangeDelegate(anchorPosition, activePosition);
-			return;
-		}
-			
+        // Pass to delegate, if defined
+        if (scrollToRangeDelegate != null)
+        {
+            scrollToRangeDelegate(anchorPosition, activePosition);
+            return;
+        }
+        
         // If either part of the selection is in range (determined by
         // a non-null return value from getCharBoundaries()), we
         // don't need to do anything.
@@ -1700,8 +1705,8 @@ public class StyleableTextField extends TextField
     //  bottom
     //----------------------------------
     
-	private var _bottom:Object;
-	
+    private var _bottom:Object;
+    
     /**
      * @private
      */
@@ -1715,11 +1720,11 @@ public class StyleableTextField extends TextField
      */
     public function set bottom(value:Object):void
     {
-		if (_bottom == value)
-			return;
-		
-		_bottom = value;
-		invalidateParentSizeAndDisplayList();
+        if (_bottom == value)
+            return;
+        
+        _bottom = value;
+        invalidateParentSizeAndDisplayList();
     }
     
     //----------------------------------
@@ -1778,8 +1783,8 @@ public class StyleableTextField extends TextField
     //  left
     //----------------------------------
     
-	private var _left:Object;
-	
+    private var _left:Object;
+    
     /**
      * @private
      */
@@ -1793,11 +1798,11 @@ public class StyleableTextField extends TextField
      */
     public function set left(value:Object):void
     {
-		if (_left == value)
-			return;
-		
-		_left = value;
-		invalidateParentSizeAndDisplayList();
+        if (_left == value)
+            return;
+        
+        _left = value;
+        invalidateParentSizeAndDisplayList();
     }
     
     //----------------------------------
@@ -1844,8 +1849,8 @@ public class StyleableTextField extends TextField
     //  right
     //----------------------------------
     
-	private var _right:Object;
-	
+    private var _right:Object;
+    
     /**
      * @private
      */
@@ -1859,19 +1864,19 @@ public class StyleableTextField extends TextField
      */
     public function set right(value:Object):void
     {
-		if (_right == value)
-			return;
-		
-		_right = value;
-		invalidateParentSizeAndDisplayList();
+        if (_right == value)
+            return;
+        
+        _right = value;
+        invalidateParentSizeAndDisplayList();
     }
     
     //----------------------------------
     //  top
     //----------------------------------
     
-	private var _top:Object;
-	
+    private var _top:Object;
+    
     /**
      * @private
      */
@@ -1885,11 +1890,11 @@ public class StyleableTextField extends TextField
      */
     public function set top(value:Object):void
     {
-		if (_top == value)
-			return;
-		
-		_top = value;
-		invalidateParentSizeAndDisplayList();
+        if (_top == value)
+            return;
+        
+        _top = value;
+        invalidateParentSizeAndDisplayList();
     }
     
     //----------------------------------
@@ -2003,27 +2008,27 @@ public class StyleableTextField extends TextField
     {
         // do nothing
     }
-
-	
-	/**
-	 *  Helper method to invalidate parent size and display list if
-	 *  this object affects its layout (includeInLayout is true).
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	private function invalidateParentSizeAndDisplayList():void
-	{
-		// We want to invalidate both the parent size and parent display list.
-		if (parent && parent is IInvalidating)
-		{
-			IInvalidating(parent).invalidateSize();
-			IInvalidating(parent).invalidateDisplayList();
-		}
-	}
-
+    
+    
+    /**
+     *  Helper method to invalidate parent size and display list if
+     *  this object affects its layout (includeInLayout is true).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    private function invalidateParentSizeAndDisplayList():void
+    {
+        // We want to invalidate both the parent size and parent display list.
+        if (parent && parent is IInvalidating)
+        {
+            IInvalidating(parent).invalidateSize();
+            IInvalidating(parent).invalidateDisplayList();
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Variables
@@ -2049,10 +2054,10 @@ public class StyleableTextField extends TextField
     // text placement.
     mx_internal var useTightTextBounds:Boolean = true;
     
-	// Delegate function for scrollToRange. If defined, the scrollToRange
-	// method is delegated to this function.
-	mx_internal var scrollToRangeDelegate:Function;
-	
+    // Delegate function for scrollToRange. If defined, the scrollToRange
+    // method is delegated to this function.
+    mx_internal var scrollToRangeDelegate:Function;
+    
     private static var supportedStyles:String = "textAlign fontFamily fontWeight fontStyle color fontSize textDecoration textIndent leading letterSpacing"
     
     private var invalidateStyleFlag:Boolean = true;
