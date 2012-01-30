@@ -540,7 +540,7 @@ package spark.components
                 navigator.popView();
         }
         
-        public function get isLandscape():Boolean
+        public function get landscapeOrientation():Boolean
         {
             return systemManager.stage.deviceOrientation == StageOrientation.ROTATED_LEFT ||
                 systemManager.stage.deviceOrientation == StageOrientation.ROTATED_RIGHT;
@@ -552,19 +552,10 @@ package spark.components
                 persistenceManager.setProperty("sectionData", sections);
         }
         
-        
-        protected function navigator_viewAddHandler(event:ElementExistenceEvent):void
-        {
-            var view:View = event.element as View;
-            
-            if (view)
-                view.setCurrentState(view.getCurrentViewState(isLandscape), false);
-        }
-        
         protected function orientationChangeHandler(event:StageOrientationEvent):void
         {
-			if (navigator.activeView)
-            	navigator.activeView.setCurrentState(navigator.activeView.getCurrentViewState(isLandscape), false);
+            if (navigator)
+                navigator.landscapeOrientation = landscapeOrientation;
         }
         
         protected function applicationActivateHandler(event:Event):void
@@ -762,10 +753,7 @@ package spark.components
                 }
                 
                 navigatorProperties = newNavigatorProperties;
-                
-                // Add event listeners
-//                navigator.addEventListener(Event.COMPLETE, persistViewData);
-                navigator.addEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_viewAddHandler);
+                navigator.landscapeOrientation = landscapeOrientation;
             }
         }
         
@@ -802,10 +790,6 @@ package spark.components
                     newNavigatorProperties.titleGroupLayout = navigator.titleGroupLayout;
                 
                 navigatorProperties = newNavigatorProperties;
-                
-                // TODO (chiedozi): Do i need to null out the properties on navigator?  Applicaiton does.
-//                navigator.removeEventListener(Event.COMPLETE, persistViewData);
-                navigator.removeEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_viewAddHandler);
             }
         }
     }
