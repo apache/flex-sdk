@@ -50,13 +50,18 @@ import flash.system.Security;
      *  relative to a root URL.
      * 
      *  @param rootURL An url that will form the root of the absolute url.
-     *  This is typically the url of the application loading the url.
+     *  If the <code>rootURL</code> does not specify a file name it must be 
+     *  terminated with a slash. For example, "http://a.com" is incorrect, it
+     *  should be terminated with a slash, "http://a.com/".
+     * 
+     *  When loading resources relative to an application, the rootURL is 
+     *  typically the loaderInfo.url of the application.
      * 
      *  @param url The url of the resource to load (may be relative).
      * 
      *  @return If <code>url</code> is already an absolute URL, then it is 
      *  returned as is. If <code>url</code> is relative, then an absolute URL is
-     *  returned where <code>url</code> is relative to <code>rootURL</code>.  
+     *  returned where <code>url</code> is relative to <code>rootURL</code>. 
      */ 
     public static function createAbsoluteURL(rootURL:String, url:String):String
     {
@@ -67,17 +72,11 @@ import flash.system.Security;
         {
             if (rootURL)
             {
-                var lastIndex:int = Math.max(rootURL.lastIndexOf("\\"), rootURL.lastIndexOf("/"));
-                if (lastIndex <= 8)
-                {
-                    rootURL += "/";
-                    lastIndex = rootURL.length - 1;  // adding one later
-                }
-
                 // If the url starts from the current directory, then just skip
                 // over the "./".
                 // If the url start from the parent directory, the we need to
                 // modify the rootURL.
+                var lastIndex:int = Math.max(rootURL.lastIndexOf("\\"), rootURL.lastIndexOf("/"));
                 if (url.indexOf("./") == 0)
                 {
                     url = url.substring(2);
@@ -87,11 +86,8 @@ import flash.system.Security;
                     while (url.indexOf("../") == 0)
                     {
                         url = url.substring(3);
-                        var parentIndex:int = Math.max(rootURL.lastIndexOf("\\", lastIndex - 1), 
+                        lastIndex = Math.max(rootURL.lastIndexOf("\\", lastIndex - 1), 
                                                        rootURL.lastIndexOf("/", lastIndex - 1));
-                        if (parentIndex <= 8)
-                            parentIndex = lastIndex;
-                        lastIndex = parentIndex;
                     }
                 }
                                             
