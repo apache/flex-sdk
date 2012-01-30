@@ -653,7 +653,7 @@ DateChooser
 DateField
 {
 	/* borderColor: #C4CCCC; */
-	/* cornerRadius: 5; */
+	cornerRadius: 0;
 	dateChooserStyleName: "dateFieldPopup";
 	disabledSkin: Embed(source="assets/CalendarIcon.png");
 	downSkin: Embed(source="assets/CalendarIcon.png");
