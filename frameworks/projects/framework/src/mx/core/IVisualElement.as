@@ -119,5 +119,82 @@ public interface IVisualElement extends ILayoutElement
      *  @private
      */
     function set visible(value:Boolean):void;
+    
+    /**
+     *  @copy flash.display.DisplayObject#alpha
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get alpha():Number;
+    
+    /**
+     *  @private
+     */
+    function set alpha(value:Number):void;
+
+
+    /**
+     *  @copy flash.display.DisplayObject#width
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get width():Number;
+    
+    /**
+     *  @private
+     */
+    function set width(value:Number):void;
+
+    /**
+     *  @copy flash.display.DisplayObject#height
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get height():Number;
+    
+    /**
+     *  @private
+     */
+    function set height(value:Number):void;
+
+    /**
+     *  @copy flash.display.DisplayObject#x
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get x():Number;
+    
+    /**
+     *  @private
+     */
+    function set x(value:Number):void;
+
+
+    /**
+     *  @copy flash.display.DisplayObject#y
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get y():Number;
+    
+    /**
+     *  @private
+     */
+    function set y(value:Number):void;
 }
 }
