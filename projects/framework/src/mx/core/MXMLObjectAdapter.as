@@ -18,6 +18,11 @@ package mx.core
  *  the interface without defining all of the methods.
  *  All implementations are the equivalent of no-ops.
  *  If the method is supposed to return something, it is null, 0, or false.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class MXMLObjectAdapter implements IMXMLObject
 {
@@ -31,6 +36,11 @@ public class MXMLObjectAdapter implements IMXMLObject
 	
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public function MXMLObjectAdapter()
     {
@@ -45,6 +55,11 @@ public class MXMLObjectAdapter implements IMXMLObject
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialized(document:Object, id:String):void
 	{
