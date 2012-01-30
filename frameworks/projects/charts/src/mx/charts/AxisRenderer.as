@@ -32,12 +32,15 @@ import mx.charts.chartClasses.IAxis;
 import mx.charts.chartClasses.IAxisRenderer;
 import mx.charts.chartClasses.InstanceCache;
 import mx.charts.styles.HaloDefaults;
+import mx.controls.Label;
 import mx.core.ContextualClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.IUIComponent;
 import mx.core.IUITextField;
+import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.UITextFormat;
@@ -50,7 +53,6 @@ import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -422,9 +424,9 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
     {
         super();        
         
-        textFieldFactory =  new ContextualClassFactory(UITextField, moduleFactory);
+        textFieldFactory =  new ContextualClassFactory(Label, moduleFactory);
         
-        _labelCache = new InstanceCache(UITextField, this);
+        _labelCache = new InstanceCache(Label, this);
         
        	_labelCache.discard = true;
         _labelCache.remove = true;
@@ -1238,17 +1240,17 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
     {
         super.commitProperties();
         
-        if (!labelRenderer)
-	  {
-		var textFieldClass:Class = getStyle('textFieldClass');
-		
-		if(textFieldClass != null)
-			textFieldFactory = new ContextualClassFactory(textFieldClass, moduleFactory);
-		else
-			textFieldFactory = new ContextualClassFactory(UITextField, moduleFactory);
-		
-		_labelCache.factory = textFieldFactory;
-	  }
+		if (!labelRenderer)
+		{
+			/*var textFieldClass:Class = getStyle('textFieldClass');
+			
+			if(textFieldClass != null)
+				textFieldFactory = new ContextualClassFactory(textFieldClass, moduleFactory);
+			else
+				*/textFieldFactory = new ContextualClassFactory(Label, moduleFactory);
+			
+			_labelCache.factory = textFieldFactory;
+		}
         
         setupMouseDispatching();
     }
@@ -2894,7 +2896,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
             if (!_labelRenderer)
             {
                 _labelCache.properties =
-                    { embedFonts: embedFonts, selectable: false, styleName: this, autoSize: "left" };
+                    { selectable: false, styleName: this};
             }
             else
             {
@@ -3058,6 +3060,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
 
                         ldi.instance.y = labelY +
                                          ldi.height * alignOffset * scale * c;
+						
                     }
 
                     labelBottom = labelY - _maxRotatedLabelHeight;
@@ -3069,23 +3072,22 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                 s = Math.sin(Math.abs(_labelPlacement.rotation));
                                 
                 r = -_labelPlacement.rotation / Math.PI * 180;
-                
                 labelY = baseline + labelGap;
                 
                 for (i = 0; i < n; i++)
                 {
                     ldi = _labels[i];
-
-                    ldi.instance.rotation = r;
-                    
+					
+					ldi.instance.rotation = r;
+					
                     ldi.instance.x = _gutters.left +
                                      axisWidth * ldi.position -
                                      ldi.width * scale * c -
                                      ldi.height * alignOffset * scale * s;
-                    
-                    ldi.instance.y = labelY +
-                                     ldi.width * scale * s -
-                                     ldi.height * alignOffset * scale * c;
+					
+					ldi.instance.y = labelY +
+									 ldi.width * scale * s -
+									 ldi.height * alignOffset * scale * c;
                 }
                 
                 labelBottom = labelY + _maxRotatedLabelHeight;
@@ -3227,14 +3229,12 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
             var n:int = _labels.length;
             if (!_labelRenderer)
             {
-                _labelCache.format = determineTextFormatFromStyles();
                 for (i = 0; i < n; i++)
                 {
                     labelData = _labels[i];
                     labelData.instance = _labelCache.instances[visCount++];
-                    
-                    (labelData.instance as IUITextField).htmlText =
-                        labelData.text;
+					var label:Label = labelData.instance as Label;
+                    label.text = labelData.text;
                     
                     labelData.instance.width = labelData.width;
                     labelData.instance.height = labelData.height;
@@ -3650,7 +3650,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                 {
                     measuringField.htmlText = labelValues[i];
                     
-                    labelData.width = measuringField.width;
+                    labelData.width = measuringField.width + 5;
                     labelData.height = measuringField.height;
                 }
                 else
@@ -3660,7 +3660,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                     if (ilcMeasuringLabel)
                         ilcMeasuringLabel.validateSize(true);
 
-                    labelData.width = measuringLabel.measuredWidth;
+                    labelData.width = measuringLabel.measuredWidth + 5;
                     labelData.height = measuringLabel.measuredHeight;                                           
                 }
 
@@ -3690,7 +3690,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                 {
                     measuringField.htmlText = labelValues[i];
                     
-                    labelData.width = measuringField.width;
+                    labelData.width = measuringField.width + 5;
                     labelData.height = measuringField.height;
                 }
                 else
@@ -3700,7 +3700,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                     if (ilcMeasuringLabel)
                         ilcMeasuringLabel.validateSize(true);
     
-                    labelData.width = measuringLabel.measuredWidth;
+                    labelData.width = measuringLabel.measuredWidth + 5;
                     labelData.height = measuringLabel.measuredHeight;                                           
                 }
 
