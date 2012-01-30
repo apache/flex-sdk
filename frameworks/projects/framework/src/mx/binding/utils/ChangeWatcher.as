@@ -177,8 +177,7 @@ public class ChangeWatcher
     }
 
     /**
-     *  Returns all the binding events for all bindable properties
-     *  in the host object.
+     *  Returns all binding events for a bindable property in the host object.
      *
      *  @param host The host of the property.
      *  See the <code>watch()</code> method for more information.
