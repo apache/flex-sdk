@@ -46,10 +46,8 @@ import mx.core.IUIComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.FocusRequest;
 import mx.events.InvalidateRequestData;
-import mx.events.SandboxRootRequest;
-import mx.events.SizeRequest;
+import mx.events.InterManagerRequest;
 import mx.events.SWFBridgeEvent;
 import mx.events.SWFBridgeRequest;
 import mx.managers.CursorManager;
@@ -623,9 +621,9 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 	    var bridge:IEventDispatcher = swfBridge;
                 	    if (bridge)
                 	    {
-                	    	var request:SizeRequest = new SizeRequest(SizeRequest.GET_SIZE_REQUEST);
+                	    	var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.GET_SIZE_REQUEST);
                 	    	bridge.dispatchEvent(request);
-                	    	return request.height;
+                	    	return request.data.height;
                 	    }
                 	}
                 	
@@ -685,9 +683,9 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 {
                 	if (swfBridge)
                 	{
-            	    	var request:SizeRequest = new SizeRequest(SizeRequest.GET_SIZE_REQUEST);
+            	    	var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.GET_SIZE_REQUEST);
             	    	swfBridge.dispatchEvent(request);
-            	    	return request.width;
+            	    	return request.data.width;
                 	}
                 	
                     var content:IFlexDisplayObject =
@@ -1290,7 +1288,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 					if (_swfBridge)
 					{
 						var request:SWFBridgeEvent = new SWFBridgeEvent(
-																	SWFBridgeEvent.NOTIFY_BEFORE_UNLOAD,
+																	SWFBridgeEvent.BRIDGE_APPLICATION_UNLOADING,
 																	false, false,
 																	_swfBridge);
 						 _swfBridge.dispatchEvent(request);
@@ -1706,35 +1704,26 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                     // don't resize contentHolder until after it is layed out
                     if (getContentSize().x > 0)
                     {
-                    	// VERSION_SKEW
+                    	var sizeSet:Boolean = false;
+                    	
 	                    if (holder.contentLoaderInfo.contentType == "application/x-shockwave-flash")
     	                {
-							var bridge:IEventDispatcher;
-
 							if (childAllowsParent)
 							{
 								if (holder.content is IFlexDisplayObject)
-									IFlexDisplayObject(holder.content).setActualSize(w, h);
-								else
 								{
-									bridge = swfBridge;
-									if (bridge)
-									{
-										bridge.dispatchEvent(new SizeRequest(SizeRequest.SET_ACTUAL_SIZE_REQUEST, false, false, w, h));
-									}
-									else
-									{
-										contentHolder.width = w;
-										contentHolder.height = h;
-									}
+									IFlexDisplayObject(holder.content).setActualSize(w, h);
+									sizeSet = true;
 								}
 							}
-							else 
+							
+							if (!sizeSet) 
 							{
-								bridge = swfBridge;
-								if (bridge)
+								if (swfBridge)
 								{
-									bridge.dispatchEvent(new SizeRequest(SizeRequest.SET_ACTUAL_SIZE_REQUEST, false, false, w, h));
+									swfBridge.dispatchEvent(new SWFBridgeRequest(SWFBridgeRequest.SET_ACTUAL_SIZE_REQUEST, false, false, null,
+																						{ width: w, height: h}));
+									sizeSet = true;
 								}
 							}        	            	
             	        }
@@ -1754,12 +1743,15 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                             {
                                 contentHolder.scaleX = w / lInfo.width;
                                 contentHolder.scaleY = h / lInfo.height;
+                                sizeSet = true;
                             }
-                            else
-                            {
-                                contentHolder.width = w;
-                                contentHolder.height = h;
-                            }
+                        }
+                        
+                        // set the size of the loader now if we haven't set the content size yet.
+                        if (!sizeSet)
+                        {
+                            contentHolder.width = w;
+                            contentHolder.height = h;
                         }
                     }
                     else if (childAllowsParent &&
@@ -1926,7 +1918,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      */
     private function addedToStageHandler(event:Event):void
     {
-        systemManager.getSandboxRoot().addEventListener(SandboxRootRequest.DRAG_MANAGER_REQUEST, 
+        systemManager.getSandboxRoot().addEventListener(InterManagerRequest.DRAG_MANAGER_REQUEST, 
                 mouseShieldHandler, false, 0, true);
     }
 
@@ -1989,7 +1981,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
    		if (loaderInfo.contentType == "application/x-shockwave-flash")
    		{
 			var bridge:EventDispatcher = loaderInfo.sharedEvents;
-			bridge.addEventListener(SWFBridgeEvent.NOTIFY_NEW_BRIDGED_APPLICATION, 
+			bridge.addEventListener(SWFBridgeEvent.BRIDGE_NEW_APPLICATION, 
 			 					  initSystemManagerCompleteEventHandler);
    		}
 	}
@@ -2002,7 +1994,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
    		if (loaderInfo.contentType == "application/x-shockwave-flash")
    		{
 			var bridge:EventDispatcher = loaderInfo.sharedEvents;			
-			bridge.removeEventListener(SWFBridgeEvent.NOTIFY_NEW_BRIDGED_APPLICATION, 
+			bridge.removeEventListener(SWFBridgeEvent.BRIDGE_NEW_APPLICATION, 
 				 					  initSystemManagerCompleteEventHandler);
    		}
 	}
@@ -2277,10 +2269,10 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 			var bridge:IEventDispatcher = swfBridge;
 			if (bridge)
 			{
-				var request:SizeRequest = new SizeRequest(SizeRequest.GET_SIZE_REQUEST);
+				var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.GET_SIZE_REQUEST);
 				bridge.dispatchEvent(request);
-				pt.x = request.width;
-				pt.y = request.height;
+				pt.x = request.data.width;
+				pt.y = request.data.height;
 			}
 		}
 	
