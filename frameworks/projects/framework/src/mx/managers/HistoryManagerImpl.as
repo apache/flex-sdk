@@ -122,6 +122,16 @@ public class HistoryManagerImpl implements IHistoryManager
 			registered() in history.swf
 			HistoryManager.load()
 
+	*  
+
+	*  @langversion 3.0
+
+	*  @playerversion Flash 9
+
+	*  @playerversion AIR 1.1
+
+	*  @productversion Flex 3
+
 	*/
 
 	//--------------------------------------------------------------------------
@@ -147,6 +157,11 @@ public class HistoryManagerImpl implements IHistoryManager
 	 *  about multiple objects into the query parameters of an URL.
 	 *  The query parameters might look like this:
 	 *  ?8ce2-selectedIndex=1&47f0-selectedIndex=2
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	
 	/**
@@ -283,6 +298,11 @@ public class HistoryManagerImpl implements IHistoryManager
 	 *  @Private
 	 *  An Array of objects that will save and load state information.
 	 *  Each object must implement the IHistoryManagerClient interface.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private var registeredObjects:Array = [];
 	
@@ -318,6 +338,11 @@ public class HistoryManagerImpl implements IHistoryManager
 	 *  @param obj Object to register.
 	 *
 	 *  @see mx.managers.IHistoryManagerClient
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function register(obj:IHistoryManagerClient):void
 	{
@@ -485,6 +510,11 @@ public class HistoryManagerImpl implements IHistoryManager
 	 *  Unregisters an object with the HistoryManager.
 	 *
 	 *  @param obj Object to unregister.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function unregister(obj:IHistoryManagerClient):void
 	{
@@ -521,6 +551,11 @@ public class HistoryManagerImpl implements IHistoryManager
 	 *  If you registered an interface with the HistoryManager,
 	 *  you are responsible for calling the <code>save()</code> method
 	 *  when the application state changes.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function save():void
 	{
@@ -718,6 +753,11 @@ class RegistrationInfo
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function RegistrationInfo(crc:String, depth:int)
 	{
