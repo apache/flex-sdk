@@ -15,7 +15,6 @@ package spark.skins.mobile.supportClasses
 import flash.display.DisplayObject;
 
 import mx.core.mx_internal;
-import mx.events.PropertyChangeEvent;
 
 import spark.components.supportClasses.StyleableTextField;
 
@@ -31,18 +30,6 @@ use namespace mx_internal;
  */
 public class TextSkinBase extends MobileSkin 
 {
-    //--------------------------------------------------------------------------
-    //
-    //  Class statics
-    //
-    //--------------------------------------------------------------------------
-    
-    // FIXME (jasonsj) how do PPI skins handle text gutter?
-    // StylableTextField padding
-    protected static const TEXT_WIDTH_PADDING:int = 4;
-    
-    protected static const TEXT_HEIGHT_PADDING:int = 2;
-    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -173,128 +160,101 @@ public class TextSkinBase extends MobileSkin
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-		graphics.clear();
-		
+        graphics.clear();
+        
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
         drawBackground(unscaledWidth, unscaledHeight);
-
+        
         layoutContents(unscaledWidth, unscaledHeight);
     }
-	
-	/**
-	 *  Renders a background for the skin
-	 * 
-	 *  <p>This method, along with <code>layoutContents()</code>, is called 
-	 *  by the <code>updateDisplayList()</code> method.</p>
-	 * 
-	 *  @param unscaledWidth Specifies the width of the component, in pixels,
-	 *  in the component's coordinates, regardless of the value of the
-	 *  <code>scaleX</code> property of the component.
-	 *
-	 *  @param unscaledHeight Specifies the height of the component, in pixels,
-	 *  in the component's coordinates, regardless of the value of the
-	 *  <code>scaleY</code> property of the component.
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.1
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */
-	protected function drawBackground(unscaledWidth:Number, 
-									  unscaledHeight:Number):void
-	{
-		var borderSize:uint = (border) ? layoutBorderSize : 0;
-		var borderWidth:uint = borderSize * 2;
-		
-		// Draw the contentBackgroundColor
-		graphics.clear();
-		graphics.beginFill(getStyle("contentBackgroundColor"), getStyle("contentBackgroundAlpha"));
-		graphics.drawRoundRect(borderSize, borderSize, unscaledWidth - borderWidth, unscaledHeight - borderWidth, layoutCornerEllipseSize, layoutCornerEllipseSize);
-		graphics.endFill();
-	}
     
-	/**
-	 *  Positions the children for this skin
-	 * 
-	 *  <p>This method, along with <code>drawBackground()</code>, is called 
-	 *  by the <code>updateDisplayList()</code> method.</p>
-	 * 
-	 *  <p>This method positions the <code>textDisplay</code> component.  
-	 *  Subclasses should override this to position their children.</p>
-	 * 
-	 *  @param unscaledWidth Specifies the width of the component, in pixels,
-	 *  in the component's coordinates, regardless of the value of the
-	 *  <code>scaleX</code> property of the component.
-	 *
-	 *  @param unscaledHeight Specifies the height of the component, in pixels,
-	 *  in the component's coordinates, regardless of the value of the
-	 *  <code>scaleY</code> property of the component.
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.1
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */
-	protected function layoutContents(unscaledWidth:Number, 
-									  unscaledHeight:Number):void
-	{
-		// position & size border
-		if (border)
-		{
-			setElementSize(border, unscaledWidth, unscaledHeight);
-			setElementPosition(border, 0, 0);
-		}
-		
-		// position & size the text
-		var paddingLeft:Number = getStyle("paddingLeft");
-		var paddingRight:Number = getStyle("paddingRight");
-		var paddingTop:Number = getStyle("paddingTop");
-		var paddingBottom:Number = getStyle("paddingBottom");
-		
-		var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
-		var unscaledTextHeight:Number = unscaledHeight - paddingTop;
-		var textTopPosition:Number = getTextTop(unscaledHeight, paddingTop, paddingBottom);
-		
-		if (textDisplay)
-		{
-			textDisplay.commitStyles();
-			
-			setElementSize(textDisplay, unscaledTextWidth, unscaledTextHeight);
-			setElementPosition(textDisplay, paddingLeft, textTopPosition);
-		}
-		
-		if (promptDisplay)
-		{
-			promptDisplay.commitStyles();
-			setElementSize(promptDisplay, unscaledTextWidth, unscaledTextHeight);
-			setElementPosition(promptDisplay, paddingLeft, textTopPosition);
-		}
-	}
-	
     /**
-     *  @private
-     *  Specifies the location of the textDisplay and promptDisplay skin parts.
-     *  Position is based on the following in-order: verticalAlign="middle",
-     *  paddingTop, paddingBottom.
+     *  Renders a background for the skin
+     * 
+     *  <p>This method, along with <code>layoutContents()</code>, is called 
+     *  by the <code>updateDisplayList()</code> method.</p>
+     * 
+     *  @param unscaledWidth Specifies the width of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleX</code> property of the component.
+     *
+     *  @param unscaledHeight Specifies the height of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleY</code> property of the component.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    mx_internal function getTextTop(unscaledHeight:Number, paddingTop:Number, paddingBottom:Number):Number
+    protected function drawBackground(unscaledWidth:Number, 
+                                      unscaledHeight:Number):void
     {
-        var textTop:Number = paddingTop;
+        var borderSize:uint = (border) ? layoutBorderSize : 0;
+        var borderWidth:uint = borderSize * 2;
+        
+        // Draw the contentBackgroundColor
+        graphics.clear();
+        graphics.beginFill(getStyle("contentBackgroundColor"), getStyle("contentBackgroundAlpha"));
+        graphics.drawRoundRect(borderSize, borderSize, unscaledWidth - borderWidth, unscaledHeight - borderWidth, layoutCornerEllipseSize, layoutCornerEllipseSize);
+        graphics.endFill();
+    }
+    
+    /**
+     *  Positions the children for this skin
+     * 
+     *  <p>This method, along with <code>drawBackground()</code>, is called 
+     *  by the <code>updateDisplayList()</code> method.</p>
+     * 
+     *  <p>This method positions the <code>textDisplay</code> component.  
+     *  Subclasses should override this to position their children.</p>
+     * 
+     *  @param unscaledWidth Specifies the width of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleX</code> property of the component.
+     *
+     *  @param unscaledHeight Specifies the height of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleY</code> property of the component.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected function layoutContents(unscaledWidth:Number, 
+                                      unscaledHeight:Number):void
+    {
+        // position & size border
+        if (border)
+        {
+            setElementSize(border, unscaledWidth, unscaledHeight);
+            setElementPosition(border, 0, 0);
+        }
+        
+        // position & size the text
+        var paddingLeft:Number = getStyle("paddingLeft");
+        var paddingRight:Number = getStyle("paddingRight");
+        var paddingTop:Number = getStyle("paddingTop");
+        var paddingBottom:Number = getStyle("paddingBottom");
+        
+        var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
+        var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
         
         if (textDisplay)
         {
-            // verticalAlign=middle or paddingTop
-            var textHeight:Number = textDisplay.measuredTextSize.y;
-            textTop = Math.max((unscaledHeight - textHeight) / 2, paddingTop);
-            
-            // nudge up if paddingBottom is greater than the remaining space
-            var bottomSpace:Number = unscaledHeight - (textTop + textHeight);
-            bottomSpace = paddingBottom - bottomSpace;
-            textTop = (bottomSpace > 0) ? Math.max(paddingTop, textTop - bottomSpace) : textTop;
+            textDisplay.commitStyles();
+            setElementSize(textDisplay, unscaledTextWidth, unscaledTextHeight);
+            setElementPosition(textDisplay, paddingLeft, paddingTop);
         }
         
-        return textTop;
+        if (promptDisplay)
+        {
+            promptDisplay.commitStyles();
+            setElementSize(promptDisplay, unscaledTextWidth, unscaledTextHeight);
+            setElementPosition(promptDisplay, paddingLeft, paddingTop);
+        }
     }
     
     /**
