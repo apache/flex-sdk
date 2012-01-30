@@ -6,6 +6,6 @@
         width="60%"
         horizontalAlign="right" >
 
-    <s:SimpleText text="This is a placeholder for first page contents"/>
+    <s:Label text="This is a placeholder for first page contents"/>
 
 </s:VGroup>
