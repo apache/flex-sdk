@@ -366,7 +366,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
      *  Adobe recommends that you use the <code>getViewNavigatorAt()</code>
      *  method to access the navigators.</p>
      * 
-     *  <p>The popup height is not set by this component.  The height will size to
+     *  <p>The popup height is not set by this component.  The height sizes to
      *  fit the View currently active in the ViewNavigator.  A height can be set
      *  by reskinning this component or by manually setting the <code>height</code> 
      *  property on the <code>viewNavigatorPopUp</code> skinPart.</p>
@@ -376,6 +376,9 @@ public class SplitViewNavigator extends ViewNavigatorBase
      * 
      *  <p>It is recommended that this method only be used on ViewNavigators
      *  that are currently hidden.</p>
+     *
+     *  @param owner The owner of the popup. The popup is positioned relative to
+     *  its owner.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
