@@ -29,6 +29,11 @@ public class BitFlagUtil
         
     /**
      *  Returns true if all of the flags specified by <code>flagMask</code> are set. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static function isSet(flags:uint, flagMask:uint):Boolean
     {
@@ -39,6 +44,11 @@ public class BitFlagUtil
      *  Sets the flags specified by <code>flagMask</code> according to <code>value</code>. 
      *  Returns the new bitflag.
      *  <code>flagMask</code> can be a combination of multiple flags.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static function update(flags:uint, flagMask:uint, value:Boolean):uint
     {
