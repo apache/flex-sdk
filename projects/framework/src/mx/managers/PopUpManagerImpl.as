@@ -466,7 +466,7 @@ public class PopUpManagerImpl implements IPopUpManager
             var parentWidth:Number;
             var parentHeight:Number;
             var s:Rectangle;            // the screen
-            var rect:Rectangle
+            var rect:Rectangle;
             var clippingOffset:Point = new Point();
             var pt:Point;
             var isTopLevelRoot:Boolean;
