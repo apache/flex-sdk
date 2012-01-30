@@ -17,6 +17,11 @@ package mx.managers
  *  that components that can have more than one internal focus target
  *  should implement in order to
  *  receive focus from the FocusManager.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IFocusManagerComplexComponent extends IFocusManagerComponent
 {
@@ -34,6 +39,11 @@ public interface IFocusManagerComplexComponent extends IFocusManagerComponent
 	 *  A flag that indicates whether the component currently has internal
 	 *  focusable targets
 	 * 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get hasFocusableContent():Boolean;
 	
@@ -51,6 +61,11 @@ public interface IFocusManagerComplexComponent extends IFocusManagerComponent
 	 *  keyboard
 	 *
 	 *  @param direction "bottom" if TAB used with SHIFT key, "top" otherwise
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function assignFocus(direction:String):void;
 
