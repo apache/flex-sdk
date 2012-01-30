@@ -61,9 +61,8 @@ public class TextInputSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile320.assets.TextInput_border;
                 layoutCornerEllipseSize = 24;
-                layoutMeasuredWidth = 600;
-                minWidth = 48;
-                minHeight = 66;
+                measuredDefaultWidth = 600;
+                measuredDefaultHeight = 66;
                 layoutBorderSize = 2;
                 
                 break;
@@ -72,9 +71,8 @@ public class TextInputSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile240.assets.TextInput_border;
                 layoutCornerEllipseSize = 12;
-                layoutMeasuredWidth = 440;
-                minWidth = 24;
-                minHeight = 50;
+                measuredDefaultWidth = 440;
+                measuredDefaultHeight = 50;
                 layoutBorderSize = 1;
                 
                 break;
@@ -83,9 +81,8 @@ public class TextInputSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile160.assets.TextInput_border;
                 layoutCornerEllipseSize = 12;
-                layoutMeasuredWidth = 300;
-                minWidth = 24;
-                minHeight = 33;
+                measuredDefaultWidth = 300;
+                measuredDefaultHeight = 33;
                 layoutBorderSize = 1;
                 
                 break;
@@ -98,12 +95,6 @@ public class TextInputSkin extends TextSkinBase
     //  Variables
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  Default width per DPI.
-     */
-    private var layoutMeasuredWidth:Number;
     
     /** 
      *  @copy spark.skins.spark.ApplicationSkin#hostComponent
@@ -155,10 +146,6 @@ public class TextInputSkin extends TextSkinBase
             var characterWidth:int = Math.max(1, (getStyle("fontSize") - 2));
             measuredWidth =  (characterWidth * hostComponent.maxChars) + 
                 paddingLeft + paddingRight + StyleableTextField.TEXT_WIDTH_PADDING;
-        }
-        else
-        {
-            measuredWidth = layoutMeasuredWidth;
         }
         
         measuredHeight = paddingTop + textHeight + paddingBottom;
