@@ -73,21 +73,21 @@ public class StyleManager
      *  not at static initialization time, in order to ensure
      *  that the Singleton registry has already been initialized.
      */
-    private static var _impl:IStyleManager3;
+    private static var _impl:IStyleManager2;
 
     /**
      *  @private
      *  The singleton instance of StyleManagerImpl which was
      *  registered as implementing the IStyleManager2 interface.
      */
-    private static function get impl():IStyleManager3
+    private static function get impl():IStyleManager2
     {
         if (!_impl)
         {
             // TODO: Do we need to check compatibility first?
 
-            _impl = IStyleManager3(
-                Singleton.getInstance("mx.styles::IStyleManager3"));
+            _impl = IStyleManager2(
+                Singleton.getInstance("mx.styles::IStyleManager2"));
         }
 
         return _impl;
@@ -186,48 +186,51 @@ public class StyleManager
     }
 
     /**
+     *  @private 
      *  Determines whether any of the selectors declared a pseudo selector
      *  for the given state. This is used to avoid unnecessary style
      *  regeneration between state changes.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
-    public static function hasPseudoSelector(state:String):Boolean
+    mx_internal static function hasPseudoCondition(value:String):Boolean
     {
-        return impl.hasPseudoSelector(state);
+        return impl.hasPseudoCondition(value);
     }
 
     /**
+     *  @private
      *  Determines whether any of the selectors registered with the style
      *  manager have been advanced selectors (descendant selector, id selector,
-     *  non-global class selector, pseudo selector).
+     *  non-global class selector, or pseudo selector).
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
-    public static function hasAdvancedSelectors():Boolean
+    mx_internal static function hasAdvancedSelectors():Boolean
     {
         return impl.hasAdvancedSelectors();
     }
 
     /**
+     *  @private
      *  Gets the list of style declarations for the given subject. The subject
      *  is the right most simple type selector in a potential selector chain.
      * 
      *  @param subject The style subject.
-     *  @return Array of style declarations for this subject.
+     *  @return Array of StyleDeclarations for this subject.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
-    public static function getStyleDeclarations(subject:String):Array
+    mx_internal static function getStyleDeclarations(subject:String):Array
     {
         return impl.getStyleDeclarations(subject);
     }
