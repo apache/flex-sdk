@@ -1580,11 +1580,11 @@ public class SystemManager extends MovieClip
 	 */
 	override public function addChild(child:DisplayObject):DisplayObject
 	{
-		// Adjust the partition indexes
-		// before the "added" event is dispatched.
-		noTopMostIndex++;
+        var addIndex:int = numChildren;
+        if (child.parent == this)
+            addIndex--;
 
-		return rawChildren_addChildAt(child, noTopMostIndex - 1);
+        return addChildAt(child, addIndex);
 	}
 
 	/**
@@ -1593,10 +1593,14 @@ public class SystemManager extends MovieClip
 	override public function addChildAt(child:DisplayObject,
 										index:int):DisplayObject
 	{
-		// Adjust the partition indexes
-		// before the "added" event is dispatched.
+        // Adjust the partition indexes before the 
+        // "added" event is dispatched.
 		noTopMostIndex++;
 
+        var oldParent:DisplayObjectContainer = child.parent;
+        if (oldParent)
+            oldParent.removeChild(child);
+        
 		return rawChildren_addChildAt(child, applicationIndex + index);
 	}
 
