@@ -114,6 +114,9 @@ use namespace mx_internal;
  *  using the <code>rawChildren.addChild()</code> or
  *  <code>rawChildren.addChildAt()</code> method, the event is not dispatched.
  *
+ * <p>This event will only be dispatched when there are one or more relevant listeners 
+ * attached to the dispatching object.</p>
+ * 
  *  @eventType mx.events.FlexEvent.ADD
  *  
  *  @langversion 3.0
@@ -129,6 +132,9 @@ use namespace mx_internal;
  *
  *  <p>At this point, depending on its <code>visible</code> property,
  *  the component may not be visible even though it has been drawn.</p>
+ * 
+ *  <p>This event will only be dispatched when there are one or more 
+ *  relevant listeners attached to the dispatching object.</p>
  *
  *  @eventType mx.events.FlexEvent.CREATION_COMPLETE
  *  
@@ -148,6 +154,9 @@ use namespace mx_internal;
  *  displayed. All properties have been committed and the component has
  *  been measured and layed out.</p>
  *
+ *  <p>This event will only be dispatched when there are one or more 
+ *  relevant listeners attached to the dispatching object.</p>
+ * 
  *  @eventType mx.events.FlexEvent.UPDATE_COMPLETE
  *  
  *  @langversion 3.0
@@ -177,6 +186,9 @@ use namespace mx_internal;
  *  is measured, laid out, and drawn, after which the
  *  <code>creationComplete</code> event is dispatched.</p>
  *
+ *  <p>This event will only be dispatched when there are one or more 
+ *  relevant listeners attached to the dispatching object.</p>
+ * 
  *  @eventType mx.events.FlexEvent.INITIALIZE
  *  
  *  @langversion 3.0
@@ -210,6 +222,9 @@ use namespace mx_internal;
  *  In all other situations, the <code>move</code> event is not dispatched
  *  until after the property changes.</p>
  *
+ *  <p>This event will only be dispatched when there are one or more 
+ *  relevant listeners attached to the dispatching object.</p>
+ *
  *  @eventType mx.events.MoveEvent.MOVE
  *  
  *  @langversion 3.0
@@ -229,6 +244,9 @@ use namespace mx_internal;
  *  the children, including the internal children, of a component
  *  have not yet been created.
  *
+ *  <p>This event will only be dispatched when there are one or more 
+ *  relevant listeners attached to the dispatching object.</p>
+ * 
  *  @eventType mx.events.FlexEvent.PREINITIALIZE
  *  
  *  @langversion 3.0
@@ -246,6 +264,9 @@ use namespace mx_internal;
  *  using the <code>rawChildren.removeChild()</code> or
  *  <code>rawChildren.removeChildAt()</code> method, the event is not dispatched.
  *
+ * <p>This event will only be dispatched when there are one or more relevant listeners 
+ * attached to the dispatching object.</p>
+ * 
  *  @eventType mx.events.FlexEvent.REMOVE
  *  
  *  @langversion 3.0
@@ -276,6 +297,9 @@ use namespace mx_internal;
  *
  *  <p>The <code>resize</code> event is not
  *  dispatched until after the property changes.</p>
+ *
+ *  <p>This event will only be dispatched when there are one or more 
+ *  relevant listeners attached to the dispatching object.</p>
  *
  *  @eventType mx.events.ResizeEvent.RESIZE
  *  
@@ -617,6 +641,9 @@ use namespace mx_internal;
 /**
  *  Dispatched after the <code>currentState</code> property changes,
  *  but before the view state changes.
+ * 
+ *  <p>This event will only be dispatched when there are one or more 
+ *  relevant listeners attached to the dispatching object.</p>
  *
  *  @eventType mx.events.StateChangeEvent.CURRENT_STATE_CHANGING
  *  
@@ -629,6 +656,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched after the view state has changed.
+ * 
+ *  <p>This event will only be dispatched when there are one or more 
+ *  relevant listeners attached to the dispatching object.</p>
  *
  *  @eventType mx.events.StateChangeEvent.CURRENT_STATE_CHANGE
  *  
@@ -641,6 +671,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched after the component has entered a view state.
+ * 
+ *  <p>This event will only be dispatched when there are one or more 
+ *  relevant listeners attached to the dispatching object.</p>
  *
  *  @eventType mx.events.FlexEvent.ENTER_STATE
  *  
@@ -653,6 +686,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched just before the component exits a view state.
+ * 
+ *  <p>This event will only be dispatched when there are one or more 
+ *  relevant listeners attached to the dispatching object.</p>
  *
  *  @eventType mx.events.FlexEvent.EXIT_STATE
  *  
@@ -1547,7 +1583,8 @@ public class UIComponent extends FlexSprite
         {
             setVisible(_visible, true);
 
-            dispatchEvent(new FlexEvent(FlexEvent.CREATION_COMPLETE));
+            if (hasEventListener(FlexEvent.CREATION_COMPLETE))
+                dispatchEvent(new FlexEvent(FlexEvent.CREATION_COMPLETE));
         }
     }
 
@@ -1599,7 +1636,7 @@ public class UIComponent extends FlexSprite
     {
         _processedDescriptors = value;
 
-        if (value)
+        if (value && hasEventListener(FlexEvent.INITIALIZE))
             dispatchEvent(new FlexEvent(FlexEvent.INITIALIZE));
     }
 
@@ -2107,7 +2144,8 @@ public class UIComponent extends FlexSprite
 
         invalidateProperties();
 
-        dispatchEvent(new Event("xChanged"));
+        if (hasEventListener("xChanged"))
+            dispatchEvent(new Event("xChanged"));
     }
 
     [Bindable("zChanged")]
@@ -2145,7 +2183,9 @@ public class UIComponent extends FlexSprite
         invalidateProperties();
         if (was3D != is3D)
             validateMatrix();
-        dispatchEvent(new Event("zChanged"));
+        
+        if (hasEventListener("zChanged"))
+            dispatchEvent(new Event("zChanged"));
     }
 
     /**
@@ -2481,7 +2521,8 @@ public class UIComponent extends FlexSprite
         }
         invalidateProperties();
 
-        dispatchEvent(new Event("yChanged"));
+        if (hasEventListener("yChanged"))
+            dispatchEvent(new Event("yChanged"));
     }
 
     //----------------------------------
@@ -2553,7 +2594,8 @@ public class UIComponent extends FlexSprite
 
             _width = value;
 
-            dispatchEvent(new Event("widthChanged"));
+            if (hasEventListener("widthChanged"))
+                dispatchEvent(new Event("widthChanged"));
         }
     }
 
@@ -2625,7 +2667,8 @@ public class UIComponent extends FlexSprite
 
             _height = value;
 
-            dispatchEvent(new Event("heightChanged"));
+            if (hasEventListener("heightChanged"))
+                dispatchEvent(new Event("heightChanged"));
         }
     }
 
@@ -7167,7 +7210,8 @@ public class UIComponent extends FlexSprite
         // affect child creation.
         // Note that this implies that "preinitialize" handlers are called
         // top-down; i.e., parents before children.
-        dispatchEvent(new FlexEvent(FlexEvent.PREINITIALIZE));
+        if (hasEventListener(FlexEvent.PREINITIALIZE))
+            dispatchEvent(new FlexEvent(FlexEvent.PREINITIALIZE));
 
         // Create child objects.
         createChildren();
@@ -7521,9 +7565,15 @@ public class UIComponent extends FlexSprite
     {
         StyleProtoChain.styleChanged(this, styleProp);
         if (styleProp && (styleProp != "styleName"))
-            dispatchEvent(new Event(styleProp + "Changed"));
-        else
-            dispatchEvent(new Event("allStylesChanged"));
+        { 
+            if (hasEventListener(styleProp + "Changed"))
+                dispatchEvent(new Event(styleProp + "Changed"));
+        }
+        else 
+        {
+            if (hasEventListener("allStylesChanged"))
+                dispatchEvent(new Event("allStylesChanged"));
+        }
     }
 
     /**
@@ -9016,8 +9066,9 @@ public class UIComponent extends FlexSprite
                 super.x  = x;
             else
                 _layoutFeatures.layoutX = x;
-            
-            dispatchEvent(new Event("xChanged"));
+
+            if (hasEventListener("xChanged"))
+                dispatchEvent(new Event("xChanged"));
             changed = true;
         }
 
@@ -9028,7 +9079,8 @@ public class UIComponent extends FlexSprite
             else
                 _layoutFeatures.layoutY = y;
             
-            dispatchEvent(new Event("yChanged"));
+            if (hasEventListener("yChanged"))
+                dispatchEvent(new Event("yChanged"));
             changed = true;
         }
 
@@ -9068,14 +9120,16 @@ public class UIComponent extends FlexSprite
         if (_width != w)
         {
             _width = w;
-            dispatchEvent(new Event("widthChanged"));
+            if (hasEventListener("widthChanged"))
+                dispatchEvent(new Event("widthChanged"));
             changed = true;
         }
 
         if (_height != h)
         {
             _height = h;
-            dispatchEvent(new Event("heightChanged"));
+            if (hasEventListener("heightChanged"))
+                dispatchEvent(new Event("heightChanged"));
             changed = true;
         }
 
@@ -9517,8 +9571,9 @@ public class UIComponent extends FlexSprite
     protected function dispatchPropertyChangeEvent(prop:String, oldValue:*,
                                                    value:*):void
     {
-        dispatchEvent(PropertyChangeEvent.createUpdateEvent(
-                            this, prop, oldValue, value));
+        if (hasEventListener("propertyChange"))
+            dispatchEvent(PropertyChangeEvent.createUpdateEvent(
+                this, prop, oldValue, value));
     }
 
     /**
@@ -9526,10 +9581,13 @@ public class UIComponent extends FlexSprite
      */
     private function dispatchMoveEvent():void
     {
-        var moveEvent:MoveEvent = new MoveEvent(MoveEvent.MOVE);
-        moveEvent.oldX = oldX;
-        moveEvent.oldY = oldY;
-        dispatchEvent(moveEvent);
+        if (hasEventListener(MoveEvent.MOVE))
+        {
+            var moveEvent:MoveEvent = new MoveEvent(MoveEvent.MOVE);
+            moveEvent.oldX = oldX;
+            moveEvent.oldY = oldY;
+            dispatchEvent(moveEvent);
+        }
         
         oldX = x;
         oldY = y;
@@ -9540,10 +9598,13 @@ public class UIComponent extends FlexSprite
      */
     private function dispatchResizeEvent():void
     {
-        var resizeEvent:ResizeEvent = new ResizeEvent(ResizeEvent.RESIZE);
-        resizeEvent.oldWidth = oldWidth;
-        resizeEvent.oldHeight = oldHeight;
-        dispatchEvent(resizeEvent);
+        if (hasEventListener(ResizeEvent.RESIZE))
+        {
+            var resizeEvent:ResizeEvent = new ResizeEvent(ResizeEvent.RESIZE);
+            resizeEvent.oldWidth = oldWidth;
+            resizeEvent.oldHeight = oldHeight;
+            dispatchEvent(resizeEvent);
+        }
         
         oldWidth = width;
         oldHeight = height;
@@ -9682,13 +9743,16 @@ public class UIComponent extends FlexSprite
             nextTransition.effect.captureStartValues();
 
         // Dispatch currentStateChanging event
-        event = new StateChangeEvent(StateChangeEvent.CURRENT_STATE_CHANGING);
-        event.oldState = oldState;
-        event.newState = requestedCurrentState ? requestedCurrentState : "";
-        dispatchEvent(event);
-
+        if (hasEventListener(StateChangeEvent.CURRENT_STATE_CHANGING)) 
+        {
+            event = new StateChangeEvent(StateChangeEvent.CURRENT_STATE_CHANGING);
+            event.oldState = oldState;
+            event.newState = requestedCurrentState ? requestedCurrentState : "";
+            dispatchEvent(event);
+        }
+        
         // If we're leaving the base state, send an exitState event
-        if (isBaseState(_currentState))
+        if (isBaseState(_currentState) && hasEventListener(FlexEvent.EXIT_STATE))
             dispatchEvent(new FlexEvent(FlexEvent.EXIT_STATE));
 
         // Remove the existing state
@@ -9700,17 +9764,23 @@ public class UIComponent extends FlexSprite
 
         // If we're going back to the base state, dispatch an
         // enter state event, otherwise apply the state.
-        if (isBaseState(currentState))
-            dispatchEvent(new FlexEvent(FlexEvent.ENTER_STATE));
+        if (isBaseState(currentState)) 
+        {
+            if (hasEventListener(FlexEvent.ENTER_STATE))
+                dispatchEvent(new FlexEvent(FlexEvent.ENTER_STATE)); 
+        }
         else
             applyState(_currentState, commonBaseState);
 
         // Dispatch currentStateChange
-        event = new StateChangeEvent(StateChangeEvent.CURRENT_STATE_CHANGE);
-        event.oldState = oldState;
-        event.newState = _currentState ? _currentState : "";
-        dispatchEvent(event);
-
+        if (hasEventListener(StateChangeEvent.CURRENT_STATE_CHANGE))
+        {
+            event = new StateChangeEvent(StateChangeEvent.CURRENT_STATE_CHANGE);
+            event.oldState = oldState;
+            event.newState = _currentState ? _currentState : "";
+            dispatchEvent(event);
+        }
+        
         if (nextTransition)
         {
             // Force a validation before playing the transition effect
@@ -10957,12 +11027,16 @@ public class UIComponent extends FlexSprite
                 }
 
                 r[indices[n - 1]] = this;
-                var event:PropertyChangeEvent =
-                    PropertyChangeEvent.createUpdateEvent(parentDocument,
-                                                          id,
-                                                          parentDocument[id],
-                                                          parentDocument[id]);
-                parentDocument.dispatchEvent(event);
+                
+                if (parentDocument.hasEventListener("propertyChange")) 
+                {
+                    var event:PropertyChangeEvent =
+                        PropertyChangeEvent.createUpdateEvent(parentDocument,
+                                                            id,
+                                                            parentDocument[id],
+                                                            parentDocument[id]);
+                    parentDocument.dispatchEvent(event);
+                }
             }
         }
     }
@@ -11021,12 +11095,15 @@ public class UIComponent extends FlexSprite
                 }
                 else
                 {
-                    var event:PropertyChangeEvent =
-                        PropertyChangeEvent.createUpdateEvent(parentDocument,
-                                                              id,
-                                                              parentDocument[id],
-                                                              parentDocument[id]);
-                    parentDocument.dispatchEvent(event);
+                    if (parentDocument.hasEventListener("propertyChange")) 
+                    {
+                        var event:PropertyChangeEvent =
+                            PropertyChangeEvent.createUpdateEvent(parentDocument,
+                                                                id,
+                                                                parentDocument[id],
+                                                                parentDocument[id]);
+                        parentDocument.dispatchEvent(event);
+                    }
                 }
             }
         }
