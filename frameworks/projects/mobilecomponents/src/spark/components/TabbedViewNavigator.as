@@ -278,15 +278,18 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     //----------------------------------
-    //  canCancelBackKeyBehavior
+    //  exitApplicationOnBackKey
     //----------------------------------
     
     /**
      *  @private
      */ 
-    override public function get canCancelBackKeyBehavior():Boolean
+    override public function get exitApplicationOnBackKey():Boolean
     {
-        return  activeNavigator && activeNavigator.canCancelBackKeyBehavior;    
+    	if (activeNavigator)
+    		return activeNavigator.exitApplicationOnBackKey;
+
+    	return super.exitApplicationOnBackKey;
     }
     
     //----------------------------------
@@ -302,6 +305,40 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         if (activeNavigator)
             activeNavigator.landscapeOrientation = value;
+    }
+    
+    //----------------------------------
+    //  maintainNavigationStack
+    //----------------------------------
+    private var _maintainNavigationStack:Boolean = true;
+    
+    /**
+     *  This property indicates whether the navigation stack of the view
+     *  should remain intact when the navigator is deactivated by its
+     *  parent navigator.  If set to true, when reactivated the view history
+     *  will remain the same.  If false, the navigator will display the
+     *  first view in its navigation stack.
+     * 
+     *  @default true
+     *  
+     *  @see spark.components.TabbedViewNavigator
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get maintainNavigationStack():Boolean
+    {
+        return _maintainNavigationStack;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set maintainNavigationStack(value:Boolean):void
+    {
+        _maintainNavigationStack = value;
     }
     
     //----------------------------------
@@ -467,7 +504,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  @private
      */ 
-    override public function backKeyHandler():void
+    override mx_internal function backKeyHandler():void
     {
         if (activeNavigator)
             activeNavigator.backKeyHandler();    
@@ -520,7 +557,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  @private
      */
-    override public function canRemoveCurrentView():Boolean
+    override mx_internal function canRemoveCurrentView():Boolean
     {
         return (!activeNavigator || activeNavigator.canRemoveCurrentView());
     }
@@ -616,7 +653,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             if (!selectedIndexAdjusted && !dataProviderChanged && _selectedIndex >= 0)
             {
                 navigator = navigators[_selectedIndex];
-                navigator.setActive(false);
+                navigator.setActive(false, !maintainNavigationStack);
                 navigator.visible = false;
                 
                 if (navigator.activeView)
@@ -725,7 +762,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             // animate flag set to true
             if (transitionsEnabled && animateTabBarVisbility)
             {
-                tabBarVisibilityEffect = createVisibilityAnimation();
+                tabBarVisibilityEffect = showingTabBar ? 
+                                         createTabBarShowEffect() :
+                                         createTabBarHideEffect();
+                
                 tabBarVisibilityEffect.addEventListener(EffectEvent.EFFECT_END, 
                     visibilityAnimation_completeHandler);
                 tabBarVisibilityEffect.play();
@@ -748,18 +788,22 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function createTabBarVisibilityEffect(hiding:Boolean, props:Object):IEffect
+    public function createTabBarShowEffect():IEffect
     {
-        var animate:Animate = new Animate();
-        animate.target = tabBar;
-        animate.duration = TAB_BAR_ANIMATION_DURATION;
-        animate.motionPaths = new Vector.<MotionPath>();
-        animate.motionPaths.push(new SimpleMotionPath("y", props.start.y, props.end.y));
-        
-        tabBar.includeInLayout = false;
-        tabBar.cacheAsBitmap = true;
-        
-        return animate;
+        return createTabBarVisibilityEffect();
+    }
+    
+    /**
+     *  @private
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    public function createTabBarHideEffect():IEffect
+    {
+        return createTabBarVisibilityEffect();
     }
     
     /**
@@ -773,7 +817,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function createVisibilityAnimation():IEffect
+    private function createTabBarVisibilityEffect():IEffect
     {
         var effect:IEffect;
         var finalEffect:Parallel = new Parallel();
@@ -788,12 +832,21 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         // Calculate final positions.  This method will force a validation
         calculateFinalUIPositions();
         
-        effect = createTabBarVisibilityEffect(tabBar.visible, tabBarProps);
+        var animate:Animate = new Animate();
+        animate.target = tabBar;
+        animate.duration = TAB_BAR_ANIMATION_DURATION;
+        animate.motionPaths = new Vector.<MotionPath>();
+        animate.motionPaths.push(new SimpleMotionPath("y", tabBarProps.start.y, tabBarProps.end.y));
+        
+        tabBar.includeInLayout = false;
+        tabBar.cacheAsBitmap = true;
+        
+        effect = animate;
         effect.target = tabBar;
         tabBar.visible = true;
         finalEffect.addChild(effect);
         
-        var animate:Animate = new Animate();
+        animate = new Animate();
         animate.target = contentGroup;
         animate.duration = TAB_BAR_ANIMATION_DURATION;
         animate.motionPaths = new Vector.<MotionPath>();
