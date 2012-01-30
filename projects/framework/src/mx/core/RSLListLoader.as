@@ -40,6 +40,11 @@ public class RSLListLoader
      *  @param rslList Array of RSLs to load.
 	 *  Each entry in the array is of type RSLItem or CdRSLItem.
      *  The RSLs will be loaded from index 0 to the end of the array.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RSLListLoader(rslList:Array) 
     {
@@ -129,6 +134,11 @@ public class RSLListLoader
 	 *
      *  @param rslErrorHandler Receives RSLEvent.RSL_ERROR events.
 	 *  May be null.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
  	public function load(progressHandler:Function,
 	                     completeHandler:Function,
@@ -149,6 +159,11 @@ public class RSLListLoader
     
     /**
      *  Increments the current index and loads the next RSL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function loadNext():void
     {
@@ -179,6 +194,11 @@ public class RSLListLoader
      * 
      *  @return The current item at <code>index</code> in the list,
 	 *  or <code>null</code> if there is no item at that index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getItem(index:int):RSLItem
     {
@@ -193,6 +213,11 @@ public class RSLListLoader
      *  Gets the index of the currently loading RSL.
      * 
      *  @return The index of the currently loading RSL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getIndex():int
     {
@@ -205,6 +230,11 @@ public class RSLListLoader
 	*  When the load() method is called the RSLs will be loaded.
     *  
     *  @return The total number of RSLs in this object
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function getItemCount():int
     {
@@ -216,6 +246,11 @@ public class RSLListLoader
      * 
      *  @return <code>true</code> if all the RSLs have been loaded,
 	 *  <code>false</code> otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isDone():Boolean
     {
