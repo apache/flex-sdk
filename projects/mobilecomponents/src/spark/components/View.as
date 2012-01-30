@@ -337,6 +337,7 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @productversion Flex 4.5
      */
     
+	[Bindable("navigatorChanged")]
     public function get navigator():ViewNavigator
     {
         return _navigator;
@@ -348,6 +349,9 @@ public class View extends SkinnableContainer implements IDataRenderer
     mx_internal function setNavigator(value:ViewNavigator):void
     {
         _navigator = value;
+		
+		if (hasEventListener("navigatorChanged"))
+			dispatchEvent(new Event("navigatorChanged"));
     }
     
     //--------------------------------------------------------------------------
