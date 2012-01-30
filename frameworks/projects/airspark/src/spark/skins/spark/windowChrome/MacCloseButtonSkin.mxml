@@ -18,6 +18,7 @@
         <s:State name="up" />
         <s:State name="over" />
         <s:State name="down" />
+        <s:State name="disabled" />
     </s:states>
     
     <s:BitmapImage source="@Embed('../../../../assets/mac_close_up.png')" includeIn="up" left="0" verticalCenter="0" />
