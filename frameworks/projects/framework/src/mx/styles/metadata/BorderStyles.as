@@ -79,7 +79,8 @@
 /**
  *  Color of the border.
  *  The default value depends on the component class;
- *  if not overridden for the class, the default value is <code>0xB7BABC</code>.
+ *  if not overridden for the class, the default value is <code>0xB7BABC</code>
+ *  for the Halo theme and <code>0x696969</code> for the Spark theme.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -107,12 +108,12 @@
 
 /**
  *  The border skin class of the component. 
- *  The mx.skins.halo.HaloBorder class is the default value for all components 
- *  that do not explicitly set their own default. 
- *  The Panel container has a default value of mx.skins.halo.PanelSkin.
+ *  The default value in all components that do not explicitly
+ *  set their own default for the Halo theme is <code>mx.skins.halo.HaloBorder</code>
+ *  and for the Spark theme is <code>mx.skins.spark.BorderSkin</code>.
+ *  The Panel container has a default value of <code>mx.skins.halo.PanelSkin</code>
+ *  for the Halo theme and <code>mx.skins.spark.BorderSkin</code> for the Spark theme.
  *  To determine the default value for a component, see the default.css file.
- *
- *  @default mx.skins.halo.HaloBorder
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -154,7 +155,7 @@
 /**
  *  Visibility of the border.
  *
- *  @default 1
+ *  @default true
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -166,7 +167,8 @@
 /**
  *  Radius of component corners.
  *  The default value depends on the component class;
- *  if not overriden for the class, the default value is 0.
+ *  if not overridden for the class, the default value
+ *  for the Halo theme is 0 and for the Spark theme is 2.
  *  The default value for ApplicationControlBar is 5.
  *  
  *  @langversion 3.0
