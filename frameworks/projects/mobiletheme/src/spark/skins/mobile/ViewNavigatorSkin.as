@@ -11,17 +11,11 @@
 
 package spark.skins.mobile
 {
-import mx.core.IContainerInvalidating;
-import mx.core.ILayoutElement;
-import mx.core.mx_internal;
-import mx.managers.ILayoutManagerContainerClient;
 
 import spark.components.ActionBar;
 import spark.components.Group;
 import spark.components.ViewNavigator;
 import spark.skins.mobile.supportClasses.MobileSkin;
-
-use namespace mx_internal;
 
 /**
  *  The ActionScript-based skin for view navigators in mobile
@@ -105,39 +99,6 @@ public class ViewNavigatorSkin extends MobileSkin
     
     /**
      *  @private 
-     */
-    override mx_internal function validateEstimatedSizesOfChild(child:ILayoutElement):void
-    {
-        var cw:Number;
-        var ch:Number;
-        var c:Number;
-        var oldcw:Number = child.estimatedWidth;
-        var oldch:Number = child.estimatedHeight;
-        // the child actionBar and contentGroup are
-        // constrained to the width of the skin, but their
-        // height is not constrained
-        cw = estimatedWidth;
-        if (isNaN(cw) && !isNaN(explicitWidth))
-            cw = explicitWidth;
-        ch = NaN;
-        
-        child.setEstimatedSize(cw, ch);
-        if (child is ILayoutManagerContainerClient)
-        {
-            var sameWidth:Boolean = isNaN(cw) && isNaN(oldcw) || cw == oldcw;
-            var sameHeight:Boolean = isNaN(ch) && isNaN(oldch) || ch == oldch;
-            if (!(sameHeight && sameWidth))
-            {
-                if (child is IContainerInvalidating)
-                    IContainerInvalidating(child).invalidateEstimatedSizesOfChildren();
-                ILayoutManagerContainerClient(child).validateEstimatedSizesOfChildren();
-            }
-        }
-    }
-    
-    
-    /**
-     *  @private 
      */ 
     override protected function measure():void
     {
@@ -179,8 +140,7 @@ public class ViewNavigatorSkin extends MobileSkin
         var actionBarHeight:Number = 0;
         
         // The action bar is always placed at 0,0 and stretches the entire
-        // width of the navigator.
-        // If this changes, also update validateEstimatedSizesOfChild
+        // width of the navigator
         if (actionBar.includeInLayout)
         {
             actionBarHeight = Math.min(actionBar.getPreferredBoundsHeight(), unscaledHeight);
