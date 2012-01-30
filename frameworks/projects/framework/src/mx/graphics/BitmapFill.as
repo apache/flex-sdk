@@ -16,16 +16,23 @@ import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
+import flash.display.Loader;
+import flash.display.LoaderInfo;
+import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.events.IOErrorEvent;
+import flash.events.SecurityErrorEvent;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.utils.getDefinitionByName;
+import flash.net.URLRequest;
+import flash.system.LoaderContext;
 
 import mx.events.PropertyChangeEvent;
 import mx.geom.CompoundTransform;
 import mx.utils.MatrixUtil;
+
 
 
 /** 
@@ -74,12 +81,14 @@ public class BitmapFill extends EventDispatcher implements IFill
 	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
 	private static var transformMatrix:Matrix = new Matrix();
     private var nonRepeatAlphaSource:BitmapData;
+    private var _bitmapData:BitmapData;
     
     private var regenerateNonRepeatSource:Boolean = true;
     private var lastBoundsWidth:Number = 0;
     private var lastBoundsHeight:Number = 0;
     private var applyAlphaMultiplier:Boolean = false;
     private var nonRepeatSourceCreated:Boolean = false;
+    private var bitmapDataCreated:Boolean = false;
     
 	//--------------------------------------------------------------------------
 	//
@@ -557,18 +566,18 @@ public class BitmapFill extends EventDispatcher implements IFill
 			var tmpSprite:DisplayObject;
 			var oldValue:Object = _source;
 			
-			var bitmapData:BitmapData;        
+			var bitmapData:BitmapData;    
+            var bitmapCreated:Boolean = false;
             
 			if (value is Class)
 			{
 				var cls:Class = Class(value);
 				value = new cls();
 			}
-			else if (value is String)
-			{
-				var tmpClass:Class = Class(getDefinitionByName(String(value)));
-				value = new tmpClass();
-			}
+            else if (value is String)
+            {
+                loadExternal(value as String);
+            }
 			
 			if (value is BitmapData)
 			{
@@ -595,24 +604,23 @@ public class BitmapFill extends EventDispatcher implements IFill
 			{
 				bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height, true, 0);
 				bitmapData.draw(tmpSprite, new Matrix());
+                bitmapCreated = true;
 			}
             
             // If the bitmapData isn't transparent (ex. JPEG), then copy it into a transparent bitmapData
             if (!bitmapData.transparent)
             {
-                // TODO (jszeto) : Dispose of this bitmap when we no longer need it
+                // FIXME (jszeto) : Only clone this if alpha is not 1. Dispose of this bitmap when we no longer need it
                 var transparentBitmap:BitmapData = new BitmapData(bitmapData.width, bitmapData.height, true);
                 transparentBitmap.draw(bitmapData);
-                _source = transparentBitmap;
+                bitmapCreated = true;
+                bitmapData = transparentBitmap;
             }
-            else
-            {
-	
-			    _source = bitmapData;
-            }
-			
-            applyAlphaMultiplier = true;
-			dispatchFillChangedEvent("source", oldValue, bitmapData);
+            
+            _source = value;
+            setBitmapData(bitmapData, bitmapCreated);
+            
+			dispatchFillChangedEvent("source", oldValue, value);
         }
 	}
 
@@ -818,8 +826,12 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function begin(target:Graphics, bounds:Rectangle):void
 	{		
-		if (!source)
+        var sourceAsBitmapData:BitmapData = _bitmapData;
+        
+		if (!sourceAsBitmapData)
 			return;        
+        
+        var repeatFill:Boolean = (resizeMode == BitmapResizeMode.REPEAT); 
         
         // If we need to apply the alpha, we need to make another clone. So dispose of the old one.
         if (nonRepeatAlphaSource && applyAlphaMultiplier)
@@ -827,9 +839,6 @@ public class BitmapFill extends EventDispatcher implements IFill
             nonRepeatAlphaSource.dispose();
             nonRepeatAlphaSource = null;
         }
-        
-        var sourceAsBitmapData:BitmapData = source as BitmapData;
-        var repeatFill:Boolean = (resizeMode == BitmapResizeMode.REPEAT);  
         
         if (compoundTransform)
         {
@@ -964,6 +973,121 @@ public class BitmapFill extends EventDispatcher implements IFill
 															oldValue, value));
         regenerateNonRepeatSource = true;
 	}
+    
+    /**
+     *  @private
+     *  Utility function that sets the underlying bitmapData property.
+     */
+    private function setBitmapData(bitmapData:BitmapData, internallyCreated:Boolean = false):void
+    {         
+        // Clear previous bitmapData
+        if (_bitmapData)
+        {
+            if (bitmapDataCreated) // Dispose the bitmap if we created it
+                _bitmapData.dispose();
+            _bitmapData = null;
+        }
+        
+        bitmapDataCreated = internallyCreated;         
+        applyAlphaMultiplier = alpha != 1;
+        _bitmapData = bitmapData;
+        
+        dispatchFillChangedEvent("bitmapData", null, null);
+    }
+    
+    /**
+     *  @private
+     */
+    private function validImageFile(url:String):Boolean
+    {
+        // We only accept .jpg, .jpeg, .gif, and .png files
+        // NOTE: This means queries that return images are not accepted: ie: myserver.com/fetch.php?image=12345
+        var exten:String = url.substr(Math.max(url.length - 5, 0), Math.min(url.length, 5)).toLowerCase();
+        
+        if (exten.indexOf(".jpg") == -1 &&
+            exten.indexOf(".jpeg") == -1 &&
+            exten.indexOf(".gif") == -1 &&
+            exten.indexOf(".png") == -1)
+            return false;
+        
+        return true;
+    }
+    
+    /**
+     *  @private
+     */
+    private function loadExternal(url:String):void
+    {
+        if (!validImageFile(url))
+            return;
+        
+        var loader:Loader = new Loader();
+        var loaderContext:LoaderContext = new LoaderContext();
+        
+        loaderContext.checkPolicyFile = true;
+        loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loader_completeHandler, false, 0, true);
+        loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, loader_ioErrorHandler, false, 0, true);
+        loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, loader_securityErrorHandler, false, 0, true);
+        try
+        {
+            loader.load(new URLRequest(url), loaderContext);
+        }
+        catch (error:SecurityError)
+        {
+            handleSecurityError(error);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function loader_completeHandler(event:Event):void
+    {
+        var image:Bitmap = null;
+        
+        try
+        {
+            image = Bitmap((event.target as LoaderInfo).content);
+            setBitmapData(image.bitmapData);
+        }
+        catch (error:SecurityError)
+        {
+            handleSecurityError(error);
+        } 
+    }
+    
+    /**
+     *  @private
+     */
+    private function loader_ioErrorHandler(error:IOErrorEvent):void
+    {
+        // clear any current image
+        setBitmapData(null);
+        
+        // forward the error
+        dispatchEvent(error);
+    }
+    
+    /**
+     *  @private
+     */
+    private function loader_securityErrorHandler(error:SecurityErrorEvent):void
+    {
+        // clear any current image
+        setBitmapData(null);
+        
+        // forward the error
+        dispatchEvent(error);
+    }
+    
+    /**
+     *  @private
+     */
+    private function handleSecurityError(error:SecurityError):void
+    {
+        setBitmapData(null);
+        dispatchEvent(new SecurityErrorEvent(SecurityErrorEvent.SECURITY_ERROR, false, false, error.message));
+    }
 }
 
 }
