@@ -144,7 +144,7 @@ public class PopUpManager
      *
      *  <p><b>Example</b></p> 
      *
-     *  <pre>var tw = new TitleWindow();
+     *  <pre>var tw:TitleWindow = new TitleWindow();
      *    tw.title = "My Title";
      *    mx.managers.PopUpManager.addPopUp(tw, pnl, false);</pre>
      *
