@@ -6083,8 +6083,6 @@ package mx.charts
             var c:Class = legendItemClass;
             var newItem:LegendItem = new c();
             
-            newItem.marker = legendData.marker;
-            
             if (legendData.label != "")
                 newItem.label = legendData.label;
             
@@ -6101,7 +6099,9 @@ package mx.charts
             
             addChild(newItem);
             
-            newItem.setStyle("backgroundColor", 0xEEEEFF);
+			newItem.marker = legendData.marker;
+			
+			newItem.setStyle("backgroundColor", 0xEEEEFF);
         }
         
         /**
