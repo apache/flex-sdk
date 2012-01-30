@@ -25,6 +25,11 @@
       spark.skins.spark.FlexChromSkin.</p>
 
       @see spark.components.WindowedApplication
+
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4      
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
     alpha.disabledGroup="0.5" >
@@ -32,6 +37,11 @@
     <fx:Metadata>
       /**
        *  The host component of this skin.
+       * 
+       * @langversion 3.0
+       * @playerversion Flash 10
+       * @playerversion AIR 1.5
+       * @productversion Flex 4 
        */
       [HostComponent("Object")]
     </fx:Metadata>
@@ -42,6 +52,11 @@
          *  but the content area and status text are not. 
          *  Exclude the titleBar because it is a SparkSkin and we 
          *  don't want to colorize it twice.
+         * 
+         * @langversion 3.0
+         * @playerversion Flash 10
+         * @playerversion AIR 1.5
+         * @productversion Flex 4 
          */
         static private const exclusions:Array = ["backgroundRect", "contentGroup", "titleBar",
                                                  "titleBarBackgroundRect", "statusText",
@@ -49,6 +64,11 @@
 
         /** 
          * @inheritDoc
+         * 
+         * @langversion 3.0
+         * @playerversion Flash 10
+         * @playerversion AIR 1.5
+         * @productversion Flex 4 
          */
         override public function get colorizeExclusions():Array {return exclusions;}
         
