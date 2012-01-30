@@ -62,10 +62,10 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Provides a margin of error around the application's border so a resize
- *  and be more easily started. A click on the application is considered a
- *  click on the application's border if the click occurs with the resizeAffordance
- *  number of pixels from the outside edge of the application's window.
+ *  Provides a margin of error around a window's border so a resize
+ *  and be more easily started. A click on a window is considered a
+ *  click on the window's border if the click occurs with the resizeAffordance
+ *  number of pixels from the outside edge of the window.
  *  
  *  @default 6
  *
@@ -1388,9 +1388,9 @@ public class Window extends SkinnableContainer implements IWindow
     /**
      *  If <code>true</code>, the status bar is visible.
      *
-     *  <p>The status bar only appears when you use Flex chrome or 
-     *  when you use the WindowedApplicationSkin class as the skin
-     *  for the WindowedApplication.</p>
+     *  <p>The status bar only appears when you use the WindowedApplicationSkin
+     *  class or the SparkChromeWindowedApplicationSkin class as the skin for 
+     *  your application or any of your application's windows.</p>
      *
      *  @default true
      *  
