@@ -31,6 +31,7 @@
     <component id="SpinnerListItemRenderer" class="spark.components.SpinnerListItemRenderer"/>
     <component id="SplashScreenImage" class="spark.preloaders.SplashScreenImage"/>
     <component id="SplashScreenImageSource" class="spark.preloaders.SplashScreenImageSource"/>
+    <component id="SplitViewNavigator" class="spark.components.SplitViewNavigator"/>
     <component id="TabbedViewNavigatorApplication" class="spark.components.TabbedViewNavigatorApplication"/>
     <component id="TabbedViewNavigator" class="spark.components.TabbedViewNavigator"/>
     <component id="ToggleSwitch" class="spark.components.ToggleSwitch"/>
