@@ -1,0 +1,52 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark">
+    <fx:Script>
+        <![CDATA[
+            import spark.events.IndexChangeEvent;
+            
+            private function handleSelectionChange(event:IndexChangeEvent):void 
+            {
+                trace("new selected item:", event.target.selectedItem);
+            }
+        ]]>
+    </fx:Script>
+    
+    <s:Group left="0" right="0" verticalCenter="0">
+        <s:Rect left="0" right="0" top="0" bottom="0">
+            <s:fill>
+                <s:SolidColor color="0x000000"/>
+            </s:fill>
+        </s:Rect>
+        
+        <s:SpinnerListContainer horizontalCenter="0" top="20" bottom="20">
+            
+            <s:SpinnerList id="spinner1" typicalItem="99" textAlign="center" 
+                           change="handleSelectionChange(event)">
+                <s:dataProvider>
+                    <s:NumericDataProvider minimum="0" maximum="24" />
+                </s:dataProvider>
+            </s:SpinnerList>
+            
+            <s:SpinnerList id="spinner2" typicalItem="99" textAlign="center"
+                           change="handleSelectionChange(event)">
+                <s:dataProvider>
+                    <s:NumericDataProvider minimum="0" maximum="60" stepSize="5" />
+                </s:dataProvider>
+            </s:SpinnerList> 
+            
+            <s:SpinnerList id="spinner3" typicalItem="XXX" wrapElements="false" 
+                           fontWeight="bold" textAlign="center"
+                           change="handleSelectionChange(event)">
+                <s:dataProvider>
+                    <s:ArrayList>
+                        <fx:String>AM</fx:String>
+                        <fx:String>PM</fx:String>
+                    </s:ArrayList>
+                </s:dataProvider>
+            </s:SpinnerList>
+            
+        </s:SpinnerListContainer>
+    
+    </s:Group>
+    
+</s:Application>
