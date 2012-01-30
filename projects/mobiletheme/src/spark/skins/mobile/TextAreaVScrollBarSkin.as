@@ -5,8 +5,25 @@ import mx.core.mx_internal;
 
 use namespace mx_internal;
 
+/**
+ *  ActionScript-based skin for TextAreaVScrollBar components in mobile applications.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5 
+ *  @productversion Flex 4.5
+ */
 public class TextAreaVScrollBarSkin extends VScrollBarSkin
 {
+    /**
+     *  Constructor. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     * 
+     */ 
     public function TextAreaVScrollBarSkin()
     {
         super();
