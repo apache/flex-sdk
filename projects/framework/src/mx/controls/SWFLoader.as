@@ -46,19 +46,20 @@ import mx.events.SandboxBridgeEvent;
 import mx.events.FlexEvent;
 import mx.events.FocusRequest;
 import mx.events.MarshalEvent;
+import mx.events.SizeRequest;
+import mx.events.SandboxBridgeRequest;
 import mx.managers.CursorManager;
 import mx.managers.FocusManager;
 import mx.managers.IFocusManager;
+import mx.managers.IFocusManagerBridge;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.managers.ISystemManager2;
 import mx.managers.SystemManagerGlobals;
-import mx.styles.ISimpleStyleClient;
-import mx.utils.LoaderUtil;
-import mx.managers.IFocusManagerBridge;
 import mx.sandbox.IChildAccess;
 import mx.sandbox.ISandboxBridgeProvider;
-import mx.events.SizeRequest;
+import mx.styles.ISimpleStyleClient;
+import mx.utils.LoaderUtil;
 
 use namespace mx_internal;
 
@@ -1838,7 +1839,39 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
         // default = middle
         return 0.5;
     }
-
+    
+    /**
+     *  @private
+     *  
+     *  Dispatch an invalidate request to a parent application using
+     *  a sandbox bridge.
+     */     
+    private function dispatchInvalidateRequest(invalidateProperites:Boolean,
+                                               invalidateSize:Boolean,
+                                               invalidateDisplayList:Boolean):void
+    {
+        var sm:ISystemManager2 = ISystemManager2(systemManager);
+        if (!sm.useBridge())
+            return;
+            
+        var bridge:IEventDispatcher = sm.sandboxBridgeGroup.parentBridge;
+        var flags:uint = 0;
+        
+        if (invalidateProperites)
+            flags |= SandboxBridgeRequest.INVALIDATE_PROPERTIES;
+        if (invalidateSize)
+            flags |= SandboxBridgeRequest.INVALIDATE_SIZE;
+        if (invalidateDisplayList)
+            flags |= SandboxBridgeRequest.INVALIDATE_DISPLAY_LIST;
+            
+        var request:SandboxBridgeRequest = new SandboxBridgeRequest(
+                                                    SandboxBridgeRequest.INVALIDATE,
+                                                    false, false,
+                                                    bridge,
+                                                    flags);
+         bridge.dispatchEvent(request);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1857,8 +1890,8 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
             if (_autoLoad)
                 load(_source);
         }
-		ISystemManager2(systemManager).getSandboxRoot().addEventListener(MarshalEvent.DRAG_MANAGER, 
-				mouseShieldHandler, false, 0, true);
+        ISystemManager2(systemManager).getSandboxRoot().addEventListener(MarshalEvent.DRAG_MANAGER, 
+                mouseShieldHandler, false, 0, true);
     }
 
     
@@ -2021,7 +2054,10 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
         // remove the sandbox bridge if we had one.
         if (_sandboxBridge)
         {
-			var sm:ISystemManager2 = ISystemManager2(systemManager);
+            _sandboxBridge.removeEventListener(SandboxBridgeRequest.INVALIDATE, 
+                                               invalidateRequestHandler);
+                                               
+            var sm:ISystemManager2 = ISystemManager2(systemManager);
 			sm.removeChildSandboxBridge(_sandboxBridge);
 			_sandboxBridge = null;
         }
@@ -2051,23 +2087,45 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
 			sm.addChildSandboxBridge(this, _sandboxBridge);
 			removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
 			
-			// Tell the child who the top-level system manager is.
-			// If our system manager is the root system manager, than use our child bridge.
-			// Otherwise use the existing value of top level system manager in the sandbox
-			// bridge group.
-//			var topLevelBridge:IEventDispatcher = sm.sandboxBridgeGroup.topLevelSystemManagerBridge;
-//			if (!topLevelBridge)
-//				topLevelBridge = _sandboxBridge;
-//																		
-//			var request:SandboxBridgeEvent = new SandboxBridgeEvent(SandboxBridgeEvent.TOP_LEVEL_APPLICATION,
-//																	false,
-//																	false,
-//																	null,
-//																	topLevelBridge);
-//			_sandboxBridge.dispatchEvent(request);
+            _sandboxBridge.addEventListener(SandboxBridgeRequest.INVALIDATE, 
+                                       invalidateRequestHandler);
 		}
 	}
 	
+    /**
+     *  @private
+     * 
+     *  Handle invalidate requests send from the child using the
+     *  sandbox bridge. 
+     * 
+     */  
+    private function invalidateRequestHandler(event:Event):void
+    {
+        if (event is SandboxBridgeRequest)
+            return;
+
+        // handle request
+        var request:SandboxBridgeRequest = SandboxBridgeRequest.marshal(event);
+
+        var invalidateFlags:uint = uint(request.data);        
+
+        if (invalidateFlags & SandboxBridgeRequest.INVALIDATE_PROPERTIES)
+            invalidateProperties();
+
+        if (invalidateFlags & SandboxBridgeRequest.INVALIDATE_SIZE)
+            invalidateSize();
+
+        if (invalidateFlags & SandboxBridgeRequest.INVALIDATE_DISPLAY_LIST)
+            invalidateDisplayList();
+                    
+        // redispatch the request up the parent chain
+        dispatchInvalidateRequest(
+                (invalidateFlags & SandboxBridgeRequest.INVALIDATE_PROPERTIES) != 0,
+                (invalidateFlags & SandboxBridgeRequest.INVALIDATE_SIZE) != 0,
+                (invalidateFlags & SandboxBridgeRequest.INVALIDATE_DISPLAY_LIST) != 0);
+    }
+    
+
 	/**
 	 *	@private
 	 * 
