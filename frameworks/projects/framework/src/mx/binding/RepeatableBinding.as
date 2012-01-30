@@ -46,6 +46,11 @@ public class RepeatableBinding extends Binding
 	 *
      *  @param destString The destination represented as a String.
 	 *  We can then tell the ValidationManager to validate this field.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RepeatableBinding(document:Object, srcFunc:Function,
 									  destFunc:Function, destString:String)
@@ -63,6 +68,11 @@ public class RepeatableBinding extends Binding
      *  Execute the binding.
      *  Call the source function and get the value we'll use.
      *  Then call the destination function passing the value as an argument.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function execute(o:Object = null):void
     {
@@ -158,6 +168,11 @@ public class RepeatableBinding extends Binding
     /**
      *  The only reason a Binding listens to an event
 	 *  is because it wants a signal to execute
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function eventHandler(event:Event):void
     {
