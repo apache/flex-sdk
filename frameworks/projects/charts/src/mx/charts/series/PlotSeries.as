@@ -14,11 +14,17 @@ package mx.charts.series
 
 import flash.display.DisplayObject;
 import flash.display.Graphics;
+import flash.geom.Point;
 import flash.geom.Rectangle;
+
 import mx.charts.DateTimeAxis;
 import mx.charts.HitData;
 import mx.charts.chartClasses.BoundedValue;
+import mx.charts.chartClasses.CartesianChart;
+import mx.charts.chartClasses.CartesianTransform;
 import mx.charts.chartClasses.DataDescription;
+import mx.charts.chartClasses.GraphicsUtilities;
+import mx.charts.chartClasses.IAxis;
 import mx.charts.chartClasses.InstanceCache;
 import mx.charts.chartClasses.LegendData;
 import mx.charts.chartClasses.NumericAxis;
@@ -32,18 +38,13 @@ import mx.core.ClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.IFill;
 import mx.graphics.IStroke;
 import mx.graphics.SolidColor;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
-import mx.charts.chartClasses.CartesianTransform;
-import mx.charts.chartClasses.GraphicsUtilities;
-import flash.geom.Point;
-import mx.charts.chartClasses.IAxis;
-import mx.charts.chartClasses.CartesianChart;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -625,19 +626,12 @@ public class PlotSeries extends Series
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-        
-        var seriesStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.series.PlotSeries", styleManager);
-        
-        seriesStyle.defaultFactory = function():void
-        {
-            this.fill = new SolidColor(0x4444AA);
-            this.fills = [];
-            this.itemRenderer = new ClassFactory(DiamondItemRenderer);
-            this.radius = 5;
-            this.adjustedRadius = 2;
-        }
-        
+		
+		var plotSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.PlotSeries");
+		plotSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.DiamondItemRenderer));
+		plotSeriesStyle.setStyle("fill", new SolidColor(0x4444AA));
+		plotSeriesStyle.setStyle("fills", []);
+		
         return true;
     }
 
