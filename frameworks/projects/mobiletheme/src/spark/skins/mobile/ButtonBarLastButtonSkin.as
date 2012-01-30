@@ -72,7 +72,7 @@ public class ButtonBarLastButtonSkin extends ButtonBarButtonSkinBase
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 upBorderSkin = spark.skins.mobile160.assets.ButtonBarLastButton_up;
                 downBorderSkin = spark.skins.mobile160.assets.ButtonBarLastButton_down;
                 selectedBorderSkin = spark.skins.mobile160.assets.ButtonBarLastButton_selected;
