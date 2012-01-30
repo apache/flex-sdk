@@ -1724,25 +1724,11 @@ public class ViewNavigator extends ViewNavigatorBase
         mouseChildren = explicitMouseChildren;
         mouseEnabled = explicitMouseEnabled;
 
-        // ViewNavigator doesn't allow for another navigation operation to
-        // be run during a view change.  If the component attempts to do
-        // one, it is queued and run after the current transition is complete.
-        // The revalidateWhenComplete flag will be true in this case and will
-        // force another validation to commit that change.  If the flag is
-        // false, we can end the validation process.
-        if (delayedNavigationActions.length > 0)
-        {
-            executeDelayedActions();
-            commitNavigatorAction();
-        }
-        else
-        {
-            // SDK-28230
-            // Wait a frame before sending the complete event so that the player 
-            // has the chance to render the last frame before any custom actionscript 
-            // is run in response to a VIEW_ACTIVATE event.
-            addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-        }
+        // SDK-28230
+        // Wait a frame before sending the complete event so that the player 
+        // has the chance to render the last frame before any custom actionscript 
+        // is run in response to a VIEW_ACTIVATE event.
+        addEventListener(Event.ENTER_FRAME, enterFrameHandler);
     }
 
     /**
@@ -1773,6 +1759,19 @@ public class ViewNavigator extends ViewNavigatorBase
      */ 
     private function completeViewCommitProcess():void
     {
+        // ViewNavigator doesn't allow for another navigation operation to
+        // be run during a view change.  If the component attempts to do
+        // one, it is queued and run after the current transition is complete.
+        // The delayedNavigationActions queue size will be non zero in that case.
+        // If there are items in the queue, force another validation to commit
+        // navigation change.  Otherwise the transition process can end.
+        if (delayedNavigationActions.length > 0)
+        {
+            executeDelayedActions();
+            commitNavigatorAction();
+            return;
+        }
+        
         // The viewChanging flag is set to false right before the current view 
         // activates so that navigation operations run during VIEW_ACTIVATE
         // are properly executed by the navigator 
@@ -1844,7 +1843,7 @@ public class ViewNavigator extends ViewNavigatorBase
             pendingViewDescriptor = emptyViewDescriptor;
         }
         
-        if(pendingViewDescriptor.viewClass != null)
+        if (pendingViewDescriptor.viewClass != null)
         {
             var view:View = createViewInstance(pendingViewDescriptor);
             
