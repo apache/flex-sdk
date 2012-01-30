@@ -305,9 +305,13 @@ package mx.automation.delegates.controls
 		 */
 		override public function get numAutomationChildren():int
 		{
-			var delegate:IAutomationObject = comboBox.dropdown as IAutomationObject;
-			return delegate.numAutomationChildren;
-		}
+			if(comboBox.hasDropdown())
+			{
+				var delegate:IAutomationObject = comboBox.dropdown as IAutomationObject;
+				return delegate.numAutomationChildren;
+			}
+			return 0;
+		} 
 		
 		/**
 		 *  @private
