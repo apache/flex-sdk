@@ -128,6 +128,10 @@ use namespace mx_internal;
  *  @see spark.components.Application#aspectRatio
  *  @see spark.components.Callout
  *  @see spark.components.SkinnablePopUpContainer
+ *
+ *  @includeExample examples/SplitViewNavigatorExample.mxml -noswf
+ *  @includeExample examples/views/DetailView.mxml -noswf
+ *  @includeExample examples/views/MasterView.mxml -noswf
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
