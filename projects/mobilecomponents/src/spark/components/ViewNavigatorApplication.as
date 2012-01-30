@@ -105,7 +105,10 @@ use namespace mx_internal;
  *  @see spark.components.ViewNavigator
  *  @see spark.components.View
  *  @see spark.skins.mobile.ViewNavigatorApplicationSkin
- *
+ *  @includeExample examples/ViewNavigatorApplicationExample.mxml -noswf
+ *  @includeExample examples/views/ViewNavigatorApplicationHomeView.mxml -noswf
+ *  @includeExample examples/views/ViewNavigatorApplicationView2.mxml -noswf
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
