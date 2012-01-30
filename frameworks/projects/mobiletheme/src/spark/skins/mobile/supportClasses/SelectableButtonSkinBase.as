@@ -109,7 +109,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
             else
                 currentStateIconClass = upIconClass;
                         
-            if (!(iconDisplay is currentStateIconClass))
+            if (!(iconInstance is currentStateIconClass))
             {
                 changeFXGSkin = true;
                 invalidateProperties();
@@ -133,12 +133,12 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
             if (currentStateIconClass)
             {
                 // Remove iconDisplay
-                if (iconDisplay != null)
-                    removeChild(iconDisplay);
+                if (iconInstance != null)
+                    removeChild(iconInstance);
                 
-                iconDisplay = new currentStateIconClass();  
+                iconInstance = new currentStateIconClass();  
                 
-                addChild(iconDisplay);
+                addChild(iconInstance);
             }
         }
     }
