@@ -1727,6 +1727,13 @@ public class UIComponent extends FlexSprite
      * storage for advanced layout and transform properties.
      */
     private var _layoutFeatures:AdvancedLayoutFeatures;
+    
+    /**
+     * @private
+     *
+     * when true, the transform on this component consists only of translation.  Otherwise, it may be arbitrarily complex.
+     */
+    protected var hasDeltaIdentityTransform:Boolean = true;
 
     /**
      * @private
@@ -2156,6 +2163,7 @@ public class UIComponent extends FlexSprite
         if (rotation == value)
             return;
         
+        hasDeltaIdentityTransform = false;
         if (_layoutFeatures == null)
         {
             // clamp the rotation value between -180 and 180.  This is what 
@@ -2521,6 +2529,8 @@ public class UIComponent extends FlexSprite
             if (prevValue == value)
                 return;
             
+            hasDeltaIdentityTransform = false;
+            
             // trace("set scaleX:" + this + "value = " + value); 
             if (_layoutFeatures == null)
                 super.scaleX = value;
@@ -2602,6 +2612,8 @@ public class UIComponent extends FlexSprite
             if (prevValue == value)
                 return;
     
+            hasDeltaIdentityTransform = false;
+            
             if (_layoutFeatures == null)
                 super.scaleY = value;
             else
@@ -2660,6 +2672,7 @@ public class UIComponent extends FlexSprite
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
 
+        hasDeltaIdentityTransform = false;
 		_layoutFeatures.layoutScaleZ = value;
         invalidateTransform();
         invalidateProperties();
@@ -11727,6 +11740,8 @@ public class UIComponent extends FlexSprite
     {
         var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
         
+        hasDeltaIdentityTransform = false;
+        
         features.layoutScaleX = scaleX;
         features.layoutScaleY = scaleY;
         features.layoutScaleZ = scaleZ;
@@ -11884,6 +11899,7 @@ public class UIComponent extends FlexSprite
      */
     public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
     {
+        hasDeltaIdentityTransform = false;
         if (_layoutFeatures == null)
         {
             // flash will make a copy of this on assignment.
@@ -12429,7 +12445,7 @@ public class UIComponent extends FlexSprite
 
     protected function nonDeltaLayoutMatrix():Matrix
     {
-        if (hasComplexLayoutMatrix)
+        if (hasDeltaIdentityTransform)
             return null;
         if (_layoutFeatures != null)
         {
