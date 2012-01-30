@@ -680,13 +680,13 @@ public dynamic class UIMovieClip extends MovieClip
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  trackSizeChanges
+    //  autoUpdateMeasuredSize
     //----------------------------------
 
     /**
      * @private
      */
-    private var _trackSizeChanges:Boolean = false;
+    private var _autoUpdateMeasuredSize:Boolean = false;
 
     [Inspectable(category="General")]
 
@@ -707,39 +707,39 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 4
      */
-    public function get trackSizeChanges():Boolean
+    public function get autoUpdateMeasuredSize():Boolean
     {
-        return _trackSizeChanges;
+        return _autoUpdateMeasuredSize;
     }
 
     /**
      *  @private
      */
-    public function set trackSizeChanges(value:Boolean):void
+    public function set autoUpdateMeasuredSize(value:Boolean):void
     {
-        if (_trackSizeChanges == value)
+        if (_autoUpdateMeasuredSize == value)
             return;
 
-        _trackSizeChanges = value;
+        _autoUpdateMeasuredSize = value;
 
-        if(_trackSizeChanges)
+        if(_autoUpdateMeasuredSize)
         {
-            addEventListener(Event.ENTER_FRAME, trackSizeChangesEnterFrameHandler, false, 0, true);
+            addEventListener(Event.ENTER_FRAME, autoUpdateMeasuredSizeEnterFrameHandler, false, 0, true);
         }
         else
         {
-            removeEventListener(Event.ENTER_FRAME, trackSizeChangesEnterFrameHandler);
+            removeEventListener(Event.ENTER_FRAME, autoUpdateMeasuredSizeEnterFrameHandler);
         }
     }
     
     //----------------------------------
-    //  trackStateChanges
+    //  autoUpdateCurrentState
     //----------------------------------
 
     /**
      * @private
      */
-    private var _trackStateChanges:Boolean = false;
+    private var _autoUpdateCurrentState:Boolean = false;
 
     [Inspectable(category="General")]
 
@@ -760,28 +760,28 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 4
      */
-    public function get trackStateChanges():Boolean
+    public function get autoUpdateCurrentState():Boolean
     {
-        return _trackStateChanges;
+        return _autoUpdateCurrentState;
     }
 
     /**
      *  @private
      */
-    public function set trackStateChanges(value:Boolean):void
+    public function set autoUpdateCurrentState(value:Boolean):void
     {
-        if (_trackStateChanges == value)
+        if (_autoUpdateCurrentState == value)
             return;
 
-        _trackStateChanges = value;
+        _autoUpdateCurrentState = value;
 
-        if(_trackStateChanges)
+        if(_autoUpdateCurrentState)
         {
-            addEventListener(Event.ENTER_FRAME, trackStateChangesEnterFrameHandler, false, 0, true);
+            addEventListener(Event.ENTER_FRAME, autoUpdateCurrentStateEnterFrameHandler, false, 0, true);
         }
         else
         {
-            removeEventListener(Event.ENTER_FRAME, trackStateChangesEnterFrameHandler);
+            removeEventListener(Event.ENTER_FRAME, autoUpdateCurrentStateEnterFrameHandler);
         }
     }
     
@@ -2630,7 +2630,7 @@ public dynamic class UIMovieClip extends MovieClip
      */
     public function getConstraintValue(constraintName:String):*
     {
-        return this[constraintName];
+        return this["_"+constraintName];
     }
 
     /**
@@ -4344,7 +4344,7 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 4
      */
-    protected function trackSizeChangesEnterFrameHandler(event:Event):void
+    protected function autoUpdateMeasuredSizeEnterFrameHandler(event:Event):void
     {
         // Size check.
         var currentBounds:Rectangle = bounds;
@@ -4376,7 +4376,7 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 4
      */
-    protected function trackStateChangesEnterFrameHandler(event:Event):void
+    protected function autoUpdateCurrentStateEnterFrameHandler(event:Event):void
     {
         // Check for the current state.  This is really only checked for if 
         // trackStateChanged == true.  This is so that if we magically land 
