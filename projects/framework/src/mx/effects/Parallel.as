@@ -71,6 +71,11 @@ import mx.effects.effectClasses.ParallelInstance;
  *  @see mx.effects.effectClasses.ParallelInstance
  *  
  *  @includeExample examples/ParallelEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Parallel extends CompositeEffect
 {
@@ -87,6 +92,11 @@ public class Parallel extends CompositeEffect
 	 *
 	 *  @param target This argument is ignored for Parallel effects.
 	 *  It is included only for consistency with other types of effects.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function Parallel(target:Object = null)
 	{
@@ -103,6 +113,11 @@ public class Parallel extends CompositeEffect
      * will be equal to the duration of the child effect with the
      * longest duration (including the startDelay and repetition data 
      * of that effect).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get compositeDuration():Number
     {
