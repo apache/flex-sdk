@@ -14,9 +14,7 @@ package mx.styles
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.system.ApplicationDomain;
-import flash.utils.getQualifiedClassName;
-import flash.utils.getQualifiedSuperclassName;
+import flash.utils.describeType;
 
 import mx.core.ApplicationGlobals;
 import mx.core.FlexVersion;
@@ -24,7 +22,6 @@ import mx.core.IFlexDisplayObject;
 
 import mx.core.IFontContextComponent;
 import mx.core.IInvalidating;
-import mx.core.IFlexModuleFactory;
 import mx.core.IUITextField;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
@@ -33,9 +30,12 @@ import mx.managers.SystemManager;
 import mx.modules.ModuleManager;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProxy;
+import mx.utils.NameUtil;
+import mx.utils.object_proxy;
 import mx.utils.OrderedObject;
 
 use namespace mx_internal;
+use namespace object_proxy;
 
 [ExcludeClass]
 
@@ -80,108 +80,59 @@ public class StyleProtoChain
      */
     public static function getClassStyleDeclarations(object:IStyleClient):Array
     {
-        var myApplicationDomain:ApplicationDomain;
+        var className:String = object.className;
+        var advancedObject:IAdvancedStyleClient = object as IAdvancedStyleClient;
 
-        var factory:IFlexModuleFactory = ModuleManager.getAssociatedFactory(object);
-        if (factory != null)
+        var typeHierarchy:OrderedObject = getUnqualifiedTypeHierarchy(object);
+        var types:Array = typeHierarchy.propertyList;
+        var typeCount:int = types.length;
+        var classDecls:Array = null;
+
+        if (!StyleManager.hasAdvancedSelectors())
         {
-            myApplicationDomain = ApplicationDomain(factory.info()["currentDomain"]);
+            classDecls = StyleManager.typeSelectorCache[className];
+            if (classDecls)
+                return classDecls;
+        }
+
+        classDecls = [];
+
+        // Loop over the type hierarhcy starting at the base type and work
+        // down the chain of subclasses.
+        for (var i:int = typeCount - 1; i >= 0; i--)
+        {
+            var type:String = types[i].toString();
+            if (StyleManager.hasAdvancedSelectors() && advancedObject != null)
+            {
+                var decls:Object = StyleManager.getStyleDeclarations(type);
+                if (decls)
+                {
+                    var matchingDecls:Array = getMatchingStyleDeclarations(decls, advancedObject);
+                    classDecls = classDecls.concat(matchingDecls);
+                }
+            }
+            else
+            {
+                var decl:CSSStyleDeclaration = StyleManager.getStyleDeclaration(type);
+                if (decl)
+                    classDecls.push(decl);
+            }
+        }
+
+        if (StyleManager.hasAdvancedSelectors() && advancedObject != null)
+        {        
+            // Advanced selectors may mean more than one match per type so we
+            // sort based on specificity, but preserving the declaration
+            // order for equal selectors.
+            classDecls = sortOnSpecificity(classDecls);
         }
         else
         {
-            var myRoot:DisplayObject = SystemManager.getSWFRoot(object);
-            if (!myRoot)
-                return [];
-            myApplicationDomain = myRoot.loaderInfo.applicationDomain;
+            // Cache the simple type declarations for this class 
+            StyleManager.typeSelectorCache[className] = classDecls;
         }
 
-        var className:String = getQualifiedClassName(object)
-        className = className.replace("::", ".");
-
-        var advancedObject:IAdvancedStyleClient = object as IAdvancedStyleClient;
-
-        var cacheKey:String = advancedObject ? getAdvancedCacheKey(className, advancedObject) : className;
-        var cache:Array = StyleManager.typeSelectorCache[cacheKey];
-        if (cache)
-           return cache;
-
-        var decls:Array = [];
-        var cacheKeys:Array = [];
-        var caches:Array = [];
-        var declcache:Array = [];
-
-        while (className != null &&
-               className != "mx.core.UIComponent" &&
-               className != "mx.core.UITextField" &&
-               className != "mx.graphics.graphicsClasses.GraphicElement")
-        {
-            cache = StyleManager.typeSelectorCache[cacheKey];
-            if (cache)
-            {
-                decls = decls.concat(cache);
-                break;
-            }
-
-            var ds:Array = null;
-            if (advancedObject)
-            {
-                var d:Object = StyleManager.getStyleDeclarations(className);
-                if (d)
-                    ds = getMatchingStyleDeclarations(d, advancedObject, true);
-            }
-            else
-            {
-                var s:CSSStyleDeclaration = StyleManager.getStyleDeclaration(className);
-                if (s)
-                    ds = [s];
-            }
-
-            if (ds && ds.length > 0)
-            {
-                decls = ds.concat(decls);
-                // We found one so the next set define the selectors
-                // for this found class and its ancestors.
-                // Save the old list and start a new list.
-                cacheKeys.push(cacheKey);
-                caches.push(cacheKeys);
-                declcache.push(decls);
-                decls = [];
-                cacheKeys = [];
-            }
-            else
-            {
-                cacheKeys.push(cacheKey);
-            }
-
-            try
-            {
-                className = getQualifiedSuperclassName(
-                    myApplicationDomain.getDefinition(className));
-                className = className.replace("::", ".");
-
-                cacheKey = advancedObject ? getAdvancedCacheKey(className, advancedObject) : className;
-            }
-            catch(e:ReferenceError)
-            {
-                className = null;
-            }
-        }
-
-        caches.push(cacheKeys);
-        declcache.push(decls);
-        decls = [];
-
-        while (caches.length)
-        {
-            cacheKeys = caches.pop();
-            decls = decls.concat(declcache.pop());
-            while (cacheKeys.length)
-            {
-                StyleManager.typeSelectorCache[cacheKeys.pop()] = decls;
-            }
-        }
-
-        return decls;
+        return classDecls;
     }
 
     /**
@@ -282,7 +233,7 @@ public class StyleProtoChain
 
         // If we have an advanced style client, we handle this separately
         // because of the considerably more complex selector matches...
-        if (advancedObject)
+        if (StyleManager.hasAdvancedSelectors() && advancedObject != null)
         {
             styleDeclarations = [];
 
@@ -787,17 +738,28 @@ public class StyleProtoChain
     }
 
     /**
+     *  @private
+     */
+    public static function isAssignableToType(object:IAdvancedStyleClient, type:String):Boolean
+    {
+        return getUnqualifiedTypeHierarchy(object)[type] != null;
+    }
+
+    /**
      *  @private  
-     *  Find all matching style declarations for an IStyleClient2 component.
+     *  Find all matching style declarations for an IAdvancedStyleClient
+     *  component. The result is unsorted in terms of specificity, but the
+     *  declaration order is preserved.
      *
-     *  @param declarations - an Array of declarations that is searched for
+     *  @param declarations - an Array of declarations to be searched for
      *  matches.
      *  @param object - an instance of the component to match.
      *
-     *  @return An Array of style declarations for the given subject.
+     *  @return An unsorted Array of matching style declarations for the given
+     *  subject.
      */
     private static function getMatchingStyleDeclarations(declarations:Object,
-            object:IAdvancedStyleClient, ignoreType:Boolean=false):Array // of CSSStyleDeclaration
+            object:IAdvancedStyleClient):Array // of CSSStyleDeclaration
     {
         var matchingDecls:Array = [];
 
@@ -805,38 +767,55 @@ public class StyleProtoChain
         for (var selector:String in declarations)
         {
             var decl:CSSStyleDeclaration = declarations[selector];
-            if (decl.isMatch(object, ignoreType))
+            if (decl.isMatch(object))
                 matchingDecls.push(decl);
         }
-
-        // Then sort by specificity...
-        matchingDecls = sortOnSpecificity(matchingDecls);
 
         return matchingDecls;
     }
 
     /**
-     *  @private
-     *  TODO: Replace this key generation as this is reasonably expensive in
-     *  terms of string creation.
-     */ 
-    private static function getAdvancedCacheKey(className:String, object:IAdvancedStyleClient):String
+     *  @private 
+     *  This should only be called once per type so avoiding a dependency on
+     *  DescribeTypeCache and using describeType() directly.
+     */
+    private static function getUnqualifiedTypeHierarchy(object:IStyleClient):OrderedObject
     {
-        var cacheKey:String = className;
+        var className:String = object.className;
+        var hierarchy:OrderedObject = StyleManager.typeHierarchyCache[className];
+        if (!hierarchy)
+        {
+            hierarchy = new OrderedObject();
+            hierarchy[className] = true;
 
-        if (object.id)
-            cacheKey += object.id;
+            var typeDescription:XML = describeType(object);
+            var superClasses:XMLList = typeDescription..extendsClass;
+            for each (var superClass:XML in superClasses)
+            {
+                var type:String = superClass.@type.toString();
+                if (isStopClass(type))
+                    break;
+    
+                type = NameUtil.getUnqualifiedClassName(type);
+                hierarchy[type] = true;
+            }
+            StyleManager.typeHierarchyCache[className] = hierarchy;
+        }
 
-        if (object.styleName)
-            cacheKey += object.styleName;
+        return hierarchy;
+    }
 
-        if (object.currentState)
-            cacheKey += object.currentState;
-
-        if (object.styleParent)
-            cacheKey += getAdvancedCacheKey(object.styleParent.className, object.styleParent);
-
-        return cacheKey;
+    /**
+     *  @private
+     *  Our style type hierarhcy stops at UIComponent, UITextField or
+     *  GraphicElement, not Object.
+     */  
+    private static function isStopClass(value:String):Boolean
+    {
+        return value == null ||
+               value == "mx.core::UIComponent" ||
+               value == "mx.core::UITextField" ||
+               value == "mx.graphics.graphicsClasses::GraphicElement";
     }
 
     /**
