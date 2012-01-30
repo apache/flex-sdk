@@ -36,12 +36,13 @@ BorderContainer
 
 Button
 {
+    fontWeight : "bold";
     skinClass: ClassReference("spark.skins.mobile.ButtonSkin");
 }
 
 Button.emphasized
 {
-    skinClass: ClassReference("spark.skins.spark.DefaultButtonSkin");
+    skinClass: ClassReference("spark.skins.mobile.ButtonSkin");
 }
 
 ButtonBar
