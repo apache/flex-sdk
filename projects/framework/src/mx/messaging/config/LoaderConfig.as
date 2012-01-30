@@ -99,6 +99,21 @@ public class LoaderConfig
     }
 
     //----------------------------------
+    //  swfVersion
+    //----------------------------------
+
+    mx_internal static var _swfVersion:uint;
+
+    /**
+     *  If the LoaderConfig has been initialized, this should represent the
+     *  top-level MovieClip's swfVersion.
+     */
+    public static function get swfVersion():uint
+    {
+        return _swfVersion;
+    }
+
+	//----------------------------------
     //  url
     //----------------------------------
 
