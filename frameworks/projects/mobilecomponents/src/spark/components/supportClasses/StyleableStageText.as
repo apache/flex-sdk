@@ -18,6 +18,7 @@ import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.FocusEvent;
+import flash.events.KeyboardEvent;
 import flash.events.SoftKeyboardEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -31,6 +32,7 @@ import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
+import flash.ui.Keyboard;
 
 import flashx.textLayout.formats.LineBreak;
 
@@ -275,6 +277,16 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     private static var focusedStageText:StageText = null;
     
+    /**
+     *  Text measuring behavior needs to be slightly different on Android
+     *  devices to account for its native text being slightly taller. Without
+     *  this adjustment, single-line text on Android will be clipped or will
+     *  scroll vertically.
+     */
+    private static const androidHeightMultiplier:Number = 1.15;
+    private static const isAndroid:Boolean = Capabilities.version.indexOf("AND") == 0;
+
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -487,7 +499,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             return;
         
         _visible = value;
-
+        
         invalidateViewPortFlag = true;
         invalidateProperties();
     }
@@ -1222,9 +1234,19 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         var currentMetrics:TextLineMetrics = measureText(text);
         
         measuredMinWidth = minMetrics.width;
-        measuredMinHeight = minMetrics.height;
         measuredWidth = Math.max(measuredMinWidth, currentMetrics.width);
-        measuredHeight = Math.max(measuredMinHeight, currentMetrics.height);
+        
+        if (isAndroid)
+        {
+            // Android text heights are slightly different from Flex's.
+            measuredMinHeight = minMetrics.height * androidHeightMultiplier;
+            measuredHeight = Math.max(measuredMinHeight, currentMetrics.height * androidHeightMultiplier);
+        }
+        else
+        {
+            measuredMinHeight = minMetrics.height;
+            measuredHeight = Math.max(measuredMinHeight, currentMetrics.height);
+        }
     }
     
     override protected function commitProperties():void
@@ -1267,6 +1289,10 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 stageText.text = text;
             
             _text = stageText.text;
+            
+            // Move the cursor to the end of the appended text.
+            stageText.selectRange(_text.length, _text.length);
+            
             dispatchEvent(new TextOperationEvent(TextOperationEvent.CHANGE));
         }
     }
@@ -1327,6 +1353,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             newText += origText.substring(endIndex);
         
         stageText.text = newText;
+        
+        // Move the cursor to the end of the inserted text.
+        stageText.selectRange(startIndex + text.length, startIndex + text.length);
 
         _text = stageText.text;
         dispatchEvent(new TextOperationEvent(TextOperationEvent.CHANGE));
@@ -1564,6 +1593,11 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private function measureTextLineHeight():Number
     {
         var lineMetrics:TextLineMetrics = measureText("Wj");
+        
+        // Android text heights are slightly different from Flex's.
+        if (isAndroid)
+            return lineMetrics.height * androidHeightMultiplier;
+        
         return lineMetrics.height;
     }
     
@@ -1666,11 +1700,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
 
             stageText.text = _text;
             stageText.displayAsPassword = _displayAsPassword;
+            stageText.maxChars = _maxChars;
             
-            if (_maxChars > 0)
-                stageText.maxChars = _maxChars;
-            
-            if (_restrict != "")
+            // Workaround for runtime bug 2931896: Don't set restrict to null
+            // even though that technically shouldn't do anything. Setting
+            // restrict to null disables typing.
+            if (_restrict != null)
                 stageText.restrict = _restrict;
             
             // Soft keyboard hints
@@ -1706,6 +1741,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, stageText_softKeyboardHandler);
             stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, stageText_softKeyboardHandler);
             stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, stageText_softKeyboardHandler);
+            stageText.addEventListener(KeyboardEvent.KEY_DOWN, stageText_keyDownHandler);
+            stageText.addEventListener(KeyboardEvent.KEY_UP, stageText_keyUpHandler);
         }
     }
     
@@ -1772,51 +1809,16 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private function stageText_changeHandler(event:Event):void
     {
         var foundChange:Boolean = false;
-        var foundEnter:Boolean = false;
         
         if (stageText != null)
         {
             var oldText:String = _text;
-            var oldLength:int = oldText.length;
             var newText:String = stageText.text;
-            var newLength:int = newText.length;
                 
-            if (!_multiline && newText.substr(0, oldLength) == oldText)
-            {
-                // This is a single-line text field, so the enter key should
-                // dispatch an enter event instead of inserting a newline
-                // character. StageText does not dispatch a key-down event for
-                // us to use to intercept the enter key, so our only choice
-                // right now is to trap it here, after the field's text has 
-                // changed.
-                
-                if (oldLength == newLength - 1)
-                {
-                    var lastChar:String = newText.substr(oldLength, 1);
-                    foundEnter = lastChar == "\r" || lastChar == "\n";
-                }
-                else if (oldLength == newLength - 2)
-                {
-                    var tail:String = newText.substr(oldLength, 2);
-                    foundEnter = tail == "\r\n" || tail == "\n\r";
-                }
-            }
-
-            if (foundEnter)
-            {
-                foundChange = true;
-                stageText.text = _text;
-            }
-            else
-            {
-                foundChange = newText != oldText;
-                _text = stageText.text;
-            }
+            foundChange = newText != oldText;
+            _text = stageText.text;
         }
 
-        if (foundEnter)
-            dispatchEvent(new FlexEvent(FlexEvent.ENTER));
-        
         if (foundChange)
             dispatchEvent(new TextOperationEvent(event.type));
     }
@@ -1832,6 +1834,19 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (focusedStageText == stageText)
             focusedStageText = null;
 
+        dispatchEvent(event);
+    }
+    
+    private function stageText_keyDownHandler(event:KeyboardEvent):void
+    {
+        if (event.keyCode == Keyboard.ENTER && !_multiline)
+            dispatchEvent(new FlexEvent(FlexEvent.ENTER));
+        
+        dispatchEvent(event);
+    }
+    
+    private function stageText_keyUpHandler(event:KeyboardEvent):void
+    {
         dispatchEvent(event);
     }
     
@@ -1946,6 +1961,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         stageText.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, stageText_softKeyboardHandler);
         stageText.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, stageText_softKeyboardHandler);
         stageText.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, stageText_softKeyboardHandler);
+        stageText.removeEventListener(KeyboardEvent.KEY_DOWN, stageText_keyDownHandler);
+        stageText.removeEventListener(KeyboardEvent.KEY_UP, stageText_keyUpHandler);
 
         stageText.dispose();
         stageText = null;
