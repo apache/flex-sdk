@@ -48,14 +48,27 @@ public class MovieClipLoaderAsset extends MovieClipAsset
 	{
 		super();
 
- 		var loaderContext:LoaderContext = new LoaderContext();
- 		loaderContext.applicationDomain = new
- 			ApplicationDomain(ApplicationDomain.currentDomain);
- 
+		var loaderContext:LoaderContext = new LoaderContext();
+		loaderContext.applicationDomain = new
+			ApplicationDomain(ApplicationDomain.currentDomain);
+		
+		// in AIR...
+		// when embedding a SWF using @Embed, you are actively asking for the SWF
+		// to be executed, otherwise the SWF will fail loading due to
+		// Loader.allowLoadBytesCodeExecution.
+		//
+		// this property prevents accidentally loading a potentially dangerous
+		// SWF into the application sandbox.
+		//
+		// since this property is indirectly accessed, this should be revisited
+		// after AIR 1.x, as it may become deprecated 
+		if ("allowLoadBytesCodeExecution" in loaderContext)
+			loaderContext["allowLoadBytesCodeExecution"] = true;
+
 		loader = new Loader();
 		loader.contentLoaderInfo.addEventListener(Event.COMPLETE,
 												  completeHandler);
- 		loader.loadBytes(movieClipData, loaderContext);
+		loader.loadBytes(movieClipData, loaderContext);
 		addChild(loader);
 	}
 
