@@ -37,6 +37,11 @@ import mx.utils.UIDUtil;
  *  Dispatched when the IList has been updated in some way.
  *  
  *  @eventType mx.events.CollectionEvent.COLLECTION_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
@@ -71,6 +76,11 @@ public class ArrayList extends EventDispatcher
     /**
      *  Construct a new ArrayList using the specified array as its source.
      *  If no source is specified an empty array will be used.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ArrayList(source:Array = null)
     {
@@ -111,6 +121,11 @@ public class ArrayList extends EventDispatcher
      *  override that behavior.
      *
      *  @return int representing the length of the source.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get length():int
     {
@@ -134,6 +149,11 @@ public class ArrayList extends EventDispatcher
      *  to be dispatched.
      *
 	 *  @return An Array that represents the underlying source.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get source():Array
     {
@@ -176,6 +196,11 @@ public class ArrayList extends EventDispatcher
      *  Provides access to the unique id for this list.
      *  
      *  @return String representing the internal uid. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public function get uid():String
     {
@@ -203,6 +228,11 @@ public class ArrayList extends EventDispatcher
      *  @throws ItemPendingError if the data for that index needs to be 
      *                           loaded from a remote location
      *  @throws RangeError if the index < 0 or index >= length
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getItemAt(index:int, prefetch:int = 0):Object
     {
@@ -225,6 +255,11 @@ public class ArrayList extends EventDispatcher
      *  @param 	index the index at which to place the item
      *  @return the item that was replaced, null if none
      *  @throws RangeError if index is less than 0 or greater than or equal to length
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setItemAt(item:Object, index:int):Object
     {
@@ -281,6 +316,11 @@ public class ArrayList extends EventDispatcher
      *  Equivalent to addItemAt(item, length);
      * 
      *  @param item the item to add
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addItem(item:Object):void
     {
@@ -294,6 +334,11 @@ public class ArrayList extends EventDispatcher
      *  @param item the item to place at the index
      *  @param index the index at which to place the item
      *  @throws RangeError if index is less than 0 or greater than the length
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addItemAt(item:Object, index:int):void
     {
@@ -312,6 +357,11 @@ public class ArrayList extends EventDispatcher
     
     /**
      *  @copy mx.collections.ListCollectionView#addAll
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addAll(addList:IList):void
     {
@@ -320,6 +370,11 @@ public class ArrayList extends EventDispatcher
     
     /**
      *  @copy mx.collections.ListCollectionView#addAllAt
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addAllAt(addList:IList, index:int):void
     {
@@ -338,6 +393,11 @@ public class ArrayList extends EventDispatcher
      * 
      *  @param item the item to find
      *  @return the index of the item, -1 if the item is not in the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getItemIndex(item:Object):int
     {
@@ -349,6 +409,11 @@ public class ArrayList extends EventDispatcher
      *
      *	@param	item Object reference to the item that should be removed.
      *  @return	Boolean indicating if the item was removed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeItem(item:Object):Boolean
     {
@@ -367,6 +432,11 @@ public class ArrayList extends EventDispatcher
      *  @param index the index from which to remove the item
      *  @return the item that was removed
      *  @throws RangeError is index < 0 or index >= length
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeItemAt(index:int):Object
     {
@@ -385,6 +455,11 @@ public class ArrayList extends EventDispatcher
     
     /** 
      *  Remove all items from the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeAll():void
     {
@@ -424,6 +499,11 @@ public class ArrayList extends EventDispatcher
      *  @see mx.events.CollectionEvent
      *  @see mx.core.IPropertyChangeNotifier
      *  @see mx.events.PropertyChangeEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      public function itemUpdated(item:Object, property:Object = null, 
                                  oldValue:Object = null, 
@@ -447,6 +527,11 @@ public class ArrayList extends EventDispatcher
      * 
      *  @throws ItemPendingError if the data is not yet completely loaded
      *  from a remote location
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function toArray():Array
     {
@@ -473,6 +558,11 @@ public class ArrayList extends EventDispatcher
 
 	/**
      *  Pretty prints the contents of this ArrayList to a string and returns it.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function toString():String
 	{
@@ -490,6 +580,11 @@ public class ArrayList extends EventDispatcher
 
 	/**
 	 *  Enables event dispatch for this list.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function enableEvents():void
 	{
@@ -502,6 +597,11 @@ public class ArrayList extends EventDispatcher
 	 *  Disables event dispatch for this list.
 	 *  To re-enable events call enableEvents(), enableEvents() must be called
 	 *  a matching number of times as disableEvents().
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function disableEvents():void
 	{
@@ -514,6 +614,11 @@ public class ArrayList extends EventDispatcher
 	 *  @param kind String indicates what the kind property of the event should be
 	 *  @param item Object reference to the item that was added or removed
 	 *  @param location int indicating where in the source the item was added.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function internalDispatchEvent(kind:String, item:Object = null, location:int = -1):void
 	{
@@ -549,6 +654,11 @@ public class ArrayList extends EventDispatcher
      *  Called whenever any of the contained items in the list fire an
      *  ObjectChange event.  
      *  Wraps it in a CollectionEventKind.UPDATE.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     protected function itemUpdateHandler(event:PropertyChangeEvent):void
     {
@@ -567,6 +677,11 @@ public class ArrayList extends EventDispatcher
      *  If the item is an IEventDispatcher watch it for updates.  
      *  This is called by addItemAt and when the source is initially
      *  assigned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function startTrackUpdates(item:Object):void
     {
@@ -582,6 +697,11 @@ public class ArrayList extends EventDispatcher
      *  If the item is an IEventDispatcher stop watching it for updates.
      *  This is called by removeItemAt, removeAll, and before a new
      *  source is assigned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function stopTrackUpdates(item:Object):void
     {
@@ -603,6 +723,11 @@ public class ArrayList extends EventDispatcher
 	 *  indicates if events should be dispatched.
 	 *  calls to enableEvents() and disableEvents() effect the value when == 0
 	 *  events should be dispatched. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private var _dispatchEvents:int = 0;
     private var _source:Array;
