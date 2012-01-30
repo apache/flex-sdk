@@ -586,7 +586,8 @@ public dynamic class ObjectProxy extends Proxy
      *  After an event is dispatched, its target property cannot be changed, so you 
      *  must create a new copy of the event for redispatching to work.
      *
-     *  @return <code>true</code> if the event was successfully dispatched. A value 
+     *  @return Returns <code>true</code> if the event was successfully dispatched. 
+     *  A value 
      *  of <code>false</code> indicates failure or that <code>preventDefault()</code>
      *  was called on the event.
      *
@@ -607,7 +608,7 @@ public dynamic class ObjectProxy extends Proxy
      *
      *  @param type The type of event
      *
-     *  @return <code>true</code> if a listener of the specified type is 
+     *  @return Returns <code>true</code> if a listener of the specified type is 
      *  registered; <code>false</code> otherwise.
      *
      *  @see flash.events.EventDispatcher#hasEventListener()
@@ -627,7 +628,7 @@ public dynamic class ObjectProxy extends Proxy
      *
      *  @param type The type of event.
      *
-     *  @return A value of <code>true</code> if a listener of the specified type will 
+     *  @return Returns <code>true</code> if a listener of the specified type will 
      *  be triggered; <code>false</code> otherwise.
      *
      *  @see flash.events.EventDispatcher#willTrigger()
