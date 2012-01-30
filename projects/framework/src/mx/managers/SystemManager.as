@@ -2616,8 +2616,8 @@ public class SystemManager extends MovieClip
      * 
      *  We're only handling a small subset of keyboard events, to 
      *  avoid unnecessary copying.   Most of events in the subset are
-     *  handled by both FxScroller and by classes like FxTextArea or
-     *  or FxList that include an FxScroller in their skin. 
+     *  handled by both Scroller and by Spark classes like TextArea or
+     *  or List that include a Scroller in their skin. 
      */
     private function keyDownHandler(e:KeyboardEvent):void
     {
