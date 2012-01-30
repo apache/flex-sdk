@@ -4,8 +4,9 @@ package spark.skins.mobile
 import flash.display.Graphics;
 
 import spark.components.Button;
+import spark.skins.MobileSkin;
 
-public class HScrollBarThumbSkin extends SliderSkin {
+public class HScrollBarThumbSkin extends MobileSkin {
     
     public function HScrollBarThumbSkin()
     {
