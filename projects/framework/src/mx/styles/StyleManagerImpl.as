@@ -29,6 +29,7 @@ import mx.modules.ModuleManager
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.IStyleModule;
+import mx.utils.OrderedObject;
 
 use namespace mx_internal;
 
@@ -39,7 +40,7 @@ use namespace mx_internal;
 /**
  *  @private
  */
-public class StyleManagerImpl implements IStyleManager2
+public class StyleManagerImpl implements IStyleManager3
 {
     include "../core/Version.as";
 
@@ -267,6 +268,14 @@ public class StyleManagerImpl implements IStyleManager2
 
     /**
      *  @private
+     *  A map of CSS subjects that have pseudo selectors. If a subject does
+     *  have a pseudo selector, a state change requires styles to be
+     *  recalculated.
+     */ 
+    private var _pseudoSubjects:Object;
+
+    /**
+     *  @private
      *  A map of CSS selectors -- such as "global", "Button", and ".bigRed" --
      *  to CSSStyleDeclarations.
      *  This collection is accessed via getStyleDeclaration(),
@@ -278,6 +287,15 @@ public class StyleManagerImpl implements IStyleManager2
      *  @private
      */
     private var styleModules:Object = {};
+
+    /**
+     *  @private
+     *  A map of selector "subjects" to an ordered map of selector Strings and
+     *  their associated CSSStyleDeclarations.
+     *  The subject is the right most simple type selector in a potential chain
+     *  of selectors.
+     */ 
+    private var _subjects:Object = {};
 
 	/**
 	 *  @private
@@ -352,15 +370,22 @@ public class StyleManagerImpl implements IStyleManager2
     /**
      *  @private
      */
-    private var _typeSelectorCache:Object = {};
+    private var _typeSelectorCache:Object;
 
     /**
      *  @private
      */
     public function get typeSelectorCache():Object
     {
+        if (_typeSelectorCache == null)
+            _typeSelectorCache = {};
+
         return _typeSelectorCache;
     }
+
+    /**
+     * @private
+     */ 
     public function set typeSelectorCache(value:Object):void
     {
         _typeSelectorCache = value;
@@ -385,9 +410,14 @@ public class StyleManagerImpl implements IStyleManager2
 			delete _inheritingStyles["textDecoration"];
 			delete _inheritingStyles["leading"];
 		}
-		
+
 		if (!stylesRoot)
-			stylesRoot = _selectors["global"].addStyleToProtoChain({}, null);
+		{
+			if (_selectors["global"] != null)
+			{
+			    stylesRoot = _selectors["global"].addStyleToProtoChain({}, null);
+			}
+		}
     }
     
     /**
@@ -403,8 +433,92 @@ public class StyleManagerImpl implements IStyleManager2
     	var theSelectors:Array = [];
     	for (var i:String in _selectors)
     		theSelectors.push(i);
-    		
+
     	return theSelectors;
+    }
+
+    /**
+     * @private
+     * Determines whether at least one pseudo-selector has been specified for
+     * the given subject.
+     */ 
+    public function hasPseudoSelector(subject:String):Boolean
+    {
+        return _pseudoSubjects != null && _pseudoSubjects[subject] != null;
+    }
+
+    /**
+     *  Adds this style declaration to a collection of declarations for the
+     *  associated subject.
+     *
+     *  @param styleDeclaration The style declaration to add.
+     *  @param update Set to <code>true</code> to force an immediate update of
+     *  the styles. Set to <code>false</code> to avoid an immediate update of
+     *  the styles in the application.
+     */
+    public function addStyleDeclaration(styleDeclaration:CSSStyleDeclaration,
+            update:Boolean=false):void
+    {
+
+        // We index by subject to help match advanced selectors
+        var subject:String = styleDeclaration.subject;
+        var selectorKey:String = styleDeclaration.selectorString;
+        if (subject != null)
+        {
+            var declarations:OrderedObject = _subjects[subject];
+            if (declarations == null)
+            {
+                declarations = new OrderedObject();
+                declarations[selectorKey] = styleDeclaration;
+                _subjects[subject] = declarations;
+            }
+            else
+            {
+                declarations[selectorKey] = styleDeclaration;
+            }
+        }
+
+        // Populate the legacy selectors Array for this style declaration
+        styleDeclaration.selectorRefCount++;
+        _selectors[selectorKey] = styleDeclaration;
+
+        // Also remember subjects that have pseudo-selectors to optimize
+        // styles during component state changes.
+        if (styleDeclaration.isPseudoSelector())
+        {
+            if (_pseudoSubjects == null)
+                _pseudoSubjects = {};
+
+            _pseudoSubjects[subject] = true;
+        }
+
+        // Flush cache and start over.
+        if (_typeSelectorCache)
+            _typeSelectorCache = {};
+
+        if (update)
+            styleDeclarationsChanged();
+    }
+
+    /**
+     *  Retrieve all style declarations applicable to this subject. The subject
+     *  is the right most simple type selector in a selector chain.
+     * 
+     *  @param subject The subject of the style declarations.
+     */ 
+    public function getStyleDeclarations(subject:String):Object // Map of selector String, CSSStyleDeclaration
+    {
+        // If we were passed a subject with a package name,
+        // such as "mx.controls.Button", strip off the package name
+        // leaving just "Button" and look for that subject.
+        if (subject.charAt(0) != ".")
+        {
+            var index:int = subject.lastIndexOf(".");
+            if (index != -1)
+                subject = subject.substr(index + 1);
+        }
+
+        return _subjects[subject];
     }
 
     /**
@@ -432,8 +546,7 @@ public class StyleManagerImpl implements IStyleManager2
      *
      *  @return The style declaration whose name matches the <code>selector</code> property.
      */
-    public function getStyleDeclaration(
-                                selector:String):CSSStyleDeclaration
+    public function getStyleDeclaration(selector:String):CSSStyleDeclaration
     {
         // If we were passed a type selector with a package name,
         // such as "mx.controls.Button", strip off the package name
@@ -481,15 +594,8 @@ public class StyleManagerImpl implements IStyleManager2
                                 styleDeclaration:CSSStyleDeclaration,
                                 update:Boolean):void
     {
-        styleDeclaration.selectorRefCount++;
-
-        _selectors[selector] = styleDeclaration;
-
-        // Flush cache and start over.
-        typeSelectorCache = {};
-
-        if (update)
-            styleDeclarationsChanged();
+        styleDeclaration.selectorString = selector;
+        addStyleDeclaration(styleDeclaration, update);
     }
 
     /**
@@ -522,6 +628,27 @@ public class StyleManagerImpl implements IStyleManager2
             styleDeclaration.selectorRefCount--;
 
         delete _selectors[selector];
+
+        // Clear out matching decls from our selectors by subject
+        var decls:Object;
+        if (styleDeclaration && styleDeclaration.subject)
+        {
+            decls = _subjects[styleDeclaration.subject];
+            if (decls)
+                delete decls[selector];
+        }
+        else
+        {
+            for each (decls in _subjects)
+            {
+                 styleDeclaration = decls[selector];
+                 if (styleDeclaration)
+                 { 
+                     delete decls[selector];
+                     break;
+                 }
+            }
+        }
 
         if (update)
             styleDeclarationsChanged();
