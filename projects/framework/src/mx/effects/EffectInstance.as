@@ -113,10 +113,9 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
     mx_internal var parentCompositeEffectInstance:EffectInstance;
     
     /** 
-     *  @private
      *  Number of times that the instance has been played.
      */
-    private var playCount:int = 0;
+    protected var playCount:int = 0;
     
     /**
      *  @private
@@ -298,8 +297,7 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
      */
     public function get playheadTime():Number 
     {
-        return Math.max(playCount - 1, 0) * duration + 
-               Math.max(playCount - 2, 0) * repeatDelay + 
+        return Math.max(playCount - 1, 0) * (duration + repeatDelay) +
                (playReversed ? 0 : startDelay);
     }
     
