@@ -2778,34 +2778,64 @@ public class SystemManager extends MovieClip
                 sandboxRoot.addEventListener(Event.RESIZE, Stage_resizeHandler, false, 0, true);
         }
 
-        var w:Number;
-        var h:Number;
-        if (isStageRoot && stage)
+        var app:IUIComponent;
+        // Create a new instance of the toplevel class
+        document = app = topLevelWindow = IUIComponent(create());
+
+        if (document)
         {
-            // stageWidth/stageHeight may have changed between initialize() and now,
-            // so refresh our _width and _height here. 
-            _width = stage.stageWidth;
-            _height = stage.stageHeight;
-            
-            // Detect and account for special case where our stage in some 
-            // contexts has not actually been initialized fully, as is the 
-            // case with IE if the window is fully obscured upon loading.
-            if (_width == 0 && _height == 0 && 
-                loaderInfo.width != _width && 
-                loaderInfo.height != _height)
+            // Add listener for the creationComplete event
+            IEventDispatcher(app).addEventListener(FlexEvent.CREATION_COMPLETE,
+                                                   appCreationCompleteHandler);
+
+            if (isStageRoot && stage)
             {
-                w = _width = loaderInfo.width;
-                h = _height = loaderInfo.height;
+                // stageWidth/stageHeight may have changed between initialize() and now,
+                // so refresh our _width and _height here. 
+                _width = stage.stageWidth;
+                _height = stage.stageHeight;
+                
+                // Detect and account for special case where our stage in some 
+                // contexts has not actually been initialized fully, as is the 
+                // case with IE if the window is fully obscured upon loading.
+                if (_width == 0 && _height == 0 && 
+                    loaderInfo.width != _width && 
+                    loaderInfo.height != _height)
+                {
+                    _width = loaderInfo.width;
+                    _height = loaderInfo.height;
+                }
+                
+                IFlexDisplayObject(app).setActualSize(_width, _height);
             }
+            else
+                IFlexDisplayObject(app).setActualSize(loaderInfo.width, loaderInfo.height);
+
+            // Wait for the app to finish its initialization sequence
+            // before doing an addChild(). 
+            // Otherwise, the measurement/layout code will cause the
+            // player to do a bunch of unnecessary screen repaints,
+            // which slows application startup time.
+            
+            // Pass the application instance to the preloader.
+            // Note: preloader can be null when the user chooses
+            // Control > Play in the standalone player.
+            if (preloader)
+                preloader.registerApplication(app);
+                        
+            // The Application doesn't get added to the SystemManager in the standard way.
+            // We want to recursively create the entire application subtree and process
+            // it with the LayoutManager before putting the Application on the display list.
+            // So here we what would normally happen inside an override of addChild().
+            // Leter, when we actually attach the Application instance,
+            // we call super.addChild(), which is the bare player method.
+            childManager.addingChild(DisplayObject(app));
+            childManager.childAdded(DisplayObject(app)); // calls app.createChildren()
         }
         else
         {
-            w = loaderInfo.width;
-            h = loaderInfo.height;
+            document = this;
         }
-
-        childManager.initializeTopLevelWindow(w, h);
-
     }
     
     /**
