@@ -113,7 +113,7 @@ use namespace mx_internal;
             }
         }
         
-        return encodeURI(url);
+        return url;
     }
 
     /**
