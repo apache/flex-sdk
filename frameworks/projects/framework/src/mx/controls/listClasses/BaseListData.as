@@ -12,6 +12,8 @@
 package mx.controls.listClasses
 {
 
+import flash.events.EventDispatcher;
+
 import mx.core.IUIComponent;
 import mx.core.IUID;
 
@@ -42,6 +44,11 @@ import mx.core.IUID;
  *  and read by an item renderer or item editor.
  *  Changing these values can lead to unexpected results.</p>
  *
+ *  <p>The properties are marked bindable, but these properties
+ *  do not actually do any change detection or send change events.
+ *  They are changed as a whole by setting a whole new listData
+ *  and the change event for that updates bindings.</p>
+ *
  *  @see mx.controls.listClasses.IDropInListItemRenderer
  *  
  *  @langversion 3.0
@@ -50,7 +57,7 @@ import mx.core.IUID;
  *  @productversion Flex 3
  */
 
-public class BaseListData
+public class BaseListData extends EventDispatcher
 {
 	
     include "../../core/Version.as";
@@ -104,6 +111,8 @@ public class BaseListData
     //  columnIndex
     //----------------------------------
 
+	[Bindable("dataChange")]
+
     /**
      *  The index of the column of the List-based control relative 
      *  to the currently visible columns of the control, where the first column 
@@ -137,6 +146,8 @@ public class BaseListData
     //  owner
     //----------------------------------
 
+	[Bindable("dataChange")]
+
     /**
      *  A reference to the list object that owns this item.
      *  This should be a ListBase-derived class.
@@ -154,6 +165,8 @@ public class BaseListData
     //----------------------------------
     //  rowIndex
     //----------------------------------
+	
+    [Bindable("dataChange")]
 
     /**
      *  The index of the row of the DataGrid, List, or Tree control relative 
@@ -182,6 +195,8 @@ public class BaseListData
      *  Storage for the uid property.
      */
     private var _uid:String;
+
+	[Bindable("dataChange")]
 
     /**
      *  The unique identifier for this item.
