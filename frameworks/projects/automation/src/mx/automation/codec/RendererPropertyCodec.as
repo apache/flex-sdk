@@ -11,7 +11,7 @@
 
 package mx.automation.codec
 { 
-	
+	import mx.automation.Automation;
 	import mx.automation.AutomationClass;
 	import mx.automation.AutomationIDPart;
 	import mx.automation.IAutomationClass;
@@ -133,7 +133,7 @@ package mx.automation.codec
 							"(" + ao[i].automationName + ")\n";
 					}
 					
-					trace(message);
+					Automation.automationDebugTracer.traceMessage("RenderPropertyCodec","decode",message);
 				}
 				
 				// we couldnot find the itemRenderer in the visible area
