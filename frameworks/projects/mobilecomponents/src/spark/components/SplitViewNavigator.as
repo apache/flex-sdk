@@ -65,6 +65,13 @@ use namespace mx_internal;
  *  Because its children are view navigators, the view navigator for each 
  *  pane contains its own view stack and action bar.
  *
+ *  <p>The following images shows the SplitViewNavigator container in a 
+ *  horizontal layout with a master and detail pane:</p>
+ *
+ * <p>
+ *  <img src="../../images/svn_master_detail_svn.png" alt="SplitViewNavigator" />
+ * </p>
+ *
  *  <p>SplitViewNavigator takes ViewnNavigatorBase objects as children, and lays them out as
  *  defined by its <code>layout</code> property.  
  *  This component is useful for creating a master/detail interface on a mobile device. 
