@@ -30,8 +30,8 @@ import mx.effects.EffectInstance;
 import mx.effects.Move;
 import mx.effects.Zoom;
 import mx.events.DragEvent;
-import mx.events.SandboxRootRequest;
-import mx.events.SandboxRootDragEvent;
+import mx.events.InterManagerRequest;
+import mx.events.InterDragManagerEvent;
 import mx.managers.ISystemManager;
 import mx.managers.dragClasses.DragProxy;
 import mx.managers.SystemManager;
@@ -107,7 +107,7 @@ public class DragManagerImpl implements IDragManager
 		if (!sm.isTopLevelRoot())
 		{
 			sandboxRoot = sm.getSandboxRoot();
-			sandboxRoot.addEventListener(SandboxRootDragEvent.DISPATCH_DRAG_EVENT, marshalDispatchEventHandler, false, 0, true);
+			sandboxRoot.addEventListener(InterDragManagerEvent.DISPATCH_DRAG_EVENT, marshalDispatchEventHandler, false, 0, true);
 		}
 		else
 		{
@@ -115,12 +115,12 @@ public class DragManagerImpl implements IDragManager
 			ed.addEventListener(MouseEvent.MOUSE_DOWN, sm_mouseDownHandler, false, 0, true);
 			ed.addEventListener(MouseEvent.MOUSE_UP, sm_mouseUpHandler, false, 0, true);
 			sandboxRoot = sm;
-			sandboxRoot.addEventListener(SandboxRootDragEvent.DISPATCH_DRAG_EVENT, marshalDispatchEventHandler, false, 0, true);
+			sandboxRoot.addEventListener(InterDragManagerEvent.DISPATCH_DRAG_EVENT, marshalDispatchEventHandler, false, 0, true);
 		}
 
 		// trace("creating DragManagerImpl", sm);
-		sandboxRoot.addEventListener(SandboxRootRequest.DRAG_MANAGER_REQUEST, marshalDragManagerHandler, false, 0, true);
-		var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.DRAG_MANAGER_REQUEST);
+		sandboxRoot.addEventListener(InterManagerRequest.DRAG_MANAGER_REQUEST, marshalDragManagerHandler, false, 0, true);
+		var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
 		me.name = "update";
 		// trace("--->update request for DragManagerImpl", sm);
 		sandboxRoot.dispatchEvent(me);
@@ -244,14 +244,14 @@ public class DragManagerImpl implements IDragManager
 		}    
 			
 		bDoingDrag = true;
-		var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.DRAG_MANAGER_REQUEST);
+		var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
 		me.name = "isDragging";
 		me.value = true;
 		// trace("-->dispatch isDragging for DragManagerImpl", sm, true);
 		sandboxRoot.dispatchEvent(me);
 		// trace("<--dispatch isDragging for DragManagerImpl", sm, true);
 		
-		me = new SandboxRootRequest(SandboxRootRequest.DRAG_MANAGER_REQUEST);
+		me = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
 		me.name = "mouseShield";
 		me.value = true;
 		// trace("-->dispatch add mouseShield.for DragManagerImpl", sm);
@@ -354,7 +354,7 @@ public class DragManagerImpl implements IDragManager
 			dragProxy.target = target as DisplayObject;
 		else if (isDragging)
 		{
-			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.DRAG_MANAGER_REQUEST);
+			var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
 			me.name = "acceptDragDrop";
 			me.value = target;
 			// trace("-->dispatch acceptDragDrop for DragManagerImpl", sm, target);
@@ -383,7 +383,7 @@ public class DragManagerImpl implements IDragManager
 		}
 		else if (isDragging)
 		{
-			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.DRAG_MANAGER_REQUEST);
+			var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
 			me.name = "showFeedback";
 			me.value = feedback;
 			// trace("-->dispatch showFeedback for DragManagerImpl", sm, feedback);
@@ -405,7 +405,7 @@ public class DragManagerImpl implements IDragManager
 		// trace("-->getFeedback for DragManagerImpl", sm);
 		if (!dragProxy && isDragging)
 		{
-			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.DRAG_MANAGER_REQUEST);
+			var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
 			me.name = "getFeedback";
 			// trace("-->dispatch getFeedback for DragManagerImpl", sm);
 			sandboxRoot.dispatchEvent(me);
@@ -421,7 +421,7 @@ public class DragManagerImpl implements IDragManager
 	 */
 	public function endDrag():void
 	{
-		var me:SandboxRootRequest;
+		var me:InterManagerRequest;
 
 		// trace("-->endDrag for DragManagerImpl", sm);
 		if (dragProxy)
@@ -433,13 +433,13 @@ public class DragManagerImpl implements IDragManager
 		}
 		else if (isDragging)
 		{
-			me = new SandboxRootRequest(SandboxRootRequest.DRAG_MANAGER_REQUEST);
+			me = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
 			me.name = "endDrag";
 			// trace("-->dispatch endDrag for DragManagerImpl", sm);
 			sandboxRoot.dispatchEvent(me);
 			// trace("<--dispatch endDrag for DragManagerImpl", sm);
 		}
-		me = new SandboxRootRequest(SandboxRootRequest.DRAG_MANAGER_REQUEST);
+		me = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
 		me.name = "mouseShield";
 		me.value = false;
 		// trace("-->dispatch remove mouseShield.for DragManagerImpl", sm);
@@ -447,7 +447,7 @@ public class DragManagerImpl implements IDragManager
 		
 		dragInitiator = null;
 		bDoingDrag = false;
-		me = new SandboxRootRequest(SandboxRootRequest.DRAG_MANAGER_REQUEST);
+		me = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
 		me.name = "isDragging";
 		me.value = false;
 		// trace("-->dispatch isDragging for DragManagerImpl", sm, false);
@@ -483,16 +483,16 @@ public class DragManagerImpl implements IDragManager
 	 */
 	private function marshalDispatchEventHandler(event:Event):void
 	{
-		if (event is SandboxRootDragEvent)
+		if (event is InterDragManagerEvent)
 			return;
 
 		var marshalEvent:Object = event;
 
-		var swfRoot:DisplayObject = SystemManager.getSWFRoot(marshalEvent.dragTarget);
+		var swfRoot:DisplayObject = SystemManager.getSWFRoot(marshalEvent.dropTarget);
 		if (!swfRoot)
 			return;	// doesn't belong to this appdomain
 
-		var dragEvent:DragEvent = new DragEvent(marshalEvent.eventType, marshalEvent.bubbles, marshalEvent.cancelable);
+		var dragEvent:DragEvent = new DragEvent(marshalEvent.dragEventType, marshalEvent.bubbles, marshalEvent.cancelable);
 		dragEvent.localX = marshalEvent.localX;
 		dragEvent.localY = marshalEvent.localY;
 		dragEvent.action = marshalEvent.action;
@@ -508,7 +508,7 @@ public class DragManagerImpl implements IDragManager
 			// this will call handlers right away, so deferred clipboard will be costly
 			dragEvent.dragSource.addData(marshalEvent.dragSource.dataForFormat(formats[i]), formats[i]);
 		}
-		if (!marshalEvent.dragTarget.dispatchEvent(dragEvent))
+		if (!marshalEvent.dropTarget.dispatchEvent(dragEvent))
 		{
 			event.preventDefault();
 		}
@@ -519,7 +519,7 @@ public class DragManagerImpl implements IDragManager
 	 */
 	private function marshalDragManagerHandler(event:Event):void
 	{
-		if (event is SandboxRootRequest)
+		if (event is InterManagerRequest)
 			return;
 
 		var marshalEvent:Object = event;
@@ -559,7 +559,7 @@ public class DragManagerImpl implements IDragManager
 			if (dragProxy && isDragging)
 			{
 				// trace("-->marshaled update for DragManagerImpl", sm);
-				var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.DRAG_MANAGER_REQUEST);
+				var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
 				me.name = "isDragging";
 				me.value = true;
 				// trace("-->dispatched isDragging for DragManagerImpl", sm, true);
