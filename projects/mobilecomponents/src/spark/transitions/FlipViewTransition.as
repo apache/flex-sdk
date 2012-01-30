@@ -26,6 +26,7 @@ import mx.effects.IEffect;
 import mx.effects.Parallel;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
+import mx.managers.SystemManager;
 
 import spark.components.Group;
 import spark.components.TabbedViewNavigator;
@@ -236,7 +237,7 @@ public class FlipViewTransition extends ViewTransitionBase
         // Snapshot the entire navigator.
         var oldVisibility:Boolean = endView.visible;
         endView.visible = false;
-        cachedNavigator = getSnapshot(targetNavigator);
+        cachedNavigator = getSnapshot(targetNavigator, 0);
         endView.visible = oldVisibility;
     }
             
