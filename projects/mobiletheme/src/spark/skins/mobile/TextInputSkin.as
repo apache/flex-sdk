@@ -26,7 +26,9 @@ import spark.skins.mobile320.assets.TextInput_border;
 use namespace mx_internal;
 
 /**
- *  Actionscript based skin for mobile text input. 
+ *  ActionScript-based skin for TextInput controls in mobile applications. 
+ * 
+ * @see spark.components.TextInput
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
