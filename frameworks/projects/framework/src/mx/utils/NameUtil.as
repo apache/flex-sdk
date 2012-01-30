@@ -119,7 +119,8 @@ public class NameUtil
                 if (o.parent && o.stage && o.parent == o.stage)
                     break;
     
-                var s:String = o.name;
+                // Prefer id over name if specified.
+                var s:String = "id" in o && o["id"] ? o["id"] : o.name;
                 
                 if (o is IRepeaterClient)
                 {
