@@ -535,7 +535,7 @@ public class SlideViewTransition extends ViewTransitionBase
             else
                 addComponentToContainer(transitionGroup, navigator.skin);
             
-            //startView.visible = false;
+            startView.visible = false;
         }
         else
         {
@@ -767,7 +767,7 @@ public class SlideViewTransition extends ViewTransitionBase
             {
                 startView.contentGroup.cacheAsBitmap = navigatorProps.startViewCacheAsBitmap;
                 startView.setLayoutBoundsPosition(navigatorProps.startViewX, navigatorProps.startViewY);
-                //startView.visible = true;
+                startView.visible = true;
             }
             
             if (endView)
