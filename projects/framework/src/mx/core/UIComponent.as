@@ -2305,8 +2305,10 @@ public class UIComponent extends FlexSprite
         while (o)
         {
             if (o is IUIComponent && "cursorManager" in o)
-                if (o["cursorManager"] != null)
-                    return o["cursorManager"];
+			{
+				var cm:ICursorManager = o["cursorManager"];
+                return cm;
+			}
 
             o = o.parent;
         }
