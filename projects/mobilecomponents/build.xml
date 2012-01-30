@@ -56,9 +56,6 @@
 				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
 					<include name="*.*"/>
 				</zipfileset>
-				<zipfileset dir="${basedir}/bundles/en_US" prefix="docs">
-					<include name="packages.dita"/>
-				</zipfileset>
 			</zip>
 		</sequential>
 	</macrodef>	
