@@ -26,16 +26,14 @@ import mx.core.IFontContextComponent;
 import mx.core.IInvalidating;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
-import mx.core.mx_internal;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.effects.EffectManager;
 import mx.managers.SystemManager;
 import mx.modules.ModuleManager;
-import mx.styles.IStyleClient;
-import mx.styles.StyleProxy;
 import mx.utils.NameUtil;
-import mx.utils.object_proxy;
 import mx.utils.OrderedObject;
+import mx.utils.object_proxy;
 
 use namespace mx_internal;
 use namespace object_proxy;
@@ -724,7 +722,7 @@ public class StyleProtoChain
             styleProp == "styleName" ||
             styleProp == "themeColor")
         {
-            if ("initThemeColor" in object)
+        	if (object is UIComponent)
                 object["initThemeColor"]();
         }
         
