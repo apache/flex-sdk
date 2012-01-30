@@ -28,12 +28,12 @@ import mx.events.DragEvent;
  *  It can't directly dispatch the DragEvent to a potential
  *  target in another ApplicationDomain because code
  *  in that ApplicationDomain would not type-match on DragEvent.
- *  Instead, the DragManager dispatches a SandboxRootDragEvent
+ *  Instead, the DragManager dispatches a InterDragManagerEvent
  *  that the other ApplicationDomain's DragManager is listening
  *  for and it marshals the DragEvent and dispatches it to
  *  the potential dropTarget
  */
-public class SandboxRootDragEvent extends DragEvent
+public class InterDragManagerEvent extends DragEvent
 {
 	include "../core/Version.as";
 
@@ -62,7 +62,7 @@ public class SandboxRootDragEvent extends DragEvent
 	/** 
 	 *  Constructor.
 	 */
-	public function SandboxRootDragEvent(type:String, bubbles:Boolean = false,
+	public function InterDragManagerEvent(type:String, bubbles:Boolean = false,
 										cancelable:Boolean = false,
 										localX:Number = NaN, 
 										localY:Number = NaN, 
