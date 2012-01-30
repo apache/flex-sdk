@@ -166,8 +166,13 @@ public class ActionBarSkin extends MobileSkin
         border.width = unscaledWidth;
         border.height = unscaledHeight + 5;
         
-        var left:Number = 0;
-        var right:Number = unscaledWidth;
+        var navigationGroupWidth:Number = 0;
+        
+        var titleCompX:Number = 0;
+        var titleCompWidth:Number = unscaledWidth;
+        
+        var actionGroupX:Number = 0;
+        var actionGroupWidth:Number = 0;
         
         // position groups, overlap of navigation and action groups is allowed
         // when overlap occurs, titleDisplay/titleGroup is not visible
@@ -175,59 +180,72 @@ public class ActionBarSkin extends MobileSkin
         if (navigationGroup.numElements > 0
             && navigationGroup.includeInLayout)
         {
-            left += navigationGroup.getPreferredBoundsWidth();
-            navigationGroup.setLayoutBoundsSize(left, unscaledHeight);
+            navigationGroupWidth = navigationGroup.getPreferredBoundsWidth();
+            titleCompX += navigationGroupWidth;
+            navigationGroup.setLayoutBoundsSize(titleCompX, unscaledHeight);
             navigationGroup.setLayoutBoundsPosition(0, 1); // top border
         }
         
         if (actionGroup.numElements > 0 && actionGroup.includeInLayout)
         {
-            var actionGroupWidth:Number =
-                actionGroup.getPreferredBoundsWidth();
-            right -= actionGroupWidth;
+            actionGroupWidth = actionGroup.getPreferredBoundsWidth();
+            actionGroupX = unscaledWidth - actionGroupWidth;
             actionGroup.setLayoutBoundsSize(actionGroupWidth, unscaledHeight);
             
             // actionGroup x position can be negative
-            actionGroup.setLayoutBoundsPosition(right, 1); // top border
+            actionGroup.setLayoutBoundsPosition(actionGroupX, 1); // top border
         }
         
-        var titleCompWidth:Number = right - left;
-        if (titleCompWidth < 0)
-            titleCompWidth = 0;
-        
-        if (titleGroup.numElements > 0 && titleGroup.includeInLayout)
+        titleCompWidth = titleCompWidth - titleCompX - actionGroupWidth;
+        if (titleCompWidth <= 0)
+        {
+            titleDisplay.visible = false;
+            titleGroup.visible = false;
+        }
+        else if (titleGroup.numElements > 0 && titleGroup.includeInLayout)
         {
             titleGroup.setLayoutBoundsSize(titleCompWidth, unscaledHeight);
-            titleGroup.setLayoutBoundsPosition(left, 1);
+            titleGroup.setLayoutBoundsPosition(titleCompX, 1);
             
             titleDisplay.visible = false;
             titleGroup.visible = true;
         }
         else
         {
-            var titleX:Number = left + TITLE_PADDING;
-            var titleY:Number = 0;
+            // FIXME (jasonsj): pending mobile styling spec
+            // paddingLeft
+            titleCompX = titleCompX + TITLE_PADDING;
             
             // FIXME (jasonsj): pending mobile styling spec
-            // paddingLeft, paddingRight
+            // paddingRight
             titleCompWidth -= TITLE_PADDING * 2;
             
-            if (FlexGlobals.topLevelApplication.getStyle("titleAlign") == "center")
+            if (hostComponent.getStyle("titleAlign") == "center")
             {
                 // horizontalAlign=center
                 titleCompWidth = titleDisplay.getExplicitOrMeasuredWidth();
-                titleX = Math.floor((unscaledWidth / 2) - (titleCompWidth / 2));
+                titleCompX = Math.floor((unscaledWidth / 2) - (titleCompWidth / 2));
             }
-            
-            // verticalAlign=center
-            var titleHeight:Number = titleDisplay.getExplicitOrMeasuredHeight();
-            titleY = Math.floor((unscaledHeight / 2) - (titleHeight / 2));
-            
-            titleDisplay.setLayoutBoundsSize(titleCompWidth, titleHeight);
-            titleDisplay.setLayoutBoundsPosition(titleX, titleY + 1); // +1 FXG border
-            
-            titleDisplay.visible = true;
-            titleGroup.visible = false;
+                
+            // hide titleDisplay if there is any overlap after padding
+            if ((titleCompX < navigationGroup.getLayoutBoundsWidth())
+                || ((titleCompX + titleCompWidth) > actionGroupX))
+            {
+                titleDisplay.visible = false;
+                titleGroup.visible = false;
+            }
+            else
+            {
+                // verticalAlign=center
+                var titleHeight:Number = titleDisplay.getExplicitOrMeasuredHeight();
+                var titleCompY:Number = Math.floor((unscaledHeight / 2) - (titleHeight / 2));
+                
+                titleDisplay.setLayoutBoundsSize(titleCompWidth, titleHeight);
+                titleDisplay.setLayoutBoundsPosition(titleCompX, titleCompY + 1); // +1 FXG border
+                
+                titleDisplay.visible = true;
+                titleGroup.visible = false;
+            }
         }
         
         // Draw background
