@@ -1188,6 +1188,28 @@ public class ViewNavigator extends ViewNavigatorBase
         invalidateProperties();
     }
     
+    /**
+     *  Pops to the previous view of the navigator in response to the back
+     *  key.  ViewNavigator only allows this method to be called once during
+     *  a navigation event.  All subsequent calls to this method will be ignored
+     *  until the current view transition is complete.
+     * 
+     *  <p>ViewNavigatorApplication automatically calls this method when the back
+     *  key is pressed.</p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3.1
+     *  @productversion Flex 4.6
+     */
+    override public function backKeyUpHandler():void
+    {
+        if (!backKeyWasPressed && activeView && !activeView.backKeyHandledByView())
+        {
+            popView();
+            backKeyWasPressed = true;
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     // Protected Methods
@@ -2277,27 +2299,6 @@ public class ViewNavigator extends ViewNavigatorBase
 
         activeTransition = null;
         navigatorActionCommitted();
-    }
-    
-    /**
-     *  @private
-     *  
-     *  This method is called when the backKey is pressed on a mobile device.
-     *  ViewNavigator only allows one back operation to occur during a single
-     *  validation pass.  When one is received, the navigator will ignore all
-     *  backKey events until the pop navigation operation is completed.
-     * 
-     *  @langversion 3.0
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    override mx_internal function backKeyUpHandler():void
-    {
-        if (!backKeyWasPressed && activeView && !activeView.backKeyHandledByView())
-        {
-            popView();
-            backKeyWasPressed = true;
-        }
     }
     
     /**
