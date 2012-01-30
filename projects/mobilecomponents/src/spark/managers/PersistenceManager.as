@@ -28,12 +28,12 @@ package spark.core.managers
         {
             try
             {
-                so = SharedObject.getLocal("__FXAppCache");
+                so = SharedObject.getLocal("FXAppCache");
                 initialized = true;
             }
             catch (e:Error)
             {
-                trace(e.message);
+                // TODO (chiedozi): Should save errors to log
                 enabled = false;
             }
         }
