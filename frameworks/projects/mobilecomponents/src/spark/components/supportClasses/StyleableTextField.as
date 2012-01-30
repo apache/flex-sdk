@@ -158,6 +158,9 @@ public class StyleableTextField extends TextField
     
     public function get measuredTextSize():Point
     {
+		// commit style to get an accurate measurement
+		commitStyles();
+		
         if (!_measuredTextSize)
         {
             _measuredTextSize = new Point();
@@ -752,6 +755,9 @@ public class StyleableTextField extends TextField
             }
             
             invalidateStyleFlag = false;
+			
+			// now that we've pushed the new styles in, our size might have 
+			// changed
             invalidateTextSizeFlag = true;
         }
     }
@@ -821,6 +827,9 @@ public class StyleableTextField extends TextField
             || styleProp == colorName)
         {
             invalidateStyleFlag = true;
+			
+			// invalidateSizeFlag doesn't get set until commitStyles() when 
+			// the new styles are actually pushed in and the textWidth/textHeight changes
         }
     }
     
