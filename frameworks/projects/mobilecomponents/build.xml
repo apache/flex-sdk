@@ -167,7 +167,7 @@
 			Write a bundle list of referenced resource bundles
 			into the file bundles.properties in this directory.
 		-->
-		<compc fork="true"
+		<compc fork="true" include-classes="MobileComponentsClasses spark.transitions.FlipViewTransitionMode spark.transitions.ZoomViewTransitionMode"
 			   output="${FLEX_HOME}/frameworks/libs/mobile/mobilecomponents.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
             <!-- If you change this, update ${local.playerglobal.version} above. -->
@@ -175,7 +175,6 @@
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
-			<include-classes>MobileComponentsClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
