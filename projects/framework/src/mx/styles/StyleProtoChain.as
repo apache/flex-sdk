@@ -84,7 +84,8 @@ public class StyleProtoChain
         var className:String = object.className;
         var advancedObject:IAdvancedStyleClient = object as IAdvancedStyleClient;
 
-        var typeHierarchy:OrderedObject = getTypeHierarchy(object, false);
+        var qualified:Boolean = FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0 ? false : true;
+        var typeHierarchy:OrderedObject = getTypeHierarchy(object, qualified);
         var types:Array = typeHierarchy.propertyList;
         var typeCount:int = types.length;
         var classDecls:Array = null;
@@ -750,7 +751,8 @@ public class StyleProtoChain
      */
     public static function isTypeSelectorMatch(object:IAdvancedStyleClient, type:String):Boolean
     {
-        var typeHierarchy:OrderedObject = getTypeHierarchy(object, false);
+        var qualified:Boolean = FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0 ? false : true;
+        var typeHierarchy:OrderedObject = getTypeHierarchy(object, qualified);
         return typeHierarchy[type] != null;
     }
 
