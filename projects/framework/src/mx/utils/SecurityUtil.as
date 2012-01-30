@@ -14,13 +14,12 @@ package mx.utils
 
 import flash.events.IEventDispatcher;
 
-import mx.sandbox.ISandboxBridgeGroup;
-import mx.managers.ISystemManager;
+import mx.core.ISWFBridgeProvider;
 
 /**
- *  Utilities for working with sandboxes.
+ *  Utilities for working with security issues.
  */
-public class SandboxUtil
+public class SecurityUtil
 {
 	include "../core/Version.as";
 
@@ -33,37 +32,11 @@ public class SandboxUtil
 	/**
 	 *  Tests if there is mutual trust between a SystemManager and its parent.
 	 */ 
-	public static function hasMutualTrustWithParent(sm:ISystemManager):Boolean
+	public static function hasMutualTrustBetweenParentAndChild(bp:ISWFBridgeProvider):Boolean
 	{
-		var sandboxBridgeGroup:ISandboxBridgeGroup = sm.sandboxBridgeGroup;
-		
-		if (sandboxBridgeGroup.parentBridge &&
-			sandboxBridgeGroup.canAccessParentBridge() &&
-		    sandboxBridgeGroup.accessibleFromParentBridge())
-        {
-			return true;
-        }
-
-		return false;
-	}
-
-
-	/**
-	 *  Tests if there is mutual trust between a SystemManager
-     *  and one of its bridged applications.
-	 */ 
-	public static function hasMutualTrustWithChild(
-                                sm:ISystemManager,
-                                bridge:IEventDispatcher):Boolean
-	{
-		var sandboxBridgeGroup:ISandboxBridgeGroup = sm.sandboxBridgeGroup;
-		
-		if (sandboxBridgeGroup.canAccessChildBridge(bridge) &&
-		    sandboxBridgeGroup.accessibleFromChildBridge(bridge))
-        {
-			return true;
-        }
-
+        if (bp && bp.childAllowsParent && bp.parentAllowsChild)
+            return true;
+            
 		return false;
 	}
 }
