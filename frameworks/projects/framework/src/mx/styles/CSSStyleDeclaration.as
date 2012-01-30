@@ -105,7 +105,7 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  @private
      */
     private static const FILTERMAP_PROP:String = "__reserved__filterMap";
-    
+        
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -185,7 +185,14 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  StyleManager.setStyleDeclaration().
      */
     mx_internal var selectorRefCount:int = 0;
-
+    
+    /**
+     *  The order this CSSStyleDeclaration was added to its StyleManager.  
+     *  MatchStyleDeclarations has to return the declarations in the order 
+     *  they were declared
+     */ 
+    public var selectorIndex:int = 0;
+    
     /**
      *  @private
      *  Array that specifies the names of the events declared
@@ -405,7 +412,7 @@ public class CSSStyleDeclaration extends EventDispatcher
     {
         return _selector ? _selector.specificity : 0; 
     }
-
+    
     //----------------------------------
     //  subject
     //----------------------------------
