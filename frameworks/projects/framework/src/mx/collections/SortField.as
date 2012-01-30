@@ -26,6 +26,9 @@ import mx.utils.ObjectUtil;
 /**
  *  Provides the sorting information required to establish a sort on a field
  *  or property in a collection view.
+ *
+ *  The SortField class is meant to be used with the Sort class.
+ *
  *  Typically the sort is defined for collections of complex items, that is
  *  items in which the sort is performed on properties of those objects.
  *  As in the following example:
