@@ -145,6 +145,21 @@ public class MobileApplication extends MobileApplicationBase
             navigatorProperties.navigationStack = value;
     }
     
+    //----------------------------------
+    //  activeView
+    //----------------------------------
+    
+    /**
+     *  @private
+     */ 
+    override mx_internal function get activeView():View
+    {
+        if (navigator)
+            return navigator.activeView;
+        
+        return null;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
