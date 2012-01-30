@@ -24,6 +24,7 @@ import flash.ui.Keyboard;
 
 import mx.core.DPIClassification;
 import mx.core.EventPriority;
+import mx.core.FlexGlobals;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
@@ -51,6 +52,27 @@ use namespace mx_internal;
  */
 public class TextAreaSkin extends TextSkinBase 
 {
+    /**
+     *  @private
+     *  Right-margin of iOS native text control when editing on a retina display
+     *  based on fontSize 32.
+     */
+    mx_internal static var IOS_RIGHT_MARGIN_320:Number = 19;
+    
+    /**
+     *  @private
+     *  Right-margin of iOS native text control when editing on a retina display
+     *  based on fontSize 16 scaling from applicationDPI 160.
+     */
+    mx_internal static var IOS_RIGHT_MARGIN_160_SCALED_TO_320:Number = 9.4;
+    
+    /**
+     *  @private
+     *  Right-margin of iOS native text control when editing on a standard display
+     *  based on fontSize 16 and runtimeDPI 160.
+     */
+    mx_internal static var IOS_RIGHT_MARGIN_160:Number = 20.6;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -191,10 +213,25 @@ public class TextAreaSkin extends TextSkinBase
             {
                 // hard-coded rightMargin for iOS native text control
                 // this value is independent of the paddingRight style
-                var rightMargin:Number = 19;
-                    
-                if (applicationDPI == DPIClassification.DPI_160)
-                    rightMargin = 9.5;
+                var rightMargin:Number = 0;
+                var isRetina:Boolean = false;
+                var isScaling160to320:Boolean = false;
+                
+                // check for scaling
+                if ("runtimeDPI" in FlexGlobals.topLevelApplication)
+                {
+                    var runtimeDPI:Number = FlexGlobals.topLevelApplication.runtimeDPI as Number;
+                    isRetina = (runtimeDPI == DPIClassification.DPI_320);
+                    isScaling160to320 = isRetina
+                        && (applicationDPI == DPIClassification.DPI_160);
+                }
+                
+                if (isRetina && !isScaling160to320)
+                    rightMargin = IOS_RIGHT_MARGIN_320;
+                else if (isRetina && isScaling160to320)
+                    rightMargin = IOS_RIGHT_MARGIN_160_SCALED_TO_320;
+                else
+                    rightMargin = IOS_RIGHT_MARGIN_160;
                 
                 textDisplay.rightMargin = rightMargin;
             }
