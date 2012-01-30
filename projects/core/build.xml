@@ -76,24 +76,17 @@
 		</compc>
 	</target>
 
-    <condition property="asdocexe" value="asdoc.exe">
-        <os family="windows"/>
-    </condition>
-
-    <condition property="asdocexe" value="asdoc">
-        <os family="unix"/>
-    </condition>
-
-    <condition property="asdocexe" value="asdoc">
-        <os family="mac"/>
-    </condition>
-
 	<target name="doc" depends="clean-temp-docs" description="updates flex.swc with asdoc xml">
+		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 
 		<!-- Call asdoc to generate dita xml files -->
-		<exec executable="${FLEX_HOME}/bin/${asdocexe}" failonerror="true">
-			<arg line="-doc-classes FlexClasses -lenient=true -sp ${basedir}/src -sp ${FLEX_HOME}/frameworks/projects/framework/src -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
-		</exec>
+		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" >
+		    <compiler.source-path path-element="${basedir}/src"/>
+		    <compiler.source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
+		    <doc-classes class="FlexClasses"/>
+		</asdoc>
 
 		<!-- updates flex.swc with asdoc xml -->
 		<zip destfile="${FLEX_HOME}/frameworks/libs/flex.swc" update="true">
