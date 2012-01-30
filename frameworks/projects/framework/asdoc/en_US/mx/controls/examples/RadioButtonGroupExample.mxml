@@ -1,44 +1,50 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate RadioButtonGroup control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate Halo RadioButtonGroup control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
-	    <![CDATA[
-	
-	    import mx.controls.Alert;
-	    import  mx.events.ItemClickEvent;
-	
-        // Event handler function to display the selected button
-        // in an Alert control.
-		private function handleCard(event:ItemClickEvent):void {
-			if (event.currentTarget.selectedValue == "AmEx") {
-					Alert.show("You selected American Express") 
-			} 
-			else {
-				if (event.currentTarget.selectedValue == "MC") {
-					Alert.show("You selected MasterCard") 
-				} 
-				else {
-					Alert.show("You selected Visa") 
-				}
-			} 
-		}
-	    ]]>
-    </mx:Script>
+    <fx:Script>
+        <![CDATA[
+            import mx.controls.Alert;
+            import  mx.events.ItemClickEvent;
+        
+            // Event handler function to display the selected button
+            // in a Halo Alert control.
+            private function handleCard(evt:ItemClickEvent):void {
+                switch (evt.currentTarget.selectedValue) {
+                    case "AmEx":
+                        Alert.show("You selected American Express");
+                        break;
+                    case "MC":
+                        Alert.show("You selected MasterCard");
+                        break;
+                    case "Visa":
+                        Alert.show("You selected Visa");
+                        break;
+                }
+            }
+        ]]>
+    </fx:Script>
 
-    <mx:Panel title="RadioButtonGroup Control Example" height="75%" width="75%" 
-        paddingTop="10" paddingLeft="10">
-    
-        <mx:Label width="100%" color="blue" 
-            text="Select a type of credit card."/>
-
+    <fx:Declarations>
         <mx:RadioButtonGroup id="cardtype" itemClick="handleCard(event);"/>
-        <mx:RadioButton groupName="cardtype" id="americanExpress" value="AmEx" 
-            label="American Express" width="150" />
-        <mx:RadioButton groupName="cardtype" id="masterCard" value="MC" 
-            label="MasterCard" width="150" />
-        <mx:RadioButton groupName="cardtype" id="visa" value="Visa" 
-            label="Visa" width="150" />
-		
-    </mx:Panel>		
-</mx:Application>
+    </fx:Declarations>
+
+    <s:Panel title="Halo RadioButtonGroup Control Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%" color="blue" 
+                    text="Select a type of credit card."/>
+
+            <mx:RadioButton groupName="cardtype" id="americanExpress" value="AmEx" 
+                    label="American Express" width="150" />
+            <mx:RadioButton groupName="cardtype" id="masterCard" value="MC" 
+                    label="MasterCard" width="150" />
+            <mx:RadioButton groupName="cardtype" id="visa" value="Visa" 
+                    label="Visa" width="150" />
+        </s:VGroup>
+    </s:Panel>
+
+</s:Application>
