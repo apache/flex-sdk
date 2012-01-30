@@ -618,6 +618,9 @@ public dynamic class UIMovieClip extends MovieClip
         // Add a creationComplete handler so we can attach an event handler
         // to the stage
         addEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
+        
+        if (currentLabel && currentLabel.indexOf(":") < 0 && currentLabel != _currentState)
+            _currentState = currentLabel;
     }
     
     //--------------------------------------------------------------------------
@@ -2192,10 +2195,6 @@ public dynamic class UIMovieClip extends MovieClip
         if (value == scaleX)
             return;
         
-        // need to keep the "real scale" in synch here; otherwise, we 
-        // won't know what to do in applyComputedMatrix()
-        mx_internal::$scaleX = value*mx_internal::scaleXDueToSizing;
-        
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         var prevValue:Number = _layoutFeatures.layoutScaleX;
         if (prevValue == value)
@@ -2297,10 +2296,6 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if (value == scaleY)
             return;
-        
-        // need to keep the "real scale" in synch here; otherwise, we 
-        // won't know what to do in applyComputedMatrix()
-        mx_internal::$scaleY = value*mx_internal::scaleYDueToSizing;
         
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         var prevValue:Number = _layoutFeatures.layoutScaleY;
@@ -3272,8 +3267,8 @@ public dynamic class UIMovieClip extends MovieClip
         // Afterwards, we'll reset it to the "user-set" scale.
         var oldScaleX:Number = _layoutFeatures.layoutScaleX;
         var oldScaleY:Number = _layoutFeatures.layoutScaleY;
-        _layoutFeatures.layoutScaleX = mx_internal::$scaleX;
-        _layoutFeatures.layoutScaleY = mx_internal::$scaleY;
+        _layoutFeatures.layoutScaleX = _layoutFeatures.layoutScaleX * mx_internal::scaleXDueToSizing;
+        _layoutFeatures.layoutScaleY = _layoutFeatures.layoutScaleY * mx_internal::scaleYDueToSizing;
         
         if(_layoutFeatures.is3D)
         {
