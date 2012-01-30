@@ -32,13 +32,13 @@ import mx.managers.ISystemManager;
 public class MovieClipSWFLoader extends SWFLoader
 {
     include "../core/Version.as";
-
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  Constructor 
      * 
@@ -50,8 +50,6 @@ public class MovieClipSWFLoader extends SWFLoader
     public function MovieClipSWFLoader()
     {
         super();
-        
-        addEventListener(Event.COMPLETE, handleComplete);
     }
     
     //--------------------------------------------------------------------------
@@ -92,7 +90,7 @@ public class MovieClipSWFLoader extends SWFLoader
         
         if (content is MovieClipLoaderAsset)
         {
-            // Get child MovieClip from Loader
+            // Obtain child MovieClip 
             if (DisplayObjectContainer(content).numChildren > 0)
                 content = 
                     Loader(DisplayObjectContainer(content).getChildAt(0)).content;
@@ -271,26 +269,56 @@ public class MovieClipSWFLoader extends SWFLoader
             movieClip.prevScene();
     }
     
-    //-----------------------------------
-    //  internal functions
-    //-----------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
     
-
     /**
+     *  @private 
      *  On completion of SWF loading, explicitly stop the SWF
      *  (i.e. prevent auto-play) if autoStop is true.
-     * 
-     *  @private
-     *  
-     *  @param event
-     * 
-     */        
-    private function handleComplete(event:Event):void
+     */            
+    override protected function contentLoaded():void
     {
+        super.contentLoaded();
         if (autoStop)
             stop();
+        
+        // Special case for embeds where our embed class loader
+        // may not be complete just yet.
+        if (content is MovieClipLoaderAsset)
+        {
+            if (DisplayObjectContainer(content).numChildren > 0)
+            {
+                var childContent:DisplayObject = DisplayObjectContainer(content).getChildAt(0);
+                if (childContent is Loader && Loader(childContent).content == null)
+                    content.addEventListener(Event.ADDED, content_addedHandler, false, 0, true);
+            }
+        }
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     *  Helper method used to auto-stop embedded SWF content that may not
+     *  have been fully loaded at the time contentLoaded() was invoked.
+     */
+    private function content_addedHandler(event:Event):void
+    {
+        if (event.target == content)
+            return;  
+        
+        if (autoStop)
+            stop();
+        
+        content.removeEventListener(Event.ADDED, content_addedHandler);
+    }
 }
 }
