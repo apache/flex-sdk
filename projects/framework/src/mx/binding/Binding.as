@@ -53,7 +53,8 @@ public class Binding
      *  @productversion Flex 3
      */
     public function Binding(document:Object, srcFunc:Function,
-						    destFunc:Function, destString:String)
+						    destFunc:Function, destString:String,
+							srcString:String = null)
     {
 		super();
 
@@ -61,6 +62,12 @@ public class Binding
         this.srcFunc = srcFunc;
         this.destFunc = destFunc;
         this.destString = destString;
+        this.srcString = srcString;
+
+        if (this.srcFunc == null)
+        {
+            this.srcFunc = defaultSrcFunc;
+        }
 
         if (this.destFunc == null)
         {
@@ -212,6 +219,16 @@ public class Binding
     mx_internal var destString:String;
 
 	/**
+     *  The source represented as a String.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    mx_internal var srcString:String;
+
+	/**
 	 * 	@private
 	 *  Used to suppress calls to destFunc when incoming value is either
 	 *	a) an XML node identical to the previously assigned XML node, or
@@ -243,6 +260,11 @@ public class Binding
         }
 
         element[chain[i]] = value;
+    }
+
+    private function defaultSrcFunc():Object
+    {
+        return document[srcString];
     }
 
     /**
