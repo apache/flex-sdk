@@ -76,6 +76,7 @@ import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.ColorUtil;
 import mx.utils.GraphicsUtil;
+import mx.utils.ObjectUtil;
 import mx.utils.StringUtil;
 import mx.validators.IValidatorListener;
 import mx.validators.ValidationResult;
@@ -2894,7 +2895,7 @@ public class UIComponent extends FlexSprite
      *  @private
      *  Storage for the inheritingStyles property.
      */
-    private var _inheritingStyles:Object = StyleManager.STYLE_UNINITIALIZED;
+    private var _inheritingStyles:Object = StyleProtoChain.STYLE_UNINITIALIZED;
     
     [Inspectable(environment="none")]
 
@@ -2927,7 +2928,8 @@ public class UIComponent extends FlexSprite
      *  @private
      *  Storage for the nonInheritingStyles property.
      */
-    private var _nonInheritingStyles:Object = StyleManager.STYLE_UNINITIALIZED;
+    private var _nonInheritingStyles:Object =
+                        StyleProtoChain.STYLE_UNINITIALIZED;
 
     [Inspectable(environment="none")]
 
@@ -4414,14 +4416,7 @@ public class UIComponent extends FlexSprite
      */
     public function get className():String
     {
-        var name:String = getQualifiedClassName(this);
-        
-        // If there is a package name, strip it off.
-        var index:int = name.indexOf("::");
-        if (index != -1)
-            name = name.substr(index + 2);
-                
-        return name;
+        return ObjectUtil.getUnqualifiedClassName(this);
     }
     
     //----------------------------------
@@ -4516,7 +4511,7 @@ public class UIComponent extends FlexSprite
         // initialized and we haven't yet generated the proto chain.
         // To avoid redundant work, don't bother to create
         // the proto chain here.
-        if (inheritingStyles == StyleManager.STYLE_UNINITIALIZED)
+        if (inheritingStyles == StyleProtoChain.STYLE_UNINITIALIZED)
             return;
 
         regenerateStyleCache(true);
@@ -7480,7 +7475,7 @@ public class UIComponent extends FlexSprite
         if (p)
         {
             var inheritChain:Object = p.inheritingStyles;
-            if (inheritChain == StyleManager.STYLE_UNINITIALIZED)
+            if (inheritChain == StyleProtoChain.STYLE_UNINITIALIZED)
                 inheritChain = nonInheritChain;
         }
         else
@@ -7699,7 +7694,7 @@ public class UIComponent extends FlexSprite
                 // Does this object already have a proto chain? 
                 // If not, there's no need to regenerate a new one.
                 if (IStyleClient(child).inheritingStyles !=
-                    StyleManager.STYLE_UNINITIALIZED)
+                    StyleProtoChain.STYLE_UNINITIALIZED)
                 {
                     IStyleClient(child).regenerateStyleCache(recursive);
                 }
@@ -7793,7 +7788,7 @@ public class UIComponent extends FlexSprite
         var isInheritingStyle:Boolean =
             StyleManager.isInheritingStyle(styleProp);
         var isProtoChainInitialized:Boolean =
-            inheritingStyles != StyleManager.STYLE_UNINITIALIZED;
+            inheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED;
         var valueChanged:Boolean = getStyle(styleProp) != newValue;
         
         if (!_styleDeclaration)
