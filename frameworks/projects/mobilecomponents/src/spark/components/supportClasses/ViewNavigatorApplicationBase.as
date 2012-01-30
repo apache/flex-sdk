@@ -641,13 +641,10 @@ public class MobileApplicationBase extends Application
             currentViewMenu.addEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
             currentViewMenu.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
             currentViewMenu.addEventListener(PopUpCloseEvent.CLOSE, viewMenuClose_handler);
+            currentViewMenu.addEventListener(FlexEvent.OPEN, viewMenuOpen_handler);
         }
         
         currentViewMenu.open(this, false /*modal*/);
-
-        // Private event for testing
-        if (activeView.hasEventListener("viewMenuOpen"))
-            activeView.dispatchEvent(new Event("viewMenuOpen"));
     }
 
     /**
@@ -658,12 +655,23 @@ public class MobileApplicationBase extends Application
         if (currentViewMenu)
             currentViewMenu.close();
     }
+    
+    /**
+     *  @private
+     */ 
+    private function viewMenuOpen_handler(event:FlexEvent):void
+    {
+        // Private event for testing
+        if (activeView.hasEventListener("viewMenuOpen"))
+            activeView.dispatchEvent(new Event("viewMenuOpen"));
+    }
 
     /**
      *  @private
      */ 
     private function viewMenuClose_handler(event:PopUpCloseEvent):void
     {
+        currentViewMenu.removeEventListener(FlexEvent.OPEN, viewMenuOpen_handler);
         currentViewMenu.removeEventListener(PopUpCloseEvent.CLOSE, viewMenuClose_handler);
         currentViewMenu.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
         currentViewMenu.removeEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
