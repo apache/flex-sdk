@@ -137,8 +137,36 @@ public class CompositeEffect extends Effect
     /**
      *  An Array containing the child effects of this CompositeEffect.
      */
-    public var children:Array = [];
+    private var _children:Array = [];
     
+    public function get children():Array
+    {
+        return _children;
+    }
+    public function set children(value:Array):void
+    {
+        var i:int;
+        if (_children)
+            // Remove this effect as the parent of the old child effects
+            for (i = 0; i < _children.length; ++i)
+                Effect(_children[i]).mx_internal::parentCompositeEffect = null;
+        _children = value;
+        if (_children)
+            for (i = 0; i < _children.length; ++i)
+                Effect(_children[i]).mx_internal::parentCompositeEffect = this;
+    }
+    
+    /**
+     * Returns the duration of this effect as defined by the duration of
+     * all child effects. This takes into account the startDelay and repetition
+     * info for all child effects, along with their durations, and returns the
+     * appropriate result.
+     */
+    public function get compositeDuration():Number
+    {
+        return duration;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -384,6 +412,9 @@ public class CompositeEffect extends Effect
     //
     //--------------------------------------------------------------------------
     
+    // TODO (chaase): Shouldn't there be a removeChild() method 
+    // since there's an addChild() method?
+    
     /**
      *  Adds a new child effect to this composite effect.
      *  A Sequence effect plays each child effect one at a time,
@@ -401,6 +432,7 @@ public class CompositeEffect extends Effect
         // Null out the list of affected properties,
         // so that it gets recalculated to include the new child.
         _affectedProperties = null;
+        Effect(childEffect).mx_internal::parentCompositeEffect = this;
     }
     
     /**
