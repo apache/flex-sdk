@@ -1,4 +1,16 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2010 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
 
+// TODO (chiedozi): TabbedViewNavigator should override setActive and activate
+// the correct ViewNavigator.
 package spark.components
 {
 import flash.display.Stage;
