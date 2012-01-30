@@ -491,6 +491,10 @@ public class TreeAccImpl extends AccImpl
 	 */
 	override protected function eventHandler(event:Event):void
 	{
+		// Let AccImpl class handle the events
+		// that all accessible UIComponents understand.
+		$eventHandler(event);
+
 		var index:int = Tree(master).selectedIndex;
 		
 		var childID:uint = index + 1;
