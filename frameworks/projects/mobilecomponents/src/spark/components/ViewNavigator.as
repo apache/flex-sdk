@@ -388,9 +388,27 @@ public class ViewNavigator extends ViewNavigatorBase
         if (value == isActive)
             return;
         
+        if (clearNavigationStack)
+            navigationStack.popToFirstView();
+        
         if (value)
         {
             createTopView();
+            
+            // If the view is already initialized, that means it was cached.  We can complete the
+            // activation process if the view hasn't been invalidated in any way.
+            if (activeView.initialized && 
+                !activeView.invalidatePropertiesFlag && 
+                !activeView.invalidateSizeFlag && 
+                !activeView.invalidateDisplayListFlag)
+            {
+                completeViewCommitProcess();
+            }
+            else
+            {
+                // Wait until the view validates before activating it
+                activeView.addEventListener(FlexEvent.UPDATE_COMPLETE, completeViewCommitProcess);
+            }
             
             // Need to force a validation on the actionBar
             invalidateActionBarProperties();
@@ -1771,16 +1789,18 @@ public class ViewNavigator extends ViewNavigatorBase
             addEventListener(Event.ENTER_FRAME, completeViewCommitProcess);
         }
     }
-    
+
+    UPDATE COMEMENT
     /**
      *  @private
      *  Activates the current view.  Called on the frame following the
      *  navigator commit so that the player can render before the activate events
      *  are dispatched.
      */ 
-    private function completeViewCommitProcess(event:Event):void
+    private function completeViewCommitProcess(event:Event = null):void
     {
-        removeEventListener(Event.ENTER_FRAME, completeViewCommitProcess);
+        if (event)
+            removeEventListener(Event.ENTER_FRAME, completeViewCommitProcess);
         
         // At this point, currentViewDescriptor points to the new view.
         // The navigator needs to listen for property change events on the
@@ -1895,10 +1915,7 @@ public class ViewNavigator extends ViewNavigatorBase
         // Create the view if needed
         var view:View = currentViewDescriptor.instance;
         if (!view)
-        {
             view = createViewInstance(currentViewDescriptor);
-            view.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
-        }
         
         // Cancel any view change requests that occurred prior to this call
         // since the top most view was just created.
