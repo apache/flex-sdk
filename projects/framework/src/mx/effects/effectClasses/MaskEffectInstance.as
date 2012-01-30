@@ -283,10 +283,10 @@ public class MaskEffectInstance extends EffectInstance
 		var value:Number;
 		
 		if (moveTween)
-			value = moveTween.mx_internal::playheadTime;
+			value = moveTween.playheadTime;
 		
 		else if (scaleTween)
-			value = scaleTween.mx_internal::playheadTime;
+			value = scaleTween.playheadTime;
 		
 		else
 			return 0;
@@ -564,9 +564,9 @@ public class MaskEffectInstance extends EffectInstance
 		// This allows the MaskEffect subclass to set the effect properties.
 		initMaskEffect();
 		
-		EffectManager.mx_internal::startVectorEffect(IUIComponent(target));
+		EffectManager.startVectorEffect(IUIComponent(target));
 				
-		//EffectManager.mx_internal::startBitmapEffect(target);
+		//EffectManager.startBitmapEffect(target);
 
 		// Move Tween
 		
@@ -619,14 +619,14 @@ public class MaskEffectInstance extends EffectInstance
 		{
 			// Set the animation to the initial value
 			// before the screen refreshes.
-			onMoveTweenUpdate(moveTween.mx_internal::getCurrentValue(0));
+			onMoveTweenUpdate(moveTween.getCurrentValue(0));
 		}
 		
 		if (scaleTween)
 		{
 			// Set the animation to the initial value
 			// before the screen refreshes.
-			onScaleTweenUpdate(scaleTween.mx_internal::getCurrentValue(0));
+			onScaleTweenUpdate(scaleTween.getCurrentValue(0));
 		}
 	}
 	
@@ -1014,7 +1014,7 @@ public class MaskEffectInstance extends EffectInstance
 	{
 		if (tweenCount == 0 || --tweenCount == 0)
 		{
-			EffectManager.mx_internal::endVectorEffect(IUIComponent(target));
+			EffectManager.endVectorEffect(IUIComponent(target));
 			
 			var values:Array = [];
 			var value:Object;
@@ -1153,15 +1153,15 @@ public class MaskEffectInstance extends EffectInstance
 			{
 				// Remember the amount of the effect that has already been
 				// played.
-				var elapsed:Number = getTimer() - tween.mx_internal::startTime;
+				var elapsed:Number = getTimer() - tween.startTime;
 	
 				// Destroy the old tween object. Set its listener to a dummy 
 				// object, so that the onTweenEnd function is not called.
 				if (moveTween)
-					Tween.mx_internal::removeTween(moveTween);
+					Tween.removeTween(moveTween);
 				
 				if (scaleTween)
-					Tween.mx_internal::removeTween(scaleTween);
+					Tween.removeTween(scaleTween);
 				
 				// Reset the tween count
 				tweenCount = 0;
@@ -1179,16 +1179,16 @@ public class MaskEffectInstance extends EffectInstance
 				// milliseconds of the animation have already played.
 				if (moveTween)
 				{
-					moveTween.mx_internal::startTime -= elapsed;
+					moveTween.startTime -= elapsed;
 					// Update the screen before a repaint occurs
-					moveTween.mx_internal::doInterval();
+					moveTween.doInterval();
 				}
 				
 				if (scaleTween)
 				{
-					scaleTween.mx_internal::startTime -= elapsed;
+					scaleTween.startTime -= elapsed;
 					// Update the screen before a repaint occurs
-					scaleTween.mx_internal::doInterval();
+					scaleTween.doInterval();
 				} 
 			}
 		}
