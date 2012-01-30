@@ -53,6 +53,27 @@ use namespace mx_internal;
  *  You must define it in a separate MXML file and reference it by using the 
  *  application's <code>splashScreenImage</code> property.</p>
  *
+ *  @mxml
+ *  
+ *  <p>The <code>&lt;s:SplashScreenImage&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds no new tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;s:SplashScreenImage xmlns:fx="http://ns.adobe.com/mxml/2009" 
+ *      xmlns:s="library://ns.adobe.com/flex/spark"&gt;
+ *  
+ *      &lt;!-- Define one or more SplashScreenImageSource. --&gt;
+ *      &lt;s:SplashScreenImageSource 
+ *          source="&#64;Embed('assets/logoDefault.jpg')"/&gt;
+ *          
+ *      &lt;s:SplashScreenImageSource 
+ *          source="&#64;Embed('assets/logo240Portrait.jpg')"
+ *          dpi="240" 
+ *          aspectRatio="portrait"/&gt;
+ *   
+ *  &lt;/s:SplashScreenImage&gt;
+ *  </pre>
+ *
  *  @see spark.preloaders.SplashScreenImageSource
  *  @see spark.components.Application#splashScreenImage
  *  
