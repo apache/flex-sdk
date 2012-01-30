@@ -312,7 +312,8 @@ public class SlideViewTransition extends ViewTransitionBase
         {
             startViewProps = {  includeInLayout: startView.includeInLayout,
                                 visible: startView.visible,
-                                cacheAsBitmap: startView.cacheAsBitmap };
+                                cacheAsBitmap: startView.cacheAsBitmap,
+                                opaqueBackground: startView.opaqueBackground };
             
             cachedStartViewGlobalPosition = getTargetNavigatorCoordinates(startView);
             startView.includeInLayout = false;
@@ -346,6 +347,11 @@ public class SlideViewTransition extends ViewTransitionBase
             
             startView.cacheAsBitmap = true;
             
+            // If the startView has an opaque background color, set that as the 
+            // opaqueBackground property to improve performance.
+            if (startView.getStyle("backgroundAlpha") >= 1)
+                startView.opaqueBackground = startView.getStyle("backgroundColor");
+            
             // Have the startView included in layout so that SplitViewNavigator knows
             // how to maintain the layout
             startView.includeInLayout = true;
@@ -367,10 +373,16 @@ public class SlideViewTransition extends ViewTransitionBase
         if (endView)
         {
             endViewProps = { includeInLayout:endView.includeInLayout,
-                cacheAsBitmap:endView.cacheAsBitmap };
+                cacheAsBitmap:endView.cacheAsBitmap,
+                opaqueBackground:endView.opaqueBackground};
             
             endView.includeInLayout = false;
             endView.cacheAsBitmap = true;
+
+            // If the endView has an opaque background color, set that as the 
+            // opaqueBackground property to improve performance.
+            if (endView.getStyle("backgroundAlpha") >= 1)
+                endView.opaqueBackground = endView.getStyle("backgroundColor");
             
             if (endView.contentGroup)
             {
@@ -707,6 +719,7 @@ public class SlideViewTransition extends ViewTransitionBase
             startView.includeInLayout = startViewProps.includeInLayout;
             startView.visible = startViewProps.visible;
             startView.cacheAsBitmap = startViewProps.cacheAsBitmap;
+            startView.opaqueBackground = startViewProps.opaqueBackground;
         }
 
         // Restore original saved properties for includeInLayout and cacheAsBitmap.
@@ -725,6 +738,7 @@ public class SlideViewTransition extends ViewTransitionBase
             {
                 endView.includeInLayout = endViewProps.includeInLayout;
                 endView.cacheAsBitmap = endViewProps.cacheAsBitmap;
+                endView.opaqueBackground = endViewProps.opaqueBackground;
                 
                 if (endView.contentGroup)
                     endView.contentGroup.includeInLayout = endViewProps.cgIncludeInLayout;
