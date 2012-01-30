@@ -611,10 +611,6 @@ public dynamic class UIMovieClip extends MovieClip
     {
         super();
         
-        // The enter frame handler is the main bottleneck where we check size,
-        // step transitions, etc.
-        addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
-        
         // Add a focus in event handler so we can catch mouse focus within our
         // content.
         addEventListener(FocusEvent.FOCUS_IN, focusInHandler, false, 0, true);
@@ -671,7 +667,7 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      * @private
      */
-    protected var trackSizeChanges:Boolean = true;
+    protected var trackSizeChanges:Boolean = false;
     
     private var oldWidth:Number;
     
@@ -736,6 +732,8 @@ public dynamic class UIMovieClip extends MovieClip
             invalidateTransform();
         }
         //invalidateProperties();
+        addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
+        invalidateParentSizeAndDisplayList();
     }
     
     //----------------------------------
@@ -787,6 +785,8 @@ public dynamic class UIMovieClip extends MovieClip
             invalidateTransform();
         }
         //invalidateProperties();
+        addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
+        invalidateParentSizeAndDisplayList();
     }
     
     [Bindable("zChanged")]
@@ -815,6 +815,7 @@ public dynamic class UIMovieClip extends MovieClip
         _layoutFeatures.layoutZ = value;
         invalidateTransform();
         //invalidateProperties();
+        invalidateParentSizeAndDisplayList();
     }
     
     [Inspectable]
@@ -1419,7 +1420,9 @@ public dynamic class UIMovieClip extends MovieClip
     {
         _explicitHeight = value;
         explicitSizeChanged = true;
+        
         invalidateParentSizeAndDisplayList();
+        addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
     }
 
     //----------------------------------
@@ -1562,7 +1565,9 @@ public dynamic class UIMovieClip extends MovieClip
     {
         _explicitWidth = value;
         explicitSizeChanged = true;
+        
         invalidateParentSizeAndDisplayList();
+        addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
     }
     
     //----------------------------------
@@ -2187,6 +2192,10 @@ public dynamic class UIMovieClip extends MovieClip
         if (value == scaleX)
             return;
         
+        // need to keep the "real scale" in synch here; otherwise, we 
+        // won't know what to do in applyComputedMatrix()
+        mx_internal::$scaleX = value*mx_internal::scaleXDueToSizing;
+        
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         var prevValue:Number = _layoutFeatures.layoutScaleX;
         if (prevValue == value)
@@ -2225,6 +2234,29 @@ public dynamic class UIMovieClip extends MovieClip
     mx_internal function set $scaleX(value:Number):void
     {
         super.scaleX = value;
+    }
+    
+    /**
+     *  @private
+     */
+    private var _scaleXDueToSizing:Number = 1;
+    
+    /**
+     *  The scaleX of the component due to resizing.
+     *
+     *  @private
+     */
+    mx_internal function get scaleXDueToSizing():Number
+    {
+        return _scaleXDueToSizing;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function set scaleXDueToSizing(value:Number):void
+    {
+        _scaleXDueToSizing = value;
     }
 
     //----------------------------------
@@ -2266,6 +2298,10 @@ public dynamic class UIMovieClip extends MovieClip
         if (value == scaleY)
             return;
         
+        // need to keep the "real scale" in synch here; otherwise, we 
+        // won't know what to do in applyComputedMatrix()
+        mx_internal::$scaleY = value*mx_internal::scaleYDueToSizing;
+        
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         var prevValue:Number = _layoutFeatures.layoutScaleY;
         if (prevValue == value)
@@ -2304,6 +2340,29 @@ public dynamic class UIMovieClip extends MovieClip
     mx_internal function set $scaleY(value:Number):void
     {
         super.scaleY = value;
+    }
+    
+    /**
+     *  @private
+     */
+    private var _scaleYDueToSizing:Number = 1;
+    
+    /**
+     *  The scaleX of the component due to resizing.
+     *
+     *  @private
+     */
+    mx_internal function get scaleYDueToSizing():Number
+    {
+        return _scaleYDueToSizing;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function set scaleYDueToSizing(value:Number):void
+    {
+        _scaleYDueToSizing = value;
     }
 
     //----------------------------------
@@ -2767,6 +2826,7 @@ public dynamic class UIMovieClip extends MovieClip
         _layoutFeatures.offsets = value;
         if(_layoutFeatures.offsets != null)
             _layoutFeatures.offsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+        invalidateTransform();
     }
 
     /**
@@ -3206,6 +3266,15 @@ public dynamic class UIMovieClip extends MovieClip
     private function applyComputedMatrix():void
     {
         _layoutFeatures.updatePending = false;
+        
+        // need to set the scale to the "real scale" (the user-set 
+        // scale + the scale needed for sizing) to get a real matrix.
+        // Afterwards, we'll reset it to the "user-set" scale.
+        var oldScaleX:Number = _layoutFeatures.layoutScaleX;
+        var oldScaleY:Number = _layoutFeatures.layoutScaleY;
+        _layoutFeatures.layoutScaleX = mx_internal::$scaleX;
+        _layoutFeatures.layoutScaleY = mx_internal::$scaleY;
+        
         if(_layoutFeatures.is3D)
         {
             super.transform.matrix3D = _layoutFeatures.computedMatrix3D;
@@ -3214,6 +3283,9 @@ public dynamic class UIMovieClip extends MovieClip
         {
             super.transform.matrix = _layoutFeatures.computedMatrix;
         }
+        
+        _layoutFeatures.layoutScaleX = oldScaleX;
+        _layoutFeatures.layoutScaleY = oldScaleY;
     }
     
     private function applyPerspectiveProjection():void
@@ -3629,6 +3701,8 @@ public dynamic class UIMovieClip extends MovieClip
             }
             else
             {
+                addEventListener(Event.ENTER_FRAME, stateEnterFrameHandler, false, 0, true);
+                
                 // If the new transition is starting inside the current transition, start from
                 // the current frame location.
                 if(currentFrame < Math.min(startFrame, endFrame) || currentFrame > Math.max(startFrame, endFrame))
@@ -3694,8 +3768,26 @@ public dynamic class UIMovieClip extends MovieClip
         if (boundingBoxName && boundingBoxName != "" 
             && boundingBoxName in this && this[boundingBoxName])
         {
+            addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
+            trackSizeChanges = true;
             this[boundingBoxName].visible = false;
         }
+        
+        // get the size before we add children or anything else
+        validateMeasuredSize();
+        
+        // Location check.
+        if (isNaN(oldX))
+            oldX = x;
+        
+        if (isNaN(oldY))
+            oldY = y;
+
+        if (isNaN(oldWidth))
+            oldWidth = _width = measuredWidth;
+    
+        if (isNaN(oldHeight))
+            oldHeight = _height = measuredHeight;
         
         // Set initial explicit size, if needed
         if (explicitSizeChanged)
@@ -3945,8 +4037,13 @@ public dynamic class UIMovieClip extends MovieClip
         
         // Use scaleX/scaleY to change our size since the new size is based
         // on our measured size, which can be different than our actual size.
-        super.scaleX = scaleX*(newWidth / measuredWidth);
-        super.scaleY = scaleY*(newHeight / measuredHeight);
+        mx_internal::scaleXDueToSizing = (newWidth / measuredWidth);
+        mx_internal::scaleYDueToSizing = (newHeight / measuredHeight);
+        mx_internal::$scaleX = scaleX*mx_internal::scaleXDueToSizing;
+        mx_internal::$scaleY = scaleY*mx_internal::scaleYDueToSizing;
+        
+        // need to apply this scale if using layout offsets
+        invalidateTransform();
         
         if (sizeChanged(width, oldWidth) || sizeChanged(height, oldHeight))
             dispatchResizeEvent();
@@ -4137,7 +4234,7 @@ public dynamic class UIMovieClip extends MovieClip
     //--------------------------------------------------------------------------
     
     /**
-     *  The main function that watches our size and progesses through transitions.
+     *  The main function that watches our size
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -4152,13 +4249,6 @@ public dynamic class UIMovieClip extends MovieClip
             explicitSizeChanged = false;
             setActualSize(getExplicitOrMeasuredWidth(), getExplicitOrMeasuredHeight());
         }
-
-       // Location check.
-        if (isNaN(oldX))
-            oldX = x;
-        
-        if (isNaN(oldY))
-            oldY = y;
         
         if (x != oldX || y != oldY)
             dispatchMoveEvent();
@@ -4168,26 +4258,16 @@ public dynamic class UIMovieClip extends MovieClip
         {
             var currentBounds:Rectangle = bounds;
             
-            // secretScale is the amount we scaled by to change the width and height
-            var secretScaleX:Number = mx_internal::$scaleX/scaleX;
-            var secretScaleY:Number = mx_internal::$scaleY/scaleY;
-            
             // take secret scale into account as it's our real width/height
-            currentBounds.width *= secretScaleX;
-            currentBounds.height *= secretScaleY;
-
-            if (isNaN(oldWidth))
-                oldWidth = _width = currentBounds.width;
-        
-            if (isNaN(oldHeight))
-                oldHeight = _height = currentBounds.height;
+            currentBounds.width *= mx_internal::scaleXDueToSizing;
+            currentBounds.height *= mx_internal::scaleYDueToSizing;
             
             if (sizeChanged(currentBounds.width, oldWidth) || sizeChanged(currentBounds.height, oldHeight))
             {
                 _width = currentBounds.width;
                 _height = currentBounds.height;
                 validateMeasuredSizeFlag = true;
-                notifySizeChanged();
+                notifySizeChanged(); 
                 dispatchResizeEvent();
             }
             else if (sizeChanged(width, oldWidth) || sizeChanged(height, oldHeight))
@@ -4195,10 +4275,30 @@ public dynamic class UIMovieClip extends MovieClip
                 dispatchResizeEvent();
             }
         }
-
-        // Current state check.
-        if (currentLabel && currentLabel.indexOf(":") < 0 && currentLabel != _currentState)
-            _currentState = currentLabel;
+        else
+        {
+            removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+        }
+        
+    }
+    
+    /**
+     *  The main function that progesses through transitions.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    protected function stateEnterFrameHandler(event:Event):void
+    {
+        // States Change:
+        
+        // We no longer support this "Current state check".  Setting currentState programatically 
+        // still works, but if we magically land on a "foo" labelled frame, we don't return "foo"
+        // as the currentState anymore.
+        //if (currentLabel && currentLabel.indexOf(":") < 0 && currentLabel != _currentState)
+        //    _currentState = currentLabel;
         
         // Play the next frame of the transition, if needed.
         if (transitionDirection != 0)
@@ -4210,6 +4310,7 @@ public dynamic class UIMovieClip extends MovieClip
             {
                 gotoAndStop(stateMap[transitionEndState].frame);
                 transitionDirection = 0;
+                removeEventListener(Event.ENTER_FRAME, stateEnterFrameHandler);
             }
             else
             {
