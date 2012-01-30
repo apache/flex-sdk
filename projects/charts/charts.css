@@ -13,6 +13,61 @@
 @namespace charts "mx.charts.chartClasses.*";
 
 /*
+//--------------------------------
+//  BarSeries
+//--------------------------------
+*/
+
+BarSeries
+{
+	labelClass: ClassReference("spark.components.Label");
+}
+
+/*
+//--------------------------------
+//  BarChart
+//--------------------------------
+*/
+
+BarChart
+{
+	labelClass: ClassReference("spark.components.Label");
+}
+
+/*
+//--------------------------------
+//  ColumnSeries
+//--------------------------------
+*/
+
+ColumnSeries
+{
+	labelClass: ClassReference("spark.components.Label");
+}
+
+/*
+//--------------------------------
+//  ColumnChart
+//--------------------------------
+*/
+
+ColumnChart
+{
+	labelClass: ClassReference("spark.components.Label");
+}
+
+/*
+//--------------------------------
+//  AxisRenderer
+//--------------------------------
+*/
+
+AxisRenderer
+{
+	labelClass: ClassReference("spark.components.Label");
+}
+
+/*
 //-------------------------------
 //  LegendItem
 //-------------------------------
