@@ -179,6 +179,22 @@ public class EffectTargetFilter
      *
      *  Typically, an EffectTargetFilter will use one type of filter or the other, but
      *  not both.
+     *
+     *  @param propChanges An Array of PropertyChanges objects. The target property of 
+     *  each PropertyChanges object is equal to the effect's target. If a property of 
+     *  a target is not modified by a transition, the corresponding PropertyChanges 
+     *  object is not included in this array.
+     *
+     *  @param semanticsProvider The IEffectTargetHost used to evaluate the properties 
+     *  specified in requiredSemantics for the target, normally the effectTargetHost of 
+     *  the effect. For item change effects, when the targets of the effect are item 
+     *  renderers, this will be the List or TileList containing the item renderers.
+     *
+     *  @param target The target of the EffectInstance that calls this function. If an 
+     *  effect has multiple targets, this function is called once per target.
+     *
+     *  @return <code>true</code>, if the target should be included in the effect; 
+     *  otherwise returns <code>false</code>.
      */
     public function filterInstance(propChanges:Array, semanticsProvider:IEffectTargetHost, 
                                    target:Object):Boolean
@@ -226,8 +242,9 @@ public class EffectTargetFilter
      *  @param propChanges An Array of PropertyChanges objects.
      *  The <code>target</code> property of each PropertyChanges object
      *  is equal to the effect's target. 
-     *  If no properties changed for an effect target,
-     *  it is not included in this Array.
+     *  If a property of a target is not modified by a transition, the 
+     *  corresponding PropertyChanges 
+     *  object is not included in this array.
      *  
      *  @param instanceTarget The target of the EffectInstance
      *  that calls this function.
