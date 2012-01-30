@@ -14,7 +14,7 @@
              minHeight="24" >
 
     <fx:Metadata>
-      [HostComponent("mx.core.windowClasses.TitleBar")]
+      [HostComponent("spark.components.windowClasses.TitleBar")]
     </fx:Metadata> 
   
       <fx:Script>
