@@ -65,7 +65,7 @@ import mx.effects.effectClasses.SetStyleActionInstance;
 	public function SetStyleAction(target:Object = null)
 	{
 		super(target);
-
+        duration = 0;
 		instanceClass = SetStyleActionInstance;
 	}
 	
