@@ -135,7 +135,8 @@
             
         @see spark.skins.spark.windowChrome.GripperSkin 
     -->
-    <s:Button id="gripper" right="3" bottom="3" skinClass="spark.skins.spark.windowChrome.GripperSkin" /> 
+    <s:Button id="gripper" right="3" bottom="3" tabEnabled="false" 
+              skinClass="spark.skins.spark.windowChrome.GripperSkin" /> 
 
     <!-- layer 4: border -->
     
