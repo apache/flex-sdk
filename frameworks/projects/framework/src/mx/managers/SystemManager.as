@@ -61,6 +61,7 @@ import mx.events.Request;
 import mx.events.ResizeEvent;
 import mx.events.SandboxMouseEvent;
 import mx.preloaders.Preloader;
+import mx.utils.DensityUtil;
 import mx.utils.LoaderUtil;
 
 // NOTE: Minimize the non-Flash classes you import here.
@@ -706,6 +707,42 @@ public class SystemManager extends MovieClip
         _cursorIndex = value;
     }
 
+    //----------------------------------
+    //  densityScale
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the densityScale property 
+     */
+    private var _densityScale:Number = NaN;
+    
+    /**
+     *  The density scale factor of the application.
+     * 
+     *  When density scaling is enabled, Flex applies a scale factor based on
+     *  the application author density and the density of the current device
+     *  that Flex is running on. 
+     * 
+     *  Returns 1.0 when there is no scaling.
+     * 
+     *  @see spark.components.Application#authorDensity
+     *  @see mx.core.DensityUtil
+     */
+    public function get densityScale():Number
+    {
+        if (isNaN(_densityScale))
+        {    
+            var authorDensity:String = info()["authorDensity"];
+            var deviceDensity:String = DensityUtil.screenDPIToDeviceDensity(flash.system.Capabilities.screenDPI);
+            _densityScale = DensityUtil.getDensityScale(authorDensity, deviceDensity);
+            if (isNaN(_densityScale))
+                _densityScale = 1;
+        }
+
+        return _densityScale;
+    }
+    
     //----------------------------------
     //  document
     //----------------------------------
@@ -1981,6 +2018,11 @@ public class SystemManager extends MovieClip
             Loader(parent).contentLoaderInfo.applicationDomain :
             info()["currentDomain"] as ApplicationDomain;
 
+        // FIXME (egeorgie): the "screen" that we pass to the preloader
+        // doesn't get the right size here, since stage is not
+        // yet resized at this point if running in AIR on device.
+        // We'll receive a stage resize event before the first enter frame event.
+        
         // Initialize the preloader.
         preloader.initialize(
             usePreloader,
@@ -1989,16 +2031,14 @@ public class SystemManager extends MovieClip
             preloaderBackgroundAlpha,
             preloaderBackgroundImage,
             preloaderBackgroundSize,
-            isStageRoot ? stage.stageWidth : loaderInfo.width,
-            isStageRoot ? stage.stageHeight : loaderInfo.height,
+            isStageRoot ? screen.width : loaderInfo.width,
+            isStageRoot ? screen.height : loaderInfo.height,
             null,
             null,
             rslItemList,
             resourceModuleURLs,
             domain);
     }
-
-
 
     //--------------------------------------------------------------------------
     //
@@ -3108,17 +3148,21 @@ public class SystemManager extends MovieClip
         _screen.width = w;
         _screen.height = h;
 
+        // FIXME (egeorgie): better handling of screen reesize,
+        // refactor this code?
         if (isStageRoot)
         {
-            //_width = stage.stageWidth;
-            //_height = stage.stageHeight;
-
-            // TODO: Finalize scaling behavior
-            var scale:Number = 1;
-
+            var scale:Number = densityScale;
+            
             root.scaleX = root.scaleY = scale;
             _width = stage.stageWidth / scale;
             _height = stage.stageHeight / scale;
+            
+            // Update the screen
+            _screen.x /= scale;
+            _screen.y /= scale;
+            _screen.width /= scale;
+            _screen.height /= scale;
         }
 
         if (event)
@@ -3129,7 +3173,7 @@ public class SystemManager extends MovieClip
             isDispatchingResizeEvent = false;
         }
     }
-
+    
     /**
      *  @private
      * 
