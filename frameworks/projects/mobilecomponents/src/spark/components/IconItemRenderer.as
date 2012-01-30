@@ -1562,7 +1562,7 @@ public class IconItemRenderer extends LabelItemRenderer
     }
     
     /**
-     *  Destorys the messageDisplay component
+     *  Destroys the messageDisplay component
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.2
@@ -1602,7 +1602,7 @@ public class IconItemRenderer extends LabelItemRenderer
     }
     
     /**
-     *  Destorys the iconDisplay component
+     *  Destroys the iconDisplay component
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.2
@@ -1645,7 +1645,7 @@ public class IconItemRenderer extends LabelItemRenderer
     }
     
     /**
-     *  Destorys the decoratorDisplay component
+     *  Destroys the decoratorDisplay component
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.2
