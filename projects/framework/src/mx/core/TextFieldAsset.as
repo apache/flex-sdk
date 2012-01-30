@@ -26,6 +26,11 @@ package mx.core
  *  However, Flex applications do not typically use embedded TextFields.
  *  Refer to more commonly-used asset classes such as BitmapAsset
  *  for more information about how embedded assets work in Flex.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TextFieldAsset extends FlexTextField
                             implements IFlexAsset, IFlexDisplayObject
@@ -40,6 +45,11 @@ public class TextFieldAsset extends FlexTextField
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function TextFieldAsset()
     {
@@ -68,6 +78,11 @@ public class TextFieldAsset extends FlexTextField
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredHeight():Number
     {
@@ -86,6 +101,11 @@ public class TextFieldAsset extends FlexTextField
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredWidth():Number
     {
@@ -100,6 +120,11 @@ public class TextFieldAsset extends FlexTextField
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function move(x:Number, y:Number):void
     {
@@ -109,6 +134,11 @@ public class TextFieldAsset extends FlexTextField
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setActualSize(newWidth:Number, newHeight:Number):void
     {
