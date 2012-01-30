@@ -236,17 +236,6 @@ public class ViewNavigatorSection implements IExternalizable
             _source.length = 1;
     }
     
-    /**
-     *  Replaces the top item of the stack.
-     */
-    public function replaceTop(data:ViewData):void
-    {
-        if (_source.length == 0)
-            _source.push(data)
-        else
-            _source[_source.length - 1] = data;
-    }
-    
     //--------------------------------------------------------------------------
     //
     // Methods: IExternalizable
