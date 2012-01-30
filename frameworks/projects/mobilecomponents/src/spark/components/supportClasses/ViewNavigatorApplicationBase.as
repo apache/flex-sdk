@@ -166,24 +166,6 @@ public class MobileApplicationBase extends Application
     }
     
     //----------------------------------
-    //  landscapeOrientation
-    //----------------------------------
-    
-    /**
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */ 
-    // TODO (chiedozi): Do we need to support unknown orientation?
-    public function get landscapeOrientation():Boolean
-    {
-        return systemManager.stage.deviceOrientation == StageOrientation.ROTATED_LEFT ||
-            systemManager.stage.deviceOrientation == StageOrientation.ROTATED_RIGHT;
-    }
-    
-    //----------------------------------
     //  persistenceManager
     //----------------------------------
     private var _persistenceManager:IPersistenceManager;
@@ -372,8 +354,8 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */  
-    protected function orientationChangeHandler(event:StageOrientationEvent):void
-    {        
+    private function orientationChangeHandler(event:StageOrientationEvent):void
+    {   
         if (viewMenuOpen)
         {
             // Change the width
@@ -487,22 +469,25 @@ public class MobileApplicationBase extends Application
     
     private function openViewMenu():void
     {
-        currentViewMenu = ViewMenu(viewMenu.newInstance());
-        currentViewMenu.items = activeView.viewMenuItems;
-        currentViewMenu.owner = this;
-        currentViewMenu.addEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
-        currentViewMenu.width = getLayoutBoundsWidth();
-        
-        PopUpManager.addPopUp(currentViewMenu, this, true);     
-        currentViewMenu.validateNow();
-        
-        currentViewMenu.x = 0;
-        currentViewMenu.y = Math.ceil(getLayoutBoundsHeight() - currentViewMenu.getLayoutBoundsHeight());
-        
-        lastFocus = getFocus();
-        
-        currentViewMenu.setFocus();
-        currentViewMenu.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
+        if (viewMenu)
+        {
+            currentViewMenu = ViewMenu(viewMenu.newInstance());
+            currentViewMenu.items = activeView.viewMenuItems;
+            currentViewMenu.owner = this;
+            currentViewMenu.addEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
+            currentViewMenu.width = getLayoutBoundsWidth();
+            
+            PopUpManager.addPopUp(currentViewMenu, this, true);     
+            currentViewMenu.validateNow();
+            
+            currentViewMenu.x = 0;
+            currentViewMenu.y = Math.ceil(getLayoutBoundsHeight() - currentViewMenu.getLayoutBoundsHeight());
+            
+            lastFocus = getFocus();
+            
+            currentViewMenu.setFocus();
+            currentViewMenu.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
+        }
     }
     
     private function closeViewMenu():void
