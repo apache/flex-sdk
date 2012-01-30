@@ -701,6 +701,46 @@ use namespace mx_internal;
  */
 [Event(name="exitState", type="mx.events.FlexEvent")]
 
+/**
+ *  Dispatched after the component has entered a new state and
+ *  any state transition animation to that state has finished playing.
+ *
+ *  The event is dispatched immediately if there's no transition playing
+ *  between the states.
+ *
+ *  If the component switches to a different state while the transition is
+ *  underway, this event will be dispatched after the component completes the
+ *  transition to that new state.
+ * 
+ *  <p>This event is only dispatched when there are one or more 
+ *  relevant listeners attached to the dispatching object.</p>
+ *
+ *  @eventType mx.events.FlexEvent.STATE_TRANSITION_COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="stateTransitionComplete", type="mx.events.FlexEvent")]
+
+/**
+ *  Dispatched when a component interrupts a transition to its current
+ *  state in order to switch to a new state. 
+ * 
+ *  <p>This event is only dispatched when there are one or more 
+ *  relevant listeners attached to the dispatching object.</p>
+ *
+ *  @eventType mx.events.FlexEvent.STATE_TRANSITION_INTERRUPTED
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="stateTransitionInterrupted", type="mx.events.FlexEvent")]
+
+
 //--------------------------------------
 //  TouchInteraction events
 //--------------------------------------
@@ -10277,6 +10317,11 @@ public class UIComponent extends FlexSprite
         var prevTransitionFraction:Number;
         if (_currentTransition)
         {
+            // Remove the event listener, we don't want to trigger it as it
+            // dispatches FlexEvent.STATE_TRANSITION_COMPLETE and we are
+            // interrupting _currentTransition instead.
+            _currentTransition.effect.removeEventListener(EffectEvent.EFFECT_END, transition_effectEndHandler);
+
             // 'stop' interruptions take precedence over autoReverse behavior
             if (nextTransition && _currentTransition.interruptionBehavior == "stop")
             {
@@ -10307,6 +10352,11 @@ public class UIComponent extends FlexSprite
                 }
                 _currentTransition.effect.end();
             }
+
+            // The current transition is being interrupted, dispatch an event
+            if (hasEventListener(FlexEvent.STATE_TRANSITION_INTERRUPTED))
+                dispatchEvent(new FlexEvent(FlexEvent.STATE_TRANSITION_INTERRUPTED));
+            _currentTransition = null;
         }
 
         // Initialize the state we are going to.
@@ -10387,6 +10437,12 @@ public class UIComponent extends FlexSprite
                 nextTransition.effect.playheadTime = (1 - prevTransitionFraction) * 
                     getTotalDuration(nextTransition.effect);
         }
+        else
+        {
+            // Dispatch an event that the transition has completed.
+            if (hasEventListener(FlexEvent.STATE_TRANSITION_COMPLETE))
+                dispatchEvent(new FlexEvent(FlexEvent.STATE_TRANSITION_COMPLETE));
+        }
     }
 
     // Used by getTotalDuration() to avoid hard-linking against
@@ -10431,12 +10487,17 @@ public class UIComponent extends FlexSprite
             startDelay;
         return duration;
     }
+
     /**
      *  @private
      */
     private function transition_effectEndHandler(event:EffectEvent):void
     {
         _currentTransition = null;
+
+        // Dispatch an event that the transition has completed.
+        if (hasEventListener(FlexEvent.STATE_TRANSITION_COMPLETE))
+            dispatchEvent(new FlexEvent(FlexEvent.STATE_TRANSITION_COMPLETE));
     }
 
     /**
