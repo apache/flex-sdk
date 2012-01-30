@@ -523,6 +523,13 @@ public class UITextFormat extends TextFormat
         rightMargin = source.rightMargin;
         indent = source.indent;
         leading = source.leading;
+        letterSpacing = source.letterSpacing;
+        blockIndent = source.blockIndent;
+        bullet = source.bullet;
+        display = source.display;
+        indent = source.indent;
+        kerning = source.kerning;
+        tabStops = source.tabStops;
     }
 }
 
