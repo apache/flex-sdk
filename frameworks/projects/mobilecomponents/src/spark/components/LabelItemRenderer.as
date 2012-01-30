@@ -315,7 +315,8 @@ public class MobileItemRenderer extends UIComponent
     {
         _data = value;
         
-        dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+        if (hasEventListener(FlexEvent.DATA_CHANGE))
+            dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
     }
     
     //----------------------------------
