@@ -513,7 +513,7 @@ public final class AccConst
 
 	/**
 	 *  An MSAA role indicating that
-	 *  The object represents a button on a toolbar that has a drop-down
+	 *  the object represents a button on a toolbar that has a drop-down
 	 *  list icon directly adjacent to the button.
 	 */
 	public static const ROLE_SYSTEM_SPLITBUTTON:uint = 0x3E;
