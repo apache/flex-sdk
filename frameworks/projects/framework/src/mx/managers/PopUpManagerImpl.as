@@ -27,6 +27,7 @@ import flash.geom.Rectangle;
 import mx.automation.IAutomationObject;
 import mx.core.FlexGlobals;
 import mx.core.FlexSprite;
+import mx.core.FlexVersion;
 import mx.core.IChildList;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
@@ -387,9 +388,12 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
                     
         // The layout direction may have changed since last time the
         // popup was opened so need to reinit mirroring fields.
-       if (window is ILayoutDirectionElement)
-            ILayoutDirectionElement(window).invalidateLayoutDirection();
-
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        {
+           if (window is ILayoutDirectionElement)
+                ILayoutDirectionElement(window).invalidateLayoutDirection();
+        }
+        
         if (modal)
         {
             // create a modal window shield which blocks input and sets up mouseDownOutside logic
@@ -559,13 +563,16 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             
             // If the layout has been mirrored, then 0,0 is the uppper
             // right corner; compensate here.
-            if (popUp is ILayoutDirectionElement &&
-                ILayoutDirectionElement(popUp).layoutDirection == 
-                LayoutDirection.RTL)
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
             {
-                 x = -x /* to flip it on the other side of the x axis*/ 
-                     -popUp.width /* because 0 is the right edge */;
-
+                if (popUp is ILayoutDirectionElement &&
+                    ILayoutDirectionElement(popUp).layoutDirection == 
+                    LayoutDirection.RTL)
+                {
+                     x = -x /* to flip it on the other side of the x axis*/ 
+                         -popUp.width /* because 0 is the right edge */;
+    
+                }
             }
             
             pt = new Point(clippingOffset.x, clippingOffset.y);            
