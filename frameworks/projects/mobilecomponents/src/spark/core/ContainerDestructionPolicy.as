@@ -33,21 +33,9 @@ public final class ContainerDestructionPolicy
     //--------------------------------------------------------------------------
     
     /**
-     *  The container will always destroy its children when the container
-     *  deactivated.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public static const ALWAYS:String = "always";
-    
-    /**
      *  The lifespan of the container's children will automatically
      *  be managed by the container based on the container's own
-     *  heuristic. The default implementation mimics that behavior of
-     *  <code>ContainerDestructionPolicy.ALWAYS</code>
+     *  heuristic.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
