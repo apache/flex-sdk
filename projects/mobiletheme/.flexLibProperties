@@ -11,7 +11,7 @@
 
 -->
 
-<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
+<flexLibProperties includeAllClasses="false" version="3">
   <includeClasses>
     <classEntry path="MobileThemeClasses"/>
   </includeClasses>
