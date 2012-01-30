@@ -32,8 +32,8 @@ import mx.managers.LayoutManager;
 import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.ButtonBarBase;
-import spark.core.ContainerDestructionPolicy;
 import spark.components.supportClasses.ViewNavigatorBase;
+import spark.core.ContainerDestructionPolicy;
 import spark.effects.Animate;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
@@ -657,12 +657,18 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                     updatePropertiesForView(navigator.activeView);
                     navigator.activeView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                                                             view_propertyChangeHandler);
+                    
+                    // Force the stage focus to be the activated view
+                    systemManager.stage.focus = activeView;
                 }
             }
             
             selectedIndexAdjusted = false;
             dataProviderChanged = false;
             selectedIndexChanged = false;
+            
+            // Dispatch a complete event
+            dispatchEvent(new Event(Event.COMPLETE));
         }
         
         if (tabBarVisibilityChanged)
