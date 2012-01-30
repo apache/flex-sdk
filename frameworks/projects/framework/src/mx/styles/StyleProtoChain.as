@@ -25,6 +25,7 @@ import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
 import mx.core.IInvalidating;
 import mx.core.IUITextField;
+import mx.core.IVisualItem;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.effects.EffectManager;
@@ -194,12 +195,10 @@ public class StyleProtoChain
         if (nonInheritChain && nonInheritChain.effects)
             object.registerEffects(nonInheritChain.effects);
 
-        // TODO: Unify concept of parent for UIComponents and GraphicElements
         var p:IStyleClient;
-        if (uicObject)
-            p = uicObject.parent as IStyleClient;
-        else if ("elementHost" in object) // object is TextGraphicElement
-            p = object["elementHost"] as IStyleClient;
+        if (object is IVisualItem)
+            p = IVisualItem(object).parent as IStyleClient;
+
 
         if (p)
         {
@@ -726,8 +725,8 @@ public class StyleProtoChain
         var parent:IInvalidating;
         if (object is UIComponent)
             parent = UIComponent(object).parent as IInvalidating;
-        else if ("elementHost" in object) // object is TextGraphicElement
-            parent = object["elementHost"] as IInvalidating;
+        else if ("parent" in object) // object is TextGraphicElement
+            parent = object["parent"] as IInvalidating;
 
         if (parent)
         {
