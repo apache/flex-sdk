@@ -1,21 +1,24 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the VideoDisplay control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo VideoDisplay control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Panel title="VideoDisplay Control Example" height="75%" width="75%" 
-        horizontalAlign="center" 
-        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
+    <s:Panel title="Halo VideoDisplay Control Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10" horizontalAlign="center">
+            <s:SimpleText width="100%" color="blue"
+                    text="Use the buttons to control the video. The Stop button resets the video to the beginning."/>
+    
+            <mx:VideoDisplay id="myVid" height="158" width="211" source="assets/phone.flv" autoPlay="false"/>
+    
+            <s:HGroup>
+                <s:Button label="Play" click="myVid.play();"/>
+                <s:Button label="Pause" click="myVid.pause();"/>
+                <s:Button label="Stop" click="myVid.stop();"/>
+            </s:HGroup>
+        </s:VGroup>
+    </s:Panel>
 
-       <mx:Text width="75%" color="blue"
-           text="Use the buttons to control the video. The Stop button resets the video to the beginning."/>
-
-		<mx:VideoDisplay id="myVid" height="158" width="211" source="assets/phone.flv" autoPlay="false"/>
-
-		<mx:HBox>
-		    <mx:Button label="Play" click="myVid.play();"/>
-		    <mx:Button label="Pause" click="myVid.pause();"/>
-		    <mx:Button label="Stop" click="myVid.stop();"/>
-		</mx:HBox>
-
-	</mx:Panel>
-</mx:Application>
+</s:Application>
