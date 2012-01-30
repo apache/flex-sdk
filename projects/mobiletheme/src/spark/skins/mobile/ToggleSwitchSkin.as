@@ -11,6 +11,7 @@
 
 package spark.skins.mobile
 {
+import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.GradientType;
 import flash.display.Graphics;
@@ -224,6 +225,13 @@ public class ToggleSwitchSkin extends MobileSkin
      *  stroke
      */
     private var contents:UIComponent;
+    
+    /**
+     *  The thumb erase overlay erases pixels behind the thumb. The thumb
+     *  content contains the thumb graphics, and sits above the overlay.
+     */
+    private var thumbEraseOverlay:Sprite;
+    private var thumbContent:Sprite;
     
     //----------------------------------------------------------------------------------------------
     //
@@ -456,6 +464,7 @@ public class ToggleSwitchSkin extends MobileSkin
         super.createChildren();
         
         contents = new UIComponent();
+        contents.blendMode = BlendMode.LAYER;
         addChild(contents);
         
         // SlidingContent: background, overlay, labels
@@ -465,7 +474,7 @@ public class ToggleSwitchSkin extends MobileSkin
         slidingContentOverlay = new slidingContentOverlayClass();
         contents.addChild(slidingContentOverlay);
         
-        slidingContentForeground = new UIComponent(); //SpriteVisualElement();
+        slidingContentForeground = new UIComponent();
         contents.addChild(slidingContentForeground);
         
         selectedLabelDisplay = new LabelDisplayComponent();
@@ -488,10 +497,11 @@ public class ToggleSwitchSkin extends MobileSkin
         thumb = new SpriteVisualElement();
         contents.addChild(SpriteVisualElement(thumb));
         
-        // Thumb clipping mask
-        var thumbMask:Sprite = new Sprite();
-        SpriteVisualElement(thumb).mask = thumbMask;
-        SpriteVisualElement(thumb).addChild(thumbMask);
+        thumbEraseOverlay = new Sprite();
+        thumbEraseOverlay.blendMode = BlendMode.ERASE;
+        SpriteVisualElement(thumb).addChild(thumbEraseOverlay);
+        thumbContent = new Sprite();
+        SpriteVisualElement(thumb).addChild(thumbContent);
         
         // Content clipping mask
         var contentMask:Sprite = new SpriteVisualElement();
@@ -579,7 +589,7 @@ public class ToggleSwitchSkin extends MobileSkin
      */
     private function drawThumb(skinWidth:Number, skinHeight:Number):void 
     {
-        var graphics:Graphics = SpriteVisualElement(thumb).graphics;
+        var graphics:Graphics = thumbContent.graphics;
         var colors:Array = [];
         var alphas:Array = [];
         var ratios:Array = [];
@@ -645,14 +655,12 @@ public class ToggleSwitchSkin extends MobileSkin
             layoutThumbWidth - layoutStrokeWeight * 3, layoutThumbHeight - layoutStrokeWeight * 3, 
             layoutCornerEllipseSize - layoutStrokeWeight * 3);
         graphics.lineStyle();
-        
-        // When alpha is set, we do not want the thumb to show through to the track 
-        var thumbMask:Sprite = Sprite(SpriteVisualElement(thumb).mask);
-        thumbMask.graphics.clear();
-        thumbMask.graphics.beginFill(0xffffff);
-        thumbMask.graphics.drawRoundRect(0, 0, layoutThumbWidth, layoutThumbHeight, layoutCornerEllipseSize);
-        thumbMask.graphics.endFill();
-        SpriteVisualElement(thumb).opaqueBackground = baseColor;
+
+        // Redraw the erase overlay as a silhouette of the thumb
+        thumbEraseOverlay.graphics.clear();
+        thumbEraseOverlay.graphics.beginFill(0);
+        thumbEraseOverlay.graphics.drawRoundRect(0, 0, layoutThumbWidth, layoutThumbHeight, layoutCornerEllipseSize);
+        thumbEraseOverlay.graphics.endFill();
     }
     
     /**
