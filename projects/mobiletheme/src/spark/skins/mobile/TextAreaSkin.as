@@ -170,7 +170,7 @@ public class TextAreaSkin extends TextSkinBase
             textDisplay.styleName = this;
             textDisplay.multiline = true;
             textDisplay.editable = true;
-            textDisplay.wordWrap = true;
+            textDisplay.lineBreak = getStyle("lineBreak");
 			textDisplay.useTightTextBounds = false;
             
             // on iOS, resize the TextField and let the native control handle scrolling
