@@ -88,7 +88,7 @@ global
     inactiveTextSelectionColor: #E8E8E8;
 	indentation: 17;
 	indicatorGap: 14;
-    inputMode: "mouse";
+    interactionMode: "mouse";
     justificationRule: "auto";
     justificationStyle: "auto";
 	kerning: "default";
