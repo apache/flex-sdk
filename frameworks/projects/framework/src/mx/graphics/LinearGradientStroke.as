@@ -198,7 +198,7 @@ public class LinearGradientStroke extends GradientStroke
     //--------------------------------------------------------------------------
 
     /**
-     *  @inheritdoc
+     *  @inheritDoc
      */
     override public function apply(graphics:Graphics, targetBounds:Rectangle, targetOrigin:Point):void
 	{
