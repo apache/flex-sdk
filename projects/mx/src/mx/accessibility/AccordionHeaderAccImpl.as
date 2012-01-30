@@ -239,20 +239,24 @@ public class AccordionHeaderAccImpl extends AccImpl
 	 */
 	override protected function eventHandler(event:Event):void
 	{
+		// Let AccImpl class handle the events
+		// that all accessible UIComponents understand.
+		$eventHandler(event);
+		
 		var index:int;
+
 		switch (event.type)
 		{
 			case "focusDraw":
 			{
 				// event.currentTarget here is the AccordionHeader (a/k/a 'master')
 				index = Accordion(event.currentTarget.parent).focusedIndex;
-
 				if (index >= 0 && master == Accordion(event.currentTarget.parent).getHeaderAt(index))
 				{
 					Accessibility.sendEvent(DisplayObject(event.currentTarget), index + 1,
 											EVENT_OBJECT_FOCUS, true);
-					break;
 				}
+				break;
 			}
 
 			case "change":
@@ -263,8 +267,8 @@ public class AccordionHeaderAccImpl extends AccImpl
 				{
 					Accessibility.sendEvent(master, index + 1,
 											EVENT_OBJECT_SELECTION, true);
-					break;
 				}
+				break;
 			}
 		}
 	}
