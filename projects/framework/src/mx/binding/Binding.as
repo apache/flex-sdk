@@ -440,7 +440,9 @@ public class Binding
 		var n:uint = x.length();
 		if (n == y.length())
 		{
-			for (var i:uint = 0; i < n && x[i] === y[i]; i++);
+			for (var i:uint = 0; i < n && x[i] === y[i]; i++)
+			{
+			}
 			return i == n;
 		}
 		else
