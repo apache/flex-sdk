@@ -58,6 +58,11 @@ public class FlexChangeEvent extends Event
      *  </table>
      *
      *  @eventType addChildBridge
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ADD_CHILD_BRIDGE:String = "addChildBridge";
 
@@ -84,6 +89,11 @@ public class FlexChangeEvent extends Event
      *  </table>
      *
      *  @eventType removeChildBridge
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const REMOVE_CHILD_BRIDGE:String = "removeChildBridge";
 
@@ -104,6 +114,11 @@ public class FlexChangeEvent extends Event
      *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
      *
      *  @param data Data related to the event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function FlexChangeEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false, data:Object = null)
     {
@@ -124,6 +139,11 @@ public class FlexChangeEvent extends Event
 
     /**
      *  Data related to the event. For more information on this object, see each event type.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var data:Object;
     
