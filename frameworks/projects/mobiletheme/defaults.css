@@ -20,7 +20,6 @@ application-dpi=240.
 
 ActionBar
 {
-    color: #FFFFFF;
     chromeColor: #484848;
     skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
     textShadowAlpha: .65;
@@ -29,8 +28,14 @@ ActionBar
 
 ActionBar #titleDisplay
 {
+    color: #FFFFFF;
     fontSize: 28;
     fontWeight: bold;
+}
+
+ActionBar ButtonBase
+{
+    color: #FFFFFF;
 }
 
 ActionBar Group#navigationGroup Button
