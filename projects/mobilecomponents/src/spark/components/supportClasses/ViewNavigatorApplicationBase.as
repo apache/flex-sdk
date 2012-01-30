@@ -34,7 +34,7 @@ import spark.components.ViewMenu;
 import spark.components.ViewMenuItem;
 import spark.core.managers.IPersistenceManager;
 import spark.core.managers.PersistenceManager;
-import spark.events.PopUpCloseEvent;
+import spark.events.PopUpEvent;
 
 [Exclude(name="controlBarContent", kind="property")]
 [Exclude(name="controlBarGroup", kind="property")]
@@ -325,7 +325,7 @@ public class MobileApplicationBase extends Application
      */
     public function get viewMenuOpen():Boolean
     {
-        return currentViewMenu && currentViewMenu.opened;
+        return currentViewMenu && currentViewMenu.isOpen;
     }
     
     /**
@@ -651,8 +651,8 @@ public class MobileApplicationBase extends Application
             
             currentViewMenu.addEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
             currentViewMenu.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
-            currentViewMenu.addEventListener(PopUpCloseEvent.CLOSE, viewMenuClose_handler);
-            currentViewMenu.addEventListener(FlexEvent.OPEN, viewMenuOpen_handler);
+            currentViewMenu.addEventListener(PopUpEvent.CLOSE, viewMenuClose_handler);
+            currentViewMenu.addEventListener(PopUpEvent.OPEN, viewMenuOpen_handler);
             addEventListener(ResizeEvent.RESIZE, resizeHandler);
         }
         
@@ -671,7 +671,7 @@ public class MobileApplicationBase extends Application
     /**
      *  @private
      */ 
-    private function viewMenuOpen_handler(event:FlexEvent):void
+    private function viewMenuOpen_handler(event:PopUpEvent):void
     {
         // Private event for testing
         if (activeView.hasEventListener("viewMenuOpen"))
@@ -681,10 +681,10 @@ public class MobileApplicationBase extends Application
     /**
      *  @private
      */ 
-    private function viewMenuClose_handler(event:PopUpCloseEvent):void
+    private function viewMenuClose_handler(event:PopUpEvent):void
     {
-        currentViewMenu.removeEventListener(FlexEvent.OPEN, viewMenuOpen_handler);
-        currentViewMenu.removeEventListener(PopUpCloseEvent.CLOSE, viewMenuClose_handler);
+        currentViewMenu.removeEventListener(PopUpEvent.OPEN, viewMenuOpen_handler);
+        currentViewMenu.removeEventListener(PopUpEvent.CLOSE, viewMenuClose_handler);
         currentViewMenu.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
         currentViewMenu.removeEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
         removeEventListener(ResizeEvent.RESIZE, resizeHandler);
