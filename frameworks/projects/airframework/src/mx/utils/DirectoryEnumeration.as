@@ -25,7 +25,7 @@ import mx.collections.Sort;
  *  a list of File instances representing the files and directories
  *  in a file system directory.
  * 
- *  @productversion Apollo 1.0
+ *  @playerversion AIR 1.1
  */
 public class DirectoryEnumeration
 {
