@@ -192,15 +192,18 @@ public class ViewNavigatorSkin extends MobileSkin
             actionBar.setStyle("backgroundAlpha", backgroundAlpha);
         }
         
-        // If the hostComponent is in overlay mode, the contentGroup extends
-        // the entire bounds of the navigator and the alpha for the action 
-        // bar changes
-        // If this changes, also update validateEstimatedSizesOfChild
-        var contentGroupHeight:Number = (_isOverlay) ? unscaledHeight : Math.max(unscaledHeight - actionBarHeight, 0);
-        var contentGroupPosition:Number = (_isOverlay) ? 0 : actionBarHeight;
-        
-        contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
-        contentGroup.setLayoutBoundsPosition(0, contentGroupPosition);
+        if (contentGroup.includeInLayout)
+        {
+            // If the hostComponent is in overlay mode, the contentGroup extends
+            // the entire bounds of the navigator and the alpha for the action 
+            // bar changes
+            // If this changes, also update validateEstimatedSizesOfChild
+            var contentGroupHeight:Number = (_isOverlay) ? unscaledHeight : Math.max(unscaledHeight - actionBarHeight, 0);
+            var contentGroupPosition:Number = (_isOverlay) ? 0 : actionBarHeight;
+            
+            contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
+            contentGroup.setLayoutBoundsPosition(0, contentGroupPosition);
+        }
     }
 }
 }
