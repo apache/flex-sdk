@@ -57,6 +57,11 @@ package mx.graphics
  *  </pre>
  *
  *  @see flash.display.Graphics
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Stroke extends SolidColorStroke 
 {
@@ -106,6 +111,11 @@ public class Stroke extends SolidColorStroke
      *  @param miterLimit Indicates the limit at which a miter is cut off.
      *  Valid values range from 0 to 255.
      *  The default value is 0.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Stroke(color:uint = 0x000000,
                            weight:Number = 0,
