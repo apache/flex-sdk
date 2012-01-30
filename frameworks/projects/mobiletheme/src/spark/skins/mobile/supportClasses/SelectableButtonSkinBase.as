@@ -13,7 +13,7 @@ package spark.skins.mobile.supportClasses
 {
 import flash.display.DisplayObject;
 import flash.display.Graphics;
-    
+
 /**
  *  Actionscript based skin for toggle buttons. This class can not be used 
  *  by itself. You must subclass and specify a 
@@ -37,7 +37,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
         layoutPaddingRight = 15;
         layoutPaddingTop = 15;
         layoutPaddingBottom = 15;
-      
+        
         // Instruct the super class to ignore the "icon" style.
         // Instead, we're going to use the protected members
         // (initialized in the sub-classes):
@@ -91,14 +91,44 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     protected var downSelectedIconClass:Class;
     
     /**
-     *  The Class used to create the symbol icon in all selected states 
+     *  The Class used to create the symbol icon in all deselected states 
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
-    protected var symbolIconClass:Class;
+    protected var upSymbolIconClass:Class;
+    
+    /**
+     *  The Class used to create the selected symbol icon in all selected states 
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected var upSymbolIconSelectedClass:Class;
+    
+    /**
+     *  The Class used to create the symbol icon in all deselected states 
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected var downSymbolIconClass:Class;
+    
+    /**
+     *  The Class used to create the selected symbol icon in all selected states 
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected var downSymbolIconSelectedClass:Class;
     
     /**
      *  Optional symbol to display selection state 
@@ -127,35 +157,46 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     }
     
     /**
+     *  @private
+     *  CheckBox <code>chromeColor</code> is flat, no gradient.
+     */
+    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
+    {
+        // solid color fill for selectable buttons
+        chromeColorGraphics.beginFill(getChromeColor());
+    }
+    
+    /**
      *  @private 
      */
     override protected function commitCurrentState():void
     {    
         super.commitCurrentState();
         
-        // Check for selected or not selected
+        // check for selected or not selected
         if (currentState != null)
         {
+            // if (currentState == "up" || currentState == "disabled")
             var currentStateIconClass:Class = upIconClass;
+            var currentSymbolClass:Class = upSymbolIconClass;
             var isSelected:Boolean = false;
             
             if (currentState == "down")
             {
                 currentStateIconClass = downIconClass;
+                currentSymbolClass = downSymbolIconClass;
             }
-            else if (currentState == "upAndSelected")
+            else if ((currentState == "upAndSelected")
+                || (currentState == "disabledAndSelected"))
             {
                 currentStateIconClass = upSelectedIconClass;
+                currentSymbolClass = upSymbolIconSelectedClass;
                 isSelected = true;
             }
             else if (currentState == "downAndSelected")
             {
                 currentStateIconClass = downSelectedIconClass;
-                isSelected = true;
-            }
-            else if (currentState.indexOf("AndSelected") != -1)
-            {
-                currentStateIconClass = upSelectedIconClass;
+                currentSymbolClass = downSymbolIconSelectedClass;
                 isSelected = true;
             }
             
@@ -166,28 +207,37 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
                 ? DisplayObject(symbolIcon) : null;
             var hasSymbol:Boolean = (symbolObj) && contains(symbolObj);
             
-            if (hasSymbol && !isSelected)
+            symbolIcon = null;
+            
+            // remove the old symbol
+            if (hasSymbol)
             {
-                removeChild(DisplayObject(symbolObj));
-                invalidateDisplayList();
+                // no current symbol exists
+                // or is existing symbol different than the current symbol
+                if ((currentSymbolClass == null)
+                    || !(symbolObj is currentSymbolClass))
+                {
+                    removeChild(DisplayObject(symbolObj));
+                    invalidateDisplayList();
+                }
             }
-            else if (!hasSymbol && isSelected)
+            
+            // add the current symbol
+            if (currentSymbolClass != null)
             {
-                symbolIcon = new symbolIconClass();
-                
+                symbolIcon = new currentSymbolClass();
                 addChild(DisplayObject(symbolIcon));
+                
                 invalidateDisplayList();
             }
         }
     }
-
+    
     /**
      *  @private 
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        graphics.clear();
-        
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
         // TODO (jszeto) Does this need to go into a seperate DisplayObject to avoid it from getting 
