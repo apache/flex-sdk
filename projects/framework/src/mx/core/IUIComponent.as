@@ -67,7 +67,10 @@ public interface IUIComponent extends IFlexDisplayObject
     //----------------------------------
 
     /**
-     *  Whether the component can accept user interaction. 
+     *  Whether the component can accept user interaction. After setting the <code>enabled</code>
+     *  property to <code>false</code>, some components still respond to mouse interactions such 
+     *  as mouseOver. As a result, to fully disable UIComponents,
+     *  you should also set the value of the <code>mouseEnabled</code> property to <code>false</code>.
      *  If you set the <code>enabled</code> property to <code>false</code>
      *  for a container, Flex dims the color of the container and of all
      *  of its children, and blocks user input to the container
