@@ -10127,7 +10127,13 @@ public class UIComponent extends FlexSprite
                 getTextFieldClassName() == "mx.core::UITLFTextField" ||
                 getTextInputClassName() == "mx.controls::TLFTextInput";
 
-            cachedTextFormat = textFormat;
+            if (textFormat.useTLF)
+			{
+				textFormat.direction = _inheritingStyles.direction;
+				textFormat.locale = _inheritingStyles.locale;
+			}
+			
+			cachedTextFormat = textFormat;
         }
 
         return textFormat;
@@ -11362,8 +11368,13 @@ public class UIComponent extends FlexSprite
         // Not in font registry, so create in this font context.
         var obj:Object = createInModuleContext(moduleContext, className);
 
+        // If we just created a UITLFTextField, set its textLineCreator property
+        // so that it knows what module to use for creating its TextLines.
+        if (className == "mx.core::UITLFTextField")
+        	obj.textLineCreator = moduleContext;
+
         if (obj == null)
-            obj = new classObj;
+            obj = new classObj();
 
         return obj;
     }
