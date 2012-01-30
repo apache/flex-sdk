@@ -18,8 +18,10 @@ import flash.utils.Dictionary;
 
 import mx.core.Singleton;
 import mx.core.mx_internal;
+import mx.events.FlexChangeEvent;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManagerGlobals;
+import mx.utils.ObjectUtil;
 
 use namespace mx_internal;
 
@@ -123,17 +125,26 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  @param styleManager - The style manager to set this declaration into. If the
      *  styleManager is null the top-level style manager will be used.
      * 
+     *  @param setSelector - If true set the selector in the styleManager. If setSelector
+     *  is false this style declaration can be set in the styleManager at a later time
+     *  by calling <code>styleManager.setStyleDeclaration(styleDeclaration.mx_internal::selectorString, styleDeclaration, false);
+     *  </code> FIXME: (dloverin) Should CSSStyleDeclaration.mx_internal::selectorString be made public?
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function CSSStyleDeclaration(selector:Object=null, styleManager:IStyleManager2=null)
+    public function CSSStyleDeclaration(selector:Object=null, styleManager:IStyleManager2=null, setSelector:Boolean = true)
     {
         super();
 
+        // Do not reference StyleManager directly because this is a bootstrap class
+        if (!styleManager)
+            styleManager = Singleton.getInstance("mx.styles::IStyleManager2") as IStyleManager2;
+
         this.styleManager = styleManager;
-        
+
         if (selector)
         {
             if (selector is CSSSelector)
@@ -146,11 +157,8 @@ public class CSSStyleDeclaration extends EventDispatcher
                 selectorString = selector.toString();
             }
 
-            // Do not reference StyleManager directly because this is a bootstrap class
-            if (!styleManager)
-                styleManager = Singleton.getInstance("mx.styles::IStyleManager2") as IStyleManager2;
-            
-            styleManager.setStyleDeclaration(selectorString, this, false);            
+            if (setSelector)
+                styleManager.setStyleDeclaration(selectorString, this, false);            
         }
 
     }
@@ -204,6 +212,8 @@ public class CSSStyleDeclaration extends EventDispatcher
     //  defaultFactory
     //----------------------------------
 
+    private var _defaultFactory:Function;
+    
     [Inspectable(environment="none")]
     
     /**
@@ -226,11 +236,24 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public var defaultFactory:Function;
-
+    public function get defaultFactory():Function
+    {
+        return _defaultFactory;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set defaultFactory(f:Function):void
+    {
+        _defaultFactory = f;
+    }
+    
     //----------------------------------
     //  factory
     //----------------------------------
+
+    private var _factory:Function;
 
     [Inspectable(environment="none")]
     
@@ -251,11 +274,24 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public var factory:Function;
+    public function get factory():Function
+    {
+        return _factory;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set factory(f:Function):void
+    {
+        _factory = f;
+    }
 
     //----------------------------------
     //  overrides
     //----------------------------------
+
+    private var _overrides:Object;
 
     /**
      *  If the <code>setStyle()</code> method is called on a UIComponent or CSSStyleDeclaration
@@ -269,8 +305,19 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    protected var overrides:Object;
-
+    public function get overrides():Object
+    {
+        return _overrides;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set overrides(o:Object):void
+    {
+        _overrides = o;
+    }
+    
     //----------------------------------
     //  selector
     //----------------------------------
@@ -455,6 +502,58 @@ public class CSSStyleDeclaration extends EventDispatcher
     }
 
     /**
+     *  Determine if the properties of this style declaration are the same as the the properties of a specified
+     *  style declaration.
+     * 
+     *  @param styleDeclaration the style declaration to compare.
+     * 
+     *  @return true if the styleDeclaration is considered equal to this declaration. 
+     */ 
+    mx_internal function equals(styleDeclaration:CSSStyleDeclaration):Boolean
+    {
+        if (styleDeclaration == null)
+            return false;
+        
+        // test in order of most likey to be different.
+        
+        var obj:Object; // loop variable
+        
+        // overrides
+        if (ObjectUtil.compare(overrides, styleDeclaration.overrides) != 0)
+            return false;
+
+        // factory
+        if ((factory == null && styleDeclaration.factory != null) ||
+            (factory != null && styleDeclaration.factory == null))
+            return false;
+
+        if (factory != null)
+        {
+            if (ObjectUtil.compare(new factory(), new styleDeclaration.factory()) != 0)
+                return false;
+        }
+        
+        // defaultFactory
+        if ((defaultFactory == null && styleDeclaration.defaultFactory != null) ||
+            (defaultFactory != null && styleDeclaration.defaultFactory == null))
+            return false;
+        
+        if (defaultFactory != null)
+        {
+            if (ObjectUtil.compare(new defaultFactory(), 
+                                   new styleDeclaration.defaultFactory()) != 0)
+                return false;
+        }
+        
+        // effects
+        if (ObjectUtil.compare(effects, styleDeclaration.mx_internal::effects))
+            return false;
+                
+        return true;
+    }
+    
+
+    /**
      *  Gets the value for a specified style property,
      *  as determined solely by this CSSStyleDeclaration.
      *
@@ -620,6 +719,8 @@ public class CSSStyleDeclaration extends EventDispatcher
      */
     mx_internal function setLocalStyle(styleProp:String, value:*):void
     {
+        var oldValue:Object = getStyle(styleProp);
+
         // If setting to undefined, clear the style attribute.
         if (value === undefined) // must use ===
         {
@@ -684,21 +785,8 @@ public class CSSStyleDeclaration extends EventDispatcher
         }
 
         // Update all clones of this style sheet.
-        for (var clone:* in clones)
-        {
-            var cloneFilter:Object = clone[FILTERMAP_PROP];
-            if (cloneFilter)
-            {
-                if (cloneFilter[styleProp] != null)
-                {
-                    clone[cloneFilter[styleProp]] = value;      
-                }
-            }
-            else
-            {
-                clone[styleProp] = value;
-            }
-        }
+        updateClones(styleProp, value);
+        
     }
     
     /**
@@ -761,6 +849,14 @@ public class CSSStyleDeclaration extends EventDispatcher
             chain = {};
         }
         
+        // Add parent style to proto chain.
+        if (styleManager.parent)
+        {
+            var parentStyle:CSSStyleDeclaration = styleManager.parent.getStyleDeclaration(selectorString);
+            if (parentStyle)
+                chain = parentStyle.addStyleToProtoChain(chain, target, filterMap);
+        }
+        
         // If there's a defaultFactory for this style sheet,
         // then add the object it produces to the chain.
         if (defaultFactory != null)
@@ -772,8 +868,10 @@ public class CSSStyleDeclaration extends EventDispatcher
 
         // If there's a factory for this style sheet,
         // then add the object it produces to the chain.
+        var objectFactory:Object = null;
         if (factory != null)
         {
+            objectFactory = new factory();
             factory.prototype = chain;
             chain = new factory();
             nodeAddedToChain = true;
@@ -867,6 +965,30 @@ public class CSSStyleDeclaration extends EventDispatcher
             delete clone[styleProp];
         }
     }
+    
+    /**
+     *  @private
+     */
+    mx_internal function updateClones(styleProp:String, value:*):void
+    {
+        // Update all clones of this style sheet.
+        for (var clone:* in clones)
+        {
+            var cloneFilter:Object = clone[FILTERMAP_PROP];
+            if (cloneFilter)
+            {
+                if (cloneFilter[styleProp] != null)
+                {
+                    clone[cloneFilter[styleProp]] = value;      
+                }
+            }
+            else
+            {
+                clone[styleProp] = value;
+            }
+        }
+    }
+    
 }
 
 }
