@@ -716,17 +716,23 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
         if (!list)
             return null;
         
-        var item:Object = deletePendingResponder(index);
+        const failedItem:* = failedItems[index];
+        delete failedItems[index];
+        const pendingItem:Object = deletePendingResponder(index);
         try
         {
-            return list.removeItemAt(index);
+            const actualItem:Object = list.removeItemAt(index);
+            if (failedItem !== undefined)
+                return failedItem;
+            return (pendingItem) ? pendingItem : actualItem;
+            
         }
         catch (ipe:ItemPendingError)
         {
             // If list[index] doesn't exist yet, an IPE will be thrown.  There's nothing 
             // we can do about that, so ignore it.
         }
-        return item; 
+        return (failedItem !== undefined) ? failedItem : pendingItem; 
     }
     
     /**
@@ -742,9 +748,13 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
         if (!list)
             return null;
         
+        const failedItem:* = failedItems[index];
         const pendingResponder:ListItemResponder = pendingResponders[index];
         const setItemValue:Object = list.setItemAt(item, index);
-        return (pendingResponder) ? pendingResponder.item : setItemValue;
+        if (failedItem !== undefined)
+            return failedItem;
+        else
+            return (pendingResponder) ? pendingResponder.item : setItemValue;
     }
     
     /**
