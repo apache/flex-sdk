@@ -39,6 +39,11 @@ use namespace mx_internal;
  *  Dispatched when the ICollectionView has been updated in some way.
  *
  *  @eventType mx.events.CollectionEvent.COLLECTION_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
@@ -71,6 +76,11 @@ use namespace mx_internal;
  *  collectionChange="<i>No default</i>"
  *  /&gt;
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ListCollectionView extends Proxy
        implements ICollectionView, IList, IMXMLObject
@@ -141,6 +151,11 @@ public class ListCollectionView extends Proxy
      *  The <code>localIndex</code> property should never contain anything
      *  that is not in the source, but may not have everything in the source.  
      *  This property is <code>null</code> when there is no sort.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var localIndex:Array;
 
@@ -154,6 +169,11 @@ public class ListCollectionView extends Proxy
      *  The ListCollectionView constructor.
      *
      *  @param list the IList this ListCollectionView is meant to wrap.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ListCollectionView(list:IList = null)
     {
@@ -173,6 +193,11 @@ public class ListCollectionView extends Proxy
       *  @param document The MXML document containing this ListCollectionView.
       *
       *  @param id Ignored.
+      *  
+      *  @langversion 3.0
+      *  @playerversion Flash 9
+      *  @playerversion AIR 1.1
+      *  @productversion Flex 3
       */
     public function initialized(document:Object, id:String):void
     {
@@ -193,6 +218,11 @@ public class ListCollectionView extends Proxy
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get length():int
     {
@@ -225,6 +255,11 @@ public class ListCollectionView extends Proxy
     
     /**
      *  The IList that this collection view wraps.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get list():IList
     {
@@ -280,6 +315,11 @@ public class ListCollectionView extends Proxy
      *  @inheritDoc
      *
      *  @see #refresh()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get filterFunction():Function
     {
@@ -312,6 +352,11 @@ public class ListCollectionView extends Proxy
      *  @inheritDoc
      *
      *  @see #refresh()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get sort():Sort
     {
@@ -338,6 +383,11 @@ public class ListCollectionView extends Proxy
      *
      *  @see #enableAutoUpdate()
      *  @see mx.events.CollectionEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function contains(item:Object):Boolean
     {
@@ -349,6 +399,11 @@ public class ListCollectionView extends Proxy
      * 
      *  @see mx.collections.ICollectionView#enableAutoUpdate()
      *  @see mx.events.CollectionEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function disableAutoUpdate():void
     {
@@ -359,6 +414,11 @@ public class ListCollectionView extends Proxy
      *  @inheritDoc
      * 
      *  @see mx.collections.ICollectionView#disableAutoUpdate()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function enableAutoUpdate():void
     {
@@ -374,6 +434,11 @@ public class ListCollectionView extends Proxy
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createCursor():IViewCursor
     {
@@ -386,6 +451,11 @@ public class ListCollectionView extends Proxy
      *  @see mx.events.CollectionEvent
      *  @see mx.core.IPropertyChangeNotifier
      *  @see mx.events.PropertyChangeEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemUpdated(item:Object, property:Object = null,
                                 oldValue:Object = null,
@@ -396,6 +466,11 @@ public class ListCollectionView extends Proxy
 
     /**
      * @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function refresh():Boolean
     {
@@ -412,6 +487,11 @@ public class ListCollectionView extends Proxy
     
     /**
      * @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getItemAt(index:int, prefetch:int = 0):Object
     {
@@ -436,6 +516,11 @@ public class ListCollectionView extends Proxy
 
     /**
      * @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setItemAt(item:Object, index:int):Object
     {
@@ -464,6 +549,11 @@ public class ListCollectionView extends Proxy
 
     /**
      * @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addItem(item:Object):void
     {
@@ -472,6 +562,11 @@ public class ListCollectionView extends Proxy
 
     /**
      * @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addItemAt(item:Object, index:int):void
     {
@@ -506,6 +601,11 @@ public class ListCollectionView extends Proxy
      *  the list in the order they are passed.
      * 
      *  @param IList The list of items to add to the current list
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addAll(addList:IList):void
     {
@@ -520,6 +620,11 @@ public class ListCollectionView extends Proxy
      *  @param IList The list of items to add to the current list
      *  @param index The location of the current list to place the new items.
      *  @throws RangeError if index is less than 0 or greater than the length of the list. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addAllAt(addList:IList, index:int):void
     {
@@ -532,6 +637,11 @@ public class ListCollectionView extends Proxy
 
     /**
      * @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getItemIndex(item:Object):int
     {
@@ -611,6 +721,11 @@ public class ListCollectionView extends Proxy
 
     /**
      * @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeItemAt(index:int):Object
     {
@@ -632,6 +747,11 @@ public class ListCollectionView extends Proxy
 
     /**
      * Remove all items from the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeAll():void
     {
@@ -654,6 +774,11 @@ public class ListCollectionView extends Proxy
 
     /**
      * @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function toArray():Array
     {
@@ -673,6 +798,11 @@ public class ListCollectionView extends Proxy
      *  Prints the contents of this view to a string and returns it.
      * 
      *  @return The contents of this view, in string form.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function toString():String
     {
@@ -833,6 +963,11 @@ public class ListCollectionView extends Proxy
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addEventListener(type:String,
                                      listener:Function,
@@ -846,6 +981,11 @@ public class ListCollectionView extends Proxy
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeEventListener(type:String,
                                         listener:Function,
@@ -856,6 +996,11 @@ public class ListCollectionView extends Proxy
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function dispatchEvent(event:Event):Boolean
     {
@@ -864,6 +1009,11 @@ public class ListCollectionView extends Proxy
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function hasEventListener(type:String):Boolean
     {
@@ -872,6 +1022,11 @@ public class ListCollectionView extends Proxy
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function willTrigger(type:String):Boolean
     {
@@ -895,6 +1050,11 @@ public class ListCollectionView extends Proxy
      *         that needs to be preserved.
      *  @param dispatch true if the view should dispatch a corresponding
      *                 CollectionEvent with kind ADD (default is true)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function addItemsToView(items:Array, sourceLocation:int,
                                       dispatch:Boolean = true):int
@@ -971,6 +1131,11 @@ public class ListCollectionView extends Proxy
      *  @param mode the mode to pass to Sort.findItem (see Sort)
      *  @param insertIndex true if it should find the insertion point
      *  @return the index where the item is located, -1 if not found
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function findItem(values:Object, mode:String, insertIndex:Boolean = false):int
     {
@@ -994,6 +1159,11 @@ public class ListCollectionView extends Proxy
      *  @param index the index to bookmark
      *  @return a new bookmark instance
      *  @throws a CollectionViewError if the index is out of bounds
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function getBookmark(index:int):ListCollectionViewBookmark
     {
@@ -1031,6 +1201,11 @@ public class ListCollectionView extends Proxy
      *  @param bookmark the bookmark to locate
      *  @return the new location of the bookmark, -1 if not in the view anymore
      *  @throws CollectionViewError if the bookmark is invalid
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function getBookmarkIndex(bookmark:CursorBookmark):int
     {
@@ -1061,6 +1236,11 @@ public class ListCollectionView extends Proxy
 
     /**
      * The view is a listener of CollectionEvents on its underlying IList
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function listChangeHandler(event:CollectionEvent):void
     {
@@ -1105,6 +1285,11 @@ public class ListCollectionView extends Proxy
     /**
      * Given a set of PropertyChangeEvents go through and update the view.
      * This is currently not optimized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function handlePropertyChangeEvents(events:Array):void
     {
@@ -1229,6 +1414,11 @@ public class ListCollectionView extends Proxy
      * When enableAutoUpdates pushes autoUpdateCounter back down to 0
      * this method will execute to consolidate the pending update
      * events or turn it into a massive refresh().
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function handlePendingUpdates():void
     {
@@ -1332,6 +1522,11 @@ public class ListCollectionView extends Proxy
 
     /**
      * Remove the old value from the view and replace it with the value
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function moveItemInView(item:Object,
                                       dispatch:Boolean = true, updateEventItems:Array = null):void
@@ -1399,6 +1594,11 @@ public class ListCollectionView extends Proxy
 
     /**
      * Copy all of the data from the source list into the local index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function populateLocalIndex():void
     {
@@ -1421,6 +1621,11 @@ public class ListCollectionView extends Proxy
      *  @param sourceLocation the location within the list where the item was removed
      *  @param dispatch true if the view should dispatch a corresponding
      *                 CollectionEvent with kind REMOVE (default is true)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function removeItemsFromView(items:Array, sourceLocation:int, dispatch:Boolean = true):void
     {
@@ -1457,6 +1662,11 @@ public class ListCollectionView extends Proxy
      * Items is an array of PropertyChangeEvents so replace the oldValues with the new
      * newValues.  Start at the location specified and move forward, it's unlikely
      * that the length of items is > 1.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function replaceItemsInView(items:Array,
                                           location:int,
@@ -1525,6 +1735,11 @@ use namespace mx_internal;
  *  Dispatched whenever the cursor position is updated.
  *
  *  @eventType mx.events.FlexEvent.CURSOR_UPDATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="cursorUpdate", type="mx.events.FlexEvent")]
 
@@ -1562,6 +1777,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  Constructor.
      *
      *  <p>Creates the cursor for the view.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ListCollectionViewCursor(view:ListCollectionView)
     {
@@ -1626,6 +1846,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
     /**
      *  Get a reference to the view that this cursor is associated with.
      *  @return the associated <code>ICollectionView</code>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get view():ICollectionView
     {
@@ -1645,6 +1870,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  @see mx.collections.IViewCursor#seek
      *  @see mx.collections.IViewCursor#beforeFirst
      *  @see mx.collections.IViewCursor#afterLast
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get current():Object
     {
@@ -1664,6 +1894,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *
      *  @see mx.collections.IViewCursor#current
      *  @see mx.collections.IViewCursor#seek
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bookmark():CursorBookmark
     {
@@ -1681,6 +1916,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      * true if the current is sitting before the first item in the view.
      * If the ICollectionView is empty (length == 0) this will always
      * be true.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get beforeFirst():Boolean
     {
@@ -1694,6 +1934,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      * true if the cursor is sitting after the last item in the view.
      * If the ICollectionView is empty (length == 0) this will always
      * be true.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get afterLast():Boolean
     {
@@ -1732,6 +1977,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  @see mx.collections.IViewCursor#findFirst
      *  @see mx.collections.IViewCursor#findLast
      *  @see mx.collections.errors.ItemPendingError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function findAny(values:Object):Boolean
     {
@@ -1783,6 +2033,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  @see mx.collections.IViewCursor#findAny
      *  @see mx.collections.IViewCursor#findLast
      *  @see mx.collections.errors.ItemPendingError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      public function findFirst(values:Object):Boolean
     {
@@ -1835,6 +2090,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  @see mx.collections.IViewCursor#findAny
      *  @see mx.collections.IViewCursor#findFirst
      *  @see mx.collections.errors.ItemPendingError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function findLast(values:Object):Boolean
     {
@@ -1864,6 +2124,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      * If the cursor is <code>afterLast</code> the insertion
      * will happen at the end of the View.  If the cursor is
      * <code>beforeFirst</code> on a non-empty view an error will be thrown.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function insert(item:Object):void
     {
@@ -1917,6 +2182,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *       cursor.moveNext();
      *     }
      *  </pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function moveNext():Boolean
     {
@@ -1966,6 +2236,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *        cursor.movePrevious();
      *      }
      *  </pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 
     public function movePrevious():Boolean
@@ -1994,6 +2269,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      * Remove the current item and return it.  If the cursor is
      * <code>beforeFirst</code> or <code>afterLast</code> throw a
      * CursorError.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function remove():Object
     {
@@ -2066,6 +2346,11 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *           If the iteration direction is known at the time of the request
      *           the appropriate amount of data can be returned ahead of the
      *           request to iterate it.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function seek(bookmark:CursorBookmark, offset:int = 0, prefetch:int = 0):void
     {
@@ -2277,6 +2562,11 @@ class ListCollectionViewBookmark extends CursorBookmark
      * ItemPendingError.  If the item is not in the current view -1 will be
      * returned.  This method may also return -1 if index-based location is not
      * possible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function getViewIndex():int
     {
