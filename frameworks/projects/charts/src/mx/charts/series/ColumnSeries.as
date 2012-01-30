@@ -14,14 +14,20 @@ package mx.charts.series
 
 import flash.display.DisplayObject;
 import flash.display.Graphics;
+import flash.display.Sprite;
 import flash.filters.DropShadowFilter;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
+
+import mx.charts.ColumnChart;
 import mx.charts.DateTimeAxis;
 import mx.charts.HitData;
 import mx.charts.chartClasses.CartesianChart;
 import mx.charts.chartClasses.CartesianTransform;
 import mx.charts.chartClasses.DataDescription;
+import mx.charts.chartClasses.GraphicsUtilities;
+import mx.charts.chartClasses.IAxis;
 import mx.charts.chartClasses.IColumn;
 import mx.charts.chartClasses.IStackable;
 import mx.charts.chartClasses.IStackable2;
@@ -37,26 +43,22 @@ import mx.charts.styles.HaloDefaults;
 import mx.collections.CursorBookmark;
 import mx.collections.ICollectionView;
 import mx.collections.IViewCursor;
+import mx.controls.Label;
 import mx.core.ClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
+import mx.core.IUITextField;
+import mx.core.LayoutDirection;
+import mx.core.UIComponent;
+import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.graphics.IFill;
 import mx.graphics.IStroke;
 import mx.graphics.SolidColor;
-import mx.charts.chartClasses.GraphicsUtilities;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
-import mx.core.UIComponent;
-import mx.controls.Label;
-import flash.display.Sprite;
-import mx.charts.ColumnChart;
-import mx.core.IUITextField;
-import mx.core.UITextField;
-import flash.geom.Point;
-import mx.charts.chartClasses.IAxis;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -2404,7 +2406,7 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
                     label.text = "";
                 else if (chart && !(ColumnChart(chart).showLabelVertically))
                 {
-					if(chart && chart.layoutDirection == "rtl")		//Align labels to right of the item in rtl layout
+					if(chart && chart.layoutDirection == LayoutDirection.RTL)		//Align labels to right of the item in rtl layout
                     	label.setStyle('textAlign','right');
 					else											//Align them to left of the column in ltr layout
 						label.setStyle('textAlign','left');
