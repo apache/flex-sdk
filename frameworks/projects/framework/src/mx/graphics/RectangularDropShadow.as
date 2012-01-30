@@ -563,9 +563,9 @@ public class RectangularDropShadow
 		// Copy the corners of the shadow bitmap onto the graphics object
 		if (leftShadow || topShadow)
 		{
-			var tlWidth:Number = Math.min(tlRadius + leftThickness + distance,
+			var tlWidth:Number = Math.min(tlRadius + widthThickness,
 										  maxCornerWidth);
-			var tlHeight:Number = Math.min(tlRadius + topThickness + distance,
+			var tlHeight:Number = Math.min(tlRadius + heightThickness,
 										   maxCornerHeight);
 
 			matrix.tx = x - leftThickness;
@@ -578,9 +578,9 @@ public class RectangularDropShadow
 		
 		if (rightShadow || topShadow)
 		{
-			var trWidth:Number = Math.min(trRadius + rightThickness + distance,
+			var trWidth:Number = Math.min(trRadius + widthThickness,
 										  maxCornerWidth);
-			var trHeight:Number = Math.min(trRadius + topThickness + distance,
+			var trHeight:Number = Math.min(trRadius + heightThickness,
 										   maxCornerHeight);
 
 			matrix.tx = x + width + rightThickness - shadow.width;
@@ -595,9 +595,9 @@ public class RectangularDropShadow
 		
 		if (leftShadow || bottomShadow)
 		{
-			var blWidth:Number = Math.min(blRadius + leftThickness + distance,
+			var blWidth:Number = Math.min(blRadius + widthThickness,
 										  maxCornerWidth);
-			var blHeight:Number = Math.min(blRadius + bottomThickness + distance,
+			var blHeight:Number = Math.min(blRadius + heightThickness,
 										   maxCornerHeight);
 
 			matrix.tx = x - leftThickness;
@@ -612,9 +612,9 @@ public class RectangularDropShadow
 			
 		if (rightShadow || bottomShadow)
 		{
-			var brWidth:Number = Math.min(brRadius + rightThickness + distance,
+			var brWidth:Number = Math.min(brRadius + widthThickness,
 										  maxCornerWidth);
-			var brHeight:Number = Math.min(brRadius + bottomThickness + distance,
+			var brHeight:Number = Math.min(brRadius + heightThickness,
 										   maxCornerHeight);
 
 			matrix.tx = x + width + rightThickness - shadow.width; 
@@ -697,10 +697,10 @@ public class RectangularDropShadow
 		// Create a Shape containing a round rectangle that the
 		// specified corner radii and very short sides.
 		var roundRectWidth:Number = Math.max(tlRadius, blRadius) + 
-								    2 * distance + 
+								    3 * distance + 
 									Math.max(trRadius, brRadius);
 		var roundRectHeight:Number = Math.max(tlRadius, trRadius) +
-									 2 * distance +
+									 3 * distance +
 									 Math.max(blRadius, brRadius);
 
 		if (roundRectWidth < 0 || roundRectHeight < 0)
