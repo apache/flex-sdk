@@ -47,6 +47,11 @@ import mx.effects.effectClasses.BlurInstance;
  *  @see mx.effects.effectClasses.BlurInstance
  *
  *  @includeExample examples/BlurEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Blur extends TweenEffect
 {
@@ -73,6 +78,11 @@ public class Blur extends TweenEffect
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function Blur(target:Object = null)
 	{
@@ -98,6 +108,11 @@ public class Blur extends TweenEffect
 	 *  Valid values are from 0.0 to 255.0. 
 	 * 
 	 *  @default 4
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var blurXFrom:Number = 4;
 	
@@ -112,6 +127,11 @@ public class Blur extends TweenEffect
 	 *  Valid values are from 0.0 to 255.0.
 	 * 
 	 *  @default 0 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var blurXTo:Number = 0;
 	
@@ -126,6 +146,11 @@ public class Blur extends TweenEffect
 	 *  Valid values are from 0.0 to 255.0. 
 	 * 
 	 *  @default 4
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var blurYFrom:Number = 4;
 	
@@ -140,6 +165,11 @@ public class Blur extends TweenEffect
 	 *  Valid values are from 0.0 to 255.0.
 	 * 
 	 *  @default 0 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var blurYTo:Number = 0;
 	
