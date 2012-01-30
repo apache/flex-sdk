@@ -14,11 +14,6 @@
  *  but for backward compatibility, they have to be included
  *  directly into IFlexDisplayObject, so they are kept in 
  *  this separate include file.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
  */
 
     /**
