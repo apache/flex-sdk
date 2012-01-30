@@ -22,7 +22,6 @@ import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 import mx.automation.IAutomationObject;
-import mx.core.FlexVersion;
 import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
 import mx.managers.SystemManager;
@@ -638,12 +637,6 @@ public class UITextField extends FlexTextField
     public function get baselinePosition():Number
     {
         var tlm:TextLineMetrics;
-        
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            tlm = getLineMetrics(0);;
-            return height - 4 - tlm.descent;
-        }
         
         // The text styles aren't known until there is a parent.
         if (!parent)
