@@ -145,7 +145,7 @@ package mx.geom
 	//----------------------------------------------------------------------------
 	
 	/**
-	 * the  x value of the transform
+	 *  The x value of the transform.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -170,7 +170,7 @@ package mx.geom
 	}
 	
 	/**
-	 * the y value of the transform
+	 *  The y value of the transform.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -196,7 +196,7 @@ package mx.geom
 	}
 	
 	/**
-	 * the z value of the transform
+	 *  The z value of the transform.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -225,7 +225,7 @@ package mx.geom
 
 	
 	/**
-	 * the rotationX, in degrees, of the transform
+	 *  The rotationX, in degrees, of the transform.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -263,7 +263,7 @@ package mx.geom
 	}
 	
 	/**
-	 * the rotationY, in degrees, of the transform
+	 *  The rotationY, in degrees, of the transform.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -301,7 +301,7 @@ package mx.geom
 	}
 	
 	/**
-	 * the rotationZ, in degrees, of the transform
+	 *  The rotationZ, in degrees, of the transform.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -342,7 +342,7 @@ package mx.geom
 	
 	
 	/**
-	 * the scaleX of the transform
+	 *  The scaleX of the transform.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -368,7 +368,7 @@ package mx.geom
 	}
 	
 	/**
-	 * the scaleY of the transform
+	 *  The scaleY of the transform.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -395,7 +395,7 @@ package mx.geom
 	
 	
 	/**
-	 * the scaleZ of the transform
+	 *  The scaleZ of the transform.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -434,7 +434,7 @@ package mx.geom
 	
 	//------------------------------------------------------------------------------
 	/**
-	 * the x value of the transform center.  The transform center is kept fixed as rotation and scale are applied. 
+	 *  The x value of the transform center. The transform center is kept fixed as rotation and scale are applied. 
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -460,7 +460,7 @@ package mx.geom
 
 	//------------------------------------------------------------------------------
 	/**
-	 * the y value of the tansform center.  The transform center is kept fixed as rotation and scale are applied. 
+	 *  The y value of the tansform center. The transform center is kept fixed as rotation and scale are applied. 
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -485,7 +485,7 @@ package mx.geom
 	}
 	//------------------------------------------------------------------------------
 	/**
-	 * the z value of the tansform center.  The transform center is kept fixed as rotation and scale are applied. 
+	 *  The z value of the tansform center. The transform center is kept fixed as rotation and scale are applied. 
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -595,8 +595,9 @@ package mx.geom
 	}
 	
 	
-	/** applies the delta to the transforms translation component. Unlike setting the x/y/z properties directly,.
-	 * this method can be safely called without changing the transform's concept of 'the source of truth.'
+	/** 
+    *  Applies the delta to the transform's translation component. Unlike setting the x, y, or z properties directly,
+	*  this method can be safely called without changing the transform's concept of 'the source of truth'.
 	*  
 	*  @langversion 3.0
 	*  @playerversion Flash 9
@@ -629,8 +630,8 @@ package mx.geom
 	
 
 	/**
-	 * the 2D matrix either set directly by the user, or composed by combining the transform center, scale, rotation
-	 * and translation, in that order.  
+	 *  The 2D matrix either set directly by the user, or composed by combining the transform center, scale, rotation
+	 *  and translation, in that order.  
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -730,8 +731,8 @@ package mx.geom
 	
 	
 	/**
-	 * the 3D matrix either set directly by the user, or composed by combining the transform center, scale, rotation
-	 * and translation, in that order. 
+	 *  The 3D matrix either set directly by the user, or composed by combining the transform center, scale, rotation
+	 *  and translation, in that order. 
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
