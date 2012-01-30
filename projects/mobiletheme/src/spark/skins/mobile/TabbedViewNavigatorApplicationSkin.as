@@ -88,6 +88,14 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
         navigator = new TabbedViewNavigator();
         addChild(navigator);
     }
+	
+	/**
+	 *  @private
+	 */
+	override public function validateEstimatedSizesOfChildren():void
+	{		
+		navigator.setEstimatedSize(estimatedWidth, estimatedHeight);
+	}
     
     /**
      *  @inheritDoc
