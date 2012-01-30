@@ -39,7 +39,7 @@ use namespace mx_internal;
 /**
  *  @private
  */
-public class StyleManagerImpl implements IStyleManager3
+public class StyleManagerImpl implements IStyleManager2
 {
     include "../core/Version.as";
 
@@ -277,7 +277,7 @@ public class StyleManagerImpl implements IStyleManager3
      *  A map of CSS pseudo states. If a pseudo selector exists for a
      *  particular state name, it is likely that styles need to be recalculated.
      */ 
-    private var _pseudoStates:Object;
+    private var _pseudoCSSStates:Object;
 
     /**
      *  @private
@@ -480,9 +480,9 @@ public class StyleManagerImpl implements IStyleManager3
      *  non-global class selector, pseudo selector).
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function hasAdvancedSelectors():Boolean
     {
@@ -491,74 +491,12 @@ public class StyleManagerImpl implements IStyleManager3
 
     /**
      * @private
-     * Determines whether at least one pseudo-selector has been specified for
+     * Determines whether at least one pseudo-condition has been specified for
      * the given state.
      */ 
-    public function hasPseudoSelector(state:String):Boolean
+    public function hasPseudoCondition(cssState:String):Boolean
     {
-        return _pseudoStates != null && _pseudoStates[state] != null;
-    }
-
-    /**
-     *  Adds this style declaration to a collection of declarations for the
-     *  associated subject.
-     *
-     *  @param styleDeclaration The style declaration to add.
-     *  @param update Set to <code>true</code> to force an immediate update of
-     *  the styles. Set to <code>false</code> to avoid an immediate update of
-     *  the styles in the application.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function addStyleDeclaration(styleDeclaration:CSSStyleDeclaration,
-            update:Boolean=false):void
-    {
-
-        // We index by subject to help match advanced selectors
-        var subject:String = styleDeclaration.subject;
-        var selectorKey:String = styleDeclaration.selectorString;
-        if (subject != null)
-        {
-            var declarations:Array = _subjects[subject] as Array;
-            if (declarations == null)
-            {
-                declarations = [styleDeclaration];
-                _subjects[subject] = declarations;
-            }
-            else
-            {
-                declarations.push(styleDeclaration);
-            }
-        }
-
-        // Populate the legacy selectors Array for this style declaration
-        styleDeclaration.selectorRefCount++;
-        _selectors[selectorKey] = styleDeclaration;
-
-        // Also remember subjects that have pseudo-selectors to optimize
-        // styles during component state changes.
-        var pseudoSelector:String = styleDeclaration.getPseudoSelector();
-        if (pseudoSelector != null)
-        {
-            if (_pseudoStates == null)
-                _pseudoStates = {};
-
-            _pseudoStates[pseudoSelector] = true;
-        }
-
-        // Record whether this is an advanced selector
-        if (styleDeclaration.isAdvanced())
-            _hasAdvancedSelectors = true;
-
-        // Flush cache and start over.
-        if (_typeSelectorCache)
-            _typeSelectorCache = {};
-
-        if (update)
-            styleDeclarationsChanged();
+        return _pseudoCSSStates != null && _pseudoCSSStates[cssState] != null;
     }
 
     /**
@@ -568,11 +506,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  @param subject The subject of the style declaration's selector.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
-    public function getStyleDeclarations(subject:String):Array // Array of CSSStyleDeclaration
+    public function getStyleDeclarations(subject:String):Array // of CSSStyleDeclaration
     {
         // For Flex 3 and earlier, if we were passed a subject with a package
         // name, such as "mx.controls.Button", strip off the package name
@@ -671,13 +609,53 @@ public class StyleManagerImpl implements IStyleManager3
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function setStyleDeclaration(
-                                selector:String,
+    public function setStyleDeclaration(selector:String,
                                 styleDeclaration:CSSStyleDeclaration,
                                 update:Boolean):void
     {
-        styleDeclaration.selectorString = selector;
-        addStyleDeclaration(styleDeclaration, update);
+        // Populate the selectors Array for this style declaration
+        styleDeclaration.selectorRefCount++;
+        _selectors[selector] = styleDeclaration;
+
+        // We also index by subject to help match advanced selectors
+        var subject:String = styleDeclaration.subject;
+        if (subject != null)
+        {
+            var declarations:Array = _subjects[subject] as Array;
+            if (declarations == null)
+            {
+                declarations = [styleDeclaration];
+                _subjects[subject] = declarations;
+            }
+            else
+            {
+                declarations.push(styleDeclaration);
+            }
+        }
+
+        // Also remember subjects that have pseudo-selectors to optimize
+        // styles during component state changes.
+        var pseudoCondition:String = styleDeclaration.getPseudoCondition();
+        if (pseudoCondition != null)
+        {
+            if (_pseudoCSSStates == null)
+                _pseudoCSSStates = {};
+
+            _pseudoCSSStates[pseudoCondition] = true;
+        }
+
+        // Record whether this is an advanced selector so that style declaration
+        // look up can be optimized for when no advanced selectors have been
+        // declared
+        if (styleDeclaration.isAdvanced())
+            _hasAdvancedSelectors = true;
+
+        // Flush cache and start over.
+        if (_typeSelectorCache)
+            _typeSelectorCache = {};
+
+        if (update)
+            styleDeclarationsChanged();
     }
 
     /**
@@ -724,7 +702,7 @@ public class StyleManagerImpl implements IStyleManager3
 
         if (styleDeclaration && styleDeclaration.subject)
         {
-            decls = _subjects[styleDeclaration.subject];
+            decls = _subjects[styleDeclaration.subject] as Array;
             if (decls)
             {
                 for (i = 0; i < decls.length; i++)
