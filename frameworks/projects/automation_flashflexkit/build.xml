@@ -51,13 +51,13 @@
 			<target-player>10.1</target-player>
 			<include-classes>AutomationFlashFlexKitClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
-			<source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="mx/mx.swc"/>
 				<include name="rpc.swc"/>
 				<include name="automation_agent.swc"/>
+				<include name="automation/automation.swc"/>
 				<include name="qtp.swc"/>
 				<include name="qtp_air.swc"/>
 			</external-library-path>
