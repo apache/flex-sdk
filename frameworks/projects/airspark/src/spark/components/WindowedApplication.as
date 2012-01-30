@@ -2009,7 +2009,7 @@ public class WindowedApplication extends Application implements IWindow
             
             // activate makes the native window visible so this 
             // component should become visible as well.
-            visible = true;     	    
+            visible = true;             
         }
     }
 
@@ -2364,9 +2364,9 @@ public class WindowedApplication extends Application implements IWindow
      */
     private function enterFrameHandler(e:Event):void
     {
-		if (!stage)
-			return;
-		
+        if (!stage)
+            return;
+        
         removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
 
         // If nativeApplication.nativeApplication.exit() has been called,
@@ -2488,6 +2488,7 @@ public class WindowedApplication extends Application implements IWindow
     }
 
     /**
+     *  @private
      *  Manages mouse down events on the window border.
      *  
      *  @langversion 3.0
