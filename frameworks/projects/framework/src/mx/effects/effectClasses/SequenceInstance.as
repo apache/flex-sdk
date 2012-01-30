@@ -97,6 +97,12 @@ public class SequenceInstance extends CompositeEffectInstance
      */
     private var startTime:Number = 0;
     
+    /**
+     *  @private
+     *  Used internally to track when the effect is paused
+     */
+    private var isPaused:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -153,133 +159,148 @@ public class SequenceInstance extends CompositeEffectInstance
         * the amount of time we have left to sleep
         * - if the playheadTime doesn't get us past the startDelay, then
         * reduce the amount of startDelay appropriately and return
-        * - if the playheadTime is greater than the current playheadTime
-        *   - if the playheadTime puts the sequence into a different
-        *   child effect, end the currently playing child effect,
-        *   play intervening ones with no duration (or skip?),
-        *   and start the ones that should be active and set their
-        *   playheadTime appropriately
-        *   - if the playheadTime is still in the currently playing effects
-        *   just set the appropriate playheadTime in that effect
-        * - else the playheadTime is less than the current time
-        *   - if the playheadTime is still in the currently playing effect
-        *   just set the appropriate playheadTime in the current effect
-        *   - else end the currently playing effect and start over from
-        *   the beginning (playing effects with no duration or skipping,
-        *   then playing and setting the appropriate playheadTime for 
-        *   the correct child effect)
+        * - if the playheadTime is still in the currently playing effects
+        * just set the appropriate playheadTime in that effect
+        * - if the playheadTime puts the sequence into a later
+        * child effect, end the currently playing child effect,
+        * play and end the intervening ones,
+        * start the ones that should be active and set their
+        * playheadTime appropriately
+        * - else the playheadTime puts the sequence into an earlier child
+        * effect. Set the playhead time to 0 in the currently playing child
+        * effect and stop it. Play/stop earlier child effects until we get
+        * to the one we should be playing. Play it and set playheadTime
+        * appropriately
         */
+        var i:int, j:int, k:int;
         var compositeDur:Number = Sequence(effect).compositeDuration;
         var firstCycleDur:Number = compositeDur + startDelay + repeatDelay;
         var laterCycleDur:Number = compositeDur + repeatDelay;
         // totalDur is only sensible/used when repeatCount != 0
         var totalDur:Number = firstCycleDur + laterCycleDur * (repeatCount - 1);
-        var childPlayheadTime:Number;
+        var iterationPlayheadTime:Number;
         if (value <= firstCycleDur)
         {
-            childPlayheadTime = Math.min(value - startDelay, compositeDur);
+            iterationPlayheadTime = Math.min(value - startDelay, compositeDur);
             playCount = 1;
         }
         else
         {
             if (value >= totalDur && repeatCount != 0)
             {
-                childPlayheadTime = compositeDur;
+                iterationPlayheadTime = compositeDur;
                 playCount = repeatCount;
             }
             else
             {
                 var valueAfterFirstCycle:Number = value - firstCycleDur;
-                childPlayheadTime = valueAfterFirstCycle % laterCycleDur;
-                childPlayheadTime = Math.min(childPlayheadTime, compositeDur);
+                iterationPlayheadTime = valueAfterFirstCycle % laterCycleDur;
+                iterationPlayheadTime = Math.min(iterationPlayheadTime, compositeDur);
                 playCount = 1 + valueAfterFirstCycle / laterCycleDur;
             }
         }
         
-        if (childPlayheadTime < prevPlayheadTime)
+        if (activeEffectQueue && activeEffectQueue.length  > 0)
         {
-            // TODO (chaase): Handle seeking back in time
-            // idea: Maybe once we get playing a sequence in reverse
-            // working perfectly, seeking back in time should essentially 
-            // 'play' (with zero duration) the child effects in reverse until
-            // we get to the proper effect for the seek time
-        }
-        else
-        {
-            // figure out if desired time is in currently playing effects
-            // if so, just seek them to the time
-            // else, end them, skip later effects, and play/seek the
-            // appropriate child effects
-            if (activeEffectQueue && activeEffectQueue.length > 0)
+            // cumulativeDuration is the duration of child effects in this
+            // iteration thus far as we walk through the set of child effects
+            var cumulativeDuration:Number = 0;
+            
+            // Step through the child effects in the sequence until we find the
+            // set that the requested playheadTime is in
+            for (i = 0; i < activeEffectQueue.length; ++i)
             {
-                // If we end up skipping past all child effects, then 
-                // finish this Sequence effect when we're done
-                var finishWhenDone:Boolean = repeatCount == 0 ? 
-                    false :
-                    value >= totalDur;
-                var cumulativeDuration:Number = 0;
-                for (var i:int = 0; i < activeEffectQueue.length; ++i)
+                // temp holder for instances that we fast-forward or rewind
+                var childEffectInstances:Array;
+                // start/end times of current child effect we're looking at
+                var startTime:Number = cumulativeDuration;
+                var endTime:Number = cumulativeDuration + childSets[i][0].actualDuration;
+                cumulativeDuration = endTime;
+                
+                // If iterationPlayheadTime is in between the start and end time for this
+                // effect, this must be the one we need to seek into
+                if (startTime <= iterationPlayheadTime && iterationPlayheadTime <= endTime)
                 {
-                    var instances:Array = childSets[i];
-                    var startTime:Number = cumulativeDuration;
-                    var endTime:Number = cumulativeDuration + 
-                        instances[0].actualDuration;
-                    if (childPlayheadTime < endTime)
-                    {
-                        finishWhenDone = false;
-                        // These are the effects that should be active
-                        // simply seek to the right time in the effect
-                        if (currentSetIndex != i)
-                        {
-                            currentSetIndex = i;
-                            playCurrentChildSet();
-                        }
-                        for (var k:int = 0; k < instances.length; k++)
-                            instances[k].playheadTime = (childPlayheadTime - startTime);
-                        break;
-                        // otherwise, skip to the next instance
-                    }
-                    else
-                    {
-                        // setting endEffectCalled works around a side-effect
-                        // of the onEffectEnd() handler where it will
-                        // automatically launch the next child effect
-                        endEffectCalled = true;
+                    // seting endEffectCalled to true keeps the next effect from
+                    // being started when we cause one to end. We'll start effects
+                    // manually when seeking, instead.
+                    endEffectCalled = true;
 
-                        // if we're seeking past the currently playing
-                        // instance, end it
-                        if (currentSetIndex == i)
-                        {
-                            for (var j:int = 0; j < instances.length; j++)
-                                instances[j].end();
-                        }
-                        else
-                        {
-                            // more child effects to go: set up currentSet vars
-                            // to point to the appropriate ones
-                            currentSetIndex = i;
-                            var nextInstances:Array = activeEffectQueue[currentSetIndex];                                
-                            currentSet = [];
-                            var childEffect:EffectInstance;
-                            for (var l:int = 0; l < nextInstances.length; l++)
-                            {
-                                childEffect = nextInstances[l];                                    
-                                currentSet.push(childEffect);
-                            }
-                            // Skip past effects by playing them with no duration
-                            for (l = 0; l < instances.length; l++)
-                                instances[l].playWithNoDuration();
-                        }
-                        endEffectCalled = false;
+                    // We're already playing the effect we should seek into
+                    if (currentSetIndex == i)
+                    {
+                        // Since we're already playing the right effect, just seek
+                        for (j = 0; j < currentSet.length; j++)
+                            currentSet[j].playheadTime = (iterationPlayheadTime - startTime);
                     }
-                    cumulativeDuration = endTime;
-                }
-                if (finishWhenDone)
-                {
-                    finishRepeat();
-                    currentSetIndex = -1;
-                }
+                    else if (i < currentSetIndex)
+                    {
+                        // We're currently playing a child effect later than the one we
+                        // should seek into. First, rewind and stop the current effect
+                        for (j = 0; j < currentSet.length; j++)
+                        {
+                            currentSet[j].playheadTime = 0;
+                            currentSet[j].stop();
+                        }
+                        // Next, play(), then stop() the previous effects back to
+                        // the one we want. This will cause these effects to set
+                        // values for their target properties at the start
+                        // of their animations, which is what we want when seeking
+                       // backwards
+                        for (j = currentSetIndex - 1; j > i; --j)
+                        {
+                            childEffectInstances = activeEffectQueue[j];
+                            for (k = 0; k < childEffectInstances.length; k++)
+                            {
+                                childEffectInstances[k].play();
+                                childEffectInstances[k].stop();
+                            }
+                        }
+                        // Now, play the right effect and seek into it
+                        currentSetIndex = i;
+                        playCurrentChildSet();
+                        for (k = 0; k < currentSet.length; k++)
+                        {
+                            currentSet[k].playheadTime = (iterationPlayheadTime - startTime);
+                            if (isPaused)
+                                currentSet[k].pause();
+                        }
+                        break;
+                    }
+                    else // i > currentSetIndex
+                    {
+                        // We need to seek into a child effect later than the
+                        // one we're currently playing. First, end the current effect.
+                        var currentEffectInstances:Array = currentSet.concat();
+                        for (j = 0; j < currentEffectInstances.length; j++)
+                            currentEffectInstances[j].end();
+                        
+                        // Next, play/end all child effects before the one we want
+                        // This will set the animated properties to their end values.
+                        for (k = currentSetIndex + 1; k < i; k++)
+                        {
+                            childEffectInstances = activeEffectQueue[k];                          
+                            for (var l:int = 0; l < childEffectInstances.length; l++)
+                            {
+                                childEffectInstances[l].play();
+                                childEffectInstances[l].end();
+                            }
+                        }
+                        // Finally, set the current child effect and seek into it
+                        currentSetIndex = i;
+                        playCurrentChildSet();
+                        for (k = 0; k < currentSet.length; k++)
+                        {
+                            currentSet[k].playheadTime = (iterationPlayheadTime - startTime);
+                            if (isPaused)
+                                currentSet[k].pause();
+                        }
+                    }
+                    endEffectCalled = false;
                     
+                    // We're done, break out of the loop
+                    break;
+                }
             }
         }
     }
@@ -296,6 +317,8 @@ public class SequenceInstance extends CompositeEffectInstance
      */
     override public function play():void
     {
+        isPaused = false;
+
         // Create a new queue.
         activeEffectQueue = [];
 
@@ -339,7 +362,7 @@ public class SequenceInstance extends CompositeEffectInstance
     override public function pause():void
     {   
         super.pause();
-        
+        isPaused = true;
         if (currentSet && currentSet.length > 0)
         {
             var n:int = currentSet.length;
@@ -355,6 +378,8 @@ public class SequenceInstance extends CompositeEffectInstance
      */
     override public function stop():void
     {
+        isPaused = false;
+        
         if (activeEffectQueue && activeEffectQueue.length > 0)
         {
             var queueCopy:Array = activeEffectQueue.concat();
@@ -399,7 +424,7 @@ public class SequenceInstance extends CompositeEffectInstance
     override public function resume():void
     {
         super.resume();
-        
+        isPaused = false;
         if (currentSet && currentSet.length > 0)
         {
             var n:int = currentSet.length;
@@ -477,6 +502,7 @@ public class SequenceInstance extends CompositeEffectInstance
                 }
             }
         }
+        isPaused = false;
         
         super.end();
     }
