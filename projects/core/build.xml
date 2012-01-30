@@ -20,6 +20,7 @@
 	<target name="clean">
 		<delete file="bundles.properties"/>
 		<delete file="${frameworks.dir}/libs/flex.swc"/>
+		<delete file="${frameworks.dir}/libs/flex.swc.incr"/>
 	</target>
 
 	<target name="compile">
