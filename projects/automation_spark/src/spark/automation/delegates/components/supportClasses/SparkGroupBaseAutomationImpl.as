@@ -80,9 +80,17 @@ package spark.automation.delegates.components.supportClasses
         public function SparkGroupBaseAutomationImpl(obj:spark.components.supportClasses.GroupBase)
         {
             super(obj);
-            obj.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler,
+            obj.$addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler,
                 false, EventPriority.DEFAULT+1, true );
         }
+		
+		override protected function addMouseEvent(obj:DisplayObject, event:String, handler:Function , 
+										 useCapture:Boolean = false , priority:int = 0, useWeekRef:Boolean = false):void
+		{
+			grpBase.$addEventListener(event, handler, useCapture,priority, useWeekRef);
+				// special addevent listener on the container, which does not add the mouse shield.
+			
+		} 
         
         /**
          *  @private
