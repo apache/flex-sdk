@@ -28,6 +28,11 @@ use namespace mx_internal;
  *  Dispatched after a view state has been entered.
  *
  *  @eventType mx.events.FlexEvent.ENTER_STATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="enterState", type="mx.events.FlexEvent")]
 
@@ -37,6 +42,11 @@ use namespace mx_internal;
  *  to the default view state have been removed.
  *
  *  @eventType mx.events.FlexEvent.EXIT_STATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="exitState", type="mx.events.FlexEvent")]
 
@@ -83,6 +93,11 @@ use namespace mx_internal;
  *  @see mx.states.Transition
  *
  *  @includeExample examples/StatesExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class State extends EventDispatcher
 {
@@ -96,6 +111,11 @@ public class State extends EventDispatcher
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function State(properties:Object=null)
     {
@@ -140,6 +160,11 @@ public class State extends EventDispatcher
      *  children that you define for a component without using a State class.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var basedOn:String;
 
@@ -153,6 +178,11 @@ public class State extends EventDispatcher
      *  The name of the view state.
      *  State names must be unique for a given component.
      *  This property must be set.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var name:String;
 
@@ -182,6 +212,11 @@ public class State extends EventDispatcher
      *  State class. You can omit the <code>&lt;mx:overrides&gt;</code> tag
      *  and its child <code>&lt;mx:Array&gt;</code>tag if you use MXML tag
      *  syntax to define the overrides.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var overrides:Array /* of IOverride */ = [];
 
@@ -194,6 +229,11 @@ public class State extends EventDispatcher
 
     /**
      *  The state groups that this view state belongs to as an array of String.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var stateGroups:Array /* of String */ = [];
     
