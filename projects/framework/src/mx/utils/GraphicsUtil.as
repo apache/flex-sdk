@@ -20,6 +20,11 @@ import flash.display.Graphics;
  *  You do not create instances of GraphicsUtil;
  *  instead you simply call methods such as the
  *  <code>GraphicsUtil.drawRoundRectComplex()</code> method.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class GraphicsUtil
 {
@@ -61,6 +66,11 @@ public class GraphicsUtil
      * 
      * @param bottomRightRadius The radius of the bottom-right corner, in pixels.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public static function drawRoundRectComplex(graphics:Graphics, x:Number, y:Number, 
 							  width:Number, height:Number, 
