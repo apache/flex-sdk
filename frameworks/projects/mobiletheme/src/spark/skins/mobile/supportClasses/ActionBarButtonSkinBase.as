@@ -110,15 +110,17 @@ public class ActionBarButtonSkinBase extends ButtonSkin
      * @private
      * Disabled state for ActionBar buttons only applies to label and icon
      */
-    override protected function commitDisabled(isDisabled:Boolean):void
+    override protected function commitDisabled():void
     {
-        labelDisplay.alpha = (isDisabled) ? 0.5 : 1;
-        labelDisplayShadow.alpha = (isDisabled) ? 0.5 : 1;
+        var alphaValue:Number = (hostComponent.enabled) ? 1 : 0.5
+        
+        labelDisplay.alpha = alphaValue;
+        labelDisplayShadow.alpha = alphaValue;
         
         var icon:DisplayObject = getIconDisplay();
         
         if (icon != null)
-            icon.alpha = (isDisabled) ? 0.5 : 1;
+            icon.alpha = alphaValue;
     }
     
     
@@ -135,8 +137,6 @@ public class ActionBarButtonSkinBase extends ButtonSkin
     {
         super.measure();
         
-        measuredMinWidth = Math.max(layoutMeasuredWidth, measuredMinWidth);
-        measuredMinHeight =  Math.max(layoutMeasuredHeight, measuredMinHeight);
         measuredWidth = Math.max(layoutMeasuredWidth, measuredWidth);
         measuredHeight =  Math.max(layoutMeasuredHeight, measuredHeight);
     }
