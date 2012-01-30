@@ -122,6 +122,22 @@ public class PropertyChanges
 	 *  @productversion Flex 3
 	 */
 	public var target:Object;
+
+    // TODO (chaase): This flag is currently used by the transform-related
+    // effects. We should investigate whether we really need it, or can get
+    // by without it
+    /**
+     *  This flag controls whether values that are the same in the
+     *  start and end states are stripped from those objects. 
+     * 
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var stripUnchangedValues:Boolean = true;
 }
 
 }
