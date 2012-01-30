@@ -47,43 +47,43 @@ public class Pause extends TweenEffect
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 * Constructor.
-	 *
-	 * @param target This argument is ignored by the Pause effect
-	 * if there is no <code>eventName</code> attribute assigned. If there
-	 * is an <code>eventName</code>, then the target must be an object
-	 * of type IEventDispatcher, because it is expected to dispatch
-	 * that named event. A null target is allowed for this effect since
-	 * a Pause effect with simply a <code>duration</code> property is
-	 * not acting on any specific target and therefore does not need one.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function Pause(target:Object = null)
-	{
-	    // Effect requires non-null targets, so if they didn't give us one
-	    // we will create a dummy object to serve in its place. If the effect
-	    // is being used to listen to events, then they will supply a real
-	    // target of type IEventDispatcher instead, either here or separately
-	    // in the target attribute
-	    if (!target)
-	       target = new Object();
-	       
-		super(target);
+    /**
+     * Constructor.
+     *
+     * @param target This argument is ignored by the Pause effect
+     * if there is no <code>eventName</code> attribute assigned. If there
+     * is an <code>eventName</code>, then the target must be an object
+     * of type IEventDispatcher, because it is expected to dispatch
+     * that named event. A null target is allowed for this effect since
+     * a Pause effect with simply a <code>duration</code> property is
+     * not acting on any specific target and therefore does not need one.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function Pause(target:Object = null)
+    {
+        // Effect requires non-null targets, so if they didn't give us one
+        // we will create a dummy object to serve in its place. If the effect
+        // is being used to listen to events, then they will supply a real
+        // target of type IEventDispatcher instead, either here or separately
+        // in the target attribute
+        if (!target)
+           target = new Object();
+           
+        super(target);
 
-		instanceClass = PauseInstance;
-	}
-	
+        instanceClass = PauseInstance;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -98,7 +98,7 @@ public class Pause extends TweenEffect
      * Name of event that Pause is waiting on before ending. 
      * This parameter must be used in conjunction with the
      * <code>target</code> property, which must be of type
-     * IEventDispather; all events must originate
+     * IEventDispatcher; all events must originate
      * from some dispatcher.
      * 
      * <p>Listening for <code>eventName</code> is also related to the
@@ -157,15 +157,15 @@ public class Pause extends TweenEffect
         pauseInstance.eventName = eventName;
     }
 
-	/**
-	 *  @private
-	 */
-	override public function createInstances(targets:Array = null):Array
-	{
-		var newInstance:IEffectInstance = createInstance();
-		
-		return newInstance ? [ newInstance ] : [];
-	}
+    /**
+     *  @private
+     */
+    override public function createInstances(targets:Array = null):Array
+    {
+        var newInstance:IEffectInstance = createInstance();
+        
+        return newInstance ? [ newInstance ] : [];
+    }
 }
 
 }
