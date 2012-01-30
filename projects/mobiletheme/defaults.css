@@ -44,6 +44,11 @@ BorderContainer
     skinClass: ClassReference("spark.skins.spark.BorderContainerSkin");
 }
 
+ButtonBase
+{
+    minimumDownStateTime: 100;
+}
+
 Button
 {
     fontWeight : "bold";
@@ -122,21 +127,18 @@ MobileIconItemRenderer
     horizontalGap: 5;
     verticalGap: 5;
     headerStyleName: "mobileIconItemRendererHeaderStyle";
-    subTextStyleName: "mobileIconItemRendererSubTextStyle";
+    messageStyleName: "mobileIconItemRendererMessageStyle";
 }
 
 .mobileIconItemRendererHeaderStyle
 {
-    font-size: 24;
-    color: #FFFFFF;
     font-weight: bold;
 }
 
-.mobileIconItemRendererSubTextStyle
+.mobileIconItemRendererMessageStyle
 {
     font-size: 20;
-    color: #CCCCCC;
-    font-weight: normal;
+    color: #DDDDDD;
 }
 
 MuteButton
@@ -166,6 +168,7 @@ RadioButton
 
 Scroller
 {
+    touchDelay: 100;
     skinClass: ClassReference("spark.skins.spark.ScrollerSkin");
 }
 
@@ -234,6 +237,11 @@ TitleWindow
 	skinClass: ClassReference("spark.skins.spark.TitleWindowSkin");
 }
 
+ToggleButtonBase
+{
+    minimumDownStateTime: 0;
+}
+
 ToggleButton
 {
 	skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
@@ -294,4 +302,5 @@ global
     rollOverOpenDelay: 200;
     slideDuration: 300;
     smoothScrolling: true;
+    touchDelay: 0; /* default to 0 here, but Scroller sets it to 100 */
 }
