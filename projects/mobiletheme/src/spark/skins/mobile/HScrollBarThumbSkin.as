@@ -24,127 +24,135 @@ import spark.skins.mobile240.assets.HScrollThumb;
 
 public class HScrollBarThumbSkin extends MobileSkin 
 {
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function HScrollBarThumbSkin()
     {
         super();
-		useChromeColor = true;
-		
-		// Depending on density set asset and visible thumb height
-		switch (authorDensity)
-		{
-			case DeviceDensity.PPI_240:
-			{
-				thumbClass = spark.skins.mobile240.assets.HScrollThumb;
-				thumbHeight = 6;
-				break;
-			}
-			default:
-			{
-				thumbClass = spark.skins.mobile160.assets.HScrollThumb;
-				thumbHeight = 4;
-				break;
-			}
-		}
+        useChromeColor = true;
+        
+        // Depending on density set asset and visible thumb height
+        switch (authorDensity)
+        {
+            case DeviceDensity.PPI_240:
+            {
+                thumbClass = spark.skins.mobile240.assets.HScrollThumb;
+                thumbHeight = 6;
+                break;
+            }
+            default:
+            {
+                thumbClass = spark.skins.mobile160.assets.HScrollThumb;
+                thumbHeight = 4;
+                break;
+            }
+        }
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-	/** 
-	 * @copy spark.skins.spark.ApplicationSkin#hostComponent
-	 */
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    /** 
+     * @copy spark.skins.spark.ApplicationSkin#hostComponent
+     */
     public var hostComponent:Button;
-	
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------	
-	/**
-	 *  Specifies the FXG class to use for the thumb
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */    
-	public var thumbClass:Class;
-	
-	/**
-	 *  Specifies the DisplayObject to use for the thumb
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */ 
-	public var thumbSkin:DisplayObject;
+    
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------    
+    /**
+     *  Specifies the FXG class to use for the thumb.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */    
+    public var thumbClass:Class;
+    
+    /**
+     *  Specifies the DisplayObject to use for the thumb.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    public var thumbSkin:DisplayObject;
 
-	
-	/**
-	 *  Height of the visible thumb area
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */ 
-	protected var thumbHeight:int;
-	
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
-	/**
-	 *  @protected
-	 */ 
-	override protected function createChildren():void
-	{
-		if (!thumbSkin)
-		{
-			thumbSkin = new thumbClass();
-			addChild(thumbSkin);	
-		}
-	}
-	
-	/**
-	 *  @protected
-	 */ 
-	override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-	{
-		super.updateDisplayList(unscaledWidth, unscaledHeight);
-		setElementSize(thumbSkin, unscaledWidth, unscaledHeight);
-	}
+    
+    /**
+     *  Height of the visible thumb area.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    protected var thumbHeight:int;
+    
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+    /**
+     *  @private
+     */
+    override protected function createChildren():void
+    {
+        if (!thumbSkin)
+        {
+            thumbSkin = new thumbClass();
+            addChild(thumbSkin);    
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        setElementSize(thumbSkin, unscaledWidth, unscaledHeight);
+    }
 
-	/**
-	 *  @protected
-	 */ 
-	override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
-	{
-		var chromeColor:uint = getChromeColor();
-		chromeColorGraphics.beginFill(chromeColor, 1);
-	}
-	
-	/**
-	 *  @protected
-	 */ 
+    /**
+     *  @private
+     */
+    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
+    {
+        var chromeColor:uint = getChromeColor();
+        chromeColorGraphics.beginFill(chromeColor, 1);
+    }
+    
+    /**
+     *  @private
+     */
     override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
     {
-		chromeColorGraphics.drawRoundRect(0, 0, 
-									      unscaledWidth, thumbHeight, 
-										  thumbHeight, thumbHeight);
-	}
+        chromeColorGraphics.drawRoundRect(0, 0, 
+                                          unscaledWidth, thumbHeight, 
+                                          thumbHeight, thumbHeight);
+    }
     
 }
 }
