@@ -3661,11 +3661,6 @@ public class UIComponent extends FlexSprite
      *     MyApplication(paentApplication).myAppMethod().
      *  Therefore we decided to dispense with strict typing for
      *  'parentApplication'.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     public function get parentApplication():Object
     {
@@ -10797,8 +10792,8 @@ public class UIComponent extends FlexSprite
         hasFontContextBeenSaved = true;
         
         if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
-        	classObj = getStyle("textFieldClass");
-        	        
+            classObj = getStyle("textFieldClass");
+                    
         var fontName:String = StringUtil.trimArrayElements(getStyle("fontFamily"), ",");
         var fontWeight:String = getStyle("fontWeight");
         var fontStyle:String = getStyle("fontStyle");
