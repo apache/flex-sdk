@@ -11,6 +11,9 @@
 
 package spark.components.supportClasses
 {
+import flash.utils.getDefinitionByName;
+import flash.utils.getQualifiedClassName;
+
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
@@ -122,10 +125,122 @@ public class ViewNavigatorBase extends SkinnableContainer
         {
             _active = value;
             
+            if (activeView)
+                activeView.active = value;
+            
             var eventName:String = _active ? FlexEvent.NAVIGATOR_ACTIVATE : 
                                              FlexEvent.NAVIGATOR_DEACTIVATE;
             if (hasEventListener(eventName))
                 dispatchEvent(new FlexEvent(eventName));
+        }
+    }
+
+    //----------------------------------
+    //  activeView
+    //----------------------------------
+    
+    /**
+     *  The currently active view of the navigator.  Only one view can
+     *  be active at a time.
+     *
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get activeView():View
+    {
+        return null;
+    }
+    
+    //----------------------------------
+    //  canCancelBackKeyBehavior
+    //----------------------------------
+    /**
+     *  This method determines if a device's default back key handler can
+     *  be canceled.  For example, by default, when the back key is pressed
+     *  on android devices, the application exits.  By returning true, that
+     *  action will be canceled and the navigator's backKeyHandler() method
+     *  is called.
+     * 
+     *  <p>This method is only called if the navigator is the main navigator
+     *  of a MobileApplication class</p>.
+     * 
+     *  @return Flag indicating the default behavior can be canceled.  By
+     *  default, this method returns false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    // TODO (chiedozi): PARB? exitOnBack?
+    public function get canCancelBackKeyBehavior():Boolean
+    {
+        return false;
+    }
+    
+    //----------------------------------
+    //  icon
+    //----------------------------------
+    
+    private var _icon:Class;
+    
+    /**
+     *  Returns the icon that should be used when this navigator is represented
+     *  by a visual component.
+     * 
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get icon():Class
+    {
+        return _icon;    
+    }
+    /**
+     *  @private
+     */
+    public function set icon(value:Class):void
+    {
+        _icon = value;
+    }
+    
+    //----------------------------------
+    //  label
+    //----------------------------------
+    
+    private var _label:String;
+    
+    [Bindable]
+    /**
+     *  The label to be used when this stack is represented by a visual component.
+     * 
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get label():String
+    {
+        return _label;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set label(value:String):void
+    {    
+        if (_label != value)
+        {
+            _label = value;
         }
     }
     
@@ -268,29 +383,6 @@ public class ViewNavigatorBase extends SkinnableContainer
     }
     
     /**
-     *  This method determines if a device's default back key handler can
-     *  be canceled.  For example, by default, when the back key is pressed
-     *  on android devices, the application exits.  By returning true, that
-     *  action will be canceled and the navigator's backKeyHandler() method
-     *  is called.
-     * 
-     *  <p>This method is only called if the navigator is the main navigator
-     *  of a MobileApplication class</p>.
-     * 
-     *  @return Flag indicating the default behavior can be canceled.  By
-     *  default, this method returns false.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */  
-    public function canCancelDefaultBackKeyBehavior():Boolean
-    {
-        return false;
-    }
-    
-    /**
      *  @private
      *  
      *  @langversion 3.0
@@ -306,6 +398,45 @@ public class ViewNavigatorBase extends SkinnableContainer
             finalState += "AndOverlay";
         
         return finalState;
+    }
+    
+    /**
+     *  This method is responsible for serializing all data related to
+     *  the navigator's children into an object that can be saved
+     *  by the persistence manager.  This object will be sent to the
+     *  restoreViewData method when the navigator is reinstantiated.
+     * 
+     *  @return The object that represents the navigators state
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function saveViewData():Object
+    {
+        return {label:label, iconClassName:getQualifiedClassName(icon)};
+    }
+    
+    /**
+     *  This method is responsible for restoring the navigator's view
+     *  data based on the object that is passed in.
+     * 
+     *  @param value The saved object that should be used to restore
+     *  the navigators state
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    // TODO (chiedozi): This is not module safe
+    public function restoreViewData(value:Object):void
+    {
+        label = value.label;
+        
+        var iconClassName:String = value.iconClassName;
+        icon = (iconClassName == "null") ? null : getDefinitionByName(iconClassName) as Class;
     }
     
     /**
