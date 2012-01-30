@@ -256,6 +256,10 @@ public interface IModuleInfo extends IEventDispatcher
      *  is specified the module will be loaded from the ByteArray. If this 
      *  parameter is null the module will be loaded from the url specified in
      *  the url property.
+     * 
+     *  @param moduleFactory The moduleFactory of the caller. One use of the 
+     *  moduleFactory is to determine the parent style manager of the loaded 
+     *  module.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -264,7 +268,8 @@ public interface IModuleInfo extends IEventDispatcher
      */
     function load(applicationDomain:ApplicationDomain = null,
                   securityDomain:SecurityDomain = null,
-                  bytes:ByteArray = null):void;
+                  bytes:ByteArray = null,
+                  moduleFactory:IFlexModuleFactory = null):void;
 
     /**
      *  Releases the current reference to the module.
