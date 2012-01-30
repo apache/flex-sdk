@@ -9,7 +9,6 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-// TODO (chiedozi): Should this be a singleton
 package spark.core.managers
 {
 import flash.net.SharedObject;
@@ -34,6 +33,14 @@ import flash.net.SharedObject;
  */
 public class PersistenceManager implements IPersistenceManager
 {
+    //--------------------------------------------------------------------------
+    //
+    //  Constants
+    //
+    //--------------------------------------------------------------------------
+    
+    private static const SHARED_OBJECT_NAME:String = "FXAppCache";
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -61,19 +68,7 @@ public class PersistenceManager implements IPersistenceManager
     
     /**
      *  @private
-     */ 
-    private var enabled:Boolean = false;
-    
-    /**
-     *  @private
      *  Returns whether the persistence manager has been initialized.
-     * 
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
      */ 
     private var initialized:Boolean = false;
     
@@ -88,6 +83,7 @@ public class PersistenceManager implements IPersistenceManager
     //  IPersistenceManager Methods
     // 
     //--------------------------------------------------------------------------
+    
     /**
      *  @inheritDoc
      *  
@@ -96,23 +92,24 @@ public class PersistenceManager implements IPersistenceManager
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    public function initialize():void
+    public function load():Boolean
     {
+        if (initialized)
+            return true;
+        
         try
         {
-            so = SharedObject.getLocal("FXAppCache");
-            initialized = (so != null);
-			enabled = (so != null);
+            so = SharedObject.getLocal(SHARED_OBJECT_NAME);
+            initialized = true;
         }
         catch (e:Error)
         {
-            // TODO (chiedozi): Dispatch an error event for this.  Maybe a persistence_CREATE_FAIL
-            enabled = false;
-            initialized = false;
+            // Fail silently
         }
+        
+        return initialized;
     }
     
-    // TODO (chiedozi): Add a try/catch for all operations for custom RTE i throw
     /**
      *  @inheritDoc
      *  
@@ -123,15 +120,13 @@ public class PersistenceManager implements IPersistenceManager
      */ 
     public function setProperty(key:String, value:Object):void
     {
+        // If the persistence manager hasn't been initialized, do so now
         if (!initialized)
-            initialize();
+            load();
         
-        // TODO (chiedozi): Don't call flush now
-        if (enabled)
-        {
+        // Make sure the shared object is valid since initialization fails silently
+        if (so != null)
             so.data[key] = value;
-            so.flush();
-        }
     }
     
     /**
@@ -144,10 +139,12 @@ public class PersistenceManager implements IPersistenceManager
      */ 
     public function getProperty(key:String):Object
     {
+        // If the persistence manager hasn't been initialized, do so now
         if (!initialized)
-            initialize();
+            load();
         
-        if (enabled)
+        // Make sure the shared object is valid since initialization fails silently
+        if (so != null)
             return so.data[key];
         
         return null;
@@ -163,14 +160,13 @@ public class PersistenceManager implements IPersistenceManager
      */ 
     public function clear():void
     {
+        // If the persistence manager hasn't been initialized, do so now
         if (!initialized)
-            initialize();
+            load();
         
-		if (enabled)
-		{
+        // Make sure the shared object is valid since initialization fails silently
+        if (so != null)
             so.clear();
-            so.flush();
-		}
     }
     
     /**
@@ -181,10 +177,24 @@ public class PersistenceManager implements IPersistenceManager
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    public function flush():void
+    public function save():Boolean
     {
-		if (enabled)
-        	so.flush();
+        try
+        {
+            // We assume the flush suceeded
+            /*var flushStatus:String = */so.flush();
+            
+            // FIXME (chiedozi): Flush can still fail.  Should validate use case below
+//            if (flushStatus == SharedObjectFlushStatus.PENDING)
+//                so.addEventListener(NetStatusEvent.NET_STATUS, sharedObject_netStatusHandler);
+        }
+        catch (e:Error)
+        {
+            // Fail silently
+            return false;
+        }
+        
+        return true;
     }
 }
 }
