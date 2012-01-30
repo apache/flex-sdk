@@ -30,7 +30,7 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.EffectManager;
 import mx.managers.SystemManager;
-import mx.modules.Module;
+import mx.modules.IModule;
 import mx.modules.ModuleManager;
 import mx.utils.NameUtil;
 import mx.utils.OrderedObject;
@@ -203,7 +203,7 @@ public class StyleProtoChain
             // compiler didn't add a duplicate default style. In that case don't 
             // add global styles to the chain because the parent style manager's
             // global styles are already on the chain.
-            if (object is Module)
+            if (object is IModule)
             {
                 styleDeclaration = styleManager.getStyleDeclaration("global");
                 if (styleDeclaration)
