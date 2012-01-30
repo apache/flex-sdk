@@ -131,6 +131,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function get filterFunction():Function
 		{
@@ -139,6 +144,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function set filterFunction(value:Function):void
 		{
@@ -152,6 +162,11 @@ package mx.collections
 
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function disableAutoUpdate():void
 		{
@@ -166,6 +181,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function contains(item:Object):Boolean
 		{
@@ -174,6 +194,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function get sort():Sort
 		{
@@ -182,6 +207,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function set sort(value:Sort):void
 		{
@@ -189,6 +219,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function itemUpdated(item:Object, property:Object = null, oldValue:Object = null, newValue:Object = null):void
 		{
@@ -196,6 +231,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function refresh():Boolean
 		{
@@ -204,6 +244,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function enableAutoUpdate():void
 		{
@@ -211,6 +256,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function hasEventListener(type:String):Boolean
 		{
@@ -219,6 +269,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function willTrigger(type:String):Boolean
 		{
@@ -227,6 +282,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0.0, useWeakReference:Boolean = false):void
 		{
@@ -234,6 +294,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
 		{
@@ -241,6 +306,11 @@ package mx.collections
 		
 	    /**
 	     *  Not supported by ModifiedCollectionView
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 		public function dispatchEvent(event:Event):Boolean
 		{
@@ -256,6 +326,11 @@ package mx.collections
 	     *  @return a new bookmark instance
 	     * 
 	     *  @throws a CollectionViewError if the index is out of bounds
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 	    mx_internal function getBookmark(mcvCursor:ModifiedCollectionViewCursor):ModifiedCollectionViewBookmark
 	    {
@@ -291,6 +366,11 @@ package mx.collections
 	     *  @return the new location of the bookmark, -1 if not in the view anymore
 	     * 
 	     *  @throws CollectionViewError if the bookmark is invalid
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 	    mx_internal function getBookmarkIndex(bookmark:CursorBookmark):int
 	    {
@@ -319,6 +399,11 @@ package mx.collections
 		 * 
 		 *  This method also adjusts the cursor as necessary.
 		 * 
+		 *  
+		 *  @langversion 3.0
+		 *  @playerversion Flash 9
+		 *  @playerversion AIR 1.1
+		 *  @productversion Flex 3
 		 */
 		mx_internal function getWrappedItemUsingCursor(mcvCursor:ModifiedCollectionViewCursor, 
 												  newIndex:int):Object
@@ -409,6 +494,11 @@ package mx.collections
 		 *  set to true, it will present a view of the ListCollectionView
 		 *  ignoring any changes that have been integrated into the 
 		 *  ModifiedCollectionView.
+		 *  
+		 *  @langversion 3.0
+		 *  @playerversion Flash 9
+		 *  @playerversion AIR 1.1
+		 *  @productversion Flex 3
 		 */		
 		public function get showPreservedState():Boolean
 		{
@@ -452,6 +542,11 @@ package mx.collections
 	     *  @param startItemIndex
 	     * 
 	     *  @param endItemIndex
+	     *  
+	     *  @langversion 3.0
+	     *  @playerversion Flash 9
+	     *  @playerversion AIR 1.1
+	     *  @productversion Flex 3
 	     */
 	    public function processCollectionEvent(event:CollectionEvent, startItemIndex:int, endItemIndex:int):void
 	    {
@@ -479,6 +574,11 @@ package mx.collections
 		 * 
 		 *  @param item The item to remove from the collection. This must have
 		 *  been removed from the original collection.
+		 *  
+		 *  @langversion 3.0
+		 *  @playerversion Flash 9
+		 *  @playerversion AIR 1.1
+		 *  @productversion Flex 3
 		 */
 		public function removeItem(itemWrapper:ItemWrapper):void
 		{
@@ -520,6 +620,11 @@ package mx.collections
 		 * 
 		 *  @param item The item to start showing in the collection. This must 
 		 *  have been added to the original collection.
+		 *  
+		 *  @langversion 3.0
+		 *  @playerversion Flash 9
+		 *  @playerversion AIR 1.1
+		 *  @productversion Flex 3
 		 */
 		public function addItem(itemWrapper:ItemWrapper):void
 		{
@@ -847,6 +952,11 @@ use namespace mx_internal;
  *  Dispatched whenever the cursor position is updated.
  *
  *  @eventType mx.events.FlexEvent.CURSOR_UPDATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="cursorUpdate", type="mx.events.FlexEvent")]
 
@@ -895,6 +1005,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      *  ModifiedCollectionView.
      * 
      *  @param current The item this cursor is currently pointing at.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ModifiedCollectionViewCursor(view:ModifiedCollectionView, cursor:IViewCursor, current:Object)
     {
@@ -986,6 +1101,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
     /**
      *  Get a reference to the view that this cursor is associated with.
      *  @return the associated <code>ICollectionView</code>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get view():ICollectionView
     {
@@ -1005,6 +1125,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      *  @see mx.collections.IViewCursor#seek
      *  @see mx.collections.IViewCursor#beforeFirst
      *  @see mx.collections.IViewCursor#afterLast
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get current():Object
     {
@@ -1024,6 +1149,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      *
      *  @see mx.collections.IViewCursor#current
      *  @see mx.collections.IViewCursor#seek
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bookmark():CursorBookmark
     {
@@ -1042,6 +1172,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      * true if the current is sitting before the first item in the view.
      * If the ICollectionView is empty (length == 0) this will always
      * be true.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get beforeFirst():Boolean
     {
@@ -1055,6 +1190,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      * true if the cursor is sitting after the last item in the view.
      * If the ICollectionView is empty (length == 0) this will always
      * be true.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get afterLast():Boolean
     {
@@ -1093,6 +1233,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      *  @see mx.collections.IViewCursor#findFirst
      *  @see mx.collections.IViewCursor#findLast
      *  @see mx.collections.errors.ItemPendingError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function findAny(values:Object):Boolean
     {
@@ -1127,6 +1272,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      *  @see mx.collections.IViewCursor#findAny
      *  @see mx.collections.IViewCursor#findLast
      *  @see mx.collections.errors.ItemPendingError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      public function findFirst(values:Object):Boolean
     {
@@ -1162,6 +1312,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      *  @see mx.collections.IViewCursor#findAny
      *  @see mx.collections.IViewCursor#findFirst
      *  @see mx.collections.errors.ItemPendingError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function findLast(values:Object):Boolean
     {
@@ -1174,6 +1329,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      * If the cursor is <code>afterLast</code> the insertion
      * will happen at the end of the View.  If the cursor is
      * <code>beforeFirst</code> on a non-empty view an error will be thrown.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function insert(item:Object):void
     {
@@ -1205,6 +1365,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      *       cursor.moveNext();
      *     }
      *  </pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function moveNext():Boolean
     {
@@ -1255,6 +1420,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      *        cursor.movePrevious();
      *      }
      *  </pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function movePrevious():Boolean
     {
@@ -1283,6 +1453,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      * Remove the current item and return it.  If the cursor is
      * <code>beforeFirst</code> or <code>afterLast</code> throw a
      * CursorError.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function remove():Object
     {
@@ -1329,6 +1504,11 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
      *           If the iteration direction is known at the time of the request
      *           the appropriate amount of data can be returned ahead of the
      *           request to iterate it.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function seek(bookmark:CursorBookmark, offset:int = 0, prefetch:int = 0):void
     {
@@ -1468,6 +1648,11 @@ class ModifiedCollectionViewBookmark extends CursorBookmark
      * ItemPendingError.  If the item is not in the current view -1 will be
      * returned.  This method may also return -1 if index-based location is not
      * possible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function getViewIndex():int
     {
@@ -1522,11 +1707,21 @@ class CollectionModification
      * The point at which elements in the collection were removed or added
      * (More precisely, the index of the a current element in the collection 
      * to which this modification is attached.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public var index:int;
 
 	/**
 	 * Removed element, if applicable
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var item:Object = null;
 	
@@ -1550,6 +1745,11 @@ class CollectionModification
 	 * 
 	 * For replaces, the original and replacement values may
 	 * be shown independently.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function startShowingReplacementValue():void
 	{
@@ -1564,6 +1764,11 @@ class CollectionModification
 	 * 
 	 * For replaces, the original and replacement values may
 	 * be shown independently.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function stopShowingReplacedValue():void
 	{
@@ -1575,6 +1780,11 @@ class CollectionModification
     /**
      * The number of removed elements being preserved in the modified collection,
      * minus the number of added elements not in the original collection
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get modCount():int
 	{
