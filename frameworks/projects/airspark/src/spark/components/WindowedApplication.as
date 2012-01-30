@@ -2370,6 +2370,7 @@ public class WindowedApplication extends Application implements IWindow
         {
             startResize(NativeWindowResize.BOTTOM_RIGHT);
             event.stopPropagation();
+            return;
         }
 
         if (systemManager.stage.nativeWindow.systemChrome != "none")
