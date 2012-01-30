@@ -34,8 +34,9 @@ import flash.utils.getDefinitionByName;
 import flash.utils.getTimer;
 import mx.events.FlexEvent;
 import mx.events.RSLEvent;
+import mx.geom.RoundedRectangle;
 import mx.graphics.RectangularDropShadow;
-import mx.graphics.RoundedRectangle;
+
 
 /**
  *  The DownloadProgressBar class displays download progress.
