@@ -95,8 +95,19 @@ public class RSLItem
 
     /**
      *  @private
+     *  External handlers so the load can be 
+     *  observed by the class calling load().
      */
-    protected var url:String;
+    protected var chainedProgressHandler:Function;    
+    protected var chainedCompleteHandler:Function;
+    protected var chainedIOErrorHandler:Function;
+    protected var chainedSecurityErrorHandler:Function;
+    protected var chainedRSLErrorHandler:Function;
+    
+    /**
+     *  @private
+     */
+    private var completed:Boolean = false;
 
     /**
      *  @private
@@ -106,20 +117,13 @@ public class RSLItem
     /**
      *  @private
      */
-    private var completed:Boolean = false;
+    protected var moduleFactory:IFlexModuleFactory; // application/module loading this RSL.
     
     /**
      *  @private
-     *  External handlers so the load can be 
-     *  observed by the class calling load().
      */
-    protected var chainedProgressHandler:Function;    
-    protected var chainedCompleteHandler:Function;
-    protected var chainedIOErrorHandler:Function;
-    protected var chainedSecurityErrorHandler:Function;
-    protected var chainedRSLErrorHandler:Function;
-     
-
+    protected var url:String;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -130,20 +134,25 @@ public class RSLItem
      *  Create a RSLItem with a given URL.
      * 
      *  @param url location of RSL to load
-     *  
      *  @param rootURL provides the url used to locate relative RSL urls. 
+     *  @param moduleFactory The module factory that is loading the RSLs. The
+     *  RSLs will be loaded into the application domain of the given module factory.
+     *  If a module factory is not specified, then the RSLs will be loaded into the 
+     *  application domain of where the CrossDomainRSLItem class was first loaded.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function RSLItem(url:String, rootURL:String = null)
+    public function RSLItem(url:String, rootURL:String = null, 
+                            moduleFactory:IFlexModuleFactory = null)
     {
         super();
 
         this.url = url;
         this.rootURL = rootURL;
+        this.moduleFactory = moduleFactory;
     }
                     
     //--------------------------------------------------------------------------
@@ -207,7 +216,11 @@ public class RSLItem
         loader.contentLoaderInfo.addEventListener(
             SecurityErrorEvent.SECURITY_ERROR, itemErrorHandler);
 
-        loaderContext.applicationDomain = ApplicationDomain.currentDomain;
+        if (moduleFactory != null)
+            loaderContext.applicationDomain = moduleFactory.info()["currentDomain"];    
+        else 
+            loaderContext.applicationDomain = ApplicationDomain.currentDomain;
+
         loader.load(urlRequest, loaderContext); 
     }
     
