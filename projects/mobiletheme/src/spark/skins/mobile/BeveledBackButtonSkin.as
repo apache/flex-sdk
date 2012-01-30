@@ -164,6 +164,9 @@ public class BeveledBackButtonSkin extends ButtonSkin
         }
     }
     
+    /**
+     *  @private
+     */
     override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
         // omit call to super.drawBackground(), apply tint instead and don't draw fill
