@@ -23,7 +23,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="backgroundAlpha", type="Number", inherit="no")]
+[Style(name="backgroundAlpha", type="Number", inherit="no", theme="halo")]
 
 /**
  *  Background color of a component.
@@ -54,7 +54,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
+[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  Background color of the component when it is disabled.
@@ -68,7 +68,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="backgroundDisabledColor", type="uint", format="Color", inherit="yes")]
+[Style(name="backgroundDisabledColor", type="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
  *  Background image of a component.  This can be an absolute or relative
@@ -93,7 +93,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="backgroundImage", type="Object", format="File", inherit="no")]
+[Style(name="backgroundImage", type="Object", format="File", inherit="no", theme="halo")]
 
 /**
  *  Scales the image specified by <code>backgroundImage</code>
@@ -110,7 +110,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="backgroundSize", type="String", inherit="no")]
+[Style(name="backgroundSize", type="String", inherit="no", theme="halo")]
 
 /**
  *  Color of the border.
@@ -122,7 +122,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderColor", type="uint", format="Color", inherit="no")]
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  Bounding box sides.
@@ -139,7 +139,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderSides", type="String", inherit="no")]
+[Style(name="borderSides", type="String", inherit="no", theme="halo")]
 
 /**
  *  The border skin class of the component. 
@@ -183,7 +183,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderThickness", type="Number", format="Length", inherit="no")]
+[Style(name="borderThickness", type="Number", format="Length", inherit="no", theme="halo")]
 
 /**
  *  Radius of component corners.
@@ -196,7 +196,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="cornerRadius", type="Number", format="Length", inherit="no")]
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo")]
 
 /**
  *  Boolean property that specifies whether the component has a visible
@@ -214,7 +214,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="dropShadowEnabled", type="Boolean", inherit="no")]
+[Style(name="dropShadowEnabled", type="Boolean", inherit="no", theme="halo")]
 
 /**
  *  Color of the drop shadow.
@@ -226,7 +226,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="dropShadowColor", type="uint", format="Color", inherit="yes")]
+[Style(name="dropShadowColor", type="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
  *  Direction of the drop shadow.
@@ -240,7 +240,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="shadowDirection", type="String", enumeration="left,center,right", inherit="no")]
+[Style(name="shadowDirection", type="String", enumeration="left,center,right", inherit="no", theme="halo")]
 
 /**
  *  Distance of the drop shadow.
@@ -253,7 +253,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="shadowDistance", type="Number", format="Length", inherit="no")]
+[Style(name="shadowDistance", type="Number", format="Length", inherit="no", theme="halo")]
 
 
 
