@@ -13,7 +13,6 @@ package spark.skins.mobile
 {
 
 import flash.display.CapsStyle;
-import flash.display.Graphics;
 import flash.display.JointStyle;
 import flash.display.LineScaleMode;
 
@@ -39,7 +38,7 @@ public class VScrollBarThumbSkin extends MobileSkin
     //  Class constants
     //
     //--------------------------------------------------------------------------
-
+    
     // These constants are also accessed from VScrollBarSkin
     mx_internal static const PADDING_RIGHT_320DPI:int = 5;
     mx_internal static const PADDING_VERTICAL_320DPI:int = 4;
@@ -47,7 +46,7 @@ public class VScrollBarThumbSkin extends MobileSkin
     mx_internal static const PADDING_VERTICAL_240DPI:int = 3;
     mx_internal static const PADDING_RIGHT_DEFAULTDPI:int = 3;
     mx_internal static const PADDING_VERTICAL_DEFAULTDPI:int = 2;
-
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -65,30 +64,29 @@ public class VScrollBarThumbSkin extends MobileSkin
     public function VScrollBarThumbSkin()
     {
         super();
-		useChromeColor = true;
-		
-		// Depending on density set padding
-		switch (applicationDPI)
-		{
-			case DPIClassification.DPI_320:
-			{
-				paddingRight = PADDING_RIGHT_320DPI;
-				paddingVertical = PADDING_VERTICAL_320DPI;
-				break;
-			}
-			case DPIClassification.DPI_240:
-			{
-				paddingRight = PADDING_RIGHT_240DPI;
-				paddingVertical = PADDING_VERTICAL_240DPI;
-				break;
-			}
-			default:
-			{
-				paddingRight = PADDING_RIGHT_DEFAULTDPI;
-				paddingVertical = PADDING_VERTICAL_DEFAULTDPI;
-				break;
-			}
-		}
+        
+        // Depending on density set padding
+        switch (applicationDPI)
+        {
+            case DPIClassification.DPI_320:
+            {
+                paddingRight = PADDING_RIGHT_320DPI;
+                paddingVertical = PADDING_VERTICAL_320DPI;
+                break;
+            }
+            case DPIClassification.DPI_240:
+            {
+                paddingRight = PADDING_RIGHT_240DPI;
+                paddingVertical = PADDING_VERTICAL_240DPI;
+                break;
+            }
+            default:
+            {
+                paddingRight = PADDING_RIGHT_DEFAULTDPI;
+                paddingVertical = PADDING_VERTICAL_DEFAULTDPI;
+                break;
+            }
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -100,58 +98,56 @@ public class VScrollBarThumbSkin extends MobileSkin
      * @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
     public var hostComponent:Button;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------	
+    /**
+     *  Padding from the right
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    protected var paddingRight:int;
+    
+    /**
+     *  Vertical padding from top and bottom
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    protected var paddingVertical:int;
+    
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------	
+    
+    /**
+     *  @protected
+     */ 
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        super.drawBackground(unscaledWidth, unscaledHeight);
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------	
-	/**
-	 *  Padding from the right
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */ 
-	protected var paddingRight:int;
-	
-	/**
-	 *  Vertical padding from top and bottom
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */ 
-	protected var paddingVertical:int;
-	
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------	
-	/**
-	 *  @protected
-	 */ 
-	override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
-	{
-		var chromeColor:uint = getChromeColor();
-		chromeColorGraphics.beginFill(chromeColor, 1);
-		chromeColorGraphics.lineStyle(1, 0x000000, 1, false, LineScaleMode.NORMAL, CapsStyle.NONE, JointStyle.ROUND);
-	}
-	
-	/**
-	 *  @protected
-	 */ 
-	override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
-	{
-		var thumbWidth:Number = unscaledWidth - paddingRight;
-		chromeColorGraphics.drawRoundRect(0.5, paddingVertical + 0.5, 
-										 thumbWidth, unscaledHeight - 2 * paddingVertical, 
-										 thumbWidth, thumbWidth);
-	}
-
+        var thumbWidth:Number = unscaledWidth - paddingRight;
+        
+        graphics.beginFill(getStyle("chromeColor"), 1);
+        graphics.lineStyle(1, 0x000000, 1, false, LineScaleMode.NORMAL, CapsStyle.NONE, JointStyle.ROUND);
+        graphics.drawRoundRect(0.5, paddingVertical + 0.5, 
+            thumbWidth, unscaledHeight - 2 * paddingVertical, 
+            thumbWidth, thumbWidth);
+        
+        graphics.endFill();
+    }
+    
 }
 }
