@@ -24,14 +24,14 @@ import mx.core.DragSource;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
+import mx.core.ILayoutDirectionElement;
 import mx.core.IUIComponent;
-import mx.core.IVisualElement;
+import mx.core.LayoutDirection;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.DragEvent;
 import mx.events.Request;
 import mx.managers.dragClasses.DragProxy;
-import mx.modules.IModule;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleManager2;
 import mx.styles.StyleManager;
@@ -338,9 +338,9 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
         // If the target's layout is rtl that means the proxy origin x
         // is currently offset from the right edge of the dragInitiator. Fix that:
         var originX:Number = -xOffset;
-        if (dragInitiator is IVisualElement)
+        if (dragInitiator is ILayoutDirectionElement)
         {
-            if (IVisualElement(dragInitiator).layoutDirection == "rtl")
+            if (ILayoutDirectionElement(dragInitiator).layoutDirection == LayoutDirection.RTL)
                 originX += dragInitiator.getExplicitOrMeasuredWidth();
         }
         
