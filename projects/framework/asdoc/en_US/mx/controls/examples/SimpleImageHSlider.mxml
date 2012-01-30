@@ -27,7 +27,7 @@
                         creationComplete="imageWidth = phoneImage.width; imageHeight = phoneImage.height;" />
             </s:HGroup>
 
-            <s:SimpleText color="blue" text="Drag the slider to resize the image."/>
+            <s:Label color="blue" text="Drag the slider to resize the image."/>
 
             <mx:HSlider id="hSlider"
                     minimum="0" maximum="100" value="100"
