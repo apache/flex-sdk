@@ -94,6 +94,9 @@ public class SlideViewTransition extends ViewTransition
     /**
      * 
      */
+    // TODO (chiedozi): ViewNavigator was changed to always create a dummy view
+    // if the instance was null for some reason.  In theory, the nextView and
+    // currentView properties should never be null.  Can remove the null checks.
     override public function prepare():void
     {
         actionBar = navigator.actionBar;
