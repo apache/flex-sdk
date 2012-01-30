@@ -12,6 +12,7 @@
 package spark.skins.mobile 
 {
 import flash.events.Event;
+import flash.system.Capabilities;
 
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
@@ -54,6 +55,9 @@ public class TextInputSkin extends TextSkinBase
     public function TextInputSkin()
     {
         super();
+        
+        // on iOS, make adjustments for native text rendering
+        _isIOS = (Capabilities.version.indexOf("IOS") == 0);
         
         switch (applicationDPI)
         {
@@ -100,6 +104,11 @@ public class TextInputSkin extends TextSkinBase
      *  @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
     public var hostComponent:TextInput;  // SkinnableComponent will populate
+    
+    /**
+     *  @private
+     */
+    private var _isIOS:Boolean;
     
     /**
      *  @private
@@ -175,39 +184,50 @@ public class TextInputSkin extends TextSkinBase
         var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
         var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
         
-        // default vertical positioning is ascent centered
+        // default vertical positioning is centered
         var textHeight:Number = getElementPreferredHeight(textDisplay);
         var textY:Number = Math.round(0.5 * (unscaledTextHeight - textHeight)) + paddingTop;
 
         if (textDisplay)
         {
-            // We're going to do a few tricks to try to increase the size of our hitArea to make it 
-            // easier for users to select text or put the caret in a certain spot.  To do that, 
-            // rather than set textDisplay.x=paddingLeft,  we are going to set 
-            // textDisplay.leftMargin = paddingLeft.  In addition, we're going to size the height 
-            // of the textDisplay larger than just the size of the text inside to increase the hitArea
-            // on the bottom.  We'll also assign textDisplay.rightMargin = paddingRight to increase the 
-            // the hitArea on the right.  Unfortunately, there's no way to increase the hitArea on the top
-            // just yet, but these three tricks definitely help out with regards to user experience.  
-            // See http://bugs.adobe.com/jira/browse/SDK-29406 and http://bugs.adobe.com/jira/browse/SDK-29405
-            
-            // set leftMargin, rightMargin to increase the hitArea.  Need to set it before calling commitStyles().
-            var marginChanged:Boolean = ((textDisplay.leftMargin != paddingLeft) || 
-                (textDisplay.rightMargin != paddingRight));
-            
-            textDisplay.leftMargin = paddingLeft;
-            textDisplay.rightMargin = paddingRight;
-            
-            // need to force a styleChanged() after setting leftMargin, rightMargin if they 
-            // changed values.  Then we can validate the styles through commitStyles()
-            if (marginChanged)
-                textDisplay.styleChanged(null);
-            textDisplay.commitStyles();
-            
-            // the height of the textDisplay to unscaledTextHeight + paddingBottom to increase hitArea on bottom
-            setElementSize(textDisplay, unscaledWidth, unscaledTextHeight + paddingBottom);
-            // set x=0 since we're using textDisplay.leftMargin = paddingLeft
-            setElementPosition(textDisplay, 0, textY);
+            if (_isIOS)
+            {
+                // Remove hit area improvements for text editing stability
+                // and clear button alignment. See  https://bugs.adobe.com/jira/browse/SDK-29905. 
+                // and https://bugs.adobe.com/jira/browse/SDK-29887
+                setElementSize(textDisplay, unscaledWidth - paddingLeft - paddingRight, textHeight);
+                setElementPosition(textDisplay, paddingLeft, textY);
+            }
+            else
+            {
+                // We're going to do a few tricks to try to increase the size of our hitArea to make it 
+                // easier for users to select text or put the caret in a certain spot.  To do that, 
+                // rather than set textDisplay.x=paddingLeft,  we are going to set 
+                // textDisplay.leftMargin = paddingLeft.  In addition, we're going to size the height 
+                // of the textDisplay larger than just the size of the text inside to increase the hitArea
+                // on the bottom.  We'll also assign textDisplay.rightMargin = paddingRight to increase the 
+                // the hitArea on the right.  Unfortunately, there's no way to increase the hitArea on the top
+                // just yet, but these three tricks definitely help out with regards to user experience.  
+                // See http://bugs.adobe.com/jira/browse/SDK-29406 and http://bugs.adobe.com/jira/browse/SDK-29405
+                
+                // set leftMargin, rightMargin to increase the hitArea.  Need to set it before calling commitStyles().
+                var marginChanged:Boolean = ((textDisplay.leftMargin != paddingLeft) || 
+                    (textDisplay.rightMargin != paddingRight));
+                
+                textDisplay.leftMargin = paddingLeft;
+                textDisplay.rightMargin = paddingRight;
+                
+                // need to force a styleChanged() after setting leftMargin, rightMargin if they 
+                // changed values.  Then we can validate the styles through commitStyles()
+                if (marginChanged)
+                    textDisplay.styleChanged(null);
+                textDisplay.commitStyles();
+                
+                // the height of the textDisplay to unscaledTextHeight + paddingBottom to increase hitArea on bottom
+                setElementSize(textDisplay, unscaledWidth, unscaledTextHeight + paddingBottom);
+                // set x=0 since we're using textDisplay.leftMargin = paddingLeft
+                setElementPosition(textDisplay, 0, textY);
+            }
         }
         
         if (promptDisplay)
