@@ -276,12 +276,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      */ 
     private var emptyViewDescriptor:ViewDescriptor = null;
-    
-    /**
-     *  @private
-     */
-    private var explicitFrameRate:Number;
-    
+        
     /**
      *  @private
      *  This following property stores the <code>mouseEnabled</code>
@@ -1214,22 +1209,7 @@ public class ViewNavigator extends ViewNavigatorBase
         
         // If the action queue doesn't exist, create it
         if (delayedNavigationActions.length == 0)
-        {
             addEventListener(Event.ENTER_FRAME, executeDelayedActions);
-            
-            // Up the framerate so that we get the next ENTER_FRAME event
-            // as fast as possible.  This will be restored when this event
-            // is handled.
-            try
-            {
-                explicitFrameRate = systemManager.stage.frameRate;
-                systemManager.stage.frameRate = 1000;
-            }
-            catch (e:SecurityError)
-            {
-                // Ignore the possible security error
-            }
-        }
         
         delayedNavigationActions.push({action:action, viewClass:viewClass, 
             data:data, transition:transition, context:context});
@@ -1250,17 +1230,7 @@ public class ViewNavigator extends ViewNavigatorBase
     private function executeDelayedActions(event:Event):void
     {
         removeEventListener(Event.ENTER_FRAME, executeDelayedActions);
-        
-        // Restore framerate
-        try
-        {
-            systemManager.stage.frameRate = explicitFrameRate;
-        }
-        catch (e:SecurityError)
-        {
-            // Ignore the possible securtiy error
-        }
-        
+   
         if (delayedNavigationActions.length == 0)
             return;
         
@@ -2099,13 +2069,10 @@ public class ViewNavigator extends ViewNavigatorBase
     private function startViewTransition(event:Event):void
     {
         removeEventListener(Event.ENTER_FRAME, startViewTransition);
-        
-//        CONFIG::performanceInstrumentation
-        {
-            if (hasEventListener(FlexEvent.TRANSITION_START))
-                dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_START, false, false));
-        }
-        
+
+        if (hasEventListener(FlexEvent.TRANSITION_START))
+            dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_START, false, false));
+
 		activeTransition.play();
     }
     
@@ -2121,7 +2088,7 @@ public class ViewNavigator extends ViewNavigatorBase
     private function transitionComplete(event:Event):void
     {
         ViewTransitionBase(event.target).removeEventListener(FlexEvent.TRANSITION_END, transitionComplete);
-        
+
         if (hasEventListener(FlexEvent.TRANSITION_END))
             dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_END, false, false));
 
