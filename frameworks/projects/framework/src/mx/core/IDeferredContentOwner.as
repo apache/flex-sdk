@@ -13,9 +13,11 @@ package mx.core
 {
 
 /**
- *  Sent after the content for this component has been created. With deferred 
- *  instantiation, the content for a component may be created long after the 
+ *  Dispatched after the content for this component has been created. With deferred 
+ *  instantiation, the content for a component can be created long after the 
  *  component is created.
+ *
+ *  @eventType mx.events.FlexEvent.CONTENT_CREATION_COMPLETE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
