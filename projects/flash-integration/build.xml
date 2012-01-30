@@ -17,6 +17,9 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
+    <!-- overriding from build.properties -->
+    <property name="playerglobal.version" value="9"/>  
+
 	<target name="main" depends="clean,compile" description="Clean build of FlexComponentBase.swc"/>
 
 	<target name="clean">
@@ -47,6 +50,7 @@
 		<compc fork="true"
 			   output="${basedir}/libs/FlexComponentBase.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
+            <target-player>9</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
