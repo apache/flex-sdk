@@ -88,8 +88,6 @@ public class StyleManager
     {
         if (!_impl)
         {
-            // FIXME (pfarland): Do we need to check compatibility first?
-
             _impl = IStyleManager2(
                 Singleton.getInstance("mx.styles::IStyleManager2"));
         }
