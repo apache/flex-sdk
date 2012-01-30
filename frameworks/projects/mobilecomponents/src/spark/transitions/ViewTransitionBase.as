@@ -1369,6 +1369,18 @@ public class ViewTransitionBase extends EventDispatcher
             container.setChildIndex(component, index);
     }
     
+    /**
+     *  @private
+     *  Helper method that returns index of the given component. 
+     */
+    protected function getComponentChildIndex(component:UIComponent, container:UIComponent):int
+    {
+        if (container is IVisualElementContainer)
+            return IVisualElementContainer(container).getElementIndex(component);
+        else
+            return container.getChildIndex(component);
+    }
+
 }
 
     
