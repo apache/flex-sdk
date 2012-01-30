@@ -73,7 +73,18 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @productversion Flex 4.5
  */
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark, mobile")]
-// FIXME (rfrishbe): what to do about theme?
+
+/**
+ *  The main color for a component. 
+ *   
+ *  @default 0xCCCCCC
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="chromeColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  The color of the background of an item renderer when the item is being pressed down.
@@ -91,7 +102,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
-[Style(name="downColor", type="uint", format="Color", inherit="yes")]
+[Style(name="downColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  Color of focus ring when the component is in focus.
@@ -154,7 +165,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @productversion Flex 4.5
  */ 
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
-// FIXME (rfrishbe): figure out why this isn't on defaultitemrenderer or itemrenderer
 
 /**
  *  Color of any symbol of a component. 
@@ -169,7 +179,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @productversion Flex 4.5
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark,mobile")]
-// FIXME (rfrishbe): should we add chromeColor and other inheriting styles?
 
 /**
  *  The vertical alignment of the content when it does not have
