@@ -106,7 +106,7 @@ Create components for Flex using Flash Profession. You can included timeline ani
 ]]></ui-access>
   <files>
 	<!-- SWC file -->
-    <file source="libs/FlexComponentBase.swc" destination="$Flash/Components/Flex/" />
+    <file source="libs/flash-integration.swc" destination="$Flash/Components/Flex/" />
 
 	<!-- AS files -->
     <file source="src/mx/flash/UIMovieClip.as" destination="$Flash/Component Source/ActionScript 3.0/Flex/mx/flash/" />
