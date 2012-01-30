@@ -1,3 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2010 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package spark.skins.mobile
 {
 import mx.effects.IEffect;
@@ -8,17 +19,39 @@ import spark.components.ActionBar;
 import spark.components.ButtonBar;
 import spark.components.Group;
 import spark.components.ViewNavigator;
-import spark.effects.IViewTransition;
+import spark.effects.ViewTransition;
 import spark.effects.Move;
 import spark.effects.SlideViewTransition;
+import spark.skins.MobileSkin;
 
-public class ViewNavigatorSkin extends SliderSkin
+/**
+ *  The ActionScript based skin for view navigators in mobile
+ *  applications.  This skin lays out the action bar and content
+ *  group in a vertical fashion, where the action bar is on top.
+ *  This skin also supports navigator overlay modes.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+public class ViewNavigatorSkin extends MobileSkin
 {
     //--------------------------------------------------------------------------
     //
     //  Constructor
     //
-    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------  
+    
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    // TODO (chiedozi): File a request to exclude skinstates
     public function ViewNavigatorSkin()
     {
         super();
@@ -33,19 +66,29 @@ public class ViewNavigatorSkin extends SliderSkin
     
     //--------------------------------------------------------------------------
     //
-    //  Variables
+    //  Properties
     //
     //--------------------------------------------------------------------------
-    public var hostComponent:ViewNavigator;
     
-    // Groups and UI Controls
+    // TODO (chiedozi): ASDOC propeties
+    
+    // Responsible for storing the views
     public var contentGroup:Group;
-    public var actionBar:ActionBar;
-    public var tabBar:ButtonBar;
     
-    // Transitions
-    public var defaultPushTransition:IViewTransition;
-    public var defaultPopTransition:IViewTransition;
+    // The action bar to use for the navigator
+    public var actionBar:ActionBar;
+    
+    // The default transitions to run
+    public var defaultPushTransition:ViewTransition;
+    public var defaultPopTransition:ViewTransition;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
+    // TODO (chiedozi): ASDOC
+    public var hostComponent:ViewNavigator;
     
     //--------------------------------------------------------------------------
     //
@@ -54,6 +97,7 @@ public class ViewNavigatorSkin extends SliderSkin
     //--------------------------------------------------------------------------
     
     /**
+     *  @private
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -63,25 +107,23 @@ public class ViewNavigatorSkin extends SliderSkin
     override protected function createChildren():void
     {
         contentGroup = new Group();
-        contentGroup.minHeight = 0;
+        contentGroup.id = "contentGroup";
     	
-        tabBar = new ButtonBar();
-        tabBar.requireSelection = true;
-        tabBar.height = 80;
-        
         actionBar = new ActionBar();
+        actionBar.id = "actionBar";
         
         addChild(contentGroup);
         addChild(actionBar);
-        addChild(tabBar);
         
         defaultPushTransition = new SlideViewTransition(300, SlideViewTransition.SLIDE_LEFT);
         defaultPopTransition = new SlideViewTransition(300, SlideViewTransition.SLIDE_RIGHT);
     }
     
     /**
+     *  @private
+     *  When the current state is set, need to invalidate the display list
+     *  so that a validation pass runs. 
      * 
-     *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
@@ -94,11 +136,32 @@ public class ViewNavigatorSkin extends SliderSkin
             super.currentState = value;
             
             // Force a layout pass on the components
+            invalidateSize();
             invalidateDisplayList();
         }
     }
     
+    override protected function measure():void
+    {
+        super.measure();
+        
+        measuredWidth = Math.max(actionBar.getPreferredBoundsWidth(), 
+                                 contentGroup.getPreferredBoundsWidth());
+        
+        if (currentState == "portraitAndOverlay" || currentState == "landscapeAndOverlay")
+        {
+            measuredHeight = Math.max(actionBar.getPreferredBoundsHeight(), 
+                                  contentGroup.getPreferredBoundsHeight());
+        }
+        else
+        {
+            measuredHeight = actionBar.getPreferredBoundsHeight() + 
+                                                 contentGroup.getPreferredBoundsHeight();
+        }
+    }
+    
     /**
+     *  @private
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -107,34 +170,27 @@ public class ViewNavigatorSkin extends SliderSkin
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        var top:Number = 0;
-        var componentHeight:Number;
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        if (tabBar.includeInLayout)
-        {
-            tabBar.alpha = .5;
-            componentHeight = tabBar.getPreferredBoundsHeight();
-            tabBar.setLayoutBoundsSize(unscaledWidth, componentHeight);
-            tabBar.setLayoutBoundsPosition(0, top);
-            
-            top += componentHeight;
-        }
+        var actionBarHeight:Number;
         
+        // The action bar is always placed at 0,0 and stretches the entire
+        // width of the navigator
         if (actionBar.includeInLayout)
         {
-            actionBar.alpha = .5;
-            componentHeight = actionBar.getPreferredBoundsHeight();
-            
-            actionBar.setLayoutBoundsSize(unscaledWidth, componentHeight);
-            actionBar.setLayoutBoundsPosition(0, top);
-            
-            top += componentHeight;
+            actionBarHeight = Math.min(actionBar.getPreferredBoundsHeight(), unscaledHeight);
+            actionBar.setLayoutBoundsSize(unscaledWidth, actionBarHeight);
+            actionBar.setLayoutBoundsPosition(0, 0);
+            actionBarHeight = actionBar.getLayoutBoundsHeight();
         }
         
-        if (hostComponent.overlayControls)
+        // If the hostComponent is in overlay mode, the contentGroup extends
+        // the entire bounds of the navigator and the alpha for the action 
+        // bar changes
+        if (currentState == "portraitAndOverlay" || currentState == "landscapeAndOverlay")
         {
-            tabBar.alpha = .5;
-            actionBar.alpha = .5;
+            // FIXME (chiedozi): Update when XD spec is written
+            actionBar.alpha = .6;
             
             if (contentGroup.includeInLayout)
             {
@@ -144,18 +200,17 @@ public class ViewNavigatorSkin extends SliderSkin
         }
         else
         {
-            tabBar.alpha = 1.0;
             actionBar.alpha = 1.0;
             
+            // The content group is placed below the actionBar and spans the
+            // remaining space of the navigator.
     		if (contentGroup.includeInLayout)
     		{
-    			var contentGroupHeight:Number = unscaledHeight - top;
-    			
-    			if (contentGroupHeight < contentGroup.minHeight)
-    				contentGroupHeight = contentGroup.minHeight;
+    			var contentGroupHeight:Number = Math.max(unscaledHeight - actionBarHeight, 0);
                 
+    			
                 contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
-                contentGroup.setLayoutBoundsPosition(0, top);
+                contentGroup.setLayoutBoundsPosition(0, actionBarHeight);
     		}
         }
     }
