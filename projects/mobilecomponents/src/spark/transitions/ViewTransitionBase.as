@@ -1422,13 +1422,13 @@ public class ViewTransitionBase extends EventDispatcher
             actionBar.titleGroup.validateDisplayList();
         
         if (cachedTitleGroup)
-            cachedTitleGroup.validateDisplayList();
+            cachedTitleGroup.applyComputedTransform();
         
         if (cachedNavigationGroup)
-            cachedNavigationGroup.validateDisplayList();
+            cachedNavigationGroup.applyComputedTransform();
         
         if (cachedActionGroup)
-            cachedActionGroup.validateDisplayList();
+            cachedActionGroup.applyComputedTransform();
     }
     
     /**
