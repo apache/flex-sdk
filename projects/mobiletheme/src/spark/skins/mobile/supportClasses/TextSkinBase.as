@@ -21,7 +21,10 @@ import spark.components.supportClasses.StyleableTextField;
 use namespace mx_internal;
 
 /**
- *  ActionScript-based skin for text input controls in mobile applications. 
+ *  ActionScript-based skin for text input controls in mobile applications that
+ *  uses a StyleableTextField class for the text display. 
+ * 
+ *  @see spark.components.supportClasses.StyleableTextField
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
