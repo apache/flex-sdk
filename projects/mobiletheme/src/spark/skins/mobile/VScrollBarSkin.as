@@ -74,7 +74,7 @@ public class VScrollBarSkin extends MobileSkin
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 minWidth = 6;
                 paddingRight = VScrollBarThumbSkin.PADDING_RIGHT_DEFAULTDPI;
                 paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_DEFAULTDPI;
