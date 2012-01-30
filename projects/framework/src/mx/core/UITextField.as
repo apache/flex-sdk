@@ -24,6 +24,7 @@ import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 
 import mx.automation.IAutomationObject;
+import mx.core.LayoutDirection;
 import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
 import mx.managers.SystemManager;
@@ -2150,7 +2151,7 @@ public class UITextField extends FlexTextField
         if (styleChangedFlag)
         {
             const oldMirror:Boolean = mirror;
-            mirror = getStyle("layoutDirection") == "rtl";
+            mirror = getStyle("layoutDirection") == LayoutDirection.RTL;
             if (mirror || oldMirror)
                 validateTransformMatrix();
         }
