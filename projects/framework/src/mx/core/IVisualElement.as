@@ -216,7 +216,8 @@ public interface IVisualElement extends ILayoutElement
      *
      *  <p>This property should not be set within MXML directly.</p>
      *  
-     *  <p>The <code>layer</code> property is not used for z-order control</p>
+     *  <p>The <code>layer</code> property is not used for z-order control, 
+     *  please see <code>depth</code>.</p>
      *
      *  @see #depth
      *  @default null
