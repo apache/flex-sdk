@@ -101,7 +101,7 @@ package spark.automation.delegates.components
             obj.addEventListener(GridEvent.GRID_DOUBLE_CLICK, recordAutomatableEvent, false, 0 , true);
             obj.grid.addEventListener(GridEvent.GRID_MOUSE_UP, gridMouseUpHandler, false, 1001, true);
             obj.addEventListener(GridEvent.SEPARATOR_MOUSE_UP, columnStretchHandler, false, 0, true);
-            obj.addEventListener(GridEvent.GRID_CLICK, gridClickHandler, false, 0 , true);
+            obj.columnHeaderGroup.addEventListener(GridEvent.GRID_CLICK, gridClickHandler, false, 0 , true);
             obj.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);          
         }
         
@@ -867,22 +867,9 @@ package spark.automation.delegates.components
             if (!Automation.automationManager || !Automation.automationManager.automationEnvironment 
                 || !Automation.automationManager.recording)
                 return;
-            var gbPt:Point = event.target.localToGlobal(new Point(event.localX, event.localY));
-            var locPt:Point = grid.grid.globalToLocal(gbPt);
-            
-            var item:IGridItemRenderer = grid.grid.getItemRendererAt(grid.grid.getRowIndexAt(locPt.x, locPt.y),
-                grid.grid.getColumnIndexAt(locPt.x, locPt.y)) as IGridItemRenderer;
-            if (!item)      //This means user clicked on header
-            {
-                item = grid.columnHeaderGroup.getHeaderRendererAt(event.columnIndex);
-                //DataGrid overrides displayObjectToItemRenderer to return
-                //null if the item is the active item editor, so that's
-                //not a reliable way of determining if the user clicked on a blank
-                //row or now, so use mouseEventToItemRendererOrEditor instead
-                //if (grid.mouseEventToItemRendererOrEditor(event) == null)             
-                recordAutomatableEvent(event, true)
-                /*return;*/
-            }           
+           
+			var item:IGridItemRenderer = grid.columnHeaderGroup.getHeaderRendererAt(event.columnIndex);
+            recordAutomatableEvent(event, true);
         }
         
         /**
