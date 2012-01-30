@@ -15,6 +15,8 @@ package mx.effects.effectClasses
 import mx.core.mx_internal;
 import mx.effects.EffectInstance;
 
+use namespace mx_internal;
+
 /**
  *  The ActionEffectInstance class is the superclass for all 
  *  action effect instance classes.
@@ -126,7 +128,7 @@ import mx.effects.EffectInstance;
 		super.play();	
 		
 		// Don't save the value if we are playing in reverse.
-		if (!mx_internal::playReversed)
+		if (!playReversed)
 			_startValue = saveStartValue();
 		
 		playedAction = true;
