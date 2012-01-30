@@ -22,17 +22,17 @@ use namespace mx_internal;
 
 /**
  *  The default skin for the SplitViewNavigator component.  This skin is
- *  chromeless and doesn't draw a background, border or separator.  It
- *  only contains a single content group with a horizontal layout to hold 
- *  the navigators, and a Callout component.  The Callout component uses
- *  the default values for its layout properties.
+ *  chromeless and doesn't draw a background, border or separator.  
+ *  It only contains a single content group with a horizontal layout to hold 
+ *  the navigators, and a Callout component.  
+ *  The Callout component uses the default values for its layout properties.
  * 
  *  @see spark.components.Callout
  *  @see spark.components.SplitViewNavigator
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class SplitViewNavigatorSkin extends MobileSkin
 {
@@ -42,13 +42,13 @@ public class SplitViewNavigatorSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  Constructor.
+    /**
+     *  Constructor.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
-	 */
+     *  @productversion Flex 4.6
+     */
     public function SplitViewNavigatorSkin()
     {
         super();
@@ -78,7 +78,7 @@ public class SplitViewNavigatorSkin extends MobileSkin
 
     /**
      *  @copy spark.skins.spark.ApplicationSkin#hostComponent
-	 */
+     */
     public var hostComponent:SplitViewNavigator;
     
     //--------------------------------------------------------------------------
