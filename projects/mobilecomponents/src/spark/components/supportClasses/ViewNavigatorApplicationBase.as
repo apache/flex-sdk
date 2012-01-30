@@ -20,9 +20,11 @@ import flash.events.StageOrientationEvent;
 import flash.system.Capabilities;
 import flash.ui.Keyboard;
 
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
 import spark.components.Application;
+import spark.components.View;
 import spark.core.managers.IPersistenceManager;
 import spark.core.managers.PersistenceManager;
 
@@ -33,6 +35,8 @@ import spark.core.managers.PersistenceManager;
 [Exclude(name="layout", kind="property")]
 [Exclude(name="preloaderChromeColor", kind="property")]
 [Exclude(name="backgroundAlpha", kind="style")]
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Events
@@ -88,6 +92,18 @@ public class MobileApplicationBase extends Application
      *  KeyboardEvent dispatched when the back key is pressed.
      */
     private var backKeyEventPreventDefaulted:Boolean = false;
+    
+    //----------------------------------
+    //  activeView
+    //----------------------------------
+    
+    /**
+     *  @private
+     */ 
+    mx_internal function get activeView():View
+    {
+        return null;
+    }
     
     //--------------------------------------------------------------------------
     //
