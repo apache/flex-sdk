@@ -13,19 +13,17 @@ package spark.skins.mobile
 {
     
 import flash.display.DisplayObject;
-import flash.display.GradientType;
 import flash.display.Graphics;
-import flash.geom.Matrix;
 
 import mx.core.mx_internal;
-import mx.states.SetProperty;
-import mx.states.State;
-import mx.utils.ColorUtil;
 
-import spark.core.SpriteVisualElement;
-import spark.skins.mobile.assets.Button_down;
-import spark.skins.mobile.assets.Button_up;
 import spark.skins.mobile.supportClasses.ButtonSkinBase;
+import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile160.assets.Button_down;
+import spark.skins.mobile160.assets.Button_up;
+import spark.skins.mobile240.assets.Button_down;
+import spark.skins.mobile240.assets.Button_up;
+
 
 use namespace mx_internal;
 
@@ -46,11 +44,6 @@ use namespace mx_internal;
  */
 public class ButtonSkin extends ButtonSkinBase
 {
-    private static const CORNER_ELLIPSE_SIZE:uint = 20;
-    
-    private static const BOTTOM_BORDER_SHADOW:uint = 1;
-    
-    private static const BORDER_SIZE:uint = 1;
     
     //--------------------------------------------------------------------------
     //
@@ -60,10 +53,60 @@ public class ButtonSkin extends ButtonSkinBase
     public function ButtonSkin()
     {
         super();
-        upBorderSkin = Button_up;
-        downBorderSkin = Button_down;
+        
         useChromeColor = true;
+        
+        switch (targetDensity)
+        {
+            case MobileSkin.PPI240:
+            {
+                upBorderSkin = spark.skins.mobile240.assets.Button_up;
+                downBorderSkin = spark.skins.mobile240.assets.Button_down;
+                
+                // FIXME (jasonsj) subract gutter for measurement
+                layoutGap = 7;
+                layoutCornerEllipseSize = 20;
+                layoutPaddingLeft = 20;
+                layoutPaddingRight = 20;
+                layoutPaddingTop = 20;
+                layoutPaddingBottom = 20;
+                layoutBottomBorderShadow = 1;
+                layoutBorderSize = 1;
+                layoutMeasuredWidth = 48;
+                
+                break;
+            }
+            default:
+            {
+                // default PPI160
+                upBorderSkin = spark.skins.mobile160.assets.Button_up;
+                downBorderSkin = spark.skins.mobile160.assets.Button_down;
+                
+                // FIXME (jasonsj) subract gutter for measurement
+                layoutGap = 9;
+                layoutCornerEllipseSize = 12;
+                layoutPaddingLeft = 15;
+                layoutPaddingRight = 15;
+                layoutPaddingTop = 15;
+                layoutPaddingBottom = 15;
+                layoutBottomBorderShadow = 1;
+                layoutBorderSize = 1;
+                layoutMeasuredWidth = 32;
+                
+                break;
+            }
+        }
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Layout variables
+    //
+    //--------------------------------------------------------------------------
+    
+    protected var layoutCornerEllipseSize:uint;
+    
+    protected var layoutBottomBorderShadow:uint;
     
     //--------------------------------------------------------------------------
     //
@@ -176,10 +219,10 @@ public class ButtonSkin extends ButtonSkinBase
     {
         // inset chrome color by BORDER_SIZE
         // bottom line is a shadow
-        chromeColorGraphics.drawRoundRect(BORDER_SIZE, BORDER_SIZE, 
-            unscaledWidth - (BORDER_SIZE * 2), 
-            unscaledHeight - BOTTOM_BORDER_SHADOW - (BORDER_SIZE * 2), 
-            CORNER_ELLIPSE_SIZE, CORNER_ELLIPSE_SIZE);
+        chromeColorGraphics.drawRoundRect(layoutBorderSize, layoutBorderSize, 
+            unscaledWidth - (layoutBorderSize * 2), 
+            unscaledHeight - layoutBottomBorderShadow - (layoutBorderSize * 2), 
+            layoutCornerEllipseSize, layoutCornerEllipseSize);
     }
     
     /**
