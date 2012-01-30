@@ -142,7 +142,7 @@ public class TextAreaSkin extends TextSkinBase
      * 
      *  In the constructor this is actually set based on the DPI.
      */
-    private var oldUnscaledWidth:Number;
+    mx_internal var oldUnscaledWidth:Number;
     
     //--------------------------------------------------------------------------
     //
