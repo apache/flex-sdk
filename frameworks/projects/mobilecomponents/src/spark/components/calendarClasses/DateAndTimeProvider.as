@@ -35,8 +35,9 @@ public class DateAndTimeProvider extends OnDemandDataProvider
     // number of milliseconds in a day
     private static const MS_IN_DAY:Number = 1000 * 60 * 60 * 24;
     
-    // default date range if min/max are not specified
-    private static const DEFAULT_RANGE_SIZE:int = 730;
+    // default min/max date
+    private static const MIN_DATE_DEFAULT:Date = new Date(1601, 0, 1);
+    private static const MAX_DATE_DEFAULT:Date = new Date(9999, 11, 31, 23, 59, 59, 999);
     
     //--------------------------------------------------------------------------
     //
@@ -56,16 +57,10 @@ public class DateAndTimeProvider extends OnDemandDataProvider
                                         today:Date = null, todayAccentColor:uint = 0)
     {
         if (start == null)
-        {
-            start = new Date();
-            start.date -= DEFAULT_RANGE_SIZE / 2;
-        }
+            start = MIN_DATE_DEFAULT;
         
         if (end == null)
-        {
-            end = new Date();
-            end.date += DEFAULT_RANGE_SIZE / 2;
-        }
+            end = MAX_DATE_DEFAULT;
         
         // we only count days; reset clocks so there are no rounding errors
         startDate = new Date(start.time);
