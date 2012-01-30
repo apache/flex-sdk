@@ -13,9 +13,10 @@ package mx.graphics
 {
 
 import flash.display.Graphics;
-import flash.geom.Rectangle;
 import flash.events.EventDispatcher;
-import flash.events.Event;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+
 import mx.events.PropertyChangeEvent;
 
 [DefaultProperty("color")]
@@ -152,7 +153,7 @@ public class SolidColor extends EventDispatcher implements IFill
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public function begin(target:Graphics, bounds:Rectangle):void
+	public function begin(target:Graphics, targetBounds:Rectangle, targetOrigin:Point):void
 	{
 		target.beginFill(color, alpha);
 	}
