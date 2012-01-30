@@ -341,10 +341,10 @@ public class StageTextSkinBase extends MobileSkin
      */
     protected function measureTextComponent(hostComponent:SkinnableTextBase):void
     {
-        var paddingLeft:Number = getCorrectedPadding("paddingLeft");
-        var paddingRight:Number = getCorrectedPadding("paddingRight");
-        var paddingTop:Number = getCorrectedPadding("paddingTop");
-        var paddingBottom:Number = getCorrectedPadding("paddingBottom");
+        var paddingLeft:Number = getStyle("paddingLeft");
+        var paddingRight:Number = getStyle("paddingRight");
+        var paddingTop:Number = getStyle("paddingTop");
+        var paddingBottom:Number = getStyle("paddingBottom");
         var textHeight:Number = getStyle("fontSize");
         
         if (textDisplay)
@@ -364,29 +364,6 @@ public class StageTextSkinBase extends MobileSkin
         measuredHeight = paddingTop + textHeight + paddingBottom;
     }
     
-    /**
-     *  @private
-     *  Utility function used to get the value of any of the left, right, top,
-     *  or bottom padding styles modified to take any internal padding of the
-     *  platform text control into account.
-     */
-    protected function getCorrectedPadding(paddingStyleName:String):Number
-    {
-        var padding:Number = getStyle(paddingStyleName);
-        
-        if (textDisplay)
-        {
-            var internalPadding:Point = textDisplay.calculateInternalPadding();
-            
-            if (paddingStyleName == "paddingLeft" || paddingStyleName == "paddingRight")
-                padding = Math.max(0, padding - internalPadding.x);
-            else if (paddingStyleName == "paddingTop" || paddingStyleName == "paddingBottom")
-                padding = Math.max(0, padding - internalPadding.y);
-        }
-        
-        return padding;
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Event handlers
