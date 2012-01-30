@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-/**
+/*
  *  The ISprite interface defines the basic set of APIs
  *  for web version of flash.display.Sprite
  */
