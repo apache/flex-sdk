@@ -755,6 +755,7 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
         if (delayTimer && !delayTimer.running && !isNaN(delayElapsedTime))
         {
             delayTimer.delay = !playReversed ? delayTimer.delay - delayElapsedTime : delayElapsedTime;
+            delayStartTime = getTimer();
             delayTimer.start();
         }
     }
