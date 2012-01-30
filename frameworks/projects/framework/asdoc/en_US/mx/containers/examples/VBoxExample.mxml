@@ -1,22 +1,24 @@
 <?xml version="1.0"?>
-<!-- Simple example to demonstrate the VBox layout container. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<!-- Simple example to demonstrate the Halo VBox layout container. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Panel title="VBox Container Example" height="75%" width="75%" 
-        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
+    <s:Panel title="VBox Container Example"
+           width="75%" height="75%"
+           horizontalCenter="0" verticalCenter="0"> 
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%" color="blue" 
+                    text="A VBox container with vertically aligned children."/>
 
-       <mx:Label width="100%" color="blue" 
-           text="A VBox container with vertically aligned children."/>
-           
-       <mx:VBox borderStyle="solid" paddingTop="10" paddingBottom="10" 
-               paddingLeft="10" paddingRight="10">
+            <mx:VBox borderStyle="solid"
+                    paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10">
+                <s:Button label="Button 1"/>
+                <s:Button label="Button 2"/>
+                <s:Button label="Button 3"/>
+                <s:DropDownList/>
+            </mx:VBox>
+        </s:VGroup>
+    </s:Panel>
 
-            <mx:Button label="Button 1"/>
-            <mx:Button label="Button 2"/>
-            <mx:Button label="Button 3"/>
-            <mx:ComboBox/>
-
-        </mx:VBox>
-
-    </mx:Panel>
-</mx:Application>
+</s:Application>
