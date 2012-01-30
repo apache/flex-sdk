@@ -312,6 +312,13 @@ public class MobileTextField extends TextField implements IEditableText
     /**
      *  Controls word wrapping within the text. 
      *  This property corresponds to the <code>lineBreak</code> style.
+     *
+     *  <p>Text may be set to fit the width of the container (<code>LineBreak.TO_FIT</code>), 
+     *  or can be set to break only at explicit return or line feed characters (<code>LineBreak.EXPLICIT</code>).</p>
+     *
+     *  <p>Legal values are <code>flashx.textLayout.formats.LineBreak.EXPLICIT</code>, 
+     *  <code>flashx.textLayout.formats.LineBreak.TO_FIT</code>, and 
+     *  <code>flashx.textLayout.formats.FormatValue.INHERIT</code>.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
