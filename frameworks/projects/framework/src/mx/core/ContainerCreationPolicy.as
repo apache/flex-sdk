@@ -72,6 +72,7 @@ public final class ContainerCreationPolicy
 	
 	/**
 	 *  Add the container to a creation queue.
+     *  Deprecated since Flex 4.0.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
