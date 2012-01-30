@@ -23,11 +23,11 @@ import flash.display.Stage;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
-import flash.events.FocusEvent;
-import flash.events.KeyboardEvent;
 import flash.events.EventDispatcher;
 import flash.events.EventPhase;
+import flash.events.FocusEvent;
 import flash.events.IEventDispatcher;
+import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Point;
@@ -53,11 +53,11 @@ import mx.core.IUIComponent;
 import mx.core.RSLItem;
 import mx.core.Singleton;
 import mx.core.mx_internal;
-import mx.events.Request;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
-import mx.events.ResizeEvent;
 import mx.events.RSLEvent;
+import mx.events.Request;
+import mx.events.ResizeEvent;
 import mx.events.SandboxMouseEvent;
 import mx.preloaders.Preloader;
 import mx.utils.LoaderUtil;
@@ -2588,17 +2588,22 @@ public class SystemManager extends MovieClip
 
         var dragManagerClass:Class = null;
                 
-            // Make this call to create a new instance of the DragManager singleton. 
+        // Make this call to create a new instance of the DragManager singleton. 
         // Try to link in the NativeDragManager first. This will allow the  
         // application to receive NativeDragEvents that originate from the
         // desktop.  If it can't be found, then we're 
         // not in AIR, and it can't be linked in, so we should just work off of 
         // the regular Flex DragManager.
-        dragManagerClass = Class(getDefinitionByName("mx.managers::NativeDragManagerImpl"));
-
+        var dmInfo:Object = info()["useNativeDragManager"];
+                 
+        var useNative:Boolean = dmInfo == null ? true : String(dmInfo) == "true";
+         
+        if (useNative)
+            dragManagerClass = Class(getDefinitionByName("mx.managers::NativeDragManagerImpl"));
+    
         if (dragManagerClass == null)
             dragManagerClass = Class(getDefinitionByName("mx.managers::DragManagerImpl"));
-            
+        
         Singleton.registerClass("mx.managers::IDragManager", dragManagerClass);
 
         Singleton.registerClass("mx.core::ITextFieldFactory", 
