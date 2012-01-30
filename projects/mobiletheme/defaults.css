@@ -161,6 +161,7 @@ List
     verticalScrollPolicy: on;
 	borderVisible: false;
 	selectionColor: #F5F5F5;
+	alternatingItemColors: #FFFFFF;
 }
 
 MuteButton
