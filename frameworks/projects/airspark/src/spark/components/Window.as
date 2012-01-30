@@ -30,6 +30,7 @@ import flash.geom.Rectangle;
 import mx.controls.FlexNativeMenu;
 import mx.core.ContainerCreationPolicy;
 import mx.core.FlexGlobals;
+import mx.core.IVisualElement;
 import mx.core.IWindow;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
@@ -47,12 +48,8 @@ import mx.managers.WindowedSystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
-import spark.components.Application;
-import spark.components.Button;
-import spark.components.Group;
-import spark.primitives.Rect;
-import spark.primitives.SimpleText;
 import spark.components.windowClasses.TitleBar;
+import spark.primitives.supportClasses.TextGraphicElement;
 
 use namespace mx_internal;
 
@@ -264,25 +261,6 @@ use namespace mx_internal;
 //--------------------------------------
 //  SkinStates
 //--------------------------------------
-
-/**
- *  The application is enabled and active.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("normal")]
-
-/**
- *  The application is disabled and active.
- *  
- *  @langversion 3.0
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("disabled")]
 
 /**
  *  The application is enabled and inactive.
@@ -615,7 +593,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @productversion Flex 4
      */
     [SkinPart (required = "false")]
-    public var statusBar:Group;
+    public var statusBar:IVisualElement;
 
     //----------------------------------
     //  statusText
@@ -629,7 +607,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @productversion Flex 3
      */
     [SkinPart (required="false")]
-    public var statusText:SimpleText;
+    public var statusText:TextGraphicElement;
     
     //----------------------------------
     //  titleBar
@@ -644,23 +622,6 @@ public class Window extends SkinnableContainer implements IWindow
      */
     [SkinPart (required="false")]
     public var titleBar:TitleBar;
-
-    //----------------------------------
-    //  titleBarBackgroundRect
-    //----------------------------------
-
-    /**
-     *  The background behind the title bar. A white background
-     *  is placed behind the title bar because the title bar has
-     *  its alpha property set to 0.5 when the application is 
-     *  inactive.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    [SkinPart (required="false")]
-    public var titleBarBackgroundRect:Rect;
 
     //--------------------------------------------------------------------------
     //
@@ -1167,6 +1128,18 @@ public class Window extends SkinnableContainer implements IWindow
         return null;
     }
 
+    /**
+     * @private
+     */
+    public function set colorCorrection(value:String):void
+    {
+        // Since only the main application is allowed to change the value this property, there
+        // is no need to catch security violations like in the getter.
+        var sm:ISystemManager = systemManager;
+        if (sm && sm.stage && sm.isTopLevelRoot())
+            sm.stage.colorCorrection = value;
+    }
+    
     //----------------------------------
     //  maximizable
     //----------------------------------
@@ -2012,12 +1985,6 @@ public class Window extends SkinnableContainer implements IWindow
                 titleBar.includeInLayout = _showTitleBar;
             }
 
-            if (titleBarBackgroundRect)
-            {
-            	titleBarBackgroundRect.visible = _showTitleBar;
-            	titleBarBackgroundRect.includeInLayout = _showTitleBar;
-            }
-            
 			showTitleBarChanged = false;
         }
 
@@ -2046,8 +2013,8 @@ public class Window extends SkinnableContainer implements IWindow
 
         if (statusChanged)
         {
-            if (statusBar && "status" in statusBar)
-                statusBar["status"] = _status;
+            if (statusText)
+                statusText.text = _status;
             statusChanged = false;
         }
 
