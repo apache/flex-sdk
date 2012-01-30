@@ -25,9 +25,11 @@ import spark.components.ViewNavigator;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
- *  The ActionScript based skin used for ViewNavigatorApplication.  This
+ *  The ActionScript-based skin used for ViewNavigatorApplication.  This
  *  skin contains a single ViewNavigator that spans the entire
  *  content area of the application.
+ * 
+ * @see spark.components.ViewNavigatorApplication
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -63,7 +65,7 @@ public class ViewNavigatorApplicationSkin extends MobileSkin
     //--------------------------------------------------------------------------
     
     /**
-     * The navigator for the application
+     * The navigator for the application.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -83,6 +85,9 @@ public class ViewNavigatorApplicationSkin extends MobileSkin
     //  Overridden Properties
     //
     //--------------------------------------------------------------------------
+    /** 
+     *  @copy spark.skins.spark.ApplicationSkin#hostComponent
+     */
     public var hostComponent:ViewNavigatorApplication;
     
     //--------------------------------------------------------------------------
@@ -131,7 +136,7 @@ public class ViewNavigatorApplicationSkin extends MobileSkin
             }
         }
     }
-	
+    
     /**
      *  @private
      */
