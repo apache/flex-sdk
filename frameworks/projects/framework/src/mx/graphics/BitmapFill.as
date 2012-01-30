@@ -23,6 +23,7 @@ import flash.utils.getDefinitionByName;
 
 import mx.events.PropertyChangeEvent;
 
+
 /** 
  *  Defines a set of values used to fill an area on screen
  *  with a bitmap or other DisplayObject.
@@ -55,16 +56,8 @@ public class BitmapFill extends EventDispatcher implements IFill
 	//  Variables
 	//
 	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private var bitmapData:BitmapData;
-
-	/**
-	 *  @private
-	 */
-	private var matrix:Matrix;	
+	
+	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
 	
 	//--------------------------------------------------------------------------
 	//
@@ -80,6 +73,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
+	[Deprecated(replacement="transformX", since="4.0")]
 	
 	/**
 	 *  The horizontal origin for the bitmap fill.
@@ -90,17 +84,12 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function get originX():Number
 	{
-		return _originX;
+		return transformX;
 	}
 	
 	public function set originX(value:Number):void
 	{
-		var oldValue:Number = _originX;
-		if (value != oldValue)
-		{
-			_originX = value;
-			dispatchFillChangedEvent("originX", oldValue, value);
-		}
+		transformX = value;
 	}
 	
 	//----------------------------------
@@ -111,6 +100,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
+	[Deprecated(replacement="transformY", since="4.0")]
 	
 	/**
 	 *  The vertical origin for the bitmap fill.
@@ -121,17 +111,12 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function get originY():Number
 	{
-		return _originY;
+		return transformY;
 	}
 	
 	public function set originY(value:Number):void
 	{
-		var oldValue:Number = _originY;
-		if (value != oldValue)
-		{
-			_originY = value;
-			dispatchFillChangedEvent("originY", oldValue, value);
-		}
+		transformY = value;
 	}
 
 	//----------------------------------
@@ -141,6 +126,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 	
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
+	[Deprecated(replacement="x", since="4.0")]
 	
 	/**
 	 *  How far the bitmap is horizontally offset from the origin.
@@ -150,17 +136,12 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function get offsetX():Number
 	{
-		return _offsetX;
+		return x;
 	}
 	
 	public function set offsetX(value:Number):void
 	{
-		var oldValue:Number = _offsetX;
-		if (value != oldValue)
-		{
-			_offsetX = value;
-			dispatchFillChangedEvent("offsetX", oldValue, value);
-		}
+		x = value;
 	}
 
 	//----------------------------------
@@ -170,6 +151,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 	
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
+	[Deprecated(replacement="y", since="4.0")]
 	
 	/**
 	 *  How far the bitmap is vertically offset from the origin.
@@ -179,17 +161,12 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function get offsetY():Number
 	{
-		return _offsetY;
+		return y;
 	}
 	
 	public function set offsetY(value:Number):void
 	{
-		var oldValue:Number = _offsetY;
-		if (value != oldValue)
-		{
-			_offsetY = value;
-			dispatchFillChangedEvent("offsetY", oldValue, value);
-		}
+		y = value;
 	}
 
 	//----------------------------------
@@ -321,6 +298,8 @@ public class BitmapFill extends EventDispatcher implements IFill
 	//  source
 	//----------------------------------
 
+	private var _source:Object;
+
     [Inspectable(category="General")]
 
 	/**
@@ -343,7 +322,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function get source():Object 
 	{
-		return bitmapData;
+		return _source;
 	}
 	
 	/**
@@ -351,42 +330,54 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function set source(value:Object):void
 	{
-		var tmpSprite:DisplayObject;
-		
-		if (value is BitmapData)
-		{
-			bitmapData = BitmapData(value);
-			return;
-		}
-
-		if (value is Class)
-		{
-			var cls:Class = Class(value);
-			tmpSprite = new cls();
-		}
-		else if (value is Bitmap)
-		{
-			bitmapData = value.bitmapData;
-		}
-		else if (value is DisplayObject)
-		{
-			tmpSprite = value as DisplayObject;
-		}
-		else if (value is String)
-		{
-			var tmpClass:Class = Class(getDefinitionByName(String(value)));
-			tmpSprite = new tmpClass();
-		}
-		else
-		{
-			return;
-		}
+		if (value != _source)
+        {
+			var tmpSprite:DisplayObject;
+			var oldValue:Object = _source;
 			
-		if (!bitmapData && tmpSprite)
-		{
-			bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height);
-			bitmapData.draw(tmpSprite, new Matrix());
-		}
+			var bitmapData:BitmapData;
+			
+			if (value is BitmapData)
+			{
+				bitmapData = BitmapData(value);
+			}
+			else if (value is Class)
+			{
+				var cls:Class = Class(value);
+				tmpSprite = new cls();
+			}
+			else if (value is Bitmap)
+			{
+				bitmapData = value.bitmapData;
+			}
+			else if (value is DisplayObject)
+			{
+				tmpSprite = value as DisplayObject;
+			}
+			else if (value is String)
+			{
+				var tmpClass:Class = Class(getDefinitionByName(String(value)));
+				tmpSprite = new tmpClass();
+			}
+			else if (value == null)
+			{
+				// This will set source to null
+			}
+			else
+			{
+				return;
+			}
+				
+			if (!bitmapData && tmpSprite)
+			{
+				bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height);
+				bitmapData.draw(tmpSprite, new Matrix());
+			}
+			
+			_source = bitmapData;
+			
+			dispatchFillChangedEvent("source", oldValue, bitmapData);
+        }
 	}
 
 	//----------------------------------
@@ -418,6 +409,125 @@ public class BitmapFill extends EventDispatcher implements IFill
 			dispatchFillChangedEvent("smooth", oldValue, value);
 		}
 	}
+	
+	//----------------------------------
+    //  transformX
+    //----------------------------------
+    
+    private var _transformX:Number = 0;
+    
+    [Inspectable(category="General")]
+
+    /**
+     *  The x position transform point of the fill.
+     */
+    public function get transformX():Number
+    {
+        return _transformX;
+    }
+
+    /**
+     *  @private
+     */
+    public function set transformX(value:Number):void
+    {
+        if (_transformX == value)
+            return;
+        
+        var oldValue:Number = _transformX;    
+        _transformX = value;
+        dispatchFillChangedEvent("transformX", oldValue, value);
+    }
+
+    //----------------------------------
+    //  transformY
+    //----------------------------------
+    
+    private var _transformY:Number = 0;
+    
+    [Inspectable(category="General")]
+
+    /**
+     *  The y position transform point of the fill.
+     */
+    public function get transformY():Number
+    {
+        return _transformY;
+    }
+
+    /**
+     *  @private
+     */
+    public function set transformY(value:Number):void
+    {
+        if (_transformY == value)
+            return;
+        
+        var oldValue:Number = _transformY;    
+        _transformY = value;
+        dispatchFillChangedEvent("transformY", oldValue, value);
+    }
+
+	
+	//----------------------------------
+	//  x
+	//----------------------------------
+	
+    private var _x:Number = 0;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  The distance by which to translate each point along the x axis.
+     */
+    public function get x():Number
+    {
+    	return _x;	
+    }
+    
+	/**
+	 *  @private
+	 */
+    public function set x(value:Number):void
+    {
+    	var oldValue:Number = _x;
+    	if (value != oldValue)
+    	{
+    		_x = value;
+    		dispatchFillChangedEvent("x", oldValue, value);
+    	}
+    }
+    
+    //----------------------------------
+	//  y
+	//----------------------------------
+    
+    private var _y:Number = 0;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+     /**
+     *  The distance by which to translate each point along the y axis.
+     */
+    public function get y():Number
+    {
+    	return _y;	
+    }
+    
+    /**
+     *  @private
+     */
+    public function set y(value:Number):void
+    {
+    	var oldValue:Number = _y;
+    	if (value != oldValue)
+    	{
+    		_y = value;
+    		dispatchFillChangedEvent("y", oldValue, value);
+    	}
+    }
 
 	//--------------------------------------------------------------------------
 	//
@@ -429,13 +539,17 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  @private
 	 */
 	public function begin(target:Graphics, rc:Rectangle):void
-	{
-		buildMatrix();
-		
-		if (!bitmapData)
+	{		
+		if (!source)
 			return;
-		
-		target.beginBitmapFill(bitmapData, matrix, repeat, smooth);
+				
+		var matrix:Matrix = new Matrix();
+		matrix.translate(-transformX, -transformY);
+		matrix.scale(scaleX, scaleY);
+		matrix.rotate(rotation * RADIANS_PER_DEGREES);
+		matrix.translate(x + rc.left + transformX, y + rc.top + transformY);
+	
+		target.beginBitmapFill(source as BitmapData, matrix, repeat, smooth);
 	}
 	
 	/**
@@ -444,19 +558,6 @@ public class BitmapFill extends EventDispatcher implements IFill
 	public function end(target:Graphics):void
 	{
 		target.endFill();
-	}
-
-	/**
-	 *  @private
-	 */
-	private function buildMatrix():void
-	{
-		matrix = new Matrix();
-
-		matrix.translate(-originX, -originY);
-		matrix.scale(scaleX, scaleY);
-		matrix.rotate(rotation);
-		matrix.translate(offsetX, offsetY);
 	}
 	
 	/**
