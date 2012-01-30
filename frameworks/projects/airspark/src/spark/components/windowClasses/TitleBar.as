@@ -295,14 +295,14 @@ public class TitleBar extends SkinnableComponent
      *  When we are running on the mac, switch to the mac skin and continue the load.
      * 
      */
-    override protected function createSkin():void
+    override protected function attachSkin():void
     {
        if (isMac() && getStyle("skinClass") == TitleBarSkin)
        {
             setStyle("skinClass", MacTitleBarSkin);  
        } 
        
-       super.createSkin();
+       super.attachSkin();
     }
 
     //--------------------------------------------------------------------------
