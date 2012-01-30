@@ -385,6 +385,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         super();
 
         tabEnabled = false;
+        tabFocusEnabled = false;
 
         addEventListener(FlexEvent.INITIALIZE, initializeHandler);
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
