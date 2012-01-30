@@ -402,6 +402,8 @@ package spark.automation.delegates
 				// so we need to calcualte it. Here we need to consider the direction.
 				var stringBeforeChange:String = richEditableText.text;
 				var insertPos:int = richEditableText.selectionActivePosition;
+				var activePos:int = insertPos;
+				var anchorPos:int = richEditableText.selectionAnchorPosition;
 				var direction:int = -1;
 				if(richEditableText && richEditableText.textFlow && richEditableText.textFlow.computedFormat &&
 					richEditableText.textFlow.computedFormat.direction)
@@ -409,7 +411,7 @@ package spark.automation.delegates
 					if (richEditableText.textFlow.computedFormat.direction=="ltr")
 						direction = 1;
 				}
-				
+				richEditableText.selectRange(anchorPos, activePos);
 				for (var i:uint = 0; i < n; i++)
 				{
 					ke = new KeyboardEvent(KeyboardEvent.KEY_DOWN);
