@@ -138,48 +138,5 @@ public interface IVisualElement extends ILayoutElement
      *  @private
      */
     function set visible(value:Boolean):void;
-    
-    /**
-     *  Specifies the desired layout direction, one of "ltr" (left to right), "rtl"
-     *  (right to left) or null. 
-     *  
-     *  If this element has no ancestor with a non-null dir, if the dir is "rtl"
-     *  the mirror property will be set true.
-     * 
-     *  If this element's dir doesn't match its nearest ancestor's non-null dir
-     *  property, the the mirror property will be set to true.
-     *  
-     *  @default null
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    function get dir():String;
-    function set dir(value:String):void;
-
-    
-    /**
-     *  If true, the X axis is scaled by -1 and the x coordinate of the origin
-     *  is translated by the element's width.  
-     * 
-     *  The net effect of this "mirror" transform is to reverse the direction 
-     *  that the X axis increases without changing the element's 
-     *  location relative to the parent's origin.
-     * 
-     *  This property is set by the implementation of the dir property, it is
-     *  not intended to be set directly.
-     * 
-     *  @default false
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    function get mirror():Boolean;
-    function set mirror(value:Boolean):void;    
-
 }
 }
