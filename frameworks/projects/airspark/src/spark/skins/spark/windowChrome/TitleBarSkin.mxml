@@ -48,8 +48,8 @@
     <s:states>
         <s:State name="normal" />
         <s:State name="disabled" />
-        <s:State name="maximized" stateGroups="maximizedGroup" />
-        <s:State name="disabledMaximized" stateGroups="maximizedGroup" />
+        <s:State name="normalAndMaximized" stateGroups="maximizedGroup" />
+        <s:State name="disabledAndMaximized" stateGroups="maximizedGroup" />
     </s:states>
 
     <!-- fill -->
