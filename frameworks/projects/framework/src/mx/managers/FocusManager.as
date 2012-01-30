@@ -615,35 +615,31 @@ public class FocusManager implements IFocusManager
 
         if (isParent(DisplayObjectContainer(form), target))
         {
+            if (_defaultButton)
+            {
+                if (target is IButton && target != _defaultButton)
+                    _defaultButton.emphasized = false;
+                else 
+                    _defaultButton.emphasized = true;
+            }
+ 
             // trace("FM " + this + " setting last focus " + target);
             _lastFocus = findFocusManagerComponent(InteractiveObject(target));
 
-			// handle default button here
-			// we can't check for Button because of cross-versioning so
-			// for now we just check for an emphasized property
-			if (_lastFocus is IButton)
-			{
-				var x:IButton = _lastFocus as IButton;
-				// if we have marked some other button as a default button
-				if (defButton)
-				{
-					// change it to be this button
-					defButton.emphasized = false;
-					defButton = x;
-					x.emphasized = true;
-				}
-			}
-			else
-			{
-				// restore the default button to be the original one
-				if (defButton && defButton != _defaultButton)
-				{
-					defButton.emphasized = false;
-					defButton = _defaultButton;
-					_defaultButton.emphasized = true;
-				}
-			}
-		}
+            // handle default button here
+            // we can't check for Button because of cross-versioning so
+            // for now we just check for an emphasized property
+            if (_lastFocus is IButton)
+            {
+                defButton = _lastFocus as IButton;
+            }
+            else
+            {
+                // restore the default button to be the original one
+                if (defButton && defButton != _defaultButton)
+                    defButton = _defaultButton;
+            }
+        }
     }
 
     /**
@@ -774,8 +770,6 @@ public class FocusManager implements IFocusManager
         form.addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler, true);
         form.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler); 
         form.addEventListener(KeyboardEvent.KEY_DOWN, defaultButtonKeyHandler);
-        // listen for default button in Capture phase. Some components like TextInput 
-        // and Accordion stop the Enter key from propagating in the Bubble phase. 
         form.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
 
         activated = true;
@@ -1868,7 +1862,7 @@ public class FocusManager implements IFocusManager
      *  Watch for TAB keys.
      */
     private function keyDownHandler(event:KeyboardEvent):void
-    {
+    {   
         // trace("onKeyDown handled by " + this);
     	// trace("onKeyDown event = " + event);
 		// if the target is in a bridged application, let it handle the click.
@@ -1944,7 +1938,7 @@ public class FocusManager implements IFocusManager
      *  Watch for ENTER key.
      */
     private function defaultButtonKeyHandler(event:KeyboardEvent):void
-    {
+    {        
         var sm:ISystemManager = form.systemManager;
         if (sm.isDisplayObjectInABridgedApplication(DisplayObject(event.target)))
             return;
