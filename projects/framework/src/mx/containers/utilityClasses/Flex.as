@@ -12,7 +12,7 @@
 package mx.containers.utilityClasses
 {
 
-import mx.core.Container;
+import mx.core.IChildList;
 import mx.core.IUIComponent;
 import mx.core.FlexVersion;
 
@@ -54,7 +54,7 @@ public class Flex
 	 *  after growing all children to their maxWidth.
 	 */
 	public static function flexChildWidthsProportionally(
-								parent:Container,
+								parent:IChildList,
 								spaceForChildren:Number,
 								h:Number):Number
 	{
@@ -183,7 +183,7 @@ public class Flex
 	 *  @param w width for all children.
 	 */
 	public static function flexChildHeightsProportionally(
-								parent:Container,
+								parent:IChildList,
 								spaceForChildren:Number,
 								w:Number):Number
 	{
@@ -425,7 +425,7 @@ public class Flex
 	 *  @param spaceForChildren The total space for all children
 	 */
 	public static function distributeExtraHeight(
-								parent:Container,
+								parent:IChildList,
 								spaceForChildren:Number):void
 	{
 		// We should only get here after distributing the majority of the 
@@ -533,7 +533,7 @@ public class Flex
 	 *  @param spaceForChildren The total space for all children
 	 */
 	public static function distributeExtraWidth(
-								parent:Container,
+								parent:IChildList,
 								spaceForChildren:Number):void
 	{
 		// We should only get here after distributing the majority of the 
