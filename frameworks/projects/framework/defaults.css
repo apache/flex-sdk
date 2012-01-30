@@ -241,24 +241,6 @@ DragManager
 
 /*
 //------------------------------
-//  ProgressBar
-//------------------------------
-*/
-
-ProgressBar
-{
-	barSkin: ClassReference("mx.skins.spark.ProgressBarSkin");
-	fontWeight: "bold";
-	indeterminateMoveInterval: 14;
-	indeterminateSkin: ClassReference("mx.skins.spark.ProgressIndeterminateSkin");
-    leading: 0;
-    maskSkin: ClassReference("mx.skins.spark.ProgressMaskSkin");
-	trackSkin: ClassReference("mx.skins.spark.ProgressBarTrackSkin");
-}
-
-
-/*
-//------------------------------
 //  SWFLoader
 //------------------------------
 */
