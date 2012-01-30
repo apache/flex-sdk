@@ -33,6 +33,11 @@ use namespace mx_internal;
  *  The AccImpl class is Flex's base class for implementing accessibility
  *  in UIComponents.
  *  It is a subclass of the Flash Player's AccessibilityImplementation class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */ 
 public class AccImpl extends AccessibilityImplementation
 {
@@ -77,6 +82,11 @@ public class AccImpl extends AccessibilityImplementation
 
     /**
      *  Method for supporting Form Accessibility.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getFormName(component:UIComponent):String
     {
@@ -162,6 +172,11 @@ public class AccImpl extends AccessibilityImplementation
      *
      *  @param master The UIComponent instance that this AccImpl instance
      *  is making accessible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function AccImpl(master:UIComponent)
     {
@@ -195,11 +210,21 @@ public class AccImpl extends AccessibilityImplementation
     /**
      *  A reference to the UIComponent instance that this AccImpl instance
      *  is making accessible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var master:UIComponent;
     
     /**
      *  Accessibility role of the component being made accessible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var role:uint;
     
@@ -212,6 +237,11 @@ public class AccImpl extends AccessibilityImplementation
     /**
      *  All subclasses must override this function by returning an array
      *  of strings of the events to listen for.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get eventsToHandle():Array
     {
@@ -301,6 +331,11 @@ public class AccImpl extends AccessibilityImplementation
      *  Returns the name of the accessible component.
      *  All subclasses must implement this
      *  instead of implementing get_accName().
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getName(childID:uint):String
     {
@@ -309,6 +344,11 @@ public class AccImpl extends AccessibilityImplementation
     
     /**
      *  Utility method to determine state of the accessible component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getState(childID:uint):uint
     {
@@ -370,6 +410,11 @@ public class AccImpl extends AccessibilityImplementation
      *  Generic event handler.
      *  All AccImpl subclasses must implement this
      *  to listen for events from its master component. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function eventHandler(event:Event):void
     {
