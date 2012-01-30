@@ -27,10 +27,10 @@ import spark.skins.mobile320.assets.HSliderThumb_normal;
 import spark.skins.mobile320.assets.HSliderThumb_pressed;
 
 /**
- *  Actionscript based skin for the HSlider thumb skin part on mobile applications.
+ *  ActionScript-based skin for the HSlider thumb skin part in mobile applications.
  *
- *  Note that this particular implementation defines a hit zone which is larger than
- *  the visible thumb for better usability on mobile screens.
+ *  <p>Note that this particular implementation defines a hit zone which is larger than
+ *  the visible thumb for better usability on mobile screens.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
