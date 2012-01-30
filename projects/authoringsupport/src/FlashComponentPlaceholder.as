@@ -13,8 +13,6 @@ package
 {
 import mx.controls.Image;
 
-[ExcludeClass]
-
 [IconFile("flash_component_icon_small.png")]
 public class FlashComponentPlaceholder extends FlashContainerPlaceholder
 {
