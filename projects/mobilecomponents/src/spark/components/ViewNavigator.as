@@ -1221,6 +1221,10 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
                 actionContentInvalidated = true;
             else if (property == "actionGroupLayout")
                 actionGroupLayoutInvalidated  = true;
+			else if (property == "navigationContent")
+				navigationContentInvalidated = true;
+			else if (property == "navigationGroupLayout")
+				navigationGroupLayoutInvalidated  = true;
             
             invalidateProperties();
         }
