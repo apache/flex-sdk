@@ -361,6 +361,9 @@ public class SplitViewNavigator extends ViewNavigatorBase
      *  <p>If the popup is already open or the popup skin part does not exist, 
      *  this method does nothing.</p>
      * 
+     *  <p>It is recommended that this method only be used on ViewNavigators
+     *  that are currently hidden.</p>
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
@@ -432,9 +435,8 @@ public class SplitViewNavigator extends ViewNavigatorBase
         viewNavigatorPopUp.addEventListener('mouseDownOutside', navigatorPopUp_mouseDownOutsideHandler, false, 0, true);
         viewNavigatorPopUp.addElement(_popUpNavigator);
         
-        // Make sure the first navigator is visible and prevent the
-        // SHOW event from being dispatched.
-        _popUpNavigator.setVisible(true, true);
+        // Make sure the first navigator is visible
+        _popUpNavigator.visible = true;
         
         // Open the popup
         viewNavigatorPopUp.open(owner, true);
