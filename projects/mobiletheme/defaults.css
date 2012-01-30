@@ -95,6 +95,20 @@ MobileApplication
     skinClass: ClassReference("spark.skins.mobile.MobileApplicationSkin");
 }
 
+MobileItemRenderer
+{
+    paddingBottom: 5;
+    paddingLeft: 10;
+    paddingRight: 10;
+    paddingTop: 5;
+}
+
+MobileIconItemRenderer
+{
+    horizontalGap: 5;
+    verticalGap: 5;
+}
+
 MuteButton
 {
     skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.MuteButtonSkin");
