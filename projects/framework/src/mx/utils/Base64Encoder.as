@@ -30,6 +30,14 @@ public class Base64Encoder
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  Constant definition for the string "UTF-8".
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
     public static const CHARSET_UTF_8:String = "UTF-8";
 
     /**
