@@ -13673,21 +13673,6 @@ public class UIComponent extends FlexSprite
             return super.transform.matrix;
         }
     }
-    
-    private var _keepControlOfMouseDown:Boolean = false;
-    
-    public function get keepControlOfMouseDown():Boolean
-    {
-        return _keepControlOfMouseDown;
-    }
-    
-    public function set keepControlOfMouseDown(value:Boolean):void
-    {
-        if (_keepControlOfMouseDown == value)
-            return;
-        
-        _keepControlOfMouseDown = value;
-    }
 }
 
 }
