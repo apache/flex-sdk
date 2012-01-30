@@ -18,11 +18,12 @@ import mx.charts.chartClasses.PolarChart;
 import mx.charts.chartClasses.Series;
 import mx.charts.series.PieSeries;
 import mx.charts.styles.HaloDefaults;
-import mx.graphics.SolidColor;
-import mx.graphics.Stroke;
-import mx.styles.CSSStyleDeclaration;
 import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
+import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
+import mx.graphics.Stroke;
+import mx.styles.CSSStyleDeclaration;
 
 use namespace mx_internal;
 
@@ -181,20 +182,11 @@ public class PieChart extends PolarChart
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-        
-        var pieChartStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.PieChart", styleManager);
-        
-        pieChartStyle.defaultFactory = function():void
-        {
-            this.dataTipRenderer = DataTip;
-            this.fill = new SolidColor(0xFFFFFF, 0);
-            this.calloutStroke = new Stroke(0x888888,2);            
-            this.fontSize = 10;
-            this.innerRadius = 0;
-            this.textAlign = "left";
-        }
-        
+		
+		var pieChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.PieChart");
+		pieChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+		pieChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		
         return true;
     }
     
