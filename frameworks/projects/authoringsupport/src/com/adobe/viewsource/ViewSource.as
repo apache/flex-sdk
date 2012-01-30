@@ -36,6 +36,11 @@ public class ViewSource
 	 *  If true, and no existing context menu is attached
 	 *  to the given item, then when we create the context menu,
 	 *  we hide all the hideable built-in menu items.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function addMenuItem(obj:InteractiveObject, url:String,
 									   hideBuiltIns:Boolean = true):void
