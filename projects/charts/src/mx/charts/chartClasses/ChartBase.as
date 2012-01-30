@@ -2644,7 +2644,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
         
         seriesObject = Series(item.element);
             
-        if (event.shiftKey && _anchorItem)
+        if (_selectionMode == "multiple" && event.shiftKey && _anchorItem)
         {
             handleShift(item);
             bSelectionChanged = true;
