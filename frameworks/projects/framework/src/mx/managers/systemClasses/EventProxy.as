@@ -16,7 +16,7 @@ import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 import flash.events.Event;
 import flash.events.MouseEvent;
-import mx.events.MarshalMouseEvent;
+import mx.events.SandboxRootMouseEvent;
 import mx.utils.EventUtil;
 import mx.managers.ISystemManager;
 
@@ -39,7 +39,7 @@ public class EventProxy extends EventDispatcher
 		if (event is MouseEvent)
 		{
 			var me:MouseEvent = event as MouseEvent;;
-			var mme:MarshalMouseEvent = new MarshalMouseEvent(EventUtil.mouseEventMap[event.type],
+			var mme:SandboxRootMouseEvent = new SandboxRootMouseEvent(EventUtil.mouseEventMap[event.type],
 				false, false, me.ctrlKey, me.altKey, me.shiftKey, me.buttonDown);
 			// trace(">>marshalListener", systemManager, mme.type);
 			systemManager.dispatchEventFromSWFBridges(mme, null, true);
