@@ -2790,6 +2790,17 @@ public class SystemManager extends MovieClip
                 _width = stage.stageWidth;
                 _height = stage.stageHeight;
                 
+                // Detect and account for special case where our stage in some 
+                // contexts has not actually been initialized fully, as is the 
+                // case with IE if the window is fully obscured upon loading.
+                if (_width == 0 && _height == 0 && 
+                    loaderInfo.width != _width && 
+                    loaderInfo.height != _height)
+                {
+                    _width = loaderInfo.width;
+                    _height = loaderInfo.height;
+                }
+                
                 IFlexDisplayObject(app).setActualSize(_width, _height);
             }
             else
