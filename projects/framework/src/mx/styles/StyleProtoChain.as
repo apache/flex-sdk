@@ -423,6 +423,11 @@ public class StyleProtoChain
      *   This piece is broken out as a separate function so that it
      *  can be called recursively when the styleName object has a
      *  styleName property is itself another UIComponent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private static function addProperties(chain:Object, obj:IStyleClient,
                                           bInheriting:Boolean):Object
