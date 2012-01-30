@@ -13,7 +13,10 @@ package mx.utils
 {
 
 import flash.display.LoaderInfo;
-import flash.system.Security;
+
+import mx.core.mx_internal;
+
+use namespace mx_internal;
 
   /**
    *  The LoaderUtil class defines a utility method for use with Flex RSLs.
@@ -95,14 +98,14 @@ import flash.system.Security;
         var index:int;
         var searchString:String;
         var urlFilter:Function;
-        var n:uint = LoaderUtil.mx_internal::urlFilters.length;
+        var n:uint = LoaderUtil.urlFilters.length;
         
         for (var i:uint = 0; i < n; i++)
         {
-            searchString = LoaderUtil.mx_internal::urlFilters[i].searchString;
+            searchString = LoaderUtil.urlFilters[i].searchString;
             if ((index = url.indexOf(searchString)) != -1)
             {
-                urlFilter = LoaderUtil.mx_internal::urlFilters[i].filterFunction;
+                urlFilter = LoaderUtil.urlFilters[i].filterFunction;
                 url = urlFilter(url, index);
             }
         }
