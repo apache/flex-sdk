@@ -2450,21 +2450,6 @@ public class SystemManager extends MovieClip
         if (!SystemManagerGlobals.parameters)
             SystemManagerGlobals.parameters = loaderInfo.parameters;
 
-        // This listener is intended to run before any other KeyboardEvent listeners
-        // so that it can redispatch a cancelable=true copy of the event. 
-        if (getSandboxRoot() == this)
-        {
-            addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true, 1000);
-            addEventListener(MouseEvent.MOUSE_WHEEL, mouseEventHandler, true, 1000);
-            addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler, true, 1000);
-        }
-        if (isTopLevelRoot() && stage)
-        {
-            stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, false, 1000);
-            stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseEventHandler, false, 1000);
-            stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler, false, 1000);
-        }
-
         var docFrame:int = (totalFrames == 1)? 0 : 1;
         addEventListener(Event.ENTER_FRAME, docFrameListener);
 
@@ -2783,9 +2768,25 @@ public class SystemManager extends MovieClip
         if (!e.cancelable)
         {
             e.stopImmediatePropagation();
-            var cancelableEvent:MouseEvent = 
-                new MouseEvent(e.type, e.bubbles, true, e.localX, e.localY, e.relatedObject, 
-                               e.ctrlKey, e.altKey, e.shiftKey, e.buttonDown, e.delta);
+            var cancelableEvent:MouseEvent = null;
+            if ("clickCount" in e)
+            {
+                // AIR MouseEvent. We need to use a constructor so we can
+                // pass in clickCount because it is a read-only property.
+                var mouseEventClass:Class = MouseEvent;
+                
+                cancelableEvent = new mouseEventClass(e.type, e.bubbles, true, e.localX,
+                                e.localY, e.relatedObject, e.ctrlKey, e.altKey,
+                                e.shiftKey, e.buttonDown, e.delta, 
+                                e["commandKey"], e["controlKey"], e["clickCount"]);
+            }
+            else
+            {
+                cancelableEvent = new MouseEvent(e.type, e.bubbles, true, e.localX, 
+                                 e.localY, e.relatedObject, e.ctrlKey, e.altKey,
+                                 e.shiftKey, e.buttonDown, e.delta);
+            }
+            
             e.target.dispatchEvent(cancelableEvent);               
         }
     }
@@ -2830,6 +2831,21 @@ public class SystemManager extends MovieClip
      */
     private function initializeTopLevelWindow(event:Event):void
     {
+        // This listener is intended to run before any other KeyboardEvent listeners
+        // so that it can redispatch a cancelable=true copy of the event. 
+        if (getSandboxRoot() == this)
+        {
+            addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true, 1000);
+            addEventListener(MouseEvent.MOUSE_WHEEL, mouseEventHandler, true, 1000);
+            addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler, true, 1000);
+        }
+        if (isTopLevelRoot() && stage)
+        {
+            stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, false, 1000);
+            stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseEventHandler, false, 1000);
+            stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler, false, 1000);
+        }
+        
         // Parent may be null if in another sandbox and don't have
         // access to our parent.  Add a check for this case.
         if (!parent && parentAllowsChild)
