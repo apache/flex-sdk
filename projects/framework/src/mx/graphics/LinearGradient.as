@@ -217,14 +217,14 @@ public class LinearGradient extends GradientBase implements IFill
 	    	// If x and y are specified, then move the gradient so that the
 	    	// top left corner is at 0,0
 	    	if (!isNaN(tx) && !isNaN(ty))
-	    		commonMatrix.translate(819.2, 819.2); // 1638.4 / 2
+	    		commonMatrix.translate(GRADIENT_DIMENSION / 2, GRADIENT_DIMENSION / 2); // 1638.4 / 2
 	    	
 	    	// Force the length to a minimum of 2. Values of 0 or 1 have undesired behavior	
 	    	length = Math.max(length, 2);
 	    	
 	    	// Scale the gradient in the x direction. The natural size is 1638.4px. No need
 	    	// to scale the y direction because it is infinite
-	    	commonMatrix.scale (length / 1638.4, 1);
+	    	commonMatrix.scale (length / GRADIENT_DIMENSION, 1);
 	    	 
 		    commonMatrix.rotate (!isNaN(mx_internal::_angle) ? 
 										mx_internal::_angle : mx_internal::rotationInRadians);
@@ -236,7 +236,7 @@ public class LinearGradient extends GradientBase implements IFill
 		}
 		else
 		{
-			commonMatrix.scale(rc.width / 1638.4, 1);
+			commonMatrix.scale(rc.width / GRADIENT_DIMENSION, 1);
 			commonMatrix.translate(rc.left + rc.width / 2, 0);
 			commonMatrix.concat(compoundTransform.matrix);
 		}			 
