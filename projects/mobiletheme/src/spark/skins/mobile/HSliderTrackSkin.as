@@ -12,7 +12,6 @@
 package spark.skins.mobile
 {
 import flash.display.DisplayObject;
-import flash.display.Graphics;
 
 import mx.core.DPIClassification;
 
@@ -37,7 +36,7 @@ public class HSliderTrackSkin extends MobileSkin
     //  Constructor
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  Constructor.
      * 
@@ -51,16 +50,14 @@ public class HSliderTrackSkin extends MobileSkin
     {
         super();
         
-        useChromeColor = true;
-        
         // set the right assets and dimensions to use based on the screen density
         switch (applicationDPI)
         {
-			case DPIClassification.DPI_320:
-			{
-				trackWidth = 320;
-				trackHeight = 18;
-				
+            case DPIClassification.DPI_320:
+            {
+                trackWidth = 320;
+                trackHeight = 18;
+                
                 visibleTrackWidth = 280;
                 visibleTrackLeftOffset = 20;
                 
@@ -72,7 +69,7 @@ public class HSliderTrackSkin extends MobileSkin
             {
                 trackWidth = 192;
                 trackHeight = 13;
-
+                
                 visibleTrackWidth = 160;
                 visibleTrackLeftOffset = 16;
                 
@@ -101,7 +98,7 @@ public class HSliderTrackSkin extends MobileSkin
     //  Properties
     //
     //--------------------------------------------------------------------------
-
+    
     /** 
      * @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
@@ -132,7 +129,7 @@ public class HSliderTrackSkin extends MobileSkin
      *  @productversion Flex 4.5
      */
     protected var trackSkin:DisplayObject;
-
+    
     /**
      *  Specifies the track image width
      *
@@ -152,7 +149,7 @@ public class HSliderTrackSkin extends MobileSkin
      *  @productversion Flex 4.5
      */
     protected var trackHeight:int;
-
+    
     /**
      *  Specifies the offset from the left edge to where
      *  the visible track begins
@@ -173,13 +170,13 @@ public class HSliderTrackSkin extends MobileSkin
      *  @productversion Flex 4.5
      */
     protected var visibleTrackWidth:int;
-
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  @private 
      */ 
@@ -201,9 +198,9 @@ public class HSliderTrackSkin extends MobileSkin
     /**
      *  @private 
      */ 
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        super.layoutContents(unscaledWidth, unscaledHeight);
         
         setElementSize(trackSkin, unscaledWidth, unscaledHeight);
         setElementPosition(trackSkin, 0, 0);
@@ -212,17 +209,18 @@ public class HSliderTrackSkin extends MobileSkin
     /**
      *  @private 
      */ 
-    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {        
+        super.drawBackground(unscaledWidth, unscaledHeight);
+
         var calculatedTrackWidth:int = unscaledWidth - (2 * visibleTrackLeftOffset);
         
         // draw the round rect
-        var chromeColor:uint = getChromeColor();
-        chromeColorGraphics.beginFill(chromeColor, 1);
-        chromeColorGraphics.drawRoundRect(visibleTrackLeftOffset, 0,
-                                          calculatedTrackWidth, trackHeight,
-                                          trackHeight, trackHeight);
-        chromeColorGraphics.endFill();
+        graphics.beginFill(getStyle("chromeColor"), 1);
+        graphics.drawRoundRect(visibleTrackLeftOffset, 0,
+            calculatedTrackWidth, trackHeight,
+            trackHeight, trackHeight);
+        graphics.endFill();
     }
 }
 }
