@@ -110,7 +110,7 @@ HScrollBar
 
 HSlider
 {
-    skinClass: ClassReference("spark.skins.spark.HSliderSkin");
+    skinClass: ClassReference("spark.skins.mobile.HSliderSkin");
 }
 
 List
