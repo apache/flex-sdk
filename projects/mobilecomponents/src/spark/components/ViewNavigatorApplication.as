@@ -119,7 +119,6 @@ public class MobileApplication extends MobileApplicationBase
     /**
      *  @private
      */
-    // TODO (chiedozi): Why did we decide to make this private?
     private function get navigationStack():NavigationStack
     {
         if (navigator)
@@ -170,7 +169,7 @@ public class MobileApplication extends MobileApplicationBase
     /**
      *  @private
      */  
-    override public function get exitApplicationOnBackKey():Boolean
+    override mx_internal function get exitApplicationOnBackKey():Boolean
     {
         if (viewMenuOpen)
             return false;
@@ -585,7 +584,8 @@ public class MobileApplication extends MobileApplicationBase
      */
     override protected function restoreApplicationState():void
     {
-        // TODO (chiedozi): Figure out how to refactor this into base class
+        // TODO (chiedozi): Figure out how to refactor this into base class.  Need navigator
+        // to be a part of the base class
         super.restoreApplicationState();
         
         var savedState:Object = persistenceManager.getProperty("navigatorState");
