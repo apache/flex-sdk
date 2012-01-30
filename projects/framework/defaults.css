@@ -52,6 +52,7 @@ global
 	fillColors: #FFFFFF, #CCCCCC, #FFFFFF, #EEEEEE;
 	filled: true;
     firstBaselineOffset: "ascent";
+    firstBaselineOffsetBasis: "roman";
 	focusAlpha: 0.4;
 	focusBlendMode: "normal";
 	focusRoundedCorners: "tl tr bl br";
@@ -82,6 +83,8 @@ global
     justificationStyle: "pushInKinsoku";
 	kerning: false;
 	leading: 2;
+    leadingBasis: "auto";
+    leadingDirection: "auto";
     ligatureLevel: "common";
 	letterSpacing: 0;
     lineBreak: "toFit";
