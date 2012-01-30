@@ -26,6 +26,18 @@ import mx.collections.IList;
 [Event(name="change")]
 
 /**
+ *  Dispatched when the <code>selectedIndex</code> property changes.
+ *
+ *  @eventType mx.events.FlexEvent.VALUE_COMMIT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="valueCommit")]
+
+/**
  *  The ISelectableList interface indicates that the
  *  implementor is an IList element that supports a <code>selectedIndex</code>
  *  property.
