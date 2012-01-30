@@ -9,8 +9,8 @@
 
 package flex.states 
 {
-
 import flash.display.DisplayObject;
+import flex.component.ItemsComponent;
 import flex.core.Group;
 import mx.collections.ArrayCollection;
 import mx.collections.ArrayList;
@@ -379,9 +379,9 @@ public class AddItems extends OverrideBase implements IOverride
                 break;
         }    
         
-        if ( (propertyName == null || propertyName == "content") && dest is Group)
+        if ( (propertyName == null || propertyName == "content") && (dest is Group || dest is ItemsComponent))
         {
-            addItemsToContentHolder(dest as Group, localItems);
+            addItemsToContentHolder(dest, localItems);
         }
         else if (propertyName == null && dest is Container)
         {
@@ -419,10 +419,10 @@ public class AddItems extends OverrideBase implements IOverride
         else
             localItems = [items];
              
-        if ((propertyName == null || propertyName == "content") && dest is Group)
+        if ((propertyName == null || propertyName == "content") && (dest is Group || dest is ItemsComponent))
         {
             for (i = 0; i < numAdded; i++)
-                Group(dest).removeItemAt(startIndex);
+                dest.removeItemAt(startIndex);
         }
         else if (propertyName == null && dest is Container)
         {
@@ -460,8 +460,8 @@ public class AddItems extends OverrideBase implements IOverride
     {
         try
         {
-            if (propertyName == null && dest is Group)
-                return Group(dest).getItemIndex(object);
+            if (propertyName == null && (dest is Group || dest is ItemsComponent))
+                return dest.getItemIndex(object);
             
             if (propertyName == null && dest is Container)
                 return Container(dest).getChildIndex(DisplayObject(object));
@@ -507,7 +507,7 @@ public class AddItems extends OverrideBase implements IOverride
     /**
      *  @private
      */
-    protected function addItemsToContentHolder(dest:Group, items:Array):void
+    protected function addItemsToContentHolder(dest:Object, items:Array):void
     {
         if (startIndex == -1)
             startIndex = dest.numItems;
