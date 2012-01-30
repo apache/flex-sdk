@@ -294,13 +294,6 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
      */
     private var systemManager:ISystemManager;
 
-	/**
-	 *  @private
-	 *  the current object being validated
-	 *  it could be wrong if the validating object calls validateNow on something.
-	 */
-	private var currentObject:ILayoutManagerClient;
-	
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -590,16 +583,13 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
                 var token:int = perfUtil.markStart();
             }
             
-			if (obj.nestLevel)
-			{
-				currentObject = obj;
-	            obj.validateProperties();
-	            if (!obj.updateCompletePendingFlag)
-	            {
-	                updateCompleteQueue.addObject(obj, obj.nestLevel);
-	                obj.updateCompletePendingFlag = true;
-	            }
-			}            
+            obj.validateProperties();
+            if (!obj.updateCompletePendingFlag)
+            {
+                updateCompleteQueue.addObject(obj, obj.nestLevel);
+                obj.updateCompletePendingFlag = true;
+            }
+            
             CONFIG::performanceInstrumentation
             {
                 perfUtil.markEnd(".validateProperties()", token, 2 /*tolerance*/, obj);
@@ -652,17 +642,13 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
         {
             // trace("LayoutManager calling validateSize() on " + Object(obj));
 
-			if (obj.nestLevel)
-			{
-				currentObject = obj;
-		        obj.validateSize();
-		        if (!obj.updateCompletePendingFlag)
-		        {
-		            updateCompleteQueue.addObject(obj, obj.nestLevel);
-		            obj.updateCompletePendingFlag = true;
-		        }
-			}
-			
+            obj.validateSize();
+            if (!obj.updateCompletePendingFlag)
+            {
+                updateCompleteQueue.addObject(obj, obj.nestLevel);
+                obj.updateCompletePendingFlag = true;
+            }
+
             // trace("LayoutManager validateSize: " + Object(obj) + " " + IFlexDisplayObject(obj).measuredWidth + " " + IFlexDisplayObject(obj).measuredHeight);
 
             obj = ILayoutManagerClient(invalidateSizeQueue.removeLargest());
@@ -712,16 +698,13 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
         {
             // trace("LayoutManager calling validateDisplayList on " + Object(obj) + " " + DisplayObject(obj).width + " " + DisplayObject(obj).height);
 
-			if (obj.nestLevel)
-			{
-				currentObject = obj;
-	            obj.validateDisplayList();
-	            if (!obj.updateCompletePendingFlag)
-	            {
-	                updateCompleteQueue.addObject(obj, obj.nestLevel);
-	                obj.updateCompletePendingFlag = true;
-	            }
-			}
+            obj.validateDisplayList();
+            if (!obj.updateCompletePendingFlag)
+            {
+                updateCompleteQueue.addObject(obj, obj.nestLevel);
+                obj.updateCompletePendingFlag = true;
+            }
+
             // trace("LayoutManager return from validateDisplayList on " + Object(obj) + " " + DisplayObject(obj).width + " " + DisplayObject(obj).height);
 
             // Once we start, don't stop.
@@ -809,9 +792,9 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
         {
             usePhasedInstantiation = false;
 
-			listenersAttached = false;
+            listenersAttached = false;
 
-			var obj:ILayoutManagerClient = ILayoutManagerClient(updateCompleteQueue.removeLargest());
+            var obj:ILayoutManagerClient = ILayoutManagerClient(updateCompleteQueue.removeLargest());
             while (obj)
             {
                 if (!obj.initialized && obj.processedDescriptors)
@@ -892,8 +875,6 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
             var token:int = perfUtil.markStart();
         }
 
-		var lastCurrentObject:ILayoutManagerClient = currentObject;
-		
         var obj:ILayoutManagerClient;
         var i:int = 0;
         var done:Boolean = false;
@@ -927,17 +908,13 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
             {
                 // trace("LayoutManager calling validateProperties() on " + Object(obj) + " " + DisplayObject(obj).width + " " + DisplayObject(obj).height);
 
-				if (obj.nestLevel)
-				{
-					currentObject = obj;
-	                obj.validateProperties();
-	                if (!obj.updateCompletePendingFlag)
-	                {
-	                    updateCompleteQueue.addObject(obj, obj.nestLevel);
-	                    obj.updateCompletePendingFlag = true;
-	                }
-				}
-				
+                obj.validateProperties();
+                if (!obj.updateCompletePendingFlag)
+                {
+                    updateCompleteQueue.addObject(obj, obj.nestLevel);
+                    obj.updateCompletePendingFlag = true;
+                }
+
                 // Once we start, don't stop.
                 obj = ILayoutManagerClient(invalidatePropertiesQueue.removeSmallestChild(target));
             }
@@ -957,16 +934,13 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
             {
                 // trace("LayoutManager calling validateSize() on " + Object(obj));
 
-				if (obj.nestLevel)
-				{
-					currentObject = obj;
-	                obj.validateSize();
-	                if (!obj.updateCompletePendingFlag)
-	                {
-	                    updateCompleteQueue.addObject(obj, obj.nestLevel);
-	                    obj.updateCompletePendingFlag = true;
-	                }
-				}
+                obj.validateSize();
+                if (!obj.updateCompletePendingFlag)
+                {
+                    updateCompleteQueue.addObject(obj, obj.nestLevel);
+                    obj.updateCompletePendingFlag = true;
+                }
+
 
                 // trace("LayoutManager validateSize: " + Object(obj) + " " + IFlexDisplayObject(obj).measuredWidth + " " + IFlexDisplayObject(obj).measuredHeight);
                 
@@ -1003,16 +977,13 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
                 {
                     // trace("LayoutManager calling validateDisplayList on " + Object(obj) + " " + DisplayObject(obj).width + " " + DisplayObject(obj).height);
 
-					if (obj.nestLevel)
-					{
-						currentObject = obj;
-	                    obj.validateDisplayList();
-	                    if (!obj.updateCompletePendingFlag)
-	                    {
-	                        updateCompleteQueue.addObject(obj, obj.nestLevel);
-	                        obj.updateCompletePendingFlag = true;
-	                    }
-					}
+                    obj.validateDisplayList();
+                    if (!obj.updateCompletePendingFlag)
+                    {
+                        updateCompleteQueue.addObject(obj, obj.nestLevel);
+                        obj.updateCompletePendingFlag = true;
+                    }
+
                     // trace("LayoutManager return from validateDisplayList on " + Object(obj) + " " + DisplayObject(obj).width + " " + DisplayObject(obj).height);
 
                     if (invalidateClientPropertiesFlag)
@@ -1073,13 +1044,10 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
             }
         }
 
-		currentObject = lastCurrentObject;
-		
         CONFIG::performanceInstrumentation
         {
             perfUtil.markEnd(" validateClient()", token, 2 /*tolerance*/, target);
         }
-		
         // trace("<--- LayoutManager: validateClient --- target = " + target);
     }
 
@@ -1118,7 +1086,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
         // trace("<<LayoutManager:WaitAFrame");
     }
 
-    public function attachListeners(systemManager:ISystemManager):void
+    private function attachListeners(systemManager:ISystemManager):void
     {
         if (!waitedAFrame)
         {
@@ -1149,7 +1117,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
             return;
         
         systemManager.removeEventListener(Event.ENTER_FRAME, doPhasedInstantiationCallback);
-        systemManager.removeEventListener(Event.RENDER, doPhasedInstantiationCallback);		
+        systemManager.removeEventListener(Event.RENDER, doPhasedInstantiationCallback);
 
         if (!UIComponentGlobals.catchCallLaterExceptions)
         {
@@ -1168,11 +1136,9 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
                 var callLaterErrorEvent:DynamicEvent = new DynamicEvent("callLaterError");
                 callLaterErrorEvent.error = e;
                 callLaterErrorEvent.source = this; 
-				callLaterErrorEvent.object = currentObject;
                 systemManager.dispatchEvent(callLaterErrorEvent);
             }
         }
-		currentObject = null;
     }
 
     private var _usingBridge:int = -1;
