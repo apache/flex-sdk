@@ -148,7 +148,7 @@ public class AccordionHeaderAccImpl extends AccImpl
 	{
 		super(master);
 		
-		role = 0x25;
+		role = 0x25; // ROLE_SYSTEM_PAGETAB
 
 		master.parent.addEventListener("change", eventHandler);
 		master.addEventListener("removed", removedHandler);
