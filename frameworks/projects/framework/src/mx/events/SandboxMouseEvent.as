@@ -15,8 +15,8 @@ package mx.events
 import flash.events.Event;
 
 /**
- *  This is an event sent between sandboxes to notify listeners
- *  about mouse activity in another sandbox.
+ *  This is an event sent between applications in different security sandboxes to notify listeners
+ *  about mouse activity in another security sandbox.
  *
  *  For security reasons, some fields of a MouseEvent are not sent
  *  in a SandboxMouseEvent.
@@ -67,8 +67,13 @@ public class SandboxMouseEvent extends Event
     //
     //--------------------------------------------------------------------------
 
-	/**
-     *  Documentation is not currently available.
+    /**
+     *  Marshal a SWFBridgeRequest from a remote ApplicationDomain into the current
+     *  ApplicationDomain.
+     * 
+     *  @param event A SWFBridgeRequest that might have been created in a different ApplicationDomain.
+     * 
+     *  @return A SandboxMouseEvent created in the caller's ApplicationDomain.
      */
     public static function marshal(event:Event):SandboxMouseEvent
 	{
@@ -88,6 +93,21 @@ public class SandboxMouseEvent extends Event
 	 
 	/** 
 	 *  Constructor.
+	 *  
+	 *  @param type The event type; indicates the action that caused the event.
+	 *
+	 *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.
+	 *
+	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
+	 *
+	 *  @param ctrlKey Indicates whether the <code>Ctrl</code> key was pressed.
+	 *
+	 *  @param altKey Indicates whether the <code>Alt</code> key was pressed.
+	 *
+	 *  @param shiftKey Indicates whether the <code>Shift</code> key was pressed.	 
+	 *  
+	 *  @param buttonDown Indicates whether the primary mouse button is pressed (true) or not (false).
+	 *  
 	 */
 	public function SandboxMouseEvent(type:String, bubbles:Boolean = false,
                                       cancelable:Boolean = false,
@@ -115,6 +135,8 @@ public class SandboxMouseEvent extends Event
     //----------------------------------
 
 	/**
+	 *  Indicates whether the <code>Alt</code> key was pressed.
+	 *  
 	 *  @see flash.events.MouseEvent#altkey
 	 */
 	public var altKey:Boolean;
@@ -124,6 +146,8 @@ public class SandboxMouseEvent extends Event
     //----------------------------------
 
 	/**
+	 *  Indicates whether the primary mouse button is pressed (true) or not (false).
+	 *  
 	 *  @see flash.events.MouseEvent#buttonDown
 	 */
 	public var buttonDown:Boolean;
@@ -133,6 +157,8 @@ public class SandboxMouseEvent extends Event
     //----------------------------------
 
 	/**
+	 *  Indicates whether the <code>Ctrl</code> key was pressed.
+	 *  
 	 *  @see flash.events.MouseEvent#ctrlKey
 	 */
 	public var ctrlKey:Boolean;
@@ -142,6 +168,8 @@ public class SandboxMouseEvent extends Event
     //----------------------------------
 
 	/**
+	 *  Indicates whether the <code>Shift</code> key was pressed.
+	 *  
 	 *  @see flash.events.MouseEvent#shiftKey
 	 */
 	public var shiftKey:Boolean;
