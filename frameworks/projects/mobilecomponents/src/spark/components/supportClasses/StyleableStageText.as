@@ -1732,9 +1732,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     /**
      *  Iterate through the forms tracked by ActiveWindowManager and return the
-     *  one that is highest in z-order.
+     *  one that is highest in z-order excluding the passed-in form.
      */
-    private function findTopmostForm():Object
+    private function findTopmostForm(excludeForm:Object):Object
     {
         if (!awm)
             return null;
@@ -1746,7 +1746,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         {
             var otherIndex:int = getFormIndex(otherForm);
             
-            if (otherIndex > formIndex)
+            if (otherIndex > formIndex && otherForm != excludeForm)
             {
                 form = otherForm;
                 formIndex = otherIndex;
@@ -1837,9 +1837,10 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     /**
      *  Find the topmost form in z-order and show the StageText if this is a
      *  child of that form. Otherwise, create or update the proxy bitmap and
-     *  hide the StageText.
+     *  hide the StageText. When searching for the topmost form, optionally
+     *  exclude a form that is known to be hiding or closing.
      */
-    private function updateProxyImageForTopmostForm():void
+    private function updateProxyImageForTopmostForm(excludeForm:Object = null):void
     {
         if (!awm)
             return;
@@ -1847,7 +1848,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         var form:Object = awm.form;
         
         if (!(form is DisplayObject) || isFormApplication(form as DisplayObject))
-            form = findTopmostForm();
+            form = findTopmostForm(excludeForm);
         
         updateProxyImageForForm(form);
     }
@@ -2166,6 +2167,18 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         updateProxyImageForForm(form);
     }
     
+    private function awm_removeFocusManagerHandler(event:FocusEvent):void
+    {
+        // When a popup is removed from the popup manager, its focus manager
+        // gets removed from the ActiveWindowManager. This happens even in cases
+        // where the AWM will not send a deactivatedForm event for that popup.
+        // This happens before the popup is removed from the AWM's forms array,
+        // though, so the popup whose focus manager is getting removed needs to
+        // be explicitly skipped when determining the new topmost form.
+        var removedForm:Object = event.relatedObject;
+        updateProxyImageForTopmostForm(removedForm);
+    }
+    
     private function stageText_changeHandler(event:Event):void
     {
         var foundChange:Boolean = false;
@@ -2346,6 +2359,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         {
             awm.addEventListener("activatedForm", awm_activatedFormHandler, false, 0, true);
             awm.addEventListener("deactivatedForm", awm_deactivatedFormHandler, false, 0, true);
+            awm.addEventListener("removeFocusManager", awm_removeFocusManagerHandler, false, 0, true);
         }
         
         if (stageText == null)
@@ -2422,6 +2436,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         {
             awm.removeEventListener("activatedForm", awm_activatedFormHandler);
             awm.removeEventListener("deactivatedForm", awm_deactivatedFormHandler);
+            awm.removeEventListener("removeFocusManager", awm_removeFocusManagerHandler);
         }
         
         if (stageText == null)
