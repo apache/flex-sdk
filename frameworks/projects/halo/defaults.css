@@ -362,6 +362,16 @@ ButtonBar
 //------------------------------
 */
 
+ButtonBarButton.buttonBarFirstButtonStyle
+{
+	skin: ClassReference(null);
+}
+
+ButtonBarButton.buttonBarLastButtonStyle
+{
+	skin: ClassReference(null);
+}
+
 ButtonBarButton
 {
 /*	disabledIcon: null; */
@@ -1340,6 +1350,19 @@ ScrollBar
 	upArrowOverSkin: null */
 	upArrowSkin: ClassReference("mx.skins.halo.ScrollArrowSkin");
 /*	upArrowUpSkin: null */
+}
+
+/*
+//------------------------------
+//  Slider
+//------------------------------
+*/
+
+Slider
+{
+    thumbSkin: ClassReference(null);
+    trackHighlightSkin: ClassReference(null);
+    trackSkin: ClassReference(null);
 }
 
 /*
