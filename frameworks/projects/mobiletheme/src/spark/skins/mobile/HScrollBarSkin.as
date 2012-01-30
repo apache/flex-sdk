@@ -93,7 +93,7 @@ public class HScrollBarSkin extends MobileSkin
     
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        resizePart(track, unscaledWidth, unscaledHeight);
+        resizeElement(track, unscaledWidth, unscaledHeight);
     }
 }
 }
