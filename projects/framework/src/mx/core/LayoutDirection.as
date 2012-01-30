@@ -36,7 +36,7 @@ package mx.core
      */
     public final class LayoutDirection
     {
-        include "../../core/Version.as";
+        include "Version.as";
         
         //--------------------------------------------------------------------------
         //
