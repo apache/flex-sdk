@@ -2444,7 +2444,8 @@ public class Window extends SkinnableContainer implements IWindow
     {
         if (event.target == gripper)
         {
-            startResize(NativeWindowResize.BOTTOM_RIGHT);
+            startResize(layoutDirection == "rtl" ? NativeWindowResize.BOTTOM_LEFT 
+                                                 : NativeWindowResize.BOTTOM_RIGHT);
             event.stopPropagation();
             return;
         }
