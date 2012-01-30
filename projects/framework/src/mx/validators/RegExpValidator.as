@@ -72,6 +72,11 @@ import mx.managers.SystemManager;
  *  @see mx.validators.RegExpValidationResult
  *  @see mx.validators.ValidationResult
  *  @see RegExp
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RegExpValidator extends Validator
 {
@@ -85,6 +90,11 @@ public class RegExpValidator extends Validator
 
     /** 
      *  Constructor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */     
     public function RegExpValidator()
     {
@@ -127,6 +137,11 @@ public class RegExpValidator extends Validator
 
     /**
      *  The regular expression to use for validation. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get expression():String
     {
@@ -160,6 +175,11 @@ public class RegExpValidator extends Validator
 
     /**
      *  The regular expression flags to use when matching.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get flags():String
     {
@@ -205,6 +225,11 @@ public class RegExpValidator extends Validator
     /** 
      *  Error message when there is no regular expression specifed. 
      *  The default value is "The expression is missing."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get noExpressionError():String
 	{
@@ -244,6 +269,11 @@ public class RegExpValidator extends Validator
     /** 
      *  Error message when there are no matches to the regular expression. 
      *  The default value is "The field is invalid."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get noMatchError():String
 	{
@@ -292,6 +322,11 @@ public class RegExpValidator extends Validator
      *
      *  @return For an invalid result, an Array of ValidationResult objects,
      *  with one ValidationResult object for each field examined by the validator. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function doValidation(value:Object):Array
     {
