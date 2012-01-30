@@ -110,7 +110,6 @@ use namespace mx_internal;
  *  @includeExample examples/views/ViewNavigatorApplicationView2.mxml -noswf
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -176,7 +175,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
      *  Constructor.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -269,7 +267,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
      *  @see ViewNavigator
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -312,7 +309,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
      *  @default null
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -344,7 +340,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
      *  @default null
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -386,7 +381,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
      *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -427,7 +421,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
      *  @see spark.components.ViewNavigator#actionLayout
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -473,7 +466,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
      *  @see spark.skins.mobile.ActionBarSkin
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -514,7 +506,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
      *  @see spark.components.ViewNavigator#navigationLayout
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -559,7 +550,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
      *  @see spark.components.ViewNavigator#title
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -605,7 +595,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
      *  @see spark.skins.mobile.ActionBarSkin
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -646,7 +635,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
      *  @see spark.components.ViewNavigator#titleLayout
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
