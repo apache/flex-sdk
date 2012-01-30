@@ -14,6 +14,10 @@ package mx.core
 
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.display.DisplayObjectContainer;
+import flash.events.Event;
+import flash.geom.Matrix;
+
 import mx.utils.NameUtil;
 
 /**
@@ -85,6 +89,76 @@ public class FlexBitmap extends Bitmap
 			// In this case, we ignore the error and toString() will
 			// use the name assigned in the Flash authoring tool.
 		}
+		
+		if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+			this.addEventListener(Event.ADDED, addedHandler);
+	}
+
+	//--------------------------------------------------------------------------
+	//
+	//  Overridden Properties
+	//
+	//--------------------------------------------------------------------------
+	
+	private var mirror:Boolean = false;
+	
+	//----------------------------------
+	//  x
+	//----------------------------------
+	
+	private var _x:Number = 0;
+	
+	/**
+	 *  @private
+	 */
+	override public function set x(value:Number):void
+	{
+		_x = value;
+		super.x = value;
+		if (mirror)
+			validateTransformMatrix();
+	}
+	
+	/**
+	 *  @private
+	 */
+	override public function get x():Number
+	{
+		// FIXME(hmuller): by default get x returns transform.matrix.tx rounded to the nearest 20th.
+		// should do the same here, if we're returning _x.
+		return (mirror) ? _x : super.x;
+	}
+
+	//----------------------------------
+	//  width
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	override public function set width(value:Number):void  
+	{
+		super.width = value;
+		if (mirror)
+			validateTransformMatrix();
+	}
+	
+	//----------------------------------
+	//  height
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  We must override height as well because setting
+	 *  height will reset scaleX in the transform
+	 *  matrix.
+	 * 
+	 */
+	override public function set height(value:Number):void  
+	{
+		super.height = value;
+		if (mirror)
+			validateTransformMatrix();
 	}
 
 	//--------------------------------------------------------------------------
@@ -115,6 +189,61 @@ public class FlexBitmap extends Bitmap
     override public function toString():String
 	{
 		return NameUtil.displayObjectToString(this);
+	}
+	
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+	/**
+	 *  @private
+	 *  We check the closest parent's layoutDirection property
+	 *  whenever we change parents and set our mirror property
+	 *  and transform matrix accordingly.
+	 */
+	private function addedHandler(event:Event):void
+	{
+		// FIXME (klin): Is this necessary? Will it have a big impact on performance?
+		var p:DisplayObjectContainer = this.parent;
+		
+		while (p)
+		{
+			if (p is IVisualElement)
+			{
+				mirror = IVisualElement(p).layoutDirection == "rtl";
+				validateTransformMatrix();
+				break;
+			}
+			
+			p = p.parent;
+		}
+	}
+	
+	/**
+	 *  @private
+	 *  Modifies the transform matrix so that this bitmap
+	 *  will not be mirrored regardless of whether the closest
+	 *  parent is mirrored.
+	 */
+	private function validateTransformMatrix():void
+	{
+		if (mirror)
+		{
+			const mirrorMatrix:Matrix = transform.matrix;
+			if (mirrorMatrix.a > 0)
+				mirrorMatrix.a *= -1;
+			mirrorMatrix.tx = _x + width;
+			transform.matrix = mirrorMatrix;
+		}
+		else // layoutDirection changed, mirror=false, reset transform.matrix to its default
+		{
+			const defaultMatrix:Matrix = new Matrix();
+			defaultMatrix.tx = _x;
+			defaultMatrix.ty = y;
+			transform.matrix = defaultMatrix;
+		}
 	}
 }
 
