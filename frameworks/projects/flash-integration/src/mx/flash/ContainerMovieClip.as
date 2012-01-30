@@ -39,7 +39,7 @@ use namespace mx_internal;
  *  and it can respond to events, define view states and transitions, 
  *  and work with effects in the same way as can any Flex component.
  * 
- *  <p>A Flash container can only have a single Flex child. 
+ *  <p>A Flash container can only have a single Flex IUIComponent child. 
  *  However, this child can be a Flex container which allows 
  *  you to add additional children.</p>
  *
