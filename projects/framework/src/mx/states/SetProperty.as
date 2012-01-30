@@ -43,7 +43,7 @@ use namespace mx_internal;
  *
  *  @includeExample examples/StatesExample.mxml
  */
-public class SetProperty implements IOverride
+public class SetProperty extends OverrideBase implements IOverride
 {
     include "../core/Version.as";
 
@@ -114,13 +114,25 @@ public class SetProperty implements IOverride
      *  Storage for the old property value.
      */
     private var oldValue:Object;
-
+    
     /**
      *  @private
      *  Storage for the old related property values, if used.
      */
     private var oldRelatedValues:Array;
     
+    /**
+     *  @private
+     *  Flag which tracks if we're actively overriding a property.
+     */
+    private var applied:Boolean = false;
+    
+    /**
+     *  @private
+     *  Our most recent parent context.
+     */
+    private var parentContext:UIComponent = null;
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -161,13 +173,36 @@ public class SetProperty implements IOverride
     //----------------------------------
 
     [Inspectable(category="General")]
-
+    
+    /**
+     *  @private
+     *  Storage for the value property.
+     */
+    public var _value:*;
+    
     /**
      *  The new value for the property.
      *
      *  @default undefined
      */
-    public var value:*;
+    public function get value():*
+    {
+        return _value;
+    }
+
+    /**
+     *  @private
+     */
+    public function set value(val:*):void
+    {
+        _value = val;
+        
+        // Reapply if necessary.
+        if (applied) 
+        {
+            apply(parentContext);
+        }
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -188,85 +223,104 @@ public class SetProperty implements IOverride
      *  @inheritDoc
      */
     public function apply(parent:UIComponent):void
-    {
-        var obj:Object = target ? target : parent;
-        
-        var propName:String = PSEUDONYMS[name] ?
-                          PSEUDONYMS[name] :
-                          name;
-
-        var relatedProps:Array = RELATED_PROPERTIES[propName] ?
-                                 RELATED_PROPERTIES[propName] :
-                                 null;
-
-        var newValue:* = value;
-
-        // Remember the current value so it can be restored
-        oldValue = obj[propName];
-
-        if (relatedProps)
+    {   
+        var obj:* = getOverrideContext(target, parent);
+        if (obj != null)
         {
-            oldRelatedValues = [];
-
-            for (var i:int = 0; i < relatedProps.length; i++)
-                oldRelatedValues[i] = obj[relatedProps[i]];
+        	target = obj;
+	        var propName:String = PSEUDONYMS[name] ?
+	                          PSEUDONYMS[name] :
+	                          name;
+	
+	        var relatedProps:Array = RELATED_PROPERTIES[propName] ?
+	                                 RELATED_PROPERTIES[propName] :
+	                                 null;
+	
+	        var newValue:* = value;
+	
+	        // Remember the original value so it can be restored later
+	        // after we are asked to remove our override (and only if we
+	        // aren't being asked to re-apply a value).
+	        if (!applied)
+	        {
+	            oldValue = obj[propName];
+	        }
+	
+	        if (relatedProps)
+	        {
+	            oldRelatedValues = [];
+	
+	            for (var i:int = 0; i < relatedProps.length; i++)
+	                oldRelatedValues[i] = obj[relatedProps[i]];
+	        }
+	
+	        // Special case for width and height. If they are percentage values,
+	        // set the percentWidth/percentHeight instead.
+	        if (name == "width" || name == "height")
+	        {
+	            if (newValue is String && newValue.indexOf("%") >= 0)
+	            {
+	                propName = name == "width" ? "percentWidth" : "percentHeight";
+	                newValue = newValue.slice(0, newValue.indexOf("%"));
+	            }
+	            else
+	            {
+	                // Need to set width/height instead of explicitWidth/explicitHeight
+	                // otherwise width/height are out of sync until the target is validated.
+	                propName = name;
+	            }
+	        }
+	
+	        // Set new value
+	        setPropertyValue(obj, propName, newValue, oldValue);
+	        
+	        // Save state in case our value is changed again while applied.  This can
+	        // occur when our value property is databound.
+	        applied = true;
+	        this.parentContext = parent;
         }
-
-        // Special case for width and height. If they are percentage values,
-        // set the percentWidth/percentHeight instead.
-        if (name == "width" || name == "height")
-        {
-            if (newValue is String && newValue.indexOf("%") >= 0)
-            {
-                propName = name == "width" ? "percentWidth" : "percentHeight";
-                newValue = newValue.slice(0, newValue.indexOf("%"));
-            }
-            else
-            {
-                // Need to set width/height instead of explicitWidth/explicitHeight
-                // otherwise width/height are out of sync until the target is validated.
-                propName = name;
-            }
-        }
-
-        // Set new value
-        setPropertyValue(obj, propName, newValue, oldValue);
     }
 
     /**
      *  @inheritDoc
      */
     public function remove(parent:UIComponent):void
-    {
-        var obj:Object = target ? target : parent;
-        
-        var propName:String = PSEUDONYMS[name] ?
-                          PSEUDONYMS[name] :
-                          name;
-        
-        var relatedProps:Array = RELATED_PROPERTIES[propName] ?
-                                 RELATED_PROPERTIES[propName] :
-                                 null;
-
-        // Special case for width and height. Restore the "width" and
-        // "height" properties instead of explicitWidth/explicitHeight
-        // so they can be kept in sync.
-        if ((name == "width" || name == "height") && !isNaN(Number(oldValue)))
+    {   
+        var obj:* = getOverrideContext(target, parent);
+        if (obj != null)
         {
-            propName = name;
-        }
-        
-        // Restore the old value
-        setPropertyValue(obj, propName, oldValue, oldValue);
-
-        // Restore related value, if needed
-        if (relatedProps)
-        {
-            for (var i:int = 0; i < relatedProps.length; i++)
-            {
-                setPropertyValue(obj, relatedProps[i],
-                        oldRelatedValues[i], oldRelatedValues[i]);
-            }
+	        var propName:String = PSEUDONYMS[name] ?
+	                          PSEUDONYMS[name] :
+	                          name;
+	        
+	        var relatedProps:Array = RELATED_PROPERTIES[propName] ?
+	                                 RELATED_PROPERTIES[propName] :
+	                                 null;
+	
+	        // Special case for width and height. Restore the "width" and
+	        // "height" properties instead of explicitWidth/explicitHeight
+	        // so they can be kept in sync.
+	        if ((name == "width" || name == "height") && !isNaN(Number(oldValue)))
+	        {
+	            propName = name;
+	        }
+	        
+	        // Restore the old value
+	        setPropertyValue(obj, propName, oldValue, oldValue);
+	
+	        // Restore related value, if needed
+	        if (relatedProps)
+	        {
+	            for (var i:int = 0; i < relatedProps.length; i++)
+	            {
+	                setPropertyValue(obj, relatedProps[i],
+	                        oldRelatedValues[i], oldRelatedValues[i]);
+	            }
+	        }
+	        
+	        // Clear our flags and override context.
+	        applied = false;
+	        parentContext = null;
         }
     }
 
