@@ -13,13 +13,13 @@ package mx.core
 {
 import flash.geom.Rectangle;
 
-import mx.sandbox.ISandboxBridgeProvider;
+import mx.core.ISWFBridgeProvider;
 
 /**
- *  The IApplicationLoader interface defines an API with special properties
+ *  The ISWFLoader interface defines an API with special properties
  *  and method required when loading compatible applications and untrusted applications.
  */ 
-public interface IApplicationLoader extends ISandboxBridgeProvider
+public interface ISWFLoader extends ISWFBridgeProvider
 {
     //--------------------------------------------------------------------------
     //
@@ -28,26 +28,27 @@ public interface IApplicationLoader extends ISandboxBridgeProvider
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  compatibleLoad
+    //  loadForCompatibility
     //----------------------------------
 
     /**
-     *  A flag that indictes whether content is loaded into a peer
-     *  AppicationDomain. Loading into a peer ApplicationDomain 
-     *  will allow the loaded application to interop with applications build with other verions of Flex.
+     *  A flag that indictes whether the content is loaded so it can
+     *  interop with applications built with a different verion of Flex.  
+     *  Compatibility with other Flex Applications is accomplished by loading
+     *  the application into a sibling ApplicationDomain.
      *  This flag is not respected if the content needs to be loaded into differnt
      *  SecurityDomain.
-     *  If <code>true</code>, the content loads into a peer ApplicationDomain. 
+     *  If <code>true</code>, the content loads into a sibling ApplicationDomain. 
      *  If <code>false</code>, the content loaded into a child ApplicationDomain.
      *
      *  @default false
      */
-    function get compatibleLoad():Boolean;
+    function get loadForCompatibility():Boolean;
 
     /**
      *  @private
      */
-    function set compatibleLoad(value:Boolean):void;
+    function set loadForCompatibility(value:Boolean):void;
         
     /**
      *  Get the bounds of the loaded application that are visible to the user
