@@ -9782,9 +9782,9 @@ public class UIComponent extends FlexSprite
      */
     mx_internal function mapKeycodeForLayoutDirection(
         event:KeyboardEvent, 
-        mapUpDown:Boolean=false):int
+        mapUpDown:Boolean=false):uint
     {
-        var keyCode:int = event.keyCode;
+        var keyCode:uint = event.keyCode;
         
         // If rtl layout, left still means left and right still means right so
         // swap the keys to get the correct action.
