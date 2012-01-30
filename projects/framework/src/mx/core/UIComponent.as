@@ -78,7 +78,6 @@ import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.IFocusManagerContainer;
 import mx.managers.ILayoutManagerClient;
-import mx.managers.ILayoutManagerContainerClient;
 import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
 import mx.managers.SystemManager;
@@ -1421,7 +1420,7 @@ include "../styles/metadata/AnchorStyles.as";
 public class UIComponent extends FlexSprite
     implements IAutomationObject, IChildList, IConstraintClient,
     IDeferredInstantiationUIComponent, IFlexDisplayObject, IFlexModule,
-    IContainerInvalidating, ILayoutManagerContainerClient, IPropertyChangeNotifier,
+    IInvalidating, ILayoutManagerClient, IPropertyChangeNotifier,
     IRepeaterClient, IStateClient, IAdvancedStyleClient, IToolTipManagerClient,
     IUIComponent, IValidatorListener, IVisualElement
 {
@@ -1715,13 +1714,6 @@ public class UIComponent extends FlexSprite
     //
     //--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     *  flag that indicates that child estimated sizes
-     *  need recalculation.
-     */
-    mx_internal var childEstimatedSizesChanged:Boolean = true;
-    
     /**
      *  @private
      *  Temporarily stores the values of styles specified with setStyle() until 
@@ -5240,68 +5232,6 @@ public class UIComponent extends FlexSprite
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  estimatedHeight
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the estimatedHeight property.
-     */
-    private var _estimatedHeight:Number;
-    
-    /**
-     *  The height a component is likely to be given at layout time.  It is
-     *  determined by examining the parent's estimatedHeight, and the
-     *  component's percentHeight, explicitHeight, top and bottom constraints.
-     *  It is NaN if there isn't enough information to compute the height.
-     *  The component can use this information in calculating its
-     *  measuredWidth if the measuredWidth is dependent on the layout
-     *  height.
-     *
-     *  @default NaN
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function get estimatedHeight():Number
-    {
-        return _estimatedHeight;        
-    }
-    
-    //----------------------------------
-    //  estimatedWidth
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the estimatedWidth property.
-     */
-    private var _estimatedWidth:Number;
-    
-    /**
-     *  The width a component is likely to be given at layout time.  It is
-     *  determined by examining the parent's estimatedWidth, and the
-     *  component's percentWidth, explicitWidth, left and right constraints.
-     *  It is NaN if there isn't enough information to compute the width.
-     *  The component can use this information in calculating its
-     *  measuredHeight if the measuredHeight is dependent on the layout
-     *  width.
-     *
-     *  @default NaN
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function get estimatedWidth():Number
-    {
-        return _estimatedWidth;
-    }
-        
-    //----------------------------------
     //  percentWidth
     //----------------------------------
 
@@ -5353,8 +5283,8 @@ public class UIComponent extends FlexSprite
             _explicitWidth = NaN;
 
         _percentWidth = value;
-        
-        invalidateParentSizeAndDisplayList(true);
+
+         invalidateParentSizeAndDisplayList();
     }
 
     //----------------------------------
@@ -5410,7 +5340,7 @@ public class UIComponent extends FlexSprite
 
         _percentHeight = value;
 
-        invalidateParentSizeAndDisplayList(true);
+        invalidateParentSizeAndDisplayList();
     }
 
     //----------------------------------
@@ -5980,9 +5910,8 @@ public class UIComponent extends FlexSprite
 
         // We invalidate size because locking in width
         // may change the measured height in flow-based components.
-        invalidateEstimatedSizesOfChildren();
         invalidateSize();
-        invalidateParentSizeAndDisplayList(true);
+        invalidateParentSizeAndDisplayList();
 
         dispatchEvent(new Event("explicitWidthChanged"));
     }
@@ -6043,9 +5972,8 @@ public class UIComponent extends FlexSprite
 
         // We invalidate size because locking in height
         // may change the measured width in flow-based components.
-        invalidateEstimatedSizesOfChildren();
         invalidateSize();
-        invalidateParentSizeAndDisplayList(true);
+        invalidateParentSizeAndDisplayList();
 
         dispatchEvent(new Event("explicitHeightChanged"));
     }
@@ -6142,8 +6070,6 @@ public class UIComponent extends FlexSprite
             {
                 p.invalidateSize();
                 p.invalidateDisplayList();
-                if (value && parent is IContainerInvalidating)
-                    (IContainerInvalidating(parent)).invalidateEstimatedSizesOfChildren();
             }
 
             dispatchEvent(new Event("includeInLayoutChanged"));
@@ -7838,33 +7764,6 @@ public class UIComponent extends FlexSprite
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function invalidateEstimatedSizesOfChildren():void
-    {
-        childEstimatedSizesChanged = true;
-    }
-    
-    /**
-     *  Marks a component so that its <code>commitProperties()</code>
-     *  method gets called during a later screen update.
-     *
-     *  <p>Invalidation is a useful mechanism for eliminating duplicate
-     *  work by delaying processing of changes to a component until a
-     *  later screen update.
-     *  For example, if you want to change the text color and size,
-     *  it would be wasteful to update the color immediately after you
-     *  change it and then update the size when it gets set.
-     *  It is more efficient to change both properties and then render
-     *  the text with its new size and color once.</p>
-     *
-     *  <p>Invalidation methods rarely get called.
-     *  In general, setting a property on a component automatically
-     *  calls the appropriate invalidation method.</p>
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
     public function invalidateProperties():void
     {
         if (!invalidatePropertiesFlag)
@@ -7918,7 +7817,7 @@ public class UIComponent extends FlexSprite
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    protected function invalidateParentSizeAndDisplayList(estimatedSizeChanged:Boolean = false):void
+    protected function invalidateParentSizeAndDisplayList():void
     {
         if (!includeInLayout)
             return;
@@ -7929,9 +7828,6 @@ public class UIComponent extends FlexSprite
 
         p.invalidateSize();
         p.invalidateDisplayList();
-        
-        if (estimatedSizeChanged && parent is IContainerInvalidating)
-            (IContainerInvalidating(parent)).invalidateEstimatedSizesOfChildren();
     }
 
     /**
@@ -8150,19 +8046,26 @@ public class UIComponent extends FlexSprite
         if (!parent)
             return false;
 
-        
+        // If this component hasn't been sized yet, assign it
+        // an actual size that's based on its explicit or measured size.
+        //
+        // TODO (egeorgie): remove this code when all SDK clients
+        // follow the rule to size first and query baselinePosition later.
+        if (!setActualSizeCalled && (width == 0 || height == 0))
+        {
+            validateNow();
+
+            var w:Number = getExplicitOrMeasuredWidth();
+            var h:Number = getExplicitOrMeasuredHeight();
+
+            setActualSize(w, h);
+        }
+
         // Ensure that this component's internal TextFields
         // are properly laid out, so that we can use
         // their locations to compute a baselinePosition.
-        if (!setActualSizeCalled)
-        {
-            UIComponentGlobals.layoutManager.validateClient(this, true);
-            var w:Number = getExplicitOrMeasuredWidth();
-            var h:Number = getExplicitOrMeasuredHeight();
-            setActualSize(w, h);
-        }
-        
         validateNow();
+        
 
         return true;
     }
@@ -8455,121 +8358,6 @@ public class UIComponent extends FlexSprite
     //--------------------------------------------------------------------------
 
     /**
-     *  Some basic estimated size computation logic
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    mx_internal function validateEstimatedSizesOfChild(child:ILayoutElement):void
-    {
-        var cw:Number;
-        var ch:Number;
-        var c:Number;
-        var oldcw:Number = child.estimatedWidth;
-        var oldch:Number = child.estimatedHeight;
-        c = estimatedWidth;
-        if (isNaN(c) && !isNaN(explicitWidth))
-            c = explicitWidth;
-        if (!isNaN(c))
-        {
-            if (!isNaN(child.percentWidth))
-                cw = child.percentWidth * c / 100;
-            else
-            {
-                if (child.left is Number && child.right is Number)
-                {
-                    var left:Number = Number(child.left);
-                    var right:Number = Number(child.right);
-                    if (!isNaN(left) && !isNaN(right))
-                        cw = c - left - right;
-                }
-            }
-        }
-        c = estimatedHeight;
-        if (isNaN(c) && !isNaN(explicitHeight))
-            c = explicitHeight;
-        if (!isNaN(c))
-        {
-            if (!isNaN(child.percentHeight))
-                ch = child.percentHeight * c / 100;
-            else
-            {
-                if (child.top is Number && child.bottom is Number)
-                {
-                    var top:Number = Number(child.top);
-                    var bottom:Number = Number(child.bottom);
-                    if (!isNaN(top) && !isNaN(bottom))
-                        ch = c - top - bottom;
-                }                    
-            }
-        }
-        child.setEstimatedSize(cw, ch);
-        if (child is ILayoutManagerContainerClient)
-        {
-            var sameWidth:Boolean = isNaN(cw) && isNaN(oldcw) || cw == oldcw;
-            var sameHeight:Boolean = isNaN(ch) && isNaN(oldch) || ch == oldch;
-            if (!(sameHeight && sameWidth))
-            {
-                if (child is IContainerInvalidating)
-                    IContainerInvalidating(child).invalidateEstimatedSizesOfChildren();
-                ILayoutManagerContainerClient(child).validateEstimatedSizesOfChildren();
-            }
-        }
-    }    
-    
-    /**
-     *  Do a basic default calculation of estimated sizes
-     *  on the children
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function validateEstimatedSizesOfChildren():void
-    {
-        if (!childEstimatedSizesChanged)
-            return;
-        
-        var childList:IChildList;
-        
-        if (this is IRawChildrenContainer)
-            childList = IRawChildrenContainer(this).rawChildren;
-        else
-            childList = IChildList(this);
-        
-        for (var i:int = 0; i < childList.numChildren; i++)
-        {
-            var layoutElement:ILayoutElement = childList.getChildAt(i) as ILayoutElement;
-            if (!layoutElement)
-                continue;
-            if (!layoutElement.includeInLayout)
-                continue;
-            validateEstimatedSizesOfChild(layoutElement);
-        }
-        childEstimatedSizesChanged = false;
-    }
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function setEstimatedSize(estimatedWidth:Number = NaN, 
-                                       estimatedHeight:Number = NaN,
-                                        invalidateSize:Boolean = true):void
-    {
-        _estimatedWidth = estimatedWidth;
-        _estimatedHeight = estimatedHeight;
-    }
-
-        
-    /**
      *  @inheritDoc
      *  
      *  @langversion 3.0
@@ -8595,7 +8383,6 @@ public class UIComponent extends FlexSprite
 
             if (sizeChanging && includeInLayout)
             {
-                setActualSizeCalled = false;
                 // TODO (egeorgie): we don't need this invalidateDisplayList() here
                 // because we'll call it if the parent sets new actual size?
                 invalidateDisplayList();
@@ -9272,7 +9059,7 @@ public class UIComponent extends FlexSprite
      */
     public function setConstraintValue(constraintName:String, value:*):void
     {
-        setStyle(constraintName, value);        
+        setStyle(constraintName, value);
     }
     
     [Inspectable(category="General")]
@@ -9856,7 +9643,7 @@ public class UIComponent extends FlexSprite
         // trace("setActualSize: " + this + " width = " + w + " height = " + h);
 
         var changed:Boolean = false;
-        
+
         if (_width != w)
         {
             _width = w;
@@ -9883,7 +9670,7 @@ public class UIComponent extends FlexSprite
             invalidateDisplayList();
             dispatchResizeEvent();
         }
-
+        
         setActualSizeCalled = true;
     }
 
