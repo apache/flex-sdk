@@ -1295,9 +1295,6 @@ class StyleEventDispatcher extends EventDispatcher
         super();
 
         moduleInfo.addEventListener(
-            ModuleEvent.ERROR, moduleInfo_errorHandler, false, 0, true);
-
-        moduleInfo.addEventListener(
             ModuleEvent.PROGRESS, moduleInfo_progressHandler, false, 0, true);
 
         moduleInfo.addEventListener(
@@ -1309,19 +1306,6 @@ class StyleEventDispatcher extends EventDispatcher
     //  Event handlers
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private function moduleInfo_errorHandler(event:ModuleEvent):void
-    {
-        var styleEvent:StyleEvent = new StyleEvent(
-            StyleEvent.ERROR, event.bubbles, event.cancelable);
-        styleEvent.bytesLoaded = event.bytesLoaded;
-        styleEvent.bytesTotal = event.bytesTotal;
-        styleEvent.errorText = event.errorText;
-        dispatchEvent(styleEvent);
-    }
 
     /**
      *  @private
