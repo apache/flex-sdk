@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.utils.getDefinitionByName;
 
 [ExcludeClass]
 
@@ -31,6 +32,10 @@ public final class MatrixUtil
 	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
 	
 	private static var staticPoint:Point = new Point();
+
+    // For use in getConcatenatedMatrix function
+    private static var fakeDollarParent:QName;
+    private static var uiComponentClass:Class;
 
     //--------------------------------------------------------------------------
     //
@@ -1199,6 +1204,33 @@ public final class MatrixUtil
     {
         return new Point(d * mOverDet - c * nOverDet,
                          a * nOverDet - b * mOverDet);
+    }
+
+    /**
+     *  Workaround for player's concatenatedMatrix being wrong in some situations, such
+     *  as when there is a filter or a scrollRect somewhere in the object's container 
+     *  hierarchy. Walk the parent tree manually, calculating the matrix manually.
+     */
+    public static function getConcatenatedMatrix(displayObject:DisplayObject):Matrix
+    {
+        var m:Matrix = new Matrix();
+        if (uiComponentClass == null)
+			uiComponentClass = Class(getDefinitionByName("mx.core.UIComponent"));
+        if (fakeDollarParent == null)
+            fakeDollarParent = new QName(mx_internal, "$parent");
+        
+        while (displayObject && displayObject.transform.matrix)
+        {
+            var scrollRect:Rectangle = displayObject.scrollRect;
+            if (scrollRect != null)
+                m.translate(-scrollRect.x, -scrollRect.y);
+            m.concat(displayObject.transform.matrix);
+            if (uiComponentClass && displayObject is uiComponentClass)
+                displayObject = displayObject[fakeDollarParent] as DisplayObject;
+            else
+                displayObject = displayObject.parent as DisplayObject;
+        }
+        return m;
     }
 }
 
