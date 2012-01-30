@@ -1693,22 +1693,6 @@ VSlider
 
 /*
 //------------------------------
-//  Window
-//------------------------------
-*/
-
-Window
-{
-	borderStyle: "default";
-	closeButtonDisabledSkin: Embed(source="Assets.swf",symbol="CloseButtonDisabled");
-	closeButtonDownSkin: Embed(source="Assets.swf",symbol="CloseButtonDown");
-	closeButtonOverSkin: Embed(source="Assets.swf",symbol="CloseButtonOver");
-	closeButtonUpSkin: Embed(source="Assets.swf",symbol="CloseButtonUp");
-	cornerRadius: 8;
-}
-
-/*
-//------------------------------
 //  .windowStatus
 //------------------------------
 */
