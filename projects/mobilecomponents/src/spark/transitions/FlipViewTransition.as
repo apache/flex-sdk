@@ -309,6 +309,19 @@ public class FlipViewTransition extends ViewTransitionBase
         actionBarTransitionDirection = direction;
         super.prepareForPlay();
 
+        // Enable clipping on the contentGroups of the views
+        if (startView && startView.contentGroup)
+        {
+            startViewProps.clipAndEnableScrolling = startView.contentGroup.clipAndEnableScrolling;
+            startView.contentGroup.clipAndEnableScrolling = true;
+        }
+        
+        if (endView && endView.contentGroup)
+        {
+            endViewProps.clipAndEnableScrolling = endView.contentGroup.clipAndEnableScrolling;
+            endView.contentGroup.clipAndEnableScrolling = true;
+        }
+        
         // Work-around for SDK-29118
         if (dpiScale != 1 && transitionGroup)
             applyDPIScaleToElements(transitionGroup, dpiScale);
@@ -855,6 +868,13 @@ public class FlipViewTransition extends ViewTransitionBase
         if (dpiScale != 1 && transitionGroup)
             applyDPIScaleToElements(transitionGroup, 1);
 
+        // Clean up clipping on the contentGroups of the views
+        if (startView && startView.contentGroup)
+            startView.contentGroup.clipAndEnableScrolling = startViewProps.clipAndEnableScrolling;
+        
+        if (endView && endView.contentGroup)
+            endView.contentGroup.clipAndEnableScrolling = endViewProps.clipAndEnableScrolling;
+        
         if (!consolidatedTransition && transitionGroup)
         {
             if (endView)
