@@ -468,9 +468,9 @@ public class ArrayList extends EventDispatcher
      *  Remove the item at the specified index and return it.  
      *  Any items that were after this index are now one index earlier.
      *
-     *  @param index the index from which to remove the item
-     *  @return the item that was removed
-     *  @throws RangeError is index &lt; 0 or index &gt;= length
+     *  @param index The index from which to remove the item.
+     *  @return The item that was removed.
+     *  @throws RangeError if index &lt; 0 or index &gt;= length.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
