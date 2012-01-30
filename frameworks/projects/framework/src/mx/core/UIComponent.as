@@ -5860,10 +5860,17 @@ public class UIComponent extends FlexSprite
      *  Changes to the layoutDirection style cause an invalidateProperties() call,
      *  see StyleProtoChain/styleChanged().  At commitProperties() time we use
      *  invalidateLayoutDirection() to add/remove the mirroring transform.
+     * 
+     *  layoutDirection=undefined or layoutDirection=null has the same effect
+     *  as setStyle(“layoutDirection”, undefined).
      */
     public function set layoutDirection(value:String):void
     {
-        setStyle("layoutDirection", value);
+        // Set the value to null to inherit the layoutDirection.
+        if (value == null)
+            setStyle("layoutDirection", undefined);
+        else
+            setStyle("layoutDirection", value);
     }
     
     //--------------------------------------------------------------------------
@@ -7616,7 +7623,8 @@ public class UIComponent extends FlexSprite
         for (var i:int = 0; i < thisContainerNumElements; i++)
         {
             var elt:IVisualElement = thisContainer.getElementAt(i);
-            if (!(elt is IStyleClient)) 
+            // Can be null if IUITextField or IUIFTETextField.
+            if (elt && !(elt is IStyleClient)) 
                 elt.invalidateLayoutDirection();
         }        
     }  
