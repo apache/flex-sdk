@@ -1637,130 +1637,130 @@ public class UIComponent extends FlexSprite
         _updateCompletePendingFlag = value;
     }
 
-	//------------------------------------------------------------------------
+    //------------------------------------------------------------------------
     //
     //  Properties: Accessibility
     //
     //------------------------------------------------------------------------
 
-	/**
+    /**
      *  @public
-	 *  A convenience accessor for the 'silent' property
-	 *  in this UIComponent's accessibilityProperties object.
-	 *
-	 *  Note that accessibilityEnabled has the opposite sense from silent;
-	 *  accessibilityEnabled is true when silent is false and vice versa.
-	 *
-	 *  The getter simply returns accessibilityProperties.silent,
-	 *  or true if accessibilityProperties is null.
-	 *  The setter first checks whether accessibilityProperties is null, and if it is,
-	 *  sets it to a new AccessibilityProperties instance;
-	 *  then it sets accessibilityProperties.silent.
-	 *
+     *  A convenience accessor for the 'silent' property
+     *  in this UIComponent's accessibilityProperties object.
+     *
+     *  Note that accessibilityEnabled has the opposite sense from silent;
+     *  accessibilityEnabled is true when silent is false and vice versa.
+     *
+     *  The getter simply returns accessibilityProperties.silent,
+     *  or true if accessibilityProperties is null.
+     *  The setter first checks whether accessibilityProperties is null, and if it is,
+     *  sets it to a new AccessibilityProperties instance;
+     *  then it sets accessibilityProperties.silent.
+     *
      *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get accessibilityEnabled():Boolean
+     */
+    public function get accessibilityEnabled():Boolean
     {
       return accessibilityProperties ? !accessibilityProperties.silent : true;
-	}
-		
-	public function set accessibilityEnabled(value:Boolean):void
+    }
+        
+    public function set accessibilityEnabled(value:Boolean):void
     {
-	  if (!accessibilityProperties) 
+      if (!accessibilityProperties) 
         accessibilityProperties = new AccessibilityProperties();
-   	  accessibilityProperties.silent = !value;
+      accessibilityProperties.silent = !value;
       Accessibility.updateProperties();
-	}
+    }
 
-	/**
+    /**
      *  @public
-	 *  A convenience accessor for the 'name' property
-	 *  in this UIComponent's accessibilityProperties object.
-	 *
-	 *  The getter simply returns accessibilityProperties.name,
-	 *  or "" if accessibilityProperties is null.
-	 *  The setter first checks whether accessibilityProperties is null, and if it is,
-	 *  sets it to a new AccessibilityProperties instance;
-	 *  then it sets accessibilityProperties.name.
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
- 	 */
-	public function get accessibilityName():String
+     *  A convenience accessor for the 'name' property
+     *  in this UIComponent's accessibilityProperties object.
+     *
+     *  The getter simply returns accessibilityProperties.name,
+     *  or "" if accessibilityProperties is null.
+     *  The setter first checks whether accessibilityProperties is null, and if it is,
+     *  sets it to a new AccessibilityProperties instance;
+     *  then it sets accessibilityProperties.name.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get accessibilityName():String
     {
-	  return accessibilityProperties ? accessibilityProperties.name : "";
-	}
-	
+      return accessibilityProperties ? accessibilityProperties.name : "";
+    }
+    
     public function set accessibilityName(value:String):void 
     {
-	  if (!accessibilityProperties)
-	    accessibilityProperties = new AccessibilityProperties();
- 	  accessibilityProperties.name = value;
+      if (!accessibilityProperties)
+        accessibilityProperties = new AccessibilityProperties();
+      accessibilityProperties.name = value;
       Accessibility.updateProperties();
-	}
+    }
 
-	/**
-	 *  @public
-	 *  A convenience accessor for the 'description' property
-	 *  in this UIComponent's accessibilityProperties object.
-	 *
-	 *  The getter simply returns accessibilityProperties.description,
-	 *  or "" if accessibilityProperties is null.
-	 *  The setter first checks whether accessibilityProperties is null, and if it is,
-	 *  sets it to a new AccessibilityProperties instance;
-	 *  then it sets accessibilityProperties.description.
-	 *
-  	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get accessibilityDescription():String 
+    /**
+     *  @public
+     *  A convenience accessor for the 'description' property
+     *  in this UIComponent's accessibilityProperties object.
+     *
+     *  The getter simply returns accessibilityProperties.description,
+     *  or "" if accessibilityProperties is null.
+     *  The setter first checks whether accessibilityProperties is null, and if it is,
+     *  sets it to a new AccessibilityProperties instance;
+     *  then it sets accessibilityProperties.description.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get accessibilityDescription():String 
     {
-	  return accessibilityProperties ? accessibilityProperties.description : "";
-	}
+      return accessibilityProperties ? accessibilityProperties.description : "";
+    }
 
-	public function set accessibilityDescription(value:String):void
+    public function set accessibilityDescription(value:String):void
     {
-	  if (!accessibilityProperties)
-		accessibilityProperties = new AccessibilityProperties();
-   	  accessibilityProperties.description = value;
+      if (!accessibilityProperties)
+        accessibilityProperties = new AccessibilityProperties();
+      accessibilityProperties.description = value;
       Accessibility.updateProperties();
-	}
+    }
 
-	/**
-	 *  @public
-	 *  A convenience accessor for the 'shortcut' property
-	 *  in this UIComponent's accessibilityProperties object.
-	 *
-	 *  The getter simply returns accessibilityProperties.shortcut,
-	 *  or "" if accessibilityProperties is null.
-	 *  The setter first checks whether accessibilityProperties is null, and if it is,
-	 *  sets it to a new AccessibilityProperties instance;
-	 *  then it sets accessibilityProperties.shortcut.
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get accessibilityShortcut():String
+    /**
+     *  @public
+     *  A convenience accessor for the 'shortcut' property
+     *  in this UIComponent's accessibilityProperties object.
+     *
+     *  The getter simply returns accessibilityProperties.shortcut,
+     *  or "" if accessibilityProperties is null.
+     *  The setter first checks whether accessibilityProperties is null, and if it is,
+     *  sets it to a new AccessibilityProperties instance;
+     *  then it sets accessibilityProperties.shortcut.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get accessibilityShortcut():String
     {
-	  return accessibilityProperties ? accessibilityProperties.shortcut : "";
-	}
-	
+      return accessibilityProperties ? accessibilityProperties.shortcut : "";
+    }
+    
     public function set accessibilityShortcut(value:String):void
     {
-   	  if (!accessibilityProperties)
-	    accessibilityProperties = new AccessibilityProperties();
-	  accessibilityProperties.shortcut = value;
+      if (!accessibilityProperties)
+        accessibilityProperties = new AccessibilityProperties();
+      accessibilityProperties.shortcut = value;
       Accessibility.updateProperties();
-	}
+    }
 
 //--------------------------------------------------------------------------
     //
@@ -4618,8 +4618,10 @@ public class UIComponent extends FlexSprite
     /**
      *  A flag that indicates whether child objects can receive focus
      * 
-     *  <p>This is similar to the <code>tabChildren</code> property
-     *  used by Flash Player.</p>
+     *  <p><b>Note: </b>This property is similar to the <code>tabChildren</code> property
+     *  used by Flash Player. 
+     *  Use the <code>hasFocusableChildren</code> property with Flex applications.
+     *  Do not use the <code>tabChildren</code> property.</p>
      * 
      *  <p>This is usually <code>false</code> because most components
      *  either receive focus themselves or delegate focus to a single
@@ -10628,11 +10630,11 @@ public class UIComponent extends FlexSprite
         if (!effectOverlay)
         {
             effectOverlayColor = color;
-			effectOverlay = new UIComponent();
-			effectOverlay.name = "overlay";
+            effectOverlay = new UIComponent();
+            effectOverlay.name = "overlay";
             // Have to set visibility immediately
             // to make sure we avoid flicker
-			effectOverlay.$visible = true;
+            effectOverlay.$visible = true;
 
             fillOverlay(effectOverlay, color, targetArea);
 
@@ -10641,8 +10643,8 @@ public class UIComponent extends FlexSprite
             if (!targetArea)
                 addEventListener(ResizeEvent.RESIZE, overlay_resizeHandler);
 
-			effectOverlay.x = 0;
-			effectOverlay.y = 0;
+            effectOverlay.x = 0;
+            effectOverlay.y = 0;
 
             invalidateDisplayList();
 
@@ -10711,7 +10713,7 @@ public class UIComponent extends FlexSprite
             if (super.getChildByName("overlay"))
                 $removeChild(effectOverlay);
 
-			effectOverlay = null;
+            effectOverlay = null;
         }
     }
     /**
