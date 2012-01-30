@@ -101,6 +101,14 @@ public class MobileTextField extends TextField implements IEditableText
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function MobileTextField()
     {
         super();
@@ -172,7 +180,8 @@ public class MobileTextField extends TextField implements IEditableText
     //----------------------------------
     
     /**
-     *  A flag that indicates whether the text has been truncated.
+     *  Indicates whether the text has been truncated, <code>true</code>, 
+     *  or not, <code>false</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -195,7 +204,8 @@ public class MobileTextField extends TextField implements IEditableText
     //----------------------------------
     
     /**
-     *  Flag that indicates whether the text is editable.
+     *  Specifies whether the text is editable, <code>true</code>, 
+     *  or not, <code>false</code>.
      * 
      *  @default false
      *  
@@ -221,7 +231,14 @@ public class MobileTextField extends TextField implements IEditableText
     private var _focusEnabled:Boolean = true;
     
     /**
-     *  @copy mx.core.UIComponent#focusEnabled
+     *  Indicates whether the component can receive focus when tabbed to. 
+     *  You can set <code>focusEnabled</code> to <code>false</code> when a 
+     *  component is used as a subcomponent of another component so that 
+     *  the outer component becomes the focusable entity. 
+     *  If this property is <code>false</code>, focus is transferred to 
+     *  the first parent that has <code>focusEnable</code> set to <code>true</code>. 
+     *
+     *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -245,7 +262,11 @@ public class MobileTextField extends TextField implements IEditableText
     private var _enabled:Boolean = true;
     
     /**
-     *  @copy mx.core.UIComponent#enabled
+     *  Whether the component can accept user interaction. 
+     *  After setting the <code>enabled</code> property to <code>false</code>, 
+     *  some components still respond to mouse interactions such as <code>mouseOver</code>. 
+     *  As a result, to fully disable the component, you should also set the value 
+     *  of the <code>mouseEnabled</code> property to <code>false</code>.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -289,8 +310,8 @@ public class MobileTextField extends TextField implements IEditableText
     //----------------------------------
     
     /**
-     *  Controls word wrapping within the text. This property corresponds
-     *  to the lineBreak style.
+     *  Controls word wrapping within the text. 
+     *  This property corresponds to the <code>lineBreak</code> style.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -419,29 +440,29 @@ public class MobileTextField extends TextField implements IEditableText
     public function insertText(text:String):void
     {
         replaceText(selectionAnchorPosition, selectionActivePosition, text);
-		dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
-	
-	/**
-	 *  Appends the specified text to the end of the text component,
-	 *  as if you had clicked at the end and typed.
-	 *
-	 *  <p>An insertion point is then set after the new text.
-	 *  If necessary, the text will scroll to ensure
-	 *  that the insertion point is visible.</p>
-	 *
-	 *  @param text The text to be appended.
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.1
-	 *  @playerversion AIR 2.0
-	 *  @productversion Flex 4.5
-	 */
-	override public function appendText(text:String):void
-	{
-		super.appendText(text);
-		dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
-	}
+    
+    /**
+     *  Appends the specified text to the end of the text component,
+     *  as if you had clicked at the end and typed.
+     *
+     *  <p>An insertion point is then set after the new text.
+     *  If necessary, the text will scroll to ensure
+     *  that the insertion point is visible.</p>
+     *
+     *  @param text The text to be appended.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    override public function appendText(text:String):void
+    {
+        super.appendText(text);
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+    }
     
     /**
      *  Selects a specified range of characters.
@@ -585,8 +606,11 @@ public class MobileTextField extends TextField implements IEditableText
     }
     
     /**
-     *  Notify the text field that a style is changed. This method is typically
-     *  called by the styleChanged() method of the style provider.
+     *  Notify the text field that a style is changed. 
+     *  This method is typically called by the <code>styleChanged()</code> method 
+     *  of the style provider.
+     *
+     *  @param styleProp The style property that changed.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
