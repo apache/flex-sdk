@@ -12,12 +12,7 @@
 package spark.skins.mobile
 {
 import mx.core.ClassFactory;
-import mx.core.IContainerInvalidating;
 import mx.core.IFactory;
-import mx.core.ILayoutElement;
-import mx.core.mx_internal;
-import mx.managers.ILayoutManagerContainerClient;
-use namespace mx_internal;
 
 import spark.components.ViewNavigatorApplication;
 import spark.components.ViewMenu;
@@ -108,42 +103,8 @@ public class ViewNavigatorApplicationSkin extends MobileSkin
     /**
      *  @private
      */
-    override mx_internal function validateEstimatedSizesOfChild(child:ILayoutElement):void
-    {
-        var cw:Number;
-        var ch:Number;
-        var c:Number;
-        var oldcw:Number = child.estimatedWidth;
-        var oldch:Number = child.estimatedHeight;
-        // child navigator is constrained to the size of the skin
-        cw = estimatedWidth;
-        if (isNaN(cw) && !isNaN(explicitWidth))
-            cw = explicitWidth;
-        ch = estimatedHeight;
-        if (isNaN(ch) && !isNaN(explicitHeight))
-            ch = explicitHeight;
-        
-        child.setEstimatedSize(cw, ch);
-        if (child is ILayoutManagerContainerClient)
-        {
-            var sameWidth:Boolean = isNaN(cw) && isNaN(oldcw) || cw == oldcw;
-            var sameHeight:Boolean = isNaN(ch) && isNaN(oldch) || ch == oldch;
-            if (!(sameHeight && sameWidth))
-            {
-                if (child is IContainerInvalidating)
-                    IContainerInvalidating(child).invalidateEstimatedSizesOfChildren();
-                ILayoutManagerContainerClient(child).validateEstimatedSizesOfChildren();
-            }
-        }
-    }
-    
-    /**
-     *  @private
-     */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        // navigator is constrained to the size of the skin.
-        // if you change this, also update validateEstimatedSizesOfChild
         navigator.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
         navigator.setLayoutBoundsPosition(0, 0);
     }
