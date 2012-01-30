@@ -1823,8 +1823,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 else if (systemManager)
                     rootURL = LoaderUtil.normalizeURL(DisplayObject(systemManager).loaderInfo);
 
+                url = OSToPlayerURI(url, isLocal(rootURL ? rootURL : url));
                 if (rootURL)
                     url = LoaderUtil.createAbsoluteURL(rootURL, url);
+            } else {
+            	url = OSToPlayerURI(url, isLocal(url));
             }
 
             requestedURL = new URLRequest(url);
@@ -1894,6 +1897,50 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         }
 
         invalidateDisplayList();
+    }
+    
+    /**
+     * @private
+     * Test whether a url is on the local filesystem. We can only
+     * really tell this with URLs that begin with "file:" or a
+     * Windows-style drive notation such as "C:". This fails some
+     * cases like the "/" notation on Mac/Unix.
+     * 
+     * @param url
+     * the url to check against
+     * 
+     * @return
+     * true if url is local, false if not or unable to determine
+     **/
+    private function isLocal(url:String):Boolean 
+    {
+        return (url.indexOf("file:") == 0 || url.indexOf(":") == 1);
+    }
+    
+    /**
+     * @private
+     * Currently (FP 10.x) the ActiveX player (Explorer on Windows) does not
+     * handle encoded URIs containing UTF-8 on the local filesystem, but
+     * it does handle those same URIs unencoded. The plug-in requires
+     * encoded URIs.
+     * 
+     * @param url
+     * url to properly encode, may be fully or partially encoded with encodeURI
+     * 
+     * @param local
+     * true indicates the url is on the local filesystem
+     * 
+     * @return
+     * encoded url that may be loaded with a URLRequest
+     **/
+    private function OSToPlayerURI(url:String, local:Boolean):String 
+    {
+        url = decodeURI(url);
+        
+        if (local && flash.system.Capabilities.playerType == "ActiveX")
+            return url;
+        
+        return encodeURI(url);
     }
 
     /**
