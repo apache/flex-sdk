@@ -140,6 +140,31 @@ public class LinkedList
         _length++;
         return node;
     }
+    
+    /**
+     *  Inserts new node before a previously existing node. 
+     * 
+     *  @param value Value to insert. If the value is not a LinkedListNode
+     *  one will be created.
+     *  @param prev The node to insert relative to.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function insertBefore(value:*, next:LinkedListNode):LinkedListNode
+    {
+        var node:LinkedListNode = makeNode(value);
+        
+        node.prev = next.prev;
+        node.next = next;
+        node.prev.next = node;
+        node.next.prev = node;
+        
+        _length++;
+        return node;
+    }
         
     /**
      *  Searches through all nodes for the given value.
