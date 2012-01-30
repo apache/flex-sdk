@@ -17,7 +17,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
   <property name="locale" value="en_US"/>
-	<property name="local.playerglobal.version" value="10.1"/>
+	<property name="local.playerglobal.version" value="10.2"/>
 	
 	<macrodef name="bundle">
 		<attribute name="locale"/>
@@ -35,7 +35,7 @@
 							  can externally link against framework.swc, since air is player 9.
 							  If you change this, update ${local.playerglobal.version} above.
 					-->
-					<target-player>10.1</target-player>
+					<target-player>10.2</target-player>
 					<jvmarg line="${compc.jvm.args}"/>
 					<include-resource-bundles bundle="empty"/>
 					<include-namespaces/>
