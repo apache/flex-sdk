@@ -13,6 +13,7 @@ package mx.effects
 {
 
 import flash.events.Event;
+
 import mx.effects.effectClasses.PropertyChanges;
 
 /**
@@ -164,10 +165,10 @@ public interface IEffectInstance
     //----------------------------------
 
     /**
-     *  Current position in time of the effect.
-     *  This property has a value between 0 and the actual duration 
-     *  (which includes the value of the <code>startDelay</code>, 
-     *  <code>repeatCount</code>, and <code>repeatDelay</code> properties).
+     *  Current time position of the effect.
+     *  This property has a value between 0 and the total duration, 
+     *  which includes the Effect's <code>startDelay</code>, 
+     *  <code>repeatCount</code>, and <code>repeatDelay</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -175,6 +176,11 @@ public interface IEffectInstance
      *  @productversion Flex 3
      */
     function get playheadTime():Number;
+    
+    /**
+     * @private
+     */
+    function set playheadTime(value:Number):void;
     
     //----------------------------------
     //  propertyChanges
