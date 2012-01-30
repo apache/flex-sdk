@@ -241,6 +241,7 @@ public class ButtonSkinBase extends MobileSkin
         
         var labelWidth:Number = 0;
         var labelHeight:Number = 0;
+		var textDescent:Number = 0;
         var iconDisplay:DisplayObject = getIconDisplay();
 
         // reset text if it was truncated before.
@@ -248,17 +249,13 @@ public class ButtonSkinBase extends MobileSkin
             labelDisplay.text = hostComponent.label;
         labelDisplay.commitStyles();
 
-        if (labelDisplay.text)
+		// we want to get the label's width and height if we have text or there's
+		// no icon present
+        if (labelDisplay.text != "" || !iconDisplay)
         {
-            // +1 originates from MX Button without explaination
-            var textSize:Point = labelDisplay.measuredTextSize;
-            labelWidth = textSize.x + 1;
-            labelHeight = textSize.y;
-        }
-        else if (!iconDisplay)
-        {
-            // only get empty label height when there no icon is present
-            labelHeight = measureText("Wj").height + UITextField.TEXT_HEIGHT_PADDING;
+            labelWidth = getElementPreferredWidth(labelDisplay);
+            labelHeight = getElementPreferredHeight(labelDisplay);
+			textDescent = labelDisplay.getLineMetrics(0).descent;
         }
         
         var w:Number = layoutPaddingLeft + layoutPaddingRight;
@@ -291,8 +288,11 @@ public class ButtonSkinBase extends MobileSkin
         }
         else
         {
+			// When positioning the icon on the top or the bottom the text should be positioned
+			// according to its full height (including descent) not just the baseline.  We add 
+			// textDescent to accomodate for the difference
             w += Math.max(labelWidth, iconWidth);
-            h += labelHeight + iconHeight;
+            h += labelHeight + iconHeight + textDescent;
             if (labelHeight && iconHeight)
                 h += layoutGap;
         }
@@ -327,25 +327,21 @@ public class ButtonSkinBase extends MobileSkin
         var textWidth:Number = 0;
         var textHeight:Number = 0;
         var textDescent:Number = 0;
-
+		var textLeading:Number = 0;
+		
         // reset text if it was truncated before.
         if (hostComponent && labelDisplay.isTruncated)
             labelDisplay.text = hostComponent.label;
         labelDisplay.commitStyles();
-
-        if (hostComponent && hostComponent.label != "")
+		
+		
+        if (hostComponent)
         {
-            // +1 originates from MX Button without explaination
-            var textSize:Point = labelDisplay.measuredTextSize;
-            textWidth = textSize.x + 1;
-            textHeight = textSize.y;
-            textDescent = labelDisplay.getLineMetrics(0).descent;
-        }
-        else
-        {
-            var metrics:TextLineMetrics = measureText("Wj");
-            textHeight = metrics.height + UITextField.TEXT_HEIGHT_PADDING;
+			var metrics:TextLineMetrics = labelDisplay.getLineMetrics(0);
+            textWidth = getElementPreferredWidth(labelDisplay);
+            textHeight = getElementPreferredHeight(labelDisplay);
             textDescent = metrics.descent;
+			textLeading = metrics.leading;
         }
 
         var viewWidth:Number = unscaledWidth;
@@ -386,7 +382,7 @@ public class ButtonSkinBase extends MobileSkin
             }
 
             // button viewHeight may be smaller than the labelDisplay textHeight
-            labelHeight = Math.min(viewHeight, textHeight);
+            labelHeight = Math.min(viewHeight - (labelDisplay.measuredTextSize.y - textHeight), textHeight);
             labelX += ((viewWidth - labelWidth - iconWidth -
                 horizontalGap - layoutPaddingLeft - layoutPaddingRight) / 2) + layoutPaddingLeft;
 
@@ -402,9 +398,7 @@ public class ButtonSkinBase extends MobileSkin
 
             iconY = ((viewHeight - iconHeight - layoutPaddingTop - layoutPaddingBottom) / 2) + layoutPaddingTop;
 
-            // vertial center labelDisplay based on ascent
-            // text "height" = min(measuredTextSize.y, viewHeight) - descent + gutter
-            labelY = ((viewHeight - labelHeight + textDescent - StyleableTextField.TEXT_HEIGHT_PADDING) / 2);
+			labelY = (viewHeight - labelHeight) / 2;
         }
         else
         {
@@ -431,16 +425,23 @@ public class ButtonSkinBase extends MobileSkin
             labelX = layoutPaddingLeft;
             iconX += ((viewWidth - iconWidth - layoutPaddingLeft - layoutPaddingRight) / 2) + layoutPaddingLeft;
 
+			// If there's text, when positioning the icon on the top or the bottom the text should 
+			// be positioned according to its full height (including descent), not just the baseline
+			// if there's text
+			var alignmentLabelHeight:Number = labelHeight;
+			if (labelDisplay.text != "")
+				alignmentLabelHeight += textDescent;
+
             if (iconPlacement == IconPlacement.BOTTOM)
             {
-                labelY += ((viewHeight - labelHeight - iconHeight -
+                labelY += ((viewHeight - alignmentLabelHeight - iconHeight -
                     layoutPaddingTop - layoutPaddingBottom - verticalGap) / 2) + layoutPaddingTop;
-                iconY += labelY + labelHeight + verticalGap;
+                iconY += labelY + alignmentLabelHeight + verticalGap;
             }
             else
             {
                 // label bottom is constrained by layoutPaddingBottom
-                labelY = viewHeight - layoutPaddingBottom - labelHeight;
+                labelY = viewHeight - layoutPaddingBottom - alignmentLabelHeight;
 
                 // icon is vertically centered in the space above the label
                 iconY = Math.max(((labelY - iconHeight - verticalGap) / 2), layoutPaddingTop);
@@ -448,7 +449,8 @@ public class ButtonSkinBase extends MobileSkin
         }
 
         labelX = Math.max(0, Math.round(labelX));
-        labelY = Math.max(0, Math.round(labelY));
+		// text looks better a little high as opposed to low, so we use floor instead of round
+        labelY = Math.max(0, Math.floor(labelY)); 
 
         labelDisplay.commitStyles();
         setElementSize(labelDisplay, labelWidth, labelHeight);
