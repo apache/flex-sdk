@@ -177,8 +177,9 @@ public class SolidColor extends EventDispatcher implements IFill
 	private function dispatchFillChangedEvent(prop:String, oldValue:*,
 											  value:*):void
 	{
-        dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop,
-															oldValue, value));
+        if (hasEventListener("propertyChange")) 
+            dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop,
+			    oldValue, value));
 	}
 }
 
