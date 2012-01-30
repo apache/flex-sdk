@@ -171,6 +171,7 @@ public class TextAreaSkin extends TextSkinBase
             
             textDisplay.addEventListener(Event.CHANGE, textDisplay_changeHandler);
             textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, textDisplay_changeHandler);
+            textDisplay.addEventListener(Event.SCROLL, textDisplay_scrollHandler);
             
 			textDisplay.left = getStyle("paddingLeft");
 			textDisplay.top = getStyle("paddingTop");
@@ -310,12 +311,6 @@ public class TextAreaSkin extends TextSkinBase
             // no need to update textDisplay if promptDisplay is present
             return;
         }
-        
-        // TextField will auto scroll to a new line before we can resize it to
-        // fit the new text. Adjust scrollV so that all text is visible.
-        // FIXME (jasonsj): is this needed for iOS?
-        if (textDisplay.scrollV > 1)
-            textDisplay.scrollV = 1;
         
         // keep track of oldUnscaledWidth so we have a good guess as to the width 
         // of the textDisplay on the next measure() pass
@@ -485,6 +480,24 @@ public class TextAreaSkin extends TextSkinBase
 	        invalidateDisplayList();
 	        invalidateCaretPosition = true;   
 		}
+    }
+    
+    /**
+     *  @private
+     *  Cancels any native scroll that the Flash Player attempts to do
+     */
+    private function textDisplay_scrollHandler(event:Event):void
+    {
+        // if iOS, let the OS handle scrolling
+        if (_isIOS)
+            return;
+        
+        // If not IOS, we will handle scrolling, so don't let the native
+        // flash textfield scroll at all.
+        if (textDisplay.scrollV > 1)
+            textDisplay.scrollV = 1;
+        if (textDisplay.scrollH > 0)
+            textDisplay.scrollH = 0;
     }
     
     /**
