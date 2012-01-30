@@ -25,6 +25,8 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.geom.Vector3D;
 import flash.system.Capabilities;
+import flash.text.AutoCapitalize;
+import flash.text.ReturnKeyLabel;
 import flash.text.SoftKeyboardType;
 import flash.text.StageText;
 import flash.text.StageTextInitOptions;
@@ -44,6 +46,7 @@ import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.UITextFormat;
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 import mx.geom.TransformOffsets;
 import mx.managers.FocusManager;
 import mx.styles.CSSStyleDeclaration;
@@ -51,6 +54,7 @@ import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 
 import spark.core.IEditableText;
+import spark.core.ISoftKeyboardHintClient;
 import spark.events.TextOperationEvent;
 import spark.primitives.Rect;
 
@@ -81,6 +85,18 @@ use namespace mx_internal;
  *  @productversion Flex 4.5.2
  */
 [Event(name="change", type="flash.events.Event")]
+
+/**
+ *  Dispatched if the StageText is not multiline and the user presses the enter
+ *  key.
+ * 
+ *  @eventType mx.events.FlexEvent.ENTER
+ * 
+ *  @langversion 3.0
+ *  @playerversion AIR 3.0
+ *  @productversion Flex 4.5.2
+ */
+[Event(name="enter", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched after the native text control gains focus. This happens when a
@@ -240,7 +256,7 @@ use namespace mx_internal;
  *  @playerversion AIR 3.0
  *  @productversion Flex 4.5.2
  */
-public class StyleableStageText extends UIComponent implements IEditableText
+public class StyleableStageText extends UIComponent implements IEditableText, ISoftKeyboardHintClient
 {
     //--------------------------------------------------------------------------
     //
@@ -323,7 +339,7 @@ public class StyleableStageText extends UIComponent implements IEditableText
      *  The runtime StageText object that this field uses for text display and
      *  editing. 
      */
-    protected var stageText:StageText;
+    private var stageText:StageText;
     
     /**
      *  Flag indicating one or more styles have changed. If invalidateStyleFlag
@@ -898,6 +914,160 @@ public class StyleableStageText extends UIComponent implements IEditableText
     
     //--------------------------------------------------------------------------
     //
+    //  ISoftKeyboardHint properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  autoCapitalize
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Hint indicating what captialization behavior soft keyboards should use.
+     *
+     *  Supported values are defined in flash.text.AutoCapitalize:
+     *      "none" - no automatic capitalization
+     *      "word" - capitalize the first letter following any space or
+     *          punctuation
+     *      "sentence" - captitalize the first letter following any period
+     *      "all" - capitalize every letter
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3.0
+     *  @productversion Flex 4.5.2
+     */
+    public function set autoCapitalize(value:String):void
+    {
+        if (stageText != null)
+        {
+            if (value == null || value.length == 0)
+                value = AutoCapitalize.NONE;
+            
+            stageText.autoCapitalize = value;
+        }
+    }
+    
+    public function get autoCapitalize():String
+    {
+        if (stageText != null)
+            return stageText.autoCapitalize;
+        
+        return AutoCapitalize.NONE;
+    }
+    
+    //----------------------------------
+    //  autoCorrect
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Hint indicating whether a soft keyboard should use its auto-correct
+     *  behavior, if supported.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3.0
+     *  @productversion Flex 4.5.2
+     */
+    public function get autoCorrect():Boolean
+    {
+        if (stageText != null)
+            return stageText.autoCorrect;
+        
+        return false;
+    }
+    
+    public function set autoCorrect(value:Boolean):void
+    {
+        if (stageText != null)
+            stageText.autoCorrect = value;
+    }
+    
+    //----------------------------------
+    //  returnKeyLabel
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Hint indicating what label should be displayed for the return key on
+     *  soft keyboards.
+     *
+     *  Supported values are defined in flash.text.ReturnKeyLabel:
+     *      "default" - default icon or label text
+     *      "done" - icon or label text indicating completed text entry
+     *      "go" - icon or label text indicating that an action should start
+     *      "next" - icon or label text indicating a move to the next field
+     *      "search" - icon or label text indicating that the entered text
+     *          should be searched for
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3.0
+     *  @productversion Flex 4.5.2
+     */
+    public function get returnKeyLabel():String
+    {
+        if (stageText != null)
+            return stageText.returnKeyLabel;
+        
+        return ReturnKeyLabel.DEFAULT;
+    }
+    
+    public function set returnKeyLabel(value:String):void
+    {
+        if (stageText != null)
+        {
+            if (value == null || value.length == 0)
+                value = ReturnKeyLabel.DEFAULT;
+            
+            stageText.returnKeyLabel = value;
+        }
+    }
+    
+    //----------------------------------
+    //  softKeyboardType
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Hint indicating what kind of soft keyboard should be displayed for this
+     *  component.
+     *
+     *  Supported values are defined in flash.text.SoftKeyboardType:
+     *      "default" - the default keyboard
+     *      "punctuation" - puts the keyboard into punctuation/symbol entry mode
+     *      "url" - present soft keys appropriate for URL entry, such as a
+     *          specialized key that inserts '.com'
+     *      "number" - puts the keyboard into numeric keypad mode
+     *      "contact" - puts the keyboard into a mode appropriate for entering
+     *          contact information
+     *      "email" - puts the keyboard into e-mail addres entry mode, which may
+     *          make it easier to enter '@' or '.com'
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3.0
+     *  @productversion Flex 4.5.2
+     */
+    public function get softKeyboardType():String
+    {
+        if (stageText != null)
+            return stageText.softKeyboardType;
+        
+        return SoftKeyboardType.DEFAULT;
+    }
+    
+    public function set softKeyboardType(value:String):void
+    {
+        if (stageText != null)
+        {
+            if (value == null || value.length == 0)
+                value = SoftKeyboardType.DEFAULT;
+            
+            stageText.softKeyboardType = value;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
@@ -991,9 +1161,7 @@ public class StyleableStageText extends UIComponent implements IEditableText
         
         var minMetrics:TextLineMetrics = measureText("Wj");
         var currentMetrics:TextLineMetrics = measureText(text);
-        
-        var minSize:Point = new Point(minMetrics.width, minMetrics.height);
-        var padding:Point = calculateInternalPadding(minSize);
+        var padding:Point = calculateInternalPadding();
         
         measuredMinWidth = minMetrics.width + 2 * padding.x;
         measuredMinHeight = minMetrics.height + 2 * padding.y;
@@ -1237,73 +1405,58 @@ public class StyleableStageText extends UIComponent implements IEditableText
         }
     }
     
-    mx_internal function calculateInternalPadding(textSize:Point):Point
+    mx_internal function calculateInternalPadding():Point
     {
         // TODO: This shouldn't be necessary once we get an API to determine
         // what a StageText's height should be
         const applicationDPI:Number = FlexGlobals.topLevelApplication.applicationDPI;
         const isAndroid:Boolean = Capabilities.version.indexOf("AND") == 0;
-        const isIOS:Boolean = Capabilities.version.indexOf("IOS") == 0;
         
         var verticalPadPerPixel:Number = 0;
         var baseHorizontalPad:Number = 0;
         var baseVerticalPad:Number = 0;
+        var minMetrics:TextLineMetrics = measureText("Wj");
+        var minSize:Point = new Point(minMetrics.width, minMetrics.height);
         
-        if (isIOS)
-        {
-            verticalPadPerPixel = 0.0625;
-        }
-        else if (isAndroid)
+        if (isAndroid)
         {
             switch (applicationDPI)
             {
                 case DPIClassification.DPI_320:
                     verticalPadPerPixel = 0.75;
-                    baseHorizontalPad = 7;
+                    baseHorizontalPad = 11;
                     baseVerticalPad = 15;
                     break;
                 case DPIClassification.DPI_240:
-                    verticalPadPerPixel = 0.375;
-                    baseHorizontalPad = 5;
-                    baseVerticalPad = 10;
+                    verticalPadPerPixel = 0.36;
+                    baseHorizontalPad = 9;
+                    baseVerticalPad = 12;
                     break;
                 default:
                     verticalPadPerPixel = 0.125;
-                    baseHorizontalPad = 3;
-                    baseVerticalPad = 5;
+                    baseHorizontalPad = 7;
+                    baseVerticalPad = 7;
                     break;
             }
         }
 
         return new Point(baseHorizontalPad, 
-            baseVerticalPad + Math.ceil(textSize.y * verticalPadPerPixel));
+            baseVerticalPad + Math.ceil(minSize.y * verticalPadPerPixel));
     }
     
     /**
      *  StageText does not have any provision for measuring text. To get
-     *  approximate sizing, this uses a TextField to measure a line of text made
-     *  up of an ascender and a descender. Because platform rendering and
-     *  TextField rendering differ, the measurement should only be used as an
-     *  approximation.
+     *  approximate sizing, this uses UIComponent's text measurement method on a
+     *  string with an ascender and a descender. Because platform rendering and
+     *  UIComponent's rendering differ, the measurement should only be used as
+     *  an approximation.
      */
     private function measureTextLineHeight():Number
     {
-        var measuringField:TextField = new TextField();
-        var format:TextFormat = new TextFormat();
+        var lineMetrics:TextLineMetrics = measureText("Wj");
+        var internalPadding:Point = calculateInternalPadding();
         
-        format.font = getStyle("fontFamily");
-        format.size = getStyle("fontSize");
-        format.bold = getStyle("fontWeight") == "bold";
-        format.italic = getStyle("fontStyle") == "italic";
-        
-        measuringField.text = "Wj";
-        measuringField.setTextFormat(format);
-        
-        var lineMetrics:TextLineMetrics = measuringField.getLineMetrics(0);
-        var lineSize:Point = new Point(lineMetrics.width, lineMetrics.height);
-        var internalPadding:Point = calculateInternalPadding(lineSize);
-        
-        return lineSize.y + internalPadding.y;
+        return lineMetrics.height + internalPadding.y;
     }
     
     //--------------------------------------------------------------------------
@@ -1333,9 +1486,54 @@ public class StyleableStageText extends UIComponent implements IEditableText
     
     private function stageText_changeHandler(event:Event):void
     {
+        var foundChange:Boolean = false;
+        var foundEnter:Boolean = false;
+        
         if (stageText != null)
-            _text = stageText.text;
-        dispatchEvent(new TextOperationEvent(event.type));
+        {
+            var oldText:String = _text;
+            var oldLength:int = oldText.length;
+            var newText:String = stageText.text;
+            var newLength:int = newText.length;
+                
+            if (!_multiline && newText.substr(0, oldLength) == oldText)
+            {
+                // This is a single-line text field, so the enter key should
+                // dispatch an enter event instead of inserting a newline
+                // character. StageText does not dispatch a key-down event for
+                // us to use to intercept the enter key, so our only choice
+                // right now is to trap it here, after the field's text has 
+                // changed.
+                
+                if (oldLength == newLength - 1)
+                {
+                    var lastChar:String = newText.substr(oldLength, 1);
+                    foundEnter = lastChar == "\r" || lastChar == "\n";
+                }
+                else if (oldLength == newLength - 2)
+                {
+                    var tail:String = newText.substr(oldLength, 2);
+                    foundEnter = tail == "\r\n" || tail == "\n\r";
+                }
+            }
+
+            if (foundEnter)
+            {
+                foundChange = true;
+                stageText.text = _text;
+            }
+            else
+            {
+                foundChange = newText != oldText;
+                _text = stageText.text;
+            }
+        }
+
+        if (foundEnter)
+            dispatchEvent(new FlexEvent(FlexEvent.ENTER));
+        
+        if (foundChange)
+            dispatchEvent(new TextOperationEvent(event.type));
     }
     
     private function stageText_focusInHandler(event:FocusEvent):void
