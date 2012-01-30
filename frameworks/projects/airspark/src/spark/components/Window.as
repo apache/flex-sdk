@@ -1275,8 +1275,20 @@ public class Window extends SkinnableContainer implements IWindow
      */
     public function set menu(value:FlexNativeMenu):void
     {
+        if (_menu)
+        {
+            _menu.automationParent = null;
+            _menu.automationOwner = null;
+        }
+        
         _menu = value;
         menuChanged = true;
+        
+        if (_menu)
+        {
+            menu.automationParent = this;
+            menu.automationOwner = this;
+        }
     }
     
     //----------------------------------
