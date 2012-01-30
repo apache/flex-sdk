@@ -12,15 +12,15 @@
 package spark.skins.mobile
 {
 
-import flash.display.DisplayObject;
+import flash.display.CapsStyle;
 import flash.display.Graphics;
+import flash.display.JointStyle;
+import flash.display.LineScaleMode;
 
 import mx.core.DPIClassification;
 
 import spark.components.Button;
 import spark.skins.mobile.supportClasses.MobileSkin;
-import spark.skins.mobile160.assets.HScrollThumb;
-import spark.skins.mobile240.assets.HScrollThumb;
 
 /**
  *  ActionScript-based skin for the HScrollBar thumb skin part in mobile applications. 
@@ -51,19 +51,25 @@ public class HScrollBarThumbSkin extends MobileSkin
         super();
 		useChromeColor = true;
 		
-		// Depending on density set asset and visible thumb height
+		// Depending on density set padding
 		switch (applicationDPI)
 		{
+			case DPIClassification.DPI_320:
+			{
+				paddingBottom = 5;
+				paddingHorizontal = 4;
+				break;
+			}
 			case DPIClassification.DPI_240:
 			{
-				thumbClass = spark.skins.mobile240.assets.HScrollThumb;
-				thumbHeight = 6;
+				paddingBottom = 4;
+				paddingHorizontal = 3;
 				break;
 			}
 			default:
 			{
-				thumbClass = spark.skins.mobile160.assets.HScrollThumb;
-				thumbHeight = 4;
+				paddingBottom = 3;
+				paddingHorizontal = 2;
 				break;
 			}
 		}
@@ -78,89 +84,57 @@ public class HScrollBarThumbSkin extends MobileSkin
      * @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
     public var hostComponent:Button;
-    
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------    
-    /**
-     *  Specifies the FXG class to use for the thumb.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */    
-    public var thumbClass:Class;
-    
-    /**
-     *  Specifies the DisplayObject to use for the thumb.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */ 
-    public var thumbSkin:DisplayObject;
 
-    
-    /**
-     *  Height of the visible thumb area.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */ 
-    protected var thumbHeight:int;
-    
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden methods
-    //
-    //--------------------------------------------------------------------------
-    /**
-     *  @private
-     */
-    override protected function createChildren():void
-    {
-        if (!thumbSkin)
-        {
-            thumbSkin = new thumbClass();
-            addChild(thumbSkin);    
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-    {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-        setElementSize(thumbSkin, unscaledWidth, unscaledHeight);
-    }
+	//--------------------------------------------------------------------------
+	//
+	//  Variables
+	//
+	//--------------------------------------------------------------------------	
+	/**
+	 *  Padding from bottom
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5
+	 *  @productversion Flex 4.5
+	 */ 
+	protected var paddingBottom:int;
 
-    /**
-     *  @private
-     */
-    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
-    {
-        var chromeColor:uint = getChromeColor();
-        chromeColorGraphics.beginFill(chromeColor, 1);
-    }
-    
-    /**
-     *  @private
-     */
+	/**
+	 *  Horizontal padding from left and right
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5
+	 *  @productversion Flex 4.5
+	 */ 
+	protected var paddingHorizontal:int;
+	
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Overridden methods
+	//
+	//--------------------------------------------------------------------------
+	/**
+	 *  @protected
+	 */ 
+	override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
+	{
+		var chromeColor:uint = getChromeColor();
+		chromeColorGraphics.beginFill(chromeColor, 1);
+		chromeColorGraphics.lineStyle(1, 0x000000, 1, false, LineScaleMode.NORMAL, CapsStyle.NONE, JointStyle.ROUND);
+	}
+	
+	/**
+	 *  @protected
+	 */ 
     override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
     {
-        chromeColorGraphics.drawRoundRect(0, 0, 
-                                          unscaledWidth, thumbHeight, 
-                                          thumbHeight, thumbHeight);
-    }
-    
+		var thumbHeight:Number = unscaledHeight - paddingBottom;
+		chromeColorGraphics.drawRoundRect(paddingHorizontal + .5, 0.5, 
+									      unscaledWidth - 2 * paddingHorizontal, thumbHeight, 
+										  thumbHeight, thumbHeight);
+	}    
 }
 }
