@@ -20,8 +20,8 @@ import flash.events.FocusEvent;
 import flash.system.ApplicationDomain;
 import flash.utils.Dictionary;
 
-import mx.core.ApplicationGlobals;
 import mx.core.EventPriority;
+import mx.core.FlexGlobals;
 import mx.core.IDeferredInstantiationUIComponent;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
@@ -244,7 +244,7 @@ public class EffectManager extends EventDispatcher
                 var doc:Object = target.parentDocument;
                 // The main Application doesn't have a parentDocument.
                 if (!doc)
-                    doc = ApplicationGlobals.application;
+                    doc = FlexGlobals.topLevelApplication;
                 effectObj = doc[value];
             }
             else if (value is Effect)
