@@ -109,7 +109,9 @@ public class ToggleButtonSkinBase extends ButtonSkinBase
         graphics.drawRect(0,0,unscaledWidth, unscaledHeight);
         graphics.endFill();
         
-        
+		// Force strokes to be aligned on the pixel boundries.
+		iconDisplay.x += .5;
+		iconDisplay.y += .5;
     }
     
     
