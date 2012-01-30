@@ -190,10 +190,7 @@ public class DataGridAccImpl extends ListBaseAccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		if (childID == 0)
-			return role;
-			
-		return ROLE_SYSTEM_LISTITEM;
+		return childID == 0 ? role : ROLE_SYSTEM_LISTITEM;
 	}
 
 	/**
@@ -404,7 +401,6 @@ public class DataGridAccImpl extends ListBaseAccImpl
 		var childIDs:Array = [];
 
 		var dataGrid:DataGrid = DataGrid(master);
-
 		if (dataGrid.dataProvider)
 		{
 			// 0 is DataGrid, 1 to columnCount * Rows -> ItemRenderers
@@ -419,6 +415,7 @@ public class DataGridAccImpl extends ListBaseAccImpl
 				childIDs[i] = i + 1;
 			}
 		}
+
 		return childIDs;
 	}
 
