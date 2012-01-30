@@ -22,6 +22,11 @@ import mx.core.IRepeaterClient;
  *  You do not create instances of NameUtil;
  *  instead you call static methods of the class, such as 
  *  the <code>NameUtil.createName()</code> method.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class NameUtil
 {
@@ -51,6 +56,11 @@ public class NameUtil
      *  @param object Object requiring a name.
      *
      *  @return String containing the unique name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function createUniqueName(object:Object):String
     {
@@ -85,6 +95,11 @@ public class NameUtil
      *
      *  @return String containing the position of <code>displayObject</code> 
      *  in the hierarchy of DisplayObject objects in an application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function displayObjectToString(
                                 displayObject:DisplayObject):String
@@ -133,6 +148,11 @@ public class NameUtil
      *  If you need the package name as well, call the
      *  <code>getQualifiedClassName()</code> method in the flash.utils package.
      *  It will return a string such as <code>"mx.controls::Button"</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getUnqualifiedClassName(object:Object):String
     {
