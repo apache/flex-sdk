@@ -48,6 +48,7 @@ package
 		import spark.automation.delegates.components.SparkTextInputAutomationImpl;SparkTextInputAutomationImpl;
 		import spark.automation.delegates.components.SparkTileGroupAutomationImpl;SparkTileGroupAutomationImpl;
 		import spark.automation.delegates.components.SparkTitleWindowAutomationImpl;SparkTitleWindowAutomationImpl;
+		import spark.automation.delegates.components.SparkVideoDisplayAutomationImpl;SparkVideoDisplayAutomationImpl;
 		import spark.automation.delegates.components.SparkVideoPlayerAutomationImpl;SparkVideoPlayerAutomationImpl;
 		import spark.automation.delegates.components.SparkRichEditableTextAutomationImpl;SparkRichEditableTextAutomationImpl;
 
