@@ -5,6 +5,15 @@ import mx.core.mx_internal;
 
 use namespace mx_internal;
 
+/**
+ *  The ActionScript-based skin used for TextAreaHScrollBarThumb components
+ *  in mobile applications.
+ * 
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5 
+ *  @productversion Flex 4.5
+ * 
+ */
 public class TextAreaVScrollBarThumbSkin extends VScrollBarThumbSkin
 {
     //--------------------------------------------------------------------------
