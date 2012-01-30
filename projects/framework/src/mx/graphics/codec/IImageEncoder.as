@@ -23,6 +23,11 @@ import flash.utils.ByteArray;
  * 
  *  @see PNGEncoder
  *  @see JPEGEncoder
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IImageEncoder
 {
@@ -38,6 +43,11 @@ public interface IImageEncoder
 
     /**
      *  The MIME type for the image format that this encoder produces.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get contentType():String;
 
@@ -53,6 +63,11 @@ public interface IImageEncoder
      *  @param bitmapData The input BitmapData object.
      *
      *  @return Returns a ByteArray object containing encoded image data. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function encode(bitmapData:BitmapData):ByteArray;
 
@@ -78,6 +93,11 @@ public interface IImageEncoder
 	 *  alpha channel information is ignored.
      *
      *  @return Returns a ByteArray object containing encoded image data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function encodeByteArray(byteArray:ByteArray, width:int, height:int,
 							 transparent:Boolean = true):ByteArray;
