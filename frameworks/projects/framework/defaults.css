@@ -50,7 +50,7 @@ global
 	dropShadowColor: #000000;
 	dropShadowEnabled: false;
 	embedFonts: false;
-	errorColor: #FF0000;
+	errorColor: #FE0000;
 	fillAlphas: 0.6, 0.4, 0.75, 0.65; /* last pair are for OVER state */
 	fillColor: #FFFFFF; /* kill this?? */
 	fillColors: #FFFFFF, #CCCCCC, #FFFFFF, #EEEEEE;
@@ -969,7 +969,7 @@ Menu
 {
 	backgroundAlpha: 0.95;
 	borderStyle: "menuBorder";
-	branchDisabledIcon: Embed(source="assets/MenuArrow.png");
+	branchDisabledIcon: Embed(source="assets/MenuArrow_disabled.png");
 	branchIcon: Embed(source="assets/MenuArrow.png");
 	checkDisabledIcon: Embed(source="Assets.swf",symbol="MenuCheckDisabled");
 	checkIcon: Embed(source="Assets.swf",symbol="MenuCheckEnabled");
