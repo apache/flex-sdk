@@ -16,7 +16,7 @@
             // Create and display the Menu control.
             private function showMenu():void {
                 myMenu= Menu.createMenu(panel, myMenuData, false);
-                myMenu.labelField="@label"
+                myMenu.labelField="@label";
                 myMenu.addEventListener("itemClick", menuHandler);
                 
                 // Calculate position of Menu in Application's coordinates. 
