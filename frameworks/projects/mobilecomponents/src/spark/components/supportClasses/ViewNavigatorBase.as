@@ -198,41 +198,6 @@ public class ViewNavigatorBase extends SkinnableContainer
     }
     
     //----------------------------------
-    //  destructionPolicy
-    //----------------------------------
-    
-    private var _destructionPolicy:String = ContainerDestructionPolicy.AUTO;
-    
-    [Inspectable(category="General", enumeration="auto,never", defaultValue="auto")]
-    /**
-     *  Sets the destruction policy for the view navigator.  
-     *  If set to <code>auto</code>, the default, the contents of the view navigator 
-     *  are destroyed when the navigator is deactivated by another component.
-     *  If set to <code>never</code>, the navigator is never destroyed.
-     * 
-     *  @default auto
-     *
-     *  @see spark.core.ContainerDestructionPolicy
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */ 
-    public function get destructionPolicy():String
-    {
-        return _destructionPolicy;
-    }
-    
-    /**
-     *  @private
-     */ 
-    public function set destructionPolicy(value:String):void
-    {
-        _destructionPolicy = value;
-    }
-    
-    //----------------------------------
     //  icon
     //----------------------------------
     
