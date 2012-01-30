@@ -45,6 +45,11 @@ import mx.styles.StyleManager;
  *
  *  @see mx.effects.Dissolve
  *  @see mx.events.TweenEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class DissolveInstance extends TweenEffectInstance
 {
@@ -60,6 +65,11 @@ public class DissolveInstance extends TweenEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DissolveInstance(target:Object)
 	{
@@ -90,6 +100,11 @@ public class DissolveInstance extends TweenEffectInstance
 	/** 
 	 *  Initial transparency level between 0.0 and 1.0,
 	 *  where 0.0 means transparent and 1.0 means fully opaque. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var alphaFrom:Number;
 	
@@ -100,6 +115,11 @@ public class DissolveInstance extends TweenEffectInstance
 	/** 
 	 *  Final transparency level between 0.0 and 1.0,
 	 *  where 0.0 means transparent and 1.0 means fully opaque.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var alphaTo:Number;
 
@@ -114,6 +134,11 @@ public class DissolveInstance extends TweenEffectInstance
 	 *  The default value is the color specified by the target component's
 	 *  <code>backgroundColor</code> style property, or 0xFFFFFF, if 
 	 *  <code>backgroundColor</code> is not set.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var color:uint = StyleManager.NOT_A_COLOR;
 	
@@ -136,6 +161,11 @@ public class DissolveInstance extends TweenEffectInstance
 	 *  UIComponents create an overlay over the entire component.
 	 *  Containers create an overlay over their content area,
 	 *  but not their chrome. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var targetArea:RoundedRectangle;
 	
