@@ -12,6 +12,7 @@
 package mx.core
 {
     import flash.events.EventDispatcher;
+    
     import mx.events.PropertyChangeEvent;
     import mx.events.PropertyChangeEventKind;
         
@@ -34,8 +35,8 @@ package mx.core
      *  propagate to the assocaited layer children.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
     public class DesignLayer extends EventDispatcher
@@ -50,8 +51,8 @@ package mx.core
          *  Constructor.
          *  
          *  @langversion 3.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
         public function DesignLayer()
@@ -64,8 +65,14 @@ package mx.core
         //----------------------------------
         
         /**
-         * @private
-         */  
+         *  ID of the layer component. This value becomes the instance name of the layer
+         *  and as such, should not contain any white space or special characters. 
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */
         public var id:String;
         
         //----------------------------------
@@ -73,9 +80,17 @@ package mx.core
         //----------------------------------
         
         /**
-         * @private
-         */  
-        public var parent:DesignLayer;
+         *  @private
+         *  This layer's parent layer. 
+         *  
+         *  @default null
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */
+        protected var parent:DesignLayer;
         
         //----------------------------------
         //  layerChildren
@@ -86,19 +101,6 @@ package mx.core
          */  
         private var layerChildren:Array = new Array();
         
-        //--------------------------------------------------------------------------
-        //  Methods
-        //--------------------------------------------------------------------------
-        
-        /**
-         * @private
-         */  
-        public function addLayer(value:DesignLayer):void
-        {
-            value.parent = this;
-            layerChildren.push(value);
-        }
-
         //----------------------------------
         //  visible
         //----------------------------------
@@ -107,12 +109,30 @@ package mx.core
          * @private
          */  
         private var _visible:Boolean = true;
-        
+
+        /**
+         *  The visibility for this design layer instance.
+         *
+         *  When updated, the appropriate change event for 
+         *  computedVisibility will be dispatched to all layerPropertyChange
+         *  listeners for this layer, as well as those of affected
+         *  descendant layers if any.
+         *
+         *  @default true
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */
         public function get visible():Boolean
         {
             return _visible;
         }
-        
+ 
+        /**
+         * @private
+         */
         public function set visible(value:Boolean):void
         {
             if (_visible != value)
@@ -127,8 +147,17 @@ package mx.core
         //----------------------------------
         
         /**
-         * @private
-         */  
+         *  Returns the effective visibility of this design layer
+         *  (which considers the visibility of this layer as well as
+         *  any ancestor layers).  
+         * 
+         *  @default true
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */   
         public function get computedVisibility():Boolean
         {
             var isVisible:Boolean = _visible;
@@ -143,11 +172,15 @@ package mx.core
         
         /**
          * @private
+         * Used to notify the visual elements associated with this layer
+         * that the computed visiblity has changed.  Dispatches a 
+         * "layerPropertyChange" event with property field set to 
+         * "computedVisibility".
          */  
         protected function computedVisibilityChanged(value:Boolean):void
         {
             dispatchEvent(new PropertyChangeEvent("layerPropertyChange", false, 
-                false, PropertyChangeEventKind.UPDATE, "visible", !value, value));
+                false, PropertyChangeEventKind.UPDATE, "computedVisibility", !value, value));
             
             for (var i:int = 0; i < layerChildren.length; i++)
             {
@@ -170,11 +203,29 @@ package mx.core
          */  
         private var _alpha:Number = 1.0;
         
+        /**
+         *  The alpha for this design layer instance.
+         *
+         *  When updated, the appropriate change event for 
+         *  computedAlpha will be dispatched to all layerPropertyChange
+         *  listeners for this layer, as well as those of affected
+         *  descendant layers if any.
+         *
+         *  @default 1.0
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */
         public function get alpha():Number
         {
             return _alpha;
         }
-        
+ 
+        /**
+         * @private
+         */
         public function set alpha(value:Number):void
         {
             if (_alpha != value)
@@ -190,8 +241,17 @@ package mx.core
         //----------------------------------
         
         /**
-         * @private
-         */  
+         *  Property that returns the effective alpha of this design layer
+         *  (which considers the alpha of this multiplied with the alpha of 
+         *  any ancestor layers).  
+         * 
+         *  @default 1.0
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */ 
         public function get computedAlpha():Number
         {
             var currentAlpha:Number = _alpha;
@@ -206,11 +266,14 @@ package mx.core
         
         /**
          * @private
+         * Used to notify the visual elements associated with this layer
+         * that the computed alpha has changed.  Dispatches a "layerPropertyChange"
+         * event with the property field set to "computedAlpha".
          */  
         protected function computedAlphaChanged(oldAlpha:Number):void
         {
             dispatchEvent(new PropertyChangeEvent("layerPropertyChange", false, 
-                false, PropertyChangeEventKind.UPDATE, "alpha", oldAlpha, computedAlpha));
+                false, PropertyChangeEventKind.UPDATE, "computedAlpha", oldAlpha, computedAlpha));
             
             for (var i:int = 0; i < layerChildren.length; i++)
             {
@@ -218,6 +281,91 @@ package mx.core
                 layerChild.computedAlphaChanged(layerChild.alpha);
             }
         }
+ 
+        //----------------------------------
+        //  numLayers
+        //----------------------------------
         
+        /**
+         *  The number of DesignLayer children immediately parented by this layer.
+         *
+         *  @default 0
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */
+        public function get numLayers():int
+        {
+            return layerChildren.length;
+        }
+        
+        //----------------------------------------------------------------------
+        //
+        //  Methods
+        //
+        //----------------------------------------------------------------------
+        
+        /**
+         *  Adds a DesignLayer child to this layer.
+         *
+         *  @param value The layer child to add.
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */
+        public function addLayer(value:DesignLayer):void
+        {
+            value.parent = this;
+            layerChildren.push(value);
+        }
+        
+        /**
+         *  Returns the DesignLayer child at the specified index.
+         *
+         *  @param index The 0-based index of a DesignLayer child.
+         *
+         *  @return The specified DesignLayer child if index is between
+         *  0 and <code>numLayers</code> - 1.  Returns
+         *  <code>null</code> if the index is invalid.
+         * 
+         *  @see numLayers
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */
+        public function getLayerAt(index:int):DesignLayer
+        {
+            return ((index < layerChildren.length) && index >= 0) ? 
+                layerChildren[index] : null;
+        }
+        
+        /**
+         *  Removes a DesignLayer child from this layer.
+         *
+         *  @param value The layer child to remove.
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */
+        public function removeLayer(value:DesignLayer):void
+        {
+            for (var i:int = 0; i < layerChildren.length; i++)
+            {
+                if (layerChildren[i] == value)
+                {
+                    layerChildren.splice(i,1);
+                    return;
+                }
+            }
+        }
+         
     }
 }
