@@ -23,7 +23,8 @@ import spark.core.SpriteVisualElement;
 import spark.layouts.HorizontalAlign;
 import spark.layouts.HorizontalLayout;
 import spark.layouts.VerticalAlign;
-import spark.skins.MobileSkin;
+import spark.skins.mobile.assets.ActionBarBackground;
+import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
  *  FIXME (jasonsj)
@@ -98,7 +99,6 @@ public class ActionBarSkin extends MobileSkin
     override protected function measure():void
     {
         var titleComponent:UIComponent = (titleGroup.numElements > 0) ? titleGroup : titleDisplay;
-        
         measuredMinWidth = measuredWidth =
             navigationGroup.getPreferredBoundsWidth()
             + titleComponent.getPreferredBoundsWidth()
