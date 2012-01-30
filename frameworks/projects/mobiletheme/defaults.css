@@ -20,11 +20,11 @@ application-dpi=240.
 
 ActionBar
 {
-	color: #FFFFFF;
-	chromeColor: #484848;
+    color: #FFFFFF;
+    chromeColor: #484848;
     skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
-	textShadowAlpha: .65;
-	textShadowColor: #000000;
+    textShadowAlpha: .65;
+    textShadowColor: #000000;
 }
 
 ActionBar #titleDisplay
@@ -35,12 +35,24 @@ ActionBar #titleDisplay
 
 ActionBar Group#navigationGroup Button
 {
-	skinClass: ClassReference("spark.skins.mobile.NavigationButtonSkin");
+    skinClass: ClassReference("spark.skins.mobile.NavigationButtonSkin");
+}
+
+ActionBar Group#navigationGroup Button.ios
+{
+    fontSize: 18;
+    skinClass: ClassReference("spark.skins.mobile.NavigationBackButtonSkin");
 }
 
 ActionBar Group#actionGroup Button
 {
     skinClass: ClassReference("spark.skins.mobile.ActionButtonSkin");
+}
+
+ActionBar Group#actionGroup Button.ios
+{
+    fontSize: 18;
+    skinClass: ClassReference("spark.skins.mobile.ActionRoundedButtonSkin");
 }
 
 Application
@@ -70,7 +82,8 @@ Button.emphasized
 
 ButtonBar
 {
-    skinClass: ClassReference("spark.skins.spark.ButtonBarSkin");
+    fontWeight: "bold";
+    skinClass: ClassReference("spark.skins.mobile.ButtonBarSkin");
 }
 
 ButtonBase
@@ -110,34 +123,34 @@ HSlider
 
 IconItemRenderer
 {
-	horizontalGap: 15;
-	verticalGap: 15;
-	iconDelay: 500;
-	messageStyleName: "iconItemRendererMessageStyle";
+    horizontalGap: 15;
+    verticalGap: 15;
+    iconDelay: 500;
+    messageStyleName: "iconItemRendererMessageStyle";
 }
 
 .iconItemRendererMessageStyle
 {
-	fontSize: 20;
-	color: #333333;
+    fontSize: 20;
+    color: #333333;
 }
 
 LabelItemRenderer
 {
-	paddingBottom: 20;
-	paddingLeft: 15;
-	paddingRight: 15;
-	paddingTop: 20;
-	verticalAlign: "middle";
-	selectionColor: #70B2EE;
+    paddingBottom: 20;
+    paddingLeft: 15;
+    paddingRight: 15;
+    paddingTop: 20;
+    verticalAlign: "middle";
+    selectionColor: #70B2EE;
 }
 
 List
 {
-	skinClass: ClassReference("spark.skins.mobile.ListSkin");
+    skinClass: ClassReference("spark.skins.mobile.ListSkin");
     touchDelay: 100;
-	borderColor: #000000;
-	borderAlpha: 1;
+    borderColor: #000000;
+    borderAlpha: 1;
     verticalScrollPolicy: on;
 }
 
@@ -158,7 +171,7 @@ Panel
     borderColor: 0;
     cornerRadius: 0;
     dropShadowVisible: true;
-	skinClass: ClassReference("spark.skins.spark.PanelSkin");
+    skinClass: ClassReference("spark.skins.spark.PanelSkin");
 }
 
 RadioButton
@@ -222,11 +235,12 @@ TabbedViewNavigator
     skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorSkin");
 }
 
-TabbedViewNavigator ButtonBar
+TabbedViewNavigator #tabBar
 {
     chromeColor: #484848;
     color: #FFFFFF;
     fontSize: 20;
+    fontWeight: normal;
     iconPlacement: top;
     interactionMode: mouse;
     skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorButtonBarSkin");
@@ -240,7 +254,7 @@ TextArea
     paddingLeft: 9;
     paddingRight: 9;
     paddingTop: 9;
-	skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
+    skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
 }
 
 TextInput
@@ -249,21 +263,21 @@ TextInput
     paddingLeft: 9;
     paddingRight: 9;
     paddingTop: 9;
-	skinClass: ClassReference("spark.skins.mobile.TextInputSkin");
+    skinClass: ClassReference("spark.skins.mobile.TextInputSkin");
 }
 
 TitleWindow
 {
-	borderAlpha: 0.8;
-	borderColor: 0;
-	cornerRadius: 0;
-	dropShadowVisible: true;
-	skinClass: ClassReference("spark.skins.spark.TitleWindowSkin");
+    borderAlpha: 0.8;
+    borderColor: 0;
+    cornerRadius: 0;
+    dropShadowVisible: true;
+    skinClass: ClassReference("spark.skins.spark.TitleWindowSkin");
 }
 
 ToggleButton
 {
-	skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
+    skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
 }
 
 VideoPlayer
@@ -363,14 +377,24 @@ global
     {
         fontSize: 18pt;
     }
+
+    ActionBar Group#navigationGroup Button.ios
+    {
+        fontSize: 12;
+    }
     
-	LabelItemRenderer
-	{
-		paddingBottom: 16;
-		paddingLeft: 10;
-		paddingRight: 10;
-		paddingTop: 16;	
-	}
+    ActionBar Group#actionGroup Button.ios
+    {
+        fontSize: 12;
+    }
+    
+    LabelItemRenderer
+    {
+        paddingBottom: 16;
+        paddingLeft: 10;
+        paddingRight: 10;
+        paddingTop: 16;    
+    }
 
     TextArea
     {
@@ -388,7 +412,7 @@ global
         paddingTop: 6;
     }
     
-    TabbedViewNavigator ButtonBar
+    TabbedViewNavigator #tabBar
     {
         fontSize: 14;
     }
@@ -406,14 +430,24 @@ global
     {
         fontSize: 36pt;
     }
+
+    ActionBar Group#navigationGroup Button.ios
+    {
+        fontSize: 24;
+    }
     
-	LabelItemRenderer
-	{
-		paddingBottom: 32;
-		paddingLeft: 20;
-		paddingRight: 20;
-		paddingTop: 32;	
-	}
+    ActionBar Group#actionGroup Button.ios
+    {
+        fontSize: 24;
+    }
+    
+    LabelItemRenderer
+    {
+        paddingBottom: 32;
+        paddingLeft: 20;
+        paddingRight: 20;
+        paddingTop: 32;    
+    }
 
     TextArea
     {
@@ -430,8 +464,8 @@ global
         paddingRight: 12;
         paddingTop: 12;
     }
-    
-    TabbedViewNavigator ButtonBar
+
+    TabbedViewNavigator #tabBar
     {
         fontSize: 28;
     }
