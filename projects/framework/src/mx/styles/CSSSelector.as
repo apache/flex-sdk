@@ -36,11 +36,13 @@ public class CSSSelector
      * 
      *  @param subject The plain representation of this selector without
      *  conditions or ancestors.
-     *  @param conditions  An optional Array of conditions used to match a
+     *  
+     *  @param conditions  An optional Array of type CSSCondition that is used to match a
      *  subset of component instances. Currently only a single or a pair of
+     *  conditions are supported.
+     * 
      *  @param ancestor An optional selector to match on a component that
      *  descends from an arbitrary ancestor.
-     *  conditions are supported.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
