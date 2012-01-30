@@ -201,6 +201,7 @@ SkinnableComponent
 
 SkinnableContainer
 {
+    backgroundColor: #FFFFFF;
     skinClass: ClassReference("spark.skins.mobile.SkinnableContainerSkin");
 }
 
