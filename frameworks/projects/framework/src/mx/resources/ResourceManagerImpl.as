@@ -454,9 +454,40 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
      */
     public function unloadResourceModule(url:String, update:Boolean = true):void
     {
-        throw new Error("unloadResourceModule() is not yet implemented.");
+        // Get the resource module info.
+        var rmi:ResourceModuleInfo = resourceModules[url];        
+        if (!rmi)
+            return;
+        
+        if (rmi.resourceModule)
+        {
+            // Get the bundles in this module.
+            var bundles:Array = rmi.resourceModule.resourceBundles;
+            if (bundles)
+            {
+               var n:int = bundles.length;
+               for (var i:int = 0; i < n; i++)
+               {
+                   // Remove each bundle.
+                   var locale:String = bundles[i].locale;
+                   var bundleName:String = bundles[i].bundleName;
+                   removeResourceBundle(locale, bundleName);
+               }
+            }
+        }
+
+        // Remove all links to the module.
+        resourceModules[url] = null;
+        delete resourceModules[url];
+        
+        // Unload the module.
+        rmi.moduleInfo.unload();
+        
+        // Update if necessary.
+        if (update)
+            this.update();
     }
-    
+ 
     /**
      *  @copy mx.resources.IResourceManager#addResourceBundle()
      *  
