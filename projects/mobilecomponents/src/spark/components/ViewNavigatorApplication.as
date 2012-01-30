@@ -165,14 +165,20 @@ public class MobileApplication extends MobileApplicationBase
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  canCancelBackKeyBehavior
+    //  exitApplicationOnBackKey
     //----------------------------------
     /**
      *  @private
      */  
-    override public function get canCancelBackKeyBehavior():Boolean
+    override public function get exitApplicationOnBackKey():Boolean
     {
-        return (navigator && navigator.canCancelBackKeyBehavior) || viewMenuOpen;
+        if (viewMenuOpen)
+            return false;
+
+        if (navigator)
+            return navigator.exitApplicationOnBackKey;
+        
+        return super.exitApplicationOnBackKey;
     }
     
     //----------------------------------
