@@ -757,7 +757,8 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 			{
 				if (!obj.initialized && obj.processedDescriptors)
 					obj.initialized = true;
-				obj.dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
+                if (obj.hasEventListener(FlexEvent.UPDATE_COMPLETE))
+				    obj.dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
 				obj.updateCompletePendingFlag = false;
 				obj = ILayoutManagerClient(updateCompleteQueue.removeLargest());
 			}
@@ -986,7 +987,9 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 				{
 					if (!obj.initialized)
 						obj.initialized = true;
-					obj.dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
+                    
+                    if (obj.hasEventListener(FlexEvent.UPDATE_COMPLETE))
+					    obj.dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
 					obj.updateCompletePendingFlag = false;
 					obj = ILayoutManagerClient(updateCompleteQueue.removeLargestChild(target));
 				}
