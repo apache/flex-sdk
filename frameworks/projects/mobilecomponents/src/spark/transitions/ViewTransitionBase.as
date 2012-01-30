@@ -14,12 +14,14 @@ package spark.transitions
     
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
+import mx.core.FlexGlobals;
 import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -28,6 +30,7 @@ import mx.effects.Parallel;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.geom.TransformOffsets;
+import mx.managers.SystemManager;
 
 import spark.components.ActionBar;
 import spark.components.Group;
@@ -649,7 +652,12 @@ public class ViewTransitionBase extends EventDispatcher
     //  Methods
     //
     //--------------------------------------------------------------------------
-    
+
+    mx_internal function preInit():void
+    {
+        // Override
+    }
+
     /**
      *  Called by the ViewNavigator during the preparation phase of a transition.
      *  It is invoked when the new view has been fully realized and validated and the 
@@ -762,6 +770,9 @@ public class ViewTransitionBase extends EventDispatcher
             if (hasEventListener(FlexEvent.TRANSITION_START))
                 dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_START));
             
+            if (navigator && navigator.stage && navigator.stage.hasEventListener(FlexEvent.TRANSITION_START))
+                navigator.stage.dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_START));
+                    
             effect.play();
         }
         else
@@ -1141,12 +1152,19 @@ public class ViewTransitionBase extends EventDispatcher
      */
     protected function transitionComplete():void
     {
+        var stage:Stage;
+        if (navigator)
+            stage = navigator.stage;
+        
         cleanUp();
      
         activeTransitions.splice(activeTransitions.indexOf(this), 1);
         
         if (hasEventListener(FlexEvent.TRANSITION_END))
             dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_END));
+        
+        if (stage && stage.hasEventListener(FlexEvent.TRANSITION_END))
+            stage.dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_END));
     }
     
     /**
