@@ -83,6 +83,7 @@ import mx.validators.ValidationResult;
 import __AS3__.vec.Vector;
 import flash.geom.Transform;
 import mx.events.PropertyChangeEventKind;
+import mx.geom.CompoundTransform;
 
 use namespace mx_internal;
 
@@ -1355,7 +1356,7 @@ public class UIComponent extends FlexSprite
      *
      * storage for advanced layout and transform properties.
      */
-	private var _xformOffsets:TransformOffset;
+	private var _layoutFeatures:AdvancedLayoutFeatures;
 
     /**
      * @private
@@ -1536,7 +1537,7 @@ public class UIComponent extends FlexSprite
      */
     override public function get x():Number
     {
-    	return (_xformOffsets == null)? super.x:_xformOffsets.layoutX;
+    	return (_layoutFeatures == null)? super.x:_layoutFeatures.layoutX;
     }
 
     /**
@@ -1547,11 +1548,11 @@ public class UIComponent extends FlexSprite
         if (x == value)
             return;
 
-        if(_xformOffsets == null)
+        if(_layoutFeatures == null)
 	        super.x  = value;
 	   	else
 	   	{
-	   		_xformOffsets.layoutX = value;
+	   		_layoutFeatures.layoutX = value;
 	   		invalidateTransform();
 	   	}
 
@@ -1566,7 +1567,7 @@ public class UIComponent extends FlexSprite
      */
     override public function get z():Number
     {
-    	return (_xformOffsets == null)? super.z:_xformOffsets.layoutZ;
+    	return (_layoutFeatures == null)? super.z:_layoutFeatures.layoutZ;
     }
 
     /**
@@ -1576,8 +1577,8 @@ public class UIComponent extends FlexSprite
     {
         if (z == value)
             return;
-		if(_xformOffsets == null) allocateOffsets();
-   		_xformOffsets.layoutZ = value;
+		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+   		_layoutFeatures.layoutZ = value;
    		invalidateTransform();
         dispatchEvent(new Event("zChanged"));
     }
@@ -1587,7 +1588,7 @@ public class UIComponent extends FlexSprite
 	 */
 	public function get transformX():Number
 	{
-    	return (_xformOffsets == null)? 0:_xformOffsets.transformX;
+    	return (_layoutFeatures == null)? 0:_layoutFeatures.transformX;
 	}
     /**
      *  @private
@@ -1596,8 +1597,8 @@ public class UIComponent extends FlexSprite
     {
         if (transformX == value)
             return;
-		if(_xformOffsets == null) allocateOffsets();
-   		_xformOffsets.transformX = value;
+		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+   		_layoutFeatures.transformX = value;
    		invalidateTransform();
    		invalidateParentSizeAndDisplayList();
     }
@@ -1607,7 +1608,7 @@ public class UIComponent extends FlexSprite
 	 */
 	public function get transformY():Number
 	{
-    	return (_xformOffsets == null)? 0:_xformOffsets.transformY;
+    	return (_layoutFeatures == null)? 0:_layoutFeatures.transformY;
 	}
     /**
      *  @private
@@ -1616,8 +1617,8 @@ public class UIComponent extends FlexSprite
     {
         if (transformY == value)
             return;
-		if(_xformOffsets == null) allocateOffsets();
-   		_xformOffsets.transformY = value;
+		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+   		_layoutFeatures.transformY = value;
    		invalidateTransform();
    		invalidateParentSizeAndDisplayList();
     }
@@ -1627,7 +1628,7 @@ public class UIComponent extends FlexSprite
 	 */
 	public function get transformZ():Number
 	{
-    	return (_xformOffsets == null)? 0:_xformOffsets.transformZ;
+    	return (_layoutFeatures == null)? 0:_layoutFeatures.transformZ;
 	}
     /**
      *  @private
@@ -1636,8 +1637,8 @@ public class UIComponent extends FlexSprite
     {
         if (transformZ == value)
             return;
-		if(_xformOffsets == null) allocateOffsets();
-   		_xformOffsets.transformZ = value;
+		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+   		_layoutFeatures.transformZ = value;
    		invalidateTransform();
    		invalidateParentSizeAndDisplayList();
     }
@@ -1647,7 +1648,7 @@ public class UIComponent extends FlexSprite
 	 */
 	override public function get rotation():Number
 	{
-		return (_xformOffsets == null)? super.rotation:_xformOffsets.layoutRotationZ;
+		return (_layoutFeatures == null)? super.rotation:_layoutFeatures.layoutRotationZ;
 	}
 
 	/**
@@ -1658,16 +1659,14 @@ public class UIComponent extends FlexSprite
         if (rotation == value)
             return;
 
-        // trace("set scaleX:" + this + "value = " + value);
-        if(_xformOffsets == null)
+        if(_layoutFeatures == null)
 	        super.rotation = value;
 	   	else
 	   	{
-			invalidateTransform();
-	   		_xformOffsets.layoutRotationZ = value;
-	   		invalidateTransform();
+	   		_layoutFeatures.layoutRotationZ = value;
 	   	}
 
+   		invalidateTransform();
    		invalidateParentSizeAndDisplayList();
     }
 
@@ -1691,7 +1690,7 @@ public class UIComponent extends FlexSprite
 	 */
     override public function get rotationX():Number
     {
-    	return (_xformOffsets == null)? super.rotationX:_xformOffsets.layoutRotationX;
+    	return (_layoutFeatures == null)? super.rotationX:_layoutFeatures.layoutRotationX;
     }
 
     /**
@@ -1702,8 +1701,8 @@ public class UIComponent extends FlexSprite
         if (rotationX == value)
             return;
 
-		if(_xformOffsets == null) allocateOffsets();
-   		_xformOffsets.layoutRotationX = value;
+		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+   		_layoutFeatures.layoutRotationX = value;
    		invalidateTransform();
    		invalidateParentSizeAndDisplayList();
     }
@@ -1713,7 +1712,7 @@ public class UIComponent extends FlexSprite
 	 */
     override public function get rotationY():Number
     {
-    	return (_xformOffsets == null)? super.rotationY:_xformOffsets.layoutRotationY;
+    	return (_layoutFeatures == null)? super.rotationY:_layoutFeatures.layoutRotationY;
     }
 
     /**
@@ -1724,8 +1723,8 @@ public class UIComponent extends FlexSprite
         if (rotationY == value)
             return;
 
-		if(_xformOffsets == null) allocateOffsets();
-   		_xformOffsets.layoutRotationY = value;
+		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+   		_layoutFeatures.layoutRotationY = value;
    		invalidateTransform();
    		invalidateParentSizeAndDisplayList();
     }
@@ -1755,7 +1754,7 @@ public class UIComponent extends FlexSprite
      */
     override public function get y():Number
     {
-    	return (_xformOffsets == null)? super.y:_xformOffsets.layoutY;
+    	return (_layoutFeatures == null)? super.y:_layoutFeatures.layoutY;
     }
 
     /**
@@ -1766,11 +1765,11 @@ public class UIComponent extends FlexSprite
         if (y == value)
             return;
 
-        if(_xformOffsets == null)
+        if(_layoutFeatures == null)
 	        super.y  = value;
 	   	else
 	   	{
-	   		_xformOffsets.layoutY = value;
+	   		_layoutFeatures.layoutY = value;
 	   		invalidateTransform();
 	   	}
 
@@ -1940,38 +1939,57 @@ public class UIComponent extends FlexSprite
      *
      *  @default 1.0
      */
+    
     override public function get scaleX():Number
     {
-    	return ((_xformOffsets == null)? super.scaleX:_xformOffsets.layoutScaleX);
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+        	return _scaleX;
+        else
+	    	return ((_layoutFeatures == null)? super.scaleX:_layoutFeatures.layoutScaleX);
     }
+
+    /**
+     *  @private
+     *  Storage for the scaleX property.
+     */
+    private var _scaleX:Number = 1.0;
+    
     override public function set scaleX(value:Number):void
     {
-    	var prevValue:Number = (_xformOffsets == null)? scaleX:_xformOffsets.layoutScaleX;
-        if (prevValue == value)
-            return;
-
-        // trace("set scaleX:" + this + "value = " + value);
-        if(_xformOffsets == null)
-	        super.scaleX = value;
-	   	else
-	   	{
-	   		_xformOffsets.layoutScaleX = value;
-	   		invalidateTransform();
-	   	}
-
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
         {
-	        invalidateProperties();
-        	invalidateSize();
-        }
-        else
-        {
-                // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
-                // and scaleX is changing we need to invalidate parent size and display list
-                // since we are not going to detect a change in measured sizes during measure.
-        	invalidateParentSizeAndDisplayList();
-        }
 
+	        if (_scaleX == value)
+    	        return;
+
+       	 	_scaleX = value;
+
+	        invalidateProperties();
+	        invalidateSize();	
+	    }
+	    else
+	    {
+
+	
+	    	var prevValue:Number = (_layoutFeatures == null)? scaleX:_layoutFeatures.layoutScaleX;
+	        if (prevValue == value)
+	            return;
+	
+	        // trace("set scaleX:" + this + "value = " + value); 
+	        if(_layoutFeatures == null)
+		        super.scaleX = value;
+		   	else
+		   	{
+		   		_layoutFeatures.layoutScaleX = value;
+		   	}
+	   		invalidateTransform();
+	
+	        // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
+	        // and scaleX is changing we need to invalidate parent size and display list
+	        // since we are not going to detect a change in measured sizes during measure.
+	    	invalidateParentSizeAndDisplayList();
+	
+	    }
         dispatchEvent(new Event("scaleXChanged"));
     }
 
@@ -2004,33 +2022,50 @@ public class UIComponent extends FlexSprite
      */
     override public function get scaleY():Number
     {
-    	return ((_xformOffsets == null)? super.scaleY:_xformOffsets.layoutScaleY);
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+        {
+    		return _scaleY;    	
+        }
+        else
+	    	return ((_layoutFeatures == null)? super.scaleY:_layoutFeatures.layoutScaleY);
     }
+
+    /**
+     *  @private
+     *  Storage for the scaleY property.
+     */
+    private var _scaleY:Number = 1.0;
+
 
     override public function set scaleY(value:Number):void
     {
-    	var prevValue:Number = (_xformOffsets == null)? scaleY:_xformOffsets.layoutScaleY;
-        if (prevValue == value)
-            return;
-
-        if(_xformOffsets == null)
-	        super.scaleY = value;
-	   	else
-	   	{
-	   		_xformOffsets.layoutScaleY = value;
-	   		invalidateTransform();
-	   	}
-
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
         {
+	        if (_scaleY == value)
+	            return;
+	
+	        _scaleY = value;
+	
 	        invalidateProperties();
-        	invalidateSize();
-        }
-        else
-        {
-                // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
-                // and scaleX is changing we need to invalidate parent size and display list
-                // since we are not going to detect a change in measured sizes during measure.
+	        invalidateSize();
+	
+	   }
+	   else
+	   {
+	    	var prevValue:Number = (_layoutFeatures == null)? scaleY:_layoutFeatures.layoutScaleY;
+	        if (prevValue == value)
+	            return;
+	
+	        if(_layoutFeatures == null)
+		        super.scaleY = value;
+		   	else
+		   	{
+		   		_layoutFeatures.layoutScaleY = value;
+		   	}
+	   		invalidateTransform();
+            // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
+            // and scaleX is changing we need to invalidate parent size and display list
+            // since we are not going to detect a change in measured sizes during measure.
         	invalidateParentSizeAndDisplayList();
         }
 
@@ -2048,7 +2083,7 @@ public class UIComponent extends FlexSprite
 	 */
     override public function get scaleZ():Number
     {
-    	return ((_xformOffsets == null)? super.scaleZ:_xformOffsets.layoutScaleZ);
+    	return ((_layoutFeatures == null)? super.scaleZ:_layoutFeatures.layoutScaleZ);
     }
 
 	/**
@@ -2058,8 +2093,8 @@ public class UIComponent extends FlexSprite
     {
         if (scaleZ == value)
             return;
-		if(_xformOffsets == null) allocateOffsets();
-   		_xformOffsets.layoutScaleZ = value;
+		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+   		_layoutFeatures.layoutScaleZ = value;
    		invalidateTransform();
         dispatchEvent(new Event("scaleZChanged"));
     }
@@ -5828,14 +5863,23 @@ public class UIComponent extends FlexSprite
 
 	private function invalidateTransform():void
 	{
-		if(_xformOffsets && _xformOffsets.updatePending == false)
+		if(_layoutFeatures && _layoutFeatures.updatePending == false)
 		{
-			_xformOffsets.updatePending = true;
+			_layoutFeatures.updatePending = true; 
 			if(isOnDisplayList() && UIComponentGlobals.layoutManager &&
 			invalidateDisplayListFlag == false)
 			{
 				UIComponentGlobals.layoutManager.invalidateDisplayList(this);
 			}
+		}
+		else
+		{
+			//esg: if we don't have advanced layout features allocated, we won't
+			// need or get a call to validateDisplayList. But we do want an updateComplete event
+			// to fire, so instead we'll do an invalidateProperties(); 
+			// TODO esg: can we optimize away this invalidateProperties, so it doesn't fire
+			// on every transform update?
+			invalidateProperties();
 		}
 	}
 
@@ -6073,12 +6117,11 @@ public class UIComponent extends FlexSprite
      */
     protected function commitProperties():void
     {
-    	var sX:Number = scaleX;
-        if (sX != oldScaleX)
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
         {
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
-            {
-                var scalingFactorX:Number = Math.abs(scaleX / oldScaleX);
+	        if (_scaleX != oldScaleX)
+	        {
+	            var scalingFactorX:Number = Math.abs(_scaleX / oldScaleX);
                 if (!isNaN(explicitMinWidth))
                     explicitMinWidth *= scalingFactorX;
                 if (!isNaN(explicitWidth))
@@ -6087,28 +6130,29 @@ public class UIComponent extends FlexSprite
                     explicitMaxWidth *= scalingFactorX;
 
                 _width *= scalingFactorX;
-            }
 
-            oldScaleX = scaleX;
+	            super.scaleX = oldScaleX = _scaleX;
+	        }
+
+	        if (_scaleY != oldScaleY)
+	        {
+	            var scalingFactorY:Number = Math.abs(_scaleY / oldScaleY);
+	            if (!isNaN(explicitMinHeight))
+	                explicitMinHeight *= scalingFactorY;
+	            if (!isNaN(explicitHeight))
+	                explicitHeight *= scalingFactorY;
+	            if (!isNaN(explicitMaxHeight))
+	                explicitMaxHeight *= scalingFactorY;
+	
+	            _height *= scalingFactorY;
+	
+	            super.scaleY = oldScaleY = _scaleY;
+	        }
         }
-
-    	var sY:Number = scaleY;
-        if (sY != oldScaleY)
+        else
         {
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
-            {
-                var scalingFactorY:Number = Math.abs(scaleY / oldScaleY);
-                if (!isNaN(explicitMinHeight))
-                    explicitMinHeight *= scalingFactorY;
-                if (!isNaN(explicitHeight))
-                    explicitHeight *= scalingFactorY;
-                if (!isNaN(explicitMaxHeight))
-                    explicitMaxHeight *= scalingFactorY;
-
-                _height *= scalingFactorY;
-            }
-
-			oldScaleY = sY;
+            oldScaleX = scaleX;
+			oldScaleY = scaleY;
         }
 
         if (x != oldX || y != oldY)
@@ -6601,7 +6645,7 @@ public class UIComponent extends FlexSprite
      */
     public function validateDisplayList():void
     {
-        if(_xformOffsets != null && _xformOffsets.updatePending == true)
+        if(_layoutFeatures != null && _layoutFeatures.updatePending == true)
         {
          	applyComputedTransform();
         }
@@ -6938,20 +6982,20 @@ public class UIComponent extends FlexSprite
 
         if (x != this.x)
         {
-	        if(_xformOffsets == null)
+	        if(_layoutFeatures == null)
 		        super.x  = x;
 		else
-        		_xformOffsets.layoutX = x;
+        		_layoutFeatures.layoutX = x;		
             dispatchEvent(new Event("xChanged"));
             changed = true;
         }
 
         if (y != this.y)
         {
-	        if(_xformOffsets == null)
+	        if(_layoutFeatures == null)
 		        super.y  = y;
 		else
-        		_xformOffsets.layoutY = y;
+        		_layoutFeatures.layoutY = y;
             dispatchEvent(new Event("yChanged"));
             changed = true;
         }
@@ -9412,21 +9456,20 @@ public class UIComponent extends FlexSprite
 	/**
 	 * Documentation is not currently available
 	 */
-	protected function allocateOffsets():void
+	protected function initAdvancedLayoutFeatures():void
 	{
-		var at:TransformOffset = new TransformOffset();
-		at.addEventListener(Event.CHANGE,transformOffsetsChangedHandler)
-		at.userVisible = false;
-		at.layoutScaleX = scaleX;
-		at.layoutScaleY = scaleY;
-		at.layoutScaleZ = scaleZ;
-		at.layoutRotationX = rotationX;
-		at.layoutRotationY = rotationY;
-		at.layoutRotationZ = rotation;
-		at.layoutX = x;
-		at.layoutY = y;
-		at.layoutZ = z;
-		_xformOffsets = at;
+		var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
+
+		features.layoutScaleX = scaleX;
+		features.layoutScaleY = scaleY;
+		features.layoutScaleZ = scaleZ;
+		features.layoutRotationX = rotationX;
+		features.layoutRotationY = rotationY;
+		features.layoutRotationZ = rotation;
+		features.layoutX = x;
+		features.layoutY = y;
+		features.layoutZ = z;
+		_layoutFeatures = features;
 		invalidateTransform();
 	}
 
@@ -9464,9 +9507,10 @@ public class UIComponent extends FlexSprite
     }
 
 	/**
+	 * @private
 	 * Documentation is not currently available
 	 */
-    public function get $transform():flash.geom.Transform
+    mx_internal function get $transform():flash.geom.Transform
     {
     	return super.transform;
     }
@@ -9507,36 +9551,27 @@ public class UIComponent extends FlexSprite
             }
         }
     }
-
+	
 	/**
 	 * Documentation is not currently available
 	 */
- 	public function set offsets(value:TransformOffset):void
+ 	public function set offsets(value:CompoundTransform):void
 	{
-		if(value == null && _xformOffsets != null)
-		{
-			value = new TransformOffset();
-			value.userVisible = false;
-			value.initFrom(_xformOffsets);
-		}
-		else if (value != null)
-		{
-			if(_xformOffsets != null)
-				value.initFrom(_xformOffsets);
-		}
-		if(_xformOffsets != null)
-			_xformOffsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
-		_xformOffsets = value;
-		if(_xformOffsets != null)
-			_xformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		
+		if(_layoutFeatures.offsets != null)
+			_layoutFeatures.offsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+		_layoutFeatures.offsets = value;
+		if(_layoutFeatures.offsets != null)
+			_layoutFeatures.offsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
 	}
 
 	/**
 	 * @private
 	 */
-	public function get offsets():TransformOffset
+	public function get offsets():CompoundTransform
 	{
-		return (_xformOffsets != null && _xformOffsets.userVisible == true)? _xformOffsets:null;
+		return (_layoutFeatures != null)? _layoutFeatures.offsets:null;
 	}
 
 	/**
@@ -9545,9 +9580,9 @@ public class UIComponent extends FlexSprite
 	 */
 	public function get matrix():Matrix
 	{
-		if(_xformOffsets != null)
+		if(_layoutFeatures != null)
 		{
-			return _xformOffsets.layoutMatrix;
+			return _layoutFeatures.layoutMatrix;			
 		}
 		else
 		{
@@ -9560,14 +9595,14 @@ public class UIComponent extends FlexSprite
 	 */
 	public function set matrix(value:Matrix):void
 	{
-		if(_xformOffsets == null)
+		if(_layoutFeatures == null)
 		{
 			super.transform.matrix = value;
             invalidateSize();
 		}
 		else
 		{
-			_xformOffsets.matrix = value;
+			_layoutFeatures.layoutMatrix = value;
 	   		invalidateTransform();
 	   		invalidateParentSizeAndDisplayList();
   		}
@@ -9579,8 +9614,8 @@ public class UIComponent extends FlexSprite
 	 */
 	public function set matrix3D(value:Matrix3D):void
 	{
-		if(_xformOffsets == null) allocateOffsets();
-		_xformOffsets.matrix3D = value;
+		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		_layoutFeatures.layoutMatrix3D = value;
 		invalidateTransform();
    		invalidateParentSizeAndDisplayList();
 	}
@@ -9590,8 +9625,8 @@ public class UIComponent extends FlexSprite
 	 */
 	public function get matrix3D():Matrix3D
 	{
-		if(_xformOffsets == null) allocateOffsets();
-		return _xformOffsets.layoutMatrix3D;
+		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		return _layoutFeatures.layoutMatrix3D;			
 	}
 
 
@@ -9600,7 +9635,7 @@ public class UIComponent extends FlexSprite
 	 */
 	public function get layer():Number
 	{
-		return (_xformOffsets == null)? 0:_xformOffsets.layer;
+		return (_layoutFeatures == null)? 0:_layoutFeatures.layer;
 	}
 
 	[Bindable("layerChange")]
@@ -9611,8 +9646,8 @@ public class UIComponent extends FlexSprite
 	{
 		if(value == layer)
 			return;
-		if(_xformOffsets == null) allocateOffsets();
-		_xformOffsets.layer = value;
+		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		_layoutFeatures.layer = value;		
 		dispatchEvent(new FlexEvent("layerChange"));
 		if(parent != null && parent is UIComponent)
 			(parent as UIComponent).invalidateLayering();
@@ -9632,14 +9667,14 @@ public class UIComponent extends FlexSprite
 	 */
 	protected function applyComputedTransform():void
 	{
-		_xformOffsets.updatePending = false;
-		if(_xformOffsets.computedIs3D)
+		_layoutFeatures.updatePending = false;
+		if(_layoutFeatures.is3D)
 		{
-			super.transform.matrix3D = _xformOffsets.computedMatrix3D;
+			super.transform.matrix3D = _layoutFeatures.computedMatrix3D;				
 		}
 		else
 		{
-			super.transform.matrix = _xformOffsets.computedMatrix;
+			super.transform.matrix = _layoutFeatures.computedMatrix;
 		}
 	}
 
