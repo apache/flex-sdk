@@ -313,7 +313,7 @@ public class CompositeEffect extends Effect
                     childEffect.filterObject = filterObject;
                 }
 
-				// TODO This doesn't seem good enough...
+				// FIXME (chaase): This doesn't seem good enough...
 				// possibly redundant, but otherwise we'll be using the
 				// old semantics. Might be a better way (e.g., reuse
 				// the same semantics provider)
@@ -433,7 +433,7 @@ public class CompositeEffect extends Effect
     //
     //--------------------------------------------------------------------------
     
-    // TODO (chaase): Shouldn't there be a removeChild() method 
+    // FIXME (chaase): Shouldn't there be a removeChild() method 
     // since there's an addChild() method?
     
     /**
