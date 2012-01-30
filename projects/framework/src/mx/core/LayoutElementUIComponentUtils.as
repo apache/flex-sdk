@@ -243,7 +243,7 @@ public class LayoutElementUIComponentUtils
         return width;
     }
 
-    public static function getMaxBoundsHeight(obj:IUIComponent,transformMatrix:Matrix):Number
+    public static function getMaxBoundsHeight(obj:IUIComponent, transformMatrix:Matrix):Number
     {
         var height:Number = getMaxUBoundsHeight(obj);
         if (transformMatrix)
@@ -252,6 +252,70 @@ public class LayoutElementUIComponentUtils
         }
 
         return height;
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function getBoundsXAtSize(obj:IUIComponent, width:Number, height:Number, transformMatrix:Matrix):Number
+    {
+        if (!transformMatrix)
+            return obj.x;
+        
+        var fitSize:Point = MatrixUtil.fitBounds(width, height, transformMatrix,
+                                                 getPreferredUBoundsWidth(obj),
+                                                 getPreferredUBoundsHeight(obj),
+                                                 getMinUBoundsWidth(obj),
+                                                 getMinUBoundsHeight(obj),
+                                                 getMaxUBoundsWidth(obj),
+                                                 getMaxUBoundsHeight(obj));
+
+        // If we couldn't fit at all, default to the minimum size
+        if (!fitSize)
+            fitSize = new Point(getMinUBoundsWidth(obj), getMinUBoundsHeight(obj));
+            
+        var pos:Point = new Point();
+        MatrixUtil.transformBounds(fitSize,
+                                   transformMatrix,
+                                   pos);
+        return pos.x;
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function getBoundsYAtSize(obj:IUIComponent, width:Number, height:Number, transformMatrix:Matrix):Number
+    {
+        if (!transformMatrix)
+            return obj.y;
+        
+        var fitSize:Point = MatrixUtil.fitBounds(width, height, transformMatrix,
+                                                 getPreferredUBoundsWidth(obj),
+                                                 getPreferredUBoundsHeight(obj),
+                                                 getMinUBoundsWidth(obj),
+                                                 getMinUBoundsHeight(obj),
+                                                 getMaxUBoundsWidth(obj),
+                                                 getMaxUBoundsHeight(obj));
+
+        // If we couldn't fit at all, default to the minimum size
+        if (!fitSize)
+            fitSize = new Point(getMinUBoundsWidth(obj), getMinUBoundsHeight(obj));
+            
+        var pos:Point = new Point();
+        MatrixUtil.transformBounds(fitSize,
+                                   transformMatrix,
+                                   pos);
+        return pos.y;
     }
 
     /**
@@ -406,8 +470,8 @@ public class LayoutElementUIComponentUtils
      *  @productversion Flex 3
      */
     public static function setLayoutBoundsSize(obj:IUIComponent,width:Number,
-                                  height:Number,
-                                  transformMatrix:Matrix):void
+                                               height:Number,
+                                               transformMatrix:Matrix):void
     {
         if (!transformMatrix)
         {
@@ -427,13 +491,13 @@ public class LayoutElementUIComponentUtils
             return;
         }
 
-        var fitSize:Point = MatrixUtil.fitBounds( width, height, transformMatrix,
-                                               getPreferredUBoundsWidth(obj),
-                                               getPreferredUBoundsHeight(obj),
-                                               getMinUBoundsWidth(obj),
-                                               getMinUBoundsHeight(obj),
-                                               getMaxUBoundsWidth(obj),
-                                               getMaxUBoundsHeight(obj));
+        var fitSize:Point = MatrixUtil.fitBounds(width, height, transformMatrix,
+                                                 getPreferredUBoundsWidth(obj),
+                                                 getPreferredUBoundsHeight(obj),
+                                                 getMinUBoundsWidth(obj),
+                                                 getMinUBoundsHeight(obj),
+                                                 getMaxUBoundsWidth(obj),
+                                                 getMaxUBoundsHeight(obj));
 
         // If we couldn't fit at all, default to the minimum size
         if (!fitSize)
