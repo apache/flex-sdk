@@ -12,10 +12,12 @@
 package spark.skins.mobile 
 {
     
+import flash.display.DisplayObject;
 import flash.events.Event;
 
 import spark.components.TextArea;
 import spark.components.supportClasses.MobileTextField;
+import spark.skins.mobile.assets.TextInput_border;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
@@ -35,6 +37,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
      //--------------------------------------------------------------------------
      private static const HORIZONTAL_PADDING:int = 8;
      private static const VERTICAL_PADDING:int = 12;
+     private static const TEXT_HEIGHT_PADDING:int = 6;
      
      //--------------------------------------------------------------------------
      //
@@ -56,6 +59,13 @@ import spark.skins.mobile.supportClasses.MobileSkin;
      */
     public var textDisplay:MobileTextField;
     
+    /**
+     *  @private
+     * 
+     *  Instance of the border graphics.
+     */
+    private var border:DisplayObject;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -68,6 +78,9 @@ import spark.skins.mobile.supportClasses.MobileSkin;
     override protected function createChildren():void
     {
         super.createChildren();
+        
+        border = new TextInput_border;
+        addChild(border);
         
         textDisplay = MobileTextField(createInFontContext(MobileTextField));
         textDisplay.styleProvider = this;
@@ -97,19 +110,23 @@ import spark.skins.mobile.supportClasses.MobileSkin;
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        // Draw the border/background
+        // Draw the contentBackgroundColor
         graphics.clear();
-        graphics.lineStyle(1, getStyle("borderColor"));
         graphics.beginFill(getStyle("contentBackgroundColor"), getStyle("contentBackgroundAlpha"));
-        graphics.drawRect(0.5, 0.5, unscaledWidth - 1, unscaledHeight - 1);
+        graphics.drawRoundRect(2, 2, unscaledWidth - 4, unscaledHeight - 4, 4, 4);
         graphics.endFill();
+        
+        // position & size border
+        border.x = border.y = 0;
+        border.width = unscaledWidth;
+        border.height = unscaledHeight;
         
         // position & size the text
         textDisplay.commitStyles();
         textDisplay.x = HORIZONTAL_PADDING;
         textDisplay.width = unscaledWidth - (HORIZONTAL_PADDING * 2);
         textDisplay.y = VERTICAL_PADDING;
-        textDisplay.height = unscaledHeight - (VERTICAL_PADDING * 2);
+        textDisplay.height = unscaledHeight - (VERTICAL_PADDING * 2) + TEXT_HEIGHT_PADDING;
     }
     
     /**
