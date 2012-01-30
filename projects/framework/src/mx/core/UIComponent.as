@@ -10,8 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 package mx.core
-{
-
+{	
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityProperties;
 import flash.display.BlendMode;
@@ -892,6 +891,15 @@ include "../styles/metadata/AnchorStyles.as";
  *  @productversion Flex 3
  */
 [Style(name="focusThickness", type="Number", format="Length", inherit="no", minValue="0.0")]
+
+/**
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4.1
+ */
+[Style(name="layoutDirection", type="String", enumeration="ltr,rtl", inherit="yes")]
 
 /**
  *  Theme color of a component. This property controls the appearance of highlights,
@@ -2612,7 +2620,14 @@ public class UIComponent extends FlexSprite
             invalidateParentSizeAndDisplayList();
 
             _width = value;
-
+			
+			// The width is needed for the _layoutFeatures' mirror transform.
+			if (_layoutFeatures)
+			{
+				_layoutFeatures.layoutWidth = _width;
+				invalidateTransform();
+			}
+			
             if (hasEventListener("widthChanged"))
                 dispatchEvent(new Event("widthChanged"));
         }
@@ -2950,7 +2965,7 @@ public class UIComponent extends FlexSprite
     {
         super.scaleY = value;
     }
-
+	
     //----------------------------------
     //  visible
     //----------------------------------
@@ -5812,7 +5827,30 @@ public class UIComponent extends FlexSprite
             dispatchEvent(new Event("includeInLayoutChanged"));
         }
     }
-
+    
+    //----------------------------------
+    //  layoutDirection
+    //----------------------------------
+    
+    /**
+     *  @copy mx.core.ILayoutDirection#layoutDirection
+     */
+    public function get layoutDirection():String
+    {
+        return getStyle("layoutDirection");        
+    }
+    
+    /**
+     *  @private
+     *  Changes to the layoutDirection style cause an invalidateProperties() call,
+     *  see StyleProtoChain/styleChanged().  At commitProperties() time we use
+     *  invalidateLayoutDirection() to add/remove the mirroring transform.
+     */
+    public function set layoutDirection(value:String):void
+    {
+        setStyle("layoutDirection", value);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties: Repeater
@@ -7053,7 +7091,7 @@ public class UIComponent extends FlexSprite
         // trace("               " + p);
 
     }
-
+	
     /**
      *  @private
      */
@@ -7524,6 +7562,48 @@ public class UIComponent extends FlexSprite
             }
         }
     }
+    
+    /**
+     * @copy mx.core.ILayoutDirection#invalidateLayoutDirection()  
+     */
+    public function invalidateLayoutDirection():void
+    {
+        const parentElt:ILayoutDirection = parent as ILayoutDirection;        
+        const thisLayoutDirection:String = layoutDirection;
+        
+        // If this element's layoutDirection doesn't match its parent's, then
+        // set the _layoutFeatures.mirror flag.  Similarly, if mirroring isn't 
+        // required, then clear the _layoutFeatures.mirror flag.
+        
+        const mirror:Boolean = (systemManager.document == this) 
+            ? (thisLayoutDirection != "ltr")  // we're the Application, parent is null
+            : (parentElt && (parentElt.layoutDirection != thisLayoutDirection));
+        
+        if ((_layoutFeatures) ? (mirror != _layoutFeatures.mirror) : mirror)
+        {
+            if (_layoutFeatures == null)
+                initAdvancedLayoutFeatures();
+            _layoutFeatures.mirror = mirror;
+            invalidateTransform();
+        }
+      
+        //  If this is a leaf node, then we're done.  If not, the styleChanged() machinery
+        //  (via commitProperties()) will deal with UIComponent children.   We have to 
+        //  deal with other ILayoutDirection children, like GraphicElements, here.
+
+        if (!(this is IVisualElementContainer))
+            return;
+        
+        const thisContainer:IVisualElementContainer = IVisualElementContainer(this);
+        const thisContainerNumElements:int = thisContainer.numElements;
+        
+        for (var i:int = 0; i < thisContainerNumElements; i++)
+        {
+            var elt:ILayoutDirection = thisContainer.getElementAt(i) as ILayoutDirection
+            if (!(elt is UIComponent))  // FIXME(hmuller) - should check for style clients
+                ILayoutDirection(elt).invalidateLayoutDirection();
+        }        
+    }        
 
     private function transformOffsetsChangedHandler(e:Event):void
     {
@@ -7597,6 +7677,7 @@ public class UIComponent extends FlexSprite
     public function styleChanged(styleProp:String):void
     {
         StyleProtoChain.styleChanged(this, styleProp);
+        
         if (styleProp && (styleProp != "styleName"))
         { 
             if (hasEventListener(styleProp + "Changed"))
@@ -7848,6 +7929,14 @@ public class UIComponent extends FlexSprite
             oldScaleY = scaleY;
         }
         
+        // FIXME(hmuller) - if this component's layout has changed, or its parent 
+        // layout has changed, or if its layout no longer matches one of
+        // its non-UIComponent children, then we need to validateLayoutDirection().
+        if (true)
+        {
+            invalidateLayoutDirection();
+        }
+        
         // Typically state changes occur immediately, but during
         // component initialization we defer until commitProperties to 
         // reduce a bit of the startup noise.
@@ -7864,7 +7953,7 @@ public class UIComponent extends FlexSprite
 
         if (width != oldWidth || height != oldHeight)
             dispatchResizeEvent();
-
+        
         if (errorStringChanged)
         {
             errorStringChanged = false;
@@ -9153,6 +9242,11 @@ public class UIComponent extends FlexSprite
         if (_width != w)
         {
             _width = w;
+			if(_layoutFeatures)
+			{
+				_layoutFeatures.layoutWidth = w;  // for the mirror transform
+				invalidateTransform();
+			}			
             if (hasEventListener("widthChanged"))
                 dispatchEvent(new Event("widthChanged"));
             changed = true;
@@ -12320,6 +12414,7 @@ public class UIComponent extends FlexSprite
         features.layoutX = x;
         features.layoutY = y;
         features.layoutZ = z;
+		features.layoutWidth = width;  // for the mirror transform		
         _layoutFeatures = features;
         invalidateTransform();
     }
@@ -12370,7 +12465,7 @@ public class UIComponent extends FlexSprite
         }
         return _transform;
     }
-
+    
     /**
      *  @private
      */
@@ -12846,6 +12941,11 @@ public class UIComponent extends FlexSprite
         {
             super.transform.matrix = _layoutFeatures.computedMatrix;
         }
+    }
+    
+    mx_internal function get computedMatrix():Matrix
+    {
+        return (_layoutFeatures) ?  _layoutFeatures.computedMatrix : transform.matrix;
     }
 
     /**
