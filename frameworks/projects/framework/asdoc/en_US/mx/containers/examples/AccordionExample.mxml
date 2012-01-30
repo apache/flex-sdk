@@ -9,7 +9,7 @@
            horizontalCenter="0" verticalCenter="0">
 
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                 text="Select an Accordion navigator button to change the panel."/>
 
             <mx:Accordion id="accordion" width="100%" height="100%">
@@ -27,7 +27,7 @@
                 </mx:VBox>
             </mx:Accordion>
 
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                 text="Programmatically select the panel using a Button control."/>
 
             <s:HGroup>
