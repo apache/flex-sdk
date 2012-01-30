@@ -22,7 +22,6 @@ import flash.geom.Transform;
 
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
-import mx.core.UIComponent;
 import mx.core.mx_internal;
 
 use namespace mx_internal;
@@ -65,9 +64,7 @@ public class Transform extends flash.geom.Transform
 	 */ 
 	override public function set colorTransform(value:ColorTransform):void
 	{
-		if (target is UIComponent)
-			UIComponent(target).$transform.colorTransform = value;
-		else if (target && "$transform" in target) // UIMovieClip
+		if (target && "$transform" in target) // UIComponent/UIMovieClip
 			target["$transform"]["colorTransform"] = value;
 		else if (target && "setColorTransform" in target)
 			target["setColorTransform"](value);			
@@ -80,9 +77,7 @@ public class Transform extends flash.geom.Transform
 	 */ 	
 	override public function get colorTransform():ColorTransform
 	{
-		if (target is UIComponent)
-			return UIComponent(target).$transform.colorTransform;
-		else if (target && "$transform" in target) // UIMovieClip	
+		if (target && "$transform" in target) // UIComponent/UIMovieClip	
 			return target["$transform"]["colorTransform"];
 		else if (target && "displayObject" in target && target["displayObject"] != null)
 			return target["displayObject"]["transform"]["colorTransform"];
@@ -95,9 +90,7 @@ public class Transform extends flash.geom.Transform
 	 */ 	
 	override public function get concatenatedColorTransform():ColorTransform
 	{
-		if (target is UIComponent)
-			return UIComponent(target).$transform.concatenatedColorTransform;
-		else if (target && "$transform" in target) // UIMovieClip
+		if (target && "$transform" in target) // UIComponent/UIMovieClip
 			return target["$transform"]["concatenatedColorTransform"];
 		else if (target && "displayObject" in target && target["displayObject"] != null)
 			return target["displayObject"]["transform"]["concatenatedColorTransform"];
@@ -110,9 +103,7 @@ public class Transform extends flash.geom.Transform
 	 */ 	
 	override public function get concatenatedMatrix():Matrix
 	{
-		if (target is UIComponent)
-			return UIComponent(target).$transform.concatenatedMatrix;
-		else if (target && "$transform" in target) // UIMovieClip
+		if (target && "$transform" in target) // UIComponent/UIMovieClip
 			return target["$transform"]["concatenatedMatrix"];
 		else if (target && "displayObject" in target && target["displayObject"] != null)
 			return target["displayObject"]["transform"]["concatenatedMatrix"];
@@ -177,9 +168,7 @@ public class Transform extends flash.geom.Transform
 	 */ 	
 	override public function get perspectiveProjection():PerspectiveProjection
 	{
-		if (target is UIComponent)
-			return UIComponent(target).$transform.perspectiveProjection;
-		else if (target && "$transform" in target) // UIMovieClip
+		if (target && "$transform" in target) // UIComponent/UIMovieClip
 			return target["$transform"]["perspectiveProjection"];
 		else if (target && "displayObject" in target && target["displayObject"] != null)
 			return target["displayObject"]["transform"]["perspectiveProjection"];
@@ -192,9 +181,7 @@ public class Transform extends flash.geom.Transform
 	 */ 	
 	override public function get pixelBounds():Rectangle
 	{
-		if (target is UIComponent)
-			return UIComponent(target).$transform.pixelBounds;
-		else if (target && "$transform" in target) // UIMovieClip
+		if (target && "$transform" in target) // UIComponent/UIMovieClip
 			return target["$transform"]["pixelBounds"];
 		else if (target && "displayObject" in target && target["displayObject"] != null)
 			return target["displayObject"]["transform"]["pixelBounds"];
@@ -240,9 +227,7 @@ public class Transform extends flash.geom.Transform
 
 	override public function getRelativeMatrix3D(relativeTo:DisplayObject):Matrix3D
 	{
-		if (target is UIComponent)
-			return UIComponent(target).$transform.getRelativeMatrix3D(relativeTo);
-		else if (target && "$transform" in target) // UIMovieClip
+		if (target && "$transform" in target) // UIComponent/UIMovieClip
 			return target["$transform"]["getRelativeMatrix3D"](relativeTo);
 		else if (target && "displayObject" in target && target["displayObject"] != null)
 			return target["displayObject"]["transform"]["getRelativeMatrix3D"](relativeTo);
