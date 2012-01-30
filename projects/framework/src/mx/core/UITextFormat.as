@@ -405,7 +405,7 @@ public class UITextFormat extends TextFormat
      *  <p>If <code>true</code>, they use an offscreen instance
      *  of the TLFTextField class in the Text Layout Framework.
      *  If <code>false</code>, they use an offscreen instance
-     *  of the TextField class in the Flash Player.
+     *  of the TextField class in the Flash Player.</p>
      * 
      *  @default false
      */
@@ -495,9 +495,9 @@ public class UITextFormat extends TextFormat
         }
         
         var measurementTextField:Object /* either TextField or TLFTextField */ =
-        	useTLF ?
-        	textFieldFactory.createTLFTextField(fontModuleFactory) :
-        	textFieldFactory.createTextField(fontModuleFactory);
+            useTLF ?
+            textFieldFactory.createTLFTextField(fontModuleFactory) :
+            textFieldFactory.createTextField(fontModuleFactory);
         
         // Clear any old text from the TextField.
         // Otherwise, new text will get the old TextFormat. 
