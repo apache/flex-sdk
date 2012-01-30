@@ -201,7 +201,7 @@ SkinnableComponent
 
 SkinnableContainer
 {
-    skinClass: ClassReference("spark.skins.spark.SkinnableContainerSkin");
+    skinClass: ClassReference("spark.skins.mobile.SkinnableContainerSkin");
 }
 
 SkinnableTextBase:normalWithPrompt 
@@ -273,6 +273,12 @@ VideoPlayer
 {
     dropShadowVisible: true;
     skinClass: ClassReference("spark.skins.spark.VideoPlayerSkin");
+}
+
+View
+{
+    backgroundColor: #FFFFFF;
+    skinClass: ClassReference("spark.skins.mobile.SkinnableContainerSkin");
 }
 
 ViewMenu
