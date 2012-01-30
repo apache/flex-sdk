@@ -6,6 +6,13 @@ import flash.geom.Point;
 
 import mx.utils.MatrixUtil;
 
+[ExcludeClass]
+
+/**
+ *  @private
+ *  Helper class to implement the ILayoutElement interface for IUIComponent
+ *  classes.
+ */
 public class LayoutElementUIComponentUtils
 {
 
