@@ -371,7 +371,7 @@ public class SlideViewTransition extends ViewTransition
             // Determine if we are doing an internal actionbar transition
             // or sliding in a new one
             if (actionBar)
-                appendActionBarAnimations(Parallel(effect));
+                createActionBarAnimations(Parallel(effect));
             
             Parallel(effect).addChild(createViewAnimation(targets));
         }
@@ -500,16 +500,13 @@ public class SlideViewTransition extends ViewTransition
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected function appendActionBarAnimations(effect:Parallel):void
+    protected function createActionBarAnimations(effect:Parallel):void
     {
         var childIndex:Number;
         var slideDistance:Number;
         var animatedProperty:String;
         
         var actionBarSkin:UIComponent = actionBar.skin;
-        var titleGroup:UIComponent = (actionBar.titleGroup.visible)
-            ? actionBar.titleGroup : UIComponent(actionBar.titleDisplay);
-        
         var fadeOutTargets:Array = new Array();
         var fadeInTargets:Array = new Array();
         
@@ -527,16 +524,28 @@ public class SlideViewTransition extends ViewTransition
                 break;
         }
         
-        // Initialize titleGroup
-        titleGroup.cacheAsBitmap = true;
-		titleGroup.alpha = 0;
-        titleGroup[animatedProperty] += slideDistance;
-        fadeInTargets.push(titleGroup);
-        
-        if (cachedTitleGroup)
+        // Check if the skin has a titleGroup skin part
+        if (actionBar.titleGroup || actionBar.titleDisplay)
         {
-            childIndex = actionBarSkin.getChildIndex(titleGroup) - 1;
-            addComponentToContainerSkinAt(cachedTitleGroup, actionBarSkin, childIndex);
+            var titleComponent:UIComponent = actionBar.titleGroup;
+            
+            if (!titleComponent || !titleComponent.visible)
+                titleComponent = actionBar.titleDisplay as UIComponent;
+            
+            if (titleComponent)
+            {
+                // Initialize titleGroup
+                titleComponent.cacheAsBitmap = true;
+                titleComponent.alpha = 0;
+                titleComponent[animatedProperty] += slideDistance;
+                fadeInTargets.push(titleComponent);
+            }
+            
+            if (cachedTitleGroup)
+            {
+                childIndex = actionBarSkin.getChildIndex(titleComponent);
+                addComponentToContainerSkinAt(cachedTitleGroup, actionBarSkin, childIndex);
+            }
         }
         
         // If a cache of the navigation group exists, that means the content
@@ -544,30 +553,41 @@ public class SlideViewTransition extends ViewTransition
         // be added to an effect. 
         if (cachedNavigationGroup)
         {
-            childIndex = actionBarSkin.getChildIndex(actionBar.navigationGroup) - 1;
+            childIndex = actionBarSkin.getChildIndex(actionBar.navigationGroup);
             addComponentToContainerSkinAt(cachedNavigationGroup, actionBarSkin, childIndex);
             
             fadeOutTargets.push(cachedNavigationGroup);
-            
-            actionBar.navigationGroup[animatedProperty] += slideDistance;
-            actionBar.navigationGroup.cacheAsBitmap = true;
-            actionBar.navigationGroup.alpha = 0;
-            
-            fadeInTargets.push(actionBar.navigationGroup);
         }
         
         if (cachedActionGroup)
         {
-            childIndex = actionBarSkin.getChildIndex(actionBar.actionGroup) - 1;
+            childIndex = actionBarSkin.getChildIndex(actionBar.actionGroup);
             addComponentToContainerSkinAt(cachedActionGroup, actionBarSkin, childIndex);
             
             fadeOutTargets.push(cachedActionGroup);
+        }
+        
+        // Create fade in animations for navigationContent and actionContent
+        // of the next view
+        if (nextView)
+        {
+            if (nextView.navigationContent)
+            {
+                actionBar.navigationGroup[animatedProperty] += slideDistance;
+                actionBar.navigationGroup.cacheAsBitmap = true;
+                actionBar.navigationGroup.alpha = 0;
+                
+                fadeInTargets.push(actionBar.navigationGroup);
+            }
             
-            actionBar.actionGroup[animatedProperty] += slideDistance;
-            actionBar.actionGroup.cacheAsBitmap = true;
-            actionBar.actionGroup.alpha = 0;
-			
-            fadeInTargets.push(actionBar.actionGroup);
+            if (nextView.actionContent)
+            {
+                actionBar.actionGroup[animatedProperty] += slideDistance;
+                actionBar.actionGroup.cacheAsBitmap = true;
+                actionBar.actionGroup.alpha = 0;
+                
+                fadeInTargets.push(actionBar.actionGroup);
+            }
         }
         
         // Fade out action and navigation content
