@@ -259,18 +259,11 @@ public class MenuBarAccImpl extends AccImpl
 	 */
 	override public function getChildIDArray():Array
 	{
-		var childIDs:Array = [];
-		
-		if (MenuBar(master).menuBarItems)
-		{
-			var n:int = MenuBar(master).menuBarItems.length;
-			for (var i:int = 0; i < n; i++)
-			{
-				childIDs[i] = i + 1;
-			}
-		}
+		var n:int = MenuBar(master).menuBarItems ?
+					MenuBar(master).menuBarItems.length :
+					0;
 
-		return childIDs;
+		return createChildIDArray(n);
 	}
 
  	/**
