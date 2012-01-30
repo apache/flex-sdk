@@ -1001,8 +1001,8 @@ include "../styles/metadata/AnchorStyles.as";
  *  The default value for the Spark theme is <code>mouse</code>.
  *  The default value for the Mobile theme is <code>touch</code>.
  * 
- *  @see mx.core.InteractionMode.MOUSE
- *  @see mx.core.InteractionMode.TOUCH
+ *  @see mx.core.InteractionMode#MOUSE
+ *  @see mx.core.InteractionMode#TOUCH
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
