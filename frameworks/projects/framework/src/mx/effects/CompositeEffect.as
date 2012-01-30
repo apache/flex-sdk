@@ -146,14 +146,18 @@ public class CompositeEffect extends Effect
     public function set children(value:Array):void
     {
         var i:int;
+        // array may contain null/uninitialized children, so only set/unset
+        // parent property for non-null child values
         if (_children)
             // Remove this effect as the parent of the old child effects
             for (i = 0; i < _children.length; ++i)
-                Effect(_children[i]).mx_internal::parentCompositeEffect = null;
+                if (_children[i])
+                    Effect(_children[i]).mx_internal::parentCompositeEffect = null;
         _children = value;
         if (_children)
             for (i = 0; i < _children.length; ++i)
-                Effect(_children[i]).mx_internal::parentCompositeEffect = this;
+                if (_children[i])
+                    Effect(_children[i]).mx_internal::parentCompositeEffect = this;
     }
     
     /**
