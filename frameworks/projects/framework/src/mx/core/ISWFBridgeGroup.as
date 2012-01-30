@@ -17,8 +17,8 @@ import flash.events.IEventDispatcher;
 
 /**
  *  A sandbox bridge group is a group of bridges that represent
- *  applications this application may communicate with.
- *  This application may not share memory with, or may not have access to, 
+ *  applications that this application can communicate with.
+ *  This application can not share memory with, or can not have access to, 
  *  the other applications in the group, but uses the bridge
  *  to communicate with these applications.
  */  
@@ -56,13 +56,13 @@ public interface ISWFBridgeGroup
      * 
      *  @param bridge The bridge to communicate with the child content.
      * 
-     *  @param bridgeProvider The display object that loaded the content
-     *  represented by the bridge. Usually this is will an instance of SWFLoader.
+     *  @param bridgeProvider The DisplayObject that loaded the content
+     *  represented by the bridge. Usually this is will be an instance of the SWFLoader class.
      */
     function addChildBridge(bridge:IEventDispatcher, bridgeProvider:ISWFBridgeProvider):void;
     
     /**
-     *  Removes the child bridge.
+     *  Removes The child bridge.
      * 
      *  @param bridge The bridge to remove.
      */
@@ -75,7 +75,7 @@ public interface ISWFBridgeGroup
      *  and the <code>event.target</code> is the bridge.
      *  The bridge can then be converted into the owning DisplayObject.
      *
-     *  @param bridge Documentation is not currently available.
+     *  @param bridge The target bridge.
      * 
      *  @return The object that loaded the child. 
      */
@@ -85,15 +85,14 @@ public interface ISWFBridgeGroup
      *  Gets all of the child bridges in this group.
      * 
      *  @return An array of all the child bridges in this group.
-     *  Each object in the array is of type <code>IEventDispatcher</code>
+     *  Each object in the array is of type <code>IEventDispatcher</code>.
      */
     function getChildBridges():Array /* of IEventDispatcher */;
     
     /**
      *  Tests if the given bridge is one of the sandbox bridges in this group.
      * 
-     *  @return <code>true</code> if the handle is found,
-     *  and <code>false</code> otherwise.
+     *  @return <code>true</code> if the handle is found; otherwise <code>false</code>.
      */
     function containsBridge(bridge:IEventDispatcher):Boolean;
 }
