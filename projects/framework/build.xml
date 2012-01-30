@@ -63,7 +63,6 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/framework.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
-      
             <target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
