@@ -716,14 +716,14 @@ use namespace mx_internal;
  *  <p>This event is only dispatched when there are one or more 
  *  relevant listeners attached to the dispatching object.</p>
  *
- *  @eventType mx.events.FlexEvent.STATE_TRANSITION_COMPLETE
+ *  @eventType mx.events.FlexEvent.STATE_CHANGE_COMPLETE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="stateTransitionComplete", type="mx.events.FlexEvent")]
+[Event(name="stateChangeComplete", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched when a component interrupts a transition to its current
@@ -732,14 +732,14 @@ use namespace mx_internal;
  *  <p>This event is only dispatched when there are one or more 
  *  relevant listeners attached to the dispatching object.</p>
  *
- *  @eventType mx.events.FlexEvent.STATE_TRANSITION_INTERRUPTED
+ *  @eventType mx.events.FlexEvent.STATE_CHANGE_INTERRUPTED
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="stateTransitionInterrupted", type="mx.events.FlexEvent")]
+[Event(name="stateChangeInterrupted", type="mx.events.FlexEvent")]
 
 
 //--------------------------------------
@@ -10531,7 +10531,7 @@ public class UIComponent extends FlexSprite
         if (_currentTransition)
         {
             // Remove the event listener, we don't want to trigger it as it
-            // dispatches FlexEvent.STATE_TRANSITION_COMPLETE and we are
+            // dispatches FlexEvent.STATE_CHANGE_COMPLETE and we are
             // interrupting _currentTransition instead.
             _currentTransition.effect.removeEventListener(EffectEvent.EFFECT_END, transition_effectEndHandler);
 
@@ -10567,8 +10567,8 @@ public class UIComponent extends FlexSprite
             }
 
             // The current transition is being interrupted, dispatch an event
-            if (hasEventListener(FlexEvent.STATE_TRANSITION_INTERRUPTED))
-                dispatchEvent(new FlexEvent(FlexEvent.STATE_TRANSITION_INTERRUPTED));
+            if (hasEventListener(FlexEvent.STATE_CHANGE_INTERRUPTED))
+                dispatchEvent(new FlexEvent(FlexEvent.STATE_CHANGE_INTERRUPTED));
             _currentTransition = null;
         }
 
@@ -10653,8 +10653,8 @@ public class UIComponent extends FlexSprite
         else
         {
             // Dispatch an event that the transition has completed.
-            if (hasEventListener(FlexEvent.STATE_TRANSITION_COMPLETE))
-                dispatchEvent(new FlexEvent(FlexEvent.STATE_TRANSITION_COMPLETE));
+            if (hasEventListener(FlexEvent.STATE_CHANGE_COMPLETE))
+                dispatchEvent(new FlexEvent(FlexEvent.STATE_CHANGE_COMPLETE));
         }
     }
 
@@ -10709,8 +10709,8 @@ public class UIComponent extends FlexSprite
         _currentTransition = null;
 
         // Dispatch an event that the transition has completed.
-        if (hasEventListener(FlexEvent.STATE_TRANSITION_COMPLETE))
-            dispatchEvent(new FlexEvent(FlexEvent.STATE_TRANSITION_COMPLETE));
+        if (hasEventListener(FlexEvent.STATE_CHANGE_COMPLETE))
+            dispatchEvent(new FlexEvent(FlexEvent.STATE_CHANGE_COMPLETE));
     }
 
     /**
