@@ -52,7 +52,6 @@ import mx.events.Request;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
 import mx.managers.systemClasses.ActiveWindowManager;
-import mx.managers.marshalClasses.PopUpManagerMarshalMixin;
 import mx.styles.IStyleClient;
 import mx.utils.NameUtil;
 import mx.core.UIComponent;
@@ -121,11 +120,6 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
     /**
      *  @private
      */
-    private static function weakDependency2():void { PopUpManagerMarshalMixin };
-
-    /**
-     *  @private
-     */
     public static function getInstance():IPopUpManager
     {
         if (!instance)
@@ -156,7 +150,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 			}
 		}
 
-		dispatchEvent(new Event("initialize"));
+        if (hasEventListener("initialize"))
+    		dispatchEvent(new Event("initialize"));
     }
 
     //--------------------------------------------------------------------------
@@ -318,9 +313,12 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         // it might get changed by the request
         var smp:ISystemManager = sm;
 
-        var request:Request = new Request("addPopUp", false, true, { parent: parent, sm: sm, modal: modal, childList: childList} );
-        if (!dispatchEvent(request))
-              smp = request.value as ISystemManager;
+        if (hasEventListener("addPopUp"))
+        {
+            var request:Request = new Request("addPopUp", false, true, { parent: parent, sm: sm, modal: modal, childList: childList} );
+            if (!dispatchEvent(request))
+                smp = request.value as ISystemManager;
+        }
             
         if (window is IUIComponent)
             IUIComponent(window).isPopUp = true;
@@ -355,10 +353,13 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
                     new FocusManager(IFocusManagerContainer(window), true);
         }
 
-        var event:DynamicEvent = new DynamicEvent("addPlaceHolder");
-        event.sm = sm;
-        event.window = window;
-        dispatchEvent(event);
+        if (hasEventListener("addPlaceHolder"))
+        {
+            var event:DynamicEvent = new DynamicEvent("addPlaceHolder");
+            event.sm = sm;
+            event.window = window;
+            dispatchEvent(event);
+        }
 
         // force into automation hierarchy
         if (window is IAutomationObject)
@@ -404,10 +405,13 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             
         if (window is IFocusManagerContainer && visibleFlag)
         {
-              event = new DynamicEvent("addedPopUp", false, true);
-              event.window = window;
-              event.systemManager = smp;
-              dispatchEvent(event);
+            if (hasEventListener("addedPopUp"))
+            {
+                event = new DynamicEvent("addedPopUp", false, true);
+                event.window = window;
+                event.systemManager = smp;
+                dispatchEvent(event);
+            }
         }
 
         // trace("END POPUP: addPopUp" + parent);
@@ -419,10 +423,13 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 	    var localRoot:DisplayObjectContainer;
 		var sm:ISystemManager;
 	
-		var request:Request = new Request("topLevelSystemManager", false, true);
-		request.value = parent;
-		if (!dispatchEvent(request))
-		    localRoot = request.value as DisplayObjectContainer;
+        if (hasEventListener("topLevelSystemManager"))
+        {
+		    var request:Request = new Request("topLevelSystemManager", false, true);
+		    request.value = parent;
+		    if (!dispatchEvent(request))
+		        localRoot = request.value as DisplayObjectContainer;
+        }
 		if (!localRoot)
 			localRoot = DisplayObjectContainer(parent.root);
 			
@@ -482,8 +489,12 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             var isTopLevelRoot:Boolean;
             var sbRoot:DisplayObject = systemManager.getSandboxRoot();
 
-			var request:Request = new Request("isTopLevelRoot", false, true);
-			if (!dispatchEvent(request))
+            var request:Request;
+            if (hasEventListener("isTopLevelRoot"))
+            {
+    			request = new Request("isTopLevelRoot", false, true);
+            }
+			if (request && !dispatchEvent(request))
 				isTopLevelRoot = Boolean(request.value);
             else
                 isTopLevelRoot = systemManager.isTopLevelRoot();
@@ -597,11 +608,14 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             const o:PopUpData = findPopupInfoByOwner(popUp);
             if (o)
             {
-				var dynamicEvent:DynamicEvent = new DynamicEvent("bringToFront", false, true);
-				dynamicEvent.popUpData = o;
-				dynamicEvent.popUp = popUp;
-				if (!dispatchEvent(dynamicEvent))
-					return;
+                if (hasEventListener("bringToFront"))
+                {
+				    var dynamicEvent:DynamicEvent = new DynamicEvent("bringToFront", false, true);
+				    dynamicEvent.popUpData = o;
+				    dynamicEvent.popUp = popUp;
+				    if (!dispatchEvent(dynamicEvent))
+					    return;
+                }
                 const sm:ISystemManager = ISystemManager(popUp.parent);
                 if (o.topMost)
                     sm.popUpChildren.setChildIndex(DisplayObject(popUp), sm.popUpChildren.numChildren - 1);
@@ -680,14 +694,17 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             c = popupStyleClient.getStyle("modalTransparencyColor");
         }
         
-		var dynamicEvent:DynamicEvent = new DynamicEvent("createModalWindow", false, true);
-		dynamicEvent.popUpData = o;
-		dynamicEvent.popUp = popup;
-		dynamicEvent.color = c;
-        dynamicEvent.visibleFlag = visibleFlag;
-		dynamicEvent.childrenList = childrenList;
-		if (!dispatchEvent(dynamicEvent))
-			c = dynamicEvent.color;
+        if (hasEventListener("createModalWindow"))
+        {
+		    var dynamicEvent:DynamicEvent = new DynamicEvent("createModalWindow", false, true);
+		    dynamicEvent.popUpData = o;
+		    dynamicEvent.popUp = popup;
+		    dynamicEvent.color = c;
+            dynamicEvent.visibleFlag = visibleFlag;
+		    dynamicEvent.childrenList = childrenList;
+		    if (!dispatchEvent(dynamicEvent))
+			    c = dynamicEvent.color;
+        }
 
         // trace("createModalWindow: drawing modal " + s);
         g.clear();
@@ -695,11 +712,14 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         g.drawRect(s.x, s.y, s.width, s.height);
         g.endFill();
 
-		dynamicEvent = new DynamicEvent("updateModalMask");
-		dynamicEvent.popUpData = o;
-		dynamicEvent.popUp = popup;
-		dynamicEvent.childrenList = childrenList;
-		dispatchEvent(dynamicEvent);
+        if (hasEventListener("updateModalMask"))
+        {
+		    dynamicEvent = new DynamicEvent("updateModalMask");
+		    dynamicEvent.popUpData = o;
+		    dynamicEvent.popUp = popup;
+		    dynamicEvent.childrenList = childrenList;
+		    dispatchEvent(dynamicEvent);
+        }
 
         // a modal mousedownoutside handler just dispatches the event
         o._mouseDownOutsideHandler  = dispatchMouseDownOutsideEvent;
@@ -724,12 +744,15 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         else
             popup.visible = visibleFlag;
 
-		dynamicEvent = new DynamicEvent("createdModalWindow");
-		dynamicEvent.popUpData = o;
-		dynamicEvent.popUp = popup;
-        dynamicEvent.visibleFlag = visibleFlag;
-		dynamicEvent.childrenList = childrenList;
-		dispatchEvent(dynamicEvent);
+        if (hasEventListener("createdModalWindow"))
+        {
+		    dynamicEvent = new DynamicEvent("createdModalWindow");
+		    dynamicEvent.popUpData = o;
+		    dynamicEvent.popUp = popup;
+            dynamicEvent.visibleFlag = visibleFlag;
+		    dynamicEvent.childrenList = childrenList;
+		    dispatchEvent(dynamicEvent);
+        }
     }
     
     
@@ -782,22 +805,24 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
    
         var sbRoot:DisplayObject = sm.getSandboxRoot();
 
-		var dynamicEvent:DynamicEvent = new DynamicEvent("showModalWindow", false, true);
-		dynamicEvent.popUpData = o;
-		dynamicEvent.sendRequest = sendRequest;
-		dynamicEvent.alpha = alpha;
-		dynamicEvent.blurAmount = blurAmount;
-		dynamicEvent.duration = duration;
-        dynamicEvent.systemManager = sm;
-		dynamicEvent.transparencyColor = transparencyColor;
-		if (!dispatchEvent(dynamicEvent))
-		{
-			alpha = dynamicEvent.alpha;
-			blurAmount = dynamicEvent.blurAmount;
-			duration = dynamicEvent.duration;
-			transparencyColor = dynamicEvent.transparencyColor;
-		}
-
+        if (hasEventListener("showModalWindow"))
+        {
+		    var dynamicEvent:DynamicEvent = new DynamicEvent("showModalWindow", false, true);
+		    dynamicEvent.popUpData = o;
+		    dynamicEvent.sendRequest = sendRequest;
+		    dynamicEvent.alpha = alpha;
+		    dynamicEvent.blurAmount = blurAmount;
+		    dynamicEvent.duration = duration;
+            dynamicEvent.systemManager = sm;
+		    dynamicEvent.transparencyColor = transparencyColor;
+		    if (!dispatchEvent(dynamicEvent))
+		    {
+			    alpha = dynamicEvent.alpha;
+			    blurAmount = dynamicEvent.blurAmount;
+			    duration = dynamicEvent.duration;
+			    transparencyColor = dynamicEvent.transparencyColor;
+		    }
+        }
 		o.modalWindow.alpha = alpha;
 			
         showModalWindowInternal(o, duration, alpha, transparencyColor, blurAmount, sm, sbRoot);
@@ -857,10 +882,13 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
                     // between Flex versions.
                     var sbRootApp:Object;   // sbRoot.application;
 
-				    var request:Request = new Request("blurTarget", false, true, { popUpData: o });
-                    if (!dispatchEvent(request))
+                    if (hasEventListener("blurTarget"))
                     {
-					    o.blurTarget = request.value;
+				        var request:Request = new Request("blurTarget", false, true, { popUpData: o });
+                        if (!dispatchEvent(request))
+                        {
+					        o.blurTarget = request.value;
+                        }
                     }
                 }
 				else
@@ -935,10 +963,13 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             o.modalWindow.visible = false;
         }
         
-		var dynamicEvent:DynamicEvent = new DynamicEvent("hideModalWindow", false, false);
-		dynamicEvent.popUpData = o;
-		dynamicEvent.destroy = destroy;
-		dispatchEvent(dynamicEvent);
+        if (hasEventListener("hideModalWindow"))
+        {
+		    var dynamicEvent:DynamicEvent = new DynamicEvent("hideModalWindow", false, false);
+		    dynamicEvent.popUpData = o;
+		    dynamicEvent.destroy = destroy;
+		    dispatchEvent(dynamicEvent);
+        }
     }
     
     /**
@@ -975,9 +1006,12 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             sbRoot.addEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
         }
         
-		var dynamicEvent:DynamicEvent = new DynamicEvent("addMouseOutEventListeners", false, false);
-		dynamicEvent.popUpData = o;
-		dispatchEvent(dynamicEvent);
+        if (hasEventListener("addMouseOutEventListeners"))
+        {
+		    var dynamicEvent:DynamicEvent = new DynamicEvent("addMouseOutEventListeners", false, false);
+		    dynamicEvent.popUpData = o;
+		    dispatchEvent(dynamicEvent);
+        }
     }
     
     /**
@@ -998,9 +1032,12 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             sbRoot.removeEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
         }
 
-		var dynamicEvent:DynamicEvent = new DynamicEvent("removeMouseOutEventListeners", false, false);
-		dynamicEvent.popUpData = o;
-		dispatchEvent(dynamicEvent);
+        if (hasEventListener("removeMouseOutEventListeners"))
+        {
+		    var dynamicEvent:DynamicEvent = new DynamicEvent("removeMouseOutEventListeners", false, false);
+		    dynamicEvent.popUpData = o;
+		    dispatchEvent(dynamicEvent);
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -1094,9 +1131,12 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
                 
                 popUp.removeEventListener(Event.REMOVED,  popupRemovedHandler);
 
-				var event2:DynamicEvent = new DynamicEvent("popUpRemoved");
-				event2.popUpData = o;
-                dispatchEvent(event2);
+                if (hasEventListener("removeMouseOutEventListeners"))
+                {
+				    var event2:DynamicEvent = new DynamicEvent("popUpRemoved");
+				    event2.popUpData = o;
+                    dispatchEvent(event2);
+                }
 
 				if (o.owner)
                 {
