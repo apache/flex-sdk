@@ -18,6 +18,7 @@ import mx.core.FlexVersion;
 import mx.core.IDeferredInstance;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.utils.ObjectUtil;
 
 use namespace mx_internal;
 
@@ -284,19 +285,28 @@ public class SetProperty extends OverrideBase
                 PSEUDONYMS[name] :
                 name;
         propName = PSEUDONYMS[name];
-        if (!(PSEUDONYMS[name] in obj))
+        if (!(propName in obj))
         {
-            // 'in' does not work for mx_internal properties 
-            // like currentStateDeferred
-            try
+            if (ObjectUtil.isDynamicObject(obj))
             {
-                // Check if we can access the property; if it doesn't
-                // exist, it'll throw a ReferenceError
-                var tmp:* = obj[PSEUDONYMS[name]];
-            }
-            catch (e:ReferenceError)
-            {
+                // If this is a dynamic object we fall back immediately
+                // to our original property name.
                 propName = name;
+            }
+            else
+            {
+                // 'in' does not work for mx_internal properties 
+                // like currentStateDeferred            
+                try
+                {
+                    // Check if we can access the property; if it doesn't
+                    // exist, it'll throw a ReferenceError
+                    var tmp:* = obj[propName];
+                }
+                catch (e:ReferenceError)
+                {
+                    propName = name;
+                }
             }
         }
         return propName;
