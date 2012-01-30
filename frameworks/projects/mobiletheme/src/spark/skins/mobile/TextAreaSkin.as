@@ -28,7 +28,9 @@ import spark.skins.mobile320.assets.TextInput_border;
 use namespace mx_internal;
 
 /**
- *  Base mobile skin for spark.components.TextArea
+ *  Base mobile skin for spark.components.TextArea.
+ * 
+ * @see spark.components.TextArea
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -43,6 +45,14 @@ public class TextAreaSkin extends TextSkinBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function TextAreaSkin()
     {
         super();
@@ -90,6 +100,9 @@ public class TextAreaSkin extends TextSkinBase
     //
     //--------------------------------------------------------------------------
     
+    /** 
+     *  @copy spark.skins.spark.ApplicationSkin#hostComponent
+     */
     public var hostComponent:TextArea;
     
     //--------------------------------------------------------------------------
