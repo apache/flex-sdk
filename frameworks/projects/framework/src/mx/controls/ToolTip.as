@@ -60,6 +60,18 @@ include "../styles/metadata/PaddingStyles.as"
 include "../styles/metadata/TextStyles.as"
 
 /**
+ *  Radius of component corners.
+ *  
+ *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo, spark")]
+
+/**
  *  Number of pixels between the container's bottom border and its content area.
  *  The default value is -1, so the bottom border of the last header
  *  overlaps the Accordion container's bottom border.
