@@ -703,12 +703,12 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function getCurrentViewState(isLandscape:Boolean):String
+    public function getCurrentViewState(landscape:Boolean):String
     {
-        if (!isLandscape && hasState("portrait"))
+        if (!landscape && hasState("portrait"))
             return "portrait";
         
-        if (isLandscape && hasState("landscape"))
+        if (landscape && hasState("landscape"))
             return "landscape";
         
         // If none of the above states are defined in the view will
