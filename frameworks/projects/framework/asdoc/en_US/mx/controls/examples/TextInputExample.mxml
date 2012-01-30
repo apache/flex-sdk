@@ -1,15 +1,19 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the TextInput control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo TextInput control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Panel title="TextInput Control Example" height="75%" width="75%" 
-        paddingTop="10" paddingLeft="10">
-        
-        <mx:TextInput id="src" text="Hello World!"/>
+    <s:Panel title="Halo TextInput Control Example"
+    		width="75%" height="75%"
+    		horizontalCenter="0" verticalCenter="0">
+		<s:VGroup left="10" right="10" top="10" bottom="10">
+	        <mx:TextInput id="src" text="Hello World!"/>
 
-        <mx:Button label="Copy Text" click="dest.text = src.text"/>
+	        <s:Button label="Copy Text" click="dest.text = src.text"/>
 
-        <mx:TextInput id="dest"/>
+	        <mx:TextInput id="dest"/>
+		</s:VGroup>
+    </s:Panel>
 
-    </mx:Panel>
-</mx:Application>
+</s:Application>
