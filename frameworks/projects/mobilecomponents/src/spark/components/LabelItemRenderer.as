@@ -291,18 +291,18 @@ public class LabelItemRenderer extends UIComponent
 		{
 			case DPIClassification.DPI_320:
 			{
-				itemMiniumumHeight = 88;
+				itemMinimumHeight = 88;
 				break;
 			}
 			case DPIClassification.DPI_240:
 			{
-				itemMiniumumHeight = 66;
+				itemMinimumHeight = 66;
 				break;
 			}
 			default:
 			{
 				// default PPI160
-				itemMiniumumHeight = 44;
+				itemMinimumHeight = 44;
 				break;
 			}
 		}
@@ -680,7 +680,7 @@ public class LabelItemRenderer extends UIComponent
 	//
 	//--------------------------------------------------------------------------
 	// Enforced minimum height of the item renderer
-	protected var itemMiniumumHeight:uint = 0;
+	protected var itemMinimumHeight:uint = 0;
 	
 	
     //--------------------------------------------------------------------------
@@ -728,19 +728,18 @@ public class LabelItemRenderer extends UIComponent
             
             // Text respects padding right, left, top, and bottom
 			labelDisplay.commitStyles();
-			var metrics:TextLineMetrics = labelDisplay.getLineMetrics(0);
             measuredWidth = labelDisplay.measuredTextSize.x + horizontalPadding;
 			
-			// We need the ascent that doesn't include the "slop"
-			var realAscent:Number = metrics.ascent - 2;
-            measuredHeight = realAscent + verticalPadding;
+			// FIXME mcho: use a baselineShift style
+			var textShift:Number = 3;
+            measuredHeight = labelDisplay.getLineMetrics(0).ascent - textShift + verticalPadding;
 		}
         
         // enforce minimum height 
-        measuredHeight = Math.max(measuredHeight, itemMiniumumHeight);
+        measuredHeight = Math.max(measuredHeight, itemMinimumHeight);
         
         measuredMinWidth = 0;
-        measuredMinHeight = itemMiniumumHeight;
+        measuredMinHeight = itemMinimumHeight;
     }
     
     /**
@@ -796,6 +795,8 @@ public class LabelItemRenderer extends UIComponent
                                       unscaledHeight:Number):void
     {
         // figure out backgroundColor
+		// FIXME mcho: need to define a style to use for background color. Right now
+		// we hard code to white
         var backgroundColor:uint;
         var drawBackground:Boolean = true;
         var downColor:* = getStyle("downColor");
@@ -831,12 +832,13 @@ public class LabelItemRenderer extends UIComponent
                 
                 backgroundColor = alternatingColors[itemIndex % alternatingColors.length];
             }
-            else
-            {
-                // don't draw background if it is the contentBackgroundColor. The
-                // list skin handles the background drawing for us.
-                drawBackground = false;
-            }
+			else
+			{ 
+				// don't draw background if it is the contentBackgroundColor. The
+				// list skin handles the background drawing for us. 
+				drawBackground = false;
+			}
+
         }
         
         // draw backgroundColor
@@ -883,13 +885,17 @@ public class LabelItemRenderer extends UIComponent
 			bottomSeparatorAlpha = .2;
 		}
 		
+		var dataGroup:DataGroup = parent as DataGroup;
+		var isLast:Boolean = (dataGroup && (itemIndex == dataGroup.numElements - 1));
+
+			
 		// draw separators
 		graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
 		graphics.drawRect(0, 0, unscaledWidth, 1);
 		graphics.endFill();
 		
 		graphics.beginFill(bottomSeparatorColor, bottomSeparatorAlpha);
-		graphics.drawRect(0, unscaledHeight - 1, unscaledWidth, 1);
+		graphics.drawRect(0, unscaledHeight - (isLast ? 0 : 1), unscaledWidth, 1);
 		graphics.endFill();
 		
 		
@@ -904,11 +910,13 @@ public class LabelItemRenderer extends UIComponent
 		}
 		
 		// bottom
-		var dataGroup:DataGroup = parent as DataGroup;
-		if (dataGroup && itemIndex == dataGroup.numElements - 1)
+		if (isLast)
 		{
+			// we want to offset the bottom by 1 so that we don't get
+			// a double line at the bottom of the list if there's a 
+			// border
 			graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
-			graphics.drawRect(0, unscaledHeight, unscaledWidth, 1);
+			graphics.drawRect(0, unscaledHeight + 1, unscaledWidth, 1);
 			graphics.endFill();	
 		}
 		
@@ -952,8 +960,19 @@ public class LabelItemRenderer extends UIComponent
         var viewWidth:Number  = unscaledWidth  - paddingLeft - paddingRight;
         var viewHeight:Number = unscaledHeight - paddingTop  - paddingBottom;
 
+		var vAlign:Number;
+		if (verticalAlign == "top")
+			vAlign = 0;
+		else if (verticalAlign == "bottom")
+			vAlign = 1;
+		else // if (verticalAlign == "middle")
+			vAlign = 0.5;
+		
         // measure the label component
-        var textHeight:Number = 0;
+		// text should take up the rest of the space width-wise, but only let it take up
+		// its measured textHeight so we can position it later based on verticalAlign
+		var labelWidth:Number = Math.max(viewWidth, 0);	
+        var labelHeight:Number = 0;
 
         if (label != "")
         {
@@ -963,37 +982,20 @@ public class LabelItemRenderer extends UIComponent
             if (labelDisplay.isTruncated)
                 labelDisplay.text = label;
 		
-			textHeight = labelDisplay.measuredTextSize.y;
+			labelHeight = labelDisplay.measuredTextSize.y;
         }
-
+	
+		setElementSize(labelDisplay, labelWidth, labelHeight);    
+		
+		// FIXME mcho: use a baselineShift style
 		var metrics:TextLineMetrics = labelDisplay.getLineMetrics(0);
-
-		var ascentDelta:Number = textHeight - (metrics.ascent - 2); // We need the ascent that doesn't include the "slop"
-		
-        // text should take up the rest of the space width-wise, but only let it take up
-        // its measured textHeight so we can position it later based on verticalAlign
-        var labelWidth:Number = Math.max(viewWidth, 0);
-        var labelHeight:Number = Math.max(Math.min(viewHeight + ascentDelta, textHeight), 0);
-        setElementSize(labelDisplay, labelWidth, labelHeight);    
-   
-		var labelY:Number = 0;
-
-		// Vertical align is calcuated differently for top/bottom/middle. To get as accurate as possible we
-		// want to avoid calculations using the slop.  We only use it when we absolutely need it when
-		// verticalAlign == "top".  
-		if (verticalAlign == "top")
-			labelY = paddingTop - (StyleableTextField.TEXT_HEIGHT_PADDING/2 + 3); // accounts for gutter and slop
-		else if (verticalAlign == "bottom")
-			labelY = viewHeight - (metrics.ascent + StyleableTextField.TEXT_HEIGHT_PADDING/2) + paddingTop; //viewHeight - (labelHeight - metrics.descent - metrics.leading) + paddingTop;
-		else // if (verticalAlign == "middle")
-			labelY = Math.round(.5 * (viewHeight - (textHeight - metrics.descent + StyleableTextField.TEXT_HEIGHT_PADDING))) + paddingTop;	
-		// made "middle" last even though it's most likely so it is the default and if someone 
-		// types "center", then it will still vertically center itself.
-
+		var textShift:Number = 3;
+		var labelY:Number = Math.round(vAlign * (viewHeight - (metrics.ascent - textShift))) - StyleableTextField.TEXT_HEIGHT_PADDING/2 - textShift + paddingTop;
 		setElementPosition(labelDisplay, paddingLeft, labelY);
-		
+
         // attempt to truncate the text now that we have its official width
         labelDisplay.truncateToFit();
+
     }
 
     //--------------------------------------------------------------------------
