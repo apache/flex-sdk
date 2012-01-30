@@ -7553,7 +7553,7 @@ public class UIComponent extends FlexSprite
 				// Dispatch a initializeError dynamic event for tooling. 
 				var initializeErrorEvent:DynamicEvent = new DynamicEvent("initializeError");
 				initializeErrorEvent.error = e;
-				initializeErrorEvent.source = this; 
+				initializeErrorEvent.source = child; 
 				systemManager.dispatchEvent(initializeErrorEvent);
 			}
 		}
