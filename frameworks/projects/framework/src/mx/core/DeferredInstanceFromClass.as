@@ -30,17 +30,17 @@ public class DeferredInstanceFromClass implements ITransientDeferredInstance
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  Constructor.
-	 *
-	 *  @param generator The class whose instance the <code>getInstance()</code>
-	 *  method creates and returns.
+     *
+     *  @param generator The class whose instance the <code>getInstance()</code>
+     *  method creates and returns.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -49,61 +49,61 @@ public class DeferredInstanceFromClass implements ITransientDeferredInstance
      */
     public function DeferredInstanceFromClass(generator:Class)
     {
-		super();
+        super();
 
-    	this.generator = generator;
+        this.generator = generator;
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
     /**
-	 * 	@private
-     *	The generator class.
+     *  @private
+     *  The generator class.
      */
     private var generator:Class;
 
-	/**
-	 * 	@private
-	 * 	The generated value.
-	 */
-	private var instance:Object = null;
+    /**
+     *  @private
+     *  The generated value.
+     */
+    private var instance:Object = null;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *	Creates and returns an instance of the class specified in the
-	 *  DeferredInstanceFromClass constructor, if it does not yet exist;
-	 *  otherwise, returns the already-created class instance.
-	 *
-	 *  @return An instance of the class specified in the
-	 *  DeferredInstanceFromClass constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function getInstance():Object
-	{
-		if (!instance)
-			instance = new generator();
+    /**
+     *  Creates and returns an instance of the class specified in the
+     *  DeferredInstanceFromClass constructor, if it does not yet exist;
+     *  otherwise, returns the already-created class instance.
+     *
+     *  @return An instance of the class specified in the
+     *  DeferredInstanceFromClass constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function getInstance():Object
+    {
+        if (!instance)
+            instance = new generator();
 
-		return instance;
-	}
-	
+        return instance;
+    }
+    
     /**
      *  Resets the state of our factory to the initial, uninitialized state.
      *  The reference to our cached instance is cleared.
      * 
-     *  @langversion 4.0
+     *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 4
