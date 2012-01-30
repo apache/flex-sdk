@@ -399,6 +399,28 @@ public interface IEffect extends IAbstractEffect
      */
     function set triggerEvent(value:Event):void;
 
+    //----------------------------------
+    //  playheadTime
+    //----------------------------------
+
+    /**
+     *  Current time position of the effect.
+     *  This property has a value between 0 and the total duration, 
+     *  which includes the Effect's <code>startDelay</code>, 
+     *  <code>repeatCount</code>, and <code>repeatDelay</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    function get playheadTime():Number;
+    
+    /**
+     * @private
+     */
+    function set playheadTime(value:Number):void;
+
     //--------------------------------------------------------------------------
     //
     //  Methods
