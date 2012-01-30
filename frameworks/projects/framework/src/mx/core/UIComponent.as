@@ -15,19 +15,22 @@ package mx.core
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.GradientType;
-import flash.display.Graphics;
 import flash.display.InteractiveObject;
 import flash.display.Loader;
 import flash.display.Sprite;
 import flash.display.Stage;
+import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.EventPhase;
 import flash.events.FocusEvent;
 import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
+import flash.geom.Vector3D;
+import flash.geom.Matrix3D;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+
 import flash.text.TextLineMetrics;
 import flash.utils.getQualifiedClassName;
 
@@ -48,6 +51,7 @@ import mx.events.StateChangeEvent;
 import mx.events.ValidationResultEvent;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
+import mx.geom.Transform;
 import mx.graphics.RoundedRectangle;
 import mx.managers.CursorManager;
 import mx.managers.ICursorManager;
@@ -76,6 +80,9 @@ import mx.utils.ObjectUtil;
 import mx.utils.StringUtil;
 import mx.validators.IValidatorListener;
 import mx.validators.ValidationResult;
+import __AS3__.vec.Vector;
+import flash.geom.Transform;
+import mx.events.PropertyChangeEventKind;
 
 use namespace mx_internal;
 
@@ -852,7 +859,7 @@ public class UIComponent extends FlexSprite
     IDeferredInstantiationUIComponent, IFlexDisplayObject, IFlexModule,
     IInvalidating, ILayoutManagerClient, IPropertyChangeNotifier,
     IRepeaterClient, IStateClient, IStyleClient, IToolTipManagerClient,
-    IUIComponent, IValidatorListener 
+    IUIComponent, IValidatorListener, IVisualItem
 {
     include "../core/Version.as";
     
@@ -1343,6 +1350,19 @@ public class UIComponent extends FlexSprite
      */
     private var cachedEmbeddedFont:EmbeddedFont = null;
          
+    /**
+     * @private
+     * 
+     * storage for advanced layout and transform properties.
+     */
+	private var _xformOffsets:TransformOffset;
+	
+    /**
+     * @private
+     * 
+     * storage for the modified Transform object that can dispatch change events correctly.
+     */
+    private var _transform:flash.geom.Transform;
     //--------------------------------------------------------------------------
     //
     //  Variables: Styles
@@ -1516,7 +1536,7 @@ public class UIComponent extends FlexSprite
      */
     override public function get x():Number
     {
-        return super.x;
+    	return (_xformOffsets == null)? super.x:_xformOffsets.layoutX;
     }
 
     /**
@@ -1524,15 +1544,192 @@ public class UIComponent extends FlexSprite
      */
     override public function set x(value:Number):void
     {
-        if (super.x == value)
+        if (x == value)
             return;
 
-        super.x = value;
+        if(_xformOffsets == null)
+	        super.x  = value;
+	   	else
+	   	{
+	   		_xformOffsets.layoutX = value;
+	   		invalidateTransform();
+	   	}
 
         invalidateProperties();
 
         dispatchEvent(new Event("xChanged"));
     }
+
+    [Bindable("zChanged")]
+    /**
+     *  @inheritDoc
+     */
+    override public function get z():Number
+    {
+    	return (_xformOffsets == null)? super.z:_xformOffsets.layoutZ;
+    }
+
+    /**
+     *  @private
+     */
+    override public function set z(value:Number):void
+    {
+        if (z == value)
+            return;		
+		if(_xformOffsets == null) allocateOffsets();
+   		_xformOffsets.layoutZ = value;
+   		invalidateTransform();
+        dispatchEvent(new Event("zChanged"));
+    }
+
+	/**
+	 * 
+	 */
+	public function get transformX():Number
+	{
+    	return (_xformOffsets == null)? 0:_xformOffsets.transformX;
+	}
+    /**
+     *  @private
+     */
+    public function set transformX(value:Number):void
+    {
+        if (transformX == value)
+            return;		
+		if(_xformOffsets == null) allocateOffsets();
+   		_xformOffsets.transformX = value;
+   		invalidateTransform();
+   		invalidateParentSizeAndDisplayList();
+    }
+
+	/**
+	 * 
+	 */
+	public function get transformY():Number
+	{
+    	return (_xformOffsets == null)? 0:_xformOffsets.transformY;
+	}
+    /**
+     *  @private
+     */
+    public function set transformY(value:Number):void
+    {
+        if (transformY == value)
+            return;		
+		if(_xformOffsets == null) allocateOffsets();
+   		_xformOffsets.transformY = value;
+   		invalidateTransform();
+   		invalidateParentSizeAndDisplayList();
+    }
+
+	/**
+	 * 
+	 */
+	public function get transformZ():Number
+	{
+    	return (_xformOffsets == null)? 0:_xformOffsets.transformZ;
+	}
+    /**
+     *  @private
+     */
+    public function set transformZ(value:Number):void
+    {
+        if (transformZ == value)
+            return;		
+		if(_xformOffsets == null) allocateOffsets();
+   		_xformOffsets.transformZ = value;
+   		invalidateTransform();
+   		invalidateParentSizeAndDisplayList();
+    }
+	
+	/**
+	 * Documentation is not currently available
+	 */
+	override public function get rotation():Number
+	{
+		return (_xformOffsets == null)? super.rotation:_xformOffsets.layoutRotationZ;
+	}
+
+	/**
+	 * @private
+	 */
+    override public function set rotation(value:Number):void
+    {
+        if (rotation == value)
+            return;
+
+        // trace("set scaleX:" + this + "value = " + value); 
+        if(_xformOffsets == null)
+	        super.rotation = value;
+	   	else
+	   	{
+			invalidateTransform();
+	   		_xformOffsets.layoutRotationZ = value;
+	   		invalidateTransform();
+	   	}
+       
+   		invalidateParentSizeAndDisplayList();
+    }
+
+	/**
+	 * Documentation is not currently available
+	 */
+	override public function get rotationZ():Number
+	{
+		return rotation;
+	}
+    /**
+     *  @private
+     */
+    override public function set rotationZ(value:Number):void
+    {
+    	rotation = value;
+    }	
+    
+	/**
+	 * Documentation is not currently available
+	 */
+    override public function get rotationX():Number
+    {
+    	return (_xformOffsets == null)? super.rotationX:_xformOffsets.layoutRotationX;
+    }
+
+    /**
+     *  @private
+     */
+    override public function set rotationX(value:Number):void
+    {
+        if (rotationX == value)
+            return;
+		
+		if(_xformOffsets == null) allocateOffsets();
+   		_xformOffsets.layoutRotationX = value;
+   		invalidateTransform();
+   		invalidateParentSizeAndDisplayList();
+    }
+
+	/**
+	 * Documentation is not currently available
+	 */
+    override public function get rotationY():Number
+    {
+    	return (_xformOffsets == null)? super.rotationY:_xformOffsets.layoutRotationY;
+    }
+
+    /**
+     *  @private
+     */
+    override public function set rotationY(value:Number):void
+    {
+        if (rotationY == value)
+            return;
+		
+		if(_xformOffsets == null) allocateOffsets();
+   		_xformOffsets.layoutRotationY = value;
+   		invalidateTransform();
+   		invalidateParentSizeAndDisplayList();
+    }
+
 
     //----------------------------------
     //  y
@@ -1558,7 +1755,7 @@ public class UIComponent extends FlexSprite
      */
     override public function get y():Number
     {
-        return super.y;
+    	return (_xformOffsets == null)? super.y:_xformOffsets.layoutY;
     }
 
     /**
@@ -1566,10 +1763,16 @@ public class UIComponent extends FlexSprite
      */
     override public function set y(value:Number):void
     {
-        if (super.y == value)
+        if (y == value)
             return;
 
-        super.y = value;
+        if(_xformOffsets == null)
+	        super.y  = value;
+	   	else
+	   	{
+	   		_xformOffsets.layoutY = value;
+	   		invalidateTransform();
+	   	}
 
         invalidateProperties();
 
@@ -1719,8 +1922,6 @@ public class UIComponent extends FlexSprite
      *  @private
      *  Storage for the scaleX property.
      */
-    private var _scaleX:Number = 1.0;
-
     [Bindable("scaleXChanged")]
     [Inspectable(category="Size", defaultValue="1.0")]
 
@@ -1741,22 +1942,35 @@ public class UIComponent extends FlexSprite
      */
     override public function get scaleX():Number
     {
-        return _scaleX;
+    	return ((_xformOffsets == null)? super.scaleX:_xformOffsets.layoutScaleX);
     }
-
-    /**
-     *  @private
-     */
     override public function set scaleX(value:Number):void
     {
-        if (_scaleX == value)
+    	var prevValue:Number = (_xformOffsets == null)? scaleX:_xformOffsets.layoutScaleX;
+        if (prevValue == value)
             return;
 
         // trace("set scaleX:" + this + "value = " + value); 
-        _scaleX = value;
+        if(_xformOffsets == null)
+	        super.scaleX = value;
+	   	else
+	   	{
+	   		_xformOffsets.layoutScaleX = value;
+	   		invalidateTransform();
+	   	}
 
-        invalidateProperties();
-        invalidateSize();
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+        {
+	        invalidateProperties();
+        	invalidateSize();
+        }
+        else
+        {
+                // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
+                // and scaleX is changing we need to invalidate parent size and display list
+                // since we are not going to detect a change in measured sizes during measure.
+        	invalidateParentSizeAndDisplayList();
+        }
 
         dispatchEvent(new Event("scaleXChanged"));
     }
@@ -1769,7 +1983,6 @@ public class UIComponent extends FlexSprite
      *  @private
      *  Storage for the scaleY property.
      */
-    private var _scaleY:Number = 1.0;
 
     [Bindable("scaleYChanged")]
     [Inspectable(category="Size", defaultValue="1.0")]
@@ -1791,23 +2004,64 @@ public class UIComponent extends FlexSprite
      */
     override public function get scaleY():Number
     {
-        return _scaleY;
+    	return ((_xformOffsets == null)? super.scaleY:_xformOffsets.layoutScaleY);
     }
 
-    /**
-     *  @private
-     */
     override public function set scaleY(value:Number):void
     {
-        if (_scaleY == value)
+    	var prevValue:Number = (_xformOffsets == null)? scaleY:_xformOffsets.layoutScaleY;
+        if (prevValue == value)
             return;
 
-        _scaleY = value;
+        if(_xformOffsets == null)
+	        super.scaleY = value;
+	   	else
+	   	{
+	   		_xformOffsets.layoutScaleY = value;
+	   		invalidateTransform();
+	   	}
 
-        invalidateProperties();
-        invalidateSize();
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+        {
+	        invalidateProperties();
+        	invalidateSize();
+        }
+        else
+        {
+                // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
+                // and scaleX is changing we need to invalidate parent size and display list
+                // since we are not going to detect a change in measured sizes during measure.
+        	invalidateParentSizeAndDisplayList();
+        }
 
         dispatchEvent(new Event("scaleYChanged"));
+    }
+
+   //----------------------------------
+    //  scaleZ
+    //----------------------------------
+
+    [Bindable("scaleZChanged")]
+    [Inspectable(category="Size", defaultValue="1.0")]
+	/**
+	 * Documentation is not currently available
+	 */
+    override public function get scaleZ():Number
+    {
+    	return ((_xformOffsets == null)? super.scaleZ:_xformOffsets.layoutScaleZ);
+    }
+
+	/**
+	 * @private
+	 */
+    override public function set scaleZ(value:Number):void
+    {
+        if (scaleZ == value)
+            return;
+		if(_xformOffsets == null) allocateOffsets();
+   		_xformOffsets.layoutScaleZ = value;
+   		invalidateTransform();
+        dispatchEvent(new Event("scaleZChanged"));
     }
     
     /**
@@ -5571,7 +5825,25 @@ public class UIComponent extends FlexSprite
                 UIComponentGlobals.layoutManager.invalidateDisplayList(this);
         }
     }
-    
+
+	private function invalidateTransform():void
+	{
+		if(_xformOffsets && _xformOffsets.updatePending == false)
+		{
+			_xformOffsets.updatePending = true; 
+			if(isOnDisplayList() && UIComponentGlobals.layoutManager &&
+			invalidateDisplayListFlag == false)
+			{
+				UIComponentGlobals.layoutManager.invalidateDisplayList(this);
+			}
+		}
+	}
+
+    private function transformOffsetsChangedHandler(e:Event):void
+    {
+    	invalidateTransform();
+    }
+        
     private function isOnDisplayList():Boolean
     {
     	var p:DisplayObjectContainer;
@@ -5801,11 +6073,12 @@ public class UIComponent extends FlexSprite
      */
     protected function commitProperties():void
     {
-        if (_scaleX != oldScaleX)
+    	var sX:Number = scaleX;
+        if (sX != oldScaleX)
         {
             if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             {
-                var scalingFactorX:Number = Math.abs(_scaleX / oldScaleX);
+                var scalingFactorX:Number = Math.abs(scaleX / oldScaleX);
                 if (!isNaN(explicitMinWidth))
                     explicitMinWidth *= scalingFactorX;
                 if (!isNaN(explicitWidth))
@@ -5815,22 +6088,16 @@ public class UIComponent extends FlexSprite
     
                 _width *= scalingFactorX;
             }
-            else if (invalidateSizeFlag)
-            {
-                // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
-                // and scaleX is changing we need to invalidate parent size and display list
-                // since we are not going to detect a change in measured sizes during measure.
-                invalidateParentSizeAndDisplayList();
-            }
 
-            super.scaleX = oldScaleX = _scaleX;
+            oldScaleX = scaleX;
         }
 
-        if (_scaleY != oldScaleY)
+    	var sY:Number = scaleY;
+        if (sY != oldScaleY)
         {
             if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             {
-                var scalingFactorY:Number = Math.abs(_scaleY / oldScaleY);
+                var scalingFactorY:Number = Math.abs(scaleY / oldScaleY);
                 if (!isNaN(explicitMinHeight))
                     explicitMinHeight *= scalingFactorY;
                 if (!isNaN(explicitHeight))
@@ -5840,15 +6107,8 @@ public class UIComponent extends FlexSprite
     
                 _height *= scalingFactorY;
             }
-            else if (invalidateSizeFlag)
-            {
-                // If we're not compatible with Flex3 (measuredHeight is pre-scale always)
-                // and scaleX is changing we need to invalidate parent size and display list
-                // since we are not going to detect a change in measured sizes during measure.
-                invalidateParentSizeAndDisplayList();
-            }
             
-            super.scaleY = oldScaleY = _scaleY;
+			oldScaleY = sY;
         }
 
         if (x != oldX || y != oldY)
@@ -5862,7 +6122,7 @@ public class UIComponent extends FlexSprite
             errorStringChanged = false;
             setBorderColorForErrorString();
         }
-       
+        
     }
 
     //--------------------------------------------------------------------------
@@ -6331,6 +6591,11 @@ public class UIComponent extends FlexSprite
      */
     public function validateDisplayList():void
     {
+        if(_xformOffsets != null && _xformOffsets.updatePending == true)
+        {
+         	validateTransform();   	
+        }
+
         if (invalidateDisplayListFlag)
         {
             // Check if our parent is the top level system manager
@@ -6660,23 +6925,32 @@ public class UIComponent extends FlexSprite
     public function move(x:Number, y:Number):void
     {
         var changed:Boolean = false;
-
-        if (x != super.x)
+		
+        if (x != this.x)
         {
-            super.x = x;
+	        if(_xformOffsets == null)
+		        super.x  = x;
+		else
+        		_xformOffsets.layoutX = x;		
             dispatchEvent(new Event("xChanged"));
             changed = true;
         }
 
-        if (y != super.y)
+        if (y != this.y)
         {
-            super.y = y;
+	        if(_xformOffsets == null)
+		        super.y  = y;
+		else
+        		_xformOffsets.layoutY = y;
             dispatchEvent(new Event("yChanged"));
             changed = true;
         }
 
         if (changed)
+        {
+      	    invalidateTransform();
             dispatchMoveEvent();
+        }
     }
 
     /**
@@ -7608,6 +7882,7 @@ public class UIComponent extends FlexSprite
                _inheritingStyles[styleProp] :
                _nonInheritingStyles[styleProp];
     }
+    
 
     /**
      *  Sets a style property on this component instance.
@@ -9122,6 +9397,241 @@ public class UIComponent extends FlexSprite
             return super.mouseY;
         return globalToLocal(new Point(0, root[fakeMouseY])).y;
     }
+	
+	
+	/**
+	 * Documentation is not currently available
+	 */
+	protected function allocateOffsets():void
+	{
+		var at:TransformOffset = new TransformOffset();
+		at.addEventListener(Event.CHANGE,transformOffsetsChangedHandler)
+		at.userVisible = false;
+		at.layoutScaleX = scaleX;
+		at.layoutScaleY = scaleY;
+		at.layoutScaleZ = scaleZ;
+		at.layoutRotationX = rotationX;
+		at.layoutRotationY = rotationY;
+		at.layoutRotationZ = rotation;
+		at.layoutX = x;
+		at.layoutY = y;
+		at.layoutZ = z;
+		_xformOffsets = at;
+		invalidateTransform();
+	}
+	
+
+    
+    private function setTransform(value:flash.geom.Transform):void
+    {
+        // Clean up the old event listeners
+        var oldTransform:mx.geom.Transform = _transform as mx.geom.Transform;       
+        if (oldTransform)
+        {
+            oldTransform.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
+        }
+        
+        var newTransform:mx.geom.Transform = value as mx.geom.Transform;
+        
+        if (newTransform)
+        {   
+            newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
+        }
+    
+        _transform = value; 
+    } 
+
+    private function assignTransformMatrices():void
+    {
+			var m:Matrix = _transform.matrix;
+			var m3:Matrix3D =  _transform.matrix3D;
+			if(m != null)
+				matrix = m.clone();
+			else if(m3 != null)
+				matrix3D = m3.clone();
+			
+			invalidateSize();
+    }
+    
+	/**
+	 * Documentation is not currently available
+	 */
+    public function get $transform():flash.geom.Transform
+    {
+    	return super.transform;
+    }
+    
+	/**
+	 * Documentation is not currently available
+	 */
+    override public function get transform():flash.geom.Transform
+    {
+    	if(_transform == null)
+    	{
+    		setTransform(new mx.geom.Transform(this));
+    	}
+    	return _transform;
+    }
+
+    override public function set transform(value:flash.geom.Transform):void
+    {
+    	setTransform(value);	
+
+        assignTransformMatrices();
+        super.transform.colorTransform = value.colorTransform; 
+    }
+
+    
+
+    private function transformPropertyChangeHandler(event:PropertyChangeEvent):void
+    {
+        if (event.kind == PropertyChangeEventKind.UPDATE)
+        {           
+            if (event.property == "matrix" || event.property == "matrix3D")
+            {
+            	assignTransformMatrices();
+            }
+            else if (event.property == "colorTransform")
+            {
+            	super.transform.colorTransform = _transform.colorTransform;
+            }
+        }
+    }
+
+	/**
+	 * Documentation is not currently available
+	 */
+ 	public function set offsets(value:TransformOffset):void
+	{
+		if(value == null && _xformOffsets != null)
+		{
+			value = new TransformOffset();
+			value.userVisible = false;
+			value.initFrom(_xformOffsets);
+		}
+		else if (value != null)
+		{
+			if(_xformOffsets != null)
+				value.initFrom(_xformOffsets);
+		}
+		if(_xformOffsets != null)
+			_xformOffsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+		_xformOffsets = value;
+		if(_xformOffsets != null)
+			_xformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+	}
+	
+	/**
+	 * @private
+	 */
+	public function get offsets():TransformOffset
+	{
+		return (_xformOffsets != null && _xformOffsets.userVisible == true)? _xformOffsets:null;
+	}
+	
+	/**
+	 * Documentation is not currently available.  the matrix of a component is the transform matrix used to calculate its layout
+	 * relative to its siblings. This matrix is modified by the values of the offset property to determine its final, computed matrix.
+	 */
+	public function get matrix():Matrix
+	{
+		if(_xformOffsets != null)
+		{
+			return _xformOffsets.layoutMatrix;			
+		}
+		else
+		{
+			return super.transform.matrix;
+		}
+	}
+
+	/**
+	 * @private
+	 */
+	public function set matrix(value:Matrix):void
+	{
+		if(_xformOffsets == null)
+		{ 
+			super.transform.matrix = value;
+            invalidateSize();
+		}
+		else
+		{
+			_xformOffsets.matrix = value;
+	   		invalidateTransform();
+	   		invalidateParentSizeAndDisplayList();
+  		}
+	}
+
+	/**
+	 * Documentation is not currently available.  the matrix of a component is the transform matrix used to calculate its layout
+	 * relative to its siblings. This matrix is modified by the values of the offset property to determine its final, computed matrix.
+	 */
+	public function set matrix3D(value:Matrix3D):void
+	{
+		if(_xformOffsets == null) allocateOffsets();
+		_xformOffsets.matrix3D = value;
+		invalidateTransform();
+   		invalidateParentSizeAndDisplayList();
+	}
+
+	/**
+	 * @private
+	 */
+	public function get matrix3D():Matrix3D
+	{
+		if(_xformOffsets == null) allocateOffsets();
+		return _xformOffsets.layoutMatrix3D;			
+	}
+
+	
+	/**
+	 * Documentation is not currently available
+	 */
+	public function get layer():Number
+	{
+		return (_xformOffsets == null)? 0:_xformOffsets.layer;
+	}
+
+	[Bindable("layerChange")]
+	/**
+	 * @private
+	 */
+	public function set layer(value:Number):void
+	{
+		if(value == layer)
+			return;
+		if(_xformOffsets == null) allocateOffsets();
+		_xformOffsets.layer = value;		
+		dispatchEvent(new FlexEvent("layerChange"));
+		if(parent != null && parent is UIComponent)
+			(parent as UIComponent).invalidateLayering();
+	}
+	
+	/**
+	 * Documentation is not currently available. 
+	 */
+    public function invalidateLayering():void
+    {
+    	
+    }
+	
+	/**
+	 * Documentation is not currently available.
+	 * Commits the computed transform stored in the xformOffsets object to the flash displayObject's transform. 
+	 */
+	protected function validateTransform():void
+	{
+		_xformOffsets.updatePending = false;
+		if(_xformOffsets.computedIs3D)
+		{
+			super.transform.matrix3D = _xformOffsets.computedMatrix3D;				
+		}
+		else
+		{
+			super.transform.matrix = _xformOffsets.computedMatrix;
+		}
+	}
 
 }
 
