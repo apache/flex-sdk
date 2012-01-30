@@ -583,6 +583,7 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
     //--------------------------------------------------------------------------
         
     /**
+     *  @private
      *  Any time a display object gets added, let's see if this is a child 
      *  that belongs to use and needs to be initialized.  Also if it is 
      *  the contentHolder, let's stuff the content down into it.
@@ -624,6 +625,7 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
     }
     
     /**
+     *  @private
      *  Any time a display object gets removed, let's see if this child
      *  is the contentHolder.  If it is, let's null out our reference to 
      *  _contentHolder.
