@@ -20,6 +20,7 @@ use namespace flash_proxy;
 [ExcludeClass]
 
 /**
+ *  @private
  *  This class represents a single cache entry, this gets created
  *  as part of the <code>describeType</code> method call on the 
  *  <code>DescribeTypeCache</code>  class.
@@ -27,94 +28,94 @@ use namespace flash_proxy;
 
 public dynamic class DescribeTypeCacheRecord extends Proxy
 {
-	//--------------------------------------------------------------------------
-	//
-	//  Class variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var cache:Object = {};
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Class properties
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  @private
+     */
+    private var cache:Object = {};
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  typeDescription
-	//----------------------------------
+    //----------------------------------
+    //  typeDescription
+    //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	public var typeDescription:XML;
-	
-	//----------------------------------
-	//  typeName
-	//----------------------------------
+    /**
+     *  @private
+     */
+    public var typeDescription:XML;
+    
+    //----------------------------------
+    //  typeName
+    //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	public var typeName:String;
+    /**
+     *  @private
+     */
+    public var typeName:String;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	public function DescribeTypeCacheRecord()
-	{
-		super();
-	}
+    /**
+     *  @private
+     */
+    public function DescribeTypeCacheRecord()
+    {
+        super();
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override flash_proxy function getProperty(name:*):*
-	{
-		var result:* = cache[name];
-		
-		if (result === undefined)
-		{
-			result = DescribeTypeCache.extractValue(name, this);
-			cache[name] = result;
-		}
-		
-		return result;
-	}
+    /**
+     *  @private
+     */
+    override flash_proxy function getProperty(name:*):*
+    {
+        var result:* = cache[name];
+        
+        if (result === undefined)
+        {
+            result = DescribeTypeCache.extractValue(name, this);
+            cache[name] = result;
+        }
+        
+        return result;
+    }
 
-	/**
-	 *  @private
-	 */
-	override flash_proxy function hasProperty(name:*):Boolean
-	{
-		if (name in cache)
-			return true;
-		
-		var value:* = DescribeTypeCache.extractValue(name, this);		
-		
-		if (value === undefined)
-			return false;
-		
-		cache[name] = value;
-		
-		return true;
-	}
+    /**
+     *  @private
+     */
+    override flash_proxy function hasProperty(name:*):Boolean
+    {
+        if (name in cache)
+            return true;
+        
+        var value:* = DescribeTypeCache.extractValue(name, this);       
+        
+        if (value === undefined)
+            return false;
+        
+        cache[name] = value;
+        
+        return true;
+    }
 }
 
 }
