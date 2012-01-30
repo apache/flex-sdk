@@ -19,8 +19,4 @@
 
 <component id="AutomationFlexNativeMenuEvent" class="mx.automation.events.AutomationFlexNativeMenuEvent"/>
 
-
-<component id="sparkWindowAutomationImpl" class="spark.automation.delegates.components.SparkWindowAutomationImpl"/>  
-<component id="sparkWindowedApplicationAutomationImpl" class="spark.automation.delegates.components.SparkWindowedApplicationAutomationImpl"/>
-
 </componentPackage>
