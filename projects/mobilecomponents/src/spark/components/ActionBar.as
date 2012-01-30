@@ -35,7 +35,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default "center"
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -47,7 +46,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0x0099FF
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -59,7 +57,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 1.0
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -71,7 +68,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 1.0
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -83,7 +79,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0xFFFFFF
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -95,7 +90,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0x70B2EE
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -107,7 +101,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -119,7 +112,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -131,7 +123,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -143,7 +134,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -155,7 +145,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0xFFFFFF
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
@@ -167,7 +156,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0.55
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
@@ -185,7 +173,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default ActionBarDefaultButtonAppearance.NORMAL
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -200,7 +187,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  skin part and no content
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -212,7 +198,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  property for display in the <code>actionGroup</code> skin part.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -224,7 +209,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  property for display in the <code>navigationGroup</code> skin part.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -237,7 +221,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  the <code>navigationGroup</code> skin part.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -248,7 +231,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  skin part, but not in the <code>titleDisplay</code> skin part.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -260,7 +242,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  property for display in the <code>actionGroup</code> skin part.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -273,7 +254,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  property for display in the <code>navigationGroup</code> skin part.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -286,7 +266,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  the <code>navigationGroup</code> skin part.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -384,7 +363,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @see spark.skins.mobile.ActionBarSkin
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -443,7 +421,6 @@ public class ActionBar extends SkinnableComponent
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -475,7 +452,6 @@ public class ActionBar extends SkinnableComponent
      *  @see spark.skins.mobile.ActionBarSkin
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -492,7 +468,6 @@ public class ActionBar extends SkinnableComponent
      *  @see spark.skins.mobile.ActionBarSkin
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -509,7 +484,6 @@ public class ActionBar extends SkinnableComponent
      *  @see spark.skins.mobile.ActionBarSkin
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -533,7 +507,6 @@ public class ActionBar extends SkinnableComponent
      *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4
      */
@@ -560,7 +533,6 @@ public class ActionBar extends SkinnableComponent
      *  @see #titleContent
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -611,7 +583,6 @@ public class ActionBar extends SkinnableComponent
      *  @see #navigationLayout
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -654,7 +625,6 @@ public class ActionBar extends SkinnableComponent
      *  @see #navigationContent
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -714,7 +684,6 @@ public class ActionBar extends SkinnableComponent
      *  @see #titleLayout
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -767,7 +736,6 @@ public class ActionBar extends SkinnableComponent
      *  @see #titleContent
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -820,7 +788,6 @@ public class ActionBar extends SkinnableComponent
      *  @see #actionLayout
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -863,7 +830,6 @@ public class ActionBar extends SkinnableComponent
      *  @see #actionContent
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -948,7 +914,6 @@ public class ActionBar extends SkinnableComponent
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
