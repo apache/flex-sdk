@@ -58,6 +58,29 @@ public class EmbeddedFont
 	//--------------------------------------------------------------------------
 
     //----------------------------------
+    //  bold
+    //----------------------------------
+
+	/**
+	 *  @private
+	 *  Storage for the bold property.
+	 */
+	private var _bold:Boolean;
+	
+	/**
+	 *  True if the font is bold
+	 *  
+	 *  @langversion 4.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function get bold():Boolean
+	{
+		return _bold;	
+	}
+
+    //----------------------------------
     //  fontName
     //----------------------------------
 
@@ -79,7 +102,7 @@ public class EmbeddedFont
 	{
 		return _fontName;	
 	}
-	
+
     //----------------------------------
     //  fontStyle
     //----------------------------------
@@ -104,6 +127,29 @@ public class EmbeddedFont
 		return _fontStyle;	
 	}
 	
+    //----------------------------------
+    //  italic
+    //----------------------------------
+
+	/**
+	 *  @private
+	 *  Storage for the italic property.
+	 */
+	private var _italic:Boolean;
+	
+	/**
+	 *  True if the font is italic
+	 *  
+	 *  @langversion 4.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function get italic():Boolean
+	{
+		return _italic;	
+	}
+	
 	//--------------------------------------------------------------------------
 	//
 	//  Initialize
@@ -116,6 +162,8 @@ public class EmbeddedFont
 	public function initialize(fontName:String, bold:Boolean,
 							   italic:Boolean):void
 	{
+        _bold = bold;
+        _italic = italic;
 		_fontName = fontName;
 		_fontStyle = EmbeddedFontRegistry.getInstance().getFontStyle(bold, italic);
 }
