@@ -365,6 +365,10 @@ public class MatrixUtil
                                                          maxX:Number, 
                                                          maxY:Number):Point
     {
+        // Make sure preferredX, preferredY are between minX and maxX
+        preferredX = Math.max(minX, Math.min(maxX, preferredX));
+        preferredY = Math.max(minY, Math.min(maxY, preferredY));
+        
         // Untransformed bounds size is (x,y). The corners of the untransformed
         // bounding box are p1(0,0) p2(x,0) p3(0,y) p4(x,y).
         // Matrix is | a c tx |
@@ -519,6 +523,10 @@ public class MatrixUtil
                                                         maxX:Number,
                                                         maxY:Number):Point
     {
+        // Make sure preferredX, preferredY are between minX and maxX
+        preferredX = Math.max(minX, Math.min(maxX, preferredX));
+        preferredY = Math.max(minY, Math.min(maxY, preferredY));
+        
         // Untransformed bounds size is (x,y). The corners of the untransformed
         // bounding box are p1(0,0) p2(x,0) p3(0,y) p4(x,y).
         // Matrix is | a c tx |
