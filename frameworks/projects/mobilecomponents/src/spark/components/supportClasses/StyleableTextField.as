@@ -12,7 +12,6 @@
 package spark.components.supportClasses
 {
 
-import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
@@ -26,6 +25,7 @@ import flash.geom.Point;
 import flash.geom.Vector3D;
 import flash.text.Font;
 import flash.text.TextField;
+import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
@@ -35,6 +35,7 @@ import flash.ui.Keyboard;
 import flash.utils.Dictionary;
 
 import mx.core.DesignLayer;
+import mx.core.FlexGlobals;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -42,11 +43,14 @@ import mx.events.FlexEvent;
 import mx.events.TouchInteractionEvent;
 import mx.events.TouchInteractionReason;
 import mx.geom.TransformOffsets;
+import mx.managers.SystemManager;
 import mx.resources.ResourceManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
+import mx.utils.MatrixUtil;
 
+import spark.components.Application;
 import spark.components.Scroller;
 import spark.core.IEditableText;
 import spark.events.TextOperationEvent;
@@ -179,7 +183,8 @@ public class StyleableTextField extends TextField
     //  Properties
     //
     //--------------------------------------------------------------------------
-    override public function set width(value:Number): void
+    
+    override public function set width(value:Number):void
     {
         super.width = value;
         
@@ -206,47 +211,70 @@ public class StyleableTextField extends TextField
         
         if (invalidateTextSizeFlag)
         {
-            // size always includes textIndent and TextField gutters
-            var textIndent:Number = getStyle("textIndent");
-            const m:Matrix = transform.concatenatedMatrix;
+            var textScaleX:Number = 1;
+            var textScaleY:Number = 1;
             
-            // short circuit scaling workaround if off stage, using embedded fonts, or no scaling
-            if (!stage || embedFonts || (m.a == 1 && m.d == 1))
+            // concatenatedMatrix is not valid when off the stage
+            if (!stage)
             {
-                _measuredTextSize.x = textWidth + textIndent + TEXT_WIDTH_PADDING
-                _measuredTextSize.y = textHeight + TEXT_HEIGHT_PADDING;
+                var application:Application = (FlexGlobals.topLevelApplication as Application);
+                var sm:SystemManager = (application) ? (application.systemManager as SystemManager) : null;
+                
+                if (sm)
+                {
+                    textScaleX = sm.densityScale;
+                    textScaleY = sm.densityScale; 
+                }
             }
             else
             {
-                // when scaling, remove/add to stage for consistent measurement
-                var originalParent:DisplayObjectContainer = parent;
-                var index:int = parent.getChildIndex(this);
-                
-                // remove from display list
-                if (originalParent is UIComponent)
-                    UIComponent(originalParent).$removeChild(this);
-                else
-                    originalParent.removeChild(this);
-                
-                _measuredTextSize.x = textWidth + textIndent + TEXT_WIDTH_PADDING
+                MatrixUtil.decomposeMatrix(decomposition, transform.concatenatedMatrix, 0, 0);
+                textScaleX = decomposition[3]
+                textScaleY = decomposition[4]
+            }
+            
+            // short circuit measurement when not scaling
+            if (embedFonts || (textScaleX == 1 && textScaleY == 1))
+            {
+                _measuredTextSize.x = textWidth + TEXT_WIDTH_PADDING
                 _measuredTextSize.y = textHeight + TEXT_HEIGHT_PADDING;
                 
-                // add to display list
-                if (originalParent is UIComponent)
-                    UIComponent(originalParent).$addChildAt(this, index);
-                else
-                    originalParent.addChildAt(this, index);
+                // add textIndent for single line only
+                if (!multiline)
+                    _measuredTextSize.x += getStyle("textIndent");
+            }
+            else
+            {
+                // Use TextFieldAutoSize.LEFT to compact the text field. 
+                // Using autoSize will change the current size.
+                // Must save, then restore current state.
+                var oldWidth:Number = width;
+                var oldHeight:Number = height;
+                var oldAutoSize:String = autoSize;
+                var oldScaleX:Number = this.scaleX;
+                var oldScaleY:Number = this.scaleY;
+                autoSize = TextFieldAutoSize.LEFT;
                 
-                // If we use device fonts, then the unscaled sizes are
-                // textWidth * scaleX / scaleY
-                // textHeight * scaleX / scaleY
-                if (m.a != m.d)
+                // apply application scale factor
+                this.scaleX *= textScaleX;
+                this.scaleY *= textScaleY;
+            
+                // apply inverse scaling on the on the scaled TextField size
+                // this accounts for font scaling behavior in the player
+                _measuredTextSize.x = Math.round(width / textScaleX);
+                _measuredTextSize.y = Math.round(height / textScaleY);
+                
+                // remove application scale factor
+                this.scaleX = oldScaleX;
+                this.scaleY = oldScaleY;
+                
+                // restore previous size
+                autoSize = oldAutoSize;
+                
+                if (autoSize == TextFieldAutoSize.NONE)
                 {
-                    var scaleFactor:Number = (m.a / m.d);
-                    
-                    // textIndent and gutter are also scaled
-                    _measuredTextSize.x = Math.abs(_measuredTextSize.x * scaleFactor);
-                    _measuredTextSize.y = Math.abs(_measuredTextSize.y * scaleFactor);
+                    super.width = oldWidth;
+                    super.height = oldHeight;
                 }
             }
             
@@ -1485,7 +1513,7 @@ public class StyleableTextField extends TextField
         
         // re-add the top and bottom offsets.  (measuredTextSize.y - tightTextHeight) gives us
         // the sum of top and bottom offsets
-        if (useTightTextBounds)
+        if (useTightTextBounds && (measuredTextSize.y > tightTextHeight))
             newHeight += (measuredTextSize.y - tightTextHeight);
         
         this.height = newHeight;
@@ -1935,12 +1963,17 @@ public class StyleableTextField extends TextField
     
     private static var embeddedFonts:Array;
     
-    
     /**
      *  @private
      *  Table of text top offsets for different fonts, sizes, weights and styles
      */
     private static var textTopOffsetTable:Dictionary = new Dictionary();
+    
+    /**
+     *  @private
+     *  For text measurement when scaling
+     */
+    private static var decomposition:Vector.<Number> = new <Number>[0,0,0,0,0];
     
     /**
      *  @private
