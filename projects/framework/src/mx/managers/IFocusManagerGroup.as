@@ -21,6 +21,11 @@ package mx.managers
  *  can only have one RadioButton selected at any one time,
  *  and the FocusManager will make sure not to give focus to the RadioButtons
  *  that are not selected in response to moving focus via the Tab key.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IFocusManagerGroup
 {
@@ -36,6 +41,11 @@ public interface IFocusManagerGroup
 
 	/**
 	 *	The name of the group of controls to which the control belongs.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get groupName():String;
 
@@ -50,6 +60,11 @@ public interface IFocusManagerGroup
 
 	/**
 	 *	A flag that indicates whether this control is selected.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get selected():Boolean;
 
