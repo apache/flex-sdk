@@ -225,11 +225,11 @@ public class CartesianChart extends ChartBase
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false;
-	
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false;
+    
     /**
      *  @private
      */
@@ -506,7 +506,7 @@ public class CartesianChart extends ChartBase
     
     [Inspectable(category="Data")]
     /**
-	 *  @private
+     *  @private
      *  Specifies how data appears along the x-axis of a chart.
      *  Use the AxisRenderer class to define the properties
      *  for horizontalAxisRenderer as a child tag in MXML
@@ -681,7 +681,7 @@ public class CartesianChart extends ChartBase
     
     [Inspectable(category="Data")]
     
-	/**
+    /**
      *  Specifies how data appears along the y-axis of a chart.
      *  Use the AxisRenderer class to set the properties
      *  for verticalAxisRenderer as a child tag in MXM
@@ -777,31 +777,31 @@ public class CartesianChart extends ChartBase
         
         invalidateProperties();
     }
-	
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var cartesianChartStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.chartClasses.CartesianChart", styleManager);
-		
-		cartesianChartStyle.defaultFactory = function():void
-		{
-			this.axisColor = 0xD5DEDD;
-			this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;
-			this.dataTipRenderer = DataTip;
-			this.fill = new SolidColor(0xFFFFFF, 0);
-			this.calloutStroke = new Stroke(0x888888,2);            
-			this.fontSize = 10;
-			this.horizontalAxisStyleNames = ["blockCategoryAxis"];
-			this.verticalAxisStyleNames = ["blockNumericAxis"];
-		}
-		
-		return true;
-	}
+    
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var cartesianChartStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.chartClasses.CartesianChart", styleManager);
+        
+        cartesianChartStyle.defaultFactory = function():void
+        {
+            this.axisColor = 0xD5DEDD;
+            this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;
+            this.dataTipRenderer = DataTip;
+            this.fill = new SolidColor(0xFFFFFF, 0);
+            this.calloutStroke = new Stroke(0x888888,2);            
+            this.fontSize = 10;
+            this.horizontalAxisStyleNames = ["blockCategoryAxis"];
+            this.verticalAxisStyleNames = ["blockNumericAxis"];
+        }
+        
+        return true;
+    }
 
     
     //--------------------------------------------------------------------------
@@ -810,31 +810,31 @@ public class CartesianChart extends ChartBase
     //
     //--------------------------------------------------------------------------
 
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		
-		// our style settings
-		initStyles();
-		styleManager.registerInheritingStyle("axisTitleStyleName");
-	}
+    
+    /**
+     *   A module factory is used as context for using embedded fonts and for finding the style manager that controls the styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        
+        // our style settings
+        initStyles();
+        styleManager.registerInheritingStyle("axisTitleStyleName");
+    }
 
-		
+        
     /**
      *  @inheritDoc
      *  
