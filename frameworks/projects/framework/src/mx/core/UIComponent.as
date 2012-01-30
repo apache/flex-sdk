@@ -7672,8 +7672,22 @@ public class UIComponent extends FlexSprite
         var destination:State = getState(requestedCurrentState);
 
         // Stop any transition that may still be playing
+        var prevTransitionFraction:Number;
         if (_currentTransitionEffect)
+        {
+            if (_currentTransitionEffect.autoReverse &&
+                _currentTransitionEffect.fromState == requestedCurrentState &&
+                _currentTransitionEffect.toState == _currentState)
+            {
+                if (_currentTransitionEffect.duration == 0)
+                    prevTransitionFraction = 0;
+                else
+                    prevTransitionFraction = 
+                        _currentTransitionEffect.playheadTime /
+                        _currentTransitionEffect.duration;
+            }
             _currentTransitionEffect.end();
+        }
 
         // Initialize the state we are going to.
         initializeState(requestedCurrentState);
@@ -7719,7 +7733,11 @@ public class UIComponent extends FlexSprite
             UIComponentGlobals.layoutManager.validateNow();
             _currentTransitionEffect = transition;
             transition.addEventListener(EffectEvent.EFFECT_END, transition_effectEndHandler);
+            transition.fromState = oldState;
+            transition.toState = _currentState;
             transition.play();
+            if (!isNaN(prevTransitionFraction) && transition.duration != 0)
+                transition.seek((1 - prevTransitionFraction) * transition.duration);
         }
     }
 
