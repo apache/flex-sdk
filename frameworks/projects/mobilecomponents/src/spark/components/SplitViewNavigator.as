@@ -65,7 +65,7 @@ use namespace mx_internal;
  *  Because its children are view navigators, the view navigator for each 
  *  pane contains its own view stack and action bar.
  *
- *  <p>The following images shows the SplitViewNavigator container in a 
+ *  <p>The following image shows the SplitViewNavigator container in a 
  *  horizontal layout with a master and detail pane:</p>
  *
  * <p>
