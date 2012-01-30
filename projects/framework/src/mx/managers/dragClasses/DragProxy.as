@@ -21,6 +21,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.system.ApplicationDomain;
+import flash.utils.getQualifiedClassName;
 import mx.core.DragSource;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
@@ -98,11 +99,7 @@ public class DragProxy extends UIComponent
 		super.initialize();
 
 		// in case we go offscreen
-		dragInitiator.systemManager.addEventListener(MarshalMouseEvent.MOUSE_MOVE, 
-												     stage_mouseMoveHandler);
-
-		// in case we go offscreen
-		dragInitiator.systemManager.addEventListener(MarshalMouseEvent.MOUSE_UP, 
+		ISystemManager2(dragInitiator.systemManager).getSandboxRoot().addEventListener(MarshalMouseEvent.MOUSE_UP, 
 													 mouseLeaveHandler);
 
 		// Make sure someone has focus, otherwise we
@@ -346,9 +343,8 @@ public class DragProxy extends UIComponent
 		// in trusted mode, the target could be in another application domain
 		// in untrusted mode, the mouse events shouldn't work so we shouldn't be here
 
-		var appDom:ApplicationDomain = target.loaderInfo.applicationDomain;
 		// same domain
-		if (isSameSandbox(appDom))
+		if (isSameSandbox(target))
 			target.dispatchEvent(event);
 		else
 		{
@@ -363,14 +359,16 @@ public class DragProxy extends UIComponent
 		}
 	}
 
-	private function isSameSandbox(ad:ApplicationDomain):Boolean
+	private function isSameSandbox(target:Object):Boolean
 	{
-		if (ad == ApplicationDomain.currentDomain) return true;
+		var ad:ApplicationDomain = ApplicationDomain.currentDomain;
 
-		if (ad.hasDefinition("mx.managers.dragClasses.DragProxy"))
+		var cn:String = getQualifiedClassName(target);
+
+		if (ad.hasDefinition(cn))
 		{
-			var c:Class = Class(ad.getDefinition("mx.managers.dragClasses.DragProxy"));
-			if (this is c)
+			var c:Class = Class(ad.getDefinition(cn));
+			if (target is c)
 				return true;
 		}
 		return false;
@@ -534,10 +532,6 @@ public class DragProxy extends UIComponent
 		ed.removeEventListener(MouseEvent.MOUSE_MOVE,
                                mouseMoveHandler, true);
 
-		// in case we go offscreen
-		sm.removeEventListener(MarshalMouseEvent.MOUSE_MOVE, 
-							stage_mouseMoveHandler);
-
         ed.removeEventListener(MouseEvent.MOUSE_UP,
                                mouseUpHandler, true);
 
@@ -545,7 +539,7 @@ public class DragProxy extends UIComponent
                                keyDownHandler);
 
 		// in case we go offscreen
-		sm.removeEventListener(MarshalMouseEvent.MOUSE_UP, 
+		ed.removeEventListener(MarshalMouseEvent.MOUSE_UP, 
 							   mouseLeaveHandler);
 
         ed.removeEventListener(KeyboardEvent.KEY_UP,
