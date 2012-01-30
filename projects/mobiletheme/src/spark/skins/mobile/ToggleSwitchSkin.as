@@ -34,13 +34,16 @@ import spark.skins.mobile320.assets.ToggleSwitch_contentShadow;
 use namespace mx_internal;
 
 /**
- *  ActionScript-based skin for ToggleSwitch. The colors of the component can
+ *  ActionScript-based skin for the ToggleSwitch control. 
+ *  The colors of the component can
  *  be customized using styles. This class is responsible for most of the
  *  graphics drawing, with some additional fxg assets.
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
  *  @productversion Flex 4.5.2
+ *
+ *  @see spark.components.ToggleSwitch 
  */
 public class ToggleSwitchSkin extends MobileSkin
 {
@@ -50,7 +53,7 @@ public class ToggleSwitchSkin extends MobileSkin
     //
     //----------------------------------------------------------------------------------------------
     /**
-     *  Constructor
+     *  Constructor.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -113,7 +116,7 @@ public class ToggleSwitchSkin extends MobileSkin
     //----------------------------------------------------------------------------------------------
     
     /**
-     *  The width used to draw the thumb skin part
+     *  The width to draw the thumb skin part.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -122,7 +125,7 @@ public class ToggleSwitchSkin extends MobileSkin
     protected var layoutThumbWidth:Number;
     
     /**
-     *  The height used to draw the thumb skin part
+     *  The height to draw the thumb skin part.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -131,7 +134,7 @@ public class ToggleSwitchSkin extends MobileSkin
     protected var layoutThumbHeight:Number;
     
     /**
-     *  The corner radius of the thumb and track
+     *  The corner radius of the thumb and track.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -140,7 +143,7 @@ public class ToggleSwitchSkin extends MobileSkin
     protected var layoutCornerEllipseSize:Number;
     
     /**
-     * The stroke weight outlining the graphics of the skin
+     *  The stroke weight outlining the graphics of the skin.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -149,7 +152,7 @@ public class ToggleSwitchSkin extends MobileSkin
     protected var layoutStrokeWeight:Number;
     
     /**
-     *  The size of the border surrounding the component
+     *  The size of the border surrounding the component.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -158,7 +161,7 @@ public class ToggleSwitchSkin extends MobileSkin
     protected var layoutBorderSize:Number;
     
     /**
-     * The padding between the labels and the thumb
+     *  The padding between the labels and the thumb.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -167,7 +170,7 @@ public class ToggleSwitchSkin extends MobileSkin
     protected var layoutInnerPadding:Number;
     
     /**
-     * The padding between the labels and the edge of the track
+     *  The padding between the labels and the edge of the track.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -176,7 +179,7 @@ public class ToggleSwitchSkin extends MobileSkin
     protected var layoutOuterPadding:Number;
     
     /**
-     * The offset between a label and its shadow
+     *  The offset between a label and its shadow.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -185,8 +188,8 @@ public class ToggleSwitchSkin extends MobileSkin
     protected var layoutTextShadowOffset:Number;
     
     /**
-     *  The label for the selected side of the component
-     *  Exposed for styling purposes only
+     *  The label for the selected side of the component.
+     *  Exposed for styling purposes only.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -195,8 +198,8 @@ public class ToggleSwitchSkin extends MobileSkin
     public var selectedLabelDisplay:LabelDisplayComponent;
     
     /**
-     *  The label for the unselected side of the component
-     *  Exposed for styling purposes only
+     *  The label for the unselected side of the component.
+     *  Exposed for styling purposes only.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -206,7 +209,8 @@ public class ToggleSwitchSkin extends MobileSkin
     
     /**
      *  The content clipped by the track that slides to match the thumb's
-     *  position. Contents include a background and the (un)selected labels.
+     *  position. 
+     *  Contents include a background and the (un)selected labels.
      *  The sliding content is stacked, from back to front, as background,
      *  shadow, foreground.
      */
@@ -228,7 +232,7 @@ public class ToggleSwitchSkin extends MobileSkin
     //----------------------------------------------------------------------------------------------
     
     /**
-     *  The thumb skin part
+     *  The thumb skin part.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -237,7 +241,7 @@ public class ToggleSwitchSkin extends MobileSkin
     public var thumb:IVisualElement;
     
     /**
-     *  The track skin part
+     *  The track skin part.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -308,7 +312,7 @@ public class ToggleSwitchSkin extends MobileSkin
     private var _selectedLabel:String;
     /**
      *  The text of the label showing when the component is selected.
-     *  Subclasses can set or override this to customize the selected label.
+     *  Subclasses can set or override this property to customize the selected label.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -331,7 +335,7 @@ public class ToggleSwitchSkin extends MobileSkin
     private var _unselectedLabel:String;
     /**
      *  The text of the label showing when the component is not selected.
-     *  Subclasses can set or override this to customize the unselected label.
+     *  Subclasses can set or override this property to customize the unselected label.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
