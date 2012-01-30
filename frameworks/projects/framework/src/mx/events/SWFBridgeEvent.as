@@ -135,6 +135,32 @@ public class SWFBridgeEvent extends Event
     public static const BRIDGE_WINDOW_DEACTIVATE:String =
 		"brdigeWindowDeactivate";
 
+	/**
+	 *	Dispatched to a parent bridge or sandbox root to notify it that
+	 *  the AIR window was activated.
+	 * 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+    public static const BRIDGE_AIR_WINDOW_ACTIVATE:String =
+		"bridgeAIRWindowActivate";
+
+	/**
+	 *	Dispatched to a parent bridge or sandbox root to notify it that
+	 *	the AIR window was deactivated.
+	 * 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+    public static const BRIDGE_AIR_WINDOW_DEACTIVATE:String =
+		"bridgeAIRWindowDeactivate";
+
     //--------------------------------------------------------------------------
     //
     //  Class methods
