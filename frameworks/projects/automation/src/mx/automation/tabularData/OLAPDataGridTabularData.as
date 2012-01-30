@@ -11,7 +11,7 @@
 
 package mx.automation.tabularData
 {
-	
+	import mx.automation.Automation;
 	import mx.collections.ArrayCollection;
 	import mx.controls.OLAPDataGrid;
 	import mx.controls.advancedDataGridClasses.AdvancedDataGridColumn;
@@ -141,16 +141,18 @@ package mx.automation.tabularData
 			// get column count      
 			var columnCount:int = columns.length - rowHeaderCount;
 			
-			
+			var message:String;
 			// check for the validity of the start and the end index
 			if (rowInex <  0) 
 			{
-				trace (" the start Index is less than zero. set it to zero");
+				message = " the start Index is less than zero. set it to zero";
+				Automation.automationDebugTracer.traceMessage("OLAPDataGridTabularData", "getValues()", message);
 				rowInex = 0;
 			}
 			if (endRowIndex > rowCount)
 			{
-				trace (" the end Index is greater than rowCount. set it to maxValue");
+				message = " the end Index is greater than rowCount. set it to maxValue";
+				Automation.automationDebugTracer.traceMessage("OLAPDataGridTabularData", "getValues()", message);
 				endRowIndex = rowCount;
 			} 
 			
