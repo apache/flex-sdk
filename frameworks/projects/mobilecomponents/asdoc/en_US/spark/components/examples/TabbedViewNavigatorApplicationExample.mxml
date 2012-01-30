@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate TabbedViewNavigatorApplication component -->
+<s:TabbedViewNavigatorApplication 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <!-- ViewNavigatorBase components to be added as children of the tabbed navigator -->
+    <s:ViewNavigator width="100%" height="100%" label="Nav1" title="Home"/>
+    
+	<s:ViewNavigator width="100%" height="100%" label="Nav2">
+        <!-- ActionBar contents -->
+        <s:titleContent>
+          <s:TextInput width="331"/>
+        </s:titleContent>
+        <s:actionContent>
+          <s:Button label="Search"/>
+        </s:actionContent>
+    </s:ViewNavigator>
+</s:TabbedViewNavigatorApplication>
