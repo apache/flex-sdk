@@ -157,7 +157,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         container.addEventListener(FlexEvent.SHOW, showHandler);
         container.addEventListener(FlexEvent.HIDE, hideHandler);
         container.addEventListener(FlexEvent.HIDE, childHideHandler, true);
-        container.addEventListener(FlexEvent.VIEW_HIDE,viewHideHandler, true);
+        container.addEventListener("_navigationChange_",viewHideHandler, true);
         
         //special case application and window
         if (container.systemManager is SystemManager)
@@ -1784,7 +1784,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     /**
      *  @private
      */
-    private function viewHideHandler(event:FlexEvent):void
+    private function viewHideHandler(event:Event):void
     {
         // Target is the active view that is about to be hidden
         var target:DisplayObjectContainer = event.target as DisplayObjectContainer;
