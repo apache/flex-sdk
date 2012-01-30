@@ -11,13 +11,10 @@
 
 package spark.components
 {
-import flash.events.Event;
-
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
 
-import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.layouts.supportClasses.LayoutBase;
 
@@ -326,7 +323,10 @@ public class ActionBar extends SkinnableComponent
      */
     public function get navigationLayout():LayoutBase
     {
-        return (navigationGroup) ? navigationGroup.layout : contentGroupProperties[NAVIGATION_GROUP_PROPERTIES_INDEX].layout;
+        if (navigationGroup)
+            return navigationGroup.layout;
+        else
+            return contentGroupProperties[NAVIGATION_GROUP_PROPERTIES_INDEX].layout;
     }
     
     /**
@@ -339,10 +339,10 @@ public class ActionBar extends SkinnableComponent
             navigationGroup.layout = (value) ? value : contentGroupLayouts[NAVIGATION_GROUP_PROPERTIES_INDEX];
             contentGroupProperties[NAVIGATION_GROUP_PROPERTIES_INDEX] =
                 BitFlagUtil.update(contentGroupProperties[NAVIGATION_GROUP_PROPERTIES_INDEX] as uint, 
-                LAYOUT_PROPERTY_FLAG, true);
+                    LAYOUT_PROPERTY_FLAG, true);
         }
         else
-            contentGroupProperties.layout = value;
+            contentGroupProperties[NAVIGATION_GROUP_PROPERTIES_INDEX].layout = value;
     }
     
     //----------------------------------
@@ -427,7 +427,10 @@ public class ActionBar extends SkinnableComponent
      */
     public function get titleLayout():LayoutBase
     {
-        return (titleGroup) ? titleGroup.layout : contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX].layout;
+        if (titleGroup)
+            return titleGroup.layout;
+        else
+            return contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX].layout;
     }
     
     /**
@@ -443,7 +446,7 @@ public class ActionBar extends SkinnableComponent
                     LAYOUT_PROPERTY_FLAG, true);
         }
         else
-            contentGroupProperties.layout = value;
+            contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX].layout = value;
     }
     
     //----------------------------------
@@ -512,7 +515,10 @@ public class ActionBar extends SkinnableComponent
      */
     public function get actionLayout():LayoutBase
     {
-        return (actionGroup) ? actionGroup.layout : contentGroupProperties[ACTION_GROUP_PROPERTIES_INDEX].layout;
+        if (actionGroup)
+            return actionGroup.layout;
+        else 
+            return contentGroupProperties[ACTION_GROUP_PROPERTIES_INDEX].layout;
     }
     
     /**
@@ -528,7 +534,7 @@ public class ActionBar extends SkinnableComponent
                     LAYOUT_PROPERTY_FLAG, true);
         }
         else
-            contentGroupProperties.layout = value;
+            contentGroupProperties[ACTION_GROUP_PROPERTIES_INDEX].layout = value;
     }
     
     //--------------------------------------------------------------------------
@@ -548,46 +554,41 @@ public class ActionBar extends SkinnableComponent
         var group:Group;
         var index:int = -1;
         
+        // set ID for CSS selectors
+        // (e.g. to style actionContent Buttons: s|ActionBar s|Group#actionGroup s|Button)
         if (instance == navigationGroup)
         {
             group = navigationGroup;
-			// FIXME (jasonsj): do we need to set ID for CSS selectors to work
-			//group.id = "navigationGroup";
             index = NAVIGATION_GROUP_PROPERTIES_INDEX;
         }
         else if (instance == titleGroup)
         {
             group = titleGroup;
-			// FIXME (jasonsj): do we need to set ID for CSS selectors to work
-			//group.id = "titleGroup";
             index = TITLE_GROUP_PROPERTIES_INDEX;
             
             // use titleContent if provided
-            defaultContent = contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX].content;
-            
-            // if no titleContent, use titleDisplay
-            if (defaultContent == null)
-                defaultContent = (titleDisplay) ? [titleDisplay] : null;
+            defaultContent = (titleDisplay) ? [titleDisplay] : null;
         }
         else if (instance == actionGroup)
         {
             group = actionGroup;
-			// FIXME (jasonsj): do we need to set ID for CSS selectors to work
-			//group.id = "actionGroup";
             index = ACTION_GROUP_PROPERTIES_INDEX;
         }
         else if (instance == titleDisplay)
         {
             titleDisplay.text = title;
-			
-			if (titleGroup && !titleContent)
-			{
-				titleGroup.mxmlContent = [titleDisplay];
-			}
+            
+            if (titleGroup && !titleContent)
+            {
+                titleGroup.mxmlContent = [titleDisplay];
+            }
         }
         
         if (index > -1)
         {
+            // cache original layout
+            contentGroupLayouts[index] = group.layout;
+            
             var newContentGroupProperties:uint = 0;
             
             if (contentGroupProperties[index].content != undefined)
@@ -596,21 +597,19 @@ public class ActionBar extends SkinnableComponent
                 newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
                     CONTENT_PROPERTY_FLAG, true);
             }
-            
-            if (contentGroupProperties[index].layout !== undefined)
-            {
-                group.layout = contentGroupProperties.layout;
-                newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
-                    LAYOUT_PROPERTY_FLAG, true);
-            }
-            
-            if (defaultContent)
+            else if (defaultContent)
             {
                 group.mxmlContent = defaultContent;	
             }
             
+            if (contentGroupProperties[index].layout !== undefined)
+            {
+                group.layout = contentGroupProperties[index].layout;
+                newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
+                    LAYOUT_PROPERTY_FLAG, true);
+            }
+            
             contentGroupProperties[index] = newContentGroupProperties;
-            contentGroupLayouts[index] = group.layout;
         }
     }
     
@@ -647,8 +646,13 @@ public class ActionBar extends SkinnableComponent
             if (BitFlagUtil.isSet(contentGroupProperties[index] as uint, CONTENT_PROPERTY_FLAG))
                 newContentGroupProperties.content = group.getMXMLContent();
             
+            if (BitFlagUtil.isSet(contentGroupProperties[index] as uint, LAYOUT_PROPERTY_FLAG))
+                newContentGroupProperties.layout = group.layout;
+            
             contentGroupProperties[index] = newContentGroupProperties;
+            
             group.mxmlContent = null;
+            group.layout = null;
         }
     }
 }
