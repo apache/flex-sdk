@@ -111,7 +111,7 @@ public class CalloutArrow extends UIComponent
     /**
      *  @copy spark.skins.mobile.CalloutSkin#useBackgroundGradient
      */
-    private var useBackgroundGradient:Boolean;
+    protected var useBackgroundGradient:Boolean;
     
     /**
      *  @copy spark.skins.mobile.CalloutSkin#borderColor
