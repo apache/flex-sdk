@@ -17,12 +17,12 @@ import flash.display.Graphics;
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
 
-import spark.skins.mobile.assets.NavigationButton_down;
-import spark.skins.mobile.assets.NavigationButton_up;
+import spark.skins.mobile.assets.TransparentNavigationButton_down;
+import spark.skins.mobile.assets.TransparentNavigationButton_up;
 import spark.skins.mobile.supportClasses.ActionBarButtonSkinBase;
 import spark.skins.mobile.supportClasses.MobileSkin;
-import spark.skins.mobile320.assets.NavigationButton_down;
-import spark.skins.mobile320.assets.NavigationButton_up;
+import spark.skins.mobile320.assets.TransparentNavigationButton_down;
+import spark.skins.mobile320.assets.TransparentNavigationButton_up;
 
 use namespace mx_internal;
 
@@ -51,15 +51,15 @@ public class TransparentNavigationButtonSkin extends ActionBarButtonSkinBase
         {
             case DPIClassification.DPI_320:
             {
-                upBorderSkin = spark.skins.mobile320.assets.NavigationButton_up;
-                downBorderSkin = spark.skins.mobile320.assets.NavigationButton_down;
+                upBorderSkin = spark.skins.mobile320.assets.TransparentNavigationButton_up;
+                downBorderSkin = spark.skins.mobile320.assets.TransparentNavigationButton_down;
                 
                 break;
             }
             default:
             {
-                upBorderSkin = spark.skins.mobile.assets.NavigationButton_up;
-                downBorderSkin = spark.skins.mobile.assets.NavigationButton_down;
+                upBorderSkin = spark.skins.mobile.assets.TransparentNavigationButton_up;
+                downBorderSkin = spark.skins.mobile.assets.TransparentNavigationButton_down;
                 
                 break;
             }
