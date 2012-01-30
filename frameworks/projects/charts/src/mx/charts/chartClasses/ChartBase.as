@@ -4329,7 +4329,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
         {
             var c:DisplayObject = parent.removeChildAt(i);
             var g:IChartElement = (c as IChartElement);
-            if (g && !(g is Series))
+            if (g)
                 g.dataTransform = null;
         }
     }
