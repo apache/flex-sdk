@@ -44,245 +44,245 @@ public class EventListenerRequest extends SWFBridgeRequest
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Request to add an event listener.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static const ADD_EVENT_LISTENER_REQUEST:String = "addEventListenerRequest";
+    /**
+     *  Request to add an event listener.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const ADD_EVENT_LISTENER_REQUEST:String = "addEventListenerRequest";
 
-	/**
-	 *  Request to remove an event listener.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static const REMOVE_EVENT_LISTENER_REQUEST:String = "removeEventListenerRequest";
+    /**
+     *  Request to remove an event listener.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const REMOVE_EVENT_LISTENER_REQUEST:String = "removeEventListenerRequest";
 
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Marshals an event by copying the relevant parameters
+    /**
+     *  Marshals an event by copying the relevant parameters
      *  from the event into a new event.
-     	*  
-     	*  @param event The event to marshal.
-     	*  
-     	*  @return An EventListenerRequest that defines the new event.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static function marshal(event:Event):EventListenerRequest
-	{
-		var eventObj:Object = event;
+        *  
+        *  @param event The event to marshal.
+        *  
+        *  @return An EventListenerRequest that defines the new event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function marshal(event:Event):EventListenerRequest
+    {
+        var eventObj:Object = event;
 
-		return new EventListenerRequest(eventObj.type, eventObj.bubbles,
-										eventObj.cancelable, eventObj.eventType,
+        return new EventListenerRequest(eventObj.type, eventObj.bubbles,
+                                        eventObj.cancelable, eventObj.eventType,
                                         ("listener" in eventObj) ? eventObj.listener : null,
                                         eventObj.useCapture, eventObj.priority,
                                         eventObj.useWeakReference); 
-	}
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Creates a new request to add or remove an event listener.
-	 * 
-	 *  @param type The event type; indicates the action that caused the event. Either <code>EventListenerRequest.ADD</code>
-	 *  or <code>EventListenerRequest.REMOVE</code>.
-         *
-         *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.
-         *
-         *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
-         *
-	 *  @param eventType The type of message you would normally pass to the <code>addEventListener()</code> method.
-         *
-	 *  @param useCapture Determines whether the listener works in the capture phase or the target and bubbling phases.
-         *
-	 *  @param priority The priority level of the event listener. Priorities are designated by a 32-bit integer.
-         *
-	 *  @param useWeakReference Determines whether the reference to the listener is strong or weak.
-	 * 
-	 *  @see flash.events.IEventDispatcher#addEventListener
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */ 
-	public function EventListenerRequest(type:String, bubbles:Boolean = false, 
-										 cancelable:Boolean = true,
-								         eventType:String = null,
-										 listener:Function = null,
-								         useCapture:Boolean = false,
-								         priority:int = 0, 
-								         useWeakReference:Boolean = false)
+    /**
+     *  Creates a new request to add or remove an event listener.
+     * 
+     *  @param type The event type; indicates the action that caused the event. Either <code>EventListenerRequest.ADD</code>
+     *  or <code>EventListenerRequest.REMOVE</code>.
+     *
+     *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.
+     *
+     *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
+     *
+     *  @param eventType The type of message you would normally pass to the <code>addEventListener()</code> method.
+     *
+     *  @param useCapture Determines whether the listener works in the capture phase or the target and bubbling phases.
+     *
+     *  @param priority The priority level of the event listener. Priorities are designated by a 32-bit integer.
+     *
+     *  @param useWeakReference Determines whether the reference to the listener is strong or weak.
+     * 
+     *  @see flash.events.IEventDispatcher#addEventListener
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */ 
+    public function EventListenerRequest(type:String, bubbles:Boolean = false, 
+                                         cancelable:Boolean = true,
+                                         eventType:String = null,
+                                         listener:Function = null,
+                                         useCapture:Boolean = false,
+                                         priority:int = 0, 
+                                         useWeakReference:Boolean = false)
 
-	{
-		super(type, false, false);
+    {
+        super(type, false, false);
 
-		_eventType = eventType;
-		_listener = listener;
-		_useCapture = useCapture;
-		_priority = priority;
-		_useWeakReference = useWeakReference;
-	}
+        _eventType = eventType;
+        _listener = listener;
+        _useCapture = useCapture;
+        _priority = priority;
+        _useWeakReference = useWeakReference;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  priority
-	//----------------------------------
+    //----------------------------------
+    //  priority
+    //----------------------------------
 
-	/**
+    /**
      *  @private
      */
-	private var _priority:int;
-	
-	/**
-	 *  The <code>priority</code> parameter
+    private var _priority:int;
+    
+    /**
+     *  The <code>priority</code> parameter
      *  to <code>addEventListener()</code>.
      *
-	 *  @see flash.events.IEventDispatcher#addEventListener
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get priority():int
-	{
-		return _priority;
-	}
-	
-	//----------------------------------
-	//  useCapture
-	//----------------------------------
+     *  @see flash.events.IEventDispatcher#addEventListener
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get priority():int
+    {
+        return _priority;
+    }
+    
+    //----------------------------------
+    //  useCapture
+    //----------------------------------
 
-	/**
+    /**
      *  @private
      */
-	private var _useCapture:Boolean;
+    private var _useCapture:Boolean;
 
-	/**
-	 *  The <code>useCapture</code> parameter
+    /**
+     *  The <code>useCapture</code> parameter
      *  to <code>addEventListener()</code>.
      *
-	 *  @see flash.events.IEventDispatcher#addEventListener
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get useCapture():Boolean
-	{
-		return _useCapture;
-	}
+     *  @see flash.events.IEventDispatcher#addEventListener
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get useCapture():Boolean
+    {
+        return _useCapture;
+    }
 
-	//----------------------------------
-	//  eventType
-	//----------------------------------
+    //----------------------------------
+    //  eventType
+    //----------------------------------
 
-	/**
+    /**
      *  @private
      */
     private var _eventType:String;
-	
-	/**
-	 *  The type of the event to listen to.
+    
+    /**
+     *  The type of the event to listen to.
      *
-	 *  @see flash.events.Event#type
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get eventType():String
-	{
-		return _eventType;
-	}
-	
-	//----------------------------------
-	//  listener
-	//----------------------------------
+     *  @see flash.events.Event#type
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get eventType():String
+    {
+        return _eventType;
+    }
+    
+    //----------------------------------
+    //  listener
+    //----------------------------------
 
-	/**
+    /**
      *  @private
      */
     private var _listener:Function;
-	
-	/**
-	 *  The method or function to call
+    
+    /**
+     *  The method or function to call
      *
-	 *  @see flash.events.IEventDispatcher#addEventListener
-	 */
-	public function get listener():Function
-	{
-		return _listener;
-	}
-	
-	//----------------------------------
-	//  useWeakReference
-	//----------------------------------
+     *  @see flash.events.IEventDispatcher#addEventListener
+     */
+    public function get listener():Function
+    {
+        return _listener;
+    }
+    
+    //----------------------------------
+    //  useWeakReference
+    //----------------------------------
 
-	/**
+    /**
      *  @private
      */
-	private var _useWeakReference:Boolean;
+    private var _useWeakReference:Boolean;
 
-	/**
-	 *  The <code>useWeakReference</code> parameter
+    /**
+     *  The <code>useWeakReference</code> parameter
      *  to <code>addEventListener()</code>.
      *
-	 *  @see flash.events.IEventDispatcher#addEventListener
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get useWeakReference():Boolean
-	{
-		return _useWeakReference;
-	}
+     *  @see flash.events.IEventDispatcher#addEventListener
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get useWeakReference():Boolean
+    {
+        return _useWeakReference;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: Event
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: Event
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override public function clone():Event
-	{
-		return new EventListenerRequest(type, bubbles, cancelable,
-										eventType, listener, useCapture,
+    /**
+     *  @private
+     */
+    override public function clone():Event
+    {
+        return new EventListenerRequest(type, bubbles, cancelable,
+                                        eventType, listener, useCapture,
                                         priority, useWeakReference); 
-	}
+    }
 }
 
 }
