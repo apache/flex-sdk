@@ -61,6 +61,7 @@ public class ButtonSkin extends ButtonSkinBase
     private var bgImg:DisplayObject;
     
     private var changeFXGSkin:Boolean = false;
+    private var backgroundClass:Class;
     
     private static var matrix:Matrix = new Matrix();
     
@@ -78,18 +79,18 @@ public class ButtonSkin extends ButtonSkinBase
      *  @private 
      */
     override protected function commitCurrentState():void
-    {    
-        // TODO (jszeto) Don't use previousState and use "is" checks in applyFXG
+    {          
+        if (currentState == "down") 
+            backgroundClass = Button_bg_down;
+        else
+            backgroundClass = Button_bg_up;
         
-        // Over and up states are the same
-        if ((currentState == "down" && 
-            (previousState == "up" || previousState == "over")) ||
-            (previousState == "down" && 
-                (currentState == "up" || currentState == "over")))
+        if (!(bgImg is backgroundClass))
         {
             changeFXGSkin = true;
             invalidateDisplayList();
         }
+        
     }
      
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
@@ -101,8 +102,12 @@ public class ButtonSkin extends ButtonSkinBase
         // Size the FXG background   
         if (changeFXGSkin)
         {
-            applyFXG();
             changeFXGSkin = false;
+            
+            if (bgImg)
+                removeChild(bgImg);
+            bgImg = new backgroundClass();
+            addChildAt(bgImg, 0);
         }
         
         if (bgImg != null) 
@@ -130,24 +135,6 @@ public class ButtonSkin extends ButtonSkinBase
         // The label and icon should be placed on top of the FXG skins
         super.updateDisplayList(unscaledWidth, unscaledHeight);
     }
-    
-    /**
-     *  @private 
-     */ 
-    private function applyFXG():void 
-    {
-        if (currentState == null)
-            return;
-        
-        if (bgImg != null)
-            removeChild(bgImg);
-        
-        if (currentState == "down") 
-            bgImg = new Button_bg_down();
-        else if (currentState == "up" || currentState == "over")
-            bgImg = new Button_bg_up();
-        
-        addChildAt(bgImg, 0);
-    }
+
 }
 }
