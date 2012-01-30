@@ -154,6 +154,13 @@ public class CursorManagerImpl implements ICursorManager
      */
 	private var listenForContextMenu:Boolean = false;
     
+    /*******************************************************************
+     * Regarding overTextField, showSystemCursor, and showCustomCursor:
+     *    Don't modify or read these variables unless you are certain
+     *    you will not create race conditions. E.g. you may get the
+     *    wrong (or no) cursor, and get stuck in an inconsistent state.
+     */
+     
     /**
      *  @private
      */
@@ -174,6 +181,17 @@ public class CursorManagerImpl implements ICursorManager
      */
     private var showCustomCursor:Boolean = false;
     
+    /**
+     *  @private
+     * 
+     * State variable -- set when there is a custom cursor and the
+     * mouse has left the stage. Upon return, mouseMoveHandler will
+     * restore the custom cursor and remove the system cursor.
+     */
+    private var customCursorLeftStage:Boolean = false;
+    
+    /*******************************************************************/
+
     /**
      *  @private
      */
@@ -386,19 +404,6 @@ public class CursorManagerImpl implements ICursorManager
                                      xOffset:Number = 0,
                                      yOffset:Number = 0):int 
     {
-        /*
-        if (!cursorHolder._target)
-        {
-            // We may have been reloaded by a shell so reset everything.
-            currentCursorID = CursorManager.NO_CURSOR;
-            nextCursorID = 1;
-            cursorList = [];
-            busyCursorList = [];
-            initialized = false;
-            overTextField = false;
-            overLink = false;
-        }
-        */
         if (initialized && !cursorHolder)
 		{
 			var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.CURSOR_MANAGER_REQUEST);
@@ -567,9 +572,7 @@ public class CursorManagerImpl implements ICursorManager
      */
     private function showCurrentCursor():void 
     {
-        var app:InteractiveObject;
-        var sm:InteractiveObject;
-            
+        // if there are custom cursors...
         if (cursorList.length > 0)
         {
             if (!initialized)
@@ -615,21 +618,8 @@ public class CursorManagerImpl implements ICursorManager
                         DisplayObjectContainer(currentCursor).mouseChildren = false;
                     cursorHolder.addChild(currentCursor);
                     
-                    if (!listenForContextMenu)
-                    {
-                    	app = systemManager.document as InteractiveObject;
-                    	if (app && app.contextMenu)
-                    	{
-                    		app.contextMenu.addEventListener(ContextMenuEvent.MENU_SELECT, contextMenu_menuSelectHandler);
-                    		listenForContextMenu = true;
-                    	}
-                    	sm = systemManager as InteractiveObject;
-                    	if (sm && sm.contextMenu)
-                    {
-                    		sm.contextMenu.addEventListener(ContextMenuEvent.MENU_SELECT, contextMenu_menuSelectHandler);
-                    		listenForContextMenu = true;
-                    	}     	
-                    }
+                    addContextMenuHandlers();
+
 					var pt:Point;
                     // make sure systemManager is not other implementation of ISystemManager
                     if (systemManager is SystemManager)
@@ -665,6 +655,14 @@ public class CursorManagerImpl implements ICursorManager
                     
                     sandboxRoot.addEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE,
                                                    marshalMouseMoveHandler,false,EventPriority.CURSOR_MANAGEMENT);
+
+                   	if (systemManager.useSWFBridge())
+						sandboxRoot.addEventListener(MouseEvent.MOUSE_OUT,
+                                                   mouseOutHandler,true,EventPriority.CURSOR_MANAGEMENT);
+					else
+						systemManager.stage.addEventListener(MouseEvent.MOUSE_OUT,
+                                                   mouseOutHandler,true,EventPriority.CURSOR_MANAGEMENT);
+                    
                 }
             	
                 currentCursorID = item.cursorID;
@@ -674,6 +672,8 @@ public class CursorManagerImpl implements ICursorManager
         }
         else
         {
+            showCustomCursor = false;
+
             if (currentCursorID != CursorManager.NO_CURSOR)
             {
                 // There is no cursor in the cursor list to display,
@@ -681,34 +681,87 @@ public class CursorManagerImpl implements ICursorManager
                 currentCursorID = CursorManager.NO_CURSOR;
                 currentCursorXOffset = 0;
                 currentCursorYOffset = 0;
-               	if (systemManager.useSWFBridge())
-	                sandboxRoot.removeEventListener(MouseEvent.MOUSE_MOVE,
-                                                  mouseMoveHandler,true);
-				else
-					systemManager.stage.removeEventListener(MouseEvent.MOUSE_MOVE,
-                                                  mouseMoveHandler,true);
-                
-                sandboxRoot.removeEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE,
-                                                  marshalMouseMoveHandler,false);
+
                 cursorHolder.removeChild(currentCursor);
                 
-        if (listenForContextMenu)
-        {
-                	app = systemManager.document as InteractiveObject;
-        	if (app && app.contextMenu)
-                		app.contextMenu.removeEventListener(ContextMenuEvent.MENU_SELECT, contextMenu_menuSelectHandler);
-
-                	sm = systemManager as InteractiveObject;
-        	if (sm && sm.contextMenu)
-                		sm.contextMenu.removeEventListener(ContextMenuEvent.MENU_SELECT, contextMenu_menuSelectHandler);
-   
-        	listenForContextMenu = false; 	
-        }
-    }
+				removeSystemManagerHandlers();
+				removeContextMenuHandlers();
+		    }
             Mouse.show();
         }
     }
     
+    /**
+     *  @private
+     * 
+     * This assumes systemManager != null.
+     */
+    private function removeSystemManagerHandlers():void
+    {
+        if (systemManager.useSWFBridge())
+	        sandboxRoot.removeEventListener(MouseEvent.MOUSE_MOVE,
+                                          mouseMoveHandler,true);
+		else
+			systemManager.stage.removeEventListener(MouseEvent.MOUSE_MOVE,
+                                          mouseMoveHandler,true);
+        
+        sandboxRoot.removeEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE,
+                                          marshalMouseMoveHandler,false);
+
+        if (systemManager.useSWFBridge())
+	        sandboxRoot.removeEventListener(MouseEvent.MOUSE_OUT,
+                                          mouseMoveHandler,true);
+		else
+			systemManager.stage.removeEventListener(MouseEvent.MOUSE_OUT,
+                                          mouseOutHandler,true);
+    }
+    
+    /**
+     *  @private
+     */
+    private function addContextMenuHandlers():void
+    {
+        if (!listenForContextMenu)
+        {
+            const app:InteractiveObject = systemManager.document as InteractiveObject;
+        	const sm:InteractiveObject = systemManager as InteractiveObject;
+        	
+        	if (app && app.contextMenu)
+        	{
+        		app.contextMenu.addEventListener(ContextMenuEvent.MENU_SELECT, contextMenu_menuSelectHandler,
+        		                                 true, EventPriority.CURSOR_MANAGEMENT);
+        		listenForContextMenu = true;
+        	}
+        	
+        	if (sm && sm.contextMenu)
+        	{
+        		sm.contextMenu.addEventListener(ContextMenuEvent.MENU_SELECT, contextMenu_menuSelectHandler,
+        		                                true, EventPriority.CURSOR_MANAGEMENT);
+        		listenForContextMenu = true;
+        	}     	
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function removeContextMenuHandlers():void
+    {
+        if (listenForContextMenu)
+        {
+            const app:InteractiveObject = systemManager.document as InteractiveObject;
+        	const sm:InteractiveObject = systemManager as InteractiveObject;
+        	
+        	if (app && app.contextMenu)
+        		app.contextMenu.removeEventListener(ContextMenuEvent.MENU_SELECT, contextMenu_menuSelectHandler, true);
+
+        	if (sm && sm.contextMenu)
+        		sm.contextMenu.removeEventListener(ContextMenuEvent.MENU_SELECT, contextMenu_menuSelectHandler, true);
+   
+        	listenForContextMenu = false; 	
+        }
+    }
+
     /**
      *  @private
      *  Called by other components if they want to display
@@ -826,6 +879,30 @@ public class CursorManagerImpl implements ICursorManager
 		}
     }
     
+    /**
+     *  @private
+     * 
+     * Handles the mouse leaving the stage; hides the custom cursor and restores the system cursor.
+     */
+    private function mouseOutHandler(event:MouseEvent):void
+    {
+        // relatedObject==null implies the mouse left the stage.
+        // this also fires when you are returning from a context menu click.
+        //
+        // it sometimes fires after you drag off the stage, and back to the stage quickly,
+        // and let go of the button -- this seems like a player bug
+        if ((event.relatedObject == null) && (cursorList.length > 0))
+        {
+            //trace("mouseOutHandler", event);
+            
+            // this will get unset in mouseMoveHandler (since that fires when
+            // the mouse returns/glides over the stage)
+            customCursorLeftStage = true;
+            hideCursor();
+            Mouse.show();
+        }
+    }
+
     /**
      *  @private
      */
