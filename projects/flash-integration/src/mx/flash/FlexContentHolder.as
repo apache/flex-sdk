@@ -18,6 +18,7 @@ import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.utils.getDefinitionByName;
 
+import mx.core.IFlexModule;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
 
@@ -239,7 +240,7 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
             addChild(DisplayObject(flexContent));
             
             var uiComponentClass:Class;
-            
+                        
             // Dynamically load the UIComponent class, but don't fail on error.
             // This allows us to work in Flex (where UIComponent is defined), and 
             // in Flash (where it UIComponent is not defined).
@@ -300,6 +301,18 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
                     if (doubleClickEnabled)
                         InteractiveObject(flexContent).doubleClickEnabled = true;
                     
+                // Propagate moduleFactory to the child, but don't overwrite an existing moduleFactory.
+                if (flexContent is IFlexModule && IFlexModule(flexContent).moduleFactory == null)
+                {
+                    if (uicParent is IFlexModule && IFlexModule(uicParent).moduleFactory != null)
+                        IFlexModule(flexContent).moduleFactory = IFlexModule(uicParent).moduleFactory;
+                        
+                    else if (document is IFlexModule && uicParent.document.moduleFactory != null)
+                        IFlexModule(flexContent).moduleFactory = uicParent.document.moduleFactory;
+                        
+                    else if (uicParent is IFlexModule && IFlexModule(uicParent).moduleFactory != null)
+                        IFlexModule(flexContent).moduleFactory = IFlexModule(uicParent).moduleFactory;
+                }
                 
                 // Sets up the inheritingStyles and nonInheritingStyles objects
                 // and their proto chains so that getStyle() works.
