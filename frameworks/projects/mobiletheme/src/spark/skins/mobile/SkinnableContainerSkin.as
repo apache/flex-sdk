@@ -114,20 +114,20 @@ public class SkinnableContainerSkin extends MobileSkin
     /**
      *  @private
      */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        graphics.clear();
-        
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        super.layoutContents(unscaledWidth, unscaledHeight);
         
         contentGroup.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
         contentGroup.setLayoutBoundsPosition(0, 0);
-        
+    }
+    
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        super.drawBackground(unscaledWidth, unscaledHeight);
+
         // Draw the background
-        var bgColor:uint = getStyle("backgroundColor");
-        var bgAlpha:Number = getStyle("backgroundAlpha");
-        
-        graphics.beginFill(bgColor, bgAlpha);
+        graphics.beginFill(getStyle("backgroundColor"), getStyle("backgroundAlpha"));
         graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
         graphics.endFill();
     }
