@@ -27,6 +27,8 @@ public class SystemManagerGlobals
 
 	public static var changingListenersInOtherSystemManagers:Boolean;
 
+	public static var dispatchingEventToOtherSystemManagers:Boolean;
+
     /**
      *  @private
      *  reference to the info() object from the first systemManager
