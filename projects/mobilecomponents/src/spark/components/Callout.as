@@ -1201,6 +1201,10 @@ public class Callout extends SkinnablePopUpContainer
             
             return;
         }
+        
+        // Do not change the actual position if the owner has been removed
+        if (!owner || !owner.parent)
+            return;
 
         var ownerBounds:Rectangle = owner.getBounds(systemManager.getSandboxRoot());
 
