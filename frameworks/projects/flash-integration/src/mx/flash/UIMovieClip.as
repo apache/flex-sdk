@@ -666,12 +666,6 @@ public dynamic class UIMovieClip extends MovieClip
     
     private var oldY:Number;
     
-    // Size change detection vars
-    /**
-     * @private
-     */
-    protected var trackSizeChanges:Boolean = false;
-    
     private var oldWidth:Number;
     
     private var oldHeight:Number;
@@ -685,6 +679,112 @@ public dynamic class UIMovieClip extends MovieClip
     //  Public variables
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  trackSizeChanges
+    //----------------------------------
+
+    /**
+     * @private
+     */
+    private var _trackSizeChanges:Boolean = false;
+
+    [Inspectable(category="General")]
+
+    /**
+     *  Whether we should actively watch changes to the size of the flash object.  
+     *  If this is set to <code>true</code>, then every frame, the size of the flash 
+     *  object will be determined.  If the size has changed, then the flash object 
+     *  will scale appropriately to fit its explicit bounds (or it will resize and 
+     *  notify its parent if there is no explicit sizing).
+     * 
+     *  <p>Note: Setting this property to <code>true</code> may be expensive because 
+     *  we now are asking the flash object its current size every single frame.</p>
+     * 
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function get trackSizeChanges():Boolean
+    {
+        return _trackSizeChanges;
+    }
+
+    /**
+     *  @private
+     */
+    public function set trackSizeChanges(value:Boolean):void
+    {
+        if (_trackSizeChanges == value)
+            return;
+
+        _trackSizeChanges = value;
+
+        if(_trackSizeChanges)
+        {
+            addEventListener(Event.ENTER_FRAME, trackSizeChangesEnterFrameHandler, false, 0, true);
+        }
+        else
+        {
+            removeEventListener(Event.ENTER_FRAME, trackSizeChangesEnterFrameHandler);
+        }
+    }
+    
+    //----------------------------------
+    //  trackStateChanges
+    //----------------------------------
+
+    /**
+     * @private
+     */
+    private var _trackStateChanges:Boolean = false;
+
+    [Inspectable(category="General")]
+
+    /**
+     *  Whether we should actively watch changes to the label of the flash object.  
+     *  The Flex <code>currentState</code> property depends on this flash label.  
+     *  If this is set to <code>true</code>, then every frame, the label of the flash
+     *  obejct will be quieried.  If the label has changed, that will become the new 
+     *  <code>currentState</code> for the Flex object.
+     * 
+     *  <p>Note: Setting this property to <code>true</code> may be expensive because 
+     *  we now are asking the flash object for is current label every single frame.</p>
+     * 
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function get trackStateChanges():Boolean
+    {
+        return _trackStateChanges;
+    }
+
+    /**
+     *  @private
+     */
+    public function set trackStateChanges(value:Boolean):void
+    {
+        if (_trackStateChanges == value)
+            return;
+
+        _trackStateChanges = value;
+
+        if(_trackStateChanges)
+        {
+            addEventListener(Event.ENTER_FRAME, trackStateChangesEnterFrameHandler, false, 0, true);
+        }
+        else
+        {
+            removeEventListener(Event.ENTER_FRAME, trackStateChangesEnterFrameHandler);
+        }
+    }
     
     //----------------------------------
     //  x
@@ -3696,7 +3796,7 @@ public dynamic class UIMovieClip extends MovieClip
             }
             else
             {
-                addEventListener(Event.ENTER_FRAME, stateEnterFrameHandler, false, 0, true);
+                addEventListener(Event.ENTER_FRAME, transitionEnterFrameHandler, false, 0, true);
                 
                 // If the new transition is starting inside the current transition, start from
                 // the current frame location.
@@ -3763,8 +3863,6 @@ public dynamic class UIMovieClip extends MovieClip
         if (boundingBoxName && boundingBoxName != "" 
             && boundingBoxName in this && this[boundingBoxName])
         {
-            addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true);
-            trackSizeChanges = true;
             this[boundingBoxName].visible = false;
         }
         
@@ -4229,7 +4327,9 @@ public dynamic class UIMovieClip extends MovieClip
     //--------------------------------------------------------------------------
     
     /**
-     *  The main function that watches our size
+     *  This enter frame handler is used when our width, height, x, or y 
+     *  value changes.  This is so the change can be delayed so that setting 
+     *  x and y at the same time only results in one change event.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -4247,70 +4347,86 @@ public dynamic class UIMovieClip extends MovieClip
         
         if (x != oldX || y != oldY)
             dispatchMoveEvent();
-            
-        // Size check.
-        if (trackSizeChanges)
-        {
-            var currentBounds:Rectangle = bounds;
-            
-            // take secret scale into account as it's our real width/height
-            currentBounds.width *= mx_internal::scaleXDueToSizing;
-            currentBounds.height *= mx_internal::scaleYDueToSizing;
-            
-            if (sizeChanged(currentBounds.width, oldWidth) || sizeChanged(currentBounds.height, oldHeight))
-            {
-                _width = currentBounds.width;
-                _height = currentBounds.height;
-                validateMeasuredSizeFlag = true;
-                notifySizeChanged(); 
-                dispatchResizeEvent();
-            }
-            else if (sizeChanged(width, oldWidth) || sizeChanged(height, oldHeight))
-            {
-                dispatchResizeEvent();
-            }
-        }
-        else
-        {
-            removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
-        }
         
+        removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
     }
     
     /**
-     *  The main function that progesses through transitions.
+     *  This enter frame handler watches the flash object's size to see if
+     *  it has changed.  If it's chagned, we will notify our flex parent of 
+     *  the change.  This size change may also cause the flash component 
+     *  to rescale if it's been explicitly sized so it fits within the 
+     *  correct bounds.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 4
      */
-    protected function stateEnterFrameHandler(event:Event):void
+    protected function trackSizeChangesEnterFrameHandler(event:Event):void
     {
-        // States Change:
+        // Size check.
+        var currentBounds:Rectangle = bounds;
         
-        // We no longer support this "Current state check".  Setting currentState programatically 
-        // still works, but if we magically land on a "foo" labelled frame, we don't return "foo"
-        // as the currentState anymore.
-        //if (currentLabel && currentLabel.indexOf(":") < 0 && currentLabel != _currentState)
-        //    _currentState = currentLabel;
+        // take secret scale into account as it's our real width/height
+        currentBounds.width *= mx_internal::scaleXDueToSizing;
+        currentBounds.height *= mx_internal::scaleYDueToSizing;
         
-        // Play the next frame of the transition, if needed.
-        if (transitionDirection != 0)
+        if (sizeChanged(currentBounds.width, oldWidth) || sizeChanged(currentBounds.height, oldHeight))
         {
-            var newFrame:Number = currentFrame + transitionDirection;
+            _width = currentBounds.width;
+            _height = currentBounds.height;
+            validateMeasuredSizeFlag = true;
+            notifySizeChanged(); 
+            dispatchResizeEvent();
+        }
+        else if (sizeChanged(width, oldWidth) || sizeChanged(height, oldHeight))
+        {
+            dispatchResizeEvent();
+        }
+    }
+    
+    /**
+     *  This enter frame handler watches our currentLabel for changes so that it 
+     *  can be reflected in the currentState.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    protected function trackStateChangesEnterFrameHandler(event:Event):void
+    {
+        // Check for the current state.  This is really only checked for if 
+        // trackStateChanged == true.  This is so that if we magically land 
+        // on a "foo" labelled frame, we return "foo" as the currentState.
+        if (currentLabel && currentLabel.indexOf(":") < 0 && currentLabel != _currentState)
+            _currentState = currentLabel;
+    }
+    
+    /**
+     *  This enter frame handler progresses through transitions
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    protected function transitionEnterFrameHandler(event:Event):void
+    {       
+        // Play the next frame of the transition, if needed.
+        var newFrame:Number = currentFrame + transitionDirection;
 
-            if ((transitionDirection > 0 && newFrame >= transitionEndFrame) || 
-                (transitionDirection < 0 && newFrame <= transitionEndFrame))
-            {
-                gotoAndStop(stateMap[transitionEndState].frame);
-                transitionDirection = 0;
-                removeEventListener(Event.ENTER_FRAME, stateEnterFrameHandler);
-            }
-            else
-            {
-                gotoAndStop(newFrame);
-            }
+        if ((transitionDirection > 0 && newFrame >= transitionEndFrame) || 
+            (transitionDirection < 0 && newFrame <= transitionEndFrame))
+        {
+            gotoAndStop(stateMap[transitionEndState].frame);
+            transitionDirection = 0;
+            removeEventListener(Event.ENTER_FRAME, transitionEnterFrameHandler);
+        }
+        else
+        {
+            gotoAndStop(newFrame);
         }
     }
     
