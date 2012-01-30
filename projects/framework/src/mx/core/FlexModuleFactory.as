@@ -13,6 +13,7 @@ package mx.core
 {
 
 import flash.display.MovieClip;
+import flash.events.ErrorEvent;
 import flash.events.Event;
 import flash.events.IOErrorEvent;
 import flash.events.SecurityErrorEvent;
@@ -24,6 +25,7 @@ import flash.utils.Timer;
 import flash.utils.getDefinitionByName;
 import mx.core.RSLItem;
 import mx.core.RSLListLoader;
+import mx.events.ModuleEvent;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
@@ -342,6 +344,9 @@ public class FlexModuleFactory extends MovieClip implements IFlexModuleFactory
                 tf.y = 0;
                 tf.autoSize = TextFieldAutoSize.LEFT;
                 addChild(tf);
+                
+                dispatchEvent(new ModuleEvent(ModuleEvent.ERROR, false, false, 
+                              0, 0, errorMessage));
                 break;
 			}
         }
@@ -514,9 +519,18 @@ public class FlexModuleFactory extends MovieClip implements IFlexModuleFactory
     private function rslErrorHandler(event:Event):void
     {
         var rsl:RSLItem = rslListLoader.getItem(rslListLoader.getIndex());
+        var detailedError:String;
+        var message:String;
         
-        trace("RSL " + rsl.urlRequest.url + " failed to load.");
-        displayError("RSL " + rsl.urlRequest.url + " failed to load.");
+        if (event is ErrorEvent)
+            detailedError = ErrorEvent(event).text;
+        
+        if (!detailedError)
+            detailedError = "";
+            
+        message = "RSL " + rsl.urlRequest.url + " failed to load. " + detailedError;              
+        trace(message);
+        displayError(message);
     }
 
     /**
