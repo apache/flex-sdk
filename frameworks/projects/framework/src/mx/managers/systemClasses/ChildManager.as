@@ -18,7 +18,9 @@ import flash.display.InteractiveObject;
 import flash.events.IEventDispatcher;
 
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
+import mx.core.IFontContextComponent;
 import mx.core.IInvalidating;
 import mx.core.IUIComponent;
 import mx.core.UIComponent;
@@ -126,6 +128,16 @@ public class ChildManager implements ISystemManagerChildManager
 			IUIComponent(child).document = systemManager.document;
 		}
 
+        // Set the moduleFactory to the child, but don't overwrite an existing moduleFactory.
+        if (child is IFlexModule && IFlexModule(child).moduleFactory == null)
+            IFlexModule(child).moduleFactory = systemManager;
+
+        // Set the font context in non-UIComponent children.
+        // UIComponent children use moduleFactory.
+        if (child is IFontContextComponent && !child is UIComponent &&
+            IFontContextComponent(child).fontContext == null)
+            IFontContextComponent(child).fontContext = systemManager;
+        
 		// Set the nestLevel of the child to be one greater
 		// than the nestLevel of this component.
 		// The nestLevel setter will recursively set it on any
