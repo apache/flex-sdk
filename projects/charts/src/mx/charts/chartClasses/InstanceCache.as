@@ -17,7 +17,7 @@ import flash.text.TextFormat;
 import mx.core.ClassFactory;
 import mx.core.ContextualClassFactory;
 import mx.core.IFactory;
-import mx.core.UITextField;
+import mx.core.IUITextField;
 
 /**
  *  InstanceCache is a utility that governs the task of creating and managing
@@ -518,7 +518,7 @@ public class InstanceCache
     {   
         for (var i:int = start; i < end; i++)
         {
-            var newField:UITextField = _instances[i];
+            var newField:IUITextField = _instances[i];
             newField.setTextFormat(_format);
             newField.defaultTextFormat = _format;
             
