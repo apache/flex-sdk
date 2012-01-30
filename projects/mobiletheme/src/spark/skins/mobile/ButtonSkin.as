@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.display.GradientType;
 import flash.geom.Matrix;
 
+import mx.core.mx_internal;
 import mx.states.SetProperty;
 import mx.states.State;
 import mx.utils.ColorUtil;
@@ -24,7 +25,9 @@ import spark.core.SpriteVisualElement;
 import spark.skins.mobile.assets.Button_down;
 import spark.skins.mobile.assets.Button_up;
 import spark.skins.mobile.supportClasses.ButtonSkinBase;
-    
+
+use namespace mx_internal;
+
 /*    
     ISSUES:
     - should we support textAlign
@@ -114,10 +117,7 @@ public class ButtonSkin extends ButtonSkinBase
     {   
         super.commitCurrentState();
         
-        if (currentState == "down") 
-            borderClass = downBorderSkin;
-        else
-            borderClass = upBorderSkin;
+        borderClass = getBorderClassForCurrentState();
         
         if (!(bgImg is borderClass))
         {
@@ -178,8 +178,6 @@ public class ButtonSkin extends ButtonSkinBase
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
-     *       
-     *  @default Button_down
      */ 
     protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
@@ -200,6 +198,22 @@ public class ButtonSkin extends ButtonSkinBase
         // spill over into the rounded corners of the Button
         graphics.drawRect(1, 1, unscaledWidth - 1, unscaledHeight - 1);
         graphics.endFill();
+    }
+    
+    /**
+     *  Returns the borderClass to use based on the currentState
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected function getBorderClassForCurrentState():Class
+    {
+        if (currentState == "down") 
+            return downBorderSkin;
+        else
+            return upBorderSkin;
     }
 
 }
