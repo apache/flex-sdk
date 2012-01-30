@@ -50,6 +50,11 @@ use namespace mx_internal;
  *
  *  <p>This class implements support for the <code>backgroundImage</code>,
  *  <code>backgroundSize</code>, and <code>backgroundAttachment</code> styles.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RectangularBorder extends Border implements IRectangularBorder
 {
@@ -63,6 +68,11 @@ public class RectangularBorder extends Border implements IRectangularBorder
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RectangularBorder()
     {
@@ -117,12 +127,22 @@ public class RectangularBorder extends Border implements IRectangularBorder
     /**
      *  The DisplayObject instance that contains the background image, if any.
      *  This object is a sibling of the RectangularBorder instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     private var backgroundImage:DisplayObject;
 
     /**
      *  Contains <code>true</code> if the RectangularBorder instance
      *  contains a background image.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get hasBackgroundImage():Boolean
     {
@@ -146,6 +166,11 @@ public class RectangularBorder extends Border implements IRectangularBorder
      *  if the parent container has scrollable content.
      *  If this property is null, the border can use
      *  the parent's size and <code>viewMetrics</code> property to determine its value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get backgroundImageBounds():Rectangle
     {
@@ -298,6 +323,11 @@ public class RectangularBorder extends Border implements IRectangularBorder
 
     /**
      *  Layout the background image.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function layoutBackgroundImage():void 
     {
