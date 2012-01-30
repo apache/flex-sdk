@@ -1,16 +1,20 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the HRule control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo HRule control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-	<mx:WipeLeft id="myWL"/>
+    <fx:Declarations>
+        <mx:WipeLeft id="myWL"/>
+    </fx:Declarations>
 
-    <mx:Panel title="HRule Control Example" id="myPanel" 
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+    <s:Panel id="myPanel" title="Halo HRule Control Example"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%" color="blue" 
+                    text="Move mouse over Halo HorizontalRule control to redraw it."/>
+            <mx:HRule rollOverEffect="{myWL}" width="100%" strokeWidth="1" strokeColor="red"/>
+        </s:VGroup>
+    </s:Panel>
 
-        <mx:HRule rollOverEffect="{myWL}" width="100%" strokeWidth="1" strokeColor="red"/>
-        <mx:Label width="100%" color="blue" 
-            text="Move mouse over HorizontalRule control to redraw it."/>
-
-    </mx:Panel>
-</mx:Application>
-       
+</s:Application>
