@@ -620,6 +620,11 @@ public class Callout extends SkinnablePopUpContainer
     {
         super.commitProperties();
         
+        // Do not commit position changes if closed (no owner) or owner was 
+        // removed from the display list.
+        if (!owner || !owner.parent)
+            return;
+        
         // Compute actual positions when using AUTO
         commitAutoPosition();
         
@@ -806,7 +811,11 @@ public class Callout extends SkinnablePopUpContainer
     {
         var ownerVisualElement:IVisualElement = owner as IVisualElement;
 
-        if (!arrow || (arrowDirection == ArrowDirection.NONE))
+        // Sanity check to verify owner is still on the display list. If not,
+        // leave the arrow in the current position.
+        if (!arrow || !ownerVisualElement ||
+            (arrowDirection == ArrowDirection.NONE) ||
+            (!ownerVisualElement.parent))
             return;
 
         var isStartPosition:Boolean = false;
@@ -1264,10 +1273,6 @@ public class Callout extends SkinnablePopUpContainer
             
             return;
         }
-        
-        // Do not change the actual position if the owner has been removed
-        if (!owner || !owner.parent)
-            return;
 
         var ownerBounds:Rectangle = owner.getBounds(systemManager.getSandboxRoot());
 
