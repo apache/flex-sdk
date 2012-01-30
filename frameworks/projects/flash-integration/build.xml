@@ -82,14 +82,16 @@
 		<!-- Call asdoc to generate dita xml files -->
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
 		    <compiler.source-path path-element="${basedir}/src"/>
-		    <compiler.source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
+		    <doc-classes class="FlashIntegrationClasses"/>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs/player/10">
 		    	<include name="playerglobal.swc" />
 		    </external-library-path>
+		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+		    	<include name="framework.swc" />
+		    </external-library-path>
+
 		    <library-path/>
 
-		    <doc-namespaces uri="http://www.adobe.com/2006/mxml"/>
-		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
 		    <jvmarg line="${asdoc.jvm.args}"/>
 		</asdoc>
 
