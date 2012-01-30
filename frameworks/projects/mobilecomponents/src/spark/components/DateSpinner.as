@@ -16,6 +16,7 @@ import flash.utils.Dictionary;
 import mx.collections.ArrayCollection;
 import mx.collections.IList;
 import mx.collections.ISort;
+import mx.core.ClassFactory;
 import mx.core.IFactory;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
@@ -25,6 +26,7 @@ import spark.collections.Sort;
 import spark.collections.SortField;
 import spark.components.calendarClasses.DateAndTimeProvider;
 import spark.components.calendarClasses.DateSelectorDisplayMode;
+import spark.components.calendarClasses.DateSpinnerItemRenderer;
 import spark.components.calendarClasses.YearProvider;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.events.IndexChangeEvent;
@@ -859,7 +861,6 @@ public class DateSpinner extends SkinnableComponent
         // if itemIndex == itemCount - 1, align as last column
         
         var s:SpinnerList = SpinnerList(createDynamicPartInstance("dateItemList"));
-        s.percentHeight = 100;
         return s;
     }
     
