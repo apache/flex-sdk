@@ -95,7 +95,7 @@ public class CursorManagerImpl implements ICursorManager
 		if (systemManager)
 			this.systemManager = systemManager as ISystemManager2;
 		else
-			this.systemManager = ApplicationGlobals.application.systemManager as ISystemManager2;
+			this.systemManager = SystemManagerGlobals.topLevelSystemManagers[0] as ISystemManager2;
 
 		sandboxRoot = this.systemManager.getSandboxRoot();
 		sandboxRoot.addEventListener(MarshalEvent.CURSOR_MANAGER, marshalCursorManagerHandler, false, 0, true);
