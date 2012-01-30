@@ -30,6 +30,8 @@ import mx.core.UITextField;
 import mx.core.UITextFormat;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.graphics.BitmapFillMode;
+import mx.graphics.BitmapScaleMode;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
 import mx.utils.StringUtil;
@@ -272,9 +274,15 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     private var decoratorClassChanged:Boolean;
     
     /**
-     *  @private 
+     *  The display object component used to 
+     *  display the decorator for this item renderer.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
-    private var decoratorDisplay:DisplayObject;
+    protected var decoratorDisplay:DisplayObject;
     
     /**
      *  Decorator that appears on the right side 
@@ -453,17 +461,30 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     private var iconChanged:Boolean;
     
     /**
-     *  @private 
-     */ 
-    private var iconDisplay:BitmapImage;
+     *  The bitmap image component used to 
+     *  display the icon data of the item renderer.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected var iconDisplay:BitmapImage;
     
     /**
-     *  @private 
+     *  The Group that holds the iconDisplay BitmapImage.  
+     *  
+     *  <p>The Group is necessary since GraphicElements must live inside 
+     *  of one.</p>
      * 
-     *  Need a holder for the iconDisplay since it's a GraphicElement
-     *  TODO (rfrishbe): would be nice to fix above somehow
-     */ 
-    private var iconDisplayHolder:Group;
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected var iconDisplayHolder:Group;
+    // Need a holder for the iconDisplay since it's a GraphicElement
+    // TODO (rfrishbe): would be nice to fix above somehow
     
     /**
      *  The name of the field in the data provider items to display as the icon. 
@@ -495,6 +516,46 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         iconChanged = true;
         
         invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  iconFillMode
+    //----------------------------------
+    
+    /**
+     *  @private 
+     */ 
+    private var _iconFillMode:String = BitmapFillMode.SCALE;
+    
+    [Inspectable(category="General", enumeration="clip,repeat,scale", defaultValue="scale")]
+    
+    /**
+     *  @copy spark.components.BitmapImage#fillMode
+     *
+     *  @default <code>BitmapFillMode.SCALE</code>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get iconFillMode():String
+    {
+        return _iconFillMode;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set iconFillMode(value:String):void
+    {
+        if (value == _iconFillMode)
+            return;
+        
+        _iconFillMode = value;
+        
+        if (iconDisplay)
+            iconDisplay.fillMode = _iconFillMode;
     }
     
     //----------------------------------
@@ -594,6 +655,46 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     }
     
     //----------------------------------
+    //  iconScaleMode
+    //----------------------------------
+    
+    /**
+     *  @private 
+     */ 
+    private var _iconScaleMode:String = BitmapScaleMode.STRETCH;
+    
+    [Inspectable(category="General", enumeration="stretch,letterbox", defaultValue="stretch")]
+    
+    /**
+     *  @copy spark.components.BitmapImage#scaleMode
+     *
+     *  @default <code>BitmapScaleMode.STRETCH</code>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get iconScaleMode():String
+    {
+        return _iconScaleMode;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set iconScaleMode(value:String):void
+    {
+        if (value == _iconScaleMode)
+            return;
+        
+        _iconScaleMode = value;
+        
+        if (iconDisplay)
+            iconDisplay.scaleMode = _iconScaleMode;
+    }
+    
+    //----------------------------------
     //  iconWidth
     //----------------------------------
     
@@ -642,9 +743,15 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     private var _messageField:String;
     
     /**
-     *  @private
+     *  The text component used to 
+     *  display the message data of the item renderer.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    private var messageDisplay:MobileTextField;
+    protected var messageDisplay:MobileTextField;
     
     /**
      *  @private
@@ -842,6 +949,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                 iconDisplay.bottom = 0;
                 
                 iconDisplay.contentLoader = iconContentLoader;
+                iconDisplay.fillMode = iconFillMode;
+                iconDisplay.scaleMode = iconScaleMode;
                 
                 // add iconDisplayHolder to the display list first in case
                 // bitmap needs to check its layoutDirection.
@@ -1214,8 +1323,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         if (iconDisplay)
             labelComponentsX += iconWidth + getStyle("horizontalGap");
         
-        // calculte the natural sizes for label and message (if present)
-        var labelTextWidth:Number = 0;
+        // calculte the natural height for the label
         var labelTextHeight:Number = 0;
         var labelLineMetrics:TextLineMetrics;
         
@@ -1223,7 +1331,6 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         {
             labelDisplay.commitStyles();
             labelLineMetrics = measureText(labelText);
-            labelTextWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
             labelTextHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
         }
         
@@ -1254,9 +1361,12 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             
             // handle labelDisplay.  it can only be 1 line
             
-            labelWidth = Math.max(Math.min(labelComponentsViewWidth, labelTextWidth), 0);
+            // width of label takes up rest of space
+            // height only takes up what it needs so we can properly place the message
+            // and make sure verticalAlign is operating on a correct value.
+            labelWidth = Math.max(labelComponentsViewWidth, 0);
             labelHeight = Math.max(Math.min(viewHeight, labelTextHeight), 0);
-            
+                        
             labelDisplay.width = labelWidth;
             labelDisplay.height = labelHeight;
             
