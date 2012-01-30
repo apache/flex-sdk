@@ -87,6 +87,7 @@ internal class FrameworkClasses
 	import mx.filters.BaseFilter; BaseFilter;
 	import mx.filters.BaseDimensionFilter; BaseDimensionFilter;
 	import mx.filters.IBitmapFilter; IBitmapFilter;
+    import mx.formatters.IFormatter; IFormatter;
 	import mx.graphics.ImageSnapshot; ImageSnapshot;
 	import mx.graphics.codec.PNGEncoder; PNGEncoder;
 	import mx.graphics.codec.JPEGEncoder; JPEGEncoder;
@@ -133,6 +134,7 @@ internal class FrameworkClasses
 	import mx.skins.ProgrammaticSkin; ProgrammaticSkin;
 	import mx.skins.RectangularBorder; RectangularBorder;
 	import mx.styles.IStyleModule; IStyleModule;
+	import mx.styles.AdvancedStyleClient; AdvancedStyleClient;
 	import mx.utils.ArrayUtil; ArrayUtil;
 	import mx.utils.DescribeTypeCache; DescribeTypeCache;
 	import mx.utils.DescribeTypeCacheRecord; DescribeTypeCacheRecord;
