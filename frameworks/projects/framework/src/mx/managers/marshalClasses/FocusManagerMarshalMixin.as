@@ -146,14 +146,6 @@ public class FocusManagerMarshalMixin
      private var lastActiveFocusManager:FocusManager;
 	 
 	 /**
-	 * @private
-	 * 
-	 * True if this focus manager is a popup, false if it is a main application.
-	 * 
-	 */
-	 private var popup:Boolean;
-	 
-	 /**
 	  *  @private
 	  * 
 	  *  Used when a the skip parameter can't be passed into 
@@ -177,7 +169,7 @@ public class FocusManagerMarshalMixin
             // Set up our swfBridgeGroup. If this is a pop up then the parent 
             // bridge is empty, otherwise its the form's system manager's bridge.
             swfBridgeGroup = new SWFBridgeGroup(sm);
-            if (!popup)
+            if (!focusManager.popup)
                 swfBridgeGroup.parentBridge = marshalSystemManager.swfBridgeGroup.parentBridge; 
             
 			// add ourselves to our parent focus manager if this is a bridged 
@@ -242,7 +234,7 @@ public class FocusManagerMarshalMixin
         
 	public function showFocusIndicatorHandler(event:Event):void
 	{
-        if (!popup && swfBridgeGroup)
+        if (!focusManager.popup && swfBridgeGroup)
             dispatchSetShowFocusIndicatorRequest(focusManager.showFocusIndicator, null);
 	}
 
@@ -672,7 +664,7 @@ public class FocusManagerMarshalMixin
         // trace(">>dispatchEventFromSWFBridges", this, event.type);
         var sm:ISystemManager = focusManager.form.systemManager;
         
-        if (!popup)
+        if (!focusManager.popup)
         {
             var parentBridge:IEventDispatcher = swfBridgeGroup.parentBridge;
             
