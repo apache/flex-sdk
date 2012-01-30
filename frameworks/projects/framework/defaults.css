@@ -28,9 +28,10 @@ global
   	borderCapColor: #919999;
 	borderColor: #696969;
 	borderSides: "left top right bottom";
-	borderSkin: ClassReference("mx.skins.halo.HaloBorder");
+	borderSkin: ClassReference("mx.skins.spark.BorderSkin");
 	borderStyle: "inset";
 	borderThickness: 1;
+    borderVisible: true;
     breakOpportunity: "auto";
 	buttonColor: #6F7777;
     cffHinting: "horizontalStem";
@@ -39,8 +40,9 @@ global
     columnCount: "auto";
     columnGap: 20;
     columnWidth: "auto";
+    contentBackgroundAlpha: 1;
     contentBackgroundColor: #FFFFFF;
-	cornerRadius: 0;
+	cornerRadius: 2;
     digitCase: "default";
     digitWidth: "default";
     direction: "ltr";
@@ -50,6 +52,7 @@ global
     dominantBaseline: "auto";
 	dropShadowColor: #000000;
 	dropShadowEnabled: false;
+    dropShadowVisible: true;
 	embedFonts: false;
 	errorColor: #FE0000;
 	fillAlphas: 0.6, 0.4, 0.75, 0.65; /* last pair are for OVER state */
@@ -57,7 +60,7 @@ global
 	fillColors: #FFFFFF, #CCCCCC, #FFFFFF, #EEEEEE;
 	filled: true;
     firstBaselineOffset: "auto";
-	focusAlpha: 0.4;
+	focusAlpha: 0.55;
 	focusBlendMode: "normal";
     focusColor: #70B2EE;
 	focusRoundedCorners: "tl tr bl br";
@@ -313,8 +316,8 @@ ApplicationControlBar
 
 Button
 {
-	cornerRadius: 4;
-/*	disabledIcon: null; 
+/*	cornerRadius: 4;
+	disabledIcon: null; 
 	disabledSkin: null;
 	downIcon: null; 
 	downSkin: null */
@@ -492,7 +495,7 @@ ColorPicker
 ComboBox
 {
 	arrowButtonWidth: 18;
-	cornerRadius: 5;
+/*	cornerRadius: 5; */
 	disabledIconColor: #919999;
 /*	disabledSkin: null 
 	downSkin: null */
@@ -524,7 +527,7 @@ ComboBox
 	backgroundColor: #FFFFFF;
 	borderThickness: 0;
 	cornerRadius: 0;
-	dropShadowEnabled: true;
+	dropShadowVisible: true;
 	fontWeight: "normal";
 	leading: 0;
 	paddingLeft: 5;
@@ -542,6 +545,7 @@ ComboBox
 Container
 {
 	borderStyle: "none";
+    dropShadowVisible: false;
 }
 
 /*
@@ -658,7 +662,7 @@ DateField
 	disabledSkin: Embed(source="assets/CalendarIcon.png");
 	downSkin: Embed(source="assets/CalendarIcon.png");
 	overSkin: Embed(source="assets/CalendarIcon.png");
-	upSkin: Embed(source="assets/CalendarIcon.png");
+	upSkin: Embed(source="assets/CalendarIcon.png"); 
 }
 
 /*
@@ -671,7 +675,7 @@ DateField
 {
 	backgroundColor: #FFFFFF;
 	borderThickness: 1;
-	dropShadowEnabled: true;
+	dropShadowVisible: true;
 }
 
 /*
@@ -982,7 +986,7 @@ Menu
 	checkDisabledIcon : ClassReference("mx.skins.spark.MenuCheckDisabled");
 	checkIcon : ClassReference("mx.skins.spark.MenuCheck");
 	dropIndicatorSkin: ClassReference("mx.skins.halo.ListDropIndicator");
-	dropShadowEnabled: true;
+	dropShadowVisible: true;
 	horizontalGap: 6;
 	leftIconGap: 18;
 	rightIconGap: 15;
@@ -1020,7 +1024,7 @@ MenuBar
 
 NumericStepper
 {
-	cornerRadius: 5;
+/*	cornerRadius: 5; */
 /*	downArrowDisabledSkin: null
 	downArrowDownSkin: null
 	downArrowOverSkin: null */
@@ -1069,8 +1073,8 @@ Panel
 {
 	/* backgroundAlpha: 1.0; controls the alpha of the panel content area. */
 	backgroundColor: #FFFFFF;
-	borderAlpha: 0.4; /* controls the alpha of the panel top, bottom and sides. */
-	borderColor: #E2E2E2;
+    borderAlpha: 0.5;
+    borderColor: 0;
 	borderSkin: ClassReference("mx.skins.spark.PanelBorderSkin");
 	borderStyle: "default";
 	borderThickness: 0;
@@ -1078,8 +1082,9 @@ Panel
 	borderThicknessLeft: 10;
 	borderThicknessRight: 10;
 	borderThicknessTop: 2;
-	cornerRadius: 4;
-	dropShadowEnabled: true;
+	/* cornerRadius: 4; */
+    cornerRadius: 0;
+	dropShadowVisible: true;
 	paddingBottom: 0;
 	paddingLeft: 0;
 	paddingRight: 0;
@@ -1268,7 +1273,7 @@ RichTextEditor
 ScrollBar
 {
 	borderColor: #B7BABC;
-	cornerRadius: 4;
+	/*cornerRadius: 4;*/
 /*	downArrowDisabledSkin: null
 	downArrowDownSkin: null
 	downArrowOverSkin: null */
@@ -1302,6 +1307,7 @@ ScrollBar
 ScrollControlBase 
 {
 	borderSkin: ClassReference("mx.skins.spark.BorderSkin");
+    dropShadowVisible: false;
 }
 
 
@@ -1562,8 +1568,8 @@ TitleWindow
 	closeButtonDownSkin: Embed(source="Assets.swf",symbol="CloseButtonDown");
 	closeButtonOverSkin: Embed(source="Assets.swf",symbol="CloseButtonOver");
 	closeButtonUpSkin: Embed(source="Assets.swf",symbol="CloseButtonUp");
-	cornerRadius: 8;
-	dropShadowEnabled: true;
+	/*cornerRadius: 8;*/
+	dropShadowVisible: true;
 	paddingBottom: 4;
 	paddingLeft: 4;
 	paddingRight: 4;
