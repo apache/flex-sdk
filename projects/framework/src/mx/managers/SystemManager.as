@@ -3226,7 +3226,7 @@ public class SystemManager extends MovieClip
     private function stageEventHandler(event:Event):void
     {
         if (event.target is Stage)
-            dispatchEvent(event);
+            mouseCatcher.dispatchEvent(event);
     }
 
     /**
