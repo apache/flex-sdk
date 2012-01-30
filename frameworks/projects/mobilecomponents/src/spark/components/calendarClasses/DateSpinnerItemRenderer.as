@@ -87,6 +87,8 @@ public class DateSpinnerItemRenderer extends SpinnerListItemRenderer
         {
             if (data["_emphasized_"] != undefined)
                 _colorName = "accentColor"; // highlighted item
+            else
+                _colorName = "color"; // reset to use standard color
         }
         catch (e:Error)
         {
