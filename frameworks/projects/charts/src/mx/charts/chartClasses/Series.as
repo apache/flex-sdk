@@ -1645,7 +1645,7 @@ public class Series extends ChartElement
             _bFilterDirty = true;
             _bTransformDirty=true;
             
-            invalidateTransitions();
+            invalidateProperties();
             invalidateDisplayList();
         }
         else
