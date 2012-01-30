@@ -24,7 +24,7 @@ import mx.core.mx_internal;
 import mx.effects.effectClasses.PropertyChanges;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
-import mx.utils.ObjectUtil;
+import mx.utils.NameUtil;
 
 use namespace mx_internal;
 
@@ -162,7 +162,7 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
      */
     public function get className():String
     {
-        return ObjectUtil.getUnqualifiedClassName(this);
+        return NameUtil.getUnqualifiedClassName(this);
     }
     
     //----------------------------------
