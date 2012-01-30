@@ -124,7 +124,7 @@ public class TabbedViewNavigatorSkin extends MobileSkin
         {
             tabBarHeight = Math.min(tabBar.getPreferredBoundsHeight(), unscaledHeight);
             tabBar.setLayoutBoundsSize(unscaledWidth, tabBarHeight);
-            tabBar.setLayoutBoundsPosition(0, 0);
+            tabBar.setLayoutBoundsPosition(0, unscaledHeight - tabBarHeight);
             tabBarHeight = tabBar.getLayoutBoundsHeight(); 
         }
         
@@ -147,7 +147,7 @@ public class TabbedViewNavigatorSkin extends MobileSkin
                 var contentGroupHeight:Number = Math.max(unscaledHeight - tabBarHeight, 0);
                 
                 contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
-                contentGroup.setLayoutBoundsPosition(0, tabBarHeight);
+                contentGroup.setLayoutBoundsPosition(0, 0);
             }
         }
     }
