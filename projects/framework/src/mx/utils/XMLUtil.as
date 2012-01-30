@@ -20,6 +20,11 @@ import flash.xml.XMLDocument;
  *  You do not create instances of XMLUtil;
  *  instead you simply call static methods such as
  *  the <code>XMLUtil.qnamesEqual()</code> method.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class XMLUtil
 {
@@ -41,6 +46,11 @@ public class XMLUtil
      *  @param str XML string.
 	 *
      *  @return New XML object that ignored whitespace.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function createXMLDocument(str:String):XMLDocument
     {
@@ -60,6 +70,11 @@ public class XMLUtil
 	 *
 	 *  @return <code>true</code> if the two QName parameters have identical
 	 *  <code>uri</code> and <code>localName</code> properties.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function qnamesEqual(qname1:QName, qname2:QName):Boolean
     {
@@ -80,6 +95,11 @@ public class XMLUtil
 	 *  @return Concatenation of a Qname object's
 	 *  <code>uri</code> and <code>localName</code> properties,
 	 *  separated by a colon.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static function qnameToString(qname:QName):String
     {
@@ -95,6 +115,11 @@ public class XMLUtil
     * @param attrQName the QName of the attribute to find
     * 
     * @return XMLList of matching attributes or an empty list if none are found.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public static function getAttributeByQName(xml:XML, attrQName:QName):XMLList
     {
