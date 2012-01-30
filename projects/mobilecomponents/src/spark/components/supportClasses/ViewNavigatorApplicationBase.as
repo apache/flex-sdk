@@ -269,7 +269,7 @@ public class ViewNavigatorApplicationBase extends Application
      * 
      *  <p>When enabled, the application version will be added to the persistence object.  
      *  You can access this information by using the persistence manager's 
-     *  <code>getProperty()</code> method and ask for the <code>versionNumber</code> key.
+     *  <code>getProperty()</code> method and ask for the <code>versionNumber</code> key.</p>
      * 
      *  <p>When the persistence object is being created, the application dispatches
      *  a cancelable <code>FlexEvent.NAVIGATOR_STATE_SAVING</code> event when the process
