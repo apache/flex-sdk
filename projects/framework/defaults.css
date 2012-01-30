@@ -1452,7 +1452,7 @@ TabBar
 TabNavigator
 {
 	backgroundColor: #FFFFFF;
-	borderColor: #AAB3B3;	/* used for edge of tab's content area, */
+	borderColor: #696969;	/* used for edge of tab's content area, */
 	borderStyle: "solid";
 	horizontalAlign: "left";
 	horizontalGap: -1;
