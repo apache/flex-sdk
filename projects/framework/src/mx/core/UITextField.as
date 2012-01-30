@@ -35,6 +35,7 @@ import mx.styles.IStyleClient;
 import mx.styles.IStyleManager2;
 import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
+import mx.utils.MatrixUtil;
 import mx.utils.NameUtil;
 import mx.utils.StringUtil;
 
@@ -1288,10 +1289,11 @@ public class UITextField extends FlexTextField
         if (!stage || embedFonts)
             return textHeight + TEXT_HEIGHT_PADDING;
 
-        var m:Matrix = transform.concatenatedMatrix;
+        const m:Matrix = MatrixUtil.getConcatenatedMatrix(this);
+        const sx:Number = ((mirror) ? -1 : +1) * m.a;
+        const sy:Number = m.d
         
-        return (textHeight * m.a 
-                / m.d) + TEXT_HEIGHT_PADDING;
+        return (textHeight * sx / sy) + TEXT_HEIGHT_PADDING;
     }
 
     //----------------------------------
@@ -1360,13 +1362,15 @@ public class UITextField extends FlexTextField
         
         // If we use device fonts, then the unscaled width is 
         // textWidth * scaleX / scaleY
+        
         if (!stage || embedFonts)
             return textWidth + TEXT_WIDTH_PADDING;
 
-        var m:Matrix = transform.concatenatedMatrix;
+        const m:Matrix = MatrixUtil.getConcatenatedMatrix(this);        
+        const sx:Number = ((mirror) ? -1 : +1) * m.a;
+        const sy:Number = m.d
         
-        return (textWidth * m.a
-                / m.d) + TEXT_WIDTH_PADDING;
+        return (textWidth * sx / sy) + TEXT_WIDTH_PADDING;
     }
 
     //----------------------------------
