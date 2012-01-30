@@ -39,7 +39,8 @@ package spark.skins.mobile
         override protected function createChildren():void
         {
             contentGroup = new Group();
-            
+            contentGroup.minHeight = 0;
+			
             tabBar = new ButtonBar();
             tabBar.requireSelection = true;
             tabBar.height = 40;
@@ -82,8 +83,13 @@ package spark.skins.mobile
             
 			if (contentGroup.includeInLayout)
 			{
+				var contentGroupHeight:Number = bottom - top;
+				
+				if (contentGroupHeight < contentGroup.minHeight)
+					contentGroupHeight = contentGroup.minHeight;
+				
 	            contentGroup.setLayoutBoundsPosition(0, top);
-	            contentGroup.setLayoutBoundsSize(unscaledWidth, bottom - top);
+	            contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
 			}
         }
     }
