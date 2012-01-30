@@ -366,7 +366,8 @@ public class CompositeEffect extends Effect
      *  @private
      */
     override mx_internal function captureValues(propChanges:Array,
-                                           setStartValues:Boolean):Array
+                                           setStartValues:Boolean,
+                                           targetsToCapture:Array = null):Array
     {
         // Iterate through the list of children
         // and run captureValues() on each of them.
@@ -374,7 +375,8 @@ public class CompositeEffect extends Effect
         for (var i:int = 0; i < n; i++)
         {
             var child:Effect = children[i];
-            propChanges = child.captureValues(propChanges, setStartValues);
+            propChanges = child.captureValues(propChanges, setStartValues,
+                child.targets);
         }
         
         return propChanges;
