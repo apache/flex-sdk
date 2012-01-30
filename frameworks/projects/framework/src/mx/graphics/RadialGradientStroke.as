@@ -43,7 +43,7 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
      *  <code>LineScaleMode.NONE</code>, <code>LineScaleMode.NORMAL</code>,
      *  and <code>LineScaleMode.VERTICAL</code>.
      *  This parameter is optional,
-     *  with a default value of <code>LineScaleMode.NONE</code>. 
+     *  with a default value of <code>LineScaleMode.NORMAL</code>. 
      *
      *  @param caps A value from the CapsStyle class
      *  that specifies the type of caps at the end of lines.
@@ -77,7 +77,12 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
      *  This parameter is optional,
      *  with a default value of <code>0</code>.
      */
-    public function RadialGradientStroke(weight:Number=0, pixelHinting:Boolean=false, scaleMode:String="none", caps:String=null, joints:String=null, miterLimit:Number=0)
+    public function RadialGradientStroke(weight:Number = 0,
+                                         pixelHinting:Boolean = false,
+                                         scaleMode:String = "normal",
+                                         caps:String = null,
+                                         joints:String = null,
+                                         miterLimit:Number = 0)
     {
         super(weight, pixelHinting, scaleMode, caps, joints, miterLimit);
     }
