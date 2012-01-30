@@ -58,6 +58,7 @@
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
+				<include name="textLayout.swc"/>
 			</external-library-path>
 			<locale/>
 			<accessible>true</accessible>
