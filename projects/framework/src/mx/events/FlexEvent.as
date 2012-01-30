@@ -290,7 +290,7 @@ public class FlexEvent extends Event
      */
     public static const CREATION_COMPLETE:String = "creationComplete";
 
-	 /**
+     /**
      *  The <code>FlexEvent.CONTENT_CREATION_COMPLETE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>contentCreationComplete</code> event.
      *
@@ -318,7 +318,7 @@ public class FlexEvent extends Event
      */
     public static const CONTENT_CREATION_COMPLETE:String = "contentCreationComplete";
 
-	
+    
     /**
      *  The <code>FlexEvent.CURSOR_UPDATE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>cursorUpdate</code> event.
@@ -1211,6 +1211,68 @@ public class FlexEvent extends Event
      *  @productversion Flex 3
      */
     public static const SHOW:String = "show";
+    
+    /**
+     *  The <code>FlexEvent.STATE_CHANGE_COMPLETE</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>stateChangeComplete</code> event.
+     *
+     * <p>This event will only be dispatched when there are one or more relevant listeners 
+     * attached to the dispatching object.</p>
+     * 
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType stateChangeComplete
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static const STATE_CHANGE_COMPLETE:String = "stateChangeComplete";
+    
+    /**
+     *  The <code>FlexEvent.STATE_CHANGE_INTERRUPTED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>stateChangeInterrupted</code> event.
+     *
+     * <p>This event will only be dispatched when there are one or more relevant listeners 
+     * attached to the dispatching object.</p>
+     * 
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType stateChangeInterrupted
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static const STATE_CHANGE_INTERRUPTED:String = "stateChangeInterrupted";
 
     /**
      *  The <code>FlexEvent.TRANSFORM_CHANGE</code> constant defines the value of the
@@ -1240,6 +1302,68 @@ public class FlexEvent extends Event
      */
     public static const TRANSFORM_CHANGE:String = "transformChange";
 
+    /**
+     *  The <code>FlexEvent.TRANSITION_START</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>transitionStart</code> event.
+     *
+     *  <p>This event will only be dispatched when there are one or more relevant listeners 
+     *  attached to the dispatching object.</p>
+     * 
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType transitionStart
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static const TRANSITION_START:String = "transitionStart";
+    
+    /**
+     *  The <code>FlexEvent.TRANSITION_END</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>transitionEnd</code> event.
+     *
+     *  <p>This event will only be dispatched when there are one or more relevant listeners 
+     *  attached to the dispatching object.</p>  
+     * 
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType transitionEnd
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static const TRANSITION_END:String = "transitionEnd";
+    
     /**
      *  The <code>FlexEvent.UPDATE_COMPLETE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>updateComplete</code> event.
@@ -1357,68 +1481,6 @@ public class FlexEvent extends Event
      */
     public static const VALUE_COMMIT:String = "valueCommit";
    
-    /**
-     *  The <code>FlexEvent.STATE_CHANGE_COMPLETE</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>stateChangeComplete</code> event.
-     *
-     * <p>This event will only be dispatched when there are one or more relevant listeners 
-     * attached to the dispatching object.</p>
-     * 
-     *  <p>The properties of the event object have the following values:</p>
-     *  <table class="innertable">
-     *     <tr><th>Property</th><th>Value</th></tr>
-     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
-     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
-     *       event listener that handles the event. For example, if you use
-     *       <code>myButton.addEventListener()</code> to register an event listener,
-     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
-     *       it is not always the Object listening for the event.
-     *       Use the <code>currentTarget</code> property to always access the
-     *       Object listening for the event.</td></tr>
-     *  </table>
-     *
-     *  @eventType stateChangeComplete
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public static const STATE_CHANGE_COMPLETE:String = "stateChangeComplete";
-    
-    /**
-     *  The <code>FlexEvent.STATE_CHANGE_INTERRUPTED</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>stateChangeInterrupted</code> event.
-     *
-     * <p>This event will only be dispatched when there are one or more relevant listeners 
-     * attached to the dispatching object.</p>
-     * 
-     *  <p>The properties of the event object have the following values:</p>
-     *  <table class="innertable">
-     *     <tr><th>Property</th><th>Value</th></tr>
-     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
-     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
-     *       event listener that handles the event. For example, if you use
-     *       <code>myButton.addEventListener()</code> to register an event listener,
-     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
-     *       it is not always the Object listening for the event.
-     *       Use the <code>currentTarget</code> property to always access the
-     *       Object listening for the event.</td></tr>
-     *  </table>
-     *
-     *  @eventType stateChangeInterrupted
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public static const STATE_CHANGE_INTERRUPTED:String = "stateChangeInterrupted";
-
     //--------------------------------------------------------------------------
     //
     //  Constructor
