@@ -35,7 +35,7 @@ global
 	buttonColor: #6F7777;
     cffHinting: "horizontalStem";
 	closeDuration: 50;
-	color: 0;
+	color: #000000;
     columnCount: "auto";
     columnGap: 20;
     columnWidth: "auto";
@@ -46,7 +46,7 @@ global
     direction: "ltr";
 	disabledColor: #AAB3B3;
 	disabledIconColor: #999999;
-    dominantBaseline: "roman";
+    dominantBaseline: "auto";
 	dropShadowColor: #000000;
 	dropShadowEnabled: false;
 	embedFonts: false;
@@ -55,7 +55,7 @@ global
 	fillColor: #FFFFFF; /* kill this?? */
 	fillColors: #FFFFFF, #CCCCCC, #FFFFFF, #EEEEEE;
 	filled: true;
-    firstBaselineOffset: "ascent";
+    firstBaselineOffset: "auto";
 	focusAlpha: 0.4;
 	focusBlendMode: "normal";
     focusColor: #70B2EE;
@@ -83,8 +83,8 @@ global
     inactiveSelectionColor: #E8E8E8;
 	indentation: 17;
 	indicatorGap: 14;
-    justificationRule: "space";
-    justificationStyle: "pushInKinsoku";
+    justificationRule: "auto";
+    justificationStyle: "auto";
 	kerning: false;
 	leading: 2;
     leadingModel: "auto";
@@ -122,6 +122,7 @@ global
 	stroked: false;
 	strokeWidth: 1;
     symbolColor: #000000;
+	tabStops: ClassReference(null);
 	textAlign: "left";
     textAlignLast: "start";
     textAlpha: 1.0;
