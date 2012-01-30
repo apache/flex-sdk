@@ -241,13 +241,8 @@ AccordionHeader
 
 Alert
 {
-	backgroundAlpha: 0.90; /* controls the alpha of the panel content area. */
-	backgroundColor: #869CA7;
-	borderAlpha: 0.90; /* controls the alpha of the panel top, bottom and sides. */
-	borderColor: #869CA7;
 	/* borderThicknessBottom is NaN */
 	/* buttonStyleName: "alertButtonStyle"; */
-	color: 0;
 	paddingBottom: 10;
 	paddingLeft: 10;
 	paddingRight: 10;
@@ -353,6 +348,7 @@ Button
 
 ButtonBar
 {
+    borderSkin: ClassReference("mx.skins.spark.BorderSkin");
 	firstButtonStyleName: buttonBarFirstButtonStyle;
 	horizontalAlign: "center";
 	horizontalGap: -1;
@@ -543,6 +539,7 @@ ComboBox
 
 Container
 {
+    borderSkin: ClassReference("mx.skins.spark.ContainerBorderSkin");
 	borderStyle: "none";
 }
 
@@ -996,6 +993,16 @@ Menu
 	radioIcon : ClassReference("mx.skins.spark.MenuRadio");
 	separatorSkin: ClassReference("mx.skins.spark.MenuSeparatorSkin");
 	verticalAlign: "middle";
+}
+
+/*
+//------------------------------
+//  LinkBar
+//------------------------------
+*/
+LinkBar
+{
+    borderSkin: ClassReference("mx.skins.spark.BorderSkin");
 }
 
 /*
