@@ -16,7 +16,8 @@ import mx.effects.effectClasses.PauseInstance;
 
 /**
  *  The Pause effect is useful when sequencing effects.
- *  It does nothing for a specified period of time.
+ *  It does nothing for a specified period of time or until
+ *  a specified event is dispatched by the target.
  *  If you add a Pause effect as a child of a Sequence effect,
  *  you can create a pause between the two other effects.
  *  
@@ -29,6 +30,7 @@ import mx.effects.effectClasses.PauseInstance;
  *  <pre>
  *  &lt;mx:Pause 
  *    id="ID" 
+ *    eventName="null"
  *  /&gt;
  *  </pre>
  *  
@@ -47,18 +49,76 @@ public class Pause extends TweenEffect
 	//--------------------------------------------------------------------------
 
 	/**
-	 *  Constructor.
+	 * Constructor.
 	 *
-	 *  @param target This argument is ignored by the Pause effect.
-	 *  It is included for consistency with other effects.
+	 * @param target This argument is ignored by the Pause effect
+	 * if there is no <code>eventName</code> attribute assigned. If there
+	 * is an <code>eventName</code>, then the target must be an object
+	 * of type IEventDispatcher, because it is expected to dispatch
+	 * that named event. A null target is allowed for this effect since
+	 * a Pause effect with simply a <code>duration</code> property is
+	 * not acting on any specific target and therefore does not need one.
 	 */
 	public function Pause(target:Object = null)
 	{
+	    // Effect requires non-null targets, so if they didn't give us one
+	    // we will create a dummy object to serve in its place. If the effect
+	    // is being used to listen to events, then they will supply a real
+	    // target of type IEventDispatcher instead, either here or separately
+	    // in the target attribute
+	    if (!target)
+	       target = new Object();
+	       
 		super(target);
 
 		instanceClass = PauseInstance;
 	}
 	
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  eventName
+    //----------------------------------
+
+    /** 
+     * Name of event that Pause is waiting on before ending. 
+     * This parameter must be used in conjunction with the
+     * <code>target</code> property, which must be of type
+     * IEventDispather; all events must originate
+     * from some dispatcher.
+     * 
+     * <p>Listening for <code>eventName</code> is also related to the
+     * <code>duration</code> property, which acts as a timeout for the
+     * event. If the event is not received in the time period specified
+     * by <code>duration</code>, the effect will end, regardless.</p>
+     * 
+     * <p>This property is optional; the default
+     * action is to play without waiting for any event.</p>
+     */
+    public var eventName:String
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override protected function initInstance(instance:IEffectInstance):void
+    {
+        super.initInstance(instance);
+        
+        var pauseInstance:PauseInstance = PauseInstance(instance);
+
+        pauseInstance.eventName = eventName;
+    }
+
 	/**
 	 *  @private
 	 */
