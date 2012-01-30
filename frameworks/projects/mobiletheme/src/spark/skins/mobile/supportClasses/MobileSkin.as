@@ -57,9 +57,9 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     // Used for gradient background
     protected static var matrix:Matrix = new Matrix();
     
-    protected static const ratios:Array = [0, 127.5, 255];
+    protected static const CHROME_COLOR_RATIOS:Array = [0, 127.5];
     
-    protected static const alphas:Array = [1, 1, 1];
+    protected static const CHROME_COLOR_ALPHAS:Array = [1, 1];
     
     private static const DEFAULT_SYMBOL_COLOR_VALUE:uint = 0x00;
     
@@ -113,7 +113,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  @productversion Flex 4.5
      */
     protected var useSymbolColor:Boolean = false;
-    
+	
     private var _focus:Boolean = false;
     
     //----------------------------------
@@ -317,11 +317,10 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
         var colors:Array = [];
         matrix.createGradientBox(unscaledWidth, unscaledHeight, Math.PI / 2, 0, 0);
         var chromeColor:uint = getChromeColor();
-        colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
+        colors[0] = ColorUtil.adjustBrightness2(chromeColor, 70);
         colors[1] = chromeColor;
-        colors[2] = ColorUtil.adjustBrightness2(chromeColor, -20);
         
-        chromeColorGraphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
+        chromeColorGraphics.beginGradientFill(GradientType.LINEAR, colors, CHROME_COLOR_ALPHAS, CHROME_COLOR_RATIOS, matrix);
     }
     
     protected function getChromeColor():uint
