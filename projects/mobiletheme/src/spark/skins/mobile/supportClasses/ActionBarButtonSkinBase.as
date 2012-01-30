@@ -75,8 +75,8 @@ public class ActionBarButtonSkinBase extends ButtonSkin
                 layoutPaddingBottom = 10;
                 layoutPaddingLeft = 20;
                 layoutPaddingRight = 20;
-                minWidth = 106;
-                minHeight = 86;
+                measuredDefaultWidth = 106;
+                measuredDefaultHeight = 86;
                 
                 break;
             }
@@ -87,21 +87,21 @@ public class ActionBarButtonSkinBase extends ButtonSkin
                 layoutPaddingBottom = 8;
                 layoutPaddingLeft = 16;
                 layoutPaddingRight = 16;
-                minWidth = 81;
-                minHeight = 65;
+                measuredDefaultWidth = 81;
+                measuredDefaultHeight = 65;
                 
                 break;
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 layoutBorderSize = 1;
                 layoutPaddingTop = 6;
                 layoutPaddingBottom = 5;
                 layoutPaddingLeft = 10;
                 layoutPaddingRight = 10;
-                minWidth = 53;
-                minHeight = 43;
+                measuredDefaultWidth = 53;
+                measuredDefaultHeight = 43;
                 
                 break;
             }
