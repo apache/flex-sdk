@@ -37,6 +37,8 @@
 
 	<target name="compile" description="Compiles framework.swc">
 		<echo message="Compiling frameworks/libs/framework.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 		<!--
 			Link in the classes (and their dependencies) for the MXML tags
@@ -81,6 +83,8 @@
 	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
 	<target name="bundle">
 		<echo message="Compiling frameworks/locale/${locale}/framework_rb.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/locale/${locale}/framework_rb.swc"
