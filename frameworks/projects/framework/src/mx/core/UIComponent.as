@@ -99,6 +99,7 @@ import mx.utils.GraphicsUtil;
 import mx.utils.MatrixUtil;
 import mx.utils.NameUtil;
 import mx.utils.StringUtil;
+import mx.utils.TransformUtil;
 import mx.validators.IValidatorListener;
 import mx.validators.ValidationResult;
 
@@ -13132,6 +13133,15 @@ public class UIComponent extends FlexSprite
      */
     protected function initAdvancedLayoutFeatures():void
     {
+        internal_initAdvancedLayoutFeatures();
+    }
+
+    /**
+     *  Passed to TransformUtil to create the layout features when performing
+     *  transformation operations.
+     */
+    private function internal_initAdvancedLayoutFeatures():AdvancedLayoutFeatures
+    {
         var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
         
         _hasComplexLayoutMatrix = true;
@@ -13148,6 +13158,7 @@ public class UIComponent extends FlexSprite
         features.layoutWidth = width;  // for the mirror transform      
         _layoutFeatures = features;
         invalidateTransform();
+        return features;
     }
 
     /**
@@ -13388,8 +13399,6 @@ public class UIComponent extends FlexSprite
             validateMatrix();
     }
 
-    private static var xformPt:Point;
-
     /**
      *  @copy mx.core.ILayoutElement#transformAround()
      *  
@@ -13416,46 +13425,29 @@ public class UIComponent extends FlexSprite
             _includeInLayout = false;
         }
 
-        // TODO (chaase): Would be nice to put this function in a central place
-        // to be used by UIComponent, SpriteVisualElement, UIMovieClip, and
-        // GraphicElement, since they all have similar or identical functions
-        if (_layoutFeatures == null)
-        {
-            // TODO (chaase): should provide a way to return to having no
-            // layoutFeatures if we call this later with a more trivial
-            // situation
-            var needAdvancedLayout:Boolean = 
-                (scale != null && ((!isNaN(scale.x) && scale.x != 1) || 
-                    (!isNaN(scale.y) && scale.y != 1) ||
-                    (!isNaN(scale.z) && scale.z != 1))) || 
-                (rotation != null && ((!isNaN(rotation.x) && rotation.x != 0) || 
-                    (!isNaN(rotation.y) && rotation.y != 0) ||
-                    (!isNaN(rotation.z) && rotation.z != 0))) || 
-                (translation != null && translation.z != 0 && !isNaN(translation.z)) ||
-                postLayoutScale != null ||
-                postLayoutRotation != null ||
-                (postLayoutTranslation != null && 
-                    (translation == null ||
-                     postLayoutTranslation.x != translation.x ||
-                     postLayoutTranslation.y != translation.y ||
-                     postLayoutTranslation.z != translation.z));
-            if (needAdvancedLayout)
-                initAdvancedLayoutFeatures();
-        }
+        var prevX:Number = x;
+        var prevY:Number = y;
+        var prevZ:Number = z;
+        
+        TransformUtil.transformAround(this,
+                                      transformCenter,
+                                      scale,
+                                      rotation,
+                                      translation,
+                                      postLayoutScale,
+                                      postLayoutRotation,
+                                      postLayoutTranslation,
+                                      _layoutFeatures,
+                                      internal_initAdvancedLayoutFeatures);
+        
         if (_layoutFeatures != null)
         {
-            var prevX:Number = _layoutFeatures.layoutX;
-            var prevY:Number = _layoutFeatures.layoutY;
-            var prevZ:Number = _layoutFeatures.layoutZ;
-            _layoutFeatures.transformAround(transformCenter, scale, rotation,
-                translation, postLayoutScale, postLayoutRotation,
-                postLayoutTranslation);
             invalidateTransform();
 
             // Will not invalidate parent if we have set _includeInLayout to false
             // in the beginning of the method
             invalidateParentSizeAndDisplayList();
-
+            
             if (prevX != _layoutFeatures.layoutX)
                 dispatchEvent(new Event("xChanged"));
             if (prevY != _layoutFeatures.layoutY)
@@ -13463,70 +13455,24 @@ public class UIComponent extends FlexSprite
             if (prevZ != _layoutFeatures.layoutZ)
                 dispatchEvent(new Event("zChanged"));
         }
-        else
-        {
-            if (translation == null && transformCenter != null)
-            {
-                if (xformPt == null)
-                    xformPt = new Point();
-                xformPt.x = transformCenter.x;
-                xformPt.y = transformCenter.y;                
-                var xformedPt:Point = 
-                    transform.matrix.transformPoint(xformPt);
-            }
-            if (rotation != null && !isNaN(rotation.z))
-                this.rotation = rotation.z;
-            if (scale != null)
-            {
-                scaleX = scale.x;
-                scaleY = scale.y;
-            }            
-            if (transformCenter == null)
-            {
-                if (translation != null)
-                {
-                    x = translation.x;
-                    y = translation.y;
-                }
-            }
-            else
-            {
-                if (xformPt == null)
-                    xformPt = new Point();
-                xformPt.x = transformCenter.x;
-                xformPt.y = transformCenter.y;                
-                var postXFormPoint:Point = 
-                    transform.matrix.transformPoint(xformPt);
-                if (translation != null)
-                {
-                    x += translation.x - postXFormPoint.x;
-                    y += translation.y - postXFormPoint.y;
-                }
-                else
-                {
-                    x += xformedPt.x - postXFormPoint.x;
-                    y += xformedPt.y - postXFormPoint.y;                                   
-                }
-            }
-        }
         
         if (!invalidateLayout)
             _includeInLayout = oldIncludeInLayout;
     }
 
     /**
-     * A utility method to transform a point specified in the local
-     * coordinates of this object to its location in the object's parent's 
-     * coordinates. The pre-layout and post-layout result is set on 
-     * the <code>position</code> and <code>postLayoutPosition</code>
-     * parameters, if they are non-null.
-     * 
-     * @param localPosition The point to be transformed, specified in the
-     * local coordinates of the object.
-     * @position A Vector3D point that holds the pre-layout
-     * result. If null, the parameter is ignored.
-     * @postLayoutPosition A Vector3D point that holds the post-layout
-     * result. If null, the parameter is ignored.
+     *  A utility method to transform a point specified in the local
+     *  coordinates of this object to its location in the object's parent's 
+     *  coordinates. The pre-layout and post-layout result is set on 
+     *  the <code>position</code> and <code>postLayoutPosition</code>
+     *  parameters, if they are non-null.
+     *  
+     *  @param localPosition The point to be transformed, specified in the
+     *  local coordinates of the object.
+     *  @position A Vector3D point that holds the pre-layout
+     *  result. If null, the parameter is ignored.
+     *  @postLayoutPosition A Vector3D point that holds the post-layout
+     *  result. If null, the parameter is ignored.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -13537,41 +13483,11 @@ public class UIComponent extends FlexSprite
                                            position:Vector3D, 
                                            postLayoutPosition:Vector3D):void
     {
-        if (_layoutFeatures != null)
-        {
-            _layoutFeatures.transformPointToParent(true, localPosition,
-                position, postLayoutPosition);
-        }
-        else
-        {
-            if (xformPt == null)
-                xformPt = new Point();
-            if (localPosition)
-            {
-                xformPt.x = localPosition.x;
-                xformPt.y = localPosition.y;
-            }
-            else
-            {
-                xformPt.x = 0;
-                xformPt.y = 0;
-            }
-            var tmp:Point = (transform.matrix != null) ?
-                transform.matrix.transformPoint(xformPt) :
-                xformPt;
-            if (position != null)
-            {            
-                position.x = tmp.x;
-                position.y = tmp.y;
-                position.z = 0;
-            }
-            if (postLayoutPosition != null)
-            {
-                postLayoutPosition.x = tmp.x;
-                postLayoutPosition.y = tmp.y;
-                postLayoutPosition.z = 0;
-            }
-        }
+        TransformUtil.transformPointToParent(this,
+                                             localPosition,
+                                             position,
+                                             postLayoutPosition,
+                                             _layoutFeatures);
     }
 
     /**
@@ -13717,7 +13633,6 @@ public class UIComponent extends FlexSprite
     //  ILayoutElement
     //
     //--------------------------------------------------------------------------
-
 
     /**
      *  @inheritDoc
