@@ -43,7 +43,8 @@
 				<include name="mx/mx.swc"/>
 				<include name="textLayout.swc"/>
 				<include name="rpc.swc"/>
-				<include name="datavisualization.swc"/>
+				<include name="charts.swc"/>
+				<include name="advancedgrids.swc"/>
 				<include name="automation_agent.swc"/>
 				<include name="qtp.swc"/>
 				<include name="qtp_air.swc"/>
