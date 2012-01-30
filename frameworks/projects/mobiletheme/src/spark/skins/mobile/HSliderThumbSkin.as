@@ -14,6 +14,8 @@ package spark.skins.mobile
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 
+import mx.core.DeviceDensity;
+
 import spark.components.Button;
 import spark.primitives.Graphic;
 import spark.skins.mobile.supportClasses.MobileSkin;
@@ -59,9 +61,9 @@ public class HSliderThumbSkin extends MobileSkin
         useChromeColor = true;
         
         // set the right assets and dimensions to use based on the screen density
-        switch (targetDensity)
+        switch (authorDensity)
         {
-            case MobileSkin.PPI240:
+            case DeviceDensity.PPI_240:
             {
                 thumbImageWidth = 65;
                 thumbImageHeight = 65;
