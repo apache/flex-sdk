@@ -417,7 +417,9 @@ public class NumberBase
 			if (("0" <= letter && letter <= "9") || (letter == decimalSeparatorFrom))
 			{
 				var lastLetter:String = str.charAt(count - 2);
-				if (lastLetter == "-")
+				// We must handle cases where we have negative input like "-YTL5.000,00"
+				// and currencySymbol is longer than one character.
+				if ((lastLetter == "-") || (str.charAt(0) == "-"))
 					isNegative = true;
 				num = "";
 				count--;
@@ -432,6 +434,38 @@ public class NumberBase
 						num += ".";
 					else if (letter != thousandsSeparatorFrom || count >= len)
 						break;
+				}
+			}
+		}
+
+		// there are all sorts of variations of zero, such as:
+		// .0    0.   0.0    0000     0000.00000     -0
+		// Here, we simply convert to a 'real' Number and see if
+		// it's resolved to zero. if it does, just return a zero
+		// string and be done with it.
+		if ((num != null) && (str != ''))
+		{
+			var n:Number = Number(num);
+
+			if (n == 0)
+				return '0';
+		}
+
+		// if the last digit is the dot, whack it
+		if (num)
+		{
+			if (num.charAt(num.length-1) == '.')
+			{
+				// we have something like 33.
+				if (num.length >= 2)
+				{
+					num = num.substring(0, num.length-1);
+				}
+				// we have merely .
+				else if (num.length == 1)
+				{
+					num = '';
+					isNegative = false;
 				}
 			}
 		}
