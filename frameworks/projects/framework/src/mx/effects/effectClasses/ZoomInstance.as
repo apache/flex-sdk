@@ -18,6 +18,8 @@ import mx.core.mx_internal;
 import mx.effects.EffectManager;
 import mx.events.FlexEvent;
 
+use namespace mx_internal;
+
 /**
  *  The ZoomInstance class implements the instance class for the Zoom effect.
  *  Flex creates an instance of this class when it plays a Zoom effect;
@@ -419,7 +421,12 @@ public class ZoomInstance extends TweenEffectInstance
 		// Set a flag indicating that LayoutManager.validateNow() should
 		// be called after we're finished processing all the effects for
 		// this frame.
-		tween.mx_internal::needToLayout = true;
+        // Zero-duration effects have no tween, so if !tween, tell 
+        // our superclass to layout and it will happen after we're done.
+        if (tween)
+            tween.mx_internal::needToLayout = true;
+        else
+            needToLayout = true;
 
 		EffectManager.resumeEventHandling();
 	}
