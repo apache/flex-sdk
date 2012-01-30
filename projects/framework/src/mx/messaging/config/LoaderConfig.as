@@ -44,6 +44,7 @@ public class LoaderConfig
         {
             _url = LoaderUtil.normalizeURL(root.loaderInfo);
             _parameters = root.loaderInfo.parameters;
+            _swfVersion = root.loaderInfo.swfVersion;
         }
     }
     
