@@ -170,6 +170,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when an object's state changes from visible to invisible.
+ * 
+ *  <p>This event is only dispatched when there are one or more relevant listeners 
+ *  attached to the dispatching object.</p>
  *
  *  @eventType mx.events.FlexEvent.HIDE
  *  
@@ -308,6 +311,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when an object's state changes from invisible to visible.
+ * 
+ *  <p>This event is only dispatched when there are one or more relevant listeners 
+ *  attached to the dispatching object.</p>
  *
  *  @eventType mx.events.FlexEvent.SHOW
  *  
@@ -3213,9 +3219,10 @@ public class UIComponent extends FlexSprite
 
         if (!noEvent)
         {
-            dispatchEvent(new FlexEvent(value ?
-                                        FlexEvent.SHOW :
-                                        FlexEvent.HIDE));
+            var eventType:String = value ? FlexEvent.SHOW :FlexEvent.HIDE;
+            
+            if (hasEventListener(eventType))
+                dispatchEvent(new FlexEvent(eventType));
         }
     }
 
