@@ -26,11 +26,13 @@ import mx.core.IFactory;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
+import mx.events.ResizeEvent;
 import mx.managers.PopUpManager;
 
 import spark.components.Application;
 import spark.components.View;
 import spark.components.ViewMenu;
+import spark.components.ViewMenuItem;
 import spark.core.managers.IPersistenceManager;
 import spark.core.managers.PersistenceManager;
 
@@ -156,6 +158,9 @@ public class MobileApplicationBase extends Application
     public function set viewMenuOpen(value:Boolean):void
     {
         if (value == _viewMenuOpen)
+            return;
+        
+        if (!viewMenu || !activeView.viewMenuItems || activeView.viewMenuItems.length == 0)
             return;
         
         _viewMenuOpen = value;
@@ -463,7 +468,8 @@ public class MobileApplicationBase extends Application
     
     private function viewMenu_clickHandler(event:MouseEvent):void
     {
-        viewMenuOpen = false;
+        if (event.target is ViewMenuItem)
+            viewMenuOpen = false;
     }
     
     private function viewMenu_mouseDownOutsideHandler(event:FlexMouseEvent):void
@@ -471,36 +477,53 @@ public class MobileApplicationBase extends Application
         viewMenuOpen = false;
     }
     
+    private function viewMenu_resizeHandler(event:ResizeEvent):void
+    {
+        // Reposition the view menu?
+        currentViewMenu.y = Math.ceil(getLayoutBoundsHeight() - currentViewMenu.getLayoutBoundsHeight());
+    }
+    
     private function openViewMenu():void
     {
-        if (viewMenu)
-        {
-            currentViewMenu = ViewMenu(viewMenu.newInstance());
-            currentViewMenu.items = activeView.viewMenuItems;
-            currentViewMenu.owner = this;
-            currentViewMenu.addEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
-            currentViewMenu.width = getLayoutBoundsWidth();
-            
-            PopUpManager.addPopUp(currentViewMenu, this, true);     
-            currentViewMenu.validateNow();
-            
-            currentViewMenu.x = 0;
-            currentViewMenu.y = Math.ceil(getLayoutBoundsHeight() - currentViewMenu.getLayoutBoundsHeight());
-            
-            lastFocus = getFocus();
-            
-            currentViewMenu.setFocus();
-            currentViewMenu.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
-        }
+        currentViewMenu = ViewMenu(viewMenu.newInstance());
+        currentViewMenu.items = activeView.viewMenuItems;
+        currentViewMenu.owner = this;
+        currentViewMenu.addEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
+        currentViewMenu.width = getLayoutBoundsWidth();
+        
+        PopUpManager.addPopUp(currentViewMenu, this, true);   
+        // Force a layout pass so we can properly position the viewMenu
+        currentViewMenu.validateNow();
+        
+        currentViewMenu.x = 0;
+        currentViewMenu.y = Math.ceil(getLayoutBoundsHeight() - currentViewMenu.getLayoutBoundsHeight());
+        
+        lastFocus = getFocus();
+        
+        currentViewMenu.setFocus();
+        currentViewMenu.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
+        
+        // Listen for resize if the icon is loaded from disk or via URL
+        currentViewMenu.addEventListener(ResizeEvent.RESIZE, viewMenu_resizeHandler);
+        
+        // Private event for testing
+        if (activeView.hasEventListener("viewMenuOpen"))
+            activeView.dispatchEvent(new Event("viewMenuOpen"));
     }
     
     private function closeViewMenu():void
     {
         currentViewMenu.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
         PopUpManager.removePopUp(currentViewMenu);
+        
+        // Private event for testing
+        if (activeView.hasEventListener("viewMenuClose"))
+            activeView.dispatchEvent(new Event("viewMenuClose"));
+        
         currentViewMenu.caretIndex = -1;
         currentViewMenu.validateProperties();
         currentViewMenu.removeEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
+        currentViewMenu.removeEventListener(ResizeEvent.RESIZE, viewMenu_resizeHandler);
         currentViewMenu.items = null;
         currentViewMenu = null;
         
