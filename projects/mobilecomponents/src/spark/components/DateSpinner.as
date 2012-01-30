@@ -496,7 +496,7 @@ public class DateSpinner extends SkinnableComponent
             || (_maxDate == null && value == null))
             return;
 
-        _maxDate = new Date(value.time);
+        _maxDate = value != null ? new Date(value.time) : value;
         populateYearDataProvider = true;
         populateDateDataProvider = true;
         maxDateChanged = true;
@@ -541,7 +541,7 @@ public class DateSpinner extends SkinnableComponent
             || (_minDate == null && value == null))
             return;
         
-        _minDate = new Date(value.time);
+        _minDate = value != null ? new Date(value.time) : value;
         populateYearDataProvider = true;
         populateDateDataProvider = true;
         minDateChanged = true;
@@ -1213,6 +1213,9 @@ public class DateSpinner extends SkinnableComponent
         var labelWidth:Number;
         for (var i:int = 0; i < list.length; i++)
         {
+            // note: measureText() measures UITextField while our labels will be
+            // shown in StyleableTextField, but that's okay because we're only
+            // looking for the text that is relatively longest in the list
             labelWidth = measureText(list[i].label).width;
             if (labelWidth > maxWidth)
             {
