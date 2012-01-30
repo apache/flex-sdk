@@ -7100,6 +7100,10 @@ public class UIComponent extends FlexSprite
     public function styleChanged(styleProp:String):void
     {
         StyleProtoChain.styleChanged(this, styleProp);
+        if (styleProp && (styleProp != "styleName"))
+            dispatchEvent(new Event(styleProp + "Changed"));
+        else
+            dispatchEvent(new Event("allStylesChanged"));
     }
 
     /**
@@ -9698,6 +9702,7 @@ public class UIComponent extends FlexSprite
         }
     }
 
+    [Bindable(style="true")]
     /**
      *  Gets a style property that has been set anywhere in this
      *  component's style lookup chain.
@@ -9744,7 +9749,6 @@ public class UIComponent extends FlexSprite
                _inheritingStyles[styleProp] :
                _nonInheritingStyles[styleProp];
     }
-
 
     /**
      *  Sets a style property on this component instance.
