@@ -121,7 +121,7 @@ public class StyleProtoChain
             }
             else
             {
-                var decl:CSSStyleDeclaration = styleManager.getStyleDeclaration(type);
+                var decl:CSSStyleDeclaration = styleManager.getMergedStyleDeclaration(type);
                 if (decl)
                     classDecls.push(decl);
             }
@@ -262,7 +262,7 @@ public class StyleProtoChain
                 {
                     if (styleNames[i].length)
                     {
-                        styleDeclaration = styleManager.getStyleDeclaration("." + styleNames[i]);
+                        styleDeclaration = styleManager.getMergedStyleDeclaration("." + styleNames[i]);
                         if (styleDeclaration)
                             universalSelectors.push(styleDeclaration);
                     }
@@ -557,7 +557,7 @@ public class StyleProtoChain
                     {
                         if (styleNames[c].length)
                         {
-                            styleDeclarations.push(styleManager.getStyleDeclaration("." + styleNames[c]));
+                            styleDeclarations.push(styleManager.getMergedStyleDeclaration("." + styleNames[c]));
                         }
                     }
                 }
@@ -630,7 +630,7 @@ public class StyleProtoChain
                 for (var c:int=0; c < styleNames.length; c++)
                 {
                     if (styleNames[c].length) {
-                        classSelectors.push(styleManager.getStyleDeclaration("." + 
+                        classSelectors.push(styleManager.getMergedStyleDeclaration("." + 
                             styleNames[c]));
                     }
                 }    
