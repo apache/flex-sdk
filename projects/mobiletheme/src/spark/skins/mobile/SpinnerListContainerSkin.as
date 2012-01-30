@@ -306,6 +306,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 		// SpinnerLists's left border nor the rightmost one's right border. 
 		// We inset the mask on the left and right sides to accomplish this. 
 		var g:Graphics = contentGroupMask.graphics;
+		g.clear();
 		g.beginFill(0x00FF00);
 		g.drawRoundRect(borderThickness * 2, borderThickness, 
 						unscaledWidth - borderThickness * 4,
