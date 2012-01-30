@@ -19,6 +19,11 @@ package mx.collections
  *
  *  @see mx.collections.IViewCursor#bookmark
  *  @see mx.collections.IViewCursor#seek()
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CursorBookmark
 {
@@ -32,6 +37,11 @@ public class CursorBookmark
      *  A bookmark for the first item in an <code>ICollectionView</code>.
      *
      *  @return The bookmark to the first item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get FIRST():CursorBookmark
     {
@@ -45,6 +55,11 @@ public class CursorBookmark
      * If the view has no items, the cursor is at this bookmark.
      *
      *  @return The bookmark to the last item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get LAST():CursorBookmark
     {
@@ -58,6 +73,11 @@ public class CursorBookmark
      *  an <code>ICollectionView</code>.
      *
      *  @return The bookmark to the current item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get CURRENT():CursorBookmark
     {
@@ -70,6 +90,11 @@ public class CursorBookmark
      *  Creates a new instance of a bookmark with the specified value.
      *
      *  @param value The value of this bookmark.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function CursorBookmark(value:Object)
     {
@@ -93,6 +118,11 @@ public class CursorBookmark
      *  The underlying marker representation of the bookmark.
      *  This value is generally understood only by the <code>IViewCursor</code>
      *  or <code>ICollectionView</code> implementation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get value():Object
     {
@@ -112,6 +142,11 @@ public class CursorBookmark
      *  
      *  @return The index of the item. If the item is not in the current view, this method returns
      *  -1. This method also returns -1 if index-based location is not possible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getViewIndex():int
     {
