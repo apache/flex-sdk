@@ -102,6 +102,7 @@ ButtonBase
 Callout
 {
     backgroundColor: #484848;
+    contentBackgroundAppearance: inset;
     contentBackgroundColor: #FFFFFF;
     gap: 12;
     skinClass: ClassReference("spark.skins.mobile.CalloutSkin");
@@ -109,7 +110,6 @@ Callout
 
 Callout ViewNavigator
 {
-    contentBackgroundAlpha: 1;
     skinClass: ClassReference("spark.skins.mobile.CalloutViewNavigatorSkin");
 }
 
@@ -134,8 +134,7 @@ Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button
 
 Callout#viewNavigatorCallout
 {
-    contentBackgroundAlpha: 0;
-    skinClass: ClassReference("spark.skins.mobile.ViewNavigatorCalloutSkin");
+    contentBackgroundAppearance: none;
 }
 
 CheckBox
