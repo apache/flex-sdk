@@ -2126,23 +2126,16 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
                 {
                     stackedValue = 0;
                 }
-                if (yValue == 0)
-                {
-                    chartItem.yValue = 0;
-                    chartItem.minValue = 0;
-                }
-                else
-                {
-                    chartItem.yValue = yValue + stackedValue;
-                    chartItem.minValue = stackedValue;
-                }
-                yValue += stackedValue;
-                //chartItem.minValue = stackedValue;
-                stackedXValueDictionary[xValue] = yValue;
-                //chartItem.yValue = yValue;
-                chartItem.xValue = xValue;
-                maxValue = Math.max(maxValue,yValue);
-                
+				if (yValue != 0)
+				{
+					chartItem.yValue = yValue + stackedValue;
+					chartItem.minValue = stackedValue;
+					
+					yValue += stackedValue;
+					stackedXValueDictionary[xValue] = yValue;
+					chartItem.xValue = xValue;
+					maxValue = Math.max(maxValue,yValue);
+				}
                 i++;
                 cursor.moveNext();              
             }           
@@ -2227,8 +2220,7 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
                 
                 if (yValue == 0)
                 {
-                    chartItem.yValue = 0;
-                    chartItem.minValue = 0;
+                   // Do nothing
                 }
                 else
                 {
