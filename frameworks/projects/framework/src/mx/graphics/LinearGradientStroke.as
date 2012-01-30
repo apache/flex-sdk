@@ -11,12 +11,17 @@
 
 package mx.graphics
 {
-
-import flash.display.GradientType;
+ 
 import flash.display.Graphics;
+import flash.display.GraphicsGradientFill; 
+import flash.display.GraphicsStroke;
+import flash.display.GradientType;  
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
-import mx.skins.RectangularBorder;
+
+import mx.core.mx_internal; 
+
+use namespace mx_internal; 
 
 /**
  *  The LinearGradientStroke class lets you specify a gradient filled stroke.
@@ -33,7 +38,7 @@ import mx.skins.RectangularBorder;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class LinearGradientStroke extends GradientStroke implements IStroke
+public class LinearGradientStroke extends GradientStroke
 {
     include "../core/Version.as";
 
@@ -145,46 +150,78 @@ public class LinearGradientStroke extends GradientStroke implements IStroke
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function apply(g:Graphics):void
+    override public function apply(g:Graphics):void
     {
         g.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
                     caps, joints, miterLimit);
                
-        g.lineGradientStyle(GradientType.LINEAR, mx_internal::colors,
-                            mx_internal::alphas, mx_internal::ratios,
-                            null /* matrix */, spreadMethod,
-                            interpolationMethod);
+        g.lineGradientStyle(GradientType.LINEAR, colors,
+                            alphas, ratios, null /* matrix */, 
+                            spreadMethod, interpolationMethod);
     }
     
-    public function draw(g:Graphics, rc:Rectangle):void
+    /**
+     *  @private
+     */
+    override public function draw(g:Graphics, rc:Rectangle):void
     {
         g.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
                     caps, joints, miterLimit);
-                
-        if (!compoundTransform)
-        {
-        	var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
-	        var bX:Number = !isNaN(x) ? x + rc.left : rc.left;
-	        var bY:Number = !isNaN(y) ? y + rc.top : rc.top;
-        	
-	        commonMatrix.createGradientBox(w, rc.height, 
-	                                !isNaN(mx_internal::_angle) ? 
-	                                    mx_internal::_angle : mx_internal::rotationInRadians,
-	                                 bX, bY);   
-        }
-        else
-        {
-        	commonMatrix.identity();
-        	commonMatrix.scale(rc.width / 1638.4, 1);
-			commonMatrix.translate(rc.left + rc.width / 2, 0);
-			commonMatrix.concat(compoundTransform.matrix);	
-        }   
-                              
-        g.lineGradientStyle(GradientType.LINEAR, mx_internal::colors,
-                            mx_internal::alphas, mx_internal::ratios,
+        
+        calculateTransformationMatrix(rc, commonMatrix); 
+        
+        g.lineGradientStyle(GradientType.LINEAR, colors,
+                            alphas, ratios,
                             commonMatrix, spreadMethod,
                             interpolationMethod);                        
     }
+    
+    /**
+     *  @private
+     */
+    override public function generateGraphicsStroke(rect:Rectangle):GraphicsStroke
+    {
+        // The parent class sets the gradient stroke properties common to 
+        // LinearGradientStroke and RadialGradientStroke 
+        var graphicsStroke:GraphicsStroke = super.generateGraphicsStroke(rect); 
+        
+        if (graphicsStroke)
+        {
+            // Set other properties specific to this LinearGradientStroke  
+            GraphicsGradientFill(graphicsStroke.fill).type = GradientType.LINEAR; 
+            calculateTransformationMatrix(rect, commonMatrix);
+            GraphicsGradientFill(graphicsStroke.fill).matrix = commonMatrix; 
+        }
+        
+        return graphicsStroke; 
+    }
+    
+    /**
+     *  @private
+     *  Calculates this LinearGradientStroke's transformation matrix.  
+     */
+    private function calculateTransformationMatrix(rect:Rectangle, matrix:Matrix):void
+    {
+        if (!compoundTransform)
+        {
+            var w:Number = !isNaN(scaleX) ? scaleX : rect.width;
+            var bX:Number = !isNaN(x) ? x + rect.left : rect.left;
+            var bY:Number = !isNaN(y) ? y + rect.top : rect.top;
+            
+            matrix.createGradientBox(w, rect.height, 
+                                    !isNaN(_angle) ? 
+                                        _angle : rotationInRadians,
+                                     bX, bY);   
+        }
+        else
+        {
+            matrix.identity();
+            matrix.scale(rect.width / 1638.4, 1);
+            matrix.translate(rect.left + rect.width / 2, 0);
+            matrix.concat(compoundTransform.matrix);  
+        }
+    }
+    
 }
 
 }
