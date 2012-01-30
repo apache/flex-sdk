@@ -9933,7 +9933,7 @@ public class UIComponent extends FlexSprite
     {
         if (overlayReferenceCount > 0 && --overlayReferenceCount == 0 && overlay)
         {
-            removeEventListener("resize", overlay_resizeHandler);
+            removeEventListener(ResizeEvent.RESIZE, overlay_resizeHandler);
 
             if (super.getChildByName("overlay"))
                 $removeChild(overlay);
