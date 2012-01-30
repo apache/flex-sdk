@@ -27,7 +27,6 @@ import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.ResizeEvent;
-import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.MatrixUtil;
@@ -381,7 +380,7 @@ public class Callout extends SkinnablePopUpContainer
     
     /**
      *  @private
-     *  
+     *  Indicates if arrow direction was flipped automatically.
      */
     private var arrowDirectionAdjusted:Boolean = false;
 
@@ -570,7 +569,15 @@ public class Callout extends SkinnablePopUpContainer
     {
         super.commitProperties();
         
+        // Compute actual positions when using AUTO
         commitAutoPosition();
+        
+        // Compute max size based on actual positions
+        commitMaxSize();
+        
+        // Invalidate skin size to use calloutMaxWidth and calloutMaxHeight
+        if (!isMaxSizeSet)
+            skin.invalidateSize();
 
         if (arrow)
         {
@@ -648,9 +655,9 @@ public class Callout extends SkinnablePopUpContainer
         if (isOpen)
             return;
         
-        // Reset max size for new owner before this callout is added 
-        // to PopUpManager
-        determineMaxSize(owner);
+        // reset state
+        invalidatePositionFlag = false;
+        arrowDirectionAdjusted = false;
 
         // Add to PopUpManager, calls updatePopUpPosition(), and change state
         super.open(owner, modal);
@@ -869,44 +876,79 @@ public class Callout extends SkinnablePopUpContainer
      *  Flip or clear the adjusted position when the callout bounds are outside
      *  the screen bounds.
      */
-    mx_internal function adjustCalloutPosition(position:String, 
+    mx_internal function adjustCalloutPosition(actualPosition:String, preferredPosition:String,
                                                calloutStart:Number, calloutEnd:Number,
                                                screenStart:Number, screenEnd:Number,
+                                               ownerStart:Number, ownerEnd:Number,
                                                revert:Boolean=false):String
     {
-        // Skip all adjustments when using AUTO
-        if (!position || (position == CalloutPosition.AUTO))
+        if (!actualPosition)
             return null;
         
         var adjustedPosition:String = null;
+        var calloutSize:Number = calloutEnd - calloutStart;
         
-        // Maintain outer/inner positions when flipping to opposite direction
-        switch (position)
+        // Exterior space
+        var exteriorSpaceStart:Number = Math.max(0, ownerStart - screenStart);
+        var exteriorSpaceEnd:Number = Math.max(0, ownerEnd - screenEnd);
+        
+        // Fallback to interior positions if using AUTO and callout can not
+        // fit in either exterior positions
+        var useInterior:Boolean = (preferredPosition == CalloutPosition.AUTO) &&
+            (exteriorSpaceStart < calloutSize) &&
+            (exteriorSpaceEnd < calloutSize);
+        var isExterior:Boolean = false;
+        
+        // Flip to opposite position
+        switch (actualPosition)
         {
             case CalloutPosition.BEFORE:
+            {
+                isExterior = true;
+                
                 if (calloutStart < screenStart)
                     adjustedPosition = CalloutPosition.AFTER;
+                
                 break;
+            }
             case CalloutPosition.AFTER:
+            {
+                isExterior = true;
+                
                 if (calloutEnd > screenEnd)
                     adjustedPosition = CalloutPosition.BEFORE;
+                
                 break;
+            }
             case CalloutPosition.END:
+            {
                 if (calloutStart < screenStart)
                     adjustedPosition = CalloutPosition.START;
                 break;
+            }
             case CalloutPosition.START:
+            {
                 if (calloutEnd > screenEnd)
                     adjustedPosition = CalloutPosition.END;
                 break;
+            }
             // case CalloutPosition.MIDDLE:
             // Nudge instead of flipping
+        }
+        
+        // Use interior position if exterior flipping was necessary
+        if (useInterior && adjustedPosition && isExterior)
+        {
+            // Choose the exterior position with the most available space.
+            // Note that START grows towards the exterior END and vice versa.
+            adjustedPosition = (exteriorSpaceEnd >= exteriorSpaceStart) ? 
+                CalloutPosition.START : CalloutPosition.END;
         }
         
         // Return null to revert the adjusted position
         // Otherwise, return the incoming position
         if (revert)
-            return (adjustedPosition) ? null : position;
+            return (adjustedPosition) ? null : actualPosition;
         
         // Adjusted position or null if the callout already fits
         return adjustedPosition;
@@ -961,20 +1003,23 @@ public class Callout extends SkinnablePopUpContainer
         var adjustedVerticalPosition:String;
         var calloutBounds:Rectangle = determinePosition(actualHorizontalPosition,
             actualVerticalPosition, matrix, regPoint);
+        var ownerBounds:Rectangle = owner.getBounds(systemManager.getSandboxRoot());
 
         // Position the callout in the opposite direction if it
         // does not fit on the screen.
         if (screen)
         {
             adjustedHorizontalPosition = adjustCalloutPosition(
-                actualHorizontalPosition,
+                actualHorizontalPosition, horizontalPosition,
                 calloutBounds.left, calloutBounds.right,
-                screen.left, screen.right);
+                screen.left, screen.right,
+                ownerBounds.left, ownerBounds.right);
 
             adjustedVerticalPosition = adjustCalloutPosition(
-                actualVerticalPosition,
+                actualVerticalPosition, verticalPosition,
                 calloutBounds.top, calloutBounds.bottom,
-                screen.top, screen.bottom);
+                screen.top, screen.bottom,
+                ownerBounds.top, ownerBounds.bottom);
         }
 
         var oldArrowDirection:String = arrowDirection;
@@ -1014,14 +1059,18 @@ public class Callout extends SkinnablePopUpContainer
                 // If we adjusted the position but the callout still doesn't fit,
                 // then revert to the original position.
                 adjustedHorizontalPosition = adjustCalloutPosition(
-                    adjustedHorizontalPosition,
+                    adjustedHorizontalPosition, horizontalPosition,
                     adjustedBounds.left, adjustedBounds.right,
-                    screen.left, screen.right, true);
+                    screen.left, screen.right,
+                    ownerBounds.left, ownerBounds.right,
+                    true);
                 
                 adjustedVerticalPosition = adjustCalloutPosition(
-                    adjustedVerticalPosition,
+                    adjustedVerticalPosition, verticalPosition,
                     adjustedBounds.top, adjustedBounds.bottom,
-                    screen.top, screen.bottom, true);
+                    screen.top, screen.bottom, 
+                    ownerBounds.top, ownerBounds.bottom,
+                    true);
             }
 
             if ((adjustedHorizontalPosition != null) || (adjustedVerticalPosition != null))
@@ -1120,6 +1169,7 @@ public class Callout extends SkinnablePopUpContainer
     }
 
     /**
+     *  @private
      *  Computes <code>actualHorizontalPosition</code> and/or
      *  <code>actualVerticalPosition</code> values when using
      *  <code>CalloutPosition.AUTO</code>. When implementing subclasses of
@@ -1167,13 +1217,11 @@ public class Callout extends SkinnablePopUpContainer
         // Use aspect ratio to determine vertical/horizontal preference
         var isLandscape:Boolean = (screen.width > screen.height);
 
-        var spaceLeft:Number = ownerBounds.left;
-        var spaceRight:Number = screen.width - ownerBounds.right;
-        var spaceTop:Number = ownerBounds.top;
-        var spaceBottom:Number = screen.height - ownerBounds.bottom;
-
-        var canFitVertical:Boolean = ((spaceTop > 0) || (spaceBottom > 0));
-        var canFitHorizontal:Boolean = ((spaceLeft > 0) || (spaceRight > 0));
+        // Exterior space
+        var exteriorSpaceLeft:Number = Math.max(0, ownerBounds.left);
+        var exteriorSpaceRight:Number = Math.max(0, screen.width - ownerBounds.right);
+        var exteriorSpaceTop:Number = Math.max(0, ownerBounds.top);
+        var exteriorSpaceBottom:Number = Math.max(0, screen.height - ownerBounds.bottom);
 
         if (verticalPosition != CalloutPosition.AUTO)
         {
@@ -1184,7 +1232,7 @@ public class Callout extends SkinnablePopUpContainer
                 case CalloutPosition.MIDDLE:
                 case CalloutPosition.END:
                 {
-                    actualHorizontalPosition = (spaceRight > spaceLeft) ? CalloutPosition.AFTER : CalloutPosition.BEFORE;
+                    actualHorizontalPosition = (exteriorSpaceRight > exteriorSpaceLeft) ? CalloutPosition.AFTER : CalloutPosition.BEFORE;
                     break;
                 }
                 default:
@@ -1205,7 +1253,7 @@ public class Callout extends SkinnablePopUpContainer
                 case CalloutPosition.MIDDLE:
                 case CalloutPosition.END:
                 {
-                    actualVerticalPosition = (spaceBottom > spaceTop) ? CalloutPosition.AFTER : CalloutPosition.BEFORE;
+                    actualVerticalPosition = (exteriorSpaceBottom > exteriorSpaceTop) ? CalloutPosition.AFTER : CalloutPosition.BEFORE;
                     break;
                 }
                 default:
@@ -1219,41 +1267,16 @@ public class Callout extends SkinnablePopUpContainer
         }
         else // if ((verticalPosition == CalloutPosition.AUTO) && (horizontalPosition == CalloutPosition.AUTO))
         {
-            var useVertical:Boolean = true;
-            var useInterior:Boolean = false;
-
-            if (!canFitHorizontal && !canFitVertical)
+            if (!isLandscape)
             {
-                // Edge case where callout doesn't fit in any direction.
-                // Choose position based on aspect ratio
-                useVertical = !isLandscape;
-                
-                // Only use interior positions when no space is available
-                useInterior = (spaceTop <= 0) && (spaceBottom <= 0) &&
-                              (spaceLeft <= 0) && (spaceRight <= 0);
-            }
-            else if (isLandscape)
-            {
-                // Favor horizontal before/after in landscape
-                useVertical = !canFitHorizontal;
-            }
-            else
-            {
-                // Favor vertical before/after in portrait
-                useVertical = canFitVertical;
-            }
-            
-            var startPos:String = (useInterior) ? CalloutPosition.START : CalloutPosition.BEFORE;
-            var endPos:String = (useInterior) ? CalloutPosition.END : CalloutPosition.AFTER;
-
-            if (useVertical)
-            {
+                // Arrow will be vertical when in portrait
                 actualHorizontalPosition = CalloutPosition.MIDDLE;
-                actualVerticalPosition = (spaceBottom > spaceTop) ? endPos : startPos;
+                actualVerticalPosition = (exteriorSpaceBottom > exteriorSpaceTop) ? CalloutPosition.AFTER : CalloutPosition.BEFORE;
             }
             else
             {
-                actualHorizontalPosition = (spaceRight > spaceLeft) ? endPos : startPos;
+                // Arrow will be horizontal when in landscape
+                actualHorizontalPosition = (exteriorSpaceRight > exteriorSpaceLeft) ? CalloutPosition.AFTER : CalloutPosition.BEFORE;
                 actualVerticalPosition = CalloutPosition.MIDDLE;
             }
         }
@@ -1261,100 +1284,91 @@ public class Callout extends SkinnablePopUpContainer
     
     /**
      *  @private
+     *  Return true if user-specified max size if set
      */
-    mx_internal function determineMaxSize(owner:DisplayObject = null):void
+    mx_internal function get isMaxSizeSet():Boolean
     {
-        var calloutOwner:UIComponent = owner as UIComponent;
-        var sbRoot:DisplayObject = (calloutOwner) ? calloutOwner.systemManager.getSandboxRoot() : null;
+        var explicitMaxW:Number = super.explicitMaxWidth;
+        var explicitMaxH:Number = super.explicitMaxHeight;
         
-        // Sanity check
-        if (!sbRoot)
-            return;
-        
-        // Clear previous max size values
-        calloutMaxWidth = calloutMaxHeight = NaN;
-        
-        // Set maxWidth and maxHeight based on owner bounds. Prefer top/bottom
-        // and left/right max based on most available space. The owner can 
-        // still be obscured only if horizontalPosition and verticalPosition 
-        // are explicitly set START or END.
-        var screen:Rectangle = calloutOwner.screen;
-        var ownerBounds:Rectangle = calloutOwner.getBounds(sbRoot);
-        var isLandscape:Boolean = (screen.width > screen.height);
+        return (!isNaN(explicitMaxW) && !isNaN(explicitMaxH));
+    }
     
+    /**
+     *  @private
+     *  Compute max width and max height. Uses the the owner and screen bounds 
+     *  as well as preferred positions to determine max width and max height  
+     *  for all possible exterior and interior positions.
+     */
+    mx_internal function commitMaxSize():void
+    {
+        var ownerBounds:Rectangle = owner.getBounds(systemManager.getSandboxRoot());
         var ownerLeft:Number = ownerBounds.left;
         var ownerRight:Number = ownerBounds.right;
-        var calloutMaxW:Number = NaN;
+        var ownerTop:Number = ownerBounds.top;
+        var ownerBottom:Number = ownerBounds.bottom;
         
-        // Compute max width based on preferred position. Actual position
-        // is later based on this max width.
-        switch (horizontalPosition)
+        switch (actualHorizontalPosition)
         {
-            case CalloutPosition.AUTO:
-            {
-                // fall through to middle when portrait
-                if (isLandscape)
-                    break;
-            }
             case CalloutPosition.MIDDLE:
             {
                 // Callout matches screen width
-                calloutMaxW = screen.width - (margin * 2);
+                calloutMaxWidth = screen.width - (margin * 2);
                 break;
             }
             case CalloutPosition.START:
             case CalloutPosition.END:
             {
-                // Swap left and right when using inner positions
+                // Flip left and right when using inner positions
                 ownerLeft = ownerBounds.right;
                 ownerRight = ownerBounds.left;
+                
+                // Fall through
+            }
+            default:
+            {
+                // Maximum is the larger of the actual position or flipped position
+                calloutMaxWidth = Math.max(ownerLeft, screen.right - ownerRight) - margin;
                 break;
             }
         }
         
-        if (!isNaN(calloutMaxW))
-            calloutMaxWidth = calloutMaxW;
-        else
-            calloutMaxWidth = Math.max(ownerLeft, screen.right - ownerRight) - margin;
+        // If preferred position was AUTO, then allow maxWidth to grow to
+        // fit the interior position if the owner is wide
+        if ((horizontalPosition == CalloutPosition.AUTO) &&
+            (ownerBounds.width > calloutMaxWidth))
+            calloutMaxWidth += ownerBounds.width;
         
-        var ownerTop:Number = ownerBounds.top;
-        var ownerBottom:Number = ownerBounds.bottom;
-        var calloutMaxH:Number = NaN;
-        
-        // Compute max height based on preferred position. Actual position
-        // is later based on this max height.
-        switch (verticalPosition)
+        switch (actualVerticalPosition)
         {
-            case CalloutPosition.AUTO:
-            {
-                // fall through to middle when landscape
-                if (!isLandscape)
-                    break;
-            }
             case CalloutPosition.MIDDLE:
             {
                 // Callout matches screen height
-                calloutMaxH = screen.height - (margin * 2);
+                calloutMaxHeight = screen.height - (margin * 2);
                 break;
             }
             case CalloutPosition.START:
             case CalloutPosition.END:
             {
-                // Swap top and bottom when using inner positions
+                // Flip top and bottom when using inner positions
                 ownerTop = ownerBounds.bottom;
                 ownerBottom = ownerBounds.top;
+                
+                // Fall through
+            }
+            default:
+            {
+                // Maximum is the larger of the actual position or flipped position
+                calloutMaxHeight = Math.max(ownerTop, screen.bottom - ownerBottom) - margin;
                 break;
             }
         }
         
-        if (!isNaN(calloutMaxH))
-            calloutMaxHeight = calloutMaxH;
-        else
-            calloutMaxHeight = Math.max(ownerTop, screen.bottom - ownerBottom) - margin;
-        
-        // invalidate size if no explicit max sizes are set
-        if (skin && ((isNaN(super.explicitMaxWidth) || isNaN(super.explicitMaxHeight))))
-            skin.invalidateSize();
+        // If preferred position was AUTO, then allow maxHeight to grow to
+        // fit the interior position if the owner is tall
+        if ((verticalPosition == CalloutPosition.AUTO) && 
+            (ownerBounds.height > calloutMaxHeight))
+            calloutMaxHeight += ownerBounds.height;
     }
 
     /**
@@ -1431,7 +1445,7 @@ public class Callout extends SkinnablePopUpContainer
             {
                 // The full width of the callout is before the owner
                 // All arrow directions are ArrowDirection.RIGHT x=(width - arrow.width)
-                registrationPoint.x = -width;
+                registrationPoint.x = -calloutWidth;
                 break;
             }
             case CalloutPosition.START:
@@ -1466,7 +1480,7 @@ public class Callout extends SkinnablePopUpContainer
             {
                 // The full height of the callout is before the owner
                 // All arrow directions are ArrowDirection.DOWN y=(height - arrow.height)
-                registrationPoint.y = -height;
+                registrationPoint.y = -calloutHeight;
                 break;
             }
             case CalloutPosition.START:
@@ -1537,7 +1551,6 @@ public class Callout extends SkinnablePopUpContainer
     {
         // Screen resize might require a new arrow direction and callout position
         invalidatePosition();
-        determineMaxSize(owner);
     }
 }
 }
