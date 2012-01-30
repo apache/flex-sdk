@@ -55,6 +55,15 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     * 
+     */
     public function RadioButtonSkin()
     {
         super();
