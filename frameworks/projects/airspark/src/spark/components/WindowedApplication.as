@@ -2342,6 +2342,9 @@ public class WindowedApplication extends Application implements IWindow
      */
     private function enterFrameHandler(e:Event):void
     {
+		if (!stage)
+			return;
+		
         removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
 
         // If nativeApplication.nativeApplication.exit() has been called,
