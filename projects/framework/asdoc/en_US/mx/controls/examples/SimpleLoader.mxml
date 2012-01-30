@@ -8,7 +8,7 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText text="The SimpleText control of the outer application."/>
+            <s:Label text="The Label control of the outer application."/>
 
             <mx:SWFLoader id="Load" source="@Embed(source='Local.swf')" height="100" width="350"/>
         </s:VGroup>
