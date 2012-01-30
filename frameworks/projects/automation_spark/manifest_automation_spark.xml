@@ -20,14 +20,15 @@
 <component id="SparkSkinnableContainerAutomationImpl"  class="spark.automation.delegates.components.SparkSkinnableContainerAutomationImpl"/>
 <component id="SparkCheckBoxAutomationImpl"  class="spark.automation.delegates.components.SparkCheckBoxAutomationImpl"/>         
 <component id="SparkSpinnerAutomationImpl"  class="spark.automation.delegates.components.SparkSpinnerAutomationImpl"/>
+<component id="SparkDataGroupAutomationImpl"  class="spark.automation.delegates.components.SparkDataGroupAutomationImpl"/>            
 <component id="SparkDropDownListAutomationImpl"  class="spark.automation.delegates.components.SparkDropDownListAutomationImpl"/>     
 <component id="SparkToggleButtonAutomationImpl"  class="spark.automation.delegates.components.SparkToggleButtonAutomationImpl"/>
 <component id="SparkGroupAutomationImpl"  class="spark.automation.delegates.components.SparkGroupAutomationImpl"/>            
 <component id="SparkVideoPlayerAutomationImpl"  class="spark.automation.delegates.components.SparkVideoPlayerAutomationImpl"/>
 <component id="SparkLabelAutomationImpl"  class="spark.automation.delegates.components.SparkLabelAutomationImpl"/>            
-<component id="SprakTextAreaAutomationImpl"  class="spark.automation.delegates.components.SprakTextAreaAutomationImpl"/>
+<component id="SparkTextAreaAutomationImpl"  class="spark.automation.delegates.components.SparkTextAreaAutomationImpl"/>
 <component id="SparkListAutomationImpl"  class="spark.automation.delegates.components.SparkListAutomationImpl"/>             
-<component id="SprakTextInputAutomationImpl"  class="spark.automation.delegates.components.SprakTextInputAutomationImpl"/>
+<component id="SparkTextInputAutomationImpl"  class="spark.automation.delegates.components.SparkTextInputAutomationImpl"/>
 <component id="SparkNumericStepperAutomationImpl"  class="spark.automation.delegates.components.SparkNumericStepperAutomationImpl"/>   
 <component id="SparkPanelAutomationImpl"  class="spark.automation.delegates.components.SparkPanelAutomationImpl"/>         
 
@@ -48,7 +49,7 @@
 <component id="SparkTextBaseAutomationImpl"  class="spark.automation.delegates.components.supportClasses.SparkTextBaseAutomationImpl"/>
 <component id="SparkToggleButtonBaseAutomationImpl"  class="spark.automation.delegates.components.supportClasses.SparkToggleButtonBaseAutomationImpl"/>
 <component id="SparkTrackBaseAutomationImpl"  class="spark.automation.delegates.components.supportClasses.SparkTrackBaseAutomationImpl"/>
-<component id="SprakSkinnableTextBaseAutomationImpl"  class="spark.automation.delegates.components.supportClasses.SprakSkinnableTextBaseAutomationImpl"/>
+<component id="SparkSkinnableTextBaseAutomationImpl"  class="spark.automation.delegates.components.supportClasses.SparkSkinnableTextBaseAutomationImpl"/>
 
 
 
@@ -59,5 +60,7 @@
 <component id="SparkListBaseTabularData"  class="spark.automation.tabularData.SparkListBaseTabularData"/>
 <component id="SkinnableContainerTabularData"  class="spark.automation.tabularData.SkinnableContainerTabularData"/>
 
+<component id="SparkDefaultItemRendererAutomationImpl" class="spark.automation.delegates.skins.spark.SparkDefaultItemRendererAutomationImpl"/>
+<component id="SparkDefaultComplexItemRendererAutomationImpl" class="spark.automation.delegates.skins.spark.SparkDefaultComplexItemRendererAutomationImpl"/>
 
 </componentPackage>
