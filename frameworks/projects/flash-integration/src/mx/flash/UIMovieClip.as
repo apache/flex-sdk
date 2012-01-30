@@ -2272,6 +2272,11 @@ public dynamic class UIMovieClip extends MovieClip
      *  In either case the children of the object does not emit a
      *  <code>show</code> or <code>hide</code> event unless the object
      *  has specifically written an implementation to do so.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     override public function get visible():Boolean
     {
@@ -3096,6 +3101,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get layoutDirection():String
     {
@@ -3120,6 +3130,11 @@ public dynamic class UIMovieClip extends MovieClip
     
     /**
      * @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function invalidateLayoutDirection():void
     {
@@ -3514,6 +3529,11 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  Helper method to invalidate parent size and display list if
      *  this object affects its layout (includeInLayout is true).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function invalidateParentSizeAndDisplayList():void
     {
@@ -4631,6 +4651,7 @@ public dynamic class UIMovieClip extends MovieClip
     }
     
     /**
+     *  @private
      *  This enter frame handler watches the flash object's size to see if
      *  it has changed.  If it's chagned, we will notify our flex parent of 
      *  the change.  This size change may also cause the flash component 
@@ -4669,6 +4690,7 @@ public dynamic class UIMovieClip extends MovieClip
     }
     
     /**
+     *  @private
      *  This enter frame handler watches our currentLabel for changes so that it 
      *  can be reflected in the currentState.
      *  
