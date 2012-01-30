@@ -1012,6 +1012,7 @@ public class Effect extends EventDispatcher implements IEffect
                          Array /* of EffectInstance */
     {
         effectStopped = false;
+        isPaused = false;
         
         // If we have a propertyChangesArray, capture the current values
         // if they haven't been captured already, strip out any unchanged 
