@@ -94,7 +94,9 @@ public class MobileApplicationBase extends Application
     
     [SkinPart(required="false")]
     /**
-     *  Creates an action menu from this factory when the menu button is pressed 
+     *  Dynamic skin part that defines the ViewMenu used to display the
+     *  view menu when the menu button is pressed. The default skin uses 
+     *  a factory that generates an ViewMenu instance. 
      */ 
     public var viewMenu:IFactory;
     
@@ -140,6 +142,11 @@ public class MobileApplicationBase extends Application
     
     private var _viewMenuOpen:Boolean = false;
     
+    /**
+     *  Opens the view menu if set to true and closes it if set to false. 
+     * 
+     *  @default false
+     */
     public function get viewMenuOpen():Boolean
     {
         return _viewMenuOpen;
