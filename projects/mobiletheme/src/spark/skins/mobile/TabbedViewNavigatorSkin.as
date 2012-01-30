@@ -100,6 +100,7 @@ public class TabbedViewNavigatorSkin extends MobileSkin
         _isOverlay = (currentState.indexOf("Overlay") >= 1);
         
         // Force a layout pass on the components
+        invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
     }
@@ -129,9 +130,9 @@ public class TabbedViewNavigatorSkin extends MobileSkin
     /**
      *  @private
      */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        super.layoutContents(unscaledWidth, unscaledHeight);
         
         var tabBarHeight:Number = 0; 
         
