@@ -14,7 +14,7 @@ package mx.core
 
 /**
  *  SpriteAsset is a subclass of the flash.display.Sprite class which
- *  represents vector graphic images that you embed in a Flex application.
+ *  represents vector graphic images that you embed in an application.
  *  It implements the IFlexDisplayObject interface, which makes it
  *  possible for an embedded vector graphic image to be displayed in an Image
  *  control, or to be used as a container background or a component skin.
@@ -37,12 +37,12 @@ package mx.core
  *  by writing the following:</p>
  *
  *  <pre>
- *  &lt;mx:Style&gt;
- *      Application
- *      {
+ *  &lt;fx:Style&gt;
+ *      &#64;namespace mx "library://ns.adobe.com/flex/mx"
+ *      mx|Application {
  *          backgroundImage: Embed(source="Assets.swf", symbol='Logo')
  *      }
- *  &lt;mx:Style/&gt;</pre>
+ *  &lt;fx:Style/&gt;</pre>
  *
  *  <p>without having to understand that the MXML compiler has created
  *  a subclass of BitmapAsset for you.</p>
