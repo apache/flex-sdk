@@ -1839,6 +1839,16 @@ public class UIComponent extends FlexSprite
      *  updateDisplayList() method called.
      */
     mx_internal var invalidateDisplayListFlag:Boolean = false;
+    
+    /**
+     *  @private
+     *  Whether setActualSize() has been called on this component
+     *  at least once.  This is used in validateBaselinePosition()
+     *  to resize the component to explicit or measured
+     *  size if baselinePosition getter is called before the
+     *  component has been resized by the layout.
+     */
+    mx_internal var setActualSizeCalled:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -7645,7 +7655,10 @@ public class UIComponent extends FlexSprite
 
         // If this component hasn't been sized yet, assign it
         // an actual size that's based on its explicit or measured size.
-        if (width == 0 || height == 0)
+        //
+        // TODO (egeorgie): remove this code when all SDK clients
+        // follow the rule to size first and query baselinePosition later.
+        if (!setActualSizeCalled && (width == 0 || height == 0))
         {
             validateNow();
 
@@ -9162,6 +9175,8 @@ public class UIComponent extends FlexSprite
             invalidateDisplayList();
             dispatchResizeEvent();
         }
+        
+        setActualSizeCalled = true;
     }
 
     //--------------------------------------------------------------------------
