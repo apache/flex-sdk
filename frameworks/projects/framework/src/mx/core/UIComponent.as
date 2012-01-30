@@ -5438,6 +5438,19 @@ public class UIComponent extends FlexSprite
     {
         return super.removeChildAt(index);
     }
+    
+    /**
+     *  @private
+     *  This method allows access to the Player's native implementation
+     *  of setChildIndex(), which can be useful since components
+     *  can override setChildIndex() and thereby hide the native implementation.
+     *  Note that this "base method" is final and cannot be overridden,
+     *  so you can count on it to reflect what is happening at the player level.
+     */
+    mx_internal final function $setChildIndex(child:DisplayObject, index:int):void
+    {
+        super.setChildIndex(child, index);
+    }
 
     //--------------------------------------------------------------------------
     //
