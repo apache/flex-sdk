@@ -21,11 +21,8 @@ import flash.events.TimerEvent;
 import flash.system.ApplicationDomain;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
-import flash.text.engine.TextBlock;
-import flash.text.engine.TextLine;
 import flash.utils.Timer;
 import flash.utils.getDefinitionByName;
-import flashx.textLayout.compose.ITextLineCreator;
 import mx.core.RSLItem;
 import mx.core.RSLListLoader;
 import mx.events.ModuleEvent;
@@ -38,7 +35,7 @@ import mx.resources.ResourceManager;
  *  @private
  */
 public class FlexModuleFactory extends MovieClip
-	implements IFlexModuleFactory, ITextLineCreator
+	implements IFlexModuleFactory
 {
 	include "../core/Version.as";
 
@@ -239,54 +236,6 @@ public class FlexModuleFactory extends MovieClip
     public function info():Object
     {
         return {};
-    }
-
-	//--------------------------------------------------------------------------
-	//
-	//  Methods: ITextLineCreator
-	//
-	//--------------------------------------------------------------------------
-
-    /**
-	 *  Calls createTextLine() on the specified TextBlock
-	 *  with the specified parameters. 
-	 *  In order for a TextLine to use an embedded font,
-	 *  it must be created in the SWF where the font is.
-	 *  This factory method makes that possible.
-   	 */
-    public function createTextLine(textBlock:TextBlock, 
-    							   previousLine:TextLine = null,
-    							   width:Number = 1000000,
-    							   lineOffset:Number = 0.0,
-    							   fitSomething:Boolean = false):TextLine
-    {
-	    return textBlock.createTextLine(previousLine, width,
-	    								lineOffset, fitSomething);
-    }
-
-    /**
-	 *  Calls recreateTextLine() on the specified TextBlock
-	 *  with the specified parameters. 
-	 *  In order for a TextLine to use an embedded font,
-	 *  it must be recreated in the SWF where the font is.
-	 *  This factory method makes that possible.
-   	 */
-    public function recreateTextLine(textBlock:TextBlock,
-    								 textLine:TextLine,
-    								 previousLine:TextLine = null,
-    								 width:Number = 1000000,
-    								 lineOffset:Number = 0.0, 
-    								 fitSomething:Boolean = false):TextLine
-    {
-	    // The recreateTextLine() method was added to TextBlock
-	    // in Player 10.1, so it must be looked up by name
-	    // since we are compiling for Player 10.0.
-	    var recreateTextLine:Function = textBlock["recreateTextLine"];
-	    if (recreateTextLine == null)
-	    	return null;
-	    
-	    return recreateTextLine(textLine, previousLine, width,
-	    	   					lineOffset, fitSomething);
     }
 
 	//--------------------------------------------------------------------------
