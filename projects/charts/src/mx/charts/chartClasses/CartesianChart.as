@@ -30,13 +30,13 @@ import mx.collections.ICollectionView;
 import mx.collections.IList;
 import mx.collections.ListCollectionView;
 import mx.collections.XMLListCollection;
+import mx.core.IFlexModuleFactory;
 import mx.core.IUIComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.graphics.SolidColor;
-import mx.graphics.Stroke;
+import mx.graphics.SolidColorStroke;
 import mx.styles.CSSStyleDeclaration;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -784,22 +784,14 @@ public class CartesianChart extends ChartBase
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-        
-        var cartesianChartStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.chartClasses.CartesianChart", styleManager);
-        
-        cartesianChartStyle.defaultFactory = function():void
-        {
-            this.axisColor = 0xD5DEDD;
-            this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;
-            this.dataTipRenderer = DataTip;
-            this.fill = new SolidColor(0xFFFFFF, 0);
-            this.calloutStroke = new Stroke(0x888888,2);            
-            this.fontSize = 10;
-            this.horizontalAxisStyleNames = ["blockCategoryAxis"];
-            this.verticalAxisStyleNames = ["blockNumericAxis"];
-        }
-        
+		
+		var cartesianChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.chartClasses.CartesianChart");
+		cartesianChartStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
+		cartesianChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+		cartesianChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		cartesianChartStyle.setStyle("horizontalAxisStyleNames", ["blockCategoryAxis"]);
+		cartesianChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+		
         return true;
     }
 
@@ -833,8 +825,8 @@ public class CartesianChart extends ChartBase
         initStyles();
         styleManager.registerInheritingStyle("axisTitleStyleName");
     }
-
-        
+	
+	 
     /**
      *  @private
      */
@@ -959,7 +951,7 @@ public class CartesianChart extends ChartBase
         
         advanceEffectState();
     }
-
+	
     /**
      *  @inheritDoc
      *  
@@ -1060,7 +1052,7 @@ public class CartesianChart extends ChartBase
             g = displayedSeries[i] as IChartElement;
             if (!g)
                 continue;
-			
+                
 			Series(g).dataTransform = new CartesianTransform();
 			
             Series(g).invalidateProperties();
