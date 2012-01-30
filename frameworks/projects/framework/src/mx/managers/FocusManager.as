@@ -555,6 +555,7 @@ public class FocusManager implements IFocusManager
     private function focusInHandler(event:FocusEvent):void
     {
         var target:InteractiveObject = InteractiveObject(event.target);
+        // trace("FocusManager focusInHandler in  = " + this._form.systemManager.loaderInfo.url);
         // trace("FM " + this + " focusInHandler " + target);
 
 		// if the target is in a bridged application, let it handle the click.
@@ -601,6 +602,7 @@ public class FocusManager implements IFocusManager
     private function focusOutHandler(event:FocusEvent):void
     {
         var target:InteractiveObject = InteractiveObject(event.target);
+        // trace("FocusManager focusOutHandler in  = " + this._form.systemManager.loaderInfo.url);
         // trace("FM " + this + " focusOutHandler " + target);
     }
 
@@ -678,7 +680,8 @@ public class FocusManager implements IFocusManager
             return;
         }
 
-        // trace("FocusManager activating " + this);
+        //trace("FocusManager activating = " + this._form.systemManager.loaderInfo.url);
+        //trace("FocusManager activating " + this);
 
         // listen for focus changes, use weak references for the stage
 		// form.systemManager can be null if the form is created in a sandbox and 
@@ -735,6 +738,7 @@ public class FocusManager implements IFocusManager
     public function deactivate():void
     {
         // trace("FocusManager deactivating " + this);
+        //trace("FocusManager deactivating = " + this._form.systemManager.loaderInfo.url);
          
         // listen for focus changes
 		var sm:ISystemManager = form.systemManager;
@@ -1666,7 +1670,24 @@ public class FocusManager implements IFocusManager
      */
     private function mouseFocusChangeHandler(event:FocusEvent):void
     {
+        // trace("FocusManager: mouseFocusChangeHandler  in  = " + this._form.systemManager.loaderInfo.url);
     	// trace("FocusManager: mouseFocusChangeHandler " + event);
+
+        // If relatedObject is null because we don't have access to the 
+        // object getting focus then allow the Player to set focus
+        // to the object. The isRelatedObjectInaccessible property is 
+        // Player 10 only so we have to test if it is available. We
+        // will only see isRelatedObjectInaccessible if we are a version "10" swf
+        // (-target-player=10). Version "9" swfs will not see the property
+        // even if running in Player 10.
+        if (event.relatedObject == null && 
+            "isRelatedObjectInaccessible" in event &&
+            event["isRelatedObjectInaccessible"] == true)
+        {
+            // lost focus to a control in different sandbox.
+            return;
+        }
+        
         if (event.relatedObject is TextField)
         {
             var tf:TextField = event.relatedObject as TextField;
@@ -1675,7 +1696,7 @@ public class FocusManager implements IFocusManager
                 return; // pass it on
             }
         }
-        
+
         event.preventDefault();
     }
 
@@ -1819,7 +1840,7 @@ public class FocusManager implements IFocusManager
      */
     private function mouseDownHandler(event:MouseEvent):void
     {
-        // trace("FocusManager mouseDownHandler by " + this);
+        // trace("FocusManager mouseDownHandler in  = " + this._form.systemManager.loaderInfo.url);
         // trace("FocusManager mouseDownHandler target " + event.target);
         
         if (event.isDefaultPrevented())
