@@ -16,6 +16,7 @@ import flash.accessibility.Accessibility;
 import flash.events.Event;
 import flash.events.FocusEvent;
 
+import mx.accessibility.AccConst;
 import mx.controls.sliderClasses.Slider;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -35,62 +36,6 @@ use namespace mx_internal;
 public class SliderAccImpl extends AccImpl
 {
 	include "../core/Version.as";
-
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_NORMAL:uint = 0x00000000;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSABLE:uint = 0x00100000;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTABLE:uint = 0x00200000;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTED:uint = 0x00000002;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_UNAVAILABLE:uint = 0x00000001;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_FOCUS:uint = 0x8005;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_VALUECHANGE:uint = 0x800E;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_SELECTION:uint = 0x8006;
-	
-	/**
-	 *  @private
-	 */
-	private static const ROLE_SLIDER:uint = 0x33;
 
 	//--------------------------------------------------------------------------
 	//
@@ -152,7 +97,7 @@ public class SliderAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x33; // ROLE_SYSTEM_SLIDER
+		role = AccConst.ROLE_SYSTEM_SLIDER;
 
 		master.addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
 	}
@@ -253,11 +198,11 @@ public class SliderAccImpl extends AccImpl
 	override public function get_accState(childID:uint):uint
 	{
 		var accState:uint = getState(childID);
-		accState |= STATE_SYSTEM_SELECTABLE;
+		accState |= AccConst.STATE_SYSTEM_SELECTABLE;
 		if (childID == 0)
-			accState |=  STATE_SYSTEM_SELECTED;
+			accState |=  AccConst.STATE_SYSTEM_SELECTED;
 		else 
-			accState |=  STATE_SYSTEM_SELECTED | STATE_SYSTEM_FOCUSED;
+			accState |=  AccConst.STATE_SYSTEM_SELECTED | AccConst.STATE_SYSTEM_FOCUSED;
 		return accState;
 	}
 	
@@ -271,20 +216,20 @@ public class SliderAccImpl extends AccImpl
 	 */
 	override protected function getState(childID:uint):uint
 	{
-		var accState:uint = STATE_SYSTEM_NORMAL;
+		var accState:uint = AccConst.STATE_SYSTEM_NORMAL;
 		
 		if (!UIComponent(master).enabled)
-			accState |= STATE_SYSTEM_UNAVAILABLE;
+			accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
 		else
 		{
-			accState |= STATE_SYSTEM_FOCUSABLE
+			accState |= AccConst.STATE_SYSTEM_FOCUSABLE
 			
 			for (var i:uint = 0; i < Slider(master).thumbCount; i++)
 			{
 				if (Slider(master).getThumbAt(i) == Slider(master).focusManager.getFocus())
 				{
 					//trace("has focus", UIComponent(master),  UIComponent(master).getFocus());
-					accState |= STATE_SYSTEM_FOCUSED;
+					accState |= AccConst.STATE_SYSTEM_FOCUSED;
 					break;
 				}
 			}
@@ -315,9 +260,9 @@ public class SliderAccImpl extends AccImpl
 			case "change":
 			{
 				var childID:uint = SliderEvent(event).thumbIndex + 1;
-				Accessibility.sendEvent(master, 0, EVENT_OBJECT_SELECTION);
+				Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_SELECTION);
 				Accessibility.sendEvent(master, 0,
-										EVENT_OBJECT_VALUECHANGE, true);
+										AccConst.EVENT_OBJECT_VALUECHANGE, true);
 				break;
 			} 
 		}
@@ -331,7 +276,7 @@ public class SliderAccImpl extends AccImpl
 	 */
 	private function focusInHandler(event:Event):void
 	{
-		Accessibility.sendEvent(master, 0, EVENT_OBJECT_FOCUS);
+		Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_FOCUS);
 	}
 }
 }
