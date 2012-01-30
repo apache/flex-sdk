@@ -13,13 +13,15 @@ package mx.charts.chartClasses
 {
 
 import flash.display.DisplayObject;
-import mx.core.mx_internal;
-import mx.core.UIComponent;
-import mx.core.IDataRenderer;
-import mx.charts.ChartItem;
-import flash.utils.getQualifiedClassName;
 import flash.utils.getDefinitionByName;
+import flash.utils.getQualifiedClassName;
+
+import mx.charts.ChartItem;
+import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
+import mx.core.LayoutDirection;
+import mx.core.UIComponent;
+import mx.core.mx_internal;
 
 use namespace mx_internal;
 
@@ -107,6 +109,8 @@ public class ChartItemDragProxy extends UIComponent
 
             measuredHeight = Math.max(measuredHeight, o.itemRenderer.y + o.itemRenderer.height);
             measuredWidth = Math.max(measuredWidth, o.itemRenderer.x + o.itemRenderer.width);
+			if(ChartBase(owner).layoutDirection == LayoutDirection.RTL)
+				layoutDirection = LayoutDirection.RTL;
         }
 
         invalidateDisplayList();
