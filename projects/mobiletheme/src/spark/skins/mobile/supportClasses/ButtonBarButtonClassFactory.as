@@ -46,9 +46,12 @@ public class ButtonBarButtonClassFactory extends ClassFactory
     
     /**
      * The skin class that should be applied to button bar buttons created
-	 * by this factory.
-     * @return 
+     * by this factory.
      * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
      */
     public function get skinClass():Class
     {
@@ -73,11 +76,11 @@ public class ButtonBarButtonClassFactory extends ClassFactory
         }
         
         if (instance is SkinnableComponent && _skinClass)
-		{
+        {
             SkinnableComponent(instance).setStyle("skinClass", _skinClass);
-			SkinnableComponent(instance).setStyle("focusSkin", null);
-		}
-		
+            SkinnableComponent(instance).setStyle("focusSkin", null);
+        }
+        
         return instance;
     }
 }
