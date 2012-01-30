@@ -15,7 +15,7 @@ package spark.skins.mobile
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 
-import mx.core.DeviceDensity;
+import mx.core.DPIClassification;
 
 import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
 import spark.skins.mobile160.assets.RadioButton_down;
@@ -77,9 +77,9 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
         layoutPaddingTop = 0;
         layoutPaddingBottom = 0;
         
-        switch (authorDensity)
+        switch (applicationDPI)
         {
-            case DeviceDensity.PPI_320:
+            case DPIClassification.DPI_320:
             {
                 upIconClass = spark.skins.mobile320.assets.RadioButton_up;
                 upSelectedIconClass = spark.skins.mobile320.assets.RadioButton_up;
@@ -95,7 +95,7 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
                 
                 break;
             }
-            case DeviceDensity.PPI_240:
+            case DPIClassification.DPI_240:
             {
                 upIconClass = spark.skins.mobile240.assets.RadioButton_up;
                 upSelectedIconClass = spark.skins.mobile240.assets.RadioButton_up;
