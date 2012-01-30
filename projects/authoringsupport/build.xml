@@ -18,9 +18,9 @@
 	<property file="${FLEX_HOME}/build.properties"/>
 
     <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
-    <property name="local.playerglobal.version" value="10"/>  
+    <property name="local.playerglobal.version" value="10"/>
 
-	<target name="main" depends="clean,compile" description="Clean build of utilities.swc"/>
+	<target name="main" depends="clean,compile,doc" description="Clean build of utilities.swc"/>
 
 	<target name="clean">
 		<delete failonerror="false">
@@ -65,6 +65,27 @@
 			<locale/>
 			<accessible>true</accessible>
 		</compc>
+	</target>
+
+	<target name="doc" depends="clean-temp-docs" description="updates utilities.swc with asdoc xml">
+
+		<!-- Call asdoc to generate dita xml files -->
+		<exec executable="${FLEX_HOME}/bin/asdoc.exe" failonerror="true">
+			<arg line="-doc-classes UtilitiesClasses -sp ${basedir}/src -library-path ${basedir}/libs/FlexContentHolder.swc -external-library-path ${FLEX_HOME}/frameworks/libs/framework.swc -external-library-path ${FLEX_HOME}/frameworks/libs/player/${local.playerglobal.version}/playerglobal.swc -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
+		</exec>
+
+		<!-- updates utilities.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/libs/utilities.swc" update="true">
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+	</target>
+
+	<target name="clean-temp-docs">
+		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
 	</target>
 
 </project>
