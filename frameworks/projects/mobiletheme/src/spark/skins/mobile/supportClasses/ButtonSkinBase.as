@@ -138,6 +138,9 @@ public class ButtonSkinBase extends MobileSkin
         commitDisabled(currentState.indexOf("disabled") >= 0);
     }
     
+    /**
+     *  @private 
+     */ 
     protected function commitDisabled(isDisabled:Boolean):void
     {
         alpha = isDisabled ? 0.5 : 1;
@@ -544,6 +547,9 @@ public class ButtonSkinBase extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private 
+     */ 
     protected function labelDisplay_valueCommitHandler(event:FlexEvent):void 
     {
         invalidateSize();
