@@ -62,6 +62,11 @@ import mx.core.mx_internal;
  *  <p>For more information, see the documentation that ships with the 
  *  Flex/Flash Integration Kit at 
  *  <a href="http://www.adobe.com/go/flex3_cs3_swfkit">http://www.adobe.com/go/flex3_cs3_swfkit</a>.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public dynamic class ContainerMovieClip extends UIMovieClip
 {
@@ -74,6 +79,11 @@ public dynamic class ContainerMovieClip extends UIMovieClip
 
    /**
     *  Constructor
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function ContainerMovieClip()
     {
@@ -165,6 +175,11 @@ public dynamic class ContainerMovieClip extends UIMovieClip
      * &lt;/mx:Application&gt;
      * </listing>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get content():IUIComponent
     {
@@ -202,6 +217,11 @@ public dynamic class ContainerMovieClip extends UIMovieClip
      *  container.</p>
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get fillContentToSize():Boolean
     {
@@ -237,6 +257,11 @@ public dynamic class ContainerMovieClip extends UIMovieClip
      *  container due to sizing.</p>
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scaleContent():Boolean
     {
