@@ -14,7 +14,6 @@ package spark.skins.mobile
 import flash.display.BlendMode;
 import flash.display.GradientType;
 import flash.display.Graphics;
-import flash.display.GraphicsPathCommand;
 import flash.display.Sprite;
 import flash.events.Event;
 
@@ -84,7 +83,6 @@ public class CalloutSkin extends MobileSkin
     {
         super();
         
-        blendMode = BlendMode.LAYER;
         dropShadowAlpha = 0.7;
         
         switch (applicationDPI)
@@ -459,6 +457,9 @@ public class CalloutSkin extends MobileSkin
                 fade.alphaTo = 0;
             }
             
+            // BlendMode.LAYER while fading out
+            blendMode = BlendMode.LAYER;
+            
             // play a short fade effect
             fade.addEventListener(EffectEvent.EFFECT_END, stateChangeComplete);
             fade.play();
@@ -478,12 +479,23 @@ public class CalloutSkin extends MobileSkin
                 fade.stop();
             }
             
-            if (isNormal)
-                alpha = 1;
-            else if (isDisabled)
+            if (isDisabled)
+            {
+                // BlendMode.LAYER to allow CalloutArrow BlendMode.ERASE
+                blendMode = BlendMode.LAYER;
+                
                 alpha = 0.5;
+            }
             else
-                alpha = 0;
+            {
+                // BlendMode.NORMAL for non-animated state transitions
+                blendMode = BlendMode.NORMAL;
+                
+                if (isNormal)
+                    alpha = 1;
+                else
+                    alpha = 0;
+            }
             
             stateChangeComplete();
         }
@@ -697,6 +709,15 @@ public class CalloutSkin extends MobileSkin
         
         if (allStyles || (styleProp == "contentBackgroundAppearance"))
             invalidateProperties();
+        
+        if (allStyles || (styleProp == "backgroundAlpha"))
+        {
+            var backgroundAlpha:Number = getStyle("backgroundAlpha");
+            
+            // Use BlendMode.LAYER to allow CalloutArrow to erase the dropShadow
+            // when the Callout background is transparent
+            blendMode = (backgroundAlpha < 1) ? BlendMode.LAYER : BlendMode.NORMAL;
+        }
     }
     
     /**
