@@ -81,7 +81,6 @@ import mx.managers.systemClasses.StageEventProxy;
 import mx.managers.systemClasses.PlaceholderData;
 import mx.utils.EventUtil;
 import mx.utils.NameUtil;
-import mx.utils.ObjectUtil;
 import mx.utils.SecurityUtil;
 import mx.events.ResizeEvent;
 
