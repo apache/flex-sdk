@@ -203,6 +203,13 @@ public class SplitViewNavigator extends ViewNavigatorBase
      */
     private var _popUpNavigator:ViewNavigatorBase = null;
     
+    /**
+     *  @private
+     *  Object is used to store old layout constraints of a view navigator
+     *  before opening it in a popup.
+     */
+    private var _popUpNavigatorSizeCache:Object = null;
+    
     //--------------------------------------------------------------------------
     //
     // Properties
@@ -278,9 +285,11 @@ public class SplitViewNavigator extends ViewNavigatorBase
      */
     override public function set initialized(value:Boolean):void 
     {
-        // Add application resize event listener
+        // Add application resize event listener.  We want this navigator's
+        // resize handler to run before any others due to conflicts with
+        // states.  See SDK-31575.
         FlexGlobals.topLevelApplication.addEventListener(ResizeEvent.RESIZE, 
-            application_resizeHandler, false, EventPriority.DEFAULT, true);
+            application_resizeHandler, false, EventPriority.BINDING, true);
         
         // Toggle visibility of the first ViewNavigator if autoHideFirstViewNavigator is true
         if (numViewNavigators > 0 && autoHideFirstViewNavigator)
@@ -435,6 +444,17 @@ public class SplitViewNavigator extends ViewNavigatorBase
 
         _popUpNavigatorIndex = index;
         _popUpNavigator = getElementAt(index) as ViewNavigatorBase;
+
+        // Save navigators current layout constraints
+        _popUpNavigatorSizeCache = { percentWidth: _popUpNavigator.percentWidth,
+                                     percentHeight: _popUpNavigator.percentHeight,
+                                     explicitWidth: _popUpNavigator.explicitWidth,
+                                     explicitHeight: _popUpNavigator.explicitHeight };
+        
+        // Explicitly set the width and height of the navigator to match its
+        // preferred bounds so that it will size to fit the callout.
+        _popUpNavigator.width = _popUpNavigator.getPreferredBoundsWidth();
+        _popUpNavigator.height = _popUpNavigator.getPreferredBoundsHeight();
         
         viewNavigatorPopUp.addEventListener('mouseDownOutside', navigatorPopUp_mouseDownOutsideHandler, false, 0, true);
         viewNavigatorPopUp.addElement(_popUpNavigator);
@@ -466,6 +486,13 @@ public class SplitViewNavigator extends ViewNavigatorBase
      */ 
     private function restoreNavigatorInPopUp():void
     {
+        // Restore old layout constraints
+        _popUpNavigator.percentWidth = _popUpNavigatorSizeCache.percentWidth;
+        _popUpNavigator.percentHeight = _popUpNavigatorSizeCache.percentHeight;
+        _popUpNavigator.explicitWidth = _popUpNavigatorSizeCache.explicitWidth;
+        _popUpNavigator.explicitHeight = _popUpNavigatorSizeCache.explicitHeight;        
+        _popUpNavigatorSizeCache = null;
+        
         // Restore navigator parent
         addElementAt(_popUpNavigator, _popUpNavigatorIndex);
         
