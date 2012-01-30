@@ -3473,9 +3473,9 @@ public dynamic class UIMovieClip extends MovieClip
     
     protected function nonDeltaLayoutMatrix():Matrix
     {
-        if(hasDeltaIdentityTransform)
+        if (hasDeltaIdentityTransform)
             return null; 
-        if(_layoutFeatures != null)
+        if (_layoutFeatures != null)
         {
             return _layoutFeatures.layoutMatrix;            
         }
