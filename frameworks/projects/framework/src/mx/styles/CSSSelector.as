@@ -35,9 +35,10 @@ public class CSSSelector
      *  Constructor.
      * 
      *  @param subject The plain representation of this selector without
-     *  conditions or ancestors.
+     *  conditions or ancestors. This is typically a fully-qualified class name; for example,
+     *  "spark.components.Button".
      *  
-     *  @param conditions  An optional Array of type CSSCondition that is used to match a
+     *  @param conditions  An optional Array of objects of type CSSCondition that is used to match a
      *  subset of component instances. Currently only a single or a pair of
      *  conditions are supported.
      * 
