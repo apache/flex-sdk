@@ -64,17 +64,21 @@ public class Transform extends flash.geom.Transform
     //
     //--------------------------------------------------------------------------
 
+    mx_internal var applyColorTransformAlpha:Boolean = false;
+    
     /**
      *  @private
      */ 
     override public function set colorTransform(value:ColorTransform):void
-    {
+    {   
         if (target && "$transform" in target) // UIComponent/UIMovieClip
             target["$transform"]["colorTransform"] = value;
         else if (target && "setColorTransform" in target)
             target["setColorTransform"](value);            
         else
             super.colorTransform = value;
+        
+        applyColorTransformAlpha = true;
     }
     
     /**
@@ -121,7 +125,7 @@ public class Transform extends flash.geom.Transform
      */ 
     override public function set matrix(value:Matrix):void
     {
-        if (target is ILayoutElement)
+        if (target is ILayoutElement && value != null)
             ILayoutElement(target).setLayoutMatrix(value, true);
         else 
             super.matrix = value;
@@ -138,14 +142,15 @@ public class Transform extends flash.geom.Transform
             return super.matrix;
     }
     
-    // FIXME (jszeto): Figure out why this throws an illegal override compiler error SDK-22046
-    /*override public function set matrix3D(value:Matrix3D):void 
+    // TODO (jszeto): SDK-22046 If the Player team changes the return type, 
+    // we will need to update
+    override public function set matrix3D(value:Matrix3D):* 
     {
-        if (target is ILayoutElement)
+        if (target is ILayoutElement && value != null)
             ILayoutElement(target).setLayoutMatrix3D(value, true);
         else 
             super.matrix3D = value;
-    }*/
+    }
 
     /**
      *  @private
