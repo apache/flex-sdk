@@ -868,6 +868,17 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         
     }
     
+    private function setModalPopupVisible(popup:DisplayObject, value:Boolean):void
+    {
+        popup.removeEventListener(FlexEvent.SHOW, popupShowHandler);
+        popup.removeEventListener(FlexEvent.HIDE, popupHideHandler);
+        
+        popup.visible = value;
+        
+        popup.addEventListener(FlexEvent.SHOW, popupShowHandler);
+        popup.addEventListener(FlexEvent.HIDE, popupHideHandler);
+    }
+    
     /**
      *  @private
      *  Show the modal transparency blocker, playing effects if needed.
@@ -899,7 +910,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             o.fade = fade;
             
             if (o.owner)
-                IUIComponent(o.owner).setVisible(false, true);
+                setModalPopupVisible(o.owner, false);
             
             fade.play();
             
@@ -946,7 +957,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         else
         {
             if (o.owner)
-                IUIComponent(o.owner).setVisible(true, true);
+                setModalPopupVisible(o.owner, true);
             o.modalWindow.visible = true;
         }
     }
@@ -1219,7 +1230,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             var o:PopUpData = popupInfo[i];
             if (o.owner && o.modalWindow == event.effectInstance.target)
             {
-                IUIComponent(o.owner).setVisible(true, true);
+                setModalPopupVisible(o.owner, true);
                 break;
             }
         }
