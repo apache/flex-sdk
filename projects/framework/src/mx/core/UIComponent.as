@@ -8074,6 +8074,10 @@ public class UIComponent extends FlexSprite
                 break;
             }
         }
+        // If Transition does not contain an effect, then don't return it
+        // because there is no transition effect to run
+        if (result && !result.effect)
+            result = null;
 
         return result;
     }
