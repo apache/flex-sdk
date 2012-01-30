@@ -109,6 +109,7 @@ Callout
 
 Callout ViewNavigator
 {
+    contentBackgroundAlpha: 1;
     skinClass: ClassReference("spark.skins.mobile.CalloutViewNavigatorSkin");
 }
 
@@ -129,6 +130,12 @@ Callout ViewNavigator ActionBar.beveled
 Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button
 {
     skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
+}
+
+Callout#viewNavigatorCallout
+{
+    contentBackgroundAlpha: 0;
+    skinClass: ClassReference("spark.skins.mobile.ViewNavigatorCalloutSkin");
 }
 
 CheckBox
