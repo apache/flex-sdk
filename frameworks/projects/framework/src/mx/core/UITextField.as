@@ -895,7 +895,7 @@ public class UITextField extends FlexTextField
      *  @private
      *  Storage for the inheritingStyles property.
      */
-    private var _inheritingStyles:Object = UIComponent.STYLE_UNINITIALIZED;
+    private var _inheritingStyles:Object = StyleManager.STYLE_UNINITIALIZED;
 
     /**
      *  The beginning of this UITextField's chain of inheriting styles.
@@ -1170,7 +1170,7 @@ public class UITextField extends FlexTextField
      *  @private
      *  Storage for the nonInheritingStyles property.
      */
-    private var _nonInheritingStyles:Object = UIComponent.STYLE_UNINITIALIZED;
+    private var _nonInheritingStyles:Object = StyleManager.STYLE_UNINITIALIZED;
 
     /**
      *  The beginning of this UITextField's chain of non-inheriting styles.
