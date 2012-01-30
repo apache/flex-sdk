@@ -17,6 +17,7 @@ import flash.utils.getQualifiedClassName;
 import mx.collections.errors.ItemPendingError;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
+import mx.events.CollectionEventKind;
 import mx.utils.OnDemandEventDispatcher;
 
 use namespace mx_internal;  // for mx_internal functions pendingItemSucceeded,Failed()
@@ -121,19 +122,189 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
         if (_list == value)
             return;
 
-        pendingItems.length = 0;
-
+        deleteAllPendingResponders();
         if (_list)
-            _list.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dispatchEvent);
-        
+            _list.removeEventListener(CollectionEvent.COLLECTION_CHANGE, handleCollectionChangeEvent);
         _list = value;
-
         if (_list)
-            _list.addEventListener(CollectionEvent.COLLECTION_CHANGE, dispatchEvent);
+            _list.addEventListener(CollectionEvent.COLLECTION_CHANGE, handleCollectionChangeEvent);
 
         dispatchEvent(new Event("listChanged"));
     }
 
+    /**
+     *  @private
+     */
+    private function deleteAllPendingResponders():void
+    {
+        for each (var responder:ListItemResponder in pendingResponders)
+            responder.index = -1;
+        pendingResponders.length = 0;
+    }
+
+    /**
+     *  @private
+     *  Fixup the pendingResponders array after a change to the list.  Generally speaking,
+     *  if a list[index] item changes, the pending responder for that index is no longer needed.
+     *  
+     *  All "collectionChange" events are redispatched to the RemoteListView listeners.
+     */
+    private function handleCollectionChangeEvent(e:Event):void
+    {
+        const ce:CollectionEvent = CollectionEvent(e);
+        switch (ce.kind)
+        {
+            case CollectionEventKind.REPLACE:
+            case CollectionEventKind.UPDATE:
+                deletePendingResponders(ce);
+                break;
+                
+            case CollectionEventKind.MOVE:
+                movePendingResponders(ce);
+                break;
+                
+            case CollectionEventKind.ADD:
+                shiftPendingRespondersRight(ce);
+                break;
+
+            case CollectionEventKind.REMOVE:
+                shiftPendingRespondersLeft(ce);
+                break;
+                
+            case CollectionEventKind.RESET:
+            case CollectionEventKind.REFRESH:
+                deleteAllPendingResponders();
+                break;
+        }
+        
+        dispatchEvent(e);  // redispatch to CollectionEvent listeners on this
+    }
+
+
+    /**
+     *  @private
+     *  Delete the ListItemResponder at the specified index, if any.  
+     *  This method assumes that the responder hasn't run yet, it sets
+     *  the ListItemResponder index to -1 to prevent it from updating
+     *  this RemoteListView later.
+     */
+    private function deletePendingResponder(index:int):void
+    {
+        if ((index < 0) || (index >= pendingResponders.length))
+            return;
+
+        const pendingResponder:ListItemResponder = pendingResponders[index];
+        if (pendingResponder)
+        {
+            delete pendingResponders[index];
+            ListItemResponder(pendingResponder).index = -1; 
+        }
+    }
+
+    /**
+     *  @private
+     *  Handler for a CollectionEventKind.UPDATE or REPLACE event. In either
+     *  case a contiguous block of items (ce.items) beginning with index=ce.location
+     *  has been changed.  If there are any pending requests for these indices, we
+     *  assume they're no longer valid, i.e. we assume that getItemAt() should no longer
+     *  return the pending item.
+     * 
+     *  Note that when a pending request succeeds, a REPLACE event is dispatched by 
+     *  the underlying list.   When a pending request fails, we set the corresponding 
+     *  list item, which also causes a REPLACE even to be dispatched.
+     */
+    private function deletePendingResponders(ce:CollectionEvent):void
+    {
+        var index:int = ce.location;
+        for each (var item:Object in ce.items)
+            deletePendingResponder(index++);
+    }
+
+    /**
+     *  @private
+     *  Handler for a CollectionEventKind.MOVE event.  The event indicates that a 
+     *  contiguous block of items (ce.items), beginning with index=ce.oldLocation,
+     *  has been moved to ce.location.  If pendingRequests already exist at ce.location,
+     *  they're deleted first.
+     */
+    private function movePendingResponders(ce:CollectionEvent):void
+    {
+        var fromIndex:int = ce.oldLocation;
+        var toIndex:int = ce.location;
+        for each (var item:Object in ce.items)
+        {
+            const pendingResponder:ListItemResponder = pendingResponders[fromIndex];
+            if (pendingResponder)
+            {
+                delete pendingResponders[fromIndex];
+                ListItemResponder(pendingResponder).index = toIndex; 
+                deletePendingResponder(toIndex); // in case we're copying over a pending request
+                pendingResponders[toIndex] = pendingResponder;
+            }
+            fromIndex += 1;
+            toIndex += 1;
+        }
+    }
+
+    /**
+     *  @private
+     *  Handler for a CollectionEventKind.ADD.  The event indicates 
+     *  that a block of ce.items.length items starting at ce.location was inserted,
+     *  which implies that all of the pendingResponders whose index is greater than or
+     *  equal to ce.location, must be shifted right by ce.items.length.
+     */
+    private function shiftPendingRespondersRight(ce:CollectionEvent):void
+    {
+        const delta:int = ce.items.length;
+        const startIndex:int = ce.location;
+
+        const pendingRespondersCopy:Array = sparseCopy(pendingResponders);
+        pendingResponders.length = 0;
+        for each (var responder:ListItemResponder in pendingRespondersCopy)
+        {
+            if (responder.index >= startIndex)
+                responder.index += delta;
+            pendingResponders[responder.index] = responder;
+        } 
+    }
+
+    /**
+     *  @private
+     *  Handler for a CollectionEventKind.REMOVE.  The event indicates 
+     *  that a block of ce.items.length items starting at ce.location was removed,
+     *  which implies that all of the pendingResponders whose index is greater than or
+     *  equal to ce.location, must be shifted left by ce.items.length.
+     */
+    private function shiftPendingRespondersLeft(ce:CollectionEvent):void
+    {
+        const delta:int = ce.items.length;
+        const startIndex:int = ce.location + delta;
+        
+        const pendingRespondersCopy:Array = sparseCopy(pendingResponders);
+        pendingResponders.length = 0;
+        for each (var responder:ListItemResponder in pendingRespondersCopy)
+        {
+            if (responder.index >= startIndex)
+                responder.index -= delta;
+            pendingResponders[responder.index] = responder;
+        } 
+    }
+    
+    /**
+     *  Applying concat() to a sparse array produces a new array that's
+     *  not sparse, nulls replace items that were undefined.  Although the 
+     *  result of this method is not sparse, it only includes items that 
+     *  were in the original array.
+     */
+    private function sparseCopy(a:Array):Array
+    {
+        const r:Array = new Array();
+        var index:int = 0;
+        for each (var item:* in a)
+            r[index++] = item;
+        return r;
+    }
+    
     //----------------------------------
     //  createPendingItemFunction
     //----------------------------------
@@ -250,7 +421,7 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
     //
     //--------------------------------------------------------------------------
 
-    private const pendingItems:Array = new Array();
+    private const pendingResponders:Array = new Array();
     
     /**
      *  @private
@@ -263,7 +434,7 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      */
     mx_internal function pendingRequestSucceeded(index:int, info:Object):void
     {
-        delete pendingItems[index];  
+        delete pendingResponders[index];
     }
 
     /**
@@ -277,8 +448,8 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      */
     mx_internal function pendingRequestFailed(index:int, info:Object):void
     {
-        delete pendingItems[index];
-        // TBD if the dataProvider has changed or if it's null, then ignore this item
+        delete pendingResponders[index];
+
         var item:Object = null;
         if (createFailedItemFunction !== null)
         {
@@ -368,9 +539,9 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
         if (!list)
             return null;
 
-        var pendingItem:* = pendingItems[index];
-        if (pendingItem !== undefined)
-            return pendingItem;
+        const pendingResponder:ListItemResponder = pendingResponders[index];
+        if (pendingResponder)
+            return pendingResponder.item;
 
         var item:Object = null;
         try
@@ -379,12 +550,13 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
         }
         catch (ipe:ItemPendingError)
         {
-            var createPendingItem:Function = createPendingItemFunction;
+            const createPendingItem:Function = createPendingItemFunction;
             if (createPendingItem !== null)
                 item = createPendingItem(index, ipe);
-            ipe.addResponder(new ListItemResponder(this, index));
+            var responder:ListItemResponder = new ListItemResponder(this, index, item);
+            pendingResponders[index] = responder;
+            ipe.addResponder(responder);
         }
-        pendingItems[index] = item;
         return item;
     }  
     
@@ -500,21 +672,25 @@ class ListItemResponder implements IResponder
 {
     private var remoteListView:RemoteListView;
     public var index:int = -1;
+    public var item:Object = null;
     
-    public function ListItemResponder(remoteListView:RemoteListView, index:int)
+    public function ListItemResponder(remoteListView:RemoteListView, index:int, item:Object)
     {
         super();
         this.remoteListView = remoteListView;
         this.index = index;
+        this.item = item;
     }
     
     public function result(info:Object):void
     {
-        remoteListView.pendingRequestSucceeded(index, info);
+        if (index != -1)
+            remoteListView.pendingRequestSucceeded(index, info);
     }
     
     public function fault(info:Object):void
     {
-        remoteListView.pendingRequestFailed(index, info);
+        if (index != -1)
+            remoteListView.pendingRequestFailed(index, info);
     }
 }
