@@ -517,8 +517,9 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	private function dispatchStrokeChangedEvent(prop:String, oldValue:*,
 												value:*):void
 	{
-        dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop,
-															oldValue, value));
+        if (hasEventListener("propertyChange")) 
+            dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop,
+			    oldValue, value));
 	}
 }
 
