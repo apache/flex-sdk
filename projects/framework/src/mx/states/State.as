@@ -25,18 +25,16 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched when the view state has been entered.
- *  This event is dispatched after the changes
- *  to the base view state have been applied.
+ *  Dispatched after a view state has been entered.
  *
  *  @eventType mx.events.FlexEvent.ENTER_STATE
  */
 [Event(name="enterState", type="mx.events.FlexEvent")]
 
 /**
- *  Dispatched before a view state is exited.
+ *  Dispatched just before a view state is exited.
  *  This event is dispatched before the changes
- *  to the base view state have been removed.
+ *  to the default view state have been removed.
  *
  *  @eventType mx.events.FlexEvent.EXIT_STATE
  */
