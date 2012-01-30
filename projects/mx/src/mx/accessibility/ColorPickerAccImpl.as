@@ -239,18 +239,12 @@ public class ColorPickerAccImpl extends ComboBaseAccImpl
 	 */
 	override public function getChildIDArray():Array
 	{
-		var childIDs:Array = [];
+		
+		var n:int = ColorPicker(master).dropdown ?
+					ColorPicker(master).dropdown.length :
+					0;
 
-		if (ColorPicker(master).dropdown)
-		{
-			var n:uint= ColorPicker(master).dropdown.length;
-			for (var i:int = 0; i < n; i++)
-			{
-				childIDs[i] = i + 1;
-			}
-		}
-
-		return childIDs;
+		return createChildIDArray(n);
 	}
 
 	//--------------------------------------------------------------------------
