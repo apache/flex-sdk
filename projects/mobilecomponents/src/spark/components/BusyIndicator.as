@@ -48,7 +48,7 @@ use namespace mx_internal;
  *  @default 50
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
+ *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  *   
@@ -56,13 +56,12 @@ use namespace mx_internal;
 [Style(name="rotationInterval", type="Number", format="Time", inherit="no")]
 
 /**
- *  Color of any symbol of a component. 
- *  This is used by the BusyIndicator to color the spokes of the spinner.
+ *  Color of the spokes of the spinner.
  *   
  *  @default 0x000000
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
+ *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -70,17 +69,14 @@ use namespace mx_internal;
 
 /**
  *  The BusyIndicator defines a component to display when a long-running 
- *  operation is in progress. This component is a spinner with twelve spokes.
- *  The color of the spokes is controled by the value of the symbolColor style.
- *  The transparency of this component can be modified using the alpha property
+ *  operation is in progress. This component creates a spinner with twelve spokes.
+ *  The color of the spokes is controlled by the value of the <code>symbolColor</code> style.
+ *  The transparency of this component can be modified using the <code>alpha</code> property,
  *  but the alpha value of each spoke cannot be modified.
  * 
- *  <p>
- *  The speed at which this component spins is controled by the rotationInterval
- *  style. The rotationInterval style is the delay in milliseconds between
- *  rotates. Decrease the rotationInterval to increase the speed of the spin
- *  and increase the rotationInterval to slow the spin.
- *  </p>
+ *  <p>The speed at which this component spins is controlled by the <code>rotationInterval</code>
+ *  style. The <code>rotationInterval</code> style sets the delay, in milliseconds, between
+ *  rotations. Decrease the <code>rotationInterval</code> value to increase the speed of the spin.</p>
  * 
  *  <p>The BusyIndicator has the following default characteristics:</p>
  *  <table class="innertable">
@@ -92,30 +88,32 @@ use namespace mx_internal;
  *     <tr><td>Maximum size</td><td>No limit</td></tr>
  *  </table>
  *  
- *  The diameter of the BusyIndicator's spinner is the minimum of the width and
- *  height of the component. The diameter must be an even number so will be
- *  reduced by one if it is odd.
+ *  <p>The diameter of the BusyIndicator's spinner is the minimum of the width and
+ *  height of the component. The diameter must be an even number, and is
+ *  reduced by one if it is set to an odd number.</p>
  * 
  *  @mxml
  *  
- *  <p>The <code>&lt;s:BusyCursor&gt;</code> tag inherits the symbolColor style
- *  and adds the rotationInterval style.</p>
+ *  <p>The <code>&lt;s:BusyIndicator&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
  *  
  *  <pre>
  *  &lt;s:BusyIndicator
  *     
- *    <strong>Styles</strong>
+ *    <strong>Common Styles</strong>
  *    rotationInterval=50
  * 
  *    <strong>Spark Styles</strong>
  *    symbolColor="0x000000"
  *  
+ *    <strong>Mobile Styles</strong>
+ *    symbolColor="0x000000"
  *  &gt;
  *  </pre>
  *
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
+ *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -153,7 +151,7 @@ public class BusyIndicator extends UIComponent
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
