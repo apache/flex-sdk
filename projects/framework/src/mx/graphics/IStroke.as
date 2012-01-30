@@ -85,6 +85,8 @@ public interface IStroke
      * 
      *  @default LineScaleMode.NORMAL
      *  
+     *  @see flash.display.LineScaleMode
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -114,9 +116,11 @@ public interface IStroke
     //----------------------------------
     
     /**
-     *  Specifies the type of joint appearance used at angles.
+     *  Specifies the appearance of line intersections used at angles.
      *  Valid values are <code>JointStyle.ROUND</code>, <code>JointStyle.MITER</code>,
      *  and <code>JointStyle.BEVEL</code>.
+     *  
+     *  @see flash.display.JoingStyle
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
