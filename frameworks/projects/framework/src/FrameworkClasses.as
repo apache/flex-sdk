@@ -156,6 +156,7 @@ internal class FrameworkClasses
 	import mx.skins.halo.ToolTipBorder; ToolTipBorder;
 	import mx.skins.ProgrammaticSkin; ProgrammaticSkin;
 	import mx.skins.RectangularBorder; RectangularBorder;
+	import mx.skins.halo.WindowBackground; WindowBackground;
 	import mx.styles.IStyleModule; IStyleModule;
 	import mx.utils.ArrayUtil; ArrayUtil;
 	import mx.utils.DescribeTypeCache; DescribeTypeCache;
