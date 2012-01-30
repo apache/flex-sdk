@@ -2052,7 +2052,6 @@ public class Window extends SkinnableContainer implements IWindow
             {
                 toMax = true;
                 invalidateProperties();
-                invalidateSize();
             }
         }
     }
@@ -2399,6 +2398,16 @@ public class Window extends SkinnableContainer implements IWindow
             addEventListener(EffectEvent.EFFECT_END, windowUnminimizeHandler);
             dispatchEvent(new Event("windowUnminimize"));
         }
+
+        // If we have been maximized or restored then invalidate so we can
+        // resize.
+        if (event.afterDisplayState == NativeWindowDisplayState.MAXIMIZED ||
+            event.afterDisplayState == NativeWindowDisplayState.NORMAL)
+        {
+            invalidateSize();
+            invalidateDisplayList();
+        }
+        
     }
 
     /**
