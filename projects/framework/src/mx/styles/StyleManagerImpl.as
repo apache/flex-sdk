@@ -24,6 +24,7 @@ import flash.utils.describeType;
 import mx.core.FlexVersion;
 import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
+import mx.events.FlexChangeEvent;
 import mx.events.ModuleEvent;
 import mx.events.StyleEvent;
 import mx.managers.ISystemManager;
@@ -285,8 +286,11 @@ public class StyleManagerImpl implements IStyleManager2
             DisplayObject(moduleFactory).dispatchEvent(request); 
             var moduleFactory:IFlexModuleFactory = request.value as IFlexModuleFactory;
             if (moduleFactory)
+            {
                 _parent = IStyleManager2(moduleFactory.
                                          getImplementation("mx.styles::IStyleManager2"));
+            }
+                
         }
     }
 
@@ -394,8 +398,14 @@ public class StyleManagerImpl implements IStyleManager2
     {
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             return false;
-        else
-            return _qualifiedTypeSelectors; 
+
+        if (_qualifiedTypeSelectors)
+            return _qualifiedTypeSelectors;
+        
+        if (parent)
+            return parent.qualifiedTypeSelectors;
+        
+        return false;
     }
     
     public function set qualifiedTypeSelectors(value:Boolean):void
@@ -449,8 +459,21 @@ public class StyleManagerImpl implements IStyleManager2
      */
     public function get inheritingStyles():Object
     {
-        return _inheritingStyles;
+        var mergedStyles:Object = _inheritingStyles;
+        
+        if (parent)
+        {
+            var otherStyles:Object = parent.inheritingStyles;
+            for (var obj:Object in otherStyles)
+            {
+                if (mergedStyles[obj] === undefined)
+                    mergedStyles[obj] = otherStyles[obj];
+            }
+        }
+        
+        return mergedStyles;
     }
+    
     public function set inheritingStyles(value:Object):void
     {
         _inheritingStyles = value;
@@ -527,9 +550,10 @@ public class StyleManagerImpl implements IStyleManager2
     {
 		if (!stylesRoot)
 		{
-			if (_selectors["global"] != null)
+            var style:CSSStyleDeclaration = getMergedStyleDeclaration("global");
+			if (style != null)
 			{
-			    stylesRoot = _selectors["global"].addStyleToProtoChain({}, null);
+			    stylesRoot = style.addStyleToProtoChain({}, null);
 			}
 		}
     }
@@ -552,6 +576,13 @@ public class StyleManagerImpl implements IStyleManager2
     	for (var i:String in _selectors)
     		theSelectors.push(i);
 
+        if (parent)
+        {
+            var otherSelectors:Array = parent.selectors;
+            for (i in otherSelectors)
+                theSelectors.push(i);
+        }
+        
     	return theSelectors;
     }
 
@@ -567,7 +598,13 @@ public class StyleManagerImpl implements IStyleManager2
      */ 
     public function hasAdvancedSelectors():Boolean
     {
-        return _hasAdvancedSelectors;
+        if (_hasAdvancedSelectors)
+            return true;
+        
+        if (parent)
+            return parent.hasAdvancedSelectors();
+        
+        return false;
     }
 
     /**
@@ -577,7 +614,13 @@ public class StyleManagerImpl implements IStyleManager2
      */ 
     public function hasPseudoCondition(cssState:String):Boolean
     {
-        return _pseudoCSSStates != null && _pseudoCSSStates[cssState] != null;
+        if (_pseudoCSSStates != null && _pseudoCSSStates[cssState] != null)
+            return true;
+        
+        if (parent)
+            return parent.hasPseudoCondition(cssState);
+        
+        return false;
     }
 
     /**
@@ -606,7 +649,30 @@ public class StyleManagerImpl implements IStyleManager2
             }
         }
 
-        return _subjects[subject] as Array;
+        // NOTE: It's important the the parent declarations come before this style
+        // manager's styles because the order here is the order they are added to the 
+        // prototype chain.
+        var theSubjects:Array = null;
+
+        if (parent)
+            theSubjects = parent.getStyleDeclarations(subject);
+
+        if (!theSubjects)
+        {
+            theSubjects = _subjects[subject] as Array;
+        }
+        else
+        {
+            var subjectsArray:Array = _subjects[subject] as Array;
+            if (subjectsArray)
+                theSubjects = theSubjects.concat(subjectsArray);
+        }
+        
+        return theSubjects;
+    }
+
+    private function isUnique(element:*, index:int, arr:Array):Boolean {
+        return (arr.indexOf(element) >= 0);
     }
 
     /**
@@ -663,6 +729,14 @@ public class StyleManagerImpl implements IStyleManager2
      * the properties of the specified CSS selector of this style manager with all of the parent
      * style managers.
      * 
+     * <p>
+     * If this style manager contains a style declaration for the given selector, its style properties
+     * will be updated with properties from the parent style manager's merged style declaration. If
+     * this style manager does not have a style declaration for a given selector, the parent's merged
+     * style declaration will be set into this style manager depending on the value of the <code>
+     * setSelector</code> parameter.
+     * </p>
+     * 
      * <p>If the <code>selector</code> parameter starts with a period (.), 
      * the returned CSSStyleDeclaration is a class selector and applies only to those instances 
      * whose <code>styleName</code> property specifies that selector 
@@ -694,10 +768,20 @@ public class StyleManagerImpl implements IStyleManager2
      */     
     public function getMergedStyleDeclaration(selector:String):CSSStyleDeclaration
     {
-        // FIXME (dloverin) merge in styles from parent style manager.
-        return getStyleDeclaration(selector);
+        var style:CSSStyleDeclaration = getStyleDeclaration(selector);
+        var parentStyle:CSSStyleDeclaration = null;
+        
+        // If we have a parent, get its style and merge them with our style.
+        if (parent)
+            parentStyle = parent.getMergedStyleDeclaration(selector);
+
+        if (style || parentStyle)
+            style = new CSSMergedStyleDeclaration(style, parentStyle, 
+                             style ? style.selectorString : parentStyle.selectorString, this, false);
+        
+        return style;
     }
-    
+
     /**
      *  Sets the CSSStyleDeclaration object that stores the rules
      *  for the specified CSS selector.
@@ -955,7 +1039,13 @@ public class StyleManagerImpl implements IStyleManager2
      */
     public function isInheritingStyle(styleName:String):Boolean
     {
-        return inheritingStyles[styleName] == true;
+        if (inheritingStyles[styleName] == true)
+            return true;
+        
+        if (parent && parent.isInheritingStyle(styleName))
+            return true;
+        
+        return false;
     }
 
     /**
@@ -973,7 +1063,13 @@ public class StyleManagerImpl implements IStyleManager2
      */
     public function isInheritingTextFormatStyle(styleName:String):Boolean
     {
-        return inheritingTextFormatStyles[styleName] == true;
+        if (inheritingTextFormatStyles[styleName] == true)
+            return true;
+
+        if (parent && parent.isInheritingTextFormatStyle(styleName))
+            return true;
+
+        return false;
     }
 
     /**
@@ -1014,7 +1110,13 @@ public class StyleManagerImpl implements IStyleManager2
      */
     public function isSizeInvalidatingStyle(styleName:String):Boolean
     {
-        return sizeInvalidatingStyles[styleName] == true;
+        if (sizeInvalidatingStyles[styleName] == true)
+            return true;
+        
+        if (parent && parent.isSizeInvalidatingStyle(styleName))
+            return true;
+
+        return false;
     }
 
     /**
@@ -1058,7 +1160,13 @@ public class StyleManagerImpl implements IStyleManager2
      */
     public function isParentSizeInvalidatingStyle(styleName:String):Boolean
     {
-        return parentSizeInvalidatingStyles[styleName] == true;
+        if (parentSizeInvalidatingStyles[styleName] == true)
+            return true;
+        
+        if (parent && parent.isParentSizeInvalidatingStyle(styleName))
+            return true;
+        
+        return false;
     }
 
     /**
@@ -1103,7 +1211,13 @@ public class StyleManagerImpl implements IStyleManager2
     public function isParentDisplayListInvalidatingStyle(
                                 styleName:String):Boolean
     {
-        return parentDisplayListInvalidatingStyles[styleName] == true;
+        if (parentDisplayListInvalidatingStyles[styleName] == true)
+            return true;
+        
+        if (parent && parent.isParentDisplayListInvalidatingStyle(styleName))
+            return true;
+        
+        return false;
     }
 
     /**
@@ -1140,7 +1254,13 @@ public class StyleManagerImpl implements IStyleManager2
      */
     public function isColorName(colorName:String):Boolean
     {
-        return colorNames[colorName.toLowerCase()] !== undefined;
+        if (colorNames[colorName.toLowerCase()] !== undefined)
+            return true;
+        
+        if (parent && parent.isColorName(colorName))
+            return true;
+        
+        return false;
     }
 
     /**
@@ -1196,8 +1316,15 @@ public class StyleManagerImpl implements IStyleManager2
             // Map "haloGreen" or "HaLoGrEeN" to 0x46FF00.
             var c:* = colorNames[colorName.toLowerCase()];
             if (c === undefined)
-                return StyleManager.NOT_A_COLOR;
+            {
+                // If not found then try our parent
+                if (parent)
+                    c = parent.getColorName(colorName);
+            }
             
+            if (c === undefined)
+                return StyleManager.NOT_A_COLOR;                
+
             return uint(c);
         }
         
@@ -1264,7 +1391,13 @@ public class StyleManagerImpl implements IStyleManager2
     {
         // By convention, we don't allow style values to be undefined,
         // so we can check for this as the "not set" value.
-        return value !== undefined;
+        if (value !== undefined)
+            return true;
+        
+        if (parent)
+            return parent.isValidStyleValue(value);
+        
+        return false;
     }
 
     /**
