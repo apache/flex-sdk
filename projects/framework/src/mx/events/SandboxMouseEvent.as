@@ -54,7 +54,7 @@ public class SandboxMouseEvent extends Event
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-    public static const DOUBLE_CLICK_SOMEWHERE:String = "coubleClickSomewhere";
+    public static const DOUBLE_CLICK_SOMEWHERE:String = "doubleClickSomewhere";
 
 	/**
 	 *  Mouse button was pressed down somewhere outside your sandbox.
