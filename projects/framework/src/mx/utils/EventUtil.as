@@ -16,8 +16,7 @@ import flash.events.MouseEvent;
 import mx.events.MarshalMouseEvent;
 
 /**
- * Utilities to help in handling Events or Event Dispatching.
- * 
+ *  Utilities to help with event dispatching or event handling.
  */
 public class EventUtil
 {
@@ -25,50 +24,79 @@ public class EventUtil
 
 	//--------------------------------------------------------------------------
 	//
-	//  Class methods
+	//  Class properties
 	//
 	//--------------------------------------------------------------------------
 	
-	private static var _marshalEventMap:Object;
+	//----------------------------------
+    //  marshalMouseEventMap
+	//----------------------------------
 
 	/**
-	 *  mapping of MouseEvents to MarshalMouseEvent types
+     *  @private
+     */
+    private static var _marshalEventMap:Object;
+
+	/**
+	 *  Mapping of MouseEvents to MarshalMouseEvent types.
 	 */
 	public static function get marshalMouseEventMap():Object
 	{
 		if (!_marshalEventMap)
 		{
 			_marshalEventMap = {};
-			_marshalEventMap[MarshalMouseEvent.CLICK] = MouseEvent.CLICK;
-			_marshalEventMap[MarshalMouseEvent.DOUBLE_CLICK] = MouseEvent.DOUBLE_CLICK;
-			_marshalEventMap[MarshalMouseEvent.MOUSE_DOWN] = MouseEvent.MOUSE_DOWN;
-			_marshalEventMap[MarshalMouseEvent.MOUSE_MOVE] = MouseEvent.MOUSE_MOVE;
-			_marshalEventMap[MarshalMouseEvent.MOUSE_UP] = MouseEvent.MOUSE_UP;
-			_marshalEventMap[MarshalMouseEvent.MOUSE_WHEEL] = MouseEvent.MOUSE_WHEEL;
+
+			_marshalEventMap[MarshalMouseEvent.CLICK] =
+                MouseEvent.CLICK;
+			_marshalEventMap[MarshalMouseEvent.DOUBLE_CLICK] =
+                MouseEvent.DOUBLE_CLICK;
+			_marshalEventMap[MarshalMouseEvent.MOUSE_DOWN] =
+                MouseEvent.MOUSE_DOWN;
+			_marshalEventMap[MarshalMouseEvent.MOUSE_MOVE] =
+                MouseEvent.MOUSE_MOVE;
+			_marshalEventMap[MarshalMouseEvent.MOUSE_UP] =
+                MouseEvent.MOUSE_UP;
+			_marshalEventMap[MarshalMouseEvent.MOUSE_WHEEL] =
+                MouseEvent.MOUSE_WHEEL;
 		}
 
 		return _marshalEventMap;
 	}
 
+	//----------------------------------
+    //  mouseEventMap
+	//----------------------------------
+
+	/**
+     *  @private
+     */
 	private static var _mouseEventMap:Object;
 
 	/**
-	 *  mapping of MarshalMouseEvent to MouseEvents  types
+	 *  Mapping of MarshalMouseEvent to MouseEvents types.
 	 */
 	public static function get mouseEventMap():Object
 	{
 		if (!_mouseEventMap)
 		{
 			_mouseEventMap = {};
-			_mouseEventMap[MouseEvent.CLICK] = MarshalMouseEvent.CLICK;
-			_mouseEventMap[MouseEvent.DOUBLE_CLICK] = MarshalMouseEvent.DOUBLE_CLICK;
-			_mouseEventMap[MouseEvent.MOUSE_DOWN] = MarshalMouseEvent.MOUSE_DOWN;
-			_mouseEventMap[MouseEvent.MOUSE_MOVE] = MarshalMouseEvent.MOUSE_MOVE;
-			_mouseEventMap[MouseEvent.MOUSE_UP] = MarshalMouseEvent.MOUSE_UP;
-			_mouseEventMap[MouseEvent.MOUSE_WHEEL] = MarshalMouseEvent.MOUSE_WHEEL;
+
+			_mouseEventMap[MouseEvent.CLICK] =
+                MarshalMouseEvent.CLICK;
+			_mouseEventMap[MouseEvent.DOUBLE_CLICK] =
+                MarshalMouseEvent.DOUBLE_CLICK;
+			_mouseEventMap[MouseEvent.MOUSE_DOWN] =
+                MarshalMouseEvent.MOUSE_DOWN;
+			_mouseEventMap[MouseEvent.MOUSE_MOVE] =
+                MarshalMouseEvent.MOUSE_MOVE;
+			_mouseEventMap[MouseEvent.MOUSE_UP] =
+                MarshalMouseEvent.MOUSE_UP;
+			_mouseEventMap[MouseEvent.MOUSE_WHEEL] =
+                MarshalMouseEvent.MOUSE_WHEEL;
 		}
 
 		return _mouseEventMap;
 	}
 }
+
 }
