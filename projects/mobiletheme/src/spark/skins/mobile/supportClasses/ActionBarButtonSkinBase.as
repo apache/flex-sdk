@@ -103,8 +103,8 @@ public class ActionBarButtonSkinBase extends ButtonSkin
     override protected function layoutBorder(bgImg:DisplayObject, unscaledWidth:Number, unscaledHeight:Number):void
     {
         // extend 1px outside measured width to overlap highlight borders
-        resizeElement(bgImg, unscaledWidth + layoutBorderSize, unscaledHeight);
-        positionElement(bgImg, 0, 0);
+        setElementSize(bgImg, unscaledWidth + layoutBorderSize, unscaledHeight);
+        setElementPosition(bgImg, 0, 0);
     }
     
     override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
