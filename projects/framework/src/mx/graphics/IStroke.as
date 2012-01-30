@@ -13,6 +13,7 @@ package mx.graphics
 {
 
 import flash.display.Graphics;
+import flash.display.GraphicsStroke;
 import flash.geom.Rectangle;
 
 /**
@@ -105,6 +106,22 @@ public interface IStroke
 	function apply(g:Graphics):void;
 	
 	function draw(g:Graphics, rc:Rectangle):void;
+
+    /**
+     *  Generates a GraphicsStroke object representing 
+     *  this stroke. 
+     * 
+     *  @param rect The stroke's bounding box.
+     *  
+     *  @return The Drawing API-2 GraphicsStroke object representing 
+     *  this stroke. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+	function generateGraphicsStroke(rect:Rectangle):GraphicsStroke; 
 }
 
 }
