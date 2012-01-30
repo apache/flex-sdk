@@ -431,8 +431,7 @@ public class SystemManager extends MovieClip
 	 *  into the stage area, and release the mouse button.
 	 *  Without the mouseCatcher, the Button wouldn't return to its "up" state.
 	 */
-	 // VERSION_SKEW change from private to mx_internal so SystemManagerProxy can set.
-	mx_internal var mouseCatcher:Sprite;
+	private var mouseCatcher:Sprite;
 
 	/**
 	 *  @private
@@ -1338,7 +1337,7 @@ public class SystemManager extends MovieClip
 			{
 			}
 		}
-		
+
 		if (hasSandboxBridges())
 		{
 			if (!eventProxy)
@@ -1441,7 +1440,7 @@ public class SystemManager extends MovieClip
 			{
 			}
 		}
-
+		
 		if (hasSandboxBridges())
 		{
 			var actualType:String = EventUtil.marshalMouseEventMap[type];
@@ -1468,10 +1467,10 @@ public class SystemManager extends MovieClip
 				removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
 			}
 		}
-		else
-		{
-			super.removeEventListener(type, listener, useCapture);
-		}
+        else
+        {
+            super.removeEventListener(type, listener, useCapture);
+        }
 	}
 
 	//--------------------------------------------------------------------------
@@ -2758,8 +2757,7 @@ public class SystemManager extends MovieClip
 	 *  Makes the mouseCatcher the same size as the stage,
 	 *  filling it with transparent pixels.
 	 */
-	// VERSION_SKEW change from private to mx_internal so it can be called by SystemManagerProxy
-	mx_internal function resizeMouseCatcher():void
+	private function resizeMouseCatcher():void
 	{
 		if (mouseCatcher)
 		{
@@ -4676,8 +4674,8 @@ public class SystemManager extends MovieClip
 	}
 	
    /**
-     *  @inheritdoc
-     */  
+    *  @inheritdoc
+    */  
     public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
     {
         if (!bounds)
@@ -4708,6 +4706,16 @@ public class SystemManager extends MovieClip
         return bounds;
     }
  
+   /**
+    *  @inheritdoc
+    */  
+    public function deployMouseShields(deploy:Boolean):void
+    {
+        var me:MarshalEvent = new MarshalEvent(MarshalEvent.DRAG_MANAGER, false, false,
+                                    "mouseShield", deploy);
+        getSandboxRoot().dispatchEvent(me);           
+    }
+    
 	/**
 	 * @private
 	 * 
@@ -5039,8 +5047,8 @@ public class SystemManager extends MovieClip
 				addEventListenerToSandboxes(eventObj.userType, sandboxMouseListener,
 							eventObj.useCapture, eventObj.priority, eventObj.useWeakReference, event.target as IEventDispatcher);
 				if (getSandboxRoot() == this)
-					super.addEventListener(actualType, eventProxy.marshalListener,
-							eventObj.useCapture, eventObj.priority, eventObj.useWeakReference);
+                    super.addEventListener(actualType, eventProxy.marshalListener,
+                            eventObj.useCapture, eventObj.priority, eventObj.useWeakReference);
 			}
 			// trace("<<eventListenerRequestHandler ADD ", this, eventObj.userType);
 		}
@@ -5121,15 +5129,15 @@ class EventProxy extends EventDispatcher
 
 	public function marshalListener(event:Event):void
 	{
-		if (event is MouseEvent)
-		{
-			var me:MouseEvent = event as MouseEvent;;
-			var mme:MarshalMouseEvent = new MarshalMouseEvent(EventUtil.mouseEventMap[event.type],
-				false, false, me.ctrlKey, me.altKey, me.shiftKey, me.buttonDown);
-			// trace(">>marshalListener", systemManager, mme.type);
-			systemManager.dispatchEventToSandboxes(mme, null, true);
-			// trace("<<marshalListener", systemManager);
-		}
+        if (event is MouseEvent)
+        {
+            var me:MouseEvent = event as MouseEvent;;
+            var mme:MarshalMouseEvent = new MarshalMouseEvent(EventUtil.mouseEventMap[event.type],
+                false, false, me.ctrlKey, me.altKey, me.shiftKey, me.buttonDown);
+            // trace(">>marshalListener", systemManager, mme.type);
+            systemManager.dispatchEventToSandboxes(mme, null, true);
+            // trace("<<marshalListener", systemManager);
+        }
 	}
 
 }
@@ -5151,6 +5159,7 @@ class StageEventProxy
 
 	public function stageListener(event:Event):void
 	{
+	    // trace("stageListener " + this + event.type);
 		if (event.target is Stage)
 			listener(event);
 	}
