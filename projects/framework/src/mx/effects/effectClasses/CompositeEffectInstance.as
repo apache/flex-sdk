@@ -314,8 +314,7 @@ public class CompositeEffectInstance extends EffectInstance
 	}
 	
 	/**
-	 *  Used internally to keep track of the value of 
-	 *  the <code>playheadTime</code> property.
+	 *  @private
 	 */		
 	public function onTweenUpdate(value:Object):void
 	{
@@ -325,8 +324,7 @@ public class CompositeEffectInstance extends EffectInstance
 	}
 	
 	/**
-	 *  Used internally to keep track of the value of 
-	 *  the <code>playheadTime</code> property.
+	 *  @private
 	 */		
 	public function onTweenEnd(value:Object):void
 	{
