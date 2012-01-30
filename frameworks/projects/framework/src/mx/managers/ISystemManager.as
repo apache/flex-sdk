@@ -12,14 +12,18 @@
 package mx.managers
 {
 
+import flash.display.DisplayObject;
+import flash.display.InteractiveObject; 
 import flash.display.LoaderInfo;
 import flash.display.Sprite;
 import flash.display.Stage;
+import flash.events.Event;
 import flash.events.IEventDispatcher;
 import flash.geom.Rectangle;
 import flash.text.TextFormat;
 import mx.core.IChildList;
 import mx.core.IFlexModuleFactory;
+import mx.core.ISWFBridgeGroup;  
 import mx.managers.IFocusManagerContainer;
 
 /**
@@ -206,6 +210,16 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	function get rawChildren():IChildList;
 	
     //----------------------------------
+    //  swfBridgeGroup
+    //----------------------------------
+
+    /**
+     *  Contains all the bridges to other applications
+     *  that this application is connected to.
+     */
+    function get swfBridgeGroup():ISWFBridgeGroup;
+    
+    //----------------------------------
     //  screen
     //----------------------------------
 
@@ -332,6 +346,133 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *  <code>Font.registerFont()</code> method.
      */
     function isFontFaceEmbedded(tf:TextFormat):Boolean;
+
+    /**
+     *  Tests if this system manager is the root of all
+     *  top level system managers.
+     * 
+     *  @return <code>true</code> if the SystemManager
+     *  is the root of all SystemManagers on the display list,
+     *  and <code>false</code> otherwise.
+     */
+    function isTopLevelRoot():Boolean;
+    
+    /**
+     *  Attempts to get the system manager that is the in the main application.
+     *
+     *  @return The main application's systemManager if allowed by
+	 *  security restrictions or null if it is in a different SecurityDomain.
+     */
+    function getTopLevelRoot():DisplayObject;
+
+    /**
+     *  Gets the system manager is the root of all
+     *  top level system managers in this SecurityDomain
+     *
+     *  @return the highest-level systemManager in the sandbox
+     */
+    function getSandboxRoot():DisplayObject;
+
+    /** 
+     *  Adds a child bridge to the system manager.
+     *  Each child bridge represents components in another sandbox
+     *  or compiled with a different version of Flex.
+     *
+     *  @param bridge The bridge for the child.
+     *
+     *  @param owner The SWFLoader for the child.
+     */
+    function addChildBridge(bridge:IEventDispatcher, owner:DisplayObject):void;
+
+    /** 
+     *  Adds a child bridge to the system manager.
+     *  Each child bridge represents components in another sandbox
+     *  or compiled with a different version of Flex.
+     *
+     *  @param bridge The bridge for the child
+     */
+    function removeChildBridge(bridge:IEventDispatcher):void;
+    
+	/**
+	 *  dispatch the event to all sandboxes except the specified one
+	 *
+     *  @param event Event to dispatch
+     *  @param skip IEventDispatcher to not dispatch from
+     *  @param trackClones Whether to keep a reference to the events as they are dispatched
+	 */
+	function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, trackClones:Boolean = false):void
+
+    /**
+     *  Determines if the caller using this system manager
+     *  should should communicate directly with other managers
+     *  or if it should communicate with a bridge.
+     * 
+     *  @return <code>true</code> if the caller using this system manager
+     *  should  communicate using sandbox bridges.
+     *  If <code>false</code> the system manager may directly call
+     *  other managers directly via references.
+     */
+    function useSWFBridge():Boolean;
+    
+    /** 
+     *  Adds child to sandbox root in the layer requested.
+     *
+     *  @param layer Name of IChildList in SystemManager
+     *
+     *  @param child DisplayObject to add
+     */
+    function addChildToSandboxRoot(layer:String, child:DisplayObject):void;
+
+    /** 
+     *  Removes child from sandbox root in the layer requested.
+     *
+     *  @param layer Name of IChildList in SystemManager
+     *
+     *  @param child DisplayObject to add
+     */
+    function removeChildFromSandboxRoot(layer:String, child:DisplayObject):void;
+    
+    /**
+     *  Tests if a display object is in a child application
+     *  that is loaded in compatibility mode or in an untrusted sandbox.
+     * 
+     *  @param displayObject The DisplayObject to test.
+     * 
+     *  @return <code>true</code> if <code>displayObject</code>
+     *  is in a child application that is loaded in compatibility mode
+     *  or in an untrusted sandbox, and <code>false</code> otherwise.
+     */
+    function isDisplayObjectInABridgedApplication(
+                        displayObject:DisplayObject):Boolean;
+
+    /**
+     *  Get the bounds of the loaded application that are visible to the user
+     *  on the screen.
+     * 
+     *  @param bounds Optional. The starting bounds for the visible rect. The
+     *  bounds are in global coordinates. If <code>bounds</code> is null the 
+     *  starting bounds is defined by the <code>screen</code> property of the 
+     *  system manager. 
+     * 
+     *  @return a <code>Rectangle</code> including the visible portion of the this 
+     *  object. The rectangle is in global coordinates.
+     */  
+    function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle;
+    
+    /**
+     *  Deploy or remove mouse shields. Mouse shields block mouse input to untrusted
+     *  applications. The reason you would want to block mouse input is because
+     *  when you are dragging over an untrusted application you would normally not
+     *  receive any mouse move events. The Flash Player does not send events
+     *  across trusted/untrusted boundries due to security concerns. By covering
+     *  the untrusted application with a mouse shield (assuming you are its parent)
+     *  you can get mouse move message and the drag operation will work as expected. 
+     * 
+     *  @param deploy <code>true</code> to deploy the mouse shields, <code>false</code>
+     *  to remove the mouse shields.
+     */
+    function deployMouseShields(deploy:Boolean):void; 
+
 }
 
 }
