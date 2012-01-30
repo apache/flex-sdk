@@ -100,6 +100,11 @@ public class ChangeWatcher
      *  Typically these tags are used to indicate fine-grained value changes,
      *  such as modifications in a text field prior to confirmation.
      *
+     *  @param useWeakReference (default = false) Determines whether
+     *  the reference to the host is strong or weak. A strong
+     *  reference (the default) prevents the host from being
+     *  garbage-collected. A weak reference does not.
+     *
      *  @return The ChangeWatcher instance, if at least one property name has
      *  been specified to the <code>chain</code> argument; null otherwise.
      *  Note that the returned watcher is not guaranteed to have successfully
@@ -112,7 +117,8 @@ public class ChangeWatcher
      */
     public static function watch(host:Object, chain:Object,
                                  handler:Function,
-                                 commitOnly:Boolean = false):ChangeWatcher
+                                 commitOnly:Boolean = false,
+                                 useWeakReference:Boolean = false):ChangeWatcher
     {
         if (!(chain is Array))
             chain = [ chain ];
@@ -122,6 +128,7 @@ public class ChangeWatcher
             var w:ChangeWatcher =
                 new ChangeWatcher(chain[0], handler, commitOnly,
                     watch(null, chain.slice(1), handler, commitOnly));
+            w.useWeakReference = useWeakReference;
             w.reset(host);
             return w;
         }
@@ -244,6 +251,7 @@ public class ChangeWatcher
         this.commitOnly = commitOnly;
         this.next = next;
         events = {};
+        useWeakReference = false;
     }
 
     //--------------------------------------------------------------------------
@@ -295,6 +303,24 @@ public class ChangeWatcher
      *  Volatile; varies with host.
      */
     private var events:Object;
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  useWeakReference
+    //----------------------------------
+
+    /**
+     *  (default = false) Determines whether the reference to the host
+     *  is strong or weak. A strong reference (the default) prevents
+     *  the host from being garbage-collected. A weak reference does
+     *  not.
+     */
+    public var useWeakReference:Boolean;
 
     //--------------------------------------------------------------------------
     //
@@ -388,7 +414,8 @@ public class ChangeWatcher
             events = getEvents(host, name, commitOnly);
             for (p in events)
             {
-                host.addEventListener(p, wrapHandler, false, EventPriority.BINDING, false);
+                host.addEventListener(p, wrapHandler, false,
+                    EventPriority.BINDING, useWeakReference);
             }
         }
 
