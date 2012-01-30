@@ -11,15 +11,17 @@
 
 package spark.components
 {
+import mx.core.ClassFactory;
 import mx.core.IFactory;
 import mx.core.mx_internal;
-import mx.events.FlexEvent;
 import mx.utils.BitFlagUtil;
 
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
+import spark.core.ContainerDestructionPolicy;
 import spark.events.DropDownEvent;
 import spark.events.PopUpEvent;
+import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
 
@@ -27,23 +29,8 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
-include "../styles/metadata/StyleableTextFieldTextStyles.as"
-
-/**
- *  Class or instance to use as the icon for the openButton skin part.
- *  The icon can render from various graphical sources, including the following:  
- *  <ul>
- *   <li>A Bitmap or BitmapData instance.</li>
- *   <li>A class representing a subclass of DisplayObject. The BitmapFill 
- *       instantiates the class and creates a bitmap rendering of it.</li>
- *   <li>An instance of a DisplayObject. The BitmapFill copies it into a 
- *       Bitmap for filling.</li>
- *   <li>The name of an external image file. </li>
- *  </ul>
- * 
- *  @default null
- */
-[Style(name="icon", type="Object", inherit="no")]
+[Exclude(name="repeatDelay", kind="style")]
+[Exclude(name="repeatInterval", kind="style")]
 
 //--------------------------------------
 //  Events
@@ -60,6 +47,10 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  </ul>
  *
  *  @eventType spark.events.DropDownEvent.CLOSE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 3
+ *  @productversion Flex 4.5.2
  */
 [Event(name="close", type="spark.events.DropDownEvent")]
 
@@ -68,19 +59,83 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  to display the drop-down.  
  *
  *  @eventType spark.events.DropDownEvent.OPEN
- */
-[Event(name="open", type="spark.events.DropDownEvent")]
-
-/**
- *  TODO (jasonsj): write class description
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
  *  @productversion Flex 4.5.2
  */
-public class CalloutButton extends SkinnableContainer
+[Event(name="open", type="spark.events.DropDownEvent")]
+
+[DefaultProperty("calloutContent")]
+
+/**
+ *  The CalloutButton class is a drop down component that defines a button to
+ *  open and close a pop-up Callout component. CalloutButton is a component
+ *  whose layout and contents are proxied to the Callout when opened.
+ *
+ *  <p>When the callout list is open:</p>
+ *  <ul>
+ *    <li>Clicking the button closes the callout</li>
+ *    <li>Clicking outside of the callout closes the callout.</li>
+ *  </ul>
+ *
+ *  <p>The CalloutButton component has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>Wide enough to display the text label of the control</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>32 pixels wide and 43 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Default skin class</td>
+ *           <td>spark.skins.mobile.CalloutButtonSkin</td>
+ *        </tr>
+ *     </table>
+ *
+ *  @mxml
+ *  
+ *  <p>The <code>&lt;s:CalloutButton&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;s:CalloutButton
+ *   <strong>Properties</strong>
+ *    horizontalPosition="auto"
+ *    verticalPosition="auto
+ *    label=""
+ *    calloutDestructionPolicy="auto"
+ * 
+ *   <strong>Events</strong>
+ *    open="<i>No default</i>"
+ *    close="<i>No default</i>"
+ *      ...
+ *      <i>child tags</i>
+ *      ...
+ *  &lt;/s:CalloutButton&gt;
+ *  </pre>
+ * 
+ *  @see spark.components.Callout
+ *  @see spark.components.Button
+ *  @see spark.skins.mobile.CalloutButtonSkin
+ *  @see spark.components.supportClasses.DropDownController
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 3
+ *  @productversion Flex 4.5.2
+ */
+public class CalloutButton extends Button
 {
-    
     //--------------------------------------------------------------------------
     //
     //  Class constants
@@ -90,12 +145,22 @@ public class CalloutButton extends SkinnableContainer
     /**
      *  @private
      */
-    mx_internal static const HORIZONTAL_POSITION_PROPERTY_FLAG:uint = 1 << 0;
+    mx_internal static const CALLOUT_CONTENT_PROPERTY_FLAG:uint = 1 << 0;
     
     /**
      *  @private
      */
-    mx_internal static const VERTICAL_POSITION_PROPERTY_FLAG:uint = 1 << 1;
+    mx_internal static const CALLOUT_LAYOUT_PROPERTY_FLAG:uint = 1 << 1;
+    
+    /**
+     *  @private
+     */
+    mx_internal static const HORIZONTAL_POSITION_PROPERTY_FLAG:uint = 1 << 2;
+    
+    /**
+     *  @private
+     */
+    mx_internal static const VERTICAL_POSITION_PROPERTY_FLAG:uint = 1 << 3;
     
     //--------------------------------------------------------------------------
     //
@@ -122,26 +187,18 @@ public class CalloutButton extends SkinnableContainer
     [SkinPart(required="false")]
     
     /**
-     *  A skin part that defines the drop-down area. When the DropDownPopUpAnchorContainer is open,
-     *  clicking anywhere outside of the dropDown skin part closes the   
-     *  drop-down. 
+     *  A skin part that defines the drop-down factory which creates a Callou
+     *  instance.
+     * 
+     *  If <code>dropDown</code> is not defined on the skin, a  
+     *  <code>ClassFactory</code> is created to generate a default Callout
+     *  instance.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
     public var dropDown:IFactory;
-    
-    [SkinPart(required="true")]
-    
-    /**
-     *  A skin part that defines the anchor button.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
-     */
-    public var openButton:ButtonBase;
     
     //--------------------------------------------------------------------------
     //
@@ -156,8 +213,8 @@ public class CalloutButton extends SkinnableContainer
      *  stores those values.  If callout is around, the values are stored 
      *  on the callout directly.  However, we need to know what values 
      *  have been set by the developer on the CalloutButton (versus set on 
-     *  the controlBarGroup or defaults of the controlBarGroup) as those are values 
-     *  we want to carry around if the controlBarGroup changes (via a new skin). 
+     *  the callout or defaults of the callout) as those are values 
+     *  we want to carry around if the callout changes (via a new skin). 
      *  In order to store this info effeciently, calloutProperties becomes 
      *  a uint to store a series of BitFlags.  These bits represent whether a 
      *  property has been explicitely set on this CalloutButton.  When the 
@@ -173,6 +230,79 @@ public class CalloutButton extends SkinnableContainer
     //  Properties proxied to callout
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  calloutContent
+    //---------------------------------- 
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    
+    /**
+     *  The set of components to include in the Callout's content.
+     *
+     *  @default null
+     *
+     *  @see spark.components.Callout
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    public function get calloutContent():Array
+    {
+        if (callout && callout.contentGroup)
+            return callout.contentGroup.getMXMLContent();
+        else
+            return calloutProperties.calloutContent;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set calloutContent(value:Array):void
+    {
+        if (callout)
+        {
+            callout.mxmlContent = value;
+            calloutProperties = BitFlagUtil.update(calloutProperties as uint, 
+                CALLOUT_CONTENT_PROPERTY_FLAG, value != null);
+        }
+        else
+            calloutProperties.calloutContent = value;
+    }
+    
+    //----------------------------------
+    //  calloutLayout
+    //---------------------------------- 
+    
+    /**
+     *  Defines the layout of the Callout.
+     *
+     *  @default BasicLayout
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    public function get calloutLayout():LayoutBase
+    {
+        return (callout)  ? callout.layout : calloutProperties.calloutLayout;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set calloutLayout(value:LayoutBase):void
+    {
+        if (callout)
+        {
+            callout.layout = value;
+            calloutProperties = BitFlagUtil.update(calloutProperties as uint, 
+                CALLOUT_LAYOUT_PROPERTY_FLAG, true);
+        }
+        else
+            calloutProperties.calloutLayout = value;
+    }
     
     //----------------------------------
     //  horizontalPosition
@@ -254,36 +384,29 @@ public class CalloutButton extends SkinnableContainer
     private var _callout:Callout;
     
     /**
-     *  TODO (jasonsj): PARB
+     *  The Callout instance created after the <code>DropDownEvent.OPEN</code>
+     *  is fired. The instance is created using the <code>dropDown</code>
+     *  <code>IFactory</code> skin part.
+     * 
+     *  @see #calloutDestructionPolicy
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
      */
-    mx_internal function get callout():Callout
+    public function get callout():Callout
     {
         return _callout;
     }
     
     /**
-     *  TODO (jasonsj): PARB
-     * 
-     *  Allow users to set their own Callout instead of the one defined by the
-     *  skin. This allows properties and styles to be set in MXML instead of
-     *  either passthrough styles in CalloutButton or CSS styles. 
-     * 
-     *  The getter allows direct access to the callout. Unlike DropDownList,
-     *  CalloutButton's dropDown skin part is a class factory and not the
-     *  Callout instance.
+     *  @private
      */
-    mx_internal function set callout(value:Callout):void
+    mx_internal function setCallout(value:Callout):void
     {
         if (_callout == value)
             return;
         
-        if (_callout && _callout.isOpen)
-        {
-            // TODO (jasonsj): cleanup?
-            _callout.close();
-        }
-        
-        // FIXME (jasonsj): re-init
         _callout = value;
     }
     
@@ -322,11 +445,12 @@ public class CalloutButton extends SkinnableContainer
         
         _dropDownController = value;
         
+        _dropDownController.closeOnResize = false;
         _dropDownController.addEventListener(DropDownEvent.OPEN, dropDownController_openHandler);
         _dropDownController.addEventListener(DropDownEvent.CLOSE, dropDownController_closeHandler);
         
-        if (openButton)
-            _dropDownController.openButton = openButton;
+        _dropDownController.openButton = this;
+        
         if (callout)
             _dropDownController.dropDown = callout;    
     }
@@ -347,34 +471,46 @@ public class CalloutButton extends SkinnableContainer
     }
     
     //----------------------------------
-    //  label
+    //  calloutDestructionPolicy
     //----------------------------------
     
-    private var _label:String = "";
+    private var _calloutDestructionPolicy:String = ContainerDestructionPolicy.AUTO;
+    
+    [Inspectable(category="General", enumeration="auto,never", defaultValue="auto")]
     
     /**
-     *  Text to appear on the openButton skin part.
-     *
-     *  @default ""
+     *  Defines the destruction policy the callout button should use
+     *  when the callout is closed. If set to "auto", the button will
+     *  destroy the callout when it is closed.  If set to "never", the
+     *  callout will be cached in memory.
+     * 
+     *  @default auto
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
-    public function get label():String
+    public function get calloutDestructionPolicy():String
     {
-        return _label;
+        return _calloutDestructionPolicy;
     }
     
     /**
      *  @private
      */
-    public function set label(value:String):void
+    public function set calloutDestructionPolicy(value:String):void
     {
-        _label = value;
+        if (_calloutDestructionPolicy == value)
+            return;
         
-        if (openButton)
-            openButton.label = label;
+        _calloutDestructionPolicy = value;
+        
+        // destroy the callout immediately if currently closed
+        if (!isDropDownOpen &&
+            (calloutDestructionPolicy == ContainerDestructionPolicy.AUTO))
+        {
+            destroyCallout();
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -383,6 +519,15 @@ public class CalloutButton extends SkinnableContainer
     //
     //--------------------------------------------------------------------------
     
+    override protected function attachSkin():void
+    {
+        super.attachSkin();
+        
+        // create dropDown if it was not found in the skin
+        if (!dropDown && !("dropDown" in skin))
+            dropDown = new ClassFactory(Callout);
+    }
+    
     /**
      *  @private
      */
@@ -390,14 +535,7 @@ public class CalloutButton extends SkinnableContainer
     {
         super.partAdded(partName, instance);
         
-        if (instance == openButton)
-        {
-            openButton.label = label;
-            
-            if (dropDownController)
-                dropDownController.openButton = openButton;
-        }
-        else if (partName == "dropDown")
+        if (partName == "dropDown")
         {
             // copy proxied values from calloutProperties (if set) to callout
             var newCalloutProperties:uint = 0;
@@ -408,9 +546,22 @@ public class CalloutButton extends SkinnableContainer
                 calloutInstance.id = "callout";
                 dropDownController.dropDown = calloutInstance;
                 
-//                calloutInstance.addEventListener(FlexEvent.CREATION_COMPLETE, callout_creationCompleteHandler);
                 calloutInstance.addEventListener(PopUpEvent.OPEN, callout_openHandler);
                 calloutInstance.addEventListener(PopUpEvent.CLOSE, callout_closeHandler);
+                
+                if (calloutProperties.calloutContent !== undefined)
+                {
+                    calloutInstance.mxmlContent = calloutProperties.calloutContent;
+                    newCalloutProperties = BitFlagUtil.update(newCalloutProperties, 
+                        CALLOUT_CONTENT_PROPERTY_FLAG, true);
+                }
+                
+                if (calloutProperties.calloutLayout !== undefined)
+                {
+                    calloutInstance.layout = calloutProperties.calloutLayout;
+                    newCalloutProperties = BitFlagUtil.update(newCalloutProperties, 
+                        CALLOUT_LAYOUT_PROPERTY_FLAG, true);
+                }
                 
                 if (calloutProperties.horizontalPosition !== undefined)
                 {
@@ -427,12 +578,6 @@ public class CalloutButton extends SkinnableContainer
                 }
                 
                 calloutProperties = newCalloutProperties;
-                
-                // FIXME (jasonsj): find a correct way to initialize the contentGroup
-                if (layout)
-                    calloutInstance.layout = layout;
-                
-                calloutInstance.mxmlContent = currentContentGroup.getMXMLContent();
             }
         }
     }
@@ -442,36 +587,40 @@ public class CalloutButton extends SkinnableContainer
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
-        if (dropDownController)
+        if (dropDownController && (instance == callout))
         {
-            if (instance == openButton)
-                dropDownController.openButton = null;
-            
-            if (instance == callout)
-                dropDownController.dropDown = null;
+            dropDownController.dropDown = null;
         }
         
-        // TODO (jasonsj): destroy option?
-//        if (instance == callout)
-//        {
-//            callout.removeEventListener(FlexEvent.CREATION_COMPLETE, callout_creationCompleteHandler);
-//            callout.removeEventListener(PopUpEvent.OPEN, callout_openHandler);
-//            callout.removeEventListener(PopUpEvent.CLOSE, callout_closeHandler);
-//            
-//            // copy proxied values from callout (if explicitely set) to calloutProperties
-//            var newCalloutProperties:Object = {};
-//            
-//            if (BitFlagUtil.isSet(calloutProperties as uint, HORIZONTAL_POSITION_PROPERTY_FLAG))
-//                newCalloutProperties.calloutProperties = callout.horizontalPosition;
-//            
-//            if (BitFlagUtil.isSet(calloutProperties as uint, VERTICAL_POSITION_PROPERTY_FLAG))
-//                newCalloutProperties.verticalPosition = callout.verticalPosition;
-//            
-//            calloutProperties = newCalloutProperties;
-//            
-//            super.partRemoved("contentGroup", callout.contentGroup);
-//            contentGroup = null;
-//        }
+        if (partName == "dropDown")
+        {
+            callout.removeEventListener(PopUpEvent.OPEN, callout_openHandler);
+            callout.removeEventListener(PopUpEvent.CLOSE, callout_closeHandler);
+            
+            // copy proxied values from callout (if explicitely set) to calloutProperties
+            var newCalloutProperties:Object = {};
+            
+            if (BitFlagUtil.isSet(calloutProperties as uint, CALLOUT_CONTENT_PROPERTY_FLAG) &&
+                (callout.contentGroup))
+            {
+                newCalloutProperties.calloutContent = callout.contentGroup.getMXMLContent();
+                callout.contentGroup.mxmlContent = null;
+            }
+            
+            if (BitFlagUtil.isSet(calloutProperties as uint, CALLOUT_LAYOUT_PROPERTY_FLAG))
+            {
+                newCalloutProperties.calloutLayout = callout.layout;
+                callout.layout = null;
+            }
+            
+            if (BitFlagUtil.isSet(calloutProperties as uint, HORIZONTAL_POSITION_PROPERTY_FLAG))
+                newCalloutProperties.horizontalPosition = callout.horizontalPosition;
+            
+            if (BitFlagUtil.isSet(calloutProperties as uint, VERTICAL_POSITION_PROPERTY_FLAG))
+                newCalloutProperties.verticalPosition = callout.verticalPosition;
+            
+            calloutProperties = newCalloutProperties;
+        }
         
         super.partRemoved(partName, instance);
     }
@@ -507,6 +656,16 @@ public class CalloutButton extends SkinnableContainer
         dropDownController.closeDropDown(false);
     }
     
+    /**
+     *  @private
+     *  Destroys the callout 
+     */
+    private function destroyCallout():void
+    {
+        removeDynamicPartInstance("dropDown", callout);
+        setCallout(null);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -516,14 +675,12 @@ public class CalloutButton extends SkinnableContainer
     /**
      *  @private
      *  Event handler for the <code>dropDownController</code> 
-     *  <code>DropDownEvent.OPEN</code> event. Updates the skin's state and 
-     *  ensures that the selectedItem is visible. 
+     *  <code>DropDownEvent.OPEN</code> event. Creates and opens the Callout.
      */
     mx_internal function dropDownController_openHandler(event:DropDownEvent):void
     {
-        // TODO (jasonsj): destroy?
         if (!callout)
-            callout = createDynamicPartInstance("dropDown") as Callout;
+            setCallout(createDynamicPartInstance("dropDown") as Callout);
         
         if (callout)
             callout.open(this, false);
@@ -532,25 +689,20 @@ public class CalloutButton extends SkinnableContainer
     /**
      *  @private
      *  Event handler for the <code>dropDownController</code> 
-     *  <code>DropDownEvent.CLOSE</code> event. Updates the skin's state.
+     *  <code>DropDownEvent.CLOSE</code> event. Closes the Callout.
      */
     mx_internal function dropDownController_closeHandler(event:DropDownEvent):void
     {
-        // TODO (jasonsj): close params?
-        // dispatch the close event after the callout's PopUpEvent.CLOSE fires
-        callout.close();
-        
-        // TODO (jasonsj): destroy option?
-//        removeDynamicPartInstance("dropDown", callout);
-//        callout = null;
+        // If the callout was closed directly, then callout could already be
+        // destroyed by calloutDestructionPolicy
+        if (callout)
+        {
+            // TODO (jasonsj): close params?
+            
+            // Dispatch the close event after the callout's PopUpEvent.CLOSE fires
+            callout.close();
+        }
     }
-    
-//    private function callout_creationCompleteHandler(event:FlexEvent):void
-//    {
-//        // initialize contentGroup skin part
-//        contentGroup = callout.contentGroup;
-//        partAdded("contentGroup", callout.contentGroup);
-//    }
     
     /**
      *  @private
@@ -565,6 +717,9 @@ public class CalloutButton extends SkinnableContainer
      */
     private function callout_closeHandler(event:PopUpEvent):void
     {   
+        if (calloutDestructionPolicy == ContainerDestructionPolicy.AUTO)
+            destroyCallout();
+        
         dispatchEvent(new DropDownEvent(DropDownEvent.CLOSE));
     }
 }
