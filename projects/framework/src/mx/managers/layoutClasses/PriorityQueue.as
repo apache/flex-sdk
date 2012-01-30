@@ -192,7 +192,7 @@ public class PriorityQueue
                 {
                     for (var key:Object in arrayOfDictionaries[max].items )
                     {
-                        if (contains(DisplayObject(client), DisplayObject(key)))
+                        if ((key is DisplayObject) && contains(DisplayObject(client), DisplayObject(key)))
                         {
                             removeChild(ILayoutManagerClient(key), max);
                             return key;
@@ -282,7 +282,7 @@ public class PriorityQueue
                 {
                     for (var key:Object in arrayOfDictionaries[min].items)
                     {
-                        if (contains(DisplayObject(client), DisplayObject(key)))
+                        if ((key is DisplayObject) && contains(DisplayObject(client), DisplayObject(key)))
                         {
                             removeChild(ILayoutManagerClient(key), min);
                             return key;
