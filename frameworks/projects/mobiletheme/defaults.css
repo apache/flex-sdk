@@ -160,6 +160,7 @@ List
     borderAlpha: 1;
     verticalScrollPolicy: on;
 	borderVisible: false;
+	selectionColor: #F5F5F5;
 }
 
 MuteButton
@@ -367,7 +368,7 @@ global
     borderVisible : true;
     borderWeight : 1;
     contentBackgroundColor: #F0F0F0;
-    downColor: #70B2EE; /* set in here and not in framework's default.css because it only is really applicable for touch interactions*/
+    downColor: #F5F5F5; /* set in here and not in framework's default.css because it only is really applicable for touch interactions*/
     focusThickness: 3;
     symbolColor: #000000;
     fontLookup: "embeddedCFF";
@@ -416,7 +417,7 @@ global
 
 	.iconItemRendererMessageStyle
 	{
-		fontSize: 13;
+		fontSize: 14;
 	}
 
 
