@@ -537,8 +537,11 @@ public class DragManagerImpl implements IDragManager
 			}
 			break;
 		case "showFeedback":
-			// trace("--marshaled showFeedback for DragManagerImpl", sm, marshalEvent.value);
-			showFeedback(marshalEvent.value);
+			if (dragProxy)	// it is our drag
+			{
+				// trace("--marshaled showFeedback for DragManagerImpl", sm, marshalEvent.value);
+				showFeedback(marshalEvent.value);
+			}
 			break;
 		case "getFeedback":
 			if (dragProxy)	// it is our drag
