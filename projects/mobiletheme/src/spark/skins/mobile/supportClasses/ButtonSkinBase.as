@@ -498,6 +498,16 @@ public class ButtonSkinBase extends MobileSkin
             }
         }
         
+        // adjust labelHeight for vertical clipping at the bottom edge
+        if (isHorizontal && (labelHeight < textHeight))
+        {
+            // allow gutter to be outside skin bounds
+            // this appears as clipping by the bottom border
+            var labelViewHeight:Number = Math.min(unscaledHeight - layoutPaddingTop - labelY 
+                - textDescent + (StyleableTextField.TEXT_HEIGHT_PADDING / 2), textHeight);
+            labelHeight = Math.max(labelViewHeight, labelHeight);
+        }
+        
         labelX = Math.max(0, Math.round(labelX)) + layoutPaddingLeft;
         // text looks better a little high as opposed to low, so we use floor instead of round
         labelY = Math.max(0, Math.floor(labelY)) + layoutPaddingTop;
@@ -505,7 +515,7 @@ public class ButtonSkinBase extends MobileSkin
         iconX = Math.max(0, Math.round(iconX)) + layoutPaddingLeft;
         iconY = Math.max(0, Math.round(iconY)) + layoutPaddingTop;
         
-        setElementSize(labelDisplay, labelWidth, labelHeight + adjustablePaddingBottom);
+        setElementSize(labelDisplay, labelWidth, labelHeight);
         setElementPosition(labelDisplay, labelX, labelY);
         
         if (textWidth > labelWidth)
