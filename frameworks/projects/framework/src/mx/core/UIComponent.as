@@ -82,7 +82,7 @@ import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.ColorUtil;
 import mx.utils.GraphicsUtil;
-import mx.utils.ObjectUtil;
+import mx.utils.NameUtil;
 import mx.utils.StringUtil;
 import mx.validators.IValidatorListener;
 import mx.validators.ValidationResult;
@@ -4763,7 +4763,7 @@ public class UIComponent extends FlexSprite
      */
     public function get className():String
     {
-        return ObjectUtil.getUnqualifiedClassName(this);
+        return NameUtil.getUnqualifiedClassName(this);
     }
 
     //----------------------------------
