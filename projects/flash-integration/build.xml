@@ -86,7 +86,11 @@
 		<!-- Call asdoc to generate dita xml files -->
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
 		    <compiler.source-path path-element="${basedir}/src"/>
-		    <doc-classes class="FlashIntegrationClasses"/>
+ 			<!-- doesn't matter what we put in here as long as it links in the classes.
+					Flash Authoring ignores this and the namespace it's mapped too...
+				it just needs to be linked through a manifest file -->
+			<namespace uri="http://www.adobe.com/someNonSensicalURI" manifest="${basedir}/manifest.xml"/>
+			<doc-namespaces uri="http://www.adobe.com/someNonSensicalURI"/>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs/player/10">
 		    	<include name="playerglobal.swc" />
 		    </external-library-path>
