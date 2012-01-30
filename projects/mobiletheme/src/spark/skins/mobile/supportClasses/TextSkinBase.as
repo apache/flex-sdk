@@ -100,7 +100,7 @@ public class TextSkinBase extends MobileSkin
         addChild(border);
         
         textDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-        textDisplay.styleProvider = this;
+        textDisplay.styleName = this;
         textDisplay.editable = true;
         addChild(textDisplay);
         
@@ -110,7 +110,7 @@ public class TextSkinBase extends MobileSkin
     protected function createPromptDisplay():void
     {
         promptDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-        promptDisplay.styleProvider = this;
+        promptDisplay.styleName = this;
         promptDisplay.editable = false;
         promptDisplay.mouseEnabled = false;
         addChild(promptDisplay);
@@ -232,12 +232,6 @@ public class TextSkinBase extends MobileSkin
         {
             invalidateDisplayList();
         }
-        
-        if (textDisplay)
-            textDisplay.styleChanged(styleProp);
-        
-        if (promptDisplay)
-            promptDisplay.styleChanged(styleProp);
         
         super.styleChanged(styleProp);
     }
