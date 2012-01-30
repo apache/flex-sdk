@@ -122,7 +122,53 @@ public class ObjectUtil
         var result:Object = buffer.readObject();
         return result;
     }
-    
+
+    /**
+     *  Clones the specified Object and returns a reference to the clone.
+     *  The clone is made using a native serialization technique. 
+     *  This means that custom serialization will be respected during the
+     *  cloning.  clone() differs from copy() in that the uid property of
+     *  each object instance is retained.
+     *
+     *  <p>This method is designed for cloning data objects, 
+     *  such as elements of a collection. It is not intended for cloning 
+     *  a UIComponent object, such as a TextInput control. If you want to clone
+     *  specific UIComponent objects, you can create a subclass of the component
+     *  and implement a <code>clone()</code> method.</p>
+     * 
+     *  @param value Object that should be cloned.
+     * 
+     *  @return Clone of the specified Object.
+     *  
+     *  @langversion 4.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */ 
+    public static function clone(value:Object):Object
+    {
+        var result:Object = copy(value);
+        cloneInternal(result, value);
+        return result;
+    }
+
+    /**
+     *  Recursive helper used by the public clone method. 
+     *  @private
+     */    
+    private static function cloneInternal(result:Object, value:Object):void
+    {
+        result.uid = value.uid;
+        var classInfo:Object = getClassInfo(value);
+        var v:Object;
+        for each (var p:* in classInfo.properties) 
+        {
+            v = value[p];
+            if (v.hasOwnProperty("uid")) 
+                cloneInternal(result[p], v);
+        }
+    }
+   
     /**
      *  Returns <code>true</code> if the object reference specified
      *  is a simple data type. The simple data types include the following:
