@@ -52,6 +52,11 @@ public class Flex
 	 *
 	 *  @result Any extra space that's left over
 	 *  after growing all children to their maxWidth.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function flexChildWidthsProportionally(
 								parent:IChildList,
@@ -181,6 +186,11 @@ public class Flex
 	 *  distributed across all children .
 	 *
 	 *  @param w width for all children.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function flexChildHeightsProportionally(
 								parent:IChildList,
@@ -317,6 +327,11 @@ public class Flex
 	 *  If all the children hit their minWidth/maxWidth/minHeight/maxHeight
 	 *  before the space was distributed, then the remaining unused space
 	 *  is returned. Otherwise, the return value is zero.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function flexChildrenProportionally(
 								spaceForChildren:Number,
@@ -423,6 +438,11 @@ public class Flex
 	 *  @param parent The parent container of the children.
 	 * 
 	 *  @param spaceForChildren The total space for all children
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function distributeExtraHeight(
 								parent:IChildList,
@@ -531,6 +551,11 @@ public class Flex
 	 *  @param parent The parent container of the children.
 	 * 
 	 *  @param spaceForChildren The total space for all children
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function distributeExtraWidth(
 								parent:IChildList,
