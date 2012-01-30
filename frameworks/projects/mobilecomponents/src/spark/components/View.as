@@ -35,7 +35,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Event(name="activate", type="mx.events.FlexEvent")]
+[Event(name="viewActivate", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched when the current view has been deactivated.
@@ -125,7 +125,7 @@ public class View extends Group implements IDataRenderer
         {
             _active = value;
             
-            var eventName:String = _active ? FlexEvent.ACTIVATE : FlexEvent.DEACTIVATE;
+            var eventName:String = _active ? FlexEvent.VIEW_ACTIVATE : FlexEvent.DEACTIVATE;
             if (hasEventListener(eventName))
                 dispatchEvent(new FlexEvent(eventName));
         }
