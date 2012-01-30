@@ -36,10 +36,13 @@ public class TextInputSkin extends MobileSkin
     //  Class statics
     //
     //--------------------------------------------------------------------------
-    private static const HORIZONTAL_PADDING:int = 8;
-    private static const VERTICAL_PADDING:int = 12;
+    
+    // StylableTextField padding
     private static const TEXT_WIDTH_PADDING:int = 4;
     private static const TEXT_HEIGHT_PADDING:int = 2;
+    
+    // FXG measurements
+    private static const BORDER_SIZE:uint = 1;
     private static const CORNER_ELLIPSE_SIZE:uint = 16;
     
     //--------------------------------------------------------------------------
@@ -69,12 +72,19 @@ public class TextInputSkin extends MobileSkin
     public var textDisplay:StyleableTextField;
     
     /**
+     *  promptDisplay skin part.
+     */
+    public var promptDisplay:StyleableTextField;
+    
+    /**
      *  @private
      * 
      *  Instance of the border graphics.
      */
     private var border:DisplayObject;
-        
+    
+    private var borderVisibleChanged:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -94,8 +104,45 @@ public class TextInputSkin extends MobileSkin
         textDisplay = StyleableTextField(createInFontContext(StyleableTextField));
         textDisplay.styleProvider = this;
         textDisplay.editable = true;
-		textDisplay.addEventListener("editableChanged", editableChangedHandler);
+        textDisplay.addEventListener("editableChanged", editableChangedHandler);
         addChild(textDisplay);
+        
+        createPromptDisplay();
+    }
+    
+    protected function createPromptDisplay():void
+    {
+        promptDisplay = StyleableTextField(createInFontContext(StyleableTextField));
+        promptDisplay.styleProvider = this;
+        promptDisplay.editable = false;
+        promptDisplay.mouseEnabled = false;
+        addChild(promptDisplay);
+    }
+    
+    /**
+     *  @private 
+     */ 
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
+        
+        if (borderVisibleChanged)
+        {
+            borderVisibleChanged = false;
+            
+            var borderVisible:Boolean = getStyle("borderVisible") == true;
+            
+            if (borderVisible && !border)
+            {
+                border = new TextInput_border();
+                addChild(border);
+            }
+            else if (!borderVisible && border)
+            {
+                removeChild(border);
+                border = null;
+            }
+        }
     }
     
     /**
@@ -105,8 +152,25 @@ public class TextInputSkin extends MobileSkin
     {
         super.measure();
         
-        // commit styles so we can get a valid textHeight
-        textDisplay.commitStyles();
+        var textHeight:Number = 24;
+        
+        if (textDisplay)
+        {
+            // temporarily change text for measurement
+            var oldText:String = textDisplay.text;
+            
+            // commit styles so we can get a valid textHeight
+            textDisplay.text = "Wj";
+            textDisplay.commitStyles();
+            
+            textHeight = textDisplay.textHeight;
+            textDisplay.text = oldText;
+        }
+        
+        var paddingLeft:Number = getStyle("paddingLeft");
+        var paddingRight:Number = getStyle("paddingRight");
+        var paddingTop:Number = getStyle("paddingTop");
+        var paddingBottom:Number = getStyle("paddingBottom");
         
         // Width is based on maxChars (if set), or hard-coded to 440
         if (hostComponent && hostComponent.maxChars)
@@ -116,14 +180,14 @@ public class TextInputSkin extends MobileSkin
             // for most input and most font.
             var characterWidth:int = Math.max(1, (getStyle("fontSize") - 2));
             measuredWidth =  (characterWidth * hostComponent.maxChars) + 
-                (HORIZONTAL_PADDING * 2) + TEXT_WIDTH_PADDING;
+                paddingLeft + paddingRight + TEXT_WIDTH_PADDING;
         }
         else
         {
             measuredWidth = 440;
         }
         
-        measuredHeight = textDisplay.textHeight + VERTICAL_PADDING * 2 + TEXT_HEIGHT_PADDING;
+        measuredHeight = textHeight + paddingTop + paddingBottom + TEXT_HEIGHT_PADDING;
     }
     
     /**
@@ -132,22 +196,49 @@ public class TextInputSkin extends MobileSkin
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-
+        
+        var borderSize:uint = (border) ? BORDER_SIZE : 0;
+        var borderWidth:uint = borderSize * 2;
+        
         // Draw the contentBackgroundColor
         graphics.clear();
         graphics.beginFill(getStyle("contentBackgroundColor"), getStyle("contentBackgroundAlpha"));
-        graphics.drawRoundRect(1, 1, unscaledWidth - 2, unscaledHeight - 2, CORNER_ELLIPSE_SIZE, CORNER_ELLIPSE_SIZE);
+        graphics.drawRoundRect(borderSize, borderSize, unscaledWidth - borderWidth, unscaledHeight - borderWidth, CORNER_ELLIPSE_SIZE, CORNER_ELLIPSE_SIZE);
         graphics.endFill();
-
+        
         // position & size border
-        resizePart(border, unscaledWidth, unscaledHeight);
-        positionPart(border, 0, 0);
-
+        if (border)
+        {
+            resizePart(border, unscaledWidth, unscaledHeight);
+            positionPart(border, 0, 0);
+        }
+        
         // position & size the text
-        textDisplay.commitStyles();
-		var textHeight:Number = textDisplay.textHeight + TEXT_HEIGHT_PADDING;
-        resizePart(textDisplay, unscaledWidth - (HORIZONTAL_PADDING * 2), textHeight);
-        positionPart(textDisplay, HORIZONTAL_PADDING, Math.round((unscaledHeight - textHeight) / 2));  
+        var paddingLeft:Number = getStyle("paddingLeft");
+        var paddingRight:Number = getStyle("paddingRight");
+        var paddingTop:Number = getStyle("paddingTop");
+        var paddingBottom:Number = getStyle("paddingBottom");
+        
+        if (textDisplay)
+        {
+            textDisplay.commitStyles();
+            
+            var textHeight:Number = textDisplay.textHeight;
+            var textTop:Number = Math.round((unscaledHeight - textHeight) / 2);
+            
+            // verticalAlign=middle
+            textTop = Math.max(textTop, paddingTop);
+            
+            resizePart(textDisplay, unscaledWidth - paddingLeft - paddingRight, unscaledHeight - paddingTop - paddingBottom);
+            positionPart(textDisplay, paddingLeft, textTop);
+        }
+        
+        if (promptDisplay)
+        {
+            promptDisplay.commitStyles();
+            resizePart(promptDisplay, unscaledWidth - paddingLeft - paddingRight, unscaledHeight - paddingTop - paddingBottom);
+            positionPart(promptDisplay, paddingLeft, textTop);
+        }
     }
     
     /**
@@ -155,30 +246,57 @@ public class TextInputSkin extends MobileSkin
      */
     override public function styleChanged(styleProp:String):void
     {
+        var allStyles:Boolean = !styleProp || styleProp == "styleName";
+        
+        if (allStyles || styleProp == "borderVisible")
+        {
+            borderVisibleChanged = true;
+            invalidateProperties();
+        }
+        
+        if (allStyles || styleProp.indexOf("padding") == 0)
+        {
+            invalidateDisplayList();
+        }
+        
         if (textDisplay)
             textDisplay.styleChanged(styleProp);
+        
+        if (promptDisplay)
+            promptDisplay.styleChanged(styleProp);
+        
         super.styleChanged(styleProp);
     }
-	
-	/**
-	 *  @private
-	 */
-	override protected function commitCurrentState():void
-	{
-		super.commitCurrentState();
-		
-		if (currentState == "normal")
-			alpha = 1;
-		else
-			alpha = 0.5;
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function editableChangedHandler(event:Event):void
-	{
-		invalidateDisplayList();
-	}
+    
+    /**
+     *  @private
+     */
+    override protected function commitCurrentState():void
+    {
+        super.commitCurrentState();
+        
+        alpha = currentState.indexOf("disabled") == -1 ? 1 : 0.5;
+        
+        var showPrompt:Boolean = currentState.indexOf("WithPrompt") >= 0;
+        
+        if (showPrompt && !promptDisplay)
+        {
+            createPromptDisplay();
+            invalidateDisplayList();
+        }
+        else if (!showPrompt && promptDisplay)
+        {
+            removeChild(promptDisplay);
+            promptDisplay = null;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function editableChangedHandler(event:Event):void
+    {
+        invalidateDisplayList();
+    }
 }
 }
