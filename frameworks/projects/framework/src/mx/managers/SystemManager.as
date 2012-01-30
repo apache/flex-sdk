@@ -302,7 +302,7 @@ public class SystemManager extends MovieClip
 			root.loaderInfo.addEventListener(Event.INIT, initHandler);
 			
 	}
-	
+
 	
 	
     /**
@@ -541,8 +541,8 @@ public class SystemManager extends MovieClip
 				return _stage;
 			}
 		}
-				
-		return null;		
+
+		return null;
 	}
 
     //----------------------------------
@@ -1349,9 +1349,9 @@ public class SystemManager extends MovieClip
 
 		super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 	}
-	
+
 	/**
-	 * @private
+	 *  @private
 	 * 
 	 * Test if this system manager has any sandbox bridges.
 	 * 
@@ -1456,9 +1456,9 @@ public class SystemManager extends MovieClip
 
 		return rawChildren_addChildAt(child, applicationIndex + index);
 	}
-	
+
 	/**
-	 * @private
+	 *  @private
 	 * 
 	 * Used by SystemManagerProxy to add a mouse catcher as a child.
 	 */ 
@@ -2204,10 +2204,10 @@ public class SystemManager extends MovieClip
 				else
 				{
 					var z:IFocusManagerContainer = IFocusManagerContainer(form);
-					// trace("OLW " + f + " deactivating old form " + z);
-					z.focusManager.deactivate();
-				}
+				// trace("OLW " + f + " deactivating old form " + z);
+				z.focusManager.deactivate();
 			}
+		}
 		}
 
 		form = f;
@@ -2224,7 +2224,7 @@ public class SystemManager extends MovieClip
 		}
 
 		updateLastActiveForm();
-		
+
 		// trace("END SM: activate " + f);
 	}
 
@@ -2254,8 +2254,8 @@ public class SystemManager extends MovieClip
 				if (isRemotePopUp(form))
 					deactivateRemotePopUp(form);
 				else
-					form.focusManager.deactivate();
-					
+				form.focusManager.deactivate();
+
 				form = findLastActiveForm(f);
 				
 				// make sure we have a valid top level window.
@@ -2380,9 +2380,9 @@ public class SystemManager extends MovieClip
 	private function findRemotePopUp(window:Object, bridge:IEventDispatcher):RemotePopUp
 	{
         // remove the placeholder from forms array
-		var n:int = forms.length;
-		for (var i:int = 0; i < n; i++)
-		{
+				var n:int = forms.length;
+				for (var i:int = 0; i < n; i++)
+				{
 			if (isRemotePopUp(forms[i]))
 			{
 				var popUp:RemotePopUp = RemotePopUp(forms[i]);
@@ -2401,7 +2401,7 @@ public class SystemManager extends MovieClip
 	 * form Locally created remote form.
 	 */
 	private function removeRemotePopUp(form:RemotePopUp):void
-	{	
+					{
 	    // remove popup from forms array
 		var n:int = forms.length;
 		for (var i:int = 0; i < n; i++)
@@ -2409,15 +2409,15 @@ public class SystemManager extends MovieClip
 			if (isRemotePopUp(forms[i]))
 			{
 				if (forms[i].window == form.window)
-				{
+						{
 					if (forms[i] == form)
 						deactivateForm(form);
 					forms.splice(i, 1);
 					break;
 				}
 			}
-		}
-	}
+						}
+					}
 
 	/**
 	 * @private
@@ -2428,7 +2428,7 @@ public class SystemManager extends MovieClip
 	 * @param form	a RemotePopUp object.
 	 * */ 
 	private function activateRemotePopUp(form:Object):void
-	{
+					{
 		var request:SandboxBridgeRequest = new SandboxBridgeRequest(SandboxBridgeRequest.ACTIVATE, 
 																	false, false,
 																	form.bridge,
@@ -2436,7 +2436,7 @@ public class SystemManager extends MovieClip
 		var bridge:Object = form.bridge;
 		if (bridge)
 			bridge.dispatchEvent(request);
-	}
+					}
 	
 	
 	private function deactivateRemotePopUp(form:Object):void
@@ -2448,7 +2448,7 @@ public class SystemManager extends MovieClip
 		var bridge:Object = form.bridge;
 		if (bridge)
 			bridge.dispatchEvent(request);
-	}
+				}
 
 	/**
 	 * Test if two forms are equal.
@@ -2469,10 +2469,10 @@ public class SystemManager extends MovieClip
 		{
 			return areRemotePopUpsEqual(form1, form2);	
 		}
-		
+
 		return false;
-	}	
-	
+	}
+
 	/**
 	 *  @inheritDoc
 	 */
@@ -2998,7 +2998,7 @@ public class SystemManager extends MovieClip
 		// access to our parent.  Add a check for this case.
 		if (!parent && canAccessParent())
 			return;
-
+		
 		if (!topLevel)
 		{
 			var obj:DisplayObjectContainer = parent.parent;
@@ -3030,10 +3030,10 @@ public class SystemManager extends MovieClip
 		// the right focus manager before the components inside start
 		// processing the event
 		if (isTopLevelRoot() || getSandboxRoot() == this)
-			addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, true);
-		
+		addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, true); 
+
 		if (isTopLevelRoot() && stage)
-			stage.addEventListener(Event.RESIZE, Stage_resizeHandler, false, 0, true);
+		 	stage.addEventListener(Event.RESIZE, Stage_resizeHandler, false, 0, true);
 		else if (topLevel && stage)
 		{
 			// listen to resizes on the sandbox root
@@ -3058,19 +3058,19 @@ public class SystemManager extends MovieClip
 				LoaderConfig._url = loaderInfo.url;
 				LoaderConfig._parameters = loaderInfo.parameters;
 			}
-			
+				
 			if (isStageRoot && stage)
 			{
 				// stageWidth/stageHeight may have changed between initialize() and now,
 				// so refresh our _width and _height here. 
 				_width = stage.stageWidth;
 				_height = stage.stageHeight;
-
+				
 				IFlexDisplayObject(app).setActualSize(_width, _height);
 			}
 			else
 				IFlexDisplayObject(app).setActualSize(loaderInfo.width, loaderInfo.height);
-			
+
 			// Wait for the app to finish its initialization sequence
 			// before doing an addChild(). 
 			// Otherwise, the measurement/layout code will cause the
@@ -3150,7 +3150,7 @@ public class SystemManager extends MovieClip
         }
         
 		var x:Number = (m - w) / 2;
-        var y:Number = (n - h) / 2;
+		var y:Number = (n - h) / 2;
 		
 		// TODODJL: if not stage root defaulting to top,left.
 		var align:String = isStageRoot ? stage.align : StageAlign.TOP_LEFT;
@@ -3246,7 +3246,9 @@ public class SystemManager extends MovieClip
 			{
 				var n:int = forms.length;
 				var p:DisplayObject = DisplayObject(event.target);
-				var isApplication:Boolean = document.rawChildren.contains(p);
+				var isApplication:Boolean = document is IRawChildrenContainer ? 
+											IRawChildrenContainer(document).rawChildren.contains(p) :
+											document.children.contains(p);
 				while (p)
 				{
 					for (var i:int = 0; i < n; i++)
@@ -3263,7 +3265,7 @@ public class SystemManager extends MovieClip
 							    (!isTopLevelRoot() && p == form))
 							{
 								if (isTopLevelRoot())
-									activate(IFocusManagerContainer(p));
+								activate(IFocusManagerContainer(p));
 
 								if (p == document)
 									fireActivatedApplicationEvent();
@@ -3340,7 +3342,7 @@ public class SystemManager extends MovieClip
 		
 		return index; 
 	}
-	
+
 	/**
 	 *  @private
 	 *  Track mouse moves in order to determine idle
@@ -4876,8 +4878,8 @@ class PlaceholderData extends Object
 		this.id = id;
 		this.bridge = bridge;
 		this.data = data;
-	}
-	
+}
+
 	public var id:String;				// id of string at this node in the display list
 	public var bridge:IEventDispatcher; // bridge to next child application
 	public var data:Object;				// either a popup or a bridge to the next application 
