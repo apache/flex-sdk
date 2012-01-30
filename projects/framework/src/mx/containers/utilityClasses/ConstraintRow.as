@@ -311,7 +311,9 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
      */
     public function get maxHeight():Number
     {
-        return _explicitMaxHeight;
+        // Since ConstraintRow doesn't have a measuredMaxHeight, we explictly return
+        // the default value of 10000 when no maxHeight is set.
+        return (!isNaN(_explicitMaxHeight)) ? _explicitMaxHeight : 10000;
     }
 
     /**
@@ -354,7 +356,9 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
      */
     public function get minHeight():Number
     {
-        return _explicitMinHeight;
+        // Since ConstraintRow doesn't have a measuredMinHeight, we explictly return
+        // the default value of 0 when no minHeight is set.
+        return (!isNaN(_explicitMinHeight)) ? _explicitMinHeight : 0;
     }
 
     /**
