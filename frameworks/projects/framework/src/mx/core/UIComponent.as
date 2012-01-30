@@ -3439,9 +3439,18 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="Size", defaultValue="0")]
 
     /**
-     *  Number that specifies the minimum width of the component,
-     *  in pixels, in the component's coordinates.
-     *  The default value depends on the component implementation.
+     *  The minimum recommended width of the component to be considered
+     *  by the parent during layout. This value is in the
+     *  component's coordinates, in pixels. The default value depends on
+     *  the component's implementation.
+     *
+     *  <p>If the application developer sets the value of minWidth,
+     *  the new value is stored in explicitMinWidth. The default value of minWidth
+     *  does not change. As a result, at layout time, if
+     *  minWidth was explicitly set by the application developer, then the value of
+     *  explicitMinWidth is used for the component's minimum recommended width.
+     *  If minWidth is not set explicitly by the application developer, then the value of
+     *  measuredMinWidth is used.</p>
      *
      *  <p>This value is used by the container in calculating
      *  the size and position of the component.
@@ -3481,9 +3490,18 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="Size", defaultValue="0")]
 
     /**
-     *  Number that specifies the minimum height of the component,
-     *  in pixels, in the component's coordinates.
-     *  The default value depends on the component implementation.
+     *  The minimum recommended height of the component to be considered
+     *  by the parent during layout. This value is in the
+     *  component's coordinates, in pixels. The default value depends on
+     *  the component's implementation.
+     *
+     *  <p>If the application developer sets the value of minHeight,
+     *  the new value is stored in explicitMinHeight. The default value of minHeight
+     *  does not change. As a result, at layout time, if
+     *  minHeight was explicitly set by the application developer, then the value of
+     *  explicitMinHeight is used for the component's minimum recommended height.
+     *  If minHeight is not set explicitly by the application developer, then the value of
+     *  measuredMinHeight is used.</p>
      *
      *  <p>This value is used by the container in calculating
      *  the size and position of the component.
@@ -3523,8 +3541,20 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="Size", defaultValue="10000")]
 
     /**
-     *  Number that specifies the maximum width of the component,
-     *  in pixels, in the component's coordinates.
+     *  The maximum recommended width of the component to be considered
+     *  by the parent during layout. This value is in the
+     *  component's coordinates, in pixels. The default value of this property is
+     *  set by the component developer.
+     *
+     *  <p>The component developer uses this property to set an upper limit on the
+     *  width of the component.</p>
+     *
+     *  <p>If the application developer overrides the default value of maxWidth,
+     *  the new value is stored in explicitMaxWidth. The default value of maxWidth
+     *  does not change. As a result, at layout time, if
+     *  maxWidth was explicitly set by the application developer, then the value of
+     *  explicitMaxWidth is used for the component's maximum recommended width.
+     *  If maxWidth is not set explicitly by the user, then the default value is used.</p>
      *
      *  <p>This value is used by the container in calculating
      *  the size and position of the component.
@@ -3568,8 +3598,20 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="Size", defaultValue="10000")]
 
     /**
-     *  Number that specifies the maximum height of the component,
-     *  in pixels, in the component's coordinates.
+     *  The maximum recommended height of the component to be considered
+     *  by the parent during layout. This value is in the
+     *  component's coordinates, in pixels. The default value of this property is
+     *  set by the component developer.
+     *
+     *  <p>The component developer uses this property to set an upper limit on the
+     *  height of the component.</p>
+     *
+     *  <p>If the application developer overrides the default value of maxHeight,
+     *  the new value is stored in explicitMaxHeight. The default value of maxHeight
+     *  does not change. As a result, at layout time, if
+     *  maxHeight was explicitly set by the application developer, then the value of
+     *  explicitMaxHeight is used for the component's maximum recommended height.
+     *  If maxHeight is not set explicitly by the user, then the default value is used.</p>
      *
      *  <p>This value is used by the container in calculating
      *  the size and position of the component.
@@ -3619,8 +3661,17 @@ public class UIComponent extends FlexSprite
     [Inspectable(environment="none")]
 
     /**
-     *  Number that specifies the minimum width of the component,
-     *  in pixels, in the component's coordinates.
+     *  The minimum recommended width of the component to be considered
+     *  by the parent during layout. This value is in the
+     *  component's coordinates, in pixels.
+     *
+     *  <p>Application developers typically do not set the explicitMinWidth property. Instead, they
+     *  set the value of the minWidth property, which sets the explicitMinWidth property. The
+     *  value of minWidth does not change.</p>
+     *
+     *  <p>At layout time, if minWidth was explicitly set by the application developer, then
+     *  the value of explicitMinWidth is used. Otherwise, the value of measuredMinWidth
+     *  is used.</p>
      *
      *  <p>This value is used by the container in calculating
      *  the size and position of the component.
@@ -3678,8 +3729,17 @@ public class UIComponent extends FlexSprite
     [Inspectable(environment="none")]
 
     /**
-     *  Number that specifies the minimum height of the component,
-     *  in pixels, in the component's coordinates.
+     *  The minimum recommended height of the component to be considered
+     *  by the parent during layout. This value is in the
+     *  component's coordinates, in pixels.
+     *
+     *  <p>Application developers typically do not set the explicitMinHeight property. Instead, they
+     *  set the value of the minHeight property, which sets the explicitMinHeight property. The
+     *  value of minHeight does not change.</p>
+     *
+     *  <p>At layout time, if minHeight was explicitly set by the application developer, then
+     *  the value of explicitMinHeight is used. Otherwise, the value of measuredMinHeight
+     *  is used.</p>
      *
      *  <p>This value is used by the container in calculating
      *  the size and position of the component.
@@ -3737,8 +3797,17 @@ public class UIComponent extends FlexSprite
     [Inspectable(environment="none")]
 
     /**
-     *  Number that specifies the maximum width of the component,
-     *  in pixels, in the component's coordinates.
+     *  The maximum recommended width of the component to be considered
+     *  by the parent during layout. This value is in the
+     *  component's coordinates, in pixels.
+     *
+     *  <p>Application developers typically do not set the explicitMaxWidth property. Instead, they
+     *  set the value of the maxWidth property, which sets the explicitMaxWidth property. The
+     *  value of maxWidth does not change.</p>
+     *
+     *  <p>At layout time, if maxWidth was explicitly set by the application developer, then
+     *  the value of explicitMaxWidth is used. Otherwise, the default value for maxWidth
+     *  is used.</p>
      *
      *  <p>This value is used by the container in calculating
      *  the size and position of the component.
@@ -3799,8 +3868,17 @@ public class UIComponent extends FlexSprite
     [Inspectable(environment="none")]
 
     /**
-     *  Number that specifies the maximum height of the component,
-     *  in pixels, in the component's coordinates.
+     *  The maximum recommended height of the component to be considered
+     *  by the parent during layout. This value is in the
+     *  component's coordinates, in pixels.
+     *
+     *  <p>Application developers typically do not set the explicitMaxHeight property. Instead, they
+     *  set the value of the maxHeight property, which sets the explicitMaxHeight property. The
+     *  value of maxHeight does not change.</p>
+     *
+     *  <p>At layout time, if maxHeight was explicitly set by the application developer, then
+     *  the value of explicitMaxHeight is used. Otherwise, the default value for maxHeight
+     *  is used.</p>
      *
      *  <p>This value is used by the container in calculating
      *  the size and position of the component.
