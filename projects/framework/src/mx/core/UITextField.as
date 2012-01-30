@@ -1289,11 +1289,9 @@ public class UITextField extends FlexTextField
         if (!stage || embedFonts)
             return textHeight + TEXT_HEIGHT_PADDING;
 
-        const m:Matrix = MatrixUtil.getConcatenatedMatrix(this);
-        const sx:Number = ((mirror) ? -1 : +1) * m.a;
-        const sy:Number = m.d
+        const m:Matrix = transform.concatenatedMatrix;
         
-        return (textHeight * sx / sy) + TEXT_HEIGHT_PADDING;
+        return Math.abs((textHeight * m.a / m.d)) + TEXT_HEIGHT_PADDING;
     }
 
     //----------------------------------
@@ -1366,11 +1364,9 @@ public class UITextField extends FlexTextField
         if (!stage || embedFonts)
             return textWidth + TEXT_WIDTH_PADDING;
 
-        const m:Matrix = MatrixUtil.getConcatenatedMatrix(this);        
-        const sx:Number = ((mirror) ? -1 : +1) * m.a;
-        const sy:Number = m.d
+        const m:Matrix = transform.concatenatedMatrix;      
         
-        return (textWidth * sx / sy) + TEXT_WIDTH_PADDING;
+        return Math.abs((textWidth * m.a / m.d)) + TEXT_WIDTH_PADDING;
     }
 
     //----------------------------------
