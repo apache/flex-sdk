@@ -761,6 +761,9 @@ public class IconItemRenderer extends LabelItemRenderer
             return;
         
         _iconHeight = value;
+		
+		if (iconDisplay)
+			iconDisplay.explicitHeight = _iconHeight;
         
         invalidateSize();
         invalidateDisplayList();
@@ -842,6 +845,9 @@ public class IconItemRenderer extends LabelItemRenderer
             return;
         
         _iconWidth = value;
+		
+		if (iconDisplay)
+			iconDisplay.explicitWidth = _iconWidth;
         
         invalidateSize();
         invalidateDisplayList();
@@ -1233,6 +1239,11 @@ public class IconItemRenderer extends LabelItemRenderer
                 iconDisplay.contentLoader = iconContentLoader;
                 iconDisplay.fillMode = iconFillMode;
                 iconDisplay.scaleMode = iconScaleMode;
+				
+				if (!isNaN(iconWidth))
+					iconDisplay.explicitWidth = iconWidth;
+				if (!isNaN(iconHeight))
+					iconDisplay.explicitHeight = iconHeight;
 
                 iconDisplay.parentChanged(this);
                 
@@ -1320,10 +1331,10 @@ public class IconItemRenderer extends LabelItemRenderer
             {
                 try
                 {
-                    if (iconField in data)
-                    {
+                    if (iconField in data && data[iconField] != null)
                         setIconDisplaySource(data[iconField]);
-                    }
+					else
+						setIconDisplaySource(null);
                 }
                 catch(e:Error)
                 {
