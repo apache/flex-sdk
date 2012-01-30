@@ -186,6 +186,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  */
 [Style(name="verticalAlign", type="String", enumeration="bottom,middle,top", inherit="no")]
 
+
 //--------------------------------------
 //  Excluded APIs
 //--------------------------------------
@@ -800,15 +801,15 @@ public class LabelItemRenderer extends UIComponent
                                       unscaledHeight:Number):void
     {
         // figure out backgroundColor
-        var backgroundColor:uint = 0xFFFFFF;
-        var drawBackground:Boolean = true;
+        var backgroundColor:*;
         var downColor:* = getStyle("downColor");
+		var drawBackground:Boolean = true;
         
         if (down && downColor !== undefined)
         {
             backgroundColor = downColor;
         }
-        else if (selected)
+		else if (selected)
         {
             backgroundColor = getStyle("selectionColor");
         }
@@ -816,16 +817,16 @@ public class LabelItemRenderer extends UIComponent
         {
             backgroundColor = getStyle("rollOverColor");
         }
-        else if (showsCaret)
-        {
-            // FIXME (rfrishbe): should probably be its own distinct color and style
-            // Also, this is touch-specific...should it be called LabelItemRenderer
-            // if it has touch-specific logic in here?  Should we gate it based 
-            // on interactionMode?
-            backgroundColor = getStyle("selectionColor");
-        }
-        else
-        {
+		else if (showsCaret)
+		{
+			// FIXME (rfrishbe): should probably be its own distinct color and style
+			// Also, this is touch-specific...should it be called LabelItemRenderer
+			// if it has touch-specific logic in here?  Should we gate it based 
+			// on interactionMode?
+			backgroundColor = getStyle("selectionColor");
+		}
+		else
+		{
             var alternatingColors:Array = getStyle("alternatingItemColors");
             
             if (alternatingColors && alternatingColors.length > 0)
@@ -836,13 +837,11 @@ public class LabelItemRenderer extends UIComponent
                 backgroundColor = alternatingColors[itemIndex % alternatingColors.length];
             }
 			else
-			{ 
-				// don't draw background if it is the contentBackgroundColor. The
-				// list skin handles the background drawing for us. 
-				//drawBackground = false;
+			{
+				drawBackground = false;
 			}
 
-        }
+        } 
         
         // draw backgroundColor
         // the reason why we draw it in the case of drawBackground == 0 is for
@@ -871,31 +870,27 @@ public class LabelItemRenderer extends UIComponent
 			graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
 			graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
 			graphics.endFill();
-			
-			// separator props - dark lines on the top and the bottom
-			topSeparatorColor = 0x000000;
-			topSeparatorAlpha = .3;
-			bottomSeparatorColor = 0x000000;
-			bottomSeparatorAlpha = .3;
 		}
-		else
-		{
-			// default look:  separators are a highlight on the top and 
-			// shadow on the bottom
-			topSeparatorColor = 0xFFFFFF;
-			topSeparatorAlpha = .25;
-			bottomSeparatorColor = 0x000000;
-			bottomSeparatorAlpha = .2;
-		}
+
+		// separators are a highlight on the top and shadow on the bottom
+		topSeparatorColor = 0xFFFFFF;
+		topSeparatorAlpha = .3;
+		bottomSeparatorColor = 0x000000;
+		bottomSeparatorAlpha = .3;
+		
 		
 		var dataGroup:DataGroup = parent as DataGroup;
 		var isLast:Boolean = (dataGroup && (itemIndex == dataGroup.numElements - 1));
 
 			
 		// draw separators
-		graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
-		graphics.drawRect(0, 0, unscaledWidth, 1);
-		graphics.endFill();
+		// don't draw top separator for down and selected states
+		if (!(selected || down))
+		{
+			graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
+			graphics.drawRect(0, 0, unscaledWidth, 1);
+			graphics.endFill();
+		}
 		
 		graphics.beginFill(bottomSeparatorColor, bottomSeparatorAlpha);
 		graphics.drawRect(0, unscaledHeight - (isLast ? 0 : 1), unscaledWidth, 1);
