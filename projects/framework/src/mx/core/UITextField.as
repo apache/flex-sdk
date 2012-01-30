@@ -2087,13 +2087,14 @@ public class UITextField extends FlexTextField
     {
         var textFormat:TextFormat = new TextFormat();
 
-        // Not all flex4 textAlign values are valid so convert to a valid one.
-        var align:String = getStyle("textAlign");
-        if (align == "start") 
-            align = TextFormatAlign.LEFT;
-        else if (align == "end")
-            align = TextFormatAlign.RIGHT;
-        textFormat.align = align; 
+        var textAlign:String = getStyle("textAlign");
+        // Map new Spark values that might be set in a selector
+		// affecting both Halo and Spark components.
+        if (textAlign == "start") 
+            textAlign = TextFormatAlign.LEFT;
+        else if (textAlign == "end")
+            textAlign = TextFormatAlign.RIGHT;
+        textFormat.align = textAlign; 
         textFormat.bold = getStyle("fontWeight") == "bold";
         if (enabled)
         {
@@ -2109,7 +2110,14 @@ public class UITextField extends FlexTextField
         textFormat.font = StringUtil.trimArrayElements(getStyle("fontFamily"),",");
         textFormat.indent = getStyle("textIndent");
         textFormat.italic = getStyle("fontStyle") == "italic";
-        textFormat.kerning = getStyle("kerning");
+		var kerning:* = getStyle("kerning");
+        // Map new Spark values that might be set in a selector
+		// affecting both Halo and Spark components.
+		if (kerning == "auto" || kerning == "on")
+			kerning = true;
+		else if (kerning == "off")
+			kerning = false;
+        textFormat.kerning = kerning;
         textFormat.leading = getStyle("leading");
         textFormat.leftMargin = ignorePadding ? 0 : getStyle("paddingLeft");
         textFormat.letterSpacing = getStyle("letterSpacing");
