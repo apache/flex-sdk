@@ -17,9 +17,6 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-// AdobePatentID="B518"
-// AdobePatentID="B519"
-
 package mx.collections
 {
 	import mx.collections.IViewCursor;
