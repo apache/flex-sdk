@@ -221,9 +221,12 @@ public class StyleProtoChain
             for (i = 0; i < classSelectors.length; i++)
             {
                 var classSelector:CSSStyleDeclaration = classSelectors[i];
-                chain = classSelector.addStyleToProtoChain(chain, target, filterMap);
-                if (classSelector.effects)
-                    obj.registerEffects(classSelector.effects);
+                if (classSelector)
+                {
+                    chain = classSelector.addStyleToProtoChain(chain, target, filterMap);
+                    if (classSelector.effects)
+                        obj.registerEffects(classSelector.effects);
+                }
             }
         
         }       
@@ -302,11 +305,14 @@ public class StyleProtoChain
         for (var i:int = 0; i < classSelectors.length; i++)
         {
             var classSelector:CSSStyleDeclaration = classSelectors[i];
-            inheritChain =
-                classSelector.addStyleToProtoChain(inheritChain, DisplayObject(obj));
+            if (classSelector)
+            {
+                inheritChain =
+                    classSelector.addStyleToProtoChain(inheritChain, DisplayObject(obj));
 
-            nonInheritChain =
-                classSelector.addStyleToProtoChain(nonInheritChain, DisplayObject(obj));
+                nonInheritChain =
+                    classSelector.addStyleToProtoChain(nonInheritChain, DisplayObject(obj));
+            }
         }
         
         obj.inheritingStyles = inheritChain;
