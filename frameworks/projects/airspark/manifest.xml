@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2006-2007 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<componentPackage>
+
+    <component id="WindowedApplication" class="spark.components.WindowedApplication"/>
+    <component id="Window" class="spark.components.Window"/>
+    <component id="TitleBar" class="spark.components.windowClasses.TitleBar"/>
+
+    <!-- Special Components -->
+    <component id="State" class="mx.states.State" lookupOnly="true"/>
+ 
+    <!-- Flex 3 Graphics -->
+    <component id="BitmapFill" class="mx.graphics.BitmapFill" lookupOnly="true"/>
+    <component id="BitmapResizeMode" class="mx.graphics.BitmapResizeMode" lookupOnly="true"/>
+    <component id="CompoundTransform" class="mx.geom.CompoundTransform" lookupOnly="true"/>
+    <component id="GradientEntry" class="mx.graphics.GradientEntry" lookupOnly="true"/>
+    <component id="LinearGradient" class="mx.graphics.LinearGradient" lookupOnly="true"/>
+    <component id="LinearGradientStroke" class="mx.graphics.LinearGradientStroke" lookupOnly="true"/>
+    <component id="RadialGradient" class="mx.graphics.RadialGradient" lookupOnly="true"/>
+    <component id="RadialGradientStroke" class="mx.graphics.RadialGradientStroke" lookupOnly="true"/>
+    <component id="SolidColor" class="mx.graphics.SolidColor" lookupOnly="true"/>
+    <component id="SolidColorStroke" class="mx.graphics.SolidColorStroke" lookupOnly="true"/>
+    <component id="Stroke" class="mx.graphics.Stroke" lookupOnly="true"/>
+    <component id="Transform" class="mx.geom.Transform" lookupOnly="true"/>
+
+    <!-- Spark Graphics -->
+    <component id="BitmapGraphic" class="spark.primitives.BitmapImage" lookupOnly="true"/>
+    <component id="BitmapImage" class="spark.primitives.BitmapImage" lookupOnly="true"/>
+
+
+</componentPackage>
