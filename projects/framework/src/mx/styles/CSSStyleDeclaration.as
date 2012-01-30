@@ -125,17 +125,16 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  @param styleManager - The style manager to set this declaration into. If the
      *  styleManager is null the top-level style manager will be used.
      * 
-     *  @param setSelector - If true set the selector in the styleManager. If setSelector
-     *  is false this style declaration can be set in the styleManager at a later time
-     *  by calling <code>styleManager.setStyleDeclaration(styleDeclaration.mx_internal::selectorString, styleDeclaration, false);
-     *  </code> FIXME: (dloverin) Should CSSStyleDeclaration.mx_internal::selectorString be made public?
+     *  @param autoRegisterWithStyleManager - If true set the selector in the styleManager. The selector
+     *  will only be set if both <code>selector</code> and <code>styleManager</code> are
+     *  both non-null.
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function CSSStyleDeclaration(selector:Object=null, styleManager:IStyleManager2=null, setSelector:Boolean = true)
+    public function CSSStyleDeclaration(selector:Object=null, styleManager:IStyleManager2=null, autoRegisterWithStyleManager:Boolean = true)
     {
         super();
 
@@ -157,7 +156,7 @@ public class CSSStyleDeclaration extends EventDispatcher
                 selectorString = selector.toString();
             }
 
-            if (setSelector)
+            if (autoRegisterWithStyleManager)
                 styleManager.setStyleDeclaration(selectorString, this, false);            
         }
 
