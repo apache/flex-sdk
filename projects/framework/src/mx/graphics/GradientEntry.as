@@ -32,7 +32,7 @@ import mx.events.PropertyChangeEvent;
  *    <b>Properties</b>
  *    alpha="1.0"
  *    color="0x000000"
- *    ratio="-1"
+ *    ratio="NaN"
  *  /&gt;
  *  </pre>
  *  
