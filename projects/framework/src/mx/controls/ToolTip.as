@@ -16,10 +16,10 @@ import flash.display.DisplayObject;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
 import mx.core.EdgeMetrics;
-import mx.core.IBorder;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
+import mx.core.IRectangularBorder;
 import mx.core.IToolTip;
 import mx.core.IUITextField;
 import mx.core.UIComponent;
@@ -131,8 +131,8 @@ public class ToolTip extends UIComponent implements IToolTip, IFontContextCompon
      */
     private function get borderMetrics():EdgeMetrics
     {
-        if (border is IBorder)
-            return IBorder(border).borderMetrics;
+        if (border is IRectangularBorder)
+            return IRectangularBorder(border).borderMetrics;
 
         return EdgeMetrics.EMPTY;
     }
