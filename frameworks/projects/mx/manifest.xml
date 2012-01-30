@@ -110,6 +110,7 @@
     <component id="AlertForm" class="mx.controls.alertClasses.AlertForm" lookupOnly="true"/>
     <component id="AccordionHeader" class="mx.containers.accordionClasses.AccordionHeader" />
     <component id="ButtonBarButton" class="mx.controls.buttonBarClasses.ButtonBarButton" />
+    <component id="ComboBase" class="mx.controls.ComboBase"/>
     <component id="CalendarLayout" class="mx.controls.CalendarLayout" />
     <component id="FormItemLabel" class="mx.controls.FormItemLabel" />
     <component id="ListBase" class="mx.controls.listClasses.ListBase" />
@@ -117,6 +118,7 @@
     <component id="Menu" class="mx.controls.Menu" />
     <component id="MenuBarItem" class="mx.controls.menuClasses.MenuBarItem" />
     <component id="MenuItemRenderer" class="mx.controls.menuClasses.MenuItemRenderer" lookupOnly="true"/>
+    <component id="NavBar" class="mx.controls.NavBar" />
     <component id="ScrollBar" class="mx.controls.scrollClasses.ScrollBar" />
     <component id="ScrollControlBase" class="mx.core.ScrollControlBase" />
     <component id="Slider" class="mx.controls.sliderClasses.Slider" />
