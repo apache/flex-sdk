@@ -656,7 +656,7 @@ DateField
 .dateFieldPopup
 {
 	backgroundColor: #FFFFFF;
-	borderThickness: 0;
+	borderThickness: 1;
 	dropShadowEnabled: true;
 }
 
