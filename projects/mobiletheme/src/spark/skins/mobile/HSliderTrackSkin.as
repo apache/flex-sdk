@@ -77,7 +77,7 @@ public class HSliderTrackSkin extends MobileSkin
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 trackWidth = 300;
                 trackHeight = 10;
                 
