@@ -257,8 +257,10 @@ public class AdvancedStyleClient extends EventDispatcher
         }
 
         return styleManager.inheritingStyles[styleProp] ?
-            _inheritingStyles    ? _inheritingStyles[styleProp]    : undefined :
-            _nonInheritingStyles ? _nonInheritingStyles[styleProp] : undefined;
+                   (_inheritingStyles    ? _inheritingStyles[styleProp]    
+                                         : undefined) :
+                   (_nonInheritingStyles ? _nonInheritingStyles[styleProp] 
+                                         : undefined);
     }
 
     /**
