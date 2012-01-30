@@ -167,10 +167,6 @@ public class AlertAccImpl extends TitleWindowAccImpl
 			{
 				titleBar = Alert(master).getTitleBar();
 
-				systemManager.document.accessibilityProperties.silent = false;
-
-				Accessibility.updateProperties();
-
 				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_SYSTEM_DIALOGEND);
 				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_OBJECT_REORDER);
 				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_OBJECT_DESTROY);
@@ -186,12 +182,6 @@ public class AlertAccImpl extends TitleWindowAccImpl
 
 			case "creationComplete":
 			{
-				if (!systemManager.document.accessibilityProperties)
-				{
-					systemManager.document.accessibilityProperties = new AccessibilityProperties();
-				}
-				systemManager.document.accessibilityProperties.silent = true;
-
 				master.$visible = true;
 
 				titleBar = Alert(master).getTitleBar();
@@ -200,8 +190,6 @@ public class AlertAccImpl extends TitleWindowAccImpl
 				Alert(master).alertForm.textField.tabIndex = 0;
 
    				UIComponent(titleBar).$visible = true;
-
-				Accessibility.updateProperties();
 
 				Accessibility.sendEvent(titleBar, 0, AccConst.EVENT_SYSTEM_DIALOGSTART);
 				Accessibility.sendEvent(titleBar, 0, AccConst.EVENT_OBJECT_REORDER);
