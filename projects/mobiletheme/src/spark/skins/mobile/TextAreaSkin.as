@@ -12,14 +12,20 @@
 package spark.skins.mobile 
 {
 
+import flash.display.Graphics;
 import flash.events.Event;
+import flash.events.FocusEvent;
+import flash.system.Capabilities;
 
 import mx.core.DPIClassification;
-import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
+import spark.components.Group;
+import spark.components.Scroller;
 import spark.components.TextArea;
+import spark.components.VGroup;
+import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.supportClasses.TextSkinBase;
 import spark.skins.mobile160.assets.TextInput_border;
 import spark.skins.mobile240.assets.TextInput_border;
@@ -27,6 +33,7 @@ import spark.skins.mobile320.assets.TextInput_border;
 
 use namespace mx_internal;
 
+// FIXME (jasonsj): how to support TextArea#heightInLines?
 /**
  *  ActionScript-based skin for TextArea components in mobile applications.
  * 
@@ -65,7 +72,7 @@ public class TextAreaSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile320.assets.TextInput_border;
                 layoutCornerEllipseSize = 24;
-                layoutMeasuredWidth = 600;
+                layoutMeasuredWidth = 612;
                 layoutMeasuredHeight = 106;
                 layoutBorderSize = 2;
                 
@@ -85,7 +92,7 @@ public class TextAreaSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile160.assets.TextInput_border;
                 layoutCornerEllipseSize = 12;
-                layoutMeasuredWidth = 300;
+                layoutMeasuredWidth = 306;
                 layoutMeasuredHeight = 53;
                 layoutBorderSize = 1;
                 
@@ -93,6 +100,14 @@ public class TextAreaSkin extends TextSkinBase
             }
         }
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Skin parts
+    //
+    //--------------------------------------------------------------------------
+    
+    public var scroller:Scroller;
     
     //--------------------------------------------------------------------------
     //
@@ -111,17 +126,51 @@ public class TextAreaSkin extends TextSkinBase
     //
     //--------------------------------------------------------------------------
     
+    private var textDisplayGroup:VGroup;
+
+    private var _isIOS:Boolean;
+    
     /**
      *  @private
      */
     override protected function createChildren():void
     {
-        super.createChildren();
+        if (!textDisplay)
+        {
+            // wrap StyleableTextField in UIComponent
+            textDisplay = StyleableTextField(createInFontContext(StyleableTextField));
+            textDisplay.styleName = this;
+            textDisplay.multiline = true;
+            textDisplay.editable = true;
+            textDisplay.wordWrap = true;
+            textDisplay.addEventListener(Event.CHANGE, textDisplay_changeHandler);
+            textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, textDisplay_changeHandler);
+            
+            // on iOS, resize the TextField and let the native control handle scrolling
+            _isIOS = (Capabilities.version.indexOf("IOS") == 0);
+            
+            // wrap StyleableTextComponent in Group for viewport
+            textDisplayGroup = new VGroup();
+            textDisplayGroup.clipAndEnableScrolling = true;
+            textDisplayGroup.addElement(textDisplay);
+            
+            // scroll to the caret position
+            textDisplay.addEventListener(Event.CHANGE, caret_changeHandler);
+            textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, caret_changeHandler);
+        }
         
-        textDisplay.multiline = true;
-        textDisplay.wordWrap = true;
-        textDisplay.addEventListener(Event.CHANGE, textDisplay_changeHandler);
-        textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, textDisplay_changeHandler);
+        if (!scroller)
+        {
+            scroller = new Scroller();
+            scroller.minViewportInset = 0;
+            scroller.measuredSizeIncludesScrollBars = false;
+            addChild(scroller);
+        }
+        
+        if (!scroller.viewport)
+            scroller.viewport = textDisplayGroup;
+        
+        super.createChildren();
     }
     
     /**
@@ -148,88 +197,69 @@ public class TextAreaSkin extends TextSkinBase
         // if we have an estimated width, use it here.  Otherwise, we'll keep it 
         // the same width as it was before
         if (!isNaN(estimatedWidth))
-            textDisplay.width = estimatedWidth - paddingTop - paddingBottom;
+            textDisplayGroup.width = estimatedWidth;
         
-        measuredHeight = Math.max(layoutMeasuredHeight, getElementPreferredHeight(textDisplay) + paddingTop + paddingBottom);
+        measuredHeight = Math.max(layoutMeasuredHeight, textDisplay.measuredTextSize.y + paddingTop + paddingBottom);
     }
     
     /**
-     *  @private
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
+     * @private
      */
-    override public function setEstimatedSize(estimatedWidth:Number = NaN, 
-                                              estimatedHeight:Number = NaN,
-                                              invalidateSizeAllowed:Boolean = true):void
+    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        var oldcw:Number = this.estimatedWidth;
-        var oldch:Number = this.estimatedHeight;
+        drawBackground(unscaledWidth, unscaledHeight);
         
-        super.setEstimatedSize(estimatedWidth, estimatedHeight, invalidateSizeAllowed);
-        
-        var sameWidth:Boolean = isNaN(estimatedWidth) && isNaN(oldcw) || estimatedWidth == oldcw;
-        var sameHeight:Boolean = isNaN(estimatedHeight) && isNaN(oldch) || estimatedHeight == oldch;
-        if (!(sameHeight && sameWidth))
+        // position & size border
+        if (border)
         {
-            if (!isNaN(explicitWidth) &&
-                !isNaN(explicitHeight))
-                return;
-            
-            if (invalidateSizeAllowed)
-                invalidateSize();
+            setElementSize(border, unscaledWidth, unscaledHeight);
+            setElementPosition(border, 0, 0);
+        }
+        
+        setElementSize(scroller, unscaledWidth, unscaledHeight);
+        setElementPosition(scroller, 0, 0);
+        
+        // position & size the text
+        var paddingLeft:Number = getStyle("paddingLeft");
+        var paddingRight:Number = getStyle("paddingRight");
+        var paddingTop:Number = getStyle("paddingTop");
+        var paddingBottom:Number = getStyle("paddingBottom");
+        
+        textDisplayGroup.paddingLeft = paddingLeft;
+        textDisplayGroup.paddingRight = paddingRight;
+        textDisplayGroup.paddingTop = paddingTop;
+        textDisplayGroup.paddingBottom = paddingBottom;
+        
+        var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
+        
+        // set width first to measure height correctly
+        textDisplay.width = unscaledTextWidth;
+        
+        var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
+        var textHeight:Number = unscaledTextHeight;
+        
+        // TextField height should match it's content or the TextArea bounds
+        // iOS special case to prevent Flex Scroller scrolling
+        if (!_isIOS || !textDisplay.editable)
+            textHeight = Math.max(textDisplay.measuredTextSize.y, textHeight);
+        
+        setElementSize(textDisplay, unscaledTextWidth, textHeight);
+        
+        // size the Group to the StyleableTextField plus padding
+        setElementSize(textDisplayGroup, unscaledWidth, paddingTop + textHeight + paddingBottom);
+        
+        if (promptDisplay)
+        {
+            promptDisplay.commitStyles();
+            setElementSize(promptDisplay, unscaledTextWidth, unscaledTextHeight);
+            setElementPosition(promptDisplay, paddingLeft, paddingTop);
         }
     }
     
-    /**
-     *  @private
-     *  We override the setLayoutBoundsSize to determine whether to perform
-     *  text reflow. This is a convenient place, as the layout passes NaN
-     *  for a dimension not constrained to the parent.
-     */
-    override public function setLayoutBoundsSize(width:Number,
-                                                 height:Number,
-                                                 postLayoutTransform:Boolean = true):void
+    private function caret_changeHandler(event:Event):void
     {
-        var newEstimates:Boolean = false;
-        var cw:Number = estimatedWidth;
-        var ch:Number = estimatedHeight;
-        var oldcw:Number = cw;
-        var oldch:Number = ch;
-        // we got lied to, probably the constraints weren't accurate or
-        // couldn't be computed
-        if (!isNaN(width))
-        {
-            if (isNaN(estimatedWidth) || width != estimatedWidth)
-            {
-                cw = width;
-                newEstimates = true;
-            }
-        }
-        // we got lied to, probably the constraints weren't accurate or
-        // couldn't be computed
-        if (!isNaN(height))
-        {
-            if (isNaN(estimatedHeight) || height != estimatedHeight)
-            {
-                ch = height;
-                newEstimates = true;
-            }
-        }
-        if (newEstimates)
-        {
-            setEstimatedSize(cw, ch);
-            
-            // re-measure with the new estimated size
-            UIComponentGlobals.layoutManager.validateClient(this, true);
-            
-            // set estimated size back to what it was
-            setEstimatedSize(oldcw, oldch, false);
-        }
-        
-        super.setLayoutBoundsSize(width, height, postLayoutTransform);
+        // TODO (jasonsj): caret positioning on iOS
+        // textDisplayGroup.verticalScrollPosition = textDisplay.getCharBoundaries(textDisplay.caretIndex).y;
     }
     
     /**
@@ -237,7 +267,7 @@ public class TextAreaSkin extends TextSkinBase
      */
     private function textDisplay_changeHandler(event:Event):void
     {
-        invalidateSize();
+        textDisplayGroup.invalidateSize();
     }
 }
 }
