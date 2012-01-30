@@ -18,6 +18,7 @@ import mx.managers.SystemManager;
 [ResourceBundle("SharedResources")]
 [ResourceBundle("validators")]
 
+[Alternative(replacement="spark.validators.CurrencyValidator", since="4.5")]
 /**
  *  The CurrencyValidator class ensures that a String
  *  represents a valid currency expression.
