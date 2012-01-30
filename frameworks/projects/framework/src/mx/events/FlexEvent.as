@@ -190,6 +190,19 @@ public class FlexEvent extends Event
     public static const ENTER:String = "enter";
 
     /**
+     *  The <code>FlexEvent.ENTER_FRAME</code> constant defines the value of the
+     *  <code>type</code> property of the event object for an <code>Event.ENTER_FRAMER</code> event.
+     *
+     *  Adding a listener to ENTER_FRAME on the <code>SystemManager</code> will add a listener for
+     *  the Event.ENTER_FRAME event on the <code>stage</code>, if access if allowed, 
+     *  or the <code>SystemManager</code> if access the the <code>stage</code> is not allowed. 
+     *  The listener should expect to receive Event.ENTER_FRAME events.
+     * 
+     *  @eventType flexEventEnterFrame
+     */
+    public static const ENTER_FRAME:String = "flexEventEnterFrame";
+
+    /**
      *  The <code>FlexEvent.ENTER_STATE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>enterState</code> event.
      *
@@ -451,6 +464,19 @@ public class FlexEvent extends Event
      *  @private
      */
     public static const PRELOADER_DONE:String = "preloaderDone";
+
+    /**
+     *  The <code>FlexEvent.RENDER</code> constant defines the value of the
+     *  <code>type</code> property of the event object for an <code>Event.RENDER</code> event.
+     *
+     *  Adding a listener on the <code>SystemManager</code> will add a listener for FlexEvent.RENDER 
+     *  events on the <code>stage</code> or the <code>SystemManager</code> if the application does not have
+     *  access to the <code>stage</code>. The listener will also generate an Event.RENDER event. The 
+     *  listener function should expect to receive Event.RENDER events.
+     * 
+     *  @eventType flexEventRender
+     */
+    public static const RENDER:String = "flexEventRender";
 
     /**
      *  The <code>FlexEvent.REMOVE</code> constant defines the value of the
