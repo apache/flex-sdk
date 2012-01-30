@@ -42,7 +42,7 @@ import mx.utils.ObjectUtil;
  *     // In the real world, the collection would have more than one item.
  *     col.addItem({first:"Anders", last:"Dickerson"});
  *     // Create the Sort instance.
- *     var sort:ISort = new Sort();
+ *     var sort:Sort = new Sort();
  *     // Set the sort field; sort on the last name first, first name second.
  *     // Both fields are case-insensitive.
  *     sort.fields = [new SortField("last",true), new SortField("first",true)];
@@ -63,7 +63,7 @@ import mx.utils.ObjectUtil;
  *     var col:ICollectionView = new ArrayCollection();
  *     col.addItem("California");
  *     col.addItem("Arizona");
- *     var sort:ISort = new Sort();
+ *     var sort:Sort = new Sort();
  *     // There is only one sort field, so use a <code>null</code> 
  *     // first parameter.
  *     sort.fields = [new SortField(null, true)];
