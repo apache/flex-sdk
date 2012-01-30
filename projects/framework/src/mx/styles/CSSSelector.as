@@ -251,7 +251,8 @@ public class CSSSelector
     {
         var result:String = null;
 
-        if (kind == CSSSelectorKind.CONDITIONAL_SELECTOR && conditions != null)
+        if ((kind == CSSSelectorKind.CONDITIONAL_SELECTOR
+            || kind == CSSSelectorKind.DESCENDANT_SELECTOR) && conditions != null)
         {
             for each (var condition:CSSCondition in conditions)
             {
