@@ -24,7 +24,7 @@
     </fx:Script>
 
     <s:HGroup>
-        <s:SimpleText text="Enter Name: "/>
+        <s:Label text="Enter Name: "/>
         <s:TextInput id="userName" width="100%"/>
     </s:HGroup>
 
