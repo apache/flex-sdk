@@ -132,7 +132,7 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 
 		this.systemManager = systemManager;
 
-		systemManager.addEventListener(FlexEvent.CREATION_COMPLETE, appCreationCompleteHandler);
+        systemManager.addEventListener("invalidateParentSizeAndDisplayList", invalidateParentSizeAndDisplayListHandler);
 
 		systemManager.addEventListener("addEventListener", addEventListenerHandler);
 		systemManager.addEventListener("removeEventListener", removeEventListenerHandler);
@@ -2806,7 +2806,7 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 	 *  Override this function if you want to perform any logic
 	 *  when the application has finished initializing itself.
 	 */
-	private function appCreationCompleteHandler(event:FlexEvent):void
+	private function invalidateParentSizeAndDisplayListHandler(event:Event):void
 	{
 		if (systemManager.isTopLevel() && useSWFBridge())
 		   dispatchInvalidateRequest();
