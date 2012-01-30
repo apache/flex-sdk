@@ -1215,7 +1215,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 			if (isRemotePopUp(awm.form) && 
 				RemotePopUp(awm.form).window == bridgeEvent.data.window &&
 				RemotePopUp(awm.form).bridge == bridgeEvent.data.notifier)
-				awm.deactivate(IFocusManagerContainer(awm.form));
+				awm.deactivate(awm.form);
 		}
 	}
 	
