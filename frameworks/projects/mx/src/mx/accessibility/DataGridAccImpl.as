@@ -14,6 +14,7 @@ package mx.accessibility
 
 import flash.accessibility.Accessibility;
 import flash.events.Event;
+import mx.accessibility.AccConst;
 import mx.collections.CursorBookmark;
 import mx.collections.IViewCursor;
 import mx.controls.DataGrid;
@@ -37,52 +38,6 @@ public class DataGridAccImpl extends ListBaseAccImpl
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const ROLE_SYSTEM_LISTITEM:uint = 0x22;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_INVISIBLE:uint = 0x00008000;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_OFFSCREEN:uint = 0x00010000;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTABLE:uint = 0x00200000;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTED:uint = 0x00000002;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_FOCUS:uint = 0x8005; 
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_SELECTION:uint = 0x8006; 
-	
 	//--------------------------------------------------------------------------
 	//
 	//  Class methods
@@ -177,7 +132,7 @@ public class DataGridAccImpl extends ListBaseAccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		return childID == 0 ? role : ROLE_SYSTEM_LISTITEM;
+		return childID == 0 ? role : AccConst.ROLE_SYSTEM_LISTITEM;
 	}
 
 	/**
@@ -212,17 +167,17 @@ public class DataGridAccImpl extends ListBaseAccImpl
 					row >= dataGrid.verticalScrollPosition 
 						+ dataGrid.rowCount - (dataGrid.headerVisible ? 1 : 0))
 				{
-					accState |= (STATE_SYSTEM_OFFSCREEN | STATE_SYSTEM_INVISIBLE);
+					accState |= (AccConst.STATE_SYSTEM_OFFSCREEN | AccConst.STATE_SYSTEM_INVISIBLE);
 				}
 				else
 				{
-					accState |= STATE_SYSTEM_SELECTABLE;
+					accState |= AccConst.STATE_SYSTEM_SELECTABLE;
 
 					var renderer:IListItemRenderer = dataGrid.itemToItemRenderer(
 						getItemAt(row));
 
 					if (renderer && dataGrid.isItemSelected(renderer.data))
-						accState |= STATE_SYSTEM_SELECTED | STATE_SYSTEM_FOCUSED;
+						accState |= AccConst.STATE_SYSTEM_SELECTED | AccConst.STATE_SYSTEM_FOCUSED;
 				}
 			}
 			else
@@ -234,18 +189,18 @@ public class DataGridAccImpl extends ListBaseAccImpl
 					row >= dataGrid.verticalScrollPosition 
 						+ dataGrid.rowCount - (dataGrid.headerVisible ? 1 : 0))
 				{
-					accState |= (STATE_SYSTEM_OFFSCREEN | STATE_SYSTEM_INVISIBLE);
+					accState |= (AccConst.STATE_SYSTEM_OFFSCREEN | AccConst.STATE_SYSTEM_INVISIBLE);
 				}
 				else if (dataGrid.columns[col].editable)
 				{
-					accState |= STATE_SYSTEM_SELECTABLE;
+					accState |= AccConst.STATE_SYSTEM_SELECTABLE;
 					
 					var coord:Object = dataGrid.editedItemPosition;
 					if (coord &&
 						coord.rowIndex == row &&
 						coord.columnIndex == col)
 					{
-						accState |= STATE_SYSTEM_SELECTED | STATE_SYSTEM_FOCUSED;
+						accState |= AccConst.STATE_SYSTEM_SELECTED | AccConst.STATE_SYSTEM_FOCUSED;
 					}
 				}
 			}
@@ -519,10 +474,10 @@ public class DataGridAccImpl extends ListBaseAccImpl
 						var childID:uint = index + 1;
 
 						Accessibility.sendEvent(dataGrid, childID,
-												EVENT_OBJECT_FOCUS);
+												AccConst.EVENT_OBJECT_FOCUS);
 
 						Accessibility.sendEvent(dataGrid, childID,
-												EVENT_OBJECT_SELECTION);
+												AccConst.EVENT_OBJECT_SELECTION);
 					}
 				}
 				break;
@@ -537,11 +492,11 @@ public class DataGridAccImpl extends ListBaseAccImpl
 
 					Accessibility.sendEvent(dataGrid,
 									dataGrid.columns.length * item + col + 1,
-									EVENT_OBJECT_FOCUS);
+									AccConst.EVENT_OBJECT_FOCUS);
 
 					Accessibility.sendEvent(dataGrid,
 									dataGrid.columns.length * item + col + 1,
-									EVENT_OBJECT_SELECTION);
+									AccConst.EVENT_OBJECT_SELECTION);
 				}
 				break;
 			}
