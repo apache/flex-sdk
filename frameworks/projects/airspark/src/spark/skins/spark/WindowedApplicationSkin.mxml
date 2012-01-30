@@ -13,7 +13,7 @@
     alpha.disabledGroup="0.5" >
 
     <fx:Metadata>
-      [HostComponent("spark.components.WindowedApplication")]
+      [HostComponent("Object")]
     </fx:Metadata>
 
     <fx:Script>
