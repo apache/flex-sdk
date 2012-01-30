@@ -1886,7 +1886,7 @@ public class FocusManager implements IFocusManager
 			{
 				// trace("focusRequestMoveHandler: no focusable objects, setting focus back to parent");
 				moveFocusToParent(request.data == FocusRequestDirection.TOP ? false : true);
-				request.data = focusChanged;
+				event["data"] = focusChanged;
 				return;
 			}
 
@@ -1899,7 +1899,7 @@ public class FocusManager implements IFocusManager
 				setFocusToBottom();
 			}
 
-			request.data = focusChanged;
+			event["data"] = focusChanged;
 		}
 		else
 		{
@@ -1907,7 +1907,7 @@ public class FocusManager implements IFocusManager
 			var startingPosition:DisplayObject = DisplayObject(_form.systemManager.
 										          swfBridgeGroup.getChildBridgeProvider(IEventDispatcher(event.target)));
 			moveFocus(request.data as String, startingPosition);
-			request.data = focusChanged;
+			event["data"] = focusChanged;
 	  	}
 	  	
 		if (focusSetLocally)
