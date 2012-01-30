@@ -23,6 +23,7 @@ import mx.events.FlexEvent;
 
 import spark.components.Group;
 import spark.components.IconPlacement;
+import spark.components.ResizeMode;
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.StyleableTextField;
 import spark.primitives.BitmapImage;
@@ -50,7 +51,7 @@ public class ButtonSkinBase extends MobileSkin
     //  Constructor
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  Constructor.
      *
@@ -63,16 +64,14 @@ public class ButtonSkinBase extends MobileSkin
     public function ButtonSkinBase()
     {
         super();
-
-        setStyle("textAlign", "center");
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Variables
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  iconDisplay skin part.
      */
@@ -80,27 +79,34 @@ public class ButtonSkinBase extends MobileSkin
     private var iconInstance:Object;    // Can be either DisplayObject or BitmapImage
     private var iconHolder:Group;       // Needed when iconInstance is a BitmapImage
     private var _icon:Object;           // The currently set icon, can be Class, DisplayObject, URL
-
+    
     /**
      *  @private
      *  Flag that is set when the currentState changes from enabled to disabled
      */
     private var enabledChanged:Boolean = false;
-
+    
     /**
      *  labelDisplay skin part.
      */
     public var labelDisplay:StyleableTextField;
-
+    
     /**
      *  If true, then create the iconDisplay using the icon style
      *
      *  @default true
      */
     protected var useIconStyle:Boolean = true;
-
+    
+    /**
+     *  If true, then the labelDisplay and iconDisplay are centered
+     *
+     *  @default true
+     */
+    protected var useCenterAlignment:Boolean = true;
+    
     private var _hostComponent:ButtonBase;
-
+    
     /**
      * @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
@@ -108,7 +114,7 @@ public class ButtonSkinBase extends MobileSkin
     {
         return _hostComponent;
     }
-
+    
     /**
      * @private
      */
@@ -116,59 +122,59 @@ public class ButtonSkinBase extends MobileSkin
     {
         _hostComponent = value;
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Layout variables
     //
     //--------------------------------------------------------------------------
-
+    
     protected var layoutBorderSize:uint;
-
+    
     protected var layoutGap:int;
-
+    
     /**
      *  Left padding for icon or labelDisplay
      */
     protected var layoutPaddingLeft:int;
-
+    
     /**
      *  Right padding for icon or labelDisplay
      */
     protected var layoutPaddingRight:int;
-
+    
     /**
      *  Top padding for icon or labelDisplay
      */
     protected var layoutPaddingTop:int;
-
+    
     /**
      *  Bottom padding for icon or labelDisplay
      */
     protected var layoutPaddingBottom:int;
-
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  @private
      */
     override public function set currentState(value:String):void
     {
         var isDisabled:Boolean = currentState && currentState.indexOf("disabled") >= 0;
-
+        
         super.currentState = value;
-
+        
         if (isDisabled != currentState.indexOf("disabled") >= 0)
         {
             enabledChanged = true;
             invalidateProperties();
         }
     }
-
+    
     /**
      *  @private
      */
@@ -176,47 +182,47 @@ public class ButtonSkinBase extends MobileSkin
     {
         labelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
         labelDisplay.styleName = this;
-
+        
         // update shadow when labelDisplay changes
         labelDisplay.addEventListener(FlexEvent.VALUE_COMMIT, labelDisplay_valueCommitHandler);
-
+        
         addChild(labelDisplay);
     }
-
+    
     /**
      *  @private
      */
     override public function styleChanged(styleProp:String):void
     {
         var allStyles:Boolean = !styleProp || styleProp == "styleName";
-
+        
         if (allStyles || styleProp == "iconPlacement")
         {
             invalidateSize();
             invalidateDisplayList();
         }
-
+        
         if (useIconStyle && (allStyles || styleProp == "icon"))
         {
             iconChanged = true;
             invalidateProperties();
         }
-
+        
         if (styleProp == "textShadowAlpha")
         {
             invalidateDisplayList();
         }
-
+        
         super.styleChanged(styleProp);
     }
-
+    
     /**
      *  @private
      */
     override protected function commitProperties():void
     {
         super.commitProperties();
-
+        
         if (useIconStyle && iconChanged)
         {
             // force enabled update when icon changes
@@ -224,14 +230,14 @@ public class ButtonSkinBase extends MobileSkin
             iconChanged = false;
             setIcon(getStyle("icon"));
         }
-
+        
         if (enabledChanged)
         {
             commitDisabled();
             enabledChanged = false;
         }
     }
-
+    
     /**
      *  @private
      */
@@ -241,242 +247,285 @@ public class ButtonSkinBase extends MobileSkin
         
         var labelWidth:Number = 0;
         var labelHeight:Number = 0;
-		var textDescent:Number = 0;
+        var textDescent:Number = 0;
         var iconDisplay:DisplayObject = getIconDisplay();
-
+        
         // reset text if it was truncated before.
         if (hostComponent && labelDisplay.isTruncated)
             labelDisplay.text = hostComponent.label;
-        labelDisplay.commitStyles();
-
-		// we want to get the label's width and height if we have text or there's
-		// no icon present
+        
+        // we want to get the label's width and height if we have text or there's
+        // no icon present
         if (labelDisplay.text != "" || !iconDisplay)
         {
             labelWidth = getElementPreferredWidth(labelDisplay);
             labelHeight = getElementPreferredHeight(labelDisplay);
-			textDescent = labelDisplay.getLineMetrics(0).descent;
+            textDescent = labelDisplay.getLineMetrics(0).descent;
         }
         
         var w:Number = layoutPaddingLeft + layoutPaddingRight;
-        var h:Number = layoutPaddingTop + layoutPaddingBottom;
+        var h:Number = 0;
         
         var iconWidth:Number = 0;
         var iconHeight:Number = 0;
-
-        if (iconDisplay is ILayoutElement)
+        
+        if (iconDisplay)
         {
-            // why postLayoutTransform=false vs. true in desktop skin?
-            iconWidth = ILayoutElement(iconDisplay).getPreferredBoundsWidth(false);
-            iconHeight = ILayoutElement(iconDisplay).getPreferredBoundsHeight(false);
-        }
-        else if (iconDisplay)
-        {
-            iconWidth = iconDisplay.width;
-            iconHeight = iconDisplay.height;
+            iconWidth = getElementPreferredWidth(iconDisplay);
+            iconHeight = getElementPreferredHeight(iconDisplay);
         }
         
         var iconPlacement:String = getStyle("iconPlacement");
-
+        
+        // layoutPaddingBottom is from the bottom of the button to the text
+        // baseline or the bottom of the icon.
+        // It must be adjusted when descent grows larger than the padding.
+        var adjustablePaddingBottom:Number = layoutPaddingBottom;
+        
         if (iconPlacement == IconPlacement.LEFT ||
             iconPlacement == IconPlacement.RIGHT)
         {
             w += labelWidth + iconWidth;
             if (labelWidth && iconWidth)
                 w += layoutGap;
-            h += Math.max(labelHeight, iconHeight);
+            
+            var viewHeight:Number = Math.max(labelHeight, iconHeight);
+            h += viewHeight;
         }
         else
         {
-			// When positioning the icon on the top or the bottom the text should be positioned
-			// according to its full height (including descent) not just the baseline.  We add 
-			// textDescent to accomodate for the difference
             w += Math.max(labelWidth, iconWidth);
-            h += labelHeight + iconHeight + textDescent;
+            h += labelHeight + iconHeight;
+            
+            adjustablePaddingBottom = layoutPaddingBottom;
+            
             if (labelHeight && iconHeight)
-                h += layoutGap;
+            {
+                if (iconPlacement == IconPlacement.BOTTOM)
+                {
+                    // adjust gap if descent is larger
+                    h += Math.max(textDescent, layoutGap);
+                }
+                else
+                {
+                    adjustablePaddingBottom = Math.max(layoutPaddingBottom, textDescent);
+                    
+                    h += layoutGap;
+                }
+            }
         }
-
+        
+        h += layoutPaddingTop + adjustablePaddingBottom;
+        
         // minimums
         measuredWidth = w
         measuredHeight = h;
     }
-
+    
     /**
      *  @private
      */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        var labelWidth:Number = 0;
-        var labelHeight:Number = 0;
-
+        super.layoutContents(unscaledWidth, unscaledHeight);
+        
+        var hasLabel:Boolean = (hostComponent && hostComponent.label != "");
         var labelX:Number = 0;
         var labelY:Number = 0;
-
-        var iconWidth:Number = 0;
-        var iconHeight:Number = 0;
-
-        var iconX:Number = 0;
-        var iconY:Number = 0;
-
-        var horizontalGap:Number = 0;
-        var verticalGap:Number = 0;
-
-        var iconPlacement:String = getStyle("iconPlacement");
-
+        var labelWidth:Number = 0;
+        var labelHeight:Number = 0;
+        
         var textWidth:Number = 0;
         var textHeight:Number = 0;
         var textDescent:Number = 0;
-		var textLeading:Number = 0;
-		
+        
+        var iconPlacement:String = getStyle("iconPlacement");
+        var isHorizontal:Boolean = (iconPlacement == IconPlacement.LEFT || iconPlacement == IconPlacement.RIGHT);
+        
+        var iconX:Number = 0;
+        var iconY:Number = 0;
+        var unscaledIconWidth:Number = 0;
+        var unscaledIconHeight:Number = 0;
+        
+        // vertical gap grows when text descent > gap
+        var adjustableGap:Number = 0;
+        
+        // bottom constraint grows when text descent > layoutPaddingBottom
+        var adjustablePaddingBottom:Number = layoutPaddingBottom;
+        
         // reset text if it was truncated before.
         if (hostComponent && labelDisplay.isTruncated)
             labelDisplay.text = hostComponent.label;
-        labelDisplay.commitStyles();
-		
-		
-        if (hostComponent)
+        
+        if (hasLabel)
         {
-			var metrics:TextLineMetrics = labelDisplay.getLineMetrics(0);
+            var metrics:TextLineMetrics = labelDisplay.getLineMetrics(0);
             textWidth = getElementPreferredWidth(labelDisplay);
             textHeight = getElementPreferredHeight(labelDisplay);
             textDescent = metrics.descent;
-			textLeading = metrics.leading;
         }
-
-        var viewWidth:Number = unscaledWidth;
-        var viewHeight:Number = unscaledHeight;
-
+        
         var iconDisplay:DisplayObject = getIconDisplay();
+        
         if (iconDisplay)
         {
-            if (iconDisplay is ILayoutElement)
-            {
-                iconWidth = ILayoutElement(iconDisplay).getPreferredBoundsWidth();
-                iconHeight = ILayoutElement(iconDisplay).getPreferredBoundsHeight();
-            }
-            else
-            {
-                iconWidth = iconDisplay.width;
-                iconHeight = iconDisplay.height;
-            }
+            unscaledIconWidth = getElementPreferredWidth(iconDisplay);
+            unscaledIconHeight = getElementPreferredHeight(iconDisplay);
+            adjustableGap = (hasLabel) ? layoutGap : 0;
         }
-
-        if (iconPlacement == IconPlacement.LEFT ||
-            iconPlacement == IconPlacement.RIGHT)
+        
+        // compute padding bottom based on descent and text position
+        if (iconPlacement == IconPlacement.BOTTOM)
         {
-            horizontalGap = layoutGap;
-
-            if (iconWidth == 0 || textWidth == 0)
-                horizontalGap = 0;
-
-            if (textWidth > 0)
-            {
-                labelWidth =
-                    Math.max(Math.min(viewWidth - iconWidth - horizontalGap -
-                        layoutPaddingLeft - layoutPaddingRight, textWidth), 0);
-            }
+            // icon bottom constrained by padding
+            adjustablePaddingBottom = layoutPaddingBottom;
+        }
+        else if (iconPlacement == IconPlacement.TOP)
+        {
+            // adjust padding if descent is larger
+            adjustablePaddingBottom = Math.max(layoutPaddingBottom, textDescent);
+        }
+        
+        var viewWidth:Number = Math.max(unscaledWidth - layoutPaddingLeft - layoutPaddingRight, 0);
+        var viewHeight:Number = Math.max(unscaledHeight - layoutPaddingTop - adjustablePaddingBottom, 0);
+        
+        var iconViewWidth:Number = Math.min(unscaledIconWidth, viewWidth);
+        var iconViewHeight:Number = Math.min(unscaledIconHeight, viewHeight);
+        
+        // snap label to left and right bounds
+        labelWidth = viewWidth;
+        
+        // default label vertical positioning is ascent centered
+        labelHeight = Math.min(viewHeight, textHeight);
+        labelY = (viewHeight - labelHeight) / 2;
+        
+        if (isHorizontal)
+        {
+            // label width constrained by icon width
+            labelWidth = Math.max(Math.min(viewWidth - iconViewWidth - adjustableGap, textWidth), 0);
+            
+            if (useCenterAlignment)
+                labelX = (viewWidth - labelWidth - iconViewWidth - adjustableGap) / 2;
             else
-            {
-                labelWidth = 0;
-            }
-
-            // button viewHeight may be smaller than the labelDisplay textHeight
-            labelHeight = Math.min(viewHeight - (labelDisplay.measuredTextSize.y - textHeight), textHeight);
-            labelX += ((viewWidth - labelWidth - iconWidth -
-                horizontalGap - layoutPaddingLeft - layoutPaddingRight) / 2) + layoutPaddingLeft;
-
+                labelX = 0;
+            
             if (iconPlacement == IconPlacement.LEFT)
             {
-                labelX += iconWidth + horizontalGap;
-                iconX = labelX - (iconWidth + horizontalGap);
+                iconX = labelX;
+                labelX += iconViewWidth + adjustableGap;
             }
             else
             {
-                iconX  = labelX + labelWidth + horizontalGap;
+                iconX  = labelX + labelWidth + adjustableGap;
             }
-
-            iconY = ((viewHeight - iconHeight - layoutPaddingTop - layoutPaddingBottom) / 2) + layoutPaddingTop;
-
-			labelY = (viewHeight - labelHeight) / 2;
+            
+            iconY = (viewHeight - iconViewHeight) / 2;
         }
-        else
+        else if (iconViewHeight)
         {
-            verticalGap = layoutGap;
-
-            if (iconHeight == 0 || !hostComponent || hostComponent.label == "")
-                verticalGap = 0;
-
-            if (textWidth > 0)
+            // icon takes precedence over label
+            labelHeight = Math.min(Math.max(viewHeight - iconViewHeight - adjustableGap, 0), textHeight);
+            
+            // adjust gap for descent when text is above icon
+            if (hasLabel && (iconPlacement == IconPlacement.BOTTOM))
+                adjustableGap = Math.max(adjustableGap, textDescent);
+            
+            if (useCenterAlignment)
             {
-                // label width is constrained to left and right edges
-                labelWidth = Math.max(viewWidth - layoutPaddingLeft - layoutPaddingRight, 0);
-
-                // label height is constrained to available height after icon, padding and gap heights
-                labelHeight = Math.max(viewHeight - iconHeight - layoutPaddingTop - layoutPaddingBottom - verticalGap, 0);
-                labelHeight = Math.min(labelHeight, textHeight);
+                // labelWidth already set to viewWidth with textAlign=center
+                labelX = 0;
+                
+                // y-position for vertical center of both icon and label
+                labelY = (viewHeight - labelHeight - iconViewHeight - adjustableGap) / 2;
             }
             else
             {
-                labelWidth = 0;
-                labelHeight = 0;
+                // label horizontal center with textAlign=left
+                labelWidth = Math.min(textWidth, viewWidth);
+                labelX = (viewWidth - labelWidth) / 2;
             }
-
-            labelX = layoutPaddingLeft;
-            iconX += ((viewWidth - iconWidth - layoutPaddingLeft - layoutPaddingRight) / 2) + layoutPaddingLeft;
-
-			// If there's text, when positioning the icon on the top or the bottom the text should 
-			// be positioned according to its full height (including descent), not just the baseline
-			// if there's text
-			var alignmentLabelHeight:Number = labelHeight;
-			if (labelDisplay.text != "")
-				alignmentLabelHeight += textDescent;
-
-            if (iconPlacement == IconPlacement.BOTTOM)
+            
+            // horizontally center iconWidth
+            iconX = (viewWidth - iconViewWidth) / 2;
+            
+            var availableIconHeight:Number = viewHeight - labelHeight - adjustableGap;
+            
+            if (iconPlacement == IconPlacement.TOP)
             {
-                labelY += ((viewHeight - alignmentLabelHeight - iconHeight -
-                    layoutPaddingTop - layoutPaddingBottom - verticalGap) / 2) + layoutPaddingTop;
-                iconY += labelY + alignmentLabelHeight + verticalGap;
+                if (useCenterAlignment)
+                {
+                    iconY = labelY;
+                    labelY = iconY + adjustableGap + iconViewHeight;
+                }
+                else
+                {
+                    if (unscaledIconHeight >= availableIconHeight)
+                    {
+                        // constraint to top
+                        iconY = 0;
+                    }
+                    else
+                    {
+                        // center icon in available height (above label) including gap
+                        // remove padding top since we offset again later
+                        iconY = ((availableIconHeight + layoutPaddingTop + adjustableGap - unscaledIconHeight) / 2) - layoutPaddingTop;
+                    }
+                    
+                    labelY = viewHeight - labelHeight;
+                }
             }
-            else
+            else // IconPlacement.BOTTOM
             {
-                // label bottom is constrained by layoutPaddingBottom
-                labelY = viewHeight - layoutPaddingBottom - alignmentLabelHeight;
-
-                // icon is vertically centered in the space above the label
-                iconY = Math.max(((labelY - iconHeight - verticalGap) / 2), layoutPaddingTop);
+                if (useCenterAlignment)
+                {
+                    iconY = labelY + labelHeight + adjustableGap;
+                }
+                else
+                {
+                    if (unscaledIconHeight >= availableIconHeight)
+                    {
+                        // constraint to bottom
+                        iconY = viewHeight - iconViewHeight;
+                    }
+                    else
+                    {
+                        // center icon in available height (below label) including gap
+                        iconY = ((availableIconHeight + adjustablePaddingBottom + adjustableGap - unscaledIconHeight) / 2) + labelHeight;
+                    }
+                    
+                    labelY = 0;
+                }
             }
         }
-
-        labelX = Math.max(0, Math.round(labelX));
-		// text looks better a little high as opposed to low, so we use floor instead of round
-        labelY = Math.max(0, Math.floor(labelY)); 
-
-        labelDisplay.commitStyles();
+        
+        labelX = Math.max(0, Math.round(labelX)) + layoutPaddingLeft;
+        // text looks better a little high as opposed to low, so we use floor instead of round
+        labelY = Math.max(0, Math.floor(labelY)) + layoutPaddingTop;
+        
+        iconX = Math.max(0, Math.round(iconX)) + layoutPaddingLeft;
+        iconY = Math.max(0, Math.round(iconY)) + layoutPaddingTop;
+        
+        // FIXME (jasonsj): adjust labelHeight to clip descent
+        
         setElementSize(labelDisplay, labelWidth, labelHeight);
         setElementPosition(labelDisplay, labelX, labelY);
-
+        
         if (textWidth > labelWidth)
-        {
             labelDisplay.truncateToFit();
-        }
-
+        
         if (iconDisplay)
         {
-            setElementSize(iconDisplay, iconWidth, iconHeight);
-            setElementPosition(iconDisplay, Math.max(0, Math.round(iconX)), Math.max(0, Math.round(iconY)));
+            setElementSize(iconDisplay, iconViewWidth, iconViewHeight);
+            setElementPosition(iconDisplay, iconX, iconY);
         }
-
-        // draw chromeColor after parts have been positioned
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Class methods
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  Commit alpha values for the skin when in a disabled state.
      *
@@ -486,7 +535,7 @@ public class ButtonSkinBase extends MobileSkin
     {
         alpha = hostComponent.enabled ? 1 : 0.5;
     }
-
+    
     /**
      *  The current skin part that displays the icon.
      *  If the icon is a Class, then the iconDisplay is an instance of that class.
@@ -500,7 +549,7 @@ public class ButtonSkinBase extends MobileSkin
     {
         return iconHolder ? iconHolder : iconInstance as DisplayObject;
     }
-
+    
     /**
      *  Sets the current icon for the iconDisplay skin part.
      *  The iconDisplay skin part is created/set-up on demand.
@@ -513,7 +562,7 @@ public class ButtonSkinBase extends MobileSkin
         if (_icon == icon)
             return;
         _icon = icon;
-
+        
         // Clean-up the iconInstance
         if (iconInstance)
         {
@@ -523,12 +572,15 @@ public class ButtonSkinBase extends MobileSkin
                 this.removeChild(iconInstance as DisplayObject);
         }
         iconInstance = null;
-
+        
         // Set-up the iconHolder
         var needsHolder:Boolean = icon && !(icon is Class) && !(icon is DisplayObject);
         if (needsHolder && !iconHolder)
         {
+            // layoutContents() will set icon size no larger than it's unscaled size
+            // icon will only scale down when limited by button size
             iconHolder = new Group();
+            iconHolder.resizeMode = ResizeMode.SCALE;
             addChild(iconHolder);
         }
         else if (!needsHolder && iconHolder)
@@ -536,7 +588,7 @@ public class ButtonSkinBase extends MobileSkin
             this.removeChild(iconHolder);
             iconHolder = null;
         }
-
+        
         // Set-up the icon
         if (icon)
         {
@@ -552,22 +604,22 @@ public class ButtonSkinBase extends MobileSkin
                     iconInstance = new (Class(icon))();
                 else
                     iconInstance = icon;
-
+                
                 addChild(iconInstance as DisplayObject);
             }
         }
-
+        
         // explicitly invalidate, since addChild/removeChild don't invalidate for us
         invalidateSize();
         invalidateDisplayList();
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Event Handlers
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  @private
      */
@@ -576,6 +628,6 @@ public class ButtonSkinBase extends MobileSkin
         invalidateSize();
         invalidateDisplayList();
     }
-
+    
 }
 }
