@@ -450,6 +450,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     override public function updatePropertiesForView(view:View):void
     {
+        super.updatePropertiesForView(view);
+        
         if (view)
         {
             tabBar.visible = tabBar.includeInLayout = view.tabBarVisible;
