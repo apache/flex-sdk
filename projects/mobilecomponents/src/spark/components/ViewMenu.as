@@ -68,6 +68,13 @@ use namespace mx_internal;
  *  You can also use the <code>ViewNavigatorApplicationBase.viewMenuOpen</code> property
  *  to open the menu programmatically.
  *
+ *  <p>The following images shows a ViewMenu at the bottom of the screen 
+ *  with five menu items:</p>
+ *
+ * <p>
+ *  <img src="../../images/vm_open_menu_vm.png" alt="View menu" />
+ * </p>
+ *
  *  <p>The ViewMenuLayout class define the layout of the menu.
  *  Alternatively, you can create your own custom layout class.</p>
  *
