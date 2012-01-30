@@ -289,7 +289,7 @@ public class SetProperty extends OverrideBase implements IOverride
     public function remove(parent:UIComponent):void
     {   
         var obj:* = getOverrideContext(target, parent);
-        if (obj != null)
+        if (obj != null && applied)
         {
             var propName:String = (PSEUDONYMS[name] && (PSEUDONYMS[name] in target)) ?
 	                          PSEUDONYMS[name] :
