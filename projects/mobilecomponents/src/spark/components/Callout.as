@@ -28,6 +28,7 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.ResizeEvent;
 import mx.managers.SystemManager;
+import mx.styles.StyleProtoChain;
 import mx.utils.MatrixUtil;
 import mx.utils.PopUpUtil;
 
@@ -560,6 +561,15 @@ public class Callout extends SkinnablePopUpContainer
 
         // Position the arrow
         updateSkinDisplayList();
+    }
+    
+    /**
+     *  @private
+     *  Force callout inheritance chain to start at the style root.
+     */
+    override mx_internal function initProtoChain():void
+    {
+        StyleProtoChain.initProtoChain(this, false);
     }
 
     //--------------------------------------------------------------------------
