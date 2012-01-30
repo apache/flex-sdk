@@ -30,6 +30,7 @@ import mx.managers.LayoutManager;
 import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.NavigationStack;
+import spark.core.ContainerDestructionPolicy;
 import spark.components.supportClasses.ViewHistoryData;
 import spark.components.supportClasses.ViewNavigatorBase;
 import spark.effects.Animate;
@@ -382,57 +383,41 @@ public class ViewNavigator extends ViewNavigatorBase
     //  Properties
     // 
     //--------------------------------------------------------------------------
+
     //----------------------------------
     //  active
     //----------------------------------
     
     /**
      *  @private
+     *  Only gets called by TabbedViewNavigator.
      */ 
-    override public function set active(value:Boolean):void
+    override mx_internal function setActive(value:Boolean):void
     {
-        super.active = value;
+        if (value == active)
+            return;
         
-        if (navigationStack.length == 0)
+        super.setActive(value);
+        
+        if (value)
         {
-            if (firstView != null)
-            {
-                navigationStack.push(firstView, firstViewData);
-                viewChangeRequested = true;
-                invalidateProperties();
-            }
+            createTopView();
+            
+            // Need to force a validation on the actionBar
+            invalidateActionBarProperties();
         }
         else
         {
-            // If the navigator isn't initialized, this means the first validation
-            // pass hasn't been completed yet.  The top view will be added in the
-            // next validation pass and doesn't need to be done here.
-            if (initialized)
-            {
-                if (value)
-                {
-                    // FIXME (chiedozi): Need to keep track of current view in the case that stuff 
-                    // changes when navigator isnt active
-                    var view:View = navigationStack.topView.instance;
-                    if (!view)
-                    {
-                        view = createViewInstance(navigationStack.topView);
-                        view.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
-                    }
-                    
-                    view.active = true;
-                    
-                    if (hasEventListener(Event.COMPLETE))
-                        dispatchEvent(new Event(Event.COMPLETE));
-                }
-                else
-                {
-                    activeView.active = false;
-                    
-    //                if (destructionPolicy == "auto")
-    //                    destoryViewInstance(navigationStack.topView);           
-                }
+            if (activeView)
+            {                
+                if ((activeView.destructionPolicy != ContainerDestructionPolicy.NEVER && 
+                    destructionPolicy != ContainerDestructionPolicy.NEVER) ||
+                    !maintainNavigationStack)
+                    destoryViewInstance(navigationStack.topView);
             }
+            
+            if (!maintainNavigationStack)
+                navigationStack.popToFirstView();
         }
     }
     
@@ -549,6 +534,40 @@ public class ViewNavigator extends ViewNavigatorBase
     public function get length():int
     {
         return navigationStack.length;
+    }
+    
+    //----------------------------------
+    //  maintainNavigationStack
+    //----------------------------------
+    private var _maintainNavigationStack:Boolean = true;
+    
+    /**
+     *  This property indicates whether the navigation stack of the view
+     *  should remain intact when the navigator is deactivated by its
+     *  parent navigator.  If set to true, when reactivated the view history
+     *  will remain the same.  If false, the navigator will display the
+     *  first view in its navigation stack.
+     * 
+     *  @default true
+     *  
+     *  @see spark.components.TabbedViewNavigator
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get maintainNavigationStack():Boolean
+    {
+        return _maintainNavigationStack;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set maintainNavigationStack(value:Boolean):void
+    {
+        _maintainNavigationStack = value;
     }
     
     //----------------------------------
@@ -1259,6 +1278,8 @@ public class ViewNavigator extends ViewNavigatorBase
         titleInvalidated =
         titleContentInvalidated =
         titleLayoutInvalidated = true;
+        
+        invalidateProperties();
     }
     
     /**
@@ -1580,7 +1601,7 @@ public class ViewNavigator extends ViewNavigatorBase
             {
                 currentView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                                                 view_propertyChangeHandler);
-                currentView.active = true;
+                currentView.setActive(true);
             }
         }
         
@@ -1627,6 +1648,9 @@ public class ViewNavigator extends ViewNavigatorBase
                 dispatchEvent(new Event("viewChangeStart"));
         }
         
+        if (!active)
+            return;
+        
         // If a ui control is animating, force it to end
         if (actionBarVisibilityEffect)
             actionBarVisibilityEffect.end();
@@ -1668,27 +1692,31 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */ 
-    private function destoryViewInstance(viewData:ViewHistoryData):void
+    override mx_internal function createTopView():void
     {
-        var currentView:View = viewData.instance;
+        // Check if the top view already exists
+        if (activeView)
+            return;
         
-        removeElement(currentView);
+        invalidateActionBarProperties();
         
-        currentView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
-            view_propertyChangeHandler);
-        
-        // Grab the data from the old view and persist it
-        if (lastAction == ViewNavigatorAction.PUSH)
+        // If the navigation stack is empty, push on the firstView for the
+        // navigator.
+        if (navigationStack.length == 0)
         {
-            viewData.data = currentView.data;
-            viewData.persistedData = currentView.serializeData();
+            if (firstView != null)
+                navigationStack.push(firstView, firstViewData);
         }
         
-        // Check if we can delete the reference for the view instance
-        if (lastAction == ViewNavigatorAction.POP || currentView.destructionPolicy == "auto")
+        // Update the current view reference
+        currentViewData = navigationStack.topView;
+        
+        // Create the view if needed
+        var view:View = currentViewData.instance;
+        if (!view)
         {
-            currentView.navigator = null;
-            viewData.instance = null;
+            view = createViewInstance(currentViewData);
+            view.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
         }
     }
     
@@ -1733,6 +1761,37 @@ public class ViewNavigator extends ViewNavigatorBase
         addElement(view);
         
         return view;
+    }
+    
+    /**
+     *  @private
+     */ 
+    private function destoryViewInstance(viewData:ViewHistoryData):void
+    {
+        var currentView:View = viewData.instance;
+        
+        if (!currentView)
+            return;
+        
+        removeElement(currentView);
+        
+        currentView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+            view_propertyChangeHandler);
+        
+        // Grab the data from the old view and persist it
+        if (lastAction == ViewNavigatorAction.PUSH)
+        {
+            viewData.data = currentView.data;
+            viewData.persistedData = currentView.serializeData();
+        }
+        
+        // Check if we can delete the reference for the view instance
+        if (lastAction == ViewNavigatorAction.POP || 
+            currentView.destructionPolicy != ContainerDestructionPolicy.NEVER)
+        {
+            currentView.navigator = null;
+            viewData.instance = null;
+        }
     }
     
     /**
@@ -1784,7 +1843,7 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             // FIXME (chiedozi): Do we need to remove view from layout?
             currentView = currentViewData.instance;
-            currentView.active = false;
+            currentView.setActive(false);
             currentView.includeInLayout = false;
             
             // Need to validateNow() to make sure our old screen is currently 
