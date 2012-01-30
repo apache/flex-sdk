@@ -136,6 +136,7 @@ internal class FrameworkClasses
 	import mx.utils.DescribeTypeCache; DescribeTypeCache;
 	import mx.utils.DescribeTypeCacheRecord; DescribeTypeCacheRecord;
 	import mx.utils.DisplayUtil; DisplayUtil;
+    import mx.utils.GetTimerUtil; GetTimerUtil;
     import mx.utils.HSBColor; HSBColor;
     import mx.utils.LinkedList; LinkedList;
 	import mx.utils.LinkedListNode; LinkedListNode;
