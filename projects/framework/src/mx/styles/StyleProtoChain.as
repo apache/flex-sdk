@@ -753,7 +753,7 @@ public class StyleProtoChain
     {
         var qualified:Boolean = StyleManager.qualifiedTypeSelectors;
         var typeHierarchy:OrderedObject = getTypeHierarchy(object, qualified);
-        return typeHierarchy[cssType] != null;
+        return typeHierarchy.object_proxy::getObjectProperty(cssType) != null;
     }
 
     /**
@@ -836,7 +836,7 @@ public class StyleProtoChain
                     else
                         type = NameUtil.getUnqualifiedClassName(className);
 
-                    hierarchy[type] = true;
+                    hierarchy.object_proxy::setObjectProperty(type, true);
                     className = getQualifiedSuperclassName(
                         myApplicationDomain.getDefinition(className));
                 }
