@@ -120,7 +120,7 @@ public class DateFieldAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x2e;
+		role = 0x2e; // ROLE_SYSTEM_COMBOBOX
 	}
 
 	//--------------------------------------------------------------------------
