@@ -104,6 +104,11 @@ use namespace mx_internal;
  *  Dispatched when the application has finished initializing
  *
  *  @eventType mx.events.FlexEvent.APPLICATION_COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="applicationComplete", type="mx.events.FlexEvent")]
 
@@ -112,6 +117,11 @@ use namespace mx_internal;
  *  or mouse activity for 1 second.
  *
  *  @eventType mx.events.FlexEvent.IDLE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="idle", type="mx.events.FlexEvent")]
 
@@ -119,6 +129,11 @@ use namespace mx_internal;
  *  Dispatched when the Stage is resized.
  *
  *  @eventType flash.events.Event.RESIZE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="resize", type="flash.events.Event")]
 
@@ -168,6 +183,11 @@ use namespace mx_internal;
  *  It is responsible for creating an <code>mx.preloaders.Preloader</code> that displays and
  *  <code>mx.preloaders.DownloadProgressBar</code> while the application finishes loading,
  *  then creates the <code>mx.core.Application</code> instance.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SystemManager extends MovieClip
 						   implements IChildList, IFlexDisplayObject,
@@ -256,6 +276,11 @@ public class SystemManager extends MovieClip
 	 *  This class is set to be the root class of a Flex SWF file.
          *  Flash Player instantiates an instance of this class,
 	 *  causing this constructor to be called.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SystemManager()
 	{
@@ -393,12 +418,22 @@ public class SystemManager extends MovieClip
 
 	/**
 	 * cached value of the stage.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private var _stage:Stage;
 	
 	/**
 	 *  Depth of this object in the containment hierarchy.
 	 *  This number is used by the measurement and layout code.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	mx_internal var nestLevel:int = 0;
 
@@ -506,6 +541,11 @@ public class SystemManager extends MovieClip
 	 *  this should always be the width of the stage unless the application was loaded
 	 *  into another application.  If the application was not loaded
 	 *  into another application, setting this value has no effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function get height():Number
 	{
@@ -568,6 +608,11 @@ public class SystemManager extends MovieClip
 	 *  this should always be the width of the stage unless the application was loaded
 	 *  into another application.  If the application was not loaded
 	 *  into another application, setting this value will have no effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function get width():Number
 	{
@@ -588,6 +633,11 @@ public class SystemManager extends MovieClip
 	 *  The number of non-floating windows.  This is the main application window
 	 *  plus any other windows added to the SystemManager that are not popups,
 	 *  tooltips or cursors.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function get numChildren():int
 	{
@@ -613,6 +663,11 @@ public class SystemManager extends MovieClip
 	 *  <p>Note that this property is not typed as mx.core.Application
 	 *  because of load-time performance considerations
 	 *  but can be coerced into an mx.core.Application.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get application():IUIComponent
 	{
@@ -701,6 +756,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get cursorChildren():IChildList
 	{
@@ -757,6 +817,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get document():Object
 	{
@@ -784,6 +849,11 @@ public class SystemManager extends MovieClip
 	/**
 	 *  A table of embedded fonts in this application.  The 
 	 *  object is a table indexed by the font name.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get embeddedFontList():Object
 	{
@@ -831,6 +901,11 @@ public class SystemManager extends MovieClip
 	 *  this should always be NaN unless the application was loaded
 	 *  into another application.  If the application was not loaded
 	 *  into another application, setting this value has no effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get explicitHeight():Number
 	{
@@ -859,6 +934,11 @@ public class SystemManager extends MovieClip
 	 *  this should always be NaN unless the application was loaded
 	 *  into another application.  If the application was not loaded
 	 *  into another application, setting this value has no effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get explicitWidth():Number
 	{
@@ -884,6 +964,11 @@ public class SystemManager extends MovieClip
 
 	/**
      *  @copy mx.core.UIComponent#focusPane
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public function get focusPane():Sprite
 	{
@@ -934,6 +1019,11 @@ public class SystemManager extends MovieClip
 	 *  the main mx.core.Application window
 	 *  or the starting height of the SWF if the main window 
 	 *  has not yet been created or does not exist.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get measuredHeight():Number
 	{
@@ -951,6 +1041,11 @@ public class SystemManager extends MovieClip
 	 *  the main mx.core.Application window,
 	 *  or the starting width of the SWF if the main window 
 	 *  has not yet been created or does not exist.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get measuredWidth():Number
 	{
@@ -1020,6 +1115,11 @@ public class SystemManager extends MovieClip
 	 *  clicking in another windows which would normally
 	 *  activate the FocusManager in that window.  The PopUpManager
 	 *  modifies this count as it creates and destroys modal windows.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get numModalWindows():int
 	{
@@ -1040,6 +1140,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *	The background alpha used by the child of the preloader.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get preloaderBackgroundAlpha():Number
 	{
@@ -1052,6 +1157,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *	The background color used by the child of the preloader.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get preloaderBackgroundColor():uint
 	{
@@ -1068,6 +1178,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *	The background color used by the child of the preloader.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get preloaderBackgroundImage():Object
 	{
@@ -1080,6 +1195,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *	The background size used by the child of the preloader.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get preloaderBackgroundSize():String
 	{
@@ -1098,6 +1218,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get popUpChildren():IChildList
 	{
@@ -1126,6 +1251,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get rawChildren():IChildList
 	{
@@ -1183,6 +1313,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get screen():Rectangle
 	{
@@ -1208,6 +1343,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get toolTipChildren():IChildList
 	{
@@ -1261,6 +1401,11 @@ public class SystemManager extends MovieClip
 	 *  Returns the SystemManager responsible for the application window.  This will be
 	 *  the same SystemManager unless this application has been loaded into another
 	 *  application.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get topLevelSystemManager():ISystemManager
 	{
@@ -1304,6 +1449,11 @@ public class SystemManager extends MovieClip
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function get swfBridge():IEventDispatcher
     {
@@ -1315,6 +1465,11 @@ public class SystemManager extends MovieClip
     
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function get childAllowsParent():Boolean
     {
@@ -1332,6 +1487,11 @@ public class SystemManager extends MovieClip
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function get parentAllowsChild():Boolean
     {
@@ -1778,6 +1938,11 @@ public class SystemManager extends MovieClip
 	 *  called <code>parameters</code>. 
 	 *
 	 * @return An instance of the module, or <code>null</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function create(... params):Object
 	{
@@ -2189,6 +2354,11 @@ public class SystemManager extends MovieClip
 	 *
      *  @return A Number that is the <code>explicitWidth</code> if defined,
 	 *  or the <code>measuredWidth</code> property if not.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getExplicitOrMeasuredWidth():Number
     {
@@ -2201,6 +2371,11 @@ public class SystemManager extends MovieClip
 	 *
      *  @return A Number that is the <code>explicitHeight</code> if defined,
 	 *  or the <code>measuredHeight</code> property if not.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getExplicitOrMeasuredHeight():Number
     {
@@ -2215,6 +2390,11 @@ public class SystemManager extends MovieClip
 	 *  @param x The new x coordinate.
 	 *
 	 *  @param y The new y coordinate.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function move(x:Number, y:Number):void
 	{
@@ -2229,6 +2409,11 @@ public class SystemManager extends MovieClip
 	 *  @param newWidth The new width.
 	 *
 	 *  @param newHeight The new height.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function setActualSize(newWidth:Number, newHeight:Number):void
 	{
@@ -2341,6 +2526,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function activate(f:IFocusManagerContainer):void
 	{
@@ -2396,6 +2586,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function deactivate(f:IFocusManagerContainer):void
 	{
@@ -2566,6 +2761,11 @@ public class SystemManager extends MovieClip
 	 * Remote a remote form from the forms array.
 	 * 
 	 * form Locally created remote form.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function removeRemotePopUp(form:RemotePopUp):void
 					{
@@ -2643,6 +2843,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function addFocusManager(f:IFocusManagerContainer):void
 	{
@@ -2655,6 +2860,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function removeFocusManager(f:IFocusManagerContainer):void
 	{
@@ -2691,6 +2901,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function getDefinitionByName(name:String):Object
 	{
@@ -2719,6 +2934,11 @@ public class SystemManager extends MovieClip
 	 *  @param object Any Object. 
 	 * 
 	 *  @return The root DisplayObject
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function getSWFRoot(object:Object):DisplayObject
 	{
@@ -2743,6 +2963,11 @@ public class SystemManager extends MovieClip
 	
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function isTopLevel():Boolean
 	{
@@ -2751,6 +2976,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 * @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function isTopLevelRoot():Boolean
 	{
@@ -2765,6 +2995,11 @@ public class SystemManager extends MovieClip
 	 *
 	 *  @return <code>true</code> if the given DisplayObject is the 
 	 *  top-level window.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function isTopLevelWindow(object:DisplayObject):Boolean
 	{
@@ -2774,6 +3009,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public function isFontFaceEmbedded(textFormat:TextFormat):Boolean
     {
@@ -2944,6 +3184,11 @@ public class SystemManager extends MovieClip
 	    {
 		    addFrameScript(f, extraFrameHandler);
 		}
+		*  
+		*  @langversion 3.0
+		*  @playerversion Flash 9
+		*  @playerversion AIR 1.1
+		*  @productversion Flex 3
 		*/
 
 	    initialize();
@@ -3326,6 +3571,11 @@ public class SystemManager extends MovieClip
  	/**
 	 *  Override this function if you want to perform any logic
 	 *  when the application has finished initializing itself.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function appCreationCompleteHandler(event:FlexEvent):void
 	{
@@ -3830,6 +4080,11 @@ public class SystemManager extends MovieClip
 	 * Forward a form event update the parent chain. 
 	 * Takes care of removing object references and substituting
 	 * ids when an untrusted boundry is crossed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function forwardFormEvent(event:SWFBridgeEvent):Boolean
 	{
@@ -3869,6 +4124,11 @@ public class SystemManager extends MovieClip
 	 * @param request request to either add or remove a pop up placeholder.
 	 * @param addPlaceholder true if adding a placeholder, false it removing a placeholder.
 	 * @return true if the request was forwared, false otherwise
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function forwardPlaceholderRequest(request:SWFBridgeRequest, addPlaceholder:Boolean):Boolean
 	{
@@ -3919,6 +4179,11 @@ public class SystemManager extends MovieClip
 	 * One of the system managers in another sandbox deactivated and sent a message
 	 * to the top level system manager. In response the top-level system manager
 	 * needs to find a new form to activate.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function deactivateFormSandboxEventHandler(event:Event):void
 	{
@@ -3945,6 +4210,11 @@ public class SystemManager extends MovieClip
 	 * The form being activate is identified. 
 	 * In response the top-level system manager needs to activate the given form
 	 * and deactivate the currently active form, if any.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function activateFormSandboxEventHandler(event:Event):void
 	{
@@ -3960,6 +4230,11 @@ public class SystemManager extends MovieClip
 	 * One of the system managers in another sandbox activated and sent a message
 	 * to the top level system manager to deactivate this form. In response the top-level system manager
 	 * needs to deactivate all other forms except the top level system manager's.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function activateApplicationSandboxEventHandler(event:Event):void
 	{
@@ -4287,6 +4562,11 @@ public class SystemManager extends MovieClip
 	 * system manager?
 	 *
 	 * Set the data property to indicate if the display object is a child
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function isBridgeChildHandler(event:Event):void
 	{
@@ -4305,6 +4585,11 @@ public class SystemManager extends MovieClip
 	 * is visible and is enabled. 
 	 *
 	 * Set the data property to indicate if can be activated
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function canActivateHandler(event:Event):void
 	{
@@ -4431,6 +4716,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 * redispatch certian events to other top-level windows
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function multiWindowRedispatcher(event:Event):void
 	{
@@ -4442,6 +4732,11 @@ public class SystemManager extends MovieClip
 
 	/**
          * Create the requested manager.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function initManagerHandler(event:Event):void
 	{
@@ -4473,6 +4768,11 @@ public class SystemManager extends MovieClip
          *  names of ISystemManager and that is the list where the child is added.
          *  
          *  @param child The child to add.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function addChildToSandboxRoot(layer:String, child:DisplayObject):void
 	{
@@ -4499,6 +4799,11 @@ public class SystemManager extends MovieClip
          *  names of ISystemManager and that is the list where the child is removed from.
          *  
          *  @param child The child to remove.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function removeChildFromSandboxRoot(layer:String, child:DisplayObject):void
 	{
@@ -4520,6 +4825,11 @@ public class SystemManager extends MovieClip
 
 	/**
          * Perform the requested action from a trusted dispatcher.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function systemManagerHandler(event:Event):void
 	{
@@ -4616,6 +4926,11 @@ public class SystemManager extends MovieClip
 	 * 
 	 * The function assumes the caller does not have access to the stage.
 	 * 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function getSandboxScreen():Rectangle
 	{
@@ -4649,6 +4964,11 @@ public class SystemManager extends MovieClip
 	/**
 	 * The system manager proxy has only one child that is a focus manager container.
 	 * Iterate thru the children until we find it.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	mx_internal function findFocusManagerContainer(smp:SystemManagerProxy):IFocusManagerContainer
 	{
@@ -4813,6 +5133,11 @@ public class SystemManager extends MovieClip
 	 * a differnt sandbox. If the parent is in the same sandbox it is returned.
 	 * If the parent is in a diffent sandbox, then null is returned.
 	 * 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	override public function get parent():DisplayObjectContainer
 	{
@@ -4833,6 +5158,11 @@ public class SystemManager extends MovieClip
 	 * 
 	 *  @param bridge The bridge used to talk to the parent. 
 	 *  @param owner The display object that owns the bridge.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function addChildBridge(bridge:IEventDispatcher, owner:DisplayObject):void
 	{
@@ -4876,6 +5206,11 @@ public class SystemManager extends MovieClip
 	 * Remove a child bridge.
          *  
          *  @param bridge The target bridge to remove.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function removeChildBridge(bridge:IEventDispatcher):void
 	{
@@ -4892,6 +5227,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function useSWFBridge():Boolean
 	{
@@ -4949,6 +5289,11 @@ public class SystemManager extends MovieClip
          *  access to the top-level system manager.
          *  
          *  @return The root system manager.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function getTopLevelRoot():DisplayObject
 	{
@@ -4981,6 +5326,11 @@ public class SystemManager extends MovieClip
          *  SecurityDomain.
 	 * 
          *  @return The root system manager in this SecurityDomain.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function getSandboxRoot():DisplayObject
 	{
@@ -5038,6 +5388,11 @@ public class SystemManager extends MovieClip
 	
    /**
     *  @inheritDoc
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */  
     public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
     {
@@ -5071,6 +5426,11 @@ public class SystemManager extends MovieClip
  
    /**
     *  @inheritDoc
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */  
     public function deployMouseShields(deploy:Boolean):void
     {
@@ -5162,6 +5522,11 @@ public class SystemManager extends MovieClip
 	 * 
 	 * This method assumes the form variable has been set before calling
 	 * this function.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function updateLastActiveForm():void
 	{
@@ -5232,6 +5597,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, 
 						trackClones:Boolean = false, toOtherSystemManagers:Boolean = false):void
@@ -5283,6 +5653,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 * request the parent to add an event listener.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function addEventListenerToSandboxes(type:String, listener:Function, useCapture:Boolean = false, 
 				priority:int=0, useWeakReference:Boolean=false, skip:IEventDispatcher = null):void
@@ -5317,6 +5692,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 * request the parent to remove an event listener.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	private function removeEventListenerFromSandboxes(type:String, listener:Function, 
 	                                                  useCapture:Boolean = false,
@@ -5346,6 +5726,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 * request the parent to add an event listener.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function addEventListenerToOtherSystemManagers(type:String, listener:Function, useCapture:Boolean = false, 
 				priority:int=0, useWeakReference:Boolean=false):void
@@ -5368,6 +5753,11 @@ public class SystemManager extends MovieClip
 
 	/**
 	 * request the parent to remove an event listener.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	private function removeEventListenerFromOtherSystemManagers(type:String, listener:Function, 
 	                                                  useCapture:Boolean = false):void 
