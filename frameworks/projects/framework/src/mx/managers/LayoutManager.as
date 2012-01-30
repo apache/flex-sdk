@@ -652,7 +652,13 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
         while (obj)
         {
             // trace("LayoutManager calling validateSize() on " + Object(obj));
-
+            CONFIG::performanceInstrumentation
+            {
+                var objToken:int;
+                if (PerfUtil.detailedSampling)
+                    objToken = perfUtil.markStart();
+            }
+            
 			if (obj.nestLevel)
 			{
 				currentObject = obj;
@@ -663,7 +669,12 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 		            obj.updateCompletePendingFlag = true;
 		        }
 			}
-			
+
+            CONFIG::performanceInstrumentation
+            {
+                if (PerfUtil.detailedSampling)
+                    perfUtil.markEnd(".validateSize()", objToken, 2 /*tolerance*/, obj);
+            }
             // trace("LayoutManager validateSize: " + Object(obj) + " " + IFlexDisplayObject(obj).measuredWidth + " " + IFlexDisplayObject(obj).measuredHeight);
 
             obj = ILayoutManagerClient(invalidateSizeQueue.removeLargest());
@@ -712,7 +723,13 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
         while (obj)
         {
             // trace("LayoutManager calling validateDisplayList on " + Object(obj) + " " + DisplayObject(obj).width + " " + DisplayObject(obj).height);
-
+            CONFIG::performanceInstrumentation
+            {
+                var objToken:int;
+                if (PerfUtil.detailedSampling)
+                    objToken = perfUtil.markStart();
+            }
+            
 			if (obj.nestLevel)
 			{
 				currentObject = obj;
@@ -724,6 +741,12 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	            }
 			}
             // trace("LayoutManager return from validateDisplayList on " + Object(obj) + " " + DisplayObject(obj).width + " " + DisplayObject(obj).height);
+            
+            CONFIG::performanceInstrumentation
+            {
+                if (PerfUtil.detailedSampling)
+                    perfUtil.markEnd(".validateDisplayList()", objToken, 2 /*tolerance*/, obj);
+            }
 
             // Once we start, don't stop.
             obj = ILayoutManagerClient(invalidateDisplayListQueue.removeSmallest());
