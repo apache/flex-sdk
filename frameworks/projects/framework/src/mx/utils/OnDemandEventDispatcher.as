@@ -19,6 +19,11 @@ package mx.utils
 	 * to be infrequent.  When a class extends OnDemandEventDispatcher instead of the standard EventDispatcher,
 	 * it is trading off a small overhead on every single instance for a slightly larger overhead on only the instances
 	 * that actually have listeners attached to them.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public class OnDemandEventDispatcher implements IEventDispatcher
     {
@@ -36,6 +41,11 @@ package mx.utils
 
     /**
      *  @copy flash.events.EventDispatcher#addEventListener
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
         public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
         {
@@ -49,6 +59,11 @@ package mx.utils
             
     /**
      *  @copy flash.events.EventDispatcher#dispatchEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
         public function dispatchEvent(event:Event):Boolean
         {
@@ -59,6 +74,11 @@ package mx.utils
     
     /**
      *  @copy flash.events.EventDispatcher#hasEventListener
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
         public function hasEventListener(type:String):Boolean
         {
@@ -69,6 +89,11 @@ package mx.utils
             
     /**
      *  @copy flash.events.EventDispatcher#removeEventListener
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
         public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
         {
@@ -78,6 +103,11 @@ package mx.utils
     
     /**
      *  @copy flash.events.EventDispatcher#willTrigger
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
         public function willTrigger(type:String):Boolean
         {
