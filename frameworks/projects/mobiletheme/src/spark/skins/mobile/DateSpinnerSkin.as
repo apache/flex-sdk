@@ -25,7 +25,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  *  
  */
 public class DateSpinnerSkin extends MobileSkin
@@ -40,7 +40,7 @@ public class DateSpinnerSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function DateSpinnerSkin()
     {
@@ -58,7 +58,7 @@ public class DateSpinnerSkin extends MobileSkin
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var dateItemList:IFactory;
     
@@ -67,7 +67,7 @@ public class DateSpinnerSkin extends MobileSkin
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var listContainer:IVisualElementContainer;
     
