@@ -33,8 +33,8 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  This skin state is triggered when the aspectRatio of the main 
- *  application is changed to portrait.
+ *  The skin state when the <code>aspectRatio</code> of the main 
+ *  application is portrait.
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
@@ -43,8 +43,8 @@ use namespace mx_internal;
 [SkinState("portrait")]
 
 /**
- *  The state is triggered when the aspectRatio of the main
- *  application is changed to landscape.
+ *  The skin state when the <code>aspectRatio</code> of the main
+ *  application is landscape.
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
@@ -59,37 +59,56 @@ use namespace mx_internal;
 [IconFile("SplitViewNavigator.png")]
 
 /**
- *  SplitViewNavigator is a component responsible for displaying multiple
- *  ViewNavigators at the same time in a single container.  SplitViewNavigator
- *  takes ViewnNavigatorBase objects as children and lays them out as
- *  defined by its <code>layout</code> property.  This component is useful for 
- *  creating a master/detail interface on a mobile device. There is no limit to
- *  the amount of child navigators this component can manage. 
+ *  The SplitViewNavigator container displays multiple
+ *  ViewNavigator or TabbedViewNavigator components at the same time in a single container.  
+ *  Each child of the SplitViewNavigator defines one pane of the screen.
+ *  Because its children are view navigators, the view navigator for each 
+ *  pane contains its own view stack and action bar.
+ *
+ *  <p>SplitViewNavigator takes ViewnNavigatorBase objects as children, and lays them out as
+ *  defined by its <code>layout</code> property.  
+ *  This component is useful for creating a master/detail interface on a mobile device. 
+ *  There is no limit to the amount of child navigators this component can manage. </p>
+ *
+ *  <p><b>Note:</b> Because of the screen space required to display multiple panes 
+ *  simultaneously, Adobe recommends that you only use the SplitViewNavigator on a tablet.</p>
  * 
  *  <p>If the <code>autoHideFirstViewNavigator</code> property is set to
- *  <code>true</code>, the SplitViewNavigator will automatically hide the
+ *  <code>true</code>, the SplitViewNavigator automatically hides the
  *  navigator that is at index 0 when the top level application has a
- *  portrait aspect ratio.  The navigator will be redisplayed when the
- *  application is reoriented into a landsacpe orientation.  A developer
- *  can manually hide and show a navigator by toggling the <code>visble</code>
+ *  portrait aspect ratio.  
+ *  The navigator reappears when the application is reoriented to a landsacpe aspect ratio.  
+ *  You can manually hide and show a navigator by toggling the <code>visble</code>
  *  flag on the child.  When set, the <code>includeInLayout</code> property
  *  of that child will be set to match.</p>
  *    
- *  <p>SplitViewNavigator adds the additional functionalilty of temporarily 
- *  displaying the first navigator inside a Callout component.  When the
- *  <code>showFirstViewNavigatorInCallout()</code> method is called, the
+ *  <p>SplitViewNavigator lets you  display the first navigator in a Callout component.  
+ *  When you call the <code>showFirstViewNavigatorInCallout()</code> method, the
  *  first navigator is displayed in a callout until the
  *  <code>hideViewNavigatorCallout()</code> method is called, or the user
- *  touches outside the bounds of the callout.  It is important to note that
- *  when a navigator is displayed in a callout, it is reparented as a child of
- *  that container.  This means using IVisualElementContainer methods such as
+ *  touches outside the bounds of the callout.  
+ *  It is important to note that when a navigator is displayed in a callout, 
+ *  it is reparented as a child of that container.  
+ *  This means that using IVisualElementContainer methods such as
  *  <code>getElementAt()</code> on SplitViewNavigator may not return the 
- *  expected results.  If a developer wants to access the first or second 
- *  navigator, it is recommended that they use the <code>getViewNavigatorAt()</code> 
- *  method.  These will always return the correct navigator regardless of whether 
+ *  expected results.  
+ *  If you want to access the first or second  navigator, Adobe recommends 
+ *  that you use the <code>getViewNavigatorAt()</code>  method.  
+ *  This method always returns the correct navigator regardless of whether 
  *  a navigator is in a callout or not.</p>
+ *
+ *  @mxml <p>The <code>&lt;s:SplitViewNavigator&gt;</code> tag inherits all of the tag
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:SplitViewNavigator
+ *    <strong>Properties</strong>
+ *    autoHideFirstViewNavigator="false"
+ *  /&gt;
+ *  </pre>
  *  
- *  @see spark.components.ViewNavigatorBase
+ *  @see spark.skins.mobile.SplitViewNavigatorSkin
+ *  @see spark.components.supportClasses.ViewNavigatorBase
  *  @see spark.components.ViewNavigator
  *  @see spark.components.TabbedViewNavigator
  *  @see spark.components.Application#aspectRatio
@@ -97,7 +116,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class SplitViewNavigator extends ViewNavigatorBase
 {
@@ -112,7 +131,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function SplitViewNavigator()
     {
@@ -128,9 +147,13 @@ public class SplitViewNavigator extends ViewNavigatorBase
     [SkinPart(required="false")]
     /**
      *  The Callout used to display a navigator when 
-     *  <code>showFirstViewNavigatorInCallout()</code> is called.  When creating
-     *  a custom MXML skin, this component should not be on the display list, but
-     *  instead declared inside a <code>fx:Declarations</code> tag. 
+     *  <code>showFirstViewNavigatorInCallout()</code> is called.  
+     *  When creating a custom MXML skin, this component should not be on the display list, 
+     *  but instead declared inside a <code>fx:Declarations</code> tag. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
      */
     public var viewNavigatorCallout:Callout;
     
@@ -140,13 +163,13 @@ public class SplitViewNavigator extends ViewNavigatorBase
     // 
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
+    /**
+     *  @private
      *  Tracks what the last aspectRatio of the application was to determine
      *  whether the component should hide or show the first navigator when
      *  <code>autoHideFirstNavigator is set to true</code>.
-	 */
-	private var lastAspectRatio:String;
+     */
+    private var lastAspectRatio:String;
     
     /**
      *  @private
@@ -166,41 +189,43 @@ public class SplitViewNavigator extends ViewNavigatorBase
     // Properties
     // 
     //--------------------------------------------------------------------------
-	
+    
     //----------------------------------
     //  autoHideFirstViewNavigator
     //----------------------------------
     
     private var _autoHideFirstViewNavigator:Boolean = false;
     
-	[Inspectable(category="General", defaultValue="false")]
+    [Inspectable(category="General", defaultValue="false")]
     /**
-     *  This flag indicates whether the visibility of the first view navigator should 
-	 *  automatically be toggled when the device receives an orientation change event.  
-	 *  When true, the first navigator is hidden as the device enters the portrait 
-	 *  orientation, and shown when entering a landscape orientation.
+     *  Specifies whether the visibility of the first view navigator should 
+     *  automatically be toggled when the device receives an orientation change event.  
+     *  When <code>true</code>, the first navigator is hidden as the device enters the portrait 
+     *  orientation, and shown when entering a landscape orientation.
      * 
-     *  <p>If this flag is set to true while the application is in a portrait
+     *  <p>If this flag is set to <code>true</code> while the application is in a portrait
      *  orientation, the navigator is not hidden until the next orientation
      *  resize event.</p>
+     *
+     *  @default false
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get autoHideFirstViewNavigator():Boolean
     {
         return _autoHideFirstViewNavigator;
     }
-	
+    
     /**
      *  @private
      */ 
     public function set autoHideFirstViewNavigator(value:Boolean):void
     {
-		if (_autoHideFirstViewNavigator == value)
-			return;
-		
+        if (_autoHideFirstViewNavigator == value)
+            return;
+        
         _autoHideFirstViewNavigator = value;
     }
 
@@ -250,11 +275,11 @@ public class SplitViewNavigator extends ViewNavigatorBase
     //  numViewNavigators
     //----------------------------------
     /**
-     *  The number of navigators managed by this container
+     *  The number of navigators managed by this container.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function get numViewNavigators():int
     {
@@ -268,21 +293,22 @@ public class SplitViewNavigator extends ViewNavigatorBase
     //--------------------------------------------------------------------------
     
     /**
-     *  This method returns a specific child navigator independent of the container's
-     *  child display hierarchy.  Since a child navigator is not parented by this
+     *  Returns a specific child navigator independent of the container's
+     *  child display hierarchy.  
+     *  Since a child navigator is not parented by this
      *  container when visible inside a callout, this method should be used instead of 
      *  <code>getElementAt()</code>.
      * 
-     *  <p>When a callout is open, the navigator at index 0 will refer to the
+     *  <p>When a callout is open, the navigator at index 0 refers to the
      *  navigator in the callout.</p> 
      * 
-     *  @param index Index of the navigator to retrieve
+     *  @param index Index of the navigator to retrieve.
      * 
-     *  @return The navigator at the specified index, null if one does not exist
+     *  @return The navigator at the specified index, null if one does not exist.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function getViewNavigatorAt(index:int):ViewNavigatorBase
     {
@@ -304,24 +330,24 @@ public class SplitViewNavigator extends ViewNavigatorBase
     }
     
     /**
-     *  Displays the child navigator at index 0 inside a callout.  The navigator
-     *  is reparented as a child of the callout.
+     *  Displays the child navigator at index 0 inside a callout.  
+     *  The navigator is reparented as a child of the callout.
      * 
      *  <p>Since the navigator is reparented, using <code>getElementAt(0)</code> 
-     *  will not return the first navigator, but will return the second one.  
-     *  It is recommended that developers use the <code>getViewNavigatorAt()</code>
+     *  does not return the first navigator, but returns the second.  
+     *  Adobe recommends that you use the <code>getViewNavigatorAt()</code>
      *  method to access the navigators.</p>
      * 
      *  <p>The callout height is fixed by the component but can be changed by
-     *  reskinning or by manually setting the height property on the 
+     *  reskinning or by manually setting the <code>height</code> property on the 
      *  <code>viewNavigatorCallout</code> skinPart.</p>
      * 
-     *  <p>If the callout is already open or the callout skinpart does not exist, 
-     *  this method will do nothing.</p>
+     *  <p>If the callout is already open or the callout skin part does not exist, 
+     *  this method does nothing.</p>
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function showFirstViewNavigatorInCallout(owner:DisplayObjectContainer):void
     {
@@ -330,38 +356,38 @@ public class SplitViewNavigator extends ViewNavigatorBase
 
     /**
      *  Hides the navigator callout if its open.  The navigator that was
-     *  displayed in the callout will be reparented as a child of this
+     *  displayed in the callout is reparented as a child of this
      *  SplitViewNavigator.
      * 
      *  <p>This method is automatically called if the user touches outside 
      *  of the callout when it is visible.  The navigator inside the callout
-     *  will be invisible after the callout is closed.</p>
+     *  is hidden after the callout closes.</p>
      * 
-     *  <p>After closing the callout, the navigator that was shown will remain
+     *  <p>After closing the callout, the navigator that was shown remains
      *  invisible unless <code>autoHideFirstViewNavigator</code> is <code>true</code>
-     *  and the device orientation is landscape.  In all other cases, the
-     *  visibility of the first navigator will need to be set to <code>true</code>
-     *  to make it visible again.</p>
+     *  and the device orientation is landscape.  
+     *  In all other cases, the visibility of the first navigator needs to be set 
+     *  to <code>true</code> to make it visible again.</p>
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function hideViewNavigatorCallout():void
     {
-		if (!viewNavigatorCallout|| !viewNavigatorCallout.isOpen)
-			return;
-		
+        if (!viewNavigatorCallout|| !viewNavigatorCallout.isOpen)
+            return;
+        
         viewNavigatorCallout.addEventListener(PopUpEvent.CLOSE, navigatorCallout_closeHandler);
-		viewNavigatorCallout.close(true);
-		viewNavigatorCallout.removeEventListener('mouseDownOutside', navigatorCallout_mouseDownOutsideHandler);
+        viewNavigatorCallout.close(true);
+        viewNavigatorCallout.removeEventListener('mouseDownOutside', navigatorCallout_mouseDownOutsideHandler);
     }
     
-	//--------------------------------------------------------------------------
-	//
-	//  Private Methods
-	// 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Private Methods
+    // 
+    //--------------------------------------------------------------------------
     
     /**
      *  @private
@@ -448,24 +474,24 @@ public class SplitViewNavigator extends ViewNavigatorBase
         }
     }
     
-	/**
-	 *  @private
-	 */
-	mx_internal function application_resizeHandler(event:ResizeEvent):void
-	{
-		if (numViewNavigators == 0)
-			return;
-		
-		var aspectRatio:String = FlexGlobals.topLevelApplication.aspectRatio;
-		
-		// Only do the logic below if the aspectRatio has changed
-		if (lastAspectRatio == aspectRatio)
-			return;
-		
-		lastAspectRatio = aspectRatio;
-		
-		if (autoHideFirstViewNavigator)
-		{
+    /**
+     *  @private
+     */
+    mx_internal function application_resizeHandler(event:ResizeEvent):void
+    {
+        if (numViewNavigators == 0)
+            return;
+        
+        var aspectRatio:String = FlexGlobals.topLevelApplication.aspectRatio;
+        
+        // Only do the logic below if the aspectRatio has changed
+        if (lastAspectRatio == aspectRatio)
+            return;
+        
+        lastAspectRatio = aspectRatio;
+        
+        if (autoHideFirstViewNavigator)
+        {
             // The navigator in the callout needs to be immediately reparented
             // when the orientation changes since we don't provide orientation
             // effects.  Because of this, we don't want to see any close
@@ -482,12 +508,12 @@ public class SplitViewNavigator extends ViewNavigatorBase
             {
                 toggleFirstNavigatorVisibility();
             }
-		}
+        }
         
         // The navigator callout is always hidden if the orientation changes 
         hideViewNavigatorCallout();
-	}
-	
+    }
+    
     /**
      *  @private
      */
@@ -509,54 +535,54 @@ public class SplitViewNavigator extends ViewNavigatorBase
         }
     }
     
-	/**
-	 *  @private
-	 */
-	private function navigatorCallout_mouseDownOutsideHandler(event:Event):void
-	{
-		hideViewNavigatorCallout();
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function setupNavigator(navigator:ViewNavigatorBase):void
-	{
-		navigator.setParentNavigator(this);
-		
-		// Add weak listeners for hide and show events on the navigator.  When
-		// a navigator is hidden, its container is removed from layout.
-		navigator.addEventListener(FlexEvent.HIDE, navigator_visibilityChangedHandler, false, EventPriority.DEFAULT, true);
-		navigator.addEventListener(FlexEvent.SHOW, navigator_visibilityChangedHandler, false, EventPriority.DEFAULT, true);
+    /**
+     *  @private
+     */
+    private function navigatorCallout_mouseDownOutsideHandler(event:Event):void
+    {
+        hideViewNavigatorCallout();
+    }
+    
+    /**
+     *  @private
+     */
+    private function setupNavigator(navigator:ViewNavigatorBase):void
+    {
+        navigator.setParentNavigator(this);
+        
+        // Add weak listeners for hide and show events on the navigator.  When
+        // a navigator is hidden, its container is removed from layout.
+        navigator.addEventListener(FlexEvent.HIDE, navigator_visibilityChangedHandler, false, EventPriority.DEFAULT, true);
+        navigator.addEventListener(FlexEvent.SHOW, navigator_visibilityChangedHandler, false, EventPriority.DEFAULT, true);
         
         // Remove the navigator from layout if it isn't visible
         if (navigator.visible == false)
             navigator.includeInLayout = false;
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function cleanUpNavigator(navigator:ViewNavigatorBase):void
-	{
-		navigator.setParentNavigator(null);
-		navigator.removeEventListener(FlexEvent.HIDE, navigator_visibilityChangedHandler);
-		navigator.removeEventListener(FlexEvent.SHOW, navigator_visibilityChangedHandler);
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function navigator_visibilityChangedHandler(event:FlexEvent):void
-	{
-		var navigator:ViewNavigatorBase = event.target as ViewNavigatorBase;
-	
+    }
+    
+    /**
+     *  @private
+     */
+    private function cleanUpNavigator(navigator:ViewNavigatorBase):void
+    {
+        navigator.setParentNavigator(null);
+        navigator.removeEventListener(FlexEvent.HIDE, navigator_visibilityChangedHandler);
+        navigator.removeEventListener(FlexEvent.SHOW, navigator_visibilityChangedHandler);
+    }
+    
+    /**
+     *  @private
+     */
+    private function navigator_visibilityChangedHandler(event:FlexEvent):void
+    {
+        var navigator:ViewNavigatorBase = event.target as ViewNavigatorBase;
+    
         if (event.type == FlexEvent.HIDE && navigator == _calloutNavigator)
             hideViewNavigatorCallout();
 
         navigator.includeInLayout = navigator.visible;
-	}
-	
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overriden Methods: ViewNavigatorBase
@@ -568,7 +594,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     override public function loadViewData(value:Object):void
     {
@@ -595,7 +621,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     override public function saveViewData():Object
     {
@@ -615,7 +641,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
     //  Overridden Methods: UIComponent
     // 
     //--------------------------------------------------------------------------
-	
+    
     /**
      *  @private
      */ 
