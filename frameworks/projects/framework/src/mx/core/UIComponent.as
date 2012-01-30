@@ -9523,6 +9523,9 @@ public class UIComponent extends FlexSprite
     protected function createInFontContext(classObj:Class):Object
     {
         hasFontContextBeenSaved = true;
+        
+        classObj = getStyle("textFieldClass");
+        	        
         var fontName:String = StringUtil.trimArrayElements(getStyle("fontFamily"), ",");
         var fontWeight:String = getStyle("fontWeight");
         var fontStyle:String = getStyle("fontStyle");
