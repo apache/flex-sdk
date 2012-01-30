@@ -12,20 +12,16 @@
 package mx.flash
 {
 
-import flash.display.BitmapData;
-import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.FocusEvent;
-import flash.geom.ColorTransform;
-import flash.geom.Point;
 import flash.geom.Rectangle;
 
+import mx.core.ILayoutDirectionElement;
 import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
-import mx.managers.ILayoutManagerClient;
 
 use namespace mx_internal;
 
@@ -353,6 +349,28 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
     override protected function focusInHandler(event:FocusEvent):void
     {
         // No-op. Flex focus management does all the work.
+    }
+    
+    
+    /**
+     * @private
+     * This is only called if the parent's layoutDirection has changed. 
+     */
+    override public function invalidateLayoutDirection():void
+    {
+        super.invalidateLayoutDirection();
+                
+        // Since this component is not a StyleClient it can't take advantage
+        // of the styleChanged() machinery to notify its children that its
+        // layoutDirection has changed.
+
+        const thisLayoutDirection:String = layoutDirection;
+        const thisContainerNumElements:int = numElements;
+        for (var i:int = 0; i < thisContainerNumElements; i++)
+        {
+            const elt:IVisualElement = getElementAt(i);
+            ILayoutDirectionElement(elt).layoutDirection = thisLayoutDirection;
+        }
     }
     
     //--------------------------------------------------------------------------
