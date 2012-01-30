@@ -27,10 +27,12 @@ import mx.utils.ColorUtil;
 
 import spark.components.ArrowDirection;
 import spark.components.Callout;
+import spark.components.CalloutContentBackgroundAppearance;
 import spark.components.Group;
 import spark.core.SpriteVisualElement;
 import spark.effects.Fade;
 import spark.primitives.RectangularDropShadow;
+import spark.skins.mobile.supportClasses.CalloutArrow;
 import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.CalloutContentBackground;
 import spark.skins.mobile240.assets.CalloutContentBackground;
@@ -90,7 +92,7 @@ public class CalloutSkin extends MobileSkin
             case DPIClassification.DPI_320:
             {
                 backgroundCornerRadius = 16;
-                contentBackgroundClass = spark.skins.mobile320.assets.CalloutContentBackground;
+                contentBackgroundInsetClass = spark.skins.mobile320.assets.CalloutContentBackground;
                 backgroundGradientHeight = 220;
                 frameThickness = 16;
                 arrowWidth = 104;
@@ -106,7 +108,7 @@ public class CalloutSkin extends MobileSkin
             case DPIClassification.DPI_240:
             {
                 backgroundCornerRadius = 12;
-                contentBackgroundClass = spark.skins.mobile240.assets.CalloutContentBackground;
+                contentBackgroundInsetClass = spark.skins.mobile240.assets.CalloutContentBackground;
                 backgroundGradientHeight = 165;
                 frameThickness = 12;
                 arrowWidth = 78;
@@ -123,7 +125,7 @@ public class CalloutSkin extends MobileSkin
             {
                 // default DPI_160
                 backgroundCornerRadius = 8;
-                contentBackgroundClass = spark.skins.mobile160.assets.CalloutContentBackground;
+                contentBackgroundInsetClass = spark.skins.mobile160.assets.CalloutContentBackground;
                 backgroundGradientHeight = 110;
                 frameThickness = 8;
                 arrowWidth = 52;
@@ -149,16 +151,6 @@ public class CalloutSkin extends MobileSkin
      *  @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
     public var hostComponent:Callout;
-    
-    /**
-     *  Enables a mask to clip the contentGroup. The mask is a rounded-rectangle
-     *  that uses the <code>contentCornerRadius</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
-     */
-    protected var useContentMask:Boolean = true;
     
     /**
      *  Enables a RectangularDropShadow behind the <code>backgroundColor</code> frame.
@@ -200,11 +192,10 @@ public class CalloutSkin extends MobileSkin
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
-    protected var contentBackgroundClass:Class;
+    protected var contentBackgroundInsetClass:Class;
     
     /**
-     *  Corner radius of the <code>backgroundColor</code> "frame". Also controls the inset
-     *  of the <code>contentGroup</code>.
+     *  Corner radius of the <code>backgroundColor</code> "frame".
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -342,37 +333,20 @@ public class CalloutSkin extends MobileSkin
         addChild(backgroundFill);
         
         // arrow
-        var arrowComponent:Arrow = new Arrow(this);
-        arrowComponent.useBackgroundGradient = useBackgroundGradient;
-        arrowComponent.padding = backgroundCornerRadius;
-        arrowComponent.highlightWeight = highlightWeight;
-        arrowComponent.backgroundGradientHeight = backgroundGradientHeight;
-        arrowComponent.borderColor = borderColor;
-        arrowComponent.borderThickness = borderThickness;
-        
-        arrow = arrowComponent;
-        arrow.id = "arrow";
-        addChild(arrow);
-        
-        // contentGroup
-        contentGroup = new Group();
-        contentGroup.id = "contentGroup";
-        addChild(contentGroup);
-        
-        // contentBackgroundGraphic
-        if (contentBackgroundClass)
+        if (!arrow)
         {
-            contentBackgroundGraphic = new contentBackgroundClass() as SpriteVisualElement;
-            
-            if (contentBackgroundGraphic)
-                addChild(contentBackgroundGraphic);
+            arrow = new CalloutArrow();
+            arrow.id = "arrow";
+            arrow.styleName = this;
+            addChild(arrow);
         }
         
-        // contentMask
-        if (useContentMask)
+        // contentGroup
+        if (!contentGroup)
         {
-            contentMask = new SpriteVisualElement();
-            contentGroup.mask = contentMask;
+            contentGroup = new Group();
+            contentGroup.id = "contentGroup";
+            addChild(contentGroup);
         }
     }
     
@@ -546,36 +520,73 @@ public class CalloutSkin extends MobileSkin
             frameHeight, frameEllipseSize, frameEllipseSize);
         bgFill.endFill();
         
-        // draw the contentBackgroundColor
-        // the shading and highlight are drawn in FXG
-        var contentEllipseSize:Number = contentCornerRadius * 2;
-        var contentBackgroundAlpha:Number = getStyle("contentBackgroundAlpha");
-        var contentWidth:Number = contentGroup.getLayoutBoundsWidth();
-        var contentHeight:Number = contentGroup.getLayoutBoundsHeight();
+        var contentBackgroundAppearance:String = getStyle("contentBackgroundAppearance");
         
-        if (showBorder)
-            bgFill.lineStyle(NaN);
-        
-        bgFill.beginFill(getStyle("contentBackgroundColor"),
-            contentBackgroundAlpha);
-        bgFill.drawRoundRect(contentGroup.getLayoutBoundsX(),
-            contentGroup.getLayoutBoundsY(),
-            contentWidth, contentHeight, contentEllipseSize, contentEllipseSize);
-        bgFill.endFill();
-        
-        // content mask in contentGroup coordinate space
-        if (contentMask)
+        // draw content background styles
+        if (contentBackgroundAppearance != CalloutContentBackgroundAppearance.NONE)
         {
+            var contentEllipseSize:Number = contentCornerRadius * 2;
+            var contentBackgroundAlpha:Number = getStyle("contentBackgroundAlpha");
+            var contentWidth:Number = contentGroup.getLayoutBoundsWidth();
+            var contentHeight:Number = contentGroup.getLayoutBoundsHeight();
+            
+            // all appearance values except for "none" use a mask
+            if (!contentMask)
+                contentMask = new SpriteVisualElement();
+            
+            contentGroup.mask = contentMask;
+            
+            // draw contentMask in contentGroup coordinate space
             var maskGraphics:Graphics = contentMask.graphics;
             maskGraphics.clear();
             maskGraphics.beginFill(0, 1);
             maskGraphics.drawRoundRect(0, 0, contentWidth, contentHeight,
                 contentEllipseSize, contentEllipseSize);
             maskGraphics.endFill();
+            
+            // add or remove the contentBackgroundGraphic
+            if (contentBackgroundAppearance == CalloutContentBackgroundAppearance.INSET)
+            {
+                // create the contentBackgroundGraphic
+                if (contentBackgroundInsetClass && !contentBackgroundGraphic)
+                    contentBackgroundGraphic = new contentBackgroundInsetClass() as SpriteVisualElement;
+                
+                if (contentBackgroundGraphic)
+                {
+                    addChild(contentBackgroundGraphic);
+                    contentBackgroundGraphic.alpha = contentBackgroundAlpha;
+                }
+            }
+            
+            // reset line style to none
+            if (showBorder)
+                bgFill.lineStyle(NaN);
+            
+            // draw the contentBackgroundColor
+            bgFill.beginFill(getStyle("contentBackgroundColor"),
+                contentBackgroundAlpha);
+            bgFill.drawRoundRect(contentGroup.getLayoutBoundsX(),
+                contentGroup.getLayoutBoundsY(),
+                contentWidth, contentHeight, contentEllipseSize, contentEllipseSize);
+            bgFill.endFill();
+        }
+        else // if (contentBackgroundAppearance == CalloutContentBackgroundAppearance.NONE))
+        {
+            // remove the mask
+            if (contentMask)
+            {
+                contentGroup.mask = null;
+                contentMask = null;
+            }
         }
         
-        if (contentBackgroundGraphic)
-            contentBackgroundGraphic.alpha = contentBackgroundAlpha;
+        // if already created, remove the graphic for "flat" and "none"
+        if (contentBackgroundGraphic &&
+            (contentBackgroundAppearance != CalloutContentBackgroundAppearance.INSET))
+        {
+            removeChild(contentBackgroundGraphic);
+            contentBackgroundGraphic = null;
+        }
         
         // draw highlight in the callout when the arrow is hidden
         if (useBackgroundGradient && !isArrowHorizontal && !isArrowVertical)
@@ -704,258 +715,4 @@ public class CalloutSkin extends MobileSkin
         dispatchEvent(new FlexEvent(FlexEvent.STATE_CHANGE_COMPLETE));
     }
 }
-}
-import flash.display.GradientType;
-import flash.display.GraphicsPathCommand;
-
-import mx.core.UIComponent;
-import mx.core.mx_internal;
-import mx.utils.ColorUtil;
-
-import spark.components.ArrowDirection;
-import spark.skins.mobile.CalloutSkin;
-import spark.skins.mobile.supportClasses.MobileSkin;
-
-use namespace mx_internal;
-
-class Arrow extends UIComponent
-{
-    public function Arrow(calloutSkin:CalloutSkin)
-    {
-        super();
-        
-        _calloutSkin = calloutSkin;
-    }
-    
-    private var _calloutSkin:CalloutSkin;
-    
-    mx_internal var padding:Number = 0;
-    mx_internal var backgroundGradientHeight:Number = 0;
-    mx_internal var highlightWeight:Number = 0;
-    mx_internal var useBackgroundGradient:Boolean = true;
-    mx_internal var borderColor:Number = 0;
-    mx_internal var borderThickness:Number = NaN;
-    
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-    {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
-        graphics.clear();
-        
-        if (!_calloutSkin.isArrowHorizontal && !_calloutSkin.isArrowVertical)
-            return;
-        
-        // when drawing the arrow, compensate for cornerRadius via padding
-        var arrowDirection:String = _calloutSkin.hostComponent.arrowDirection;
-        var arrowWidth:Number = unscaledWidth;
-        var arrowHeight:Number = unscaledHeight;
-        var arrowX:Number = 0;
-        var arrowY:Number = 0;
-        var arrowTipX:Number = 0;
-        var arrowTipY:Number = 0;
-        var arrowEndX:Number = 0;
-        var arrowEndY:Number = 0;
-        
-        var showBorder:Boolean = !isNaN(borderThickness);
-        var borderWeight:Number = showBorder ? borderThickness : 0;
-        var borderHalf:Number = borderWeight / 2;
-        
-        if (_calloutSkin.isArrowHorizontal)
-        {
-            arrowX = -borderHalf;
-            arrowY = padding;
-            arrowHeight = arrowHeight - (padding * 2);
-            
-            arrowTipX = arrowWidth - borderHalf;
-            arrowTipY = arrowY + (arrowHeight / 2);
-            
-            arrowEndX = arrowX;
-            arrowEndY = arrowY + arrowHeight;
-            
-            // flip coordinates to point left
-            if (arrowDirection == ArrowDirection.LEFT)
-            {
-                arrowX = arrowWidth - arrowX;
-                arrowTipX = arrowWidth - arrowTipX;
-                arrowEndX = arrowWidth - arrowEndX;
-            }
-        }
-        else if (_calloutSkin.isArrowVertical)
-        {
-            arrowX = padding;
-            arrowY = -borderHalf;
-            arrowWidth = arrowWidth - (padding * 2);
-            
-            arrowTipX = arrowX + (arrowWidth / 2);
-            arrowTipY = arrowHeight - borderHalf;
-            
-            arrowEndX = arrowX + arrowWidth;
-            arrowEndY = arrowY;
-            
-            // flip coordinates to point up
-            if (_calloutSkin.hostComponent.arrowDirection == ArrowDirection.UP)
-            {
-                arrowY = arrowHeight - arrowY;
-                arrowTipY = arrowHeight - arrowTipY;
-                arrowEndY = arrowHeight - arrowEndY;
-            }
-        }
-        
-        var commands:Vector.<int> = new Vector.<int>(3, true);
-        commands[0] = GraphicsPathCommand.MOVE_TO;
-        commands[1] = GraphicsPathCommand.LINE_TO;
-        commands[2] = GraphicsPathCommand.LINE_TO;
-        
-        var coords:Vector.<Number> = new Vector.<Number>(6, true);
-        coords[0] = arrowX;
-        coords[1] = arrowY;
-        coords[2] = arrowTipX
-        coords[3] = arrowTipY;
-        coords[4] = arrowEndX
-        coords[5] = arrowEndY;
-        
-        var backgroundColor:Number = _calloutSkin.getStyle("backgroundColor");
-        var backgroundAlpha:Number = _calloutSkin.getStyle("backgroundAlpha");
-        
-        if (useBackgroundGradient)
-        {
-            var backgroundColorTop:Number = ColorUtil.adjustBrightness2(backgroundColor, 
-                CalloutSkin.BACKGROUND_GRADIENT_BRIGHTNESS_TOP);
-            var backgroundColorBottom:Number = ColorUtil.adjustBrightness2(backgroundColor, 
-                CalloutSkin.BACKGROUND_GRADIENT_BRIGHTNESS_BOTTOM);
-            
-            // translate the gradient based on the arrow position
-            MobileSkin.colorMatrix.createGradientBox(unscaledWidth, 
-                backgroundGradientHeight, Math.PI / 2, 0, -getLayoutBoundsY());
-            
-            graphics.beginGradientFill(GradientType.LINEAR,
-                [backgroundColorTop, backgroundColorBottom],
-                [backgroundAlpha, backgroundAlpha],
-                [0, 255],
-                MobileSkin.colorMatrix);
-        }
-        else
-        {
-            graphics.beginFill(backgroundColor, backgroundAlpha);
-        }
-        
-        // cover the adjacent border from the callout frame
-        if (showBorder)
-        {
-            var coverX:Number = 0;
-            var coverY:Number = 0;
-            var coverWidth:Number = 0;
-            var coverHeight:Number = 0;
-            
-            switch (arrowDirection)
-            {
-                case ArrowDirection.UP:
-                {
-                    coverX = arrowX;
-                    coverY = arrowY;
-                    coverWidth = arrowWidth;
-                    coverHeight = borderWeight;
-                    break;
-                }
-                case ArrowDirection.DOWN:
-                {
-                    coverX = arrowX;
-                    coverY = -borderWeight;
-                    coverWidth = arrowWidth;
-                    coverHeight = borderWeight;
-                    break;
-                }
-                case ArrowDirection.LEFT:
-                {
-                    coverX = arrowX;
-                    coverY = arrowY;
-                    coverWidth = borderWeight;
-                    coverHeight = arrowHeight;
-                    break;
-                }
-                case ArrowDirection.RIGHT:
-                {
-                    coverX = -borderWeight;
-                    coverY = arrowY;
-                    coverWidth = borderWeight;
-                    coverHeight = arrowHeight;
-                    break;
-                }
-            }
-            
-            graphics.drawRect(coverX, coverY, coverWidth, coverHeight);
-        }
-        
-        // draw arrow path
-        if (showBorder)
-            graphics.lineStyle(borderThickness, borderColor, 1, true);
-        
-        graphics.drawPath(commands, coords);
-        graphics.endFill();
-        
-        // adjust the highlight position to the origin of the callout
-        var isArrowUp:Boolean = (arrowDirection == ArrowDirection.UP);
-        var offsetY:Number = (isArrowUp) ? unscaledHeight : -getLayoutBoundsY();
-        
-        // highlight starts after the backgroundCornerRadius
-        var highlightX:Number = padding - getLayoutBoundsX();
-        
-        // highlight Y position is based on the stroke weight 
-        var highlightOffset:Number = (highlightWeight * 1.5);
-        var highlightY:Number = highlightOffset + offsetY;
-        
-        // highlight width spans the callout width minus the corner radius
-        var highlightWidth:Number = _calloutSkin.getLayoutBoundsWidth() - (padding * 2);
-        
-        if (_calloutSkin.isArrowHorizontal)
-        {
-            highlightWidth -= arrowWidth;
-            
-            if (arrowDirection == ArrowDirection.LEFT)
-                highlightX += arrowWidth;
-        }
-        
-        // highlight on the top edge is drawn in the arrow only in the UP direction
-        if (useBackgroundGradient)
-        {
-            if (isArrowUp)
-            {
-                // highlight follows the top edge, including the arrow
-                var rightWidth:Number = highlightWidth - arrowWidth;
-                
-                // highlight style
-                graphics.lineStyle(highlightWeight, 0xFFFFFF, 0.2 * backgroundAlpha);
-                
-                // in the arrow coordinate space, the highlightX must be less than 0
-                if (highlightX < 0)
-                {
-                    graphics.moveTo(highlightX, highlightY);
-                    graphics.lineTo(arrowX, highlightY);
-                    
-                    // compute the remaining highlight
-                    rightWidth -= (arrowX - highlightX);
-                }
-                
-                // arrow highlight (adjust Y downward)
-                coords[1] = arrowY + highlightOffset;
-                coords[3] = arrowTipY + highlightOffset;
-                coords[5] = arrowEndY + highlightOffset;
-                graphics.drawPath(commands, coords);
-                
-                // right side
-                if (rightWidth > 0)
-                {
-                    graphics.moveTo(arrowEndX, highlightY);
-                    graphics.lineTo(arrowEndX + rightWidth, highlightY);
-                }
-            }
-            else
-            {
-                // straight line across the top
-                graphics.lineStyle(highlightWeight, 0xFFFFFF, 0.2 * backgroundAlpha);
-                graphics.moveTo(highlightX, highlightY);
-                graphics.lineTo(highlightX + highlightWidth, highlightY);
-            }
-        }
-    }
 }
