@@ -130,6 +130,12 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      */
     static mx_internal var _imageCache:ContentCache;
     
+    /**
+     *  @private
+     *  Time to wait before setting the source on the iconDisplay and causing a load()
+     */
+    private static const ICON_DELAY_TIME:int = 500;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -150,6 +156,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         
         if (_imageCache == null) {
             _imageCache = new ContentCache();
+            _imageCache.enableCaching = true;
             _imageCache.maxCacheEntries = 100;
         }
     }
@@ -216,6 +223,18 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  its display object
      */
     private var iconNeedsDisplayObjectAssignment:Boolean = false;
+    
+    /**
+     *  @private
+     *  Timer, used to delay setting the source on the icon.
+     */
+    private var iconSetterDelayTimer:Timer;
+    
+    /**
+     *  @private
+     *  The source to set iconDisplay to, after waiting an appropriate delay period
+     */
+    private var loadingIconSource:Object;
     
     //--------------------------------------------------------------------------
     //
@@ -1197,10 +1216,15 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         {
             iconChanged = false;
             
+            // we set the icon after a delay for performance benefits and 
+            // so we can cancel the load if we're scrolling fast
+            // we still grab the source here so we can make sure we don't
+            // cancel a load when the data is reset (if the source is the same)
             // if icon, try setting that
+            
             if (iconFunction != null)
             {
-                iconDisplay.source = iconFunction(data);
+                setIconDisplaySource(iconFunction(data));
             }
             else if (iconField)
             {
@@ -1208,12 +1232,12 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                 {
                     if (iconField in data)
                     {
-                        iconDisplay.source = data[iconField];
+                        setIconDisplaySource(data[iconField]);
                     }
                 }
                 catch(e:Error)
                 {
-                    iconDisplay.source = null;
+                    setIconDisplaySource(null);
                 }
             }
         }
@@ -1372,6 +1396,66 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     {
         removeChild(labelDisplay);
         labelDisplay = null;
+    }
+    
+    /**
+     *  @private
+     */
+    private function setIconDisplaySource(source:Object):void
+    {
+        // if null, do it synchronously
+        if (source == null)
+            iconDisplay.source = null;
+        
+        // don't cancel this load--let it continue if it's the same source
+        if (loadingIconSource == source)
+            return;
+        
+        // check the cache first:
+        var contentCache:ContentCache = iconContentLoader as ContentCache;
+        if (contentCache)
+        {
+            if (contentCache.getCacheEntry(source))
+            {
+                iconDisplay.source = source;
+                return;
+            }
+        }
+        
+        // otherwise, we need to rely on the timer
+        if (!iconSetterDelayTimer)
+        {
+            iconSetterDelayTimer = new Timer(ICON_DELAY_TIME, 1);
+            iconSetterDelayTimer.addEventListener(TimerEvent.TIMER_COMPLETE, iconSetterDelayTimer_timerCompleteHandler);
+        }
+        else
+        {
+            iconSetterDelayTimer.stop();
+            iconSetterDelayTimer.reset();
+        }
+        
+        // this is so we don't display the old data while we're loading
+        // FIXME (rfrishbe): perhaps we should add an iconLoadingAsset (must be embedded) property?
+        iconDisplay.source = null;
+        loadingIconSource = source;
+        
+        iconSetterDelayTimer.start();
+    }
+    
+    /**
+     *  @private
+     */
+    private function iconSetterDelayTimer_timerCompleteHandler(event:TimerEvent):void
+    {
+        // if we're off-screen, don't do anything
+        // when we get re-included, our data will be reset as well
+        if (!includeInLayout)
+            return;
+        
+        if (iconDisplay)
+            iconDisplay.source = loadingIconSource;
+        
+        loadingIconSource = null;
     }
     
     /**
