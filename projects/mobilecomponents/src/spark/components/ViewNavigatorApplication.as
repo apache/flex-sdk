@@ -126,6 +126,7 @@ public class MobileApplication extends MobileApplicationBase
         else
             return navigatorProperties.navigationStack;
     }
+    
     /**
      *  @private
      */
@@ -147,7 +148,18 @@ public class MobileApplication extends MobileApplicationBase
     //
     //--------------------------------------------------------------------------
     
-    // TODO (Chiedozi): why this way
+    //----------------------------------
+    //  canCancelBackKeyBehavior
+    //----------------------------------
+    /**
+     *  @private
+     */  
+    override public function get canCancelBackKeyBehavior():Boolean
+    {
+        return navigator && navigator.canCancelBackKeyBehavior;
+    }
+    
+    // TODO (Chiedozi): Why is this a getter instead of public var
     //----------------------------------
     //  firstViewData
     //----------------------------------
@@ -265,6 +277,7 @@ public class MobileApplication extends MobileApplicationBase
         else
             return navigatorProperties.actionLayout;
     }
+    
     /**
      *  @private
      */
@@ -304,6 +317,7 @@ public class MobileApplication extends MobileApplicationBase
         else
             return navigatorProperties.navigationContent;
     }
+    
     /**
      *  @private
      */
@@ -340,6 +354,7 @@ public class MobileApplication extends MobileApplicationBase
         else
             return navigatorProperties.navigationLayout;
     }
+    
     /**
      *  @private
      */
@@ -409,6 +424,7 @@ public class MobileApplication extends MobileApplicationBase
         else
             return navigatorProperties.titleContent;
     }
+    
     /**
      *  @private
      */
@@ -445,6 +461,7 @@ public class MobileApplication extends MobileApplicationBase
         else
             return navigatorProperties.titleLayout;
     }
+    
     /**
      *  @private
      */
@@ -467,7 +484,7 @@ public class MobileApplication extends MobileApplicationBase
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      */ 
     // TODO (chiedozi): Should these be refactored into the base class?
     override protected function backKeyHandler():void
@@ -478,13 +495,8 @@ public class MobileApplication extends MobileApplicationBase
     }
     
     /**
-     *
-     */  
-    override public function canCancelDefaultBackKeyBehavior():Boolean
-    {
-        return  navigator && navigator.canCancelDefaultBackKeyBehavior();
-    }
-    
+     *  @private
+     */ 
     override protected function orientationChangeHandler(event:StageOrientationEvent):void
     {
         super.orientationChangeHandler(event);
@@ -493,20 +505,21 @@ public class MobileApplication extends MobileApplicationBase
             navigator.landscapeOrientation = landscapeOrientation;
     }
     
+    /**
+     *  @private
+     */ 
     override protected function persistApplicationState():void
     {
         super.persistApplicationState();
-        
+
+        // TODO (chiedozi): Rename save to maybe get?
         if (navigator)
-        {
-            // TODO (chiedozi): Fold into navigator
-            if (navigator.activeView)
-               navigator.persistCurrentView();
-        
-            persistenceManager.setProperty("navigationStack", navigationStack);
-        }
+            persistenceManager.setProperty("navigatorState", navigator.saveViewData());
     }
     
+    /**
+     *  @private
+     */ 
     override protected function registerPeristenceClassAliases():void
     {
         super.registerPeristenceClassAliases();
@@ -517,19 +530,20 @@ public class MobileApplication extends MobileApplicationBase
         registerClassAlias("NavigationStack", NavigationStack);
     }
     
+    /**
+     * @private
+     */
     override protected function restoreApplicationState():void
     {
+        // TODO (chiedozi): Figure out how to refactor this into base class
         super.restoreApplicationState();
         
         if (persistenceManager.enabled)
         {
-            var savedNavigationStack:NavigationStack = 
-                persistenceManager.getProperty("navigationStack") as NavigationStack;
+            var savedState:Object = persistenceManager.getProperty("navigatorState");
             
-            if (savedNavigationStack)
-            {
-                navigationStack = savedNavigationStack;
-            }
+            if (savedState)
+                navigator.restoreViewData(savedState);
         }
     }
     
@@ -539,6 +553,9 @@ public class MobileApplication extends MobileApplicationBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */ 
     override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
@@ -606,7 +623,10 @@ public class MobileApplication extends MobileApplicationBase
             systemManager.stage.focus = navigator;
         }
     }
-        
+     
+    /**
+     *  @private
+     */ 
     override protected function partRemoved(partName:String, instance:Object):void
     {
         super.partRemoved(partName, instance);
