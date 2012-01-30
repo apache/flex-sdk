@@ -11,10 +11,6 @@
 
 package spark.skins.mobile
 {
-import flash.display.BlendMode;
-
-import mx.core.IFactory;
-
 import spark.components.ButtonBar;
 import spark.components.ButtonBarButton;
 import spark.components.DataGroup;
@@ -51,8 +47,6 @@ public class ButtonBarSkin extends MobileSkin
     public function ButtonBarSkin()
     {
         super();
-        
-        useChromeColor = false;
         
         // FIXME (jasonsj): not supported for GPU
         // blendMode = BlendMode.LAYER;
@@ -155,9 +149,10 @@ public class ButtonBarSkin extends MobileSkin
     /**
      *  @private
      */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        super.layoutContents(unscaledWidth, unscaledHeight);
+        
         setElementPosition(dataGroup, 0, 0);
         setElementSize(dataGroup, unscaledWidth, unscaledHeight);
     }
