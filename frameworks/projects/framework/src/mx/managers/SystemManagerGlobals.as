@@ -26,6 +26,20 @@ public class SystemManagerGlobals
 	public static var showMouseCursor:Boolean;
 
 	public static var changingListenersInOtherSystemManagers:Boolean;
+
+    /**
+     *  @private
+     *  reference to the info() object from the first systemManager
+	 *  in the application..
+     */
+	public static var info:Object;
+
+    /**
+     *  @private
+     *  reference to the loaderInfo.parameters object from the first systemManager
+	 *  in the application..
+     */
+	public static var parameters:Object;
 }
 
 }
