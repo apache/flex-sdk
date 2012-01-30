@@ -183,12 +183,8 @@ public class PersistenceManager implements IPersistenceManager
     {
         try
         {
-            // We assume the flush suceeded
-            /*var flushStatus:String = */so.flush();
-            
-            // FIXME (chiedozi): Flush can still fail.  Should validate use case below
-//            if (flushStatus == SharedObjectFlushStatus.PENDING)
-//                so.addEventListener(NetStatusEvent.NET_STATUS, sharedObject_netStatusHandler);
+            // We assume the flush suceeded and don't check the flush status
+            so.flush();
         }
         catch (e:Error)
         {
