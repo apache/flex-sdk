@@ -12,6 +12,8 @@
 package mx.managers
 {
 
+import flash.display.DisplayObject;
+import flash.events.IEventDispatcher;
 import flash.display.InteractiveObject;
 import flash.display.Sprite;
 import mx.core.IButton;
@@ -214,6 +216,45 @@ public interface IFocusManager
      */
     function getNextFocusManagerComponent(
                             backward:Boolean = false):IFocusManagerComponent;
+
+    /**
+     *  Move focus from the current control
+     *  to the previous or next control in the tab order.
+     *  The direction of the move is specified
+     *  with the <code>direction</code> argument.
+     * 
+     *  @param direction <code>FORWARD</code> moves to from the control
+     *  that currently has focus to controls with a higher tab index.
+     *  If more than one control has the is, the next control
+     *  in the flow of the document is visited.
+     *  <code>BACKWARD</code> moves to controls with a lower tab index.
+     *
+     *  @param fromDisplayObject The starting point from which focus is moved. 
+     *  If an object is provided, this overrides the default behavior 
+     *  where focus is moved from the object that currently has focus.
+     */
+    function moveFocus(direction:String,
+                       fromDisplayObject:DisplayObject = null):void;
+
+    /**
+     *  Adds a SWF bridge to this focus manager.
+     * 
+     *  Adding the SWF bridge is required to get focus
+     *  to transfer seamlessly between focus managers in other sandboxes
+     *  or using different versions of a focus manager.
+     * 
+     *  @param bridge The bridge to another focus manager.
+     */
+    function addSWFBridge(bridge:IEventDispatcher):void
+    
+    /**
+     *  Removes a focus manager.
+     *  This must be called when a bridge added by calling
+     *  <code>addSWFBridge</code> is removed.
+     * 
+     *  @param bridge The bridge to remove.
+     */
+    function removeSWFBridge(bridge:IEventDispatcher):void
 
 }
 
