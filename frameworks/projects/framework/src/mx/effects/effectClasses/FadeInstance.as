@@ -16,6 +16,8 @@ import flash.events.Event;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
+use namespace mx_internal;
+
 /**
  *  The FadeInstance class implements the instance class
  *  for the Fade effect.
@@ -176,7 +178,7 @@ public class FadeInstance extends TweenEffectInstance
 		super.play();
 
 		// Try to cache the target as a bitmap.
-		//EffectManager.mx_internal::startBitmapEffect(target);
+		//EffectManager.startBitmapEffect(target);
 
 		// Remember the original value of the target object's alpha
 		origAlpha = target.alpha;
@@ -219,7 +221,7 @@ public class FadeInstance extends TweenEffectInstance
 		}		
 		
 		tween = createTween(this, alphaFrom, alphaTo, duration);
-		target.alpha = tween.mx_internal::getCurrentValue(0)
+		target.alpha = tween.getCurrentValue(0)
 	}
 
 	/**
@@ -238,7 +240,7 @@ public class FadeInstance extends TweenEffectInstance
 		// Call super function first so we don't clobber resetting the alpha.
 		super.onTweenEnd(value);	
 			
-		if (mx_internal::hideOnEffectEnd || restoreAlpha)
+		if (hideOnEffectEnd || restoreAlpha)
 		{
 			target.alpha = origAlpha;
 		}
