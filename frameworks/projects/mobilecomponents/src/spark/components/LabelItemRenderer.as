@@ -1053,10 +1053,12 @@ public class LabelItemRenderer extends UIComponent
 		if (element is StyleableTextField)
 		{
 			// take into account text gutters
-			element.width = width + StyleableTextField.TEXT_WIDTH_PADDING;
+            if (!isNaN(width))
+			    element.width = width + StyleableTextField.TEXT_WIDTH_PADDING;
 			
 			// take into account textTopOffset and baselineBottomOffset
-			element.height = height + StyleableTextField(element).textTopOffset + StyleableTextField(element).baselineBottomOffset;
+            if (!isNaN(height))
+			    element.height = height + StyleableTextField(element).textTopOffset + StyleableTextField(element).baselineBottomOffset;
 		}
 		else if (element is ILayoutElement)
         {
