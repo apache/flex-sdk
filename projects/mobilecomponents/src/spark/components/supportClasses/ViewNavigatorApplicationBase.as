@@ -179,23 +179,16 @@ public class MobileApplicationBase extends Application
     /**
      *  
      */
+    // FIXME (chiedozi): PARB whether this should be a method or a getter because of side effect
     public function get persistenceManager():IPersistenceManager
     {
+        if (!_persistenceManager)
+        {
+            registerPersistenceClassAliases();
+            _persistenceManager = createPersistenceManager();
+        }
+        
         return _persistenceManager;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set persistenceManager(value:IPersistenceManager):void
-    {
-        if (value == _persistenceManager)
-            return;
-        
-        if (_persistenceManager)
-            _persistenceManager.flush();
-        
-        _persistenceManager = value;
     }
     
     //----------------------------------
@@ -286,23 +279,28 @@ public class MobileApplicationBase extends Application
      */ 
     protected function nativeApplication_deactivateHandler(event:Event):void
     {
+        // Check if the application state should be persisted 
         if (sessionCachingEnabled)
         {
             // Dispatch event for saving persistence data
-            var eventDispatched:Boolean = true;
+            var eventCanceled:Boolean = false;
             if (hasEventListener(FlexEvent.APPLICATION_PERSISTING))
-                eventDispatched = dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_PERSISTING, 
+                eventCanceled = !dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_PERSISTING, 
                                                                 false, true));
             
-            // TODO (chiedozi): Rename eventDispatched
-            if (eventDispatched)
+            if (!eventCanceled)
             {
                 persistApplicationState();
-                persistenceManager.flush();
                 
                 if (hasEventListener(FlexEvent.APPLICATION_PERSIST))
                     dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_PERSIST));
             }
+        }
+
+        // Always flush the persistence manager to disk if it exists
+        if (_persistenceManager)
+        {
+            persistenceManager.flush();
         }
     }
     
@@ -549,7 +547,6 @@ public class MobileApplicationBase extends Application
         {
             registerPersistenceClassAliases();
             
-            persistenceManager = createPersistenceManager();
             persistenceManager.initialize();
             
             // Dispatch event for loading persistence data
