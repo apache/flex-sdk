@@ -33,6 +33,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.system.ApplicationDomain;
 import flash.system.Capabilities;
+import flash.system.Security;
 import flash.text.Font;
 import flash.text.TextFormat;
 import flash.ui.Keyboard;
@@ -55,6 +56,7 @@ import mx.events.Request;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.events.ResizeEvent;
+import mx.events.RSLEvent;
 import mx.events.SandboxMouseEvent;
 import mx.preloaders.Preloader;
 import mx.utils.LoaderUtil;
@@ -195,12 +197,6 @@ public class SystemManager extends MovieClip
 	 */
 	mx_internal static var allSystemManagers:Dictionary = new Dictionary(true);
 
-	/**
-	 *  @private
-	 *  The last SystemManager instance loaded as child app domains
-	 */
-	mx_internal static var lastSystemManager:SystemManager;
-
 	//--------------------------------------------------------------------------
 	//
 	//  Constructor
@@ -243,8 +239,6 @@ public class SystemManager extends MovieClip
 
 		if (topLevel)
 			SystemManagerGlobals.topLevelSystemManagers.push(this);
-
-		lastSystemManager = this;
 
 		// Make sure to stop the playhead on the current frame.
 		stop();
@@ -360,11 +354,6 @@ public class SystemManager extends MovieClip
      *  @productversion Flex 3
 	 */
 	mx_internal var nestLevel:int = 0;
-
-	/**
-	 *  @private
-	 */
-	private var rslSizes:Array = null;
 
 	/**
 	 *  @private
@@ -1006,6 +995,23 @@ public class SystemManager extends MovieClip
         _numModalWindows = value;
     }
 
+    //----------------------------------
+    //  preloadedRSLs
+    //----------------------------------
+    
+    /**
+     *  The RSLs loaded by this SystemManager before the application 
+     *  starts. RSLs loaded by the application are not included in this list.
+     * 
+     *  Information about preloadedRSLs is stored in a Dictionary. The key is
+     *  the RSL's LoaderInfo. The value is the url the RSL was loaded from.
+     */
+    public function  get preloadedRSLs():Dictionary
+    {
+        // Overriden by compiler generate code.
+        return null;                
+    }
+    
     //----------------------------------
     //  preloaderBackgroundAlpha
     //----------------------------------
@@ -1822,6 +1828,8 @@ public class SystemManager extends MovieClip
 		// when the app is fully backed remove the preloader and show the app
 		preloader.addEventListener(FlexEvent.PRELOADER_DONE,
 								   preloader_preloaderDoneHandler);
+        preloader.addEventListener(RSLEvent.RSL_COMPLETE, 
+                                   preloader_rslCompleteHandler);
 
 		// Add the preloader as a child.  Use backing variable because when loaded
 		// we redirect public API to parent systemmanager
@@ -2017,7 +2025,33 @@ public class SystemManager extends MovieClip
 		return super.contains(child);
 	}
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: Security
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Calls Security.allowDomain() for the SWF associated with this SystemManager
+     *  plus all the SWFs assocatiated with RSLs preloaded by this SystemManager.
+     * 
+     */  
+    public function allowDomain(... domains):void
+    {
+        // Overridden by compiler generated code.
+    }
+    
+    /**
+     *  Calls Security.allowInsecureDomain() for the SWF associated with this SystemManager
+     *  plus all the SWFs assocatiated with RSLs preloaded by this SystemManager.
+     * 
+     */  
+    public function allowInsecureDomain(... domains):void
+    {
+        // Overridden by compiler generated code.
+    }
+
+    //--------------------------------------------------------------------------
 	//
 	//  Methods: Measurement and Layout
 	//
@@ -2409,6 +2443,8 @@ public class SystemManager extends MovieClip
 		// and add the application as the child
 		preloader.removeEventListener(FlexEvent.PRELOADER_DONE,
 									  preloader_preloaderDoneHandler);
+        preloader.removeEventListener(RSLEvent.RSL_COMPLETE, 
+                                      preloader_rslCompleteHandler);
 
 		_popUpChildren.removeChild(preloader);
         preloader = null;
@@ -2438,7 +2474,17 @@ public class SystemManager extends MovieClip
 		dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_COMPLETE));
 	}
 
-	/**
+    /**
+     *  @private
+     *  The preloader has completed loading an RSL.
+     */
+    private function preloader_rslCompleteHandler(event:RSLEvent):void
+    {
+        if (event.loaderInfo)
+            preloadedRSLs[event.loaderInfo] = event.url.url;
+    }
+    
+    /**
 	 *  @private
 	 *  This is attached as the framescript at the end of frame 2.
 	 *  When this function is called, we know that the application
