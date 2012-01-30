@@ -24,6 +24,7 @@ internal class MobileThemeClasses
 import spark.skins.mobile.ActionBarSkin; ActionBarSkin;
 import spark.skins.mobile.ActionButtonSkin; ActionButtonSkin;
 import spark.skins.mobile.NavigationButtonSkin; NavigationButtonSkin;
+import spark.skins.mobile.NavigationAngledButtonSkin; NavigationAngledButtonSkin;
 import spark.skins.mobile.ButtonSkin; spark.skins.mobile.ButtonSkin;
 import spark.skins.mobile.CheckBoxSkin; spark.skins.mobile.CheckBoxSkin;
 import spark.skins.mobile.RadioButtonSkin; spark.skins.mobile.RadioButtonSkin;
