@@ -33,6 +33,17 @@ import mx.core.mx_internal;
 [Style(name="busyCursor", type="Class", inherit="no")]
 
 /**
+ *  The class to use as the skin for the busy cursor background.
+ *  The default value is the "cursorStretch" symbol from the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="busyCursorBackground", type="Class", inherit="no")]
+
+/**
  *  The CursorManager class controls a prioritized list of cursors,
  *  where the cursor with the highest priority is currently visible.
  *  If the cursor list contains more than one cursor with the same priority,
