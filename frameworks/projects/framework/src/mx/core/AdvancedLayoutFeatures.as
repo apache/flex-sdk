@@ -866,7 +866,7 @@ package mx.core
         transformCenter:Vector3D, targetPosition:Vector3D,
         targetPostLayoutPosition:Vector3D):void
     {
-        
+        // TODO (chaase): optimize for transformCenter == (0,0,0)
         if (is3D || changeIs3D)
         {
             if (targetPosition != null)
@@ -962,7 +962,6 @@ package mx.core
 		// now if they gave us a non-trivial transform center, and didn't tell us where they want it, 
 		// we need to calculate where it is so that we can make sure we keep it there.             
         if (transformCenter != null && 
-            (transformCenter.x != 0 || transformCenter.y != 0 || transformCenter.z != 0) &&
             (transformCenterPosition == null || postLayoutTransformCenterPosition == null))
         {           
             transformPointToParent(is3D, transformCenter, staticTranslation,
