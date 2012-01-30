@@ -49,6 +49,8 @@ import mx.managers.NativeDragManagerImpl;
 import spark.components.windowClasses.TitleBar;
 import spark.primitives.supportClasses.TextGraphicElement;
 
+use namespace mx_internal;
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -1660,8 +1662,8 @@ public class WindowedApplication extends Application implements IWindow
 
         if (boundsChanged)
         {       
-            systemManager.stage.stageWidth = mx_internal::_width = _bounds.width;
-            systemManager.stage.stageHeight = mx_internal::_height =  _bounds.height;
+            systemManager.stage.stageWidth = _width = _bounds.width;
+            systemManager.stage.stageHeight = _height =  _bounds.height;
             boundsChanged = false;
             
             // don't know whether height or width changed
@@ -1671,8 +1673,8 @@ public class WindowedApplication extends Application implements IWindow
 
         if (windowBoundsChanged)
         {
-            _bounds.width = mx_internal::_width = systemManager.stage.stageWidth;
-            _bounds.height = mx_internal::_height = systemManager.stage.stageHeight;
+            _bounds.width = _width = systemManager.stage.stageWidth;
+            _bounds.height = _height = systemManager.stage.stageHeight;
             windowBoundsChanged = false;
             
             // don't know whether height or width changed
@@ -2429,7 +2431,7 @@ public class WindowedApplication extends Application implements IWindow
         if (systemManager.stage.nativeWindow.systemChrome != "none")
             return;
 
-        var edgeOrCorner:String = mx_internal::hitTestResizeEdge(event);
+        var edgeOrCorner:String = hitTestResizeEdge(event);
         if (edgeOrCorner != NativeWindowResize.NONE)
         {
             startResize(edgeOrCorner);
