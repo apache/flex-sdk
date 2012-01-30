@@ -35,6 +35,7 @@ import mx.core.IWindow;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.AIREvent;
+import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.FlexNativeWindowBoundsEvent;
 import mx.events.WindowExistenceEvent;
@@ -910,7 +911,7 @@ public class Window extends SkinnableContainer implements IWindow
                 e = new FlexEvent(FlexEvent.HIDE);
                 if (getStyle("hideEffect"))
                 {
-                    addEventListener("effectEnd", hideEffectEndHandler);
+                    addEventListener(EffectEvent.EFFECT_END, hideEffectEndHandler);
                 }
                 else
                 {
@@ -1866,8 +1867,8 @@ public class Window extends SkinnableContainer implements IWindow
             nativeApplication.addEventListener(Event.ACTIVATE, nativeApplication_activateHandler, false, 0, true);
             nativeApplication.addEventListener(Event.DEACTIVATE, nativeApplication_deactivateHandler, false, 0, true);
             nativeApplication.addEventListener(Event.NETWORK_CHANGE, dispatchEvent, false, 0, true);
-            _nativeWindow.addEventListener("activate", nativeWindow_activateHandler, false, 0, true);
-            _nativeWindow.addEventListener("deactivate", nativeWindow_deactivateHandler, false, 0, true);
+            _nativeWindow.addEventListener(Event.ACTIVATE, nativeWindow_activateHandler, false, 0, true);
+            _nativeWindow.addEventListener(Event.DEACTIVATE, nativeWindow_deactivateHandler, false, 0, true);
             
             addEventListener(Event.ENTER_FRAME, enterFrameHandler);
             
@@ -2402,7 +2403,7 @@ public class Window extends SkinnableContainer implements IWindow
     {
         if (!nativeWindow.closed)
             stage.nativeWindow.minimize();
-        removeEventListener("effectEnd", windowMinimizeHandler);
+        removeEventListener(EffectEvent.EFFECT_END, windowMinimizeHandler);
     }
 
     /**
@@ -2410,7 +2411,7 @@ public class Window extends SkinnableContainer implements IWindow
      */
     private function windowUnminimizeHandler(event:Event):void
     {
-        removeEventListener("effectEnd", windowUnminimizeHandler);
+        removeEventListener(EffectEvent.EFFECT_END, windowUnminimizeHandler);
     }
 
     /**
@@ -2455,7 +2456,7 @@ public class Window extends SkinnableContainer implements IWindow
             if (getStyle("minimizeEffect"))
             {
                 event.preventDefault();
-                addEventListener("effectEnd", windowMinimizeHandler);
+                addEventListener(EffectEvent.EFFECT_END, windowMinimizeHandler);
                 dispatchEvent(new Event("windowMinimize"));
             }
         }
@@ -2463,7 +2464,7 @@ public class Window extends SkinnableContainer implements IWindow
         // After here, afterState is normal
         else if (event.beforeDisplayState == NativeWindowDisplayState.MINIMIZED)
         {
-            addEventListener("effectEnd", windowUnminimizeHandler);
+            addEventListener(EffectEvent.EFFECT_END, windowUnminimizeHandler);
             dispatchEvent(new Event("windowUnminimize"));
         }
     }
@@ -2473,7 +2474,7 @@ public class Window extends SkinnableContainer implements IWindow
      */
     private function windowMaximizeHandler(event:Event):void
     {
-        removeEventListener("effectEnd", windowMaximizeHandler);
+        removeEventListener(EffectEvent.EFFECT_END, windowMaximizeHandler);
         if (!nativeWindow.closed)
             stage.nativeWindow.maximize();
     }
@@ -2483,7 +2484,7 @@ public class Window extends SkinnableContainer implements IWindow
      */
     private function windowUnmaximizeHandler(event:Event):void
     {
-        removeEventListener("effectEnd", windowUnmaximizeHandler);
+        removeEventListener(EffectEvent.EFFECT_END, windowUnmaximizeHandler);
         if (!nativeWindow.closed)
             stage.nativeWindow.restore();
     }
@@ -2792,7 +2793,7 @@ public class Window extends SkinnableContainer implements IWindow
      */
     private function window_closeEffectEndHandler(event:Event):void
     {
-        removeEventListener("effectEnd", window_closeEffectEndHandler);
+        removeEventListener(EffectEvent.EFFECT_END, window_closeEffectEndHandler);
         if (!nativeWindow.closed)
             stage.nativeWindow.close();
     }
@@ -2811,7 +2812,7 @@ public class Window extends SkinnableContainer implements IWindow
         else if (getStyle("closeEffect") &&
                  stage.nativeWindow.transparent == true)
         {
-            addEventListener("effectEnd", window_closeEffectEndHandler);
+            addEventListener(EffectEvent.EFFECT_END, window_closeEffectEndHandler);
             dispatchEvent(new Event("windowClose"));
             event.preventDefault();
         }
