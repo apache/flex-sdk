@@ -42,17 +42,7 @@ use namespace mx_internal;
 
 /**
  *  @private
- *  A SystemManager has various types of children,
- *  such as the Application, popups, 
- *  tooltips, and custom cursors.
- *  You can access the just the custom cursors through
- *  the <code>cursors</code> property,
- *  the tooltips via <code>toolTips</code>, and
- *  the popups via <code>popUpChildren</code>.  Each one returns
- *  a SystemChildrenList which implements IChildList.  The SystemManager's
- *  IChildList methods return the set of children that aren't popups, tooltips
- *  or cursors.  To get the list of all children regardless of type, you
- *  use the rawChildrenList property which returns this SystemRawChildrenList.
+ *  MarshallingSupport for FocusManager
  */
 public class FocusManagerMarshalMixin
 {
