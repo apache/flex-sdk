@@ -117,6 +117,11 @@ package mx.controls.listClasses
  *
  *  @see mx.controls.listClasses.BaseListData
  *  @see mx.core.IDataRenderer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IDropInListItemRenderer
 {
@@ -133,6 +138,11 @@ public interface IDropInListItemRenderer
     /**
      *  Implements the <code>listData</code> property
      *  using setter and getter methods. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get listData():BaseListData;
     
