@@ -11,16 +11,21 @@
 
 package spark.components
 {
+import flash.events.Event;
+import flash.events.InvokeEvent;
 import flash.events.StageOrientationEvent;
 import flash.net.registerClassAlias;
 
 import mx.core.ContainerCreationPolicy;
+import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
 
 import spark.components.supportClasses.MobileApplicationBase;
 import spark.components.supportClasses.NavigationStack;
 import spark.components.supportClasses.ViewHistoryData;
 import spark.components.supportClasses.ViewNavigatorBase;
+
+use namespace mx_internal;
 
 [DefaultProperty("navigators")]
 
@@ -184,6 +189,36 @@ public class TabbedMobileApplication extends MobileApplicationBase
     //  Overridden Methods: MobileApplicationBase
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override protected function nativeApplication_invokeHandler(event:InvokeEvent):void
+    {
+        super.nativeApplication_invokeHandler(event);
+        
+        // Set the stage focus to the navigator's active view
+        if (systemManager.stage.focus == null && navigator)
+        {
+            if (navigator.activeView)
+                systemManager.stage.focus = navigator.activeView;
+            else
+                systemManager.stage.focus = navigator;
+        }
+    }
+    
+    /**
+     *  @private
+     */ 
+    override protected function nativeApplication_deactivateHandler(event:Event):void
+    {
+        if (navigator && navigator.activeView)
+            navigator.activeView.setActive(false);
+        
+        // super is called after so that the active view can get the
+        // viewDeactive event before the persistence process begins.
+        super.nativeApplication_deactivateHandler(event);
+    }
     
     /**
      *  @private
