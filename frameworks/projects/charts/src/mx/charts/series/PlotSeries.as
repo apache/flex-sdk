@@ -471,39 +471,6 @@ public class PlotSeries extends Series
     }
 
     //----------------------------------
-    //  radius
-    //----------------------------------
-
-    [Inspectable(category="Styles")]
-    [Deprecated(replacement="radius style")]
-    
-    /** 
-     *  Specifies the radius, in pixels, of the chart element
-     *  at each data point. 
-     *  By default, the PlotChart control draws a circle at each data point.  
-     *  You can set this property in MXML or using styles. 
-     *  
-     *  @default 4
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function get radius():Number
-    {
-        return getStyle("radius");
-    }
-    
-    /**
-     *  @private
-     */
-    public function set radius(value:Number):void
-    {
-        setStyle("radius", value);
-    }
-
-    //----------------------------------
     //  renderDataType
     //----------------------------------
 
@@ -730,26 +697,14 @@ public class PlotSeries extends Series
         {
             if (!_horizontalAxis)
             {
-                if (c.secondSeries.indexOf(this) != -1 && c.secondHorizontalAxis)
-                {
-                    if (dataTransform.axes[CartesianTransform.HORIZONTAL_AXIS] != c.secondHorizontalAxis)
-                        CartesianTransform(dataTransform).setAxis(
-                            CartesianTransform.HORIZONTAL_AXIS,c.secondHorizontalAxis);
-                }
-                else if (dataTransform.axes[CartesianTransform.HORIZONTAL_AXIS] != c.horizontalAxis)
+                if (dataTransform.axes[CartesianTransform.HORIZONTAL_AXIS] != c.horizontalAxis)
                         CartesianTransform(dataTransform).setAxis(
                             CartesianTransform.HORIZONTAL_AXIS,c.horizontalAxis);
             }
                             
             if (!_verticalAxis)
             {
-                if (c.secondSeries.indexOf(this) != -1 && c.secondVerticalAxis)
-                {
-                    if (dataTransform.axes[CartesianTransform.VERTICAL_AXIS] != c.secondVerticalAxis)
-                        CartesianTransform(dataTransform).setAxis(
-                            CartesianTransform.VERTICAL_AXIS,c.secondVerticalAxis);
-                }
-                else if (dataTransform.axes[CartesianTransform.VERTICAL_AXIS] != c.verticalAxis)
+                if (dataTransform.axes[CartesianTransform.VERTICAL_AXIS] != c.verticalAxis)
                         CartesianTransform(dataTransform).setAxis(
                             CartesianTransform.VERTICAL_AXIS, c.verticalAxis);
             }
@@ -1165,12 +1120,6 @@ public class PlotSeries extends Series
                     allSeriesTransform = false;
             }
         
-            n = cChart.secondSeries.length;
-            for (i = 0; i < n; i++)
-            {
-                if (cChart.getSeriesTransformState(cChart.secondSeries[i]))
-                    allSeriesTransform = false;
-            }
             if (allSeriesTransform)
                 cChart.measureLabels();
         }   
