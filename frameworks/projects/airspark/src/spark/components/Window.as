@@ -2510,7 +2510,7 @@ public class Window extends SkinnableContainer implements IWindow
         if (systemManager.stage.nativeWindow.systemChrome != "none")
             return;
 
-        var edgeOrCorner:String = mx_internal::hitTestResizeEdge(event);
+        var edgeOrCorner:String = hitTestResizeEdge(event);
         if (edgeOrCorner != NativeWindowResize.NONE)
         {
             startResize(edgeOrCorner);
