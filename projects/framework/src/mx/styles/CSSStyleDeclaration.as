@@ -849,11 +849,18 @@ public class CSSStyleDeclaration extends EventDispatcher
         }
         
         // Add parent style to proto chain.
-        if (styleManager.parent)
+        // If a styleManger parent does not have a style for a given selector,
+        // then skip that parent and move up to the next parent.
+        var styleParent:IStyleManager2 = styleManager.parent;
+        while (styleParent)
         {
-            var parentStyle:CSSStyleDeclaration = styleManager.parent.getStyleDeclaration(selectorString);
+            var parentStyle:CSSStyleDeclaration = styleParent.getStyleDeclaration(selectorString);
             if (parentStyle)
+            {
                 chain = parentStyle.addStyleToProtoChain(chain, target, filterMap);
+                break;
+            }
+            styleParent = styleParent.parent;
         }
         
         // If there's a defaultFactory for this style sheet,
