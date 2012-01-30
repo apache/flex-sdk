@@ -19,6 +19,7 @@ import flash.utils.Dictionary;
 import mx.core.ComponentDescriptor;
 import mx.core.UIComponent;
 import mx.states.OverrideBase;
+import mx.core.IStateClient2;
 
 /**
  *  The event handler function to execute in response to the event that is
@@ -165,6 +166,18 @@ public class SetEventHandler extends OverrideBase
      *  @productversion Flex 3
      */
     public var handlerFunction:Function;
+    
+    /**
+     *  The handler function to remove prior to applying our override.
+     *  
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
+     */
+    public var originalHandlerFunction:Function;
 
     //----------------------------------
     //  target
@@ -239,41 +252,51 @@ public class SetEventHandler extends OverrideBase
         var obj:* = getOverrideContext(target, parent);
         if (obj != null)
         {
-        	appliedTarget = obj;
-	        var uiObj:UIComponent = obj as UIComponent;
-	
-	        if (!installedHandlers)
-	            installedHandlers = new Dictionary(true);
-	            
-	        // Remember the current handler so it can be restored
-	        if (installedHandlers[obj] && installedHandlers[obj][name])
-	        {
-	            oldHandlerFunction = installedHandlers[obj][name];
-	            obj.removeEventListener(name, oldHandlerFunction);
-	        }
-	        else if (uiObj && uiObj.descriptor)
-	        {
-	            var descriptor:ComponentDescriptor = uiObj.descriptor;
-	
-	            if (descriptor.events && descriptor.events[name])
-	            {
-	                oldHandlerFunction = uiObj.document[descriptor.events[name]];
-	                obj.removeEventListener(name, oldHandlerFunction);
-	            }
-	        }
-	
-	        // Set new handler as weak reference
-	        if (handlerFunction != null)
-	        {
-	            obj.addEventListener(name, handlerFunction, false, 0, true);
-	            
-	            // Add this handler to our installedHandlers list so it can
-	            // be removed if needed by a state based on this state.
-	            if (installedHandlers[obj] == undefined)
-	                installedHandlers[obj] = {};
-	            
-	            installedHandlers[obj][name] = handlerFunction;
-	        }
+            appliedTarget = obj;
+            var uiObj:UIComponent = obj as UIComponent;
+    
+            if (!installedHandlers)
+                installedHandlers = new Dictionary(true);
+                
+            // Remember the current handler so it can be restored
+            if (installedHandlers[obj] && installedHandlers[obj][name])
+            {
+                oldHandlerFunction = installedHandlers[obj][name];
+                obj.removeEventListener(name, oldHandlerFunction);
+            }
+            else if (originalHandlerFunction != null)
+            {
+                oldHandlerFunction = originalHandlerFunction;
+                obj.removeEventListener(name, oldHandlerFunction);   
+            }
+            else if (uiObj && uiObj.descriptor)
+            {
+                var descriptor:ComponentDescriptor = uiObj.descriptor;
+    
+                if (descriptor.events && descriptor.events[name])
+                {
+                    oldHandlerFunction = uiObj.document[descriptor.events[name]];
+                    obj.removeEventListener(name, oldHandlerFunction);
+                }
+            }
+    
+            // Set new handler as weak reference
+            if (handlerFunction != null)
+            {
+                obj.addEventListener(name, handlerFunction, false, 0, true);
+                
+                // Add this handler to our installedHandlers list so it can
+                // be removed if needed by a state based on this state. We 
+                // only do so for legacy MXML documents that support hierarchical
+                // states. 
+                if (!(parent.document is IStateClient2))
+                {   
+                    if (installedHandlers[obj] == undefined)
+                        installedHandlers[obj] = {};
+                    
+                    installedHandlers[obj][name] = handlerFunction;
+                }
+            }
         }
         else if (!applied)
         {
