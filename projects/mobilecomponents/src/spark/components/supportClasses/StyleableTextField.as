@@ -382,12 +382,32 @@ public class StyleableTextField extends TextField
     //----------------------------------
     //  Text alignment helpers
     //----------------------------------
+    
+    /**
+     *  @private
+     *  The height of the first line of text to the baseline of the bottom line
+     *  of text.  Handles both single line and multiline text.
+     */
+    private function get tightTextTopOffset():Number
+    {
+        updateTightTextSizes();
+        
+        return _tightTextTopOffset;
+    }
+    
     /**
      *  @private
      *  The height of the first line of text to the baseline of the bottom line
      *  of text.  Handles both single line and multiline text.
      */
     private function get tightTextHeight() :Number
+    {
+        updateTightTextSizes();
+        
+        return _tightTextHeight;
+    }
+    
+    private function updateTightTextSizes():void
     {
         commitStyles();
         
@@ -408,16 +428,14 @@ public class StyleableTextField extends TextField
             if (numLines == 1) // account for the extra leading on single line text
                 bottomOffset += metrics.leading;
             
-            var topOffset:Number = getTextTopOffset(defaultTextFormat);
-            _tightTextHeight = measuredTextSize.y - topOffset - bottomOffset;
+            _tightTextTopOffset = getTextTopOffset(defaultTextFormat);
+            _tightTextHeight = measuredTextSize.y - _tightTextTopOffset - bottomOffset;
             
             if (isEmpty)
                 text = "";
             
             invalidateTightTextHeight = false;
         }
-        
-        return _tightTextHeight;
     }
     
     /**
@@ -1382,7 +1400,7 @@ public class StyleableTextField extends TextField
         {
             // return the y position of the text within the text field.  we calculate this value
             // using text field's y, offset by the text top offset
-            return y + getTextTopOffset(defaultTextFormat);
+            return y + tightTextTopOffset;
         }
         else
         {
@@ -1483,21 +1501,13 @@ public class StyleableTextField extends TextField
     /**
      * @private
      */
-    public function setEstimatedSize(estimatedWidth:Number=NaN, estimatedHeight:Number=NaN, invalidateSize:Boolean=true):void
-    {
-        // TODO (jasonsj)
-    }
-    
-    /**
-     * @private
-     */
     public function setLayoutBoundsPosition(x:Number, y:Number, postLayoutTransform:Boolean=true):void
     {
         if (useTightTextBounds)
         {
             // offset the positions by the left gutters and the top offset
             this.x = x - StyleableTextField.TEXT_WIDTH_PADDING/2;
-            this.y = y - getTextTopOffset(defaultTextFormat);
+            this.y = y - tightTextTopOffset;
         }
         else
         {
@@ -1527,10 +1537,23 @@ public class StyleableTextField extends TextField
         if (isNaN(newHeight))
             newHeight = getPreferredBoundsHeight();
         
-        // re-add the top and bottom offsets.  (measuredTextSize.y - tightTextHeight) gives us
-        // the sum of top and bottom offsets
-        if (useTightTextBounds && (measuredTextSize.y > tightTextHeight))
-            newHeight += (measuredTextSize.y - tightTextHeight);
+        if (useTightTextBounds)
+        {
+            if (newHeight > 0)
+            {
+                var bottomOffset:Number = measuredTextSize.y - tightTextTopOffset - tightTextHeight;
+                
+                // when clipping, allow gutter to be outside of height
+                // use 2x gutter (actual gutter is not part of tight text height)
+                // when newHeight==1, actual visible height==3 (1px + 1x gutter)
+                if (newHeight < tightTextHeight)
+                    bottomOffset = StyleableTextField.TEXT_HEIGHT_PADDING;
+                
+                // re-add the top and bottom offsets.  (measuredTextSize.y - tightTextHeight) gives us
+                // the sum of top and bottom offsets
+                newHeight += (tightTextTopOffset + bottomOffset);
+            }
+        }
         
         this.height = newHeight;
     }
@@ -1654,30 +1677,6 @@ public class StyleableTextField extends TextField
     public function set bottom(value:Object):void
     {
         // do nothing
-    }
-    
-    //----------------------------------
-    //  estimatedHeight
-    //----------------------------------
-    
-    /**
-     * @private
-     */
-    public function get estimatedHeight():Number
-    {
-        return NaN;
-    }
-    
-    //----------------------------------
-    //  estimatedWidth
-    //----------------------------------
-    
-    /**
-     * @private
-     */
-    public function get estimatedWidth():Number
-    {
-        return NaN;
     }
     
     //----------------------------------
@@ -2021,6 +2020,11 @@ public class StyleableTextField extends TextField
      *  @private
      */
     private var _tightTextHeight:Number;
+    
+    /**
+     *  @private
+     */
+    private var _tightTextTopOffset:Number;
     
     /**
      *  @private
