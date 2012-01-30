@@ -170,7 +170,7 @@ public class MovieClipSWFLoader extends SWFLoader
     }
     
     /**
-     *  Resets the playhead to the first frame and stops the MovieClip.
+     *  Resets the playhead to the first frame of the first scene and stops the MovieClip.
      *  If the content is not a MovieClip, this results in a no-op.
      * 
      *  @langversion 3.0
