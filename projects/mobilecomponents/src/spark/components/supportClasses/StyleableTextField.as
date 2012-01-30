@@ -25,7 +25,13 @@ import flash.ui.Keyboard;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.resources.ResourceManager;
+import mx.styles.CSSStyleDeclaration;
+import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
+import mx.styles.IStyleManager2;
+import mx.styles.StyleManager;
+import mx.styles.StyleProtoChain;
+import mx.utils.NameUtil;
 
 import spark.core.IEditableText;
 import spark.events.TextOperationEvent;
@@ -38,7 +44,7 @@ use namespace mx_internal;
 // To use:
 //   in createChildren():
 //       var tf:StyleableTextField = createInFontContext(StyleableTextField);
-//       tf.styleProvider = this;
+//       tf.styleName = this;
 //       tf.editable = true|false;   // for editable text
 //       tf.multiline = true|false;  // for multiline text
 //       tf.wordWrap = true|false;   // for word wrapping
@@ -48,9 +54,14 @@ use namespace mx_internal;
 //       tf.text = "...." - if needed
 // 
 //   in measure();
-//       Use UIComponent.measureText()
+//       if (tf.isTruncated)     // if text may be truncated
+//           tf.text = "...";
+//       tf.commitStyles();    // Always call this. No-op if styles already applied.
+//       Use tf.textWidth, tf.textHeight;
 //
 //   in updateDisplayList():
+//       if (tf.isTruncated)    // if text may be truncated
+//           tf.text = "...";
 //       tf.commitStyles();    // Always call this. No-op if styles already applied.
 //       tf.x = ...
 //       tf.y = ...
@@ -58,9 +69,6 @@ use namespace mx_internal;
 //       tf.height = ...
 //       // if you want truncated text:
 //       tf.truncateToFit();
-//
-//   in styleChanged():
-//       tf.styleChanged(styleProp);
 //
 // Supported styles: textAlign, fontFamily, fontWeight, "colorName", fontSize, fontStyle, 
 //                   textDecoration, textIndent, leading, letterSpacing
@@ -74,7 +82,8 @@ use namespace mx_internal;
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-public class StyleableTextField extends TextField implements IEditableText
+public class StyleableTextField extends TextField 
+    implements IEditableText, ISimpleStyleClient
 {        
     
     //--------------------------------------------------------------------------
@@ -132,6 +141,85 @@ public class StyleableTextField extends TextField implements IEditableText
             truncationIndicatorResource = ResourceManager.getInstance().
                 getString("core", "truncationIndicator");
         }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  styleDeclaration
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the styleDeclaration property.
+     */
+    private var _styleDeclaration:CSSStyleDeclaration;
+    
+    [Inspectable(environment="none")]
+    
+    /**
+     *  Storage for the inline inheriting styles on this object.
+     *  This CSSStyleDeclaration is created the first time that
+     *  the <code>setStyle()</code> method
+     *  is called on this component to set an inheriting style.
+     *  Developers typically never need to access this property directly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get styleDeclaration():CSSStyleDeclaration
+    {
+        return _styleDeclaration;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set styleDeclaration(value:CSSStyleDeclaration):void
+    {
+        _styleDeclaration = value;
+    }
+    
+    //----------------------------------
+    //  styleName
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the styleName property.
+     */
+    private var _styleName:Object /* UIComponent */;
+    
+    /**
+     *  The class style used by this component. This should be an IStyleClient.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get styleName():Object /* UIComponent */
+    {
+        return _styleName;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set styleName(value:Object /* UIComponent */):void
+    {
+        if (_styleName === value)
+            return;
+        
+        _styleName = value;
+        
+        styleChanged("styleName");
     }
     
     //--------------------------------------------------------------------------
@@ -526,42 +614,6 @@ public class StyleableTextField extends TextField implements IEditableText
     //
     //--------------------------------------------------------------------------
     
-    //----------------------------------
-    //  styleProvider
-    //----------------------------------
-    
-   /**
-     *  The object that provides styles for this text component. This
-     *  property must be set for the text to pick up the correct styles.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public var styleProvider:IStyleClient;
-    
-    /**
-     *  @private
-     *  An mx_internal hook developers can set to control where the styles 
-     *  come from for the StyleableTextField.  By default, StyleableTextField
-     *  uses a function that just grabs the styles from styleProvider.
-     * 
-     *  <p>This takes precedence over styleProvider and should never 
-     *  be set to null.</p>
-     */
-    mx_internal var getStyleFunction:Function = defaultGetStyleFunction;
-    
-    /**
-     *  @private
-     *  The object that provides styles for this text component. This
-     *  property must be set for the text to pick up the correct styles.
-     */
-    private function defaultGetStyleFunction(styleProp:String):*
-    {
-        return styleProvider.getStyle(styleProp);
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -580,38 +632,38 @@ public class StyleableTextField extends TextField implements IEditableText
      */
     public function commitStyles():void
     {
-        if ((getStyleFunction != defaultGetStyleFunction || styleProvider) && invalidateStyleFlag)
+        if (invalidateStyleFlag)
         {
-            var align:String = getStyleFunction("textAlign");
+            var align:String = getStyle("textAlign");
             if (align == "start")
                 align = TextFormatAlign.LEFT;
             if (align == "end")
                 align = TextFormatAlign.RIGHT;
             textFormat.align = align;
-            textFormat.font = getStyleFunction("fontFamily");
-            textFormat.bold = getStyleFunction("fontWeight") == "bold";
-            textFormat.color = getStyleFunction(colorName);
-            textFormat.size = getStyleFunction("fontSize");
-            textFormat.italic = getStyleFunction("fontStyle") == "italic";
-            textFormat.underline = getStyleFunction("textDecoration") == "underline";
-            textFormat.indent = getStyleFunction("textIndent");
-            textFormat.leading = getStyleFunction("leading");
-            textFormat.letterSpacing = getStyleFunction("letterSpacing");
-			var kerning:* = getStyleFunction("kerning");
+            textFormat.font = getStyle("fontFamily");
+            textFormat.bold = getStyle("fontWeight") == "bold";
+            textFormat.color = getStyle(colorName);
+            textFormat.size = getStyle("fontSize");
+            textFormat.italic = getStyle("fontStyle") == "italic";
+            textFormat.underline = getStyle("textDecoration") == "underline";
+            textFormat.indent = getStyle("textIndent");
+            textFormat.leading = getStyle("leading");
+            textFormat.letterSpacing = getStyle("letterSpacing");
+			var kerning:* = getStyle("kerning");
 			if (kerning == "auto" || kerning == "on")
 				kerning = true;
 			else if (kerning == "default" || kerning == "off")
 				kerning = false;
 			textFormat.kerning = kerning;
             
-			antiAliasType = getStyleFunction("fontAntiAliasType");
-			gridFitType = getStyleFunction("fontGridFitType");
-			sharpness = getStyleFunction("fontSharpness");
-			thickness = getStyleFunction("fontThickness");
+			antiAliasType = getStyle("fontAntiAliasType");
+			gridFitType = getStyle("fontGridFitType");
+			sharpness = getStyle("fontSharpness");
+			thickness = getStyle("fontThickness");
             
             // ignore padding in the text...most components deal with it themselves
-            //textFormat.leftMargin = getStyleFunction("paddingLeft");
-            //textFormat.rightMargin = getStyleFunction("paddingRight");
+            //textFormat.leftMargin = getStyle("paddingLeft");
+            //textFormat.rightMargin = getStyle("paddingRight");
 
             // Check for embedded fonts
             embedFonts = isFontEmbedded(textFormat);
@@ -634,9 +686,53 @@ public class StyleableTextField extends TextField implements IEditableText
     }
     
     /**
-     *  Notify the text field that a style is changed. 
-     *  This method is typically called by the <code>styleChanged()</code> method 
-     *  of the style provider.
+     *  @copy mx.core.UIComponent#getStyle()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function getStyle(styleProp:String):*
+    {
+        // check out inline style first
+        if (_inlineStyleObject && _inlineStyleObject[styleProp] !== undefined)
+            return _inlineStyleObject[styleProp];
+        
+        // check styles that are on us via styleDeclaration
+        if (styleDeclaration && styleDeclaration.getStyle(styleProp) !== undefined)
+            return styleDeclaration.getStyle(styleProp);
+        
+        // if not inlined, check our style provider
+        if (styleName is IStyleClient)
+            return IStyleClient(styleName).getStyle(styleProp);
+        
+        // if can't find it, return undefined
+        return undefined;
+    }
+    
+    /**
+     *  @copy mx.core.UIComponent#setStyle()
+     *
+     *  @param styleProp Name of the style property.
+     *
+     *  @param newValue New value for the style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function setStyle(styleProp:String, value:*):void
+    {
+        if (!_inlineStyleObject)
+            _inlineStyleObject = {styleProp: value};
+        else
+            _inlineStyleObject[styleProp] = value;
+    }
+    
+    /**
+     *  @copy mx.core.UIComponent#styleChanged()
      *
      *  @param styleProp The style property that changed.
      *
@@ -690,8 +786,9 @@ public class StyleableTextField extends TextField implements IEditableText
         {
             // This should get us into the ballpark.
             var s:String = super.text = originalText;
-            originalText.slice(0,
-                Math.floor((w / (textWidth + TEXT_WIDTH_PADDING)) * originalText.length));
+            // TODO (rfrishbe): why is this here below...it does nothing (see SDK-26438)
+            //originalText.slice(0,
+            //    Math.floor((w / (textWidth + TEXT_WIDTH_PADDING)) * originalText.length));
             
             while (s.length > 1 && textWidth + TEXT_WIDTH_PADDING > w)
             {
@@ -805,6 +902,17 @@ public class StyleableTextField extends TextField implements IEditableText
     private static var textFormat:TextFormat = new TextFormat();
     private var _isTruncated:Boolean = false;
     private static var embeddedFonts:Array;
+    
+    /**
+     *  @private
+     *  Storage for the inline styles on this StyleableTextField instance
+     * 
+     *  There's no real need for _inlineStyleObject because we could 
+     *  just piggy-back off of styleDeclaration (and create a new 
+     *  CSSStyleDeclaration when setStyle() is called, but this is easier 
+     *  and there seems to be less overhead with this approach).
+     */
+    private var _inlineStyleObject:Object;
     
     /**
      *  @private
