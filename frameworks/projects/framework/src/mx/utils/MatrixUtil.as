@@ -917,7 +917,7 @@ public final class MatrixUtil
     /**
      *  Finds a solution (x,y) for the equation abs(a*x + c*y) = w such that
      *  abs(b*x +d*y) is minimized.
-     *  If there is infinate number of solutions, x and y are picked to be
+     *  If there is infinite number of solutions, x and y are picked to be
      *  as close as possible.
      * 
      *  Doesn't handle cases where <code>a</code> or <code>c</code> are zero.
@@ -980,9 +980,9 @@ public final class MatrixUtil
             // "make x and y as close as possible": y = w / ( a + c );  
             // "minimize abs(bx + dy)": y = b * w / det    
             // "preserve aspect ratio": y = w / ( a * preferredX / preferredY + c );
-            if (det == 0)
+            if (Math.abs(det) < 1.0e-9)
             {
-                // There is infinate number of solutions, lets pick x == y
+                // There is infinite number of solutions, lets pick x == y
                 y = w / ( a + c );
             }
             else
@@ -1034,9 +1034,9 @@ public final class MatrixUtil
             // "make x and y as close as possible": y = -w / ( a + c );  
             // "minimize abs(bx + dy)": y = -b * w / det    
             // "preserve aspect ratio": y = w / ( a * preferredX / preferredY + c );
-            if (det == 0)
+            if (Math.abs(det) < 1.0e-9)
             {
-                // There is infinate number of solutions, lets pick x == y
+                // There is infinite number of solutions, lets pick x == y
                 y = -w / ( a + c );
             }
             else
@@ -1065,7 +1065,7 @@ public final class MatrixUtil
      *  x and y are restricted by <code>minX</code>, <code>maxX</code> and
      *  <code>minY</code>, <code>maxY</code>.
      * 
-     *  When there is infinate number of solutions, the function will
+     *  When there is infinite number of solutions, the function will
      *  calculate x and y to be as close as possible.
      * 
      *  The functon assumes <code>minX >= 0</code> and <code>minY >= 0</code>
@@ -1164,7 +1164,7 @@ public final class MatrixUtil
         
         // Calculate the determinant of the system
         const det:Number = a * d1 - b * c1;
-        if (det == 0)
+        if (Math.abs(det) < 1.0e-9)
         {
             // No solution in these cases since the matrix
             // collapses all points into a line.
