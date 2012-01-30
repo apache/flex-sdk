@@ -16,4 +16,4 @@ import mx.core.mx_internal;
  *  @private
  *  Version string for this class.
  */
-mx_internal static const VERSION:String = "4.5.1.0";
+mx_internal static const VERSION:String = "4.5.2.0";
