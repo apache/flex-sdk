@@ -80,6 +80,7 @@ public class SpinnerList extends ListBase
 	//--------------------------------------------------------------------------
 	
 	mx_internal static const FORCE_NO_WRAP_ELEMENTS_CHANGE:String = "forceNoWrapElementsChange";
+    mx_internal static const ENABLED_PROPERTY_NAME:String = "_enabled_";
 	
 	private var scrollToSelection:Boolean = false;
 	private var numElementsChanged:Boolean = false;
@@ -233,9 +234,7 @@ public class SpinnerList extends ListBase
 	}
 	
 	override protected function commitSelection(dispatchChangedEvents:Boolean=true):Boolean
-	{
-		dispatchChangeAfterSelection = true;
-		
+	{		
 		var result:Boolean = super.commitSelection(dispatchChangedEvents);
 
 		// SnapElement requires a layout pass in order to properly center the selection
@@ -333,7 +332,7 @@ public class SpinnerList extends ListBase
 		if (spinnerLayout)
 		{
 			var centerElementIndex:int = spinnerLayout.getIndexAtVerticalCenter();
-			selectedIndex = centerElementIndex;
+			setSelectedIndex(centerElementIndex, true);
 		}
 	}
 	
