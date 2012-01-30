@@ -18,7 +18,7 @@ import flash.events.Event;
 import mx.events.FlexEvent;
 
 import spark.components.TextArea;
-import spark.components.supportClasses.MobileTextField;
+import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.assets.TextInput_border;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
@@ -59,7 +59,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
     /**
      *  textDisplay skin part.
      */
-    public var textDisplay:MobileTextField;
+    public var textDisplay:StyleableTextField;
     
     /**
      *  @private
@@ -84,7 +84,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
         border = new TextInput_border;
         addChild(border);
         
-        textDisplay = MobileTextField(createInFontContext(MobileTextField));
+        textDisplay = StyleableTextField(createInFontContext(StyleableTextField));
         textDisplay.styleProvider = this;
         textDisplay.editable = true;
         textDisplay.multiline = true;
