@@ -13,7 +13,7 @@ package spark.skins.mobile
 {
 import spark.components.MobileApplication;
 import spark.components.ViewNavigator;
-import spark.skins.MobileSkin;
+import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
  *  The ActionScript based skin used for MobileApplication.  This
@@ -21,7 +21,7 @@ import spark.skins.MobileSkin;
  *  content area of the application.
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
+ *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -76,11 +76,6 @@ public class MobileApplicationSkin extends MobileSkin
     
     /**
      *  @private
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
      */
     override protected function createChildren():void
     {
@@ -90,11 +85,6 @@ public class MobileApplicationSkin extends MobileSkin
     
     /**
      *  @private
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
