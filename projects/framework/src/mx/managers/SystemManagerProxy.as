@@ -55,15 +55,16 @@ use namespace mx_internal;
 
 
 /**
- * This class acts as the SystemManager for a popup that is 
- * added to the top-level SystemManager from a sandboxed application.
- * Instead of the popup being a child of the top-level
- * SystemManager as is normally done, the popup is a child of a
- * SystemManagerProxy, created in the same sandbox. The SystemManagerProxy
- * is the actual display object added to the top-level SystemManager.
- * The scheme is done to give the popup a "friendly" SystemManager
- * it can talk to. Otherwise the popup would not be able to access the
- * SystemManager that is its parent. 
+ *  This class acts as the SystemManager for a popup window that is 
+ *  added to a parent SystemManager from a compatible application.
+ *  Instead of the popup window being a child of the host
+ *  SystemManager as is normally done, the popup is a child of a
+ *  SystemManagerProxy, created in the same application domain. 
+ *  The SystemManagerProxy is the actual display object added to the
+ *  host SystemManager.
+ *  The scheme is done to give the popup window a SystemManager,
+ *  with the same version of Flex and created in the same application domain,
+ *  that the pop up window will be able to talk to. 
  */
 public class SystemManagerProxy extends SystemManager
 {
@@ -71,11 +72,10 @@ public class SystemManagerProxy extends SystemManager
 
 
 	/**
-	 * Create a new SystemManagerProxy.
+	 *  Constructor.
 	 * 
-	 * @param systemManager the system manager that this class is a proxy for.
-	 *        This is the system manager in the same sandbox as the popup
-	 * 		  that will eventually be added as a child of this class.
+	 *  @param systemManager the system manager that this class is a proxy for.
+	 *  This is the system manager in the same application domain as the popup.
 	 */
 	public function SystemManagerProxy(systemManager:ISystemManager2)
 	{
@@ -92,20 +92,35 @@ public class SystemManagerProxy extends SystemManager
 
 	}
 	
-	private function proxyMouseDownHandler(event:MouseEvent):void
-	{
-		// Tell our parent system manager we are active.
-	 	SystemManager(_systemManager).fireActivatedWindowEvent(this);
-	}
-	
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  systemManager
+    //----------------------------------
+    
 	private var _systemManager:ISystemManager2;
-	
+
+    /**
+    *   The SystemManager that is being proxied. This is the SystemManager of
+    *   the application that created this proxy and the pop up window
+    *   that is a child of this proxy.
+    */	
 	public function get systemManager():ISystemManager2
 	{
 		return _systemManager;
 	}
 	
-		/**
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: SystemManager
+    //
+    //--------------------------------------------------------------------------
+
+	/**
 	 *  @inheritDoc
 	 */
 	override public function getDefinitionByName(name:String):Object
@@ -114,17 +129,27 @@ public class SystemManagerProxy extends SystemManager
 	}
 
 
+    /**
+     *  @inheritDoc
+     */
 	override public function create(... params):Object
 	{
 		return IFlexModuleFactory(_systemManager).create.apply(this, params);
 	}
 
+    /**
+     *  @inheritDoc
+     */
 	override public function useBridge():Boolean
 	{
 		return false;		// proxy does not want to use the bridge
 	}	
 	
 
+    /**
+     *  Override to size mouse catcher to the size fo the system manager we
+     *  are the proxy for.
+     */
 	override mx_internal function resizeMouseCatcher():void
 	{
 		if (mouseCatcher)
@@ -138,50 +163,9 @@ public class SystemManagerProxy extends SystemManager
 		}
 	}
 
-	/**
-	 * Listen to when our popup has started dragging. Expand the mouse catcher to catch
-	 * all the mouse moves when dragging.
-	 */
-	private function startDraggingHandler(event:Event):void
-	{
-		// trace("startDraggingHandler");
-		// Add the mouseCatcher as child 0.
-		if (!mouseCatcher)
-		{
-			mouseCatcher = new FlexSprite();
-			mouseCatcher.name = "mouseCatcher";
-			// Must use addChildAt because a creationComplete handler can create a
-			// dialog and insert it at 0.
-			noTopMostIndex++;
-			$addChildAt(mouseCatcher, 0);	
-			resizeMouseCatcher();
-			if (!topLevel)
-			{
-				mouseCatcher.visible = false;
-				mask = mouseCatcher;
-			}
-		}
-
-		var screen:Rectangle = SystemManager(_systemManager).screen;
-		setActualSize(screen.width, screen.height);
-	}
-	
-	/**
-	 * Called when dragging has stopped. We not reduce the size of the mouse
-	 * catcher so client area may be clicked on.
-	 */
-	private function stopDraggingHandler(event:Event):void
-	{
-		// trace("stopDraggingHandler");
-		if (mouseCatcher)
-		{
-			$removeChildAt(0);
-			noTopMostIndex--;
-			mouseCatcher = null;
-		}
-	
-	}
-
+    /**
+     *  @inheritDoc
+     */
 	override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, 
 											priority:int=0, useWeakReference:Boolean=false):void
 	{
@@ -189,6 +173,9 @@ public class SystemManagerProxy extends SystemManager
 		_systemManager.addEventListener(type, listener, useCapture, priority, useWeakReference);
 	}
 	
+    /**
+     *  @inheritDoc
+     */
 	override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void 
 	{
 		super.removeEventListener(type, listener, useCapture);
@@ -201,6 +188,8 @@ public class SystemManagerProxy extends SystemManager
 	override public function activate(f:IFocusManagerContainer):void
 	{
 		// trace("SM Proxy: activate " + f );
+		
+		// activate the proxied SystemManager.
 		var bridge:IEventDispatcher = _systemManager.sandboxBridgeGroup ? 
 									  _systemManager.sandboxBridgeGroup.parentBridge : null;
 		if (bridge)
@@ -216,10 +205,14 @@ public class SystemManagerProxy extends SystemManager
 		}
 	}
 
+    /**
+     *  @inheritDoc
+     */
 	override public function deactivate(f:IFocusManagerContainer):void
 	{
 		// trace("SM Proxy: deactivate " + f );
 
+        // deactivate the proxied SystemManager.
 		var sm:ISystemManager2 = ISystemManager2(_systemManager);
 		var bridge:IEventDispatcher = sm.sandboxBridgeGroup ? sm.sandboxBridgeGroup.parentBridge : null;
 		if (bridge)
@@ -235,17 +228,97 @@ public class SystemManagerProxy extends SystemManager
 		}
 	}
 
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Activates the FocusManager in an IFocusManagerContainer for the 
+     *  pop up window parented by this proxy.
+     * 
+     *  @param f IFocusManagerContainer the top-level window
+     *  whose FocusManager should be activated.
+     */
 	public function activateProxy(f:IFocusManagerContainer):void
 	{
 		super.activate(f);	
 	}
 
+    /**
+     *  Deactivates the focus manager for the pop up window parented by this 
+     *  proxy.
+     * 
+     *  @param f IFocusManagerContainer the top-level window
+     *  whose FocusManager should be deactivated.
+     */
 	public function deactivateProxy(f:IFocusManagerContainer):void
 	{
 		if (f)
-			f.focusManager.deactivate();
+            f.focusManager.deactivate();
 	}
-		
+
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     * 
+     *  Handle mouse downs on the pop up window.
+     */
+    private function proxyMouseDownHandler(event:MouseEvent):void
+    {
+        // Tell our parent system manager we are active.
+        SystemManager(_systemManager).fireActivatedWindowEvent(this);
+    }
+    
+    /**
+     *  Listen to when our popup has started dragging. Expand the mouse catcher to catch
+     *  all the mouse moves when dragging.
+     */
+    private function startDraggingHandler(event:Event):void
+    {
+        // trace("startDraggingHandler");
+        // Add the mouseCatcher as child 0.
+        if (!mouseCatcher)
+        {
+            mouseCatcher = new FlexSprite();
+            mouseCatcher.name = "mouseCatcher";
+            // Must use addChildAt because a creationComplete handler can create a
+            // dialog and insert it at 0.
+            noTopMostIndex++;
+            $addChildAt(mouseCatcher, 0);   
+            resizeMouseCatcher();
+            if (!topLevel)
+            {
+                mouseCatcher.visible = false;
+                mask = mouseCatcher;
+            }
+        }
+
+        var screen:Rectangle = SystemManager(_systemManager).screen;
+        setActualSize(screen.width, screen.height);
+    }
+    
+    /**
+     *  Called when dragging has stopped. We not reduce the size of the mouse
+     *  catcher so client area may be clicked on.
+     */
+    private function stopDraggingHandler(event:Event):void
+    {
+        // trace("stopDraggingHandler");
+        if (mouseCatcher)
+        {
+            $removeChildAt(0);
+            noTopMostIndex--;
+            mouseCatcher = null;
+        }
+    }
+
 }
 
 }
