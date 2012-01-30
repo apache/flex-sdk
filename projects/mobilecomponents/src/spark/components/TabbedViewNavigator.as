@@ -406,17 +406,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         }
         
         mxmlContent = contentArray;
-        
-        if (value && value.length > 0)
-        {
-            // Reset selectedIndex to -1 and proposed index to 0 so that the appropriate
-            // navigator is selected in commit properties.
-            _selectedIndex = _proposedSelectedIndex = 0;
-        }
-        else
-        {
-            _selectedIndex = _proposedSelectedIndex = NO_PROPOSED_SELECTION;
-        }
 
         // The proposed selected index is reset because it is no longer valid
         // since the array of navigators has changed.
@@ -700,67 +689,91 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             // Store the old index
             var oldIndex:int = _selectedIndex;
             
-            // If the data provider has changed, the navigator elements have
-            // already been removed, so the following code doesn't need to run
-            if (!selectedIndexAdjusted && !dataProviderChanged && _selectedIndex >= 0 && _selectedIndex < length)
-            {
-                navigator = getElementAt(_selectedIndex) as ViewNavigatorBase;
-                navigator.setActive(false, !maintainNavigationStack);
-                navigator.visible = false;
-                navigator.includeInLayout = false;
-                
-                if (navigator.activeView)
-                    navigator.activeView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
-                                                                view_propertyChangeHandler);
-                
-                removeNavigatorListeners(navigator);
-            }
+            if (selectedIndex >= length)
+                selectedIndex = (length > 0) ? 0 : NO_PROPOSED_SELECTION;
             
-            commitSelection();
-            
-            if (_selectedIndex >= 0)
+            var indexChangedPrevented:Boolean = false;
+            // The selected index property can be changed programmitically on the
+            // TabbedViewNavigator or by its tab bar in response to a user action.  If
+            // this was initiated by the tab bar, a chaning event would have already been
+            // dispatched in tabBar_indexChanging().
+            if (initialized && selectedIndexChanged && !changingEventDispatched)
             {
-                // If there is no focus or the item that had focus isn't 
-                // on the display list anymore, update the focus to be
-                // the active view or the view navigator
-                updateFocus();
-                
-                navigator = getElementAt(_selectedIndex) as ViewNavigatorBase;
-                navigator.setActive(true);
-                navigator.visible = true;
-                navigator.includeInLayout = true;
-                
-                addNavigatorListeners(navigator);
-                
-                // Update the states of the controls on the newly activated view navigator.
-                // The updateControlsForView() method will automatically bubble up to all
-                // parents of the navigator.
-                navigator.updateControlsForView(navigator.activeView);
-                
-                // Force a validation of the new navigator to prevent a flicker from
-                // occurring in cases where multiple validation passes are required
-                // to completely validate a view
-                if (initialized)
-                    currentContentGroup.validateNow();
-                
-                if (navigator.activeView)
+                // If the active view's REMOVING event or the navigator's
+                // CHANGING event was canceled, prevent the index change
+                if (!indexCanChange(selectedIndex))
                 {
-                    navigator.activeView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
-                                                            view_propertyChangeHandler);
+                    _proposedSelectedIndex = NO_PROPOSED_SELECTION;
+                    indexChangedPrevented = true;
                 }
             }
-
+            
+            changingEventDispatched = false;
+            
+            if (!indexChangedPrevented)
+            {
+                // If the data provider has changed, the navigator elements have
+                // already been removed, so the following code doesn't need to run
+                if (!selectedIndexAdjusted && !dataProviderChanged && _selectedIndex >= 0 && _selectedIndex < length)
+                {
+                    navigator = getElementAt(_selectedIndex) as ViewNavigatorBase;
+                    navigator.setActive(false, !maintainNavigationStack);
+                    navigator.visible = false;
+                    navigator.includeInLayout = false;
+                    
+                    if (navigator.activeView)
+                        navigator.activeView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+                                                                    view_propertyChangeHandler);
+                    
+                    removeNavigatorListeners(navigator);
+                }
+                
+                commitSelection();
+                
+                if (_selectedIndex >= 0)
+                {
+                    // If there is no focus or the item that had focus isn't 
+                    // on the display list anymore, update the focus to be
+                    // the active view or the view navigator
+                    updateFocus();
+                    
+                    navigator = getElementAt(_selectedIndex) as ViewNavigatorBase;
+                    navigator.setActive(true);
+                    navigator.visible = true;
+                    navigator.includeInLayout = true;
+                    
+                    addNavigatorListeners(navigator);
+                    
+                    // Update the states of the controls on the newly activated view navigator.
+                    // The updateControlsForView() method will automatically bubble up to all
+                    // parents of the navigator.
+                    navigator.updateControlsForView(navigator.activeView);
+                    
+                    // Force a validation of the new navigator to prevent a flicker from
+                    // occurring in cases where multiple validation passes are required
+                    // to completely validate a view
+                    if (initialized)
+                        currentContentGroup.validateNow();
+                    
+                    if (navigator.activeView)
+                    {
+                        navigator.activeView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+                                                                view_propertyChangeHandler);
+                    }
+                }
+            
+                // Dispatch selection change event
+                if (hasEventListener(IndexChangeEvent.CHANGE))
+                {
+                    changeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGE, false, false);
+                    changeEvent.oldIndex = oldIndex;
+                    changeEvent.newIndex = _selectedIndex;
+                }
+            }
+            
             selectedIndexAdjusted = false;
             dataProviderChanged = false;
             selectedIndexChanged = false;
-            
-            // Dispatch selection change event
-            if (hasEventListener(IndexChangeEvent.CHANGE))
-            {
-                changeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGE, false, false);
-                changeEvent.oldIndex = oldIndex;
-                changeEvent.newIndex = _selectedIndex;
-            }
         }
 
         if (tabBarVisibilityChanged)
@@ -1098,7 +1111,12 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     private function tabBar_indexChanging(event:IndexChangeEvent):void
     {
         if (!indexCanChange(event.newIndex))
+        {
             event.preventDefault();
+            
+            // Clear changing flag
+            changingEventDispatched = false;
+        }
     }
     
     /**
@@ -1290,41 +1308,16 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     public function set selectedIndex(value:int):void
     {
-        if (value < -1 || value >= length) 
-        {
-            var message:String = ResourceManager.getInstance().getString(
-                "collections", "outOfBounds", [ value ]);
-            throw new RangeError(message);
-        }
-        
         if (!dataProviderChanged && value == selectedIndex)
             return;
-        
-        // The selected index property can be changed programmitically on the
-        // TabbedViewNavigator or by its tab bar in response to a user action.  If
-        // this was initiated by the tab bar, a chaning event would have already been
-        // dispatched in tabBar_indexChanging().
-        if (initialized && !changingEventDispatched)
-        {
-            // If the active view's REMOVING event or the navigator's
-            // CHANGING event was canceled, prevent the index change
-            if (!indexCanChange(value))
-            {
-                _proposedSelectedIndex = NO_PROPOSED_SELECTION;
-                return;
-            }
-        }
         
         if (activeView)
             activeView.dispatchEvent(new Event("_navigationChange_"));
         
         _proposedSelectedIndex = value;
         selectedIndexChanged = true;
-        changingEventDispatched = false;
         
         invalidateProperties();
-        
-        
     }
     
     /**
