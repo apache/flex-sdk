@@ -39,7 +39,7 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.CursorManager;
-import mx.managers.SystemManager;
+import mx.managers.ISystemManager;
 import mx.managers.SystemManagerGlobals;
 import mx.styles.ISimpleStyleClient;
 import mx.utils.LoaderUtil;
@@ -1778,14 +1778,15 @@ public class SWFLoader extends UIComponent
         
         try
         {
-            var sm:SystemManager = content as SystemManager;
+            var sm:ISystemManager = content as ISystemManager;
             if (sm != null)
-                sm.regenerateStyleCache(recursive);
+                Object(sm).regenerateStyleCache(recursive);
         }
         catch(error:Error)
         {
             // Ignore any errors trying to access the content
             // b/c we may cause a security violation trying to do it
+			// Also ignore if the sm doesn't have a regenerateStyleCache method
         }
     }
 
@@ -1801,14 +1802,15 @@ public class SWFLoader extends UIComponent
         
         try
         {
-            var sm:SystemManager = content as SystemManager;
+            var sm:ISystemManager = content as ISystemManager;
             if (sm != null)
-                sm.notifyStyleChangeInChildren(styleProp, recursive);
+                Object(sm).notifyStyleChangeInChildren(styleProp, recursive);
         }
         catch(error:Error)
         {
             // Ignore any errors trying to access the content
             // b/c we may cause a security violation trying to do it
+			// Also ignore if the sm doesn't have a notifyStyleChangeInChildren method
         }
     }
     
