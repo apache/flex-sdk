@@ -422,10 +422,10 @@ public class SlideViewTransition extends ViewTransition
                 nextViewProps = null;
             }
             
-            if (actionBar.titleGroup && actionBar.titleGroup.visible)
+            if (actionBar && actionBar.titleGroup && actionBar.titleGroup.visible)
                 actionBar.titleGroup.cacheAsBitmap = false;
             
-            if (actionBar.titleDisplay
+            if (actionBar && actionBar.titleDisplay
                 && (actionBar.titleDisplay is DisplayObject)
                 && DisplayObject(actionBar.titleDisplay).visible)
                 DisplayObject(actionBar.titleDisplay).cacheAsBitmap = false;
