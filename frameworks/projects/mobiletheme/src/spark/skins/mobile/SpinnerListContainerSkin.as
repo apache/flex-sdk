@@ -35,7 +35,7 @@ import spark.skins.mobile320.assets.SpinnerListContainerShadow;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class SpinnerListContainerSkin extends MobileSkin
 {
@@ -49,7 +49,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 	 * 
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 * 
 	 */
 	public function SpinnerListContainerSkin()
@@ -108,7 +108,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 	 *       
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */
 	protected var borderThickness:Number;
 	
@@ -117,7 +117,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 	 *       
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */
 	protected var cornerRadius:Number;
 	
@@ -126,7 +126,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 	 *       
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */
 	protected var selectionIndicatorHeight:Number;
 	
@@ -135,7 +135,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 	 *       
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */
 	protected var borderClass:Class;
 	
@@ -144,7 +144,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 	 *       
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */
 	protected var selectionIndicatorClass:Class;
 	
@@ -153,7 +153,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 	 *       
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */
 	protected var shadowClass:Class;
 	
@@ -162,7 +162,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 	 *       
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */
 	protected var border:InteractiveObject;
 	
@@ -171,7 +171,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 	 *       
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */
 	protected var selectionIndicator:InteractiveObject;
 	
@@ -180,7 +180,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 	 *       
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */
 	protected var shadow:InteractiveObject;
 	
@@ -189,7 +189,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 	 *       
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */
 	protected var contentGroupMask:Sprite;
 	
@@ -205,7 +205,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */
 	public var contentGroup:Group;
 	
