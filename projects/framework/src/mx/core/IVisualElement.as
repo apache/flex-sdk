@@ -200,10 +200,19 @@ public interface IVisualElement extends ILayoutElement
     function set y(value:Number):void;
     
     /**
-     *  Specifies the runtime DesignLayer associated with
-     *  this visual element if appropriate.  
-     * 
+     *  Specifies the optional runtime DesignLayer associated
+     *  with this visual element.  
+     *
+     *  When a DesignLayer is assigned, a visual element 
+     *  must listen for "layerPropertyChange" notifications from 
+     *  the associated layer parent.  When the "computedAlpha" or
+     *  "computedVisibility" of the layer changes, the element must
+     *  then compute its own effective visibility (or alpha)
+     *  and apply it accordingly. 
+     *
      *  This property should not be set within MXML directly.
+     *    
+     *  @default null
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
