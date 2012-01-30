@@ -248,6 +248,12 @@ public class SlideViewTransition extends ViewTransitionBase
     //
     //--------------------------------------------------------------------------
     
+    override mx_internal function preInit():void
+    {
+        if (mode == SlideViewTransitionMode.UNCOVER)
+            setComponentChildIndex(endView, navigator, 0);
+    }
+
     /**
      *  @private
      * 
@@ -391,8 +397,8 @@ public class SlideViewTransition extends ViewTransitionBase
                 slideTargets.push(endView);
             }
             
-            if (mode == SlideViewTransitionMode.UNCOVER)
-                setComponentChildIndex(endView, navigator, 0);
+//            if (mode == SlideViewTransitionMode.UNCOVER)
+//                setComponentChildIndex(endView, navigator, 0);
         }
         
         var slideDistance:Number;
@@ -528,6 +534,8 @@ public class SlideViewTransition extends ViewTransitionBase
                 addComponentToContainer(transitionGroup, targetNavigator.skin);
             else
                 addComponentToContainer(transitionGroup, navigator.skin);
+            
+            //startView.visible = false;
         }
         else
         {
@@ -759,6 +767,7 @@ public class SlideViewTransition extends ViewTransitionBase
             {
                 startView.contentGroup.cacheAsBitmap = navigatorProps.startViewCacheAsBitmap;
                 startView.setLayoutBoundsPosition(navigatorProps.startViewX, navigatorProps.startViewY);
+                //startView.visible = true;
             }
             
             if (endView)
