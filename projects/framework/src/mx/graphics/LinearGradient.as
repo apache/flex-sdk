@@ -15,6 +15,7 @@ package mx.graphics
 import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 /**
@@ -137,18 +138,75 @@ public class LinearGradient extends GradientBase implements IFill
 	 */
 	public function begin(target:Graphics, rc:Rectangle):void
 	{
-		var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
-		var h:Number = !isNaN(scaleX) ? scaleX : rc.height;
-		var tx:Number = !isNaN(x) ? x + rc.left : rc.left;
-		var ty:Number = !isNaN(y) ? y + rc.top : rc.top;
-		
-		// createGradientBox normally tries to "fit" the gradient into the available space
-		// when rotated. By passing in scaleX for both width and height, we maintain scaleX
-		// since no "fitting" occurs when the box is square. 
-		commonMatrix.createGradientBox(w, h, 
-								!isNaN(mx_internal::_angle) ? 
-									mx_internal::_angle : mx_internal::rotationInRadians,
-								 tx, ty);
+        var tx:Number = x;
+		var ty:Number = y;
+		var length:Number = scaleX;
+        
+		if (isNaN(length))
+    	{
+			// Figure out the two sides
+			if (rotation % 90 != 0)
+			{			
+				// Normalize angles with absolute value > 360 
+				var normalizedAngle:Number = rotation % 360;
+				// Normalize negative angles
+				if (normalizedAngle < 0)
+					normalizedAngle += 360;
+				
+				// Angles wrap at 180
+				normalizedAngle %= 180;
+				
+				// Angles > 90 get mirrored
+				if (normalizedAngle > 90)
+					normalizedAngle = 180 - normalizedAngle;
+				
+				var side:Number = rc.width;
+				// Get the hypotenuse of the largest triangle that can fit in the bounds
+				var hypotenuse:Number = Math.sqrt(rc.width * rc.width + rc.height * rc.height);
+				// Get the angle of that largest triangle
+				var hypotenuseAngle:Number =  Math.acos(rc.width / hypotenuse) * 180 / Math.PI;
+				
+				// If the angle is larger than the hypotenuse angle, then use the height 
+				// as the adjacent side of the triangle
+				if (normalizedAngle > hypotenuseAngle)
+				{
+					normalizedAngle = 90 - normalizedAngle;
+					side = rc.height;
+				}
+				
+				// Solve for the hypotenuse given an adjacent side and an angle. 
+				length = side / Math.cos(normalizedAngle / 180 * Math.PI);
+			}
+			else 
+			{
+				// Use either width or height based on the rotation
+				length = (rotation % 180) == 0 ? rc.width : rc.height;
+			}
+    	}
+    	
+    	commonMatrix.identity();
+    	
+    	// If only x or y is defined, force the other to be set to 0
+    	if (!isNaN(tx) && isNaN(ty))
+    		ty = 0;
+    	else if (isNaN(tx) && !isNaN(ty))
+    		tx = 0;
+    	
+    	// If x and y are specified, then move the gradient so that the
+    	// top left corner is at 0,0
+    	if (!isNaN(tx) && !isNaN(ty))
+    		commonMatrix.translate(819.2, 819.2); // 1638.4 / 2
+    	// Scale the gradient in the x direction. The natural size is 1638.4px. No need
+    	// to scale the y direction because it is infinite	
+    	commonMatrix.scale (length / 1638.4, 1);
+    	// 
+	    commonMatrix.rotate (!isNaN(mx_internal::_angle) ? 
+									mx_internal::_angle : mx_internal::rotationInRadians);
+	    if (isNaN(tx))
+	    	tx = rc.width / 2;
+	    if (isNaN(ty))
+	    	ty = rc.height / 2;
+	    commonMatrix.translate(tx + rc.left, ty + rc.top);						 
 						 
 		target.beginGradientFill(GradientType.LINEAR, mx_internal::colors,
 								 mx_internal::alphas, mx_internal::ratios,
