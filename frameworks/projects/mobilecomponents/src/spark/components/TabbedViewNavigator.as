@@ -124,6 +124,8 @@ use namespace mx_internal;
  *  @see spark.components.View
  *  @see spark.components.ViewNavigator
  *  @see spark.components.TabBar
+ *
+ *  @includeExample examples/TabbedViewNavigatorExample.mxml -noswf
  * 
  *  @langversion 3.0
  *  @playerversion AIR 2.5
