@@ -168,54 +168,6 @@ public class ListBaseAccImpl extends AccImpl
 
 	/**
 	 *  @private
-	 *  IAccessible method for returning the value of the ListItem/ListBox
-	 *  which is spoken out by the screen reader
-	 *  The listBox should return the name of the currently selected item
-	 *  with m of n string as value when focus moves to list box.
-	 *
-	 *  @param childID uint
-	 *
-	 *  @return Value String
-	 */
-	override public function get_accValue(childID:uint):String
-	{
-		var accValue:String;
-		
-		var listBase:ListBase = ListBase(master);
-		
-		var index:int = listBase.selectedIndex;
-		if (childID == 0)
-		{
-			if (index > -1)
-			{
-				var item:Object = getItemAt(index);
-
-				if (item is String)
-				{
-					accValue = item + " " + (index + 1) + " of " + listBase.dataProvider.length;
-				}
-				else
-				{
-					accValue = listBase.itemToLabel(item) + " " + (index + 1) +
-							   " of " + listBase.dataProvider.length;
-				}
-			}
-		}
-		/*
-		else
-		{
-			if (index > -1)
-			{
-				accValue = (listBase.selectedIndex + 1) + "";
-			}
-		}
-		*/
-
-		return accValue;
-	}
-
-	/**
-	 *  @private
 	 *  IAccessible method for returning the state of the ListItem.
 	 *  States are predefined for all the components in MSAA.
 	 *  Values are assigned to each state.
