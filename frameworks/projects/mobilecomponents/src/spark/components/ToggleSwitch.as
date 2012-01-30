@@ -29,6 +29,7 @@ import spark.effects.animation.Animation;
 import spark.effects.animation.IAnimationTarget;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
+import spark.effects.easing.Linear;
 import spark.effects.easing.Sine;
 import spark.utils.MouseEventUtil;
 
@@ -39,10 +40,27 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
+ *  Color applied to highlight the selected side of the ToggleSwitch
+ *  
+ *  @default #3F7FBA
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 3
+ *  @productversion Flex 4.5.2
+ */
+[Style(name="accentColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  The duration in milleseconds for an animating the thumb between
  *  the selected and unselected sides of the track. Animating between
  *  two arbitrary positions on the track, for example after a drag
- *  gesture, will take a proportionally shorter amount of time. 
+ *  gesture, will take a proportionally shorter amount of time.
+ *  
+ *  @default 125
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 3
+ *  @productversion Flex 4.5.2
  */
 [Style(name="slideDuration", type="Number", format="Time", inherit="no")]
 
@@ -65,8 +83,11 @@ use namespace mx_internal;
  *  will change to be either selected or non-selected, according to the thumb's
  *  position.
  *
+ *  @langversion 3.0
  *  @playerversion AIR 3
  *  @productversion Flex 4.5.2
+ * 
+ *  @includeExample examples/ToggleSwitchExample.mxml -noswf
  *
  *  @see spark.components.ToggleButton
  *  @see spark.components.HSlider
@@ -83,6 +104,7 @@ public class ToggleSwitch extends ToggleButtonBase
     /**
      *  Constructor. 
      *  
+	 *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
@@ -91,7 +113,6 @@ public class ToggleSwitch extends ToggleButtonBase
         super();
         stickyHighlighting = true;
         animator = new Animation();
-        animator.easer = new Sine(0);
     }
     
     //----------------------------------------------------------------------------------------------
@@ -103,7 +124,7 @@ public class ToggleSwitch extends ToggleButtonBase
     /**
      *  The last position of the mouse during a drag gesture
      */
-    private var lastMouseX:Number;
+    private var lastMouseX:Number = 0;
     
     /**
      *  Controls the mouse events driving a drag gesture on a
@@ -115,12 +136,12 @@ public class ToggleSwitch extends ToggleButtonBase
      *  Whether the mouse has moved during the current drag
      *  gesture
      */
-    private var mouseMoved:Boolean;
+    private var mouseMoved:Boolean = false;
     
     /**
      *  Where the thumb should be after the current animation ends
      */
-    private var slideToPosition:Number;
+    private var slideToPosition:Number = 0;
     
     /**
      *  The point where the current mouse gesture began
@@ -145,6 +166,7 @@ public class ToggleSwitch extends ToggleButtonBase
      *  current position along the track is given by 
      *  <code>thumbPosition</code>.
      *  
+	 *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */ 
@@ -156,6 +178,7 @@ public class ToggleSwitch extends ToggleButtonBase
      *  A skin part that defines the bounds along which the thumb can
      *  be dragged.
      *  
+	 *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
@@ -176,6 +199,8 @@ public class ToggleSwitch extends ToggleButtonBase
         var newValue:Number = selectedToPosition(value);
         slideToPosition = newValue;
         setThumbPosition(newValue);
+        // ToggleButtonBase issues this on buttonRelease, which we override
+        dispatchEvent(new Event(Event.CHANGE));
     }
     
     //----------------------------------------------------------------------------------------------
@@ -204,12 +229,12 @@ public class ToggleSwitch extends ToggleButtonBase
     
     /**
      *  @private
+	 *  additional setup is performed on mouse events, before
+	 *  we start the animation
      */
     mx_internal function set animator(value:Animation): void 
     {
         _animator = value;
-        var animTarget:IAnimationTarget = new AnimationTargetHelper(animationUpdateHandler, animationEndHandler);
-        animator.animationTarget = animTarget;
     }
     
     //----------------------------------
@@ -227,6 +252,7 @@ public class ToggleSwitch extends ToggleButtonBase
      *  The thumb's current position, ranging from <code>0</code>, unselected,
      *  to <code>1</code>, selected.
      *  
+	 *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */ 
@@ -250,6 +276,15 @@ public class ToggleSwitch extends ToggleButtonBase
         updateSkinDisplayList();
     }
     
+	/**
+	 *  @private
+	 */
+	override protected function attachSkin():void 
+	{
+		super.attachSkin();
+		skin.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
+	}
+	
     /**
      *  @private
      */
@@ -284,10 +319,10 @@ public class ToggleSwitch extends ToggleButtonBase
     }
     
     /**
-     *  Specify the new position the toggle switch should animate to
-     *  at the end of the animation, selection will update
+     *  Specify the new position the toggle switch should animate to.
+     *  At the end of the animation, selection will update.
      */
-    private function moveToPosition(newPosition:Number):void 
+    private function moveToPositionAndSelect(newPosition:Number):void 
     {
         var slideDuration:Number = getStyle("slideDuration");
         if (newPosition != thumbPosition && slideDuration > 0)
@@ -298,11 +333,10 @@ public class ToggleSwitch extends ToggleButtonBase
             
             // holds the final value to be set when animation ends
             slideToPosition = newPosition;
-            animator.duration = slideDuration *  
+			
+            var duration:Number = slideDuration *  
                 (Math.abs(thumbPosition - slideToPosition));
-            animator.motionPaths = new <MotionPath>[
-                new SimpleMotionPath("position", thumbPosition, slideToPosition)];
-            animator.play();
+			animateToPosition(animator, thumbPosition, newPosition, duration);
         } 
         else 
         {
@@ -313,6 +347,62 @@ public class ToggleSwitch extends ToggleButtonBase
         
     }
     
+	/** 
+	 *  Specify the new position the toggle switch should animate to
+	 *  during mouse drag.
+	 *  Selection does not update after the animation.
+	 */
+	private function moveToPosition(newPosition:Number):void 
+    {
+		if (newPosition != thumbPosition)
+		{
+			// Finish any current animation before we start the next one.
+			if (animator.isPlaying) 
+				stopAnimation();
+			
+			animateToPosition(animator, thumbPosition, newPosition, MouseDragUtil.MAX_UPDATE_RATE);
+		} 
+	}
+	
+	/**
+	 *  Prepare the animator for use as a single animation to the edge of
+	 *  the track, or for use in a series of animations following mouse
+	 *  drag events.
+	 */
+	private function setupAnimator(animator:Animation, selectAtCompletion:Boolean):void 
+    {
+		stopAnimation();
+		
+		var animTarget:AnimationTargetHelper = animator.animationTarget as AnimationTargetHelper;
+		if (!animTarget)
+			animator.animationTarget = animTarget = new AnimationTargetHelper();
+		
+		animTarget.updateFunction = animationUpdateHandler;
+		animator.motionPaths = new <MotionPath>[null];
+		if (selectAtCompletion) 
+		{
+			animTarget.endFunction = animationEndHandler;
+			animator.easer = new Sine(0);
+		} 
+		else
+		{
+			animTarget.endFunction = null;
+			animator.easer = new Linear();
+		}
+	}
+	
+	/**
+	 *  Animate the thumb moving from startPosition to endPosition
+	 */
+	private function animateToPosition(animator:Animation, startPosition:Number, endPosition:Number, duration:Number):void 
+    {
+		if (animator.isPlaying)
+			stopAnimation();
+		animator.duration = duration;
+		animator.motionPaths[0] = new SimpleMotionPath("position", startPosition, endPosition);
+		animator.play();
+	}
+	
     /**
      *  Set the thumb position and update the component
      */
@@ -368,7 +458,24 @@ public class ToggleSwitch extends ToggleButtonBase
         return globalTrackDims.x - globalThumbDims.x;
     }
     
-    //----------------------------------------------------------------------------------------------
+	/**
+	 *  Is an animation running that will result in setting selected
+	 */
+	private function isSelectionAnimationRunning():Boolean 
+	{
+		return animator && animator.isPlaying && (AnimationTargetHelper(animator.animationTarget).endFunction != null);
+	}
+
+	/**
+	 *  Adjust the skin when it updates
+	 */
+	private function updateCompleteHandler(event:FlexEvent):void 
+	{
+		updateSkinDisplayList();
+		skin.removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
+	}
+	
+	//----------------------------------------------------------------------------------------------
     //
     //  Overridden Event handlers
     //
@@ -380,7 +487,7 @@ public class ToggleSwitch extends ToggleButtonBase
      */
     override protected function mouseEventHandler(event:Event):void 
     {
-        if (animator && animator.isPlaying)
+        if (isSelectionAnimationRunning())
             return;
         super.mouseEventHandler(event);
     }
@@ -393,8 +500,10 @@ public class ToggleSwitch extends ToggleButtonBase
      */
     override protected function buttonReleased():void 
     {
-        if (animator && animator.isPlaying)
+        if (isSelectionAnimationRunning())
             return;
+		setupAnimator(animator, true);
+		
         var newPosition:Number;
         
         if (mouseMoved)
@@ -405,7 +514,7 @@ public class ToggleSwitch extends ToggleButtonBase
             // destination (not always the current value, as when animating)
             newPosition = selectedToPosition(slideToPosition < .5);
         
-        moveToPosition(newPosition);
+        moveToPositionAndSelect(newPosition);
         mouseMoved = false;
     }
     
@@ -422,8 +531,9 @@ public class ToggleSwitch extends ToggleButtonBase
      */
     private function mouseDownHandler(event:MouseEvent):void 
     {
-        if (animator && animator.isPlaying)
+        if (isSelectionAnimationRunning())
             return;
+		setupAnimator(animator, false);
         mouseMoved = false;
         stageOffset = new Point(event.stageX, event.stageY);
         positionOffset = thumbPosition;
@@ -444,7 +554,7 @@ public class ToggleSwitch extends ToggleButtonBase
         {
             mouseMoved = true;
             var deltaX:Number = (lastMouseX - stageOffset.x) / getGlobalTrackRange();
-            setThumbPosition(positionOffset + deltaX);
+			moveToPosition(positionOffset + deltaX);
         }
     }
     
@@ -499,7 +609,7 @@ class AnimationTargetHelper implements IAnimationTarget
     public var updateFunction:Function;
     public var endFunction:Function;
     
-    public function AnimationTargetHelper(updateFunction:Function, endFunction:Function)
+    public function AnimationTargetHelper(updateFunction:Function = null, endFunction:Function = null)
     {
         this.updateFunction = updateFunction;
         this.endFunction = endFunction;
@@ -553,7 +663,7 @@ class MouseDragUtil
     private var dragPending:Boolean;
     private var dragTimer:Timer;
     
-    private static const MAX_DRAG_RATE:Number = 30;
+    public static const MAX_UPDATE_RATE:Number = 30;
     
     public function MouseDragUtil(target:UIComponent, handleDown:Function, handleMove:Function,
                                   handleThinnedMove:Function, handleUp:Function) 
@@ -593,7 +703,7 @@ class MouseDragUtil
         
         if (!dragTimer) 
         {
-            dragTimer = new Timer(1000 / MAX_DRAG_RATE, 0);
+            dragTimer = new Timer(1000 / MAX_UPDATE_RATE, 0);
             dragTimer.addEventListener(TimerEvent.TIMER, dragTimerHandler);
         }
         
