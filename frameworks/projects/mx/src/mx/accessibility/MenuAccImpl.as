@@ -24,6 +24,11 @@ use namespace mx_internal;
 /**
  *  MenuAccImpl is a subclass of AccessibilityImplementation
  *  which implements accessibility for the Menu class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class MenuAccImpl extends ListBaseAccImpl
 {
@@ -99,6 +104,11 @@ public class MenuAccImpl extends ListBaseAccImpl
 	 *  Afterwards, when instances of Menu are initialized,
 	 *  their <code>accessibilityImplementation</code> property
 	 *  will be set to an instance of this class.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function enableAccessibility():void
 	{
@@ -130,6 +140,11 @@ public class MenuAccImpl extends ListBaseAccImpl
 	 *
 	 *  @param master The UIComponent instance that this AccImpl instance
 	 *  is making accessible.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function MenuAccImpl(master:UIComponent)
 	{
