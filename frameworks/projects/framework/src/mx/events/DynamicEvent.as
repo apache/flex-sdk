@@ -38,6 +38,11 @@ import flash.events.Event;
  *  event.passsword = password; // misspelling won't be caught!
  *  dispatchEvent(event);
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public dynamic class DynamicEvent extends Event
 {
@@ -59,6 +64,11 @@ public dynamic class DynamicEvent extends Event
 	 *
 	 *  @param cancelable Specifies whether the behavior
 	 *  associated with the event can be prevented.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DynamicEvent(type:String, bubbles:Boolean = false,
 								 cancelable:Boolean = false)
