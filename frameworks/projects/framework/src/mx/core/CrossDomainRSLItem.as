@@ -266,6 +266,10 @@ public class CrossDomainRSLItem extends RSLItem
         // domain. Remove this code once we have cooperative loading implemented. 
         while (context.applicationDomain && context.applicationDomain.parentDomain)
         {
+            // Don't load an RSL into a bootstrap application domain.
+            if (!context.applicationDomain.parentDomain.hasDefinition("mx.managers::SystemManager"))
+                break;
+            
             context.applicationDomain = context.applicationDomain.parentDomain;
         }
         
