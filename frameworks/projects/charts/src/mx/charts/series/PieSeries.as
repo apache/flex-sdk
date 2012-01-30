@@ -49,6 +49,7 @@ import mx.core.mx_internal;
 import mx.graphics.IFill;
 import mx.graphics.IStroke;
 import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
@@ -1165,9 +1166,6 @@ public class PieSeries extends Series
 	{
 		HaloDefaults.init(styleManager);
 		
-		var seriesStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.series.PieSeries", styleManager);
-		
 		var pieFills:Array /* of IFill */ = [];
 		
 		var n:int = HaloDefaults.defaultFills.length;
@@ -1176,19 +1174,11 @@ public class PieSeries extends Series
 			pieFills[i] = HaloDefaults.defaultFills[i];
 		}
 		
-		seriesStyle.defaultFactory = function():void
-		{
-			this.calloutGap = 10;
-			this.calloutStroke = new Stroke(0, 0, 1);
-			this.fills = pieFills;
-			this.innerRadius = 0;
-			this.insideLabelSizeLimit = 9;
-			this.itemRenderer = new ClassFactory(WedgeItemRenderer);
-			this.labelPosition = "none";
-			this.renderDirection = "counterClockwise";
-			this.legendMarkerRenderer = new ClassFactory(PieSeriesLegendMarker);
-			this.shadowDepth = 4;
-		}
+		var pieSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.PieSeries");
+		pieSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.WedgeItemRenderer));
+		pieSeriesStyle.setStyle("fills", pieFills);
+		pieSeriesStyle.setStyle("legendMarkerRenderer", new ClassFactory(PieSeriesLegendMarker));
+		pieSeriesStyle.setStyle("calloutStroke", new SolidColorStroke(0,0,1));
 		
 		return true;
 	}
