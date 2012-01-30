@@ -19,10 +19,10 @@ import spark.components.ActionBar;
 import spark.components.ButtonBar;
 import spark.components.Group;
 import spark.components.ViewNavigator;
-import spark.effects.ViewTransition;
 import spark.effects.Move;
-import spark.effects.SlideViewTransition;
 import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.transitions.SlideViewTransition;
+import spark.transitions.ViewTransitionBase;
 
 /**
  *  The ActionScript based skin for view navigators in mobile
