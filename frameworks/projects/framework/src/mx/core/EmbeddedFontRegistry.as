@@ -75,11 +75,12 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	}
 
 	/**
-	 * Create an embedded font from a font key.
+	 *  Creates an EmbeddedFont from a font key.
 	 *
-	 * @param key A string that represents a key created by createFontKey(), may not be null.
+	 *  @param key A string that represents a key
+	 *  created by createFontKey(); may not be null.
 	 * 
-	 * return An embedded font with the attributes from the key.
+	 *  @return An EmbeddedFont with the attributes from the key.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -124,9 +125,9 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	 }
 
 	/**
-	 * Test if a string end with another string.
+	 *  Tests if a string ends with another string.
 	 * 
-	 * @returns index into string if it ends with the matching string, otherwise returns -1.
+	 *  @returns index into string if it ends with the matching string, otherwise returns -1.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
