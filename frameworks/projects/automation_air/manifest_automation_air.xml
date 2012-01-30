@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<componentPackage>
+
+
+<component id="AirDragManagerAutomationHandler" class="mx.automation.air.AirDragManagerAutomationHandler"/>  
+<component id="AirFunctionsHelper" class="mx.automation.air.AirFunctionsHelper"/>
+
+
+<component id="WindowedApplicationAutomationImpl" class="mx.automation.delegates.containers.WindowedApplicationAutomationImpl"/>       
+
+<component id="WindowsAutomationImpl" class="mx.automation.delegates.containers.WindowsAutomationImpl"/>
+
+<component id="FileSystemTreeAutomationImpl" class="mx.automation.delegates.controls.FileSystemTreeAutomationImpl"/>  
+
+<component id="FlexNativeMenuAutomationImpl" class="mx.automation.delegates.controls.FlexNativeMenuAutomationImpl"/>
+
+<component id="FileSystemDataGridNameColumnRendererAutomationImpl" class="mx.automation.delegates.controls.fileSystemClasses.FileSystemDataGridNameColumnRendererAutomationImpl"/>
+
+<component id="AutomationFlexNativeMenuEvent" class="mx.automation.events.AutomationFlexNativeMenuEvent"/>
+
+
+<component id="sparkWindowAutomationImpl" class="spark.automation.delegates.components.SparkWindowAutomationImpl"/>  
+<component id="sparkWindowedApplicationAutomationImpl" class="spark.automation.delegates.components.SparkWindowedApplicationAutomationImpl"/>
+
+</componentPackage>
