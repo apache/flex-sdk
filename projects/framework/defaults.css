@@ -21,7 +21,7 @@ global
 	backgroundAlpha: 1.0; /* this runs the opacity of nearly every square piece of the components */
 	/* backgroundDisabledColor: #DDDDDD; */
 	backgroundSize: "auto";
-	baseColor: #CCCCCC;
+	chromeColor: #CCCCCC;
     baselineShift: 0;
 	bevel: true;
     blockProgression: "tb";
