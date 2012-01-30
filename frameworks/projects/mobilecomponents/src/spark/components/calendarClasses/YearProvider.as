@@ -131,12 +131,17 @@ public class YearProvider extends OnDemandDataProvider
      */
     override public function getItemIndex(item:Object):int
     {
-        // TODO: should we also check whether item.data is integer?
-        var year:Number = item.data;
-        
-        if (!isNaN(year)){
-            if (year >= startYear && year <= endYear)
-                return Math.floor(year - startYear);
+        try
+        {
+            var year:Number = item.data;
+            
+            if (!isNaN(year)){
+                if (year >= startYear && year <= endYear)
+                    return Math.floor(year - startYear);
+            }            
+        }
+        catch (e:Error) // in case object is in an incorrect format
+        {
         }
         
         return -1;
