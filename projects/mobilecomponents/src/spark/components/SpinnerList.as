@@ -246,7 +246,7 @@ public class SpinnerList extends ListBase
 
 		// SnapElement requires a layout pass in order to properly center the selection
 		// The listener for updateComplete calls commitSelection
-		if (initialized)
+		if (initialized && spinnerLayout)
 			scroller.snapElement(spinnerLayout.getUnwrappedElementIndex(selectedIndex), false);
 		
 		return result;
@@ -306,7 +306,7 @@ public class SpinnerList extends ListBase
 	 */ 
 	mx_internal function animateToSelectedIndex(index:int, dispatchChangeEvent:Boolean = false):void
 	{
-		if (scroller)
+		if (scroller && spinnerLayout)
 		{
 			var animate:Animate = scroller.snapElement(
 				spinnerLayout.getUnwrappedElementIndex(index), true);
