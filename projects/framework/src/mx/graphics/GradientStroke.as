@@ -16,6 +16,7 @@ import flash.display.Graphics;
 import flash.display.GraphicsGradientFill;
 import flash.display.GraphicsStroke;
 import flash.display.JointStyle;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.mx_internal;
@@ -438,7 +439,7 @@ public class GradientStroke extends GradientBase implements IStroke
      *  @playerversion AIR 1.1
      *  @productversion Flex 4
      */
-    public function apply(g:Graphics, bounds:Rectangle = null):void
+    public function apply(g:Graphics, targetBounds:Rectangle, targetOrigin:Point):void
     {
         // Sub-classes must implement 
     }
@@ -447,7 +448,7 @@ public class GradientStroke extends GradientBase implements IStroke
     /**
      *  @inheritDoc
      */
-    public function createGraphicsStroke(bounds:Rectangle):GraphicsStroke
+    public function createGraphicsStroke(targetBounds:Rectangle, targetOrigin:Point):GraphicsStroke
     {
         // Construct a new GraphicsStroke object and set all of 
         // its properties to match the gradient stroke's 
