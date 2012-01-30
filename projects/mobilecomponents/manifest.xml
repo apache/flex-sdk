@@ -29,6 +29,7 @@
     <component id="SplashScreenImageSource" class="spark.preloaders.SplashScreenImageSource"/>
     <component id="TabbedViewNavigatorApplication" class="spark.components.TabbedViewNavigatorApplication"/>
     <component id="TabbedViewNavigator" class="spark.components.TabbedViewNavigator"/>
+    <component id="ToggleSwitch" class="spark.components.ToggleSwitch"/>
     <component id="View" class="spark.components.View"/>
     <component id="ViewMenu" class="spark.components.ViewMenu"/>
     <component id="ViewMenuItem" class="spark.components.ViewMenuItem"/>
