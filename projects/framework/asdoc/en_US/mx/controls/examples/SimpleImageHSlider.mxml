@@ -1,40 +1,44 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the HSlider control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo HSlider control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-   
-          private var imageWidth:Number=0;
-          private var imageHeight:Number=0;
-          
-          // Event handler function to change the image size.
-          private function changeSize():void
-	      {
-	         phoneImage.width=uint(imageWidth*hSlider.value/100);
-	         phoneImage.height=uint(imageHeight*hSlider.value/100);
-	      }
+            private var imageWidth:Number = 0;
+            private var imageHeight:Number = 0;
+
+            // Event handler function to change the image size.
+            private function changeSize():void
+            {
+                phoneImage.width = uint(imageWidth * hSlider.value / 100);
+                phoneImage.height = uint(imageHeight * hSlider.value / 100);
+            }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:Panel id="panel" title="HSlider Control Example" height="100%" width="95%" 
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+    <s:Panel id="panel" title="Halo HSlider Control Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:HGroup height="100%" width="100%">
+                <mx:Image id="phoneImage" source="@Embed('assets/Nokia_6630.png')" 
+                        creationComplete="imageWidth = phoneImage.width; imageHeight = phoneImage.height;" />
+            </s:HGroup>
 
-        <mx:HBox height="100%" width="100%">
-            <mx:Image id="phoneImage" source="@Embed('assets/Nokia_6630.png')" 
-                creationComplete="imageWidth=phoneImage.width; imageHeight=phoneImage.height;" />
-        </mx:HBox>
+            <s:SimpleText color="blue" text="Drag the slider to resize the image."/>
 
-        <mx:Label color="blue" text="Drag the slider to resize the image."/>
+            <mx:HSlider id="hSlider"
+                    minimum="0" maximum="100" value="100"
+                    dataTipPlacement="top" 
+                    tickColor="black" 
+                    snapInterval="1" tickInterval="10"
+                    labels="[0%,100%]" 
+                    allowTrackClick="true" 
+                    liveDragging="true"
+                    change="changeSize();"/>
+        </s:VGroup>
+    </s:Panel>
 
-        <mx:HSlider id="hSlider" minimum="0" maximum="100" value="100" 
-            dataTipPlacement="top" 
-            tickColor="black" 
-            snapInterval="1" tickInterval="10" 
-            labels="['0%','100%']" 
-            allowTrackClick="true" 
-            liveDragging="true"
-            change="changeSize();"/>
-    </mx:Panel>
-</mx:Application>   
-       
+</s:Application>
