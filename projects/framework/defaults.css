@@ -484,16 +484,12 @@ ComboBox
 
 List.comboDropdown
 {
-	backgroundColor: #FFFFFF;
-	borderThickness: 0;
 	cornerRadius: 0;
 	dropShadowVisible: true;
 	fontWeight: "normal";
 	leading: 0;
 	paddingLeft: 5;
 	paddingRight: 5;
-	shadowDirection: "center";
-	shadowDistance: 1;
 }
 
 /*
