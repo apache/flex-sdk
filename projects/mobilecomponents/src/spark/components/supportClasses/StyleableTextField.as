@@ -124,6 +124,10 @@ public class MobileTextField extends TextField implements IEditableText
     
     override public function set text(value:String):void
     {
+        // TextField's text property can't be set to null.
+        if (!value)
+            value = "";
+
         super.text = value;
         _isTruncated = false;
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
