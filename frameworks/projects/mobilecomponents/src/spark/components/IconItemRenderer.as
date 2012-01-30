@@ -41,6 +41,7 @@ import spark.components.Label;
 import spark.components.supportClasses.MobileTextField;
 import spark.components.supportClasses.TextBase;
 import spark.core.ContentCache;
+import spark.core.IContentLoader;
 import spark.primitives.BitmapImage;
 
 use namespace mx_internal;
@@ -102,7 +103,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     
     /**
      *  @private
-     *  Icon image cache
+     *  Static icon image cache.  This is the default for iconContentLoader.
      */
     static private var _imageCache:ContentCache;
     
@@ -123,6 +124,11 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     public function MobileIconItemRenderer()
     {
         super();
+        
+        if (_imageCache == null) {
+            _imageCache = new ContentCache();
+            _imageCache.maxCacheEntries = 100;
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -181,7 +187,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     
     //--------------------------------------------------------------------------
     //
-    //  Public Properties 
+    //  Public Properties: Overridden
     //
     //--------------------------------------------------------------------------
     
@@ -212,6 +218,53 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         invalidateProperties();
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Public Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  iconContentLoader
+    //----------------------------------
+    
+    /**
+     *  @private 
+     */ 
+    private var _iconContentLoader:IContentLoader = _imageCache;
+    
+    
+    /**
+     *  Optional custom image loader (e.g. image cache or queue) to
+     *  associate with content loader client.
+     * 
+     *  <p>The default is a static content cache defined on MobileIconItemRenderer
+     *  that allows up to 100 entries.</p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5   
+     */
+    public function get iconContentLoader():IContentLoader
+    {
+        return _iconContentLoader;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set iconContentLoader(value:IContentLoader):void
+    {
+        if (value == _iconContentLoader)
+            return;
+        
+        _iconContentLoader = value;
+        
+        if (iconDisplay)
+            iconDisplay.contentLoader = _iconContentLoader;
+    }
+    
     //----------------------------------
     //  decoratorClass
     //----------------------------------
@@ -233,7 +286,10 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     
     /**
      *  Decorator that appears on the right side 
-     *  of this item renderer 
+     *  of this item renderer.
+     * 
+     *  <p>The decorator ignores the verticalAlign style
+     *  and is always centered vertically.</p>
      *
      *  @default "" 
      * 
@@ -772,11 +828,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                 iconDisplay.top = 0;
                 iconDisplay.bottom = 0;
                 
-                if (_imageCache == null) {
-                    _imageCache = new ContentCache();
-                    _imageCache.maxCacheEntries = 100;
-                }
-                iconDisplay.contentLoader = _imageCache;
+                iconDisplay.contentLoader = iconContentLoader;
                 
                 // add iconDisplayHolder to the display list first in case
                 // bitmap needs to check its layoutDirection.
@@ -1053,10 +1105,10 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         // now set the local variables to the member variables.  Make sure it means our
         // minimum height of 80
         measuredWidth = myMeasuredWidth
-        measuredHeight = Math.max(120, myMeasuredHeight);
+        measuredHeight = Math.max(80, myMeasuredHeight);
         
         measuredMinWidth = myMeasuredMinWidth;
-        measuredMinHeight = Math.max(120, myMeasuredMinHeight);
+        measuredMinHeight = Math.max(80, myMeasuredMinHeight);
     }
     
     /**
@@ -1199,6 +1251,14 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             messageDisplay.width = messageWidth;
             messageDisplay.height = messageHeight;
             
+            // FIXME (rfrishbe): figure out if this is right with regards to multi-line text.
+            // For instance, if the text component spans to 2 lines but only shows one line, then textHeight here 
+            // is the size of the two line text.  We take the minimum with messageHeight to make sure 
+            // we don't position it outside of the item renderer's bounds later on, but this 
+            // calculation still isn't correct.  We basically want the textHeight for the number of 
+            // displayed lines.
+            messageHeight = Math.min(messageHeight, messageDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING);
+            
             messageDisplay.x = Math.round(labelComponentsX);
             messageDisplay.y = Math.round(paddingTop + headerHeight + verticalGap);
             
@@ -1207,6 +1267,33 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             //    messageDisplay.text = messageText;
             //messageDisplay.truncateToFit();
         }
+        
+        // revisit y positions now that we know all heights so we can respect verticalAlign style
+        if (getStyle("verticalAlign") == "top")
+        {
+            // don't do anything...already aligned to top in code above
+        }
+        else if (getStyle("verticalAlign") == "bottom")
+        {
+            if (iconDisplay)
+                iconDisplayHolder.setLayoutBoundsPosition(paddingLeft, unscaledHeight - iconHeight - paddingBottom);
+            if (messageDisplay)
+                messageDisplay.y = unscaledHeight - paddingBottom - messageHeight;
+            if (labelDisplay)
+                labelDisplay.y = unscaledHeight - paddingBottom - messageHeight - verticalGap - headerHeight;
+        }
+        else //if (getStyle("verticalAlign") == "middle")
+        {
+            if (iconDisplay)
+                iconDisplayHolder.setLayoutBoundsPosition(paddingLeft, Math.round((unscaledHeight - iconHeight)/2));
+            var textTotalHeight:Number = headerHeight + messageHeight + verticalGap;
+            if (labelDisplay)
+                labelDisplay.y = Math.round((unscaledHeight - textTotalHeight)/2);
+            if (messageDisplay)
+                messageDisplay.y = Math.round((unscaledHeight - textTotalHeight)/2 + verticalGap + headerHeight);
+        }
+        // made "middle" last even though it's most likely so it is the default and if someone 
+        // types "center", then it will still vertically center itself.
     }
     
     //--------------------------------------------------------------------------
