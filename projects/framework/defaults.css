@@ -636,7 +636,7 @@ DateChooser
 /*	prevYearUpSkin: null */
 	rollOverIndicatorSkin: ClassReference("mx.skins.spark.DateChooserRollOverIndicatorSkin");
 	selectionIndicatorSkin: ClassReference("mx.skins.spark.DateChooserSelectionIndicatorSkin");
-	todayColor: #818181;
+        todayColor: #C6D0DB;	
 	todayIndicatorSkin: ClassReference("mx.skins.spark.DateChooserTodayIndicatorSkin");
 	todayStyleName: "todayStyle";
 	weekDayStyleName: "weekDayStyle";
