@@ -31,6 +31,30 @@ import spark.skins.spark.TitleBarSkin;
 
 use namespace mx_internal;
 
+//--------------------------------------
+//  SkinStates
+//--------------------------------------
+
+/**
+ *  The titleBar is enabled and the application is maximized.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("normalAndMaximized")]
+
+/**
+ *  The titleBar is disabled and the application is maximized.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("disabledAndMaximized")]
+
 /**
  *  The TitleBar class defines the default title bar for a 
  *  WindowedApplication or a Window container.
@@ -443,7 +467,7 @@ public class TitleBar extends SkinnableComponent
     override protected function getCurrentSkinState():String 
     {
         if (window.nativeWindow.displayState == NativeWindowDisplayState.MAXIMIZED)
-            return enabled ? "maximized" : "disabledMaximized";
+            return enabled ? "normalAndMaximized" : "disabledAndMaximized";
             
         return enabled ? "normal" : "disabled";
     }    
