@@ -454,7 +454,7 @@ use namespace mx_internal;
  *  as the effect finishes. The purpose of the EFFECT_STOP
  *  event is to let listeners know that the effect came to
  *  a premature end, rather than ending naturally or as a 
- *  result of a call to <code>end()</code>.
+ *  result of a call to <code>end()</code>.</p>
  *
  *  @eventType mx.events.EffectEvent.EFFECT_STOP
  */
