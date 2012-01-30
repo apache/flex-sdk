@@ -85,6 +85,7 @@
 		    <library-path dir="${basedir}/libs">
 		    	<include name="FlexContentHolder.swc" />
 		    </library-path>
+		    <jvmarg line="${compc.jvm.args}"/>
 		</asdoc>
 
 		<!-- updates utilities.swc with asdoc xml -->
