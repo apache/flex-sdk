@@ -1845,7 +1845,11 @@ public dynamic class UIMovieClip extends MovieClip
         _layer = value;
         
         if (_layer)
+        {
             _layer.addEventListener("layerPropertyChange", layer_PropertyChange, false, 0, true);
+            super.alpha = _alpha * _layer.computedAlpha;
+            super.visible = _visible && _layer.computedVisibility;
+        }
     }
 
     //----------------------------------
@@ -4682,14 +4686,14 @@ public dynamic class UIMovieClip extends MovieClip
     {
         switch (event.property)
         {
-            case "visible":
+            case "computedVisibility":
             {
                 var newValue:Boolean = (event.newValue && _visible);            
                 if (newValue != super.visible)
                     super.visible = newValue;
                 break;
             }
-            case "alpha":
+            case "computedAlpha":
             {
                 var newAlpha:Number = Number(event.newValue) * _alpha;
                 if (newAlpha != super.alpha)
