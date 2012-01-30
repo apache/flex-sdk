@@ -236,15 +236,7 @@ package mx.geom
 	{
 	    // clamp the rotation value between -180 and 180.  This is what 
         // the Flash player does, so let's mimic it here too.
-        if (value > 180 || value < -180)
-        {              
-            value = value % 360;
-            
-            if (value > 180)
-                value = value - 360;
-            else if (value < -180)
-                value = value + 360;
-        }
+		value = MatrixUtil.clampRotation(value);
             
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
 		if(value == _rotationX)
@@ -274,15 +266,7 @@ package mx.geom
 	{
 	    // clamp the rotation value between -180 and 180.  This is what 
         // the Flash player does, so let's mimic it here too.
-        if (value > 180 || value < -180)
-        {
-            value = value % 360;
-            
-            if (value > 180)
-                value = value - 360;
-            else if (value < -180)
-                value = value + 360;
-        }
+		value = MatrixUtil.clampRotation(value);
         
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
 		if(value == _rotationY)
@@ -312,15 +296,7 @@ package mx.geom
 	{
 	    // clamp the rotation value between -180 and 180.  This is what 
         // the Flash player does, so let's mimic it here too.
-        if (value > 180 || value < -180)
-        {
-            value = value % 360;
-            
-            if (value > 180)
-                value = value - 360;
-            else if (value < -180)
-                value = value + 360;
-        }
+		value = MatrixUtil.clampRotation(value);
         
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
 		if(value == _rotationZ)
