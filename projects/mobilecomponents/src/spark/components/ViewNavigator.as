@@ -342,6 +342,15 @@ public class ViewNavigator extends ViewNavigatorBase
      */ 
     private var pendingViewTransition:ViewTransition = null;
     
+	/**
+	 *  @private
+	 *  A variable used to store the trantiion to play after a
+	 *  validation pass.  This needs to be a different variable than
+	 *  pendingViewTransition because the pending transition can
+	 *  change as push and pops come in.
+	 */
+	private var finalViewTransition:ViewTransition;
+	
     /**
      *  @private
      *  This flag is set to true if a navigation operation, e.g., pushView()
@@ -1815,7 +1824,7 @@ public class ViewNavigator extends ViewNavigatorBase
             transition.navigator = this;
             
             // Give the transition a chance to prepare before the view updates
-            transition.prepare();
+            transition.captureStartValues();
         }
         
         // Invalidate the actionBar properties
@@ -1850,16 +1859,15 @@ public class ViewNavigator extends ViewNavigatorBase
                 validateNow();
         }
         
-        // Run transition
+        // Run transition a frame later so that the overhead of creating the view
+		// and the time the player takes to render isn't included in the duration.
+		// See SDK-27793.
         if (transition)
         {
-//            CONFIG::performanceInstrumentation
-            {
-                if (hasEventListener("transitionStart"))
-                    dispatchEvent(new Event("transitionStart", false, false));
-            }
-            
-            transition.play();
+			transition.prepareFinalState();
+			finalViewTransition = transition;
+			
+			addEventListener(Event.ENTER_FRAME, startViewTransition);
         }
         else
         {
@@ -1867,6 +1875,23 @@ public class ViewNavigator extends ViewNavigatorBase
         }
     }
 
+	/**
+	 *  @private
+	 *  Starts the view transition.
+	 */
+	private function startViewTransition(event:Event):void
+	{
+		removeEventListener(Event.ENTER_FRAME, startViewTransition);
+		
+		//            CONFIG::performanceInstrumentation
+		{
+			if (hasEventListener("transitionStart"))
+				dispatchEvent(new Event("transitionStart", false, false));
+		}
+		
+		finalViewTransition.play();
+	}
+	
     /**
      *  @private
      *  Called when a transition dispatches a COMPLETE event.
@@ -1886,6 +1911,7 @@ public class ViewNavigator extends ViewNavigatorBase
                dispatchEvent(new Event("transitionEnd", false, false));
         }
         
+		finalViewTransition = null;
         endViewChange();
     }
     
