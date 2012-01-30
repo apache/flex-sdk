@@ -76,13 +76,12 @@ use namespace mx_internal;
 /**
  *  Dispatched when the view navigator's selected index changes.  
  *  When this event is dispatched, the <code>selectedIndex</code> 
- *  and <code>activeNavigator</code> properties reference the 
+ *  and <code>selectedNavigator</code> properties reference the 
  *  newly selected view navigator.
  * 
  *  @eventType mx.events.FlexEvent.VALUE_COMMIT
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -112,7 +111,6 @@ use namespace mx_internal;
  *  @see spark.components.TabBar
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -148,7 +146,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -171,9 +168,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  A skin part that defines the tab bar of the navigator. 
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var tabBar:ButtonBarBase;
     
@@ -298,7 +294,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @see spark.components.ViewNavigator
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -334,7 +329,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  This operation cannot be canceled and is committed immediately.</p>
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -413,7 +407,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  a tab in the TabBar control.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
@@ -438,7 +431,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  as the tab bar disappears.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -461,7 +453,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  as the tab bar appears.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -486,7 +477,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @param view The active view.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -534,7 +524,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  Calculates the final positions for the tab bar visibility animations.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -636,7 +625,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -731,7 +719,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -752,7 +739,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  bar and tab bar.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -808,7 +794,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @return An effect to play when the TabBar control is hidden.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -829,7 +814,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @return An effect to play when the TabBar control is hidden.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -845,7 +829,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @return The effect ot play
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1032,7 +1015,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  so, pops the active navigator to its root view.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1055,7 +1037,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1078,7 +1059,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1165,7 +1145,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @default -1
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1248,7 +1227,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  this component.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1270,7 +1248,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @see spark.components.supportClasses.ViewNavigatorBase
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1293,7 +1270,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @see spark.components.supportClasses.ViewNavigatorBase
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1345,7 +1321,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @throws RangeError If the index &lt; 0 or index &gt;= length
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1370,7 +1345,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @return The index of the view navigator, or -1 if the item is not in the list.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1396,7 +1370,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  as the item is assumed to be the new value.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1421,7 +1394,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  Remove all child view navigators from the navigator.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1461,7 +1433,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @throws RangeError If index &lt; 0 or index &gt;= length.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1504,7 +1475,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @throws RangeError If index is less than 0 or greater than or equal to length
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1550,7 +1520,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @return The Array.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1576,7 +1545,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @param location int indicating where in the source the item was added.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1616,7 +1584,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  assigned.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1637,7 +1604,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  source is assigned.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
