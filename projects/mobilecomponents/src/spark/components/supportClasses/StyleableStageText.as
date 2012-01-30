@@ -1964,7 +1964,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             if (otherFormDisplayObj && 
                 (!otherForm.hasOwnProperty("focusManager") || otherForm.focusManager != focusManager))
             {
-                var formGlobalRect:Rectangle = otherFormDisplayObj.getBounds(stage);
+                var formGlobalRect:Rectangle = otherFormDisplayObj is UIComponent ? 
+                    UIComponent(otherFormDisplayObj).getVisibleRect() : otherFormDisplayObj.getBounds(stage);
                 
                 if (formGlobalRect.intersects(globalRect))
                 {
