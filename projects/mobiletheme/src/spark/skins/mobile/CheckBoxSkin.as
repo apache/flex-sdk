@@ -166,6 +166,16 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
         graphics.endFill();
     }
     
+    /**
+     *  List of IDs of items that should be excluded when rendering the focus ring.
+     *  Only items of type DisplayObject or GraphicElement should be excluded. Items
+     *  of other types are ignored.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     override protected function get focusSkinExclusions():Array 
     {
         return exclusions;
