@@ -270,6 +270,8 @@ public class FocusManagerMarshalMixin
 		dispatchEventFromSWFBridges(new SWFBridgeRequest(SWFBridgeRequest.DEACTIVATE_FOCUS_REQUEST), skipBridge);
 	}
 
+    // parameter is FocusEvent just so we don't have to define a class
+    // to pass a object reference.  
 	public function focusWrappingHandler(event:FocusEvent):void
 	{
 		if (getParentBridge())
@@ -280,6 +282,8 @@ public class FocusManagerMarshalMixin
 
 	}
 
+    // parameter is FocusEvent just so we don't have to define a class
+    // to pass a object reference.  
 	public function setFocusToComponentHandler(event:FocusEvent):void
 	{
 		var o:Object = event.relatedObject;
@@ -302,19 +306,23 @@ public class FocusManagerMarshalMixin
 		}
 	}
 
+    // parameter is FocusEvent just so we don't have to define a class
+    // to pass a object reference.  
 	public function getTopLevelFocusTargetHandler(event:FocusEvent):void
 	{
 		var o:Object = event.relatedObject;
 
 		// if we cross a boundry into a bridged application, then return null so
 		// the target is only processed at the lowest level
-		if (o.parent is ISWFLoader)
+		if (o is ISWFLoader)
 		{
-			if (ISWFLoader(o.parent).swfBridge)
+			if (ISWFLoader(o).swfBridge)
 		   		event.preventDefault();
 		}
 	}
 
+    // parameter is FocusEvent just so we don't have to define a class
+    // to pass a object reference.  
 	public function keyFocusChangeHandler(event:FocusEvent):void
 	{
 		var o:Object = event.relatedObject;
@@ -325,6 +333,8 @@ public class FocusManagerMarshalMixin
    			
 	}
 
+    // parameter is FocusEvent just so we don't have to define a class
+    // to pass a object reference.  
 	public function browserFocusComponentHandler(event:FocusEvent):void
 	{
 		if (marshalSystemManager.useSWFBridge())
@@ -338,6 +348,8 @@ public class FocusManagerMarshalMixin
 				
 	}
 
+    // parameter is FocusEvent just so we don't have to define a class
+    // to pass a object reference.  
 	public function keyDownHandler(event:FocusEvent):void
 	{
    		if (marshalSystemManager.isDisplayObjectInABridgedApplication(DisplayObject(event.relatedObject)))
@@ -345,6 +357,8 @@ public class FocusManagerMarshalMixin
 
 	}
 
+    // parameter is FocusEvent just so we don't have to define a class
+    // to pass a object reference.  
 	public function defaultButtonKeyHandler(event:FocusEvent):void
 	{
 		// if the target is in a bridged application, let it handle the click.
@@ -353,6 +367,8 @@ public class FocusManagerMarshalMixin
 	}
 
 
+    // parameter is FocusEvent just so we don't have to define a class
+    // to pass a object reference.  
 	public function mouseDownHandler(event:FocusEvent):void
 	{
 		var o:Object = event.relatedObject;
