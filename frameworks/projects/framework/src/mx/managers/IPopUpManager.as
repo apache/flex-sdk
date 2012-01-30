@@ -26,7 +26,8 @@ public interface IPopUpManager
 	function createPopUp(parent:DisplayObject,
 			className:Class,
 			modal:Boolean = false,
-			childList:String = null):IFlexDisplayObject;
+			childList:String = null,
+            moduleFactory:IFlexModuleFactory = null):IFlexDisplayObject;
 	function addPopUp(window:IFlexDisplayObject,
 			parent:DisplayObject,
 			modal:Boolean = false,
