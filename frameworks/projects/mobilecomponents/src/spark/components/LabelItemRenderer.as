@@ -643,10 +643,10 @@ public class MobileItemRenderer extends UIComponent
             labelDisplay.commitStyles();
 
             // Text respects padding right, left, top, and bottom
-            measuredWidth = labelDisplay.textWidth + UITextField.TEXT_WIDTH_PADDING;
+            measuredWidth = labelDisplay.measuredWidth;
             measuredWidth += getStyle("paddingLeft") + getStyle("paddingRight");
             
-            measuredHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
+            measuredHeight = labelDisplay.measuredHeight;
             measuredHeight += getStyle("paddingTop") + getStyle("paddingBottom");
         }
         
