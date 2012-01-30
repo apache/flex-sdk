@@ -151,7 +151,7 @@ public class TabBarAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x3C;
+		role = 0x3C; // ROLE_SYSTEM_PAGETABLIST
 	}
 
 	//--------------------------------------------------------------------------
@@ -187,10 +187,7 @@ public class TabBarAccImpl extends AccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		if (childID == 0)
-			return role;
-
-		return ROLE_SYSTEM_PAGETAB;
+		return childID == 0 ? role : ROLE_SYSTEM_PAGETAB;
 	}
 
 	/**
