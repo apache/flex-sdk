@@ -26,7 +26,6 @@ import spark.components.View;
  *  @see spark.components.ViewNavigator
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -50,7 +49,6 @@ public class ViewDescriptor implements IExternalizable
      *  @param instance A reference to the instance of the View object.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -84,7 +82,6 @@ public class ViewDescriptor implements IExternalizable
      *  @see spark.components.ViewNavigator#pushView()
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -103,7 +100,6 @@ public class ViewDescriptor implements IExternalizable
      *  @see spark.components.View#data
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -119,7 +115,6 @@ public class ViewDescriptor implements IExternalizable
      *  This property is set to null when a view is destroyed.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -136,7 +131,6 @@ public class ViewDescriptor implements IExternalizable
      *  the <code>serializeData()</code> method on the View object.
      *   
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -153,7 +147,6 @@ public class ViewDescriptor implements IExternalizable
      *  @see spark.components.View
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -175,7 +168,6 @@ public class ViewDescriptor implements IExternalizable
      *  @param output The data output object used to write the data.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */ 
@@ -195,7 +187,6 @@ public class ViewDescriptor implements IExternalizable
      *  @param input The external object to read from.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */ 
