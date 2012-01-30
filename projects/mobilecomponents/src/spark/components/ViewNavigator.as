@@ -1089,7 +1089,7 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     public function showActionBar(animate:Boolean = true):void
     {
-        if (!actionBar || actionBar.visible)
+        if (!actionBar)
             return;
         
         // Ignore this call if the actionBar is already being shown
@@ -1115,7 +1115,7 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     public function hideActionBar(animate:Boolean = true):void
     {   
-        if (!actionBar || !actionBar.visible)
+        if (!actionBar)
             return;
         
         // Ignore this call if the actionBar is already being hidden
