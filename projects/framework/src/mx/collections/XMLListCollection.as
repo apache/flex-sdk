@@ -89,9 +89,9 @@ public class XMLListCollection extends ListCollectionView
      */
     public function set source(s:XMLList):void
     {
-		if (list)
-			XMLListAdapter(list).source = null;
-		
+        if (list)
+            XMLListAdapter(list).source = null;
+        
         list = new XMLListAdapter(s);
     }
 
@@ -250,6 +250,8 @@ public class XMLListCollection extends ListCollectionView
     /**
      * Calls the <code>text()</code> method of each XML object in
      *  the XMLList and returns an XMLList containing the results.
+     *  
+     *  @return The XMLList that contains the result.
      *
      *  @see XML#text()
      */
@@ -278,6 +280,8 @@ public class XMLListCollection extends ListCollectionView
      *  Use the <code>toXMLString()</code> method if you want to preserve these
      *  in the returned string for XML objects with simple content.</p>
      * 
+     *  @return The string representation of the XMLList object.
+     *  
      *  @see XML#prettyPrinting
      */
     override public function toString():String
