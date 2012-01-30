@@ -120,15 +120,20 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  represent a simple type selector. If not null, this CSSStyleDeclaration
      *  will be registered with StyleManager. 
      *  
+     *  @param styleManager - The style manager to set this declaration into. If the
+     *  styleManager is null the top-level style manager will be used.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function CSSStyleDeclaration(selector:Object=null)
+    public function CSSStyleDeclaration(selector:Object=null, styleManager:IStyleManager2=null)
     {
         super();
 
+        this.styleManager = styleManager;
+        
         if (selector)
         {
             if (selector is CSSSelector)
@@ -142,9 +147,12 @@ public class CSSStyleDeclaration extends EventDispatcher
             }
 
             // Do not reference StyleManager directly because this is a bootstrap class
-            styleManager = Singleton.getInstance("mx.styles::IStyleManager2") as IStyleManager2;
-            styleManager.setStyleDeclaration(selectorString, this, false);
+            if (!styleManager)
+                styleManager = Singleton.getInstance("mx.styles::IStyleManager2") as IStyleManager2;
+            
+            styleManager.setStyleDeclaration(selectorString, this, false);            
         }
+
     }
 
     //--------------------------------------------------------------------------
