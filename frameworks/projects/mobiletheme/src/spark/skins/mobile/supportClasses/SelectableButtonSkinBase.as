@@ -32,13 +32,16 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
         paddingRight = 15;
         paddingTop = 15;
         paddingBottom = 15;
-        
+      
+        // Instruct the super class to ignore the "icon" style.
+        // Instead, we're going to use the protected members
+        // (initialized in the sub-classes):
+        // upIconClass, 
+        // upSelectedIconClass, 
+        // downIconClass,
+        // downSelectedIconClass
         useIconStyle = false;
     }
-    
-    
-    private var changeFXGSkin:Boolean = false;
-    private var currentStateIconClass:Class;
     
     /**
      *  The Class used to create the icon in the up state
@@ -96,9 +99,8 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
         // Check for selected or not selected
         if (currentState != null)
         {
-            if (currentState == "up")
-                currentStateIconClass = upIconClass;
-            else if (currentState == "down")
+            var currentStateIconClass:Class = upIconClass;
+            if (currentState == "down")
                 currentStateIconClass = downIconClass;
             else if (currentState == "upAndSelected")
                 currentStateIconClass = upSelectedIconClass;
@@ -106,43 +108,11 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
                 currentStateIconClass = downSelectedIconClass;
             else if (currentState.indexOf("AndSelected") != -1)
                 currentStateIconClass = upSelectedIconClass;
-            else
-                currentStateIconClass = upIconClass;
-                        
-            if (!(iconInstance is currentStateIconClass))
-            {
-                changeFXGSkin = true;
-                invalidateProperties();
-                invalidateSize();
-                invalidateDisplayList();
-            }
-        }
-    }
-    
-    /**
-     *  @private 
-     */
-    override protected function commitProperties():void
-    {
-        super.commitProperties();
-        
-        if (changeFXGSkin)
-        {
-            changeFXGSkin = false;
             
-            if (currentStateIconClass)
-            {
-                // Remove iconDisplay
-                if (iconInstance != null)
-                    removeChild(iconInstance);
-                
-                iconInstance = new currentStateIconClass();  
-                
-                addChild(iconInstance);
-            }
+            setIcon(currentStateIconClass);
         }
     }
-    
+
     /**
      *  @private 
      */
@@ -158,8 +128,5 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
         graphics.drawRect(0,0,unscaledWidth, unscaledHeight);
         graphics.endFill();
     }
-    
-    
-    
 }
 }
