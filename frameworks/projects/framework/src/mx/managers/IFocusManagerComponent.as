@@ -22,6 +22,11 @@ package mx.managers
  *  Therefore, to make a UIComponent-derived component be a valid focusable
  *  component, you simply add "implements IFocusManagerComponent" to the class
  *  definition.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IFocusManagerComponent
 {
@@ -55,6 +60,11 @@ public interface IFocusManagerComponent
 	 *  programmatically in your <code>setFocus()</code> method;
 	 *  it just tells the FocusManager to ignore this IFocusManagerComponent
 	 *  component in the Tab and mouse searches.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get focusEnabled():Boolean;
 	
@@ -72,6 +82,11 @@ public interface IFocusManagerComponent
 	 *  when selected with the mouse.
 	 *  If <code>false</code>, focus will be transferred to
 	 *  the first parent that is <code>mouseFocusEnabled</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get mouseFocusEnabled():Boolean;
 
@@ -85,6 +100,11 @@ public interface IFocusManagerComponent
 	 *  Even if <code>false</code>, you can still be given focus
 	 *  by being selected with the mouse or via a call to
 	 *  <code>setFocus()</code>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get tabEnabled():Boolean;
 
@@ -95,6 +115,11 @@ public interface IFocusManagerComponent
 	/**
 	 *  If <code>tabEnabled</code>, the order in which the component receives focus.
 	 *  If -1, then the component receives focus based on z-order.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get tabIndex():int;
 
@@ -107,6 +132,11 @@ public interface IFocusManagerComponent
 	/**
 	 *  Called by the FocusManager when the component receives focus.
 	 *  The component may in turn set focus to an internal component.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function setFocus():void;
 
@@ -117,6 +147,11 @@ public interface IFocusManagerComponent
 	 *
 	 *  @param isFocused If <code>true</code>, draw the focus indicator,
 	 *  otherwise hide it.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function drawFocus(isFocused:Boolean):void;
 }
