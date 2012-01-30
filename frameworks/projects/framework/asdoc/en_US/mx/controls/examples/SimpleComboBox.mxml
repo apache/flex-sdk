@@ -1,36 +1,40 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the ComboBox control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo ComboBox control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
             import mx.collections.ArrayCollection;
+            import mx.events.DropdownEvent;
 
             [Bindable]
             public var cards:ArrayCollection = new ArrayCollection(
                 [ {label:"Visa", data:1}, 
                   {label:"MasterCard", data:2}, 
                   {label:"American Express", data:3} ]);
-        
-            private function closeHandler(event:Event):void {
-                myLabel.text = "You selected: " +  ComboBox(event.target).selectedItem.label;
-                myData.text = "Data: " +  ComboBox(event.target).selectedItem.data;
-            }     
+
+            private function closeHandler(evt:DropdownEvent):void {
+                myLabel.text = "You selected: " +  ComboBox(evt.target).selectedItem.label;
+                myData.text = "Data: " +  ComboBox(evt.target).selectedItem.data;
+            }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:Panel title="ComboBox Control Example" 
-        height="75%" width="75%" layout="horizontal"
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+    <s:Panel title="Halo ComboBox Control Example" 
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:HGroup left="10" right="10" top="10" bottom="10">
+            <mx:ComboBox dataProvider="{cards}" width="150" 
+                    close="closeHandler(event);"/>
 
-        <mx:ComboBox dataProvider="{cards}" width="150" 
-            close="closeHandler(event);"/>
+            <s:VGroup width="250">
+                <s:SimpleText width="200" color="blue" text="Select a type of credit card."/>
+                <s:SimpleText id="myLabel" text="You selected:"/>
+                <s:SimpleText id="myData" text="Data:"/>
+            </s:VGroup>
+        </s:HGroup>
+    </s:Panel>
 
-        <mx:VBox width="250">
-            <mx:Text  width="200" color="blue" text="Select a type of credit card."/>
-            <mx:Label id="myLabel" text="You selected:"/>
-            <mx:Label id="myData" text="Data:"/>
-        </mx:VBox>         
-
-    </mx:Panel>    
-</mx:Application>       
+</s:Application>
