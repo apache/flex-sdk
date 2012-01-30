@@ -66,10 +66,53 @@ include "../styles/metadata/GapStyles.as"
 
 /**
  *  The MobileIconItemRenderer class is a performant item 
- *  renderer optimized for mobile devices.  It contains 
- *  four optional parts: 1) an icon on the left, 2) single-line label 
- *  on top next to the icon, 3) multi-line message below label and 
- *  next to the icon, and 4) a decorator on the right.
+ *  renderer optimized for mobile devices.  
+ *  It displays four optional parts for each item in the 
+ *  list-based control: 
+ *
+ *  <ul>
+ *    <li>An icon on the left defined by the <code>iconField</code> property.</li>
+ *    <li>A single-line text label next to the icon defined by the 
+ *      <code>labelField</code> or <code>labelFunction</code> property.</li>
+ *    <li>A multi-line message below the text label defined by the 
+ *      <code>messageField</code> or <code>messageFunction</code> property.</li>
+ *    <li>A decorator icon on the right defined by the 
+ *      <code>decoratorClass</code> property.</li>
+ *  </ul>
+ *
+ *  <p>To apply CSS styles to the single-line text label, such as font size and color, 
+ *  set the styles on the MobileIconItemRenderer class. 
+ *  To set styles on the multi-line message, use the <code>messageStyleNameM</code> style property. 
+ *  The following example sets the text styles for both the text label and message:</p>
+ *
+ *  <pre>
+ *     &lt;fx:Style&gt;
+ *         .myFontStyle { 
+ *             fontSize: 15;
+ *             color: #9933FF;
+ *         }
+ *  
+ *     &lt;/fx:Style&gt;
+ *     
+ *     &lt;s:List id="myList"
+ *         width="100%" height="100%"
+ *         labelField="firstName"&gt;
+ *         &lt;s:itemRenderer&gt;
+ *             &lt;fx:Component&gt;
+ *                 &lt;s:MobileIconItemRenderer messageStyleName="myFontStyle" fontSize="25"
+ *                     labelField="firstName"
+ *                     messageField="lastName" 
+ *                     decoratorClass="&#64;Embed(source='assets/logo_small.jpg')"/&gt;
+ *             &lt;/fx:Component&gt;
+ *         &lt;/s:itemRenderer&gt;
+ *         &lt;s:ArrayCollection&gt;
+ *             &lt;fx:Object firstName="Dave" lastName="Duncam" company="Adobe" phone="413-555-1212"/&gt;
+ *             &lt;fx:Object firstName="Sally" lastName="Smith" company="Acme" phone="617-555-1491"/&gt;
+ *             &lt;fx:Object firstName="Jim" lastName="Jackson" company="Beta" phone="413-555-2345"/&gt;
+ *             &lt;fx:Object firstName="Mary" lastName="Moore" company="Gamma" phone="617-555-1899"/&gt;
+ *         &lt;/s:ArrayCollection&gt;
+ *     &lt;/s:List&gt;
+ *  </pre>
  *
  *  @see spark.components.List
  *  @see mx.core.IDataRenderer
@@ -184,18 +227,17 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     }
     
     /**
-     *  @inheritDoc
-     * 
-     *  <p>If no labelFunction and labelField (labelField === <code>null</code>)
-     *  are defined on this item renderer,
-     *  then we will use the <code>label</code> property that gets 
-     *  pushed in from the list via the <code>IItemRenderer</code> contract.  
+     *  <p>If no <code>labelFunction</code> = <code>labelField</code> = null,
+     *  then use the <code>label</code> property that gets 
+     *  pushed in from the list control. 
      *  However if <code>labelField</code> is explicitly set to 
      *  <code>""</code> (the empty string),
-     *  then no label will show up at all.</p>
+     *  then no label appears.</p>
+     * 
+     *  @inheritDoc
      * 
      *  @see spark.components.MobileIconItemRenderer#labelField
-     *  @see spark.components.MobileIconitemRenderer#labelFunction
+     *  @see spark.components.MobileIconItemRenderer#labelFunction
      *  @see spark.components.IItemRenderer#label
      * 
      *  @langversion 3.0
@@ -228,10 +270,10 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     
     
     /**
-     *  Optional custom image loader (e.g. image cache or queue) to
+     *  Optional custom image loader, such as an image cache or queue, to
      *  associate with content loader client.
      * 
-     *  <p>The default is a static content cache defined on MobileIconItemRenderer
+     *  <p>The default value is a static content cache defined on MobileIconItemRenderer
      *  that allows up to 100 entries.</p>
      * 
      *  @langversion 3.0
@@ -284,10 +326,10 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     protected var decoratorDisplay:DisplayObject;
     
     /**
-     *  Decorator that appears on the right side 
+     *  The decorator icon that appears on the right side 
      *  of this item renderer.
      * 
-     *  <p>The decorator ignores the verticalAlign style
+     *  <p>The decorator icon ignores the <code>verticalAlign</code> style
      *  and is always centered vertically.</p>
      *
      *  @default "" 
@@ -340,13 +382,12 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  as the label. 
      *  The <code>labelFunction</code> property overrides this property.
      * 
-     *  <p>If no labelFunction and labelField (labelField === <code>null</code>)
-     *  are defined on this item renderer,
-     *  then we will use the <code>label</code> property that gets 
-     *  pushed in from the list via the <code>IItemRenderer</code> contract.  
+     *  <p>If <code>labelFunction</code> = <code>labelField</code> = null,
+     *  then use the <code>label</code> property that gets 
+     *  pushed in from the list-based control.  
      *  However if <code>labelField</code> is explicitly set to 
      *  <code>""</code> (the empty string),
-     *  then no label will show up at all.</p>
+     *  then no label appears.</p>
      * 
      *  @see spark.components.MobileIconItemRenderer#labelFunction
      *  @see spark.components.IItemRenderer#label
@@ -402,13 +443,12 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  <pre>
      *  myLabelFunction(item:Object):String</pre>
      * 
-     *  <p>If no labelFunction and labelField (labelField === <code>null</code>)
-     *  are defined on this item renderer,
-     *  then we will use the <code>label</code> property that gets 
-     *  pushed in from the list via the <code>IItemRenderer</code> contract.  
+     *  <p>If <code>labelFunction</code> = <code>labelField</code> = null,
+     *  then use the <code>label</code> property that gets 
+     *  pushed in from the list-based control.  
      *  However if <code>labelField</code> is explicitly set to 
      *  <code>""</code> (the empty string),
-     *  then no label will show up at all.</p>
+     *  then no label appears.</p>
      * 
      *  @see spark.components.MobileIconItemRenderer#labelFunction
      *  @see spark.components.IItemRenderer#label
@@ -495,9 +535,9 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     // TODO (rfrishbe): would be nice to fix above somehow
     
     /**
-     *  The name of the field in the data provider items to display as the icon. 
-     *  By default iconField is <code>null</code>, and the item renderer 
-     *  doesn't look for an icon.
+     *  The name of the field in the data item to display as the icon. 
+     *  By default <code>iconField</code> is <code>null</code>, and the item renderer 
+     *  does not display an icon.
      *
      *  @default null
      * 
@@ -538,9 +578,11 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     [Inspectable(category="General", enumeration="clip,repeat,scale", defaultValue="scale")]
     
     /**
-     *  @copy spark.components.BitmapImage#fillMode
+     *  @copy spark.primitives.BitmapImage#fillMode
      *
-     *  @default <code>BitmapFillMode.SCALE</code>
+     *  @default <code>mx.graphics.BitmapFillMode.SCALE</code>
+     *
+     *  @see mx.graphics.BitmapFillMode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -590,7 +632,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  property.  Icon function can return a valid URL pointing to an image 
      *  or a Class file that represents an image.  To see what other types 
      *  of objects can be returned from the icon 
-     *  function, check out <code>BitmapImage</code>'s documentation</p>
+     *  function, see the <code>BitmapImage</code>'s documentation</p>
      *  <pre>
      *  myIconFunction(item:Object):Object</pre>
      *
@@ -633,8 +675,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     private var _iconHeight:Number;
     
     /**
-     *  The height of the icon.  If nothing is specified, the 
-     *  intrinsic height of the image will be used.
+     *  The height of the icon.  If unspecified, the 
+     *  intrinsic height of the image is used.
      *
      *  @default NaN
      * 
@@ -674,9 +716,11 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     [Inspectable(category="General", enumeration="stretch,letterbox", defaultValue="stretch")]
     
     /**
-     *  @copy spark.components.BitmapImage#scaleMode
+     *  @copy spark.primitives.BitmapImage#scaleMode
      *
-     *  @default <code>BitmapScaleMode.STRETCH</code>
+     *  @default <code>mx.graphics.BitmapScaleMode.STRETCH</code>
+     *
+     *  @see mx.graphics.BitmapScaleMode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -712,8 +756,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     private var _iconWidth:Number;
     
     /**
-     *  The width of the icon.  If nothing is specified, the 
-     *  intrinsic width of the image will be used.
+     *  The width of the icon.  If unspecified, the 
+     *  intrinsic width of the image is used.
      *
      *  @default NaN
      * 
@@ -772,9 +816,12 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     private var messageChanged:Boolean;
     
     /**
-     *  The name of the field in the data provider items to display 
+     *  The name of the field in the data items to display 
      *  as the message. 
      *  The <code>messageFunction</code> property overrides this property.
+     *
+     *  <p>Use the <code>messageStyleName</code> style to control the 
+     *  appearance of the text.</p>
      *
      *  @default null
      *  
