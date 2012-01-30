@@ -103,7 +103,8 @@ public class MobileApplication extends MobileApplicationBase
     
     [SkinPart(required="false")]
     /**
-     *
+     *  The main view navigator for the application.  This component is 
+     *  responsible for managing the view navigation model for the application.  
      */ 
     public var navigator:ViewNavigator;
     
@@ -118,7 +119,7 @@ public class MobileApplication extends MobileApplicationBase
     /**
      *  @private
      */
-    // TODO (chiedozi): WHy glenn said to make this private
+    // TODO (chiedozi): Why did we decide to make this private?
     private function get navigationStack():NavigationStack
     {
         if (navigator)
@@ -159,7 +160,6 @@ public class MobileApplication extends MobileApplicationBase
         return navigator && navigator.canCancelBackKeyBehavior;
     }
     
-    // TODO (Chiedozi): Why is this a getter instead of public var
     //----------------------------------
     //  firstViewData
     //----------------------------------
@@ -376,7 +376,15 @@ public class MobileApplication extends MobileApplicationBase
     
     [Bindable]
     /**
+     *  The default title that should be used by the ActionBar if the
+     *  view doesn't provide one.
+     *
+     *  @default null
      *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function get title():String
     {
@@ -486,7 +494,6 @@ public class MobileApplication extends MobileApplicationBase
     /**
      *  @private
      */ 
-    // TODO (chiedozi): Should these be refactored into the base class?
     override protected function backKeyHandler():void
     {
         super.backKeyHandler();
@@ -613,7 +620,7 @@ public class MobileApplication extends MobileApplicationBase
             navigatorProperties = newNavigatorProperties;
             navigator.firstView = firstView;
             navigator.firstViewData = firstViewData;
-            navigator.navigationStack = navigationStack;  // TODO (chiedozi): Do other way
+            navigator.navigationStack = navigationStack;
             navigator.landscapeOrientation = landscapeOrientation;
             
             // Set the stage focus to the navigator
@@ -654,7 +661,7 @@ public class MobileApplication extends MobileApplicationBase
                 newNavigatorProperties.titleLayout = navigator.titleLayout;
                
             // Always want to save the navigation stack
-            // TODO (chiedozi): I'm nto doing this right...
+            // TODO (chiedozi): I'm not doing this right...
             newNavigatorProperties.navigationStack = navigator.navigationStack;
             navigatorProperties = newNavigatorProperties;
         }
