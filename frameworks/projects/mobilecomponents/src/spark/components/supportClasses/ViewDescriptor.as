@@ -7,7 +7,7 @@
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
 //  in accordance with the terms of the license agreement accompanying it.
 //
-////////////////////////////////////////////////////////////////////////////////'
+////////////////////////////////////////////////////////////////////////////////
 // TODO (chiedozi): Make private talk to QE
 package spark.components.supportClasses
 {    
@@ -20,7 +20,7 @@ import flash.utils.getQualifiedClassName;
 import spark.components.View;
 
 /**
- *  The ViewHistoryData object is a data structure used to store information
+ *  The ViewProxy object is a data structure used to store information
  *  about a view that is being managed by a ViewNavigator.
  * 
  *  @langversion 3.0
@@ -28,7 +28,7 @@ import spark.components.View;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class ViewHistoryData implements IExternalizable
+public class ViewProxy implements IExternalizable
 {
     //--------------------------------------------------------------------------
     //
@@ -48,10 +48,14 @@ public class ViewHistoryData implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function ViewHistoryData(factory:Class = null, data:Object = null, instance:View = null)
+    public function ViewProxy(factory:Class = null, 
+                              data:Object = null, 
+                              context:String = null,
+                              instance:View = null)
     {
         this.factory = factory;
         this.data = data;
+        this.context = context;
         this.instance = instance;
     }
     
@@ -60,6 +64,22 @@ public class ViewHistoryData implements IExternalizable
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  context
+    //----------------------------------
+    
+    /**
+     *  The string that describes the context in which this view was
+     *  created.  This property is assigned to the <code>context</code>
+     *  parameter that is passed into <code>ViewNavigator.pushView()</code>.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var context:String;
     
     //----------------------------------
     //  data
@@ -147,6 +167,7 @@ public class ViewHistoryData implements IExternalizable
      */ 
     public function writeExternal(output:IDataOutput):void
     {
+        output.writeObject(context);
         output.writeObject(persistedData);
 
         // Have to store the class name of the factory because classes can't be
@@ -166,6 +187,7 @@ public class ViewHistoryData implements IExternalizable
      */ 
     public function readExternal(input:IDataInput):void 
     {
+        context = input.readObject();
         persistedData = input.readObject();
         
         var className:String = input.readObject();
