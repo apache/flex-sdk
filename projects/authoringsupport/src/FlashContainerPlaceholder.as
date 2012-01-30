@@ -18,8 +18,6 @@ import mx.controls.Image;
 import mx.flash.ContainerMovieClip;
 import mx.flash.FlexContentHolder;
 
-[ExcludeClass]
-
 [IconFile("flash_container_icon_small.png")]
 public class FlashContainerPlaceholder extends ContainerMovieClip
 {
