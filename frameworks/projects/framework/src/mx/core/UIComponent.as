@@ -81,6 +81,7 @@ import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.ColorUtil;
 import mx.utils.GraphicsUtil;
+import mx.utils.MatrixUtil;
 import mx.utils.NameUtil;
 import mx.utils.StringUtil;
 import mx.validators.IValidatorListener;
@@ -1949,7 +1950,7 @@ public class UIComponent extends FlexSprite
         if (x == value)
             return;
 
-        if(_layoutFeatures == null)
+        if (_layoutFeatures == null)
         {
             super.x  = value;
         }
@@ -1971,8 +1972,8 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     override public function get z():Number
@@ -2122,7 +2123,9 @@ public class UIComponent extends FlexSprite
     {
         if (transformZ == value)
             return;
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+
         _layoutFeatures.transformZ = value;
         invalidateTransform();
         invalidateProperties();
@@ -2159,24 +2162,14 @@ public class UIComponent extends FlexSprite
             return;
             
         hasDeltaIdentityTransform = false;
-        if(_layoutFeatures == null)
+        if (_layoutFeatures == null)
         {
             // clamp the rotation value between -180 and 180.  This is what 
             // the Flash player does and what we mimic in CompoundTransform;
             // however, the Flash player doesn't handle values larger than 
             // 2^15 - 1 (FP-749), so we need to clamp even when we're 
             // just setting super.rotation.
-            if (value > 180 || value < -180)
-            {
-                value = value % 360;
-            
-                if (value > 180)
-                    value = value - 360;
-                else if (value < -180)
-                    value = value + 360;
-            }
-            
-            super.rotation = value;
+            super.rotation = MatrixUtil.clampRotation(value);
         }
         else
         {
@@ -2217,8 +2210,8 @@ public class UIComponent extends FlexSprite
      * This property is ignored during calculation by any of Flex's 2D layouts. 
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     override public function get rotationX():Number
@@ -2316,7 +2309,7 @@ public class UIComponent extends FlexSprite
         if (y == value)
             return;
 
-        if(_layoutFeatures == null)
+        if (_layoutFeatures == null)
         {
             super.y  = value;
         }
@@ -2537,7 +2530,7 @@ public class UIComponent extends FlexSprite
             hasDeltaIdentityTransform = false;
             
             // trace("set scaleX:" + this + "value = " + value); 
-            if(_layoutFeatures == null)
+            if (_layoutFeatures == null)
                 super.scaleX = value;
             else
             {
@@ -2618,7 +2611,7 @@ public class UIComponent extends FlexSprite
                 return;
     
             hasDeltaIdentityTransform = false;
-            if(_layoutFeatures == null)
+            if (_layoutFeatures == null)
                 super.scaleY = value;
             else
             {
@@ -2675,9 +2668,12 @@ public class UIComponent extends FlexSprite
             return;
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
-        _layoutFeatures.layoutScaleZ = value;
+
+		hasDeltaIdentityTransform = false;
+		_layoutFeatures.layoutScaleZ = value;
         invalidateTransform();
         invalidateProperties();
+		invalidateParentSizeAndDisplayList();
         dispatchEvent(new Event("scaleZChanged"));
     }
 
@@ -7785,7 +7781,7 @@ public class UIComponent extends FlexSprite
      */
     protected function validateMatrix():void
     {
-        if(_layoutFeatures != null && _layoutFeatures.updatePending == true)
+        if (_layoutFeatures != null && _layoutFeatures.updatePending == true)
         {
             applyComputedMatrix();
         }
@@ -7793,7 +7789,7 @@ public class UIComponent extends FlexSprite
         if (_maintainProjectionCenter)
         {
             var pmatrix:PerspectiveProjection = super.transform.perspectiveProjection;
-            if(pmatrix != null)
+            if (pmatrix != null)
             {
                 pmatrix.projectionCenter = new Point(unscaledWidth/2,unscaledHeight/2);
             }
@@ -8409,7 +8405,7 @@ public class UIComponent extends FlexSprite
 
         if (x != this.x)
         {
-            if(_layoutFeatures == null)
+            if (_layoutFeatures == null)
                 super.x  = x;
             else
                 _layoutFeatures.layoutX = x;
@@ -8420,7 +8416,7 @@ public class UIComponent extends FlexSprite
 
         if (y != this.y)
         {
-            if(_layoutFeatures == null)
+            if (_layoutFeatures == null)
                 super.y  = y;
             else
                 _layoutFeatures.layoutY = y;
@@ -11539,7 +11535,7 @@ public class UIComponent extends FlexSprite
      */
     override public function get transform():flash.geom.Transform
     {
-        if(_transform == null)
+        if (_transform == null)
         {
             setTransform(new mx.geom.Transform(this));
         }
@@ -11547,7 +11543,7 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     * @private
+     *  @private
      */
     override public function set transform(value:flash.geom.Transform):void
     {
@@ -11568,9 +11564,9 @@ public class UIComponent extends FlexSprite
         
         setTransform(value);
         
-        if(m != null)
+        if (m != null)
             setLayoutMatrix(m.clone(), true /*triggerLayoutPass*/);
-        else if(m3 != null)
+        else if (m3 != null)
             setLayoutMatrix3D(m3.clone(), true /*triggerLayoutPass*/);
 
         super.transform.colorTransform = ct;
@@ -11593,12 +11589,13 @@ public class UIComponent extends FlexSprite
      */
     public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
         
-        if(_layoutFeatures.postLayoutTransformOffsets != null)
+        if (_layoutFeatures.postLayoutTransformOffsets != null)
             _layoutFeatures.postLayoutTransformOffsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
         _layoutFeatures.postLayoutTransformOffsets = value;
-        if(_layoutFeatures.postLayoutTransformOffsets != null)
+        if (_layoutFeatures.postLayoutTransformOffsets != null)
             _layoutFeatures.postLayoutTransformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
     }
 
@@ -11628,7 +11625,7 @@ public class UIComponent extends FlexSprite
     public function set maintainProjectionCenter(value:Boolean):void
     {
         _maintainProjectionCenter = value;
-        if(value && super.transform.perspectiveProjection == null)
+        if (value && super.transform.perspectiveProjection == null)
         {
             super.transform.perspectiveProjection = new PerspectiveProjection();
         }
@@ -11795,7 +11792,7 @@ public class UIComponent extends FlexSprite
         }
         else
         {
-            if(xformPt == null)
+            if (xformPt == null)
                 xformPt = new Point();
             if (transformCenter)
             {
@@ -11842,7 +11839,8 @@ public class UIComponent extends FlexSprite
      */
     public function set layoutMatrix3D(value:Matrix3D):void
     {
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
         
         // layout features will internally make a copy of this matrix rather than
         // holding onto a reference to it.
@@ -11870,12 +11868,14 @@ public class UIComponent extends FlexSprite
      */
     public function set depth(value:Number):void
     {
-        if(value == depth)
+        if (value == depth)
             return;
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+		if (_layoutFeatures == null)
+			initAdvancedLayoutFeatures();
+
         _layoutFeatures.depth = value;      
         dispatchEvent(new FlexEvent("layerChange"));
-        if(parent != null && parent is UIComponent)
+        if (parent != null && parent is UIComponent)
             (parent as UIComponent).invalidateLayering();
     }
 
@@ -11906,7 +11906,7 @@ public class UIComponent extends FlexSprite
     protected function applyComputedMatrix():void
     {
         _layoutFeatures.updatePending = false;
-        if(_layoutFeatures.is3D)
+        if (_layoutFeatures.is3D)
         {
             super.transform.matrix3D = _layoutFeatures.computedMatrix3D;
         }
@@ -12150,7 +12150,7 @@ public class UIComponent extends FlexSprite
      */
     public function getLayoutMatrix():Matrix
     {
-        if(_layoutFeatures != null)
+        if (_layoutFeatures != null)
         {
             // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
             // since this is an internal class, we don't need to worry about developers
