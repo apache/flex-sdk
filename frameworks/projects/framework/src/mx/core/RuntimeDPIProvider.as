@@ -1,3 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2011 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package mx.core
 {
 import flash.system.Capabilities;
@@ -29,7 +40,11 @@ use namespace mx_internal;
  *  <p>Subclasses of RuntimeDPIProvider should only depend on runtime APIs
  *  and should not depend on any classes specific to the Flex framework except
  *  <code>mx.core.DPIClassification</code>.</p>
- * 
+ *  
+ *  @includeExample examples/RuntimeDPIProviderApp.mxml -noswf
+ *  @includeExample examples/RuntimeDPIProviderExample.as -noswf
+ *  @includeExample examples/views/RuntimeDPIProviderAppView.mxml -noswf
+ *  
  *  @see mx.core.DPIClassification
  *  @see spark.components.Application#applicationDPI
  */
