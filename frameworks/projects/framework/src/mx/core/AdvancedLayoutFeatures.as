@@ -61,8 +61,8 @@ package mx.core
 	public var updatePending:Boolean = false;
 	
     /**
-     * storage for the layer value. Layering is considered 'advanced' layout behavior, and not something
-     * that gets used by the majority of the components out there.  So if a component has a non-zero layer,
+     * storage for the depth value. Layering is considered 'advanced' layout behavior, and not something
+     * that gets used by the majority of the components out there.  So if a component has a non-zero depth,
      * it will allocate a AdvancedLayoutFeatures object and store the value here.
      *  
      *  @langversion 3.0
@@ -70,7 +70,7 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public var layer:Number = 0;
+	public var depth:Number = 0;
 
 
 	
@@ -93,7 +93,7 @@ package mx.core
 	 * @private
 	 * offset values applied by the user
 	 */
-	private var _offsets:TransformOffsets;
+	private var _postLayoutTransformOffsets:TransformOffsets;
 	
     /**
      * @private
@@ -516,7 +516,7 @@ package mx.core
 	 */
 	public function get is3D():Boolean
 	{
-		return (layout.is3D || (offsets != null && offsets.is3D));
+		return (layout.is3D || (postLayoutTransformOffsets != null && postLayoutTransformOffsets.is3D));
 	}
 
 	/**
@@ -543,28 +543,28 @@ package mx.core
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public function set offsets(value:TransformOffsets):void
+	public function set postLayoutTransformOffsets(value:TransformOffsets):void
 	{
-		if(_offsets != null)
+		if(_postLayoutTransformOffsets != null)
 		{
-			_offsets.removeEventListener(Event.CHANGE,offsetsChangedHandler);
-			_offsets.owner = null;
+			_postLayoutTransformOffsets.removeEventListener(Event.CHANGE,postLayoutTransformOffsetsChangedHandler);
+			_postLayoutTransformOffsets.owner = null;
 		}
-		_offsets = value;
-		if(_offsets != null)
+		_postLayoutTransformOffsets = value;
+		if(_postLayoutTransformOffsets != null)
 		{
-			_offsets.addEventListener(Event.CHANGE,offsetsChangedHandler);
-			_offsets.owner = this;
+			_postLayoutTransformOffsets.addEventListener(Event.CHANGE,postLayoutTransformOffsetsChangedHandler);
+			_postLayoutTransformOffsets.owner = this;
 		}
 		invalidate();		
 	}
 	
-	public function get offsets():TransformOffsets
+	public function get postLayoutTransformOffsets():TransformOffsets
 	{
-		return _offsets;
+		return _postLayoutTransformOffsets;
 	}
 	
-	private function offsetsChangedHandler(e:Event):void
+	private function postLayoutTransformOffsetsChangedHandler(e:Event):void
 	{
 		invalidate();		
 	}
@@ -654,7 +654,7 @@ package mx.core
 		if(_flags & COMPUTED_MATRIX_VALID)
 			return _computedMatrix;
 	
-		if(!offsets && stretchX == 1 && stretchY == 1)
+		if(!postLayoutTransformOffsets && stretchX == 1 && stretchY == 1)
 		{
 			return layout.matrix;
 		}			
@@ -673,13 +673,13 @@ package mx.core
         var x:Number = layout.x;
         var y:Number = layout.y;
         
-        if (offsets)
+        if (postLayoutTransformOffsets)
         {
-            sx *= offsets.scaleX;
-            sy *= offsets.scaleY;
-            rz += offsets.rotationZ;
-            x += offsets.x;
-            y += offsets.y;
+            sx *= postLayoutTransformOffsets.scaleX;
+            sy *= postLayoutTransformOffsets.scaleY;
+            rz += postLayoutTransformOffsets.rotationZ;
+            x += postLayoutTransformOffsets.x;
+            y += postLayoutTransformOffsets.y;
         }
         
         if (stretchX != 1 || stretchY != 1)
@@ -704,7 +704,7 @@ package mx.core
 			return _computedMatrix3D;
 	
 	
-		if(!offsets && stretchX == 1 && stretchY == 1)
+		if(!postLayoutTransformOffsets && stretchX == 1 && stretchY == 1)
 		{
 			return layout.matrix3D;
 		}
@@ -728,17 +728,17 @@ package mx.core
         var y:Number = layout.y;
         var z:Number = layout.z;
         
-        if (offsets)
+        if (postLayoutTransformOffsets)
         {
-            sx *= offsets.scaleX;
-            sy *= offsets.scaleY;
-            sz *= offsets.scaleZ;
-            rx += offsets.rotationX;
-            ry += offsets.rotationY;
-            rz += offsets.rotationZ;
-            x += offsets.x;
-            y += offsets.y;
-            z += offsets.z;
+            sx *= postLayoutTransformOffsets.scaleX;
+            sy *= postLayoutTransformOffsets.scaleY;
+            sz *= postLayoutTransformOffsets.scaleZ;
+            rx += postLayoutTransformOffsets.rotationX;
+            ry += postLayoutTransformOffsets.rotationY;
+            rz += postLayoutTransformOffsets.rotationZ;
+            x += postLayoutTransformOffsets.x;
+            y += postLayoutTransformOffsets.y;
+            z += postLayoutTransformOffsets.z;
         }
 			
 		build3DMatrix(m, tx, ty, tz, sx, sy, sz, rx, ry, rz, x, y, z);
@@ -880,14 +880,14 @@ package mx.core
                     invalidate(); 
                 }       
             }
-            if (targetPostLayoutPosition != null && _offsets != null)
+            if (targetPostLayoutPosition != null && _postLayoutTransformOffsets != null)
             {
                 var adjustedComputedCenterV:Vector3D = transformVector(computedMatrix3D,transformCenter);
                 if (adjustedComputedCenterV.equals(targetPostLayoutPosition) == false)
                 {
-                    offsets.x +=targetPostLayoutPosition.x - adjustedComputedCenterV.x;
-                    offsets.y += targetPostLayoutPosition.y - adjustedComputedCenterV.y;
-                    offsets.z += targetPostLayoutPosition.z - adjustedComputedCenterV.z;
+                    postLayoutTransformOffsets.x +=targetPostLayoutPosition.x - adjustedComputedCenterV.x;
+                    postLayoutTransformOffsets.y += targetPostLayoutPosition.y - adjustedComputedCenterV.y;
+                    postLayoutTransformOffsets.z += targetPostLayoutPosition.z - adjustedComputedCenterV.z;
                     invalidate(); 
                 }       
             }
@@ -907,15 +907,15 @@ package mx.core
                 }       
             }
             
-            if (targetPostLayoutPosition != null && _offsets != null)
+            if (targetPostLayoutPosition != null && _postLayoutTransformOffsets != null)
             {           
                 var currentPostLayoutPosition:Point = 
                     computedMatrix.transformPoint(transformCenterP);
                 if (currentPostLayoutPosition.x != targetPostLayoutPosition.x || 
                     currentPostLayoutPosition.y != targetPostLayoutPosition.y)
                 {
-                    _offsets.x += targetPostLayoutPosition.x - currentPostLayoutPosition.x;
-                    _offsets.y += targetPostLayoutPosition.y - currentPostLayoutPosition.y;
+                    _postLayoutTransformOffsets.x += targetPostLayoutPosition.x - currentPostLayoutPosition.x;
+                    _postLayoutTransformOffsets.y += targetPostLayoutPosition.y - currentPostLayoutPosition.y;
                     invalidate(); 
                 }       
             }
@@ -953,11 +953,11 @@ package mx.core
                 (postLayoutRotation.x != 0 || postLayoutRotation.y != 0)) || 
             (postLayoutTransformCenterPosition != null && postLayoutTransformCenterPosition.z != 0);
 
-        var needOffsets:Boolean = _offsets == null && 
+        var needOffsets:Boolean = _postLayoutTransformOffsets == null && 
             (postLayoutScale != null || postLayoutRotation != null || 
                 postLayoutTransformCenterPosition != null);
         if(needOffsets)
-            _offsets = new TransformOffsets();                                               
+            _postLayoutTransformOffsets = new TransformOffsets();                                               
 
 		// now if they gave us a non-trivial transform center, and didn't tell us where they want it, 
 		// we need to calculate where it is so that we can make sure we keep it there.             
@@ -1003,15 +1003,15 @@ package mx.core
 
         if (postLayoutRotation != null)
         {           
-            _offsets.rotationX = postLayoutRotation.x;
-            _offsets.rotationY = postLayoutRotation.y;
-            _offsets.rotationZ = postLayoutRotation.z;
+            _postLayoutTransformOffsets.rotationX = postLayoutRotation.x;
+            _postLayoutTransformOffsets.rotationY = postLayoutRotation.y;
+            _postLayoutTransformOffsets.rotationZ = postLayoutRotation.z;
         }
         if (postLayoutScale != null)
         {           
-            _offsets.scaleX = postLayoutScale.x;
-            _offsets.scaleY = postLayoutScale.y;
-            _offsets.scaleZ = postLayoutScale.z;
+            _postLayoutTransformOffsets.scaleX = postLayoutScale.x;
+            _postLayoutTransformOffsets.scaleY = postLayoutScale.y;
+            _postLayoutTransformOffsets.scaleZ = postLayoutScale.z;
         }
 		
 		// if they didn't pass us a transform center, 
@@ -1028,9 +1028,9 @@ package mx.core
             }
             if (postLayoutTransformCenterPosition != null)
             {
-                _offsets.x = postLayoutTransformCenterPosition.x - layout.x;
-                _offsets.y = postLayoutTransformCenterPosition.y - layout.y;
-                _offsets.z = postLayoutTransformCenterPosition.z - layout.z;
+                _postLayoutTransformOffsets.x = postLayoutTransformCenterPosition.x - layout.x;
+                _postLayoutTransformOffsets.y = postLayoutTransformCenterPosition.y - layout.y;
+                _postLayoutTransformOffsets.z = postLayoutTransformCenterPosition.z - layout.z;
             }
         }
         invalidate();
