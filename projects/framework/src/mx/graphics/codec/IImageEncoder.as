@@ -52,7 +52,7 @@ public interface IImageEncoder
      *
      *  @param bitmapData The input BitmapData object.
      *
-     *  @returns A ByteArray object containing encoded image data. 
+     *  @return Returns a ByteArray object containing encoded image data. 
      */
     function encode(bitmapData:BitmapData):ByteArray;
 
@@ -77,7 +77,7 @@ public interface IImageEncoder
      *  @param transparent If <code>false</code>,
 	 *  alpha channel information is ignored.
      *
-     *  @returns A ByteArray object containing encoded image data.
+     *  @return Returns a ByteArray object containing encoded image data.
      */
     function encodeByteArray(byteArray:ByteArray, width:int, height:int,
 							 transparent:Boolean = true):ByteArray;
