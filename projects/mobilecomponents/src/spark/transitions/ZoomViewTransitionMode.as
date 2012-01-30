@@ -22,6 +22,7 @@ package spark.transitions
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
+[Deprecated(since="4.6")] 
 public class ZoomViewTransitionMode
 {
     //--------------------------------------------------------------------------
