@@ -1742,11 +1742,11 @@ public class IconItemRenderer extends LabelItemRenderer
             if (source is MultiDPIBitmapSource)
             {
                 var app:Object = FlexGlobals.topLevelApplication;
-                var dpi:int;
+                var dpi:Number;
                 if ("runtimeDPI" in app)
                     dpi = app["runtimeDPI"];
                 else
-                    dpi = DensityUtil.classifyDPI(Capabilities.screenDPI);
+                    dpi = DensityUtil.getRuntimeDPI();
                 
                 var multiSource:Object = MultiDPIBitmapSource(source).getSource(dpi);  
                 isExternalSource = (multiSource is String || multiSource is URLRequest);
