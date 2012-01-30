@@ -136,17 +136,13 @@ MobileIconItemRenderer
 {
     horizontalGap: 15;
     verticalGap: 15;
-    headerStyleName: "mobileIconItemRendererHeaderStyle";
-    messageStyleName: "mobileIconItemRendererMessageStyle";
-}
-
-.mobileIconItemRendererHeaderStyle
-{
     font-weight: bold;
+    messageStyleName: "mobileIconItemRendererMessageStyle";
 }
 
 .mobileIconItemRendererMessageStyle
 {
+    font-weight: normal;
     font-size: 20;
     color: #DDDDDD;
 }
