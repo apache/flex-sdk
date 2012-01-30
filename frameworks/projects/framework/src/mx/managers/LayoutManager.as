@@ -135,7 +135,10 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	/**
 	 *  Returns the sole instance of this singleton class,
 	 *  creating it if it does not already exist.
-     */
+         *
+         *  @return Returns the sole instance of this singleton class,
+	 *  creating it if it does not already exist.
+         */
 	public static function getInstance():LayoutManager
 	{
 		if (!instance)
@@ -927,6 +930,9 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 
 	/**
 	 *  Returns <code>true</code> if there are components that need validating;
+	 *  <code>false</code> if all components have been validated.
+         *
+         *  @return Returns <code>true</code> if there are components that need validating;
 	 *  <code>false</code> if all components have been validated.
 	 */
 	public function isInvalid():Boolean
