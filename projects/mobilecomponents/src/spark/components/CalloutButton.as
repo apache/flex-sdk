@@ -66,6 +66,12 @@ use namespace mx_internal;
  */
 [Event(name="open", type="spark.events.DropDownEvent")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[IconFile("Callout.png")]
+
 [DefaultProperty("calloutContent")]
 
 /**
