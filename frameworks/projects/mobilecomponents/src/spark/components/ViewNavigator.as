@@ -145,7 +145,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  The animation duration used when running a default view transition.
      */     
-    private static const DEFAULT_VIEW_TRANSITION_DURATION:Number = 250;
+    private static const DEFAULT_VIEW_TRANSITION_DURATION:Number = 300;
     
     //--------------------------------------------------------------------------
     //
