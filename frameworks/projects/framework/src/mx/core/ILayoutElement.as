@@ -412,6 +412,56 @@ public interface ILayoutElement extends IEventDispatcher
     function getMaxBoundsHeight(postTransform:Boolean=true):Number;
     
     /**
+     *  Returns the x coordinate of the element's bounds at the specified element size.
+     * 
+     *  This method is typically used by layouts during measure() to predict what
+     *  the element position will be, if the element is resized to particular dimesions.
+     * 
+     *  @param width The element's bounds width, or NaN to use the preferred width.
+     *  @param height The element's bounds height, or NaN to use the preferred height.
+     *  @param postTransform When postTransform is true the method returns
+     *  x coordinate of the element's bounding box top-left corner.
+     *  Bounding box is in element's parent coordinate space and is calculated
+     *  from the specified bounds size, layout position and layout transform matrix.
+     *
+     *  @see #setLayoutBoundsSize
+     *  @see #getLayoutPositionX
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    function getBoundsXAtSize(width:Number, height:Number, postTransform:Boolean = true):Number;
+
+    /**
+     *  Returns the y coordinate of the element's bounds at the specified element size.
+     * 
+     *  This method is typically used by layouts during measure() to predict what
+     *  the element position will be, if the element is resized to particular dimesions.
+     * 
+     *  @param width The element's bounds width, or NaN to use the preferred width.
+     *  @param height The element's bounds height, or NaN to use the preferred height.
+     *  @param postTransform When postTransform is true the method returns
+     *  y coordinate of the element's bounding box top-left corner.
+     *  Bounding box is in element's parent coordinate space and is calculated
+     *  from the specified bounds size, layout position and layout transform matrix.
+     *
+     *  @see #setLayoutBoundsSize
+     *  @see #getLayoutPositionY
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    function getBoundsYAtSize(width:Number, height:Number, postTransform:Boolean = true):Number;
+    
+    /**
      *  Returns the element's layout width. This is the size that the element uses
      *  to draw on screen.
      *
@@ -450,7 +500,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  @productversion Flex 3
      */
     function getLayoutBoundsHeight(postTransform:Boolean=true):Number;
-
+    
     /**
      *  Returns the x coordinate that the element uses to draw on screen.
      *
