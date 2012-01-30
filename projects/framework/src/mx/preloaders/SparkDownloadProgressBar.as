@@ -560,19 +560,7 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
                       totalWidth,
                       totalHeight);
         
-        
-        var DEFAULT_COLOR:uint = 0xCCCCCC;
-        var DEFAULT_COLOR_VALUE:uint = 0xCC;
-        
-        // We don't have a reliable way to get the system manager for the currently
-        // loading application. During normal progres bar instantiation, the parent.parent
-        // is the system manager loading the app, so that is what we'll use.
-        // This is only needed to grab the "preloaderBaseColor" property from the info() 
-        // structure.
-        var sm:ISystemManager = parent.parent as ISystemManager;
-        var baseColorObj:Object = sm ? sm.info()["preloaderBaseColor"] : null;
-        var baseColor:uint = baseColorObj != null ? uint(baseColorObj) : DEFAULT_COLOR;
-        
+        var baseColor:uint = getPreloaderBaseColor();
         if (baseColor != DEFAULT_COLOR)
         {
             var colorTransform:ColorTransform = new ColorTransform();
@@ -587,6 +575,28 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
         }
     }
     
+    private static const DEFAULT_COLOR:uint = 0xCCCCCC;
+    private static const DEFAULT_COLOR_VALUE:uint = 0xCC;
+
+    /**
+     *  @private
+     *  We don't have a reliable way to get the system manager for the currently
+     *  loading application. During normal progres bar instantiation, the parent.parent
+     *  is the system manager loading the app, so that is what we'll use.
+     *  This is only needed to grab the "preloaderBaseColor" property from the info() 
+     *  structure.
+     */
+    private function getPreloaderBaseColor():uint
+    {
+        const sm:ISystemManager = parent.parent as ISystemManager;
+        const valueObject:Object = (sm) ? sm.info()["preloaderBaseColor"] : null;
+
+        var valueString:String = valueObject as String;
+        if (valueString && (valueString.charAt(0) == "#"))
+            valueString = "0x" + valueString.substring(1);
+        
+        return (valueString) ? uint(valueString) : DEFAULT_COLOR;
+    }
     
     /** 
      *  Updates the outer portion of the download progress bar to
