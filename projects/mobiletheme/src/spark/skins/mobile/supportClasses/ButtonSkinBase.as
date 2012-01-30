@@ -60,15 +60,6 @@ public class ButtonSkinBase extends MobileSkin
 {
     //--------------------------------------------------------------------------
     //
-    //  Class statics
-    //
-    //--------------------------------------------------------------------------
-    
-    private static var TEXT_WIDTH_PADDING:Number = UITextField.TEXT_WIDTH_PADDING + 1;
-    private static var MIN_WIDTH:Number = 48;
-    
-    //--------------------------------------------------------------------------
-    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -108,12 +99,24 @@ public class ButtonSkinBase extends MobileSkin
      */  
     protected var useIconStyle:Boolean = true;
     
-    // TODO (jszeto) Either static consts or styles
-    protected var gap:int = 7;
-    protected var paddingLeft:int = 20;
-    protected var paddingRight:int = 20;
-    protected var paddingTop:int = 20;
-    protected var paddingBottom:int = 20;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Layout variables
+    //
+    //--------------------------------------------------------------------------
+    
+    protected var layoutBorderSize:uint;
+    
+    protected var layoutGap:int;
+    
+    protected var layoutPaddingLeft:int;
+    
+    protected var layoutPaddingRight:int;
+    
+    protected var layoutPaddingTop:int;
+    
+    protected var layoutPaddingBottom:int;
     
     //--------------------------------------------------------------------------
     //
@@ -221,8 +224,10 @@ public class ButtonSkinBase extends MobileSkin
         
         if (hostComponent && hostComponent.label != "")
         {
-            textWidth = labelDisplay.textWidth + TEXT_WIDTH_PADDING;
-            textHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
+            // FIXME (jasonsj): was previously textWidth + UITextField.TEXT_WIDTH_PADDING + 1;
+            //                  +1 originates from MX Button without explaination
+            textWidth = labelDisplay.measuredWidth + 1; 
+            textHeight = labelDisplay.measuredHeight;
         }
         else
         {
@@ -246,7 +251,7 @@ public class ButtonSkinBase extends MobileSkin
         {
             w = textWidth + iconWidth;
             if (textWidth && iconWidth)
-                w += gap; //getStyle("horizontalGap");
+                w += layoutGap; //getStyle("horizontalGap");
             h = Math.max(textHeight, iconHeight);
         }
         else
@@ -254,15 +259,15 @@ public class ButtonSkinBase extends MobileSkin
             w = Math.max(textWidth, iconWidth);
             h = textHeight + iconHeight;
             if (textHeight && iconHeight)
-                h += gap; // getStyle("verticalGap");
+                h += layoutGap; // getStyle("verticalGap");
         }
         
-        w += paddingLeft + paddingRight; //getStyle("paddingLeft") + getStyle("paddingRight");
-        h += paddingTop + paddingBottom; //getStyle("paddingTop") + getStyle("paddingBottom");
+        w += layoutPaddingLeft + layoutPaddingRight; //getStyle("paddingLeft") + getStyle("paddingRight");
+        h += layoutPaddingTop + layoutPaddingBottom; //getStyle("paddingTop") + getStyle("paddingBottom");
         
-        measuredWidth = Math.max(w, MIN_WIDTH);
+        measuredWidth = Math.max(w, layoutMeasuredWidth);
         measuredMinHeight = measuredHeight = h;
-        measuredMinWidth = iconWidth + paddingLeft + paddingRight;
+        measuredMinWidth = iconWidth + layoutPaddingLeft + layoutPaddingRight;
     }
     
     /**
@@ -272,7 +277,7 @@ public class ButtonSkinBase extends MobileSkin
     override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
     {
         // solid color fill for selectable buttons
-        chromeColorGraphics.beginFill(getStyle("chromeColor"));
+        chromeColorGraphics.beginFill(getChromeColor());
     }
     
     /**
@@ -307,8 +312,10 @@ public class ButtonSkinBase extends MobileSkin
         
         if (hostComponent && hostComponent.label != "")
         {
-            textWidth = labelDisplay.textWidth + TEXT_WIDTH_PADDING;
-            textHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
+            // FIXME (jasonsj): was previously textWidth + UITextField.TEXT_WIDTH_PADDING + 1;
+            //                  +1 originates from MX Button without explaination
+            textWidth = labelDisplay.measuredWidth + 1;
+            textHeight = labelDisplay.measuredHeight;
         }
         else
         {
@@ -344,7 +351,7 @@ public class ButtonSkinBase extends MobileSkin
         if (iconPlacement == IconPlacement.LEFT ||
             iconPlacement == IconPlacement.RIGHT)
         {
-            horizontalGap = gap;
+            horizontalGap = layoutGap;
             
             if (iconWidth == 0 || textWidth == 0)
                 horizontalGap = 0;
@@ -353,7 +360,7 @@ public class ButtonSkinBase extends MobileSkin
             {
                 labelWidth = 
                     Math.max(Math.min(viewWidth - iconWidth - horizontalGap -
-                        paddingLeft - paddingRight, textWidth), 0);
+                        layoutPaddingLeft - layoutPaddingRight, textWidth), 0);
             }
             else
             {
@@ -363,17 +370,17 @@ public class ButtonSkinBase extends MobileSkin
             
             if (textAlign == "left")
             {
-                labelX += paddingLeft;
+                labelX += layoutPaddingLeft;
             }
             else if (textAlign == "right")
             {
                 labelX += (viewWidth - labelWidth - iconWidth - 
-                    horizontalGap - paddingRight);
+                    horizontalGap - layoutPaddingRight);
             }
             else // "center" -- default value
             {
                 labelX += ((viewWidth - labelWidth - iconWidth - 
-                    horizontalGap - paddingLeft - paddingRight) / 2) + paddingLeft;
+                    horizontalGap - layoutPaddingLeft - layoutPaddingRight) / 2) + layoutPaddingLeft;
             }
             
             if (iconPlacement == IconPlacement.LEFT)
@@ -386,21 +393,21 @@ public class ButtonSkinBase extends MobileSkin
                 iconX  = labelX + labelWidth + horizontalGap; 
             }
             
-            iconY  = ((viewHeight - iconHeight - paddingTop - paddingBottom) / 2) + paddingTop;
-            labelY = ((viewHeight - labelHeight - paddingTop - paddingBottom) / 2) + paddingTop;
+            iconY  = ((viewHeight - iconHeight - layoutPaddingTop - layoutPaddingBottom) / 2) + layoutPaddingTop;
+            labelY = ((viewHeight - labelHeight - layoutPaddingTop - layoutPaddingBottom) / 2) + layoutPaddingTop;
         }
         else
         {
-            verticalGap = gap;
+            verticalGap = layoutGap;
             
             if (iconHeight == 0 || !hostComponent || hostComponent.label == "")
                 verticalGap = 0;
             
             if (textWidth > 0)
             {
-                labelWidth = Math.max(viewWidth - paddingLeft - paddingRight, 0);
+                labelWidth = Math.max(viewWidth - layoutPaddingLeft - layoutPaddingRight, 0);
                 labelHeight =
-                    Math.min(viewHeight - iconHeight - paddingTop - paddingBottom - verticalGap, textHeight);
+                    Math.min(viewHeight - iconHeight - layoutPaddingTop - layoutPaddingBottom - verticalGap, textHeight);
             }
             else
             {
@@ -408,31 +415,31 @@ public class ButtonSkinBase extends MobileSkin
                 labelHeight = 0;
             }
             
-            labelX = paddingLeft;
+            labelX = layoutPaddingLeft;
             
             if (textAlign == "left")
             {
-                iconX += paddingLeft;
+                iconX += layoutPaddingLeft;
             }
             else if (textAlign == "right")
             {
-                iconX += Math.max(viewWidth - iconWidth - paddingRight, paddingLeft);
+                iconX += Math.max(viewWidth - iconWidth - layoutPaddingRight, layoutPaddingLeft);
             }
             else
             {
-                iconX += ((viewWidth - iconWidth - paddingLeft - paddingRight) / 2) + paddingLeft;
+                iconX += ((viewWidth - iconWidth - layoutPaddingLeft - layoutPaddingRight) / 2) + layoutPaddingLeft;
             }
             
             if (iconPlacement == IconPlacement.BOTTOM)
             {
                 labelY += ((viewHeight - labelHeight - iconHeight - 
-                    paddingTop - paddingBottom - verticalGap) / 2) + paddingTop;
+                    layoutPaddingTop - layoutPaddingBottom - verticalGap) / 2) + layoutPaddingTop;
                 iconY += labelY + labelHeight + verticalGap;
             }
             else
             {
                 iconY += ((viewHeight - labelHeight - iconHeight - 
-                    paddingTop - paddingBottom - verticalGap) / 2) + paddingTop;
+                    layoutPaddingTop - layoutPaddingBottom - verticalGap) / 2) + layoutPaddingTop;
                 labelY += iconY + iconHeight + verticalGap;
             }
         }
