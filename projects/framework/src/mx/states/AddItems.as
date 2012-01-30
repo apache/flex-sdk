@@ -663,7 +663,7 @@ public class AddItems extends OverrideBase implements IOverride
         var index:int = -1;
         if (relativeTo is Array)
         {
-            for( var i:int = 0; ((i < relativeTo.length) && index < 0); i++ )
+            for (var i:int = 0; ((i < relativeTo.length) && index < 0); i++)
             { 
                 var relativeObject:Object = getOverrideContext(relativeTo[i], parent);
                 index = getObjectIndex(relativeObject, dest);
