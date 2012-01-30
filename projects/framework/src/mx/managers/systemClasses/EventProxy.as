@@ -51,6 +51,17 @@ public class EventProxy extends EventDispatcher
             marshalSystemManager.dispatchEventFromSWFBridges(mme, null, true, true);
             // trace("<<marshalListener", systemManager);
         }
+        else if (event.type == Event.MOUSE_LEAVE)
+        {
+            mme = new SandboxMouseEvent(SandboxMouseEvent.MOUSE_UP_SOMEWHERE);
+            // trace(">>marshalListener", systemManager, mme.type);
+            if (!marshalSystemManager)
+                marshalSystemManager = 
+			        IMarshalSystemManager(systemManager.getImplementation("mx.managers::IMarshalSystemManager"));
+            marshalSystemManager.dispatchEventFromSWFBridges(mme, null, true, true);
+            // must send to ourselves as well
+            systemManager.dispatchEvent(mme);
+        }
     }
 
 }
