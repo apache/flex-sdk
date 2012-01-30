@@ -30,7 +30,7 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" color="blue" 
+            <s:Label width="100%" color="blue" 
                     text="Select a tab to change the current panel."/>
 
             <mx:TabBar itemClick="clickEvt(event);">
