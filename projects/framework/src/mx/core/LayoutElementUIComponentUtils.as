@@ -21,6 +21,10 @@ public class LayoutElementUIComponentUtils
     //
     //--------------------------------------------------------------------------
 
+    // When changing these constants, make sure you change
+    // the constants with the same name in UIComponent    
+    private static const DEFAULT_MAX_WIDTH:Number = 10000;
+    private static const DEFAULT_MAX_HEIGHT:Number = 10000;
 
     /**
      *  @return Returns the preferred width (untransformed) of the IUIComponent.
@@ -154,7 +158,7 @@ public class LayoutElementUIComponentUtils
         if (!isNaN(obj.explicitMaxWidth))
             maxWidth = obj.explicitMaxWidth;
         else
-            maxWidth = Number.MAX_VALUE;
+            maxWidth = DEFAULT_MAX_WIDTH;
 
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
         {
@@ -172,7 +176,7 @@ public class LayoutElementUIComponentUtils
         if(!isNaN(obj.explicitMaxHeight))
             maxHeight = obj.explicitMaxHeight;
         else
-            maxHeight = Number.MAX_VALUE;
+            maxHeight = DEFAULT_MAX_HEIGHT;
 
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
         {
