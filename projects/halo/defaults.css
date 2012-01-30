@@ -27,7 +27,6 @@ global
   	borderCapColor: #919999;
 	borderColor: #B7BABC;
 	borderSides: "left top right bottom";
-	borderSkin: ClassReference("mx.skins.halo.HaloBorder");
 	borderStyle: "inset";
 	borderThickness: 1;
     breakOpportunity: "auto";
@@ -472,6 +471,17 @@ ColorPicker
 
 /*
 //------------------------------
+//  ComboBase
+//------------------------------
+*/
+
+ComboBase
+{
+	borderSkin: ClassReference("mx.skins.halo.HaloBorder");
+}
+
+/*
+//------------------------------
 //  ComboBox
 //------------------------------
 */
@@ -612,6 +622,7 @@ DataGridItemRenderer
 DateChooser
 {
 	backgroundColor: #FFFFFF;
+	borderSkin: ClassReference("mx.skins.halo.HaloBorder");
 	cornerRadius: 4;
 	headerColors: #E1E5EB, #F4F5F7;
 	headerStyleName: "headerDateText";
@@ -1051,10 +1062,10 @@ MenuBar
 
 /*
 //------------------------------
-//  LinkBar
+//  NavBar
 //------------------------------
 */
-LinkBar
+NavBar
 {
     borderSkin: ClassReference("mx.skins.halo.HaloBorder");
 }
@@ -1067,6 +1078,7 @@ LinkBar
 
 NumericStepper
 {
+	borderSkin: ClassReference("mx.skins.halo.HaloBorder");
 	cornerRadius: 5;
 /*	downArrowDisabledSkin: null
 	downArrowDownSkin: null
@@ -1696,6 +1708,7 @@ VDividedBox
 
 VideoDisplay
 {
+	borderSkin: ClassReference("mx.skins.halo.HaloBorder");
 	borderStyle: "none";
 	backgroundColor: #000000;
 }
