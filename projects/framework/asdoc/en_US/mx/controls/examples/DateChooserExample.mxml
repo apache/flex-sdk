@@ -1,48 +1,53 @@
 <?xml version="1.0"?>
-<!-- Simple example to demonstrate DateChooser control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<!-- Simple example to demonstrate Halo DateChooser control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-
             // Event handler function to write the selected
-            // date to the Label control.        
+            // date to the Spark SimpleText control.
             private function displayDate(date:Date):void {
-                if (date == null)
+                if (date == null) {
                     selection.text = "Date selected: ";
-                else
+                } else {
                     selection.text = "Date selected: " + date.getFullYear().toString() +
-                        '/' + (date.getMonth()+1).toString() + '/' + date.getDate();
+                        "/" + (date.getMonth()+1).toString() + "/" + date.getDate();
+                }
             }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:DateFormatter id="df"/>
-    
-    <mx:Panel title="DateChooser Control Example" height="75%" width="75%" 
-        paddingTop="10" paddingLeft="10" paddingRight="10">
+    <fx:Declarations>
+        <mx:DateFormatter id="df" />
+    </fx:Declarations>
 
-        <mx:Label width="100%" color="blue"
-            text="Select a date in the DateChooser control."/>
-        <mx:Label width="100%" color="blue"
-            text="Select it again while holding down the Control key to clear it."/>
-            
-        <mx:HBox horizontalGap="25">
-          <mx:VBox>
-              <mx:Label text="Simple DateChooser control."/>
-              <mx:DateChooser id="dateChooser1" yearNavigationEnabled="true"    
-                  change="displayDate(DateChooser(event.target).selectedDate)"/>
-              <mx:Label id="selection"  color="blue" text="Date selected:"/>
-          </mx:VBox>
+    <s:Panel title="Halo DateChooser Control Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%" color="blue"
+                    text="Select a date in the Halo DateChooser control."/>
+            <s:SimpleText width="100%" color="blue"
+                    text="Select it again while holding down the Control key to clear it."/>
 
-          <mx:VBox>
-              <mx:Label text="Disable dates before June 1, 2006."/>
-              <mx:DateChooser id="dateChooser2" yearNavigationEnabled="true"
-                  disabledRanges="{[ {rangeEnd: new Date(2006, 5, 1)} ]}"/>
-              <mx:Label  color="blue" text="Date selected: {df.format(dateChooser2.selectedDate)}"/>
-          </mx:VBox>
-        </mx:HBox>
-        
-    </mx:Panel>    
-</mx:Application>
+            <s:HGroup gap="25">
+              <s:VGroup>
+                  <s:SimpleText text="Simple Halo DateChooser control."/>
+                  <mx:DateChooser id="dateChooser1" yearNavigationEnabled="true"
+                          change="displayDate(DateChooser(event.target).selectedDate)"/>
+                  <s:SimpleText id="selection"  color="blue" text="Date selected:"/>
+              </s:VGroup>
 
+              <s:VGroup>
+                  <s:SimpleText text="Disable dates before June 1, 2006."/>
+                  <mx:DateChooser id="dateChooser2" yearNavigationEnabled="true"
+                          disabledRanges="{[ {rangeEnd: new Date(2006, 5, 1)} ]}"/>
+                  <s:SimpleText color="blue" text="Date selected: {df.format(dateChooser2.selectedDate)}"/>
+              </s:VGroup>
+            </s:HGroup>
+        </s:VGroup>
+    </s:Panel>
+
+</s:Application>
