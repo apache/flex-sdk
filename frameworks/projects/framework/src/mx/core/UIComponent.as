@@ -1849,7 +1849,7 @@ public class UIComponent extends FlexSprite
     mx_internal var _owner:DisplayObjectContainer;
 
     /**
-     *  @inheritDoc
+     *  @copy mx.core.IVisualElement#owner
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1997,7 +1997,24 @@ public class UIComponent extends FlexSprite
     }
 
     /**
+     *  Sets the x coordinate for the transform center of the component.
+     * 
+     *  <p>When this component is the target of a Spark transform effect, 
+     *  you can override this property by setting 
+     *  the <code>AnimateTransform.autoCenterTransform</code> property.
+     *  If <code>autoCenterTransform</code> is <code>false</code>, the transform
+     *  center is determined by the <code>transformX</code>,
+     *  <code>transformY</code>, and <code>transformZ</code> properties
+     *  of the effect target.
+     *  If <code>autoCenterTransform</code> is <code>true</code>, 
+     *  the effect occurs around the center of the target, 
+     *  <code>(width/2, height/2)</code>.</p>
      *
+     *  <p>Seeting this property on the Spark effect class 
+     *  overrides the setting on the target component.</p>
+     *  
+     *  @see spark.effects.AnimateTransform#autoCenterTransform 
+     *  @see spark.effects.AnimateTransform#transformX 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -2025,7 +2042,24 @@ public class UIComponent extends FlexSprite
     }
 
     /**
+     *  Sets the y coordinate for the transform center of the component.
+     * 
+     *  <p>When this component is the target of a Spark transform effect, 
+     *  you can override this property by setting 
+     *  the <code>AnimateTransform.autoCenterTransform</code> property.
+     *  If <code>autoCenterTransform</code> is <code>false</code>, the transform
+     *  center is determined by the <code>transformX</code>,
+     *  <code>transformY</code>, and <code>transformZ</code> properties
+     *  of the effect target.
+     *  If <code>autoCenterTransform</code> is <code>true</code>, 
+     *  the effect occurs around the center of the target, 
+     *  <code>(width/2, height/2)</code>.</p>
      *
+     *  <p>Seeting this property on the Spark effect class 
+     *  overrides the setting on the target component.</p>
+     *  
+     *  @see spark.effects.AnimateTransform#autoCenterTransform 
+     *  @see spark.effects.AnimateTransform#transformY
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -2053,7 +2087,24 @@ public class UIComponent extends FlexSprite
     }
 
     /**
+     *  Sets the z coordinate for the transform center of the component.
+     * 
+     *  <p>When this component is the target of a Spark transform effect, 
+     *  you can override this property by setting 
+     *  the <code>AnimateTransform.autoCenterTransform</code> property.
+     *  If <code>autoCenterTransform</code> is <code>false</code>, the transform
+     *  center is determined by the <code>transformX</code>,
+     *  <code>transformY</code>, and <code>transformZ</code> properties
+     *  of the effect target.
+     *  If <code>autoCenterTransform</code> is <code>true</code>, 
+     *  the effect occurs around the center of the target, 
+     *  <code>(width/2, height/2)</code>.</p>
      *
+     *  <p>Seeting this property on the Spark effect class 
+     *  overrides the setting on the target component.</p>
+     *  
+     *  @see spark.effects.AnimateTransform#autoCenterTransform 
+     *  @see spark.effects.AnimateTransform#transformZ
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -7179,10 +7230,15 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  @return Returns true when the measureSizes() code can skip the call to
-     *  measure(). For example this is usually true when both explicitWidth and
-     *  explicitHeight are set. For path, this is true when the bounds of the path
+     *  Returns <code>true</code> when the <code>measureSizes()</code> method 
+     *  can skip the call to the <code>measure()</code> method. 
+     *  This is usually the case when both the <code>explicitWidth</code> and
+     *  <code>explicitHeight</code> properties are set. 
+     *  For path, this is <code>true</code> when the bounds of the path
      *  have not changed.
+     *
+     *  @return <code>true</code> when the <code>measureSizes()</code> method 
+     *  can skip the call to the <code>measure()</code> method.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -8894,7 +8950,7 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  @inheritDoc 
+     *  @copy mx.core.IStateClient2#hasState() 
      */
     public function hasState(stateName:String):Boolean
     {
@@ -11808,6 +11864,14 @@ public class UIComponent extends FlexSprite
         return LayoutElementUIComponentUtils.getPreferredBoundsWidth(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
     public function getPreferredBoundsHeight(postLayoutTransform:Boolean=true):Number
     {
         return LayoutElementUIComponentUtils.getPreferredBoundsHeight(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
@@ -11826,6 +11890,14 @@ public class UIComponent extends FlexSprite
         return LayoutElementUIComponentUtils.getMinBoundsWidth(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
     public function getMinBoundsHeight(postLayoutTransform:Boolean=true):Number
     {
         return LayoutElementUIComponentUtils.getMinBoundsHeight(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
