@@ -102,7 +102,32 @@ ButtonBase
 Callout
 {
     backgroundColor: #484848;
+    gap: 12;
     skinClass: ClassReference("spark.skins.mobile.CalloutSkin");
+}
+
+Callout ViewNavigator
+{
+    skinClass: ClassReference("spark.skins.mobile.CalloutViewNavigatorSkin");
+}
+
+Callout ViewNavigator ActionBar
+{
+    skinClass: ClassReference("spark.skins.mobile.CalloutActionBarSkin");
+    defaultButtonAppearance: beveled;
+    paddingLeft: 0;
+    paddingRight: 0;
+}
+
+Callout ViewNavigator ActionBar.beveled
+{
+    paddingLeft: 0;
+    paddingRight: 0;
+}
+
+Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button
+{
+    skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
 }
 
 CalloutButton
@@ -350,6 +375,11 @@ global
         fontSize: 12;
     }
     
+    Callout
+    {
+        gap: 8;
+    }
+    
     IconItemRenderer
     {
         paddingBottom: 8;
@@ -428,6 +458,11 @@ global
     ActionBar.beveled Group#actionGroup Button
     {
         fontSize: 24;
+    }
+    
+    Callout
+    {
+        gap: 16;
     }
     
     IconItemRenderer
