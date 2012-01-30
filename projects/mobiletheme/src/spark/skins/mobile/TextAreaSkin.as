@@ -12,16 +12,16 @@
 package spark.skins.mobile 
 {
 
-import flash.display.Graphics;
 import flash.events.Event;
-import flash.events.FocusEvent;
+import flash.events.KeyboardEvent;
+import flash.geom.Rectangle;
 import flash.system.Capabilities;
+import flash.ui.Keyboard;
 
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
-import spark.components.Group;
 import spark.components.Scroller;
 import spark.components.TextArea;
 import spark.components.VGroup;
@@ -33,7 +33,6 @@ import spark.skins.mobile320.assets.TextInput_border;
 
 use namespace mx_internal;
 
-// FIXME (jasonsj): how to support TextArea#heightInLines?
 /**
  *  ActionScript-based skin for TextArea components in mobile applications.
  * 
@@ -99,9 +98,6 @@ public class TextAreaSkin extends TextSkinBase
                 break;
             }
         }
-        
-        // default the text display width to be layoutMeasuredWidth
-        oldUnscaledWidth = layoutMeasuredWidth;
     }
     
     //--------------------------------------------------------------------------
@@ -148,8 +144,10 @@ public class TextAreaSkin extends TextSkinBase
     //--------------------------------------------------------------------------
     
     private var textDisplayGroup:VGroup;
-
+    
     private var _isIOS:Boolean;
+    
+    private var invalidateCaretPosition:Boolean = true;
     
     /**
      *  @private
@@ -164,20 +162,20 @@ public class TextAreaSkin extends TextSkinBase
             textDisplay.multiline = true;
             textDisplay.editable = true;
             textDisplay.wordWrap = true;
-            textDisplay.addEventListener(Event.CHANGE, textDisplay_changeHandler);
-            textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, textDisplay_changeHandler);
             
             // on iOS, resize the TextField and let the native control handle scrolling
             _isIOS = (Capabilities.version.indexOf("IOS") == 0);
+            
+            if (!_isIOS)
+                textDisplay.addEventListener(KeyboardEvent.KEY_DOWN, textDisplay_keyHandler);
+            
+            textDisplay.addEventListener(Event.CHANGE, textDisplay_changeHandler);
+            textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, textDisplay_changeHandler);
             
             // wrap StyleableTextComponent in Group for viewport
             textDisplayGroup = new VGroup();
             textDisplayGroup.clipAndEnableScrolling = true;
             textDisplayGroup.addElement(textDisplay);
-            
-            // scroll to the caret position
-            textDisplay.addEventListener(Event.CHANGE, caret_changeHandler);
-            textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, caret_changeHandler);
         }
         
         if (!scroller)
@@ -192,6 +190,19 @@ public class TextAreaSkin extends TextSkinBase
             scroller.viewport = textDisplayGroup;
         
         super.createChildren();
+    }
+    
+    /**
+     *  @private
+     *  TextArea prompt supports wrapping and multiline
+     */
+    override protected function createPromptDisplay():StyleableTextField
+    {
+        var prompt:StyleableTextField = super.createPromptDisplay();
+        prompt.editable = true;
+        prompt.wordWrap = true;
+        
+        return prompt;
     }
     
     /**
@@ -227,20 +238,18 @@ public class TextAreaSkin extends TextSkinBase
         // is dependent on textDisplay's width.  
         // Use the old textDisplay width as an estimte for the new one.  
         // If we are wrong, we'll find out in updateDisplayList()
+        textDisplay.commitStyles();
         setElementSize(textDisplay, textDisplayEstimatedWidth, NaN);
         
         var textDisplayHeight:Number = getElementPreferredHeight(textDisplay);
         
+        // FIXME (jasonsj): how to support TextArea#heightInLines?
         measuredHeight = Math.max(layoutMeasuredHeight, textDisplayHeight + paddingTop + paddingBottom);
     }
     
-    /**
-     * @private
-     */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, 
+                                               unscaledHeight:Number):void
     {
-        drawBackground(unscaledWidth, unscaledHeight);
-        
         // position & size border
         if (border)
         {
@@ -262,16 +271,37 @@ public class TextAreaSkin extends TextSkinBase
         textDisplayGroup.paddingTop = paddingTop;
         textDisplayGroup.paddingBottom = paddingBottom;
         
-        // because the text is multi-line, measuring and layout 
-        // can be somewhat tricky
         var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
         var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
         var textHeight:Number = unscaledTextHeight;
         
-        // TextField height should match its content or the TextArea bounds
-        // iOS special case to prevent Flex Scroller scrolling
+        // set width first to measure height correctly
+        textDisplay.commitStyles();
+        textDisplay.width = unscaledTextWidth;
+        
+        // TextField height should match its content or the TextArea bounds at minimum
+        // iOS special case to prevent Flex Scroller scrolling when editable
         if (!_isIOS || !textDisplay.editable)
             textHeight = Math.max(textDisplay.measuredTextSize.y, textHeight);
+        
+        // FIXME (jasonsj): iOS native scroll bar appears even when explictHeight
+        //                  is not specified. Focus-in is jumpy.
+        
+        if (promptDisplay)
+        {
+            promptDisplay.commitStyles();
+            setElementSize(promptDisplay, unscaledTextWidth, textHeight);
+            setElementPosition(promptDisplay, paddingLeft, paddingTop);
+            
+            // no need to update textDisplay if promptDisplay is present
+            return;
+        }
+        
+        // TextField will auto scroll to a new line before we can resize it to
+        // fit the new text. Adjust scrollV so that all text is visible.
+        // FIXME (jasonsj): is this needed for iOS?
+        if (textDisplay.scrollV > 1)
+            textDisplay.scrollV = 1;
         
         // grab old measured textDisplay height before resizing it
         var oldPreferredTextHeight:Number = getElementPreferredHeight(textDisplay);
@@ -293,30 +323,130 @@ public class TextAreaSkin extends TextSkinBase
         if (oldPreferredTextHeight != newPreferredTextHeight)
             invalidateSize();
         
-        // Now that we're done with laying out the textDisplay, 
-        // size the Group to the StyleableTextField plus padding
-        setElementSize(textDisplayGroup, unscaledWidth, paddingTop + textHeight + paddingBottom);
-        
-        if (promptDisplay)
+        // if height is unspecified, grow the StyleableTextField
+        if (isNaN(hostComponent.explicitHeight))
         {
-            promptDisplay.commitStyles();
-            setElementSize(promptDisplay, unscaledTextWidth, unscaledTextHeight);
-            setElementPosition(promptDisplay, paddingLeft, paddingTop);
+            // explicitly size the scroller since the StyleableTextField does not
+            // invalidate it's parent
+            setElementSize(scroller, unscaledWidth, textHeight + paddingTop + paddingBottom);
+        }
+        else if (invalidateCaretPosition)
+        {
+            // if the caret is outside the viewport, update the Group verticalScrollPosition
+            var charIndex:int = textDisplay.selectionBeginIndex;
+            var caretBounds:Rectangle = textDisplay.getCharBoundaries(charIndex);
+            var lineIndex:int = textDisplay.getLineIndexOfChar(charIndex);
+            
+            // getCharBoundaries() returns null for new lines
+            if (!caretBounds)
+            {
+                // temporarily insert a character at the caretIndex
+                textDisplay.replaceText(charIndex, charIndex, "W");
+                caretBounds = textDisplay.getCharBoundaries(charIndex);
+                lineIndex = textDisplay.getLineIndexOfChar(charIndex);
+                textDisplay.replaceText(charIndex, charIndex + 1, "");
+            }
+            
+            if (caretBounds)
+            {
+                // caretTopPositon and caretBottomPosition are TextField-relative positions
+                // the TextField is inset by padding styles of the TextArea (via the VGroup)
+                
+                // adjust top position to 0 when on the first line
+                // caretTopPosition will be negative when off stage
+                var caretTopPosition:Number = ((caretBounds.y) < 0 || (lineIndex == 0))
+                    ? 0 : caretBounds.y;
+                
+                // caretBottomPosition is the y coordinate of the bottom bounds of the caret
+                var caretBottomPosition:Number = caretBounds.y + caretBounds.height;
+                
+                // note that verticalScrollPosition min/max do not account for padding
+                var vspTop:Number = textDisplayGroup.verticalScrollPosition;
+                
+                // vspBottom should be the max visible Y in the TextField
+                // coordinate space.
+                // remove paddingBottom for some clearance between caret and border
+                var vspBottom:Number = vspTop + unscaledHeight - paddingTop - paddingBottom;
+                
+                // is the caret in or below the padding and viewport?
+                if (caretBottomPosition > vspBottom)
+                {
+                    // adjust caretBottomPosition to max scroll position when on the last line
+                    if (lineIndex + 1 == textDisplay.numLines)
+                    {
+                        // use textHeight+paddings instead of textDisplayGroup.contentHeight
+                        // Group has not been resized by this point
+                        textDisplayGroup.verticalScrollPosition = (textHeight + paddingTop + paddingBottom) - textDisplayGroup.height;
+                    }
+                    else
+                    {
+                        // bottom edge of the caret moves just inside the bottom edge of the scroller
+                        // add delta between caret and vspBottom
+                        textDisplayGroup.verticalScrollPosition = vspTop + (caretBottomPosition - vspBottom);
+                    }
+                }
+                // is the caret above the viewport?
+                else if (caretTopPosition < vspTop)
+                {
+                    // top edge of the caret moves inside the top edge of the scroller
+                    textDisplayGroup.verticalScrollPosition = caretTopPosition;
+                }
+            }
+            
+            invalidateCaretPosition = false;
         }
     }
     
-    private function caret_changeHandler(event:Event):void
+    /**
+     *  @private
+     *  Handle size and caret position changes that occur when text content
+     *  changes.
+     */
+    private function textDisplay_changeHandler(event:Event):void
     {
-        // TODO (jasonsj): caret positioning on iOS
-        // textDisplayGroup.verticalScrollPosition = textDisplay.getCharBoundaries(textDisplay.caretIndex).y;
+        invalidateDisplayList();
+        invalidateCaretPosition = true;
+        
+        if (isNaN(hostComponent.explicitHeight))
+        {
+            // invalidate TextAreaSkin size to grow/shrink with content
+            invalidateSize();
+        }
+        else
+        {
+            // invalidate the Group size to update the Scroller
+            textDisplayGroup.invalidateSize();
+        }
+    }
+    
+    /**
+     *  @private
+     *  Adjust viewport when using key navigation
+     */
+    private function textDisplay_keyHandler(event:KeyboardEvent):void
+    {
+        // update scroll position when caret changes
+        if (!isNaN(hostComponent.explicitHeight) &&
+            (event.keyCode == Keyboard.UP
+                || event.keyCode == Keyboard.DOWN
+                || event.keyCode == Keyboard.LEFT
+                || event.keyCode == Keyboard.RIGHT))
+        {
+            invalidateDisplayList();
+            invalidateCaretPosition = true;
+        }
     }
     
     /**
      *  @private
      */
-    private function textDisplay_changeHandler(event:Event):void
+    override public function styleChanged(styleProp:String):void
     {
-        textDisplayGroup.invalidateSize();
+        super.styleChanged(styleProp);
+        
+        // propogate styleChanged explicitly to textDisplay
+        if (textDisplay)
+            textDisplay.styleChanged(styleProp);
     }
 }
 }
