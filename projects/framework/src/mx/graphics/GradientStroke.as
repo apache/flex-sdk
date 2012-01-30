@@ -10,6 +10,11 @@ import mx.core.mx_internal;
  *  @see mx.graphics.Stroke
  *  @see mx.graphics.GradientEntry
  *  @see flash.display.Graphics
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class GradientStroke extends GradientBase
 {
@@ -70,6 +75,11 @@ public class GradientStroke extends GradientBase
      *  <code>thickness</code> of 10 pixels, the miter is cut off at 25 pixels. 
      *  This parameter is optional,
      *  with a default value of <code>0</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function GradientStroke(weight:Number = 1,
                                      pixelHinting:Boolean = false,
@@ -111,6 +121,11 @@ public class GradientStroke extends GradientBase
      *  <code>CapsStyle.ROUND</code>.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get caps():String
     {
@@ -155,6 +170,11 @@ public class GradientStroke extends GradientBase
      *  <code>JoinStyle.ROUND</code>.</p>
      *  
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get joints():String
     {
@@ -206,6 +226,11 @@ public class GradientStroke extends GradientBase
      *  the miter is cut off at 25 pixels.</p>
      *  
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get miterLimit():Number
     {
@@ -252,6 +277,11 @@ public class GradientStroke extends GradientBase
      *  disjoints can appear for curves and straight lines.</p>
      *  
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get pixelHinting():Boolean
     {
@@ -313,6 +343,11 @@ public class GradientStroke extends GradientBase
      *  </ul>
      * 
      *  @default LineScaleMode.NORMAL
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scaleMode():String
     {
@@ -349,6 +384,11 @@ public class GradientStroke extends GradientBase
 
     /**
      *  The stroke weight, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get weight():Number
     {
