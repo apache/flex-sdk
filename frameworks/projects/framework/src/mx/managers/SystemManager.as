@@ -57,6 +57,7 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.FocusRequest;
 import mx.events.MarshalEvent;
+import mx.events.ModalWindowRequest;
 import mx.events.PopUpRequest;
 import mx.events.ShowAlertRequest;
 import mx.events.SizeRequest;
@@ -3757,7 +3758,25 @@ public class SystemManager extends MovieClip
 	}
 
 
-
+    /**
+     *  @private
+     * 
+     *  Re-dispatch events sent over the bridge to listeners on this
+     *  system manager. PopUpManager is expected to listen to these
+     *  events.
+     */  
+    private function modalWindowRequestHandler(event:Event):void
+    {
+        if (event is ModalWindowRequest)
+            return;
+        
+        // make sure this ApplicationDomain has an instance of pop up manager.    
+        Singleton.getInstance("mx.managers::IPopUpManager");
+        
+        var request:ModalWindowRequest = ModalWindowRequest.marshal(event);
+        dispatchEvent(request);
+    }
+    
 	//--------------------------------------------------------------------------
 	//
 	//  Sandbox Event handlers for messages from parent
@@ -4161,6 +4180,8 @@ public class SystemManager extends MovieClip
 		case "screen":
 			event["value"] = screen;
 			break;
+		case "application":
+		    event["value"] = application;
 		}
 	}
 	
@@ -4301,7 +4322,9 @@ public class SystemManager extends MovieClip
 		bridge.addEventListener(SandboxBridgeEvent.ACTIVATE_APPLICATION, activateApplicationSandboxEventHandler);
 		bridge.addEventListener(EventListenerRequest.ADD, eventListenerRequestHandler, false, 0, true);
 		bridge.addEventListener(EventListenerRequest.REMOVE, eventListenerRequestHandler, false, 0, true);
-
+        bridge.addEventListener(ModalWindowRequest.CREATE, modalWindowRequestHandler);
+        bridge.addEventListener(ModalWindowRequest.SHOW, modalWindowRequestHandler);
+        bridge.addEventListener(ModalWindowRequest.HIDE, modalWindowRequestHandler);
 
 	}
 
@@ -4327,6 +4350,9 @@ public class SystemManager extends MovieClip
 		bridge.removeEventListener(SandboxBridgeEvent.ACTIVATE_APPLICATION, activateApplicationSandboxEventHandler);
 		bridge.removeEventListener(EventListenerRequest.ADD, eventListenerRequestHandler);
 		bridge.removeEventListener(EventListenerRequest.REMOVE, eventListenerRequestHandler);
+        bridge.removeEventListener(ModalWindowRequest.CREATE, modalWindowRequestHandler);
+        bridge.removeEventListener(ModalWindowRequest.SHOW, modalWindowRequestHandler);
+        bridge.removeEventListener(ModalWindowRequest.HIDE, modalWindowRequestHandler);
 	}
 
 	/**
