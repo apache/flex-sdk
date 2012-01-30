@@ -45,7 +45,7 @@ import mx.managers.DragManager;
 import mx.managers.NativeDragManagerImpl;
 
 import spark.components.windowClasses.TitleBar;
-import spark.primitives.supportClasses.TextGraphicElement;
+import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal;
 
@@ -567,7 +567,7 @@ public class WindowedApplication extends Application implements IWindow
      *  @productversion Flex 4
      */
     [SkinPart (required="false")]
-    public var statusText:TextGraphicElement;
+    public var statusText:TextBase;
     
     //----------------------------------
     //  titleBar
