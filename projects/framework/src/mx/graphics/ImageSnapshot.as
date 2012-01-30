@@ -96,20 +96,20 @@ public dynamic class ImageSnapshot
      *  set this parameter to an identity matrix,
      *  created with the default new Matrix() constructor, or pass a null value.
      *
-     *  @param colorTransform:ColorTransform (default = null)  A ColorTransform 
+     *  @param colorTransform A ColorTransform 
      *  object that you use to adjust the color values of the bitmap. If no object 
      *  is supplied, the bitmap image's colors are not transformed. If you must pass 
      *  this parameter but you do not want to transform the image, set this parameter 
      *  to a ColorTransform object created with the default new ColorTransform() constructor.
      *
-     *  blendMode:String (default = null)  A string value, from the flash.display.BlendMode 
+     *  @param blendMode A string value, from the flash.display.BlendMode 
      *  class, specifying the blend mode to be applied to the resulting bitmap.
      *
-     *  clipRect:Rectangle (default = null)  A Rectangle object that defines the 
+     *  @param clipRect A Rectangle object that defines the 
      *  area of the source object to draw. If you do not supply this value, no clipping 
      *  occurs and the entire source object is drawn.
      *
-     *  smoothing:Boolean (default = false)  A Boolean value that determines whether a 
+     *  @param smoothing A Boolean value that determines whether a 
      *  BitmapData object is smoothed when scaled.
      *
      *  @return A BitmapData object representing the captured snapshot.
@@ -181,8 +181,8 @@ public dynamic class ImageSnapshot
                 matrix.d = scaledHeight / height;
             }
 
-			// the fill should be transparent: 0xARGB -> 0x00000000
-			// only explicitly drawn pixels will show up
+            // the fill should be transparent: 0xARGB -> 0x00000000
+            // only explicitly drawn pixels will show up
             data = new BitmapData(scaledWidth, scaledHeight, true, 0x00000000);
             data.draw(source, matrix, colorTransform,
                       blendMode, clipRect, smoothing);
@@ -395,7 +395,7 @@ public dynamic class ImageSnapshot
         topLeft.y = 0;
         
         // the fill should be transparent: 0xARGB -> 0x00000000
-		// only explicitly drawn pixels will show up
+        // only explicitly drawn pixels will show up
         var data:BitmapData = new BitmapData(topLeft.width, topLeft.height, true, 0x00000000);
         data.draw(source, currentMatrix, colorTransform,
                   blendMode, clipRect, smoothing);
