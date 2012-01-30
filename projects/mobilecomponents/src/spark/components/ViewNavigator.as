@@ -57,7 +57,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  The state used when the navigator is in portrait orientation
+ *  The state used when the navigator is in portrait orientation.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -67,7 +67,7 @@ use namespace mx_internal;
 [SkinState("portrait")]
 
 /**
- *  The state used when the navigator is in landscape orientation
+ *  The state used when the navigator is in landscape orientation.
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -100,27 +100,59 @@ use namespace mx_internal;
 
 /**
  *  The ViewNavigator component is a container that consists of a collection of
- *  View objects, where only the top most view is visible and active.  Views can
- *  be added and removed by using the popView() and pushView() methods on the
- *  navigator.  
- * 
- *  <p>When a new view becomes active, the old view's instance is destroyed.
- *  When a view is pushed on top of navigator's stack, the old view's data 
- *  property is automatically persisted and restored when it is reactived
- *  through one of the pop methods.</p>
- * 
- *  <p>ViewNavigator doesn't provide index information about the Views that
- *  it is currently managing and strictly follows a stack navigation model. 
- *  Jumping between a set of views similar to a ViewStack is not supported 
- *  by this component.</p>
+ *  View objects, where only the top most view is visible and active.  
+ *  Use the ViewNavigator container to control the navigation among 
+ *  the views of a mobile application.
+ *  The ViewNavigatorApplication container automatically creates a 
+ *  single ViewNavigator container for the entire application.
  *  
- *  <p>ViewNavigator displays an optional action bar that displays contextual
- *  information defined by the active view.  When the active view changes, the
- *  action bar is automatically updated.</p>
+ *  <p>Navigation in a mobile application is controlled by a stack of View objects. 
+ *  The top View object on the stack defines the currently visible view. 
+ *  The ViewNavigator container maintains the stack. 
+ *  To change views, push a new View object onto the stack, 
+ *  or pop the current View object off of the stack. 
+ *  Popping the currently visible View object from the stack destroys 
+ *  the View object, and returns the user to the previous view on the stack.</p>
+ *
+ *  <p>When a view is pushed on top of the stack, the old view's <code>data</code> 
+ *  property is automatically persisted.
+ *  It is restored when the view is reactived as a result of 
+ *  the current view being popped off the stack.
+ *  When a new view becomes active by being pushed onto the stack, 
+ *  the old view's instance is destroyed.</p>
+ * 
+ *  <p>The ViewNavigator displays an optional ActionBar control that displays contextual
+ *  information defined by the active view.  
+ *  When the active view changes, the action bar is automatically updated.</p>
+ *
+ *  @mxml
+ *  
+ *  <p>The <code>&lt;s:ViewNavigator&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;s:ViewNavigator
+ *   <strong>Properties</strong>
+ *    actionContent="null"
+ *    actionLayout="null"
+ *    defaultPopTransition="SlideViewTransition"
+ *    defaultPushTransition="SlideViewTransition"
+ *    firstView="null"
+ *    firstViewData="null"
+ *    navigationContent="null"
+ *    navigationLayout="null"
+ *    poppedViewReturnedObject="null"
+ *    title=""
+ *    titleContent="null"
+ *    titleLayout="null"
+ * 
+ *  &gt;
+ *  </pre>
  *  
  *  @see spark.components.View
  *  @see spark.components.ActionBar
- *  @see spark.effects.ViewTransitionBase
+ *  @see spark.components.TabbedViewNavigator
+ *  @see spark.transitions.ViewTransitionBase
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -166,15 +198,15 @@ public class ViewNavigator extends ViewNavigatorBase
         super();
         
         // Default view transitions
-		var slideLeft:SlideViewTransition = new SlideViewTransition();
-		slideLeft.duration = DEFAULT_VIEW_TRANSITION_DURATION;
-		slideLeft.direction = ViewTransitionDirection.LEFT;
-		defaultPushTransition = slideLeft;
-		
-		var slideRight:SlideViewTransition = new SlideViewTransition();
-		slideRight.duration = DEFAULT_VIEW_TRANSITION_DURATION;
-		slideRight.direction = ViewTransitionDirection.RIGHT;
-		defaultPopTransition = slideRight;
+        var slideLeft:SlideViewTransition = new SlideViewTransition();
+        slideLeft.duration = DEFAULT_VIEW_TRANSITION_DURATION;
+        slideLeft.direction = ViewTransitionDirection.LEFT;
+        defaultPushTransition = slideLeft;
+        
+        var slideRight:SlideViewTransition = new SlideViewTransition();
+        slideRight.duration = DEFAULT_VIEW_TRANSITION_DURATION;
+        slideRight.direction = ViewTransitionDirection.RIGHT;
+        defaultPopTransition = slideRight;
     }
     
     //--------------------------------------------------------------------------
@@ -373,9 +405,9 @@ public class ViewNavigator extends ViewNavigatorBase
                 var canDestroy:Boolean = (activeView.destructionPolicy != ContainerDestructionPolicy.NEVER) && 
                                          (destructionPolicy != ContainerDestructionPolicy.NEVER);
                 
-				// If the instance of the view is being destroyed but our navigationStack is
-				// maintained, the active view needs to serialize its data is application
-				// persistence is enabled.
+                // If the instance of the view is being destroyed but our navigationStack is
+                // maintained, the active view needs to serialize its data is application
+                // persistence is enabled.
                 if (canDestroy || clearNavigationStack)
                     destroyViewInstance(navigationStack.topView, !clearNavigationStack);
             }
@@ -391,13 +423,13 @@ public class ViewNavigator extends ViewNavigatorBase
     //----------------------------------
     
     /**
+     *  <p>During a view transition, this property references the
+     *  view that the navigator is transitioning to.</p>
+     *
      *  @inheritDoc
      * 
-     *  During a view transition, the activeView property will reference the
-     *  view that the navigator is transitioning to.
-     * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -430,15 +462,14 @@ public class ViewNavigator extends ViewNavigatorBase
     
     /**
      *  The string that describes the context in which the current view was
-     *  created.  This property is assigned to the <code>context</code>
-     *  parameter that is passed into <code>ViewNavigator.pushView()</code>.
+     *  created.  
+     *  This property is assigned to the value of the <code>context</code>
+     *  parameter passed to the <code>ViewNavigator.pushView()</code> method.
      * 
      *  @default null
      * 
-     *  @see spark.components.ViewNavigator
-     * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -462,10 +493,12 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  Specifies the default view transition for push navigation operations.
      *
-     *  @default new SlideViewTransition()
+     *  @default SlideViewTransition
+     *
+     *  @see spark.transitions.SlideViewTransition
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -491,10 +524,12 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  Specifies the default view transition for pop navigation operations.
      *
-     *  @default new SlideViewTransition()
+     *  @default SlideViewTransition
+     *
+     *  @see spark.transitions.SlideViewTransition
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -519,13 +554,22 @@ public class ViewNavigator extends ViewNavigatorBase
     private var _firstView:Class;
     
     /**
-     *  This property is the object to use to initialize the first view
-     *  of the stack.  This must be a class that extends <code>View</code>.
+     *  Each view in an application corresponds to a View container 
+     *  class defined in an ActionScript or MXML file.
+     *  This property specifies the view to use to initialize the first view
+     *  of the stack.  
+     *  This property must reference a class that extends View container.
+     *
+     *  <p>Specify any data passed to the first view by using 
+     *  the <code>firstViewData</code> property.</p>   
      * 
      *  @default null
+     *
+     *  @see #firstViewData
+     *  @see View
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -549,13 +593,17 @@ public class ViewNavigator extends ViewNavigatorBase
     private var _firstViewData:Object;
     
     /**
-     * This is the initialization data to pass to the first view when the
-     * navigator is initialized.
+     *  The Object to pass to the <code>data</code> property 
+     *  of the first view when the navigator is initialized.
+     *  Specify the first view by using the <code>firstView</code> property.   
      * 
      *  @default null
+     *
+     *  @see #firstView
+     *  @see View
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -605,19 +653,23 @@ public class ViewNavigator extends ViewNavigatorBase
     private var _poppedViewReturnedObject:ViewReturnObject = null;
 
     /**
-     *  Holds the return object returned by the last view that was popped
-     *  off the navigation stack or replaced by another view.  This object 
-     *  is only available when the navigator is in the process of switching 
+     *  Holds the object returned by the last view that was popped
+     *  off the navigation stack or replaced by another view.  
+     *  To return a value, the view being popped off the stack overrides
+     *  its <code>createReturnObject()</code> method.
+     *
+     *  <p>This object is only available when the navigator is in the process of switching 
      *  views in response to a pop or replace navigation operation.  
-     * 
-     *  <p>This object is guarenteed to be valid when the new view receives 
-     *  the <code>FlexEvent.ADD</code> event, and is destroyed after
-     *  the view receives a <code>ViewNavigatorEvent.VIEW_ACTIVATE</code> event.</p>
+     *  This object is guaranteed to be valid when the new view receives 
+     *  the <code>add</code> event, and is destroyed after
+     *  the view receives a <code>viewActivate</code> event.</p>
      * 
      *  @default null
+     *
+     *  @see View#createReturnObject()
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -641,10 +693,16 @@ public class ViewNavigator extends ViewNavigatorBase
     
     [ArrayElementType("mx.core.IVisualElement")]
     /**
-     *  Array of visual elements that are used as the ActionBar's
-     *  actionContent when a view doesn't define any.
+     *  This property overrides the <code>actionContent</code>
+     *  property in the ActionBar and 
+     *  ViewNavigatorApplication components.
+     * 
+     *  @copy ActionBar#actionContent
      *
      *  @default null
+     *
+     *  @see ActionBar#actionContent
+     *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -677,8 +735,7 @@ public class ViewNavigator extends ViewNavigatorBase
     private var actionLayoutInvalidated:Boolean = false;
     
     /**
-     *  The default layout for the ActionBar's action content group if
-     *  the view doesn't define one.
+     *  @copy ActionBar#actionContent
      *
      *  @default null
      *  
@@ -714,10 +771,16 @@ public class ViewNavigator extends ViewNavigatorBase
     
     [ArrayElementType("mx.core.IVisualElement")]
     /**
-     *  Array of visual elements that are used as the ActionBar's
-     *  navigationContent when a view doesn't assign any.
+     *  This property overrides the <code>navigationContent</code>
+     *  property in the ActionBar and 
+     *  ViewNavigatorApplication components.
+     * 
+     *  @copy ActionBar#navigationContent
      *
      *  @default null
+     * 
+     *  @see ActionBar#navigationContent
+     *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -750,8 +813,7 @@ public class ViewNavigator extends ViewNavigatorBase
     private var navigationLayoutInvalidated:Boolean = false;
     
     /**
-     *  The default layout for the ActionBar navigation content group if
-     *  a view doesn't define one.
+     *  @copy ActionBar#navigationLayout
      *
      *  @default null
      *  
@@ -788,13 +850,15 @@ public class ViewNavigator extends ViewNavigatorBase
     [Bindable]
     
     /**
-     *  The default title that should be used by the ActionBar if the
-     *  view doesn't provide one.
+     *  This property overrides the <code>title</code>
+     *  property in the ActionBar and ViewNavigatorApplication components.
+     * 
+     *  @copy ActionBar#title
      *
-     *  @default null
+     *  @default ""
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -831,13 +895,18 @@ public class ViewNavigator extends ViewNavigatorBase
     
     [ArrayElementType("mx.core.IVisualElement")]
     /**
-     *  Array of visual elements that are used as the ActionBar's
-     *  titleContent when a view doesn't define one.
+     *  This property overrides the <code>titleContent</code>
+     *  property in the ActionBar and ViewNavigatorApplication components.
+     * 
+     *  @copy ActionBar#titleContent
      *
      *  @default null
+     * 
+     *  @see ActionBar#titleContent
+     *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -867,7 +936,7 @@ public class ViewNavigator extends ViewNavigatorBase
     private var titleLayoutInvalidated:Boolean = false;
     
     /**
-     *  Layout for the ActionBar's titleContent group.
+     *  @copy ActionBar#titleLayout
      *
      *  @default null
      *  
@@ -901,13 +970,13 @@ public class ViewNavigator extends ViewNavigatorBase
     //--------------------------------------------------------------------------
     
     /**
-     *  Removes all of the views from the navigator.  This will transition
-     *  the current view to a blank screen.  
+     *  Removes all of the views from the navigator stack.  
+     *  This method changes the display to a blank screen.  
      *
-     *  @param transition The view transition to play
+     *  @param transition The view transition to play while switching views.    
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -920,12 +989,14 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     /**
-     *  Pops the top view off the navigation stack.
+     *  Pops the current view off the navigation stack.
+     *  The current view is represented by the top view on the stack.
+     *  The previous view on the stack becomes the current view.
      * 
-     *  @param transition The view transition to play
+     *  @param transition The view transition to play while switching views.    
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
@@ -938,12 +1009,13 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     /**
-     *  Removes all views except the bottom one from the navigation stack.
+     *  Removes all views except the bottom view from the navigation stack.
+     *  The bottom view is the one that was first pushed onto the stack.
      *  
-     *  @param transition The view transition to play
+     *  @param transition The view transition to play while switching views.    
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -956,17 +1028,23 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     /**
-     *  Pushes a new view to the top of the navigation stack.
+     *  Pushes a new view onto the top of the navigation stack.
+     *  The view pushed onto the stack becomes the current view. 
      * 
-     *  @param viewClass The class used to create the view
-     *  @param data The data object to pass to the view
+     *  @param viewClass The class used to create the view.
+     *  This argument must reference a class that extends View container.
+     *  
+     *  @param data The data object to pass to the view. 
+     *  This argument is written to the <code>data</code> property of the new view.
+     *  
      *  @param context An arbitrary object used to describe the context
-     *         of the push.  When the new view is created, it will be 
-     *         able to reference this property.
-     *  @param transition The view transition to play
+     *         of the push.  When the new view is created, it can
+     *         reference this property.
+     *  
+     *  @param transition The view transition to play while switching views.    
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -982,17 +1060,23 @@ public class ViewNavigator extends ViewNavigatorBase
     }
 
     /**
-     *  Replaces the top view of the navigation stack with a View.
+     *  Replaces the top view of the navigation stack with a new view.
+     *  The view replacing the current view on the stack becomes the current view. 
      * 
-     *  @param viewClass The class used to create the view
-     *  @param data The data object to pass to the view
+     *  @param viewClass The class used to create the replacement view.
+     *  This argument must reference a class that extends View container.
+     *  
+     *  @param data The data object to pass to the view. 
+     *  This argument is written to the <code>data</code> property of the new view.
+     *  
      *  @param context An arbitrary object used to describe the context
-     *         of the push.  When the new view is created, it will be 
-     *         able to reference this property.
-     *  @param transition The view transition to play
+     *         of the push.  When the new view is created, it can
+     *         reference this property.
+     *  
+     *  @param transition The view transition to play while switching views.    
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1010,10 +1094,11 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  Shows the action bar.
      * 
-     *  @param animate Indicates whether a show effect should be played.
+     *  @param animate Indicates whether a show effect should be played
+     *  when the action bar appears.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1032,10 +1117,11 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  Hides the action bar.
      * 
-     *  @param animate Indicates whether a hide effect should be played.
+     *  @param animate Indicates whether a hide effect should be played
+     *  when the action bar is hidden.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1064,7 +1150,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  interaction flags are disabled.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1100,7 +1186,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1119,7 +1205,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -1189,7 +1275,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *         this property.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */  
@@ -1223,7 +1309,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @param transition The view transition to play
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */  
@@ -1268,7 +1354,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *         this property.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
@@ -1370,7 +1456,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  and the action bar's visibility has changed.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1400,7 +1486,7 @@ public class ViewNavigator extends ViewNavigatorBase
                                                 
                 actionBarVisibilityEffect.addEventListener(EffectEvent.EFFECT_END, 
                                                            visibilityAnimation_completeHandler);
-				
+                
                 actionBarVisibilityEffect.play();
             }
             else
@@ -1410,9 +1496,9 @@ public class ViewNavigator extends ViewNavigatorBase
                 if (activeView)
                     activeView.setActionBarVisible(showingActionBar);
 
-            	// When this flag is true, the animations should only be disabled for the 
-				// current frame, so reset the flag so animations play on subsequent frames.
-				disableNextControlAnimation = false;
+                // When this flag is true, the animations should only be disabled for the 
+                // current frame, so reset the flag so animations play on subsequent frames.
+                disableNextControlAnimation = false;
             }
         }
         
@@ -1420,11 +1506,12 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     /**
-     *  Creates the effect to play when the ActionBar is hidden.
+     *  Creates the effect to play when the ActionBar control is hidden.
      *  The produced effect is responsible for animating both the 
-     *  actionBar and the contentGroup of the navigator.
+     *  ActionBar and the view currently displayed in the 
+     *  content area of the navigator.
      * 
-     *  @return An effect to play when the ActionBar is hidden
+     *  @return An effect to play when the ActionBar control is hidden.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1438,11 +1525,12 @@ public class ViewNavigator extends ViewNavigatorBase
     
     
     /**
-     *  Creates the effect to play when the actionBar is hidden.
+     *  Creates the effect to play when the ActionBar control appears.
      *  The produced effect is responsible for animating both the 
-     *  actionBar and the contentGroup of the navigator.
+     *  ActionBar and the view currently displayed in the 
+     *  content area of the navigator.
      * 
-     *  @return An effect to play when the ActionBar is shown
+     *  @return An effect to play when the ActionBar control is appears.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1457,10 +1545,10 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */   
-	private function createActionBarVisibilityEffect(showAnimation:Boolean):IEffect
-	{
-		var effect:IEffect;
-		var finalEffect:Parallel = new Parallel();
+    private function createActionBarVisibilityEffect(showAnimation:Boolean):IEffect
+    {
+        var effect:IEffect;
+        var finalEffect:Parallel = new Parallel();
 
         // Grab initial values
         actionBarProps.start = captureAnimationValues(actionBar);
@@ -1472,7 +1560,7 @@ public class ViewNavigator extends ViewNavigatorBase
         
         // Calculate final positions and position actionBar.  This method will force a validation
         prepareActionBarForAnimation(showAnimation);
-		
+        
         // Create animation for action bar 
         var animate:Animate = new Animate();
         animate.target = actionBar;
@@ -1483,7 +1571,7 @@ public class ViewNavigator extends ViewNavigatorBase
         // Add action bar effect to final parallel effect
         effect = animate;        
         finalEffect.addChild(effect);
-		
+        
         // Create animation for content group
         effect = createContentVisibilityEffect(contentGroupProps);
         effect.target = contentGroup;
@@ -1499,7 +1587,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  pass.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1586,7 +1674,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  should only target the contentGroup as it will be played in parallel with
      *  other effects that animate the other navigator skin parts.
      * 
-     *  @param hiding Indicates whether the acton bar is hiding or showing
+     *  @param hiding Indicates whether the action bar is hiding or showing
      *  @param props The bounds properties that were captured for the actionBar.  
      * 
      *  @langversion 3.0
@@ -1615,12 +1703,12 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-	private function visibilityAnimation_completeHandler(event:EffectEvent):void
-	{
+    private function visibilityAnimation_completeHandler(event:EffectEvent):void
+    {
         event.target.removeEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
         
         // Clear flags and temporary properties
-		actionBarVisibilityEffect = null;
+        actionBarVisibilityEffect = null;
         
         if (activeView)
             activeView.setActionBarVisible(actionBarProps.showing);
@@ -1630,7 +1718,7 @@ public class ViewNavigator extends ViewNavigatorBase
         // own animations, these properties won't be set.
         if (actionBarProps.start != undefined)
         {
-    		actionBar.visible = actionBar.includeInLayout = !actionBarProps.start.visible;
+            actionBar.visible = actionBar.includeInLayout = !actionBarProps.start.visible;
             actionBar.cacheAsBitmap = actionBarProps.start.cacheAsBitmap;
         }
         
@@ -1639,8 +1727,8 @@ public class ViewNavigator extends ViewNavigatorBase
         // Content group properties object only created if the default transitions were used
         if (contentGroupProps)
         {
-		    contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
-    		contentGroupProps = null;
+            contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
+            contentGroupProps = null;
         }
     }
     
@@ -1968,7 +2056,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  the underlying ViewDescriptor object and prepares the transition.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -2049,7 +2137,7 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             transition.captureEndValues();
             transition.prepareForPlay();
-			activeTransition = transition;
+            activeTransition = transition;
             
             // Run transition a frame later so that the overhead of creating the view
             // and the time the player takes to render isn't included in the duration.
@@ -2073,7 +2161,7 @@ public class ViewNavigator extends ViewNavigatorBase
         if (hasEventListener(FlexEvent.TRANSITION_START))
             dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_START, false, false));
 
-		activeTransition.play();
+        activeTransition.play();
     }
     
     /**
@@ -2081,7 +2169,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  Called when a transition dispatches an FlexEvent.TRANSITION_END event.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -2092,7 +2180,7 @@ public class ViewNavigator extends ViewNavigatorBase
         if (hasEventListener(FlexEvent.TRANSITION_END))
             dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_END, false, false));
 
-		activeTransition = null;
+        activeTransition = null;
         navigatorActionCommitted();
     }
     
@@ -2100,7 +2188,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -2114,7 +2202,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -2196,7 +2284,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -2234,7 +2322,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
