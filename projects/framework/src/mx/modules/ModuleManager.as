@@ -1075,7 +1075,13 @@ class ModuleInfoProxy extends EventDispatcher implements IModuleInfo
                          bytes:ByteArray = null,
                          moduleFactory:IFlexModuleFactory = null):void
     {
-        info.resurrect();
+        // If the module is not ready then don't try to resurrect it.
+        // You can only resurrect a module that is in the ready state.
+        // By not calling resurrect until we have a module loaded we
+        // can be called here multiple times for the same module and 
+        // only load the module once.
+        if (info.ready)
+            info.resurrect();
 
         if (!referenced)
         {
