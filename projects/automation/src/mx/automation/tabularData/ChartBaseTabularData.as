@@ -103,7 +103,8 @@ package mx.automation.tabularData
 			maxItems = 0;
 			// code modified to avoid the usage of numAutomationChildren and 
 			// getAutomationChildAt in a loop
-			var childList:Array  = delegate.getAutomationChildren();
+			//var childList:Array  = delegate.getAutomationChildren();
+			var childList:Array  = Automation.automationManager2.getAutomationChildrenArray(delegate);
 			var n:int = childList?childList.length:0;
 			//for(var i:int = 0; i < delegate.numAutomationChildren; ++i)
 			for (var i:int = 0; i < n; ++i)
@@ -158,7 +159,8 @@ package mx.automation.tabularData
 			
 			// code modified to avoid the usage of numAutomationChildren and 
 			// getAutomationChildAt in a loop
-			var childList:Array  = delegate.getAutomationChildren();
+			//var childList:Array  = delegate.getAutomationChildren();
+			var childList:Array  = Automation.automationManager2.getAutomationChildrenArray(delegate);
 			if (childList)
 			{
 				end  = end > childList.length ? childList.length : end;
