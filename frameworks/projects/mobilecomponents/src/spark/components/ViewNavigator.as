@@ -30,8 +30,9 @@ import mx.managers.LayoutManager;
 import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.NavigationStack;
-import spark.components.supportClasses.ViewHistoryData;
 import spark.components.supportClasses.ViewNavigatorBase;
+import spark.components.supportClasses.ViewProxy;
+import spark.components.supportClasses.ViewReturnObject;
 import spark.core.ContainerDestructionPolicy;
 import spark.effects.Animate;
 import spark.effects.Fade;
@@ -285,7 +286,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  The view data for the active view.
      */
-    private var currentViewData:ViewHistoryData = null;
+    private var currentViewProxy:ViewProxy = null;
     
     /**
      *  @private
@@ -302,7 +303,7 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */ 
-    private var emptyViewData:ViewHistoryData = null;
+    private var emptyViewProxy:ViewProxy = null;
     
     /**
      *  @private
@@ -335,7 +336,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  The view data for the pending view.
      */ 
-    private var pendingViewData:ViewHistoryData = null;
+    private var pendingViewProxy:ViewProxy = null;
     
     /**
      *  @private
@@ -411,7 +412,7 @@ public class ViewNavigator extends ViewNavigatorBase
                 if ((activeView.destructionPolicy != ContainerDestructionPolicy.NEVER && 
                     destructionPolicy != ContainerDestructionPolicy.NEVER) ||
                     !maintainNavigationStack)
-                    destoryViewInstance(navigationStack.topView);
+                    destroyViewInstance(navigationStack.topView);
             }
             
             if (!maintainNavigationStack)
@@ -432,8 +433,8 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     override public function get activeView():View
     {
-        if (currentViewData && currentViewData != emptyViewData)
-            return currentViewData.instance;
+        if (currentViewProxy && currentViewProxy != emptyViewProxy)
+            return currentViewProxy.instance;
         
         return null;
     }
@@ -587,6 +588,33 @@ public class ViewNavigator extends ViewNavigatorBase
         lastAction = ViewNavigatorAction.REPLACE_STACK;
         
         invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  returnedObject
+    //----------------------------------
+    private var _returnedObject:ViewReturnObject = null;
+
+    /**
+     *  Holds the return object returned by the last view that was popped
+     *  off the navigation stack.  This object is only available when the
+     *  navigator is in the process of switching views in response to a
+     *  pop navigation operation.  
+     * 
+     *  <p>This object is guarenteed to be valid when the a view receives 
+     *  the <code>FlexEvent.ADD</code> event, and is destroyed after
+     *  the view receives a <code>FlexEvent.VIEW_ACTIVATE</code> event.</p>
+     * 
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    public function get returnedObject():ViewReturnObject
+    {
+        return _returnedObject;
     }
     
     //--------------------------------------------------------------------------
@@ -879,7 +907,7 @@ public class ViewNavigator extends ViewNavigatorBase
         if (navigationStack.length == 0 || !canRemoveCurrentView())
             return;
         
-        scheduleAction(ViewNavigatorAction.POP_ALL, null, null, transition);
+        scheduleAction(ViewNavigatorAction.POP_ALL, null, null, null, transition);
     }
     
     /**
@@ -897,7 +925,7 @@ public class ViewNavigator extends ViewNavigatorBase
         if (navigationStack.length == 0 || !canRemoveCurrentView())
             return;
         
-        scheduleAction(ViewNavigatorAction.POP, null, null, transition);
+        scheduleAction(ViewNavigatorAction.POP, null, null, null, transition);
     }
     
     /**
@@ -915,7 +943,7 @@ public class ViewNavigator extends ViewNavigatorBase
         if (navigationStack.length < 2 || !canRemoveCurrentView())
             return;
         
-        scheduleAction(ViewNavigatorAction.POP_TO_FIRST, null, null, transition);
+        scheduleAction(ViewNavigatorAction.POP_TO_FIRST, null, null, null, transition);
     }
     
     /**
@@ -924,6 +952,9 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @param factory The class used to create the view
      *  @param data The data object to pass to the view
      *  @param transition The view transition to play
+     *  @param context An arbitrary string that can be used to describe the context
+     *         of the push.  When the new view is created, it will be able to reference
+     *         this property.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -932,12 +963,13 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     public function pushView(factory:Class, 
                              data:Object = null,
+                             context:String = null,
                              transition:ViewTransition = null):void
     {
         if (factory == null || !canRemoveCurrentView())
             return;
         
-        scheduleAction(ViewNavigatorAction.PUSH, factory, data, transition);
+        scheduleAction(ViewNavigatorAction.PUSH, factory, data, context, transition);
     }
 
     /**
@@ -1019,10 +1051,10 @@ public class ViewNavigator extends ViewNavigatorBase
     {
         var view:View;
         
-        if (!currentViewData)
+        if (!currentViewProxy)
             return true;
 
-        view = currentViewData.instance;
+        view = currentViewProxy.instance;
         return (view == null || view.canRemove());
     }
     
@@ -1065,10 +1097,10 @@ public class ViewNavigator extends ViewNavigatorBase
         
         // If this is the components first validation pass, push the firstView
         // on the stack if possible, otherwise set the currentViewChange flag
-        // to true so that an empty screen is created.  If the currentViewData
+        // to true so that an empty screen is created.  If the currentViewProxy
         // property exists, that means an empty view was previously created 
         // because a firstView property wasn't supplied.
-        if (!initialized && navigationStack.length == 0 && !currentViewData)
+        if (!initialized && navigationStack.length == 0 && !currentViewProxy)
         {
             if (firstView)
                 navigationStack.push(firstView, firstViewData);
@@ -1106,14 +1138,20 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @param factory The class that will be created in the case of a push action
      *  @param data The data object to pass to the view in the case of a push action
      *  @param transition The view transition to play
+     *  @param context An arbitrary string that can be used to describe the context
+     *         of the push.  When the new view is created, it will be able to reference
+     *         this property.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */  
-    private function scheduleAction(action:String, factory:Class = null, 
-                                 data:Object = null, transition:ViewTransition = null):void
+    private function scheduleAction(action:String, 
+                                    factory:Class = null, 
+                                    data:Object = null, 
+                                    context:String = null,
+                                    transition:ViewTransition = null):void
     {
         // If the action queue doesn't exist, create it
         if (delayedNavigationActions.length == 0)
@@ -1135,7 +1173,7 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         
         delayedNavigationActions.push({action:action, factory:factory, 
-            data:data, transition:transition});
+            data:data, transition:transition, context:context});
     }
     
     /**
@@ -1173,7 +1211,7 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             parameters = delayedNavigationActions[i];
             executeAction(parameters.action, parameters.factory, 
-                parameters.data, parameters.transition); 
+                parameters.data, parameters.context, parameters.transition); 
         }
         
         delayedNavigationActions.length = 0;
@@ -1196,6 +1234,9 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @param factory The class that will be created in the case of a push action
      *  @param data The data object to pass to the view in the case of a push action
      *  @param transition The view transition to play
+     *  @param context An arbitrary string that can be used to describe the context
+     *         of the push.  When the new view is created, it will be able to reference
+     *         this property.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1203,7 +1244,9 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @productversion Flex 4.5
      */    
     private function executeAction(action:String, factory:Class = null, 
-                                   data:Object = null, transition:ViewTransition = null):void
+                                   data:Object = null,
+                                   context:String = null,
+                                   transition:ViewTransition = null):void
     {
         var defaultTransition:ViewTransition;
         
@@ -1213,7 +1256,7 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             lastAction = ViewNavigatorAction.PUSH;
             defaultTransition = defaultPushTransition;
-            navigationStack.push(factory, data);
+            navigationStack.push(factory, data, context);
         }
         else
         {
@@ -1235,7 +1278,7 @@ public class ViewNavigator extends ViewNavigatorBase
             // If the currentView navigation data object is the same as the
             // new one, the activeView doesn't need to be changed.  This can
             // happen if a pushView() is followed immediately by a popView().
-            if (navigationStack.topView == currentViewData)
+            if (navigationStack.topView == currentViewProxy)
             {
                 if (viewChanging)
                 {
@@ -1565,24 +1608,17 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     protected function endViewChange():void
     {
-        var currentView:View;
+        // Destroy the previous view
+        if (currentViewProxy)
+            destroyViewInstance(currentViewProxy);
         
-        if (currentViewData)
-        {
-            currentView = currentViewData.instance;
-            currentView.returnedObject = null;
-            
-            // Destroy the view
-            destoryViewInstance(currentViewData);
-        }
-
         // Update view pointers
-        currentViewData = pendingViewData;
-        pendingViewData = null;
+        currentViewProxy = pendingViewProxy;
+        pendingViewProxy = null;
 
         // Clear empty flag if necessary
-        if (emptyViewData && currentViewData != emptyViewData)
-            emptyViewData = null;
+        if (emptyViewProxy && currentViewProxy != emptyViewProxy)
+            emptyViewProxy = null;
         
         // If there is no focus or the item that had focus isn't 
         // on the display list anymore, update the focus to be
@@ -1596,10 +1632,10 @@ public class ViewNavigator extends ViewNavigatorBase
                 stage.focus = this;
         }
         
-        // At this point, currentViewData points to the new view
-        if (currentViewData)
+        // At this point, currentViewProxy points to the new view
+        if (currentViewProxy)
         {
-            currentView = currentViewData.instance;
+            var currentView:View= currentViewProxy.instance;
             
             if (currentView)
             {
@@ -1608,6 +1644,9 @@ public class ViewNavigator extends ViewNavigatorBase
                 currentView.setActive(true);
             }
         }
+        
+        // Clear the returned object
+        _returnedObject = null;
         
         // Restore mouse children properties before revalidation occurs.  This
         // needs to occur before a possible revalidation occurs so that the
@@ -1659,20 +1698,23 @@ public class ViewNavigator extends ViewNavigatorBase
         if (actionBarVisibilityEffect)
             actionBarVisibilityEffect.end();
         
+        if (lastAction == ViewNavigatorAction.POP && activeView)
+            _returnedObject = createViewReturnObject(currentViewProxy);
+        
         beginViewChange();
         
-        pendingViewData = navigationStack.topView;
+        pendingViewProxy = navigationStack.topView;
         
         // Create an empty view if no firstView factory is defined
-        if (pendingViewData == null)
+        if (pendingViewProxy == null)
         {
-            emptyViewData = new ViewHistoryData(View);
-            pendingViewData = emptyViewData;
+            emptyViewProxy = new ViewProxy(View);
+            pendingViewProxy = emptyViewProxy;
         }
         
-        if(pendingViewData.factory != null)
+        if(pendingViewProxy.factory != null)
         {
-            createViewInstance(pendingViewData);
+            createViewInstance(pendingViewProxy);
             
             viewChangeRequested = false;
             
@@ -1715,13 +1757,13 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         
         // Update the current view reference
-        currentViewData = navigationStack.topView;
+        currentViewProxy = navigationStack.topView;
         
         // Create the view if needed
-        var view:View = currentViewData.instance;
+        var view:View = currentViewProxy.instance;
         if (!view)
         {
-            view = createViewInstance(currentViewData);
+            view = createViewInstance(currentViewProxy);
             view.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
         }
         
@@ -1732,28 +1774,29 @@ public class ViewNavigator extends ViewNavigatorBase
     
     /**
      *  @private
-     */ 
-    private function createViewInstance(viewData:ViewHistoryData):View
+     */
+    private function createViewInstance(viewProxy:ViewProxy):View
     {
         var view:View;
         
-        if (viewData.instance == null)
+        if (viewProxy.instance == null)
         {
-            view = new viewData.factory();
-            viewData.instance = view;
+            view = new viewProxy.factory();
+            viewProxy.instance = view;
         }
         else
         {
-            view = viewData.instance;
+            view = viewProxy.instance;
         }
         
         // Restore persistence data if necessary
-        if (viewData.data == null && viewData.persistedData != null)
-            viewData.data = view.deserializePersistedData(viewData.persistedData);
+        if (viewProxy.data == null && viewProxy.persistedData != null)
+            viewProxy.data = view.deserializePersistedData(viewProxy.persistedData);
         
         view.navigator = this;
-        view.data = viewData.data;
+        view.data = viewProxy.data;
         view.percentWidth = view.percentHeight = 100;
+        view.setContext(viewProxy.context);
         
         // Update the views orientation state
         if ((landscapeOrientation && view.hasState("landscape")) ||
@@ -1761,12 +1804,6 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             view.setCurrentState(view.getCurrentViewState(landscapeOrientation), false);
         }
-        
-        // TODO (chiedozi): Need to think about how to handle the multiple
-        // pop use case.  The wrong view will get the return value.  Is that okay?
-        // Grab the views return object and set it on the new view
-        if (lastAction == ViewNavigatorAction.POP && activeView)
-            view.returnedObject = activeView.createReturnObject();
         
         addElement(view);
         
@@ -1776,9 +1813,22 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */ 
-    private function destoryViewInstance(viewData:ViewHistoryData):void
+    private function createViewReturnObject(viewProxy:ViewProxy):ViewReturnObject
     {
-        var currentView:View = viewData.instance;
+        var view:View = viewProxy.instance;
+        
+        if (view)
+            return new ViewReturnObject(view.createReturnObject(), viewProxy.context);
+
+        return null;
+    }
+    
+    /**
+     *  @private
+     */ 
+    private function destroyViewInstance(viewProxy:ViewProxy):void
+    {
+        var currentView:View = viewProxy.instance;
         
         if (!currentView)
             return;
@@ -1795,8 +1845,8 @@ public class ViewNavigator extends ViewNavigatorBase
         // Grab the data from the old view and persist it
         if (lastAction == ViewNavigatorAction.PUSH)
         {
-            viewData.data = currentView.data;
-            viewData.persistedData = currentView.serializeData();
+            viewProxy.data = currentView.data;
+            viewProxy.persistedData = currentView.serializeData();
         }
         
         // Check if we can delete the reference for the view instance
@@ -1804,7 +1854,7 @@ public class ViewNavigator extends ViewNavigatorBase
             currentView.destructionPolicy != ContainerDestructionPolicy.NEVER)
         {
             currentView.navigator = null;
-            viewData.instance = null;
+            viewProxy.instance = null;
         }
     }
     
@@ -1815,8 +1865,8 @@ public class ViewNavigator extends ViewNavigatorBase
     {
         var savedData:Object = super.saveViewData();
         
-        if (currentViewData && currentViewData.instance)
-            currentViewData.persistedData = currentViewData.instance.serializeData();
+        if (currentViewProxy && currentViewProxy.instance)
+            currentViewProxy.persistedData = currentViewProxy.instance.serializeData();
         
         if (!savedData)
             savedData = {};
@@ -1840,7 +1890,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  Method is called during the view transition process after the
      *  instance of the new view is added to the display list.  It initializes
-     *  the underlying ViewHistoryData object and prepares the transition.
+     *  the underlying ViewProxy object and prepares the transition.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1853,10 +1903,10 @@ public class ViewNavigator extends ViewNavigatorBase
         var pendingView:View;
         
         // Deactivate the current view
-        if (currentViewData)
+        if (currentViewProxy)
         {
             // FIXME (chiedozi): Do we need to remove view from layout?
-            currentView = currentViewData.instance;
+            currentView = currentViewProxy.instance;
             currentView.setActive(false);
             currentView.includeInLayout = false;
             
@@ -1870,9 +1920,9 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         
         // Store new view
-        if (pendingViewData)
+        if (pendingViewProxy)
         {
-            pendingView = pendingViewData.instance;
+            pendingView = pendingViewProxy.instance;
             pendingView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                             view_propertyChangeHandler);
         }
@@ -1944,7 +1994,7 @@ public class ViewNavigator extends ViewNavigatorBase
 	{
 		removeEventListener(Event.ENTER_FRAME, startViewTransition);
 		
-		//            CONFIG::performanceInstrumentation
+//        CONFIG::performanceInstrumentation
 		{
 			if (hasEventListener("transitionStart"))
 				dispatchEvent(new Event("transitionStart", false, false));
