@@ -83,7 +83,7 @@ public class HSliderTrackSkin extends MobileSkin
             {
                 // default PPI160
                 trackWidth = 160;
-                trackHeight = 9;
+                trackHeight = 10;
                 
                 visibleTrackWidth = 140;
                 visibleTrackLeftOffset = 10;
