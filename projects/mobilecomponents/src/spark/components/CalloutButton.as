@@ -686,7 +686,6 @@ public class CalloutButton extends Button
      */
     public function closeDropDown():void
     {
-        // TODO (jasonsj): add commit param?
         dropDownController.closeDropDown(false);
     }
     
@@ -738,7 +737,6 @@ public class CalloutButton extends Button
         {
             removeEventListener(Event.REMOVED_FROM_STAGE, button_removedFromStage);
             
-            // TODO (jasonsj): close params?
             // Dispatch the close event after the callout's PopUpEvent.CLOSE fires
             callout.close();
         }
