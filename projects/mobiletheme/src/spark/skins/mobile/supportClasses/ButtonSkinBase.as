@@ -448,8 +448,8 @@ public class ButtonSkinBase extends MobileSkin
         }
         
         labelDisplay.commitStyles();
-        resizeElement(labelDisplay, labelWidth, labelHeight);
-        positionElement(labelDisplay, Math.max(0, Math.round(labelX)), Math.max(0, Math.round(labelY))); 
+        setElementSize(labelDisplay, labelWidth, labelHeight);
+        setElementPosition(labelDisplay, Math.max(0, Math.round(labelX)), Math.max(0, Math.round(labelY))); 
         
         if (textWidth > labelWidth)
         {
@@ -458,8 +458,8 @@ public class ButtonSkinBase extends MobileSkin
         
         labelDisplayShadow.alpha = getStyle("textShadowAlpha");
         labelDisplayShadow.commitStyles();
-        resizeElement(labelDisplayShadow, labelWidth, labelHeight);
-        positionElement(labelDisplayShadow, Math.max(0, Math.round(labelX)), Math.max(0, Math.round(labelY + 1))); 
+        setElementSize(labelDisplayShadow, labelWidth, labelHeight);
+        setElementPosition(labelDisplayShadow, Math.max(0, Math.round(labelX)), Math.max(0, Math.round(labelY + 1))); 
         
         // if labelDisplay is truncated, then push it down here as well.
         // otherwise, it would have gotten pushed in the labelDisplay_valueCommitHandler()
@@ -468,8 +468,8 @@ public class ButtonSkinBase extends MobileSkin
         
         if (iconDisplay)
         {
-            resizeElement(iconDisplay, iconWidth, iconHeight);
-            positionElement(iconDisplay, Math.max(0, Math.round(iconX)), Math.max(0, Math.round(iconY))); 
+            setElementSize(iconDisplay, iconWidth, iconHeight);
+            setElementPosition(iconDisplay, Math.max(0, Math.round(iconX)), Math.max(0, Math.round(iconY))); 
         }
         
         // draw chromeColor after parts have been positioned
