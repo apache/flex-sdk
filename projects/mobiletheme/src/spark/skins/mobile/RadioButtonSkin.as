@@ -13,7 +13,6 @@ package spark.skins.mobile
 {
 
 import flash.display.DisplayObject;
-import flash.display.Graphics;
 
 import mx.core.DPIClassification;
 
@@ -75,8 +74,6 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
     public function RadioButtonSkin()
     {
         super();
-        
-        useChromeColor = true;
         
         layoutPaddingLeft = 0;
         layoutPaddingRight = 0;
@@ -147,14 +144,20 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
      *  RadioButton <code>chromeColor</code> is drawn to match the FXG ellipse
      *  shape and position.
      */
-    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        // super draws a transparent hit zone
+        super.drawBackground(unscaledWidth, unscaledHeight);
+
         // get the size and position of iconDisplay
         var currentIcon:DisplayObject = getIconDisplay();
-        chromeColorGraphics.drawEllipse(currentIcon.x + 1, currentIcon.y + 1, currentIcon.width - 2, currentIcon.height - 2);
+        
+        graphics.beginFill(getStyle("chromeColor"));
+        graphics.drawEllipse(currentIcon.x + 1, currentIcon.y + 1, currentIcon.width - 2, currentIcon.height - 2);
+        graphics.endFill();
     }
     
-    override public function get focusSkinExclusions():Array 
+    override protected function get focusSkinExclusions():Array 
     {
         return exclusions;
     }
