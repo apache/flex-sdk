@@ -354,7 +354,7 @@ public class View extends Group implements IDataRenderer
     }
     
     //----------------------------------
-    //  actionGroupLayout
+    //  actionLayout
     //----------------------------------
     
     /**
@@ -367,21 +367,21 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private var _actionGroupLayout:LayoutBase;
+    private var _actionLayout:LayoutBase;
     
-    public function get actionGroupLayout():LayoutBase
+    public function get actionLayout():LayoutBase
     {
-        return _actionGroupLayout;
+        return _actionLayout;
     }
     /**
      *  @private
      */
-    public function set actionGroupLayout(value:LayoutBase):void
+    public function set actionLayout(value:LayoutBase):void
     {
         var changeEvent:PropertyChangeEvent = 
-            PropertyChangeEvent.createUpdateEvent(this, "actionGroupLayout", _actionGroupLayout, value);
+            PropertyChangeEvent.createUpdateEvent(this, "actionLayout", _actionLayout, value);
         
-        _actionGroupLayout = value;
+        _actionLayout = value;
         dispatchEvent(changeEvent);
     }
     
@@ -420,7 +420,7 @@ public class View extends Group implements IDataRenderer
     }
     
     //----------------------------------
-    //  navigationGroupLayout
+    //  navigationLayout
     //----------------------------------
     
     /**
@@ -433,21 +433,21 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private var _navigationGroupLayout:LayoutBase;
+    private var _navigationLayout:LayoutBase;
     
-    public function get navigationGroupLayout():LayoutBase
+    public function get navigationLayout():LayoutBase
     {
-        return _navigationGroupLayout;
+        return _navigationLayout;
     }
     /**
      *  @private
      */
-    public function set navigationGroupLayout(value:LayoutBase):void
+    public function set navigationLayout(value:LayoutBase):void
     {
         var changeEvent:PropertyChangeEvent = 
-            PropertyChangeEvent.createUpdateEvent(this, "navigationGroupLayout", _navigationGroupLayout, value);
+            PropertyChangeEvent.createUpdateEvent(this, "navigationLayout", _navigationLayout, value);
         
-        _navigationGroupLayout = value;
+        _navigationLayout = value;
         dispatchEvent(changeEvent);
     }
 	
@@ -601,7 +601,7 @@ public class View extends Group implements IDataRenderer
     }
     
     //----------------------------------
-    //  titleGroupLayout
+    //  titleLayout
     //----------------------------------
     
     /**
@@ -614,21 +614,21 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private var _titleGroupLayout:LayoutBase;
+    private var _titleLayout:LayoutBase;
     
-    public function get titleGroupLayout():LayoutBase
+    public function get titleLayout():LayoutBase
     {
-        return _titleGroupLayout;
+        return _titleLayout;
     }
     /**
      *  @private
      */
-    public function set titleGroupLayout(value:LayoutBase):void
+    public function set titleLayout(value:LayoutBase):void
     {
         var changeEvent:PropertyChangeEvent = 
-            PropertyChangeEvent.createUpdateEvent(this, "titleGroupLayout", _titleGroupLayout, value);
+            PropertyChangeEvent.createUpdateEvent(this, "titleLayout", _titleLayout, value);
         
-        _titleGroupLayout = value;
+        _titleLayout = value;
         dispatchEvent(changeEvent);
     }
     
