@@ -19,8 +19,7 @@ import flashx.textLayout.operations.FlowOperation;
  *  CHANGING event. 
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 public class TextInputOperation extends FlowOperation
@@ -49,8 +48,7 @@ public class TextInputOperation extends FlowOperation
      *  the text will not be added.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public var text:String;
