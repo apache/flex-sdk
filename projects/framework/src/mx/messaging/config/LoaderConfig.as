@@ -19,6 +19,7 @@ use namespace mx_internal;
 [ExcludeClass]
 
 /**
+ *  @private
  *  This class acts as a context for the messaging framework so that it
  *  has access the URL and arguments of the SWF without needing
  *  access to the root MovieClip's LoaderInfo or Flex's Application
@@ -26,40 +27,40 @@ use namespace mx_internal;
  */
 public class LoaderConfig
 {
-	include "../../core/Version.as";
+    include "../../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  Constructor.
-	 *
-	 *  <p>One instance of LoaderConfig is created by the SystemManager. 
-	 *  You should not need to construct your own.</p>
+     *
+     *  <p>One instance of LoaderConfig is created by the SystemManager. 
+     *  You should not need to construct your own.</p>
      */
     public function LoaderConfig()
     {
         super();
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  parameters
-	//----------------------------------
+    //----------------------------------
+    //  parameters
+    //----------------------------------
 
     /**
-	 *  @private
-	 *  Storage for the parameters property.
-	 */
-	mx_internal static var _parameters:Object;
+     *  @private
+     *  Storage for the parameters property.
+     */
+    mx_internal static var _parameters:Object;
 
     /**
      *  If the LoaderConfig has been initialized, this
@@ -70,14 +71,14 @@ public class LoaderConfig
         return _parameters;
     }
 
-	//----------------------------------
-	//  url
-	//----------------------------------
+    //----------------------------------
+    //  url
+    //----------------------------------
 
     /**
-	 *  @private
-	 *  Storage for the url property.
-	 */
+     *  @private
+     *  Storage for the url property.
+     */
     mx_internal static var _url:String = null;
 
     /**
