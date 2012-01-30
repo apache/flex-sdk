@@ -280,6 +280,10 @@ public class MenuAccImpl extends ListBaseAccImpl
 	 */
 	override protected function eventHandler(event:Event):void
 	{
+		// Let AccImpl class handle the events
+		// that all accessible UIComponents understand.
+		$eventHandler(event);
+
 		var index:int = 0;
 		var childID:uint;
 
