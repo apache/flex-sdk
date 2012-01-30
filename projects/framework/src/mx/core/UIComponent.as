@@ -1960,8 +1960,6 @@ public class UIComponent extends FlexSprite
         }
 
         invalidateProperties();
-        if (parent && "childTransformChanged" in parent)
-            parent["childTransformChanged"]();
 
         dispatchEvent(new Event("xChanged"));
     }
@@ -2277,8 +2275,6 @@ public class UIComponent extends FlexSprite
             invalidateTransform();
         }
         invalidateProperties();
-        if (parent && "childTransformChanged" in parent)
-            parent["childTransformChanged"]();
 
         dispatchEvent(new Event("yChanged"));
     }
@@ -7125,7 +7121,11 @@ public class UIComponent extends FlexSprite
         }
 
         if (x != oldX || y != oldY)
+        {
+            if (parent && parent is UIComponent)
+                UIComponent(parent).childXYChanged();
             dispatchMoveEvent();
+        }
 
         if (width != oldWidth || height != oldHeight)
             dispatchResizeEvent();
@@ -8822,6 +8822,15 @@ public class UIComponent extends FlexSprite
 
         oldWidth = width;
         oldHeight = height;
+    }
+    
+    /**
+     *  @private
+     *  Called when the child transform changes (currently x and y on UIComponent),
+     *  so that the Group has a chance to invalidate the layout.
+     */
+    mx_internal function childXYChanged():void
+    {
     }
 
     //--------------------------------------------------------------------------
