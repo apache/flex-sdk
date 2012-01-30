@@ -17,6 +17,11 @@ import flash.utils.getQualifiedClassName;
 /**
  *  A class factory that provides a system manager
  *  as a context of where the class should be created.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ContextualClassFactory extends ClassFactory
 {
@@ -36,6 +41,11 @@ public class ContextualClassFactory extends ClassFactory
 	 *
 	 *  @param systemManager The system manager context in which the object
 	 *  should be created.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ContextualClassFactory(
 							generator:Class = null,
@@ -67,6 +77,11 @@ public class ContextualClassFactory extends ClassFactory
 	 *  an object in the context of the <code>moduleFactory</code>.</p>
 	 *
 	 *  @default null
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var moduleFactory:IFlexModuleFactory;
 
@@ -84,6 +99,11 @@ public class ContextualClassFactory extends ClassFactory
 	 *  of the IFactory interface.</p>
 	 *
 	 *  @return The new instance that was created.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function newInstance():*
 	{
