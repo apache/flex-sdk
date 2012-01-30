@@ -154,6 +154,10 @@ public class ActionBarSkin extends MobileSkin
     
     public var actionGroup:Group;
     
+    /**
+     *  Wraps a StyleableTextField in a UIComponent to be compatible with
+     *  ViewTransition effects.
+     */
     public var titleDisplay:TitleDisplayComponent;
     
     //--------------------------------------------------------------------------
