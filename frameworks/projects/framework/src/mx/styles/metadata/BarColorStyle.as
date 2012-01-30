@@ -17,6 +17,11 @@
  *  to control the appearance of all progress bars found within.
  *  The default value is <code>undefined</code>, which means it is not set. 
  *  In this case, the <code>themeColor</code> style property is used.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="barColor", type="uint", format="Color", inherit="yes")]
 
