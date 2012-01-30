@@ -33,7 +33,7 @@ import mx.utils.ObjectUtil;
  *  <pre><code>
  *     var col:ICollectionView = new ArrayCollection();
  *     col.addItem({first:"Anders", last:"Dickerson"});
- *     var sort:ISort = new Sort();
+ *     var sort:Sort = new Sort();
  *     sort.fields = [new SortField("first", true)];
  *     col.sort = sort;
  *  </code></pre>
@@ -49,7 +49,7 @@ import mx.utils.ObjectUtil;
  *     var col:ICollectionView = new ArrayCollection();
  *     col.addItem("California");
  *     col.addItem("Arizona");
- *     var sort:ISort = new Sort();
+ *     var sort:Sort = new Sort();
  *     sort.fields = [new SortField(null, true)];
  *     col.sort = sort;
  *  </code></pre>
