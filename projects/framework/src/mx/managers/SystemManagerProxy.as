@@ -214,6 +214,9 @@ public class SystemManagerProxy extends SystemManager
 
 	override public function getImplementation(interfaceName:String):Object
 	{
+        var obj:Object = super.getImplementation(interfaceName);
+        if (obj) return obj;
+
 		return _systemManager.getImplementation(interfaceName);
 	}
 
@@ -379,7 +382,7 @@ class SystemManagerProxyActivePopUpManager implements IActiveWindowManager
         if (bridge)
         {
             var mutualTrust:Boolean =
-		        SecurityUtil.hasMutualTrustBetweenParentAndChild(ISWFBridgeProvider(systemManager));
+		        SecurityUtil.hasMutualTrustBetweenParentAndChild(ISWFBridgeProvider(mp));
 
             var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(
 		        SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE,
@@ -410,7 +413,7 @@ class SystemManagerProxyActivePopUpManager implements IActiveWindowManager
 	    if (bridge)
         {
             var mutualTrust:Boolean =
-		        SecurityUtil.hasMutualTrustBetweenParentAndChild(ISWFBridgeProvider(systemManager));
+		        SecurityUtil.hasMutualTrustBetweenParentAndChild(ISWFBridgeProvider(mp));
                     
 			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(
 				SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE,
