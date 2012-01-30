@@ -4025,30 +4025,23 @@ public class UIComponent extends FlexSprite
 
             updateCallbacks();
 
-			value ++;
-		}
-		else if (value == 0)
-			_nestLevel = value = 0;
-		else
-			value ++;
-			
-		var childList:IChildList = (this is IRawChildrenContainer) ?
-			IRawChildrenContainer(this).rawChildren : IChildList(this);
-		
-        var n:int = childList.numChildren;
-        for (var i:int = 0; i < n; i++)
-        {
-            var ui:ILayoutManagerClient  = childList.getChildAt(i) as ILayoutManagerClient;
-            if (ui)
+            var childList:IChildList = (this is IRawChildrenContainer) ?
+                IRawChildrenContainer(this).rawChildren : IChildList(this);
+            var n:int = childList.numChildren;
+            for (var i:int = 0; i < n; i++)
             {
-                ui.nestLevel = value;
-            }
-            else
-            {
-                var textField:IUITextField = childList.getChildAt(i) as IUITextField;
+                var ui:ILayoutManagerClient  = childList.getChildAt(i) as ILayoutManagerClient;
+                if (ui)
+                {
+                    ui.nestLevel = value + 1;
+                }
+                else
+                {
+                    var textField:IUITextField = childList.getChildAt(i) as IUITextField;
 
-                if (textField)
-                    textField.nestLevel = value;
+                    if (textField)
+                        textField.nestLevel = value + 1;
+                }
             }
         }
     }
@@ -7191,7 +7184,7 @@ public class UIComponent extends FlexSprite
         if (!p)
         {
             _parent = null;
-            nestLevel = 0;
+            _nestLevel = 0;
         }
         else if (p is IStyleClient)
         {
@@ -7588,7 +7581,7 @@ public class UIComponent extends FlexSprite
         {
             invalidatePropertiesFlag = true;
 
-            if (nestLevel && UIComponentGlobals.layoutManager)
+            if (parent && UIComponentGlobals.layoutManager)
                 UIComponentGlobals.layoutManager.invalidateProperties(this);
         }
     }
@@ -7621,7 +7614,7 @@ public class UIComponent extends FlexSprite
         {
             invalidateSizeFlag = true;
 
-            if (nestLevel && UIComponentGlobals.layoutManager)
+            if (parent && UIComponentGlobals.layoutManager)
                 UIComponentGlobals.layoutManager.invalidateSize(this);
         }
     }
@@ -7676,7 +7669,7 @@ public class UIComponent extends FlexSprite
         {
             invalidateDisplayListFlag = true;
 
-            if (nestLevel && UIComponentGlobals.layoutManager)
+            if (isOnDisplayList() && UIComponentGlobals.layoutManager)
                 UIComponentGlobals.layoutManager.invalidateDisplayList(this);
         }
     }
@@ -7686,7 +7679,7 @@ public class UIComponent extends FlexSprite
         if (_layoutFeatures && _layoutFeatures.updatePending == false)
         {
             _layoutFeatures.updatePending = true; 
-            if (nestLevel && UIComponentGlobals.layoutManager &&
+            if (isOnDisplayList() && UIComponentGlobals.layoutManager &&
                 invalidateDisplayListFlag == false)
             {
                 UIComponentGlobals.layoutManager.invalidateDisplayList(this);
@@ -7760,6 +7753,22 @@ public class UIComponent extends FlexSprite
         invalidateTransform();
     }
 
+    private function isOnDisplayList():Boolean
+    {
+        var p:DisplayObjectContainer;
+
+        try
+        {
+            p = _parent ? _parent : super.parent;
+        }
+        catch (e:SecurityError)
+        {
+            // trace("UIComponent.isOnDisplayList(): " + e);
+            return true;        // we are on the display list but the parent is in another sandbox
+        }
+
+        return p ? true : false;
+    }
 
     /**
      *  Flex calls the <code>stylesInitialized()</code> method when
