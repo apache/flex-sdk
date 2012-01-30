@@ -580,6 +580,14 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             return null;
             
         var o:InteractiveObject = stage.focus;
+        
+        // If a Stage* object (such as StageText or StageWebView) has focus,
+        // stage.focus will be set to null. Much of the focus framework is not
+        // set up to handle this. So, if stage.focus is null, we return the last
+        // IFocusManagerComponent that had focus.
+        if (!o && _lastFocus)
+            return _lastFocus;
+        
         return findFocusManagerComponent(o);
     }
 
