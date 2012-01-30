@@ -25,7 +25,7 @@ import flash.geom.Point;
  *
  *  Example: Consider a rectangle width=3, height=1 with rotation=90
  * 
- * 	Ubounds (before transform) are (3,1):
+ *  Ubounds (before transform) are (3,1):
  *       +--------+ 
  *       |        |
  *       +--------+
@@ -77,7 +77,7 @@ public interface ILayoutItem
     
     /**
      *  @return Returns the item TBounds size.
-     */	
+     */ 
     function get actualSize():Point;
 
     /**
@@ -92,13 +92,13 @@ public interface ILayoutItem
     function setActualPosition( x:Number, y:Number ):void;
 
     /**
-     * 	<code>setActualSize</code> modifies the item size/transform so that
+     *  <code>setActualSize</code> modifies the item size/transform so that
      *  its TBounds have the specified <code>width</code> and <code>height</code>.
      *  
      *  If one of the desired TBounds dimensions is left unspecified, it's size
      *  will be picked such that item can be optimally sized to fit the other
      *  TBounds dimension. This is useful when the layout doesn't want to 
-     *  overconstrain the item in cases where the item TBounds width & height
+     *  overconstrain the item in cases where the item TBounds width and height
      *  are dependent (text, components with complex transforms, etc.)
      * 
      *  If both TBounds dimensions are left unspecified, the item will have its
