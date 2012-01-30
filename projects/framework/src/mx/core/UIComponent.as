@@ -7904,6 +7904,11 @@ public class UIComponent extends FlexSprite
     
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function invalidateLayoutDirection():void
     {       
@@ -9073,7 +9078,7 @@ public class UIComponent extends FlexSprite
      *  can be any of the following: left, right, top, bottom,
      *  verticalCenter, horizontalCenter, baseline
      *
-     *  @value The value of the constraint can be specified in either
+     *  @param value The value of the constraint can be specified in either
      *  of two forms. It can be specified as a numeric string, for
      *  example, "10" or it can be specified as identifier:numeric
      *  string. For identifier:numeric string, identifier is the
@@ -10313,6 +10318,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @copy mx.core.IStateClient2#hasState() 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function hasState(stateName:String):Boolean
     {
@@ -10820,7 +10830,12 @@ public class UIComponent extends FlexSprite
 
     /**
      *  The state to be used when matching CSS pseudo-selectors. By default
-     *  this is the currentState.
+     *  this is the <code>currentState</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     protected function get currentCSSState():String
     {
@@ -13549,9 +13564,11 @@ public class UIComponent extends FlexSprite
      *  
      *  @param localPosition The point to be transformed, specified in the
      *  local coordinates of the object.
-     *  @position A Vector3D point that holds the pre-layout
+     * 
+     *  @param position A Vector3D point that holds the pre-layout
      *  result. If null, the parameter is ignored.
-     *  @postLayoutPosition A Vector3D point that holds the post-layout
+     * 
+     *  @param postLayoutPosition A Vector3D point that holds the post-layout
      *  result. If null, the parameter is ignored.
      * 
      *  @langversion 3.0
