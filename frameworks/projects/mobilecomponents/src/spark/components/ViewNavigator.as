@@ -14,8 +14,7 @@ import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.ViewHistoryData;
 import spark.components.supportClasses.ViewNavigatorSection;
-import spark.effects.SlideViewTransition;
-import spark.effects.ViewTransition;
+import spark.effects.IViewTransition;
 import spark.events.IndexChangeEvent;
 import spark.layouts.supportClasses.LayoutBase;
 
@@ -150,6 +149,12 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     
     [SkinPart(required="false")]
     public var actionBar:ActionBar;
+
+    [SkinPart(required="false")]
+    public var defaultPushTransition:IViewTransition;
+    
+    [SkinPart(required="false")]
+    public var defaultPopTransition:IViewTransition;
     
     //--------------------------------------------------------------------------
     //
@@ -196,7 +201,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     /**
      *
      */ 
-    private var pendingViewTransition:ViewTransition = null;
+    private var pendingViewTransition:IViewTransition = null;
     
     /**
      *
@@ -240,11 +245,6 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     }
     
     private var viewChanging:Boolean = false;
-    
-    //----------------------------------
-    //  transitionsEnabled
-    //----------------------------------
-    mx_internal var transitionsEnabled:Boolean = true;
     
     //--------------------------------------------------------------------------
     //
@@ -445,20 +445,58 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             invalidateProperties();
     }
     
+    //----------------------------------
+    //  transitionsEnabled
+    //----------------------------------
+    private var _transitionsEnabled:Boolean = true;
+    
+    public function get transitionsEnabled():Boolean
+    {
+        return _transitionsEnabled;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set transitionsEnabled(value:Boolean):void
+    {
+        _transitionsEnabled = value;
+    }
+    
+    //----------------------------------
+    //  useDefaultTransitions
+    //----------------------------------
+    private var _useDefaultTransitions:Boolean = true;
+    
+    public function get useDefaultTransitions():Boolean
+    {
+        return _useDefaultTransitions;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set useDefaultTransitions(value:Boolean):void
+    {
+        _useDefaultTransitions = value;
+    }
+    
     //--------------------------------------------------------------------------
     //
     // Public Methods
     // 
     //--------------------------------------------------------------------------
     
-    public function popAll(transition:ViewTransition = null):void
+    public function popAll(transition:IViewTransition = null):void
     {
         if (currentSection.length == 0 || !canRemoveCurrentView())
             return;
              
         lastAction = POP_ACTION;
-        pendingViewTransition = transition ? transition : 
-            new SlideViewTransition(400, SlideViewTransition.SLIDE_RIGHT);
+        
+        pendingViewTransition = transition;
+        if (pendingViewTransition == null && useDefaultTransitions)
+            pendingViewTransition = defaultPopTransition;
         
         currentSection.clear();
         
@@ -473,14 +511,16 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         }
     }
     
-    public function popView(transition:ViewTransition = null):void
+    public function popView(transition:IViewTransition = null):void
     {
         if (currentSection.length == 0 || !canRemoveCurrentView())
             return;
         
         lastAction = POP_ACTION;
-        pendingViewTransition = transition ? transition : 
-            new SlideViewTransition(400, SlideViewTransition.SLIDE_RIGHT);
+        
+        pendingViewTransition = transition;
+        if (pendingViewTransition == null && useDefaultTransitions)
+            pendingViewTransition = defaultPopTransition;
         
         currentSection.pop();
         
@@ -495,16 +535,18 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         }
     }
     
-    public function popToRoot(transition:ViewTransition = null):void
+    public function popToFirstView(transition:IViewTransition = null):void
     {
         if (currentSection.length < 2 || !canRemoveCurrentView())
             return;
         
         lastAction = POP_ACTION;
-        pendingViewTransition = transition ? transition : 
-            new SlideViewTransition(400, SlideViewTransition.SLIDE_RIGHT);
         
-        currentSection.popToRoot();
+        pendingViewTransition = transition;
+        if (pendingViewTransition == null && useDefaultTransitions)
+            pendingViewTransition = defaultPopTransition;
+        
+        currentSection.popToFirstView();
         
         if (viewChanging)
         {
@@ -519,15 +561,16 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     
     public function pushView(viewFactory:Class, 
                              initializationData:Object = null,
-                             transition:ViewTransition = null):void
+                             transition:IViewTransition = null):void
     {
         if (!canRemoveCurrentView())
             return;
         
         lastAction = PUSH_ACTION;
         
-        pendingViewTransition = transition ? transition : 
-            new SlideViewTransition(400, SlideViewTransition.SLIDE_LEFT);
+        pendingViewTransition = transition;
+        if (pendingViewTransition == null && useDefaultTransitions)
+            pendingViewTransition = defaultPushTransition;
         
         currentSection.push(viewFactory, initializationData);
         currentViewChanged = true;
@@ -850,6 +893,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (currentSection && currentSection.length == 0)
             currentSection.push(currentSection.firstView, currentSection.firstViewData);
         
+        pendingViewTransition = null;
         return true;
     }
     
@@ -1002,7 +1046,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             currentViewData.persistedData = currentViewData.instance.getPersistenceData();
     }
     
-    protected function viewAdded(transition:ViewTransition = null):void
+    protected function viewAdded(transition:IViewTransition = null):void
     {
         var currentView:View;
         var pendingView:View;
@@ -1065,7 +1109,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     
     protected function transitionComplete(event:Event):void
     {
-        ViewTransition(event.target).removeEventListener(Event.COMPLETE, transitionComplete);
+        IViewTransition(event.target).removeEventListener(Event.COMPLETE, transitionComplete);
         
         // Notify listeners that a new view has been successfully added to the stage
         if (hasEventListener("transitionEnd"))
