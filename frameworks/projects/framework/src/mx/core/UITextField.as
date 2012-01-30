@@ -18,6 +18,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.text.TextField;
 import flash.text.TextFormat;
+import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 import mx.automation.IAutomationObject;
 import mx.core.FlexVersion;
@@ -1732,7 +1733,13 @@ public class UITextField extends FlexTextField
     {
         var textFormat:TextFormat = new TextFormat();
 
-        textFormat.align = getStyle("textAlign");
+        // Not all flex4 textAlign values are valid so convert to a valid one.
+        var align:String = getStyle("textAlign");
+        if (align == "start") 
+            align = TextFormatAlign.LEFT;
+        else if (align == "end")
+            align = TextFormatAlign.RIGHT;
+        textFormat.align = align; 
         textFormat.bold = getStyle("fontWeight") == "bold";
         if (enabled)
         {
