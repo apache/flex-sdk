@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark">
+
+	<s:SplitViewNavigator id="svn" width="100%" height="100%" autoHideFirstViewNavigator="true">
+		<s:ViewNavigator width="256" height="100%" firstView="views.MasterView"/>
+		<s:ViewNavigator width="100%" height="100%" firstView="views.DetailView">
+			<s:navigationContent>
+				<s:Button id="btn" label="Open Callout" click="svn.showFirstViewNavigatorInPopUp(btn)"/>
+			</s:navigationContent>
+		</s:ViewNavigator>	
+	</s:SplitViewNavigator>
+	
+</s:Application>
