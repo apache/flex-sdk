@@ -56,6 +56,11 @@ import mx.managers.SystemManager;
  *  </pre>
  *  
  *  @includeExample examples/NumberValidatorExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class NumberValidator extends Validator
 {
@@ -79,6 +84,11 @@ public class NumberValidator extends Validator
 	 *  object for each field examined by the validator. 
 	 *
 	 *  @see mx.validators.ValidationResult
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function validateNumber(validator:NumberValidator,
 										  value:Object,
@@ -325,6 +335,11 @@ public class NumberValidator extends Validator
 
     /**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function NumberValidator()
 	{
@@ -359,6 +374,11 @@ public class NumberValidator extends Validator
 	 *  Valid values are <code>true</code> or <code>false</code>.
 	 *
 	 *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get allowNegative():Object
 	{
@@ -402,6 +422,11 @@ public class NumberValidator extends Validator
      *  <code>thousandsSeparator</code>.
 	 *
 	 *  @default "."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */	
 	public function get decimalSeparator():String
 	{
@@ -443,6 +468,11 @@ public class NumberValidator extends Validator
 	 *  Permitted values are <code>"real"</code> and <code>"int"</code>.
 	 *
 	 *  @default "real"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get domain():String
 	{
@@ -483,6 +513,11 @@ public class NumberValidator extends Validator
      *  Maximum value for a valid number. A value of NaN means there is no maximum.
 	 *
 	 *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get maxValue():Object
 	{
@@ -523,6 +558,11 @@ public class NumberValidator extends Validator
      *  Minimum value for a valid number. A value of NaN means there is no minimum.
 	 *
 	 *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get minValue():Object
 	{
@@ -567,6 +607,11 @@ public class NumberValidator extends Validator
 	 *  A value of -1 means it is ignored.
 	 *
 	 *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get precision():Object
 	{
@@ -610,6 +655,11 @@ public class NumberValidator extends Validator
      *  <code>decimalSeparator</code>.
 	 *
 	 *  @default ","
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get thousandsSeparator():String
 	{
@@ -656,6 +706,11 @@ public class NumberValidator extends Validator
      *  Error message when the decimal separator character occurs more than once.
 	 *
 	 *  @default "The decimal separator can occur only once."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get decimalPointCountError():String
 	{
@@ -696,6 +751,11 @@ public class NumberValidator extends Validator
      *  Error message when the value exceeds the <code>maxValue</code> property.
 	 *
 	 *  @default "The number entered is too large."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get exceedsMaxError():String
 	{
@@ -737,6 +797,11 @@ public class NumberValidator extends Validator
      * by the <code>domain</code> property.
 	 *
 	 *  @default "The number must be an integer."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get integerError():String
 	{
@@ -777,6 +842,11 @@ public class NumberValidator extends Validator
      *  Error message when the value contains invalid characters.
 	 *
 	 *  @default The input contains invalid characters."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */	
 	public function get invalidCharError():String
 	{
@@ -819,6 +889,11 @@ public class NumberValidator extends Validator
      *  or it contains two or more consecutive separator characters.
 	 *
 	 *  @default "One of the formatting parameters is invalid."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get invalidFormatCharsError():String
 	{
@@ -859,6 +934,11 @@ public class NumberValidator extends Validator
      *  Error message when the value is less than <code>minValue</code>.
 	 *
 	 *  @default "The amount entered is too small."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get lowerThanMinError():String
 	{
@@ -900,6 +980,11 @@ public class NumberValidator extends Validator
      *  <code>allowNegative</code> property is <code>false</code>.
 	 *
 	 *  @default "The amount may not be negative."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get negativeError():String
 	{
@@ -941,6 +1026,11 @@ public class NumberValidator extends Validator
      *  by the precision property.
 	 *
 	 *  @default "The amount entered has too many digits beyond the decimal point."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get precisionError():String
 	{
@@ -981,6 +1071,11 @@ public class NumberValidator extends Validator
      *  Error message when the thousands separator is in the wrong location.
 	 *
 	 *  @default "The thousands separator must be followed by three digits."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get separationError():String
 	{
@@ -1044,6 +1139,11 @@ public class NumberValidator extends Validator
      *
 	 *  @return An Array of ValidationResult objects, with one ValidationResult 
 	 *  object for each field examined by the validator. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function doValidation(value:Object):Array
     {
