@@ -62,8 +62,8 @@
 			<include-classes>FrameworkClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
-			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="player/playerglobal.swc"/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
 			<include-file name="defaults-2.0.0.css" path="${basedir}/defaults-2.0.0.css"/>
@@ -109,8 +109,8 @@
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
 			<include-libraries/>
 			<library-path/>
-			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="player/playerglobal.swc"/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
 			</external-library-path>
 		</compc>
 	</target>
