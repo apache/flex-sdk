@@ -41,11 +41,11 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" text="Instructions:"/>
-            <s:SimpleText width="100%" text="1. Enter text to search. By default, enter  a string containing the letters ABC in sequence followed by any digit."/>
-            <s:SimpleText width="100%" text="2. Enter the regular expression. By default, enter ABC\d."/>
-            <s:SimpleText width="100%" text="3. Click the Button control to trigger the validation."/>
-            <s:SimpleText width="100%" text="4. The results show the index in the text where the matching pattern begins, and the matching pattern. "/>
+            <s:Label width="100%" text="Instructions:"/>
+            <s:Label width="100%" text="1. Enter text to search. By default, enter  a string containing the letters ABC in sequence followed by any digit."/>
+            <s:Label width="100%" text="2. Enter the regular expression. By default, enter ABC\d."/>
+            <s:Label width="100%" text="3. Click the Button control to trigger the validation."/>
+            <s:Label width="100%" text="4. The results show the index in the text where the matching pattern begins, and the matching pattern. "/>
             <mx:Form>
                 <mx:FormItem label="Enter text:">
                     <s:TextInput id="regex_text" text="xxxxABC4xxx" width="100%"/>
