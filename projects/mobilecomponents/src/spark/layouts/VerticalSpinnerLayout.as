@@ -447,13 +447,20 @@ public class VerticalSpinnerLayout extends VerticalLayout
             // Get unwrapped middle index
             var centerIndex:int = getElementNearestScrollPosition(new Point(0, midVSP), "center");
             
-            // Get the unwrapped index before and after the center index
+            // Get the unwrapped indicies near the center index
             var prevIndex:int = index + (wrapCount - 1) * target.numElements;
-            var nextIndex:int = prevIndex + target.numElements;
+            var midIndex:int = prevIndex + target.numElements;
+            var nextIndex:int = midIndex + target.numElements;
+            
+            var prevDistance:int = Math.abs(centerIndex - prevIndex);
+            var midDistance:int = Math.abs(midIndex - centerIndex);
+            var nextDistance:int = Math.abs(nextIndex - centerIndex)
                         
             // Figure out which index is closer to the centerIndex and return that value
-            if (Math.abs(centerIndex - prevIndex) < Math.abs(nextIndex - centerIndex))
-                index = prevIndex;
+            if (prevDistance < midDistance)
+                index = prevIndex;                    
+            else if (midDistance < nextDistance)
+                index = midIndex;
             else
                 index = nextIndex;
         }
