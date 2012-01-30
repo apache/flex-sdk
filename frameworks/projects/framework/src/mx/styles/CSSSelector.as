@@ -195,7 +195,7 @@ public class CSSSelector
         if (kind == CSSSelectorKind.TYPE_SELECTOR
             || kind == CSSSelectorKind.CONDITIONAL_SELECTOR)
         {
-            if (value == "*" || value == "global" || value == "" || object.isAssignableToType(value))
+            if (value == "*" || value == "" || object.isAssignableToType(value))
             {
                 match = true;
             }
