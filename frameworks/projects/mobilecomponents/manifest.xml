@@ -16,7 +16,12 @@
 
 -->
 <componentPackage>
-
+    <component id="ActionBar" class="spark.components.ActionBar"/>
+    <component id="MobileApplication" class="spark.components.MobileApplication"/>
+    <component id="View" class="spark.components.View"/>
+    <component id="ViewNavigator" class="spark.components.ViewNavigator"/>
+    <component id="ViewNavigatorSection" class="spark.components.supportClasses.ViewNavigatorSection" />
+    
 	<!-- Slider -->
     <component id="Screen" class="spark.components.Screen"/>
     <component id="AdaptableScreen" class="spark.components.AdaptableScreen"/>
