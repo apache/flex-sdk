@@ -567,6 +567,8 @@ public class MobileTextField extends TextField implements IEditableText
             textFormat.leading = getStyleFunction("leading");
             textFormat.letterSpacing = getStyleFunction("letterSpacing");
             
+            // do we care abotu kerning, antiAliasType, gridFitType, sharpness, thickness, or leading?
+            
             // ignore padding in the text...most components deal with it themselves
             //textFormat.leftMargin = getStyleFunction("paddingLeft");
             //textFormat.rightMargin = getStyleFunction("paddingRight");
