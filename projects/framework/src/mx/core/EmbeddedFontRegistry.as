@@ -12,8 +12,17 @@
 package mx.core
 {
 
+import flash.system.Capabilities;
 import flash.text.FontStyle;
+import flash.text.TextField;
+import flash.text.TextFormat;
+import flash.text.engine.FontDescription;
 import flash.utils.Dictionary;
+import flash.utils.getQualifiedClassName;
+
+import mx.managers.ISystemManager;
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
 
 use namespace mx_internal;
 
@@ -34,21 +43,37 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	//
 	//--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private static var fonts:Object = {};
+    /**
+     *  @private
+     */
+    private static var fonts:Object = {};
 
-	/**
-	 *  @private
-	 */
-	private static var cachedFontsForObjects:Dictionary = new Dictionary(true);
+    /**
+     *  @private
+     */
+    private static var cachedFontsForObjects:Dictionary = new Dictionary(true);
 
-	/**
-	 *  @private
-	 */
-	private static var instance:IEmbeddedFontRegistry;
+    /**
+     *  @private
+     */
+    private static var instance:IEmbeddedFontRegistry;
 
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager = ResourceManager.getInstance();
+    
+    /**
+     *  @private
+     */  
+    private static var staticTextFormat:TextFormat = new TextFormat();
+    
+    /**
+     *  @private
+     */
+    private static var flaggedObjects:Dictionary = new Dictionary(true);
+    
 	//--------------------------------------------------------------------------
 	//
 	//  Class methods
@@ -328,20 +353,22 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public function getAssociatedModuleFactory(
-						fontName:String, bold:Boolean, italic:Boolean,
-						object:Object,
-						defaultModuleFactory:IFlexModuleFactory):
-						IFlexModuleFactory
-	{
+    public function getAssociatedModuleFactory(
+                        fontName:String, bold:Boolean, italic:Boolean,
+                        object:Object,
+                        defaultModuleFactory:IFlexModuleFactory,
+                        systemManager:ISystemManager,
+                        embeddedCff:*=undefined):
+                        IFlexModuleFactory
+    {
 
-		var font:EmbeddedFont;
-		font = cachedFontsForObjects[object];
-		if (!font)
-		{
-			font = new EmbeddedFont(fontName, bold, italic);
-			cachedFontsForObjects[object] = font;
-		}
+        var font:EmbeddedFont;
+        font = cachedFontsForObjects[object];
+        if (!font)
+        {
+            font = new EmbeddedFont(fontName, bold, italic);
+            cachedFontsForObjects[object] = font;
+        }
         else
         {
             // replace if not the same
@@ -349,34 +376,76 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
                 font.bold != bold ||
                 font.italic != italic)
             {
-			    font = new EmbeddedFont(fontName, bold, italic);
-			    cachedFontsForObjects[object] = font;
+                font = new EmbeddedFont(fontName, bold, italic);
+                cachedFontsForObjects[object] = font;
             }
 
         }
+        var result:IFlexModuleFactory;
+        var fontDictionary:Dictionary = fonts[createFontKey(font)];
+        if (fontDictionary)
+        {
+            // First lookup in the dictionary. If not found, then
+            // take the first moduleFactory in the dictionary.
+            // A module can register a font that is not unique and still
+            // use that font as long as its components specify the moduleFactory.
+            // A module can use fonts in other modules but
+            // to get consistent behavior the font should be unique.
+            var found:int = fontDictionary[defaultModuleFactory];
 
-		var fontDictionary:Dictionary = fonts[createFontKey(font)];
-		if (fontDictionary)
-		{
-			// First lookup in the dictionary. If not found, then
-			// take the first moduleFactory in the dictionary.
-			// A module can register a font that is not unique and still
-			// use that font as long as its components specify the moduleFactory.
-			// A module can use fonts in other modules but
-			// to get consistent behavior the font should be unique.
-			var found:int = fontDictionary[defaultModuleFactory];
-
-			if (found)
-				return defaultModuleFactory;
-										
-			for (var iter:Object in fontDictionary)
-			{
-				return iter as IFlexModuleFactory;
-			}
-		}
-		
-		return null;
-	}
+            if (found)
+                result = defaultModuleFactory;
+            else
+            {
+                for (var iter:Object in fontDictionary)
+                {
+                    result =  iter as IFlexModuleFactory;
+                    break;
+                }
+            }
+        }
+        
+        if (!result && systemManager)
+        {
+            // If we found the font, then it is embedded. Some fonts are not 
+            // listed in info() and are therefore not resolvable with our
+            // registry, so we call isFontFaceEmbedded() which gets the list
+            // of embedded fonts from the player.
+            staticTextFormat.font = fontName;
+            staticTextFormat.bold = bold;
+            staticTextFormat.italic = italic;
+            
+            if (systemManager.isFontFaceEmbedded(staticTextFormat))
+                result = systemManager;
+        }
+        
+        // We must ensure that the requested font is in fact valid for our
+        // given usage and context.
+        if (result && embeddedCff != undefined && Capabilities.isDebugger)
+        {                        
+            var compatible:Boolean = embeddedCff ? 
+                result.callInContext(FontDescription.isFontCompatible, null,
+                    [fontName, bold ? "bold" : "normal", italic ? "italic" : "normal"]) :
+                result.callInContext(TextField.isFontCompatible, null,
+                    [fontName, getFontStyle(bold, italic)]);
+            
+            if (!compatible)
+            {
+                // We want to avoid reporting redundant warnings so we keep tabs
+                // on which instances we've already flagged as incompatible.
+                if (!flaggedObjects[object])
+                {    
+                    var objName:String = getQualifiedClassName(object);
+                    objName += "name" in object && object.name != null ? " ("+object.name+") " : "";
+                    trace(resourceManager.getString( "core", "fontIncompatible", 
+                        [fontName, objName, embeddedCff]));
+                    flaggedObjects[object] = true;
+                }
+            }
+        }
+        
+        return result;
+    }
 }
 
 }
