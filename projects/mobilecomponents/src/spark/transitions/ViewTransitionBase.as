@@ -1438,6 +1438,12 @@ public class ViewTransitionBase extends EventDispatcher
     {
         effect.removeEventListener(EffectEvent.EFFECT_END, effectComplete);
         
+        // Validate the last frame of the actionBar animation so that it
+        // renders properly.  We put this here because layout isn't reenabled
+        // until the next frame, meaning this validation won't be applied for
+        // two frames.
+        actionBarMoveEffect_effectUpdateHandler(null);
+        
         // We don't call transitionComplete just yet, we want to ensure
         // that the last frame of animation actually gets rendered on screen
         // before we clean up after ourselves.  This prevents a perceived 
