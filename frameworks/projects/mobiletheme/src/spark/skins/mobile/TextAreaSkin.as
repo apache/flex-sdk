@@ -15,6 +15,8 @@ package spark.skins.mobile
 import flash.display.DisplayObject;
 import flash.events.Event;
 
+import mx.events.FlexEvent;
+
 import spark.components.TextArea;
 import spark.components.supportClasses.MobileTextField;
 import spark.skins.mobile.assets.TextInput_border;
@@ -88,6 +90,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
         textDisplay.multiline = true;
         textDisplay.wordWrap = true;
         textDisplay.addEventListener(Event.CHANGE, textDisplay_changeHandler);
+        textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, textDisplay_changeHandler);
         addChild(textDisplay);
     }
     
@@ -98,7 +101,11 @@ import spark.skins.mobile.supportClasses.MobileSkin;
     {
         super.measure();
         
-        // TODO: Don't use hard-coded values
+        // TextDisplay always defaults to 440 pixels wide, and tall enough to 
+        // show all text.
+        // 
+        // You can set an explicit width and the height will adjust accordingly. The opposite
+        // is not true: setting an explicit height will not adjust the width accordingly.
         measuredWidth = 440;
         measuredHeight = Math.max(textDisplay.textHeight + (VERTICAL_PADDING * 2), 55);
     }
