@@ -1851,7 +1851,7 @@ public class ViewNavigator extends ViewNavigatorBase
             
             // Force a validation of the navigator so that all validation events are
             // dispatched to the developer before preparing the view transition.
-            view.validateNow();
+            validateNow();
             
             // Prepare the view transition
             prepareViewTransition();
