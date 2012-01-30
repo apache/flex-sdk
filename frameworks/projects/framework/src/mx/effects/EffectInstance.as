@@ -147,7 +147,7 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
         if (repeatCount > 0)
         {
             value = duration * repeatCount +
-                    (repeatDelay * repeatCount - 1) + startDelay;
+                    (repeatDelay * (repeatCount - 1)) + startDelay;
         }
         
         return value;
@@ -285,8 +285,16 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
     //  playheadTime
     //----------------------------------
     
+    // TODO (chaase): This property should be in an interface, to
+    // allow it to be called easily through an interface instead of
+    // having to import Effect just to call it
+    // TODO (chaase): Consider renaming this property; playheadTime
+    // is very video-specific
     /**
-     *  @copy mx.effects.IEffectInstance#playheadTime
+     *  The current position of the effect, in milliseconds. 
+     *  This value is between 0 and the value of the
+     *  <code>duration</code> property.
+     *  Use the <code>seek()</code> method to change the position of the effect.
      */
     public function get playheadTime():Number 
     {
@@ -605,6 +613,14 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
         if (delayTimer)
             delayTimer.reset();
         stopRepeat = true;
+        // Dispatch STOP event in case listeners need to handle this situation
+        // The Effect class may hinge setting final state values on whether
+        // the effect was stopped or ended.
+        dispatchEvent(new EffectEvent(EffectEvent.EFFECT_STOP,
+                                     false, false, this));        
+        if (target && (target is IEventDispatcher))
+            target.dispatchEvent(new EffectEvent(EffectEvent.EFFECT_STOP,
+                                                 false, false, this));
         finishEffect();
     }
     
