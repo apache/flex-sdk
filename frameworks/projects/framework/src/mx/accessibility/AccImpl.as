@@ -145,14 +145,6 @@ public class AccImpl extends AccessibilityImplementation
         var formName:String = "";
         var resourceManager:IResourceManager = ResourceManager.getInstance();
         
-        const itemLabel:Label = formItem.itemLabel;
-        const accProp:AccessibilityProperties = (itemLabel ? itemLabel.accessibilityProperties : null);
-        if (accProp && accProp.silent)
-            // We already calculated this label's name below, so just return it.
-            // FIXME gosmith: Caching this will cause problems if
-            // formItem, item label, or form header changes dynamically.
-            return accProp.name;
-
         var form:UIComponent = UIComponent(formItem.parent);
 
         // If we are located within a Form, then look for the first FormHeading
@@ -190,21 +182,6 @@ public class AccImpl extends AccessibilityImplementation
             f = formItem.label;
             
         formName = joinWithSpace(formName, f);
-
-        /* 
-         * Disable form item label accessibility so the form item label and the 
-         * text from the form item label are not both seen in the virtual view of       
-         * a screen reader.
-         * Otherwise, the formItem would appear with a name, followed
-         * by the component being labeled, with a duplicate of that name.
-         * Setting silent here also causes code above to avoid recalculating the name.
-         * FIXME gosmith: If the caching above is removed, remove the above comment also.
-         */
-        if (accProp && !accProp.silent)
-        {
-            accProp.silent = true;
-            accProp.name = formName;
-        }
 
         return formName;
     }
