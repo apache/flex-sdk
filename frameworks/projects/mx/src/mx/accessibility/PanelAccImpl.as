@@ -28,27 +28,6 @@ public class PanelAccImpl extends AccImpl
 
 	//--------------------------------------------------------------------------
 	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const ROLE_SYSTEM_DIALOG:uint = 0x12;
-	
-	/**
-	 *  @private
-	 */
-	private static const ROLE_SYSTEM_TITLEBAR:uint = 0x01;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-
-	//--------------------------------------------------------------------------
-	//
 	//  Class methods
 	//
 	//--------------------------------------------------------------------------
@@ -77,7 +56,13 @@ public class PanelAccImpl extends AccImpl
 	mx_internal static function createAccessibilityImplementation(
 								component:UIComponent):void
 	{
-		Panel(component).getTitleBar().accessibilityImplementation =
+		// The AccessibilityImplementation is placed on the
+		// Panel's titleBar, not on the Panel itself.
+		// If it were placed on the Panel itself,
+		// the AccessibilityImplementations of the Panel's children
+		// would be ignored.
+		var titleBar:UIComponent = Panel(component).getTitleBar();
+		titleBar.accessibilityImplementation =
 			new PanelAccImpl(component);
 	}
 
@@ -97,7 +82,7 @@ public class PanelAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x09; // ROLE_SYSTEM_WINDOW
+		role = 0x14; // ROLE_SYSTEM_GROUPING
 	}
 	
 	//--------------------------------------------------------------------------
@@ -105,38 +90,6 @@ public class PanelAccImpl extends AccImpl
 	//  Overridden methods: AccessibilityImplementation
 	//
 	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 *  Gets the role for the component.
-	 *
-	 *  @param childID children of the component
-	 */
-	override public function get_accRole(childID:uint):uint
-	{
-		var accRole:uint = role;
-		
-		switch (childID)
-		{
-			case 1:
-			{
-				accRole = ROLE_SYSTEM_TITLEBAR;
-				break;
-			}
-
-			case 2:
-			{
-				accRole = ROLE_SYSTEM_DIALOG;
-				break;
-			}
-
-			default:
-				accRole = role;
-				break;
-		}
-		
-		return accRole;
-	}
 
 	/**
 	 *  @private
@@ -151,79 +104,8 @@ public class PanelAccImpl extends AccImpl
 	override public function get_accState(childID:uint):uint
 	{
 		var accState:uint = getState(childID);
-		
-		switch (childID)
-		{
-			case 1:
-			{
-				break;
-			}
-
-			case 2:
-			{
-				accState |= STATE_SYSTEM_FOCUSED;
-				break;
-			}
-
-			default:
-			{
-				break;
-			}
-		}
-		
+				
 		return accState;
-	}
-
-	/**
-	 *  @private
-	 *  Method to return an array of childIDs of Panel component
-	 *
-	 *  @return Array
-	 */
-	override public function getChildIDArray():Array
-	{
-		var childIDs:Array = [];
-
-		for (var i:int = 0; i < 2; ++i)
-		{
-			childIDs[i] = i + 1;
-		}
-
-		return childIDs;
-	}
-	/**
-	 *  @private
-	 *  IAccessible method for returning the bounding box of the Panel.
-	 *
-	 *  @param childID:uint
-	 *
-	 *  @return Location:Object
-	 */
-	override public function accLocation(childID:uint):*
-	{
-		var location:Object = master;
-		
-		switch (childID)
-		{
-			case 1:
-			{
-				location = Panel(master).getTitleBar();
-				break;
-			}
-
-			case 2:
-			{
-				location = Panel(master).contentPane;
-				break;
-			}
-
-			default:
-			{
-				break;
-			}
-		}
-
-		return location;
 	}
 
 	//--------------------------------------------------------------------------
@@ -244,30 +126,7 @@ public class PanelAccImpl extends AccImpl
 	 */
 	override protected function getName(childID:uint):String
 	{
-		var name:String = Panel(master).title;
-
-		switch (childID)
-		{
-			case 1:
-			{
-				name = "";
-				break;
-			}
-
-			case 2:
-			{
-				name = "";
-				break
-			}
-
-			default:
-			{
-				name = Panel(master).title + " " + Panel(master).className;
-				break;
-			}
-		}
-
-		return name;
+		return Panel(master).title;
 	}
 }
 
