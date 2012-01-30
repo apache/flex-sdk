@@ -14,12 +14,14 @@ package mx.core
 
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityProperties;
+import flash.display.BlendMode; 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.display.InteractiveObject;
 import flash.display.Loader;
+import flash.display.Shader; 
 import flash.display.Sprite;
 import flash.display.Stage;
 import flash.events.Event;
@@ -60,6 +62,14 @@ import mx.filters.IBitmapFilter;
 import mx.geom.RoundedRectangle;
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
+import mx.graphics.shaderClasses.ColorBurnShader;
+import mx.graphics.shaderClasses.ColorDodgeShader;
+import mx.graphics.shaderClasses.ColorShader;
+import mx.graphics.shaderClasses.ExclusionShader;
+import mx.graphics.shaderClasses.HueShader;
+import mx.graphics.shaderClasses.LuminosityShader;
+import mx.graphics.shaderClasses.SaturationShader;
+import mx.graphics.shaderClasses.SoftLightShader;
 import mx.managers.CursorManager;
 import mx.managers.ICursorManager;
 import mx.managers.IFocusManager;
@@ -3004,6 +3014,53 @@ public class UIComponent extends FlexSprite
             dispatchEvent(new Event("alphaChanged"));
         }
     }
+    
+    //----------------------------------
+    //  blendMode
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the blendMode property.
+     */
+    private var _blendMode:String = BlendMode.NORMAL; 
+    private var blendShaderChanged:Boolean; 
+    private var blendModeChanged:Boolean; 
+    
+    [Inspectable(category="General", enumeration="add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay,colordodge,colorburn,exclusion,softlight,hue,saturation,color,luminosity", defaultValue="normal")]
+    
+    /**
+     *  @private
+     */
+    override public function get blendMode():String
+    {
+        return _blendMode; 
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set blendMode(value:String):void
+    { 
+        if (_blendMode != value)
+        {
+            _blendMode = value;
+            blendModeChanged = true; 
+            
+            // If one of the non-native Flash blendModes is set, 
+            // record the new value and set the appropriate 
+            // blendShader on the display object. 
+            if (value == "colordodge" || 
+                value =="colorburn" || value =="exclusion" || 
+                value =="softlight" || value =="hue" || 
+                value =="saturation" || value =="color" ||
+                value =="luminosity")
+            {
+                blendShaderChanged = true;
+            }
+            invalidateProperties();     
+        }
+    }
 
     //----------------------------------
     //  doubleClickEnabled
@@ -3245,6 +3302,43 @@ public class UIComponent extends FlexSprite
     mx_internal final function set $alpha(value:Number):void
     {
         super.alpha = value;
+    }
+    
+    //----------------------------------
+    //  $blendMode
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  This property allows access to the Player's native implementation
+     *  of the 'blendMode' property, which can be useful since components
+     *  can override 'alpha' and thereby hide the native implementation.
+     *  Note that this "base property" is final and cannot be overridden,
+     *  so you can count on it to reflect what is happening at the player level.
+     */
+    mx_internal final function get $blendMode():String
+    {
+        return super.blendMode;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal final function set $blendMode(value:String):void
+    {
+        super.blendMode = value;
+    }
+    
+    //----------------------------------
+    //  $blendShader
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    mx_internal final function set $blendShader(value:Shader):void
+    {
+        super.blendShader = value;
     }
     
     //----------------------------------
@@ -7689,6 +7783,69 @@ public class UIComponent extends FlexSprite
         {
             errorStringChanged = false;
             setBorderColorForErrorString();
+        }
+        if (blendModeChanged)
+        {
+            blendModeChanged = false; 
+            
+            if (!blendShaderChanged)
+            {
+                $blendMode = _blendMode; 
+            }
+            else
+            {
+                // The graphic element's blendMode was set to a non-Flash 
+                // blendMode. We mimic the look by instantiating the 
+                // appropriate shader class and setting the blendShader
+                // property on the displayObject. 
+                blendShaderChanged = false; 
+                
+                $blendMode = BlendMode.NORMAL; 
+                
+                switch(_blendMode)
+                {
+                    case "color": 
+                    {
+                        $blendShader = new ColorShader();
+                        break; 
+                    }
+                    case "colordodge":
+                    {
+                        $blendShader = new ColorDodgeShader();
+                        break; 
+                    }
+                    case "colorburn":
+                    {
+                        $blendShader = new ColorBurnShader();
+                        break; 
+                    }
+                    case "exclusion":
+                    {
+                        $blendShader = new ExclusionShader();
+                        break; 
+                    }
+                    case "hue":
+                    {
+                        $blendShader = new HueShader();
+                        break; 
+                    }
+                    case "luminosity":
+                    {
+                        $blendShader = new LuminosityShader();
+                        break; 
+                    }
+                    case "saturation": 
+                    {
+                        $blendShader = new SaturationShader();
+                        break; 
+                    }
+                    case "softlight":
+                    {
+                        $blendShader = new SoftLightShader();
+                        break; 
+                    }
+                }        
+            }
         }
     }
 
