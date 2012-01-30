@@ -336,6 +336,8 @@ use namespace mx_internal;
 //  Other metadata
 //--------------------------------------
 
+[AccessibilityClass(implementation="spark.accessibility.WindowAccImpl")]
+
 /**
  *  The frameworks must be initialized by WindowedSystemManager.
  *  This factoryClass will be automatically subclassed by any
@@ -453,6 +455,18 @@ use namespace mx_internal;
 public class Window extends SkinnableContainer implements IWindow
 {
     include "../../mx/core/Version.as";
+
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by WindowAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
 
     //--------------------------------------------------------------------------
     //
@@ -1678,68 +1692,18 @@ public class Window extends SkinnableContainer implements IWindow
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden methods: SkinnableContainer
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    override protected function partAdded(partName:String, instance:Object):void
-    {
-        super.partAdded(partName, instance);
-        
-        if (instance == statusBar)
-        {
-            statusBar.visible = _showStatusBar;
-            statusBar.includeInLayout = _showStatusBar;
-            showStatusBarChanged = false;
-        }
-        else if (instance == titleBar)
-        {
-            if (!nativeWindow.closed)
-            {
-                // If the initial title is the default and the native window is set
-                // from the initial window settings, 
-                // then use the initial window settings title.
-                if (_title == "" && systemManager.stage.nativeWindow.title != null)
-                    _title = systemManager.stage.nativeWindow.title;
-                else
-                    systemManager.stage.nativeWindow.title = _title;                
-            }
-
-            titleBar.title = _title;
-            titleChanged = false;
-        }
-        else if (instance == statusText)
-        {
-            statusText.text = status;
-            statusChanged = false;    
-        }
-        else if (instance == gripper)
-        {
-            gripper.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function partRemoved(partName:String, instance:Object):void
-    {
-        super.partRemoved(partName, instance);
-        
-        if (instance == gripper)
-        {
-            gripper.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-        }
-    }
-
-    //--------------------------------------------------------------------------
-    //
     //  Overridden methods: UIComponent
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (Window.createAccessibilityImplementation != null)
+            Window.createAccessibilityImplementation(this);
+    }
 
     /**
      *  @private
@@ -1947,6 +1911,65 @@ public class Window extends SkinnableContainer implements IWindow
             tmp.x = x;
             tmp.y = y;
             nativeWindow.bounds = tmp;
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: SkinnableContainer
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+        super.partAdded(partName, instance);
+        
+        if (instance == statusBar)
+        {
+            statusBar.visible = _showStatusBar;
+            statusBar.includeInLayout = _showStatusBar;
+            showStatusBarChanged = false;
+        }
+        else if (instance == titleBar)
+        {
+            if (!nativeWindow.closed)
+            {
+                // If the initial title is the default and the native window is set
+                // from the initial window settings, 
+                // then use the initial window settings title.
+                if (_title == "" && systemManager.stage.nativeWindow.title != null)
+                    _title = systemManager.stage.nativeWindow.title;
+                else
+                    systemManager.stage.nativeWindow.title = _title;                
+            }
+
+            titleBar.title = _title;
+            titleChanged = false;
+        }
+        else if (instance == statusText)
+        {
+            statusText.text = status;
+            statusChanged = false;    
+        }
+        else if (instance == gripper)
+        {
+            gripper.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function partRemoved(partName:String, instance:Object):void
+    {
+        super.partRemoved(partName, instance);
+        
+        if (instance == gripper)
+        {
+            gripper.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
         }
     }
 
