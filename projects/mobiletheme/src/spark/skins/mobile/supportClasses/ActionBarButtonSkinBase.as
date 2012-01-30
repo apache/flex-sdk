@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.mobile
+package spark.skins.mobile.supportClasses
 {
 import flash.display.DisplayObject;
 import flash.display.GradientType;
@@ -17,6 +17,7 @@ import flash.display.Graphics;
 import flash.geom.Matrix;
 
 import mx.utils.ColorUtil;
+import spark.skins.mobile.ButtonSkin;
 
 /**
  *  Base skin class for ActionBar buttons. Adds flat-look button border and
@@ -31,21 +32,7 @@ public class ActionBarButtonSkinBase extends ButtonSkin
 {
     //--------------------------------------------------------------------------
     //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
-    public function ActionBarButtonSkinBase()
-    {
-        super();
-        paddingTop = 8;
-        paddingBottom = 8;
-        paddingLeft = 16;
-        paddingRight = 16;
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Variables
+    //  Class constants
     //
     //--------------------------------------------------------------------------
     
@@ -53,7 +40,47 @@ public class ActionBarButtonSkinBase extends ButtonSkin
     
     // Used for gradient background
     private static const alphas:Array = [1, 1, 1];
+    
     private static const ratios:Array = [0, 127.5, 255];
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    public function ActionBarButtonSkinBase()
+    {
+        super();
+        
+        switch (targetDensity)
+        {
+            case MobileSkin.PPI240:
+            {
+                layoutBorderSize = 1;
+                layoutPaddingTop = 8;
+                layoutPaddingBottom = 8;
+                layoutPaddingLeft = 16;
+                layoutPaddingRight = 16;
+                layoutMeasuredWidth = 81;
+                layoutMeasuredHeight = 65;
+                
+                break;
+            }
+            default:
+            {
+                // default PPI160
+                layoutBorderSize = 1;
+                layoutPaddingTop = 7
+                layoutPaddingBottom = 7;
+                layoutPaddingLeft = 10;
+                layoutPaddingRight = 10;
+                layoutMeasuredWidth = 55;
+                layoutMeasuredHeight = 44;
+                
+                break;
+            }
+        }
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -65,17 +92,16 @@ public class ActionBarButtonSkinBase extends ButtonSkin
     {
         super.measure();
         
-        // 81x64 (+1 width for FXG separators)
-        measuredMinWidth = Math.max(81, measuredMinWidth);
-        measuredMinHeight =  Math.max(65, measuredMinHeight);
-        measuredWidth = Math.max(81, measuredWidth);
-        measuredHeight =  Math.max(65, measuredHeight);
+        measuredMinWidth = Math.max(layoutMeasuredWidth, measuredMinWidth);
+        measuredMinHeight =  Math.max(layoutMeasuredHeight, measuredMinHeight);
+        measuredWidth = Math.max(layoutMeasuredWidth, measuredWidth);
+        measuredHeight =  Math.max(layoutMeasuredHeight, measuredHeight);
     }
     
     override protected function layoutBorder(bgImg:DisplayObject, unscaledWidth:Number, unscaledHeight:Number):void
     {
         // extend 1px outside measured width to overlap highlight borders
-        resizePart(bgImg, unscaledWidth + 1, unscaledHeight);
+        resizePart(bgImg, unscaledWidth + layoutBorderSize, unscaledHeight);
         positionPart(bgImg, 0, 0);
     }
     
@@ -90,7 +116,7 @@ public class ActionBarButtonSkinBase extends ButtonSkin
         
         // Draw the gradient background
         matrix.createGradientBox(backgroundWidth, backgroundHeight, Math.PI / 2, 0, 0);
-        var chromeColor:uint = getStyle("chromeColor");
+        var chromeColor:uint = getChromeColor();
         colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
         colors[1] = chromeColor;
         colors[2] = ColorUtil.adjustBrightness2(chromeColor, -20);
