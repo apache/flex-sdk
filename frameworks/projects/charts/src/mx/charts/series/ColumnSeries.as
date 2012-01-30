@@ -265,25 +265,25 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
             
         dataTransform = new CartesianTransform();
     }
-	
-	private function getLabelClass():Class
-	{
-		var labelClass:Class = getStyle("labelClass");
-		
-		if(labelClass == null)
-		{
-			try{
-				labelClass = Class(ApplicationDomain.currentDomain.
-					getDefinition("spark.components::Label"));
-			}
-			catch(e:Error)
-			{
-				labelClass = Class(ApplicationDomain.currentDomain.
-					getDefinition("mx.controls::Label"));
-			}
-		}
-		return labelClass;
-	}
+    
+    private function getLabelClass():Class
+    {
+        var labelClass:Class = getStyle("labelClass");
+        
+        if(labelClass == null)
+        {
+            try{
+                labelClass = Class(ApplicationDomain.currentDomain.
+                    getDefinition("spark.components::Label"));
+            }
+            catch(e:Error)
+            {
+                labelClass = Class(ApplicationDomain.currentDomain.
+                    getDefinition("mx.controls::Label"));
+            }
+        }
+        return labelClass;
+    }
 
     
     //--------------------------------------------------------------------------
@@ -292,11 +292,11 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false;
-	
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false;
+    
     /**
      *  @private
      */
@@ -375,7 +375,7 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
         return _renderData ? _renderData.filteredCache : null;
     }
 
-	//----------------------------------
+    //----------------------------------
     //  labelContainer
     //----------------------------------
 
@@ -522,7 +522,7 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function get fillFunction():Function
+    public function get fillFunction():Function
     {
         return _fillFunction;
     }
@@ -1035,49 +1035,57 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var columnSeriesStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.series.ColumnSeries", styleManager);    
-		
-		columnSeriesStyle.defaultFactory = function():void
-		{
-			this.fill = new SolidColor(0);
-			this.fills = [];
-			this.itemRenderer = new ClassFactory(BoxItemRenderer);
-			this.stroke = HaloDefaults.emptyStroke;
-			this.labelSizeLimit = 9;
-		}
-		
-		return true;
-	}
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var columnSeriesStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.series.ColumnSeries", styleManager);    
+        
+        columnSeriesStyle.defaultFactory = function():void
+        {
+            this.fill = new SolidColor(0);
+            this.fills = [];
+            this.itemRenderer = new ClassFactory(BoxItemRenderer);
+            this.stroke = HaloDefaults.emptyStroke;
+            this.labelSizeLimit = 9;
+        }
+        
+        return true;
+    }
 
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
-	
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
     override protected function createChildren():void
     {
         super.createChildren();
@@ -1143,9 +1151,9 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
      {
         _localFills = getStyle('fills');
         if (_localFills != null)
-        	_fillCount = _localFills.length;
+            _fillCount = _localFills.length;
         else
-        	_fillCount = 0;
+            _fillCount = 0;
         labelPos = getStyle('labelPosition');
         if (labelPos == "none")
             labelPos = "";
@@ -1224,14 +1232,14 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
             _renderData.renderedBase = NaN;
         }
         if(dataTransform && dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is NumericAxis &&
-			!(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is DateTimeAxis) && 
-        	(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")  
-        	_renderData.cache = reverseYValues(_renderData.cache);
+            !(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is DateTimeAxis) && 
+            (dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")  
+            _renderData.cache = reverseYValues(_renderData.cache);
         if(dataTransform && dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is NumericAxis &&
-        	!(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is DateTimeAxis) &&
-        	(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")  
-        	_renderData.cache = reverseXValues(_renderData.cache);
-       	super.updateData();
+            !(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is DateTimeAxis) &&
+            (dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")  
+            _renderData.cache = reverseXValues(_renderData.cache);
+        super.updateData();
     }
     
     /**
@@ -1268,9 +1276,9 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
      */
     override protected function updateTransform():void
     {
-    	var n:int;
-    	var i:int; 
-    	
+        var n:int;
+        var i:int; 
+        
         if (_minField != "" || _stacked)
             dataTransform.transformCache(_renderData.filteredCache,null,null,"minNumber","min");
         else
@@ -1296,12 +1304,12 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
         if (!isNaN(_maxColumnWidth) && (_maxColumnWidth <= 0 || _columnWidthRatio <= 0))
             return;
 
-		if(params[1].x < params[0].x)	//direction is reverse for X-axis
-		{
-			params[0].x = - (params[0].x);
-			params[1].x = - (params[1].x);
-			params[2].x = - (params[2].x);
-		} 
+        if(params[1].x < params[0].x)   //direction is reverse for X-axis
+        {
+            params[0].x = - (params[0].x);
+            params[1].x = - (params[1].x);
+            params[2].x = - (params[2].x);
+        } 
         _renderData.renderedHalfWidth = (params[1].x -  params[0].x);
         
         if (_offset == 0)
@@ -1342,35 +1350,35 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
         }
         else if (labelPos=="outside")
         {
-        	if (chart  && chart is ColumnChart)
-        	{
-            	if (!(ColumnChart(chart).showLabelVertically))
-            	{
-                	if (temp.textWidth / 2 > 2 * _renderData.renderedHalfWidth) // .25% of column width
-                	{
-                    	labelPos = "";
-                    	labelCache.count = 0;
-                	}
-            	}
-            	else
-            	{
-                	if (temp.textWidth > 2 * _renderData.renderedHalfWidth) // .25% of column width
-                	{
-                    	if (measuringField.embedFonts)
-                    	{
-                        	if (temp.textHeight > 2 * renderData.renderedHalfWidth)
-                        	{
-                            	labelPos = "";
-                            	labelCache.count = 0;
-                        	}   
-                    	}
-                    	else
-                    	{
-                        	labelPos = "";
-                        	labelCache.count = 0;
-                    	}
-                	}
-            	}
+            if (chart  && chart is ColumnChart)
+            {
+                if (!(ColumnChart(chart).showLabelVertically))
+                {
+                    if (temp.textWidth / 2 > 2 * _renderData.renderedHalfWidth) // .25% of column width
+                    {
+                        labelPos = "";
+                        labelCache.count = 0;
+                    }
+                }
+                else
+                {
+                    if (temp.textWidth > 2 * _renderData.renderedHalfWidth) // .25% of column width
+                    {
+                        if (measuringField.embedFonts)
+                        {
+                            if (temp.textHeight > 2 * renderData.renderedHalfWidth)
+                            {
+                                labelPos = "";
+                                labelCache.count = 0;
+                            }   
+                        }
+                        else
+                        {
+                            labelPos = "";
+                            labelCache.count = 0;
+                        }
+                    }
+                }
             }
         }
         super.updateTransform();
@@ -1814,7 +1822,7 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
         }
         else if (styleProp == "itemRenderer")
         {
-        	_instanceCache.remove = true;
+            _instanceCache.remove = true;
             _instanceCache.discard = true;
             _instanceCache.count = 0;
             _instanceCache.discard = false;
@@ -1847,9 +1855,9 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
         {
             _localFills = getStyle('fills');
             if (_localFills != null)
-        		_fillCount = _localFills.length;
-        	else
-        		_fillCount = 0;                
+                _fillCount = _localFills.length;
+            else
+                _fillCount = 0;                
             invalidateDisplayList();
             legendDataChanged();
         }
@@ -1919,9 +1927,9 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
      *  @private
      */
     override protected function getMissingInterpolationValues(sourceProps:Object,
-    									srcCache:Array /* of ColumnSeriesItem */,
-    									destProps:Object,destCache:Array /* of ColumnSeriesItem */,
-    									index:Number,customData:Object):void
+                                        srcCache:Array /* of ColumnSeriesItem */,
+                                        destProps:Object,destCache:Array /* of ColumnSeriesItem */,
+                                        index:Number,customData:Object):void
     {
         for (var p:String in sourceProps)
         {
@@ -1997,8 +2005,8 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
      */ 
     override protected function defaultFilterFunction(cache:Array /*of ColumnSeriesItem */ ):Array /*of ColumnSeriesItem*/
     {
-    	var filteredCache:Array /*of ColumnSeriesItem*/ = [];	
-    	if (filterDataValues == "outsideRange")
+        var filteredCache:Array /*of ColumnSeriesItem*/ = [];   
+        if (filterDataValues == "outsideRange")
         {
             filteredCache = cache.concat();
 
@@ -2096,12 +2104,12 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
                     yValue = Number((haveYField)? dataItem[_yField]:dataItem);
                 }
                 if(dataTransform && dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is NumericAxis &&
-        			(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")  
-                	yValue = -yValue;
+                    (dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")  
+                    yValue = -yValue;
                 if (xValue == null)
                 {
-                	i++;
-                	cursor.moveNext();  
+                    i++;
+                    cursor.moveNext();  
                     continue;
                 }
                 // accessing a property on an XML node always returns a new XMLList. Which means
@@ -2120,13 +2128,13 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
                 }
                 if (yValue == 0)
                 {
-                	chartItem.yValue = 0;
-                	chartItem.minValue = 0;
+                    chartItem.yValue = 0;
+                    chartItem.minValue = 0;
                 }
                 else
                 {
-                	chartItem.yValue = yValue + stackedValue;
-                	chartItem.minValue = stackedValue;
+                    chartItem.yValue = yValue + stackedValue;
+                    chartItem.minValue = stackedValue;
                 }
                 yValue += stackedValue;
                 //chartItem.minValue = stackedValue;
@@ -2190,12 +2198,12 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
                     yValue = Number((haveYField)? dataItem[_yField]:dataItem);
                 }
                 if(dataTransform && dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is NumericAxis &&
-        			(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")  
-                	yValue = -yValue;
+                    (dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")  
+                    yValue = -yValue;
                 if (xValue == null)
                 {
-                	i++;
-                	cursor.moveNext();  
+                    i++;
+                    cursor.moveNext();  
                     continue;
                 }
                 // accessing a property on an XML node always returns a new XMLList. Which means
@@ -2219,13 +2227,13 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
                 
                 if (yValue == 0)
                 {
-                	chartItem.yValue = 0;
-                	chartItem.minValue = 0;
+                    chartItem.yValue = 0;
+                    chartItem.minValue = 0;
                 }
                 else
                 {
-                	chartItem.yValue = yValue + stackedValue;
-                	chartItem.minValue = stackedValue;
+                    chartItem.yValue = yValue + stackedValue;
+                    chartItem.minValue = stackedValue;
                 }
                 
                 yValue += stackedValue;
@@ -2417,10 +2425,10 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
                     label.text = "";
                 else if (chart && !(ColumnChart(chart).showLabelVertically))
                 {
-					if(chart && chart.layoutDirection == LayoutDirection.RTL)		//Align labels to right of the item in rtl layout
-                    	label.setStyle('textAlign','right');
-					else											//Align them to left of the column in ltr layout
-						label.setStyle('textAlign','left');
+                    if(chart && chart.layoutDirection == LayoutDirection.RTL)       //Align labels to right of the item in rtl layout
+                        label.setStyle('textAlign','right');
+                    else                                            //Align them to left of the column in ltr layout
+                        label.setStyle('textAlign','left');
                     label.setStyle('paddingLeft',0);
                     label.rotation = 0;
                 }
@@ -2481,35 +2489,35 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
         }
         else if (labelPos=="outside")
         {
-        	if (chart && chart is ColumnChart)
-        	{
-            	if (!(ColumnChart(chart).showLabelVertically))
-            	{
-                	if (temp.textWidth / 2 > 2 * _renderData.renderedHalfWidth) // .25% of column width
-	                {
-    	                labelPos = "";
-        	            labelCache.count = 0;
-            	    }
-            	}
-	            else
-    	        {
-        	        if (temp.textWidth > 2 * _renderData.renderedHalfWidth) // .25% of column width
-            	    {
-                	    if (measuringField.embedFonts)
-                    	{
-                        	if (temp.textHeight > 2 * renderData.renderedHalfWidth)
-	                        {
-    	                        labelPos = "";
-        	                    labelCache.count = 0;
-            	            }   
-                	    }
-                    	else
-                    	{
-                        	labelPos = "";
-	                        labelCache.count = 0;
-    	                }
-        	        }
-            	}
+            if (chart && chart is ColumnChart)
+            {
+                if (!(ColumnChart(chart).showLabelVertically))
+                {
+                    if (temp.textWidth / 2 > 2 * _renderData.renderedHalfWidth) // .25% of column width
+                    {
+                        labelPos = "";
+                        labelCache.count = 0;
+                    }
+                }
+                else
+                {
+                    if (temp.textWidth > 2 * _renderData.renderedHalfWidth) // .25% of column width
+                    {
+                        if (measuringField.embedFonts)
+                        {
+                            if (temp.textHeight > 2 * renderData.renderedHalfWidth)
+                            {
+                                labelPos = "";
+                                labelCache.count = 0;
+                            }   
+                        }
+                        else
+                        {
+                            labelPos = "";
+                            labelCache.count = 0;
+                        }
+                    }
+                }
             }
         }
         if (chart && chart is ColumnChart)
@@ -2582,26 +2590,26 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
     
     private function reverseYValues(cache:Array):Array
     {
-    	var i:int = 0;
+        var i:int = 0;
         var n:int = cache.length;
         for(i = 0; i < n ; i++)
         {
-        	cache[i]["yValue"] = -(cache[i]["yValue"]);
-        	if(_minField != "")
-        		cache[i]["minValue"] = -(cache[i]["minValue"]);
+            cache[i]["yValue"] = -(cache[i]["yValue"]);
+            if(_minField != "")
+                cache[i]["minValue"] = -(cache[i]["minValue"]);
         }  
-    	return cache;
+        return cache;
     }
     
     private function reverseXValues(cache:Array):Array
     {
-    	var i:int = 0;
+        var i:int = 0;
         var n:int = cache.length;
         for(i = 0; i < n ; i++)
         {
-        	cache[i]["xValue"] = -(cache[i]["xValue"]);
+            cache[i]["xValue"] = -(cache[i]["xValue"]);
         }  
-    	return cache;
+        return cache;
     }
 
     mx_internal function get seriesRenderData():Object
