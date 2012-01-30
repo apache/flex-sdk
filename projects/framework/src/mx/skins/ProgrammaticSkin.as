@@ -519,7 +519,7 @@ public class ProgrammaticSkin extends FlexShape
      */
     public function getStyle(styleProp:String):*
     {
-        return _styleName.getStyle(styleProp);
+        return _styleName ? _styleName.getStyle(styleProp) : null;
     }
 		
 	/**
