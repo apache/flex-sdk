@@ -156,7 +156,6 @@ public interface ISort
      *  @productversion Flex 4.5
      */
     function get unique():Boolean;
-    function set unique(value:Boolean):void;
 
     //--------------------------------------------------------------------------
     //
