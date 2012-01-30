@@ -534,7 +534,9 @@ public dynamic class ObjectProxy extends Proxy
     /**
      *  Registers an event listener object  
      *  so that the listener receives notification of an event. 
-     *  For more information, see the flash.events.EventDispatcher class.
+     *  For more information, including descriptions of the parameters see 
+     *  <code>addEventListener()</code> in the 
+     *  flash.events.EventDispatcher class.
      *
      *  @see flash.events.EventDispatcher#addEventListener()
      */
@@ -551,7 +553,20 @@ public dynamic class ObjectProxy extends Proxy
      *  Removes an event listener. 
      *  If there is no matching listener registered with the EventDispatcher object, 
      *  a call to this method has no effect.
-     *  For more information, see the flash.events.EventDispatcher class.
+     *  For more information, see 
+     *  the flash.events.EventDispatcher class.
+     *  
+     *  @param type The type of event.
+     * 
+     *  @param listener The listener object to remove.
+     *
+     *  @param useCapture Specifies whether the listener was registered for the capture 
+     *  phase or the target and bubbling phases. If the listener was registered for both 
+     *  the capture phase and the target and bubbling phases, two calls to 
+     *  <code>removeEventListener()</code> are required to remove both, one call with 
+     *  <code>useCapture</code> 
+     *  set to <code>true</code>, and another call with <code>useCapture</code>
+     *  set to <code>false</code>.
      *
      *  @see flash.events.EventDispatcher#removeEventListener()
      */
@@ -563,7 +578,17 @@ public dynamic class ObjectProxy extends Proxy
 
     /**
      *  Dispatches an event into the event flow. 
-     *  For more information, see the flash.events.EventDispatcher class.
+     *  For more information, see
+     *  the flash.events.EventDispatcher class.
+     *  
+     *  @param event The Event object that is dispatched into the event flow. If the 
+     *  event is being redispatched, a clone of the event is created automatically. 
+     *  After an event is dispatched, its target property cannot be changed, so you 
+     *  must create a new copy of the event for redispatching to work.
+     *
+     *  @return <code>true</code> if the event was successfully dispatched. A value 
+     *  of <code>false</code> indicates failure or that <code>preventDefault()</code>
+     *  was called on the event.
      *
      *  @see flash.events.EventDispatcher#dispatchEvent()
      */
@@ -577,7 +602,13 @@ public dynamic class ObjectProxy extends Proxy
      *  for a specific type of event. 
      *  This allows you to determine where an object has altered handling 
      *  of an event type in the event flow hierarchy. 
-     *  For more information, see the flash.events.EventDispatcher class.
+     *  For more information, see
+     *  the flash.events.EventDispatcher class.
+     *
+     *  @param type The type of event
+     *
+     *  @return <code>true</code> if a listener of the specified type is 
+     *  registered; <code>false</code> otherwise.
      *
      *  @see flash.events.EventDispatcher#hasEventListener()
      */
@@ -594,6 +625,11 @@ public dynamic class ObjectProxy extends Proxy
      *  type is dispatched to this object or any of its descendants.
      *  For more information, see the flash.events.EventDispatcher class.
      *
+     *  @param type The type of event.
+     *
+     *  @return A value of <code>true</code> if a listener of the specified type will 
+     *  be triggered; <code>false</code> otherwise.
+     *
      *  @see flash.events.EventDispatcher#willTrigger()
      */
     public function willTrigger(type:String):Boolean
@@ -603,6 +639,8 @@ public dynamic class ObjectProxy extends Proxy
 
     /**
      *  Called when a complex property is updated.
+     *
+     *  @param event An event object that has changed.
      */
     public function propertyChangeHandler(event:PropertyChangeEvent):void
     {
