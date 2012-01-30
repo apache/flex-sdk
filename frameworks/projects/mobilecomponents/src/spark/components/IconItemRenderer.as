@@ -716,8 +716,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         
         // FIXME (rfrishbe): will need to change this calculation
         // don't allow text to contribute to width for now
-        myMeasuredWidth += labelTextField.textWidth + 5 + 20; // 5 is the extra padding for text field, 20 is normal padding (10 & 10)
-        myMeasuredHeight = Math.max(myMeasuredHeight, labelTextField.textHeight + 4 + 10); // 4 is the extra padding for text field, 10 is normal padding (5 & 5)
+        myMeasuredWidth += labelDisplay.textWidth + 5 + 20; // 5 is the extra padding for text field, 20 is normal padding (10 & 10)
+        myMeasuredHeight = Math.max(myMeasuredHeight, labelDisplay.textHeight + 4 + 10); // 4 is the extra padding for text field, 10 is normal padding (5 & 5)
         
         // don't do anything with regards to minimum for the textField
         
@@ -821,11 +821,11 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         if (iconDisplay)
             labelX += iconWidth + getStyle("horizontalGap");
         
-        labelTextField.width = labelWidth;
-        labelTextField.height = labelTextField.textHeight + 4; // 4 is text field padding
+        labelDisplay.width = labelWidth;
+        labelDisplay.height = labelDisplay.textHeight + 4; // 4 is text field padding
         
-        labelTextField.x = labelX;
-        labelTextField.y = (unscaledHeight - labelTextField.height)/2;
+        labelDisplay.x = labelX;
+        labelDisplay.y = (unscaledHeight - labelDisplay.height)/2;
     }
     
 }
