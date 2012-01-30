@@ -1,5 +1,7 @@
 package spark.components
 {
+import flash.events.Event;
+
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
@@ -21,6 +23,18 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 [Style(name="backgroundAlpha", type="Number", inherit="no")]
+
+//--------------------------------------
+//  Skin states
+//--------------------------------------
+
+/*
+* Skin states to support ViewNavigator
+*/
+[SkinState("portrait")]
+[SkinState("landscape")]
+[SkinState("portraitAndOverlay")]
+[SkinState("landscapeAndOverlay")]
 
 /**
  *  @langversion 3.0
@@ -89,6 +103,7 @@ public class ActionBar extends SkinnableComponent
     public function ActionBar()
     {
         super();
+        _titleChanged = false;
     }
     
     //--------------------------------------------------------------------------
@@ -138,16 +153,6 @@ public class ActionBar extends SkinnableComponent
     [SkinPart(required="false")]
     
     /**
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var backButton:ButtonBase;
-    
-    [SkinPart(required="false")]
-    
-    /**
      *  The skin part that defines the appearance of the 
      *  title text in the container.
      *
@@ -159,37 +164,6 @@ public class ActionBar extends SkinnableComponent
      *  @productversion Flex 4
      */
     public var titleDisplay:Label; // TODO fix after Text spec is drafted
-    
-    //----------------------------------
-    //  backButtonLabel
-    //----------------------------------
-    
-    private var _backButtonLabel:String;
-    
-    /**
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get backButtonLabel():String
-    {
-        return _backButtonLabel;
-    }
-    
-    /**
-     * @private
-     */
-    public function set backButtonLabel(value:String):void
-    {
-        if (value == _backButtonLabel)
-            return;
-        
-        _backButtonLabel = value;
-        
-        if (backButton)
-            backButton.label = value;
-    }
     
     //----------------------------------
     //  title
@@ -265,7 +239,7 @@ public class ActionBar extends SkinnableComponent
     }
     
     //----------------------------------
-    //  navigationGroupLayout
+    //  navigationLayout
     //---------------------------------- 
     
     /**
@@ -278,7 +252,7 @@ public class ActionBar extends SkinnableComponent
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get navigationGroupLayout():LayoutBase
+    public function get navigationLayout():LayoutBase
     {
         return (navigationGroup) ? navigationGroup.layout : contentGroupProperties[NAVIGATION_GROUP_PROPERTIES_INDEX].layout;
     }
@@ -286,7 +260,7 @@ public class ActionBar extends SkinnableComponent
     /**
      *  @private
      */
-    public function set navigationGroupLayout(value:LayoutBase):void
+    public function set navigationLayout(value:LayoutBase):void
     {
         if (navigationGroup)
         {
@@ -314,9 +288,16 @@ public class ActionBar extends SkinnableComponent
     public function get titleContent():Array
     {
         if (titleGroup)
-            return titleGroup.getMXMLContent();
+        {
+            if (BitFlagUtil.isSet(contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX], CONTENT_PROPERTY_FLAG))
+                return titleGroup.getMXMLContent();
+            else
+                return null;
+        }
         else
-            return contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX].content
+        {
+            return contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX].content;
+        }
     }
     
     /**
@@ -326,6 +307,8 @@ public class ActionBar extends SkinnableComponent
     {
         if (titleGroup)
         {
+            _titleChanged = true;
+            
             if (value)
             {
                 titleGroup.mxmlContent = value;
@@ -333,7 +316,6 @@ public class ActionBar extends SkinnableComponent
             else
             {
                 titleGroup.mxmlContent = titleDisplay ? [titleDisplay] : null;
-                _titleChanged = true;
                 invalidateProperties();
             }
             
@@ -342,13 +324,15 @@ public class ActionBar extends SkinnableComponent
                     CONTENT_PROPERTY_FLAG, value != null);
         }
         else
+        {
             contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX].content = value;
+        }
         
         invalidateSkinState();
     }
     
     //----------------------------------
-    //  titleGroupLayout
+    //  titleLayout
     //---------------------------------- 
     
     /**
@@ -361,7 +345,7 @@ public class ActionBar extends SkinnableComponent
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get titleGroupLayout():LayoutBase
+    public function get titleLayout():LayoutBase
     {
         return (titleGroup) ? titleGroup.layout : contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX].layout;
     }
@@ -369,7 +353,7 @@ public class ActionBar extends SkinnableComponent
     /**
      *  @private
      */
-    public function set titleGroupLayout(value:LayoutBase):void
+    public function set titleLayout(value:LayoutBase):void
     {
         if (titleGroup)
         {
@@ -421,7 +405,7 @@ public class ActionBar extends SkinnableComponent
     }
     
     //----------------------------------
-    //  actionGroupLayout
+    //  actionLayout
     //---------------------------------- 
     
     /**
@@ -434,7 +418,7 @@ public class ActionBar extends SkinnableComponent
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get actionGroupLayout():LayoutBase
+    public function get actionLayout():LayoutBase
     {
         return (actionGroup) ? actionGroup.layout : contentGroupProperties[ACTION_GROUP_PROPERTIES_INDEX].layout;
     }
@@ -442,7 +426,7 @@ public class ActionBar extends SkinnableComponent
     /**
      *  @private
      */
-    public function set actionGroupLayout(value:LayoutBase):void
+    public function set actionLayout(value:LayoutBase):void
     {
         if (actionGroup)
         {
@@ -479,7 +463,7 @@ public class ActionBar extends SkinnableComponent
     {
         super.partAdded(partName, instance);
         
-        var defaultContent:IVisualElement;
+        var defaultContent:Array; /*IVisualElement*/
         var group:Group;
         var index:int = -1;
         
@@ -492,7 +476,15 @@ public class ActionBar extends SkinnableComponent
         {
             group = titleGroup;
             index = TITLE_GROUP_PROPERTIES_INDEX;
-            defaultContent = titleDisplay;
+            
+            // use titleContent if provided
+            defaultContent = contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX].content;
+            
+            // if no titleContent, use titleDisplay
+            if (defaultContent == null)
+            {
+                defaultContent = (titleDisplay) ? [titleDisplay] : null;
+            }
             
             _titleChanged = true;
         }
@@ -504,6 +496,11 @@ public class ActionBar extends SkinnableComponent
         else if (instance == titleDisplay)
         {
             titleDisplay.text = title;
+			
+			if (titleGroup && !titleContent)
+			{
+				titleGroup.mxmlContent = [titleDisplay];
+			}
         }
         
         if (index > -1)
@@ -526,7 +523,7 @@ public class ActionBar extends SkinnableComponent
             
             if (defaultContent)
             {
-                group.mxmlContent = [defaultContent];	
+                group.mxmlContent = defaultContent;	
             }
             
             contentGroupProperties[index] = newContentGroupProperties;
