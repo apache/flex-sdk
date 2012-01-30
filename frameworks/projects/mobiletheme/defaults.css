@@ -14,6 +14,12 @@
 @namespace "library://ns.adobe.com/flex/spark";
 
 /* Default Skins */
+
+ActionBar
+{
+    skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
+}
+
 AdaptableApplication
 {
 	skinClass: ClassReference("spark.skins.mobile.AndroidApplicationSkin");
@@ -84,6 +90,11 @@ List
 	skinClass: ClassReference("spark.skins.spark.ListSkin");
     dragIndicatorClass: ClassReference("spark.components.supportClasses.ListItemDragProxy");
 	dropIndicatorSkin: ClassReference("spark.skins.spark.ListDropIndicator");
+}
+
+MobileApplication
+{
+    skinClass: ClassReference("spark.skins.mobile.MobileApplicationSkin");
 }
 
 MuteButton
@@ -206,6 +217,11 @@ VideoPlayer
 {
     dropShadowVisible: true;
     skinClass: ClassReference("spark.skins.spark.VideoPlayerSkin");
+}
+
+ViewNavigator
+{
+    skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
 }
 
 VolumeBar
