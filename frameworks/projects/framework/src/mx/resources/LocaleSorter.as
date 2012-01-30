@@ -245,6 +245,17 @@ class LocaleID
 	/**
      *  @private
      */
+	private static function appendElements(dest:Array, src:Array):void
+	{
+		for (var i:uint = 0, argc:uint = src.length; i < argc; i++)
+		{
+			dest.push(src[i]);
+		}
+	}
+	
+	/**
+     *  @private
+     */
     public static function fromString(str:String):LocaleID
     {
 		var localeID:LocaleID = new LocaleID();
@@ -459,7 +470,7 @@ class LocaleID
                                             lang, script);
 		}
 	}
-	
+
 	/**
      *  @private
      */
@@ -467,7 +478,7 @@ class LocaleID
     {
 		var stack:Array = [ lang ];
 		
-        Array.prototype.push.apply(stack, extended_langs);
+        appendElements(stack, extended_langs);
 		
         if (script != "")
             stack.push(script);
@@ -475,21 +486,21 @@ class LocaleID
         if (region != "")
             stack.push(region);
 		
-        Array.prototype.push.apply(stack, variants);
+        appendElements(stack, variants);
 		
         for (var i:String in extensions)
         {
 			if (extensions.hasOwnProperty(i))
             {
 				stack.push(i);
-				Array.prototype.push.apply(stack, extensions[i]);
+				appendElements(stack, extensions[i]);
 			}
 		}
 		
         if (privates.length > 0)
         {
 			stack.push("x");
-			Array.prototype.push.apply(stack, privates);
+			appendElements(stack, privates);
 		}
 
 		return stack.join("_");
