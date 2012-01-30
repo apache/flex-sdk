@@ -1,57 +1,68 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the Alert control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo Alert control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
             import mx.controls.Alert;
             import mx.events.CloseEvent;
-        
+
             // Event handler function uses a static method to show
-            // a pop-up window with the title, message, and requested buttons.        
-            private function clickHandler(event:Event):void {
-                Alert.show("Do you want to save your changes?", "Save Changes", 3, this, alertClickHandler);
+            // a pop-up window with the title, message, and requested buttons.
+            private function clickHandler(evt:Event):void {
+                Alert.show("Do you want to save your changes?", "Save Changes", Alert.YES|Alert.NO, this, alertClickHandler);
             }
-        
+
             // Event handler function for displaying the selected Alert button.
-            private function alertClickHandler(event:CloseEvent):void {
-                if (event.detail==Alert.YES)
-                    status.text="You answered Yes";
-                else
-                    status.text="You answered No";
+            private function alertClickHandler(evt:CloseEvent):void {
+                if (evt.detail == Alert.YES) {
+                    status.text = "You answered Yes";
+                } else {
+                    status.text = "You answered No";
+                }
             }
 
             // Event handler function changes the default Button labels and sets the
             // Button widths. If you later use an Alert with the default Buttons, 
             // you must reset these values.
-            private function secondClickHandler(event:Event):void {
+            private function secondClickHandler(evt:Event):void {
                 Alert.buttonWidth = 100;
                 Alert.yesLabel = "Magenta";
                 Alert.noLabel = "Blue";
                 Alert.cancelLabel = "Green";
 
-                Alert.show("Select a color:","Color Selection",1|2|8,this);
-                
+                Alert.show("Select a color:", "Color Selection", Alert.YES|Alert.NO|Alert.CANCEL, this);
+
                 // Set the labels back to normal:
                 Alert.yesLabel = "Yes";
-                Alert.noLabel = "No";                
+                Alert.noLabel = "No";
             }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:Panel title="Alert Control Example" width="75%" horizontalAlign="center" paddingTop="10">
-      <mx:Text width="100%" color="blue" textAlign="center"
-          text="Click the button below to display a simple Alert window."/>
-      <mx:Button label="Click Me" click="Alert.show('Hello World!', 'Message');"/>
+    <s:Panel title="Halo Alert Control Example"
+            width="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText color="blue"
+                    text="Click the button below to display a simple Alert window."/>
+            <s:Button label="Click Me" click="Alert.show('Hello World!', 'Message');"/>
 
-      <mx:Text width="100%" color="blue" textAlign="center"
-          text="Click the button below to display an Alert window and capture the button pressed by the user."/>
-      <mx:Button label="Click Me" click="clickHandler(event);"/>
-      <mx:Label id="status" fontWeight="bold"/>
+            <mx:HRule width="100%" />
 
-      <mx:Text width="100%" color="blue" textAlign="center"
-          text="Click the button below to display an Alert window that uses custom Button labels."/>
-      <mx:Button label="Click Me" click="secondClickHandler(event);"/>
-    </mx:Panel>
+            <s:SimpleText color="blue" 
+                    text="Click the button below to display an Alert window and capture the button pressed by the user."/>
+            <s:Button label="Click Me" click="clickHandler(event);"/>
+            <s:SimpleText id="status" fontWeight="bold"/>
 
-</mx:Application>
+            <mx:HRule width="100%" />
+
+            <s:SimpleText color="blue"
+                    text="Click the button below to display an Alert window that uses custom Button labels."/>
+            <s:Button label="Click Me" click="secondClickHandler(event);"/>
+        </s:VGroup>
+    </s:Panel>
+
+</s:Application>
