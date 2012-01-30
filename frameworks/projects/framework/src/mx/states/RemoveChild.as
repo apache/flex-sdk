@@ -16,6 +16,9 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 
 import mx.core.UIComponent;
+import mx.core.mx_internal;
+
+use namespace mx_internal;
 
 /**
  *
@@ -182,7 +185,7 @@ public class RemoveChild extends OverrideBase implements IOverride
             // Make sure any changes made while the child was removed are reflected
             // properly.
             if (obj is UIComponent)
-                UIComponent(target).mx_internal::updateCallbacks();
+                UIComponent(target).updateCallbacks();
 
             removed = false;
         }
