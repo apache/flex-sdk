@@ -33,18 +33,26 @@ public interface IIMESupport
 	//--------------------------------------------------------------------------
 
 	//----------------------------------
-	//  editable
+	//  enableIME
 	//----------------------------------
 
 	/**
-     *  Specifies whether the user is allowed to edit the text in this control.
+     *  Specifies whether the IME should be enabled when
+     *  this component has focus.  Even if a component
+     *  uses the IME, it may not in all configurations.
+     *  For example, TextArea will set enableIME to false
+     *  if its <code>editable</code> is <code>false</code> since no
+     *  input is allowed in that configuration.  Similarly
+     *  DataGrid always sets enableIME to false.  If
+     *  the DataGrid puts up an ItemEditor, its editor
+     *  will have <code>enableIME</code> set to <code>true</code>.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
 	 *  @playerversion AIR 1.5
 	 *  @productversion Flex 4
 	 */
-//	function get editable():Boolean;
+	function get enableIME():Boolean;
 
 	//----------------------------------
 	//  imeMode
