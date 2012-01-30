@@ -94,6 +94,10 @@ public class CrossDomainRSLItem extends RSLItem
     *                  loaded is a signed or unsigned RSL. If the value is true the RSL is signed. 
     *                  If the value is false the RSL is unsigned.
     *  @param rootURL provides the url used to locate relative RSL urls. 
+    *  @param moduleFactory The module factory that is loading the RSLs. The
+    *  RSLs will be loaded into the application domain of the given module factory.
+    *  If a module factory is not specified, then the RSLs will be loaded into the 
+    *  application domain of where the CrossDomainRSLItem class was first loaded.
     *  
     *  @langversion 3.0
     *  @playerversion Flash 9
@@ -105,9 +109,10 @@ public class CrossDomainRSLItem extends RSLItem
                              digests:Array,
                              hashTypes:Array,
                              isSigned:Array,
-                             rootURL:String = null)
+                             rootURL:String = null,
+                             moduleFactory:IFlexModuleFactory = null)
     {
-        super(rslUrls[0], rootURL);
+        super(rslUrls[0], rootURL, moduleFactory);
         
         this.rslUrls = rslUrls;
         this.policyFileUrls = policyFileUrls;
@@ -264,7 +269,12 @@ public class CrossDomainRSLItem extends RSLItem
         // load the bytes into the current application domain.
         loadBytesLoader = new Loader();
         var context:LoaderContext = new LoaderContext();
-        context.applicationDomain = ApplicationDomain.currentDomain;
+        
+        if (moduleFactory != null)
+            context.applicationDomain = moduleFactory.info()["currentDomain"];    
+        else 
+            context.applicationDomain = ApplicationDomain.currentDomain;
+        
         context.securityDomain = null;
         
         // If the AIR flag is available then set it to true so we can
