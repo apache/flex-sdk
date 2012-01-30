@@ -53,14 +53,16 @@ import mx.events.ValidationResultEvent;
 import mx.graphics.RoundedRectangle;
 import mx.managers.CursorManager;
 import mx.managers.ICursorManager;
-import mx.managers.IFocusManager;
+import mx.managers.IFocusManager2;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.IFocusManagerContainer;
 import mx.managers.ILayoutManagerClient;
 import mx.managers.ISystemManager;
+import mx.managers.ISystemManager2;
 import mx.managers.IToolTipManagerClient;
 import mx.managers.SystemManager;
 import mx.managers.SystemManagerGlobals;
+import mx.managers.SystemManagerProxy;
 import mx.managers.ToolTipManager;
 import mx.modules.ModuleManager;
 import mx.resources.IResourceManager;
@@ -77,6 +79,7 @@ import mx.utils.GraphicsUtil;
 import mx.utils.StringUtil;
 import mx.validators.IValidatorListener;
 import mx.validators.ValidationResult;
+import flash.system.Security;
 
 use namespace mx_internal;
 
@@ -1497,7 +1500,16 @@ public class UIComponent extends FlexSprite
     {
         // Flash PlaceObject tags can have super.parent set
         // before we get to setting the _parent property.
-        return _parent ? _parent : super.parent;
+        try
+        {
+	        return _parent ? _parent : super.parent;
+        }
+        catch (e:SecurityError)
+        {
+        	// trace("UIComponent.get parent(): " + e);
+        }
+        
+        return null;
     }
 
     //----------------------------------
@@ -2324,7 +2336,7 @@ public class UIComponent extends FlexSprite
      *  @private
      *  Storage for the focusManager property.
      */
-    private var _focusManager:IFocusManager;
+    private var _focusManager:IFocusManager2;
 
     [Inspectable(environment="none")]
 
@@ -2335,7 +2347,7 @@ public class UIComponent extends FlexSprite
      *  of a FocusManager.
      *  To make sure you're talking to the right one, use this method.
      */
-    public function get focusManager():IFocusManager
+    public function get focusManager():IFocusManager2
     {
         if (_focusManager)
             return _focusManager;
@@ -2357,7 +2369,7 @@ public class UIComponent extends FlexSprite
      *  @private
      *  IFocusManagerContainers have this property assigned by the framework
      */
-    public function set focusManager(value:IFocusManager):void
+    public function set focusManager(value:IFocusManager2):void
     {
         _focusManager = value;
     }
@@ -2442,6 +2454,11 @@ public class UIComponent extends FlexSprite
                     {
                         _systemManager = ui.systemManager;
                         break;
+                    }
+                    else if (o is ISystemManager)
+                    {
+                    	_systemManager = o as ISystemManager;	// VERSION_SKEW
+                    	break;
                     }
                     o = o.parent;
                 }
@@ -2755,6 +2772,12 @@ public class UIComponent extends FlexSprite
      */
     public function get parentApplication():Object
     {
+    	// TODODJL: I think the below check can be removed since we are now using 
+    	// SystemManagerProxy to host a form on the top-level system manager.
+    	// systemManager could be null if the systemManager of this component lives in another sandbox.
+    	if (!systemManager)
+    		return null;
+
         // Look for the SystemManager's document,
         // which should be the Application.
         var o:Object = systemManager.document;
@@ -2830,6 +2853,7 @@ public class UIComponent extends FlexSprite
     public function get screen():Rectangle
     {
         var sm:ISystemManager = systemManager;
+
         return sm ? sm.screen : null;
     }
 
@@ -4865,7 +4889,7 @@ public class UIComponent extends FlexSprite
 
         styleChanged("themeColor");
 
-        var focusManager:IFocusManager = focusManager;
+        var focusManager:IFocusManager2 = focusManager;
         var focusObj:DisplayObject = focusManager ?
                                      DisplayObject(focusManager.getFocus()) :
                                      null;
@@ -5108,17 +5132,18 @@ public class UIComponent extends FlexSprite
 
         // systemManager getter tries to set the internal _systemManager varaible 
         // if it is null. Hence a call to the getter is necessary.
-        if (systemManager)
+		// TODODJL: stage is null for bridged applications
+        if (systemManager && (_systemManager.stage || ISystemManager2(_systemManager).useBridge()))
         {
             if (methodQueue.length > 0 && !listeningForRender)
             {
-                _systemManager.stage.addEventListener(Event.RENDER, callLaterDispatcher);
-                _systemManager.stage.addEventListener(Event.ENTER_FRAME, callLaterDispatcher);
+                _systemManager.addEventListener(FlexEvent.RENDER, callLaterDispatcher);
+                _systemManager.addEventListener(FlexEvent.ENTER_FRAME, callLaterDispatcher);
                 listeningForRender = true;
             }
 
-            // Force a "render" event to happen soon
-            _systemManager.stage.invalidate();
+			if (_systemManager.stage)
+            	_systemManager.stage.invalidate();
         }
     }
 
@@ -5130,6 +5155,8 @@ public class UIComponent extends FlexSprite
      */
     public function parentChanged(p:DisplayObjectContainer):void
     {
+   		// trace("parentChanged: " + _parent + " of " + this + " changed to ");
+    		
         if (!p)
         {
             _parent = null;
@@ -5147,6 +5174,9 @@ public class UIComponent extends FlexSprite
         {
             _parent = p.parent;
         }
+        
+   		// trace("               " + p);
+
     }
 
     /**
@@ -5531,9 +5561,27 @@ public class UIComponent extends FlexSprite
         {
             invalidateDisplayListFlag = true;
 
-            if (parent && UIComponentGlobals.layoutManager)
+            if (isOnDisplayList() && UIComponentGlobals.layoutManager)
                 UIComponentGlobals.layoutManager.invalidateDisplayList(this);
         }
+    }
+    
+    // VERSION_SKEW
+    private function isOnDisplayList():Boolean
+    {
+    	var p:DisplayObjectContainer;
+    	
+        try
+        {
+	    	p = _parent ? _parent : super.parent;
+        }
+        catch (e:SecurityError)
+        {
+        	// trace("UIComponent.isOnDisplayList(): " + e);
+        	return true;		// we are on the display list but the parent is in another sandbox
+        }
+        
+        return p ? true : false;
     }
 
     /**
@@ -5691,20 +5739,24 @@ public class UIComponent extends FlexSprite
 
         // Register to get the next "render" event
         // just before the next rasterization.
-        var sm:ISystemManager = systemManager;
-        if (sm && sm.stage)
+        var sm:ISystemManager2 = ISystemManager2(systemManager);
+        
+        // TODODJL: stage is null for bridge applications
+        if (sm && (sm.stage || sm.useBridge()))
         {
             if (!listeningForRender)
             {
                 // trace("  added");
-                sm.stage.addEventListener(Event.RENDER, callLaterDispatcher);
-                sm.stage.addEventListener(Event.ENTER_FRAME, callLaterDispatcher);
+               	sm.addEventListener(FlexEvent.RENDER, callLaterDispatcher);
+                sm.addEventListener(FlexEvent.ENTER_FRAME, callLaterDispatcher);
                 listeningForRender = true;
             }
 
             // Force a "render" event to happen soon
-            sm.stage.invalidate();
+            if (sm.stage)
+            	sm.stage.invalidate();
         }
+
         // trace("<<calllater " + this)
     }
 
@@ -5714,13 +5766,14 @@ public class UIComponent extends FlexSprite
      */
     mx_internal function cancelAllCallLaters():void
     {
-        var sm:ISystemManager = systemManager;
-        if (sm && sm.stage)
+        var sm:ISystemManager2 = ISystemManager2(systemManager);
+        // TODODJL: stage is null for bridge applications
+        if (sm && (sm.stage || sm.useBridge()))
         {
             if (listeningForRender)
             {
-                sm.stage.removeEventListener(Event.RENDER, callLaterDispatcher);
-                sm.stage.removeEventListener(Event.ENTER_FRAME, callLaterDispatcher);
+                sm.removeEventListener(FlexEvent.RENDER, callLaterDispatcher);
+                sm.removeEventListener(FlexEvent.ENTER_FRAME, callLaterDispatcher);
                 listeningForRender = false;
             }
         }
@@ -6271,8 +6324,9 @@ public class UIComponent extends FlexSprite
             var sm:ISystemManager = parent as ISystemManager;
             if (sm)
             {
-                if (sm == systemManager.topLevelSystemManager &&
-                    sm.document != this)
+            	// VERSION_SKEW
+                if (sm is SystemManagerProxy || (sm == systemManager.topLevelSystemManager &&
+                    sm.document != this))
                 {
                     // Size ourself to the new measured width/height
                     setActualSize(getExplicitOrMeasuredWidth(),
@@ -6623,6 +6677,8 @@ public class UIComponent extends FlexSprite
      */
     public function setActualSize(w:Number, h:Number):void
     {
+    	// trace("setActualSize: " + this + " width = " + w + " height = " + h);
+    	
         var changed:Boolean = false;
 
         if (_width != w)
@@ -6788,8 +6844,8 @@ public class UIComponent extends FlexSprite
      */
     public function setFocus():void
     {
-        var sm:ISystemManager = systemManager;
-        if (sm && sm.stage)
+        var sm:ISystemManager2 = ISystemManager2(systemManager);
+        if (sm && (sm.stage || SystemManager(sm).useBridge()))
         {
             if (UIComponentGlobals.callLaterDispatcherCount == 0)
             {
@@ -6799,7 +6855,7 @@ public class UIComponent extends FlexSprite
             else
             {
                 UIComponentGlobals.nextFocusObject = this;
-                sm.stage.addEventListener(Event.ENTER_FRAME, setFocusLater);
+                sm.addEventListener(FlexEvent.ENTER_FRAME, setFocusLater);
             }
         }
         else
@@ -6815,7 +6871,7 @@ public class UIComponent extends FlexSprite
      */
     mx_internal function getFocusObject():DisplayObject
     {
-        var fm:IFocusManager = focusManager;
+        var fm:IFocusManager2 = focusManager;
         
         if (!fm || !fm.focusPane)
             return null;
@@ -6927,7 +6983,7 @@ public class UIComponent extends FlexSprite
         if (isNaN(obj.width) || isNaN(obj.height))
             return;
 
-        var fm:IFocusManager = focusManager;
+        var fm:IFocusManager2 = focusManager;
         if (!fm)
             return; // we've been unparented so ignore
 
@@ -8545,12 +8601,14 @@ public class UIComponent extends FlexSprite
             return;
 
         // trace("  >>calllaterdispatcher2");
-        var sm:ISystemManager = systemManager;
-        if (sm && sm.stage && listeningForRender)
+        var sm:ISystemManager2 = ISystemManager2(systemManager);
+        
+        // TODODJL: stage is null for bridge applications
+        if (sm && (sm.stage || sm.useBridge()) && listeningForRender)
         {
             // trace("  removed");
-            sm.stage.removeEventListener(Event.RENDER, callLaterDispatcher);
-            sm.stage.removeEventListener(Event.ENTER_FRAME, callLaterDispatcher);
+            sm.removeEventListener(FlexEvent.RENDER, callLaterDispatcher);
+            sm.removeEventListener(FlexEvent.ENTER_FRAME, callLaterDispatcher);
             listeningForRender = false;
         }
 
@@ -8654,7 +8712,7 @@ public class UIComponent extends FlexSprite
     {
         if (isOurFocus(DisplayObject(event.target)))
         {
-            var fm:IFocusManager = focusManager;
+            var fm:IFocusManager2 = focusManager;
             if (fm && fm.showFocusIndicator)
                 drawFocus(true);
                 
@@ -8706,11 +8764,19 @@ public class UIComponent extends FlexSprite
         if (event.eventPhase != EventPhase.AT_TARGET)
             return;
 
-        if (parent is IContainer && IContainer(parent).creatingContentPane)
-        {
-            event.stopImmediatePropagation();
-            return;
-        }
+		try
+		{
+	        if (parent is IContainer && IContainer(parent).creatingContentPane)
+	        {
+	            event.stopImmediatePropagation();
+	            return;
+	        }
+  		}
+  		catch (error:SecurityError)
+  		{
+  			
+  		}
+  
     }
 
     /**
@@ -8722,11 +8788,18 @@ public class UIComponent extends FlexSprite
         if (event.eventPhase != EventPhase.AT_TARGET)
             return;
 
-        if (parent is IContainer && IContainer(parent).creatingContentPane)
-        {
-            event.stopImmediatePropagation();
-            return;
-        }
+		try
+		{
+	        if (parent is IContainer && IContainer(parent).creatingContentPane)
+	        {
+	            event.stopImmediatePropagation();
+	            return;
+	        }
+	    }
+  		catch (error:SecurityError)
+  		{
+  			
+  		}
         _systemManagerDirty = true;
     }
 
@@ -8917,14 +8990,23 @@ public class UIComponent extends FlexSprite
         if (childList.contains(child))
             return true;
 
-        while (child && child != this)
-        {
-            // do a parent walk
-            if (child is IUIComponent)
-                child = IUIComponent(child).owner;
-            else
-                child = child.parent;
-        }
+		try
+		{
+	        while (child && child != this)
+	        {
+	            // do a parent walk
+	            if (child is IUIComponent)
+	                child = IUIComponent(child).owner;
+	            else
+	                child = child.parent;
+	        }
+		}
+		catch (e:SecurityError)
+		{
+			// You can't own what you don't have access to.
+			return false;
+		}
+		
         return child == this;
     }
 
