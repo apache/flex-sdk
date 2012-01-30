@@ -16,7 +16,6 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 import flash.events.TimerEvent;
-import flash.system.ApplicationDomain;
 import flash.system.SecurityDomain;
 import flash.utils.Timer;
 import mx.core.IFlexModuleFactory;
