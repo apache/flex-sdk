@@ -1290,13 +1290,14 @@ public class FocusManager implements IFocusManager
                 var o:DisplayObject = DisplayObject(findFocusManagerComponent2(focusableCandidates[i]));     
                 if (o is IFocusManagerGroup)
                 {
-                    // look around to see if there's a selected member in the tabgroup
-                    // otherwise use the first one we found.
+                    // look around to see if there's an enabled and visible
+                    // selected member in the tabgroup, otherwise use the first
+                    // one we found.
                     var tg1:IFocusManagerGroup = IFocusManagerGroup(o);
                     for (var j:int = 0; j < focusableCandidates.length; j++)
                     {
                         var obj:DisplayObject = focusableCandidates[j];
-                        if (obj is IFocusManagerGroup)
+                        if (obj is IFocusManagerGroup && isEnabledAndVisible(obj))
                         {
                             var tg2:IFocusManagerGroup = IFocusManagerGroup(obj);
                             if (tg2.groupName == tg1.groupName && tg2.selected)
