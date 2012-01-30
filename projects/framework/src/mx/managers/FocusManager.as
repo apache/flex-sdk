@@ -724,8 +724,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             return;
         }
 
-        //trace("FocusManager activating = " + this._form.systemManager.loaderInfo.url);
-        //trace("FocusManager activating " + this);
+        // trace("FocusManager activating = " + this._form.systemManager.loaderInfo.url);
+        // trace("FocusManager activating " + this);
 
         // listen for focus changes, use weak references for the stage
 		// form.systemManager can be null if the form is created in a sandbox and 
@@ -761,7 +761,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         if (_lastFocus)
             setFocus(_lastFocus);
 
-		dispatchEvent(new Event(Event.ACTIVATE));
+		dispatchEvent(new Event("activateFM"));
 
     }
 
@@ -785,7 +785,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     public function deactivate():void
     {
         // trace("FocusManager deactivating " + this);
-        //trace("FocusManager deactivating = " + this._form.systemManager.loaderInfo.url);
+        // trace("FocusManager deactivating = " + this._form.systemManager.loaderInfo.url);
          
         // listen for focus changes
 		var sm:ISystemManager = form.systemManager;
@@ -816,7 +816,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 
         activated = false;
 
-		dispatchEvent(new Event(Event.DEACTIVATE));
+		dispatchEvent(new Event("deactivateFM"));
     }
 
     /**
@@ -918,7 +918,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
      */
     private function sortFocusableObjectsTabIndex():void
     {
-        //trace("FocusableObjectsTabIndex");
+        // trace("FocusableObjectsTabIndex");
         
         focusableCandidates = [];
         
@@ -1262,7 +1262,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             return;
 
 		var focusInfo:FocusInfo = getNextFocusManagerComponent2(event.shiftKey, fauxFocus);
-		// trace("winner = ", o);
+		// trace("winner = ", focusInfo.displayObject);
 
 		// If we are about to wrap focus around, send focus back to the parent.
 		if (!popup && (focusInfo.wrapped || !focusInfo.displayObject))
