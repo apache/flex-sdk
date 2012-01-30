@@ -413,18 +413,18 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
 
         // Rotate to keep aligned with StageOrientation.DEFAULT
         var rotation:Number = 0;
-        switch (stage.deviceOrientation)
+        switch (stage.orientation)
         {
             case StageOrientation.UNKNOWN:
             case StageOrientation.DEFAULT:
                 rotation = 0;
             break;
 
-            case StageOrientation.ROTATED_LEFT: 
+            case StageOrientation.ROTATED_RIGHT: 
                 rotation = Math.PI * 1.5; // 270
             break;
             
-            case StageOrientation.ROTATED_RIGHT: 
+            case StageOrientation.ROTATED_LEFT: 
                 rotation = Math.PI * 0.5; // 90
             break;
 
