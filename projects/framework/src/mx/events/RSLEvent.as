@@ -22,6 +22,11 @@ import flash.net.URLRequest;
  *
  *  @see mx.preloaders.DownloadProgressBar
  *  @see mx.preloaders.Preloader
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RSLEvent extends ProgressEvent
 {
@@ -63,6 +68,11 @@ public class RSLEvent extends ProgressEvent
 	 *  </table>
 	 *
      *  @eventType rslComplete
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const RSL_COMPLETE:String = "rslComplete";
 	
@@ -96,6 +106,11 @@ public class RSLEvent extends ProgressEvent
 	 *  </table>
 	 *
      *  @eventType rslError
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const RSL_ERROR:String = "rslError";
 
@@ -129,6 +144,11 @@ public class RSLEvent extends ProgressEvent
 	 *  </table>
 	 *
      *  @eventType rslProgress
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const RSL_PROGRESS:String = "rslProgress"; 
 	
@@ -165,6 +185,11 @@ public class RSLEvent extends ProgressEvent
 	 *  @param errorText The error message of the error when type is RSLEvent.RSL_ERROR.
 	 *
 	 *  @tiptext Constructor for <code>RSLEvent</code> objects.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function RSLEvent(type:String,  bubbles:Boolean = false,
 							 cancelable:Boolean = false,
@@ -192,6 +217,11 @@ public class RSLEvent extends ProgressEvent
 
 	/**
 	 *  The error message if the type is RSL_ERROR; otherwise, it is null;
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var errorText:String;
 	
@@ -202,6 +232,11 @@ public class RSLEvent extends ProgressEvent
 	/**
 	 *  The index number of the RSL currently being downloaded.
 	 *  This is a number between 0 and <code>rslTotal - 1</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var rslIndex:int;
 	
@@ -211,6 +246,11 @@ public class RSLEvent extends ProgressEvent
 
 	/**
 	 *  The total number of RSLs being downloaded by the preloader
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var rslTotal:int;
 	
@@ -221,6 +261,11 @@ public class RSLEvent extends ProgressEvent
 	/**
 	 *  The URLRequest object that represents the location
 	 *  of the RSL being downloaded.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var url:URLRequest;
 	
