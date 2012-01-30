@@ -1151,7 +1151,7 @@ public class UIComponent extends FlexSprite
     IDeferredInstantiationUIComponent, IFlexDisplayObject, IFlexModule, IID,
     IInvalidating, ILayoutManagerClient, IPropertyChangeNotifier,
     IRepeaterClient, IStateClient, IAdvancedStyleClient, IToolTipManagerClient,
-    IUIComponent, IValidatorListener, IVisualElement, ILayoutElement
+    IUIComponent, IValidatorListener, IVisualElement
 {
     include "../core/Version.as";
 
@@ -5082,7 +5082,14 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="General", defaultValue="true")]
 
     /**
-     *  @inheritDoc
+     *  Specifies whether this component is included in the layout of the
+     *  parent container.
+     *  If <code>true</code>, the object is included in its parent container's
+     *  layout and is sized and positioned by its parent container as per its layout rules.
+     *  If <code>false</code>, the object size and position are not affected by its parent container's
+     *  layout.
+     * 
+     *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
