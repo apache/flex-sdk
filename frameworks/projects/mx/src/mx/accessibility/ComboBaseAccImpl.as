@@ -209,18 +209,11 @@ public class ComboBaseAccImpl extends AccImpl
 	 */
 	override public function getChildIDArray():Array
 	{
-		var childIDs:Array = [];
-		
-		if (ComboBase(master).dataProvider)
-		{
-			var n:int = ComboBase(master).dataProvider.length;
-			for (var i:int = 0; i < n; i++)
-			{
-				childIDs[i] = i + 1;
-			}
-		}
-		
-		return childIDs;
+		var n:int = ComboBase(master).dataProvider ?
+					ComboBase(master).dataProvider.length :
+					0;
+
+		return createChildIDArray(n);
 	}
 
 	//--------------------------------------------------------------------------
