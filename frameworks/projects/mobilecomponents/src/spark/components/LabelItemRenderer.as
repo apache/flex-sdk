@@ -502,7 +502,13 @@ public class LabelItemRenderer extends UIComponent
             return;
         
         _itemIndex = value;
-        invalidateDisplayList();
+
+        // only invalidateDisplayList() if this causes use to redraw which
+        // is only if alternatingItemColors are defined (and technically also
+        // only if we are not selected or down, etc..., but we'll ignore those
+        // as this will shortcut 95% of the time anyways)
+		if (getStyle("alternatingItemColors") !== undefined)
+			invalidateDisplayList();
     }
     
     //----------------------------------
