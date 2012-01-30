@@ -141,25 +141,35 @@ public class ParallelInstance extends CompositeEffectInstance
      *  @productversion Flex 3
      */
     override public function set playheadTime(value:Number):void
-    {
-        var totalDur:Number = Parallel(effect).compositeDuration;
-        var firstCycleDur:Number = totalDur + startDelay + repeatDelay;
-        var laterCycleDur:Number = totalDur + repeatDelay;
+    {        
+        // This will seek in the Parallel's instance
+        super.playheadTime = value;
+
+        var compositeDur:Number = Parallel(effect).compositeDuration;
+        var firstCycleDur:Number = compositeDur + startDelay + repeatDelay;
+        var laterCycleDur:Number = compositeDur + repeatDelay;
+        // totalDur is only sensible/used when repeatCount != 0
+        var totalDur:Number = firstCycleDur + laterCycleDur * (repeatCount - 1);
         var childPlayheadTime:Number;
         if (value <= firstCycleDur) {
-            childPlayheadTime = Math.min(value - startDelay, totalDur);
+            childPlayheadTime = Math.min(value - startDelay, compositeDur);
             playCount = 1;
         }
         else
         {
-            var valueAfterFirstCycle:Number = value - firstCycleDur;
-            childPlayheadTime = valueAfterFirstCycle % laterCycleDur;
-            childPlayheadTime = Math.min(childPlayheadTime, totalDur);
-            playCount = 1 + valueAfterFirstCycle / laterCycleDur;
+            if (value >= totalDur && repeatCount != 0)
+            {
+                childPlayheadTime = compositeDur;
+                playCount = repeatCount;
+            }
+            else
+            {
+                var valueAfterFirstCycle:Number = value - firstCycleDur;
+                childPlayheadTime = Math.min(childPlayheadTime, compositeDur);
+                childPlayheadTime = valueAfterFirstCycle % laterCycleDur;
+                playCount = 1 + valueAfterFirstCycle / laterCycleDur;
+            }
         }
-        
-        // This will seek in the Parallel's instance
-        super.playheadTime = childPlayheadTime;
 
         // Tell all of our children to set their playheadTime
         for (var i:int = 0; i < childSets.length; i++)
@@ -274,11 +284,14 @@ public class ParallelInstance extends CompositeEffectInstance
 		super.pause();
 		
 		// Pause every currently playing effect instance.
-		var n:int = activeEffectQueue.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			activeEffectQueue[i].pause();
-		}
+        if (activeEffectQueue)
+        {
+    		var n:int = activeEffectQueue.length;
+    		for (var i:int = 0; i < n; i++)
+    		{
+    			activeEffectQueue[i].pause();
+    		}
+        }
 	}
 
 	/**
@@ -311,11 +324,14 @@ public class ParallelInstance extends CompositeEffectInstance
 		super.resume();
 	
 		// Resume every currently playing effect instance.
-		var n:int = activeEffectQueue.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			activeEffectQueue[i].resume();
-		}
+        if (activeEffectQueue)
+        {
+    		var n:int = activeEffectQueue.length;
+    		for (var i:int = 0; i < n; i++)
+    		{
+    			activeEffectQueue[i].resume();
+    		}
+        }
 	}
 		
 	/**
