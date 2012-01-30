@@ -696,6 +696,44 @@ use namespace mx_internal;
 [Event(name="exitState", type="mx.events.FlexEvent")]
 
 //--------------------------------------
+//  TouchScroll events
+//--------------------------------------
+
+/**
+ *  A cancellable event, dispatched just before a touch scroll
+ *  user gesture is about to take place.
+ * 
+ *  <p>The event is a bubbling event dispatched by the 
+ *  Scroller on the DisplayObject that the user gesture 
+ *  started on (where the mouseDown/touchBegin occurred).</p>
+ *
+ *  @eventType mx.events.TouchScrollEvent.TOUCH_SCROLL_STARTING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="touchScrollStarting", type="mx.events.TouchScrollEvent")]
+
+/**
+ *  A non-cancellable event, dispatched when touch scroll
+ *  user gesture is about to take place.
+ * 
+ *  <p>The event is a bubbling event dispatched by the 
+ *  Scroller on the DisplayObject that the user gesture 
+ *  started on (where the mouseDown/touchBegin occurred).</p>
+ *
+ *  @eventType mx.events.TouchScrollEvent.TOUCH_SCROLL_START
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="touchScrollStart", type="mx.events.TouchScrollEvent")]
+
+//--------------------------------------
 //  Tooltip events
 //--------------------------------------
 
