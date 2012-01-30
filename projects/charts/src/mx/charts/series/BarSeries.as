@@ -266,24 +266,24 @@ public class BarSeries extends Series implements IStackable2, IBar
         
         dataTransform = new CartesianTransform();
     }
-	
-	private function getLabelClass():Class
-	{
-		var labelClass:Class = getStyle("labelClass");
-		if(labelClass == null)
-		{
-			try{
-				labelClass = Class(ApplicationDomain.currentDomain.
-					getDefinition("spark.components::Label"));
-			}
-			catch(e:Error)
-			{
-				labelClass = Class(ApplicationDomain.currentDomain.
-					getDefinition("mx.controls::Label"));
-			}
-		}
-		return labelClass;
-	}
+    
+    private function getLabelClass():Class
+    {
+        var labelClass:Class = getStyle("labelClass");
+        if(labelClass == null)
+        {
+            try{
+                labelClass = Class(ApplicationDomain.currentDomain.
+                    getDefinition("spark.components::Label"));
+            }
+            catch(e:Error)
+            {
+                labelClass = Class(ApplicationDomain.currentDomain.
+                    getDefinition("mx.controls::Label"));
+            }
+        }
+        return labelClass;
+    }
 
     
     //--------------------------------------------------------------------------
@@ -292,12 +292,12 @@ public class BarSeries extends Series implements IStackable2, IBar
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false;
-	
-	
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false;
+    
+    
     /**
      *  @private
      */
@@ -570,7 +570,7 @@ public class BarSeries extends Series implements IStackable2, IBar
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function get fillFunction():Function
+    public function get fillFunction():Function
     {
         return _fillFunction;
     }
@@ -1047,49 +1047,49 @@ public class BarSeries extends Series implements IStackable2, IBar
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var barSeriesStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.series.BarSeries", styleManager);   
-		
-		barSeriesStyle.defaultFactory = function():void
-		{
-			this.fill = new SolidColor(0);
-			this.fills = [];
-			this.itemRenderer = new ClassFactory(BoxItemRenderer);
-			this.stroke = HaloDefaults.emptyStroke;
-			this.labelSizeLimit = 9;
-		}
-		
-		return true;
-	}
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
-	
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var barSeriesStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.series.BarSeries", styleManager);   
+        
+        barSeriesStyle.defaultFactory = function():void
+        {
+            this.fill = new SolidColor(0);
+            this.fills = [];
+            this.itemRenderer = new ClassFactory(BoxItemRenderer);
+            this.stroke = HaloDefaults.emptyStroke;
+            this.labelSizeLimit = 9;
+        }
+        
+        return true;
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
+    
     /**
      *  @inheritDoc
      *  
@@ -1139,6 +1139,14 @@ public class BarSeries extends Series implements IStackable2, IBar
         dataTransform.elements = [this];
     }
     
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
     override protected function createChildren():void
     {
         super.createChildren();
@@ -1295,9 +1303,9 @@ public class BarSeries extends Series implements IStackable2, IBar
         {
             _localFills = getStyle('fills');
             if (_localFills != null)
-        		_fillCount = _localFills.length;
-        	else
-        		_fillCount = 0;                
+                _fillCount = _localFills.length;
+            else
+                _fillCount = 0;                
             invalidateDisplayList();
             legendDataChanged();
         }
@@ -1665,12 +1673,12 @@ public class BarSeries extends Series implements IStackable2, IBar
                     yValue = (haveYField)? dataItem[_yField]:i;
                 }
                 if(dataTransform && dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is NumericAxis &&
-        			(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")  
-                	xValue = -xValue;
+                    (dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")  
+                    xValue = -xValue;
                 if (yValue == null)  
                 {
-                	i++;
-                	cursor.moveNext();  
+                    i++;
+                    cursor.moveNext();  
                     continue;
                 }
                 // accessing a property on an XML node always returns a new XMLList. Which means
@@ -1689,13 +1697,13 @@ public class BarSeries extends Series implements IStackable2, IBar
                 }
                 if (xValue == 0)
                 {
-                	chartItem.xValue = 0;
-                	chartItem.minValue = 0;
+                    chartItem.xValue = 0;
+                    chartItem.minValue = 0;
                 }
                 else
                 {
-                	chartItem.xValue = xValue + stackedValue;
-                	chartItem.minValue = stackedValue;
+                    chartItem.xValue = xValue + stackedValue;
+                    chartItem.minValue = stackedValue;
                 }
                 xValue += stackedValue;
                 stackedYValueDictionary[yValue] = xValue;
@@ -1780,12 +1788,12 @@ public class BarSeries extends Series implements IStackable2, IBar
                     yValue = (haveYField)? dataItem[_yField]:i;
                 }
                 if(dataTransform && dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is NumericAxis &&
-        			(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")  
-                	xValue = -xValue;
+                    (dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")  
+                    xValue = -xValue;
                 if (yValue == null)  
                 {
-                	i++;
-                	cursor.moveNext();  
+                    i++;
+                    cursor.moveNext();  
                     continue;
                 }
                 // accessing a property on an XML node always returns a new XMLList. Which means
@@ -1808,13 +1816,13 @@ public class BarSeries extends Series implements IStackable2, IBar
                 }
                 if (xValue == 0)
                 {
-                	chartItem.xValue = 0;
-                	chartItem.minValue = 0;
+                    chartItem.xValue = 0;
+                    chartItem.minValue = 0;
                 }
                 else
                 {
-                	chartItem.xValue = xValue + stackedValue;
-                	chartItem.minValue = stackedValue;
+                    chartItem.xValue = xValue + stackedValue;
+                    chartItem.minValue = stackedValue;
                 }
                 xValue += stackedValue;
                 //chartItem.minValue = stackedValue;
@@ -1942,13 +1950,13 @@ public class BarSeries extends Series implements IStackable2, IBar
         }
         
         if(dataTransform && dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is NumericAxis &&
-			!(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is DateTimeAxis) && 
-        	(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")  
-        	_renderData.cache = reverseYValues(_renderData.cache);
+            !(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is DateTimeAxis) && 
+            (dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")  
+            _renderData.cache = reverseYValues(_renderData.cache);
         if(dataTransform && dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is NumericAxis &&
-        	!(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is DateTimeAxis) &&
-        	(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")  
-        	_renderData.cache = reverseXValues(_renderData.cache);
+            !(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is DateTimeAxis) &&
+            (dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")  
+            _renderData.cache = reverseXValues(_renderData.cache);
         super.updateData();
     }
 
@@ -1990,9 +1998,9 @@ public class BarSeries extends Series implements IStackable2, IBar
      */
     override protected function updateTransform():void
     {
-    	var n:int;
-    	var i:int;
-    	
+        var n:int;
+        var i:int;
+        
         if (_minField != "" || _stacked)        
         {   
             dataTransform.transformCache(
@@ -2028,12 +2036,12 @@ public class BarSeries extends Series implements IStackable2, IBar
         if (!isNaN(_maxBarWidth) && (_maxBarWidth <= 0 || _barWidthRatio <= 0))
             return;
         
-		if(params[1].y > params[0].y)	//direction is reverse for Y-axis
-		{
-			params[0].y = - (params[0].y);
-			params[1].y = - (params[1].y);
-			params[2].y = - (params[2].y);
-		}    
+        if(params[1].y > params[0].y)   //direction is reverse for Y-axis
+        {
+            params[0].y = - (params[0].y);
+            params[1].y = - (params[1].y);
+            params[2].y = - (params[2].y);
+        }    
         _renderData.renderedHalfWidth = params[0].y -  params[1].y;
         
         if (_offset == 0)
@@ -2081,9 +2089,9 @@ public class BarSeries extends Series implements IStackable2, IBar
     {
         _localFills = getStyle('fills');
         if (_localFills != null)
-        	_fillCount = _localFills.length;
+            _fillCount = _localFills.length;
         else
-        	_fillCount = 0;
+            _fillCount = 0;
         labelPos = getStyle('labelPosition');
         if (labelPos == "none")
             labelPos = "";
@@ -2253,8 +2261,8 @@ public class BarSeries extends Series implements IStackable2, IBar
      */ 
     override protected function defaultFilterFunction(cache:Array /*of BarSeriesItem */ ):Array /*of BarSeriesItem*/
     {
-    	var filteredCache:Array /*of BarSeriesItem*/ = [];	
-    	if (filterDataValues == "outsideRange")
+        var filteredCache:Array /*of BarSeriesItem*/ = [];  
+        if (filterDataValues == "outsideRange")
         {
             filteredCache = cache.concat();
             
@@ -2432,20 +2440,20 @@ public class BarSeries extends Series implements IStackable2, IBar
         labelCache.count = n;             
         var labels:Array /* of Label */ = labelCache.instances;
         var dataTransform:CartesianTransform=CartesianTransform(dataTransform);
-		
-		var sparkLabelClass:Class;
-		try
-		{
-			if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
-			{
-				sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
-			}
-		}
-		catch(e:Error)
-		{
-			// We need not do any thing here because we came here for projects which do not have spark.swc
-			// It might be an MX-only or in compatible mode and hence using MX Label
-		}
+        
+        var sparkLabelClass:Class;
+        try
+        {
+            if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
+            {
+                sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
+            }
+        }
+        catch(e:Error)
+        {
+            // We need not do any thing here because we came here for projects which do not have spark.swc
+            // It might be an MX-only or in compatible mode and hence using MX Label
+        }
         var label:Object;
         var align:String = getStyle('labelAlign');
         var size:Number = getStyle('fontSize');
@@ -2459,11 +2467,11 @@ public class BarSeries extends Series implements IStackable2, IBar
             label.width=v.labelWidth;
             label.height=v.labelHeight;
             label.setStyle('fontSize',size * renderData.labelScale);
-			if(sparkLabelClass && labels[i] is sparkLabelClass)
-			{
-				label.setStyle("paddingTop", 5);
-				label.setStyle("paddingLeft", 3);
-			}
+            if(sparkLabelClass && labels[i] is sparkLabelClass)
+            {
+                label.setStyle("paddingTop", 5);
+                label.setStyle("paddingLeft", 3);
+            }
             if (align == 'left')
             {
                 if (v.x > (isNaN(v.min) ? renderData.renderedBase : v.min))
@@ -2502,11 +2510,11 @@ public class BarSeries extends Series implements IStackable2, IBar
         labelCache.count = n;             
         var labels:Array /* of Label */ = labelCache.instances;
         var label:Object;
-		var sparkLabelClass:Class;
-		if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
-		{
-			sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
-		}
+        var sparkLabelClass:Class;
+        if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
+        {
+            sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
+        }
         var rotation:Number = getStyle('labelRotation');        
         var size:Number = getStyle('fontSize');
         for (var i:int = 0; i < n; i++)
@@ -2519,19 +2527,19 @@ public class BarSeries extends Series implements IStackable2, IBar
             label.height=v.labelHeight;
             label.text=v.labelText;
             label.setStyle('fontSize',size * renderData.labelScale);
-			if(sparkLabelClass && labels[i] is sparkLabelClass)
-			{
-				label.setStyle("paddingTop", 5);
-				label.setStyle("paddingLeft", 2);
-			}
-            if (v.x > (isNaN(v.min) ? renderData.renderedBase : v.min))	// If on positive side of axis
-			{
-				if(chart && chart.layoutDirection == LayoutDirection.RTL)	//Align labels to right in rtl layout
-					label.setStyle('textAlign','right');
-				else
-                	label.setStyle('textAlign','left');
-			}
-            else if (v.x < (isNaN(v.min) ? renderData.renderedBase : v.min))	//on negative side of axis
+            if(sparkLabelClass && labels[i] is sparkLabelClass)
+            {
+                label.setStyle("paddingTop", 5);
+                label.setStyle("paddingLeft", 2);
+            }
+            if (v.x > (isNaN(v.min) ? renderData.renderedBase : v.min)) // If on positive side of axis
+            {
+                if(chart && chart.layoutDirection == LayoutDirection.RTL)   //Align labels to right in rtl layout
+                    label.setStyle('textAlign','right');
+                else
+                    label.setStyle('textAlign','left');
+            }
+            else if (v.x < (isNaN(v.min) ? renderData.renderedBase : v.min))    //on negative side of axis
             {
                 if (!isNaN(rotation) && rotation!=0 && measuringField.embedFonts)
                 {
@@ -2540,10 +2548,10 @@ public class BarSeries extends Series implements IStackable2, IBar
                 }
                 else
                 {
-					if(chart && chart.layoutDirection == LayoutDirection.RTL)	//Align labels to left in rtl layout
-						label.setStyle('textAlign','left');
-					else
-						label.setStyle('textAlign','right');
+                    if(chart && chart.layoutDirection == LayoutDirection.RTL)   //Align labels to left in rtl layout
+                        label.setStyle('textAlign','left');
+                    else
+                        label.setStyle('textAlign','right');
                     label.rotation = 0;
                 }   
             }
@@ -2555,26 +2563,26 @@ public class BarSeries extends Series implements IStackable2, IBar
     
     private function reverseXValues(cache:Array):Array
     {
-    	var i:int = 0;
+        var i:int = 0;
         var n:int = cache.length;
         for(i = 0; i < n ; i++)
         {
-        	cache[i]["xValue"] = -(cache[i]["xValue"]);
-        	if(_minField != "")
-        		cache[i]["minValue"] = -(cache[i]["minValue"]);
+            cache[i]["xValue"] = -(cache[i]["xValue"]);
+            if(_minField != "")
+                cache[i]["minValue"] = -(cache[i]["minValue"]);
         }  
-    	return cache;
+        return cache;
     }
     
     private function reverseYValues(cache:Array):Array
     {
-    	var i:int = 0;
+        var i:int = 0;
         var n:int = cache.length;
         for(i = 0; i < n ; i++)
         {
-        	cache[i]["yValue"] = -(cache[i]["yValue"]);
+            cache[i]["yValue"] = -(cache[i]["yValue"]);
         }  
-    	return cache;
+        return cache;
     }
 }
 
