@@ -14,36 +14,33 @@ package mx.utils
     import flash.events.Event;
     import flash.events.EventDispatcher;
 
-    /**
-     * OnDemandEventDispatcher serves as a base class for classes that dispatch events but expect listeners
-     * to be infrequent.  When a class extends OnDemandEventDispatcher instead of the standard EventDispatcher,
-     * it is trading off a small overhead on every single instance for a slightly larger overhead on only the instances
-     * that actually have listeners attached to them.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
+	/**
+	 * OnDemandEventDispatcher serves as a base class for classes that dispatch events but expect listeners
+	 * to be infrequent.  When a class extends OnDemandEventDispatcher instead of the standard EventDispatcher,
+	 * it is trading off a small overhead on every single instance for a slightly larger overhead on only the instances
+	 * that actually have listeners attached to them.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
     public class OnDemandEventDispatcher implements IEventDispatcher
     {
         private var _dispatcher:EventDispatcher;
     
 
-    //--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
     //
     //  Constructor
     //
     //--------------------------------------------------------------------------
-        /**
-         * Constructor.
-         */
         public function OnDemandEventDispatcher()
         {
         }
 
     /**
-     *  @inheritDoc
+     *  @copy flash.events.EventDispatcher#addEventListener
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -61,7 +58,7 @@ package mx.utils
         
             
     /**
-     *  @inheritDoc
+     *  @copy flash.events.EventDispatcher#dispatchEvent
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -76,7 +73,7 @@ package mx.utils
         }
     
     /**
-     *  @inheritDoc
+     *  @copy flash.events.EventDispatcher#hasEventListener
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -91,7 +88,7 @@ package mx.utils
         }
             
     /**
-     *  @inheritDoc
+     *  @copy flash.events.EventDispatcher#removeEventListener
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -105,7 +102,7 @@ package mx.utils
         }
     
     /**
-     *  @inheritDoc
+     *  @copy flash.events.EventDispatcher#willTrigger
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
