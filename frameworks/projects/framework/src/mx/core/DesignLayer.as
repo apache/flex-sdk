@@ -131,6 +131,9 @@ package mx.core
          */
         protected function parentChanged(value:DesignLayer):void
         {
+            if (_parent)
+                _parent.removeLayer(this);
+            
             _parent = value;
             effectiveVisibilityChanged(_visible);
             effectiveAlphaChanged(_alpha);
