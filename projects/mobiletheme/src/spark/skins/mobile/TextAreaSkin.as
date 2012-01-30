@@ -40,6 +40,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
      private static const HORIZONTAL_PADDING:int = 8;
      private static const VERTICAL_PADDING:int = 12;
      private static const TEXT_HEIGHT_PADDING:int = 6;
+     private static const CORNER_ELLIPSE_SIZE:uint = 16;
      
      //--------------------------------------------------------------------------
      //
@@ -121,7 +122,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
         // Draw the contentBackgroundColor
         graphics.clear();
         graphics.beginFill(getStyle("contentBackgroundColor"), getStyle("contentBackgroundAlpha"));
-    	graphics.drawRoundRect(2, 2, unscaledWidth - 4, unscaledHeight - 4, 4, 4);
+    	graphics.drawRoundRect(1, 1, unscaledWidth - 2, unscaledHeight - 2, CORNER_ELLIPSE_SIZE, CORNER_ELLIPSE_SIZE);
         graphics.endFill();
 
         // position & size border
