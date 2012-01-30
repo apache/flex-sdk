@@ -1499,7 +1499,12 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         isContentLoaded = false;
         brokenImage = false;
         useUnloadAndStop = false;
-
+        
+        // Prevent double loading an app when properties are set and
+        // then load() is called directly from application code instead
+        // of from commitProperties().
+        contentChanged = false;
+        
         if (!_source || _source == "")
             return;
 
