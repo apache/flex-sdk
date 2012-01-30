@@ -73,8 +73,11 @@ public class ButtonBarButtonClassFactory extends ClassFactory
         }
         
         if (instance is SkinnableComponent && _skinClass)
+		{
             SkinnableComponent(instance).setStyle("skinClass", _skinClass);
-        
+			SkinnableComponent(instance).setStyle("focusSkin", null);
+		}
+		
         return instance;
     }
 }
