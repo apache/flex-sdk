@@ -14,6 +14,7 @@ package spark.components
 import mx.core.IFactory;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.utils.BitFlagUtil;
 
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
@@ -82,6 +83,22 @@ public class CalloutButton extends SkinnableContainer
     
     //--------------------------------------------------------------------------
     //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    mx_internal static const HORIZONTAL_POSITION_PROPERTY_FLAG:uint = 1 << 0;
+    
+    /**
+     *  @private
+     */
+    mx_internal static const VERTICAL_POSITION_PROPERTY_FLAG:uint = 1 << 1;
+    
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -132,26 +149,34 @@ public class CalloutButton extends SkinnableContainer
     //
     //--------------------------------------------------------------------------
     
-    // TODO (jasonsj): proxy for Callout properties
-    mx_internal var calloutProperties:Object = {};
-    
     /**
      *  @private
-     *  TODO (jasonsj): write description
+     *  Several properties are proxied to callout.  However, when callout
+     *  is not around, we need to store values set on CalloutButton.  This object 
+     *  stores those values.  If callout is around, the values are stored 
+     *  on the callout directly.  However, we need to know what values 
+     *  have been set by the developer on the CalloutButton (versus set on 
+     *  the controlBarGroup or defaults of the controlBarGroup) as those are values 
+     *  we want to carry around if the controlBarGroup changes (via a new skin). 
+     *  In order to store this info effeciently, calloutProperties becomes 
+     *  a uint to store a series of BitFlags.  These bits represent whether a 
+     *  property has been explicitely set on this CalloutButton.  When the 
+     *  callout is not around, calloutProperties is a typeless 
+     *  object to store these proxied properties.  When callout is around,
+     *  calloutProperties stores booleans as to whether these properties 
+     *  have been explicitely set or not.
      */
-    private var currentDropDown:Callout;
+    mx_internal var calloutProperties:Object = {};
     
     //--------------------------------------------------------------------------
     //
-    //  Properties
+    //  Properties proxied to callout
     //
     //--------------------------------------------------------------------------
     
     //----------------------------------
     //  horizontalPosition
     //----------------------------------
-    
-    private var _horizontalPosition:String = CalloutPosition.AUTO;
     
     [Inspectable(category="General", enumeration="before,start,middle,end,after,auto", defaultValue="auto")]
     
@@ -160,11 +185,10 @@ public class CalloutButton extends SkinnableContainer
      */
     public function get horizontalPosition():String
     {
-        // TODO 
-        if (currentDropDown)
-            return currentDropDown.horizontalPosition;
+        if (callout)
+            return callout.horizontalPosition;
         
-        return _horizontalPosition;
+        return calloutProperties.horizontalPosition;
     }
     
     /**
@@ -172,20 +196,19 @@ public class CalloutButton extends SkinnableContainer
      */
     public function set horizontalPosition(value:String):void
     {
-        if (value == _horizontalPosition)
-            return;
-        
-        _horizontalPosition = value;
-        
-        if (currentDropDown)
-            currentDropDown.horizontalPosition = horizontalPosition;
+        if (callout)
+        {
+            callout.horizontalPosition = value;
+            calloutProperties = BitFlagUtil.update(calloutProperties as uint, 
+                HORIZONTAL_POSITION_PROPERTY_FLAG, value != null);
+        }
+        else
+            calloutProperties.horizontalPosition = value;
     }
     
     //----------------------------------
     //  verticalPosition
     //----------------------------------
-    
-    private var _verticalPosition:String = CalloutPosition.AUTO;
     
     [Inspectable(category="General", enumeration="before,start,middle,end,after,auto", defaultValue="auto")]
     
@@ -194,10 +217,10 @@ public class CalloutButton extends SkinnableContainer
      */
     public function get verticalPosition():String
     {
-        if (currentDropDown)
-            return currentDropDown.verticalPosition;
+        if (callout)
+            return callout.verticalPosition;
         
-        return _verticalPosition;
+        return calloutProperties.verticalPosition;
     }
     
     /**
@@ -205,13 +228,63 @@ public class CalloutButton extends SkinnableContainer
      */
     public function set verticalPosition(value:String):void
     {
-        if (value == _verticalPosition)
+        if (callout)
+        {
+            callout.verticalPosition = value;
+            calloutProperties = BitFlagUtil.update(calloutProperties as uint, 
+                VERTICAL_POSITION_PROPERTY_FLAG, value != null);
+        }
+        else
+            calloutProperties.verticalPosition = value;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  callout
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _callout:Callout;
+    
+    /**
+     *  TODO (jasonsj): PARB
+     */
+    mx_internal function get callout():Callout
+    {
+        return _callout;
+    }
+    
+    /**
+     *  TODO (jasonsj): PARB
+     * 
+     *  Allow users to set their own Callout instead of the one defined by the
+     *  skin. This allows properties and styles to be set in MXML instead of
+     *  either passthrough styles in CalloutButton or CSS styles. 
+     * 
+     *  The getter allows direct access to the callout. Unlike DropDownList,
+     *  CalloutButton's dropDown skin part is a class factory and not the
+     *  Callout instance.
+     */
+    mx_internal function set callout(value:Callout):void
+    {
+        if (_callout == value)
             return;
         
-        _verticalPosition = value;
+        if (_callout && _callout.isOpen)
+        {
+            // TODO (jasonsj): cleanup?
+            _callout.close();
+        }
         
-        if (currentDropDown)
-            currentDropDown.verticalPosition = verticalPosition;
+        // FIXME (jasonsj): re-init
+        _callout = value;
     }
     
     //----------------------------------
@@ -254,8 +327,8 @@ public class CalloutButton extends SkinnableContainer
         
         if (openButton)
             _dropDownController.openButton = openButton;
-        if (currentDropDown)
-            _dropDownController.dropDown = currentDropDown;    
+        if (callout)
+            _dropDownController.dropDown = callout;    
     }
     
     //----------------------------------
@@ -272,6 +345,10 @@ public class CalloutButton extends SkinnableContainer
         else
             return false;
     }
+    
+    //----------------------------------
+    //  label
+    //----------------------------------
     
     private var _label:String = "";
     
@@ -320,6 +397,44 @@ public class CalloutButton extends SkinnableContainer
             if (dropDownController)
                 dropDownController.openButton = openButton;
         }
+        else if (partName == "dropDown")
+        {
+            // copy proxied values from calloutProperties (if set) to callout
+            var newCalloutProperties:uint = 0;
+            var calloutInstance:Callout = instance as Callout;
+            
+            if (calloutInstance && dropDownController)
+            {
+                calloutInstance.id = "callout";
+                dropDownController.dropDown = calloutInstance;
+                
+//                calloutInstance.addEventListener(FlexEvent.CREATION_COMPLETE, callout_creationCompleteHandler);
+                calloutInstance.addEventListener(PopUpEvent.OPEN, callout_openHandler);
+                calloutInstance.addEventListener(PopUpEvent.CLOSE, callout_closeHandler);
+                
+                if (calloutProperties.horizontalPosition !== undefined)
+                {
+                    calloutInstance.horizontalPosition = calloutProperties.horizontalPosition;
+                    newCalloutProperties = BitFlagUtil.update(newCalloutProperties, 
+                        HORIZONTAL_POSITION_PROPERTY_FLAG, true);
+                }
+                
+                if (calloutProperties.verticalPosition !== undefined)
+                {
+                    calloutInstance.verticalPosition = calloutProperties.verticalPosition;
+                    newCalloutProperties = BitFlagUtil.update(newCalloutProperties, 
+                        VERTICAL_POSITION_PROPERTY_FLAG, true);
+                }
+                
+                calloutProperties = newCalloutProperties;
+                
+                // FIXME (jasonsj): find a correct way to initialize the contentGroup
+                if (layout)
+                    calloutInstance.layout = layout;
+                
+                calloutInstance.mxmlContent = currentContentGroup.getMXMLContent();
+            }
+        }
     }
     
     /**
@@ -332,9 +447,31 @@ public class CalloutButton extends SkinnableContainer
             if (instance == openButton)
                 dropDownController.openButton = null;
             
-            if (instance == dropDown)
+            if (instance == callout)
                 dropDownController.dropDown = null;
         }
+        
+        // TODO (jasonsj): destroy option?
+//        if (instance == callout)
+//        {
+//            callout.removeEventListener(FlexEvent.CREATION_COMPLETE, callout_creationCompleteHandler);
+//            callout.removeEventListener(PopUpEvent.OPEN, callout_openHandler);
+//            callout.removeEventListener(PopUpEvent.CLOSE, callout_closeHandler);
+//            
+//            // copy proxied values from callout (if explicitely set) to calloutProperties
+//            var newCalloutProperties:Object = {};
+//            
+//            if (BitFlagUtil.isSet(calloutProperties as uint, HORIZONTAL_POSITION_PROPERTY_FLAG))
+//                newCalloutProperties.calloutProperties = callout.horizontalPosition;
+//            
+//            if (BitFlagUtil.isSet(calloutProperties as uint, VERTICAL_POSITION_PROPERTY_FLAG))
+//                newCalloutProperties.verticalPosition = callout.verticalPosition;
+//            
+//            calloutProperties = newCalloutProperties;
+//            
+//            super.partRemoved("contentGroup", callout.contentGroup);
+//            contentGroup = null;
+//        }
         
         super.partRemoved(partName, instance);
     }
@@ -384,26 +521,12 @@ public class CalloutButton extends SkinnableContainer
      */
     mx_internal function dropDownController_openHandler(event:DropDownEvent):void
     {
-        if (!currentDropDown)
-        {
-            currentDropDown = Callout(dropDown.newInstance());
-            dropDownController.dropDown = currentDropDown;
-            
-            currentDropDown.addEventListener(PopUpEvent.OPEN, open_updateCompleteHandler);
-            currentDropDown.addEventListener(PopUpEvent.CLOSE, close_updateCompleteHandler);
-            
-            // TODO (jasonsj): read proxied properties
-            if (layout)
-                currentDropDown.layout = layout;
-            
-            currentDropDown.mxmlContent = currentContentGroup.getMXMLContent();
-        }
+        // TODO (jasonsj): destroy?
+        if (!callout)
+            callout = createDynamicPartInstance("dropDown") as Callout;
         
-        // TODO (jasonsj): read proxied properties
-        currentDropDown.horizontalPosition = _horizontalPosition;
-        currentDropDown.verticalPosition = _verticalPosition;
-        
-        currentDropDown.open(openButton, false);
+        if (callout)
+            callout.open(this, false);
     }
     
     /**
@@ -413,34 +536,35 @@ public class CalloutButton extends SkinnableContainer
      */
     mx_internal function dropDownController_closeHandler(event:DropDownEvent):void
     {
-        dispatchEvent(new DropDownEvent(DropDownEvent.CLOSE));
-        
         // TODO (jasonsj): close params?
-        currentDropDown.close();
+        // dispatch the close event after the callout's PopUpEvent.CLOSE fires
+        callout.close();
         
-        // TODO (jasonsj): destroy and save properties in proxy Object?
+        // TODO (jasonsj): destroy option?
+//        removeDynamicPartInstance("dropDown", callout);
+//        callout = null;
     }
+    
+//    private function callout_creationCompleteHandler(event:FlexEvent):void
+//    {
+//        // initialize contentGroup skin part
+//        contentGroup = callout.contentGroup;
+//        partAdded("contentGroup", callout.contentGroup);
+//    }
     
     /**
      *  @private
      */
-    private function open_updateCompleteHandler(event:PopUpEvent):void
-    {   
-        currentDropDown.removeEventListener(PopUpEvent.OPEN, open_updateCompleteHandler);
-        
-        // FIXME (jasonsj): how to initialze pop-up contentGroup as a skin part in partAdded()?
-        contentGroup = currentDropDown.contentGroup;
-        
+    private function callout_openHandler(event:PopUpEvent):void
+    {
         dispatchEvent(new DropDownEvent(DropDownEvent.OPEN));
     }
     
     /**
      *  @private
      */
-    private function close_updateCompleteHandler(event:PopUpEvent):void
+    private function callout_closeHandler(event:PopUpEvent):void
     {   
-        currentDropDown.removeEventListener(PopUpEvent.CLOSE, open_updateCompleteHandler);
-        
         dispatchEvent(new DropDownEvent(DropDownEvent.CLOSE));
     }
 }
