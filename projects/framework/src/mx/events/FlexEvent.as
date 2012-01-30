@@ -62,6 +62,36 @@ public class FlexEvent extends Event
     public static const ADD:String = "add";
 
     /**
+     *  The <code>FlexEvent.ADD_FOCUS_MANAGER</code> constant defines the value of the
+     *  <code>type</code> property of the event object for an <code>addFocusManager</code> event.
+     *  This event is dispatched from an IFocusManagerContainer when its focusManager
+     *  is assigned.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType addFocusManager
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const ADD_FOCUS_MANAGER:String = "addFocusManager";
+
+    /**
      *  The <code>FlexEvent.APPLICATION_COMPLETE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>applicationComplete</code> event.
      *
@@ -359,6 +389,74 @@ public class FlexEvent extends Event
      *  @productversion Flex 3
      */
     public static const EXIT_STATE:String = "exitState";
+
+    /**
+     *  The <code>FlexEvent.FLEX_WINDOW_ACTIVATE</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>flexWindowActivate</code>
+     *  event.
+     *
+     *  Similar to the flash.events.AIREvent.WINDOW_ACTIVATE except it is dispatched
+     *  in both Flash and AIR when a Flex window or popup is activated.  This event is
+     *  dispatched from the focusManager managing
+     *  focus in that container.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType flexWindowActivate
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const FLEX_WINDOW_ACTIVATE:String = "flexWindowActivate";
+
+    /**
+     *  The <code>FlexEvent.FLEX_WINDOW_DEACTIVATE</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>flexWindowDeactivate</code>
+     *  event.
+     *
+     *  Similar to the flash.events.AIREvent.FLEX_WINDOW_DEACTIVATE except it is dispatched
+     *  in both Flash and AIR when a Flex Window or popup is deactivated.  This event is
+     *  dispatched from the focusManager managing
+     *  focus in that container.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType flexWindowDeactivate
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const FLEX_WINDOW_DEACTIVATE:String = "flexWindowDeactivate";
 
     /**
      *  The <code>FlexEvent.HIDE</code> constant defines the value of the
@@ -982,6 +1080,7 @@ public class FlexEvent extends Event
      *  @productversion Flex 3
      */
     public static const VALUE_COMMIT:String = "valueCommit";
+
 
     //--------------------------------------------------------------------------
     //
