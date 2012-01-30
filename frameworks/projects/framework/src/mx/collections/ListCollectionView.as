@@ -649,11 +649,11 @@ public class ListCollectionView extends Proxy
         
         if (localIndex && sort)
         {
-            var startIndex:int = sort.findItem(localIndex, item, Sort.FIRST_INDEX_MODE);
+            var startIndex:int = findItem(item, Sort.FIRST_INDEX_MODE);
             if (startIndex == -1)
                 return -1;
 
-            var endIndex:int = sort.findItem(localIndex, item, Sort.LAST_INDEX_MODE);
+            var endIndex:int = findItem(item, Sort.LAST_INDEX_MODE);
             for (i = startIndex; i <= endIndex; i++)
             {
                 if (localIndex[i] == item)
@@ -1147,7 +1147,8 @@ public class ListCollectionView extends Proxy
      *  @param values the values object that can be passed into Sort.findItem
      *  @param mode the mode to pass to Sort.findItem (see Sort)
      *  @param insertIndex true if it should find the insertion point
-     *  @return the index where the item is located, -1 if not found
+     *  @return the index where the item is located, -1 if not found or SortError
+     *  caught
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1162,11 +1163,20 @@ public class ListCollectionView extends Proxy
                 "collections", "itemNotFound");
             throw new CollectionViewError(message);
         }
+        
         if (localIndex.length == 0)
-        {
             return insertIndex ? 0 : -1;
+        
+        try
+        {
+            return sort.findItem(localIndex, values, mode, insertIndex);
         }
-        return sort.findItem(localIndex, values, mode, insertIndex);
+        catch (e:SortError)
+        {
+            // usually because the find critieria is not compatible with the sort.
+        }
+        
+        return -1;
     }
 
     /**
