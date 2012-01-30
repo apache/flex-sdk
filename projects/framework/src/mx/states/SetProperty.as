@@ -14,6 +14,7 @@
 package mx.states
 {
 
+import mx.core.FlexVersion;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -69,7 +70,8 @@ public class SetProperty extends OverrideBase implements IOverride
     private static const PSEUDONYMS:Object =
     {
         width: "explicitWidth",
-        height: "explicitHeight"
+        height: "explicitHeight",
+        currentState: "currentStateDeferred"
     };
 
     /**
@@ -263,6 +265,40 @@ public class SetProperty extends OverrideBase implements IOverride
     }
 
     /**
+     * Utility function to return the pseudonym of the property
+     * name if it exists on the object
+     */
+    private function getPseudonym(obj:*, name:String):String
+    {
+        var propName:String;
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            return (PSEUDONYMS[name] in obj) ?
+                PSEUDONYMS[name] :
+                name;
+        propName = PSEUDONYMS[name];
+        if (!(PSEUDONYMS[name] in obj))
+        {
+            // 'in' does not work for mx_internal properties 
+            // like currentStateDeferred
+            try
+            {
+                // Check if we can access the property; if it doesn't
+                // exist, it'll throw a ReferenceError
+                var tmp:* = obj[PSEUDONYMS[name]];
+            }
+            catch (e:ReferenceError)
+            {
+                propName = name;
+            }
+        }
+        else
+        {
+            propName = name;
+        }
+        return propName;
+    }
+    
+    /**
      *  @inheritDoc
      *  
      *  @langversion 3.0
@@ -276,9 +312,7 @@ public class SetProperty extends OverrideBase implements IOverride
         if (obj != null)
         {
         	appliedTarget = obj;
-	        var propName:String = (PSEUDONYMS[name] && (PSEUDONYMS[name] in obj)) ?
-	                          PSEUDONYMS[name] :
-	                          name;
+            var propName:String = PSEUDONYMS[name] ? getPseudonym(obj, name) : name;
 	
 	        var relatedProps:Array = RELATED_PROPERTIES[propName] ?
 	                                 RELATED_PROPERTIES[propName] :
@@ -342,11 +376,9 @@ public class SetProperty extends OverrideBase implements IOverride
         var obj:* = getOverrideContext(appliedTarget, parent);
         if (obj != null && applied)
         {
-            var propName:String = (PSEUDONYMS[name] && (PSEUDONYMS[name] in obj)) ?
-	                          PSEUDONYMS[name] :
-	                          name;
+            var propName:String = PSEUDONYMS[name] ? getPseudonym(obj, name) : name;
 	        
-	        var relatedProps:Array = RELATED_PROPERTIES[propName] ?
+            var relatedProps:Array = RELATED_PROPERTIES[propName] ?
 	                                 RELATED_PROPERTIES[propName] :
 	                                 null;
 	
