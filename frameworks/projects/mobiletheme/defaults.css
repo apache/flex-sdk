@@ -40,7 +40,7 @@ ActionBar Group#actionGroup Button
 
 Application
 {
-    backgroundColor: #FFFFFF;
+    backgroundColor: #464646;
     skinClass: ClassReference("spark.skins.spark.ApplicationSkin");
 }
 
