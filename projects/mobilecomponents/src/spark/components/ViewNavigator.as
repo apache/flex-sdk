@@ -1,12 +1,17 @@
 package spark.components
 {
 import flash.events.Event;
+import flash.geom.Rectangle;
 
 import mx.core.ISelectableList;
 import mx.core.IVisualElement;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.effects.IEffect;
+import mx.effects.Parallel;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
+import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
@@ -14,7 +19,9 @@ import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.ViewHistoryData;
 import spark.components.supportClasses.ViewNavigatorSection;
+import spark.effects.Fade;
 import spark.effects.IViewTransition;
+import spark.effects.Move;
 import spark.events.IndexChangeEvent;
 import spark.layouts.supportClasses.LayoutBase;
 
@@ -27,25 +34,18 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  @inherit
+ *  @inheritDoc
  */
 [Event(name="changing", type="spark.events.IndexChangeEvent")]
 
 /**
- *  Dispatched when the IList has been updated in some way.
- *  
- *  @eventType mx.events.CollectionEvent.COLLECTION_CHANGE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @inheritDoc
  */
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
 // FIXME (chiedozi): Figure out valueCommit and change event pattern
 /**
- * 
+ *  @inheritDoc
  */
 [Event(name="valueCommit", type="mx.events.FlexEvent")]
 
@@ -58,8 +58,8 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [SkinState("portrait")]
 
@@ -68,8 +68,8 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [SkinState("landscape")]
 
@@ -78,8 +78,8 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [SkinState("portraitAndOverlay")]
 
@@ -88,8 +88,8 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [SkinState("landscapeAndOverlay")]
 
@@ -115,6 +115,8 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     private static const POP_ACTION:int = 1;
     private static const CHANGE_SECTION_ACTION:int = 2;
     
+    protected static const VISIBILITY_ANIMATION_DURATION:Number = 250;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -126,8 +128,8 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function ViewNavigator()
     {
@@ -161,17 +163,52 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     // Variables
     // 
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */ 
+    private var actionBarProps:Object;
     
     /**
-     *
+     *  @private
+     */ 
+    private var tabBarProps:Object;
+    
+    /**
+     *  @private
+     */ 
+    private var contentGroupProps:Object;
+    
+    /**
+     *  @private
+     */ 
+    private var animateActionBarVisbility:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var animateTabBarVisbility:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var actionBarVisibilityInvalidated:Boolean = false;
+    
+    /**
+     *  @private
      */
     private var currentViewData:ViewHistoryData = null;
     
     /**
-     *
+     *  @private
      */
     private var currentViewChanged:Boolean = false;
     
+	/**
+     *  @private
+	 */
+	private var currentAnimation:IEffect;
+	
     /**
      * @private
      * This following property stores the <code>mouseEnabled</code>
@@ -189,34 +226,72 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     private var explicitMouseChildren:Boolean;
     
     /**
-     *
+     *  @private
      */
     protected var lastAction:int = NO_ACTION;
     
     /**
-     *
+     *  @private
      */ 
     private var pendingViewData:ViewHistoryData = null;
     
     /**
-     *
+     *  @private
      */ 
     private var pendingViewTransition:IViewTransition = null;
     
     /**
      *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     private var revalidateWhenComplete:Boolean = false;
     
     /**
      *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     private var selectedSectionChanged:Boolean = false;
+    
+    //----------------------------------
+    //  actionBarPropertyInvalidated
+    //----------------------------------
+    
+    /**
+     *  @private
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+	protected function get actionBarPropertyInvalidated():Boolean
+	{
+		return 	actionContentInvalidated ||
+				actionGroupLayoutInvalidated ||
+				navigationContentInvalidated ||
+				navigationGroupLayoutInvalidated ||
+				titleInvalidated ||
+				titleContentInvalidated ||
+				titleGroupLayoutInvalidated;
+	}
     
     //----------------------------------
     //  selectedSection
     //----------------------------------
     
+    /**
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
     mx_internal function get selectedSection():ViewNavigatorSection
     {
         if (selectedIndex == -1)
@@ -244,6 +319,23 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         return currentSection.length;	
     }
     
+    
+    /**
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    private var tabBarVisibilityInvalidated:Boolean = false;
+    
+    /**
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
     private var viewChanging:Boolean = false;
     
     //--------------------------------------------------------------------------
@@ -256,6 +348,16 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     //  activeView
     //----------------------------------
     
+    /**
+     *  The currently selected section.
+     *
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function get activeView():View
     {
         if (currentViewData)
@@ -271,6 +373,8 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     /**
      *  The currently selected section.
      *
+     *  @default null
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -302,22 +406,34 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         return _sections.length;
     }
     
-    private var _overlayMode:String;
+    //----------------------------------
+    //  overlayControls
+    //----------------------------------
+    private var _overlayControls:Boolean = false;
     
-    public function get overlayMode():String
+    /**
+     * 
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get overlayControls():Boolean
     {
-        return _overlayMode;
+        return _overlayControls;
     }
     
-    public function set overlayMode(value:String):void
+    public function set overlayControls(value:Boolean):void
     {
-        if (value != _overlayMode)
+        if (value != _overlayControls)
         {
-            _overlayMode = value;
+            _overlayControls = value;
             invalidateSkinState();
         }
     }
-    
+	
     //----------------------------------
     //  sections
     //----------------------------------
@@ -332,9 +448,9 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get sections():Vector.<ViewNavigatorSection>
     {
@@ -363,7 +479,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
 		internalDispatchEvent(CollectionEventKind.RESET);
 		
 		if (tabBar)
-			tabBar.visible = tabBar.includeInLayout = (_sections != null && _sections.length > 1);
+			tabBar.visible = tabBar.includeInLayout = (_sections && _sections.length > 1);
 		
 		// Changing the section always forces a validation to happened immediately
 		if (initialized)
@@ -391,6 +507,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     
     [Bindable("change")]
     [Bindable("valueCommit")]
+    
     /**
      *  @inheritDoc
      */
@@ -444,49 +561,69 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         else
             invalidateProperties();
     }
-    
-    //----------------------------------
-    //  transitionsEnabled
-    //----------------------------------
-    private var _transitionsEnabled:Boolean = true;
-    
-    public function get transitionsEnabled():Boolean
-    {
-        return _transitionsEnabled;
-    }
-    
+	
+	//----------------------------------
+	//  transitionsEnabled
+	//----------------------------------
+	private var _transitionsEnabled:Boolean = true;
+	
     /**
-     *  @private
-     */
-    public function set transitionsEnabled(value:Boolean):void
-    {
-        _transitionsEnabled = value;
-    }
-    
-    //----------------------------------
-    //  useDefaultTransitions
-    //----------------------------------
-    private var _useDefaultTransitions:Boolean = true;
-    
-    public function get useDefaultTransitions():Boolean
-    {
-        return _useDefaultTransitions;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set useDefaultTransitions(value:Boolean):void
-    {
-        _useDefaultTransitions = value;
-    }
+     *  Flag indicating whether transitions are played by the 
+     *  navigator when a view changes or when the actionBar or tab bar 
+     *  visibility changes.
+     * 
+     *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    [Bindable]
+	public function get transitionsEnabled():Boolean
+	{
+		return _transitionsEnabled;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set transitionsEnabled(value:Boolean):void
+	{
+		_transitionsEnabled = value;
+	}
+	
+	//----------------------------------
+	//  useDefaultTransitions
+	//----------------------------------
+	private var _useDefaultTransitions:Boolean = true;
+	
+	public function get useDefaultTransitions():Boolean
+	{
+		return _useDefaultTransitions;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set useDefaultTransitions(value:Boolean):void
+	{
+		_useDefaultTransitions = value;
+	}
     
     //--------------------------------------------------------------------------
     //
     // Public Methods
     // 
     //--------------------------------------------------------------------------
-    
+
+    /**
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function popAll(transition:IViewTransition = null):void
     {
         if (currentSection.length == 0 || !canRemoveCurrentView())
@@ -511,6 +648,13 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         }
     }
     
+    /**
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */    
     public function popView(transition:IViewTransition = null):void
     {
         if (currentSection.length == 0 || !canRemoveCurrentView())
@@ -535,6 +679,13 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         }
     }
     
+    /**
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function popToFirstView(transition:IViewTransition = null):void
     {
         if (currentSection.length < 2 || !canRemoveCurrentView())
@@ -559,6 +710,13 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         }
     }
     
+    /**
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function pushView(viewFactory:Class, 
                              initializationData:Object = null,
                              transition:IViewTransition = null):void
@@ -585,7 +743,91 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             invalidateProperties();
         }
     }
+
+    /**
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+	public function showActionBar(animate:Boolean = true):void
+	{
+		if (actionBar && !actionBar.visible)
+		{
+			animateActionBarVisbility = animate;
+			actionBarVisibilityInvalidated = true;
+			invalidateProperties();
+		}
+		else
+		{
+			actionBarVisibilityInvalidated = false;
+		}
+	}
     
+    /**
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+	public function hideActionBar(animate:Boolean = true):void
+	{	
+		if (actionBar && actionBar.visible)
+		{
+			animateActionBarVisbility = animate;
+			actionBarVisibilityInvalidated = true;
+			invalidateProperties();
+		}
+		else
+		{
+			actionBarVisibilityInvalidated = false;
+		}
+	}
+    
+    /**
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+	public function showTabBar(animate:Boolean = true):void
+	{
+		if (tabBar && sections.length > 1 && !tabBar.visible)
+		{
+			animateTabBarVisbility = animate;
+			tabBarVisibilityInvalidated = true;
+			invalidateProperties();
+		}
+		else
+		{
+			tabBarVisibilityInvalidated = false;
+		}
+	}
+	
+    /**
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+	public function hideTabBar(animate:Boolean = true):void
+	{	
+		if (tabBar && tabBar.visible)
+		{
+			animateTabBarVisbility = animate;
+			tabBarVisibilityInvalidated = true;
+			invalidateProperties();
+		}
+		else
+		{
+			tabBarVisibilityInvalidated = false;
+		}
+	}
+	
     //--------------------------------------------------------------------------
     //
     //  UI Template Properties
@@ -696,6 +938,9 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     //  navigationGroupLayout
     //----------------------------------
     
+    private var _navigationGroupLayout:LayoutBase;
+    private var navigationGroupLayoutInvalidated:Boolean = false;
+    
     /**
      *  Layout for the ActionBar navigation content group.
      *
@@ -706,9 +951,6 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private var _navigationGroupLayout:LayoutBase;
-    private var navigationGroupLayoutInvalidated:Boolean = false;
-    
     public function get navigationGroupLayout():LayoutBase
     {
         return _navigationGroupLayout;
@@ -792,6 +1034,9 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     //  titleGroupLayout
     //----------------------------------
     
+    private var _titleGroupLayout:LayoutBase;
+    private var titleGroupLayoutInvalidated:Boolean = false;
+    
     /**
      *  Layout for the ActionBar's titleContent group.
      *
@@ -802,9 +1047,6 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private var _titleGroupLayout:LayoutBase;
-    private var titleGroupLayoutInvalidated:Boolean = false;
-    
     public function get titleGroupLayout():LayoutBase
     {
         return _titleGroupLayout;
@@ -825,7 +1067,15 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     // Private Methods
     // 
     //--------------------------------------------------------------------------
-    
+	
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected function beginViewChange():void
     {
         viewChanging = true;
@@ -838,10 +1088,17 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     }
     
     /**
+     *  @private
+     *
      *  This method checks if the current view can be removed
      *  from the display list.
      * 
      *  @return Returns true if the screen can be removed
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function canRemoveCurrentView():Boolean
     {
@@ -854,16 +1111,46 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         return (view == null || view.canRemove);
     }
     
+    /**
+     *  @private
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    private function clearActionBarInvalidationFlags():void
+    {
+        actionContentInvalidated = false;
+        actionGroupLayoutInvalidated = false;
+        navigationContentInvalidated = false;
+        navigationGroupLayoutInvalidated = false;
+        titleInvalidated = false;
+        titleContentInvalidated = false;
+        titleGroupLayoutInvalidated = false;
+    }
+    
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
     override protected function commitProperties():void
     {
+        super.commitProperties();
+        
         // If the sections property is not set by this point, ViewNavigator will
         // create a default section to be used by the navigator, and initialize it
-        // with the firstView and firstViewData defined by the application
+        // with the firstView and its data defined by the application
         if (sections == null || sections.length == 0)
         {
-            // TODO: ViewNavigator should have a firstView and rootData convenience property
             // Create the empty screen stack and initialize it with the
-            // desired firstView and initial data
+            // desired firstView and its data
             var section:ViewNavigatorSection = new ViewNavigatorSection();
             section.firstView = null;
             section.firstViewData = null;
@@ -872,15 +1159,69 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             var newSections:Vector.<ViewNavigatorSection> = Vector.<ViewNavigatorSection>([section]);
             sections = newSections;
         }
-            
+        
         if (currentViewChanged)
             executeViewChange();
-        else
-            updateActionBarProperties(activeView);
         
-        super.commitProperties();
+		if (actionBarPropertyInvalidated)
+        	updateActionBarProperties(activeView);
+			
+		if (actionBarVisibilityInvalidated || tabBarVisibilityInvalidated)
+            commitVisibilityChanges();
     }
     
+    // TODO (chiedozi): Check if spark effects handles include in layout for you
+    /**
+     *  @private
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected function commitVisibilityChanges():void
+    {
+        // Can't change the visibility during a view transition
+        if (viewChanging)
+        {
+            actionBarVisibilityInvalidated = false;
+            tabBarVisibilityInvalidated = false;
+            return;
+        }
+        
+        // If an animation is running, end it
+        if (currentAnimation)
+            currentAnimation.end();
+        
+        if (transitionsEnabled && (animateActionBarVisbility || animateTabBarVisbility))
+        {
+            currentAnimation = createVisibilityAnimation();
+            currentAnimation.addEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
+            currentAnimation.play();
+        }
+        else
+        {
+            if (actionBarVisibilityInvalidated)
+                actionBar.visible = actionBar.includeInLayout = !actionBar.visible;
+            
+            if (tabBarVisibilityInvalidated)
+                tabBar.visible = tabBar.includeInLayout = !tabBar.visible;
+            
+            actionBarVisibilityInvalidated = false;
+            tabBarVisibilityInvalidated = false;
+        }
+    }
+    
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected function commitSelection():Boolean
     {
         _selectedIndex = _proposedSelectedIndex;
@@ -895,8 +1236,246 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         
         pendingViewTransition = null;
         return true;
+    }    
+    
+    /**
+     *  @private
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+	protected function createVisibilityAnimation():IEffect
+	{
+		var effect:IEffect;
+		var finalEffect:Parallel = new Parallel();
+        
+        // Grab initial values
+		actionBarProps = { start:captureAnimationValues(actionBar) };
+        tabBarProps = { start:captureAnimationValues(tabBar) };
+        contentGroupProps = { start:captureAnimationValues(contentGroup) };
+        
+        // Update actionBar layout properties
+        if (actionBarVisibilityInvalidated)
+            actionBar.visible = actionBar.includeInLayout = !actionBarProps.start.visible;
+        
+        if (tabBarVisibilityInvalidated)
+            tabBar.visible = tabBar.includeInLayout = !tabBarProps.start.visible;
+        
+        // Calculate final positions.  This method will force a validation
+        calculateFinalUIPositions();
+		
+        // The actionbar will be visible if we are animating it
+		if (actionBar.visible)
+		{
+            effect = createActionBarVisibilityEffect(actionBar.visible, actionBarProps);
+            effect.target = actionBar;
+            
+            finalEffect.addChild(effect);
+		}
+		
+        // The tab bar will only be animated if it is visible
+		if (tabBar.visible)
+		{
+            effect = createTabBarVisibilityEffect(tabBar.visible, tabBarProps);
+            effect.target = tabBar;
+            
+            finalEffect.addChild(effect);
+		}
+		
+		var moveEffect:Move = new Move();
+        moveEffect.target = contentGroup;
+        moveEffect.yFrom = contentGroupProps.start.y;
+        moveEffect.yTo = contentGroup.y;
+		contentGroup.includeInLayout = false;
+		contentGroup.cacheAsBitmap = true;
+		finalEffect.addChild(moveEffect);
+		
+		finalEffect.duration = VISIBILITY_ANIMATION_DURATION;
+		return finalEffect;
+	}
+
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected function calculateFinalUIPositions():void
+    {
+        var animateActionBarUp:Boolean;
+        var animateTabBarUp:Boolean; 
+        
+        if (overlayControls)
+        {
+            animateActionBarUp = actionBar.y <= height / 2;
+            animateTabBarUp = tabBar.y <= height / 2;
+        }
+        else
+        {
+            animateActionBarUp = actionBar.y <= contentGroup.y;
+            animateTabBarUp = tabBar.y <= contentGroup.y;
+        }
+        
+        // Need to validate to capture final positions and sizes of skin parts
+        validateNow();
+        
+        // This will store the final location and sizes of the components
+        actionBarProps.end = captureAnimationValues(actionBar);
+        tabBarProps.end = captureAnimationValues(tabBar);
+        contentGroupProps.end = captureAnimationValues(contentGroup);
+        
+        if (actionBarVisibilityInvalidated)
+        {
+            if (animateActionBarUp)
+            {
+                if (actionBarProps.start.visible)
+                    actionBarProps.end.y = -actionBar.height;
+                else
+                    actionBarProps.start.y = -actionBar.height;
+            }
+            else
+            {
+                if (actionBarProps.start.visible)
+                    actionBarProps.end.y = this.height;
+                else
+                    actionBarProps.start.y = this.height;
+            }
+            
+            actionBar.visible = true;
+        }
+        
+        if (tabBarVisibilityInvalidated)
+        {
+            if (animateTabBarUp)
+            {
+                if (tabBarProps.start.visible)
+                    tabBarProps.end.y = -tabBar.height;
+                else
+                    tabBarProps.start.y = -tabBar.height;
+            }
+            else
+            {
+                if (tabBarProps.start.visible)
+                    tabBarProps.end.y = this.height;
+                else
+                    tabBarProps.start.y = this.height;
+            }
+            
+            tabBar.visible = true;
+        }
     }
     
+    /**
+     *  @private
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */    
+    protected function captureAnimationValues(component:UIComponent):Object
+    {
+        var values:Object = {   y:component.y, 
+                                visible: component.visible,
+                                includeInLayout: component.includeInLayout,
+                                cacheAsBitmap: component.cacheAsBitmap };
+        
+        return values;
+    }
+    
+    /**
+     *  @private
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected function createActionBarVisibilityEffect(hiding:Boolean, props:Object):IEffect
+    {
+        var effect:Move = new Move();
+        
+        effect.target = actionBar;
+        effect.yFrom = props.start.y;
+        effect.yTo = props.end.y;
+        
+        actionBar.includeInLayout = false;
+        actionBar.cacheAsBitmap = true;
+        
+        return effect;
+    }
+    
+    /**
+     *  @private
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected function createTabBarVisibilityEffect(hiding:Boolean, props:Object):IEffect
+    {
+        var effect:Move = new Move();
+        effect.target = tabBar;
+        effect.yFrom = props.start.y;
+        effect.yTo = props.end.y;
+        
+        tabBar.includeInLayout = false;
+        tabBar.cacheAsBitmap = true;
+        
+        return effect;
+    }
+    
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+	private function visibilityAnimation_completeHandler(event:EffectEvent):void
+	{
+		event.target.removeEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
+		
+		if (actionBarVisibilityInvalidated)
+			actionBar.visible = actionBar.includeInLayout = !actionBarProps.start.visible;
+		else
+			actionBar.includeInLayout = actionBarProps.start.includeInLayout;
+		
+		if (tabBarVisibilityInvalidated)
+			tabBar.visible = tabBar.includeInLayout = !tabBarProps.start.visible;
+		else
+			tabBar.includeInLayout = tabBarProps.start.includeInLayout;
+		
+        // Restore includeInLayout and cacheAsBitmap properties for each component
+		contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
+		
+		actionBar.cacheAsBitmap = actionBarProps.start.cacheAsBitmap;
+		tabBar.cacheAsBitmap = tabBarProps.start.cacheAsBitmap;
+		contentGroup.cacheAsBitmap = contentGroupProps.start.cacheAsBitmap;
+		
+		currentAnimation = null;
+		actionBarProps = null;
+		contentGroupProps = null;
+		tabBarProps = null;
+		
+		actionBarVisibilityInvalidated = false;
+		tabBarVisibilityInvalidated = false;
+	}
+    
+    /**
+     *  @private
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected function endViewChange():void
     {
         var currentView:View;
@@ -911,7 +1490,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             
             // FIXME (chiedozi): Figure out how to use focus manager to manage focus
             // when a component in the current view has focus.
-            stage.focus = null;
+			stage.focus = null;
             
             // Grab the data from the old view and persist it
             if (lastAction == PUSH_ACTION || lastAction == CHANGE_SECTION_ACTION)
@@ -933,6 +1512,12 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         currentViewData = pendingViewData;
         pendingViewData = null;
 
+        // Clear all property invalidation flags
+        actionBarVisibilityInvalidated = false;
+        tabBarVisibilityInvalidated = false;
+        
+        clearActionBarInvalidationFlags();
+        
         if (currentViewData)
         {
             currentView = currentViewData.instance;
@@ -967,11 +1552,23 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             dispatchEvent(new Event(Event.COMPLETE));
     }
     
+    /**
+     *  @private
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected function executeViewChange():void
     {
         // Private event used for performance tests
         if (hasEventListener("viewChangeStart"))
             dispatchEvent(new Event("viewChangeStart"));
+        
+        // If a ui control is animating, force it to end
+        if (currentAnimation)
+            currentAnimation.end();
         
         if (selectedSectionChanged)
         {
@@ -1091,6 +1688,16 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (actionBar)
             updateActionBarProperties(pendingView, true);
         
+		// Update tabBar visibility
+		if (tabBar && sections.length > 1 && pendingView)
+			tabBar.visible = tabBar.includeInLayout = pendingView.showTabBar;
+			
+        if (pendingView.overlayControls != overlayControls)
+        {
+            overlayControls = pendingView.overlayControls;
+            validateProperties();
+        }
+        
         // Need to validate my children now to prevent flicker when no transition,
         // or so sizes can be measured before transition
         validateNow();
@@ -1112,7 +1719,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
 
     override protected function getCurrentSkinState():String
     {
-        return null;    
+        return (_overlayControls) ? "portraitAndOverlay" : "portrait";
     }
     
     protected function transitionComplete(event:Event):void
@@ -1128,7 +1735,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     
     protected function updateActionBarProperties(view:View, forceUpdate:Boolean = false):void
     {
-        if (!actionBar)
+        if (!actionBar || !view)
             return;
  
         // If there is no view, update the actionBar should display the 
@@ -1152,14 +1759,9 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             actionBar.title = view && view.title ? view.title : title;
             actionBar.titleContent = view && view.titleContent ? view.titleContent : titleContent;
             actionBar.titleLayout = view && view.titleGroupLayout ? view.titleGroupLayout : titleGroupLayout;
-            
-            actionContentInvalidated = false;
-            actionGroupLayoutInvalidated = false;
-            navigationContentInvalidated = false;
-            navigationGroupLayoutInvalidated = false;
-            titleInvalidated = false;
-            titleContentInvalidated = false;
-            titleGroupLayoutInvalidated = false;
+			actionBar.visible = actionBar.includeInLayout = view && view.showActionBar;
+			
+            clearActionBarInvalidationFlags();
         }
         else
         {
@@ -1209,7 +1811,9 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
                 actionBar.titleLayout = view && view.titleGroupLayout ? 
                     view.titleGroupLayout : titleGroupLayout;
                 titleGroupLayoutInvalidated = false;
-            }        
+            }
+			
+			actionBar.visible = actionBar.includeInLayout = view && view.showActionBar;
         }
     }
     
@@ -1248,8 +1852,11 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         super.partAdded(partName, instance);
         
         // Tab bar should only be visible only if there is more than 1 section
-        if (instance == tabBar && sections)
-            tabBar.visible = tabBar.includeInLayout = sections.length > 1;
+        if (instance == tabBar)
+        {
+            tabBar.dataProvider = this;
+            tabBar.visible = tabBar.includeInLayout = (sections && sections.length > 1);
+        }
         
         // If the actionBar changes, need to reset the properties on it
         if (instance == actionBar)
