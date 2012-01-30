@@ -14,7 +14,7 @@ package spark.skins.mobile
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 
-import mx.core.DeviceDensity;
+import mx.core.DPIClassification;
 
 import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
 import spark.skins.mobile160.assets.CheckBox_down;
@@ -81,9 +81,9 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
         layoutPaddingTop = 0;
         layoutPaddingBottom = 0;
         
-        switch (authorDensity)
+        switch (applicationDPI)
         {
-            case DeviceDensity.PPI_320:
+            case DPIClassification.DPI_320:
             {
                 upIconClass = spark.skins.mobile320.assets.CheckBox_up;
                 upSelectedIconClass = spark.skins.mobile320.assets.CheckBox_up;
@@ -100,7 +100,7 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
                 
                 break;
             }
-            case DeviceDensity.PPI_240:
+            case DPIClassification.DPI_240:
             {
                 upIconClass = spark.skins.mobile240.assets.CheckBox_up;
                 upSelectedIconClass = spark.skins.mobile240.assets.CheckBox_up;
