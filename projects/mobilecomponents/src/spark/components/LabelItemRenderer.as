@@ -80,11 +80,10 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  <code>downColor</code> is not used.</p>
  * 
  *  <p>The default value in the 
- *  spark theme is <code>undefined</code>.  The default value in the 
- *  mobile theme is <code>0xB2B2B2</code>.</p>
+ *  Spark theme is <code>undefined</code>.  
+ *  The default value in the 
+ *  Mobile theme is <code>0xB2B2B2</code>.</p>
  *   
- *  @default 0xB2B2B2
- *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
@@ -204,9 +203,54 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  a field of the data item to display in the StyleableTextField control.</p>
  *
  *  <p>To create a custom item renderer for use on mobile devices, 
- *  Adobe recommends that you 
- *  create a new ActionScript item renderer that extends 
- *  this class.</p>
+ *  Adobe recommends that you create a new ActionScript item renderer 
+ *  that extends this class.</p>
+ *
+ *  @mxml
+ *  
+ *  <p>The <code>&lt;s:LabelItemRenderer&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;s:LabelItemRenderer
+ *   <strong>Properties</strong>
+ *    label=""
+ * 
+ *   <strong>Common Styles</strong>
+ *    color="<i>Theme dependent</i>"
+ *    downColor="<i>Theme dependent</i>"
+ *    fontFamily="<i>Theme dependent</i>"
+ *    fontSize="<i>Theme dependent</i>"
+ *    fontStyle="normal"
+ *    fontWeight="normal"
+ *    leading="0"
+ *    letterSpacing="0"
+ *    paddingBottom="0"
+ *    paddingLeft="0"
+ *    paddingRight="0"
+ *    paddingTop="5"
+ *    rollOverColor="0xCEDBEF"
+ *    selectionColor="0xB2B2B2"
+ *    textAlign="left"
+ *    textDecoration="none"
+ *    textIndent="0"
+ *    verticalAlign="center"
+ *  
+ *   <strong>Spark Styles</strong>
+ *    alternatingItemColors="undefined"
+ *    focusColor="0x70B2EE"
+ *    symbolColor="0x000000"
+ *  
+ *   <strong>Mobile Styles</strong>
+ *    alternatingItemColors="undefined"
+ *    focusColor="0x70B2EE"
+ *    symbolColor="0x000000"
+ * 
+ *    <b>Events</b>
+ *    dataChange="<i>No default</i>"
+ * 
+ *  &gt;
+ *  </pre>
  *
  *  @see spark.components.IconItemRenderer
  *  @see spark.components.List
@@ -723,14 +767,14 @@ public class LabelItemRenderer extends UIComponent
         {
             backgroundColor = getStyle("rollOverColor");
         }
-		else if (showsCaret)
-		{
-			// FIXME (rfrishbe): should probably be its own distinct color and style
-			// Also, this is touch-specific...should it be called LabelItemRenderer
-			// if it has touch-specific logic in here?  Should we gate it based 
-			// on interactionMode?
-			backgroundColor = getStyle("selectionColor");
-		}
+        else if (showsCaret)
+        {
+            // FIXME (rfrishbe): should probably be its own distinct color and style
+            // Also, this is touch-specific...should it be called LabelItemRenderer
+            // if it has touch-specific logic in here?  Should we gate it based 
+            // on interactionMode?
+            backgroundColor = getStyle("selectionColor");
+        }
         else
         {
             var alternatingColors:Array = getStyle("alternatingItemColors");
@@ -754,21 +798,21 @@ public class LabelItemRenderer extends UIComponent
         // the reason why we draw it in the case of drawBackground == 0 is for
         // mouse hit testing purposes
         graphics.beginFill(backgroundColor, drawBackground ? 1 : 0);
-		graphics.lineStyle();
-		graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-		graphics.endFill();
-		
-		// FIXME (rfrishbe): separators should be stylable
-		// draw seperators: two lines
-		// 1 pixel from bottom
-		graphics.lineStyle(1, 0x1C1C1C);
-		graphics.moveTo(0, unscaledHeight-1);
-		graphics.lineTo(unscaledWidth, unscaledHeight-1);
-		
-		// line on the bottom
-		graphics.lineStyle(1, 0x606060);
-		graphics.moveTo(0, unscaledHeight);
-		graphics.lineTo(unscaledWidth, unscaledHeight);
+        graphics.lineStyle();
+        graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+        graphics.endFill();
+        
+        // FIXME (rfrishbe): separators should be stylable
+        // draw seperators: two lines
+        // 1 pixel from bottom
+        graphics.lineStyle(1, 0x1C1C1C);
+        graphics.moveTo(0, unscaledHeight-1);
+        graphics.lineTo(unscaledWidth, unscaledHeight-1);
+        
+        // line on the bottom
+        graphics.lineStyle(1, 0x606060);
+        graphics.moveTo(0, unscaledHeight);
+        graphics.lineTo(unscaledWidth, unscaledHeight);
     }
     
     /**
@@ -851,7 +895,7 @@ public class LabelItemRenderer extends UIComponent
     //--------------------------------------------------------------------------
     
     /**
-     *  @copy spark.skins.mobile.MobileSkin#setElementPosition
+     *  @copy spark.skins.mobile.supportClasses.MobileSkin#setElementPosition()
      *
      *  @see #setElementSize  
      * 
@@ -878,7 +922,7 @@ public class LabelItemRenderer extends UIComponent
     }
     
     /**
-     *  @copy spark.skins.mobile.MobileSkin#setElementSize
+     *  @copy spark.skins.mobile.supportClasses.MobileSkin#setElementSize()
      *
      *  @see #setElementPosition  
      * 
@@ -905,10 +949,9 @@ public class LabelItemRenderer extends UIComponent
     }
     
     /**
-     *  @copy spark.skins.mobile.MobileSkin#getElementPreferredWidth
+     *  @copy spark.skins.mobile.supportClasses.MobileSkin#getElementPreferredWidth()
      *
      *  @see #setElementPosition  
-     * 
      *  @see #setElementSize
      *  @see #getElementPreferredHeight  
      * 
@@ -938,10 +981,9 @@ public class LabelItemRenderer extends UIComponent
     }
     
     /**
-     *  @copy spark.skins.mobile.MobileSkin#getElementPreferredHeight
+     *  @copy spark.skins.mobile.supportClasses.MobileSkin#getElementPreferredHeight()
      *
      *  @see #setElementPosition  
-     * 
      *  @see #setElementSize
      *  @see #getElementPreferredWidth
      * 
