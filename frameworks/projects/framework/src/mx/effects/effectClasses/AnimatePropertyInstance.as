@@ -15,6 +15,8 @@ package mx.effects.effectClasses
 import mx.core.mx_internal;
 import mx.effects.Tween;
 
+use namespace mx_internal;
+
 /**
  *  The AnimatePropertyInstance class implements the instance class
  *  for the AnimateProperty effect.
@@ -196,7 +198,7 @@ public class AnimatePropertyInstance extends TweenEffectInstance
 		if (easingFunction != null)
 			tween.easingFunction = easingFunction;
 
-		mx_internal::applyTweenStartValues();
+		applyTweenStartValues();
 	}
 	
 	
