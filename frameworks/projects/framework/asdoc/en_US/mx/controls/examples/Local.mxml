@@ -5,6 +5,6 @@
 		xmlns:mx="library://ns.adobe.com/flex/halo"
 		width="350" height="75">
 
-    <s:SimpleText color="blue" text="The SimpleText control of the embedded application."/>
+    <s:Label color="blue" text="The Label control of the embedded application."/>
 
 </s:Application>
