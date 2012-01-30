@@ -891,7 +891,7 @@ public class LabelItemRenderer extends UIComponent
 		if (selected || down)
 		{
 			var colors:Array = [0x000000, 0x000000 ];
-			var alphas:Array = [.2, 0];
+			var alphas:Array = [.2, .1];
 			var ratios:Array = [0, 255];
 			var matrix:Matrix = new Matrix();
 			
@@ -1016,7 +1016,7 @@ public class LabelItemRenderer extends UIComponent
 		setElementSize(labelDisplay, labelWidth, labelHeight);    
 				
 		// We want to center using the "real" ascent
-		var labelY:Number = Math.round(vAlign * (viewHeight - labelDisplay.textTopToLastBaselineHeight))  + paddingTop;
+		var labelY:Number = Math.round(vAlign * (viewHeight - labelHeight))  + paddingTop;
 		setElementPosition(labelDisplay, paddingLeft, labelY);
 
         // attempt to truncate the text now that we have its official width
@@ -1042,12 +1042,7 @@ public class LabelItemRenderer extends UIComponent
      */
     protected function setElementPosition(element:Object, x:Number, y:Number):void
     {
-		if (element is StyleableTextField)
-		{
-			StyleableTextField(element).x = x - StyleableTextField.TEXT_HEIGHT_PADDING/2;
-			StyleableTextField(element).y = y - StyleableTextField(element).textTopOffset;
-		}
-		else if (element is ILayoutElement)
+		if (element is ILayoutElement)
         {
             ILayoutElement(element).setLayoutBoundsPosition(x, y, false);
         }
@@ -1074,17 +1069,7 @@ public class LabelItemRenderer extends UIComponent
      */
     protected function setElementSize(element:Object, width:Number, height:Number):void
     {
-		if (element is StyleableTextField)
-		{
-			// take into account text gutters
-            if (!isNaN(width))
-			    element.width = width + StyleableTextField.TEXT_WIDTH_PADDING;
-			
-			// take into account textTopOffset and baselineBottomOffset
-            if (!isNaN(height))
-			    element.height = height + StyleableTextField(element).textTopOffset + StyleableTextField(element).baselineBottomOffset;
-		}
-		else if (element is ILayoutElement)
+		if (element is ILayoutElement)
         {
             ILayoutElement(element).setLayoutBoundsSize(width, height, false);
         }
@@ -1113,12 +1098,7 @@ public class LabelItemRenderer extends UIComponent
      */
     protected function getElementPreferredWidth(element:Object):Number
     {
-		if (element is StyleableTextField)
-		{
-			// take into account text gutters
-			return StyleableTextField(element).measuredTextSize.x - StyleableTextField.TEXT_WIDTH_PADDING;
-		}
-		else if (element is ILayoutElement)
+		if (element is ILayoutElement)
         {
             return ILayoutElement(element).getPreferredBoundsWidth();
         }
@@ -1146,12 +1126,7 @@ public class LabelItemRenderer extends UIComponent
      */
     protected function getElementPreferredHeight(element:Object):Number
     {
-		if (element is StyleableTextField)
-		{
-			// We only care about the "real ascent"
-			return StyleableTextField(element).textTopToLastBaselineHeight;
-		}
-		else if (element is ILayoutElement)
+		if (element is ILayoutElement)
         {
             return ILayoutElement(element).getPreferredBoundsHeight();
         }
