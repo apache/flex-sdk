@@ -84,6 +84,7 @@ import __AS3__.vec.Vector;
 import flash.geom.Transform;
 import mx.events.PropertyChangeEventKind;
 import mx.geom.CompoundTransform;
+import flash.geom.PerspectiveProjection;
 
 use namespace mx_internal;
 
@@ -6643,7 +6644,15 @@ public class UIComponent extends FlexSprite
         {
          	applyComputedTransform();
         }
-
+		
+		if(_maintainProjectionCenter)
+		{
+			var pmatrix:PerspectiveProjection = super.transform.perspectiveProjection;
+			if(pmatrix != null)
+			{
+				pmatrix.projectionCenter = new Point(unscaledWidth/2,unscaledHeight/2);
+			}
+		}
         if (invalidateDisplayListFlag)
         {
             // Check if our parent is the top level system manager
@@ -9527,6 +9536,9 @@ public class UIComponent extends FlexSprite
 
         assignTransformMatrices();
         super.transform.colorTransform = value.colorTransform;
+    	super.transform.perspectiveProjection = _transform.perspectiveProjection;
+    	if(maintainProjectionCenter)
+    		invalidateDisplayList(); 
     }
 
 
@@ -9538,6 +9550,12 @@ public class UIComponent extends FlexSprite
             if (event.property == "matrix" || event.property == "matrix3D")
             {
             	assignTransformMatrices();
+            }
+            else if (event.property == "perspectiveProjection")
+            {
+            	super.transform.perspectiveProjection = _transform.perspectiveProjection;
+            	if(maintainProjectionCenter)
+            		invalidateDisplayList(); 
             }
             else if (event.property == "colorTransform")
             {
@@ -9568,6 +9586,33 @@ public class UIComponent extends FlexSprite
 		return (_layoutFeatures != null)? _layoutFeatures.offsets:null;
 	}
 
+
+	/**
+	 * @private
+	 */
+	private var _maintainProjectionCenter:Boolean = false;
+	
+	/**
+	 * Documentation is not currently available
+	 */
+	public function set maintainProjectionCenter(value:Boolean):void
+	{
+		_maintainProjectionCenter = value;
+		if(value && super.transform.perspectiveProjection == null)
+		{
+			super.transform.perspectiveProjection = new PerspectiveProjection();
+		}
+		invalidateDisplayList();
+	}
+	/**
+	 * @private
+	 */
+	public function get maintainProjectionCenter():Boolean
+	{
+		return _maintainProjectionCenter;
+	}
+
+	
 	/**
 	 * Documentation is not currently available.  the matrix of a component is the transform matrix used to calculate its layout
 	 * relative to its siblings. This matrix is modified by the values of the offset property to determine its final, computed matrix.
