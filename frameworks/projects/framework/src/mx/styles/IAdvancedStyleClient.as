@@ -25,19 +25,6 @@ public interface IAdvancedStyleClient extends IStyleClient
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  pseudoSelectorState
-    //----------------------------------
-
-    /**
-     *  The current state of this component used to match CSS pseudo-selectors.
-     *  If no state exists, returns null.
-     * 
-     *  Note Spark components use their skin state as the pseudo state, where
-     *  as Halo components use their currentState property.
-     */
-    function get pseudoSelectorState():String;
-
-    //----------------------------------
     //  id
     //----------------------------------
 
@@ -63,10 +50,19 @@ public interface IAdvancedStyleClient extends IStyleClient
     //--------------------------------------------------------------------------
 
     /**
+     *  The current state of this component used to match CSS pseudo-selectors.
+     *  If no state exists, returns null.
+     * 
+     *  Note Spark components use their skin state as the pseudo state, where
+     *  as Halo components use their currentState property.
+     */
+    function isPseudoSelectorMatch(pseudoState:String):Boolean;
+
+    /**
      *  Determines whether this instance is the same as - or is a subclass of -
      *  the given type.
      */ 
-    function isAssignableToType(type:String):Boolean;
+    function isTypeSelectorMatch(type:String):Boolean;
 
     /**
      *   Apply state specific styles.
