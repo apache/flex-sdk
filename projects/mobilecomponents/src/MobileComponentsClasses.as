@@ -25,5 +25,6 @@ internal class MobileComponentsClasses
  */
     import spark.preloaders.SplashScreen; SplashScreen;
     import spark.components.supportClasses.StyleableTextField; StyleableTextField;
+    import spark.components.ActionBarDefaultButtonAppearance; ActionBarDefaultButtonAppearance;
 }
 }
