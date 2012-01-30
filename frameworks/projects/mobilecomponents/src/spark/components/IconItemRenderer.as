@@ -1286,7 +1286,7 @@ public class IconItemRenderer extends LabelItemRenderer
                 messageDisplay.selectable = false;
                 messageDisplay.multiline = true;
                 messageDisplay.wordWrap = true;
-                
+                				
                 var messageStyleName:String = getStyle("messageStyleName");
                 if (messageStyleName)
                 {
@@ -1716,7 +1716,7 @@ public class IconItemRenderer extends LabelItemRenderer
                 labelDisplay.text = labelText;
             
             labelWidth = getElementPreferredWidth(labelDisplay);
-            labelHeight = labelDisplay.textTopToLastBaselineHeight;
+            labelHeight = getElementPreferredHeight(labelDisplay);
         }
         
         if (hasMessage)
@@ -1728,11 +1728,12 @@ public class IconItemRenderer extends LabelItemRenderer
             // if we have an explicit width, use it to calculate messageDisplay's width.  
             // Otherwise, we'll keep it the same width as it was before
             if (!isNaN(estimatedWidth))
-                messageDisplay.width = estimatedWidth - paddingAndGapWidth - decoratorWidth - myIconWidth;
-                
-			var metrics:TextLineMetrics = messageDisplay.getLineMetrics(0);
+			{
+				messageWidth = estimatedWidth - paddingAndGapWidth - decoratorWidth - myIconWidth;
+                setElementSize(messageDisplay, messageWidth, getElementPreferredHeight(messageDisplay));
+			}  
             messageWidth = getElementPreferredWidth(messageDisplay);
-            messageHeight = messageDisplay.textTopToLastBaselineHeight; 
+            messageHeight = getElementPreferredHeight(messageDisplay); 
         }
         
         myMeasuredWidth += Math.max(labelWidth, messageWidth);
@@ -1840,7 +1841,7 @@ public class IconItemRenderer extends LabelItemRenderer
         if (decoratorDisplay)
             labelComponentsViewWidth -= horizontalGap;
         
-        var labelComponentsX:Number = paddingLeft - StyleableTextField.TEXT_WIDTH_PADDING/2;
+        var labelComponentsX:Number = paddingLeft;
         if (iconDisplay)
             labelComponentsX += iconWidth + horizontalGap;
         
@@ -1899,7 +1900,7 @@ public class IconItemRenderer extends LabelItemRenderer
             // handle message
             messageWidth = Math.max(labelComponentsViewWidth, 0);
 
-			messageHeight = messageDisplay.measuredTextSize.y;
+			messageHeight = getElementPreferredHeight(messageDisplay);
             setElementSize(messageDisplay, messageWidth, messageHeight);
             
             // since it's multi-line, no need to truncate
@@ -1916,10 +1917,6 @@ public class IconItemRenderer extends LabelItemRenderer
 		var labelAlignmentHeight:Number = 0; 
 		var messageAlignmentHeight:Number = 0; 
 		
-		// FIXME mcho:  add ascentShift style
-		var labelShift:Number = 3;
-		var messageShift:Number = 4;
-		
 		if (hasLabel)
 			labelAlignmentHeight = labelDisplay.textTopToLastBaselineHeight;
 		if (hasMessage)
@@ -1927,8 +1924,6 @@ public class IconItemRenderer extends LabelItemRenderer
 
 		totalHeight = labelAlignmentHeight + messageAlignmentHeight + verticalGap;			
 		labelComponentsY = Math.round(vAlign * (viewHeight - totalHeight)) + paddingTop;
-		// Make sure to offset by distance to the text field's top edge
-		labelComponentsY -= (hasLabel ? labelDisplay.textTopOffset : messageDisplay.textTopOffset);
 
 		if (labelDisplay)
 			setElementPosition(labelDisplay, labelComponentsX, labelComponentsY);
@@ -1936,8 +1931,6 @@ public class IconItemRenderer extends LabelItemRenderer
 		if (messageDisplay)
 		{
 			var messageY:Number = labelComponentsY + labelAlignmentHeight + verticalGap;
-			if (hasLabel) // account for the differences in shifts
-				messageY += labelShift - messageShift;
 			setElementPosition(messageDisplay, labelComponentsX, messageY);
 		}
         
