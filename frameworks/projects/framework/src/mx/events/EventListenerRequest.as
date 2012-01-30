@@ -90,7 +90,7 @@ public class EventListenerRequest extends SWFBridgeRequest
 
 		return new EventListenerRequest(eventObj.type, eventObj.bubbles,
 										eventObj.cancelable, eventObj.eventType,
-										eventObj.listener,
+                                        ("listener" in eventObj) ? eventObj.listener : null,
                                         eventObj.useCapture, eventObj.priority,
                                         eventObj.useWeakReference); 
 	}
