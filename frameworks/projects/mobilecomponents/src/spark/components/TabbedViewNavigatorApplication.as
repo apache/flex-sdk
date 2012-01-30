@@ -270,7 +270,11 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
      */ 
     override protected function backKeyUpHandler(event:KeyboardEvent):void
     {
-        if (navigator)
+		super.backKeyUpHandler(event);
+		
+		if (viewMenuOpen)
+			viewMenuOpen = false;
+		else if (navigator)
             navigator.backKeyUpHandler();
     }
     
