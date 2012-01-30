@@ -217,6 +217,8 @@ package spark.skins.mobile.supportClasses
             
             if (hostComponent && hostComponent.label != "")
             {
+                // FIXME (rfrishbe): rather than use lineMetrics, we should be using labelDisplay.textWidth.
+                // We need to change it here and in multiple places
                 lineMetrics = measureText(hostComponent.label);
                 textWidth = lineMetrics.width + TEXT_WIDTH_PADDING;
                 textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
