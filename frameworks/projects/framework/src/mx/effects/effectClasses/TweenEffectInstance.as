@@ -191,7 +191,7 @@ public class TweenEffectInstance extends EffectInstance
   	 *  @param playheadTime The position, in milliseconds, between 0
 	 *  and the value of the <code>duration</code> property.
   	 */
-	public function seek(playheadTime:Number):void
+    override public function seek(playheadTime:Number):void
 	{
 		if (tween)
 			tween.seek(playheadTime);
