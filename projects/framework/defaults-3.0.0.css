@@ -155,26 +155,6 @@ DragManager
 	paddingTop: 4;
 }
 
-
-/*
-//------------------------------
-//  ProgressBar
-//------------------------------
-*/
-
-ProgressBar
-{
-	barSkin: ClassReference("mx.skins.halo.ProgressBarSkin");
-	fontWeight: "bold";
-	indeterminateMoveInterval: 28;
-	indeterminateSkin: ClassReference("mx.skins.halo.ProgressIndeterminateSkin");
-    leading: 0;
-    maskSkin: ClassReference("mx.skins.halo.ProgressMaskSkin");
-	trackColors: #E7E7E7, #FFFFFF;
-	trackSkin: ClassReference("mx.skins.halo.ProgressTrackSkin");
-}
-
-
 /*
 //------------------------------
 //  SWFLoader
