@@ -33,7 +33,6 @@ import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.ButtonBarBase;
 import spark.components.supportClasses.ViewNavigatorBase;
-import spark.core.ContainerDestructionPolicy;
 import spark.effects.Animate;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
@@ -624,6 +623,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                     navigator.activeView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                                                                 view_propertyChangeHandler);
                 
+                // Private event dispatched when a view has finished transitioning
+                navigator.removeEventListener("viewChangeComplete", navigator_viewChangeCompleteHandler);
                 navigator.removeEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
                 navigator.removeEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
             }
@@ -634,6 +635,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             {
                 navigator = navigators[_selectedIndex];
                 
+                navigator.addEventListener("viewChangeComplete", navigator_viewChangeCompleteHandler);
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
                 
@@ -657,6 +659,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 }
             }
             
+            selectedIndexAdjusted = false;
+            dataProviderChanged = false;
+            selectedIndexChanged = false;
+            
             // Dispatch selection change event
             if (hasEventListener(IndexChangeEvent.CHANGE))
             {
@@ -666,10 +672,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 
                 dispatchEvent(e);
             }
-            
-            selectedIndexAdjusted = false;
-            dataProviderChanged = false;
-            selectedIndexChanged = false;
         }
         
         if (tabBarVisibilityChanged)
@@ -911,6 +913,16 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         }
         
         return savedData;
+    }
+    
+    /**
+     *  @private
+     *  Redispatches the child navigators COMPLETE event.
+     */ 
+    private function navigator_viewChangeCompleteHandler(event:Event):void
+    {
+        if (hasEventListener("viewChangeComplete"))
+            dispatchEvent(event);
     }
     
     /**
