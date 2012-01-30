@@ -40,6 +40,11 @@ public class LoaderConfig
      *
      *  <p>One instance of LoaderConfig is created by the SystemManager. 
      *  You should not need to construct your own.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function LoaderConfig()
     {
@@ -65,6 +70,11 @@ public class LoaderConfig
     /**
      *  If the LoaderConfig has been initialized, this
      *  should represent the top-level MovieClip's parameters.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get parameters():Object
     {
@@ -84,6 +94,11 @@ public class LoaderConfig
     /**
      *  If the LoaderConfig has been initialized, this
      *  should represent the top-level MovieClip's URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get url():String
     {
