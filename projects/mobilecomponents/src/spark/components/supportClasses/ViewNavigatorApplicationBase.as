@@ -14,6 +14,7 @@ package spark.components.supportClasses
 import flash.desktop.NativeApplication;
 import flash.display.StageOrientation;
 import flash.events.Event;
+import flash.events.InvokeEvent;
 import flash.events.KeyboardEvent;
 import flash.events.StageOrientationEvent;
 import flash.system.Capabilities;
@@ -181,10 +182,8 @@ public class MobileApplicationBase extends Application
         systemManager.stage.addEventListener(KeyboardEvent.KEY_UP, deviceKeyUpHandler);
         systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
                                              orientationChangeHandler);
-        
-        // Add application deactivate and activate listeners
         NativeApplication.nativeApplication.
-            addEventListener(Event.ACTIVATE, applicationActivateHandler);
+            addEventListener(InvokeEvent.INVOKE, nativeApplication_invokeHandler);
         
         // We need to listen to different events on desktop and mobile because
         // on desktop, the deactivate event is dispatched whenever the window loses
@@ -194,31 +193,40 @@ public class MobileApplicationBase extends Application
         
         if (os.indexOf("Windows") != -1 || os.indexOf("Mac OS") != -1)
             NativeApplication.nativeApplication.
-                addEventListener(Event.EXITING, applicationDeactivateHandler);
+                addEventListener(Event.EXITING, nativeApplication_deactivateHandler);
         else
             NativeApplication.nativeApplication.
-                addEventListener(Event.DEACTIVATE, applicationDeactivateHandler);
+                addEventListener(Event.DEACTIVATE, nativeApplication_deactivateHandler);
     }
     
     /**
+     *  This method is called when the application is invoked by the
+     *  OS.  This method is called in response to a InvokeEvent.INVOKE
+     *  event.
+     * 
+     *  @param event The InvokeEvent object
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */  
-    protected function applicationActivateHandler(event:Event):void
+    protected function nativeApplication_invokeHandler(event:InvokeEvent):void
     {
     }
     
     /**
+     *  This method is called when the application is exiting or being
+     *  sent to the background by the OS.  If sessionCachingEnabled is
+     *  set to true, the application will begin the state saving process
+     *  here.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected function applicationDeactivateHandler(event:Event):void
+    protected function nativeApplication_deactivateHandler(event:Event):void
     {
         if (sessionCachingEnabled)
         {
