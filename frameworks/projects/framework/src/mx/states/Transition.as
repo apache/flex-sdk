@@ -22,7 +22,7 @@ import mx.effects.IEffect;
  *  defines how to change states, a transition defines the order in which
  *  visual changes occur during the state change.
  *
- *  <p>To define a transition, you set the transition property of an Application
+ *  <p>To define a transition, you set the <code>transitions</code> property of an Application
  *  to an Array of Transition objects. </p>
  *
  *  <p>You use the <code>toState</code> and <code>fromState</code> properties of
