@@ -12,11 +12,10 @@
 package mx.core
 {
 
-import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextLineMetrics;
+
 import mx.managers.ISystemManager;
-import mx.managers.SystemManagerGlobals;
 
 /**
  *  The UITextFormat class represents character formatting information
@@ -277,6 +276,33 @@ public class UITextFormat extends TextFormat
     public var antiAliasType:String;
     
     //----------------------------------
+    //  direction
+    //----------------------------------
+
+	/**
+	 *  The directionality of the text.
+	 *
+	 *  <p>The allowed values are <code>"ltr"</code> for left-to-right text,
+	 *  as in Latin-style scripts,
+	 *  and <code>"rtl"</code> for right-to-left text,
+	 *  as in Arabic and Hebrew.</p>
+	 *
+	 *  <p>FTE and TLF use this value in their bidirectional text layout algorithm,
+	 *  which maps Unicode character order to glyph order.</p>
+	 * 
+	 *  <p>Note: This style only applies when this UITextFormat
+	 *  is used with a UITLFTextField rather than a UITextField.</p>
+	 *
+	 *  @default null
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+    public var direction:String;
+    
+    //----------------------------------
     //  gridFitType
     //----------------------------------
 
@@ -308,6 +334,28 @@ public class UITextFormat extends TextFormat
      *  @productversion Flex 3
      */
     public var gridFitType:String;
+    
+    //----------------------------------
+    //  locale
+    //----------------------------------
+
+	/**
+	 *  The locale of the text.
+	 * 
+	 *  <p>FTE and TLF use this locale to map Unicode characters
+	 *  to font glyphs and to find fallback fonts.</p>
+	 *
+	 *  <p>Note: This style only applies when this UITextFormat
+	 *  is used with a UITLFTextField rather than a UITextField.</p>
+	 *
+	 *  @default null
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+    public var locale:String;
     
     //----------------------------------
     //  moduleFactory
@@ -522,16 +570,22 @@ public class UITextFormat extends TextFormat
             measurementTextField.embedFonts = false;
         }
 
-        // Set other TextField properties based on CSS styles.
-        // These properties do not have meaning in TLFTextField,
-        // and have been implemented to return either null or NaN,
-        // so don't try to set them on a TLFTextField.
+        // Set other properties based on CSS styles.
         if (!useTLF)
         {
+			// These properties do not have meaning in TLFTextField,
+			// and have been implemented to return either null or NaN,
+			// so don't try to set them on a TLFTextField.
 	        measurementTextField.antiAliasType = antiAliasType;
 	        measurementTextField.gridFitType = gridFitType;
 	        measurementTextField.sharpness = sharpness;
 	        measurementTextField.thickness = thickness;
+        }
+        else
+        {
+        	// The properties have meaning only on a TLFTextField.
+			measurementTextField.direction = direction;
+        	measurementTextField.locale = locale;
         }
         
         // Set the text to be measured into the TextField.
