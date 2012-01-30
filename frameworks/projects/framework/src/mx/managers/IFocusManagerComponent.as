@@ -161,6 +161,11 @@ public interface IFocusManagerComponent
 	 */
 	function get tabIndex():int;
 
+	/**
+	 *  @private
+	 */
+	function set tabIndex(value:int):void;
+
 	//--------------------------------------------------------------------------
 	//
 	//  Methods
