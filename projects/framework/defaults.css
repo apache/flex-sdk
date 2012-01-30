@@ -16,12 +16,12 @@
 /* Global style declaration */
 global
 {
+    /* framework styles */
     accentColor: #0099FF;
     alignmentBaseline: "useDominantBaseline";
 	backgroundAlpha: 1.0; /* this runs the opacity of nearly every square piece of the components */
 	/* backgroundDisabledColor: #DDDDDD; */
 	backgroundSize: "auto";
-	chromeColor: #CCCCCC;
     baselineShift: 0;
 	bevel: true;
     blockProgression: "tb";
@@ -29,13 +29,13 @@ global
   	borderCapColor: #919999;
 	borderColor: #696969;
 	borderSides: "left top right bottom";
-    borderSkin: ClassReference("mx.skins.spark.BorderSkin");
 	borderStyle: "inset";
 	borderThickness: 1;
     borderVisible: true;
     breakOpportunity: "auto";
 	buttonColor: #6F7777;
     cffHinting: "horizontalStem";
+    chromeColor: #CCCCCC;
 	closeDuration: 50;
 	color: #000000;
     columnCount: "auto";
@@ -70,7 +70,7 @@ global
 	fontAntiAliasType: "advanced";
 	fontFamily: "Arial";
 	fontGridFitType: "pixel";
-    fontLookup: "auto";
+    fontLookup: "embeddedCFF";
 	fontSharpness: 0;
 	fontSize: 12;
 	fontStyle: "normal";
@@ -159,6 +159,25 @@ global
 	verticalGridLineColor: #D5DDDD;
 	verticalGridLines: true;
     whiteSpaceCollapse: "collapse";
+
+    
+    /* spark styles */
+
+    /* Looks */
+    backgroundImageFillMode : "scale";
+    borderWeight : 1;
+    
+    /* Behaviors */
+    autoThumbVisibility: true;
+    fixedThumbSize: false;
+    fullScreenHideControlsDelay: 3000;
+    horizontalScrollPolicy: "auto";
+    liveDragging: true;
+    rollOverOpenDelay: 200;
+    slideDuration: 300;
+    smoothScrolling: true;
+    verticalScrollPolicy: "auto";
+
 }
 
 /*
