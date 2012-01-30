@@ -15,9 +15,11 @@ import flash.display.DisplayObject;
 import flash.events.TimerEvent;
 import flash.net.URLRequest;
 import flash.text.TextFieldType;
+import flash.text.TextLineMetrics;
 import flash.utils.Timer;
 
 import mx.controls.listClasses.*;
+import mx.core.DPIClassification;
 import mx.core.IFlexDisplayObject;
 import mx.core.IVisualElement;
 import mx.core.UIComponentGlobals;
@@ -1699,7 +1701,10 @@ public class IconItemRenderer extends LabelItemRenderer
         if (numHorizontalSections > 0)
             paddingAndGapWidth += (getStyle("horizontalGap") * (numHorizontalSections - 1));
         
-        var verticalGap:Number = (labelDisplay && messageDisplay) ? getStyle("verticalGap") : 0;
+		var hasLabel:Boolean = labelDisplay && labelDisplay.text != "";
+		var hasMessage:Boolean = messageDisplay && messageDisplay.text != "";
+
+        var verticalGap:Number = (hasLabel && hasMessage) ? getStyle("verticalGap") : 0;
         var paddingHeight:Number = getStyle("paddingTop") + getStyle("paddingBottom");
         
         // Icon is on left
@@ -1736,18 +1741,22 @@ public class IconItemRenderer extends LabelItemRenderer
         var labelHeight:Number = 0;
         var messageWidth:Number = 0;
         var messageHeight:Number = 0;
-        
-        if (labelDisplay)
+		
+		// FIXME mcho: use a baselineShift style
+		var labelShift:Number = 3;
+		var messageShift:Number = 4;
+
+        if (hasLabel)
         {
             // reset text if it was truncated before.
             if (labelDisplay.isTruncated)
                 labelDisplay.text = labelText;
             
             labelWidth = getElementPreferredWidth(labelDisplay);
-            labelHeight = getElementPreferredHeight(labelDisplay);
+            labelHeight = labelDisplay.getLineMetrics(0).ascent - labelShift;
         }
         
-        if (messageDisplay)
+        if (hasMessage)
         {
             // now we need to measure messageDisplay's height.  Unfortunately, this is tricky and 
             // is dependent on messageDisplay's width
@@ -1756,8 +1765,11 @@ public class IconItemRenderer extends LabelItemRenderer
             if (!isNaN(estimatedWidth))
                 messageDisplay.width = estimatedWidth - paddingAndGapWidth - decoratorWidth - myIconWidth;
                 
+			var metrics:TextLineMetrics = messageDisplay.getLineMetrics(0);
             messageWidth = getElementPreferredWidth(messageDisplay);
-            messageHeight = getElementPreferredHeight(messageDisplay);
+            messageHeight = messageDisplay.measuredTextSize.y - StyleableTextField.TEXT_HEIGHT_PADDING - metrics.descent - messageShift;	
+			if (messageDisplay.numLines == 1) // account for the extra leading on single line text
+				messageHeight -= metrics.leading;
         }
         
         myMeasuredWidth += Math.max(labelWidth, messageWidth);
@@ -1773,10 +1785,10 @@ public class IconItemRenderer extends LabelItemRenderer
         // now set the local variables to the member variables.  Make sure it means our
         // minimum height of 80
         measuredWidth = myMeasuredWidth
-        measuredHeight = Math.max(80, myMeasuredHeight);
+        measuredHeight = Math.max(itemMinimumHeight, myMeasuredHeight);
         
         measuredMinWidth = myMeasuredMinWidth;
-        measuredMinHeight = Math.max(80, myMeasuredMinHeight);
+        measuredMinHeight = Math.max(itemMinimumHeight, myMeasuredMinHeight);
     }
     
     /**
@@ -1853,13 +1865,16 @@ public class IconItemRenderer extends LabelItemRenderer
         var decoratorWidth:Number = 0;
         var decoratorHeight:Number = 0;
 
+		var hasLabel:Boolean = labelDisplay && labelDisplay.text != "";
+		var hasMessage:Boolean = messageDisplay && messageDisplay.text != "";
+
         var paddingLeft:Number   = getStyle("paddingLeft");
         var paddingRight:Number  = getStyle("paddingRight");
         var paddingTop:Number    = getStyle("paddingTop");
         var paddingBottom:Number = getStyle("paddingBottom");
         var horizontalGap:Number = getStyle("horizontalGap");
         var verticalAlign:String = getStyle("verticalAlign");
-        var verticalGap:Number   = (labelDisplay && messageDisplay) ? getStyle("verticalGap") : 0;
+        var verticalGap:Number   = (hasLabel && hasMessage) ? getStyle("verticalGap") : 0;
 
         var vAlign:Number;
         if (verticalAlign == "top")
@@ -1883,14 +1898,8 @@ public class IconItemRenderer extends LabelItemRenderer
             iconWidth = iconDisplay.getLayoutBoundsWidth();
             iconHeight = iconDisplay.getLayoutBoundsHeight();
             
-            // if there's no messageDisplay, then use vAlign to position the icon.
-            // otherwise, just position it at y = paddingTop
-            var iconDisplayY:Number;
-            if (!messageDisplay)
-                iconDisplayY = Math.round(vAlign * (viewHeight - iconHeight)) + paddingTop;
-            else
-                iconDisplayY = paddingTop;
-            
+            // use vAlign to position the icon.
+			var iconDisplayY:Number = Math.round(vAlign * (viewHeight - iconHeight)) + paddingTop;
             setElementPosition(iconDisplay, paddingLeft, iconDisplayY);
         }
         
@@ -1924,7 +1933,7 @@ public class IconItemRenderer extends LabelItemRenderer
         // calculte the natural height for the label
         var labelTextHeight:Number = 0;
         
-        if (labelDisplay && labelText != "")
+        if (hasLabel)
         {
             // reset text if it was truncated before.
             if (labelDisplay.isTruncated)
@@ -1936,7 +1945,7 @@ public class IconItemRenderer extends LabelItemRenderer
             labelTextHeight = getElementPreferredHeight(labelDisplay);
         }
         
-        if (messageDisplay && messageText != "")
+        if (hasMessage)
         {
             // commit styles to make sure it uses updated look
             messageDisplay.commitStyles();
@@ -1955,7 +1964,7 @@ public class IconItemRenderer extends LabelItemRenderer
         var messageWidth:Number = 0;
         var messageHeight:Number = 0;
 
-        if (labelDisplay)
+        if (hasLabel)
         {
             // handle labelDisplay.  it can only be 1 line
             
@@ -1963,19 +1972,20 @@ public class IconItemRenderer extends LabelItemRenderer
             // height only takes up what it needs so we can properly place the message
             // and make sure verticalAlign is operating on a correct value.
             labelWidth = Math.max(labelComponentsViewWidth, 0);
-            labelHeight = Math.max(Math.min(viewHeight, labelTextHeight), 0);
+			labelHeight = labelTextHeight;
+
             setElementSize(labelDisplay, labelWidth, labelHeight);
             
             // attempt to truncate text
             labelDisplay.truncateToFit();
         }
 
-        if (messageDisplay)
+        if (hasMessage)
         {
             // handle message
             messageWidth = Math.max(labelComponentsViewWidth, 0);
-            messageHeight = Math.max(viewHeight - labelHeight - verticalGap, 0);
-            
+
+			messageHeight = messageDisplay.measuredTextSize.y;
             setElementSize(messageDisplay, messageWidth, messageHeight);
             messageHeight = Math.max(0, Math.min(messageHeight, getElementPreferredHeight(messageDisplay)));
             
@@ -1986,17 +1996,39 @@ public class IconItemRenderer extends LabelItemRenderer
         }
 
         // Position the text components now that we know all heights so we can respect verticalAlign style
-        if (labelDisplay || messageDisplay)
-        {
-            var totalHeight:Number = labelHeight + messageHeight + verticalGap;
-            var labelComponentsY:Number = Math.round(vAlign * (viewHeight - totalHeight)) + paddingTop;
+		var totalHeight:Number = 0;
+		var labelComponentsY:Number = 0; 
 
-            if (labelDisplay)
-                setElementPosition(labelDisplay, labelComponentsX, labelComponentsY);
+		var labelAlignmentHeight:Number = 0; 
+		var messageAlignmentHeight:Number = 0;
+		
+		// FIXME mcho: use a baselineShift style
+		var labelShift:Number = 3;
+		var messageShift:Number = 4;
+		
+		if (hasLabel)
+			labelAlignmentHeight = labelDisplay.getLineMetrics(0).ascent - labelShift;
+		if (hasMessage)
+		{
+			var metrics:TextLineMetrics = messageDisplay.getLineMetrics(0);
+			messageAlignmentHeight = messageDisplay.measuredTextSize.y - StyleableTextField.TEXT_HEIGHT_PADDING - metrics.descent - messageShift;	
+			if (messageDisplay.numLines == 1) // account for the extra leading on single line text
+				messageAlignmentHeight -= metrics.leading;
+		}
+		totalHeight = labelAlignmentHeight + messageAlignmentHeight + verticalGap;			
+		labelComponentsY = Math.round(vAlign * (viewHeight - totalHeight)) - StyleableTextField.TEXT_HEIGHT_PADDING/2 - 
+			(hasLabel ? labelShift : messageShift) + paddingTop;
 
-            if (messageDisplay)
-                setElementPosition(messageDisplay, labelComponentsX, labelComponentsY + labelHeight + verticalGap);
-        }
+		if (labelDisplay)
+			setElementPosition(labelDisplay, labelComponentsX, labelComponentsY);
+		
+		if (messageDisplay)
+		{
+			var messageY:Number = labelComponentsY + labelAlignmentHeight + verticalGap;
+			if (hasLabel) // account for the differences in shifts
+				messageY += labelShift - messageShift;
+			setElementPosition(messageDisplay, labelComponentsX, messageY);
+		}
         
         // see if we have an icon that needs to be validated
         if (iconDisplay && 
