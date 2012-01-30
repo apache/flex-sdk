@@ -506,21 +506,6 @@ public class Preloader extends Sprite
 				}
 			}
 
-            // Sometimes the stage size doesn't get resized right away,
-            // wait till we have the correct size - SDK-21187
-            try
-            {
-                var stageWidth:Number = stage.stageWidth;
-                var stageHeight:Number = stage.stageHeight
-            }
-            catch (e:Error)
-            {
-                stageWidth = loaderInfo.width;
-                stageHeight = loaderInfo.height;
-            }
-            if (stageWidth == 0 && stageHeight == 0)
-                return;
-
 			timer.removeEventListener(TimerEvent.TIMER, timerHandler);
 			
 			// Stop the timer.
