@@ -1637,19 +1637,6 @@ public class ViewNavigator extends ViewNavigatorBase
                 stage.focus = this;
         }
         
-        // At this point, currentViewDescriptor points to the new view
-        if (currentViewDescriptor)
-        {
-            var currentView:View= currentViewDescriptor.instance;
-            
-            if (currentView)
-            {
-                currentView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
-                                                view_propertyChangeHandler);
-                currentView.setActive(true);
-            }
-        }
-        
         // Clear the returned object
         _poppedViewReturnedObject = null;
         
@@ -1659,7 +1646,12 @@ public class ViewNavigator extends ViewNavigatorBase
         mouseChildren = explicitMouseChildren;
         mouseEnabled = explicitMouseEnabled;
 
-        // FIXME (chiedozi): Comment revalidation
+        // ViewNavigator doesn't allow for another navigation operation to
+        // be run during a view change.  If the component attempts to do
+        // one, it is queued and run after the current transition is complete.
+        // The revalidateWhenComplete flag will be true in this case and will
+        // force another validation to commit that change.  If the flag is
+        // false, we can end the validation process.
         if (revalidateWhenComplete)
         {
             revalidateWhenComplete = false;
@@ -1668,13 +1660,48 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         else
         {
-            lastAction = ViewNavigatorAction.NONE;
-            viewChanging = false;
-            
-            // Notify listeners that the view change is complete
-            if (hasEventListener("viewChangeComplete"))
-                dispatchEvent(new Event("viewChangeComplete"));
+            // SDK-28230
+            // Wait a frame before sending the complete event so that the player 
+            // has the chance to render the last frame before any custom actionscript 
+            // is run in response to a VIEW_ACTIVATE event.
+            addEventListener(Event.ENTER_FRAME, completeViewCommitProcess);
         }
+    }
+    
+    /**
+     *  @private
+     *  Activates the current view.  Called on the frame following the
+     *  navigator commit so that the player can render before the activate events
+     *  are dispatched.
+     */ 
+    private function completeViewCommitProcess(event:Event):void
+    {
+        removeEventListener(Event.ENTER_FRAME, completeViewCommitProcess);
+        
+        // At this point, currentViewDescriptor points to the new view.
+        // The navigator needs to listen for property change events on the
+        // view so that it can be notified when the template properties
+        // (e.g, title, titleContent, etc) are changed.
+        if (currentViewDescriptor)
+        {
+            var currentView:View = currentViewDescriptor.instance;
+            
+            if (currentView)
+            {
+                currentView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+                    view_propertyChangeHandler);
+            
+                // Activate the current view.  This will dispatch a VIEW_ACTIVATE event.
+                currentView.setActive(true);
+            }
+        }
+        
+        // Notify listeners that the view change is complete
+        if (hasEventListener("viewChangeComplete"))
+            dispatchEvent(new Event("viewChangeComplete"));
+            
+        lastAction = ViewNavigatorAction.NONE;
+        viewChanging = false;
     }
     
     /**
@@ -1730,7 +1757,8 @@ public class ViewNavigator extends ViewNavigatorBase
             // to take advantage of validation lifecycle events, such as CREATION_COMPLETE,
             // to update properties and states on the view.  If this wasn't done, it would be
             // possible to lose invalidation calls since ViewNavigator is still in its 
-            // commitProperties call.
+            // commitProperties call.  Since we are using callLater, this will get called
+            // before the next render
             callLater(viewAdded, [(transitionsEnabled ? pendingViewTransition : null)]);
         }
         else
