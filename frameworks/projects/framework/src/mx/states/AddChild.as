@@ -405,9 +405,11 @@ use namespace mx_internal;
                 {
                     Panel(obj).createComponentsFromDescriptors();
                 }
-                else if (target is ApplicationControlBar && ApplicationControlBar(target).dock && obj is Application)
+                else if (target is ApplicationControlBar && ApplicationControlBar(target).dock) 
                 {
-                    ApplicationControlBar(target).resetDock(true);
+                    var applicationClass:Class = Class(ApplicationControlBar(target).systemManager.getDefinitionByName("mx.core::Application"));
+                    if (applicationClass && obj is applicationClass)                    
+                        ApplicationControlBar(target).resetDock(true);
                 }
                 
                 break;
