@@ -15,11 +15,12 @@ package mx.styles
 import flash.events.IEventDispatcher;
 import flash.system.ApplicationDomain;
 import flash.system.SecurityDomain;
+import flash.utils.Dictionary;
 
 import mx.core.FlexVersion;
 import mx.core.IFlexModuleFactory;
-import mx.core.mx_internal;
 import mx.core.Singleton;
+import mx.core.mx_internal;
 import mx.managers.SystemManagerGlobals;
 
 /**
@@ -101,6 +102,12 @@ public class StyleManager
     //
     //--------------------------------------------------------------------------
 
+	/**
+	 *  @private 
+	 *  Dictionary that maps a moduleFactory to its associated styleManager
+	 */
+	private static var styleManagerDictionary:Dictionary;
+	
     /**
      *  Returns the style manager for an object.
      *
@@ -122,16 +129,24 @@ public class StyleManager
             // trace("no style manager specified, using top-level style manager");
         }
         
-        var styleManager:IStyleManager2 = IStyleManager2(moduleFactory.getImplementation("mx.styles::IStyleManager2"));
-        if (styleManager == null)
-        {
-            // All Flex 4 swfs should have a style manager. 
-            // In the transition to multiple style managers, use the top-level style manager.
-            // trace("no style manager found");
-            styleManager = impl;
-        }
-        
-        return styleManager;
+		if (!styleManagerDictionary)
+			styleManagerDictionary = new Dictionary(true);
+		
+		if (styleManagerDictionary[moduleFactory] == null)
+		{
+	        var styleManager:IStyleManager2 = IStyleManager2(moduleFactory.getImplementation("mx.styles::IStyleManager2"));
+	        if (styleManager == null)
+	        {
+	            // All Flex 4 swfs should have a style manager. 
+	            // In the transition to multiple style managers, use the top-level style manager.
+	            // trace("no style manager found");
+	            styleManager = impl;
+	        }
+			
+			styleManagerDictionary[moduleFactory] = styleManager;
+		}
+		
+        return styleManagerDictionary[moduleFactory];
     }   
     
     /**
