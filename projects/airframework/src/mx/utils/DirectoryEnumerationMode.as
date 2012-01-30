@@ -23,7 +23,6 @@ package mx.utils
  *
  *  @see mx.utils.DirectoryEnumeration#enumerationMode
  * 
- *  @playerversion AIR 1.1
  */
 public final class DirectoryEnumerationMode
 {
