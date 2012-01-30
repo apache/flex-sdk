@@ -25,6 +25,7 @@
     <component id="FlipViewTransition" class="spark.transitions.FlipViewTransition"/>
     <component id="IconItemRenderer" class="spark.components.IconItemRenderer"/>
     <component id="LabelItemRenderer" class="spark.components.LabelItemRenderer"/>
+    <component id="PersistenceManager" class="spark.managers.PersistenceManager"/>
     <component id="SlideViewTransition" class="spark.transitions.SlideViewTransition"/>
     <component id="SpinnerList" class="spark.components.SpinnerList"/>
     <component id="SpinnerListContainer" class="spark.components.SpinnerListContainer"/>
