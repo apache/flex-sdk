@@ -592,7 +592,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
             
             CONFIG::performanceInstrumentation
             {
-                perfUtil.markEnd(Object(obj).toString() + ".validateProperties()", token, 2 /*tolerance*/);
+                perfUtil.markEnd(".validateProperties()", token, 2 /*tolerance*/, obj);
             }
 
             // Once we start, don't stop.
@@ -1046,7 +1046,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 
         CONFIG::performanceInstrumentation
         {
-            perfUtil.markEnd("validateClient(" + target + ")", token, 2 /*tolerance*/);
+            perfUtil.markEnd(" validateClient()", token, 2 /*tolerance*/, target);
         }
         // trace("<--- LayoutManager: validateClient --- target = " + target);
     }
