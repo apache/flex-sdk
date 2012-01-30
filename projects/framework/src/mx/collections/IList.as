@@ -190,9 +190,11 @@ public interface IList extends IEventDispatcher
     /**
      *  Returns an Array that is populated in the same order as the IList
      *  implementation.
-     *  This method may throw an ItemPendingError.
+     *  This method can throw an ItemPendingError.
      *
-     *  @throws mx.collections.errors.ItemPendingError if the data is not yet completely loaded
+     *  @return The array.
+     *  
+     *  @throws mx.collections.errors.ItemPendingError If the data is not yet completely loaded
      *  from a remote location.
      */ 
     function toArray():Array;
