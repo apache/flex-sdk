@@ -11886,6 +11886,34 @@ public class UIComponent extends FlexSprite
     {
         return LayoutElementUIComponentUtils.getMaxBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
     }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function getBoundsXAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    {
+        return LayoutElementUIComponentUtils.getBoundsXAtSize(this, width, height,
+                                                              postTransform ? nonDeltaLayoutMatrix() : null);
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function getBoundsYAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    {
+        return LayoutElementUIComponentUtils.getBoundsYAtSize(this, width, height,
+                                                              postTransform ? nonDeltaLayoutMatrix() : null);
+    }
 
     /**
      *  @inheritDoc
