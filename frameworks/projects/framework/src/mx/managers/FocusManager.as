@@ -621,15 +621,19 @@ public class FocusManager extends EventDispatcher implements IFocusManager
  
             // trace("FM " + this + " setting last focus " + target);
             _lastFocus = findFocusManagerComponent(InteractiveObject(target));
-            var usesIME:Boolean;
-            if (_lastFocus is IIMESupport)
+            
+            if (Capabilities.hasIME)
             {
-                var imeFocus:IIMESupport = IIMESupport(_lastFocus);
-                if (imeFocus.editable)
-                    usesIME = true;
+                var usesIME:Boolean;
+                if (_lastFocus is IIMESupport)
+                {
+                    var imeFocus:IIMESupport = IIMESupport(_lastFocus);
+                    if (imeFocus.editable)
+                        usesIME = true;
+                }
+                IME.enabled = usesIME;
             }
-            IME.enabled = usesIME;
-
+            
 			// handle default button here
 			// we can't check for Button because of cross-versioning so
 			// for now we just check for an emphasized property
