@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2008 Adobe Systems Incorporated
+//  Copyright 2010 Adobe Systems Incorporated
 //  All Rights Reserved.
 //
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.mobile
+package spark.skins.mobile.supportClasses
 {
     
 /**
@@ -19,12 +19,12 @@ package spark.skins.mobile
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.5 
+ *  @productversion Flex 4.5
  */    
-public class ToggleButtonSkinBase extends ButtonSkinBase
+public class SelectableButtonSkinBase extends ButtonSkinBase
 {
-    public function ToggleButtonSkinBase()
+    public function SelectableButtonSkinBase()
     {
         super();
         gap = 15;
@@ -40,21 +40,41 @@ public class ToggleButtonSkinBase extends ButtonSkinBase
     
     /**
      *  The Class used to create the icon in the up state
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
      */
     protected var upIconClass:Class;
     
     /**
      *  The Class used to create the icon in the selected up state 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
      */
     protected var upSelectedIconClass:Class;
     
     /**
      *  The Class used to create the icon in the down state
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
      */
     protected var downIconClass:Class;
     
     /**
      *  The Class used to create the icon in the selected down state 
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
      */
     protected var downSelectedIconClass:Class;
     
