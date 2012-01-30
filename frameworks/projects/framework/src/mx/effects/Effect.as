@@ -1320,7 +1320,7 @@ public class Effect extends EventDispatcher implements IEffect
         else
         {
             var n:int = _instances.length;
-            for (var i:int = n; i >= 0; i--)
+            for (var i:int = n - 1; i >= 0; i--)
             {
                 var instance:IEffectInstance = IEffectInstance(_instances[i]);
                 if (instance)
