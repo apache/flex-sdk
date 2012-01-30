@@ -160,31 +160,11 @@ public class ToolTipBorder extends RectangularBorder
 
 		switch (borderStyle)
 		{
-			case "toolTip":
+			case "none":
 			{
-				// face
-				drawRoundRect(
-					3, 1, w - 6, h - 4, cornerRadius,
-					backgroundColor, backgroundAlpha) 
-				
-				if (!dropShadow)
-					dropShadow = new RectangularDropShadow();
-
-				dropShadow.distance = 3;
-				dropShadow.angle = 90;
-				dropShadow.color = 0;
-				dropShadow.alpha = 0.4;
-
-				dropShadow.tlRadius = cornerRadius + 2;
-				dropShadow.trRadius = cornerRadius + 2;
-				dropShadow.blRadius = cornerRadius + 2;
-				dropShadow.brRadius = cornerRadius + 2;
-
-				dropShadow.drawShadow(graphics, 3, 0, w - 6, h - 4);
-
+				// Don't draw anything
 				break;
 			}
-
 			case "errorTipRight":
 			{
 				// border 
@@ -203,7 +183,7 @@ public class ToolTipBorder extends RectangularBorder
 				filters = [ new DropShadowFilter(2, 90, 0, 0.4) ];
 				break;
 			}
-
+			
 			case "errorTipAbove":
 			{
 				// border 
@@ -239,6 +219,31 @@ public class ToolTipBorder extends RectangularBorder
 				g.endFill();
 				
 				filters = [ new DropShadowFilter(2, 90, 0, 0.4) ];
+				break;
+			}
+
+			default: //Tooltip
+			{
+				// face
+				drawRoundRect(
+					3, 1, w - 6, h - 4, cornerRadius,
+					backgroundColor, backgroundAlpha) 
+				
+				if (!dropShadow)
+					dropShadow = new RectangularDropShadow();
+
+				dropShadow.distance = 3;
+				dropShadow.angle = 90;
+				dropShadow.color = 0;
+				dropShadow.alpha = 0.4;
+
+				dropShadow.tlRadius = cornerRadius + 2;
+				dropShadow.trRadius = cornerRadius + 2;
+				dropShadow.blRadius = cornerRadius + 2;
+				dropShadow.brRadius = cornerRadius + 2;
+
+				dropShadow.drawShadow(graphics, 3, 0, w - 6, h - 4);
+
 				break;
 			}
 		}
