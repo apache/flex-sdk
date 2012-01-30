@@ -55,12 +55,11 @@ import mx.filters.IBitmapFilter;
 import mx.graphics.RoundedRectangle;
 import mx.managers.CursorManager;
 import mx.managers.ICursorManager;
-import mx.managers.IFocusManager2;
+import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.IFocusManagerContainer;
 import mx.managers.ILayoutManagerClient;
 import mx.managers.ISystemManager;
-import mx.managers.ISystemManager2;
 import mx.managers.IToolTipManagerClient;
 import mx.managers.SystemManager;
 import mx.managers.SystemManagerGlobals;
@@ -2325,7 +2324,7 @@ public class UIComponent extends FlexSprite
      *  @private
      *  Storage for the focusManager property.
      */
-    private var _focusManager:IFocusManager2;
+    private var _focusManager:IFocusManager;
 
     [Inspectable(environment="none")]
 
@@ -2336,7 +2335,7 @@ public class UIComponent extends FlexSprite
      *  of a FocusManager.
      *  To make sure you're talking to the right one, use this method.
      */
-    public function get focusManager():IFocusManager2
+    public function get focusManager():IFocusManager
     {
         if (_focusManager)
             return _focusManager;
@@ -2358,7 +2357,7 @@ public class UIComponent extends FlexSprite
      *  @private
      *  IFocusManagerContainers have this property assigned by the framework
      */
-    public function set focusManager(value:IFocusManager2):void
+    public function set focusManager(value:IFocusManager):void
     {
         _focusManager = value;
     }
@@ -4850,7 +4849,7 @@ public class UIComponent extends FlexSprite
 
         styleChanged("themeColor");
 
-        var focusManager:IFocusManager2 = focusManager;
+        var focusManager:IFocusManager = focusManager;
         var focusObj:DisplayObject = focusManager ?
                                      DisplayObject(focusManager.getFocus()) :
                                      null;
@@ -5094,7 +5093,7 @@ public class UIComponent extends FlexSprite
         // systemManager getter tries to set the internal _systemManager varaible 
         // if it is null. Hence a call to the getter is necessary.
 		// TODODJL: stage is null for bridged applications
-        if (systemManager && (_systemManager.stage || ISystemManager2(_systemManager).useBridge()))
+        if (systemManager && (_systemManager.stage || _systemManager.useSWFBridge()))
         {
             if (methodQueue.length > 0 && !listeningForRender)
             {
@@ -5721,10 +5720,10 @@ public class UIComponent extends FlexSprite
 
         // Register to get the next "render" event
         // just before the next rasterization.
-        var sm:ISystemManager2 = ISystemManager2(systemManager);
+        var sm:ISystemManager = systemManager;
         
         // TODODJL: stage is null for bridge applications
-        if (sm && (sm.stage || sm.useBridge()))
+        if (sm && (sm.stage || sm.useSWFBridge()))
         {
             if (!listeningForRender)
             {
@@ -5748,9 +5747,10 @@ public class UIComponent extends FlexSprite
      */
     mx_internal function cancelAllCallLaters():void
     {
-        var sm:ISystemManager2 = ISystemManager2(systemManager);
+        var sm:ISystemManager = systemManager;
+        
         // TODODJL: stage is null for bridge applications
-        if (sm && (sm.stage || sm.useBridge()))
+        if (sm && (sm.stage || sm.useSWFBridge()))
         {
             if (listeningForRender)
             {
@@ -6825,8 +6825,8 @@ public class UIComponent extends FlexSprite
      */
     public function setFocus():void
     {
-        var sm:ISystemManager2 = ISystemManager2(systemManager);
-        if (sm && (sm.stage || SystemManager(sm).useBridge()))
+        var sm:ISystemManager = systemManager;
+        if (sm && (sm.stage || sm.useSWFBridge()))
         {
             if (UIComponentGlobals.callLaterDispatcherCount == 0)
             {
@@ -6852,7 +6852,7 @@ public class UIComponent extends FlexSprite
      */
     mx_internal function getFocusObject():DisplayObject
     {
-        var fm:IFocusManager2 = focusManager;
+        var fm:IFocusManager = focusManager;
         
         if (!fm || !fm.focusPane)
             return null;
@@ -6964,7 +6964,7 @@ public class UIComponent extends FlexSprite
         if (isNaN(obj.width) || isNaN(obj.height))
             return;
 
-        var fm:IFocusManager2 = focusManager;
+        var fm:IFocusManager = focusManager;
         if (!fm)
             return; // we've been unparented so ignore
 
@@ -8597,10 +8597,10 @@ public class UIComponent extends FlexSprite
             return;
 
         // trace("  >>calllaterdispatcher2");
-        var sm:ISystemManager2 = ISystemManager2(systemManager);
+        var sm:ISystemManager = systemManager;
         
         // TODODJL: stage is null for bridge applications
-        if (sm && (sm.stage || sm.useBridge()) && listeningForRender)
+        if (sm && (sm.stage || sm.useSWFBridge()) && listeningForRender)
         {
             // trace("  removed");
             sm.removeEventListener(FlexEvent.RENDER, callLaterDispatcher);
@@ -8710,7 +8710,7 @@ public class UIComponent extends FlexSprite
     {
         if (isOurFocus(DisplayObject(event.target)))
         {
-            var fm:IFocusManager2 = focusManager;
+            var fm:IFocusManager = focusManager;
             if (fm && fm.showFocusIndicator)
                 drawFocus(true);
                 
