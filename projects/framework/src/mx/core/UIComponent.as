@@ -3053,11 +3053,10 @@ public class UIComponent extends FlexSprite
         _designLayer = value;
         
         if (_designLayer)
-        {
             _designLayer.addEventListener("layerPropertyChange", layer_PropertyChange, false, 0, true);
-            $alpha = _alpha * _designLayer.effectiveAlpha;
-            $visible = _visible && _designLayer.effectiveVisibility;
-        }
+            
+        $alpha = _designLayer ? _alpha * _designLayer.effectiveAlpha : _alpha;
+        $visible = designLayer ? _visible && _designLayer.effectiveVisibility : _visible;
     }
         
     //--------------------------------------------------------------------------
