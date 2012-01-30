@@ -139,6 +139,8 @@ public class FlexBitmap extends Bitmap
 	override public function set width(value:Number):void  
 	{
 		super.width = value;
+        // Set _scaleX because scaleX may change when width is set.
+        _scaleX = scaleX;
 		if (mirror)
 			validateTransformMatrix();
 	}
@@ -150,16 +152,34 @@ public class FlexBitmap extends Bitmap
 	/**
 	 *  @private
 	 *  We must override height as well because setting
-	 *  height will reset scaleX in the transform
+	 *  height will force scaleX to be positive in the transform
 	 *  matrix.
-	 * 
 	 */
 	override public function set height(value:Number):void  
 	{
 		super.height = value;
+        // Set _scaleX because scaleX may change when height is set.
+        _scaleX = scaleX;
 		if (mirror)
 			validateTransformMatrix();
 	}
+    
+    //----------------------------------
+    //  scaleX
+    //----------------------------------
+    
+    private var _scaleX:Number;
+    
+    /**
+     *  @private
+     */
+    override public function set scaleX(value:Number):void
+    {
+        _scaleX = value;
+        super.scaleX = value;
+        if (mirror)
+            validateTransformMatrix();
+    }
 
 	//--------------------------------------------------------------------------
 	//
@@ -201,19 +221,20 @@ public class FlexBitmap extends Bitmap
 	 *  @private
 	 *  We check the closest parent's layoutDirection property
 	 *  whenever we change parents and set our mirror property
-	 *  and transform matrix accordingly.
+	 *  and update our transform matrix accordingly.
 	 */
 	private function addedHandler(event:Event):void
 	{
-		// FIXME (klin): Is this necessary? Will it have a big impact on performance?
 		var p:DisplayObjectContainer = this.parent;
 		
 		while (p)
 		{
 			if (p is IVisualElement)
 			{
-				mirror = IVisualElement(p).layoutDirection == "rtl";
-				validateTransformMatrix();
+                const oldMirror:Boolean = mirror;
+                mirror = IVisualElement(p).layoutDirection == "rtl";
+                if (mirror != oldMirror)
+                    validateTransformMatrix();
 				break;
 			}
 			
@@ -224,26 +245,19 @@ public class FlexBitmap extends Bitmap
 	/**
 	 *  @private
 	 *  Modifies the transform matrix so that this bitmap
-	 *  will not be mirrored regardless of whether the closest
-	 *  parent is mirrored.
+	 *  will not be mirrored if a parent is mirrored. Also,
+     *  reverts the transform matrix when its parent is not
+     *  mirrored anymore.
 	 */
 	private function validateTransformMatrix():void
 	{
-		if (mirror)
-		{
-			const mirrorMatrix:Matrix = transform.matrix;
-			if (mirrorMatrix.a > 0)
-				mirrorMatrix.a *= -1;
-			mirrorMatrix.tx = _x + width;
-			transform.matrix = mirrorMatrix;
-		}
-		else // layoutDirection changed, mirror=false, reset transform.matrix to its default
-		{
-			const defaultMatrix:Matrix = new Matrix();
-			defaultMatrix.tx = _x;
-			defaultMatrix.ty = y;
-			transform.matrix = defaultMatrix;
-		}
+        const mirrorMatrix:Matrix = transform.matrix;
+        
+        if (isNaN(_scaleX))
+            _scaleX = mirrorMatrix.a;
+        mirrorMatrix.a = _scaleX * -1;
+        mirrorMatrix.tx = (mirror) ? _x + width : _x;
+        transform.matrix = mirrorMatrix;
 	}
 }
 
