@@ -14,6 +14,7 @@ package mx.core
 
 import flash.display.InteractiveObject;
 import mx.managers.IFocusManager;
+import mx.managers.IFocusManagerContainer;
 
 /**
 *  @private
@@ -59,7 +60,7 @@ public class ContainerGlobals
             currObj = objParent;
 
             if (currObj &&
-                currObj is IContainer && IContainer(currObj).defaultButton)
+                currObj is IFocusManagerContainer && IFocusManagerContainer(currObj).defaultButton)
             {
                 break;
             }
@@ -71,12 +72,12 @@ public class ContainerGlobals
             if (!currObj)
                 currObj = InteractiveObject(lastUIComp);
 
-            if (currObj && currObj is IContainer)
+            if (currObj && currObj is IFocusManagerContainer)
             {
-                var fm:IFocusManager = IContainer(currObj).focusManager;
+                var fm:IFocusManager = IFocusManagerContainer(currObj).focusManager;
                 if (!fm)
                     return;
-                var defButton:IButton = IContainer(currObj).defaultButton as IButton;
+                var defButton:IButton = IFocusManagerContainer(currObj).defaultButton as IButton;
                 if (defButton)
                 {
                     ContainerGlobals.focusedContainer = InteractiveObject(currObj);
