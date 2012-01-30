@@ -19,6 +19,7 @@ import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
 import flash.ui.Keyboard;
 
+import mx.events.FlexEvent;
 import mx.events.FocusRequestDirection;
 import mx.events.SWFBridgeEvent;
 import mx.events.SWFBridgeRequest;
@@ -99,6 +100,8 @@ public class FocusManagerMarshalMixin
 		focusManager.addEventListener("mouseDownFM", mouseDownHandler);
 		focusManager.addEventListener("addChildBridge", addChildBridgeHandler);
 		focusManager.addEventListener("removeChildBridge", removeChildBridgeHandler);
+		focusManager.addEventListener(FlexEvent.FLEX_WINDOW_ACTIVATE, forwardWindowActivationEventsToChildrenHandler);
+		focusManager.addEventListener(FlexEvent.FLEX_WINDOW_DEACTIVATE, forwardWindowActivationEventsToChildrenHandler);
 	}
 
 	//--------------------------------------------------------------------------
@@ -190,6 +193,8 @@ public class FocusManagerMarshalMixin
 	       			bridge.addEventListener(SWFBridgeRequest.MOVE_FOCUS_REQUEST, focusRequestMoveHandler);
                     bridge.addEventListener(SWFBridgeRequest.SET_SHOW_FOCUS_INDICATOR_REQUEST, 
                                             setShowFocusIndicatorRequestHandler);
+            		bridge.addEventListener(SWFBridgeEvent.BRIDGE_AIR_WINDOW_ACTIVATE, windowActivationEventHandler);
+            		bridge.addEventListener(SWFBridgeEvent.BRIDGE_AIR_WINDOW_DEACTIVATE, windowActivationEventHandler);
 	       		}
 	    
 	   			// add listener activate/deactivate requests
@@ -533,6 +538,8 @@ public class FocusManagerMarshalMixin
 	    else
 	    	throw new Error();		// should never get here.
 
+        bridge.removeEventListener(SWFBridgeEvent.BRIDGE_AIR_WINDOW_ACTIVATE, windowActivationEventHandler);
+        bridge.removeEventListener(SWFBridgeEvent.BRIDGE_AIR_WINDOW_DEACTIVATE, windowActivationEventHandler);
    		bridge.removeEventListener(SWFBridgeRequest.MOVE_FOCUS_REQUEST, focusRequestMoveHandler);
         bridge.removeEventListener(SWFBridgeRequest.SET_SHOW_FOCUS_INDICATOR_REQUEST, 
                                     setShowFocusIndicatorRequestHandler);
@@ -779,6 +786,34 @@ public class FocusManagerMarshalMixin
 		var bridge:IEventDispatcher = event["bridge"];
 
 		removeSWFBridge(bridge);
+	}
+
+	private function forwardWindowActivationEventsToChildrenHandler(event:Event):void
+	{
+        var ourEvent:SWFBridgeEvent;
+
+        if (event.type == FlexEvent.FLEX_WINDOW_ACTIVATE)
+            ourEvent = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_AIR_WINDOW_ACTIVATE);
+        else if (event.type == FlexEvent.FLEX_WINDOW_DEACTIVATE)
+            ourEvent = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_AIR_WINDOW_DEACTIVATE);
+        
+        dispatchEventFromSWFBridges(ourEvent, swfBridgeGroup.parentBridge)
+	}
+
+	private function windowActivationEventHandler(event:Event):void
+	{
+        var ourEvent:FlexEvent;
+
+        if (event.type == SWFBridgeEvent.BRIDGE_AIR_WINDOW_ACTIVATE)
+            ourEvent = new FlexEvent(FlexEvent.FLEX_WINDOW_ACTIVATE);
+        else if (event.type == SWFBridgeEvent.BRIDGE_AIR_WINDOW_DEACTIVATE)
+            ourEvent = new FlexEvent(FlexEvent.FLEX_WINDOW_DEACTIVATE);
+        
+        focusManager.dispatchEvent(ourEvent);
+		// restore focus if this focus manager had last focus
+	    if (focusManager.lastFocus && !focusManager.browserMode)
+	    	focusManager.lastFocus.setFocus();
+	    focusManager.lastAction = "ACTIVATE";
 	}
 }
 
