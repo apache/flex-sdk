@@ -44,7 +44,7 @@ package spark.skins.mobile.supportClasses
     */
     /**
      *  Actionscript based skin for mobile applications. The skin supports 
-     *  iconClass and iconPlacement. It uses a couple of FXG classes to 
+     *  icon and iconPlacement. It uses a couple of FXG classes to 
      *  implement the vector drawing.  
      * 
      *  @langversion 3.0
@@ -75,7 +75,7 @@ package spark.skins.mobile.supportClasses
         //
         //--------------------------------------------------------------------------
         
-        private var iconClassChanged:Boolean = true;
+        private var iconChanged:Boolean = true;
         
         /**
          *  labelDisplay skin part.
@@ -146,9 +146,9 @@ package spark.skins.mobile.supportClasses
         override public function styleChanged(styleProp:String):void 
         {    
             if (!styleProp || 
-                styleProp == "styleName" || styleProp == "iconClass")
+                styleProp == "styleName" || styleProp == "icon")
             {
-                iconClassChanged = true;
+                iconChanged = true;
                 invalidateProperties();
             }
             
@@ -164,21 +164,21 @@ package spark.skins.mobile.supportClasses
         {
             super.commitProperties();
             
-            if (iconClassChanged)
+            if (iconChanged)
             {
                 if (iconDisplay)
                     removeChild(iconDisplay);
                 
-                var iconClass:Class = getStyle("iconClass");
+                var icon:Class = getStyle("icon");
                 
-                if (iconClass)
+                if (icon)
                 {
                     // Should be a bitmap
-                    iconDisplay = new iconClass();
+                    iconDisplay = new icon();
                     addChild(iconDisplay);
                 }
                 
-                iconClassChanged = false;
+                iconChanged = false;
             }
         }
         
