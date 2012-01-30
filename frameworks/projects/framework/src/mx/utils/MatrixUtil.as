@@ -14,8 +14,12 @@ package mx.utils
 
 import flash.display.DisplayObject;
 import flash.geom.Matrix;
+import flash.geom.Matrix3D;
+import flash.geom.PerspectiveProjection;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.geom.Utils3D;
+import flash.geom.Vector3D;
 import flash.utils.getDefinitionByName;
 
 [ExcludeClass]
@@ -425,6 +429,56 @@ public final class MatrixUtil
 	}
 	
 	/**
+	 *  Returns the axis aligned bounding box <code>bounds</code> transformed
+	 *  with <code>matrix</code> and then projected with <code>projection</code>.
+	 * 
+	 *  @param bounds The bounds, in child coordinates, to be transformed and projected.
+	 *  @param matrix <p>The transformation matrix. Note that the method will clobber the
+	 *  original matrix values.</p>
+	 *  @param projection The projection.
+	 *  @return Returns the <code>bounds</code> parameter that has been updated with the
+	 *  transformed and projected bounds.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	public static function projectBounds(bounds:Rectangle,
+										 matrix:Matrix3D, 
+										 projection:PerspectiveProjection):Rectangle
+	{
+		// Setup the matrix
+		var centerX:Number = projection.projectionCenter.x;
+		var centerY:Number = projection.projectionCenter.y;
+		matrix.appendTranslation(-centerX, -centerY, projection.focalLength);
+		matrix.append(projection.toMatrix3D());
+
+		// Project the corner points
+		var pt1:Vector3D = new Vector3D(bounds.left, bounds.top, 0); 
+		var pt2:Vector3D = new Vector3D(bounds.right, bounds.top, 0) 
+		var pt3:Vector3D = new Vector3D(bounds.left, bounds.bottom, 0);
+		var pt4:Vector3D = new Vector3D(bounds.right, bounds.bottom, 0);
+		pt1 = Utils3D.projectVector(matrix, pt1);
+		pt2 = Utils3D.projectVector(matrix, pt2);
+		pt3 = Utils3D.projectVector(matrix, pt3);
+		pt4 = Utils3D.projectVector(matrix, pt4);
+
+		// Find the bounding box in 2D
+		var maxX:Number = Math.max(Math.max(pt1.x, pt2.x), Math.max(pt3.x, pt4.x));
+		var minX:Number = Math.min(Math.min(pt1.x, pt2.x), Math.min(pt3.x, pt4.x));
+		var maxY:Number = Math.max(Math.max(pt1.y, pt2.y), Math.max(pt3.y, pt4.y));
+		var minY:Number = Math.min(Math.min(pt1.y, pt2.y), Math.min(pt3.y, pt4.y));
+
+		// Add back the projection center
+		bounds.x = minX + centerX;
+		bounds.y = minY + centerY;
+		bounds.width = maxX - minX;
+		bounds.height = maxY - minY;
+		return bounds;
+	}
+	
+	/**
 	 *  @param matrix
 	 *  @return Returns true when <code>pt == matrix.DeltaTransformPoint(pt)</code>
 	 *  for any <code>pt:Point</code> (<code>matrix</code> is identity matrix,
@@ -437,10 +491,8 @@ public final class MatrixUtil
 	 */
 	public static function isDeltaIdentity(matrix:Matrix):Boolean
 	{
-	    if (matrix.a == 1 && matrix.d == 1 &&
-	    	matrix.b == 0 && matrix.c == 0)
-            return true;
-        return false;
+	    return (matrix.a == 1 && matrix.d == 1 &&
+	    	    matrix.b == 0 && matrix.c == 0);
     }
     
     /**
