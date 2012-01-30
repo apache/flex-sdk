@@ -25,9 +25,11 @@ use namespace mx_internal;
  *  The NavigationStack class is a data structure that is internally used by 
  *  ViewNavigator to track the current set of views that are being managed 
  *  by the navigator.
+ *
+ *  @see spark.components.ViewNavigator
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
+ *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -90,7 +92,7 @@ public class NavigationStack implements IExternalizable
     //----------------------------------
     
     /**
-     *  Returns the length of the stack.
+     *  The length of the stack.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -107,8 +109,8 @@ public class NavigationStack implements IExternalizable
     //----------------------------------
     
     /**
-     *  Returns the object at the top of the stack.  If the stack is empty, 
-     *  this propety is null.
+     *  Returns the object at the top of the stack.  
+     *  If the stack is empty, this property is null.
      * 
      *  @default null
      *  
@@ -144,10 +146,17 @@ public class NavigationStack implements IExternalizable
     // FIXME (chiedozi): Should return things...
     /**
      *  Adds a view to the top of the navigation stack.
+     *  Pushing a view changes the display of the application to 
+     *  the new view on the stack.
      * 
      *  @param viewClass The class of the View to create.
-     *  @param data The data object to pass to the view when it is created
-     *  @param context The context identifier to pass to the view when created
+     *
+     *  @param data The data object to pass to the view when it is created.
+     *  The new view accesses this Object by using 
+     *  the <code>View.data</code> property.
+     *
+     *  @param context The context identifier to pass to the view when 
+     *  it is created.
      *  
      *  @return The data structure that represents the current view.
      * 
@@ -164,6 +173,8 @@ public class NavigationStack implements IExternalizable
     
     /**
      *  Removes the top view off the stack.
+     *  Returns control from the current view back to 
+     *  the previous view on the stack.
      * 
      *  @return The data structure that represented the View.
      * 
@@ -179,6 +190,7 @@ public class NavigationStack implements IExternalizable
     
     /**
      *  Removes all but the root object from the navigation stack.
+     *  The root object becomes the current view.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -214,8 +226,8 @@ public class NavigationStack implements IExternalizable
     }
     
     /**
-     *  Deserializes the navigation stack when being loaded from a shared
-     *  object.
+     *  Deserializes the navigation stack when it is being loaded 
+     *  from a shared object.
      *  
      *  @param input The external object to read from.
      * 
