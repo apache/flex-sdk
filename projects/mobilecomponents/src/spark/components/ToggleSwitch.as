@@ -21,6 +21,7 @@ import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.ResizeEvent;
 
 import spark.components.supportClasses.ToggleButtonBase;
 import spark.core.IDisplayText;
@@ -42,7 +43,7 @@ use namespace mx_internal;
 /**
  *  Color applied to highlight the selected side of the ToggleSwitch
  *  
- *  @default #3F7FBA
+ *  @default 0x3F7FBA
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
@@ -64,6 +65,27 @@ use namespace mx_internal;
  */
 [Style(name="slideDuration", type="Number", format="Time", inherit="no")]
 
+/**
+ *  Alpha of text shadows.
+ * 
+ *  @default 0.65
+ * 
+ *  @langversion 3.0
+ *  @playerversion AIR 3
+ *  @productversion Flex 4.5.2
+ */
+[Style(name="textShadowAlpha", type="Number", inherit="yes", minValue="0.0", maxValue="1.0", theme="mobile")]
+
+/**
+ *  Color of text shadows.
+ * 
+ *  @default 0x000000
+ * 
+ *  @langversion 3.0
+ *  @playerversion AIR 3
+ *  @productversion Flex 4.5.2
+ */
+[Style(name="textShadowColor", type="uint", format="Color", inherit="yes", theme="mobile")]
 
 //--------------------------------------
 //  Excluded APIs
@@ -94,6 +116,16 @@ use namespace mx_internal;
  */
 public class ToggleSwitch extends ToggleButtonBase
 {
+    //----------------------------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //----------------------------------------------------------------------------------------------
+    
+    /**
+     * The amount the mouse can move before we consider the event a drag and not a click
+     */
+    private static const MOUSE_MOVE_TOLERANCE:Number = 0.01;
     
     //----------------------------------------------------------------------------------------------
     //
@@ -104,7 +136,7 @@ public class ToggleSwitch extends ToggleButtonBase
     /**
      *  Constructor. 
      *  
-	 *  @langversion 3.0
+     *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
@@ -113,6 +145,7 @@ public class ToggleSwitch extends ToggleButtonBase
         super();
         stickyHighlighting = true;
         animator = new Animation();
+        addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
     }
     
     //----------------------------------------------------------------------------------------------
@@ -166,7 +199,7 @@ public class ToggleSwitch extends ToggleButtonBase
      *  current position along the track is given by 
      *  <code>thumbPosition</code>.
      *  
-	 *  @langversion 3.0
+     *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */ 
@@ -178,7 +211,7 @@ public class ToggleSwitch extends ToggleButtonBase
      *  A skin part that defines the bounds along which the thumb can
      *  be dragged.
      *  
-	 *  @langversion 3.0
+     *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
@@ -229,8 +262,8 @@ public class ToggleSwitch extends ToggleButtonBase
     
     /**
      *  @private
-	 *  additional setup is performed on mouse events, before
-	 *  we start the animation
+     *  additional setup is performed on mouse events, before
+     *  we start the animation
      */
     mx_internal function set animator(value:Animation): void 
     {
@@ -252,7 +285,7 @@ public class ToggleSwitch extends ToggleButtonBase
      *  The thumb's current position, ranging from <code>0</code>, unselected,
      *  to <code>1</code>, selected.
      *  
-	 *  @langversion 3.0
+     *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */ 
@@ -276,15 +309,16 @@ public class ToggleSwitch extends ToggleButtonBase
         updateSkinDisplayList();
     }
     
-	/**
-	 *  @private
-	 */
-	override protected function attachSkin():void 
-	{
-		super.attachSkin();
-		skin.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
-	}
-	
+    /**
+     *  @private
+     */
+    override protected function attachSkin():void 
+    {
+        super.attachSkin();
+        skin.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
+        skin.addEventListener(ResizeEvent.RESIZE, resizeHandler);
+    }
+    
     /**
      *  @private
      */
@@ -333,10 +367,10 @@ public class ToggleSwitch extends ToggleButtonBase
             
             // holds the final value to be set when animation ends
             slideToPosition = newPosition;
-			
+            
             var duration:Number = slideDuration *  
                 (Math.abs(thumbPosition - slideToPosition));
-			animateToPosition(animator, thumbPosition, newPosition, duration);
+            animateToPosition(animator, thumbPosition, newPosition, duration);
         } 
         else 
         {
@@ -344,65 +378,64 @@ public class ToggleSwitch extends ToggleButtonBase
             // or we should update immediately
             selected = positionToSelected(newPosition);
         }
-        
     }
     
-	/** 
-	 *  Specify the new position the toggle switch should animate to
-	 *  during mouse drag.
-	 *  Selection does not update after the animation.
-	 */
-	private function moveToPosition(newPosition:Number):void 
+    /** 
+     *  Specify the new position the toggle switch should animate to
+     *  during mouse drag.
+     *  Selection does not update after the animation.
+     */
+    private function moveToPosition(newPosition:Number):void 
     {
-		if (newPosition != thumbPosition)
-		{
-			// Finish any current animation before we start the next one.
-			if (animator.isPlaying) 
-				stopAnimation();
-			
-			animateToPosition(animator, thumbPosition, newPosition, MouseDragUtil.MAX_UPDATE_RATE);
-		} 
-	}
-	
-	/**
-	 *  Prepare the animator for use as a single animation to the edge of
-	 *  the track, or for use in a series of animations following mouse
-	 *  drag events.
-	 */
-	private function setupAnimator(animator:Animation, selectAtCompletion:Boolean):void 
+        if (newPosition != thumbPosition)
+        {
+            // Finish any current animation before we start the next one.
+            if (animator.isPlaying) 
+                stopAnimation();
+            
+            animateToPosition(animator, thumbPosition, newPosition, MouseDragUtil.MAX_UPDATE_RATE);
+        } 
+    }
+    
+    /**
+     *  Prepare the animator for use as a single animation to the edge of
+     *  the track, or for use in a series of animations following mouse
+     *  drag events.
+     */
+    private function setupAnimator(animator:Animation, selectAtCompletion:Boolean):void 
     {
-		stopAnimation();
-		
-		var animTarget:AnimationTargetHelper = animator.animationTarget as AnimationTargetHelper;
-		if (!animTarget)
-			animator.animationTarget = animTarget = new AnimationTargetHelper();
-		
-		animTarget.updateFunction = animationUpdateHandler;
-		animator.motionPaths = new <MotionPath>[null];
-		if (selectAtCompletion) 
-		{
-			animTarget.endFunction = animationEndHandler;
-			animator.easer = new Sine(0);
-		} 
-		else
-		{
-			animTarget.endFunction = null;
-			animator.easer = new Linear();
-		}
-	}
-	
-	/**
-	 *  Animate the thumb moving from startPosition to endPosition
-	 */
-	private function animateToPosition(animator:Animation, startPosition:Number, endPosition:Number, duration:Number):void 
+        stopAnimation();
+        
+        var animTarget:AnimationTargetHelper = animator.animationTarget as AnimationTargetHelper;
+        if (!animTarget)
+            animator.animationTarget = animTarget = new AnimationTargetHelper();
+        
+        animTarget.updateFunction = animationUpdateHandler;
+        animator.motionPaths = new <MotionPath>[null];
+        if (selectAtCompletion) 
+        {
+            animTarget.endFunction = animationEndHandler;
+            animator.easer = new Sine(0);
+        } 
+        else
+        {
+            animTarget.endFunction = null;
+            animator.easer = new Linear();
+        }
+    }
+    
+    /**
+     *  Animate the thumb moving from startPosition to endPosition
+     */
+    private function animateToPosition(animator:Animation, startPosition:Number, endPosition:Number, duration:Number):void 
     {
-		if (animator.isPlaying)
-			stopAnimation();
-		animator.duration = duration;
-		animator.motionPaths[0] = new SimpleMotionPath("position", startPosition, endPosition);
-		animator.play();
-	}
-	
+        if (animator.isPlaying)
+            stopAnimation();
+        animator.duration = duration;
+        animator.motionPaths[0] = new SimpleMotionPath("position", startPosition, endPosition);
+        animator.play();
+    }
+    
     /**
      *  Set the thumb position and update the component
      */
@@ -458,24 +491,40 @@ public class ToggleSwitch extends ToggleButtonBase
         return globalTrackDims.x - globalThumbDims.x;
     }
     
-	/**
-	 *  Is an animation running that will result in setting selected
-	 */
-	private function isSelectionAnimationRunning():Boolean 
-	{
-		return animator && animator.isPlaying && (AnimationTargetHelper(animator.animationTarget).endFunction != null);
-	}
-
-	/**
-	 *  Adjust the skin when it updates
-	 */
-	private function updateCompleteHandler(event:FlexEvent):void 
-	{
-		updateSkinDisplayList();
-		skin.removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
-	}
-	
-	//----------------------------------------------------------------------------------------------
+    /**
+     *  Is an animation running that will result in setting selected
+     */
+    private function isSelectionAnimationRunning():Boolean 
+    {
+        return animator && animator.isPlaying && (AnimationTargetHelper(animator.animationTarget).endFunction != null);
+    }
+    
+    /**
+     *  Adjust the skin when it updates
+     */
+    private function updateCompleteHandler(event:FlexEvent):void 
+    {
+        updateSkinDisplayList();
+        skin.removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
+    }
+    
+    /**
+     *  Adjust the skin after it has finished resizing
+     */
+    private function resizeHandler(event:ResizeEvent):void
+    {
+        skin.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
+    }
+    
+    /**
+     *  Adjust the thumb when the component is added
+     */
+    private function addedToStageHandler(event:Event):void 
+    {
+        updateSkinDisplayList();
+    }
+    
+    //----------------------------------------------------------------------------------------------
     //
     //  Overridden Event handlers
     //
@@ -502,8 +551,8 @@ public class ToggleSwitch extends ToggleButtonBase
     {
         if (isSelectionAnimationRunning())
             return;
-		setupAnimator(animator, true);
-		
+        setupAnimator(animator, true);
+        
         var newPosition:Number;
         
         if (mouseMoved)
@@ -533,7 +582,7 @@ public class ToggleSwitch extends ToggleButtonBase
     {
         if (isSelectionAnimationRunning())
             return;
-		setupAnimator(animator, false);
+        setupAnimator(animator, false);
         mouseMoved = false;
         stageOffset = new Point(event.stageX, event.stageY);
         positionOffset = thumbPosition;
@@ -552,9 +601,11 @@ public class ToggleSwitch extends ToggleButtonBase
     {
         if (mouseCaptured && track && thumb) 
         {
-            mouseMoved = true;
             var deltaX:Number = (lastMouseX - stageOffset.x) / getGlobalTrackRange();
-			moveToPosition(positionOffset + deltaX);
+            // don't set mouseMoved unless the mouse position has changed
+            if (!mouseMoved && Math.abs(deltaX) > MOUSE_MOVE_TOLERANCE) 
+                mouseMoved = true;
+            moveToPosition(positionOffset + deltaX);
         }
     }
     
