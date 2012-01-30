@@ -226,7 +226,7 @@ public class GradientStroke extends GradientBase implements IStroke
     private var _miterLimit:Number = 3;
     
     [Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0", maxValue="255.0")]
     
     /**
      *  A number that indicates the limit at which a miter is cut off. 
@@ -396,7 +396,7 @@ public class GradientStroke extends GradientBase implements IStroke
     private var _weight:Number;
 
     [Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
 
     /**
      *  The stroke weight, in pixels.
