@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.layout
+package mx.core
 {
 
 import flash.geom.Matrix;
@@ -66,13 +66,7 @@ public interface ILayoutElement
      * @copy mx.core.IVisualElement#percentHeight
      */
     function get percentHeight():Number;
-
-    /**
-     *  A reference to the object in the layout tree
-     *  represented by this interface.
-     */
-    function get target():Object;
-
+ 
     /**
      *  Indicates whether the layout should ignore this element or not.
      */     
@@ -92,7 +86,7 @@ public interface ILayoutElement
      *  @see mx.core.UIComponent#layoutMatrix
      *  @see mx.core.UIComponent#layoutMatrix3D
      */
-    function getPreferredWidth(postTransform:Boolean=true):Number;
+    function getPreferredBoundsWidth(postTransform:Boolean=true):Number;
 
     /**
      *  @return Returns the element's preferred height.  Preferred height is
@@ -108,7 +102,7 @@ public interface ILayoutElement
      *  @see mx.core.UIComponent#layoutMatrix
      *  @see mx.core.UIComponent#layoutMatrix3D
      */
-    function getPreferredHeight(postTransform:Boolean=true):Number;
+    function getPreferredBoundsHeight(postTransform:Boolean=true):Number;
 
     /**
      *  Returns the element's minimum width.
@@ -122,7 +116,7 @@ public interface ILayoutElement
      *  @see mx.core.UIComponent#layoutMatrix
      *  @see mx.core.UIComponent#layoutMatrix3D
      */
-    function getMinWidth(postTransform:Boolean=true):Number;
+    function getMinBoundsWidth(postTransform:Boolean=true):Number;
 
     /**
      *  Returns the element's minimum height.
@@ -136,7 +130,7 @@ public interface ILayoutElement
      *  @see mx.core.UIComponent#layoutMatrix
      *  @see mx.core.UIComponent#layoutMatrix3D
      */
-    function getMinHeight(postTransform:Boolean=true):Number;
+    function getMinBoundsHeight(postTransform:Boolean=true):Number;
 
     /**
      *  Returns the element's maximum width.
@@ -150,7 +144,7 @@ public interface ILayoutElement
      *  @see mx.core.UIComponent#layoutMatrix
      *  @see mx.core.UIComponent#layoutMatrix3D
      */
-    function getMaxWidth(postTransform:Boolean=true):Number;
+    function getMaxBoundsWidth(postTransform:Boolean=true):Number;
 
     /**
      *  Returns the element's maximum height.
@@ -164,7 +158,7 @@ public interface ILayoutElement
      *  @see mx.core.UIComponent#layoutMatrix
      *  @see mx.core.UIComponent#layoutMatrix3D
      */
-    function getMaxHeight(postTransform:Boolean=true):Number;
+    function getMaxBoundsHeight(postTransform:Boolean=true):Number;
     
     /**
      *  Returns the element's layout width. This is the size that the element uses
@@ -179,7 +173,7 @@ public interface ILayoutElement
      *  @see mx.core.UIComponent#layoutMatrix
      *  @see mx.core.UIComponent#layoutMatrix3D
      */
-    function getLayoutWidth(postTransform:Boolean=true):Number;
+    function getLayoutBoundsWidth(postTransform:Boolean=true):Number;
 
     /**
      *  Returns the element's layout height. This is the size that the element uses
@@ -194,7 +188,7 @@ public interface ILayoutElement
      *  @see mx.core.UIComponent#layoutMatrix
      *  @see mx.core.UIComponent#layoutMatrix3D
      */
-    function getLayoutHeight(postTransform:Boolean=true):Number;
+    function getLayoutBoundsHeight(postTransform:Boolean=true):Number;
 
     /**
      *  Returns the x coordinate that the element uses to draw on screen.
@@ -208,7 +202,7 @@ public interface ILayoutElement
      *  @see mx.core.UIComponent#layoutMatrix
      *  @see mx.core.UIComponent#layoutMatrix3D
      */
-    function getLayoutPositionX(postTransform:Boolean=true):Number;
+    function getLayoutBoundsX(postTransform:Boolean=true):Number;
 
     /**
      *  Returns the y coordinate that the element uses to draw on screen.
@@ -222,7 +216,7 @@ public interface ILayoutElement
      *  @see mx.core.UIComponent#layoutMatrix
      *  @see mx.core.UIComponent#layoutMatrix3D
      */
-    function getLayoutPositionY(postTransform:Boolean=true):Number;
+    function getLayoutBoundsY(postTransform:Boolean=true):Number;
 
     /**
      *  Sets the coordinates that the element uses to draw on screen.
@@ -239,7 +233,7 @@ public interface ILayoutElement
      *  @see mx.core.UIComponent#layoutMatrix
      *  @see mx.core.UIComponent#layoutMatrix3D
      */
-    function setLayoutPosition(x:Number, y:Number, postTransform:Boolean=true):void;
+    function setLayoutBoundsPosition(x:Number, y:Number, postTransform:Boolean=true):void;
 
     /**
      *  Sets the layout size to the specified dimensions.  This is the size that
@@ -271,7 +265,7 @@ public interface ILayoutElement
      *  @see mx.core.UIComponent#layoutMatrix
      *  @see mx.core.UIComponent#layoutMatrix3D
      */
-    function setLayoutSize(width:Number = Number.NaN,
+    function setLayoutBoundsSize(width:Number = Number.NaN,
                            height:Number = Number.NaN,
                            postTransform:Boolean=true):void;
 
