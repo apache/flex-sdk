@@ -240,6 +240,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 			contentGroup = new Group();
 			var hLayout:HorizontalLayout = new HorizontalLayout();
 			hLayout.gap = 0;
+            hLayout.verticalAlign = "middle";
 			contentGroup.layout = hLayout;
 			contentGroup.id = "contentGroup";
 			addChild(contentGroup);
