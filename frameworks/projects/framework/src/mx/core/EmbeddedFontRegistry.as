@@ -346,6 +346,24 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 		}
 	}
 	
+    /**
+     *  Returns true if the embedded font with the given characteristics is
+     *  in the <code>moduleFactory</code>, otherwise returns false.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function isFontRegistered(font:EmbeddedFont,
+                                     moduleFactory:IFlexModuleFactory):Boolean
+    {
+        var fontKey:String = createFontKey(font);
+        var fontDictionary:Dictionary = fonts[fontKey];
+        
+        return fontDictionary && fontDictionary[moduleFactory] == 1;
+    }
+    
 	/**
      *  @inheritDoc
 	 *  
