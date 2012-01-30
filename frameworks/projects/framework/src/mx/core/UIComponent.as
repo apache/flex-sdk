@@ -25,6 +25,7 @@ import flash.events.EventPhase;
 import flash.events.FocusEvent;
 import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
+import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Matrix3D;
 import flash.geom.PerspectiveProjection;
@@ -68,7 +69,6 @@ import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
 import mx.managers.SystemManager;
 import mx.managers.SystemManagerGlobals;
-import mx.managers.SystemManagerProxy;
 import mx.managers.ToolTipManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
@@ -11344,31 +11344,17 @@ public class UIComponent extends FlexSprite
 
     private function setTransform(value:flash.geom.Transform):void
     {
-        // Clean up the old event listeners
+        // Clean up the old transform
         var oldTransform:mx.geom.Transform = _transform as mx.geom.Transform;
         if (oldTransform)
-        {
-            oldTransform.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
-        }
+            oldTransform.target = null;
 
         var newTransform:mx.geom.Transform = value as mx.geom.Transform;
 
         if (newTransform)
-        {
-            newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
-        }
+            newTransform.target = this;
 
         _transform = value;
-    }
-
-    private function assignTransformMatrices():void
-    {
-        var m:Matrix = _transform.matrix;
-        var m3:Matrix3D =  _transform.matrix3D;
-        if(m != null)
-            setLayoutMatrix(m.clone(), true /*triggerLayoutPass*/);
-        else if(m3 != null)
-            setLayoutMatrix3D(m3.clone(), true /*triggerLayoutPass*/);
     }
 
     /**
@@ -11402,36 +11388,22 @@ public class UIComponent extends FlexSprite
      */
     override public function set transform(value:flash.geom.Transform):void
     {
+    	var m:Matrix = value.matrix;
+        var m3:Matrix3D =  value.matrix3D;
+        var ct:ColorTransform = value.colorTransform;
+    	var pp:PerspectiveProjection = value.perspectiveProjection;
+    	
         setTransform(value);
+		
+        if(m != null)
+            setLayoutMatrix(m.clone(), true /*triggerLayoutPass*/);
+        else if(m3 != null)
+            setLayoutMatrix3D(m3.clone(), true /*triggerLayoutPass*/);
 
-        assignTransformMatrices();
-        super.transform.colorTransform = value.colorTransform;
-        super.transform.perspectiveProjection = _transform.perspectiveProjection;
+        super.transform.colorTransform = ct;
+        super.transform.perspectiveProjection = pp;
         if (maintainProjectionCenter)
             invalidateDisplayList(); 
-    }
-
-
-
-    private function transformPropertyChangeHandler(event:PropertyChangeEvent):void
-    {
-        if (event.kind == PropertyChangeEventKind.UPDATE)
-        {
-            if (event.property == "matrix" || event.property == "matrix3D")
-            {
-                assignTransformMatrices();
-            }
-            else if (event.property == "perspectiveProjection")
-            {
-                super.transform.perspectiveProjection = _transform.perspectiveProjection;
-                if (maintainProjectionCenter)
-                    invalidateDisplayList(); 
-            }
-            else if (event.property == "colorTransform")
-            {
-                super.transform.colorTransform = _transform.colorTransform;
-            }
-        }
     }
     
     /**
@@ -12012,7 +11984,6 @@ public class UIComponent extends FlexSprite
             return super.transform.matrix;
         }
     }
-
 }
 
 }
