@@ -18,7 +18,6 @@ import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 
 import spark.components.supportClasses.StyleableTextField;
-import spark.skins.mobile.assets.TextInput_border;
 
 use namespace mx_internal;
 
@@ -38,13 +37,11 @@ public class TextSkinBase extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    // FIXME (jasonsj) how do PPI skins handle text gutter?
     // StylableTextField padding
     protected static const TEXT_WIDTH_PADDING:int = 4;
-    protected static const TEXT_HEIGHT_PADDING:int = 2;
     
-    // FXG measurements
-    private static const BORDER_SIZE:uint = 1;
-    private static const CORNER_ELLIPSE_SIZE:uint = 16;
+    protected static const TEXT_HEIGHT_PADDING:int = 2;
     
     //--------------------------------------------------------------------------
     //
@@ -58,7 +55,40 @@ public class TextSkinBase extends MobileSkin
     
     //--------------------------------------------------------------------------
     //
+    //  Graphics variables
+    //
+    //--------------------------------------------------------------------------
+    
+    protected var borderClass:Class;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Layout variables
+    //
+    //--------------------------------------------------------------------------
+    
+    protected var layoutCornerEllipseSize:uint;
+    
+    protected var layoutBorderSize:uint;
+    
+    //--------------------------------------------------------------------------
+    //
     //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     * 
+     *  Instance of the border graphics.
+     */
+    private var border:DisplayObject;
+    
+    private var borderVisibleChanged:Boolean = false;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Skin parts
     //
     //--------------------------------------------------------------------------
     
@@ -74,20 +104,16 @@ public class TextSkinBase extends MobileSkin
      */
     public var promptDisplay:StyleableTextField;
     
-    /**
-     *  @private
-     * 
-     *  Instance of the border graphics.
-     */
-    private var border:DisplayObject;
-    
-    private var borderVisibleChanged:Boolean = false;
-    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+    
+    override public function get isFocusColorSupported():Boolean
+    {
+        return false;
+    }
     
     /**
      *  @private
@@ -96,7 +122,7 @@ public class TextSkinBase extends MobileSkin
     {
         super.createChildren();
         
-        border = new TextInput_border;
+        border = new borderClass();
         addChild(border);
         
         textDisplay = StyleableTextField(createInFontContext(StyleableTextField));
@@ -131,7 +157,7 @@ public class TextSkinBase extends MobileSkin
             
             if (borderVisible && !border)
             {
-                border = new TextInput_border();
+                border = new borderClass();
                 addChild(border);
             }
             else if (!borderVisible && border)
@@ -149,13 +175,13 @@ public class TextSkinBase extends MobileSkin
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        var borderSize:uint = (border) ? BORDER_SIZE : 0;
+        var borderSize:uint = (border) ? layoutBorderSize : 0;
         var borderWidth:uint = borderSize * 2;
         
         // Draw the contentBackgroundColor
         graphics.clear();
         graphics.beginFill(getStyle("contentBackgroundColor"), getStyle("contentBackgroundAlpha"));
-        graphics.drawRoundRect(borderSize, borderSize, unscaledWidth - borderWidth, unscaledHeight - borderWidth, CORNER_ELLIPSE_SIZE, CORNER_ELLIPSE_SIZE);
+        graphics.drawRoundRect(borderSize, borderSize, unscaledWidth - borderWidth, unscaledHeight - borderWidth, layoutCornerEllipseSize, layoutCornerEllipseSize);
         graphics.endFill();
         
         // position & size border
