@@ -44,7 +44,7 @@ public class HSliderThumbSkin extends MobileSkin
     //  Constructor
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  Constructor.
      * 
@@ -63,17 +63,17 @@ public class HSliderThumbSkin extends MobileSkin
         // set the right assets and dimensions to use based on the screen density
         switch (applicationDPI)
         {
-			case DPIClassification.DPI_320:
-			{
-				thumbImageWidth = 58;
-				thumbImageHeight = 58;
-				
-				thumbNormalClass = spark.skins.mobile320.assets.HSliderThumb_normal;
-				thumbPressedClass = spark.skins.mobile320.assets.HSliderThumb_pressed;
-				
+            case DPIClassification.DPI_320:
+            {
+                thumbImageWidth = 58;
+                thumbImageHeight = 58;
+                
+                thumbNormalClass = spark.skins.mobile320.assets.HSliderThumb_normal;
+                thumbPressedClass = spark.skins.mobile320.assets.HSliderThumb_pressed;
+                
                 hitZoneOffset = 10;
                 hitZoneSideLength = 80;
-
+                
                 // chromeColor ellipse goes up to the thumb border
                 chromeColorEllipseWidth = chromeColorEllipseHeight = 56;
                 chromeColorEllipseX = 1;
@@ -91,7 +91,7 @@ public class HSliderThumbSkin extends MobileSkin
                 
                 hitZoneOffset = 10;
                 hitZoneSideLength = 65;
-
+                
                 // chromeColor ellipse goes up to the thumb border
                 chromeColorEllipseWidth = chromeColorEllipseHeight = 42; 
                 chromeColorEllipseX = chromeColorEllipseY = 1;
@@ -109,7 +109,7 @@ public class HSliderThumbSkin extends MobileSkin
                 
                 hitZoneOffset = 5;
                 hitZoneSideLength = 40;
-
+                
                 // chromeColor ellipse goes up to the thumb border
                 chromeColorEllipseWidth = chromeColorEllipseHeight = 29;
                 chromeColorEllipseX = chromeColorEllipseY = 0;
@@ -147,7 +147,7 @@ public class HSliderThumbSkin extends MobileSkin
      *  @productversion Flex 4.5
      */    
     protected var thumbNormalClass:Class;
-
+    
     /**
      *  Specifies the FXG class to use when the thumb is in the pressed state
      *
@@ -167,7 +167,7 @@ public class HSliderThumbSkin extends MobileSkin
      *  @productversion Flex 4.5
      */    
     protected var thumbSkin_normal:DisplayObject;
-
+    
     /**
      *  Specifies the DisplayObject to use when the thumb is in the pressed state
      *
@@ -187,7 +187,7 @@ public class HSliderThumbSkin extends MobileSkin
      *  @productversion Flex 4.5
      */    
     protected var currentThumbSkin:DisplayObject;
-
+    
     /**
      *  Width of the overall thumb image
      *
@@ -197,7 +197,7 @@ public class HSliderThumbSkin extends MobileSkin
      *  @productversion Flex 4.5
      */    
     protected var thumbImageWidth:int;
-
+    
     /**
      *  Height of the overall thumb image
      *
@@ -227,8 +227,8 @@ public class HSliderThumbSkin extends MobileSkin
      *  @productversion Flex 4.5
      */    
     protected var chromeColorEllipseHeight:int;
-
-
+    
+    
     /**
      *  X position of the chromeColor ellipse
      *
@@ -238,7 +238,7 @@ public class HSliderThumbSkin extends MobileSkin
      *  @productversion Flex 4.5
      */    
     protected var chromeColorEllipseX:int;
-
+    
     /**
      *  Y position of the chromeColor ellipse
      *
@@ -269,7 +269,7 @@ public class HSliderThumbSkin extends MobileSkin
      *  @productversion Flex 4.5
      */
     protected var hitZoneOffset:int;
-
+    
     /**
      *  @private
      *  Remember which state is currently being displayed 
@@ -318,12 +318,12 @@ public class HSliderThumbSkin extends MobileSkin
                 thumbSkin_pressed.visible = true;
             }
             currentThumbSkin = thumbSkin_pressed;
-
+            
             // hide the normal button
             if (thumbSkin_normal)
                 thumbSkin_normal.visible = false;
         }
-
+        
         displayedState = currentState;
         
         invalidateDisplayList();
@@ -345,7 +345,7 @@ public class HSliderThumbSkin extends MobileSkin
     {
         setElementSize(currentThumbSkin, unscaledWidth, unscaledHeight);
         setElementPosition(currentThumbSkin, 0, 0)
-
+        
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
         // put in a larger hit zone than the thumb
@@ -364,7 +364,7 @@ public class HSliderThumbSkin extends MobileSkin
         chromeColorGraphics.beginFill(chromeColor, 1);
         
         chromeColorGraphics.drawEllipse(chromeColorEllipseX, chromeColorEllipseY,
-                                        chromeColorEllipseWidth, chromeColorEllipseHeight);
+            chromeColorEllipseWidth, chromeColorEllipseHeight);
         chromeColorGraphics.endFill();
     }
 }
