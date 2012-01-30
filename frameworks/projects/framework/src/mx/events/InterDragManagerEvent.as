@@ -32,6 +32,11 @@ import mx.events.DragEvent;
  *  that the other ApplicationDomain's DragManager listens
  *  for and it marshals the DragEvent and dispatches it to
  *  the potential dropTarget.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class InterDragManagerEvent extends DragEvent
 {
@@ -48,6 +53,11 @@ public class InterDragManagerEvent extends DragEvent
 	 *  The receiving DragManager marshals the DragEvent and dispatches it
 	 *  to the target specified in the <code>dropTarget</code> property.
 	 *
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static const DISPATCH_DRAG_EVENT:String =
         "dispatchDragEvent";
@@ -97,6 +107,11 @@ public class InterDragManagerEvent extends DragEvent
 	 *
 	 *  @param draggedItem An object representing the item that was dragged.
 	 *  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function InterDragManagerEvent(type:String, bubbles:Boolean = false,
 										cancelable:Boolean = false,
@@ -144,6 +159,11 @@ public class InterDragManagerEvent extends DragEvent
 	/**
 	 *  The potential drop target in the other ApplicationDomain
      *  (which is why it is a DisplayObject and not some other class).
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var dropTarget:DisplayObject;
 
@@ -157,6 +177,11 @@ public class InterDragManagerEvent extends DragEvent
 	 *  marshaled DragEvent.
 	 *  
 	 *  @see mx.events.DragEvent
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var dragEventType:String;
 
