@@ -54,15 +54,17 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  The background color of the application. This color is used as the stage color for the
- *  application and the background color for the HTML embed tag.
+ *  Alpha level of the color defined by the <code>backgroundColor</code>
+ *  property.
+ *   
+ *  @default 1.0
  *   
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
+[Style(name="backgroundAlpha", type="Number", inherit="no")]
 
 /**
  *  The background color of the application. This color is used as the stage color for the
@@ -73,7 +75,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="backgroundAlpha", type="Number", inherit="no")]
+[Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
 /**
  *  Provides a margin of error around a window's border so a resize
