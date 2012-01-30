@@ -166,7 +166,7 @@ public class ZoomViewTransition extends ViewTransitionBase
     // mode
     //---------------------------------
     
-    private var _mode:String = ZoomViewTransitionMode.OUT;
+    private var _mode:String = "out"; // avoid deprecation warning for ZoomViewTransitionMode.OUT;
     
     [Inspectable(category="General", enumeration="in,out", defaultValue="out")]
     /**
@@ -233,7 +233,7 @@ public class ZoomViewTransition extends ViewTransitionBase
         // transitioning in or out.
         if (consolidatedTransition)
         {
-            if (mode == ZoomViewTransitionMode.OUT)
+            if (mode == "out") // avoid deprecation warning for ZoomViewTransitionMode.OUT
             {
                 targetSnapshot = cachedNavigator;
                 targetSnapshotGlobalPosition = cachedNavigationGroupGlobalPosition.clone();
@@ -245,7 +245,7 @@ public class ZoomViewTransition extends ViewTransitionBase
         }
         else
         {
-            if (mode == ZoomViewTransitionMode.OUT)
+            if (mode == "out") // avoid deprecation warning for ZoomViewTransitionMode.OUT
             {
                 targetSnapshot = getSnapshot(startView, 0, targetSnapshotGlobalPosition);
             }
@@ -277,7 +277,7 @@ public class ZoomViewTransition extends ViewTransitionBase
                 visible:startView.visible};
             startView.includeInLayout = false;
             
-            if (mode == ZoomViewTransitionMode.OUT)
+            if (mode == "out") // avoid deprecation warning for ZoomViewTransitionMode.OUT
                 startView.visible = false;
         }
         
@@ -288,7 +288,7 @@ public class ZoomViewTransition extends ViewTransitionBase
                 visible:endView.visible};
             endView.includeInLayout = false;
             
-            if (mode == ZoomViewTransitionMode.IN)
+            if (mode == "in") // avoid deprecation warning for ZoomViewTransitionMode.IN
                 endView.visible = false;
         }
         
@@ -304,7 +304,7 @@ public class ZoomViewTransition extends ViewTransitionBase
         // Ensure our alpha is initialized to 0 prior to the start
         // of our transition so that the view isn't displayed briefly
         // after validation.
-        if (mode == ZoomViewTransitionMode.IN)
+        if (mode == "in") // avoid deprecation warning for ZoomViewTransitionMode.IN
             transitionGroup.alpha = 0;
         
         // Set our blendMode to 'normal' for performance reasons.
@@ -323,7 +323,7 @@ public class ZoomViewTransition extends ViewTransitionBase
     override protected function createConsolidatedEffect():IEffect
     {        
         // If we have no cachedNavigator then there is not much we can do.
-        if (!cachedNavigator && mode == ZoomViewTransitionMode.OUT)
+        if (!cachedNavigator && mode == "out") // avoid deprecation warning for ZoomViewTransitionMode.OUT
             return null;
         
         // Add a group to contain our snapshot view of the original navigator.
@@ -332,7 +332,7 @@ public class ZoomViewTransition extends ViewTransitionBase
 
         // On zoom out, place the cachedNavigator above the targetNavigator 
         var index:int = getComponentChildIndex(targetNavigator, targetNavigator.parent as UIComponent);
-        if (mode == ZoomViewTransitionMode.OUT)
+        if (mode == "out") // avoid deprecation warning for ZoomViewTransitionMode.OUT
             index++;
         addComponentToContainerAt(cachedNavigatorGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent, index);
 
@@ -341,7 +341,7 @@ public class ZoomViewTransition extends ViewTransitionBase
 
         // Add our temporary transition group to our target navigator's parent
         // so we can make it and the original navigator siblings.
-        if (mode == ZoomViewTransitionMode.OUT)
+        if (mode == "out") // avoid deprecation warning for ZoomViewTransitionMode.OUT
         {
             // We'll be zooming out our cachedNavigatorGroup.
             transitionGroup = cachedNavigatorGroup;
@@ -371,7 +371,7 @@ public class ZoomViewTransition extends ViewTransitionBase
         // Ensure our alpha is initialized to 0 prior to the start
         // of our transition so that the view isn't displayed briefly
         // after validation.
-        if (mode == ZoomViewTransitionMode.IN)
+        if (mode == "in") // avoid deprecation warning for ZoomViewTransitionMode.IN
             transitionGroup.alpha = 0;
         
         // Set our blendMode to 'normal' for performance reasons.
@@ -449,12 +449,14 @@ public class ZoomViewTransition extends ViewTransitionBase
         // duration of the effect as this degrades overall transition performance, we
         // simply fade near the point of first appearance or disappearance.
         var fadeEffect:Fade = new Fade();
-        fadeEffect.duration = (mode == ZoomViewTransitionMode.IN) ?  
+        fadeEffect.duration = (mode == "in") ? // avoid deprecation warning for ZoomViewTransitionMode.IN
             duration * .4 : duration * .6;
-        if (mode == ZoomViewTransitionMode.OUT)
+        if (mode == "out") // avoid deprecation warning for ZoomViewTransitionMode.OUT
             fadeEffect.startDelay = duration * .4;
-        fadeEffect.alphaTo = (mode == ZoomViewTransitionMode.OUT) ? 0 : 1;
-        fadeEffect.alphaFrom = (mode == ZoomViewTransitionMode.OUT) ? 1 : 0;
+        fadeEffect.alphaTo = (mode == "out") ? // avoid deprecation warning for ZoomViewTransitionMode.OUT
+            0 : 1;
+        fadeEffect.alphaFrom = (mode == "out") ? // avoid deprecation warning forZoomViewTransitionMode.OUT 
+            1 : 0;
         
         // Create scale effect to zoom in/our our target from or to our 
         // specified minimum scale.
@@ -462,9 +464,11 @@ public class ZoomViewTransition extends ViewTransitionBase
         scaleEffect.duration = duration;
         scaleEffect.easer = easer;
         scaleEffect.scaleXFrom = scaleEffect.scaleYFrom = 
-            (mode == ZoomViewTransitionMode.OUT) ? 1 : minimumScale;
+            (mode == "out") ? // avoid deprecation warning for ZoomViewTransitionMode.OUT
+            1 : minimumScale;
         scaleEffect.scaleXTo = scaleEffect.scaleYTo = 
-            (mode == ZoomViewTransitionMode.OUT) ? minimumScale : 1;
+            (mode == "out") ? // avoid deprecation warning for ZoomViewTransitionMode.OUT
+            minimumScale : 1;
         scaleEffect.addEventListener("effectUpdate", scaleEffectUpdateHandler);
         
         parallel.addChild(fadeEffect);
