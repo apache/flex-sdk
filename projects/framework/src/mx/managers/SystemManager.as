@@ -2933,10 +2933,6 @@ public class SystemManager extends MovieClip
 			addEventListener(SWFBridgeRequest.HIDE_MOUSE_CURSOR_REQUEST, hideMouseCursorRequestHandler);
 			addEventListener(SWFBridgeRequest.SHOW_MOUSE_CURSOR_REQUEST, showMouseCursorRequestHandler);
 			addEventListener(SWFBridgeRequest.RESET_MOUSE_CURSOR_REQUEST, resetMouseCursorRequestHandler);
-
-            // This listener is intended to run before any other KeyboardEvent listeners
-            // so that it can redispatch a cancelable=true copy of the event. 
-            addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true, 1000);
 		}
 
 	    var docFrame:int = (totalFrames == 1)? 0 : 1;
@@ -3068,25 +3064,20 @@ public class SystemManager extends MovieClip
 		Singleton.registerClass("mx.managers::IToolTipManager2",
 			Class(getDefinitionByName("mx.managers::ToolTipManagerImpl")));
 
-		if (Capabilities.playerType == "Desktop")
-		{
-			Singleton.registerClass("mx.managers::IDragManager",
-				Class(getDefinitionByName("mx.managers::NativeDragManagerImpl")));
+        var dragManagerClass:Class = null;
 				
 			// Make this call to create a new instance of the DragManager singleton. 
-			// This will allow the application to receive NativeDragEvents that originate
-			// from the desktop.
-			// if this class is not registered, it's most likely because the NativeDragManager is not
-			// linked in correctly. all back to old DragManager.
-			if (Singleton.getClass("mx.managers::IDragManager") == null)
-				Singleton.registerClass("mx.managers::IDragManager",
-					Class(getDefinitionByName("mx.managers::DragManagerImpl")));
-		}
-		else
-		{ 
-			Singleton.registerClass("mx.managers::IDragManager",
-				Class(getDefinitionByName("mx.managers::DragManagerImpl")));
-		}
+        // Try to link in the NativeDragManager first. This will allow the  
+        // application to receive NativeDragEvents that originate from the
+        // desktop.  If it can't be found, then we're 
+        // not in AIR, and it can't be linked in, so we should just work off of 
+        // the regular Flex DragManager.
+        dragManagerClass = Class(getDefinitionByName("mx.managers::NativeDragManagerImpl"));
+        
+        if (dragManagerClass == null)
+            dragManagerClass = Class(getDefinitionByName("mx.managers::DragManagerImpl"));
+            
+        Singleton.registerClass("mx.managers::IDragManager", dragManagerClass);
 
 		var textFieldFactory:TextFieldFactory; // ref to cause TextFieldFactory to be linked in
 		Singleton.registerClass("mx.core::ITextFieldFactory", 
