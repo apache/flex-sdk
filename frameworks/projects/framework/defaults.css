@@ -330,6 +330,7 @@ Button
 /*	upIcon: null; 
 	upSkin: null */
 	skin: ClassReference("mx.skins.spark.ButtonSkin");
+	emphasizedSkin: ClassReference("mx.skins.spark.DefaultButtonSkin");
 	verticalGap: 2;
 }
 
