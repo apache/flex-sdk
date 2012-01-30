@@ -3149,6 +3149,7 @@ public class UIComponent extends FlexSprite
         {
             removeChild(_focusPane);
 
+			_focusPane.mask = null;
             _focusPane = null;
         }
     }
