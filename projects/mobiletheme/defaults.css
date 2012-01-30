@@ -20,11 +20,6 @@ ActionBar
     skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
 }
 
-AdaptableApplication
-{
-	skinClass: ClassReference("spark.skins.mobile.AndroidApplicationSkin");
-}
-
 Application
 {
     backgroundColor: #FFFFFF;
@@ -94,18 +89,13 @@ List
 
 MobileApplication
 {
+    backgroundColor: #464646;
     skinClass: ClassReference("spark.skins.mobile.MobileApplicationSkin");
 }
 
 MuteButton
 {
     skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.MuteButtonSkin");
-}
-
-NavigationBar
-{
-	skinClass: ClassReference("spark.skins.mobile.NavigationBarSkin");
-	backgroundColor: #CCCCCC;
 }
 
 NumericStepper
@@ -159,22 +149,6 @@ Spinner
     skinClass: ClassReference("spark.skins.spark.SpinnerSkin");    
 }
 
-SliderTabBar
-{
-	skinClass: ClassReference("spark.skins.mobile.TabBarSkin");
-}
-
-/*TabBar
-{
-    skinClass: ClassReference("spark.skins.spark.TabBarSkin");
-    cornerRadius: 4;
-}*/
-
-TabButton
-{
-	skinClass: ClassReference("spark.skins.mobile.TabButtonSkin");
-}
-
 TextArea
 {
     paddingBottom: 3;
@@ -205,12 +179,6 @@ TitleWindow
 ToggleButton
 {
 	skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
-}
-
-Toolbar
-{
-	skinClass: ClassReference("spark.skins.mobile.ToolbarSkin");
-	backgroundColor: #CCCCFF;
 }
 
 VideoPlayer
