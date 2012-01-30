@@ -1172,7 +1172,13 @@ public class Effect extends EventDispatcher implements IEffect
                 m = styles.length;
                 for (j = 0; j < m; j++)
                 {
-                    valueMap[styles[j]] = target.getStyle(styles[j]);
+                    // Don't clobber values set by relevantProperties
+                    if (valueMap[styles[j]] === undefined)
+                    {
+                        var value:* = target.getStyle(styles[j]);
+                        if (value !== undefined)
+                            valueMap[styles[j]] = value;
+                    }
                 }
             }
         }
