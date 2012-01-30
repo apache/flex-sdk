@@ -5833,7 +5833,16 @@ public class UIComponent extends FlexSprite
     //----------------------------------
     
     /**
-     *  @copy mx.core.ILayoutDirection#layoutDirection
+     *  Checked at commitProperties() time to see if our layoutDirection has changed,
+     *  or our parent's layoutDirection has changed.  This variable is reset after the 
+     *  entire validateProperties() phase is complete so that it's possible for a child
+     *  to check if its parent's layoutDirection has changed, see commitProperties().
+     *  The flag is cleared in validateDisplayList().
+     */
+    private var oldLayoutDirection:String = null;
+    
+    /**
+     *  @inheritDoc
      */
     public function get layoutDirection():String
     {
@@ -7564,11 +7573,11 @@ public class UIComponent extends FlexSprite
     }
     
     /**
-     * @copy mx.core.ILayoutDirection#invalidateLayoutDirection()  
+     * @inheritDoc
      */
     public function invalidateLayoutDirection():void
     {
-        const parentElt:ILayoutDirection = parent as ILayoutDirection;        
+        const parentElt:IVisualElement = parent as IVisualElement;        
         const thisLayoutDirection:String = layoutDirection;
         
         // If this element's layoutDirection doesn't match its parent's, then
@@ -7589,7 +7598,8 @@ public class UIComponent extends FlexSprite
       
         //  If this is a leaf node, then we're done.  If not, the styleChanged() machinery
         //  (via commitProperties()) will deal with UIComponent children.   We have to 
-        //  deal with other ILayoutDirection children, like GraphicElements, here.
+        //  deal with IVisualElement children that don't support styles, like 
+        //  GraphicElements, here.
 
         if (!(this is IVisualElementContainer))
             return;
@@ -7599,9 +7609,9 @@ public class UIComponent extends FlexSprite
         
         for (var i:int = 0; i < thisContainerNumElements; i++)
         {
-            var elt:ILayoutDirection = thisContainer.getElementAt(i) as ILayoutDirection
-            if (!(elt is UIComponent))  // FIXME(hmuller) - should check for style clients
-                ILayoutDirection(elt).invalidateLayoutDirection();
+            var elt:IVisualElement = thisContainer.getElementAt(i);
+            if (!(elt is IStyleClient)) 
+                elt.invalidateLayoutDirection();
         }        
     }        
 
@@ -7929,12 +7939,17 @@ public class UIComponent extends FlexSprite
             oldScaleY = scaleY;
         }
         
-        // FIXME(hmuller) - if this component's layout has changed, or its parent 
-        // layout has changed, or if its layout no longer matches one of
-        // its non-UIComponent children, then we need to validateLayoutDirection().
-        if (true)
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
         {
-            invalidateLayoutDirection();
+            // If this component's layout direction has changed, or its parent's layoutDirection
+            // has changed, then call invalidateLayoutDirection().
+            
+            const thisLayoutDirection:String = layoutDirection;
+            const parentUIC:UIComponent = parent as UIComponent;
+            
+            if ((oldLayoutDirection != layoutDirection) ||
+                (parentUIC && (parentUIC.layoutDirection != parentUIC.oldLayoutDirection)))
+                invalidateLayoutDirection();
         }
         
         // Typically state changes occur immediately, but during
@@ -8560,7 +8575,7 @@ public class UIComponent extends FlexSprite
      *  @private
      */
     protected function validateMatrix():void
-    {
+    {        
         if (_layoutFeatures != null && _layoutFeatures.updatePending == true)
         {
             applyComputedMatrix();
@@ -8586,6 +8601,7 @@ public class UIComponent extends FlexSprite
     public function validateDisplayList():void
     {
         validateMatrix();
+        oldLayoutDirection = layoutDirection;
         
         if (invalidateDisplayListFlag)
         {
