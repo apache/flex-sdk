@@ -3237,7 +3237,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
             if (!_allTipCache)
             {
                 var tipClass:* = getStyle("dataTipRenderer");
-                _allTipCache = new InstanceCache(tipClass, this);
+                _allTipCache = new InstanceCache(tipClass, this, -1, moduleFactory);
                 _allTipCache.discard = true;                              
                 _allTipCache.remove = true;
 
@@ -3296,7 +3296,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
             {
                 var tipClass:* = getStyle("dataTipRenderer");
                 _tipCache = new InstanceCache(tipClass,
-                                              systemManager.toolTipChildren);
+                                              systemManager.toolTipChildren, -1, moduleFactory);
                 _tipCache.discard = true;                              
                 _tipCache.remove = true;
                 _tipCache.creationCallback = tipCreated;
