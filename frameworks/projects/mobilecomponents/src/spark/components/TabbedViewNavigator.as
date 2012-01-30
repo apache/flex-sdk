@@ -506,14 +506,21 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function calculateFinalUIPositions():void
+    private function prepareTabBarForAnimation(showAnimation:Boolean):void
     {
         var animateTabBarUp:Boolean;
         
         if (overlayControls)
+        {
+            // If the control is overlaid on top, the tabBar is animated up if 
+            // the tabBar is above the center of the navigator
             animateTabBarUp = (tabBar.y + (tabBar.height / 2)) <= height / 2;
+        }            
         else
+        {
+            // The tabBar is animated up if it is above the contentGroup
             animateTabBarUp = tabBar.y <= contentGroup.y;
+        }
         
         // Need to validate to capture final positions and sizes of skin parts
         LayoutManager.getInstance().validateNow();
@@ -539,6 +546,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                     tabBarProps.start.y = this.height;
             }
         }
+        
+        tabBar.visible = true;
+        tabBar.includeInLayout = false;
+        tabBar.cacheAsBitmap = true;
     }
     
     /**
@@ -577,7 +588,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         navigator.setParentNavigator(this);
         navigator.visible = false;
-
+        navigator.includeInLayout = false;
+        
         // All navigators should be inactive when initialized.  The proper
         // navigator will be activated during commitProperties().
         navigator.setActive(false);
@@ -642,6 +654,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 navigator = navigators[_selectedIndex];
                 navigator.setActive(false, !maintainNavigationStack);
                 navigator.visible = false;
+                navigator.includeInLayout = false;
                 
                 if (navigator.activeView)
                     navigator.activeView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
@@ -665,7 +678,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 
                 navigator.setActive(true);
                 navigator.visible = true;
-
+                navigator.includeInLayout = true;
+                
                 // FIXME (chiedozi): Why do i need to validate here
                 // Force a validation of the new navigator to prevent a flicker from
                 // occurring since the view will be rendered this frame
@@ -748,6 +762,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             // animate flag set to true
             if (transitionsEnabled && animateTabBarVisbility)
             {
+                tabBarProps = {target:tabBar, showing:showingTabBar};
                 tabBarVisibilityEffect = showingTabBar ? 
                                          createTabBarShowEffect() :
                                          createTabBarHideEffect();
@@ -760,6 +775,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             {
                 // Since the visibility is not being animated, toggle the state
                 tabBar.visible = tabBar.includeInLayout = showingTabBar;
+                
+                if (activeView)
+                    activeView.setTabBarVisible(showingTabBar);
             }
         }
 
@@ -776,7 +794,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     protected function createTabBarShowEffect():IEffect
     {
-        return createTabBarVisibilityEffect();
+        return createTabBarVisibilityEffect(true);
     }
     
     /**
@@ -789,7 +807,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */ 
     protected function createTabBarHideEffect():IEffect
     {
-        return createTabBarVisibilityEffect();
+        return createTabBarVisibilityEffect(false);
     }
     
     /**
@@ -803,20 +821,20 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function createTabBarVisibilityEffect():IEffect
+    private function createTabBarVisibilityEffect(showAnimation:Boolean):IEffect
     {
         var effect:IEffect;
         var finalEffect:Parallel = new Parallel();
         
         // Grab initial values
-        tabBarProps = { start:captureAnimationValues(tabBar) };
+        tabBarProps.start = captureAnimationValues(tabBar);
         contentGroupProps = { start:captureAnimationValues(contentGroup) };
         
         // Update actionBar layout properties
         tabBar.visible = tabBar.includeInLayout = showingTabBar;
         
         // Calculate final positions.  This method will force a validation
-        calculateFinalUIPositions();
+        prepareTabBarForAnimation(showAnimation);
         
         var animate:Animate = new Animate();
         animate.target = tabBar;
@@ -824,14 +842,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         animate.motionPaths = new Vector.<MotionPath>();
         animate.motionPaths.push(new SimpleMotionPath("y", tabBarProps.start.y, tabBarProps.end.y));
         
-        tabBar.includeInLayout = false;
-        tabBar.cacheAsBitmap = true;
-        
         effect = animate;
-        effect.target = tabBar;
-        tabBar.visible = true;
         finalEffect.addChild(effect);
         
+        // Create content group animation
         animate = new Animate();
         animate.target = contentGroup;
         animate.duration = TAB_BAR_ANIMATION_DURATION;
@@ -842,7 +856,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                                                                 contentGroupProps.end.height));
  
         contentGroup.includeInLayout = false;
-        contentGroup.cacheAsBitmap = true;  
         
         finalEffect.addChild(animate);
         finalEffect.duration = TAB_BAR_ANIMATION_DURATION;
@@ -1044,13 +1057,20 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         event.target.removeEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
         tabBarVisibilityEffect = null;
-
-        if (tabBarProps)
+        
+        if (activeView)
+            activeView.setTabBarVisible(tabBarProps.showing);
+        
+        // Check if the visible and cacheAsBitmap properties have been set.  These are
+        // only set if the default transitions are used.  If developers create their
+        // own animations, these properties won't be set.
+        if (tabBarProps.start != undefined)
         {
             tabBar.visible = tabBar.includeInLayout = tabBarProps.end.visible;
             tabBar.cacheAsBitmap = tabBarProps.start.cacheAsBitmap;
-            tabBarProps = null;
         }
+        
+        tabBarProps = null;
         
         if (contentGroupProps)
         {
