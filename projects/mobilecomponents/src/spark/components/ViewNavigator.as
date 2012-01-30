@@ -1868,6 +1868,8 @@ public class ViewNavigator extends ViewNavigatorBase
     
     /**
      *  @private
+     *  This method is used to create the top view of the ViewNavigator.  This
+     *  is only used by TabbedViewNavigator when the selected tab has changed.
      */ 
     override mx_internal function createTopView():void
     {
@@ -1893,7 +1895,10 @@ public class ViewNavigator extends ViewNavigatorBase
         // Create the view if needed
         var view:View = currentViewDescriptor.instance;
         if (!view)
+        {
             view = createViewInstance(currentViewDescriptor);
+            view.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
+        }
         
         // Cancel any view change requests that occurred prior to this call
         // since the top most view was just created.
