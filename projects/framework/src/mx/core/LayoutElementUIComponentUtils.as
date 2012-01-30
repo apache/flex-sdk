@@ -183,7 +183,7 @@ public class LayoutElementUIComponentUtils
 
         if (transformMatrix)
         {
-			width = MatrixUtil.transformSize(new Point(width, getPreferredUBoundsHeight(obj)), transformMatrix).x;
+			width = MatrixUtil.transformSize(width, getPreferredUBoundsHeight(obj), transformMatrix).x;
         }
         return width;
     }
@@ -194,7 +194,7 @@ public class LayoutElementUIComponentUtils
 
         if (transformMatrix)
         {
-                height = MatrixUtil.transformSize(new Point(getPreferredUBoundsWidth(obj), height), transformMatrix).y;
+                height = MatrixUtil.transformSize(getPreferredUBoundsWidth(obj), height, transformMatrix).y;
         }
         return height;
     }
@@ -213,7 +213,7 @@ public class LayoutElementUIComponentUtils
 
         if (transformMatrix)
         {
-			width = MatrixUtil.transformSize(new Point(width, getMinUBoundsHeight(obj)), transformMatrix).x;
+			width = MatrixUtil.transformSize(width, getMinUBoundsHeight(obj), transformMatrix).x;
         }
 
         return width;
@@ -225,7 +225,7 @@ public class LayoutElementUIComponentUtils
 
         if (transformMatrix)
         {
-			height = MatrixUtil.transformSize(new Point(getMinUBoundsWidth(obj), height), transformMatrix).y;
+			height = MatrixUtil.transformSize(getMinUBoundsWidth(obj), height, transformMatrix).y;
         }
 
         return height;
@@ -244,7 +244,7 @@ public class LayoutElementUIComponentUtils
         var width:Number = getMaxUBoundsWidth(obj);
         if (transformMatrix)
         {
-			width = MatrixUtil.transformSize(new Point(width, getMaxUBoundsHeight(obj)), transformMatrix).x;
+			width = MatrixUtil.transformSize(width, getMaxUBoundsHeight(obj), transformMatrix).x;
         }
 
         return width;
@@ -255,7 +255,7 @@ public class LayoutElementUIComponentUtils
         var height:Number = getMaxUBoundsHeight(obj);
         if (transformMatrix)
         {
-			height = MatrixUtil.transformSize(new Point(getMaxUBoundsWidth(obj), height), transformMatrix).y;
+			height = MatrixUtil.transformSize(getMaxUBoundsWidth(obj), height, transformMatrix).y;
         }
 
         return height;
@@ -287,7 +287,7 @@ public class LayoutElementUIComponentUtils
             fitSize = new Point(getMinUBoundsWidth(obj), getMinUBoundsHeight(obj));
             
         var pos:Point = new Point();
-        MatrixUtil.transformBounds(fitSize,
+        MatrixUtil.transformBounds(fitSize.x, fitSize.y,
                                    transformMatrix,
                                    pos);
         return pos.x;
@@ -319,7 +319,7 @@ public class LayoutElementUIComponentUtils
             fitSize = new Point(getMinUBoundsWidth(obj), getMinUBoundsHeight(obj));
             
         var pos:Point = new Point();
-        MatrixUtil.transformBounds(fitSize,
+        MatrixUtil.transformBounds(fitSize.x, fitSize.y,
                                    transformMatrix,
                                    pos);
         return pos.y;
@@ -355,7 +355,7 @@ public class LayoutElementUIComponentUtils
             
             // By default the IUIComponent's registration point is the same
             // as its untransformed border top-left corner, which is (0,0).
-            width = MatrixUtil.transformBounds(new Point(width, height),
+            width = MatrixUtil.transformBounds(width, height,
                                                transformMatrix,
                                                new Point()).x;
         }
@@ -384,7 +384,7 @@ public class LayoutElementUIComponentUtils
             
             // By default the IUIComponent's registration point is the same
             // as its untransformed border top-left corner, which is (0,0).
-            height = MatrixUtil.transformBounds(new Point(width, height),
+            height = MatrixUtil.transformBounds(width, height,
                                                 transformMatrix,
                                                 new Point()).y;
         }
@@ -417,7 +417,7 @@ public class LayoutElementUIComponentUtils
 		// We are already taking scale into account from the transform,
 		// so adjust here since IUIComponent mixes it with width/height
 		var pos:Point = new Point();
-		MatrixUtil.transformBounds(new Point(width, height),
+		MatrixUtil.transformBounds(width, height,
                             	   transformMatrix,
                             	   pos);
         return pos.x;
@@ -441,7 +441,7 @@ public class LayoutElementUIComponentUtils
         // We are already taking scale into account from the transform,
         // so adjust here since IUIComponent mixes it with width/height
         var pos:Point = new Point();
-        MatrixUtil.transformBounds(new Point(width, height),
+        MatrixUtil.transformBounds(width, height,
                                    transformMatrix,
                                    pos);
         return pos.y;
