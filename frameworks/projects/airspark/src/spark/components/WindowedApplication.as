@@ -371,7 +371,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:WindowedApplication
+ *  &lt;s:WindowedApplication
  *    <strong>Properties</strong>
  *    alwaysInFront="false"
  *    autoExit="true"
