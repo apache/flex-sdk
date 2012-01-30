@@ -46,10 +46,11 @@ public interface IDeferredContentOwner extends IUIComponent
      *
      *  <p>Possible values are:
      *    <ul>
-     *      <li>auto - automatically create the content immediately before it is needed.</li>
-     *      <li>all - create the content as soon as the parent component is created. This
+     *      <li><code>auto</code> - automatically create the content immediately before it is needed.</li>
+     *      <li><code>all</code> - create the content as soon as the parent component is created. This
      *          option should only be used as a last resort since it increases startup time.</li>
-     *      <li>none - content must be created manually by calling the createDeferredContent() method.</li>
+     *      <li><code>none</code> - content must be created manually by calling 
+     *          the <code>createDeferredContent()</code> method.</li>
      *    </ul>
      *  </p>
      *
