@@ -142,5 +142,23 @@ public class YearProvider extends OnDemandDataProvider
         
         return -1;
     }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    override public function toArray():Array
+    {
+        var result:Array = [];
+        var numItems:int = length;
+        
+        for (var i:int = 0; i < numItems; i++)
+            result.push(getItemAt(i));
+
+        return result;
+    }
 }
 }
