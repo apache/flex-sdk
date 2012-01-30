@@ -18,6 +18,7 @@
 <componentPackage>
     <component id="ActionBar" class="spark.components.ActionBar"/>
     <component id="CrossFadeViewTransition" class="spark.transitions.CrossFadeViewTransition"/>
+    <component id="FlipViewTransition" class="spark.transitions.FlipViewTransition"/>
     <component id="MobileItemRenderer" class="spark.components.MobileItemRenderer"/>
     <component id="MobileIconItemRenderer" class="spark.components.MobileIconItemRenderer"/>
     <component id="SlideViewTransition" class="spark.transitions.SlideViewTransition"/>
@@ -30,4 +31,5 @@
     <component id="ViewNavigatorApplication" class="spark.components.ViewNavigatorApplication"/>
     <component id="ViewNavigatorBase" class="spark.components.supportClasses.ViewNavigatorBase"/>
     <component id="ViewNavigator" class="spark.components.ViewNavigator"/>
+    <component id="ZoomViewTransition" class="spark.transitions.ZoomViewTransition"/>
 </componentPackage>
