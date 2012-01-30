@@ -21,13 +21,14 @@ import mx.charts.renderers.CandlestickItemRenderer;
 import mx.charts.series.items.HLOCSeriesItem;
 import mx.charts.styles.HaloDefaults;
 import mx.core.ClassFactory;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.IFill;
 import mx.graphics.IStroke;
 import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -277,20 +278,15 @@ public class CandlestickSeries extends HLOCSeriesBase
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-        
-        var candlestickSeriesStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.series.CandlestickSeries", styleManager);       
-        
-        candlestickSeriesStyle.defaultFactory = function():void
-        {
-            this.boxStroke = new Stroke(0, 0);
-            this.declineFill = new SolidColor(0);
-            this.fill = new SolidColor(0xFFFFFF);
-            this.fills = [];
-            this.itemRenderer = new ClassFactory(CandlestickItemRenderer);
-            this.stroke = new Stroke(0, 0);
-        }
-        
+		
+		var csSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.CandlestickSeries");
+		csSeriesStyle.setStyle("boxStroke", new SolidColorStroke(0,0));
+		csSeriesStyle.setStyle("declineFill", new SolidColor(0));
+		csSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.CandlestickItemRenderer));
+		csSeriesStyle.setStyle("fill", new SolidColor(0xFFFFFF));
+		csSeriesStyle.setStyle("fills", []);
+		csSeriesStyle.setStyle("stroke", new SolidColorStroke(0,0));
+		
         return true;
     }
 
