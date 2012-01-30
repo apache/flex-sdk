@@ -229,11 +229,9 @@ global
     autoThumbVisibility: true;
     fixedThumbSize: false;
     fullScreenHideControlsDelay: 3000;
-    horizontalScrollPolicy: "overlay";
     inputMode: "touch";
     liveDragging: true;
     rollOverOpenDelay: 200;
     slideDuration: 300;
     smoothScrolling: true;
-    verticalScrollPolicy: "overlay";
 }
