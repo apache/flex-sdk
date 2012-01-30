@@ -136,7 +136,11 @@ public class NameUtil
      */
     public static function getUnqualifiedClassName(object:Object):String
     {
-        var name:String = getQualifiedClassName(object);
+        var name:String;
+        if (object is String)
+            name = object as String;
+        else
+            name = getQualifiedClassName(object);
 
         // If there is a package name, strip it off.
         var index:int = name.indexOf("::");
@@ -145,7 +149,6 @@ public class NameUtil
 
         return name;
     }
-
 }
 
 }
