@@ -40,6 +40,12 @@ import flash.geom.Point;
 public interface ILayoutItem
 {
     /**
+     *  @return Returns a reference to the object in the layout tree
+     *  represented by this interface.
+     */
+    function get target():Object;
+
+    /**
      *  Indicates whether to layout should ignore this item or not.
      */     
     function get includeInLayout():Boolean;
