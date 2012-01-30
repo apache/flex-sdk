@@ -202,7 +202,7 @@ include "../styles/metadata/ItemRendererStyles.as"
  *  Defines a data series for a LineChart control.
  *  By default, this class uses the ShadowLineRenderer class. 
  *  Optionally, you can define an itemRenderer for the data series.
- *  The itemRenderer must implement the ILineRenderer interface. 
+ *  The itemRenderer must implement the IDataRenderer interface. 
  *
  *  @mxml
  *  
@@ -235,6 +235,7 @@ include "../styles/metadata/ItemRendererStyles.as"
  *  </pre>
  *  
  *  @see mx.charts.LineChart
+ *  @see mx.core.IDataRenderer
  *  
  *  @includeExample ../examples/Line_AreaChartExample.mxml
  *  
@@ -287,12 +288,12 @@ public class LineSeries extends Series
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false;
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false;
 
-	
+    
     /**
      *  @private
      */
@@ -472,7 +473,7 @@ public class LineSeries extends Series
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function get fillFunction():Function
+    public function get fillFunction():Function
     {
         return _fillFunction;
     }
@@ -870,50 +871,50 @@ public class LineSeries extends Series
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var seriesStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.series.LineSeries", styleManager);   
-		
-		seriesStyle.defaultFactory = function():void
-		{
-			this.adjustedRadius = 2;
-			this.fill = new SolidColor(0xFFFFFF);
-			this.lineSegmentRenderer = new ClassFactory(LineRenderer);
-			this.lineStroke = new Stroke(0, 3);
-			this.radius = 4;
-			this.fills = [];
-		}
-		
-		return true;
-	}
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
-	
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var seriesStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.series.LineSeries", styleManager);   
+        
+        seriesStyle.defaultFactory = function():void
+        {
+            this.adjustedRadius = 2;
+            this.fill = new SolidColor(0xFFFFFF);
+            this.lineSegmentRenderer = new ClassFactory(LineRenderer);
+            this.lineStroke = new Stroke(0, 3);
+            this.radius = 4;
+            this.fills = [];
+        }
+        
+        return true;
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
+    
     /**
      *  @inheritDoc
      *  
@@ -1071,8 +1072,8 @@ public class LineSeries extends Series
                     var e:Object = renderData.filteredCache[i];
                     //if (filterData && (isNaN(e.xFilter) || isNaN(e.yFilter)))
                     if(filterFunction == defaultFilterFunction && 
-                       		((filterDataValues == "outsideRange" && (isNaN(e.xFilter) || isNaN(e.yFilter))) ||
-                       		 (filterDataValues == "nulls" && (isNaN(e.xNumber) || isNaN(e.yNumber)))))
+                            ((filterDataValues == "outsideRange" && (isNaN(e.xFilter) || isNaN(e.yFilter))) ||
+                             (filterDataValues == "nulls" && (isNaN(e.xNumber) || isNaN(e.yNumber)))))
                         continue;
 
                     inst = instances[nextInstanceIdx++];
@@ -1103,9 +1104,9 @@ public class LineSeries extends Series
     {
         _localFills = getStyle('fills');
         if (_localFills != null)
-        	_fillCount = _localFills.length;
+            _fillCount = _localFills.length;
         else
-        	_fillCount = 0;
+            _fillCount = 0;
         super.stylesInitialized();
     }
 
@@ -1120,9 +1121,9 @@ public class LineSeries extends Series
         {
             _localFills = getStyle('fills');
             if (_localFills != null)
-        		_fillCount = _localFills.length;
-	        else
-    	    	_fillCount = 0;                
+                _fillCount = _localFills.length;
+            else
+                _fillCount = 0;                
         }
         if (styleProp == "itemRenderer")
         {
@@ -1138,7 +1139,7 @@ public class LineSeries extends Series
             _segmentInstanceCache.discard = true;
             _segmentInstanceCache.count = 0;
             _segmentInstanceCache.discard = false;
-        	_segmentInstanceCache.remove = false;
+            _segmentInstanceCache.remove = false;
         }
 
         invalidateDisplayList();
@@ -1177,14 +1178,14 @@ public class LineSeries extends Series
             cacheDefaultValues(_yField,_renderData.cache,"yValue");
             cacheIndexValues(_xField,_renderData.cache,"xValue");
         }
-		if(dataTransform && dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is NumericAxis &&
-			!(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is DateTimeAxis) && 
-        	(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")  
-        	_renderData.cache = reverseYValues(_renderData.cache);
+        if(dataTransform && dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is NumericAxis &&
+            !(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is DateTimeAxis) && 
+            (dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")  
+            _renderData.cache = reverseYValues(_renderData.cache);
         if(dataTransform && dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is NumericAxis &&
-        	!(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is DateTimeAxis) &&
-        	(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")  
-        	_renderData.cache = reverseXValues(_renderData.cache);	
+            !(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is DateTimeAxis) &&
+            (dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")  
+            _renderData.cache = reverseXValues(_renderData.cache);  
         _renderData.validPoints = _renderData.cache.length;
         super.updateData();
     }
@@ -1212,13 +1213,13 @@ public class LineSeries extends Series
         _renderData.segments = [];
         var lineSegmentType:Class = this.lineSegmentType;
         _renderData.filteredCache = filterFunction(_renderData.cache);
-	
-		if(filterFunction != defaultFilterFunction)
-		// we do this only for custom filter function because default filter function
-		//already does this as part of the function.
-		{
-			createLineSegments(_renderData.filteredCache);
-		}
+    
+        if(filterFunction != defaultFilterFunction)
+        // we do this only for custom filter function because default filter function
+        //already does this as part of the function.
+        {
+            createLineSegments(_renderData.filteredCache);
+        }
         super.updateFilter();
     }
     
@@ -1465,18 +1466,18 @@ public class LineSeries extends Series
                     }
                 }
                 var a:Number;
-            	var b:Number;
-            	if(dataTransform && dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is NumericAxis &&
-        		(dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")
-        		{
-        			a = x;
-        			b = v.x;
-        		}
-        		else
-        		{
-        			a = v.x;
-        			b = x;
-        		}
+                var b:Number;
+                if(dataTransform && dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) is NumericAxis &&
+                (dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS) as NumericAxis).direction == "inverted")
+                {
+                    a = x;
+                    b = v.x;
+                }
+                else
+                {
+                    a = v.x;
+                    b = x;
+                }
                 // if there are NaNs in this array, it's for one of a couple of reasons:
                 // 1) there were NaNs in the data, which menas an xField was provided, which means they got sorted to the end
                 // 2) some values got filtered out, in which case we can (sort of) safely assumed that the got filtered from one side, the other, or the entire thing.
@@ -1568,17 +1569,17 @@ public class LineSeries extends Series
 
             for (var i:int = 0; i < segCount; i++)
             {       
-            	var j:int;    
+                var j:int;    
                 var seg:Object = renderData.segments[i];
-            	if (i > 0){
-            		var prevSeg:Object = renderData.segments[i-1];
-            		if (seg.start > prevSeg.end + 1){
-            			for (j = prevSeg.end + 1; j < seg.start ; j++){
-            				var rect:Rectangle = new Rectangle(0, 0, 0, 0);
-            				rb[j] = rect; 
-            			}
-            		}
-            	}
+                if (i > 0){
+                    var prevSeg:Object = renderData.segments[i-1];
+                    if (seg.start > prevSeg.end + 1){
+                        for (j = prevSeg.end + 1; j < seg.start ; j++){
+                            var rect:Rectangle = new Rectangle(0, 0, 0, 0);
+                            rb[j] = rect; 
+                        }
+                    }
+                }
                 for (j = seg.start; j <= seg.end; j++)
                 {
                     v = cache[j];
@@ -1755,14 +1756,14 @@ public class LineSeries extends Series
      */ 
     override protected function defaultFilterFunction(cache:Array /*of LineSeriesItem */ ):Array /*of LineeriesItem*/
     {
-    	var filteredCache:Array /*of LineSeriesItem*/ = [];
-    	var start:int;
+        var filteredCache:Array /*of LineSeriesItem*/ = [];
+        var start:int;
         var end:int = -1;
         var n:int;
         var i:int;
         var v:LineSeriesItem;
-    	
-    	if (filterDataValues == "outsideRange")
+        
+        if (filterDataValues == "outsideRange")
         {
             filteredCache = cache.concat();
             
@@ -1817,16 +1818,16 @@ public class LineSeries extends Series
         }
         else if (filterDataValues == "nulls")
         {
-        	filteredCache = cache.concat();
-        	 // since all nulls will end up out at the edges, we can safely strip this early
-			if (xField != "" && sortOnXField)
+            filteredCache = cache.concat();
+             // since all nulls will end up out at the edges, we can safely strip this early
+            if (xField != "" && sortOnXField)
                 stripNaNs(filteredCache,"xNumber");
                 
             _renderData.validPoints = filteredCache.length;
 
             if (_interpolateValues == false)
             {
-            	n = filteredCache.length;
+                n = filteredCache.length;
                 while (end<n)
                 {
                     for (i = end + 1; i < n; i++)
@@ -1884,7 +1885,7 @@ public class LineSeries extends Series
      */
     private function createLineSegments(filteredCache:Array /* of LineSeriesItem */):void
     {
-    		_renderData.validPoints = filteredCache.length;
+            _renderData.validPoints = filteredCache.length;
 
             if (_interpolateValues == false)
             {
@@ -1990,24 +1991,24 @@ public class LineSeries extends Series
     
     private function reverseYValues(cache:Array):Array
     {
-    	var i:int = 0;
+        var i:int = 0;
         var n:int = cache.length;
         for(i = 0; i < n ; i++)
         {
-        	cache[i]["yValue"] = -(cache[i]["yValue"]);
+            cache[i]["yValue"] = -(cache[i]["yValue"]);
         }  
-    	return cache;
+        return cache;
     }
     
     private function reverseXValues(cache:Array):Array
     {
-    	var i:int = 0;
+        var i:int = 0;
         var n:int = cache.length;
         for(i = 0; i < n ; i++)
         {
-        	cache[i]["xValue"] = -(cache[i]["xValue"]);
+            cache[i]["xValue"] = -(cache[i]["xValue"]);
         }  
-    	return cache;
+        return cache;
     }
 }
 
