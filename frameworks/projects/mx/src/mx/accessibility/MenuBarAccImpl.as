@@ -14,6 +14,7 @@ package mx.accessibility
 
 import flash.accessibility.Accessibility;
 import flash.events.Event;
+import mx.accessibility.AccConst;
 import mx.controls.MenuBar;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -34,67 +35,6 @@ public class MenuBarAccImpl extends AccImpl
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const ROLE_SYSTEM_MENUITEM:uint = 0x0C;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSABLE:uint = 0x00100000;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_HASPOPUP:uint = 0x40000000;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_HOTTRACKED:uint = 0x00000080;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTABLE:uint = 0x00200000;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_UNAVAILABLE:uint = 0x00000001;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_FOCUS:uint = 0x8005;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_SYSTEM_MENUEND:uint = 0x00000005;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_SYSTEM_MENUSTART:uint = 0x00000004;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_SELECTION:uint = 0x8006;
-	
 	//--------------------------------------------------------------------------
 	//
 	//  Class methods
@@ -155,7 +95,7 @@ public class MenuBarAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x02; // ROLE_SYSTEM_MENUBAR
+		role = AccConst.ROLE_SYSTEM_MENUBAR;
 	}
 
 	//--------------------------------------------------------------------------
@@ -196,7 +136,7 @@ public class MenuBarAccImpl extends AccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		return childID == 0 ? role : ROLE_SYSTEM_MENUITEM;
+		return childID == 0 ? role : AccConst.ROLE_SYSTEM_MENUITEM;
 	}
 
 	/**
@@ -223,17 +163,17 @@ public class MenuBarAccImpl extends AccImpl
 
 			if (!menuBar.menuBarItems[index] || !menuBar.menuBarItems[index].enabled)
 			{
-				accState |= STATE_SYSTEM_UNAVAILABLE;
+				accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
 			}
 			else
 			{
-				accState |= STATE_SYSTEM_SELECTABLE | STATE_SYSTEM_FOCUSABLE;
+				accState |= AccConst.STATE_SYSTEM_SELECTABLE | AccConst.STATE_SYSTEM_FOCUSABLE;
 				
 				// if (menuBar.getMenuAt(index))
-				accState |= STATE_SYSTEM_HASPOPUP;
+				accState |= AccConst.STATE_SYSTEM_HASPOPUP;
 
 				if (index == menuBar.selectedIndex)
-					accState |= STATE_SYSTEM_HOTTRACKED | STATE_SYSTEM_FOCUSED;
+					accState |= AccConst.STATE_SYSTEM_HOTTRACKED | AccConst.STATE_SYSTEM_FOCUSED;
 			}
 		}
 		return accState;
@@ -381,10 +321,10 @@ public class MenuBarAccImpl extends AccImpl
 					var childID:uint = index + 1;
 
 					Accessibility.sendEvent(master, childID,
-											EVENT_OBJECT_FOCUS);
+											AccConst.EVENT_OBJECT_FOCUS);
 
 					Accessibility.sendEvent(master, childID,
-											EVENT_OBJECT_SELECTION);
+											AccConst.EVENT_OBJECT_SELECTION);
 				}
 
 				break;
@@ -393,20 +333,20 @@ public class MenuBarAccImpl extends AccImpl
 			case "menuHide":
 			{
 				if (!MenuEvent(event).menu.parentMenu)
-					Accessibility.sendEvent(master, 0, EVENT_SYSTEM_MENUEND);
+					Accessibility.sendEvent(master, 0, AccConst.EVENT_SYSTEM_MENUEND);
 				break;
 			}
 
 			case "focusIn":
 			{
-				Accessibility.sendEvent(master, 0, EVENT_SYSTEM_MENUSTART);
+				Accessibility.sendEvent(master, 0, AccConst.EVENT_SYSTEM_MENUSTART);
 				break;
 			}
 			
 			case "focusOut":
 			{
 				if (MenuBar(master).selectedIndex == -1)
-					Accessibility.sendEvent(master, 0, EVENT_SYSTEM_MENUEND);
+					Accessibility.sendEvent(master, 0, AccConst.EVENT_SYSTEM_MENUEND);
 				break;
 			}
 		}
