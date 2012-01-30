@@ -21,7 +21,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class DefaultTransparentNavigationButtonSkin extends TransparentNavigationButtonSkin
 {   
@@ -37,7 +37,7 @@ public class DefaultTransparentNavigationButtonSkin extends TransparentNavigatio
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      * 
      */
     public function DefaultTransparentNavigationButtonSkin()
