@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<project name="charts" default="main" basedir=".">
+
+    <property name="FLEX_HOME" location="${basedir}/../../.."/>
+	<property file="${FLEX_HOME}/build.properties"/>
+    <property name="locale" value="en_US"/>
+	
+	<macrodef name="bundle">
+		<attribute name="locale"/>
+			<sequential>
+				<echo message="Compiling frameworks/locale/@{locale}/charts_rb.swc"/>
+				<!-- Load the <compc> task. We can't do this at the <project> level -->
+				<!-- because targets that run before flexTasks.jar gets built would fail. -->
+				<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+				<compc fork="true"
+					output="${FLEX_HOME}/frameworks/locale/@{locale}/charts_rb.swc"
+					locale="@{locale}">
+					<!--
+						NOTE: we are continuing to build against player 9 so that airframework.swc
+							  can externally link against framework.swc, since air is player 9.
+							  If you change this, update ${local.playerglobal.version} above.
+					-->
+					<target-player>10.1</target-player>
+					<jvmarg line="${compc.jvm.args}"/>
+					<include-resource-bundles bundle="charts"/>
+					<include-namespaces/>
+					<include-classes/>
+					<source-path path-element="${basedir}/bundles/@{locale}"/>
+					<source-path path-element="${FLEX_HOME}/frameworks/projects/charts/src"/>
+					<include-libraries/>
+					<library-path/>
+					<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+						<include name="player/${global.playerglobal.version}/playerglobal.swc"/>
+						<include name="mx.swc"/>
+						<include name="framework.swc"/>
+					</external-library-path>
+				</compc>
+		</sequential>
+	</macrodef>	
+	
+	<macrodef name="fat-swc">
+		<attribute name="locale"/>
+		<sequential>
+			<echo message="creating 'fat-swc' with en_US dita files in charts_rb.swc for @{locale}"/>
+			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
+			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/charts_rb.swc" update="true">
+				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
+					<include name="*.*"/>
+				</zipfileset>
+				<zipfileset dir="${basedir}/bundles/en_US" prefix="docs">
+					<include name="packages.dita"/>
+					<include name="*.xml"/>
+				</zipfileset>
+			</zip>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="bundle-clean">
+		<attribute name="locale"/>
+		<sequential>
+			<delete failonerror="false">
+				<fileset dir="${FLEX_HOME}/frameworks/locale">
+					<include name="@{locale}/charts_rb.swc"/>
+					<include name="@{locale}/charts_rb.swc.incr"/>
+				</fileset>
+			</delete>
+		</sequential>
+	</macrodef>	
+	
+	<macrodef name="bundler">
+		<attribute name="locale"/>
+		<element name="run.fat.swc" optional="yes"/>
+
+		<sequential>
+			<bundle-clean locale="@{locale}"/>
+			<bundle locale="@{locale}"/>
+			<run.fat.swc/>
+		</sequential>
+	</macrodef>
+			
+	<target name="main" depends="clean,compile" description="Clean build of charts.swc and en_US">
+		<bundle locale="${locale}"/>
+	</target>
+	
+	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
+	
+	
+	<!-- This is a private target for building automation_flashflexkit_rb.swc for various locales. -->
+	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
+
+	<target name="bundles">
+		<!-- these languages do not have localized docs-->
+		<bundler locale="da_DK"/><!-- Danish resources -->
+		<bundler locale="de_DE"><!-- German resources -->
+			<run.fat.swc>
+				<fat-swc locale="de_DE"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="es_ES"/><!-- Spanish resources -->
+		<bundler locale="fi_FI"/><!--  Finnish resources-->
+		<bundler locale="fr_FR"><!-- French resources -->
+			<run.fat.swc>
+				<fat-swc locale="fr_FR"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="it_IT"/><!-- Italian resources -->
+		<bundler locale="ja_JP"><!-- Japanese resources -->
+			<run.fat.swc>
+				<fat-swc locale="ja_JP"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="ko_KR"/><!-- Korean resources -->
+		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
+		<bundler locale="nl_NL"/><!-- Dutch resources -->
+		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
+		<bundler locale="ru_RU"><!-- Swedish resources -->
+			<run.fat.swc>
+				<fat-swc locale="ru_RU"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="sv_SE"/><!-- Swedish resources -->
+		<bundler locale="zh_CN"><!-- Simplified Chinese resources -->
+			<run.fat.swc>
+				<fat-swc locale="zh_CN"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
+	</target>
+	
+	<target name="clean" depends="bundles-clean">
+		<delete failonerror="false">
+			<fileset dir="${basedir}" >
+				<include name="bundles.properties"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/libs">
+				<include name="charts.swc"/>
+				<include name="charts.swc.incr"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/locale">
+				<include name="*/charts_rb.swc"/>
+				<include name="*/charts_rb.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="bundles-clean">
+		<delete failonerror="false">
+			<fileset dir="${basedir}" >
+				<include name="bundles.properties"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/locale">
+				<include name="*/charts_rb.swc"/>
+				<include name="*/charts_rb.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+		
+	<target name="compile" description="Compiles charts.swc">
+		
+		<echo message="Compiling frameworks/libs/charts.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<!--
+			Link in the classes (and their dependencies) for the MXML tags
+			listed in this project's manifest.xml.
+			Also link the additional classes (and their dependencies)
+			listed in AdvancedDataGridClasses.as ChartsClasses.as,
+			because these aren't referenced by the manifest classes.
+			Link in accessibility support.
+			Include the appropriate CSS files and assets in the SWC.
+			Don't include any resources in the SWC.
+			Write a bundle list of referenced resource bundles
+			into the file bundles.properties in this directory.
+		-->
+		<compc fork="true"
+			include-classes="ChartsClasses"
+			output="${FLEX_HOME}/frameworks/libs/charts.swc"
+			resource-bundle-list="${basedir}/bundles.properties">
+			<jvmarg line="${compc.jvm.args}"/>
+			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest_charts.xml"/>
+			<include-namespaces>http://www.adobe.com/2006/mxml</include-namespaces>
+			<source-path path-element="${basedir}/src"/>
+			<library-path />
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
+				<include name="framework.swc"/>
+				<include name="mx.swc"/>
+				<include name="rpc.swc"/>
+                <include name="textLayout.swc"/>
+			</external-library-path>
+			<include-file name="defaults.css" path="${basedir}/charts.css"/>
+			<include-file name="defaults-3.0.0.css" path="${basedir}/charts-3.0.0.css"/>
+			<locale/>
+            <accessible>true</accessible>
+			<show-deprecation-warnings>false</show-deprecation-warnings>
+		</compc>
+	</target>
+	
+	<!-- documentation -->
+	<target name="doc" depends="clean-temp-docs" description="updates framework.swc with asdoc xml">
+		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+	    <condition property="asdoc.jvm.args" value="-Xmx384m">
+	        <os family="windows"/>
+	    </condition>
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="mac"/>
+	    </condition>
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="unix"/>
+	    </condition>
+
+		<!-- Call asdoc to generate dita xml files -->
+			<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+		    <compiler.source-path path-element="${basedir}/src"/>
+		  
+		    <doc-namespaces uri="http://www.adobe.com/2006/mxml"/>
+		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest_charts.xml"/>
+		    <jvmarg line="${asdoc.jvm.args}"/>
+		</asdoc>
+ 
+		<!-- updates charts.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/locale/en_US/charts_rb.swc" update="true">
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+		<copy file="${FLEX_HOME}/tempDoc/tempdita/packages.dita" tofile="${basedir}/bundles/en_US/packages.dita"/>
+		<!--remove this when files have been localized -->
+		<copy todir="${basedir}/bundles/en_US">
+			<fileset dir="${FLEX_HOME}/tempDoc/tempdita" includes="*.xml"/>
+		</copy>
+	</target>
+
+	<target name="clean-temp-docs">
+		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+		<delete file="${basedir}/bundles/en_US/packages.dita" failonerror="false"/>
+	</target>
+</project>
