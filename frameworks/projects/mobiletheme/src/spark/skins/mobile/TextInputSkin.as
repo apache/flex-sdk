@@ -181,9 +181,33 @@ public class TextInputSkin extends TextSkinBase
 
         if (textDisplay)
         {
+            // We're going to do a few tricks to try to increase the size of our hitArea to make it 
+            // easier for users to select text or put the caret in a certain spot.  To do that, 
+            // rather than set textDisplay.x=paddingLeft,  we are going to set 
+            // textDisplay.leftMargin = paddingLeft.  In addition, we're going to size the height 
+            // of the textDisplay larger than just the size of the text inside to increase the hitArea
+            // on the bottom.  We'll also assign textDisplay.rightMargin = paddingRight to increase the 
+            // the hitArea on the right.  Unfortunately, there's no way to increase the hitArea on the top
+            // just yet, but these three tricks definitely help out with regards to user experience.  
+            // See http://bugs.adobe.com/jira/browse/SDK-29406 and http://bugs.adobe.com/jira/browse/SDK-29405
+            
+            // set leftMargin, rightMargin to increase the hitArea.  Need to set it before calling commitStyles().
+            var marginChanged:Boolean = ((textDisplay.leftMargin != paddingLeft) || 
+                (textDisplay.rightMargin != paddingRight));
+            
+            textDisplay.leftMargin = paddingLeft;
+            textDisplay.rightMargin = paddingRight;
+            
+            // need to force a styleChanged() after setting leftMargin, rightMargin if they 
+            // changed values.  Then we can validate the styles through commitStyles()
+            if (marginChanged)
+                textDisplay.styleChanged(null);
             textDisplay.commitStyles();
-            setElementSize(textDisplay, unscaledTextWidth, unscaledTextHeight);
-            setElementPosition(textDisplay, paddingLeft, textY);
+            
+            // the height of the textDisplay to unscaledTextHeight + paddingBottom to increase hitArea on bottom
+            setElementSize(textDisplay, unscaledWidth, unscaledTextHeight + paddingBottom);
+            // set x=0 since we're using textDisplay.leftMargin = paddingLeft
+            setElementPosition(textDisplay, 0, textY);
         }
         
         if (promptDisplay)
