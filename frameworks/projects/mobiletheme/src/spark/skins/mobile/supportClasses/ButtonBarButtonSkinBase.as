@@ -11,16 +11,6 @@
 
 package spark.skins.mobile.supportClasses
 {
-import flash.display.DisplayObject;
-import flash.display.Graphics;
-import flash.events.Event;
-
-import mx.core.DPIClassification;
-import mx.events.FlexEvent;
-
-import spark.components.ButtonBarButton;
-import spark.components.supportClasses.ButtonBase;
-import spark.components.supportClasses.ViewNavigatorBase;
 import spark.skins.mobile.ButtonSkin;
 
 /**
