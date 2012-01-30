@@ -629,12 +629,18 @@ public class AddItems extends OverrideBase
         if ((propertyName == null || propertyName == "mxmlContent") && (dest is IVisualElementContainer))
         {
             for (i = 0; i < numAdded; i++)
-                IVisualElementContainer(dest).removeElementAt(startIndex);
+            {
+                if (IVisualElementContainer(dest).numElements > startIndex)
+                    IVisualElementContainer(dest).removeElementAt(startIndex);
+            }
         }
         else if (propertyName == null && dest is IChildList)
         {
             for (i = 0; i < numAdded; i++)
-                IChildList(dest).removeChildAt(startIndex);
+            {
+                if (IChildList(dest).numChildren > startIndex)
+                    IChildList(dest).removeChildAt(startIndex);
+            }
         }
         else if (propertyName != null && !isStyle && dest[propertyName] is IList)
         {
