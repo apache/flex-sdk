@@ -155,7 +155,8 @@ use namespace mx_internal;
  *    <li>STATE_SYSTEM_UNAVAILABLE
  *    (when enabled is false on this component or any ancestor)</li>
  *    <li>STATE_SYSTEM_FOCUSABLE</li>
- *    <li>STATE_SYSTEM_FOCUSED (when focused)</li>
+ *    <li>STATE_SYSTEM_FOCUSED (when the component itself is focused,
+ *    not set for any subparts the component may have)</li>
  *  </ul>
  *  Note that by default all components are assumed to be focusable
  *  and thus the accessibility implementation classes for non-focusable
@@ -627,7 +628,12 @@ public class AccImpl extends AccessibilityImplementation
         {
             accState |= AccConst.STATE_SYSTEM_FOCUSABLE
         
-            if (UIComponent(master) == UIComponent(master).getFocus())
+            // This sets STATE_SYSTEM_FOCUSED appropriately for simple components
+			// and top levels of complex ones, but not for any subparts.
+			// That has to be done in the component's get_accState() method.
+            // example: listItems in a list.
+            if (UIComponent(master) == UIComponent(master).getFocus()
+            && childID == 0)
                 accState |= AccConst.STATE_SYSTEM_FOCUSED;
         }
 
