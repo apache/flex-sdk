@@ -21,7 +21,7 @@ import mx.core.mx_internal;
 //--------------------------------------
 
 /**
- *  The skin for the busy cursor
+ *  The skin for the busy cursor.
  *
  *  @default mx.skins.halo.BusyCursor
  *  
