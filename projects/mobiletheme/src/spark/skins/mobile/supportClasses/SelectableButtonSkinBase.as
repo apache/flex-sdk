@@ -146,6 +146,9 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     override protected function createChildren():void
     {
         super.createChildren();
