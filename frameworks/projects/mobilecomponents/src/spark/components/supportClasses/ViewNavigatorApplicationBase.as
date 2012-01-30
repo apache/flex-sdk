@@ -33,8 +33,8 @@ import spark.components.Application;
 import spark.components.View;
 import spark.components.ViewMenu;
 import spark.components.ViewMenuItem;
-import spark.core.managers.IPersistenceManager;
-import spark.core.managers.PersistenceManager;
+import spark.managers.IPersistenceManager;
+import spark.managers.PersistenceManager;
 import spark.events.PopUpEvent;
 
 [Exclude(name="controlBarContent", kind="property")]
@@ -83,20 +83,20 @@ use namespace mx_internal;
 
 /**
  *  The base application class used for all view based application types.
- *  This includes MobileApplication and TabbedMobileApplication.  This class
+ *  This includes ViewNavigatorApplication and TabbedViewNavigatorApplication.  This class
  *  provides the basic infrastructure for providing these types of applications
  *  access to the device application menu, hardware keys, orientation status
  *  and application session persistence.
  *  
- *  @see spark.components.MobileApplication
- *  @see spark.components.TabbedMobileApplication
+ *  @see spark.components.ViewNavigatorApplication
+ *  @see spark.components.TabbedViewNavigatorApplication
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class MobileApplicationBase extends Application
+public class ViewNavigatorApplicationBase extends Application
 {
     //--------------------------------------------------------------------------
     //
@@ -112,7 +112,7 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    public function MobileApplicationBase()
+    public function ViewNavigatorApplicationBase()
     {
         super();
     }
@@ -496,7 +496,7 @@ public class MobileApplicationBase extends Application
     
     /**
      *  @private
-     *  The key model employeed by MobileApplication is to listen for the down
+     *  The key model employeed by ViewNavigatorApplication is to listen for the down
      *  event but run the back key handling logic on up.  The reasoning for this
      *  is that the down event is dispatched multiple times while the user
      *  presses it down.  But the desired back logic should only happen once.
