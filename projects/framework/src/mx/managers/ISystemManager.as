@@ -399,8 +399,9 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      *  @param event Event to dispatch
      *  @param skip IEventDispatcher to not dispatch from
      *  @param trackClones Whether to keep a reference to the events as they are dispatched
+     *  @param toOtherSystemManagers Whether to dispatch to other top level SystemManagers
 	 */
-	function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, trackClones:Boolean = false):void
+	function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, trackClones:Boolean = false, toOtherSystemManagers:Boolean = false):void
 
     /**
      *  Determines if the caller using this system manager
