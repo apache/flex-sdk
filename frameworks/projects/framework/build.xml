@@ -133,16 +133,32 @@
 		</compc>
 	</target>
 
+	    <!-- updates framework_rb.swc with asdoc xml -->
+	<target name="fat-swc">
+		<mkdir dir="${basedir}/bundles/${locale}/docs" />
+        <zip destfile="${FLEX_HOME}/frameworks/locale/${locale}/framework_rb.swc" update="true">
+            <zipfileset dir="${basedir}/bundles/${locale}/docs" prefix="docs">
+                <include name="*.*"/>
+            </zipfileset>
+        </zip>
+	</target>
+	
 	<!-- Targets for compiling framework_rb.swc for various locales -->
 
 	<target name="da_DK" description="Danish resources">
 		<antcall target="bundle">
 			<param name="locale" value="da_DK"/>
 		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="da_DK"/>
+		</antcall>
 	</target>
 
 	<target name="de_DE" description="German resources">
 		<antcall target="bundle">
+			<param name="locale" value="de_DE"/>
+		</antcall>
+		<antcall target="fat-swc">
 			<param name="locale" value="de_DE"/>
 		</antcall>
 	</target>
@@ -157,10 +173,16 @@
 		<antcall target="bundle">
 			<param name="locale" value="es_ES"/>
 		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="es_ES"/>
+		</antcall>
 	</target>
 
 	<target name="fi_FI" description="Finnish resources">
 		<antcall target="bundle">
+			<param name="locale" value="fi_FI"/>
+		</antcall>
+		<antcall target="fat-swc">
 			<param name="locale" value="fi_FI"/>
 		</antcall>
 	</target>
@@ -169,10 +191,16 @@
 		<antcall target="bundle">
 			<param name="locale" value="fr_FR"/>
 		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="fr_FR"/>
+		</antcall>
 	</target>
 
 	<target name="it_IT" description="Italian resources">
 		<antcall target="bundle">
+			<param name="locale" value="it_IT"/>
+		</antcall>
+		<antcall target="fat-swc">
 			<param name="locale" value="it_IT"/>
 		</antcall>
 	</target>
@@ -181,10 +209,16 @@
 		<antcall target="bundle">
 			<param name="locale" value="ja_JP"/>
 		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="ja_JP"/>
+		</antcall>
 	</target>
 
 	<target name="ko_KR" description="Korean resources">
 		<antcall target="bundle">
+			<param name="locale" value="ko_KR"/>
+		</antcall>
+		<antcall target="fat-swc">
 			<param name="locale" value="ko_KR"/>
 		</antcall>
 	</target>
@@ -193,10 +227,16 @@
 		<antcall target="bundle">
 			<param name="locale" value="nb_NO"/>
 		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="nb_NO"/>
+		</antcall>
 	</target>
 
 	<target name="nl_NL" description="Dutch resources">
 		<antcall target="bundle">
+			<param name="locale" value="nl_NL"/>
+		</antcall>
+		<antcall target="fat-swc">
 			<param name="locale" value="nl_NL"/>
 		</antcall>
 	</target>
@@ -205,16 +245,25 @@
 		<antcall target="bundle">
 			<param name="locale" value="pt_BR"/>
 		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="pt_BR"/>
+		</antcall>
 	</target>
 
     <target name="ru_RU" description="Swedish resources">
         <antcall target="bundle">
             <param name="locale" value="ru_RU"/>
         </antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="ru_RU"/>
+		</antcall>
     </target>
 
     <target name="sv_SE" description="Swedish resources">
 		<antcall target="bundle">
+			<param name="locale" value="sv_SE"/>
+		</antcall>
+		<antcall target="fat-swc">
 			<param name="locale" value="sv_SE"/>
 		</antcall>
 	</target>
@@ -223,10 +272,16 @@
 		<antcall target="bundle">
 			<param name="locale" value="zh_CN"/>
 		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="zh_CN"/>
+		</antcall>
 	</target>
 
 	<target name="zh_TW" description="Traditional Chinese resources">
 		<antcall target="bundle">
+			<param name="locale" value="zh_TW"/>
+		</antcall>
+		<antcall target="fat-swc">
 			<param name="locale" value="zh_TW"/>
 		</antcall>
 	</target>
