@@ -265,7 +265,8 @@ public class State extends EventDispatcher
      */
     mx_internal function dispatchEnterState():void
     {
-        dispatchEvent(new FlexEvent(FlexEvent.ENTER_STATE));
+        if (hasEventListener(FlexEvent.ENTER_STATE))
+            dispatchEvent(new FlexEvent(FlexEvent.ENTER_STATE));
     }
 
     /**
@@ -274,7 +275,8 @@ public class State extends EventDispatcher
      */
     mx_internal function dispatchExitState():void
     {
-        dispatchEvent(new FlexEvent(FlexEvent.EXIT_STATE));
+        if (hasEventListener(FlexEvent.EXIT_STATE))
+            dispatchEvent(new FlexEvent(FlexEvent.EXIT_STATE));
     }
 }
 
