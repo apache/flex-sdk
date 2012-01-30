@@ -118,6 +118,7 @@ public class TextSkinBase extends MobileSkin
             textDisplay = StyleableTextField(createInFontContext(StyleableTextField));
             textDisplay.styleName = this;
             textDisplay.editable = true;
+			textDisplay.useTightTextBounds = false;
             addChild(textDisplay);
         }
         
@@ -134,6 +135,7 @@ public class TextSkinBase extends MobileSkin
         prompt.styleName = this;
         prompt.editable = false;
         prompt.mouseEnabled = false;
+		prompt.useTightTextBounds = false;
         
         return prompt;
     }
@@ -308,6 +310,6 @@ public class TextSkinBase extends MobileSkin
         }
         
         invalidateDisplayList();
-    }
+    }	
 }
 }
