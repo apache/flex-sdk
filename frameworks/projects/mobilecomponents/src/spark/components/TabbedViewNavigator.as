@@ -127,7 +127,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     //  Class variables
     //
     //--------------------------------------------------------------------------
-    
+  
+    // TODO (chiedozi): Consider having a NO_SELECTION constant to differentiate
+    // between NO_PROPOSED_SELECTION and clearing the selection.  See List.
     /**
      *  @private
      *  Static constant representing no proposed selection.
@@ -409,16 +411,17 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
        
         if (value && value.length > 0)
         {
-            _selectedIndex = 0;
+            // Reset selectedIndex to -1 and proposed index to 0 so that the appropriate
+            // navigator is selected in commit properties.
+            _selectedIndex = _proposedSelectedIndex = 0;
         }
         else
         {
-            _selectedIndex = NO_PROPOSED_SELECTION;
+            _selectedIndex = _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         }
 
         // The proposed selected index is reset because it is no longer valid
         // since the array of navigators has changed.
-        _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         selectedIndexChanged = false;
         
         // Notify listeners that the collection changed
@@ -496,14 +499,18 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         if (view)
         {
-            tabBar.visible = tabBar.includeInLayout = view.tabBarVisible;
+            if (tabBar)
+                tabBar.visible = tabBar.includeInLayout = view.tabBarVisible;
+
             overlayControls = view.overlayControls;
         }
         else
         {
             // If the current view is null, the tab bar is shown so that the
             // user still has a ui for changing the selected tab.
-            tabBar.visible = tabBar.includeInLayout = true;
+            if (tabBar)
+                tabBar.visible = tabBar.includeInLayout = true;
+
             overlayControls = false;
         }
 
