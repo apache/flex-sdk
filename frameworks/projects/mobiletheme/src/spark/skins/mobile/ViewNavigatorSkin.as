@@ -80,8 +80,11 @@ package spark.skins.mobile
                 top += actionBarHeight;
             }
             
-            contentGroup.setLayoutBoundsPosition(0, top);
-            contentGroup.setLayoutBoundsSize(unscaledWidth, bottom - top);
+			if (contentGroup.includeInLayout)
+			{
+	            contentGroup.setLayoutBoundsPosition(0, top);
+	            contentGroup.setLayoutBoundsSize(unscaledWidth, bottom - top);
+			}
         }
     }
 }
