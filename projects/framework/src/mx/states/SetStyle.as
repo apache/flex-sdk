@@ -126,6 +126,12 @@ public class SetStyle extends OverrideBase
      *  Storage for the old style value.
      */
     private var oldValue:Object;
+    
+    /**
+     *  @private
+     *  True if old value was set as an inline style.
+     */
+    private var wasInline:Boolean;
 
     /**
      *  @private
@@ -277,41 +283,43 @@ public class SetStyle extends OverrideBase
         var context:Object = getOverrideContext(target, parent);
         if (context != null)
         {
-        	appliedTarget = context;
-        	var obj:IStyleClient = IStyleClient(appliedTarget);
-        	
-	        var relatedProps:Array = RELATED_PROPERTIES[name] ?
-	                                 RELATED_PROPERTIES[name] :
-	                                 null;
-	
-	        // Remember the original value so it can be restored later
-	        // after we are asked to remove our override (and only if we
-	        // aren't being asked to re-apply a value).
-	        if (!applied)
-	        {
-	            oldValue = obj.getStyle(name);
-	        }
-	
-	        if (relatedProps)
-	        {
-	            oldRelatedValues = [];
-	
-	            for (var i:int = 0; i < relatedProps.length; i++)
-	                oldRelatedValues[i] = obj[relatedProps[i]];
-	        }
-	
-	        // Set new value
-	        if (value === null)
-	        {
-	            obj.clearStyle(name);
-	        }
-	        else if (oldValue is Number)
-	        {
-	            // The "value" for colors can be several different formats:
-	            // 0xNNNNNN, #NNNNNN or "red". We can't use
-	            // StyleManager.isColorStyle() because that only returns true
-	            // for inheriting color styles and misses non-inheriting styles like
-	            // backgroundColor.
+            appliedTarget = context;
+            var obj:IStyleClient = IStyleClient(appliedTarget);
+            
+            var relatedProps:Array = RELATED_PROPERTIES[name] ?
+                                     RELATED_PROPERTIES[name] :
+                                     null;
+    
+            // Remember the original value so it can be restored later
+            // after we are asked to remove our override (and only if we
+            // aren't being asked to re-apply a value).
+            if (!applied)
+            {
+                wasInline = obj.styleDeclaration && 
+                    obj.styleDeclaration.getStyle(name) !== undefined;
+                oldValue = wasInline ? obj.getStyle(name) : null;
+            }
+    
+            if (relatedProps)
+            {
+                oldRelatedValues = [];
+    
+                for (var i:int = 0; i < relatedProps.length; i++)
+                    oldRelatedValues[i] = obj[relatedProps[i]];
+            }
+    
+            // Set new value
+            if (value === null)
+            {
+                obj.clearStyle(name);
+            }
+            else if (oldValue is Number)
+            {
+                // The "value" for colors can be several different formats:
+                // 0xNNNNNN, #NNNNNN or "red". We can't use
+                // StyleManager.isColorStyle() because that only returns true
+                // for inheriting color styles and misses non-inheriting styles like
+                // backgroundColor.
                 if (name.toLowerCase().indexOf("color") != -1)
                 {
                     var styleManager:IStyleManager2;
@@ -320,7 +328,7 @@ public class SetStyle extends OverrideBase
                     else
                         styleManager = parent.styleManager;
                     
-	                obj.setStyle(name, styleManager.getColorName(value));
+                    obj.setStyle(name, styleManager.getColorName(value));
                 }
                 else if (value is String && 
                          String(value).lastIndexOf("%") == 
@@ -330,17 +338,17 @@ public class SetStyle extends OverrideBase
                 }
                 else
                 {
-	                obj.setStyle(name, Number(value));
+                    obj.setStyle(name, Number(value));
                 }               
-	        }
-	        else if (oldValue is Boolean)
-	        {
-	            obj.setStyle(name, toBoolean(value));
-	        }
-	        else
-	        {
-	            obj.setStyle(name, value);
-	        }
+            }
+            else if (oldValue is Boolean)
+            {
+                obj.setStyle(name, toBoolean(value));
+            }
+            else
+            {
+                obj.setStyle(name, value);
+            }
         }
         else if (!applied)
         {
@@ -369,29 +377,35 @@ public class SetStyle extends OverrideBase
         var obj:IStyleClient = IStyleClient(getOverrideContext(appliedTarget, parent));
         if (obj != null && appliedTarget)
         {
-	        // Restore the old value
-	        if (oldValue is Number)
-	            obj.setStyle(name, Number(oldValue));
-	        else if (oldValue is Boolean)
-	            obj.setStyle(name, toBoolean(oldValue));
-	        else if (oldValue === null)
-	            obj.clearStyle(name);
-	        else
-	            obj.setStyle(name, oldValue);
-	
-	
-	        var relatedProps:Array = RELATED_PROPERTIES[name] ?
-	                                 RELATED_PROPERTIES[name] :
-	                                 null;
-	
-	        // Restore related property values, if needed
-	        if (relatedProps)
-	        {
-	            for (var i:int = 0; i < relatedProps.length; i++)
-	            {
-	                obj[relatedProps[i]] = oldRelatedValues[i];
-	            }
-	        }
+            if (wasInline)
+            {
+                // Restore the old value
+                if (oldValue is Number)
+                    obj.setStyle(name, Number(oldValue));
+                else if (oldValue is Boolean)
+                    obj.setStyle(name, toBoolean(oldValue));
+                else if (oldValue === null)
+                    obj.clearStyle(name);
+                else
+                    obj.setStyle(name, oldValue);
+            }
+            else
+            {
+                obj.clearStyle(name);
+            }
+    
+            var relatedProps:Array = RELATED_PROPERTIES[name] ?
+                                     RELATED_PROPERTIES[name] :
+                                     null;
+    
+            // Restore related property values, if needed
+            if (relatedProps)
+            {
+                for (var i:int = 0; i < relatedProps.length; i++)
+                {
+                    obj[relatedProps[i]] = oldRelatedValues[i];
+                }
+            }
         }
         else
         {
