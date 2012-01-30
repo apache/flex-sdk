@@ -44,8 +44,6 @@ package spark.skins.mobile
     - need a downIconClass style? 
     - should the label be UITextField or another text class?  
     
-    TODO:
-    - Add labelPlacement to default.css
     */
     /**
      *  Actionscript based skin for mobile applications. The skin supports 
@@ -85,11 +83,11 @@ package spark.skins.mobile
         protected var iconDisplay:DisplayObject;
         
         // TODO (jszeto) Either static consts or styles
-        protected static const gap:int = 15;
-        protected static const paddingLeft:int = 15;
-        protected static const paddingRight:int = 15;
-        protected static const paddingTop:int = 15;
-        protected static const paddingBottom:int = 15;
+        protected var gap:int = 7;
+        protected var paddingLeft:int = 20;
+        protected var paddingRight:int = 20;
+        protected var paddingTop:int = 20;
+        protected var paddingBottom:int = 20;
         
         private static var TEXT_WIDTH_PADDING:Number = UITextField.TEXT_WIDTH_PADDING + 1;
         
