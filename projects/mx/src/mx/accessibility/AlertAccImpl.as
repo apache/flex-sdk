@@ -107,7 +107,7 @@ public class AlertAccImpl extends TitleWindowAccImpl
 	{
 		super(master);
 		
-		role = 0x08;
+		role = 0x08; // ROLE_SYSTEM_ALERT
 	}
 
 	//--------------------------------------------------------------------------
