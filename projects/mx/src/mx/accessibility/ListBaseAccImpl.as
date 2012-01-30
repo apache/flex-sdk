@@ -354,25 +354,14 @@ public class ListBaseAccImpl extends AccImpl
 	 */
 	override protected function getName(childID:uint):String
 	{
-		if (childID == 0 || childID > 100000)
+		if (childID == 0)
 			return "";
 		
 		var listBase:ListBase = ListBase(master);
+
 		var item:Object = getItemAt(childID - 1);
 		
-		// Assuming childID is always ItemID + 1
-		// because getChildIDArray is not always invoked.
-		
-		// Sometimes item may be an object.
-		if (item is String)
-		{
-			return item + " " + childID + " of " + listBase.dataProvider.length;
-		}
-		else
-		{
-			return listBase.itemToLabel(item) + " " + childID +
-				   " of " + listBase.dataProvider.length;
-		}
+		return listBase.itemToLabel(item);
 	}
 
 	//--------------------------------------------------------------------------
