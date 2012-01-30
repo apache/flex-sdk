@@ -1821,7 +1821,8 @@ public class SystemManager extends MovieClip
 													cdRsls[i]["policyFiles"],
 													cdRsls[i]["digests"],
 													cdRsls[i]["types"],
-													cdRsls[i]["isSigned"]);
+													cdRsls[i]["isSigned"],
+													this.loaderInfo.url);
 				rslList.push(cdNode);				
 			}
 		}
@@ -1832,7 +1833,7 @@ public class SystemManager extends MovieClip
 			n = rsls.length;
 			for (i = 0; i < n; i++)
 			{
-			    var node:RSLItem = new RSLItem(rsls[i].url);
+			    var node:RSLItem = new RSLItem(rsls[i].url, this.loaderInfo.url);
 				rslList.push(node);
 			}
 		}
@@ -3387,7 +3388,8 @@ public class SystemManager extends MovieClip
 		// in a bridged application, activate the current document because
 		// the bridge application is considered part of the main application.
 		// We also see mouse clicks on dialogs popped up from compatible applications.
-		if (isDisplayObjectInABridgedApplication(event.target as DisplayObject))
+        var bridge:IEventDispatcher = getSWFBridgeOfDisplayObject(event.target as DisplayObject);
+        if (bridge && bridgeToFocusManager[bridge] == document.focusManager)
 		{
 			// trace("SM:mouseDownHandler click in a bridged application");
 			if (isTopLevelRoot())
@@ -3404,9 +3406,7 @@ public class SystemManager extends MovieClip
 			{
 				var n:int = forms.length;
 				var p:DisplayObject = DisplayObject(event.target);
-                var isApplication:Boolean = document is IRawChildrenContainer ? 
-                                            IRawChildrenContainer(document).rawChildren.contains(p) :
-                                            document.contains(p);
+                                var isApplication:Boolean = document.rawChildren.contains(p);
 				while (p)
 				{
 					for (var i:int = 0; i < n; i++)
@@ -4292,6 +4292,25 @@ public class SystemManager extends MovieClip
 	 */
 	public function isDisplayObjectInABridgedApplication(displayObject:DisplayObject):Boolean
 	{
+        return getSWFBridgeOfDisplayObject(displayObject) != null;
+    }
+
+    /**
+     *  @private
+     * 
+     *  If a display object is in a bridged application, then return the SWFBridge
+     *  that is used to communcation with that application. Otherwise return null.
+     * 
+     *  @param displayObject The object to test.
+     * 
+     *  @return The IEventDispather that represents the SWFBridge that should 
+     *  be used to communicate with this object, if the display object is in a 
+     *  bridge application. If the display object is not in a bridge application,
+     *  then null is returned.
+     * 
+     */
+    private function getSWFBridgeOfDisplayObject(displayObject:DisplayObject):IEventDispatcher
+    {
 		if (swfBridgeGroup)
 		{
 			var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.IS_BRIDGE_CHILD_REQUEST,
@@ -4310,7 +4329,7 @@ public class SystemManager extends MovieClip
 				{
 				childBridge.dispatchEvent(request);
                     if (request.data == true)
-					return true;
+                        return childBridge;
 	                   
 	                // reset data property
 	                request.data = displayObject;
@@ -4318,7 +4337,7 @@ public class SystemManager extends MovieClip
 			}
 		}
 			
-		return false;
+		return null;
 	}
 
 	/**
@@ -5410,7 +5429,8 @@ public class SystemManager extends MovieClip
 							true, request.priority, request.useWeakReference);
 				if (getSandboxRoot() == this)
 				{
-				    if (isTopLevelRoot() && actualType == MouseEvent.MOUSE_UP)
+                    if (isTopLevelRoot() &&
+                       (actualType == MouseEvent.MOUSE_UP || actualType == MouseEvent.MOUSE_MOVE))
 				    {
 				        stage.addEventListener(actualType, eventProxy.marshalListener,
                             false, request.priority, request.useWeakReference);
@@ -5431,7 +5451,8 @@ public class SystemManager extends MovieClip
                             true, event.target as IEventDispatcher);
                 if (getSandboxRoot() == this)
                 {
-                    if (isTopLevelRoot() && actualType == MouseEvent.MOUSE_UP)
+                    if (isTopLevelRoot() &&
+                       (actualType == MouseEvent.MOUSE_UP || actualType == MouseEvent.MOUSE_MOVE))
                     {
                         stage.removeEventListener(actualType, eventProxy.marshalListener);
                     }
