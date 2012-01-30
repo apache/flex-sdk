@@ -1,0 +1,69 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2005-2006 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+package spark.core
+{
+/**
+ *  The ContainerCreationPolicy class defines the constant values
+ *  for the <code>destructionPolicy</code> property of spark view
+ *  classes.
+ *
+ *  @see spark.components.ViewNavigatorBase#destructionPolicy
+ *  @see spark.components.View#destructionPolicy
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+public final class ContainerDestructionPolicy
+{
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  The container will always destroy its children when the container
+     *  deactivated.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static const ALWAYS:String = "always";
+    
+    /**
+     *  The lifespan of the container's children will automatically
+     *  be managed by the container based on the container's own
+     *  heuristic. The default implementation mimics that behavior of
+     *  <code>ContainerDestructionPolicy.ALWAYS</code>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static const AUTO:String = "auto";
+    
+    /**
+     *  The container will never destroy its children.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static const NEVER:String = "never";
+}
+}
