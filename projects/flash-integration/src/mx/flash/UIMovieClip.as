@@ -2661,7 +2661,7 @@ public dynamic class UIMovieClip extends MovieClip
      *  on the child component.</p>
      * 
      *  <p>This will cause the FocusManager to ignore this component
-     *  and not monitor it for changes to the <code>tabEnabled</code>,
+     *  and not monitor it for changes to the <code>tabFocusEnabled</code>,
      *  <code>tabChildren</code>, and <code>mouseFocusEnabled</code> properties.
      *  This also means you cannot change this value after
      *  <code>addChild()</code> and expect the FocusManager to notice.</p>
@@ -2766,6 +2766,55 @@ public dynamic class UIMovieClip extends MovieClip
     public function get mouseFocusEnabled():Boolean
     {
         return false;
+    }
+
+    //----------------------------------
+    //  tabFocusEnabled
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the tabFocusEnabled property.
+     */
+    private var _tabFocusEnabled:Boolean = true;
+
+    [Bindable("tabFocusEnabledChange")]
+    [Inspectable(defaultValue="true")]
+
+    /**
+     *  A flag that indicates whether child objects can receive focus
+     * 
+     *  <p>This is similar to the <code>tabEnabled</code> property
+     *  used by the Flash Player.</p>
+     * 
+     *  <p>This is usually <code>true</code> for components that
+     *  handle keyboard input, but some components in controlbars
+     *  have them set to <code>false</code> because they should not steal
+     *  focus from another component like an editor.
+     *  </p>
+     *
+     *  @default true
+     *  
+     *  @langversion 4.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get tabFocusEnabled():Boolean
+    {
+        return _tabFocusEnabled;
+    }
+
+    /**
+     *  @private
+     */
+    public function set tabFocusEnabled(value:Boolean):void
+    {
+        if (value != _tabFocusEnabled)
+        {
+            _tabFocusEnabled = value;
+            dispatchEvent(new Event("tabFocusEnabledChange"));
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -4420,7 +4469,10 @@ public dynamic class UIMovieClip extends MovieClip
             {
                 focusableObjects.push(child);
                 if (!explicitTabEnabledChanged)
+                {
                     tabEnabled = true;
+                    tabFocusEnabled = true;
+                }
             }
                 
             if (child is DisplayObjectContainer)
