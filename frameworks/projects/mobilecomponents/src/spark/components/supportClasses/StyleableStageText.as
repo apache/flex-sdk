@@ -1312,6 +1312,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */ 
     override public function setFocus():void
     {
+        // The proxy bitmap should not be showing and somebody is trying to set
+        // focus on us. Make sure the proxy bitmap really is gone and the
+        // StageText is visible.
+        if (!showTextImage && !alwaysShowProxyImage)
+            commitVisible(true);
+        
         // Do not set focus if the StageText is invisible (it has been replaced
         // by a proxy image). This component may be in a form that is lower in
         // z-order than the topmost form and we cannot allow the StageText,
@@ -1725,7 +1731,18 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     private function createProxyImage():void
     {
-        if (textImage == null)
+        if (!showTextImage && textImage != null)
+        {
+            // In this case, we have just received an event that causes us to
+            // dispose the proxy image, but havent disposed it yet 
+            // (commitProperties hasn't been called yet). So, we don't need to
+            // create a new text image. Just update the one we have and update
+            // our state variables.
+            showTextImage = true;
+            updateProxyImage();
+            commitVisible(true);
+        } 
+        else if (textImage == null)
         {
             var imageData:BitmapData = captureBitmapData();
             
@@ -1785,6 +1802,58 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         return form is DisplayObject ?
             systemManager.rawChildren.getChildIndex(form as DisplayObject) :
             -1;
+    }
+    
+    private function getGlobalViewPort():Rectangle
+    {
+        // We calculate the parent's concatenated matrix to deal with
+        // issues in the runtime where the concatenated matrix of the
+        // parent is out of sync.  See SDK-31538.
+        var m:Matrix = MatrixUtil.getConcatenatedMatrix(parent, stage);
+        var globalTopLeft:Point = m.transformPoint(localViewPort.topLeft);
+        
+        // Transform the bottom-right corner of the local rect
+        // instead of setting width/height to account for any
+        // transformations applied to ancestor objects.
+        var globalBottomRight:Point = m.transformPoint(localViewPort.bottomRight);
+        var globalRect:Rectangle = new Rectangle();
+        
+        // StageText can't deal with upside-down or mirrored rectangles
+        // or non-integer values. Fix those here.
+        globalRect.x = Math.floor(Math.min(globalTopLeft.x, globalBottomRight.x));
+        globalRect.y = Math.floor(Math.min(globalTopLeft.y, globalBottomRight.y));
+        globalRect.width = Math.ceil(Math.abs(globalBottomRight.x - globalTopLeft.x));
+        globalRect.height = Math.ceil(Math.abs(globalBottomRight.y - globalTopLeft.y));
+
+        return globalRect;
+    }
+    
+    private function hasOverlappingForm():Boolean
+    {
+        if (!localViewPort || !parent || !stageText || !awm)
+            return false;
+        
+        var globalRect:Rectangle = getGlobalViewPort();
+        var result:Boolean = false;
+        
+        for each (var otherForm:Object in awm.forms)
+        {
+            var otherFormDisplayObj:DisplayObject = otherForm as DisplayObject;
+            
+            if (otherFormDisplayObj && 
+                (!otherForm.hasOwnProperty("focusManager") || otherForm.focusManager != focusManager))
+            {
+                var formGlobalRect:Rectangle = otherFormDisplayObj.getBounds(stage);
+                
+                if (formGlobalRect.intersects(globalRect))
+                {
+                    result = true;
+                    break;
+                }
+            }
+        }
+        
+        return result;
     }
     
     /**
@@ -1851,7 +1920,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         
         if (form && form.hasOwnProperty("focusManager"))
         {
-            if (form.focusManager != focusManager)
+            if (form.focusManager != focusManager && hasOverlappingForm())
                 createProxyImage();
             else
                 disposeProxyImage();
@@ -1890,24 +1959,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         {
             if (stageText.stage)
             {
-                // We calculate the parent's concatenated matrix to deal with
-                // issues in the runtime where the concatenated matrix of the
-                // parent is out of sync.  See SDK-31538.
-                var m:Matrix = MatrixUtil.getConcatenatedMatrix(parent, stage);
-                var globalTopLeft:Point = m.transformPoint(localViewPort.topLeft);
-                
-                // Transform the bottom-right corner of the local rect
-                // instead of setting width/height to account for any
-                // transformations applied to ancestor objects.
-                var globalBottomRight:Point = m.transformPoint(localViewPort.bottomRight);
-                var globalRect:Rectangle = new Rectangle();
-                
-                // StageText can't deal with upside-down or mirrored rectangles
-                // or non-integer values. Fix those here.
-                globalRect.x = Math.floor(Math.min(globalTopLeft.x, globalBottomRight.x));
-                globalRect.y = Math.floor(Math.min(globalTopLeft.y, globalBottomRight.y));
-                globalRect.width = Math.ceil(Math.abs(globalBottomRight.x - globalTopLeft.x));
-                globalRect.height = Math.ceil(Math.abs(globalBottomRight.y - globalTopLeft.y));
+                var globalRect:Rectangle = getGlobalViewPort();
                 
                 if (stageText.viewPort != globalRect)
                 {
@@ -2044,6 +2096,38 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         }
         
         watchedAncestors = newWatchedAncestors;
+    }
+    
+    /**
+     *  For each form that the ActiveWindowManager knows about, add listeners
+     *  for changes to geometry. These listeners are necessary because changes
+     *  to the geometry of a form may cause popups to start or stop overlapping
+     *  StageTexts. When that happens, StageTexts need to be replaced with proxy
+     *  bitmaps or vice-versa.
+     */
+    private function updateWatchedForms(excludeForm:Object = null):void
+    {
+        if (awm)
+        {
+            for each (var form:Object in awm.forms)
+            {
+                if (form is EventDispatcher)
+                {
+                    var formDispatcher:EventDispatcher = form as EventDispatcher;
+                    
+                    // Remove event listeners in case we've already seen this form before.
+                    formDispatcher.removeEventListener(MoveEvent.MOVE, form_moveHandler);
+                    formDispatcher.removeEventListener(ResizeEvent.RESIZE, form_resizeHandler);
+                    
+                    if (form != excludeForm)
+                    {
+                        // Use weak references so we don't prevent the form from being garbage collected.
+                        formDispatcher.addEventListener(MoveEvent.MOVE, form_moveHandler, false, 0, true);
+                        formDispatcher.addEventListener(ResizeEvent.RESIZE, form_resizeHandler, false, 0, true);
+                    }
+                }
+            }
+        }
     }
     
     /**
@@ -2210,11 +2294,14 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function awm_activatedFormHandler(event:DynamicEvent):void
     {
+        updateWatchedForms();
         updateProxyImageForTopmostForm();
     }
     
     private function awm_deactivatedFormHandler(event:DynamicEvent):void
     {
+        updateWatchedForms();
+        
         // When the ActiveWindowManager dispatches the deactivatedForm event,
         // its internal list of forms has not been updated yet. So, determining
         // the topmost form from that list will fail and find the old topmost
@@ -2233,7 +2320,18 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         // though, so the popup whose focus manager is getting removed needs to
         // be explicitly skipped when determining the new topmost form.
         var removedForm:Object = event.relatedObject;
+        updateWatchedForms(removedForm);
         updateProxyImageForTopmostForm(removedForm);
+    }
+    
+    private function form_moveHandler(event:MoveEvent):void
+    {
+        updateProxyImageForTopmostForm();
+    }
+    
+    private function form_resizeHandler(event:ResizeEvent):void
+    {
+        updateProxyImageForTopmostForm();
     }
     
     private function stageText_changeHandler(event:Event):void
@@ -2272,8 +2370,35 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function stageText_focusOutHandler(event:FocusEvent):void
     {
+        // This is to fix a race condition in PopUpManager and 
+        // ActiveWindowManager. When a form (popup) is removed from
+        // ActiveWindowManager, it reactivates the FocusManager of the previous
+        // active form. That causes that FocusManager to set focus back to the
+        // last component to have focus. In the race condition case, that
+        // component has a focusIn handler that opens the popup that we were
+        // closing to start this whole chain of events. Because the popup is
+        // opening while it is in the middle of closing, it gets into an
+        // inconsistent state. This race condition doesn't happen with non-
+        // StageText-based text components because FocusManager normally
+        // prevents focus from going to nothing (thereby preventing focus from
+        // leaving the text component to begin with). StageText, however, does
+        // not dispatch the necessary cancellable focus change events to allow
+        // FocusManager to do this. So, to prevent these such race conditions
+        // that the rest of the framework isn't prepared for, we must prevent
+        // FocusManager from immediately setting focus back to this StageText.
         if (focusedStageText == stageText)
+        {
             focusedStageText = null;
+            
+            if (focusManager is FocusManager)
+            {
+                var fm:FocusManager = focusManager as FocusManager;
+                var lastFocus:Object = fm.lastFocus as Object;
+
+                if (lastFocus && lastFocus.hasOwnProperty("textDisplay") && lastFocus.textDisplay == this)
+                    fm.lastFocus = null;
+            }
+        }
         
         // Focus events are documented as bubbling. However, all events coming
         // from StageText are set to not bubble. So we need to create an
