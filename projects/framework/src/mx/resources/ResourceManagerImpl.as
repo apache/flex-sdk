@@ -31,6 +31,8 @@ import mx.modules.IModuleInfo;
 import mx.modules.ModuleManager;
 import mx.utils.StringUtil;
 
+use namespace mx_internal;
+
 /**
  *  @copy mx.resources.IResourceManager#change
  *  
@@ -342,8 +344,8 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
         // In case we just created a ResourceBundle from a Flex 2 SWC,
         // set its locale and bundleName, because the old constructor
         // didn't used to do this.
-        resourceBundle.mx_internal::_locale = locale;
-        resourceBundle.mx_internal::_bundleName = bundleName;
+        resourceBundle._locale = locale;
+        resourceBundle._bundleName = bundleName;
                 
         // Add that resource bundle instance to the ResourceManager.
         addResourceBundle(resourceBundle);
@@ -364,7 +366,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     {
 		var compiledLocales:Array = info["compiledLocales"];
 
-		ResourceBundle.mx_internal::locale =
+		ResourceBundle.locale =
 			compiledLocales != null && compiledLocales.length > 0 ?
 			compiledLocales[0] :
 			"en_US";
