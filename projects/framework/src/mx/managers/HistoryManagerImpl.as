@@ -702,17 +702,6 @@ public class HistoryManagerImpl implements IHistoryManager
 
         return s;
     }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Deprecated
-    //
-    //--------------------------------------------------------------------------
-    public function registered():void {}
-    public function registerHandshake():void {}
-    public function load(stateVars:Object):void {}
-    public function loadInitialState():void {}
-
 }
 
 }
