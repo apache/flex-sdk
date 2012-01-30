@@ -17,6 +17,11 @@ import flash.events.Event;
 /**
  *  This is an event that is sent between ApplicationDomains
  *  to notify trusted listeners about activity in a particular manager.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class InterManagerRequest extends Event
 {
@@ -32,6 +37,11 @@ public class InterManagerRequest extends Event
      *  Communication between CursorManagers use this request type.
 	 *  The <code>name</code> property is the name of some CursorManager property.
 	 *  The <code>value</code> property is the value of that property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CURSOR_MANAGER_REQUEST:String = "cursorManagerRequest";
 
@@ -39,6 +49,11 @@ public class InterManagerRequest extends Event
      *  Communication between DragManagers use this request type.
 	 *  The <code>name</code> property is the name of some DragManager property.
 	 *  The <code>value</code> property is the value of that property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DRAG_MANAGER_REQUEST:String = "dragManagerRequest";
 
@@ -48,6 +63,11 @@ public class InterManagerRequest extends Event
 	 *  so it is available to listen to subsequent
 	 *  InterManagerRequests.
 	 *  The <code>name</code> property is the name of the manager to instantiate.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const INIT_MANAGER_REQUEST:String = "initManagerRequest";
 
@@ -55,6 +75,11 @@ public class InterManagerRequest extends Event
      *  Request the SystemManager to perform some action.
 	 *  The <code>name</code> property is the name of action to perform.
 	 *  The <code>value</code> property is the value needed to perform that action.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const SYSTEM_MANAGER_REQUEST:String = "systemManagerRequest";
 
@@ -62,6 +87,11 @@ public class InterManagerRequest extends Event
      *  Communication between ToolTipManagers use this request type.
 	 *  The <code>name</code> property is the name of some ToolTipManager property.
 	 *  The <code>value</code> property is the value of that property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const TOOLTIP_MANAGER_REQUEST:String = "tooltipManagerRequest";
 
@@ -85,6 +115,11 @@ public class InterManagerRequest extends Event
      	 *
 	 *  @param value Value of a property, or an array of parameters
      	 *  for a method (if not null).
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function InterManagerRequest(type:String, bubbles:Boolean = false,
                                  cancelable:Boolean = false, 
@@ -108,6 +143,11 @@ public class InterManagerRequest extends Event
 
     /**
      *  Name of property or method or manager to instantiate.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public var name:String;
 
@@ -117,6 +157,11 @@ public class InterManagerRequest extends Event
 
     /**
      *  Value of property, or array of parameters for method.		
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public var value:Object;
 
