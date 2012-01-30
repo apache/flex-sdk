@@ -57,6 +57,11 @@ import mx.graphics.RoundedRectangle;
  *  @see mx.core.Application
  *  @see mx.preloaders.IPreloaderDisplay
  *  @see mx.preloaders.Preloader
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 {
@@ -70,6 +75,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DownloadProgressBar() 
 	{
@@ -90,6 +100,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  of time before dispatching the <code>complete</code> event.
 	 *
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected var MINIMUM_DISPLAY_TIME:uint = 0;
 	
@@ -100,6 +115,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  This should be a value from 0 to 100. 
 	 *
 	 *  @default 60
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected var DOWNLOAD_PERCENTAGE:uint = 60;
 
@@ -246,6 +266,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  the Preloader control modifies it, and perform any necessary actions. </p>
 	 *
 	 *  @default false 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function get visible():Boolean
 	{
@@ -293,6 +318,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *
 	 *  @default 1.0
 	 *
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get backgroundAlpha():Number
 	{
@@ -324,6 +354,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
      *  Background color of a download progress bar.
      *  You can have either a <code>backgroundColor</code> or a
      *  <code>backgroundImage</code>, but not both.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function get backgroundColor():uint
 	{
@@ -362,6 +397,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  You can only use images loaded at runtime.</p>
 	 *
 	 *  @default null
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get backgroundImage():Object
 	{
@@ -396,6 +436,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
      *  the original size of the image.
 	 *
 	 *  @default "auto"
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get backgroundSize():String
 	{
@@ -423,6 +468,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	/**
 	 *  The Preloader class passes in a reference to itself to the display class
 	 *  so that it can listen for events from the preloader.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set preloader(value:Sprite):void
 	{
@@ -452,6 +502,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	/**
 	 *  The height of the stage,
 	 *  which is passed in by the Preloader class.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get stageHeight():Number 
 	{
@@ -479,6 +534,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	/**
 	 *  The width of the stage,
 	 *  which is passed in by the Preloader class.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get stageWidth():Number 
 	{
@@ -507,6 +567,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  The dimensions of the progress bar border.
 	 *  This is a read-only property which you must override
 	 *  if you need to change it.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function get barFrameRect():RoundedRectangle
 	{
@@ -521,6 +586,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  The dimensions of the progress bar.
 	 *  This is a read-only property which you must override
 	 *  if you need to change it.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function get barRect():RoundedRectangle
 	{
@@ -535,6 +605,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  The dimensions of the border of the display.
 	 *  This is a read-only property which you must override
 	 *  if you need to change it.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function get borderRect():RoundedRectangle
 	{
@@ -555,6 +630,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  The string to display as the label while in the downloading phase.
 	 *
 	 *  @default "Loading"
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function get downloadingLabel():String
 	{
@@ -583,6 +663,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
   	 *  The string to display as the label while in the initializing phase.
 	 *
 	 *  @default "Initializing"
+  	 *  
+  	 *  @langversion 3.0
+  	 *  @playerversion Flash 9
+  	 *  @playerversion AIR 1.1
+  	 *  @productversion Flex 3
   	 */
   	public static function get initializingLabel():String
   	{
@@ -614,6 +699,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  Implementing this property in a subclass is optional.
 	 *
 	 *  @default ""
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	protected function get label():String
 	{
@@ -639,6 +729,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  The TextFormat object of the TextField component of the label.
 	 *  This is a read-only property which you must override
 	 *  if you need to change it.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function get labelFormat():TextFormat
 	{
@@ -657,6 +752,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  The dimensions of the TextField component for the label. 
 	 *  This is a read-only property which you must override
 	 *  if you need to change it.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function get labelRect():Rectangle
 	{
@@ -671,6 +771,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  The TextFormat of the TextField component for displaying the percent.
 	 *  This is a read-only property which you must override
 	 *  if you need to change it.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function get percentFormat():TextFormat
 	{
@@ -690,6 +795,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  The dimensions of the TextField component for displaying the percent.
 	 *  This is a read-only property which you must override
 	 *  if you need to change it.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function get percentRect():Rectangle
 	{
@@ -711,6 +821,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  or not, <code>false</code>.
 	 *
 	 *  @default true
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	protected function get showLabel():Boolean
 	{
@@ -742,6 +857,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  or not, <code>false</code>.
 	 *
 	 *  @default true
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	protected function get showPercentage():Boolean
 	{
@@ -768,6 +888,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  Called by the Preloader after the download progress bar
 	 *  has been added as a child of the Preloader. 
 	 *  This should be the starting point for configuring your download progress bar. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function initialize():void
 	{
@@ -788,6 +913,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  @param width The width of the area in which to center the download progress bar.
 	 *
 	 *  @param height The height of the area in which to center the download progress bar.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function center(width:Number, height:Number):void
 	{
@@ -856,6 +986,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	
 	/**
 	 *  Creates the subcomponents of the display.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function createChildren():void
 	{
@@ -1083,6 +1218,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  that have been downloaded.
 	 *
 	 *  @param total Size of the application SWF file in bytes.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function setProgress(completed:Number, total:Number):void
 	{
@@ -1106,6 +1246,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  @param total Size of the application SWF file in bytes.
 	 *
 	 *  @return The percentage value of the loaded application.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function getPercentLoaded(loaded:Number, total:Number):Number
 	{
@@ -1201,6 +1346,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  The default behavior is to show the download progress bar 
 	 *  if more than 700 milliseconds have elapsed
 	 *  and if Flex has downloaded less than half of the bytes of the SWF file.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function showDisplayForDownloading(elapsedTime:int,
 											  event:ProgressEvent):Boolean
@@ -1221,6 +1371,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  has been received from the application.
 	 *
 	 *  @return If <code>true</code>, then show the download progress bar.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function showDisplayForInit(elapsedTime:int, count:int):Boolean
 	{
@@ -1347,6 +1502,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  with the percentage of bytes downloaded.
 	 *
 	 *  @param event The event object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function progressHandler(event:ProgressEvent):void
 	{
@@ -1374,6 +1534,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  The default implementation does nothing.
 	 *
 	 *  @param event The event object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function completeHandler(event:Event):void
 	{
@@ -1384,6 +1549,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  The default implementation does nothing.
 	 *
 	 *  @param event The event object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function rslProgressHandler(event:RSLEvent):void
 	{
@@ -1393,6 +1563,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  Event listener for the <code>RSLEvent.RSL_COMPLETE</code> event. 
 	 *
 	 *  @param event The event object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function rslCompleteHandler(event:RSLEvent):void
 	{
@@ -1404,6 +1579,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  This event listner handles any errors detected when downloading an RSL.
 	 *
 	 *  @param event The event object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function rslErrorHandler(event:RSLEvent):void
 	{
@@ -1457,6 +1637,11 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	 *  each time the event is dispatched, and changes the text of the label. 
 	 *
 	 *  @param event The event object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function initProgressHandler(event:Event):void
 	{
@@ -1562,6 +1747,11 @@ class ErrorField extends Sprite
 	 *  The TextFormat object of the TextField component of the label.
 	 *  This is a read-only property which you must override
 	 *  if you need to change it.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function get labelFormat():TextFormat
 	{
@@ -1589,6 +1779,11 @@ class ErrorField extends Sprite
     * Create and show the error message.
     * 
     * @param errorText - text for error message.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function show(errorText:String):void
     {
