@@ -597,11 +597,11 @@ public class ViewNavigator extends ViewNavigatorBase
 
     /**
      *  Holds the return object returned by the last view that was popped
-     *  off the navigation stack.  This object is only available when the
-     *  navigator is in the process of switching views in response to a
-     *  pop navigation operation.  
+     *  off the navigation stack or replaced by another view.  This object 
+     *  is only available when the navigator is in the process of switching 
+     *  views in response to a pop or replace navigation operation.  
      * 
-     *  <p>This object is guarenteed to be valid when the a view receives 
+     *  <p>This object is guarenteed to be valid when the new view receives 
      *  the <code>FlexEvent.ADD</code> event, and is destroyed after
      *  the view receives a <code>FlexEvent.VIEW_ACTIVATE</code> event.</p>
      * 
@@ -951,10 +951,10 @@ public class ViewNavigator extends ViewNavigatorBase
      * 
      *  @param factory The class used to create the view
      *  @param data The data object to pass to the view
-     *  @param transition The view transition to play
      *  @param context An arbitrary string that can be used to describe the context
      *         of the push.  When the new view is created, it will be able to reference
      *         this property.
+     *  @param transition The view transition to play
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -972,6 +972,32 @@ public class ViewNavigator extends ViewNavigatorBase
         scheduleAction(ViewNavigatorAction.PUSH, factory, data, context, transition);
     }
 
+    /**
+     *  Replaces the top view of the navigation stack with a View.
+     * 
+     *  @param factory The class used to create the view
+     *  @param data The data object to pass to the view
+     *  @param context An arbitrary string that can be used to describe the context
+     *         of the push.  When the new view is created, it will be able to reference
+     *         this property.
+     *  @param transition The view transition to play
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function replaceView(factory:Class,
+                                data:Object = null,
+                                context:String = null,
+                                transition:ViewTransition = null):void
+    {
+        if (factory == null || !canRemoveCurrentView())
+            return;
+        
+        scheduleAction(ViewNavigatorAction.REPLACE_VIEW, factory, data, context, transition);
+    }
+    
     /**
      *  Shows the action bar.
      * 
@@ -1256,6 +1282,13 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             lastAction = ViewNavigatorAction.PUSH;
             defaultTransition = defaultPushTransition;
+            navigationStack.push(factory, data, context);
+        }
+        else if (action == ViewNavigatorAction.REPLACE_VIEW)
+        {
+        	lastAction = ViewNavigatorAction.REPLACE_VIEW;
+            defaultTransition = defaultPushTransition;
+            navigationStack.pop();
             navigationStack.push(factory, data, context);
         }
         else
@@ -1698,8 +1731,11 @@ public class ViewNavigator extends ViewNavigatorBase
         if (actionBarVisibilityEffect)
             actionBarVisibilityEffect.end();
         
-        if (lastAction == ViewNavigatorAction.POP && activeView)
+        if (activeView && (lastAction == ViewNavigatorAction.POP || 
+                           lastAction == ViewNavigatorAction.REPLACE_VIEW))
+        {
             _returnedObject = createViewReturnObject(currentViewProxy);
+        }
         
         beginViewChange();
         
@@ -1849,8 +1885,12 @@ public class ViewNavigator extends ViewNavigatorBase
             viewProxy.persistedData = currentView.serializeData();
         }
         
-        // Check if we can delete the reference for the view instance
+        // Check if we can delete the reference for the view instance.  If the current
+        // view is being replaced or popped of the stack, we know we can delete it.
+        // Otherwise a push is happening and we need to check the destructionPolicy
+        // of the view.
         if (lastAction == ViewNavigatorAction.POP || 
+            lastAction == ViewNavigatorAction.REPLACE_VIEW || 
             currentView.destructionPolicy != ContainerDestructionPolicy.NEVER)
         {
             currentView.navigator = null;
