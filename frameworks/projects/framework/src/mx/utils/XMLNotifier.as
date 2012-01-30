@@ -121,24 +121,40 @@ public class XMLNotifier
      */
     public function watchXML(xml:Object, notifiable:IXMLNotifiable, uid:String = null):void
     {
-		// First make sure the xml node has a notification function.
-    	var watcherFunction:Object = xml.notification();
-    	if (!(watcherFunction is Function))
-		{
-    		watcherFunction = initializeXMLForNotification();
-			xml.setNotification(watcherFunction as Function);
-			if (uid && watcherFunction["uid"] == null)
-				watcherFunction["uid"] = uid;
-		}
-
-    	// Watch lists are maintained on the notification function.
-		var xmlWatchers:Dictionary;
-        if (watcherFunction["watched"] == undefined)
-        	watcherFunction["watched"] = xmlWatchers = new Dictionary(true);
+        if ((xml is XMLList) && xml.length() > 1)
+        {
+            for each(var item:Object in xml)
+            {
+                watchXML(item, notifiable, uid);
+            }
+        }
         else
-        	xmlWatchers = watcherFunction["watched"];
+        {
+            // An XMLList object behaves like XML when it contains one
+            // XML object.  Casting to an XML object is necessary to
+            // access the notification() function.
+            var xmlItem:XML = XML(xml);
 
-        xmlWatchers[notifiable] = true;
+            // First make sure the xml node has a notification function.
+            var watcherFunction:Object = xmlItem.notification();
+
+            if (!(watcherFunction is Function))
+            {
+                watcherFunction = initializeXMLForNotification();
+                xmlItem.setNotification(watcherFunction as Function);
+                if (uid && watcherFunction["uid"] == null)
+                    watcherFunction["uid"] = uid;
+            }
+
+            // Watch lists are maintained on the notification function.
+            var xmlWatchers:Dictionary;
+            if (watcherFunction["watched"] == undefined)
+                watcherFunction["watched"] = xmlWatchers = new Dictionary(true);
+            else
+                xmlWatchers = watcherFunction["watched"];
+            
+            xmlWatchers[notifiable] = true;
+        }
     }
 
     /**
@@ -149,18 +165,32 @@ public class XMLNotifier
      */
     public function unwatchXML(xml:Object, notifiable:IXMLNotifiable):void
     {
-		var xitem:XML = XML(xml);
-
-		var watcherFunction:Object = xitem.notification();
-    	if (!(watcherFunction is Function))
-			return;
-
-		var xmlWatchers:Dictionary;
-        if (watcherFunction["watched"] != undefined)
+        if ((xml is XMLList) && xml.length() > 1)
         {
-            xmlWatchers = watcherFunction["watched"];
-        	delete xmlWatchers[notifiable];
-			
+            for each(var item:Object in xml)
+            {
+                unwatchXML(item, notifiable);
+            }
+        }
+        else
+        {
+            // An XMLList object behaves like XML when it contains one
+            // XML object.  Casting to an XML object is necessary to
+            // access the notification() function.
+            var xmlItem:XML = XML(xml);
+
+            var watcherFunction:Object = xmlItem.notification();
+
+            if (!(watcherFunction is Function))
+                return;
+
+            var xmlWatchers:Dictionary;
+
+            if (watcherFunction["watched"] != undefined)
+            {
+                xmlWatchers = watcherFunction["watched"];
+                delete xmlWatchers[notifiable];
+            }			
         }
     }
 }
