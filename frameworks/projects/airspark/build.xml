@@ -72,6 +72,7 @@
 		<sequential>
 			<bundle locale="@{locale}"/>
 			<fat-swc locale="@{locale}"/>
+			<delete dir="${basedir}/bundles" includeemptydirs="true"/>
 		</sequential>
 	</macrodef>
 	
@@ -83,22 +84,7 @@
 
 		<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
 	<target name="bundles">
-		<bundler locale="da_DK"/><!-- Danish resources -->
-		<bundler locale="de_DE"/><!-- German resources -->
 		<bundler locale="en_US"/><!-- American English resources  -->
-		<bundler locale="es_ES"/><!-- Spanish resources -->
-		<bundler locale="fi_FI"/><!--  Finnish resources-->
-		<bundler locale="fr_FR"/><!-- French resources -->
-		<bundler locale="it_IT"/><!-- Italian resources -->
-		<bundler locale="ja_JP"/><!-- Japanese resources -->
-		<bundler locale="ko_KR"/><!-- Korean resources -->
-		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
-		<bundler locale="nl_NL"/><!-- Dutch resources -->
-		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
-		<bundler locale="ru_RU"/><!-- Swedish resources -->
-		<bundler locale="sv_SE"/><!-- Swedish resources -->
-		<bundler locale="zh_CN"/><!-- Simplified Chinese resources -->
-		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
 	</target>
 	
 	<target name="clean">
