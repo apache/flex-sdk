@@ -80,6 +80,13 @@ use namespace mx_internal;
  *  The CalloutButton specifies the layout and child components 
  *  of the Callout container.
  *
+ *  <p>The following images shows a Callout container under the CalloutButton 
+ *  labeled 'Open callout':</p>
+ *
+ * <p>
+ *  <img src="../../images/ca_calloutButton_ca.png" alt="Callout button" />
+ * </p>
+ *
  *  <p>The CalloutButton control uses the spark.components.supportClasses.DropDownController
  *  class to manage the Callout container. 
  *  You can access the DropDownController by using the protected 
