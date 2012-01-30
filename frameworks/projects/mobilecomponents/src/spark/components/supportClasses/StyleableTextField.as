@@ -35,6 +35,7 @@ import flash.ui.Keyboard;
 import flash.utils.Dictionary;
 
 import mx.core.DesignLayer;
+import mx.core.IInvalidating;
 import mx.core.FlexGlobals;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
@@ -294,6 +295,11 @@ public class StyleableTextField extends TextField
                 }
             }
             
+			// Multi-line text enables internal scrolling if we use textHeight. Adding
+			// half of the padding (2 pixels) solves that problem.
+			if (numLines > 1)
+				_measuredTextSize.y += TEXT_HEIGHT_PADDING / 2;
+			
             invalidateTextSizeFlag = false;
         }
         
@@ -573,7 +579,25 @@ public class StyleableTextField extends TextField
     {
         return _isTruncated;
     }
-    
+	
+	//----------------------------------
+	//  minHeight
+	//----------------------------------
+
+	/**
+	 *  @copy mx.core.UIComponent#minHeight
+	 */
+    public var minHeight:Number;
+	
+	//----------------------------------
+	//  minWidth
+	//----------------------------------
+	
+	/**
+	 *  @copy mx.core.UIComponent#minWidth
+	 */
+	public var  minWidth:Number;
+	
     //--------------------------------------------------------------------------
     //
     //  IEditableText implementation
@@ -798,6 +822,13 @@ public class StyleableTextField extends TextField
      */
     public function scrollToRange(anchorPosition:int, activePosition:int):void
     {
+		// Pass to delegate, if defined
+		if (scrollToRangeDelegate != null)
+		{
+			scrollToRangeDelegate(anchorPosition, activePosition);
+			return;
+		}
+			
         // If either part of the selection is in range (determined by
         // a non-null return value from getCharBoundaries()), we
         // don't need to do anything.
@@ -1445,7 +1476,7 @@ public class StyleableTextField extends TextField
      */
     public function getMinBoundsHeight(postLayoutTransform:Boolean=true):Number
     {
-        return 0;
+        return isNaN(minHeight) ? 0 : minHeight;
     }
     
     /**
@@ -1453,7 +1484,7 @@ public class StyleableTextField extends TextField
      */
     public function getMinBoundsWidth(postLayoutTransform:Boolean=true):Number
     {
-        return 0;
+        return isNaN(minWidth) ? 0 : minWidth;
     }
     
     /**
@@ -1663,12 +1694,14 @@ public class StyleableTextField extends TextField
     //  bottom
     //----------------------------------
     
+	private var _bottom:Object;
+	
     /**
      * @private
      */
     public function get bottom():Object
     {
-        return null;
+        return _bottom;
     }
     
     /**
@@ -1676,7 +1709,11 @@ public class StyleableTextField extends TextField
      */
     public function set bottom(value:Object):void
     {
-        // do nothing
+		if (_bottom == value)
+			return;
+		
+		_bottom = value;
+		invalidateParentSizeAndDisplayList();
     }
     
     //----------------------------------
@@ -1735,12 +1772,14 @@ public class StyleableTextField extends TextField
     //  left
     //----------------------------------
     
+	private var _left:Object;
+	
     /**
      * @private
      */
     public function get left():Object
     {
-        return null;
+        return _left;
     }
     
     /**
@@ -1748,7 +1787,11 @@ public class StyleableTextField extends TextField
      */
     public function set left(value:Object):void
     {
-        // do nothing
+		if (_left == value)
+			return;
+		
+		_left = value;
+		invalidateParentSizeAndDisplayList();
     }
     
     //----------------------------------
@@ -1795,12 +1838,14 @@ public class StyleableTextField extends TextField
     //  right
     //----------------------------------
     
+	private var _right:Object;
+	
     /**
      * @private
      */
     public function get right():Object
     {
-        return null;
+        return _right;;
     }
     
     /**
@@ -1808,19 +1853,25 @@ public class StyleableTextField extends TextField
      */
     public function set right(value:Object):void
     {
-        // do nothing
+		if (_right == value)
+			return;
+		
+		_right = value;
+		invalidateParentSizeAndDisplayList();
     }
     
     //----------------------------------
     //  top
     //----------------------------------
     
+	private var _top:Object;
+	
     /**
      * @private
      */
     public function get top():Object
     {
-        return null;
+        return _top;
     }
     
     /**
@@ -1828,7 +1879,11 @@ public class StyleableTextField extends TextField
      */
     public function set top(value:Object):void
     {
-        // do nothing
+		if (_top == value)
+			return;
+		
+		_top = value;
+		invalidateParentSizeAndDisplayList();
     }
     
     //----------------------------------
@@ -1942,7 +1997,27 @@ public class StyleableTextField extends TextField
     {
         // do nothing
     }
-    
+
+	
+	/**
+	 *  Helper method to invalidate parent size and display list if
+	 *  this object affects its layout (includeInLayout is true).
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	private function invalidateParentSizeAndDisplayList():void
+	{
+		// We want to invalidate both the parent size and parent display list.
+		if (parent && parent is IInvalidating)
+		{
+			IInvalidating(parent).invalidateSize();
+			IInvalidating(parent).invalidateDisplayList();
+		}
+	}
+
     //--------------------------------------------------------------------------
     //
     //  Variables
@@ -1968,6 +2043,10 @@ public class StyleableTextField extends TextField
     // text placement.
     mx_internal var useTightTextBounds:Boolean = true;
     
+	// Delegate function for scrollToRange. If defined, the scrollToRange
+	// method is delegated to this function.
+	mx_internal var scrollToRangeDelegate:Function;
+	
     private static var supportedStyles:String = "textAlign fontFamily fontWeight fontStyle color fontSize textDecoration textIndent leading letterSpacing"
     
     private var invalidateStyleFlag:Boolean = true;
