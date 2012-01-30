@@ -319,7 +319,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  For UIComponent this is the same value as returned by 
      *  the <code>getExplicitOrMeasuredWidth()</code> method.
      * 
-     *  @see #getPreferredHeight()
+     *  @see #getPreferredBoundsHeight()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *  
@@ -344,7 +344,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  For UIComponent this is the same value as returned by 
      *  the <code>getExplicitOrMeasuredHeight()</code> method.
      *
-     *  @see #getPreferredWidth()
+     *  @see #getPreferredBoundsWidth()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *  
@@ -366,7 +366,7 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @return The element's maximum width.
      *
-     *  @see #getMinHeight()
+     *  @see #getMinBoundsHeight()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *  
@@ -388,7 +388,7 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @return The element's maximum height.
      *
-     *  @see #getMinWidth()
+     *  @see #getMinBoundsWidth()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *  
@@ -409,7 +409,7 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @return The element's maximum width.
      *
-     *  @see #getMaxHeight()
+     *  @see #getMaxBoundsHeight()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *  
@@ -430,7 +430,7 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @return The element's maximum height.
      *
-     *  @see #getMaxWidth()
+     *  @see #getMaxBoundsWidth()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *  
@@ -458,7 +458,6 @@ public interface ILayoutElement extends IEventDispatcher
      *  @return The x coordinate of the element's bounds at the specified element size.
      *
      *  @see #setLayoutBoundsSize()
-     *  @see #getLayoutPositionX()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *
@@ -486,7 +485,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  @return The y coordinate of the element's bounds at the specified element size.
      *
      *  @see #setLayoutBoundsSize()
-     *  @see #getLayoutPositionY()
+     *  @see #getLayoutBoundsY()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *
@@ -508,7 +507,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  
      *  @return The element's layout width.
      *
-     *  @see #getLayoutHeight()
+     *  @see #getLayoutBoundsHeight()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *  
@@ -530,7 +529,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  
      *  @return The element's layout height.
      *
-     *  @see #getLayoutWidth()
+     *  @see #getLayoutBoundsWidth()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *  
@@ -551,7 +550,7 @@ public interface ILayoutElement extends IEventDispatcher
      * 
      *  @return The x coordinate that the element uses to draw on screen.
      * 
-     *  @see #getLayoutPositionY()
+     *  @see #getLayoutBoundsY()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *  
@@ -572,7 +571,7 @@ public interface ILayoutElement extends IEventDispatcher
      * 
      *  @return The y coordinate that the element uses to draw on screen.
      * 
-     *  @see #getLayoutPositionX()
+     *  @see #getLayoutBoundsX()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *  
@@ -598,7 +597,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  The bounding box is in the element's parent coordinate space and is calculated
      *  from the element's layout size, layout position and layout transform matrix.
      *
-     *  @see #setLayoutSize()
+     *  @see #setLayoutBoundsSize()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *  
@@ -628,7 +627,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  The bounding box is in the element's parent coordinate space and is calculated
      *  from the element's layout size, layout position, and layout transform matrix.
      * 
-     *  @see #setLayoutPosition()
+     *  @see #setLayoutBoundsPosition()
      *  @see #getLayoutMatrix()
      *  @see #getLayoutMatrix3D()
      *  
