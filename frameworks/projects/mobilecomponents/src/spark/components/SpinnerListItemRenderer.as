@@ -60,30 +60,6 @@ public class SpinnerListItemRenderer extends LabelItemRenderer
 	
 	//--------------------------------------------------------------------------
 	//
-	//  Overridden properties: UIComponent
-	//
-	//--------------------------------------------------------------------------
-	
-	// TODO (tkraikit) Move this function into DateSpinner item renderer class
-	override public function get enabled():Boolean
-	{
-		var result:Boolean = true;
-		
-		// If data is a String or other primitive, this call will fail
-		try 
-		{
-			result = data[SpinnerList.ENABLED_PROPERTY_NAME] == undefined || data[SpinnerList.ENABLED_PROPERTY_NAME];
-		}
-		catch (e:Error)
-		{
-			
-		}
-		
-		return result;
-	}
-	
-	//--------------------------------------------------------------------------
-	//
 	//  Overridden Methods
 	//
 	//--------------------------------------------------------------------------
@@ -95,33 +71,6 @@ public class SpinnerListItemRenderer extends LabelItemRenderer
 		graphics.lineStyle();
 		graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
 		graphics.endFill();
-	}
-	
-	// TODO (tkraikit) Move this function into DateSpinner item renderer class (put in calendarClasses)
-	// TODO (jszeto) Fix this so the class will still respect the color style value set on the class
-	override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
-	{
-		var labelColor:Object = undefined;
-			
-		// If data is a String or other primitive, this call will fail
-		try
-		{
-			if (!enabled)
-				labelColor = 0x696969; // unselectable item
-			else if (data["accentColor"] != undefined)
-				labelColor = data["accentColor"]; // highlighted item
-			else
-				labelColor = 0; // TODO (jszeto) This doesn't seem correct
-		}
-		catch (e:Error)
-		{
-			// Do nothing
-		}
-		
-		labelDisplay.setStyle("color", labelColor);
-		
-		// We call the super at the end because it commits the labelDisplay styles. 
-		super.layoutContents(unscaledWidth, unscaledHeight);
 	}
 }
 }
