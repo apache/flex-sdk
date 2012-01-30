@@ -741,7 +741,7 @@ public class MobileItemRenderer extends UIComponent
             
             // text should take up the rest of the space width-wise, but only let it take up
             // its measured textHeight so we can position it later based on verticalAlign
-            var viewWidth:Number = unscaledWidth - getStyle("paddingLeft") + getStyle("paddingRight");
+            var viewWidth:Number = unscaledWidth - getStyle("paddingLeft") - getStyle("paddingRight");
             var labelWidth:Number = Math.max(viewWidth, 0);
             
             var viewHeight:Number =  unscaledHeight - getStyle("paddingTop") - getStyle("paddingBottom");
