@@ -38,10 +38,10 @@ use namespace mx_internal;
  *  applications.
  *  
  *  @see spark.components.ActionBar
- *  @see spark.skins.mobile.NavigationButtonSkin
- *  @see spark.skins.mobile.NavigationBackButtonSkin
- *  @see spark.skins.mobile.ActionButtonSkin
- *  @see spark.skins.mobile.ActionRoundedButtonSkin
+ *  @see spark.skins.mobile.TransparentNavigationButtonSkin
+ *  @see spark.skins.mobile.BeveledBackButtonSkin
+ *  @see spark.skins.mobile.TransparentActionButtonSkin
+ *  @see spark.skins.mobile.BeveledActionButtonSkin
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
