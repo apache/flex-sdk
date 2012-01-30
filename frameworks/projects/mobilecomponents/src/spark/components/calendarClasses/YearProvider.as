@@ -48,7 +48,10 @@ public class YearProvider extends OnDemandDataProvider
         endYear = end;
         
         formatter = new DateTimeFormatterEx();
-        formatter.setStyle("locale", locale);
+        if (locale)
+            formatter.setStyle("locale", locale);
+        else
+            formatter.clearStyle("locale");
         formatter.dateTimePattern = formatter.getYearPattern();
         
         todayDate = today;
