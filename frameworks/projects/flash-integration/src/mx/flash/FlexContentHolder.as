@@ -21,6 +21,8 @@ import flash.utils.getDefinitionByName;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
 
+[ExcludeClass]
+
 /**
  *  The FlexContentHolder class is for internal use only.
  *  
@@ -55,6 +57,9 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
         _height = this.height;
         
         mx_internal::$scaleX = mx_internal::$scaleY = 1;
+        
+        removeEventListener(Event.ADDED, addedHandler);
+        removeEventListener(Event.REMOVED, removedHandler);
     }
     
     //--------------------------------------------------------------------------
