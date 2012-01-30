@@ -23,6 +23,7 @@ import flash.geom.Rectangle;
 import flash.utils.Timer;
 import mx.controls.ToolTip;
 import mx.core.FlexGlobals;
+import mx.core.IFlexModule;
 import mx.core.IInvalidating;
 import mx.core.IToolTip;
 import mx.core.IUIComponent;
@@ -904,6 +905,12 @@ public class ToolTipManagerImpl extends EventDispatcher
 
         currentToolTip.visible = false;
 
+        // Set the tooltip to be in the same module factory as the target to the
+        // correct style manager is used. Don't overwrite an existing module factory.
+        if (currentToolTip is IFlexModule && IFlexModule(currentToolTip).moduleFactory == null && 
+            currentTarget is IFlexModule)
+            IFlexModule(currentToolTip).moduleFactory = IFlexModule(currentTarget).moduleFactory;
+        
         if (hasEventListener("createTip"))
     		if (!dispatchEvent(new Event("createTip", false, true)))
 	    		return;
