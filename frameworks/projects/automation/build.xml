@@ -19,6 +19,7 @@
 				<jvmarg line="${compc.jvm.args}"/>
 				<target-player>10</target-player>
 				<include-resource-bundles bundle="automation"/>
+				<include-resource-bundles bundle="automation_agent"/>
 				<include-resource-bundles bundle="collections"/>
 				<include-resource-bundles bundle="containers"/>
 				<include-resource-bundles bundle="controls"/>
