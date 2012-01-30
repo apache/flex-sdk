@@ -11,12 +11,13 @@
 
 package mx.messaging.config
 {
-
+import flash.display.DisplayObject;
 import mx.core.mx_internal;
 
 use namespace mx_internal;
 
 [ExcludeClass]
+[Mixin]
 
 /**
  *  @private
@@ -29,6 +30,22 @@ public class LoaderConfig
 {
     include "../../core/Version.as";
 
+    //--------------------------------------------------------------------------
+    //
+    //  class initialization
+    //
+    //--------------------------------------------------------------------------
+    
+    public static function init(root:DisplayObject):void
+    {
+        // if somebody has set this in our applicationdomain hierarchy, don't overwrite it
+        if (!_url)
+        {
+            _url = root.loaderInfo.url;
+            _parameters = root.loaderInfo.parameters;
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
