@@ -70,7 +70,7 @@
             super.updateDisplayList(unscaledWidth, unscaledHeight);
 
             spacer.width = Math.max(0, ((hostComponent.width - titleText.getPreferredBoundsWidth() - 
-                   titleIconImage.width - 4 - 5) / 2) - 58);
+                   titleIconImage.getPreferredBoundsWidth() - 4 - 5) / 2) - 58);
         }
     </fx:Script>
     
