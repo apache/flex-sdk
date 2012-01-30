@@ -1402,8 +1402,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  <li>Movie clips are stopped.</li>
      *  </ul>
      * 
-     *  @param invokeGarbageCollector (default = <code>true</code>)
-     *  <code></code> &mdash; Provides a hint to the garbage collector to run
+     *  @param invokeGarbageCollector  Provides a hint to the garbage collector to run
      *  on the child SWF objects (<code>true</code>) or not (<code>false</code>).
      *  If you are unloading many objects asynchronously, setting the 
      *  <code>gc</code> parameter to <code>false</code> might improve application
