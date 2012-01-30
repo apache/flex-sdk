@@ -24,6 +24,7 @@ import flash.geom.Matrix3D;
 import flash.geom.Point;
 import flash.geom.Vector3D;
 import flash.text.Font;
+import flash.text.FontType;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
@@ -470,31 +471,37 @@ public class StyleableTextField extends FlexTextField
         // if we can't find the value in our table let's calculate it
         if (isNaN(topOffset))
         {
+            // default offset is top gutter
+            topOffset = StyleableTextField.TEXT_HEIGHT_PADDING/2;
+            
             // create sample text field
             var field:TextField = new TextField();
             field.defaultTextFormat = textFormat;
             field.embedFonts = isFontEmbedded(textFormat);
             field.textColor = 0x000000; // make sure our text is black so it will show up against white
             field.text = "T"; // use "T" as our standard
-            field.width = field.textWidth;
-            field.height = field.textHeight;
             
-            // draw the field into a bitmap data - note default bg color of bitmapData is white.
-            var bitmapData:BitmapData = new BitmapData(field.width, field.height);
-            bitmapData.draw(field);
-            
-            // search vertically for the first non white pixel
-            var col:int = Math.round(bitmapData.width/2);
-            for (var i:int = 0; i < bitmapData.height; i++)
+            // Bitmap data requires non-zero size
+            if ((field.textWidth > 0) && (field.textHeight > 0))
             {
-                if (bitmapData.getPixel(col, i) != 0xFFFFFF)
-                    break;
+                field.width = field.textWidth;
+                field.height = field.textHeight;
+                
+                // draw the field into a bitmap data - note default bg color of bitmapData is white.
+                var bitmapData:BitmapData = new BitmapData(field.width, field.height);
+                bitmapData.draw(field);
+                
+                // search vertically for the first non white pixel
+                var col:int = Math.round(bitmapData.width/2);
+                for (var i:int = 0; i < bitmapData.height; i++)
+                {
+                    if (bitmapData.getPixel(col, i) != 0xFFFFFF)
+                        break;
+                }
+                
+                if (i < bitmapData.height)
+                    topOffset = i;
             }
-            
-            if (i == bitmapData.height)
-                topOffset = StyleableTextField.TEXT_HEIGHT_PADDING/2; // if we didn't find a non white pixel set top offset to top gutter
-            else
-                topOffset = i;
             
             // store the offset value in our look up table
             textTopOffsetTable[key] = topOffset;
@@ -1138,22 +1145,25 @@ public class StyleableTextField extends FlexTextField
         // could be due to rounding error.  Let's check that it's not.
         // Examples of rounding errors happen with "South Africa" and "Game"
         // with verdana.ttf.
-        if (originalText != "" && textWidth + TEXT_WIDTH_PADDING > w + 0.00000000000001)
+        
+        if (originalText != "" && measuredTextSize.x > w + 0.00000000000001)
         {
             // This should get us into the ballpark.
-            var s:String = super.text = originalText;
+            var s:String = originalText;
+            
             // TODO (rfrishbe): why is this here below...it does nothing (see SDK-26438)
             //originalText.slice(0,
             //    Math.floor((w / (textWidth + TEXT_WIDTH_PADDING)) * originalText.length));
             
-            while (s.length > 1 && textWidth + TEXT_WIDTH_PADDING > w)
+            while (s.length > 1 && (measuredTextSize.x > w))
             {
                 s = s.slice(0, -1);
                 super.text = s + truncationIndicator;
+                
+                invalidateTextSizeFlag = true;
             }
             
             _isTruncated = true;
-            invalidateTextSizeFlag = true;
             invalidateBaselinePosition = true;
             invalidateTightTextHeight = true;
             
@@ -1182,7 +1192,11 @@ public class StyleableTextField extends FlexTextField
         for (var i:int = 0; i < embeddedFonts.length; i++)
         {
             var font:Font = Font(embeddedFonts[i]);
-            if (font.fontName == format.font)
+            
+            // embedAsCFF is not supported for StyleableTextField
+            // reporting CFF as not embedded degrades to default device font
+            if (font.fontName == format.font &&
+                (font.fontType != FontType.EMBEDDED_CFF))
             {
                 var style:String = "regular";
                 if (format.bold && format.italic)
