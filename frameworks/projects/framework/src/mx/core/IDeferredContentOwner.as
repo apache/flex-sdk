@@ -48,13 +48,16 @@ public interface IDeferredContentOwner extends IUIComponent
      *
      *  <p>Possible values are:
      *    <ul>
-     *      <li><code>auto</code> - automatically create the content immediately before it is needed.</li>
-     *      <li><code>all</code> - create the content as soon as the parent component is created. This
-     *          option should only be used as a last resort since it increases startup time.</li>
-     *      <li><code>none</code> - content must be created manually by calling 
+     *      <li><code>auto</code> - Automatically create the content immediately before it is needed.</li>
+     *      <li><code>all</code> - Create the content as soon as the parent component is created. This
+     *          option should only be used as a last resort because it increases startup time and memory usage.</li>
+     *      <li><code>none</code> - Content must be created manually by calling 
      *          the <code>createDeferredContent()</code> method.</li>
      *    </ul>
      *  </p>
+     *  
+     *  <p>If no <code>creationPolicy</code> is specified for a container, that container inherits the value of 
+     *  its parent's <code>creationPolicy</code> property.</p>
      *
      *  @default "auto"
      *  
@@ -67,9 +70,10 @@ public interface IDeferredContentOwner extends IUIComponent
     function set creationPolicy(value:String):void;
 
     /**
-     *  Create the content for this component. If creationPolicy is "auto" or "all", this
-     *  function will be called by the flex framework. If creationPolicy is "none", this 
-     *  function must be called to create the content for the component.
+     *  Create the content for this component. If the value of the <code>creationPolicy</code> property
+     *  is <code>auto</code> or <code>all</code>, this the Flex framework calls this method. If the value of the 
+     *  <code>creationPolicy</code> property is <code>none</code>, you must explicitly call this method
+     *  to create the content for the component.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
