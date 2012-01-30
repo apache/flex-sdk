@@ -581,7 +581,8 @@ public final class MatrixUtil
     {
         if (isNaN(width) && isNaN(height))
             return new Point(preferredWidth, preferredHeight);
-            
+        
+        const tolerance:Number = .01;
         var actualSize:Point;
         
         if (!isNaN(width) && !isNaN(height))
@@ -601,9 +602,13 @@ public final class MatrixUtil
                                               minWidth, minHeight,
                                               maxWidth, maxHeight);
 
-                // If we fit the width, but not the height                                                          
-                if (actualSize1 && transformSize(actualSize1.x, actualSize1.y, matrix).y > height)
-                     actualSize1 = null;
+                // If we fit the width, but not the height.
+                if (actualSize1)
+                {
+                    var fitHeight:Number = transformSize(actualSize1.x, actualSize1.y, matrix).y;
+                    if (fitHeight - tolerance > height)
+                        actualSize1 = null;
+                }
 
                 var actualSize2:Point
                 actualSize2 = fitTBoundsHeight(height, matrix,
@@ -613,8 +618,12 @@ public final class MatrixUtil
                                                maxWidth, maxHeight);
 
                 // If we fit the height, but not the width
-                if (actualSize2 && transformSize(actualSize2.x, actualSize2.y, matrix).x > width)
-                   actualSize2 = null;
+                if (actualSize2)
+                {
+                    var fitWidth:Number = transformSize(actualSize2.x, actualSize2.y, matrix).x;
+                    if (fitWidth - tolerance > width)
+                        actualSize2 = null;
+                }
                 
                 if (actualSize1 && actualSize2)
                 {
