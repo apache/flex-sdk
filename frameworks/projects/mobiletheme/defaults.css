@@ -154,7 +154,6 @@ LabelItemRenderer
     paddingRight: 15;
     paddingTop: 24;
     verticalAlign: "middle";
-    selectionColor: #70B2EE;
 }
 
 List
@@ -165,8 +164,6 @@ List
     borderAlpha: 1;
     verticalScrollPolicy: on;
 	borderVisible: false;
-	selectionColor: #F5F5F5;
-	alternatingItemColors: #FFFFFF;
 }
 
 MuteButton
@@ -374,8 +371,10 @@ global
     borderVisible : true;
     borderWeight : 1;
     contentBackgroundColor: #F0F0F0;
-    downColor: #F5F5F5; /* set in here and not in framework's default.css because it only is really applicable for touch interactions*/
-    focusThickness: 3;
+    downColor: #E0E0E0; /* set in here and not in framework's default.css because it only is really applicable for touch interactions*/
+	selectionColor: #E0E0E0;
+	alternatingItemColors: #FFFFFF;
+	focusThickness: 3;
     symbolColor: #000000;
     fontLookup: "embeddedCFF";
     fontFamily: "_sans";
