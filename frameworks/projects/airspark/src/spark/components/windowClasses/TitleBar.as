@@ -489,9 +489,12 @@ public class TitleBar extends SkinnableComponent
      */
     override protected function getCurrentSkinState():String 
     {
-        if (window.nativeWindow.displayState == NativeWindowDisplayState.MAXIMIZED)
+        if (!window.nativeWindow.closed &&
+            window.nativeWindow.displayState == NativeWindowDisplayState.MAXIMIZED)
+        {
             return enabled ? "normalAndMaximized" : "disabledAndMaximized";
-            
+        }
+        
         return enabled ? "normal" : "disabled";
     }    
     
