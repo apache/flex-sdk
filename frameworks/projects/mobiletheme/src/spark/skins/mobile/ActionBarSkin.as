@@ -408,6 +408,7 @@ public class ActionBarSkin extends MobileSkin
 }
 }
 import flash.events.Event;
+import flash.geom.Point;
 import flash.text.TextLineMetrics;
 
 import mx.core.UIComponent;
@@ -496,8 +497,9 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         {
             // FIXME (jasonsj): was previously textWidth + UITextField.TEXT_WIDTH_PADDING + 1;
             //                  +1 originates from MX Button without explaination
-            textWidth = titleDisplay.measuredWidth + 1;
-            textHeight = titleDisplay.measuredHeight;
+            var textSize:Point = titleDisplay.measuredTextSize;
+            textWidth = textSize.x + 1;
+            textHeight = textSize.y;
             descent = titleDisplay.getLineMetrics(0).descent;
         }
         else
