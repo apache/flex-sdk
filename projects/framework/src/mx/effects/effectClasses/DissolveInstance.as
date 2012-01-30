@@ -17,7 +17,7 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.ChildExistenceChangedEvent;
 import mx.events.FlexEvent;
-import mx.graphics.RoundedRectangle;
+import mx.geom.RoundedRectangle;
 import mx.styles.StyleManager;
 
 use namespace mx_internal;
