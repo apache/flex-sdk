@@ -683,7 +683,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         var changeEvent:IndexChangeEvent;
         
-        if (selectedIndexChanged || dataProviderChanged)
+        if (selectedIndexChanged || selectedIndexAdjusted || dataProviderChanged)
         {
             var navigator:ViewNavigatorBase;
             
@@ -710,6 +710,11 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             
             if (_selectedIndex >= 0)
             {
+                // If there is no focus or the item that had focus isn't 
+                // on the display list anymore, update the focus to be
+                // the active view or the view navigator
+                updateFocus();
+                
                 navigator = getElementAt(_selectedIndex) as ViewNavigatorBase;
                 navigator.setActive(true);
                 navigator.visible = true;
@@ -733,11 +738,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                     navigator.activeView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                                                             view_propertyChangeHandler);
                 }
-                
-                // If there is no focus or the item that had focus isn't 
-                // on the display list anymore, update the focus to be
-                // the active view or the view navigator
-                updateFocus();
             }
 
             selectedIndexAdjusted = false;
@@ -1586,6 +1586,14 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         var oldItem:Object = removeElementAt(index);
         addElementAt(item as ViewNavigatorBase, index);
+        
+        // Let the navigator know that the item at the selectedIndex changed.
+        // The commitProperties method will pick this up.
+        if (index == selectedIndex)
+        {
+            selectedIndexAdjusted = true;
+            invalidateProperties();
+        }
         
         if (hasEventListener(CollectionEvent.COLLECTION_CHANGE))
         {
