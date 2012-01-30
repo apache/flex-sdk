@@ -554,7 +554,19 @@ public class ViewNavigatorBase extends SkinnableContainer
     {
         // Override in sub class
     }
-
+    
+    /**
+     *  @private
+     */ 
+    private function creationCompleteHandler(event:FlexEvent):void
+    {
+        removeEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
+        
+        // Add weak listener so stage doesn't hold a reference to the navigator
+        systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
+            stage_orientationChangeHandler, false, 0, true);
+    }
+    
     /**
      *  @private
      */
@@ -569,13 +581,14 @@ public class ViewNavigatorBase extends SkinnableContainer
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */ 
     override public function initialize():void
     {
         super.initialize();
         
-        // Add weak listener so stage doesn't hold a reference to the navigator
-        systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
-            stage_orientationChangeHandler, false, 0, true);
+        addEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
     }
 }
 }
