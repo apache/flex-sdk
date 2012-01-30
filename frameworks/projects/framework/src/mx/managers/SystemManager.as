@@ -1257,7 +1257,7 @@ public class SystemManager extends MovieClip
     //--------------------------------------------------------------------------
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */    
     public function get swfBridge():IEventDispatcher
     {
@@ -1268,7 +1268,7 @@ public class SystemManager extends MovieClip
     }
     
     /**
-     * @inheritdoc
+     * @inheritDoc
      */    
     public function get childAllowsParent():Boolean
     {
@@ -1285,7 +1285,7 @@ public class SystemManager extends MovieClip
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */    
     public function get parentAllowsChild():Boolean
     {
@@ -1316,7 +1316,6 @@ public class SystemManager extends MovieClip
 	 * 
 	 * true if redipatching a resize event.
 	 */
-	 // TODODJL: may be a better of way than dispathing resize event.
 	private var isDispatchingResizeEvent:Boolean;
 	
 	/**
@@ -2437,7 +2436,7 @@ public class SystemManager extends MovieClip
 																  false, false, null,
 																  remotePopUp.window);
 			IEventDispatcher(remotePopUp.bridge).dispatchEvent(event);
-			return event.data == false;
+			return event.data;
 	 	}
 	 	else if (canActivateLocalComponent(f))
 			return true;
@@ -2537,7 +2536,8 @@ public class SystemManager extends MovieClip
 		{
 			if (isRemotePopUp(forms[i]))
 			{
-				if (forms[i].window == form.window)
+				if (forms[i].window == form.window &&
+				    forms[i].bridge == form.bridge)
 						{
 					if (forms[i] == form)
 						deactivateForm(form);
@@ -2632,7 +2632,7 @@ public class SystemManager extends MovieClip
 				// If this is a bridged application, send a message to the parent
 				// to let them know the form has been deactivated so they can
 				// activate a new form.
-				fireDeactivatedWindowEvent(DisplayObject(f));
+				dispatchDeactivatedWindowEvent(DisplayObject(f));
 				
 				forms.splice(i, 1);
 				
@@ -2711,7 +2711,7 @@ public class SystemManager extends MovieClip
 	}
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 */	
 	public function isTopLevelRoot():Boolean
 	{
@@ -2878,6 +2878,8 @@ public class SystemManager extends MovieClip
 		{
 			addEventListener(InterManagerRequest.SYSTEM_MANAGER_REQUEST, systemManagerHandler);
 
+            addEventListener(SWFBridgeRequest.ADD_POP_UP_REQUEST, addPopupRequestHandler);
+            addEventListener(SWFBridgeRequest.REMOVE_POP_UP_REQUEST, removePopupRequestHandler);
 			addEventListener(SWFBridgeRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, addPlaceholderPopupRequestHandler);
 			addEventListener(SWFBridgeRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, removePlaceholderPopupRequestHandler);
 			addEventListener(SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE, activateFormSandboxEventHandler);
@@ -3375,7 +3377,7 @@ public class SystemManager extends MovieClip
 			if (isTopLevelRoot())
 				activateForm(document);
 			else
-				fireActivatedApplicationEvent();
+				dispatchActivatedApplicationEvent();
 
 			return;
 		} 
@@ -3408,9 +3410,9 @@ public class SystemManager extends MovieClip
 								activate(IFocusManagerContainer(p));
 
 								if (p == document)
-									fireActivatedApplicationEvent();
+									dispatchActivatedApplicationEvent();
 								else if (p is DisplayObject)
-									fireActivatedWindowEvent(DisplayObject(p));
+									dispatchActivatedWindowEvent(DisplayObject(p));
 							}
 							
 							if (popUpChildren.contains(p))
@@ -3457,7 +3459,7 @@ public class SystemManager extends MovieClip
 				}
 			}
 			else 
-				fireActivatedApplicationEvent();
+				dispatchActivatedApplicationEvent();
 		}
 	}
 
@@ -3562,10 +3564,13 @@ public class SystemManager extends MovieClip
 
 		// If there is not for mutual trust between us an the child that wants the 
 		// popup, then don't host the pop up.
+		if (event.target != this)
+		{
 		var bridgeProvider:ISWFBridgeProvider = swfBridgeGroup.getChildBridgeProvider(popUpRequest.requestor);
 		if (!SecurityUtil.hasMutualTrustBetweenParentAndChild(bridgeProvider))
 		{
 			return;
+		}
 		}
 					
 		var topMost:Boolean;
@@ -3577,7 +3582,7 @@ public class SystemManager extends MovieClip
 		{
 			// ask the parent to host the popup
 			popUpRequest.requestor = swfBridgeGroup.parentBridge;
-			swfBridgeGroup.parentBridge.dispatchEvent(popUpRequest);
+			getSandboxRoot().dispatchEvent(popUpRequest);
 			return;
 		}
 		
@@ -3602,9 +3607,10 @@ public class SystemManager extends MovieClip
 		{
 			// We've added the popup as far as it can go.
 			// Add a placeholder to the top level root application
-			var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, false, false, null,
+			var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, 
+			                                     false, false, 
+			                                     popUpRequest.requestor,
 														{ window: popUpRequest.data.window });
-			request.requestor = popUpRequest.requestor;
 			request.data.placeHolderId = NameUtil.displayObjectToString(DisplayObject(popUpRequest.data.window));
 			dispatchEvent(request);
 		}
@@ -3625,7 +3631,8 @@ public class SystemManager extends MovieClip
 		    SecurityUtil.hasMutualTrustBetweenParentAndChild(this))
 		{
 			// since there is mutual trust the popup is hosted by the parent.
-			swfBridgeGroup.parentBridge.dispatchEvent(popUpRequest);
+            popUpRequest.requestor = swfBridgeGroup.parentBridge;
+			getSandboxRoot().dispatchEvent(popUpRequest);
 			return;
 		}
 					
@@ -3642,10 +3649,11 @@ public class SystemManager extends MovieClip
 		if (!isTopLevelRoot() && swfBridgeGroup)
 		{
 			// if we got here we know the parent is untrusted, so remove placeholders
-			var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, false, false,
-														null);
-			request.requestor = swfBridgeGroup.parentBridge;
-			request.data.placeHolderId = NameUtil.displayObjectToString(popUpRequest.data.window);
+			var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, 
+	                                            false, false, 
+	                                            popUpRequest.requestor,
+	                                            {placeHolderId: NameUtil.displayObjectToString(popUpRequest.data.window)
+	                                            });
 			dispatchEvent(request);
 		}
 		            
@@ -3710,7 +3718,7 @@ public class SystemManager extends MovieClip
 	 * Takes care of removing object references and substituting
 	 * ids when an untrusted boundry is crossed.
 	 */
-	private function forwardFormEvent(eObj:Object):Boolean
+	private function forwardFormEvent(event:SWFBridgeEvent):Boolean
 	{
 		
 		if (isTopLevelRoot())
@@ -3720,21 +3728,22 @@ public class SystemManager extends MovieClip
 		if (bridge)
 		{
 			var sbRoot:DisplayObject = getSandboxRoot();
+			event.data.notifier = bridge;
 			if (sbRoot == this)
 			{
-				if (!(eObj.data is String))
-					eObj.data = NameUtil.displayObjectToString(DisplayObject(eObj.data));
+				if (!(event.data.window is String))
+					event.data.window = NameUtil.displayObjectToString(DisplayObject(event.data.window));
 				else
-					eObj.data = NameUtil.displayObjectToString(DisplayObject(this)) + "." + eObj.data;
+					event.data.window = NameUtil.displayObjectToString(DisplayObject(this)) + "." + event.data.window;
 				
-				bridge.dispatchEvent(Event(eObj));
+				bridge.dispatchEvent(event);
 			}
 			else
 			{
-				if (eObj.data is String)
-					eObj.data = NameUtil.displayObjectToString(DisplayObject(this)) + "." + eObj.data;
+				if (event.data.window is String)
+					event.data.window = NameUtil.displayObjectToString(DisplayObject(this)) + "." + event.data.window;
  
-				sbRoot.dispatchEvent(Event(eObj));
+				sbRoot.dispatchEvent(event);
 			}
 		}
 
@@ -3744,11 +3753,11 @@ public class SystemManager extends MovieClip
 	/**
 	 * Forward an AddPlaceholder request up the parent chain, if needed.
 	 * 
-	 * @param eObj PopupRequest as and Object.
+	 * @param request request to either add or remove a pop up placeholder.
 	 * @param addPlaceholder true if adding a placeholder, false it removing a placeholder.
 	 * @return true if the request was forwared, false otherwise
 	 */
-	private function forwardPlaceholderRequest(eObj:Object, addPlaceholder:Boolean):Boolean
+	private function forwardPlaceholderRequest(request:SWFBridgeRequest, addPlaceholder:Boolean):Boolean
 	{
 	 	// Only the top level root tracks the placeholders.
 	 	// If we are not the top level root then keep passing
@@ -3760,35 +3769,35 @@ public class SystemManager extends MovieClip
 		// stop on the way up the parent chain.
 		var refObj:Object = null;
 		var oldId:String = null;
-		if (eObj.data.window)
+		if (request.data.window)
 		{
-			refObj = eObj.data.window;
+			refObj = request.data.window;
 			
 			// null this ref out so untrusted parent cannot see
-			eObj.data.window = null;
+			request.data.window = null;
 		}
 		else
 		{
-			refObj = eObj.requestor;
+			refObj = request.requestor;
 			
 			// prefix the existing id with the id of this object
-			oldId = eObj.data.placeHolderId;
-			eObj.data.placeHolderId = NameUtil.displayObjectToString(this) + "." + eObj.data.placeHolderId;
+			oldId = request.data.placeHolderId;
+			request.data.placeHolderId = NameUtil.displayObjectToString(this) + "." + request.data.placeHolderId;
 		}
 
 		if (addPlaceholder)
-			addPlaceholderId(eObj.data.placeHolderId, oldId, eObj.requestor, refObj);
+			addPlaceholderId(request.data.placeHolderId, oldId, request.requestor, refObj);
 		else 
-			removePlaceholderId(eObj.data.placeHolderId);
+			removePlaceholderId(request.data.placeHolderId);
 				
 		
 		var sbRoot:DisplayObject = getSandboxRoot();
 		var bridge:IEventDispatcher = swfBridgeGroup.parentBridge; 
-		eObj.requestor =  bridge;
+		request.requestor =  bridge;
 		if (sbRoot == this)
-			bridge.dispatchEvent(Event(eObj));
+			bridge.dispatchEvent(request);
 		else 
-			sbRoot.dispatchEvent(Event(eObj));
+			sbRoot.dispatchEvent(request);
 			
 		return true;
 	}
@@ -3805,14 +3814,14 @@ public class SystemManager extends MovieClip
 		if (event is SWFBridgeRequest)
 			return;
 
-		var eObj:Object = Object(event);
+		var bridgeEvent:SWFBridgeEvent = SWFBridgeEvent.marshal(event);
 
-		if (!forwardFormEvent(eObj))
+		if (!forwardFormEvent(bridgeEvent))
 		{
 			// deactivate the form
 			if (isRemotePopUp(form) && 
-				RemotePopUp(form).window == eObj.data &&
-				RemotePopUp(form).bridge == eObj.target)
+				RemotePopUp(form).window == bridgeEvent.data.window &&
+				RemotePopUp(form).bridge == bridgeEvent.data.notifier)
 				deactivateForm(form);
 		}
 	}
@@ -3827,11 +3836,11 @@ public class SystemManager extends MovieClip
 	private function activateFormSandboxEventHandler(event:Event):void
 	{
 		// trace("bridgeActivateFormEventHandler");
-		var eObj:Object = event;
+        var bridgeEvent:SWFBridgeEvent = SWFBridgeEvent.marshal(event);
 
-		if (!forwardFormEvent(eObj))
+		if (!forwardFormEvent(bridgeEvent))
 			// just call activate on the remote form.
-			activateForm(new RemotePopUp(eObj.data, eObj.target));			
+			activateForm(new RemotePopUp(bridgeEvent.data.window, bridgeEvent.data.notifier));			
 	}
 		
 	/**
@@ -4046,17 +4055,17 @@ public class SystemManager extends MovieClip
 	 */
 	private function activateRequestHandler(event:Event):void
 	{
-		var eObj:Object = Object(event);
+        var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
 
 		// If data is a String, then we need to parse the id to find
 		// the form or the next bridge to pass the message to.
 		// If the data is a SystemMangerProxy we can just activate the
 		// form.
-		var child:Object = eObj.data; 
+		var child:Object = request.data; 
 		var nextId:String = null;
-		if (eObj.data is String)
+		if (request.data is String)
 		{
-			var placeholder:PlaceholderData = idToPlaceholder[eObj.data];
+			var placeholder:PlaceholderData = idToPlaceholder[request.data];
 			child = placeholder.data;
 			nextId = placeholder.id;
 			
@@ -4075,8 +4084,8 @@ public class SystemManager extends MovieClip
 		
 		if (child is SystemManagerProxy)
 		{
-			// deactivate request from the top-level system manager.
-			var smp:SystemManagerProxy = SystemManagerProxy(eObj.data);
+			// activate request from the top-level system manager.
+			var smp:SystemManagerProxy = SystemManagerProxy(child);
 			var f:IFocusManagerContainer = findFocusManagerContainer(smp);
 			if (smp && f)
 				smp.activateByProxy(f);
@@ -4085,9 +4094,9 @@ public class SystemManager extends MovieClip
 			IFocusManagerContainer(child).focusManager.activate();
 		else if (child is IEventDispatcher)
 		{
-				eObj.data = nextId;
-				eObj.requestor = child;
-				IEventDispatcher(child).dispatchEvent(event);
+				request.data = nextId;
+				request.requestor = IEventDispatcher(child);
+				IEventDispatcher(child).dispatchEvent(request);
 		}
 		else 
 			throw new Error();	// should never get here
@@ -4101,13 +4110,12 @@ public class SystemManager extends MovieClip
 	 */
 	private function deactivateRequestHandler(event:Event):void
 	{
-		var eObj:Object = Object(event);
-
-		var child:Object = eObj.data; 
+        var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
+		var child:Object = request.data; 
 		var nextId:String = null;
-		if (eObj.data is String)
+		if (request.data is String)
 		{
-			var placeholder:PlaceholderData = idToPlaceholder[eObj.data];
+			var placeholder:PlaceholderData = idToPlaceholder[request.data];
 			child = placeholder.data;
 			nextId = placeholder.id;
 
@@ -4137,9 +4145,9 @@ public class SystemManager extends MovieClip
 			
 		else if (child is IEventDispatcher)
 		{
-			eObj.data = nextId;
-			eObj.requestor = child;
-			IEventDispatcher(child).dispatchEvent(event);
+			request.data = nextId;
+			request.requestor = IEventDispatcher(child);
+			IEventDispatcher(child).dispatchEvent(request);
 			return;
 		}
 		else
@@ -4175,7 +4183,7 @@ public class SystemManager extends MovieClip
 	 * Can this form be activated. The current test is if the given pop up 
 	 * is visible and is enabled. 
 	 *
-	 * Set the data proeprty to indicate if can be activated
+	 * Set the data property to indicate if can be activated
 	 */
 	private function canActivateHandler(event:Event):void
 	{
@@ -4208,7 +4216,7 @@ public class SystemManager extends MovieClip
 				 	if (popUp.bridge)
 				 	{
 				 		popUp.bridge.dispatchEvent(request);
-				 		eObj.data = true;
+				 		eObj.data = request.data;
 				 	}
 					return;
 				}
@@ -4236,7 +4244,7 @@ public class SystemManager extends MovieClip
 			if (bridge)
 			{
 				bridge.dispatchEvent(request);
-				eObj.data = true;
+				eObj.data = request.data;
 			}
 		}
 		else 
@@ -4266,10 +4274,15 @@ public class SystemManager extends MovieClip
 				// their display objects.
 				// Also, if the we don't trust the child don't send them a display object.
 				var bp:ISWFBridgeProvider = swfBridgeGroup.getChildBridgeProvider(childBridge);
+				if (SecurityUtil.hasMutualTrustBetweenParentAndChild(bp))
+				{
 				childBridge.dispatchEvent(request);
-				if (SecurityUtil.hasMutualTrustBetweenParentAndChild(bp) &&
-					request.data == true)
+                    if (request.data == true)
 					return true;
+	                   
+	                // reset data property
+	                request.data = displayObject;
+				}
 			}
 		}
 			
@@ -4649,8 +4662,8 @@ public class SystemManager extends MovieClip
 	/**
 	 * Add a bridge to talk to the child owned by <code>owner</code>.
 	 * 
-	 *  @param bridge the bridge used to talk to the parent. 
-	 * @param owner the display object that owns the bridge.
+	 *  @param bridge The bridge used to talk to the parent. 
+	 *  @param owner The display object that owns the bridge.
 	 */	
 	public function addChildBridge(bridge:IEventDispatcher, owner:DisplayObject):void
 	{
@@ -4673,7 +4686,7 @@ public class SystemManager extends MovieClip
 	}
 
 	/**
-	 * @inheritdoc
+	 *  @inheritDoc
 	 */
 	public function useSWFBridge():Boolean
 	{
@@ -4808,7 +4821,7 @@ public class SystemManager extends MovieClip
 	}
 	
    /**
-    *  @inheritdoc
+    *  @inheritDoc
     */  
     public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
     {
@@ -4841,7 +4854,7 @@ public class SystemManager extends MovieClip
     }
  
    /**
-    *  @inheritdoc
+    *  @inheritDoc
     */  
     public function deployMouseShields(deploy:Boolean):void
     {
@@ -4857,7 +4870,7 @@ public class SystemManager extends MovieClip
 	 * 
 	 * @param window window that was activated.
 	 */
-	mx_internal function fireActivatedWindowEvent(window:DisplayObject):void
+	mx_internal function dispatchActivatedWindowEvent(window:DisplayObject):void
 	{
 		var bridge:IEventDispatcher = swfBridgeGroup ? swfBridgeGroup.parentBridge : null;
 		if (bridge)
@@ -4866,8 +4879,10 @@ public class SystemManager extends MovieClip
 			var sendToSbRoot:Boolean = sbRoot != this;
 			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE,
 																	    false, false,
-	       																sendToSbRoot ? window :
-	       																NameUtil.displayObjectToString(window));
+														{ notifier: bridge,
+														  window: sendToSbRoot ? window :
+	       													      NameUtil.displayObjectToString(window)
+	       												});
 	        if (sendToSbRoot)
 	        	sbRoot.dispatchEvent(bridgeEvent);
 			else
@@ -4884,7 +4899,7 @@ public class SystemManager extends MovieClip
 	 * @param id window display object or id string that was activated. Ids are used if
 	 * 		  the message is going outside the security domain.
 	 */
-	private function fireDeactivatedWindowEvent(window:DisplayObject):void
+	private function dispatchDeactivatedWindowEvent(window:DisplayObject):void
 	{
 		var bridge:IEventDispatcher = swfBridgeGroup ? swfBridgeGroup.parentBridge : null;
 		if (bridge)
@@ -4894,8 +4909,10 @@ public class SystemManager extends MovieClip
 			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE,
 																	    false, 
 																	    false,
-	       																sendToSbRoot ? window :
-	       																NameUtil.displayObjectToString(window));
+                                                        { notifier: bridge,
+                                                          window: sendToSbRoot ? window :
+                                                                  NameUtil.displayObjectToString(window)
+                                                        });
 	        if (sendToSbRoot)
 	        	sbRoot.dispatchEvent(bridgeEvent);
 			else
@@ -4910,7 +4927,7 @@ public class SystemManager extends MovieClip
 	 * 
 	 * Notify parent that an application has been activated.
 	 */
-	private function fireActivatedApplicationEvent():void
+	private function dispatchActivatedApplicationEvent():void
 	{
 		// click on this system manager or one of its sub system managers
 		// If in a sandbox tell the top-level system manager we are active.
@@ -4918,8 +4935,7 @@ public class SystemManager extends MovieClip
 		if (bridge)
 		{
 			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_APPLICATION_ACTIVATE,
-																		false, false,
-																		bridge);
+																		false, false);
 			bridge.dispatchEvent(bridgeEvent);
 		}
 	}
@@ -4986,7 +5002,7 @@ public class SystemManager extends MovieClip
 	private var dispatchingToSystemManagers:Boolean = false;
 
 	/**
-	 * dispatch the event to all sandboxes except the specified one
+	 *  @inheritDoc
 	 */
 	public function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, 
 						trackClones:Boolean = false, toOtherSystemManagers:Boolean = false):void
@@ -5029,6 +5045,7 @@ public class SystemManager extends MovieClip
 				clone = event.clone();
 				if (trackClones)
 					currentSandboxEvent = clone;
+			    // TODODJL: could be sharing parentBridge with children
 				IEventDispatcher(children[i]).dispatchEvent(clone);
 			}
 		}
