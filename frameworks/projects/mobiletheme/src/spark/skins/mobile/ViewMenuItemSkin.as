@@ -47,7 +47,7 @@ public class ViewMenuItemSkin extends ButtonSkin
         return borderClass;
     }
      
-    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
     {
         // Don't do anything. The fxg files contain the background
     }
