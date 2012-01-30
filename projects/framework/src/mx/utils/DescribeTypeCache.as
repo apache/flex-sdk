@@ -103,8 +103,17 @@ public class DescribeTypeCache
         else
         {
             if (o is String)
-                o = getDefinitionByName(o);
-
+            {
+                try
+                {
+                    o = getDefinitionByName(o);
+                }
+                catch (error:ReferenceError)
+                {
+                    // The o parameter doesn't refer to an ActionScript 
+                    // definition, it's just a string value.
+                }
+            }
             var typeDescription:XML = flash.utils.describeType(o);
             var record:DescribeTypeCacheRecord = new DescribeTypeCacheRecord();
             record.typeDescription = typeDescription;
