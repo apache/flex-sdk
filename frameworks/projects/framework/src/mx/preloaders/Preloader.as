@@ -134,6 +134,11 @@ public class Preloader extends Sprite
 	 *  @private
 	 */
 	private var applicationDomain:ApplicationDomain = null;
+    
+    /**
+     *  @private
+     */
+    private var waitedAFrame:Boolean = false;
 
 	//--------------------------------------------------------------------------
 	//
@@ -266,6 +271,16 @@ public class Preloader extends Sprite
 			displayClass.stageHeight = displayHeight;
 			displayClass.initialize();  
 			displayClass.preloader = this;
+            
+            // Listen for ENTER_FRAME to make sure that we are going to render the displayClass first,
+            // before dispatching PRELOADER_DOC_FRAME_READY. This way we the run-time can render
+            // the displayClass as soon as possible, before advancing onto frame 2.
+            CONFIG::performanceInstrumentation
+            {
+                import mx.utils.PerfUtil;
+                PerfUtil.getInstance().markTime("Preloader.displayClass created");
+            }
+            this.addEventListener(Event.ENTER_FRAME, waitAFrame);
 		}	
 		
 		// move below showDisplay so error messages can be displayed
@@ -487,6 +502,11 @@ public class Preloader extends Sprite
 		{
 			if (!sentDocFrameReady)
 			{
+				// If there's a displayClass, don't send the PRELOADER_DOC_FRAME_READY 
+				// event before we render at least one frame
+				if (showDisplay && !waitedAFrame)
+					return;
+
 				sentDocFrameReady = true;
 				// Dispatch a Frame1 done event.
 				dispatchEvent(new FlexEvent(FlexEvent.PRELOADER_DOC_FRAME_READY));
@@ -574,7 +594,22 @@ public class Preloader extends Sprite
 	{		
 		dispatchEvent(new FlexEvent(FlexEvent.INIT_PROGRESS));
 	}
+
+    /**
+     *  @private
+     */
+    private function waitAFrame(event:Event):void
+    {
+        CONFIG::performanceInstrumentation
+        {
+            mx.utils.PerfUtil.getInstance().markTime("Preloader.displayClass rendered");
+        }
+
+        this.removeEventListener(Event.ENTER_FRAME, waitAFrame);
+        waitedAFrame = true;
+    }
+
 }
 
 }
-	
+
