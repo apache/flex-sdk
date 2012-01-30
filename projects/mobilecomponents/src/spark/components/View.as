@@ -125,7 +125,7 @@ public class View extends Group implements IDataRenderer
      *  Flag indicating whether the current screen is active.  The
      *  view's navigator will automatically set this flag to true
      *  or false as its state changes.  This getter will dispatch
-     *  <code>FlexEvent.VIEW_ACTIVATE<code> and <code>FlexEvent.VIEW_DEACTIVATE<code>
+     *  <code>FlexEvent.VIEW_ACTIVATE</code> and <code>FlexEvent.VIEW_DEACTIVATE</code>
      *  as the value changes.
      *  
      *  @default false
@@ -253,7 +253,7 @@ public class View extends Group implements IDataRenderer
      */
     public function set destructionPolicy(value:String):void
     {
-        _destructionPolicy = value;	
+        _destructionPolicy = value; 
     }
     
     //----------------------------------
@@ -450,86 +450,86 @@ public class View extends Group implements IDataRenderer
         _navigationGroupLayout = value;
         dispatchEvent(changeEvent);
     }
-	
-	//----------------------------------
-	//  showActionBar
-	//----------------------------------
-	private var _showActionBar:Boolean = true;
-	
-	/**
-	 *  Flag indicating whether a view should show the action bar or not.
-	 *  This doesn't necessarily correlate to the visible property of the
-	 *  navigator's ActionBar.  In the end, ViewNavigator and the developer
-	 *  have the last say as to what's visible.
-	 *
-	 *  @default true
+    
+    //----------------------------------
+    //  showActionBar
+    //----------------------------------
+    private var _showActionBar:Boolean = true;
+    
+    /**
+     *  Flag indicating whether a view should show the action bar or not.
+     *  This doesn't necessarily correlate to the visible property of the
+     *  navigator's ActionBar.  In the end, ViewNavigator and the developer
+     *  have the last say as to what's visible.
+     *
+     *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-	 */
-	public function get showActionBar():Boolean
-	{
-		return _showActionBar;
-	}
+     */
+    public function get showActionBar():Boolean
+    {
+        return _showActionBar;
+    }
     
     /**
      *  @private
      */ 
-	public function set showActionBar(value:Boolean):void
-	{
-		_showActionBar = value;
-		
-		// Immediately request actionBar's visibility be toggled
-		if (active && navigator)
-		{
-			if (_showActionBar)
-				navigator.showActionBar();
-			else
-				navigator.hideActionBar();
-		}
-	}
-	//----------------------------------
-	//  showTabBar
-	//----------------------------------
-	private var _showTabBar:Boolean = true;
-	
-	/**
-	 *  Flag indicating whether a view should show the action bar or not.
-	 *  This doesn't necessarily correlate to the visible property of the
-	 *  navigator's ActionBar.  In the end, ViewNavigator and the developer
-	 *  have the last say as to what's visible.
-	 *
-	 *  @default true
+    public function set showActionBar(value:Boolean):void
+    {
+        _showActionBar = value;
+        
+        // Immediately request actionBar's visibility be toggled
+        if (active && navigator)
+        {
+            if (_showActionBar)
+                navigator.showActionBar();
+            else
+                navigator.hideActionBar();
+        }
+    }
+    //----------------------------------
+    //  showTabBar
+    //----------------------------------
+    private var _showTabBar:Boolean = true;
+    
+    /**
+     *  Flag indicating whether a view should show the action bar or not.
+     *  This doesn't necessarily correlate to the visible property of the
+     *  navigator's ActionBar.  In the end, ViewNavigator and the developer
+     *  have the last say as to what's visible.
+     *
+     *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-	 */
-	public function get showTabBar():Boolean
-	{
-		return _showTabBar;
-	}
+     */
+    public function get showTabBar():Boolean
+    {
+        return _showTabBar;
+    }
     
     /**
      *  @private
      */
-	public function set showTabBar(value:Boolean):void
-	{
-		_showTabBar = value;
-		
-		// Immediately request actionBar's visibility be toggled
-		if (active && navigator)
-		{
-			if (_showTabBar)
-				navigator.showTabBar();
-			else
-				navigator.hideTabBar();
-		}
-	}
-	
+    public function set showTabBar(value:Boolean):void
+    {
+        _showTabBar = value;
+        
+        // Immediately request actionBar's visibility be toggled
+        if (active && navigator)
+        {
+            if (_showTabBar)
+                navigator.showTabBar();
+            else
+                navigator.hideTabBar();
+        }
+    }
+    
     //----------------------------------
     //  title
     //----------------------------------
