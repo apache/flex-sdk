@@ -134,8 +134,9 @@ List
 {
 	skinClass: ClassReference("spark.skins.mobile.ListSkin");
     touchDelay: 100;
-    dragIndicatorClass: ClassReference("spark.components.supportClasses.ListItemDragProxy");
-	dropIndicatorSkin: ClassReference("spark.skins.spark.ListDropIndicator");
+	contentBackgroundColor: #F0F0F0;
+	borderColor: #000000;
+	borderAlpha: 1;
 }
 
 MuteButton
