@@ -598,6 +598,8 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
         return (valueString) ? uint(valueString) : DEFAULT_COLOR;
     }
     
+    private var lastBarWidth:Number = 0;
+    
     /** 
      *  Updates the outer portion of the download progress bar to
      *  indicate download progress.
@@ -627,6 +629,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
         var h:Number = 9;
         var g:Graphics = _barFrameSprite.graphics;
         var m:Matrix = new Matrix();
+
+        // Make sure the download progress bar never regresses in size.
+        w = Math.max(w, lastBarWidth);
+        lastBarWidth = w;
         
         m.createGradientBox(w, h, 90);
         
