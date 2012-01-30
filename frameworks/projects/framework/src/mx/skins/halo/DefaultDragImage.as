@@ -20,6 +20,11 @@ import mx.core.SpriteAsset;
  *  The default drag proxy image for a drag and drop operation.
  *  
  *  @see mx.managers.DragManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DefaultDragImage extends SpriteAsset implements IFlexDisplayObject
 {
@@ -33,6 +38,11 @@ public class DefaultDragImage extends SpriteAsset implements IFlexDisplayObject
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DefaultDragImage()
 	{
