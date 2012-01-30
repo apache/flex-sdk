@@ -62,6 +62,11 @@ import mx.events.SandboxMouseEvent;
 import mx.preloaders.Preloader;
 import mx.utils.LoaderUtil;
 
+CONFIG::performanceInstrumentation
+{
+import mx.utils.PerfUtil;
+}
+
 // NOTE: Minimize the non-Flash classes you import here.
 // Any dependencies of SystemManager have to load in frame 1,
 // before the preloader, or anything else, can be displayed.
@@ -219,6 +224,11 @@ public class SystemManager extends MovieClip
      */
     public function SystemManager()
     {
+        CONFIG::performanceInstrumentation
+        {
+            PerfUtil.getInstance().startSampling("Application Startup", true /*absoluteTime*/);
+        }
+
         super();
 
         // Loaded SWFs don't get a stage right away
@@ -1813,7 +1823,7 @@ public class SystemManager extends MovieClip
     {
         if (isStageRoot)
         {
-	        // TODO: Finalize scaling behavior
+            // TODO: Finalize scaling behavior
             Stage_resizeHandler();
             // _width = stage.stageWidth;
             // _height = stage.stageHeight;
@@ -2510,7 +2520,12 @@ public class SystemManager extends MovieClip
         // Add the application as child 1.
         noTopMostIndex++;
         super.addChildAt(DisplayObject(app), 1);
-        
+
+        CONFIG::performanceInstrumentation
+        {
+            PerfUtil.getInstance().finishSampling("Application Startup");
+        }
+
         // Dispatch the applicationComplete event from the Application
         // and then agaom from the SystemManager
         // (so that loading apps know we're done).
@@ -2982,15 +2997,15 @@ public class SystemManager extends MovieClip
             //_height = stage.stageHeight;
 
             // TODO: Finalize scaling behavior
-			var scale:Number = 1;
-			
-			// Temporary hack to scale android apps up to 1.5x
-			if (Capabilities.screenDPI >= 240)
-				scale = 1.5;
-			
-			root.scaleX = root.scaleY = scale;
-			_width = stage.stageWidth / scale;
-			_height = stage.stageHeight / scale;
+            var scale:Number = 1;
+
+            // Temporary hack to scale android apps up to 1.5x
+            if (Capabilities.screenDPI >= 240)
+                scale = 1.5;
+
+            root.scaleX = root.scaleY = scale;
+            _width = stage.stageWidth / scale;
+            _height = stage.stageHeight / scale;
         }
 
         if (event)
