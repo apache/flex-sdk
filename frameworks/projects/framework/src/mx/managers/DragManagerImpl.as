@@ -329,23 +329,23 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 		if (nonNullTarget == null)
 			nonNullTarget = dragInitiator;
 		
-        // If the target's layout is rtl that means the (stage coordinate) 
-        // point.x is currently the right edge of the dragInitiator.  Fix that:
-        var localX:Number = mouseEvent.localX;
-        if (dragInitiator is IVisualElement)
-        {
-            if (IVisualElement(dragInitiator).layoutDirection == "rtl")
-                localX -= dragInitiator.getExplicitOrMeasuredWidth();
-        }
-        
-		var point:Point = new Point(localX, mouseEvent.localY);
+		var point:Point = new Point(mouseEvent.localX, mouseEvent.localY);
 		point = DisplayObject(nonNullTarget).localToGlobal(point);
 		point = DisplayObject(sandboxRoot).globalToLocal(point);
 		var mouseX:Number = point.x;
 		var mouseY:Number = point.y;
 
+        // If the target's layout is rtl that means the proxy origin x
+        // is currently offset from the right edge of the dragInitiator. Fix that:
+        var originX:Number = -xOffset;
+        if (dragInitiator is IVisualElement)
+        {
+            if (IVisualElement(dragInitiator).layoutDirection == "rtl")
+                originX += dragInitiator.getExplicitOrMeasuredWidth();
+        }
+        
         // Find the proxy origin in global space
-        var proxyOrigin:Point = DisplayObject(dragInitiator).localToGlobal(new Point(-xOffset, -yOffset));
+        var proxyOrigin:Point = DisplayObject(dragInitiator).localToGlobal(new Point(originX, -yOffset));
         proxyOrigin = DisplayObject(sandboxRoot).globalToLocal(proxyOrigin);
         
         // Set dragProxy.offset to the mouse offset within the drag proxy.
