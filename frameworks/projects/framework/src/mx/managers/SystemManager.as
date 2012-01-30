@@ -23,6 +23,7 @@ import flash.display.Stage;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
+import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.EventDispatcher;
 import flash.events.EventPhase;
@@ -2373,8 +2374,16 @@ public class SystemManager extends MovieClip
 
         // This listener is intended to run before any other KeyboardEvent listeners
         // so that it can redispatch a cancelable=true copy of the event. 
-        addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true, 1000);
-        addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, true, 1000);
+        if (getSandboxRoot() == this)
+        {
+            addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true, 1000);
+            addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, true, 1000);
+        }
+        if (isTopLevelRoot() && stage)
+        {
+            stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, false, 1000);
+            stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, false, 1000);
+        }
 
         var docFrame:int = (totalFrames == 1)? 0 : 1;
 		addEventListener(Event.ENTER_FRAME, docFrameListener);
@@ -2508,7 +2517,7 @@ public class SystemManager extends MovieClip
 		readyForKickOff = true;
 		if (currentFrame >= 2)
 			kickOff();
-	}
+	}   
 
 	/**
 	 *  @private
@@ -2521,7 +2530,9 @@ public class SystemManager extends MovieClip
 			return;
 
         if (!isTopLevel())
-            dispatchEvent(new FlexEvent(FlexEvent.NEW_CHILD_APPLICATION));
+            SystemManagerGlobals.topLevelSystemManagers[0].
+                // dispatch a FocusEvent so we can pass ourselves along
+                dispatchEvent(new FocusEvent(FlexEvent.NEW_CHILD_APPLICATION, false, false, this));
 
 		// Generated code will bring in EmbeddedFontRegistry
 		Singleton.registerClass("mx.core::IEmbeddedFontRegistry",
@@ -3272,6 +3283,8 @@ public class SystemManager extends MovieClip
     private function stageEventHandler(event:Event):void
     {
         if (event.target is Stage)
+            // dispatch them from mouseCatcher so capture phase listeners on 
+            // systemManager will work
             mouseCatcher.dispatchEvent(event);
     }
 
