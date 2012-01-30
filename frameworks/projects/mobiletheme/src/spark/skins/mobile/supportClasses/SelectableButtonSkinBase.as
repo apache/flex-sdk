@@ -147,7 +147,18 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
-    public var symbolIcon:Object;
+    private var _symbolIcon:DisplayObject;
+    
+    /**
+     *  Read-only button symbol graphic. Use commitCurrentState() to specify
+     *  a symbol graphic per-state.
+     * 
+     *  @see #commitCurrentState()
+     */
+    public function get symbolIcon():DisplayObject
+    {
+        return _symbolIcon;
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -215,11 +226,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
             setIcon(currentStateIconClass);
             
             // swap symbol based on selection state
-            var symbolObj:DisplayObject = (symbolIcon && (symbolIcon is DisplayObject))
-                ? DisplayObject(symbolIcon) : null;
-            var hasSymbol:Boolean = (symbolObj) && contains(symbolObj);
-            
-            symbolIcon = null;
+            var hasSymbol:Boolean = (_symbolIcon) && contains(_symbolIcon);
             
             // remove the old symbol
             if (hasSymbol)
@@ -227,20 +234,27 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
                 // no current symbol exists
                 // or is existing symbol different than the current symbol
                 if ((currentSymbolClass == null)
-                    || !(symbolObj is currentSymbolClass))
+                    || !(_symbolIcon is currentSymbolClass))
                 {
-                    removeChild(DisplayObject(symbolObj));
+                    removeChild(_symbolIcon);
+                    _symbolIcon = null;
+                    
                     invalidateDisplayList();
                 }
             }
             
             // add the current symbol
-            if (currentSymbolClass != null)
+            if ((_symbolIcon == null) && (currentSymbolClass != null))
             {
-                symbolIcon = new currentSymbolClass();
-                addChild(DisplayObject(symbolIcon));
+                var currentSymbolInstance:Object = new currentSymbolClass();
                 
-                invalidateDisplayList();
+                if (currentSymbolInstance is DisplayObject)
+                {
+                    _symbolIcon = DisplayObject(currentSymbolInstance);
+                    addChild(_symbolIcon);
+                    
+                    invalidateDisplayList();
+                }
             }
         }
     }
@@ -261,10 +275,10 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
         graphics.endFill();
         
         // position the symbols to align with the background "icon"
-        if (symbolIcon)
+        if (_symbolIcon)
         {
             var currentIcon:DisplayObject = getIconDisplay();
-            setElementPosition(symbolIcon, currentIcon.x, currentIcon.y);
+            setElementPosition(_symbolIcon, currentIcon.x, currentIcon.y);
         }
     }
 }
