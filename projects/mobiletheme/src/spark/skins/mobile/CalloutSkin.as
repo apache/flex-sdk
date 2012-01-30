@@ -244,7 +244,7 @@ public class CalloutSkin extends MobileSkin
     
     /**
      *  Height of the arrow in vertical directions. This property also controls
-     *  the Width of the arrow in horizontal directions.
+     *  the width of the arrow in horizontal directions.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
