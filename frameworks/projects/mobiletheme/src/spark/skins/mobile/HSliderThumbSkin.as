@@ -304,8 +304,8 @@ public class HSliderThumbSkin extends MobileSkin
      */ 
 	override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
 	{
-		resizeElement(currentThumbSkin, unscaledWidth, unscaledHeight);
-		positionElement(currentThumbSkin, 0, 0)
+		setElementSize(currentThumbSkin, unscaledWidth, unscaledHeight);
+		setElementPosition(currentThumbSkin, 0, 0)
 
         super.updateDisplayList(unscaledWidth, unscaledHeight);
     }
