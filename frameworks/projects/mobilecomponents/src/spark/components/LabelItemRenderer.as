@@ -897,7 +897,7 @@ public class LabelItemRenderer extends UIComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     protected function drawBorder(unscaledWidth:Number, unscaledHeight:Number):void
     {
