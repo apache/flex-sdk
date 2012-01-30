@@ -139,6 +139,7 @@ public class ViewNavigatorBase extends SkinnableContainer
     //  exitApplicationOnBackKey
     //----------------------------------
     /**
+     *  @private
      *  This method determines if a device's default back key handler can
      *  be canceled.  For example, by default, when the back key is pressed
      *  on android devices, the application exits.  By returning true, that
@@ -155,7 +156,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get exitApplicationOnBackKey():Boolean
+    mx_internal function get exitApplicationOnBackKey():Boolean
     {
         return true;
     }
@@ -504,7 +505,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function updatePropertiesForView(view:View):void
+    public function updateControlsForView(view:View):void
     {
     }
     
