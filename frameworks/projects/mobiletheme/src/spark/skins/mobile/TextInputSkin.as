@@ -158,5 +158,18 @@ public class TextInputSkin extends MobileSkin
             textDisplay.styleChanged(styleProp);
         super.styleChanged(styleProp);
     }
+	
+	/**
+	 *  @private
+	 */
+	override protected function commitCurrentState():void
+	{
+		super.commitCurrentState();
+		
+		if (currentState == "normal")
+			alpha = 1;
+		else
+			alpha = 0.5;
+	}
 }
 }
