@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2009 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" minWidth="12" minHeight="13" >
+
+    <!-- states -->
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <s:BitmapImage source="@Embed('../../../../assets/win_min_up.png')" includeIn="up" left="0" verticalCenter="0" />
+    
+    <s:BitmapImage source="@Embed('../../../../assets/win_min_over.png')" includeIn="over" left="0" verticalCenter="0" />
+
+    <s:BitmapImage source="@Embed('../../../../assets/win_min_down.png')" includeIn="down" left="0" verticalCenter="0" />
+
+    <s:BitmapImage source="@Embed('../../../../assets/win_min_dis.png')" includeIn="disabled" left="0" verticalCenter="0" />
+    
+</s:Skin>
