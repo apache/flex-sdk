@@ -36,38 +36,39 @@ import mx.utils.SHA256;
 [ExcludeClass]
 
 /**
- *	Cross-domain RSL Item Class.
+ *  Cross-domain RSL Item Class.
  * 
- * 	The rsls are typically located on a different host than the loader. 
+ *  The rsls are typically located on a different host than the loader. 
  *  There are signed and unsigned Rsls, both have a digest to confirm the 
  *  correct rsl is loaded.
  *  Signed Rsls are loaded by setting the digest of the URLRequest.
  *  Unsigned Rsls are check using actionScript to calculate a sha-256 hash of 
  *  the loaded bytes and compare them to the expected digest.
- * 
+ *  
+ *  @private
  */
 public class CrossDomainRSLItem extends RSLItem
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	private var rslUrls:Array;	// first url is the primary url in the url parameter, others are failovers
-	private var policyFileUrls:Array; // optional policy files, parallel array to rslUrls
-	private var digests:Array;		// option rsl digest, parallel array to rslUrls
-	private var isSigned:Array;		// each entry is a boolean value. "true" if the rsl in the parallel array is signed
-	private var hashTypes:Array;     //  type of hash used to create the digest
-	private var urlIndex:int = 0;	// index into url being loaded in rslsUrls and other parallel arrays
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    private var rslUrls:Array;  // first url is the primary url in the url parameter, others are failovers
+    private var policyFileUrls:Array; // optional policy files, parallel array to rslUrls
+    private var digests:Array;      // option rsl digest, parallel array to rslUrls
+    private var isSigned:Array;     // each entry is a boolean value. "true" if the rsl in the parallel array is signed
+    private var hashTypes:Array;     //  type of hash used to create the digest
+    private var urlIndex:int = 0;   // index into url being loaded in rslsUrls and other parallel arrays
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
     /**
     * Create a cross-domain RSL item to load.
@@ -86,114 +87,114 @@ public class CrossDomainRSLItem extends RSLItem
     * @param hashTypes Array of boolean, may not be null. Each boolean value specifies if the RSL to be
     *                  loaded is a signed or unsigned RSL. If the value is true the RSL is signed. 
     *                  If the value is false the RSL is unsigned.
-    */	
-	public function CrossDomainRSLItem(rslUrls:Array,
-							 policyFileUrls:Array, 
-							 digests:Array,
-							 hashTypes:Array,
-							 isSigned:Array)
-	{
-		super(rslUrls[0]);
-		
-		this.rslUrls = rslUrls;
-		this.policyFileUrls = policyFileUrls;
-		this.digests = digests;
-		this.hashTypes = hashTypes;
-		this.isSigned = isSigned;
-	}
+    */  
+    public function CrossDomainRSLItem(rslUrls:Array,
+                             policyFileUrls:Array, 
+                             digests:Array,
+                             hashTypes:Array,
+                             isSigned:Array)
+    {
+        super(rslUrls[0]);
+        
+        this.rslUrls = rslUrls;
+        this.policyFileUrls = policyFileUrls;
+        this.digests = digests;
+        this.hashTypes = hashTypes;
+        this.isSigned = isSigned;
+    }
 
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden Methods
-	//
-	//--------------------------------------------------------------------------
-	
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Methods
+    //
+    //--------------------------------------------------------------------------
     
-	/**
-	 * 
-	 * Load an RSL. 
+    
+    /**
+     * 
+     * Load an RSL. 
     * 
     * @param progressHandler       receives ProgressEvent.PROGRESS events, may be null
     * @param completeHandler       receives Event.COMPLETE events, may be null
-    * @param ioErrorHandler	       receives IOErrorEvent.IO_ERROR events, may be null
+    * @param ioErrorHandler        receives IOErrorEvent.IO_ERROR events, may be null
     * @param securityErrorHandler  receives SecurityErrorEvent.SECURITY_ERROR events, may be null
-    * @param rslErrorHandler  	   receives RSLEvent.RSL_ERROR events, may be null
+    * @param rslErrorHandler       receives RSLEvent.RSL_ERROR events, may be null
     * 
-	*/
-	override public function load(progressHandler:Function,
-	                              completeHandler:Function,
-            	                  ioErrorHandler:Function,
-	                              securityErrorHandler:Function,
-	                              rslErrorHandler:Function):void 
+    */
+    override public function load(progressHandler:Function,
+                                  completeHandler:Function,
+                                  ioErrorHandler:Function,
+                                  securityErrorHandler:Function,
+                                  rslErrorHandler:Function):void 
     {
-	    chainedProgressHandler = progressHandler;
-	    chainedCompleteHandler = completeHandler;
-	    chainedIOErrorHandler = ioErrorHandler;
-	    chainedSecurityErrorHandler = securityErrorHandler;
-	    chainedRSLErrorHandler = rslErrorHandler;
+        chainedProgressHandler = progressHandler;
+        chainedCompleteHandler = completeHandler;
+        chainedIOErrorHandler = ioErrorHandler;
+        chainedSecurityErrorHandler = securityErrorHandler;
+        chainedRSLErrorHandler = rslErrorHandler;
 
 
 /*      
         // Debug loading of swf files
 
         trace("begin load of " + url);
-				if (Security.sandboxType == Security.REMOTE)
-		{
-			trace(" in REMOTE sandbox");	
-		}
-		else if (Security.sandboxType == Security.LOCAL_TRUSTED)
-		{
-			trace(" in LOCAL_TRUSTED sandbox");					
-		}
-		else if (Security.sandboxType == Security.LOCAL_WITH_FILE)
-		{
-			trace(" in LOCAL_WITH_FILE sandbox");					
-		}
-		else if (Security.sandboxType == Security.LOCAL_WITH_NETWORK)
-		{
-			trace(" in LOCAL_WITH_NETWORK sandbox");					
-		}
+                if (Security.sandboxType == Security.REMOTE)
+        {
+            trace(" in REMOTE sandbox");    
+        }
+        else if (Security.sandboxType == Security.LOCAL_TRUSTED)
+        {
+            trace(" in LOCAL_TRUSTED sandbox");                 
+        }
+        else if (Security.sandboxType == Security.LOCAL_WITH_FILE)
+        {
+            trace(" in LOCAL_WITH_FILE sandbox");                   
+        }
+        else if (Security.sandboxType == Security.LOCAL_WITH_NETWORK)
+        {
+            trace(" in LOCAL_WITH_NETWORK sandbox");                    
+        }
 */
 
-		urlRequest = new URLRequest(rslUrls[urlIndex]);
-		var loader:URLLoader = new URLLoader();
-		loader.dataFormat = URLLoaderDataFormat.BINARY;
+        urlRequest = new URLRequest(rslUrls[urlIndex]);
+        var loader:URLLoader = new URLLoader();
+        loader.dataFormat = URLLoaderDataFormat.BINARY;
 
-		// We needs to listen to certain events.
-			
-		loader.addEventListener(
-			ProgressEvent.PROGRESS, itemProgressHandler);
-			
-		loader.addEventListener(
-			Event.COMPLETE, itemCompleteHandler);
-			
-		loader.addEventListener(
-			IOErrorEvent.IO_ERROR, itemErrorHandler);
-			
-		loader.addEventListener(
-			SecurityErrorEvent.SECURITY_ERROR, itemErrorHandler);
+        // We needs to listen to certain events.
+            
+        loader.addEventListener(
+            ProgressEvent.PROGRESS, itemProgressHandler);
+            
+        loader.addEventListener(
+            Event.COMPLETE, itemCompleteHandler);
+            
+        loader.addEventListener(
+            IOErrorEvent.IO_ERROR, itemErrorHandler);
+            
+        loader.addEventListener(
+            SecurityErrorEvent.SECURITY_ERROR, itemErrorHandler);
 
-		if (policyFileUrls.length > urlIndex &&
-			policyFileUrls[urlIndex] != "")
-		{
-			Security.loadPolicyFile(policyFileUrls[urlIndex]);
-		}
-		
-		if (isSigned[urlIndex])
-		{
-		    if (urlRequest.hasOwnProperty("digest"))
-		    {
-    		    // load a signed rsl by specifying the digest
-	    	    urlRequest.digest = digests[urlIndex];
-		    }
-		    else if (hasFailover()) 		    
-		    {
-		        loadFailover();
-		        return;
-		    }
-    		else
-    		{
+        if (policyFileUrls.length > urlIndex &&
+            policyFileUrls[urlIndex] != "")
+        {
+            Security.loadPolicyFile(policyFileUrls[urlIndex]);
+        }
+        
+        if (isSigned[urlIndex])
+        {
+            if (urlRequest.hasOwnProperty("digest"))
+            {
+                // load a signed rsl by specifying the digest
+                urlRequest.digest = digests[urlIndex];
+            }
+            else if (hasFailover())             
+            {
+                loadFailover();
+                return;
+            }
+            else
+            {
                 // B Feature: externalize error message
                 var rslError:ErrorEvent = new ErrorEvent(RSLEvent.RSL_ERROR);
                 rslError.text = "Flex Error #1002: Flash Player 9.0.60 and above is required to support signed RSLs. Problem occurred when trying to load the RSL " +
@@ -201,65 +202,65 @@ public class CrossDomainRSLItem extends RSLItem
                                 ".  Upgrade your Flash Player and try again.";
                 super.itemErrorHandler(rslError);
                 return;
-    		}
-		}
-		loader.load(urlRequest);
-	}
-	
-	
+            }
+        }
+        loader.load(urlRequest);
+    }
+    
+    
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 *  Complete the load of the cross-domain rsl by loading it into the current
-	 *  application domain. The load was started by loadCdRSL.
-	 * 
-	 *  @param - urlLoader from the complete event.
-	 * 
-	 *  @return - true if the load was completed successfully or unsuccessfully, 
-	 *            false if the load of a failover rsl was started
-	 */
-	private function completeCdRslLoad(urlLoader:URLLoader):Boolean
-	{
-		// handle player bug #204244, complete event without data after an error
-		if (urlLoader == null || urlLoader.data == null || ByteArray(urlLoader.data).bytesAvailable == 0)
-		{
-			return true;
-		}
-		
-		// load the bytes into the current application domain.
-		var loader:Loader = new Loader();
-		var context:LoaderContext = new LoaderContext();
-		context.applicationDomain = ApplicationDomain.currentDomain;
-		context.securityDomain = null;
-		
-		// If the AIR flag is available then set it to true so we can
-		// load the RSL without a security error.
-		if ("allowLoadBytesCodeExecution" in context)
-		{
-			context["allowLoadBytesCodeExecution"] = true;
-		}	
-		
-		// verify the digest, if any, is correct
-		if (digests[urlIndex] != null && String(digests[urlIndex]).length > 0)
-		{
-		    var verifiedDigest:Boolean = false;
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Complete the load of the cross-domain rsl by loading it into the current
+     *  application domain. The load was started by loadCdRSL.
+     * 
+     *  @param - urlLoader from the complete event.
+     * 
+     *  @return - true if the load was completed successfully or unsuccessfully, 
+     *            false if the load of a failover rsl was started
+     */
+    private function completeCdRslLoad(urlLoader:URLLoader):Boolean
+    {
+        // handle player bug #204244, complete event without data after an error
+        if (urlLoader == null || urlLoader.data == null || ByteArray(urlLoader.data).bytesAvailable == 0)
+        {
+            return true;
+        }
+        
+        // load the bytes into the current application domain.
+        var loader:Loader = new Loader();
+        var context:LoaderContext = new LoaderContext();
+        context.applicationDomain = ApplicationDomain.currentDomain;
+        context.securityDomain = null;
+        
+        // If the AIR flag is available then set it to true so we can
+        // load the RSL without a security error.
+        if ("allowLoadBytesCodeExecution" in context)
+        {
+            context["allowLoadBytesCodeExecution"] = true;
+        }   
+        
+        // verify the digest, if any, is correct
+        if (digests[urlIndex] != null && String(digests[urlIndex]).length > 0)
+        {
+            var verifiedDigest:Boolean = false;
             if (!isSigned[urlIndex])
             {
                 // verify an unsigned rsl
                 if (hashTypes[urlIndex] == SHA256.TYPE_ID)
                 {
-               		// get the bytes from the rsl and calculate the hash
-               		var rslDigest:String = null;
-               		if (urlLoader.data != null)
-               		{
-               			rslDigest = SHA256.computeDigest(urlLoader.data);
-               		}
+                    // get the bytes from the rsl and calculate the hash
+                    var rslDigest:String = null;
+                    if (urlLoader.data != null)
+                    {
+                        rslDigest = SHA256.computeDigest(urlLoader.data);
+                    }
 
                     if (rslDigest == digests[urlIndex])
                     {
@@ -268,10 +269,10 @@ public class CrossDomainRSLItem extends RSLItem
                 }
             }
             else
-			{
+            {
                 // signed rsls are verified by the player
                 verifiedDigest = true;
-            }		    
+            }           
             
             if (!verifiedDigest)
             {
@@ -288,13 +289,13 @@ public class CrossDomainRSLItem extends RSLItem
                 
                 return !hasFailover;
             }
-		}
+        }
 
-		// load the rsl into memory
-		loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loadBytesCompleteHandler);
-		loader.loadBytes(urlLoader.data, context);
+        // load the rsl into memory
+        loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loadBytesCompleteHandler);
+        loader.loadBytes(urlLoader.data, context);
         return true;
-	}
+    }
 
   
     /**
@@ -313,13 +314,13 @@ public class CrossDomainRSLItem extends RSLItem
     */
     public function loadFailover():void
     {
-		// try to load the failover from the same node again
+        // try to load the failover from the same node again
         if (urlIndex < rslUrls.length)
         {
             trace("Failed to load RSL " + rslUrls[urlIndex]);
             trace("Failing over to RSL " + rslUrls[urlIndex+1]);
-    		urlIndex++;        // move to failover url
-    		url = rslUrls[urlIndex];
+            urlIndex++;        // move to failover url
+            url = rslUrls[urlIndex];
             load(chainedProgressHandler,
                  chainedCompleteHandler,
                  chainedIOErrorHandler,
@@ -330,50 +331,50 @@ public class CrossDomainRSLItem extends RSLItem
     
 
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden Event Handlers
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	override public function itemCompleteHandler(event:Event):void
-	{
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Event Handlers
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function itemCompleteHandler(event:Event):void
+    {
         // complete loading the cross-domain rsl by calling loadBytes.
         completeCdRslLoad(event.target as URLLoader);
-	}
-	
-	/**
-	 *  @private
-	 */
-	override public function itemErrorHandler(event:ErrorEvent):void
-	{
-		// if a failover exists, try to load it. Otherwise call super()
-		// for default error handling.
-		if (hasFailover())
-		{
-		    trace(decodeURI(event.text));
-		    loadFailover();
-		}
-		else 
-		{
-			super.itemErrorHandler(event);
-		}
-	}
-	
-	
-	/**
-	 * loader.loadBytes() has a complete event.
-	 * Done loading this rsl into memory. Call the completeHandler
-	 * to start loading the next rsl.
-	 * 
-	 *  @private
-	 */	
+    }
+    
+    /**
+     *  @private
+     */
+    override public function itemErrorHandler(event:ErrorEvent):void
+    {
+        // if a failover exists, try to load it. Otherwise call super()
+        // for default error handling.
+        if (hasFailover())
+        {
+            trace(decodeURI(event.text));
+            loadFailover();
+        }
+        else 
+        {
+            super.itemErrorHandler(event);
+        }
+    }
+    
+    
+    /**
+     * loader.loadBytes() has a complete event.
+     * Done loading this rsl into memory. Call the completeHandler
+     * to start loading the next rsl.
+     * 
+     *  @private
+     */ 
     private function loadBytesCompleteHandler(event:Event):void
     {
-   	    super.itemCompleteHandler(event);	        
+        super.itemCompleteHandler(event);           
     }
 }
 }
