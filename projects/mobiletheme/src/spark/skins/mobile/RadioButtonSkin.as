@@ -32,7 +32,9 @@ import spark.skins.mobile320.assets.RadioButton_symbolSelected;
 import spark.skins.mobile320.assets.RadioButton_up;
 
 /**
- *  Actionscript based skin for RadioButton on mobile applications. 
+ *  ActionScript-based skin for RadioButton controls in mobile applications. 
+ * 
+ * @see spark.components.RadioButton
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
