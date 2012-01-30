@@ -9551,7 +9551,8 @@ public class UIComponent extends FlexSprite
     {
         hasFontContextBeenSaved = true;
         
-        classObj = getStyle("textFieldClass");
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        	classObj = getStyle("textFieldClass");
         	        
         var fontName:String = StringUtil.trimArrayElements(getStyle("fontFamily"), ",");
         var fontWeight:String = getStyle("fontWeight");
