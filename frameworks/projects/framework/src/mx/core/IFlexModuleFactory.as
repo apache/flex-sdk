@@ -213,9 +213,9 @@ public interface IFlexModuleFactory
      *  @return The implementation for the interface.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getImplementation(interfaceName:String):Object;
     
@@ -256,9 +256,9 @@ public interface IFlexModuleFactory
      *  @param impl The implementation.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function registerImplementation(interfaceName:String,
                                     impl:Object):void;
