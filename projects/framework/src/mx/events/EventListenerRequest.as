@@ -15,16 +15,16 @@ package mx.events
 import flash.events.Event;
 
 /**
- *  Requests an application in another sandbox or compiled with a different
- *  version of Flex to add a listener to a specified event on your behalf. 
- *  When the requestee is notified the event has occurred
- *  in its domain, the message is sent to the requestor over the
- *  <code>requestor</code> bridge passed in the original request.
- * 
- *  @sendTo parent and/or children
- *  @reply none
+ *  Request sent from a systemManager to a systemManager in another 
+ *  SWF via their bridge to add or remove a listener to a specified event 
+ *  on your behalf.  The data property is not used.  Only certain events
+ *  can be requested.  When the event is triggered in the other SWF, that
+ *  event is re-dispatched through the bridge where the requesting
+ *  systemManager picks up the event and redispatches it from itself.
+ *  In general, this request is generated because some other code called
+ *  addEventListener for one of the approved events on its systemManager.
  */
-public class EventListenerRequest extends SandboxBridgeRequest
+public class EventListenerRequest extends SWFBridgeRequest
 {
     include "../core/Version.as";
 
@@ -37,14 +37,12 @@ public class EventListenerRequest extends SandboxBridgeRequest
 	/**
 	 *  Request to add an event listener.
 	 */
-	public static const ADD:String =
-        "mx.managers.SystemManager.addEventListener";
+	public static const ADD_EVENT_LISTENER_REQUEST:String = "addEventListenerRequest";
 
 	/**
 	 *  Request to remove an event listener.
 	 */
-	public static const REMOVE:String =
-        "mx.managers.SystemManager.removeEventListener";
+	public static const REMOVE_EVENT_LISTENER_REQUEST:String = "removeEventListenerRequest";
 
 
 	//--------------------------------------------------------------------------
@@ -57,11 +55,12 @@ public class EventListenerRequest extends SandboxBridgeRequest
 	 *  Marshals an event by copying the relevant parameters
      *  from the event into a new event
 	 */
-	public static function marshal(event:Event):Event
+	public static function marshal(event:Event):EventListenerRequest
 	{
 		var eventObj:Object = event;
 
-		return new EventListenerRequest(eventObj.type, eventObj.userType,
+		return new EventListenerRequest(eventObj.type, eventObj.bubbles,
+										eventObj.cancelable, eventObj.eventType,
                                         eventObj.useCapture, eventObj.priority,
                                         eventObj.useWeakReference); 
 	}
@@ -75,22 +74,32 @@ public class EventListenerRequest extends SandboxBridgeRequest
 	/**
 	 *  Creates a new request to add or remove an event listener.
 	 * 
-	 *  @param userType type of message your would normally pass to
+	 *  @param type EventListenerRequest.ADD or EventListenerRequest.REMOVE
+     *
+     *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.
+     *
+     *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
+     *
+	 *  @param eventType type of message you would normally pass to
 	 * 		  addEventListener.
-	 *  @param useCapture, as in addEventListener.
-	 *  @param priority, as in addEventListener.
-	 *  @param useWeakReference, as in addEventListener.
+     *
+	 *  @param useCapture  See addEventListener.
+     *
+	 *  @param priority See addEventListener.
+     *
+	 *  @param useWeakReference See addEventListener.
 	 */ 
-	public function EventListenerRequest(requestType:String,
-								         userType:String,
+	public function EventListenerRequest(type:String, bubbles:Boolean = false, 
+										 cancelable:Boolean = true,
+								         eventType:String = null,
 								         useCapture:Boolean = false,
 								         priority:int = 0, 
 								         useWeakReference:Boolean = false)
 
 	{
-		super(requestType, false, false);
+		super(type, false, false);
 
-		_userType = userType;
+		_eventType = eventType;
 		_useCapture = useCapture;
 		_priority = priority;
 		_useWeakReference = useWeakReference;
@@ -143,22 +152,22 @@ public class EventListenerRequest extends SandboxBridgeRequest
 	}
 
 	//----------------------------------
-	//  userType
+	//  eventType
 	//----------------------------------
 
 	/**
      *  @private
      */
-    private var _userType:String;
+    private var _eventType:String;
 	
 	/**
 	 *  The type of the event to listen to.
      *
 	 *  @see flash.events.Event#type
 	 */
-	public function get userType():String
+	public function get eventType():String
 	{
-		return _userType;
+		return _eventType;
 	}
 	
 	//----------------------------------
@@ -192,7 +201,8 @@ public class EventListenerRequest extends SandboxBridgeRequest
 	 */
 	override public function clone():Event
 	{
-		return new EventListenerRequest(type, userType, useCapture,
+		return new EventListenerRequest(type, bubbles, cancelable,
+										eventType, useCapture,
                                         priority, useWeakReference); 
 	}
 }
