@@ -19,6 +19,7 @@ import flash.events.InvokeEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.StageOrientationEvent;
+import flash.net.registerClassAlias;
 import flash.system.Capabilities;
 import flash.ui.Keyboard;
 
@@ -51,19 +52,19 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched after the application state data has been written
- *  to the application's persistence manager.  This event is only 
- *  dispatched if the <code>sessionCachingEnabled</code>
- *  property is set to true on the application.
+ *  This cancelable event dispatched before the application attempts
+ *  to restore its previously saved state when the application is being 
+ *  launched.  Calling <code>preventDefault</code> on this event will 
+ *  prevent the application state from being restored.
  * 
- *  @eventType mx.events.FlexEvent.APPLICATION_PERSIST
+ *  @eventType mx.events.FlexEvent.NAVIGATOR_STATE_LOADING
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="applicationPersist", type="mx.events.FlexEvent")]
+[Event(name="navigatorStateLoading", type="mx.events.FlexEvent")]
 
 /**
  *  This cancelable event dispatched before the application attempts
@@ -71,46 +72,14 @@ use namespace mx_internal;
  *  Calling <code>preventDefault</code> on this event will prevent the
  *  application state from being saved.
  * 
- *  @eventType mx.events.FlexEvent.APPLICATION_PERSISTING
+ *  @eventType mx.events.FlexEvent.NAVIGATOR_STATE_SAVING
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="applicationPersisting", type="mx.events.FlexEvent")]
-
-/**
- *  Dispatched after the application state data has been restored
- *  from disk by the application's persistence manager.  At the point
- *  this event is dispatched, all data related to the application state
- *  should be valid.  This event is only dispatched if the 
- *  <code>sessionCachingEnabled</code> property is set to true when
- *  the application is initialized.
- * 
- *  @eventType mx.events.FlexEvent.APPLICATION_RESTORE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
- */
-[Event(name="applicationRestore", type="mx.events.FlexEvent")]
-
-/**
- *  This cancelable event dispatched before the application attempts
- *  to restore its previously saved state when the application is being 
- *  launched.  Calling <code>preventDefault</code> on this event will 
- *  prevent the application state from being restored.
- * 
- *  @eventType mx.events.FlexEvent.APPLICATION_RESTORING
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
- */
-[Event(name="applicationRestoring", type="mx.events.FlexEvent")]
+[Event(name="navigatorStateSaving", type="mx.events.FlexEvent")]
 
 /**
  *  The base application class used for all view based application types.
@@ -237,7 +206,7 @@ public class MobileApplicationBase extends Application
      * 
      *  <p>The persistence manager will automatically save and restore
      *  the main navigator's persistence stack if the
-     *  <code>sessionCachingEnabled</code> flag is set to true. Data stored 
+     *  <code>persistNavigatorState</code> flag is set to true. Data stored 
      *  in the persistence manager will automatically be flushed to disk 
      *  when the application is suspended or exited.</p>
      *  
@@ -258,7 +227,6 @@ public class MobileApplicationBase extends Application
     {
         if (!_persistenceManager)
         {
-            registerPersistenceClassAliases();
             _persistenceManager = createPersistenceManager();
         }
         
@@ -266,10 +234,10 @@ public class MobileApplicationBase extends Application
     }
     
     //----------------------------------
-    //  sessionCachingEnabled
+    //  persistNavigatorState
     //----------------------------------
     
-    private var _sessionCachingEnabled:Boolean = false;
+    private var _persistNavigatorState:Boolean = false;
     
     /**
      *  Toggles the application session caching feature for the application.  When
@@ -292,7 +260,7 @@ public class MobileApplicationBase extends Application
      *  <code>FlexEvent.APPLICATION_RESTORE</code> event.  Canceling the APPLICATION_RESTORING
      *  event will prevent the navigation data from being restored.</p>
      * 
-     *  <p>The <code>sessionCachingEnabled</code> flag must be set to true before
+     *  <p>The <code>persistNavigatorState</code> flag must be set to true before
      *  the application initializes itself for the navigator's state to be automatically
      *  restored.</p>
      * 
@@ -301,17 +269,17 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get sessionCachingEnabled():Boolean
+    public function get persistNavigatorState():Boolean
     {
-        return _sessionCachingEnabled;
+        return _persistNavigatorState;
     }
     
     /**
      * @private
      */ 
-    public function set sessionCachingEnabled(value:Boolean):void
+    public function set persistNavigatorState(value:Boolean):void
     {
-        _sessionCachingEnabled = value;
+        _persistNavigatorState = value;
     }
     
     //----------------------------------
@@ -363,13 +331,13 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */  
-    protected function nativeApplication_invokeHandler(event:InvokeEvent):void
+    protected function invokeHandler(event:InvokeEvent):void
     {
     }
     
     /**
      *  This method is called when the application is exiting or being
-     *  sent to the background by the OS.  If <code>sessionCachingEnabled</code>
+     *  sent to the background by the OS.  If <code>persistNavigatorState</code>
      *  is set to true, the application will begin the state saving process
      *  here.
      * 
@@ -378,30 +346,27 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected function nativeApplication_deactivateHandler(event:Event):void
+    protected function deactivateHandler(event:Event):void
     {
         // Check if the application state should be persisted 
-        if (sessionCachingEnabled)
+        if (persistNavigatorState)
         {
             // Dispatch event for saving persistence data
             var eventCanceled:Boolean = false;
-            if (hasEventListener(FlexEvent.APPLICATION_PERSISTING))
-                eventCanceled = !dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_PERSISTING, 
+            if (hasEventListener(FlexEvent.NAVIGATOR_STATE_SAVING))
+                eventCanceled = !dispatchEvent(new FlexEvent(FlexEvent.NAVIGATOR_STATE_SAVING, 
                                                                 false, true));
             
             if (!eventCanceled)
             {
-                persistApplicationState();
-                
-                if (hasEventListener(FlexEvent.APPLICATION_PERSIST))
-                    dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_PERSIST));
+                saveNavigatorState();
             }
         }
 
         // Always flush the persistence manager to disk if it exists
         if (_persistenceManager)
         {
-            persistenceManager.flush();
+            persistenceManager.save();
         }
     }
     
@@ -414,7 +379,7 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected function backKeyHandler(event:KeyboardEvent):void
+    protected function backKeyUpHandler(event:KeyboardEvent):void
     {
     }
     
@@ -427,7 +392,7 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected function menuKeyHandler(event:KeyboardEvent):void
+    protected function menuKeyUpHandler(event:KeyboardEvent):void
     {
         if (activeView && !activeView.menuKeyHandledByView())
             viewMenuOpen = !viewMenuOpen;
@@ -436,7 +401,7 @@ public class MobileApplicationBase extends Application
     /**
      *  Method is responsible for create the persistence manager for the application.
      *  This method will automatically be called when the persistence manager is
-     *  accessed for the first time or if the <code>sessionCachingEnabled</code> flag
+     *  accessed for the first time or if the <code>persistNavigatorState</code> flag
      *  is set to true on the application.
      *  
      *  @langversion 3.0
@@ -451,7 +416,7 @@ public class MobileApplicationBase extends Application
     
     /**
      *  Responsible for persisting the application state to the persistence manager.
-     *  This method is automatically called when <code>sessionCachingEnabled</code>
+     *  This method is automatically called when <code>persistNavigatorState</code>
      *  is set to true.  By default, this method will save the application version 
      *  and the time the persistence object was created to the "timestamp" and 
      *  "applicationVersion" keys.
@@ -464,37 +429,19 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected function persistApplicationState():void
+    protected function saveNavigatorState():void
     {
         // Save version number of application
         var appDescriptor:XML = NativeApplication.nativeApplication.applicationDescriptor;
         var ns:Namespace = appDescriptor.namespace();
         
-        persistenceManager.setProperty("applicationVersion", 
+        persistenceManager.setProperty("versionNumber", 
                                         appDescriptor.ns::versionNumber.toString());
     }
     
     /**
-     *  Method is responsible for registering the class types that may be
-     *  saved to a persistence manager that uses a shared object as its data store.  
-     *  Since shared objects use the standard AMF encoding rules, custom class types
-     *  must be registered with the runtime so that they are properly read in.  This 
-     *  method is called before the persistence manager is initialized so that the 
-     *  application has a chance to use <code>flash.net.registerClassAlias()</code> 
-     *  before the persistence data is loaded.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */ 
-    protected function registerPersistenceClassAliases():void
-    {
-    }
-    
-    /**
      *  Responsible for restoring the application's state when the
-     *  <code>sessionCachingEnabled</code> flag is set to true.
+     *  <code>persistNavigatorState</code> flag is set to true.
      * 
      *  <p>This method will only be called if the <code>FlexEvent.APPLICATION_RESTORING</code>
      *  event is not canceled.</p>
@@ -504,7 +451,7 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected function restoreApplicationState():void
+    protected function loadNavigatorState():void
     {
     }
     
@@ -530,7 +477,7 @@ public class MobileApplicationBase extends Application
         systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
             orientationChangeHandler);
         NativeApplication.nativeApplication.
-            addEventListener(InvokeEvent.INVOKE, nativeApplication_invokeHandler);
+            addEventListener(InvokeEvent.INVOKE, invokeHandler);
         
         // We need to listen to different events on desktop and mobile because
         // on desktop, the deactivate event is dispatched whenever the window loses
@@ -541,10 +488,10 @@ public class MobileApplicationBase extends Application
         // FIXME (chiedozi): enumerate all possible os values
         if (os.indexOf("Windows") != -1 || os.indexOf("Mac OS") != -1)
             NativeApplication.nativeApplication.
-                addEventListener(Event.EXITING, nativeApplication_deactivateHandler);
+                addEventListener(Event.EXITING, deactivateHandler);
         else
             NativeApplication.nativeApplication.
-                addEventListener(Event.DEACTIVATE, nativeApplication_deactivateHandler);
+                addEventListener(Event.DEACTIVATE, deactivateHandler);
     }
     
     /**
@@ -596,9 +543,9 @@ public class MobileApplicationBase extends Application
         // The backKeyEventPreventDefaulted key is always set in the
         // deviceKeyDownHandler method and so doesn't need to be reset.
         if (key == Keyboard.BACK && !backKeyEventPreventDefaulted && !exitApplicationOnBackKey)
-            backKeyHandler(event);
+            backKeyUpHandler(event);
         else if (key == Keyboard.MENU && !menuKeyEventPreventDefaulted)
-            menuKeyHandler(event);
+            menuKeyUpHandler(event);
     }
     
     /**
@@ -729,24 +676,24 @@ public class MobileApplicationBase extends Application
         
         addApplicationListeners();
         
-        if (sessionCachingEnabled)
+        if (persistNavigatorState)
         {
-            registerPersistenceClassAliases();
+            // Register aliases for custom classes that will be written to
+            // persistence store by navigator
+            registerClassAlias("ViewDescriptor", ViewDescriptor);
+            registerClassAlias("NavigationStack", NavigationStack);
             
-            persistenceManager.initialize();
+            persistenceManager.load();
             
             // Dispatch event for loading persistence data
             var eventDispatched:Boolean = true;
-            if (hasEventListener(FlexEvent.APPLICATION_RESTORING))
-                eventDispatched = dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_RESTORING, 
+            if (hasEventListener(FlexEvent.NAVIGATOR_STATE_LOADING))
+                eventDispatched = dispatchEvent(new FlexEvent(FlexEvent.NAVIGATOR_STATE_LOADING, 
                                                 false, true));
             
             if (eventDispatched)
             {
-                restoreApplicationState();
-                
-                if (hasEventListener(FlexEvent.APPLICATION_RESTORE))
-                    eventDispatched = dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_RESTORE));
+                loadNavigatorState();
             }
         } 
     }
