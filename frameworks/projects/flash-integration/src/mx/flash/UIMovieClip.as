@@ -25,6 +25,7 @@ import flash.geom.Matrix3D;
 import flash.geom.PerspectiveProjection;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.geom.Vector3D;
 import flash.system.ApplicationDomain;
 import flash.ui.Keyboard;
 
@@ -3014,50 +3015,127 @@ public dynamic class UIMovieClip extends MovieClip
         _transform = value;
     }
     
+    private static var xformPt:Point;
+
     /**
-     * A utility method to update the rotation and scale of the transform while keeping a particular point, specified in the component's own coordinate space, 
-     * fixed in the parent's coordinate space.  This function will assign the rotation and scale values provided, then update the x/y/z properties
-     * as necessary to keep tx/ty/tz fixed.
-     * @param rx,ry,rz the new values for the rotation of the transform
-     * @param sx,sy,sz the new values for the scale of the transform
-     * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
+     * A utility method to update the rotation, scale, and translation of the 
+     * transform while keeping a particular point, specified in the component's 
+     * own coordinate space, fixed in the parent's coordinate space.  
+     * This function will assign the rotation, scale, and translation values 
+     * provided, then update the x/y/z properties as necessary to keep 
+     * the transform center fixed.
+     * @param scale the new values for the scale of the transform
+     * @param rotation the new values for the rotation of the transform
+     * @param translation the new values for the translation of the transform
+     * @param transformCenter the point, in the component's own coordinates, to keep fixed relative to its parent.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
+    public function transformAround(transformCenter:Vector3D,
+                                    scale:Vector3D = null,
+                                    rotation:Vector3D = null,
+                                    translation:Vector3D = null,
+                                    postLayoutScale:Vector3D = null,
+                                    postLayoutRotation:Vector3D = null,
+                                    postLayoutTranslation:Vector3D = null):void
     {
-        if(_layoutFeatures == null && (
-            (!isNaN(rx) && rx != 0) || 
-            (!isNaN(ry) && ry != 0) || 
-            (!isNaN(sz) && sz != 1)
-            ))
+        if (_layoutFeatures == null)
         {
-            initAdvancedLayoutFeatures();
-        } 
-        if(_layoutFeatures != null)
+            var needAdvancedLayout:Boolean = 
+                (scale != null && scale.z != 1 && !isNaN(scale.z)) ||
+                (rotation != null && ((!isNaN(rotation.x) && rotation.x != 0) || 
+                                     (!isNaN(rotation.y) && rotation.y != 0))) || 
+                (translation != null && translation.z != 0 && !isNaN(translation.z)) ||
+                postLayoutScale != null ||
+                postLayoutRotation != null ||
+                postLayoutTranslation != null;
+            if (needAdvancedLayout)
+                initAdvancedLayoutFeatures();
+        }
+        if (_layoutFeatures != null)
         {
-            _layoutFeatures.transformAround(rx,ry,rz,sx,sy,sz,tx,ty,tz,true);
+            _layoutFeatures.transformAround(transformCenter, scale, rotation,
+                translation, postLayoutScale, postLayoutRotation,
+                postLayoutTranslation);
             invalidateTransform();      
             invalidateParentSizeAndDisplayList();
         }
         else
         {
-            var xformedPt:Point = super.transform.matrix.transformPoint(new Point(tx,ty));
-            if(!isNaN(rz))
-            rotation = rz;
-            if(!isNaN(sx))
-                scaleX = sx;
-            if(!isNaN(sx))
-                scaleY = sy;            
-            var postXFormPoint:Point = super.transform.matrix.transformPoint(new Point(tx,ty));
-            x += xformedPt.x - postXFormPoint.x;
-            y += xformedPt.y - postXFormPoint.y;
+            if (rotation != null && !isNaN(rotation.z))
+                this.rotation = rotation.z;
+            if (scale != null)
+            {
+                scaleX = scale.x;
+                scaleY = scale.y;
+            }            
+            if (transformCenter == null)
+            {
+                if (translation != null)
+                {
+                    x = translation.x;
+                    y = translation.y;
+                }
+            }
+            else
+            {
+                if (xformPt == null)
+                    xformPt = new Point();
+                xformPt.x = transformCenter.x;
+                xformPt.y = transformCenter.y;                
+                var postXFormPoint:Point = 
+                    super.transform.matrix.transformPoint(xformPt);
+                if (translation != null)
+                {
+                    x += translation.x - postXFormPoint.x;
+                    y += translation.y - postXFormPoint.y;
+                }
+                else
+                {
+                    var xformedPt:Point = 
+                        super.transform.matrix.transformPoint(xformPt);
+                    x += xformedPt.x - postXFormPoint.x;
+                    y += xformedPt.y - postXFormPoint.y;                                   
+                }
+            }
         }
     }
     
+    public function transformPointToParent(transformCenter:Vector3D,position:Vector3D,postLayoutPosition:Vector3D):void
+    {
+        if (_layoutFeatures != null)
+        {
+            _layoutFeatures.transformPointToParent(true, transformCenter,
+                position, postLayoutPosition);
+        }
+        else
+        {
+            if(xformPt == null)
+                xformPt = new Point();
+            if (transformCenter)
+            {
+                xformPt.x = transformCenter.x;
+                xformPt.y = transformCenter.y;
+            }
+            var tmp:Point = super.transform.matrix.transformPoint(xformPt);
+            if (position != null)
+            {            
+                position.x = tmp.x;
+                position.y = tmp.y;
+                position.z = 0;
+            }
+            if (postLayoutPosition != null)
+            {
+                postLayoutPosition.x = tmp.x;
+                postLayoutPosition.y = tmp.y;
+                postLayoutPosition.z = 0;
+            }
+        }
+    }
+
     /**
      *  Helper method to invalidate parent size and display list if
      *  this object affects its layout (includeInLayout is true).
