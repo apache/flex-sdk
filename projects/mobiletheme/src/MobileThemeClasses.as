@@ -22,11 +22,11 @@ internal class MobileThemeClasses
  *  from the classes specified in manifest.xml.
  */
 import spark.skins.mobile.MobileApplicationSkin; MobileApplicationSkin;
-import spark.skins.mobile.ActionBarSkin; ActionBarSkin;
 import spark.skins.mobile.ViewNavigatorSkin; ViewNavigatorSkin;
 
 // Slider
 import spark.skins.mobile.ButtonSkin; spark.skins.mobile.ButtonSkin;
+import spark.skins.mobile.ActionBarSkin; ActionBarSkin;
 import spark.skins.mobile.NavigationBarSkin; NavigationBarSkin;
 import spark.skins.mobile.AdaptableApplicationSkin; AdaptableApplicationSkin;
 import spark.skins.mobile.AndroidApplicationSkin; AndroidApplicationSkin;
