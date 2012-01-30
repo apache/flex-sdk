@@ -194,8 +194,7 @@ public class ActionBarSkin extends MobileSkin
         var contentGroupsHeight:Number = unscaledHeight - 2;
         
         // FXG uses scale-9, 3 px drop shadow is drawn outside the bounds
-        border.width = unscaledWidth;
-        border.height = unscaledHeight + 3;
+        resizePart(border, unscaledWidth, unscaledHeight + 3);
         
         // position groups, overlap of navigation and action groups is allowed
         // when overlap occurs, titleDisplay/titleGroup is not visible
