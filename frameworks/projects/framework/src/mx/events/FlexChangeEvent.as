@@ -98,6 +98,13 @@ public class FlexChangeEvent extends Event
     public static const REMOVE_CHILD_BRIDGE:String = "removeChildBridge";
 
 
+    /**
+     *  @private
+     * 
+     *  Dispatched by a CSSStyleDeclaration when a style property is changed.
+     */
+    public static const STYLE_CHANGED:String = "styleChanged";
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
