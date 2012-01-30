@@ -77,6 +77,23 @@ public class GradientBase extends EventDispatcher
 	
 	//--------------------------------------------------------------------------
 	//
+	//  Class Properties
+	//
+	//--------------------------------------------------------------------------
+	
+	
+	/**
+	 *  Value of the width and height of the untransformed gradient
+	 * 
+	 *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+	 */ 
+	public static const GRADIENT_DIMENSION:Number = 1638.4;
+	
+	//--------------------------------------------------------------------------
+	//
 	//  Properties
 	//
 	//--------------------------------------------------------------------------
