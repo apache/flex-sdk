@@ -16,6 +16,7 @@ import flash.utils.getQualifiedClassName;
 
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.PropertyChangeEvent;
 
 import spark.components.SkinnableContainer;
 import spark.components.View;
@@ -203,19 +204,32 @@ public class ViewNavigatorBase extends SkinnableContainer
     {
         return _icon;    
     }
+    
     /**
      *  @private
      */
     public function set icon(value:Class):void
     {
-        _icon = value;
+        if (_icon != value)
+        {
+            var oldValue:Class = _icon;
+            _icon = value;
+            
+            if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+            {
+                var changeEvent:PropertyChangeEvent = 
+                    PropertyChangeEvent.createUpdateEvent(this, "icon", oldValue, _icon);
+                
+                dispatchEvent(changeEvent);
+            }
+        }
     }
     
     //----------------------------------
     //  label
     //----------------------------------
     
-    private var _label:String;
+    private var _label:String = "";
     
     [Bindable]
     /**
@@ -240,7 +254,16 @@ public class ViewNavigatorBase extends SkinnableContainer
     {    
         if (_label != value)
         {
+            var oldValue:String = _label;
             _label = value;
+            
+            if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+            {
+                var changeEvent:PropertyChangeEvent = 
+                    PropertyChangeEvent.createUpdateEvent(this, "label", oldValue, _label);
+                
+                dispatchEvent(changeEvent);
+            }
         }
     }
     
@@ -362,6 +385,39 @@ public class ViewNavigatorBase extends SkinnableContainer
      */
     public var parentNavigator:ViewNavigatorBase;
     
+    //----------------------------------
+    //  transitionsEnabled
+    //----------------------------------
+    
+    /**
+     *  Flag indicating whether transitions are played by the 
+     *  navigator when a view changes or when the actionBar or tab bar 
+     *  visibility changes.
+     * 
+     *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    public var transitionsEnabled:Boolean = true;
+    
+    //----------------------------------
+    //  useDefaultTransitions
+    //----------------------------------
+    
+    // TODO (chiedozi): PARB name, Getters/Setters
+    /**
+     *
+     *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    public var useDefaultTransitions:Boolean = true;
     
     //--------------------------------------------------------------------------
     //
