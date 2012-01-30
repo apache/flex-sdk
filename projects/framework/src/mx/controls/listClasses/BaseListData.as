@@ -43,6 +43,11 @@ import mx.core.IUID;
  *  Changing these values can lead to unexpected results.</p>
  *
  *  @see mx.controls.listClasses.IDropInListItemRenderer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 
 public class BaseListData
@@ -69,6 +74,11 @@ public class BaseListData
      * 
      *  @param columnIndex The index of the column in the currently visible columns of the 
      *  control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function BaseListData(label:String, uid:String,
                                  owner:IUIComponent, rowIndex:int = 0,
@@ -98,6 +108,11 @@ public class BaseListData
      *  The index of the column of the List-based control relative 
      *  to the currently visible columns of the control, where the first column 
      *  is at an index of 1. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var columnIndex:int;
 
@@ -110,6 +125,11 @@ public class BaseListData
     /**
      *  The textual representation of the item data, based on the list class's
      *  <code>itemToLabel()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var label:String;
     
@@ -123,6 +143,11 @@ public class BaseListData
      *  This property is typed as IUIComponent so that drop-ins
      *  like Label and TextInput don't have to have dependencies
      *  on List and all of its dependencies.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var owner:IUIComponent;
 
@@ -140,6 +165,11 @@ public class BaseListData
      *  of the control, and then click on the same row as before. 
      *  The <code>rowIndex</code> now contains a different value corresponding to 
      *  the new index of the row in the currently visible rows.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var rowIndex:int;
 
@@ -155,6 +185,11 @@ public class BaseListData
 
     /**
      *  The unique identifier for this item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get uid():String
     {
