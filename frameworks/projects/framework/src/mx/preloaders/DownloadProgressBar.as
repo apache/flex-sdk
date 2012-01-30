@@ -69,7 +69,7 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	//--------------------------------------------------------------------------
 	
 	/**
-	 *  Constructor
+	 *  Constructor.
 	 */
 	public function DownloadProgressBar() 
 	{
