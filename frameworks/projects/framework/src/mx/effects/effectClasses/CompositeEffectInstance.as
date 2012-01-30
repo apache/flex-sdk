@@ -127,6 +127,7 @@ public class CompositeEffectInstance extends EffectInstance
             timerTween.seek(value);
         else
             _playheadTime = value;
+        super.playheadTime = value;
     }
 
 	//--------------------------------------------------------------------------
