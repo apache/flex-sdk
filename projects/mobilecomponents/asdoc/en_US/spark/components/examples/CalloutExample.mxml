@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark">
+    <fx:Style>
+        <!-- Styling Callout with backgroundColor and 
+        contentBackgroundAppearance style as flat which gives no shadow -->
+        @namespace s "library://ns.adobe.com/flex/spark";
+        s|Callout{
+            backgroundColor:"red"; 
+            contentBackgroundAppearance:"flat";
+        }
+    </fx:Style>
+    <fx:Declarations>
+		<!-- Declaring a Callout which closes when it loses focus. 
+        Setting a custom skin to skinClass -->
+        <s:Callout id="callout"
+          width="200" height="200"
+          focusOut="callout.close()"
+          skinClass="skins.CalloutCustomSkin"/>
+	</fx:Declarations>
+    <s:HGroup>
+        <!-- Focusing in the textInput opens a callout -->
+       <s:TextInput id="myTextInput" focusIn="callout.open(myTextInput)" />
+    </s:HGroup>
+</s:Application>
