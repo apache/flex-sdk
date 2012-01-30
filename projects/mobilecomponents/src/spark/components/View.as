@@ -98,8 +98,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the screen is about to be removed in response
- *  to a screen change.  Calling <code>preventDefault()</code> 
- *  while handling this event will cancel the screen change.
+ *  to a screen change.  
+ *  Calling <code>preventDefault()</code> 
+ *  while handling this event cancels the screen change.
  * 
  *  @eventType mx.events.ViewNavigatorEvent.REMOVING
  *  
@@ -111,10 +112,58 @@ use namespace mx_internal;
 [Event(name="removing", type="spark.events.ViewNavigatorEvent")]
 
 /**
- *  The View class is the base container class for all Views used by view
- *  navigators.  The View container extends <code>Group</code> and adds
- *  additional properties that are used to communicate with it's parent
- *  navigators' various ui controls.
+ *  The View class is the base container class for all views used by view
+ *  navigators.  
+ *  The View container extends the Group container and adds
+ *  additional properties used to communicate with it's parent
+ *  navigator.
+ *
+ *  <p>In a mobile application, the content area of the application
+ *  displays the individual screens, or views, that make up the application. 
+ *  Users navigate the views of the application by using the touch screen, 
+ *  components built into the application, and the input controls of the mobile device.</p>
+ *
+ *  <p>Each view in an application corresponds to a View container defined 
+ *  in an ActionScript or MXML file. 
+ *  Each View contains a <code>data</code> property that specifies the data 
+ *  associated with that view. 
+ *  Views can use the <code>data</code> property to pass information to each 
+ *  other as the user navigates the application.</p>
+ *
+ *  @mxml
+ *  
+ *  <p>The <code>&lt;s:View&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;s:View
+ *   <strong>Properties</strong>
+ *    actionBarVisible="true"
+ *    actionContent="null"
+ *    actionLayout="null"
+ *    data="null"
+ *    destructionPolicy="auto"
+ *    navigationContent="null"
+ *    navigationLayout="null"
+ *    overlayControls="false"
+ *    tabBarVisible="true"
+ *    title=""
+ *    titleContent="null"
+ *    titleLayout="null"
+ *    viewMenuItems="null"
+ * 
+ *   <strong>Events</strong>
+ *    backKeyPressed="<i>No default</i>"
+ *    dataChange="<i>No default</i>"
+ *    menuKeyPressed="<i>No default</i>"
+ *    removing="<i>No default</i>"
+ *    viewActivate="<i>No default</i>"
+ *    viewDeactivate="<i>No default</i>"
+ * 
+ *  &gt;
+ *  </pre>
+ *
+ *  @see ViewNavigator
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10.1
@@ -155,10 +204,11 @@ public class View extends SkinnableContainer implements IDataRenderer
     private var _active:Boolean = false;
     
     /**
-     *  Flag indicating whether the current screen is active.  The view's navigator will 
-     *  automatically set this flag to true or false as its state changes.  This getter 
-     *  will dispatch <code>FlexEvent.VIEW_ACTIVATE</code> and 
-     *  <code>FlexEvent.VIEW_DEACTIVATE</code> as the value changes.
+     *  Indicates whether the current view is active.  
+     *  The view's navigator  automatically sets this flag to <code>true</code> 
+     *  or <code>false</code> as its state changes.  
+     *  Setting this property can dispatch the <code>viewActivate</code> or 
+     *  <code>viewDeactivate</code> events. 
      *  
      *  @default false
      * 
@@ -265,10 +315,7 @@ public class View extends SkinnableContainer implements IDataRenderer
     
     [Inspectable(category="General", defaultValue="false")]
     /**
-     *  Determines the way the view's navigator's ui controls
-     *  should lay out in relation to the view content.  If
-     *  set to true, the ui controls will hover on top of the
-     *  view.
+     *  @copy spark.components.supportClasses.ViewNavigatorBase#overlayControls
      *  
      *  @default false
      * 
@@ -342,7 +389,7 @@ public class View extends SkinnableContainer implements IDataRenderer
     private var _navigator:ViewNavigator = null;
     
     /**
-     * The navigator that the view resides in.
+     * The view navigator that this view resides in.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -350,7 +397,7 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @productversion Flex 4.5
      */
     
-	[Bindable("navigatorChanged")]
+    [Bindable("navigatorChanged")]
     public function get navigator():ViewNavigator
     {
         return _navigator;
@@ -362,9 +409,9 @@ public class View extends SkinnableContainer implements IDataRenderer
     mx_internal function setNavigator(value:ViewNavigator):void
     {
         _navigator = value;
-		
-		if (hasEventListener("navigatorChanged"))
-			dispatchEvent(new Event("navigatorChanged"));
+        
+        if (hasEventListener("navigatorChanged"))
+            dispatchEvent(new Event("navigatorChanged"));
     }
     
     //--------------------------------------------------------------------------
@@ -380,10 +427,9 @@ public class View extends SkinnableContainer implements IDataRenderer
     
     [Inspectable(category="General", defaultValue="true")]
     /**
-     *  Flag indicating whether a view should show the action bar or not.
-     *  This doesn't necessarily correlate to the visible property of the
-     *  navigator's ActionBar.  In the end, ViewNavigator and the developer
-     *  have the last say as to what's visible.
+     *  Specifies whether a view should show the action bar or not.
+     *  This property does not necessarily correlate to the 
+     *  <code>visible</code> property of the view navigator's ActionBar control. 
      *
      *  @default true
      * 
@@ -432,10 +478,16 @@ public class View extends SkinnableContainer implements IDataRenderer
     
     [ArrayElementType("mx.core.IVisualElement")]
     /**
-     *  Array of visual elements that are used as the ActionBar's
-     *  actionContent when this view is active.
+     *  This property overrides the <code>actionContent</code>
+     *  property in the ActionBar, ViewNavigator, and 
+     *  ViewNavigatorApplication components.
+     * 
+     *  @copy ActionBar#actionContent
      *
      *  @default null
+     *
+     *  @see ActionBar#actionContent
+     *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -467,8 +519,10 @@ public class View extends SkinnableContainer implements IDataRenderer
     //  actionLayout
     //----------------------------------
     
+    private var _actionLayout:LayoutBase;
+    
     /**
-     *  Layout for the ActionBar's action content group.
+     *  @copy ActionBar#actionLayout
      *
      *  @default null
      *  
@@ -477,8 +531,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private var _actionLayout:LayoutBase;
-    
     public function get actionLayout():LayoutBase
     {
         return _actionLayout;
@@ -507,8 +559,11 @@ public class View extends SkinnableContainer implements IDataRenderer
     private var _viewMenuItems:Vector.<ViewMenuItem>;
     
     /**
-     *  The Vector of ViewMenuItems that are passed to the ViewMenu when
+     *  The Vector of ViewMenuItem objects that are passed to the ViewMenu when
      *  this View is the active view. 
+     *
+     *  @see ViewMenu
+     *  @see ViewMenuItem
      */   
     public function get viewMenuItems():Vector.<ViewMenuItem>
     {
@@ -528,10 +583,16 @@ public class View extends SkinnableContainer implements IDataRenderer
     
     [ArrayElementType("mx.core.IVisualElement")]
     /**
-     *  Array of visual elements that are used as the ActionBar's
-     *  navigationContent when this view is active.
+     *  This property overrides the <code>navigationContent</code>
+     *  property in the ActionBar, ViewNavigator, and 
+     *  ViewNavigatorApplication components.
+     * 
+     *  @copy ActionBar#navigationContent
      *
      *  @default null
+     * 
+     *  @see ActionBar#navigationContent
+     *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -566,7 +627,7 @@ public class View extends SkinnableContainer implements IDataRenderer
     private var _navigationLayout:LayoutBase;
     
     /**
-     *  Layout for the ActionBar navigation content group.
+     *  @copy ActionBar#navigationLayout
      *
      *  @default null
      *  
@@ -595,44 +656,43 @@ public class View extends SkinnableContainer implements IDataRenderer
             dispatchEvent(changeEvent);
         }
     }
-	
+    
 
     
-	//----------------------------------
-	//  tabBarVisible
-	//----------------------------------
-	private var _tabBarVisible:Boolean = true;
+    //----------------------------------
+    //  tabBarVisible
+    //----------------------------------
+    private var _tabBarVisible:Boolean = true;
     
     [Inspectable(category="General", defaultValue="true")]
-	/**
-	 *  Flag indicating whether a view should show the action bar or not.
-	 *  This doesn't necessarily correlate to the visible property of the
-	 *  navigator's ActionBar.  In the end, ViewNavigator and the developer
-	 *  have the last say as to what's visible.
-	 *
-	 *  @default true
+    /**
+     *  Specifies whether a view should show the tab bar or not.
+     *  This property does not necessarily correlate to the 
+     *  <code>visible</code> property of the navigator's TabBar control. 
+     *
+     *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-	 */
-	public function get tabBarVisible():Boolean
-	{
-		return _tabBarVisible;
-	}
+     */
+    public function get tabBarVisible():Boolean
+    {
+        return _tabBarVisible;
+    }
     
     /**
      *  @private
      */
-	public function set tabBarVisible(value:Boolean):void
-	{
+    public function set tabBarVisible(value:Boolean):void
+    {
         var oldValue:Boolean = _tabBarVisible;
-		_tabBarVisible = value;
-		
-		// Immediately request actionBar's visibility be toggled
-		if (isActive && navigator)
-		{
+        _tabBarVisible = value;
+        
+        // Immediately request actionBar's visibility be toggled
+        if (isActive && navigator)
+        {
             if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
             {
                 var changeEvent:PropertyChangeEvent = 
@@ -640,8 +700,8 @@ public class View extends SkinnableContainer implements IDataRenderer
                 
                 dispatchEvent(changeEvent);
             }
-		}
-	}
+        }
+    }
     
     /**
      *  @private
@@ -661,7 +721,13 @@ public class View extends SkinnableContainer implements IDataRenderer
     
     [Bindable]
     /**
-     *  The title for the view.
+     *  This property overrides the <code>title</code>
+     *  property in the ActionBar, ViewNavigator, and 
+     *  ViewNavigatorApplication components.
+     * 
+     *  @copy ActionBar#title
+     *
+     *  @default ""
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -700,10 +766,16 @@ public class View extends SkinnableContainer implements IDataRenderer
     
     [ArrayElementType("mx.core.IVisualElement")]
     /**
-     *  Array of visual elements that are used as the ActionBar's
-     *  titleContent when this view is active.
+     *  This property overrides the <code>titleContent</code>
+     *  property in the ActionBar, ViewNavigator, and 
+     *  ViewNavigatorApplication components.
+     * 
+     *  @copy ActionBar#titleContent
      *
      *  @default null
+     * 
+     *  @see ActionBar#titleContent
+     *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -735,8 +807,10 @@ public class View extends SkinnableContainer implements IDataRenderer
     //  titleLayout
     //----------------------------------
     
+    private var _titleLayout:LayoutBase;
+    
     /**
-     *  Layout for the ActionBar's titleContent group.
+     *  @copy ActionBar#titleLayout
      *
      *  @default null
      *  
@@ -745,8 +819,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private var _titleLayout:LayoutBase;
-    
     public function get titleLayout():LayoutBase
     {
         return _titleLayout;
@@ -784,6 +856,10 @@ public class View extends SkinnableContainer implements IDataRenderer
     
     /**
      *  The data associated with the current view.
+     *  You use this property to pass infomration to the View when 
+     *  it is pushed onto the navigator's stack.
+     *  You can set this property by passing a <code>data</code>
+     *  argument to the <code>pushView()</code> method. 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -813,11 +889,30 @@ public class View extends SkinnableContainer implements IDataRenderer
     //--------------------------------------------------------------------------
     
     /**
-     *  Methods creates an object that should be returned to the
-     *  previous screen when this view is popped off a navigator's
-     *  stack.
+     *  Creates an object returned to the view navigator
+     *  when this view is popped off the navigator's stack.
+     *
+     *  <p>Override this method in a View to return data back the new 
+     *  view when this view is popped off the stack. 
+     *  The <code>createReturnObject()</code> method returns a single Object.
+     *  The Object returned by this method is written to the 
+     *  <code>ViewNavigator.poppedViewReturnedObject</code> property. </p>
+     *
+     *  <p>The <code>ViewNavigator.poppedViewReturnedObject</code> property
+     *  is of type ViewReturnObject.
+     *  The <code>ViewReturnObject.object</code> property contains the 
+     *  value returned by this method. </p>
+     *
+     *  <p>If the <code>poppedViewReturnedObject</code> property is null, 
+     *  no data was returned. 
+     *  The <code>poppedViewReturnedObject</code> property is guaranteed to be set 
+     *  in the new view before the new view receives the <code>add</code> event.</p>
      * 
-     *  @return null
+     *  @return The value written to the <code>object</code> field of the 
+     *  <code>ViewNavigator.poppedViewReturnedObject</code> property.  
+     *
+     *  @see ViewNavigator#poppedViewReturnedObject
+     *  @see spark.components.supportClasses.ViewReturnObject
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -831,12 +926,14 @@ public class View extends SkinnableContainer implements IDataRenderer
     
     /**
      *  Checks the aspect ratio of the stage and returns the proper state
-     *  that the View should change to.  The possible values are either "portrait"
-     *  or "landscape".  The state is only changed if the desired state exists
-     *  on the View. If it does not, this method will return the component's
-     *  current state.
+     *  that the View should change to.  
      * 
      *  @return A String specifying the name of the state to apply to the view. 
+     *  The possible return values are <code>"portrait"</code>
+     *  or <code>"landscape"</code>.  
+     *  The state is only changed if the desired state exists
+     *  on the View. 
+     *  If it does not, this method returns the component's current state.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -866,7 +963,7 @@ public class View extends SkinnableContainer implements IDataRenderer
     private function stage_orientationChangeHandler(event:StageOrientationEvent):void
     {
         if (isActive)
-        	setCurrentState(getCurrentViewState(), false);
+            setCurrentState(getCurrentViewState(), false);
     }
     
     
@@ -881,7 +978,7 @@ public class View extends SkinnableContainer implements IDataRenderer
      */ 
     override public function initialize():void
     {
-    	super.initialize();
+        super.initialize();
         
         addEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
     }
@@ -907,10 +1004,12 @@ public class View extends SkinnableContainer implements IDataRenderer
     //--------------------------------------------------------------------------
 
     /**
-     *  Responsible for serializes the view's data object when the view is being
-     *  persisted to disk.  The created object should be something that can
-     *  be successfully written to a shared object.  By default, this will return 
-     *  the data object of the view.
+     *  Responsible for serializes the view's <code>data</code> property 
+     *  when the view is being persisted to disk.  
+     *  The returned object should be something that can
+     *  be successfully written to a shared object.  
+     *  By default, this method returns the <code>data</code> property
+     *  of the view.
      * 
      *  @return The serialized data object.
      * 
@@ -925,8 +1024,14 @@ public class View extends SkinnableContainer implements IDataRenderer
     }
     
     /**
-     *  Deserializes a data object that was saved to disk by the view.  The
-     *  returned object will be the value assigned to the view's data object.
+     *  Deserializes a data object that was saved to disk by the view,
+     *  typically by a call to the <code>serializeData()</code> method.  
+     *
+     *  @param value The data object to deserialize.
+     *  
+     *  @return The value assigned to the 
+     *  view's <code>data</code> property.
+     *
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
