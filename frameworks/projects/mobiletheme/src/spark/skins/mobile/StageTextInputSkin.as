@@ -71,10 +71,10 @@ public class StageTextInputSkin extends StageTextSkinBase
         super.layoutContents(unscaledWidth, unscaledHeight);
         
         // position & size the text
-        var paddingLeft:Number = getStyle("paddingLeft");
-        var paddingRight:Number = getStyle("paddingRight");
-        var paddingTop:Number = getStyle("paddingTop");
-        var paddingBottom:Number = getStyle("paddingBottom");
+        var paddingLeft:Number = getCorrectedPadding("paddingLeft");
+        var paddingRight:Number = getCorrectedPadding("paddingRight");
+        var paddingTop:Number = getCorrectedPadding("paddingTop");
+        var paddingBottom:Number = getCorrectedPadding("paddingBottom");
         
         var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
         var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
@@ -94,9 +94,12 @@ public class StageTextInputSkin extends StageTextSkinBase
         
         if (promptDisplay)
         {
-            promptDisplay.commitStyles();
-            setElementSize(promptDisplay, unscaledTextWidth, adjustedTextHeight);
-            setElementPosition(promptDisplay, paddingLeft, textY);
+            var promptHeight:Number = getElementPreferredHeight(promptDisplay);
+            var promptY:Number = Math.round(0.5 * (unscaledTextHeight - promptHeight)) + paddingTop;
+            var promptX:Number = getStyle("paddingLeft");
+                
+            setElementSize(promptDisplay, unscaledTextWidth, promptHeight);
+            setElementPosition(promptDisplay, promptX, promptY);
         }
     }
     
