@@ -98,7 +98,7 @@ public class LinearGradientStroke extends GradientStroke implements IStroke
      */
     public function LinearGradientStroke(weight:Number = 0,
                                          pixelHinting:Boolean = false,
-                                         scaleMode:String = "none",
+                                         scaleMode:String = "normal",
                                          caps:String = null,
                                          joints:String = null,
                                          miterLimit:Number = 0)
