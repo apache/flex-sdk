@@ -151,7 +151,11 @@ public class FlipViewTransition extends ViewTransitionBase
      */
     private var animatedProperty:String;
     
-    
+    /**
+     *  @private
+     */
+    private var flipEffect:IEffect;
+        
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -317,7 +321,7 @@ public class FlipViewTransition extends ViewTransitionBase
         // Align underside 'face' of our card.
         alignCardFaces(endView);
                         
-        return createCardFlipAnimation(transitionGroup, endView.width); 
+        return createCardFlipAnimation(endView.width); 
     }
     
     /**
@@ -332,7 +336,7 @@ public class FlipViewTransition extends ViewTransitionBase
         // Align underside 'face' of our card.
         alignCardFaces(targetNavigator);
                         
-        return createCardFlipAnimation(transitionGroup, endView.width);     
+        return createCardFlipAnimation(endView.width);     
     }
         
     /**
@@ -340,7 +344,7 @@ public class FlipViewTransition extends ViewTransitionBase
      *  Shared helper routine which serves as our effect factory for both standard
      *  and consolidated transitions.
      */  
-    protected function createCardFlipAnimation(flipTarget:UIComponent, width:Number):IEffect
+    protected function createCardFlipAnimation(width:Number):IEffect
     {
         // Now offset our transform center as appropriate for the transition direction
         transitionGroup.transformX = viewWidth / 2;
@@ -383,10 +387,11 @@ public class FlipViewTransition extends ViewTransitionBase
         // an update listener so that we can hide the old view once it's out
         // of view.
         animation.motionPaths = vector;
-        animation.target = flipTarget;
+        animation.target = transitionGroup;
         animation.duration = duration;
         animation.addEventListener("effectUpdate", effectUpdateHandler);
         animation.easer = easer;
+        flipEffect = animation;
         
         return animation;  
     }
@@ -405,10 +410,11 @@ public class FlipViewTransition extends ViewTransitionBase
             if (!consolidatedTransition)
                 startView.visible = false;
             else
-                cachedNavigator.visible = false;
-            
-            event.target.removeEventListener("effectUpdate", effectUpdateHandler);
+                cachedNavigator.displayObject.visible = false;
         }
+        
+        // Ensure transform matrix is updated even when layout is disabled.
+        transitionGroup.validateDisplayList();
     }
     
     //--------------------------------------------------------------------------
@@ -428,7 +434,7 @@ public class FlipViewTransition extends ViewTransitionBase
         alignCubeFaces(startView, endView);
         
         // Construct our animation sequence now that actors are configured.
-        return createCubeFlipAnimation(transitionGroup, vertical ? viewHeight : viewWidth);
+        return createCubeFlipAnimation(vertical ? viewHeight : viewWidth);
     }
     
     /**
@@ -444,7 +450,7 @@ public class FlipViewTransition extends ViewTransitionBase
         alignCubeFaces(cachedNavigator, targetNavigator);
                         
         // Construct our animation sequence now that actors are configured.
-        return createCubeFlipAnimation(transitionGroup, vertical ? viewHeight : viewWidth); 
+        return createCubeFlipAnimation(vertical ? viewHeight : viewWidth); 
     }
     
     /**
@@ -452,19 +458,20 @@ public class FlipViewTransition extends ViewTransitionBase
      *  Shared helper routine which serves as our effect factory for both standard
      *  and consolidated transitions.
      */  
-    protected function createCubeFlipAnimation(flipTarget:UIComponent, depth:Number):IEffect
+    protected function createCubeFlipAnimation(depth:Number):IEffect
     {
         // Validate our transition group prior to the start of our animation.
         transitionGroup.validateNow();
         
         var p:Parallel = new Parallel();
-        p.target = flipTarget;
+        p.target = transitionGroup;
         
         // Zoom out
         var m1:Move3D = new Move3D();
         m1.zTo = depth / 1.45;
         m1.duration = duration/2;
         m1.addEventListener("effectUpdate", cubeEffectUpdateHandler);
+        flipEffect = m1;
         
         // Zoom back in
         var m2:Move3D = new Move3D();
@@ -499,10 +506,10 @@ public class FlipViewTransition extends ViewTransitionBase
             
         var frontFacing:Boolean = isFrontFacing(face);
         if (!frontFacing)
-        {
             face.visible = false;
-            event.target.removeEventListener("effectUpdate", cubeEffectUpdateHandler);
-        }
+        
+        // Ensure transform matrix is updated even when layout is disabled.
+        transitionGroup.validateDisplayList();
     }
         
     /**
@@ -551,7 +558,7 @@ public class FlipViewTransition extends ViewTransitionBase
             face.scaleX = -1;
         }
     }
-    
+
     /**
      *  @private
      */
@@ -772,9 +779,12 @@ public class FlipViewTransition extends ViewTransitionBase
         transitionGroup = null;
         cachedNavigator = null;
         
+        flipEffect.removeEventListener("effectUpdate", cubeEffectUpdateHandler);
+        flipEffect.removeEventListener("effectUpdate", effectUpdateHandler);
+        flipEffect = null;
+        
         super.cleanUp();
     }
-    
 
 }
 }
