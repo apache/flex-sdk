@@ -7170,7 +7170,7 @@ public class UIComponent extends FlexSprite
 
             if (sizeChanging && includeInLayout)
             {
-                // TODO EGeorgie: we don't need this invalidateDisplayList() here
+                // FIXME (egeorgie): we don't need this invalidateDisplayList() here
                 // because we'll call it if the parent sets new actual size?
                 invalidateDisplayList();
                 invalidateParentSizeAndDisplayList();
@@ -7729,7 +7729,7 @@ public class UIComponent extends FlexSprite
             lastUnscaledWidth = unscaledWidth;
             lastUnscaledHeight = unscaledHeight;
 
-            // TODO EGeorgie: should we reset the flag immediately after we check it?
+            // FIXME (egeorgie): should we reset the flag immediately after we check it?
             invalidateDisplayListFlag = false;
              
             // LAYOUT_DEBUG
@@ -9023,7 +9023,7 @@ public class UIComponent extends FlexSprite
      */
     private function getTotalDuration(effect:IEffect):Number
     {
-        // TODO (chaase): we should add timing properties to some
+        // FIXME (chaase): we should add timing properties to some
         // interface to avoid these hacks
         var duration:Number = 0;
         var effectObj:Object = Object(effect);
