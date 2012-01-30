@@ -142,6 +142,10 @@ public class SoundEffectInstance extends EffectInstance
         {
             return duration;
         }
+        else if (sound == null)
+        {
+            return 0;
+        }
         else
         {
             // Include the number of loops .
@@ -211,6 +215,9 @@ public class SoundEffectInstance extends EffectInstance
      */
     public function get isLoading():Boolean
     {   
+        if (!sound)
+            return false;
+        
         return source is Class ||
                sound.bytesTotal > 0;
     }
@@ -443,6 +450,8 @@ public class SoundEffectInstance extends EffectInstance
         // Dispatch an effectStart event from the target.
         super.play();
         
+        if (!sound)
+            return;
         /*
         if (!isLoading && sound)
             sound.load(new URLRequest(source), bufferTime);
@@ -554,8 +563,11 @@ public class SoundEffectInstance extends EffectInstance
         
         resumedPosition += pausedPosition;
         
-        _soundChannel = sound.play(resumedPosition, loops, pausedTransform);    
-        _soundChannel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
+        if (sound)
+        {
+            _soundChannel = sound.play(resumedPosition, loops, pausedTransform);    
+            _soundChannel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
+        }
     }
     
     /**
