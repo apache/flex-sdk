@@ -19,6 +19,11 @@
       To use the Flex chrome, set <code>systemChrome</code> to "none" in the application's .xml file,
       and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowedApplicationSkin. 
 
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+
       @see spark.components.WindowedApplication
       @see spark.components.Window
 -->
