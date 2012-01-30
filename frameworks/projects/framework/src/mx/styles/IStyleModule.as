@@ -16,6 +16,11 @@ package mx.styles
  * Simple interface that defines an <code>unload()</code> method.
  * You can cast an object to an IStyleModule type so that there is no dependency on the StyleModule
  * type in the loading application.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IStyleModule
 {
@@ -27,6 +32,11 @@ public interface IStyleModule
 
     /**
      * Unloads the style module.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function unload():void;
 }
