@@ -13,6 +13,8 @@ package spark.components.supportClasses
 {
 import flash.events.Event;
 import flash.events.KeyboardEvent;
+import flash.geom.Rectangle;
+import flash.text.Font;
 import flash.text.TextField;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
@@ -21,6 +23,7 @@ import flash.ui.Keyboard;
 
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.resources.ResourceManager;
 import mx.styles.IStyleClient;
 
 import spark.core.IEditableText;
@@ -28,17 +31,12 @@ import spark.events.TextOperationEvent;
 
 use namespace mx_internal;
 
-// TODO:
-//  - load truncation indicator from resource
-//  - verify focusEnabled functionality
-//  - implement heightInLines/widthInChars (or remove)
-//  - implement scrollToRange()
-//  - dispatch isTruncatedChanged
-//
+[ResourceBundle("core")]
+
 //
 // To use:
 //   in createChildren():
-//       var tf:MobileTextField = new MobileTextField();
+//       var tf:MobileTextField = createInFontContext(MobileTextField);
 //       tf.styleProvider = this;
 //       tf.editable = true|false;   // for editable text
 //       tf.multiline = true|false;  // for multiline text
@@ -63,7 +61,8 @@ use namespace mx_internal;
 //   in styleChanged():
 //       tf.styleChanged(styleProp);
 //
-// Supported styles: textAlign, fontFamily, fontWeight, "colorName", fontSize, fontStyle, textDecoration, textIndent, leading, letterSpacing, paddingLeft, paddingRight
+// Supported styles: textAlign, fontFamily, fontWeight, "colorName", fontSize, fontStyle, 
+//                   textDecoration, textIndent, leading, letterSpacing
  
 /**
  *  The MobileTextField class is a text primitive for use in ActionScript
@@ -79,6 +78,24 @@ public class MobileTextField extends TextField implements IEditableText
     
     //--------------------------------------------------------------------------
     //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Most resources are fetched on the fly from the ResourceManager,
+     *  so they automatically get the right resource when the locale changes.
+     *  But since truncateToFit() can be called frequently,
+     *  this class caches this resource value in this variable.
+     *  Note that this class does _not_ support runtime local changes to
+     *  the truncation indicator. The dynamic local change code in UITextField 
+     *  can be used here, if needed.
+     */ 
+    private static var truncationIndicatorResource:String;
+    
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -86,12 +103,19 @@ public class MobileTextField extends TextField implements IEditableText
     public function MobileTextField()
     {
         super();
+        
         // Add a high priority change handler so we can capture the event
         // and re-dispatch as a TextOperationEvent
         addEventListener(Event.CHANGE, changeHandler, false, 100);
         
         // Add a key down listener to listen for enter key
         addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+        
+        if (!truncationIndicatorResource)
+        {
+            truncationIndicatorResource = ResourceManager.getInstance().
+                getString("core", "truncationIndicator");
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -247,8 +271,50 @@ public class MobileTextField extends TextField implements IEditableText
     
     public function set horizontalScrollPosition(value:Number):void
     {
-        // TODO: range check?
-        scrollH = int(value);
+        scrollH = Math.min(Math.max(0, int(value)), maxScrollH);
+    }
+    
+    //----------------------------------
+    //  lineBreak
+    //----------------------------------
+    
+    /**
+     *  Controls word wrapping within the text. This property corresponds
+     *  to the lineBreak style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get lineBreak():String
+    {
+        return wordWrap ? "toFit" : "explicit";
+    }
+    
+    public function set lineBreak(value:String):void
+    {
+        wordWrap = !(value == "explicit");
+    }
+    
+    //----------------------------------
+    //  selectionActivePosition
+    //----------------------------------
+    
+    /**
+     *  The active, or last clicked position, of the selection.
+     *  If the implementation does not support selection anchor
+     *  this is the last character of the selection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get selectionActivePosition():int
+    {
+        // TextField doesn't have selection "active" position
+        return selectionEndIndex;
     }
     
     //----------------------------------
@@ -272,54 +338,26 @@ public class MobileTextField extends TextField implements IEditableText
     }
     
     //----------------------------------
-    //  selectionActivePosition
+    //  verticalScrollPosition
     //----------------------------------
     
     /**
-     *  The active, or last clicked position, of the selection.
-     *  If the implementation does not support selection anchor
-     *  this is the last character of the selection.
+     *  The vertical scroll position of the text.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function get selectionActivePosition():int
+    public function get verticalScrollPosition():Number
     {
-        // TextField doesn't have selection "active" position
-        return selectionEndIndex;
+        return scrollV;
     }
     
- 
-    ///////
-    /// TODO: Figure out if we can implement these properties. If not, they should
-    //  be removed from this class and IEditableText.
-    ///////
-    
-    public function get heightInLines():Number
+    public function set verticalScrollPosition(value:Number):void
     {
-        // TODO: implement me (or remove)
-        return 1; 
-    }
-    
-    public function set heightInLines(value:Number):void
-    {
-        // TODO: implement me (or remove)
-    }
-    
-    public function get widthInChars():Number
-    {
-        // TODO: implement me (or remove)
-        return 1;
-    }
-    
-    public function set widthInChars(value:Number):void
-    {
-        // TODO: implement me (or remove)
-    }
-    
-    
+        scrollV = Math.min(Math.max(0, int(value)), maxScrollV);
+    }    
     
     //--------------------------------------------------------------------------
     //
@@ -340,7 +378,14 @@ public class MobileTextField extends TextField implements IEditableText
      */
     public function scrollToRange(anchorPosition:int, activePosition:int):void
     {
-        // TODO: implement me
+        // If either part of the selection is in range (determined by 
+        // a non-null return value from getCharBoundaries()), we
+        // don't need to do anything.
+        if (getCharBoundaries(anchorPosition) || getCharBoundaries(activePosition))
+            return;
+        
+        // Scroll so the anchor position is visible on the top line.
+        verticalScrollPosition = getLineIndexOfChar(anchorPosition);
     }
     
     /**
@@ -384,8 +429,8 @@ public class MobileTextField extends TextField implements IEditableText
      */ 
     public function selectRange(anchorIndex:int, activeIndex:int):void
     {
-        // TODO: normalize?
-        setSelection(anchorIndex, activeIndex);
+        setSelection(Math.min(anchorIndex, activeIndex),
+                     Math.max(anchorIndex, activeIndex));
     }
     
     /**
@@ -412,13 +457,6 @@ public class MobileTextField extends TextField implements IEditableText
     public function setFocus():void
     {
         stage.focus = this;
-    }
-    
-    // TODO: consider adding lineBreak property instead of using a style.
-    public function setStyle(styleProp:String, value:*):void // Only used for setStyle("lineBreak", "explicit")
-    {
-        if (styleProp == "lineBreak")
-            wordWrap = !(value == "explicit");
     }
     
     //--------------------------------------------------------------------------
@@ -503,6 +541,9 @@ public class MobileTextField extends TextField implements IEditableText
             //textFormat.leftMargin = getStyleFunction("paddingLeft");
             //textFormat.rightMargin = getStyleFunction("paddingRight");
 
+            // Check for embedded fonts
+            embedFonts = isFontEmbedded(textFormat);
+            
             defaultTextFormat = textFormat;
             setTextFormat(textFormat);
             invalidateStyleFlag = false;
@@ -545,19 +586,11 @@ public class MobileTextField extends TextField implements IEditableText
      */
     public function truncateToFit(truncationIndicator:String = "..."):Boolean
     {
-    //    if (!truncationIndicator)
-    //          truncationIndicator = truncationIndicatorResource;
-        
-        // Ensure that the proper CSS styles get applied to the textField
-        // before measuring text.
-        // Otherwise the callLater(validateNow) in styleChanged()
-        // can apply the CSS styles too late.
-    //     commitStyles();
+        if (!truncationIndicator)
+            truncationIndicator = truncationIndicatorResource;
         
         var originalText:String = super.text;
-        
-        untruncatedText = originalText;
-        
+        var oldIsTruncated:Boolean = _isTruncated;
         var w:Number = width;
         
         _isTruncated = false;
@@ -580,7 +613,39 @@ public class MobileTextField extends TextField implements IEditableText
             }
             
             _isTruncated = true;
-            return true;
+        }
+        
+        // Dispatch "isTruncatedChange"
+        if (_isTruncated != oldIsTruncated)
+            dispatchEvent(new Event("isTruncatedChanged"));
+        
+        return _isTruncated;
+    }
+    
+    /**
+     *  @private
+     */
+    private function isFontEmbedded(format:TextFormat):Boolean
+    {
+        if (!embeddedFonts)
+            embeddedFonts = Font.enumerateFonts();
+        
+        for (var i:int = 0; i < embeddedFonts.length; i++)
+        {
+            var font:Font = Font(embeddedFonts[i]);
+            if (font.fontName == format.font)
+            {
+                var style:String = "regular";
+                if (format.bold && format.italic)
+                    style = "boldItalic";
+                else if (format.bold)
+                    style = "bold";
+                else if (format.italic)
+                    style = "italic";
+                
+                if (font.fontStyle == style)
+                    return true;
+            }
         }
         
         return false;
@@ -626,13 +691,12 @@ public class MobileTextField extends TextField implements IEditableText
     
     // Name of the style to use for determining the text color
     mx_internal var colorName:String = "color";
-    
-    
-    private static var supportedStyles:String = "textAlign fontFamily fontWeight color fontSize textDecoration textIndent leading letterSpacing paddingLeft paddingRight"
+        
+    private static var supportedStyles:String = "textAlign fontFamily fontWeight fontStyle color fontSize textDecoration textIndent leading letterSpacing"
     private var invalidateStyleFlag:Boolean = true;
     private static var textFormat:TextFormat = new TextFormat();
-    private var untruncatedText:String;  // TODO: Use it or loose it
     private var _isTruncated:Boolean = false;
+    private static var embeddedFonts:Array;
     
     /**
      *  @private
