@@ -211,8 +211,8 @@ public class ButtonSkin extends ButtonSkinBase
      */ 
     protected function layoutBorder(bgImg:DisplayObject, unscaledWidth:Number, unscaledHeight:Number):void
     {
-        resizePart(bgImg, unscaledWidth, unscaledHeight);
-        positionPart(bgImg, 0, 0);
+        resizeElement(bgImg, unscaledWidth, unscaledHeight);
+        positionElement(bgImg, 0, 0);
     }
     
     override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
