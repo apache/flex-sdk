@@ -67,7 +67,9 @@ package spark.automation.delegates.components
 		public function SparkApplicationAutomationImpl(obj:spark.components.Application)
 		{
 			super(obj);
-			recordClick = true;			
+			recordClick = true;
+			var am:IAutomationManager2 = Automation.automationManager2;
+			am.registerNewApplication(obj);			
 		}
 		
 		/**
