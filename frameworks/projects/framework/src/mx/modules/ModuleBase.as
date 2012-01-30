@@ -23,6 +23,11 @@ import flash.events.EventDispatcher;
  *  tag in an MXML file, you instead extend the Module class.
  *  
  *  @see mx.modules.Module
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ModuleBase extends EventDispatcher
 {
