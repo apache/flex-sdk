@@ -53,11 +53,36 @@ use namespace mx_internal;
     textDecoration
 */
 
-include "../styles/metadata/BackgroundStyles.as"
+include "../styles/metadata/ContainerBackgroundStyles.as"
 include "../styles/metadata/BorderStyles.as"
 include "../styles/metadata/LeadingStyle.as"
 include "../styles/metadata/PaddingStyles.as"
 include "../styles/metadata/TextStyles.as"
+
+/**
+ *  Number of pixels between the container's bottom border and its content area.
+ *  The default value is -1, so the bottom border of the last header
+ *  overlaps the Accordion container's bottom border.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
+
+/**
+ *  Number of pixels between the container's top border and its content area.
+ *  The default value is -1, so the top border of the first header
+ *  overlaps the Accordion container's top border.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="paddingTop", type="Number", format="Length", inherit="no")]
+
 
 /**
  *  The ToolTip control lets you provide helpful information to your users.
