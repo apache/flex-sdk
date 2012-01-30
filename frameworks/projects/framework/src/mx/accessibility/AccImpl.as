@@ -18,6 +18,7 @@ import flash.accessibility.AccessibilityProperties;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 
+import mx.accessibility.AccConst;
 import mx.containers.Form;
 import mx.containers.FormHeading;
 import mx.containers.FormItem;
@@ -42,47 +43,6 @@ use namespace mx_internal;
 public class AccImpl extends AccessibilityImplementation
 {
     include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_NORMAL:uint = 0x00000000;
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_FOCUSABLE:uint = 0x00100000;
-    
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-    
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_UNAVAILABLE:uint = 0x00000001;
-    
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_NAMECHANGE:uint = 0x800C;
-    
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_SHOW:uint = 0x8002;
-
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_HIDE:uint = 0x8003;
 
     //--------------------------------------------------------------------------
     //
@@ -363,18 +323,18 @@ public class AccImpl extends AccessibilityImplementation
      */
     protected function getState(childID:uint):uint
     {
-        var accState:uint = STATE_SYSTEM_NORMAL;
+        var accState:uint = AccConst.STATE_SYSTEM_NORMAL;
         
         if (!UIComponent(master).enabled)
         {
-            accState |= STATE_SYSTEM_UNAVAILABLE;
+            accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
         }
         else
         {
-            accState |= STATE_SYSTEM_FOCUSABLE
+            accState |= AccConst.STATE_SYSTEM_FOCUSABLE
         
             if (UIComponent(master) == UIComponent(master).getFocus())
-                accState |= STATE_SYSTEM_FOCUSED;
+                accState |= AccConst.STATE_SYSTEM_FOCUSED;
         }
 
         return accState;
@@ -443,19 +403,22 @@ public class AccImpl extends AccessibilityImplementation
             case "errorStringChanged":
             case "toolTipChanged":
             {
-                Accessibility.sendEvent(master, 0, EVENT_OBJECT_NAMECHANGE);
+                Accessibility.sendEvent(master, 0,
+										AccConst.EVENT_OBJECT_NAMECHANGE);
                 Accessibility.updateProperties();
                 break;
             }
+
             case "show":
             {
-                Accessibility.sendEvent(master, 0, EVENT_OBJECT_SHOW);
+                Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_SHOW);
                 Accessibility.updateProperties();
                 break;
             }
+
             case "hide":
             {
-                Accessibility.sendEvent(master, 0, EVENT_OBJECT_HIDE);
+                Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_HIDE);
                 Accessibility.updateProperties();
                 break;
             }
