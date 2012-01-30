@@ -11095,7 +11095,7 @@ public class UIComponent extends FlexSprite
         else
         {
             var message:String = resourceManager.getString(
-                "core", "stateUndefined", [ this.className ]);
+                "core", "badParameter", [ styleClient ]);
             throw new ArgumentError(message);
         }
     }
@@ -11126,7 +11126,7 @@ public class UIComponent extends FlexSprite
      *  @playerversion AIR 1.1
      *  @productversion Flex 4.5
      */
-    public function removeStyleClient(styleClient:IAdvancedStyleClient):IAdvancedStyleClient
+    public function removeStyleClient(styleClient:IAdvancedStyleClient):void
     {
         if(advanceStyleClientChildren && advanceStyleClientChildren.length != 0)
         {
@@ -11140,7 +11140,6 @@ public class UIComponent extends FlexSprite
                 styleClient.styleChanged(null);
             }
         }
-        return styleClient; 
     }
     
     /**
