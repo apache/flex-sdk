@@ -1041,7 +1041,6 @@ public class ToolTipManagerImpl extends EventDispatcher
                     if (currentToolTip is IStyleClient)
                         IStyleClient(currentToolTip).setStyle("borderStyle", "errorTipAbove");
                     currentToolTip["text"] = currentToolTip["text"];
-                    Object(toolTipClass).maxWidth = oldWidth;
                 }
 
                 // Even if the error tip will fit onstage, we still need to
@@ -1068,8 +1067,6 @@ public class ToolTipManagerImpl extends EventDispatcher
                     if (currentToolTip is IStyleClient)
                         IStyleClient(currentToolTip).setStyle("borderStyle", "errorTipBelow");
                     currentToolTip["text"] = currentToolTip["text"];
-                    if (!isNaN(oldWidth))
-                        Object(toolTipClass).maxWidth = oldWidth;
                 }
             }
 
@@ -1079,11 +1076,9 @@ public class ToolTipManagerImpl extends EventDispatcher
             // don't undergo normal measurement and layout.
             sizeTip(currentToolTip)
 
-            // We might be loaded and offset.
-            var pos:Point = new Point(x, y);
-            var ctt:IToolTip = currentToolTip;
-            x = pos.x;
-            y = pos.y;
+            // If we changed the tooltip max size, we change it back
+            if (!isNaN(oldWidth))
+                Object(toolTipClass).maxWidth = oldWidth;
         }
         else
         {
@@ -1103,7 +1098,7 @@ public class ToolTipManagerImpl extends EventDispatcher
             if (y + toolTipHeight > screenHeight)
                 y = screenHeight - toolTipHeight;
 
-			pos = new Point(x, y);
+			var pos:Point = new Point(x, y);
 			pos = DisplayObject(sm).localToGlobal(pos);
 			pos = DisplayObject(sandboxRoot).globalToLocal(pos);
 			x = pos.x;
