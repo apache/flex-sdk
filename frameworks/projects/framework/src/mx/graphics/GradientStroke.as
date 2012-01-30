@@ -229,13 +229,13 @@ public class GradientStroke extends GradientBase implements IStroke
     private var _miterLimit:Number = 3;
     
     [Bindable("propertyChange")]
-    [Inspectable(category="General", minValue="0.0", maxValue="255.0")]
+    [Inspectable(category="General", minValue="1.0", maxValue="255.0")]
     
     /**
      *  A number that indicates the limit at which a miter is cut off. 
      *
-     *  <p>Valid values range from 0 to 255
-     *  (and values outside of that range are rounded to 0 or 255).</p>
+     *  <p>Valid values range from 1 to 255
+     *  (and values outside of that range are rounded to 1 or 255).</p>
      *
      *  <p>This value is only used if the <code>jointStyle</code> property 
      *  is set to <code>JointStyle.MITER</code>.</p>
