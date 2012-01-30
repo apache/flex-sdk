@@ -153,6 +153,10 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
      *  a symbol graphic per-state.
      * 
      *  @see #commitCurrentState()
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
      */
     public function get symbolIcon():DisplayObject
     {
@@ -173,6 +177,9 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
         super.createChildren();
     }
     
+    /**
+     *  @private
+     */
     override protected function get symbolItems():Array
     {
         return symbols;
