@@ -31,7 +31,25 @@ public interface IStyleModule
     //--------------------------------------------------------------------------
 
     /**
-     * Unloads the style module.
+     *  Creates and sets style declarations from the styles modules into the given
+     *  style manager.
+     *  
+     *  @param styleManager The style manager where the style declarations will be 
+     *  loaded into. The style declarations will be created relative to the this 
+     *  style manager. The unload() function will unload styles from this style 
+     *  manager. If null is passed the top-level style manager is used.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+//    FIXME: (dloverin) Need to generate this in AST code before it can be 
+//    uncommented.    
+//    function setStyleDeclarations(styleManager:IStyleManager2):void;
+    
+    /**
+     *  Unloads the style module.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
