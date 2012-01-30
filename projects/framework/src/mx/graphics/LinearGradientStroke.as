@@ -17,6 +17,7 @@ import flash.display.Graphics;
 import flash.display.GraphicsGradientFill;
 import flash.display.GraphicsStroke;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.mx_internal;
@@ -121,6 +122,11 @@ public class LinearGradientStroke extends GradientStroke
         super(weight, pixelHinting, scaleMode, caps, joints, miterLimit);
     }
 
+    /**
+     *  @private
+     */
+    private static var commonMatrix:Matrix = new Matrix();
+    
 	//--------------------------------------------------------------------------
 	//
 	//  Properties
@@ -182,27 +188,17 @@ public class LinearGradientStroke extends GradientStroke
     //--------------------------------------------------------------------------
 
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    private static var commonMatrix:Matrix = new Matrix();
-
-    /**
      *  @inheritdoc
      */
-    override public function apply(graphics:Graphics, bounds:Rectangle = null):void
+    override public function apply(graphics:Graphics, targetBounds:Rectangle, targetOrigin:Point):void
 	{
 		commonMatrix.identity();
 		
         graphics.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
                     caps, joints, miterLimit);
         
-        if (bounds)
-        	calculateTransformationMatrix(bounds, commonMatrix); 
+        if (targetBounds)
+        	calculateTransformationMatrix(targetBounds, commonMatrix, targetOrigin); 
         
         graphics.lineGradientStyle(GradientType.LINEAR, colors,
                             alphas, ratios,
@@ -213,17 +209,17 @@ public class LinearGradientStroke extends GradientStroke
     /**
      *  @private
      */
-    override public function createGraphicsStroke(bounds:Rectangle):GraphicsStroke
+    override public function createGraphicsStroke(targetBounds:Rectangle, targetOrigin:Point):GraphicsStroke
     {
         // The parent class sets the gradient stroke properties common to 
         // LinearGradientStroke and RadialGradientStroke 
-        var graphicsStroke:GraphicsStroke = super.createGraphicsStroke(bounds); 
+        var graphicsStroke:GraphicsStroke = super.createGraphicsStroke(targetBounds, targetOrigin); 
         
         if (graphicsStroke)
         {
             // Set other properties specific to this LinearGradientStroke  
             GraphicsGradientFill(graphicsStroke.fill).type = GradientType.LINEAR; 
-            calculateTransformationMatrix(bounds, commonMatrix);
+            calculateTransformationMatrix(targetBounds, commonMatrix, targetOrigin);
             GraphicsGradientFill(graphicsStroke.fill).matrix = commonMatrix; 
         }
         
@@ -234,27 +230,26 @@ public class LinearGradientStroke extends GradientStroke
      *  @private
      *  Calculates this LinearGradientStroke's transformation matrix.  
      */
-    private function calculateTransformationMatrix(rect:Rectangle, matrix:Matrix):void
+    private function calculateTransformationMatrix(targetBounds:Rectangle, matrix:Matrix, targetOrigin:Point):void
     {
         if (!compoundTransform)
         {
-            var w:Number = !isNaN(scaleX) ? scaleX : rect.width;
-            var bX:Number = !isNaN(x) ? x + rect.left : rect.left + (rect.width - w) / 2;
-            var bY:Number = !isNaN(y) ? y + rect.top : rect.top;
-            
-            
-            matrix.createGradientBox(w, rect.height, 
+            var w:Number = !isNaN(scaleX) ? scaleX : targetBounds.width;            
+            var bX:Number = !isNaN(x) ? x + targetOrigin.x : targetBounds.left;
+            var bY:Number = !isNaN(y) ? y + targetOrigin.y : targetBounds.top;
+                        
+            matrix.createGradientBox(w, targetBounds.height, 
                                     !isNaN(_angle) ? 
                                         _angle : rotationInRadians,
                                      bX, bY);   
         }
         else
-        {
-            matrix.identity();            
+        {            
+            matrix.identity(); 
             matrix.translate(GRADIENT_DIMENSION / 2, GRADIENT_DIMENSION / 2);
             matrix.scale(1 / GRADIENT_DIMENSION, 1 / GRADIENT_DIMENSION);
             matrix.concat(compoundTransform.matrix);
-            matrix.translate(rect.left, rect.top);
+            matrix.translate(targetOrigin.x, targetOrigin.y);
         }
     }
     
