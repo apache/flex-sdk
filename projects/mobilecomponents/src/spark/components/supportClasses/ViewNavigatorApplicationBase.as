@@ -224,7 +224,7 @@ public class ViewNavigatorApplicationBase extends Application
      *  method to change the type of persistence manager that is created.
      * 
      *  <p>The persistence manager automatically saves and restores
-     *  the main navigator's persistence stack if the
+     *  the current view navigator's view stack if the
      *  <code>persistNavigatorState</code> flag is set to <code>true</code>. 
      *  Data stored in the persistence manager is automatically flushed to disk 
      *  when the application is suspended or exited.</p>
@@ -238,7 +238,7 @@ public class ViewNavigatorApplicationBase extends Application
      * 
      *  <p>The default value is an instance of spark.core.managers.PersistenceManager.</p>
      *
-     *  @see spark.core.managers.PersistenceManager
+     *  @see spark.managers.PersistenceManager
      * 
      *  @langversion 3.0
      *  @playerversion AIR 2.5
@@ -263,8 +263,9 @@ public class ViewNavigatorApplicationBase extends Application
     
     /**
      *  Toggles the application session caching feature for the application.  
-     *  When enabled, the application automatically saves the main navigator's view 
-     *  data and navigation history to the persistence manager.  
+     *  When enabled, the application automatically saves the current
+     *  view navigator's view stack 
+     *  and navigation history to the persistence manager.  
      *  When the application is relaunched, this data is automatically read from 
      *  the persistence store and applied to the application's navigator.
      * 
@@ -275,14 +276,13 @@ public class ViewNavigatorApplicationBase extends Application
      *  the <code>applicationVersion</code> or <code>timestamp</code> key.</p>
      * 
      *  <p>When the persistence object is being created, the application dispatches
-     *  a cancelable <code>FlexEvent.APPLICATION_PERSISTING</code> event when the process
-     *  begins and a <code>FlexEvent.APPLICATION_PERSIST</code> event when it completes.  
-     *  If the <code>APPLICATION_PERSISTING</code> event is canceled, 
+     *  a cancelable <code>FlexEvent.NAVIGATOR_STATE_SAVING</code> event when the process
+     *  begins.  
+     *  If you cancel the <code>NAVIGATOR_STATE_SAVING</code> event, 
      *  the persistence object is not created.
      *  Similarly, when this information is being restored to the application, a cancelable
-     *  <code>FlexEvent.APPLICATION_RESTORING</code> event is dispatched followed by a
-     *  <code>FlexEvent.APPLICATION_RESTORE</code> event.  
-     *  Canceling the <code>APPLICATION_RESTORING</code> event prevents the navigation 
+     *  <code>FlexEvent.NAVIGATOR_STATE_LOADING</code> event is dispatched.  
+     *  Canceling the <code>NAVIGATOR_STATE_LOADING</code> event prevents the navigation 
      *  data from being restored.</p>
      * 
      *  <p>The <code>persistNavigatorState</code> flag must be set to <code>true</code> before
@@ -322,6 +322,10 @@ public class ViewNavigatorApplicationBase extends Application
      *  and closes it if set to <code>false</code>. 
      * 
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get viewMenuOpen():Boolean
     {
@@ -372,7 +376,7 @@ public class ViewNavigatorApplicationBase extends Application
      *  If <code>persistNavigatorState</code> is <code>true</code>, 
      *  then the application begins the state saving process.
      *
-     *  @param event 
+     *  @param event The event object for the NAVIGATOR_STATE_SAVING event.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 2.5
@@ -460,7 +464,7 @@ public class ViewNavigatorApplicationBase extends Application
      *  and the time the persistence object was created to the <code>timestamp</code> and 
      *  <code>applicationVersion</code> keys of the PersistenceManager object.
      * 
-     *  <p>This method is only called if the <code>FlexEvent.APPLICATION_PERSISTING</code>
+     *  <p>This method is only called if the <code>FlexEvent.NAVIGATOR_STATE_SAVING</code>
      *  event is not canceled.</p>
      * 
      *  @langversion 3.0
@@ -481,7 +485,7 @@ public class ViewNavigatorApplicationBase extends Application
      *  Responsible for restoring the application's state when the
      *  <code>persistNavigatorState</code> property is set to <code>true</code>.
      * 
-     *  <p>This method is only called if the <code>FlexEvent.APPLICATION_RESTORING</code>
+     *  <p>This method is only called if the <code>FlexEvent.NAVIGATOR_STATE_LOADING</code>
      *  event is not canceled.</p>
      * 
      *  @langversion 3.0
