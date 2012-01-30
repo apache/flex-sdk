@@ -1,48 +1,52 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the PopUpButton control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo PopUpButton control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-	<mx:Script>
-		<![CDATA[
+    <fx:Script>
+        <![CDATA[
+            import mx.controls.*;
+            import mx.events.*;
 
-			import mx.controls.*;
-			import mx.events.*;
+            private var myMenu:Menu;
 
-			private var myMenu:Menu;
+            // Initialize the Halo Menu control, and specify it as the pop up object
+            // of the Halo PopUpButton control.
+            private function initMenu():void {
+                myMenu = new Menu();
+                var dp:Object = [{label: "New Folder"}, {label: "Sent Items"}, {label: "Inbox"}];
+                myMenu.dataProvider = dp;
+                myMenu.selectedIndex = 0;       
+                myMenu.addEventListener(MenuEvent.ITEM_CLICK, itemClickHandler);
+                popB.popUp = myMenu;
+                popB.label = "Put in: " + myMenu.dataProvider[myMenu.selectedIndex].label;
+            }
 
-			// Initialize the Menu control, and specify it as the pop up object
-			// of the PopUpButton control. 
-			private function initMenu():void {
-				myMenu = new Menu();
-				var dp:Object = [{label: "New Folder"}, {label: "Sent Items"}, {label: "Inbox"}];        
-				myMenu.dataProvider = dp;
-				myMenu.selectedIndex = 0;       
-				myMenu.addEventListener("itemClick", itemClickHandler);
-				popB.popUp = myMenu;
-				popB.label = "Put in: " + myMenu.dataProvider[myMenu.selectedIndex].label;
-			}
+            // Define the event listener for the Halo Menu control's itemClick event. 
+            private function itemClickHandler(evt:MenuEvent):void {
+                var label:String = evt.item.label;
+                popTypeB.text = String("Moved to " + label);
+                popB.label = "Put in: " + label;
+                popB.close();
+                myMenu.selectedIndex = evt.index;
+            }
 
-			// Define the event listener for the Menu control's itemClick event. 
-			private function itemClickHandler(event:MenuEvent):void {
-				var label:String = event.item.label;        
-				popTypeB.text=String("Moved to " + label);
-				popB.label = "Put in: " + label;
-				popB.close();
-				myMenu.selectedIndex = event.index;
-			}
+        ]]>
+    </fx:Script>
 
-		]]>
-	</mx:Script>
+    <s:Panel title="PopUpButton Control Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%" color="blue"
+                    text="Button label contains the name of the last selected menu item." />
+            <mx:PopUpButton id="popB" label="Edit" creationComplete="initMenu();" width="135" />
 
-    <mx:Panel title="PopUpButton Control Example" height="75%" width="75%" 
-        paddingTop="10" paddingBottom="10" paddingRight="10" paddingLeft="10">
+            <mx:Spacer height="50" />
 
-        <mx:Label width="100%" color="blue"
-            text="Button label contains the name of the last selected menu item." />
-        <mx:PopUpButton id="popB" label="Edit" creationComplete="initMenu();" width="135" />
-		
-        <mx:Spacer height="50" />
-        <mx:TextInput id="popTypeB" />
-		
-    </mx:Panel>		
-</mx:Application>
+            <s:TextInput id="popTypeB" />
+        </s:VGroup>
+    </s:Panel>
+
+</s:Application>
