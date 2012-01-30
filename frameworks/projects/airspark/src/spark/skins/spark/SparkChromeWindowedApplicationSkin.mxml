@@ -18,11 +18,11 @@
       To use the FlexChromSkin class with the WindowedApplication container, 
       set <code>systemChrome</code> to "none" 
       in the application's .xml file, and set the <code>skinClass</code> style to
-      spark.skins.default.FlexChromSkin. 
+      spark.skins.spark.FlexChromSkin. 
       To use the FlexChromSkin class with the Window container, 
       set the <code>Window.systemChrome</code> property to "none", 
       and set the <code>skinClass</code> style to
-      spark.skins.default.FlexChromSkin.</p>
+      spark.skins.spark.FlexChromSkin.</p>
 
       @see spark.components.WindowedApplication
 -->
@@ -130,12 +130,12 @@
     <!-- layer 3: gripper -->
     <!--- 
         Defines the Button control for the gripper button. 
-        By default, the button uses the spark.skins.default.GripperSkin class
+        By default, the button uses the spark.skins.spark.GripperSkin class
         to define the skin for the gripper button.
             
-        @see spark.skins.default.GripperSkin 
+        @see spark.skins.spark.GripperSkin 
     -->
-    <s:Button id="gripper" right="3" bottom="3" skinClass="spark.skins.default.GripperSkin" /> 
+    <s:Button id="gripper" right="3" bottom="3" skinClass="spark.skins.spark.GripperSkin" /> 
 
     <!-- layer 4: border -->
     
