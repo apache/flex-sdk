@@ -7,6 +7,8 @@
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
 //  in accordance with the terms of the license agreement accompanying it.
 //
+//  AdobePatentID="B770"
+//
 ////////////////////////////////////////////////////////////////////////////////
 
 package mx.states
