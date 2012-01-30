@@ -22,7 +22,7 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" color="blue" 
+            <s:Label width="100%" color="blue" 
                 text="Use the Repeater class to create 9 Button controls in a 3 by 3 Tile container."/>
             <mx:Tile direction="horizontal" borderStyle="inset" 
                 horizontalGap="10" verticalGap="15"
