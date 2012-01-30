@@ -292,18 +292,18 @@ public class LabelItemRenderer extends UIComponent
 		{
 			case DPIClassification.DPI_320:
 			{
-				itemMinimumHeight = 88;
+				minHeight = 88;
 				break;
 			}
 			case DPIClassification.DPI_240:
 			{
-				itemMinimumHeight = 66;
+				minHeight = 66;
 				break;
 			}
 			default:
 			{
 				// default PPI160
-				itemMinimumHeight = 44;
+				minHeight = 44;
 				break;
 			}
 		}
@@ -674,23 +674,6 @@ public class LabelItemRenderer extends UIComponent
 		return FlexGlobals.topLevelApplication.applicationDPI;
 	}
 	
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Protected Properties 
-	//
-	//--------------------------------------------------------------------------
-	/**
-	 *  Minimum height of the item renderer
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */
-	protected var itemMinimumHeight:uint = 0;
-	
-	
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: UIComponent
@@ -769,11 +752,7 @@ public class LabelItemRenderer extends UIComponent
             measuredHeight = getElementPreferredHeight(labelDisplay) + verticalPadding; 
 		}
         
-        // enforce minimum height 
-        measuredHeight = Math.max(measuredHeight, itemMinimumHeight);
-        
         measuredMinWidth = 0;
-        measuredMinHeight = itemMinimumHeight;
     }
     
     /**
