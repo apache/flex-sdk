@@ -59,7 +59,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */ 
 public class CalloutSkin extends MobileSkin
 {
@@ -78,7 +78,7 @@ public class CalloutSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function CalloutSkin()
     {
@@ -157,7 +157,7 @@ public class CalloutSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var dropShadowVisible:Boolean = true;
     
@@ -170,7 +170,7 @@ public class CalloutSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var useBackgroundGradient:Boolean = true;
     
@@ -179,7 +179,7 @@ public class CalloutSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var contentCornerRadius:uint;
     
@@ -190,7 +190,7 @@ public class CalloutSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var contentBackgroundInsetClass:Class;
     
@@ -199,7 +199,7 @@ public class CalloutSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var backgroundCornerRadius:Number;
     
@@ -209,7 +209,7 @@ public class CalloutSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var frameThickness:Number;
     
@@ -218,7 +218,7 @@ public class CalloutSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var borderColor:Number = 0;
     
@@ -228,7 +228,7 @@ public class CalloutSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var borderThickness:Number = NaN;
     
@@ -238,7 +238,7 @@ public class CalloutSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var arrowWidth:Number;
     
@@ -248,7 +248,7 @@ public class CalloutSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var arrowHeight:Number;
     
