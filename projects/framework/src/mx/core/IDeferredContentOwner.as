@@ -1,0 +1,84 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2008 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+package mx.core
+{
+
+/**
+ *  Sent after the content for this component has been created. With deferred 
+ *  instantiation, the content for a component may be created long after the 
+ *  component is created.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="contentCreationComplete", type="mx.events.FlexEvent")]
+
+/**
+ *  Documentation is not currently available.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+public interface IDeferredContentOwner extends IUIComponent
+{
+    [Inspectable(enumeration="auto, all, none", defaultValue="auto")]
+
+    /**
+     *  Content creation policy for this component.
+     *
+     *  <p>Possible values are:
+     *    <ul>
+     *      <li>auto - automatically create the content immediately before it is needed.</li>
+     *      <li>all - create the content as soon as the parent component is created. This
+     *          option should only be used as a last resort since it increases startup time.</li>
+     *      <li>none - content must be created manually by calling the createDeferredContent() method.</li>
+     *    </ul>
+     *  </p>
+     *
+     *  @default "auto"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get creationPolicy():String;
+    function set creationPolicy(value:String):void;
+
+    /**
+     *  Create the content for this component. If creationPolicy is "auto" or "all", this
+     *  function will be called by the flex framework. If creationPolicy is "none", this 
+     *  function must be called to create the content for the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function createDeferredContent():void;
+
+    /**
+     *  A flag that indicates whether the deferred content has been created.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get deferredContentCreated():Boolean;
+}
+
+}
