@@ -175,7 +175,7 @@ public class TextFieldFactory implements ITextFieldFactory
 			{
 				fteTextField = moduleFactory.create(
 					"mx.core.FTETextField");
-                fteTextField.textLineCreator = moduleFactory;
+                fteTextField.fontContext = moduleFactory;
 			}			
 			
 			// The dictionary could be empty, but not null because entries in the dictionary
