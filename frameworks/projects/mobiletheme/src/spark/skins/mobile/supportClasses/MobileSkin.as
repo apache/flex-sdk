@@ -16,7 +16,6 @@ import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
-import flash.system.Capabilities;
 
 import mx.core.FlexGlobals;
 import mx.core.IFlexDisplayObject;
@@ -24,7 +23,6 @@ import mx.core.ILayoutElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.utils.ColorUtil;
-import mx.utils.DensityUtil;
 
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.supportClasses.StyleableTextField;
@@ -88,8 +86,14 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Default width
+     */
     protected var layoutMeasuredWidth:uint = 0;
     
+    /**
+     *  Default height
+     */
     protected var layoutMeasuredHeight:uint = 0;
     
     //--------------------------------------------------------------------------
