@@ -235,6 +235,8 @@
 		<!-- Call asdoc to generate dita xml files -->
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
 		    <compiler.source-path path-element="${basedir}/src"/>
+            <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+            <load-config filename="framework-config.xml"/>
 		    <doc-classes class="FrameworkClasses"/>
 		    <doc-namespaces uri="http://www.adobe.com/2006/mxml"/>
 		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
