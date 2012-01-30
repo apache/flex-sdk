@@ -738,10 +738,10 @@ public class StyleProtoChain
 
         if (parent)
         {
-            if (StyleManager.isParentSizeInvalidatingStyle(styleProp))
+            if (styleProp == "styleName" || StyleManager.isParentSizeInvalidatingStyle(styleProp))
                 parent.invalidateSize();
 
-            if (StyleManager.isParentDisplayListInvalidatingStyle(styleProp))
+            if (styleProp == "styleName" || StyleManager.isParentDisplayListInvalidatingStyle(styleProp))
                 parent.invalidateDisplayList();
         }
     }
