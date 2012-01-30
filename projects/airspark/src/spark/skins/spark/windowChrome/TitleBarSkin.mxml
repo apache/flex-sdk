@@ -14,9 +14,9 @@
       title icon, and the title text.
 
       <p>The Flex chrome is defined by the FlexChromeSkin skin class 
-      in the spark.skins.default package. 
+      in the spark.skins.spark package. 
       To use the Flex chrome, set <code>systemChrome</code> to "none" in the application's .xml file,
-      and set the <code>skinClass</code> style to spark.skins.default.FlexChromeSkin. </p>
+      and set the <code>skinClass</code> style to spark.skins.spark.FlexChromeSkin. </p>
 
       @see spark.components.WindowedApplication
       @see spark.components.Window
@@ -81,40 +81,40 @@
         <!-- minimize button --> 
         <!--- 
             Defines the Button control for the mimimized button in the title bar. 
-            By default, the button uses the spark.skins.default.MinimizeButtonSkin class
+            By default, the button uses the spark.skins.spark.MinimizeButtonSkin class
             to define the skin for the mimimized button.
             
-            @see spark.skins.default.MinimizeButtonSkin 
+            @see spark.skins.spark.MinimizeButtonSkin 
         -->
         <s:Button id="minimizeButton"
-            skinClass="spark.skins.default.MinimizeButtonSkin"
+            skinClass="spark.skins.spark.MinimizeButtonSkin"
             top="2" bottom="2" verticalCenter="0" 
             />
         
         <!-- maximize button -->
         <!--- 
             Defines the Button control for the maximized button in the title bar. 
-            By default, the button uses the spark.skins.default.MinimizeButtonSkin class
+            By default, the button uses the spark.skins.spark.MinimizeButtonSkin class
             to define the skin for the maximized button.
             
-            @see spark.skins.default.MaximizeButtonSkin 
+            @see spark.skins.spark.MaximizeButtonSkin 
         -->
         <s:Button id="maximizeButton" 
-            skinClass="spark.skins.default.MaximizeButtonSkin"
-            skinClass.maximizedGroup="spark.skins.default.RestoreButtonSkin"
+            skinClass="spark.skins.spark.MaximizeButtonSkin"
+            skinClass.maximizedGroup="spark.skins.spark.RestoreButtonSkin"
             verticalCenter="0" 
             />
                         
         <!-- close button -->
         <!--- 
             Defines the Button control for the close button in the title bar. 
-            By default, the button uses the spark.skins.default.MinimizeButtonSkin class
+            By default, the button uses the spark.skins.spark.MinimizeButtonSkin class
             to define the skin for the close button.
             
-            @see spark.skins.default.CloseButtonSkin 
+            @see spark.skins.spark.CloseButtonSkin 
         -->
         <s:Button id="closeButton" 
-            skinClass="spark.skins.default.CloseButtonSkin"
+            skinClass="spark.skins.spark.CloseButtonSkin"
             verticalCenter="0"  />
     
     </s:Group>
