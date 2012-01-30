@@ -13217,7 +13217,49 @@ public class UIComponent extends FlexSprite
     }
     
     /**
-     *  @private
+     *  An object with properties pertaining to a display object's matrix, color transform, 
+     *  and pixel bounds.  The specific properties — matrix, colorTransform, and three read-only 
+     *  properties (<code>concatenatedMatrix</code>, <code>concatenatedColorTransform</code>, and <code>pixelBounds</code>) — 
+     *  are described in the entry for the <code>Transform</code> class.  
+     *  
+     *  <p>Each of the transform object's properties is itself an object.  This concept is 
+     *  important because the only way to set new values for the matrix or colorTransform 
+     *  objects is to create a new object and copy that object into the transform.matrix or
+     *  transform.colorTransform property.</p>
+     * 
+     *  <p>For example, to increase the tx value of a display object's matrix, you must make a copy
+     *  of the entire matrix object, then copy the new object into the matrix property of the 
+     *  transform object:</p>
+     *
+     *  <pre>
+     *  var myMatrix:Matrix = myUIComponentObject.transform.matrix;  
+     *  myMatrix.tx += 10; 
+     *  myUIComponent.transform.matrix = myMatrix;
+     *  </pre>
+     *   
+     *  You cannot directly set the tx property. The following code has no effect on myUIComponent:
+     * 
+     *  <pre>
+     *  myUIComponent.transform.matrix.tx += 10;
+     *  </pre>
+     *
+     *  <p>Note that for <code>UIComponent</code>, unlike <code>DisplayObject</code>, the <code>transform</code>
+     *  keeps the <code>matrix</code> and <code>matrix3D</code> values in sync and <code>matrix3D</code> is not null
+     *  even when the component itself has no 3D properties set.  Developers should use the <code>is3D</code> property 
+     *  to check if the component has 3D propertis set.  If the component has 3D properties, the transform's 
+     *  <code>matrix3D</code> should be used instead of transform's <code>matrix</code>.</p>
+     *
+     *  @see #setLayoutMatrix
+     *  @see #setLayoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
+     *  @see #is3D
+     *  @see mx.geom.Transform
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set transform(value:flash.geom.Transform):void
     {
@@ -13887,7 +13929,7 @@ public class UIComponent extends FlexSprite
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-        public function get is3D():Boolean
+    public function get is3D():Boolean
     {
         return _layoutFeatures ? _layoutFeatures.is3D : false;
     }
