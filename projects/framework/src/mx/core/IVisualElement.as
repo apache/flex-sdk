@@ -16,17 +16,17 @@ import mx.geom.ITransformable;
 import mx.geom.TransformOffsets;
 
 /**
- *  The IVisualItem interface represents the common methods and properties between UIComponents and
+ *  The IVisualElement interface represents the common methods and properties between UIComponents and
  *  GraphicElements.
  */
-public interface IVisualItem extends ITransformable
+public interface IVisualElement extends ITransformable
 {
 
     /**
-     *  The owner of this IVisualItem. By default, it is the parent of this IVisualItem.
-     *  However, if this IVisualItem object is a child component that is
+     *  The owner of this IVisualElement. By default, it is the parent of this IVisualElement.
+     *  However, if this IVisualElement object is a child component that is
      *  popped up by its parent, such as the dropdown list of a ComboBox control,
-     *  the owner is the component that popped up this IVisualItem object.
+     *  the owner is the component that popped up this IVisualElement object.
      *
      *  <p>This property is not managed by Flex, but by each component.
      *  Therefore, if you use the <code>PopUpManger.createPopUp()</code> or
@@ -41,7 +41,7 @@ public interface IVisualItem extends ITransformable
     
     /**
      *  The parent container or component for this component.
-     *  Only visual items should have a parent property.
+     *  Only visual elements should have a parent property.
      *  Non-visual items should use another property to reference
      *  the object to which they belong.
      *  By convention, non-visual item objects use an <code>owner</code>
