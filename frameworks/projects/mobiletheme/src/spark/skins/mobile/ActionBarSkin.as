@@ -171,6 +171,10 @@ public class ActionBarSkin extends MobileSkin
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
     {
+        graphics.clear();
+        
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        
         // FXG contains a top border, bottom border, and 3 px drop shadow
         border.width = unscaledWidth;
         border.height = unscaledHeight + 5;
@@ -256,11 +260,9 @@ public class ActionBarSkin extends MobileSkin
             }
         }
         
-        graphics.clear();
-        
         // Draw the gradient background
         var chromeColor:uint = getStyle("chromeColor");
-        var alpha:uint = getStyle("backgroundAlpha");
+        var alpha:Number = getStyle("backgroundAlpha");
         var alphas:Array = [alpha, alpha, alpha];
         var colors:Array = [];
         
