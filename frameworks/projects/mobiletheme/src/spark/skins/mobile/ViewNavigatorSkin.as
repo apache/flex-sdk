@@ -114,7 +114,7 @@ public class ViewNavigatorSkin extends SliderSkin
         if (tabBar.includeInLayout)
         {
             tabBar.alpha = .5;
-            componentHeight = tabBar.getExplicitOrMeasuredHeight();
+            componentHeight = tabBar.getPreferredBoundsHeight();
             tabBar.setLayoutBoundsSize(unscaledWidth, componentHeight);
             tabBar.setLayoutBoundsPosition(0, top);
             
@@ -124,7 +124,7 @@ public class ViewNavigatorSkin extends SliderSkin
         if (actionBar.includeInLayout)
         {
             actionBar.alpha = .5;
-            componentHeight = actionBar.getExplicitOrMeasuredHeight();
+            componentHeight = actionBar.getPreferredBoundsHeight();
             
             actionBar.setLayoutBoundsSize(unscaledWidth, componentHeight);
             actionBar.setLayoutBoundsPosition(0, top);
@@ -139,8 +139,8 @@ public class ViewNavigatorSkin extends SliderSkin
             
             if (contentGroup.includeInLayout)
             {
-                contentGroup.setLayoutBoundsPosition(0, 0);
                 contentGroup.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
+                contentGroup.setLayoutBoundsPosition(0, 0);
             }
         }
         else
@@ -154,9 +154,9 @@ public class ViewNavigatorSkin extends SliderSkin
     			
     			if (contentGroupHeight < contentGroup.minHeight)
     				contentGroupHeight = contentGroup.minHeight;
-    			
-                contentGroup.setLayoutBoundsPosition(0, top);
+                
                 contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
+                contentGroup.setLayoutBoundsPosition(0, top);
     		}
         }
     }
