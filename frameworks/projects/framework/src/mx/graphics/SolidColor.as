@@ -79,7 +79,7 @@ public class SolidColor extends EventDispatcher implements IFill
 	private var _alpha:Number = 1.0;
 	
 	[Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0", maxValue="1.0")]
 
 	/**
 	 *  The transparency of a color.
