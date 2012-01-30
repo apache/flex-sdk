@@ -1,48 +1,46 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Simple example to demonstrate the Formatter class. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-
-            // Event handler to format the input.            
-            private function Format():void
-            {
+            // Event handler to format the input.
+            private function Format():void {
                 // The format() method returns the formatted String,
                 // or an empty String if there is an error.
                 var formattedVal:String = numberFormatter.format(inputVal.text);
 
-                if (formattedVal.length==0) {
+                if (formattedVal.length == 0) {
                     // If there is an error, the Format.error property 
                     // contains the reason.
-                	formattedNumber.text=numberFormatter.error;
-                }
-                
-                else {
-                    formattedNumber.text=formattedVal;
+                    formattedNumber.text = numberFormatter.error;
+                } else {
+                    formattedNumber.text = formattedVal;
                 }
             }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:NumberFormatter id="numberFormatter"/>
+    <fx:Declarations>
+        <mx:NumberFormatter id="numberFormatter" />
+    </fx:Declarations>
 
-    <mx:Panel title="NumberFormatter Example" width="75%" height="75%" 
-            paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
-
-        <mx:Form>
+    <s:Panel title="NumberFormatter Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <mx:Form left="10" right="10" top="10" bottom="10">
             <mx:FormItem label="Enter number - a letter is invalid:">
-                <mx:TextInput id="inputVal" text="" width="75%"/>
+                <s:TextInput id="inputVal" text="" width="75%"/>
             </mx:FormItem>
-
             <mx:FormItem label="Formatted number: ">
-                <mx:TextInput id="formattedNumber" editable="false" width="75%"/>
+                <s:TextInput id="formattedNumber" editable="false" width="75%"/>
             </mx:FormItem>
-
             <mx:FormItem>
-                <mx:Button label="Validate and Format" click="Format();"/>
+                <s:Button label="Validate and Format" click="Format();"/>
             </mx:FormItem>
         </mx:Form>
-  
-    </mx:Panel>
-</mx:Application>
+    </s:Panel>
+
+</s:Application>
