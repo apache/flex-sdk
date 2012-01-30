@@ -76,6 +76,15 @@ internal class FrameworkClasses
 	import mx.graphics.ImageSnapshot; ImageSnapshot;
 	import mx.graphics.codec.PNGEncoder; PNGEncoder;
 	import mx.graphics.codec.JPEGEncoder; JPEGEncoder;
+    import mx.graphics.shaderClasses.ColorBurnShader; ColorBurnShader;
+    import mx.graphics.shaderClasses.ColorDodgeShader; ColorDodgeShader;
+    import mx.graphics.shaderClasses.ColorShader; ColorShader;
+    import mx.graphics.shaderClasses.ExclusionShader; ExclusionShader;
+    import mx.graphics.shaderClasses.HueShader; HueShader;
+    import mx.graphics.shaderClasses.LuminosityShader; LuminosityShader;
+    import mx.graphics.shaderClasses.LuminosityMaskShader; LuminosityMaskShader;
+    import mx.graphics.shaderClasses.SaturationShader; SaturationShader;
+    import mx.graphics.shaderClasses.SoftLightShader; SoftLightShader;
 	import mx.logging.ILogger; ILogger;
 	import mx.logging.Log; Log;
 	import mx.logging.targets.TraceTarget; TraceTarget;
