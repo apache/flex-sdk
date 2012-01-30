@@ -11426,10 +11426,10 @@ public class UIComponent extends FlexSprite
         if (obj == null)
             obj = new classObj();
 
-        // If we just created a UITLFTextField, set its textLineCreator property
+        // If we just created a UITLFTextField, set its fontContext property
         // so that it knows what module to use for creating its TextLines.
         if (className == "mx.core::UIFTETextField")
-            obj.textLineCreator = moduleContext;
+            obj.fontContext = moduleContext;
 
         return obj;
     }
