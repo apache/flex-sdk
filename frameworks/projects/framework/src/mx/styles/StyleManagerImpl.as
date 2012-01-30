@@ -1347,6 +1347,8 @@ class StyleEventDispatcher extends EventDispatcher
     private function moduleInfo_readyHandler(event:ModuleEvent):void
     {
         var styleEvent:StyleEvent = new StyleEvent(StyleEvent.COMPLETE);
+        styleEvent.bytesLoaded = event.bytesLoaded;
+        styleEvent.bytesTotal = event.bytesTotal;
         dispatchEvent(styleEvent);
     }
 }
