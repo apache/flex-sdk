@@ -2059,20 +2059,9 @@ public class UITextField extends FlexTextField
                     null : 
                     embeddedFontRegistry.getAssociatedModuleFactory(
                         textFormat.font, textFormat.bold, textFormat.italic,
-                        this, moduleFactory);
+                        this, moduleFactory, creatingSystemManager(), false);
     
-                // if we found the font, then it is embedded. 
-                // Some fonts are not listed in info(), so are not in the above registry.
-                // Call isFontFaceEmbedded() which get the list of embedded fonts from the player.
-                if (fontModuleFactory != null) 
-                {
-                    embedFonts = true;
-                }
-                else
-                {
-                    var sm:ISystemManager = creatingSystemManager();
-                    embedFonts = sm != null && sm.isFontFaceEmbedded(textFormat);
-                }
+                embedFonts = (fontModuleFactory != null);
             }
             else
             {
