@@ -18,7 +18,6 @@ import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.system.Capabilities;
 
-import mx.core.DeviceDensity;
 import mx.core.FlexGlobals;
 import mx.core.IFlexDisplayObject;
 import mx.core.ILayoutElement;
@@ -126,29 +125,20 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     private var _focus:Boolean = false;
     
     //----------------------------------
-    //  authorDensity
+    //  applicationDPI
     //----------------------------------
     
     /**
-     *  Returns the authorDensity of the application. If authorDensity is not
-     *  specified, it is determined from the current screenDPI.
+     *  Returns the DPI of the application.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get authorDensity():String
+    public function get applicationDPI():int
     {
-        if ("authorDensity" in FlexGlobals.topLevelApplication)
-        {
-            var value:String = FlexGlobals.topLevelApplication.authorDensity;
-            
-            if (value)
-                return value;
-        }
-        
-        return DensityUtil.screenDPIToDeviceDensity(Capabilities.screenDPI);
+        return FlexGlobals.topLevelApplication.applicationDPI;
     }
     
     //----------------------------------
