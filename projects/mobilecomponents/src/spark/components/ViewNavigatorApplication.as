@@ -21,9 +21,9 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
 
-import spark.components.supportClasses.ViewNavigatorApplicationBase;
 import spark.components.supportClasses.NavigationStack;
 import spark.components.supportClasses.ViewDescriptor;
+import spark.components.supportClasses.ViewNavigatorApplicationBase;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -683,6 +683,18 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
     {
         super.invokeHandler(event);
 
+        // If the navigator and view are created, this means that the application
+        // is restoring its state after being suspended by the operating system.
+        // In this case, the activeView is currently deactivated and it orientation 
+        // state could potentially be wrong.  Wait for the next stage resize event
+        // so that the runtime has a chance to discover its orientation and then 
+        // properly update and activate the view
+        if (navigator)
+        {
+            if (navigator.activeView)
+                systemManager.stage.addEventListener(Event.RESIZE, stage_resizeHandler);
+        }
+        
         // Set the stage focus to the navigator's active view
         if (systemManager.stage.focus == null && navigator)
         {
@@ -691,6 +703,21 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
             else
                 systemManager.stage.focus = navigator;
         }
+    }
+    
+    /**
+     *  @private
+     *  This method is called on the first resize event after an application
+     *  has been invoked after being suspended in the background.
+     */
+    private function stage_resizeHandler(event:Event):void
+    {
+        systemManager.stage.removeEventListener(Event.RESIZE, stage_resizeHandler);
+        
+        // The active view was deactivated when the application was suspended.  We
+        // need to reactivate it here.
+        if (!activeView.isActive)
+            activeView.setActive(true);
     }
     
     /**
