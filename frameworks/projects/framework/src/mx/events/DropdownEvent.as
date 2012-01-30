@@ -17,6 +17,11 @@ import flash.events.Event
 /**
  *  The DropdownEvent class represents the event object passed to 
  *  the event listener for the <code>open</code> and <code>close</code> events.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DropdownEvent extends Event
 {
@@ -50,6 +55,11 @@ public class DropdownEvent extends Event
 	 *  </table>
 	 *
      *  @eventType close
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const CLOSE:String = "close";
 	
@@ -75,6 +85,11 @@ public class DropdownEvent extends Event
 	 *  </table>
 	 *
      *  @eventType open
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const OPEN:String = "open";
 	
@@ -97,6 +112,11 @@ public class DropdownEvent extends Event
 	 *
 	 *  @param triggerEvent A value indicating the 
      *  type of input action that triggered the event
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DropdownEvent(type:String, bubbles:Boolean = false,
                                   cancelable:Boolean = false,
@@ -122,6 +142,11 @@ public class DropdownEvent extends Event
 	 *  this property contains a value indicating the type of input action. 
 	 *  The value is either <code>InteractionInputType.MOUSE</code> 
 	 *  or <code>InteractionInputType.KEYBOARD</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var triggerEvent:Event;
 	
