@@ -2307,6 +2307,13 @@ public class UIComponent extends FlexSprite
 
             _width = value;
 
+            // The width is needed for the mirroring transform.
+            if (_layoutFeatures)
+            {
+                _layoutFeatures.layoutWidth = value;
+                invalidateTransform();
+            }
+
             dispatchEvent(new Event("widthChanged"));
         }
     }
@@ -3125,6 +3132,111 @@ public class UIComponent extends FlexSprite
     public function set tweeningProperties(value:Array):void
     {
         _tweeningProperties = value;
+    }
+    
+    
+    //----------------------------------
+    //  mirror
+    //----------------------------------
+
+    public function get mirror():Boolean
+    {
+        return _layoutFeatures && _layoutFeatures.mirror;
+    }
+    
+    public function set mirror(value:Boolean):void
+    {
+        if (value == mirror)
+            return;
+            
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        _layoutFeatures.mirror = value;
+        invalidateTransform();
+    }
+
+    //----------------------------------
+    //  dir
+    //----------------------------------
+
+    private var _dir:String;
+    
+    public function get dir():String
+    {
+        return _dir;
+    }
+    
+    public function set dir(value:String):void
+    {
+        if (_dir == value)
+            return;
+        
+        _dir = value;
+        mirrorTree(findAncestorDir(this));     
+    }
+    
+    /**
+     *  @private
+     *  Return the value of the dir property for the first ancestor whose
+     *  dir is non-null.  Typically that's the FxApplication's dir, which 
+     *  is default "ltr".
+     */
+    private function findAncestorDir(elt:IVisualElement):String
+    {
+        var parentElt:IVisualElement = elt.parent as IVisualElement;
+        if (!parentElt)
+            return null;
+        var ancestorDir:String = parentElt.dir;
+        return (ancestorDir) ? ancestorDir : findAncestorDir(parentElt);
+    }
+    
+    /**
+     *  @private
+     *  Walk the IVisualElement tree setting the mirror property for elements whose 
+     *  dir doesn't match their nearest ancestor's, clearing it if it does match.
+     * 
+     *  This is a bit messy because we need to walk into FxComponent skins.  A
+     *  FxComponent::mirrorTree override handles that.
+     * 
+     *  It's also messy because although this function is defined on UIComponent,
+     *  we need to visit IVisualElements that are not UIComponents, notably 
+     *  GraphicalElements.
+     */
+    mx_internal function mirrorTree(ancestorDir:String):void
+    {
+        ancestorDir = mirrorElement(this, ancestorDir);
+
+        var root:IVisualElementContainer = this as IVisualElementContainer;
+        if (root)
+        {
+            var n:int = root.numElements;
+            for (var i:int = 0; i < n; i++)
+            {
+                var elt:IVisualElement = root.getElementAt(i);
+                if (elt is UIComponent)
+                    UIComponent(elt).mirrorTree(ancestorDir);
+                else
+                    mx_internal::mirrorElement(elt, ancestorDir);
+            }
+        }
+    }
+    
+    /**
+     *  @private 
+     *  If elt's dir doesn't match ancestorDir (see mirrorTree), 
+     *  then set its mirror property.  If that happens elt's dir becomes 
+     *  the new ancestorDir, which is what we return. 
+     */
+    mx_internal function mirrorElement(elt:IVisualElement, ancestorDir:String):String
+    {                
+        if (elt.dir && (elt.dir != ancestorDir))
+        {
+            elt.mirror = (ancestorDir) ? true : (elt.dir == "rtl");
+            ancestorDir = elt.dir;
+        }
+        else
+            elt.mirror = false;
+        return ancestorDir;
     }
 
     //--------------------------------------------------------------------------
@@ -6373,6 +6485,15 @@ public class UIComponent extends FlexSprite
         // but some need to react to even this early change.
         if (child is UIComponent)
             UIComponent(child).stylesInitialized();
+            
+        if (child is IVisualElement)
+        {
+            var ancestorDir:String = findAncestorDir(IVisualElement(child));
+            if (child is UIComponent)
+                UIComponent(child).mx_internal::mirrorTree(ancestorDir);
+            else 
+                mirrorElement(IVisualElement(child), ancestorDir);
+        }
     }
 
     /**
@@ -8198,6 +8319,11 @@ public class UIComponent extends FlexSprite
         if (_width != w)
         {
             _width = w;
+            if(_layoutFeatures)
+            {
+                _layoutFeatures.layoutWidth = w;
+                invalidateTransform();
+            }
             dispatchEvent(new Event("widthChanged"));
             changed = true;
         }
@@ -11110,6 +11236,7 @@ public class UIComponent extends FlexSprite
         features.layoutX = x;
         features.layoutY = y;
         features.layoutZ = z;
+        features.layoutWidth = width;
         _layoutFeatures = features;
         invalidateTransform();
     }
