@@ -804,7 +804,8 @@ include "../styles/metadata/AnchorStyles.as";
  *  Flex also sets the <code>borderColor</code> style of the component to this
  *  <code>errorColor</code> on a validation failure.
  *
- *  @default 0xFF0000
+ *  The default value for the Halo theme is <code>0xFF0000</code>.
+ *  The default value for the Spark theme is <code>0xFE0000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
