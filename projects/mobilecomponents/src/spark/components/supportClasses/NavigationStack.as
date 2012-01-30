@@ -16,7 +16,7 @@ import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
 
-import spark.components.supportClasses.ViewHistoryData;
+import spark.components.supportClasses.ViewProxy;
 
 import mx.core.mx_internal;
 use namespace mx_internal;
@@ -52,7 +52,7 @@ public class NavigationStack implements IExternalizable
     {
         super();
         
-        _source = new Vector.<ViewHistoryData>();
+        _source = new Vector.<ViewProxy>();
     }
     
     //--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ public class NavigationStack implements IExternalizable
     /**
      *  @private
      */
-    private var _source:Vector.<ViewHistoryData>;
+    private var _source:Vector.<ViewProxy>;
     
     /**
      *  @private
@@ -74,7 +74,7 @@ public class NavigationStack implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    mx_internal function get source():Vector.<ViewHistoryData>
+    mx_internal function get source():Vector.<ViewProxy>
     {
         return _source;
     }
@@ -117,7 +117,7 @@ public class NavigationStack implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    mx_internal function get topView():ViewHistoryData
+    mx_internal function get topView():ViewProxy
     {
         return _source.length == 0 ? null : _source[_source.length - 1];
     }
@@ -146,6 +146,7 @@ public class NavigationStack implements IExternalizable
      * 
      *  @param factory The class of the View to create.
      *  @param data The data object to pass to the view when it is created
+     *  @param context The context identifier to pass to the view when created
      *  
      *  @return The data structure that represents the current view.
      * 
@@ -154,9 +155,9 @@ public class NavigationStack implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function push(factory:Class, data:Object):ViewHistoryData
+    public function push(factory:Class, data:Object, context:String = null):ViewProxy
     {
-        var viewData:ViewHistoryData = new ViewHistoryData(factory, data);
+        var viewData:ViewProxy = new ViewProxy(factory, data, context);
         _source.push(viewData);
         
         return viewData;
@@ -172,7 +173,7 @@ public class NavigationStack implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function pop():ViewHistoryData
+    public function pop():ViewProxy
     {
         return _source.pop();
     }
@@ -226,7 +227,7 @@ public class NavigationStack implements IExternalizable
      */ 
     public function readExternal(input:IDataInput):void 
     {
-        _source = input.readObject() as Vector.<ViewHistoryData>;
+        _source = input.readObject() as Vector.<ViewProxy>;
     }
 }
 }
