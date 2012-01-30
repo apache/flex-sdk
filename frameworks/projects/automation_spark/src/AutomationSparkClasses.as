@@ -29,7 +29,10 @@ package
 		import spark.automation.delegates.components.SparkComboBoxAutomationImpl;SparkComboBoxAutomationImpl;
 		import spark.automation.delegates.components.SparkDataGroupAutomationImpl;SparkDataGroupAutomationImpl;
 		import spark.automation.delegates.components.SparkDropDownListAutomationImpl;SparkDropDownListAutomationImpl;
+		import spark.automation.delegates.components.SparkFormAutomationImpl;SparkFormAutomationImpl;
+		import spark.automation.delegates.components.SparkFormItemAutomationImpl;SparkFormItemAutomationImpl;
 		import spark.automation.delegates.components.SparkGroupAutomationImpl;SparkGroupAutomationImpl;
+		import spark.automation.delegates.components.SparkImageAutomationImpl;SparkImageAutomationImpl;
 		import spark.automation.delegates.components.SparkLabelAutomationImpl;SparkLabelAutomationImpl;
 		import spark.automation.delegates.components.SparkListAutomationImpl;SparkListAutomationImpl;
 		import spark.automation.delegates.components.SparkNavigatorContentAutomationImpl;SparkNavigatorContentAutomationImpl;
