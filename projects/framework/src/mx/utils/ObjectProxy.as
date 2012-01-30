@@ -357,13 +357,7 @@ public dynamic class ObjectProxy extends Proxy
     }
 
     /**
-     *  This is an internal function that must be implemented by 
-     *  a subclass of flash.utils.Proxy.
-     *  
-     *  @param name The property name that should be tested 
-     *  for existence.
-     *
-     *  @see flash.utils.Proxy#hasProperty()
+     *  @private
      */
     override flash_proxy function hasProperty(name:*):Boolean
     {
@@ -371,10 +365,7 @@ public dynamic class ObjectProxy extends Proxy
     }
     
     /**
-     *  This is an internal function that must be implemented by 
-     *  a subclass of flash.utils.Proxy.
-     *
-     *  @see flash.utils.Proxy#nextName()
+     *  @private
      */
     override flash_proxy function nextName(index:int):String
     {
@@ -382,10 +373,7 @@ public dynamic class ObjectProxy extends Proxy
     }
     
     /**
-     *  This is an internal function that must be implemented by 
-     *  a subclass of flash.utils.Proxy.
-     *
-     *  @see flash.utils.Proxy#nextNameIndex()
+     *  @private
      */
     override flash_proxy function nextNameIndex(index:int):int
     {
@@ -405,10 +393,7 @@ public dynamic class ObjectProxy extends Proxy
     }
     
     /**
-     *  This is an internal function that must be implemented by 
-     *  a subclass of flash.utils.Proxy.
-     *
-     *  @see flash.utils.Proxy#nextValue()
+     *  @private
      */
     override flash_proxy function nextValue(index:int):*
     {
