@@ -404,6 +404,24 @@ public class AddItems extends OverrideBase
      *  @productversion Flex 4
      */
     public var isArray:Boolean = false;
+
+    //------------------------------------
+    //  vectorClass
+    //------------------------------------
+
+    [Inspectable(category="General")]
+
+    /**
+     *  When the collection represented by the target property is a
+     *  Vector, vectorClass is the type of the target.  It is used to
+     *  initialize the target property.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public var vectorClass:Class;
     
     //------------------------------------
     //  propertyName
@@ -553,6 +571,10 @@ public class AddItems extends OverrideBase
         {
             addItemsToIList(dest[propertyName], localItems);
         }
+        else if (vectorClass)
+        {
+            addItemsToVector(dest, propertyName, localItems);
+        }
         else
         {
             addItemsToArray(dest, propertyName, localItems);
@@ -618,6 +640,23 @@ public class AddItems extends OverrideBase
         {
             removeItemsFromIList(dest[propertyName] as IList);
         }
+        else if (vectorClass)
+        {
+            var tempVector:Object = isStyle ? dest.getStyle(propertyName) : dest[propertyName];
+                
+            if (numAdded < tempVector.length) 
+            {
+                tempVector.splice(startIndex, numAdded);
+                assign(dest, propertyName, tempVector);
+            } 
+            else
+            {
+                // For destinations like ArrayCollection we don't want to 
+                // affect the vector in-place in some cases, as ListCollectionView a
+                // attempts to compare the "before" and "after" state of the vector
+                assign(dest, propertyName, new vectorClass());
+            }      
+        }
         else
         {
             var tempArray:Array = isStyle ? dest.getStyle(propertyName) : dest[propertyName];
@@ -625,14 +664,14 @@ public class AddItems extends OverrideBase
             if (numAdded < tempArray.length) 
             {
                 tempArray.splice(startIndex, numAdded);
-                assignArray(dest, propertyName, tempArray);
+                assign(dest, propertyName, tempArray);
             } 
             else
             {
             	// For destinations like ArrayCollection we don't want to 
                 // affect the array in-place in some cases, as ListCollectionView a
                 // attempts to compare the "before" and "after" state of the array
-                assignArray(dest, propertyName, new Array());
+                assign(dest, propertyName, new Array());
             }      
         }
         
@@ -767,7 +806,26 @@ public class AddItems extends OverrideBase
         for (var i:int  = 0; i < items.length; i++) 
             tempArray.splice(startIndex + i, 0, items[i]);
         
-        assignArray(dest, propertyName, tempArray);
+        assign(dest, propertyName, tempArray);
+    }
+
+    /**
+     *  @private
+     */
+    protected function addItemsToVector(dest:Object, propertyName:String, items:Array):void
+    {
+        var tempVector:Object = isStyle ? dest.getStyle(propertyName) : dest[propertyName];
+        
+        if (!tempVector)
+            tempVector = new vectorClass();
+        
+        if (startIndex == -1)
+            startIndex = tempVector.length;
+        
+        for (var i:int  = 0; i < items.length; i++) 
+            tempVector.splice(startIndex + i, 0, items[i]);
+        
+        assign(dest, propertyName, tempVector);
     }
     
     /**
@@ -795,7 +853,7 @@ public class AddItems extends OverrideBase
     /**
      *  @private
      */
-    protected function assignArray(dest:Object, propertyName:String, value:Array):void
+    protected function assign(dest:Object, propertyName:String, value:Object):void
     {
         if (isStyle)
         {
@@ -808,7 +866,7 @@ public class AddItems extends OverrideBase
             dest[propertyName] = value;
         }
     }
-    
+
     /**
      *  @private
      *  We've detected that our IDeferredContentOwnder target has created its
