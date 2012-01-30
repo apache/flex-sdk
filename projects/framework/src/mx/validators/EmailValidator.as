@@ -46,6 +46,11 @@ package mx.validators
  *  </pre>
  *  
  *  @includeExample examples/EmailValidatorExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class EmailValidator extends Validator
 {
@@ -92,6 +97,11 @@ public class EmailValidator extends Validator
 	 *  ValidationResult object for each field examined by the validator. 
 	 *
 	 *  @see mx.validators.ValidationResult	 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function validateEmail(validator:EmailValidator,
 										 value:Object,
@@ -380,6 +390,11 @@ public class EmailValidator extends Validator
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function EmailValidator()
 	{
@@ -413,6 +428,11 @@ public class EmailValidator extends Validator
 	 *  Error message when there are invalid characters in the e-mail address.
 	 *
 	 *  @default "Your e-mail address contains invalid characters."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get invalidCharError():String
 	{
@@ -454,6 +474,11 @@ public class EmailValidator extends Validator
 	 *  is not 2, 3, 4 or 6 characters long.
 	 *
 	 *  @default "The domain in your e-mail address is incorrectly formatted."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get invalidDomainError():String
 	{
@@ -494,6 +519,11 @@ public class EmailValidator extends Validator
 	 *  Error message when the IP domain is invalid. The IP domain must be enclosed by square brackets.
 	 *
 	 *  @default "The IP domain in your e-mail address is incorrectly formatted."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get invalidIPDomainError():String
 	{
@@ -534,6 +564,11 @@ public class EmailValidator extends Validator
 	 *  Error message when there are continuous periods in the domain.
 	 *
 	 *  @default "The domain in your e-mail address has continous periods."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get invalidPeriodsInDomainError():String
 	{
@@ -574,6 +609,11 @@ public class EmailValidator extends Validator
 	 *  Error message when there is no at sign in the email address.
 	 *
 	 *  @default "An at sign (&64;) is missing in your e-mail address."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get missingAtSignError():String
 	{
@@ -614,6 +654,11 @@ public class EmailValidator extends Validator
 	 *  Error message when there is no period in the domain.
 	 *
 	 *  @default "The domain in your e-mail address is missing a period."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get missingPeriodInDomainError():String
 	{
@@ -654,6 +699,11 @@ public class EmailValidator extends Validator
 	 *  Error message when there is no username.
 	 *
 	 *  @default "The username in your e-mail address is missing."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get missingUsernameError():String
 	{
@@ -695,6 +745,11 @@ public class EmailValidator extends Validator
 	 *  This property is optional. 
 	 *
 	 *  @default "Your e-mail address contains too many &64; characters."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get tooManyAtSignsError():String
 	{
@@ -749,6 +804,11 @@ public class EmailValidator extends Validator
      *
 	 *  @return An Array of ValidationResult objects, with one ValidationResult 
 	 *  object for each field examined by the validator. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override protected function doValidation(value:Object):Array
     {
