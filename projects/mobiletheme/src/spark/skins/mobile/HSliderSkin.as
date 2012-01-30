@@ -213,9 +213,9 @@ public class HSliderSkin extends MobileSkin
         var calculatedTrackY:int = Math.max(Math.round((unscaledHeight - track.getPreferredBoundsHeight())/2), 0);
         
         // size and position
-        resizeElement(thumb, thumb.getPreferredBoundsWidth(), thumb.getPreferredBoundsHeight()); // thumb does NOT scale
-        resizeElement(track, calculatedSkinWidth, track.getPreferredBoundsHeight()); // note track is NOT scaled vertically
-        positionElement(track, 0, calculatedTrackY);
+        setElementSize(thumb, thumb.getPreferredBoundsWidth(), thumb.getPreferredBoundsHeight()); // thumb does NOT scale
+        setElementSize(track, calculatedSkinWidth, track.getPreferredBoundsHeight()); // note track is NOT scaled vertically
+        setElementPosition(track, 0, calculatedTrackY);
     }
 }
 }
