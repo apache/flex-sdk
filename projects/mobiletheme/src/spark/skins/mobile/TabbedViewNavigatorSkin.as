@@ -11,8 +11,6 @@
 
 package spark.skins.mobile
 {
-import mx.states.State;
-
 import spark.components.ButtonBar;
 import spark.components.Group;
 import spark.components.TabbedViewNavigator;
@@ -65,17 +63,20 @@ public class TabbedViewNavigatorSkin extends MobileSkin
      */
     override protected function createChildren():void
     {
-        contentGroup = new Group();
-        contentGroup.id = "contentGroup";
+        if (!contentGroup)
+        {
+            contentGroup = new Group();
+            contentGroup.id = "contentGroup";
+            addChild(contentGroup);
+        }
         
-        tabBar = new ButtonBar();
-        tabBar.id = "tabBar";
-        tabBar.requireSelection = true;
-        tabBar.setStyle("skinClass", TabbedViewNavigatorButtonBarSkin);
-        tabBar.height = 80;
-            
-        addChild(contentGroup);
-        addChild(tabBar);
+        if (!tabBar)
+        {
+            tabBar = new ButtonBar();
+            tabBar.id = "tabBar";
+            tabBar.requireSelection = true;
+            addChild(tabBar);
+        }
     }
     
     override protected function commitCurrentState():void
