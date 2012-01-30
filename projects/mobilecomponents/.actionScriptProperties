@@ -12,7 +12,7 @@
 -->
 
 <actionScriptProperties analytics="false" mainApplicationPath="mobilecomponents.as" projectUUID="fe6cd9e8-ac6c-419a-876e-64da4790b2b9" version="10">
-  <compiler additionalCompilerArguments="-keep-as3-metadata=SkinPart -resource-bundle-list=bundles.properties -namespace=library://ns.adobe.com/flex/spark,../manifest.xml -include-namespaces=library://ns.adobe.com/flex/spark -library-path= -locale=" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+  <compiler additionalCompilerArguments="-keep-as3-metadata=SkinPart -resource-bundle-list=bundles.properties -namespace=library://ns.adobe.com/flex/spark,../manifest.xml -include-namespaces=library://ns.adobe.com/flex/spark -library-path= -locale= -include-classes=spark.transitions.FlipViewTransitionMode,spark.transitions.ZoomViewTransitionMode" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/air/airglobal.swc" useDefaultLinkType="false"/>
@@ -30,3 +30,4 @@
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
 </actionScriptProperties>
+
