@@ -18,15 +18,15 @@ import mx.core.DPIClassification;
 import mx.core.mx_internal;
 
 import spark.skins.mobile.supportClasses.MobileSkin;
-import spark.skins.mobile160.assets.ActionRoundedButton_down;
-import spark.skins.mobile160.assets.ActionRoundedButton_fill;
-import spark.skins.mobile160.assets.ActionRoundedButton_up;
-import spark.skins.mobile240.assets.ActionRoundedButton_down;
-import spark.skins.mobile240.assets.ActionRoundedButton_fill;
-import spark.skins.mobile240.assets.ActionRoundedButton_up;
-import spark.skins.mobile320.assets.ActionRoundedButton_down;
-import spark.skins.mobile320.assets.ActionRoundedButton_fill;
-import spark.skins.mobile320.assets.ActionRoundedButton_up;
+import spark.skins.mobile160.assets.BeveledActionButton_down;
+import spark.skins.mobile160.assets.BeveledActionButton_fill;
+import spark.skins.mobile160.assets.BeveledActionButton_up;
+import spark.skins.mobile240.assets.BeveledActionButton_down;
+import spark.skins.mobile240.assets.BeveledActionButton_fill;
+import spark.skins.mobile240.assets.BeveledActionButton_up;
+import spark.skins.mobile320.assets.BeveledActionButton_down;
+import spark.skins.mobile320.assets.BeveledActionButton_fill;
+import spark.skins.mobile320.assets.BeveledActionButton_up;
 
 use namespace mx_internal;
 
@@ -75,9 +75,9 @@ public class BeveledActionButtonSkin extends ButtonSkin
                 measuredDefaultWidth = 54;
                 measuredDefaultHeight = 54;
                 
-                upBorderSkin = spark.skins.mobile320.assets.ActionRoundedButton_up;
-                downBorderSkin = spark.skins.mobile320.assets.ActionRoundedButton_down;
-                fillClass = spark.skins.mobile320.assets.ActionRoundedButton_fill;
+                upBorderSkin = spark.skins.mobile320.assets.BeveledActionButton_up;
+                downBorderSkin = spark.skins.mobile320.assets.BeveledActionButton_down;
+                fillClass = spark.skins.mobile320.assets.BeveledActionButton_fill;
                 
                 break;
             }
@@ -91,9 +91,9 @@ public class BeveledActionButtonSkin extends ButtonSkin
                 measuredDefaultWidth = 42;
                 measuredDefaultHeight = 42;
                 
-                upBorderSkin = spark.skins.mobile240.assets.ActionRoundedButton_up;
-                downBorderSkin = spark.skins.mobile240.assets.ActionRoundedButton_down;
-                fillClass = spark.skins.mobile240.assets.ActionRoundedButton_fill;
+                upBorderSkin = spark.skins.mobile240.assets.BeveledActionButton_up;
+                downBorderSkin = spark.skins.mobile240.assets.BeveledActionButton_down;
+                fillClass = spark.skins.mobile240.assets.BeveledActionButton_fill;
                 
                 break;
             }
@@ -108,9 +108,9 @@ public class BeveledActionButtonSkin extends ButtonSkin
                 measuredDefaultWidth = 28;
                 measuredDefaultHeight = 28;
                 
-                upBorderSkin = spark.skins.mobile160.assets.ActionRoundedButton_up;
-                downBorderSkin = spark.skins.mobile160.assets.ActionRoundedButton_down;
-                fillClass = spark.skins.mobile160.assets.ActionRoundedButton_fill;
+                upBorderSkin = spark.skins.mobile160.assets.BeveledActionButton_up;
+                downBorderSkin = spark.skins.mobile160.assets.BeveledActionButton_down;
+                fillClass = spark.skins.mobile160.assets.BeveledActionButton_fill;
                 
                 break;
             }
