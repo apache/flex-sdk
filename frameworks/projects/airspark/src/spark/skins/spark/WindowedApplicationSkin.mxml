@@ -1,13 +1,3 @@
-<!--
-
-      ADOBE SYSTEMS INCORPORATED
-      Copyright 2009 Adobe Systems Incorporated
-      All Rights Reserved.
-
-      NOTICE: Adobe permits you to use, modify, and distribute this file
-      in accordance with the terms of the license agreement accompanying it.
-
--->
 <!--- A skin class for the Spark WindowedApplication and Window containers. 
       This class defines just a border and status bar, but no gripper button, 
       title bar, or title bar buttons.
