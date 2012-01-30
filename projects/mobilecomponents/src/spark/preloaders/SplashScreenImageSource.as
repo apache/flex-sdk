@@ -39,6 +39,21 @@ use namespace mx_internal;
  *    &lt;/s:SplashScreenImage&gt;      
  *  </pre>
  *
+ *  @mxml
+ *  
+ *  <p>The <code>&lt;s:SplashScreenImageSource&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;s:SplashScreenImageSource
+ *   <strong>Properties</strong>
+ *    aspectRatio="null"
+ *    dpi="NaN"
+ *    minResolution="NaN"
+ *    source="null"
+ *  &gt;
+ *  </pre>
+ *
  *  @see spark.preloaders.SplashScreenImage
  *  @see spark.components.Application#splashScreenImage
  *  
