@@ -36,8 +36,9 @@ use namespace mx_internal;  // for mx_internal functions pendingItemSucceeded,Fa
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
 /**
- *  A "wrapper" for IList implementations that handles ItemPendingErrors
- *  thrown by <code>getItemAt()</code>.
+ *  A wrapper for IList implementations that handles ItemPendingErrors
+ *  thrown by <code>getItemAt()</code>, <code>removeItemAt()</code>, 
+ *  and <code>toArray()</code>.
  * 
  *  <p>The getItemAt() method handles ItemPendingErrors by returning a provisional 
  *  "pending" item until the underlying request succeeds or fails.  The provisional
@@ -54,7 +55,6 @@ use namespace mx_internal;  // for mx_internal functions pendingItemSucceeded,Fa
  *  <p>This class is intended to be used with Spark components based on DataGroup,
  *  like List and ComboBox, which don't provide intrinsic support for 
  *  ItemPendingError handling.</p>
- * 
  * 
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -599,7 +599,7 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     public function itemUpdated(item:Object, property:Object=null, oldValue:Object=null, newValue:Object=null):void
     {
         if (list)
-            itemUpdated(item, property, oldValue, newValue);
+            list.itemUpdated(item, property, oldValue, newValue);
     }
     
     /**
