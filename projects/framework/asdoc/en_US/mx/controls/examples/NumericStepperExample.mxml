@@ -1,25 +1,29 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the NumericStepper control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo NumericStepper control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Panel title="NumericStepper Control Example" height="75%" width="75%" 
-        paddingTop="10" paddingLeft="10">
+    <s:Panel title="Halo NumericStepper Control Example"
+            width="75%" height="75%"  
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%" color="blue"
+                    text="Default Halo NumericStepper control with a minimum=0, maximum=10, and stepSize=1."/>
+            <mx:NumericStepper />
 
-        <mx:Text width="100%" color="blue"
-            text="Default NumericStepper control with a minimum=0, maximum=10, and stepSize=1."/>
-        <mx:NumericStepper/>
+            <mx:HRule width="100%" />
 
-        <mx:Text width="100%"  color="blue"
-            text="NumericStepper control with a minimum=10, maximum=40, stepSize=0.01, and starting value of 20."/>
+            <s:SimpleText width="100%"  color="blue"
+                    text="Halo NumericStepper control with a minimum=10, maximum=40, stepSize=0.01, and starting value of 20."/>
+            <mx:NumericStepper id="ns" 
+                    minimum="10.00" maximum="40.00" 
+                    stepSize="0.01" 
+                    value="20.00" 
+                    width="65"/>
 
-        <mx:NumericStepper id="ns" 
-            minimum="10.00" maximum="40.00" 
-            stepSize="0.01" 
-            value="20.00" 
-            width="65"/>
+            <s:SimpleText color="blue" text="You selected {ns.value}"/>
+        </s:VGroup>
+    </s:Panel>
 
-        <mx:Label  color="blue" text="You selected {ns.value}"/>
-
-    </mx:Panel>
-</mx:Application>
-       
+</s:Application>
