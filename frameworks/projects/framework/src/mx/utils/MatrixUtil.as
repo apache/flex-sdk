@@ -100,6 +100,81 @@ public class MatrixUtil
     }
 
     /**
+     *  Calculates the bounding box of a post-transformed ellipse.
+     *   
+     *  @param cx The x coordinate of the ellipse's center
+     *  @param cy The y coordinate of the ellipse's center
+     *  @param rx The horizontal radius of the ellipse
+     *  @param ry The vertical radius of the ellipse
+     *  @param matrix The transformation matrix.
+     *  @param rect If non-null, rect will be updated to the union of rect and
+     *  the segment bounding box.
+     *  @return Returns the union of the passed in rect with the
+     *  bounding box of the the post-transformed ellipse.
+     */ 
+    public static function getEllipseBoundingBox(cx:Number, cy:Number,
+                                                 rx:Number, ry:Number,
+                                                 matrix:Matrix,
+                                                 rect:Rectangle = null):Rectangle
+    {
+        var a:Number = matrix.a;
+        var b:Number = matrix.b;
+        var c:Number = matrix.c;
+        var d:Number = matrix.d;
+        
+        // Ellipse can be represented by the following parametric equations:         
+        //
+        // (1) x = cx + rx * cos(t)
+        // (2) y = cy + ry * sin(t)
+        //
+        // After applying transformation with matrix m(a, c, b, d) we get:
+        //
+        // (3) x = a * cx + a * cos(t) * rx + c * cy + c * sin(t) * ry + m.tx
+        // (4) y = b * cx + b * cos(t) * rx + d * cy + d * sin(t) * ry + m.ty
+        //
+        // In (3) and (4) x and y are functions of a parameter t. To find the extremums we need
+        // to find where dx/dt and dy/dt reach zero:
+        //
+        // (5) dx/dt = - a * sin(t) * rx + c * cos(t) * ry
+        // (6) dy/dt = - b * sin(t) * rx + d * cos(t) * ry
+        // (7) dx/dt = 0 <=> sin(t) / cos(t) = (c * ry) / (a * rx);   
+        // (8) dy/dt = 0 <=> sin(t) / cos(t) = (d * ry) / (b * rx);
+        
+        if(rx == 0 && ry == 0)
+        {
+            var pt:Point = new Point(cx, cy);
+            pt = matrix.transformPoint(pt);
+            return rectUnion(pt.x, pt.y, pt.x, pt.y, rect);
+        }
+
+        var t:Number;
+        var t1:Number;
+        
+        if (a * rx == 0)
+            t = Math.PI / 2;
+        else
+            t = Math.atan((c * ry) / (a * rx));
+
+        if (b * rx == 0)
+            t1 = Math.PI / 2;
+        else
+            t1 = Math.atan((d * ry) / (b * rx));            
+    
+        // TODO EGeorgie: optimize
+        var x1:Number = a * Math.cos(t) * rx + c * Math.sin(t) * ry;             
+        var x2:Number = -x1;
+        x1 += a * cx + c * cy + matrix.tx;
+        x2 += a * cx + c * cy + matrix.tx;
+    
+        var y1:Number = b * Math.cos(t1) * rx + d * Math.sin(t1) * ry;             
+        var y2:Number = -y1;
+        y1 += b * cx + d * cy + matrix.ty;
+        y2 += b * cx + d * cy + matrix.ty;
+        
+        return rectUnion(Math.min(x1, x2), Math.min(y1, y2), Math.max(x1, x2), Math.max(y1, y2), rect); 
+    }
+
+    /**
      *  @param x0 x coordinate of the first control point
      *  @param y0 y coordinate of the first control point
      *  @param x1 x coordinate of the second control point
