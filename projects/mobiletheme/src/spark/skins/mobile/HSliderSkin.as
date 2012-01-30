@@ -46,6 +46,7 @@ public class HSliderSkin extends MobileSkin
     //--------------------------------------------------------------------------
 
     /**
+     *  Constructor.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -53,28 +54,28 @@ public class HSliderSkin extends MobileSkin
      *  @productversion Flex 4.5
      * 
      */    
-	public function HSliderSkin()
-	{
-		super();
+    public function HSliderSkin()
+    {
+        super();
         
         thumbSkinClass = spark.skins.mobile.HSliderThumbSkin;
         trackSkinClass = spark.skins.mobile.HSliderTrackSkin;
         dataTipClass = HSliderDataTip;
-		
-		blendMode = BlendMode.LAYER;
-	}
-	
+        
+        blendMode = BlendMode.LAYER;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-	
+    
     /** 
      *  @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
-	public var hostComponent:HSlider;
-	
+    public var hostComponent:HSlider;
+    
     //--------------------------------------------------------------------------
     //
     //  Skin parts 
@@ -89,7 +90,7 @@ public class HSliderSkin extends MobileSkin
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */    
-	public var track:Button;
+    public var track:Button;
     
     /**
      *  HSlider thumb skin part
@@ -99,7 +100,7 @@ public class HSliderSkin extends MobileSkin
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */    
-	public var thumb:Button;
+    public var thumb:Button;
     
     /**
      *  HSlider dataTip class factory
