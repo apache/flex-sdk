@@ -417,7 +417,7 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected function backKeyHandler():void
+    protected function backKeyHandler(event:KeyboardEvent):void
     {
         
     }
@@ -433,7 +433,8 @@ public class MobileApplicationBase extends Application
      */ 
     protected function menuKeyHandler(event:KeyboardEvent):void
     {
-        viewMenuOpen = !viewMenuOpen;
+        if (activeView && !activeView.menuKeyHandledByView())
+            viewMenuOpen = !viewMenuOpen;
     }
     
     /**
@@ -473,8 +474,6 @@ public class MobileApplicationBase extends Application
         var appDescriptor:XML = NativeApplication.nativeApplication.applicationDescriptor;
         var ns:Namespace = appDescriptor.namespace();
         
-        // TODO (chiedozi): See if reserving these keys is bad
-        persistenceManager.setProperty("timestamp", new Date().getTime());
         persistenceManager.setProperty("applicationVersion", 
                                         appDescriptor.ns::versionNumber.toString());
     }
@@ -543,6 +542,7 @@ public class MobileApplicationBase extends Application
         // expect it to on desktop.
         var os:String = Capabilities.os;
         
+        // FIXME (chiedozi): enumerate all possible os values
         if (os.indexOf("Windows") != -1 || os.indexOf("Mac OS") != -1)
             NativeApplication.nativeApplication.
                 addEventListener(Event.EXITING, nativeApplication_deactivateHandler);
@@ -570,11 +570,7 @@ public class MobileApplicationBase extends Application
         else if (key == Keyboard.MENU)
         {
             menuKeyEventPreventDefaulted = event.isDefaultPrevented();
-            
-            if (menuKeyEventPreventDefaulted)
-                event.preventDefault();
         }
-        
     }
     
     /**
@@ -592,7 +588,7 @@ public class MobileApplicationBase extends Application
         // The backKeyEventPreventDefaulted key is always set in the
         // deviceKeyDownHandler method and so doesn't need to be reset.
         if (key == Keyboard.BACK && !backKeyEventPreventDefaulted && !exitApplicationOnBackKey)
-            backKeyHandler();
+            backKeyHandler(event);
         else if (key == Keyboard.MENU && !menuKeyEventPreventDefaulted)
             menuKeyHandler(event);
     }
