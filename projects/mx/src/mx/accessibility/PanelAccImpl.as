@@ -12,6 +12,7 @@
 package mx.accessibility
 {
 
+import mx.accessibility.AccConst;
 import mx.containers.Panel;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -97,7 +98,7 @@ public class PanelAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x14; // ROLE_SYSTEM_GROUPING
+		role = AccConst.ROLE_SYSTEM_GROUPING;
 	}
 	
 	//--------------------------------------------------------------------------
