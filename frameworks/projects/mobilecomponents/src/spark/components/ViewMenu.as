@@ -17,6 +17,7 @@ import flash.events.MouseEvent;
 import flash.events.StageOrientationEvent;
 import flash.ui.Keyboard;
 
+import mx.core.FlexGlobals;
 import mx.core.InteractionMode;
 import mx.core.mx_internal;
 import mx.managers.IFocusManagerComponent;
@@ -140,17 +141,6 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
         mxmlContent = elements;
         
     }
-
-    // Returns true if the stage is in landscape orientation
-    private function get landscapeOrientation():Boolean
-    {
-        if (systemManager && systemManager.stage)
-            return systemManager.stage.deviceOrientation == StageOrientation.ROTATED_LEFT ||
-                systemManager.stage.deviceOrientation == StageOrientation.ROTATED_RIGHT;
-        else
-            return false;
-    }
-    
     
     //--------------------------------------------------------------------------
     //
@@ -212,7 +202,8 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
     
     override protected function getCurrentSkinState():String
     {
-        if (!landscapeOrientation)
+    	// TODO (jszeto): Just concat "AndLandscape" with super call if in landscape orientation
+        if (FlexGlobals.topLevelApplication.aspectRatio == "portrait")
             return super.getCurrentSkinState();
         else
             return enabled ? "normalAndLandscape" : "disabledAndLandscape";                
