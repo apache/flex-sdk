@@ -91,6 +91,11 @@ public class UIComponentGlobals
      *  never need to check this flag, but if a component needs to
      *  have different behavior at design time than at runtime, then it
      *  can check this flag.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get designMode():Boolean
     {
@@ -113,6 +118,11 @@ public class UIComponentGlobals
     /**
      *  A global flag that can is used to catch unhandled exceptions
      *  during execution of methods executed via callLater
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get catchCallLaterExceptions():Boolean
     {
