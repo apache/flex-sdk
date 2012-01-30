@@ -15,7 +15,7 @@ package spark.skins.mobile
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 
-import mx.core.DeviceDensity;
+import mx.core.DPIClassification;
 
 import spark.components.Button;
 import spark.skins.mobile.supportClasses.MobileSkin;
@@ -49,24 +49,24 @@ public class HScrollBarThumbSkin extends MobileSkin
     public function HScrollBarThumbSkin()
     {
         super();
-        useChromeColor = true;
-        
-        // Depending on density set asset and visible thumb height
-        switch (authorDensity)
-        {
-            case DeviceDensity.PPI_240:
-            {
-                thumbClass = spark.skins.mobile240.assets.HScrollThumb;
-                thumbHeight = 6;
-                break;
-            }
-            default:
-            {
-                thumbClass = spark.skins.mobile160.assets.HScrollThumb;
-                thumbHeight = 4;
-                break;
-            }
-        }
+		useChromeColor = true;
+		
+		// Depending on density set asset and visible thumb height
+		switch (applicationDPI)
+		{
+			case DPIClassification.DPI_240:
+			{
+				thumbClass = spark.skins.mobile240.assets.HScrollThumb;
+				thumbHeight = 6;
+				break;
+			}
+			default:
+			{
+				thumbClass = spark.skins.mobile160.assets.HScrollThumb;
+				thumbHeight = 4;
+				break;
+			}
+		}
     }
 
     //--------------------------------------------------------------------------
