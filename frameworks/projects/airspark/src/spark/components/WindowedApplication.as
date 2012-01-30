@@ -304,6 +304,10 @@ use namespace mx_internal;
 //  Excluded APIs
 //--------------------------------------
 
+[Exclude(name="controlBarContent", kind="property")]
+[Exclude(name="controlBarGroup", kind="property")]
+[Exclude(name="controlBarLayout", kind="property")]
+[Exclude(name="controlBarVisible", kind="property")]
 [Exclude(name="moveEffect", kind="effect")]
 
 //--------------------------------------
