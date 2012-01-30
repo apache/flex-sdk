@@ -15,6 +15,7 @@ package mx.accessibility
 import flash.accessibility.Accessibility;
 import flash.events.Event;
 import flash.events.MouseEvent;
+import mx.accessibility.AccConst;
 import mx.containers.Panel;
 import mx.containers.TitleWindow;
 import mx.core.UIComponent;
@@ -35,32 +36,6 @@ public class TitleWindowAccImpl extends PanelAccImpl
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_MOVEABLE:uint = 0x00040000;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_CREATE:uint = 0x8000;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_DESTROY:uint = 0x8001;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_LOCATIONCHANGE:uint = 0x800B;
-	
 	//--------------------------------------------------------------------------
 	//
 	//  Class methods
@@ -105,7 +80,7 @@ public class TitleWindowAccImpl extends PanelAccImpl
 		titleBar.accessibilityImplementation =
 			new TitleWindowAccImpl(component);
 
-		Accessibility.sendEvent(titleBar, 0, EVENT_OBJECT_CREATE);
+		Accessibility.sendEvent(titleBar, 0, AccConst.EVENT_OBJECT_CREATE);
 		Accessibility.updateProperties();
 	}
 
@@ -163,7 +138,7 @@ public class TitleWindowAccImpl extends PanelAccImpl
 	{
 		var accState:uint = getState(childID);
 		
-		accState |= STATE_SYSTEM_MOVEABLE;
+		accState |= AccConst.STATE_SYSTEM_MOVEABLE;
 		
 		return accState;
 	}
@@ -193,13 +168,13 @@ public class TitleWindowAccImpl extends PanelAccImpl
 				if (event.target == Panel(master).getTitleBar())
 				{
 					Accessibility.sendEvent(Panel(master).getTitleBar(), 0,
-											EVENT_OBJECT_LOCATIONCHANGE, true);
+											AccConst.EVENT_OBJECT_LOCATIONCHANGE, true);
 				}
 
 				if (event.target == Panel(master).closeButton)
 				{
 					Accessibility.sendEvent(Panel(master).getTitleBar(), 0,
-											EVENT_OBJECT_DESTROY, true);
+											AccConst.EVENT_OBJECT_DESTROY, true);
 				}
 
 				Accessibility.updateProperties();
