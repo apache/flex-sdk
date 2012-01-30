@@ -277,10 +277,10 @@ public class ActionBar extends SkinnableComponent
      *  spark.skins.mobile.ActionBarSkin.
      *  
      *  <p>The default ActionBarSkin class defines the navigationGroup to appear
-     *  to the left of the titleGroup area of the ActionBar.
+     *  to the left of the titleGroup area of the ActionBar.</p>
      *  
      *  <p>Create a custom skin to change the default location and appearance of
-     *  the navigationGroup.
+     *  the navigationGroup.</p>
      *  
      *  @default null
      *
@@ -372,10 +372,10 @@ public class ActionBar extends SkinnableComponent
      *  ActionBar container is determined by the
      *  spark.skins.mobile.ActionBarSkin class. By default, the ActionBarSkin
      *  class defines the titleGroup to appear in the center of the ActionBar,
-     *  using the space remaining between navigationGroup and actionGroup.
+     *  using the space remaining between navigationGroup and actionGroup.</p>
      *  
      *  <p>Create a custom skin to change the default location and appearance of
-     *  the titleGroup.
+     *  the titleGroup.</p>
      *  
      *  @default null
      *
@@ -389,7 +389,7 @@ public class ActionBar extends SkinnableComponent
     public function get titleContent():Array
     {
         if (titleGroup)
-			return titleGroup.getMXMLContent();
+            return titleGroup.getMXMLContent();
         else
             return contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX].content;
     }
@@ -424,7 +424,7 @@ public class ActionBar extends SkinnableComponent
      *  <p>If titleContent is null, titleDisplay is displayed in place of
      *  titleGroup. In this case, titleDisplay is positioned with
      *  padded using paddingLeft and paddingRight properties of
-     *  titleLayout if defined.
+     *  titleLayout if defined.</p>
      *
      *  @default HorizontalLayout
      *  @see #titleContent
@@ -470,10 +470,10 @@ public class ActionBar extends SkinnableComponent
      *  ActionBar container is determined by the skin.
      * 
      *  <p>The default ActionBarSkin class defines the actionGroup to appear
-     *  to the right of the title display area of the ActionBar.
+     *  to the right of the title display area of the ActionBar.</p>
      * 
      *  <p>Create a custom skin to change the default location and appearance of
-     *  the actionGroup.
+     *  the actionGroup.</p>
      *  
      *  @default null
      *
@@ -629,7 +629,7 @@ public class ActionBar extends SkinnableComponent
         else if (instance == titleGroup)
         {
             group = titleGroup;
-            index = TITLE_GROUP_PROPERTIES_INDEX;	
+            index = TITLE_GROUP_PROPERTIES_INDEX;   
         }
         else if (instance == actionGroup)
         {
