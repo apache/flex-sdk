@@ -17,6 +17,11 @@ package mx.printing
  *  of the FlexPrintJob.addObject() method parameter.
  * 
  *  @see FlexPrintJob#addObject()
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class FlexPrintJobScaleType
 {
@@ -32,6 +37,11 @@ public final class FlexPrintJobScaleType
 	 *  Scales the object to fill at least one page completely; 
 	 *  that is, it selects the larger of the MATCH_WIDTH or MATCH_HEIGHT 
 	 *  scale types.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const FILL_PAGE:String = "fillPage";
 	
@@ -39,6 +49,11 @@ public final class FlexPrintJobScaleType
 	 *  Scales the object to fill the available page height. 
 	 *  If the resulting object width exceeds the page width, the output 
 	 *  spans multiple pages.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const MATCH_HEIGHT:String = "matchHeight";
 
@@ -46,6 +61,11 @@ public final class FlexPrintJobScaleType
 	 *  Scales the object to fill the available page width. 
 	 *  If the resulting object height exceeds the page height, the output 
 	 *  spans multiple pages.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const MATCH_WIDTH:String = "matchWidth";
 	
@@ -54,6 +74,11 @@ public final class FlexPrintJobScaleType
 	 *  The printed page has the same dimensions as the object on the screen. 
 	 *  If the object height, width, or both dimensions exceed the page width 
 	 *  or height, the output spans multiple pages.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const NONE:String = "none";
 
@@ -61,6 +86,11 @@ public final class FlexPrintJobScaleType
 	 *  Scales the object to fit on a single page, filling one dimension; 
 	 *  that is, it selects the smaller of the MATCH_WIDTH or MATCH_HEIGHT 
 	 *  scale types.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const SHOW_ALL:String = "showAll";
 }
