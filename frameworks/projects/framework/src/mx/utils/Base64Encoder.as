@@ -280,7 +280,7 @@ public class Base64Encoder
      * 
      * @private
      */
-    private static const MAX_BUFFER_SIZE:uint = 65535;
+    public static const MAX_BUFFER_SIZE:uint = 32767;
 
     private static const ESCAPE_CHAR_CODE:Number = 61; // The '=' char
 
