@@ -162,8 +162,6 @@ public class ListSkin extends MobileSkin
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {   
-        graphics.clear();
-        
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
         var borderWidth:int = getStyle("borderVisible") ? 1 : 0;
