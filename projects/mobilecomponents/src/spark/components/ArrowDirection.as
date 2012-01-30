@@ -18,7 +18,7 @@ package spark.components
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class ArrowDirection
 {
@@ -33,7 +33,7 @@ public class ArrowDirection
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const RIGHT:String = "right";
     
@@ -42,7 +42,7 @@ public class ArrowDirection
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const UP:String = "up";
     
@@ -51,7 +51,7 @@ public class ArrowDirection
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const LEFT:String = "left";
     
@@ -60,7 +60,7 @@ public class ArrowDirection
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const DOWN:String = "down";
     
@@ -69,7 +69,7 @@ public class ArrowDirection
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const NONE:String = "none";
 }
