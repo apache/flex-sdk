@@ -16,7 +16,7 @@
             </s:Rect>
         </s:Group>
         <s:Group id="group2" horizontalCenter="0">
-	    <s:BitmapImage source="@Embed('ks5792.jpg')" x="20" y="10"/>
+        <s:BitmapImage source="@Embed('/assets/ks5792.jpg')" x="20" y="10"/>
         </s:Group>
         <s:Button label="Apply SoftLight" click="group2.blendMode='softlight'" 
             x="15" y="265" />
