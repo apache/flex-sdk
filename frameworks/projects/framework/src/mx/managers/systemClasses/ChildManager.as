@@ -1,0 +1,359 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2003-2007 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+package mx.managers.systemClasses
+{
+
+import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
+import flash.display.InteractiveObject;
+import flash.events.Event;
+import flash.events.IEventDispatcher;
+
+import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
+import mx.core.IInvalidating;
+import mx.core.IUIComponent;
+import mx.core.UIComponent;
+import mx.core.mx_internal;
+import mx.events.FlexEvent;
+import mx.managers.ILayoutManagerClient;
+import mx.managers.ISystemManager;
+import mx.managers.ISystemManagerChildManager;
+import mx.managers.SystemManager;
+import mx.messaging.config.LoaderConfig;
+import mx.styles.ISimpleStyleClient;
+import mx.styles.IStyleClient;
+
+use namespace mx_internal;
+
+[ExcludeClass]
+
+public class ChildManager implements ISystemManagerChildManager
+{
+    include "../../core/Version.as";
+
+	//--------------------------------------------------------------------------
+	//
+	//  Constructor
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+	 *  Constructor.
+	 *
+	 *  <p>This is the starting point for all Flex applications.
+	 *  This class is set to be the root class of a Flex SWF file.
+         *  Flash Player instantiates an instance of this class,
+	 *  causing this constructor to be called.</p>
+	 */
+	public function ChildManager(systemManager:IFlexModuleFactory)
+	{
+		super();
+
+		if (systemManager is SystemManager)
+		{
+			SystemManager(systemManager).childManager = this;
+			this.systemManager = SystemManager(systemManager);
+			this.systemManager.registerImplementation("mx.managers.ISystemManagerChildManager", this);
+		}
+	}
+
+	//--------------------------------------------------------------------------
+	//
+	//  Variables
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+	 *  @private
+	 */
+	private var systemManager:SystemManager;
+
+
+	//--------------------------------------------------------------------------
+	//
+	//  Methods: Child management
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+     *  @private
+     */
+	public function addingChild(child:DisplayObject):void
+	{
+		var newNestLevel:int = 1;
+		
+		// non-top level system managers may not be able to reference their parent if
+		// they are a proxy for popups.
+		if (!systemManager.topLevel && systemManager.parent)
+		{
+			// non-topLevel SystemManagers are buried by Flash.display.Loader and
+			// other non-framework layers so we have to figure out the nestlevel
+			// by searching up the parent chain.
+			var obj:DisplayObjectContainer = systemManager.parent.parent;
+			while (obj)
+			{
+				if (obj is ILayoutManagerClient)
+				{
+					newNestLevel = ILayoutManagerClient(obj).nestLevel + 1;
+					break;
+				}
+				obj = obj.parent;
+			}
+		}
+		systemManager.nestLevel = newNestLevel;
+
+		if (child is IUIComponent)
+			IUIComponent(child).systemManager = systemManager;
+
+		// If the document property isn't already set on the child,
+		// set it to be the same as this component's document.
+		// The document setter will recursively set it on any
+		// descendants of the child that exist.
+		if (child is IUIComponent &&
+			!IUIComponent(child).document)
+		{
+			IUIComponent(child).document = systemManager.document;
+		}
+
+		// Set the nestLevel of the child to be one greater
+		// than the nestLevel of this component.
+		// The nestLevel setter will recursively set it on any
+		// descendants of the child that exist.
+		if (child is ILayoutManagerClient)
+        	ILayoutManagerClient(child).nestLevel = systemManager.nestLevel + 1;
+
+		if (child is InteractiveObject)
+			if (systemManager.doubleClickEnabled)
+				InteractiveObject(child).doubleClickEnabled = true;
+
+		if (child is IUIComponent)
+			IUIComponent(child).parentChanged(systemManager);
+
+		// Sets up the inheritingStyles and nonInheritingStyles objects
+		// and their proto chains so that getStyle() works.
+		// If this object already has some children,
+		// then reinitialize the children's proto chains.
+        if (child is IStyleClient)
+			IStyleClient(child).regenerateStyleCache(true);
+
+		if (child is ISimpleStyleClient)
+			ISimpleStyleClient(child).styleChanged(null);
+
+        if (child is IStyleClient)
+			IStyleClient(child).notifyStyleChangeInChildren(null, true);
+
+		// Need to check to see if the child is an UIComponent
+		// without actually linking in the UIComponent class.
+		if (child is UIComponent)
+			UIComponent(child).initThemeColor();
+
+		// Inform the component that it's style properties
+		// have been fully initialized. Most components won't care,
+		// but some need to react to even this early change.
+		if (child is UIComponent)
+			UIComponent(child).stylesInitialized();
+	}
+
+	/**
+	 *  @private
+	 */
+	public function childAdded(child:DisplayObject):void
+	{
+		child.dispatchEvent(new FlexEvent(FlexEvent.ADD));
+
+		if (child is IUIComponent)
+			IUIComponent(child).initialize(); // calls child.createChildren()
+	}
+
+	/**
+     *  @private
+     */
+	public function removingChild(child:DisplayObject):void
+	{
+		child.dispatchEvent(new FlexEvent(FlexEvent.REMOVE));
+	}
+
+	/**
+     *  @private
+     */
+	public function childRemoved(child:DisplayObject):void
+	{
+		if (child is IUIComponent)
+			IUIComponent(child).parentChanged(null);
+	}
+
+	//--------------------------------------------------------------------------
+	//
+	//  Methods: Styles
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+	 *  @private
+	 *  Call regenerateStyleCache() on all children of this SystemManager.
+	 *  If the recursive parameter is true, continue doing this
+	 *  for all descendants of these children.
+	 */
+	public function regenerateStyleCache(recursive:Boolean):void
+	{
+		var foundTopLevelWindow:Boolean = false;
+
+		var n:int = systemManager.rawChildren.numChildren;
+		for (var i:int = 0; i < n; i++)
+		{
+			var child:IStyleClient =
+				systemManager.rawChildren.getChildAt(i) as IStyleClient;
+
+			if (child)
+				child.regenerateStyleCache(recursive);
+
+			if (systemManager.isTopLevelWindow(DisplayObject(child)))
+				foundTopLevelWindow = true;
+
+			// Refetch numChildren because notifyStyleChangedInChildren()
+			// can add/delete a child and therefore change numChildren.
+			n = systemManager.rawChildren.numChildren;
+		}
+
+		// During startup the top level window isn't added
+		// to the child list until late into the startup sequence.
+		// Make sure we call regenerateStyleCache()
+		// on the top level window even if it isn't a child yet.
+		if (!foundTopLevelWindow && systemManager.topLevelWindow is IStyleClient)
+			IStyleClient(systemManager.topLevelWindow).regenerateStyleCache(recursive);
+	}
+
+	/**
+	 *  @private
+	 *  Call styleChanged() and notifyStyleChangeInChildren()
+	 *  on all children of this SystemManager.
+	 *  If the recursive parameter is true, continue doing this
+	 *  for all descendants of these children.
+	 */
+	public function notifyStyleChangeInChildren(styleProp:String,
+													 recursive:Boolean):void
+	{
+		var foundTopLevelWindow:Boolean = false;
+
+		var n:int = systemManager.rawChildren.numChildren;
+		for (var i:int = 0; i < n; i++)
+		{
+			var child:IStyleClient =
+				systemManager.rawChildren.getChildAt(i) as IStyleClient;
+
+			if (child)
+			{
+				child.styleChanged(styleProp);
+				child.notifyStyleChangeInChildren(styleProp, recursive);
+			}
+
+			if (systemManager.isTopLevelWindow(DisplayObject(child)))
+				foundTopLevelWindow = true;
+
+			// Refetch numChildren because notifyStyleChangedInChildren()
+			// can add/delete a child and therefore change numChildren.
+			n = systemManager.rawChildren.numChildren;
+		}
+
+		// During startup the top level window isn't added
+		// to the child list until late into the startup sequence.
+		// Make sure we call notifyStyleChangeInChildren()
+		// on the top level window even if it isn't a child yet.
+		if (!foundTopLevelWindow && systemManager.topLevelWindow is IStyleClient)
+		{
+			IStyleClient(systemManager.topLevelWindow).styleChanged(styleProp);
+			IStyleClient(systemManager.topLevelWindow).notifyStyleChangeInChildren(
+				styleProp, recursive);
+		}
+	}
+
+	/**
+	 *  @private
+	 *  Instantiates an instance of the top level window
+	 *  and adds it as a child of the SystemManager.
+	 */
+	public function initializeTopLevelWindow(width:Number, height:Number):void
+	{
+		var app:IUIComponent;
+		// Create a new instance of the toplevel class
+        systemManager.document = app = systemManager.topLevelWindow = IUIComponent(systemManager.create());
+
+		if (systemManager.document)
+		{
+			// Add listener for the creationComplete event
+			IEventDispatcher(app).addEventListener(FlexEvent.CREATION_COMPLETE,
+												   appCreationCompleteHandler);
+
+			// if somebody has set this in our applicationdomain hierarchy, don't overwrite it
+			if (!LoaderConfig._url)
+			{
+				LoaderConfig._url = systemManager.loaderInfo.url;
+				LoaderConfig._parameters = systemManager.loaderInfo.parameters;
+			}
+
+			IFlexDisplayObject(app).setActualSize(width, height);
+
+			// Wait for the app to finish its initialization sequence
+			// before doing an addChild(). 
+			// Otherwise, the measurement/layout code will cause the
+			// player to do a bunch of unnecessary screen repaints,
+			// which slows application startup time.
+			
+			// Pass the application instance to the preloader.
+			// Note: preloader can be null when the user chooses
+			// Control > Play in the standalone player.
+			if (systemManager.preloader)
+				systemManager.preloader.registerApplication(app);
+						
+			// The Application doesn't get added to the SystemManager in the standard way.
+			// We want to recursively create the entire application subtree and process
+			// it with the LayoutManager before putting the Application on the display list.
+			// So here we what would normally happen inside an override of addChild().
+			// Leter, when we actually attach the Application instance,
+			// we call super.addChild(), which is the bare player method.
+			addingChild(DisplayObject(app));
+			childAdded(DisplayObject(app)); // calls app.createChildren()
+		}
+		else
+		{
+			systemManager.document = this;
+		}
+	}
+	
+ 	/**
+	 *  Override this function if you want to perform any logic
+	 *  when the application has finished initializing itself.
+	 */
+	private function appCreationCompleteHandler(event:FlexEvent):void
+	{
+		if (!systemManager.topLevel && systemManager.parent)
+		{
+			var obj:DisplayObjectContainer = systemManager.parent.parent;
+			while (obj)
+			{
+				if (obj is IInvalidating)
+				{
+					IInvalidating(obj).invalidateSize();
+					IInvalidating(obj).invalidateDisplayList();
+					return;
+				}
+				obj = obj.parent;
+			}
+		}
+ 	}
+
+}
+
+}
+
+
