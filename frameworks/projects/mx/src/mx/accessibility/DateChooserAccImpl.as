@@ -119,7 +119,7 @@ public class DateChooserAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x09;
+		role = 0x09; // ROLE_SYSTEM_WINDOW
 	}
 
 	//--------------------------------------------------------------------------
