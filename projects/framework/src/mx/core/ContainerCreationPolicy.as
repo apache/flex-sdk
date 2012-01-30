@@ -17,6 +17,11 @@ package mx.core
  *  for the <code>creationPolicy</code> property of the Container class.
  *
  *  @see mx.core.Container#creationPolicy
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class ContainerCreationPolicy
 {
@@ -37,6 +42,11 @@ public final class ContainerCreationPolicy
 	 *  selected child.
 	 *  However, it will wait to create the descendants of the other children
 	 *  until the user navigates to them.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const AUTO:String = "auto";
 	
@@ -52,11 +62,21 @@ public final class ContainerCreationPolicy
 	 *  application so that the data is stored in data variables
 	 *  and components which are created later "pull" in this data,
 	 *  via databinding or an <code>initialize</code> handler.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const ALL:String = "all";
 	
 	/**
 	 *  Add the container to a creation queue.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const QUEUED:String = "queued";
 	
@@ -68,6 +88,11 @@ public final class ContainerCreationPolicy
 	 *  from the UIComponentDescriptors by calling
 	 *  <code>createComponentsFromDescriptors()</code>
 	 *  on the parent container.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const NONE:String = "none";
 }
