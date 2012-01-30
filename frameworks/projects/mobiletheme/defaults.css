@@ -20,6 +20,16 @@ ActionBar
     skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
 }
 
+ActionBar Group#actionGroup Button
+{
+	skinClass: ClassReference("spark.skins.mobile.ActionBarActionButtonSkin");
+}
+
+ActionBar Group#navigationGroup Button
+{
+	skinClass: ClassReference("spark.skins.mobile.ActionBarNavigationButtonSkin");
+}
+
 Application
 {
     backgroundColor: #FFFFFF;
