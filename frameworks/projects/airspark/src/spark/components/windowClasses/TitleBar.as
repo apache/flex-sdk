@@ -76,7 +76,7 @@ use namespace mx_internal;
  */
 public class TitleBar extends SkinnableComponent
 {
-    include "../../../mx/core/Version.as";
+    include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
