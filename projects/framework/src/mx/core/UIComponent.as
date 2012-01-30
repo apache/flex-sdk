@@ -2473,7 +2473,7 @@ public class UIComponent extends FlexSprite
                     }
                     else if (o is ISystemManager)
                     {
-                    	_systemManager = o as ISystemManager;	// VERSION_SKEW
+                    	_systemManager = o as ISystemManager;
                     	break;
                     }
                     o = o.parent;
@@ -5116,7 +5116,8 @@ public class UIComponent extends FlexSprite
 
         // systemManager getter tries to set the internal _systemManager varaible 
         // if it is null. Hence a call to the getter is necessary.
-		// TODODJL: stage is null for bridged applications
+		// Stage can be null when an untrusted application is loaded by an application
+		// that isn't on stage yet.
         if (systemManager && (_systemManager.stage || _systemManager.useSWFBridge()))
         {
             if (methodQueue.length > 0 && !listeningForRender)
@@ -5571,7 +5572,6 @@ public class UIComponent extends FlexSprite
         }
     }
     
-    // VERSION_SKEW
     private function isOnDisplayList():Boolean
     {
     	var p:DisplayObjectContainer;
@@ -5713,7 +5713,8 @@ public class UIComponent extends FlexSprite
         // just before the next rasterization.
         var sm:ISystemManager = systemManager;
         
-        // TODODJL: stage is null for bridge applications
+        // Stage can be null when an untrusted application is loaded by an application
+        // that isn't on stage yet.
         if (sm && (sm.stage || sm.useSWFBridge()))
         {
             if (!listeningForRender)
@@ -5740,7 +5741,8 @@ public class UIComponent extends FlexSprite
     {
         var sm:ISystemManager = systemManager;
         
-        // TODODJL: stage is null for bridge applications
+        // Stage can be null when an untrusted application is loaded by an application
+        // that isn't on stage yet.
         if (sm && (sm.stage || sm.useSWFBridge()))
         {
             if (listeningForRender)
@@ -6295,7 +6297,6 @@ public class UIComponent extends FlexSprite
             var sm:ISystemManager = parent as ISystemManager;
             if (sm)
             {
-            	// VERSION_SKEW
                 if (sm is SystemManagerProxy || (sm == systemManager.topLevelSystemManager &&
                     sm.document != this))
                 {
@@ -8351,7 +8352,8 @@ public class UIComponent extends FlexSprite
         // trace("  >>calllaterdispatcher2");
         var sm:ISystemManager = systemManager;
         
-        // TODODJL: stage is null for bridge applications
+        // Stage can be null when an untrusted application is loaded by an application
+        // that isn't on stage yet.
         if (sm && (sm.stage || sm.useSWFBridge()) && listeningForRender)
         {
             // trace("  removed");
