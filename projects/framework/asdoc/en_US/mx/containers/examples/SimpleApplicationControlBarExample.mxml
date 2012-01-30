@@ -10,7 +10,7 @@
         <mx:Label text="Docked" color="blue"/>
 
         <mx:MenuBar id="myMenuBar" labelField="@label">
-            <mx:XMLList>
+            <fx:XMLList>
                 <menuitem label="MenuItem A" >
                     <menuitem label="SubMenuItem A-1" type="check"/>
                     <menuitem label="SubMenuItem A-2" type="check"/>
@@ -22,7 +22,7 @@
                     <menuitem label="SubMenuItem D-2" type="radio" groupName="one"/>
                     <menuitem label="SubMenuItem D-3" type="radio" groupName="one"/>
                 </menuitem>
-            </mx:XMLList>
+            </fx:XMLList>
         </mx:MenuBar>
     </mx:ApplicationControlBar>
 
