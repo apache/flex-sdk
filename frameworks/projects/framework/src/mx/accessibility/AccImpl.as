@@ -373,6 +373,14 @@ public class AccImpl extends AccessibilityImplementation
 	 */
 	protected function eventHandler(event:Event):void
 	{
+		$eventHandler(event);
+	}
+
+	/**
+	 *  Handles events common to all accessible UIComponents.
+	 */
+	protected final function $eventHandler(event:Event):void
+	{
 		switch (event.type)
 		{
 			case "errorStringChanged":
