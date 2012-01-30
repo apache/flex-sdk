@@ -289,14 +289,14 @@ public class RadialGradient extends GradientBase implements IFill
 		
 		if (!compoundTransform)
 		{
-	        commonMatrix.scale (w / 1638.4, h / 1638.4);
+	        commonMatrix.scale (w / GRADIENT_DIMENSION, h / GRADIENT_DIMENSION);
 	        commonMatrix.rotate(!isNaN(mx_internal::_angle) ? 
 											mx_internal::_angle : mx_internal::rotationInRadians);
 	        commonMatrix.translate(regX, regY);						
 		}
 	 	else
 	 	{
-	 		commonMatrix.scale (rc.width / 1638.4, rc.height / 1638.4);
+	 		commonMatrix.scale (rc.width / GRADIENT_DIMENSION, rc.height / GRADIENT_DIMENSION);
 	 		commonMatrix.translate(rc.left, rc.top);
 	 		commonMatrix.concat(compoundTransform.matrix);
 	 	}
