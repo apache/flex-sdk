@@ -17,19 +17,17 @@
 
 ActionBar
 {
+	color: #FFFFFF;
+	chromeColor: #484848;
     skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
+	textShadowAlpha: .65;
+	textShadowColor: #000000;
 }
 
 ActionBar #titleDisplay
 {
     fontSize: 28;
     fontWeight: bold;
-    textShadowAlpha: .45;
-}
-
-ActionBar Button:down
-{
-    chromeColor: #70B2EE;
 }
 
 ActionBar Group#navigationGroup Button
@@ -94,7 +92,6 @@ ComboBox
 
 DropDownList
 {
-    dropShadowVisible: true;
     skinClass: ClassReference("spark.skins.spark.DropDownListSkin");
 }
 
@@ -222,11 +219,16 @@ TabbedViewNavigator
     skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorSkin");
 }
 
+TextBase
+{
+	contentBackgroundColor: #F0F0F0;
+}
+
 TextArea
 {
     paddingBottom: 9;
-    paddingLeft: 8;
-    paddingRight: 8;
+    paddingLeft: 9;
+    paddingRight: 9;
     paddingTop: 9;
 	skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
 }
@@ -234,8 +236,8 @@ TextArea
 TextInput
 {
     paddingBottom: 9;
-    paddingLeft: 8;
-    paddingRight: 8;
+    paddingLeft: 9;
+    paddingRight: 9;
     paddingTop: 9;
 	skinClass: ClassReference("spark.skins.mobile.TextInputSkin");
 }
