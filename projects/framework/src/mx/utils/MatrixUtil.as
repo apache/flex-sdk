@@ -145,7 +145,7 @@ public final class MatrixUtil
 	 
 	    components[2] = Math.atan2( Uy, Ux ) / RADIANS_PER_DEGREES;
 	    
-	    if(transformX != 0 || transformY != 0)     
+	    if (transformX != 0 || transformY != 0)     
 	    {
 	    	var postTransformCenter:Point = matrix.transformPoint(new Point(transformX,transformY));
 	    	components[0] = postTransformCenter.x - transformX;
@@ -232,7 +232,7 @@ public final class MatrixUtil
         // (7) dx/dt = 0 <=> sin(t) / cos(t) = (c * ry) / (a * rx);   
         // (8) dy/dt = 0 <=> sin(t) / cos(t) = (d * ry) / (b * rx);
         
-        if(rx == 0 && ry == 0)
+        if (rx == 0 && ry == 0)
         {
             var pt:Point = new Point(cx, cy);
             pt = matrix.transformPoint(pt);
@@ -437,7 +437,7 @@ public final class MatrixUtil
 	 */
 	public static function isDeltaIdentity(matrix:Matrix):Boolean
 	{
-	    if( matrix.a == 1 && matrix.d == 1 &&
+	    if (matrix.a == 1 && matrix.d == 1 &&
 	    	matrix.b == 0 && matrix.c == 0)
             return true;
         return false;
@@ -913,7 +913,7 @@ public final class MatrixUtil
         var B:Number = (w - maxX * a) / c;              
         var rangeMinY:Number = Math.max(minY, Math.min(A, B));
         var rangeMaxY:Number = Math.min(maxY, Math.max(A, B));
-        const det:Number = ( b * c - a * d );
+        const det:Number = (b * c - a * d);
 
         // We have a possible solution for Case1 if the range for y is valid
         if (rangeMinY <= rangeMaxY)
@@ -947,7 +947,7 @@ public final class MatrixUtil
             // the condition is a linear function of x and y (in our case it is).
             y = Math.max(rangeMinY, Math.min(y, rangeMaxY));
            
-            x = ( w - c * y ) / a;
+            x = (w - c * y) / a;
             return new Point(x, y);
         }
         
@@ -964,8 +964,8 @@ public final class MatrixUtil
         // A = (minX + w/a) * (-a/c)
         // B = (maxX + w/a) * (-a/c)
         
-        A = -( minX * a + w ) / c;
-        B = -( maxX * a + w ) / c;
+        A = -(minX * a + w) / c;
+        B = -(maxX * a + w) / c;
         rangeMinY = Math.max(minY, Math.min(A, B));
         rangeMaxY = Math.min(maxY, Math.max(A, B));
 
@@ -982,7 +982,7 @@ public final class MatrixUtil
             // "make x and y as close as possible": y = -w / ( a + c );  
             // "minimize abs(bx + dy)": y = -b * w / det    
             // "preserve aspect ratio": y = w / ( a * preferredX / preferredY + c );
-            if( det == 0 )
+            if (det == 0)
             {
                 // There is infinate number of solutions, lets pick x == y
                 y = -w / ( a + c );
@@ -999,9 +999,9 @@ public final class MatrixUtil
             // we clamp with the range. This gives us a solution with
             // values as close as possible to satisfy our custom condition when
             // the condition is a linear function of x and y (in our case it is).
-            y = Math.max( rangeMinY, Math.min( y, rangeMaxY));
-            x = ( -w - c * y ) / a;
-            return new Point(x,y);
+            y = Math.max(rangeMinY, Math.min(y, rangeMaxY));
+            x = (-w - c * y) / a;
+            return new Point(x, y);
 
         }
         return null; // No solution
@@ -1095,7 +1095,7 @@ public final class MatrixUtil
         {
             // No solution in the following cases since the matrix collapses
             // all points into a line.
-            if(b == 0 || c==0)
+            if (b == 0 || c==0)
                return null;
 
             // (1) w = abs( ax + cy ) <=> w = abs( cy ) <=> w = abs(c)y
@@ -1112,14 +1112,14 @@ public final class MatrixUtil
         
         // Calculate the determinant of the system
         const det:Number = a * d1 - b * c1;
-        if( det == 0 )
+        if (det == 0)
         {
             // No solution in these cases since the matrix
             // collapses all points into a line.
             if (c1 == 0 || a == 0 || a == -c1)
                return null;
                
-            if( Math.abs( a * h ) - Math.abs( b * w ) > 1.0e-9 )
+            if (Math.abs(a * h) - Math.abs(b * w) > 1.0e-9)
                return null; // No solution in this case
                
             // Determinant is zero, the equations (1) & (2) are equivalent and
@@ -1139,41 +1139,41 @@ public final class MatrixUtil
         // a * x + c1 * y >= 0
         // b * x + d1 * y >= 0
         var s:Point;
-        s = solveSystem( a, c1, b, d1, w, h);
-        if( s &&
+        s = solveSystem(a, c1, b, d1, w, h);
+        if (s &&
             minX <= s.x && s.x <= maxX && minY <= s.y && s.y <= maxY &&
             a * s.x + c1 * s.x >= 0 &&
-            b * s.x + d1 * s.y >= 0 )
+            b * s.x + d1 * s.y >= 0)
             return s;
 
         // Case 2:
         // a * x + c1 * y >= 0
         // b * x + d1 * y < 0
         s = solveSystem( a, c1, b, d1, w, -h);
-        if( s &&
+        if (s &&
             minX <= s.x && s.x <= maxX && minY <= s.y && s.y <= maxY &&
             a * s.x + c1 * s.x >= 0 &&
-            b * s.x + d1 * s.y < 0 )
+            b * s.x + d1 * s.y < 0)
             return s;
 
         // Case 3:
         // a * x + c1 * y < 0
         // b * x + d1 * y >= 0
         s = solveSystem( a, c1, b, d1, -w, h);
-        if( s &&
+        if (s &&
             minX <= s.x && s.x <= maxX && minY <= s.y && s.y <= maxY &&
             a * s.x + c1 * s.x < 0 &&
-            b * s.x + d1 * s.y >= 0 )
+            b * s.x + d1 * s.y >= 0)
             return s;
 
         // Case 4:
         // a * x + c1 * y < 0
         // b * x + d1 * y < 0
         s = solveSystem( a, c1, b, d1, -w, -h);
-        if( s &&
+        if (s &&
             minX <= s.x && s.x <= maxX && minY <= s.y && s.y <= maxY &&
             a * s.x + c1 * s.x < 0 &&
-            b * s.x + d1 * s.y < 0 )
+            b * s.x + d1 * s.y < 0)
             return s;
 
         return null; // No solution.
