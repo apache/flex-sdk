@@ -696,91 +696,91 @@ use namespace mx_internal;
 [Event(name="exitState", type="mx.events.FlexEvent")]
 
 //--------------------------------------
-//  GestureCapture events
+//  TouchInteraction events
 //--------------------------------------
 
 /**
  *  A cancellable event, dispatched by a component in an attempt to 
- *  respond to a user gesture.
+ *  respond to a touch interaction user gesture.
  * 
  *  <p>The event is a bubbling event dispatched on the 
- *  DisplayObject that the user gesture 
+ *  DisplayObject that the touch interaction
  *  started (where the mouseDown/touchBegin occurred).</p>
  * 
- *  <p>Components responding to user gestures should listen for
- *  gesture capture events to coordinate with other components around 
- *  what type of gesture the user intended to make and which component 
- *  is responding to that gesture.</p>
+ *  <p>Components responding to touch interactions should listen for
+ *  touch interaction events to coordinate with other components around 
+ *  what type of touch interaction the user intended to make and which component 
+ *  is responding to that touch interaction.</p>
  * 
- *  <p>A Scroller component will dispatch a gestureCaptureStarting event 
- *  to alert other components that may be responding to the same user 
- *  gesture that it would like to take control of this user gesture.
+ *  <p>A Scroller component will dispatch a touchInteractionStarting event 
+ *  to alert other components that may be responding to the same user's 
+ *  touch interaction that it would like to take control of this touch interaction.
  *  This is an opportunity for other components to cancel the Scroller's 
- *  action and to maintain control over this user gesture.</p>
+ *  action and to maintain control over this touch interaction.</p>
  *
- *  @eventType mx.events.GestureCaptureEvent.GESTURE_CAPTURE_STARTING
+ *  @eventType mx.events.TouchInteractionEvent.TOUCH_INTERACTION_STARTING
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="gestureCaptureStarting", type="mx.events.GestureCaptureEvent")]
+[Event(name="touchInteractionStarting", type="mx.events.TouchInteractionEvent")]
 
 /**
  *  A non-cancellable event, dispatched by a component when it starts
- *  responding to a user gesture.
+ *  responding to a touch interaction user gesture.
  * 
  *  <p>The event is a bubbling event dispatched on the 
- *  DisplayObject that the user gesture 
+ *  DisplayObject that the touch interaction 
  *  started (where the mouseDown/touchBegin occurred).</p>
  * 
- *  <p>Components responding to user gestures should listen for
- *  gesture capture events to coordinate with other components around 
- *  what type of gesture the user intended to make and which component 
- *  is responding to that gesture.</p>
+ *  <p>Components responding to touch interactions should listen for
+ *  touch interaction events to coordinate with other components around 
+ *  what type of touch interaction the user intended to make and which component 
+ *  is responding to that touch interaction.</p>
  * 
- *  <p>A Scroller component will dispatch a gestureCaptureStart event 
- *  to alert other components that may be responding to the same user 
- *  gesture that it is taking control of this user gesture.
+ *  <p>A Scroller component will dispatch a touchInteractionStart event 
+ *  to alert other components that may be responding to the same user's 
+ *  touch interaction that it is taking control of this touch interaction.
  *  When they see this event, other components should stop responding 
- *  to the user gesture, remove any visual indications that it is 
- *  responding to the user gesture, and perform other clean up.</p>
+ *  to the touch interaction, remove any visual indications that it is 
+ *  responding to the touch interaction, and perform other clean up.</p>
  *
- *  @eventType mx.events.GestureCaptureEvent.GESTURE_CAPTURE_START
+ *  @eventType mx.events.TouchInteractionEvent.TOUCH_INTERACTION_START
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="gestureCaptureStart", type="mx.events.GestureCaptureEvent")]
+[Event(name="touchInteractionStart", type="mx.events.TouchInteractionEvent")]
 
 /**
- *  A non-cancellable event, dispatched by a component when it starts
- *  responding to a user gesture.
+ *  A non-cancellable event, dispatched by a component when it is done
+ *  responding to a touch interaction user gesture.
  * 
  *  <p>The event is a bubbling event dispatched on the 
- *  DisplayObject that the user gesture 
+ *  DisplayObject that the touch interaction 
  *  started (where the mouseDown/touchBegin occurred).</p>
  * 
- *  <p>Components responding to user gestures should listen for
- *  gesture capture events to coordinate with other components around 
- *  what type of gesture the user intended to make and which component 
- *  is responding to that gesture.</p>
+ *  <p>Components responding to touch interactions should listen for
+ *  touch interaction events to coordinate with other components around 
+ *  what type of touch interaction the user intended to make and which component 
+ *  is responding to that touch interaction.</p>
  * 
- *  <p>A Scroller component will dispatch a gestureCaptureEnd event 
- *  to alert other components that it is done responding to the user
- *  gesture.</p>
+ *  <p>A Scroller component will dispatch a touchInteractionEnd event 
+ *  to alert other components that it is done responding to the user's
+ *  touch interaction.</p>
  *
- *  @eventType mx.events.GestureCaptureEvent.GESTURE_CAPTURE_END
+ *  @eventType mx.events.TouchInteractionEvent.TOUCH_INTERACTION_END
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="gestureCaptureEnd", type="mx.events.GestureCaptureEvent")]
+[Event(name="touchInteractionEnd", type="mx.events.TouchInteractionEvent")]
 
 //--------------------------------------
 //  Tooltip events
@@ -946,19 +946,22 @@ include "../styles/metadata/AnchorStyles.as";
 [Style(name="errorColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  The primary input mode for this component.  The acceptable values are: 
+ *  The primary interaction mode for this component.  The acceptable values are: 
  *  <code>mouse</code> and <code>touch</code>.
  *
  *  The default value for the Halo theme is <code>mouse</code>.
  *  The default value for the Spark theme is <code>mouse</code>.
  *  The default value for the Mobile theme is <code>touch</code>.
+ * 
+ *  @see mx.core.InteractionMode.MOUSE
+ *  @see mx.core.InteractionMode.TOUCH
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Style(name="inputMode", type="String", enumeration="mouse,touch", inherit="yes")]
+[Style(name="interactionMode", type="String", enumeration="mouse,touch", inherit="yes")]
 
 /**
  *  Blend mode used by the focus rectangle.
