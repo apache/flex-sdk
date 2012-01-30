@@ -53,10 +53,8 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
         
         _width = this.width;
         _height = this.height;
-        mx_internal::$scaleX = mx_internal::$scaleY = 1;
         
-        // No need to listen to enterFrameHandler events for the contentHolder
-        removeEventListener(Event.ENTER_FRAME, enterFrameHandler, false);
+        mx_internal::$scaleX = mx_internal::$scaleY = 1;
     }
     
     //--------------------------------------------------------------------------
@@ -348,44 +346,41 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
         var contentWidth:Number;
         var contentHeight:Number;
         
-        if (myParent.fillContentToSize)
-        {
-            // Size the flex content to our size
-            contentWidth = _width;
-            contentHeight = _height;
-            
-            if (flexContent.explicitWidth)
-                contentWidth = Math.min(contentWidth, flexContent.explicitWidth);
-            
-            if (flexContent.explicitHeight)
-                contentHeight = Math.min(contentHeight, flexContent.explicitHeight);
-        }
-        else
-        {
-            // Size the flex content to what they want to be, 
-            // making sure we size them to their minimum size and 
-            // making sure we fit within this container.
-            // We don't do anything too fancy here for layout, like make sure 
-            // our size is large enough to hold our content in the first place
-            
-            contentWidth = Math.min(_width, flexContent.getExplicitOrMeasuredWidth());
-            contentHeight = Math.min(_height, flexContent.getExplicitOrMeasuredHeight());
-        }
+        var containerWidth:Number = _width;
+        var containerHeight:Number = _height;
         
         // width and height are what we actually want our content
         // to fill up, but it doesn't take in to account our secretScale.
-        if (!myParent.scaleContent)
+        if (!myParent.scaleContentWhenResized)
         {
             // apply the scale to the width/height
-            var secretScaleX:Number = myParent.mx_internal::$scaleX/myParent.scaleX;
-            var secretScaleY:Number = myParent.mx_internal::$scaleY/myParent.scaleY;
-            
-            contentWidth *= secretScaleX;
-            contentHeight *= secretScaleY;
+            containerWidth *= myParent.mx_internal::scaleXDueToSizing;
+            containerHeight *= myParent.mx_internal::scaleYDueToSizing;
         }
+        
+        // Size the flex content to what they want to be, 
+        // making sure we size them to their minimum size and 
+        // making sure we fit within this container.
+        // We don't do anything too fancy here for layout, try percent
+        // widths and heights and make sure 
+        // our size is large enough to hold our content in the first place
+        
+        if (!isNaN(content.percentWidth))
+            contentWidth = containerWidth * Math.min(content.percentWidth * .01, 1);
+        else
+            contentWidth = Math.min(containerWidth, flexContent.getExplicitOrMeasuredWidth());
+        
+        // above: should we size to explicWidth if it's larger than containerWidth?  Or should we do the min here?
+        
+        if (!isNaN(content.percentHeight))
+            contentHeight = containerHeight * Math.min(content.percentHeight * .01, 1);
+        else
+            contentHeight = Math.min(containerHeight, flexContent.getExplicitOrMeasuredHeight());
         
         contentWidth = Math.max(flexContent.minWidth, contentWidth);
         contentHeight = Math.max(flexContent.minHeight, contentHeight);
+        contentWidth = Math.min(flexContent.maxWidth, contentWidth);
+        contentHeight = Math.min(flexContent.maxHeight, contentHeight);
         
         flexContent.setActualSize(contentWidth, contentHeight);
     }
