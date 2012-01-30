@@ -570,7 +570,7 @@ use namespace mx_internal;
  *  a Flex component in Flash Professional:</p>
  *
  *  <ol>
- *    <li>Install the Adobe Flash Workflow Integration Kit.</li> 
+ *    <li>Install the Adobe Flash Component Kit for Flex.</li> 
  *    <li>Create symbols for your dynamic assets in the FLA file.</li>
  *    <li>Run Commands &gt; Make Flex Component to convert your symbol 
  *      to a subclass of the UIMovieClip class, and to configure 
