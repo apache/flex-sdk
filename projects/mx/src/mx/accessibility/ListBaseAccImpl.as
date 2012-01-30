@@ -158,7 +158,7 @@ public class ListBaseAccImpl extends AccImpl
 	{
 		super(master);
 		
-		role = 0x21;
+		role = 0x21; // ROLE_SYSTEM_LIST
 	}
 
 	//--------------------------------------------------------------------------
@@ -194,10 +194,7 @@ public class ListBaseAccImpl extends AccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		if (childID == 0)
-			return role;
-			
-		return ROLE_SYSTEM_LISTITEM;
+		return childID == 0 ? role : ROLE_SYSTEM_LISTITEM;
 	}
 
 	/**
@@ -342,6 +339,7 @@ public class ListBaseAccImpl extends AccImpl
 				childIDs[i] = i + 1;
 			}
 		}
+
 		return childIDs;
 	}
 
