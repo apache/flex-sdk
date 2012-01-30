@@ -588,13 +588,13 @@ public dynamic class UIMovieClip extends MovieClip
         if(_layoutFeatures == null)
         {
             super.x  = value;
-            //invalidateProperties();
         }
         else
         {
             _layoutFeatures.layoutX = value;
             invalidateTransform();
         }
+        //invalidateProperties();
     }
     
     //----------------------------------
@@ -633,7 +633,6 @@ public dynamic class UIMovieClip extends MovieClip
 
         if(_layoutFeatures == null)
         {
-            //invalidateProperties();
             super.y  = value;
         }
         else
@@ -641,6 +640,7 @@ public dynamic class UIMovieClip extends MovieClip
             _layoutFeatures.layoutY = value;
             invalidateTransform();
         }
+        //invalidateProperties();
     }
     
     [Bindable("zChanged")]
@@ -659,9 +659,11 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if (z == value)
             return;
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
         _layoutFeatures.layoutZ = value;
         invalidateTransform();
+        //invalidateProperties();
     }
     
     [Inspectable]
@@ -712,7 +714,7 @@ public dynamic class UIMovieClip extends MovieClip
         if (value != _baseline)
         {
             _baseline = value;
-            notifySizeChanged();
+            invalidateParentSizeAndDisplayList();
         }
     }
     
@@ -746,7 +748,7 @@ public dynamic class UIMovieClip extends MovieClip
         if (value != _bottom)
         {
             _bottom = value;
-            notifySizeChanged();
+            invalidateParentSizeAndDisplayList();
         }
     }
     
@@ -780,7 +782,7 @@ public dynamic class UIMovieClip extends MovieClip
         if (value != _horizontalCenter)
         {
             _horizontalCenter = value;
-            notifySizeChanged();
+            invalidateParentSizeAndDisplayList();
         }
     }
     
@@ -814,7 +816,7 @@ public dynamic class UIMovieClip extends MovieClip
         if (value != _left)
         {
             _left = value;
-            notifySizeChanged();
+            invalidateParentSizeAndDisplayList();
         }
     }
     
@@ -848,7 +850,7 @@ public dynamic class UIMovieClip extends MovieClip
         if (value != _right)
         {
             _right = value;
-            notifySizeChanged();
+            invalidateParentSizeAndDisplayList();
         }
     }
     
@@ -882,7 +884,7 @@ public dynamic class UIMovieClip extends MovieClip
         if (value != _top)
         {
             _top = value;
-            notifySizeChanged();
+            invalidateParentSizeAndDisplayList();
         }
     }
     
@@ -916,7 +918,7 @@ public dynamic class UIMovieClip extends MovieClip
         if (value != _verticalCenter)
         {
             _verticalCenter = value;
-            notifySizeChanged();
+            invalidateParentSizeAndDisplayList();
         }
     }
     
@@ -1171,7 +1173,7 @@ public dynamic class UIMovieClip extends MovieClip
     {
         _explicitHeight = value;
         explicitSizeChanged = true;
-        notifySizeChanged();
+        invalidateParentSizeAndDisplayList();
     }
 
     //----------------------------------
@@ -1194,7 +1196,7 @@ public dynamic class UIMovieClip extends MovieClip
     public function set explicitMaxHeight(value:Number):void
     {
         _explicitMaxHeight = value;
-        notifySizeChanged();
+        invalidateParentSizeAndDisplayList();
     }
 
     //----------------------------------
@@ -1241,7 +1243,7 @@ public dynamic class UIMovieClip extends MovieClip
     public function set explicitMinHeight(value:Number):void
     {
         _explicitMinHeight = value;
-        notifySizeChanged();
+        invalidateParentSizeAndDisplayList();
     }
 
     //----------------------------------
@@ -1264,7 +1266,7 @@ public dynamic class UIMovieClip extends MovieClip
     public function set explicitMinWidth(value:Number):void
     {
         _explicitMinWidth = value;
-        notifySizeChanged();
+        invalidateParentSizeAndDisplayList();
     }
 
     //----------------------------------
@@ -1289,7 +1291,7 @@ public dynamic class UIMovieClip extends MovieClip
     {
         _explicitWidth = value;
         explicitSizeChanged = true;
-        notifySizeChanged();
+        invalidateParentSizeAndDisplayList();
     }
     
     //----------------------------------
@@ -1552,7 +1554,7 @@ public dynamic class UIMovieClip extends MovieClip
     public function set percentHeight(value:Number):void
     {
         _percentHeight = value;
-        notifySizeChanged();
+        invalidateParentSizeAndDisplayList();
     }
 
     //----------------------------------
@@ -1574,7 +1576,7 @@ public dynamic class UIMovieClip extends MovieClip
     public function set percentWidth(value:Number):void
     {
         _percentWidth = value;
-        notifySizeChanged();
+        invalidateParentSizeAndDisplayList();
     }
 
     //----------------------------------
@@ -1829,6 +1831,7 @@ public dynamic class UIMovieClip extends MovieClip
         
         _layoutFeatures.layoutScaleX = value;
         invalidateTransform();
+        //invalidateProperties();
 
         // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
         // and scaleX is changing we need to invalidate parent size and display list
@@ -1894,6 +1897,7 @@ public dynamic class UIMovieClip extends MovieClip
         
         _layoutFeatures.layoutScaleY = value;
         invalidateTransform();
+        //invalidateProperties();
 
         // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
         // and scaleY is changing we need to invalidate parent size and display list
@@ -1948,6 +1952,7 @@ public dynamic class UIMovieClip extends MovieClip
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         _layoutFeatures.layoutScaleZ = value;
         invalidateTransform();
+        //invalidateProperties();
     }
 
     //--------------------------------------------------------------------------
@@ -2120,6 +2125,7 @@ public dynamic class UIMovieClip extends MovieClip
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         _layoutFeatures.transformX = value;
         invalidateTransform();
+        //invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
 
@@ -2140,6 +2146,7 @@ public dynamic class UIMovieClip extends MovieClip
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         _layoutFeatures.transformY = value;
         invalidateTransform();
+        //invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
     
@@ -2160,6 +2167,7 @@ public dynamic class UIMovieClip extends MovieClip
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         _layoutFeatures.transformZ = value;
         invalidateTransform();
+        //invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
     
@@ -2205,6 +2213,7 @@ public dynamic class UIMovieClip extends MovieClip
         }
 
         invalidateTransform();
+        //invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
 
@@ -2247,6 +2256,7 @@ public dynamic class UIMovieClip extends MovieClip
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         _layoutFeatures.layoutRotationX = value;
         invalidateTransform();
+        //invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
 
@@ -2274,6 +2284,7 @@ public dynamic class UIMovieClip extends MovieClip
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         _layoutFeatures.layoutRotationY = value;
         invalidateTransform();
+        //invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
     
@@ -2339,14 +2350,10 @@ public dynamic class UIMovieClip extends MovieClip
         var m:Matrix = _transform.matrix;
         var m3:Matrix3D =  _transform.matrix3D;
         if(m != null)
-            layoutMatrix = m.clone();
+            setLayoutMatrix(m.clone(), true /*triggerLayout*/);
         else if(m3 != null)
-            layoutMatrix3D = m3.clone();
-
-        // invalidateSize();
-        notifySizeChanged();
+            setLayoutMatrix3D(m3.clone(), true /*triggerLayout*/);
     }
-
 
     private function transformPropertyChangeHandler(event:PropertyChangeEvent):void
     {
@@ -2397,12 +2404,9 @@ public dynamic class UIMovieClip extends MovieClip
     }
     
     /**
-     *  The transform matrix that is used to calculate the component's layout relative to its siblings. This matrix
-     *  is defined by the component's 2D properties such as <code>x</code>, <code>y</code>, <code>rotation</code>, 
-     *  <code>scaleX</code>, <code>scaleY</code>, <code>transformX</code>, and <code>transformY</code>.
-     *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
+     *  @inheritDoc
      */
-    public function get layoutMatrix():Matrix
+    public function getLayoutMatrix():Matrix
     {
         if(_layoutFeatures != null)
         {
@@ -2420,37 +2424,14 @@ public dynamic class UIMovieClip extends MovieClip
     }
 
     /**
-     * @private
+     *  @inheritDoc 
      */
-    public function set layoutMatrix(value:Matrix):void
-    {
-        hasDeltaIdentityTransform = false;
-        if(_layoutFeatures == null)
-        {
-            // flash will make a copy of this on assignment.
-            super.transform.matrix = value;
-            //invalidateSize();
-            notifySizeChanged();
-        }
-        else
-        {
-            // layout features will internally make a copy of this matrix rather than
-            // holding onto a reference to it.
-            _layoutFeatures.layoutMatrix = value;
-            invalidateTransform();
-            invalidateParentSizeAndDisplayList();
-        }
-    }
-    
-    /**
-     *  Similarly to the layoutMatrix property, sets the layout Matrix, but
-     *  doesn't trigger a layout pass. 
-     */
-    public function setLayoutMatrix(value:Matrix):void
+    public function setLayoutMatrix(value:Matrix, triggerLayout:Boolean):void
     {
         hasDeltaIdentityTransform = false;
         if (_layoutFeatures == null)
         {
+            // flash will make a copy of this on assignment.
             super.transform.matrix = value;
         }
         else
@@ -2460,13 +2441,31 @@ public dynamic class UIMovieClip extends MovieClip
             _layoutFeatures.layoutMatrix = value;
             invalidateTransform();
         }
+        
+        //invalidateProperties();
+
+        if (triggerLayout)
+            invalidateParentSizeAndDisplayList();
     }
-    
+
     /**
-     *  Similarly to the layoutMatrix3D property, sets the layout Matrix3D, but
-     *  doesn't trigger a layout pass. 
+     *  @inheritDoc
      */
-    public function setLayoutMatrix3D(value:Matrix3D):void
+    public function getLayoutMatrix3D():Matrix3D
+    {
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+        // since this is an internal class, we don't need to worry about developers
+        // accidentally messing with this matrix, _unless_ we hand it out. Instead,
+        // we hand out a clone.
+        return _layoutFeatures.layoutMatrix3D.clone();          
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function setLayoutMatrix3D(value:Matrix3D, triggerLayout:Boolean):void
     {
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
@@ -2474,41 +2473,11 @@ public dynamic class UIMovieClip extends MovieClip
         // holding onto a reference to it.
         _layoutFeatures.layoutMatrix3D = value;
         invalidateTransform();
-    }
-    
-    /**
-     *  The transform matrix that is used to calculate a component's layout relative to its siblings. This matrix is defined by
-     *  the component's 3D properties (which include the 2D properties such as <code>x</code>, <code>y</code>, <code>rotation</code>, 
-     *  <code>scaleX</code>, <code>scaleY</code>, <code>transformX</code>, and <code>transformY</code>, as well as <code>rotationX</code>, 
-     *  <code>rotationY</code>, <code>scaleZ</code>, <code>z</code>, and <code>transformZ</code>.
-     *  
-     *  <p>Most components do not have any 3D transform properties set on them.</p>
-     *  
-     *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
-     */
-    public function set layoutMatrix3D(value:Matrix3D):void
-    {
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         
-        // layout features will internally make a copy of this matrix rather than
-        // holding onto a reference to it.
-        _layoutFeatures.layoutMatrix3D = value;
-        invalidateTransform();
-        invalidateParentSizeAndDisplayList();
-    }
+        //invalidateProperties();
 
-    /**
-     * @private
-     */
-    public function get layoutMatrix3D():Matrix3D
-    {
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
-        
-        // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
-        // since this is an internal class, we don't need to worry about developers
-        // accidentally messing with this matrix, _unless_ we hand it out. Instead,
-        // we hand out a clone.
-        return _layoutFeatures.layoutMatrix3D.clone();    
+        if (triggerLayout)
+            invalidateParentSizeAndDisplayList();
     }
     
     private function setTransform(value:flash.geom.Transform):void
@@ -2638,7 +2607,6 @@ public dynamic class UIMovieClip extends MovieClip
         {
             _layoutFeatures.updatePending = true; 
             applyComputedMatrix();
-            notifySizeChanged();
         }
     }
     
@@ -2783,22 +2751,6 @@ public dynamic class UIMovieClip extends MovieClip
         LayoutElementUIComponentUtils.setLayoutBoundsSize(this,width,height,postTransform? nonDeltaLayoutMatrix():null);
     }
     
-    /**
-     *  @inheritDoc
-     */
-    public function getLayoutMatrix():Matrix
-    {
-        return layoutMatrix;
-    }
-
-    /**
-     *  @inheritDoc
-     */
-    public function getLayoutMatrix3D():Matrix3D
-    {
-        return layoutMatrix3D;
-    }
-
     protected function nonDeltaLayoutMatrix():Matrix
     {
         if(hasDeltaIdentityTransform)
@@ -3348,11 +3300,7 @@ public dynamic class UIMovieClip extends MovieClip
      */
     protected function notifySizeChanged():void
     {
-        if (parent && parent is IInvalidating)
-        {
-            IInvalidating(parent).invalidateSize();
-            IInvalidating(parent).invalidateDisplayList();
-        }
+        invalidateParentSizeAndDisplayList();
     }
     
     /**
