@@ -588,6 +588,7 @@ public class BitmapFill extends EventDispatcher implements IFill
         {
 			var tmpSprite:DisplayObject;
 			var oldValue:Object = _source;
+			_source = value;
 			
 			var bitmapData:BitmapData;    
             var bitmapCreated:Boolean = false; 
@@ -637,7 +638,6 @@ public class BitmapFill extends EventDispatcher implements IFill
                 bitmapData = transparentBitmap;
             }
             
-			_source = value;
             setBitmapData(bitmapData, bitmapCreated);
             			
 			dispatchFillChangedEvent("source", oldValue, value);
