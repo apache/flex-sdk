@@ -19,6 +19,7 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
+import mx.managers.IFocusManagerComponent;
 import mx.managers.SystemManager;
 
 import spark.core.ContainerDestructionPolicy;
@@ -174,7 +175,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class View extends SkinnableContainer implements IDataRenderer
+public class View extends SkinnableContainer implements IDataRenderer, IFocusManagerComponent
 {
     //--------------------------------------------------------------------------
     //
