@@ -2059,10 +2059,6 @@ public class SystemManager extends MovieClip
         Singleton.registerClass("mx.styles::IStyleManager2",
             Class(getDefinitionByName("mx.styles::StyleManagerImpl")));
 
-        Singleton.registerClass("mx.styles::IStyleManager3",
-            Class(getDefinitionByName("mx.styles::StyleManagerImpl")));
-
-
         // The FlashVars of the SWF's HTML wrapper,
         // or the query parameters of the SWF URL,
         // can specify the ResourceManager's localeChain.
