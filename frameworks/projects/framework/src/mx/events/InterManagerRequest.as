@@ -119,6 +119,24 @@ public class InterManagerRequest extends Event
      *  Value of property, or array of parameters for method.		
      */
 	public var value:Object;
+
+	//--------------------------------------------------------------------------
+	//
+	//  Overridden methods: Event
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+ 	 *  @private
+	 */
+	override public function clone():Event
+	{
+		var cloneEvent:InterManagerRequest = new InterManagerRequest(type, bubbles, cancelable, 
+                                                 name, value);
+
+		return cloneEvent;
+	}
+
 }
 
 }
