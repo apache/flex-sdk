@@ -11,11 +11,16 @@
 
 package spark.skins.mobile
 {
+import flash.system.Capabilities;
+
 import mx.core.DPIClassification;
+import mx.core.mx_internal;
 
 import spark.components.TextArea;
 import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.supportClasses.StageTextSkinBase;
+
+use namespace mx_internal;
 
 /**
  *  ActionScript-based skin for TextArea controls in mobile applications that uses a
@@ -30,6 +35,21 @@ import spark.skins.mobile.supportClasses.StageTextSkinBase;
  */
 public class StageTextAreaSkin extends StageTextSkinBase
 {
+    //--------------------------------------------------------------------------
+    //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  The underlying native text control on iOS has internal margins of its
+     *  own. In order to remain faithful to the paddingTop and paddingBottom
+     *  style values that developers may specify, those internal margins need to
+     *  be compensated for. This variable contains size of that compensation in
+     *  pixels.
+     */
+    mx_internal static var iOSVerticalPaddingAdjustment:Number = 5;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -105,9 +125,18 @@ public class StageTextAreaSkin extends StageTextSkinBase
         
         if (textDisplay)
         {
+            var verticalPosAdjustment:Number = 0;
+            var heightAdjustment:Number = 0;
+            
+            if (Capabilities.version.indexOf("IOS") == 0)
+            {
+                verticalPosAdjustment = Math.min(iOSVerticalPaddingAdjustment, paddingTop);
+                heightAdjustment = verticalPosAdjustment + Math.min(iOSVerticalPaddingAdjustment, paddingBottom);
+            }
+            
             textDisplay.commitStyles();
-            setElementSize(textDisplay, unscaledTextWidth, unscaledTextHeight);
-            setElementPosition(textDisplay, paddingLeft, paddingTop);
+            setElementSize(textDisplay, unscaledTextWidth, unscaledTextHeight + heightAdjustment);
+            setElementPosition(textDisplay, paddingLeft, paddingTop - verticalPosAdjustment);
         }
         
         if (promptDisplay)
