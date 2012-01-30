@@ -17,40 +17,41 @@ import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
 import flash.display.MovieClip;
 import flash.display.Sprite;
+import flash.display.Stage;
 import flash.events.Event;
+import flash.events.FocusEvent;
+import flash.geom.Matrix;
+import flash.geom.Matrix3D;
+import flash.geom.PerspectiveProjection;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.system.ApplicationDomain;
-import flash.text.TextField;
 import flash.ui.Keyboard;
+
 import mx.automation.IAutomationObject;
+import mx.core.AdvancedLayoutFeatures;
 import mx.core.IConstraintClient;
 import mx.core.IDeferredInstantiationUIComponent;
 import mx.core.IFlexDisplayObject;
 import mx.core.IInvalidating;
+import mx.core.ILayoutElement;
 import mx.core.IStateClient;
-import mx.core.AdvancedLayoutFeatures;
 import mx.core.IUIComponent;
+import mx.core.IVisualElement;
+import mx.core.LayoutElementUIComponentUtils;
 import mx.core.UIComponentDescriptor;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.MoveEvent;
 import mx.events.PropertyChangeEvent;
+import mx.events.PropertyChangeEventKind;
 import mx.events.ResizeEvent;
 import mx.events.StateChangeEvent;
+import mx.geom.TransformOffsets;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
-import flash.events.FocusEvent;
-import mx.core.IVisualElement;
-import mx.geom.TransformOffsets;
-import mx.core.IVisualElement;
-import flash.geom.Point;
-import flash.display.Stage;
-import mx.managers.SystemManagerProxy;
-import flash.geom.Matrix;
-import flash.geom.Matrix3D;
-import mx.events.PropertyChangeEventKind;
-import flash.geom.PerspectiveProjection;
+import mx.utils.MatrixUtil;
 
 //--------------------------------------
 //  Lifecycle events
@@ -464,7 +465,7 @@ import flash.geom.PerspectiveProjection;
 public dynamic class UIMovieClip extends MovieClip 
     implements IDeferredInstantiationUIComponent, IToolTipManagerClient, 
     IStateClient, IFocusManagerComponent, IConstraintClient, IAutomationObject, 
-    IVisualElement
+    IVisualElement, ILayoutElement
 {
     //--------------------------------------------------------------------------
     //
@@ -1804,31 +1805,48 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  @default 1.0
      */
-    
     override public function get scaleX():Number
     {
-        return ((_layoutFeatures == null)? super.scaleX:_layoutFeatures.layoutScaleX);
+        // if it's been set, layoutFeatures won't be null.  Otherwise, return 1 as
+        // super.scaleX might be some other value since we change the width/height 
+        // through scaling
+        return ((_layoutFeatures == null)? 1:_layoutFeatures.layoutScaleX);
     }
     
     override public function set scaleX(value:Number):void
     {
-        var prevValue:Number = (_layoutFeatures == null)? scaleX:_layoutFeatures.layoutScaleX;
+        if (value == scaleX)
+            return;
+        
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        var prevValue:Number = _layoutFeatures.layoutScaleX;
         if (prevValue == value)
             return;
 
+        hasDeltaIdentityTransform = false;
+
         // trace("set scaleX:" + this + "value = " + value); 
-        if(_layoutFeatures == null)
-            super.scaleX = value;
-        else
-        {
-            _layoutFeatures.layoutScaleX = value;
-        }
+        
+        _layoutFeatures.layoutScaleX = value;
         invalidateTransform();
 
         // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
         // and scaleX is changing we need to invalidate parent size and display list
         // since we are not going to detect a change in measured sizes during measure.
         invalidateParentSizeAndDisplayList();
+    }
+    
+    /**
+     *  The actual scaleX of the component.  Because scaling is used
+     *  to resize the component, this is considerred an internal 
+     *  implementation detail, whereas scaleX is the user-set scale
+     *  of the component.
+     *
+     *  @private
+     */
+    mx_internal function get $scaleX():Number
+    {
+        return super.scaleX;
     }
 
     //----------------------------------
@@ -1854,27 +1872,46 @@ public dynamic class UIMovieClip extends MovieClip
      */
     override public function get scaleY():Number
     {
-        return ((_layoutFeatures == null)? super.scaleY:_layoutFeatures.layoutScaleY);
+        // if it's been set, layoutFeatures won't be null.  Otherwise, return 1 as
+        // super.scaleX might be some other value since we change the width/height 
+        // through scaling
+        return ((_layoutFeatures == null)? 1:_layoutFeatures.layoutScaleY);
     }
     
     override public function set scaleY(value:Number):void
     {
-        var prevValue:Number = (_layoutFeatures == null)? scaleY:_layoutFeatures.layoutScaleY;
+        if (value == scaleY)
+            return;
+        
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        var prevValue:Number = _layoutFeatures.layoutScaleY;
         if (prevValue == value)
             return;
+            
+        hasDeltaIdentityTransform = false;
 
-        if(_layoutFeatures == null)
-            super.scaleY = value;
-        else
-        {
-            _layoutFeatures.layoutScaleY = value;
-        }
+        // trace("set scaleY:" + this + "value = " + value); 
+        
+        _layoutFeatures.layoutScaleY = value;
         invalidateTransform();
 
         // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
-        // and scaleX is changing we need to invalidate parent size and display list
+        // and scaleY is changing we need to invalidate parent size and display list
         // since we are not going to detect a change in measured sizes during measure.
         invalidateParentSizeAndDisplayList();
+    }
+    
+    /**
+     *  The actual scaleY of the component.  Because scaling is used
+     *  to resize the component, this is considerred an internal 
+     *  implementation detail, whereas scaleY is the user-set scale
+     *  of the component.
+     *
+     *  @private
+     */
+    mx_internal function get $scaleY():Number
+    {
+        return super.scaleY;
     }
 
    //----------------------------------
@@ -2142,6 +2179,7 @@ public dynamic class UIMovieClip extends MovieClip
         if (rotation == value)
             return;
 
+        hasDeltaIdentityTransform = false;
         if(_layoutFeatures == null)
         {
             // clamp the rotation value between -180 and 180.  This is what 
@@ -2275,7 +2313,7 @@ public dynamic class UIMovieClip extends MovieClip
      */
     override public function get transform():flash.geom.Transform
     {
-        if(_transform == null)
+        if (_transform == null)
         {
             setTransform(new mx.geom.Transform(this));
         }
@@ -2292,7 +2330,7 @@ public dynamic class UIMovieClip extends MovieClip
         assignTransformMatrices();
         super.transform.colorTransform = value.colorTransform;
         super.transform.perspectiveProjection = _transform.perspectiveProjection;
-        if(maintainProjectionCenter)
+        if (maintainProjectionCenter)
             applyPerspectiveProjection();
     }
     
@@ -2321,7 +2359,7 @@ public dynamic class UIMovieClip extends MovieClip
             else if (event.property == "perspectiveProjection")
             {
                 super.transform.perspectiveProjection = _transform.perspectiveProjection;
-                if(maintainProjectionCenter)
+                if (maintainProjectionCenter)
                     applyPerspectiveProjection();
             }
             else if (event.property == "colorTransform")
@@ -2337,8 +2375,9 @@ public dynamic class UIMovieClip extends MovieClip
     private var _maintainProjectionCenter:Boolean = false;
     
     /**
-     * When true, the component will keep its projection matrix centered on the middle of its bounding box.  If no projection matrix is defined
-     * on the component, one will be added automatically.
+     *  When true, the component will keep its projection matrix centered on the
+     *  middle of its bounding box.  If no projection matrix is defined on the
+     *  component, one will be added automatically.
      */
     public function set maintainProjectionCenter(value:Boolean):void
     {
@@ -2356,7 +2395,6 @@ public dynamic class UIMovieClip extends MovieClip
     {
         return _maintainProjectionCenter;
     }
-
     
     /**
      *  The transform matrix that is used to calculate the component's layout relative to its siblings. This matrix
@@ -2368,10 +2406,15 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if(_layoutFeatures != null)
         {
-            return _layoutFeatures.layoutMatrix;            
+            // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+            // since this is an internal class, we don't need to worry about developers
+            // accidentally messing with this matrix, _unless_ we hand it out. Instead,
+            // we hand out a clone.
+            return _layoutFeatures.layoutMatrix.clone();            
         }
         else
         {
+            // flash also returns copies.
             return super.transform.matrix;
         }
     }
@@ -2381,18 +2424,56 @@ public dynamic class UIMovieClip extends MovieClip
      */
     public function set layoutMatrix(value:Matrix):void
     {
+        hasDeltaIdentityTransform = false;
         if(_layoutFeatures == null)
         {
+            // flash will make a copy of this on assignment.
             super.transform.matrix = value;
             //invalidateSize();
             notifySizeChanged();
         }
         else
         {
+            // layout features will internally make a copy of this matrix rather than
+            // holding onto a reference to it.
             _layoutFeatures.layoutMatrix = value;
             invalidateTransform();
             invalidateParentSizeAndDisplayList();
         }
+    }
+    
+    /**
+     *  Similarly to the layoutMatrix property, sets the layout Matrix, but
+     *  doesn't trigger a layout pass. 
+     */
+    public function setLayoutMatrix(value:Matrix):void
+    {
+        hasDeltaIdentityTransform = false;
+        if (_layoutFeatures == null)
+        {
+            super.transform.matrix = value;
+        }
+        else
+        {
+            // layout features will internally make a copy of this matrix rather than
+            // holding onto a reference to it.
+            _layoutFeatures.layoutMatrix = value;
+            invalidateTransform();
+        }
+    }
+    
+    /**
+     *  Similarly to the layoutMatrix3D property, sets the layout Matrix3D, but
+     *  doesn't trigger a layout pass. 
+     */
+    public function setLayoutMatrix3D(value:Matrix3D):void
+    {
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        // layout features will internally make a copy of this matrix rather than
+        // holding onto a reference to it.
+        _layoutFeatures.layoutMatrix3D = value;
+        invalidateTransform();
     }
     
     /**
@@ -2408,6 +2489,9 @@ public dynamic class UIMovieClip extends MovieClip
     public function set layoutMatrix3D(value:Matrix3D):void
     {
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        
+        // layout features will internally make a copy of this matrix rather than
+        // holding onto a reference to it.
         _layoutFeatures.layoutMatrix3D = value;
         invalidateTransform();
         invalidateParentSizeAndDisplayList();
@@ -2419,7 +2503,12 @@ public dynamic class UIMovieClip extends MovieClip
     public function get layoutMatrix3D():Matrix3D
     {
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
-        return _layoutFeatures.layoutMatrix3D;          
+        
+        // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+        // since this is an internal class, we don't need to worry about developers
+        // accidentally messing with this matrix, _unless_ we hand it out. Instead,
+        // we hand out a clone.
+        return _layoutFeatures.layoutMatrix3D.clone();    
     }
     
     private function setTransform(value:flash.geom.Transform):void
@@ -2507,6 +2596,13 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      * @private
      *
+     * when true, the transform on this component consists only of translation.  Otherwise, it may be arbitrarily complex.
+     */
+    protected var hasDeltaIdentityTransform:Boolean = true;
+    
+    /**
+     * @private
+     *
      * storage for the modified Transform object that can dispatch change events correctly.
      */
     private var _transform:flash.geom.Transform;
@@ -2520,6 +2616,8 @@ public dynamic class UIMovieClip extends MovieClip
     protected function initAdvancedLayoutFeatures():void
     {
         var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
+
+        hasDeltaIdentityTransform = false;
 
         features.layoutScaleX = scaleX;
         features.layoutScaleY = scaleY;
@@ -2539,7 +2637,7 @@ public dynamic class UIMovieClip extends MovieClip
         if(_layoutFeatures && _layoutFeatures.updatePending == false)
         {
             _layoutFeatures.updatePending = true; 
-            applyComputedTransform();
+            applyComputedMatrix();
             notifySizeChanged();
         }
     }
@@ -2547,7 +2645,7 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      * Commits the computed matrix built from the combination of the layout matrix and the transform offsets to the flash displayObject's transform.
      */
-    private function applyComputedTransform():void
+    private function applyComputedMatrix():void
     {
         _layoutFeatures.updatePending = false;
         if(_layoutFeatures.is3D)
@@ -2585,6 +2683,139 @@ public dynamic class UIMovieClip extends MovieClip
         }
 
         return p ? true : false;
+    }
+    
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+
+
+    //--------------------------------------------------------------------------
+    //
+    //  ILayoutElement
+    //
+    //--------------------------------------------------------------------------
+
+
+    /**
+     *  @inheritDoc
+     */
+    public function getPreferredBoundsWidth(postTransform:Boolean=true):Number
+    {
+        return LayoutElementUIComponentUtils.getPreferredBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    public function getPreferredBoundsHeight(postTransform:Boolean=true):Number
+    {
+        return LayoutElementUIComponentUtils.getPreferredBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getMinBoundsWidth(postTransform:Boolean=true):Number
+    {
+        return LayoutElementUIComponentUtils.getMinBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    public function getMinBoundsHeight(postTransform:Boolean=true):Number
+    {
+        return LayoutElementUIComponentUtils.getMinBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getMaxBoundsWidth(postTransform:Boolean=true):Number
+    {
+        return LayoutElementUIComponentUtils.getMaxBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    public function getMaxBoundsHeight(postTransform:Boolean=true):Number
+    {
+        return LayoutElementUIComponentUtils.getMaxBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getLayoutBoundsWidth(postTransform:Boolean=true):Number
+    {
+        return LayoutElementUIComponentUtils.getLayoutBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    public function getLayoutBoundsHeight(postTransform:Boolean=true):Number
+    {
+        return LayoutElementUIComponentUtils.getLayoutBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getLayoutBoundsX(postTransform:Boolean=true):Number
+    {
+        return LayoutElementUIComponentUtils.getLayoutBoundsX(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    public function getLayoutBoundsY(postTransform:Boolean=true):Number
+    {
+        return LayoutElementUIComponentUtils.getLayoutBoundsY(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function setLayoutBoundsPosition(x:Number, y:Number, postTransform:Boolean=true):void
+    {
+        LayoutElementUIComponentUtils.setLayoutBoundsPosition(this,x,y,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function setLayoutBoundsSize(width:Number = Number.NaN,
+                                  height:Number = Number.NaN,
+                                  postTransform:Boolean=true):void
+    {
+        LayoutElementUIComponentUtils.setLayoutBoundsSize(this,width,height,postTransform? nonDeltaLayoutMatrix():null);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function getLayoutMatrix():Matrix
+    {
+        return layoutMatrix;
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getLayoutMatrix3D():Matrix3D
+    {
+        return layoutMatrix3D;
+    }
+
+    protected function nonDeltaLayoutMatrix():Matrix
+    {
+        if(hasDeltaIdentityTransform)
+            return null; 
+        if(_layoutFeatures != null)
+        {
+            return _layoutFeatures.layoutMatrix;            
+        }
+        else
+        {
+            // Lose scale
+            // if scale is actually set (and it's not just our "secret scale"), then 
+            // layoutFeatures wont' be null and we won't be down here
+            return MatrixUtil.composeMatrix(x, y, 1, 1, rotation,
+                        transformX, transformY);
+        }
+                
     }
     
     //--------------------------------------------------------------------------
@@ -3048,7 +3279,6 @@ public dynamic class UIMovieClip extends MovieClip
      */
     public function setActualSize(newWidth:Number, newHeight:Number):void
     {
-        // TODO: is this how it should be?
         if (sizeChanged(_width, newWidth) || sizeChanged(_height, newHeight))
             dispatchResizeEvent();
             
@@ -3059,8 +3289,8 @@ public dynamic class UIMovieClip extends MovieClip
         
         // Use scaleX/scaleY to change our size since the new size is based
         // on our measured size, which can be different than our actual size.
-        super.scaleX = newWidth / measuredWidth;
-        super.scaleY = newHeight / measuredHeight;
+        super.scaleX = scaleX*(newWidth / measuredWidth);
+        super.scaleY = scaleY*(newHeight / measuredHeight);
     }
 
     //--------------------------------------------------------------------------
@@ -3247,8 +3477,14 @@ public dynamic class UIMovieClip extends MovieClip
         if (trackSizeChanges)
         {
             var currentBounds:Rectangle = bounds;
-            currentBounds.width *= scaleX;
-            currentBounds.height *= scaleY;
+            
+            // secretScale is the amount we scaled by to change the width and height
+            var secretScaleX:Number = mx_internal::$scaleX/scaleX;
+            var secretScaleY:Number = mx_internal::$scaleY/scaleY;
+            
+            // take secret scale into account as it's our real width/height
+            currentBounds.width *= secretScaleX;
+            currentBounds.height *= secretScaleY;
 
             if (isNaN(oldWidth))
                 oldWidth = _width = currentBounds.width;
