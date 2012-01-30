@@ -1162,20 +1162,10 @@ public class Effect extends EventDispatcher implements IEffect
     {       
         if (targets.length > 0)
         {
-            // Reset the PropertyChanges array.
-            mx_internal::propertyChangesArray = [];
+            // Reset the PropertyChanges array by passing in 'null'
+            mx_internal::propertyChangesArray = captureValues(null, true);
+
             _callValidateNow = true;
-                        
-            // Create a new PropertyChanges object for the sum of all targets.
-            var n:int = targets.length;
-            for (var i:int = 0; i < n; i++)
-            {
-                mx_internal::propertyChangesArray.push(
-                    new PropertyChanges(targets[i]));
-            }
-            
-            mx_internal::propertyChangesArray =
-                captureValues(mx_internal::propertyChangesArray,true);
         }
         endValuesCaptured = false;
     }
@@ -1188,13 +1178,7 @@ public class Effect extends EventDispatcher implements IEffect
         if (targets.length > 0)
         {
             // make temporary PropertyChangesArray
-            var additionalPropertyChangesArray:Array = [];
-            
-            // Create a new PropertyChanges object for the sum of all targets.
-            for (var i:int = 0; i < targets.length; i++)
-                additionalPropertyChangesArray.push(new PropertyChanges(targets[i]));
-            
-            additionalPropertyChangesArray = captureValues(additionalPropertyChangesArray,true);
+            var additionalPropertyChangesArray:Array = captureValues(null, true);
             
             mx_internal::propertyChangesArray = 
                 mx_internal::propertyChangesArray.concat(additionalPropertyChangesArray);
@@ -1206,8 +1190,10 @@ public class Effect extends EventDispatcher implements IEffect
      */
     public function captureEndValues():void
     {
+        // captureValues will create propertyChangesArray if it does not
+        // yet exist
         mx_internal::propertyChangesArray =
-            captureValues(mx_internal::propertyChangesArray,false);
+            captureValues(mx_internal::propertyChangesArray, false);
         endValuesCaptured = true;
     }
         
@@ -1218,6 +1204,18 @@ public class Effect extends EventDispatcher implements IEffect
     mx_internal function captureValues(propChanges:Array,
 									   setStartValues:Boolean):Array
     {
+        var n:int;
+        var i:int;
+        if (!propChanges)
+        {
+            propChanges = [];
+                        
+            // Create a new PropertyChanges object for the sum of all targets.
+            n = targets.length;
+            for (i = 0; i < n; i++)
+                propChanges.push(new PropertyChanges(targets[i]));
+        }
+                    
         // Merge Effect.filterProperties and filterObject.filterProperties
         var effectProps:Array = !mx_internal::filterObject ?
                                 relevantProperties :
@@ -1226,8 +1224,6 @@ public class Effect extends EventDispatcher implements IEffect
         
         var valueMap:Object;
         var target:Object;      
-        var n:int;
-        var i:int;
         var m:int;  
         var j:int;
         
