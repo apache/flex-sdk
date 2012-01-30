@@ -130,11 +130,14 @@ public class ColorPickerAccImpl extends ComboBaseAccImpl
 	public function ColorPickerAccImpl(master:UIComponent)
 	{
 		super(master);
+
+		//role = 0x2E; // ROLE_SYSTEM_COMBOBOX
+
 		master.accessibilityProperties.description = "Color Picker";
 		Accessibility.updateProperties();
+	
 		ColorPicker(master).addEventListener(DropdownEvent.OPEN, openHandler);
 		ColorPicker(master).addEventListener(DropdownEvent.CLOSE, closeHandler);
-		//role = 0x2E;
 	}
 	
 	private function openHandler(event:Event):void
@@ -238,7 +241,9 @@ public class ColorPickerAccImpl extends ComboBaseAccImpl
 				null;
 		}
 		else
+		{
 			return ColorPicker(master).selectedColor.toString(16);
+		}
 	}
 	
 	/**
@@ -250,6 +255,7 @@ public class ColorPickerAccImpl extends ComboBaseAccImpl
 	override public function getChildIDArray():Array
 	{
 		var childIDs:Array = [];
+
 		if (ColorPicker(master).dropdown)
 		{
 			var n:uint= ColorPicker(master).dropdown.length;
@@ -258,6 +264,7 @@ public class ColorPickerAccImpl extends ComboBaseAccImpl
 				childIDs[i] = i + 1;
 			}
 		}
+
 		return childIDs;
 	}
 
