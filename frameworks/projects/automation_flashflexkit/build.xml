@@ -6,81 +6,9 @@
 	<property name="local.playerglobal.version" value="10.0"/>
 	<property name="locale" value="en_US"/>
 	
-	<macrodef name="bundle">
-		<attribute name="locale"/>
-		<sequential>
-			<echo message="Compiling frameworks/locale/@{locale}/automation_flashflexkit_rb.swc"/>
-			<!-- Load the <compc> task. We can't do this at the <project> level -->
-			<!-- because targets that run before flexTasks.jar gets built would fail. -->
-			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
-			<compc fork="true"
-				   output="${FLEX_HOME}/frameworks/locale/@{locale}/automation_flashflexkit_rb.swc"
-				   locale="@{locale}">
-				<jvmarg line="${compc.jvm.args}"/>
-				<target-player>10</target-player>
-				
-				<include-namespaces/>
-				<include-classes/>
-				<source-path path-element="${basedir}/bundles/@{locale}"/>
-				<source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
-				<source-path path-element="${FLEX_HOME}/frameworks/projects/automation_flashflexkit/src"/>
-				<include-libraries/>
-				<library-path/>
-				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-					<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
-					<include name="framework.swc"/>
-				</external-library-path>
-			</compc>
-		</sequential>
-	</macrodef>	
-	
-	<macrodef name="fat-swc">
-		<attribute name="locale"/>
-			<sequential>
-				<mkdir dir="${basedir}/bundles/@{locale}/docs" />
-				<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/automation_flashlexkit_rb.swc" update="true">
-					<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
-						<include name="*.*"/>
-					</zipfileset>
-				</zip>
-				<delete dir="${basedir}/bundles/@{locale}/docs" failonerror="false"/>
-			</sequential>
-	</macrodef>	
-	
-	<macrodef name="bundler">
-		<attribute name="locale"/>
-		<sequential>
-			<bundle locale="@{locale}"/>
-			<fat-swc locale="@{locale}"/>
-		</sequential>
-	</macrodef>
-	
 	<target name="main" depends="clean,compile" description="Clean build of automation_flashflexkit.swc and en_US">
 		<!--<bundle locale="${locale}"/>-->
 	</target>
-	
-	<!--<target name="other.locales" depends="bundles-clean,bundles" description="Build other locale SWCs"/>-->
-	
-	<!-- This is a private target for building automation_flashflexkit_rb.swc for various locales. -->
-	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
-<!--<target name="bundles">
-		<bundler locale="da_DK"/>
-		<bundler locale="de_DE"/>
-		<bundler locale="en_US"/>
-		<bundler locale="es_ES"/>
-		<bundler locale="fi_FI"/>
-		<bundler locale="fr_FR"/>
-		<bundler locale="it_IT"/>
-		<bundler locale="ja_JP"/>
-		<bundler locale="ko_KR"/>
-		<bundler locale="nb_NO"/>
-		<bundler locale="nl_NL"/>
-		<bundler locale="pt_BR"/>
-		<bundler locale="ru_RU"/>
-		<bundler locale="sv_SE"/>
-		<bundler locale="zh_CN"/>
-		<bundler locale="zh_TW"/>
-	</target>-->
 	
 	<target name="clean">
 		<delete failonerror="false">
@@ -94,15 +22,6 @@
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
 				<include name="automation_flashflexkit.swc"/>
 				<include name="automation_flashflexkit.swc.incr"/>
-			</fileset>
-		</delete>
-	</target>
-	
-	<target name="bundles-clean">
-		<delete failonerror="false">
-			<fileset dir="${FLEX_HOME}/frameworks/locale">
-				<include name="*/automation_flashflexkit_rb.swc"/>
-				<include name="*/automation_flashflexkit_rb.swc.incr"/>
 			</fileset>
 		</delete>
 	</target>
