@@ -586,13 +586,17 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Sets the coordinates that the element uses to draw on screen.
      *
+     *  <p>Note that calls to the <code>setLayoutBoundSize()</code> method can affect the layout position, so 
+     *  call <code>setLayoutBoundPosition()</code> after calling <code>setLayoutBoundSize()</code>.</p>
+     *
+     *  @param x The x-coordinate of the top-left corner of the bounding box. 
+     *
+     *  @param y The y-coordinate of the top-left corner of the bounding box.
+     *
      *  @param postLayoutTransform When <code>postLayoutTransform</code> is <code>true</code>, 
      *  the element is positioned in such a way that the top-left corner of its bounding box is (x, y).
      *  The bounding box is in the element's parent coordinate space and is calculated
      *  from the element's layout size, layout position and layout transform matrix.
-     *
-     *  <p>Note that calls to the <code>setLayoutBoundSize()</code> method can affect the layout position, so 
-     *  call <code>setLayoutBoundPosition()</code> after calling <code>setLayoutBoundSize()</code>.</p>
      *
      *  @see #setLayoutSize
      *  @see #getLayoutMatrix
