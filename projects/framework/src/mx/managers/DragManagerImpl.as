@@ -25,6 +25,7 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
 import mx.core.IUIComponent;
+import mx.core.IVisualElement;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.DragEvent;
@@ -312,7 +313,7 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
         // Make sure any scale/rotation from the initiator will be reflected.
         var concatenatedMatrix:Matrix = MatrixUtil.getConcatenatedMatrix(DisplayObject(dragInitiator));
         // Zero out the translation part of the matrix, as we're going to 
-        // position the dragProxy explicitly further below.
+        // position the dragProxy explicitly further below.        
         concatenatedMatrix.tx = 0;
         concatenatedMatrix.ty = 0;
         // Combine with the matrix of the dragImage if it has any.
@@ -328,7 +329,16 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 		if (nonNullTarget == null)
 			nonNullTarget = dragInitiator;
 		
-		var point:Point = new Point(mouseEvent.localX, mouseEvent.localY);
+        // If the target's layout is rtl that means the (stage coordinate) 
+        // point.x is currently the right edge of the dragInitiator.  Fix that:
+        var localX:Number = mouseEvent.localX;
+        if (dragInitiator is IVisualElement)
+        {
+            if (IVisualElement(dragInitiator).layoutDirection == "rtl")
+                localX -= dragInitiator.getExplicitOrMeasuredWidth();
+        }
+        
+		var point:Point = new Point(localX, mouseEvent.localY);
 		point = DisplayObject(nonNullTarget).localToGlobal(point);
 		point = DisplayObject(sandboxRoot).globalToLocal(point);
 		var mouseX:Number = point.x;
@@ -341,7 +351,7 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
         // Set dragProxy.offset to the mouse offset within the drag proxy.
         dragProxy.xOffset = mouseX - proxyOrigin.x;
         dragProxy.yOffset = mouseY - proxyOrigin.y;
-        
+                
         // Setup the initial position of the drag proxy.
         dragProxy.x = proxyOrigin.x;
         dragProxy.y = proxyOrigin.y;
