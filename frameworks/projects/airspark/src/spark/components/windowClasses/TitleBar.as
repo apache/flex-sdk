@@ -24,7 +24,7 @@ import mx.core.mx_internal;
 import spark.components.Button;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.primitives.BitmapImage;
-import spark.primitives.SimpleText;
+import spark.components.Label;
 import spark.skins.*;
 import spark.skins.spark.windowChrome.MacTitleBarSkin;
 import spark.skins.spark.windowChrome.TitleBarSkin;
@@ -194,7 +194,9 @@ public class TitleBar extends SkinnableComponent
      *  @productversion Flex 4
      */
     [SkinPart (required="false")]
-    public var titleText:SimpleText;
+    public var titleText:Label;
+    
+    // FIXME (rfrishbe): should titleText be a TextBase instead of a Label?
 
     //--------------------------------------------------------------------------
     //
