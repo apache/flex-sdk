@@ -24,6 +24,7 @@ package mx.automation.delegates.core
 	import flash.ui.Keyboard;
 	
 	import mx.automation.Automation;
+	import mx.automation.AutomationConstants;
 	import mx.automation.IAutomationManager;
 	import mx.automation.IAutomationObject;
 	import mx.automation.IAutomationObjectHelper;
@@ -175,7 +176,7 @@ package mx.automation.delegates.core
 		//---------------------------------
 		public function get automationEnabled():Boolean
 		{
-			trace ("This method should not be called on delegate.Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIComponentAutomationImpl", "get automationEnabled()", AutomationConstants.invalidDelegateMethodCall);
 			if (uiComponent as IUIComponent)
 				return (uiComponent as IUIComponent).enabled;
 			
@@ -187,7 +188,7 @@ package mx.automation.delegates.core
 		//---------------------------------
 		public function get automationOwner():DisplayObjectContainer
 		{
-			trace ("This method should not be called on delegate.Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIComponentAutomationImpl", "get automationOwner()", AutomationConstants.invalidDelegateMethodCall);
 			if (uiComponent as IUIComponent)
 				return (uiComponent as IUIComponent).owner;
 			
@@ -199,7 +200,7 @@ package mx.automation.delegates.core
 		//---------------------------------
 		public function get automationParent():DisplayObjectContainer
 		{
-			trace ("This method should not be called on delegate.Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIComponentAutomationImpl", "get automationParent()",AutomationConstants.invalidDelegateMethodCall);
 			if (uiComponent as IUIComponent)
 				return (uiComponent as IUIComponent).parent;
 			
@@ -211,7 +212,7 @@ package mx.automation.delegates.core
 		//---------------------------------
 		public function get automationVisible():Boolean
 		{
-			trace ("This method should not be called on delegate.Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIComponentAutomationImpl", "get automationVisible()",AutomationConstants.invalidDelegateMethodCall);
 			if (uiComponent as IUIComponent)
 				return (uiComponent as IUIComponent).visible;
 			
@@ -307,7 +308,7 @@ package mx.automation.delegates.core
 		 */
 		public function get showInAutomationHierarchy():Boolean
 		{
-			trace("Reading should not be done here");
+			Automation.automationDebugTracer.traceMessage("UIComponentAutomationImpl", "get showInAutomationHierarchy()",AutomationConstants.invalidDelegateMethodCall);
 			return true;
 		}
 		
@@ -316,7 +317,7 @@ package mx.automation.delegates.core
 		 */
 		public function set showInAutomationHierarchy(value:Boolean):void
 		{
-			trace("Setting should not be done here");
+			Automation.automationDebugTracer.traceMessage("UIComponentAutomationImpl", "set showInAutomationHierarchy()",AutomationConstants.invalidDelegateMethodCall);
 			if(uiComponent is IAutomationObject)
 				IAutomationObject(uiComponent).showInAutomationHierarchy = value;
 		}
@@ -676,7 +677,7 @@ package mx.automation.delegates.core
 		 */
 		public function set automationDelegate(val:Object):void
 		{
-			trace("Invalid setter function call. Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIComponentAutomationImpl", "set automationDelegate()",AutomationConstants.invalidDelegateMethodCall);
 		}
 		
 		/**
@@ -684,7 +685,7 @@ package mx.automation.delegates.core
 		 */
 		public function get automationDelegate():Object
 		{
-			trace("Invalid getter function call. Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIComponentAutomationImpl", "get showInAutomationHierarchy()",AutomationConstants.invalidDelegateMethodCall);
 			return this;
 		}
 		
