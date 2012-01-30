@@ -32,6 +32,7 @@ import mx.messaging.config.LoaderConfig;
 import mx.preloaders.Preloader;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
+import mx.utils.LoaderUtil;
 
 use namespace mx_internal;
 
@@ -297,7 +298,7 @@ public class ChildManager implements ISystemManagerChildManager
 			// if somebody has set this in our applicationdomain hierarchy, don't overwrite it
 			if (!LoaderConfig._url)
 			{
-				LoaderConfig._url = systemManager.loaderInfo.url;
+				LoaderConfig._url = LoaderUtil.normalizeURL(systemManager.loaderInfo);
 				LoaderConfig._parameters = systemManager.loaderInfo.parameters;
 			}
 
