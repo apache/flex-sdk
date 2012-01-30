@@ -2404,7 +2404,10 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
                     label.text = "";
                 else if (chart && !(ColumnChart(chart).showLabelVertically))
                 {
-                    label.setStyle('textAlign','left');
+					if(chart && chart.layoutDirection == "rtl")		//Align labels to right of the item in rtl layout
+                    	label.setStyle('textAlign','right');
+					else											//Align them to left of the column in ltr layout
+						label.setStyle('textAlign','left');
                     label.setStyle('paddingLeft',0);
                     label.rotation = 0;
                 }
