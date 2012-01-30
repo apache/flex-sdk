@@ -11,6 +11,8 @@
 
 package
 {
+    import flash.display.Shape;
+    
     import mx.containers.Canvas;
     import mx.controls.Image;
     import mx.flash.ContainerMovieClip;
@@ -25,13 +27,13 @@ package
         {
             super();
             
-            fillContentToSize = true;
-            
             // 151, 151 is the size of the flex content holder image, 
             // so I'm going to make it that size by default.
-            graphics.beginFill(0, 0);
-            graphics.drawRect(0, 0, 151, 151);
-            graphics.endFill();
+            var shape:Shape = new Shape();
+            shape.graphics.beginFill(0, 0);
+            shape.graphics.drawRect(0, 0, 151, 151);
+            shape.graphics.endFill();
+            addChild(shape);
 
             var fch:FlexContentHolder = new MyFlexContentHolder();
             
