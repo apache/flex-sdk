@@ -50,6 +50,19 @@ public interface IAdvancedStyleClient extends IStyleClient
      *  The parent of this component.
      */ 
     function get styleParent():IAdvancedStyleClient;
+
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     * Determines whether this instance is the same as - or is a subclass of -
+     * the given type.
+     */ 
+    function isAssignableToType(type:String):Boolean;
 }
 
 }
