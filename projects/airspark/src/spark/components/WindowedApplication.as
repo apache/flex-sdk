@@ -1736,25 +1736,26 @@ public class WindowedApplication extends Application implements IWindow
                 systemChrome == NativeWindowSystemChrome.STANDARD)
                 nativeWindow.height = chromeHeight() + _bounds.height;
             
-            systemManager.stage.stageWidth = _width = _bounds.width;
-            systemManager.stage.stageHeight = _height =  _bounds.height;
-
-            boundsChanged = false;
+            systemManager.stage.stageWidth = _bounds.width;
+            systemManager.stage.stageHeight = _bounds.height;
             
-            // don't know whether height or width changed
-            dispatchEvent(new Event("widthChanged"));
-            dispatchEvent(new Event("heightChanged"));
+            // Set _width and _height.  This will update the mirroring
+            // transform if applicable.
+            setActualSize(_bounds.width, _bounds.height);
+            
+            boundsChanged = false;
         }
 
         if (windowBoundsChanged)
         {
-            _bounds.width = _width = systemManager.stage.stageWidth;
-            _bounds.height = _height = systemManager.stage.stageHeight;
-            windowBoundsChanged = false;
+            _bounds.width = systemManager.stage.stageWidth;
+            _bounds.height = systemManager.stage.stageHeight;
             
-            // don't know whether height or width changed
-            dispatchEvent(new Event("widthChanged"));
-            dispatchEvent(new Event("heightChanged"));
+            // Set _width and _height.  This will update the mirroring
+            // transform if applicable.
+            setActualSize(_bounds.width, _bounds.height);
+            
+            windowBoundsChanged = false;
         }
 
         if (menuChanged && !nativeWindow.closed)
