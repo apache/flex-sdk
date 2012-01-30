@@ -25,7 +25,7 @@ import mx.utils.ColorUtil;
 
 import spark.components.ActionBar;
 import spark.components.Group;
-import spark.components.supportClasses.MobileTextField;
+import spark.components.supportClasses.StyleableTextField;
 import spark.core.IDisplayText;
 import spark.core.SpriteVisualElement;
 import spark.layouts.HorizontalAlign;
@@ -372,22 +372,22 @@ import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
-import spark.components.supportClasses.MobileTextField;
+import spark.components.supportClasses.StyleableTextField;
 import spark.core.IDisplayText;
 
 use namespace mx_internal;
 
 /**
  *  @private
- *  Component that holds MobileTextFields to produce a drop shadow effect.
+ *  Component that holds StyleableTextFields to produce a drop shadow effect.
  */
 class TitleDisplayComponent extends UIComponent implements IDisplayText
 {
     private static var TEXT_WIDTH_PADDING:Number =
         UITextField.TEXT_WIDTH_PADDING + 1;
     
-    private var titleDisplay:MobileTextField;
-    private var titleDisplayShadow:MobileTextField;
+    private var titleDisplay:StyleableTextField;
+    private var titleDisplayShadow:StyleableTextField;
     private var title:String;
     private var titleChanged:Boolean;
     public var descent:Number;
@@ -402,7 +402,7 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
     {
         super.createChildren();
         
-        titleDisplay = MobileTextField(createInFontContext(MobileTextField));
+        titleDisplay = StyleableTextField(createInFontContext(StyleableTextField));
         titleDisplay.styleProvider = this;
         titleDisplay.editable = false;
         titleDisplay.selectable = false;
@@ -412,7 +412,7 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
             titleDisplay_valueCommitHandler);
         
         titleDisplayShadow =
-            MobileTextField(createInFontContext(MobileTextField));
+            StyleableTextField(createInFontContext(StyleableTextField));
         titleDisplayShadow.styleProvider = this;
         titleDisplayShadow.colorName = "textShadowColor";
         titleDisplayShadow.editable = false;
