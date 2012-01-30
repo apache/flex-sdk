@@ -446,7 +446,11 @@ public class SetProperty extends OverrideBase
     private function setPropertyValue(obj:Object, name:String, value:*,
                                       valueForType:Object):void
     {
-        if (valueForType is Number)
+        // special-case undefined: we don't want to cast it to some
+        // special type and lose that information
+        if (value === undefined)
+            obj[name] = value;
+        else if (valueForType is Number)
             obj[name] = Number(value);
         else if (valueForType is Boolean)
             obj[name] = toBoolean(value);
