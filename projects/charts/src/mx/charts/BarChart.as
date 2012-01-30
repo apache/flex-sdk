@@ -12,7 +12,9 @@
 package mx.charts
 {
 
+import flash.display.DisplayObject;
 import flash.filters.DropShadowFilter;
+import flash.system.ApplicationDomain;
 
 import mx.charts.chartClasses.CartesianChart;
 import mx.charts.chartClasses.CartesianTransform;
@@ -25,12 +27,11 @@ import mx.charts.series.BarSeries;
 import mx.charts.series.BarSet;
 import mx.charts.series.items.BarSeriesItem;
 import mx.charts.styles.HaloDefaults;
-import mx.controls.Label;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.SolidColor;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -70,6 +71,21 @@ use namespace mx_internal;
  *  @productversion Flex 3
  */
 [Style(name="maxBarWidth", type="Number", format="Length", inherit="no")]
+
+/**
+ *  The class that is used by this component to render labels.
+ *
+ *  <p>It can be set to either the mx.controls.Label class
+ *  or the spark.components.Label class.</p>
+ *
+ *  @default spark.components.Label
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.2
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4
+ */
+[Style(name="labelClass", type="Class", inherit="no")]
 
 //--------------------------------------
 //  Other metadata
@@ -222,7 +238,7 @@ public class BarChart extends CartesianChart
 	/**
 	 * @private
 	 */
-	private var _tempField:Label; 
+	private var _tempField:Object; 
 	
 	//--------------------------------------------------------------------------
 	//
@@ -347,13 +363,33 @@ public class BarChart extends CartesianChart
 	override protected function createChildren():void
     {
         super.createChildren();
-        _tempField = new Label();
+		var labelClass:Class = getLabelClass();
+		_tempField = new labelClass();
         _tempField.visible = false;
         _tempField.text="W...";
         _tempField.toolTip = "";
-        addChild(_tempField);
+        addChild(_tempField as DisplayObject);
         _tempField.validateNow();
     }
+	
+	private function getLabelClass():Class
+	{
+		var labelClass:Class = getStyle("labelClass");
+		if(labelClass == null)
+		{
+			try{
+				labelClass = Class(ApplicationDomain.currentDomain.
+					getDefinition("spark.components::Label"));
+			}
+			catch(e:Error)
+			{
+				labelClass = Class(ApplicationDomain.currentDomain.
+					getDefinition("mx.controls::Label"));
+			}
+		}
+		return labelClass;
+	}
+
 
 	/**
 	 *  @private
@@ -624,10 +660,11 @@ public class BarChart extends CartesianChart
 						else
 						{
 							_tempField.setStyle('fontSize',size);
-							if (_tempField.textWidth > v.labelWidth || _tempField.textHeight > v.labelHeight)
+							_tempField.validateNow();
+							if (_tempField.measuredWidth > v.labelWidth || _tempField.measuredHeight > v.labelHeight)
 							{
-								labelScale = v.labelWidth / _tempField.textWidth;						
-								labelScale = Math.min(labelScale, v.labelHeight / _tempField.textHeight);
+								labelScale = v.labelWidth / _tempField.measuredWidth;						
+								labelScale = Math.min(labelScale, v.labelHeight / _tempField.measuredHeight);
 								if (size * labelScale > labelSizeLimit)
 									barSeries.seriesRenderData.labelScale = Math.min(labelScale,barSeries.seriesRenderData.labelScale);	
 								else
@@ -670,10 +707,11 @@ public class BarChart extends CartesianChart
 						else
 						{
 							_tempField.setStyle('fontSize',size);
-							if (_tempField.textWidth > v.labelWidth || _tempField.textHeight + 2 > v.labelHeight)
+							_tempField.validateNow();
+							if (_tempField.measuredWidth > v.labelWidth || _tempField.measuredHeight + 2 > v.labelHeight)
 							{
-								labelScale = v.labelWidth / _tempField.textWidth;						
-								labelScale = Math.min(labelScale, v.labelHeight / _tempField.textHeight);
+								labelScale = v.labelWidth / _tempField.measuredWidth;						
+								labelScale = Math.min(labelScale, v.labelHeight / _tempField.measuredHeight);
 								if (size * labelScale > labelSizeLimit)
 									barSeries.seriesRenderData.labelScale = Math.min(labelScale,barSeries.seriesRenderData.labelScale);	
 								else
