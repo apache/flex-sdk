@@ -24,6 +24,11 @@ import flash.events.Event;
  *  control changed.
  *
  *  @see mx.core.Container
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class IndexChangedEvent extends Event
 {
@@ -68,6 +73,11 @@ public class IndexChangedEvent extends Event
      *  </table>
      *   
      *  @eventType change
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CHANGE:String = "change";
 
@@ -103,6 +113,11 @@ public class IndexChangedEvent extends Event
      *  </table>
      *   
      *  @eventType childIndexChange
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CHILD_INDEX_CHANGE:String = "childIndexChange";
 
@@ -138,6 +153,11 @@ public class IndexChangedEvent extends Event
      *  </table>
      *   
      *  @eventType headerShift
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const HEADER_SHIFT:String = "headerShift";
     
@@ -172,6 +192,11 @@ public class IndexChangedEvent extends Event
      *  </table>
      *   
      *  @eventType selectionChanged
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const SELECTION_CHANGED:String = "selectionChanged";
     
@@ -206,6 +231,11 @@ public class IndexChangedEvent extends Event
      *  </table>
      *   
       *  @eventType selectionChanging
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const SELECTION_CHANGING:String = "selectionChanging";
 
@@ -234,6 +264,11 @@ public class IndexChangedEvent extends Event
      *  @param newIndex The zero-based index after the change.
      *
      *  @param triggerEvent The event that triggered this event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function IndexChangedEvent(type:String, bubbles:Boolean = false,
                                       cancelable:Boolean = false,
@@ -265,6 +300,11 @@ public class IndexChangedEvent extends Event
      *  it is the index of the current child. For <code>childIndexChange</code>
      *  events, it is the new index of the child. For <code>headerShift</code>
      *  events, it is the new index of the header.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var newIndex:Number;
 
@@ -279,6 +319,11 @@ public class IndexChangedEvent extends Event
      *  of the child.
      *  For <code>headerShift</code> events, it is the previous index of 
      *  the header.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var oldIndex:Number;
 
@@ -289,6 +334,11 @@ public class IndexChangedEvent extends Event
     /**
      *  The child object whose index changed, or the object associated with
      *  the new index. This property is not set for header changes.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var relatedObject:DisplayObject;
 
@@ -301,6 +351,11 @@ public class IndexChangedEvent extends Event
      *  Indicates whether this event was caused by a mouse or keyboard interaction.
      *  The value is <code>null</code> when a container dispatches a 
      *  <code>childIndexChanged</code> event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var triggerEvent:Event;
 
