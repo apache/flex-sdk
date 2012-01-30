@@ -11,7 +11,6 @@
 
 package spark.components
 {
-import flash.display.Stage;
 import flash.events.Event;
 
 import mx.core.IVisualElement;
@@ -2278,6 +2277,9 @@ public class ViewNavigator extends ViewNavigatorBase
             
             actionBar.visible = actionBar.includeInLayout = view && view.actionBarVisible;
             actionBarVisibilityInvalidated = false;
+            
+            actionBar.invalidateSize();
+            actionBar.invalidateDisplayList();
         }
     }
     
