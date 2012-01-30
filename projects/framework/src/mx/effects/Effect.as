@@ -246,6 +246,24 @@ public class Effect extends EventDispatcher implements IEffect
     //--------------------------------------------------------------------------
 
     //----------------------------------
+    //  autoReverse
+    //----------------------------------
+
+    private var _autoReverse:Boolean = false;
+    
+    /**
+     * @inheritDoc
+     */
+    public function get autoReverse():Boolean
+    {
+        return _autoReverse;
+    }
+    public function set autoReverse(value:Boolean):void
+    {
+        _autoReverse = value;
+    }
+        
+    //----------------------------------
     //  className
     //----------------------------------
 
@@ -306,6 +324,18 @@ public class Effect extends EventDispatcher implements IEffect
      */
     public function get duration():Number
     {
+        // Instance classes like Parallel or Sequence may have something more 
+        // interesting to return for duration
+        if (_instances)
+        {
+            // Return duration of first valid instance
+            for (var i:int = 0; i < _instances.length; ++i)
+            {
+                var instance:IEffectInstance = IEffectInstance(_instances[i]);
+                if (instance)
+                    return instance.duration;
+            }
+        }
         return _duration;
     }
     
@@ -466,6 +496,58 @@ public class Effect extends EventDispatcher implements IEffect
                 }
             }
         }
+    }
+
+    //----------------------------------
+    //  fromState
+    //----------------------------------
+
+    private var _fromState:String;
+    /**
+     *  The state that the effect is animating from, when played as a 
+     *  state transition effect. This information will be set by the component
+     *  setting the state that causes the transition. It is not intended for
+     *  use outside of the Flex framework classes internally.
+     * 
+     *  @default null
+     */
+    public function get fromState():String
+    {
+        return _fromState;
+    }
+
+    /**
+     *  @private
+     */
+    public function set fromState(value:String):void
+    {
+        _fromState = value;
+    }
+
+    //----------------------------------
+    //  toState
+    //----------------------------------
+
+    private var _toState:String;
+    /**
+     *  The state that the effect is animating to, when played as a 
+     *  state transition effect. This information will be set by the component
+     *  setting the state that causes the transition. It is not intended for
+     *  use outside of the Flex framework classes internally.
+     * 
+     *  @default null
+     */
+    public function get toState():String
+    {
+        return _toState;
+    }
+
+    /**
+     *  @private
+     */
+    public function set toState(value:String):void
+    {
+        _toState = value;
     }
 
     //----------------------------------
@@ -779,6 +861,31 @@ public class Effect extends EventDispatcher implements IEffect
     //
     //--------------------------------------------------------------------------
     
+    /**
+     * @inheritDoc
+     */
+    public function seek(seekTime:Number):void
+    {
+        for (var i:int = 0; i < _instances.length; i++)
+        {
+            if (_instances[i])
+                IEffectInstance(_instances[i]).seek(seekTime);
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function get playheadTime():Number 
+    {
+        for (var i:int = 0; i < _instances.length; i++)
+        {
+            if (_instances[i])
+                return IEffectInstance(_instances[i]).playheadTime;
+        }
+        return 0;
+    }
+
     /**
      *  @copy mx.effects.IEffect#getAffectedProperties()
      */
