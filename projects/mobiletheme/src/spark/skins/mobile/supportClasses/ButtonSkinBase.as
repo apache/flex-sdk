@@ -401,6 +401,10 @@ package spark.skins.mobile
             labelDisplay.y = Math.round(labelY);
             labelDisplay.height = labelHeight;
             labelDisplay.width = labelWidth;
+            
+            // before truncating text, we need to reset it to its original value
+            if (hostComponent && labelDisplay.isTruncated)
+                labelDisplay.text = hostComponent.label;
             labelDisplay.truncateToFit();
             
             labelDisplayShadow.commitStyles();
@@ -408,7 +412,11 @@ package spark.skins.mobile
             labelDisplayShadow.y = Math.round(labelY + 1);
             labelDisplayShadow.height = labelHeight;
             labelDisplayShadow.width = labelWidth;
-            labelDisplayShadow.truncateToFit();
+            
+            // if labelDisplay is truncated, then push it down here as well.
+            // otherwise, it would have gotten pushed in the labelDisplay_valueCommitHandler()
+            if (labelDisplay.isTruncated)
+                labelDisplayShadow.text = labelDisplay.text;
             
             if (iconDisplay)
             {                
