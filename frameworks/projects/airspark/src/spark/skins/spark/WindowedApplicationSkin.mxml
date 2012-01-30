@@ -43,7 +43,7 @@
          *  Exclude the titleBar and scroller because they are SparkSkins and we 
          *  don't want to colorize them twice.
          */
-        static private const exclusions:Array = ["backgroundRect", "bgFill", "contentGroup", "statusText"];
+        static private const exclusions:Array = ["backgroundRect", "contentGroup", "statusText"];
         /**
          *  @inheritDoc
          */
