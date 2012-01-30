@@ -1516,6 +1516,13 @@ public class UIComponent extends FlexSprite
     // When changing this constant, make sure you change
     // the constant with the same name in LayoutElementUIComponentUtils
 
+    /**
+     *  @private
+     *  Static constant representing no cached layout direction style value. 
+     */
+    private static const LAYOUT_DIRECTION_CACHE_UNSET:String = "layoutDirectionCacheUnset";
+    
+
     //--------------------------------------------------------------------------
     //
     //  Class mixins
@@ -1757,6 +1764,12 @@ public class UIComponent extends FlexSprite
      *  @private
      */
     private var parentChangedFlag:Boolean = false;
+    
+    /**
+     *  @private
+     *  Cached layout direction style
+     */
+    private var layoutDirectionCachedValue:String = LAYOUT_DIRECTION_CACHE_UNSET;
     
     //--------------------------------------------------------------------------
     //
@@ -6088,13 +6101,17 @@ public class UIComponent extends FlexSprite
      *  The flag is cleared in validateDisplayList().
      */
     mx_internal var oldLayoutDirection:String = LayoutDirection.LTR;
-        
+
     /**
      *  @inheritDoc
      */
     public function get layoutDirection():String
     {
-        return getStyle("layoutDirection");        
+        if (layoutDirectionCachedValue == LAYOUT_DIRECTION_CACHE_UNSET)
+        {
+            layoutDirectionCachedValue = getStyle("layoutDirection");
+        }
+        return layoutDirectionCachedValue;
     }
     
     /**
@@ -7992,18 +8009,23 @@ public class UIComponent extends FlexSprite
      */
     public function styleChanged(styleProp:String):void
     {
+        var allStyles:Boolean = !styleProp || styleProp == "styleName";
+        
         StyleProtoChain.styleChanged(this, styleProp);
         
-        if (styleProp && (styleProp != "styleName"))
-        { 
+        if (!allStyles)
+        {
             if (hasEventListener(styleProp + "Changed"))
                 dispatchEvent(new Event(styleProp + "Changed"));
         }
-        else 
+        else
         {
             if (hasEventListener("allStylesChanged"))
                 dispatchEvent(new Event("allStylesChanged"));
         }
+        
+        if (allStyles || styleProp == "layoutDirection")
+            layoutDirectionCachedValue = LAYOUT_DIRECTION_CACHE_UNSET;
     }
 
     /**
@@ -11279,7 +11301,7 @@ public class UIComponent extends FlexSprite
                     iAdvanceStyleClientChild.styleChanged(styleProp);
                 }
             }
-        }
+        }        
     }
 
     /**
