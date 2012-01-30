@@ -313,10 +313,11 @@ public class CompositeEffect extends Effect
                     childEffect.filterObject = filterObject;
                 }
 
-				// FIXME (chaase): This doesn't seem good enough...
+				// TODO (chaase): This doesn't seem good enough...
 				// possibly redundant, but otherwise we'll be using the
 				// old semantics. Might be a better way (e.g., reuse
-				// the same semantics provider)
+				// the same semantics provider). Note that it's been 
+                // working since Flex 3.
                 if (effectTargetHost) // && !childEffect.targetSemantics)
                 	childEffect.effectTargetHost = effectTargetHost;
                 
@@ -433,7 +434,7 @@ public class CompositeEffect extends Effect
     //
     //--------------------------------------------------------------------------
     
-    // FIXME (chaase): Shouldn't there be a removeChild() method 
+    // TODO (chaase): Shouldn't there be a removeChild() method 
     // since there's an addChild() method?
     
     /**
