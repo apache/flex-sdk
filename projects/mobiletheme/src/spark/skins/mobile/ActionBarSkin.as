@@ -248,14 +248,13 @@ public class ActionBarSkin extends MobileSkin
             titleHeight = titleDisplay.getPreferredBoundsHeight();
         }
         
-        measuredMinWidth = measuredWidth =
+        measuredWidth =
             navigationGroup.getPreferredBoundsWidth()
             + actionGroup.getPreferredBoundsWidth()
             + titleWidth;
         
-        // min height is contentGroupHeight, 2x border on top and bottom
-        // Math.max.apply optimization used instead of "..." rest parameter
-        measuredMinHeight = measuredHeight =
+        // measuredHeight is contentGroupHeight, 2x border on top and bottom
+        measuredHeight =
             Math.max(layoutContentGroupHeight,
                 navigationGroup.getPreferredBoundsHeight(), 
                 actionGroup.getPreferredBoundsHeight(),
@@ -548,10 +547,8 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         
         if (title != "")
         {
-            // FIXME (jasonsj): was previously textWidth + UITextField.TEXT_WIDTH_PADDING + 1;
-            //                  +1 originates from MX Button without explaination
             var textSize:Point = titleDisplay.measuredTextSize;
-            textWidth = textSize.x + 1;
+            textWidth = textSize.x;
             textHeight = textSize.y;
             descent = titleDisplay.getLineMetrics(0).descent;
         }
