@@ -313,11 +313,12 @@ Button
 	horizontalGap: 2;
 /*	overIcon: null; 
 	overSkin: null */
-	paddingBottom: -1;
+	labelVerticalOffset: 1;
+/*	paddingBottom: -1; */
 	paddingLeft: 6;
 	paddingRight: 6;
-	paddingTop: 2;
-/*	selectedDisabledIcon: null; 
+/*	paddingTop: 2;
+	selectedDisabledIcon: null; 
 	selectedDisabledSkin: null 
  	selectedDownIcon: null; 
 	selectedDownSkin: null 
@@ -422,6 +423,7 @@ CalendarLayout
 
 CheckBox
 {
+	cornerRadius: 0;
 	disabledIcon: ClassReference(null);
 	disabledSkin: ClassReference(null);
 	downIcon: ClassReference(null);
@@ -430,12 +432,13 @@ CheckBox
 	horizontalGap: 3;
 	icon: ClassReference("mx.skins.spark.CheckBoxSkin");
 	iconColor: #2B333C;
+	labelVerticalOffset: 1;
 	overIcon: ClassReference(null);
 	overSkin: ClassReference(null);
-	paddingBottom: -2;
+	paddingBottom: -1;
 	paddingLeft: 0;
 	paddingRight: 0;	
-	paddingTop: 0;
+	paddingTop: -1;
 	selectedDisabledIcon: ClassReference(null);
 	selectedDisabledSkin: ClassReference(null);
 	selectedDownIcon: ClassReference(null);
@@ -1221,12 +1224,13 @@ RadioButton
 	horizontalGap: 3;	
 	icon: ClassReference("mx.skins.spark.RadioButtonSkin");
 	iconColor: #2B333C;
+	labelVerticalOffset: 1;
 	overIcon: ClassReference(null);
 	overSkin: ClassReference(null);
-	paddingBottom: -2;
+	paddingBottom: -1;
 	paddingLeft: 0;
 	paddingRight: 0;	
-	paddingTop: 0;
+	paddingTop: -1;
 	selectedDisabledIcon: ClassReference(null);
 	selectedDisabledSkin: ClassReference(null);
 	selectedDownIcon: ClassReference(null);
