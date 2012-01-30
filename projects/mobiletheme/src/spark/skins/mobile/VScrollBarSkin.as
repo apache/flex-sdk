@@ -13,7 +13,6 @@ package spark.skins.mobile
 {
 
 import mx.core.DPIClassification;
-import mx.core.UIComponent;
 
 import spark.components.Button;
 import spark.components.VScrollBar;
@@ -50,22 +49,25 @@ public class VScrollBarSkin extends MobileSkin
         super();
         
         useChromeColor = true;
-        
-        // Depending on density set our measured width and height
+		layoutMeasuredHeight = 20;
+		
+		// Depending on density set our measured width
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_320:
+			{
+				layoutMeasuredWidth = 12;
+				break;
+			}
             case DPIClassification.DPI_240:
             {
                 layoutMeasuredWidth = 9;
-                layoutMeasuredHeight = 40;
                 break;
             }
             default:
             {
                 // default PPI160
                 layoutMeasuredWidth = 6;
-                layoutMeasuredHeight = 20;
-                
                 break;
             }
         }
@@ -128,7 +130,6 @@ public class VScrollBarSkin extends MobileSkin
             track.height = layoutMeasuredHeight;
             addChild(track);
         }
-        
         if (!thumb)
         {
             thumb = new Button();
