@@ -38,6 +38,11 @@ use namespace mx_internal;
  *
  *  <p>The ILayoutManagerClient interface is implemented by the UIComponent 
  *  and ProgrammaticSkin classes.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface ILayoutManagerClient extends IEventDispatcher
 {
@@ -55,6 +60,11 @@ public interface ILayoutManagerClient extends IEventDispatcher
      *  A flag that determines if an object has been through all three phases
      *  of layout validation (provided that any were required)
      *  This flag should only be modified by the LayoutManager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get initialized():Boolean;
     
@@ -87,6 +97,11 @@ public interface ILayoutManagerClient extends IEventDispatcher
      *  in order of increasing <code>nestLevel</code>, so that an object
      *  has a chance to set the sizes of its children before the child
      *  objects are asked to position and size their children.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get nestLevel():int;
     
@@ -101,6 +116,11 @@ public interface ILayoutManagerClient extends IEventDispatcher
 
     /**
      *  @copy mx.core.UIComponent#processedDescriptors
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get processedDescriptors():Boolean;
     
@@ -117,6 +137,11 @@ public interface ILayoutManagerClient extends IEventDispatcher
      *  A flag that determines if an object is waiting to have its
      *  <code>updateComplete</code> event dispatched.
      *  This flag should only be modified by the LayoutManager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get updateCompletePendingFlag():Boolean;
     
@@ -136,6 +161,11 @@ public interface ILayoutManagerClient extends IEventDispatcher
      *  If the <code>LayoutManager.invalidateProperties()</code> method is called with
      *  this ILayoutManagerClient, then the <code>validateProperties()</code> method
      *  is called when it's time to commit property values.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function validateProperties():void;
     
@@ -147,6 +177,11 @@ public interface ILayoutManagerClient extends IEventDispatcher
      *
      *  @param recursive If <code>true</code>, call this method
      *  on the objects children.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function validateSize(recursive:Boolean = false):void;
     
@@ -156,6 +191,11 @@ public interface ILayoutManagerClient extends IEventDispatcher
      *  If the <code>LayoutManager.invalidateDisplayList()</code> method is called with
      *  this ILayoutManagerClient, then the <code>validateDisplayList()</code> method
      *  is called when it's time to update the display list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function validateDisplayList():void;
 }
