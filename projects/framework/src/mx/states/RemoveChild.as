@@ -14,7 +14,7 @@ package mx.states
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import mx.core.mx_internal;
+
 import mx.core.UIComponent;
 
 /**
@@ -43,9 +43,9 @@ import mx.core.UIComponent;
  *
  *  @includeExample examples/StatesExample.mxml
  */
-public class RemoveChild implements IOverride
+public class RemoveChild extends OverrideBase implements IOverride
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -55,15 +55,15 @@ public class RemoveChild implements IOverride
 
     /**
      *  Constructor.
-	 *
-	 *  @param target The child to remove from the view.
+     *
+     *  @param target The child to remove from the view.
      */
-	public function RemoveChild(target:DisplayObject = null)
-	{
-		super();
+    public function RemoveChild(target:DisplayObject = null)
+    {
+        super();
 
-		this.target = target;
-	}
+        this.target = target;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -75,18 +75,18 @@ public class RemoveChild implements IOverride
      *  @private
      *  Parent of the removed child.
      */
-	private var oldParent:DisplayObjectContainer;
+    private var oldParent:DisplayObjectContainer;
 
     /**
      *  @private
      *  Index of the removed child.
      */
-	private var oldIndex:int;
-	
-	/**
-	 *  @private
-	 */
-	private var removed:Boolean;
+    private var oldIndex:int;
+    
+    /**
+     *  @private
+     */
+    private var removed:Boolean;
 
     //--------------------------------------------------------------------------
     //
@@ -95,15 +95,15 @@ public class RemoveChild implements IOverride
     //--------------------------------------------------------------------------
 
     //----------------------------------
-	//  target
+    //  target
     //----------------------------------
 
-	[Inspectable(category="General")]
+    [Inspectable(category="General")]
 
-	/**
-	 *  The child to remove from the view.
-	 */
-	public var target:DisplayObject;
+    /**
+     *  The child to remove from the view.
+     */
+    public var target:Object;
 
     //--------------------------------------------------------------------------
     //
@@ -113,8 +113,8 @@ public class RemoveChild implements IOverride
 
     /**
      *  IOverride interface method; this class implements it as an empty method.
-	 * 
-	 *  @copy IOverride#initialize()
+     * 
+     *  @copy IOverride#initialize()
      */
     public function initialize():void
     {
@@ -123,36 +123,40 @@ public class RemoveChild implements IOverride
     /**
      *  @inheritDoc
      */
-	public function apply(parent:UIComponent):void
-	{
-		removed = false;
-		
-		if (target.parent)
-		{
-			oldParent = target.parent;
-			oldIndex = oldParent.getChildIndex(target);
-			oldParent.removeChild(target);
-			removed = true;
-		}
-	}
+    public function apply(parent:UIComponent):void
+    {
+        removed = false;
+        
+        var obj:* = getOverrideContext(target, parent);
+        
+        if ((obj is DisplayObject) && obj.parent)
+        {
+            oldParent = obj.parent;
+            oldIndex = oldParent.getChildIndex(obj);
+            oldParent.removeChild(obj);
+            removed = true;
+        }
+    }
 
-	/**
+    /**
      *  @inheritDoc
-	 */
-	public function remove(parent:UIComponent):void
-	{
-		if (removed)
-		{
-			oldParent.addChildAt(target, oldIndex);
+     */
+    public function remove(parent:UIComponent):void
+    {
+        var obj:* = getOverrideContext(target, parent);
+        
+        if (removed && (obj is DisplayObject))
+        {
+            oldParent.addChildAt(obj, oldIndex);
 
-			// Make sure any changes made while the child was removed are reflected
-			// properly.
-			if (target is UIComponent)
-				UIComponent(target).mx_internal::updateCallbacks();
+            // Make sure any changes made while the child was removed are reflected
+            // properly.
+            if (obj is UIComponent)
+                UIComponent(target).mx_internal::updateCallbacks();
 
-			removed = false;
-		}
-	}
+            removed = false;
+        }
+    }
 }
 
 }
