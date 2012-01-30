@@ -357,6 +357,13 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private static var focusedStageText:StageText = null;
     
     /**
+     *  A StageText corresponding to a control that was programmatically focused
+     *  while the StageText was unable to take focus. Focus should be set to
+     *  this StageText once it is able to take focus.
+     */
+    private static var pendingFocusedStageText:StageText = null;
+    
+    /**
      *  Text measuring behavior needs to be slightly different on Android
      *  devices to account for its native text being slightly taller. Without
      *  this adjustment, single-line text on Android will be clipped or will
@@ -1404,8 +1411,13 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         // by a proxy image). This component may be in a form that is lower in
         // z-order than the topmost form and we cannot allow the StageText,
         // which cannot clip, to appear above the topmost form.
-        if (effectiveEnabled && stageText != null && stageText.visible)
-            stageText.assignFocus();
+        if (effectiveEnabled && stageText != null)
+        {
+            if (stageText.visible)
+                stageText.assignFocus();
+            else
+                pendingFocusedStageText = stageText;
+        }
     }
     
     /**
@@ -1579,10 +1591,13 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                         // well if the soft keyboard is open. (If the soft keyboard is not
                         // open, do not restore focus because doing so will force the soft
                         // keyboard to open.)
-                        if (stageText.visible && stageText == focusedStageText && 
-                            stage.softKeyboardRect.height > 0)
+                        if (stageText.visible)
                         {
-                            stageText.assignFocus();
+                            if (stageText == focusedStageText && stage.softKeyboardRect.height > 0 ||
+                                stageText == pendingFocusedStageText)
+                            {
+                                stageText.assignFocus();
+                            }
                         }
                         
                         // Do not remove the proxy bitmap until after stageText has been
@@ -2584,6 +2599,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private function stageText_focusInHandler(event:FocusEvent):void
     {
         focusedStageText = stageText;
+        pendingFocusedStageText = null;
         
         // Focus events are documented as bubbling. However, all events coming
         // from StageText are set to not bubble. So we need to create an
@@ -2884,10 +2900,13 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             // well if the soft keyboard is open. (If the soft keyboard is not
             // open, do not restore focus because doing so will force the soft
             // keyboard to open.)
-            if (stageTextVisible && stageText == focusedStageText && 
-                stage.softKeyboardRect.height > 0)
+            if (stageTextVisible)
             {
-                stageText.assignFocus();
+                if (stageText == focusedStageText && stage.softKeyboardRect.height > 0 ||
+                    stageText == pendingFocusedStageText)
+                {
+                    stageText.assignFocus();
+                }
             }
             
             // Do not remove the proxy bitmap until after stageText has been
