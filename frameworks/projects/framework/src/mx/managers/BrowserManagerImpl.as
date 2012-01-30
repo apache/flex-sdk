@@ -476,8 +476,8 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
     private function browserURLChange(fragment:String, force:Boolean = false):void
     {
         //trace("browserURLChange: |" + decodeURI(fragment) + "|, |" + decodeURI(_fragment) + "|" + ", " + force.toString());
-        if ((decodeURI(_fragment) != decodeURI(fragment)) || force)
-		{
+        if (((fragment != null) && (decodeURI(_fragment) != decodeURI(fragment))) || force)
+	{
             _fragment = fragment;
 
             var lastURL:String = url;
