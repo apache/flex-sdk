@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--
+
+    MX Components
+
+-->
+<componentPackage>
+
+    <!-- mx -->
+    <component id="Accordion" class="mx.containers.Accordion"/>
+    <component id="AddChildAction" class="mx.effects.AddChildAction"/>
+    <component id="AddItemAction" class="mx.effects.AddItemAction"/>
+    <component id="Application" class="mx.core.Application"/>
+    <component id="ApplicationControlBar" class="mx.containers.ApplicationControlBar"/>
+    <component id="Box" class="mx.containers.Box"/>
+    <component id="Button" class="mx.controls.Button"/>
+    <component id="ButtonBar" class="mx.controls.ButtonBar"/>
+    <component id="Canvas" class="mx.containers.Canvas"/>
+    <component id="CheckBox" class="mx.controls.CheckBox"/>
+    <component id="ColorPicker" class="mx.controls.ColorPicker"/>
+    <component id="ColorTransform" class="flash.geom.ColorTransform" lookupOnly="true"/>
+    <component id="ComboBox" class="mx.controls.ComboBox"/>
+    <component id="Container" class="mx.core.Container"/>
+    <component id="ControlBar" class="mx.containers.ControlBar"/>
+    <component id="DataGrid" class="mx.controls.DataGrid"/>
+    <component id="DataGridColumn" class="mx.controls.dataGridClasses.DataGridColumn"/>
+    <component id="DataGridItemRenderer" class="mx.controls.dataGridClasses.DataGridItemRenderer"/>
+    <component id="DateChooser" class="mx.controls.DateChooser"/>
+    <component id="DateField" class="mx.controls.DateField"/>
+    <component id="DefaultListEffect" class="mx.effects.DefaultListEffect"/>
+    <component id="DefaultTileListEffect" class="mx.effects.DefaultTileListEffect"/>
+    <component id="Dissolve" class="mx.effects.Dissolve" lookupOnly="true"/>
+    <component id="DividedBox" class="mx.containers.DividedBox"/>
+    <component id="Form" class="mx.containers.Form"/>
+    <component id="FormHeading" class="mx.containers.FormHeading"/>
+    <component id="FormItem" class="mx.containers.FormItem"/>
+    <component id="Glow" class="mx.effects.Glow"/>
+    <component id="GlowFilter" class="flash.filters.GlowFilter" lookupOnly="true"/>
+    <component id="Grid" class="mx.containers.Grid"/>
+    <component id="GridItem" class="mx.containers.GridItem"/>
+    <component id="GridRow" class="mx.containers.GridRow"/>
+    <component id="HBox" class="mx.containers.HBox"/>
+    <component id="HDividedBox" class="mx.containers.HDividedBox"/>
+    <component id="HorizontalList" class="mx.controls.HorizontalList"/>
+    <component id="HRule" class="mx.controls.HRule"/>
+    <component id="HScrollBar" class="mx.controls.HScrollBar"/>
+    <component id="HSlider" class="mx.controls.HSlider"/>
+    <component id="Image" class="mx.controls.Image"/>
+    <component id="Label" class="mx.controls.Label"/>
+    <component id="LinkBar" class="mx.controls.LinkBar"/>
+    <component id="LinkButton" class="mx.controls.LinkButton"/>
+    <component id="List" class="mx.controls.List"/>
+    <component id="MenuBar" class="mx.controls.MenuBar"/>
+    <component id="Module" class="mx.modules.Module"/>
+    <component id="ModuleLoader" class="mx.modules.ModuleLoader"/>
+    <component id="Move" class="mx.effects.Move" lookupOnly="true"/>
+    <component id="NumericStepper" class="mx.controls.NumericStepper"/>
+    <component id="Panel" class="mx.containers.Panel"/>
+    <component id="Parallel" class="mx.effects.Parallel" lookupOnly="true" />
+    <component id="PopUpButton" class="mx.controls.PopUpButton"/>
+    <component id="PopUpMenuButton" class="mx.controls.PopUpMenuButton"/>
+    <component id="PrintDataGrid" class="mx.printing.PrintDataGrid"/>
+    <component id="RadioButton" class="mx.controls.RadioButton"/>
+    <component id="RadioButtonGroup" class="mx.controls.RadioButtonGroup"/>
+    <component id="RemoveChildAction" class="mx.effects.RemoveChildAction"/>
+    <component id="RemoveItemAction" class="mx.effects.RemoveItemAction"/>
+    <component id="Repeater" class="mx.core.Repeater"/>
+    <component id="Resize" class="mx.effects.Resize"/>
+    <component id="RichTextEditor" class="mx.controls.RichTextEditor"/>
+    <component id="Sequence" class="mx.effects.Sequence" lookupOnly="true"/>
+    <component id="SetPropertyAction" class="mx.effects.SetPropertyAction"/>
+    <component id="Sprite" class="flash.display.Sprite" lookupOnly="true"/>
+    <component id="TabBar" class="mx.controls.TabBar"/>
+    <component id="TabNavigator" class="mx.containers.TabNavigator"/>
+    <component id="Text" class="mx.controls.Text"/>
+    <component id="TextArea" class="mx.controls.TextArea"/>
+    <component id="TextInput" class="mx.controls.TextInput"/>
+    <component id="Tile" class="mx.containers.Tile"/>
+    <component id="TileList" class="mx.controls.TileList"/>
+    <component id="TitleWindow" class="mx.containers.TitleWindow"/>
+    <component id="ToggleButtonBar" class="mx.controls.ToggleButtonBar"/>
+    <component id="ToolBar" class="mx.controls.richTextEditorClasses.ToolBar"/>
+    <component id="Tree" class="mx.controls.Tree"/>
+    <component id="UnconstrainItemAction" class="mx.effects.UnconstrainItemAction"/>
+    <component id="VBox" class="mx.containers.VBox"/>
+    <component id="VDividedBox" class="mx.containers.VDividedBox"/>
+    <component id="VideoDisplay" class="mx.controls.VideoDisplay"/>
+    <component id="ViewStack" class="mx.containers.ViewStack"/>
+    <component id="VRule" class="mx.controls.VRule"/>
+    <component id="VScrollBar" class="mx.controls.VScrollBar"/>
+    <component id="VSlider" class="mx.controls.VSlider"/>
+    <component id="WipeDown" class="mx.effects.WipeDown"/>
+    <component id="WipeLeft" class="mx.effects.WipeLeft"/>
+    <component id="WipeRight" class="mx.effects.WipeRight"/>
+    <component id="WipeUp" class="mx.effects.WipeUp"/>
+
+    <!-- mx base classes with CSS type selectors -->
+    <component id="Alert" class="mx.controls.Alert" />
+    <component id="AlertForm" class="mx.controls.alertClasses.AlertForm" lookupOnly="true"/>
+    <component id="AccordionHeader" class="mx.containers.accordionClasses.AccordionHeader" />
+    <component id="ButtonBarButton" class="mx.controls.buttonBarClasses.ButtonBarButton" />
+    <component id="CalendarLayout" class="mx.controls.CalendarLayout" />
+    <component id="FormItemLabel" class="mx.controls.FormItemLabel" />
+    <component id="ListBase" class="mx.controls.listClasses.ListBase" />
+    <component id="ListItemRenderer" class="mx.controls.listClasses.ListItemRenderer" lookupOnly="true"/>
+    <component id="Menu" class="mx.controls.Menu" />
+    <component id="MenuBarItem" class="mx.controls.menuClasses.MenuBarItem" />
+    <component id="MenuItemRenderer" class="mx.controls.menuClasses.MenuItemRenderer" lookupOnly="true"/>
+    <component id="ScrollBar" class="mx.controls.scrollClasses.ScrollBar" />
+    <component id="ScrollControlBase" class="mx.core.ScrollControlBase" />
+    <component id="Slider" class="mx.controls.sliderClasses.Slider" />
+    <component id="SwatchPanel" class="mx.controls.colorPickerClasses.SwatchPanel" />
+    <component id="Tab" class="mx.controls.tabBarClasses.Tab" />
+    <component id="TileListItemRenderer" class="mx.controls.listClasses.TileListItemRenderer" lookupOnly="true"/>
+    <component id="TreeItemRenderer" class="mx.controls.treeClasses.TreeItemRenderer" lookupOnly="true"/>
+
+
+</componentPackage>
