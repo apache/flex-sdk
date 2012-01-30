@@ -19,6 +19,11 @@ import mx.geom.TransformOffsets;
  *  The IVisualElement interface represents the common methods and properties between UIComponents and
  *  GraphicElements and the minimum properties/methods required for a visual element to be 
  *  laid out and displayed in a Spark application.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IVisualElement extends ILayoutElement
 {
@@ -36,6 +41,11 @@ public interface IVisualElement extends ILayoutElement
      *  to the component that popped it up.</p>
      *
      *  <p>The default value is the value of the <code>parent</code> property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get owner():DisplayObjectContainer;
     function set owner(value:DisplayObjectContainer):void;
@@ -47,6 +57,11 @@ public interface IVisualElement extends ILayoutElement
      *  the object to which they belong.
      *  By convention, non-visual item objects use an <code>owner</code>
      *  property to reference the object to which they belong.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get parent():DisplayObjectContainer;
     
@@ -59,6 +74,11 @@ public interface IVisualElement extends ILayoutElement
      *  they are added to the Groups item list.
      * 
      *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function set layer(value:Number):void;
 	function get layer():Number;
@@ -73,6 +93,11 @@ public interface IVisualElement extends ILayoutElement
      *  with the controls in the FormItem.</p>
      *
      *  <p>Each component should override this property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get baselinePosition():Number;
     
@@ -93,6 +118,11 @@ public interface IVisualElement extends ILayoutElement
      * 
      *  @default true
      *  @see ILayoutElement#includeInLayout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get visible():Boolean;
     function set visible(value:Boolean):void;
