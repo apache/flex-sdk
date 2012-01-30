@@ -205,8 +205,8 @@ public class ChartElement extends DualStyleObject implements IChartElement2
      */
     public function set dataProvider(value:Object):void
     {
-		if(_userDataProvider == value)
-			return;
+        if(_userDataProvider == value)
+            return;
         _userDataProvider = value;
         processNewDataProvider(value);
     }
@@ -246,7 +246,7 @@ public class ChartElement extends DualStyleObject implements IChartElement2
     public function set dataTransform(value:DataTransform):void
     {
         _dataTransform = value;
-		var n:int = numChildren;
+        var n:int = numChildren;
         for (var i:uint = 0; i < n; i++)
         {
             var g:DisplayObject = getChildAt(i);
@@ -457,6 +457,8 @@ public class ChartElement extends DualStyleObject implements IChartElement2
      *  to the exact coordinates to be considered "under".
      *  This property is similar to the value of the mouseSensitivity
      *  property of the chart control.
+     * 
+     *  @return An array of HitData.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -467,7 +469,7 @@ public class ChartElement extends DualStyleObject implements IChartElement2
                                    sensitivity2:Number):Array /* of HitData */
     {
         var result:Array /* of HitData */ = [];
-		var n:int = numChildren;
+        var n:int = numChildren;
         for (var i:int = n - 1; i >= 0; i--)
         {
             var g:IChartElement = getChildAt(i) as IChartElement;
@@ -500,7 +502,7 @@ public class ChartElement extends DualStyleObject implements IChartElement2
     public function getAllDataPoints():Array /* of HitData */
     {
         var result:Array /* of HitData */ = [];
-		var n:int = numChildren;
+        var n:int = numChildren;
         for (var i:int = n - 1; i >= 0; i--)
         {
             var g:IChartElement2 = getChildAt(i) as IChartElement2;
