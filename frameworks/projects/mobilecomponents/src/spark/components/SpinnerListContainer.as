@@ -14,6 +14,9 @@ package spark.components
  *  Container for one or more SpinnerLists. The SpinnerLists are laid out horizontally.
  *  The SpinnerListContainerSkin displays a frame, shadow gradients and a selection indicator.   
  *  	 
+ *  @includeExample examples/SpinnerListExample.mxml -noswf
+ *  @includeExample examples/SpinnerListContainerExample.mxml -noswf
+ * 
  *  @langversion 3.0
  *  @playerversion AIR 3
  *  @productversion Flex 4.5.2
