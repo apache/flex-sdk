@@ -1062,6 +1062,8 @@ public class CartesianDataCanvas extends ChartElement implements IDataCanvas
      *  Calling this function at the wrong time might result
      *  in extra work being done, if those values are updated.
      *  
+     *  @return Returns <code>true</code> if <code>updateTransform()</code> was called. Otherwise, <code>false</code>.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -1223,6 +1225,10 @@ public class CartesianDataCanvas extends ChartElement implements IDataCanvas
      *  Derived classes can call this method from their updateFilter()
      * implementation to remove any ChartItems filtered out by the axes.
      *  
+     *  @param cache An array of objects.
+     * 
+     *  @param field The <code>field</code> property test against.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
