@@ -685,6 +685,9 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
         {
             if (!navigator.activeView.isActive)
                 navigator.activeView.setActive(true);
+            
+            // Set the stage focus to the navigator's active view
+            navigator.updateFocus();
         }
     }
 
