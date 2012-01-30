@@ -39,11 +39,17 @@ public interface IFlexModuleFactory
     //--------------------------------------------------------------------------
     
     /**
-     *  The RSLs loaded by this IFlexModuleFactory before the application 
-     *  starts. RSLs loaded by the application are not included in this list.
+     *  The RSLs loaded by this SystemManager or FlexModuleFactory before the
+     *  application starts. This dictionary may also include RSLs loaded into this 
+     *  module factory's application domain by other modules or 
+     *  sub-applications. When a new dictionary entry is added by a child module
+     *  factory an <code>RSLEvent.RSL_ADD_PRELOADED</code> event is dispatched
+     *  by module factory owning the dictionary.
      * 
-     *  Information about preloaded RSLs is stored in a Dictionary. The key is
-     *  the RSL's LoaderInfo. The value is the url the RSL was loaded from.
+     *  Information about preloadedRSLs is stored in a Dictionary. The key is
+     *  the RSL's LoaderInfo. The value is an Array of the RSL's RSLData. The
+     *  first element in the array is the primary RSL. The remaining entries
+     *  are failover RSLs.
      */   
     function get preloadedRSLs():Dictionary;
     
