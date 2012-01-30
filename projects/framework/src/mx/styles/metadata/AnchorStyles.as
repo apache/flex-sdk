@@ -52,7 +52,7 @@
 /**
  *  The horizontal distance in pixels from the center of the component's
  *  content area to the center of the component.
- *  If this style is set, the center of the component will be
+ *  If this style is set, the center of the component is
  *  anchored to the center of its content area; when its container
  *  is resized, the two centers maintain their horizontal separation.
  * 
