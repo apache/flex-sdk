@@ -237,21 +237,7 @@ package mx.automation.delegates.containers
 		override public function getAutomationChildren():Array
 		{
 			var am:IAutomationManager2 = Automation.automationManager2;
-			
-			// we need to add popup children
 			var childList:Array = new Array();
-			var tempChildren1:Array  = am.getPopUpChildren();
-			var n:int = 0;
-			var i:int = 0;	
-			
-			if(tempChildren1)
-			{
-				n = tempChildren1.length;
-				for (i = 0; i < n ; i++)
-					childList.push(tempChildren1[i]);
-			}
-			
-			
 			// get the 	 DockedApplicationBarControl details
 			var tempChildren:Array  = getDockedControlBarChildren();
 			if(tempChildren)
@@ -278,6 +264,19 @@ package mx.automation.delegates.containers
 				{
 					childList.push(tempChildren[i]);
 				}
+			}
+			
+			// we need to add popup children
+			
+			var tempChildren1:Array  = am.getPopUpChildren();
+			var n:int = 0;
+			var i:int = 0;	
+			
+			if(tempChildren1)
+			{
+				n = tempChildren1.length;
+				for (i = 0; i < n ; i++)
+					childList.push(tempChildren1[i]);
 			}
 			
 			return childList;
