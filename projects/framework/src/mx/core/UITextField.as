@@ -2158,7 +2158,7 @@ public class UITextField extends FlexTextField
         // can affect both Halo and Spark components,
         // we need to map "auto" and "on" to true
         // and "off" to false for Halo components
-        // here and in UITLFTextField.
+        // here and in UIFTETextField.
         // For Spark components, Label and CSSTextLayoutFormat,
         // do the opposite mapping of true to "on" and false to "off".
         // We also support a value of "default"
