@@ -40,7 +40,7 @@ use namespace mx_internal;
  *      .redButton { color: #FF0000 }
  *  </pre>
  *  affects only components whose <code>styleName</code> property
- *  is set to <code>".redButton"</code>;
+ *  is set to <code>"redButton"</code>;
  *  a selector like <code>.redButton</code> is called a class selector
  *  and must start with a dot.</p>
  *
