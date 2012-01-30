@@ -688,11 +688,16 @@ public class FlipViewTransition extends ViewTransitionBase
         // our transition goes haywire because our bounds are wrong.
         UIComponent(targetNavigator.parent).validateNow();
         
+        // Save the child index of the target navigator
+        navigatorProps.childIndex = getComponentChildIndex(targetNavigator, targetNavigator.parent as UIComponent);
+
         // Add a temporary group to contain our snapshot view of the navigator
         // while we animate.
         transitionGroup = new Group();
         transitionGroup.includeInLayout = false;
-        addComponentToContainer(transitionGroup, DisplayObject(targetNavigator).parent as UIComponent);
+
+        // Add the transition group at the same index of the target navigator
+        addComponentToContainerAt(transitionGroup, DisplayObject(targetNavigator).parent as UIComponent, navigatorProps.childIndex);
         
         transitionGroup.addElement(targetNavigator);
         cachedNavigator.includeInLayout = false;
@@ -833,7 +838,7 @@ public class FlipViewTransition extends ViewTransitionBase
             
             // Restore our views to their natural location.
             removeComponentFromContainer(targetNavigator as UIComponent, transitionGroup as UIComponent);
-            addComponentToContainer(targetNavigator as UIComponent, transitionGroup.parent as UIComponent);
+            addComponentToContainerAt(targetNavigator as UIComponent, transitionGroup.parent as UIComponent, navigatorProps.childIndex);
             removeComponentFromContainer(transitionGroup as UIComponent, transitionGroup.parent as UIComponent);
             
             // Restore targetNavigator properties.
