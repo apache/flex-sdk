@@ -15,10 +15,13 @@ package mx.utils
 [ExcludeClass]
 
 /**
- *  @private
+ *  The IXMLNotifiable interface is for internal use only.
  */
 public interface IXMLNotifiable
 {
+    /**
+    *  @private
+    */
     function xmlNotification(currentTarget:Object,
                              type:String,
                              target:Object,
