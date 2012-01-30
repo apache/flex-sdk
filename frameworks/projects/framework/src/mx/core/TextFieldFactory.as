@@ -175,6 +175,7 @@ public class TextFieldFactory implements ITextFieldFactory
 			{
 				tlfTextField = moduleFactory.create(
 					"flashx.textLayout.controls.TLFTextField");
+                tlfTextField.textLineCreator = moduleFactory;
 			}			
 			
 			// The dictionary could be empty, but not null because entries in the dictionary
