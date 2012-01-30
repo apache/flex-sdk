@@ -18,12 +18,13 @@ import mx.charts.renderers.HLOCItemRenderer;
 import mx.charts.series.items.HLOCSeriesItem;
 import mx.charts.styles.HaloDefaults;
 import mx.core.ClassFactory;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.IStroke;
 import mx.graphics.LinearGradientStroke;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -279,9 +280,9 @@ public class HLOCSeries extends HLOCSeriesBase
 				var gb:LinearGradientStroke;
 			
 				istroke= getStyle("stroke");
-				if (istroke is Stroke)
+				if (istroke is SolidColorStroke)
 				{
-					hd.contextColor = Stroke(istroke).color;
+					hd.contextColor = SolidColorStroke(istroke).color;
 				}
 				else if (istroke is LinearGradientStroke)
 				{
@@ -368,9 +369,9 @@ public class HLOCSeries extends HLOCSeriesBase
 			var gb:LinearGradientStroke;
 			
 			istroke= getStyle("stroke");
-			if (istroke is Stroke)
+			if (istroke is SolidColorStroke)
 			{
-				hd.contextColor = Stroke(istroke).color;
+				hd.contextColor = SolidColorStroke(istroke).color;
 			}
 			else if (istroke is LinearGradientStroke)
 			{
@@ -382,9 +383,9 @@ public class HLOCSeries extends HLOCSeriesBase
 			hd.dataTipFunction = formatDataTip;
 			
 			istroke = getStyle("stroke");
-			if (istroke is Stroke)
+			if (istroke is SolidColorStroke)
 			{
-				hd.contextColor = Stroke(istroke).color;
+				hd.contextColor = SolidColorStroke(istroke).color;
 			}
 			else if (istroke is LinearGradientStroke)
 			{
