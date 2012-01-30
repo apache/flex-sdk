@@ -535,7 +535,7 @@ public class UITextFormat extends TextFormat
         var fontModuleFactory:IFlexModuleFactory = (noEmbeddedFonts || !embeddedFontRegistry) ? 
 			null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
-                font, bold, italic, this, moduleFactory);
+                font, bold, italic, this, moduleFactory, systemManager, useFTE);
 
         embeddedFont = (fontModuleFactory != null);
         if (fontModuleFactory == null)
@@ -559,17 +559,8 @@ public class UITextFormat extends TextFormat
 
         // Make the measurement TextField use this TextFormat.
         measurementTextField.defaultTextFormat = this;
-        if (font)
-        {
-            measurementTextField.embedFonts = embeddedFont || 
-                                              (systemManager != null && 
-                                              systemManager.isFontFaceEmbedded(this));
-        }
-        else
-        {
-            measurementTextField.embedFonts = false;
-        }
-
+        measurementTextField.embedFonts = embeddedFont;
+        
         // Set other properties based on CSS styles.
         if (!useFTE)
         {
