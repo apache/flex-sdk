@@ -553,7 +553,7 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
 
         var cursorManagerStyleDeclaration:CSSStyleDeclaration =
             StyleManager.getStyleManager(systemManager as IFlexModuleFactory).
-            getStyleDeclaration("mx.managers.CursorManager");
+            getMergedStyleDeclaration("mx.managers.CursorManager");
         
         var busyCursorClass:Class =
             cursorManagerStyleDeclaration.getStyle("busyCursor");
