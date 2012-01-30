@@ -20,12 +20,13 @@ import mx.charts.chartClasses.Series;
 import mx.charts.series.AreaSeries;
 import mx.charts.series.AreaSet;
 import mx.charts.styles.HaloDefaults;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.IFill;
 import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -203,23 +204,7 @@ public class AreaChart extends CartesianChart
     {
         HaloDefaults.init(styleManager);
         
-        var areaChartStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.AreaChart", styleManager);
-        
-        var areaChartSeriesStyles:Array /* of Object */ = [];
-        
-        areaChartStyle.defaultFactory = function():void
-        {
-            this.axisColor = 0xD5DEDD;
-            this.chartSeriesStyles = areaChartSeriesStyles;
-            this.dataTipRenderer = DataTip;
-            this.fill = new SolidColor(0xFFFFFF, 0);
-            this.calloutStroke = new Stroke(0x888888,2);
-            this.fontSize = 10;
-            this.textAlign = "left";
-            this.horizontalAxisStyleNames = ["hangingCategoryAxis"];
-            this.verticalAxisStyleNames = ["blockNumericAxis"];
-        }
+      	var areaChartSeriesStyles:Array /* of Object */ = [];
         
         var n:int = HaloDefaults.defaultFills.length;
         for (var i:int = 0; i < n; i++)
@@ -242,6 +227,13 @@ public class AreaChart extends CartesianChart
             
             f(o, null, HaloDefaults.defaultFills[i]);
         }
+		
+		var areaChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.AreaChart");
+		areaChartStyle.setStyle("chartSeriesStyles", areaChartSeriesStyles);
+		areaChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+		areaChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		areaChartStyle.setStyle("horizontalAxisStyleNames", ["hangingCategoryAxis"]);
+		areaChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
         
         return true;
     }
