@@ -1443,7 +1443,7 @@ public class FocusManager implements IFocusManager
     public function getNextFocusManagerComponent(
                             backward:Boolean = false):IFocusManagerComponent
 	{
-		return getNextFocusManagerComponent2(false, fauxFocus).displayObject as IFocusManagerComponent;
+		return getNextFocusManagerComponent2(backward, fauxFocus).displayObject as IFocusManagerComponent;
 	}
 	
 	/**
