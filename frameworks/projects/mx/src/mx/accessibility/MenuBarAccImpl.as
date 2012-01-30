@@ -166,7 +166,7 @@ public class MenuBarAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x02;
+		role = 0x02; // ROLE_SYSTEM_MENUBAR
 	}
 
 	//--------------------------------------------------------------------------
@@ -202,10 +202,7 @@ public class MenuBarAccImpl extends AccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		if (childID == 0)
-			return role;
-			
-		return ROLE_SYSTEM_MENUITEM;
+		return childID == 0 ? role : ROLE_SYSTEM_MENUITEM;
 	}
 
 	/**
@@ -298,6 +295,7 @@ public class MenuBarAccImpl extends AccImpl
 				childIDs[i] = i + 1;
 			}
 		}
+
 		return childIDs;
 	}
 
