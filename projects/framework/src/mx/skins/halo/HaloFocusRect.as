@@ -20,6 +20,11 @@ import mx.utils.GraphicsUtil;
 
 /**
  *  Defines the skin for the focus indicator. This is the rectangle that appears around a control when it has focus.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class HaloFocusRect extends ProgrammaticSkin implements IStyleClient
 {
@@ -33,6 +38,11 @@ public class HaloFocusRect extends ProgrammaticSkin implements IStyleClient
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function HaloFocusRect()
 	{
