@@ -953,7 +953,7 @@ public class MobileItemRenderer extends UIComponent
             // commit styles to get an accurate measurement
             StyleableTextField(element).commitStyles();
 
-            return StyleableTextField(element).measuredWidth;
+            return StyleableTextField(element).measuredTextSize.x;
         }
         else
         {
@@ -992,7 +992,7 @@ public class MobileItemRenderer extends UIComponent
             // commit styles to get an accurate measurement
             StyleableTextField(element).commitStyles();
                 
-            return StyleableTextField(element).measuredHeight;
+            return StyleableTextField(element).measuredTextSize.y;
         }
         else
         {
