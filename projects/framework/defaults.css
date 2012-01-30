@@ -120,6 +120,7 @@ global
     textAlignLast: "start";
     textAlpha: 1.0;
 	textDecoration: "none";
+	textFieldClass: ClassReference("mx.core.UITextField");
 	textIndent: 0;
 	textRollOverColor: #2B333C;
     textRotation: "auto";
