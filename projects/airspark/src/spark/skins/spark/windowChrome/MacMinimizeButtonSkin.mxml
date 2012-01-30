@@ -18,8 +18,8 @@
         <s:State name="up" />
         <s:State name="over" />
         <s:State name="down" />
-        <s:State name="disabled" />
-    </s:states>
+       <s:State name="disabled" />
+   </s:states>
     
     <s:BitmapImage source="@Embed('../../../../assets/mac_min_up.png')" includeIn="up" left="0" verticalCenter="0" />
     
@@ -27,6 +27,4 @@
 
     <s:BitmapImage source="@Embed('../../../../assets/mac_min_down.png')" includeIn="down" left="0" verticalCenter="0" />
 
-    <s:BitmapImage source="@Embed('../../../../assets/mac_min_dis.png')" includeIn="disabled" left="0" verticalCenter="0" />
-    
 </s:Skin>
