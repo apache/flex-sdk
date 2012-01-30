@@ -297,18 +297,11 @@ public class ListBaseAccImpl extends AccImpl
 	 */
 	override public function getChildIDArray():Array
 	{
-		var childIDs:Array = [];
-
-		if (ListBase(master).dataProvider)
-		{
-			var n:uint = ListBase(master).dataProvider.length;
-			for (var i:int = 0; i < n; i++)
-			{
-				childIDs[i] = i + 1;
-			}
-		}
-
-		return childIDs;
+		var n:int = ListBase(master).dataProvider ?
+					ListBase(master).dataProvider.length :
+					0;
+		
+		return createChildIDArray(n);;
 	}
 
 	/**
