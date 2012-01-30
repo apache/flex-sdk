@@ -49,7 +49,7 @@ package mx.graphics
  *    caps="null|none|round|square"
  *    color="0x000000"
  *    joints="null|bevel|miter|round"
- *    miterLimit="0"
+ *    miterLimit="1"
  *    pixelHinting="false|true"
  *    scaleMode="normal|none|horizontal|vertical"
  *    weight="1 (<i>in most cases</i>)"
@@ -109,8 +109,8 @@ public class Stroke extends SolidColorStroke
      *  The default value is <code>null</code>.
      *
      *  @param miterLimit Indicates the limit at which a miter is cut off.
-     *  Valid values range from 0 to 255.
-     *  The default value is 0.
+     *  Valid values range from 1 to 255.
+     *  The default value is 1.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -124,7 +124,7 @@ public class Stroke extends SolidColorStroke
                            scaleMode:String = "normal",
                            caps:String = null,
                            joints:String = null,
-                           miterLimit:Number = 0)
+                           miterLimit:Number = 1)
     {
         super(color, weight, alpha, pixelHinting,
               scaleMode, caps, joints, miterLimit);
