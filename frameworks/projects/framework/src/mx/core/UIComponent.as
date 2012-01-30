@@ -2013,7 +2013,7 @@ public class UIComponent extends FlexSprite
      *  the effect occurs around the center of the target, 
      *  <code>(width/2, height/2)</code>.</p>
      *
-     *  <p>Seeting this property on the Spark effect class 
+     *  <p>Setting this property on the Spark effect class 
      *  overrides the setting on the target component.</p>
      *  
      *  @see spark.effects.AnimateTransform#autoCenterTransform 
