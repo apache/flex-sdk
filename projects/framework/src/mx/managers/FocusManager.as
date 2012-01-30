@@ -34,6 +34,7 @@ import mx.core.IButton;
 import mx.core.IChildList;
 import mx.core.IRawChildrenContainer;
 import mx.core.ISWFBridgeProvider;
+import mx.core.IToggleButton;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
 import mx.core.SWFBridgeGroup;
@@ -401,10 +402,14 @@ public class FocusManager implements IFocusManager
                 defButton.emphasized = false;
             
             _defaultButton = button;
-            defButton = button;
             
-            if (button)
-                button.emphasized = true;
+            if (defButton != _lastFocus)
+            {
+                defButton = button;
+            
+                if (button)
+                    button.emphasized = true;
+            }
         }
     }
 
@@ -617,7 +622,8 @@ public class FocusManager implements IFocusManager
         {
             if (_defaultButton)
             {
-                if (target is IButton && target != _defaultButton)
+                if (target is IButton && target != _defaultButton 
+                    && !(target is IToggleButton))
                     _defaultButton.emphasized = false;
                 else 
                     _defaultButton.emphasized = true;
@@ -629,7 +635,7 @@ public class FocusManager implements IFocusManager
             // handle default button here
             // we can't check for Button because of cross-versioning so
             // for now we just check for an emphasized property
-            if (_lastFocus is IButton)
+            if (_lastFocus is IButton && !(_lastFocus is IToggleButton))
             {
                 defButton = _lastFocus as IButton;
             }
