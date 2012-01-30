@@ -10141,8 +10141,7 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  Determines whether the current state of this component matches a
-     *  CSS pseudo-selector.
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -10155,8 +10154,7 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  Determines whether this component is assignable to the given CSS type.
-     *  This is used to determine matching advanced CSS styles.
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
