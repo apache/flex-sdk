@@ -19,6 +19,7 @@ import flash.events.TimerEvent;
 import flash.utils.Timer;
 import flash.utils.getQualifiedClassName;
 import flash.utils.getTimer;
+
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.effectClasses.PropertyChanges;
@@ -346,7 +347,22 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
      */
     public function set playheadTime(value:Number):void
     {
-        // Nothing to do for non-animated effects: subclasses should override
+        if (delayTimer && delayTimer.running)
+        {
+            delayTimer.reset();
+            if (value < startDelay)
+            {
+                delayTimer = new Timer(startDelay - value, 1);
+                delayStartTime = getTimer();
+                delayTimer.addEventListener(TimerEvent.TIMER, delayTimerHandler);
+                delayTimer.start();
+            }
+            else
+            {
+                playCount = 0;
+                play();
+            }
+        }
     }
 
     
