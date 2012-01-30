@@ -62,6 +62,7 @@
 			<include-classes>FlexClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
+            <load-config filename="${FLEX_HOME}/frameworks/projects/framework/framework-config.xml"/>
 			<library-path/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
@@ -99,6 +100,8 @@
 		    <compiler.source-path path-element="${basedir}/src"/>
 		    <compiler.source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
 		    <doc-classes class="FlexClasses"/>
+            <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+            <load-config filename="${FLEX_HOME}/frameworks/projects/framework/framework-config.xml"/>
 		    <jvmarg line="${asdoc.jvm.args}"/>
 		</asdoc>
 
