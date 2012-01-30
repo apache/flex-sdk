@@ -17,6 +17,7 @@ import flash.accessibility.AccessibilityImplementation;
 import flash.accessibility.AccessibilityProperties;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
+
 import mx.containers.Form;
 import mx.containers.FormHeading;
 import mx.containers.FormItem;
@@ -267,6 +268,17 @@ public class AccImpl extends AccessibilityImplementation
 		return (accName != null && accName != "") ? accName : null;
 	}
 	
+	/**
+	 *  @private
+	 *  Method to return an array of childIDs.
+	 *
+	 *  @return Array
+	 */
+	override public function getChildIDArray():Array
+	{
+		return [];
+	}
+	
 	//--------------------------------------------------------------------------
 	//
 	//  Methods
@@ -319,6 +331,21 @@ public class AccImpl extends AccessibilityImplementation
 			statusName += " " + UIComponent(master).errorString;
 		
 		return statusName;
+	}
+	
+	/**
+	 *  @private
+	 */
+	protected function createChildIDArray(n:int):Array
+	{
+		var a:Array = new Array(n);
+		
+		for (var i:int = 0; i < n; i++)
+		{
+			a[i] = i + 1;
+		}
+		
+		return a;
 	}
 	
 	//--------------------------------------------------------------------------
