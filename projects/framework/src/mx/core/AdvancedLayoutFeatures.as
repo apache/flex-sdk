@@ -796,7 +796,9 @@ package mx.core
                         
 
     /**
-     * A utility method to update the rotation and scale of the transform 
+     *  FIXME (chaase) : FLEXDOCS-1031
+     * 
+     *  A utility method to update the rotation and scale of the transform 
      * while keeping a particular point, specified in the component's 
      * own coordinate space, fixed in the parent's coordinate space.  
      * This function will assign the rotation and scale values provided, 
@@ -805,6 +807,11 @@ package mx.core
      * @param sx,sy,sz the new values for the scale of the transform
      * @param tx,ty,tz the point, in the component's own coordinates, 
      * to keep fixed relative to its parent.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function transformPointToParent(propertyIs3D:Boolean,
         transformCenter:Vector3D, currentPosition:Vector3D,
