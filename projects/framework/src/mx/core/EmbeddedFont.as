@@ -26,6 +26,51 @@ public class EmbeddedFont
 
     //--------------------------------------------------------------------------
     //
+    //  Class properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  embeddedFontRegistry
+    //----------------------------------
+    
+    private static var noEmbeddedFonts:Boolean;
+    
+    /**
+     *  @private
+     *  Storage for the _embeddedFontRegistry property.
+     *  Note: This gets initialized on first access,
+     *  not when this class is initialized, in order to ensure
+     *  that the Singleton registry has already been initialized.
+     */
+    private static var _embeddedFontRegistry:IEmbeddedFontRegistry;
+    
+    /**
+     *  @private
+     *  A reference to the embedded font registry.
+     *  Single registry in the system.
+     *  Used to look up the moduleFactory of a font.
+     */
+    private static function get embeddedFontRegistry():IEmbeddedFontRegistry
+    {
+        if (!_embeddedFontRegistry && !noEmbeddedFonts)
+        {
+            try
+            {
+                _embeddedFontRegistry = IEmbeddedFontRegistry(
+                    Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+            }
+            catch (e:Error)
+            {
+                noEmbeddedFonts = true;
+            }
+        }
+        
+        return _embeddedFontRegistry;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -165,7 +210,7 @@ public class EmbeddedFont
         _bold = bold;
         _italic = italic;
         _fontName = fontName;
-        _fontStyle = EmbeddedFontRegistry.getInstance().getFontStyle(bold, italic);
+        _fontStyle = embeddedFontRegistry.getFontStyle(bold, italic);
 }
 }
 
