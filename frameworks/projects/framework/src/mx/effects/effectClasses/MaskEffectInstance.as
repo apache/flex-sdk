@@ -22,8 +22,8 @@ import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.utils.getTimer;
 import mx.controls.SWFLoader;
-import mx.core.Container;
 import mx.core.FlexShape;
+import mx.core.IContainer;
 import mx.core.IInvalidating;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
@@ -756,7 +756,7 @@ public class MaskEffectInstance extends EffectInstance
 			// For Containers we need to add the mask
 			// to the "allChildren" collection so it doesn't get
 			// treated as a content child.
-			if (target is Container)
+			if (target is IContainer)
 				target.rawChildren.addChild(effectMask); 
 			else
 				target.addChild(effectMask); 
@@ -786,10 +786,11 @@ public class MaskEffectInstance extends EffectInstance
 			}		
 		}
 		
-		invalidateBorder = target is Container && 
-						   Container(target).border != null &&
-						   Container(target).border is IInvalidating && 
-						   DisplayObject(Container(target).border).filters != null;
+		invalidateBorder = target is IContainer &&
+                           "border" in target && 
+						   target["border"] != null &&
+                           target["border"] is IInvalidating && 
+						   DisplayObject(target["border"]).filters != null;
 	}
 	
 	/**
@@ -928,7 +929,7 @@ public class MaskEffectInstance extends EffectInstance
 		}
 
 		if (invalidateBorder)
-			IInvalidating(Container(target).border).invalidateDisplayList();
+			IInvalidating(target["border"]).invalidateDisplayList();
 	}
 
 	/** 
@@ -1068,7 +1069,7 @@ public class MaskEffectInstance extends EffectInstance
 				target.scrollRect = origScrollRect;
 			}
 					
-			if (target is Container)
+			if (target is IContainer)
 				target.rawChildren.removeChild(effectMask); 
 			else
 				target.removeChild(effectMask); 	
