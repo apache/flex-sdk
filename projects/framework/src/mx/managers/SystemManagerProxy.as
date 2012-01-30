@@ -44,6 +44,8 @@ import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.managers.ISystemManager;
 import mx.events.SandboxBridgeEvent;
+import mx.utils.NameUtil;
+import mx.utils.SandboxUtil;
 
 // NOTE: Minimize the non-Flash classes you import here.
 // Any dependencies of SystemManager have to load in frame 1,
@@ -93,19 +95,7 @@ public class SystemManagerProxy extends SystemManager
 	private function proxyMouseDownHandler(event:MouseEvent):void
 	{
 		// Tell our parent system manager we are active.
-		var sm:ISystemManager2 = ISystemManager2(_systemManager);
-		if (sm.sandboxBridgeGroup && sm.sandboxBridgeGroup.parentBridge)
-		{
-			var bridge:IEventDispatcher = sm.sandboxBridgeGroup.parentBridge;
-			var bridgeEvent:SandboxBridgeEvent = new SandboxBridgeEvent(SandboxBridgeEvent.ACTIVATE_WINDOW,
-																	    false, false,
-	       																sm.sandboxBridgeGroup.parentBridge, 
-	       																this);
-			bridge.dispatchEvent(bridgeEvent);
-		}
-		
-
-		
+	 	SystemManager(_systemManager).fireActivatedWindowEvent(this);
 	}
 	
 	private var _systemManager:ISystemManager2;
@@ -219,20 +209,17 @@ public class SystemManagerProxy extends SystemManager
 	override public function activate(f:IFocusManagerContainer):void
 	{
 		// trace("SM Proxy: activate " + f );
-		//super.activate(f);
-		
-		// TODODJL: assuming the parent is the top level system manager.
-		// would need to add the top-level system manager into the sandbox pod.
-		// Tell the top-level system manager we are active.
 		var bridge:IEventDispatcher = _systemManager.sandboxBridgeGroup ? 
 									  _systemManager.sandboxBridgeGroup.parentBridge : null;
 		if (bridge)
 		{
+			var mutualTrust:Boolean = SandboxUtil.mutualTrustWithParent(_systemManager);
 			var bridgeEvent:SandboxBridgeEvent = new SandboxBridgeEvent(SandboxBridgeEvent.ACTIVATE_WINDOW,
 																		false,
 																		false,
-																		_systemManager.sandboxBridgeGroup.parentBridge,
-																		this);
+																		bridge,
+																		mutualTrust ? this : 
+																		NameUtil.displayObjectToString(this));
 			bridge.dispatchEvent(bridgeEvent);
 		}
 	}
@@ -245,10 +232,13 @@ public class SystemManagerProxy extends SystemManager
 		var bridge:IEventDispatcher = sm.sandboxBridgeGroup ? sm.sandboxBridgeGroup.parentBridge : null;
 		if (bridge)
 		{
+			var mutualTrust:Boolean = SandboxUtil.mutualTrustWithParent(_systemManager);
 			var bridgeEvent:SandboxBridgeEvent = new SandboxBridgeEvent(SandboxBridgeEvent.DEACTIVATE_WINDOW,
-																	    false, false,
-																	    sm.sandboxBridgeGroup.parentBridge,
-																	    this);
+																	    false, 
+																	    false,
+																		bridge,
+																		mutualTrust ? this : 
+																		NameUtil.displayObjectToString(this));
 			bridge.dispatchEvent(bridgeEvent);
 		}
 				
