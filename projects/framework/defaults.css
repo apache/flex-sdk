@@ -264,7 +264,7 @@ Alert
 Application
 {
 	backgroundColor: #FFFFFF; 
-	backgroundImage: ClassReference("mx.skins.halo.ApplicationBackground");
+	backgroundImage: ClassReference("mx.skins.spark.ApplicationBackground");
 	backgroundSize: "100%";
 	backgroundGradientAlphas: 1, 1;
 	horizontalAlign: "center";
@@ -282,6 +282,7 @@ Application
 
 ApplicationControlBar
 {
+    borderSkin: ClassReference("mx.skins.halo.HaloBorder");
 	borderStyle: "applicationControlBar";
 	cornerRadius: 5;
 	docked: false;
@@ -1678,8 +1679,9 @@ VDividedBox
 
 VideoDisplay
 {
+    backgroundColor: #000000;
 	borderStyle: "none";
-	backgroundColor: #000000;
+	contentBackgroundColor: #000000;
 }
 
 /*
