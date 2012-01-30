@@ -12,8 +12,9 @@
 package mx.effects.effectClasses
 {
 
-import mx.styles.StyleManager;
 import mx.core.mx_internal;
+import mx.styles.StyleManager;
+import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -143,7 +144,11 @@ public class SetStyleActionInstance extends ActionEffectInstance
 				// for inheriting color styles and misses non-inheriting styles like
 				// backgroundColor.
 				if (name.toLowerCase().indexOf("color") != -1)
-					target.setStyle(name, StyleManager.getColorName(value));
+                {
+                    var moduleFactory:IFlexModuleFactory = target.moduleFactory;
+                    target.setStyle(name, 
+                        StyleManager.getStyleManager(moduleFactory).getColorName(value));                    
+                }
 				else
 					target.setStyle(name, Number(value));
 			}
