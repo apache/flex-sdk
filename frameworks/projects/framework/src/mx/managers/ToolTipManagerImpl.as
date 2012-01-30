@@ -31,8 +31,8 @@ import mx.effects.IAbstractEffect;
 import mx.effects.EffectManager;
 import mx.events.EffectEvent;
 import mx.events.ToolTipEvent;
-import mx.events.InterManagerRequest;
 import mx.managers.IToolTipManagerClient;
+import mx.managers.marshalClasses.ToolTipManagerMarshalMixin;
 import mx.styles.IStyleClient;
 import mx.validators.IValidatorListener;
 
@@ -63,6 +63,18 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  @private
      */
     private static var instance:IToolTipManager2;
+
+    /**
+     *  @private
+     */
+    private static function weakDependency():void { ToolTipManagerMarshalMixin };
+
+	/**
+	 * @private
+	 * 
+	 * Place to hook in additional classes
+	 */
+	public static var mixins:Array;
 
     //--------------------------------------------------------------------------
     //
@@ -97,14 +109,17 @@ public class ToolTipManagerImpl extends EventDispatcher
         if (instance)
             throw new Error("Instance already exists.");
 
-		this.systemManager = SystemManagerGlobals.topLevelSystemManagers[0] as ISystemManager;
-		sandboxRoot = this.systemManager.getSandboxRoot();
-		sandboxRoot.addEventListener(InterManagerRequest.TOOLTIP_MANAGER_REQUEST, marshalToolTipManagerHandler, false, 0, true);
-		var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.TOOLTIP_MANAGER_REQUEST);
-		me.name = "update";
-		// trace("--->update request for ToolTipManagerImpl", systemManager);
-		sandboxRoot.dispatchEvent(me);
-		// trace("<---update request for ToolTipManagerImpl", systemManager);
+		if (mixins)
+		{
+			var n:int = mixins.length;
+			for (var i:int = 0; i < n; i++)
+			{
+				new mixins[i](this);
+			}
+		}
+
+		dispatchEvent(new Event("initialize"));
+
     }
 
     //--------------------------------------------------------------------------
@@ -112,16 +127,6 @@ public class ToolTipManagerImpl extends EventDispatcher
     //  Variables
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private var systemManager:ISystemManager = null;
-    
-    /**
-     *  @private
-     */
-    private var sandboxRoot:IEventDispatcher = null;
 
     /**
      *  @private
@@ -233,7 +238,7 @@ public class ToolTipManagerImpl extends EventDispatcher
     /**
      *  @private
      */
-    private var _currentToolTip:DisplayObject;
+    mx_internal var _currentToolTip:DisplayObject;
 
     /**
      *  The ToolTip object that is currently visible,
@@ -256,11 +261,7 @@ public class ToolTipManagerImpl extends EventDispatcher
     {
         _currentToolTip = value as DisplayObject;
 
-		var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.TOOLTIP_MANAGER_REQUEST);
-		me.name = "currentToolTip";
-		me.value = value;
-		// trace("-->dispatched currentToolTip for ToolTipManagerImpl", systemManager, value);
-		sandboxRoot.dispatchEvent(me);
+		dispatchEvent(new Event("currentToolTip"));
     }
 
     //----------------------------------
@@ -825,10 +826,7 @@ public class ToolTipManagerImpl extends EventDispatcher
 			}
 			else
 			{
-				var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.TOOLTIP_MANAGER_REQUEST);
-				me.name = ToolTipEvent.TOOL_TIP_HIDE;
-				// trace("-->dispatched hide for ToolTipManagerImpl", systemManager);
-				sandboxRoot.dispatchEvent(me);
+				dispatchEvent(new Event(ToolTipEvent.TOOL_TIP_HIDE));
 			}
         }   
             
@@ -908,8 +906,11 @@ public class ToolTipManagerImpl extends EventDispatcher
 
         currentToolTip.visible = false;
 
+		if (!dispatchEvent(new Event("createTip", false, true)))
+			return
+
         var sm:ISystemManager = getSystemManager(currentTarget) as ISystemManager;
-       	sm.topLevelSystemManager.addChildToSandboxRoot("toolTipChildren", currentToolTip as DisplayObject);
+       	sm.topLevelSystemManager.toolTipChildren.addChild(currentToolTip as DisplayObject);
     }
 
     /**
@@ -1100,7 +1101,7 @@ public class ToolTipManagerImpl extends EventDispatcher
 
 			var pos:Point = new Point(x, y);
 			pos = DisplayObject(sm).localToGlobal(pos);
-			pos = DisplayObject(sandboxRoot).globalToLocal(pos);
+			pos = DisplayObject(sm.getSandboxRoot()).globalToLocal(pos);
 			x = pos.x;
 			y = pos.y;
         }
@@ -1240,9 +1241,12 @@ public class ToolTipManagerImpl extends EventDispatcher
             // End any show or hide effects that might be playing on it.
             EffectManager.endEffectsForTarget(currentToolTip);
 
-            // Remove it.
-            var sm:ISystemManager = currentToolTip.systemManager as ISystemManager;
-           	sm.topLevelSystemManager.removeChildFromSandboxRoot("toolTipChildren", currentToolTip as DisplayObject);
+			if (dispatchEvent(new Event("removeChild", false, true)))
+			{
+				// Remove it.
+				var sm:ISystemManager = currentToolTip.systemManager as ISystemManager;
+           		sm.topLevelSystemManager.toolTipChildren.removeChild(currentToolTip as DisplayObject);
+			}
             currentToolTip = null;
 
             scrubTimer.delay = scrubDelay;
@@ -1324,7 +1328,12 @@ public class ToolTipManagerImpl extends EventDispatcher
         var sm:ISystemManager = context ?
                                           context.systemManager as ISystemManager:
                                           FlexGlobals.topLevelApplication.systemManager as ISystemManager;
-       	sm.topLevelSystemManager.addChildToSandboxRoot("toolTipChildren", toolTip as DisplayObject);
+
+		
+		if (dispatchEvent(new Event("addChild", false, true)))
+		{
+		    sm.topLevelSystemManager.toolTipChildren.addChild(toolTip as DisplayObject);
+		}
 
         if (errorTipBorderStyle)
         {
@@ -1365,8 +1374,12 @@ public class ToolTipManagerImpl extends EventDispatcher
      */
     public function destroyToolTip(toolTip:IToolTip):void
     {
-        var sm:ISystemManager = toolTip.systemManager as ISystemManager;
-       	sm.topLevelSystemManager.removeChildFromSandboxRoot("toolTipChildren", DisplayObject(toolTip));
+		if (dispatchEvent(new Event("removeChild", false, true)))
+		{
+			// Remove it.
+			var sm:ISystemManager = toolTip.systemManager as ISystemManager;
+           	sm.topLevelSystemManager.toolTipChildren.removeChild(toolTip as DisplayObject);
+		}
 
         // hide effect?
     }
@@ -1416,7 +1429,7 @@ public class ToolTipManagerImpl extends EventDispatcher
     /**
      *  @private
      */
-     private function getSystemManager(
+     mx_internal function getSystemManager(
                                     target:DisplayObject):ISystemManager
      {
         return target is IUIComponent ?
@@ -1543,47 +1556,6 @@ public class ToolTipManagerImpl extends EventDispatcher
         reset();
     }
 
-	/**
-	 *  Marshal dragManager
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	private function marshalToolTipManagerHandler(event:Event):void
-	{
-		if (event is InterManagerRequest)
-			return;
-
-		var me:InterManagerRequest;
-
-		var marshalEvent:Object = event;
-		switch (marshalEvent.name)
-		{
-		case "currentToolTip":
-			// trace("--marshaled currentToolTip for ToolTipManagerImpl", systemManager, marshalEvent.value);
-			_currentToolTip = marshalEvent.value;
-			break;
-		case ToolTipEvent.TOOL_TIP_HIDE:
-			// trace("--handled hide for ToolTipManagerImpl", systemManager);
-			if (_currentToolTip is IToolTip)
-				hideTip()
-			break;
-		case "update":
-			// anyone can answer so prevent others from responding as well
-			event.stopImmediatePropagation();
-			// update the others
-			// trace("-->marshaled update for ToolTipManagerImpl", systemManager);
-			me = new InterManagerRequest(InterManagerRequest.TOOLTIP_MANAGER_REQUEST);
-			me.name = "currentToolTip";
-			me.value = _currentToolTip;
-			// trace("-->dispatched currentToolTip for ToolTipManagerImpl", systemManager, true);
-			sandboxRoot.dispatchEvent(me);
-			// trace("<--dispatched currentToolTip for ToolTipManagerImpl", systemManager, true);
-			// trace("<--marshaled update for ToolTipManagerImpl", systemManager);
-		}
-	}
 }
 
 }
