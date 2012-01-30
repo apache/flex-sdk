@@ -285,6 +285,8 @@ public class LabelItemRenderer extends UIComponent
         
         interactionStateDetector = new InteractionStateDetector(this);
         interactionStateDetector.addEventListener(Event.CHANGE, interactionStateDetector_changeHandler);
+		
+		cacheAsBitmap = true;
     }
     
     //--------------------------------------------------------------------------
@@ -701,7 +703,6 @@ public class LabelItemRenderer extends UIComponent
         labelDisplay.selectable = false;
         labelDisplay.multiline = false;
         labelDisplay.wordWrap = false;
-        labelDisplay.cacheAsBitmap = true;
         
         addChild(labelDisplay);
     }
@@ -800,6 +801,7 @@ public class LabelItemRenderer extends UIComponent
         var backgroundColor:*;
         var downColor:* = getStyle("downColor");
         var drawBackground:Boolean = true;
+		var opaqueBackgroundColor:* = undefined;
         
         if (down && downColor !== undefined)
         {
@@ -869,6 +871,12 @@ public class LabelItemRenderer extends UIComponent
             graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
             graphics.endFill();
         }
+		else if (drawBackground)
+		{
+			// If our background is a solid color, use it as the opaqueBackground property
+			// for this renderer. This makes scrolling considerably faster.
+			opaqueBackgroundColor = backgroundColor;
+		}
 
         // separators are a highlight on the top and shadow on the bottom
         topSeparatorColor = 0xFFFFFF;
@@ -912,7 +920,7 @@ public class LabelItemRenderer extends UIComponent
             graphics.endFill(); 
         }
         
-
+		opaqueBackground = opaqueBackgroundColor;
     }
     
     /**
