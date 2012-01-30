@@ -229,12 +229,12 @@ public class ObjectUtil
      *
      *  @param b Date object.
      *
-     *  @return 0 if <code>a</code> and <code>b</code>
-     *  are <code>null</code> or equal; 
-     *  1 if <code>a</code> is <code>null</code>
-     *  or before <code>b</code>; 
-     *  -1 if <code>b</code> is <code>null</code>
-     *  or before <code>a</code>. 
+     *  @return 0 if <code>a</code> and <code>b</code> are equal
+     *  (or both are <code>null</code>);
+     *  -1 if <code>a</code> is before <code>b</code>
+     *  (or <code>b</code> is <code>null</code>);
+     *  1 if <code>a</code> is after <code>b</code>
+     *  (or <code>a</code> is <code>null</code>).     
      */
     public static function dateCompare(a:Date, b:Date):int
     {
