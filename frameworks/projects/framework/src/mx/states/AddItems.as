@@ -25,6 +25,11 @@ import mx.core.UIComponent;
 
 /**
  *  Documentation is not currently available.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class AddItems extends OverrideBase implements IOverride
 {
@@ -38,21 +43,41 @@ public class AddItems extends OverrideBase implements IOverride
 
 	/**
 	 *  Documentation is not currently available.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
     public static const FIRST:String = "first";
 
 	/**
 	 *  Documentation is not currently available.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
     public static const LAST:String = "last";
 
 	/**
 	 *  Documentation is not currently available.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
     public static const BEFORE:String = "before";
 
 	/**
 	 *  Documentation is not currently available.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
     public static const AFTER:String = "after";
 
@@ -64,6 +89,11 @@ public class AddItems extends OverrideBase implements IOverride
 
     /**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function AddItems()
     {
@@ -135,6 +165,11 @@ public class AddItems extends OverrideBase implements IOverride
      * </table>
      *
      *  @default "auto"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get creationPolicy():String
     {
@@ -164,6 +199,11 @@ public class AddItems extends OverrideBase implements IOverride
      *  object, that is, the component that has the <code>states</code>
      *  property, or <code>&lt;mx:states&gt;</code>tag that specifies the State
      *  object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var destination:Object;
     
@@ -188,6 +228,11 @@ public class AddItems extends OverrideBase implements IOverride
      *
      *  <p>Do not set this property if you set the <code>itemsFactory</code>
      *  property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get items():*
     {
@@ -229,6 +274,11 @@ public class AddItems extends OverrideBase implements IOverride
      *  This propety is the <code>AddItems</code> class default property.
      *  Setting this property with a <code>creationPolicy</code> of "all"
      *  is equivalent to setting a <code>items</code> property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get itemsFactory():IDeferredInstance
     {
@@ -257,6 +307,11 @@ public class AddItems extends OverrideBase implements IOverride
      *  object specified by the <code>relativeTo</code> property.
      *
      *  @default AddItems.LAST
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var position:String = AddItems.LAST;
 
@@ -271,6 +326,11 @@ public class AddItems extends OverrideBase implements IOverride
      *  target property is a style.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var isStyle:Boolean = false;
     
@@ -286,6 +346,11 @@ public class AddItems extends OverrideBase implements IOverride
      *  instead of a collection of items (the default).
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var isArray:Boolean = false;
     
@@ -299,6 +364,11 @@ public class AddItems extends OverrideBase implements IOverride
      *  The name of the Array property that is being modified. If the <code>destination</code>
      *  property is a Group or Container, this property is optional. If not defined, the
      *  items will be added as children of the Group/Container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var propertyName:String;
     
@@ -312,6 +382,11 @@ public class AddItems extends OverrideBase implements IOverride
      *  The object relative to which the child is added. This property is only
      *  used when the <code>position</code> property is <code>AddItems.BEFORE</code>
      *  or <code>AddItems.AFTER</code>. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var relativeTo:Object;
 
@@ -329,6 +404,11 @@ public class AddItems extends OverrideBase implements IOverride
      *  property value is <code>"auto"</code> or <code>"all"</code>.
      *  If you call this method multiple times, the items instance is
      *  created only on the first call.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function createInstance():void
     {
@@ -341,6 +421,11 @@ public class AddItems extends OverrideBase implements IOverride
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function initialize():void
     {
@@ -350,6 +435,11 @@ public class AddItems extends OverrideBase implements IOverride
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function apply(parent:UIComponent):void
     {
@@ -402,6 +492,11 @@ public class AddItems extends OverrideBase implements IOverride
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function remove(parent:UIComponent):void
     {
