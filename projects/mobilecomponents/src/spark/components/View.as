@@ -26,6 +26,19 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
+ *  Dispatched when the <code>data</code> property changes.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ * 
+ *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ * 
+ */
+[Event(name="dataChange", type="mx.events.FlexEvent")]
+
+/**
  *  Dispatched when the current view has been activated.
  * 
  *  @eventType mx.events.FlexEvent.VIEW_ACTIVATE
@@ -202,7 +215,31 @@ public class View extends Group implements IDataRenderer
         if (_navigator != value)
             _navigator = value;
     }
-
+    
+    //----------------------------------
+    //  returnedObject
+    //----------------------------------
+    
+    private var _returnedObject:Object;
+    
+    /**
+     * 
+     * 
+     */
+    [Bindable]
+    public function get returnedObject():Object
+    {
+        return _returnedObject;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set returnedObject(value:Object):void
+    {
+        _returnedObject = value;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  UI Template Properties
@@ -476,15 +513,27 @@ public class View extends Group implements IDataRenderer
     //  Methods
     //
     //--------------------------------------------------------------------------
-
+    
+    /**
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function createReturnObject():Object
+    {
+        return null;
+    }
+    
     /**
      * 
      *  @return A String specifying the name of the state to apply to the screen. 
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function getCurrentViewState(isLandscape:Boolean):String
     {
@@ -504,11 +553,26 @@ public class View extends Group implements IDataRenderer
     //  Persistence Methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function getPersistenceData():Object
     {
         return data;    
     }
     
+    /**
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function deserializePersistenceData(value:Object):Object
     {
         return value;
