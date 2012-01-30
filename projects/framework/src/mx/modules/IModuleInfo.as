@@ -15,6 +15,7 @@ package mx.modules
 import flash.events.IEventDispatcher;
 import flash.system.ApplicationDomain;
 import flash.system.SecurityDomain;
+import flash.utils.ByteArray;
 import mx.core.IFlexModuleFactory;
 
 //--------------------------------------
@@ -183,9 +184,17 @@ public interface IModuleInfo extends IEventDispatcher
      *  @param applicationDomain The current application domain in which your code is executing.
      *  
      *  @param securityDomain The current security "sandbox".
+     * 
+     *  @param bytes A ByteArray object. The ByteArray is expected to contain 
+     *  the bytes of a SWF file that represents a compiled Module. The ByteArray
+     *  object can be obtained by using the URLLoader class. If this parameter
+     *  is specified the module will be loaded from the ByteArray. If this 
+     *  parameter is null the module will be loaded from the url specified in
+     *  the url property.
      */
     function load(applicationDomain:ApplicationDomain = null,
-                  securityDomain:SecurityDomain = null):void;
+                  securityDomain:SecurityDomain = null,
+                  bytes:ByteArray = null):void;
 
     /**
      *  Releases the current reference to the module.
