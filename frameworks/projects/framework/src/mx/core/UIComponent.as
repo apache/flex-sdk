@@ -1931,6 +1931,8 @@ public class UIComponent extends FlexSprite
         }
 
         invalidateProperties();
+        if (parent && "childTransformChanged" in parent)
+        	parent["childTransformChanged"]();
 
         dispatchEvent(new Event("xChanged"));
     }
@@ -2246,6 +2248,8 @@ public class UIComponent extends FlexSprite
             invalidateTransform();
         }
         invalidateProperties();
+        if (parent && "childTransformChanged" in parent)
+        	parent["childTransformChanged"]();
 
         dispatchEvent(new Event("yChanged"));
     }
