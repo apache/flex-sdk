@@ -40,6 +40,11 @@ import mx.utils.StringUtil;
  *  
  *  @see mx.resources.IResourceManager
  *  @see mx.resources.IResourceBundle
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ResourceManager
 {
@@ -74,6 +79,11 @@ public class ResourceManager
      *  This object manages all localized resources for a Flex application.
      *  
      *  @return An object implementing IResourceManager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getInstance():IResourceManager
     {
@@ -107,6 +117,11 @@ public class ResourceManager
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ResourceManager()
     {
