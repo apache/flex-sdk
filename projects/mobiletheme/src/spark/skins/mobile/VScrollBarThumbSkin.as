@@ -22,6 +22,14 @@ import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.VScrollThumb;
 import spark.skins.mobile240.assets.VScrollThumb;
 
+/**
+ *  ActionScript-based skin for the VScrollBar thumb skin part in mobile applications. 
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5 
+ *  @productversion Flex 4.5
+ */
 public class VScrollBarThumbSkin extends MobileSkin 
 {
     //--------------------------------------------------------------------------
