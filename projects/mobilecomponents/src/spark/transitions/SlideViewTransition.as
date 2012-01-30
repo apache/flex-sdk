@@ -430,15 +430,15 @@ public class SlideViewTransition extends ViewTransitionBase
         // Validate to ensure our snapshots are rendered.
         transitionGroup.validateNow();
         
-        // Construction animation sequence.
-        var animation:Animate = new Animate();
-        var vector:Vector.<MotionPath> = new Vector.<MotionPath>();
-        vector.push(new SimpleMotionPath(animatedProperty, null, null, slideDistance));
-        animation.motionPaths = vector;
-        animation.easer = easer;
+        // Construct animation sequence.
+        var animation:Move = new Move();
+        if (verticalTransition)
+            animation.yBy = slideDistance;
+        else
+            animation.xBy = slideDistance;
         animation.targets = slideTargets;
+        animation.easer = easer;
         animation.duration = duration;
-        
         return animation;
     }
     
