@@ -358,61 +358,6 @@ public class PriorityQueue
         return parent == child;
     }
 
-    /**
-     *  @private
-     */
-    public function clone(client:ILayoutManagerClient = null):PriorityQueue
-    {
-        var level:int = client ? client.nestLevel : 0;
-        
-        var pq:PriorityQueue = new PriorityQueue();
-        var i:int = Math.max(minPriority, level);
-        for (; i <= maxPriority; i++)
-        {
-            var obj:PriorityBin = priorityBins[i];
-            if (obj)
-            {
-                var items:Dictionary = obj.items;
-                var d:Dictionary = new Dictionary(false);
-                for (var p:* in items)
-                {
-                    if (client)
-                    {
-                        if (!contains(DisplayObject(client), DisplayObject(p)))
-                            continue;
-                    }
-                    d[p] = true;                                
-                }
-                pq.addDictionary(d, obj.length, i);
-            }
-        }
-        return pq;
-    }
-
-    /**
-     *  @private
-     *  used by clone() to clone dictionaries
-     */
-    private function addDictionary(d:Dictionary, length:int, priority:int):void
-    {
-        var bin:PriorityBin = new PriorityBin();
-        bin.length = length;
-        bin.items = d;
-        priorityBins[priority] = bin;
-            
-        // Update our min and max priorities.
-        if (maxPriority < minPriority)
-        {
-            minPriority = maxPriority = priority;
-        }
-        else
-        {
-            if (priority < minPriority)
-                minPriority = priority;
-            if (priority > maxPriority)
-                maxPriority = priority;
-        }
-    }
 }
 
 }
