@@ -67,6 +67,11 @@ use namespace mx_internal;
  *
  *  @see mx.effects.MaskEffect
  *  @see mx.events.TweenEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class MaskEffectInstance extends EffectInstance
 {
@@ -82,6 +87,11 @@ public class MaskEffectInstance extends EffectInstance
 	 *  Constructor. 
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function MaskEffectInstance(target:Object)
 	{
@@ -99,12 +109,22 @@ public class MaskEffectInstance extends EffectInstance
 	 *  by the <code>defaultCreateMask()</code> method, 
 	 *  or the one specified by the function passed to the 
 	 *  <code>createMaskFunction</code> property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected var effectMask:Shape;
 	
 	/**
 	 *  The actual size of the effect target, including any drop shadows. 
 	 *  Flex calculates the value of this property; you do not have to set it. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected var targetVisualBounds:Rectangle;
 	
@@ -216,6 +236,11 @@ public class MaskEffectInstance extends EffectInstance
 	 * 
 	 *  <pre>
 	 *    &lt;mx:WipeLeft id="showWL" createMaskFunction="createLargeMask" showTarget="false"/&gt;</pre>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get createMaskFunction():Function
 	{
@@ -238,6 +263,11 @@ public class MaskEffectInstance extends EffectInstance
 
 	/**
 	 *  Easing function to use for moving the mask.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */		
 	public var moveEasingFunction:Function;
 	
@@ -289,6 +319,11 @@ public class MaskEffectInstance extends EffectInstance
 
 	/**
 	 *  Easing function to use for scaling the mask.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public var scaleEasingFunction:Function;	
 		
@@ -298,6 +333,11 @@ public class MaskEffectInstance extends EffectInstance
 
 	/**
 	 *  Initial scaleX for mask.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var scaleXFrom:Number;
 	
@@ -307,6 +347,11 @@ public class MaskEffectInstance extends EffectInstance
 
 	/** 
 	 *  Ending scaleX for mask.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var scaleXTo:Number;
 
@@ -316,6 +361,11 @@ public class MaskEffectInstance extends EffectInstance
 	
 	/** 
 	 *  Initial scaleY for mask.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var scaleYFrom:Number;
 	
@@ -325,6 +375,11 @@ public class MaskEffectInstance extends EffectInstance
 
 	/**
 	 *  Ending scaleY for mask.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var scaleYTo:Number;
 
@@ -350,6 +405,11 @@ public class MaskEffectInstance extends EffectInstance
      *  <code>false</code>, or invisible, <code>true</code>.
 	 *
 	 *  @default true
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get showTarget():Boolean
 	{
@@ -374,6 +434,11 @@ public class MaskEffectInstance extends EffectInstance
 	 *  The dimensions are relative to the target itself.
 	 *  By default, the area is the entire target and is created like this: 
 	 *  <code>new Rectangle(0, 0, target.width, target.height);</code>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var targetArea:Rectangle;
 	
@@ -383,6 +448,11 @@ public class MaskEffectInstance extends EffectInstance
 
 	/** 
 	 *  Initial position's x coordinate for mask.  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var xFrom:Number;
 	
@@ -392,6 +462,11 @@ public class MaskEffectInstance extends EffectInstance
 
 	/** 
 	 *  Destination position's x coordinate for mask.  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var xTo:Number;
 	
@@ -401,6 +476,11 @@ public class MaskEffectInstance extends EffectInstance
 
 	/**
 	 *  Initial position's y coordinate for mask.  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var yFrom:Number;
 	
@@ -410,6 +490,11 @@ public class MaskEffectInstance extends EffectInstance
 
 	/** 
 	 *  Destination position's y coordinate for mask.  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var yTo:Number;
 	
@@ -547,6 +632,11 @@ public class MaskEffectInstance extends EffectInstance
 	
 	/**
 	 *  Pauses the effect until you call the <code>resume()</code> method.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function pause():void
 	{	
@@ -577,6 +667,11 @@ public class MaskEffectInstance extends EffectInstance
 	/**
 	 *  Resumes the effect after it has been paused 
 	 *  by a call to the <code>pause()</code> method. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function resume():void
 	{
@@ -592,6 +687,11 @@ public class MaskEffectInstance extends EffectInstance
 	/**
 	 *  Plays the effect in reverse,
 	 *  starting from the current position of the effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function reverse():void
 	{
@@ -698,6 +798,11 @@ public class MaskEffectInstance extends EffectInstance
 	 *  @param bounds The actual visual bounds of the target which includes drop shadows
 	 *  
 	 *  @return A Shape object that defines the mask.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function defaultCreateMask(targ:Object, bounds:Rectangle):Shape
 	{
@@ -748,6 +853,11 @@ public class MaskEffectInstance extends EffectInstance
 	 *  All subclasses should override this function.
 	 *  Flex calls it after the mask has been created,
 	 *  but before the tweens are created. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function initMaskEffect():void
 	{
@@ -800,6 +910,11 @@ public class MaskEffectInstance extends EffectInstance
 	 *  x and y value for the mask position, where <code>value[0]</code> 
 	 *  contains the new x position of the mask, 
 	 *  and <code>value[1]</code> contains the new y position.    
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function onMoveTweenUpdate(value:Object):void 
 	{
@@ -825,6 +940,11 @@ public class MaskEffectInstance extends EffectInstance
 	 *  x and y value for the mask position, where <code>value[0]</code> 
 	 *  contains the x position of the mask, 
 	 *  and <code>value[1]</code> contains the y position.    
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function onMoveTweenEnd(value:Object):void
 	{
@@ -845,6 +965,11 @@ public class MaskEffectInstance extends EffectInstance
 	 *  where <code>value[0]</code> 
 	 *  contains the new <code>scaleX</code> value of the mask, 
 	 *  and <code>value[1]</code> contains the new <code>scaleY</code> value.    
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function onScaleTweenUpdate(value:Object):void 
 	{
@@ -869,6 +994,11 @@ public class MaskEffectInstance extends EffectInstance
 	 *  where <code>value[0]</code> 
 	 *  contains the <code>scaleX</code> value of the mask, 
 	 *  and <code>value[1]</code> contains the <code>scaleY</code> value.    
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function onScaleTweenEnd(value:Object):void
 	{
