@@ -17,6 +17,9 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
+    <!-- overriding from build.properties -->
+    <property name="playerglobal.version" value="9"/>  
+
 	<target name="main" depends="clean,compile" description="Clean build of flex.swc"/>
 
 	<target name="clean">
@@ -53,6 +56,7 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/flex.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
+            <target-player>9</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-classes>FlexClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
