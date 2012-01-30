@@ -59,86 +59,86 @@ public class SwitchSymbolFormatter
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  @param numberSymbol Character to use as the pattern character.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function SwitchSymbolFormatter(numberSymbol:String = "#")
-	{
-		super();
+    /**
+     *  Constructor.
+     *
+     *  @param numberSymbol Character to use as the pattern character.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function SwitchSymbolFormatter(numberSymbol:String = "#")
+    {
+        super();
 
-		this.numberSymbol = numberSymbol;
-		isValid = true;
-	}
+        this.numberSymbol = numberSymbol;
+        isValid = true;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var numberSymbol:String;
-	
-	/**
-	 *  @private
-	 */
-	private var isValid:Boolean;
+    /**
+     *  @private
+     */
+    private var numberSymbol:String;
+    
+    /**
+     *  @private
+     */
+    private var isValid:Boolean;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Creates a new String by formatting the source String
-	 *  using the format pattern.
-	 *
-	 *  @param format String that defines the user-requested pattern including.
-	 *
-	 *  @param source Valid number sequence
-	 *  (alpha characters are allowed if needed).
-	 *
-	 *  @returns Formatted String.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function formatValue(format:String, source:Object):String
-	{
-		var numStr:String = "";
+    /**
+     *  Creates a new String by formatting the source String
+     *  using the format pattern.
+     *
+     *  @param format String that defines the user-requested pattern including.
+     *
+     *  @param source Valid number sequence
+     *  (alpha characters are allowed if needed).
+     *
+     *  @return Formatted String.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function formatValue(format:String, source:Object):String
+    {
+        var numStr:String = "";
 
-		var uStrIndx:int = 0;
-		
-		var n:int = format.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			var letter:String = format.charAt(i);
-			if (letter == numberSymbol)
-				numStr += String(source).charAt(uStrIndx++);
-			else
-				numStr += format.charAt(i);
-		}
-		
-		return numStr;
-	}
+        var uStrIndx:int = 0;
+        
+        var n:int = format.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var letter:String = format.charAt(i);
+            if (letter == numberSymbol)
+                numStr += String(source).charAt(uStrIndx++);
+            else
+                numStr += format.charAt(i);
+        }
+        
+        return numStr;
+    }
 }
 
 }
