@@ -66,6 +66,11 @@ use namespace object_proxy;
  *  // updateHandler('opUpdate', age, 5, 2, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
  *  // updateHandler('opDelete', ssnum, 555-55-5555, null, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public dynamic class ObjectProxy extends Proxy
                                  implements IExternalizable,
@@ -125,6 +130,11 @@ public dynamic class ObjectProxy extends Proxy
      *  updateHandler('opUpdate', age, 2, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
      *  updateHandler('opDelete', ssnum, null, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
      *  </pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ObjectProxy(item:Object = null, uid:String = null,
                                 proxyDepth:int = -1)
@@ -155,12 +165,22 @@ public dynamic class ObjectProxy extends Proxy
 
     /**
      *  A reference to the EventDispatcher for this proxy.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var dispatcher:EventDispatcher;
 
     /**
      *  A hashmap of property change notifiers that this proxy is 
      *  listening for changes from; the key of the map is the property name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var notifiers:Object;
     
@@ -168,6 +188,11 @@ public dynamic class ObjectProxy extends Proxy
      *  Indicates what kind of proxy to create
      *  when proxying complex properties.
      *  Subclasses should assign this value appropriately.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var proxyClass:Class = ObjectProxy;
     
@@ -175,6 +200,11 @@ public dynamic class ObjectProxy extends Proxy
      *  Contains a list of all of the property names for the proxied object.
      *  Descendants need to fill this list by overriding the
      *  <code>setupPropertyList()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var propertyList:Array;
     
@@ -182,6 +212,11 @@ public dynamic class ObjectProxy extends Proxy
      *  Indicates how deep proxying should be performed.
      *  If -1 (default), always proxy; 
      *  if this value is zero, no proxying will be performed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _proxyLevel:int;
     
@@ -197,11 +232,21 @@ public dynamic class ObjectProxy extends Proxy
 
     /**
      *  Storage for the object property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _item:Object;
 
     /**
      *  The object being proxied.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     object_proxy function get object():Object
     {
@@ -220,6 +265,11 @@ public dynamic class ObjectProxy extends Proxy
 
     /**
      *  The qualified type name associated with this object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     object_proxy function get type():QName
     {
@@ -246,6 +296,11 @@ public dynamic class ObjectProxy extends Proxy
 
     /**
      *  The unique identifier for this object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get uid():String
     {
@@ -279,6 +334,11 @@ public dynamic class ObjectProxy extends Proxy
      *  @return The value of the property.
      *  In some instances this value may be an instance of 
      *  <code>ObjectProxy</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override flash_proxy function getProperty(name:*):*
     {
@@ -314,6 +374,11 @@ public dynamic class ObjectProxy extends Proxy
      *  called method.
      *
      *  @return The return value of the called method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override flash_proxy function callProperty(name:*, ... rest):*
     {
@@ -329,6 +394,11 @@ public dynamic class ObjectProxy extends Proxy
      *  inspecting the <code>localName</code> property.
      *
      *  @return A Boolean indicating if the property was deleted.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override flash_proxy function deleteProperty(name:*):Boolean
     {
@@ -408,6 +478,11 @@ public dynamic class ObjectProxy extends Proxy
      *  should be updated on the proxied object.
      *
      *  @param value Value that should be set on the proxied object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override flash_proxy function setProperty(name:*, value:*):void
     {
@@ -458,6 +533,11 @@ public dynamic class ObjectProxy extends Proxy
      *  @param value The property value.
      *
      *  @return The property value or an instance of <code>ObjectProxy</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     object_proxy function getComplexProperty(name:*, value:*):*
     {
@@ -496,6 +576,11 @@ public dynamic class ObjectProxy extends Proxy
      *
      *  @param input The source object from which the ObjectProxy is
      *  deserialized. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function readExternal(input:IDataInput):void
     {
@@ -511,6 +596,11 @@ public dynamic class ObjectProxy extends Proxy
      *
      *  @param output The source object from which the ObjectProxy is
      *  deserialized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function writeExternal(output:IDataOutput):void
     {
@@ -531,6 +621,11 @@ public dynamic class ObjectProxy extends Proxy
      *  flash.events.EventDispatcher class.
      *
      *  @see flash.events.EventDispatcher#addEventListener()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addEventListener(type:String, listener:Function,
                                      useCapture:Boolean = false,
@@ -561,6 +656,11 @@ public dynamic class ObjectProxy extends Proxy
      *  set to <code>false</code>.
      *
      *  @see flash.events.EventDispatcher#removeEventListener()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeEventListener(type:String, listener:Function,
                                         useCapture:Boolean = false):void
@@ -584,6 +684,11 @@ public dynamic class ObjectProxy extends Proxy
      *  was called on the event.
      *
      *  @see flash.events.EventDispatcher#dispatchEvent()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function dispatchEvent(event:Event):Boolean
     {
@@ -604,6 +709,11 @@ public dynamic class ObjectProxy extends Proxy
      *  registered; <code>false</code> otherwise.
      *
      *  @see flash.events.EventDispatcher#hasEventListener()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function hasEventListener(type:String):Boolean
     {
@@ -624,6 +734,11 @@ public dynamic class ObjectProxy extends Proxy
      *  be triggered; <code>false</code> otherwise.
      *
      *  @see flash.events.EventDispatcher#willTrigger()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function willTrigger(type:String):Boolean
     {
@@ -634,6 +749,11 @@ public dynamic class ObjectProxy extends Proxy
      *  Called when a complex property is updated.
      *
      *  @param event An event object that has changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function propertyChangeHandler(event:PropertyChangeEvent):void
     {
@@ -653,6 +773,11 @@ public dynamic class ObjectProxy extends Proxy
      *  properties to this list.
      *  Be sure to call <code>super.setupPropertyList</code> before making any
      *  changes to the <code>propertyList</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function setupPropertyList():void
     {
