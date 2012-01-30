@@ -53,7 +53,8 @@
         </s:fill>
     </s:Rect>
     
-    <s:BitmapImage source="@Embed('../../../../../assets/gripper_up.png')" right="0" bottom="0" verticalCenter="0" fillMode="clip"/>
+    <!-- BitmapImage sets layoutDirection = "ltr". By setting it to null here, the gripper will assume the direction of its parent. -->
+    <s:BitmapImage layoutDirection="{null}" source="@Embed('../../../../../assets/gripper_up.png')" right="0" bottom="0" verticalCenter="0" fillMode="clip"/>
     
 </s:Skin>
     
