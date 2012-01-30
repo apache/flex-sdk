@@ -66,6 +66,8 @@ public class TextAreaSkin extends TextSkinBase
     {
         super();
         
+        addEventListener(Event.RESIZE, resizeHandler);
+        
         switch (applicationDPI)
         {
             case DPIClassification.DPI_320:
@@ -364,6 +366,7 @@ public class TextAreaSkin extends TextSkinBase
                 // Scroll the internal Scroller to ensure the caret is visible
                 if (textHeight > unscaledTextHeight)
                 {
+                    
                     if (charIndex == textDisplay.text.length)
                     {
                         // Make sure textDisplayGroup is validated, otherwise the 
@@ -417,6 +420,8 @@ public class TextAreaSkin extends TextSkinBase
                             textDisplayGroup.verticalScrollPosition = caretTopPosition;
                         }
                     }
+                    
+                    scroller.validateNow();
                 }
                 
                 // Convert to local coordinates
@@ -449,7 +454,8 @@ public class TextAreaSkin extends TextSkinBase
 		
 		var maxVsp:Number = textDisplayGroup.contentHeight > textDisplayGroup.height ? 
 			textDisplayGroup.contentHeight-textDisplayGroup.height : 0; 
-		textDisplayGroup.verticalScrollPosition = 
+        
+        textDisplayGroup.verticalScrollPosition = 
 			Math.min(Math.max(0,textDisplayGroup.verticalScrollPosition),maxVsp);
  	}
 	
@@ -592,6 +598,16 @@ public class TextAreaSkin extends TextSkinBase
                 oldCaretBounds = newCaretBounds;
             }
         }
+    }
+    
+    /**
+     *  @private
+     */
+    private function resizeHandler(event:Event):void
+    {
+        // Resizing needs to tickle the TextArea's internal auto-scroll logic
+        invalidateCaretPosition = true;
+        invalidateDisplayList();
     }
     
     /**
