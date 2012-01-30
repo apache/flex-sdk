@@ -174,5 +174,18 @@ public class SpinnerListSkin extends MobileSkin
 		setElementSize(scroller, unscaledWidth - borderThickness * 2, unscaledHeight);
 		setElementPosition(scroller, borderThickness, 0);
 	}
+    
+    override public function styleChanged(styleProp:String):void
+    {
+        // Reinitialize the typical element so it picks up the latest styles
+        // Font styles might impact the size of the SpinnerList
+		if (styleProp != "color" && styleProp != "accentColor")
+        {
+            if (dataGroup)
+                dataGroup.resetTypicalLayoutElement();
+        }
+        
+        super.styleChanged(styleProp);
+    }
 }
 }
