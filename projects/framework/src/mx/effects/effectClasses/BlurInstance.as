@@ -134,16 +134,6 @@ public class BlurInstance extends TweenEffectInstance
 		// Dispatch an effectStart event from the target.
 		super.play();
 
-		// If nobody assigned a value, give some defaults.
-		if (isNaN(blurXFrom))
-			blurXFrom = 4;
-		if (isNaN(blurXTo))
-			blurXTo = 0;
-		if (isNaN(blurYFrom))
-			blurYFrom = 4;
-		if (isNaN(blurYTo))
-			blurYTo = 0;
-
 		tween = createTween(this, [ blurXFrom, blurYFrom ],
 								  [ blurXTo, blurYTo ], duration);
 		
