@@ -459,7 +459,7 @@ public class MobileApplicationBase extends Application
      *  and the time the persistence object was created to the "timestamp" and 
      *  "applicationVersion" keys.
      * 
-     *  <p>This method will only be called if the <code>FlexEvent.APPLICATION_PERSISTING<code>
+     *  <p>This method will only be called if the <code>FlexEvent.APPLICATION_PERSISTING</code>
      *  event is not canceled.</p>
      * 
      *  @langversion 3.0
@@ -501,7 +501,7 @@ public class MobileApplicationBase extends Application
      *  Responsible for restoring the application's state when the
      *  <code>sessionCachingEnabled</code> flag is set to true.
      * 
-     *  <p>This method will only be called if the <code>FlexEvent.APPLICATION_RESTORING<code>
+     *  <p>This method will only be called if the <code>FlexEvent.APPLICATION_RESTORING</code>
      *  event is not canceled.</p>
      * 
      *  @langversion 3.0
