@@ -17,6 +17,11 @@ package mx.styles
  * 
  *  @see mx.styles.CSSCondition
  *  @see mx.styles.CSSSelector
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CSSConditionKind
 {
@@ -25,6 +30,11 @@ public class CSSConditionKind
      *  Examples:
      *      Button.special { ... }
      *      .special { ... }
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CLASS_CONDITION:uint = 1;
 
@@ -33,6 +43,11 @@ public class CSSConditionKind
      *  Examples:
      *      Button#special { ... }
      *      #special { ... }
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ID_CONDITION:uint = 2;
 
@@ -42,6 +57,11 @@ public class CSSConditionKind
      *  Examples:
      *      Button:special { ... }
      *      :special { ... }
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static const PSEUDO_CONDITION:uint = 3;
 
