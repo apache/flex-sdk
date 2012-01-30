@@ -206,7 +206,7 @@ public class StringUtil
      *
      *  @param n The repeat count.
      *
-     *  @result The repeated string.
+     *  @return The repeated string.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -237,7 +237,7 @@ public class StringUtil
      *
      *  @param restrict The restriction string.
      *
-     *  @result The input string, minus any characters
+     *  @return The input string, minus any characters
      *  that are not allowed by the restriction string.
      *  
      *  @langversion 3.0
