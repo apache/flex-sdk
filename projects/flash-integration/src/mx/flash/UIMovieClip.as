@@ -3029,7 +3029,7 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      * Documentation is not currently available
      */
-    public function get $transform():flash.geom.Transform
+    mx_internal function get $transform():flash.geom.Transform
     {
         return super.transform;
     }
