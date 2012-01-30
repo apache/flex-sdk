@@ -8915,11 +8915,14 @@ public class UIComponent extends FlexSprite
                 focusPane.removeChild(focusObj);
                 focusObj = null;
             }
+            
+            if (!focusClass)
+                return;
 
             if (!focusObj)
             {
                 focusObj = new focusClass();
-
+                
                 focusObj.name = "focus";
 
                 focusPane.addChild(focusObj);
