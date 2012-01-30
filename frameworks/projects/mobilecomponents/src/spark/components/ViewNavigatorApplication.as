@@ -14,15 +14,12 @@ package spark.components
 import flash.events.Event;
 import flash.events.InvokeEvent;
 import flash.events.KeyboardEvent;
-import flash.events.StageOrientationEvent;
-import flash.net.registerClassAlias;
 
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
 
 import spark.components.supportClasses.NavigationStack;
-import spark.components.supportClasses.ViewDescriptor;
 import spark.components.supportClasses.ViewNavigatorApplicationBase;
 import spark.layouts.supportClasses.LayoutBase;
 
