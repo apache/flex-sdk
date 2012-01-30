@@ -14,6 +14,7 @@ package spark.transitions
     
 import flash.geom.Point;
 
+import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.effects.IEffect;
 
@@ -100,6 +101,14 @@ public class SlideViewTransition extends ViewTransitionBase
      *  when added to the display list.
      */ 
     private var cachedActionBarGlobalPosition:Point;
+    
+    /**
+     *  @private
+     *  Variable used to store the startView's initial global position to
+     *  determine how much it needs to be shifted before a consolidated
+     *  transition runs.
+     */ 
+    private var cachedStartViewGlobalPosition:Point;
     
     /**
      *  @private
@@ -228,10 +237,14 @@ public class SlideViewTransition extends ViewTransitionBase
         // properties that are then restored after the transition is over.
         navigatorProps = new Object(); 
         
+        animateTabBar = false;
         
-        // Animate the tab bar if the overlayControls mode or visibility is toggled
-        animateTabBar = tabBar && (startView.overlayControls != endView.overlayControls ||
-                                   startView.tabBarVisible != endView.tabBarVisible);
+        if (tabBar && startView)
+        {
+            // Animate the tabBar if its overlayControls or visible property is toggled.
+            animateTabBar = startView.overlayControls != endView.overlayControls ||
+                            startView.tabBarVisible != endView.tabBarVisible;
+        }
         
         // Snapshot the entire navigator or actionBar depending on the mode.
         if (mode == SlideViewTransitionMode.UNCOVER)
@@ -256,25 +269,26 @@ public class SlideViewTransition extends ViewTransitionBase
         }
         
         // Save the position of the action in global coordinates
-        cachedActionBarGlobalPosition = actionBar.parent.localToGlobal(new Point(actionBar.x, actionBar.y));
+        cachedActionBarGlobalPosition = getGlobalCoordinates(actionBar);
         
         // Cache the tab bar bitmap and location
         if (tabBar)
         {
             cachedTabBar = getSnapshot(TabbedViewNavigator(targetNavigator).tabBar);
-            cachedTabBarGlobalPosition = tabBar.parent.localToGlobal(new Point(tabBar.x, tabBar.y));
+            cachedTabBarGlobalPosition = getGlobalCoordinates(tabBar);
             navigatorProps.tabBarIncludeInLayout = tabBar.includeInLayout;
             navigatorProps.tabBarCacheAsBitmap = tabBar.cacheAsBitmap;
         }
         
         // Save navigator bounds
-        navigatorProps.navigatorContentGroupInitialX = navigator.contentGroup.x;
-        navigatorProps.navigatorContentGroupInitialY = navigator.contentGroup.y;
-        navigatorProps.startViewIncludeInLayout = startView.includeInLayout;
         navigatorProps.endViewIncludeInLayout = endView.includeInLayout;
         
         if (startView)
+        {
+            cachedStartViewGlobalPosition = getGlobalCoordinates(startView);
+            navigatorProps.startViewIncludeInLayout = startView.includeInLayout;
             startView.includeInLayout = false;
+        }
     }
     
     /**
@@ -401,17 +415,24 @@ public class SlideViewTransition extends ViewTransitionBase
         // surfaces, and adjust z-order if necessary.
         var slideTargets:Array = new Array();
         
-        // If the view exists inside a TabbedViewNavigator, remove its content
-        // group from layout.
+        // Remove the navigator's contentGroup from layout
         navigatorProps.navigatorContentGroupIncludeInLayout = navigator.contentGroup.includeInLayout;
         navigator.contentGroup.includeInLayout = false;
+        
+        // Check if the navigator is a child of TabbedViewNavigator, if so
+        // remove the contentGroup from layout.
+        if (targetNavigator != navigator)
+        {
+            navigatorProps.topNavigatorContentGroupIncludeInLayout = targetNavigator.contentGroup.includeInLayout;
+            targetNavigator.contentGroup.includeInLayout = false;
+        }
         
         transitionGroup = new Group();
         transitionGroup.includeInLayout = false;
         
         // Add the necessary views to the slide targets array.  When in PUSH mode,
         // both start and end views are added.
-        if (mode != SlideViewTransitionMode.COVER)
+        if (startView && mode != SlideViewTransitionMode.COVER)
             slideTargets.push(startView);
         
         if (mode != SlideViewTransitionMode.UNCOVER)
@@ -446,15 +467,17 @@ public class SlideViewTransition extends ViewTransitionBase
         
         if (startView)
         {
-            // Store initial position of startView's contentGroup
+            // Store the position of the startView
             navigatorProps.startViewX = startView.x;
             navigatorProps.startViewY = startView.y;
             
-            var delta:int = navigator.contentGroup.x - navigatorProps.navigatorContentGroupInitialX;
+            var globalPoint:Point = getGlobalCoordinates(startView);
+            
+            var delta:int = globalPoint.x - cachedStartViewGlobalPosition.x;
             if (delta != 0)
                 startView.x -= delta;
             
-            delta = navigator.contentGroup.y - navigatorProps.navigatorContentGroupInitialY;
+            delta = globalPoint.y - cachedStartViewGlobalPosition.y;
             if (delta != 0)
                 startView.y -= delta;
             
@@ -653,6 +676,9 @@ public class SlideViewTransition extends ViewTransitionBase
                 endView.contentGroup.cacheAsBitmap = navigatorProps.endViewCacheAsBitmap;
             }
             
+            if (targetNavigator != navigator)
+                targetNavigator.contentGroup.includeInLayout = navigatorProps.topNavigatorContentGroupIncludeInLayout;
+            
             navigator.contentGroup.includeInLayout = navigatorProps.navigatorContentGroupIncludeInLayout;
             
             if (transitionGroup)
@@ -680,6 +706,16 @@ public class SlideViewTransition extends ViewTransitionBase
     {
         actionBarTransitionDirection = direction;
         super.prepareForPlay();
+    }
+    
+    /**
+     *  @private
+     *  Utility function that converts a components position to global coordinates
+     *  using its parent.
+     */
+    private function getGlobalCoordinates(component:IVisualElement):Point
+    {
+        return component.parent.localToGlobal(new Point(component.x, component.y));
     }
     
 }
