@@ -113,6 +113,13 @@ use namespace mx_internal;
  *  This class includes a TabBar control that provides the ability to toggle between
  *  the collection of view navigators.  
  *
+ *  <p>The following images shows a TabbedViewNavigator with three sections: 
+ *  Employees, Contacts, and Search:</p>
+ *
+ * <p>
+ *  <img src="../../images/tvn_sections_with_ab_tvn.png" alt="Tabbed view navigator" />
+ * </p>
+ *
  *  <p>The TabbedViewNavigatorApplication container automatically creates 
  *  a single TabbedViewNavigator container for the entire application. 
  *  You can reference the TabbedViewNavigator object by using the <code>navigator</code>
