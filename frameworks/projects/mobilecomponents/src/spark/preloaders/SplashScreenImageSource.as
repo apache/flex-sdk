@@ -6,16 +6,45 @@ import mx.core.mx_internal;
 use namespace mx_internal;
 
 /**
- *  SplashScreenImageSource specifies a Class (typically an embedded image)
+ *  Use the SplashScreenImageSource class to specify a Class (typically an embedded image)
  *  to be displayed as splash screen at a particular device configuration such as
  *  DPI, orientation and resolution.
  *
- *  Developers typically use one or more <code>SplashScreenImageSource</code>
- *  objects to define a <code>SplashScreenImage</code> class in MXML
- *  and set the Application's <code>splashScreenImage</code> property to that class.
+ *  <p>You typically use one or more SplashScreenImageSource
+ *  objects to define a SplashScreenImage class in MXML
+ *  and set the application's <code>splashScreenImage</code> property to that class.</p>
+ *
+ *  <p>Shown below is SplashScreenImage component with three different 
+ *  definitions for SplashScreenImageSource:</p>
+ *
+ *  <pre>
+ *    &lt;?xml version="1.0" encoding="utf-8"?&gt; 
+ *    &lt;s:SplashScreenImage xmlns:fx="http://ns.adobe.com/mxml/2009" 
+ *        xmlns:s="library://ns.adobe.com/flex/spark"&gt; 
+ *     
+ *        &lt;!-- Default splashscreen image. --&gt; 
+ *        &lt;s:SplashScreenImageSource 
+ *            source="&#64;Embed('assets/logoDefault.jpg')"/&gt; 
+ *        
+ *        &lt;s:SplashScreenImageSource 
+ *            source="&#64;Embed('assets/logo240Portrait.jpg')" 
+ *            dpi="240" 
+ *            aspectRatio="portrait"/&gt; 
+ *        
+ *        &lt;s:SplashScreenImageSource 
+ *            source="&#64;Embed('assets/logo240Landscape.jpg')" 
+ *            dpi="240" 
+ *            aspectRatio="landscape"/&gt; 
+ *        
+ *    &lt;/s:SplashScreenImage&gt;      
+ *  </pre>
  *
  *  @see spark.preloaders.SplashScreenImage
  *  @see spark.components.Application#splashScreenImage
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 3
+ *  @productversion Flex 4.5.2
  */  
 public class SplashScreenImageSource
 {
@@ -28,6 +57,9 @@ public class SplashScreenImageSource
     /**
      *  Constructor.
      * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
      */
     public function SplashScreenImageSource()
     {
@@ -46,10 +78,17 @@ public class SplashScreenImageSource
     [Inspectable(category="General", enumeration="portrait,landscape")]
 
     /**
-     *  The required aspectRatio of the device.
-     *  Can be either StageAspectRatio.PORTRAIT or StageAspectRatio.LANDSCAPE.
+     *  The required aspect ratio of the mobile device.
+     *  This property can be either <code>flash.display.StageAspectRatio.PORTRAIT</code> 
+     *  or <code>flash.display.StageAspectRatio.LANDSCAPE</code>.
      * 
-     *  <p>If not set <code>SplashScreenImage</code> ignores this.</p> 
+     *  <p>If not set, then <code>SplashScreenImage</code> ignores this property.</p> 
+     *
+     *  @see flash.display.StageAspectRatio
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
      */ 
     public var aspectRatio:String = null;
     
@@ -60,11 +99,15 @@ public class SplashScreenImageSource
     [Inspectable(category="General", enumeration="160,240,320")]
     
     /**
-     *  The required dpi of the device.
+     *  The required DPI of the device to display the associated image.
      *  
-     *  <p>A value of NaN is ignored by <code>SplashScreenImage</code>.</p>
+     *  <p>A value of NaN means the property is ignored by SplashScreenImage.</p>
      * 
      *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
      */ 
     public var dpi:Number = NaN;
     
@@ -75,15 +118,23 @@ public class SplashScreenImageSource
     [Inspectable(category="General")]
     
     /**  
-     *  The required minimum size of the device resolution needed to display the image.
+     *  The required minimum size of the mobile device's resolution needed 
+     *  to display the image.
      *  The device resolution is the maximum of the stage width and height, in pixels.
+     *  The value of the <code>minResolution</code> property is compared against the larger 
+     *  of the values of the <code>Stage.stageWidth</code> and <code>Stage.stageHeight</code> properties. 
+     *  The larger of the two values must be equal to or greater than the <code>minResolution</code> property.
      * 
-     *  This property can be used to display different images based on the pixel 
-     *  resolution of a device.
+     *  <p>You can use this property to display different images based on the pixel 
+     *  resolution of a device.</p>
      *
-     *  <p>A value of NaN is ignored by the <code>SplashScreenImage</code>.</p>
+     *  <p>A value of NaN means the property is ignored by the SplashScreenImage.</p>
      * 
      *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
      */ 
     public var minResolution:Number = NaN;
     
@@ -95,16 +146,25 @@ public class SplashScreenImageSource
 
     /**
      *  The image class for the splash screen to use for the defined
-     *  device configuration.  Typically you set this property to an 
-     *  embedded resource.
+     *  device configuration.  
+     *  Typically you set this property to an embedded resource.
      * 
-     *  For example:
+     *  <p>For example:</p>
      *
-     *  <pre>source="&#64;Embed('Default.png')"</pre>
+     *  <pre>
+     *        &lt;s:SplashScreenImageSource 
+     *            source="&#64;Embed('assets/logo240Portrait.jpg')" 
+     *            dpi="240" 
+     *            aspectRatio="portrait"/&gt; 
+     *  </pre>
      * 
      *  @see spark.preloaders.SplashScreenImage
      *
      *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
      */ 
     public var source:Class;
 
