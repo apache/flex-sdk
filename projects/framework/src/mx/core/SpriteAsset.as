@@ -17,6 +17,7 @@ import flash.events.Event;
 import flash.geom.Matrix;
 
 import mx.core.AdvancedLayoutFeatures;
+import mx.utils.MatrixUtil;
 
 /**
  *  SpriteAsset is a subclass of the flash.display.Sprite class which
@@ -243,7 +244,9 @@ public class SpriteAsset extends FlexSprite
      */
     override public function get width():Number
     {
-        return (layoutFeatures == null) ? super.width : layoutFeatures.layoutWidth;
+        // Return bounding box width in mirroring case
+        return (layoutFeatures == null) ? super.width :
+               MatrixUtil.transformSize(layoutFeatures.layoutWidth, _height, transform.matrix).x;
     }
     
     /**
@@ -280,7 +283,9 @@ public class SpriteAsset extends FlexSprite
      */
     override public function get height():Number
     {
-        return (layoutFeatures == null) ? super.height : _height;
+        // Return bounding box height in mirroring case
+        return (layoutFeatures == null) ? super.height :
+               MatrixUtil.transformSize(layoutFeatures.layoutWidth, _height, transform.matrix).y;
     }
     
     /**
@@ -403,7 +408,19 @@ public class SpriteAsset extends FlexSprite
      */
     override public function set rotation(value:Number):void
     {
-        rotationZ = value;
+        // TODO (klin): rotation actually affects width and height as well.
+        if (rotation == value)
+            return;
+        
+        if (layoutFeatures == null)
+        {
+            super.rotation = value;
+        }
+        else
+        {
+            layoutFeatures.layoutRotationZ = value;
+            validateTransformMatrix();
+        }
     }
     
     //----------------------------------
@@ -433,7 +450,7 @@ public class SpriteAsset extends FlexSprite
         else
         {
             layoutFeatures.layoutScaleX = value;
-            layoutFeatures.layoutWidth = value * measuredWidth;
+            layoutFeatures.layoutWidth = Math.abs(value) * measuredWidth;
             validateTransformMatrix();
         }
     }
@@ -465,7 +482,7 @@ public class SpriteAsset extends FlexSprite
         else
         {
             layoutFeatures.layoutScaleY = value;
-            _height = value * measuredHeight;
+            _height = Math.abs(value) * measuredHeight;
             validateTransformMatrix();
         }
     }
