@@ -1633,6 +1633,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                     }
 
                     contentHolder.removeEventListener(Event.ADDED, contentHolder_addedHandler);
+                    removeInitSystemManagerCompleteListener(contentLoader.contentLoaderInfo);
                     
                     if (useUnloadAndStop)
                         contentLoader.unloadAndStop(unloadAndStopGC);
@@ -2298,13 +2299,15 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 
 
     /**
-     * If we are loading a swf, listen for a message from the swf telling us it was loading
-     * into an application domain where it needs to use a sandbox bridge to communicate.
-         *  
-         *  @langversion 3.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
-         *  @productversion Flex 3
+     *  @private
+     * 
+     *  If we are loading a swf, listen for a message from the swf telling us it was loading
+     *  into an application domain where it needs to use a sandbox bridge to communicate.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function addInitSystemManagerCompleteListener(loaderInfo:LoaderInfo):void
     {
@@ -2312,12 +2315,14 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         {
                 var bridge:EventDispatcher = loaderInfo.sharedEvents;
                 bridge.addEventListener(SWFBridgeEvent.BRIDGE_NEW_APPLICATION, 
-                                                          initSystemManagerCompleteEventHandler);
+                                        initSystemManagerCompleteEventHandler);
         }
     }
     
     /**
-     * Remove the listener after the swf is loaded.
+     *  @private
+     * 
+     *  Remove the listener after the swf is loaded.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -2358,7 +2363,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             dispatchEvent(event);
         
         if (contentHolder is Loader)
-                        removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
+            removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
 
     }
 
@@ -2403,7 +2408,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         dispatchEvent(event);
         
         if (contentHolder is Loader)
-                        removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
+            removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
     }
 
     /**
@@ -2428,13 +2433,6 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             mp.removeChildBridge(_swfBridge);
             _swfBridge = null;
         }
-
-        if (contentHolder is Loader)
-        {
-            var contentLoaderInfo:LoaderInfo = Loader(contentHolder).contentLoaderInfo
-            removeInitSystemManagerCompleteListener(contentLoaderInfo);
-        }
-        
     }
 
     /**
@@ -2475,9 +2473,9 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     }
 
     /**
-     *      @private
+     *  @private
      * 
-     *      Message dispatched from System Manager. This gives us the child bridge
+     *  Message dispatched from System Manager. This gives us the child bridge
      *  of the application we loaded.
      */
     private function initSystemManagerCompleteEventHandler(event:Event):void
