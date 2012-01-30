@@ -537,7 +537,7 @@ public class SortField extends EventDispatcher
 		}
 		else if (typeLeft == "object" || typeRight == "object")
 		{
-			if (typeLeft is Date || typeRight is Date)
+			if (left is Date || right is Date)
 			{
 				found = true;
 				_compareFunction = dateCompare
