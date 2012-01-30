@@ -14,6 +14,11 @@ import mx.effects.IEffectInstance;
  *  </ul>
  *
  *  @see mx.effects.Effect
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class EffectEvent extends Event
 {
@@ -50,6 +55,11 @@ public class EffectEvent extends Event
      *  @see mx.effects.Effect
      *
      *  @eventType effectEnd
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const EFFECT_END:String = "effectEnd";
     
@@ -78,6 +88,11 @@ public class EffectEvent extends Event
      *  @see mx.effects.Effect
      *
      *  @eventType effectStop
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const EFFECT_STOP:String = "effectStop";
     
@@ -106,6 +121,11 @@ public class EffectEvent extends Event
 	 *  @see mx.effects.Effect
      *
      *  @eventType effectStart
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const EFFECT_START:String = "effectStart";
 	
@@ -126,6 +146,11 @@ public class EffectEvent extends Event
 	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
 	 *
 	 *  @param effectInstance The effect instance that triggered the event.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function EffectEvent(eventType:String, bubbles:Boolean = false,
 								cancelable:Boolean = false,
@@ -150,6 +175,11 @@ public class EffectEvent extends Event
 	 *  The effect instance object for the event.
 	 *  You can use this property to access the properties of the effect
 	 *  instance object from within your event listener.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var effectInstance:IEffectInstance;
 	
