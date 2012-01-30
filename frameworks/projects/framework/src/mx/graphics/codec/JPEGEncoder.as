@@ -21,6 +21,11 @@ import flash.utils.ByteArray;
  *
  *  For information about the JPEG algorithm, see the document
  *  http://www.opennet.ru/docs/formats/jpeg.txt by Cristi Cuturicu.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class JPEGEncoder implements IImageEncoder
 {
@@ -53,6 +58,11 @@ public class JPEGEncoder implements IImageEncoder
      *. Note that even though this value is a number between 0.0 and 100.0, 
      *  it does not represent a percentage. 
 	 *  The default value is 50.0.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function JPEGEncoder(quality:Number = 50.0)
     {
@@ -304,6 +314,11 @@ public class JPEGEncoder implements IImageEncoder
     /**
      *  The MIME type for the JPEG encoded image. 
      *  The value is <code>"image/jpeg"</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get contentType():String
     {
@@ -323,6 +338,11 @@ public class JPEGEncoder implements IImageEncoder
      *  @param bitmapData The input BitmapData object.
      *
      *  @return Returns a ByteArray object containing JPEG-encoded image data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function encode(bitmapData:BitmapData):ByteArray
     {
@@ -354,6 +374,11 @@ public class JPEGEncoder implements IImageEncoder
 	 *  alpha channel information is ignored.
      *
      *  @return Returns a ByteArray object containing JPEG-encoded image data. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function encodeByteArray(byteArray:ByteArray, width:int, height:int,
 									transparent:Boolean = true):ByteArray
@@ -1022,6 +1047,11 @@ class BitString
 {
 	/**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function BitString()
     {
