@@ -18,6 +18,11 @@ package mx.events
  *  request and with the FocusManager <code>moveFocus()</code> method.
  *  
  *  @see SWFBridgeRequest
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class FocusRequestDirection
 {
@@ -32,24 +37,44 @@ public final class FocusRequestDirection
     /**
      *  Move the focus forward to the next control in the tab loop as if the
 	 *  TAB key were pressed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const FORWARD:String = "forward";
     
     /**
      *  Move the focus backward to the previous control in the tab loop as if
 	 *  the SHIFT+TAB keys were pressed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const BACKWARD:String = "backward";
     
     /**
      *  Move the focus to the top/first control in the tab loop as if the
 	 *  TAB key were pressed when no object had focus in the tab loop
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static const TOP:String = "top";
     
     /**
      *  Move the focus to the bottom/last control in the tab loop as if the
 	 *  SHIFT+TAB key were pressed when no object had focus in the tab loop
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static const BOTTOM:String = "bottom";
 
