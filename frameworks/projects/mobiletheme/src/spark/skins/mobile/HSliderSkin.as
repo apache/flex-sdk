@@ -18,8 +18,8 @@ import mx.core.IFactory;
 
 import spark.components.Button;
 import spark.components.HSlider;
- import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile.supportClasses.HSliderDataTip;
+import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
  *  ActionScript-based skin for HSlider controls in mobile applications.
@@ -198,7 +198,6 @@ public class HSliderSkin extends MobileSkin
 
         measuredMinHeight = Math.max(track.getPreferredBoundsHeight(), thumb.getPreferredBoundsHeight());
         measuredMinWidth = thumb.getPreferredBoundsWidth();
-        minHeight = Math.max(track.getPreferredBoundsHeight(), thumb.getPreferredBoundsHeight());
     }
     
     /**
