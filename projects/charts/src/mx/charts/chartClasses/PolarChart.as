@@ -77,7 +77,7 @@ public class PolarChart extends ChartBase
     {
         super();
 
-        transforms = [ new PolarTransform() ];
+        _transforms = [ new PolarTransform() ];
         
         var aa:LinearAxis = new LinearAxis();
         aa.autoAdjust = false;
@@ -362,76 +362,7 @@ public class PolarChart extends ChartBase
         axisLayoutDirty = false;
         advanceEffectState();
     }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Overriden methods: ChartBase
-    //
-    //--------------------------------------------------------------------------
-
-    [Deprecated(replacement="IChartElement2.dataToLocal()")]
-    /**
-     *  @inheritDoc 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    override public function dataToLocal(...dataValues):Point
-    {
-        var data:Object = {};
-        
-        var da:Array /* of Object */ = [ data ];
-        
-        var len:int = dataValues.length;
-        
-        if (len > 0)
-        {
-            data["d0"] = dataValues[0];
-            
-            _transforms[0].getAxis(PolarTransform.ANGULAR_AXIS).
-                mapCache(da, "d0", "v0");
-        }
-        
-        if (len > 1)
-        {
-            data["d1"] = dataValues[1];
-            
-            _transforms[0].getAxis(PolarTransform.RADIAL_AXIS).
-                mapCache(da, "d1", "v1");           
-        }
-        
-        _transforms[0].transformCache(da, "v0", "s0", "v1", "s1");
-        
-        return new Point(_transforms[0].origin.x +
-                         Math.cos(data.s0) * data.s1,
-                         _transforms[0].origin.y -
-                         Math.sin(data.s0) * data.s1);
-    }
-    
-    [Deprecated(replacement="IChartElement2.localToData()")]
-    /**
-     *  @inheritDoc 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    override public function localToData(v:Point):Array /* of Object */
-    {
-        var dx:Number = v.x - _transforms[0].origin.x;
-        var dy:Number = v.y - _transforms[0].origin.y;
-        
-        var a:Number = calcAngle(dx,dy);
-        
-        var r:Number = Math.sqrt(dx * dx + dy * dy);        
-        
-        var values:Array /* of Object */ = _transforms[0].invertTransform(a, r);
-        return values;
-    }
-
+	
     /**
      *  @inheritDoc 
      *  
