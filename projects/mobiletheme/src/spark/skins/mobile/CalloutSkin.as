@@ -83,6 +83,7 @@ public class CalloutSkin extends MobileSkin
         super();
         
         blendMode = BlendMode.LAYER;
+        dropShadowAlpha = 0.7;
         
         switch (applicationDPI)
         {
@@ -91,12 +92,13 @@ public class CalloutSkin extends MobileSkin
                 backgroundCornerRadius = 16;
                 contentBackgroundClass = spark.skins.mobile320.assets.CalloutContentBackground;
                 backgroundGradientHeight = 220;
-                frameThickness = 20;
+                frameThickness = 16;
                 arrowWidth = 104;
                 arrowHeight = 52;
                 contentCornerRadius = 10;
-                dropShadowBlur = 12;
-                dropShadowDistance = 4;
+                dropShadowBlurX = 32;
+                dropShadowBlurY = 32;
+                dropShadowDistance = 6;
                 highlightWeight = 2;
                 
                 break;
@@ -106,12 +108,13 @@ public class CalloutSkin extends MobileSkin
                 backgroundCornerRadius = 12;
                 contentBackgroundClass = spark.skins.mobile240.assets.CalloutContentBackground;
                 backgroundGradientHeight = 165;
-                frameThickness = 15;
+                frameThickness = 12;
                 arrowWidth = 78;
                 arrowHeight = 39;
                 contentCornerRadius = 7;
-                dropShadowBlur = 9;
-                dropShadowDistance = 3;
+                dropShadowBlurX = 24;
+                dropShadowBlurY = 24;
+                dropShadowDistance = 4;
                 highlightWeight = 1;
                 
                 break;
@@ -122,12 +125,13 @@ public class CalloutSkin extends MobileSkin
                 backgroundCornerRadius = 8;
                 contentBackgroundClass = spark.skins.mobile160.assets.CalloutContentBackground;
                 backgroundGradientHeight = 110;
-                frameThickness = 10;
+                frameThickness = 8;
                 arrowWidth = 52;
                 arrowHeight = 26;
                 contentCornerRadius = 5;
-                dropShadowBlur = 6;
-                dropShadowDistance = 2;
+                dropShadowBlurX = 16;
+                dropShadowBlurY = 16;
+                dropShadowDistance = 3;
                 highlightWeight = 1;
                 
                 break;
@@ -163,7 +167,7 @@ public class CalloutSkin extends MobileSkin
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
-    protected var dropShdaowVisible:Boolean = true;
+    protected var dropShadowVisible:Boolean = true;
     
     /**
      *  Enables a vertical linear gradient in the <code>backgroundColor</code> frame. This
@@ -278,9 +282,13 @@ public class CalloutSkin extends MobileSkin
     
     private var dropShadow:RectangularDropShadow;
     
-    private var dropShadowBlur:Number;
+    private var dropShadowBlurX:Number;
+    
+    private var dropShadowBlurY:Number;
     
     private var dropShadowDistance:Number;
+    
+    private var dropShadowAlpha:Number;
     
     private var fade:Fade;
     
@@ -315,15 +323,17 @@ public class CalloutSkin extends MobileSkin
     {
         super.createChildren();
         
-        if (dropShdaowVisible)
+        if (dropShadowVisible)
         {
             dropShadow = new RectangularDropShadow();
             dropShadow.angle = 90;
             dropShadow.distance = dropShadowDistance;
-            dropShadow.blurX = dropShadow.blurY = dropShadowBlur;
+            dropShadow.blurX = dropShadowBlurX;
+            dropShadow.blurY = dropShadowBlurY;
             dropShadow.tlRadius = dropShadow.trRadius = dropShadow.blRadius = 
                 dropShadow.brRadius = backgroundCornerRadius;
             dropShadow.mouseEnabled = false;
+            dropShadow.alpha = dropShadowAlpha;
             addChild(dropShadow);
         }
         
@@ -345,6 +355,11 @@ public class CalloutSkin extends MobileSkin
         addChild(arrow);
         
         // contentGroup
+        contentGroup = new Group();
+        contentGroup.id = "contentGroup";
+        addChild(contentGroup);
+        
+        // contentBackgroundGraphic
         if (contentBackgroundClass)
         {
             contentBackgroundGraphic = new contentBackgroundClass() as SpriteVisualElement;
@@ -353,13 +368,10 @@ public class CalloutSkin extends MobileSkin
                 addChild(contentBackgroundGraphic);
         }
         
-        contentGroup = new Group();
-        contentGroup.id = "contentGroup";
-        addChild(contentGroup);
-        
+        // contentMask
         if (useContentMask)
         {
-            contentMask = new Sprite();
+            contentMask = new SpriteVisualElement();
             contentGroup.mask = contentMask;
         }
     }
