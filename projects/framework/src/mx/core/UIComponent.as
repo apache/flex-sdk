@@ -938,6 +938,31 @@ include "../styles/metadata/AnchorStyles.as";
 [Style(name="layoutDirection", type="String", enumeration="ltr,rtl", inherit="yes")]
 
 /**
+ *  Show the error border or skin when this component is invalid
+ * 
+ *  @default true
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="showErrorSkin", type="Boolean", inherit="yes")]
+
+/**
+ *  Show the error tip when this component is invalid and the user 
+ *  rolls over it 
+ * 
+ *  @default true
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="showErrorTip", type="Boolean", inherit="yes")]
+
+/**
  *  Theme color of a component. This property controls the appearance of highlights,
  *  appearance when a component is selected, and other similar visual cues, but it
  *  does not have any effect on the regular borders or background colors of the component.
@@ -6297,7 +6322,7 @@ public class UIComponent extends FlexSprite
     //----------------------------------
     //  baselinePosition
     //----------------------------------
-
+    
     /**
      *  @inheritDoc
      *  
@@ -6801,7 +6826,10 @@ public class UIComponent extends FlexSprite
         var oldValue:String = _errorString;
         _errorString = value;
 
-        ToolTipManager.registerErrorString(this, oldValue, value);
+        var showErrorTip:Boolean = getStyle("showErrorTip");
+        
+        if (showErrorTip)
+            ToolTipManager.registerErrorString(this, oldValue, value);
 
         errorStringChanged = true;
         invalidateProperties();
@@ -6816,38 +6844,44 @@ public class UIComponent extends FlexSprite
      */
     private function setBorderColorForErrorString():void
     {
-        if (!_errorString || _errorString.length == 0)
+        var showErrorSkin:Boolean = getStyle("showErrorSkin");
+        
+        if (showErrorSkin)
         {
-            if (!isNaN(origBorderColor))
+        
+            if (!_errorString || _errorString.length == 0)
             {
-                setStyle("borderColor", origBorderColor);
-                saveBorderColor = true;
+                if (!isNaN(origBorderColor))
+                {
+                    setStyle("borderColor", origBorderColor);
+                    saveBorderColor = true;
+                }
             }
-        }
-        else
-        {
-            // Remember the original border color
-            if (saveBorderColor)
+            else
             {
-                saveBorderColor = false;
-                origBorderColor = getStyle("borderColor");
+                // Remember the original border color
+                if (saveBorderColor)
+                {
+                    saveBorderColor = false;
+                    origBorderColor = getStyle("borderColor");
+                }
+    
+                setStyle("borderColor", getStyle("errorColor"));
             }
-
-            setStyle("borderColor", getStyle("errorColor"));
+    
+            styleChanged("themeColor");
+    
+            var focusManager:IFocusManager = focusManager;
+            var focusObj:DisplayObject = focusManager ?
+                                         DisplayObject(focusManager.getFocus()) :
+                                         null;
+            if (focusManager && focusManager.showFocusIndicator &&
+                focusObj == this)
+            {
+                drawFocus(true);
+            }
+    
         }
-
-        styleChanged("themeColor");
-
-        var focusManager:IFocusManager = focusManager;
-        var focusObj:DisplayObject = focusManager ?
-                                     DisplayObject(focusManager.getFocus()) :
-                                     null;
-        if (focusManager && focusManager.showFocusIndicator &&
-            focusObj == this)
-        {
-            drawFocus(true);
-        }
-
     }
 
     //----------------------------------
@@ -7829,6 +7863,7 @@ public class UIComponent extends FlexSprite
         // are properly laid out, so that we can use
         // their locations to compute a baselinePosition.
         validateNow();
+        
 
         return true;
     }
@@ -9787,7 +9822,7 @@ public class UIComponent extends FlexSprite
         if (focusObj)
         {
             var rectCol:Number;
-            if (errorString && errorString != "")
+            if (errorString && errorString != "" && getStyle("showErrorSkin"))
                 rectCol = getStyle("errorColor");
             else if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
                 rectCol = getStyle("themeColor");
@@ -11897,10 +11932,9 @@ public class UIComponent extends FlexSprite
         catch (error:SecurityError)
         {
 
-        }
-
+        } 
     }
-
+    
     /**
      *  @private
      *  See the comments for addedHandler() above.
