@@ -21,6 +21,7 @@ import flash.events.Event;
 import mx.core.FlexShape;
 import mx.core.FlexSprite;
 import mx.styles.CSSStyleDeclaration;
+import mx.styles.IStyleManager2;
 import mx.styles.StyleManager;
 
 /**
@@ -50,12 +51,15 @@ public class BusyCursor extends FlexSprite
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public function BusyCursor()
+	public function BusyCursor(styleManager:IStyleManager2 = null)
 	{
 		super();
 		
+        if (!styleManager)
+            styleManager = StyleManager.getStyleManager(null);
+        
 		var cursorManagerStyleDeclaration:CSSStyleDeclaration =
-			StyleManager.getStyleDeclaration("mx.managers.CursorManager");
+			styleManager.getStyleDeclaration("mx.managers.CursorManager");
 		
 		var cursorClass:Class =
 			cursorManagerStyleDeclaration.getStyle("busyCursorBackground");
