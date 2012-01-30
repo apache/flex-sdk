@@ -43,7 +43,7 @@ internal class FrameworkClasses
 	import mx.collections.ModifiedCollectionView; ModifiedCollectionView;
 	import mx.containers.utilityClasses.FlexChildInfo; FlexChildInfo;
 	import mx.containers.utilityClasses.IConstraintLayout; IConstraintLayout;
-      import mx.containers.utilityClasses.PostScaleAdapter; PostScaleAdapter;
+    import mx.containers.utilityClasses.PostScaleAdapter; PostScaleAdapter;
 	import mx.controls.ButtonLabelPlacement; ButtonLabelPlacement;
 	import mx.controls.MovieClipSWFLoader; MovieClipSWFLoader;
 	import mx.controls.ProgressBarDirection; ProgressBarDirection;
@@ -145,6 +145,9 @@ internal class FrameworkClasses
 	import mx.styles.IStyleModule; IStyleModule;
 	import mx.styles.AdvancedStyleClient; AdvancedStyleClient;
 	import mx.utils.ArrayUtil; ArrayUtil;
+	import mx.utils.Base64Decoder; Base64Decoder;
+	import mx.utils.Base64Encoder; Base64Encoder;
+	import mx.utils.BitFlagUtil; BitFlagUtil;
 	import mx.utils.DescribeTypeCache; DescribeTypeCache;
 	import mx.utils.DescribeTypeCacheRecord; DescribeTypeCacheRecord;
 	import mx.utils.DisplayUtil; DisplayUtil;
@@ -152,12 +155,10 @@ internal class FrameworkClasses
     import mx.utils.HSBColor; HSBColor;
     import mx.utils.LinkedList; LinkedList;
 	import mx.utils.LinkedListNode; LinkedListNode;
-	import mx.utils.OrderedObject; OrderedObject;
-	import mx.utils.XMLUtil; XMLUtil;
-	import mx.utils.Base64Decoder; Base64Decoder;
-	import mx.utils.Base64Encoder; Base64Encoder;
-	import mx.utils.BitFlagUtil; BitFlagUtil;
 	import mx.utils.OnDemandEventDispatcher; OnDemandEventDispatcher;
+	import mx.utils.OrderedObject; OrderedObject;
+    import mx.utils.PopUpUtil; PopUpUtil;
+	import mx.utils.XMLUtil; XMLUtil;
 	import mx.validators.Validator; Validator;
 	// Maintain alphabetical order
 }
