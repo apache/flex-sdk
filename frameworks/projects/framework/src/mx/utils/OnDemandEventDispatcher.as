@@ -37,19 +37,24 @@ package mx.utils
     //--------------------------------------------------------------------------
         /**
          * Constructor.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
          */
         public function OnDemandEventDispatcher()
         {
         }
 
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
+        /**
+         *  @inheritDoc
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
+         */
         public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
         {
             if (_dispatcher == null)
@@ -60,14 +65,14 @@ package mx.utils
         }
         
             
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
+        /**
+         *  @inheritDoc
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
+         */
         public function dispatchEvent(event:Event):Boolean
         {
             if (_dispatcher != null)
@@ -75,14 +80,14 @@ package mx.utils
             return true; 
         }
     
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
+        /**
+         *  @inheritDoc
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
+         */
         public function hasEventListener(type:String):Boolean
         {
             if (_dispatcher != null)
@@ -90,28 +95,28 @@ package mx.utils
             return false; 
         }
             
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
+        /**
+         *  @inheritDoc
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
+         */
         public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
         {
             if (_dispatcher != null)
                 _dispatcher.removeEventListener(type,listener,useCapture);         
         }
     
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
+        /**
+         *  @inheritDoc
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
+         */
         public function willTrigger(type:String):Boolean
         {
             if (_dispatcher != null)
