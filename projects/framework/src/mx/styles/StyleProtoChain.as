@@ -81,7 +81,7 @@ public class StyleProtoChain
      */
     public static function getClassStyleDeclarations(object:IStyleClient):Array
     {
-        var qualified:Boolean = FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0 ? false : true;
+        var qualified:Boolean = StyleManager.qualifiedTypeSelectors;
         var className:String = qualified ? getQualifiedClassName(object) : object.className;
         var advancedObject:IAdvancedStyleClient = object as IAdvancedStyleClient;
 
@@ -751,7 +751,7 @@ public class StyleProtoChain
      */
     public static function matchesCSSType(object:IAdvancedStyleClient, cssType:String):Boolean
     {
-        var qualified:Boolean = FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0 ? false : true;
+        var qualified:Boolean = StyleManager.qualifiedTypeSelectors;
         var typeHierarchy:OrderedObject = getTypeHierarchy(object, qualified);
         return typeHierarchy[cssType] != null;
     }
