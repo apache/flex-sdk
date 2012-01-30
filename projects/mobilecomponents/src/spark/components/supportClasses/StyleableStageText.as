@@ -425,6 +425,13 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //--------------------------------------------------------------------------
     
     /**
+     *  Flag indicating a change has been made to the runtime StageText object 
+     *  that requires asynchronous processing before a bitmap may be captured
+     *  from it.
+     */
+    private var completeEventPending:Boolean = false;
+    
+    /**
      *  The runtime StageText object that this field uses for text display and
      *  editing. 
      */
@@ -1782,7 +1789,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     private function updateProxyImage():void
     {
-        if (stageText == null)
+        if (stageText == null || completeEventPending)
             return;
         
         if (textImage != null)
@@ -1877,7 +1884,14 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 globalRect.width = Math.ceil(Math.abs(globalBottomRight.x - globalTopLeft.x));
                 globalRect.height = Math.ceil(Math.abs(globalBottomRight.y - globalTopLeft.y));
                 
-                stageText.viewPort = globalRect;
+                if (stageText.viewPort != globalRect)
+                {
+                    if (stageText.viewPort.width != globalRect.width || stageText.viewPort.height != globalRect.height)
+                        completeEventPending = true;
+
+                    stageText.viewPort = globalRect;
+                }
+                
                 deferredViewPortUpdate = false;
             }
             else
@@ -2064,6 +2078,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (stageText != null)
         {
             stageText.addEventListener(Event.CHANGE, stageText_changeHandler);
+            stageText.addEventListener(Event.COMPLETE, stageText_completeHandler);
             stageText.addEventListener(FocusEvent.FOCUS_IN, stageText_focusInHandler);
             stageText.addEventListener(FocusEvent.FOCUS_OUT, stageText_focusOutHandler);
             stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, stageText_softKeyboardHandler);
@@ -2174,6 +2189,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             dispatchEvent(new TextOperationEvent(event.type));
     }
     
+    private function stageText_completeHandler(event:Event):void
+    {
+        completeEventPending = false;
+        updateProxyImage();
+    }
+    
     private function stageText_focusInHandler(event:FocusEvent):void
     {
         focusedStageText = stageText;
@@ -2239,33 +2260,44 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function stage_effectStartHandler(event:EffectEvent):void
     {
-        // An effect is starting, but the effect will only affect the StageText
-        // if its target is an ancestor of it.
-        if (eventTargetsAncestor(event))
+        // The first effect affecting the StageText that starts causes us
+        // to replace the StageText with a bitmap.
+        if (numEffectsRunning++ == 0)
         {
-            // The first effect affecting the StageText that starts causes us
-            // to replace the StageText with a bitmap.
-            if (numEffectsRunning++ == 0)
-                createProxyImage();
+            // Unlike other places where bitmap swapping is necessary (popups),
+            // effects may run immediately after a text component is created.
+            // So, we need to make sure anything that could affect the size or
+            // contents of the bitmap (viewPort and styles) are saved to the
+            // StageText before creating a new bitmap. Effects may play too
+            // quickly to rely on subsequent updates to correct the bitmap.
+            if (invalidateViewPortFlag)
+            {
+                // Update the viewport now so a subsequent "complete" event will
+                // allow us to get a bitmap of the correct size
+                updateViewPort();
+                invalidateViewPortFlag = false
+            }
+            
+            // Make sure any pending style changes get saved before replacing
+            // the StageText with a bitmap
+            commitStyles();
+            createProxyImage();
         }
     }
     
     private function stage_effectEndHandler(event:EffectEvent):void
     {
-        if (eventTargetsAncestor(event))
+        // The last effect affecting the StageText to end causes us to put
+        // the live StageText back and remove the bitmap.
+        // If alwaysShowProxyImage is set, don't dispose the image.
+        if (--numEffectsRunning == 0 && !alwaysShowProxyImage)
         {
-            // The last effect affecting the StageText to end causes us to put
-            // the live StageText back and remove the bitmap.
-            // If alwaysShowProxyImage is set, don't dispose the image.
-            if (--numEffectsRunning == 0 && !alwaysShowProxyImage)
-            {
-                // The effect may have played while a popup is open. If so, we
-                // need to make sure the proxy image stays.
-                if (awm)
-                    updateProxyImageForTopmostForm();
-                else
-                    disposeProxyImage();
-            }
+            // The effect may have played while a popup is open. If so, we
+            // need to make sure the proxy image stays.
+            if (awm)
+                updateProxyImageForTopmostForm();
+            else
+                disposeProxyImage();
         }
     }
     
@@ -2332,6 +2364,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         // visibility.
         stageText.visible = false;
         stageText.stage = stage;
+        // Setting stageText.stage requires a complete event for bitmap swapping
+        completeEventPending = true;
         
         stageText.stage.addEventListener(EffectEvent.EFFECT_START, stage_effectStartHandler, true, 0, true);
         stageText.stage.addEventListener(EffectEvent.EFFECT_END, stage_effectEndHandler, true, 0, true);
@@ -2413,6 +2447,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         stageText.stage = null;
         
         stageText.removeEventListener(Event.CHANGE, stageText_changeHandler);
+        stageText.removeEventListener(Event.COMPLETE, stageText_completeHandler);
         stageText.removeEventListener(FocusEvent.FOCUS_IN, stageText_focusInHandler);
         stageText.removeEventListener(FocusEvent.FOCUS_OUT, stageText_focusOutHandler);
         stageText.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, stageText_softKeyboardHandler);
