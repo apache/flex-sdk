@@ -38,12 +38,12 @@ package mx.core
  *  <p>or</p>
  *
  *  <pre>
- *  &lt;mx:Style&gt;
- *      Application
- *      {
+ *  &lt;fx:Style&gt;
+ *      &#64;namespace mx "library://ns.adobe.com/flex/mx"
+ *      mx|Application {
  *          backgroundImage: Embed(source="Assets.swf", symbol="BackgroundAnimation")
  *      }
- *  &lt;mx:Style/&gt;</pre>
+ *  &lt;fx:Style/&gt;</pre>
  *
  *  <p>without having to understand that the MXML compiler has created
  *  a subclass of MovieClipAsset for you.</p>
