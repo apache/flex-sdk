@@ -27,6 +27,7 @@ import mx.effects.IEffect;
 import mx.effects.Parallel;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
+import mx.geom.TransformOffsets;
 
 import spark.components.ActionBar;
 import spark.components.Group;
@@ -36,6 +37,7 @@ import spark.components.ViewNavigator;
 import spark.components.supportClasses.ButtonBarBase;
 import spark.components.supportClasses.ViewNavigatorBase;
 import spark.effects.Animate;
+import spark.effects.Fade;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.effects.easing.IEaser;
@@ -819,10 +821,12 @@ public class ViewTransitionBase extends EventDispatcher
      */
     protected function createActionBarEffect():IEffect
     {
+        var transformOffsets:TransformOffsets;
         var slideDistance:Number;
         var animatedProperty:String;
         
         var actionBarSkin:UIComponent = actionBar.skin;
+        var slideTargets:Array = new Array();
         var fadeOutTargets:Array = new Array();
         var fadeInTargets:Array = new Array();
         
@@ -834,12 +838,12 @@ public class ViewTransitionBase extends EventDispatcher
         transitionGroup = new Group();
         transitionGroup.autoLayout = false;
         transitionGroup.includeInLayout = false;
-        addComponentToContainer(transitionGroup, actionBarSkin);
         transitionGroup.width = actionBar.width;
         transitionGroup.height = actionBar.height;
+        addComponentToContainer(transitionGroup, actionBarSkin);
         
         // Construct our parallel effect.
-        var effect:Parallel = new Parallel();
+        var actionBarEffect:Parallel = new Parallel();
         
         // Calculate the slide distance based on direction.
         switch (actionBarTransitionDirection)
@@ -884,12 +888,19 @@ public class ViewTransitionBase extends EventDispatcher
             
             if (titleComponent)
             {
+                // Initialize the transformation offests
+                transformOffsets = new TransformOffsets();
+                transformOffsets[animatedProperty] = slideDistance;
+                slideTargets.push(transformOffsets);
+                
                 // Initialize titleGroup
                 titleComponent.cacheAsBitmap = true;
                 titleComponent.alpha = 0;
-                titleComponent[animatedProperty] += slideDistance;
+                titleComponent.postLayoutTransformOffsets = transformOffsets;
                 fadeInTargets.push(titleComponent);
                 
+                // We reparent the titleComponent into the transition group so
+                // that the items are properly clipped when animating vertically
                 if (verticalTransition)
                     transitionGroup.addElementAt(titleComponent, 0);
             }
@@ -916,89 +927,118 @@ public class ViewTransitionBase extends EventDispatcher
         {
             if (endView.navigationContent)
             {
-                actionBar.navigationGroup[animatedProperty] += slideDistance;
+                // Initialize the transformation offests
+                transformOffsets = new TransformOffsets();
+                transformOffsets[animatedProperty] = slideDistance;
+                slideTargets.push(transformOffsets);
+                
+                actionBar.navigationGroup.postLayoutTransformOffsets = transformOffsets;
                 actionBar.navigationGroup.cacheAsBitmap = true;
                 actionBar.navigationGroup.alpha = 0;
                 fadeInTargets.push(actionBar.navigationGroup);
+                
+                // We reparent the titleComponent into the transition group so
+                // that the items are properly clipped when animating vertically
                 if (verticalTransition)
                     transitionGroup.addElementAt(actionBar.navigationGroup, 0);
             }
             
             if (endView.actionContent)
             {
-                actionBar.actionGroup[animatedProperty] += slideDistance;
+                // Initialize the transformation offests
+                transformOffsets = new TransformOffsets();
+                transformOffsets[animatedProperty] = slideDistance;
+                slideTargets.push(transformOffsets);
+                
+                actionBar.actionGroup.postLayoutTransformOffsets = transformOffsets;
                 actionBar.actionGroup.cacheAsBitmap = true;
                 actionBar.actionGroup.alpha = 0;
                 fadeInTargets.push(actionBar.actionGroup);
+                
+                // We reparent the titleComponent into the transition group so
+                // that the items are properly clipped when animating vertically
                 if (verticalTransition)
                     transitionGroup.addElementAt(actionBar.actionGroup, 0);
             }
         }
         
+        // Add transform offsets to slide target array
+        
         // Ensure bitmaps are rendered prior to invocation of our effect.
         transitionGroup.validateNow();
         
-        // Setup fade out targets.
-        if (!verticalTransition && cachedNavigationGroup)
-            fadeOutTargets.push(cachedNavigationGroup.displayObject);
         
-        if (!verticalTransition && cachedActionGroup)
-            fadeOutTargets.push(cachedActionGroup.displayObject);
-        
-        // if there are no targets don't create an effect; just return null
-        if (fadeOutTargets.length == 0 && fadeInTargets.length == 0)
-            return null;
-        
-        // Fade out action and navigation content
-        var fadeOut:Animate = new Animate();
-        vector = new Vector.<MotionPath>();
-        vector.push(new SimpleMotionPath("alpha", 1, 0));
-        fadeOut.motionPaths = vector;
-        fadeOut.targets = fadeOutTargets;
-        fadeOut.duration = duration * .7;
-        
-        // Fade out and slide old select content
-        var animation:Animate = new Animate();
-        var vector:Vector.<MotionPath> = new Vector.<MotionPath>();
-        vector.push(new SimpleMotionPath("alpha", 1, 0));
-        vector.push(new SimpleMotionPath(animatedProperty, null, null, -slideDistance));
-        animation.motionPaths = vector;
-        animation.easer = new spark.effects.easing.Sine(.7);
-        
-        // Setup simultaneous fade out and slide targets.
-        var fadeOutSlideTargets:Array = new Array();
-        
+        // Setup fade out targets
         if (cachedTitleGroup)
-            fadeOutSlideTargets.push(cachedTitleGroup.displayObject);
-        
-        if (cachedActionGroup && verticalTransition)
-            fadeOutSlideTargets.push(cachedActionGroup.displayObject);
-        
-        if (cachedNavigationGroup && verticalTransition)
-            fadeOutSlideTargets.push(cachedNavigationGroup.displayObject);
-        
-        if (fadeOutSlideTargets.length)
         {
-            animation.targets = fadeOutSlideTargets;
-            animation.duration = duration;
-            effect.addChild(animation);
+            // Initialize the transformation offests
+            transformOffsets = new TransformOffsets();
+            slideTargets.push(transformOffsets);
+            
+            cachedTitleGroup.postLayoutTransformOffsets = transformOffsets;
+            fadeOutTargets.push(cachedTitleGroup.displayObject);
         }
         
-        // Construct animation for our fade in and slide elements.
-        var fadeAndSlide:Animate = new Animate();
-        vector = new Vector.<MotionPath>();
-        vector.push(new SimpleMotionPath("alpha", 0, 1));
-        vector.push(new SimpleMotionPath(animatedProperty, null, null, -slideDistance));
-        fadeAndSlide.motionPaths = vector;
-        fadeAndSlide.easer = new spark.effects.easing.Sine(.7);
-        fadeAndSlide.targets = fadeInTargets;
-        fadeAndSlide.duration = duration;
+        if (cachedNavigationGroup)
+        {
+            // Initialize the transformation offests
+            transformOffsets = new TransformOffsets();
+            slideTargets.push(transformOffsets);
+            
+            cachedNavigationGroup.postLayoutTransformOffsets = transformOffsets;
+            fadeOutTargets.push(cachedNavigationGroup.displayObject);
+        }
         
-        // Add effects to the parallel effect
-        effect.addChild(fadeOut);
-        effect.addChild(fadeAndSlide);
-                
-        return effect;
+        if (cachedActionGroup)
+        {
+            // Initialize the transformation offests
+            transformOffsets = new TransformOffsets();
+            slideTargets.push(transformOffsets);
+            
+            cachedActionGroup.postLayoutTransformOffsets = transformOffsets;
+            fadeOutTargets.push(cachedActionGroup.displayObject);
+        }
+        
+        // If no fade effects we aren't animating anything so return null
+        if (fadeInTargets.length == 0 && fadeOutTargets.length == 0)
+            return null;
+        
+        // Create fade in effect
+        if (fadeInTargets.length > 0)
+        {
+            var fadeInEffect:Fade = new Fade();
+            fadeInEffect.targets = fadeInTargets;
+            fadeInEffect.duration = duration;
+            fadeInEffect.alphaFrom = 0;
+            fadeInEffect.alphaTo = 1;
+            actionBarEffect.addChild(fadeInEffect);
+        }
+
+        // Create fade out effect
+        if (fadeOutTargets.length > 0)
+        {
+            var fadeOutEffect:Fade = new Fade();
+            fadeOutEffect.targets = fadeOutTargets;
+            fadeOutEffect.duration = duration;
+            fadeOutEffect.alphaFrom = 1;
+            fadeOutEffect.alphaTo = 0;
+            actionBarEffect.addChild(fadeOutEffect);
+        }        
+        
+        // Create slide in effect
+        var vector:Vector.<MotionPath> = new Vector.<MotionPath>();
+        vector.push(new SimpleMotionPath(animatedProperty, null, null, -slideDistance));
+        
+        var moveEffect:Animate = new Animate();
+        moveEffect.targets = slideTargets;
+        moveEffect.motionPaths = vector;
+        moveEffect.easer = new spark.effects.easing.Sine(.7);
+        moveEffect.duration = duration;
+        moveEffect.addEventListener(EffectEvent.EFFECT_UPDATE, actionBarMoveEffect_effectUpdateHandler);
+        moveEffect.addEventListener(EffectEvent.EFFECT_END, actionBarMoveEffect_effectEndedHandler);
+        actionBarEffect.addChild(moveEffect);
+        
+        return actionBarEffect;
     }
     
     /**
@@ -1100,62 +1140,66 @@ public class ViewTransitionBase extends EventDispatcher
                 transitionGroup.removeElement(cachedActionGroup);
                 actionBar.actionGroup.cacheAsBitmap = false;
             }
-            
-            // Restore title group and title content to their original state.
-            if (actionBar && actionBar.titleGroup && actionBar.titleGroup.visible)
-                actionBar.titleGroup.cacheAsBitmap = false;
-            
-            if (actionBar && actionBar.titleDisplay
-                && (actionBar.titleDisplay is DisplayObject)
-                && DisplayObject(actionBar.titleDisplay).visible)
-            {
-                DisplayObject(actionBar.titleDisplay).cacheAsBitmap = false;
-            }
-            
-            // Restore title group and title content to their original home.
-            if (actionBar && verticalTransition)
-            {
-                var titleComponent:UIComponent = actionBar.titleGroup;
-                if (!titleComponent || !titleComponent.visible)
-                    titleComponent = actionBar.titleDisplay as UIComponent;
-                
-                if (titleComponent)
-                {
-                    transitionGroup.removeElement(titleComponent);
-                    addComponentToContainer(titleComponent, actionBar.skin);
-                }
-            }
-            
-            // Restore navigation group to their proper home.
-            if (endView.navigationContent && actionBar && verticalTransition)
-            {
-                transitionGroup.removeElement(actionBar.navigationGroup);
-                if (actionBar.titleDisplay)
-                {
-                    var childIndex:uint = actionBar.skin.getChildIndex(actionBar.titleDisplay as DisplayObject);
-                    addComponentToContainerAt(actionBar.navigationGroup, actionBar.skin, childIndex);
-                }
-                else
-                    addComponentToContainer(actionBar.navigationGroup, actionBar.skin);
-            }
-            
-            // Restore action group to their proper home.
-            if (endView.actionContent && actionBar && verticalTransition)
-            {
-                transitionGroup.removeElement(actionBar.actionGroup);
-                if (actionBar.titleDisplay)
-                {
-                    childIndex = actionBar.skin.getChildIndex(actionBar.titleDisplay as DisplayObject);
-                    addComponentToContainerAt(actionBar.actionGroup, actionBar.skin, childIndex);
-                }
-                else
-                    addComponentToContainer(actionBar.actionGroup, actionBar.skin);
-            }
-            
-            removeComponentFromContainer(transitionGroup, actionBar.skin);
-            
+           
             if (actionBar)
             {
+                // Restore title group and title content to their original state.
+                if (actionBar.titleGroup && actionBar.titleGroup.visible)
+                {
+                    actionBar.titleGroup.postLayoutTransformOffsets = null;
+                    actionBar.titleGroup.cacheAsBitmap = false;
+                }
+                
+                if (actionBar.titleDisplay 
+                    && (actionBar.titleDisplay is DisplayObject)
+                    && DisplayObject(actionBar.titleDisplay).visible)
+                {
+                    (actionBar.titleDisplay as UIComponent).postLayoutTransformOffsets = null;
+                    DisplayObject(actionBar.titleDisplay).cacheAsBitmap = false;
+                }
+                
+                // Restore title group and title content to their original home.
+                if (verticalTransition)
+                {
+                    var titleComponent:UIComponent = actionBar.titleGroup;
+                    if (!titleComponent || !titleComponent.visible)
+                        titleComponent = actionBar.titleDisplay as UIComponent;
+                    
+                    if (titleComponent)
+                    {
+                        transitionGroup.removeElement(titleComponent);
+                        addComponentToContainer(titleComponent, actionBar.skin);
+                    }
+                }
+                
+                // Restore navigation group to their proper home.
+                if (endView.navigationContent && verticalTransition)
+                {
+                    transitionGroup.removeElement(actionBar.navigationGroup);
+                    if (actionBar.titleDisplay)
+                    {
+                        var childIndex:uint = actionBar.skin.getChildIndex(actionBar.titleDisplay as DisplayObject);
+                        addComponentToContainerAt(actionBar.navigationGroup, actionBar.skin, childIndex);
+                    }
+                    else
+                        addComponentToContainer(actionBar.navigationGroup, actionBar.skin);
+                }
+                
+                // Restore action group to their proper home.
+                if (endView.actionContent && verticalTransition)
+                {
+                    transitionGroup.removeElement(actionBar.actionGroup);
+                    if (actionBar.titleDisplay)
+                    {
+                        childIndex = actionBar.skin.getChildIndex(actionBar.titleDisplay as DisplayObject);
+                        addComponentToContainerAt(actionBar.actionGroup, actionBar.skin, childIndex);
+                    }
+                    else
+                        addComponentToContainer(actionBar.actionGroup, actionBar.skin);
+                }
+                
+                removeComponentFromContainer(transitionGroup, actionBar.skin);
+                
                 actionBar.skin.scrollRect = null;
                 
                 // Force actionBar to update content group positions after
@@ -1170,6 +1214,12 @@ public class ViewTransitionBase extends EventDispatcher
                 {
                     actionBar.skin.invalidateDisplayList();
                 }
+                
+                if (actionBar.actionGroup)
+                    actionBar.actionGroup.postLayoutTransformOffsets = null;
+                
+                if (actionBar.navigationGroup)
+                    actionBar.navigationGroup.postLayoutTransformOffsets = null;
             }
             
             verticalTransition = false;
@@ -1341,6 +1391,45 @@ public class ViewTransitionBase extends EventDispatcher
     //  Private Methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Remove listeners
+     */ 
+    private function actionBarMoveEffect_effectEndedHandler(event:EffectEvent):void
+    {
+        event.target.removeEventListener(EffectEvent.EFFECT_UPDATE, actionBarMoveEffect_effectUpdateHandler);
+        event.target.removeEventListener(EffectEvent.EFFECT_END, actionBarMoveEffect_effectEndedHandler);
+    }
+    
+    /**
+     *  @private
+     *  Since layout is disabled, we need to force validation on all of the
+     *  participating display objects.
+     */
+    private function actionBarMoveEffect_effectUpdateHandler(event:EffectEvent):void
+    {
+        if (actionBar.actionGroup)
+            actionBar.actionGroup.validateDisplayList();
+        
+        if (actionBar.navigationGroup)
+            actionBar.navigationGroup.validateDisplayList();
+        
+        if (actionBar.titleDisplay)
+            (actionBar.titleDisplay as UIComponent).validateDisplayList();
+        
+        if (actionBar.titleGroup)
+            actionBar.titleGroup.validateDisplayList();
+        
+        if (cachedTitleGroup)
+            cachedTitleGroup.validateDisplayList();
+        
+        if (cachedNavigationGroup)
+            cachedNavigationGroup.validateDisplayList();
+        
+        if (cachedActionGroup)
+            cachedActionGroup.validateDisplayList();
+    }
     
     /**
      * @private
