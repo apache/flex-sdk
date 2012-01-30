@@ -45,14 +45,8 @@ package mx.events
 		 * @param useWeakReference, as in addEventListener.
 		 * @param useStage true if a stage listener listener should be added
 		 *        if this request is sent to a top-level system manager.
-		 * @param requestor the bridge of the original requestor of the listener.
-		 * 		  Events should be sent to this bridge.
+		 * @param requestor the bridge of the application who sent this request.
 		 * @param data optional parameter, not used
-		 * @param currentRequestor the bridge that passed this request to the
-		 *        requestee. This differs from requestor when an event is 
-		 * 	      broadcast. The currentRequestor does not expect to receive
-		 * 		  any events from the request, it is just acting as a relay to
-		 *        broadcast the event.
 		 */ 
 		public function EventListenerRequest(requestType:String,
 									userType:String,
