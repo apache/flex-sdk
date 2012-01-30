@@ -52,6 +52,12 @@ use namespace mx_internal;
  */
 [SkinState("landscape")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[IconFile("SplitViewNavigator.png")]
+
 /**
  *  SplitViewNavigator is a component responsible for displaying multiple
  *  ViewNavigators at the same time in a single container.  SplitViewNavigator
@@ -122,7 +128,9 @@ public class SplitViewNavigator extends ViewNavigatorBase
     [SkinPart(required="false")]
     /**
      *  The Callout used to display a navigator when 
-     *  <code>showFirstViewNavigatorInCallout()</code> is called.
+     *  <code>showFirstViewNavigatorInCallout()</code> is called.  When creating
+     *  a custom MXML skin, this component should not be on the display list, but
+     *  instead declared inside a <code>fx:Declarations</code> tag. 
      */
     public var viewNavigatorCallout:Callout;
     
