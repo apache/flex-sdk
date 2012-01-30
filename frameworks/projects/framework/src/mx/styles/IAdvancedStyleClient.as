@@ -57,13 +57,23 @@ public interface IAdvancedStyleClient extends IStyleClient
      */ 
     function get styleParent():IAdvancedStyleClient;
 
-
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
-
+    
+	/**
+	 *  Flex calls the <code>stylesInitialized()</code> method when
+	 *  the styles for a component are first initialized.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	function stylesInitialized():void
+		
     /**
      *  The current state of this component used to match CSS pseudo-selectors.
      *  If no state exists, returns null.
@@ -88,7 +98,6 @@ public interface IAdvancedStyleClient extends IStyleClient
      *  @productversion Flex 3
      */ 
     function matchesCSSType(cssType:String):Boolean;
-
 }
 
 }
