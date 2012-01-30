@@ -18,7 +18,6 @@ import spark.components.Group;
 import spark.components.TabbedViewNavigator;
 import spark.components.supportClasses.ButtonBarBase;
 import spark.skins.mobile.supportClasses.MobileSkin;
-import spark.skins.spark.ButtonBarSkin;
 
 public class TabbedViewNavigatorSkin extends MobileSkin
 {
@@ -30,13 +29,6 @@ public class TabbedViewNavigatorSkin extends MobileSkin
     public function TabbedViewNavigatorSkin()
     {
         super();
-        
-        states = [
-            new State({name:"portrait"}),
-            new State({name:"portraitAndOverlay"}),
-            new State({name:"landscape"}),
-            new State({name:"landscapeAndOverlay"})
-        ];
     }
     
     //--------------------------------------------------------------------------
@@ -67,27 +59,22 @@ public class TabbedViewNavigatorSkin extends MobileSkin
         tabBar = new ButtonBar();
         tabBar.id = "tabBar";
         tabBar.requireSelection = true;
-        tabBar.setStyle("skinClass", ButtonBarSkin);
+        tabBar.setStyle("skinClass", TabbedViewNavigatorButtonBarSkin);
         tabBar.height = 80;
             
         addChild(contentGroup);
         addChild(tabBar);
     }
     
-    /**
-     *  @private
-     */
-    override public function set currentState(value:String):void
+    override protected function commitCurrentState():void
     {
-        if (super.currentState != value)
-        {
-            super.currentState = value;
-            
-            // Force a layout pass on the components
-            invalidateSize();
-            invalidateDisplayList();
-        }
+        super.commitCurrentState();
+        
+        // Force a layout pass on the components
+        invalidateSize();
+        invalidateDisplayList();
     }
+    
     
     /**
      *  @private
