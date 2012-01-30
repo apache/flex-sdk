@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components.windowClasses
+package spark.components
 {
 
 import flash.desktop.DockIcon;
@@ -36,27 +36,27 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.system.Capabilities;
 
-import spark.components.Application;
-import mx.controls.Button;
-import spark.components.Group;
 import mx.controls.Alert;
-import mx.controls.Button;
 import mx.controls.FlexNativeMenu;
 import mx.controls.HTML;
 import mx.core.IWindow;
+import mx.core.mx_internal;
 import mx.core.Window;
-import spark.components.windowClasses.TitleBar;
 import mx.core.windowClasses.StatusBar;
 import mx.events.AIREvent;
 import mx.events.FlexEvent;
 import mx.events.FlexNativeWindowBoundsEvent;
-import spark.primitives.SimpleText;
 import mx.managers.DragManager;
 import mx.managers.NativeDragManagerImpl;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 import mx.styles.StyleProxy;
-import mx.core.mx_internal;
+
+import spark.components.Application;
+import spark.components.Button;
+import spark.components.Group;
+import spark.primitives.SimpleText;
+import spark.components.windowClasses.TitleBar;
 
 use namespace mx_internal;
 
@@ -375,7 +375,7 @@ use namespace mx_internal;
  */
 public class WindowedApplication extends Application implements IWindow
 {
-    include "../../../mx/core/Version.as";
+    include "../../mx/core/Version.as";
 
     //--------------------------------------------------------------------------
     //
