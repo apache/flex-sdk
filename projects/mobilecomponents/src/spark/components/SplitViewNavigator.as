@@ -422,7 +422,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
         // to a correct state.
         ViewTransitionBase.endTransitions();
         
-        // Cleanup handled by navigatorPopUp_closeHandler
+        // Cleanup handled by viewNavigatorPopUp_closeHandler
         viewNavigatorPopUp.close(true);
     }
     
@@ -465,7 +465,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
             _popUpNavigator.percentHeight = 100;
         
         viewNavigatorPopUp.addEventListener(PopUpEvent.OPEN, viewNavigatorPopUp_openHandler);
-        viewNavigatorPopUp.addEventListener(PopUpEvent.CLOSE, navigatorPopUp_closeHandler);
+        viewNavigatorPopUp.addEventListener(PopUpEvent.CLOSE, viewNavigatorPopUp_closeHandler);
         viewNavigatorPopUp.addEventListener('mouseDownOutside', navigatorPopUp_mouseDownOutsideHandler, false, 0, true);
         viewNavigatorPopUp.addElement(_popUpNavigator);
         
@@ -483,6 +483,11 @@ public class SplitViewNavigator extends ViewNavigatorBase
     {
         event.target.removeEventListener(PopUpEvent.OPEN, viewNavigatorPopUp_openHandler);
         
+        // Since an open transition may have the disableLayout property set to true,
+        // the popup size may not be valid yet.  Force a validation to ensure that the
+        // component is properly laid out.
+        viewNavigatorPopUp.validateNow();
+
         _popUpNavigatorSizeCache.viewNavigatorPopUpWidth = viewNavigatorPopUp.explicitWidth;
         _popUpNavigatorSizeCache.viewNavigatorPopUpHeight = viewNavigatorPopUp.explicitHeight;
         
@@ -499,9 +504,9 @@ public class SplitViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */ 
-    private function navigatorPopUp_closeHandler(event:PopUpEvent):void
+    private function viewNavigatorPopUp_closeHandler(event:PopUpEvent):void
     {
-        viewNavigatorPopUp.removeEventListener(PopUpEvent.CLOSE, navigatorPopUp_closeHandler);
+        viewNavigatorPopUp.removeEventListener(PopUpEvent.CLOSE, viewNavigatorPopUp_closeHandler);
         viewNavigatorPopUp.removeEventListener('mouseDownOutside', navigatorPopUp_mouseDownOutsideHandler);
         
         if (_popUpNavigator)
