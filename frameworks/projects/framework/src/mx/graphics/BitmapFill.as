@@ -32,6 +32,11 @@ import mx.events.PropertyChangeEvent;
  *  @see flash.display.Bitmap
  *  @see flash.display.BitmapData
  *  @see flash.display.DisplayObject
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class BitmapFill extends EventDispatcher implements IFill
 {
@@ -45,6 +50,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 
  	/**
 	 *  Constructor.
+ 	 *  
+ 	 *  @langversion 3.0
+ 	 *  @playerversion Flash 9
+ 	 *  @playerversion AIR 1.1
+ 	 *  @productversion Flex 3
  	 */
 	public function BitmapFill()
  	{
@@ -81,6 +91,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  Scaling and rotation of the bitmap are performed around this point.
 	 *
 	 *  @default 0 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get originX():Number
 	{
@@ -108,6 +123,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  Scaling and rotation of the bitmap are performed around this point.
 	 *
 	 *  @default 0 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get originY():Number
 	{
@@ -133,6 +153,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  This adjustment is performed after rotation and scaling.
 	 *
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get offsetX():Number
 	{
@@ -158,6 +183,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  This adjustment is performed after rotation and scaling.
 	 *
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get offsetY():Number
 	{
@@ -186,6 +216,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  Set to <code>false</code> to end the fill at the edge of the region.
 	 *
 	 *  @default true
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get repeat():Boolean
 	{
@@ -216,6 +251,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  Valid values range from 0.0 to 360.0.
 	 *  
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get rotation():Number
 	{
@@ -247,6 +287,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  If 1.0, the bitmap is filled at its natural size.
 	 *
 	 *  @default 1.0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get scaleX():Number
 	{
@@ -278,6 +323,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  If 1.0, the bitmap is filled at its natural size.
 	 *
 	 *  @default 1.0 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get scaleY():Number
 	{
@@ -319,6 +369,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  </ul>
 	 *
 	 *  @default null
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get source():Object 
 	{
@@ -394,6 +449,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 *  when filling with it.
 	 *
 	 *  @default false
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get smooth():Boolean
 	{
@@ -420,6 +480,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 
     /**
      *  The x position transform point of the fill.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get transformX():Number
     {
@@ -449,6 +514,11 @@ public class BitmapFill extends EventDispatcher implements IFill
 
     /**
      *  The y position transform point of the fill.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get transformY():Number
     {
@@ -480,6 +550,11 @@ public class BitmapFill extends EventDispatcher implements IFill
     
     /**
      *  The distance by which to translate each point along the x axis.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get x():Number
     {
@@ -510,6 +585,11 @@ public class BitmapFill extends EventDispatcher implements IFill
     
      /**
      *  The distance by which to translate each point along the y axis.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get y():Number
     {
