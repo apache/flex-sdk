@@ -16,9 +16,8 @@ import flash.events.IEventDispatcher;
 import mx.geom.TransformOffsets;
 
 /**
- *  The IVisualElement interface represents the common methods and properties between UIComponents and
- *  GraphicElements and the minimum properties/methods required for a visual element to be 
- *  laid out and displayed in a Spark application.
+ *  The IVisualElement interface defines the minimum properties and methods 
+ *  required for a visual element to be laid out and displayed in a Spark container.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -29,9 +28,10 @@ public interface IVisualElement extends ILayoutElement
 {
 
     /**
-     *  The owner of this IVisualElement. By default, it is the parent of this IVisualElement.
+     *  The owner of this IVisualElement object. 
+     *  By default, it is the parent of this IVisualElement object.
      *  However, if this IVisualElement object is a child component that is
-     *  popped up by its parent, such as the dropdown list of a ComboBox control,
+     *  popped up by its parent, such as the drop-down list of a ComboBox control,
      *  the owner is the component that popped up this IVisualElement object.
      *
      *  <p>This property is not managed by Flex, but by each component.
@@ -56,10 +56,10 @@ public interface IVisualElement extends ILayoutElement
     
     /**
      *  The parent container or component for this component.
-     *  Only visual elements should have a parent property.
+     *  Only visual elements should have a <code>parent</code> property.
      *  Non-visual items should use another property to reference
      *  the object to which they belong.
-     *  By convention, non-visual item objects use an <code>owner</code>
+     *  By convention, non-visual objects use an <code>owner</code>
      *  property to reference the object to which they belong.
      *  
      *  @langversion 3.0
@@ -69,12 +69,14 @@ public interface IVisualElement extends ILayoutElement
      */
     function get parent():DisplayObjectContainer;
     
-	/**
-     *  Determines the order in which items inside of groups and datagroups 
-     *  are rendered. Groups and DataGroups order their items based on their 
-     *  depth property, with the lowest depth in the back, and the higher in 
-     *  the front.  items with the same depth value will appear in the order
-     *  they are added to the Groups item list.
+    /**
+     *  Determines the order in which items inside of containers
+     *  are rendered. 
+     *  Spark containers order their items based on their 
+     *  <code>depth</code> property, with the lowest depth in the back, 
+     *  and the higher in the front.  
+     *  Items with the same depth value appear in the order
+     *  they are added to the container.
      * 
      *  @default 0
      *
@@ -91,19 +93,19 @@ public interface IVisualElement extends ILayoutElement
     function get depth():Number;
 
     /**
-     *  Controls the visibility of this visual element. If <code>true</code>,
-     *  the object is visible.
+     *  Controls the visibility of this visual element. 
+     *  If <code>true</code>, the object is visible.
      * 
-     *  <p>If an object is not visible, but <code>includeInLayout</code> is set 
-     *  to <code>true</code>, then the object still takes up space as far 
-     *  as layout is concerned.</p>
+     *  <p>If an object is not visible, but the <code>includeInLayout</code> 
+     *  property is set to <code>true</code>, then the object 
+     *  takes up space in the container, but is invisible.</p>
      * 
      *  <p>If <code>visible</code> is set to <code>true</code>, the object may not
-     *  necessarily be visible due to its size and whether clipping is turned on 
-     *  or not.</p>
+     *  necessarily be visible due to its size and whether container clipping 
+     *  is enabled.</p>
      * 
-     *  <p>Setting <code>visible</code> to <code>false</code>, should 
-     *  disallow the component from getting focus.</p>
+     *  <p>Setting <code>visible</code> to <code>false</code>, 
+     *  prevents the component from getting focus.</p>
      * 
      *  @default true
      *  @see ILayoutElement#includeInLayout
