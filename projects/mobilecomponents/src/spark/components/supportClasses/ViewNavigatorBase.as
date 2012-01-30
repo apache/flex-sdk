@@ -11,12 +11,16 @@
 
 package spark.components.supportClasses
 {
+import flash.display.StageOrientation;
+import flash.events.StageOrientationEvent;
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
 
+import mx.core.FlexGlobals;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
+import mx.managers.SystemManager;
 
 import spark.components.SkinnableContainer;
 import spark.components.View;
@@ -138,14 +142,13 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  This method determines if a device's default back key handler can
      *  be canceled.  For example, by default, when the back key is pressed
      *  on android devices, the application exits.  By returning true, that
-     *  action will be canceled and the navigator's backKeyHandler() method
-     *  is called.
+     *  action will be canceled and the navigator's default back key behavior
+     *  will run.
      * 
      *  <p>This method is only called if the navigator is the main navigator
      *  of a MobileApplication class</p>.
      * 
-     *  @return Flag indicating the default behavior can be canceled.  By
-     *  default, this method returns false.
+     *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -270,41 +273,6 @@ public class ViewNavigatorBase extends SkinnableContainer
                 
                 dispatchEvent(changeEvent);
             }
-        }
-    }
-    
-    //----------------------------------
-    //  landscapeOrientation
-    //----------------------------------
-    
-    private var _landscapeOrientation:Boolean = false;
-    
-    /**
-     *  Indicates whether the navigator should be in portrait or landscape
-     *  orientation.  When this property changes, the navigator attempts
-     *  to change it's skin state to match.
-     * 
-     *  @default true
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get landscapeOrientation():Boolean
-    {
-        return _landscapeOrientation;
-    }
-    
-    public function set landscapeOrientation(value:Boolean):void
-    {
-        if (value != _landscapeOrientation)
-        {
-            _landscapeOrientation = value;
-            invalidateSkinState();
-            
-            if (skin)
-                skin.invalidateDisplayList();
         }
     }
     
@@ -469,50 +437,6 @@ public class ViewNavigatorBase extends SkinnableContainer
     //--------------------------------------------------------------------------
     
     /**
-     *  If the navigator is the main navigator of the MobileApplication or
-     *  class, this method is called when the back device key is pressed.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    mx_internal function backKeyHandler():void
-    {
-    }
-    
-    /**
-     *  @private
-     *  This method checks if the current view can be removed
-     *  from the display list. This is mx_internal because the
-     *  TabbedViewNavigator needs to call it on its children.
-     * 
-     *  @return Returns true if the screen can be removed
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    mx_internal function canRemoveCurrentView():Boolean
-    {
-    	// This is a method instead of a property because the default
-    	// implementation in ViewNavigator has a side effect
-        return true;
-    }
-    
-    /**
-     *  @private
-     *  Creates the top view of the navigator and adds it to the
-     *  display list.  This method is used when the navigator exists
-     *  inside a TabbedViewNavigator.
-     */ 
-    mx_internal function createTopView():void
-    {
-        // Override in sub class
-    }
-    
-    /**
      *  @private
      *  
      *  @langversion 3.0
@@ -522,7 +446,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      */
     override protected function getCurrentSkinState():String
     {
-        var finalState:String = _landscapeOrientation ? "landscape" : "portrait";
+        var finalState:String = FlexGlobals.topLevelApplication.aspectRatio;
     
         if (_overlayControls)
             finalState += "AndOverlay";
@@ -582,6 +506,82 @@ public class ViewNavigatorBase extends SkinnableContainer
      */
     public function updatePropertiesForView(view:View):void
     {
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Private methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  If the navigator is the main navigator of the MobileApplication or
+     *  class, this method is called when the back device key is pressed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    mx_internal function backKeyHandler():void
+    {
+    }
+    
+    /**
+     *  @private
+     *  This method checks if the current view can be removed
+     *  from the display list. This is mx_internal because the
+     *  TabbedViewNavigator needs to call it on its children.
+     * 
+     *  @return Returns true if the screen can be removed
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    mx_internal function canRemoveCurrentView():Boolean
+    {
+        // This is a method instead of a property because the default
+        // implementation in ViewNavigator has a side effect
+        return true;
+    }
+    
+    /**
+     *  @private
+     *  Creates the top view of the navigator and adds it to the
+     *  display list.  This method is used when the navigator exists
+     *  inside a TabbedViewNavigator.
+     */ 
+    mx_internal function createTopView():void
+    {
+        // Override in sub class
+    }
+
+    /**
+     *  @private
+     */
+    mx_internal function stage_orientationChangeHandler(event:StageOrientationEvent):void
+    {
+        invalidateSkinState();
+
+        // FIXME (chiedozi): Try to figure out why we need this, file a bug
+        if (skin)
+            skin.invalidateDisplayList();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    override public function initialize():void
+    {
+        super.initialize();
+        
+        systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
+            stage_orientationChangeHandler);
     }
 }
 }
