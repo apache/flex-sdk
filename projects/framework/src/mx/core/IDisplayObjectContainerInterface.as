@@ -1,19 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
-//
-//  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2007 Adobe Systems Incorporated
-//  All Rights Reserved.
-//
-//  NOTICE: Adobe permits you to use, modify, and distribute this file
-//  in accordance with the terms of the license agreement accompanying it.
-//
-////////////////////////////////////////////////////////////////////////////////
 
-/*
- *  The IDisplayObjectContainerInterface defines the basic set of APIs
- *  for web version of flash.display.DisplayObjectContainer
- *  
- */
 import flash.text.TextSnapshot;
 import flash.geom.Point;
 
