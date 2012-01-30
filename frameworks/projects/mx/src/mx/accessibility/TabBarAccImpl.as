@@ -25,6 +25,11 @@ use namespace mx_internal;
 /**
  *  TabBarAccImpl is a subclass of AccessibilityImplementation
  *  which implements accessibility for the TabBar class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TabBarAccImpl extends AccImpl
 {
@@ -85,6 +90,11 @@ public class TabBarAccImpl extends AccImpl
 	 *  Afterwards, when instances of TabBar are initialized,
 	 *  their <code>accessibilityImplementation</code> property
 	 *  will be set to an instance of this class.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function enableAccessibility():void
 	{
@@ -116,6 +126,11 @@ public class TabBarAccImpl extends AccImpl
 	 *
 	 *  @param master The UIComponent instance that this AccImpl instance
 	 *  is making accessible.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function TabBarAccImpl(master:UIComponent)
 	{
