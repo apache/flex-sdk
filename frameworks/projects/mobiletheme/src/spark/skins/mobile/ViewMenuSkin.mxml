@@ -57,6 +57,15 @@ in accordance with the terms of the license agreement accompanying it.
             {
                 return FlexGlobals.topLevelApplication.applicationDPI;
             }
+			
+			override protected function measure():void
+			{
+				super.measure();
+				
+				// not actually used in normal situations, but 
+				// is here to prevent bug 28950 if ViewMenu is misused
+				measuredHeight = 200;
+			}
             
             override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
             {
