@@ -219,7 +219,7 @@ public class UITextField extends FlexTextField
     //  embeddedFontRegistry
     //----------------------------------
 
-	private static var noEmbeddedFonts:Boolean;
+    private static var noEmbeddedFonts:Boolean;
 
     /**
      *  @private
@@ -240,15 +240,15 @@ public class UITextField extends FlexTextField
     {
         if (!_embeddedFontRegistry && !noEmbeddedFonts)
         {
-			try
-			{
-				_embeddedFontRegistry = IEmbeddedFontRegistry(
-					Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
-			}
-			catch (e:Error)
-			{
-				noEmbeddedFonts = true;
-			}
+            try
+            {
+                _embeddedFontRegistry = IEmbeddedFontRegistry(
+                    Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+            }
+            catch (e:Error)
+            {
+                noEmbeddedFonts = true;
+            }
         }
 
         return _embeddedFontRegistry;
@@ -725,14 +725,14 @@ public class UITextField extends FlexTextField
     //  editable
     //----------------------------------
 
-	/**
+    /**
      *  Specifies whether the user is allowed to edit the text in this control.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function get editable():Boolean
     {
         return type == TextFieldType.INPUT;
@@ -2042,10 +2042,10 @@ public class UITextField extends FlexTextField
             if (textFormat.font)
             {
                 var fontModuleFactory:IFlexModuleFactory = (noEmbeddedFonts || !embeddedFontRegistry) ? 
-					null : 
+                    null : 
                     embeddedFontRegistry.getAssociatedModuleFactory(
                         textFormat.font, textFormat.bold, textFormat.italic,
-						this, moduleFactory);
+                        this, moduleFactory);
     
                 // if we found the font, then it is embedded. 
                 // Some fonts are not listed in info(), so are not in the above registry.
@@ -2107,7 +2107,7 @@ public class UITextField extends FlexTextField
 
         var textAlign:String = getStyle("textAlign");
         // Map new Spark values that might be set in a selector
-		// affecting both Halo and Spark components.
+        // affecting both Halo and Spark components.
         if (textAlign == "start") 
             textAlign = TextFormatAlign.LEFT;
         else if (textAlign == "end")
@@ -2128,33 +2128,33 @@ public class UITextField extends FlexTextField
         textFormat.font = StringUtil.trimArrayElements(getStyle("fontFamily"),",");
         textFormat.indent = getStyle("textIndent");
         textFormat.italic = getStyle("fontStyle") == "italic";
-		var kerning:* = getStyle("kerning");
-		// In Halo components based on TextField,
-		// kerning is supposed to be true or false.
-		// The default in TextField and Flex 3 is false
-		// because kerning doesn't work for device fonts
-		// and is slow for embedded fonts.
-		// In Spark components based on TLF and FTE,
-		// kerning is "auto", "on", or, "off".
-		// The default in TLF and FTE is "auto"
-		// (which means kern non-Asian characters)
-		// because kerning works even on device fonts
-		// and has miminal performance impact.
+        var kerning:* = getStyle("kerning");
+        // In Halo components based on TextField,
+        // kerning is supposed to be true or false.
+        // The default in TextField and Flex 3 is false
+        // because kerning doesn't work for device fonts
+        // and is slow for embedded fonts.
+        // In Spark components based on TLF and FTE,
+        // kerning is "auto", "on", or, "off".
+        // The default in TLF and FTE is "auto"
+        // (which means kern non-Asian characters)
+        // because kerning works even on device fonts
+        // and has miminal performance impact.
         // Since a CSS selector or parent container
-		// can affect both Halo and Spark components,
-		// we need to map "auto" and "on" to true
-		// and "off" to false for Halo components
-		// here and in UITLFTextField.
-		// For Spark components, SimpleText and CSSTextLayoutFormat,
-		// do the opposite mapping of true to "on" and false to "off".
-		// We also support a value of "default"
-		// (which we set in the global selector)
-		// to mean false for Halo and "auto" for Spark,
-		// to get the recommended behavior in both sets of components.
-		if (kerning == "auto" || kerning == "on")
-			kerning = true;
-		else if (kerning == "default" || kerning == "off")
-			kerning = false;
+        // can affect both Halo and Spark components,
+        // we need to map "auto" and "on" to true
+        // and "off" to false for Halo components
+        // here and in UITLFTextField.
+        // For Spark components, SimpleText and CSSTextLayoutFormat,
+        // do the opposite mapping of true to "on" and false to "off".
+        // We also support a value of "default"
+        // (which we set in the global selector)
+        // to mean false for Halo and "auto" for Spark,
+        // to get the recommended behavior in both sets of components.
+        if (kerning == "auto" || kerning == "on")
+            kerning = true;
+        else if (kerning == "default" || kerning == "off")
+            kerning = false;
         textFormat.kerning = kerning;
         textFormat.leading = getStyle("leading");
         textFormat.leftMargin = ignorePadding ? 0 : getStyle("paddingLeft");
@@ -2421,6 +2421,15 @@ public class UITextField extends FlexTextField
     {
         return null;
     }
+    
+    /**
+     *  @private
+     */
+    public function createAutomationIDPartWithRequiredProperties(child:IAutomationObject, 
+                                                                 properties:Array):Object
+    {
+        return null;
+    }
 
     /**
      *  @private
@@ -2434,6 +2443,14 @@ public class UITextField extends FlexTextField
      *  @private
      */
     public function getAutomationChildAt(index:int):IAutomationObject
+    {
+        return null;
+    }
+    
+    /**
+     *  @private
+     */
+    public function getAutomationChildren():Array
     {
         return null;
     }
