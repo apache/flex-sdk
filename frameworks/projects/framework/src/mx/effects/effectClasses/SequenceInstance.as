@@ -122,6 +122,126 @@ public class SequenceInstance extends CompositeEffectInstance
         
         return _duration;
     }
+
+    /**
+     * @inheritDoc
+     * 
+     * In a Sequence effect, <code>playheadTime</code> determines 
+     * which child effect should be the active one and sets the 
+     * appropriate <code>playheadTime</code> in that effect.
+     * Previous effects in the sequence will be ended (if playing) or 
+     * skipped (if not yet started but <code>playheadTime</code> is past the time
+     * when they would have ended). Note that 'skipping' a child effect may
+     * entail playing it with zero duration to avoid side-effects that may
+     * occur from not playing the effect at all.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set playheadTime(value:Number):void
+    {
+        /**
+        * Behavior of this command depends on what state we're in:
+        * - if we're in a startDelay, then cut down the playheadTime by
+        * the amount of time we have left to sleep
+        * - if the playheadTime doesn't get us past the startDelay, then
+        * reduce the amount of startDelay appropriately and return
+        * - if the playheadTime is greater than the current playheadTime
+        *   - if the playheadTime puts the sequence into a different
+        *   child effect, end the currently playing child effect,
+        *   play intervening ones with no duration (or skip?),
+        *   and start the ones that should be active and set their
+        *   playheadTime appropriately
+        *   - if the playheadTime is still in the currently playing effects
+        *   just set the appropriate playheadTime in that effect
+        * - else the playheadTime is less than the current time
+        *   - if the playheadTime is still in the currently playing effect
+        *   just set the appropriate playheadTime in the current effect
+        *   - else end the currently playing effect and start over from
+        *   the beginning (playing effects with no duration or skipping,
+        *   then playing and setting the appropriate playheadTime for 
+        *   the correct child effect)
+        *  
+        *  @langversion 3.0
+        *  @playerversion Flash 9
+        *  @playerversion AIR 1.1
+        *  @productversion Flex 3
+        */
+        // TODO (chaase): handle startDelay     
+        
+        if (value < playheadTime)
+        {
+            // TODO (chaase): Handle seeking back in time
+            // idea: Maybe once we get playing a sequence in reverse
+            // working perfectly, seeking back in time should essentially 
+            // 'play' (with zero duration) the child effects in reverse until
+            // we get to the proper effect for the seek time
+        }
+        else
+        {
+            // figure out if desired time is in currently playing effects
+            // if so, just seek them to the time
+            // else, end them, skip later effects, and play/seek the
+            // appropriate child effects
+            if (activeEffectQueue && activeEffectQueue.length > 0)
+            {
+                var cumulativeDuration:Number = 0;
+                for (var i:int = 0; i < activeEffectQueue.length; ++i)
+                {
+                    var instances:Array = childSets[i];
+                    var startTime:Number = cumulativeDuration;
+                    var endTime:Number = cumulativeDuration + 
+                        instances[0].actualDuration;
+                    if (value < endTime)
+                    {
+                        // These are the effects that should be active
+                        // simply seek to the right time in the effect
+                        if (currentSetIndex != i)
+                        {
+                            currentSetIndex = i;
+                            playCurrentChildSet();
+                        }
+                        for (var k:int = 0; k < instances.length; k++)
+                            instances[k].playheadTime = (value - startTime);
+                        break;
+                        // otherwise, skip to the next instance
+                    }
+                    else
+                    {
+                        // if we're seeking past the currently playing
+                        // instance, end it
+                        if (currentSetIndex == i)
+                        {
+                            for (var j:int = 0; j < instances.length; j++)
+                            {
+                                // setting endEffectCalled works around a side-effect
+                                // of the onEffectEnd() handler where it will
+                                // automatically launch the next child effect
+                                endEffectCalled = true;
+                                instances[j].end();
+                                endEffectCalled = false;
+                            }
+                            currentSetIndex = -1;
+                        }
+                        else
+                        {
+                            // Skip past effects by playing them with no duration
+                            for (var l:int = 0; l < instances.length; l++)
+                                instances[l].playWithNoDuration();
+                        }
+                    }
+                    cumulativeDuration = endTime;
+                }
+                
+            }
+        }
+        // Seek in the SequenceInstance itself, which advances the
+        // Tween timer running on the effect
+        super.playheadTime = value;
+    }
+
     
     //--------------------------------------------------------------------------
     //
@@ -358,127 +478,6 @@ public class SequenceInstance extends CompositeEffectInstance
         }
     }
 
-    // Note that we implement seek() in the instance class for Sequence,
-    // but in the factory class for Parallel. This is because we can do
-    // it at the factory level for Parallel, but for Sequence we need
-    // extra functionality that is only available in the instance class.
-    /**
-     * @inheritDoc
-     * 
-     * In a Sequence effect, seek determines which child effect should be
-     * the active one and seeks to the appropriate time in that effect.
-     * Previous effects in the sequence will be ended (if playing) or 
-     * skipped (if not yet started but seekTime is past the time
-     * when they would have ended). Note that 'skipping' a child effect may
-     * entail playing it with zero duration to avoid side-effects that may
-     * occur from not playing the effect at all.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    override public function seek(seekTime:Number):void
-    {
-        /**
-        * Behavior of this command depends on what state we're in:
-        * - if we're in a startDelay, then cut down the seekTime by
-        * the amount of time we have left to sleep
-        * - if the seekTime doesn't get us past the startDelay, then
-        * reduce the amount of startDelay appropriately and return
-        * - if the seekTime is greater than the current playheadTime
-        *   - if the seekTime puts the playheadTime into a different
-        *   child effect, end the currently playing child effects,
-        *   play intervening ones with no duration (or skip?),
-        *   and start the ones that should be active and seek to their
-        *   appropriate time
-        *   - if the seektime is still in the currently playing effects
-        *   just seek to the appropriate time
-        * - else the seekTime is less than the current time
-        *   - if the seektime is still in the currently playing effects
-        *   just seek to the appropriate time
-        *   - else end the currently playing effects and start over from
-        *   the beginning (playing effects with no duration or skipping,
-        *   then playing/seeking for the correct child effect
-        *  
-        *  @langversion 3.0
-        *  @playerversion Flash 9
-        *  @playerversion AIR 1.1
-        *  @productversion Flex 3
-        */
-        // TODO (chaase): handle startDelay     
-        
-        if (seekTime < playheadTime)
-        {
-            // TODO (chaase): Handle seeking back in time
-            // idea: Maybe once we get playing a sequence in reverse
-            // working perfectly, seeking back in time should essentially 
-            // 'play' (with zero duration) the child effects in reverse until
-            // we get to the proper effect for the seek time
-        }
-        else
-        {
-            // figure out if desired time is in currently playing effects
-            // if so, just seek them to the time
-            // else, end them, skip later effects, and play/seek the
-            // appropriate child effects
-            if (activeEffectQueue && activeEffectQueue.length > 0)
-            {
-                var cumulativeDuration:Number = 0;
-                for (var i:int = 0; i < activeEffectQueue.length; ++i)
-                {
-                    var instances:Array = childSets[i];
-                    var startTime:Number = cumulativeDuration;
-                    var endTime:Number = cumulativeDuration + 
-                        instances[0].actualDuration;
-                    if (seekTime < endTime)
-                    {
-                        // These are the effects that should be active
-                        // simply seek to the right time in the effect
-                        if (currentSetIndex != i)
-                        {
-                            currentSetIndex = i;
-                            playCurrentChildSet();
-                        }
-                        for (var k:int = 0; k < instances.length; k++)
-                            instances[k].seek(seekTime - startTime);
-                        break;
-                        // otherwise, skip to the next instance
-                    }
-                    else
-                    {
-                        // if we're seeking past the currently playing
-                        // instance, end it
-                        if (currentSetIndex == i)
-                        {
-                            for (var j:int = 0; j < instances.length; j++)
-                            {
-                                // setting endEffectCalled works around a side-effect
-                                // of the onEffectEnd() handler where it will
-                                // automatically launch the next child effect
-                                endEffectCalled = true;
-                                instances[j].end();
-                                endEffectCalled = false;
-                            }
-                            currentSetIndex = -1;
-                        }
-                        else
-                        {
-                            // Skip past effects by playing them with no duration
-                            for (var l:int = 0; l < instances.length; l++)
-                                instances[l].playWithNoDuration();
-                        }
-                    }
-                    cumulativeDuration = endTime;
-                }
-                
-            }
-        }
-        // Seek in the SequenceInstance itself, which advances the
-        // Tween timer running on the effect
-        super.seek(seekTime);
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -495,16 +494,6 @@ public class SequenceInstance extends CompositeEffectInstance
         for (var i:int = 0; i < instances.length; i++)
         {
             childEffect = instances[i];
-            
-            /*
-            if (childEffect is TweenEffectInstance)
-            {
-                var offset:Number =
-                    Tween.intervalTime - startTime - currentInstanceDuration;
-                offset = isNaN(offset) ? 0 : offset;
-                TweenEffectInstance(childEffect).seek(offset);
-            }
-            */
             
             currentSet.push(childEffect);
             childEffect.playReversed = playReversed;
@@ -540,33 +529,6 @@ public class SequenceInstance extends CompositeEffectInstance
     
         playCurrentChildSet();
         
-        /*
-        while (activeEffectQueue[activeChildCount])
-        {
-            childEffect = activeEffectQueue[activeChildCount];
-            activeChildCount++;
-            
-            
-            if (childEffect is TweenEffectInstance)
-            {
-                var offset:Number =
-                    Tween.intervalTime - startTime - currentInstanceDuration;
-                offset = isNaN(offset) ? 0 : offset;
-                TweenEffectInstance(childEffect).seek(offset);
-            }
-            childEffect.startEffect();
-            // Block all layout, responses from web services, and other
-            // background processing until the effect finishes executing.
-            if (childEffect.suspendBackgroundProcessing)
-                UIComponent.suspendBackgroundProcessing();                  
-            
-            if (!activeEffectQueue)
-                break;
-        }
-        
-        currentInstanceDuration += childEffect.duration;
-        */
-
         return true;
     }
 }
