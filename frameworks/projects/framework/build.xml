@@ -21,7 +21,7 @@
           can externally link against framework.swc, since air is player 9.
           If you change this, update <target-player/> in the <compc/> tasks.
     -->
-    <property name="local.playerglobal.version" value="10"/>
+    <property name="local.playerglobal.version" value="10.0"/>
   	
 	<macrodef name="bundle">
 		<attribute name="locale"/>
