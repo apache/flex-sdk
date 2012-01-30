@@ -343,7 +343,14 @@ public class Preloader extends Sprite
 		for (var i:int = 0; i < n; i++)
 		{
 			loaded += rslListLoader.getItem(i).loaded;
-			total += rslListLoader.getItem(i).total;
+
+            // If the rsl total is zero then provide an average rsl size
+            // to set rough expectations.
+            var rslTotal:int = rslListLoader.getItem(i).total;
+            if (rslTotal == 0)
+                rslTotal = 200000;
+            
+            total += rslTotal;
 		}
 		
 		return { loaded: loaded, total: total };
