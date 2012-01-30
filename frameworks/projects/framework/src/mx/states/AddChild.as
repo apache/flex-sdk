@@ -85,7 +85,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
- public class AddChild extends OverrideBase implements IOverride
+ public class AddChild extends OverrideBase 
 {
     include "../core/Version.as";
 
@@ -387,7 +387,7 @@ use namespace mx_internal;
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function initialize():void
+    override public function initialize():void
     {
         if (creationPolicy == ContainerCreationPolicy.AUTO)
             createInstance();
@@ -401,16 +401,30 @@ use namespace mx_internal;
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function apply(parent:UIComponent):void
+    override public function apply(parent:UIComponent):void
     {
-        var obj:* = relativeTo = getOverrideContext(relativeTo, parent);
+        var obj:* = getOverrideContext(relativeTo, parent);
 
+        parentContext = parent;
         added = false;
-
+        
         // Early exit if child is null or not a valid container.
         if (!target || !(obj is DisplayObjectContainer))
+        {
+            if (relativeTo != null && !applied)
+            {
+                // Our destination context is unavailable so we attempt to register
+                // a listener on our parent document to detect when/if it becomes
+                // valid.
+                addContextListener(relativeTo);
+            }
+            applied = true;
             return;
+        }
 
+        applied = true;
+        relativeTo = obj;
+        
         // Can't reparent. Must remove before adding.
         if (target.parent)
         {
@@ -477,12 +491,23 @@ use namespace mx_internal;
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function remove(parent:UIComponent):void
+    override public function remove(parent:UIComponent):void
     {
         var obj:* = getOverrideContext(relativeTo, parent);
-        
+                
         if (!added || !(obj is DisplayObjectContainer))
+        {
+            if (obj == null)
+            {
+                // It seems our override is no longer active, but we were never
+                // able to successfully apply ourselves, so remove our context
+                // listener if applicable.
+                removeContextListener();
+                applied = false;
+                parentContext = null;
+            }
             return;
+        }
 
         switch (position)
         {
@@ -518,7 +543,10 @@ use namespace mx_internal;
             }
         }
 
+        // Clear our flags and override context.
         added = false;
+        applied = false;
+        parentContext = null;
     }
 }
 
