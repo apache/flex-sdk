@@ -40,6 +40,7 @@ in accordance with the terms of the license agreement accompanying it.
             import mx.events.FlexEvent;
             
             import spark.components.supportClasses.GroupBase;
+            import spark.effects.easing.Power;
 
         /**
          * @private
@@ -63,17 +64,73 @@ in accordance with the terms of the license agreement accompanying it.
     </fx:Script>
     
     <s:states>
-        <s:State name="normal"/>
-        <s:State name="closed"/>
-        <s:State name="disabled"/>
-        <s:State name="disabledAndClosed"/>
-        <s:State name="normalAndLandscape" stateGroups="landscapeGroup"/>
-        <s:State name="closedAndLandscape" stateGroups="landscapeGroup"/>
-        <s:State name="disabledAndLandscape" stateGroups="landscapeGroup" />
-        <s:State name="disabledAndClosedAndLandscape" stateGroups="landscapeGroup"/>
+        <s:State name="normal"                          stateGroups="openedGroup"/>
+        <s:State name="closed"                          stateGroups="closedGroup"/>
+        <s:State name="disabled"                        stateGroups="openedGroup"/>
+        <s:State name="disabledAndClosed"               stateGroups="closedGroup"/>
+        <s:State name="normalAndLandscape"              stateGroups="openedGroup, landscapeGroup"/>
+        <s:State name="closedAndLandscape"              stateGroups="closedGroup, landscapeGroup"/>
+        <s:State name="disabledAndLandscape"            stateGroups="openedGroup, landscapeGroup" />
+        <s:State name="disabledAndClosedAndLandscape"   stateGroups="closedGroup, landscapeGroup"/>
     </s:states>
     
-    <!-- TODO (egeorgie): Add transitions between closed and normal states -->
+    <s:transitions>
+        <s:Transition fromState="closed" toState="normal" autoReverse="true">
+            <s:Parallel>
+                <s:Fade target="{chromeGroup}" duration="150" easer="{new Power(0.5, 3)}" /> 
+                <s:Move target="{chromeGroup}" duration="150" disableLayout="true"  easer="{new Power(0, 5)}"/>
+            </s:Parallel>
+        </s:Transition>
+        
+        <s:Transition fromState="disabledAndClosed" toState="disabled" autoReverse="true">
+            <s:Parallel>
+                <s:Fade target="{chromeGroup}" duration="150" easer="{new Power(0.5, 3)}" /> 
+                <s:Move target="{chromeGroup}" duration="150" disableLayout="true"  easer="{new Power(0, 5)}"/>
+            </s:Parallel>
+        </s:Transition>
+
+        <s:Transition fromState="closedAndLandscape" toState="normalAndLandscape" autoReverse="true">
+            <s:Parallel>
+                <s:Fade target="{chromeGroup}" duration="150" easer="{new Power(0.5, 3)}" /> 
+                <s:Move target="{chromeGroup}" duration="150" disableLayout="true"  easer="{new Power(0, 5)}"/>
+            </s:Parallel>
+        </s:Transition>
+
+        <s:Transition fromState="disabledAndClosedAndLandscape" toState="disabledAndLandscape" autoReverse="true">
+            <s:Parallel>
+                <s:Fade target="{chromeGroup}" duration="150" easer="{new Power(0.5, 3)}" /> 
+                <s:Move target="{chromeGroup}" duration="150" disableLayout="true"  easer="{new Power(0, 5)}"/>
+            </s:Parallel>
+        </s:Transition>
+
+        <s:Transition fromState="normal" toState="closed" autoReverse="true">
+            <s:Parallel>
+                <s:Fade target="{chromeGroup}" duration="100"/> 
+                <s:Move target="{chromeGroup}" duration="100" disableLayout="true"/>
+            </s:Parallel>
+        </s:Transition>
+
+        <s:Transition fromState="disabled" toState="disabledAndClosed" autoReverse="true">
+            <s:Parallel>
+                <s:Fade target="{chromeGroup}" duration="100"/> 
+                <s:Move target="{chromeGroup}" duration="100" disableLayout="true"/>
+            </s:Parallel>
+        </s:Transition>
+
+        <s:Transition fromState="normalAndLandscape" toState="closedAndLandscape" autoReverse="true">
+            <s:Parallel>
+                <s:Fade target="{chromeGroup}" duration="100"/> 
+                <s:Move target="{chromeGroup}" duration="100" disableLayout="true"/>
+            </s:Parallel>
+        </s:Transition>
+
+        <s:Transition fromState="disabledAndLandscape" toState="disabledAndClosedAndLandscape" autoReverse="true">
+            <s:Parallel>
+                <s:Fade target="{chromeGroup}" duration="100"/> 
+                <s:Move target="{chromeGroup}" duration="100" disableLayout="true"/>
+            </s:Parallel>
+        </s:Transition>
+    </s:transitions>
 
     <!-- The ViewMenu and its skin are sized to the application.
          The menu chrome is a separate group that is anchored to the bottom of the skin. -->
@@ -81,7 +138,9 @@ in accordance with the terms of the license agreement accompanying it.
     <s:Group id="chromeGroup"
              left="0"
              right="0"
-             bottom="0">
+             top.closedGroup="{hostComponent.height - chromeGroup.height / 2}"
+             bottom.openedGroup="0" 
+             visible.closedGroup="false">
 
         <!-- border -->
         <!--- @private -->
