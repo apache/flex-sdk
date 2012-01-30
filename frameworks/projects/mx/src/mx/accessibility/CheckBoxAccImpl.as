@@ -22,6 +22,11 @@ use namespace mx_internal;
 /**
  *  CheckBoxAccImpl is a subclass of AccessibilityImplementation
  *  which implements accessibility for the CheckBox class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CheckBoxAccImpl extends ButtonAccImpl
 {
@@ -52,6 +57,11 @@ public class CheckBoxAccImpl extends ButtonAccImpl
 	 *  Afterwards, when instances of CheckBox are initialized,
 	 *  their <code>accessibilityImplementation</code> property
 	 *  will be set to an instance of this class.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function enableAccessibility():void
 	{
@@ -83,6 +93,11 @@ public class CheckBoxAccImpl extends ButtonAccImpl
 	 *
 	 *  @param master The UIComponent instance that this AccImpl instance
 	 *  is making accessible.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function CheckBoxAccImpl(master:UIComponent)
 	{
