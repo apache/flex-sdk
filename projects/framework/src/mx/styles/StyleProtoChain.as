@@ -245,9 +245,9 @@ public class StyleProtoChain
             }
 
             // Check for a global pseudo selector that matches our current state.
-            if (advancedObject.currentState)
+            if (advancedObject.pseudoSelectorState)
             {
-                styleDeclaration = StyleManager.getStyleDeclaration(":" + advancedObject.currentState);
+                styleDeclaration = StyleManager.getStyleDeclaration(":" + advancedObject.pseudoSelectorState);
                 if (styleDeclaration)
                     styleDeclarations.push(styleDeclaration);
             }
