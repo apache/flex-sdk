@@ -407,6 +407,10 @@ public class LabelItemRenderer extends UIComponent
      *  Set to <code>true</code> when the user is pressing down on an item renderer.
      *
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */    
     protected function get down():Boolean
     {
@@ -438,6 +442,10 @@ public class LabelItemRenderer extends UIComponent
      *  Set to <code>true</code> when the user is hovered over the item renderer.
      *
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */    
     protected function get hovered():Boolean
     {
@@ -788,10 +796,10 @@ public class LabelItemRenderer extends UIComponent
      *  by the <code>updateDisplayList()</code> method.</p>
      * 
      *  <p>This method draws the background, the outline, 
-     *  and the separators for this item renderer.  
-     *  When not selected, hovered, or down, the background is transparent.  
-     *  However, when <code>alternatingItemColors</code> is set to <code>true</code>, 
-     *  the background is drawn by this method.  
+     *  and the separators for this item renderer.  It knows how to appropriately 
+     *  handle the selected, down, or caretted states.  
+     *  However, when <code>alternatingItemColors</code> is set to <code>undefined</code>, 
+     *  the default background is transparent.
      *  Override this method to change the appearance of the background of 
      *  the item renderer.</p>
      * 
