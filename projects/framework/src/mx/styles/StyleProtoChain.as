@@ -144,7 +144,7 @@ public class StyleProtoChain
      *  Implements the initProtoChain() logic for UIComponent and TextBase.
      *  The 'object' parameter will be one or the other.
      */
-    public static function initProtoChain(object:IStyleClient):void
+    public static function initProtoChain(object:IStyleClient, inheritPopUpStylesFromOwner:Boolean=true):void
     {
         var styleManager:IStyleManager2 = getStyleManager(object);
         var n:int;
@@ -220,7 +220,7 @@ public class StyleProtoChain
             if (uicObject && uicObject.isPopUp)
             {
                 var owner:DisplayObjectContainer = uicObject._owner;
-                if (owner && owner is IStyleClient)
+                if (inheritPopUpStylesFromOwner && owner && (owner is IStyleClient))
                 {
                     inheritChain = IStyleClient(owner).inheritingStyles;
                 }
