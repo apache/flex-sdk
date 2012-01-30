@@ -22,6 +22,7 @@ import mx.resources.ResourceManager;
 import mx.utils.ObjectUtil;
 
 [ResourceBundle("collections")]
+[Alternative(replacement="spark.collections.SortField", since="4.5")]
 
 /**
  *  Provides the sorting information required to establish a sort on a field
