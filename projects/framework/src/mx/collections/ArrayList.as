@@ -18,14 +18,12 @@ import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
 import flash.utils.getQualifiedClassName;
+
 import mx.core.IPropertyChangeNotifier;
-import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.utils.ArrayUtil;
@@ -310,6 +308,26 @@ public class ArrayList extends EventDispatcher
 
         startTrackUpdates(item);
         internalDispatchEvent(CollectionEventKind.ADD, item, index);
+    }
+    
+    /**
+     *  @copy mx.collections.ListCollectionView#addAll
+     */
+    public function addAll(addList:IList):void
+    {
+        addAllAt(addList, length);
+    }
+    
+    /**
+     *  @copy mx.collections.ListCollectionView#addAllAt
+     */
+    public function addAllAt(addList:IList, index:int):void
+    {
+        var length:int = addList.length;
+        for(var i:int=0; i < length; i++)
+        {
+            this.addItemAt(addList.getItemAt(i), i+index);
+        }
     }
     
     /**
