@@ -78,13 +78,14 @@ public interface IFlexModuleFactory
      *  @return Whatever the function returns, if anything.
      *  
      *  @see Function.apply
-
+	 *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
-    function callInContext(fn:Function, thisArg:*, argArray:*, returns:Boolean=true):*;
+    function callInContext(fn:Function, thisArg:Object,
+						   argArray:Array, returns:Boolean = true):*;
 
     /**
      *  A factory method that requests
