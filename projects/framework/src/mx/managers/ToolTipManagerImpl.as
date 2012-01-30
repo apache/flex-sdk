@@ -31,7 +31,7 @@ import mx.effects.IAbstractEffect;
 import mx.effects.EffectManager;
 import mx.events.EffectEvent;
 import mx.events.ToolTipEvent;
-import mx.events.SandboxRootRequest;
+import mx.events.InterManagerRequest;
 import mx.managers.IToolTipManagerClient;
 import mx.styles.IStyleClient;
 import mx.validators.IValidatorListener;
@@ -99,8 +99,8 @@ public class ToolTipManagerImpl extends EventDispatcher
 
 		this.systemManager = SystemManagerGlobals.topLevelSystemManagers[0] as ISystemManager;
 		sandboxRoot = this.systemManager.getSandboxRoot();
-		sandboxRoot.addEventListener(SandboxRootRequest.TOOLTIP_MANAGER_REQUEST, marshalToolTipManagerHandler, false, 0, true);
-		var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.TOOLTIP_MANAGER_REQUEST);
+		sandboxRoot.addEventListener(InterManagerRequest.TOOLTIP_MANAGER_REQUEST, marshalToolTipManagerHandler, false, 0, true);
+		var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.TOOLTIP_MANAGER_REQUEST);
 		me.name = "update";
 		// trace("--->update request for ToolTipManagerImpl", systemManager);
 		sandboxRoot.dispatchEvent(me);
@@ -241,7 +241,7 @@ public class ToolTipManagerImpl extends EventDispatcher
     {
         _currentToolTip = value as DisplayObject;
 
-		var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.TOOLTIP_MANAGER_REQUEST);
+		var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.TOOLTIP_MANAGER_REQUEST);
 		me.name = "currentToolTip";
 		me.value = value;
 		// trace("-->dispatched currentToolTip for ToolTipManagerImpl", systemManager, value);
@@ -750,7 +750,7 @@ public class ToolTipManagerImpl extends EventDispatcher
 			}
 			else
 			{
-				var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.TOOLTIP_MANAGER_REQUEST);
+				var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.TOOLTIP_MANAGER_REQUEST);
 				me.name = ToolTipEvent.TOOL_TIP_HIDE;
 				// trace("-->dispatched hide for ToolTipManagerImpl", systemManager);
 				sandboxRoot.dispatchEvent(me);
@@ -924,7 +924,7 @@ public class ToolTipManagerImpl extends EventDispatcher
 
         if (isError)
         {
-            var targetGlobalBounds:Rectangle = getGlobalBounds(currentTarget);
+            var targetGlobalBounds:Rectangle = getGlobalBounds(currentTarget, currentToolTip.root);
 
             x = targetGlobalBounds.right + 4;
             y = targetGlobalBounds.top - 1;
@@ -992,7 +992,6 @@ public class ToolTipManagerImpl extends EventDispatcher
             // We might be loaded and offset.
             var pos:Point = new Point(x, y);
             var ctt:IToolTip = currentToolTip;
-            pos = DisplayObject(ctt).root.globalToLocal(pos);
             x = pos.x;
             y = pos.y;
         }
@@ -1318,10 +1317,11 @@ public class ToolTipManagerImpl extends EventDispatcher
     /**
      *  @private
      */
-    private function getGlobalBounds(obj:DisplayObject):Rectangle
+    private function getGlobalBounds(obj:DisplayObject, parent:DisplayObject):Rectangle
     {
         var upperLeft:Point = new Point(0, 0);
         upperLeft = obj.localToGlobal(upperLeft);
+        upperLeft = parent.globalToLocal(upperLeft);
         return new Rectangle(upperLeft.x, upperLeft.y, obj.width, obj.height);
     }
 
@@ -1438,10 +1438,10 @@ public class ToolTipManagerImpl extends EventDispatcher
 	 */
 	private function marshalToolTipManagerHandler(event:Event):void
 	{
-		if (event is SandboxRootRequest)
+		if (event is InterManagerRequest)
 			return;
 
-		var me:SandboxRootRequest;
+		var me:InterManagerRequest;
 
 		var marshalEvent:Object = event;
 		switch (marshalEvent.name)
@@ -1460,7 +1460,7 @@ public class ToolTipManagerImpl extends EventDispatcher
 			event.stopImmediatePropagation();
 			// update the others
 			// trace("-->marshaled update for ToolTipManagerImpl", systemManager);
-			me = new SandboxRootRequest(SandboxRootRequest.TOOLTIP_MANAGER_REQUEST);
+			me = new InterManagerRequest(InterManagerRequest.TOOLTIP_MANAGER_REQUEST);
 			me.name = "currentToolTip";
 			me.value = _currentToolTip;
 			// trace("-->dispatched currentToolTip for ToolTipManagerImpl", systemManager, true);
