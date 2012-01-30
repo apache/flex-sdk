@@ -26,6 +26,11 @@ package mx.core
  *  autogenerates a class to represent it, and all such classes
  *  declare that they implement IFlexAsset so that they can be
  *  distinguished from the code classes.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IFlexAsset
 {
