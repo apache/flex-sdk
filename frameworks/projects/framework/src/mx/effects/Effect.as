@@ -1679,7 +1679,6 @@ public class Effect extends EventDispatcher implements IEffect
                     var startVal:* = propChanges[i].start[propName];
                     var endVal:* = propChanges[i].end[propName];
                     if (propName in propChanges[i].end &&
-                        endVal != startVal &&
                         (!(endVal is Number) ||
                          !(isNaN(endVal) && isNaN(startVal))))
                     {
@@ -1697,7 +1696,6 @@ public class Effect extends EventDispatcher implements IEffect
                     var startStyle:* = propChanges[i].start[styleName];
                     var endStyle:* = propChanges[i].end[styleName];
                     if (styleName in propChanges[i].end &&
-                        endStyle != startStyle &&
                         (!(endStyle is Number) ||
                          !(isNaN(endStyle) && isNaN(startStyle))) &&
                         target is IStyleClient)
