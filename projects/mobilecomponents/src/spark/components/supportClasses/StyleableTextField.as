@@ -358,7 +358,7 @@ public class StyleableTextField extends TextField
     public function set editable(value:Boolean):void
     {
         type = value ? TextFieldType.INPUT : TextFieldType.DYNAMIC;
-		dispatchEvent(new Event("editableChanged"));
+        dispatchEvent(new Event("editableChanged"));
     }
     
     //----------------------------------
@@ -697,17 +697,17 @@ public class StyleableTextField extends TextField
             textFormat.indent = getStyle("textIndent");
             textFormat.leading = getStyle("leading");
             textFormat.letterSpacing = getStyle("letterSpacing");
-			var kerning:* = getStyle("kerning");
-			if (kerning == "auto" || kerning == "on")
-				kerning = true;
-			else if (kerning == "default" || kerning == "off")
-				kerning = false;
-			textFormat.kerning = kerning;
+            var kerning:* = getStyle("kerning");
+            if (kerning == "auto" || kerning == "on")
+                kerning = true;
+            else if (kerning == "default" || kerning == "off")
+                kerning = false;
+            textFormat.kerning = kerning;
             
-			antiAliasType = getStyle("fontAntiAliasType");
-			gridFitType = getStyle("fontGridFitType");
-			sharpness = getStyle("fontSharpness");
-			thickness = getStyle("fontThickness");
+            antiAliasType = getStyle("fontAntiAliasType");
+            gridFitType = getStyle("fontGridFitType");
+            sharpness = getStyle("fontSharpness");
+            thickness = getStyle("fontThickness");
             
             // ignore padding in the text...most components deal with it themselves
             //textFormat.leftMargin = getStyle("paddingLeft");
@@ -718,17 +718,17 @@ public class StyleableTextField extends TextField
             
             defaultTextFormat = textFormat;
             setTextFormat(textFormat);
-			
-			// If our text is empty we need to force the style changes in order for
-			// textHeight to be valid. Setting the width is sufficient, and should
-			// have minimal overhead since we don't have any text.
-			if (text == "")
-			{
-				// Set the width to the fontSize + padding, which is big enough to hold one
-				// character. 
-				width = textFormat.size + TEXT_WIDTH_PADDING;
-			}
-			
+            
+            // If our text is empty we need to force the style changes in order for
+            // textHeight to be valid. Setting the width is sufficient, and should
+            // have minimal overhead since we don't have any text.
+            if (text == "")
+            {
+                // Set the width to the fontSize + padding, which is big enough to hold one
+                // character. 
+                width = textFormat.size + TEXT_WIDTH_PADDING;
+            }
+            
             invalidateStyleFlag = false;
         }
     }
@@ -777,8 +777,8 @@ public class StyleableTextField extends TextField
             _inlineStyleObject = {};
         
         _inlineStyleObject[styleProp] = value;
-		
-		styleChanged(styleProp);
+        
+        styleChanged(styleProp);
     }
     
     /**
@@ -804,7 +804,7 @@ public class StyleableTextField extends TextField
     /**
      *  Truncate text to make it fit horizontally in the area defined for the control, 
      *  and append an ellipsis, three periods (...), to the text. This function
-	 *  only works for single line text.
+     *  only works for single line text.
      *
      *  @param truncationIndicator The text to be appended after truncation.
      *  If you pass <code>null</code>, a localizable string
@@ -813,9 +813,9 @@ public class StyleableTextField extends TextField
      *  @return <code>true</code> if the text needed truncation.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function truncateToFit(truncationIndicator:String = "..."):Boolean
     {
@@ -847,9 +847,9 @@ public class StyleableTextField extends TextField
             }
             
             _isTruncated = true;
-			
-			// Make sure all text is visible
-			scrollH = 0;
+            
+            // Make sure all text is visible
+            scrollH = 0;
         }
         
         // Dispatch "isTruncatedChange"
