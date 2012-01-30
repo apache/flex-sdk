@@ -29,7 +29,8 @@ import spark.skins.default.MacTitleBarSkin;
 import spark.skins.default.TitleBarSkin;
 
 /**
- *  The default title bar for a WindowedApplication or a Window.
+ *  The TitleBar class defines the default title bar for a 
+ *  WindowedApplication or a Window container.
  * 
  *  @see mx.core.Window
  *  @see mx.core.WindowedApplication
@@ -103,7 +104,7 @@ public class TitleBar extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  The Button object that defines the close button.
+     *  The skin part that defines the Button control that corresponds to the close button.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
@@ -117,7 +118,7 @@ public class TitleBar extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  The Button object that defines the maximize button.
+     *  The skin part that defines the Button control that corresponds to the maximize button.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
@@ -131,7 +132,7 @@ public class TitleBar extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  The Button object that defines the minimize button.
+     *  The skin part that defines the Button control that corresponds to the minimize button.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
@@ -159,7 +160,7 @@ public class TitleBar extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  The UITextField in the title bar that displays the application title.
+     *  The skin part that defines the UITextField control that displays the application title text.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
@@ -461,7 +462,9 @@ public class TitleBar extends SkinnableComponent
     }
     
     /**
-     *  Handles a <code>doubleClick</code> event in a platform-appropriate manner.
+     *  The method that handles a <code>doubleClick</code> event in a platform-appropriate manner.
+     *
+     *  @param event The event object.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.1
