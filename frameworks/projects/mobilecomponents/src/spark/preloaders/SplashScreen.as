@@ -464,7 +464,7 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
             break;
         }
         
-        if (scaleX != 1 || scaleY != 0)
+        if (scaleX != 1 || scaleY != 1)
         {
             width *= scaleX;
             height *= scaleY;
