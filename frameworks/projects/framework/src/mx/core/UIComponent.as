@@ -8097,9 +8097,8 @@ public class UIComponent extends FlexSprite
     //--------------------------------------------------------------------------
 
     /**
-     *  The current state of this component used to match CSS pseudo-selectors.
-     *  If no state exists, returns null.
-     */
+     *  @private
+     */ 
     public function get pseudoSelectorState():String
     {
         return currentState;
@@ -8135,12 +8134,21 @@ public class UIComponent extends FlexSprite
     }
 
     /**
+     *  Determins whether the current state of this component matches a
+     *  CSS pseudo-selector.
+     */
+    public function isPseudoSelectorMatch(pseudoState:String):Boolean
+    {
+        return pseudoSelectorState == pseudoState;
+    }
+
+    /**
      *  Determines whether this component can be considered assignable to the
      *  given type. This is used to determine matching advanced CSS styles.
      */ 
-    public function isAssignableToType(type:String):Boolean
+    public function isTypeSelectorMatch(type:String):Boolean
     {
-        return StyleProtoChain.isAssignableToType(this, type);
+        return StyleProtoChain.isTypeSelectorMatch(this, type);
     }
 
     /**
