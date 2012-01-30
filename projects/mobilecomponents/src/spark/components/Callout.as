@@ -1297,15 +1297,6 @@ public class Callout extends SkinnablePopUpContainer
     /**
      * @private
      */
-    mx_internal function get isArrowHorizontal():Boolean
-    {
-        return (arrowDirection == ArrowDirection.LEFT ||
-                arrowDirection == ArrowDirection.RIGHT);
-    }
-    
-    /**
-     * @private
-     */
     mx_internal function get isArrowVertical():Boolean
     {
         return (arrowDirection == ArrowDirection.UP ||
