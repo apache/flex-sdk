@@ -14,13 +14,12 @@ package mx.states
 import flash.display.DisplayObject;
 
 import mx.collections.IList;
-import mx.components.FxContainer;
-import mx.components.Group;
 import mx.core.ContainerCreationPolicy;
 import mx.core.IChildList;
 import mx.core.IDeferredInstance;
-import mx.core.UIComponent;
+import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
+import mx.core.UIComponent;
 
 [DefaultProperty("itemsFactory")]
 
@@ -462,7 +461,7 @@ public class AddItems extends OverrideBase implements IOverride
         try
         {
             if (propertyName == null && (dest is IVisualElementContainer))
-                return IVisualElementContainer(dest).getElementIndex(object);
+                return IVisualElementContainer(dest).getElementIndex(object as IVisualElement);
             
             if (propertyName == null && dest is IChildList)
                 return IChildList(dest).getChildIndex(DisplayObject(object));
