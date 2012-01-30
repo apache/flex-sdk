@@ -3282,7 +3282,7 @@ public class SystemManager extends MovieClip
      */
     private function stageEventHandler(event:Event):void
     {
-        if (event.target is Stage)
+        if (event.target is Stage && mouseCatcher)
             // dispatch them from mouseCatcher so capture phase listeners on 
             // systemManager will work
             mouseCatcher.dispatchEvent(event);
