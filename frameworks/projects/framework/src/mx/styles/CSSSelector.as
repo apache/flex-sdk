@@ -230,7 +230,8 @@ public class CSSSelector
                         || "*" == ancestor.subject)
                 {
                     match = ancestor.matchesStyleClient(parent);
-                    break;
+                    if (match)
+                        break;
                 }
                 parent = parent.styleParent;
             }
