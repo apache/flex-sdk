@@ -28,8 +28,6 @@ import flash.geom.Rectangle;
 import flash.utils.Proxy;
 
 import mx.automation.IAutomationObject;
-import mx.containers.Canvas;
-import mx.controls.Alert;
 import mx.core.FlexGlobals;
 import mx.core.FlexSprite;
 import mx.core.IChildList;
