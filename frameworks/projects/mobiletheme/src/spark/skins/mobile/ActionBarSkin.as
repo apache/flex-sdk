@@ -76,9 +76,6 @@ public class ActionBarSkin extends MobileSkin
     
     private var border:SpriteVisualElement;
     
-    // FIXME (jasonsj): pending mobile styling spec
-    private static const TITLE_PADDING:Number = 25;
-    
     private static var matrix:Matrix = new Matrix();
     
     private static const ratios:Array = [0, 127.5, 255];
@@ -108,8 +105,8 @@ public class ActionBarSkin extends MobileSkin
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
         hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
-        hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = 
-            hLayout.paddingBottom = 0;
+        hLayout.paddingLeft = hLayout.paddingRight = 25; 
+        hLayout.paddingTop = hLayout.paddingBottom = 0;
         titleGroup.layout = hLayout;
         
         actionGroup = new Group();
@@ -146,14 +143,19 @@ public class ActionBarSkin extends MobileSkin
         var titleWidth:Number = 0;
         var titleHeight:Number = 0;
         
-        if (titleGroup && (titleGroup.numElements > 0))
+        if (titleGroup && hostComponent.titleContent)
         {
             titleWidth = titleGroup.getPreferredBoundsWidth();
             titleHeight = titleGroup.getPreferredBoundsHeight();
         }
         else if (titleDisplay)
         {
-            titleWidth = titleDisplay.getPreferredBoundsWidth() + (TITLE_PADDING * 2);
+            // use titleLayout for paddingLeft and paddingRight
+            var layoutObject:Object = hostComponent.titleLayout;
+            titleWidth = (layoutObject.paddingLeft) ? Number(layoutObject.paddingLeft) : 0
+                + (layoutObject.paddingRight) ? Number(layoutObject.paddingRight) : 0
+                + titleDisplay.getPreferredBoundsWidth();
+            
             titleHeight = titleDisplay.getPreferredBoundsHeight();
         }
         
@@ -162,10 +164,12 @@ public class ActionBarSkin extends MobileSkin
             + actionGroup.getPreferredBoundsWidth()
             + titleWidth;
         
+        // min height is 82 (80px content height, 1px borders on top and bottom)
+        // Math.max.apply optimization used instead of "..." rest parameter
         measuredMinHeight = measuredHeight =
-            Math.max(80, navigationGroup.getPreferredBoundsHeight(), 
+            Math.max.apply(null, [80, navigationGroup.getPreferredBoundsHeight(), 
                 actionGroup.getPreferredBoundsHeight(),
-                titleHeight);
+                titleHeight]) + 2;
     }
     
     override protected function updateDisplayList(unscaledWidth:Number,
@@ -175,17 +179,22 @@ public class ActionBarSkin extends MobileSkin
         
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        // FXG contains a top border, bottom border, and 3 px drop shadow
-        border.width = unscaledWidth;
-        border.height = unscaledHeight + 5;
-        
         var navigationGroupWidth:Number = 0;
         
         var titleCompX:Number = 0;
         var titleCompWidth:Number = 0;
+        var titleHeight:Number = 0;
+        var titleCompY:Number = 0;
         
         var actionGroupX:Number = unscaledWidth;
         var actionGroupWidth:Number = 0;
+        
+        // remove top and bottom borders from content group height
+        var contentGroupsHeight:Number = unscaledHeight - 2;
+        
+        // FXG uses scale-9, 3 px drop shadow is drawn outside the bounds
+        border.width = unscaledWidth;
+        border.height = unscaledHeight + 3;
         
         // position groups, overlap of navigation and action groups is allowed
         // when overlap occurs, titleDisplay/titleGroup is not visible
@@ -194,17 +203,18 @@ public class ActionBarSkin extends MobileSkin
         {
             navigationGroupWidth = navigationGroup.getPreferredBoundsWidth();
             titleCompX += navigationGroupWidth;
-            navigationGroup.setLayoutBoundsSize(titleCompX, unscaledHeight);
+            
+            navigationGroup.setLayoutBoundsSize(navigationGroupWidth, contentGroupsHeight);
             navigationGroup.setLayoutBoundsPosition(0, 1); // top border
         }
         
         if (actionGroup.numElements > 0 && actionGroup.includeInLayout)
         {
+            // actionGroup x position can be negative
             actionGroupWidth = actionGroup.getPreferredBoundsWidth();
             actionGroupX = unscaledWidth - actionGroupWidth;
-            actionGroup.setLayoutBoundsSize(actionGroupWidth, unscaledHeight);
             
-            // actionGroup x position can be negative
+            actionGroup.setLayoutBoundsSize(actionGroupWidth, contentGroupsHeight);
             actionGroup.setLayoutBoundsPosition(actionGroupX, 1); // top border
         }
         
@@ -214,50 +224,53 @@ public class ActionBarSkin extends MobileSkin
             titleDisplay.visible = false;
             titleGroup.visible = false;
         }
-        else if (titleGroup.getMXMLContent() != null && titleGroup.includeInLayout)
+        else if (hostComponent.titleContent != null && titleGroup.includeInLayout)
         {
-            titleGroup.setLayoutBoundsSize(titleCompWidth, unscaledHeight);
-            titleGroup.setLayoutBoundsPosition(titleCompX, 1);
-            
             titleDisplay.visible = false;
             titleGroup.visible = true;
+            
+            // use titleGroup for titleContent
+            titleGroup.setLayoutBoundsSize(titleCompWidth, contentGroupsHeight);
+            titleGroup.setLayoutBoundsPosition(titleCompX, 1); // top border
         }
         else
         {
-            // FIXME (jasonsj): pending mobile styling spec
-            // paddingLeft
-            titleCompX = titleCompX + TITLE_PADDING;
+            // use titleDisplay for title text label
+            titleGroup.visible = false;
             
-            // FIXME (jasonsj): pending mobile styling spec
-            // paddingRight
-            titleCompWidth -= TITLE_PADDING * 2;
+            // use titleLayout for paddingLeft and paddingRight
+            var layoutObject:Object = hostComponent.titleLayout;
+            var titlePaddingLeft:Number = (layoutObject.paddingLeft) ? Number(layoutObject.paddingLeft) : 0;
+            var titlePaddingRight:Number = (layoutObject.paddingRight) ? Number(layoutObject.paddingRight) : 0;
             
+            // implement padding by adjusting width and position
+            titleCompX += titlePaddingLeft;
+            titleCompWidth = titleCompWidth - (titlePaddingLeft + titlePaddingRight);
+            
+            // align titleDisplay to the absolute center
             if (hostComponent.getStyle("titleAlign") == "center")
             {
-                // horizontalAlign=center
                 titleCompWidth = titleDisplay.getExplicitOrMeasuredWidth();
-                titleCompX = Math.floor((unscaledWidth / 2) - (titleCompWidth / 2));
+                titleCompX = Math.floor((unscaledWidth - titleCompWidth)/ 2);
             }
                 
-            // hide titleDisplay if there is any overlap after padding
+            // shrink and/or move titleDisplay width if there is any overlap after padding
             if ((titleCompX < navigationGroupWidth)
-                || ((titleCompX + titleCompWidth) > actionGroupX))
+                || ((titleCompX + titleCompWidth) > (actionGroupX - titlePaddingRight)))
             {
-                titleDisplay.visible = false;
-                titleGroup.visible = false;
+                titleCompX = navigationGroupWidth + titlePaddingLeft;
+                titleCompWidth = actionGroupX - titleCompX - titlePaddingRight;
             }
-            else
-            {
-                // verticalAlign=center
-                var titleHeight:Number = titleDisplay.getExplicitOrMeasuredHeight();
-                var titleCompY:Number = Math.floor((unscaledHeight / 2) - (titleHeight / 2));
-                
-                titleDisplay.setLayoutBoundsSize(titleCompWidth, titleHeight);
-                titleDisplay.setLayoutBoundsPosition(titleCompX, titleCompY + 1); // +1 FXG border
-                
-                titleDisplay.visible = true;
-                titleGroup.visible = false;
-            }
+            
+            // vertical align center by subtracting the descent and top gutter
+            titleHeight = titleDisplay.getExplicitOrMeasuredHeight();
+            titleCompY = Math.floor((contentGroupsHeight - titleHeight + titleDisplay.descent) / 2);
+            titleCompY -= (UITextField.TEXT_HEIGHT_PADDING / 2);
+            
+            titleDisplay.setLayoutBoundsSize(titleCompWidth, titleHeight);
+            titleDisplay.setLayoutBoundsPosition(titleCompX, titleCompY);
+            
+            titleDisplay.visible = true;
         }
         
         // Draw the gradient background
@@ -266,14 +279,15 @@ public class ActionBarSkin extends MobileSkin
         var alphas:Array = [alpha, alpha, alpha];
         var colors:Array = [];
         
-        matrix.createGradientBox(unscaledWidth, unscaledHeight - 1, Math.PI / 2, 0, 0);
+        // exclude top and bottom 1px borders
+        matrix.createGradientBox(unscaledWidth, contentGroupsHeight, Math.PI / 2, 0, 0);
         
         colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
         colors[1] = chromeColor;
         colors[2] = ColorUtil.adjustBrightness2(chromeColor, -20);
         
         graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
-        graphics.drawRect(0, 1, unscaledWidth, unscaledHeight);
+        graphics.drawRect(0, 1, unscaledWidth, contentGroupsHeight);
         graphics.endFill();
     }
 }
@@ -304,6 +318,7 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
     private var titleDisplayShadow:MobileTextField;
     private var title:String;
     private var titleChanged:Boolean;
+    public var descent:Number;
     
     public function TitleDisplayComponent()
     {
@@ -373,6 +388,8 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         
         textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
         
+        descent = lineMetrics.descent;
+        
         measuredWidth = textWidth;
         measuredHeight = textHeight;
     }
@@ -380,16 +397,6 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
-        var textHeight:Number = 0;
-        var lineMetrics:TextLineMetrics;
-        
-        if (title != "")
-            lineMetrics = measureText(title);
-        else
-            lineMetrics = measureText("Wj");
-        
-        textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
         
         titleDisplay.commitStyles();
         titleDisplay.width = unscaledWidth;
