@@ -28,6 +28,7 @@ import mx.core.IDeferredInstantiationUIComponent;
 import mx.core.IFlexDisplayObject;
 import mx.core.IInvalidating;
 import mx.core.IStateClient;
+import mx.core.AdvancedLayoutFeatures;
 import mx.core.IUIComponent;
 import mx.core.UIComponentDescriptor;
 import mx.core.mx_internal;
@@ -39,6 +40,16 @@ import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
 import flash.events.FocusEvent;
+import mx.core.IVisualElement;
+import mx.geom.TransformOffsets;
+import mx.core.IVisualElement;
+import flash.geom.Point;
+import flash.display.Stage;
+import mx.managers.SystemManagerProxy;
+import flash.geom.Matrix;
+import flash.geom.Matrix3D;
+import mx.events.PropertyChangeEventKind;
+import flash.geom.PerspectiveProjection;
 
 //--------------------------------------
 //  Lifecycle events
@@ -451,7 +462,8 @@ import flash.events.FocusEvent;
  */
 public dynamic class UIMovieClip extends MovieClip 
     implements IDeferredInstantiationUIComponent, IToolTipManagerClient, 
-    IStateClient, IFocusManagerComponent, IConstraintClient, IAutomationObject
+    IStateClient, IFocusManagerComponent, IConstraintClient, IAutomationObject, 
+    IVisualElement
 {
     //--------------------------------------------------------------------------
     //
@@ -537,6 +549,119 @@ public dynamic class UIMovieClip extends MovieClip
     //
     //--------------------------------------------------------------------------
     
+    //----------------------------------
+    //  x
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /**
+     *  Number that specifies the component's horizontal position,
+     *  in pixels, within its parent container.
+     *
+     *  <p>Setting this property directly or calling <code>move()</code>
+     *  will have no effect -- or only a temporary effect -- if the
+     *  component is parented by a layout container such as HBox, Grid,
+     *  or Form, because the layout calculations of those containers
+     *  set the <code>x</code> position to the results of the calculation.
+     *  However, the <code>x</code> property must almost always be set
+     *  when the parent is a Canvas or other absolute-positioning
+     *  container because the default value is 0.</p>
+     *
+     *  @default 0
+     */
+    override public function get x():Number
+    {
+        return (_layoutFeatures == null)? super.x:_layoutFeatures.layoutX;
+    }
+
+    /**
+     *  @private
+     */
+    override public function set x(value:Number):void
+    {
+        if (x == value)
+            return;
+
+        if(_layoutFeatures == null)
+        {
+            super.x  = value;
+            //invalidateProperties();
+        }
+        else
+        {
+            _layoutFeatures.layoutX = value;
+            invalidateTransform();
+        }
+    }
+    
+    //----------------------------------
+    //  y
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /**
+     *  Number that specifies the component's vertical position,
+     *  in pixels, within its parent container.
+     *
+     *  <p>Setting this property directly or calling <code>move()</code>
+     *  will have no effect -- or only a temporary effect -- if the
+     *  component is parented by a layout container such as HBox, Grid,
+     *  or Form, because the layout calculations of those containers
+     *  set the <code>x</code> position to the results of the calculation.
+     *  However, the <code>x</code> property must almost always be set
+     *  when the parent is a Canvas or other absolute-positioning
+     *  container because the default value is 0.</p>
+     *
+     *  @default 0
+     */
+    override public function get y():Number
+    {
+        return (_layoutFeatures == null)? super.y:_layoutFeatures.layoutY;
+    }
+
+    /**
+     *  @private
+     */
+    override public function set y(value:Number):void
+    {
+        if (y == value)
+            return;
+
+        if(_layoutFeatures == null)
+        {
+            //invalidateProperties();
+            super.y  = value;
+        }
+        else
+        {
+            _layoutFeatures.layoutY = value;
+            invalidateTransform();
+        }
+    }
+    
+    [Bindable("zChanged")]
+    /**
+     *  @inheritDoc
+     */
+    override public function get z():Number
+    {
+        return (_layoutFeatures == null)? super.z:_layoutFeatures.layoutZ;
+    }
+
+    /**
+     *  @private
+     */
+    override public function set z(value:Number):void
+    {
+        if (z == value)
+            return;
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        _layoutFeatures.layoutZ = value;
+        invalidateTransform();
+    }
+    
     [Inspectable]
     /**
      *  Name of the object to use as the bounding box.
@@ -572,7 +697,7 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
      */
-    public function get baseline():*
+    public function get baseline():Object
     {
         return _baseline;
     }
@@ -580,7 +705,7 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  @private
      */
-    public function set baseline(value:*):void
+    public function set baseline(value:Object):void
     {
         if (value != _baseline)
         {
@@ -606,7 +731,7 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
      */
-    public function get bottom():*
+    public function get bottom():Object
     {
         return _bottom;
     }
@@ -614,7 +739,7 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  @private
      */
-    public function set bottom(value:*):void
+    public function set bottom(value:Object):void
     {
         if (value != _bottom)
         {
@@ -640,7 +765,7 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
      */
-    public function get horizontalCenter():*
+    public function get horizontalCenter():Object
     {
         return _horizontalCenter;
     }
@@ -648,7 +773,7 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  @private
      */
-    public function set horizontalCenter(value:*):void
+    public function set horizontalCenter(value:Object):void
     {
         if (value != _horizontalCenter)
         {
@@ -674,7 +799,7 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
      */
-    public function get left():*
+    public function get left():Object
     {
         return _left;
     }
@@ -682,7 +807,7 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  @private
      */
-    public function set left(value:*):void
+    public function set left(value:Object):void
     {
         if (value != _left)
         {
@@ -708,7 +833,7 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
      */
-    public function get right():*
+    public function get right():Object
     {
         return _right;
     }
@@ -716,7 +841,7 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  @private
      */
-    public function set right(value:*):void
+    public function set right(value:Object):void
     {
         if (value != _right)
         {
@@ -742,7 +867,7 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
      */
-    public function get top():*
+    public function get top():Object
     {
         return _top;
     }
@@ -750,7 +875,7 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  @private
      */
-    public function set top(value:*):void
+    public function set top(value:Object):void
     {
         if (value != _top)
         {
@@ -776,7 +901,7 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
      */
-    public function get verticalCenter():*
+    public function get verticalCenter():Object
     {
         return _verticalCenter;
     }
@@ -784,7 +909,7 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  @private
      */
-    public function set verticalCenter(value:*):void
+    public function set verticalCenter(value:Object):void
     {
         if (value != _verticalCenter)
         {
@@ -1464,11 +1589,16 @@ public dynamic class UIMovieClip extends MovieClip
         if (!_systemManager)
         {
             var r:DisplayObject = root;
-            if (r)
+            if (r && !(r is Stage))
             {
                 // If this object is attached to the display list, then
                 // the root property holds its SystemManager.
                 _systemManager = (r as ISystemManager);
+            }
+            else if (r)
+            {
+                // if the root is the Stage, then we are in a second AIR window
+                _systemManager = Stage(r).getChildAt(0) as ISystemManager;
             }
             else
             {
@@ -1481,6 +1611,11 @@ public dynamic class UIMovieClip extends MovieClip
                     if (ui)
                     {
                         _systemManager = ui.systemManager;
+                        break;
+                    }
+                    else if (o is ISystemManager)
+                    {
+                        _systemManager = o as ISystemManager;
                         break;
                     }
                     o = o.parent;
@@ -1646,6 +1781,136 @@ public dynamic class UIMovieClip extends MovieClip
     {
         explicitWidth = value;
     }
+    
+    //----------------------------------
+    //  scaleX
+    //----------------------------------
+
+    [Inspectable(category="Size", defaultValue="1.0")]
+
+    /**
+     *  Number that specifies the horizontal scaling factor.
+     *
+     *  <p>The default value is 1.0, which means that the object
+     *  is not scaled.
+     *  A <code>scaleX</code> of 2.0 means the object has been
+     *  magnified by a factor of 2, and a <code>scaleX</code> of 0.5
+     *  means the object has been reduced by a factor of 2.</p>
+     *
+     *  <p>A value of 0.0 is an invalid value.
+     *  Rather than setting it to 0.0, set it to a small value, or set
+     *  the <code>visible</code> property to <code>false</code> to hide the component.</p>
+     *
+     *  @default 1.0
+     */
+    
+    override public function get scaleX():Number
+    {
+        return ((_layoutFeatures == null)? super.scaleX:_layoutFeatures.layoutScaleX);
+    }
+    
+    override public function set scaleX(value:Number):void
+    {
+        var prevValue:Number = (_layoutFeatures == null)? scaleX:_layoutFeatures.layoutScaleX;
+        if (prevValue == value)
+            return;
+
+        // trace("set scaleX:" + this + "value = " + value); 
+        if(_layoutFeatures == null)
+            super.scaleX = value;
+        else
+        {
+            _layoutFeatures.layoutScaleX = value;
+        }
+        invalidateTransform();
+
+        // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
+        // and scaleX is changing we need to invalidate parent size and display list
+        // since we are not going to detect a change in measured sizes during measure.
+        invalidateParentSizeAndDisplayList();
+    }
+
+    //----------------------------------
+    //  scaleY
+    //----------------------------------
+
+    [Inspectable(category="Size", defaultValue="1.0")]
+
+    /**
+     *  Number that specifies the vertical scaling factor.
+     *
+     *  <p>The default value is 1.0, which means that the object
+     *  is not scaled.
+     *  A <code>scaleY</code> of 2.0 means the object has been
+     *  magnified by a factor of 2, and a <code>scaleY</code> of 0.5
+     *  means the object has been reduced by a factor of 2.</p>
+     *
+     *  <p>A value of 0.0 is an invalid value.
+     *  Rather than setting it to 0.0, set it to a small value, or set
+     *  the <code>visible</code> property to <code>false</code> to hide the component.</p>
+     *
+     *  @default 1.0
+     */
+    override public function get scaleY():Number
+    {
+        return ((_layoutFeatures == null)? super.scaleY:_layoutFeatures.layoutScaleY);
+    }
+    
+    override public function set scaleY(value:Number):void
+    {
+        var prevValue:Number = (_layoutFeatures == null)? scaleY:_layoutFeatures.layoutScaleY;
+        if (prevValue == value)
+            return;
+
+        if(_layoutFeatures == null)
+            super.scaleY = value;
+        else
+        {
+            _layoutFeatures.layoutScaleY = value;
+        }
+        invalidateTransform();
+
+        // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
+        // and scaleX is changing we need to invalidate parent size and display list
+        // since we are not going to detect a change in measured sizes during measure.
+        invalidateParentSizeAndDisplayList();
+    }
+
+   //----------------------------------
+    //  scaleZ
+    //----------------------------------
+
+    [Inspectable(category="Size", defaultValue="1.0")]
+    /**
+     *  Number that specifies the scaling factor along the z axis.
+     *
+     *  <p>A scaling along the z axis will not affect a typical component, which lies flat
+     *  in the z=0 plane.  components with children that have 3D transforms applied, or 
+     *  components with a non-zero transformZ, will be affected.</p>
+     *  
+     *  <p>The default value is 1.0, which means that the object
+     *  is not scaled.</p>
+     * 
+     *  <p>This property is ignored during calculation by any of Flex's 2D layouts. </p>
+     *
+     *  @default 1.0
+     */
+    override public function get scaleZ():Number
+    {
+        return ((_layoutFeatures == null)? super.scaleZ:_layoutFeatures.layoutScaleZ);
+    }
+
+    /**
+     * @private
+     */
+    override public function set scaleZ(value:Number):void
+    {
+        if (scaleZ == value)
+            return;
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        _layoutFeatures.layoutScaleZ = value;
+        invalidateTransform();
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -1764,7 +2029,561 @@ public dynamic class UIMovieClip extends MovieClip
      */
     public function setConstraintValue(constraintName:String, value:*):void
     {
+        // set it using the setter first
         this[constraintName] = value;
+        
+        // this is so we can have the value typed as *
+        this["_"+constraintName] = value;
+    }
+    
+    /**
+     * Determines the order in which items inside of groups are rendered. Groups order their items based on their layer property, with the lowest layer
+     * in the back, and the higher in the front.  items with the same layer value will appear in the order they are added to the Groups item list.
+     * 
+     * defaults to 0
+     * 
+     * @default 0
+     */
+    public function get layer():Number
+    {
+        return (_layoutFeatures == null)? 0:_layoutFeatures.layer;
+    }
+
+    [Bindable("layerChange")]
+    /**
+     * @private
+     */
+    public function set layer(value:Number):void
+    {
+        if(value == layer)
+            return;
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        _layoutFeatures.layer = value;      
+        dispatchEvent(new FlexEvent("layerChange"));
+        if(parent != null && "invalidateLayering" in parent && parent["invalidateLayering"] is Function)
+            parent["invalidateLayering"]();
+        // TODO: should be in some interface...
+    }
+    
+    /**
+     *
+     */
+    public function get transformX():Number
+    {
+        return (_layoutFeatures == null)? 0:_layoutFeatures.transformX;
+    }
+    /**
+     *  @private
+     */
+    public function set transformX(value:Number):void
+    {
+        if (transformX == value)
+            return;
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        _layoutFeatures.transformX = value;
+        invalidateTransform();
+        invalidateParentSizeAndDisplayList();
+    }
+
+    /**
+     *
+     */
+    public function get transformY():Number
+    {
+        return (_layoutFeatures == null)? 0:_layoutFeatures.transformY;
+    }
+    /**
+     *  @private
+     */
+    public function set transformY(value:Number):void
+    {
+        if (transformY == value)
+            return;
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        _layoutFeatures.transformY = value;
+        invalidateTransform();
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    /**
+     *
+     */
+    public function get transformZ():Number
+    {
+        return (_layoutFeatures == null)? 0:_layoutFeatures.transformZ;
+    }
+    /**
+     *  @private
+     */
+    public function set transformZ(value:Number):void
+    {
+        if (transformZ == value)
+            return;
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        _layoutFeatures.transformZ = value;
+        invalidateTransform();
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    override public function get rotation():Number
+    {
+        return (_layoutFeatures == null)? super.rotation:_layoutFeatures.layoutRotationZ;
+    }
+
+    /**
+     * @private
+     */
+    override public function set rotation(value:Number):void
+    {
+        if (rotation == value)
+            return;
+
+        if(_layoutFeatures == null)
+        {
+            // clamp the rotation value between -180 and 180.  This is what 
+            // the Flash player does and what we mimic in CompoundTransform;
+            // however, the Flash player doesn't handle values larger than 
+            // 2^15 - 1 (FP-749), so we need to clamp even when we're 
+            // just setting super.rotation.
+            if (value > 180 || value < -180)
+            {
+                value = value % 360;
+            
+                if (value > 180)
+                    value = value - 360;
+                else if (value < -180)
+                    value = value + 360;
+            }
+            
+            super.rotation = value;
+        }
+        else
+        {
+            _layoutFeatures.layoutRotationZ = value;
+        }
+
+        invalidateTransform();
+        invalidateParentSizeAndDisplayList();
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    override public function get rotationZ():Number
+    {
+        return rotation;
+    }
+    /**
+     *  @private
+     */
+    override public function set rotationZ(value:Number):void
+    {
+        rotation = value;
+    }
+
+    /**
+     * Indicates the x-axis rotation of the DisplayObject instance, in degrees, from its original orientation 
+     * relative to the 3D parent container. Values from 0 to 180 represent clockwise rotation; values 
+     * from 0 to -180 represent counterclockwise rotation. Values outside this range are added to or subtracted from 
+     * 360 to obtain a value within the range.
+     * 
+     * This property is ignored during calculation by any of Flex's 2D layouts. 
+     */
+    override public function get rotationX():Number
+    {
+        return (_layoutFeatures == null)? super.rotationX:_layoutFeatures.layoutRotationX;
+    }
+
+    /**
+     *  @private
+     */
+    override public function set rotationX(value:Number):void
+    {
+        if (rotationX == value)
+            return;
+
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        _layoutFeatures.layoutRotationX = value;
+        invalidateTransform();
+        invalidateParentSizeAndDisplayList();
+    }
+
+    /**
+     * Indicates the y-axis rotation of the DisplayObject instance, in degrees, from its original orientation 
+     * relative to the 3D parent container. Values from 0 to 180 represent clockwise rotation; values 
+     * from 0 to -180 represent counterclockwise rotation. Values outside this range are added to or subtracted from 
+     * 360 to obtain a value within the range.
+     * 
+     * This property is ignored during calculation by any of Flex's 2D layouts. 
+     */
+    override public function get rotationY():Number
+    {
+        return (_layoutFeatures == null)? super.rotationY:_layoutFeatures.layoutRotationY;
+    }
+
+    /**
+     *  @private
+     */
+    override public function set rotationY(value:Number):void
+    {
+        if (rotationY == value)
+            return;
+
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        _layoutFeatures.layoutRotationY = value;
+        invalidateTransform();
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    /**
+     *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
+     *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
+     *  for a component that will be rotated 90 degrees, you set the component's <code>rotation</code> property. 
+     *  If you want the layout to <i>not</i> adjust for the component being rotated, you set its <code>offsets.rotationZ</code> 
+     *  property.
+     */
+    public function set offsets(value:TransformOffsets):void
+    {
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        
+        if(_layoutFeatures.offsets != null)
+            _layoutFeatures.offsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+        _layoutFeatures.offsets = value;
+        if(_layoutFeatures.offsets != null)
+            _layoutFeatures.offsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+    }
+
+    /**
+     * @private
+     */
+    public function get offsets():TransformOffsets
+    {
+        return (_layoutFeatures != null)? _layoutFeatures.offsets:null;
+    }
+    
+    private function transformOffsetsChangedHandler(e:Event):void
+    {
+        invalidateTransform();
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    override public function get transform():flash.geom.Transform
+    {
+        if(_transform == null)
+        {
+            setTransform(new mx.geom.Transform(this));
+        }
+        return _transform;
+    }
+
+    /**
+     * @private
+     */
+    override public function set transform(value:flash.geom.Transform):void
+    {
+        setTransform(value);
+
+        assignTransformMatrices();
+        super.transform.colorTransform = value.colorTransform;
+        super.transform.perspectiveProjection = _transform.perspectiveProjection;
+        if(maintainProjectionCenter)
+            applyPerspectiveProjection();
+    }
+    
+    private function assignTransformMatrices():void
+    {
+        var m:Matrix = _transform.matrix;
+        var m3:Matrix3D =  _transform.matrix3D;
+        if(m != null)
+            layoutMatrix = m.clone();
+        else if(m3 != null)
+            layoutMatrix3D = m3.clone();
+
+        // invalidateSize();
+        notifySizeChanged();
+    }
+
+
+    private function transformPropertyChangeHandler(event:PropertyChangeEvent):void
+    {
+        if (event.kind == PropertyChangeEventKind.UPDATE)
+        {
+            if (event.property == "matrix" || event.property == "matrix3D")
+            {
+                assignTransformMatrices();
+            }
+            else if (event.property == "perspectiveProjection")
+            {
+                super.transform.perspectiveProjection = _transform.perspectiveProjection;
+                if(maintainProjectionCenter)
+                    applyPerspectiveProjection();
+            }
+            else if (event.property == "colorTransform")
+            {
+                super.transform.colorTransform = _transform.colorTransform;
+            }
+        }
+    }
+    
+    /**
+     * @private
+     */
+    private var _maintainProjectionCenter:Boolean = false;
+    
+    /**
+     * When true, the component will keep its projection matrix centered on the middle of its bounding box.  If no projection matrix is defined
+     * on the component, one will be added automatically.
+     */
+    public function set maintainProjectionCenter(value:Boolean):void
+    {
+        _maintainProjectionCenter = value;
+        if(value && super.transform.perspectiveProjection == null)
+        {
+            super.transform.perspectiveProjection = new PerspectiveProjection();
+        }
+        applyPerspectiveProjection();
+    }
+    /**
+     * @private
+     */
+    public function get maintainProjectionCenter():Boolean
+    {
+        return _maintainProjectionCenter;
+    }
+
+    
+    /**
+     *  The transform matrix that is used to calculate the component's layout relative to its siblings. This matrix
+     *  is defined by the component's 2D properties such as <code>x</code>, <code>y</code>, <code>rotation</code>, 
+     *  <code>scaleX</code>, <code>scaleY</code>, <code>transformX</code>, and <code>transformY</code>.
+     *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
+     */
+    public function get layoutMatrix():Matrix
+    {
+        if(_layoutFeatures != null)
+        {
+            return _layoutFeatures.layoutMatrix;            
+        }
+        else
+        {
+            return super.transform.matrix;
+        }
+    }
+
+    /**
+     * @private
+     */
+    public function set layoutMatrix(value:Matrix):void
+    {
+        if(_layoutFeatures == null)
+        {
+            super.transform.matrix = value;
+            //invalidateSize();
+            notifySizeChanged();
+        }
+        else
+        {
+            _layoutFeatures.layoutMatrix = value;
+            invalidateTransform();
+            invalidateParentSizeAndDisplayList();
+        }
+    }
+    
+    /**
+     *  The transform matrix that is used to calculate a component's layout relative to its siblings. This matrix is defined by
+     *  the component's 3D properties (which include the 2D properties such as <code>x</code>, <code>y</code>, <code>rotation</code>, 
+     *  <code>scaleX</code>, <code>scaleY</code>, <code>transformX</code>, and <code>transformY</code>, as well as <code>rotationX</code>, 
+     *  <code>rotationY</code>, <code>scaleZ</code>, <code>z</code>, and <code>transformZ</code>.
+     *  
+     *  <p>Most components do not have any 3D transform properties set on them.</p>
+     *  
+     *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
+     */
+    public function set layoutMatrix3D(value:Matrix3D):void
+    {
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        _layoutFeatures.layoutMatrix3D = value;
+        invalidateTransform();
+        invalidateParentSizeAndDisplayList();
+    }
+
+    /**
+     * @private
+     */
+    public function get layoutMatrix3D():Matrix3D
+    {
+        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        return _layoutFeatures.layoutMatrix3D;          
+    }
+    
+    private function setTransform(value:flash.geom.Transform):void
+    {
+        // Clean up the old event listeners
+        var oldTransform:mx.geom.Transform = _transform as mx.geom.Transform;
+        if (oldTransform)
+        {
+            oldTransform.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
+        }
+
+        var newTransform:mx.geom.Transform = value as mx.geom.Transform;
+
+        if (newTransform)
+        {
+            newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
+        }
+
+        _transform = value;
+    }
+    
+    /**
+     * A utility method to update the rotation and scale of the transform while keeping a particular point, specified in the component's own coordinate space, 
+     * fixed in the parent's coordinate space.  This function will assign the rotation and scale values provided, then update the x/y/z properties
+     * as necessary to keep tx/ty/tz fixed.
+     * @param rx,ry,rz the new values for the rotation of the transform
+     * @param sx,sy,sz the new values for the scale of the transform
+     * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
+     */
+    public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
+    {
+        if(_layoutFeatures == null && (
+            (!isNaN(rx) && rx != 0) || 
+            (!isNaN(ry) && ry != 0) || 
+            (!isNaN(sz) && sz != 1)
+            ))
+        {
+            initAdvancedLayoutFeatures();
+        } 
+        if(_layoutFeatures != null)
+        {
+            _layoutFeatures.transformAround(rx,ry,rz,sx,sy,sz,tx,ty,tz,true);
+            invalidateTransform();      
+            invalidateParentSizeAndDisplayList();
+        }
+        else
+        {
+            var xformedPt:Point = super.transform.matrix.transformPoint(new Point(tx,ty));
+            if(!isNaN(rz))
+            rotation = rz;
+            if(!isNaN(sx))
+                scaleX = sx;
+            if(!isNaN(sx))
+                scaleY = sy;            
+            var postXFormPoint:Point = super.transform.matrix.transformPoint(new Point(tx,ty));
+            x += xformedPt.x - postXFormPoint.x;
+            y += xformedPt.y - postXFormPoint.y;
+        }
+    }
+    
+    /**
+     *  Helper method to invalidate parent size and display list if
+     *  this object affects its layout (includeInLayout is true).
+     */
+    protected function invalidateParentSizeAndDisplayList():void
+    {
+        if (!includeInLayout)
+            return;
+
+        var p:IInvalidating = parent as IInvalidating;
+        if (!p)
+            return;
+
+        p.invalidateSize();
+        p.invalidateDisplayList();
+    }
+    
+    /**
+     * @private
+     *
+     * storage for advanced layout and transform properties.
+     */
+    private var _layoutFeatures:AdvancedLayoutFeatures;
+    
+    /**
+     * @private
+     *
+     * storage for the modified Transform object that can dispatch change events correctly.
+     */
+    private var _transform:flash.geom.Transform;
+    
+    /**
+     * Initializes the implementation and storage of some of the less frequently used
+     * advanced layout features of a component.  Call this function before attempting to use any of the 
+     * features implemented by the AdvancedLayoutFeatures object.
+     * 
+     */
+    protected function initAdvancedLayoutFeatures():void
+    {
+        var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
+
+        features.layoutScaleX = scaleX;
+        features.layoutScaleY = scaleY;
+        features.layoutScaleZ = scaleZ;
+        features.layoutRotationX = rotationX;
+        features.layoutRotationY = rotationY;
+        features.layoutRotationZ = rotation;
+        features.layoutX = x;
+        features.layoutY = y;
+        features.layoutZ = z;
+        _layoutFeatures = features;
+        invalidateTransform();
+    }
+    
+    private function invalidateTransform():void
+    {
+        if(_layoutFeatures && _layoutFeatures.updatePending == false)
+        {
+            _layoutFeatures.updatePending = true; 
+            applyComputedTransform();
+            notifySizeChanged();
+        }
+    }
+    
+    /**
+     * Commits the computed matrix built from the combination of the layout matrix and the transform offsets to the flash displayObject's transform.
+     */
+    private function applyComputedTransform():void
+    {
+        _layoutFeatures.updatePending = false;
+        if(_layoutFeatures.is3D)
+        {
+            super.transform.matrix3D = _layoutFeatures.computedMatrix3D;
+        }
+        else
+        {
+            super.transform.matrix = _layoutFeatures.computedMatrix;
+        }
+    }
+    
+    private function applyPerspectiveProjection():void
+    {
+        var pmatrix:PerspectiveProjection = super.transform.perspectiveProjection;
+        if(pmatrix != null)
+        {
+            // width, height instead of unscaledWidth, unscaledHeight
+            pmatrix.projectionCenter = new Point(width/2,height/2);
+        }
+    }
+    
+    private function isOnDisplayList():Boolean
+    {
+        var p:DisplayObjectContainer;
+
+        try
+        {
+            p = _parent ? _parent : super.parent;
+        }
+        catch (e:SecurityError)
+        {
+            // trace("UIComponent.isOnDisplayList(): " + e);
+            return true;        // we are on the display list but the parent is in another sandbox
+        }
+
+        return p ? true : false;
     }
     
     //--------------------------------------------------------------------------
@@ -1848,6 +2667,7 @@ public dynamic class UIMovieClip extends MovieClip
     
     public function set currentState(value:String):void
     {
+        // TODO: revisit states
         if (value == _currentState)
             return;
         
@@ -2173,12 +2993,34 @@ public dynamic class UIMovieClip extends MovieClip
      *  @param y The new y-position for this object.
      */
     public function move(x:Number, y:Number):void
-    {
-        this.x = x;
-        this.y = y;
-        
-        if (x != oldX || y != oldY)
+    {       
+        var changed:Boolean = false;
+
+        if (x != this.x)
         {
+            if(_layoutFeatures == null)
+                super.x  = x;
+            else
+                _layoutFeatures.layoutX = x;
+            
+            dispatchEvent(new Event("xChanged"));
+            changed = true;
+        }
+
+        if (y != this.y)
+        {
+            if(_layoutFeatures == null)
+                super.y  = y;
+            else
+                _layoutFeatures.layoutY = y;
+            
+            dispatchEvent(new Event("yChanged"));
+            changed = true;
+        }
+
+        if (changed)
+        {
+            invalidateTransform();
             dispatchMoveEvent();
         }
     }
@@ -2205,6 +3047,7 @@ public dynamic class UIMovieClip extends MovieClip
      */
     public function setActualSize(newWidth:Number, newHeight:Number):void
     {
+        // TODO: is this how it should be?
         if (sizeChanged(_width, newWidth) || sizeChanged(_height, newHeight))
             dispatchResizeEvent();
             
@@ -2679,6 +3522,5 @@ public dynamic class UIMovieClip extends MovieClip
             return automationDelegate.replayAutomatableEvent(event);
         return false;
     }
-    
 }
 }
