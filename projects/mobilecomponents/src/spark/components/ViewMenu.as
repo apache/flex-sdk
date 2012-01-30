@@ -20,6 +20,7 @@ import flash.ui.Keyboard;
 import mx.core.FlexGlobals;
 import mx.core.InteractionMode;
 import mx.core.mx_internal;
+import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManagerComponent;
 
 import spark.core.NavigationUnit;
@@ -97,11 +98,9 @@ TODO:
 
 - add transitions
 - use PopUpAnchor instead of PopUpManager
-- integrate into TabbedMobileApplication
 - Investigate performance impact of View.viewMenuItems being instances
   instead of getting created when the menu is opened. 
 - Add scaleGrid values to fxg skins
-- Implement layout key navigation
 - Move skin background to ViewMenuItemSkin and use styles
 - ViewMenuItem_down.fxg change to use Rects
 */
@@ -126,7 +125,17 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
         super();
         // Listen for orientation change events when we are attached to the stage
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+        addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    // Tracks whether the mouse is down on the ViewMenu. If so, prevent keyboard
+    private var isMouseDown:Boolean = false;
     
     //--------------------------------------------------------------------------
     //
@@ -243,7 +252,7 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
     {   
         super.keyDownHandler(event);
                 
-        if (!items || !layout || event.isDefaultPrevented())
+        if (!items || !layout || event.isDefaultPrevented() || isMouseDown)
             return;
         
         // 1. Was the space bar hit? 
@@ -291,25 +300,6 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
     //
     //--------------------------------------------------------------------------
     
-    private function addedToStageHandler(event:Event):void
-    {
-        addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
-        systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, orientationChangeHandler, true);
-    }
-    
-    private function removedFromStageHandler(event:Event):void
-    {
-        removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
-        systemManager.stage.removeEventListener(StageOrientationEvent.ORIENTATION_CHANGE, orientationChangeHandler, true);
-    }
-    
-    // Update the size and display if orientation has changed
-    private function orientationChangeHandler(event:StageOrientationEvent):void
-    {
-        invalidateSkinState();
-        invalidateSize();
-        invalidateDisplayList();
-    }
     
     /**
      *  Adjusts the selection based on what keystroke or 
@@ -372,7 +362,9 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
             return;
         
         var item:ViewMenuItem = ViewMenuItem(getElementAt(index));
-        item.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        
+        if (item.enabled)
+            item.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
     }
     
     // Helper function which updates the item's caret state
@@ -383,6 +375,58 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
         
         var item:ViewMenuItem = ViewMenuItem(getElementAt(index));
         item.showsCaret = showsCaret;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //--------------------------------------------------------------------------
+    
+    private function addedToStageHandler(event:Event):void
+    {
+        addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+        systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, orientationChangeHandler, true);
+    }
+    
+    private function removedFromStageHandler(event:Event):void
+    {
+        removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+        systemManager.stage.removeEventListener(StageOrientationEvent.ORIENTATION_CHANGE, orientationChangeHandler, true);
+    }
+    
+    // Update the size and display if orientation has changed
+    private function orientationChangeHandler(event:StageOrientationEvent):void
+    {
+        invalidateSkinState();
+        invalidateSize();
+        invalidateDisplayList();
+    }
+    
+    private function mouseDownHandler(event:MouseEvent):void
+    {
+        // Clear the caret
+        caretIndex = -1;
+        
+        isMouseDown = true;
+        
+        // Listen for mouse up anywhere
+        systemManager.getSandboxRoot().addEventListener(
+            MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true /* useCapture */);
+        
+        systemManager.getSandboxRoot().addEventListener(
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
+    }
+    
+    private function systemManager_mouseUpHandler(event:Event):void
+    {
+        systemManager.getSandboxRoot().removeEventListener(
+            MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true /* useCapture */);
+        
+        systemManager.getSandboxRoot().removeEventListener(
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
+        
+        isMouseDown = false;
     }
 }
 }
