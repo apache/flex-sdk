@@ -12,7 +12,7 @@
 package mx.core
 {
 
-import mx.managers.IFocusManager;
+import mx.managers.IFocusManager2;
 
 /**
  *  IContainer is a interface that indicates a component
@@ -59,7 +59,7 @@ include "IInteractiveObjectInterface.as"
     /**
      *  @copy mx.core.UIComponent#focusManager
      */
-    function get focusManager():IFocusManager;
+    function get focusManager():IFocusManager2;
 }
 
 }
