@@ -320,9 +320,6 @@ public class SlideViewTransition extends ViewTransitionBase
         navigatorProps.contentGroupIncludeInLayout = targetNavigator.contentGroup.includeInLayout;
         targetNavigator.contentGroup.includeInLayout = false;
         
-        navigatorProps.contentGroupCacheAsBitmap = targetNavigator.contentGroup.cacheAsBitmap;
-        targetNavigator.contentGroup.cacheAsBitmap = true;
-        
         transitionGroup = new Group();
         transitionGroup.includeInLayout=false;
         
@@ -354,9 +351,22 @@ public class SlideViewTransition extends ViewTransitionBase
             {
                 if (!(mode == SlideViewTransitionMode.UNCOVER))
                     slideTargets.push(actionBar);
+                
                 navigatorProps.actionBarIncludeInLayout = actionBar.includeInLayout;
                 actionBar.includeInLayout = false;
+                
+                navigatorProps.actionBarCacheAsBitmap = actionBar.cacheAsBitmap;
+                actionBar.cacheAsBitmap = true;
             }
+        }
+        
+        if (endView.contentGroup)
+        {
+            navigatorProps.endViewIncludeInLayout = endView.contentGroup.includeInLayout;
+            endView.contentGroup.includeInLayout = false;
+            
+            navigatorProps.endViewCacheAsBitmap = endView.contentGroup.cacheAsBitmap;
+            endView.contentGroup.cacheAsBitmap = true;
         }
         
         if (cachedNavigator)
@@ -395,7 +405,7 @@ public class SlideViewTransition extends ViewTransitionBase
                 slideDistance = -targetNavigator.width;
                 break;
         }
-         
+         				
         // Position the control bars prior to our transition.
         
         if (targetNavigator == parentNavigator)
@@ -483,14 +493,22 @@ public class SlideViewTransition extends ViewTransitionBase
             else if (targetNavigator is ViewNavigator)
             {
                 if (actionBar)
+                {
                     actionBar.includeInLayout = navigatorProps.actionBarIncludeInLayout;
+                    actionBar.cacheAsBitmap = navigatorProps.actionBarCacheAsBitmap;
+                }
+            }
+            
+            if (endView.contentGroup)
+            {
+                endView.contentGroup.includeInLayout = navigatorProps.endViewIncludeInLayout;
+                endView.contentGroup.cacheAsBitmap = navigatorProps.endViewCacheAsBitmap;
             }
             
             if (transitionGroup)
                 removeComponentFromContainer(transitionGroup, targetNavigator.skin);
         
             targetNavigator.contentGroup.includeInLayout = navigatorProps.contentGroupIncludeInLayout;
-            targetNavigator.contentGroup.cacheAsBitmap = navigatorProps.contentGroupCacheAsBitmap;
         }
 
         transitionGroup = null;
