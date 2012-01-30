@@ -17,6 +17,7 @@ package mx.core
 	import mx.geom.ITransformable;
 	import flash.events.Event;
 	import mx.geom.CompoundTransform;
+	import flash.geom.Point;
 	use namespace mx_internal;	
 	
 	/**
@@ -80,7 +81,6 @@ package mx.core
 	 * offset values applied by the user
 	 */
 	private var _offsets:CompoundTransform;
-
 	
     /**
      * @private
@@ -191,7 +191,7 @@ package mx.core
      */
 	public function set transformX(value:Number):void
 	{
-		layout.transformX= value;
+		layout.transformX = value;
 		invalidate();
 	}
     /**
@@ -232,7 +232,7 @@ package mx.core
      */
 	public function set transformZ(value:Number):void
 	{
-		layout.transformZ = value;
+		layout.transformZ = value;	
 		invalidate();
 	}
 	
@@ -256,7 +256,7 @@ package mx.core
      */
 	public function set layoutRotationX(value:Number):void
 	{
-		layout.rotationX = value;
+		layout.rotationX= value;
 		invalidate();
 	}
 	
@@ -277,7 +277,7 @@ package mx.core
      */
 	public function set layoutRotationY(value:Number):void
 	{
-		layout.rotationY = value;
+		layout.rotationY= value;
 		invalidate();
 	}
 	
@@ -298,7 +298,7 @@ package mx.core
      */
 	public function set layoutRotationZ(value:Number):void
 	{
-		layout.rotationZ = value;
+		layout.rotationZ= value;
 		invalidate();
 	}
 	
@@ -343,7 +343,7 @@ package mx.core
      */
 	public function set layoutScaleY(value:Number):void
 	{
-		layout.scaleY = value;
+		layout.scaleY= value;
 		invalidate();
 	}
 	
@@ -365,7 +365,7 @@ package mx.core
      */
 	public function set layoutScaleZ(value:Number):void
 	{
-		layout.scaleZ = value;
+		layout.scaleZ= value;
 		invalidate();
 	}
 	
@@ -396,6 +396,7 @@ package mx.core
 	public function get layoutMatrix():Matrix
 	{
 		return layout.matrix;
+							
 	}
 	
 
@@ -433,12 +434,19 @@ package mx.core
 	public function set offsets(value:CompoundTransform):void
 	{
 		if(_offsets != null)
+		{
 			_offsets.removeEventListener(Event.CHANGE,offsetsChangedHandler);
+			_offsets.owner = null;
+		}
 		_offsets = value;
 		if(_offsets != null)
+		{
 			_offsets.addEventListener(Event.CHANGE,offsetsChangedHandler);
+			_offsets.owner = this;
+		}
 		invalidate();		
 	}
+	
 	public function get offsets():CompoundTransform
 	{
 		return _offsets;
@@ -487,11 +495,11 @@ package mx.core
 			m = _computedMatrix = new Matrix();
 		else
 			m.identity();
-	
-		build2DMatrix(m,layout.transformX,layout.transformY,
-					  layout.scaleX * offsets.scaleX,layout.scaleY * offsets.scaleY,
-					  layout.rotationZ + offsets.rotationZ,
-					  layout.x + offsets.x,layout.y + offsets.y);					
+
+			build2DMatrix(m,layout.transformX,layout.transformY,
+						  layout.scaleX * offsets.scaleX,layout.scaleY * offsets.scaleY,
+						  layout.rotationZ + offsets.rotationZ,
+						  layout.x + offsets.x,layout.y + offsets.y);					
 	
 		_flags |= COMPUTED_MATRIX_VALID;
 		return m;
@@ -506,11 +514,12 @@ package mx.core
 		if(_flags & COMPUTED_MATRIX3D_VALID)
 			return _computedMatrix3D;
 	
+	
 		if(offsets == null)
 		{
 			return layout.matrix3D;
-		}			
-	
+		}
+
 		var m:Matrix3D = _computedMatrix3D;
 		if(m == null)
 			m = _computedMatrix3D = new Matrix3D();
@@ -568,6 +577,180 @@ package mx.core
 		m.appendTranslation(tx+x,ty+y,tz+z);
 	}									
 						
+
+	/**
+	 * @private
+	 * call when you're about to change the transform, and when complete you want to keep a particular point fixed in its parent coordinate space.
+	 */
+	public function prepareForTransformCenterAdjustment(affectLayout:Boolean,propertyIs3D:Boolean,tx:Number = NaN,ty:Number = NaN,tz:Number = NaN):*
+	{
+		var computedCenterV:Vector3D;
+		var computedCenterP:Point;
+		var token:Object = {};
+		
+		if(isNaN(tx))
+			tx = layout.transformX;
+		if(isNaN(ty))
+			ty = layout.transformY;
+		if(isNaN(tz))
+			tz = layout.transformZ;
+				
+		var needAdjustment:Boolean = (tx != 0 || ty != 0 || tz != 0);
+		
+		if(needAdjustment == false)
+		{
+			return null;		
+		}
+
+		if (is3D || propertyIs3D) 
+		{
+			var centerV:Vector3D = new Vector3D(tx,ty,tz);
+			if(affectLayout)
+			{
+				var layoutCenterV:Vector3D = layoutMatrix3D.transformVector(centerV);
+				layoutCenterV.project();
+				token.layout = layoutCenterV;
+			} 
+			
+			if(_offsets != null)
+			{			
+				computedCenterV = computedMatrix3D.transformVector(centerV);
+				computedCenterV.project();
+				token.offset = computedCenterV;
+			}
+			token.center = centerV;
+		}
+		else
+		{
+			var centerP:Point = new Point(tx,ty);
+			if(affectLayout)
+				token.layout = layoutMatrix.transformPoint(centerP);
+
+			if(_offsets != null)
+				token.offset = computedMatrix.transformPoint(centerP);
+			token.center = centerP;
+		}
+		return token;
+	}
+
+	public function completeTransformCenterAdjustment(token:*,changeIs3D:Boolean):void
+	{
+		if(token == null)
+			return;
+			
+		var computedCenterV:Vector3D;
+		var computedCenterP:Point;
+		var layoutCenterV:Vector3D;
+		var layoutCenterP:Point;
+		
+		if(is3D)
+		{
+			var centerV:Vector3D = token.center;
+			computedCenterV = token.offset;
+			layoutCenterV = token.layout;
+			if(layoutCenterV != null)
+			{
+				var adjustedLayoutCenterV:Vector3D = layoutMatrix3D.transformVector(centerV);
+				adjustedLayoutCenterV.project();
+				if(adjustedLayoutCenterV.equals(layoutCenterV) == false)
+				{
+					layout.translateBy(layoutCenterV.x - adjustedLayoutCenterV.x,
+								layoutCenterV.y - adjustedLayoutCenterV.y,	
+								layoutCenterV.z - adjustedLayoutCenterV.z
+								);
+					invalidate(); 
+				}		
+			}
+			if(computedCenterV != null)
+			{
+				var adjustedComputedCenterV:Vector3D = computedMatrix3D.transformVector(centerV);
+				adjustedComputedCenterV.project();
+				if(adjustedComputedCenterV.equals(computedCenterV) == false)
+				{
+					offsets.translateBy(computedCenterV.x - adjustedComputedCenterV.x,
+										computedCenterV.y - adjustedComputedCenterV.y,
+										computedCenterV.z - adjustedComputedCenterV.z
+										);
+					invalidate(); 
+				}		
+			}
+		}
+		else
+		{
+			var centerP:Point = token.center;
+			computedCenterP = token.offset;
+			layoutCenterP = token.layout;
+			if(layoutCenterP != null)
+			{
+				var adjustedLayoutCenterP:Point = layoutMatrix.transformPoint(centerP);
+				if(adjustedLayoutCenterP.equals(layoutCenterP) == false)
+				{
+					layout.translateBy(layoutCenterP.x - adjustedLayoutCenterP.x,
+								layoutCenterP.y - adjustedLayoutCenterP.y,
+								0
+								);
+					invalidate(); 
+				}		
+			}
+			
+			if(computedCenterP != null)
+			{			
+				var adjustedComputedCenterP:Point = computedMatrix.transformPoint(centerP);
+				if(adjustedComputedCenterP.equals(computedCenterP) == false)
+				{
+					_offsets.translateBy(computedCenterP.x - adjustedComputedCenterP.x,
+							computedCenterP.y - adjustedComputedCenterP.y,
+							0
+							);
+					invalidate(); 
+				}		
+			}
+		}
+	}	
 	
+	public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number,affectLayout:Boolean = true):void
+	{
+		var is3D:Boolean = ((!isNaN(rx) && rx != 0) || (!isNaN(ry) && ry != 0) || (!isNaN(sz) && sz != 1));
+		
+		var token:* = prepareForTransformCenterAdjustment(affectLayout,is3D,tx,ty,tz);
+		if(affectLayout)
+		{
+			if(!isNaN(rx))
+				layout.rotationX = rx;
+			if(!isNaN(ry))
+				layout.rotationY = ry;
+			if(!isNaN(rz))
+				layout.rotationZ = rz;
+			if(!isNaN(sx))
+				layout.scaleX = sx;
+			if(!isNaN(sx))
+				layout.scaleY = sy;
+			if(!isNaN(sz))
+				layout.scaleZ = sz;			
+		}
+		else
+		{
+			if(_offsets == null)
+				offsets = new CompoundTransform();
+				
+			if(!isNaN(rx))
+				_offsets.rotationX = rx;
+			if(!isNaN(ry))
+				_offsets.rotationY = ry;
+			if(!isNaN(rz))
+				_offsets.rotationZ = rz;
+			if(!isNaN(sx))
+				_offsets.scaleX = sx;
+			if(!isNaN(sx))
+				_offsets.scaleY = sy;
+			if(!isNaN(sz))
+				_offsets.scaleZ = sz;			
+		}
+		invalidate();
+		completeTransformCenterAdjustment(token,is3D);
+		
+	}
+		
 }
 }
+
