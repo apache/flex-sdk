@@ -422,7 +422,7 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */  
-    override public function get exitApplicationOnBackKey():Boolean
+    override mx_internal function get exitApplicationOnBackKey():Boolean
     {
         return length <= 1;
     }
@@ -1095,7 +1095,7 @@ public class ViewNavigator extends ViewNavigatorBase
         // part in transitions. If the view change is processed during this validation,
         // the following flags will be false.
 		if (actionBarPropertyInvalidated)
-        	updatePropertiesForView(activeView);
+            updateControlsForView(activeView);
 			
 		if (actionBarVisibilityInvalidated)
             commitVisibilityChanges();
@@ -1948,11 +1948,11 @@ public class ViewNavigator extends ViewNavigatorBase
         if (actionBar)
         {
             invalidateActionBarProperties();
-            updatePropertiesForView(pendingView);
+            updateControlsForView(pendingView);
         }
         
         if (parentNavigator)
-            parentNavigator.updatePropertiesForView(pendingView);
+            parentNavigator.updateControlsForView(pendingView);
         
         // Need to force state change by calling validate properties again
         if (overlayControls != pendingView.overlayControls)
@@ -2054,9 +2054,9 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    override public function updatePropertiesForView(view:View):void
+    override public function updateControlsForView(view:View):void
     {
-        super.updatePropertiesForView(view);
+        super.updateControlsForView(view);
         
         if (!actionBar)
             return;
