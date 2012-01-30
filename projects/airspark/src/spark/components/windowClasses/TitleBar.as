@@ -36,7 +36,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  The titleBar is enabled and the application is maximized.
+ *  The title bar is enabled and the application is maximized.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -46,7 +46,7 @@ use namespace mx_internal;
 [SkinState("normalAndMaximized")]
 
 /**
- *  The titleBar is disabled and the application is maximized.
+ *  The title bar is disabled and the application is maximized.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
