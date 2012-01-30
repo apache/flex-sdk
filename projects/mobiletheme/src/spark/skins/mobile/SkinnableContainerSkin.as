@@ -111,6 +111,14 @@ public class SkinnableContainerSkin extends MobileSkin
         measuredWidth = contentGroup.getPreferredBoundsWidth();
         measuredHeight = contentGroup.getPreferredBoundsHeight();
     }
+	
+	/**
+	 *  @private
+	 */
+	override public function validateEstimatedSizesOfChildren():void
+	{
+		contentGroup.setEstimatedSize(estimatedWidth, estimatedHeight);
+	}
     
     /**
      *  @private
