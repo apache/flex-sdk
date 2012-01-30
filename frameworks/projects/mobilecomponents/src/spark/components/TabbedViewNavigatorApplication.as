@@ -31,7 +31,70 @@ use namespace mx_internal;
 [DefaultProperty("navigators")]
 
 /**
+ *  The TabbedViewNavigatorApplication container defines an application 
+ *  with multiple sections. 
+ *  The TabbedViewNavigatorApplication container automatically creates 
+ *  a TabbedMobileNavigator container. 
+ *  The TabbedViewNavigator container creates the TabBar control to 
+ *  support navigation among the sections of the application.
+ *
+ *  <p>The only allowable child of the TabbedViewNavigatorApplication 
+ *  container is ViewNavigator. 
+ *  Define one ViewNavigator for each section of the application.</p> 
+ *
+ *  <p>The TabbedViewNavigatorApplication container has the following 
+ *  default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>100% high and 100% wide to take up all available screen space.</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Child layout</td>
+ *           <td>Defined by the individual View containers 
+ *               that make up the views of the application.</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Scroll bars</td>
+ *           <td>None. If you do add scroll bars, users can scroll the entire application. 
+ *              That includes the ActionBar and TabBar area of the application. 
+ *              Because you typically do not want those areas of the view to scroll, 
+ *              add scroll bars to the individual View containers of the application, 
+ *              rather than to the application container itself. </td>
+ *        </tr>
+ *        <tr>
+ *           <td>Default skin class</td>
+ *           <td>spark.skins.mobile.ViewNavigatorApplicationSkin</td>
+ *        </tr>
+ *     </table>
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:TabbedViewNavigatorApplication&gt;</code> tag inherits all of the tag
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:TabbedViewNavigatorApplication
+ *    <strong>Properties</strong>
+ *    creationPolicy="auto"
+ *    maintainNavigationStack="true"
+ *    navigators="null"
  * 
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.components.TabbedViewNavigator
+ *  @see spark.components.TabBar
+ *  @see spark.skins.mobile.TabbedViewNavigatorApplicationSkin
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
 {
@@ -115,9 +178,9 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
      */ 
     override mx_internal function get exitApplicationOnBackKey():Boolean
     {
-    	if (navigator)
-    		return navigator.exitApplicationOnBackKey;
-    	
+        if (navigator)
+            return navigator.exitApplicationOnBackKey;
+        
         return super.exitApplicationOnBackKey;
     }
     
@@ -127,13 +190,20 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
     private var _explicitCreationPolicy:String = ContainerCreationPolicy.AUTO;
 
     /**
+     *  <p>TabbedViewNavigatorApplication cannot have visual elements
+     *  added to it, so the creation policy concept use by the framework
+     *  does not necessarily apply.  
+     *  Instead, this property controls whether the application's child 
+     *  view navigators create their children when the application initializes.</p>
+     * 
      *  @inheritDoc
      *
-     *  <p>TabbedViewNavigatorApplication can not have visual elements
-     *  added to it, so the creationPolicy concept use by the framework
-     *  doesn't necessarily make sense.  Instead, this property repurposed to
-     *  control whether the application's child navigators create their children
-     *  when the application initializes.</p>
+     *  @default "auto"
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     override public function get creationPolicy():String
     {
@@ -159,9 +229,7 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
     //  navigators
     //----------------------------------
     /**
-     *  The list of navigators that are being managed by the application.
-     *  Each navigator in the list will be represented by a item on the tab
-     *  bar.
+     *  @copy TabbedViewNavigator#navigators
      *  
      *  @default null
      * 
@@ -192,11 +260,7 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
     //  maintainNavigationStack
     //----------------------------------
     /**
-     *  This property indicates whether the navigation stack of the view
-     *  should remain intact when the navigator is deactivated by its
-     *  parent navigator.  If set to true, when reactivated the view history
-     *  will remain the same.  If false, the navigator will display the
-     *  first view in its navigation stack.
+     *  @copy spark.components.TabbedViewNavigator#maintainNavigationStack
      * 
      *  @default true
      *  
@@ -270,11 +334,11 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
      */ 
     override protected function backKeyUpHandler(event:KeyboardEvent):void
     {
-		super.backKeyUpHandler(event);
-		
-		if (viewMenuOpen)
-			viewMenuOpen = false;
-		else if (navigator)
+        super.backKeyUpHandler(event);
+        
+        if (viewMenuOpen)
+            viewMenuOpen = false;
+        else if (navigator)
             navigator.backKeyUpHandler();
     }
     
@@ -346,7 +410,7 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
         
         if (instance == navigator)
         {
-        	// Always want to save the navigation stack
+            // Always want to save the navigation stack
             var newNavigatorProperties:Object = {navigationStack: navigator.navigationStack};
             
             if (maintainNavigationStackPropSet)
