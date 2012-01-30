@@ -27,6 +27,11 @@ import mx.skins.RectangularBorder;
  *  @see mx.graphics.GradientEntry
  *  @see mx.graphics.RadialGradient 
  *  @see flash.display.Graphics
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class LinearGradientStroke extends GradientStroke implements IStroke
 {
@@ -95,6 +100,11 @@ public class LinearGradientStroke extends GradientStroke implements IStroke
      *  <code>thickness</code> of 10 pixels, the miter is cut off at 25 pixels. 
      *  This parameter is optional,
      *  with a default value of <code>0</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function LinearGradientStroke(weight:Number = 1,
                                          pixelHinting:Boolean = false,
@@ -117,6 +127,11 @@ public class LinearGradientStroke extends GradientStroke implements IStroke
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private static var commonMatrix:Matrix = new Matrix();
 
@@ -126,6 +141,11 @@ public class LinearGradientStroke extends GradientStroke implements IStroke
      *  
      *  @param g The Graphics object to which the LinearGradientStroke styles
      *  are applied.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function apply(g:Graphics):void
     {
