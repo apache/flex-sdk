@@ -305,7 +305,7 @@ public class GradientBase extends EventDispatcher
     	else
     	{
 	    	// Create the transform if none exists. 
-	    	if(compoundTransform == null)
+	    	if (compoundTransform == null)
 	            compoundTransform = new CompoundTransform();
 	       	compoundTransform.matrix = value; // CompoundTransform will create a clone
 	       	
