@@ -233,7 +233,7 @@ package spark.components.supportClasses
         /**
          *  Removes all but the root object from the screen stack.
          */
-        public function popToRoot():void
+        public function popToFirstView():void
         {
             if (_source.length > 1)
                 _source.length = 1;
