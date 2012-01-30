@@ -12,7 +12,10 @@
 package spark.components
 {
 import mx.core.IDataRenderer;
+import mx.core.IVisualElement;
 import mx.events.FlexEvent;
+
+import spark.layouts.supportClasses.LayoutBase;
 
 //--------------------------------------
 //  Events
@@ -94,6 +97,84 @@ public class View extends Group implements IDataRenderer
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    
+    /**
+     *  ActionBar action content.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var actionContent:Array;
+    
+    /**
+     *  Layout for the ActionBar actionContent.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var actionLayout:LayoutBase;
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    
+    /**
+     *  ActionBar title content.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var titleContent:Array;
+    
+    /**
+     *  Layout for the ActionBar titleContent.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var titleLayout:LayoutBase;
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    
+    /**
+     *  ActionBar navigation content.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var navigationContent:Array;
+    
+    /**
+     *  Layout for the ActionBar navigationContent.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var navigationLayout:LayoutBase;
     
     //----------------------------------
     //  active
