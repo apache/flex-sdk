@@ -135,16 +135,18 @@ public class CursorManagerImpl implements ICursorManager
      */
 	private var listenForContextMenu:Boolean = false;
     
+    /*******************************************************************
+     * Regarding overTextField, showSystemCursor, and showCustomCursor:
+     *    Don't modify or read these variables unless you are certain
+     *    you will not create race conditions. E.g. you may get the
+     *    wrong (or no) cursor, and get stuck in an inconsistent state.
+     */
+     
     /**
      *  @private
      */
-    private var overTextField:Boolean = false;
-    
-    /**
-     *  @private
-     */
-    private var overLink:Boolean = false;
-    
+     private var overTextField:Boolean = false;
+     
     /**
      *  @private
      */
@@ -154,6 +156,8 @@ public class CursorManagerImpl implements ICursorManager
      *  @private
      */
     private var showCustomCursor:Boolean = false;
+    
+    /*******************************************************************/
     
     /**
      *  @private
@@ -313,20 +317,6 @@ public class CursorManagerImpl implements ICursorManager
                                      xOffset:Number = 0,
                                      yOffset:Number = 0):int 
     {
-        /*
-        if (!cursorHolder._target)
-        {
-            // We may have been reloaded by a shell so reset everything.
-            currentCursorID = CursorManager.NO_CURSOR;
-            nextCursorID = 1;
-            cursorList = [];
-            busyCursorList = [];
-            initialized = false;
-            overTextField = false;
-            overLink = false;
-        }
-        */
-        
         var cursorID:int = nextCursorID++;
         
         // Create a new CursorQueueItem.
@@ -400,7 +390,6 @@ public class CursorManagerImpl implements ICursorManager
     public function removeAllCursors():void
     {
         cursorList.splice(0);
-        
         showCurrentCursor();
     }
 
@@ -445,7 +434,8 @@ public class CursorManagerImpl implements ICursorManager
     {
         var app:InteractiveObject;
         var sm:InteractiveObject;
-            
+        
+        // if there are custom cursors...
         if (cursorList.length > 0)
         {
             if (!initialized)
@@ -455,7 +445,6 @@ public class CursorManagerImpl implements ICursorManager
                 cursorHolder = new FlexSprite();
                 cursorHolder.name = "cursorHolder";
                 cursorHolder.mouseEnabled = false;
-          //      systemManager.cursorChildren.addChild(cursorHolder);
 
                 initialized = true;
             }
@@ -533,9 +522,12 @@ public class CursorManagerImpl implements ICursorManager
                 currentCursorXOffset = item.x;
                 currentCursorYOffset = item.y;
             }
-        } 
-        else 
+        }
+        // else: there are no custom cursors
+        else
         {
+            showCustomCursor = false;
+            
             if (currentCursorID != CursorManager.NO_CURSOR)
             {
                 // There is no cursor in the cursor list to display,
@@ -600,7 +592,12 @@ public class CursorManagerImpl implements ICursorManager
      */
     private function contextMenu_menuSelectHandler(event:ContextMenuEvent):void
     {
-    	showCustomCursor = true; // Restore the custom cursor
+        // Restore the custom cursor...
+        // In AIR, the cursor doesn't get restored until a mouse move event is issued.
+        // Don't change this logic without testing that you didn't modify existing behavior
+        // in the Flash Player in Flex 3. It's very delicate, and sort of black magic.
+    	showCustomCursor = true;
+    	
     	// Standalone player doesn't initially send mouseMove when the contextMenu is closed,
     	// so we need to listen for mouseOver as well.   	
     	systemManager.stage.addEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
@@ -677,6 +674,8 @@ public class CursorManagerImpl implements ICursorManager
         }
         
         // Handle switching between system and custom cursor.
+        // these variables are mutually exclusive, unless they are modified oustide
+        // of this function, in which case you should make sure they stay that way
         if (showSystemCursor)
         {
             showSystemCursor = false;
@@ -794,4 +793,3 @@ class CursorQueueItem
      */
     public var y:Number;
 }
-
