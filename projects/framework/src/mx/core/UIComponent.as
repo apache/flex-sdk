@@ -1731,8 +1731,7 @@ public class UIComponent extends FlexSprite
    		invalidateTransform();
    		invalidateParentSizeAndDisplayList();
     }
-
-
+								
     //----------------------------------
     //  y
     //----------------------------------
@@ -9649,6 +9648,36 @@ public class UIComponent extends FlexSprite
 	   		invalidateTransform();
 	   		invalidateParentSizeAndDisplayList();
   		}
+	}
+	public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
+	{
+		if(_layoutFeatures == null && (
+			(!isNaN(rx) && rx != 0) || 
+			(!isNaN(ry) && ry != 0) || 
+			(!isNaN(sz) && sz != 1)
+			))
+		{
+			initAdvancedLayoutFeatures();
+		} 
+		if(_layoutFeatures != null)
+		{
+			_layoutFeatures.transformAround(rx,ry,rz,sx,sy,sz,tx,ty,tz,true);
+			invalidateTransform();		
+	   		invalidateParentSizeAndDisplayList();
+		}
+		else
+		{
+			var xformedPt:Point = super.transform.matrix.transformPoint(new Point(tx,ty));
+			if(!isNaN(rz))
+			rotation = rz;
+			if(!isNaN(sx))
+				scaleX = sx;
+			if(!isNaN(sx))
+				scaleY = sy;			
+			var postXFormPoint:Point = super.transform.matrix.transformPoint(new Point(tx,ty));
+			x += xformedPt.x - postXFormPoint.x;
+			y += xformedPt.y - postXFormPoint.y;
+		}
 	}
 
 	/**
