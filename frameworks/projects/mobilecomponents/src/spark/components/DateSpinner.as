@@ -568,12 +568,14 @@ public class DateSpinner extends SkinnableComponent
      */     
     public function set minuteStepSize(value:int):void
     {
-        if (value == _minuteStepSize)
-            return;
-        
+        // adjust for invalid values
         if (value <= 0 || 60 % value != 0)
             value = 1;
        
+        // short-circuit if no change
+        if (value == _minuteStepSize)
+            return;
+        
         _minuteStepSize = value;
         minuteStepSizeChanged = true;
         populateMinuteDataProvider = true;
