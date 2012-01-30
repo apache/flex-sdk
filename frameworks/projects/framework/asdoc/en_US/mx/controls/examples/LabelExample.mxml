@@ -1,30 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
-<!-- Simple example to demonstrate the Label control -->
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the Halo Label control -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-      
-            private var htmlData:String="<br>This label displays <b>bold</b> and <i>italic</i> HTML-formatted text.";
-                                         
-            // Event handler function to change the image size.
-            private function displayHTML():void {
-                simpleLabel.htmlText= htmlData;
-            }
-          
-            // Event handler function to change the image size.
-            private function displayText():void {
-                simpleLabel.text="This Label displays plain text.";
-            }         
-        ]]>
-    </mx:Script>
+            private var htmlData:String = "<br>This Label displays <b>bold</b> and <i>italic</i> HTML-formatted text.";
 
-  <mx:Panel title="Label Control Example" height="75%" width="75%" 
-      paddingTop="10" paddingLeft="10">
-    
-      <mx:Label id="simpleLabel" text="This Label displays plain text."/>
-      <mx:Button id="Display" label="Click to display HTML Text" click="displayHTML();"/>
-      <mx:Button id="Clear" label="Click to display plain text" click="displayText();"/>
-  
-  </mx:Panel>
-</mx:Application>
+            // Set HTML formatted label
+            private function displayHTML():void {
+                simpleLabel.htmlText = htmlData;
+            }
+
+            // Set plain text formatted label
+            private function displayText():void {
+                simpleLabel.text = "This Label displays plain text.";
+            }
+        ]]>
+    </fx:Script>
+
+    <s:Panel title="Halo Label Control Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <mx:Label id="simpleLabel" text="This Label displays plain text." />
+            <s:Button id="Display" label="Click to display HTML Text" click="displayHTML();" />
+            <s:Button id="Clear" label="Click to display plain text" click="displayText();" />
+        </s:VGroup>
+    </s:Panel>
+
+</s:Application>
