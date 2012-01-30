@@ -7487,7 +7487,12 @@ public class UIComponent extends FlexSprite
             hasFocusRect = false;
 
             if (focusObj)
+            {
                 focusObj.visible = false;
+                
+                if (focusObj is ISimpleStyleClient)
+                  ISimpleStyleClient(focusObj).styleName = null;
+            }
 
             removeEventListener(MoveEvent.MOVE, focusObj_moveHandler);
             removeEventListener(MoveEvent.MOVE, focusObj_moveHandler, true);
