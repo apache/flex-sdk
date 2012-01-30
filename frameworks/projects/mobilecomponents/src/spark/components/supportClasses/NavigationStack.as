@@ -9,7 +9,6 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-// TODO (chiedozi): Make private in view nav?
 package spark.components.supportClasses
 {    
 import flash.utils.IDataInput;
