@@ -85,6 +85,12 @@ use namespace mx_internal;
  */
 [SkinState("landscapeAndOverlay")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[IconFile("ViewNavigator.png")]
+
 /**
  *  The ViewNavigator component is a container that consists of a collection of
  *  View objects, where only the top most view is visible and active.  
