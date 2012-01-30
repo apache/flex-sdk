@@ -49,6 +49,9 @@ public class InstanceCache
      *
      *  @param insertPosition Where in the parent's child list
      *  to insert instances. Set to -1 to add the children to the end of the child list.
+     * 
+     *  @param moduleFactory The context for using embedded fonts and for 
+     *  finding the style manager that controls the styles for this component.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -390,7 +393,7 @@ public class InstanceCache
 
             if (_parent)
             {
-            	var n:int = _instances.length;
+                var n:int = _instances.length;
                 for (var i:int = 0; i < n; i++)
                 {
                     _parent.setChildIndex(_instances[i], i + _insertPosition);
