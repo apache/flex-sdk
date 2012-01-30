@@ -156,7 +156,7 @@ public class SystemManagerProxy extends SystemManager
                 SecurityUtil.hasMutualTrustBetweenParentAndChild(ISWFBridgeProvider(_systemManager));
 
 			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(
-                SWFBridgeEvent.NOTIFY_WINDOW_ACTIVATED,
+                SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE,
                 false, false,
 				mutualTrust ? this : NameUtil.displayObjectToString(this));
 			
@@ -184,7 +184,7 @@ public class SystemManagerProxy extends SystemManager
                 SecurityUtil.hasMutualTrustBetweenParentAndChild(ISWFBridgeProvider(_systemManager));
 			
             var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(
-                SWFBridgeEvent.NOTIFY_WINDOW_DEACTIVATED,
+                SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE,
 				false, false,
 				mutualTrust ? this : NameUtil.displayObjectToString(this));
 
