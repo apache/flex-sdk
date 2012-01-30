@@ -164,44 +164,33 @@ public class VerticalSpinnerLayout extends VerticalLayout
         if (forceNoWrapElements != oldForceNoWrapElements)
             dispatchEvent(new Event(FORCE_NO_WRAP_ELEMENTS_CHANGE));
         
-        var scrollPosition:Number = wrapElements ? 
-            normalizeScrollPosition(verticalScrollPosition) : 
-            verticalScrollPosition;
+        var scrollPosition:Number = verticalScrollPosition;
 		
         var itemIndex:int = Math.floor(scrollPosition / rowHeight);
         var yPos:Number = 0;
+        var yPosMax:Number;
         
         var foundLastVisibleElement:Boolean = false;
         var numVisibleElements:int = 0;
         var numVisitedElements:int = 0;
                 
         // Translate the vsp to the item index
-        if (wrapElements)
-        {
-            // The top item might only be partially visible. 
-            yPos = -(scrollPosition % rowHeight);
-        }
-        else
+        if (!wrapElements)
         {
             if (!useVirtualLayout)
                 itemIndex = 0;
-            
-            // If itemIndex is either the first or last element
-            // then position using -scrollPosition
-            if (itemIndex >= numElements)
-            {
-                itemIndex = numElements - 1;
-                yPos = -scrollPosition;
-            }
-            else if (itemIndex > 0)
-            {
-                yPos = -(scrollPosition % rowHeight);
-            }
-            else // itemIndex == 0
-            {
-                yPos = -scrollPosition;
-            }
-        }			
+            else
+                itemIndex = Math.max(Math.min(itemIndex, numElements - 1), 0);           
+        }		
+        
+        yPos = itemIndex * rowHeight;
+        
+        // Calculate the y position of the bottom of the viewable area
+        yPosMax = yPos + height;
+        
+        // Normalize the itemIndex
+        if (wrapElements)
+            itemIndex = normalizeItemIndex(itemIndex);
         
         // Start at the top index
         var iter:LayoutIterator = new LayoutIterator(target, itemIndex);
@@ -220,7 +209,7 @@ public class VerticalSpinnerLayout extends VerticalLayout
                 
                 // If we are using virtual layout, only size and position 
                 // the visible elements
-                if (yPos > height && !foundLastVisibleElement)
+                if (yPos > yPosMax && !foundLastVisibleElement)
                 {
                     foundLastVisibleElement = true;
                     // Keep track of the number of elements visible in the viewing area
@@ -255,26 +244,73 @@ public class VerticalSpinnerLayout extends VerticalLayout
 	//
 	//--------------------------------------------------------------------------
 	
-	override public function updateScrollRect(w:Number, h:Number):void
-	{
-		var g:GroupBase = target;
-		if (!g)
-			return;
-		
-		// Instead of moving the scrollRect position, we reposition the elements
-		if (clipAndEnableScrolling)
-			g.scrollRect = new Rectangle(0, 0, w, h);
-		else
-			g.scrollRect = null;
-	}
-	
 	override protected function scrollPositionChanged():void
-	{
-		if (target)
-		{
-			target.invalidateDisplayList();
-			setIndexInView(0, target.numElements - 1);
-		}
+	{        
+        var g:GroupBase = target;
+        if (!g)
+            return;
+        
+        updateScrollRect(g.width, g.height);
+        
+        var n:int = g.numElements - 1;
+        if (n < 0) 
+        {
+            setIndexInView(-1, -1);
+            return;
+        }
+        
+        var scrollR:Rectangle = getScrollRect();
+        if (!scrollR)
+        {
+            setIndexInView(0, n);
+            return;    
+        }
+        
+        var y0:Number = scrollR.top;
+        var y1:Number = scrollR.bottom - .0001;
+        if (y1 <= y0)
+        {
+            setIndexInView(-1, -1);
+            return;
+        }
+        
+        var i0:int;
+        var i1:int;
+        
+        if (wrapElements)
+        {
+            i0 = normalizeItemIndex(Math.floor(y0 / rowHeight));
+            i1 = normalizeItemIndex(Math.floor(y1 / rowHeight));
+        }
+        else
+        {
+            i0 = Math.min(Math.max(Math.floor(y0 / rowHeight), 0),n);
+            i1 = Math.min(Math.max(Math.floor(y1 / rowHeight), 0),n);
+        }
+        
+        setIndexInView(i0, i1);
+        
+        var firstElement:ILayoutElement = g.getElementAt(firstIndexInView);
+        var lastElement:ILayoutElement = g.getElementAt(lastIndexInView);
+        
+        if (wrapElements)
+        {
+            if (!firstElement || !lastElement || 
+                scrollR.top < firstElement.getLayoutBoundsY() || 
+                scrollR.bottom >= (lastElement.getLayoutBoundsY() + lastElement.getLayoutBoundsHeight()))
+            {
+                g.invalidateDisplayList();
+            }
+        }
+        else
+        {
+            if (!firstElement || !lastElement || 
+                (scrollR.top < firstElement.getLayoutBoundsY() && firstIndexInView != 0) || 
+                (scrollR.bottom >= (lastElement.getLayoutBoundsY() + lastElement.getLayoutBoundsHeight()) && lastIndexInView != n))
+            {
+                g.invalidateDisplayList();
+            }
+        }
 	}
 	
 	override public function getHorizontalScrollPositionDelta(navigationUnit:uint):Number
@@ -290,7 +326,6 @@ public class VerticalSpinnerLayout extends VerticalLayout
 	override mx_internal function getElementNearestScrollPosition(
 		position:Point,elementComparePoint:String = "center"):int
 	{
-		
 		var index:int = Math.floor(position.y / rowHeight); // may be larger than numElements to indicate wrapping
 		
 		var element:ILayoutElement;
@@ -388,6 +423,20 @@ public class VerticalSpinnerLayout extends VerticalLayout
 		
 		return vsp;
 	}
+    
+    // Helper function to normalize the item index
+    private function normalizeItemIndex(index:int):int
+    {
+        if (target)
+        {
+            index %= target.numElements;
+            
+            if (index < 0)
+                index += target.numElements;
+        }
+        
+        return index;
+    }
     
     // Helper function to return whether an element is enabled or not
     private function isElementEnabled(element:Object):Boolean
