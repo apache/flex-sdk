@@ -9,6 +9,7 @@ import mx.effects.IEffectInstance;
  *  Flex effects dispatch the following types of events:
  *  <ul>
  *    <li><code>effectStart</code></li>
+ *    <li><code>effectStop</code></li>
  *    <li><code>effectEnd</code></li>
  *  </ul>
  *
@@ -24,14 +25,14 @@ public class EffectEvent extends Event
 	//
 	//--------------------------------------------------------------------------
 
-	/**
+    /**
      *  The <code>EffectEvent.EFFECT_END</code> constant defines the value of the 
      *  <code>type</code> property of the event object for an 
      *  <code>effectEnd</code> event. 
-	 *
-	 *  <p>The properties of the event object have the following values:</p>
-	 *  <table class="innertable">
-	 *     <tr><th>Property</th><th>Value</th></tr>
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
@@ -44,14 +45,42 @@ public class EffectEvent extends Event
      *       it is not always the Object listening for the event. 
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
-	 *  </table>
-	 *
-	 *  @see mx.effects.Effect
+     *  </table>
+     *
+     *  @see mx.effects.Effect
      *
      *  @eventType effectEnd
-	 */
-	public static const EFFECT_END:String = "effectEnd";
-	
+     */
+    public static const EFFECT_END:String = "effectEnd";
+    
+    /**
+     *  The <code>EffectEvent.EFFECT_STOP</code> constant defines the value of the 
+     *  <code>type</code> property of the event object for an 
+     *  <code>effectStop</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>effectInstance</code></td><td>The effect instance object 
+     *       for the event.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *       it is not always the Object listening for the event. 
+     *       Use the <code>currentTarget</code> property to always access the 
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @see mx.effects.Effect
+     *
+     *  @eventType effectStop
+     */
+    public static const EFFECT_STOP:String = "effectStop";
+    
 	/**
      *  The <code>EffectEvent.EFFECT_START</code> constant defines the value of the 
      *  <code>type</code> property of the event object for an 
