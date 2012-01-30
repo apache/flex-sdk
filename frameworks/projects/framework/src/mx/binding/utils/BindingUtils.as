@@ -128,8 +128,16 @@ public class BindingUtils
      *  Binds a setter function, <code>setter</code>, to a bindable property 
      *  or property chain.
      *  If a ChangeWatcher instance is successfully created, 
-     *  the setter function is invoked with one argument that is the
-     *  current value of <code>chain</code>.
+     *  the setter function is invoked. 
+     *  The setter must have the following function signature:
+     *
+     *  <pre>
+     *  function mySetterFunction(object:Object):void {
+     *      //Do whatever you want with the value of the bound property.
+     *  }</pre> 
+     *
+     *  <p>where <code>object</code> contains the
+     *  current value of <code>chain</code>.</p>
      *
      *  @param setter Setter method to invoke with an argument of the current
      *  value of <code>chain</code> when that value changes.
