@@ -52,6 +52,8 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the transition starts.
+ * 
+ *  @eventType mx.events.FlexEvent.TRANSITION_START
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
@@ -60,7 +62,9 @@ use namespace mx_internal;
 [Event(name="transitionStart", type="mx.events.FlexEvent")]
 
 /**
- *  Dispatched when the transition is complete.
+ *  Dispatched when the transition completes.
+ * 
+ *  @eventType mx.events.FlexEvent.TRANSITION_START
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
@@ -73,7 +77,7 @@ use namespace mx_internal;
  *  The ViewTransitionBase class is the base class for all view transitions.  
  *  It is not intended to be used as a transition on its own.
  *  In addition to providing common convenience and helper methods used by 
- *  view transitions this class also provides a default action bar transition 
+ *  view transitions, this class provides a default action bar transition 
  *  sequence.
  * 
  *  <p>When a view transition is initialized, the owning view navigator 
@@ -82,28 +86,30 @@ use namespace mx_internal;
  *  The <code>navigator</code> property is 
  *  set to the view navigator.</p>
  * 
- *  <p>The lifecycle of a transition starts with 
- *  the <code>captureStartValues()</code> method.  
- *  When this method is called, the navigator is currently in the 
- *  start state.  
- *  At this time, the transition should capture any start values 
- *  or bitmaps that it requires.  
- *  Afterwards, a validation pass on the pending 
- *  view and <code>captureEndValues()</code> is called. 
- *  At this time, the transition captures any properties or 
- 8  bitmaps representations from the pending view.</p>
- *  
- *  <p>The <code>prepareForPlay()</code> method is then called, 
- *  which allows the transition  to perform any further preparation,
- *  such as preparing a Spark effects sequence, 
- *  or positioning transient elements on the display list.</p>
- * 
- *  <p>After a final validation pass, if necessary, the <code>play()</code> method 
- *  is called by the navigator to perform the actual transition. 
- *  Prior to any animation starting, the <code>start</code> event is dispatched.</p>
- * 
- *  <p>When a transition completes, it is required to dispatch an 
- *  <code>end</code> event.</p>
+ *  <p>The lifecycle of a transition is as follows:</p>
+ *    <ul>
+ *      <li>The transition starts with 
+ *        the <code>captureStartValues()</code> method.  
+ *        When this method is called, the navigator is currently in the 
+ *        start state.  
+ *        At this time, the transition should capture any start values 
+ *        or bitmaps that it requires. </li>
+ *      <li>A validation pass is performed on the pending 
+ *        view, and the <code>captureEndValues()</code> method is called. 
+ *        At this time, the transition captures any properties or 
+ *        bitmaps representations from the pending view.</li    >
+ *      <li>The <code>prepareForPlay()</code> method is then called, 
+ *        which allows the transition to perform any further preparations,
+ *        such as preparing a Spark effects sequence, 
+ *        or positioning transient elements on the display list.</li>
+ *      <li>After a final validation pass, if necessary, 
+ *        the <code>play()</code> method is called by the navigator 
+ *        to perform the actual transition.</li>
+ *      <li>Prior to any animation starting, the <code>start</code> 
+ *        event is dispatched.</li>
+ *      <li>When a transition completes, it dispatches an 
+ *        <code>end</code> event.</li>
+ *    </ul>
  *
  *  <p><strong>Note:</strong>Create and configure view transitions in ActionScript;
  *  you cannot create them in MXML.</p>
@@ -247,6 +253,8 @@ public class ViewTransitionBase extends EventDispatcher
      *  transition animation.
      * 
      *  @default Sine(.5);
+     *
+     *  @see spark.effects.easing
      * 
      *  @langversion 3.0
      *  @playerversion AIR 2.5
@@ -303,8 +311,8 @@ public class ViewTransitionBase extends EventDispatcher
     private var _endView:View;
     
     /**
-     *  Reference to the view that the navigator is transitioning
-     *  to, set by the owning ViewNavigator itself.  
+     *  The view that the navigator is transitioning
+     *  to, as set by the owning ViewNavigator object.  
      *  This property can be null.
      *
      *  @default null
@@ -362,8 +370,8 @@ public class ViewTransitionBase extends EventDispatcher
     private var _startView:View;
     
     /**
-     *  Reference to the currently active view of the view navigator, 
-     *  set by the owning view navigator. 
+     *  The currently active view of the view navigator, 
+     *  as set by the owning view navigator. 
      *  This property can be null.
      * 
      *  @langversion 3.0
@@ -390,12 +398,17 @@ public class ViewTransitionBase extends EventDispatcher
     private var _suspendBackgroundProcessing:Boolean = true;
     
     /**
-     *  When set to <code>true</code>, <p>UIComponent.suspendBackgroundProcessing()</p>
-     *  is invoked prior to the transition playing. This has the effect of disabling Flex's
-     *  layout manager and improving performance. Upon completion of the transition,
-     *  full layout manager function is restored via <p>UIComponent.resumeBackgroundProcessing()</p>
+     *  When set to <code>true</code>, the <code>UIComponent.suspendBackgroundProcessing()</code>
+     *  method is invoked prior to the transition playing. 
+     *  This disables Flex's layout manager and improving performance. 
+     *  Upon completion of the transition,
+     *  the layout manager function is restored by a call to the 
+     *  <code>UIComponent.resumeBackgroundProcessing()</code> method. 
      *
      *  @default false
+     *
+     *  @see mx.core.UIComponent#suspendBackgroundProcessing()
+     *  @see mx.core.UIComponent#resumeBackgroundProcessing()
      * 
      *  @langversion 3.0
      *  @playerversion AIR 2.5
@@ -430,9 +443,8 @@ public class ViewTransitionBase extends EventDispatcher
      *
      *  <p>Note that even when set to <code>false</code>, there are cases
      *  where its not feasible to transition the action bar. 
-     *  For example, when the action bar 
-     *  does not exist in one of the two views, or
-     *  if the action bar changes size.</p>
+     *  For example, when the action bar does not exist in one of 
+     *  the two views, or if the action bar changes size.</p>
      *
      *  @default false
      * 
@@ -759,7 +771,7 @@ public class ViewTransitionBase extends EventDispatcher
      *  Called by the default <code>prepareForPlay()</code> implementation, 
      *  this method is responsible for creating the Spark effect 
      *  played on the action bar when the transition starts.  
-     *  This method should be overridden by sub classes if a custom action bar 
+     *  This method should be overridden by subclasses if a custom action bar 
      *  effect is required.  
      *  By default, this method returns a basic action bar effect.
      * 
@@ -1129,16 +1141,20 @@ public class ViewTransitionBase extends EventDispatcher
     }
     
     /**
-     *  Helper method used to determine if we can safely transition our
-     *  control bar content independently of our views.
+     *  Determine if Flex can perform a transition on 
+     *  action bar or tab bar content independently of the views.
      * 
-     *  <p> We will not be able to transition our action bar independently if 
-     *  our containing navigator is a TabbedViewNavigator and its tabBar's 
-     *  visibility changes between views, if the value of the overlayControls
-     *  flag changes between views, or if the size/visibility of the action 
-     *  bar changes between views.</p>
+     *  <p>Flex cannot perform a transition on the control bars independently:</p>
+     *  <ul>
+     *      <li>If the containing view navigator is a TabbedViewNavigator 
+     *        and its tab bar's visibility changes between views.</li>
+     *      <li>If the value of the view navigator's <code>overlayControls</code>
+     *        property changes between views.</li>
+     *      <li>If the size or visibility of the action bar changes 
+     *        between views.</li>
+     *  </ul>
      * 
-     *  @return false if we determine controls bars between views are 
+     *  @return <code>false</code> if Flex determines controls bars between views are 
      *  incompatible in some way.
      * 
      *  @langversion 3.0
