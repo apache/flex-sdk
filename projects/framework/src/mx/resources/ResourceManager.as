@@ -79,8 +79,21 @@ public class ResourceManager
     {
         if (!instance)
         {
-            instance = IResourceManager(
-				Singleton.getInstance("mx.resources::IResourceManager"));
+            try
+			{
+				instance = IResourceManager(
+					Singleton.getInstance("mx.resources::IResourceManager"));
+			}
+			catch(e:Error)
+			{
+				// In non-Flex apps and modules, the Singleton manager
+				// won't have been initialized by SystemManager
+				// or FlexModuleFactory (since these don't get linked in)
+				// so the above call to getInstance() will throw an exception.
+				// In this situation, the ResourceManager simply creates
+				// its own ResourceManagerImpl.
+				instance = new ResourceManagerImpl();
+			}
         }
         
         return instance;
