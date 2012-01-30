@@ -15,7 +15,10 @@ package spark.skins.mobile
 import flash.events.Event;
 
 import spark.components.TextInput;
+import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile.supportClasses.TextSkinBase;
+import spark.skins.mobile160.assets.TextInput_border;
+import spark.skins.mobile240.assets.TextInput_border;
 
 /**
  *  Actionscript based skin for mobile text input. 
@@ -27,15 +30,41 @@ import spark.skins.mobile.supportClasses.TextSkinBase;
  */
 public class TextInputSkin extends TextSkinBase 
 {
-    
     //--------------------------------------------------------------------------
     //
     //  Constructor
     //
     //--------------------------------------------------------------------------
+    
     public function TextInputSkin()
     {
         super();
+        
+        useChromeColor = false;
+        
+        switch (targetDensity)
+        {
+            case MobileSkin.PPI240:
+            {
+                borderClass = spark.skins.mobile240.assets.TextInput_border;
+                layoutCornerEllipseSize = 16;
+                layoutMeasuredWidth = 440;
+                layoutBorderSize = 1;
+                
+                break;
+            }
+            default:
+            {
+                // TODO (jasonsj) 160ppi spec
+                // default PPI160
+                borderClass = spark.skins.mobile160.assets.TextInput_border;
+                layoutCornerEllipseSize = 16;
+                layoutMeasuredWidth = 440;
+                layoutBorderSize = 1;
+                
+                break;
+            }
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -66,7 +95,7 @@ public class TextInputSkin extends TextSkinBase
     {
         super.measure();
         
-        var textHeight:Number = 24;
+        var textHeight:Number = getStyle("fontSize") as Number;
         
         if (textDisplay)
         {
@@ -98,7 +127,7 @@ public class TextInputSkin extends TextSkinBase
         }
         else
         {
-            measuredWidth = 440;
+            measuredWidth = layoutMeasuredWidth;
         }
         
         measuredHeight = textHeight + paddingTop + paddingBottom + TEXT_HEIGHT_PADDING;
