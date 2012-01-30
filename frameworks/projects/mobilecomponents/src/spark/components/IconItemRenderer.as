@@ -1114,7 +1114,7 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @param element The element that has changed size.
      * 
      *  @langversion 3.0
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function invalidateGraphicElementSharing(element:IGraphicElement):void
@@ -1140,7 +1140,7 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @param element The element that has changed.
      * 
      *  @langversion 3.0
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function invalidateGraphicElementProperties(element:IGraphicElement):void
@@ -1164,7 +1164,7 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @param element The element that has changed size.
      * 
      *  @langversion 3.0
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function invalidateGraphicElementSize(element:IGraphicElement):void
@@ -1188,7 +1188,7 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @param element The element that has changed.
      * 
      *  @langversion 3.0
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function invalidateGraphicElementDisplayList(element:IGraphicElement):void
