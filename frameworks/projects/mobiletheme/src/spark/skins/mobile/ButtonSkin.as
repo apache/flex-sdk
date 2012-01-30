@@ -15,10 +15,10 @@ package spark.skins.mobile
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 
+import mx.core.DeviceDensity;
 import mx.core.mx_internal;
 
 import spark.skins.mobile.supportClasses.ButtonSkinBase;
-import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.Button_down;
 import spark.skins.mobile160.assets.Button_up;
 import spark.skins.mobile240.assets.Button_down;
@@ -56,9 +56,9 @@ public class ButtonSkin extends ButtonSkinBase
         
         useChromeColor = true;
         
-        switch (targetDensity)
+        switch (authorDensity)
         {
-            case MobileSkin.PPI240:
+            case DeviceDensity.PPI_240:
             {
                 upBorderSkin = spark.skins.mobile240.assets.Button_up;
                 downBorderSkin = spark.skins.mobile240.assets.Button_down;
