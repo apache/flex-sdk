@@ -85,7 +85,7 @@ global
 	indicatorGap: 14;
     justificationRule: "auto";
     justificationStyle: "auto";
-	kerning: false;
+	kerning: "off";
 	leading: 2;
     leadingModel: "auto";
     ligatureLevel: "common";
@@ -123,7 +123,7 @@ global
 	strokeWidth: 1;
     symbolColor: #000000;
 	tabStops: ClassReference(null);
-	textAlign: "left";
+	textAlign: "start";
     textAlignLast: "start";
     textAlpha: 1.0;
 	textDecoration: "none";
