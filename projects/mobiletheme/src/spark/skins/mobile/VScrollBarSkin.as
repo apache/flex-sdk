@@ -13,11 +13,12 @@ package spark.skins.mobile
 {
 
 import mx.core.DPIClassification;
+import mx.core.mx_internal;
 
 import spark.components.Button;
 import spark.components.VScrollBar;
 import spark.skins.mobile.supportClasses.MobileSkin;
-import mx.core.mx_internal;
+
 use namespace mx_internal;
 
 /**
@@ -50,7 +51,7 @@ public class VScrollBarSkin extends MobileSkin
         super();
         
         useChromeColor = true;
-        layoutMeasuredHeight = 20;
+        minHeight = 20;
         thumbSkinClass = VScrollBarThumbSkin;
         var paddingRight:int;
         var paddingVertical:int;
@@ -60,14 +61,14 @@ public class VScrollBarSkin extends MobileSkin
         {
             case DPIClassification.DPI_320:
             {
-                layoutMeasuredWidth = 12;
+                minWidth = 12;
                 paddingRight = VScrollBarThumbSkin.PADDING_RIGHT_320DPI;
                 paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_320DPI;
                 break;
             }
             case DPIClassification.DPI_240:
             {
-                layoutMeasuredWidth = 9;
+                minWidth = 9;
                 paddingRight = VScrollBarThumbSkin.PADDING_RIGHT_240DPI;
                 paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_240DPI;
                 break;
@@ -75,16 +76,16 @@ public class VScrollBarSkin extends MobileSkin
             default:
             {
                 // default PPI160
-                layoutMeasuredWidth = 6;
+                minWidth = 6;
                 paddingRight = VScrollBarThumbSkin.PADDING_RIGHT_DEFAULTDPI;
                 paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_DEFAULTDPI;
                 break;
             }
         }
-
+        
         // The minimum height is set such that, at it's smallest size, the thumb appears
         // as high as it is wide.
-        minThumbHeight = (layoutMeasuredWidth - paddingRight) + (paddingVertical * 2);   
+        minThumbHeight = (minWidth - paddingRight) + (paddingVertical * 2);   
     }
     
     //--------------------------------------------------------------------------
@@ -97,12 +98,12 @@ public class VScrollBarSkin extends MobileSkin
      *  @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
     public var hostComponent:VScrollBar;
-
+    
     /**
      *  @private 
      */
     private var minThumbHeight:Number;
-
+    
     /**
      *  Skin to use for the thumb Button skin part
      */
@@ -150,8 +151,8 @@ public class VScrollBarSkin extends MobileSkin
             // We don't want a visible track so we set the skin to MobileSkin
             track = new Button();
             track.setStyle("skinClass", spark.skins.mobile.supportClasses.MobileSkin);
-            track.width = layoutMeasuredWidth;
-            track.height = layoutMeasuredHeight;
+            track.width = minWidth;
+            track.height = minHeight;
             addChild(track);
         }
         if (!thumb)
@@ -159,19 +160,10 @@ public class VScrollBarSkin extends MobileSkin
             thumb = new Button();
             thumb.minHeight = minThumbHeight; 
             thumb.setStyle("skinClass", thumbSkinClass);
-            thumb.width = layoutMeasuredWidth;
-            thumb.height = layoutMeasuredWidth;
+            thumb.width = minWidth;
+            thumb.height = minWidth;
             addChild(thumb);
         }
-    }
-    
-    /**
-     *  @private 
-     */
-    override protected function measure():void
-    {
-        measuredWidth = layoutMeasuredWidth;
-        measuredHeight = layoutMeasuredHeight;
     }
     
     /**
