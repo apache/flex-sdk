@@ -12,6 +12,7 @@ package spark.automation.delegates.components
 {
     import flash.display.DisplayObject;
     import flash.events.Event;
+    import flash.events.FocusEvent;
     import flash.events.KeyboardEvent;
     import flash.events.MouseEvent;
     import flash.geom.Point;
@@ -102,7 +103,8 @@ package spark.automation.delegates.components
             obj.grid.addEventListener(GridEvent.GRID_MOUSE_UP, gridMouseUpHandler, false, 1001, true);
             obj.addEventListener(GridEvent.SEPARATOR_MOUSE_UP, columnStretchHandler, false, 0, true);
             obj.columnHeaderGroup.addEventListener(GridEvent.GRID_CLICK, gridClickHandler, false, 0 , true);
-            obj.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);          
+            obj.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
+			obj.addEventListener(FocusEvent.KEY_FOCUS_CHANGE,keyFocusChangeHandler, false, 1000, true);
         }
         
         
@@ -723,6 +725,18 @@ package spark.automation.delegates.components
                         throw new Error();
                     }
                 }
+				case "editNext":
+				{
+					if(grid.itemEditorInstance)
+					{
+						var focusEvent:FocusEvent = new FocusEvent(FocusEvent.KEY_FOCUS_CHANGE);
+						focusEvent.keyCode = Keyboard.TAB;
+						grid.itemEditorInstance.dispatchEvent(focusEvent);
+						grid.startItemEditorSession(grid.grid.caretRowIndex, grid.grid.caretColumnIndex);
+						return true;
+					}
+					return false;
+				}
                     /*case "headerShift":
                     {
                     var icEvent:IndexChangedEvent = IndexChangedEvent(interaction);
@@ -840,8 +854,8 @@ package spark.automation.delegates.components
                             if (grid.itemEditorInstance && grid.editor && 
                                 (grid.editor.editorRowIndex >= 0) && (grid.editor.editorColumnIndex >= 0) &&
                                 item == grid.editor.editedItemRenderer)
-                                
-                                childrenList.push(grid.itemEditorInstance as IAutomationObject);
+								
+							   	childrenList.push(grid.itemEditorInstance as IAutomationObject);
                             else
                                 childrenList.push(item as IAutomationObject);
                         }
@@ -858,7 +872,15 @@ package spark.automation.delegates.components
         //  Event handlers
         //
         //--------------------------------------------------------------------------
-        
+		
+		private function keyFocusChangeHandler(event:FocusEvent):void
+		{
+			if(grid.itemEditorInstance)
+			{
+				recordAutomatableEvent(new Event("editNext"));
+			}
+		}
+		
         /**
          *  @private
          */
@@ -936,7 +958,7 @@ package spark.automation.delegates.components
                 event.target != event.currentTarget)
                 return;
             
-            if (event.keyCode == Keyboard.SPACE)
+			if (event.keyCode == Keyboard.SPACE)
             {
                 var caretRowIndex:int = grid.grid.caretRowIndex;
                 if (caretRowIndex != -1)
