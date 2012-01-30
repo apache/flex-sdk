@@ -28,6 +28,11 @@ package mx.validators
  *  used with regular expressions.</p>
  *
  *  @see mx.events.ValidationResultEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RegExpValidationResult extends ValidationResult
 {
@@ -55,6 +60,11 @@ public class RegExpValidationResult extends ValidationResult
      *  @param matchedIndex Index of the matching String.
      *
      *  @param matchedSubstrings Array of substring matches.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function RegExpValidationResult(isError:Boolean, 
 										   subField:String = "", 
@@ -84,6 +94,11 @@ public class RegExpValidationResult extends ValidationResult
 	/** 
 	 *  An integer that contains the starting index
 	 *  in the input String of the match.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var matchedIndex:int;
 
@@ -94,6 +109,11 @@ public class RegExpValidationResult extends ValidationResult
 	/**
 	 *  A String that contains the substring of the input String
 	 *  that matches the regular expression.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var matchedString:String;
 
@@ -107,6 +127,11 @@ public class RegExpValidationResult extends ValidationResult
 	 *	If no substring matches are found, this Array is of length 0.
 	 *	Use <code>matchedSubStrings[0]</code> to access
 	 *  the first substring match.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var matchedSubstrings:Array;
 }
