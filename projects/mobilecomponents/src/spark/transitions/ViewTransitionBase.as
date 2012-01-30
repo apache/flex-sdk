@@ -51,49 +51,63 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the transition starts.
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="transitionStart", type="flash.events.Event")]
 
 /**
  *  Dispatched when the transition is complete.
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="transitionEnd", type="flash.events.Event")]
 
 
 /**
- *  The ViewTransitionBase class serves as the base class for all stock view 
- *  transitions.  It is not intended to be used as a transition on its own.
- *  
+ *  The ViewTransitionBase class is the base class for all view transitions.  
+ *  It is not intended to be used as a transition on its own.
  *  In addition to providing common convenience and helper methods used by 
  *  view transitions this class also provides a default action bar transition 
  *  sequence.
  * 
- *  <p>When a view transition is initialized, the owning view navigator will 
- *  assign the startView and endView references to the views the transition 
- *  will be animating from and to. In addition, the navigator property will 
- *  be set to reflect the view navigator.</p>
+ *  <p>When a view transition is initialized, the owning view navigator 
+ *  sets the <code>startView</code> and <code>endView</code> properties 
+ *  to the views the transition animates. 
+ *  The <code>navigator</code> property is 
+ *  set to the view navigator.</p>
  * 
- *  <p>The lifecycle of a transition starts with the <code>captureStartValues()</code> 
- *  method.  When this method is called, the navigator is currently in the 
- *  start state.  At this point the transition should capture any start values 
- *  or bitmaps that it requires.  Afterwards, a validation pass on the pending 
- *  view and <code>captureEndValues()</code> will be called. At this point the 
- *  transition is to capture any properties or bitmaps representations from the 
- *  pending view.</p>
+ *  <p>The lifecycle of a transition starts with 
+ *  the <code>captureStartValues()</code> method.  
+ *  When this method is called, the navigator is currently in the 
+ *  start state.  
+ *  At this time, the transition should capture any start values 
+ *  or bitmaps that it requires.  
+ *  Afterwards, a validation pass on the pending 
+ *  view and <code>captureEndValues()</code> is called. 
+ *  At this time, the transition captures any properties or 
+ 8  bitmaps representations from the pending view.</p>
  *  
- *  <p>At this point <code>prepareForPlay()</code> is called, which allows the transition 
- *  to perform any further preparation (such as preparing a spark effects sequence, 
- *  or positioning transient elements on the display list).</p>
+ *  <p>The <code>prepareForPlay()</code> method is then called, 
+ *  which allows the transition  to perform any further preparation,
+ *  such as preparing a Spark effects sequence, 
+ *  or positioning transient elements on the display list.</p>
  * 
- *  <p>After one final validation pass (if necessary), <code>play()</code> is invoked 
- *  by the navigator to perform the actual transition. Prior to any animation
- *  starting the <code>FlexEvent.TRANSITION_START</code> event will be dispatched.</p>
+ *  <p>After a final validation pass, if necessary, the <code>play()</code> method 
+ *  is called by the navigator to perform the actual transition. 
+ *  Prior to any animation starting, the <code>start</code> event is dispatched.</p>
  * 
- *  <p>When a transition completes, it is required to dispatch a 
- *  <code>FlexEvent.TRANSITION_END</code> event.</p>
+ *  <p>When a transition completes, it is required to dispatch an 
+ *  <code>end</code> event.</p>
+ *
+ *  <p><strong>Note:</strong>Create and configure view transitions in ActionScript;
+ *  you cannot create them in MXML.</p>
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -134,7 +148,6 @@ public class ViewTransitionBase extends EventDispatcher
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -200,11 +213,11 @@ public class ViewTransitionBase extends EventDispatcher
     private var _duration:Number = 250;
     
     /**
-     *  Duration of the transition in milliseconds. The default may vary
-     *  depending on the transition.
+     *  Duration of the transition, in milliseconds. 
+     *  The default may vary depending on the transition
+     *  but is defined in ViewTransitionBase as 250 ms.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -232,10 +245,9 @@ public class ViewTransitionBase extends EventDispatcher
      *  generally propagated to the IEffect instance managing the actual
      *  transition animation.
      * 
-     *  @default new Sine(.5);
+     *  @default Sine(.5);
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -270,7 +282,6 @@ public class ViewTransitionBase extends EventDispatcher
      *  @default null
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -291,13 +302,13 @@ public class ViewTransitionBase extends EventDispatcher
     private var _endView:View;
     
     /**
-     *  The reference to the view that the navigator is transitioning
-     *  to, set by the owning ViewNavigator itself.  This can be null.
+     *  Reference to the view that the navigator is transitioning
+     *  to, set by the owning ViewNavigator itself.  
+     *  This property can be null.
      *
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -327,7 +338,6 @@ public class ViewTransitionBase extends EventDispatcher
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -351,11 +361,11 @@ public class ViewTransitionBase extends EventDispatcher
     private var _startView:View;
     
     /**
-     *  The currently active view of the view navigator, set by the owning
-     *  view navigator itself. This can be null.
+     *  Reference to the currently active view of the view navigator, 
+     *  set by the owning view navigator. 
+     *  This property can be null.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -379,21 +389,22 @@ public class ViewTransitionBase extends EventDispatcher
     private var _transitionControlsWithContent:Boolean;
     
     /**
-     *  When set to true, the primary view transition
-     *  is used to transition the navigator in its entirety,  
-     *  and sub-transitions such as the action bar or 
-     *  tab bar transitions are not performed.
+     *  When set to <code>true</code>, the primary view transition
+     *  is used to transition the view navigator in its entirety, 
+     *  including the action bar.
+     *  Specific transitions for the action bar are not performed.
+     *  Because the tab bar is associated with the entire application, 
+     *  and not a view, view transitions do not affect it.
      *
-     *  <p>Note that even when set to false, there are cases
-     *  where its not feasible to transition the action bar 
-     *  or tab bar, such as when the action bar or 
-     *  tab bar does not exist in one of the two views or
-     *  if the tab bar or action bar changes size.</p>
+     *  <p>Note that even when set to <code>false</code>, there are cases
+     *  where its not feasible to transition the action bar. 
+     *  For example, when the action bar 
+     *  does not exist in one of the two views, or
+     *  if the action bar changes size.</p>
      *
      *  @default false
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -537,15 +548,15 @@ public class ViewTransitionBase extends EventDispatcher
     //--------------------------------------------------------------------------
     
     /**
-     *  This method is called by the ViewNavigator during the preparation phase of a transition.
+     *  Called by the ViewNavigator during the preparation phase of a transition.
      *  It is invoked when the new view has been fully realized and validated and the 
-     *  action bar and tab bar content reflect the state of the new view. It is at 
-     *  this point that the transition is to capture any values it requires from the 
-     *  pending view. In addition any bitmaps reflecting the state of the new view, tab bar, 
+     *  action bar and tab bar content reflect the state of the new view. 
+     *  The transition can use this method capture any values it requires from the 
+     *  pending view. 
+     *  Any bitmaps reflecting the state of the new view, tab bar, 
      *  or action bar should be captured if required for animation.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -593,15 +604,15 @@ public class ViewTransitionBase extends EventDispatcher
     }
     
     /**
-     *  This method is called by the ViewNavigator during the preparation phase of a transition.
+     *  Called by the ViewNavigator during the preparation phase of a transition.
      *  It is invoked when the new view has been fully realized and validated and the 
-     *  action bar and tab bar content reflect the state of the new view. It is at 
-     *  this point that the transition is to capture any values it requires from the 
-     *  pending view. In addition any bitmaps reflecting the state of the new view, tab bar, 
-     *  or action bar should be captured if required for animation.
+     *  action bar and tab bar content reflect the state of the new view. 
+     *  It is at this point that the transition can capture any values it requires from the 
+     *  pending view. 
+     *  In addition any bitmaps reflecting the state of the new view, tab bar, 
+     *  or action bar should be captured, if required for animation.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -618,12 +629,12 @@ public class ViewTransitionBase extends EventDispatcher
     }
     
     /**
-     *  This method is called by the ViewNavigator when the transition 
-     *  should begin animating.  At this time the transition should dispatch a
-     *  FlexEvent.TRANSITION_START event.
+     *  Called by the ViewNavigator when the transition 
+     *  should begin animating.  
+     *  At this time, the transition should dispatch a
+     *  <code>start</code> event.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -644,28 +655,30 @@ public class ViewTransitionBase extends EventDispatcher
     }
     
     /**
-     *  This method is called by the ViewNavigator during the preparation phase 
-     *  of a transition.  It gives the transition the chance to create and
+     *  Called by the ViewNavigator during the preparation phase 
+     *  of a transition.  
+     *  This method gives the transition the chance to create and
      *  configure the underlying IEffect instance, or to add any transient
-     *  elements to the display list (e.g. bitmap placeholders, temporary
-     *  containers required during the transition, etc.). One final validation
-     *  pass will occur prior to invocation of play() (if required).
+     *  elements to the display list. 
+     *  Example transient elements include  bitmap placeholders, temporary
+     *  containers required during the transition,  and other elements. 
+     *  If required, a final validation pass occurs prior to  the invocation 
+     *  of the <code>play()</code> method.
      * 
-     *  If it is determined that a standard transition can be initiated (e.g one
-     *  that transitions the control bars separately from the views), the default
-     *  implementation of prepareForPlay() will construct a single Parallel effect
-     *  which wraps the individual effect sequences for the view transition, the
-     *  action bar transition, and the tab bar transition.  prepareForPlay() makes
-     *  use of the helper methods, createActionBarEffect(), createTabBarEffect(),
-     *  and createViewEffect() to do so.
+     *  <p>If it is determined that a standard transition can be initiated, 
+     *  meaning one that transitions the control bars separately from the views, 
+     *  the default implementation of this method constructs 
+     *  a single Parallel effect which wraps the individual effect sequences 
+     *  for the view transition, the action bar transition, and the tab bar transition.  
+     *  This method uses the  methods, <code>createActionBarEffect()</code>, 
+     *  <code>createTabBarEffect()</code>, and <code>createViewEffect()</code>.</p>
      * 
-     *  If transitionControlsWithContent is set to true, or if it is determined that
-     *  the control bars cannot be transitioned independently, a single effect is 
-     *  created to transition the navigator in its entirety from its before and 
-     *  after states. In this case, only createConsolidatedEffect() is invoked.
+     *  <p>If <code>transitionControlsWithContent</code> is set to <code>true</code>, 
+     *  or if it is determined that the control bars cannot be transitioned independently, 
+     *  a single effect is created to transition the navigator in its entirety.
+     *  In this case, only <code>createConsolidatedEffect()</code> is invoked.</p>
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -707,17 +720,17 @@ public class ViewTransitionBase extends EventDispatcher
     }
     
     /**
-     *  Called by the default prepareForPlay() implementation, this method 
-     *  is responsible for creating the spark effect that should be played on the
-     *  action bar when the transition starts.  This method should be
-     *  overridden by sub classes if a custom action bar effect is
-     *  required.  By default, this returns a basic action bar effect.
+     *  Called by the default <code>prepareForPlay()</code> implementation, 
+     *  this method is responsible for creating the Spark effect 
+     *  played on the action bar when the transition starts.  
+     *  This method should be overridden by sub classes if a custom action bar 
+     *  effect is required.  
+     *  By default, this method returns a basic action bar effect.
      * 
-     *  @return An IEffect instance serving as the action bar effect. Will be 
-     *  played by the default play() method implementation.
+     *  @return An IEffect instance serving as the action bar effect. 
+     *  This effect is played by the default <code>play()</code> method implementation.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -900,16 +913,16 @@ public class ViewTransitionBase extends EventDispatcher
     }
     
     /**
-     *  Called by the default prepareForPlay() implementation, this method 
-     *  is responsible for creating the spark effect that should be played 
-     *  on the tab bar when the transition starts.  This method should be
-     *  overridden by sub classes.  By default, this returns null.
+     *  Called by the default <code>prepareForPlay()</code> implementation, 
+     *  this method is responsible for creating the Spark effect played 
+     *  on the tab bar when the transition starts.  
+     *  This method should be overridden by subclasses.  
+     *  By default, this returns null.
      * 
-     *  @return An IEffect instance serving as the tab bar transition. Will be played
-     *  by the default play() method implementation.
+     *  @return An IEffect instance serving as the tab bar transition. 
+     *  This effect is played by the default <code>play()</code> method implementation.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -919,16 +932,16 @@ public class ViewTransitionBase extends EventDispatcher
     }
     
     /**
-     *  Called by the default prepareForPlay() implementation, this method 
-     *  is responsible for creating the spark effect that should be played 
-     *  on the current and next view when the transition starts.  This method
-     *  should be overridden by sub classes.  By default, this returns null.
+     *  Called by the default <code>prepareForPlay()</code> implementation, 
+     *  this method is responsible for creating the Spark effect played 
+     *  on the current and next view when the transition starts.  
+     *  This method should be overridden by subclasses.  
+     *  By default, this method returns null.
      * 
-     *  @return An IEffect instance serving as the view transition. Will be played
-     *  by the default play() method implementation.
+     *  @return An IEffect instance serving as the view transition. 
+     *  This effect is played by the default <code>play()</code> method implementation.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -938,17 +951,17 @@ public class ViewTransitionBase extends EventDispatcher
     }
     
     /**
-     *  Called by the default prepareForPlay() implementation, this method 
-     *  is responsible for creating the spark effect that will be played to
-     *  transition the entire navigator (inclusive of the control bar content) 
-     *  when necessary.  This method should be overridden by sub classes.  
-     *  By default, this returns null.
+     *  Called by the default <code>prepareForPlay()</code> implementation, 
+     *  this method is responsible for creating the Spark effect played to
+     *  transition the entire navigator, inclusive of the control bar content, 
+     *  when necessary.  
+     *  This method should be overridden by subclasses.  
+     *  By default, this method returns null.
      * 
-     *  @return An IEffect instance serving as the view transition. Will be played
-     *  by the default play() method implementation.
+     *  @return An IEffect instance serving as the view transition. 
+     *  This effect is played by the default <code>play()</code> method implementation.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -958,11 +971,11 @@ public class ViewTransitionBase extends EventDispatcher
     }
     
     /**
-     *  Called by the transition to denote that the effect object 
-     *  has finished executing, dispatches a FlexEvent.TRANSITION_END event.
+     *  Called by the transition to indicate that the transition
+     *  has completed.
+     *  This method dispatches the <code>end</code> event.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -975,12 +988,11 @@ public class ViewTransitionBase extends EventDispatcher
     }
     
     /**
-     *  Called after the transition is complete, responsible for 
-     *  releasing any references and temporary constructs used by the
-     *  transition.
+     *  Called after the transition completes.
+     *  This method is responsible for  releasing any references 
+     *  and temporary constructs used by the transition.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1089,7 +1101,6 @@ public class ViewTransitionBase extends EventDispatcher
      *  incompatible in some way.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -1124,18 +1135,20 @@ public class ViewTransitionBase extends EventDispatcher
     }
     
     /**
-     *  Helper method used to render snap shots of on screen elements in 
-     *  preparation for transitioning.  The bitmap is returned in the form
-     *  of a BitmapImage.  The BitmapImage's transform is adjusted so that
+     *  Used to render snap shots of screen elements in 
+     *  preparation for transitioning.  
+     *  The bitmap is returned in the form of a BitmapImage object.  
+     *  The BitmapImage object's transform is adjusted so that
      *  the bitmap matches the target.
      * 
      *  @param target Display object to capture.
-     *  @param padding Paddig around the object to be included in the BitmapImage.
+     *  
+     *  @param padding Padding around the object to be included in 
+     *  the BitmapImage object.
      * 
-     *  @return BitmapImage representation of the target.
+     *  @return BitmapImage object representing the target.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
