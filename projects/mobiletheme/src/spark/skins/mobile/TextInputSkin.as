@@ -127,26 +127,22 @@ public class TextInputSkin extends MobileSkin
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
+
         // Draw the contentBackgroundColor
         graphics.clear();
         graphics.beginFill(getStyle("contentBackgroundColor"), getStyle("contentBackgroundAlpha"));
         graphics.drawRoundRect(2, 2, unscaledWidth - 4, unscaledHeight - 4, 4, 4);
         graphics.endFill();
-            
+
         // position & size border
-        border.x = border.y = 0;
-        border.width = unscaledWidth;
-        border.height = unscaledHeight;
-        
+        resizePart(border, unscaledWidth, unscaledHeight);
+        positionPart(border, 0, 0);
+
         // position & size the text
         textDisplay.commitStyles();
-        textDisplay.x = HORIZONTAL_PADDING;
-        textDisplay.width = unscaledWidth - (HORIZONTAL_PADDING * 2);
-		
 		var textHeight:Number = textDisplay.textHeight + TEXT_HEIGHT_PADDING;
-		textDisplay.height = textHeight;
-        textDisplay.y = Math.round((unscaledHeight - textHeight) / 2);
+        resizePart(textDisplay, unscaledWidth - (HORIZONTAL_PADDING * 2), textHeight);
+        positionPart(textDisplay, HORIZONTAL_PADDING, Math.round((unscaledHeight - textHeight) / 2));  
     }
     
     /**
