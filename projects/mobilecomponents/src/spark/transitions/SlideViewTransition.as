@@ -213,6 +213,9 @@ public class SlideViewTransition extends ViewTransition
                 fullScreenAnimation = (componentIsVisible(tabBar) != nextView.tabBarVisible);
         }
         
+        if (navigator is ViewNavigator)
+            actionBar = ViewNavigator(navigator).actionBar;
+        
         // Check for actionBar visiblity and overlayControls property change
         if (!fullScreenAnimation)
         {
@@ -222,7 +225,7 @@ public class SlideViewTransition extends ViewTransition
             }
             else if (navigator is ViewNavigator)
             {
-                if (componentIsVisible(ViewNavigator(navigator).actionBar) != nextView.actionBarVisible)
+                if (componentIsVisible(actionBar) != nextView.actionBarVisible)
                 {
                     fullScreenAnimation = true;
                     targetNavigator = navigator;
@@ -238,8 +241,6 @@ public class SlideViewTransition extends ViewTransition
             
             if (navigator is ViewNavigator)
             {
-                actionBar = ViewNavigator(navigator).actionBar;
-    
                 if (componentIsVisible(actionBar))
                 {
                     // Always generate full ActionBar caches
