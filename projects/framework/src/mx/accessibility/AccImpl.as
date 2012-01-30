@@ -100,13 +100,13 @@ use namespace mx_internal;
  *       Developers wishing to avoid this should set the
  *       <code>accessibilityName</code> of the FormHeading
  *       to a space (" ").</li>
+ *       <li>If the field is required, the locale-dependent string
+ *       "required field" is added.</li>
  *       <li>If the component is inside a FormItem,
  *       the FormItem label text is added.
  *       Developers wishing to avoid this should set the
  *       <code>accessibilityName</code> of the FormItem
  *       to a space (" ").</li>
- *       <li>If the field is required, the locale-dependent string
- *       "required field" is added.</li>
  *    </ul></li>
  *  <li>The component's name is then determined thus:
  *    <ul>
