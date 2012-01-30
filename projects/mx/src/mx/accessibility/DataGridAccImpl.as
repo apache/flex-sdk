@@ -369,25 +369,19 @@ public class DataGridAccImpl extends ListBaseAccImpl
 	 */
 	override public function getChildIDArray():Array
 	{
-		var childIDs:Array = [];
-
+		var n:int = 0;
+		
 		var dataGrid:DataGrid = DataGrid(master);
 		if (dataGrid.dataProvider)
 		{
 			// 0 is DataGrid, 1 to columnCount * Rows -> ItemRenderers
-			var n:int = 0;
 			if (!dataGrid.editable) // non editable case (itemRenderers)
 				n = dataGrid.dataProvider.length;
 			else // editable case (rows)
 				n = dataGrid.columns.length * dataGrid.dataProvider.length;
-
-			for (var i:int = 0; i < n; i++)
-			{
-				childIDs[i] = i + 1;
-			}
 		}
 
-		return childIDs;
+		return createChildIDArray(n);
 	}
 
 	/**
