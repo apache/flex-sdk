@@ -38,6 +38,7 @@ import flash.utils.ByteArray;
 import mx.core.Application;
 import mx.core.FlexLoader;
 import mx.core.FlexVersion;
+import mx.core.IApplicationLoader;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
 import mx.core.UIComponent;
@@ -51,7 +52,6 @@ import mx.events.SandboxBridgeRequest;
 import mx.managers.CursorManager;
 import mx.managers.FocusManager;
 import mx.managers.IFocusManager;
-import mx.managers.IFocusManagerBridge;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.managers.ISystemManager2;
@@ -298,7 +298,7 @@ use namespace mx_internal;
  *
  *  @see mx.controls.Image
  */
-public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChildAccess
+public class SWFLoader extends UIComponent implements IApplicationLoader, IChildAccess
 {
     include "../core/Version.as";
 
@@ -1313,7 +1313,25 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
         contentHolder = loadContent(_source);
     }
 
-
+    //--------------------------------------------------------------------------
+    //
+    //  IApplicationLoader
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @inheritdoc
+     */  
+    public function getVisibleApplicationRect(allApplications:Boolean=false):Rectangle
+    {
+        var rect:Rectangle = getVisibleRect();
+        
+        if (allApplications)
+            rect = ISystemManager2(systemManager).getVisibleApplicationRect(rect);
+        
+        return rect;
+    }
+ 
     //--------------------------------------------------------------------------
     //
     //  IChildAccess
@@ -1321,7 +1339,7 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
     //--------------------------------------------------------------------------
 	
 	/**
-	 * @inheritdoc
+	 *  @inheritdoc
 	 */
 	public function canAccessChild():Boolean
 	{
@@ -1335,7 +1353,7 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
 	} 
 
 	/**
-	 * @inheritdoc
+	 *  @inheritdoc
 	 */
 	public function accessibleFromChild():Boolean
 	{
