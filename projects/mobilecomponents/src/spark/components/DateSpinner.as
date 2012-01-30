@@ -181,9 +181,6 @@ public class DateSpinner extends SkinnableComponent
      */
     protected static const MERIDIAN_ITEM:String = "meridianItem";
     
-    // number of years to show by default in DATE mode
-    private static const DEFAULT_YEAR_RANGE:int = 200;
-    
     // number of days to show by default in DATE_AND_TIME mode
     private static const DEFAULT_DATE_RANGE:int = 730;
     
@@ -212,8 +209,6 @@ public class DateSpinner extends SkinnableComponent
     public function DateSpinner()
     {
         super();
-        
-        displayMode = DateSelectorDisplayMode.DATE;
         
         // TODO: the DateTimeFormatter should use the same styles as this DateSpinner
         // dateTimeFormatter.styleParent = this;
@@ -350,16 +345,17 @@ public class DateSpinner extends SkinnableComponent
     //  displayMode
     //----------------------------------
     
-    private var _displayMode:String;
+    private var _displayMode:String = DateSelectorDisplayMode.DATE;
     
-    private var displayModeChanged:Boolean;
+    private var displayModeChanged:Boolean = false;
     
     [Inspectable(category="General", enumeration="date,time,dateAndTime", defaultValue="date")]
     
     /**
      *  Mode the DateSpinner is currently using for display. See 
-     *  <code>DateSelectorDisplayMode</code>
+     *  <code>DateSelectorDisplayMode</code>.
      * 
+     *  @default DateSelectorDisplayMode.DATE
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
@@ -371,7 +367,7 @@ public class DateSpinner extends SkinnableComponent
     
     public function set displayMode(value:String):void
     {
-        if (_displayMode == value)
+        if (_displayMode == value || value == null)
             return;
         
         _displayMode = value;
@@ -391,24 +387,12 @@ public class DateSpinner extends SkinnableComponent
             populateHourDataProvider = true;
             populateMinuteDataProvider = true;
             populateMeridianDataProvider = true;
-            
-            // set default min/max dates
-            _minDateDefault = new Date(selectedDate.time);
-            _minDateDefault.date -= Math.floor(DEFAULT_DATE_RANGE / 2);
-            _maxDateDefault = new Date(selectedDate.time);
-            _maxDateDefault.date += Math.floor(DEFAULT_DATE_RANGE / 2);
         }
         else // default mode is DATE
         {
             populateYearDataProvider = true;
             populateMonthDataProvider = true;
             populateDateDataProvider = true;
-            
-            // set default min/max dates
-            _minDateDefault = new Date(selectedDate.time);
-            _minDateDefault.fullYear -= Math.floor(DEFAULT_YEAR_RANGE / 2);
-            _maxDateDefault = new Date(selectedDate.time);
-            _maxDateDefault.fullYear += Math.floor(DEFAULT_YEAR_RANGE / 2);
         }
         
         syncSelectedDate = true; // force lists to spin to current selected date
@@ -559,9 +543,12 @@ public class DateSpinner extends SkinnableComponent
      */
     public function set selectedDate(value:Date):void
     {
+        // no-op if null; there must always be a selectedDate
+        if (value == null)
+            return;
+        
         // short-circuit if no change
-        if ((_selectedDate && value && value.time == _selectedDate.time)
-            || (_selectedDate == null && value == null))
+        if (value.time == _selectedDate.time)
             return;
         
         _selectedDate = value;
@@ -595,6 +582,15 @@ public class DateSpinner extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
     
+    override protected function attachSkin():void
+    {
+        super.attachSkin();
+        
+        displayModeChanged = true;
+        
+        invalidateProperties();
+    }    
+
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -628,6 +624,8 @@ public class DateSpinner extends SkinnableComponent
         if (displayModeChanged)
         {
             setupDateItemLists();
+            
+            setDefaultRangeValues();
             
             displayModeChanged = false;
             listsNewlyCreated = true;
@@ -701,7 +699,8 @@ public class DateSpinner extends SkinnableComponent
         if (selectedDateModifiedByUser)
         {
             selectedDateModifiedByUser = false;
-            dispatchEvent(new Event(Event.CHANGE));
+            if (hasEventListener(Event.CHANGE))
+                dispatchEvent(new Event(Event.CHANGE));
         }
     }
     
@@ -756,15 +755,15 @@ public class DateSpinner extends SkinnableComponent
         // if itemIndex == itemCount - 1, align as last column
         
         var s:SpinnerList = SpinnerList(createDynamicPartInstance("dateItemList"));
-//        s.addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START, dateItemList_touchEventHandler);
-//        s.addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END, dateItemList_touchEventHandler);
+        //        s.addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START, dateItemList_touchEventHandler);
+        //        s.addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END, dateItemList_touchEventHandler);
         //      TODO: s.itemRenderer = // ...; for first column (or equivalent)
         return s;
     }
     
     /**
+     *  @private
      *  Sets up the date item lists based on the current mode. Clears pre-existing lists.
-     * 
      */    
     private function setupDateItemLists():void
     {
@@ -1129,7 +1128,8 @@ public class DateSpinner extends SkinnableComponent
             goToIndex(meridianList, newIndex, listsNewlyCreated);
         }
         
-        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+        if (hasEventListener(FlexEvent.VALUE_COMMIT))
+            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
     
     // modify existing date item spinner list data providers to mark
@@ -1429,6 +1429,22 @@ public class DateSpinner extends SkinnableComponent
             dayMonthDateFormatter.clearStyle("locale");
     }
     
+    private function setDefaultRangeValues():void
+    {
+        if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
+        {
+            _minDateDefault = new Date(selectedDate.time);
+            _minDateDefault.date -= Math.floor(DEFAULT_DATE_RANGE / 2);
+            _maxDateDefault = new Date(selectedDate.time);
+            _maxDateDefault.date += Math.floor(DEFAULT_DATE_RANGE / 2);
+        }
+        else if (displayMode == DateSelectorDisplayMode.DATE)
+        {
+            _minDateDefault = new Date(1601, 0, 1);
+            _maxDateDefault = new Date(9999, 12, 31);
+        }
+    }
+    
     //----------------------------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1458,6 +1474,8 @@ public class DateSpinner extends SkinnableComponent
         var numLists:int = listContainer.numElements;
         var currentList:SpinnerList;
         
+        var dateRolledBack:Boolean = false;
+        
         // loop through all lists in the container and adjust selectedDate to their values
         for (var i:int = 0; i < numLists; i++)
         {
@@ -1473,7 +1491,10 @@ public class DateSpinner extends SkinnableComponent
                         tempDate = new Date(selectedDate.fullYear, newValue.data, 1);
                         cd = new CalendarDate(tempDate);
                         if (dateList.selectedItem.data > cd.numDaysInMonth)
+                        {
                             newDate.date = cd.numDaysInMonth;
+                            dateRolledBack = true;
+                        }
                     }
                     newDate.month = newValue.data;
                     break;
@@ -1486,7 +1507,7 @@ public class DateSpinner extends SkinnableComponent
                         newDate.month = spinnerDate.month;
                         newDate.date = spinnerDate.date;
                     }
-                    else
+                    else if (!dateRolledBack) // don't tamper with date if we already rolled it back
                     {
                         newDate.date = newValue.data;
                     }
