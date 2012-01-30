@@ -179,9 +179,9 @@ public class TabbedMobileApplication extends MobileApplicationBase
     /**
      *  @private
      */
-    override protected function registerPeristenceClassAliases():void
+    override protected function registerPersistenceClassAliases():void
     {
-        super.registerPeristenceClassAliases();
+        super.registerPersistenceClassAliases();
         
         // Register aliases for custom classes that will be written to
         // persistence store by navigator
