@@ -40,13 +40,13 @@ public class VScrollBarThumbSkin extends MobileSkin
 			case DeviceDensity.PPI_240:
 			{
 				thumbClass = spark.skins.mobile240.assets.VScrollThumb;
-				thumbWidth = 3;
+				thumbWidth = 6;
 				break;
 			}
 			default:
 			{
 				thumbClass = spark.skins.mobile160.assets.VScrollThumb;
-				thumbWidth = 2;
+				thumbWidth = 4;
 				break;
 			}
 		}
