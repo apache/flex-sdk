@@ -193,7 +193,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [Exclude(name="focusThickness", kind="style")]
 
 /**
- *  The MobileItemRenderer class defines the default item renderer
+ *  The LabelItemRenderer class defines the default item renderer
  *  for a list-based control in the mobile theme.  
  *  This is a simple item renderer with a single text component.
  *
@@ -208,7 +208,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  create a new ActionScript item renderer that extends 
  *  this class.</p>
  *
- *  @see spark.components.MobileIconItemRenderer
+ *  @see spark.components.IconItemRenderer
  *  @see spark.components.List
  *  @see mx.core.IDataRenderer
  *  @see spark.components.IItemRenderer
@@ -219,7 +219,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class MobileItemRenderer extends UIComponent
+public class LabelItemRenderer extends UIComponent
     implements IDataRenderer, IItemRenderer
 {
     
@@ -237,7 +237,7 @@ public class MobileItemRenderer extends UIComponent
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function MobileItemRenderer()
+    public function LabelItemRenderer()
     {
         super();
         
