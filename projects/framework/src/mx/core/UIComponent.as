@@ -11413,18 +11413,23 @@ public class UIComponent extends FlexSprite
         // depending on the version number
         // and the value of the textFieldClass style.
         if (className == "mx.core::UITextField")
+        {
             className = getTextFieldClassName();
+            if (className == "mx.core::UITLFTextField")
+                classObj = Class(ApplicationDomain.currentDomain.
+                                                    getDefinition(className));
+        }
                                
         // Not in font registry, so create in this font context.
         var obj:Object = createInModuleContext(moduleContext, className);
+
+        if (obj == null)
+            obj = new classObj();
 
         // If we just created a UITLFTextField, set its textLineCreator property
         // so that it knows what module to use for creating its TextLines.
         if (className == "mx.core::UITLFTextField")
             obj.textLineCreator = moduleContext;
-
-        if (obj == null)
-            obj = new classObj();
 
         return obj;
     }
