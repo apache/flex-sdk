@@ -515,23 +515,6 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     //----------------------------------
-    //  landscapeOrientation
-    //----------------------------------
-    /**
-     *  @private
-     */
-    override public function set landscapeOrientation(value:Boolean):void
-    {
-        if (value != landscapeOrientation)
-        {
-            super.landscapeOrientation = value;
-            
-            if (activeView)
-                activeView.setCurrentState(activeView.getCurrentViewState(landscapeOrientation), false);
-        }
-    }
-    
-    //----------------------------------
     //  length
     //----------------------------------
     
@@ -1014,7 +997,7 @@ public class ViewNavigator extends ViewNavigatorBase
 	
     //--------------------------------------------------------------------------
     //
-    // Private Methods
+    // Protected Methods
     // 
     //--------------------------------------------------------------------------
 	
@@ -1812,6 +1795,9 @@ public class ViewNavigator extends ViewNavigatorBase
         else
         {
             view = viewProxy.instance;
+
+            // Need to update the view's orientation state if it was saved
+            view.setCurrentState(view.getCurrentViewState(), false);
         }
         
         // Restore persistence data if necessary
@@ -1823,12 +1809,6 @@ public class ViewNavigator extends ViewNavigatorBase
         view.percentWidth = view.percentHeight = 100;
         
         // Update the views orientation state
-        if ((landscapeOrientation && view.hasState("landscape")) ||
-            (!landscapeOrientation && view.hasState("portrait")))
-        {
-            view.setCurrentState(view.getCurrentViewState(landscapeOrientation), false);
-        }
-        
         addElement(view);
         
         return view;
