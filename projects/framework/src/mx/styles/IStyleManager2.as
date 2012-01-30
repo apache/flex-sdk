@@ -31,6 +31,20 @@ public interface IStyleManager2 extends IStyleManager
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     *   
+     *  The style manager that is the parent of this StyleManager.
+     *  
+     *  @return the parent StyleManager or null if this is the top-level StyleManager.
+     */
+    function get parent():IStyleManager2;
+    
+    /**
+     *  @private
+     */
+    function set parent(parent:IStyleManager2):void;
+    
     //----------------------------------
 	//  selectors
     //----------------------------------
