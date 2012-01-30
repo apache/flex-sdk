@@ -153,7 +153,7 @@ public class LayoutElementUIComponentUtils
     {
         // explicit trumps explicitMax trumps Number.MAX_VALUE.
         var maxHeight:Number;
-        if(!isNaN(obj.explicitMaxHeight))
+        if (!isNaN(obj.explicitMaxHeight))
             maxHeight = obj.explicitMaxHeight;
         else
             maxHeight = DEFAULT_MAX_HEIGHT;
