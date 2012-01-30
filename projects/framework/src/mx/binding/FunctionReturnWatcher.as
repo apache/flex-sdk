@@ -99,6 +99,11 @@ public class FunctionReturnWatcher extends Watcher
 
     /**
      *  Storage for the functionGetter property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var functionGetter:Function;
 
