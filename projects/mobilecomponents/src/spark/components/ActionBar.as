@@ -37,7 +37,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Style(name="titleAlign", type="String", enumeration="left,right,center", inherit="no")]
+[Style(name="titleAlign", type="String", enumeration="left,right,center", inherit="no", theme="mobile")]
 
 /**
  *  Color of text shadows.
@@ -73,7 +73,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="mobile")]
 
 /**
  *  @copy spark.components.SkinnableContainer#style:backgroundAlpha
@@ -85,7 +85,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Style(name="backgroundAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
+[Style(name="backgroundAlpha", type="Number", inherit="no", theme="mobile", minValue="0.0", maxValue="1.0")]
 
 /**
  *  @copy spark.components.SkinnableContainer#style:contentBackgroundAlpha
@@ -95,7 +95,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="mobile")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
@@ -105,7 +105,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
-[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="mobile")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:focusColor
@@ -115,7 +115,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="mobile")]
 
 //--------------------------------------
 //  Skin states
