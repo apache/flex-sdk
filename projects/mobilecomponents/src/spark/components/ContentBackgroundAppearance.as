@@ -21,7 +21,7 @@ package spark.components
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public final class ContentBackgroundAppearance
 {
@@ -36,7 +36,7 @@ public final class ContentBackgroundAppearance
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const INSET:String = "inset";
     
@@ -45,7 +45,7 @@ public final class ContentBackgroundAppearance
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const FLAT:String = "flat";
     
@@ -57,7 +57,7 @@ public final class ContentBackgroundAppearance
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const NONE:String = "none";
 }
