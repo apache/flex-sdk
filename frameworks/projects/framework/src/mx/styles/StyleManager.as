@@ -195,9 +195,9 @@ public class StyleManager
      *  is the right most simple type selector in a potential selector chain.
      * 
      *  @param subject The style subject.
-     *  @return Object of the style declarations of this subject.
+     *  @return Array of style declarations for this subject.
      */ 
-    public static function getStyleDeclarations(subject:String):Object
+    public static function getStyleDeclarations(subject:String):Array
     {
         return impl.getStyleDeclarations(subject);
     }
