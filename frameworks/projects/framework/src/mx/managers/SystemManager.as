@@ -3035,84 +3035,79 @@ public class SystemManager extends MovieClip
 		dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_COMPLETE));
 	}
 
-	/**
-	 *  @private
-	 *  This is attached as the framescript at the end of frame 2.
-	 *  When this function is called, we know that the application
-	 *  class has been defined and read in by the Player.
-	 */
-	mx_internal function docFrameHandler(event:Event = null):void
-	{
-		// The ResourceManager has already been registered 
-		// by initialize() in frame 1.
-		
-		// Register other singleton classes.
-		// Note: getDefinitionByName() will return null
-		// if the class can't be found.
+    /**
+     *  @private
+     *  This is attached as the framescript at the end of frame 2.
+     *  When this function is called, we know that the application
+     *  class has been defined and read in by the Player.
+     */
+    mx_internal function docFrameHandler(event:Event = null):void
+    {
+        // The ResourceManager has already been registered 
+        // by initialize() in frame 1.
+        
+        // Register other singleton classes.
+        // Note: getDefinitionByName() will return null
+        // if the class can't be found.
 
-		Singleton.registerClass("mx.managers::IBrowserManager",
-			Class(getDefinitionByName("mx.managers::BrowserManagerImpl")));
+        Singleton.registerClass("mx.managers::IBrowserManager",
+            Class(getDefinitionByName("mx.managers::BrowserManagerImpl")));
 
-		Singleton.registerClass("mx.managers::ICursorManager",
-			Class(getDefinitionByName("mx.managers::CursorManagerImpl")));
+        Singleton.registerClass("mx.managers::ICursorManager",
+            Class(getDefinitionByName("mx.managers::CursorManagerImpl")));
 
-		Singleton.registerClass("mx.managers::IHistoryManager",
-			Class(getDefinitionByName("mx.managers::HistoryManagerImpl")));
+        Singleton.registerClass("mx.managers::IHistoryManager",
+            Class(getDefinitionByName("mx.managers::HistoryManagerImpl")));
 
-		Singleton.registerClass("mx.managers::ILayoutManager",
-			Class(getDefinitionByName("mx.managers::LayoutManager")));
+        Singleton.registerClass("mx.managers::ILayoutManager",
+            Class(getDefinitionByName("mx.managers::LayoutManager")));
 
-		Singleton.registerClass("mx.managers::IPopUpManager",
-			Class(getDefinitionByName("mx.managers::PopUpManagerImpl")));
+        Singleton.registerClass("mx.managers::IPopUpManager",
+            Class(getDefinitionByName("mx.managers::PopUpManagerImpl")));
 
-		Singleton.registerClass("mx.managers::IToolTipManager2",
-			Class(getDefinitionByName("mx.managers::ToolTipManagerImpl")));
+        Singleton.registerClass("mx.managers::IToolTipManager2",
+            Class(getDefinitionByName("mx.managers::ToolTipManagerImpl")));
+        
+        var dragManagerClass:Class = null;
+        
+        // Make this call to create a new instance of the DragManager singleton. 
+        // Try to link in the NativeDragManager first. This will allow the  
+        // application to receive NativeDragEvents that originate from the
+        // desktop.  If it can't be found, then we're 
+        // not in AIR, and it can't be linked in, so we should just work off of 
+        // the regular Flex DragManager.
+        dragManagerClass = Class(getDefinitionByName("mx.managers::NativeDragManagerImpl"));
+        
+        if (dragManagerClass == null)
+            dragManagerClass = Class(getDefinitionByName("mx.managers::DragManagerImpl"));
+            
+        Singleton.registerClass("mx.managers::IDragManager", dragManagerClass);
 
-		if (Capabilities.playerType == "Desktop")
-		{
-			Singleton.registerClass("mx.managers::IDragManager",
-				Class(getDefinitionByName("mx.managers::NativeDragManagerImpl")));
-				
-			// Make this call to create a new instance of the DragManager singleton. 
-			// This will allow the application to receive NativeDragEvents that originate
-			// from the desktop.
-			// if this class is not registered, it's most likely because the NativeDragManager is not
-			// linked in correctly. all back to old DragManager.
-			if (Singleton.getClass("mx.managers::IDragManager") == null)
-				Singleton.registerClass("mx.managers::IDragManager",
-					Class(getDefinitionByName("mx.managers::DragManagerImpl")));
-		}
-		else
-		{ 
-			Singleton.registerClass("mx.managers::IDragManager",
-				Class(getDefinitionByName("mx.managers::DragManagerImpl")));
-		}
+        var textFieldFactory:TextFieldFactory; // ref to cause TextFieldFactory to be linked in
+        Singleton.registerClass("mx.core::ITextFieldFactory", 
+            Class(getDefinitionByName("mx.core::TextFieldFactory")));
 
-		var textFieldFactory:TextFieldFactory; // ref to cause TextFieldFactory to be linked in
-		Singleton.registerClass("mx.core::ITextFieldFactory", 
-			Class(getDefinitionByName("mx.core::TextFieldFactory")));
-
-		executeCallbacks();
-		doneExecutingInitCallbacks = true;
+        executeCallbacks();
+        doneExecutingInitCallbacks = true;
 
         var mixinList:Array = info()["mixins"];
-		if (mixinList && mixinList.length > 0)
-		{
-		    var n:int = mixinList.length;
-			for (var i:int = 0; i < n; ++i)
-		    {
-		        // trace("initializing mixin " + mixinList[i]);
-		        var c:Class = Class(getDefinitionByName(mixinList[i]));
-		        c["init"](this);
-		    }
+        if (mixinList && mixinList.length > 0)
+        {
+            var n:int = mixinList.length;
+            for (var i:int = 0; i < n; ++i)
+            {
+                // trace("initializing mixin " + mixinList[i]);
+                var c:Class = Class(getDefinitionByName(mixinList[i]));
+                c["init"](this);
+            }
         }
-		
-		installCompiledResourceBundles();
+        
+        installCompiledResourceBundles();
 
-		initializeTopLevelWindow(null);
+        initializeTopLevelWindow(null);
 
-		deferredNextFrame();
-	}
+        deferredNextFrame();
+    }
 
     /**
      *  @private
