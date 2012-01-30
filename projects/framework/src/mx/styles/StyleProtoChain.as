@@ -14,12 +14,14 @@ package mx.styles
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.utils.describeType;
+import flash.system.ApplicationDomain;
+import flash.utils.getQualifiedClassName;
+import flash.utils.getQualifiedSuperclassName;
 
 import mx.core.ApplicationGlobals;
 import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
-
+import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
 import mx.core.IInvalidating;
 import mx.core.IUITextField;
@@ -121,8 +123,8 @@ public class StyleProtoChain
 
         if (StyleManager.hasAdvancedSelectors() && advancedObject != null)
         {        
-            // Advanced selectors may mean more than one match per type so we
-            // sort based on specificity, but preserving the declaration
+            // Advanced selectors may result in more than one match per type so
+            // we sort based on specificity, but we preserve the declaration
             // order for equal selectors.
             classDecls = sortOnSpecificity(classDecls);
         }
@@ -775,33 +777,49 @@ public class StyleProtoChain
     }
 
     /**
-     *  @private 
-     *  This should only be called once per type so avoiding a dependency on
-     *  DescribeTypeCache and using describeType() directly.
+     *  @private
+     *  Returns an ordered map of unqualified class names, starting with the
+     *  object's class name and then each super class name until we hit a stop
+     *  class, such as mx.core::UIComponent.
      */
     private static function getUnqualifiedTypeHierarchy(object:IStyleClient):OrderedObject
     {
-        var className:String = object.className;
+        var className:String = getQualifiedClassName(object);
         var hierarchy:OrderedObject = StyleManager.typeHierarchyCache[className];
-        if (!hierarchy)
+        if (hierarchy == null)
         {
             hierarchy = new OrderedObject();
-            hierarchy[className] = true;
 
-            var typeDescription:XML = describeType(object);
-            var superClasses:XMLList = typeDescription..extendsClass;
-            for each (var superClass:XML in superClasses)
+            var myApplicationDomain:ApplicationDomain;
+            var factory:IFlexModuleFactory = ModuleManager.getAssociatedFactory(object);
+            if (factory != null)
             {
-                var type:String = superClass.@type.toString();
-                if (isStopClass(type))
-                    break;
-    
-                type = NameUtil.getUnqualifiedClassName(type);
-                hierarchy[type] = true;
+                myApplicationDomain = ApplicationDomain(factory.info()["currentDomain"]);
             }
-            StyleManager.typeHierarchyCache[className] = hierarchy;
-        }
+            else
+            {
+                var myRoot:DisplayObject = SystemManager.getSWFRoot(object);
+                if (!myRoot)
+                    return hierarchy;
+                myApplicationDomain = myRoot.loaderInfo.applicationDomain;
+            }
 
+            StyleManager.typeHierarchyCache[className] = hierarchy;
+            while (!isStopClass(className))
+            {
+                try
+                {
+                    var type:String = NameUtil.getUnqualifiedClassName(className);
+                    hierarchy[type] = true;
+                    className = getQualifiedSuperclassName(
+                        myApplicationDomain.getDefinition(className));
+                }
+                catch(e:ReferenceError)
+                {
+                    className = null;
+                }
+            }
+        }
         return hierarchy;
     }
 
