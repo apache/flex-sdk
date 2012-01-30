@@ -334,7 +334,9 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             topMost = (childList == PopUpManagerChildList.POPUP);
         
         children = topMost ? smp.popUpChildren : smp;
-        children.addChild(DisplayObject(window));
+        
+        if (DisplayObject(window).parent != children)
+            children.addChild(DisplayObject(window));
                             
         window.visible = false;
         
