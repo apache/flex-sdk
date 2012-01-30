@@ -37,7 +37,7 @@ use namespace mx_internal;
 //
 // To use:
 //   in createChildren():
-//       var tf:MobileTextField = createInFontContext(MobileTextField);
+//       var tf:StyleableTextField = createInFontContext(StyleableTextField);
 //       tf.styleProvider = this;
 //       tf.editable = true|false;   // for editable text
 //       tf.multiline = true|false;  // for multiline text
@@ -66,7 +66,7 @@ use namespace mx_internal;
 //                   textDecoration, textIndent, leading, letterSpacing
  
 /**
- *  The MobileTextField class is a text primitive for use in ActionScript
+ *  The StyleableTextField class is a text primitive for use in ActionScript
  *  skins and item renderers. It cannot be used in MXML markup.
  *  
  *  @langversion 3.0
@@ -74,7 +74,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-public class MobileTextField extends TextField implements IEditableText
+public class StyleableTextField extends TextField implements IEditableText
 {        
     
     //--------------------------------------------------------------------------
@@ -109,7 +109,7 @@ public class MobileTextField extends TextField implements IEditableText
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function MobileTextField()
+    public function StyleableTextField()
     {
         super();
         
@@ -544,7 +544,7 @@ public class MobileTextField extends TextField implements IEditableText
     /**
      *  @private
      *  An mx_internal hook developers can set to control where the styles 
-     *  come from for the MobileTextField.  By default, MobileTextField
+     *  come from for the StyleableTextField.  By default, StyleableTextField
      *  uses a function that just grabs the styles from styleProvider.
      * 
      *  <p>This takes precedence over styleProvider and should never 
