@@ -1550,14 +1550,16 @@ public class UIComponent extends FlexSprite
             return;
 
         if(_layoutFeatures == null)
+        {
 	        super.x  = value;
-	   	else
+	        invalidateProperties();
+        }
+        else
 	   	{
 	   		_layoutFeatures.layoutX = value;
 	   		invalidateTransform();
 	   	}
 
-        invalidateProperties();
 
         dispatchEvent(new Event("xChanged"));
     }
@@ -1767,14 +1769,16 @@ public class UIComponent extends FlexSprite
             return;
 
         if(_layoutFeatures == null)
+        {
+	        invalidateProperties();
 	        super.y  = value;
+       	}
 	   	else
 	   	{
 	   		_layoutFeatures.layoutY = value;
 	   		invalidateTransform();
 	   	}
 
-        invalidateProperties();
 
         dispatchEvent(new Event("yChanged"));
     }
@@ -1984,7 +1988,6 @@ public class UIComponent extends FlexSprite
 		   		_layoutFeatures.layoutScaleX = value;
 		   	}
 	   		invalidateTransform();
-	   		invalidateProperties();
 	
 	        // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
 	        // and scaleX is changing we need to invalidate parent size and display list
@@ -2065,7 +2068,6 @@ public class UIComponent extends FlexSprite
 		   		_layoutFeatures.layoutScaleY = value;
 		   	}
 	   		invalidateTransform();
-	   		invalidateProperties();
 
             // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
             // and scaleX is changing we need to invalidate parent size and display list
@@ -5865,7 +5867,7 @@ public class UIComponent extends FlexSprite
         }
     }
 
-	private function invalidateTransform():void
+	private function invalidateTransform(triggerPropertyInvalidation:Boolean = true):void
 	{
 		if(_layoutFeatures && _layoutFeatures.updatePending == false)
 		{
@@ -5876,11 +5878,13 @@ public class UIComponent extends FlexSprite
 				UIComponentGlobals.layoutManager.invalidateDisplayList(this);
 			}
 		}
+		if(triggerPropertyInvalidation)
+			invalidateProperties();
 	}
 
     private function transformOffsetsChangedHandler(e:Event):void
     {
-    	invalidateTransform();
+    	invalidateTransform(false);
     }
 
     private function isOnDisplayList():Boolean
@@ -7005,7 +7009,7 @@ public class UIComponent extends FlexSprite
 
         if (changed)
         {
-      	    invalidateTransform();
+      	    invalidateTransform(false);
             dispatchMoveEvent();
         }
     }
@@ -9473,7 +9477,7 @@ public class UIComponent extends FlexSprite
 		features.layoutY = y;
 		features.layoutZ = z;
 		_layoutFeatures = features;
-		invalidateTransform();
+		invalidateTransform(false);
 	}
 
 
