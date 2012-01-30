@@ -37,7 +37,7 @@ package spark.automation.delegates.components
 	import spark.components.List;
 	import spark.components.Scroller;
 	import spark.components.supportClasses.ScrollBarBase;
-    import spark.layouts.HorizontalLayout;
+	import spark.layouts.HorizontalLayout;
 	import spark.layouts.VerticalLayout;
 	
 	use namespace mx_internal;
@@ -186,30 +186,30 @@ package spark.automation.delegates.components
 			
 			for (var i:int = 0; i < n; i++)
 			{
-			
+				
 				var selectedIndex:int  =  selItems[i];
 				
 				if (selectedIndex < firstVisibleIndex)
-			{
-			selectedItemsAboveView = true;
-			}
+				{
+					selectedItemsAboveView = true;
+				}
 				else if (selectedIndex > lastVisibleIndex)
-			{
-			selectedItemsBelowView = true;
-			}
-			else
-			{
+				{
+					selectedItemsBelowView = true;
+				}
+				else
+				{
 					var item:IVisualElement = sparkList.dataGroup.getElementAt(selectedIndex);
 					if(item is IAutomationObject)
-			result.push(IAutomationObject(item).automationValue);
-			}
+						result.push(IAutomationObject(item).automationValue);
+				}
 			}
 			
 			if (selectedItemsAboveView)
-			result.unshift("...");
+				result.unshift("...");
 			
 			if (selectedItemsBelowView)
-			result.push("...");
+				result.push("...");
 			
 			return result;
 		}		
@@ -259,8 +259,14 @@ package spark.automation.delegates.components
 		 */
 		protected function dragDropHandler(event:DragEvent):void
 		{
-			var dragDropVScrollPos:Number = sparkList.layout.verticalScrollPosition;
-			var dragDropHScrollPos:Number = sparkList.layout.horizontalScrollPosition; 
+			
+			var dragDropVScrollPos:Number = -1;
+			var dragDropHScrollPos:Number = -1;
+			if(sparkList.layout != null)
+			{
+				dragDropVScrollPos = sparkList.layout.verticalScrollPosition;
+				dragDropHScrollPos = sparkList.layout.horizontalScrollPosition;
+			}
 			var am:IAutomationManager = Automation.automationManager;
 			
 			// Scrolling on the list while dragging is not dispatching any event. 
@@ -319,8 +325,16 @@ package spark.automation.delegates.components
 			// So we are storing the scroll positions at the time of drag enter
 			// so that we can record a value change event if we find that the scroll positions
 			// at the time of drag drop are different from those at the time of drag enter.
-			dragEnterVScrollPos = sparkList.layout.verticalScrollPosition;
-			dragEnterHScrollPos = sparkList.layout.horizontalScrollPosition;
+			if(sparkList.layout != null)
+			{
+				dragEnterVScrollPos = sparkList.layout.verticalScrollPosition;
+				dragEnterHScrollPos = sparkList.layout.horizontalScrollPosition;
+			}
+			else
+			{
+				dragEnterVScrollPos = -1;
+				dragEnterHScrollPos = -1;
+			}
 		}
 		
 		/**
