@@ -33,6 +33,11 @@ package mx.collections
  * 
  *  @see XMLList
  *  @see XML
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class XMLListCollection extends ListCollectionView
 {
@@ -52,6 +57,11 @@ public class XMLListCollection extends ListCollectionView
      * 
      *  @param source The XMLList object containing the data to be represented
      *                by the XMLListCollection object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function XMLListCollection(source:XMLList = null)
     {
@@ -78,6 +88,11 @@ public class XMLListCollection extends ListCollectionView
      *  The XMLListCollection object does not represent any changes that
      *  you make directly to the source XMLList object.
      *  Always use the XMLListCollection methods to modify the collection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get source():XMLList
     {
@@ -112,6 +127,11 @@ public class XMLListCollection extends ListCollectionView
      *  @return The XMLList of matching XML objects.
      *
      *  @see XML#attribute()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function attribute(attributeName:Object):XMLList
     {
@@ -131,6 +151,11 @@ public class XMLListCollection extends ListCollectionView
      *          the attributes.
      *
      *  @see XML#attributes()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function attributes():XMLList
     {
@@ -153,6 +178,11 @@ public class XMLListCollection extends ListCollectionView
      *          original XMLList.
      *
      *  @see XML#child()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function child(propertyName:Object):XMLList
     {
@@ -171,6 +201,11 @@ public class XMLListCollection extends ListCollectionView
      *  @return An XMLList of children of the XML objects in the original XMLList.
      *
      *  @see XML#children()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function children():XMLList
     {
@@ -186,6 +221,11 @@ public class XMLListCollection extends ListCollectionView
      *  Returns a deep copy of the XMLList object.
      *
      *  @return The copy of the XMLList object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function copy():XMLList
     {
@@ -212,6 +252,11 @@ public class XMLListCollection extends ListCollectionView
      *  etc.) of the XML objects in the original XMLList.
      *
      *  @see XML#descendants()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function descendants(name:Object="*"):XMLList
     {
@@ -236,6 +281,11 @@ public class XMLListCollection extends ListCollectionView
      *          original XMLList.
      *
      *  @see XML#elements()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function elements(name:String="*"):XMLList
     {
@@ -254,6 +304,11 @@ public class XMLListCollection extends ListCollectionView
      *  @return The XMLList that contains the result.
      *
      *  @see XML#text()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function text():XMLList
     {
@@ -283,6 +338,11 @@ public class XMLListCollection extends ListCollectionView
      *  @return The string representation of the XMLList object.
      *  
      *  @see XML#prettyPrinting
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function toString():String
     {
@@ -325,6 +385,11 @@ public class XMLListCollection extends ListCollectionView
      *  @return The string representation of the XMLList.
      *
      *  @see XML#prettyPrinting
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function toXMLString():String
     {
@@ -360,6 +425,11 @@ public class XMLListCollection extends ListCollectionView
      * the fact that it should be a callProperty()).  So instead
      * the above methods will build little functions that call the
      * right thing, but the looping logic has been factored into here.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function execXMLListFunction(func:Function):XMLList
     {
