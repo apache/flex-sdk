@@ -289,7 +289,7 @@ public interface ILayoutElement
      *  @see #getLayoutMatrix3D
      *  @see #setLayoutMatrix3D
      *  @see mx.core.UIComponent#offsets
-     *  @see mx.graphics.graphicsClasses.GraphicElement#offsets
+     *  @see mx.graphics.baseClasses.GraphicElement#offsets
      */
     function getLayoutMatrix():Matrix;
 
@@ -323,7 +323,7 @@ public interface ILayoutElement
      *  @see #getLayoutMatrix3D
      *  @see #setLayoutMatrix3D
      *  @see mx.core.UIComponent#offsets
-     *  @see mx.graphics.graphicsClasses.GraphicElement#offsets
+     *  @see mx.graphics.baseClasses.GraphicElement#offsets
      */
     function setLayoutMatrix(m:Matrix, triggerLayout:Boolean):void;
 
@@ -347,7 +347,7 @@ public interface ILayoutElement
      *  @see #setLayoutMatrix
      *  @see #setLayoutMatrix3D
      *  @see mx.core.UIComponent#offsets
-     *  @see mx.graphics.graphicsClasses.GraphicElement#offsets
+     *  @see mx.graphics.baseClasses.GraphicElement#offsets
      */
     function getLayoutMatrix3D():Matrix3D;
 
@@ -382,7 +382,7 @@ public interface ILayoutElement
      *  @see #setLayoutMatrix
      *  @see #getLayoutMatrix3D
      *  @see mx.core.UIComponent#offsets
-     *  @see mx.graphics.graphicsClasses.GraphicElement#offsets
+     *  @see mx.graphics.baseClasses.GraphicElement#offsets
      */
     function setLayoutMatrix3D(m:Matrix3D, triggerLayout:Boolean):void;
 }
