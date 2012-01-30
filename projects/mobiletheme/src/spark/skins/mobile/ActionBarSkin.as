@@ -43,7 +43,7 @@ public class ActionBarSkin extends SliderSkin
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
         hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
-        hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10; // TODO (jasonsj): 15 for 240dpi
+        hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 15;
         navigationGroup.layout = hLayout;
         addChild(navigationGroup);
         
@@ -52,7 +52,7 @@ public class ActionBarSkin extends SliderSkin
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
         hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
-        hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10; // TODO (jasonsj): 15 for 240dpi
+        hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 15;
         titleGroup.layout = hLayout;
         addChild(titleGroup);
         
@@ -61,14 +61,14 @@ public class ActionBarSkin extends SliderSkin
         hLayout.horizontalAlign = HorizontalAlign.RIGHT;
         hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
-        hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10; // TODO (jasonsj): 15 for 240dpi
+        hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 15;
         actionGroup.layout = hLayout;
         addChild(actionGroup);
         
         titleDisplay = new Label();
-		titleDisplay.maxDisplayedLines = 1;
-		titleDisplay.percentWidth = 100;
-        titleDisplay.setStyle("fontSize", "18"); // TODO (jasonsj): 27 for 240dpi
+        titleDisplay.maxDisplayedLines = 1;
+        titleDisplay.percentWidth = 100;
+        titleDisplay.setStyle("fontSize", "27");
         titleDisplay.setStyle("verticalAlign", "middle");
         titleDisplay.setStyle("color", "0xFFFFFF");
         titleDisplay.setStyle("fontWeight", "bold");
