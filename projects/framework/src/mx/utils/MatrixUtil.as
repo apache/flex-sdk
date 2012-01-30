@@ -29,12 +29,32 @@ public final class MatrixUtil
     include "../core/Version.as";
 
 	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
+	
+	private static var staticPoint:Point = new Point();
 
     //--------------------------------------------------------------------------
     //
     //  Class methods
     //
     //--------------------------------------------------------------------------
+	
+	/**
+	 *  Retunrns a static Point object with the result.
+	 *  If matrix is null, point is untransformed. 
+	 */
+	public static function transformPoint(x:Number, y:Number, m:Matrix):Point
+	{
+		if (!m)
+		{
+			staticPoint.x = x;
+			staticPoint.y = y;
+			return staticPoint;
+		}
+		
+		staticPoint.x = m.a * x + m.c * y + m.tx;
+		staticPoint.y = m.b * x + m.d * y + m.ty;
+		return staticPoint;
+	}
     
     public static function composeMatrix(x:Number = 0,
                                          y:Number = 0,
@@ -231,7 +251,7 @@ public final class MatrixUtil
      *  @param y2 y coordinate of the third control point
      *  @param sx The pre-transform scale factor for x coordinates.
      *  @param sy The pre-transform scale factor for y coordinates.
-     *  @param matrix The transformation matrix.
+     *  @param matrix The transformation matrix. Can be null for identity transformation.
      *  @param rect If non-null, rect will be updated to the union of rect and
      *  the segment bounding box.
      *  @return Returns the union of the post-transformed quadratic
@@ -249,41 +269,50 @@ public final class MatrixUtil
                                                  matrix:Matrix,
                                                  rect:Rectangle):Rectangle
     {
-        var pt0:Point = matrix.transformPoint(new Point(x0 * sx, y0 * sy)); 
-        var pt1:Point = matrix.transformPoint(new Point(x1 * sx, y1 * sy));
-        var pt2:Point = matrix.transformPoint(new Point(x2 * sx, y2 * sy));
-        
-        var minX:Number = Math.min(pt0.x, pt2.x);
-        var maxX:Number = Math.max(pt0.x, pt2.x);
-        
-        var minY:Number = Math.min(pt0.y, pt2.y);
-        var maxY:Number = Math.max(pt0.y, pt2.y);
-        
-        var txDiv:Number = pt0.x - 2 * pt1.x + pt2.x;
-        if (txDiv != 0)
-        {
-            var tx:Number = (pt0.x - pt1.x) / txDiv;
-            if (0 <= tx && tx <= 1)
-            {
-                var x:Number = (1 - tx) * (1 - tx) * pt0.x + 2 * tx * (1 - tx) * pt1.x + tx * tx * pt2.x;
-                minX = Math.min(x, minX);
-                maxX = Math.max(x, maxX);
-            }  
-        }
-         
-        var tyDiv:Number = pt0.y - 2 * pt1.y + pt2.y;
-        if (tyDiv != 0)
-        {
-            var ty:Number = (pt0.y - pt1.y) / tyDiv;
-            if (0 <= ty && ty <= 1)
-            {
-                var y:Number = (1 - ty) * (1 - ty) * pt0.y + 2 * ty * (1 - ty) * pt1.y + ty * ty * pt2.y;
-                minY = Math.min(y, minY);
-                maxY = Math.max(y, maxY);
-            }  
-        }
+		var pt:Point;
+		pt = MatrixUtil.transformPoint(x0 * sx, y0 * sy, matrix);
+		x0 = pt.x;
+		y0 = pt.y;
 
-        return rectUnion(minX, minY, maxX, maxY, rect);
+		pt = MatrixUtil.transformPoint(x1 * sx, y1 * sy, matrix);
+		x1 = pt.x;
+		y1 = pt.y;
+		
+		pt = MatrixUtil.transformPoint(x2 * sx, y2 * sy, matrix);
+		x2 = pt.x;
+		y2 = pt.y;
+		
+		var minX:Number = Math.min(x0, x2);
+		var maxX:Number = Math.max(x0, x2);
+		
+		var minY:Number = Math.min(y0, y2);
+		var maxY:Number = Math.max(y0, y2);
+		
+		var txDiv:Number = x0 - 2 * x1 + x2;
+		if (txDiv != 0)
+		{
+			var tx:Number = (x0 - x1) / txDiv;
+			if (0 <= tx && tx <= 1)
+			{
+				var x:Number = (1 - tx) * (1 - tx) * x0 + 2 * tx * (1 - tx) * x1 + tx * tx * x2;
+				minX = Math.min(x, minX);
+				maxX = Math.max(x, maxX);
+			}  
+		}
+		
+		var tyDiv:Number = y0 - 2 * y1 + y2;
+		if (tyDiv != 0)
+		{
+			var ty:Number = (y0 - y1) / tyDiv;
+			if (0 <= ty && ty <= 1)
+			{
+				var y:Number = (1 - ty) * (1 - ty) * y0 + 2 * ty * (1 - ty) * y1 + ty * ty * y2;
+				minY = Math.min(y, minY);
+				maxY = Math.max(y, maxY);
+			}  
+		}
+		
+		return rectUnion(minX, minY, maxX, maxY, rect);
     }
 
 	/**
