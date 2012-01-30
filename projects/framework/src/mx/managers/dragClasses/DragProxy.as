@@ -40,6 +40,7 @@ import mx.managers.CursorManager;
 import mx.managers.DragManager;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
+import mx.modules.ModuleManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleManager2;
 import mx.styles.StyleManager;
@@ -406,6 +407,9 @@ public class DragProxy extends UIComponent
 		if (swfRoot)
 			return true;
 
+        if (ModuleManager.getAssociatedFactory(target))
+            return true;
+        
 		var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST);
 		me.name = "hasSWFBridges";
 		sandboxRoot.dispatchEvent(me);
