@@ -128,6 +128,12 @@ use namespace mx_internal;
  *  Users navigate the views of the application by using the touch screen, 
  *  components built into the application, and the input controls of the mobile device.</p>
  *
+ *  <p>The following images shows a View container with a List control:</p>
+ *
+ * <p>
+ *  <img src="../../images/vn_single_section_home_vn.png" alt="View container" />
+ * </p>
+ *
  *  <p>Each view in an application corresponds to a View container defined 
  *  in an ActionScript or MXML file. 
  *  Each View contains a <code>data</code> property that specifies the data 
@@ -235,7 +241,7 @@ public class View extends SkinnableContainer implements IDataRenderer
             
             // Switch orientation states if needed
             if (_active)
-				updateOrientationState();
+                updateOrientationState();
                 
             var eventName:String = _active ? 
                 ViewNavigatorEvent.VIEW_ACTIVATE : 
@@ -965,17 +971,17 @@ public class View extends SkinnableContainer implements IDataRenderer
     private function application_resizeHandler(event:Event):void
     {
         if (isActive)
-			updateOrientationState();
+            updateOrientationState();
     }
     
     /**
-	 *  @private
-	 */
-	mx_internal function updateOrientationState():void
-	{
-		setCurrentState(getCurrentViewState(), false);
-	}
-	
+     *  @private
+     */
+    mx_internal function updateOrientationState():void
+    {
+        setCurrentState(getCurrentViewState(), false);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: UIComponent
