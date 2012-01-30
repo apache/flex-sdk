@@ -1041,7 +1041,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      *      "contact" - puts the keyboard into a mode appropriate for entering
      *          contact information
      *      "email" - puts the keyboard into e-mail addres entry mode, which may
-     *          make it easier to enter '@' or '.com'
+     *          make it easier to enter the at sign or '.com'
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3.0
