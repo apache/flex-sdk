@@ -175,6 +175,9 @@ use namespace mx_internal;
  *  </pre>
  *
  *  @see ViewNavigator
+ *
+ *  @includeExample examples/ViewExample.mxml -noswf
+ *  @includeExample examples/ViewExampleHomeView.mxml -noswf
  * 
  *  @langversion 3.0
  *  @playerversion AIR 2.5
