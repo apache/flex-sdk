@@ -189,6 +189,17 @@ public class SetProperty extends OverrideBase implements IOverride
      *  @productversion Flex 3
      */
     public var target:Object;
+    
+    /**
+     *  The cached target for which we applied our override.
+     *  We keep track of the applied target while applied since
+     *  our target may be swapped out in the owning document and 
+     *  we want to make sure we roll back the correct (original) 
+     *  element. 
+     *
+     *  @private
+     */
+    private var appliedTarget:Object;
 
     //----------------------------------
     //  value
@@ -264,8 +275,8 @@ public class SetProperty extends OverrideBase implements IOverride
         var obj:* = getOverrideContext(target, parent);
         if (obj != null)
         {
-        	target = obj;
-	        var propName:String = (PSEUDONYMS[name] && (PSEUDONYMS[name] in target)) ?
+        	appliedTarget = obj;
+	        var propName:String = (PSEUDONYMS[name] && (PSEUDONYMS[name] in appliedTarget)) ?
 	                          PSEUDONYMS[name] :
 	                          name;
 	
@@ -328,7 +339,7 @@ public class SetProperty extends OverrideBase implements IOverride
      */
     public function remove(parent:UIComponent):void
     {   
-        var obj:* = getOverrideContext(target, parent);
+        var obj:* = getOverrideContext(appliedTarget, parent);
         if (obj != null && applied)
         {
             var propName:String = (PSEUDONYMS[name] && (PSEUDONYMS[name] in target)) ?
@@ -363,6 +374,7 @@ public class SetProperty extends OverrideBase implements IOverride
 	        // Clear our flags and override context.
 	        applied = false;
 	        parentContext = null;
+	        appliedTarget = null;
         }
     }
 
