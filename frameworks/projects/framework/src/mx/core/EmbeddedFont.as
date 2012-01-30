@@ -38,6 +38,11 @@ public class EmbeddedFont
 	 *  @param bold true if the font is bold, false otherwise.
 	 *
 	 *  @param italic true if the fotn is italic, false otherwise,
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */ 
 	public function EmbeddedFont(fontName:String, bold:Boolean, italic:Boolean)
 	{
@@ -65,6 +70,11 @@ public class EmbeddedFont
 	
 	/**
 	 *  The name of the font.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get fontName():String
 	{
@@ -84,6 +94,11 @@ public class EmbeddedFont
 	/**
 	 *  The style of the font.
 	 *  The value is one of the values in flash.text.FontStyle.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get fontStyle():String
 	{
