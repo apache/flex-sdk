@@ -96,7 +96,7 @@ public class HSliderThumbSkin extends MobileSkin
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 thumbImageWidth = 29;
                 thumbImageHeight = 29;
                 
