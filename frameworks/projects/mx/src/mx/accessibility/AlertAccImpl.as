@@ -161,6 +161,10 @@ public class AlertAccImpl extends TitleWindowAccImpl
 	 */
 	override protected function eventHandler(event:Event):void
 	{
+		// Let AccImpl class handle the events
+		// that all accessible UIComponents understand.
+		$eventHandler(event);
+				
 		var titleBar:UIComponent;
 		
 		switch (event.type)
@@ -185,7 +189,6 @@ public class AlertAccImpl extends TitleWindowAccImpl
 
 				break;
 			}
-			break;
 
 			case "creationComplete":
 			{
@@ -220,10 +223,8 @@ public class AlertAccImpl extends TitleWindowAccImpl
 
 				break;
 			}
-			break;
 		}
 	}
-
 }
 
 }
