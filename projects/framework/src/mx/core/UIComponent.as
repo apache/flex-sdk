@@ -8733,11 +8733,11 @@ public class UIComponent extends FlexSprite
     /**
      *  @private
      */
-    mx_internal var lastUnscaledWidth:Number;
+    private var lastUnscaledWidth:Number;
     /**
      *  @private
      */
-    mx_internal var lastUnscaledHeight:Number;
+    private var lastUnscaledHeight:Number;
 
     /**
      *  @private
