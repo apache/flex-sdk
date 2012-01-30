@@ -984,7 +984,7 @@ public class DateSpinner extends SkinnableComponent
     
     /**
      *  Populate the currently existing date item lists with correct data providers using the
-     *  provided locale to format the 
+     *  provided locale to format the date text correctly.
      */    
     private function populateDateItemLists(localeStr:String):void
     {
