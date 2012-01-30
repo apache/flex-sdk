@@ -18,13 +18,13 @@ import mx.core.DPIClassification;
 import mx.core.mx_internal;
 
 import spark.skins.mobile.supportClasses.MobileSkin;
-import spark.skins.mobile160.assets.NavigationBackButton_down;
-import spark.skins.mobile160.assets.NavigationBackButton_up;
-import spark.skins.mobile240.assets.NavigationBackButton_down;
-import spark.skins.mobile240.assets.NavigationBackButton_fill;
-import spark.skins.mobile240.assets.NavigationBackButton_up;
-import spark.skins.mobile320.assets.NavigationBackButton_down;
-import spark.skins.mobile320.assets.NavigationBackButton_up;
+import spark.skins.mobile160.assets.BeveledBackButton_down;
+import spark.skins.mobile160.assets.BeveledBackButton_up;
+import spark.skins.mobile240.assets.BeveledBackButton_down;
+import spark.skins.mobile240.assets.BeveledBackButton_fill;
+import spark.skins.mobile240.assets.BeveledBackButton_up;
+import spark.skins.mobile320.assets.BeveledBackButton_down;
+import spark.skins.mobile320.assets.BeveledBackButton_up;
 
 use namespace mx_internal;
 
@@ -73,9 +73,9 @@ public class BeveledBackButtonSkin extends ButtonSkin
                 measuredDefaultWidth = 116;
                 measuredDefaultHeight = 54;
                 
-                upBorderSkin = spark.skins.mobile320.assets.NavigationBackButton_up;
-                downBorderSkin = spark.skins.mobile320.assets.NavigationBackButton_down;
-                fillClass = spark.skins.mobile320.assets.NavigationBackButton_fill;
+                upBorderSkin = spark.skins.mobile320.assets.BeveledBackButton_up;
+                downBorderSkin = spark.skins.mobile320.assets.BeveledBackButton_down;
+                fillClass = spark.skins.mobile320.assets.BeveledBackButton_fill;
                 
                 break;
             }
@@ -90,9 +90,9 @@ public class BeveledBackButtonSkin extends ButtonSkin
                 measuredDefaultWidth = 87;
                 measuredDefaultHeight = 42;
                 
-                upBorderSkin = spark.skins.mobile240.assets.NavigationBackButton_up;
-                downBorderSkin = spark.skins.mobile240.assets.NavigationBackButton_down;
-                fillClass = spark.skins.mobile240.assets.NavigationBackButton_fill;
+                upBorderSkin = spark.skins.mobile240.assets.BeveledBackButton_up;
+                downBorderSkin = spark.skins.mobile240.assets.BeveledBackButton_down;
+                fillClass = spark.skins.mobile240.assets.BeveledBackButton_fill;
                 
                 break;
             }
@@ -107,9 +107,9 @@ public class BeveledBackButtonSkin extends ButtonSkin
                 measuredDefaultWidth = 58;
                 measuredDefaultHeight = 28;
                 
-                upBorderSkin = spark.skins.mobile160.assets.NavigationBackButton_up;
-                downBorderSkin = spark.skins.mobile160.assets.NavigationBackButton_down;
-                fillClass = spark.skins.mobile160.assets.NavigationBackButton_fill;
+                upBorderSkin = spark.skins.mobile160.assets.BeveledBackButton_up;
+                downBorderSkin = spark.skins.mobile160.assets.BeveledBackButton_down;
+                fillClass = spark.skins.mobile160.assets.BeveledBackButton_fill;
                 
                 break;
             }
