@@ -79,6 +79,13 @@ use namespace mx_internal;
  *  The color of the spokes is controlled by the value of the <code>symbolColor</code> style.
  *  The transparency of this component can be modified using the <code>alpha</code> property,
  *  but the alpha value of each spoke cannot be modified.
+ *
+ *  <p>The following images shows the BusyIndicator at the bottom of the screen next 
+ *  to the Submit button:</p>
+ *
+ * <p>
+ *  <img src="../../images/bi_busy_indicator_bi.png" alt="Busy indicator" />
+ * </p>
  * 
  *  <p>The speed at which this component spins is controlled by the <code>rotationInterval</code>
  *  style. The <code>rotationInterval</code> style sets the delay, in milliseconds, between
@@ -668,7 +675,7 @@ public class BusyIndicator extends UIComponent
                     // inside of hidden, non-modal, popup windows will paint themselves
                     // on a timer.
                     effectiveVisibility = false;
-                    break;					
+                    break;                  
                 }
             }
             
