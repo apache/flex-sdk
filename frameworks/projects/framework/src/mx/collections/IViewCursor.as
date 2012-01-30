@@ -18,6 +18,11 @@ import flash.events.IEventDispatcher;
  *  Dispatched whenever the cursor position is updated.
  *
  *  @eventType mx.events.FlexEvent.CURSOR_UPDATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="cursorUpdate", type="mx.events.FlexEvent")]
 
@@ -29,6 +34,11 @@ import flash.events.IEventDispatcher;
  *  <code>createCursor()</code> method) the value of the 
  *  <code>current</code> property should be the first
  *  item in the view, unless the view is empty.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IViewCursor extends IEventDispatcher
 {
@@ -49,6 +59,11 @@ public interface IViewCursor extends IEventDispatcher
      *  this property is <code>true</code> .
      *  If the ICollectionView is empty (length == 0),
      *  this property is <code>true</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get afterLast():Boolean;
 
@@ -63,6 +78,11 @@ public interface IViewCursor extends IEventDispatcher
      *  this property is <code>true</code>.
      *  If the ICollectionView is empty (length == 0),
      *  this property is <code>true</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get beforeFirst():Boolean;
 
@@ -81,6 +101,11 @@ public interface IViewCursor extends IEventDispatcher
      *
      *  @see #current
      *  @see #seek()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get bookmark():CursorBookmark;
 
@@ -102,6 +127,11 @@ public interface IViewCursor extends IEventDispatcher
      *  @see #seek()
      *  @see #beforeFirst
      *  @see #afterLast
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get current():Object;
 
@@ -111,6 +141,11 @@ public interface IViewCursor extends IEventDispatcher
 
     /**
      *  A reference to the ICollectionView with which this cursor is associated.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get view():ICollectionView;
 
@@ -155,6 +190,11 @@ public interface IViewCursor extends IEventDispatcher
      *  @see #findFirst()
      *  @see #findLast()
      *  @see mx.collections.errors.ItemPendingError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function findAny(values:Object):Boolean;
 
@@ -191,6 +231,11 @@ public interface IViewCursor extends IEventDispatcher
      *  @see #findAny()
      *  @see #findLast()
      *  @see mx.collections.errors.ItemPendingError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function findFirst(values:Object):Boolean;
 
@@ -227,6 +272,11 @@ public interface IViewCursor extends IEventDispatcher
      *  @see #findAny()
      *  @see #findFirst()
      *  @see mx.collections.errors.ItemPendingError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function findLast(values:Object):Boolean;
 
@@ -238,6 +288,11 @@ public interface IViewCursor extends IEventDispatcher
      *  an error is thrown.
      *  
      *  @param item The item to insert before the cursor's current position.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function insert(item:Object):void;
 
@@ -272,6 +327,11 @@ public interface IViewCursor extends IEventDispatcher
      *      cursor.moveNext();
      *  }
      *  </pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function moveNext():Boolean;
 
@@ -307,6 +367,11 @@ public interface IViewCursor extends IEventDispatcher
      *  @see #current
      *  @see #moveNext()
      *  @see mx.collections.errors.ItemPendingError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function movePrevious():Boolean;
 
@@ -326,6 +391,11 @@ public interface IViewCursor extends IEventDispatcher
      *  @return The item that was removed.
      *  
      *  @see mx.collections.errors.ItemPendingError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function remove():Object;
 
@@ -373,6 +443,11 @@ public interface IViewCursor extends IEventDispatcher
      *  to iterate it.
      * 
      *  @see mx.collections.errors.ItemPendingError
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     function seek(bookmark:CursorBookmark, offset:int = 0, prefetch:int = 0):void;
 }
