@@ -2818,7 +2818,8 @@ public class SystemManager extends MovieClip
     }
     
     /**
-     *  Override this function if you want to perform any logic
+     *  listen for creationComplete" on the application
+     *  if you want to perform any logic
      *  when the application has finished initializing itself.
      *  
      *  @langversion 3.0
@@ -2827,6 +2828,20 @@ public class SystemManager extends MovieClip
      *  @productversion Flex 3
      */
     private function appCreationCompleteHandler(event:FlexEvent):void
+    {
+        invalidateParentSizeAndDisplayList();
+    }
+
+    /**
+     *  Attempts to notify the parent SWFLoader that the
+     *  Application's size has may have changed
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function invalidateParentSizeAndDisplayList():void
     {
         if (!topLevel && parent)
         {
@@ -2844,7 +2859,7 @@ public class SystemManager extends MovieClip
         }
 
         // re-dispatch from here so MarshallPlan mixins can see it
-        dispatchEvent(event);
+        dispatchEvent(new Event("invalidateParentSizeAndDisplayList"));
     }
 
     /**
