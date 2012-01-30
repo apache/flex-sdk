@@ -579,8 +579,6 @@ class ModuleInfo extends EventDispatcher
                 {
                     loader.content.removeEventListener("ready", readyHandler);
                     loader.content.removeEventListener("error", moduleErrorHandler);
-                    loader.content.removeEventListener(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST, 
-                                                       getFlexModuleFactoryRequestHandler);            
                 }
             }
             catch(error:Error)
@@ -709,7 +707,7 @@ class ModuleInfo extends EventDispatcher
         loader.content.addEventListener("ready", readyHandler);
         loader.content.addEventListener("error", moduleErrorHandler);
         loader.content.addEventListener(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST, 
-                                        getFlexModuleFactoryRequestHandler);            
+                                        getFlexModuleFactoryRequestHandler, false, 0, true);            
 
         try
         {
