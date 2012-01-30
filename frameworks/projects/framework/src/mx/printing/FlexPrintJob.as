@@ -249,7 +249,7 @@ public class FlexPrintJob
         var appExplicitWidth:Number;
         var appExplicitHeight:Number;
         var applicationClass:Class = Class(obj.systemManager.getDefinitionByName("mx.core::Application"));
-        var fxApplicationClass:Class = Class(obj.systemManager.getDefinitionByName("mx.components::FxApplication"));
+        var fxApplicationClass:Class = Class(obj.systemManager.getDefinitionByName("spark.components::Application"));
 
         if ((applicationClass && obj is applicationClass) || 
             (fxApplicationClass && obj is fxApplicationClass))
