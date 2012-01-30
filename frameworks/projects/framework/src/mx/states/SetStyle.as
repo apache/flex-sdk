@@ -283,7 +283,7 @@ public class SetStyle extends OverrideBase implements IOverride
     public function remove(parent:UIComponent):void
     {
         var obj:IStyleClient = IStyleClient(getOverrideContext(target, parent));
-        if (obj != null)
+        if (obj != null && applied)
         {
 	        // Restore the old value
 	        if (oldValue is Number)
