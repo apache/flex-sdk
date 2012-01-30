@@ -12,6 +12,7 @@
 package spark.components
 {
 import flash.events.Event;
+import flash.events.EventDispatcher;
 import flash.net.registerClassAlias;
 
 import mx.core.IVisualElement;
@@ -34,11 +35,11 @@ import spark.effects.Animate;
 import spark.effects.animation.Animation;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
+import spark.events.ViewNavigatorEvent;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.transitions.SlideViewTransition;
 import spark.transitions.ViewTransitionBase;
 import spark.transitions.ViewTransitionDirection;
-import spark.transitions.supportClasses.ViewTransitionUtil;
 
 use namespace mx_internal;
 
@@ -182,6 +183,12 @@ public class ViewNavigator extends ViewNavigatorBase
      *  have been registered with the player.
      */
     private static var classAliasesRegistered:Boolean = false;
+    
+    /**     
+     *  @private
+     */
+    private static var viewTransitonSuspendCount:int = 0;
+    private static var eventDispatcher:EventDispatcher;
     
     //--------------------------------------------------------------------------
     //
@@ -328,6 +335,13 @@ public class ViewNavigator extends ViewNavigatorBase
      */ 
     private var emptyViewDescriptor:ViewDescriptor = null;
         
+    /**
+     *  @private
+     *  Variable used to count how many enterframes the navigator has
+     *  received after preparing a transition.
+     */ 
+    private var enterFrameCount:int = 0;
+    
     /**
      *  @private
      *  This following property stores the <code>mouseEnabled</code>
@@ -2119,12 +2133,17 @@ public class ViewNavigator extends ViewNavigatorBase
             activeTransition.navigator = this;
             activeTransition.preInit();
             
-            ViewTransitionUtil.notifyTransitionPreparation();
+            if (stage)
+                stage.dispatchEvent(new Event("viewTransitionPrepare"));
         }
         
-        if (ViewTransitionUtil.suspendCount > 0)
+        // Only dispatch this event if the stage exists.
+        if (stage && viewTransitonSuspendCount > 0)
         {
-            ViewTransitionUtil.instance.addEventListener("ready", completeTransitionPreparations);
+           if (!eventDispatcher)
+               eventDispatcher = new EventDispatcher();
+           
+           eventDispatcher.addEventListener("viewTransitionReady", completeTransitionPreparations);
         }
         else
         {
@@ -2132,10 +2151,35 @@ public class ViewNavigator extends ViewNavigatorBase
         }
     }
     
+    /**
+     *  @private
+     */ 
+    mx_internal static function suspendTransitions():void
+    {
+        viewTransitonSuspendCount++;   
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal static function resumeTransitions():void
+    {
+        if (viewTransitonSuspendCount == 0)
+            return;
+        
+        viewTransitonSuspendCount--;
+        
+        if (viewTransitonSuspendCount == 0)
+            eventDispatcher.dispatchEvent(new Event("viewTransitionReady"));
+    }
+    
+    /**
+     *  @private
+     */ 
     private function completeTransitionPreparations(event:Event = null):void
     {
         if (event)
-            event.target.removeEventListener("ready", completeTransitionPreparations);
+            event.target.removeEventListener("viewTransitionReady", completeTransitionPreparations);
         
         var pendingView:View;
         if (pendingViewDescriptor)
@@ -2178,7 +2222,10 @@ public class ViewNavigator extends ViewNavigatorBase
             activeTransition.prepareForPlay();
             
             // Wait a frame so that any queued work can be completed by the framework
-            // and runtime before the transition starts.
+            // and runtime before the transition starts.  As of Flex 4.6, we wait 2
+            // frames to allow StageText to fully render the swapped in bitmaps.  
+            // Otherwise rendering time would overlap with the first frame of the animation.
+            enterFrameCount = 0;
             addEventListener(Event.ENTER_FRAME, startViewTransition);
         }
         else
@@ -2186,8 +2233,6 @@ public class ViewNavigator extends ViewNavigatorBase
             navigatorActionCommitted();
         }
     }
-
-    private var enterFrameCount:int = 0;
     
     /**
      *  @private
@@ -2195,12 +2240,13 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     private function startViewTransition(event:Event):void
     {
+        // Incrememnt the enterFrameCount.  ViewNavigator waits two frames
+        // before begining the animation.
         enterFrameCount++;
-        
         if (enterFrameCount < 2)
             return;
-        
-        enterFrameCount = 0;
+
+        // Remove the enter frame listener
         removeEventListener(Event.ENTER_FRAME, startViewTransition);
 
         if (hasEventListener(FlexEvent.TRANSITION_START))
