@@ -254,6 +254,12 @@ use namespace mx_internal;
 [Effect(name="completeEffect", event="complete")]
 
 //--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="baseColor", kind="style")]
+
+//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
