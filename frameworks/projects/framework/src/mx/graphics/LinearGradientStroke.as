@@ -43,7 +43,7 @@ public class LinearGradientStroke extends GradientStroke implements IStroke
      *
      *  @param weight Specifies the line weight, in pixels.
      *  This parameter is optional,
-     *  with a default value of <code>0</code>. 
+     *  with a default value of <code>1</code>. 
      *
      *  @param pixelHinting A Boolean value that specifies
      *  whether to hint strokes to full pixels.
@@ -96,7 +96,7 @@ public class LinearGradientStroke extends GradientStroke implements IStroke
      *  This parameter is optional,
      *  with a default value of <code>0</code>.
      */
-    public function LinearGradientStroke(weight:Number = 0,
+    public function LinearGradientStroke(weight:Number = 1,
                                          pixelHinting:Boolean = false,
                                          scaleMode:String = "normal",
                                          caps:String = null,
