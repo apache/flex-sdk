@@ -50,6 +50,8 @@ import mx.events.ResizeEvent;
 import mx.events.StateChangeEvent;
 import mx.events.ToolTipEvent;
 import mx.events.ValidationResultEvent;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 import mx.graphics.RoundedRectangle;
 import mx.managers.CursorManager;
 import mx.managers.ICursorManager;
@@ -2041,24 +2043,33 @@ public class UIComponent extends FlexSprite
             {
                 e = _filters[i] as IEventDispatcher;
                 if (e)
-                    e.removeEventListener("change", filterChangeHandler);
+                    e.removeEventListener(BaseFilter.CHANGE, filterChangeHandler);
             }
         }
         
         _filters = value;
         
+        var clonedFilters:Array = [];
         if (_filters)
         {
             n = _filters.length;
             for (i = 0; i < n; i++)
             {
-                e = _filters[i] as IEventDispatcher;
-                if (e)
-                    e.addEventListener("change", filterChangeHandler);
+                if (_filters[i] is IBitmapFilter)
+                {
+                    e = _filters[i] as IEventDispatcher;
+                    if (e)
+                        e.addEventListener(BaseFilter.CHANGE, filterChangeHandler);
+                    clonedFilters.push(IBitmapFilter(_filters[i]).clone());
+                }
+                else
+                {
+                    clonedFilters.push(_filters[i]);
+                }
             }
-       }
+        }
 
-        super.filters = _filters;
+        super.filters = clonedFilters;
     }
 
     //--------------------------------------------------------------------------
@@ -8950,7 +8961,7 @@ public class UIComponent extends FlexSprite
      */
     private function filterChangeHandler(event:Event):void
     {
-        super.filters = _filters;
+        filters = _filters;
     }
 
     //--------------------------------------------------------------------------
