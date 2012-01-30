@@ -120,31 +120,7 @@ public class AlertAccImpl extends TitleWindowAccImpl
 	 */
 	override protected function getName(childID:uint):String
 	{
-		var name:String = Alert(master).title;
-
-		switch (childID)
-		{
-			case 1:
-			{
-				name = "";
-				break;
-			}
-
-			case 2:
-			{
-				name = "";
-				break
-			}
-
-			default:
-			{
-				name = Alert(master).title + ", " +
-					   Alert(master).text;
-				break;
-			}
-		}
-
-		return name;
+		return Alert(master).title + ", " + Alert(master).text;
 	}
 
 	//--------------------------------------------------------------------------
