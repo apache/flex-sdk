@@ -39,6 +39,7 @@ public class HSliderTrackSkin extends MobileSkin
     //--------------------------------------------------------------------------
 
     /**
+     *  Constructor.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -46,27 +47,27 @@ public class HSliderTrackSkin extends MobileSkin
      *  @productversion Flex 4.5
      * 
      */
-	public function HSliderTrackSkin()
-	{
-		super();
+    public function HSliderTrackSkin()
+    {
+        super();
         
         useChromeColor = true;
         
         // set the right assets and dimensions to use based on the screen density
         switch (authorDensity)
         {
-			case DeviceDensity.PPI_320:
-			{
-				trackWidth = 320;
-				trackHeight = 18;
-				
+            case DeviceDensity.PPI_320:
+            {
+                trackWidth = 320;
+                trackHeight = 18;
+                
                 visibleTrackWidth = 280;
                 visibleTrackLeftOffset = 20;
                 
-				trackClass = spark.skins.mobile320.assets.HSliderTrack;
-				
-				break;
-			}
+                trackClass = spark.skins.mobile320.assets.HSliderTrack;
+                
+                break;
+            }
             case DeviceDensity.PPI_240:
             {
                 trackWidth = 192;
@@ -93,8 +94,8 @@ public class HSliderTrackSkin extends MobileSkin
                 break;
             }
         }
-	}
-	
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -104,8 +105,8 @@ public class HSliderTrackSkin extends MobileSkin
     /** 
      * @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
-	public var hostComponent:Button;
-	
+    public var hostComponent:Button;
+    
     //--------------------------------------------------------------------------
     //
     //  Variables
@@ -182,31 +183,31 @@ public class HSliderTrackSkin extends MobileSkin
     /**
      *  @private 
      */ 
-	override protected function createChildren():void
-	{
-		trackSkin = new trackClass();
-		addChild(trackSkin);
-	}
-	
+    override protected function createChildren():void
+    {
+        trackSkin = new trackClass();
+        addChild(trackSkin);
+    }
+    
     /**
      *  @private 
      */ 
-	override protected function measure():void
-	{
-		measuredWidth = trackWidth;
-		measuredHeight = trackHeight;
-	}
-	
+    override protected function measure():void
+    {
+        measuredWidth = trackWidth;
+        measuredHeight = trackHeight;
+    }
+    
     /**
      *  @private 
      */ 
-	override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-	{
+    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-		setElementSize(trackSkin, unscaledWidth, unscaledHeight);
-		setElementPosition(trackSkin, 0, 0);
-	}
+        setElementSize(trackSkin, unscaledWidth, unscaledHeight);
+        setElementPosition(trackSkin, 0, 0);
+    }
     
     /**
      *  @private 
