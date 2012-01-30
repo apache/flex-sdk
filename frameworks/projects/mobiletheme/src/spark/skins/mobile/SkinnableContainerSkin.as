@@ -16,7 +16,7 @@ import spark.components.SkinnableContainer;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
- *  ActionScript-based skin for SkinnableContainer.
+ *  ActionScript-based skin for SkinnableContainer in mobile applications.
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10.1
@@ -122,6 +122,9 @@ public class SkinnableContainerSkin extends MobileSkin
         contentGroup.setLayoutBoundsPosition(0, 0);
     }
     
+    /**
+     *  @private
+     */
     override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.drawBackground(unscaledWidth, unscaledHeight);
