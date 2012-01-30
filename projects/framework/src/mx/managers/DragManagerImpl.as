@@ -455,7 +455,8 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 			{
 				sm.popUpChildren.removeChild(dragProxy);	
 				
-				dragProxy.removeChildAt(0);	// The drag image is the only child
+                if (dragProxy.numChildren > 0)
+				    dragProxy.removeChildAt(0);	// The drag image is the only child
 				dragProxy = null;
 			}
 		}
