@@ -809,7 +809,7 @@ include "../styles/metadata/AnchorStyles.as";
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="baseColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="chromeColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Color of the component highlight when validation fails.
