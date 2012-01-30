@@ -3204,6 +3204,7 @@ public class UIComponent extends FlexSprite
 
     [Bindable("hide")]
     [Bindable("show")]
+    [Bindable("creationComplete")]
     [Inspectable(category="General", defaultValue="true")]
 
     /**
