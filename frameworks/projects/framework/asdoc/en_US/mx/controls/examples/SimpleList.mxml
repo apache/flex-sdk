@@ -1,40 +1,45 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the List Control -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo List Control -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-        	[Bindable]
-            public var selectedItem:Object;
+            [Bindable]
+            public var selectedListItem:Object;
        ]]>
-    </mx:Script>
+    </fx:Script>
 
+    <fx:Declarations>
+        <fx:Model id="mystates">
+            <states>
+                <state label="Alabama" data="AL"/>
+                <state label="Alaska" data="AK"/>
+                <state label="Arizona" data="AZ"/>
+                <state label="Arkansas" data="AR"/>
+                <state label="California" data="CA"/>
+                <state label="Colorado" data="CO"/>
+                <state label="Connecticut" data="CT"/>
+            </states>
+        </fx:Model>
+    </fx:Declarations>
 
-    <mx:Model id="mystates">
-      <states>
-        <state label="Alabama" data="AL"/>
-        <state label="Alaska" data="AK"/>
-        <state label="Arizona" data="AZ"/>
-        <state label="Arkansas" data="AR"/>
-        <state label="California" data="CA"/>
-        <state label="Colorado" data="CO"/>
-        <state label="Connecticut" data="CT"/>
-      </states>
-    </mx:Model>
+    <s:Panel title="Halo List Control Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText text="Select a state to see its abbreviation."/>
 
-    <mx:Panel title="List Control Example" height="75%" width="75%" 
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+            <mx:List id="source" width="100%" color="blue"
+                    dataProvider="{mystates.state}"
+                    change="selectedListItem = List(event.currentTarget).selectedItem"/>
 
-        <mx:Label text="Select a state to see its abbreviation."/>
+            <s:VGroup width="100%">
+                <s:SimpleText text="Selected State: {selectedListItem.label}"/>
+                <s:SimpleText text="State abbreviation: {selectedListItem.data}"/>
+            </s:VGroup>
+        </s:VGroup>
+    </s:Panel>
 
-        <mx:List id="source" width="100%" color="blue"
-            dataProvider="{mystates.state}"
-            change="this.selectedItem=List(event.target).selectedItem"/>
-
-        <mx:VBox width="100%">
-            <mx:Label text="Selected State: {selectedItem.label}"/>
-            <mx:Label text="State abbreviation: {selectedItem.data}"/>
-        </mx:VBox>
-
-    </mx:Panel>
-</mx:Application>       
+</s:Application>
