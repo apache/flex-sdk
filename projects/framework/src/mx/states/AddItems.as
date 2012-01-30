@@ -20,6 +20,7 @@ import mx.core.ContainerCreationPolicy;
 import mx.core.IChildList;
 import mx.core.IDeferredInstance;
 import mx.core.UIComponent;
+import mx.core.IVisualElementContainer;
 
 [DefaultProperty("itemsFactory")]
 
@@ -379,9 +380,9 @@ public class AddItems extends OverrideBase implements IOverride
                 break;
         }    
         
-        if ( (propertyName == null || propertyName == "content") && (dest is Group || dest is FxContainer))
+        if ( (propertyName == null || propertyName == "content") && (dest is IVisualElementContainer))
         {
-            addItemsToContentHolder(dest, localItems);
+            addItemsToContentHolder(dest as IVisualElementContainer, localItems);
         }
         else if (propertyName == null && dest is IChildList)
         {
@@ -419,10 +420,10 @@ public class AddItems extends OverrideBase implements IOverride
         else
             localItems = [items];
              
-        if ((propertyName == null || propertyName == "content") && (dest is Group || dest is FxContainer))
+        if ((propertyName == null || propertyName == "content") && (dest is IVisualElementContainer))
         {
             for (i = 0; i < numAdded; i++)
-                dest.removeItemAt(startIndex);
+                IVisualElementContainer(dest).removeElementAt(startIndex);
         }
         else if (propertyName == null && dest is IChildList)
         {
@@ -460,8 +461,8 @@ public class AddItems extends OverrideBase implements IOverride
     {
         try
         {
-            if (propertyName == null && (dest is Group || dest is FxContainer))
-                return dest.getItemIndex(object);
+            if (propertyName == null && (dest is IVisualElementContainer))
+                return IVisualElementContainer(dest).getElementIndex(object);
             
             if (propertyName == null && dest is IChildList)
                 return IChildList(dest).getChildIndex(DisplayObject(object));
@@ -507,13 +508,13 @@ public class AddItems extends OverrideBase implements IOverride
     /**
      *  @private
      */
-    protected function addItemsToContentHolder(dest:Object, items:Array):void
+    protected function addItemsToContentHolder(dest:IVisualElementContainer, items:Array):void
     {
         if (startIndex == -1)
-            startIndex = dest.numItems;
+            startIndex = dest.numElements;
         
         for (var i:int = 0; i < items.length; i++)
-            dest.addItemAt(items[i], startIndex + i);
+            dest.addElementAt(items[i], startIndex + i);
     }
     
     /**
