@@ -309,6 +309,7 @@ use namespace mx_internal;
 [Exclude(name="controlBarLayout", kind="property")]
 [Exclude(name="controlBarVisible", kind="property")]
 [Exclude(name="moveEffect", kind="effect")]
+[Exclude(name="scriptTimeLimit", kind="property")]
 
 //--------------------------------------
 //  SkinStates
