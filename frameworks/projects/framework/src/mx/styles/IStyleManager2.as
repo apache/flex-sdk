@@ -44,6 +44,26 @@ public interface IStyleManager2 extends IStyleManager
      *  @private
      */
     function set parent(parent:IStyleManager2):void;
+        
+    //----------------------------------
+    //  qualifiedTypeSelectors
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Qualified type selectors were added in Flex 4 to support styling
+     *  components with the same local name, e.g. 'spark.components.Button'.
+     *  Prior to this type selectors were always unqualified class names  e.g.
+     *  'Button'. To ease migration of Flex 3 application, this property can
+     *  control whether CSS type selectors must be fully qualified class names
+     *  when the compatibility version is 4 or later.
+     */
+    function get qualifiedTypeSelectors():Boolean;
+    
+    /**
+     *  @private
+     */
+    function set qualifiedTypeSelectors(value:Boolean):void;
     
     //----------------------------------
 	//  selectors
@@ -71,6 +91,11 @@ public interface IStyleManager2 extends IStyleManager
      * @private
      */
     function getStyleDeclarations(subject:String):Array;
+
+    /**
+     * @private
+     */
+    function getMergedStyleDeclaration(selector:String):CSSStyleDeclaration;    
 
     /**
      * @private
