@@ -177,39 +177,6 @@ public class MenuAccImpl extends ListBaseAccImpl
 
 	/**
 	 *  @private
-	 *  IAccessible method for returning the value of the MenuItem/Menu
-	 *  which is spoken out by the screen reader
-	 *  The Menu should return the name of the currently selected item
-	 *  with m of n string as value when focus moves to Menu.
-	 *
-	 *  @param childID uint
-	 *
-	 *  @return Value String
-	 */
-	override public function get_accValue(childID:uint):String
-	{
-		if (childID > 0)
-			return null;
-
-		var accValue:String = "";
-
-		var menu:Menu = Menu(master);
-		var selectedIndex:int = menu.selectedIndex;
-		if (selectedIndex > -1)
-		{
-			var item:Object = menu.dataProvider[selectedIndex];
-
-			if (menu.dataDescriptor.isBranch(item))
-				accValue = menu.itemToLabel(item);
-			else
-				accValue = menu.itemToLabel(item);
-		}
-
-		return accValue;
-	}
-
-	/**
-	 *  @private
 	 *  IAccessible method for returning the state of the Menu.
 	 *  States are predefined for all the components in MSAA.
 	 *  Values are assigned to each state.
