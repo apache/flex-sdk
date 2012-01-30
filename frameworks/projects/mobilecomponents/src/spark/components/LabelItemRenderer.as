@@ -1138,7 +1138,7 @@ public class LabelItemRenderer extends UIComponent
             result =  element.height;
         }
         
-        return Math.round(result);
+        return Math.ceil(result);
     }
     
     //--------------------------------------------------------------------------
