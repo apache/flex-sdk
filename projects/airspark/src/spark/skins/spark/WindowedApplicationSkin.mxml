@@ -18,11 +18,11 @@
       To use the WindowedApplicationSkin class with the WindowedApplication container, 
       set <code>systemChrome</code> to "none" 
       in the application's .xml file, and set the <code>skinClass</code> style to
-      spark.skins.default.WindowedApplicationSkin. 
+      spark.skins.spark.WindowedApplicationSkin. 
       To use the WindowedApplicationSkin class with the Window container, 
       set the <code>Window.systemChrome</code> property to "none", 
       and set the <code>skinClass</code> style to
-      spark.skins.default.WindowedApplicationSkin.</p>
+      spark.skins.spark.WindowedApplicationSkin.</p>
 
       @see spark.components.WindowedApplication
 -->
