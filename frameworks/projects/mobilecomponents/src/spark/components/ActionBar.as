@@ -25,7 +25,7 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
-include "../styles/metadata/MobileTextFieldTextStyles.as"
+include "../styles/metadata/StyleableTextFieldTextStyles.as"
 
 /**
  *  Alignment of the title relative to the ActionBar dimensions.
