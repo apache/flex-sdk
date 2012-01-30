@@ -19,6 +19,11 @@ import flash.geom.Rectangle;
 
 /**
  *  Documentation is not currently available.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class MatrixUtil
 {
@@ -80,6 +85,11 @@ public class MatrixUtil
      *  @return Returns the union of <code>rect</code> and
      *  <code>Rectangle(left, top, right - left, bottom - top)</code>.
      *  Note that if rect is non-null, it will be updated to reflect the return value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function rectUnion(left:Number, top:Number, right:Number, bottom:Number,
                                      rect:Rectangle):Rectangle
@@ -111,6 +121,11 @@ public class MatrixUtil
      *  the segment bounding box.
      *  @return Returns the union of the passed in rect with the
      *  bounding box of the the post-transformed ellipse.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static function getEllipseBoundingBox(cx:Number, cy:Number,
                                                  rx:Number, ry:Number,
@@ -188,6 +203,11 @@ public class MatrixUtil
      *  the segment bounding box.
      *  @return Returns the union of the post-transformed quadratic
      *  bezier segment's axis aligned bounding box and the passed in rect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */	
     static public function getQBezierSegmentBBox(x0:Number, y0:Number,
                                                  x1:Number, y1:Number,
@@ -246,6 +266,11 @@ public class MatrixUtil
 	 *  will offset the transformed bounds top left corner by x,y.
 	 *
 	 *  @return Returns the transformed bounds.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function transformSize(bounds:Point, matrix:Matrix):Point
 	{
@@ -275,6 +300,11 @@ public class MatrixUtil
 	 *  after transformation.
 	 *
 	 *  @return Returns the transformed width and height
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function transformBounds(bounds:Point, matrix:Matrix, topLeft:Point = null):Point
 	{
@@ -314,6 +344,11 @@ public class MatrixUtil
 	 *  @return Returns true when <code>pt == matrix.DeltaTransformPoint(pt)</code>
 	 *  for any <code>pt:Point</code> (<code>matrix</code> is identity matrix,
 	 *  when disregarding the translation part).   
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function isDeltaIdentity(matrix:Matrix):Boolean
 	{
@@ -357,6 +392,11 @@ public class MatrixUtil
      *  @return Returns the size (x,y) such that the bounding box (0,0,x,y) will
      *  fit into (0,0,width,height) after transformation with <code>matrix</code>.
      *  Returns null if there is no possible solution.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static function fitBounds(width:Number, height:Number, matrix:Matrix,
                                      preferredWidth:Number, preferredHeight:Number,
@@ -430,6 +470,11 @@ public class MatrixUtil
      *  
      *  @return Returns Point(x,y) or null if no solution exists. 
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */        
     static public function calcUBoundsToFitTBoundsHeight(h:Number,
                                                          matrix:Matrix,
@@ -588,6 +633,11 @@ public class MatrixUtil
      *  
      *  @return Returns Point(x,y) or null if no solution exists. 
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */        
     static public function calcUBoundsToFitTBoundsWidth(w:Number,
                                                         matrix:Matrix,
@@ -737,6 +787,11 @@ public class MatrixUtil
      *  Doesn't handle cases where <code>a</code> or <code>c</code> are zero.
      * 
      *  @return Returns Point(x,y)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */        
     static private function solveEquation(a:Number,
                                           c:Number,
@@ -882,6 +937,11 @@ public class MatrixUtil
      *  
      *  @return Point(x,y) or null if no solution exists.
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     static public function calcUBoundsToFitTBounds(w:Number, 
                                                    h:Number,
@@ -1045,6 +1105,11 @@ public class MatrixUtil
      *
      *  @return returns Point(x,y)
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     static private function solveSystem(a:Number, 
                                         c:Number, 
