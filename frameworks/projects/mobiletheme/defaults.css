@@ -159,7 +159,6 @@ LabelItemRenderer
 List
 {
     skinClass: ClassReference("spark.skins.mobile.ListSkin");
-    touchDelay: 100;
     borderColor: #000000;
     borderAlpha: 1;
     verticalScrollPolicy: on;
