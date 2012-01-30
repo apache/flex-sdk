@@ -20,6 +20,7 @@ import flash.utils.Timer;
 import mx.controls.listClasses.*;
 import mx.core.IFlexDisplayObject;
 import mx.core.IVisualElement;
+import mx.core.UIComponentGlobals;
 import mx.core.UITextField;
 import mx.core.UITextFormat;
 import mx.core.mx_internal;
@@ -239,7 +240,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  The source to set iconDisplay to, after waiting an appropriate delay period
      */
     private var loadingIconSource:Object;
-    
+	
     //--------------------------------------------------------------------------
     //
     //  Public Properties: Overridden
@@ -1506,6 +1507,36 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         
         super.validateSize(recursive);
     }
+	
+	/**
+	 *  @private
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.2
+	 *  @playerversion AIR 2.0
+	 *  @productversion Flex 4.5
+	 */
+	override public function setEstimatedSize(estimatedWidth:Number = NaN, 
+											  estimatedHeight:Number = NaN,
+											  invalidateSizeAllowed:Boolean = true):void
+	{
+		var oldcw:Number = this.estimatedWidth;
+		var oldch:Number = this.estimatedHeight;
+		
+		super.setEstimatedSize(estimatedWidth, estimatedHeight, invalidateSizeAllowed);
+		
+		var sameWidth:Boolean = isNaN(estimatedWidth) && isNaN(oldcw) || estimatedWidth == oldcw;
+		var sameHeight:Boolean = isNaN(estimatedHeight) && isNaN(oldch) || estimatedHeight == oldch;
+		if (!(sameHeight && sameWidth))
+		{
+			if (!isNaN(explicitWidth) &&
+				!isNaN(explicitHeight))
+				return;
+			
+			if (invalidateSizeAllowed)
+				invalidateSize();
+		}
+	}
     
     /**
      *  @private
@@ -1524,17 +1555,34 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         var myMeasuredMinHeight:Number = 0;
         
         // Icon is on left
+		var myIconWidth:Number = 0;
+		var myIconHeight:Number = 0;
         if (iconDisplay)
         {
-            var myIconWidth:Number = (isNaN(iconWidth) ? iconDisplay.getPreferredBoundsWidth() : iconWidth);
-            var myIconHeight:Number = (isNaN(iconHeight) ? iconDisplay.getPreferredBoundsHeight() : iconHeight);
+			myIconWidth = (isNaN(iconWidth) ? getElementPreferredWidth(iconDisplay) : iconWidth);
+			myIconHeight = (isNaN(iconHeight) ? getElementPreferredHeight(iconDisplay) : iconHeight);
             
             myMeasuredWidth += myIconWidth;
-            myMeasuredHeight = Math.max(myMeasuredHeight, myIconHeight);
             myMeasuredMinWidth += myIconWidth;
+			myMeasuredHeight = Math.max(myMeasuredHeight, myIconHeight);
             myMeasuredMinHeight = Math.max(myMeasuredMinHeight, myIconHeight);
         }
-        
+		
+		// Decorator is up next
+		var decoratorWidth:Number = 0;
+		var decoratorHeight:Number = 0;
+		
+		if (decoratorDisplay)
+		{
+			decoratorWidth = getElementPreferredWidth(decoratorDisplay);
+			decoratorHeight = getElementPreferredHeight(decoratorDisplay);
+			
+			myMeasuredWidth += decoratorWidth;
+			myMeasuredMinWidth += decoratorWidth;
+			myMeasuredHeight = Math.max(myMeasuredHeight, decoratorHeight);
+			myMeasuredMinHeight = Math.max(myMeasuredHeight, decoratorHeight);
+		}
+		
         // Text is aligned next to icon
         var labelWidth:Number = 0;
         var labelHeight:Number = 0;
@@ -1547,69 +1595,51 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             if (labelDisplay.isTruncated)
                 labelDisplay.text = labelText;
             
-            // commit styles to get an accurate measurement
-            labelDisplay.commitStyles();
-            
-            labelWidth = labelDisplay.measuredWidth;
-            labelHeight = labelDisplay.measuredHeight;
+            labelWidth = getElementPreferredWidth(labelDisplay);
+            labelHeight = getElementPreferredHeight(labelDisplay);
         }
-            
+        
+		
         if (messageDisplay)
         {
-            // commit styles to get an accurate measurement
-            // FIXME (rfrishbe): should take in to account constrainedWidth here
-            messageDisplay.commitStyles();
-            
-            messageWidth = messageDisplay.measuredWidth;
-            messageHeight = messageDisplay.measuredHeight;
+			// now we need to measure messageDisplay's height.  Unfortunately, this is tricky and 
+			// is dependent on messageDisplay's width
+			// if we have an estimated width, use it to calculate messageDisplay's width.  
+			// Otherwise, we'll keep it the same width as it was before
+			if (!isNaN(estimatedWidth))
+				messageDisplay.width = estimatedWidth - paddingAndGapWidth - decoratorWidth - myIconWidth;
+				
+            messageWidth = getElementPreferredWidth(messageDisplay);
+            messageHeight = getElementPreferredHeight(messageDisplay);
         }
-
-        var verticalGap:Number = (labelDisplay && messageDisplay) ? getStyle("verticalGap") : 0;
-        
+		
         myMeasuredWidth += Math.max(labelWidth, messageWidth);
-        myMeasuredHeight = Math.max(myMeasuredHeight, labelHeight + messageHeight + verticalGap);
-        
-        // Decorator is up next
-        if (decoratorDisplay)
-        { 
-            if (decoratorDisplay is IVisualElement)
-            {
-                myMeasuredWidth += IVisualElement(decoratorDisplay).getPreferredBoundsWidth();
-                myMeasuredHeight = Math.max(myMeasuredHeight, IVisualElement(decoratorDisplay).getPreferredBoundsHeight());
-                myMeasuredMinWidth += IVisualElement(decoratorDisplay).getMinBoundsWidth();
-                myMeasuredMinHeight = Math.max(myMeasuredMinHeight, IVisualElement(decoratorDisplay).getMinBoundsHeight());
-            }
-            else if (decoratorDisplay is IFlexDisplayObject)
-            {
-                myMeasuredWidth += IFlexDisplayObject(decoratorDisplay).measuredWidth;
-                myMeasuredHeight = Math.max(myMeasuredHeight, IFlexDisplayObject(decoratorDisplay).measuredHeight);
-                myMeasuredMinWidth += IFlexDisplayObject(decoratorDisplay).measuredWidth;
-                myMeasuredMinHeight = Math.max(myMeasuredMinHeight, IFlexDisplayObject(decoratorDisplay).measuredHeight);
-            }
-        }
-        
-        // now to add on padding and horizontal gap
-        // verticalGap is already handled above when there's a label
-        // and a message since that's the only place verticalGap matters
-        var numHorizontalSections:int = 0;
-        if (iconDisplay)
-            numHorizontalSections++;
-        
-        if (decoratorDisplay)
-            numHorizontalSections++;
-        
-        if (labelDisplay || messageDisplay)
-            numHorizontalSections++;
-        
-        var extraWidth:Number = getStyle("paddingLeft") + getStyle("paddingRight");
-        if (numHorizontalSections > 0)
-            extraWidth += (getStyle("horizontalGap") * (numHorizontalSections - 1));
-        var extraHeight:Number = getStyle("paddingTop") + getStyle("paddingBottom");
-        
-        myMeasuredWidth += extraWidth;
-        myMeasuredMinWidth += extraWidth;
-        myMeasuredHeight += extraHeight;
-        myMeasuredMinHeight += extraHeight;
+        myMeasuredHeight = Math.max(myMeasuredHeight, labelHeight + messageHeight);
+		
+		// now to add on padding and horizontal gap
+		// verticalGap is already handled above when there's a label
+		// and a message since that's the only place verticalGap matters
+		var numHorizontalSections:int = 0;
+		if (iconDisplay)
+			numHorizontalSections++;
+		
+		if (decoratorDisplay)
+			numHorizontalSections++;
+		
+		if (labelDisplay || messageDisplay)
+			numHorizontalSections++;
+		
+		var paddingAndGapWidth:Number = getStyle("paddingLeft") + getStyle("paddingRight");
+		if (numHorizontalSections > 0)
+			paddingAndGapWidth += (getStyle("horizontalGap") * (numHorizontalSections - 1));
+		
+		var verticalGap:Number = (labelDisplay && messageDisplay) ? getStyle("verticalGap") : 0;
+		var paddingAndGapHeight:Number = getStyle("paddingTop") + getStyle("paddingBottom") + verticalGap;
+		
+		myMeasuredWidth += paddingAndGapWidth;
+		myMeasuredMinWidth += paddingAndGapWidth;
+		myMeasuredHeight += paddingAndGapHeight;
+		myMeasuredMinHeight += paddingAndGapHeight;
         
         // now set the local variables to the member variables.  Make sure it means our
         // minimum height of 80
@@ -1619,6 +1649,55 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         measuredMinWidth = myMeasuredMinWidth;
         measuredMinHeight = Math.max(80, myMeasuredMinHeight);
     }
+	
+	/**
+	 *  @private
+	 *  We override the setLayoutBoundsSize to determine whether to perform
+	 *  text reflow. This is a convenient place, as the layout passes NaN
+	 *  for a dimension not constrained to the parent.
+	 */
+	override public function setLayoutBoundsSize(width:Number,
+												 height:Number,
+												 postLayoutTransform:Boolean = true):void
+	{
+		var newEstimates:Boolean = false;
+		var cw:Number = estimatedWidth;
+		var ch:Number = estimatedHeight;
+		var oldcw:Number = cw;
+		var oldch:Number = ch;
+		// we got lied to, probably the constraints weren't accurate or
+		// couldn't be computed
+		if (!isNaN(width))
+		{
+			if (isNaN(estimatedWidth) || width != estimatedWidth)
+			{
+				cw = width;
+				newEstimates = true;
+			}
+		}
+		// we got lied to, probably the constraints weren't accurate or
+		// couldn't be computed
+		if (!isNaN(height))
+		{
+			if (isNaN(estimatedHeight) || height != estimatedHeight)
+			{
+				ch = height;
+				newEstimates = true;
+			}
+		}
+		if (newEstimates)
+		{
+			setEstimatedSize(cw, ch);
+			
+			// re-measure with the new estimated size
+			UIComponentGlobals.layoutManager.validateClient(this, true);
+			
+			// set estimated size back to what it was
+			setEstimatedSize(oldcw, oldch, false);
+		}
+		
+		super.setLayoutBoundsSize(width, height, postLayoutTransform);
+	}
     
     /**
      *  @private
@@ -1670,28 +1749,27 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         if (iconDisplay)
         {
             // set the icon's position and size
-            iconDisplay.setLayoutBoundsSize(this.iconWidth, this.iconHeight);
-            iconDisplay.setLayoutBoundsPosition(paddingLeft, paddingTop);
+            resizeElement(iconDisplay, this.iconWidth, this.iconHeight);
             
             iconWidth = iconDisplay.getLayoutBoundsWidth();
             iconHeight = iconDisplay.getLayoutBoundsHeight();
+            
+            // if there's no messageDisplay, then use vAlign to position the icon.
+            // otherwise, just position it at y = paddingTop
+            var iconDisplayY:Number;
+            if (!messageDisplay)
+                iconDisplayY = Math.round(vAlign * (viewHeight - iconHeight)) + paddingTop;
+            else
+                iconDisplayY = paddingTop;
+            
+            positionElement(iconDisplay, paddingLeft, iconDisplayY);
         }
         
         // decorator is aligned next to icon
         if (decoratorDisplay)
         {
-            // FIXME (egeorgie): another helper method for getting the preferred size?
-            if (decoratorDisplay is IVisualElement)
-            {
-                var decoratorVisualElement:IVisualElement = IVisualElement(decoratorDisplay);
-                decoratorWidth = decoratorVisualElement.getPreferredBoundsWidth();
-                decoratorHeight = decoratorVisualElement.getPreferredBoundsHeight();
-            }
-            else if (decoratorDisplay is IFlexDisplayObject)
-            {
-                decoratorWidth = IFlexDisplayObject(decoratorDisplay).measuredWidth;
-                decoratorHeight = IFlexDisplayObject(decoratorDisplay).measuredHeight;
-            }
+            decoratorWidth = getElementPreferredWidth(decoratorDisplay);
+            decoratorHeight = getElementPreferredHeight(decoratorDisplay);
 
             resizeElement(decoratorDisplay, decoratorWidth, decoratorHeight);
 
@@ -1723,14 +1801,15 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             if (labelDisplay.isTruncated)
                 labelDisplay.text = labelText;
             
-            // commit styles to get an accurate measurement
+            // commit styles to make sure it uses updated look
             labelDisplay.commitStyles();
-            labelTextHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
+            
+            labelTextHeight = getElementPreferredHeight(labelDisplay);
         }
         
         if (messageDisplay && messageText != "")
         {
-            // commit styles to get an accurate measurement
+            // commit styles to make sure it uses updated look
             messageDisplay.commitStyles();
         }
 
@@ -1765,20 +1844,28 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         if (messageDisplay)
         {
             // handle message
-            // don't use the measured text width or height because that only takes the first line in to account
             messageWidth = Math.max(labelComponentsViewWidth, 0);
             messageHeight = Math.max(viewHeight - labelHeight - verticalGap, 0);
-            // FIXME (rfrishbe): we should check to see if this causes textHeight to change because then we 
-            // might need to remeasure
+            
+            // grab old messageDisplay height before resizing it
+            var oldMessageMeasuredHeight:Number = getElementPreferredHeight(messageDisplay);
+            
             resizeElement(messageDisplay, messageWidth, messageHeight);
             
-            // FIXME (rfrishbe): figure out if this is right with regards to multi-line text.
-            // For instance, if the text component spans to 2 lines but only shows one line, then textHeight here 
-            // is the size of the two line text.  We take the minimum with messageHeight to make sure 
-            // we don't position it outside of the item renderer's bounds later on, but this 
-            // calculation still isn't correct.  We basically want the textHeight for the number of 
-            // displayed lines.
-            messageHeight = Math.min(messageHeight, messageDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING);
+            // grab new messageDisplay height after the messageDisplay has taken its final size
+            var newMessageMeasuredHeight:Number = getElementPreferredHeight(messageDisplay);
+			
+            // if the resize caused the messageDisplay's height to change (because of 
+            // text reflow), then we need to remeasure ourselves with our new estimatedWidth
+            if (oldMessageMeasuredHeight != newMessageMeasuredHeight)
+            {
+				// if unscaledWidth is 0, we're in an edge case, so let's not invalidateSize() here
+				// as we're not really visible anyways, so why do an extra invalidation
+				if (unscaledWidth > 0)
+	                invalidateSize();
+            }
+			
+            messageHeight = Math.max(0, Math.min(messageHeight, newMessageMeasuredHeight));
             
             // since it's multi-line, no need to truncate
             //if (messageDisplay.isTruncated)
@@ -1798,7 +1885,6 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             if (messageDisplay)
                 positionElement(messageDisplay, labelComponentsX, labelComponentsY + labelHeight + verticalGap);
         }
-        
         
         // see if we have an icon that needs to be validated
         if (iconDisplay && 
