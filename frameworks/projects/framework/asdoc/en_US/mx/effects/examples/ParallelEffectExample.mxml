@@ -18,7 +18,7 @@
 
     <s:Panel title="Halo Parallel Effect Example" width="100%" height="100%">
         <s:VGroup bottom="10" right="10" top="10" left="10">
-			<s:SimpleText width="100%" color="blue"
+			<s:Label width="100%" color="blue"
 				text="Use the Button controls to move and resize the phone image in parallel."/>
 
 			<mx:Canvas id="canvas" width="100%" height="100%">
