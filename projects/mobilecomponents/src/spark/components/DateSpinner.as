@@ -66,7 +66,7 @@ use namespace mx_internal;
  *  are all English, "ja" is Japanese.
  *
  *  <p>The default value is undefined. This property inherits its value from an ancestor; if still
- *  undefined, it inherits from the global <code>locale</code> style.
+ *  undefined, it inherits from the global <code>locale</code> style.</p>
  *
  *  <p>When using the Spark formatters and globalization classes, you can set this style on the root
  *  application to the value of the <code>LocaleID.DEFAULT</code> constant.
@@ -285,7 +285,7 @@ public class DateSpinner extends SkinnableComponent
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2 
-     */	
+     */ 
     protected var yearList:SpinnerList;
 
     /**
@@ -295,7 +295,7 @@ public class DateSpinner extends SkinnableComponent
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2 
-     */	
+     */ 
     protected var monthList:SpinnerList;
     
     /**
@@ -305,7 +305,7 @@ public class DateSpinner extends SkinnableComponent
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2 
-     */	
+     */ 
     protected var dateList:SpinnerList;
     
     /**
@@ -315,7 +315,7 @@ public class DateSpinner extends SkinnableComponent
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2 
-     */	
+     */ 
     protected var hourList:SpinnerList;
     
     /**
@@ -325,7 +325,7 @@ public class DateSpinner extends SkinnableComponent
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2 
-     */	
+     */ 
     protected var minuteList:SpinnerList;
     
     /**
@@ -335,7 +335,7 @@ public class DateSpinner extends SkinnableComponent
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2 
-     */	
+     */ 
     protected var meridianList:SpinnerList;
     
     //----------------------------------
@@ -355,7 +355,7 @@ public class DateSpinner extends SkinnableComponent
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
-     */		
+     */     
     public function get displayMode():String
     {
         return _displayMode;
@@ -503,7 +503,7 @@ public class DateSpinner extends SkinnableComponent
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
-     */		
+     */     
     public function get minuteStepSize():int
     {
         return _minuteStepSize;
@@ -730,7 +730,7 @@ public class DateSpinner extends SkinnableComponent
         var s:SpinnerList = SpinnerList(createDynamicPartInstance("dateItemList"));
 //        s.addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START, dateItemList_touchEventHandler);
 //        s.addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END, dateItemList_touchEventHandler);
-        //		TODO: s.itemRenderer = // ...; for first column (or equivalent)
+        //      TODO: s.itemRenderer = // ...; for first column (or equivalent)
         return s;
     }
     
@@ -795,7 +795,7 @@ public class DateSpinner extends SkinnableComponent
                         meridianList = createDateItemList(MERIDIAN_ITEM, fieldPosition++, numItems);
                         tempList = meridianList;
                         break;
-                    }	
+                    }   
                     case DATE_ITEM:
                     {
                         dateList = createDateItemList(DATE_ITEM, fieldPosition++, numItems);
@@ -844,7 +844,7 @@ public class DateSpinner extends SkinnableComponent
                         yearList.wrapElements = false;
                         tempList = yearList;
                         break;
-                    }	
+                    }   
                 }
                 if (tempList && listContainer)
                 {
@@ -946,10 +946,10 @@ public class DateSpinner extends SkinnableComponent
         {
             dateObj.fullYear = i;
             var item:Object = generateDateItemObject(dateTimeFormatter.format(dateObj), i);
-			
+            
             if (i == todayYear)
                 item["accentColor"] = getStyle("accentColor");
-			
+            
             ac.addItem(item);
         }
         
@@ -970,7 +970,7 @@ public class DateSpinner extends SkinnableComponent
             
             if (i == todayMonth)
                 item["accentColor"] = getStyle("accentColor");
-				
+                
             ac.addItem(item);
         }
         
@@ -993,9 +993,9 @@ public class DateSpinner extends SkinnableComponent
             dateObj.date = i;
             var item:Object = generateDateItemObject(dateTimeFormatter.format(dateObj), i);
 
-			if (i == todayDate)
+            if (i == todayDate)
                 item["accentColor"] = getStyle("accentColor");
-		
+        
             ac.addItem(item);
         }
         
@@ -1029,7 +1029,7 @@ public class DateSpinner extends SkinnableComponent
         
         for (var i:int = 0; i <= 59; i += minuteStepSize)
         {
-        	dateObj.minutes = i;
+            dateObj.minutes = i;
             ac.addItem( generateDateItemObject(dateTimeFormatter.format(dateObj), i) );
         }
         
@@ -1361,7 +1361,7 @@ public class DateSpinner extends SkinnableComponent
      *  Handles changes in the underlying SpinnerLists; applies them to the selectedDate
      * @param event
      * 
-     */	
+     */ 
     private function dateItemList_changeHandler(event:IndexChangeEvent):void
     {
         if (spinnersAnimating)
