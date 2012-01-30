@@ -2176,7 +2176,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 {
                     if (stageText.viewPort.width != globalRect.width || stageText.viewPort.height != globalRect.height)
                         completeEventPending = true;
-                    
+
                     stageText.viewPort = globalRect;
                 }
                 
@@ -2398,7 +2398,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (stageText != null)
         {
             stageText.addEventListener(Event.CHANGE, stageText_changeHandler);
-            stageText.addEventListener(Event.COMPLETE, stageText_completeHandler);
             stageText.addEventListener(FocusEvent.FOCUS_IN, stageText_focusInHandler);
             stageText.addEventListener(FocusEvent.FOCUS_OUT, stageText_focusOutHandler);
             stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, stageText_softKeyboardHandler);
@@ -2816,6 +2815,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         // Don't let the StageText show up until we've calculated its correct
         // visibility.
         stageText.visible = false;
+        // The "complete" handler must be registered before changes to the stage
+        // or viewPort. StageText on iOS dispatches complete events during the
+        // setting of these properties, unlike Android which does so some time
+        // afterward.
+        stageText.addEventListener(Event.COMPLETE, stageText_completeHandler);
+        
         stageText.stage = stage;
         // Setting stageText.stage requires a complete event for bitmap swapping
         completeEventPending = true;
@@ -3023,7 +3028,7 @@ class StageTextPool
                 
                 result = singleLinePool.pop();
             }
-            
+                        
             // The first time a StageText is acquired, it's guaranteed to have been
             // newly-created. Take that opportunity to stash away the StageText's
             // defaults for properties that StyleableStageText may not necessarily
