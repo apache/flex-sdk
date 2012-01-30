@@ -274,11 +274,10 @@ public class BitmapFill extends EventDispatcher implements IFill
 	//  repeat
 	//----------------------------------
 
-	private var _repeat:Boolean = true;
-	
 	[Bindable("propertyChange")]
-    [Inspectable(category="General")]
+	[Inspectable(category="General")]
 
+	[Deprecated(replacement="resizeMode", since="4.0")]
 	
 	/**
 	 *  Whether the bitmap is repeated to fill the area.
@@ -295,18 +294,69 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function get repeat():Boolean
 	{
-		return _repeat;
+		return _resizeMode == BitmapResizeMode.REPEAT; 
 	}
 	
 	public function set repeat(value:Boolean):void
 	{
-		var oldValue:Boolean = _repeat;
+		var oldValue:Boolean = (_resizeMode == BitmapResizeMode.REPEAT);  
 		if (value != oldValue)
 		{
-			_repeat = value;        
+			//Setting repeat just sets resizeMode to repeat 
+			resizeMode = value ? BitmapResizeMode.REPEAT : BitmapResizeMode.SCALE; 
 			dispatchFillChangedEvent("repeat", oldValue, value);
 		}
 	}
+	
+	//----------------------------------
+    //  resizeMode
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    protected var _resizeMode:String = BitmapResizeMode.SCALE;
+    
+    [Inspectable(category="General", enumeration="noScale,repeat,scale", defaultValue="scale")]
+    
+    /**
+     *  The resizeMode determines how the bitmap fills in the dimensions. If you set the value
+     *  of this property in a tag, use the string (such as "repeat"). If you set the value of 
+     *  this property in ActionScript, use the constant (such as <code>BitmapResizeMode.NOSCALE</code>).
+     * 
+     *  When set to <code>BitmapResizeMode.NOSCALE</code> ("noScale"), the bitmap
+     *  ends at the edge of the region.
+     * 
+     *  When set to <code>BitmapResizeMode.REPEAT</code> ("repeat"), the bitmap 
+     *  repeats to fill the region.
+     *
+     *  When set to <code>BitmapResizeMode.SCALE</code> ("scale"), the bitmap
+     *  stretches to fill the region.
+     * 
+     *  @default <code>BitmapResizeMode.SCALE</code>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get resizeMode():String 
+    {
+        return _resizeMode; 
+    }
+    
+    /**
+     *  @private
+     */
+    public function set resizeMode(value:String):void
+    {
+    	var oldValue:String = _resizeMode; 
+        if (value != _resizeMode)
+        {
+            _resizeMode = value;
+            dispatchFillChangedEvent("resizeMode", oldValue, value);
+        }
+    }
 
 	//----------------------------------
 	//  rotation
@@ -730,8 +780,10 @@ public class BitmapFill extends EventDispatcher implements IFill
 		if (!source)
 			return;        
         
-        var bd:BitmapData;
         var sourceAsBitmapData:BitmapData = source as BitmapData;
+        
+        var repeatFill:Boolean = (resizeMode == BitmapResizeMode.REPEAT);  
+        
         
         if (compoundTransform)
         {
@@ -742,14 +794,19 @@ public class BitmapFill extends EventDispatcher implements IFill
         {
             transformMatrix.identity();
             transformMatrix.translate(-transformX, -transformY);
+            
+            // If resizeMode is scale and our bitmapdata width and height are > 0, scale to fill the content area  
+            if (resizeMode == BitmapResizeMode.SCALE && sourceAsBitmapData.width > 0 && sourceAsBitmapData.height > 0)
+                transformMatrix.scale((bounds.width/sourceAsBitmapData.width), (bounds.height/sourceAsBitmapData.height)); 
+            
             transformMatrix.scale(scaleX, scaleY);
             transformMatrix.rotate(rotation * RADIANS_PER_DEGREES);
             transformMatrix.translate(x + bounds.left + transformX, y + bounds.top + transformY);
         }
 
-        // If repeat is true or if the source bitmap size equals or exceeds the bounds, 
-        // just use the source bitmap
-        if (repeat || 
+        // If repeat is true, resizeMode is repeat, or if the source bitmap size  
+        // equals or exceeds the bounds, just use the source bitmap
+        if (repeatFill || 
             (MatrixUtil.isDeltaIdentity(transformMatrix) && 
              transformMatrix.tx == bounds.left &&
              transformMatrix.ty == bounds.top &&
@@ -758,10 +815,8 @@ public class BitmapFill extends EventDispatcher implements IFill
         {
             if (nonRepeatSource)
                 nonRepeatSource.dispose();
-            
-            bd = sourceAsBitmapData;
         }
-        else 
+        else if (resizeMode == BitmapResizeMode.NOSCALE)
         {
             // Regenerate the nonRepeatSource if it wasn't previously created or if the bounds 
             // dimensions have changed.
@@ -798,7 +853,7 @@ public class BitmapFill extends EventDispatcher implements IFill
                 
                 // Draw the transformed bitmapData into a new bitmapData that is the size of the bounds
                 // This will prevent the edge pixels getting repeated to fill the empty space
-                nonRepeatSource = new BitmapData(newW, newY);
+                nonRepeatSource = new BitmapData(newW, newY, true, 0xFFFFFF);
                 nonRepeatSource.draw(sourceAsBitmapData, transformMatrix);
                 
                 // The transform matrix has already been applied to the source, so just use identity
@@ -811,10 +866,10 @@ public class BitmapFill extends EventDispatcher implements IFill
                 lastBoundsHeight = bounds.height;
             }
             
-            bd = nonRepeatSource;
+            sourceAsBitmapData = nonRepeatSource;
         }
         
-		target.beginBitmapFill(bd, transformMatrix, repeat, smooth);
+		target.beginBitmapFill(sourceAsBitmapData, transformMatrix, repeatFill, smooth);
 	}
 	
 	/**
