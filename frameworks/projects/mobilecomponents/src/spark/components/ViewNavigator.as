@@ -2221,9 +2221,11 @@ public class ViewNavigator extends ViewNavigatorBase
                 titleLayoutInvalidated = false;
             }
             
-            // Need to force state change by calling validate properties again
             if (overlayControlsInvalidated)
+            {
                 overlayControls = view.overlayControls;
+                overlayControlsInvalidated = false;
+            }
             
             actionBar.visible = actionBar.includeInLayout = view && view.actionBarVisible;
             actionBarVisibilityInvalidated = false;
