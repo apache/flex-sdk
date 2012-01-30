@@ -46,7 +46,8 @@ public class MediaQueryParser
          IOS: "ios",
          MAC: "macintosh",
          WIN: "windows",
-         LNX: "linux"
+         LNX: "linux",
+         QNX: "qnx"
      }
     
      /**
