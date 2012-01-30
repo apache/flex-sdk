@@ -37,7 +37,7 @@ ISSUES:
 
 */
 /**
- *  Actionscript based skin for mobile applications. The skin supports 
+ *  ActionScript-based skin for Button controls in mobile applications. The skin supports 
  *  iconClass and labelPlacement. It uses FXG classes to 
  *  implement the vector drawing.  
  * 
