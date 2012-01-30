@@ -35,7 +35,6 @@ import mx.events.Request;
 import mx.managers.ISystemManager;
 import mx.managers.dragClasses.DragProxy;
 import mx.managers.SystemManager;
-import mx.managers.marshalClasses.DragManagerMarshalMixin;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
@@ -78,11 +77,6 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 	//  Class methods
 	//
 	//--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private static function weakDependency():void { DragManagerMarshalMixin };
 
 	/**
 	 *  @private
@@ -132,7 +126,8 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 			sm.addEventListener(MouseEvent.MOUSE_UP, sm_mouseUpHandler, false, 0, true);
 		}
 
-		dispatchEvent(new Event("initialize"));
+        if (hasEventListener("initialize"))
+		    dispatchEvent(new Event("initialize"));
 
 	}
 
@@ -264,7 +259,8 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 			
 		bDoingDrag = true;
 
-		dispatchEvent(new Event("doDrag"));
+        if (hasEventListener("doDrag"))
+    		dispatchEvent(new Event("doDrag"));
 
 		this.dragInitiator = dragInitiator;
 
@@ -272,7 +268,10 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 		// an instance of the dragImage.
 		dragProxy = new DragProxy(dragInitiator, dragSource);
 
-		if (dispatchEvent(new DragEvent("popUpChildren", false, true, dragProxy)))	
+        var e:Event; 
+        if (hasEventListener("popUpChildren"))
+            e = new DragEvent("popUpChildren", false, true, dragProxy);
+        if (!e || dispatchEvent(e))	
 			sm.popUpChildren.addChild(dragProxy);	
 
 		if (!dragImage)
@@ -369,7 +368,8 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 		if (dragProxy)
 			dragProxy.target = target as DisplayObject;
 
-		dispatchEvent(new Request("acceptDragDrop", false, false, target));
+        if (hasEventListener("acceptDragDrop"))
+    		dispatchEvent(new Request("acceptDragDrop", false, false, target));
 
 	}
 	
@@ -396,7 +396,8 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 			dragProxy.action = feedback;
 		}
 
-		dispatchEvent(new Request("showFeedback", false, false, feedback));
+        if (hasEventListener("showFeedback"))
+    		dispatchEvent(new Request("showFeedback", false, false, feedback));
 
 	}
 	
@@ -414,11 +415,14 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 	 */
 	public function getFeedback():String
 	{
-		var request:Request = new Request("getFeedback", false, true);
-		if (!dispatchEvent(request))
-		{
-			return request.value as String;
-		}
+        if (hasEventListener("getFeedback"))
+        {
+		    var request:Request = new Request("getFeedback", false, true);
+		    if (!dispatchEvent(request))
+		    {
+			    return request.value as String;
+		    }
+        }
 
 		// trace("<--getFeedback for DragManagerImpl", sm);
 		return dragProxy ? dragProxy.action : DragManager.NONE;
@@ -429,7 +433,13 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 	 */
 	public function endDrag():void
 	{
-		if (dispatchEvent(new Event("endDrag", false, true)))
+        var e:Event;
+        if (hasEventListener("endDrag"))
+        {
+            e = new Event("endDrag", false, true);
+        }
+        
+		if (!e || dispatchEvent(e))
 		{
 			if (dragProxy)
 			{
@@ -439,6 +449,7 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 				dragProxy = null;
 			}
 		}
+
 		dragInitiator = null;
 		bDoingDrag = false;
 
