@@ -1150,8 +1150,23 @@ public class ViewTransitionBase extends EventDispatcher
             
             removeComponentFromContainer(transitionGroup, actionBar.skin);
             
-            if (actionBar) 
+            if (actionBar)
+            {
                 actionBar.skin.scrollRect = null;
+                
+                // Force actionBar to update content group positions after
+                // animating positions. If the width and height change during
+                // the transition, we need relayout it's children because 
+                // during the transition they are removed from layout and
+                // missed during the validation pass. See SDK-30142.
+                // TODO (jasonsj): Consider ending transitions when orientation
+                // changes
+                if ((actionBar.width != cachedActionBarWidth)
+                    || (actionBar.height != cachedActionBarHeight))
+                {
+                    actionBar.skin.invalidateDisplayList();
+                }
+            }
             
             verticalTransition = false;
             cachedActionBarHeight = 0;
