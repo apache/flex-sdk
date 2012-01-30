@@ -287,8 +287,7 @@ public class CompositeEffectInstance extends EffectInstance
 				{
 					childSet[i].addEventListener(EffectEvent.EFFECT_END,
 												 effectEndHandler);
-					childSet[i].mx_internal::parentCompositeEffectInstance =
-						this;
+					childSet[i].parentCompositeEffectInstance = this;
 				}
 			}
 		}
@@ -350,7 +349,7 @@ public class CompositeEffectInstance extends EffectInstance
 	public function onTweenUpdate(value:Object):void
 	{
 		_playheadTime = timerTween ?
-						timerTween.mx_internal::playheadTime :
+						timerTween.playheadTime :
 						_playheadTime;
 	}
 	
@@ -360,7 +359,7 @@ public class CompositeEffectInstance extends EffectInstance
 	public function onTweenEnd(value:Object):void
 	{
 		_playheadTime = timerTween ?
-						timerTween.mx_internal::playheadTime :
+						timerTween.playheadTime :
 						_playheadTime;
 	}
 		
