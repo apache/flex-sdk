@@ -182,7 +182,7 @@ public class VerticalSpinnerLayout extends VerticalLayout
         var foundLastVisibleElement:Boolean = false;
         var numVisibleElements:int = 0;
         var numVisitedElements:int = 0;
-                
+        
         // Translate the vsp to the item index
         if (!wrapElements)
         {
@@ -195,7 +195,7 @@ public class VerticalSpinnerLayout extends VerticalLayout
         yPos = itemIndex * rowHeight + yOffset;
         
         // Calculate the y position of the bottom of the viewable area
-        yPosMax = yPos + height;
+        yPosMax = yPos + rowHeight + height;
         
         // Normalize the itemIndex
         if (wrapElements)
@@ -443,7 +443,7 @@ public class VerticalSpinnerLayout extends VerticalLayout
 			var wrapCount:int = Math.floor(verticalScrollPosition / totalHeight);
 			index += wrapCount * target.numElements;
 			
-			var firstVisibleItem:int = (verticalScrollPosition ) / rowHeight;
+			var firstVisibleItem:int = Math.floor((verticalScrollPosition ) / rowHeight);
 			if (index < firstVisibleItem)
 				index += target.numElements;
 		}
