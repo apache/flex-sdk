@@ -35,7 +35,7 @@ import flash.system.LoaderContext;
 import flash.system.SecurityDomain;
 import flash.utils.ByteArray;
 
-import mx.core.ApplicationGlobals;
+import mx.core.FlexGlobals;
 import mx.core.FlexLoader;
 import mx.core.FlexVersion;
 import mx.core.ISWFLoader;
@@ -1737,7 +1737,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             if ( (Capabilities.isDebugger == true) && 
                  (url.indexOf(".jpg") == -1) && 
                  (LoaderUtil.normalizeURL(
-                 ApplicationGlobals.application.systemManager.loaderInfo).indexOf("debug=true") > -1) )
+                 FlexGlobals.topLevelApplication.systemManager.loaderInfo).indexOf("debug=true") > -1) )
                 url = url + ( (url.indexOf("?") > -1) ? "&debug=true" : "?debug=true" );
 
             // make relative paths relative to the SWF loading it, not the top-level SWF
