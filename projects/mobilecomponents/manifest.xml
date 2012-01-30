@@ -24,6 +24,9 @@
     <component id="TabbedMobileApplication" class="spark.components.TabbedMobileApplication"/>
     <component id="TabbedViewNavigator" class="spark.components.TabbedViewNavigator"/>
     <component id="View" class="spark.components.View"/>
+    <component id="ViewMenu" class="spark.components.ViewMenu"/>
+    <component id="ViewMenuItem" class="spark.components.ViewMenuItem"/>
+    <component id="ViewMenuLayout" class="spark.layouts.ViewMenuLayout"/>
     <component id="ViewNavigatorBase" class="spark.components.supportClasses.ViewNavigatorBase"/>
     <component id="ViewNavigator" class="spark.components.ViewNavigator"/>
 </componentPackage>
