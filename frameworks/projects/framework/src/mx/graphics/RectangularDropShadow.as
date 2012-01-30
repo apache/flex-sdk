@@ -563,9 +563,9 @@ public class RectangularDropShadow
 		// Copy the corners of the shadow bitmap onto the graphics object
 		if (leftShadow || topShadow)
 		{
-			var tlWidth:Number = Math.min(tlRadius + widthThickness,
+			var tlWidth:Number = Math.min(tlRadius + leftThickness + distance,
 										  maxCornerWidth);
-			var tlHeight:Number = Math.min(tlRadius + heightThickness,
+			var tlHeight:Number = Math.min(tlRadius + topThickness + distance,
 										   maxCornerHeight);
 
 			matrix.tx = x - leftThickness;
@@ -578,9 +578,9 @@ public class RectangularDropShadow
 		
 		if (rightShadow || topShadow)
 		{
-			var trWidth:Number = Math.min(trRadius + widthThickness,
+			var trWidth:Number = Math.min(trRadius + rightThickness + distance,
 										  maxCornerWidth);
-			var trHeight:Number = Math.min(trRadius + heightThickness,
+			var trHeight:Number = Math.min(trRadius + topThickness + distance,
 										   maxCornerHeight);
 
 			matrix.tx = x + width + rightThickness - shadow.width;
@@ -595,9 +595,9 @@ public class RectangularDropShadow
 		
 		if (leftShadow || bottomShadow)
 		{
-			var blWidth:Number = Math.min(blRadius + widthThickness,
+			var blWidth:Number = Math.min(blRadius + leftThickness + distance,
 										  maxCornerWidth);
-			var blHeight:Number = Math.min(blRadius + heightThickness,
+			var blHeight:Number = Math.min(blRadius + bottomThickness + distance,
 										   maxCornerHeight);
 
 			matrix.tx = x - leftThickness;
@@ -612,9 +612,9 @@ public class RectangularDropShadow
 			
 		if (rightShadow || bottomShadow)
 		{
-			var brWidth:Number = Math.min(brRadius + widthThickness,
+			var brWidth:Number = Math.min(brRadius + rightThickness + distance,
 										  maxCornerWidth);
-			var brHeight:Number = Math.min(brRadius + heightThickness,
+			var brHeight:Number = Math.min(brRadius + bottomThickness + distance,
 										   maxCornerHeight);
 
 			matrix.tx = x + width + rightThickness - shadow.width; 
