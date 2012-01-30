@@ -117,13 +117,10 @@
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="framework.swc"/>
-				<include name="spark.swc"/>
-                <include name="textLayout.swc"/>
+		    <include name="textLayout.swc"/>
 				<include name="air/airglobal.swc"/>
 				<include name="air/airframework.swc"/>
-				<include name="air/airspark.swc"/>
 				<include name="automation/automation.swc"/>
-				<include name="automation/automation_spark.swc"/>
 				<include name="automation_agent.swc"/>
 				<include name="qtp.swc"/>
 				<include name="qtp_air.swc"/>
@@ -160,13 +157,10 @@
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="framework.swc"/>
-				<include name="spark.swc"/>
                 <include name="textLayout.swc"/>
 				<include name="air/airglobal.swc"/>
 				<include name="air/airframework.swc"/>
-				<include name="air/airspark.swc"/>
 				<include name="automation/automation.swc"/>
-				<include name="automation/automation_spark.swc"/>
 				<include name="automation_agent.swc"/>
 				<include name="qtp.swc"/>
 				<include name="qtp_air.swc"/>
