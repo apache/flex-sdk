@@ -13,6 +13,7 @@ package mx.utils
 {
 
 import flash.display.LoaderInfo;
+import flash.system.Capabilities;
 
 import mx.core.mx_internal;
 
@@ -113,6 +114,12 @@ use namespace mx_internal;
             }
         }
         
+        // On the mac, the player doesn't like filenames with high-ascii
+        // characters. Calling encodeURI fixes this problem. We restrict
+        // this call to mac-only since it causes problems on Windows.
+        if (isMac())
+            return encodeURI(url);
+        
         return url;
     }
 
@@ -182,6 +189,14 @@ use namespace mx_internal;
         }
 
         return absoluteURL;
+    }
+    
+    /**
+     *  @private
+     */
+    private static function isMac():Boolean
+    {
+        return Capabilities.os.substring(0, 3) == "Mac";
     }
 
     /**
