@@ -75,6 +75,11 @@ public class ResourceModuleRSLItem extends RSLItem
      *  @param securityErrorHandler Receives SecurityErrorEvent.SECURITY_ERROR events, may be null
 	 *
      *  @param rslErrorHandler Receives RSLEvent.RSL_ERROR events, may be null
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function load(progressHandler:Function,
                                   completeHandler:Function,
