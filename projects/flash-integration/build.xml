@@ -136,6 +136,7 @@
 			<include-namespaces uri="http://www.adobe.com/someNonSensicalURI"/>
 			<source-path path-element="${basedir}/src"/>
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
+            <load-config filename="${FLEX_HOME}/frameworks/projects/framework/framework-config.xml"/>
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
