@@ -729,10 +729,6 @@ public class ViewTransitionBase extends EventDispatcher
             if (hasEventListener(FlexEvent.TRANSITION_START))
                 dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_START));
             
-            // Disable layout manager if requested.
-            if (suspendBackgroundProcessing)
-                UIComponent.suspendBackgroundProcessing();
-            
             effect.play();
         }
         else
@@ -802,6 +798,10 @@ public class ViewTransitionBase extends EventDispatcher
             // Prepare full transition of navigator in its entirety.
             effect = createConsolidatedEffect();
         }
+        
+        // Disable layout manager if requested.
+        if (suspendBackgroundProcessing)
+            UIComponent.suspendBackgroundProcessing();
     }
     
     /**
