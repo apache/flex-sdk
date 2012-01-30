@@ -11,19 +11,17 @@
 
 package spark.components.supportClasses
 {
-import flash.accessibility.AccessibilityProperties;
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.display.Sprite;
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.FocusEvent;
 import flash.events.SoftKeyboardEvent;
-import flash.geom.Matrix;
-import flash.geom.Matrix3D;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.geom.Vector3D;
 import flash.system.Capabilities;
 import flash.text.AutoCapitalize;
 import flash.text.ReturnKeyLabel;
@@ -38,25 +36,20 @@ import flash.text.TextLineMetrics;
 import flashx.textLayout.formats.LineBreak;
 
 import mx.core.DPIClassification;
-import mx.core.DesignLayer;
 import mx.core.FlexGlobals;
-import mx.core.IInvalidating;
-import mx.core.IVisualElement;
 import mx.core.LayoutDirection;
 import mx.core.UIComponent;
-import mx.core.UITextFormat;
 import mx.core.mx_internal;
+import mx.events.EffectEvent;
 import mx.events.FlexEvent;
-import mx.geom.TransformOffsets;
-import mx.managers.FocusManager;
-import mx.styles.CSSStyleDeclaration;
-import mx.styles.ISimpleStyleClient;
-import mx.styles.IStyleClient;
+import mx.events.MoveEvent;
+import mx.events.ResizeEvent;
+import mx.managers.SystemManager;
 
+import spark.components.Application;
 import spark.core.IEditableText;
 import spark.core.ISoftKeyboardHintClient;
 import spark.events.TextOperationEvent;
-import spark.primitives.Rect;
 
 use namespace mx_internal;
 
@@ -586,6 +579,29 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     override public function get baselinePosition():Number
     {
         return measureTextLineHeight();
+    }
+    
+    //----------------------------------
+    //  densityScale
+    //----------------------------------
+    
+    private var _densityScale:Number;
+    
+    /**
+     *  The scale factor necessary to account for differences in the design
+     *  resolution of the application (applicationDPI) and the resolution of the
+     *  device the application is running on.
+     */
+    private function get densityScale():Number
+    {
+        if (isNaN(_densityScale))
+        {
+            var application:Application = FlexGlobals.topLevelApplication as Application;
+            var sm:SystemManager = application ? application.systemManager as SystemManager : null;
+            _densityScale = sm ? sm.densityScale : 1.0;
+        }
+        
+        return _densityScale;
     }
     
     //----------------------------------
@@ -1360,9 +1376,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             var fontSize:* = getStyle("fontSize");
             
             if (fontSize != undefined)
-                stageText.fontSize = fontSize;
+                stageText.fontSize = fontSize * densityScale;
             else
-                stageText.fontSize = defaultStyles["fontSize"];
+                stageText.fontSize = defaultStyles["fontSize"] * densityScale;
 
             var color:* = getStyle("color");
             
@@ -1372,6 +1388,69 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 stageText.color = defaultStyles["color"];
             
             invalidateStyleFlag = false;
+        }
+    }
+    
+    private var textImage:Bitmap = null;
+    private var numEffectsRunning:int = 0;
+        
+    /**
+     *  If a StageText is visible, this will capture a bitmap copy of what it is
+     *  displaying. This includes any text visible in the StageText and may
+     *  include the text insertion cursor if it is visible at the time of the
+     *  call.
+     */
+    mx_internal function captureBitmapData():BitmapData
+    {
+        if (!stageText || !localViewPort || 
+            localViewPort.width == 0 || localViewPort.height == 0 ||
+            !visible || !calcAncestorsVisible())
+            return null;
+        
+        var bitmap:BitmapData = new BitmapData(stageText.viewPort.width, 
+            stageText.viewPort.height, true, 0x00FFFFFF);
+        
+        stageText.drawViewPortToBitmapData(bitmap);
+        
+        return bitmap;
+    }
+    
+    /**
+     *  Generate an image that represents this StageText and replace the live
+     *  StageText display with that image. Used for display while effects are
+     *  playing.
+     */
+    private function createProxyImage():void
+    {
+        if (textImage == null)
+        {
+            var imageData:BitmapData = captureBitmapData();
+            
+            if (imageData)
+            {
+                textImage = new Bitmap(imageData);
+                textImage.scaleX = 1.0 / densityScale;
+                textImage.scaleY = 1.0 / densityScale;
+                addChild(textImage);
+                
+                updateViewPort();
+            }
+        }
+    }
+    
+    /**
+     *  Destroy any previously created proxy image and restore the visibility of
+     *  the StageText display that the proxy image had represented.
+     */
+    private function disposeProxyImage():void
+    {
+        if (textImage != null)
+        {
+            removeChild(textImage);
+            textImage.bitmapData.dispose();
+            textImage = null;
+            
+            updateViewPort();
         }
     }
     
@@ -1389,10 +1468,22 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 var globalPoint:Point = parent.localToGlobal(localViewPort.topLeft);
                 var globalRect:Rectangle = new Rectangle(globalPoint.x, globalPoint.y);
     
-                if (_visible) 
+                if (_visible && calcAncestorsVisible()) 
                 {
-                    globalRect.width = localViewPort.width;
-                    globalRect.height = localViewPort.height;
+                    if (textImage)
+                    {
+                        textImage.x = 0;
+                        textImage.y = 0;
+                    }
+                    else
+                    {
+                        // Transform the bottom-right corner of the local rect
+                        // instead of setting width/height to account for any
+                        // transformations applied to ancestor objects.
+                        globalRect.bottomRight = parent.localToGlobal(localViewPort.bottomRight);
+                        globalRect.width = Math.floor(globalRect.width);
+                        globalRect.height = Math.floor(globalRect.height);
+                    }
                 }
                 
                 stageText.viewPort = globalRect;
@@ -1412,36 +1503,40 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         const applicationDPI:Number = FlexGlobals.topLevelApplication.applicationDPI;
         const isAndroid:Boolean = Capabilities.version.indexOf("AND") == 0;
         
-        var verticalPadPerPixel:Number = 0;
-        var baseHorizontalPad:Number = 0;
-        var baseVerticalPad:Number = 0;
-        var minMetrics:TextLineMetrics = measureText("Wj");
-        var minSize:Point = new Point(minMetrics.width, minMetrics.height);
+        var verticalPad:Number = 0;
+        var horizontalPad:Number = 0;
         
         if (isAndroid)
         {
-            switch (applicationDPI)
-            {
-                case DPIClassification.DPI_320:
-                    verticalPadPerPixel = 0.75;
-                    baseHorizontalPad = 11;
-                    baseVerticalPad = 15;
-                    break;
-                case DPIClassification.DPI_240:
-                    verticalPadPerPixel = 0.36;
-                    baseHorizontalPad = 9;
-                    baseVerticalPad = 12;
-                    break;
-                default:
-                    verticalPadPerPixel = 0.125;
-                    baseHorizontalPad = 7;
-                    baseVerticalPad = 7;
-                    break;
-            }
+            var androidDensityScale:Number = 1.0;
+            
+            // Android uses different density classifications from Flex.
+            // No scaling is applied to 160 DPI.
+            // Low density is assumed to be 120 DPI (scale factor 0.75)
+            // High density is assumed to be 240 DPI (scale factor 1.5)
+            // Flex's scale (the ratio between application and device DPI) has
+            // been set to the application and StageText appears to be using
+            // that, so use only application DPI when determining scale here.
+            if (applicationDPI < DPIClassification.DPI_160)
+                androidDensityScale = 0.75;
+            else if (applicationDPI == DPIClassification.DPI_240)
+                androidDensityScale = 1.5;
+            else if (applicationDPI == DPIClassification.DPI_320)
+                androidDensityScale = 2.0;
+            
+            // Part of the padding that Android uses is based only on resolution
+            // Magic numbers have been determined through experimentation
+            horizontalPad = 9 * androidDensityScale;
+            verticalPad = 10 * androidDensityScale;
+            
+            // Some of the vertical padding is based on the height of the font
+            // Magic numbers have been determined through experimentation
+            var minMetrics:TextLineMetrics = measureText("Wj");
+            var halfHeight:Number = Math.ceil(0.5 * minMetrics.height);
+            verticalPad += Math.floor(halfHeight / 7);
         }
-
-        return new Point(baseHorizontalPad, 
-            baseVerticalPad + Math.ceil(minSize.y * verticalPadPerPixel));
+        
+        return new Point(horizontalPad, verticalPad);
     }
     
     /**
@@ -1457,6 +1552,93 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         var internalPadding:Point = calculateInternalPadding();
         
         return lineMetrics.height + internalPadding.y;
+    }
+    
+    private var ancestorsVisible:Boolean;
+    private var ancestorsVisibleInvalidateFlag:Boolean = true;
+    
+    /**
+     *  Returns true if every ancestor of this object is visible.
+     */
+    private function calcAncestorsVisible():Boolean
+    {
+        if (ancestorsVisibleInvalidateFlag)
+        {
+            var result:Boolean = visible;
+            var ancestor:DisplayObject = parent;
+            
+            while (result && ancestor)
+            {
+                result = ancestor.visible;
+                ancestor = ancestor.parent;
+            }
+            
+            ancestorsVisible = result;
+            ancestorsVisibleInvalidateFlag = false;
+        }
+        
+        return ancestorsVisible;
+    }
+    
+    private var watchedAncestors:Vector.<UIComponent> = new Vector.<UIComponent>();
+    
+    private function gatherAncestorComponents():Vector.<UIComponent>
+    {
+        var ancestors:Vector.<UIComponent> = new Vector.<UIComponent>();
+        var ancestorObj:DisplayObject = parent;
+        
+        while (ancestorObj)
+        {
+            if (ancestorObj is UIComponent)
+                ancestors.push(ancestorObj as UIComponent);
+            
+            ancestorObj = ancestorObj.parent;
+        }
+        
+        return ancestors;
+    }
+    
+    /**
+     *  Search for ancestor components and add listeners to them for changes in
+     *  visibility or geometry. This is necessary because StageText is separate
+     *  from the display object hierarchy and must have its position and 
+     *  visibilty updated manually to account for changes in the hierarchy.
+     *  Listeners are needed on all ancestor components because components will
+     *  not dispatch move, resize, show, or hide events unless they have
+     *  listeners for those events.
+     */
+    private function updateWatchedAncestors():void
+    {
+        var newWatchedAncestors:Vector.<UIComponent> = gatherAncestorComponents();
+        
+        var i:int;
+        for (i = 0; i < watchedAncestors.length; i++)
+        {
+            var ancestor:UIComponent = watchedAncestors[i];
+            
+            if (newWatchedAncestors.indexOf(ancestor) == -1)
+            {
+                ancestor.removeEventListener(MoveEvent.MOVE, ancestor_moveHandler);
+                ancestor.removeEventListener(ResizeEvent.RESIZE, ancestor_resizeHandler);
+                ancestor.removeEventListener(FlexEvent.SHOW, ancestor_showHandler);
+                ancestor.removeEventListener(FlexEvent.HIDE, ancestor_hideHandler);
+            }
+        }
+        
+        for (i = 0; i < newWatchedAncestors.length; i++)
+        {
+            var newAncestor:UIComponent = newWatchedAncestors[i];
+            
+            if (watchedAncestors.indexOf(newAncestor) == -1)
+            {
+                newAncestor.addEventListener(MoveEvent.MOVE, ancestor_moveHandler, false, 0, true);
+                newAncestor.addEventListener(ResizeEvent.RESIZE, ancestor_resizeHandler, false, 0, true);
+                newAncestor.addEventListener(FlexEvent.SHOW, ancestor_showHandler, false, 0, true);
+                newAncestor.addEventListener(FlexEvent.HIDE, ancestor_hideHandler, false, 0, true);
+            }
+        }
+        
+        watchedAncestors = newWatchedAncestors;
     }
     
     //--------------------------------------------------------------------------
@@ -1484,6 +1666,41 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //
     //--------------------------------------------------------------------------
     
+    private function ancestor_hideHandler(event:FlexEvent):void
+    {
+        // Shortcut: If any ancestor hid, the StageText must hide. No need to
+        // recalculate visibility.
+        ancestorsVisible = false;
+        ancestorsVisibleInvalidateFlag = false;
+        invalidateViewPortFlag = true;
+        
+        invalidateProperties();
+    }
+    
+    private function ancestor_moveHandler(event:MoveEvent):void
+    {
+        // Any change in ancestor geometry may affect the StageText's geometry.
+        invalidateViewPortFlag = true;
+        invalidateProperties();
+    }
+    
+    private function ancestor_resizeHandler(event:ResizeEvent):void
+    {
+        // Any change in ancestor geometry may affect the StageText's geometry.
+        invalidateViewPortFlag = true;
+        invalidateProperties();
+    }
+    
+    private function ancestor_showHandler(event:FlexEvent):void
+    {
+        // An ancestor was shown, but some other ancestor may still be hidden.
+        // Invalidate visibility and recalculate it later.
+        ancestorsVisibleInvalidateFlag = true;
+        invalidateViewPortFlag = true;
+        
+        invalidateProperties();
+    }
+
     private function stageText_changeHandler(event:Event):void
     {
         var foundChange:Boolean = false;
@@ -1556,6 +1773,64 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             event.bubbles, event.cancelable, this, event.triggerType));
     }
     
+    private function stage_effectStartHandler(event:EffectEvent):void
+    {
+        // An effect is starting, but the effect will only affect the StageText
+        // if its target is an ancestor of it.
+        var ancestor:DisplayObjectContainer = parent;
+        
+        while (ancestor != null && ancestor != event.target)
+            ancestor = ancestor.parent;
+        
+        if (ancestor != null)
+        {
+            // The first effect affecting the StageText that starts causes us
+            // to replace the StageText with a bitmap.
+            if (numEffectsRunning++ == 0)
+                createProxyImage();
+        }
+    }
+    
+    private function stage_effectEndHandler(event:EffectEvent):void
+    {
+        var ancestor:DisplayObjectContainer = parent;
+        
+        while (ancestor != null && ancestor != event.target)
+            ancestor = ancestor.parent;
+        
+        if (ancestor != null)
+        {
+            // The last effect affecting the StageText to end causes us to put
+            // the live StageText back and remove the bitmap.
+            if (--numEffectsRunning == 0)
+                disposeProxyImage();
+        }
+    }
+    
+    private function stage_hierarchyChangedHandler(event:Event):void
+    {
+        // If an ancestor is added to or removed from the list of this
+        // StageText's ancestors, update the list of components we watch for
+        // visibility and geometry changes.
+        var target:Object = event.target;
+        var foundTarget:Boolean = false;
+        var ancestor:DisplayObject = this;
+        
+        while (ancestor != null)
+        {
+            if (target == ancestor)
+            {
+                foundTarget = true;
+                break;
+            }
+            
+            ancestor = ancestor.parent;
+        }
+        
+        if (foundTarget)
+            updateWatchedAncestors();
+    }
+    
     private function addedToStageHandler(event:Event):void
     {
         if (stageText == null)
@@ -1563,19 +1838,29 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         
         stageText.stage = stage;
         
+        stageText.stage.addEventListener(EffectEvent.EFFECT_START, stage_effectStartHandler, true, 0, true);
+        stageText.stage.addEventListener(EffectEvent.EFFECT_END, stage_effectEndHandler, true, 0, true);
+        
+        stageText.stage.addEventListener(Event.ADDED, stage_hierarchyChangedHandler, false, 0, true);
+        stageText.stage.addEventListener(Event.REMOVED, stage_hierarchyChangedHandler, false, 0, true);
+        
+        updateWatchedAncestors();
+        
         if (deferredViewPortUpdate)
             updateViewPort();
     }
     
-    /**
-     *  Clean up and dispose of our StageText.
-     *  TODO: This fails on iOS because of bug 2906305. 
-     */
     private function removedFromStageHandler(event:Event):void
     {
         if (stageText == null)
             return;
         
+        stageText.stage.removeEventListener(EffectEvent.EFFECT_START, stage_effectStartHandler, true);
+        stageText.stage.removeEventListener(EffectEvent.EFFECT_END, stage_effectEndHandler, true);
+
+        stageText.stage.removeEventListener(Event.ADDED, stage_hierarchyChangedHandler);
+        stageText.stage.removeEventListener(Event.REMOVED, stage_hierarchyChangedHandler);
+
         stageText.stage = null;
         
         stageText.removeEventListener(Event.CHANGE, stageText_changeHandler);
