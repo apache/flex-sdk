@@ -21,7 +21,7 @@
           can externally link against framework.swc, since air is player 9.
           If you change this, update <target-player/> in the <compc/> tasks.
     -->
-    <property name="local.playerglobal.version" value="10.1"/>
+    <property name="local.playerglobal.version" value="10.2"/>
   	
 	<macrodef name="bundle">
 		<attribute name="locale"/>
@@ -34,7 +34,7 @@
 				   output="${FLEX_HOME}/frameworks/locale/@{locale}/framework_rb.swc"
 				   locale="@{locale}">
 				<jvmarg line="${compc.jvm.args}"/>
-				<target-player>10.1</target-player>
+				<target-player>10.2</target-player>
 				<include-resource-bundles bundle="SharedResources"/>
 				<include-resource-bundles bundle="collections"/>
 				<include-resource-bundles bundle="controls"/>
@@ -188,7 +188,7 @@
 			   output="${FLEX_HOME}/frameworks/libs/framework.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
-			<target-player>10.1</target-player>
+			<target-player>10.2</target-player>
 			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/manifest.xml"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/mx"/>
