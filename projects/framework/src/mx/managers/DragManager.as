@@ -24,7 +24,7 @@ import mx.managers.dragClasses.DragProxy;
 /**
  *  Cursor displayed during a copy operation.
  * 
- *  @default mx.skins.cursor.DragCopy
+ *  The default value is the "mx.skins.cursor.DragCopy" symbol in the Assets.swf file.
  */
 [Style(name="copyCursor", type="Class", inherit="no")]
 
@@ -39,21 +39,21 @@ import mx.managers.dragClasses.DragProxy;
 /**
  *  Cursor displayed during a link operation.
  * 
- *  @default mx.skins.cursor.DragLink
+ *  The default value is the "mx.skins.cursor.DragLink" symbol in the Assets.swf file.
  */
 [Style(name="linkCursor", type="Class", inherit="no")]
 
 /**
  *  Cursor displayed during a move operation.
  * 
- *  @default mx.skins.cursor.DragMove
+ *  The default value is the "mx.skins.cursor.DragMove" symbol in the Assets.swf file.
  */
 [Style(name="moveCursor", type="Class", inherit="no")]
 
 /**
  *  Cursor displayed for a reject operation.
  * 
- *  @default mx.skins.cursor.DragReject
+ *  The default value is the "mx.skins.cursor.DragReject" symbol in the Assets.swf file.
  */
 [Style(name="rejectCursor", type="Class", inherit="no")]
 
