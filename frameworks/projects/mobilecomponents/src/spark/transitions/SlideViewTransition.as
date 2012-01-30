@@ -192,7 +192,7 @@ public class SlideViewTransition extends ViewTransition
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    override public function prepare():void
+    override public function captureStartValues():void
     {
         var tabBar:ButtonBarBase;
         parentNavigator = navigator.parentNavigator;
@@ -280,13 +280,14 @@ public class SlideViewTransition extends ViewTransition
     }
     
     /**
-     * 
+     *  @inheritDoc
+	 * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    override public function play():void
+    override public function prepareFinalState():void
     {
         var targets:Array = new Array();
         
@@ -365,11 +366,7 @@ public class SlideViewTransition extends ViewTransition
             
             Parallel(effect).addChild(createViewAnimation(targets));
         }
-        
-		// Create view animations
-		effect.addEventListener(EffectEvent.EFFECT_END, transitionComplete);
-		effect.play();
-    }
+	}
     
     /**
      * Called when the transition is complete.  Cleans up all temporary
@@ -515,6 +512,7 @@ public class SlideViewTransition extends ViewTransition
         
         // Initialize titleGroup
         titleGroup.cacheAsBitmap = true;
+		titleGroup.alpha = 0;
         titleGroup[animatedProperty] += slideDistance;
         fadeInTargets.push(titleGroup);
         
@@ -550,7 +548,8 @@ public class SlideViewTransition extends ViewTransition
             
             actionBar.actionGroup[animatedProperty] += slideDistance;
             actionBar.actionGroup.cacheAsBitmap = true;
-            
+            actionBar.actionGroup.alpha = 0;
+			
             fadeInTargets.push(actionBar.actionGroup);
         }
         
