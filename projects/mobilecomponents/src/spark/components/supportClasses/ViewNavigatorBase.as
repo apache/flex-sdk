@@ -46,10 +46,8 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:ViewNavigatorBase
  *    <strong>Properties</strong>
- *    destructionPolicy="auto"
  *    icon="null"
  *    label="null"
- *    overlayControls="true"
  *    transitionsEnabled="true"
  *  /&gt;
  *  </pre>
@@ -71,8 +69,6 @@ public class ViewNavigatorBase extends SkinnableContainer
     
     /**
      *  Constructor.
-     *  
-     *  Creates an empty navigation stack.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 2.5
