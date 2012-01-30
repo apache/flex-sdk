@@ -38,7 +38,7 @@ ISSUES:
 */
 /**
  *  Actionscript based skin for mobile applications. The skin supports 
- *  iconClass and labelPlacement. It uses a couple of FXG classes to 
+ *  iconClass and labelPlacement. It uses FXG classes to 
  *  implement the vector drawing.  
  * 
  *  @langversion 3.0
@@ -54,6 +54,14 @@ public class ButtonSkin extends ButtonSkinBase
     //  Constructor
     //
     //--------------------------------------------------------------------------
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function ButtonSkin()
     {
         super();
@@ -157,7 +165,7 @@ public class ButtonSkin extends ButtonSkinBase
     protected var upBorderSkin:Class;
     
     /**
-     *  Class to use for the border in the up state.
+     *  Class to use for the border in the down state.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -175,6 +183,9 @@ public class ButtonSkin extends ButtonSkinBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     override protected function createChildren():void
     {
         super.createChildren();
@@ -206,6 +217,9 @@ public class ButtonSkin extends ButtonSkinBase
         invalidateDisplayList();
     }
     
+    /**
+     *  @private
+     */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         // Size the FXG background   
@@ -284,7 +298,7 @@ public class ButtonSkin extends ButtonSkinBase
     }
     
     /**
-     *  Returns the borderClass to use based on the currentState
+     *  Returns the borderClass to use based on the currentState.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
