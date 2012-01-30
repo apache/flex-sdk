@@ -33,6 +33,7 @@ import spark.skins.mobile.HScrollBarSkin; spark.skins.mobile.HScrollBarSkin;
 import spark.skins.mobile.HSliderSkin; spark.skins.mobile.HSliderSkin;
 import spark.skins.mobile.ListSkin; spark.skins.mobile.ListSkin;
 import spark.skins.mobile.TabbedViewNavigatorApplicationSkin; TabbedViewNavigatorApplicationSkin;
+import spark.skins.mobile.TabbedViewNavigatorButtonBarSkin; TabbedViewNavigatorButtonBarSkin;
 import spark.skins.mobile.TextAreaSkin; TextAreaSkin;
 import spark.skins.mobile.TextInputSkin; TextInputSkin;
 import spark.skins.mobile.SkinnableContainerSkin; SkinnableContainerSkin;
