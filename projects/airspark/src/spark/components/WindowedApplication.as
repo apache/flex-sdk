@@ -894,8 +894,8 @@ public class WindowedApplication extends Application implements IWindow
                     else
                     {
                         _nativeWindow.visible = value;
-                        dispatchEvent(e);
                     }
+                    dispatchEvent(e);
                 }
             }               
         }
@@ -2287,9 +2287,9 @@ public class WindowedApplication extends Application implements IWindow
      */
     private function hideEffectEndHandler(event:Event):void
     {
-        _nativeWindow.visible = false;
-        
-        dispatchEvent(new FlexEvent(FlexEvent.HIDE));
+        if (!_nativeWindow.closed)
+            _nativeWindow.visible = false;
+        removeEventListener(EffectEvent.EFFECT_END, hideEffectEndHandler);
     }
 
     /**
