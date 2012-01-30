@@ -77,11 +77,24 @@ public class StyleManagerImpl implements IStyleManager2
      */
     private static var sizeInvalidatingStyles:Object =
     {
+        alignmentBaseline: true,
+        baselineShift: true,
+        blockProgression: true,
         borderStyle: true,
         borderThickness: true,
+        cffHinting: true,
+        columnCount: true,
+        columnGap: true,
+        columnWidth: true,
+        digitCase: true,
+        digitWidth: true,
+        direction: true,
+        dominantBaseline: true,
+        firstBaselineOffset: true,
         fontAntiAliasType: true,
         fontFamily: true,
         fontGridFitType: true,
+        fontLookup: true,
         fontSharpness: true,
         fontSize: true,
         fontStyle: true,
@@ -90,18 +103,38 @@ public class StyleManagerImpl implements IStyleManager2
         headerHeight: true,
         horizontalAlign: true,
         horizontalGap: true,
+        justificationRule: true,
+        justificationStyle: true,
         kerning: true,
         leading: true,
         letterSpacing: true,
+        ligatureLevel: true,
+        lineBreak: true,
+        lineHeight: true,
+        lineThrough: true,
+        locale: true,
+        marginBottom: true,
+        marginLeft: true,
+        marginRight: true,
+        marginTop: true,
         paddingBottom: true,
         paddingLeft: true,
         paddingRight: true,
         paddingTop: true,
+        renderingMode: true,
         strokeWidth: true,
         tabHeight: true,
         tabWidth: true,
+        textAlign: true,
+        textAlignLast: true,
+        textRotation: true,
+        tracking: true,
+        trackingLeft: true,
+        trackingRight: true,
+        typographicCase: true,
         verticalAlign: true,
-        verticalGap: true
+        verticalGap: true,
+        whitespaceCollapse: true
     }
 
     /**
@@ -113,13 +146,13 @@ public class StyleManagerImpl implements IStyleManager2
      */
     private static var parentSizeInvalidatingStyles:Object =
     {
+        baseline: true,
         bottom: true,
         horizontalCenter: true,
         left: true,
         right: true,
         top: true,
-        verticalCenter: true,
-        baseline: true
+        verticalCenter: true
     }
 
     /**
@@ -131,13 +164,13 @@ public class StyleManagerImpl implements IStyleManager2
      */
     private static var parentDisplayListInvalidatingStyles:Object =
     {
+        baseline: true,
         bottom: true,
         horizontalCenter: true,
         left: true,
         right: true,
         top: true,
-        verticalCenter: true,
-        baseline: true
+        verticalCenter: true
     }
 
     /**
