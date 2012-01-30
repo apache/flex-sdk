@@ -12,6 +12,8 @@
 package spark.skins.mobile
 {
 
+import mx.core.DeviceDensity;
+
 import spark.components.Button;
 import spark.components.HScrollBar;
 import spark.skins.mobile.supportClasses.MobileSkin;
@@ -25,9 +27,9 @@ public class HScrollBarSkin extends MobileSkin
         
         useChromeColor = true;
         
-        switch (targetDensity)
+        switch (authorDensity)
         {
-            case MobileSkin.PPI240:
+            case DeviceDensity.PPI_240:
             {
                 layoutMeasuredWidth = 40;
                 layoutMeasuredHeight = 8;
