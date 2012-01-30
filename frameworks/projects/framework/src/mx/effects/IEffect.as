@@ -32,6 +32,87 @@ public interface IEffect extends IAbstractEffect
     //--------------------------------------------------------------------------
     
     //----------------------------------
+    //  autoReverse
+    //----------------------------------
+
+    // TODO (chaase): Should this live in Transition instead?
+    /**
+     *  Whether the effect should automatically reverse itself 
+     *  when played in a transition and the opposite state
+     *  transition begins playing.
+     *
+     *  <p>Flex does not play multiple transitions simultaneously.
+     *  This means that when a new state transition occurs, if there
+     *  is already one playing it is stopped by calling <code>end()</code>
+     *  on it, which snaps it to its end values. The new transition
+     *  then starts playing from that state.</p>
+     * 
+     *  <p>The <code>autoReverse</code> flag allows the developer to
+     *  control whether the default snap-to-end behavior occurs, or whether,
+     *  instead, the previous effect is stopped in place and the new
+     *  effect is played from that intermediate state instead. Internally,
+     *  the transition code calculates how much of the previous effect
+     *  has been played and then plays the next effect for the inverse of that
+     *  time.</p>
+     * 
+     *  <p>This flag is only checked when the new transition is going in the
+     *  exact opposite direction of the currently playing one. That is, if
+     *  a transition is playing between states A and B and then a transition
+     *  to return to A is started, this flag will be checked. But if the
+     *  application is going from state A to B and a transition to state C is
+     *  started, then the default behavior of snapping to the end of the A->B
+     *  transition, then playing the B->C transition will occur.</p>
+     * 
+     *  @default false 
+     */
+    function get autoReverse():Boolean;
+
+    /**
+     *  @private
+     */
+    function set autoReverse(value:Boolean):void;
+
+    //----------------------------------
+    //  fromState
+    //----------------------------------
+
+    // TODO (chaase): Might be cleaner to pass handle to transition itself
+    // to the Effect, then can query from/toState from the transition
+    /**
+     *  The state that the effect is animating from, when played as a 
+     *  state transition effect. This information will be set by the component
+     *  setting the state that causes the transition. It is not intended for
+     *  use outside of the Flex framework classes internally.
+     * 
+     *  @default null
+     */
+    function get fromState():String;
+
+    /**
+     *  @private
+     */
+    function set fromState(value:String):void;
+
+    //----------------------------------
+    //  toState
+    //----------------------------------
+
+    /**
+     *  The state that the effect is animating to, when played as a 
+     *  state transition effect. This information will be set by the component
+     *  setting the state that causes the transition. It is not intended for
+     *  use outside of the Flex framework classes internally.
+     * 
+     *  @default null
+     */
+    function get toState():String;
+
+    /**
+     *  @private
+     */
+    function set toState(value:String):void;
+
+    //----------------------------------
     //  className
     //----------------------------------
 
@@ -235,6 +316,18 @@ public interface IEffect extends IAbstractEffect
      *  @private
      */
     function set perElementOffset(value:Number):void;
+
+    //----------------------------------
+    //  playheadTime
+    //----------------------------------
+
+    /**
+     *  Current position in time of the effect.
+     *  This property has a value between 0 and the actual duration 
+     *  (which includes the value of the <code>startDelay</code>, 
+     *  <code>repeatCount</code>, and <code>repeatDelay</code> properties).
+     */
+    function get playheadTime():Number;
 
     //----------------------------------
     //  relevantProperties
@@ -472,6 +565,18 @@ public interface IEffect extends IAbstractEffect
      *  @see mx.effects.EffectInstance#end()
      */
     function end(effectInstance:IEffectInstance = null):void;
+
+    /**
+     * Sets the current time of an effect. Seek may be used to
+     * fast-forward or reverse to a particular point in time in an effect.
+     * 
+     * @param seekTime Number of milliseconds that the effect should
+     * play at. This number should be between 0 and the duration of the
+     * effect.
+     * 
+     * @see #duration
+     */
+    function seek(seekTime:Number):void;
 
     /**
      *  Captures the current values of the relevant properties
