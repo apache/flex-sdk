@@ -358,12 +358,12 @@ ButtonBar
 //------------------------------
 */
 
-.buttonBarFirstButtonStyle
+ButtonBarButton.buttonBarFirstButtonStyle
 {
 	skin: ClassReference("mx.skins.spark.ButtonBarFirstButtonSkin");
 }
 
-.buttonBarLastButtonStyle
+ButtonBarButton.buttonBarLastButtonStyle
 {
 	skin: ClassReference("mx.skins.spark.ButtonBarLastButtonSkin");
 }
