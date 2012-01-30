@@ -354,25 +354,31 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     }
 
 	/**
-	 *  A helper method to position the children of this item renderer.
+	 *  A helper method to position children elements of this component.
 	 * 
-	 *  <p>You can use this method instead of checking for and using
-	 *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+	 *  <p>This method is the recommended way to position children elements.  You can 
+	 *  use this method instead of checking for and using
+	 *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
+	 *  or StyleableTextField.</p>
+	 * 
+	 *  <p>Call this method after calling <code>setElementSize()</code></p>
 	 *
-	 *  @param element The child to position.
+	 *  @param element The child element to position.  The element could be an 
+	 *  ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
+	 *  DisplayObject.
 	 *
 	 *  @param x The x-coordinate of the child.
 	 *
 	 *  @param y The y-coordinate of the child.
 	 *
-	 *  @see #resizeElement  
+	 *  @see #setElementSize  
 	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10.1
 	 *  @playerversion AIR 2.5 
 	 *  @productversion Flex 4.5
 	 */
-	protected function positionElement(element:Object, x:Number, y:Number):void
+	protected function setElementPosition(element:Object, x:Number, y:Number):void
 	{
 		if (element is ILayoutElement)
 		{
@@ -390,25 +396,31 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
 	}
 
 	/**
-	 *  A helper method to size the children of this item renderer.
+	 *  A helper method to size children elements of this component.
 	 * 
-	 *  <p>You can use this method instead of checking for and using
-	 *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+	 *  <p>This method is the recommended way to size children elements.  You can 
+	 *  use this method instead of checking for and using
+	 *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
+	 *  or StyleableTextField.</p>
 	 *
-	 *  @param element The child to position.
+	 *  <p>Call this method before calling <code>setElementPosition()</code></p>
+	 * 
+	 *  @param element The child element to size.  The element could be an 
+	 *  ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
+	 *  DisplayObject.
 	 *
 	 *  @param x The width of the child.
 	 *
 	 *  @param y The height of the child.
 	 *
-	 *  @see #positionElement  
+	 *  @see #setElementPosition  
 	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10.1
 	 *  @playerversion AIR 2.5 
 	 *  @productversion Flex 4.5
 	 */
-	protected function resizeElement(element:Object, width:Number, height:Number):void
+	protected function setElementSize(element:Object, width:Number, height:Number):void
 	{
 		if (element is ILayoutElement)
 		{
@@ -426,11 +438,17 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
 	}
 	
 	/**
-	 *  A helper method to retrieve the preferred width of an element
+	 *  A helper method to retrieve the preferred width of a child element.
 	 * 
-	 *  <p>You can use this method instead of checking for and using
-	 *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+	 *  <p>This method is the recommended way to get a child element's preferred 
+	 *  width.  You can use this method instead of checking for and using
+	 *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
+	 *  or StyleableTextField.</p>
 	 *
+	 *  @param element The child element to retrieve the width for.  The element could  
+	 *  be an ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
+	 *  DisplayObject.
+	 * 
 	 *  @param element The child to retrieve the width for
 	 *
 	 *  @see #sizeElement
@@ -453,9 +471,6 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
 		}
 		else if (element is StyleableTextField)
 		{
-			// commit styles to get an accurate measurement
-			StyleableTextField(element).commitStyles();
-			
 			return StyleableTextField(element).measuredTextSize.x;
 		}
 		else
@@ -465,12 +480,16 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
 	}
 	
 	/**
-	 *  A helper method to retrieve the preferred height of an element
+	 *  A helper method to retrieve the preferred height of a child element.
 	 * 
-	 *  <p>You can use this method instead of checking for and using
-	 *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+	 *  <p>This method is the recommended way to get a child element's preferred 
+	 *  height.  You can use this method instead of checking for and using
+	 *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
+	 *  or StyleableTextField.</p>
 	 *
-	 *  @param element The child to retrieve the height for
+	 *  @param element The child element to retrieve the width for.  The element could  
+	 *  be an ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
+	 *  DisplayObject.
 	 *
 	 *  @see #sizeElement
 	 *  @see #getElementPreferredWidth 
@@ -492,9 +511,6 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
 		}
 		else if (element is StyleableTextField)
 		{
-			// commit styles to get an accurate measurement
-			StyleableTextField(element).commitStyles();
-			
 			return StyleableTextField(element).measuredTextSize.y;
 		}
 		else
