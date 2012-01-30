@@ -284,6 +284,11 @@ public class TextSkinBase extends MobileSkin
         
         if (textDisplay)
         {
+            // FIXME (jasonsj) use measuredHeight
+            // var textHeight:Number = textDisplay.measuredHeight;
+            // textTop = Math.max((unscaledHeight - textHeight) / 2, paddingTop);
+            // var bottomSpace:Number = unscaledHeight - (textTop + textHeight);
+            
             // verticalAlign=middle or paddingTop
             textTop = Math.max((unscaledHeight - textDisplay.textHeight) / 2, paddingTop);
             
