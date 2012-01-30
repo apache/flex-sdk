@@ -809,17 +809,23 @@ public class Validator extends EventDispatcher implements IMXMLObject
         if (value == null)
             value = getValueFromSource();   
         
-        // if required flag is true and there is no value
-        // we need to generate a required field error
         if (isRealValue(value) || required)
         {
+            // Validate if the target is required or our value is non-null.
             return processValidation(value, suppressEvents);
         }
         else
         {
-            // Just return valid
-            return new ValidationResultEvent(ValidationResultEvent.VALID); 
-        }
+            // We assume if value is null and required is false that
+            // validation was successful.
+            var resultEvent:ValidationResultEvent = 
+                new ValidationResultEvent(ValidationResultEvent.VALID);
+            if (!suppressEvents && _enabled)
+            {
+            	dispatchEvent(resultEvent);
+            }
+            return resultEvent; 
+        } 
     }
     
     /**
