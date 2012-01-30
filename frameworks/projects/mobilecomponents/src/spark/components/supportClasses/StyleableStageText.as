@@ -82,7 +82,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Event(name="change", type="flash.events.Event")]
 
@@ -94,7 +94,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Event(name="enter", type="mx.events.FlexEvent")]
 
@@ -111,7 +111,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Event(name="focusIn", type="flash.events.FocusEvent")]
 
@@ -128,7 +128,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Event(name="focusOut", type="flash.events.FocusEvent")]
 
@@ -139,7 +139,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Event(name="softKeyboardActivate", type="flash.events.SoftKeyboardEvent")]
 
@@ -151,7 +151,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Event(name="softKeyboardActivating", type="flash.events.SoftKeyboardEvent")]
 
@@ -162,7 +162,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Event(name="softKeyboardDeactivate", type="flash.events.SoftKeyboardEvent")]
 
@@ -177,7 +177,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="color", type="uint", format="Color", inherit="yes")]
 
@@ -193,7 +193,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="fontFamily", type="String", inherit="yes")]
 
@@ -204,7 +204,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="fontSize", type="Number", format="Length", inherit="yes")]
 
@@ -216,7 +216,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="fontStyle", type="String", enumeration="normal,italic", inherit="yes")]
 
@@ -228,7 +228,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="fontWeight", type="String", enumeration="normal,bold", inherit="yes")]
 
@@ -237,7 +237,7 @@ use namespace mx_internal;
  *
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="locale", type="String", inherit="yes")]
 
@@ -250,7 +250,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="textAlign", type="String", enumeration="start,end,left,right,center", inherit="yes")]
 
@@ -310,7 +310,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class StyleableStageText extends UIComponent implements IEditableText, ISoftKeyboardHintClient
 {
@@ -381,7 +381,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function StyleableStageText(multiline:Boolean = false)
     {
@@ -794,7 +794,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get displayAsPassword():Boolean
     {
@@ -825,7 +825,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get editable():Boolean
     {
@@ -914,7 +914,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get maxChars():int
     {
@@ -944,7 +944,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get multiline():Boolean
     {
@@ -981,7 +981,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get restrict():String
     {
@@ -1026,7 +1026,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get selectionActivePosition():int
     {
@@ -1046,7 +1046,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      *
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get selectionAnchorPosition():int
     {
@@ -1078,7 +1078,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get text():String
     {
@@ -1157,7 +1157,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get autoCapitalize():String
     {
@@ -1191,7 +1191,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get autoCorrect():Boolean
     {
@@ -1224,7 +1224,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get returnKeyLabel():String
     {
@@ -1260,7 +1260,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get softKeyboardType():String
     {
@@ -1417,7 +1417,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function appendText(text:String):void
     {
@@ -1494,7 +1494,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function insertText(text:String):void
     {
@@ -1569,7 +1569,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function selectAll():void
     {
@@ -1585,7 +1585,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function selectRange(anchorIndex:int, activeIndex:int):void
     {
