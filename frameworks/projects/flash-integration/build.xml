@@ -20,7 +20,7 @@
     <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
     <property name="local.playerglobal.version" value="9"/>
 
-	<target name="main" depends="clean,compile,doc" description="Clean build of FlexComponentBase.swc"/>
+	<target name="main" depends="clean,compile" description="Clean build of FlexComponentBase.swc"/>
 
 	<target name="clean">
 		<delete failonerror="false">
