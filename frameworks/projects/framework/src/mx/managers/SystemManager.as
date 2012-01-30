@@ -45,7 +45,7 @@ import flash.utils.ByteArray;
 import flash.utils.Dictionary;
 import flash.utils.Timer;
 import flash.utils.getQualifiedClassName;
-import flashx.textLayout.elements.ITextLineCreator;
+import flashx.textLayout.compose.ITextLineCreator;
 
 import mx.core.EmbeddedFontRegistry;
 import mx.core.EventPriority;
