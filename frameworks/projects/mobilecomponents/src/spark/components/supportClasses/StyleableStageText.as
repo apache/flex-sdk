@@ -14,6 +14,7 @@ package spark.components.supportClasses
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
+import flash.display.PixelSnapping;
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -380,12 +381,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     {
         super();
         
-        // This needs to be true so that we can show the soft keyboard if the
-        // user taps on the padding instead of on the StageText. If 
-        // needsSoftKeyboard isn't set to true, requestSoftKeyboard would do
-        // nothing.
-        needsSoftKeyboard = true;
-        
         _multiline = multiline;
         getStageText(true);
         
@@ -493,6 +488,15 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      *  visibility or position.
      */
     private var watchedAncestors:Vector.<UIComponent> = new Vector.<UIComponent>();
+    
+    /**
+     *  When StageText.visible is changed, the platform text control is shown
+     *  immediately. Because of this, when a view is temporarily shown in
+     *  preparation for a transition, the StageText may flash. To prevent this,
+     *  delay changes to StageText.visible for a frame.
+     */
+    private var stageTextVisibleChangePending:Boolean = false;
+    private var stageTextVisible:Boolean;
         
     //--------------------------------------------------------------------------
     //
@@ -1306,9 +1310,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 if (!_alwaysShowProxyImage)
                     disposeProxyImage();
                 
-                // assignFocus doesn't bring up the soft keyboard. We need to
-                // ask for it.
-                requestSoftKeyboard();
                 stageText.assignFocus();
             }
         }
@@ -1381,17 +1382,22 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (stageText != null)
             stageText.editable = _editable && effectiveEnabled;
 
-        commitVisible();
+        commitVisible(false);
         
         if (invalidateViewPortFlag)
         {
             updateViewPort();
             invalidateViewPortFlag = false;
+            
+            // If this is a new StageText created while a popup is already open,
+            // a proxy image needs to be created for it.
+            if (awm)
+                updateProxyImageForForm(awm.form);            
         }
         
         updateProxyImage();
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -1431,7 +1437,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      *  be hidden. This will not happen automatically because the StageText is
      *  not part of the display hierarchy.
      */
-    private function commitVisible():void
+    private function commitVisible(immediate:Boolean):void
     {
         if (showTextImage)
         {
@@ -1441,13 +1447,30 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 textImage.y = 0;
                 
                 if (stageText != null)
+                {
                     stageText.visible = false;
+                    stageTextVisibleChangePending = false;
+                    removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+                }
             }
         }
         else
         {
             if (stageText != null)
-                stageText.visible = _visible && calcAncestorsVisible();
+            {
+                if (immediate)
+                {
+                    stageText.visible = _visible && calcAncestorsVisible();
+                    stageTextVisibleChangePending = false;
+                    removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+                }
+                else
+                {
+                    stageTextVisible = _visible && calcAncestorsVisible();
+                    stageTextVisibleChangePending = true;
+                    addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+                }
+            }
             
             if (textImage != null)
             {
@@ -1695,13 +1718,21 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             
             if (imageData)
             {
-                textImage = new Bitmap(imageData);
-                textImage.scaleX = 1.0 / densityScale;
-                textImage.scaleY = 1.0 / densityScale;
+                if (densityScale == 1)
+                {
+                    textImage = new Bitmap(imageData);
+                }
+                else
+                {
+                    textImage = new Bitmap(imageData, PixelSnapping.NEVER, true);
+                    textImage.scaleX = 1.0 / densityScale;
+                    textImage.scaleY = 1.0 / densityScale;
+                }
+                
                 addChild(textImage);
                 
                 showTextImage = true;
-                commitVisible();
+                commitVisible(true);
             }
         }
     }
@@ -1994,10 +2025,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         //  Forward the focus event to the StageText. The focusedStageText flag
         //  is modified by the StageText's focus event handlers, not this one.
         if (stageText != null && focusedStageText != stageText && effectiveEnabled)
-        {
-            requestSoftKeyboard();
             stageText.assignFocus();
-        }
     }
     
     //--------------------------------------------------------------------------
@@ -2148,7 +2176,14 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             // the live StageText back and remove the bitmap.
             // If alwaysShowProxyImage is set, don't dispose the image.
             if (--numEffectsRunning == 0 && !_alwaysShowProxyImage)
-                disposeProxyImage();
+            {
+                // The effect may have played while a popup is open. If so, we
+                // need to make sure the proxy image stays.
+                if (awm)
+                    updateProxyImageForForm(awm.form);
+                else
+                    disposeProxyImage();
+            }
         }
     }
     
@@ -2211,6 +2246,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             needsRestore = true;
         }
         
+        // Don't let the StageText show up until we've calculated its correct
+        // visibility.
+        stageText.visible = false;
         stageText.stage = stage;
         
         stageText.stage.addEventListener(EffectEvent.EFFECT_START, stage_effectStartHandler, true, 0, true);
@@ -2231,6 +2269,17 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         invalidateAncestorsVisibleFlag = true;
         invalidateEffectiveEnabledFlag = true;
         invalidateProperties();
+    }
+    
+    private function enterFrameHandler(event:Event):void
+    {
+        removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+        
+        if (stageTextVisibleChangePending)
+        {
+            stageText.visible = stageTextVisible;
+            stageTextVisibleChangePending = false;
+        }
     }
     
     private function removedFromStageHandler(event:Event):void
@@ -2268,6 +2317,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
 
         stageText.dispose();
         stageText = null;
+
+        removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
         
         // This component may be removed from the stage by a Fade effect. In
         // that case, we will not receive the EFFECT_END event, but should still
