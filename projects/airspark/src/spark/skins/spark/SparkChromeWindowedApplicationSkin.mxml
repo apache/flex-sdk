@@ -24,13 +24,14 @@
          *  don't want to colorize it twice.
          */
         static private const exclusions:Array = ["backgroundRect", "bgFill", "contentGroup", "titleBar",
-                                                 "titleBarBackground", "titleBarBgFill", "statusText",
+                                                 "titleBarBackgroundRect", "titleBarBgFill", "statusText",
                                                  "borderBgFill", "border"];
 
-	/** 
-	 * @inheritDoc
-	 */
+        /** 
+         * @inheritDoc
+         */
         override public function get colorizeExclusions():Array {return exclusions;}
+        
     </fx:Script>
     
     <s:states>
@@ -48,7 +49,7 @@
     </s:Rect>
 
     <!-- title bar background fill for when the title bar is inactive -->
-    <s:Rect id="titleBarBackgroundRect" left="0" right="0" top="0" height="24"  >
+    <s:Rect id="titleBarBackgroundRect" left="0" right="0" top="0" height="24" visible="{titleBar.visible}" >
         <s:fill>
             <s:SolidColor id="titleBarBgFill" color="0xFFFFFF" />
         </s:fill>
@@ -63,7 +64,7 @@
     
         <!-- title bar to display when not using 'systemChrome' -->
         <s:TitleBar id="titleBar" width="100%" height="24" alpha.inactiveGroup="0.5" />
-
+        
         <!-- content -->
         <s:Group id="contentGroup" width="100%" height="100%" minHeight="0" minWidth="0"/>
         
