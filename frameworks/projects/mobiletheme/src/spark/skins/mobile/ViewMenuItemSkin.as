@@ -3,11 +3,15 @@ package spark.skins.mobile
 import flash.display.GradientType;
 import flash.display.Graphics;
 
+import mx.core.DeviceDensity;
 import mx.core.mx_internal;
 
 import spark.skins.mobile.assets.ViewMenuItem_down;
 import spark.skins.mobile.assets.ViewMenuItem_showsCaret;
 import spark.skins.mobile.assets.ViewMenuItem_up;
+import spark.skins.mobile320.assets.ViewMenuItem_down;
+import spark.skins.mobile320.assets.ViewMenuItem_showsCaret;
+import spark.skins.mobile320.assets.ViewMenuItem_up;
 import spark.skins.mobile.supportClasses.ButtonSkinBase;
 
 use namespace mx_internal;
@@ -21,11 +25,43 @@ public class ViewMenuItemSkin extends ButtonSkin
     {
         super();
         
-        upBorderSkin = ViewMenuItem_up;
-        downBorderSkin = ViewMenuItem_down;
-        showsCaretBorderSkin = ViewMenuItem_showsCaret; 
+        switch (authorDensity)
+        {
+            case DeviceDensity.PPI_320:
+            {
+                
+                upBorderSkin = spark.skins.mobile320.assets.ViewMenuItem_up;
+                downBorderSkin = spark.skins.mobile320.assets.ViewMenuItem_down;
+                showsCaretBorderSkin = spark.skins.mobile320.assets.ViewMenuItem_showsCaret;
+                
+                layoutBorderSize = 2;
+                layoutPaddingBottom = 12;
+                
+                break;
+            }
+            case DeviceDensity.PPI_240:
+            {   
+                upBorderSkin = spark.skins.mobile.assets.ViewMenuItem_up;
+                downBorderSkin = spark.skins.mobile.assets.ViewMenuItem_down;
+                showsCaretBorderSkin = spark.skins.mobile.assets.ViewMenuItem_showsCaret;
+                
+                layoutBorderSize = 1;
+                layoutPaddingBottom = 8;
+                
+                break;
+            
+            }
+            default:
+            {
+                upBorderSkin = spark.skins.mobile.assets.ViewMenuItem_up;
+                downBorderSkin = spark.skins.mobile.assets.ViewMenuItem_down;
+                showsCaretBorderSkin = spark.skins.mobile.assets.ViewMenuItem_showsCaret; 
+                
+                layoutBorderSize = 1;
+                layoutPaddingBottom = 6;
+            }
+        }
         
-        layoutPaddingBottom = 8;
     }
     
     /**
@@ -58,7 +94,9 @@ public class ViewMenuItemSkin extends ButtonSkin
         }
         else
         {
-            matrix.createGradientBox(unscaledWidth, unscaledHeight, Math.PI / 2, 0, 0);
+            matrix.createGradientBox(unscaledWidth, 
+                                     unscaledHeight - layoutBorderSize, 
+                                     Math.PI / 2, 0, 0);
             var chromeColor:uint = getStyle("chromeColor");
             
             chromeColorGraphics.beginGradientFill(GradientType.LINEAR,
@@ -69,13 +107,20 @@ public class ViewMenuItemSkin extends ButtonSkin
         }
     }
     
-    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function drawChromeColor(chromeColorGraphics:Graphics, 
+                                                unscaledWidth:Number, unscaledHeight:Number):void
     {
         // bottom line is a shadow
         if (currentState == "down")
-            chromeColorGraphics.drawRect(1, 1, unscaledWidth - 2, unscaledHeight - 2);
+            chromeColorGraphics.drawRect(layoutBorderSize, 
+                                         layoutBorderSize, 
+                                         unscaledWidth - layoutBorderSize * 2, 
+                                         unscaledHeight - layoutBorderSize * 2);
         else
-            chromeColorGraphics.drawRect(0, 0, unscaledWidth, unscaledHeight - 1);
+            chromeColorGraphics.drawRect(0, 
+                                         0, 
+                                         unscaledWidth, 
+                                         unscaledHeight - layoutBorderSize);
     }
 }
 }
