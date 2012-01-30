@@ -18,6 +18,11 @@ import flash.geom.Rectangle;
  *  The IRectangularBorder interface defines the interface that all classes 
  *  used for rectangular border skins should implement.
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IRectangularBorder extends IBorder
 {
@@ -33,6 +38,11 @@ public interface IRectangularBorder extends IBorder
 
     /**
      *  @copy mx.skins.RectangularBorder#backgroundImageBounds
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get backgroundImageBounds():Rectangle;
     function set backgroundImageBounds(value:Rectangle):void;
@@ -43,6 +53,11 @@ public interface IRectangularBorder extends IBorder
 
     /**
      *  @copy mx.skins.RectangularBorder#hasBackgroundImage
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get hasBackgroundImage():Boolean;
 
@@ -52,6 +67,11 @@ public interface IRectangularBorder extends IBorder
 
     /**
      *  @copy mx.skins.RectangularBorder#layoutBackgroundImage()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function layoutBackgroundImage():void;
 }
