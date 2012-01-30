@@ -3463,21 +3463,42 @@ public dynamic class UIMovieClip extends MovieClip
         }
     }
     
-    public function transformPointToParent(transformCenter:Vector3D,position:Vector3D,postLayoutPosition:Vector3D):void
+    /**
+     * A utility method to transform a point specified in the local
+     * coordinates of this object to its location in the object's parent's 
+     * coordinates. The pre-layout and post-layout result will be set on 
+     * the <code>position</code> and <code>postLayoutPosition</code>
+     * parameters, if they are non-null.
+     * 
+     * @param localPosition The point to be transformed, specified in the
+     * local coordinates of the object.
+     * @position A Vector3D point that will hold the pre-layout
+     * result. If null, the parameter is ignored.
+     * @postLayoutPosition A Vector3D point that will hold the post-layout
+     * result. If null, the parameter is ignored.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function transformPointToParent(localPosition:Vector3D,
+                                           position:Vector3D, 
+                                           postLayoutPosition:Vector3D):void
     {
         if (_layoutFeatures != null)
         {
-            _layoutFeatures.transformPointToParent(true, transformCenter,
+            _layoutFeatures.transformPointToParent(true, localPosition,
                 position, postLayoutPosition);
         }
         else
         {
             if (xformPt == null)
                 xformPt = new Point();
-            if (transformCenter)
+            if (localPosition)
             {
-                xformPt.x = transformCenter.x;
-                xformPt.y = transformCenter.y;
+                xformPt.x = localPosition.x;
+                xformPt.y = localPosition.y;
             }
             var tmp:Point = transform.matrix.transformPoint(xformPt);
             if (position != null)
