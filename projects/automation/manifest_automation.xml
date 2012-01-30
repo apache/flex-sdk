@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+
+<componentPackage>
+<component id="Automation" class="mx.automation.Automation"/>
+<component id="AutomationID" class="mx.automation.AutomationID"/>
+<component id="AutomationIDPart" class="mx.automation.AutomationIDPart"/>
+<component id="AutomationError" class="mx.automation.AutomationError"/>
+
+
+<component id="IAutomationClass" class="mx.automation.IAutomationClass"/>
+<component id="IAutomationClass2" class="mx.automation.IAutomationClass2"/>
+<component id="IAutomationEnvironment" class="mx.automation.IAutomationEnvironment"/>
+<component id="IAutomationEventDescriptor" class="mx.automation.IAutomationEventDescriptor"/>
+<component id="IAutomationManager" class="mx.automation.IAutomationManager"/>
+<component id="IAutomationManager2" class="mx.automation.IAutomationManager2"/>
+<component id="IAutomationMethodDescriptor" class="mx.automation.IAutomationMethodDescriptor"/>
+<component id="IAutomationMouseSimulator" class="mx.automation.IAutomationMouseSimulator"/>
+
+<component id="IAutomationObject" class="mx.automation.IAutomationObject"/>
+<component id="IAutomationObjectHelper" class="mx.automation.IAutomationObjectHelper"/>
+<component id="IAutomationPropertyDescriptor" class="mx.automation.IAutomationPropertyDescriptor"/>
+<component id="IAutomationTabularData" class="mx.automation.IAutomationTabularData"/>
+
+
+<component id="TextFieldAutomationHelper" class="mx.automation.delegates.TextFieldAutomationHelper"/>
+
+
+<component id="AdvancedDataGridItemSelectEvent" class="mx.automation.events.AdvancedDataGridItemSelectEvent"/>
+<component id="AdvancedDataGridHeaderShiftEvent" class="mx.automation.events.AdvancedDataGridHeaderShiftEvent"/>
+<component id="AutomationDragEvent" class="mx.automation.events.AutomationDragEvent"/>
+<component id="AutomationDragEventWithPositionInfo" class="mx.automation.events.AutomationDragEventWithPositionInfo"/>
+<component id="AutomationEvent" class="mx.automation.events.AutomationEvent"/>
+<component id="AutomationRecordEvent" class="mx.automation.events.AutomationRecordEvent"/>
+<component id="AutomationReplayEvent" class="mx.automation.events.AutomationReplayEvent"/>
+<component id="ChartSelectionChangeEvent" class="mx.automation.events.ChartSelectionChangeEvent"/>
+<component id="ListItemSelectEvent" class="mx.automation.events.ListItemSelectEvent"/>
+<component id="MarshalledAutomationEvent" class="mx.automation.events.MarshalledAutomationEvent"/>
+<component id="MenuShowEvent" class="mx.automation.events.MenuShowEvent"/>
+<component id="TextSelectionEvent" class="mx.automation.events.TextSelectionEvent"/>
+
+
+
+
+<component id="DragManagerAutomationImpl" class="mx.automation.delegates.DragManagerAutomationImpl"/>
+
+<component id="AccordionAutomationImpl" class="mx.automation.delegates.containers.AccordionAutomationImpl"/>
+<component id="ApplicationAutomationImpl" class="mx.automation.delegates.containers.ApplicationAutomationImpl"/>
+<component id="BoxAutomationImpl" class="mx.automation.delegates.containers.BoxAutomationImpl"/>
+<component id="CanvasAutomationImpl" class="mx.automation.delegates.containers.CanvasAutomationImpl"/>
+<component id="DividedBoxAutomationImpl" class="mx.automation.delegates.containers.DividedBoxAutomationImpl"/>
+<component id="FormAutomationImpl" class="mx.automation.delegates.containers.FormAutomationImpl"/>
+<component id="FormItemAutomationImpl" class="mx.automation.delegates.containers.FormItemAutomationImpl"/>
+<component id="PanelAutomationImpl" class="mx.automation.delegates.containers.PanelAutomationImpl"/>
+<component id="TabNavigatorAutomationImpl" class="mx.automation.delegates.containers.TabNavigatorAutomationImpl"/>
+<component id="ViewStackAutomationImpl" class="mx.automation.delegates.containers.ViewStackAutomationImpl"/>
+
+<component id="AlertAutomationImpl" class="mx.automation.delegates.controls.AlertAutomationImpl"/>
+<component id="AlertFormAutomationImpl" class="mx.automation.delegates.controls.AlertFormAutomationImpl"/>
+<component id="ButtonAutomationImpl" class="mx.automation.delegates.controls.ButtonAutomationImpl"/>
+<component id="ButtonBarAutomationImpl" class="mx.automation.delegates.controls.ButtonBarAutomationImpl"/>
+<component id="CheckBoxAutomationImpl" class="mx.automation.delegates.controls.CheckBoxAutomationImpl"/>
+<component id="ColorPickerAutomationImpl" class="mx.automation.delegates.controls.ColorPickerAutomationImpl"/>
+<component id="ComboBaseAutomationImpl" class="mx.automation.delegates.controls.ComboBaseAutomationImpl"/>
+<component id="ComboBoxAutomationImpl" class="mx.automation.delegates.controls.ComboBoxAutomationImpl"/>
+<component id="DataGridAutomationImpl" class="mx.automation.delegates.controls.DataGridAutomationImpl"/>
+<component id="DataGridItemRendererAutomationImpl" class="mx.automation.delegates.controls.DataGridItemRendererAutomationImpl"/>
+<component id="DateChooserAutomationImpl" class="mx.automation.delegates.controls.DateChooserAutomationImpl"/>
+<component id="DateFieldAutomationImpl" class="mx.automation.delegates.controls.DateFieldAutomationImpl"/>
+<component id="LabelAutomationImpl" class="mx.automation.delegates.controls.LabelAutomationImpl"/>
+<component id="LinkBarAutomationImpl" class="mx.automation.delegates.controls.LinkBarAutomationImpl"/>
+<component id="ListAutomationImpl" class="mx.automation.delegates.controls.ListAutomationImpl"/>
+<component id="ListBaseAutomationImpl" class="mx.automation.delegates.controls.ListBaseAutomationImpl"/>
+<component id="ListBaseContentHolderAutomationImpl" class="mx.automation.delegates.controls.ListBaseContentHolderAutomationImpl"/>
+<component id="ListItemRendererAutomationImpl" class="mx.automation.delegates.controls.ListItemRendererAutomationImpl"/>
+<component id="MenuAutomationImpl" class="mx.automation.delegates.controls.MenuAutomationImpl"/>
+<component id="MenuBarAutomationImpl" class="mx.automation.delegates.controls.MenuBarAutomationImpl"/>
+<component id="MenuBarItemAutomationImpl" class="mx.automation.delegates.controls.MenuBarItemAutomationImpl"/>
+<component id="MenuItemRendererAutomationImpl" class="mx.automation.delegates.controls.MenuItemRendererAutomationImpl"/>
+<component id="NavBarAutomationImpl" class="mx.automation.delegates.controls.NavBarAutomationImpl"/>
+<component id="NumericStepperAutomationImpl" class="mx.automation.delegates.controls.NumericStepperAutomationImpl"/>
+<component id="PopUpButtonAutomationImpl" class="mx.automation.delegates.controls.PopUpButtonAutomationImpl"/>
+<component id="ProgressBarAutomationImpl" class="mx.automation.delegates.controls.ProgressBarAutomationImpl"/>
+<component id="RadioButtonAutomationImpl" class="mx.automation.delegates.controls.RadioButtonAutomationImpl"/>
+<component id="ScrollBarAutomationImpl" class="mx.automation.delegates.controls.ScrollBarAutomationImpl"/>
+<component id="SliderAutomationImpl" class="mx.automation.delegates.controls.SliderAutomationImpl"/>
+<component id="SWFLoaderAutomationImpl" class="mx.automation.delegates.controls.SWFLoaderAutomationImpl"/>
+<component id="TextAreaAutomationImpl" class="mx.automation.delegates.controls.TextAreaAutomationImpl"/>
+<component id="TextInputAutomationImpl" class="mx.automation.delegates.controls.TextInputAutomationImpl"/>
+<component id="TileBaseAutomationImpl" class="mx.automation.delegates.controls.TileBaseAutomationImpl"/>
+<component id="TileListItemRendererAutomationImpl" class="mx.automation.delegates.controls.TileListItemRendererAutomationImpl"/>
+<component id="ToggleButtonBarAutomationImpl" class="mx.automation.delegates.controls.ToggleButtonBarAutomationImpl"/>
+<component id="ToolTipAutomationImpl" class="mx.automation.delegates.controls.ToolTipAutomationImpl"/>
+<component id="TreeAutomationImpl" class="mx.automation.delegates.controls.TreeAutomationImpl"/>
+<component id="TreeItemRendererAutomationImpl" class="mx.automation.delegates.controls.TreeItemRendererAutomationImpl"/>
+<component id="VideoDisplayAutomationImpl" class="mx.automation.delegates.controls.VideoDisplayAutomationImpl"/>
+
+<component id="ContainerAutomationImpl" class="mx.automation.delegates.core.ContainerAutomationImpl"/>
+<component id="RepeaterAutomationImpl" class="mx.automation.delegates.core.RepeaterAutomationImpl"/>
+<component id="ScrollControlBaseAutomationImpl" class="mx.automation.delegates.core.ScrollControlBaseAutomationImpl"/>
+<component id="UIComponentAutomationImpl" class="mx.automation.delegates.core.UIComponentAutomationImpl"/>
+<component id="UITextFieldAutomationImpl" class="mx.automation.delegates.core.UITextFieldAutomationImpl"/>
+
+<component id="AdvancedListBaseTabularData" class="mx.automation.tabularData.AdvancedListBaseTabularData"/>
+<component id="AdvancedDataGridTabularData" class="mx.automation.tabularData.AdvancedDataGridTabularData"/>
+<component id="OLAPDataGridTabularData" class="mx.automation.tabularData.OLAPDataGridTabularData"/>
+
+</componentPackage>
