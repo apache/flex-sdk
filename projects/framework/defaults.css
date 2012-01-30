@@ -490,8 +490,9 @@ ComboBox
 	dropdownStyleName: "comboDropdown";
 /*	editableDisabledSkin: null
 	editableDownSkin: null
-	editableOverSkin: null
-	editableUpSkin: null 
+	editableOverSkin: null */
+	editableSkin: ClassReference("mx.skins.spark.EditableComboBoxSkin");
+/*	editableUpSkin: null 
 	fontWeight: "bold"; */
 	leading: 0;
 /*	overSkin: null */
