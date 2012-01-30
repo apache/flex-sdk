@@ -29,6 +29,9 @@ package spark.automation.tabularData
     
     use namespace mx_internal;
     
+    /**
+     *  @private
+     */
     public class SparkDataGridTabularData implements IAutomationTabularData
     {
         /**
