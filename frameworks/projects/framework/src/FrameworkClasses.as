@@ -86,7 +86,7 @@ internal class FrameworkClasses
 	import mx.managers.marshalClasses.ToolTipManagerMarshalMixin; ToolTipManagerMarshalMixin;
 	import mx.managers.systemClasses.ActiveWindowManager; ActiveWindowManager;
 	import mx.managers.systemClasses.ChildManager; ChildManager;
-	import mx.managers.systemClasses.MarshallPlan; MarshallPlan;
+	import mx.managers.systemClasses.MarshallingSupport; MarshallingSupport;
 	import mx.messaging.config.LoaderConfig; LoaderConfig;
 	import mx.modules.IModuleInfo; IModuleInfo;
 	import mx.modules.Module; Module;
