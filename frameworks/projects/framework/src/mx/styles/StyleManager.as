@@ -171,13 +171,13 @@ public class StyleManager
     }
 
     /**
-     *  Determines whether any of the selectors for this subject declared a
-     *  pseudo selector (which is state specific). This is used to avoid
-     *  unnecessary style regeneration between state changes.
+     *  Determines whether any of the selectors declared a pseudo selector
+     *  for the given state. This is used to avoid unnecessary style
+     *  regeneration between state changes.
      */ 
-    public static function hasPseudoSelector(subject:String):Boolean
+    public static function hasPseudoSelector(state:String):Boolean
     {
-        return impl.hasPseudoSelector(subject);
+        return impl.hasPseudoSelector(state);
     }
 
     /**
