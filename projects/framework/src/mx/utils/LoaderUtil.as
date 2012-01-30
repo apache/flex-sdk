@@ -12,10 +12,13 @@
 package mx.utils
 {
 
+import flash.display.DisplayObject;
 import flash.display.LoaderInfo;
 import flash.system.Capabilities;
 
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
+import mx.events.Request;
 
 use namespace mx_internal;
 
@@ -189,6 +192,58 @@ use namespace mx_internal;
         }
 
         return absoluteURL;
+    }
+    
+    /**
+     *  @private
+     * 
+     *  @param moduleFactory The module factory of the application or module 
+     *  to get load information for. If the moduleFactory has not loaded the 
+     *  module, then its parent is asked for load information. Each successive
+     *  parent is asked until the load information is found or there are no
+     *  more parents to ask. Only parents in parent ApplicationDomains are 
+     *  searched. Applications in different security domains or sibling
+     *  ApplicationDomains do not share RSLs.
+     *  
+     *  @param digest: The digest of the RSL to load.
+     *  @return The digest for loaded RSL if found, null otherwise. 
+     */
+    mx_internal static function getRSLLoadData(moduleFactory:IFlexModuleFactory, digest:String):String
+    {
+        var currentModuleFactory:IFlexModuleFactory = moduleFactory;
+        while (currentModuleFactory != null)
+        {
+            var cdRSLs:Array = currentModuleFactory.info()["cdRsls"];
+              
+            if (cdRSLs && cdRSLs.length > 0)
+            {
+                // loop over info to find digest match
+                var n:int = cdRSLs.length;
+                for (var i:int = 0; i < n; i++)
+                {
+                    var rslConfiguration:Object = cdRSLs[i];
+                    var m:int = rslConfiguration.length;
+                    for (var j:int = 0; j < m; j++)
+                    {
+                        if (rslConfiguration[j].digest == digest)
+                        {
+                            return digest;
+                        }
+                    }
+                }
+            }
+                
+            // if didn't find object, then check the parent
+            var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
+            DisplayObject(moduleFactory).dispatchEvent(request); 
+            currentModuleFactory = request.value as IFlexModuleFactory;
+            if (currentModuleFactory)
+            {
+                return LoaderUtil.getRSLLoadData(currentModuleFactory, digest);
+            }
+        }
+        
+        return null;
     }
     
     /**
