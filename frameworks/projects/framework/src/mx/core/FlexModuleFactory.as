@@ -501,7 +501,7 @@ public class FlexModuleFactory extends MovieClip
             n = rsls.length;
             for (i = 0; i < n; i++)
             {
-                var node:RSLItem = new RSLItem(rsls[i].url);
+                var node:RSLItem = new RSLItem(rsls[i].url, LoaderUtil.normalizeURL(this.loaderInfo));
                 rslList.push(node);
             }
         }
