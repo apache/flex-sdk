@@ -140,7 +140,6 @@ include "../styles/metadata/GapStyles.as"
  *  &lt;s:IconItemRenderer
  *   <strong>Properties</strong>
  *    decorator=""
- *    decoratorDisplay="null"
  *    iconContentLoader="<i>See property description</i>"
  *    iconField="null"
  *    iconFillMode=""scale
@@ -152,7 +151,6 @@ include "../styles/metadata/GapStyles.as"
  *    label=""
  *    labelField="null"
  *    labelFunction="null"
- *    messageDisplay="StyleableTextField"
  *    messageField="null"
  *    messageFunction="null"
  * 
