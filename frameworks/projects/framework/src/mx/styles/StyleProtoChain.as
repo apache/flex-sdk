@@ -17,9 +17,11 @@ import flash.display.DisplayObjectContainer;
 import flash.system.ApplicationDomain;
 import flash.utils.getQualifiedClassName;
 import flash.utils.getQualifiedSuperclassName;
+
 import mx.core.ApplicationGlobals;
 import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
+
 import mx.core.IFontContextComponent;
 import mx.core.IInvalidating;
 import mx.core.IFlexModuleFactory;
@@ -31,6 +33,7 @@ import mx.managers.SystemManager;
 import mx.modules.ModuleManager;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProxy;
+import mx.utils.OrderedObject;
 
 use namespace mx_internal;
 
@@ -94,13 +97,16 @@ public class StyleProtoChain
 
         var className:String = getQualifiedClassName(object)
         className = className.replace("::", ".");
-        
-        var cache:Array = StyleManager.typeSelectorCache[className];
+
+        var advancedObject:IAdvancedStyleClient = object as IAdvancedStyleClient;
+
+        var cacheKey:String = advancedObject ? getAdvancedCacheKey(className, advancedObject) : className;
+        var cache:Array = StyleManager.typeSelectorCache[cacheKey];
         if (cache)
-            return cache;
-                
+           return cache;
+
         var decls:Array = [];
-        var classNames:Array = [];
+        var cacheKeys:Array = [];
         var caches:Array = [];
         var declcache:Array = [];
 
@@ -109,31 +115,42 @@ public class StyleProtoChain
                className != "mx.core.UITextField" &&
                className != "mx.graphics.graphicsClasses.GraphicElement")
         {
-            var s:CSSStyleDeclaration;
-            cache = StyleManager.typeSelectorCache[className];
+            cache = StyleManager.typeSelectorCache[cacheKey];
             if (cache)
             {
                 decls = decls.concat(cache);
                 break;
             }
 
-            s = StyleManager.getStyleDeclaration(className);
-            
-            if (s)
+            var ds:Array = null;
+            if (advancedObject)
             {
-                decls.unshift(s);
-                // We found one so the next set define the selectors
-                // for this found class and its ancestors.
-                // Save the old list and start a new list.
-                classNames.push(className);
-                caches.push(classNames);
-                declcache.push(decls);
-                decls = [];
-                classNames = [];
+                var d:Object = StyleManager.getStyleDeclarations(className);
+                if (d)
+                    ds = getMatchingStyleDeclarations(d, advancedObject, true);
             }
             else
             {
-                classNames.push(className);
+                var s:CSSStyleDeclaration = StyleManager.getStyleDeclaration(className);
+                if (s)
+                    ds = [s];
+            }
+
+            if (ds && ds.length > 0)
+            {
+                decls = ds.concat(decls);
+                // We found one so the next set define the selectors
+                // for this found class and its ancestors.
+                // Save the old list and start a new list.
+                cacheKeys.push(cacheKey);
+                caches.push(cacheKeys);
+                declcache.push(decls);
+                decls = [];
+                cacheKeys = [];
+            }
+            else
+            {
+                cacheKeys.push(cacheKey);
             }
 
             try
@@ -141,6 +158,8 @@ public class StyleProtoChain
                 className = getQualifiedSuperclassName(
                     myApplicationDomain.getDefinition(className));
                 className = className.replace("::", ".");
+
+                cacheKey = advancedObject ? getAdvancedCacheKey(className, advancedObject) : className;
             }
             catch(e:ReferenceError)
             {
@@ -148,17 +167,17 @@ public class StyleProtoChain
             }
         }
 
-        caches.push(classNames);
+        caches.push(cacheKeys);
         declcache.push(decls);
         decls = [];
-        
+
         while (caches.length)
         {
-            classNames = caches.pop();
+            cacheKeys = caches.pop();
             decls = decls.concat(declcache.pop());
-            while (classNames.length)
+            while (cacheKeys.length)
             {
-                StyleManager.typeSelectorCache[classNames.pop()] = decls;
+                StyleManager.typeSelectorCache[cacheKeys.pop()] = decls;
             }
         }
 
@@ -176,15 +195,17 @@ public class StyleProtoChain
         var i:int;
 
         var uicObject:UIComponent = object as UIComponent;
-        
-        var classSelectors:Array = [];
+        var advancedObject:IAdvancedStyleClient = object as IAdvancedStyleClient;
+        var styleDeclaration:CSSStyleDeclaration = null;
+
+        var globalClassSelectors:Array = [];
         var styleName:Object = object.styleName;
         if (styleName)
         {
             if (styleName is CSSStyleDeclaration)
             {
-                // Get the style sheet referenced by the styleName property.
-                classSelectors.push(CSSStyleDeclaration(styleName));
+                // Get the styles referenced by the styleName property.
+                globalClassSelectors.push(CSSStyleDeclaration(styleName));
             }
             else if (styleName is IFlexDisplayObject || styleName is IStyleClient)
             {
@@ -195,15 +216,16 @@ public class StyleProtoChain
             }
             else if (styleName is String)
             {
-                // Get the style sheets referenced by the styleName property             
+                // Get the styles referenced by the styleName property             
                 var styleNames:Array = styleName.split(/\s+/);
                 n = styleNames.length;
                 for (i = 0; i < n; i++)
                 {
                     if (styleNames[i].length)
                     {
-                        classSelectors.push(
-                            StyleManager.getStyleDeclaration("." + styleNames[i]));
+                        styleDeclaration = StyleManager.getStyleDeclaration("." + styleNames[i]);
+                        if (styleDeclaration)
+                            globalClassSelectors.push(styleDeclaration);
                     }
                 }
             }
@@ -256,47 +278,109 @@ public class StyleProtoChain
             }
         }
 
-        // Working backwards up the list, the next element in the
-        // search path is the type selector
-        var typeSelectors:Array = object.getClassStyleDeclarations();
-        n = typeSelectors.length;
-        for (i = 0; i < n; i++)
+        var styleDeclarations:Array = null;
+
+        // If we have an advanced style client, we handle this separately
+        // because of the considerably more complex selector matches...
+        if (advancedObject)
         {
-            var typeSelector:CSSStyleDeclaration = typeSelectors[i];
-            
-            inheritChain =
-                typeSelector.addStyleToProtoChain(inheritChain, uicObject);
+            styleDeclarations = [];
 
-            nonInheritChain =
-                typeSelector.addStyleToProtoChain(nonInheritChain, uicObject);
-
-            if (typeSelector.effects)
-                object.registerEffects(typeSelector.effects);
-        }
-
-        // Next are the class selectors
-        n = classSelectors.length;
-        for (i = 0; i < n; i++)
-        {
-            var classSelector:CSSStyleDeclaration = classSelectors[i];
-            if (classSelector)
+            // Check for global class selector that matches our styleName(s)
+            if (globalClassSelectors.length > 0)
             {
+                styleDeclarations = styleDeclarations.concat(globalClassSelectors);
+            }
+
+            // Check for a global pseudo selector that matches our current state.
+            if (advancedObject.currentState)
+            {
+                styleDeclaration = StyleManager.getStyleDeclaration(":" + advancedObject.currentState);
+                if (styleDeclaration)
+                    styleDeclarations.push(styleDeclaration);
+            }
+
+            // Check for a global id selector that matches our current id
+            if (advancedObject.id)
+            {
+                styleDeclaration = StyleManager.getStyleDeclaration("#" + advancedObject.id);
+                if (styleDeclaration)
+                    styleDeclarations.push(styleDeclaration);
+            }
+
+            // If we had global selectors, concatenate them with our type
+            // selectors and resort by specificity...
+            if (styleDeclarations.length > 0)
+            {
+                styleDeclarations = styleDeclarations.concat(advancedObject.getClassStyleDeclarations());
+                styleDeclarations = styleDeclarations.sortOn("specificity", Array.NUMERIC);
+            }
+            else
+            {
+                // We only have type selectors
+                styleDeclarations = advancedObject.getClassStyleDeclarations();
+            }
+
+            n = styleDeclarations.length;
+            for (i = 0; i < n; i++)
+            {
+                styleDeclaration = styleDeclarations[i];
+                
                 inheritChain =
-                    classSelector.addStyleToProtoChain(inheritChain, uicObject);
-
+                    styleDeclaration.addStyleToProtoChain(inheritChain, uicObject);
+    
                 nonInheritChain =
-                    classSelector.addStyleToProtoChain(nonInheritChain, uicObject);
+                    styleDeclaration.addStyleToProtoChain(nonInheritChain, uicObject);
 
-                if (classSelector.effects)
-                    object.registerEffects(classSelector.effects);
+                if (styleDeclaration.effects)
+                    object.registerEffects(styleDeclaration.effects);
+            }
+        }
+        // Otherwise we use the legacy Flex 3 logic for simple selectors.
+        else
+        {
+            // Working backwards up the list, the next element in the
+            // search path is the type selector
+            styleDeclarations = object.getClassStyleDeclarations();
+            n = styleDeclarations.length;
+            for (i = 0; i < n; i++)
+            {
+                styleDeclaration = styleDeclarations[i];
+                
+                inheritChain =
+                    styleDeclaration.addStyleToProtoChain(inheritChain, uicObject);
+    
+                nonInheritChain =
+                    styleDeclaration.addStyleToProtoChain(nonInheritChain, uicObject);
+    
+                if (styleDeclaration.effects)
+                    object.registerEffects(styleDeclaration.effects);
+            }
+
+            // Next are the class selectors
+            n = globalClassSelectors.length;
+            for (i = 0; i < n; i++)
+            {
+                styleDeclaration = globalClassSelectors[i];
+                if (styleDeclaration)
+                {
+                    inheritChain =
+                        styleDeclaration.addStyleToProtoChain(inheritChain, uicObject);
+    
+                    nonInheritChain =
+                        styleDeclaration.addStyleToProtoChain(nonInheritChain, uicObject);
+    
+                    if (styleDeclaration.effects)
+                        object.registerEffects(styleDeclaration.effects);
+                }
             }
         }
 
         // Finally, we'll add the in-line styles
         // to the head of the proto chain.
         
-        var styleDeclaration:CSSStyleDeclaration = object.styleDeclaration;
-        
+        styleDeclaration = object.styleDeclaration;
+
         object.inheritingStyles =
             styleDeclaration ?
             styleDeclaration.addStyleToProtoChain(inheritChain, uicObject) :
@@ -700,6 +784,57 @@ public class StyleProtoChain
             if (StyleManager.isParentDisplayListInvalidatingStyle(styleProp))
                 parent.invalidateDisplayList();
         }
+    }
+
+    /**
+     *  @private  
+     *  Find all matching style declarations for an IStyleClient2 component.
+     *
+     *  @param declarations - an Array of declarations that is searched for
+     *  matches.
+     *  @param object - an instance of the component to match.
+     *
+     *  @return An Array of style declarations for the given subject.
+     */
+    private static function getMatchingStyleDeclarations(declarations:Object,
+            object:IAdvancedStyleClient, ignoreType:Boolean=false):Array // of CSSStyleDeclaration
+    {
+        var matchingDecls:Array = [];
+
+        // Find the subset of declarations that match this component
+        for (var selector:String in declarations)
+        {
+            var decl:CSSStyleDeclaration = declarations[selector];
+            if (decl.isMatch(object, ignoreType))
+                matchingDecls.push(decl);
+        }
+
+        // Then sort by specificity...
+        // TODO: Check that for equal entries the last one added remains
+        // last (as "the last should win")...
+        if (matchingDecls.length > 0)
+            matchingDecls.sortOn("specificity", Array.NUMERIC);
+
+        return matchingDecls;
+    }
+
+    private static function getAdvancedCacheKey(className:String, object:IAdvancedStyleClient):String
+    {
+        var cacheKey:String = className;
+
+        if (object.id)
+            cacheKey += object.id;
+
+        if (object.styleName)
+            cacheKey += object.styleName;
+
+        if (object.currentState)
+            cacheKey += object.currentState;
+
+        if (object.styleParent)
+            cacheKey += getAdvancedCacheKey(object.styleParent.className, object.styleParent);
+
+        return cacheKey;
     }
 }
 
