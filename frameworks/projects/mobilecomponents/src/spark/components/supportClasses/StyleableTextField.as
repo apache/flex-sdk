@@ -207,6 +207,29 @@ public class StyleableTextField extends FlexTextField
     }
     
     /**
+     * 
+     *  Name of the style to use for determining the text color
+     */
+    private var _colorName:String = "color";
+    
+    mx_internal function set colorName(value:String):void
+    {
+        if (_colorName == value)
+            return;
+        
+        _colorName = value;
+        invalidateStyleFlag = true;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function get colorName():String
+    {
+        return _colorName;
+    }
+    
+    /**
      *  @private
      *  Used in place of TextField#textWidth and TextField#textHeight to
      *  provide consistent size values when accounting for player scaling
@@ -1102,7 +1125,10 @@ public class StyleableTextField extends FlexTextField
         if (!_inlineStyleObject)
             _inlineStyleObject = {};
         
-        _inlineStyleObject[styleProp] = value;
+        if (value == null)
+            delete  _inlineStyleObject[styleProp];
+        else
+            _inlineStyleObject[styleProp] = value;
         
         styleChanged(styleProp);
     }
@@ -2081,10 +2107,7 @@ public class StyleableTextField extends FlexTextField
      *  and there seems to be less overhead with this approach).
      */
     private var _inlineStyleObject:Object;
-    
-    // Name of the style to use for determining the text color
-    mx_internal var colorName:String = "color";
-    
+        
     // Whether or not we want to size and position the text field based upon its
     // tight text bounds.  Use useTightTextBounds == true when you want precise
     // text placement.
