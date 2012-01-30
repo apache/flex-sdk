@@ -29,6 +29,8 @@ public class MatrixUtil
 {
     include "../core/Version.as";
 
+	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
+
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -51,6 +53,67 @@ public class MatrixUtil
         m.translate(transformX + x, transformY + y);
         return m;
     }
+    
+   	/**
+	 *  Decompose a matrix into its component scale, rotation, and translation parts.
+	 *  The Vector of Numbers passed in the components parameter will be 
+	 *  populated by this function with the component parts. 
+	 * 
+	 *  @param components Vector which holds the component scale, rotation 
+	 *  and translation values.
+	 *  x = components[0]
+	 *  y = components[1]
+	 *  rotation = components[2]
+	 *  scaleX = components[3]
+	 *  scaleY = components[4]
+	 * 
+	 *  @param matrix The matrix to decompose
+	 *  @param transformX The x value of the transform center
+	 *  @param transformY The y value of the transform center
+	 */	
+	public static function decomposeMatrix(components:Vector.<Number>,
+										   matrix:Matrix,
+										   transformX:Number = 0,
+										   transformY:Number = 0):void
+	{
+	    // else decompose matrix.  Don't use MatrixDecompose(), it can return erronous values
+	    //   when negative scales (and therefore skews) are in use.
+	    var Ux:Number;
+	    var Uy:Number;
+	    var Vx:Number;
+	    var Vy:Number;
+	
+	    Ux = matrix.a;
+	    Uy = matrix.b;
+	    components[3] = Math.sqrt(Ux*Ux + Uy*Uy);
+	 
+	    Vx = matrix.c;
+	    Vy = matrix.d;
+	    components[4] = Math.sqrt(Vx*Vx + Vy*Vy );
+	 
+	          // sign of the matrix determinant will tell us if the space is inverted by a 180 degree skew or not.
+	    var determinant:Number = Ux*Vy - Uy*Vx;
+	    if (determinant < 0) // if so, choose y-axis scale as the skewed one.  Unfortunately, its impossible to tell if it originally was the y or x axis that had the negative scale/skew.
+	    {
+	          components[4] = -(components[4]);
+	          Vx = -Vx;
+	          Vy = -Vy;
+	    }
+	 
+	    components[2] = Math.atan2( Uy, Ux ) / RADIANS_PER_DEGREES;
+	    
+	    if(transformX != 0 || transformY != 0)     
+	    {
+	    	var postTransformCenter:Point = matrix.transformPoint(new Point(transformX,transformY));
+	    	components[0] = postTransformCenter.x - transformX;
+	    	components[1] = postTransformCenter.y - transformY;
+	    }
+	    else
+	    {
+		    components[0] = matrix.tx;
+		    components[1] = matrix.ty;
+		}
+	}
 
     public static function applyTransforms(target:DisplayObject, matrix:Matrix = null, 
                                                 x:Number = NaN, y:Number = NaN,
