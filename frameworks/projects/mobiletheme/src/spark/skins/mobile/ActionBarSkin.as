@@ -59,6 +59,14 @@ public class ActionBarSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function ActionBarSkin()
     {
         super();
@@ -166,6 +174,9 @@ public class ActionBarSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     override protected function createChildren():void
     {
         border = new borderClass();
@@ -210,6 +221,9 @@ public class ActionBarSkin extends MobileSkin
         addChild(titleDisplay);
     }
     
+    /**
+     *  @private
+     */
     override protected function measure():void
     {
         var titleWidth:Number = 0;
@@ -246,6 +260,9 @@ public class ActionBarSkin extends MobileSkin
             + (layoutBorderHeight * 2);
     }
     
+    /**
+     *  @private
+     */
     override protected function commitCurrentState():void
     {
         super.commitCurrentState();
@@ -258,6 +275,9 @@ public class ActionBarSkin extends MobileSkin
         invalidateDisplayList();
     }
     
+    /**
+     *  @private
+     */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
     {
@@ -460,6 +480,9 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         title = "";
     }
     
+    /**
+     *  @private
+     */
     override protected function createChildren():void
     {
         super.createChildren();
@@ -486,6 +509,9 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         addChild(titleDisplay);
     }
     
+    /**
+     *  @private
+     */
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -504,6 +530,9 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         }
     }
     
+    /**
+     *  @private
+     */
     override protected function measure():void
     {
         var textWidth:Number = 0;
@@ -536,7 +565,10 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         measuredHeight = textHeight;
     }
     
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+     /**
+     *  @private
+     */
+   override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
