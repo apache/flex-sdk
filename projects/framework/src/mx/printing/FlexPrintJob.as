@@ -450,9 +450,18 @@ public class FlexPrintJob
         {
             if (!isNaN(appExplicitWidth)) //&& !isNaN(appExplicitHeight))
             {
-                UIComponent(obj).setActualSize(appExplicitWidth,appExplicitHeight);
-                //UIComponent(obj).explicitWidth = appExplicitWidth;
-                //UIComponent(obj).explicitHeight = appExplicitHeight;
+				// use setActualSize so it doesn't invalidate.
+				// nobody else should be resizing unless it is a sub-app
+				UIComponent(obj).setActualSize(appExplicitWidth,appExplicitHeight);
+				
+				// is it a sub-app?
+				if (!obj.systemManager.isTopLevelRoot())
+				{
+					// invalidate for sub-apps since they have to be re-layed out by
+					// the SWFLoader in some cases
+                	UIComponent(obj).explicitWidth = appExplicitWidth;
+                	UIComponent(obj).explicitHeight = appExplicitHeight;
+				}
 
                 appExplicitWidth = NaN;
                 appExplicitHeight = NaN;
