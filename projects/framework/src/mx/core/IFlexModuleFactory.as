@@ -125,6 +125,12 @@ public interface IFlexModuleFactory
      *  call will, by default, allow the same domains as have been allowed by
      *  previous calls to this method. This behavior is controlled by the <code>
      *  allowDomainsInNewRSLs</code> property.
+     *
+     *  @param domains One or more strings or URLRequest objects that name 
+     *  the domains from which you want to allow access. 
+     *  You can specify the special domain "*" to allow access from all domains. 
+     *
+     *  @see flash.system.Security#allowDomain()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.2
@@ -141,6 +147,12 @@ public interface IFlexModuleFactory
      *  allow the same domains as have been allowed by
      *  previous calls to this method. This behavior is controlled by the <code>
      *  allowInsecureDomainsInNewRSLs</code> property.
+     *
+     *  @param domains One or more strings or URLRequest objects that name 
+     *  the domains from which you want to allow access. 
+     *  You can specify the special domain "*" to allow access from all domains. 
+     *
+     *  @see flash.system.Security#allowInsecureDomain()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.2
@@ -195,6 +207,10 @@ public interface IFlexModuleFactory
      *  Get the implementation for an interface.
      *  Similar to <code>Singleton.getInstance()</code> method, but per-
      *  IFlexModuleFactory.
+     *
+     *  @param interfaceName The interface.
+     *
+     *  @return The implementation for the interface.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -234,6 +250,10 @@ public interface IFlexModuleFactory
      *  Register an implementation for an interface.
      *  Similar to the <code>Singleton.registerClass()</code> method, but per-
      *  IFlexModuleFactory, and takes an instance not a class.
+     *
+     *  @param interfaceName The interface.
+     *
+     *  @param impl The implementation.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
