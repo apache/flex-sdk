@@ -63,14 +63,13 @@ public class HScrollBarSkin extends MobileSkin
     override protected function measure():void
     {
         // !! should use something better here
-        hostComponent.measuredWidth = 40;
-        hostComponent.measuredHeight = 8;   
+        measuredWidth = 40;
+        measuredHeight = 8;
     }
     
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        track.width = unscaledWidth;
-        track.height = unscaledHeight;
+        resizePart(track, unscaledWidth, unscaledHeight);
     }
 }
 }
