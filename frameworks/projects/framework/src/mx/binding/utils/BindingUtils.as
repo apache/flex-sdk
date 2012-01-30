@@ -84,16 +84,22 @@ public class BindingUtils
      *  Typically these tags are used to indicate fine-grained value changes, 
      *  such as modifications in a text field prior to confirmation.
      *
+     *  @param useWeakReference (default = false) Determines whether
+     *  the reference to the host is strong or weak. A strong
+     *  reference (the default) prevents the host from being
+     *  garbage-collected. A weak reference does not.
+     *
      *  @return A ChangeWatcher instance, if at least one property name has
      *  been specified to the <code>chain</code> argument; null otherwise. 
      */
     public static function bindProperty(
                                 site:Object, prop:String,
                                 host:Object, chain:Object,
-                                commitOnly:Boolean = false):ChangeWatcher
+                                commitOnly:Boolean = false,
+                                useWeakReference:Boolean = false):ChangeWatcher
     {
         var w:ChangeWatcher =
-            ChangeWatcher.watch(host, chain, null, commitOnly);
+            ChangeWatcher.watch(host, chain, null, commitOnly, useWeakReference);
         
         if (w != null)
         {
@@ -128,15 +134,21 @@ public class BindingUtils
      *  called only on committing change events.
      *  See the <code>bindProperty()</code> method for more information.
      *
+     *  @param useWeakReference (default = false) Determines whether
+     *  the reference to the host is strong or weak. A strong
+     *  reference (the default) prevents the host from being
+     *  garbage-collected. A weak reference does not.
+     *
      *  @return A ChangeWatcher instance, if at least one property name
      *  has been  specified to the <code>chain</code> argument; null otherwise. 
      */
     public static function bindSetter(setter:Function, host:Object,
                                       chain:Object,
-                                      commitOnly:Boolean = false):ChangeWatcher
+                                      commitOnly:Boolean = false,
+                                      useWeakReference:Boolean = false):ChangeWatcher
     {
         var w:ChangeWatcher =
-            ChangeWatcher.watch(host, chain, null, commitOnly);
+            ChangeWatcher.watch(host, chain, null, commitOnly, useWeakReference);
         
         if (w != null)
         {
