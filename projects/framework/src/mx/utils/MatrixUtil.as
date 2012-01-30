@@ -17,15 +17,14 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
+[ExcludeClass]
+
 /**
- *  Documentation is not currently available.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @private
+ *  The MatrixUtil class is for internal use only.
+ *  Class for matrix and geometric related math routines.
  */
-public class MatrixUtil
+public final class MatrixUtil
 {
     include "../core/Version.as";
 
@@ -49,7 +48,7 @@ public class MatrixUtil
         m.translate(-transformX, -transformY);
         m.scale(scaleX, scaleY);
         if (rotation != 0) 
-            m.rotate(rotationInRadians(rotation));
+            m.rotate(rotation / 180 * Math.PI);
         m.translate(transformX + x, transformY + y);
         return m;
     }
@@ -115,35 +114,6 @@ public class MatrixUtil
 		}
 	}
 
-    public static function applyTransforms(target:DisplayObject, matrix:Matrix = null, 
-                                                x:Number = NaN, y:Number = NaN,
-                                                scaleX:Number = NaN, scaleY:Number = NaN,
-                                                rotation:Number = NaN,
-                                                transformX:Number = NaN, transformY:Number = NaN):void
-    {
-        if (matrix == null)
-        {
-            var newX:Number = !isNaN(x) ? x : target.x;
-            var newY:Number = !isNaN(y) ? y : target.y;
-            var newScaleX:Number = !isNaN(scaleX) ? scaleX : target.scaleX;
-            var newScaleY:Number = !isNaN(scaleY) ? scaleY : target.scaleY;
-            var newRotation:Number = !isNaN(rotation) ? rotation : target.rotation;
-            transformX = isNaN(transformX) ? 0 : transformX;
-            transformY = isNaN(transformY) ? 0 : transformY;
-			target.transform.matrix = composeMatrix(newX, newY, newScaleX, newScaleY, newRotation, transformX, transformY);
-		}
-		else
-		{
-			target.transform.matrix = matrix;
-		}
-	} 
-		
-	public static function rotationInRadians(value:Number):Number
-	{
-		return value / 180 * Math.PI;
-	}
-
-    
     /**
      *  @return Returns the union of <code>rect</code> and
      *  <code>Rectangle(left, top, right - left, bottom - top)</code>.
@@ -353,7 +323,6 @@ public class MatrixUtil
 	    return pt1;
 	}
 
-		
 	/**
 	 *  @param bounds width and height to be transformed.
 	 *  @param matrix The transfomration matrix. 
@@ -415,7 +384,6 @@ public class MatrixUtil
 	 */
 	public static function isDeltaIdentity(matrix:Matrix):Boolean
 	{
-	    // TODO EGeorgie: 2.5D support
 	    if( matrix.a == 1 && matrix.d == 1 &&
 	    	matrix.b == 0 && matrix.c == 0)
             return true;
