@@ -37,7 +37,6 @@ public class FlexLoader extends Loader
      *  <p>Sets the <code>name</code> property to a string
      *  returned by the <code>createUniqueName()</code>
      *  method of the mx.utils.NameUtils class.</p>
-     *
      *  <p>This string is the name of the object's class concatenated
      *  with an integer that is unique within the application,
      *  such as <code>"FlexLoader13"</code>.</p>
