@@ -77,7 +77,7 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
         super();
         this.list = list;
     }
-	
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -220,7 +220,7 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *     return "[" + index + "request failed]";        
      * }
      *   </pre>
-     *  </p>
+     *  
      * 
      *  <p>Setting this property does not affect failed items that were already
      *  created.  Setting this property to null will prevent failed items from being created.
@@ -304,11 +304,11 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function get length():int
-	{
-	    return (list) ? list.length : 0;
-	}
-	
+    public function get length():int
+    {
+        return (list) ? list.length : 0;
+    }
+    
     /**
      *  @inheritDoc
      *  
@@ -317,12 +317,12 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function addItem(item:Object):void
-	{
+    public function addItem(item:Object):void
+    {
         if (list)
             list.addItem(item);
-	}
-	
+    }
+    
     /**
      *  @inheritDoc
      *  
@@ -331,12 +331,12 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function addItemAt(item:Object, index:int):void
-	{
+    public function addItemAt(item:Object, index:int):void
+    {
         if (list)
             list.addItemAt(item, index);
-	}
-	
+    }
+    
     /**
      *  Returns the value of <code>list.getItemAt(index)</code>.
      * 
@@ -346,7 +346,7 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  <code>createPendingItemFunction</code> is returned.   If the underlying request
      *  eventually succeeds, the pending item is replaced with the real item.  If it fails,
      *  the pending item is replaced with a value produced by calling
-     *  <code>createFailedItemFunction</code>.
+     *  <code>createFailedItemFunction</code>.</p>
      * 
      *  @param index The list index from which to retrieve the item.
      *  @param prefetch An <code>int</code> indicating both the direction
@@ -363,9 +363,9 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function getItemAt(index:int, prefetch:int=0):Object
-	{
-	    if (!list)
+    public function getItemAt(index:int, prefetch:int=0):Object
+    {
+        if (!list)
             return null;
 
         var pendingItem:* = pendingItems[index];
@@ -387,7 +387,7 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
         pendingItems[index] = item;
         return item;
     }  
-	
+    
     /**
      *  @inheritDoc
      *  
@@ -397,10 +397,10 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  @productversion Flex 3
      */
     public function getItemIndex(item:Object):int
-	{
-	    return (list) ? list.getItemIndex(item) : -1;
-	}
-	
+    {
+        return (list) ? list.getItemIndex(item) : -1;
+    }
+    
     /**
      *  @inheritDoc
      *  
@@ -409,12 +409,12 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function itemUpdated(item:Object, property:Object=null, oldValue:Object=null, newValue:Object=null):void
-	{
-	    if (list)
+    public function itemUpdated(item:Object, property:Object=null, oldValue:Object=null, newValue:Object=null):void
+    {
+        if (list)
             itemUpdated(item, property, oldValue, newValue);
-	}
-	
+    }
+    
     /**
      *  @inheritDoc
      *  
@@ -423,12 +423,12 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function removeAll():void
-	{
+    public function removeAll():void
+    {
         if (list)
             list.removeAll();
-	}
-	
+    }
+    
     /**
      *  @inheritDoc
      *  
@@ -437,11 +437,11 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function removeItemAt(index:int):Object
-	{
+    public function removeItemAt(index:int):Object
+    {
         return (list) ? list.removeItemAt(index) : null;
-	}
-	
+    }
+    
     /**
      *  @inheritDoc
      *  
@@ -450,11 +450,11 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function setItemAt(item:Object, index:int):Object
-	{
+    public function setItemAt(item:Object, index:int):Object
+    {
         return (list) ? list.setItemAt(item, index) : null;
-	}
-	
+    }
+    
     /**
      *  @inheritDoc
      *  
@@ -463,11 +463,11 @@ public class RemoteListView extends OnDemandEventDispatcher implements IList
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function toArray():Array
-	{
+    public function toArray():Array
+    {
         return (list) ? list.toArray() : [];
-	}
-	
+    }
+    
  
     /**
      *  Prints the contents of this view to a string and returns it.
