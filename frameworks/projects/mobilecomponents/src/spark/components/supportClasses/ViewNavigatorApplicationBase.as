@@ -416,7 +416,6 @@ public class MobileApplicationBase extends Application
      */ 
     protected function backKeyHandler(event:KeyboardEvent):void
     {
-        
     }
     
     /**
@@ -550,6 +549,18 @@ public class MobileApplicationBase extends Application
     
     /**
      *  @private
+     *  The key model employeed by MobileApplication is to listen for the down
+     *  event but run the back key handling logic on up.  The reasoning for this
+     *  is that the down event is dispatched multiple times while the user
+     *  presses it down.  But the desired back logic should only happen once.
+     *  So when a down event is received, the application only tracks if it has been
+     *  canceled by the developer.
+     * 
+     *  It is still necessary to listen to the down key because the application
+     *  needs to cancel the device's default back logic at this stage.  For example,
+     *  on android, when the back key is pressed, the default behavior is to
+     *  suspend the application and return to the home screen.  This functionality
+     *  can only be canceled when the down event is received.
      */ 
     private function deviceKeyDownHandler(event:KeyboardEvent):void
     {
