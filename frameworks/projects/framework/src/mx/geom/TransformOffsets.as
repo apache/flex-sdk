@@ -94,7 +94,7 @@ package mx.geom
 	 */
 	public function set x(value:Number):void
 	{		
-		if(value == _x)
+		if (value == _x)
 			return;
 		_x = value;
 		invalidate(false);
@@ -117,7 +117,7 @@ package mx.geom
 	 */
 	public function set y(value:Number):void
 	{		
-		if(value == _y)
+		if (value == _y)
 			return;
 		_y = value;
 		invalidate(false);
@@ -141,7 +141,7 @@ package mx.geom
 	 */
 	public function set z(value:Number):void
 	{		
-		if(value == _z)
+		if (value == _z)
 			return;
 		_z = value;
 		invalidate(true);
@@ -168,7 +168,7 @@ package mx.geom
 	 */
 	public function set rotationX(value:Number):void
 	{		
-		if(value == _rotationX)
+		if (value == _rotationX)
 			return;
 		_rotationX = value;
 		invalidate(true);
@@ -192,7 +192,7 @@ package mx.geom
 	 */
 	public function set rotationY(value:Number):void
 	{		
-		if(value == _rotationY)
+		if (value == _rotationY)
 			return;
 		_rotationY = value;
 		invalidate(true);
@@ -216,7 +216,7 @@ package mx.geom
 	 */
 	public function set rotationZ(value:Number):void
 	{		
-		if(value == _rotationZ)
+		if (value == _rotationZ)
 			return;
 		_rotationZ = value;
 		invalidate(false);
@@ -243,7 +243,7 @@ package mx.geom
 	 */
 	public function set scaleX(value:Number):void
 	{		
-		if(value == _scaleX)
+		if (value == _scaleX)
 			return;
 		_scaleX = value;
 		invalidate(false);
@@ -267,7 +267,7 @@ package mx.geom
 	 */
 	public function set scaleY(value:Number):void
 	{		
-		if(value == _scaleY)
+		if (value == _scaleY)
 			return;
 		_scaleY = value;
 		invalidate(false);
@@ -292,7 +292,7 @@ package mx.geom
 	 */
 	public function set scaleZ(value:Number):void
 	{		
-		if(value == _scaleZ)
+		if (value == _scaleZ)
 			return;
 		_scaleZ = value;
 		invalidate(true);
@@ -313,7 +313,7 @@ package mx.geom
 	 */
 	mx_internal function get is3D():Boolean
 	{
-		if((_flags & M3D_FLAGS_VALID) == 0)
+		if ((_flags & M3D_FLAGS_VALID) == 0)
 			update3DFlags();
 		return ((_flags & IS_3D) != 0);
 	}
@@ -332,10 +332,10 @@ package mx.geom
   	 */
 	private function invalidate(affects3D:Boolean,dispatchChangeEvent:Boolean = true):void
 	{
-		if(affects3D)
+		if (affects3D)
 			_flags &= ~M3D_FLAGS_VALID;
 			
-		if(dispatchChangeEvent)
+		if (dispatchChangeEvent)
 			dispatchEvent(new Event(Event.CHANGE));	
 	}
 	
@@ -348,7 +348,7 @@ package mx.geom
   	 */
 	private function update3DFlags():void
 	{			
-		if((_flags & M3D_FLAGS_VALID) == 0)
+		if ((_flags & M3D_FLAGS_VALID) == 0)
 		{
 			var matrixIs3D:Boolean = ( // note that rotationZ is the same as rotation, and not a 3D affecting							
 			  	(Math.abs(_scaleZ-1) > EPSILON) ||  // property.
@@ -356,7 +356,7 @@ package mx.geom
 			  	((Math.abs(_rotationY)+EPSILON)%360) > 2*EPSILON ||
 			  	Math.abs(_z) > EPSILON
 			  	);
-			if(matrixIs3D)
+			if (matrixIs3D)
 				_flags |= IS_3D;
 			else
 				_flags &= ~IS_3D;				
