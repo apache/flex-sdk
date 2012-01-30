@@ -130,14 +130,18 @@ public class Base64Encoder
         if (length == 0)
             length = data.length;
 
-        var plainIndex:uint = offset;
+        var currentIndex:uint = offset;
 
-        while (plainIndex < offset + length)
+        var endIndex:uint = offset + length;
+        if (endIndex > data.length)
+            endIndex = data.length;
+
+        while (currentIndex < endIndex)
         {
-            _work[_count] = data.charCodeAt(plainIndex);
+            _work[_count] = data.charCodeAt(currentIndex);
             _count++;
 
-            if (_count == _work.length || offset + length - plainIndex == 1)
+            if (_count == _work.length || endIndex - currentIndex == 1)
             {
                 encodeBlock();
                 _count = 0;
@@ -145,7 +149,7 @@ public class Base64Encoder
                 _work[1] = 0;
                 _work[2] = 0;
             }
-            plainIndex++;
+            currentIndex++;
         }
     }
 
@@ -193,14 +197,18 @@ public class Base64Encoder
 
         var oldPosition:uint = data.position;
         data.position = offset;
-        var plainIndex:uint = offset;
+        var currentIndex:uint = offset;
 
-        while (plainIndex < length)
+        var endIndex:uint = offset + length;
+        if (endIndex > data.length)
+            endIndex = data.length;
+
+        while (currentIndex < endIndex)
         {
-            _work[_count] = data[plainIndex];
+            _work[_count] = data[currentIndex];
             _count++;
 
-            if (_count == _work.length || offset + length - plainIndex == 1)
+            if (_count == _work.length || endIndex - currentIndex == 1)
             {
                 encodeBlock();
                 _count = 0;
@@ -208,7 +216,7 @@ public class Base64Encoder
                 _work[1] = 0;
                 _work[2] = 0;
             }
-            plainIndex++;
+            currentIndex++;
         }
 
         data.position = oldPosition;
