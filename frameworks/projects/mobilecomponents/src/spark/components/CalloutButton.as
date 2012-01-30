@@ -406,6 +406,8 @@ public class CalloutButton extends Button
      */
     private var _callout:Callout;
     
+    [Bindable("calloutChanged")]
+    
     /**
      *  The Callout instance created after the <code>DropDownEvent.OPEN</code>
      *  is fired. The instance is created using the <code>dropDown</code>
@@ -431,6 +433,9 @@ public class CalloutButton extends Button
             return;
         
         _callout = value;
+        
+        if (hasEventListener("calloutChanged"))
+            dispatchEvent(new Event("calloutChanged"));
     }
     
     //----------------------------------
