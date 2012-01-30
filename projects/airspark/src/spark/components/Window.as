@@ -309,7 +309,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  The frameworks must be initialized by SystemManager.
+ *  The frameworks must be initialized by WindowedSystemManager.
  *  This factoryClass will be automatically subclassed by any
  *  MXML applications that don't explicitly specify a different
  *  factoryClass.
@@ -329,11 +329,11 @@ use namespace mx_internal;
  *  in an AIR desktop application.
  *
  *  <p>The Window container is a special kind of container in the sense
- *  that it cannot be used within other layout containers. An mx:Window
+ *  that it cannot be used within other layout containers. An spark.components.Window
  *  component must be the top-level component in its MXML document.</p>
  *
  *  <p>The easiest way to use a Window component to define a native window is to
- *  create an MXML document with an <code>&lt;mx:Window&gt;</code> tag
+ *  create an MXML document with an <code>&lt;s:Window&gt;</code> tag
  *  as the top-level tag in the document. You use the Window component
  *  just as you do any other container, including specifying the layout
  *  type, defining child controls, and so forth. Like any other custom
@@ -365,11 +365,11 @@ use namespace mx_internal;
  *
  *  @mxml
  *
- *  <p>The <code>&lt;mx:Window&gt;</code> tag inherits all of the tag
+ *  <p>The <code>&lt;s:Window&gt;</code> tag inherits all of the tag
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:Window
+ *  &lt;s:Window
  *    <strong>Properties</strong>
  *    alwaysInFront="false"
  *    backgroundColor="white"
@@ -1045,13 +1045,17 @@ public class Window extends SkinnableContainer implements IWindow
     //  backgroundColor
     //----------------------------------
     
-    [Inspectable(category="General", format="Color")]
+    private var _backgroundColor:uint = 0xFFFFFF;
+    
+    [Inspectable(category="General", format="Color", defaultValue="0xFFFFFF")]
     [Bindable("backgroundColorUpdated")]
     
     /**
      *  Background color of a component. 
      *  This property specifies the background color, both while the application
      *  loads, and while it is running.
+     *
+     *  @default 0xFFFFFF
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1060,7 +1064,7 @@ public class Window extends SkinnableContainer implements IWindow
      */
     public function get backgroundColor():uint
     {
-        return getStyle("backgroundColor");
+        return _backgroundColor;
     }
     
     /**
@@ -1068,10 +1072,10 @@ public class Window extends SkinnableContainer implements IWindow
      */
     public function set backgroundColor(value:uint):void
     {
-        if (value == getStyle("backgroundColor"))
+        if (value == _backgroundColor)
             return;
             
-        setStyle("backgroundColor", value);
+        _backgroundColor = value;
         
         dispatchEvent(new Event("backgroundColorUpdated"));
     }
