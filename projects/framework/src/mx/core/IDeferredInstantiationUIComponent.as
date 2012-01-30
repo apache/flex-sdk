@@ -15,6 +15,11 @@ package mx.core
 /**
  *  The IDeferredInstantiationUIComponent interface defines the interface for a component 
  *  or object that defers instantiation.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IDeferredInstantiationUIComponent extends IUIComponent
 {
@@ -30,6 +35,11 @@ public interface IDeferredInstantiationUIComponent extends IUIComponent
 
 	/**
 	 *  @copy mx.core.UIComponent#cacheHeuristic
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     function set cacheHeuristic(value:Boolean):void;
 
@@ -39,6 +49,11 @@ public interface IDeferredInstantiationUIComponent extends IUIComponent
 
 	/**
 	 *  @copy mx.core.UIComponent#cachePolicy
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     function get cachePolicy():String
 
@@ -48,6 +63,11 @@ public interface IDeferredInstantiationUIComponent extends IUIComponent
 
 	/**
 	 *  @copy mx.core.UIComponent#descriptor
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     function get descriptor():UIComponentDescriptor;
     
@@ -62,6 +82,11 @@ public interface IDeferredInstantiationUIComponent extends IUIComponent
 
 	/**
 	 *  @copy mx.core.UIComponent#id
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     function get id():String;
     
@@ -84,6 +109,11 @@ public interface IDeferredInstantiationUIComponent extends IUIComponent
      *  If the indices are null, it creates a simple non-Array reference.
      *
      *  @param parentDocument The parent of this IUIComponent object. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function createReferenceOnParentDocument(
 						parentDocument:IFlexDisplayObject):void;
@@ -96,12 +126,22 @@ public interface IDeferredInstantiationUIComponent extends IUIComponent
      *  If the indices are null, it deletes the simple non-Array reference.
      *
      *  @param parentDocument The parent of this IUIComponent object. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function deleteReferenceOnParentDocument(
 						parentDocument:IFlexDisplayObject):void;
 
 	/**
 	 *  @copy mx.core.UIComponent#executeBindings()
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function executeBindings(recurse:Boolean = false):void;
 
@@ -110,6 +150,11 @@ public interface IDeferredInstantiationUIComponent extends IUIComponent
 	 *  as one of the event listeners.
 	 *
 	 *  @param effects An Array of strings of effect names.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function registerEffects(effects:Array):void;
 }
