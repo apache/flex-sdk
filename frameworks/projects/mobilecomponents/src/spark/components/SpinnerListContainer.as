@@ -18,6 +18,10 @@ package spark.components
  *  @playerversion AIR 3
  *  @productversion Flex 4.5.2
  */ 
+    
+[Exclude(name="backgroundAlpha", kind="style")]
+[Exclude(name="backgroundColor", kind="style")]    
+    
 public class SpinnerListContainer extends SkinnableContainer
 {
 	/**
