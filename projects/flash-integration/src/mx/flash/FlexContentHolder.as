@@ -78,6 +78,25 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
     private var flexContent:IUIComponent;           // The Flex content
     
     private var pendingFlexContent:IUIComponent;    // Only used if flexContent is set early
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Private Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  The FlexContentHolder symbol that a user drags out on to the screen in 
+     *  Flash Authoring to let us know where the Flash content goes.  This symbol is 
+     *  actually a child of us (the FlashContentHolder, which is the actual object they 
+     *  are dragging out).  We modify the scale and alpha of this object to get sizing 
+     *  correct and to make sure this object doesn't actually show up in the Flex project.
+     */
+    private function get flexContentHolderSymbol():DisplayObject
+    {
+        return getChildAt(0);
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -134,7 +153,7 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
         // Since we are in Flex, let's hide the content placeholder.
         // Rather than removing it (which can cause problems with
         // sizing), we set the alpha to 0.
-        getChildAt(0).alpha = 0;
+        flexContentHolderSymbol.alpha = 0;
 
         // See if we have any pending flex content
         if (pendingFlexContent)
@@ -375,14 +394,28 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
         
         // width and height are what we actually want our content
         // to fill up, but it doesn't take in to account our secretScale.
-        if (!myParent.scaleContentWhenResized)
+        if (!myParent.scaleContentWhenResized && myParent._layoutFeatures != null)
         {
             // apply the scale to the width/height
-            if (myParent._layoutFeatures != null)
-            {
-                containerWidth *= myParent._layoutFeatures.stretchX;
-                containerHeight *= myParent._layoutFeatures.stretchY;
-            }
+            containerWidth *= myParent._layoutFeatures.stretchX;
+            containerHeight *= myParent._layoutFeatures.stretchY;
+            
+            // also need to scale our placeholder so the bounds are correct
+            // Example: object is naturally 100x100 but width=50, height=50
+            // ContainerMovieClip is scaled to .5
+            // However, the FlexContentHolder is scaled to 2 if scaleContentWhenResized == false
+            // to counteract this scale.
+            // In order for the FlexContentHolderSymbol to not extend outside of these bounds, we 
+            // also scale that down to .5
+            flexContentHolderSymbol.scaleX = myParent._layoutFeatures.stretchX;
+            flexContentHolderSymbol.scaleY = myParent._layoutFeatures.stretchY;
+        }
+        else
+        {
+            // reset the FlexContentHolderSymbol's scale to 1 (see comment above where we set 
+            // it to stretchX/stretchY from our parent)
+            flexContentHolderSymbol.scaleX = 1;
+            flexContentHolderSymbol.scaleY = 1;
         }
         
         // Size the flex content to what they want to be, 
