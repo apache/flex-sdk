@@ -19,6 +19,7 @@ import flash.utils.getQualifiedClassName;
 import flash.utils.getQualifiedSuperclassName;
 
 import mx.core.FlexGlobals;
+import mx.core.IContainerInvalidating;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
@@ -766,8 +767,12 @@ public class StyleProtoChain
         if (parent)
         {
             if (styleProp == "styleName" || styleManager.isParentSizeInvalidatingStyle(styleProp))
+            {
                 parent.invalidateSize();
-
+                if (parent is IContainerInvalidating &&
+                    (styleProp == "styleName" || styleManager.isParentSizeInvalidatingStyle(styleProp)))
+                    (IContainerInvalidating(parent)).invalidateEstimatedSizesOfChildren();
+            }
             if (styleProp == "styleName" || styleManager.isParentDisplayListInvalidatingStyle(styleProp))
                 parent.invalidateDisplayList();
         }
