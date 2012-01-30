@@ -15,6 +15,7 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
+import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.utils.StringUtil;
@@ -23,6 +24,7 @@ import spark.components.Group;
 import spark.components.IItemRenderer;
 import spark.components.Image;
 import spark.components.Label;
+import spark.components.supportClasses.MobileTextField;
 import spark.components.supportClasses.TextBase;
 import spark.core.ContentCache;
 import spark.primitives.BitmapImage;
@@ -244,14 +246,14 @@ public class MobileItemRenderer extends UIComponent
         
         // getLineMetrics() returns strange numbers for an empty string,
         // so instead we get the metrics for a non-empty string.
-        var isEmpty:Boolean = (labelTextField.text == "");
+        var isEmpty:Boolean = (labelDisplay.text == "");
         if (isEmpty)
-            labelTextField.text = "Wj";
+            labelDisplay.text = "Wj";
         
-        tlm = labelTextField.getLineMetrics(0);
+        tlm = labelDisplay.getLineMetrics(0);
         
         if (isEmpty)
-            labelTextField.text = "";
+            labelDisplay.text = "";
         
         // TextFields have 2 pixels of padding all around.
         return 2 + tlm.ascent;
@@ -316,6 +318,11 @@ public class MobileItemRenderer extends UIComponent
      *  @inheritDoc 
      *
      *  @default 0
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */    
     public function get itemIndex():int
     {
@@ -345,21 +352,25 @@ public class MobileItemRenderer extends UIComponent
     private var _label:String = "";
     
     /**
-     *  @private
-     *  FIXME (rfrishbe): This should be protected when we acutally 
-     *  use and expose a real text primitive and not TextField.
+     *  The text component used to 
+     *  display the label data of the item renderer.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    mx_internal var labelTextField:TextField;
-    
-    /**
-     *  @private
-     */
-    private var recreateLabelTextFieldStyles:Boolean;
+    protected var labelDisplay:MobileTextField;
     
     /**
      *  @inheritDoc 
      *
-     *  @default ""    
+     *  @default ""  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5  
      */
     public function get label():String
     {
@@ -378,9 +389,9 @@ public class MobileItemRenderer extends UIComponent
         
         // Push the label down into the labelTextField,
         // if it exists
-        if (labelTextField)
+        if (labelDisplay)
         {
-            labelTextField.text = _label;
+            labelDisplay.text = _label;
             invalidateSize();
         }
     }
@@ -399,6 +410,11 @@ public class MobileItemRenderer extends UIComponent
      *  @inheritDoc 
      *
      *  @default false  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */    
     public function get showsCaret():Boolean
     {
@@ -431,6 +447,11 @@ public class MobileItemRenderer extends UIComponent
      *  @inheritDoc 
      *
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */    
     public function get selected():Boolean
     {
@@ -461,6 +482,11 @@ public class MobileItemRenderer extends UIComponent
     
     /**
      *  @inheritDoc  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get dragging():Boolean
     {
@@ -488,134 +514,18 @@ public class MobileItemRenderer extends UIComponent
     {
         super.createChildren();
         
-        if (!labelTextField)
+        if (!labelDisplay)
         {
-            labelTextField = new TextField();
-            labelTextField.multiline = false;
-            labelTextField.wordWrap = false;
-            labelTextField.selectable = false;
+            labelDisplay = MobileTextField(createInFontContext(MobileTextField));
+            labelDisplay.styleProvider = this;
+            labelDisplay.editable = false;
+            labelDisplay.selectable = false;
+            labelDisplay.multiline = false;
+            labelDisplay.wordWrap = false;
             
-            addChild(DisplayObject(labelTextField));
-            labelTextField.text = _label;
-            
-            recreateLabelTextFieldStyles = true;
-            invalidateProperties();
+            addChild(labelDisplay);
+            labelDisplay.text = _label;
         }
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function commitProperties():void
-    {
-        super.commitProperties();
-        
-        if (recreateLabelTextFieldStyles)
-        {
-            recreateLabelTextFieldStyles = false;
-            
-            var textFormat:TextFormat = getTextStyles();
-            
-            // FIXME (rfrishbe): should deal with embedded fonts better
-            
-            labelTextField.defaultTextFormat = textFormat;
-            
-            // need to set text here for the defaultTextFormat to take effect
-            labelTextField.text = labelTextField.text;
-            
-            invalidateSize();
-            invalidateDisplayList();
-        }
-    }
-    
-    /**
-     *  @private
-     *  Defined by what we use in getTextStyles();
-     */
-    private static const TEXT_CSS_STYLES:Object = 
-        {textAlign: true,
-            fontWeight: true,
-            color: true,
-            disabledColor: true,
-            fontFamily: true,
-            textIndent: true,
-            fontStyle: true,
-            kerning: true,
-            leading: true,
-            letterSpacing: true,
-            fontSize: true,
-            textDecoration: true};
-    
-    /**
-     *  @private
-     *  Returns the TextFormat object that represents 
-     *  character formatting information for this UITextField object.
-     *
-     *  @return A TextFormat object. 
-     *
-     *  @see flash.text.TextFormat
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    private function getTextStyles():TextFormat
-    {
-        // Adapted from UITextField.getTextStyles()
-        var textFormat:TextFormat = new TextFormat();
-        
-        var textAlign:String = getStyle("textAlign");
-        
-        if (textAlign == "start")
-            textAlign = TextFormatAlign.LEFT;
-        else if (textAlign == "end")
-            textAlign = TextFormatAlign.RIGHT;
-        textFormat.align = textAlign; 
-        textFormat.bold = getStyle("fontWeight") == "bold";
-        if (enabled)
-            textFormat.color = getStyle("color");
-        else
-            textFormat.color = getStyle("disabledColor");
-        textFormat.font = StringUtil.trimArrayElements(getStyle("fontFamily"),",");
-        textFormat.indent = getStyle("textIndent");
-        textFormat.italic = getStyle("fontStyle") == "italic";
-        var kerning:* = getStyle("kerning");
-        // In Halo components based on TextField,
-        // kerning is supposed to be true or false.
-        // The default in TextField and Flex 3 is false
-        // because kerning doesn't work for device fonts
-        // and is slow for embedded fonts.
-        // In Spark components based on TLF and FTE,
-        // kerning is "auto", "on", or, "off".
-        // The default in TLF and FTE is "auto"
-        // (which means kern non-Asian characters)
-        // because kerning works even on device fonts
-        // and has miminal performance impact.
-        // Since a CSS selector or parent container
-        // can affect both Halo and Spark components,
-        // we need to map "auto" and "on" to true
-        // and "off" to false for Halo components
-        // here and in UIFTETextField.
-        // For Spark components, Label and CSSTextLayoutFormat,
-        // do the opposite mapping of true to "on" and false to "off".
-        // We also support a value of "default"
-        // (which we set in the global selector)
-        // to mean false for Halo and "auto" for Spark,
-        // to get the recommended behavior in both sets of components.
-        if (kerning == "auto" || kerning == "on")
-            kerning = true;
-        else if (kerning == "default" || kerning == "off")
-            kerning = false;
-        textFormat.kerning = kerning;
-        textFormat.leading = getStyle("leading");
-        //textFormat.leftMargin = ignorePadding ? 0 : getStyle("paddingLeft");
-        textFormat.letterSpacing = getStyle("letterSpacing");
-        //textFormat.rightMargin = ignorePadding ? 0 : getStyle("paddingRight");
-        textFormat.size = getStyle("fontSize");
-        textFormat.underline = getStyle("textDecoration") == "underline";
-        
-        return textFormat;
     }
     
     /**
@@ -625,14 +535,20 @@ public class MobileItemRenderer extends UIComponent
     {
         super.measure();
         
-        // Text has 10 pixels on left and 10 pixels on right by default, 5 pixels on top and 5 pixels on bottom by default
-        measuredWidth = labelTextField.textWidth + 5 + getStyle("paddingLeft") + getStyle("paddingRight"); // 5 is the extra padding for text field
-        measuredHeight = labelTextField.textHeight + 4 + getStyle("paddingTop") + getStyle("paddingBottom"); // 4 is the extra padding for text field
+        var labelLineMetrics:TextLineMetrics = measureText(labelDisplay.text);
         
-        // don't do anything with regards to minimum for the textField as it can just get truncated down anyways
+        // Text respects padding right, left, top, and bottom
+        measuredWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
+        measuredWidth += getStyle("paddingLeft") + getStyle("paddingRight");
+        
+        measuredHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+        measuredHeight += getStyle("paddingTop") + getStyle("paddingBottom");
         
         // minimum height of 80 pixels
         measuredHeight = Math.max(measuredHeight, 80);
+        
+        measuredMinWidth = 0;
+        measuredMinHeight = 80;
     }
     
     /**
@@ -646,10 +562,36 @@ public class MobileItemRenderer extends UIComponent
         
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        drawBackground();
+        drawBackground(unscaledWidth, unscaledHeight);
         
         layoutContents(unscaledWidth, unscaledHeight);
     }
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleName:String):void
+    {
+        var allStyles:Boolean = !styleName || styleName == "styleName";
+        
+        super.styleChanged(styleName);
+        
+        if (allStyles || styleName == "inputMode")
+        {
+            addHandlers();
+        }
+        
+        // pass all style changes to labelTextField.  It will deal with them 
+        // appropriatley and in a performant manner
+        if (labelDisplay)
+            labelDisplay.styleChanged(styleName);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
     
     /**
      *  Renders a background for the item renderer.
@@ -663,12 +605,21 @@ public class MobileItemRenderer extends UIComponent
      *  the background is drawn in this method.  To change the appearance of 
      *  the background, override this method.</p>
      * 
+     *  @param unscaledWidth Specifies the width of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleX</code> property of the component.
+     *
+     *  @param unscaledHeight Specifies the height of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleY</code> property of the component.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function drawBackground():void
+    protected function drawBackground(unscaledWidth:Number, 
+                                      unscaledHeight:Number):void
     {
         // figure out backgroundColor
         var backgroundColor:uint;
@@ -760,39 +711,49 @@ public class MobileItemRenderer extends UIComponent
     protected function layoutContents(unscaledWidth:Number, 
                                       unscaledHeight:Number):void
     {
+        // measure the label component
+        var textWidth:Number = 0;
+        var textHeight:Number = 0;
+        var labelLineMetrics:TextLineMetrics;
+        
+        if (label != "")
+        {
+            labelLineMetrics = measureText(label);
+            textWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
+            textHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+        }
+        else
+        {
+            labelLineMetrics = measureText("Wj");
+            // don't measured textWidth because that's what we do in Button, and it 
+            // causes bugs if we do measure it in this case.  We only measure "Wj" for 
+            // height purposes.
+            textHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+        }
+        
         // text should take up the rest of the space
-        var labelWidth:Number = unscaledWidth;
-        labelWidth -= getStyle("paddingLeft") + getStyle("paddingRight");
+        var viewWidth:Number = unscaledWidth - getStyle("paddingLeft") + getStyle("paddingRight");
+        var labelWidth:Number = Math.max(Math.min(viewWidth, textWidth), 0);
         
-        // labe is positioned after the padding on the left
+        var viewHeight:Number =  unscaledHeight - getStyle("paddingTop") - getStyle("paddingBottom");
+        var labelHeight:Number = Math.max(Math.min(viewHeight, textHeight), 0);
+        
+        // label is positioned after the padding on the left.  vertically aligned center
         var labelX:Number = getStyle("paddingLeft");
+        var labelY:Number = getStyle("paddingTop") + (viewHeight - labelHeight)/2;
         
-        labelTextField.width = labelWidth;
-        labelTextField.height = labelTextField.textHeight + 4;
+        labelDisplay.commitStyles();
+            
+        labelDisplay.width = labelWidth;
+        labelDisplay.height = labelHeight;
         
-        labelTextField.x = labelX;
-        labelTextField.y = (unscaledHeight - labelTextField.height)/2;
-    }
-    
-    /**
-     *  @private
-     */
-    override public function styleChanged(styleName:String):void
-    {
-        var allStyles:Boolean = !styleName || styleName == "styleName";
+        labelDisplay.x = Math.round(labelX);
+        labelDisplay.y = Math.round(labelY);
         
-        super.styleChanged(styleName);
-        
-        if (allStyles || styleName == "inputMode")
-        {
-            addHandlers();
-        }
-        
-        if (allStyles || styleName in TEXT_CSS_STYLES)
-        {
-            recreateLabelTextFieldStyles = true;
-            invalidateProperties();
-        }
+        // reset text if it was truncated before.  then attempt to truncate it
+        if (labelDisplay.isTruncated)
+            labelDisplay.text = label;
+        labelDisplay.truncateToFit();
     }
     
     //--------------------------------------------------------------------------
