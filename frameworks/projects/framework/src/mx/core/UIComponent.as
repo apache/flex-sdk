@@ -1682,7 +1682,6 @@ public class UIComponent extends FlexSprite
     //------------------------------------------------------------------------
 
     /**
-     *  @public
      *  A convenience accessor for the 'silent' property
      *  in this UIComponent's accessibilityProperties object.
      *
@@ -1718,7 +1717,6 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  @public
      *  A convenience accessor for the 'name' property
      *  in this UIComponent's accessibilityProperties object.
      *
@@ -1751,7 +1749,6 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  @public
      *  A convenience accessor for the 'description' property
      *  in this UIComponent's accessibilityProperties object.
      *
@@ -1784,7 +1781,6 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  @public
      *  A convenience accessor for the 'shortcut' property
      *  in this UIComponent's accessibilityProperties object.
      *
@@ -2086,7 +2082,7 @@ public class UIComponent extends FlexSprite
     mx_internal var _parent:DisplayObjectContainer;
 
     /**
-     *  @inheritDoc
+     *  @copy mx.core.IVisualElement#parent
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -2344,7 +2340,7 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     * @inheritDoc
+     *  @copy mx.core.IFlexDisplayObject#rotation
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -4147,8 +4143,8 @@ public class UIComponent extends FlexSprite
     //----------------------------------
 
     /**
-     *  Determines whether this UIComponent instance is a document object,
-     *  that is, whether it is at the top of the hierarchy of a Flex
+     *  Contains <code>true</code> if this UIComponent instance is a document object.
+     *  That means it is at the top of the hierarchy of a Flex
      *  application, MXML component, or ActionScript component.
      *  
      *  @langversion 3.0
@@ -4167,26 +4163,6 @@ public class UIComponent extends FlexSprite
 
     [Bindable("initialize")]
 
-    /**
-     *  A reference to the Application object that contains this UIComponent
-     *  instance.
-     *  This Application object might exist in a SWFLoader control in another
-     *  Application, and so on, creating a chain of Application objects that
-     *  can be walked using parentApplication.
-     *  The <code>parentApplication</code> property of an Application is never itself;
-     *  it is either the Application into which it was loaded or null
-     *  (for the top-level Application).
-     *  Walking the application chain using the <code>parentApplication</code>
-     *  property is similar to walking the document chain using the
-     *  <code>parentDocument</code> property.
-     *  You can access the top-level application using the
-     *  <code>application</code> property of the Application class.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
     /*
      *  Note:
      *  There are two reasons that 'parentApplication' is typed as Object
@@ -4199,6 +4175,28 @@ public class UIComponent extends FlexSprite
      *     MyApplication(paentApplication).myAppMethod().
      *  Therefore we decided to dispense with strict typing for
      *  'parentApplication'.
+     */
+    /**
+     *  A reference to the Application object that contains this UIComponent
+     *  instance.
+     *  This Application object might exist in a SWFLoader control in another
+     *  Application, and so on, creating a chain of Application objects that
+     *  can be walked using parentApplication.
+     *
+     *  <p>The <code>parentApplication</code> property of an Application is never itself;
+     *  it is either the Application into which it was loaded or null
+     *  (for the top-level Application).</p>
+     *
+     *  <p>Walking the application chain using the <code>parentApplication</code>
+     *  property is similar to walking the document chain using the
+     *  <code>parentDocument</code> property.
+     *  You can access the top-level application using the
+     *  <code>application</code> property of the Application class.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get parentApplication():Object
     {
@@ -4237,14 +4235,16 @@ public class UIComponent extends FlexSprite
      *  A reference to the parent document object for this UIComponent.
      *  A document object is a UIComponent at the top of the hierarchy
      *  of a Flex application, MXML component, or AS component.
-     *  For the Application object, the <code>parentDocument</code>
+     *
+     *  <p>For the Application object, the <code>parentDocument</code>
      *  property is null.
      *  This property  is useful in MXML scripts to go up a level
      *  in the chain of document objects.
      *  It can be used to walk this chain using
-     *  <code>parentDocument.parentDocument</code>, and so on.
-     *  It is typed as Object so that authors can access properties
-     *  and methods on ancestor document objects without casting.
+     *  <code>parentDocument.parentDocument</code>, and so on.</p>
+     *
+     *  <p>It is typed as Object so that authors can access properties
+     *  and methods on ancestor document objects without casting.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -4682,17 +4682,18 @@ public class UIComponent extends FlexSprite
     [Inspectable(defaultValue="false")]
 
     /**
-     *  A flag that indicates whether child objects can receive focus
+     *  A flag that indicates whether child objects can receive focus.
      * 
      *  <p><b>Note: </b>This property is similar to the <code>tabChildren</code> property
      *  used by Flash Player. 
      *  Use the <code>hasFocusableChildren</code> property with Flex applications.
      *  Do not use the <code>tabChildren</code> property.</p>
      * 
-     *  <p>This is usually <code>false</code> because most components
+     *  <p>This property is usually <code>false</code> because most components
      *  either receive focus themselves or delegate focus to a single
      *  internal sub-component and appear as if the component has
-     *  received focus. For example, a TextInput contains a focusable
+     *  received focus. 
+     *  For example, a TextInput control contains a focusable
      *  child RichEditableText control, but while the RichEditableText
      *  sub-component actually receives focus, it appears as if the
      *  TextInput has focus. TextInput sets <code>hasFocusableChildren</code>
@@ -4700,8 +4701,8 @@ public class UIComponent extends FlexSprite
      *  component that has focus. Its internal structure is an
      *  abstraction.</p>
      *
-     *  <p>Usually only navigator components like TabNavigator and
-     *  Accordion have this flag set to <code>true</code> because they
+     *  <p>Usually only navigator components, such as TabNavigator and
+     *  Accordion, have this flag set to <code>true</code> because they
      *  receive focus on Tab but focus goes to components in the child
      *  containers on further Tabs.</p>
      *  
@@ -5717,7 +5718,7 @@ public class UIComponent extends FlexSprite
     private var _hasComplexLayoutMatrix:Boolean = false;
     
     /**
-     *  Returns true if the UIComponent has any non-translation (x,y) transform properties
+     *  Returns <code>true</code> if the UIComponent has any non-translation (x,y) transform properties.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -10273,7 +10274,13 @@ public class UIComponent extends FlexSprite
      *  state-specific styles apply to this component. If there is a chance
      *  of a matching CSS pseudo-selector for the current state, the style
      *  cache needs to be regenerated for this instance and, potentially all
-     *  children, if the recursive param is set to true.
+     *  children, if the <code>recursive</code> param is set to <code>true</code>.
+     *
+     *  @param oldState The name of th eold state.
+     *
+     *  @param newState The name of the new state.
+     *
+     *  @param recursive Set to <code>true</code> to perform a recursive check.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -12393,7 +12400,7 @@ public class UIComponent extends FlexSprite
     }
     
     /**
-     *  @copy mx.core.ILayoutElement#postLayoutTransformOffsets
+     *  @copy mx.core.IVisualElement#postLayoutTransformOffsets
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -12509,8 +12516,7 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  Similarly to the layoutMatrix3D property, sets the layout Matrix3D, but
-     *  doesn't trigger a layout pass. 
+     *  @inheritDoc 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -12546,7 +12552,7 @@ public class UIComponent extends FlexSprite
     private static var xformPt:Point;
 
     /**
-     *  @copy mx.core.ILayoutElement#transformAround
+     *  @copy mx.core.ILayoutElement#transformAround()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -13114,7 +13120,7 @@ public class UIComponent extends FlexSprite
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get is3D():Boolean
+        public function get is3D():Boolean
     {
         return _layoutFeatures ? _layoutFeatures.is3D : false;
     }
