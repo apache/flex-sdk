@@ -79,9 +79,9 @@ use namespace mx_internal;
  *  that container.  This means using IVisualElementContainer methods such as
  *  <code>getElementAt()</code> on SplitViewNavigator may not return the 
  *  expected results.  If a developer wants to access the first or second 
- *  navigator, it is recommended that they use the <code>firstViewNavigator</code> 
- *  and <code>secondViewNavigator</code> properties.  These will always return
- *  the correct navigator regardless of whether a navigator is in a callout or not.</p>
+ *  navigator, it is recommended that they use the <code>getViewNavigatorAt()</code> 
+ *  method.  These will always return the correct navigator regardless of whether 
+ *  a navigator is in a callout or not.</p>
  *  
  *  @see spark.components.ViewNavigatorBase
  *  @see spark.components.ViewNavigator
@@ -195,45 +195,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
 		
         _autoHideFirstViewNavigator = value;
     }
-	
-    //----------------------------------
-    //  firstViewNavigator
-    //----------------------------------
-    
-    /**
-     *  The first ViewNavigator of this component.
-     *  
-     *  @return Returns the first navigator being managed by the container, or
-     *  <code>null</code> if there are no children.
-     * 
-     *  @langversion 3.0
-     *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
-     */
-    public function get firstViewNavigator():ViewNavigatorBase
-    {
-        return getViewNavigatorAt(0);
-    }
 
-    //----------------------------------
-    //  secondViewNavigator
-    //----------------------------------
-    
-    /**
-     *  The second ViewNavigator of this component.
-     *  
-     *  @return Returns the second navigator being managed by the container, or
-     *  <code>null</code> if there are fewer than two children.
-     * 
-     *  @langversion 3.0
-     *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
-     */ 
-    public function get secondViewNavigator():ViewNavigatorBase
-    {
-        return getViewNavigatorAt(1);
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Overridden Properties
@@ -268,11 +230,27 @@ public class SplitViewNavigator extends ViewNavigatorBase
         FlexGlobals.topLevelApplication.addEventListener(ResizeEvent.RESIZE, 
             application_resizeHandler, false, EventPriority.DEFAULT, true);
         
-        // Toggle visibility of the firstViewNavigator if autoHideFirstViewNavigator is true
-        if (firstViewNavigator && autoHideFirstViewNavigator)
+        // Toggle visibility of the first ViewNavigator if autoHideFirstViewNavigator is true
+        if (numViewNavigators > 0 && autoHideFirstViewNavigator)
             application_resizeHandler(null);
         
         super.initialized = value;
+    }
+    
+    
+    //----------------------------------
+    //  numViewNavigators
+    //----------------------------------
+    /**
+     *  The number of navigators managed by this container
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */ 
+    public function get numViewNavigators():int
+    {
+        return _calloutNavigatorIndex == -1 ? numElements : numElements + 1;
     }
     
     //--------------------------------------------------------------------------
@@ -282,13 +260,49 @@ public class SplitViewNavigator extends ViewNavigatorBase
     //--------------------------------------------------------------------------
     
     /**
+     *  This method returns a specific child navigator independent of the container's
+     *  child display hierarchy.  Since a child navigator is not parented by this
+     *  container when visible inside a callout, this method should be used instead of 
+     *  <code>getElementAt()</code>.
+     * 
+     *  <p>When a callout is open, the navigator at index 0 will refer to the
+     *  navigator in the callout.</p> 
+     * 
+     *  @param index Index of the navigator to retrieve
+     * 
+     *  @return The navigator at the specified index, null if one does not exist
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */ 
+    public function getViewNavigatorAt(index:int):ViewNavigatorBase
+    {
+        // If the index is the navigator currently in the callout, return it
+        if (_calloutNavigatorIndex == index)
+            return _calloutNavigator;
+        
+        // Since a callout is visible, one of the navigators has been removed
+        // from this display tree.  If the index of the navigator in the callout
+        // is before the passed index, decrement it by 1 so that it reflects 
+        // the current indicies of the child navigatos.
+        if (_calloutNavigatorIndex != -1 && _calloutNavigatorIndex < index)
+            index--;
+        
+        if (index >= numElements)
+            return null;
+        
+        return getElementAt(index) as ViewNavigatorBase;
+    }
+    
+    /**
      *  Displays the child navigator at index 0 inside a callout.  The navigator
      *  is reparented as a child of the callout.
      * 
      *  <p>Since the navigator is reparented, using <code>getElementAt(0)</code> 
      *  will not return the first navigator, but will return the second one.  
-     *  It is recommended that developers use <code>firstViewNavigator</code> and
-     *  <code>secondViewNavigator</code> properties to access the navigators.</p>
+     *  It is recommended that developers use the <code>getViewNavigatorAt()</code>
+     *  method to access the navigators.</p>
      * 
      *  <p>The callout height is fixed by the component but can be changed by
      *  reskinning or by manually setting the height property on the 
@@ -334,32 +348,6 @@ public class SplitViewNavigator extends ViewNavigatorBase
 	//  Private Methods
 	// 
 	//--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  This method is used to get a reference to a specific navigator.  Since
-     *  a navigator can be visible inside a callout, getElementAt() is not
-     *  sufficient because one of the navigators is no longer a child of the
-     *  container.
-     */ 
-    mx_internal function getViewNavigatorAt(index:int):ViewNavigatorBase
-    {
-        // If the index is the navigator currently in the callout, return it
-        if (_calloutNavigatorIndex == index)
-            return _calloutNavigator;
-        
-        // Since a callout is visible, one of the navigators has been removed
-        // from this display tree.  If the index of the navigator in the callout
-        // is before the passed index, decrement it by 1 so that it reflects 
-        // the current indicies of the child navigatos.
-        if (_calloutNavigatorIndex != -1 && _calloutNavigatorIndex < index)
-            index--;
-        
-        if (index >= numElements)
-            return null;
-        
-        return getElementAt(index) as ViewNavigatorBase;
-    }
     
     /**
      *  @private
@@ -449,7 +437,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
 	 */
 	mx_internal function application_resizeHandler(event:ResizeEvent):void
 	{
-		if (!firstViewNavigator)
+		if (numViewNavigators == 0)
 			return;
 		
 		var aspectRatio:String = FlexGlobals.topLevelApplication.aspectRatio;
@@ -489,7 +477,11 @@ public class SplitViewNavigator extends ViewNavigatorBase
      */
     private function toggleFirstNavigatorVisibility():void
     {
+        if (numViewNavigators == 0)
+            return;
+        
         var aspectRatio:String = FlexGlobals.topLevelApplication.aspectRatio;
+        var firstViewNavigator:ViewNavigatorBase = getViewNavigatorAt(0);
         
         if (aspectRatio == StageAspectRatio.PORTRAIT)
         {
@@ -572,12 +564,8 @@ public class SplitViewNavigator extends ViewNavigatorBase
         if (!dataArray)
             return;
         
-        // If the callout is visible, one of the navigators isn't a child
-        // of this component.  So the numElements parameter will be off by one.
-        var numNavigators:int = _calloutNavigatorIndex > -1 ? numElements + 1 : numElements;
-        
         // Restore each navigators persistence data
-        for (var i:int = 0; i < numNavigators; i++)
+        for (var i:int = 0; i < numViewNavigators; i++)
         {
             if (i >= dataArray.length)
                 break;
@@ -598,12 +586,8 @@ public class SplitViewNavigator extends ViewNavigatorBase
         var object:Object = super.saveViewData();
         var dataArray:Array = new Array();
         
-        // If the callout is visible, one of the navigators isn't a child
-        // of this component.  So the numElements parameter will be off by one.
-        var numNavigators:int = _calloutNavigatorIndex > -1 ? numElements + 1 : numElements;
-
         // Push each navigator's persistence object to the data array
-        for (var i:int = 0; i < numNavigators; i++)
+        for (var i:int = 0; i < numViewNavigators; i++)
             dataArray.push(getViewNavigatorAt(i).saveViewData());
         
         object.dataArray = dataArray;
