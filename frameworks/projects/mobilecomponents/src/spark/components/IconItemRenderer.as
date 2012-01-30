@@ -25,7 +25,7 @@ import mx.graphics.BitmapFillMode;
 import mx.graphics.BitmapScaleMode;
 import mx.styles.CSSStyleDeclaration;
 
-import spark.components.supportClasses.MobileTextField;
+import spark.components.supportClasses.StyleableTextField;
 import spark.core.ContentCache;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IContentLoader;
@@ -823,7 +823,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected var messageDisplay:MobileTextField;
+    protected var messageDisplay:StyleableTextField;
     
     /**
      *  @private
@@ -1190,7 +1190,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                 // get styles for this text component
                 
                 // need to create it
-                messageDisplay = MobileTextField(createInFontContext(MobileTextField));
+                messageDisplay = StyleableTextField(createInFontContext(StyleableTextField));
                 messageDisplay.getStyleFunction = messageGetStyleFunction;
                 messageDisplay.editable = false;
                 messageDisplay.selectable = false;
@@ -1379,7 +1379,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     private function createLabelDisplay():void
     {
         // need to create it
-        labelDisplay = MobileTextField(createInFontContext(MobileTextField));
+        labelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
         labelDisplay.styleProvider = this;
         labelDisplay.editable = false;
         labelDisplay.selectable = false;
@@ -1789,7 +1789,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     /**
      *  @private 
      *  Function we pass in to message for it to grab the styles and push 
-     *  them in to the TextFormat object used by that MobileTextField.
+     *  them in to the TextFormat object used by that StyleableTextField.
      */
     private function messageGetStyleFunction(styleProp:String):*
     {
