@@ -1297,8 +1297,9 @@ public class ViewTransitionBase extends EventDispatcher
     private function enterFrameHandler(event:Event):void
     {
         navigator.removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
-        transitionComplete();
         effect = null;
+        
+        transitionComplete();
     }
     
     /**
