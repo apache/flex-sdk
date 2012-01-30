@@ -39,16 +39,17 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Appearance of the contentGroup. Valid MXML values are <code>inset</code>
+ *  Appearance of the <code>contentGroup</code>. 
+ *  Valid MXML values are <code>inset</code>
  *  <code>flat</code> and <code>transparent</code>.
  *
  *  <p>In ActionScript, you can use the following constants
  *  to set this property:
- *  <code>CalloutContentBackgroundAppearance.INSET</code>,
- *  <code>CalloutContentBackgroundAppearance.FLAT</code> and
- *  <code>CalloutContentBackgroundAppearance.NONE</code>.</p>
+ *  <code>ContentBackgroundAppearance.INSET</code>,
+ *  <code>ContentBackgroundAppearance.FLAT</code> and
+ *  <code>ContentBackgroundAppearance.NONE</code>.</p>
  *
- *  @default CalloutContentBackgroundAppearance.INSET
+ *  @default ContentBackgroundAppearance.INSET
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
@@ -63,15 +64,22 @@ use namespace mx_internal;
 [IconFile("Callout.png")]
 
 /**
- *  The Callout class is a SkinnablePopUpContainer that functions as a pop-up
+ *  The Callout container is a SkinnablePopUpContainer that functions as a pop-up
  *  with additional owner-relative positioning options similar to PopUpAnchor.
  *  Callout also adds an optional <code>arrow</code> skin part that visually
- *  displays direction toward the owner.
+ *  displays the direction toward the owner.
  *
- *  <p>Callout uses <code>horizontalPosition</code> and
+ *  <p>You can also use the CalloutButton control to open a callout container. 
+ *  The CalloutButton control encapsulates in a single control the callout container 
+ *  and all of the logic necessary to open and close the callout. 
+ *  The CalloutButton control is then said to the be the owner, or host, 
+ *  of the callout.</p>
+ *
+ *  <p>Callout uses the <code>horizontalPosition</code> and
  *  <code>verticalPosition</code> properties to determine the position of the
- *  Callout relative to the owner that is specified via the <code>open()</code>
- *  method. Both properties may be set to CalloutPosition.AUTO which selects a
+ *  Callout relative to the owner that is specified by the <code>open()</code>
+ *  method. 
+ *  Both properties can be set to <code>CalloutPosition.AUTO</code> which selects a
  *  position based on the aspect ratio of the screen for the Callout to fit
  *  with minimal overlap with the owner and and minimal adjustments at the
  *  screen bounds.</p>
@@ -83,7 +91,7 @@ use namespace mx_internal;
  *
  *  <p>You do not create a Callout container as part of the normal layout
  *  of its parent container.
- *  Instead, it appears as a pop-up window on top of its parent.
+ *  Instead, it appears as a pop-up container on top of its parent.
  *  Therefore, you do not create it directly in the MXML code of your application.</p>
  *
  *  <p>Instead, you create is as an MXML component, often in a separate MXML file.
@@ -125,10 +133,16 @@ use namespace mx_internal;
  *    <strong>Properties</strong>
  *    horizontalPosition="auto"
  *    verticalPosition="auto"
+ *
+ *    <strong>Styles</strong>
+ *    contentBackgroundAppearance="inset"
  *  /&gt;
  *  </pre>
  *
+ *  @see spark.components.CalloutButton
  *  @see spark.skins.mobile.CalloutSkin
+ *  @see spark.components.ContentBackgroundAppearance
+ *  @see spark.components.CalloutPosition
  *
  *  @langversion 3.0
  *  @playerversion AIR 3
@@ -620,10 +634,10 @@ public class Callout extends SkinnablePopUpContainer
     }
 
     /**
-     *  Sets the bounds of arrow, whose geometry isn't fully
+     *  Sets the bounds of <code>arrow</code>, whose geometry isn't fully
      *  specified by the skin's layout.
      *
-     *  <p>Subclasses may override this method to update the arrow's size,
+     *  <p>Subclasses can override this method to update the arrow's size,
      *  position, and visibility, based on the computed
      *  <code>arrowDirection</code>.</p>
      *
