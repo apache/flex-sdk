@@ -847,10 +847,6 @@ public class LabelItemRenderer extends UIComponent
         }
 		else if (showsCaret)
 		{
-			// FIXME (rfrishbe): should probably be its own distinct color and style
-			// Also, this is touch-specific...should it be called LabelItemRenderer
-			// if it has touch-specific logic in here?  Should we gate it based 
-			// on interactionMode?
 			backgroundColor = getStyle("selectionColor");
 		}
 		else
