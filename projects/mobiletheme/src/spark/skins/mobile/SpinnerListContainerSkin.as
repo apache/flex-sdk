@@ -288,19 +288,19 @@ public class SpinnerListContainerSkin extends MobileSkin
 		var contentW:Number = contentGroup.getPreferredBoundsWidth();
 		var contentH:Number = contentGroup.getPreferredBoundsHeight();
 		
-		setElementPosition(contentGroup, borderThickness, borderThickness);
 		setElementSize(contentGroup, unscaledWidth - borderThickness * 2, unscaledHeight - borderThickness * 2);
+        setElementPosition(contentGroup, borderThickness, borderThickness);
 		
 		// Inset by the borderThickness horizontally because the selectionIndicator starts at 0
+        setElementSize(border, unscaledWidth - borderThickness * 2, unscaledHeight);
 		setElementPosition(border, borderThickness, 0);
-		setElementSize(border, unscaledWidth - borderThickness * 2, unscaledHeight);
 		
+        setElementSize(shadow, unscaledWidth - borderThickness * 4, unscaledHeight - borderThickness * 2);
 		setElementPosition(shadow, borderThickness * 2, borderThickness);
-		setElementSize(shadow, unscaledWidth - borderThickness * 4, unscaledHeight - borderThickness * 2);
-		
+				
+        setElementSize(selectionIndicator, unscaledWidth, selectionIndicatorHeight);
 		setElementPosition(selectionIndicator, 0, Math.floor((unscaledHeight - selectionIndicatorHeight) / 2));
-		setElementSize(selectionIndicator, unscaledWidth, selectionIndicatorHeight);
-		
+				
 		// The SpinnerLists contain a left and right border. We don't want to show the leftmost 
 		// SpinnerLists's left border nor the rightmost one's right border. 
 		// We inset the mask on the left and right sides to accomplish this. 
