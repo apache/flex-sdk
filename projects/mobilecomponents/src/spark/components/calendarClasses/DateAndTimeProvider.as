@@ -97,8 +97,6 @@ public class DateAndTimeProvider extends OnDemandDataProvider
     //
     //----------------------------------------------------------------------------------------------
     
-    // TODO: look at storing these as ms values instead of Date objects, and create one Date object to use for Date math
-    
     // start of the date range
     private var startDate:Date;
     
