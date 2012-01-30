@@ -26,6 +26,11 @@ import flash.events.EventDispatcher;
  *  before the <code>tweenStart</code> event.</p>
  *
  *  @eventType mx.events.TweenEvent.TWEEN_START
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="tweenStart", type="mx.events.TweenEvent")]
 
@@ -35,6 +40,11 @@ import flash.events.EventDispatcher;
  *  the <code>TweenEffectInstance.onTweenUpdate()</code> method.
  *
  *  @eventType mx.events.TweenEvent.TWEEN_UPDATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="tweenUpdate", type="mx.events.TweenEvent")]
 
@@ -51,6 +61,11 @@ import flash.events.EventDispatcher;
  *  after the effect plays for the final time.</p>
  *
  *  @eventType mx.events.TweenEvent.TWEEN_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="tweenEnd", type="mx.events.TweenEvent")]
 
@@ -85,6 +100,11 @@ import flash.events.EventDispatcher;
  *  @see mx.effects.effectClasses.TweenEffectInstance 
  * 
  *  @includeExample examples/SimpleTweenEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TweenEffect extends Effect
 {
@@ -100,6 +120,11 @@ public class TweenEffect extends Effect
      *  Constructor.
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function TweenEffect(target:Object = null)
     {
@@ -148,6 +173,11 @@ public class TweenEffect extends Effect
      *  <p>Flex includes a set of easing functions
      *  in the mx.effects.easing package.</p>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public var easingFunction:Function = null;
     
@@ -182,6 +212,11 @@ public class TweenEffect extends Effect
      *  If you override this method, ensure that you call the super method.
      *
      *  @param event An event object of type TweenEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function tweenEventHandler(event:TweenEvent):void
     {
