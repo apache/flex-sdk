@@ -241,8 +241,11 @@ public class ActionBarSkin extends MobileSkin
      */
     override protected function createChildren():void
     {
-        border = new borderClass();
-        addChild(border);
+        if (borderClass)
+        {
+            border = new borderClass();
+            addChild(border);
+        }
         
         navigationGroup = new Group();
         var hLayout:HorizontalLayout = new HorizontalLayout();
@@ -396,8 +399,11 @@ public class ActionBarSkin extends MobileSkin
         // remove top and bottom padding from content group height
         var contentGroupsHeight:Number = Math.max(0, unscaledHeight - paddingTop - paddingBottom);
         
-        // FXG uses scale-9, drop shadow is drawn outside the bounds
-        setElementSize(border, unscaledWidth, unscaledHeight + layoutShadowHeight);
+        if (border)
+        {
+            // FXG uses scale-9, drop shadow is drawn outside the bounds
+            setElementSize(border, unscaledWidth, unscaledHeight + layoutShadowHeight);
+        }
         
         // position groups, overlap of navigation and action groups is allowed
         // when overlap occurs, titleDisplay/titleGroup is not visible
