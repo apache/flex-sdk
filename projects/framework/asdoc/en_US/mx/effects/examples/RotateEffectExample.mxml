@@ -39,7 +39,7 @@
                     source="@Embed(source='assets/Nokia_6630.png')"/>
             </s:VGroup>
 
-            <s:SimpleText width="50%" color="blue"
+            <s:Label width="50%" color="blue"
                 text="Click the button to rotate the image 45 degrees. Use an embedded font when applying the Rotate effect to text."/>
 
             <s:Button label="Rotate 45 Degrees" click="rotateImage();"/>
