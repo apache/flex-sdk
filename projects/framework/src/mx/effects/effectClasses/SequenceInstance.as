@@ -169,11 +169,11 @@ public class SequenceInstance extends CompositeEffectInstance
         *  @playerversion AIR 1.1
         *  @productversion Flex 3
         */
-        // TODO (chaase): handle startDelay     
+        // FIXME (chaase): handle startDelay     
         
         if (value < playheadTime)
         {
-            // TODO (chaase): Handle seeking back in time
+            // FIXME (chaase): Handle seeking back in time
             // idea: Maybe once we get playing a sequence in reverse
             // working perfectly, seeking back in time should essentially 
             // 'play' (with zero duration) the child effects in reverse until
