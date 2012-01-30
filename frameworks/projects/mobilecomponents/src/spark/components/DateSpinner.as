@@ -39,7 +39,7 @@ use namespace mx_internal;
 //  Events
 //--------------------------------------
 /**
- *  Dispatched after the selected date has been changed by the user
+ *  Dispatched after the selected date has been changed by the user.
  *
  *  @eventType flash.events.Event.CHANGE
  *  
@@ -69,7 +69,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 
 /**
  *  The locale of the component. Controls how dates are formatted, e.g. in what order the fields
- *  are listed and what additional date-related characters are shown if any. Uses standard locale
+ *  are listed and what additional date-related characters are shown, if any. Uses standard locale
  *  identifiers as described in Unicode Technical Standard #35. For example "en", "en_US" and "en-US"
  *  are all English, "ja" is Japanese. If the specified locale is not supported on the platform, "en_US"
  *  will be used. To determine if a locale is supported, use 
@@ -109,10 +109,38 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [IconFile("DateSpinner.png")]
 
 /**
- *  The DateSpinner component presents an interface for picking a particular point
- *  in time. The interface is made up of a series of SpinnerList controls that show the
- *  user the currently selected date and, through touch or mouse interaction, allow the user
- *  to adjust the selected date.
+ *  The DateSpinner control presents an interface for picking a particular date or time. 
+ * 
+ * <p>The DateSpinner control can display the date, the time, or the date and time, based on the 
+ *  value of the <code>displayMode</code> property.</p>
+ * 
+ *  <p>The UI for the control is made up of a series of SpinnerList controls wrapped inside
+ *  a SpinnerListContainer that show the
+ *  currently-selected date. Through touch or mouse interaction, users
+ *  can adjust the selected date.</p>
+ * 
+ *  <p>The DateSpinnerSkin only defines some sizing properties. 
+ *  To change the appearance of the DateSpinner control, you typically reskin the underlying 
+ *  SpinnerListSkin or SpinnerListContainerSkin.</p>
+ * 
+ *  @mxml <p>The <code>&lt;s:DateSpinner&gt;</code> tag inherits all of the tag
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:DateSpinner
+ *    <strong>Properties</strong>
+ *    displayMode="date|time|dateAndTime"
+ *    maxDate="null"
+ *    minDate="null"
+ *    minuteStepSize="1"
+ *    selectedDate=""
+ * 
+ *    <strong>Styles</strong>
+ *    accentColor="0x0058A8"
+ *  /&gt;
+ *  </pre>
+ * 
+ *  @see spark.components.SpinnerList
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
@@ -206,7 +234,7 @@ public class DateSpinner extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
     /**
-     *  Constructor
+     *  Constructor.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -275,7 +303,7 @@ public class DateSpinner extends SkinnableComponent
     [SkinPart]
     /**
      *  The default factory for creating SpinnerList interfaces for all fields.
-     *  This is used by createDateItemList().
+     *  This is used by the createDateItemList() method.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -301,7 +329,6 @@ public class DateSpinner extends SkinnableComponent
     
     /**
      *  The SpinnerList showing the year field of the date.
-     *  shown and manipulated
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -311,7 +338,6 @@ public class DateSpinner extends SkinnableComponent
 
     /**
      *  The SpinnerList showing the month field of the date.
-     *  shown and manipulated
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -321,7 +347,6 @@ public class DateSpinner extends SkinnableComponent
     
     /**
      *  The SpinnerList showing the date field of the date.
-     *  shown and manipulated
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -331,7 +356,6 @@ public class DateSpinner extends SkinnableComponent
     
     /**
      *  The SpinnerList showing the hour field of the date.
-     *  shown and manipulated
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -341,7 +365,6 @@ public class DateSpinner extends SkinnableComponent
     
     /**
      *  The SpinnerList showing the minutes field of the date.
-     *  shown and manipulated
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -350,8 +373,7 @@ public class DateSpinner extends SkinnableComponent
     protected var minuteList:SpinnerList;
     
     /**
-     *  The SpinnerList showing the meridian field of the date.
-     *  shown and manipulated
+     *  The SpinnerList showing the meridian field (AM/PM) of the date.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -370,8 +392,19 @@ public class DateSpinner extends SkinnableComponent
     [Inspectable(category="General", enumeration="date,time,dateAndTime", defaultValue="date")]
     
     /**
-     *  Mode the DateSpinner is currently using for display. See 
-     *  <code>DateSelectorDisplayMode</code>.
+     *  Mode the DateSpinner is currently using for display. You can set this value to the constants defined in the 
+     *  DateSelectorDisplayMode class, or to their string equivalents.
+     * 
+     *  <p>The following table describes the possible values:
+     *     <table class="innertable">
+     *     <tr><th>Mode (String equivalent)</th><th>Description</th></tr>
+     *     <tr><td><code>DateSelectorDisplayMode.DATE</code> ("date")</td><td>Displays the month, day, and year. This is the default mode.</td></tr>
+     *     <tr><td><code>DateSelectorDisplayMode.TIME</code> ("time")</td><td>Displays the day of week, month, day, and time.</td></tr>
+     *     <tr><td><code>DateSelectorDisplayMode.DATE_AND_TIME</code> ("dateAndTime")</td><td>Displays the hours and minutes, and, if the locale supports it, the AM/PM selector.</td></tr>
+     *     </table>
+     *   </p>
+     * 
+     *  @see spark.components.calendarClasses.DateSelectorDisplayMode
      * 
      *  @default DateSelectorDisplayMode.DATE
      *  @langversion 3.0
@@ -383,6 +416,9 @@ public class DateSpinner extends SkinnableComponent
         return _displayMode;
     }
     
+    /**
+     *  @private
+     */     
     public function set displayMode(value:String):void
     {
         if (_displayMode == value || value == null)
@@ -427,11 +463,12 @@ public class DateSpinner extends SkinnableComponent
     private var maxDateChanged:Boolean = false;
     
     /**
-     *  Maximum selectable date; only dates before this date are selectable.
+     *  Maximum selectable date; only this date and dates before this date are selectable.
      * 
      *  @default If maxDate is null, the value defaults to 100 years after
      *           the currently selected date in DATE mode, and 100 days 
      *           after the currently selected date in DATE_AND_TIME mode.
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
@@ -441,6 +478,9 @@ public class DateSpinner extends SkinnableComponent
         return _maxDate != null ? _maxDate : MAX_DATE_DEFAULT;
     }
     
+    /**
+     *  @private
+     */     
     public function set maxDate(value:Date):void
     {
         if ((_maxDate && value && _maxDate.time == value.time)
@@ -465,7 +505,7 @@ public class DateSpinner extends SkinnableComponent
     
     // TODO: add reference after the global team adds the doc
     /**
-     *  Minimum selectable date; only dates after this date are selectable.
+     *  Minimum selectable date; only this date and dates after this date are selectable.
      * 
      *  @default If minDate is null, the value defaults to 100 years prior to
      *           the currently selected date in DATE mode, and 100 days prior
@@ -481,6 +521,9 @@ public class DateSpinner extends SkinnableComponent
         return _minDate != null ? _minDate : MIN_DATE_DEFAULT;
     }
     
+    /**
+     *  @private
+     */     
     public function set minDate(value:Date):void
     {
         if ((_minDate && value && _minDate.time == value.time)
@@ -504,7 +547,7 @@ public class DateSpinner extends SkinnableComponent
     
     /**
      *  Minute interval to be used when displaying minutes. Only
-     *  applicable in TIME and DATEANDTIME modes. Valid values must
+     *  applicable in TIME and DATE_AND_TIME modes. Valid values must
      *  be evenly divisible into 60; invalid values will revert to
      *  the default interval of 1. For example, a value of "15" will show
      *  the values 0, 15, 30, 45.
@@ -519,6 +562,9 @@ public class DateSpinner extends SkinnableComponent
         return _minuteStepSize;
     }
     
+    /**
+     *  @private
+     */     
     public function set minuteStepSize(value:int):void
     {
         if (value == _minuteStepSize)
@@ -544,9 +590,10 @@ public class DateSpinner extends SkinnableComponent
     
     [Bindable(event="valueCommit")]
     /**
-     *  Date that the DateSpinner is currently selected
+     *  Date that is currently selected in the DateSpinner control.
      *
-     *  @default current date when DateSpinner was instantiated
+     *  @default Current date when the DateSpinner was instantiated.
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
@@ -797,7 +844,7 @@ public class DateSpinner extends SkinnableComponent
     /**
      *  Create a list object for the specified date part.
      * 
-     *  @param datePart use date part constants, e.g. YEAR_ITEM
+     *  @param datePart Use date part constants, e.g. YEAR_ITEM.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
