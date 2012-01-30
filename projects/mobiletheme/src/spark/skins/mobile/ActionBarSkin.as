@@ -26,8 +26,9 @@ import spark.core.SpriteVisualElement;
 import spark.layouts.HorizontalAlign;
 import spark.layouts.HorizontalLayout;
 import spark.layouts.VerticalAlign;
-import spark.skins.mobile.assets.ActionBarBackground;
 import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile160.assets.ActionBarBackground;
+import spark.skins.mobile240.assets.ActionBarBackground;
 import spark.skins.mobile320.assets.ActionBarBackground;
 
 use namespace mx_internal;
@@ -95,7 +96,7 @@ public class ActionBarSkin extends MobileSkin
                 layoutContentGroupHeight = 65;
                 layoutTitleGroupHorizontalPadding = 20;
                 
-                borderClass = spark.skins.mobile.assets.ActionBarBackground;
+                borderClass = spark.skins.mobile240.assets.ActionBarBackground;
                 
                 break;
             }
@@ -107,7 +108,7 @@ public class ActionBarSkin extends MobileSkin
                 layoutContentGroupHeight = 43;
                 layoutTitleGroupHorizontalPadding = 13;
                 
-                borderClass = spark.skins.mobile.assets.ActionBarBackground;
+                borderClass = spark.skins.mobile160.assets.ActionBarBackground;
                 
                 break;
             }
