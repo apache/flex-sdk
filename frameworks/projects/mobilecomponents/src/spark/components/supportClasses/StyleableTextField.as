@@ -67,7 +67,7 @@ use namespace mx_internal;
 //
 //   in commitProperties():
 //       tf.text = "...." - if needed
-// 
+//
 //   in measure();
 //       if (tf.isTruncated)     // if text may be truncated
 //           tf.text = "...";
@@ -85,22 +85,22 @@ use namespace mx_internal;
 //       // if you want truncated text:
 //       tf.truncateToFit();
 //
-// Supported styles: textAlign, fontFamily, fontWeight, "colorName", fontSize, fontStyle, 
+// Supported styles: textAlign, fontFamily, fontWeight, "colorName", fontSize, fontStyle,
 //                   textDecoration, textIndent, leading, letterSpacing
 
 /**
  *  The StyleableTextField class is a text primitive for use in ActionScript
  *  skins and item renderers. It cannot be used in MXML markup and is not
  *  compatible with effects.
- *  
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-public class StyleableTextField extends TextField 
+public class StyleableTextField extends TextField
     implements IEditableText, ISimpleStyleClient, IVisualElement
-{        
+{
     
     //--------------------------------------------------------------------------
     //
@@ -115,9 +115,9 @@ public class StyleableTextField extends TextField
      *  But since truncateToFit() can be called frequently,
      *  this class caches this resource value in this variable.
      *  Note that this class does _not_ support runtime local changes to
-     *  the truncation indicator. The dynamic local change code in UITextField 
+     *  the truncation indicator. The dynamic local change code in UITextField
      *  can be used here, if needed.
-     */ 
+     */
     private static var truncationIndicatorResource:String;
     
     //--------------------------------------------------------------------------
@@ -128,7 +128,7 @@ public class StyleableTextField extends TextField
     
     /**
      *  Constructor.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -143,8 +143,8 @@ public class StyleableTextField extends TextField
         
         // make our width 400 by default.  this is just a heuristic, but it helps
         // get the right measurement the first time for a multi-line TextField.
-        // The developer should still be setting the textField's width to 
-        // the estimatedWidth to get a more accurate representation, but 
+        // The developer should still be setting the textField's width to
+        // the estimatedWidth to get a more accurate representation, but
         // sometimes there is no estimated width, and this will be a good
         // heuristic in cases where they forget to do that.
         width = 400;
@@ -159,14 +159,14 @@ public class StyleableTextField extends TextField
         
         // Add a key down listener to listen for enter key
         addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-
-		addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING, 
-			touchInteractionStartingHandler);
-		addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START, 
-			touchInteractionStartHandler);
-		addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END, 
-			touchInteractionEndHandler);
-
+        
+        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING,
+            touchInteractionStartingHandler);
+        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START,
+            touchInteractionStartHandler);
+        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END,
+            touchInteractionEndHandler);
+        
         if (!truncationIndicatorResource)
         {
             truncationIndicatorResource = ResourceManager.getInstance().
@@ -179,19 +179,19 @@ public class StyleableTextField extends TextField
     //  Properties
     //
     //--------------------------------------------------------------------------
-	override public function set width(value:Number): void
-	{
-		super.width = value;
-		
-		// If we're multiline we need to invalidate our size since our height
-		// may have changed
-		if (multiline) 
-		{
-			invalidateTightTextHeight = true;
-			invalidateTextSizeFlag = true;	
-		}
-	}
-
+    override public function set width(value:Number): void
+    {
+        super.width = value;
+        
+        // If we're multiline we need to invalidate our size since our height
+        // may have changed
+        if (multiline)
+        {
+            invalidateTightTextHeight = true;
+            invalidateTextSizeFlag = true;
+        }
+    }
+    
     public function get measuredTextSize():Point
     {
         // commit style to get an accurate measurement
@@ -201,7 +201,7 @@ public class StyleableTextField extends TextField
         {
             _measuredTextSize = new Point();
             invalidateTextSizeFlag = true;
-			invalidateTightTextHeight = true;
+            invalidateTightTextHeight = true;
         }
         
         if (invalidateTextSizeFlag)
@@ -216,41 +216,41 @@ public class StyleableTextField extends TextField
                 _measuredTextSize.x = textWidth + textIndent + TEXT_WIDTH_PADDING
                 _measuredTextSize.y = textHeight + TEXT_HEIGHT_PADDING;
             }
-			else
-			{
-	            // when scaling, remove/add to stage for consistent measurement
-	            var originalParent:DisplayObjectContainer = parent;
-	            var index:int = parent.getChildIndex(this);
-	            
-	            // remove from display list
-	            if (originalParent is UIComponent)
-	                UIComponent(originalParent).$removeChild(this);
-	            else
-	                originalParent.removeChild(this);
-	            
-	            _measuredTextSize.x = textWidth + textIndent + TEXT_WIDTH_PADDING
-	            _measuredTextSize.y = textHeight + TEXT_HEIGHT_PADDING;
-	            
-	            // add to display list
-	            if (originalParent is UIComponent)
-	                UIComponent(originalParent).$addChildAt(this, index);
-	            else
-	                originalParent.addChildAt(this, index);
-	            
-	            // If we use device fonts, then the unscaled sizes are
-	            // textWidth * scaleX / scaleY
-	            // textHeight * scaleX / scaleY 
-	            if (m.a != m.d)
-	            {
-	                var scaleFactor:Number = (m.a / m.d);
-	                
-	                // textIndent and gutter are also scaled
-	                _measuredTextSize.x = Math.abs(_measuredTextSize.x * scaleFactor);
-	                _measuredTextSize.y = Math.abs(_measuredTextSize.y * scaleFactor);
-	            }
-			}
-			
-			invalidateTextSizeFlag = false;
+            else
+            {
+                // when scaling, remove/add to stage for consistent measurement
+                var originalParent:DisplayObjectContainer = parent;
+                var index:int = parent.getChildIndex(this);
+                
+                // remove from display list
+                if (originalParent is UIComponent)
+                    UIComponent(originalParent).$removeChild(this);
+                else
+                    originalParent.removeChild(this);
+                
+                _measuredTextSize.x = textWidth + textIndent + TEXT_WIDTH_PADDING
+                _measuredTextSize.y = textHeight + TEXT_HEIGHT_PADDING;
+                
+                // add to display list
+                if (originalParent is UIComponent)
+                    UIComponent(originalParent).$addChildAt(this, index);
+                else
+                    originalParent.addChildAt(this, index);
+                
+                // If we use device fonts, then the unscaled sizes are
+                // textWidth * scaleX / scaleY
+                // textHeight * scaleX / scaleY
+                if (m.a != m.d)
+                {
+                    var scaleFactor:Number = (m.a / m.d);
+                    
+                    // textIndent and gutter are also scaled
+                    _measuredTextSize.x = Math.abs(_measuredTextSize.x * scaleFactor);
+                    _measuredTextSize.y = Math.abs(_measuredTextSize.y * scaleFactor);
+                }
+            }
+            
+            invalidateTextSizeFlag = false;
         }
         
         return _measuredTextSize;
@@ -274,7 +274,7 @@ public class StyleableTextField extends TextField
      *  the <code>setStyle()</code> method
      *  is called on this component to set an inheriting style.
      *  Developers typically never need to access this property directly.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -305,7 +305,7 @@ public class StyleableTextField extends TextField
     
     /**
      *  The class style used by this component. This should be an IStyleClient.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -335,100 +335,100 @@ public class StyleableTextField extends TextField
         styleChanged("styleName");
     }
     
-	//----------------------------------
-	//  Text alignment helpers
-	//----------------------------------	
-	/**
-	 *  @private
-	 *  The height of the first line of text to the baseline of the bottom line
-	 *  of text.  Handles both single line and multiline text. 
-	 */
-	private function get tightTextHeight() :Number
-	{
-		commitStyles();
-		
-		// figure out distance from text bottom to last baseline
-		if (invalidateTightTextHeight)
-		{
-			// getLineMetrics() returns strange numbers for an empty string,
-			// so instead we get the metrics for a non-empty string.
-			var isEmpty:Boolean = (text == "");
-			
-			if (isEmpty)
-				text = "Wj";
-			
-			var metrics:TextLineMetrics = getLineMetrics(0);
-			
-			// bottom gutter and descent
-			var bottomOffset:Number = StyleableTextField.TEXT_HEIGHT_PADDING/2 + metrics.descent;	
-			if (numLines == 1) // account for the extra leading on single line text
-				bottomOffset += metrics.leading;
-			
-			var topOffset:Number = getTextTopOffset(defaultTextFormat);
-			_tightTextHeight = measuredTextSize.y - topOffset - bottomOffset;
-			
-			if (isEmpty)
-				text = "";
-			
-			invalidateTightTextHeight = false;	
-		}
-		
-		return _tightTextHeight;
-	}
-	
-	/**
-	 *  @private
-	 *  Finds the distance from the top edge of the containing text field to the text for 
-	 *  a particular font, size, weight and style combination.  This value accounts for
-	 *  the difference between the metrics.ascent and the true top of the text within the 
-	 *  text field and the top gutter
-	 */
-	private static function getTextTopOffset(textFormat:TextFormat):Number
-	{
-		// try to find the top offset for the font, size, weight and style in our table
-		// we only store offets for unique font, size, weight and style combinations
-		// FIXME (mcho)  are there more properties that affect the top offset we should 
-		// take into account?
-		var key:String = textFormat.font + "_" + textFormat.size + "_" + textFormat.bold + "_" + textFormat.italic;
-		var topOffset:Number = textTopOffsetTable[key];
-		
-		// if we can't find the value in our table let's calculate it
-		if (isNaN(topOffset))
-		{
-			// create sample text field
-			var field:TextField = new TextField();
-			field.defaultTextFormat = textFormat;
-			field.embedFonts = isFontEmbedded(textFormat);
-			field.textColor = 0x000000; // make sure our text is black so it will show up against white
-			field.text = "T"; // use "T" as our standard
-			field.width = field.textWidth;
-			field.height = field.textHeight;
-			
-			// draw the field into a bitmap data - note default bg color of bitmapData is white.
-			var bitmapData:BitmapData = new BitmapData(field.width, field.height);
-			bitmapData.draw(field);
-			
-			// search vertically for the first non white pixel
-			var col:int = Math.round(bitmapData.width/2);
-			for (var i:int = 0; i < bitmapData.height; i++)
-			{
-				if (bitmapData.getPixel(col, i) != 0xFFFFFF)
-					break;
-			}
-			
-			if (i == bitmapData.height) 
-				topOffset = StyleableTextField.TEXT_HEIGHT_PADDING/2; // if we didn't find a non white pixel set top offset to top gutter
-			else
-				topOffset = i;
-			
-			// store the offset value in our look up table
-			textTopOffsetTable[key] = topOffset; 
-		}
-
-		return topOffset;
-	}
-	
-	
+    //----------------------------------
+    //  Text alignment helpers
+    //----------------------------------
+    /**
+     *  @private
+     *  The height of the first line of text to the baseline of the bottom line
+     *  of text.  Handles both single line and multiline text.
+     */
+    private function get tightTextHeight() :Number
+    {
+        commitStyles();
+        
+        // figure out distance from text bottom to last baseline
+        if (invalidateTightTextHeight)
+        {
+            // getLineMetrics() returns strange numbers for an empty string,
+            // so instead we get the metrics for a non-empty string.
+            var isEmpty:Boolean = (text == "");
+            
+            if (isEmpty)
+                text = "Wj";
+            
+            var metrics:TextLineMetrics = getLineMetrics(0);
+            
+            // bottom gutter and descent
+            var bottomOffset:Number = StyleableTextField.TEXT_HEIGHT_PADDING/2 + metrics.descent;	
+            if (numLines == 1) // account for the extra leading on single line text
+                bottomOffset += metrics.leading;
+            
+            var topOffset:Number = getTextTopOffset(defaultTextFormat);
+            _tightTextHeight = measuredTextSize.y - topOffset - bottomOffset;
+            
+            if (isEmpty)
+                text = "";
+            
+            invalidateTightTextHeight = false;
+        }
+        
+        return _tightTextHeight;
+    }
+    
+    /**
+     *  @private
+     *  Finds the distance from the top edge of the containing text field to the text for
+     *  a particular font, size, weight and style combination.  This value accounts for
+     *  the difference between the metrics.ascent and the true top of the text within the
+     *  text field and the top gutter
+     */
+    private static function getTextTopOffset(textFormat:TextFormat):Number
+    {
+        // try to find the top offset for the font, size, weight and style in our table
+        // we only store offets for unique font, size, weight and style combinations
+        // FIXME (mcho)  are there more properties that affect the top offset we should
+        // take into account?
+        var key:String = textFormat.font + "_" + textFormat.size + "_" + textFormat.bold + "_" + textFormat.italic;
+        var topOffset:Number = textTopOffsetTable[key];
+        
+        // if we can't find the value in our table let's calculate it
+        if (isNaN(topOffset))
+        {
+            // create sample text field
+            var field:TextField = new TextField();
+            field.defaultTextFormat = textFormat;
+            field.embedFonts = isFontEmbedded(textFormat);
+            field.textColor = 0x000000; // make sure our text is black so it will show up against white
+            field.text = "T"; // use "T" as our standard
+            field.width = field.textWidth;
+            field.height = field.textHeight;
+            
+            // draw the field into a bitmap data - note default bg color of bitmapData is white.
+            var bitmapData:BitmapData = new BitmapData(field.width, field.height);
+            bitmapData.draw(field);
+            
+            // search vertically for the first non white pixel
+            var col:int = Math.round(bitmapData.width/2);
+            for (var i:int = 0; i < bitmapData.height; i++)
+            {
+                if (bitmapData.getPixel(col, i) != 0xFFFFFF)
+                    break;
+            }
+            
+            if (i == bitmapData.height)
+                topOffset = StyleableTextField.TEXT_HEIGHT_PADDING/2; // if we didn't find a non white pixel set top offset to top gutter
+            else
+                topOffset = i;
+            
+            // store the offset value in our look up table
+            textTopOffsetTable[key] = topOffset;
+        }
+        
+        return topOffset;
+    }
+    
+    
     //--------------------------------------------------------------------------
     //
     //  IDisplayText implementation
@@ -446,7 +446,7 @@ public class StyleableTextField extends TextField
      *  The supported styles depend on the subclass.</p>
      *
      *  @default ""
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -466,7 +466,7 @@ public class StyleableTextField extends TextField
         super.text = value;
         _isTruncated = false;
         invalidateTextSizeFlag = true;
-		invalidateTightTextHeight = true;
+        invalidateTightTextHeight = true;
         
         if (hasEventListener(FlexEvent.VALUE_COMMIT))
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
@@ -499,9 +499,9 @@ public class StyleableTextField extends TextField
     //----------------------------------
     
     /**
-     *  Indicates whether the text has been truncated, <code>true</code>, 
+     *  Indicates whether the text has been truncated, <code>true</code>,
      *  or not, <code>false</code>.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -516,18 +516,18 @@ public class StyleableTextField extends TextField
     //
     //  IEditableText implementation
     //
-    //--------------------------------------------------------------------------        
+    //--------------------------------------------------------------------------
     
     //----------------------------------
     //  editable
     //----------------------------------
     
     /**
-     *  Specifies whether the text is editable, <code>true</code>, 
+     *  Specifies whether the text is editable, <code>true</code>,
      *  or not, <code>false</code>.
-     * 
+     *
      *  @default false
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -551,15 +551,15 @@ public class StyleableTextField extends TextField
     private var _focusEnabled:Boolean = true;
     
     /**
-     *  Indicates whether the component can receive focus when tabbed to. 
-     *  You can set <code>focusEnabled</code> to <code>false</code> when a 
-     *  component is used as a subcomponent of another component so that 
-     *  the outer component becomes the focusable entity. 
-     *  If this property is <code>false</code>, focus is transferred to 
-     *  the first parent that has <code>focusEnable</code> set to <code>true</code>. 
+     *  Indicates whether the component can receive focus when tabbed to.
+     *  You can set <code>focusEnabled</code> to <code>false</code> when a
+     *  component is used as a subcomponent of another component so that
+     *  the outer component becomes the focusable entity.
+     *  If this property is <code>false</code>, focus is transferred to
+     *  the first parent that has <code>focusEnable</code> set to <code>true</code>.
      *
      *  @default true
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -582,12 +582,12 @@ public class StyleableTextField extends TextField
     private var _enabled:Boolean = true;
     
     /**
-     *  Whether the component can accept user interaction. 
-     *  After setting the <code>enabled</code> property to <code>false</code>, 
-     *  some components still respond to mouse interactions such as <code>mouseOver</code>. 
-     *  As a result, to fully disable the component, you should also set the value 
-     *  of the <code>mouseEnabled</code> property to <code>false</code>.  
-     *  
+     *  Whether the component can accept user interaction.
+     *  After setting the <code>enabled</code> property to <code>false</code>,
+     *  some components still respond to mouse interactions such as <code>mouseOver</code>.
+     *  As a result, to fully disable the component, you should also set the value
+     *  of the <code>mouseEnabled</code> property to <code>false</code>.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -609,7 +609,7 @@ public class StyleableTextField extends TextField
     
     /**
      *  The horizontal scroll position of the text.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -630,16 +630,16 @@ public class StyleableTextField extends TextField
     //----------------------------------
     
     /**
-     *  Controls word wrapping within the text. 
+     *  Controls word wrapping within the text.
      *  This property corresponds to the <code>lineBreak</code> style.
      *
-     *  <p>Text may be set to fit the width of the container (<code>LineBreak.TO_FIT</code>), 
+     *  <p>Text may be set to fit the width of the container (<code>LineBreak.TO_FIT</code>),
      *  or can be set to break only at explicit return or line feed characters (<code>LineBreak.EXPLICIT</code>).</p>
      *
-     *  <p>Legal values are <code>flashx.textLayout.formats.LineBreak.EXPLICIT</code>, 
-     *  <code>flashx.textLayout.formats.LineBreak.TO_FIT</code>, and 
+     *  <p>Legal values are <code>flashx.textLayout.formats.LineBreak.EXPLICIT</code>,
+     *  <code>flashx.textLayout.formats.LineBreak.TO_FIT</code>, and
      *  <code>flashx.textLayout.formats.FormatValue.INHERIT</code>.</p>
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -663,7 +663,7 @@ public class StyleableTextField extends TextField
      *  The active, or last clicked position, of the selection.
      *  If the implementation does not support selection anchor
      *  this is the last character of the selection.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -683,7 +683,7 @@ public class StyleableTextField extends TextField
      *  The anchor, or first clicked position, of the selection.
      *  If the implementation does not support selection anchor
      *  this is the first character of the selection.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -701,7 +701,7 @@ public class StyleableTextField extends TextField
     
     /**
      *  The vertical scroll position of the text.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -715,20 +715,20 @@ public class StyleableTextField extends TextField
     public function set verticalScrollPosition(value:Number):void
     {
         scrollV = Math.min(Math.max(0, int(value)), maxScrollV);
-    }    
+    }
     
     //--------------------------------------------------------------------------
     //
     //  IEditableText Methods
     //
-    //--------------------------------------------------------------------------        
+    //--------------------------------------------------------------------------
     
     /**
      *  Scroll so the specified range is in view.
-     *  
+     *
      *  @param anchorPosition The anchor position of the selection range.
      *  @param activePosition The active position of the selection range.
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -736,7 +736,7 @@ public class StyleableTextField extends TextField
      */
     public function scrollToRange(anchorPosition:int, activePosition:int):void
     {
-        // If either part of the selection is in range (determined by 
+        // If either part of the selection is in range (determined by
         // a non-null return value from getCharBoundaries()), we
         // don't need to do anything.
         if (getCharBoundaries(anchorPosition) || getCharBoundaries(activePosition))
@@ -758,7 +758,7 @@ public class StyleableTextField extends TextField
      *  that the insertion point is visible.</p>
      *
      *  @param text The text to be inserted.
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -769,7 +769,7 @@ public class StyleableTextField extends TextField
         replaceText(selectionAnchorPosition, selectionActivePosition, text);
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         invalidateTextSizeFlag = true;
-		invalidateTightTextHeight = true;
+        invalidateTightTextHeight = true;
     }
     
     /**
@@ -781,7 +781,7 @@ public class StyleableTextField extends TextField
      *  that the insertion point is visible.</p>
      *
      *  @param text The text to be appended.
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -790,14 +790,14 @@ public class StyleableTextField extends TextField
     override public function appendText(text:String):void
     {
         super.appendText(text);
-		
-		// Make sure insertion point is at the end of the text
-		var textLength:int = this.text.length;
-		setSelection(textLength, textLength);
-		
+        
+        // Make sure insertion point is at the end of the text
+        var textLength:int = this.text.length;
+        setSelection(textLength, textLength);
+        
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         invalidateTextSizeFlag = true;
-		invalidateTightTextHeight = true;
+        invalidateTightTextHeight = true;
     }
     
     /**
@@ -810,12 +810,12 @@ public class StyleableTextField extends TextField
      *
      *  @param activePosition The character position specifying the end
      *  of the selection that moves when the selection is extended.
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
-     */ 
+     */
     public function selectRange(anchorIndex:int, activeIndex:int):void
     {
         setSelection(Math.min(anchorIndex, activeIndex),
@@ -824,12 +824,12 @@ public class StyleableTextField extends TextField
     
     /**
      *  Selects all of the text.
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
-     */         
+     */
     public function selectAll():void
     {
         setSelection(0, length);
@@ -837,12 +837,12 @@ public class StyleableTextField extends TextField
     
     /**
      *  Set focus to this text field.
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
-     */         
+     */
     public function setFocus():void
     {
         stage.focus = this;
@@ -920,23 +920,23 @@ public class StyleableTextField extends TextField
             if (text == "")
             {
                 // Set the width to the fontSize + padding, which is big enough to hold one
-                // character. 
+                // character.
                 width = textFormat.size + TEXT_WIDTH_PADDING;
             }
             
             invalidateStyleFlag = false;
             
-            // now that we've pushed the new styles in, our size might have 
+            // now that we've pushed the new styles in, our size might have
             // changed
             invalidateTextSizeFlag = true;
             invalidateBaselinePosition = true;
-			invalidateTightTextHeight = true;
+            invalidateTightTextHeight = true;
         }
     }
     
     /**
      *  @copy mx.core.UIComponent#getStyle()
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -966,7 +966,7 @@ public class StyleableTextField extends TextField
      *  @param styleProp Name of the style property.
      *
      *  @param newValue New value for the style.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
@@ -1000,13 +1000,13 @@ public class StyleableTextField extends TextField
         {
             invalidateStyleFlag = true;
             
-            // invalidateSizeFlag doesn't get set until commitStyles() when 
+            // invalidateSizeFlag doesn't get set until commitStyles() when
             // the new styles are actually pushed in and the textWidth/textHeight changes
         }
     }
     
     /**
-     *  Truncate text to make it fit horizontally in the area defined for the control, 
+     *  Truncate text to make it fit horizontally in the area defined for the control,
      *  and append an ellipsis, three periods (...), to the text. This function
      *  only works for single line text.
      *
@@ -1015,7 +1015,7 @@ public class StyleableTextField extends TextField
      *  such as <code>"..."</code> will be used.
      *
      *  @return <code>true</code> if the text needed truncation.
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -1032,7 +1032,7 @@ public class StyleableTextField extends TextField
         
         _isTruncated = false;
         
-        // Need to check if we should truncate, but it 
+        // Need to check if we should truncate, but it
         // could be due to rounding error.  Let's check that it's not.
         // Examples of rounding errors happen with "South Africa" and "Game"
         // with verdana.ttf.
@@ -1053,7 +1053,7 @@ public class StyleableTextField extends TextField
             _isTruncated = true;
             invalidateTextSizeFlag = true;
             invalidateBaselinePosition = true;
-			invalidateTightTextHeight = true;
+            invalidateTightTextHeight = true;
             
             // Make sure all text is visible
             scrollH = 0;
@@ -1106,7 +1106,7 @@ public class StyleableTextField extends TextField
         if (!(event is TextOperationEvent))
         {
             invalidateTextSizeFlag = true;
-			invalidateTightTextHeight = true;
+            invalidateTightTextHeight = true;
             
             var newEvent:TextOperationEvent = new TextOperationEvent(event.type);
             
@@ -1147,23 +1147,23 @@ public class StyleableTextField extends TextField
         if (!dispatchEvent(e))
             event.preventDefault();
     }
-	
-	/**
-	 *  @private
-	 */
-	private function touchInteractionStartingHandler(event:TouchInteractionEvent):void
-	{
-		// When in text selection mode, tell the Scroller to use the special text
-		// selection auto-scroll mode, and pass the top/bottom of this component as
-		// the scroll range.
-		if (textInteractionMode == TextInteractionMode.SELECTION)
-		{
-			var focusThickness:Number = getStyle("focusThickness");
-			var scroller:Scroller = event.relatedObject as Scroller;
-			
-			// Early exit if the event isn't a SCROLL event or doesn't have a Scroller
-			if (event.reason != TouchInteractionReason.SCROLL || !scroller)
-				return;
+    
+    /**
+     *  @private
+     */
+    private function touchInteractionStartingHandler(event:TouchInteractionEvent):void
+    {
+        // When in text selection mode, tell the Scroller to use the special text
+        // selection auto-scroll mode, and pass the top/bottom of this component as
+        // the scroll range.
+        if (textInteractionMode == TextInteractionMode.SELECTION)
+        {
+            var focusThickness:Number = getStyle("focusThickness");
+            var scroller:Scroller = event.relatedObject as Scroller;
+            
+            // Early exit if the event isn't a SCROLL event or doesn't have a Scroller
+            if (event.reason != TouchInteractionReason.SCROLL || !scroller)
+                return;
             
             // if already in text selection mode with another scroller, cancel this scroller
             if (scrollerInTextSelectionMode)
@@ -1171,90 +1171,90 @@ public class StyleableTextField extends TextField
                 event.preventDefault();
                 return;
             }
-			
-			var minVScrollPos:Number;
-			var maxVScrollPos:Number;
-			var minHScrollPos:Number;
-			var maxHScrollPos:Number;
-			
-			var pt:Point = new Point(0, 0);
-			
-			// Offset by our position within the skin/component. The scrolling is 
-			// constrained by the component boundaries, not by the boundaries of
-			// this text field. We don't have a reliable way to determine the 
-			// component boundaries, so we use our x,y position as an estimate.
-			pt.offset(-x, -y);
-			
-			// Include the focus thickness in the min/max scroll positions
-			pt.offset(-focusThickness, -focusThickness);
-			
-			pt = localToGlobal(pt);
-			pt = DisplayObject(scroller.viewport).globalToLocal(pt);
-			minHScrollPos = Math.max(0, pt.x);
-			minVScrollPos = Math.max(0, pt.y);
-			
-			pt.x = width;
-			pt.y = height;
-			
-			// We can't reliably find our position relative to the bottom of the skin/
-			// component, so use our top position as an estimate
-			pt.offset(x, y);
-			
-			// Include focus thickness
-			pt.offset(focusThickness, focusThickness);
-			
-			pt = parent.localToGlobal(pt);
-			pt = DisplayObject(scroller.viewport).globalToLocal(pt);
-			maxHScrollPos = pt.x - scroller.width;
-			maxVScrollPos = pt.y - scroller.height;
-			
+            
+            var minVScrollPos:Number;
+            var maxVScrollPos:Number;
+            var minHScrollPos:Number;
+            var maxHScrollPos:Number;
+            
+            var pt:Point = new Point(0, 0);
+            
+            // Offset by our position within the skin/component. The scrolling is
+            // constrained by the component boundaries, not by the boundaries of
+            // this text field. We don't have a reliable way to determine the
+            // component boundaries, so we use our x,y position as an estimate.
+            pt.offset(-x, -y);
+            
+            // Include the focus thickness in the min/max scroll positions
+            pt.offset(-focusThickness, -focusThickness);
+            
+            pt = localToGlobal(pt);
+            pt = DisplayObject(scroller.viewport).globalToLocal(pt);
+            minHScrollPos = Math.max(0, pt.x);
+            minVScrollPos = Math.max(0, pt.y);
+            
+            pt.x = width;
+            pt.y = height;
+            
+            // We can't reliably find our position relative to the bottom of the skin/
+            // component, so use our top position as an estimate
+            pt.offset(x, y);
+            
+            // Include focus thickness
+            pt.offset(focusThickness, focusThickness);
+            
+            pt = parent.localToGlobal(pt);
+            pt = DisplayObject(scroller.viewport).globalToLocal(pt);
+            maxHScrollPos = pt.x - scroller.width;
+            maxVScrollPos = pt.y - scroller.height;
+            
             scrollerInTextSelectionMode = scroller;
-			scroller.enableTextSelectionAutoScroll(true, minHScrollPos, maxHScrollPos,
-				minVScrollPos, maxVScrollPos);
-		}
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function touchInteractionStartHandler(event:TouchInteractionEvent):void
-	{
-		// During a touch scroll we don't want the keyboard to activate. Add a
-		// "softKeyboardActivating" handler to cancel the event.
-		addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, 
-			softKeyboardActivatingHandler);
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function touchInteractionEndHandler(event:TouchInteractionEvent):void
-	{
-		// Remove the soft keyboard activate cancelling handler.
-		removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, 
-			softKeyboardActivatingHandler);
-		
-		if (textInteractionMode == TextInteractionMode.SELECTION)
-		{
-			var scroller:Scroller = event.relatedObject as Scroller;
-			
-			// Turn off text selection auto-scroll.
+            scroller.enableTextSelectionAutoScroll(true, minHScrollPos, maxHScrollPos,
+                minVScrollPos, maxVScrollPos);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function touchInteractionStartHandler(event:TouchInteractionEvent):void
+    {
+        // During a touch scroll we don't want the keyboard to activate. Add a
+        // "softKeyboardActivating" handler to cancel the event.
+        addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING,
+            softKeyboardActivatingHandler);
+    }
+    
+    /**
+     *  @private
+     */
+    private function touchInteractionEndHandler(event:TouchInteractionEvent):void
+    {
+        // Remove the soft keyboard activate cancelling handler.
+        removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING,
+            softKeyboardActivatingHandler);
+        
+        if (textInteractionMode == TextInteractionMode.SELECTION)
+        {
+            var scroller:Scroller = event.relatedObject as Scroller;
+            
+            // Turn off text selection auto-scroll.
             scrollerInTextSelectionMode = null;
-			if (scroller)
-				scroller.enableTextSelectionAutoScroll(false);
-		}
-	}
-	
-	/**
-	 *  @private
-	 * 
-	 *  This handler is only added during touch scroll events. It prevents
-	 *  the onscreen keyboard from activating if a scroll occurred.
-	 */
-	private function softKeyboardActivatingHandler(event:SoftKeyboardEvent):void
-	{
-		event.preventDefault();
-	}
+            if (scroller)
+                scroller.enableTextSelectionAutoScroll(false);
+        }
+    }
+    
+    /**
+     *  @private
+     *
+     *  This handler is only added during touch scroll events. It prevents
+     *  the onscreen keyboard from activating if a scroll occurred.
+     */
+    private function softKeyboardActivatingHandler(event:SoftKeyboardEvent):void
+    {
+        event.preventDefault();
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -1283,16 +1283,16 @@ public class StyleableTextField extends TextField
      */
     public function getLayoutBoundsHeight(postLayoutTransform:Boolean=true):Number
     {
-		if (useTightTextBounds) 
-		{
-			// we want to return the text field height without the top and bottom offsets
-			// (measuredTextSize.y - tightTextHeight) gives us the sum of top and bottom offsets
-			return height - (measuredTextSize.y - tightTextHeight);
-		}
-		else
-		{
-			return height;
-		}
+        if (useTightTextBounds)
+        {
+            // we want to return the text field height without the top and bottom offsets
+            // (measuredTextSize.y - tightTextHeight) gives us the sum of top and bottom offsets
+            return height - (measuredTextSize.y - tightTextHeight);
+        }
+        else
+        {
+            return height;
+        }
     }
     
     /**
@@ -1300,15 +1300,15 @@ public class StyleableTextField extends TextField
      */
     public function getLayoutBoundsWidth(postLayoutTransform:Boolean=true):Number
     {
-		if (useTightTextBounds)
-		{
-			// return the text field width without the left and right gutters
-			return width - StyleableTextField.TEXT_WIDTH_PADDING;
-		}
-		else
-		{
-			return width;
-		}
+        if (useTightTextBounds)
+        {
+            // return the text field width without the left and right gutters
+            return width - StyleableTextField.TEXT_WIDTH_PADDING;
+        }
+        else
+        {
+            return width;
+        }
     }
     
     /**
@@ -1316,34 +1316,34 @@ public class StyleableTextField extends TextField
      */
     public function getLayoutBoundsX(postLayoutTransform:Boolean=true):Number
     {
-		if (useTightTextBounds)
-		{
-			// return the x position of the text within the text field.  we calculate this value
-			// using text field's x, offset by the left gutter
-			return x + StyleableTextField.TEXT_WIDTH_PADDING/2;
-		}
-		else
-		{
-			return x;
-		}
+        if (useTightTextBounds)
+        {
+            // return the x position of the text within the text field.  we calculate this value
+            // using text field's x, offset by the left gutter
+            return x + StyleableTextField.TEXT_WIDTH_PADDING/2;
+        }
+        else
+        {
+            return x;
+        }
     }
-	
+    
     
     /**
      * @private
      */
     public function getLayoutBoundsY(postLayoutTransform:Boolean=true):Number
     {
-		if (useTightTextBounds)
-		{
-			// return the y position of the text within the text field.  we calculate this value
-			// using text field's y, offset by the text top offset
-			return y + getTextTopOffset(defaultTextFormat);
-		}
-		else
-		{
-			return y;
-		}
+        if (useTightTextBounds)
+        {
+            // return the y position of the text within the text field.  we calculate this value
+            // using text field's y, offset by the text top offset
+            return y + getTextTopOffset(defaultTextFormat);
+        }
+        else
+        {
+            return y;
+        }
     }
     
     /**
@@ -1399,17 +1399,17 @@ public class StyleableTextField extends TextField
      */
     public function getPreferredBoundsHeight(postLayoutTransform:Boolean=true):Number
     {
-		if (useTightTextBounds)
-		{
-			// The height from the top of the text to the baseline of the
-			// last line of text.  This is the height used for positioning text 
-			// according to its baseline
-			return tightTextHeight;			
-		}
-		else
-		{
-			return measuredTextSize.y;
-		}
+        if (useTightTextBounds)
+        {
+            // The height from the top of the text to the baseline of the
+            // last line of text.  This is the height used for positioning text
+            // according to its baseline
+            return tightTextHeight;
+        }
+        else
+        {
+            return measuredTextSize.y;
+        }
     }
     
     /**
@@ -1417,15 +1417,15 @@ public class StyleableTextField extends TextField
      */
     public function getPreferredBoundsWidth(postLayoutTransform:Boolean=true):Number
     {
-		if (useTightTextBounds)
-		{
-			// The measuredTextSize without the left and right gutters
-			return measuredTextSize.x - StyleableTextField.TEXT_WIDTH_PADDING;
-		}
-		else
-		{
-			return measuredTextSize.x;
-		}
+        if (useTightTextBounds)
+        {
+            // The measuredTextSize without the left and right gutters
+            return measuredTextSize.x - StyleableTextField.TEXT_WIDTH_PADDING;
+        }
+        else
+        {
+            return measuredTextSize.x;
+        }
     }
     
     /**
@@ -1449,46 +1449,46 @@ public class StyleableTextField extends TextField
      */
     public function setLayoutBoundsPosition(x:Number, y:Number, postLayoutTransform:Boolean=true):void
     {
-		if (useTightTextBounds)
-		{
-			// offset the positions by the left gutters and the top offset
-			this.x = x - StyleableTextField.TEXT_WIDTH_PADDING/2;
-			this.y = y - getTextTopOffset(defaultTextFormat);	
-		}
-		else
-		{
-			this.x = x;
-			this.y = y;
-		}
+        if (useTightTextBounds)
+        {
+            // offset the positions by the left gutters and the top offset
+            this.x = x - StyleableTextField.TEXT_WIDTH_PADDING/2;
+            this.y = y - getTextTopOffset(defaultTextFormat);
+        }
+        else
+        {
+            this.x = x;
+            this.y = y;
+        }
     }
     
     /**
      * @private
      */
     public function setLayoutBoundsSize(width:Number, height:Number, postLayoutTransform:Boolean=true):void
-    {	
-		// width
-		var newWidth:Number = width;
-		if (isNaN(newWidth))
-			newWidth = getPreferredBoundsWidth();
-		
-		// re-add the left and right gutters
-		if (useTightTextBounds)
-			newWidth += StyleableTextField.TEXT_WIDTH_PADDING;
-
-		this.width = newWidth;
-		
-		// height
-		var newHeight:Number = height;
-		if (isNaN(newHeight))
-			newHeight = getPreferredBoundsHeight();
-		
-		// re-add the top and bottom offsets.  (measuredTextSize.y - tightTextHeight) gives us 
-		// the sum of top and bottom offsets 
-		if (useTightTextBounds)
-			newHeight += (measuredTextSize.y - tightTextHeight);
-		
-		this.height = newHeight;		
+    {
+        // width
+        var newWidth:Number = width;
+        if (isNaN(newWidth))
+            newWidth = getPreferredBoundsWidth();
+        
+        // re-add the left and right gutters
+        if (useTightTextBounds)
+            newWidth += StyleableTextField.TEXT_WIDTH_PADDING;
+        
+        this.width = newWidth;
+        
+        // height
+        var newHeight:Number = height;
+        if (isNaN(newHeight))
+            newHeight = getPreferredBoundsHeight();
+        
+        // re-add the top and bottom offsets.  (measuredTextSize.y - tightTextHeight) gives us
+        // the sum of top and bottom offsets
+        if (useTightTextBounds)
+            newHeight += (measuredTextSize.y - tightTextHeight);
+        
+        this.height = newHeight;
     }
     
     /**
@@ -1568,19 +1568,23 @@ public class StyleableTextField extends TextField
         
         if (invalidateBaselinePosition)
         {
-            // getLineMetrics() returns strange numbers for an empty string,
-            // so instead we get the metrics for a non-empty string.
-            var isEmpty:Boolean = (text == "");
-            if (isEmpty)
-                super.text = "Wj";
-            
-            _baselinePosition = getLineMetrics(0).ascent;
-            
-            if (isEmpty)
-                super.text = "";
-            
-            // baseline = add top gutter
-            _baselinePosition += (StyleableTextField.TEXT_HEIGHT_PADDING / 2)
+            if (useTightTextBounds)
+            {
+                _baselinePosition = tightTextHeight;
+            }
+            else
+            {
+                // getLineMetrics() returns strange numbers for an empty string,
+                // so instead we get the metrics for a non-empty string.
+                var isEmpty:Boolean = (text == "");
+                if (isEmpty)
+                    super.text = "Wj";
+                
+                _baselinePosition = getLineMetrics(0).ascent + (StyleableTextField.TEXT_HEIGHT_PADDING / 2);
+                
+                if (isEmpty)
+                    super.text = "";
+            }
             
             invalidateBaselinePosition = false;
         }
@@ -1905,10 +1909,10 @@ public class StyleableTextField extends TextField
     /**
      *  @private
      *  Storage for the inline styles on this StyleableTextField instance
-     * 
-     *  There's no real need for _inlineStyleObject because we could 
-     *  just piggy-back off of styleDeclaration (and create a new 
-     *  CSSStyleDeclaration when setStyle() is called, but this is easier 
+     *
+     *  There's no real need for _inlineStyleObject because we could
+     *  just piggy-back off of styleDeclaration (and create a new
+     *  CSSStyleDeclaration when setStyle() is called, but this is easier
      *  and there seems to be less overhead with this approach).
      */
     private var _inlineStyleObject:Object;
@@ -1916,11 +1920,11 @@ public class StyleableTextField extends TextField
     // Name of the style to use for determining the text color
     mx_internal var colorName:String = "color";
     
-	// Whether or not we want to size and position the text field based upon its 
-	// tight text bounds.  Use useTightTextBounds == true when you want precise
-	// text placement.
-	mx_internal var useTightTextBounds:Boolean = true;
-	
+    // Whether or not we want to size and position the text field based upon its
+    // tight text bounds.  Use useTightTextBounds == true when you want precise
+    // text placement.
+    mx_internal var useTightTextBounds:Boolean = true;
+    
     private static var supportedStyles:String = "textAlign fontFamily fontWeight fontStyle color fontSize textDecoration textIndent leading letterSpacing"
     
     private var invalidateStyleFlag:Boolean = true;
@@ -1930,14 +1934,14 @@ public class StyleableTextField extends TextField
     private var _isTruncated:Boolean = false;
     
     private static var embeddedFonts:Array;
-
-
-	/**
-	 *  @private
-	 *  Table of text top offsets for different fonts, sizes, weights and styles
-	 */	
-	private static var textTopOffsetTable:Dictionary = new Dictionary();
-
+    
+    
+    /**
+     *  @private
+     *  Table of text top offsets for different fonts, sizes, weights and styles
+     */
+    private static var textTopOffsetTable:Dictionary = new Dictionary();
+    
     /**
      *  @private
      *  Whether this StyleableTextField needs to be measure its unscaled size
@@ -1959,36 +1963,36 @@ public class StyleableTextField extends TextField
      */
     private var _baselinePosition:Number;
     
-	/**
-	 *  @private
-	 */
-	private var invalidateTightTextHeight:Boolean = true;
-	
-	/**
-	 *  @private
-	 */
-	private var _tightTextHeight:Number;
+    /**
+     *  @private
+     */
+    private var invalidateTightTextHeight:Boolean = true;
+    
+    /**
+     *  @private
+     */
+    private var _tightTextHeight:Number;
     
     /**
      *  @private
      *  Used to keep track if this StyleableTextField is already in "scrolling mode"
-     *  and what scroller it is using to scroll.  This is so we can respond appropriately 
+     *  and what scroller it is using to scroll.  This is so we can respond appropriately
      *  to other touchInteractionStarting and touchInteractionEnd events.
      */
     private var scrollerInTextSelectionMode:Scroller;
-	
+    
     /**
      *  @private
      *  The padding to be added to textWidth to get the width
      *  of a TextField that can display the text without clipping.
-     */ 
+     */
     mx_internal static const TEXT_WIDTH_PADDING:int = 5;
     
     /**
      *  @private
      *  The padding to be added to textHeight to get the height
      *  of a TextField that can display the text without clipping.
-     */ 
+     */
     mx_internal static const TEXT_HEIGHT_PADDING:int = 4;
 }
 }
