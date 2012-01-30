@@ -17,7 +17,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
   <property name="locale" value="en_US"/>
-	<property name="local.playerglobal.version" value="10"/>
+	<property name="local.playerglobal.version" value="10.0"/>
 	
 	<macrodef name="bundle">
 		<attribute name="locale"/>
