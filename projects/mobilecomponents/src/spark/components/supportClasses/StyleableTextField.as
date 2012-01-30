@@ -25,6 +25,7 @@ import flash.geom.Point;
 import flash.geom.Vector3D;
 import flash.text.Font;
 import flash.text.FontType;
+import flash.text.StyleSheet;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
@@ -47,6 +48,7 @@ import mx.events.TouchInteractionEvent;
 import mx.events.TouchInteractionReason;
 import mx.geom.TransformOffsets;
 import mx.managers.SystemManager;
+import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
@@ -475,7 +477,7 @@ public class StyleableTextField extends FlexTextField
             if (numLines == 1) // account for the extra leading on single line text
                 bottomOffset += metrics.leading;
             
-            _tightTextTopOffset = getTextTopOffset(defaultTextFormat);
+            _tightTextTopOffset = getTextTopOffset(defaultTextFormat, styleSheet);
             _tightTextHeight = measuredTextSize.y - _tightTextTopOffset - bottomOffset;
             
             if (isEmpty)
@@ -491,8 +493,10 @@ public class StyleableTextField extends FlexTextField
      *  a particular font, size, weight and style combination.  This value accounts for
      *  the difference between the metrics.ascent and the true top of the text within the
      *  text field and the top gutter
+     * 
+     *  If a styleSheet is specified it will be used, otherwise the textFormat will be used.
      */
-    private static function getTextTopOffset(textFormat:TextFormat):Number
+    private static function getTextTopOffset(textFormat:TextFormat, styleSheet:StyleSheet=null):Number
     {
         // Try to find the top offset for the font, size, weight and style in our table.
         // We only store offets for unique font, size, weight and style combinations.
@@ -509,7 +513,10 @@ public class StyleableTextField extends FlexTextField
             
             // create sample text field
             var field:TextField = new TextField();
-            field.defaultTextFormat = textFormat;
+            if (styleSheet)
+                field.styleSheet = styleSheet;
+            else
+                field.defaultTextFormat = textFormat;
             field.embedFonts = isFontEmbedded(textFormat);
             field.textColor = 0x000000; // make sure our text is black so it will show up against white
             field.text = "T"; // use "T" as our standard
@@ -904,12 +911,22 @@ public class StyleableTextField extends FlexTextField
      *
      *  @param text The text to be inserted.
      *
+     *  @throws Error This method or property cannot be used on a text field with a style sheet.
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function insertText(text:String):void
     {
+        if (styleSheet)
+        {
+            const resourceManager:IResourceManager = ResourceManager.getInstance();
+            const message:String = 
+                resourceManager.getString("components", "styleSheetError");
+            throw(new Error(message));
+        }
+        
         replaceText(selectionAnchorPosition, selectionActivePosition, text);
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         invalidateTextSizeFlag = true;
@@ -1061,8 +1078,13 @@ public class StyleableTextField extends FlexTextField
             // Check for embedded fonts
             embedFonts = isFontEmbedded(textFormat);
             
-            defaultTextFormat = textFormat;
-            setTextFormat(textFormat);
+            // It is an error to set defaultTextFormat or call setTextFormat if there is a 
+            // styleSheet.
+            if (!styleSheet)
+            {
+                defaultTextFormat = textFormat;
+                setTextFormat(textFormat);
+            }
             
             // If our text is empty we need to force the style changes in order for
             // textHeight to be valid. Setting the width is sufficient, and should
