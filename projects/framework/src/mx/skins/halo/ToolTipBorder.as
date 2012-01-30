@@ -20,6 +20,11 @@ import mx.skins.RectangularBorder;
 
 /**
  *  The skin for a ToolTip.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ToolTipBorder extends RectangularBorder
 {
@@ -33,6 +38,11 @@ public class ToolTipBorder extends RectangularBorder
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ToolTipBorder() 
 	{
