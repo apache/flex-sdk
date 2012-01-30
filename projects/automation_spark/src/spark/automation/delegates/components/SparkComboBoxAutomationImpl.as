@@ -232,6 +232,7 @@ package spark.automation.delegates.components
 					ke.keyCode = text.charCodeAt(i);
 					sparkComboBox.textInput.textDisplay.dispatchEvent(ke);
 				}
+				sparkComboBox.textInput.textDisplay.dispatchEvent(changeEvent);
 			}
 			else if (event is TextSelectionEvent)
 			{
