@@ -14,13 +14,13 @@ package spark.skins.mobile
 import mx.core.ClassFactory;
 import mx.core.IFactory;
 
-import spark.components.MobileApplication;
+import spark.components.ViewNavigatorApplication;
 import spark.components.ViewMenu;
 import spark.components.ViewNavigator;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
- *  The ActionScript based skin used for MobileApplication.  This
+ *  The ActionScript based skin used for ViewNavigatorApplication.  This
  *  skin contains a single ViewNavigator that spans the entire
  *  content area of the application.
  * 
@@ -29,7 +29,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class MobileApplicationSkin extends MobileSkin
+public class ViewNavigatorApplicationSkin extends MobileSkin
 {
     //--------------------------------------------------------------------------
     //
@@ -44,7 +44,7 @@ public class MobileApplicationSkin extends MobileSkin
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function MobileApplicationSkin()
+    public function ViewNavigatorApplicationSkin()
     {
         super();
         
@@ -78,7 +78,7 @@ public class MobileApplicationSkin extends MobileSkin
     //  Overridden Properties
     //
     //--------------------------------------------------------------------------
-    public var hostComponent:MobileApplication;
+    public var hostComponent:ViewNavigatorApplication;
     
     //--------------------------------------------------------------------------
     //
