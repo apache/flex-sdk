@@ -102,6 +102,54 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="mobile")]
 
 /**
+ *  Number of pixels between the bottom border and all content groups.
+ * 
+ *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
+
+/**
+ *  Number of pixels between the left border and the navigationGroup.
+ * 
+ *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="paddingLeft", type="Number", format="Length", inherit="no")]
+
+/**
+ *  Number of pixels between the left border and the actionGroup.
+ * 
+ *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="paddingRight", type="Number", format="Length", inherit="no")]
+
+/**
+ *  Number of pixels between the top border and all content groups.
+ * 
+ *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="paddingTop", type="Number", format="Length", inherit="no")]
+
+/**
  *  Color of text shadows.
  * 
  *  @default 0xFFFFFF
@@ -124,6 +172,24 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @productversion Flex 4
  */
 [Style(name="textShadowAlpha", type="Number",inherit="yes", minValue="0.0", maxValue="1.0", theme="mobile")]
+
+/**
+ *  Appearance of buttons in navigation and action groups.
+ *  Valid MXML values are <code>normal</code> and <code>beveled</code>
+ *
+ *  <p>In ActionScript, you can use the following constants
+ *  to set this property:
+ *  <code>ActionBarDefaultButtonAppearance.NORMAL</code> and
+ *  <code>ActionBarDefaultButtonAppearance.BEVELED</code>.</p>
+ *
+ *  @default ActionBarDefaultButtonAppearance.NORMAL
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="defaultButtonAppearance", type="String", enumeration="normal,beveled", inherit="no", theme="mobile")]
 
 //--------------------------------------
 //  Skin states
@@ -830,6 +896,41 @@ public class ActionBar extends SkinnableComponent
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        if (!styleProp ||
+            styleProp == "styleName" ||
+            styleProp == "defaultButtonAppearance")
+        {
+            // prepend defaultButtonAppearance style name
+            var otherStyleNames:String = (styleName as String) ? String(styleName) : "";
+            var whitespace:int = otherStyleNames.indexOf(" ");
+            var firstStyleName:String = (whitespace > 0) ? otherStyleNames.substring(0, whitespace) : otherStyleNames;
+            var defaultButtonAppearance:String = getStyle("defaultButtonAppearance");
+            
+            // only change styleName if necessary
+            if (firstStyleName != defaultButtonAppearance)
+            {
+                // remove previous defaultButtonAppearance value
+                if (firstStyleName == ActionBarDefaultButtonAppearance.BEVELED
+                    || firstStyleName == ActionBarDefaultButtonAppearance.NORMAL)
+                {
+                    if (whitespace < 0)
+                        otherStyleNames = "";
+                    else
+                        otherStyleNames = " " + otherStyleNames.substr(whitespace + 1);
+                }
+                
+                styleName = defaultButtonAppearance + otherStyleNames;
+            }
+        }
+        
+        super.styleChanged(styleProp);
+    }
     
     //----------------------------------
     //  baselinePosition
