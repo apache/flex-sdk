@@ -23,6 +23,11 @@ import flash.events.IEventDispatcher;
  *
  *  @see mx.preloaders.DownloadProgressBar
  *  @see mx.preloaders.Preloader
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IPreloaderDisplay extends IEventDispatcher
 {
@@ -38,6 +43,11 @@ public interface IPreloaderDisplay extends IEventDispatcher
 
     /**
      *  @copy mx.preloaders.DownloadProgressBar#backgroundAlpha
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get backgroundAlpha():Number;
     
@@ -52,6 +62,11 @@ public interface IPreloaderDisplay extends IEventDispatcher
 
     /**
      *  @copy mx.preloaders.DownloadProgressBar#backgroundColor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     function get backgroundColor():uint;
     
@@ -66,6 +81,11 @@ public interface IPreloaderDisplay extends IEventDispatcher
 
     /**
      *  @copy mx.preloaders.DownloadProgressBar#backgroundImage
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get backgroundImage():Object;
     
@@ -80,6 +100,11 @@ public interface IPreloaderDisplay extends IEventDispatcher
 
     /**
      *  @copy mx.preloaders.DownloadProgressBar#backgroundSize
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get backgroundSize():String;
     
@@ -94,6 +119,11 @@ public interface IPreloaderDisplay extends IEventDispatcher
 
     /**
      *  @copy mx.preloaders.DownloadProgressBar#preloader
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function set preloader(obj:Sprite):void;
     
@@ -103,6 +133,11 @@ public interface IPreloaderDisplay extends IEventDispatcher
 
     /**
      *  @copy mx.preloaders.DownloadProgressBar#stageHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get stageHeight():Number;
     
@@ -117,6 +152,11 @@ public interface IPreloaderDisplay extends IEventDispatcher
 
     /**
      *  @copy mx.preloaders.DownloadProgressBar#stageWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get stageWidth():Number;
     
@@ -133,6 +173,11 @@ public interface IPreloaderDisplay extends IEventDispatcher
 
     /**
      *  @copy mx.preloaders.DownloadProgressBar#initialize()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function initialize():void;
 }
