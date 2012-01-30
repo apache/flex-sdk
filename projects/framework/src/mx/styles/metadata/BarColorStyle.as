@@ -23,5 +23,5 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="barColor", type="uint", format="Color", inherit="yes")]
+[Style(name="barColor", type="uint", format="Color", inherit="yes", theme="halo")]
 
