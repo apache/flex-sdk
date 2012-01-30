@@ -180,7 +180,7 @@ package mx.automation.delegates.controls
 			catch (e:Error)
 			{
 				//most likely a security error
-				trace("get content failed: " + e.message);
+				Automation.automationDebugTracer.traceMessage("SWFLoaderAutomationImpl", "get automationChild()", "get content failed: " + e.message);
 			}
 			return null;
 		}
