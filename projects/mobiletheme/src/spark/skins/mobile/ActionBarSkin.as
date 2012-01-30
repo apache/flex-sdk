@@ -48,17 +48,66 @@ use namespace mx_internal;
  */
 public class ActionBarSkin extends MobileSkin
 {
-    
     //--------------------------------------------------------------------------
     //
     //  Constructor
     //
     //--------------------------------------------------------------------------
+    
     public function ActionBarSkin()
     {
         super();
+        
         useChromeColor = true;
+        
+        // common
+        borderClass = ActionBarBackground;
+        
+        switch (targetDensity)
+        {
+            case MobileSkin.PPI240:
+            {
+                layoutBorderHeight = 1;
+                layoutShadowHeight = 3;
+                layoutContentGroupHeight = 65;
+                layoutTitleGroupHorizontalPadding = 20;
+                
+                break;
+            }
+            default:
+            {
+                // default PPI160
+                layoutBorderHeight = 1;
+                layoutShadowHeight = 3;
+                layoutContentGroupHeight = 44;
+                layoutTitleGroupHorizontalPadding = 13;
+                
+                break;
+            }
+        }
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Graphics variables
+    //
+    //--------------------------------------------------------------------------
+    
+    protected var borderClass:Class;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Layout variables
+    //
+    //--------------------------------------------------------------------------
+    
+    protected var layoutBorderHeight:uint;
+    
+    protected var layoutShadowHeight:uint;
+    
+    protected var layoutContentGroupHeight:uint;
+    
+    protected var layoutTitleGroupHorizontalPadding:uint;
     
     //--------------------------------------------------------------------------
     //
@@ -66,29 +115,29 @@ public class ActionBarSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
-    private static const BORDER_HEIGHT:uint = 1;
-    
-    private static const SHADOW_HEIGHT:uint = 3;
-    
-    private static const CONTENT_GROUP_HEIGHT:uint = 65;
-    
     public var hostComponent:ActionBar;
-    
-    public var navigationGroup:Group;
     
     private var _navigationVisible:Boolean = false;
     
-    public var titleGroup:Group;
-    
     private var _titleContentVisible:Boolean = false;
-    
-    public var actionGroup:Group;
     
     private var _actionVisible:Boolean = false;
     
-    public var titleDisplay:TitleDisplayComponent;
-    
     private var border:SpriteVisualElement;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Skin parts
+    //
+    //--------------------------------------------------------------------------
+    
+    public var navigationGroup:Group;
+    
+    public var titleGroup:Group;
+    
+    public var actionGroup:Group;
+    
+    public var titleDisplay:TitleDisplayComponent;
     
     //--------------------------------------------------------------------------
     //
@@ -98,7 +147,7 @@ public class ActionBarSkin extends MobileSkin
     
     override protected function createChildren():void
     {
-        border = new ActionBarBackground();
+        border = new borderClass();
         addChild(border);
         
         navigationGroup = new Group();
@@ -109,15 +158,17 @@ public class ActionBarSkin extends MobileSkin
         hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = 
             hLayout.paddingBottom = 0;
         navigationGroup.layout = hLayout;
+        navigationGroup.id = "navigationGroup";
         
         titleGroup = new Group();
         hLayout = new HorizontalLayout();
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
         hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
-        hLayout.paddingLeft = hLayout.paddingRight = 20; 
+        hLayout.paddingLeft = hLayout.paddingRight = layoutTitleGroupHorizontalPadding; 
         hLayout.paddingTop = hLayout.paddingBottom = 0;
         titleGroup.layout = hLayout;
+        titleGroup.id = "titleGroup";
         
         actionGroup = new Group();
         hLayout = new HorizontalLayout();
@@ -127,24 +178,15 @@ public class ActionBarSkin extends MobileSkin
         hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = 
             hLayout.paddingBottom = 0;
         actionGroup.layout = hLayout;
+        actionGroup.id = "actionGroup";
         
         titleDisplay = new TitleDisplayComponent();
-        
-        initializeStyles();
+        titleDisplay.id = "titleDisplay";
         
         addChild(navigationGroup);
         addChild(titleGroup);
         addChild(actionGroup);
         addChild(titleDisplay);
-    }
-    
-    protected function initializeStyles():void
-    {
-        // ID selectors to style contents of each group separately
-        navigationGroup.id = "navigationGroup";
-        titleGroup.id = "titleGroup";
-        actionGroup.id = "actionGroup";
-        titleDisplay.id = "titleDisplay";
     }
     
     override protected function measure():void
@@ -173,14 +215,14 @@ public class ActionBarSkin extends MobileSkin
             + actionGroup.getPreferredBoundsWidth()
             + titleWidth;
         
-        // min height is 67 (65px content height, 1px borders on top and bottom)
+        // min height is contentGroupHeight, 2x border on top and bottom
         // Math.max.apply optimization used instead of "..." rest parameter
         measuredMinHeight = measuredHeight =
-            Math.max(CONTENT_GROUP_HEIGHT,
+            Math.max(layoutContentGroupHeight,
                 navigationGroup.getPreferredBoundsHeight(), 
                 actionGroup.getPreferredBoundsHeight(),
                 titleHeight)
-            + (BORDER_HEIGHT * 2);
+            + (layoutBorderHeight * 2);
     }
     
     override protected function commitCurrentState():void
@@ -209,10 +251,10 @@ public class ActionBarSkin extends MobileSkin
         var actionGroupWidth:Number = 0;
         
         // remove top and bottom borders from content group height
-        var contentGroupsHeight:Number = unscaledHeight - (BORDER_HEIGHT * 2);
+        var contentGroupsHeight:Number = unscaledHeight - (layoutBorderHeight * 2);
         
-        // FXG uses scale-9, 3 px drop shadow is drawn outside the bounds
-        resizePart(border, unscaledWidth, unscaledHeight + SHADOW_HEIGHT);
+        // FXG uses scale-9, drop shadow is drawn outside the bounds
+        resizePart(border, unscaledWidth, unscaledHeight + layoutShadowHeight);
         
         // position groups, overlap of navigation and action groups is allowed
         // when overlap occurs, titleDisplay/titleGroup is not visible
@@ -222,7 +264,7 @@ public class ActionBarSkin extends MobileSkin
             titleCompX += navigationGroupWidth;
             
             navigationGroup.setLayoutBoundsSize(navigationGroupWidth, contentGroupsHeight);
-            navigationGroup.setLayoutBoundsPosition(0, BORDER_HEIGHT);
+            navigationGroup.setLayoutBoundsPosition(0, layoutBorderHeight);
         }
         
         if (_actionVisible)
@@ -232,7 +274,7 @@ public class ActionBarSkin extends MobileSkin
             actionGroupX = unscaledWidth - actionGroupWidth;
             
             actionGroup.setLayoutBoundsSize(actionGroupWidth, contentGroupsHeight);
-            actionGroup.setLayoutBoundsPosition(actionGroupX, BORDER_HEIGHT);
+            actionGroup.setLayoutBoundsPosition(actionGroupX, layoutBorderHeight);
         }
         
         titleCompWidth = unscaledWidth - navigationGroupWidth - actionGroupWidth;
@@ -248,7 +290,7 @@ public class ActionBarSkin extends MobileSkin
             
             // use titleGroup for titleContent
             titleGroup.setLayoutBoundsSize(titleCompWidth, contentGroupsHeight);
-            titleGroup.setLayoutBoundsPosition(titleCompX, BORDER_HEIGHT);
+            titleGroup.setLayoutBoundsPosition(titleCompX, layoutBorderHeight);
         }
         else
         {
@@ -335,6 +377,7 @@ public class ActionBarSkin extends MobileSkin
             titleDisplay.visible = true;
         }
         
+        // draw chromeColor inside titleContent only
         super.updateDisplayList(unscaledWidth, unscaledHeight);
     }
     
@@ -349,7 +392,7 @@ public class ActionBarSkin extends MobileSkin
         var backgroundAlphas:Array = [backgroundAlphaValue, backgroundAlphaValue, backgroundAlphaValue];
         
         // exclude top and bottom 1px borders
-        matrix.createGradientBox(unscaledWidth, unscaledHeight - (BORDER_HEIGHT * 2), Math.PI / 2, 0, 0);
+        matrix.createGradientBox(unscaledWidth, unscaledHeight - (layoutBorderHeight * 2), Math.PI / 2, 0, 0);
         
         colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
         colors[1] = chromeColor;
@@ -360,8 +403,9 @@ public class ActionBarSkin extends MobileSkin
     
     override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
     {
-        chromeColorGraphics.drawRect(0, BORDER_HEIGHT, unscaledWidth, unscaledHeight - (BORDER_HEIGHT * 2));
+        chromeColorGraphics.drawRect(0, layoutBorderHeight, unscaledWidth, unscaledHeight - (layoutBorderHeight * 2));
     }
+    
 }
 }
 import flash.events.Event;
@@ -383,9 +427,6 @@ use namespace mx_internal;
  */
 class TitleDisplayComponent extends UIComponent implements IDisplayText
 {
-    private static var TEXT_WIDTH_PADDING:Number =
-        UITextField.TEXT_WIDTH_PADDING + 1;
-    
     private var titleDisplay:StyleableTextField;
     private var titleDisplayShadow:StyleableTextField;
     private var title:String;
@@ -403,7 +444,7 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         super.createChildren();
         
         titleDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-        titleDisplay.styleProvider = this;
+        titleDisplay.styleName = this;
         titleDisplay.editable = false;
         titleDisplay.selectable = false;
         titleDisplay.multiline = false;
@@ -413,13 +454,12 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         
         titleDisplayShadow =
             StyleableTextField(createInFontContext(StyleableTextField));
-        titleDisplayShadow.styleProvider = this;
+        titleDisplayShadow.styleName = this;
         titleDisplayShadow.colorName = "textShadowColor";
         titleDisplayShadow.editable = false;
         titleDisplayShadow.selectable = false;
         titleDisplayShadow.multiline = false;
         titleDisplayShadow.wordWrap = false;
-        titleDisplayShadow.alpha = .45;
         
         addChild(titleDisplayShadow);
         addChild(titleDisplay);
@@ -455,8 +495,10 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         
         if (title != "")
         {
-            textWidth = titleDisplay.textWidth + TEXT_WIDTH_PADDING;
-            textHeight = titleDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
+            // FIXME (jasonsj): was previously textWidth + UITextField.TEXT_WIDTH_PADDING + 1;
+            //                  +1 originates from MX Button without explaination
+            textWidth = titleDisplay.measuredWidth + 1;
+            textHeight = titleDisplay.measuredHeight;
             descent = titleDisplay.getLineMetrics(0).descent;
         }
         else
@@ -491,22 +533,12 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         titleDisplayShadow.y = titleDisplay.y + 1; // degree shadow down
         titleDisplayShadow.width = unscaledWidth;
         titleDisplayShadow.height = unscaledHeight;
+        titleDisplayShadow.alpha = getStyle("textShadowAlpha");
         
         // if labelDisplay is truncated, then push it down here as well.
         // otherwise, it would have gotten pushed in the labelDisplay_valueCommitHandler()
         if (titleDisplay.isTruncated)
             titleDisplayShadow.text = titleDisplay.text;
-    }
-    
-    override public function styleChanged(styleProp:String):void 
-    {
-        super.styleChanged(styleProp);
-        
-        if (titleDisplay)
-            titleDisplay.styleChanged(styleProp);
-        
-        if (titleDisplayShadow)
-            titleDisplayShadow.styleChanged(styleProp);
     }
     
     /**
