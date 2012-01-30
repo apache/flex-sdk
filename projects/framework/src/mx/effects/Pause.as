@@ -37,6 +37,11 @@ import mx.effects.effectClasses.PauseInstance;
  *  @see mx.effects.effectClasses.PauseInstance
  *
  *  @includeExample examples/PauseEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Pause extends TweenEffect
 {
@@ -58,6 +63,11 @@ public class Pause extends TweenEffect
 	 * that named event. A null target is allowed for this effect since
 	 * a Pause effect with simply a <code>duration</code> property is
 	 * not acting on any specific target and therefore does not need one.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function Pause(target:Object = null)
 	{
@@ -98,6 +108,11 @@ public class Pause extends TweenEffect
      * 
      * <p>This property is optional; the default
      * action is to play without waiting for any event.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var eventName:String
 
@@ -113,6 +128,11 @@ public class Pause extends TweenEffect
      * @default 500
      * 
      * @see mx.effects.IEffect#duration
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get duration():Number
     {
