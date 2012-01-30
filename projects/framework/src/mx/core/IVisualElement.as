@@ -256,11 +256,11 @@ public interface IVisualElement extends ILayoutElement
     
     /**
      *  True, when the element is in 3D. The element can be in 3D either because
-     *  it has 3D transform properties or it has 3D transform offsets or both.
-     * 
+     *  it has 3D transform properties or it has 3D post layout transform offsets or both.
+     *
      *  @see #postLayoutTransformOffsets
      *  @see mx.core.ILayoutElement#hasLayoutMatrix3D
-     *   
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
