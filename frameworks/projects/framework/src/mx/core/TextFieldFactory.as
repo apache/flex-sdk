@@ -43,13 +43,6 @@ public class TextFieldFactory implements ITextFieldFactory
 	 */
 	private static var instance:ITextFieldFactory;
 
-	/**
-	 *  @private
-	 * 
-	 *  Cache of textFields. Limit of one per module factory.
-	 */
-	private var textFields:Dictionary = new Dictionary(true);
-			
 	//--------------------------------------------------------------------------
 	//
 	//  Class methods
@@ -69,17 +62,48 @@ public class TextFieldFactory implements ITextFieldFactory
 	
 	//--------------------------------------------------------------------------
 	//
+	//  Variables
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 *  Cache of TextFields. Limit of one per module factory.
+	 *  In this Dictionary, each key is a weak reference
+	 *  to an IFlexModuleFactory and each value is a Dictionary
+	 *  with a single entry (a TextField as a weak key).
+	 */
+	private var textFields:Dictionary = new Dictionary(true);
+			
+	/**
+	 *  @private
+	 *  Cache of TLFTextFields. Limit of one per module factory.
+	 *  In this Dictionary, each key is a weak reference
+	 *  to an IFlexModuleFactory and each value is a Dictionary
+	 *  with a single entry (a TLFTextField as a weak key).
+	 */
+	private var tlfTextFields:Dictionary = new Dictionary(true);
+			
+	//--------------------------------------------------------------------------
+	//
 	//  Methods
 	//
 	//--------------------------------------------------------------------------
 	
 	/**
 	 *  @private
-	 *  Creates a TextField in the context of the specified IFlexModuleFactory.
+	 *  Creates an instance of TextField
+	 *  in the context of the specified IFlexModuleFactory.
 	 *
-	 *  @param moduleFactory The moduleFactory requesting the TextField.
+	 *  @param moduleFactory The IFlexModuleFactory requesting the TextField.
 	 *
-	 *	@return A text field for a given moduleFactory.
+	 *	@return A TLFTextField created in the context
+	 *  of <code>moduleFactory</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function createTextField(moduleFactory:IFlexModuleFactory):TextField
 	{
@@ -111,6 +135,57 @@ public class TextFieldFactory implements ITextFieldFactory
 		}
 
 		return textField;
+	}
+
+	/**
+	 *  @private
+	 *  Creates an instance of TLFTextField
+	 *  in the context of the specified module factory.
+	 * 
+	 *  @param moduleFactory The IFlexModuleFactory requesting the TextField.
+	 *  May not be <code>null</code>.
+	 *
+	 *	@return A TLFTextField created in the context
+	 *  of <code>moduleFactory</code>.
+	 *  The return value is loosely typed as Object
+	 *  to avoid linking in TLFTextField (and therefore much of TLF).
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 4
+	 */
+	public function createTLFTextField(moduleFactory:IFlexModuleFactory):Object
+	{
+		// Check to see if we already have a text field for this module factory.
+		var tlfTextField:Object = null;
+		var tlfTextFieldDictionary:Dictionary = tlfTextFields[moduleFactory];
+
+		if (tlfTextFieldDictionary)
+		{
+			for (var iter:Object in tlfTextFieldDictionary)
+			{
+				tlfTextField = iter;
+				break;
+			}
+		}
+		if (!tlfTextField)
+		{
+			if (moduleFactory)
+			{
+				tlfTextField = moduleFactory.create(
+					"flashx.textLayout.controls.TLFTextField");
+			}			
+			
+			// The dictionary could be empty, but not null because entries in the dictionary
+			// could be garbage collected.
+			if (!tlfTextFieldDictionary)
+				tlfTextFieldDictionary = new Dictionary(true);
+			tlfTextFieldDictionary[tlfTextField] = 1;
+			tlfTextFields[moduleFactory] = tlfTextFieldDictionary;
+		}
+
+		return tlfTextField;
 	}
 }
 
