@@ -549,17 +549,16 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
             titleDisplay.text = title;
         titleDisplay.commitStyles();
         
+        var textSize:Point = titleDisplay.measuredTextSize;
+        textWidth = textSize.x;
+        
         if (title != "")
         {
-            var textSize:Point = titleDisplay.measuredTextSize;
-            textWidth = textSize.x;
             textHeight = textSize.y;
             descent = titleDisplay.getLineMetrics(0).descent;
         }
         else
         {
-            // ignore text width...we just need textHeight, but we need to use 
-            // measureText("Wj") to figure this out
             var lineMetrics:TextLineMetrics = measureText("Wj");
             textHeight = lineMetrics.height + StyleableTextField.TEXT_HEIGHT_PADDING;
             descent = lineMetrics.descent;
