@@ -334,7 +334,7 @@ package mx.collections
 	     */
 	    mx_internal function getBookmark(mcvCursor:ModifiedCollectionViewCursor):ModifiedCollectionViewBookmark
 	    {
-	    	var index:int = mcvCursor.mx_internal::currentIndex;
+	    	var index:int = mcvCursor.currentIndex;
 	    	
 	        if (index < 0 || index > length)
 	        {
@@ -1388,7 +1388,7 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
         else
         {
             //setCurrent(ModifiedCollectionView(view).getItemAt(tempIndex));
-            setCurrent(ModifiedCollectionView(view).mx_internal::getWrappedItemUsingCursor(this,tempIndex));
+            setCurrent(ModifiedCollectionView(view).getWrappedItemUsingCursor(this,tempIndex));
         }
         currentIndex = tempIndex;
         return !afterLast;
@@ -1443,7 +1443,7 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
         else
         {
             //setCurrent(ModifiedCollectionView(view).getItemAt(tempIndex));
-            setCurrent(ModifiedCollectionView(view).mx_internal::getWrappedItemUsingCursor(this,tempIndex));
+            setCurrent(ModifiedCollectionView(view).getWrappedItemUsingCursor(this,tempIndex));
         }
         currentIndex = tempIndex;
         return !beforeFirst;
@@ -1573,7 +1573,7 @@ class ModifiedCollectionViewCursor extends EventDispatcher implements IViewCurso
         }
         else
         {
-			newCurrent = ModifiedCollectionView(view).mx_internal::getWrappedItemUsingCursor(this,newIndex);
+			newCurrent = ModifiedCollectionView(view).getWrappedItemUsingCursor(this,newIndex);
             //newCurrent = ModifiedCollectionView(view).getItemAt(newIndex);
             currentIndex = newIndex;
         }
