@@ -234,11 +234,7 @@ public class View extends SkinnableContainer implements IDataRenderer
             
             // Switch orientation states if needed
             if (_active)
-            {
-                var viewState:String = getCurrentViewState();
-                if (currentState != viewState)
-                    setCurrentState(viewState, false);
-            }                
+				updateOrientationState();
                 
             var eventName:String = _active ? 
                 ViewNavigatorEvent.VIEW_ACTIVATE : 
@@ -968,10 +964,17 @@ public class View extends SkinnableContainer implements IDataRenderer
     private function stage_orientationChangeHandler(event:StageOrientationEvent):void
     {
         if (isActive)
-            setCurrentState(getCurrentViewState(), false);
+			updateOrientationState();
     }
     
-    
+    /**
+	 *  @private
+	 */
+	mx_internal function updateOrientationState():void
+	{
+		setCurrentState(getCurrentViewState(), false);
+	}
+	
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: UIComponent
@@ -999,7 +1002,7 @@ public class View extends SkinnableContainer implements IDataRenderer
         systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
             stage_orientationChangeHandler, false, 0, true);
         
-        setCurrentState(getCurrentViewState(), false);
+		updateOrientationState();
     }
     
     //--------------------------------------------------------------------------
