@@ -557,6 +557,11 @@ public class FlexEvent extends Event
     public static const LOADING:String = "loading";
 
     /**
+     *  @private
+     */
+    public static const NEW_CHILD_APPLICATION:String = "newChildApplication";
+
+    /**
      *  The <code>FlexEvent.PREINITIALIZE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>preinitialize</code> event.
      *
@@ -588,6 +593,11 @@ public class FlexEvent extends Event
      *  @private
      */
     public static const PRELOADER_DONE:String = "preloaderDone";
+
+    /**
+     *  @private
+     */
+    public static const PRELOADER_DOC_FRAME_READY:String = "preloaderDocFrameReady";
 
     /**
      *  The <code>FlexEvent.RENDER</code> constant defines the value of the
