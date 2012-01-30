@@ -32,6 +32,15 @@ public class Request extends Event
     //  Class constants
     //
     //--------------------------------------------------------------------------
+    /**
+     *  Dispatched from a sub-application or module to find the module factory of its parent
+     *  application or module. The recipient of this request should set the data property to 
+     *  their module factory.
+     * 
+     *  The message is dispatched from a module factory.
+     */
+    public static const GET_FLEX_MODULE_FACTORY_REQUEST:String = "getFlexModuleFactoryRequest";
+    
 
     //--------------------------------------------------------------------------
     //
