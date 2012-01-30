@@ -1407,7 +1407,7 @@ public class ViewNavigator extends ViewNavigatorBase
         
         if (actionBar && showingActionBar != actionBar.visible)
         {
-            if (transitionsEnabled && animateActionBarVisbility)
+            if (!disableNextControlAnimation && transitionsEnabled && animateActionBarVisbility)
             {
                 actionBarProps = {target:actionBar, showing:showingActionBar};
                 actionBarVisibilityEffect = showingActionBar ?
@@ -1425,6 +1425,10 @@ public class ViewNavigator extends ViewNavigatorBase
                 
                 if (activeView)
                     activeView.setActionBarVisible(showingActionBar);
+
+            	// When this flag is true, the animations should only be disabled for the 
+				// current frame, so reset the flag so animations play on subsequent frames.
+				disableNextControlAnimation = false;
             }
         }
         
