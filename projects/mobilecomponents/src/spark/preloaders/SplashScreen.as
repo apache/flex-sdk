@@ -38,9 +38,9 @@ import mx.preloaders.Preloader;
  *  The SplashScreen monitors device orientation and updates the image so that it
  *  appears on screen as if the orientation is always StageOrientation.DEFAULT.
  *
- *  @see spark.Application#splashScreenImage
- *  @see spark.Application#splashScreenScaleMode
- *  @see spark.Application#splashScreenMinimumDisplayTime
+ *  @see spark.components.Application#splashScreenImage
+ *  @see spark.components.Application#splashScreenScaleMode
+ *  @see spark.components.Application#splashScreenMinimumDisplayTime
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
