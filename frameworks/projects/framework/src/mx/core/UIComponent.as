@@ -7169,12 +7169,7 @@ public class UIComponent extends FlexSprite
 
         var p:IInvalidating = parent as IInvalidating;
         if (!p)
-        {
-            if (parent is ISystemManager)
-                ISystemManager(parent).invalidateParentSizeAndDisplayList();
-
             return;
-        }
 
         p.invalidateSize();
         p.invalidateDisplayList();
