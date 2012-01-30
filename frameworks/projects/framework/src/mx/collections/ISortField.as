@@ -30,7 +30,8 @@ public interface ISortField
     //--------------------------------------------------------------------------
 
     /**
-     *  This helper property is used internally the <code>findItem()</code> and <code>sort()</code> methods. Other uses of this property are not 
+     *  This helper property is used internally by the <code>findItem()</code> 
+     *  and <code>sort()</code> methods. Other uses of this property are not 
      *  supported.
      *  Returns -1 if this ISortField shouldn't be used by the <code>Sort</code>
      *  class to sort the field (there is no compareFunction or no name). Otherwise, returns a bitmask of sort options..
