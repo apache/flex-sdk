@@ -46,6 +46,7 @@ import mx.core.UITextField;
 import mx.core.UITextFormat;
 import mx.core.mx_internal;
 import mx.graphics.IStroke;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.managers.ILayoutManagerClient;
 import mx.managers.ISystemManager;
@@ -1097,132 +1098,37 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
 	private function initStyles():Boolean
 	{
 		HaloDefaults.init(styleManager);
+		var axisRenderer:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.AxisRenderer");
+		axisRenderer.setStyle("axisStroke", new SolidColorStroke(0, 0, 1));
+		axisRenderer.setStyle("tickStroke", new SolidColorStroke(0, 0, 1));
+		axisRenderer.setStyle("minorTickStroke", new SolidColorStroke(0, 0, 1));
 		
-		var o:CSSStyleDeclaration;
+		var blockCategoryAxis:CSSStyleDeclaration = styleManager.getStyleDeclaration(".blockCategoryAxis");
+		blockCategoryAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 8, 1, false, "normal", "none"));
+		blockCategoryAxis.setStyle("tickStroke", new SolidColorStroke(0xFFFFFF, 2, 1, false, "normal", "none"));
 		
-		var axisRendererStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.AxisRenderer", styleManager);
+		var blockNumericAxis:CSSStyleDeclaration = styleManager.getStyleDeclaration(".blockNumericAxis");
+		blockNumericAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 8, 1, false, "normal", "none"));
+		blockNumericAxis.setStyle("tickStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
+		blockNumericAxis.setStyle("minorTickStroke", new SolidColorStroke(0xFFFFFF, 1, 1, false, "normal", "none"));
 		
-		axisRendererStyle.defaultFactory = function():void
-		{
-			this.axisStroke = new Stroke(0, 0, 1);
-			this.canDropLabels = null;
-			this.canStagger = true;
-			this.labelGap = 3;
-			this.labelRotation = NaN;
-			this.minorTickLength = 0;
-			this.minorTickPlacement = "none";
-			this.minorTickStroke = new Stroke(0, 0, 1);
-			this.showLabels = true;
-			this.showLine = true;
-			this.tickLength = 3;
-			this.tickPlacement = "outside";
-			this.tickStroke = new Stroke(0, 0, 1);
-			this.labelAlign = "center";
-			this.verticalAxisTitleAlignment="flippedVertical";
-		}
+		var lineNumericAxis:CSSStyleDeclaration = styleManager.getStyleDeclaration(".linedNumericAxis");
+		lineNumericAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 1, 1, false, "normal", "none"));
+		lineNumericAxis.setStyle("tickStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
+		lineNumericAxis.setStyle("minorTickStroke", new SolidColorStroke(0xBBCCDD, 1, 1, false, "normal", "none"));
 		
-		var vaxisRendererStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector(".verticalAxisStyle", styleManager);
+		var dashedNumericAxis:CSSStyleDeclaration = styleManager.getStyleDeclaration(".dashedNumericAxis");
+		dashedNumericAxis.setStyle("tickStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
+		dashedNumericAxis.setStyle("minorTickStroke", new SolidColorStroke(0xBBCCDD, 1, 1, false, "normal", "none"));
 		
-		vaxisRendererStyle.defaultFactory = function():void
-		{
-			this.minorTickLength = 2;
-			this.minorTickPlacement = "outside";
-			this.tickLength = 5;
-		}
+		var dashedCategoryAxis:CSSStyleDeclaration = styleManager.getStyleDeclaration(".dashedCategoryAxis");
+		dashedCategoryAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
+		dashedCategoryAxis.setStyle("tickStroke", new SolidColorStroke(0xFFFFFF, 2, 1, false, "normal", "none"));
 		
-		var blockNumeric:CSSStyleDeclaration =
-			HaloDefaults.createSelector(".blockNumericAxis", styleManager);       
-		
-		blockNumeric.defaultFactory = function():void
-		{
-			this.axisStroke =
-				new Stroke(0xBBCCDD, 8, 1, false, "normal", "none");
-			this.minorTickLength = 0;
-			this.minorTickPlacement = "cross";
-			this.minorTickStroke =
-				new Stroke(0xFFFFFF, 1, 1, false, "normal", "none");
-			this.tickLength = 8;
-			this.tickStroke =
-				new Stroke(0xBBCCDD, 1, 1,false, "normal", "none");
-		}
-		
-		var linedNumeric:CSSStyleDeclaration =
-			HaloDefaults.createSelector(".linedNumericAxis", styleManager);       
-		
-		linedNumeric.defaultFactory = function():void
-		{
-			this.axisStroke =
-				new Stroke(0xBBCCDD, 1, 1, false, "normal", "none");
-			this.minorTickLength = 4;
-			this.minorTickPlacement = "outside";
-			this.minorTickStroke =
-				new Stroke(0xBBCCDD, 1, 1, false, "normal", "none");
-			this.tickLength = 8;
-			this.tickStroke =
-				new Stroke(0xBBCCDD, 1, 1, false, "normal", "none");
-		}
-		
-		var dashedNumeric:CSSStyleDeclaration =
-			HaloDefaults.createSelector(".dashedNumericAxis", styleManager);      
-		
-		dashedNumeric.defaultFactory = function():void
-		{
-			this.minorTickLength = 4;
-			this.minorTickPlacement = "outside";
-			this.minorTickStroke =
-				new Stroke(0xBBCCDD, 1, 1, false, "normal", "none");
-			this.showLine = false;
-			this.tickLength = 8;
-			this.tickStroke =
-				new Stroke(0xBBCCDD, 1, 1, false, "normal", "none");
-		}
-		
-		var blockCategory:CSSStyleDeclaration =
-			HaloDefaults.createSelector(".blockCategoryAxis", styleManager);
-		
-		blockCategory.defaultFactory = function():void
-		{
-			this.axisStroke =
-				new Stroke(0xBBCCDD, 8, 1, false, "normal", "none");
-			this.minorTickLength = 0;
-			this.minorTickPlacement = "none";
-			this.tickLength = 0;
-			this.tickPlacement = "cross";
-			this.tickStroke =
-				new Stroke(0xFFFFFF, 2, 1, false, "normal", "none");
-		}
-		
-		var hangingCategory:CSSStyleDeclaration =
-			HaloDefaults.createSelector(".hangingCategoryAxis", styleManager);
-		
-		hangingCategory.defaultFactory = function():void
-		{
-			this.axisStroke =
-				new Stroke(0xBBCCDD, 1, 1, false, "normal", "none");
-			this.minorTickLength = 0;
-			this.minorTickPlacement = "cross";
-			this.minorTickStroke = new Stroke(0, 0, 0);
-			this.tickLength = 4;
-			this.tickStroke =
-				new Stroke(0xBBCCDD, 1, 1, false, "normal", "none");
-		}
-		
-		var dashedCategory:CSSStyleDeclaration =
-			HaloDefaults.createSelector(".dashedCategoryAxis", styleManager);
-		
-		dashedCategory.defaultFactory = function():void
-		{
-			this.axisStroke =
-				new Stroke(0xBBCCDD, 1, 1, false, "normal", "none");
-			this.minorTickPlacement = "none";
-			this.tickLength = 0;
-			this.tickPlacement = "cross";
-			this.tickStroke =
-				new Stroke(0xFFFFFF, 2, 1, false, "normal", "none");
-		}
-		
+		var hangingCategoryAxis:CSSStyleDeclaration = styleManager.getStyleDeclaration(".hangingCategoryAxis");
+		hangingCategoryAxis.setStyle("axisStroke", new SolidColorStroke(0xBBCCDD, 1, 1,false, "normal", "none"));
+		hangingCategoryAxis.setStyle("tickStroke", new SolidColorStroke(0xBBCCDD, 1, 1, false, "normal", "none"));
+		hangingCategoryAxis.setStyle("minorTickStroke", new SolidColorStroke(0,0,0));
 		return true;
 	}
 
@@ -1833,8 +1739,12 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
             if (skipCount > maxSkipCount)
             {
                 maxSkipCount = skipCount;
-            }     
-			lastLabel = _labels[maxSkipCount + 1] ? _labels[maxSkipCount + 1] : _labels[_labels.length - 1];
+            }
+			if(maxSkipCount == 0)
+				lastLabel = _labels[_labels.length - 1];
+			else
+				lastLabel = _labels[maxSkipCount + 1] ? _labels[maxSkipCount + 1] : _labels[_labels.length - 1];
+			//lastLabel = prevLabel;
         }
         	
         else
@@ -3291,7 +3201,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
 					if(label.hasOwnProperty("htmlText"))
 						label.htmlText = labelData.text;
 					else
-						label.text = labelData.text;
+                    label.text = labelData.text;
 					if(sparkLabelClass && labelData.instance is sparkLabelClass)
 					{
 						label.setStyle("paddingTop", 5);
