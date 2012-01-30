@@ -175,7 +175,7 @@ public class PostScaleAdapter implements IUIComponent,
      */
     public function set explicitHeight(value:Number):void
     {
-        obj.explicitHeight = value / Math.abs(obj.scaleY);
+        obj.explicitHeight = (obj.scaleY == 0) ? 0 : value / Math.abs(obj.scaleY);
     }
 
     //----------------------------------
@@ -268,7 +268,7 @@ public class PostScaleAdapter implements IUIComponent,
      */
     public function set explicitWidth(value:Number):void
     {
-        obj.explicitWidth = value / Math.abs(obj.scaleX);
+        obj.explicitWidth = (obj.scaleX == 0) ? 0 : value / Math.abs(obj.scaleX);
     }
     
     //----------------------------------
@@ -402,7 +402,7 @@ public class PostScaleAdapter implements IUIComponent,
      */
     public function set measuredMinHeight(value:Number):void
     {
-        obj.measuredMinHeight = value / Math.abs(obj.scaleY);
+        obj.measuredMinHeight = (obj.scaleY == 0) ? 0 : value / Math.abs(obj.scaleY);
     }
 
     //----------------------------------
@@ -427,7 +427,7 @@ public class PostScaleAdapter implements IUIComponent,
      */
     public function set measuredMinWidth(value:Number):void
     {
-        obj.measuredMinWidth = value / Math.abs(obj.scaleX);
+        obj.measuredMinWidth = (obj.scaleX == 0) ? 0 : value / Math.abs(obj.scaleX);
     }
 
     //----------------------------------
@@ -754,9 +754,9 @@ public class PostScaleAdapter implements IUIComponent,
      */
     public function setActualSize(newWidth:Number, newHeight:Number):void
     {
-        obj.setActualSize(newWidth / Math.abs(obj.scaleX), newHeight / Math.abs(obj.scaleY));
+        obj.setActualSize(obj.scaleX == 0 ? 0 : newWidth / Math.abs(obj.scaleX),
+                          obj.scaleY == 0 ? 0 : newHeight / Math.abs(obj.scaleY));
     }
-
 
     //--------------------------------------------------------------------------
     //
@@ -960,7 +960,7 @@ public class PostScaleAdapter implements IUIComponent,
     }
     public function set width(value:Number):void
     {
-        obj.width = value / Math.abs(obj.scaleX);
+        obj.width = (obj.scaleX == 0) ? 0 : value / Math.abs(obj.scaleX);
     }
 
     /**
@@ -977,7 +977,7 @@ public class PostScaleAdapter implements IUIComponent,
     }
     public function set height(value:Number):void
     {
-        obj.height = value / Math.abs(obj.scaleY);
+        obj.height = (obj.scaleY == 0) ? 0 : value / Math.abs(obj.scaleY);
     }
 
     /**
