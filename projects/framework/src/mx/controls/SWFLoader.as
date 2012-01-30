@@ -38,6 +38,7 @@ import flash.utils.ByteArray;
 import mx.core.FlexGlobals;
 import mx.core.FlexLoader;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.ISWFLoader;
 import mx.core.IUIComponent;
 import mx.core.UIComponent;
@@ -1617,9 +1618,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                         contentLoader.content)
                     {
                         contentLoader.content.removeEventListener(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST, 
-                            loader_content_getFlexModuleFactoryRequestHandler);            
+                            contentHolder_getFlexModuleFactoryRequestHandler);            
                     }
 
+                    contentHolder.removeEventListener(Event.ADDED, contentHolder_addedHandler);
+                    
                     if (useUnloadAndStop)
                         contentLoader.unloadAndStop(unloadAndStopGC);
                     else 
@@ -1727,15 +1730,19 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         if (cls)
         {
             contentHolder = child = new cls();
+            contentHolder.addEventListener(Event.ADDED, contentHolder_addedHandler, false, 0, true);
             addChild(child);
             contentLoaded();
-
         }
         else if (classOrString is DisplayObject)
         {
             contentHolder = child = DisplayObject(classOrString);
             addChild(child);
             contentLoaded();
+            
+            // Listen for requests to get the flex module factory.
+            contentHolder.addEventListener(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST, 
+                                   contentHolder_getFlexModuleFactoryRequestHandler);            
         }
         else if (byteArray)
         {
@@ -2273,7 +2280,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             loaderInfo.content)
         {
             loaderInfo.content.addEventListener(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST, 
-                                            loader_content_getFlexModuleFactoryRequestHandler);            
+                                            contentHolder_getFlexModuleFactoryRequestHandler);            
         }
 
     }
@@ -2425,12 +2432,37 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  @param request Use type Event instead of Request because the event may be send from
      *  another ApplicationDomain (A.2).
      */
-    public function loader_content_getFlexModuleFactoryRequestHandler(request:Event):void
+    private function contentHolder_getFlexModuleFactoryRequestHandler(request:Event):void
     {
         if ("value" in request)
             request["value"] = moduleFactory;
     }
     
+    /**
+     *  @private
+     * 
+     *  Used when we are loading a class. If the embedded class is a SWF, then wait for
+     *  the added event where the target is a IFlexModuleFactory. This will be message after
+     *  the event for the class being added. 
+     * 
+     *  All this is done to support the module factory parent request when loading an 
+     *  embedded swf.
+     */
+    private function contentHolder_addedHandler(event:Event):void
+    {
+        if (event.target == contentHolder)
+            return;  // wait for next message
+        
+        if (event.target is IFlexModuleFactory)
+        {
+            // Listen for requests to get the flex module factory.
+            event.target.addEventListener(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST, 
+                                          contentHolder_getFlexModuleFactoryRequestHandler);            
+        }
+
+        contentHolder.removeEventListener(Event.ADDED, contentHolder_addedHandler);
+    }
+
     /**
      *      @private
      * 
