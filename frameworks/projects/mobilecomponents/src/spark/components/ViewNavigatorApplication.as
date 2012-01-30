@@ -560,7 +560,13 @@ package spark.components
             if (sessionCachingEnabled)
             {
                 persistenceManager.setProperty("selectedSection", navigator.selectedIndex);
-                navigator.persistCurrentView();
+                
+                if (navigator.activeView)
+                {
+                    navigator.activeView.active = false;
+                    navigator.persistCurrentView();
+                }
+                
                 persistenceManager.flush();
             }
         }
