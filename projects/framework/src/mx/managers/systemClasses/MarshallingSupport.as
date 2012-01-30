@@ -784,6 +784,9 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 	/**
 	 *  @private
 	 *  Track mouse clicks to see if we change top-level forms.
+     *  Note that we get a FocusEvent here and not a MouseEvent because we
+     *  use a FocusEvent to forward the MouseEvent to the mixin.  That's
+     *  why we use event.relatedObject here and not MouseEvent
 	 */
 	private function mouseDownHandler(event:FocusEvent):void
 	{
@@ -797,7 +800,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 		// in a bridged application, activate the current document because
 		// the bridge application is considered part of the main application.
 		// We also see mouse clicks on dialogs popped up from compatible applications.
-        var bridge:IEventDispatcher = getSWFBridgeOfDisplayObject(event.target as DisplayObject);
+        var bridge:IEventDispatcher = getSWFBridgeOfDisplayObject(event.relatedObject as DisplayObject);
         if (bridge && bridgeToFocusManager[bridge] == systemManager.document.focusManager)
 		{
 			// trace("SM:mouseDownHandler click in a bridged application");
