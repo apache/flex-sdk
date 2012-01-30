@@ -51,14 +51,18 @@ package mx.core
         function set layoutDirection(value:String):void;
         
         /**
-         *  Must be called when an element or its parent's layoutDirection changes.
-         *  
-         *  If they differ, the X axis is scaled by -1 and the x coordinate of the origin
-         *  is translated by the element's width.  
+         *  An element must call this method when its layoutDirection changes or
+         *  when its parent's layoutDirection changes.  
          * 
-         *  The net effect of this "mirror" transform is to reverse the direction 
-         *  that the X axis increases without changing the element's 
-         *  location relative to the parent's origin.
+         *  If they differ, this method is responsible for mirroring the element’s contents
+         *  and for updating the element’s post-layout transform so that descendants inherit
+         *  a mirrored coordinate system.  IVisualElements typically implement
+         *  mirroring by using postLayoutTransformOffsets to scale the X axis by -1 and 
+         *  to translate the x coordinate of the origin by the element's width.
+         * 
+         *  The net effect of this "mirror" transform is to reverse the direction
+         *  in which the X axis increases without changing the element's location
+         *  relative to its parent's origin.
          * 
          *  @langversion 3.0
          *  @playerversion Flash 10
