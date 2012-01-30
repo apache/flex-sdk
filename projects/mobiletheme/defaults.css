@@ -13,7 +13,10 @@
 
 @namespace "library://ns.adobe.com/flex/spark";
 
-/* Default Skins */
+/*
+Default Mobile Flex skins and styles. Defaults sizes are based on
+application-dpi=240.
+*/
 
 ActionBar
 {
@@ -109,15 +112,15 @@ IconItemRenderer
 {
 	horizontalGap: 15;
 	verticalGap: 15;
-	font-weight: bold;
+	fontWeight: bold;
 	iconDelay: 500;
 	messageStyleName: "iconItemRendererMessageStyle";
 }
 
 .iconItemRendererMessageStyle
 {
-	font-weight: normal;
-	font-size: 20;
+	fontWeight: normal;
+	fontSize: 20;
 	color: #333333;
 }
 
@@ -134,7 +137,6 @@ List
 {
 	skinClass: ClassReference("spark.skins.mobile.ListSkin");
     touchDelay: 100;
-	contentBackgroundColor: #F0F0F0;
 	borderColor: #000000;
 	borderAlpha: 1;
 }
@@ -220,9 +222,16 @@ TabbedViewNavigator
     skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorSkin");
 }
 
-TextBase
+TabbedViewNavigator ButtonBar
 {
-	contentBackgroundColor: #F0F0F0;
+    chromeColor: #484848;
+    color: #FFFFFF;
+    fontSize: 20;
+    iconPlacement: top;
+    interactionMode: mouse;
+    skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorButtonBarSkin");
+    textShadowAlpha: .65;
+    textShadowColor: #000000;
 }
 
 TextArea
@@ -325,6 +334,7 @@ global
     backgroundImageFillMode : "scale";
     borderVisible : true;
     borderWeight : 1;
+    contentBackgroundColor: #F0F0F0;
     downColor: #A8C6EE; /* set in here and not in framework's default.css because it only is really applicable for touch interactions*/
     focusThickness: 3;
     symbolColor: #000000;
@@ -345,4 +355,73 @@ global
     slideDuration: 300;
     smoothScrolling: true;
     touchDelay: 0; /* default to 0 here, but Scroller sets it to 100 */
+}
+
+@media (application-dpi: 160)
+{
+    ActionBar #titleDisplay
+    {
+        fontSize: 18pt;
+    }
+    
+    TextArea
+    {
+        paddingBottom: 6;
+        paddingLeft: 6;
+        paddingRight: 6;
+        paddingTop: 6;
+    }
+    
+    TextInput
+    {
+        paddingBottom: 6;
+        paddingLeft: 6;
+        paddingRight: 6;
+        paddingTop: 6;
+    }
+    
+    TabbedViewNavigator ButtonBar
+    {
+        fontSize: 14;
+    }
+    
+    global
+    {
+        fontSize: 16pt;
+        focusThickness: 2;
+    }
+}
+
+@media (application-dpi: 320)
+{
+    ActionBar #titleDisplay
+    {
+        fontSize: 36pt;
+    }
+    
+    TextArea
+    {
+        paddingBottom: 12;
+        paddingLeft: 12;
+        paddingRight: 12;
+        paddingTop: 12;
+    }
+    
+    TextInput
+    {
+        paddingBottom: 12;
+        paddingLeft: 12;
+        paddingRight: 12;
+        paddingTop: 12;
+    }
+    
+    TabbedViewNavigator ButtonBar
+    {
+        fontSize: 28;
+    }
+    
+    global
+    {
+        fontSize: 32pt;
+    }
 }
