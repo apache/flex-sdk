@@ -1,5 +1,6 @@
 package spark.components
 {
+import flash.display.Stage;
 import flash.events.Event;
 import flash.geom.Rectangle;
 
@@ -1521,10 +1522,6 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             removeElement(currentView);
             currentView.returnedObject = null;
             
-            // FIXME (chiedozi): Figure out how to use focus manager to manage focus
-            // when a component in the current view has focus.
-			stage.focus = null;
-            
             // Grab the data from the old view and persist it
             if (lastAction == PUSH_ACTION || lastAction == CHANGE_SECTION_ACTION)
             {
@@ -1554,6 +1551,18 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         tabBarVisibilityInvalidated = false;
         
         clearActionBarInvalidationFlags();
+        
+        // If there is no focus or the item that had focus isn't 
+        // on the display list anymore, update the focus to be
+        // the active view or the view navigator
+        var stage:Stage = systemManager.stage;
+        if (!stage.focus || !stage.focus.stage || stage.focus == this)
+        {
+            if (activeView)
+                stage.focus = activeView;
+            else
+                stage.focus = this;
+        }
         
         if (currentViewData)
         {
