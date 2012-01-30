@@ -12,11 +12,6 @@
 /*
  *  The ISprite interface defines the basic set of APIs
  *  for web version of flash.display.Sprite
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
  */
 
 import flash.display.DisplayObject;
