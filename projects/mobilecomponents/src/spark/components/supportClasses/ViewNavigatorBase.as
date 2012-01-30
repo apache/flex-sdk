@@ -163,7 +163,7 @@ public class ViewNavigatorBase extends SkinnableContainer
     
     private var _destructionPolicy:String = ContainerDestructionPolicy.AUTO;
     
-    [Inspectable(category="General", enumeration="auto,always,never", defaultValue="auto")]
+    [Inspectable(category="General", enumeration="auto,never", defaultValue="auto")]
     /**
      *  Sets the destructionPolicy for the navigator.  This property determines
      *  if the contents of the navigator should be destroyed when the navigator
