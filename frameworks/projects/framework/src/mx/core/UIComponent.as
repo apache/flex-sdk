@@ -2078,7 +2078,7 @@ public class UIComponent extends FlexSprite
                 if (e)
                     e.addEventListener("change", filterChangeHandler);
             }
-        }
+       }
 
         super.filters = _filters;
     }
@@ -4365,18 +4365,31 @@ public class UIComponent extends FlexSprite
     //----------------------------------
     //  states
     //----------------------------------
+    
+    private var _states:Array /* of State */ = [];
 
     [Inspectable(arrayType="mx.states.State")]
     [ArrayElementType("mx.states.State")]
-
+    
     /**
      *  The view states that are defined for this component.
      *  You can specify the <code>states</code> property only on the root
      *  of the application or on the root tag of an MXML component.
      *  The compiler generates an error if you specify it on any other control.
      */
-    public var states:Array /* of State */ = [];
-
+    public function get states():Array
+    {
+        return _states;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set states(value:Array):void
+    {
+        _states = value;
+    }
+    
     //----------------------------------
     //  transitions
     //----------------------------------
@@ -4387,17 +4400,29 @@ public class UIComponent extends FlexSprite
      */
     private var _currentTransitionEffect:IEffect;
 
+    private var _transitions:Array /* of Transition */ = [];
+
     [Inspectable(arrayType="mx.states.Transition")]
     [ArrayElementType("mx.states.Transition")]
-
+    
     /**
      *  An Array of Transition objects, where each Transition object defines a
      *  set of effects to play when a view state change occurs.
      *
      *  @see mx.states.Transition
      */
-    public var transitions:Array /* of Transition */ = [];
-
+    public function get transitions():Array
+    {
+        return _transitions;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set transitions(value:Array):void
+    {
+        _transitions = value;
+    }
     //--------------------------------------------------------------------------
     //
     //  Properties: Other
@@ -7094,6 +7119,10 @@ public class UIComponent extends FlexSprite
     public function setCurrentState(stateName:String,
                                     playTransition:Boolean = true):void
     {
+        // Flex 4 has no concept of an explicit base state, so ensure we
+        // fall back to something appropriate.
+        stateName = isBaseState(stateName) ? getDefaultState() : stateName;
+        
         // Only change if the requested state is different. Since the root
         // state can be either null or "", we need to add additional check
         // to make sure we're not going from null to "" or vice-versa.
@@ -7131,6 +7160,17 @@ public class UIComponent extends FlexSprite
         return !stateName || stateName == "";
     }
 
+    /**
+     *  @private
+     *  Returns the default state. For Flex 4 and later we return the base
+     *  the first defined state, otherwise (Flex 3 and earlier), we return
+     *  the base (null) state.
+     */
+    private function getDefaultState():String
+    {
+        return (this is IStateClient2 && (states.length > 0)) ? states[0].name : null;
+    }
+    
     /**
      *  @private
      *  Commit a pending current state change.
@@ -8358,6 +8398,17 @@ public class UIComponent extends FlexSprite
             if (!indices)
             {
                 parentDocument[id] = this;
+                
+                // TODO: Determine if we want "idAssigned" to be an event or
+                // callback function. If this is changed, it alse needs to be
+                // updated in:
+                // modules/compiler/src/java/flex2/compiler/mxml/rep/init/ValueInitializer.java
+                var e:PropertyChangeEvent = new PropertyChangeEvent("idAssigned");
+                e.source = parentDocument;
+                e.property = id;
+                e.oldValue = null;
+                e.newValue = this;
+                parentDocument.dispatchEvent(e);
             }
             else
             {
