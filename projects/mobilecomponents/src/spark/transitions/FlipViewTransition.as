@@ -350,6 +350,18 @@ public class FlipViewTransition extends ViewTransitionBase
         // Align underside 'face' of our card.
         alignCardFaces(targetNavigator);
                         
+        // When doing a consolidated card effect, the targetNavigator and actionBar
+        // need to be hidden in some use cases to prevent them from renderering
+        // through transparent backgrounds.  The visibility of the elements
+        // are retoggled in effectUpdateHandler().
+        if (actionBar)
+        {
+            navigatorProps.actionBarVisible = actionBar.visible;
+            actionBar.visible = false;
+        }
+        
+        targetNavigator.setVisible(false, true);
+        
         return createCardFlipAnimation(endView.width);     
     }
     
@@ -440,9 +452,18 @@ public class FlipViewTransition extends ViewTransitionBase
         if(Math.abs(transitionGroup[animatedProp]) > 90) 
         {
             if (!consolidatedTransition)
+            {
                 startView.visible = false;
+            }
             else
+            {
+                targetNavigator.setVisible(true, true);
+                
+                if (actionBar)
+                    actionBar.visible = navigatorProps.actionBarVisible;
+                
                 cachedNavigator.displayObject.visible = false;
+            }
         }
         
         // Ensure transform matrix is updated even when layout is disabled.
@@ -696,16 +717,16 @@ public class FlipViewTransition extends ViewTransitionBase
         // to be run multiple times.  So we listen for the events and prevent
         // them from propagating.
         if (endView.hasEventListener(FlexEvent.ADD))
-            endView.addEventListener(FlexEvent.ADD, view_addOrRemoveHandler, false, 1);
+            endView.addEventListener(FlexEvent.ADD, stopNavigatorEventFromPropagating, false, 1);
         
         if (endView.hasEventListener(FlexEvent.REMOVE))
-            endView.addEventListener(FlexEvent.REMOVE, view_addOrRemoveHandler, false, 1);
+            endView.addEventListener(FlexEvent.REMOVE, stopNavigatorEventFromPropagating, false, 1);
         
         if (startView.hasEventListener(FlexEvent.ADD))
-            startView.addEventListener(FlexEvent.ADD, view_addOrRemoveHandler, false, 1);
+            startView.addEventListener(FlexEvent.ADD, stopNavigatorEventFromPropagating, false, 1);
         
         if (startView.hasEventListener(FlexEvent.REMOVE))
-            startView.addEventListener(FlexEvent.REMOVE, view_addOrRemoveHandler, false, 1);
+            startView.addEventListener(FlexEvent.REMOVE, stopNavigatorEventFromPropagating, false, 1);
         
         // Reparent the start and end views into the transition group
         transitionGroup.addElement(endView);
@@ -718,7 +739,7 @@ public class FlipViewTransition extends ViewTransitionBase
     /**
      *  @private
      */
-    private function view_addOrRemoveHandler(event:FlexEvent):void
+    private function stopNavigatorEventFromPropagating(event:FlexEvent):void
     {
         event.stopImmediatePropagation();
     }
@@ -874,16 +895,16 @@ public class FlipViewTransition extends ViewTransitionBase
             
             // Remove add handlers added to the views
             if (endView.hasEventListener(FlexEvent.ADD))
-                endView.removeEventListener(FlexEvent.ADD, view_addOrRemoveHandler);
+                endView.removeEventListener(FlexEvent.ADD, stopNavigatorEventFromPropagating);
             
             if (endView.hasEventListener(FlexEvent.REMOVE))
-                endView.removeEventListener(FlexEvent.REMOVE, view_addOrRemoveHandler);
+                endView.removeEventListener(FlexEvent.REMOVE, stopNavigatorEventFromPropagating);
             
             if (startView.hasEventListener(FlexEvent.ADD))
-                startView.removeEventListener(FlexEvent.ADD, view_addOrRemoveHandler);
+                startView.removeEventListener(FlexEvent.ADD, stopNavigatorEventFromPropagating);
             
             if (startView.hasEventListener(FlexEvent.REMOVE))
-                startView.removeEventListener(FlexEvent.REMOVE, view_addOrRemoveHandler);
+                startView.removeEventListener(FlexEvent.REMOVE, stopNavigatorEventFromPropagating);
             
             // Extract our temporary transition group.
             Group(transitionGroup.parent).removeElement(transitionGroup);
@@ -892,6 +913,7 @@ public class FlipViewTransition extends ViewTransitionBase
             if (startView)
             {
                 startView.includeInLayout = startViewProps.includeInLayout;
+                startView.visible = true;
                 startViewProps = null;
             }
             
