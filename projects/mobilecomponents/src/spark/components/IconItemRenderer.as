@@ -227,7 +227,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     }
     
     /**
-     *  <p>If no <code>labelFunction</code> = <code>labelField</code> = null,
+     *  <p>If <code>labelFunction</code> = <code>labelField</code> = null,
      *  then use the <code>label</code> property that gets 
      *  pushed in from the list control. 
      *  However if <code>labelField</code> is explicitly set to 
