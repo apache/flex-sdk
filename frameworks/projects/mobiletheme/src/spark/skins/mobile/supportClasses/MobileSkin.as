@@ -144,6 +144,29 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     {
     }
     
+    /**
+     *  MobileSkin does not use states. Skins should override this function
+     *  to return false for states that are not implemented.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */ 
+    override public function hasState(stateName:String):Boolean
+    {
+        return true;
+    }
+    
+    /**
+     *  @private
+     */ 
+    override public function setCurrentState(stateName:String,
+                                    playTransition:Boolean = true):void
+    {
+        currentState = stateName;
+    }
+    
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
