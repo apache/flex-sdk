@@ -364,45 +364,5 @@ package mx.geom
 		}
 	}
 		
-	/**
-	 * A utility method to update the rotation and scale of the transform while keeping a particular point, specified in the component's own coordinate space, 
-	 * fixed in the parent's coordinate space.  This function will assign the rotation and scale values provided, then update the x/y/z properties
-	 * as necessary to keep tx/ty/tz fixed.
-	 * @param rx,ry,rz the new values for the rotation of the transform
-	 * @param sx,sy,sz the new values for the scale of the transform
-	 * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
-	{
-		if(owner != null)
-		{
-			var is3D:Boolean = ((!isNaN(rx) && rx != 0) || (!isNaN(ry) && ry != 0) || (!isNaN(sz) && sz != 1));
-			var token:Object = owner.prepareForTransformCenterAdjustment(false,is3D,tx,ty,tz);
-
-			
-			
-			if(!isNaN(rx))
-				_rotationX = rx;
-			if(!isNaN(ry))
-				_rotationY = ry;
-			if(!isNaN(rz))
-				_rotationZ = rz;
-			if(!isNaN(sx))
-				_scaleX = sx;
-			if(!isNaN(sx))
-				_scaleY = sy;
-			if(!isNaN(sz))
-				_scaleZ = sz;			
-	
-			invalidate(is3D);
-			owner.completeTransformCenterAdjustment(token,is3D);
-		}
-		// TODO: support transformAround when we don't have an owner.
-	}
 }
 }
