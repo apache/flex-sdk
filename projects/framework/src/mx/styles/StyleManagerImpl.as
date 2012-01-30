@@ -454,7 +454,6 @@ public class StyleManagerImpl implements IStyleManager3
     }
     
     /**
-     *  @review
      *  Returns an array of strings of all CSS selectors registered with the StyleManager.
      *  Pass items in this array to the getStyleDeclaration function to get the corresponding CSSStyleDeclaration.
      *  Note that class selectors are prepended with a period.
