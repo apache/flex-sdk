@@ -632,6 +632,7 @@ class ModuleInfo extends EventDispatcher
 
         limbo = null;
         factoryInfo = null;
+        parentModuleFactory = null;
         _loaded = false;
         _setup = false;
         _ready = false;
