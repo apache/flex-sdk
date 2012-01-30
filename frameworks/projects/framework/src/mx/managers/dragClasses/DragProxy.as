@@ -39,7 +39,6 @@ import mx.managers.DragManager;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
 import mx.styles.CSSStyleDeclaration;
-import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
@@ -218,7 +217,7 @@ public class DragProxy extends UIComponent
     {
         var newCursorClass:Class = cursorClass;
 		var styleSheet:CSSStyleDeclaration =
-						StyleManager.getStyleDeclaration("mx.managers.DragManager");
+						styleManager.getStyleDeclaration("mx.managers.DragManager");
 
         if (action == DragManager.COPY)
             newCursorClass = styleSheet.getStyle("copyCursor");
