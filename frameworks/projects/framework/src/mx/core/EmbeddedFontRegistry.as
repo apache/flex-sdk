@@ -62,7 +62,7 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
      *  @private
      *  Used for accessing localized Error messages.
      */
-    private var resourceManager:IResourceManager = ResourceManager.getInstance();
+    private var _resourceManager:IResourceManager;
     
     /**
      *  @private
@@ -242,7 +242,28 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 		}
 	}
 	
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     * 
+     *  The EmbeddedFontRegistry can be created in frame1 when an RSL loads a font. Defer creating
+     *  a resource manager until it is needed.
+     * 
+     */ 
+    private function get resourceManager():IResourceManager
+    {
+        if (!_resourceManager)
+            _resourceManager = ResourceManager.getInstance();
+        
+        return _resourceManager;
+    }
+
+    //--------------------------------------------------------------------------
 	//
 	//  Methods
 	//
@@ -446,6 +467,7 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
         
         return result;
     }
+    
 }
 
 }
