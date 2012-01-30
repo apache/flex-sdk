@@ -133,7 +133,7 @@ public class ListSkin extends MobileSkin
 	override protected function measure():void
 	{
 		measuredWidth = scroller.getPreferredBoundsWidth();
-		measuredHeight = scroller.getPreferredBoundsWidth();
+		measuredHeight = scroller.getPreferredBoundsHeight();
 	}
 	
 	
