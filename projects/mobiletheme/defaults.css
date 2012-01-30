@@ -138,6 +138,7 @@ List
     touchDelay: 100;
 	borderColor: #000000;
 	borderAlpha: 1;
+    verticalScrollPolicy: on;
 }
 
 MuteButton
