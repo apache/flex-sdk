@@ -653,6 +653,8 @@ public class Tween extends EventDispatcher
         startTime = clockTime - playheadTime;
         
         _doSeek = true;
+        
+        doInterval();
     }
     
     /**
