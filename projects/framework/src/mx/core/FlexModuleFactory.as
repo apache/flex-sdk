@@ -477,6 +477,7 @@ public class FlexModuleFactory extends MovieClip
         var i:int;
         if (cdRsls && cdRsls.length > 0)
         {
+            var normalizedURL:String = LoaderUtil.normalizeURL(this.loaderInfo);
             var crossDomainRSLItem:Class = Class(getDefinitionByName("mx.core::CrossDomainRSLItem"));
             n = cdRsls.length;
             for (i = 0; i < n; i++)
@@ -488,7 +489,8 @@ public class FlexModuleFactory extends MovieClip
                     cdRsls[i]["digests"],
                     cdRsls[i]["types"],
                     cdRsls[i]["isSigned"],
-                    LoaderUtil.normalizeURL(this.loaderInfo));
+                    normalizedURL,
+                    this);
                 
                 rslList.push(cdNode);				
             }
@@ -498,10 +500,15 @@ public class FlexModuleFactory extends MovieClip
         // Append RSL information in the RSL list.
         if (rsls != null && rsls.length > 0)
         {
+            if (normalizedURL == null)
+                normalizedURL = LoaderUtil.normalizeURL(this.loaderInfo);
+            
             n = rsls.length;
             for (i = 0; i < n; i++)
             {
-                var node:RSLItem = new RSLItem(rsls[i].url, LoaderUtil.normalizeURL(this.loaderInfo));
+                var node:RSLItem = new RSLItem(rsls[i].url, 
+                                               normalizedURL,
+                                               this);
                 rslList.push(node);
             }
         }
@@ -689,7 +696,6 @@ public class FlexModuleFactory extends MovieClip
             detailedError = "";
             
         message = "RSL " + rsl.urlRequest.url + " failed to load. " + detailedError;              
-        trace(message);
         displayError(message);
     }
 
