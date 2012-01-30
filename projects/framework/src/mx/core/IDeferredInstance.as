@@ -67,6 +67,11 @@ package mx.core
  *  property that is of type IDeferredInstance.</p>
  * 
  *  @see mx.states.AddChild
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IDeferredInstance
 {
@@ -81,6 +86,11 @@ public interface IDeferredInstance
      *  if the instance does not yet exist.
      *  
      *  @return The instance Object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getInstance():Object;
 }
