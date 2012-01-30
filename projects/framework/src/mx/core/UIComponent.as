@@ -1573,7 +1573,6 @@ public class UIComponent extends FlexSprite
         if(_layoutFeatures == null)
         {
             super.x  = value;
-            invalidateProperties();
         }
         else
         {
@@ -1581,6 +1580,7 @@ public class UIComponent extends FlexSprite
             invalidateTransform();
         }
 
+        invalidateProperties();
 
         dispatchEvent(new Event("xChanged"));
     }
@@ -1603,9 +1603,12 @@ public class UIComponent extends FlexSprite
     {
         if (z == value)
             return;
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+
         _layoutFeatures.layoutZ = value;
         invalidateTransform();
+        invalidateProperties();
         dispatchEvent(new Event("zChanged"));
     }
 
@@ -1614,8 +1617,9 @@ public class UIComponent extends FlexSprite
      */
     public function get transformX():Number
     {
-        return (_layoutFeatures == null)? 0:_layoutFeatures.transformX;
+        return (_layoutFeatures == null)? 0 : _layoutFeatures.transformX;
     }
+
     /**
      *  @private
      */
@@ -1623,9 +1627,11 @@ public class UIComponent extends FlexSprite
     {
         if (transformX == value)
             return;
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
         _layoutFeatures.transformX = value;
         invalidateTransform();
+        invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
 
@@ -1634,8 +1640,9 @@ public class UIComponent extends FlexSprite
      */
     public function get transformY():Number
     {
-        return (_layoutFeatures == null)? 0:_layoutFeatures.transformY;
+        return (_layoutFeatures == null)? 0 : _layoutFeatures.transformY;
     }
+
     /**
      *  @private
      */
@@ -1643,9 +1650,11 @@ public class UIComponent extends FlexSprite
     {
         if (transformY == value)
             return;
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
         _layoutFeatures.transformY = value;
         invalidateTransform();
+        invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
 
@@ -1666,6 +1675,7 @@ public class UIComponent extends FlexSprite
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         _layoutFeatures.transformZ = value;
         invalidateTransform();
+        invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
 
@@ -1719,6 +1729,7 @@ public class UIComponent extends FlexSprite
         }
 
         invalidateTransform();
+        invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
 
@@ -1758,9 +1769,11 @@ public class UIComponent extends FlexSprite
         if (rotationX == value)
             return;
 
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
         _layoutFeatures.layoutRotationX = value;
         invalidateTransform();
+        invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
 
@@ -1785,9 +1798,11 @@ public class UIComponent extends FlexSprite
         if (rotationY == value)
             return;
 
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
         _layoutFeatures.layoutRotationY = value;
         invalidateTransform();
+        invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
                                 
@@ -1828,7 +1843,6 @@ public class UIComponent extends FlexSprite
 
         if(_layoutFeatures == null)
         {
-            invalidateProperties();
             super.y  = value;
         }
         else
@@ -1836,7 +1850,7 @@ public class UIComponent extends FlexSprite
             _layoutFeatures.layoutY = value;
             invalidateTransform();
         }
-
+        invalidateProperties();
 
         dispatchEvent(new Event("yChanged"));
     }
@@ -2016,7 +2030,6 @@ public class UIComponent extends FlexSprite
     {
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
         {
-
             if (_scaleX == value)
                 return;
 
@@ -2027,8 +2040,6 @@ public class UIComponent extends FlexSprite
         }
         else
         {
-
-    
             var prevValue:Number = (_layoutFeatures == null)? scaleX:_layoutFeatures.layoutScaleX;
             if (prevValue == value)
                 return;
@@ -2043,6 +2054,7 @@ public class UIComponent extends FlexSprite
                 _layoutFeatures.layoutScaleX = value;
             }
             invalidateTransform();
+            invalidateProperties();
     
             // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
             // and scaleX is changing we need to invalidate parent size and display list
@@ -2103,7 +2115,6 @@ public class UIComponent extends FlexSprite
     
             invalidateProperties();
             invalidateSize();
-    
        }
        else
        {
@@ -2119,6 +2130,7 @@ public class UIComponent extends FlexSprite
                 _layoutFeatures.layoutScaleY = value;
             }
             invalidateTransform();
+            invalidateProperties();
 
             // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
             // and scaleX is changing we need to invalidate parent size and display list
@@ -2161,9 +2173,11 @@ public class UIComponent extends FlexSprite
     {
         if (scaleZ == value)
             return;
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
         _layoutFeatures.layoutScaleZ = value;
         invalidateTransform();
+        invalidateProperties();
         dispatchEvent(new Event("scaleZChanged"));
     }
 
@@ -5942,24 +5956,22 @@ public class UIComponent extends FlexSprite
         }
     }
 
-    private function invalidateTransform(triggerPropertyInvalidation:Boolean = true):void
+    private function invalidateTransform():void
     {
-        if(_layoutFeatures && _layoutFeatures.updatePending == false)
+        if (_layoutFeatures && _layoutFeatures.updatePending == false)
         {
             _layoutFeatures.updatePending = true; 
-            if(isOnDisplayList() && UIComponentGlobals.layoutManager &&
-            invalidateDisplayListFlag == false)
+            if (isOnDisplayList() && UIComponentGlobals.layoutManager &&
+                invalidateDisplayListFlag == false)
             {
                 UIComponentGlobals.layoutManager.invalidateDisplayList(this);
             }
         }
-        if(triggerPropertyInvalidation)
-            invalidateProperties();
     }
 
     private function transformOffsetsChangedHandler(e:Event):void
     {
-        invalidateTransform(false);
+        invalidateTransform();
     }
 
     private function isOnDisplayList():Boolean
@@ -7192,7 +7204,7 @@ public class UIComponent extends FlexSprite
 
         if (changed)
         {
-            invalidateTransform(false);
+            invalidateTransform();
             dispatchMoveEvent();
         }
     }
@@ -9862,10 +9874,8 @@ public class UIComponent extends FlexSprite
         features.layoutY = y;
         features.layoutZ = z;
         _layoutFeatures = features;
-        invalidateTransform(false);
+        invalidateTransform();
     }
-
-
 
     private function setTransform(value:flash.geom.Transform):void
     {
@@ -9891,11 +9901,9 @@ public class UIComponent extends FlexSprite
         var m:Matrix = _transform.matrix;
         var m3:Matrix3D =  _transform.matrix3D;
         if(m != null)
-            layoutMatrix = m.clone();
+            setLayoutMatrix(m.clone(), true /*triggerLayoutPass*/);
         else if(m3 != null)
-            layoutMatrix3D = m3.clone();
-
-        invalidateSize();
+            setLayoutMatrix3D(m3.clone(), true /*triggerLayoutPass*/);
     }
 
     /**
@@ -10010,39 +10018,15 @@ public class UIComponent extends FlexSprite
     }
     
     /**
-     *  The transform matrix that is used to calculate the component's layout relative to its siblings. This matrix
-     *  is defined by the component's 2D properties such as <code>x</code>, <code>y</code>, <code>rotation</code>, 
-     *  <code>scaleX</code>, <code>scaleY</code>, <code>transformX</code>, and <code>transformY</code>.
-     *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
+     *  @inheritDoc 
      */
-    public function get layoutMatrix():Matrix
-    {
-        if(_layoutFeatures != null)
-        {
-            // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
-            // since this is an internal class, we don't need to worry about developers
-            // accidentally messing with this matrix, _unless_ we hand it out. Instead,
-            // we hand out a clone.
-            return _layoutFeatures.layoutMatrix.clone();            
-        }
-        else
-        {
-            // flash also returns copies.
-            return super.transform.matrix;
-        }
-    }
-
-    /**
-     * @private
-     */
-    public function set layoutMatrix(value:Matrix):void
+    public function setLayoutMatrix(value:Matrix, triggerLayout:Boolean):void
     {
         hasDeltaIdentityTransform = false;
-        if(_layoutFeatures == null)
+        if (_layoutFeatures == null)
         {
             // flash will make a copy of this on assignment.
             super.transform.matrix = value;
-            invalidateSize();
         }
         else
         {
@@ -10050,42 +10034,31 @@ public class UIComponent extends FlexSprite
             // holding onto a reference to it.
             _layoutFeatures.layoutMatrix = value;
             invalidateTransform();
-            invalidateParentSizeAndDisplayList();
         }
-    }
+        
+        invalidateProperties();
 
-    /**
-     *  Similarly to the layoutMatrix property, sets the layout Matrix, but
-     *  doesn't trigger a layout pass. 
-     */
-    public function setLayoutMatrix(value:Matrix):void
-    {
-        hasDeltaIdentityTransform = false;
-        if (_layoutFeatures == null)
-        {
-            super.transform.matrix = value;
-        }
-        else
-        {
-            // layout features will internally make a copy of this matrix rather than
-            // holding onto a reference to it.
-            _layoutFeatures.layoutMatrix = value;
-            invalidateTransform(false /*triggerPropertyInvalidation*/);
-        }
+        if (triggerLayout)
+            invalidateParentSizeAndDisplayList();
     }
 
     /**
      *  Similarly to the layoutMatrix3D property, sets the layout Matrix3D, but
      *  doesn't trigger a layout pass. 
      */
-    public function setLayoutMatrix3D(value:Matrix3D):void
+    public function setLayoutMatrix3D(value:Matrix3D, triggerLayout:Boolean):void
     {
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
         // layout features will internally make a copy of this matrix rather than
         // holding onto a reference to it.
         _layoutFeatures.layoutMatrix3D = value;
-        invalidateTransform(false /*triggerPropertyInvalidation*/);
+        invalidateTransform();
+        
+        invalidateProperties();
+
+        if (triggerLayout)
+            invalidateParentSizeAndDisplayList();
     }
 
     /**
@@ -10147,20 +10120,6 @@ public class UIComponent extends FlexSprite
         invalidateTransform();
         invalidateParentSizeAndDisplayList();
     }
-
-    /**
-     * @private
-     */
-    public function get layoutMatrix3D():Matrix3D
-    {
-        if(_layoutFeatures == null) initAdvancedLayoutFeatures();
-        // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
-        // since this is an internal class, we don't need to worry about developers
-        // accidentally messing with this matrix, _unless_ we hand it out. Instead,
-        // we hand out a clone.
-        return _layoutFeatures.layoutMatrix3D.clone();          
-    }
-
 
     /**
      * Determines the order in which items inside of groups are rendered. Groups order their items based on their layer property, with the lowest layer
@@ -10320,7 +10279,19 @@ public class UIComponent extends FlexSprite
      */
     public function getLayoutMatrix():Matrix
     {
-        return layoutMatrix;
+        if(_layoutFeatures != null)
+        {
+            // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+            // since this is an internal class, we don't need to worry about developers
+            // accidentally messing with this matrix, _unless_ we hand it out. Instead,
+            // we hand out a clone.
+            return _layoutFeatures.layoutMatrix.clone();            
+        }
+        else
+        {
+            // flash also returns copies.
+            return super.transform.matrix;
+        }
     }
 
     /**
@@ -10328,7 +10299,13 @@ public class UIComponent extends FlexSprite
      */
     public function getLayoutMatrix3D():Matrix3D
     {
-        return layoutMatrix3D;
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+        // since this is an internal class, we don't need to worry about developers
+        // accidentally messing with this matrix, _unless_ we hand it out. Instead,
+        // we hand out a clone.
+        return _layoutFeatures.layoutMatrix3D.clone();          
     }
 
     protected function nonDeltaLayoutMatrix():Matrix
@@ -10343,9 +10320,9 @@ public class UIComponent extends FlexSprite
                         UIComponent(obj).transformX, UIComponent(obj).transformY);
         } 
 */
-        if(hasDeltaIdentityTransform)
+        if (hasDeltaIdentityTransform)
             return null; 
-        if(_layoutFeatures != null)
+        if (_layoutFeatures != null)
         {
             return _layoutFeatures.layoutMatrix;            
         }
