@@ -23,6 +23,8 @@ public class BaseDimensionFilter extends BaseFilter
     
     private var _blurX:Number = 4.0;
     
+    [Inspectable(minValue="0.0", maxValue="255.0")]    
+    
     /**
      *  The amount of horizontal blur. Valid values are 0 to 255. A blur of 1
      *  or less means that the original image is copied as is. The default 
@@ -53,6 +55,8 @@ public class BaseDimensionFilter extends BaseFilter
     //----------------------------------
     
     private var _blurY:Number = 4.0;
+    
+    [Inspectable(minValue="0.0", maxValue="255.0")]    
     
     /**
      *  The amount of vertical blur. Valid values are 0 to 255. A blur of 1 
@@ -116,6 +120,8 @@ public class BaseDimensionFilter extends BaseFilter
     
     private var _quality:int = BitmapFilterQuality.LOW;
     
+    [Inspectable(minValue="1", maxValue="15")]        
+    
     /**
      *  The number of times to apply the filter. The default value is 
      *  BitmapFilterQuality.LOW, which is equivalent to applying the filter 
@@ -154,6 +160,8 @@ public class BaseDimensionFilter extends BaseFilter
     //----------------------------------
     
     private var _strength:Number = 1;
+    
+    [Inspectable(minValue="0.0", maxValue="255.0")]    
     
     /**
      *  The strength of the imprint or spread. The higher the value, the more 
