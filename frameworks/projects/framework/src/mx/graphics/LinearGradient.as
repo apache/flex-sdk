@@ -283,20 +283,21 @@ public class LinearGradient extends GradientBase implements IFill
 	    	
 	    	// Scale the gradient in the x direction. The natural size is 1638.4px. No need
 	    	// to scale the y direction because it is infinite
-	    	commonMatrix.scale (length / GRADIENT_DIMENSION, 1);
+	    	commonMatrix.scale (length / GRADIENT_DIMENSION, 1 / GRADIENT_DIMENSION);
 	    	 
 		    commonMatrix.rotate (!isNaN(_angle) ? _angle : rotationInRadians);
 		    if (isNaN(tx))
 	    		tx = bounds.width / 2;
 		    if (isNaN(ty))
 	    		ty = bounds.height / 2;
-	    	commonMatrix.translate(tx + bounds.left, ty + bounds.top);						 
+	    	commonMatrix.translate(tx + bounds.left, ty + bounds.top);	
 		}
 		else
 		{
-			commonMatrix.scale(bounds.width / GRADIENT_DIMENSION, 1);
-			commonMatrix.translate(bounds.left + bounds.width / 2, 0);
-			commonMatrix.concat(compoundTransform.matrix);
+            commonMatrix.translate(GRADIENT_DIMENSION / 2, GRADIENT_DIMENSION / 2);
+            commonMatrix.scale(1 / GRADIENT_DIMENSION, 1 / GRADIENT_DIMENSION);
+            commonMatrix.concat(compoundTransform.matrix);
+            commonMatrix.translate(bounds.left, bounds.top);
 		}			 
 		
 		target.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios,
