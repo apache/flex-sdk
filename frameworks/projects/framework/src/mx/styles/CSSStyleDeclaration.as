@@ -112,7 +112,7 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  this String is interpreted to be the legacy syntax of a String based
      *  selector; if the value starts with a dot it is interpreted as a global
      *  class selector, otherwise it represents a simple type selector.
-     *  @param selector The selector chain used to match IStyleClient2
+     *  @param selector The selector chain used to match IAdvancedStyleClient
      *  components to this style declaration.
      */
     public function CSSStyleDeclaration(subject:String=null, selector:CSSSelector=null)
