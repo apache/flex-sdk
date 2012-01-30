@@ -61,7 +61,8 @@ public interface IVisualElementContainer
     
     /**
      *  Adds a visual element to this visual container. The element is 
-     *  added after all other elements and on top of all other elements.  
+     *  added after all other elements.  It will sit on top of all other 
+     *  elements unless the layer property is set.  
      *  (To add a visual element to a specific index position, use 
      *  the <code>addElementAt()</code> method.)
      * 
