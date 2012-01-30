@@ -17,6 +17,11 @@ import mx.skins.ProgrammaticSkin;
 
 /**
  *  The skin for the drop indicator of a list-based control.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ListDropIndicator extends ProgrammaticSkin
 {
@@ -30,6 +35,11 @@ public class ListDropIndicator extends ProgrammaticSkin
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ListDropIndicator()
 	{
@@ -49,6 +59,11 @@ public class ListDropIndicator extends ProgrammaticSkin
 	/**
 	 *  Should the skin draw a horizontal line or vertical line.
 	 *  Default is horizontal.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var direction:String = "horizontal";
 	
