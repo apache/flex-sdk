@@ -323,17 +323,12 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
     //----------------------------------
     //  playheadTime
     //----------------------------------
-    
-    // TODO (chaase): This property should be in an interface, to
-    // allow it to be called easily through an interface instead of
-    // having to import Effect just to call it
-    // TODO (chaase): Consider renaming this property; playheadTime
-    // is very video-specific
+
     /**
-     *  The current position of the effect, in milliseconds. 
-     *  This value is between 0 and the value of the
-     *  <code>duration</code> property.
-     *  Use the <code>seek()</code> method to change the position of the effect.
+     *  Current time position of the effect.
+     *  This property has a value between 0 and the total duration, 
+     *  which includes the Effect's <code>startDelay</code>, 
+     *  <code>repeatCount</code>, and <code>repeatDelay</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -345,6 +340,15 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
         return Math.max(playCount - 1, 0) * (duration + repeatDelay) +
                (playReversed ? 0 : startDelay);
     }
+
+    /**
+     * @private
+     */
+    public function set playheadTime(value:Number):void
+    {
+        // Nothing to do for non-animated effects: subclasses should override
+    }
+
     
     //----------------------------------
     //  playReversed
@@ -597,11 +601,6 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
     //  Methods
     //
     //--------------------------------------------------------------------------
-
-    public function seek(seekTime:Number):void
-    {
-        // Nothing to do for non-animated effects
-    }
 
     /**
      *  @copy mx.effects.IEffectInstance#initEffect()
