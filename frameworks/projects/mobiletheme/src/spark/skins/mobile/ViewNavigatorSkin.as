@@ -115,6 +115,15 @@ public class ViewNavigatorSkin extends MobileSkin
             invalidateDisplayList();
         }
     }
+	
+	/**
+	 *  @private
+	 */
+	override public function validateEstimatedSizesOfChildren():void
+	{
+		actionBar.setEstimatedSize(estimatedWidth, NaN);
+		contentGroup.setEstimatedSize(estimatedWidth, NaN);
+	}
     
     /**
      *  @private 
