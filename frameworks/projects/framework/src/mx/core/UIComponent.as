@@ -1448,18 +1448,7 @@ public class UIComponent extends FlexSprite
     mx_internal var _owner:DisplayObjectContainer;
 
     /**
-     *  The owner of this UIComponent. By default, it is the parent of this UIComponent.
-     *  However, if this UIComponent object is a child component that is
-     *  popped up by its parent, such as the dropdown list of a ComboBox control,
-     *  the owner is the component that popped up this UIComponent object.
-     *
-     *  <p>This property is not managed by Flex, but by each component.
-     *  Therefore, if you use the <code>PopUpManger.createPopUp()</code> or
-     *  <code>PopUpManger.addPopUp()</code> method to pop up a child component,
-     *  you should set the <code>owner</code> property of the child component
-     *  to the component that popped it up.</p>
-     *
-     *  <p>The default value is the value of the <code>parent</code> property.</p>
+     *  @inheritDoc
      */
     public function get owner():DisplayObjectContainer
     {
@@ -1491,12 +1480,7 @@ public class UIComponent extends FlexSprite
     mx_internal var _parent:DisplayObjectContainer;
 
     /**
-     *  The parent container or component for this component.
-     *  Only UIComponent objects should have a parent property.
-     *  Non-UIComponent objects should use another property to reference
-     *  the object to which they belong.
-     *  By convention, non-UIComponent objects use an <code>owner</code>
-     *  property to reference the object to which they belong.
+     *  @inheritDoc
      */
     override public function get parent():DisplayObjectContainer
     {
