@@ -13,20 +13,22 @@ package spark.preloaders
 {
     
 import flash.display.DisplayObject;
-import flash.display.Loader;
 import flash.display.Sprite;
 import flash.display.StageOrientation;
 import flash.events.Event;
 import flash.events.StageOrientationEvent;
 import flash.geom.Matrix;
 import flash.system.Capabilities;
-import flash.system.System;
 import flash.utils.getTimer;
 
+import mx.core.RuntimeDPIProvider;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.SystemManager;
 import mx.preloaders.IPreloaderDisplay;
 import mx.preloaders.Preloader;
+
+use namespace mx_internal;
 
 /**
  *  The SplashScreen class is the default preloader for Mobile Flex applications.
@@ -81,20 +83,22 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
     private var splashImage:DisplayObject;      // The splash image
     private var splashImageWidth:Number;        // original pre-transform width
     private var splashImageHeight:Number;       // original pre-transform height
+    private var SplashImageClass:Class = null;  // The class of the generated splash image
     
     /**
      *  @private
      *  The resize mode for the splash image
      */
+    private var info:Object = null;             // The systemManager's info object
     private var scaleMode:String = "none";      // One of "none", "stretch", "letterbox" and "zoom".
 
     /**
      *  @private 
      *  Minimum time for the image to be visible 
      */    
-    private var minimumDisplayTime:Number = 1000;  // in ms
-    private var checkWaitTime:Boolean = false;  // obey minimumDisplayTime only valid if splashImage is valid
-    private var displayTimeStart:int = -1;      // the start time of the image being displayed
+    private var minimumDisplayTime:Number = 1000;   // in ms
+    private var checkWaitTime:Boolean = false;      // obey minimumDisplayTime only valid if splashImage is valid
+    private var displayTimeStart:int = -1;          // the start time of the image being displayed
     
     //--------------------------------------------------------------------------
     //
@@ -205,6 +209,16 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
     //--------------------------------------------------------------------------
     
     //----------------------------------
+    //  autoAlign
+    //----------------------------------    
+    /**
+     *  @private
+     *  Flag determines whether the SplashScreen attempts to auto orient the
+     *  splash screen image that is displayed.
+     */ 
+    mx_internal var autoAlign:Boolean = true;
+    
+    //----------------------------------
     //  preloader
     //----------------------------------
     
@@ -291,39 +305,91 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      */
     public function initialize():void
     {
+        // autoAlign is disabled on iOS devices since the stage's width and height
+        // are properly provided at start up.  See SDK-30261.
+        if (Capabilities.version.indexOf("IOS") == 0)
+            autoAlign = false;
+        
         // The preloader parameters are in the SystemManager's info() object
         var sysManager:SystemManager = this.parent.loaderInfo.content as SystemManager;
         if (!sysManager)
             return;
-        var info:Object = sysManager.info();
+        
+        info = sysManager.info();
         if (!info)
             return;
+        
+        // Add event listeners for resize.  The first render will happen
+        // after the first resize 
+        this.stage.addEventListener(Event.RESIZE, Stage_resizeHandler, false /*useCapture*/, 0, true /*useWeakReference*/);
+    }
 
+    /**
+     *  @private
+     *  Returns the class of the DisplayObject that should be instantiated
+     *  as the splash screen.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    mx_internal function getImageClass(dpi:Number, portraitOrientation:Boolean):Class
+    {
         if ("splashScreenImage" in info)
+            return info["splashScreenImage"]; 
+        
+        return null;
+    }
+    
+    private function prepareSplashScreen():void
+    {
+        // Grab the application's dpi provider class.  If one doesn't exist,
+        // use the framework's default provider 
+        var dpiProvider:RuntimeDPIProvider = ("runtimeDPIProvider" in info) ? 
+            new info["runtimeDPIProvider"]() : new RuntimeDPIProvider();
+        
+        // Capture device dpi and orientation
+        var dpi:Number = dpiProvider.runtimeDPI;
+        var portraitOrientation:Boolean = stage.stageWidth < stage.stageHeight;
+        
+        var imageClass:Class = getImageClass(dpi, portraitOrientation);
+        
+        // The SplashImageClass will only be set if a splash screen image has
+        // already be generated.  If the desired imageClass differs from the
+        // current one, the splash screen should recreate the image with the
+        // new class.
+        if (imageClass && imageClass != SplashImageClass)
         {
-            var SplashImageClass:Class = info["splashScreenImage"]; 
+            // The first time we create a splash screen, this will be null.
+            // In this case, assign the initial splash screen properties
+            if (!SplashImageClass)
+            {
+                if ("splashScreenScaleMode" in info)
+                    this.scaleMode = info["splashScreenScaleMode"];
+                
+                // Since we have a valid image being displayed, we need to obey the minimumDisplayTime
+                if ("splashScreenMinimumDisplayTime" in info)
+                    this.minimumDisplayTime = info["splashScreenMinimumDisplayTime"];
+                
+                // Prepare the enterFrame handler for the minimum display time
+                checkWaitTime = minimumDisplayTime > 0;
+                if (checkWaitTime)
+                    this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+            }
+            
+            // Store the new class
+            SplashImageClass = imageClass;
+            
+            // Remove the old splash image
+            if (splashImage)
+                removeChild(splashImage);
+            
+            // Create the image
             this.splashImage = new SplashImageClass();
             this.splashImageWidth = splashImage.width;
             this.splashImageHeight = splashImage.height;
-            addChild(splashImage as DisplayObject);
-
-            if ("splashScreenScaleMode" in info)
-                this.scaleMode = info["splashScreenScaleMode"];
-
-            // Since we have a valid image being displayed, we need to obey the minimumDisplayTime
-            if ("splashScreenMinimumDisplayTime" in info)
-                this.minimumDisplayTime = info["splashScreenMinimumDisplayTime"];
-
-            checkWaitTime = minimumDisplayTime > 0;
-            if (checkWaitTime)
-                this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-
-            this.stage.addEventListener(Event.RESIZE, Stage_resizeHandler, false /*useCapture*/, 0, true /*useWeakReference*/);
-            this.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, Stage_resizeHandler, false /*useCapture*/, 0, true /*useWeakReference*/)
-            
-            // Invoke explicitly to get the initial size/position
-            Stage_resizeHandler(null);
-            
+            addChildAt(splashImage as DisplayObject, 0);
         }
     }
     
@@ -351,11 +417,15 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      */        
     private function Stage_resizeHandler(event:Event):void
     {
+        // This method will prepare the splash screen and create a
+        // new instance if needed
+        prepareSplashScreen();
+
         if (!splashImage)
             return;
 
         // Current stage orientation
-        var orientation:String = stage.deviceOrientation;
+        var orientation:String = stage.orientation;
 
         // DPI scaling factor of the stage
         var dpiScale:Number = this.root.scaleX;
@@ -363,8 +433,9 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
         // Get stage dimensions at default orientation
         var stageWidth:Number;
         var stageHeight:Number;
-        if (orientation == StageOrientation.ROTATED_LEFT ||
-            orientation == StageOrientation.ROTATED_RIGHT)
+        
+        if (autoAlign && (orientation == StageOrientation.ROTATED_LEFT ||
+            orientation == StageOrientation.ROTATED_RIGHT))
         {
             stageWidth = stage.stageHeight / dpiScale;
             stageHeight = stage.stageWidth / dpiScale;
@@ -413,24 +484,28 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
 
         // Rotate to keep aligned with StageOrientation.DEFAULT
         var rotation:Number = 0;
-        switch (stage.orientation)
+        
+        if (autoAlign)
         {
-            case StageOrientation.UNKNOWN:
-            case StageOrientation.DEFAULT:
-                rotation = 0;
-            break;
+            switch (stage.orientation)
+            {
+                case StageOrientation.UNKNOWN:
+                case StageOrientation.DEFAULT:
+                    rotation = 0;
+                break;
 
-            case StageOrientation.ROTATED_RIGHT: 
-                rotation = Math.PI * 1.5; // 270
-            break;
+                case StageOrientation.ROTATED_RIGHT: 
+                    rotation = Math.PI * 1.5; // 270
+                break;
             
-            case StageOrientation.ROTATED_LEFT: 
-                rotation = Math.PI * 0.5; // 90
-            break;
+                case StageOrientation.ROTATED_LEFT: 
+                    rotation = Math.PI * 0.5; // 90
+                break;
 
-            case StageOrientation.UPSIDE_DOWN: 
-                rotation = Math.PI; // 180
-            break;
+                case StageOrientation.UPSIDE_DOWN: 
+                    rotation = Math.PI; // 180
+                break;
+            }
         }
 
         // Move center to (0,0):
