@@ -123,7 +123,7 @@ public class PropertyChanges
 	 */
 	public var target:Object;
 
-    // FIXME (chaase): This flag is currently used by the transform-related
+    // TODO (chaase): This flag is currently used by the transform-related
     // effects. We should investigate whether we really need it, or can get
     // by without it
     /**
