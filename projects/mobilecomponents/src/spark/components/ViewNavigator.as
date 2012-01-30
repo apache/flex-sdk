@@ -1848,14 +1848,14 @@ public class ViewNavigator extends ViewNavigatorBase
             // Hide the view so that it doesn't render this frame
             view.visible = false;
             
-            // Schedule the view added method to occur at a later time so to allow developers
-            // to take advantage of validation lifecycle events, such as CREATION_COMPLETE,
-            // to update properties and states on the view.  If this wasn't done, it would be
-            // possible to lose invalidation calls since ViewNavigator is still in its 
-            // commitProperties call.  Since we are using callLater, this will get called
-            // before the next render
             activeTransition = transitionsEnabled ? pendingViewTransition : null;
-            view.addEventListener(FlexEvent.UPDATE_COMPLETE, view_updateCompleteHandler, false, -1);
+            
+            // Force a validation of the navigator so that all validation events are
+            // dispatched to the developer before preparing the view transition.
+            view.validateNow();
+            
+            // Prepare the view transition
+            prepareViewTransition();
         }
         
         pendingViewTransition = null;
@@ -2019,10 +2019,8 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function view_updateCompleteHandler(event:FlexEvent):void
+    private function prepareViewTransition():void
     {
-        event.target.removeEventListener(FlexEvent.UPDATE_COMPLETE, view_updateCompleteHandler);
-        
         var currentView:View;
         var pendingView:View;
         
@@ -2106,10 +2104,10 @@ public class ViewNavigator extends ViewNavigatorBase
     {
         removeEventListener(Event.ENTER_FRAME, startViewTransition);
 
+        activeTransition.play();
+        
         if (hasEventListener(FlexEvent.TRANSITION_START))
             dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_START, false, false));
-
-        activeTransition.play();
     }
     
     /**
@@ -2223,7 +2221,14 @@ public class ViewNavigator extends ViewNavigatorBase
             
             if (overlayControlsInvalidated)
             {
-                overlayControls = view.overlayControls;
+                if (overlayControls != view.overlayControls)
+                {
+                    overlayControls = view.overlayControls;
+                    
+                    // We need to call super commitProperties() so that the new state is applied
+                    super.commitProperties();
+                }
+                
                 overlayControlsInvalidated = false;
             }
             
