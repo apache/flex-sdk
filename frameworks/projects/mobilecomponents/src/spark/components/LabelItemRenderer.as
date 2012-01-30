@@ -1092,18 +1092,22 @@ public class LabelItemRenderer extends UIComponent
      */
     protected function getElementPreferredWidth(element:Object):Number
     {
+        var result:Number;
+        
         if (element is ILayoutElement)
         {
-            return ILayoutElement(element).getPreferredBoundsWidth();
+            result = ILayoutElement(element).getPreferredBoundsWidth();
         }
         else if (element is IFlexDisplayObject)
         {
-            return IFlexDisplayObject(element).measuredWidth;
+            result = IFlexDisplayObject(element).measuredWidth;
         }
         else
         {
-            return element.width;
+            result = element.width;
         }
+        
+        return Math.round(result);
     }
     
     /**
@@ -1119,18 +1123,22 @@ public class LabelItemRenderer extends UIComponent
      */
     protected function getElementPreferredHeight(element:Object):Number
     {
+        var result:Number;
+        
         if (element is ILayoutElement)
         {
-            return ILayoutElement(element).getPreferredBoundsHeight();
+            result = ILayoutElement(element).getPreferredBoundsHeight();
         }
         else if (element is IFlexDisplayObject)
         {
-            return IFlexDisplayObject(element).measuredHeight;
+            result =  IFlexDisplayObject(element).measuredHeight;
         }
         else
         {
-            return element.height;
+            result =  element.height;
         }
+        
+        return Math.round(result);
     }
     
     //--------------------------------------------------------------------------
