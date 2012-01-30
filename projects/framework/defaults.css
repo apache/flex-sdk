@@ -1189,7 +1189,11 @@ ScrollBar
 	downArrowSkin: ClassReference("mx.skins.spark.ScrollBarDownButtonSkin");
 /*	downArrowUpSkin: null
 	fillColors: #FFFFFF, #E7E7E7; // bailed these as ScrollBar is now a translucent component backed by backgroundColor-derived solid shapes */
-	thumbOffset: 0;
+    paddingBottom: 0;
+    paddingLeft: 0;
+    paddingRight: 0;
+    paddingTop: 0;
+    thumbOffset: 0;
 /*	thumbDownSkin: null
 	thumbOverSkin: null */
 	thumbSkin: ClassReference("mx.skins.spark.ScrollBarThumbSkin");
