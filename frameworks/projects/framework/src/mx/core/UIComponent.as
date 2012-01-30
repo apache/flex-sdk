@@ -5344,6 +5344,23 @@ public class UIComponent extends FlexSprite
 
         dispatchEvent(new Event("explicitHeightChanged"));
     }
+    
+    //----------------------------------
+    //  hasComplexLayoutMatrix
+    //----------------------------------
+    
+    /**
+     *  Returns true if the UIComponent has any non-translation (x,y) transform properties
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function get hasComplexLayoutMatrix():Boolean
+    {
+        return (_layoutFeatures == null ? false : !MatrixUtil.isDeltaIdentity(_layoutFeatures.layoutMatrix))
+    }
 
     //----------------------------------
     //  includeInLayout
