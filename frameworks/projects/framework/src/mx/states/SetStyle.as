@@ -302,10 +302,20 @@ public class SetStyle extends OverrideBase implements IOverride
 	            // StyleManager.isColorStyle() because that only returns true
 	            // for inheriting color styles and misses non-inheriting styles like
 	            // backgroundColor.
-	            if (name.toLowerCase().indexOf("color") != -1)
+                if (name.toLowerCase().indexOf("color") != -1)
+                {
 	                obj.setStyle(name, StyleManager.getColorName(value));
-	            else
+                }
+                else if (value is String && 
+                         String(value).lastIndexOf("%") == 
+                         String(value).length - 1)
+                {
+                    obj.setStyle(name, value);
+                }
+                else
+                {
 	                obj.setStyle(name, Number(value));
+                }               
 	        }
 	        else if (oldValue is Boolean)
 	        {
