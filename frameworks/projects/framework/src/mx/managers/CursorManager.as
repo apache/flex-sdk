@@ -24,6 +24,11 @@ import mx.core.mx_internal;
  *  The skin for the busy cursor
  *
  *  @default mx.skins.halo.BusyCursor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="busyCursor", type="Class", inherit="no")]
 
@@ -56,6 +61,11 @@ import mx.core.mx_internal;
  *
  *  @see mx.managers.CursorManagerPriority
  *  @see mx.core.Window
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CursorManager
 {
@@ -71,6 +81,11 @@ public class CursorManager
      *  Constant that is the value of <code>currentCursorID</code> property
      *  when there is no cursor managed by the CursorManager and therefore
      *  the system cursor is being displayed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const NO_CURSOR:int = 0;
     
@@ -116,6 +131,11 @@ public class CursorManager
      *  This method returns the CursorManager instance for the main Window instance.  
      *
      *  @return The CursorManager instance for the main Window instance in an AIR application.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getInstance():ICursorManager
     {
@@ -135,6 +155,11 @@ public class CursorManager
     /**
      *  ID of the current custom cursor,
      *  or NO_CURSOR if the system cursor is showing.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get currentCursorID():int
     {
@@ -158,6 +183,11 @@ public class CursorManager
      *  relative to the mouse pointer.
      *       
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get currentCursorXOffset():Number
     {
@@ -181,6 +211,11 @@ public class CursorManager
      *  relative to the mouse pointer.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get currentCursorYOffset():Number
     {
@@ -212,6 +247,11 @@ public class CursorManager
      *  Use the <code>Mouse.show()</code> and 
      *  <code>Mouse.hide()</code> methods to directly 
      *  control the system cursor. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function showCursor():void
     {
@@ -229,6 +269,11 @@ public class CursorManager
      *  Use the <code>Mouse.show()</code> and 
      *  <code>Mouse.hide()</code> methods to directly 
      *  control the system cursor. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function hideCursor():void
     {
@@ -258,6 +303,11 @@ public class CursorManager
      *  @return The ID of the cursor.
      *
      *  @see mx.managers.CursorManagerPriority
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function setCursor(cursorClass:Class, priority:int = 2,
                                      xOffset:Number = 0,
@@ -274,6 +324,11 @@ public class CursorManager
      *  the default system cursor.
      *
      *  @param cursorID ID of cursor to remove.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function removeCursor(cursorID:int):void 
     {
@@ -283,6 +338,11 @@ public class CursorManager
     /**
      *  Removes all of the cursors from the cursor list
      *  and restores the system cursor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function removeAllCursors():void
     {
@@ -297,6 +357,11 @@ public class CursorManager
      *  until you remove the higher priority cursor.
      *  To create a busy cursor at a higher priority level,
      *  use the <code>setCursor()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function setBusyCursor():void 
     {
@@ -309,6 +374,11 @@ public class CursorManager
      *  which means you called the <code>setBusyCursor()</code> method more than once,
      *  a busy cursor does not disappear until you remove
      *  all busy cursors from the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function removeBusyCursor():void 
     {
