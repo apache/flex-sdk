@@ -43,6 +43,18 @@ public final class BitmapScaleMode
      *  @productversion Flex 4.5
      */
     public static const LETTERBOX:String = "letterbox";
+    
+    /**
+     *  The bitmap fill is scaled and cropped such that the aspect
+     *  ratio of the original content is maintained and no letterbox
+     *  or pillar box is displayed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 11
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    public static const ZOOM:String = "zoom";
 }
 
 }
