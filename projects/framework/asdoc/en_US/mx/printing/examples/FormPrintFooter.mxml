@@ -14,6 +14,6 @@
         ]]>
     </fx:Script>
 
-    <s:SimpleText text="Product Total: {pTotal}"/>
+    <s:Label text="Product Total: {pTotal}"/>
 
 </s:VGroup>
