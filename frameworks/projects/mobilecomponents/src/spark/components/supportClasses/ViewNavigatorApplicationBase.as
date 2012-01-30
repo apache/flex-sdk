@@ -642,6 +642,7 @@ public class MobileApplicationBase extends Application
             currentViewMenu.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
             currentViewMenu.addEventListener(PopUpCloseEvent.CLOSE, viewMenuClose_handler);
             currentViewMenu.addEventListener(FlexEvent.OPEN, viewMenuOpen_handler);
+            addEventListener(ResizeEvent.RESIZE, resizeHandler);
         }
         
         currentViewMenu.open(this, false /*modal*/);
@@ -675,6 +676,7 @@ public class MobileApplicationBase extends Application
         currentViewMenu.removeEventListener(PopUpCloseEvent.CLOSE, viewMenuClose_handler);
         currentViewMenu.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
         currentViewMenu.removeEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
+        removeEventListener(ResizeEvent.RESIZE, resizeHandler);
         
         // Private event for testing
         if (activeView.hasEventListener("viewMenuClose"))
@@ -691,6 +693,14 @@ public class MobileApplicationBase extends Application
         
         // Restore focus
         systemManager.stage.focus = lastFocus;
+    }
+    
+    private function resizeHandler(event:ResizeEvent):void
+    {
+        // Size the menu as big as the app
+        currentViewMenu.width = getLayoutBoundsWidth();
+        currentViewMenu.height = getLayoutBoundsHeight();
+        currentViewMenu.invalidateSkinState();
     }
     
     //--------------------------------------------------------------------------
