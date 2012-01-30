@@ -509,64 +509,7 @@ package mx.core
 	{
 		invalidate();		
 	}
-	
-    //----------------------------------
-    //  layoutWidth
-    //----------------------------------
 
-    private var _layoutWidth:Number;
-    
-    /**
-     *  @default 0
-     */
-    public function get layoutWidth():Number
-    {
-        return _layoutWidth;
-    }
-
-    /**
-     *  @private
-     */
-    public function set layoutWidth(value:Number):void
-    {
-        if (value == _layoutWidth)
-            return;
-        _layoutWidth = value;
-        invalidate();
-    }
-    
-    //----------------------------------
-    //  mirror
-    //----------------------------------
-
-    private var _mirror:Boolean;
-    
-    /**
-     *  If true the X axis is scaled by -1 and the x coordinate of the origin
-     *  is translated by the component's width.  
-     * 
-     *  The net effect of this "mirror" transform is to flip the direction 
-     *  that the X axis increases in without changing the layout element's 
-     *  location relative to the parent's origin.
-     * 
-     *  @default false
-     */
-    public function get mirror():Boolean
-    {
-        return _mirror;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set mirror(value:Boolean):void
-    {
-        if (value == _mirror)
-            return;         
-        _mirror = value;
-        invalidate();
-    }
-	
     //----------------------------------
     //  stretchX
     //----------------------------------
@@ -652,7 +595,7 @@ package mx.core
 		if(_flags & COMPUTED_MATRIX_VALID)
 			return _computedMatrix;
 	
-		if(!offsets && !mirror && stretchX == 1 && stretchY == 1)
+		if(!offsets && stretchX == 1 && stretchY == 1)
 		{
 			return layout.matrix;
 		}			
@@ -670,12 +613,6 @@ package mx.core
         var rz:Number = layout.rotationZ;
         var x:Number = layout.x;
         var y:Number = layout.y;
-        
-        if (mirror)
-        {
-            sx *= -1;
-            x += layoutWidth;
-        }
         
         if (offsets)
         {
@@ -708,7 +645,7 @@ package mx.core
 			return _computedMatrix3D;
 	
 	
-		if(!offsets && !mirror && stretchX == 1 && stretchY == 1)
+		if(!offsets && stretchX == 1 && stretchY == 1)
 		{
 			return layout.matrix3D;
 		}
@@ -731,12 +668,6 @@ package mx.core
         var x:Number = layout.x;
         var y:Number = layout.y;
         var z:Number = layout.z;
-        
-        if (mirror)
-        {
-            sx *= -1;
-            x += layoutWidth;
-        }
         
         if (offsets)
         {
