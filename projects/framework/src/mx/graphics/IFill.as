@@ -13,6 +13,7 @@ package mx.graphics
 {
 
 import flash.display.Graphics;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 /**
@@ -40,20 +41,23 @@ public interface IFill
 	 *  
 	 *  @param target The target Graphics object that is being filled.
 	 *
-	 *  @param bounds The Rectangle object that defines the size of the fill
+	 *  @param targetBounds The Rectangle object that defines the size of the fill
 	 *  inside the <code>target</code>.
 	 *  If the dimensions of the Rectangle are larger than the dimensions
 	 *  of the <code>target</code>, the fill is clipped.
 	 *  If the dimensions of the Rectangle are smaller than the dimensions
 	 *  of the <code>target</code>, the fill expands to fill the entire
 	 *  <code>target</code>.
+     * 
+     *  @param targetOrigin The Point that defines the origin (0,0) of the shape in the 
+     *  coordinate system of target. 
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	function begin(target:Graphics, bounds:Rectangle):void;
+	function begin(target:Graphics, targetBounds:Rectangle, targetOrigin:Point):void;
 	
 	/**
 	 *  Ends the fill.
