@@ -18,9 +18,9 @@ package mx.utils
  * from and to RGB representations of colors.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public final class HSBColor
 {
@@ -28,9 +28,9 @@ public final class HSBColor
      * Constructs an HSVColor with optional parameters
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function HSBColor(hue:Number = NaN, saturation:Number = NaN, 
         brightness:Number = NaN)
@@ -47,9 +47,9 @@ public final class HSBColor
      * by 360 so that the stored value of hue will be in the range [0,360).
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get hue():Number
     {
@@ -67,9 +67,9 @@ public final class HSBColor
      * from the center in the HSV cone.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get saturation():Number
     {
@@ -87,9 +87,9 @@ public final class HSBColor
      * from the apex of the HSB cone.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get brightness():Number
     {
@@ -105,9 +105,9 @@ public final class HSBColor
      * uint RGB color.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function convertHSBtoRGB(hue:Number, saturation:Number, 
         brightness:Number):uint
@@ -169,9 +169,9 @@ public final class HSBColor
      * Converts a color from RGB format into an HSBColor
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     static public function convertRGBtoHSB(rgb:uint):HSBColor
     {
