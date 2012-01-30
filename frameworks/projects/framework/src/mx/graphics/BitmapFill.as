@@ -619,7 +619,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 	/**
 	 *  @private
 	 */
-	public function begin(target:Graphics, rc:Rectangle):void
+	public function begin(target:Graphics, bounds:Rectangle):void
 	{		
 		if (!source)
 			return;
@@ -628,7 +628,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 		matrix.translate(-transformX, -transformY);
 		matrix.scale(scaleX, scaleY);
 		matrix.rotate(rotation * RADIANS_PER_DEGREES);
-		matrix.translate(x + rc.left + transformX, y + rc.top + transformY);
+		matrix.translate(x + bounds.left + transformX, y + bounds.top + transformY);
 	
 		target.beginBitmapFill(source as BitmapData, matrix, repeat, smooth);
 	}
