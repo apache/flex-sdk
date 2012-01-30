@@ -72,6 +72,10 @@
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+				<include name="textLayout_conversion.swc"/>
+                <include name="textLayout_core.swc"/>
+                <include name="textLayout_edit.swc"/>
+                <include name="textLayout_textField.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
 			<include-file name="defaults-2.0.0.css" path="${basedir}/defaults-2.0.0.css"/>
