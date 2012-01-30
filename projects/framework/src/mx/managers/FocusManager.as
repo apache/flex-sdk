@@ -1334,6 +1334,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
                 // came around and found the original
                 if (start == i)
                     break;
+                // if start is -1, set start to first valid value of i
+                if (start == -1)
+                    start = i;
             }
             // trace("testing " + focusableCandidates[i]);
             if (isValidFocusCandidate(focusableCandidates[i], groupName))
