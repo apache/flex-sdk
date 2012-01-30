@@ -14,7 +14,11 @@ package spark.components
 import flash.events.Event;
 import flash.events.MouseEvent;
 
+import mx.core.mx_internal;
+
 import spark.components.supportClasses.ButtonBase;
+
+use namespace mx_internal;
     
 /**
  *  The caret state of the button representing the menu item.
@@ -63,6 +67,7 @@ public class ViewMenuItem extends ButtonBase
     public function ViewMenuItem()
     {
         super();
+        skinDestructionPolicy = "auto";
     }
     
     //----------------------------------
