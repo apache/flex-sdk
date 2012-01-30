@@ -282,6 +282,7 @@ public class ChangeWatcher
         this.next = next;
         events = {};
         useWeakReference = false;
+        isExecuting = false;
     }
 
     //--------------------------------------------------------------------------
@@ -368,6 +369,12 @@ public class ChangeWatcher
      *  @productversion Flex 3
      */
     private var events:Object;
+
+    /**
+     * True while handling a change event.  Used to prevent two way
+     * bindings from getting into an infinite loop.
+     */
+    private var isExecuting:Boolean;
 
     //--------------------------------------------------------------------------
     //
@@ -536,17 +543,29 @@ public class ChangeWatcher
      */
     private function wrapHandler(event:Event):void
     {
-        if (next)
-            next.reset(getHostPropertyValue());
+        if (!isExecuting)
+        {
+            try
+            {
+                isExecuting = true;
 
-        if (event is PropertyChangeEvent)
-        {
-            if ((event as PropertyChangeEvent).property == name)
-                handler(event as PropertyChangeEvent);
-        }
-        else
-        {
-            handler(event);
+                if (next)
+                    next.reset(getHostPropertyValue());
+
+                if (event is PropertyChangeEvent)
+                {
+                    if ((event as PropertyChangeEvent).property == name)
+                        handler(event as PropertyChangeEvent);
+                }
+                else
+                {
+                    handler(event);
+                }
+            }
+            finally
+            {
+                isExecuting = false;
+            }
         }
     }
 
