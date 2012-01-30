@@ -13,7 +13,7 @@ package mx.styles
 {
 
 /**
- *  This interface describes the advanced propeties that a component must
+ *  This interface describes the advanced properties that a component must
  *  implement to fully participate in the advanced style subsystem.
  *  
  *  @langversion 3.0
@@ -75,11 +75,19 @@ public interface IAdvancedStyleClient extends IStyleClient
     function stylesInitialized():void
         
     /**
-     *  The current state of this component used to match CSS pseudo-selectors.
-     *  If no state exists, returns null.
-     * 
-     *  Note Spark components use their skin state as the pseudo state, where
-     *  as Halo components use their currentState property.
+     *  Returns <code>true</code> if <code>cssState</code> matches <code>currentCSSState</code>.
+     *  Typically, you do not call this method directly. 
+     *  It is called by the <code>mx.styles.CSSCondition.matchesStyleClient()</code> method.
+     *
+     *  <p>Note Spark components use their skin state as the pseudo state.
+     *  Halo components use the <code>currentState</code> property.</p>
+     *
+     *  @param cssState A possible value of <code>CSSCondition.value</code>.
+     *  It represents the current state of this component used to match CSS pseudo-selectors.
+     *
+     *  @return <code>true</code> if <code>cssState</code> matches <code>currentCSSState</code>. 
+     *  By default, <code>currentCSSState</code> is the same as <code>currentState</code>.
+     *  If no state exists, return null.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -89,8 +97,14 @@ public interface IAdvancedStyleClient extends IStyleClient
     function matchesCSSState(cssState:String):Boolean;
 
     /**
-     *  Determines whether this instance is the same as - or is a subclass of -
+     *  Determines whether this instance is the same as, or is a subclass of,
      *  the given type.
+     *  Typically, you do not call this method directly. 
+     *  It is called by the <code>mx.styles.CSSCondition.matchesStyleClient()</code> method.
+     *
+     *  @param cssType A CSSSelector object.
+     *
+     *  @return <code>true</code> if <code>cssType</code> is in the hierarchy of qualified type selectors.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
