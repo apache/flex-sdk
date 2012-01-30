@@ -26,6 +26,7 @@ import flash.geom.Transform;
 import flash.geom.Vector3D;
 import flash.utils.Timer;
 
+import mx.core.DPIClassification;
 import mx.core.FlexGlobals;
 import mx.core.IUIComponent;
 import mx.core.IVisualElement;
@@ -217,7 +218,7 @@ public class BusyIndicator extends UIComponent
      *  @private
      *  Cache the last value of applicationDPI.
      */ 
-    private var _applicationDPI:int;
+    private var _applicationDPI:Number;
     
     //--------------------------------------------------------------------------
     //
@@ -229,7 +230,7 @@ public class BusyIndicator extends UIComponent
      * 
      *  Get the applicationDPI in use.
      */ 
-    private function get applicationDPI():int
+    private function get applicationDPI():Number
     {
         if (_applicationDPI)
             return _applicationDPI;
@@ -292,17 +293,17 @@ public class BusyIndicator extends UIComponent
         
         //trace("applicationDPI = " + applicationDPI);
         
-        if (applicationDPI == 320)
+        if (applicationDPI == DPIClassification.DPI_320)
         {
             measuredWidth = 56;
             measuredHeight = 56;
         }
-        else if (applicationDPI == 240)
+        else if (applicationDPI == DPIClassification.DPI_240)
         {
             measuredWidth = 40;
             measuredHeight = 40;
         }
-        else if (applicationDPI == 160)
+        else if (applicationDPI == DPIClassification.DPI_160)
         {
             measuredWidth = 28;
             measuredHeight = 28;
@@ -406,13 +407,13 @@ public class BusyIndicator extends UIComponent
      */ 
     private function spinnerDiameterFixup(diameter:Number):Number
     {
-        if (applicationDPI == 240)
+        if (applicationDPI == DPIClassification.DPI_240)
         {
             // For diameter 30, use the settings for diameter 28 (29 is the same)
             if (diameter >= 30 && diameter <= 33)
                 diameter = 28;
         }
-        else if (applicationDPI == 160)
+        else if (applicationDPI == DPIClassification.DPI_160)
         {
             if (diameter == 24)
                 diameter = 22;
@@ -467,7 +468,7 @@ public class BusyIndicator extends UIComponent
         // combinations. These combinations cause the spinner to jitter when
         // it is rotated. Override the calculated spokeHeight and spokeWidth
         // with hard-coded values.
-        if (applicationDPI == 240)
+        if (applicationDPI == DPIClassification.DPI_240)
         {
             if (spinnerDiameter >= 28 && spinnerDiameter <= 29)
             {
@@ -485,7 +486,7 @@ public class BusyIndicator extends UIComponent
             }
             
         }
-        else if (applicationDPI == 160)
+        else if (applicationDPI == DPIClassification.DPI_160)
         {
             if (spinnerDiameter == 20)
             {
@@ -494,7 +495,7 @@ public class BusyIndicator extends UIComponent
                 spinnerPadding = 0.5;
             }
         }
-        else if (applicationDPI == 320)
+        else if (applicationDPI == DPIClassification.DPI_320)
         {
             if (spinnerDiameter == 28)
             {
