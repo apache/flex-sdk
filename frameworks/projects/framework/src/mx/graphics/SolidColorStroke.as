@@ -10,12 +10,15 @@
 package mx.graphics
 {
  
+import flash.display.CapsStyle;  
 import flash.display.Graphics;
+import flash.display.GraphicsStroke;
+import flash.display.GraphicsSolidFill;
+import flash.display.JointStyle;  
 import flash.events.EventDispatcher;
-import flash.events.Event;
 import flash.geom.Rectangle;
-import mx.events.PropertyChangeEvent;
 
+import mx.events.PropertyChangeEvent;
 
 /**
  *  The SolidColorStroke class defines the properties for a line. 
@@ -478,6 +481,37 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	{
 		g.lineStyle(weight, color, alpha, pixelHinting,
 					scaleMode, caps, joints, miterLimit);
+	}
+	
+    /**
+     *  @inheritDoc 
+     */
+	public function generateGraphicsStroke(rc:Rectangle):GraphicsStroke
+	{
+	    // Construct a new GraphicsStroke object and set all of 
+        // its properties to match the SolidColorStroke's 
+        // properties
+        var graphicsStroke:GraphicsStroke = new GraphicsStroke(); 
+        graphicsStroke.thickness = weight;  
+        graphicsStroke.miterLimit = miterLimit; 
+        graphicsStroke.pixelHinting = pixelHinting;
+        graphicsStroke.scaleMode = scaleMode;
+        
+        // Remove this check when SDK-18373 is fixed 
+        graphicsStroke.joints = (!joints) ? JointStyle.ROUND : joints; 
+        
+        // There is a bug in Drawing API-2 where if no caps is 
+        // specified, a value of 'none' is used instead of 'round'
+        graphicsStroke.caps = (!caps) ? CapsStyle.ROUND : caps;
+          
+        // Give the GraphicsStroke a GraphicsSolidFill corresponding to the 
+        // SolidColorStroke's color and alpha values
+        var graphicsSolidFill:GraphicsSolidFill = new GraphicsSolidFill();
+        graphicsSolidFill.color = color; 
+        graphicsSolidFill.alpha = alpha; 
+        graphicsStroke.fill = graphicsSolidFill; 
+	    
+	    return graphicsStroke;  
 	}
 	
 	/**
