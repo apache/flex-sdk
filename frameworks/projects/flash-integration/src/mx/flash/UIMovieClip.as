@@ -936,13 +936,13 @@ public dynamic class UIMovieClip extends MovieClip
         invalidateParentSizeAndDisplayList();
     }
     
-	//----------------------------------
-	//  z
-	//----------------------------------
+    //----------------------------------
+    //  z
+    //----------------------------------
 
-	[Bindable("zChanged")]
+    [Bindable("zChanged")]
 
-	/**
+    /**
      *  @inheritDoc
      *  
      *  @langversion 3.0
@@ -963,23 +963,23 @@ public dynamic class UIMovieClip extends MovieClip
         if (z == value)
             return;
 
-		if (_layoutFeatures == null)
+        if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
 
-		hasDeltaIdentityTransform = false;
-		_layoutFeatures.layoutZ = value;
+        hasDeltaIdentityTransform = false;
+        _layoutFeatures.layoutZ = value;
         invalidateTransform();
         //invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
     
-	//----------------------------------
-	//  boundingBoxName
-	//----------------------------------
+    //----------------------------------
+    //  boundingBoxName
+    //----------------------------------
 
-	[Inspectable]
+    [Inspectable]
 
-	/**
+    /**
      *  Name of the object to use as the bounding box.
      *
      *  <p>The bounding box is an object that is used by Flex to determine
@@ -2445,7 +2445,7 @@ public dynamic class UIMovieClip extends MovieClip
             return;
         
         if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
+            initAdvancedLayoutFeatures();
 
         hasDeltaIdentityTransform = false;
 
@@ -2520,7 +2520,7 @@ public dynamic class UIMovieClip extends MovieClip
             return;
         
         if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
+            initAdvancedLayoutFeatures();
             
         hasDeltaIdentityTransform = false;
 
@@ -2592,13 +2592,13 @@ public dynamic class UIMovieClip extends MovieClip
         if (scaleZ == value)
             return;
         if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
-		
-		hasDeltaIdentityTransform = false;
-		_layoutFeatures.layoutScaleZ = value;
+            initAdvancedLayoutFeatures();
+        
+        hasDeltaIdentityTransform = false;
+        _layoutFeatures.layoutScaleZ = value;
         invalidateTransform();
         //invalidateProperties();
-		invalidateParentSizeAndDisplayList();
+        invalidateParentSizeAndDisplayList();
     }
     
     //--------------------------------------------------------------------------
@@ -2708,26 +2708,7 @@ public dynamic class UIMovieClip extends MovieClip
     [Inspectable(defaultValue="true")]
 
     /**
-     *  A flag that indicates whether child objects can receive focus
-     * 
-     *  <p>This is similar to the <code>tabChildren</code> property
-     *  used by the Flash Player.</p>
-     * 
-     *  <p>This is usually <code>false</code> because most components
-     *  either receive focus themselves or delegate focus to a single
-     *  internal sub-component and appear as if the component has
-     *  received focus.  For example, a TextInput contains a focusable
-     *  child RichEditableText control, but while the RichEditableText
-     *  sub-component actually receives focus, it appears as if the
-     *  TextInput has focus.  TextInput sets <code>hasFocusableChildren</code>
-     *  to <code>false</code> because TextInput is considered the
-     *  component that has focus.  Its internal structure is an
-     *  abstraction.</p>
-     *
-     *  <p>Usually only navigator components like TabNavigator and
-     *  Accordion have this flag set to <code>true</code> because they
-     *  receive focus on Tab but focus goes to components in the child
-     *  containers on further Tabs</p>
+     *  @copy mx.core.UIComponent#hasFocusableChildren
      *  
      *  @default true
      *  
@@ -2878,9 +2859,9 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if (value == depth)
             return;
-		if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
-		
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        
         _layoutFeatures.depth = value;      
         if (parent != null && "invalidateLayering" in parent && parent["invalidateLayering"] is Function)
             parent["invalidateLayering"]();
@@ -2906,9 +2887,9 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if (transformX == value)
             return;
-		if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
-		
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        
         _layoutFeatures.transformX = value;
         invalidateTransform();
         //invalidateProperties();
@@ -2934,8 +2915,8 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if (transformY == value)
             return;
-		if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
 
         _layoutFeatures.transformY = value;
         invalidateTransform();
@@ -2962,8 +2943,8 @@ public dynamic class UIMovieClip extends MovieClip
     {
         if (transformZ == value)
             return;
-		if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
 
         _layoutFeatures.transformZ = value;
         invalidateTransform();
@@ -3003,20 +2984,20 @@ public dynamic class UIMovieClip extends MovieClip
         invalidateParentSizeAndDisplayList();
     }
 
-	/**
-	 *  Indicates the x-axis rotation of the DisplayObject instance, in degrees,
-	 *  from its original orientation relative to the 3D parent container.
-	 *  Values from 0 to 180 represent clockwise rotation; values from 0 to -180
-	 *  represent counterclockwise rotation. Values outside this range are added
-	 *  to or subtracted from 360 to obtain a value within the range.
-	 * 
-	 *  This property is ignored during calculation by any of Flex's 2D layouts. 
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 3
-	 */
+    /**
+     *  Indicates the x-axis rotation of the DisplayObject instance, in degrees,
+     *  from its original orientation relative to the 3D parent container.
+     *  Values from 0 to 180 represent clockwise rotation; values from 0 to -180
+     *  represent counterclockwise rotation. Values outside this range are added
+     *  to or subtracted from 360 to obtain a value within the range.
+     * 
+     *  This property is ignored during calculation by any of Flex's 2D layouts. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 3
+     */
     override public function get rotationX():Number
     {
         return (_layoutFeatures == null) ? super.rotationX : _layoutFeatures.layoutRotationX;
@@ -3031,7 +3012,7 @@ public dynamic class UIMovieClip extends MovieClip
             return;
 
         if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
+            initAdvancedLayoutFeatures();
         _layoutFeatures.layoutRotationX = value;
         invalidateTransform();
         //invalidateProperties();
@@ -3039,17 +3020,17 @@ public dynamic class UIMovieClip extends MovieClip
     }
 
     /**
-	 *  Indicates the y-axis rotation of the DisplayObject instance, in degrees,
-	 *  from its original orientation relative to the 3D parent container.
-	 *  Values from 0 to 180 represent clockwise rotation; values from 0 to -180
-	 *  represent counterclockwise rotation. Values outside this range are added
-	 *  to or subtracted from 360 to obtain a value within the range.
+     *  Indicates the y-axis rotation of the DisplayObject instance, in degrees,
+     *  from its original orientation relative to the 3D parent container.
+     *  Values from 0 to 180 represent clockwise rotation; values from 0 to -180
+     *  represent counterclockwise rotation. Values outside this range are added
+     *  to or subtracted from 360 to obtain a value within the range.
      * 
      * This property is ignored during calculation by any of Flex's 2D layouts. 
      *  
      *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     override public function get rotationY():Number
@@ -3066,34 +3047,34 @@ public dynamic class UIMovieClip extends MovieClip
             return;
 
         if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
+            initAdvancedLayoutFeatures();
         _layoutFeatures.layoutRotationY = value;
         invalidateTransform();
         //invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
     
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 3
-	 */
-	override public function get rotationZ():Number
-	{
-		return rotation;
-	}
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 3
+     */
+    override public function get rotationZ():Number
+    {
+        return rotation;
+    }
 
-	/**
-	 *  @private
-	 */
-	override public function set rotationZ(value:Number):void
-	{
-		rotation = value;
-	}
-	
+    /**
+     *  @private
+     */
+    override public function set rotationZ(value:Number):void
+    {
+        rotation = value;
+    }
+    
     /**
      *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
      *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
@@ -3108,8 +3089,8 @@ public dynamic class UIMovieClip extends MovieClip
      */
     public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
-		if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
 
         
         if (_layoutFeatures.postLayoutTransformOffsets != null)
@@ -3546,32 +3527,32 @@ public dynamic class UIMovieClip extends MovieClip
      */
     mx_internal var _layoutFeatures:AdvancedLayoutFeatures;
     
-	/**
-	 *  @private
-	 *  When true, the transform on this component consists only of translation.
-	 *  Otherwise, it may be arbitrarily complex.
-	 */
+    /**
+     *  @private
+     *  When true, the transform on this component consists only of translation.
+     *  Otherwise, it may be arbitrarily complex.
+     */
     protected var hasDeltaIdentityTransform:Boolean = true;
     
-	/**
-	 *  @private
-	 *  Storage for the modified Transform object that can dispatch
-	 *  change events correctly.
-	 */
+    /**
+     *  @private
+     *  Storage for the modified Transform object that can dispatch
+     *  change events correctly.
+     */
     private var _transform:flash.geom.Transform;
     
-	/**
-	 *  @private
-	 *  Initializes the implementation and storage of some of the less
-	 *  frequently used advanced layout features of a component.
-	 *  Call this function before attempting to use any of the
-	 *  features implemented by the AdvancedLayoutFeatures object.
-	 * 
+    /**
+     *  @private
+     *  Initializes the implementation and storage of some of the less
+     *  frequently used advanced layout features of a component.
+     *  Call this function before attempting to use any of the
+     *  features implemented by the AdvancedLayoutFeatures object.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-	 */
+     */
     private function initAdvancedLayoutFeatures():void
     {
         var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
@@ -3587,12 +3568,12 @@ public dynamic class UIMovieClip extends MovieClip
         features.layoutX = x;
         features.layoutY = y;
         features.layoutZ = z;
-		
-		// Initialize the internal variable last,
-		// since the transform getters depend on it.
+        
+        // Initialize the internal variable last,
+        // since the transform getters depend on it.
         _layoutFeatures = features;
 
-		invalidateTransform();
+        invalidateTransform();
     }
     
     private function invalidateTransform():void
@@ -3796,10 +3777,10 @@ public dynamic class UIMovieClip extends MovieClip
         LayoutElementUIComponentUtils.setLayoutBoundsSize(this,width,height,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
     
-	/**
-	 *  @private
-	 *  Returns the layout matrix, or null if it only consists of translations.
-	 */
+    /**
+     *  @private
+     *  Returns the layout matrix, or null if it only consists of translations.
+     */
     private function nonDeltaLayoutMatrix():Matrix
     {
         if (hasDeltaIdentityTransform)
@@ -3814,7 +3795,7 @@ public dynamic class UIMovieClip extends MovieClip
             // if scale is actually set (and it's not just our "secret scale"), then 
             // layoutFeatures wont' be null and we won't be down here
             return MatrixUtil.composeMatrix(x, y, 1, 1, rotation,
-                        					transformX, transformY);
+                                            transformX, transformY);
         }
     }
     
