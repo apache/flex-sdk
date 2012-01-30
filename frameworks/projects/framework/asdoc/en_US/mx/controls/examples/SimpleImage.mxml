@@ -9,7 +9,7 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText color="blue" text="Image embedded in the application."/>
+            <s:Label color="blue" text="Image embedded in the application."/>
             <mx:Image source="@Embed('assets/Nokia_6630.png')"/>
         </s:VGroup>
     </s:Panel>
