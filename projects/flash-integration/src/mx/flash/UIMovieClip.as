@@ -3444,10 +3444,22 @@ public dynamic class UIMovieClip extends MovieClip
      *  This function will assign the rotation, scale, and translation values 
      *  provided, then update the x/y/z properties as necessary to keep 
      *  the transform center fixed.
-     *  @param scale the new values for the scale of the transform
-     *  @param rotation the new values for the rotation of the transform
-     *  @param translation the new values for the translation of the transform
-     *  @param transformCenter the point, in the component's own coordinates, to keep fixed relative to its parent.
+     * 
+     *  @param transformCenter The point, in the component's own coordinates, to keep fixed relative to its parent.
+     * 
+     *  @param scale The new values for the scale of the transform
+     * 
+     *  @param rotation The new values for the rotation of the transform
+     * 
+     *  @param translation The new values for the translation of the transform
+     * 
+     *  @param postLayoutScale
+     * 
+     *  @param postLayoutRotation 
+     * 
+     *  @param postLayoutTranslation 
+     * 
+     *  @param invalidateLayout 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
