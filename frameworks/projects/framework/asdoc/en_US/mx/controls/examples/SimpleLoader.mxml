@@ -1,14 +1,17 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the SWFLoader control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo SWFLoader control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Panel title="SWFLoader Control Example"  height="90%" width="90%"
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+    <s:Panel title="Halo SWFLoader Control Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText text="The SimpleText control of the outer application."/>
 
-        <mx:Label text="The Label control of the outer application."/>
+            <mx:SWFLoader id="Load" source="@Embed(source='Local.swf')" height="100" width="350"/>
+        </s:VGroup>
+    </s:Panel>
 
-        <mx:SWFLoader id="Load" source="@Embed(source='Local.swf')" height="100" width="350"/>
-
-    </mx:Panel>
-</mx:Application>
-       
+</s:Application>
