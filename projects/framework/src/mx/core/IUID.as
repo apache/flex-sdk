@@ -17,6 +17,11 @@ package mx.core
  *  Unique Identifiers (UIDs) to uniquely identify the object.
  *  UIDs do not need to be universally unique for most uses in Flex.
  *  One exception is for messages send by data services.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IUID
 {
@@ -32,6 +37,11 @@ public interface IUID
 	
 	/**
 	 *  The unique identifier for this object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get uid():String;
     
