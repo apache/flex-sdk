@@ -238,6 +238,45 @@ public class IndexChangedEvent extends Event
      *  @productversion Flex 3
      */
     public static const SELECTION_CHANGING:String = "selectionChanging";
+    
+    /**
+     *  The IndexChangedEvent.ITEM_FOCUS_CHANGED constant defines the value of the 
+     *  <code>type</code> property of the event object for a <code>itemFocusChanging</code> event,
+     *  which indicates that the current item in focus is about to change. 
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>inputType</code></td><td>Indicates whether this event 
+     *         was caused by a mouse or keyboard interaction.</td></tr>
+     *     <tr><td><code>newIndex</code></td><td>The zero-based index of the 
+     *       selected item after the change.</td></tr>
+     *     <tr><td><code>oldIndex</code></td><td>The zero-based index of the 
+     *       selected item before the change.</td></tr>
+     *     <tr><td><code>relatedObject</code></td><td>null</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *       it is not always the Object listening for the event. 
+     *       Use the <code>currentTarget</code> property to always access the 
+     *       Object listening for the event.</td></tr>
+     *     <tr><td><code>TriggerEvent</code></td><td>The event that 
+     *        triggered this event.</td></tr>
+     *     <tr><td><code>Type</code></td><td>IndexChangedEvent.HEADER_SHIFT</td></tr>
+     *  </table>
+     *   
+      *  @eventType itemFocusChanged
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const ITEM_FOCUS_CHANGED:String = "itemFocusChanged";
 
     //--------------------------------------------------------------------------
     //
