@@ -80,7 +80,7 @@ use namespace mx_internal;
  *  The CalloutButton specifies the layout and child components 
  *  of the Callout container.
  *
- *  <p>The following images shows a Callout container under the CalloutButton 
+ *  <p>The following image shows a Callout container under the CalloutButton 
  *  labeled 'Open callout':</p>
  *
  * <p>
