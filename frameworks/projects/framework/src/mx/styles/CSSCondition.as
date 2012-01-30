@@ -122,7 +122,7 @@ public class CSSCondition
 
     /**
      *  The value of this condition without any CSS syntax. To get a String
-     *  representation that includes CSS syntax, call the toString() method.
+     *  representation that includes CSS syntax, call the <code>toString()</code> method.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -186,6 +186,8 @@ public class CSSCondition
     }
 
     /**
+     * Returns a String representation of this condition.
+     * 
      *  @return A String representation of this condition, including CSS syntax.
      *  
      *  @langversion 3.0
