@@ -1502,7 +1502,7 @@ public class DateTimeAxis extends NumericAxis
                             	lfunc(labelDate, previousValue, this)));
                         else
                         	labelCache.push(new AxisLabel(
-                            	1 - (dTime - computedMinimum) / r, new Date(dTime),
+                            	(dTime - computedMinimum) / r, new Date(dTime),
                         		lfunc(labelDate, previousValue, this)));
                     
                     if (previousValue == null)
