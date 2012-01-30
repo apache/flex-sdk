@@ -128,6 +128,7 @@ MobileApplication
 
 MobileItemRenderer
 {
+    minimumDownStateTime: 100;
     paddingBottom: 15;
     paddingLeft: 15;
     paddingRight: 15;
@@ -140,6 +141,7 @@ MobileIconItemRenderer
     horizontalGap: 15;
     verticalGap: 15;
     font-weight: bold;
+    iconDelay: 500;
     messageStyleName: "mobileIconItemRendererMessageStyle";
 }
 
@@ -310,6 +312,7 @@ global
     borderVisible : true;
     borderWeight : 1;
     focusThickness: 3;
+    highlightColor: #B2B2B2;
     symbolColor: #000000;
     fontLookup: "embeddedCFF";
     fontFamily: "_sans";
