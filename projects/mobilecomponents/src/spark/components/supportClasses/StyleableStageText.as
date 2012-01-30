@@ -1971,6 +1971,23 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (!localViewPort || !parent || !stageText || !awm)
             return false;
         
+        // Prevent the StageText from becoming interactive if there is a modal
+        // window open by assuming that the modal window overlaps everything.
+        // If the StageText is part of the topmost popup, we won't get here, so
+        // those StageTexts will remain interactive (as designed).
+        // If a StageText is part of some other popup or the application root 
+        // and there is at least one modal open, the StageText will be replaced
+        // by a bitmap.
+        // This is the best we can do as far as modal popups is concerned. The
+        // association between popup and modality is private to PopUpManager, so
+        // all we can do is determine if there are any modal windows open. We
+        // can't associate a given modal window with a given popup.
+        // This means that, if somebody opens a modal popup and then opens a
+        // modeless popup on top of that, only the StageTexts in the topmost
+        // of the two popups will remain interactive.
+        if (awm.numModalWindows > 0)
+            return true;
+        
         var globalRect:Rectangle = getGlobalViewPort();
         var result:Boolean = false;
         
