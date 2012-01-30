@@ -1,0 +1,75 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2009 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+<languageVersion : 1.0;>
+kernel ColorBurn
+<   namespace : "Flame";
+    vendor : "Adobe";
+    version : 1;
+    description : "ColorBurn blend mode";
+>
+{
+    input image4 dst;
+    input image4 src;
+    output pixel4 result;
+
+    void
+    evaluatePixel()
+    {
+        pixel4 a = sampleNearest(dst,outCoord()); //cb
+        pixel4 b = sampleNearest(src,outCoord()); //cs
+        
+        // remove premultiplied (srcCP/srcA, dstCP/dstA)
+        pixel3 cb = a.rgb;
+        pixel3 cs = b.rgb;
+        if (a.a > 0.0) {
+            cb.rgb = a.rgb / a.a;
+        }
+        if (b.a > 0.0) {
+            cs.rgb = b.rgb / b.a;
+        }
+        
+        // dstA' = (1-srcA)*dstA + srcA
+        result.a = (1.0-b.a)*a.a + b.a;
+        
+        // temp for Blend(srcCP/srcA, dstCP/dstA)
+        pixel3 blendResult;
+
+        // = 1, if cb = 1 (*** this case is AE/PS and AGM only, not PDF spec)
+        // = 0, if (1 � cb) >= cs
+        // = (1 � cb) / cs, otherwise
+        if (cb.r == 1.0) {
+            blendResult.r = 1.0;
+        } else if ((1.0 - cb.r) >= cs.r) {
+            blendResult.r = 0.0;
+        } else {
+            blendResult.r = 1.0 - (1.0 - cb.r) / cs.r;
+        }
+        
+        if (cb.g == 1.0) {
+            blendResult.g = 1.0;
+        } else if ((1.0 - cb.g) >= cs.g) {
+            blendResult.g = 0.0;
+        } else {
+            blendResult.g = 1.0 - (1.0 - cb.g) / cs.g;
+        }
+        
+        if (cb.b == 1.0) {
+            blendResult.b = 1.0;
+        } else if ((1.0 - cb.b) >= cs.b) {
+            blendResult.b = 0.0;
+        } else {
+            blendResult.b = 1.0 - (1.0 - cb.b) / cs.b;
+        }
+        
+        // dstCP' = (1-srcA)*dstCP + (1-dstA)*srcCP + srcA*dstA*Blend(srcCP/srcA, dstCP/dstA)
+        result.rgb = (1.0-b.a)*a.rgb + (1.0-a.a)*b.rgb + b.a*a.a*blendResult.rgb;
+    }
+}
