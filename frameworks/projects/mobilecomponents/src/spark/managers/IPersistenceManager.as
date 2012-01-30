@@ -17,10 +17,10 @@ package spark.managers
  *  managers must follow.  These objects are responsible for
  *  persisting data between application sessions.
  * 
- *  @see spark.core.managers.PersistenceManager
+ *  @see spark.managers.PersistenceManager
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
+ *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -37,7 +37,7 @@ public interface IPersistenceManager
      *  manager.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -46,9 +46,11 @@ public interface IPersistenceManager
     /**
      *  Flushes the data being managed by the persistence manager to
      *  disk or another external storage file.
+     *
+     *  @return <code>true</code> if the operation is successful.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -56,9 +58,11 @@ public interface IPersistenceManager
     
     /**
      *  Initializes the persistence manager.
+     *
+     *  @return <code>true</code> if the operation is successful.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -67,10 +71,12 @@ public interface IPersistenceManager
     /**
      *  Returns the value of a property stored in the persistence manager.
      *  
-     *  @param key The property key
+     *  @param key The property key.
+     *
+     *  @return The value of a property stored in the persistence manager.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -79,11 +85,12 @@ public interface IPersistenceManager
     /**
      *  Stores a value in the persistence manager.
      * 
-     *  @param key The key to use to store the value
-     *  @param value The value object to store
+     *  @param key The key to use to store the value.
+     *
+     *  @param value The value object to store.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
