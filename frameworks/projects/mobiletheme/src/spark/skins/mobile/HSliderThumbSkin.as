@@ -23,16 +23,15 @@ import spark.skins.mobile160.assets.HSliderThumb_normal;
 import spark.skins.mobile160.assets.HSliderThumb_pressed;
 import spark.skins.mobile240.assets.HSliderThumb_normal;
 import spark.skins.mobile240.assets.HSliderThumb_pressed;
+import spark.skins.mobile320.assets.HSliderThumb_normal;
+import spark.skins.mobile320.assets.HSliderThumb_pressed;
 
 /**
  *  Actionscript based skin for the HSlider thumb skin part on mobile applications.
- * 
- *  Note that this particular implementation provides separate chromeColorEllipse*
- *  properties in order to handle a visible thumb image which is smaller than the
- *  actual thumb FXG asset being used. In this case, the FXG asset specifies a larger
- *  transparent background that acts as a larger "hit zone" for better usability on
- *  mobile screens.   
  *
+ *  Note that this particular implementation defines a hit zone which is larger than
+ *  the visible thumb for better usability on mobile screens.
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5 
@@ -63,34 +62,56 @@ public class HSliderThumbSkin extends MobileSkin
         // set the right assets and dimensions to use based on the screen density
         switch (authorDensity)
         {
+			case DeviceDensity.PPI_320:
+			{
+				thumbImageWidth = 58;
+				thumbImageHeight = 58;
+				
+				thumbNormalClass = spark.skins.mobile320.assets.HSliderThumb_normal;
+				thumbPressedClass = spark.skins.mobile320.assets.HSliderThumb_pressed;
+				
+                hitZoneOffset = 10;
+                hitZoneSideLength = 80;
+
+				// chromeColor ellipse goes up to the thumb border
+				chromeColorEllipseWidth = chromeColorEllipseHeight = 54;
+				chromeColorEllipseX = 2;
+				chromeColorEllipseY = 2;
+				
+				break;				
+			}
             case DeviceDensity.PPI_240:
             {
-                thumbImageWidth = 65;
-                thumbImageHeight = 65;
+                thumbImageWidth = 44;
+                thumbImageHeight = 44;
                 
                 thumbNormalClass = spark.skins.mobile240.assets.HSliderThumb_normal;
                 thumbPressedClass = spark.skins.mobile240.assets.HSliderThumb_pressed;
                 
-                // the actual thumb ellipse is inset into the overall thumb FXG asset
-                chromeColorEllipseWidth = 42; 
-                chromeColorEllipseHeight = 42;
-                chromeColorEllipseX = 11;
-                chromeColorEllipseY = 10;
+                hitZoneOffset = 10;
+                hitZoneSideLength = 65;
+
+                // chromeColor ellipse goes up to the thumb border
+                chromeColorEllipseWidth = chromeColorEllipseHeight = 42; 
+                chromeColorEllipseX = chromeColorEllipseY = 1;
                 
                 break;
             }
             default:
             {
                 // default PPI160
-                thumbImageWidth = 40;
-                thumbImageHeight = 40;
+                thumbImageWidth = 29;
+                thumbImageHeight = 29;
                 
                 thumbNormalClass = spark.skins.mobile160.assets.HSliderThumb_normal;
                 thumbPressedClass = spark.skins.mobile160.assets.HSliderThumb_pressed;
                 
-                // the actual thumb ellipse is inset into the overall thumb FXG asset
-                chromeColorEllipseWidth = chromeColorEllipseHeight = 28;
-                chromeColorEllipseX = chromeColorEllipseY = 6;
+                hitZoneOffset = 5;
+                hitZoneSideLength = 40;
+
+				// chromeColor ellipse goes up to the thumb border
+                chromeColorEllipseWidth = chromeColorEllipseHeight = 27;
+                chromeColorEllipseX = chromeColorEllipseY = 1;
                 
                 break;
             }
@@ -228,6 +249,27 @@ public class HSliderThumbSkin extends MobileSkin
     protected var chromeColorEllipseY:int;
     
     /**
+     *  Length of the sizes of the hitzone (assumed to be square)
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected var hitZoneSideLength:int;
+    
+    /**
+     *  Distance between the left edge of the hitzone and the left edge
+     *  of the thumb
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected var hitZoneOffset:int;
+
+    /**
      *  @private
      *  Remember which state is currently being displayed 
      */    
@@ -244,7 +286,7 @@ public class HSliderThumbSkin extends MobileSkin
      */ 
     override protected function commitCurrentState():void
     {
-        if (currentState == "up" || currentState == "disabled")
+        if (currentState == "up")
         {
             // show the normal button
             if (!thumbSkin_normal)
@@ -261,7 +303,7 @@ public class HSliderThumbSkin extends MobileSkin
             // hide the pressed button
             if (thumbSkin_pressed)
                 thumbSkin_pressed.visible = false;
-        }
+		}
         else if (currentState == "down")
         {
             // show the pressed button
@@ -279,10 +321,6 @@ public class HSliderThumbSkin extends MobileSkin
             // hide the normal button
             if (thumbSkin_normal)
                 thumbSkin_normal.visible = false;
-        }
-        else if (currentState == "disabled")
-        {
-            // TODO: (Tom) add opaque thumb in disabled state here
         }
 
         displayedState = currentState;
@@ -308,6 +346,12 @@ public class HSliderThumbSkin extends MobileSkin
 		setElementPosition(currentThumbSkin, 0, 0)
 
         super.updateDisplayList(unscaledWidth, unscaledHeight);
+        
+        // put in a larger hit zone than the thumb
+        var g:Graphics = graphics;
+        g.beginFill(0xffffff, 0);
+        g.drawRect(-hitZoneOffset, -hitZoneOffset, hitZoneSideLength, hitZoneSideLength);
+        g.endFill();
     }
     
     /**
