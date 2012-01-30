@@ -74,6 +74,10 @@ use namespace mx_internal;
  *  &lt;/s:SplashScreenImage&gt;
  *  </pre>
  *
+ *  @includeExample examples/DynamicSplashScreenExample1.mxml -noswf
+ *  @includeExample examples/DynamicSplashScreenExample1HomeView.mxml -noswf
+ *  @includeExample examples/SplashScreenImage1.mxml -noswf
+ * 
  *  @see spark.preloaders.SplashScreenImageSource
  *  @see spark.components.Application#splashScreenImage
  *  
