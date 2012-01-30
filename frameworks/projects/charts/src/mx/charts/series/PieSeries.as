@@ -1405,7 +1405,7 @@ public class PieSeries extends Series
             if ((item.itemRenderer as Object).hasOwnProperty('invalidateDisplayList'))
             	(item.itemRenderer as Object).invalidateDisplayList();
         }
-        if (allSeriesTransform && chart)
+        if (allSeriesTransform && chart && chart.chartState == 0)
         	chart.updateAllDataTips();
 
     }
