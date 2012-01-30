@@ -22,7 +22,7 @@ import spark.globalization.supportClasses.DateTimeFormatterEx;
  *   
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class DateAndTimeProvider extends OnDemandDataProvider
 {
@@ -51,7 +51,7 @@ public class DateAndTimeProvider extends OnDemandDataProvider
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function DateAndTimeProvider(locale:String, start:Date, end:Date, 
                                         today:Date = null)
@@ -125,7 +125,7 @@ public class DateAndTimeProvider extends OnDemandDataProvider
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     override public function get length():int
     {
@@ -143,7 +143,7 @@ public class DateAndTimeProvider extends OnDemandDataProvider
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     override public function getItemAt(index:int, prefetch:int=0):Object
     {
@@ -171,7 +171,7 @@ public class DateAndTimeProvider extends OnDemandDataProvider
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     override public function getItemIndex(item:Object):int
     {
@@ -202,7 +202,7 @@ public class DateAndTimeProvider extends OnDemandDataProvider
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     override public function toArray():Array
     {
