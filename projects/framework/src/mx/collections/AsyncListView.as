@@ -56,6 +56,12 @@ use namespace mx_internal;  // for mx_internal functions pendingItemSucceeded,Fa
  *  like List and ComboBox, which don't provide intrinsic support for 
  *  ItemPendingError handling.</p>
  * 
+ *  <p>AsyncListView does not support re-insertion of pending items.  Once a pending
+ *  item is removed, its connection to a pending request for data is lost.  Using 
+ *  drag and drop to move a pending item in an ASyncListView, or sorting an ASyncListView
+ *  that contains pending items, is not supported because these operations remove
+ *  and then re-insert list items.</p>
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
