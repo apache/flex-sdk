@@ -37,7 +37,7 @@ public class EmbeddedFont
 	 *
 	 *  @param bold true if the font is bold, false otherwise.
 	 *
-	 *  @param italic true if the fotn is italic, false otherwise,
+	 *  @param italic true if the font is italic, false otherwise,
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -48,8 +48,7 @@ public class EmbeddedFont
 	{
 		super();
 
-		_fontName = fontName;
-		_fontStyle = EmbeddedFontRegistry.getFontStyle(bold, italic);
+		initialize(fontName, bold, italic);
 	}
 
 	//--------------------------------------------------------------------------
@@ -103,6 +102,22 @@ public class EmbeddedFont
 	public function get fontStyle():String
 	{
 		return _fontStyle;	
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Initialize
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 */
+	public function initialize(fontName:String, bold:Boolean,
+							   italic:Boolean):void
+	{
+		_fontName = fontName;
+		_fontStyle = EmbeddedFontRegistry.getFontStyle(bold, italic);
 	}
 }
 
