@@ -110,209 +110,209 @@ public class HLOCChart extends CartesianChart
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class initialization
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class initialization
+    //
+    //--------------------------------------------------------------------------
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private static var INVALIDATING_STYLES:Object =
-	{
-		columnWidthRatio: 1,
-		maxColumnWidth: 1
-	}
+    /**
+     *  @private
+     */
+    private static var INVALIDATING_STYLES:Object =
+    {
+        columnWidthRatio: 1,
+        maxColumnWidth: 1
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function HLOCChart()
-	{
-		super();
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function HLOCChart()
+    {
+        super();
 
-		dataTipMode = "single";
-	}
+        dataTipMode = "single";
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false; 
-	
-	/**
-	 *  @private
-	 */
-	private var _perSeriesColumnWidthRatio:Number;
-	
-	/**
-	 *  @private
-	 */
-	private var _perSeriesMaxColumnWidth:Number;
-	
-	/**
-	 *  @private
-	 */
-	private var _leftOffset:Number;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: UIComponent
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var hlocChartStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.HLOCChart", styleManager);
-		
-		var hlocChartSeriesStyles:Array /* of Object */ = [];
-		
-		hlocChartStyle.defaultFactory = function():void
-		{
-			this.axisColor = 0xD5DEDD;
-			this.chartSeriesStyles = hlocChartSeriesStyles;		
-			this.columnWidthRatio = 0.65;
-			this.dataTipRenderer = DataTip;
-			this.fill = new SolidColor(0xFFFFFF, 0);
-			this.calloutStroke = new Stroke(0x888888,2);			
-			this.fontSize = 10;
-			this.textAlign = "left";
-			this.horizontalAxisStyleNames = ["blockCategoryAxis"];
-			this.verticalAxisStyleNames = ["blockNumericAxis"];
-		}
-		
-		var n:int = HaloDefaults.defaultColors.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			var styleName:String = "haloHLOCSeries"+i;
-			hlocChartSeriesStyles[i] = styleName;
-			
-			var o:CSSStyleDeclaration =
-				HaloDefaults.createSelector("." + styleName, styleManager);
-			
-			var f:Function = function(o:CSSStyleDeclaration, stroke:Stroke,
-									  tickStroke:Stroke):void
-			{
-				o.defaultFactory = function():void
-				{
-					this.closeTickStroke = tickStroke;
-					this.openTickStroke = tickStroke;
-					this.stroke = stroke;
-					this.hlocColor = stroke.color;
-				}
-			}
-			
-			f(o, new Stroke(HaloDefaults.defaultColors[i], 0, 1),
-				new Stroke(HaloDefaults.defaultColors[i], 2, 1,
-					false, "normal", "none"));
-		}
-		
-		return true;
-	}
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false; 
+    
+    /**
+     *  @private
+     */
+    private var _perSeriesColumnWidthRatio:Number;
+    
+    /**
+     *  @private
+     */
+    private var _perSeriesMaxColumnWidth:Number;
+    
+    /**
+     *  @private
+     */
+    private var _leftOffset:Number;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var hlocChartStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.HLOCChart", styleManager);
+        
+        var hlocChartSeriesStyles:Array /* of Object */ = [];
+        
+        hlocChartStyle.defaultFactory = function():void
+        {
+            this.axisColor = 0xD5DEDD;
+            this.chartSeriesStyles = hlocChartSeriesStyles;     
+            this.columnWidthRatio = 0.65;
+            this.dataTipRenderer = DataTip;
+            this.fill = new SolidColor(0xFFFFFF, 0);
+            this.calloutStroke = new Stroke(0x888888,2);            
+            this.fontSize = 10;
+            this.textAlign = "left";
+            this.horizontalAxisStyleNames = ["blockCategoryAxis"];
+            this.verticalAxisStyleNames = ["blockNumericAxis"];
+        }
+        
+        var n:int = HaloDefaults.defaultColors.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var styleName:String = "haloHLOCSeries"+i;
+            hlocChartSeriesStyles[i] = styleName;
+            
+            var o:CSSStyleDeclaration =
+                HaloDefaults.createSelector("." + styleName, styleManager);
+            
+            var f:Function = function(o:CSSStyleDeclaration, stroke:Stroke,
+                                      tickStroke:Stroke):void
+            {
+                o.defaultFactory = function():void
+                {
+                    this.closeTickStroke = tickStroke;
+                    this.openTickStroke = tickStroke;
+                    this.stroke = stroke;
+                    this.hlocColor = stroke.color;
+                }
+            }
+            
+            f(o, new Stroke(HaloDefaults.defaultColors[i], 0, 1),
+                new Stroke(HaloDefaults.defaultColors[i], 2, 1,
+                    false, "normal", "none"));
+        }
+        
+        return true;
+    }
 
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
-	
-	/**
-	 *  @private
-	 */
-	override public function styleChanged(styleProp:String):void
-	{
-		if (styleProp == null || INVALIDATING_STYLES[styleProp] != undefined)
-			invalidateSeries();
+    
+    /**
+     *   A module factory is used as context for using embedded fonts and for finding the style manager that controls the styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        if (styleProp == null || INVALIDATING_STYLES[styleProp] != undefined)
+            invalidateSeries();
 
-		super.styleChanged(styleProp);
-	}
+        super.styleChanged(styleProp);
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: ChartBase
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: ChartBase
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override protected function customizeSeries(seriesGlyph:Series, i:uint):void
-	{
-		var series:HLOCSeries = seriesGlyph as HLOCSeries;
-		if (series)
-		{
-			if (!isNaN(_perSeriesColumnWidthRatio))
-				series.columnWidthRatio = _perSeriesColumnWidthRatio;
-			
-			if (!isNaN(_perSeriesMaxColumnWidth))
-				series.maxColumnWidth = _perSeriesMaxColumnWidth;
+    /**
+     *  @private
+     */
+    override protected function customizeSeries(seriesGlyph:Series, i:uint):void
+    {
+        var series:HLOCSeries = seriesGlyph as HLOCSeries;
+        if (series)
+        {
+            if (!isNaN(_perSeriesColumnWidthRatio))
+                series.columnWidthRatio = _perSeriesColumnWidthRatio;
+            
+            if (!isNaN(_perSeriesMaxColumnWidth))
+                series.maxColumnWidth = _perSeriesMaxColumnWidth;
 
-			series.offset = _leftOffset + i * _perSeriesColumnWidthRatio;
-		}
-	}
-	
-	/**
-	 *  @private
-	 */
-	override protected function applySeriesSet(seriesSet:Array /* of Series */,
-											   transform:DataTransform):Array /* of Series */
-	{
-		var columnWidthRatio:Number = getStyle("columnWidthRatio");
-		var maxColumnWidth:Number = getStyle("maxColumnWidth");
+            series.offset = _leftOffset + i * _perSeriesColumnWidthRatio;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function applySeriesSet(seriesSet:Array /* of Series */,
+                                               transform:DataTransform):Array /* of Series */
+    {
+        var columnWidthRatio:Number = getStyle("columnWidthRatio");
+        var maxColumnWidth:Number = getStyle("maxColumnWidth");
 
-		_perSeriesColumnWidthRatio = columnWidthRatio / seriesSet.length;
-		_perSeriesMaxColumnWidth = maxColumnWidth / seriesSet.length;
-		
-		_leftOffset = (1 - columnWidthRatio) / 2 +
-					  _perSeriesColumnWidthRatio / 2 - 0.5;
-		
-		return super.applySeriesSet(seriesSet, transform);
-	}
+        _perSeriesColumnWidthRatio = columnWidthRatio / seriesSet.length;
+        _perSeriesMaxColumnWidth = maxColumnWidth / seriesSet.length;
+        
+        _leftOffset = (1 - columnWidthRatio) / 2 +
+                      _perSeriesColumnWidthRatio / 2 - 0.5;
+        
+        return super.applySeriesSet(seriesSet, transform);
+    }
 }
 
 }
