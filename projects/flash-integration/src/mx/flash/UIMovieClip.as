@@ -1627,8 +1627,7 @@ public dynamic class UIMovieClip extends MovieClip
     public function set explicitMaxWidth(value:Number):void
     {
         _explicitMaxWidth = value;
-        
-        // FIXME (rfrishbe): invalidate size
+        invalidateParentSizeAndDisplayList();
     }
 
     //----------------------------------
@@ -2885,7 +2884,7 @@ public dynamic class UIMovieClip extends MovieClip
         _layoutFeatures.depth = value;      
         if (parent != null && "invalidateLayering" in parent && parent["invalidateLayering"] is Function)
             parent["invalidateLayering"]();
-        // FIXME (rfrishbe): should be in some interface...
+        // TODO (rfrishbe): should be in some interface...
     }
     
     /**
