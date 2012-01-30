@@ -468,6 +468,18 @@ public class UITextField extends FlexTextField
             validateNow();
     }
 
+	//----------------------------------
+	//  textColor
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	override public function set textColor(value:uint):void
+	{
+		setColor(value);
+	}
+	
     //--------------------------------------------------------------------------
     //
     //  Properties
