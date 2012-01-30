@@ -679,7 +679,7 @@ public class ColumnChart extends CartesianChart
                 else if (columnSeries.labelField != null)
                     columnSeries.measuringField.text = v.labelText = v.item[columnSeries.labelField];
                 else if (columnSeries.dataFunction != null)
-                    columnSeries.measuringField.text = v.labelText = columnSeries.dataFunction(this, v.item, 'yNumber');
+                    columnSeries.measuringField.text = v.labelText = columnSeries.dataFunction(columnSeries, v.item, 'yNumber');
                 else
                     columnSeries.measuringField.text = v.labelText = v.item[columnSeries.yField];       
         
