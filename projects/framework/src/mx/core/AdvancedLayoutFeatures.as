@@ -43,14 +43,11 @@ package mx.core
     /**
      * @private
      * a flag for use by the owning object indicating whether the owning object has a pending update
-     * to its matrix.  If this is false, the AdvancedLayoutFeatures will notify the owning object of any changes
-     * to its transform properties. Otherwise, it assumes the owner has already taken appropriate action. 
-     * it is the owner's responsibility to set this flag.
+     * to the computed matrix.  it is the owner's responsibility to set this flag.
      */
 	public var updatePending:Boolean = false;
 	
     /**
-     * @private
      * storage for the layer value. Layering is considered 'advanced' layout behavior, and not something
      * that gets used by the majority of the components out there.  So if a component has a non-zero layer,
      * it will allocate a AdvancedLayoutFeatures object and store the value here.
@@ -91,7 +88,7 @@ package mx.core
 	
     /**
      * @private
-     * general storage for all of ur flags.  
+     * general storage for all of our flags.  
      */
 	private var _flags:uint = 0;
 	
@@ -116,11 +113,8 @@ package mx.core
 	//------------------------------------------------------------------------------
 	
     /**
-     * @private
-     * layout transform convenience property.  Setting this property makes the layout properties the source of truth,
-     * so they need to be first updated from the matrix or matrix3D if they are invalid.
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * layout transform convenience property.  Represents the x value of the layout matrix used in layout and in 
+     * the computed transform.
      */
 	public function set layoutX(value:Number):void
 	{
@@ -135,13 +129,9 @@ package mx.core
 	{
 		return layout.x;
 	}
-	
     /**
-     * @private
-     * layout transform convenience property.  Setting this property makes the layout properties the source of truth,
-     * so they need to be first updated from the matrix or matrix3D if they are invalid.
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * layout transform convenience property.  Represents the y value of the layout matrix used in layout and in 
+     * the computed transform.
      */
 	public function set layoutY(value:Number):void
 	{
@@ -158,11 +148,8 @@ package mx.core
 	}
 	
     /**
-     * @private
-     * layout transform convenience property.  Setting this property makes the layout properties the source of truth,
-     * so they need to be first updated from the matrix or matrix3D if they are invalid.
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * layout transform convenience property.  Represents the z value of the layout matrix used in layout and in 
+     * the computed transform.
      */
 	public function set layoutZ(value:Number):void
 	{
@@ -182,10 +169,7 @@ package mx.core
 	
     /**
      * @private
-     * layout transform convenience property.  Setting this property makes the layout properties the source of truth,
-     * so they need to be first updated from the matrix or matrix3D if they are invalid.
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * the x value of the point around which any rotation and scale is performed in both the layout and computed matrix.
      */
 	public function set transformX(value:Number):void
 	{
@@ -202,10 +186,7 @@ package mx.core
 	
     /**
      * @private
-     * layout transform convenience property.  Setting this property makes the layout properties the source of truth,
-     * so they need to be first updated from the matrix or matrix3D if they are invalid.
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * the y value of the point around which any rotation and scale is performed in both the layout and computed matrix.
      */
 	public function set transformY(value:Number):void
 	{
@@ -223,10 +204,7 @@ package mx.core
 	
     /**
      * @private
-     * layout transform convenience property.  Setting this property makes the layout properties the source of truth,
-     * so they need to be first updated from the matrix or matrix3D if they are invalid.
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * the z value of the point around which any rotation and scale is performed in both the layout and computed matrix.
      */
 	public function set transformZ(value:Number):void
 	{
@@ -246,11 +224,8 @@ package mx.core
 	
 	
     /**
-     * @private
-     * layout transform convenience property.  Setting this property makes the layout properties the source of truth,
-     * so they need to be first updated from the matrix or matrix3D if they are invalid.
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * layout transform convenience property.  Represents the rotation around the X axis of the layout matrix used in layout and in 
+     * the computed transform.
      */
 	public function set layoutRotationX(value:Number):void
 	{
@@ -267,11 +242,8 @@ package mx.core
 	}
 	
     /**
-     * @private
-     * layout transform convenience property.  Setting this property makes the layout properties the source of truth,
-     * so they need to be first updated from the matrix or matrix3D if they are invalid.
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * layout transform convenience property.  Represents the rotation around the Y axis of the layout matrix used in layout and in 
+     * the computed transform.
      */
 	public function set layoutRotationY(value:Number):void
 	{
@@ -288,11 +260,8 @@ package mx.core
 	}
 	
     /**
-     * @private
-     * layout transform convenience property.  Setting this property makes the layout properties the source of truth,
-     * so they need to be first updated from the matrix or matrix3D if they are invalid.
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * layout transform convenience property.  Represents the rotation around the Z axis of the layout matrix used in layout and in 
+     * the computed transform.
      */
 	public function set layoutRotationZ(value:Number):void
 	{
@@ -312,11 +281,8 @@ package mx.core
 	
 	
     /**
-     * @private
-     * layout transform convenience property.  Setting this property makes the layout properties the source of truth,
-     * so they need to be first updated from the matrix or matrix3D if they are invalid.
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * layout transform convenience property.  Represents the scale along the X axis of the layout matrix used in layout and in 
+     * the computed transform.
      */
 	public function set layoutScaleX(value:Number):void
 	{
@@ -333,11 +299,8 @@ package mx.core
 	}
 	
     /**
-     * @private
-     * layout transform convenience property.  Setting this property makes the layout properties the source of truth,
-     * so they need to be first updated from the matrix or matrix3D if they are invalid.
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * layout transform convenience property.  Represents the scale along the Y axis of the layout matrix used in layout and in 
+     * the computed transform.
      */
 	public function set layoutScaleY(value:Number):void
 	{
@@ -355,11 +318,8 @@ package mx.core
 	
 	
     /**
-     * @private
-     * layout transform convenience property.  Setting this property makes the layout properties the source of truth,
-     * so they need to be first updated from the matrix or matrix3D if they are invalid.
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * layout transform convenience property.  Represents the scale along the Z axis of the layout matrix used in layout and in 
+     * the computed transform.
      */
 	public function set layoutScaleZ(value:Number):void
 	{
@@ -377,9 +337,11 @@ package mx.core
 
     /**
      * @private
-     * layout transform property.  Setting this property makes the layout matrix the source of truth,
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * The 2D matrix used during layout calculations to determine the layout and size of the component and its parent and siblings.
+     * If the convenience properties are set, this matrix is built from those properties.  
+     * If the matrix is set directly, the convenience properties will be updated to values derived from this matrix.
+     * This matrix is used in the calculation of the computed transform if possible. Under certain circumstances, such as when 
+     * offsets are provided, the decomposed layout properties will be used instead.
      */
 	public function set layoutMatrix(value:Matrix):void
 	{
@@ -400,9 +362,12 @@ package mx.core
 
     /**
      * @private
-     * layout transform property.  Setting this property makes the layout matrix3D the source of truth,
-     * We then invalidate, but since this is an internal property, that is only set by the 
-     * owner, we don't notify the owner of the change
+     * The 3D matrix used during layout calculations to determine the layout and size of the component and its parent and siblings.
+     * This matrix is only used by parents that respect 3D layoyut.
+     * If the convenience properties are set, this matrix is built from those properties.  
+     * If the matrix is set directly, the convenience properties will be updated to values derived from this matrix.
+     * This matrix is used in the calculation of the computed transform if possible. Under certain circumstances, such as when 
+     * offsets are provided, the decomposed layout properties will be used instead.
      */
 	public function set layoutMatrix3D(value:Matrix3D):void
 	{
@@ -419,16 +384,27 @@ package mx.core
 	}
 	
 	/**
-	 * @private
-	 * returns true if the computed transform has 3D values.
+	 * true if the computed transform has 3D values.
 	 */
 	public function get is3D():Boolean
 	{
 		return (layout.is3D || (offsets != null && offsets.is3D));
 	}
 
+	/**
+	 * true if the layout transform has 3D values.
+	 */
+	public function get layoutIs3D():Boolean
+	{
+		return layout.is3D;
+	}
+
 	//------------------------------------------------------------------------------
 	
+	/** offsets to the transform convenience properties that are applied when a component is rendered. If this 
+	 * property is set, its values will be added to the layout transform properties to determine the true matrix used to render
+	 * the component
+	 */
 	public function set offsets(value:TransformOffsets):void
 	{
 		if(_offsets != null)
@@ -475,8 +451,7 @@ package mx.core
 	
 	
 	/**
-	 * @private
-	 * returns the computed matrix, calculated by combining the layout and offset transforms.
+	 * the computed matrix, calculated by combining the layout matrix and  and any offsets provided..
 	 */
 	public function get computedMatrix():Matrix
 	{
@@ -504,8 +479,7 @@ package mx.core
 	}
 	
 	/**
-	 * @private
- 	 * returns the computed matrix3D, calculated by combining the layout and offset transforms.
+	 * the computed 3D matrix, calculated by combining the 3D layout matrix and  and any offsets provided..
 	 */
 	public function get computedMatrix3D():Matrix3D
 	{
@@ -580,7 +554,7 @@ package mx.core
 	 * @private
 	 * call when you're about to change the transform, and when complete you want to keep a particular point fixed in its parent coordinate space.
 	 */
-	public function prepareForTransformCenterAdjustment(affectLayout:Boolean,propertyIs3D:Boolean,tx:Number = NaN,ty:Number = NaN,tz:Number = NaN):*
+	public function prepareForTransformCenterAdjustment(affectLayout:Boolean,propertyIs3D:Boolean,tx:Number = NaN,ty:Number = NaN,tz:Number = NaN):Object
 	{
 		var computedCenterV:Vector3D;
 		var computedCenterP:Point;
@@ -631,7 +605,11 @@ package mx.core
 		return token;
 	}
 
-	public function completeTransformCenterAdjustment(token:*,changeIs3D:Boolean):void
+	/**
+	 * @private
+	 * call when you've changed the inputs to the computed transform to make any adjustments to keep a particular point fixed in parent coordinates.
+	 */
+	public function completeTransformCenterAdjustment(token:Object,changeIs3D:Boolean):void
 	{
 		if(token == null)
 			return;
@@ -703,11 +681,21 @@ package mx.core
 		}
 	}	
 	
+	/**
+	 * A utility method to update the rotation and scale of the transform while keeping a particular point, specified in the component's own coordinate space, 
+	 * fixed in the parent's coordinate space.  This function will assign the rotation and scale values provided, then update the x/y/z properties
+	 * as necessary to keep tx/ty/tz fixed.
+	 * @param rx,ry,rz the new values for the rotation of the transform
+	 * @param sx,sy,sz the new values for the scale of the transform
+	 * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
+	 * affectLayout: whether the rotation and scale should be applied to the layout transform or the offsets.  Note that the offsets might be updated
+	 * even when the new values are being applied to the layout.
+	 */
 	public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number,affectLayout:Boolean = true):void
 	{
 		var is3D:Boolean = ((!isNaN(rx) && rx != 0) || (!isNaN(ry) && ry != 0) || (!isNaN(sz) && sz != 1));
 		
-		var token:* = prepareForTransformCenterAdjustment(affectLayout,is3D,tx,ty,tz);
+		var token:Object = prepareForTransformCenterAdjustment(affectLayout,is3D,tx,ty,tz);
 		if(affectLayout)
 		{
 			if(!isNaN(rx))
