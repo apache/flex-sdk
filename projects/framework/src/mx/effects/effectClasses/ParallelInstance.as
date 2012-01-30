@@ -142,16 +142,24 @@ public class ParallelInstance extends CompositeEffectInstance
      */
     override public function set playheadTime(value:Number):void
     {
-        var totalDur:Number = Parallel(effect).compositeDuration + repeatDelay;
-        var childPlayheadTime:Number = (totalDur > 0) ?
-            (value - startDelay) % totalDur :
-            value - startDelay;
+        var totalDur:Number = Parallel(effect).compositeDuration;
+        var firstCycleDur:Number = totalDur + startDelay + repeatDelay;
+        var laterCycleDur:Number = totalDur + repeatDelay;
+        var childPlayheadTime:Number;
+        if (value <= firstCycleDur) {
+            childPlayheadTime = Math.min(value - startDelay, totalDur);
+            playCount = 1;
+        }
+        else
+        {
+            var valueAfterFirstCycle:Number = value - firstCycleDur;
+            childPlayheadTime = valueAfterFirstCycle % laterCycleDur;
+            childPlayheadTime = Math.min(childPlayheadTime, totalDur);
+            playCount = 1 + valueAfterFirstCycle / laterCycleDur;
+        }
         
         // This will seek in the Parallel's instance
         super.playheadTime = childPlayheadTime;
-        playCount = (totalDur > 0) ?
-            1 + (value - startDelay) / totalDur :
-            1;
 
         // Tell all of our children to set their playheadTime
         for (var i:int = 0; i < childSets.length; i++)
