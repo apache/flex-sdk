@@ -1840,7 +1840,8 @@ public class ViewNavigator extends ViewNavigatorBase
             // possible to lose invalidation calls since ViewNavigator is still in its 
             // commitProperties call.  Since we are using callLater, this will get called
             // before the next render
-            callLater(viewAdded, [(transitionsEnabled ? pendingViewTransition : null)]);
+            activeTransition = transitionsEnabled ? pendingViewTransition : null;
+            view.addEventListener(FlexEvent.UPDATE_COMPLETE, view_updateCompleteHandler, false, -1);
         }
         
         pendingViewTransition = null;
@@ -2004,8 +2005,10 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function viewAdded(transition:ViewTransitionBase = null):void
+    private function view_updateCompleteHandler(event:FlexEvent):void
     {
+        event.target.removeEventListener(FlexEvent.UPDATE_COMPLETE, view_updateCompleteHandler);
+        
         var currentView:View;
         var pendingView:View;
         
@@ -2030,15 +2033,15 @@ public class ViewNavigator extends ViewNavigatorBase
                             view_propertyChangeHandler);
         }
         
-        if (transition)
+        if (activeTransition)
         {
-            transition.addEventListener(FlexEvent.TRANSITION_END, transitionComplete);
-            transition.startView = currentView;
-            transition.endView = pendingView;
-            transition.navigator = this;
+            activeTransition.addEventListener(FlexEvent.TRANSITION_END, transitionComplete);
+            activeTransition.startView = currentView;
+            activeTransition.endView = pendingView;
+            activeTransition.navigator = this;
             
             // Give the transition a chance to prepare before the view updates
-            transition.captureStartValues();
+            activeTransition.captureStartValues();
         }
 
         // This event is dispatched here to allow developers to incorporate
@@ -2078,11 +2081,10 @@ public class ViewNavigator extends ViewNavigatorBase
                 validateNow();
         }
         
-        if (transition)
+        if (activeTransition)
         {
-            transition.captureEndValues();
-            transition.prepareForPlay();
-            activeTransition = transition;
+            activeTransition.captureEndValues();
+            activeTransition.prepareForPlay();
             
             // Run transition a frame later so that the overhead of creating the view
             // and the time the player takes to render isn't included in the duration.
