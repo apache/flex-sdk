@@ -37,9 +37,9 @@ public class Request extends Event
      *  application or module. The recipient of this request should set the data property to 
      *  their module factory.
      * 
-     *  The message is dispatched from a module factory.
+     *  The message is dispatched from the content of a loaded module or application.
      */
-    public static const GET_FLEX_MODULE_FACTORY_REQUEST:String = "getFlexModuleFactoryRequest";
+    public static const GET_PARENT_FLEX_MODULE_FACTORY_REQUEST:String = "getParentFlexModuleFactoryRequest";
     
 
     //--------------------------------------------------------------------------
