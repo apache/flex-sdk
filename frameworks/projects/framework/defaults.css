@@ -1313,7 +1313,7 @@ ScrollBar
 ScrollControlBase 
 {
 	borderSkin: ClassReference("mx.skins.spark.BorderSkin");
-    cornerRadius: 0;
+    focusRoundedCorners : " ";
 }
 
 
