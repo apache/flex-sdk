@@ -523,10 +523,16 @@ public class UITextFormat extends TextFormat
         }
 
         // Set other TextField properties based on CSS styles.
-        measurementTextField.antiAliasType = antiAliasType;
-        measurementTextField.gridFitType = gridFitType;
-        measurementTextField.sharpness = sharpness;
-        measurementTextField.thickness = thickness;
+        // These properties do not have meaning in TLFTextField,
+        // and have been implemented to return either null or NaN,
+        // so don't try to set them on a TLFTextField.
+        if (!useTLF)
+        {
+	        measurementTextField.antiAliasType = antiAliasType;
+	        measurementTextField.gridFitType = gridFitType;
+	        measurementTextField.sharpness = sharpness;
+	        measurementTextField.thickness = thickness;
+        }
         
         // Set the text to be measured into the TextField.
         if (html)
