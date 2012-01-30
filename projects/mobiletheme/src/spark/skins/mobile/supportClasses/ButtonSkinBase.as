@@ -348,14 +348,6 @@ public class ButtonSkinBase extends MobileSkin
             textDescent = metrics.descent;
         }
 
-        var textAlign:String = "center"; // getStyle("textAlign");
-        // Map new Spark values that might be set in a selector
-        // affecting both Halo and Spark components.
-        /*if (textAlign == "start")
-        textAlign = TextFormatAlign.LEFT;
-        else if (textAlign == "end")
-        textAlign = TextFormatAlign.RIGHT;*/
-
         var viewWidth:Number = unscaledWidth;
         var viewHeight:Number = unscaledHeight;
 
@@ -395,21 +387,8 @@ public class ButtonSkinBase extends MobileSkin
 
             // button viewHeight may be smaller than the labelDisplay textHeight
             labelHeight = Math.min(viewHeight, textHeight);
-
-            if (textAlign == "left")
-            {
-                labelX += layoutPaddingLeft;
-            }
-            else if (textAlign == "right")
-            {
-                labelX += (viewWidth - labelWidth - iconWidth -
-                    horizontalGap - layoutPaddingRight);
-            }
-            else // "center" -- default value
-            {
-                labelX += ((viewWidth - labelWidth - iconWidth -
-                    horizontalGap - layoutPaddingLeft - layoutPaddingRight) / 2) + layoutPaddingLeft;
-            }
+            labelX += ((viewWidth - labelWidth - iconWidth -
+                horizontalGap - layoutPaddingLeft - layoutPaddingRight) / 2) + layoutPaddingLeft;
 
             if (iconPlacement == IconPlacement.LEFT)
             {
@@ -450,19 +429,7 @@ public class ButtonSkinBase extends MobileSkin
             }
 
             labelX = layoutPaddingLeft;
-
-            if (textAlign == "left")
-            {
-                iconX += layoutPaddingLeft;
-            }
-            else if (textAlign == "right")
-            {
-                iconX += Math.max(viewWidth - iconWidth - layoutPaddingRight, layoutPaddingLeft);
-            }
-            else
-            {
-                iconX += ((viewWidth - iconWidth - layoutPaddingLeft - layoutPaddingRight) / 2) + layoutPaddingLeft;
-            }
+            iconX += ((viewWidth - iconWidth - layoutPaddingLeft - layoutPaddingRight) / 2) + layoutPaddingLeft;
 
             if (iconPlacement == IconPlacement.BOTTOM)
             {
