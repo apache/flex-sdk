@@ -15,6 +15,7 @@ package mx.states
 {
 
 import mx.core.FlexVersion;
+import mx.core.IDeferredInstance;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -101,20 +102,28 @@ public class SetProperty extends OverrideBase
      *  @param name The property to set.
      *
      *  @param value The value of the property in the view state.
+     * 
+     *  @param valueFactory An optional write-only property from which to obtain 
+     *  a shared value.  This is primarily used when this override's value is 
+     *  shared by multiple states or state groups.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function SetProperty(target:Object = null, name:String = null,
-                                value:* = undefined)
+    public function SetProperty(
+            target:Object = null, 
+            name:String = null,                      
+            value:* = undefined, 
+            valueFactory:IDeferredInstance = null)
     {
         super();
 
         this.target = target;
         this.name = name;
         this.value = value;
+        this.valueFactory = valueFactory;
     }
 
     //--------------------------------------------------------------------------
@@ -232,6 +241,31 @@ public class SetProperty extends OverrideBase
         }
     }
 
+    //----------------------------------
+    //  valueFactory
+    //----------------------------------
+    
+    /**
+     *  An optional write-only property from which to obtain a shared value.  This 
+     *  is primarily used when this override's value is shared by multiple states 
+     *  or state groups. 
+     *
+     *  @default undefined
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function set valueFactory(factory:IDeferredInstance):void
+    {
+        // We instantiate immediately in order to retain the instantiation
+        // behavior of a typical (unshared) value.  We may later enhance to
+        // allow for deferred instantiation.
+        if (factory)
+            value = factory.getInstance();
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods: IOverride
