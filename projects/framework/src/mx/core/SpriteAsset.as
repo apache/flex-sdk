@@ -81,6 +81,11 @@ package mx.core
  *
  *  <pre>
  *  &lt;mx:Image id="logo" source="{logoClass}"/&gt;</pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SpriteAsset extends FlexSprite
                          implements IFlexAsset, IFlexDisplayObject, IBorder
@@ -95,6 +100,11 @@ public class SpriteAsset extends FlexSprite
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function SpriteAsset()
     {
@@ -123,6 +133,11 @@ public class SpriteAsset extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredHeight():Number
     {
@@ -141,6 +156,11 @@ public class SpriteAsset extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredWidth():Number
     {
@@ -153,6 +173,11 @@ public class SpriteAsset extends FlexSprite
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get borderMetrics():EdgeMetrics
     {       
@@ -177,6 +202,11 @@ public class SpriteAsset extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function move(x:Number, y:Number):void
     {
@@ -186,6 +216,11 @@ public class SpriteAsset extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setActualSize(newWidth:Number, newHeight:Number):void
     {
