@@ -1091,16 +1091,19 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         // value and notify messageDisplay
         if (allStyles || styleName == "messageStyleName")
         {
-            var messageStyleName:String = getStyle("messageStyleName");
-            if (messageStyleName)
+            if (messageDisplay)
             {
-                var styleDecl:CSSStyleDeclaration =
-                    styleManager.getMergedStyleDeclaration("." + messageStyleName);
-                
-                if (styleDecl)
+                var messageStyleName:String = getStyle("messageStyleName");
+                if (messageStyleName)
                 {
-                    messageDisplay.styleDeclaration = styleDecl;
-                    messageDisplay.styleChanged("styleName");
+                    var styleDecl:CSSStyleDeclaration =
+                        styleManager.getMergedStyleDeclaration("." + messageStyleName);
+                    
+                    if (styleDecl)
+                    {
+                        messageDisplay.styleDeclaration = styleDecl;
+                        messageDisplay.styleChanged("styleName");
+                    }
                 }
             }
         }
