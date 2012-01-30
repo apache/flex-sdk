@@ -7,6 +7,7 @@
       <libraryPathEntry kind="3" linkType="2" path="/framework/bin/framework.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="/airframework/bin/airframework.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="/spark/bin/spark.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/mx/bin/mx.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
