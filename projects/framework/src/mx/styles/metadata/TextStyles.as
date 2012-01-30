@@ -22,6 +22,34 @@
 [Style(name="color", type="uint", format="Color", inherit="yes")]
 
 /**
+ *  The directionality of the text displayed by the component.
+ *
+ *  <p>The allowed values are <code>"ltr"</code> for left-to-right text,
+ *  as in Latin-style scripts,
+ *  and <code>"rtl"</code> for right-to-left text,
+ *  as in Arabic and Hebrew.</p>
+ *
+ *  <p>FTE and TLF use this value in their bidirectional text layout algorithm,
+ *  which maps Unicode character order to glyph order.</p>
+ * 
+ *  <p>Note: This style only applies when an MX component
+ *  specifies UITLFTextField as its <code>textFieldClass</code>.</p>
+ *
+ *  <p>The <code>direction</code> also affects the alignment
+ *  of the text within the bounds of the TLFTextField.
+ *  It does not, however, affect the the placement
+ *  of the TLFTextField within the component.</p>
+ *
+ *  @default "ltr"
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="direction", type="String", enumeration="ltr,rtl,inherit", inherit="yes")]
+
+/**
  *  Color of text in the component if it is disabled.
  *
  *  @default 0xAAB3B3
@@ -223,6 +251,24 @@
  *  @productversion Flex 3
  */
 [Style(name="letterSpacing", type="Number", inherit="yes")]
+
+/**
+ *  The locale of the text displayed by this component.
+ * 
+ *  <p>FTE and TLF use this locale to map Unicode characters
+ *  to font glyphs and to find fallback fonts.</p>
+ *
+ *  <p>Note: This style only applies when an MX component
+ *  specifies UITLFTextField as its <code>textFieldClass</code>.</p>
+ *
+ *  @default "en"
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="locale", type="String", inherit="yes")]
 
 /**
  *  Alignment of text within a container.
