@@ -205,8 +205,9 @@ public class GradientEntry extends EventDispatcher
 	private function dispatchEntryChangedEvent(prop:String,
 											   oldValue:*, value:*):void
 	{
-		dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop,
-															oldValue, value));
+        if (hasEventListener("propertyChange"))
+		    dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop,
+				oldValue, value));
 	}
 }
 
