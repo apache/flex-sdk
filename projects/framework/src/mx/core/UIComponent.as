@@ -8709,8 +8709,10 @@ public class UIComponent extends FlexSprite
             var rectCol:Number;
             if (errorString && errorString != "")
                 rectCol = getStyle("errorColor");
-            else
+            else if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
                 rectCol = getStyle("themeColor");
+            else
+            	rectCol = getStyle("focusColor");
 
             var thickness:Number = getStyle("focusThickness");
 
