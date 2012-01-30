@@ -583,7 +583,7 @@ public class CSSStyleDeclaration extends EventDispatcher
             for (i = 0; i < n; i++)
             {
                 sm = sms[i];
-			    cm = sm.getImplementation("mx.managers.ISystemManagerChildManager");
+			    cm = sm.getImplementation("mx.managers::ISystemManagerChildManager");
                 cm.regenerateStyleCache(true);
             }
         }
@@ -591,7 +591,7 @@ public class CSSStyleDeclaration extends EventDispatcher
         for (i = 0; i < n; i++)
         {
             sm = sms[i];
-		    cm = sm.getImplementation("mx.managers.ISystemManagerChildManager");
+		    cm = sm.getImplementation("mx.managers::ISystemManagerChildManager");
             cm.notifyStyleChangeInChildren(styleProp, true);
         }
     }
