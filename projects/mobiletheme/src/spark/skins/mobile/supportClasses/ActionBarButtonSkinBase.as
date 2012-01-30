@@ -139,7 +139,7 @@ public class ActionBarButtonSkinBase extends ButtonSkin
         // omit super.drawBackground() to drawRect instead
         // only draw chromeColor in down state (transparent hit zone otherwise)
         var isDown:Boolean = (currentState == "down");
-        var chromeColor:uint = isDown ? getStyle("chromeColor") : 0;
+        var chromeColor:uint = isDown ? getStyle(fillColorStyleName) : 0;
         var chromeAlpha:Number = isDown ? 1 : 0;
         
         graphics.beginFill(chromeColor, chromeAlpha);
