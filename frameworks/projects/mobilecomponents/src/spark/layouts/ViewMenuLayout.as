@@ -73,6 +73,8 @@ public class ViewMenuLayout extends LayoutBase
         super();
     }
     
+    private var numColsInRow:Array;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -226,6 +228,8 @@ public class ViewMenuLayout extends LayoutBase
         if (!layoutTarget)
             return;
         
+        numColsInRow = [];
+        
         var xPos:Number = 0;
         var yPos:Number = 0;
         var itemIndex:int = 0;
@@ -236,15 +240,16 @@ public class ViewMenuLayout extends LayoutBase
         var numRows:int = Math.ceil(numItems / requestedMaxColumnCount);
         var numColumns:int = Math.ceil(numItems / numRows);
         // Calculate the number of empty spots by getting the inverse of the column mod
-        var emptySpots:int = (numItems % numColumns) > 0 ? numColumns - numItems % numColumns : 0;
-        // Figure out whether the first row has more or fewer items. Default is fewer.
-        var useMaxColumns:Boolean = (numRows % 2 == 1) ? Math.floor(numRows / 2) == emptySpots: false;        
+        var emptySpots:int = (numItems % numColumns) > 0 ? numColumns - numItems % numColumns : 0;      
         
         for (var rowIndex:int = 0; rowIndex < numRows; rowIndex++)
         {    
-            var currentRowColumns:int = (emptySpots > 0) && !useMaxColumns ? numColumns - 1 : numColumns;
+            var currentRowColumns:int = (emptySpots > 0) ? numColumns - 1 : numColumns;
             var viewWidth:Number = width - (currentRowColumns - 1) * horizontalGap;
             var w:Number = itemW = Math.floor(viewWidth / currentRowColumns);
+            
+            numColsInRow.push(currentRowColumns);
+            
             // Keep track of the extra pixels since we round off the item widths
             extraWidth = Math.round(viewWidth - w * currentRowColumns);
             
@@ -270,7 +275,6 @@ public class ViewMenuLayout extends LayoutBase
             yPos += rowHeight + verticalGap;   
             
             numItems -= currentRowColumns;
-            useMaxColumns = !useMaxColumns;
             
             emptySpots = (numItems % numColumns) > 0 ? numColumns - numItems % numColumns : 0;
         }
@@ -281,34 +285,87 @@ public class ViewMenuLayout extends LayoutBase
      */
     override public function getNavigationDestinationIndex(currentIndex:int, navigationUnit:uint, arrowKeysWrapFocus:Boolean):int
     {
-        // TODO (jszeto) Currently we just support LEFT/RIGHT. Need to add logic for UP/DOWN/PGUP/PGDN
         if (!target || target.numElements < 1)
             return -1; 
         
         var maxIndex:int = target.numElements - 1;
-        var newIndex:int;
+        var newIndex:int = 0;
+        var numRows:int = Math.ceil(target.numElements / requestedMaxColumnCount);
         
         if (currentIndex == -1)
         {
-            if (navigationUnit == NavigationUnit.LEFT)
-                return maxIndex;
-            else if (navigationUnit == NavigationUnit.RIGHT)
+            if (navigationUnit == NavigationUnit.RIGHT || navigationUnit == NavigationUnit.DOWN)
                 return 0;    
-        }   
+            else
+                return -1;
+        }  
         
-        if (navigationUnit == NavigationUnit.LEFT)
-            newIndex = currentIndex - 1;
-        else if (navigationUnit == NavigationUnit.RIGHT)
-            newIndex = currentIndex + 1;
-        else
-            return currentIndex;
+        var currentRow:int = getRowForIndex(currentIndex);
+        var currentColCount:int;
+        var newColCount:int;
+                
+        if (navigationUnit == NavigationUnit.LEFT ||
+            navigationUnit == NavigationUnit.RIGHT)
+            
+        {
+            newIndex = currentIndex + (navigationUnit == NavigationUnit.LEFT ? -1 : 1);
+            
+            // We don't support wrapping, so if the old and new index are 
+            // on different rows, then don't change the index. 
+            if (getRowForIndex(newIndex) != currentRow)
+                newIndex = currentIndex;        
+        }
+        else if (navigationUnit == NavigationUnit.UP)
+        {
+            if (currentRow == 0)
+                return currentIndex;
+            
+            currentColCount = numColsInRow[currentRow];
+            newColCount = numColsInRow[currentRow - 1];
+            
+            newIndex = currentIndex - newColCount;
+            
+            // If the newIndex isn't on the previous row, then we need to shift
+            // it back one more spot. This situation only occurs when the 
+            // number of columns in the two rows are different
+            if ((getRowForIndex(newIndex) != currentRow - 1) && (currentColCount != newColCount))
+            {
+                newIndex--;
+            }
+        }
+        else if (navigationUnit == NavigationUnit.DOWN)
+        {
+            if (currentRow == numRows - 1)
+                return currentIndex;
+            
+            // Assumes that the smaller column rows are always above the larger column rows
+            newIndex = currentIndex + numColsInRow[currentRow];
+        }
         
         if (newIndex > maxIndex)
-            newIndex = 0;
-        else if (newIndex < 0)
             newIndex = maxIndex;
+        else if (newIndex < 0)
+            newIndex = 0;
         
         return newIndex;
+    }
+    
+    // Helper function that figures out the row of a particular index
+    private function getRowForIndex(index:int):int
+    {
+        var currentRow:int = 0;
+        
+        while (currentRow < numColsInRow.length)
+        {  
+            index -= numColsInRow[currentRow];
+
+            if (index >= 0)
+                currentRow++;
+            else
+                break;
+        }
+        
+        return currentRow;
     }
     
     // Helper function
