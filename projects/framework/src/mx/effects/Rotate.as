@@ -14,6 +14,8 @@ package mx.effects
 
 import mx.effects.effectClasses.RotateInstance;
 
+[Alternative(replacement="spark.effects.Rotate", since="4.0")]
+
 /**
  *  The Rotate effect rotates a component around a specified point. 
  *  You can specify the coordinates of the center of the rotation, 
