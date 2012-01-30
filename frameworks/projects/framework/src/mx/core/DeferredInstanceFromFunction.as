@@ -26,7 +26,7 @@ package mx.core
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class DeferredInstanceFromFunction implements IDeferredInstance
+public class DeferredInstanceFromFunction implements ITransientDeferredInstance
 {
     include "../core/Version.as";
 
@@ -47,11 +47,13 @@ public class DeferredInstanceFromFunction implements IDeferredInstance
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function DeferredInstanceFromFunction(generator:Function)
+    public function DeferredInstanceFromFunction(generator:Function,
+        destructor:Function = null )
     {
 		super();
 
     	this.generator = generator;
+    	this.destructor = destructor;
     }
 
 	//--------------------------------------------------------------------------
@@ -71,6 +73,13 @@ public class DeferredInstanceFromFunction implements IDeferredInstance
 	 * 	The generated value.
 	 */
 	private var instance:Object = null;
+
+    /**
+     *  @private
+     *  An optional function used to cleanup outstanding
+     *  references when reset() is invoked
+     */
+    private var destructor:Function;
 
 	//--------------------------------------------------------------------------
 	//
@@ -97,6 +106,24 @@ public class DeferredInstanceFromFunction implements IDeferredInstance
 
 		return instance;
 	}
+	
+	/**
+     *  Resets the state of our factory to the initial, uninitialized state.
+     *  The reference to our cached instance is cleared.
+     * 
+     *  @langversion 4.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function reset():void
+    {
+        instance = null;
+        
+        if (destructor != null)
+            destructor();
+    }
+
 }
 
 }
