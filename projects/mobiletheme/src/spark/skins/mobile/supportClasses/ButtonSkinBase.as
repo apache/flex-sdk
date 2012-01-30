@@ -34,8 +34,8 @@ ISSUES:
 - should we support textAlign (if not, remove extra code)    
 */
 /**
- *  Actionscript based skin for mobile applications. The skin supports 
- *  icon and iconPlacement. It uses a couple of FXG classes to 
+ *  ActionScript-based skin for mobile applications. The skin supports 
+ *  icon and iconPlacement. It uses FXG classes to 
  *  implement the vector drawing.  
  * 
  *  @langversion 3.0
