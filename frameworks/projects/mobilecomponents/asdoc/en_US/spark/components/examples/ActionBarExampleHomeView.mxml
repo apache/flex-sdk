@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!--Defining ActionBar in a View-->
+<s:Panel>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="HomeView">
+    <s:titleContent>
+        <s:TextInput width="100%"/>
+    </s:titleContent>
+    <s:actionContent>
+      <s:Button label="Search" click="navigator.pushView
+                (views.ActionBarExampleHomeView, null, null, null)"/>
+    </s:actionContent>
+    <s:navigationContent>
+        <s:Button label="Home" click="navigator.popToFirstView()" />
+    </s:navigationContent>
+</s:View>
+</s:Panel>
