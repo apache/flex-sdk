@@ -11,8 +11,7 @@
 package mx.core
 {
 import flash.display.DisplayObjectContainer;
-import flash.events.IEventDispatcher;
-import mx.core.DesignLayer;
+
 import mx.geom.TransformOffsets;
 
 /**
@@ -85,12 +84,12 @@ public interface IVisualElement extends ILayoutElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    function set depth(value:Number):void;
+    function get depth():Number;
     
     /**
      *  @private
      */
-    function get depth():Number;
+    function set depth(value:Number):void;
 
     /**
      *  Controls the visibility of this visual element. 
@@ -251,8 +250,22 @@ public interface IVisualElement extends ILayoutElement
     function get postLayoutTransformOffsets():TransformOffsets;
     
     /**
-     * @private
+     *  @private
      */
-    function set postLayoutTransformOffsets(value:TransformOffsets):void;    
+    function set postLayoutTransformOffsets(value:TransformOffsets):void;
+    
+    /**
+     *  True, when the element is in 3D. The element can be in 3D either because
+     *  it has 3D transform properties or it has 3D transform offsets or both.
+     * 
+     *  @see #postLayoutTransformOffsets
+     *  @see mx.core.ILayoutElement#hasLayoutMatrix3D
+     *   
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get is3D():Boolean;
 }
 }
