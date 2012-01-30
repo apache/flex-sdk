@@ -119,12 +119,12 @@ public class TabbedMobileApplication extends MobileApplicationBase
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  canCancelBackKeyBehavior
+    //  exitApplicationOnBackKey
     //----------------------------------
     /**
      *  @private
      */ 
-    override public function get exitApplicationOnBackKey():Boolean
+    override mx_internal function get exitApplicationOnBackKey():Boolean
     {
     	if (navigator)
     		return navigator.exitApplicationOnBackKey;
