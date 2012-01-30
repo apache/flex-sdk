@@ -71,7 +71,7 @@ import flash.events.EventDispatcher;
 
 /**
  *  TweenEffect is the superclass for the animated effects in Flex 3. As of Flex 4, the 
- *  Spark effects subclass the spark.effects.Animate class instead of TweenEffect.
+ *  Spark effects extend the spark.effects.Animate class instead of TweenEffect.
  */
 [Alternative(replacement="spark.effects.Animate", since="4.0")]
 
