@@ -263,8 +263,8 @@ use namespace mx_internal;
  *  This class can also be used on desktop platforms where it behaves as a wrapper around TextField.
  *  </p>
  * 
- *  <li>The padding around native text controls may be different than the padding around 
- *  TextField controls.</li>
+ *  The padding around native text controls may be different than the padding around 
+ *  TextField controls.
  * 
  *  <p>Similiar to other native applications, when you tap outside of the native text field, the 
  *  text field gives up focus and the soft keyboard goes away.  
@@ -343,8 +343,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private static const androidHeightMultiplier:Number = 1.15;
     private static const isAndroid:Boolean = Capabilities.version.indexOf("AND") == 0;
 
-    
-    //--------------------------------------------------------------------------
+   //--------------------------------------------------------------------------
     //
     //  Constructor
     //
@@ -442,6 +441,13 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     private var deferredViewPortUpdate:Boolean = false;
     
+   /*
+    * Along with the text, need to save the selection, when the StageText is removed from
+    * the stage, so that when the StageText is restored, the selection can be restored.
+    */
+    private var savedSelectionAnchorIndex:int = 0;
+    private var savedSelectionActiveIndex:int = 0;
+            
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -1006,9 +1012,16 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var _text:String = "";
     
     /**
-     *  @copy flash.text.StageText#text
+     *  A string that is the current text in the text field. 
+     *  Lines are separated by the carriage return character ('\r', ASCII 13). 
+     *  This property contains unformatted text in the text field, without any formatting tags.
+     *
+     *  <p>If there was a prior selection, it will be preserved. 
+     *  If the length of the old text was less than the length of the new text, the selection
+     *  will be adjusted so that neither <code>selectionAnchorPosition</code> or
+     *  <code>selectionActivePosition</code> is greater than the length of the new text.</p>
      * 
-     *  @default null
+     *  @default ""
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
@@ -1026,8 +1039,16 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (value == null)
             value = "";
         
+        // Like TextField, preserve the selection when setting text.  This is necessary so that
+        // if there is a binding to the text property, the insertion poiint doesn't reset after 
+        // every character typed.
         if (stageText != null)
+        {
+            var anchorIndex:int = stageText.selectionAnchorIndex;
+            var activeIndex:int = stageText.selectionActiveIndex;
             stageText.text = value;
+            stageText.selectRange(anchorIndex, activeIndex);
+        }
         _text = value;
     }
     
@@ -1759,7 +1780,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             // storage variable, making the change permanent.
             stageText.editable = _editable && effectiveEnabled;
 
+            // Restore the text and the selection.
             stageText.text = _text;
+            stageText.selectRange(savedSelectionAnchorIndex, savedSelectionActiveIndex);
+            savedSelectionAnchorIndex = 0;
+            savedSelectionActiveIndex = 0;
+            
             stageText.displayAsPassword = _displayAsPassword;
             stageText.maxChars = _maxChars;
             
@@ -2022,6 +2048,10 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     {
         if (stageText == null)
             return;
+        
+        // Text is saved in _text.  Also need to save the selection so it can be restored.
+        savedSelectionAnchorIndex = stageText.selectionAnchorIndex;
+        savedSelectionActiveIndex = stageText.selectionActiveIndex;
         
         stageText.stage.removeEventListener(EffectEvent.EFFECT_START, stage_effectStartHandler, true);
         stageText.stage.removeEventListener(EffectEvent.EFFECT_END, stage_effectEndHandler, true);
