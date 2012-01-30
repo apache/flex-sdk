@@ -824,7 +824,7 @@ package mx.core
         var transformedP:Point;
         tempLocalPosition = 
             localPosition ?
-            localPosition :
+            localPosition.clone() :
             new Vector3D();
                 
         if (is3D || propertyIs3D) 
@@ -839,6 +839,9 @@ package mx.core
             
             if (postLayoutPosition != null)
             {           
+                // computedMatrix factor in stretchXY, so divide it out of position first
+                tempLocalPosition.x /= stretchX;
+                tempLocalPosition.y /= stretchY;
                 transformedV = transformVector(computedMatrix3D, tempLocalPosition);
                 postLayoutPosition.x = transformedV.x;
                 postLayoutPosition.y = transformedV.y;
@@ -859,6 +862,9 @@ package mx.core
             
             if (postLayoutPosition != null)
             {
+                // computedMatrix factor in stretchXY, so divide it out of position first
+                localP.x /= stretchX;
+                localP.y /= stretchY;
                 transformedP = computedMatrix.transformPoint(localP);
                 postLayoutPosition.x = transformedP.x;
                 postLayoutPosition.y = transformedP.y;
@@ -881,7 +887,7 @@ package mx.core
         {
             if (targetPosition != null)
             {
-                var adjustedLayoutCenterV:Vector3D = transformVector(layoutMatrix3D,transformCenter); 
+                var adjustedLayoutCenterV:Vector3D = transformVector(layoutMatrix3D, transformCenter); 
                 if (adjustedLayoutCenterV.equals(targetPosition) == false)
                 {
                     layout.translateBy(targetPosition.x - adjustedLayoutCenterV.x,
@@ -892,7 +898,11 @@ package mx.core
             }
             if (targetPostLayoutPosition != null && _postLayoutTransformOffsets != null)
             {
-                var adjustedComputedCenterV:Vector3D = transformVector(computedMatrix3D,transformCenter);
+                // computedMatrix factor in stretchXY, so divide it out of transform center first
+                var tmpPos:Vector3D = new Vector3D(transformCenter.x, transformCenter.y, transformCenter.z);
+                tmpPos.x /= stretchX;
+                tmpPos.y /= stretchY;
+                var adjustedComputedCenterV:Vector3D = transformVector(computedMatrix3D, tmpPos);
                 if (adjustedComputedCenterV.equals(targetPostLayoutPosition) == false)
                 {
                     postLayoutTransformOffsets.x +=targetPostLayoutPosition.x - adjustedComputedCenterV.x;
@@ -919,6 +929,9 @@ package mx.core
             
             if (targetPostLayoutPosition != null && _postLayoutTransformOffsets != null)
             {           
+                // computedMatrix factor in stretchXY, so divide it out of transform center first
+                transformCenterP.x /= stretchX;
+                transformCenterP.y /= stretchY;
                 var currentPostLayoutPosition:Point = 
                     computedMatrix.transformPoint(transformCenterP);
                 if (currentPostLayoutPosition.x != targetPostLayoutPosition.x || 
