@@ -307,8 +307,9 @@ public class ViewNavigatorApplicationBase extends Application
     {
         _persistNavigatorState = value;
 
-        // Register the necessary class aliases and load the shared object
-        if (_persistNavigatorState && !_persistenceInitialized)
+        // If this flag is set to true at runtime, we will need to initialize
+        // the persistence manager if it hasn't been already
+        if (initialized && _persistNavigatorState && !_persistenceInitialized)
             initializePersistenceManager();
     }
     
@@ -760,6 +761,8 @@ public class ViewNavigatorApplicationBase extends Application
         
         if (persistNavigatorState)
         {
+            initializePersistenceManager();
+            
             // Dispatch event for loading persistence data
             var eventDispatched:Boolean = true;
             if (hasEventListener(FlexEvent.NAVIGATOR_STATE_LOADING))
@@ -793,7 +796,9 @@ public class ViewNavigatorApplicationBase extends Application
         registerClassAlias("ViewDescriptor", ViewDescriptor);
         registerClassAlias("NavigationStack", NavigationStack);
 
-        // Initialize and load the persisted data
+        // Initialize and load the persisted data.  The persistence manager
+        // will automatically be allocated in the persistenceManager getter
+        // called below
         persistenceManager.load();
 
         _persistenceInitialized = true;
