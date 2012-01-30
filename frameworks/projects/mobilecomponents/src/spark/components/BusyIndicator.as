@@ -105,7 +105,6 @@ use namespace mx_internal;
  *  
  *  <pre>
  *  &lt;s:BusyIndicator
- *     
  *    <strong>Common Styles</strong>
  *    rotationInterval=50
  * 
