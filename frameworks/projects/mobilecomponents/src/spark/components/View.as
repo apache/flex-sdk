@@ -242,6 +242,14 @@ public class View extends SkinnableContainer implements IDataRenderer
         {
             _active = value;
             
+            // Switch orientation states if needed
+            if (_active)
+            {
+                var viewState:String = getCurrentViewState();
+                if (currentState != viewState)
+                    setCurrentState(viewState, false);
+            }                
+                
             var eventName:String = _active ? 
                 ViewNavigatorEvent.VIEW_ACTIVATE : 
                 ViewNavigatorEvent.VIEW_DEACTIVATE;
