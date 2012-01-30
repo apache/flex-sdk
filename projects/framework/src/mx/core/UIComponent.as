@@ -1396,7 +1396,6 @@ include "../styles/metadata/AnchorStyles.as";
  *    mouseWheelOutside="<i>No default</i>"
  *    move="<i>No default</i>"
  *    preinitialize="<i>No default</i>"
- *    record="<i>No default</i>"
  *    remove="<i>No default</i>"
  *    resize="<i>No default</i>"
  *    show="<i>No default</i>"
