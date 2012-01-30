@@ -861,7 +861,7 @@ public class UIComponent extends FlexSprite
     IDeferredInstantiationUIComponent, IFlexDisplayObject, IFlexModule,
     IInvalidating, ILayoutManagerClient, IPropertyChangeNotifier,
     IRepeaterClient, IStateClient, IAdvancedStyleClient, IToolTipManagerClient,
-    IUIComponent, IValidatorListener, IVisualItem
+    IUIComponent, IValidatorListener, IVisualElement
 {
     include "../core/Version.as";
 
@@ -1549,6 +1549,8 @@ public class UIComponent extends FlexSprite
     }
 
     [Bindable("zChanged")]
+    [Inspectable(category="General")]
+    
     /**
      *  @inheritDoc
      */
@@ -1930,12 +1932,7 @@ public class UIComponent extends FlexSprite
 
     //----------------------------------
     //  scaleX
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the scaleX property.
-     */
+    //---------------------------------
     [Bindable("scaleXChanged")]
     [Inspectable(category="Size", defaultValue="1.0")]
 
@@ -2011,11 +2008,6 @@ public class UIComponent extends FlexSprite
     //----------------------------------
     //  scaleY
     //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the scaleY property.
-     */
 
     [Bindable("scaleYChanged")]
     [Inspectable(category="Size", defaultValue="1.0")]
@@ -7110,8 +7102,9 @@ public class UIComponent extends FlexSprite
         {
             if(_layoutFeatures == null)
                 super.x  = x;
-        else
-                _layoutFeatures.layoutX = x;        
+            else
+                _layoutFeatures.layoutX = x;
+            
             dispatchEvent(new Event("xChanged"));
             changed = true;
         }
@@ -7120,8 +7113,9 @@ public class UIComponent extends FlexSprite
         {
             if(_layoutFeatures == null)
                 super.y  = y;
-        else
+            else
                 _layoutFeatures.layoutY = y;
+            
             dispatchEvent(new Event("yChanged"));
             changed = true;
         }
@@ -9702,14 +9696,14 @@ public class UIComponent extends FlexSprite
 
     private function assignTransformMatrices():void
     {
-            var m:Matrix = _transform.matrix;
-            var m3:Matrix3D =  _transform.matrix3D;
-            if(m != null)
-                layoutMatrix = m.clone();
-            else if(m3 != null)
-                layoutMatrix3D = m3.clone();
+        var m:Matrix = _transform.matrix;
+        var m3:Matrix3D =  _transform.matrix3D;
+        if(m != null)
+            layoutMatrix = m.clone();
+        else if(m3 != null)
+            layoutMatrix3D = m3.clone();
 
-            invalidateSize();
+        invalidateSize();
     }
 
     /**
