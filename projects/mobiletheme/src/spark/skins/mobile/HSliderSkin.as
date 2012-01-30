@@ -18,7 +18,8 @@ import mx.core.IFactory;
 
 import spark.components.Button;
 import spark.components.HSlider;
-import spark.skins.mobile.supportClasses.MobileSkin;
+ import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile.supportClasses.HSliderDataTip;
 
 /**
  *  ActionScript-based skin for HSlider controls in mobile applications.
@@ -60,7 +61,7 @@ public class HSliderSkin extends MobileSkin
         
         thumbSkinClass = spark.skins.mobile.HSliderThumbSkin;
         trackSkinClass = spark.skins.mobile.HSliderTrackSkin;
-        dataTipClass = HSliderDataTip;
+        dataTipClass = spark.skins.mobile.supportClasses.HSliderDataTip;
         
         blendMode = BlendMode.LAYER;
     }
@@ -203,8 +204,10 @@ public class HSliderSkin extends MobileSkin
     /**
      *  @private
      */ 
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        super.layoutContents(unscaledWidth, unscaledHeight);
+        
         // minimum height is no smaller than the larger of the thumb or track
         var calculatedSkinHeight:int = Math.max(Math.max(thumb.getPreferredBoundsHeight(), track.getPreferredBoundsHeight()),
                                                  unscaledHeight);
