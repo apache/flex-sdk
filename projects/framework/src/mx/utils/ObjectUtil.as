@@ -761,27 +761,24 @@ public class ObjectUtil
                 case "object":
                 {
                     var newDepth:int = desiredDepth > 0 ? desiredDepth -1 : desiredDepth;
+                    
                     // refs help us avoid circular reference infinite recursion.
-                    // Each time an object is encoumtered it is pushed onto the
-                    // refs stack so that we can determine if we have visited
-                    // this object already.
-                    // Here since we are comparing two objects we can short
-                    // circuit at the first encounter but have to exhaust all
-                    // references found.  A visited reference makes an object 
-                    // "greater" than another object, only if both objects
-                    // have a visited reference will the result be 0
-                    var aRef:Boolean = refs[a];
-                    var bRef:Boolean = refs[b];
+                    var aRef:Object = getRef(a,refs);
+                    var bRef:Object = getRef(b,refs);
                     
-                    if (aRef && !bRef)
-                        return 1;
-                    else if (bRef && !aRef)
-                        return -1;
-                    else if (bRef && aRef)
+                    if (aRef == bRef)
                         return 0;
+					// the cool thing about our dictionary is that if 
+					// we've seen objects and determined that they are inequal, then 
+					// we would've already exited out of this compare() call.  So the 
+					// only info in the dictionary are sets of equal items
                     
-                    refs[a] = true;
-                    refs[b] = true;
+                    // let's first define them as equal
+                    // this stops an "infinite loop" problem where A.i = B and B.i = A
+                    // if we later find that an object (one of the subobjects) is in fact unequal, 
+                    // then we will return false and quit out of everything.  These refs are thrown away
+                    // so it doesn't matter if it's correct.
+                    refs[bRef] = aRef;
                     
                     if (desiredDepth != -1 && (currentDepth > desiredDepth))
                     {
@@ -810,20 +807,32 @@ public class ObjectUtil
                         var aProps:Array = getClassInfo(a).properties;
                         var bProps:Array;
                         
-                        // if the objects are anonymous they could have different 
+                        // if the objects are dynamic they could have different 
                         // # of properties and should be treated on that basis first
-                        if (getQualifiedClassName(a) == "Object")
+                        var isDynamicObject:Boolean = true;
+                        try
+                        {
+							// this test for checking whether an object is dynamic or not is 
+							// pretty hacky, but it assumes that no-one actually has a 
+							// property defined called "wootHackwoot"
+                            a["wootHackwoot"];
+                        }
+                        catch (e:Error)
+                        {
+                            // our object isn't from a dynamic class
+                            isDynamicObject = false;
+                        }
+                        
+                        // if it's dynamic, check to see that they have all the same properties
+                        if (isDynamicObject)
                         {
                             bProps = getClassInfo(b).properties;
                             result = arrayCompare(aProps, bProps, currentDepth, newDepth, refs);
+                            if (result != 0)
+                                return result;
                         }
                         
-                        if (result != 0)
-                        {
-                            return result;
-                        }
-                        
-                        // loop through all of the properties and compare
+                        // now that we know we have the same properties, let's compare the values
                         var propName:QName;
                         var aProp:Object;
                         var bProp:Object;
@@ -835,7 +844,7 @@ public class ObjectUtil
                             result = internalCompare(aProp, bProp, currentDepth+1, newDepth, refs);
                             if (result != 0)
                             {
-                                i = aProps.length;
+                                return result;
                             }
                         }
                     }
@@ -1376,6 +1385,26 @@ public class ObjectUtil
         }
 
         return result;
+    }
+    
+    /**
+     * @private
+	 * This is the "find" for our union-find algorithm when doing object searches.
+	 * The dictionary keeps track of sets of equal objects
+     */
+    private static function getRef(o:Object, refs:Dictionary):Object
+    {
+        var oRef:Object = refs[o]; 
+        while (oRef && oRef != refs[oRef])
+        {
+            oRef = refs[oRef];
+        }
+        if (!oRef)
+            oRef = o;
+        if (oRef != refs[o])
+            refs[o] = oRef;
+        
+        return oRef
     }
     
     /**
