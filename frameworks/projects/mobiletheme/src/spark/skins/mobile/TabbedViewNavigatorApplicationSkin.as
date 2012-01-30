@@ -103,6 +103,8 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
     override protected function createChildren():void
     {
         navigator = new TabbedViewNavigator();
+        navigator.id = "navigator";
+        
         addChild(navigator);
     }
     
