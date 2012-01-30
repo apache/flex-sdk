@@ -28,6 +28,7 @@
 <component id="SparkImageAutomationImpl"  class="spark.automation.delegates.components.SparkImageAutomationImpl"/>     
 <component id="SparkToggleButtonAutomationImpl"  class="spark.automation.delegates.components.SparkToggleButtonAutomationImpl"/>
 <component id="SparkGroupAutomationImpl"  class="spark.automation.delegates.components.SparkGroupAutomationImpl"/>            
+<component id="SparkVideoDisplayAutomationImpl"  class="spark.automation.delegates.components.SparkVideoDisplayAutomationImpl"/>
 <component id="SparkVideoPlayerAutomationImpl"  class="spark.automation.delegates.components.SparkVideoPlayerAutomationImpl"/>
 <component id="SparkLabelAutomationImpl"  class="spark.automation.delegates.components.SparkLabelAutomationImpl"/>            
 <component id="SparkTextAreaAutomationImpl"  class="spark.automation.delegates.components.SparkTextAreaAutomationImpl"/>
