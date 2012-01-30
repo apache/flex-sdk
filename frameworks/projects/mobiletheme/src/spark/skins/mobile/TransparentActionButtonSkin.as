@@ -27,10 +27,10 @@ import spark.skins.mobile320.assets.TransparentActionButton_up;
 use namespace mx_internal;
 
 /**
- *  The default skin class for buttons in the Spark ActionBar component in mobile applications.  
+ *  The default skin class for buttons in the action area of the Spark ActionBar component 
+ *  in mobile applications.  
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -45,7 +45,6 @@ public class TransparentActionButtonSkin extends ActionBarButtonSkinBase
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
