@@ -207,7 +207,7 @@ public class HSliderDataTip extends UIComponent implements IDataRenderer
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 fontSize = "15";
                 leftTextPadding = 7;
                 leftRightTextPadding = 14;
