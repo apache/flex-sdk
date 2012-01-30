@@ -17,7 +17,6 @@ import flash.events.KeyboardEvent;
 import flash.events.StageOrientationEvent;
 import flash.net.registerClassAlias;
 
-import mx.core.ContainerCreationPolicy;
 import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
 
@@ -80,8 +79,6 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:TabbedViewNavigatorApplication
  *    <strong>Properties</strong>
- *    creationPolicy="auto"
- *    maintainNavigationStack="true"
  *    navigators="null"
  * 
  *  /&gt;
@@ -107,14 +104,14 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
     [Bindable]
     [SkinPart(required="false")]
     /**
-     *  The main navigator for the application.
+     *  The main tabbedNavigator for the application.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var navigator:TabbedViewNavigator;
+    public var tabbedNavigator:TabbedViewNavigator;
     
     //--------------------------------------------------------------------------
     //
@@ -144,11 +141,6 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
      */
     private var navigatorProperties:Object = {};
     
-    /**
-     *  @private
-     */ 
-    private var maintainNavigationStackPropSet:Boolean = false;
-    
     //----------------------------------
     //  activeView
     //----------------------------------
@@ -158,8 +150,8 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
      */ 
     override mx_internal function get activeView():View
     {
-        if (navigator)
-            return navigator.activeView;
+        if (tabbedNavigator)
+            return tabbedNavigator.activeView;
         
         return null;
     }
@@ -178,51 +170,10 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
      */ 
     override mx_internal function get exitApplicationOnBackKey():Boolean
     {
-        if (navigator)
-            return navigator.exitApplicationOnBackKey;
+        if (tabbedNavigator)
+            return tabbedNavigator.exitApplicationOnBackKey;
         
         return super.exitApplicationOnBackKey;
-    }
-    
-    //----------------------------------
-    //  creationPolicy
-    //----------------------------------
-    private var _explicitCreationPolicy:String = ContainerCreationPolicy.AUTO;
-
-    /**
-     *  <p>TabbedViewNavigatorApplication cannot have visual elements
-     *  added to it, so the creation policy concept use by the framework
-     *  does not necessarily apply.  
-     *  Instead, this property controls whether the application's child 
-     *  view navigators create their children when the application initializes.</p>
-     * 
-     *  @inheritDoc
-     *
-     *  @default "auto"
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    override public function get creationPolicy():String
-    {
-        return _explicitCreationPolicy;
-    }
-    
-    /**
-     *  @private
-     */ 
-    override public function set creationPolicy(value:String):void
-    {
-        // Don't want to change real creationPolicy property
-        if (value != _explicitCreationPolicy)
-        {
-            _explicitCreationPolicy = value;
-            
-            if (navigator)
-                navigator.creationPolicy = _explicitCreationPolicy;
-        }
     }
     
     //----------------------------------
@@ -240,8 +191,8 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
      */
     public function get navigators():Vector.<ViewNavigatorBase>
     {
-        if (navigator)
-            return navigator.navigators;
+        if (tabbedNavigator)
+            return tabbedNavigator.navigators;
         else
             return navigatorProperties.navigators;
     }
@@ -250,47 +201,10 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
      */
     public function set navigators(value:Vector.<ViewNavigatorBase>):void
     {
-        if (navigator)
-            navigator.navigators = value;
+        if (tabbedNavigator)
+            tabbedNavigator.navigators = value;
         else
             navigatorProperties.navigators = value;
-    }
-    
-    //----------------------------------
-    //  maintainNavigationStack
-    //----------------------------------
-    /**
-     *  @copy spark.components.TabbedViewNavigator#maintainNavigationStack
-     * 
-     *  @default true
-     *  
-     *  @see spark.components.TabbedViewNavigator
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get maintainNavigationStack():Boolean
-    {
-        if (navigator)
-            return navigator.maintainNavigationStack;
-        else
-            return navigatorProperties.maintainNavigationStack;
-    }
-    
-    /**
-     *  @private
-     */ 
-    public function set maintainNavigationStack(value:Boolean):void
-    {
-        if (navigator)
-        {
-            navigator.maintainNavigationStack = value;
-            maintainNavigationStackPropSet = true;
-        }
-        else
-            navigatorProperties.maintainNavigationStack = value;
     }
     
     //--------------------------------------------------------------------------
@@ -312,19 +226,19 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
         // state could potentially be wrong.  Wait for the next stage resize event
         // so that the runtime has a chance to discover its orientation and then 
         // properly update and activate the view
-        if (navigator)
+        if (tabbedNavigator)
         {
-            if (navigator.activeView)
+            if (tabbedNavigator.activeView)
                 systemManager.stage.addEventListener(Event.RESIZE, stage_resizeHandler);
         }
         
         // Set the stage focus to the navigator's active view
-        if (systemManager.stage.focus == null && navigator)
+        if (systemManager.stage.focus == null && tabbedNavigator)
         {
-            if (navigator.activeView)
-                systemManager.stage.focus = navigator.activeView;
+            if (tabbedNavigator.activeView)
+                systemManager.stage.focus = tabbedNavigator.activeView;
             else
-                systemManager.stage.focus = navigator;
+                systemManager.stage.focus = tabbedNavigator;
         }
     }
     
@@ -339,7 +253,7 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
         
         // The active view was deactivated when the application was suspended.  We
         // need to reactivate it here.
-        var view:View = navigator.activeView;;
+        var view:View = tabbedNavigator.activeView;;
         if (!view.isActive)
             view.setActive(true);
     }
@@ -349,8 +263,8 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
      */ 
     override protected function deactivateHandler(event:Event):void
     {
-        if (navigator && navigator.activeView)
-            navigator.activeView.setActive(false);
+        if (tabbedNavigator && tabbedNavigator.activeView)
+            tabbedNavigator.activeView.setActive(false);
         
         // super is called after so that the active view can get the
         // viewDeactive event before the persistence process begins.
@@ -366,8 +280,8 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
         
         if (viewMenuOpen)
             viewMenuOpen = false;
-        else if (navigator)
-            navigator.backKeyUpHandler();
+        else if (tabbedNavigator)
+            tabbedNavigator.backKeyUpHandler();
     }
     
     /**
@@ -378,7 +292,7 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
         super.saveNavigatorState();
         
         if (navigators.length > 0)
-            persistenceManager.setProperty("navigatorState", navigator.saveViewData());
+            persistenceManager.setProperty("navigatorState", tabbedNavigator.saveViewData());
     }
 
     /**
@@ -391,7 +305,7 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
         var savedState:Object = persistenceManager.getProperty("navigatorState");
         
         if (savedState)
-            navigator.loadViewData(savedState);
+            tabbedNavigator.loadViewData(savedState);
     }
     
     //--------------------------------------------------------------------------
@@ -407,25 +321,15 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
     {
         super.partAdded(partName, instance);
         
-        if (instance == navigator)
+        if (instance == tabbedNavigator)
         {
-            var newNavigatorProperties:uint = 0;
-            
-            navigator.creationPolicy = _explicitCreationPolicy;
-            
             if (navigatorProperties.navigators !== undefined)
             {
-                navigator.navigators = navigatorProperties.navigators;
-            }
-            
-            if (navigatorProperties.maintainNavigationStack !== undefined)
-            {
-                navigator.maintainNavigationStack = navigatorProperties.maintainNavigationStack;
-                maintainNavigationStackPropSet = true;
+                tabbedNavigator.navigators = navigatorProperties.navigators;
             }
             
             // Set the stage focus to the navigator
-            systemManager.stage.focus = navigator;
+            systemManager.stage.focus = tabbedNavigator;
         }
     }
     
@@ -435,17 +339,6 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
     override protected function partRemoved(partName:String, instance:Object):void
     {
         super.partRemoved(partName, instance);
-        
-        if (instance == navigator)
-        {
-            // Always want to save the navigation stack
-            var newNavigatorProperties:Object = {navigationStack: navigator.navigationStack};
-            
-            if (maintainNavigationStackPropSet)
-                newNavigatorProperties.maintainNavigationStack = navigator.maintainNavigationStack;
-            
-            navigatorProperties = newNavigatorProperties;
-        }
     }
 }
 }
