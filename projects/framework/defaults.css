@@ -586,7 +586,7 @@ DataGrid
 	headerDragProxyStyleName: "headerDragProxyStyle";
 	headerBackgroundSkin: ClassReference("mx.skins.spark.DataGridHeaderBackgroundSkin");
 	headerSeparatorSkin: ClassReference("mx.skins.spark.DataGridHeaderSeparatorSkin");
-	sortArrowSkin: ClassReference("mx.skins.halo.DataGridSortArrow");
+	sortArrowSkin: ClassReference("mx.skins.spark.DataGridSortArrow");
 	stretchCursor: Embed(source="Assets.swf",symbol="cursorStretch");
 	verticalGridLineColor: #696969;
 }
@@ -975,10 +975,10 @@ Menu
 {
 	backgroundAlpha: 0.95;
 	borderStyle: "menuBorder";
-	branchDisabledIcon: Embed(source="assets/MenuArrow_disabled.png");
-	branchIcon: Embed(source="assets/MenuArrow.png");
-	checkDisabledIcon: Embed(source="Assets.swf",symbol="MenuCheckDisabled");
-	checkIcon: Embed(source="Assets.swf",symbol="MenuCheckEnabled");
+	branchDisabledIcon : ClassReference("mx.skins.spark.MenuArrowDisabled");
+	branchIcon : ClassReference("mx.skins.spark.MenuArrow");
+	checkDisabledIcon : ClassReference("mx.skins.spark.MenuCheckDisabled");
+	checkIcon : ClassReference("mx.skins.spark.MenuCheck");
 	dropIndicatorSkin: ClassReference("mx.skins.halo.ListDropIndicator");
 	dropShadowEnabled: true;
 	horizontalGap: 6;
@@ -988,8 +988,8 @@ Menu
 	paddingLeft: 1;
 	paddingRight: 0;
 	paddingTop: 1;
-	radioIcon: Embed(source="Assets.swf",symbol="MenuRadioEnabled");
-	radioDisabledIcon: Embed(source="Assets.swf",symbol="MenuRadioDisabled");
+	radioDisabledIcon : ClassReference("mx.skins.spark.MenuRadioDisabled");
+	radioIcon : ClassReference("mx.skins.spark.MenuRadio");
 	separatorSkin: ClassReference("mx.skins.spark.MenuSeparatorSkin");
 	verticalAlign: "middle";
 }
@@ -1175,7 +1175,7 @@ PrintDataGrid
 	headerStyleName: "dataGridStyles";
 	horizontalGridLineColor: 0;
 	horizontalGridLines: true;
-	sortArrowSkin: ClassReference("mx.skins.halo.DataGridSortArrow");
+	sortArrowSkin: ClassReference("mx.skins.spark.DataGridSortArrow");
 	stretchCursor: Embed(source="Assets.swf",symbol="cursorStretch");
 	verticalGridLineColor: #000000;
 }
