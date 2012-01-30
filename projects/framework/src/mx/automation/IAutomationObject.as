@@ -21,6 +21,11 @@ import flash.events.MouseEvent;
  * The IAutomationObject interface defines the interface 
  * for a delegate object that implements automation
  * for a component.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IAutomationObject 
 {
@@ -37,6 +42,11 @@ public interface IAutomationObject
     /**
      *  The delegate object that is handling the automation-related functionality.
      *  Automation sets this when it creates the delegate object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get automationDelegate():Object;
 
@@ -51,6 +61,11 @@ public interface IAutomationObject
 
     /**
      *  Name that can be used as an identifier for this object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get automationName():String;
 
@@ -67,6 +82,11 @@ public interface IAutomationObject
      *  This value generally corresponds to the rendered appearance of the 
      *  object and should be usable for correlating the identifier with
      *  the object as it appears visually within the application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get automationValue():Array;
  
@@ -79,6 +99,11 @@ public interface IAutomationObject
      * 
      *  @return Sets of properties describing the child which can
      *          later be used to resolve the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function createAutomationIDPart(child:IAutomationObject):Object;
 
@@ -91,6 +116,11 @@ public interface IAutomationObject
      *         resulting in multiple children being matched.
      *  @return Array of children that matched the criteria
      *          or <code>null</code> if no children could not be resolved.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function resolveAutomationIDPart(criteria:Object):Array;
 
@@ -101,6 +131,11 @@ public interface IAutomationObject
      *  @param index The index of the child to return
      * 
      *  @return The child at the specified index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getAutomationChildAt(index:int):IAutomationObject;
 
@@ -109,6 +144,11 @@ public interface IAutomationObject
      *  This sum should not include any composite children, though
      *  it does include those children not significant within the
      *  automation hierarchy.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get numAutomationChildren():int;
 
@@ -126,6 +166,11 @@ public interface IAutomationObject
      *  including boxes, to appear in the hierarchy.
      *  Implementers must support setting this property
      *  to <code>true</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get showInAutomationHierarchy():Boolean;
 
@@ -139,6 +184,11 @@ public interface IAutomationObject
      * can be used to retrieve the data.
      * 
      * @return An implementation of the <code>IAutomationTabularData</code> interface.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get automationTabularData():Object;
 
@@ -150,6 +200,11 @@ public interface IAutomationObject
      *  @param event The event to replay.
      *
      *  @return <code>true</code> if a replay was successful.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function replayAutomatableEvent(event:Event):Boolean;
     
