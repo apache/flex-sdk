@@ -71,6 +71,11 @@ use namespace mx_internal;
  *  <p>The FocusManager also managers the concept of a defaultButton, which is
  *  the Button on a form that dispatches a click event when the Enter key is pressed
  *  depending on where focus is at that time.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FocusManager implements IFocusManager
 {
@@ -106,6 +111,11 @@ public class FocusManager implements IFocusManager
      *
      *  @param popup If <code>true</code>, indicates that the container
      *  is a popup component and not the main application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FocusManager(container:IFocusManagerContainer, popup:Boolean = false)
     {
@@ -322,6 +332,11 @@ public class FocusManager implements IFocusManager
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showFocusIndicator():Boolean
     {
@@ -358,6 +373,11 @@ public class FocusManager implements IFocusManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get defaultButton():IButton
     {
@@ -400,6 +420,11 @@ public class FocusManager implements IFocusManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get defaultButtonEnabled():Boolean
     {
@@ -426,6 +451,11 @@ public class FocusManager implements IFocusManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get focusPane():Sprite
     {
@@ -494,6 +524,11 @@ public class FocusManager implements IFocusManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nextTabIndex():int
     {
@@ -504,6 +539,11 @@ public class FocusManager implements IFocusManager
      *  Gets the highest tab index currently used in this Focus Manager's form or subform.
      *
      *  @return Highest tab index currently used.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function getMaxTabIndex():int
     {
@@ -528,6 +568,11 @@ public class FocusManager implements IFocusManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getFocus():IFocusManagerComponent
     {
@@ -537,6 +582,11 @@ public class FocusManager implements IFocusManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setFocus(o:IFocusManagerComponent):void
     {
@@ -632,6 +682,11 @@ public class FocusManager implements IFocusManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function showFocus():void
     {
@@ -645,6 +700,11 @@ public class FocusManager implements IFocusManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function hideFocus():void
     {
@@ -669,6 +729,11 @@ public class FocusManager implements IFocusManager
      *
      *  <p>The FocusManager adds event handlers that allow it to monitor
      *  focus related keyboard and mouse activity.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function activate():void
     {
@@ -735,6 +800,11 @@ public class FocusManager implements IFocusManager
      *
      *  <p>The FocusManager removes event handlers that allow it to monitor
      *  focus related keyboard and mouse activity.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function deactivate():void
     {
@@ -776,6 +846,11 @@ public class FocusManager implements IFocusManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function findFocusManagerComponent(
                             o:InteractiveObject):IFocusManagerComponent
@@ -820,6 +895,11 @@ public class FocusManager implements IFocusManager
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function moveFocus(direction:String, fromDisplayObject:DisplayObject = null):void
 	{
@@ -1007,6 +1087,11 @@ public class FocusManager implements IFocusManager
     /**
      *  Call this method to make the system
      *  think the Enter key was pressed and the defaultButton was clicked
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function sendDefaultButtonEvent():void
     {
@@ -1343,6 +1428,11 @@ public class FocusManager implements IFocusManager
 	
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getNextFocusManagerComponent(
                             backward:Boolean = false):IFocusManagerComponent
@@ -1357,6 +1447,11 @@ public class FocusManager implements IFocusManager
 	 * @param fromObject object to move focus from, if null move from the current focus.
 	 * @param formIndex index to move focus from, if specified use fromIndex to find the 
 	 * 		   			object, not fromObject.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function getNextFocusManagerComponent2(
                             backward:Boolean = false, 
@@ -1464,6 +1559,11 @@ public class FocusManager implements IFocusManager
      *
      *  @return Returns a String representation of the component hosting the FocusManager object, 
      *  with the String <code>".focusManager"</code> appended to the end of the String.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function toString():String
     {
@@ -1536,6 +1636,11 @@ public class FocusManager implements IFocusManager
 	 * add the form and its children to the list of focuable objects because 
 	 * this application may have been loaded before the
 	 * top-level system manager was added to the stage.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function addedToStageHandler(event:Event):void
 	{
@@ -2022,6 +2127,11 @@ public class FocusManager implements IFocusManager
 	 * called, focusable content will become part of the tab order.
 	 * When the top-level focus manager is called the bridge becomes
 	 * one of the focus managers managed by the top-level focus manager.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function addSWFBridge(bridge:IEventDispatcher, owner:DisplayObject):void
 	{
@@ -2048,6 +2158,11 @@ public class FocusManager implements IFocusManager
 	
 	/**
 	 * @inheritdoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function removeSWFBridge(bridge:IEventDispatcher):void
 	{
@@ -2076,6 +2191,11 @@ public class FocusManager implements IFocusManager
 	}
 	
 	/**
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function removeFromParentBridge(event:Event):void
 	{
@@ -2135,6 +2255,11 @@ public class FocusManager implements IFocusManager
      *  Get the bridge to the parent focus manager.
      * 
      *  @return parent bridge or null if there is no parent bridge.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     private function getParentBridge():IEventDispatcher
     {
@@ -2190,6 +2315,11 @@ public class FocusManager implements IFocusManager
      *  bridges of its System Manager if the Focus Manager is managing a pop up. In the case of
      *  a pop up don't send messages to the SM parent bridge because that will be the form. But
      *  do send the messages to the bridges in bridgeFocusManagers dictionary.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null):void
     {
