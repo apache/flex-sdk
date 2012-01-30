@@ -20,6 +20,11 @@ import flash.events.IEventDispatcher;
  *  The event lets objects in other sandboxes know what is going on in this sandbox.
  *  The events are informational in nature as opposed to a SWFBridgeRequest,
  *  which request an object do something on its behalf.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SWFBridgeEvent extends Event
 {
@@ -34,6 +39,11 @@ public class SWFBridgeEvent extends Event
 	/**
 	 *	Dispatched to a parent bridge or sandbox root to notify it that
 	 *  another application has been activated.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static const BRIDGE_APPLICATION_ACTIVATE:String =
         "bridgeApplicationActivate";
@@ -43,12 +53,22 @@ public class SWFBridgeEvent extends Event
 	 *  that the SWF is about to be unloaded. The SystemManager marshals and
 	 *  re-dispatches the event so that application code can remove references
 	 *  that would prevent the SWF file from unloading.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public static const BRIDGE_APPLICATION_UNLOADING:String = "bridgeApplicationUnloading";
 
 	/**
 	 *  Dispatched through bridges to all other FocusManagers to notify them
 	 *  that another FocusManager is now active.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const BRIDGE_FOCUS_MANAGER_ACTIVATE:String =
         "bridgeFocusManagerActivate";
@@ -56,6 +76,11 @@ public class SWFBridgeEvent extends Event
 	/**
 	 *  Dispatched through a parent bridge to its SWFLoader to notify it
 	 *  that a new SystemManager has been initialized. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const BRIDGE_NEW_APPLICATION:String =
         "bridgeNewApplication";
@@ -74,6 +99,11 @@ public class SWFBridgeEvent extends Event
      *  application dispatching the event. The event might be dispatched
      *  directly to a sandbox root instead of over a bridge, so <code>event.target</code>
      *  might not be the bridge of the application dispatching the event.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static const BRIDGE_WINDOW_ACTIVATE:String = "bridgeWindowActivate";
 
@@ -91,6 +121,11 @@ public class SWFBridgeEvent extends Event
      *  application dispatching the event. The event might be dispatched
      *  directly to a sandbox root instead of over a bridge, so <code>event.target</code>
      *  might not be the bridge of the application dispatching the event.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static const BRIDGE_WINDOW_DEACTIVATE:String = "brdigeWindowDeactivate";
 
@@ -107,6 +142,11 @@ public class SWFBridgeEvent extends Event
      *  @param event A SWFBridgeRequest which might have been created in a different ApplicationDomain.
      * 
      *  @return A SWFBridgeEvent that was created in the caller's ApplicationDomain.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function marshal(event:Event):SWFBridgeEvent
     {
@@ -135,6 +175,11 @@ public class SWFBridgeEvent extends Event
 	 *  @param data An object that is null by default, but can contain information about the event, depending on the 
 	 *  type of event. 
 	 *  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SWFBridgeEvent(type:String, bubbles:Boolean = false,
                                        cancelable:Boolean = false, 
@@ -157,6 +202,11 @@ public class SWFBridgeEvent extends Event
 
 	/**
 	 *  Information about the event.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var data:Object;
 	
