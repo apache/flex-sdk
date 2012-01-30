@@ -250,20 +250,14 @@ public class MenuAccImpl extends ListBaseAccImpl
 	 */
 	override protected function getName(childID:uint):String
 	{
-		if (childID == 0 || childID > 100000)
+		if (childID == 0)
 			return "";
 
-		var name:String;
-
 		var menu:Menu = Menu(master);
+
 		var item:Object = menu.dataProvider[childID - 1];
 
-		if (menu.dataDescriptor.isBranch(item))
-			name = menu.itemToLabel(item);
-		else
-			name = menu.itemToLabel(item);
-
-		return name;
+		return menu.itemToLabel(item);
 	}
 
 	//--------------------------------------------------------------------------
