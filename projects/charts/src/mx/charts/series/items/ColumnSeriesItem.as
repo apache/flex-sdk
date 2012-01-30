@@ -15,7 +15,6 @@ package mx.charts.series.items
 import mx.charts.ChartItem;
 import mx.charts.series.ColumnSeries;
 import mx.graphics.IFill;
-import mx.controls.Label;
 
 /**
  *  Represents the information required to render an item as part of a ColumnSeries. The ColumnSeries class passes these items to its itemRenderer when rendering.
@@ -81,7 +80,7 @@ public class ColumnSeriesItem extends ChartItem
     /**
      *  @private
      */
-    mx_internal var label:Label;
+    mx_internal var label:Object;
 
     /**
      *  @private
