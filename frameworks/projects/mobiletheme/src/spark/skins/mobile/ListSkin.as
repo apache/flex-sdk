@@ -134,6 +134,7 @@ public class ListSkin extends MobileSkin
             scroller = new Scroller();
             scroller.minViewportInset = 1;
             scroller.hasFocusableChildren = false;
+            scroller.ensureFocusedElementIsVisible = false;
             addChild(scroller);
         }
         
