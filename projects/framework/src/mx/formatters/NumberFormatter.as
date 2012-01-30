@@ -584,6 +584,12 @@ public class NumberFormatter extends Formatter
         var isNegative:Boolean = (Number(value) < 0);
 
         var numStr:String = value.toString();
+        
+        numStr.toLowerCase();
+        var e:int = numStr.indexOf("e");
+        if (e != -1)  //deal with exponents
+            numStr = dataFormatter.expandExponents(numStr);
+            
         var numArrTemp:Array = numStr.split(".");
         var numFraction:int = numArrTemp[1] ? String(numArrTemp[1]).length : 0;
 
