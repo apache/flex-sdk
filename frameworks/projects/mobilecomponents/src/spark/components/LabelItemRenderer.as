@@ -827,8 +827,12 @@ public class LabelItemRenderer extends UIComponent
 		}
 		else
 		{
-            var alternatingColors:Array = getStyle("alternatingItemColors");
-            
+			var alternatingColors:Array;
+            var alternatingColorsStyle:Object = getStyle("alternatingItemColors");
+
+			if (alternatingColorsStyle)
+				alternatingColors = (alternatingColorsStyle is Array) ? (alternatingColorsStyle as Array) : [alternatingColorsStyle];
+			
             if (alternatingColors && alternatingColors.length > 0)
             {
                 // translate these colors into uints
@@ -838,6 +842,8 @@ public class LabelItemRenderer extends UIComponent
             }
 			else
 			{
+				// don't draw background if it is the contentBackgroundColor. The
+				// list skin handles the background drawing for us. 
 				drawBackground = false;
 			}
 
