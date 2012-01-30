@@ -237,7 +237,8 @@ public class HistoryManagerImpl implements IHistoryManager
 		if (appID)
 			return;
 
-		if (!ApplicationGlobals.application.historyManagementEnabled)
+		if (!("historyManagementEnabled" in ApplicationGlobals.application) ||
+            !ApplicationGlobals.application.historyManagementEnabled)
 			return;
 
 		var loaderInfo:LoaderInfo;
@@ -320,7 +321,8 @@ public class HistoryManagerImpl implements IHistoryManager
 	 */	
 	public function register(obj:IHistoryManagerClient):void
 	{
-		if (!ApplicationGlobals.application.historyManagementEnabled)
+        if (!("historyManagementEnabled" in ApplicationGlobals.application) ||
+            !ApplicationGlobals.application.historyManagementEnabled)
 			return;
 
 		// Ensure that this object isn't already registered.
@@ -486,7 +488,8 @@ public class HistoryManagerImpl implements IHistoryManager
 	 */
 	public function unregister(obj:IHistoryManagerClient):void
 	{
-		if (!ApplicationGlobals.application.historyManagementEnabled)
+        if (!("historyManagementEnabled" in ApplicationGlobals.application) ||
+            !ApplicationGlobals.application.historyManagementEnabled)
 			return;
 
 		// Find the index of the object in the Array of all
@@ -521,7 +524,8 @@ public class HistoryManagerImpl implements IHistoryManager
 	 */	
 	public function save():void
 	{
-		if (!ApplicationGlobals.application.historyManagementEnabled)
+        if (!("historyManagementEnabled" in ApplicationGlobals.application) ||
+            !ApplicationGlobals.application.historyManagementEnabled)
 			return;
 
 		var haveState:Boolean = false;
@@ -578,7 +582,8 @@ public class HistoryManagerImpl implements IHistoryManager
 		{
 			BrowserManager.getInstance().setFragment(pendingQueryString);
 			pendingQueryString = null;
-			ApplicationGlobals.application.resetHistory = true;
+			if ("resetHistory" in ApplicationGlobals.application)
+			    ApplicationGlobals.application.resetHistory = true;
 		}
 	}
 	
@@ -602,7 +607,8 @@ public class HistoryManagerImpl implements IHistoryManager
 		var p:String;
 		var crc:String;
 			
-		if (!ApplicationGlobals.application.historyManagementEnabled)
+        if (!("historyManagementEnabled" in ApplicationGlobals.application) ||
+            !ApplicationGlobals.application.historyManagementEnabled)
 			return;
 
 		var pieces:Array = event.url.split(PROPERTY_SEPARATOR);
