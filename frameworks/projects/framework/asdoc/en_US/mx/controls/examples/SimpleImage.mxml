@@ -1,13 +1,17 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the Image control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo Image control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Panel id="myPanel" title="Image Control Example" 
-        height="75%" width="75%" horizontalAlign="center"
-        paddingTop="10" paddingLeft="10">
+    <s:Panel id="myPanel"
+            title="Halo Image Control Example" 
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText color="blue" text="Image embedded in the application."/>
+            <mx:Image source="@Embed('assets/Nokia_6630.png')"/>
+        </s:VGroup>
+    </s:Panel>
 
-        <mx:Label color="blue" text="Image embedded in the application."/>
-        <mx:Image source="@Embed('assets/Nokia_6630.png')"/>
-
-    </mx:Panel>
-</mx:Application>          
+</s:Application>
