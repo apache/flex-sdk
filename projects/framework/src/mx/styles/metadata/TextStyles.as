@@ -194,7 +194,7 @@
  *  The class implementing IUITextField that is used by this component
  *  to render text.
  *
- *  <p>It can be set to either the <mx.core.UITextField class
+ *  <p>It can be set to either the mx.core.UITextField class
  *  (to use the classic TextField class built into Flash Player)
  *  or the mx.core.UITLFTextField class
  *  (to use the Text Layout Framework to get improved text rendering,
