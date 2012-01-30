@@ -198,7 +198,7 @@ public class SequenceInstance extends CompositeEffectInstance
         
         if (childPlayheadTime < prevPlayheadTime)
         {
-            // FIXME (chaase): Handle seeking back in time
+            // TODO (chaase): Handle seeking back in time
             // idea: Maybe once we get playing a sequence in reverse
             // working perfectly, seeking back in time should essentially 
             // 'play' (with zero duration) the child effects in reverse until
