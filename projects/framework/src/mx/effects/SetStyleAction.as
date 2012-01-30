@@ -46,6 +46,11 @@ import mx.effects.effectClasses.SetStyleActionInstance;
  *  @see mx.states.SetStyle
  *
  *  @includeExample ../states/examples/TransitionExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
  public class SetStyleAction extends Effect
 {
@@ -61,6 +66,11 @@ import mx.effects.effectClasses.SetStyleActionInstance;
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SetStyleAction(target:Object = null)
 	{
@@ -92,6 +102,11 @@ import mx.effects.effectClasses.SetStyleActionInstance;
 	 *  style properties modified by this effect.
 	 *
 	 *  @see mx.effects.Effect#getAffectedProperties()
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function get relevantStyles():Array /* of String */
 	{
@@ -114,6 +129,11 @@ import mx.effects.effectClasses.SetStyleActionInstance;
 	 *  The name of the style property being changed.
 	 *  By default, Flex determines this value from the <code>SetStyle</code>
 	 *  property definition in the view state definition.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var name:String;
 	
@@ -127,6 +147,11 @@ import mx.effects.effectClasses.SetStyleActionInstance;
 	 *  The new value for the style property.
 	 *  By default, Flex determines this value from the <code>SetStyle</code>
 	 *  property definition in the view state definition.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var value:*;
 		
