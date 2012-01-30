@@ -7585,9 +7585,9 @@ public class UIComponent extends FlexSprite
         // set the _layoutFeatures.mirror flag.  Similarly, if mirroring isn't 
         // required, then clear the _layoutFeatures.mirror flag.
         
-        const mirror:Boolean = (systemManager && (systemManager.document == this)) 
-            ? (thisLayoutDirection != "ltr")  // we're the Application, parent is null
-            : (parentElt && (parentElt.layoutDirection != thisLayoutDirection));
+        const mirror:Boolean = (parentElt) 
+            ? (parentElt.layoutDirection != thisLayoutDirection)
+            : ("ltr" != thisLayoutDirection);
         
         if ((_layoutFeatures) ? (mirror != _layoutFeatures.mirror) : mirror)
         {
@@ -7596,12 +7596,12 @@ public class UIComponent extends FlexSprite
             _layoutFeatures.mirror = mirror;
             invalidateTransform();
         }
-      
+        
         //  If this is a leaf node, then we're done.  If not, the styleChanged() machinery
         //  (via commitProperties()) will deal with UIComponent children.   We have to 
         //  deal with IVisualElement children that don't support styles, like 
         //  GraphicElements, here.
-
+        
         if (!(this is IVisualElementContainer))
             return;
         
@@ -7614,7 +7614,7 @@ public class UIComponent extends FlexSprite
             if (!(elt is IStyleClient)) 
                 elt.invalidateLayoutDirection();
         }        
-    }        
+    }  
 
     private function transformOffsetsChangedHandler(e:Event):void
     {
@@ -8601,7 +8601,6 @@ public class UIComponent extends FlexSprite
      */
     public function validateDisplayList():void
     {
-        validateMatrix();
         oldLayoutDirection = layoutDirection;
         
         if (invalidateDisplayListFlag)
@@ -8613,11 +8612,15 @@ public class UIComponent extends FlexSprite
                 if (sm.isProxy || (sm == systemManager.topLevelSystemManager &&
                     sm.document != this))
                 {
-                    // Size ourself to the new measured width/height
+                    // Size ourself to the new measured width/height   This can
+                    // cause the _layoutFeatures computed matrix to become invalid 
                     setActualSize(getExplicitOrMeasuredWidth(),
                                   getExplicitOrMeasuredHeight());
                 }
             }
+            
+            // Don't validate transform.matrix until after setting actual size
+            validateMatrix();
 
             var unscaledWidth:Number = width;
             var unscaledHeight:Number = height;
@@ -8643,6 +8646,9 @@ public class UIComponent extends FlexSprite
             // LAYOUT_DEBUG
             // LayoutManager.debugHelper.addElement(ILayoutElement(this));
         }
+        else
+            validateMatrix();
+                    
     }
 
     /**
