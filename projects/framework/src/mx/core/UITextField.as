@@ -1454,6 +1454,7 @@ public class UITextField extends FlexTextField
     public function set moduleFactory(factory:IFlexModuleFactory):void
     {
         _moduleFactory = factory;
+        _styleManager = null;
     }
 
     //----------------------------------
@@ -1620,6 +1621,11 @@ public class UITextField extends FlexTextField
     
     /**
      *  @private
+     */
+    private var _styleManager:IStyleManager2;
+
+    /**
+     *  @private
      * 
      *  Returns the style manager used by this component.
      *  
@@ -1630,7 +1636,11 @@ public class UITextField extends FlexTextField
      */
     public function get styleManager():IStyleManager2
     {
-        return StyleManager.getStyleManager(moduleFactory);
+        if (!_styleManager)
+        {
+            _styleManager = StyleManager.getStyleManager(moduleFactory);
+        }
+        return _styleManager;
     }
     
     //----------------------------------
@@ -2193,7 +2203,7 @@ public class UITextField extends FlexTextField
                 embedFonts = getStyle("embedFonts");
             }
 
-            if (getStyle("fontAntiAliasType") != undefined)
+            if (embedFonts && getStyle("fontAntiAliasType") != undefined)
             {
                 antiAliasType = getStyle("fontAntiAliasType");
                 gridFitType = getStyle("fontGridFitType");
