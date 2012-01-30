@@ -12,6 +12,7 @@
 package spark.skins.mobile
 {
 import flash.display.GradientType;
+import flash.display.Graphics;
 import flash.events.Event;
 import flash.geom.Matrix;
 import flash.text.TextFormatAlign;
@@ -57,6 +58,7 @@ public class ActionBarSkin extends MobileSkin
     public function ActionBarSkin()
     {
         super();
+        useChromeColor = true;
     }
     
     //--------------------------------------------------------------------------
@@ -65,11 +67,11 @@ public class ActionBarSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
-    private static var BORDER_HEIGHT:uint = 1;
+    private static const BORDER_HEIGHT:uint = 1;
     
-    private static var SHADOW_HEIGHT:uint = 3;
+    private static const SHADOW_HEIGHT:uint = 3;
     
-    private static var CONTENT_GROUP_HEIGHT:uint = 65;
+    private static const CONTENT_GROUP_HEIGHT:uint = 65;
     
     public var hostComponent:ActionBar;
     
@@ -88,10 +90,6 @@ public class ActionBarSkin extends MobileSkin
     public var titleDisplay:TitleDisplayComponent;
     
     private var border:SpriteVisualElement;
-    
-    private static var matrix:Matrix = new Matrix();
-    
-    private static const ratios:Array = [0, 127.5, 255];
     
     //--------------------------------------------------------------------------
     //
@@ -201,10 +199,6 @@ public class ActionBarSkin extends MobileSkin
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
     {
-        graphics.clear();
-        
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
         var navigationGroupWidth:Number = 0;
         
         var titleCompX:Number = 0;
@@ -342,7 +336,11 @@ public class ActionBarSkin extends MobileSkin
             titleDisplay.visible = true;
         }
         
-        // Draw the gradient background
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+    }
+    
+    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
+    {
         var chromeColor:uint = getStyle("chromeColor");
         var backgroundAlphaValue:Number = getStyle("backgroundAlpha");
         var colors:Array = [];
@@ -352,15 +350,18 @@ public class ActionBarSkin extends MobileSkin
         var backgroundAlphas:Array = [backgroundAlphaValue, backgroundAlphaValue, backgroundAlphaValue];
         
         // exclude top and bottom 1px borders
-        matrix.createGradientBox(unscaledWidth, contentGroupsHeight, Math.PI / 2, 0, 0);
+        matrix.createGradientBox(unscaledWidth, unscaledHeight - (BORDER_HEIGHT * 2), Math.PI / 2, 0, 0);
         
         colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
         colors[1] = chromeColor;
         colors[2] = ColorUtil.adjustBrightness2(chromeColor, -20);
         
-        graphics.beginGradientFill(GradientType.LINEAR, colors, backgroundAlphas, ratios, matrix);
-        graphics.drawRect(0, BORDER_HEIGHT, unscaledWidth, contentGroupsHeight);
-        graphics.endFill();
+        chromeColorGraphics.beginGradientFill(GradientType.LINEAR, colors, backgroundAlphas, ratios, matrix);
+    }
+    
+    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        chromeColorGraphics.drawRect(0, BORDER_HEIGHT, unscaledWidth, unscaledHeight - (BORDER_HEIGHT * 2));
     }
 }
 }
@@ -480,7 +481,7 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         titleDisplay.truncateToFit();
         
         titleDisplayShadow.commitStyles();
-        titleDisplayShadow.y = titleDisplay.y - 1; // -90 degree shadow
+        titleDisplayShadow.y = titleDisplay.y + 1; // degree shadow down
         titleDisplayShadow.width = unscaledWidth;
         titleDisplayShadow.height = unscaledHeight;
         
