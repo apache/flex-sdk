@@ -66,6 +66,10 @@ public class Transform extends flash.geom.Transform
 
     mx_internal var applyColorTransformAlpha:Boolean = false;
     
+    mx_internal var applyMatrix:Boolean = false;
+    
+    mx_internal var applyMatrix3D:Boolean = false;
+    
     /**
      *  @private
      */ 
@@ -129,6 +133,9 @@ public class Transform extends flash.geom.Transform
             ILayoutElement(target).setLayoutMatrix(value, true);
         else 
             super.matrix = value;
+        
+        applyMatrix = value != null;
+        applyMatrix3D = false;
     }
 
     /**
@@ -150,6 +157,9 @@ public class Transform extends flash.geom.Transform
             ILayoutElement(target).setLayoutMatrix3D(value, true);
         else 
             super.matrix3D = value;
+        
+        applyMatrix3D = value != null;
+        applyMatrix = false;
     }
 
     /**
