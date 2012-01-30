@@ -81,10 +81,10 @@ public class StyleProtoChain
      */
     public static function getClassStyleDeclarations(object:IStyleClient):Array
     {
-        var className:String = object.className;
+        var qualified:Boolean = FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0 ? false : true;
+        var className:String = qualified ? getQualifiedClassName(object) : object.className;
         var advancedObject:IAdvancedStyleClient = object as IAdvancedStyleClient;
 
-        var qualified:Boolean = FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0 ? false : true;
         var typeHierarchy:OrderedObject = getTypeHierarchy(object, qualified);
         var types:Array = typeHierarchy.propertyList;
         var typeCount:int = types.length;
