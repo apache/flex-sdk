@@ -41,6 +41,11 @@ import mx.preloaders.Preloader;
  *  @see spark.Application#splashScreenImage
  *  @see spark.Application#splashScreenScaleMode
  *  @see spark.Application#splashScreenMinimumDisplayTime
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class SplashScreen extends Sprite implements IPreloaderDisplay
 {
@@ -50,6 +55,14 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function SplashScreen()
     {
         super();
@@ -97,9 +110,9 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get backgroundAlpha():Number 
     { 
@@ -121,9 +134,9 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function get backgroundColor():uint
     {
@@ -145,9 +158,9 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get backgroundImage():Object
     {
@@ -169,9 +182,9 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get backgroundSize():String
     {
@@ -199,9 +212,9 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @copy mx.preloaders.DownloadProgressBar#preloader
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function set preloader(obj:Sprite):void
     {
@@ -218,9 +231,9 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @copy mx.preloaders.DownloadProgressBar#stageHeight
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get stageHeight():Number
     { 
@@ -245,9 +258,9 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @copy mx.preloaders.DownloadProgressBar#stageWidth
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get stageWidth():Number
     { 
@@ -272,9 +285,9 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @copy mx.preloaders.DownloadProgressBar#initialize()
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function initialize():void
     {
