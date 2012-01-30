@@ -180,7 +180,16 @@ public class MovieClipSWFLoader extends SWFLoader
     {
         var movieClip:MovieClip = this.movieClip;
         if (movieClip)
-            movieClip.gotoAndStop(0, movieClip.scenes ? movieClip.scenes[0].name : null); // go to first frame and stop
+        {
+            var scenes:Array = movieClip.scenes;
+            var sceneHasName:Boolean = (scenes &&
+                                        scenes.length > 0 &&
+                                        scenes[0].name != "");
+
+            var scene:String = (sceneHasName ? scenes[0].name : null);
+            
+            movieClip.gotoAndStop(0, scene); // go to first frame and stop
+        }
     }
     
     /**
@@ -312,9 +321,6 @@ public class MovieClipSWFLoader extends SWFLoader
      */
     private function content_addedHandler(event:Event):void
     {
-        if (event.target == content)
-            return;  
-        
         if (autoStop)
             stop();
         
