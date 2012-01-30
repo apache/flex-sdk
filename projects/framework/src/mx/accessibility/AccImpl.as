@@ -95,7 +95,8 @@ use namespace mx_internal;
  *   (childID 0).</li>
  *   <li>If the component is inside a Form: 
  *     <ul>
- *       <li>If the Form has a FormHeading, the heading text is added.
+ *       <li>If the Form has a FormHeading and the component is inside
+ *       a FormItem, the heading text is added.
  *       Developers wishing to avoid this should set the
  *       <code>accessibilityName</code> of the FormHeading
  *       to a space (" ").</li>
@@ -213,7 +214,7 @@ use namespace mx_internal;
 public class AccImpl extends AccessibilityImplementation
 {
     include "../core/Version.as";
-        
+
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -223,9 +224,9 @@ public class AccImpl extends AccessibilityImplementation
     /**
      *  @private
      *  
-     *  Get the definition of a class, namespace, or function. The defintion is
+     *  Get the definition of a class, namespace, or function. The definition is
      *  obtained from the specified moduleFactory. If there is no moduleFactory,
-     *  then the definition of looked up in ApplicationDomain.currentDomain.
+     *  then the definition is looked up in ApplicationDomain.currentDomain.
      * 
      *  @param name name of the class, namespace, or function to get.
      *  @param moduleFactory The moduleFactory that specifies the application 
@@ -253,32 +254,193 @@ public class AccImpl extends AccessibilityImplementation
     }
     
     /**
-     *  Method for supporting state Accessibility.
+     *  @private
+     *  Data structure internal to the following getDefinitions() function:
+     *  These are the defined types and the classes they map to.
+     *  Structure of an entry: typeName: className, className, ...
+     *  Newest classes first in case this helps performance for newer code.
+     */
+    private static var typeMap:Object =
+    {
+        "Container": [
+            "spark.components.SkinnableContainer",
+            "mx.core.Container"
+        ],
+        "Form": [
+            "spark.components.Form",
+            "mx.containers.Form"
+        ],
+        "FormHeading": [
+            "spark.components.FormHeading",
+            "mx.containers.FormHeading"
+        ],
+        "FormItem": [
+            "spark.components.FormItem",
+            "mx.containers.FormItem"
+        ],
+        "FormItemLabel": [
+            // No Spark equivalent for this.
+            "mx.controls.FormItemLabel"
+        ],
+        "ScrollBar": [
+            "mx.controls.scrollClasses.ScrollBar",
+            "spark.components.supportClasses.ScrollBarBase"
+        ]
+    };
+
+    /**
+     *  @private
+     *  
+     *  Get the class definition(s) corresponding to a predefined type. The
+     *  definitions are looked up in the specified moduleFactory. If no
+     *  moduleFactory is given, then the definitions are looked up in
+     *  ApplicationDomain.currentDomain.
+     *  The types are defined for this function by the above typeMap structure.
+     * 
+     *  @param typeName Type of the class(es) to get.
+     *  Passing an invalid typeName will raise an error.
+     *  @param moduleFactory The moduleFactory that specifies the application 
+     *  domain to use to find the definitions. If moduleFactory is null, then
+     *  ApplicationDomain.currentDomain is used as a fall back.
+     * 
+     *  return The list of definitions found.
+     * 
+     */ 
+    mx_internal static function getDefinitions(typeName:String, moduleFactory:IFlexModuleFactory):Array
+    {
+        var defs:Array = [];
+        var thisClass:Class;
+        for each (var className:String in typeMap[typeName])
+        {
+            thisClass = Class(getDefinition(className, moduleFactory));
+            if (thisClass)
+                defs.push(thisClass);
+        }
+        return defs;
+    }
+
+    /**
+     *  @private
+     *  
+     *  Find out if an object is one of a set of classes, and return the
+     *  class if so.
+     * 
+     *  @param obj Object to check against the list of classes.
+     *  @param classes List of classes to check against.
+     * 
+     *  return The found class or null.
+     * 
+     */ 
+    mx_internal static function getMatchingDefinition(obj:Object, classes:Array):Class
+    {
+        if (!obj)
+            return null;
+        for each (var thisClass:Class in classes)
+        {
+            if (obj is thisClass)
+                return thisClass;
+        }
+        return null;
+    }
+
+    /**
+    *  @private
+    *  Finds an ancestor of a component matching a rule.
+    *
+    *  @param component The component from which to start (included in the checking too).
+    *  @param f The function that returns true ffor a match.
+    *  The function should be defined as function (component:UIComponent):Boolean.
+    *
+    *  @return The UIComponent first matching the rule or null if none do.
+     */
+    mx_internal static function findMatchingAncestor(component:Object, f:Function):UIComponent
+    {
+        while (component && (component is UIComponent)
+               && !(component is ISystemManager) && component != UIComponent(component).root)
+        {
+            if (f(component))
+                return UIComponent(component);
+            component = UIComponent(component).parent;
+        }
+        return null;
+    }
+
+    /**
      *  Returns true if an ancestor of the component has enabled set to false.
+     *  The given component itself is not checked.
+     *
+     *  @param component The UIComponent to check for a disabled ancestor.
+     *
+     *  @return true if the component has a disabled ancestor.
      */
     public static function isAncestorDisabled(component:UIComponent):Boolean
     {
-        // keeping this DisplayObjectContainer since parent returns
-        // that as root is not a UIComponent.
-        var par:DisplayObjectContainer = component.parent; 
-
-        // continue looking up the parent chain
-        // until a disabled UIComponent is found
-        // stopping at the root or system manager
-        while (par && (par is UIComponent && UIComponent(par).enabled) &&
-               !(par is ISystemManager) && par != component.root)
-        {
-            par = par.parent;
-        }
-
-        if (!(par is UIComponent))
-            return false;
-            
-        return !UIComponent(par).enabled;
+        return findMatchingAncestor(component.parent, isComponentDisabled) != null;
     }
     
     /**
+     *  @private
+     *  Check if a component is disabled.
+     *  Used in calls to findMatchingAncestor().
+     *
+     *  @param component The UIComponent to check.
+     *
+     *  @return true if the component is disabled.
+     */
+    mx_internal static function isComponentDisabled(component:UIComponent):Boolean
+    {
+        return !component.enabled;
+    }
+
+    /**
+     *  @private
+     *  Check if a component is a form..
+     *  Used in calls to findMatchingAncestor().
+     *
+     *  @param component The UIComponent to check.
+     *
+     *  @return true if the component is a form..
+     */
+    mx_internal static function isForm(component:UIComponent):Boolean
+    {
+        var formClasses:Array = getDefinitions("Form", component.moduleFactory);
+        return getMatchingDefinition(component, formClasses) != null;
+    }
+
+    /**
+     *  @private
+     *  Check if a component is a form heading.
+     *  Used in calls to findMatchingAncestor().
+     *
+     *  @param component The UIComponent to check.
+     *
+     *  @return true if the component is a form heading.
+     */
+        mx_internal static function isFormHeading(component:UIComponent):Boolean
+        {
+            var formHeadingClasses:Array = getDefinitions("FormHeading", component.moduleFactory);
+        return getMatchingDefinition(component, formHeadingClasses) != null;
+        }
+
+    /**
+     *  @private
+     *  Check if a component is a form item (meaning a FormItem class).
+     *  Used in calls to findMatchingAncestor().
+     *
+     *  @param component The UIComponent to check.
+     *
+     *  @return true if the component is a FormItem.
+     */
+    mx_internal static function isFormItem(component:UIComponent):Boolean
+    {
+        var formItemClasses:Array = getDefinitions("FormItem", component.moduleFactory);
+        return getMatchingDefinition(component, formItemClasses) != null;
+    }
+
+    /**
      *  Method for supporting Form Accessibility.
+     *  Called from get_accName() in this AccImpl class.
+     *  Also called from the UIComponentAccProps constructor.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -287,30 +449,17 @@ public class AccImpl extends AccessibilityImplementation
      */
     public static function getFormName(component:UIComponent):String
     {
-        var formName:String = "";
-        
         // Return nothing if we are a container 
-        var containerClass:Class = Class(getDefinition("mx.core.Container", component.moduleFactory));
-        if (containerClass && component is containerClass)
-            return formName;
+        if (getMatchingDefinition(component, getDefinitions("Container", component.moduleFactory)))
+            return "";
 
-        // keeping this DisplayObjectContainer since parent returns
-        // that as root is not a UIComponent.
-        var formItemClass:Class = Class(getDefinition("mx.containers.FormItem", component.moduleFactory));
-        var par:DisplayObjectContainer = component.parent; 
+        // Return nothing if we are not in a FormItem.
+        var formItem:UIComponent = findMatchingAncestor(component.parent, isFormItem);
+        if (!formItem)
+            return "";
 
-        // continue looking up the parent chain
-        // until a FormItem is found
-        // stopping at the root or system manager
-        while (par && !(formItemClass && par is formItemClass) &&
-               !(par is ISystemManager) && par != component.root)
-        {
-            par = par.parent;
-        }
-
-        if (par && formItemClass && par is formItemClass)
-            formName = updateFormItemString(par);
-
+        // We're under a FormItem, so return the appropriate name for it.
+        var formName:String = determineFormItemString(formItem);
         return formName;
     }
     
@@ -335,29 +484,43 @@ public class AccImpl extends AccessibilityImplementation
 
     /**
      *  @private
-     *  Method for supporting Form Accessibility.
+     *  Determine the string to be used as the part of a form field's name
+     *  that represents the FormItem the field is in.
+     *  TODO:  This function has the side effect of setting
+     *  accessibilityEnabled=false on one or more subparts of formItems that
+     *  need this.
+     *  Called from getFormName(), which is called from get_accName() and
+     *   from the UIComponentAccProps constructor.
      * 
      *  @param formItem Object of type FormItem. Object is used here to avoid
      *  linking in FormItem. 
      */
-    private static function updateFormItemString(formItem:Object):String
+    private static function determineFormItemString(formItem:Object):String
     {
         var formName:String = "";
         var resourceManager:IResourceManager = ResourceManager.getInstance();
-        
-        var formClass:Class = Class(getDefinition("mx.containers.Form", formItem.moduleFactory));
-        var form:UIComponent = UIComponent(formItem.parent);
 
-        // If we are located within a Form, then look for the first FormHeading
-        // that is a sibling that is above us in the parent's child hierarchy
-        if (formClass && form is formClass)
+        // FormHeadings are sought as direct children of this formItem's parent.
+        var formItemParent:UIComponent = UIComponent(formItem.parent);
+
+        // Figure out if we're in a Form first.
+        // As of Spark, the formItem parent itself may not be a Form class but
+        // may still descend from it.
+        if (findMatchingAncestor(formItemParent, isForm))
         {
-            var formHeadingClass:Class = Class(getDefinition("mx.containers.FormHeading", formItem.moduleFactory));
-            var formItemIndex:int = form.getChildIndex(DisplayObject(formItem));
+            // If we are located within a Form, then look for the most
+            // recent FormHeading that is a sibling of this FormItem.
+            // TODO: More complex form layouts may be possible in
+            // which a heading is not a sibling of all of its
+            // FormItems.  For these, the heading will be omitted from
+            // the field name at this time.
+            var formHeadingClasses:Array = getDefinitions("FormHeading", formItem.moduleFactory);
+            var formItemIndex:int = formItemParent.getChildIndex(DisplayObject(formItem));
             for (var i:int = formItemIndex; i >= 0; i--)
             {
-                var child:UIComponent = UIComponent(form.getChildAt(i));
-                if (formHeadingClass && child is formHeadingClass)
+                var child:UIComponent = UIComponent(formItemParent.getChildAt(i));
+                var formHeadingClass:Class = getMatchingDefinition(child, formHeadingClasses);
+                if (formHeadingClass)
                 {
                     // Accessible name if it exists, else label text.
                     if (formHeadingClass(child).accessibilityProperties)
@@ -379,21 +542,101 @@ public class AccImpl extends AccessibilityImplementation
         // Accessible name if it exists, else label text.
         var f:String = "";
         if (formItem.accessibilityProperties)
-        {
             f = formItem.accessibilityProperties.name
-            // The purpose of the following two lines is to
-            // make the FormItem "silent" so that its MSAA Name doesn't get
-            // spoken. It doesn't need to be spoken since the Name of each
-            // control inside the FormItem includes the FormItem's Name.
+        if (f == "")
+            f = formItem.label;
+        formName = joinWithSpace(formName, f);
+
+        // The purpose of the following lines is to
+        // make parts of this FormItem silent when they are
+        // incorporated into the field name.
+        // First try Spark skin parts that should be silent.
+        try
+        {
+            if (formItem.labelDisplay && formItem.labelDisplay.accessibilityEnabled)
+                formItem.labelDisplay.accessibilityEnabled = false;
+        }
+        catch (e:Error)
+        {
+        }
+        try
+        {
+            if (formItem.sequenceLabelDisplay && formItem.sequenceLabelDisplay.accessibilityEnabled)
+                formItem.sequenceLabelDisplay.accessibilityEnabled = false;
+        }
+        catch (e:Error)
+        {
+        }
+        try
+        {
+            if (formItem.helpContentGroup && formItem.helpContentGroup.accessibilityEnabled)
+                formItem.helpContentGroup.accessibilityEnabled = false;
+        }
+        catch (e:Error)
+        {
+        }
+        try
+        {
+            if (formItem.errorTextDisplay && formItem.errorTextDisplay.accessibilityEnabled)
+                formItem.errorTextDisplay.accessibilityEnabled = false;
+        }
+        catch (e:Error)
+        {
+        }
+        // Then one MX item that should be silent.
+        try
+        {
             if (formItem.itemLabel && formItem.itemLabel.accessibilityEnabled)
                 formItem.itemLabel.accessibilityEnabled = false;
         }
-        if (f == "")
-            f = formItem.label;
+        catch (e:Error)
+        {
+        }
             
-        formName = joinWithSpace(formName, f);
-
         return formName;
+    }
+
+    /**
+     *  @private
+     *  Determine whether a component is a SkinnableTextBase component whose
+     *  accessibilityProperties are duplicated for a parent within the
+     *  same control.
+     * 
+     *  @param component The component to check.
+     *
+     *  @return true if the component meets the described condition..
+     */
+    private static function componentNeedsSkinnableTextBaseException(component:UIComponent):Boolean
+    {
+        // No accessibilityProperties, nothing to look for.
+        var myAccessibilityProperties:Object = component.accessibilityProperties;
+        if (!myAccessibilityProperties)
+            return false;
+
+        // If the classes we're looking for don't exist, don't bother scanning.
+        var richEditableTextClass:Class = Class(getDefinition(
+            "spark.components.RichEditableText",
+            component.moduleFactory
+        ));
+        if (!richEditableTextClass || !(component is richEditableTextClass))
+            return false;
+        var skinnableTextBaseClass:Class = Class(getDefinition(
+            "spark.components.supportClasses.SkinnableTextBase",
+            component.moduleFactory
+        ));
+        if (!skinnableTextBaseClass)
+            return false;
+
+        // An anonymous function is needed here because it needs to know
+        // which accessibilityProperties object to check against.
+        var sharesMyAccessibilityProperties:Function = function(c:UIComponent):Boolean
+        {
+            return c.accessibilityProperties === myAccessibilityProperties;
+        };
+        var matchingAncestor:UIComponent = findMatchingAncestor(component.parent, sharesMyAccessibilityProperties)
+        if (!matchingAncestor)
+            return false;
+        return matchingAncestor is skinnableTextBaseClass;
     }
 
     //--------------------------------------------------------------------------
@@ -535,9 +778,10 @@ public class AccImpl extends AccessibilityImplementation
         accName = getFormName(master);
 
         // Now the component's name or toolTip.
-        if (master.accessibilityProperties && 
-            master.accessibilityProperties.name != null && 
-            master.accessibilityProperties.name != "")
+        if (master.accessibilityProperties &&
+            master.accessibilityProperties.name != null &&
+            master.accessibilityProperties.name != "" &&
+            !componentNeedsSkinnableTextBaseException(master))
         {
             // An accName is set, so use only that.
             accName = joinWithSpace(accName, master.accessibilityProperties.name);
@@ -549,7 +793,7 @@ public class AccImpl extends AccessibilityImplementation
         }
 
         accName = joinWithSpace(accName, getStatusName());
-        
+
         // Historical: Return null and not "" for empty and null values.
         return (accName != null && accName != "") ? accName : null;
     }
@@ -620,8 +864,8 @@ public class AccImpl extends AccessibilityImplementation
             accState |= AccConst.STATE_SYSTEM_FOCUSABLE
         
             // This sets STATE_SYSTEM_FOCUSED appropriately for simple components
-			// and top levels of complex ones, but not for any subparts.
-			// That has to be done in the component's get_accState() method.
+            // and top levels of complex ones, but not for any subparts.
+            // That has to be done in the component's get_accState() method.
             // example: listItems in a list.
             if (UIComponent(master) == UIComponent(master).getFocus()
             && childID == 0)
