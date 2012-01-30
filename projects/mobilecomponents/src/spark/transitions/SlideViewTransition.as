@@ -3,6 +3,7 @@ package spark.effects
 import flash.display.BitmapData;
 import flash.display.Sprite;
 
+import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.effects.IEffect;
 import mx.effects.Parallel;
@@ -31,8 +32,6 @@ public class SlideViewTransition extends ViewTransition
     // TODO (chiedozi): Only support left and right slides
     public static const SLIDE_LEFT:int = 0;
     public static const SLIDE_RIGHT:int = 1;
-//    public static const SLIDE_UP:int = 2;
-//    public static const SLIDE_DOWN:int = 3;
     
     //--------------------------------------------------------------------------
     //
@@ -40,7 +39,7 @@ public class SlideViewTransition extends ViewTransition
     //
     //--------------------------------------------------------------------------
     
-    public function SlideViewTransition(duration:Number, direction:int = SLIDE_LEFT)
+    public function SlideViewTransition(duration:Number = 300, direction:int = SLIDE_LEFT)
     {
         super();
         
@@ -140,7 +139,7 @@ public class SlideViewTransition extends ViewTransition
      */
     override public function play():void
     {
-         var targets:Array = new Array();
+        var targets:Array = new Array();
         
         if (currentView)
         {
@@ -180,7 +179,14 @@ public class SlideViewTransition extends ViewTransition
                     cachedActionBar.includeInLayout = false;
                     cachedActionBar.cacheAsBitmap = true;
                     
-                    navigator.skin.addChild(cachedActionBar);
+                    if (navigator.skin is IVisualElementContainer)
+                    {
+                        IVisualElementContainer(navigator.skin).addElement(cachedActionBar);
+                        cachedActionBar.includeInLayout = false;
+                    }
+                    else
+                        navigator.skin.addChild(cachedActionBar);
+                    
                     targets.push(cachedActionBar);
                 }
                 
@@ -241,17 +247,30 @@ public class SlideViewTransition extends ViewTransition
                 actionBar.titleGroup.cacheAsBitmap = false;
             
             if (cachedTitleGroup)
-                actionBar.skin.removeChild(cachedTitleGroup);
+            {
+                if (actionBar.skin is IVisualElementContainer)
+                    IVisualElementContainer(actionBar.skin).removeElement(cachedTitleGroup);
+                else
+                    actionBar.skin.removeChild(cachedTitleGroup);
+            }
             
             if (cachedNavigationGroup)
             {
-                actionBar.skin.removeChild(cachedNavigationGroup);
+                if (actionBar.skin is IVisualElementContainer)
+                    IVisualElementContainer(actionBar.skin).removeElement(cachedNavigationGroup);
+                else
+                    actionBar.skin.removeChild(cachedNavigationGroup);
+                
                 actionBar.navigationGroup.cacheAsBitmap = false;
             }
             
             if (cachedActionGroup)
             {
-                actionBar.skin.removeChild(cachedActionGroup);
+                if (actionBar.skin is IVisualElementContainer)
+                    IVisualElementContainer(actionBar.skin).removeElement(cachedActionGroup);
+                else
+                    actionBar.skin.removeChild(cachedActionGroup);
+                
                 actionBar.actionGroup.cacheAsBitmap = false;
             }
         }
@@ -259,7 +278,10 @@ public class SlideViewTransition extends ViewTransition
         {
             if (cachedActionBar)
             {
-                navigator.skin.removeChild(cachedActionBar);
+                if (navigator.skin is IVisualElementContainer)
+                    IVisualElementContainer(navigator.skin).removeElement(cachedActionBar)
+                else
+                    navigator.skin.removeChild(cachedActionBar);
             }
         }
         
@@ -320,8 +342,14 @@ public class SlideViewTransition extends ViewTransition
         titleGroup.cacheAsBitmap = true;
         titleGroup[animatedProperty] += slideDistance;
         fadeInTargets.push(titleGroup);
-        actionBarSkin.addChildAt(cachedTitleGroup, 
-                                 actionBarSkin.getChildIndex(titleGroup) - 1);
+        
+        if (cachedTitleGroup)
+        {
+            if (actionBarSkin is IVisualElementContainer)
+                IVisualElementContainer(actionBarSkin).addElementAt(cachedTitleGroup, actionBarSkin.getChildIndex(titleGroup) - 1);
+            else
+                actionBarSkin.addChildAt(cachedTitleGroup, actionBarSkin.getChildIndex(titleGroup) - 1);
+        }
         
         // If a cache of the navigation group exists, that means the content
         // changed.  In this case the old and new display objects need to
@@ -339,7 +367,7 @@ public class SlideViewTransition extends ViewTransition
             
             fadeInTargets.push(actionBar.navigationGroup);
         }
-
+        
         if (cachedActionGroup)
         {
             childIndex = actionBarSkin.getChildIndex(actionBar.actionGroup) - 1;
@@ -360,17 +388,22 @@ public class SlideViewTransition extends ViewTransition
         fadeOut.duration = duration * .7;
         fadeOut.targets = fadeOutTargets;
         
-        // Fade out and slide old title content
-        var animation:Animate = new Animate();
-        var vector:Vector.<MotionPath> = new Vector.<MotionPath>();
-        
-        vector.push(new SimpleMotionPath("alpha", 1, 0));
-        vector.push(new SimpleMotionPath(animatedProperty, null, null, -slideDistance));
-        
-        animation.motionPaths = vector;
-        animation.easer = new spark.effects.easing.Sine(.7);
-        animation.targets = [cachedTitleGroup];
-        animation.duration = duration;
+        if (cachedTitleGroup)
+        {
+            // Fade out and slide old title content
+            var animation:Animate = new Animate();
+            var vector:Vector.<MotionPath> = new Vector.<MotionPath>();
+            
+            vector.push(new SimpleMotionPath("alpha", 1, 0));
+            vector.push(new SimpleMotionPath(animatedProperty, null, null, -slideDistance));
+            
+            animation.motionPaths = vector;
+            animation.easer = new spark.effects.easing.Sine(.7);
+            animation.targets = [cachedTitleGroup];
+            animation.duration = duration;
+            
+            effect.addChild(animation);
+        }
         
         // Fade and slide in new content
         var animation2:Animate = new Animate();
@@ -386,7 +419,6 @@ public class SlideViewTransition extends ViewTransition
         
         // Add effects to the parallel effect
         effect.addChild(fadeOut);
-        effect.addChild(animation);
         effect.addChild(animation2);
     }
     
