@@ -12,7 +12,7 @@
             width="75%" height="75%" 
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                     text="What year were women first allowed to compete in the Boston Marathon?"/>
     
             <mx:RadioButton groupName="year" id="option1" label="1942"/>
