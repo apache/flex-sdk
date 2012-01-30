@@ -18,6 +18,11 @@ package mx.effects.easing
  *  an exponentially decaying sine wave. 
  *
  *  For more information, see http://www.robertpenner.com/profmx.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class Elastic
 {
@@ -46,6 +51,11 @@ public class Elastic
      *  @param p Specifies the period of the sine wave.
      *
      *  @return Number corresponding to the position of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
 	public static function easeIn(t:Number, b:Number,
 								  c:Number, d:Number,
@@ -92,6 +102,11 @@ public class Elastic
      *  @param p Specifies the period of the sine wave.
      *
      *  @return Number corresponding to the position of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
 	public static function easeOut(t:Number, b:Number,
 								   c:Number, d:Number,
@@ -139,6 +154,11 @@ public class Elastic
      *  @param p Specifies the period of the sine wave.
      *
      *  @return Number corresponding to the position of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
 	public static function easeInOut(t:Number, b:Number,
 									 c:Number, d:Number,
