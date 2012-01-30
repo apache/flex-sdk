@@ -147,11 +147,15 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
             return;
 
         deleteAllPendingResponders();
+        oldLength = -1;
         if (_list)
             _list.removeEventListener(CollectionEvent.COLLECTION_CHANGE, handleCollectionChangeEvent);
         _list = value;
         if (_list)
+        {
             _list.addEventListener(CollectionEvent.COLLECTION_CHANGE, handleCollectionChangeEvent, false, 0, true);
+            oldLength = _list.length;
+        }
 
         dispatchEvent(new Event("listChanged"));
         dispatchEvent(new CollectionEvent(CollectionEvent.COLLECTION_CHANGE, false, false, CollectionEventKind.RESET));
@@ -170,6 +174,55 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
         pendingResponders.length = 0;
         failedItems.length = 0;
     }
+    
+    /**
+     *  The previous known length of the list before handling a CollectionEvent.
+     *  oldLength is updated by the list setter and isValidCollectionEvent().
+     */
+    private var oldLength:int = -1;
+    
+    /**
+     *  This method checks the validity of incoming CollectionEvents. 
+     *  In some cases, a CollectionEvent from the underlying list may have already
+     *  been received once, or have been erroneously dispatched (See SDK-30594).
+     *  Thus, we check the incoming event's location against the last known length'
+     *  of the list (oldLength).
+     * 
+     *  <p>Returns false if the index is less than 0 or greater than the previous
+     *  length of the list.
+     *  This only applies to ADD, REMOVE, REPLACE, and MOVE CollectionEvents.
+     *  It also updates oldLength to be the current length of the list, so it
+     *  should not be called twice.</p>
+     */
+    private function isValidCollectionEvent(ce:CollectionEvent):Boolean
+    {
+        if (oldLength < 0)
+            return true;
+        
+        const location:int = ce.location;
+        
+        switch (ce.kind)
+        {
+            case CollectionEventKind.ADD:
+            {
+                if (location < 0 || location > oldLength)
+                    return false;
+                break;
+            }
+                
+            case CollectionEventKind.REMOVE:
+            case CollectionEventKind.REPLACE:
+            case CollectionEventKind.MOVE:
+            {
+                if (location < 0 || location >= oldLength)
+                    return false;
+                break;
+            }
+        }
+        
+        oldLength = length;
+        return true;
+    }
 
     /**
      *  @private
@@ -179,9 +232,11 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  
      *  All "collectionChange" events are redispatched to the AsyncListView listeners.
      */
-    private function handleCollectionChangeEvent(e:Event):void
+    private function handleCollectionChangeEvent(ce:CollectionEvent):void
     {
-        const ce:CollectionEvent = CollectionEvent(e);
+        if (!isValidCollectionEvent(ce))
+            return;
+        
         switch (ce.kind)
         {
             case CollectionEventKind.REPLACE:
@@ -206,11 +261,10 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
                 deleteAllPendingResponders();
                 break;
         }
-        
-        dispatchEvent(e);  // redispatch to CollectionEvent listeners on this
+
+        dispatchEvent(ce);  // redispatch to CollectionEvent listeners on this
     }
-
-
+    
     /**
      *  @private
      *  Delete the ListItemResponder at the specified index, if any.
