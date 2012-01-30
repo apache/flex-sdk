@@ -40,6 +40,7 @@ public class TextInputSkin extends MobileSkin
     private static const VERTICAL_PADDING:int = 12;
     private static const TEXT_WIDTH_PADDING:int = 4;
     private static const TEXT_HEIGHT_PADDING:int = 2;
+    private static const CORNER_ELLIPSE_SIZE:uint = 16;
     
     //--------------------------------------------------------------------------
     //
@@ -133,7 +134,7 @@ public class TextInputSkin extends MobileSkin
         // Draw the contentBackgroundColor
         graphics.clear();
         graphics.beginFill(getStyle("contentBackgroundColor"), getStyle("contentBackgroundAlpha"));
-        graphics.drawRoundRect(2, 2, unscaledWidth - 4, unscaledHeight - 4, 4, 4);
+        graphics.drawRoundRect(1, 1, unscaledWidth - 2, unscaledHeight - 2, CORNER_ELLIPSE_SIZE, CORNER_ELLIPSE_SIZE);
         graphics.endFill();
 
         // position & size border
