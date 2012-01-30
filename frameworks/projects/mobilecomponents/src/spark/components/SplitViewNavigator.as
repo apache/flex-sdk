@@ -78,7 +78,8 @@ use namespace mx_internal;
  *  There is no limit to the amount of child navigators this component can manage. </p>
  *
  *  <p><b>Note:</b> Because of the screen space required to display multiple panes 
- *  simultaneously, Adobe recommends that you only use the SplitViewNavigator on a tablet.</p>
+ *  simultaneously, Adobe recommends that you only use the SplitViewNavigator on a tablet
+ *  device.</p>
  * 
  *  <p>If the <code>autoHideFirstViewNavigator</code> property is set to
  *  <code>true</code>, the SplitViewNavigator automatically hides the
@@ -105,6 +106,10 @@ use namespace mx_internal;
  *  This method always returns the correct navigator regardless of whether 
  *  a navigator is in a popup or not.</p>
  *
+ *  <p><b>Note:</b> When a SplitViewNavigator is used as a child of a 
+ *  TabbedViewNavigator, changes to the <code>tabBarVisible</code> on the
+ *  active views will not be honored by the parent TabbedViewNavigator.</p>
+ * 
  *  @mxml <p>The <code>&lt;s:SplitViewNavigator&gt;</code> tag inherits all of the tag
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
@@ -598,6 +603,17 @@ public class SplitViewNavigator extends ViewNavigatorBase
     //  Overriden Methods: ViewNavigatorBase
     // 
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function updateControlsForView(view:View):void
+    {
+        // This method is a no-op so that child views can't impact the
+        // display properties of navigators above it.  This essentially prevents
+        // View.tabBarVisible from interacting with TabbedViewNavigators that
+        // are parents of this SplitViewNavigator.
+    }
     
     /**
      *  @private
