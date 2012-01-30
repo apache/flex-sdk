@@ -197,7 +197,7 @@ public class CrossDomainRSLItem extends RSLItem
             {
                 // B Feature: externalize error message
                 var rslError:ErrorEvent = new ErrorEvent(RSLEvent.RSL_ERROR);
-                rslError.text = "Flex Error #1002: Flash Player 9.0.60 and above is required to support signed RSLs. Problem occurred when trying to load the RSL " +
+                rslError.text = "Flex Error #1002: Flash Player 9.0.115 and above is required to support signed RSLs. Problem occurred when trying to load the RSL " +
                                 urlRequest.url + 
                                 ".  Upgrade your Flash Player and try again.";
                 super.itemErrorHandler(rslError);
