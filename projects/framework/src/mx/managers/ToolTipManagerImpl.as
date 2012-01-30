@@ -33,7 +33,6 @@ import mx.events.DynamicEvent;
 import mx.events.EffectEvent;
 import mx.events.ToolTipEvent;
 import mx.managers.IToolTipManagerClient;
-import mx.managers.marshalClasses.ToolTipManagerMarshalMixin;
 import mx.styles.IStyleClient;
 import mx.validators.IValidatorListener;
 
@@ -64,11 +63,6 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  @private
      */
     private static var instance:IToolTipManager2;
-
-    /**
-     *  @private
-     */
-    private static function weakDependency():void { ToolTipManagerMarshalMixin };
 
 	/**
 	 * @private
@@ -119,7 +113,8 @@ public class ToolTipManagerImpl extends EventDispatcher
 			}
 		}
 
-		dispatchEvent(new Event("initialize"));
+        if (hasEventListener("initialize"))
+    		dispatchEvent(new Event("initialize"));
 
     }
 
@@ -262,7 +257,8 @@ public class ToolTipManagerImpl extends EventDispatcher
     {
         _currentToolTip = value as DisplayObject;
 
-		dispatchEvent(new Event("currentToolTip"));
+        if (hasEventListener("currentToolTip"))
+    		dispatchEvent(new Event("currentToolTip"));
     }
 
     //----------------------------------
@@ -827,7 +823,8 @@ public class ToolTipManagerImpl extends EventDispatcher
 			}
 			else
 			{
-				dispatchEvent(new Event(ToolTipEvent.TOOL_TIP_HIDE));
+                if (hasEventListener(ToolTipEvent.TOOL_TIP_HIDE))
+		    		dispatchEvent(new Event(ToolTipEvent.TOOL_TIP_HIDE));
 			}
         }   
             
@@ -907,8 +904,9 @@ public class ToolTipManagerImpl extends EventDispatcher
 
         currentToolTip.visible = false;
 
-		if (!dispatchEvent(new Event("createTip", false, true)))
-			return
+        if (hasEventListener("createTip"))
+    		if (!dispatchEvent(new Event("createTip", false, true)))
+	    		return;
 
         var sm:ISystemManager = getSystemManager(currentTarget) as ISystemManager;
        	sm.topLevelSystemManager.toolTipChildren.addChild(currentToolTip as DisplayObject);
@@ -1242,10 +1240,14 @@ public class ToolTipManagerImpl extends EventDispatcher
             // End any show or hide effects that might be playing on it.
             EffectManager.endEffectsForTarget(currentToolTip);
 
-            var e:DynamicEvent = new DynamicEvent("removeChild", false, true);
-            e.sm = currentToolTip.systemManager;
-            e.toolTip = currentToolTip;
-		    if (dispatchEvent(e))
+            var e:DynamicEvent;
+            if (hasEventListener("removeChild"))
+            {
+                e = new DynamicEvent("removeChild", false, true);
+                e.sm = currentToolTip.systemManager;
+                e.toolTip = currentToolTip;
+            }
+			if (!e || dispatchEvent(e))
 			{
 				// Remove it.
 				var sm:ISystemManager = currentToolTip.systemManager as ISystemManager;
@@ -1334,10 +1336,14 @@ public class ToolTipManagerImpl extends EventDispatcher
                                           FlexGlobals.topLevelApplication.systemManager as ISystemManager;
 
 		
-        var event:DynamicEvent = new DynamicEvent("addChild", false, true);
-        event.sm = sm;
-        event.toolTip = toolTip;
-		if (dispatchEvent(event))
+        var e:DynamicEvent;
+        if (hasEventListener("addChild"))
+        {
+            e = new DynamicEvent("addChild", false, true);
+            e.sm = sm;
+            e.toolTip = toolTip;
+        }
+		if (!e || dispatchEvent(e))
 		{
 		    sm.topLevelSystemManager.toolTipChildren.addChild(toolTip as DisplayObject);
 		}
@@ -1381,10 +1387,14 @@ public class ToolTipManagerImpl extends EventDispatcher
      */
     public function destroyToolTip(toolTip:IToolTip):void
     {
-        var e:DynamicEvent = new DynamicEvent("removeChild", false, true);
-        e.sm = toolTip.systemManager;
-        e.toolTip = toolTip;
-		if (dispatchEvent(e))
+        var e:DynamicEvent;
+        if (hasEventListener("removeChild"))
+        {
+            e = new DynamicEvent("removeChild", false, true);
+            e.sm = toolTip.systemManager;
+            e.toolTip = toolTip;
+        }
+		if (!e || dispatchEvent(e))
 		{
 			// Remove it.
 			var sm:ISystemManager = toolTip.systemManager as ISystemManager;
