@@ -238,6 +238,13 @@ public class CrossDomainRSLItem extends RSLItem
 		context.applicationDomain = ApplicationDomain.currentDomain;
 		context.securityDomain = null;
 		
+		// If the AIR flag is available then set it to true so we can
+		// load the RSL without a security error.
+		if ("allowLoadBytesCodeExecution" in context)
+		{
+			context["allowLoadBytesCodeExecution"] = true;
+		}	
+		
 		// verify the digest, if any, is correct
 		if (digests[urlIndex] != null && String(digests[urlIndex]).length > 0)
 		{
