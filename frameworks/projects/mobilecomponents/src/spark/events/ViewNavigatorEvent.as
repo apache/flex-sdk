@@ -13,7 +13,6 @@ package spark.events
 {
 import flash.events.Event;
 
-// FIXME (chiedozi): comment
 /**
  *  The ViewNavigatorEvent class represents event objects dispatched by the 
  *  View class.
@@ -171,7 +170,6 @@ public class ViewNavigatorEvent extends Event
         this.action = action;
     }
 
-    // FIXME (chiedozi): clone
     //--------------------------------------------------------------------------
     //
     //  Properties
