@@ -32,6 +32,11 @@ import mx.states.OverrideBase;
  *  When you use the <code>handler</code> handler attribute, you can specify a 
  *  method that takes multiple parameters, not just the Event object;
  *  also, you can specify the handler code in-line in the MXML tag.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="handler", type="Object")]
 
@@ -63,6 +68,11 @@ import mx.states.OverrideBase;
  *  @see mx.states.State
  *  @see mx.states.SetProperty
  *  @see mx.states.SetStyle
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SetEventHandler extends OverrideBase implements IOverride
 {
@@ -81,6 +91,11 @@ public class SetEventHandler extends OverrideBase implements IOverride
      *  By default, Flex uses the immediate parent of the State object.
      *
      *  @param event The event type for which to set the handler.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function SetEventHandler(
             target:EventDispatcher = null,
@@ -127,6 +142,11 @@ public class SetEventHandler extends OverrideBase implements IOverride
      *  You must set this property, either in 
      *  the SetEventHandler constructor or by setting
      *  the property value directly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var name:String;
 
@@ -138,6 +158,11 @@ public class SetEventHandler extends OverrideBase implements IOverride
      *  event attribute; do not use both in a single MXML tag.
      *  
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var handlerFunction:Function;
 
@@ -153,6 +178,11 @@ public class SetEventHandler extends OverrideBase implements IOverride
      *  immediate parent of the <code>&lt;mx:states&gt;</code> tag.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var target:Object;
 
@@ -188,6 +218,11 @@ public class SetEventHandler extends OverrideBase implements IOverride
      *  IOverride interface method; this class implements it as an empty method.
      * 
      *  @copy IOverride#initialize()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialize():void
     {
@@ -195,6 +230,11 @@ public class SetEventHandler extends OverrideBase implements IOverride
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function apply(parent:UIComponent):void
     {
@@ -241,6 +281,11 @@ public class SetEventHandler extends OverrideBase implements IOverride
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function remove(parent:UIComponent):void
     {
