@@ -18,6 +18,7 @@ import flash.geom.Matrix3D;
 import flash.geom.PerspectiveProjection;
 import flash.geom.Point;
 
+import mx.core.FlexGlobals;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
@@ -28,10 +29,12 @@ import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.managers.SystemManager;
 
+import spark.components.Application;
 import spark.components.Group;
 import spark.components.TabbedViewNavigator;
 import spark.components.ViewNavigator;
 import spark.components.supportClasses.ButtonBarBase;
+import spark.components.supportClasses.SkinnableComponent;
 import spark.effects.*;
 import spark.effects.animation.Keyframe;
 import spark.effects.animation.MotionPath;
@@ -265,7 +268,7 @@ public class FlipViewTransition extends ViewTransitionBase
 
         return (mode == FlipViewTransitionMode.CARD) ? 
             prepareCardViewEffect() : 
-            prepareCubeViewEffect();    
+            prepareCubeViewEffect();
     }
         
     /**
@@ -303,6 +306,10 @@ public class FlipViewTransition extends ViewTransitionBase
     {
         actionBarTransitionDirection = direction;
         super.prepareForPlay();
+
+        // Work-around for SDK-29118
+        if (dpiScale != 1 && transitionGroup)
+            applyDPIScaleToElements(transitionGroup, dpiScale);
     }
     
     //--------------------------------------------------------------------------
@@ -338,7 +345,16 @@ public class FlipViewTransition extends ViewTransitionBase
                         
         return createCardFlipAnimation(endView.width);     
     }
-        
+    
+    /**
+     *  @private
+     */  
+    private function get dpiScale():Number
+    {
+        return (Application(FlexGlobals.topLevelApplication).runtimeDPI / 
+                Application(FlexGlobals.topLevelApplication).applicationDPI); 
+    }
+
     /**
      *  @private
      *  Shared helper routine which serves as our effect factory for both standard
@@ -349,10 +365,10 @@ public class FlipViewTransition extends ViewTransitionBase
         // Now offset our transform center as appropriate for the transition direction
         transitionGroup.transformX = viewWidth / 2;
         transitionGroup.transformY = viewHeight / 2;
-        
+                
         // Validate our transition group prior to the start of our animation.
         transitionGroup.validateNow();
-        
+
         var animation:Animate = new Animate();
         
         // Create motion path for our rotation property.
@@ -694,7 +710,43 @@ public class FlipViewTransition extends ViewTransitionBase
         navigatorProps.targetNavigatorIncludeInLayout = targetNavigator.includeInLayout;
         targetNavigator.includeInLayout = false;
     }
-    
+
+    /**
+     *  @private
+     *  For all children of the group, if they are SkinnableComponents:
+     *  then applies "scale" to the skin and inverse scale to the component.
+     *  If "scale" is "1", then it clears the scale from both the component
+     *  and its skin.
+     * 
+     *  This is used as a work-around for SDK-29118, to force the player to
+     *  use texture with size that takes the dpi scale into account.
+     */  
+    private function applyDPIScaleToElements(group:Group, scale:Number):void
+    {
+        var count:int = group.numElements;
+        for (var i:int = 0; i < count; i++)
+        {
+            var element:IVisualElement = group.getElementAt(i);
+            if (element is SkinnableComponent)
+            {
+                var comp:SkinnableComponent = SkinnableComponent(element);
+                comp.skin.scaleX = scale;
+                comp.skin.scaleY = scale;
+                
+                if (scale == 1)
+                {
+                    comp.scaleX = scale;
+                    comp.scaleY = scale;
+                }
+                else
+                {
+                    comp.scaleX /= scale;
+                    comp.scaleY /= scale;
+                }
+            }
+        }
+    }
+
     //--------------------------------------------------------------------------
     //  Cleanup related methods.
     //--------------------------------------------------------------------------
@@ -732,7 +784,11 @@ public class FlipViewTransition extends ViewTransitionBase
      */
     protected function deferredCleanUp():void
     {
-        
+        // Work-around for SDK-29118
+        // Clean-up any scale that we have applied to the elements
+        if (dpiScale != 1 && transitionGroup)
+            applyDPIScaleToElements(transitionGroup, 1);
+
         if (!consolidatedTransition && transitionGroup)
         {
             if (endView)
@@ -775,7 +831,7 @@ public class FlipViewTransition extends ViewTransitionBase
             // Restore targetNavigator properties.
             targetNavigator.includeInLayout = navigatorProps.targetNavigatorIncludeInLayout;
         }
-        
+
         transitionGroup = null;
         cachedNavigator = null;
         
