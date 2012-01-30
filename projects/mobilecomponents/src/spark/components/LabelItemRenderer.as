@@ -11,36 +11,20 @@
 
 package spark.components
 {
-import flash.display.DisplayObject;
 import flash.events.MouseEvent;
-import flash.geom.Point;
-import flash.text.TextField;
-import flash.text.TextFieldType;
-import flash.text.TextFormat;
-import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 
 import mx.controls.listClasses.*;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
-import mx.core.IFlexModuleFactory;
 import mx.core.ILayoutElement;
-import mx.core.IVisualElement;
 import mx.core.InteractionMode;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.utils.StringUtil;
 
-import spark.components.Group;
-import spark.components.IItemRenderer;
-import spark.components.Image;
-import spark.components.Label;
 import spark.components.supportClasses.StyleableTextField;
-import spark.components.supportClasses.TextBase;
-import spark.core.ContentCache;
-import spark.primitives.BitmapImage;
 
 use namespace mx_internal;
 
