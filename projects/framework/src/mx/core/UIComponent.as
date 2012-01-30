@@ -133,9 +133,6 @@ use namespace mx_internal;
  *
  *  <p>At this point, depending on its <code>visible</code> property,
  *  the component is not visible even though it has been drawn.</p>
- * 
- *  <p>This event is only dispatched when there are one or more 
- *  relevant listeners attached to the dispatching object.</p>
  *
  *  @eventType mx.events.FlexEvent.CREATION_COMPLETE
  *  
@@ -186,9 +183,6 @@ use namespace mx_internal;
  *  <p>After the initialization phase, properties are processed, the component
  *  is measured, laid out, and drawn, after which the
  *  <code>creationComplete</code> event is dispatched.</p>
- *
- *  <p>This event only dispatched when there are one or more 
- *  relevant listeners attached to the dispatching object.</p>
  * 
  *  @eventType mx.events.FlexEvent.INITIALIZE
  *  
@@ -244,9 +238,6 @@ use namespace mx_internal;
  *  When Flex dispatches the <code>preinitialize</code> event,
  *  the children, including the internal children, of a component
  *  have not yet been created.
- *
- *  <p>This event only dispatched when there are one or more 
- *  relevant listeners attached to the dispatching object.</p>
  * 
  *  @eventType mx.events.FlexEvent.PREINITIALIZE
  *  
@@ -1583,9 +1574,7 @@ public class UIComponent extends FlexSprite
         if (value)
         {
             setVisible(_visible, true);
-
-            if (hasEventListener(FlexEvent.CREATION_COMPLETE))
-                dispatchEvent(new FlexEvent(FlexEvent.CREATION_COMPLETE));
+            dispatchEvent(new FlexEvent(FlexEvent.CREATION_COMPLETE));
         }
     }
 
@@ -1637,7 +1626,7 @@ public class UIComponent extends FlexSprite
     {
         _processedDescriptors = value;
 
-        if (value && hasEventListener(FlexEvent.INITIALIZE))
+        if (value)
             dispatchEvent(new FlexEvent(FlexEvent.INITIALIZE));
     }
 
@@ -7255,8 +7244,7 @@ public class UIComponent extends FlexSprite
         // affect child creation.
         // Note that this implies that "preinitialize" handlers are called
         // top-down; i.e., parents before children.
-        if (hasEventListener(FlexEvent.PREINITIALIZE))
-            dispatchEvent(new FlexEvent(FlexEvent.PREINITIALIZE));
+        dispatchEvent(new FlexEvent(FlexEvent.PREINITIALIZE));
 
         // Create child objects.
         createChildren();
