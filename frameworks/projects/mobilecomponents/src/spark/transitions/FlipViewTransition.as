@@ -203,7 +203,7 @@ public class FlipViewTransition extends ViewTransitionBase
     // mode
     //---------------------------------
     
-    private var _mode:String = FlipViewTransitionMode.CARD;
+    private var _mode:String = "card"; // avoid deprecation warning for FlipViewTransitionMode.CARD;
     
     [Inspectable(category="General", enumeration="card,cube", defaultValue="card")]
     /**
@@ -271,7 +271,7 @@ public class FlipViewTransition extends ViewTransitionBase
         if (!startView || !endView)
             return null;
 
-        return (mode == FlipViewTransitionMode.CARD) ? 
+        return (mode == "card") ? // avoid deprecation warning for FlipViewTransitionMode.CARD
             prepareCardViewEffect() : 
             prepareCubeViewEffect();
     }
@@ -289,7 +289,7 @@ public class FlipViewTransition extends ViewTransitionBase
         if (!cachedNavigator)
             return null;
         
-        return mode == FlipViewTransitionMode.CARD ? 
+        return mode == "card" ? // avoid deprecation warning for FlipViewTransitionMode.CARD 
             prepareConsolidatedCardViewEffect() : 
             prepareConsolidatedCubeViewEffect();
     }
@@ -458,7 +458,7 @@ public class FlipViewTransition extends ViewTransitionBase
             }
         }
 
-        if (mode == FlipViewTransitionMode.CARD)
+        if (mode == "card") // avoid deprecation warning for FlipViewTransitionMode.CARD
         {
             var topRight:Vector3D = new Vector3D(viewWidth, 0, 0);
             var bottomLeft:Vector3D = new Vector3D(0, viewHeight, 0);
