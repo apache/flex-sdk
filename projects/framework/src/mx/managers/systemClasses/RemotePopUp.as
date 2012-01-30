@@ -40,6 +40,11 @@ public class RemotePopUp extends Object
      * @param bridge If the form is trusted, the bridge handle of the source of the form.
      * If the form is untrusted, the bridge of the direct child of this application that parents
      * the source of the form. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RemotePopUp(window:Object, bridge:Object)
     {
