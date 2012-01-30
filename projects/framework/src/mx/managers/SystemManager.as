@@ -38,11 +38,14 @@ import flash.system.ApplicationDomain;
 import flash.system.Capabilities;
 import flash.text.Font;
 import flash.text.TextFormat;
+import flash.text.engine.TextBlock;
+import flash.text.engine.TextLine;
 import flash.ui.Keyboard;
 import flash.utils.ByteArray;
 import flash.utils.Dictionary;
 import flash.utils.Timer;
 import flash.utils.getQualifiedClassName;
+import flashx.textLayout.elements.ITextLineCreator;
 
 import mx.core.EmbeddedFontRegistry;
 import mx.core.EventPriority;
@@ -191,7 +194,7 @@ use namespace mx_internal;
  */
 public class SystemManager extends MovieClip
                            implements IChildList, IFlexDisplayObject,
-                           IFlexModuleFactory, ISystemManager, ISWFBridgeProvider
+                           IFlexModuleFactory, ISystemManager, ISWFBridgeProvider, ITextLineCreator
 {
     include "../core/Version.as";
 
@@ -1914,6 +1917,28 @@ public class SystemManager extends MovieClip
             }
         }
         return false;
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: ITextLineCreator
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+	 *  Implementation of ITextLineCreator.createTextLine 
+   	 */
+    public function createTextLine(textBlock:TextBlock, previousLine:TextLine=null, width:Number=1000000, lineOffset:Number=0.0, fitSomething:Boolean=false):TextLine
+    {
+	    return textBlock.createTextLine(previousLine, width, lineOffset, fitSomething);
+    }
+
+  	/**
+	 *  Implementation of ITextLineCreator.recreateTextLine 
+   	 */
+    public function recreateTextLine(textBlock:TextBlock, textLine:TextLine, previousLine:TextLine=null, width:Number=1000000, lineOffset:Number=0.0, fitSomething:Boolean=false):TextLine
+    {
+	    return textBlock["recreateTextLine"] ? textBlock["recreateTextLine"](textLine, previousLine, width, lineOffset, fitSomething) : null;
     }
 
     //--------------------------------------------------------------------------
