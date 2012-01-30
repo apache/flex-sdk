@@ -17,8 +17,7 @@
  *  The default value for the Mobile theme is <code>0xFFFFFF</code>.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="color", type="uint", format="Color", inherit="yes")]
@@ -36,8 +35,7 @@
  *  The default font for the Mobile theme is <code>"_sans"</code>.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="fontFamily", type="String", inherit="yes")]
@@ -53,8 +51,7 @@
  *  The default value for the Mobile theme is 24.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="fontSize", type="Number", format="Length", inherit="yes")]
@@ -66,8 +63,7 @@
  *  @default "normal"
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="fontStyle", type="String", enumeration="normal,italic", inherit="yes")]
@@ -79,8 +75,7 @@
  *  The default value for all other controls is <code>normal</code>.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="fontWeight", type="String", enumeration="normal,bold", inherit="yes")]
@@ -91,8 +86,7 @@
  *  <p>The default value is 0.</p>
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="leading", type="Number", format="Length", inherit="yes")]
@@ -105,8 +99,7 @@
  *  @default 0
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="letterSpacing", type="Number", inherit="yes")]
@@ -128,8 +121,7 @@
  *  <code>"bottom"</code>, the text and any icon are centered.</p>
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="textAlign", type="String", enumeration="left,center,right", inherit="yes")]
@@ -141,8 +133,7 @@
  *  @default "none"
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="textDecoration", type="String", enumeration="none,underline", inherit="yes")]
@@ -154,8 +145,7 @@
  *  @default 0
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="textIndent", type="Number", format="Length", inherit="yes")]
