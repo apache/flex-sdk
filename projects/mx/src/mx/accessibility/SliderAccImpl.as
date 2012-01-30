@@ -289,13 +289,21 @@ public class SliderAccImpl extends AccImpl
 	 */
 	override protected function eventHandler(event:Event):void
 	{
-		if (event.type == "change")
+		// Let AccImpl class handle the events
+		// that all accessible UIComponents understand.
+		$eventHandler(event);
+
+		switch (event.type)
 		{
-			var childID:uint = SliderEvent(event).thumbIndex + 1;
-			Accessibility.sendEvent(master, 0, EVENT_OBJECT_SELECTION);
-			Accessibility.sendEvent(master, 0,
-								EVENT_OBJECT_VALUECHANGE, true)
-		} 
+			case "change":
+			{
+				var childID:uint = SliderEvent(event).thumbIndex + 1;
+				Accessibility.sendEvent(master, 0, EVENT_OBJECT_SELECTION);
+				Accessibility.sendEvent(master, 0,
+										EVENT_OBJECT_VALUECHANGE, true);
+				break;
+			} 
+		}
 	}
 	
 	/**
