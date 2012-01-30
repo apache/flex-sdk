@@ -45,6 +45,9 @@ public class TabbedViewNavigatorSkin extends MobileSkin
     //  Variables
     //
     //--------------------------------------------------------------------------
+    /** 
+     *  @copy spark.skins.spark.ApplicationSkin#hostComponent
+     */
     public var hostComponent:TabbedViewNavigator;
     
     // Groups and UI Controls
