@@ -30,9 +30,9 @@ import mx.managers.LayoutManager;
 import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.NavigationStack;
-import spark.core.ContainerDestructionPolicy;
 import spark.components.supportClasses.ViewHistoryData;
 import spark.components.supportClasses.ViewNavigatorBase;
+import spark.core.ContainerDestructionPolicy;
 import spark.effects.Animate;
 import spark.effects.Fade;
 import spark.effects.Move;
@@ -1065,8 +1065,10 @@ public class ViewNavigator extends ViewNavigatorBase
         
         // If this is the components first validation pass, push the firstView
         // on the stack if possible, otherwise set the currentViewChange flag
-        // to true so that an empty screen is created
-        if (!initialized && navigationStack.length == 0)
+        // to true so that an empty screen is created.  If the currentViewData
+        // property exists, that means an empty view was previously created 
+        // because a firstView property wasn't supplied.
+        if (!initialized && navigationStack.length == 0 && !currentViewData)
         {
             if (firstView)
                 navigationStack.push(firstView, firstViewData);
@@ -1993,6 +1995,8 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     override public function updatePropertiesForView(view:View):void
     {
+        super.updatePropertiesForView(view);
+        
         if (!actionBar)
             return;
  
