@@ -50,7 +50,6 @@ public class VScrollBarSkin extends MobileSkin
     {
         super();
         
-        useChromeColor = true;
         minHeight = 20;
         thumbSkinClass = VScrollBarThumbSkin;
         var paddingRight:int;
@@ -169,8 +168,10 @@ public class VScrollBarSkin extends MobileSkin
     /**
      *  @private 
      */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        super.layoutContents(unscaledWidth, unscaledHeight);
+        
         setElementSize(track, unscaledWidth, unscaledHeight);
     }
 }
