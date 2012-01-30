@@ -418,20 +418,14 @@ public class ViewNavigatorBase extends SkinnableContainer
     //--------------------------------------------------------------------------
     
     /**
-     *  @private
+     *  This method executes the default back key behavior for a ViewNavigator.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @playerversion AIR 3.1
+     *  @productversion Flex 4.6
      */
-    override protected function getCurrentSkinState():String
+    public function backKeyUpHandler():void
     {
-        var finalState:String = FlexGlobals.topLevelApplication.aspectRatio;
-    
-        if (_overlayControls)
-            finalState += "AndOverlay";
-        
-        return finalState;
     }
     
     /**
@@ -521,15 +515,20 @@ public class ViewNavigatorBase extends SkinnableContainer
     //--------------------------------------------------------------------------
     
     /**
-     *  If the navigator is the main navigator of the ViewNavigatorApplication or
-     *  class, this method is called when the back device key is pressed.
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    mx_internal function backKeyUpHandler():void
+    override protected function getCurrentSkinState():String
     {
+        var finalState:String = FlexGlobals.topLevelApplication.aspectRatio;
+        
+        if (_overlayControls)
+            finalState += "AndOverlay";
+        
+        return finalState;
     }
     
     /**
