@@ -43,6 +43,11 @@ import mx.resources.ResourceManager;
  *  @see mx.validators.ZipCodeValidatorDomainType
  * 
  *  @includeExample examples/ZipCodeValidatorExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ZipCodeValidator extends Validator
 {
@@ -93,6 +98,11 @@ public class ZipCodeValidator extends Validator
      *
      *  @see mx.validators.ValidationResult
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function validateZipCode(validator:ZipCodeValidator,
                                            value:Object,
@@ -372,6 +382,11 @@ public class ZipCodeValidator extends Validator
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ZipCodeValidator()
     {
@@ -405,6 +420,11 @@ public class ZipCodeValidator extends Validator
      *  This can not have digits or alphabets [a-z A-Z].
      *
      *  @default " -". 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get allowedFormatChars():String
     {
@@ -468,6 +488,11 @@ public class ZipCodeValidator extends Validator
      *  <code>ZipCodeValidatorDomainType.CANADA_ONLY</code>.</p>
      *
      *  @default ZipCodeValidatorDomainType.US_ONLY
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get domain():String
     {
@@ -514,6 +539,11 @@ public class ZipCodeValidator extends Validator
      *  Error message when the ZIP code contains invalid characters.
      *
      *  @default "The ZIP code contains invalid characters."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get invalidCharError():String
     {
@@ -554,6 +584,11 @@ public class ZipCodeValidator extends Validator
      *  Error message when the <code>domain</code> property contains an invalid value.
      *
      *  @default "The domain parameter is invalid. It must be either 'US Only' or 'US or Canada'."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get invalidDomainError():String
     {
@@ -594,6 +629,11 @@ public class ZipCodeValidator extends Validator
      *  Error message for an invalid Canadian postal code.
      *
      *  @default "The Canadian postal code must be formatted 'A1B 2C3'."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get wrongCAFormatError():String
     {
@@ -634,6 +674,11 @@ public class ZipCodeValidator extends Validator
      *  Error message for an invalid US ZIP code.
      *
      *  @default "The ZIP code must be 5 digits or 5+4 digits."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get wrongLengthError():String
     {
@@ -674,6 +719,11 @@ public class ZipCodeValidator extends Validator
      *  Error message for an incorrectly formatted ZIP code.
      *
      *  @default "The ZIP+4 code must be formatted '12345-6789'."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get wrongUSFormatError():String
     {
@@ -728,6 +778,11 @@ public class ZipCodeValidator extends Validator
      *
      *  @return An Array of ValidationResult objects, with one ValidationResult 
      *  object for each field examined by the validator. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function doValidation(value:Object):Array
     {
