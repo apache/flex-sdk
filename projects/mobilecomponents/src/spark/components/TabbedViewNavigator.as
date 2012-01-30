@@ -719,14 +719,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 // If there is no focus or the item that had focus isn't 
                 // on the display list anymore, update the focus to be
                 // the active view or the view navigator
-                var focusedObject:Object = focusManager.getFocus();
-                if (!focusedObject || !focusedObject.stage || focusedObject == this)
-                {
-                    if (activeView)
-                        focusManager.setFocus(activeView);
-                    else
-                        focusManager.setFocus(this);
-                }
+                updateFocus();
             }
 
             selectedIndexAdjusted = false;
