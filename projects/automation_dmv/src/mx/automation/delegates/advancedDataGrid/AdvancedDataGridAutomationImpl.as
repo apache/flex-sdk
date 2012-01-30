@@ -503,9 +503,11 @@ package mx.automation.delegates.advancedDataGrid
 			{
 				// this fucntion gets the cell data correspeonding to the cell mentioned by the row Index 
 				// and the column Index.
-				var origScrollPos:int = grid1.verticalScrollPosition;
+				var origVScrollPos:int = grid1.verticalScrollPosition;
+				var origHScrollPos:int = grid1.horizontalScrollPosition;						
+				
 				var  posChanged:Boolean = false;
-				var currentScrollpos:int = origScrollPos; 
+				var currentScrollpos:int = origVScrollPos; 
 				
 				
 				
@@ -536,9 +538,26 @@ package mx.automation.delegates.advancedDataGrid
 						var itemDelegate:IAutomationObject = item as IAutomationObject;
 						val= (itemDelegate.automationName);
 					}
+					else
+					{
+						grid1.horizontalScrollPosition = columIndex;
+						posChanged = true;
+						var currentHScrollpos:Number = grid1.horizontalScrollPosition;
+						var newColIndex:int = columIndex-currentHScrollpos;
+						var listItems:Array = grid1.rendererArray;
+						if ((listItems[newRowIndex] as Array).length > newColIndex)
+						{
+							var item:IListItemRenderer = listItems[newRowIndex][newColIndex];
+							var itemDelegate:IAutomationObject = item as IAutomationObject;
+							val= (itemDelegate.automationName);
+						}
+					}
 				}
 				if (posChanged && restorePrevView)
-					grid1.verticalScrollPosition = origScrollPos;
+				{
+					grid1.verticalScrollPosition = origVScrollPos;
+					grid1.horizontalScrollPosition = origHScrollPos;
+				}
 				//  position chaneged and  it is required to set the original scroll pos
 				// hence setting the original pos
 				
