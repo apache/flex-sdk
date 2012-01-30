@@ -1713,8 +1713,8 @@ public class ViewNavigator extends ViewNavigatorBase
             viewChanging = false;
             
             // Notify listeners that the view change is complete
-            if (hasEventListener(Event.COMPLETE))
-                dispatchEvent(new Event(Event.COMPLETE));
+            if (hasEventListener("viewChangeComplete"))
+                dispatchEvent(new Event("viewChangeComplete"));
         }
     }
     
