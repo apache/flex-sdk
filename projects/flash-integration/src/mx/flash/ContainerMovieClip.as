@@ -32,7 +32,7 @@ use namespace mx_internal;
 [DefaultProperty("content")]
 
 /**
- *  Container components created in Adobe Flash CS3 Professional for use in Flex 
+ *  Container components created in Adobe Flash Professional for use in Flex 
  *  are subclasses of the mx.flash.ContainerMovieClip class. 
  *  You can use a subclass of ContainerMovieClip 
  *  as a Flex container, it can hold children, 
@@ -50,14 +50,14 @@ use namespace mx_internal;
  *  and Rotate effects with Flex components. </p>
  *
  *  <p>The following procedure describes the basic process for creating 
- *  a Flex component in Flash CS3:</p>
+ *  a Flex component in Flash Professional:</p>
  *
  *  <ol>
  *    <li>Install the Adobe Flash Workflow Integration Kit.</li> 
  *    <li>Create symbols for your dynamic assets in the FLA file.</li>
  *    <li>Run Commands &gt; Make Flex Container to convert your symbol 
  *      to a subclass of the ContainerMovieClip class, to configure 
- *      the Flash CS3 publishing settings for use with Flex, and 
+ *      the Flash Professional publishing settings for use with Flex, and 
  *      add a new symbol named FlexContentHolder to the Library. 
  *      This symbol defines the content area of the container in which 
  *      you can place child Flex components..</li> 
