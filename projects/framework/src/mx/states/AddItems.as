@@ -542,10 +542,6 @@ public class AddItems extends OverrideBase
         {
             addItemsToContentHolder(dest as IVisualElementContainer, localItems);
         }
-        else if (propertyName == "controlBarContent" && (dest is IVisualElementContainer))
-        {
-            addItemsToControlBar(dest as IVisualElementContainer, localItems);
-        }
         else if (propertyName == null && dest is IChildList)
         {
             addItemsToContainer(dest as IChildList, localItems);
@@ -602,11 +598,6 @@ public class AddItems extends OverrideBase
         {
             for (i = 0; i < numAdded; i++)
                 IVisualElementContainer(dest).removeElementAt(startIndex);
-        }
-        else if (propertyName == "controlBarContent" && (dest is IVisualElementContainer))
-        {
-            for (i = 0; i < numAdded; i++)
-                IVisualElementContainer(dest)["controlBarGroup"].removeElementAt(startIndex);
         }
         else if (propertyName == null && dest is IChildList)
         {
@@ -667,9 +658,6 @@ public class AddItems extends OverrideBase
             if ((propertyName == null || propertyName == "mxmlContent") && (dest is IVisualElementContainer))
                 return IVisualElementContainer(dest).getElementIndex(object as IVisualElement);
             
-            if ((propertyName == null || propertyName == "controlBarContent") && (dest is IVisualElementContainer))
-                return IVisualElementContainer(dest)["controlBarGroup"].getElementIndex(object as IVisualElement);
-
             if (propertyName == null && dest is IChildList)
                 return IChildList(dest).getChildIndex(DisplayObject(object));
     
@@ -722,21 +710,7 @@ public class AddItems extends OverrideBase
         for (var i:int = 0; i < items.length; i++)
             dest.addElementAt(items[i], startIndex + i);
     }
-    
-    /**
-     *  @private
-     */
-    protected function addItemsToControlBar(dest:IVisualElementContainer, items:Array):void
-    {
-        dest = dest["controlBarGroup"];
-
-        if (startIndex == -1)
-            startIndex = dest.numElements;
-        
-        for (var i:int = 0; i < items.length; i++)
-            dest.addElementAt(items[i], startIndex + i);
-    }
-    
+       
     /**
      *  @private
      */
