@@ -243,7 +243,8 @@ use namespace mx_internal;
 
 /**
  *  The StyleableStageText class is a text primitive for use in ActionScript
- *  skins. It cannot be used in MXML markup, is not compatible with effects, and
+ *  skins which is used to present the user with a native text input field. 
+ *  It cannot be used in MXML markup, is not compatible with effects, and
  *  is not compatible with transformations such as rotation, scale, and skew.
  * 
  *  @see flash.text.StageText
@@ -295,7 +296,16 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //--------------------------------------------------------------------------
     
     /**
-     *  Constructor
+     *  Constructor.
+     * 
+     *  <p><code>multiline</code> determines what happens when you press the Enter key.
+     *  If it is <code>true</code>, the Enter key starts a new line.
+     *  If it is <code>false</code>, it causes a <code>FlexEvent.ENTER</code>
+     *  event to be dispatched.</p>
+     * 
+     *  @param multiline Set to <code>true</code> to allow more than one line of text to be input.
+     * 
+     *  @default false
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
@@ -457,6 +467,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         return localViewPort.height;
     }
     
+    /**
+     *  @private
+     */
     override public function set height(value:Number):void
     {
         super.height = value;
@@ -490,6 +503,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         return _visible;
     }
     
+    /**
+     *  @private
+     */
     override public function set visible(value:Boolean):void
     {
         super.visible = value;
@@ -518,6 +534,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         return localViewPort.width;
     }
     
+    /**
+     *  @private
+     */
     override public function set width(value:Number):void
     {
         super.width = value;
@@ -549,6 +568,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         return localViewPort.x;
     }
     
+    /**
+     *  @private
+     */
     override public function set x(value:Number):void
     {
         super.x = value;
@@ -580,6 +602,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         return localViewPort.y;
     }
     
+    /**
+     *  @private
+     */
     override public function set y(value:Number):void
     {
         super.y = value;
@@ -771,6 +796,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     /**
      *  @copy flash.text.StageText#maxChars
      *  
+     *  @default 0
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
      *  @productversion Flex 4.5.2
@@ -835,6 +862,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     /**
      *  @copy flash.text.StageText#restrict
+     * 
+     *  @default null
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
@@ -920,6 +949,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     /**
      *  @copy flash.text.StageText#text
      * 
+     *  @default null
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
      *  @productversion Flex 4.5.2
@@ -978,8 +1009,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var _autoCapitalize:String = AutoCapitalize.NONE;
     
     /**
-     *  @copy flash.text.StageText#autoCapitalize
-     *  
+     *  @inheritDoc
+     * 
+     *  @default AutoCapitalize.NONE
+     * 
+     *  @see flash.text.AutoCapitalize
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
      *  @productversion Flex 4.5.2
@@ -1010,8 +1045,10 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var _autoCorrect:Boolean = true;
     
     /**
-     *  @copy flash.text.StageText#autoCorrect
-     *  
+     *  @inheritDoc
+     * 
+     *  @default true
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
      *  @productversion Flex 4.5.2
@@ -1039,8 +1076,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var _returnKeyLabel:String = ReturnKeyLabel.DEFAULT;
     
     /**
-     *  @copy flash.text.StageText#returnKeyLabel
-     *  
+     *  @inheritDoc
+     * 
+     *  @default ReturnKeyLabel.DEFAULT
+     * 
+     *  @see flash.text.ReturnKeyLabel
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
      *  @productversion Flex 4.5.2
@@ -1071,8 +1112,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var _softKeyboardType:String = SoftKeyboardType.DEFAULT;
     
     /**
-     *  @copy flash.text.StageText#softKeyboardType
-     *  
+     *  @inheritDoc
+     * 
+     *  @default SoftKeyboardType.DEFAULT
+     * 
+     *  @see flash.text.SoftKeyboardType
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
      *  @productversion Flex 4.5.2
@@ -1246,16 +1291,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     }
     
     /**
-     *  Inserts the specified text into the text component as if you had typed
-     *  it.
-     *
-     *  <p>If a range was selected, the new text replaces the selected text. If
-     *  there was an insertion point, the new text is inserted there.</p>
-     *
-     *  <p>An insertion point is then set after the new text. If necessary, the
-     *  text will scroll to ensure that the insertion point is visible.</p>
-     *
-     *  @param text The text to be inserted.
+     *  @inheritDoc
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
@@ -1306,6 +1342,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         stageText.selectRange(startIndex + text.length, startIndex + text.length);
 
         _text = stageText.text;
+        
+        // TODO: scrollToRange so the insertion point is visible
+        
         dispatchEvent(new TextOperationEvent(TextOperationEvent.CHANGE));
     }
     
@@ -1338,7 +1377,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     }
     
     /**
-     *  @copy flash.text.StageText#selectRange()
+     *  @inheritDoc
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
