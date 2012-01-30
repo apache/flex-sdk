@@ -53,17 +53,21 @@
 <component id="SparkToggleButtonBaseAutomationImpl"  class="spark.automation.delegates.components.supportClasses.SparkToggleButtonBaseAutomationImpl"/>
 <component id="SparkTrackBaseAutomationImpl"  class="spark.automation.delegates.components.supportClasses.SparkTrackBaseAutomationImpl"/>
 <component id="SparkSkinnableTextBaseAutomationImpl"  class="spark.automation.delegates.components.supportClasses.SparkSkinnableTextBaseAutomationImpl"/>
-
+<component id="SparkDataGridAutomationImpl"  class="spark.automation.delegates.components.SparkDataGridAutomationImpl"/>  
 
 
 <component id="SparkListItemSelectEvent"  class="spark.automation.events.SparkListItemSelectEvent"/>  
+<component id="SparkDataGridItemSelectEvent"  class="spark.automation.events.SparkDataGridItemSelectEvent"/>  
 <component id="SparkValueChangeAutomationEvent"  class="spark.automation.events.SparkValueChangeAutomationEvent"/>
 
 <component id="RichEditableTextTabularData"  class="spark.automation.tabularData.RichEditableTextTabularData"/>    
 <component id="SparkListBaseTabularData"  class="spark.automation.tabularData.SparkListBaseTabularData"/>
 <component id="SkinnableContainerTabularData"  class="spark.automation.tabularData.SkinnableContainerTabularData"/>
+<component id="SparkDataGridTabularData"  class="spark.automation.tabularData.SparkDataGridTabularData"/>
+
 
 <component id="SparkDefaultItemRendererAutomationImpl" class="spark.automation.delegates.skins.spark.SparkDefaultItemRendererAutomationImpl"/>
 <component id="SparkDefaultComplexItemRendererAutomationImpl" class="spark.automation.delegates.skins.spark.SparkDefaultComplexItemRendererAutomationImpl"/>
+<component id="SparkDefaultGridItemRendererAutomationImpl" class="spark.automation.delegates.skins.spark.SparkDefaultGridItemRendererAutomationImpl"/>
 
 </componentPackage>
