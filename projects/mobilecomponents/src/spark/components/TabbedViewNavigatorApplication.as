@@ -21,7 +21,7 @@ import mx.core.ContainerCreationPolicy;
 import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
 
-import spark.components.supportClasses.MobileApplicationBase;
+import spark.components.supportClasses.ViewNavigatorApplicationBase;
 import spark.components.supportClasses.NavigationStack;
 import spark.components.supportClasses.ViewDescriptor;
 import spark.components.supportClasses.ViewNavigatorBase;
@@ -33,7 +33,7 @@ use namespace mx_internal;
 /**
  * 
  */
-public class TabbedMobileApplication extends MobileApplicationBase
+public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
 {
     //--------------------------------------------------------------------------
     //
@@ -66,7 +66,7 @@ public class TabbedMobileApplication extends MobileApplicationBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function TabbedMobileApplication()
+    public function TabbedViewNavigatorApplication()
     {
         super();
     }
@@ -129,7 +129,7 @@ public class TabbedMobileApplication extends MobileApplicationBase
     /**
      *  @inheritDoc
      *
-     *  <p>TabbedMobileApplication can not have visual elements
+     *  <p>TabbedViewNavigatorApplication can not have visual elements
      *  added to it, so the creationPolicy concept use by the framework
      *  doesn't necessarily make sense.  Instead, this property repurposed to
      *  control whether the application's child navigators create their children
@@ -231,7 +231,7 @@ public class TabbedMobileApplication extends MobileApplicationBase
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden Methods: MobileApplicationBase
+    //  Overridden Methods: ViewNavigatorApplicationBase
     //
     //--------------------------------------------------------------------------
     
