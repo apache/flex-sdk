@@ -597,6 +597,9 @@ public class StyleManagerImpl implements IStyleManager2
      *  <p>The <code>global</code> selector is similar to a type selector
      *  and does not start with a period.</p>
      *
+     *  <p>Note that the provided selector will update the selector and subject
+     *  of the styleDeclaration to keep them in sync.</p>
+     * 
      *  @param selector The name of the CSS selector.
      *  @param styleDeclaration The new style declaration.
      *  @param update Set to <code>true</code> to force an immediate update of the styles.
@@ -618,12 +621,40 @@ public class StyleManagerImpl implements IStyleManager2
         _selectors[selector] = styleDeclaration;
 
         // We also index by subject to help match advanced selectors
-        if (!styleDeclaration.subject && selector)
+        var subject:String = styleDeclaration.subject;
+        if (selector)
         {
-            styleDeclaration.selectorString = selector;
+            if (!styleDeclaration.subject)
+            {
+                // If the styleDeclaration does not yet have a subject we
+                // update its selector to keep it in sync with the provided
+                // selector.
+                styleDeclaration.selectorString = selector;
+                subject = styleDeclaration.subject;
+            }
+            else if (selector != styleDeclaration.selectorString)
+            {
+                // The styleDeclaration does not match the provided selector, so
+                // we ignore the subject on the styleDeclaration and try to
+                // determine the subject from the selector
+                var firstChar:String = selector.charAt(0); 
+                if (firstChar == "." || firstChar == ":" || firstChar == "#")
+                {
+                    subject = "*";
+                }
+                else
+                {
+                    // TODO: Support parsing Advanced CSS selectors for a 
+                    // subject...
+                    subject = selector;
+                }
+
+                // Finally, we update the styleDeclaration's selector to keep
+                // it in sync with the provided selector.
+                styleDeclaration.selectorString = selector;
+            }
         }
 
-		var subject:String = styleDeclaration.subject;
         if (subject != null)
         {
             var declarations:Array = _subjects[subject] as Array;
