@@ -304,7 +304,7 @@ public dynamic class ObjectProxy extends Proxy
      */
     public function get uid():String
     {
-    	if (_id === null)
+        if (_id === null)
             _id = UIDUtil.createUID();
             
         return _id;
