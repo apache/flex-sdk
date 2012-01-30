@@ -23,6 +23,11 @@ package mx.geom
 	
 	/**
 	 *  A CompoundTransform represents a 2D or 3D matrix transform. It can be used in the offsets property on a UIComponent or GraphicElement.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public class TransformOffsets extends EventDispatcher 
 	{
@@ -33,6 +38,11 @@ package mx.geom
     //--------------------------------------------------------------------------
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 		public function TransformOffsets()
 		{
@@ -76,6 +86,11 @@ package mx.geom
 	
 	/**
 	 * the  x value added to the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set x(value:Number):void
 	{		
@@ -94,6 +109,11 @@ package mx.geom
 	
 	/**
 	 * the y value added to the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set y(value:Number):void
 	{		
@@ -113,6 +133,11 @@ package mx.geom
 	
 	/**
 	 * the z value added to the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set z(value:Number):void
 	{		
@@ -135,6 +160,11 @@ package mx.geom
 	
 	/**
 	 * the rotationX, in degrees, added to the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set rotationX(value:Number):void
 	{		
@@ -154,6 +184,11 @@ package mx.geom
 	
 	/**
 	 * the rotationY, in degrees, added to the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set rotationY(value:Number):void
 	{		
@@ -173,6 +208,11 @@ package mx.geom
 	
 	/**
 	 * the rotationZ, in degrees, added to the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set rotationZ(value:Number):void
 	{		
@@ -195,6 +235,11 @@ package mx.geom
 	
 	/**
 	 * the multiplier applied to the scaleX of the transform.  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set scaleX(value:Number):void
 	{		
@@ -214,6 +259,11 @@ package mx.geom
 	
 	/**
 	 * the multiplier applied to the scaleY of the transform.  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set scaleY(value:Number):void
 	{		
@@ -234,6 +284,11 @@ package mx.geom
 	
 	/**
 	 * the multiplier applied to the scaleZ of the transform.  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set scaleZ(value:Number):void
 	{		
@@ -316,6 +371,11 @@ package mx.geom
 	 * @param rx,ry,rz the new values for the rotation of the transform
 	 * @param sx,sy,sz the new values for the scale of the transform
 	 * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
 	{
