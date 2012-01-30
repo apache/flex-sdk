@@ -19,8 +19,8 @@
     <component id="ActionBar" class="spark.components.ActionBar"/>
     <component id="CrossFadeViewTransition" class="spark.transitions.CrossFadeViewTransition"/>
     <component id="FlipViewTransition" class="spark.transitions.FlipViewTransition"/>
-    <component id="MobileItemRenderer" class="spark.components.MobileItemRenderer"/>
-    <component id="MobileIconItemRenderer" class="spark.components.MobileIconItemRenderer"/>
+    <component id="IconItemRenderer" class="spark.components.IconItemRenderer"/>
+    <component id="LabelItemRenderer" class="spark.components.LabelItemRenderer"/>
     <component id="SlideViewTransition" class="spark.transitions.SlideViewTransition"/>
     <component id="TabbedViewNavigatorApplication" class="spark.components.TabbedViewNavigatorApplication"/>
     <component id="TabbedViewNavigator" class="spark.components.TabbedViewNavigator"/>
