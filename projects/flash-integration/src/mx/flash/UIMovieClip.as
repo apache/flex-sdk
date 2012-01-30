@@ -34,6 +34,7 @@ import mx.core.UIComponentDescriptor;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.MoveEvent;
+import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 import mx.events.StateChangeEvent;
 import mx.managers.IFocusManagerComponent;
