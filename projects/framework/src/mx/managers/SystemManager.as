@@ -3368,15 +3368,19 @@ public class SystemManager extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
+    public function getVisibleApplicationRect(bounds:Rectangle = null, skipToSandboxRoot:Boolean = false):Rectangle
     {
         if (hasEventListener("getVisibleApplicationRect"))
         {
             var request:Request = new Request("getVisibleApplicationRect", false, true);
+			request.value = { bounds: bounds, skipToSandboxRoot: skipToSandboxRoot };
             if (!dispatchEvent(request)) 
                 return Rectangle(request.value);
         }
         
+		if (skipToSandboxRoot && !topLevel)
+			return topLevelSystemManager.getVisibleApplicationRect(bounds, skipToSandboxRoot);
+		
         if (!bounds)
         {
             bounds = getBounds(DisplayObject(this));
@@ -3390,6 +3394,16 @@ public class SystemManager extends MovieClip
             bounds.height = s.height;
         }
         
+		if (!topLevel)
+		{
+			var obj:DisplayObjectContainer = parent.parent;
+			
+			if ("getVisibleApplicationRect" in obj)
+			{
+				var visibleRect:Rectangle = obj["getVisibleApplicationRect"](true);
+				bounds = bounds.intersection(visibleRect);
+			}
+		}
         return bounds;
     }
  
