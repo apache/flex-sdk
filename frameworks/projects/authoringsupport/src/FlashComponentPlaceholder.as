@@ -11,7 +11,7 @@
 
 package
 {
-import mx.controls.Image;
+import mx.controls.SWFLoader;
 
 [IconFile("flash_component_icon_small.png")]
 public class FlashComponentPlaceholder extends FlashContainerPlaceholder
@@ -21,13 +21,11 @@ public class FlashComponentPlaceholder extends FlashContainerPlaceholder
         super();
     }
     
-    override protected function createImage():Image
+    override protected function createImage():SWFLoader
     {
-        image1 = new Image();
+        image1 = new SWFLoader();
         image1.source = _embed_mxml_flash_component_icon_png;
         image1.scaleContent = false;
-        image1.percentHeight = 100;
-        image1.percentWidth = 100;
         image1.setStyle('horizontalAlign' , 'center');
         image1.setStyle('verticalAlign' , 'middle');
         return image1;            
