@@ -46,20 +46,20 @@
             width="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText color="blue"
+            <s:Label color="blue"
                     text="Click the button below to display a simple Alert window."/>
             <s:Button label="Click Me" click="Alert.show('Hello World!', 'Message');"/>
 
             <mx:HRule width="100%" />
 
-            <s:SimpleText color="blue" 
+            <s:Label color="blue" 
                     text="Click the button below to display an Alert window and capture the button pressed by the user."/>
             <s:Button label="Click Me" click="clickHandler(event);"/>
-            <s:SimpleText id="status" fontWeight="bold"/>
+            <s:Label id="status" fontWeight="bold"/>
 
             <mx:HRule width="100%" />
 
-            <s:SimpleText color="blue"
+            <s:Label color="blue"
                     text="Click the button below to display an Alert window that uses custom Button labels."/>
             <s:Button label="Click Me" click="secondClickHandler(event);"/>
         </s:VGroup>
