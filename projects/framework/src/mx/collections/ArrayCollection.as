@@ -56,6 +56,11 @@ use namespace mx_internal;
  *  if (firstItem == firstItemFromCursor)
  *        doCelebration();
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ArrayCollection extends ListCollectionView implements IExternalizable
 {
@@ -72,6 +77,11 @@ public class ArrayCollection extends ListCollectionView implements IExternalizab
      *
      *  <p>Creates a new ArrayCollection using the specified source array.
      *  If no array is specified an empty array will be used.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ArrayCollection(source:Array = null)
     {
@@ -98,6 +108,11 @@ public class ArrayCollection extends ListCollectionView implements IExternalizab
      *  The ArrayCollection object does not represent any changes that you make
      *  directly to the source array. Always use
      *  the ICollectionView or IList methods to modify the collection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get source():Array
     {
