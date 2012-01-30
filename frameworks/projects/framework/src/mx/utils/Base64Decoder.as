@@ -107,7 +107,13 @@ public class Base64Decoder
     public function drain():ByteArray
     {
         var result:ByteArray = new ByteArray();
-        copyByteArray(data, result, filled);
+
+		var oldPosition:uint = data.position;	 
+		data.position = 0;	// technically, shouldn't need to set this, but carrying over from previous implementation
+		result.writeBytes(data, 0, data.length);		
+		data.position = oldPosition;
+		result.position = 0;
+		
         filled = 0;
         return result;
     }
@@ -157,30 +163,6 @@ public class Base64Decoder
         var result:ByteArray = flush();
         reset();
         return result;
-    }
-
-	//--------------------------------------------------------------------------
-	//
-	//  Private Methods
-	//
-	//--------------------------------------------------------------------------
-
-    private static function copyByteArray(source:ByteArray, destination:ByteArray, length:uint = 0):void
-    {
-        var oldPosition:int = source.position;
-
-        source.position = 0;
-        destination.position = 0;
-        var i:uint = 0;
-
-        while (source.bytesAvailable > 0 && i < length)
-        {
-            destination.writeByte(source.readByte());
-            i++;
-        }
-
-        source.position = oldPosition;
-        destination.position = 0;
     }
 
 	//--------------------------------------------------------------------------
