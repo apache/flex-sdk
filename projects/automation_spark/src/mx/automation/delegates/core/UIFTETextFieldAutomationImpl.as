@@ -16,6 +16,7 @@ package mx.automation.delegates.core
 	import flash.events.Event;
 	
 	import mx.automation.Automation;
+	import mx.automation.AutomationConstants;
 	import mx.automation.IAutomationObject;
 	import mx.core.UIFTETextField;
 	
@@ -94,13 +95,13 @@ package mx.automation.delegates.core
 		
 		public function get automationDelegate():Object
 		{
-			trace("UIFTETextFieldAutomationImpl:automationDelegate - Invalid getter function call. Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIFTETextFieldAutomationImpl", "get automationDelegate()", AutomationConstants.invalidDelegateMethodCall);
 			return this;
 		}
 		
 		public function set automationDelegate(delegate:Object):void
 		{
-			trace("UIFTETextFieldAutomationImpl:automationDelegate - Invalid setter function call. Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIFTETextFieldAutomationImpl", "set automationDelegate()", AutomationConstants.invalidDelegateMethodCall);
 		}
 		
 		public function get automationName():String
@@ -127,7 +128,7 @@ package mx.automation.delegates.core
 		
 		public function get automationOwner():DisplayObjectContainer
 		{
-			trace ("This method should not be called on delegate.Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIFTETextFieldAutomationImpl", "get automationOwner()", AutomationConstants.invalidDelegateMethodCall);
 			
 			if(uiFTETextField)
 				return uiFTETextField.owner;
@@ -137,7 +138,7 @@ package mx.automation.delegates.core
 		
 		public function get automationParent():DisplayObjectContainer
 		{
-			trace ("This method should not be called on delegate.Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIFTETextFieldAutomationImpl", "get automationParent()", AutomationConstants.invalidDelegateMethodCall);
 			
 			if(uiFTETextField)
 				return uiFTETextField.parent;
@@ -150,7 +151,7 @@ package mx.automation.delegates.core
 		//---------------------------------
 		public function get automationEnabled():Boolean
 		{
-			trace ("This method should not be called on delegate.Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIFTETextFieldAutomationImpl", "get automationEnabled()", AutomationConstants.invalidDelegateMethodCall);
 			if(uiFTETextField)
 				return uiFTETextField.enabled;
 			
@@ -159,7 +160,7 @@ package mx.automation.delegates.core
 		
 		public function get automationVisible():Boolean
 		{
-			trace ("This method should not be called on delegate.Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIFTETextFieldAutomationImpl", "get automationVisible()", AutomationConstants.invalidDelegateMethodCall);
 			if(uiFTETextField)
 				return uiFTETextField.visible;
 			
@@ -198,13 +199,13 @@ package mx.automation.delegates.core
 		
 		public function get showInAutomationHierarchy():Boolean
 		{
-			trace("UIFTETextFieldAutomationImpl:showInAutomationHierarchy - Invalid getter function call. Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIFTETextFieldAutomationImpl", "get showInAutomationHierarchy()", AutomationConstants.invalidDelegateMethodCall);
 			return uiFTETextField.showInAutomationHierarchy;
 		}
 		
 		public function set showInAutomationHierarchy(value:Boolean):void
 		{
-			trace("UIFTETextFieldAutomationImpl:showInAutomationHierarchy - Invalid setter function call. Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("UIFTETextFieldAutomationImpl", "set showInAutomationHierarchy()", AutomationConstants.invalidDelegateMethodCall);
 		}
 		
 		public function get automationTabularData():Object
