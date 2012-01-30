@@ -54,7 +54,7 @@ public class DateAndTimeProvider extends OnDemandDataProvider
      *  @productversion Flex 4.5.2
      */
     public function DateAndTimeProvider(locale:String, start:Date, end:Date, 
-                                        today:Date = null, todayAccentColor:uint = 0)
+                                        today:Date = null)
     {
         if (start == null)
             start = MIN_DATE_DEFAULT;
@@ -89,7 +89,6 @@ public class DateAndTimeProvider extends OnDemandDataProvider
         formatter.dateTimeSkeletonPattern = DateTimeFormatterEx.DATESTYLE_MMMEEEd;
         
         todayDate = today;
-        accentColor = todayAccentColor;
     }
     
     //----------------------------------------------------------------------------------------------
@@ -107,10 +106,7 @@ public class DateAndTimeProvider extends OnDemandDataProvider
     private var endDate:Date;
     
     private var todayDate:Date;
-    
-    // color to apply as accent color for dates that match today's date
-    private var accentColor:uint;
-    
+        
     // formatter to use in localizing the date labels
     private var formatter:DateTimeFormatterEx;
     
@@ -165,7 +161,7 @@ public class DateAndTimeProvider extends OnDemandDataProvider
                 d.getMonth() == todayDate.getMonth() &&
                 d.getDate() == todayDate.getDate())
             {
-                item["accentColor"] = accentColor;
+                item["_emphasized_"] = true;
             }
         }
         
