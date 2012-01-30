@@ -342,12 +342,29 @@ public class CSSStyleDeclaration extends EventDispatcher
      */  
     public function isAdvanced():Boolean
     {
-        if (selector != null &&
-           (selector.kind == CSSSelectorKind.DESCENDANT_SELECTOR ||
-           (selector.kind == CSSSelectorKind.CONDITIONAL_SELECTOR &&
-                subject != "global")))
+        if (selector != null)
         {
-            return true;
+            if (selector.kind == CSSSelectorKind.DESCENDANT_SELECTOR)
+            {
+                return true;
+            }
+            else if (selector.kind == CSSSelectorKind.CONDITIONAL_SELECTOR)
+            {
+                if (subject != "global")
+                {
+                    return true;
+                }
+                else if (selector.conditions != null)
+                {
+                    for each (var condition:CSSCondition in selector.conditions)
+                    {
+                        if (condition.kind != CSSConditionKind.CLASS_CONDITION)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
         }
 
         return false;
