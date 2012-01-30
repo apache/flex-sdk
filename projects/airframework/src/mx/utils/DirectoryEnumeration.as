@@ -25,7 +25,6 @@ import mx.collections.Sort;
  *  a list of File instances representing the files and directories
  *  in a file system directory.
  * 
- *  @playerversion AIR 1.1
  */
 public class DirectoryEnumeration
 {
@@ -43,31 +42,31 @@ public class DirectoryEnumeration
      *  @param source An Array of File instances representing
      *  the files and subdirectories in a file system directory.
      */
-	public function DirectoryEnumeration(source:Array = null)
-	{
-		super();
-		
-		this.source = source;
-	}
-	
+    public function DirectoryEnumeration(source:Array = null)
+    {
+        super();
+        
+        this.source = source;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Variables
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  A hash table for looking up extensions quickly.
-	 */
-	private var extensionsSet:Object;
-	
+    /**
+     *  @private
+     *  A hash table for looking up extensions quickly.
+     */
+    private var extensionsSet:Object;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-	
+    
     //----------------------------------
     //  collection
     //----------------------------------
@@ -75,8 +74,8 @@ public class DirectoryEnumeration
     /**
      *  @private
      */
-	private var _collection:ArrayCollection;
-	
+    private var _collection:ArrayCollection;
+    
     /**
      *  An ArrayCollection representing a filtered and sorted view
      *  of the <code>source</code> Array of File instances.
@@ -86,22 +85,22 @@ public class DirectoryEnumeration
      *  The sorting is determined by the <code>enumerationMode</code>
      *  and <code>nameCompareFunction</code> properties.
      */
-	public function get collection():ArrayCollection
-	{
-		return _collection;
-	}
+    public function get collection():ArrayCollection
+    {
+        return _collection;
+    }
 
     //----------------------------------
     //  enumerationMode
     //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the enumerationMode property.
-	 */
-	private var _enumerationMode:String =
-					DirectoryEnumerationMode.DIRECTORIES_FIRST;
-	
+    /**
+     *  @private
+     *  Storage for the enumerationMode property.
+     */
+    private var _enumerationMode:String =
+                    DirectoryEnumerationMode.DIRECTORIES_FIRST;
+    
     /**
      *  A String specifying whether the <code>collection</code>
      *  includes only files, only subdirectories, or both.
@@ -127,7 +126,7 @@ public class DirectoryEnumeration
      */
     public function get enumerationMode():String
     {
-		return _enumerationMode;
+        return _enumerationMode;
     }
     
     /**
@@ -135,19 +134,19 @@ public class DirectoryEnumeration
      */
     public function set enumerationMode(value:String):void
     {
- 		_enumerationMode = value;
+        _enumerationMode = value;
    }
 
     //----------------------------------
     //  extensions
     //----------------------------------
     
-	/**
-	 *  @private
-	 *  Storage for the extensions property.
-	 */
-   	private var _extensions:Array /* of String */;
-	
+    /**
+     *  @private
+     *  Storage for the extensions property.
+     */
+    private var _extensions:Array /* of String */;
+    
     /**
      *  An Array of extensions specifying which files
      *  are included in the <code>collection</code>
@@ -191,7 +190,7 @@ public class DirectoryEnumeration
      */
     public function get extensions():Array /* of String */
     {
-		return _extensions;
+        return _extensions;
     }
     
     /**
@@ -199,27 +198,27 @@ public class DirectoryEnumeration
      */
     public function set extensions(value:Array /* of String */):void
     {
- 		_extensions = value;
+        _extensions = value;
 
-		extensionsSet = {};
-		for each (var s:String in extensions)
-		{
-			if (s.charAt(0) == ".")
-				s = s.substr(1);
-			extensionsSet[s.toLowerCase()] = true;
-		}
+        extensionsSet = {};
+        for each (var s:String in extensions)
+        {
+            if (s.charAt(0) == ".")
+                s = s.substr(1);
+            extensionsSet[s.toLowerCase()] = true;
+        }
    }
     
     //----------------------------------
     //  filterFunction
     //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the filterFunction property.
-	 */
-   	private var _filterFunction:Function;
-   	
+    /**
+     *  @private
+     *  Storage for the filterFunction property.
+     */
+    private var _filterFunction:Function;
+    
     /**
      *  A callback Function that you can use to perform additional filtering,
      *  after the <code>enumerationMode</code> and <code>extensions</code>
@@ -231,7 +230,7 @@ public class DirectoryEnumeration
      *  <pre>function myFilterFunction(file:File):Boolean</pre>
      * 
      *  <p>This function should return <code>true</code> to include
-	 *  the specified file or subdirectory.</p>
+     *  the specified file or subdirectory.</p>
      *
      *  <p>To ensure that every enumerated file and subdirectory is passed
      *  to this function, the <code>enumerationMode</code> property must
@@ -248,7 +247,7 @@ public class DirectoryEnumeration
      */
     public function get filterFunction():Function
     {
-		return _filterFunction;
+        return _filterFunction;
     }
     
     /**
@@ -256,19 +255,19 @@ public class DirectoryEnumeration
      */
     public function set filterFunction(value:Function):void
     {
-		_filterFunction = value;
+        _filterFunction = value;
    }
     
     //----------------------------------
     //  nameCompareFunction
     //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the nameCompareFunction property.
-	 */
-   	private var _nameCompareFunction:Function;
-   	
+    /**
+     *  @private
+     *  Storage for the nameCompareFunction property.
+     */
+    private var _nameCompareFunction:Function;
+    
     /**
      *  A callback Function that you can use to change how file and subdirectory
      *  names are compared in order to produce the sort order.
@@ -298,7 +297,7 @@ public class DirectoryEnumeration
      */
     public function get nameCompareFunction():Function
     {
-		return _nameCompareFunction;
+        return _nameCompareFunction;
     }
     
     /**
@@ -306,23 +305,23 @@ public class DirectoryEnumeration
      */
     public function set nameCompareFunction(value:Function):void
     {
-		_nameCompareFunction = value;
+        _nameCompareFunction = value;
     }
 
     //----------------------------------
     //  showHidden
     //----------------------------------
     
-	/**
-	 *  @private
-	 *  Storage for the showHidden property.
-	 */
- 	private var _showHidden:Boolean = false;
- 	
+    /**
+     *  @private
+     *  Storage for the showHidden property.
+     */
+    private var _showHidden:Boolean = false;
+    
     /**
      *  A flag that specifies whether files and directories
      *  that the operating system considers hidden
-	 *  are included in the <code>collection</code>.
+     *  are included in the <code>collection</code>.
      *  Set this property to <code>true</code>
      *  to include hidden files and directories.
      *
@@ -330,7 +329,7 @@ public class DirectoryEnumeration
      */
     public function get showHidden():Boolean
     {
-		return _showHidden;
+        return _showHidden;
     }
     
     /**
@@ -338,24 +337,24 @@ public class DirectoryEnumeration
      */
     public function set showHidden(value:Boolean):void
     {
-		_showHidden = value;
+        _showHidden = value;
     }
 
     //----------------------------------
     //  source
     //----------------------------------
 
-	private var _source:Array /* of File */;
+    private var _source:Array /* of File */;
 
     /**
-	 *  The source of data for the <code>collection</code>.
-	 * 
-	 *  <p>This class expects this property to be set to an Array
-	 *  of File instances representing the files and directories
-	 *  in a single file system directory.
-	 *  You can obtain such an Array by calling the
-	 *  <code>listDirectory()</code> or <code>listDirectoryAsync()</code>
-	 *  of the File class.</p>
+     *  The source of data for the <code>collection</code>.
+     * 
+     *  <p>This class expects this property to be set to an Array
+     *  of File instances representing the files and directories
+     *  in a single file system directory.
+     *  You can obtain such an Array by calling the
+     *  <code>listDirectory()</code> or <code>listDirectoryAsync()</code>
+     *  of the File class.</p>
      */
     public function get source():Array /* of File */
     {
@@ -369,11 +368,11 @@ public class DirectoryEnumeration
     {
         _source = value;
         
-		_collection = new ArrayCollection(source);
-		_collection.filterFunction = fileFilterFunction
-		_collection.sort = new Sort();
-		_collection.sort.compareFunction = fileCompareFunction;
-		_collection.refresh();
+        _collection = new ArrayCollection(source);
+        _collection.filterFunction = fileFilterFunction
+        _collection.sort = new Sort();
+        _collection.sort.compareFunction = fileCompareFunction;
+        _collection.refresh();
     }
     
     //--------------------------------------------------------------------------
@@ -382,117 +381,117 @@ public class DirectoryEnumeration
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Filters and sorts the <code>source</code> Array of File instances
-	 *  to produce the <code>collection</code>, as specified by the
-	 *  <code>enumerationMode</code>, <code>extensions</code>,
-	 *  <code>filterFunction</code>, <code>nameCompareFunction</code>,
-	 *  and <code>showHidden</code> properties.
-	 */
-	public function refresh():void
-	{
-		_collection.refresh();
-	}
-	
-	/**
-	 *  The filter function that is actually applied to filter
-	 *  the <code>source</code Array to produce the <code>collection</code>.
-	 * 
-	 *  <p>At the end of its processing, this method calls your
-	 *  <code>filterFunction</code> if one is specified.</p>
-	 */
-	public function fileFilterFunction(file:File):Boolean
-	{
-		// Some files like C:\pagefile.sys throw exceptions
-		// if a labelFunction tries to access other properties
-		// like size, creationDate, or modificationDate.
-		// Fortunately, these seem to have their 'exists' property
-		// set to false. 
-		if (!file.exists)
-			return false;
-			
-		// Omit hidden files if showHidden is false.
-		// BUG WORKAROUND: Root directories like C:\ and D:\
-		// have their hidden property set to true.
-		// Ignore it and show them.
-		if (!showHidden && file.isHidden && file.parent)
-			return false;
-		
-		// Omit all directories if "filesOnly"
-		// or all files if "directoriesOnly".
-		if (enumerationMode == DirectoryEnumerationMode.FILES_ONLY &&
-			file.isDirectory ||
-			enumerationMode == DirectoryEnumerationMode.DIRECTORIES_ONLY &&
-			!file.isDirectory)
-		{
-			return false;
-		}
-			
-		// Now do extension-based filtering.
-		// Extension-filtering only occurs if the extensions property
-		// is non-null, and it only applies to files.
-		if (extensions && !file.isDirectory)
-		{
-			// If the file has no extension or that extension was not in
-			// the specified 'extensions' array, then filter out the file.
-			var extension:String = file.extension;
-			if (!extension || !extensionsSet[extension.toLowerCase()])
-				return false;
-		}
-				
-		// Finally, do custom filtering.
-		return Boolean(filterFunction != null ? filterFunction(file) : true);
-	}
-	
-	/**
-	 *  The comparison function that is actually applied to sort
-	 *  the <code>source</code Array to produce the <code>collection</code>.
-	 * 
-	 *  <p>At the end of its processing, this method calls your
-	 *  <code>nameCompareFunction</code> if one is specified.</p>
-	 */
-	public function fileCompareFunction(file1:File, file2:File,
-										fields:Array = null):int
-	{
-		if (file1.isDirectory && !file2.isDirectory)
-		{
-			if (enumerationMode == DirectoryEnumerationMode.DIRECTORIES_FIRST)
-				return -1;
-			if (enumerationMode == DirectoryEnumerationMode.FILES_FIRST)
-				return 1;
-		}
-			
-		if (!file1.isDirectory && file2.isDirectory)
-		{
-			if (enumerationMode == DirectoryEnumerationMode.DIRECTORIES_FIRST)
-				return 1;
-			if (enumerationMode == DirectoryEnumerationMode.FILES_FIRST)
-				return -1;
-		}
-				
-		return nameCompareFunction != null ?
-			   nameCompareFunction(file1.name, file2.name) :
-			   defaultNameCompareFunction(file1.name, file2.name);
-	}
-	
-	/**
-	 *  Performs a case-insensitive, locale-dependent comparison
-	 *  of two file or directory names, using the String method
-	 *  <code>toLocaleLowerCase()</code>.
-	 */
-	protected function defaultNameCompareFunction(name1:String, name2:String):int
-	{
-		name1 = name1.toLocaleLowerCase();
-		name2 = name2.toLocaleLowerCase();
-		
-		if (name1 < name2)
-			return -1;
-			
-		if (name1 > name2)
-			return 1;
-			
-		return 0;
-	}
+    /**
+     *  Filters and sorts the <code>source</code> Array of File instances
+     *  to produce the <code>collection</code>, as specified by the
+     *  <code>enumerationMode</code>, <code>extensions</code>,
+     *  <code>filterFunction</code>, <code>nameCompareFunction</code>,
+     *  and <code>showHidden</code> properties.
+     */
+    public function refresh():void
+    {
+        _collection.refresh();
+    }
+    
+    /**
+     *  The filter function that is actually applied to filter
+     *  the <code>source</code Array to produce the <code>collection</code>.
+     * 
+     *  <p>At the end of its processing, this method calls your
+     *  <code>filterFunction</code> if one is specified.</p>
+     */
+    public function fileFilterFunction(file:File):Boolean
+    {
+        // Some files like C:\pagefile.sys throw exceptions
+        // if a labelFunction tries to access other properties
+        // like size, creationDate, or modificationDate.
+        // Fortunately, these seem to have their 'exists' property
+        // set to false. 
+        if (!file.exists)
+            return false;
+            
+        // Omit hidden files if showHidden is false.
+        // BUG WORKAROUND: Root directories like C:\ and D:\
+        // have their hidden property set to true.
+        // Ignore it and show them.
+        if (!showHidden && file.isHidden && file.parent)
+            return false;
+        
+        // Omit all directories if "filesOnly"
+        // or all files if "directoriesOnly".
+        if (enumerationMode == DirectoryEnumerationMode.FILES_ONLY &&
+            file.isDirectory ||
+            enumerationMode == DirectoryEnumerationMode.DIRECTORIES_ONLY &&
+            !file.isDirectory)
+        {
+            return false;
+        }
+            
+        // Now do extension-based filtering.
+        // Extension-filtering only occurs if the extensions property
+        // is non-null, and it only applies to files.
+        if (extensions && !file.isDirectory)
+        {
+            // If the file has no extension or that extension was not in
+            // the specified 'extensions' array, then filter out the file.
+            var extension:String = file.extension;
+            if (!extension || !extensionsSet[extension.toLowerCase()])
+                return false;
+        }
+                
+        // Finally, do custom filtering.
+        return Boolean(filterFunction != null ? filterFunction(file) : true);
+    }
+    
+    /**
+     *  The comparison function that is actually applied to sort
+     *  the <code>source</code Array to produce the <code>collection</code>.
+     * 
+     *  <p>At the end of its processing, this method calls your
+     *  <code>nameCompareFunction</code> if one is specified.</p>
+     */
+    public function fileCompareFunction(file1:File, file2:File,
+                                        fields:Array = null):int
+    {
+        if (file1.isDirectory && !file2.isDirectory)
+        {
+            if (enumerationMode == DirectoryEnumerationMode.DIRECTORIES_FIRST)
+                return -1;
+            if (enumerationMode == DirectoryEnumerationMode.FILES_FIRST)
+                return 1;
+        }
+            
+        if (!file1.isDirectory && file2.isDirectory)
+        {
+            if (enumerationMode == DirectoryEnumerationMode.DIRECTORIES_FIRST)
+                return 1;
+            if (enumerationMode == DirectoryEnumerationMode.FILES_FIRST)
+                return -1;
+        }
+                
+        return nameCompareFunction != null ?
+               nameCompareFunction(file1.name, file2.name) :
+               defaultNameCompareFunction(file1.name, file2.name);
+    }
+    
+    /**
+     *  Performs a case-insensitive, locale-dependent comparison
+     *  of two file or directory names, using the String method
+     *  <code>toLocaleLowerCase()</code>.
+     */
+    protected function defaultNameCompareFunction(name1:String, name2:String):int
+    {
+        name1 = name1.toLocaleLowerCase();
+        name2 = name2.toLocaleLowerCase();
+        
+        if (name1 < name2)
+            return -1;
+            
+        if (name1 > name2)
+            return 1;
+            
+        return 0;
+    }
 }
 
 }
