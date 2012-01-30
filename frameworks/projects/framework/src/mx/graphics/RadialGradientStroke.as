@@ -17,6 +17,7 @@ import flash.display.Graphics;
 import flash.display.GraphicsGradientFill;
 import flash.display.GraphicsStroke;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.mx_internal;
@@ -112,6 +113,11 @@ public class RadialGradientStroke extends GradientStroke
     {
         super(weight, pixelHinting, scaleMode, caps, joints, miterLimit);
     }
+    
+    /**
+     *  @private
+     */
+    private static var commonMatrix:Matrix = new Matrix();
     
     //----------------------------------
     //  focalPointRatio
@@ -266,29 +272,19 @@ public class RadialGradientStroke extends GradientStroke
     //  Methods
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-	private static var commonMatrix:Matrix = new Matrix();
 
     /**
      *  @private 
      */
-    override public function apply(graphics:Graphics, bounds:Rectangle = null):void
+    override public function apply(graphics:Graphics, targetBounds:Rectangle, targetOrigin:Point):void
     {
     	commonMatrix.identity();
     	
         graphics.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
                     caps, joints, miterLimit);
         
-        if (bounds)
-        	calculateTransformationMatrix(bounds, commonMatrix); 
+        if (targetBounds)
+        	calculateTransformationMatrix(targetBounds, commonMatrix, targetOrigin); 
 	        
         graphics.lineGradientStyle(GradientType.RADIAL, colors,
                             alphas, ratios, commonMatrix, 
@@ -299,17 +295,17 @@ public class RadialGradientStroke extends GradientStroke
     /**
      *  @private
      */
-    override public function createGraphicsStroke(bounds:Rectangle):GraphicsStroke
+    override public function createGraphicsStroke(targetBounds:Rectangle, targetOrigin:Point):GraphicsStroke
     {
         // The parent class sets the gradient stroke properties common to 
         // LinearGradientStroke and RadialGradientStroke 
-        var graphicsStroke:GraphicsStroke = super.createGraphicsStroke(bounds);
+        var graphicsStroke:GraphicsStroke = super.createGraphicsStroke(targetBounds, targetOrigin);
          
         if (graphicsStroke)
         {
             // Set other properties specific to this RadialGradientStroke  
             GraphicsGradientFill(graphicsStroke.fill).type = GradientType.RADIAL; 
-            calculateTransformationMatrix(bounds, commonMatrix);
+            calculateTransformationMatrix(targetBounds, commonMatrix, targetOrigin);
             GraphicsGradientFill(graphicsStroke.fill).matrix = commonMatrix; 
             GraphicsGradientFill(graphicsStroke.fill).focalPointRatio = focalPointRatio;
             
@@ -322,26 +318,26 @@ public class RadialGradientStroke extends GradientStroke
      *  @private
      *  Calculates this RadialGradientStroke's transformation matrix 
      */
-    private function calculateTransformationMatrix(rect:Rectangle, matrix:Matrix):void
+    private function calculateTransformationMatrix(targetBounds:Rectangle, matrix:Matrix, targetOrigin:Point):void
     {
     	matrix.identity();
     	
         if (!compoundTransform)
         {   
-            var w:Number = !isNaN(scaleX) ? scaleX : rect.width;
-	    	var h:Number = !isNaN(scaleY) ? scaleY : rect.height;
-			var regX:Number = rect.left + (!isNaN(x) ? x : rect.width / 2);
-			var regY:Number = rect.top + (!isNaN(y) ? y : rect.height / 2);
+            var w:Number = !isNaN(scaleX) ? scaleX : targetBounds.width;
+	    	var h:Number = !isNaN(scaleY) ? scaleY : targetBounds.height;
+			var regX:Number = !isNaN(x) ? x + targetOrigin.x : targetBounds.left + targetBounds.width / 2;
+			var regY:Number = !isNaN(y) ? y + targetOrigin.y : targetBounds.top + targetBounds.height / 2;
                 
             matrix.scale (w / GRADIENT_DIMENSION, h / GRADIENT_DIMENSION);
 	        matrix.rotate(!isNaN(_angle) ? _angle : rotationInRadians);
 	        matrix.translate(regX, regY);	    
         }             
         else
-        {         
+        {                     
             matrix.scale(1 / GRADIENT_DIMENSION, 1 / GRADIENT_DIMENSION);
             matrix.concat(compoundTransform.matrix);
-            matrix.translate(rect.left, rect.top);
+            matrix.translate(targetOrigin.x, targetOrigin.y);
         }   
     }
     
