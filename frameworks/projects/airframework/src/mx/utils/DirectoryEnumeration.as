@@ -24,6 +24,8 @@ import mx.collections.Sort;
  *  The DirectoryEnumeration class supports filtering and sorting
  *  a list of File instances representing the files and directories
  *  in a file system directory.
+ * 
+ *  @productversion Apollo 1.0
  */
 public class DirectoryEnumeration
 {
