@@ -182,17 +182,17 @@ public class SystemManagerProxy extends SystemManager
 	
 	}
 
-	override public function addEventListenerToStage(type:String, listener:Function, useCapture:Boolean = false, 
+	override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, 
 											priority:int=0, useWeakReference:Boolean=false):void
 	{
-		addEventListener(type, listener, useCapture, priority, useWeakReference);
-		_systemManager.addEventListenerToStage(type, listener, useCapture, priority, useWeakReference);
+		super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+		_systemManager.addEventListener(type, listener, useCapture, priority, useWeakReference);
 	}
 	
-	override public function removeEventListenerFromStage(type:String, listener:Function, useCapture:Boolean = false):void 
+	override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void 
 	{
-		removeEventListener(type, listener, useCapture);
-		_systemManager.removeEventListenerFromStage(type, listener, useCapture);		
+		super.removeEventListener(type, listener, useCapture);
+		_systemManager.removeEventListener(type, listener, useCapture);		
 	}
 	
 	/**
