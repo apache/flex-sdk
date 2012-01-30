@@ -11,52 +11,66 @@
 
 package spark.automation.delegates.components
 {
-	import flash.display.DisplayObject;
-	
-	import mx.automation.Automation;
-	import mx.core.mx_internal;
-	
-	import spark.components.ButtonBarButton;
-	
-	use namespace mx_internal;
-	
-	[Mixin]
-	/**
-	 * 
-	 *  Defines methods and properties required to perform instrumentation for the 
-	 *  ButtonBarButton control.
-	 * 
-	 *  @see spark.components.ButtonBarButton 
-	 *
-	 */
-	public class SparkButtonBarButtonAutomationImpl extends SparkToggleButtonAutomationImpl
-	{
-		
-		include "../../../core/Version.as";
-		//--------------------------------------------------------------------------
-		//
-		//  Class methods
-		//
-		//--------------------------------------------------------------------------
-		
-		/**
-		 *  Registers the delegate class for a component class with automation manager.
-		 *  
-		 *  @param root The SystemManger of the application.
-		 */
-		public static function init(root:DisplayObject):void
-		{
-			Automation.registerDelegateClass(spark.components.ButtonBarButton, SparkButtonBarButtonAutomationImpl);
-		}   
-		
-		/**
-		 *  Constructor.
-		 * @param obj ButtonBarButton object to be automated.     
-		 */
-		public function SparkButtonBarButtonAutomationImpl(obj:spark.components.ButtonBarButton)
-		{
-			super(obj);
-			
+    import flash.display.DisplayObject;
+    
+    import mx.automation.Automation;
+    import mx.core.mx_internal;
+    
+    import spark.components.ButtonBarButton;
+    
+    use namespace mx_internal;
+    
+    [Mixin]
+    /**
+     * 
+     *  Defines methods and properties required to perform instrumentation for the 
+     *  ButtonBarButton control.
+     * 
+     *  @see spark.components.ButtonBarButton 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 3
+     */
+    public class SparkButtonBarButtonAutomationImpl extends SparkToggleButtonAutomationImpl
+    {
+        
+        include "../../../core/Version.as";
+        //--------------------------------------------------------------------------
+        //
+        //  Class methods
+        //
+        //--------------------------------------------------------------------------
+        
+        /**
+         *  Registers the delegate class for a component class with automation manager.
+         *  
+         *  @param root The SystemManger of the application.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 3
+         */
+        public static function init(root:DisplayObject):void
+        {
+            Automation.registerDelegateClass(spark.components.ButtonBarButton, SparkButtonBarButtonAutomationImpl);
+        }   
+        
+        /**
+         *  Constructor.
+         * @param obj ButtonBarButton object to be automated.     
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 3
+         */
+        public function SparkButtonBarButtonAutomationImpl(obj:spark.components.ButtonBarButton)
+        {
+            super(obj);
+            
     }
 
     
