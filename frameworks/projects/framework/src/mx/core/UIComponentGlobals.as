@@ -99,7 +99,7 @@ public class UIComponentGlobals
      */
     public static function get designMode():Boolean
     {
-        return mx_internal::designTime;
+        return designTime;
     }
 
     /**
@@ -107,7 +107,7 @@ public class UIComponentGlobals
      */
     public static function set designMode(value:Boolean):void
     {
-        mx_internal::designTime = value;
+        designTime = value;
     }
 
     /**
