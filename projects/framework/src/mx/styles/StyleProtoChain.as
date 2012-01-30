@@ -152,14 +152,15 @@ public class StyleProtoChain
         var advancedObject:IAdvancedStyleClient = object as IAdvancedStyleClient;
         var styleDeclaration:CSSStyleDeclaration = null;
 
-        var globalClassSelectors:Array = [];
+        var universalSelectors:Array = [];
+        var hasStyleName:Boolean = false;
         var styleName:Object = object.styleName;
         if (styleName)
         {
             if (styleName is CSSStyleDeclaration)
             {
                 // Get the styles referenced by the styleName property.
-                globalClassSelectors.push(CSSStyleDeclaration(styleName));
+                universalSelectors.push(CSSStyleDeclaration(styleName));
             }
             else if (styleName is IFlexDisplayObject || styleName is IStyleClient)
             {
@@ -170,18 +171,7 @@ public class StyleProtoChain
             }
             else if (styleName is String)
             {
-                // Get the styles referenced by the styleName property             
-                var styleNames:Array = styleName.split(/\s+/);
-                n = styleNames.length;
-                for (i = 0; i < n; i++)
-                {
-                    if (styleNames[i].length)
-                    {
-                        styleDeclaration = StyleManager.getStyleDeclaration("." + styleNames[i]);
-                        if (styleDeclaration)
-                            globalClassSelectors.push(styleDeclaration);
-                    }
-                }
+                hasStyleName = true;
             }
         }
 
@@ -236,35 +226,15 @@ public class StyleProtoChain
         // because of the considerably more complex selector matches...
         if (StyleManager.hasAdvancedSelectors() && advancedObject != null)
         {
-            styleDeclarations = [];
+            // Find matching universal selectors
+            var decls:Object = StyleManager.getStyleDeclarations("*");
+            universalSelectors = getMatchingStyleDeclarations(decls, advancedObject).concat(universalSelectors);
 
-            // Check for global class selector that matches our styleName(s)
-            if (globalClassSelectors.length > 0)
-            {
-                styleDeclarations = styleDeclarations.concat(globalClassSelectors);
-            }
-
-            // Check for a global pseudo selector that matches our current state.
-            if (advancedObject.pseudoSelectorState)
-            {
-                styleDeclaration = StyleManager.getStyleDeclaration(":" + advancedObject.pseudoSelectorState);
-                if (styleDeclaration)
-                    styleDeclarations.push(styleDeclaration);
-            }
-
-            // Check for a global id selector that matches our current id
-            if (advancedObject.id)
-            {
-                styleDeclaration = StyleManager.getStyleDeclaration("#" + advancedObject.id);
-                if (styleDeclaration)
-                    styleDeclarations.push(styleDeclaration);
-            }
-
-            // If we had global selectors, concatenate them with our type
+            // If we had universal selectors, concatenate them with our type
             // selectors and resort by specificity...
-            if (styleDeclarations.length > 0)
+            if (universalSelectors.length > 0)
             {
-                styleDeclarations = advancedObject.getClassStyleDeclarations().concat(styleDeclarations);
+                styleDeclarations = advancedObject.getClassStyleDeclarations().concat(universalSelectors);
                 styleDeclarations = sortOnSpecificity(styleDeclarations);
             }
             else
@@ -273,7 +243,7 @@ public class StyleProtoChain
                 styleDeclarations = advancedObject.getClassStyleDeclarations();
             }
 
-            n = styleDeclarations.length;
+            n = styleDeclarations != null ? styleDeclarations.length : 0;
             for (i = 0; i < n; i++)
             {
                 styleDeclaration = styleDeclarations[i];
@@ -291,10 +261,26 @@ public class StyleProtoChain
         // Otherwise we use the legacy Flex 3 logic for simple selectors.
         else
         {
+            // Get the styles referenced by the styleName property
+            if (hasStyleName)
+            {             
+                var styleNames:Array = styleName.split(/\s+/);
+                n = styleNames.length;
+                for (i = 0; i < n; i++)
+                {
+                    if (styleNames[i].length)
+                    {
+                        styleDeclaration = StyleManager.getStyleDeclaration("." + styleNames[i]);
+                        if (styleDeclaration)
+                            universalSelectors.push(styleDeclaration);
+                    }
+                }
+            }
+
             // Working backwards up the list, the next element in the
             // search path is the type selector
             styleDeclarations = object.getClassStyleDeclarations();
-            n = styleDeclarations.length;
+            n = styleDeclarations != null ? styleDeclarations.length : 0;
             for (i = 0; i < n; i++)
             {
                 styleDeclaration = styleDeclarations[i];
@@ -310,10 +296,10 @@ public class StyleProtoChain
             }
 
             // Next are the class selectors
-            n = globalClassSelectors.length;
+            n = universalSelectors.length;
             for (i = 0; i < n; i++)
             {
-                styleDeclaration = globalClassSelectors[i];
+                styleDeclaration = universalSelectors[i];
                 if (styleDeclaration)
                 {
                     inheritChain =
