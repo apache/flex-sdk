@@ -45,6 +45,7 @@ internal class FrameworkClasses
 	import mx.core.CrossDomainRSLItem; CrossDomainRSLItem;
 	import mx.core.DeferredInstanceFromClass; DeferredInstanceFromClass;
 	import mx.core.DeferredInstanceFromFunction; DeferredInstanceFromFunction;
+	import mx.core.DesignLayer; DesignLayer;
 	import mx.core.FlexLoader; FlexLoader;
 	import mx.core.FontAsset; FontAsset;
 	import mx.core.IDeferredInstance; IDeferredInstance;
