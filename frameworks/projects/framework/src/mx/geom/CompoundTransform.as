@@ -23,6 +23,11 @@ package mx.geom
 	/**
 	 *  A CompoundTransform represents a 2D or 3D matrix transform.  A compound transform represents a matrix that can be queried or set either as a 2D matrix,
 	 *  a 3D matrix, or as individual convenience transform properties such as x, y, scaleX, rotationZ, etc. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public class CompoundTransform
 	{
@@ -33,6 +38,11 @@ package mx.geom
     //--------------------------------------------------------------------------
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 		public function CompoundTransform()
 		{
@@ -135,6 +145,11 @@ package mx.geom
 	
 	/**
 	 * the  x value of the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set x(value:Number):void
 	{
@@ -155,6 +170,11 @@ package mx.geom
 	
 	/**
 	 * the y value of the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set y(value:Number):void
 	{
@@ -176,6 +196,11 @@ package mx.geom
 	
 	/**
 	 * the z value of the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set z(value:Number):void
 	{
@@ -200,6 +225,11 @@ package mx.geom
 	
 	/**
 	 * the rotationX, in degrees, of the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set rotationX(value:Number):void
 	{
@@ -233,6 +263,11 @@ package mx.geom
 	
 	/**
 	 * the rotationY, in degrees, of the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set rotationY(value:Number):void
 	{
@@ -266,6 +301,11 @@ package mx.geom
 	
 	/**
 	 * the rotationZ, in degrees, of the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set rotationZ(value:Number):void
 	{
@@ -302,6 +342,11 @@ package mx.geom
 	
 	/**
 	 * the scaleX of the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set scaleX(value:Number):void
 	{
@@ -323,6 +368,11 @@ package mx.geom
 	
 	/**
 	 * the scaleY of the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set scaleY(value:Number):void
 	{
@@ -345,6 +395,11 @@ package mx.geom
 	
 	/**
 	 * the scaleZ of the transform
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set scaleZ(value:Number):void
 	{
@@ -379,6 +434,11 @@ package mx.geom
 	//------------------------------------------------------------------------------
 	/**
 	 * the x value of the tansform center.  The transform center is kept fixed as rotation and scale are applied. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set transformX(value:Number):void
 	{
@@ -400,6 +460,11 @@ package mx.geom
 	//------------------------------------------------------------------------------
 	/**
 	 * the y value of the tansform center.  The transform center is kept fixed as rotation and scale are applied. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set transformY(value:Number):void
 	{
@@ -420,6 +485,11 @@ package mx.geom
 	//------------------------------------------------------------------------------
 	/**
 	 * the z value of the tansform center.  The transform center is kept fixed as rotation and scale are applied. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function set transformZ(value:Number):void
 	{
@@ -526,6 +596,11 @@ package mx.geom
 	
 	/** applies the delta to the transforms translation component. Unlike setting the x/y/z properties directly,.
 	 * this method can be safely called without changing the transform's concept of 'the source of truth.'
+	*  
+	*  @langversion 3.0
+	*  @playerversion Flash 9
+	*  @playerversion AIR 1.1
+	*  @productversion Flex 3
 	*/
 	public function translateBy(x:Number,y:Number,z:Number = 0):void
 	{
@@ -555,6 +630,11 @@ package mx.geom
 	/**
 	 * the 2D matrix either set directly by the user, or composed by combining the transform center, scale, rotation
 	 * and translation, in that order.  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get matrix():Matrix
 	{
@@ -702,6 +782,11 @@ package mx.geom
 	/**
 	 * the 3D matrix either set directly by the user, or composed by combining the transform center, scale, rotation
 	 * and translation, in that order. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get matrix3D():Matrix3D
 	{
