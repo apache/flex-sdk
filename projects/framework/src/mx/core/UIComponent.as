@@ -6151,7 +6151,7 @@ public class UIComponent extends FlexSprite
      */
     mx_internal function get currentStateDeferred():String
     {
-        return currentState;
+        return (_currentStateDeferred != null) ? _currentStateDeferred : currentState;
     }
 
     /**
