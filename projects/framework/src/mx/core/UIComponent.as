@@ -10191,6 +10191,10 @@ public class UIComponent extends FlexSprite
         
         if (nextTransition)
         {
+            var reverseTransition:Boolean =  
+                nextTransition && nextTransition.autoReverse &&
+                (nextTransition.toState == oldState ||
+                 nextTransition.fromState == _currentState);
             // Force a validation before playing the transition effect
             UIComponentGlobals.layoutManager.validateNow();
             _currentTransition = nextTransition;
@@ -10203,7 +10207,7 @@ public class UIComponent extends FlexSprite
                 (prevTransitionEffect != null);
             nextTransition.effect.addEventListener(EffectEvent.EFFECT_END, 
                 transition_effectEndHandler);
-            nextTransition.effect.play();
+            nextTransition.effect.play(null, reverseTransition);
             if (!isNaN(prevTransitionFraction) && 
                 nextTransition.effect.duration != 0)
                 nextTransition.effect.playheadTime = (1 - prevTransitionFraction) * 
@@ -10448,43 +10452,61 @@ public class UIComponent extends FlexSprite
         var result:Transition = null;   // Current candidate
         var priority:int = 0;           // Priority     fromState   toState
                                         //    1             *           *
-                                        //    2           match         *
-                                        //    3             *         match
-                                        //    4           match       match
-
+                                        //    2          reverse        *
+                                        //    3             *        reverse
+                                        //    4          reverse     reverse
+                                        //    5           match         *
+                                        //    6             *         match
+                                        //    7           match       match
+        
         if (!transitions)
             return null;
-
+        
         if (!oldState)
             oldState = "";
-
+        
         if (!newState)
             newState = "";
-
+        
         for (var i:int = 0; i < transitions.length; i++)
         {
             var t:Transition = transitions[i];
-
+            
             if (t.fromState == "*" && t.toState == "*" && priority < 1)
             {
                 result = t;
                 priority = 1;
             }
-            else if (t.fromState == oldState && t.toState == "*" && priority < 2)
+            else if (t.toState == oldState && t.fromState == "*" && t.autoReverse && priority < 2)
             {
                 result = t;
                 priority = 2;
             }
-            else if (t.fromState == "*" && t.toState == newState && priority < 3)
+            else if (t.toState == "*" && t.fromState == newState && t.autoReverse && priority < 3)
             {
                 result = t;
                 priority = 3;
             }
-            else if (t.fromState == oldState && t.toState == newState && priority < 4)
+            else if (t.toState == oldState && t.fromState == newState && t.autoReverse && priority < 4)
             {
                 result = t;
                 priority = 4;
-
+            }
+            else if (t.fromState == oldState && t.toState == "*" && priority < 5)
+            {
+                result = t;
+                priority = 5;
+            }
+            else if (t.fromState == "*" && t.toState == newState && priority < 6)
+            {
+                result = t;
+                priority = 6;
+            }
+            else if (t.fromState == oldState && t.toState == newState && priority < 7)
+            {
+                result = t;
+                priority = 7;
+                
                 // Can't get any higher than this, let's go.
                 break;
             }
@@ -10493,7 +10515,7 @@ public class UIComponent extends FlexSprite
         // because there is no transition effect to run
         if (result && !result.effect)
             result = null;
-
+        
         return result;
     }
 
