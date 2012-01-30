@@ -14,7 +14,15 @@ package mx.core
 
 
 /**
- *  Documentation is not currently available.
+ *  The IVisualElementContainer interface defines the minimum properties and methods 
+ *  required for a container to manage Spark components for display.
+ *
+ *  <p>Note that the Spark SkinnableDataContainer and DataGroup containers 
+ *  do not implement this interface. 
+ *  Those containers manage their 
+ *  children through the <code>dataProvider</code> property.</p>
+ *
+ *  @see mx.core.IVisualElement
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -28,10 +36,11 @@ public interface IVisualElementContainer
     //----------------------------------
     
     /**
-     *  The number of visual elements in this visual container.
+     *  The number of visual elements in this container.
+     *  Visual elements include classes that implement 
+     *  the IVisualElement interface, such as subclasses of
+     *  UIComponent and GraphicElement.
      * 
-     *  @return The number of elements in this visual container
-     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -40,7 +49,7 @@ public interface IVisualElementContainer
     function get numElements():int;
     
     /**
-     *  Returns the visual element that exists at the specified index.
+     *  Returns the visual element at the specified index.
      *
      *  @param index The index of the element to retrieve.
      *
@@ -60,21 +69,21 @@ public interface IVisualElementContainer
     //----------------------------------
     
     /**
-     *  Adds a visual element to this visual container. The element is 
-     *  added after all other elements.  It will sit on top of all other 
-     *  elements unless the layer property is set.  
-     *  (To add a visual element to a specific index position, use 
-     *  the <code>addElementAt()</code> method.)
+     *  Adds a visual element to this container. 
+     *  The element is  added after all other elements   
+     *  and appears top of all other elements.  
+     *  To add a visual element to a specific index position, use 
+     *  the <code>addElementAt()</code> method.
      * 
-     *  <p>If you add a visual element object that already has a different
-     *  container as a parent, the element is removed from the child 
-     *  list of the other container.</p>  
+     *  <p>If you add a visual element that already has a different
+     *  container as a parent, the element is removed from 
+     *  the other container.</p>  
      *
-     *  @param element The element to add as a child of this visual container.
+     *  @param element The visual element to add as a child of this container.
      *
-     *  @return The element that was added to the visual container.
+     *  @return The element that was added.
      * 
-     *  @event elementAdded ElementExistenceChangedEvent Dispatched when 
+     *  @event elementAdd ElementExistenceEvent Dispatched when 
      *  the element is added to the child list.
      * 
      *  @throws ArgumentError If the element is the same as the visual container.
@@ -87,28 +96,27 @@ public interface IVisualElementContainer
     function addElement(element:IVisualElement):IVisualElement;
     
     /**
-     *  Adds a visual element to this visual container. The element is 
-     *  added at the index position specified.  An index of 0 represents   
-     *  the first element and the back (bottom) of the display list, unless
-     *  <code>layer</code> is specified.
+     *  Adds a visual element to this container. 
+     *  The element is added at the index position specified.  
+     *  An index of 0 represents  the first element in the display list.
      * 
-     *  <p>If you add a visual element object that already has a different
-     *  container as a parent, the element is removed from the child 
-     *  list of the other container.</p>  
+     *  <p>If you add a visual element that already has a different
+     *  container as a parent, the element is removed from 
+     *  the other container.</p>  
      *
      *  @param element The element to add as a child of this visual container.
      * 
      *  @param index The index position to which the element is added. If 
-     *  you specify a currently occupied index position, the child object 
+     *  you specify a currently occupied index position, the child 
      *  that exists at that position and all higher positions are moved 
      *  up one position in the child list.
      *
-     *  @return The element that was added to the visual container.
+     *  @return The element that was added.
      * 
      *  @event elementAdded ElementExistenceChangedEvent Dispatched when 
      *  the element is added to the child list.
      * 
-     *  @throws ArgumentError If the element is the same as the visual container.
+     *  @throws ArgumentError If the element is the same as the container.
      * 
      *  @throws RangeError If the index position does not exist in the child list.
      *  
@@ -125,12 +133,13 @@ public interface IVisualElementContainer
     
     /**
      *  Removes the specified visual element from the child list of 
-     *  this visual container.  The index positions of any elements 
+     *  this container.  
+     *  The index positions of any elements 
      *  above the element in this visual container are decreased by 1.
      *
-     *  @param element The element to be removed from the visual container.
+     *  @param element The element to be removed from the container.
      *
-     *  @return The element removed from the visual container.
+     *  @return The element removed.
      * 
      *  @throws ArgumentError If the element parameter is not a child of 
      *  this visual container.
@@ -144,11 +153,13 @@ public interface IVisualElementContainer
     
     /**
      *  Removes a visual element from the specified index position 
-     *  in the visual container.
+     *  in the container.
+     *  The index positions of any elements 
+     *  above the element in this visual container are decreased by 1.
      *
      *  @param index The index of the element to remove.
      *
-     *  @return The element removed from the visual container.
+     *  @return The element removed.
      * 
      *  @throws RangeError If the index does not exist in the child list.
      *  
@@ -160,7 +171,7 @@ public interface IVisualElementContainer
     function removeElementAt(index:int):IVisualElement;
     
     /**
-     *  Removes all visual elements from the visual container.
+     *  Removes all visual elements from the container.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -176,9 +187,9 @@ public interface IVisualElementContainer
     /**
      *  Returns the index position of a visual element.
      *
-     *  @param element The element to identify.
+     *  @param element The visual element.
      *
-     *  @return The index position of the element to identify.
+     *  @return The index position of the element in the container.
      * 
      *  @throws ArgumentError If the element is not a child of this visual container.
      *  
@@ -195,7 +206,7 @@ public interface IVisualElementContainer
      *  <p>When you call the <code>setElementIndex()</code> method and specify an 
      *  index position that is already occupied, the only positions 
      *  that change are those in between the elements's former and new position.
-     *  All others will stay the same.</p>
+     *  All others stay the same.</p>
      *
      *  <p>If a visual element is moved to an index 
      *  lower than its current index, the index of all elements in between increases
@@ -207,9 +218,9 @@ public interface IVisualElementContainer
      * 
      *  @param index The resulting index number for the element.
      * 
-     *  @throws RangeError - If the index does not exist in the child list.
+     *  @throws RangeError If the index does not exist in the child list.
      *
-     *  @throws ArgumentError - If the element parameter is not a child 
+     *  @throws ArgumentError If the element parameter is not a child 
      *  of this visual container.
      *  
      *  @langversion 3.0
@@ -228,6 +239,7 @@ public interface IVisualElementContainer
      *  remain in the same index position.
      *
      *  @param element1 The first visual element.
+     * 
      *  @param element2 The second visual element.
      *  
      *  @langversion 3.0
@@ -239,8 +251,8 @@ public interface IVisualElementContainer
     
     /**
      *  Swaps the visual elements at the two specified index 
-     *  positions in the visual container.  All other visual 
-     *  elements remain in the same index position.
+     *  positions in the  container.  
+     *  All other visual elements remain in the same index position.
      *
      *  @param index1 The index of the first element.
      * 
