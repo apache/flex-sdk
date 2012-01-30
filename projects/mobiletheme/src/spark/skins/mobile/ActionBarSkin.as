@@ -389,8 +389,6 @@ public class ActionBarSkin extends MobileSkin
         
         var titleCompX:Number = paddingLeft;
         var titleCompWidth:Number = 0;
-        var titleHeight:Number = 0;
-        var titleCompY:Number = 0;
         
         var actionGroupX:Number = unscaledWidth;
         var actionGroupWidth:Number = 0;
@@ -450,9 +448,6 @@ public class ActionBarSkin extends MobileSkin
             var layoutObject:Object = hostComponent.titleLayout;
             var titlePaddingLeft:Number = (layoutObject.paddingLeft) ? Number(layoutObject.paddingLeft) : 0;
             var titlePaddingRight:Number = (layoutObject.paddingRight) ? Number(layoutObject.paddingRight) : 0;
-            
-            titleHeight = titleDisplay.getExplicitOrMeasuredHeight();
-            titleCompY = Math.round((contentGroupsHeight - titleHeight)/2) + paddingTop;
             
             // align titleDisplay to the absolute center
             var titleAlign:String = getStyle("titleAlign");
@@ -516,8 +511,8 @@ public class ActionBarSkin extends MobileSkin
             // check for negative width
             titleCompWidth = (titleCompWidth < 0) ? 0 : titleCompWidth;
             
-            setElementSize(titleDisplay, titleCompWidth, titleDisplay.realTextHeight);
-            setElementPosition(titleDisplay, titleCompX, titleCompY);
+            setElementSize(titleDisplay, titleCompWidth, contentGroupsHeight);
+            setElementPosition(titleDisplay, titleCompX, paddingTop);
             
             titleDisplay.visible = true;
         }
@@ -573,7 +568,6 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
     private var titleDisplayShadow:StyleableTextField;
     private var title:String;
     private var titleChanged:Boolean;
-    private var _realTextHeight:Number;
     
     public function TitleDisplayComponent()
     {
@@ -646,11 +640,6 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         
         // tightTextHeight
         measuredHeight = titleDisplay.getPreferredBoundsHeight();
-        
-        // real measured height plus shadow
-        // used for sizing the UIComponent wrapper to include the descent
-        // this allows transitions to capture all visible text
-        _realTextHeight = titleDisplay.measuredTextSize.y + 1;
     }
     
     /**
@@ -665,15 +654,21 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
             titleDisplay.text = title;
         titleDisplay.commitStyles();
         
-        titleDisplay.setLayoutBoundsPosition(0, 0);
-        titleDisplay.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
+        // use preferred width/height, setLayoutBoundsSize will accommodate
+        // for tight text adjustment
+        var tightWidth:Number = titleDisplay.getPreferredBoundsWidth();
+        var tightHeight:Number = titleDisplay.getPreferredBoundsHeight();
+        var tightY:Number = (unscaledHeight - tightHeight) / 2;
+        
+        titleDisplay.setLayoutBoundsSize(tightWidth, tightHeight);
+        titleDisplay.setLayoutBoundsPosition(0, (unscaledHeight - tightHeight) / 2);
         
         // now truncate the text
         titleDisplay.truncateToFit();
         
         titleDisplayShadow.commitStyles();
-        titleDisplayShadow.setLayoutBoundsPosition(0, 1);
-        titleDisplayShadow.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
+        titleDisplayShadow.setLayoutBoundsSize(tightWidth, tightHeight);
+        titleDisplayShadow.setLayoutBoundsPosition(0, tightY + 1);
         
         titleDisplayShadow.alpha = getStyle("textShadowAlpha");
         
@@ -707,10 +702,5 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
     public function get isTruncated():Boolean
     {
         return titleDisplay.isTruncated;
-    }
-    
-    public function get realTextHeight():Number
-    {
-        return _realTextHeight;
     }
 }
