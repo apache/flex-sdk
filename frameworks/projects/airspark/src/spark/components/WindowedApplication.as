@@ -1465,6 +1465,17 @@ public class WindowedApplication extends Application implements IWindow
     //  titleIcon
     //----------------------------------
 
+    /**
+     *  @private
+     *  A reference to this container's title icon.
+     */
+    private var _titleIcon:Class;
+
+    /**
+     *  @private
+     */
+    private var titleIconChanged:Boolean = false;
+        
     [Bindable("titleIconChanged")]
 
     /**
@@ -1478,10 +1489,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function get titleIcon():Class
     {
-        if (titleBar == null)
-            return null;
-
-        return titleBar.titleIcon;
+        return _titleIcon;
     }
 
     /**
@@ -1489,10 +1497,8 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function set titleIcon(value:Class):void
     {
-        if (titleBar == null)
-            return;
-    
-        titleBar.titleIcon = value;
+        _titleIcon = value;
+        titleIconChanged = true;
 
         invalidateProperties();
         invalidateSize();
@@ -1650,6 +1656,13 @@ public class WindowedApplication extends Application implements IWindow
             }
             
             dispatchEvent(new Event("menuChanged"));
+        }
+
+        if (titleIconChanged)
+        {
+            if (titleBar)
+                titleBar.titleIcon = _titleIcon;
+            titleIconChanged = false;
         }
 
         if (titleChanged)
