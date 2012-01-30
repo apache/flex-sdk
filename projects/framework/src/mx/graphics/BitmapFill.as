@@ -941,7 +941,7 @@ public class BitmapFill extends EventDispatcher implements IFill
                 
                 // Get the bounds of the transformed bitmap (minus translation)
                 var bitmapSize:Point = MatrixUtil.transformBounds(
-                                        new Point(sourceAsBitmapData.width, sourceAsBitmapData.height), 
+                                        sourceAsBitmapData.width, sourceAsBitmapData.height, 
                                         transformMatrix, 
                                         bitmapTopLeft);
                 
