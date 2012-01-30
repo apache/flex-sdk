@@ -49,18 +49,37 @@ import mx.utils.UIDUtil;
 //  Other metadata
 //--------------------------------------
 
-[ExcludeClass]
-
 [RemoteClass(alias="flex.messaging.io.ArrayList")]
 
 [ResourceBundle("collections")]
 
 [DefaultProperty("source")]
+
 /**
- *  @private
- *  A simple implementation of IList that uses a backing Array.
+ *  The ArrayList class is a simple implementation of IList 
+ *  that uses a backing Array as the source of the data. 
+ * 
+ *  Items in the backing Array can be accessed and manipulated 
+ *  using the methods and properties of the <code>IList</code>
+ *  interface. Operations on an ArrayList instance modify the 
+ *  data source; for example, if you use the <code>removeItemAt()</code> 
+ *  method on an ArrayList, you remove the item from the underlying 
+ *  Array.
+ * 
  *  This base class will not throw ItemPendingErrors but it
  *  is possible that a subclass might.
+ * 
+ *  <pre>
+ *  &lt;mx:ArrayList
+ *  <b>Properties</b>
+ *  source="null"
+ *  /&gt;
+ *  </pre>
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class ArrayList extends EventDispatcher
 	   implements IList, IExternalizable, IPropertyChangeNotifier
@@ -98,12 +117,20 @@ public class ArrayList extends EventDispatcher
     // 
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Used for accessing localized Error messages.
-	 */
-	private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager =
+        ResourceManager.getInstance();
+									
+    /**
+     *  @private 
+     *  Indicates if events should be dispatched.
+     *  calls to enableEvents() and disableEvents() effect the value when == 0
+     *  events should be dispatched. 
+     */
+    private var _dispatchEvents:int = 0;
 
     //--------------------------------------------------------------------------
     //
@@ -138,6 +165,12 @@ public class ArrayList extends EventDispatcher
     //----------------------------------
     // source
     //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the source Array.
+     */
+    private var _source:Array;
     
     /**
      *  The source array for this ArrayList.  
@@ -191,6 +224,12 @@ public class ArrayList extends EventDispatcher
     //----------------------------------
     // uid -- mx.core.IPropertyChangeNotifier
     //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the UID String. 
+     */
+    private var _uid:String;
     
     /**
      *  Provides access to the unique id for this list.
@@ -713,25 +752,6 @@ public class ArrayList extends EventDispatcher
         }
     }
     
-    //--------------------------------------------------------------------------
-    //
-    // Variables
-    // 
-    //--------------------------------------------------------------------------
-
-	/**
-	 *  indicates if events should be dispatched.
-	 *  calls to enableEvents() and disableEvents() effect the value when == 0
-	 *  events should be dispatched. 
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	private var _dispatchEvents:int = 0;
-    private var _source:Array;
-    private var _uid:String;
 }
 
 }
