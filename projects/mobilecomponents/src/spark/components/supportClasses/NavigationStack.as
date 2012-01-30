@@ -16,9 +16,9 @@ import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
 
-import spark.components.supportClasses.ViewDescriptor;
-
 import mx.core.mx_internal;
+
+import spark.components.supportClasses.ViewDescriptor;
 use namespace mx_internal;
 
 /**
@@ -164,43 +164,55 @@ public class NavigationStack implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function pushView(viewClass:Class, data:Object, context:Object = null):void
+    public function pushView(viewClass:Class, data:Object, context:Object = null):ViewDescriptor
     {
         var viewData:ViewDescriptor = new ViewDescriptor(viewClass, data, context);
         _source.push(viewData);
+        
+        return viewData;
     }
     
-    // TODO (chiedozi): Consider returning the object when pop is called.
     /**
      *  Removes the top view off the stack.
      *  Returns control from the current view back to 
      *  the previous view on the stack.
      * 
-     *  @return The data structure that represented the View.
+     *  @return The data structure that represented the View that was removed.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function popView():void
+    public function popView():ViewDescriptor
     {
-        _source.pop();
+        return _source.pop();
     }
     
     /**
      *  Removes all but the root object from the navigation stack.
      *  The root object becomes the current view.
      *  
+     *  @return The data structure that represented the View that was at 
+     *  the top of the stack when this method was called, or null if
+     *  nothing was removed.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function popToFirstView():void
+    public function popToFirstView():ViewDescriptor
     {
         if (_source.length > 1)
+        {
+            var viewData:ViewDescriptor = topView;
             _source.length = 1;
+            
+            return viewData;
+        }
+        
+        return null;
     }
     
     //--------------------------------------------------------------------------
