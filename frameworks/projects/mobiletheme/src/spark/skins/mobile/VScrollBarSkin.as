@@ -99,9 +99,9 @@ public class VScrollBarSkin extends MobileSkin
     public var hostComponent:VScrollBar;
     
     /**
-     *  @private 
+     *  Minimum height for the thumb
      */
-    private var minThumbHeight:Number;
+    protected var minThumbHeight:Number;
     
     /**
      *  Skin to use for the thumb Button skin part
