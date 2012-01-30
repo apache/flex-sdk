@@ -16,8 +16,9 @@ package mx.core
 	import flash.geom.Vector3D;
 	import mx.geom.ITransformable;
 	import flash.events.Event;
+    import flash.geom.Point;
 	import mx.geom.CompoundTransform;
-	import flash.geom.Point;
+	import mx.geom.TransformOffsets;
 	use namespace mx_internal;	
 	
 	/**
@@ -37,7 +38,6 @@ package mx.core
 		public function AdvancedLayoutFeatures()
 		{
 			layout = new CompoundTransform();
-			layout.dispatchChangeEvents = false;
 		}
 		
 			
@@ -80,7 +80,7 @@ package mx.core
 	 * @private
 	 * offset values applied by the user
 	 */
-	private var _offsets:CompoundTransform;
+	private var _offsets:TransformOffsets;
 	
     /**
      * @private
@@ -431,7 +431,7 @@ package mx.core
 
 	//------------------------------------------------------------------------------
 	
-	public function set offsets(value:CompoundTransform):void
+	public function set offsets(value:TransformOffsets):void
 	{
 		if(_offsets != null)
 		{
@@ -447,7 +447,7 @@ package mx.core
 		invalidate();		
 	}
 	
-	public function get offsets():CompoundTransform
+	public function get offsets():TransformOffsets
 	{
 		return _offsets;
 	}
@@ -643,7 +643,7 @@ package mx.core
 		var layoutCenterV:Vector3D;
 		var layoutCenterP:Point;
 		
-		if(is3D)
+		if(is3D || changeIs3D)
 		{
 			var centerV:Vector3D = token.center;
 			computedCenterV = token.offset;
@@ -667,10 +667,9 @@ package mx.core
 				adjustedComputedCenterV.project();
 				if(adjustedComputedCenterV.equals(computedCenterV) == false)
 				{
-					offsets.translateBy(computedCenterV.x - adjustedComputedCenterV.x,
-										computedCenterV.y - adjustedComputedCenterV.y,
-										computedCenterV.z - adjustedComputedCenterV.z
-										);
+					offsets.x +=computedCenterV.x - adjustedComputedCenterV.x;
+					offsets.y += computedCenterV.y - adjustedComputedCenterV.y;
+					offsets.z += computedCenterV.z - adjustedComputedCenterV.z;
 					invalidate(); 
 				}		
 			}
@@ -698,10 +697,8 @@ package mx.core
 				var adjustedComputedCenterP:Point = computedMatrix.transformPoint(centerP);
 				if(adjustedComputedCenterP.equals(computedCenterP) == false)
 				{
-					_offsets.translateBy(computedCenterP.x - adjustedComputedCenterP.x,
-							computedCenterP.y - adjustedComputedCenterP.y,
-							0
-							);
+					_offsets.x += computedCenterP.x - adjustedComputedCenterP.x;
+				    _offsets.y += computedCenterP.y - adjustedComputedCenterP.y;
 					invalidate(); 
 				}		
 			}
@@ -731,7 +728,7 @@ package mx.core
 		else
 		{
 			if(_offsets == null)
-				offsets = new CompoundTransform();
+				offsets = new TransformOffsets();
 				
 			if(!isNaN(rx))
 				_offsets.rotationX = rx;
