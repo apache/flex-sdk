@@ -957,11 +957,18 @@ public class StyleManagerImpl implements IStyleManager2
             decls = _subjects[styleDeclaration.subject] as Array;
             if (decls)
             {
-                for (i = 0; i < decls.length; i++)
+                // Work from the back of the array so we can remove elements
+                // as we go.
+                for (i = decls.length - 1; i >= 0; i--)
                 {
                     decl = decls[i];
                     if (decl && decl.selectorString == selector)
-                        delete decls[i];
+                    {
+                        if (decls.length == 1)
+                            delete _subjects[styleDeclaration.subject];
+                        else
+                            decls.splice(i, 1);
+                    }
                 }
             }
         }
@@ -975,13 +982,18 @@ public class StyleManagerImpl implements IStyleManager2
             {
                 if (decls)
                 {
-                    for (i = 0; i < decls.length; i++)
+                    // Work from the back of the array so we can remove elements
+                    // as we go.
+                    for (i = decls.length - 1; i >= 0; i--)
                     {
                         decl = decls[i];
                         if (decl && decl.selectorString == selector)
                         {
                             matchingSubject = true;
-                            delete decls[i];
+                            if (decls.length == 1)
+                                delete _subjects[styleDeclaration.subject];
+                            else
+                                decls.splice(i, 1);
                         }
                     }
 
