@@ -96,9 +96,9 @@ class SimpleUIComponentContainer extends UIComponent
 		super.updateDisplayList(unscaledWidth, unscaledHeight);
 		
 		// draw border
-		graphics.lineStyle(2, 0xCCCCCC);
+		graphics.lineStyle(1, 0xCCCCCC);
 		graphics.beginFill(0x000000, 0); // transparent fill for hit testing
-		graphics.drawRect(1, 1, unscaledWidth - 2, unscaledHeight - 2); // adjust for stroke
+		graphics.drawRect(0.5, 0.5, unscaledWidth - 1, unscaledHeight - 1); // adjust for stroke
 		graphics.endFill();
 		
 		// position the one child.  we know we always have
