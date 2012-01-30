@@ -65,7 +65,7 @@ package mx.geom
 	 			
     /**
      * @private
-     * general storage for all of ur flags.  
+     * general storage for all of our flags.  
      */
     private var _flags:uint =  0;
 
@@ -76,7 +76,7 @@ package mx.geom
 	//----------------------------------------------------------------------------
 	
 	/**
-	 * the  x value of the transform
+	 * the  x value added to the transform
 	 */
 	public function set x(value:Number):void
 	{		
@@ -94,7 +94,7 @@ package mx.geom
 	}
 	
 	/**
-	 * the y value of the transform
+	 * the y value added to the transform
 	 */
 	public function set y(value:Number):void
 	{		
@@ -113,7 +113,7 @@ package mx.geom
 	}
 	
 	/**
-	 * the z value of the transform
+	 * the z value added to the transform
 	 */
 	public function set z(value:Number):void
 	{		
@@ -135,7 +135,7 @@ package mx.geom
 
 	
 	/**
-	 * the rotationX, in degrees, of the transform
+	 * the rotationX, in degrees, added to the transform
 	 */
 	public function set rotationX(value:Number):void
 	{		
@@ -154,7 +154,7 @@ package mx.geom
 	}
 	
 	/**
-	 * the rotationY, in degrees, of the transform
+	 * the rotationY, in degrees, added to the transform
 	 */
 	public function set rotationY(value:Number):void
 	{		
@@ -173,7 +173,7 @@ package mx.geom
 	}
 	
 	/**
-	 * the rotationZ, in degrees, of the transform
+	 * the rotationZ, in degrees, added to the transform
 	 */
 	public function set rotationZ(value:Number):void
 	{		
@@ -195,7 +195,7 @@ package mx.geom
 	
 	
 	/**
-	 * the scaleX of the transform
+	 * the multiplier applied to the scaleX of the transform.  
 	 */
 	public function set scaleX(value:Number):void
 	{		
@@ -214,7 +214,7 @@ package mx.geom
 	}
 	
 	/**
-	 * the scaleY of the transform
+	 * the multiplier applied to the scaleY of the transform.  
 	 */
 	public function set scaleY(value:Number):void
 	{		
@@ -234,7 +234,7 @@ package mx.geom
 	
 	
 	/**
-	 * the scaleZ of the transform
+	 * the multiplier applied to the scaleZ of the transform.  
 	 */
 	public function set scaleZ(value:Number):void
 	{		
@@ -310,12 +310,20 @@ package mx.geom
 		}
 	}
 		
+	/**
+	 * A utility method to update the rotation and scale of the transform while keeping a particular point, specified in the component's own coordinate space, 
+	 * fixed in the parent's coordinate space.  This function will assign the rotation and scale values provided, then update the x/y/z properties
+	 * as necessary to keep tx/ty/tz fixed.
+	 * @param rx,ry,rz the new values for the rotation of the transform
+	 * @param sx,sy,sz the new values for the scale of the transform
+	 * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
+	 */
 	public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
 	{
 		if(owner != null)
 		{
 			var is3D:Boolean = ((!isNaN(rx) && rx != 0) || (!isNaN(ry) && ry != 0) || (!isNaN(sz) && sz != 1));
-			var token:* = owner.prepareForTransformCenterAdjustment(false,is3D,tx,ty,tz);
+			var token:Object = owner.prepareForTransformCenterAdjustment(false,is3D,tx,ty,tz);
 
 			
 			
