@@ -19,3 +19,59 @@ DataTip
 {
 	backgroundColor: #FFFFFF;
 }
+
+/*
+//--------------------------------
+//  BarSeries
+//--------------------------------
+*/
+
+BarSeries
+{
+	labelClass: ClassReference("mx.controls.Label");
+}
+
+/*
+//--------------------------------
+//  BarChart
+//--------------------------------
+*/
+
+BarChart
+{
+	labelClass: ClassReference("mx.controls.Label");
+}
+
+/*
+//--------------------------------
+//  ColumnSeries
+//--------------------------------
+*/
+
+ColumnSeries
+{
+	labelClass: ClassReference("mx.controls.Label");
+}
+
+/*
+//--------------------------------
+//  ColumnChart
+//--------------------------------
+*/
+
+ColumnChart
+{
+	labelClass: ClassReference("mx.controls.Label");
+}
+
+/*
+//--------------------------------
+//  AxisRenderer
+//--------------------------------
+*/
+
+AxisRenderer
+{
+	labelClass: ClassReference("mx.controls.Label");
+}
+
