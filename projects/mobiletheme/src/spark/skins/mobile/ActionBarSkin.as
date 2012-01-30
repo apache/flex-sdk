@@ -654,20 +654,19 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
             titleDisplay.text = title;
         titleDisplay.commitStyles();
         
-        // use preferred width/height, setLayoutBoundsSize will accommodate
-        // for tight text adjustment
-        var tightWidth:Number = titleDisplay.getPreferredBoundsWidth();
+        // use preferred height, setLayoutBoundsSize will accommodate for tight
+        // text adjustment
         var tightHeight:Number = titleDisplay.getPreferredBoundsHeight();
         var tightY:Number = (unscaledHeight - tightHeight) / 2;
         
-        titleDisplay.setLayoutBoundsSize(tightWidth, tightHeight);
+        titleDisplay.setLayoutBoundsSize(unscaledWidth, tightHeight);
         titleDisplay.setLayoutBoundsPosition(0, (unscaledHeight - tightHeight) / 2);
         
         // now truncate the text
         titleDisplay.truncateToFit();
         
         titleDisplayShadow.commitStyles();
-        titleDisplayShadow.setLayoutBoundsSize(tightWidth, tightHeight);
+        titleDisplayShadow.setLayoutBoundsSize(unscaledWidth, tightHeight);
         titleDisplayShadow.setLayoutBoundsPosition(0, tightY + 1);
         
         titleDisplayShadow.alpha = getStyle("textShadowAlpha");
