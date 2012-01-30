@@ -2116,6 +2116,9 @@ public class Window extends SkinnableContainer implements IWindow
      */
     public function minimize():void
     {
+        if (!minimizable)
+            return;
+            
         if (!nativeWindow.closed)
         {
             var e:NativeWindowDisplayStateEvent = new NativeWindowDisplayStateEvent(
