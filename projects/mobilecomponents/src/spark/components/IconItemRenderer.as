@@ -26,14 +26,19 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
+import mx.core.UITextField;
+import mx.core.UITextFormat;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.styles.CSSStyleDeclaration;
+import mx.styles.IStyleClient;
 import mx.utils.StringUtil;
 
 import spark.components.Group;
 import spark.components.IItemRenderer;
 import spark.components.Image;
 import spark.components.Label;
+import spark.components.supportClasses.MobileTextField;
 import spark.components.supportClasses.TextBase;
 import spark.core.ContentCache;
 import spark.primitives.BitmapImage;
@@ -59,20 +64,20 @@ include "../styles/metadata/GapStyles.as"
 
 /**
  *  Name of the CSS Style declaration to use for the styles for the
- *  subText component.
+ *  message component.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="subTextStyleName", type="String", inherit="no")]
+[Style(name="messageStyleName", type="String", inherit="no")]
 
 /**
  *  The MobileIconItemRenderer class is a performant item 
  *  renderer optimized for mobile devices.  It contains 
- *  four optional parts: 1) an icon on the left, 2) headerText 
- *  on top next to the icon, 3) subText below headerText and 
+ *  four optional parts: 1) an icon on the left, 2) header 
+ *  on top next to the icon, 3) message below header and 
  *  next to the icon, and 4) a decorator on the right.
  *
  *  @see spark.components.List
@@ -122,6 +127,60 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     
     //--------------------------------------------------------------------------
     //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Holds the styles specific to the header object based on headerStyleName
+     */
+    private var headerStyles:CSSStyleDeclaration;
+    
+    /**
+     *  @private
+     *  Cached UITextFormat object used for measurement purposes for header
+     */
+    private var cachedHeaderFormat:UITextFormat;
+    
+    /**
+     *  @private
+     *  Stores the text of the header component.  This is calculated in 
+     *  commitProperties() based on headerField and headerFunction.
+     * 
+     *  <p>We can't just use labelDisplay.text because it may contain 
+     *  a truncated value.</p>
+     */
+    private var headerText:String = "";
+    
+    /**
+     *  @private
+     *  Holds the styles specific to the message object based on messageStyleName
+     */
+    private var messageStyles:CSSStyleDeclaration;
+    
+    /**
+     *  @private
+     *  Cached UITextFormat object used for measurement purposes for message
+     */
+    private var cachedSubTextFormat:UITextFormat;
+    
+    /**
+     *  @private
+     *  Stores the text of the message component.  This is calculated in 
+     *  commitProperties() based on messageField and messageFunction.
+     * 
+     *  <p>We can't just use messageDisplay.text because it may contain 
+     *  a truncated value (Technically we don't truncate message's text 
+     *  at the moment because it's multi-line text, but in the future 
+     *  we may not do that, and this feels more consistent with 
+     *  how we deal with headers, so we still keep this "extra"
+     *  variable around even though technically it's not needed.</p>
+     */
+    private var messageText:String = "";
+    
+    //--------------------------------------------------------------------------
+    //
     //  Public Properties 
     //
     //--------------------------------------------------------------------------
@@ -137,6 +196,17 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     override public function set data(value:Object):void
     {
         super.data = value;
+        
+        dataChanged = true;
+        invalidateProperties();
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set label(value:String):void
+    {
+        super.label = value;
         
         dataChanged = true;
         invalidateProperties();
@@ -232,6 +302,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             
         _headerField = value;
         headerFieldOrFunctionChanged = true;
+        dataChanged = true;
+        
         invalidateProperties();
     }
     
@@ -281,6 +353,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             
         _headerFunction = value;
         headerFieldOrFunctionChanged = true;
+        dataChanged = true;
+        
         invalidateProperties(); 
     }
     
@@ -479,23 +553,28 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     }
     
     //----------------------------------
-    //  subTextField
+    //  messageField
     //----------------------------------
     
     /**
      *  @private
      */
-    private var _subTextField:String;
+    private var _messageField:String;
     
     /**
      *  @private
      */
-    private var subTextFieldOrFunctionChanged:Boolean; 
+    private var messageDisplay:MobileTextField;
+    
+    /**
+     *  @private
+     */
+    private var messageFieldOrFunctionChanged:Boolean; 
     
     /**
      *  The name of the field in the data provider items to display 
-     *  as the subText. 
-     *  The <code>subTextFunction</code> property overrides this property.
+     *  as the message. 
+     *  The <code>messageFunction</code> property overrides this property.
      *
      *  @default null
      *  
@@ -504,45 +583,47 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get subTextField():String
+    public function get messageField():String
     {
         // FIXME (rfrishbe): PARB this property name b/c confusing with "TextField" the component
-        return _subTextField;
+        return _messageField;
     }
     
     /**
      *  @private
      */
-    public function set subTextField(value:String):void
+    public function set messageField(value:String):void
     {
-        if (value == _subTextField)
+        if (value == _messageField)
             return;
         
-        _subTextField = value;
-        subTextFieldOrFunctionChanged = true;
+        _messageField = value;
+        messageFieldOrFunctionChanged = true;
+        dataChanged = true;
+        
         invalidateProperties();
     }
     
     //----------------------------------
-    //  subTextFunction
+    //  messageFunction
     //----------------------------------
     
     /**
      *  @private
      */
-    private var _subTextFunction:Function;
+    private var _messageFunction:Function;
     
     /**
-     *  A user-supplied function to run on each item to determine its subText.  
-     *  The <code>subTextFunction</code> property overrides 
-     *  the <code>subTextField</code> property.
+     *  A user-supplied function to run on each item to determine its message.  
+     *  The <code>messageFunction</code> property overrides 
+     *  the <code>messageField</code> property.
      *
-     *  <p>You can supply a <code>subTextFunction</code> that finds the 
+     *  <p>You can supply a <code>messageFunction</code> that finds the 
      *  appropriate fields and returns a displayable string. The 
-     *  <code>subTextFunction</code> is also good for handling formatting and 
+     *  <code>messageFunction</code> is also good for handling formatting and 
      *  localization.</p>
      *
-     *  <p>The subText function takes a single argument which is the item in 
+     *  <p>The message function takes a single argument which is the item in 
      *  the data provider and returns a String.</p>
      *  <pre>
      *  mySubTextFunction(item:Object):String</pre>
@@ -554,21 +635,23 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get subTextFunction():Function
+    public function get messageFunction():Function
     {
-        return _subTextFunction;
+        return _messageFunction;
     }
     
     /**
      *  @private
      */
-    public function set subTextFunction(value:Function):void
+    public function set messageFunction(value:Function):void
     {
-        if (value == _subTextFunction)
+        if (value == _messageFunction)
             return;
         
-        _subTextFunction = value;
-        subTextFieldOrFunctionChanged = true;
+        _messageFunction = value;
+        messageFieldOrFunctionChanged = true;
+        dataChanged = true;
+        
         invalidateProperties(); 
     }
     
@@ -587,10 +670,62 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         
         // create any children you need in here
         
-        // iconDisplay, subTextDisplay, and decoratorDisplay are created in 
+        // since labelDisplay gets created in super.createChildren(), lets make 
+        // sure it's using the right styles
+        labelDisplay.getStyleFunction = headerGetStyleFunction;
+        headerFieldOrFunctionChanged = true;
+        invalidateProperties();
+        
+        // iconDisplay, messageDisplay, and decoratorDisplay are created in 
         // commitProperties() since they are dependent on 
         // other properties and we don't always create them
         // headerText just uses labelElement to display its data
+    }
+    
+    /**
+     *  @private
+     */
+    override public function notifyStyleChangeInChildren(styleProp:String, recursive:Boolean):void
+    {
+        super.notifyStyleChangeInChildren(styleProp, recursive);
+        
+        cachedHeaderFormat = null;
+        cachedSubTextFormat = null;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleName:String):void
+    {
+        var allStyles:Boolean = !styleName || styleName == "styleName";
+        
+        super.styleChanged(styleName);
+        
+        // if header styles may have changed, let's null out the old 
+        // value and notify labelDisplay
+        if (allStyles || styleName == "headerStyleName")
+        {
+            headerStyles = null;
+            if (labelDisplay)
+                labelDisplay.styleChanged("styleName");
+        }
+        
+        // if message styles may have changed, let's null out the old 
+        // value and notify messageDisplay
+        if (allStyles || styleName == "messageStyleName")
+        {
+            messageStyles = null;
+            if (messageDisplay)
+                messageDisplay.styleChanged("styleName");
+        }
+        
+        // pass all style changes to labelTextField and messageField
+        // It will deal with them appropriatley and in a performant manner
+        if (labelDisplay)
+            labelDisplay.styleChanged(styleName);
+        if (messageDisplay)
+            messageDisplay.styleChanged(styleName);
     }
     
     /**
@@ -621,13 +756,12 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             invalidateDisplayList();
         }
         
-        // FIXME (rfrishbe): handle iconFunction in here as well
         if (iconFieldOrFunctionChanged)
         {
             iconFieldOrFunctionChanged = false;
             
             // let's see if we need to create or remove it
-            if (iconField && !iconDisplay)
+            if ((iconField || (iconFunction != null)) && !iconDisplay)
             {
                 // need to create it
                 iconDisplayHolder = new Group();
@@ -649,7 +783,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                 addChild(iconDisplayHolder);
                 iconDisplayHolder.addElement(iconDisplay);
             }
-            else if (!iconField && iconDisplay)
+            else if (!(iconField || (iconFunction != null)) && iconDisplay)
             {
                 // need to remove it
                 removeChild(iconDisplayHolder);
@@ -662,18 +796,124 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             invalidateDisplayList();
         }
         
+        if (messageFieldOrFunctionChanged)
+        {
+            messageFieldOrFunctionChanged = false;
+            
+            // let's see if we need to create or remove it
+            if ((messageField || (messageFunction != null)) && !messageDisplay)
+            {
+                // get styles for this text component
+                
+                // need to create it
+                messageDisplay = MobileTextField(createInFontContext(MobileTextField));
+                messageDisplay.getStyleFunction = messageGetStyleFunction;
+                messageDisplay.editable = false;
+                messageDisplay.selectable = false;
+                messageDisplay.multiline = true;
+                messageDisplay.wordWrap = true;
+                
+                addChild(messageDisplay);
+            }
+            else if (!(messageField || (messageFunction != null)) && messageDisplay)
+            {
+                // need to remove it
+                removeChild(messageDisplay);
+                messageDisplay = null;
+            }
+            
+            invalidateSize();
+            invalidateDisplayList();
+        }
+        
+        if (headerFieldOrFunctionChanged)
+        {
+            headerFieldOrFunctionChanged = false;
+            
+            // let's see if we need to create or remove it
+            if ((headerField || (headerFunction != null)) && !labelDisplay)
+            {
+                // get styles for this text component
+                
+                // need to create it
+                labelDisplay = MobileTextField(createInFontContext(MobileTextField));
+                labelDisplay.getStyleFunction = headerGetStyleFunction;
+                labelDisplay.editable = false;
+                labelDisplay.selectable = false;
+                labelDisplay.multiline = false;
+                labelDisplay.wordWrap = true;
+                
+                addChild(labelDisplay);
+            }
+            else if (!(headerField || (headerFunction != null)) && labelDisplay)
+            {
+                // need to remove it
+                removeChild(labelDisplay);
+                labelDisplay = null;
+            }
+            
+            invalidateSize();
+            invalidateDisplayList();
+        }
+        
         if (dataChanged)
         {
             dataChanged = false;
             
-            // if an iconField, try setting that
-            if (iconField)
+            // if icon, try setting that
+            if (iconFunction != null)
+            {
+                iconDisplay.source = iconFunction(data);
+            }
+            else if (iconField)
             {
                 try
                 {
                     if (iconField in data && data[iconField] != null)
                     {
                         iconDisplay.source = data[iconField];
+                    }
+                }
+                catch(e:Error)
+                {
+                }
+            }
+            
+            // if message, try setting that
+            if (messageFunction != null)
+            {
+                messageText = messageFunction(data);
+                messageDisplay.text = messageText;
+            }
+            else if (messageField)
+            {
+                try
+                {
+                    if (messageField in data && data[messageField] != null)
+                    {
+                        messageText = data[messageField];
+                        messageDisplay.text = messageText;
+                    }
+                }
+                catch(e:Error)
+                {
+                }
+            }
+            
+            // if header, try setting that
+            if (headerFunction != null)
+            {
+                headerText = headerFunction(data)
+                labelDisplay.text = headerText;
+            }
+            else if (headerField)
+            {
+                try
+                {
+                    if (headerField in data && data[headerField] != null)
+                    {
+                        headerText = data[headerField];
+                        labelDisplay.text = headerText;
                     }
                 }
                 catch(e:Error)
@@ -700,55 +940,123 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         var myMeasuredMinWidth:Number = 0;
         var myMeasuredMinHeight:Number = 0;
         
-        // FIXME (rfrishbe): use padding and gaps
         // Icon is on left
         if (iconDisplay)
         {
-            // padding of 5 on the right...left will be accounted for in the label
-            // padding of 10 for height (5 & 5)
-            myMeasuredWidth += (isNaN(iconWidth) ? iconDisplay.getPreferredBoundsWidth() : iconWidth) + 5;
-            myMeasuredHeight = Math.max(myMeasuredHeight, (isNaN(iconHeight) ? iconDisplay.getPreferredBoundsHeight() : iconHeight) + 10);
-            myMeasuredMinWidth += (isNaN(iconWidth) ? iconDisplay.getMinBoundsWidth() : iconWidth) + 5;
-            myMeasuredMinHeight = Math.max(myMeasuredMinHeight, (isNaN(iconHeight) ? iconDisplay.getMinBoundsHeight() : iconHeight) + 10);
+            var myIconWidth:Number = (isNaN(iconWidth) ? iconDisplay.getPreferredBoundsWidth() : iconWidth);
+            var myIconHeight:Number = (isNaN(iconHeight) ? iconDisplay.getPreferredBoundsHeight() : iconHeight);
+            
+            myMeasuredWidth += iconWidth;
+            myMeasuredHeight = Math.max(myMeasuredHeight, myIconHeight);
+            myMeasuredMinWidth += iconWidth;
+            myMeasuredMinHeight = Math.max(myMeasuredMinHeight, myIconHeight);
         }
         
         // Text is aligned next to icon
-        
-        // FIXME (rfrishbe): will need to change this calculation
-        // don't allow text to contribute to width for now
-        myMeasuredWidth += labelDisplay.textWidth + 5 + 20; // 5 is the extra padding for text field, 20 is normal padding (10 & 10)
-        myMeasuredHeight = Math.max(myMeasuredHeight, labelDisplay.textHeight + 4 + 10); // 4 is the extra padding for text field, 10 is normal padding (5 & 5)
-        
-        // don't do anything with regards to minimum for the textField
+        var labelLineMetrics:TextLineMetrics;
+        var labelWidth:Number;
+        var labelHeight:Number;
+        var messageLineMetrics:TextLineMetrics;
+        var messageWidth:Number;
+        var messageHeight:Number;
+        if (labelDisplay && messageDisplay)
+        {
+            labelLineMetrics = measureHeaderText(headerText);
+            
+            labelWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
+            labelHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            
+            messageLineMetrics = measureSubTextText(messageText);
+            
+            messageWidth = messageLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
+            messageHeight = messageLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            
+            myMeasuredWidth += Math.max(labelWidth, messageWidth);
+            myMeasuredHeight = Math.max(myMeasuredHeight, labelHeight + messageHeight);
+        }
+        else if (labelDisplay && !messageDisplay)
+        {
+            labelLineMetrics = measureHeaderText(headerText);
+            
+            labelWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
+            labelHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            
+            myMeasuredWidth += labelWidth;
+            myMeasuredHeight = Math.max(myMeasuredHeight, labelHeight);
+        }
+        else if (!labelDisplay && messageDisplay)
+        {
+            messageLineMetrics = measureSubTextText(messageText);
+            
+            messageWidth = messageLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
+            messageHeight = messageLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            
+            myMeasuredWidth += messageWidth;
+            myMeasuredHeight = Math.max(myMeasuredHeight, messageHeight);
+        }
         
         // Decorator is up next
         if (decoratorDisplay)
         { 
-            // padding of 5 on the left...the right is already accounted for in the label
-            // padding of 10 for height (5 on top, 5 on bottom)
             if (decoratorDisplay is IVisualElement)
             {
-                myMeasuredWidth += IVisualElement(decoratorDisplay).getPreferredBoundsWidth() + 5;
-                myMeasuredHeight = Math.max(myMeasuredHeight, IVisualElement(decoratorDisplay).getPreferredBoundsHeight() + 10);
-                myMeasuredMinWidth += IVisualElement(decoratorDisplay).getMinBoundsWidth() + 5;
-                myMeasuredMinHeight = Math.max(myMeasuredMinHeight, IVisualElement(decoratorDisplay).getMinBoundsHeight() + 10);
+                myMeasuredWidth += IVisualElement(decoratorDisplay).getPreferredBoundsWidth();
+                myMeasuredHeight = Math.max(myMeasuredHeight, IVisualElement(decoratorDisplay).getPreferredBoundsHeight());
+                myMeasuredMinWidth += IVisualElement(decoratorDisplay).getMinBoundsWidth();
+                myMeasuredMinHeight = Math.max(myMeasuredMinHeight, IVisualElement(decoratorDisplay).getMinBoundsHeight());
             }
             else if (decoratorDisplay is IFlexDisplayObject)
             {
-                myMeasuredWidth += IFlexDisplayObject(decoratorDisplay).measuredWidth + 5;
-                myMeasuredHeight = Math.max(myMeasuredHeight, IFlexDisplayObject(decoratorDisplay).measuredHeight + 10);
-                myMeasuredMinWidth += IFlexDisplayObject(decoratorDisplay).measuredWidth + 5;
-                myMeasuredMinHeight = Math.max(myMeasuredMinHeight, IFlexDisplayObject(decoratorDisplay).measuredHeight + 10);
+                myMeasuredWidth += IFlexDisplayObject(decoratorDisplay).measuredWidth;
+                myMeasuredHeight = Math.max(myMeasuredHeight, IFlexDisplayObject(decoratorDisplay).measuredHeight);
+                myMeasuredMinWidth += IFlexDisplayObject(decoratorDisplay).measuredWidth;
+                myMeasuredMinHeight = Math.max(myMeasuredMinHeight, IFlexDisplayObject(decoratorDisplay).measuredHeight);
             }
         }
+        
+        // now to add on padding and horizontal gap
+        var numHorizontalSections:int = 0;
+        var numVerticalSections:int = 0;
+        if (iconDisplay)
+            numHorizontalSections++;
+        
+        if (decoratorDisplay)
+            numHorizontalSections++;
+        
+        if (labelDisplay && messageDisplay)
+        {
+            numHorizontalSections++;
+            numVerticalSections = 2;
+        }
+        else if (labelDisplay || messageDisplay)
+        {
+            numHorizontalSections++;
+            numVerticalSections = 1;
+        }
+        else if (!labelDisplay && !messageDisplay)
+        {
+            numVerticalSections = 1;
+        }
+        
+        var extraWidth:Number = getStyle("paddingLeft") + getStyle("paddingRight");
+        if (numHorizontalSections > 0)
+            extraWidth += (getStyle("horizontalGap") * (numHorizontalSections - 1));
+        var extraHeight:Number = getStyle("paddingTop") + getStyle("paddingBottom");
+        if (numVerticalSections == 2)
+            extraHeight += getStyle("verticalGap");
+        
+        myMeasuredWidth += extraWidth;
+        myMeasuredMinWidth += extraWidth;
+        myMeasuredHeight += extraHeight;
+        myMeasuredMinHeight += extraHeight;
         
         // now set the local variables to the member variables.  Make sure it means our
         // minimum height of 80
         measuredWidth = myMeasuredWidth
-        measuredHeight = Math.max(80, myMeasuredHeight);
+        measuredHeight = Math.max(120, myMeasuredHeight);
         
         measuredMinWidth = myMeasuredMinWidth;
-        measuredMinHeight = Math.max(80, myMeasuredMinHeight);
+        measuredMinHeight = Math.max(120, myMeasuredMinHeight);
     }
     
     /**
@@ -765,6 +1073,14 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         var decoratorWidth:Number = 0;
         var decoratorHeight:Number = 0;
         
+        var paddingLeft:Number = getStyle("paddingLeft");
+        var paddingRight:Number = getStyle("paddingRight");
+        var paddingTop:Number = getStyle("paddingTop");
+        var paddingBottom:Number = getStyle("paddingBottom");
+        
+        var viewWidth:Number = unscaledWidth - paddingLeft - paddingRight;
+        var viewHeight:Number = unscaledHeight - paddingTop - paddingBottom;
+        
         // icon is on the left
         if (iconDisplay)
         {
@@ -774,8 +1090,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             iconWidth = iconDisplay.getLayoutBoundsWidth();
             iconHeight = iconDisplay.getLayoutBoundsHeight();
             
-            // three from the left and center vertically
-            iconDisplayHolder.setLayoutBoundsPosition(10, (unscaledHeight - iconHeight)/2);
+            // paddingLeft for x, paddingTop for y
+            iconDisplayHolder.setLayoutBoundsPosition(paddingLeft, paddingTop);
         }
         
         // decorator is aligned next to icon
@@ -789,8 +1105,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                 decoratorWidth = decoratorVisualElement.getLayoutBoundsWidth();
                 decoratorHeight = decoratorVisualElement.getLayoutBoundsHeight();
                 
-                // three from right and center vertically
-                decoratorVisualElement.setLayoutBoundsPosition(unscaledWidth - 10 - decoratorWidth, (unscaledHeight - decoratorHeight)/2);
+                // paddingRight from right and center vertically
+                decoratorVisualElement.setLayoutBoundsPosition(unscaledWidth - paddingRight - decoratorWidth, (viewHeight - decoratorHeight)/2 + paddingTop);
             }
             else if (decoratorDisplay is IFlexDisplayObject)
             {
@@ -799,33 +1115,238 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                 
                 IFlexDisplayObject(decoratorDisplay).setActualSize(decoratorWidth, decoratorHeight);
                 
-                // three from right and center vertically
-                IFlexDisplayObject(decoratorDisplay).move(unscaledWidth - 10 - decoratorWidth, (unscaledHeight - decoratorHeight)/2);
+                // paddingRight from right and center vertically
+                IFlexDisplayObject(decoratorDisplay).move(unscaledWidth - paddingRight - decoratorWidth, (viewHeight - decoratorHeight)/2 + paddingTop);
             }
         }
 
-        // FIXME (rfrishbe): update for subText and header and use padding and gaps
+        // Figure out how much space we have for header and message as well as the 
+        // starting left position
+        var labelComponentsViewWidth:Number = viewWidth - iconWidth - decoratorWidth;
         
-        // text should take up the rest of the space
-        var labelWidth:Number = unscaledWidth - iconWidth - decoratorWidth;
-        labelWidth -= (getStyle("paddingLeft") + getStyle("paddingRight"));
-        
-        // don't forget the extra padding of 5 if these elements exist
+        // don't forget the extra gap padding if these elements exist
         if (iconDisplay)
-            labelWidth -= getStyle("horizontalGap");
+            labelComponentsViewWidth -= getStyle("horizontalGap");
         if (decoratorDisplay)
-            labelWidth -= getStyle("horizontalGap");
+            labelComponentsViewWidth -= getStyle("horizontalGap");
         
-        // padding of 5 from the left
-        var labelX:Number = getStyle("paddingLeft");
+        var labelComponentsX:Number = getStyle("paddingLeft");
         if (iconDisplay)
-            labelX += iconWidth + getStyle("horizontalGap");
+            labelComponentsX += iconWidth + getStyle("horizontalGap");
         
-        labelDisplay.width = labelWidth;
-        labelDisplay.height = labelDisplay.textHeight + 4; // 4 is text field padding
+        // calculte the natural sizes for header and message (if present)
+        var headerTextWidth:Number = 0;
+        var headerTextHeight:Number = 0;
+        var headerLineMetrics:TextLineMetrics;
         
-        labelDisplay.x = labelX;
-        labelDisplay.y = (unscaledHeight - labelDisplay.height)/2;
+        if (labelDisplay && labelDisplay.text != "")
+        {
+            labelDisplay.commitStyles();
+            headerLineMetrics = measureHeaderText(headerText);
+            headerTextWidth = headerLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
+            headerTextHeight = headerLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+        }
+        
+        if (messageDisplay && messageDisplay.text != "")
+        {
+            messageDisplay.commitStyles();
+            // no need to measure the text width and height since the measure function only 
+            // take in to account the first line.
+        }
+        
+        // now size and position the elements, 3 different configurations we care about:
+        // 1) header and message
+        // 2) header only
+        // 3) message only
+        
+        // label display goes on top
+        // subtext display goes below
+        
+        var headerWidth:Number = 0;
+        var headerHeight:Number = 0;
+        var messageWidth:Number = 0;
+        var messageHeight:Number = 0;
+        var verticalGap:Number = 0;
+        
+        if (labelDisplay)
+        {
+            verticalGap = 0;
+            
+            // handle labelDisplay.  it can only be 1 line
+            
+            headerWidth = Math.max(Math.min(labelComponentsViewWidth, headerTextWidth), 0);
+            headerHeight = Math.max(Math.min(viewHeight, headerTextHeight), 0);
+            
+            labelDisplay.width = headerWidth;
+            labelDisplay.height = headerHeight;
+            
+            labelDisplay.x = Math.round(labelComponentsX);
+            labelDisplay.y = Math.round(paddingTop);
+            
+            // reset text if it was truncated before.  then attempt to truncate it
+            if (labelDisplay.isTruncated)
+                labelDisplay.text = headerText;
+            labelDisplay.truncateToFit();
+        }
+        
+        if (messageDisplay)
+        {
+            // handle message
+            // don't use the measured text width or height because that only takes the first line in to account
+            messageWidth = Math.max(labelComponentsViewWidth, 0);
+            messageHeight = Math.max(viewHeight - headerHeight - verticalGap, 0);
+            
+            messageDisplay.width = messageWidth;
+            messageDisplay.height = messageHeight;
+            
+            messageDisplay.x = Math.round(labelComponentsX);
+            messageDisplay.y = Math.round(paddingTop + headerHeight + verticalGap);
+            
+            // since it's multi-line, no need to truncate
+            //if (messageDisplay.isTruncated)
+            //    messageDisplay.text = messageText;
+            //messageDisplay.truncateToFit();
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: Helper functions for determining styles for header and message
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private 
+     *  Function we pass in to header for it to grab the styles and push 
+     *  them in to the TextFormat object used by that MobileTextField.
+     */
+    private function headerGetStyleFunction(styleProp:String):*
+    {
+        // grab the header specific styles
+        if (!headerStyles)
+            headerStyles = styleManager.getStyleDeclaration("." + getStyle("headerStyleName"));
+        
+        // see if they are in the header styles
+        var styleValue:*;
+        if (headerStyles)
+            styleValue = headerStyles.getStyle(styleProp);
+        
+        // if they are not there, try grabbing it from this component directly
+        if (styleValue === undefined)
+            styleValue = getStyle(styleProp);
+        
+        return styleValue;
+    }
+    
+    /**
+     *  @private 
+     *  Function we pass in to message for it to grab the styles and push 
+     *  them in to the TextFormat object used by that MobileTextField.
+     */
+    private function messageGetStyleFunction(styleProp:String):*
+    {
+        // grab the message specific styles
+        if (!messageStyles)
+            messageStyles = styleManager.getStyleDeclaration("." + getStyle("messageStyleName"));
+        
+        // see if they are in the message styles
+        var styleValue:*;
+        if (messageStyles)
+            styleValue = messageStyles.getStyle(styleProp);
+        
+        // if they are not there, try grabbing it from this component directly
+        if (styleValue === undefined)
+            styleValue = getStyle(styleProp);
+        
+        return styleValue;
+    }
+    
+    /**
+     *  @private 
+     *  Function to help figure out the sizes of the header and message.  We cannot use 
+     *  UIComponent.measureText() because we are adding a few additional styles 
+     *  to it based on headerStyleName and messageStyleName.
+     */
+    private function measureHeaderText(text:String):TextLineMetrics
+    {
+        // Copied from UIComponent.measureText()
+        cachedHeaderFormat = determineTextFormatWithGetStyleFunction(headerGetStyleFunction, cachedHeaderFormat);
+        return cachedHeaderFormat.measureText(text);
+    }
+    
+    /**
+     *  @private 
+     *  Function to help figure out the sizes of the header and message.  We cannot use 
+     *  UIComponent.measureText() because we are adding a few additional styles 
+     *  to it based on headerStyleName and messageStyleName.
+     */
+    private function measureSubTextText(text:String):TextLineMetrics
+    {
+        // Copied from UIComponent.measureText()
+        cachedSubTextFormat = determineTextFormatWithGetStyleFunction(messageGetStyleFunction, cachedSubTextFormat);
+        return cachedSubTextFormat.measureText(text);
+    }
+    
+    /**
+     *  @private 
+     *  Function to help figure out the sizes of the header and message.  We cannot use 
+     *  UIComponent.measureText() because we are adding a few additional styles 
+     *  to it based on headerStyleName and messageStyleName.
+     */
+    private function determineTextFormatWithGetStyleFunction(getStyleFunction:Function, cachedTextFormat:UITextFormat):UITextFormat
+    {
+        // copied and adapted from UIComponent.determineTextFormatFromStyles
+        var textFormat:UITextFormat = cachedTextFormat;
+        
+        if (!textFormat)
+        {
+            var font:String =
+                StringUtil.trimArrayElements(getStyleFunction("fontFamily"), ",");
+            textFormat = new UITextFormat(getNonNullSystemManager(), font);
+            textFormat.moduleFactory = moduleFactory;
+            
+            // Not all flex4 textAlign values are valid so convert to a valid one.
+            var align:String = getStyleFunction("textAlign");
+            if (align == "start") 
+                align = TextFormatAlign.LEFT;
+            else if (align == "end")
+                align = TextFormatAlign.RIGHT;
+            textFormat.align = align; 
+            textFormat.bold = getStyleFunction("fontWeight") == "bold";
+            textFormat.color = enabled ?
+                getStyleFunction("color") :
+                getStyleFunction("disabledColor");
+            textFormat.font = font;
+            textFormat.indent = getStyleFunction("textIndex");
+            textFormat.italic = getStyleFunction("fontStyle") == "italic";
+            textFormat.kerning = getStyleFunction("kerning");
+            textFormat.leading = getStyleFunction("leading");
+            textFormat.leftMargin = getStyleFunction("paddingLeft"); // FIXME (rfrishbe): should these be in here...?
+            textFormat.letterSpacing = getStyleFunction("letterSpacing")
+            textFormat.rightMargin = getStyleFunction("paddingRight");
+            textFormat.size = getStyleFunction("fontSize");
+            textFormat.underline =
+                getStyleFunction("textDecoration") == "underline";
+            
+            textFormat.antiAliasType = getStyleFunction("fontAntiAliasType");
+            textFormat.gridFitType = getStyleFunction("fontGridFitType");
+            textFormat.sharpness = getStyleFunction("fontSharpness");
+            textFormat.thickness = getStyleFunction("fontThickness");
+            
+            //textFormat.useFTE =
+            //    getTextFieldClassName() == "mx.core::UIFTETextField" ||
+            //    getTextInputClassName() == "mx.controls::MXFTETextInput";
+            
+            //if (textFormat.useFTE)
+            //{
+            //    textFormat.direction = getStyleFunction("direction");
+            //    textFormat.locale = getStyleFunction("locale");
+            //}
+            
+            cachedTextFormat = textFormat;
+        }
+        
+        return textFormat;
     }
     
 }
