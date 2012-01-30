@@ -13,7 +13,6 @@ package spark.transitions
 {
     
 import flash.display.BlendMode;
-import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 
@@ -24,11 +23,8 @@ import mx.effects.IEffect;
 import mx.effects.Parallel;
 
 import spark.components.Group;
-import spark.effects.Animate;
 import spark.effects.Scale;
-import spark.effects.animation.MotionPath;
-import spark.effects.animation.SimpleMotionPath;
-
+import spark.primitives.BitmapImage;
 
 use namespace mx_internal;
 
@@ -87,14 +83,14 @@ public class ZoomViewTransition extends ViewTransitionBase
      *  Property bag used to save any start view properties that 
      *  are then restored after the transition is complete.
      */
-    private var startViewProps:Object = {};
+    private var startViewProps:Object;
     
     /**
      *  @private
      *  Property bag used to save any end view properties that 
      *  are then restored after the transition is complete.
      */
-    private var endViewProps:Object = {};
+    private var endViewProps:Object;
     
     /**
      *  @private
@@ -109,19 +105,24 @@ public class ZoomViewTransition extends ViewTransitionBase
     /**
      *  @private
      */
-    private var zoomTarget:UIComponent;
+    private var scaleEffect:Scale;
     
     /**
      *  @private
      */
-    private var scaleEffect:Scale;
+    private var targetShapshot:BitmapImage;
+    
+    /**
+     *  @private
+     */
+    private var cachedNavigatorGroup:Group;
     
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-
+    
     //---------------------------------
     // minimumScale
     //---------------------------------
@@ -214,43 +215,81 @@ public class ZoomViewTransition extends ViewTransitionBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
+    override public function captureEndValues():void
+    {       
+        super.captureEndValues();
+        
+        // Set targetShapshot to the snapshot that we will be
+        // transitioning in or out.
+        if (consolidatedTransition)
+        {
+            targetShapshot = (mode == ZoomViewTransitionMode.OUT) ?
+                cachedNavigator :
+                getSnapshot(targetNavigator.skin, 0);
+        }
+        else
+        {
+            targetShapshot = (mode == ZoomViewTransitionMode.OUT) ?
+                getSnapshot(startView, 0) :
+                getSnapshot(endView, 0);
+        }
+    }
+    
+    /**
+     *  @private
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     override protected function createViewEffect():IEffect
     {
-        // Disable layout for our start view.
+        // Add a group to contain targetSnapshot.
+        transitionGroup = new Group();
+        transitionGroup.includeInLayout = false;
+        addComponentToContainer(transitionGroup, DisplayObjectContainer(navigator) as UIComponent);
+        
+        // Disable layout and visibility of our start view as necessary
         if (startView)
         {
-            startViewProps = {includeInLayout:startView.includeInLayout};
+            startViewProps = {includeInLayout:startView.includeInLayout, 
+                visible:startView.visible};
             startView.includeInLayout = false;
-        }
-        
-        // Disable layout for our end view, and ensure z-order of the views
-        // is appropriate for our transition mode.
-        if (endView)
-        {
-            endViewProps = {includeInLayout:endView.includeInLayout};
-            endView.includeInLayout = false;
             
             if (mode == ZoomViewTransitionMode.OUT)
-                setComponentChildIndex(endView, navigator, 0); 
+                startView.visible = false;
         }
         
-        zoomTarget = (mode == ZoomViewTransitionMode.OUT) ? startView : endView;
+        // Disable layout and visibility of our start end as necessary
+        if (endView)
+        {
+            endViewProps = {includeInLayout:endView.includeInLayout,
+                visible:endView.visible};
+            endView.includeInLayout = false;
+            
+            if (mode == ZoomViewTransitionMode.IN)
+                endView.visible = false;
+        }
         
+        if (targetShapshot)
+            transitionGroup.addElement(targetShapshot);
+        
+        transitionGroup.validateNow();
+ 
         // Initialize our target's transform center.
-        zoomTarget.transformX = endView.width / 2;
-        zoomTarget.transformY = endView.height / 2;
+        transitionGroup.transformX = endView.width / 2;
+        transitionGroup.transformY = endView.height / 2;
         
         // Ensure our alpha is initialized to 0 prior to the start
         // of our transition so that the view isn't displayed briefly
         // after validation.
         if (mode == ZoomViewTransitionMode.IN)
-            zoomTarget.alpha = 0;
+            transitionGroup.alpha = 0;
         
         // Set our blendMode to 'normal' for performance reasons.
-        startViewProps.zoomTargetBlendMode = zoomTarget.blendMode;
-        zoomTarget.blendMode = BlendMode.NORMAL;
+        transitionGroup.blendMode = BlendMode.NORMAL;
         
-        return createZoomEffect(zoomTarget);
+        return createZoomEffect(transitionGroup);
     }
     
     /**
@@ -263,52 +302,58 @@ public class ZoomViewTransition extends ViewTransitionBase
     override protected function createConsolidatedEffect():IEffect
     {        
         // If we have no cachedNavigator then there is not much we can do.
-        if (!cachedNavigator)
+        if (!cachedNavigator && mode == ZoomViewTransitionMode.OUT)
             return null;
         
-        // Add a group to contain our snapshot view of the navigator while
-        // we animate.
-        transitionGroup = new Group();
-        transitionGroup.includeInLayout = false;
-        
+        // Add a group to contain our snapshot view of the original navigator.
+        cachedNavigatorGroup = new Group();
+        cachedNavigatorGroup.includeInLayout = false;
+        cachedNavigatorGroup.addElement(cachedNavigator);
+        cachedNavigator.includeInLayout = false;
+
         // Add our temporary transition group to our target navigator's parent
         // so we can make it and the original navigator siblings.
         if (mode == ZoomViewTransitionMode.OUT)
-            addComponentToContainer(transitionGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent);
+        {
+            addComponentToContainer(cachedNavigatorGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent);
+            
+            // We'll be zooming out our cachedNavigatorGroup.
+            transitionGroup = cachedNavigatorGroup;
+        }
         else
-            addComponentToContainerAt(transitionGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent,0);
+        {
+            transitionGroup = new Group();
+            transitionGroup.includeInLayout = false;
+            addComponentToContainer(cachedNavigatorGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent);
+            
+            // We'll be zooming in our snapshot of the new navigator. Host our 
+            // snapshot and make sure it's rendered.
+            cachedNavigatorGroup.addElement(transitionGroup);
+            transitionGroup.addElement(targetShapshot);
+            cachedNavigatorGroup.validateNow();
+            
+            // Hide our real navigator.
+            endViewProps = {visible:targetNavigator.skin.visible}
+            targetNavigator.skin.visible = false;
+        }
         
-        // Position our snapshot above endView.
-        cachedNavigator.includeInLayout = false;
-        transitionGroup.addElement(cachedNavigator);
-    
-        // Ensure that appropriate surfaces are cached and snapshots rendered.
         transitionGroup.validateNow();
         transitionGroup.x = transitionGroup.y = 0;
-            
-        zoomTarget = (mode == ZoomViewTransitionMode.OUT) ? transitionGroup : targetNavigator.skin;
-        
+
         // Initialize our target's transform center.
-        zoomTarget.transformX = cachedNavigator.getLayoutBoundsWidth(true) / 2;
-        zoomTarget.transformY = cachedNavigator.getLayoutBoundsHeight(true) / 2;
+        transitionGroup.transformX = cachedNavigator.getLayoutBoundsWidth(true) / 2;
+        transitionGroup.transformY = cachedNavigator.getLayoutBoundsHeight(true) / 2;
         
         // Ensure our alpha is initialized to 0 prior to the start
         // of our transition so that the view isn't displayed briefly
         // after validation.
         if (mode == ZoomViewTransitionMode.IN)
-            zoomTarget.alpha = 0;
-                
-        // Save view properties for restoration later.
-        startViewProps = { targetNavigatorIncludeInLayout:targetNavigator.includeInLayout,
-            zoomTargetBlendMode:zoomTarget.blendMode};
-        
-        // Disable layout for our target navigator.
-        targetNavigator.includeInLayout = false;
+            transitionGroup.alpha = 0;
         
         // Set our blendMode to 'normal' for performance reasons.
-        zoomTarget.blendMode = BlendMode.NORMAL;
+        transitionGroup.blendMode = BlendMode.NORMAL;
         
-        return createZoomEffect(zoomTarget);
+        return createZoomEffect(transitionGroup);
     }
     
     /**
@@ -323,28 +368,34 @@ public class ZoomViewTransition extends ViewTransitionBase
         if (!consolidatedTransition)
         {
             if (startView)
+            {
                 startView.includeInLayout = startViewProps.includeInLayout;
-                    
+                startView.visible = startViewProps.visible;
+            }
+            
             if (endView)
+            {
                 endView.includeInLayout = endViewProps.includeInLayout;
+                endView.visible = endViewProps.visible;;
+            }
+            
+            if (transitionGroup)
+                removeComponentFromContainer(transitionGroup, UIComponent(DisplayObjectContainer(navigator))); 
         }
         else
         {
-            if (transitionGroup)
-                removeComponentFromContainer(transitionGroup, UIComponent(DisplayObjectContainer(targetNavigator).parent));
+            if (cachedNavigatorGroup)
+                removeComponentFromContainer(cachedNavigatorGroup, UIComponent(DisplayObjectContainer(targetNavigator).parent));
             
-            targetNavigator.includeInLayout = startViewProps.targetNavigatorIncludeInLayout;
+            if (endViewProps)
+                targetNavigator.skin.visible = endViewProps.visible;
         }
         
-        if (zoomTarget)
-        {
-            zoomTarget.transformX = 0;
-            zoomTarget.transformY = 0;
-            zoomTarget.blendMode = startViewProps.zoomTargetBlendMode;
-        }
-
         transitionGroup = null;
         cachedNavigator = null;
+        cachedNavigatorGroup = null;
+        endViewProps = null;
+        startViewProps = null;
         
         scaleEffect.removeEventListener("effectUpdate", scaleEffectUpdateHandler);
         scaleEffect = null;
@@ -369,7 +420,7 @@ public class ZoomViewTransition extends ViewTransitionBase
         // depending on the transition mode (in/out).
         var parallel:Parallel = new Parallel;
         parallel.target = zoomTarget;
-
+        
         // Create fade effect to gradually fade our zoom target, we don't fade for the
         // duration of the effect as this degrades overall transition performance, we
         // simply fade near the point of first appearance or disappearance.
@@ -380,7 +431,7 @@ public class ZoomViewTransition extends ViewTransitionBase
             fadeEffect.startDelay = duration * .4;
         fadeEffect.alphaTo = (mode == ZoomViewTransitionMode.OUT) ? 0 : 1;
         fadeEffect.alphaFrom = (mode == ZoomViewTransitionMode.OUT) ? 1 : 0;
-            
+        
         // Create scale effect to zoom in/our our target from or to our 
         // specified minimum scale.
         scaleEffect = new Scale();
@@ -397,14 +448,14 @@ public class ZoomViewTransition extends ViewTransitionBase
         
         return parallel;    
     }
-
+    
     /**
      *  @private
      *  Ensures transform matrix is updated even if layout is disabled.
      */ 
     private function scaleEffectUpdateHandler(e:Event):void
     {
-        zoomTarget.validateDisplayList();
+        transitionGroup.validateDisplayList();
     }
     
 }
