@@ -35,9 +35,9 @@ use namespace mx_internal;
  *  @see spark.components.supportClasses.ButtonBase
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
+ *  @playerversion Flash 10
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  *
  */
 public class SparkButtonBaseAutomationImpl extends SparkSkinnableComponentAutomationImpl 
@@ -56,9 +56,9 @@ public class SparkButtonBaseAutomationImpl extends SparkSkinnableComponentAutoma
      *  @param root The SystemManger of the application.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
+     *  @playerversion Flash 10
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public static function init(root:DisplayObject):void
     {
@@ -70,9 +70,9 @@ public class SparkButtonBaseAutomationImpl extends SparkSkinnableComponentAutoma
      * @param obj ButtonBase object to be automated.     
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
+     *  @playerversion Flash 10
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function SparkButtonBaseAutomationImpl(obj:spark.components.supportClasses.ButtonBase)
     {
@@ -165,9 +165,9 @@ public class SparkButtonBaseAutomationImpl extends SparkSkinnableComponentAutoma
      *  @param event ReplayableClickEvent to replay.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
+     *  @playerversion Flash 10
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     override public function replayAutomatableEvent(event:Event):Boolean
     {
