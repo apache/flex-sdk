@@ -7515,12 +7515,28 @@ public class UIComponent extends FlexSprite
     //
     //--------------------------------------------------------------------------
 
+    /** 
+     *  Helper method for dispatching a PropertyChangeEvent
+     *  when a property is updated.
+     * 
+     *  @param prop Name of the property that changed.
+     *
+     *  @param oldValue Old value of the property.
+     *
+     *  @param value New value of the property.
+     */
+    protected function dispatchPropertyChangeEvent(prop:String, oldValue:*,
+                                                   value:*):void
+    {
+        dispatchEvent(PropertyChangeEvent.createUpdateEvent(
+                            this, prop, oldValue, value));
+    }
+
     /**
      *  @private
      */
     private function dispatchMoveEvent():void
     {
-
         var moveEvent:MoveEvent = new MoveEvent(MoveEvent.MOVE);
         moveEvent.oldX = oldX;
         moveEvent.oldY = oldY;
