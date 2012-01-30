@@ -314,8 +314,9 @@ public class ChildManager implements ISystemManagerChildManager
 			{
 				LoaderConfig._url = LoaderUtil.normalizeURL(systemManager.loaderInfo);
 				LoaderConfig._parameters = systemManager.loaderInfo.parameters;
-			}
-
+                LoaderConfig._swfVersion = systemManager.loaderInfo.swfVersion;
+            }
+        
 			IFlexDisplayObject(app).setActualSize(width, height);
 
 			// Wait for the app to finish its initialization sequence
