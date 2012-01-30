@@ -42,7 +42,7 @@ public interface IFlexModuleFactory
      *  The RSLs loaded by this IFlexModuleFactory before the application 
      *  starts. RSLs loaded by the application are not included in this list.
      * 
-     *  Information about preloadedRSLs is stored in a Dictionary. The key is
+     *  Information about preloaded RSLs is stored in a Dictionary. The key is
      *  the RSL's LoaderInfo. The value is the url the RSL was loaded from.
      */   
     function get preloadedRSLs():Dictionary;
@@ -54,14 +54,14 @@ public interface IFlexModuleFactory
     //--------------------------------------------------------------------------
 
     /**
-     *  Calls Security.allowDomain() for the SWF associated with this IFlexModuleFactory
+     *  Calls the <code>Security.allowDomain()</code> method for the SWF associated with this IFlexModuleFactory
      *  plus all the SWFs assocatiated with RSLs preloaded by this IFlexModuleFactory.
      * 
      */  
     function allowDomain(... domains):void;
     
     /**
-     *  Calls Security.allowInsecureDomain() for the SWF associated with this IFlexModuleFactory
+     *  Calls the <code>Security.allowInsecureDomain()</code> method for the SWF associated with this IFlexModuleFactory
      *  plus all the SWFs assocatiated with RSLs preLoaded by this IFlexModuleFactory.
      * 
      */  
@@ -70,10 +70,10 @@ public interface IFlexModuleFactory
     /**
      *  A way to call a method in this IFlexModuleFactory's context
      *
-     *  @param fn The function or method to call
-     *  @param thisArg The this pointer for the function
-     *  @param argArray The arguments for the function
-     *  @param returns If true, the function returns a value
+     *  @param fn The function or method to call.
+     *  @param thisArg The <code>this</code> pointer for the function.
+     *  @param argArray The arguments for the function.
+     *  @param returns If <code>true</code>, the function returns a value.
      *
      *  @return Whatever the function returns, if anything.
      *  
@@ -111,7 +111,7 @@ public interface IFlexModuleFactory
 
     /**
      *  Get the implementation for an interface.
-     *  Similar to Singleton.getInstance, but per-
+     *  Similar to <code>Singleton.getInstance()</code> method, but per-
      *  IFlexModuleFactory.
      *  
      *  @langversion 3.0
@@ -150,7 +150,7 @@ public interface IFlexModuleFactory
     
     /**
      *  Register an implementation for an interface.
-     *  Similar to Singleton.registerClass, but per-
+     *  Similar to the <code>Singleton.registerClass()</code> method, but per-
      *  IFlexModuleFactory, and takes an instance not a class.
      *  
      *  @langversion 3.0
