@@ -63,7 +63,7 @@ public class ResourceBundle implements IResourceBundle
     //
     //--------------------------------------------------------------------------
 
-    [Deprecated(replacement="ResourceManager.getResourceBundle()", since="3.0")]
+    [Deprecated(replacement="ResourceManager.getInstance().getResourceBundle()", since="3.0")]
     
     /**
      *  If you compiled your application for a single locale,
@@ -76,7 +76,7 @@ public class ResourceBundle implements IResourceBundle
      *  You can use the <code>getResourceBundle()</code> method
      *  of IResourceManager to get a resource bundle if you know
      *  its bundle name and locale.
-     *  However, yhou should no longer access resources
+     *  However, you should no longer access resources
      *  directly from a ResourceBundle.
      *  All resources should now be accessed via methods
      *  of the IResourceManager interface such as <code>getString()</code>.
@@ -123,11 +123,11 @@ public class ResourceBundle implements IResourceBundle
             className = baseName + "_properties";
             bundleClass = getClassByName(className, mx_internal::backupApplicationDomain);
 
-			if (!bundleClass)
-			{
-				className = baseName;
-				bundleClass = getClassByName(className, mx_internal::backupApplicationDomain);
-			}
+            if (!bundleClass)
+            {
+                className = baseName;
+                bundleClass = getClassByName(className, mx_internal::backupApplicationDomain);
+            }
         }
 
         if (bundleClass)
@@ -272,7 +272,7 @@ public class ResourceBundle implements IResourceBundle
         return {};
     }
 
-    [Deprecated(replacement="ResourceManager.getBoolean()", since="3.0")]
+    [Deprecated(replacement="ResourceManager.getInstance().getBoolean()", since="3.0")]
     
     /**
      *  Gets a Boolean from a ResourceBundle.
@@ -311,7 +311,7 @@ public class ResourceBundle implements IResourceBundle
             return defaultValue;
     }
 
-    [Deprecated(replacement="ResourceManager.getNumber()", since="3.0")]
+    [Deprecated(replacement="ResourceManager.getInstance().getNumber()", since="3.0")]
     
     /**
      *  Gets a Number from a ResourceBundle.
@@ -339,7 +339,7 @@ public class ResourceBundle implements IResourceBundle
         return Number(_getObject(key));
     }
 
-    [Deprecated(replacement="ResourceManager.getString()", since="3.0")]
+    [Deprecated(replacement="ResourceManager.getInstance().getString()", since="3.0")]
     
     /**
      *  Gets a String from a ResourceBundle.
@@ -366,7 +366,7 @@ public class ResourceBundle implements IResourceBundle
         return String(_getObject(key));
     }
 
-    [Deprecated(replacement="ResourceManager.getStringArray()", since="3.0")]
+    [Deprecated(replacement="ResourceManager.getInstance().getStringArray()", since="3.0")]
     
     /**
      *  Gets an Array of Strings from a ResourceBundle.
@@ -408,7 +408,7 @@ public class ResourceBundle implements IResourceBundle
         return array;
     }
 
-    [Deprecated(replacement="ResourceManager.getObject()", since="3.0")]
+    [Deprecated(replacement="ResourceManager.getInstance().getObject()", since="3.0")]
     
     /**
      *  Gets an Object from a ResourceBundle.
