@@ -37,6 +37,7 @@ import mx.utils.StringUtil;
 [ExcludeClass]
 
 /**
+ *  @private
  *  This class provides an implementation of the IResourceManager interface.
  *  The IResourceManager and IResourceBundle interfaces work together
  *  to provide internationalization support for Flex applications.
@@ -95,7 +96,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     public function ResourceManagerImpl()
     {
         super();
-	}
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -321,9 +322,9 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     }
     
     /**
-	 *  @copy mx.resources.IResourceManager#initializeLocaleChain()
-	 */
-	public function initializeLocaleChain(compiledLocales:Array):void
+     *  @copy mx.resources.IResourceManager#initializeLocaleChain()
+     */
+    public function initializeLocaleChain(compiledLocales:Array):void
     {
         localeChain = LocaleSorter.sortLocalesByPreference(
             compiledLocales, getSystemPreferredLocales(), null, true);
@@ -491,7 +492,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
         return locales;
     }
 
-	/**
+    /**
      *  @copy mx.resources.IResourceManager#getPreferredLocaleChain()
      */
     public function getPreferredLocaleChain():Array /* of String */
@@ -745,14 +746,14 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
      */  
     private function getSystemPreferredLocales():Array /* of String */
     {
-    	var systemPreferences:Array;
+        var systemPreferences:Array;
         
         // Capabilities.languages was added in AIR 1.1,
         // so this API may not exist.
         if (Capabilities["languages"])
-        	systemPreferences = Capabilities["languages"];
+            systemPreferences = Capabilities["languages"];
         else
-        	systemPreferences = [ Capabilities.language ];
+            systemPreferences = [ Capabilities.language ];
 
         return systemPreferences;
     }
