@@ -22,12 +22,12 @@ import mx.events.FlexEvent;
 
 import spark.collections.Sort;
 import spark.collections.SortField;
+import spark.components.calendarClasses.DateSelectorDisplayMode;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.events.IndexChangeEvent;
 import spark.formatters.DateTimeFormatter;
 import spark.globalization.supportClasses.CalendarDate;
 import spark.globalization.supportClasses.DateTimeFormatterEx;
-import spark.components.calendarClasses.DateSelectorDisplayMode;
 
 use namespace mx_internal;
 
@@ -525,7 +525,7 @@ public class DateSpinner extends SkinnableComponent
     //----------------------------------
     //  selectedDate
     //----------------------------------
-    private var _selectedDate:Date = new Date();
+    private var _selectedDate:Date = todayDate;
     
     // set to true initially so that lists will be set to right values on creation
     private var syncSelectedDate:Boolean = true;
@@ -561,6 +561,25 @@ public class DateSpinner extends SkinnableComponent
         syncSelectedDate = true;
         
         invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  todayDate
+    //----------------------------------
+
+    mx_internal static var _todayDate:Date = null;
+
+    /**
+     *  @private
+     *  Function to retrieve the current Date. Provided so that
+     *  testing can override by setting the _todayDate variable.
+     */
+    private static function get todayDate():Date
+    {
+        if (_todayDate != null)
+            return _todayDate;
+        
+        return new Date();
     }
     
     //--------------------------------------------------------------------------
@@ -862,7 +881,7 @@ public class DateSpinner extends SkinnableComponent
      */    
     private function populateDateItemLists(localeStr:String):void
     {
-        var today:Date = new Date();
+        var today:Date = todayDate;
         
         // populate lists that are being shown
         if (yearList && populateYearDataProvider)
@@ -1352,7 +1371,7 @@ public class DateSpinner extends SkinnableComponent
         
         return longestDateItem;
     }
-  
+    
     //----------------------------------------------------------------------------------------------
     //
     //  Event handlers
