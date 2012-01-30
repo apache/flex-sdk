@@ -2104,7 +2104,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private function stageText_focusInHandler(event:FocusEvent):void
     {
         focusedStageText = stageText;
-        dispatchEvent(event);
+        
+        // Focus events are documented as bubbling. However, all events coming
+        // from StageText are set to not bubble. So we need to create an
+        // appropriate bubbling event here.
+        dispatchEvent(new FocusEvent(event.type, true, event.cancelable, 
+            event.relatedObject, event.shiftKey, event.keyCode, event.direction));
     }
     
     private function stageText_focusOutHandler(event:FocusEvent):void
@@ -2112,26 +2117,40 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (focusedStageText == stageText)
             focusedStageText = null;
 
-        dispatchEvent(event);
+        // Focus events are documented as bubbling. However, all events coming
+        // from StageText are set to not bubble. So we need to create an
+        // appropriate bubbling event here.
+        dispatchEvent(new FocusEvent(event.type, true, event.cancelable, 
+            event.relatedObject, event.shiftKey, event.keyCode, event.direction));
     }
     
     private function stageText_keyDownHandler(event:KeyboardEvent):void
     {
         if (event.keyCode == Keyboard.ENTER && !_multiline)
             dispatchEvent(new FlexEvent(FlexEvent.ENTER));
-        
-        dispatchEvent(event);
+
+        // Keyboard events are documented as bubbling. However, all events
+        // coming from StageText are set to not bubble. So we need to create an
+        // appropriate bubbling event here.
+        dispatchEvent(new KeyboardEvent(event.type, true, event.cancelable, 
+            event.charCode, event.keyCode, event.keyLocation, event.ctrlKey, 
+            event.altKey, event.shiftKey, event.controlKey, event.commandKey));
     }
     
     private function stageText_keyUpHandler(event:KeyboardEvent):void
     {
-        dispatchEvent(event);
+        // Keyboard events are documented as bubbling. However, all events
+        // coming from StageText are set to not bubble. So we need to create an
+        // appropriate bubbling event here.
+        dispatchEvent(new KeyboardEvent(event.type, true, event.cancelable, 
+            event.charCode, event.keyCode, event.keyLocation, event.ctrlKey, 
+            event.altKey, event.shiftKey, event.controlKey, event.commandKey));
     }
     
     private function stageText_softKeyboardHandler(event:SoftKeyboardEvent):void
     {
         dispatchEvent(new SoftKeyboardEvent(event.type, 
-            event.bubbles, event.cancelable, this, event.triggerType));
+            true, event.cancelable, this, event.triggerType));
     }
     
     private function eventTargetsAncestor(event:Event):Boolean
