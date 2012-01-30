@@ -12,17 +12,18 @@
 package mx.managers
 {
 
-import flash.display.DisplayObject;
+import flash.display.Sprite;
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
 import mx.core.ApplicationGlobals;
-import mx.core.IFlexDisplayObject;
-import mx.core.mx_internal;
+import mx.core.ILayoutElement;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.layoutClasses.PriorityQueue;
+
 
 use namespace mx_internal;
 
@@ -178,7 +179,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	{
 		super();
 	}
-
+	
 	//--------------------------------------------------------------------------
 	//
 	//  Variables
@@ -368,6 +369,26 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 		}
 	}
 
+    //----------------------------------
+    //  debugHelper
+    //----------------------------------
+    
+    /* 
+    // LAYOUT_DEBUG
+    import mx.managers.layoutClasses.LayoutDebugHelper;
+    private static var _layoutDebugHelper:LayoutDebugHelper;
+    
+    public static function get debugHelper():LayoutDebugHelper
+    {
+        if (!_layoutDebugHelper)
+        {
+            _layoutDebugHelper = new LayoutDebugHelper();
+            _layoutDebugHelper.mouseEnabled = false;
+            ApplicationGlobals.application.systemManager.addChild(_layoutDebugHelper);
+        }
+        return _layoutDebugHelper;
+    } */
+	
 	//--------------------------------------------------------------------------
 	//
 	//  Methods: Invalidation
@@ -661,9 +682,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	 */
 	private function validateDisplayList():void
 	{
-
-		// trace("--- LayoutManager: validateDisplayList --->");
-
+		// trace("--- LayoutManager: validateDisplayList --->");        
 		var obj:ILayoutManagerClient = ILayoutManagerClient(invalidateDisplayListQueue.removeSmallest());
 		while (obj)
 		{
