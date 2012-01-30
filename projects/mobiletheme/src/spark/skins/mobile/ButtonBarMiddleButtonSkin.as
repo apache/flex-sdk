@@ -11,10 +11,9 @@
 
 package spark.skins.mobile
 {
-import flash.display.Graphics;
-
 import mx.core.DPIClassification;
 
+import spark.skins.mobile.supportClasses.ButtonBarButtonSkinBase;
 import spark.skins.mobile160.assets.ButtonBarMiddleButton_down;
 import spark.skins.mobile160.assets.ButtonBarMiddleButton_selected;
 import spark.skins.mobile160.assets.ButtonBarMiddleButton_up;
@@ -24,7 +23,6 @@ import spark.skins.mobile240.assets.ButtonBarMiddleButton_up;
 import spark.skins.mobile320.assets.ButtonBarMiddleButton_down;
 import spark.skins.mobile320.assets.ButtonBarMiddleButton_selected;
 import spark.skins.mobile320.assets.ButtonBarMiddleButton_up;
-import spark.skins.mobile.supportClasses.ButtonBarButtonSkinBase;
 
 /**
  *  Button skin for middle Buttons in a ButtonBar.
@@ -49,8 +47,6 @@ public class ButtonBarMiddleButtonSkin extends ButtonBarButtonSkinBase
     public function ButtonBarMiddleButtonSkin()
     {
         super();
-        
-        useChromeColor = true;
         
         switch (applicationDPI)
         {
@@ -91,20 +87,13 @@ public class ButtonBarMiddleButtonSkin extends ButtonBarButtonSkinBase
     /**
      *  @private
      */
-    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        var chromeColor:uint = getChromeColor();
-        chromeColorGraphics.beginFill(getChromeColor());
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
-    {
+        // omit super.drawBackground() to drawRect instead
         // draw a rounded rect with rounded corners on the left side only
-        chromeColorGraphics.drawRoundRect(0, 0, unscaledWidth, unscaledHeight, 0, 0);
-        chromeColorGraphics.endFill();
+        graphics.beginFill(getStyle("chromeColor"));
+        graphics.drawRoundRect(0, 0, unscaledWidth, unscaledHeight, 0, 0);
+        graphics.endFill();
     }
 }
 }
