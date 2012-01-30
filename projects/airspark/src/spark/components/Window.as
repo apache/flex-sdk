@@ -485,6 +485,8 @@ public class Window extends SkinnableContainer implements IWindow
      *  Returns the Window to which a component is parented.
      *
      *  @param component The component whose Window you wish to find.
+     *
+     *  @return An IWindow object.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -2139,7 +2141,7 @@ public class Window extends SkinnableContainer implements IWindow
             
             // activate makes the native window visible so this 
             // component should become visible as well.
-            visible = true;     	    
+            visible = true;             
         }
     }
 
@@ -2447,6 +2449,7 @@ public class Window extends SkinnableContainer implements IWindow
     }
 
     /**
+     *  @private
      *  Manages mouse down events on the window border.
      *  
      *  @langversion 3.0
@@ -2492,11 +2495,11 @@ public class Window extends SkinnableContainer implements IWindow
         if (event.target is DisplayObject && event.target != contentGroup)
         {
            var o:DisplayObject = DisplayObject(event.target);
-		   while (o && o != contentGroup && o != this)
-			   o = o.parent;
-		   
-		   if (o == null || o == contentGroup)
-			   return NativeWindowResize.NONE;
+           while (o && o != contentGroup && o != this)
+               o = o.parent;
+           
+           if (o == null || o == contentGroup)
+               return NativeWindowResize.NONE;
         }
             
         var hitTestResults:String = NativeWindowResize.NONE;
