@@ -321,13 +321,34 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	[Bindable("propertyChange")]
 	[Inspectable(category="General", enumeration="normal,vertical,horizontal,none", defaultValue="normal")]
 
-	/**
-	 *  Specifies how to scale a stroke.
-	 *  Valid values are <code>"normal"</code>, <code>"none"</code>,
-	 *  <code>"vertical"</code>, and <code>"noScale"</code>.
-	 *  
-	 *  @default "normal"
-	 */
+	 /**
+     *  A value from the LineScaleMode class
+     *  that  specifies which scale mode to use.
+     *  Value valids are:
+     * 
+     *  <ul>
+     *  <li>
+     *  <code>LineScaleMode.NORMAL</code>&#151;
+     *  Always scale the line thickness when the object is scaled  (the default).
+     *  </li>
+     *  <li>
+     *  <code>LineScaleMode.NONE</code>&#151;
+     *  Never scale the line thickness.
+     *  </li>
+     *  <li>
+     *  <code>LineScaleMode.VERTICAL</code>&#151;
+     *  Do not scale the line thickness if the object is scaled vertically 
+     *  <em>only</em>. 
+     *  </li>
+     *  <li>
+     *  <code>LineScaleMode.HORIZONTAL</code>&#151;
+     *  Do not scale the line thickness if the object is scaled horizontally 
+     *  <em>only</em>. 
+     *  </li>
+     *  </ul>
+     * 
+     *  @default LineScaleMode.NORMAL
+     */
 	public function get scaleMode():String
 	{
 		return _scaleMode;
