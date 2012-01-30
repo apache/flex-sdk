@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.display.NativeWindowDisplayState;
 import flash.events.Event;
 import flash.events.MouseEvent;
+import flash.events.NativeWindowDisplayStateEvent;
 import flash.system.Capabilities;
 
 import mx.core.IWindow;
@@ -381,6 +382,9 @@ public class TitleBar extends SkinnableComponent
                                             button_mouseDownHandler);
             maximizeButton.addEventListener(MouseEvent.CLICK,
                                             maximizeButton_clickHandler);
+            DisplayObject(window).addEventListener(
+                NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE,
+                window_displayStateChangeHandler, false, 0, true);
         }
     }
 
@@ -408,6 +412,9 @@ public class TitleBar extends SkinnableComponent
                                             button_mouseDownHandler);
             maximizeButton.removeEventListener(MouseEvent.CLICK,
                                             maximizeButton_clickHandler);
+            DisplayObject(window).removeEventListener(
+                NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE,
+                window_displayStateChangeHandler);
         }
         
     }
@@ -558,8 +565,6 @@ public class TitleBar extends SkinnableComponent
         // work around for bugs SDK-9547 & SDK-21190
         maximizeButton.dispatchEvent(new MouseEvent(MouseEvent.ROLL_OUT));
 
-        invalidateSkinState();
-
     }
     
     /**
@@ -569,6 +574,22 @@ public class TitleBar extends SkinnableComponent
     {
         window.close();
     }
+    
+    /**
+     *  @private
+     */
+    private function window_displayStateChangeHandler(
+                       event:NativeWindowDisplayStateEvent):void
+    {
+        // If we have been minimized or maximized then invalidate our skin state 
+        // so the maximize and restore buttons will be updated.
+        if (event.afterDisplayState == NativeWindowDisplayState.MAXIMIZED ||
+            event.afterDisplayState == NativeWindowDisplayState.NORMAL)
+        {
+            invalidateSkinState();
+        }
+    }
+    
 }
 
 }
