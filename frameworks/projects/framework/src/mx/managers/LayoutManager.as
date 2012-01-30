@@ -11,13 +11,12 @@
 
 package mx.managers
 {
-
+import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
-import mx.core.FlexGlobals;
 import mx.core.ILayoutElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -262,12 +261,12 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	/**
 	 *  @private
 	 */
-	private var callLaterObject:UIComponent;
+	private var waitedAFrame:Boolean = false;
 
 	/**
 	 *  @private
 	 */
-	private var callLaterPending:Boolean = false;
+	private var listenersAttached:Boolean = false;
 
 	/**
 	 *  @private
@@ -347,6 +346,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 			// the frame rate.  That will cause the enterFrame and render
 			// events to fire more promptly, which improves performance.
 			try {
+                // can't use FlexGlobals here.  It may not be setup yet
 				var sm:ISystemManager = SystemManagerGlobals.topLevelSystemManagers[0];
 				var stage:Stage = SystemManagerGlobals.topLevelSystemManagers[0].stage;
 				if (stage)
@@ -384,7 +384,8 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
         {
             _layoutDebugHelper = new LayoutDebugHelper();
             _layoutDebugHelper.mouseEnabled = false;
-            FlexGlobals.topLevelApplication.systemManager.addChild(_layoutDebugHelper);
+            var sm:ISystemManager = SystemManagerGlobals.topLevelSystemManagers[0]
+            sm.addChild(_layoutDebugHelper);
         }
         return _layoutDebugHelper;
     } */
@@ -420,26 +421,13 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	 */
 	public function invalidateProperties(obj:ILayoutManagerClient ):void
 	{
-		if (!invalidatePropertiesFlag && FlexGlobals.topLevelApplication.systemManager)
+        var sm:ISystemManager = SystemManagerGlobals.topLevelSystemManagers[0]
+		if (!invalidatePropertiesFlag && sm)
 		{
 			invalidatePropertiesFlag = true;
 
-			if (!callLaterPending)
-			{
-				if (!callLaterObject)
-				{
-					callLaterObject = new UIComponent();
-					callLaterObject.systemManager =
-						FlexGlobals.topLevelApplication.systemManager;
-					callLaterObject.callLater(waitAFrame);
-				}
-				else
-				{
-					callLaterObject.callLater(doPhasedInstantiation);
-				}
-
-				callLaterPending = true;
-			}
+			if (!listenersAttached)
+				attachListeners(sm);
 		}
 
 		// trace("LayoutManager adding " + Object(obj) + " to invalidatePropertiesQueue");
@@ -484,25 +472,14 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	 */
 	public function invalidateSize(obj:ILayoutManagerClient ):void
 	{
-		if (!invalidateSizeFlag && FlexGlobals.topLevelApplication.systemManager)
+        var sm:ISystemManager = SystemManagerGlobals.topLevelSystemManagers[0]
+		if (!invalidateSizeFlag && sm)
 		{
 			invalidateSizeFlag = true;
 
-			if (!callLaterPending)
+			if (!listenersAttached)
 			{
-				if (!callLaterObject)
-				{
-					callLaterObject = new UIComponent();
-					callLaterObject.systemManager =
-						FlexGlobals.topLevelApplication.systemManager;
-					callLaterObject.callLater(waitAFrame);
-				}
-				else
-				{
-					callLaterObject.callLater(doPhasedInstantiation);
-				}
-
-				callLaterPending = true;
+				attachListeners(sm);
 			}
 		}
 
@@ -533,30 +510,19 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	 */
 	public function invalidateDisplayList(obj:ILayoutManagerClient ):void
 	{
-		if (!invalidateDisplayListFlag && FlexGlobals.topLevelApplication.systemManager)
+        var sm:ISystemManager = SystemManagerGlobals.topLevelSystemManagers[0]
+		if (!invalidateDisplayListFlag && sm)
 		{
 			invalidateDisplayListFlag = true;
 
-			if (!callLaterPending)
+			if (!listenersAttached)
 			{
-				if (!callLaterObject)
-				{
-					callLaterObject = new UIComponent();
-					callLaterObject.systemManager =
-						FlexGlobals.topLevelApplication.systemManager;
-					callLaterObject.callLater(waitAFrame);
-				}
-				else
-				{
-					callLaterObject.callLater(doPhasedInstantiation);
-				}
-
-				callLaterPending = true;
+				attachListeners(sm);
 			}
 		}
-		else if (!invalidateDisplayListFlag && !FlexGlobals.topLevelApplication.systemManager)
+		else if (!invalidateDisplayListFlag && !sm)
 		{
-			// trace("FlexGlobals.topLevelApplication.systemManager is null");
+			// trace("systemManager is null");
 		}
 
 		// trace("LayoutManager adding " + Object(obj) + " to invalidateDisplayListQueue");
@@ -715,8 +681,12 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	/**
 	 *  @private
 	 */
-	private function doPhasedInstantiation():void
+	private function doPhasedInstantiation(event:Event = null):void
 	{
+        var sm:ISystemManager = SystemManagerGlobals.topLevelSystemManagers[0]
+		sm.removeEventListener(Event.ENTER_FRAME, doPhasedInstantiation);
+		sm.removeEventListener(Event.RENDER, doPhasedInstantiation);
+
 		// trace(">>DoPhasedInstantation");
 
 		// If phasing, do only one phase: validateProperties(),
@@ -728,7 +698,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 				validateProperties();
 
 				// The Preloader listens for this event.
-				FlexGlobals.topLevelApplication.dispatchEvent(
+				sm.document.dispatchEvent(
 					new Event("validatePropertiesComplete"));
 			}
 
@@ -737,7 +707,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 				validateSize();
 
 				// The Preloader listens for this event.
-				FlexGlobals.topLevelApplication.dispatchEvent(
+				sm.document.dispatchEvent(
 					new Event("validateSizeComplete"));
 			}
 
@@ -746,7 +716,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 				validateDisplayList();
 
 				// The Preloader listens for this event.
-				FlexGlobals.topLevelApplication.dispatchEvent(
+				sm.document.dispatchEvent(
 					new Event("validateDisplayListComplete"));
 			}
 		}
@@ -764,21 +734,21 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 				validateDisplayList();
 		}
 
-		//// trace("invalidatePropertiesFlag " + invalidatePropertiesFlag);
-		//// trace("invalidateSizeFlag " + invalidateSizeFlag);
-		//// trace("invalidateDisplayListFlag " + invalidateDisplayListFlag);
+		// trace("invalidatePropertiesFlag " + invalidatePropertiesFlag);
+		// trace("invalidateSizeFlag " + invalidateSizeFlag);
+		// trace("invalidateDisplayListFlag " + invalidateDisplayListFlag);
 
 		if (invalidatePropertiesFlag ||
 			invalidateSizeFlag ||
 			invalidateDisplayListFlag)
 		{
-			callLaterObject.callLater(doPhasedInstantiation);
+			attachListeners(sm);
 		}
 		else
 		{
 			usePhasedInstantiation = false;
 
-			callLaterPending = false;
+			listenersAttached = false;
 
 			var obj:ILayoutManagerClient = ILayoutManagerClient(updateCompleteQueue.removeLargest());
 			while (obj)
@@ -818,7 +788,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 		if (!usePhasedInstantiation)
 		{
 			var infiniteLoopGuard:int = 0;
-			while (callLaterPending && infiniteLoopGuard++ < 100)
+			while (listenersAttached && infiniteLoopGuard++ < 100)
 				doPhasedInstantiation();
 		}
 	}
@@ -1048,13 +1018,39 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	 *  callLater() is called immediately after an object is created.
 	 *  We really want to wait one more frame before starting in.
 	 */
-	private function waitAFrame():void
+	private function waitAFrame(event:Event):void
 	{
 		// trace(">>LayoutManager:WaitAFrame");
 
-		callLaterObject.callLater(doPhasedInstantiation);
+        var sm:ISystemManager = SystemManagerGlobals.topLevelSystemManagers[0]
+		sm.removeEventListener(Event.ENTER_FRAME, waitAFrame);
+		sm.addEventListener(Event.ENTER_FRAME, doPhasedInstantiation);
+        waitedAFrame = true;
 
 		// trace("<<LayoutManager:WaitAFrame");
+	}
+
+	private function attachListeners(sm:ISystemManager):void
+	{
+		if (!waitedAFrame)
+		{
+			sm.addEventListener(Event.ENTER_FRAME, waitAFrame);
+		}
+		else
+		{
+			sm.addEventListener(Event.ENTER_FRAME, doPhasedInstantiation);
+			if (!usePhasedInstantiation)
+			{
+				if (sm && (sm.stage || sm.useSWFBridge()))
+				{
+					sm.addEventListener(Event.RENDER, doPhasedInstantiation);
+					if (sm.stage)
+						sm.stage.invalidate();
+				}
+			}
+		}
+
+		listenersAttached = true;
 	}
 }
 
