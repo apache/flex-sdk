@@ -30,6 +30,11 @@ use namespace mx_internal;
 /**
  *  ColorPickerAccImpl is a subclass of AccessibilityImplementation
  *  which implements accessibility for the ColorPicker class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ColorPickerAccImpl extends ComboBaseAccImpl
 {
@@ -80,6 +85,11 @@ public class ColorPickerAccImpl extends ComboBaseAccImpl
 	 *  Afterwards, when instances of ColorPicker are initialized,
 	 *  their <code>accessibilityImplementation</code> property
 	 *  will be set to an instance of this class.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function enableAccessibility():void
 	{
@@ -111,6 +121,11 @@ public class ColorPickerAccImpl extends ComboBaseAccImpl
 	 *
 	 *  @param master The UIComponent instance that this AccImpl instance
 	 *  is making accessible.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	
 	public function ColorPickerAccImpl(master:UIComponent)
