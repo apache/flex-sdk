@@ -6200,7 +6200,7 @@ public class UIComponent extends FlexSprite
      *
      *  @return A Number which is unscaled width of the component.
      */
-    protected function get unscaledWidth():Number
+    mx_internal function get unscaledWidth():Number
     {
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             return width / Math.abs(scaleX);
@@ -6245,7 +6245,7 @@ public class UIComponent extends FlexSprite
      *
      *  @return A Number which is unscaled height of the component.
      */
-    protected function get unscaledHeight():Number
+    mx_internal function get unscaledHeight():Number
     {
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             return height / Math.abs(scaleY);
