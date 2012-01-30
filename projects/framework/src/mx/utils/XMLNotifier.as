@@ -121,14 +121,12 @@ public class XMLNotifier
      */
     public function watchXML(xml:Object, notifiable:IXMLNotifiable, uid:String = null):void
     {
-		var xitem:XML = XML(xml);
-
 		// First make sure the xml node has a notification function.
-    	var watcherFunction:Object = xitem.notification();
+    	var watcherFunction:Object = xml.notification();
     	if (!(watcherFunction is Function))
 		{
     		watcherFunction = initializeXMLForNotification();
-			xitem.setNotification(watcherFunction as Function);
+			xml.setNotification(watcherFunction as Function);
 			if (uid && watcherFunction["uid"] == null)
 				watcherFunction["uid"] = uid;
 		}
