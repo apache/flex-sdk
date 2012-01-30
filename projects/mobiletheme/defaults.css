@@ -309,7 +309,7 @@ ToggleSwitch
     fontSize: 27;
     skinClass: ClassReference("spark.skins.mobile.ToggleSwitchSkin");
     slideDuration: 125;
-    textShadowAlpha: 1;
+    textShadowAlpha: .65;
     textShadowColor: #000000;
 }
 
