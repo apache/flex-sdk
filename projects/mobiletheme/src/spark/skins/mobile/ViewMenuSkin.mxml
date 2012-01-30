@@ -50,15 +50,6 @@ in accordance with the terms of the license agreement accompanying it.
             useChromeColor = false;
             super.initializationComplete();
         }
-        
-        /**
-         * @private
-         */
-        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-        {
-            border.visible = getStyle("borderVisible") == true;            
-            super.updateDisplayList(unscaledWidth, unscaledHeight);
-        }
 
             ]]>
     </fx:Script>
@@ -111,14 +102,6 @@ in accordance with the terms of the license agreement accompanying it.
              top.closedGroup="{hostComponent.height - chromeGroup.height / 2}"
              bottom.openedGroup="0" 
              visible.closedGroup="false">
-
-        <!-- border -->
-        <!--- @private -->
-        <s:Rect left="0" right="0" top="1" bottom="0" id="border">
-            <s:stroke>
-                <s:SolidColorStroke color="#000000" alpha=".35"/>   
-            </s:stroke>
-        </s:Rect>
         
         <!-- Divider line -->
         <s:Rect left="0" right="0" top="0" height="0">
@@ -128,9 +111,9 @@ in accordance with the terms of the license agreement accompanying it.
         </s:Rect> 
         
         <!-- Background -->
-        <s:Rect left="1" right="1" top="1" bottom="1">
-            <s:fill>
-                <s:SolidColor color="#000000" alpha=".30"/>
+        <s:Rect left="0" right="0" top="1" bottom="0">
+            <s:fill> 
+                <s:SolidColor color="#000000" alpha=".65"/>
             </s:fill>
         </s:Rect>
         
@@ -140,7 +123,7 @@ in accordance with the terms of the license agreement accompanying it.
         more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
         -->
         <!--- @copy spark.components.SkinnableContainer#contentGroup -->
-        <s:Group id="contentGroup" left="3" right="3" top="4" bottom="3" minWidth="0" minHeight="0">
+        <s:Group id="contentGroup" left="0" right="0" top="1" bottom="0" minWidth="0" minHeight="0">
             <s:layout>
                 <s:ViewMenuLayout horizontalGap="2" verticalGap="1"
                                   requestedMaxColumnCount="3" requestedMaxColumnCount.landscapeGroup="6"/>
