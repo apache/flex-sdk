@@ -40,6 +40,7 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IUIComponent;
 import mx.core.IUITextField;
+import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.UITextFormat;
@@ -3101,7 +3102,11 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                                 
                 r = -_labelPlacement.rotation / Math.PI * 180;
                 labelY = baseline + labelGap;
-                
+				var sparkLabelClass:Class;
+				if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
+				{
+					sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
+				}
                 for (i = 0; i < n; i++)
                 {
                     ldi = _labels[i];
@@ -3116,6 +3121,12 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
 					ldi.instance.y = labelY +
 									 ldi.width * scale * s -
 									 ldi.height * alignOffset * scale * c;
+					
+					if(sparkLabelClass && ldi.instance is sparkLabelClass && layoutDirection == LayoutDirection.RTL)
+					{
+						ldi.instance.x = ldi.instance.x - ldi.width;
+						ldi.instance.y = ldi.instance.y - ldi.width;
+					}
                 }
                 
                 labelBottom = labelY + _maxRotatedLabelHeight;
@@ -3225,8 +3236,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                                          ldi.height * alignOffset * scale * s +
                                          ldi.width * scale * c;
                     }
-
-                    labelBottom = labelY + _maxRotatedLabelHeight;
+					labelBottom = labelY + _maxRotatedLabelHeight;
                 }
             }
         }
@@ -3246,6 +3256,11 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
         var showLabelsStyle:Object = getStyle("showLabels");
         var showLabels:Boolean = showLabelsStyle != false &&
                                  showLabelsStyle != "false";
+		var sparkLabelClass:Class;
+		if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
+		{
+			sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
+		}
         
         if (showLabels == false)
         {
@@ -3263,7 +3278,11 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                     labelData.instance = _labelCache.instances[visCount++];
 					var label:Object = labelData.instance;// as Label;
                     label.text = labelData.text;
-                    
+					if(sparkLabelClass && labelData.instance is sparkLabelClass)
+					{
+						label.setStyle("paddingTop", 5);
+						label.setStyle("paddingLeft", 2);
+					}
                     labelData.instance.width = labelData.width;
                     labelData.instance.height = labelData.height;
                 }
