@@ -27,7 +27,7 @@ import mx.events.SWFBridgeEvent;
 import mx.utils.NameUtil;
 import mx.utils.SecurityUtil;
 import mx.events.SWFBridgeRequest;
-import mx.managers.systemClasses.MarshallPlan;
+import mx.managers.systemClasses.MarshallingSupport;
 import mx.managers.systemClasses.ChildManager;
 
 use namespace mx_internal;
@@ -68,7 +68,7 @@ public class SystemManagerProxy extends SystemManager
 
         _systemManager = systemManager;
 
-		mp = MarshallPlan(systemManager.getImplementation("mx.managers::IMarshalSystemManager"));
+		mp = MarshallingSupport(systemManager.getImplementation("mx.managers::IMarshalSystemManager"));
 
         // We are a proxy for a popup - we are the hightest system manager.
         topLevel = true; 
@@ -83,7 +83,7 @@ public class SystemManagerProxy extends SystemManager
         childManager = new ChildManager(this);
     }
         
-	private var mp:MarshallPlan;
+	private var mp:MarshallingSupport;
 
     //--------------------------------------------------------------------------
     //
