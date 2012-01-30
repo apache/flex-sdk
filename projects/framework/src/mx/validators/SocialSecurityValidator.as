@@ -40,6 +40,11 @@ import mx.resources.ResourceManager;
  *  </pre>
  *
  *  @includeExample examples/SocialSecurityValidatorExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SocialSecurityValidator extends Validator
 {
@@ -68,6 +73,11 @@ public class SocialSecurityValidator extends Validator
 	 *  object for each field examined by the validator.
 	 *
 	 *  @see mx.validators.ValidationResult
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function validateSocialSecurity(
 								validator:SocialSecurityValidator,
@@ -146,6 +156,11 @@ public class SocialSecurityValidator extends Validator
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SocialSecurityValidator()
 	{
@@ -178,6 +193,11 @@ public class SocialSecurityValidator extends Validator
 	 *  Specifies the set of formatting characters allowed in the input.
 	 *
 	 *  @default "()- .+" // ?????
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get allowedFormatChars():String
 	{
@@ -241,6 +261,11 @@ public class SocialSecurityValidator extends Validator
 	 *  defined by the <code>allowedFormatChars</code> property.
 	 *
 	 *  @default "You entered invalid characters in your Social Security number."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get invalidCharError():String
 	{
@@ -281,6 +306,11 @@ public class SocialSecurityValidator extends Validator
 	 *  Error message when the value is incorrectly formatted.
 	 *
 	 *  @default "The Social Security number must be 9 digits or in the form NNN-NN-NNNN."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get wrongFormatError():String
 	{
@@ -321,6 +351,11 @@ public class SocialSecurityValidator extends Validator
 	 *  Error message when the value contains an invalid Social Security number.
 	 *
 	 *  @default "Invalid Social Security number; the number cannot start with 000."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get zeroStartError():String
 	{
@@ -372,6 +407,11 @@ public class SocialSecurityValidator extends Validator
      *
 	 *  @return An Array of ValidationResult objects, with one ValidationResult
 	 *  object for each field examined by the validator.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override protected function doValidation(value:Object):Array
     {
