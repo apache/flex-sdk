@@ -13,6 +13,7 @@ package spark.skins.mobile
 {
 
 import flash.display.DisplayObject;
+import flash.events.Event;
 import flash.text.TextLineMetrics;
 
 import spark.components.TextInput;
@@ -92,6 +93,7 @@ public class TextInputSkin extends MobileSkin
         textDisplay = MobileTextField(createInFontContext(MobileTextField));
         textDisplay.styleProvider = this;
         textDisplay.editable = true;
+		textDisplay.addEventListener("editableChanged", editableChangedHandler);
         addChild(textDisplay);
     }
     
@@ -166,6 +168,14 @@ public class TextInputSkin extends MobileSkin
 			alpha = 1;
 		else
 			alpha = 0.5;
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function editableChangedHandler(event:Event):void
+	{
+		invalidateDisplayList();
 	}
 }
 }
