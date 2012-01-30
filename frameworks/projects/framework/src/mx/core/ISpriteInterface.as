@@ -1,18 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
-//
-//  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2007 Adobe Systems Incorporated
-//  All Rights Reserved.
-//
-//  NOTICE: Adobe permits you to use, modify, and distribute this file
-//  in accordance with the terms of the license agreement accompanying it.
-//
-////////////////////////////////////////////////////////////////////////////////
 
-/*
- *  The ISprite interface defines the basic set of APIs
- *  for web version of flash.display.Sprite
- */
 
 import flash.display.DisplayObject;
 import flash.display.Sprite;
