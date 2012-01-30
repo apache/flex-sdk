@@ -30,6 +30,14 @@ import spark.skins.mobile320.assets.TabbedViewNavigatorButtonBarLastButton_up;
  */
 public class TabbedViewNavigatorTabBarLastTabSkin extends TabbedViewNavigatorTabBarTabSkinBase
 {
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function TabbedViewNavigatorTabBarLastTabSkin()
     {
         super();
