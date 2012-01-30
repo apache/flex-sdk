@@ -2434,9 +2434,17 @@ public class BarSeries extends Series implements IStackable2, IBar
         var dataTransform:CartesianTransform=CartesianTransform(dataTransform);
 		
 		var sparkLabelClass:Class;
-		if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
+		try
 		{
-			sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
+			if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
+			{
+				sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
+			}
+		}
+		catch(e:Error)
+		{
+			// We need not do any thing here because we came here for projects which do not have spark.swc
+			// It might be an MX-only or in compatible mode and hence using MX Label
 		}
         var label:Object;
         var align:String = getStyle('labelAlign');
