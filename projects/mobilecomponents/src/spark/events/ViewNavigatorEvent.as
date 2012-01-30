@@ -15,9 +15,13 @@ import flash.events.Event;
 
 // FIXME (chiedozi): comment
 /**
+ *  The ViewNavigatorEvent class represents event objects dispatched by the 
+ *  View class.
+ *
+ *  @see spark.components.View
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
+ *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -40,6 +44,8 @@ public class ViewNavigatorEvent extends Event
      * 
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>action</code></td><td>The navigation action committed 
+     *        by the view navigator that resulted in the event.</td></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>true</td></tr>
      *     <tr><td><code>returnValue</code></td><td>null</td></tr>
@@ -72,6 +78,8 @@ public class ViewNavigatorEvent extends Event
      * 
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>action</code></td><td>The navigation action committed 
+     *        by the view navigator that resulted in the event.</td></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
      *     <tr><td><code>returnValue</code></td><td>null</td></tr>
@@ -89,7 +97,7 @@ public class ViewNavigatorEvent extends Event
      *  @eventType activate
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -104,6 +112,8 @@ public class ViewNavigatorEvent extends Event
      * 
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>action</code></td><td>The navigation action committed 
+     *        by the view navigator that resulted in the event.</td></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
      *     <tr><td><code>returnValue</code></td><td>null</td></tr>
@@ -121,7 +131,7 @@ public class ViewNavigatorEvent extends Event
      *  @eventType deactivate
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -143,9 +153,12 @@ public class ViewNavigatorEvent extends Event
      *
      *  @param cancelable Specifies whether the behavior
      *  associated with the event can be prevented.
+     *
+     *  @param action The navigation action committed by the view navigator 
+     *  that resulted in the event.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -171,10 +184,11 @@ public class ViewNavigatorEvent extends Event
     
     /**
      *  The navigation action committed by the view navigator that resulted
-     *  in the passed event.
+     *  in the event.
+     *  Possible actions include a view being activated or deactivated.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
