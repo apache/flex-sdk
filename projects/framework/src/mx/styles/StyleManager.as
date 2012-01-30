@@ -16,6 +16,8 @@ import flash.events.IEventDispatcher;
 import flash.system.ApplicationDomain;
 import flash.system.SecurityDomain;
 
+import mx.core.FlexVersion;
+import mx.core.mx_internal;
 import mx.core.Singleton;
 
 /**
@@ -132,6 +134,32 @@ public class StyleManager
     mx_internal static function set inheritingStyles(value:Object):void
     {
         impl.inheritingStyles = value;
+    }
+
+    /**
+     *  @private
+     */
+    private static var _qualifiedTypeSelectors:Boolean = true;
+
+    /**
+     *  @private
+     *  Qualified type selectors were added in Flex 4 to support styling
+     *  components with the same local name, e.g. 'spark.components.Button'.
+     *  Prior to this type selectors were always unqualified class names  e.g.
+     *  'Button'. To ease migration of Flex 3 application, this property can
+     *  control whether CSS type selectors must be fully qualified class names
+     *  when the compatibility version is 4 or later.
+     */
+    mx_internal static function get qualifiedTypeSelectors():Boolean
+    {
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            return false;
+        else
+            return _qualifiedTypeSelectors; 
+    }
+    mx_internal static function set qualifiedTypeSelectors(value:Boolean):void
+    {
+        _qualifiedTypeSelectors = value;
     }
 
     /**
