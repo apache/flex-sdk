@@ -17,9 +17,9 @@ package mx.styles
  *  implement to fully participate in the advanced style subsystem.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public interface IAdvancedStyleClient extends IStyleClient
 {
@@ -37,9 +37,9 @@ public interface IAdvancedStyleClient extends IStyleClient
      *  The identity of the component.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     function get id():String;
 
@@ -51,9 +51,9 @@ public interface IAdvancedStyleClient extends IStyleClient
      *  The parent of this component.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     function get styleParent():IAdvancedStyleClient;
 
@@ -63,17 +63,17 @@ public interface IAdvancedStyleClient extends IStyleClient
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  Flex calls the <code>stylesInitialized()</code> method when
-	 *  the styles for a component are first initialized.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	function stylesInitialized():void
-		
+    /**
+     *  Flex calls the <code>stylesInitialized()</code> method when
+     *  the styles for a component are first initialized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function stylesInitialized():void
+        
     /**
      *  The current state of this component used to match CSS pseudo-selectors.
      *  If no state exists, returns null.
@@ -82,9 +82,9 @@ public interface IAdvancedStyleClient extends IStyleClient
      *  as Halo components use their currentState property.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function matchesCSSState(cssState:String):Boolean;
 
@@ -93,9 +93,9 @@ public interface IAdvancedStyleClient extends IStyleClient
      *  the given type.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     function matchesCSSType(cssType:String):Boolean;
 }
