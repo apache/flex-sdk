@@ -22,6 +22,11 @@ import mx.core.mx_internal;
 
 /**
  *  The FlexContentHolder class is for internal use only.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public dynamic class FlexContentHolder extends ContainerMovieClip 
 {
@@ -33,6 +38,11 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
     
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FlexContentHolder()
     {
@@ -64,6 +74,11 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
      
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get content():IUIComponent
     {
@@ -88,6 +103,11 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
      *  Initialize the object.
      *
      *  @see mx.core.UIComponent#initialize()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function initialize():void
     {
@@ -132,6 +152,11 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
      *  @param newWidth The new width for this object.
      * 
      *  @param newHeight The new height for this object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function setActualSize(newWidth:Number, newHeight:Number):void
     {
@@ -157,6 +182,11 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
     
     /**
      *  Notify parent that the size of this object has changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function notifySizeChanged():void
     {
@@ -176,6 +206,11 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
      *  this component. 
      *  Set the <code>content</code> property rather than calling
      *  this method directly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function setFlexContent(value:IUIComponent):void
     {
