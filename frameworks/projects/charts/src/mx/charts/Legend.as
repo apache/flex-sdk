@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2003-2007 Adobe Systems Incorporated
+//  Copyright 2009 Adobe Systems Incorporated
 //  All Rights Reserved.
 //
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
@@ -142,7 +142,7 @@ package mx.charts
 	[Event(name="itemMouseUp", type="mx.charts.events.LegendMouseEvent")]
 	
 	/**
-	 *  Dispatched after a child has been added to a container.
+	 *  Dispatched after a child has been added to a legend.
 	 *
 	 *  <p>The childAdd event is dispatched when the <code>addChild()</code>
 	 *  or <code>addChildAt()</code> method is called.
@@ -171,8 +171,8 @@ package mx.charts
 	[Event(name="childAdd", type="mx.events.ChildExistenceChangedEvent")]
 	
 	/**
-	 *  Dispatched after the index (among the container children) 
-	 *  of a container child changes.
+	 *  Dispatched after the index (among the legend children) 
+	 *  of a legend child changes.
 	 *  This event is only dispatched for the child specified as the argument to 
 	 *  the <code>setChildIndex()</code> method; it is not dispatched 
 	 *  for any other child whose index changes as a side effect of the call 
@@ -191,7 +191,7 @@ package mx.charts
 	[Event(name="childIndexChange", type="mx.events.IndexChangedEvent")]
 	
 	/**
-	 *  Dispatched before a child of a container is removed.
+	 *  Dispatched before a child of a legend is removed.
 	 *
 	 *  <p>This event is delivered when any of the following methods is called:
 	 *  <code>removeChild()</code>, <code>removeChildAt()</code>,
@@ -209,8 +209,8 @@ package mx.charts
 	/**
 	 *  Dispatched when the <code>data</code> property changes.
 	 *
-	 *  <p>When a container is used as a renderer in a List or other components,
-	 *  the <code>data</code> property is used pass to the container 
+	 *  <p>When a legend is used as a renderer in a List or other components,
+	 *  the <code>data</code> property is used pass to the legend 
 	 *  the data to display.</p>
 	 *
 	 *  @eventType mx.events.FlexEvent.DATA_CHANGE
@@ -251,103 +251,14 @@ package mx.charts
 	//  Styles
 	//--------------------------------------
 	
-	//include "../styles/metadata/BarColorStyle.as"
-	//include "../styles/metadata/BorderStyles.as"
-	//include "../styles/metadata/ContainerBackgroundStyles.as"
+	include "../styles/metadata/BorderStyles.as"
 	include "../styles/metadata/PaddingStyles.as"
 	include "../styles/metadata/TextStyles.as"
+	include "../styles/metadata/GapStyles.as"
 	
 	//--------------------------------------
 	//  Styles
 	//--------------------------------------
-	
-	/**
-	 *  Horizontal alignment of each child inside its tile cell.
-	 *  Possible values are <code>"left"</code>, <code>"center"</code>, and
-	 *  <code>"right"</code>.
-	 *  If the value is <code>"left"</code>, the left edge of each child
-	 *  is at the left edge of its cell.
-	 *  If the value is <code>"center"</code>, each child is centered horizontally
-	 *  within its cell.
-	 *  If the value is <code>"right"</code>, the right edge of each child
-	 *  is at the right edge of its cell.
-	 *
-	 *  @default "left"
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	[Style(name="horizontalAlign", type="String", enumeration="left,center,right", inherit="no")]
-	
-	/**
-	 *  Number of pixels between children in the horizontal direction.
-	 *
-	 *  @default 8
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	[Style(name="horizontalGap", type="Number", format="Length", inherit="no")]
-	
-	/**
-	 *  Number of pixels between the container's bottom border and its content area.
-	 *
-	 *  @default 0
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	[Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
-	
-	/**
-	 *  Number of pixels between the container's top border and its content area.
-	 *
-	 *  @default 0
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	[Style(name="paddingTop", type="Number", format="Length", inherit="no")]
-	
-	/**
-	 *  Vertical alignment of each child inside its tile cell.
-	 *  Possible values are <code>"top"</code>, <code>"middle"</code>, and
-	 *  <code>"bottom"</code>.
-	 *  If the value is <code>"top"</code>, the top edge of each child
-	 *  is at the top edge of its cell.
-	 *  If the value is <code>"middle"</code>, each child is centered vertically
-	 *  within its cell.
-	 *  If the value is <code>"bottom"</code>, the bottom edge of each child
-	 *  is at the bottom edge of its cell.
-	 *
-	 *  @default "top"
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	[Style(name="verticalAlign", type="String", enumeration="bottom,middle,top", inherit="no")]
-	
-	/**
-	 *  Number of pixels between children in the vertical direction.
-	 *
-	 *  @default 6
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	[Style(name="verticalGap", type="Number", format="Length", inherit="no")]
 	
 	/**
 	 *  Accent color used by component skins. The default button skin uses this color
@@ -374,7 +285,70 @@ package mx.charts
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	[Style(name="backgroundAttachment", type="String", inherit="no")]
+	[Style(name="backgroundAttachment", type="String", inherit="no")]	
+	
+	/**
+	 *  Alpha level of the color defined by the <code>backgroundColor</code>
+	 *  property, of the image or SWF file defined by the <code>backgroundImage</code>
+	 *  style.
+	 *  Valid values range from 0.0 to 1.0. For most controls, the default value is 1.0, 
+	 *  but for ToolTip controls, the default value is 0.95 and for Alert controls, the default value is 0.9.
+	 *  
+	 *  @default 1.0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	[Style(name="backgroundAlpha", type="Number", inherit="no", theme="halo, spark")]
+	
+	/**
+	 *  Background color of a component.
+	 *  You can have both a <code>backgroundColor</code> and a
+	 *  <code>backgroundImage</code> set.
+	 *  Some components do not have a background.
+	 *  The DataGrid control ignores this style.
+	 *  The default value is <code>undefined</code>, which means it is not set.
+	 *  If both this style and the <code>backgroundImage</code> style
+	 *  are <code>undefined</code>, the component has a transparent background.
+	 *
+	 *  <p>For the Application container, this style specifies the background color
+	 *  while the application loads, and a background gradient while it is running. 
+	 *  Flex calculates the gradient pattern between a color slightly darker than 
+	 *  the specified color, and a color slightly lighter than the specified color.</p>
+	 * 
+	 *  <p>The default skins of most Flex controls are partially transparent. As a result, the background color of 
+	 *  a container partially "bleeds through" to controls that are in that container. You can avoid this by setting the 
+	 *  alpha values of the control's <code>fillAlphas</code> property to 1, as the following example shows:
+	 *  <pre>
+	 *  &lt;mx:<i>Container</i> backgroundColor="0x66CC66"/&gt;
+	 *      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/&gt;
+	 *  &lt;/mx:<i>Container</i>&gt;</pre>
+	 *  </p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="halo, spark")]
+	
+	/**
+	 *  Determines the color of a ProgressBar.
+	 *  A ProgressBar is filled with a vertical gradient between this color
+	 *  and a brighter color computed from it.
+	 *  This style has no effect on other components, but can be set on a container
+	 *  to control the appearance of all progress bars found within.
+	 *  The default value is <code>undefined</code>, which means it is not set. 
+	 *  In this case, the <code>themeColor</code> style property is used.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	[Style(name="barColor", type="uint", format="Color", inherit="yes", theme="halo")]
 	
 	/**
 	 *  The alpha of the content background for this component.
@@ -436,6 +410,26 @@ package mx.charts
 	[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 	
 	/**
+	 *  Horizontal alignment of each child inside its tile cell.
+	 *  Possible values are <code>"left"</code>, <code>"center"</code>, and
+	 *  <code>"right"</code>.
+	 *  If the value is <code>"left"</code>, the left edge of each child
+	 *  is at the left edge of its cell.
+	 *  If the value is <code>"center"</code>, each child is centered horizontally
+	 *  within its cell.
+	 *  If the value is <code>"right"</code>, the right edge of each child
+	 *  is at the right edge of its cell.
+	 *
+	 *  @default "left"
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	[Style(name="horizontalAlign", type="String", enumeration="left,center,right", inherit="no")]
+	
+	/**
 	 *  The name of the horizontal scrollbar style.
 	 *
 	 *  @default undefined
@@ -448,19 +442,39 @@ package mx.charts
 	[Style(name="horizontalScrollBarStyleName", type="String", inherit="no")]
 	
 	/**
-	 *  The name of the vertical scrollbar style.
-	 *
-	 *  @default undefined
+	 *  Specifies the label placement of the legend element.
+	 *  Valid values are <code>"top"</code>, <code>"bottom"</code>,
+	 *  <code>"right"</code>, and <code>"left"</code>.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	[Style(name="verticalScrollBarStyleName", type="String", inherit="no")]
+	[Style(name="labelPlacement", type="String", enumeration="top,bottom,right,left", inherit="yes")]
 	
 	/**
-	 *  Number of pixels between the container's bottom border
+	 *  Specifies the height of the legend element.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	[Style(name="markerHeight", type="Number", format="Length", inherit="yes")]
+	
+	/**
+	 *  Specifies the width of the legend element.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	[Style(name="markerWidth", type="Number", format="Length", inherit="yes")]
+	
+	/**
+	 *  Number of pixels between the legend's bottom border
 	 *  and the bottom of its content area.
 	 *
 	 *  @default 0
@@ -473,7 +487,7 @@ package mx.charts
 	[Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 	
 	/**
-	 *  Number of pixels between the container's top border
+	 *  Number of pixels between the legend's top border
 	 *  and the top of its content area.
 	 *
 	 *  @default 0
@@ -496,13 +510,62 @@ package mx.charts
 	 *  @playerversion AIR 1.5
 	 *  @productversion Flex 4
 	 */ 
-	[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
+	[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]	
+	
+	/**
+	 *  Specifies the line stroke for the legend element.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	[Style(name="stroke", type="Object", inherit="no")]
+	
+	/**
+	 *  Vertical alignment of each child inside its tile cell.
+	 *  Possible values are <code>"top"</code>, <code>"middle"</code>, and
+	 *  <code>"bottom"</code>.
+	 *  If the value is <code>"top"</code>, the top edge of each child
+	 *  is at the top edge of its cell.
+	 *  If the value is <code>"middle"</code>, each child is centered vertically
+	 *  within its cell.
+	 *  If the value is <code>"bottom"</code>, the bottom edge of each child
+	 *  is at the bottom edge of its cell.
+	 *
+	 *  @default "top"
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	[Style(name="verticalAlign", type="String", enumeration="bottom,middle,top", inherit="no")]
+	
+	/**
+	 *  The name of the vertical scrollbar style.
+	 *
+	 *  @default undefined
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	[Style(name="verticalScrollBarStyleName", type="String", inherit="no")]	
 	
 	[ResourceBundle("core")]
 	
 	//--------------------------------------
 	//  Excluded APIs
 	//--------------------------------------
+	[Exclude(name="defaultButton", kind="property")]
+	[Exclude(name="horizontalScrollPolicy", kind="property")]
+	[Exclude(name="icon", kind="property")]
+	[Exclude(name="label", kind="property")]
+	[Exclude(name="tileHeight", kind="property")]
+	[Exclude(name="tileWidth", kind="property")]
+	[Exclude(name="verticalScrollPolicy", kind="property")]
 	
 	[Exclude(name="focusIn", kind="event")]
 	[Exclude(name="focusOut", kind="event")]
@@ -514,44 +577,49 @@ package mx.charts
 	[Exclude(name="focusInEffect", kind="effect")]
 	[Exclude(name="focusOutEffect", kind="effect")]
 	
+	
+	//--------------------------------------
+	//  Other metadata
+	//--------------------------------------
+	
+	[DefaultBindingProperty(destination="dataProvider")]
+	
+	[DefaultTriggerEvent("itemClick")]
+	
+	[IconFile("Legend.png")]
+	
 	/**
-	 *  The Container class is an abstract base class for components that
-	 *  controls the layout characteristics of child components.
-	 *  You do not create an instance of Container in an application.
-	 *  Instead, you create an instance of one of Container's subclasses,
-	 *  such as Canvas or HBox.
-	 *
-	 *  <p>The Container class contains the logic for scrolling, clipping,
-	 *  and dynamic instantiation. 
-	 *  It contains methods for adding and removing children.
-	 *  It also contains the <code>getChildAt()</code> method, and the logic
-	 *  for drawing the background and borders of containers.</p>
+	 *  The Legend control adds a legend to your charts,
+	 *  where the legend displays the label for each data series in the chart
+	 *  and a key showing the chart element for the series.
+	 *  
+	 *  <p>You can initialize a Legend control by binding a chart control
+	 *  identifier to the Legend control's <code>dataProvider</code> property,
+	 *  or you can define an Array of LegendItem objects.</p>
 	 *
 	 *  @mxml
-	 *
-	 *  Flex Framework containers inherit the following attributes from the Container
-	 *  class:</p>
-	 *
+	 *  
+	 *  <p>The <code>&lt;mx:Legend&gt;</code> tag inherits all the properties
+	 *  of its parent classes and adds the following properties:</p>
+	 *  
 	 *  <pre>
-	 *  &lt;mx:<i>tagname</i>
+	 *  &lt;mx:Legend
 	 *    <strong>Properties</strong>
-	 *    autoLayout="true|false"
+	 * 	  autoLayout="true|false"
 	 *    clipContent="true|false"
 	 *    creationIndex="undefined"
 	 *    creationPolicy="auto|all|queued|none"
-	 *    defaultButton="<i>No default</i>"
+	 *    dataProvider="<i>No default</i>"
+	 *    direction="horizontal|vertical"
 	 *    horizontalLineScrollSize="5"
 	 *    horizontalPageScrollSize="0"
 	 *    horizontalScrollBar="null"
-	 *    horizontalScrollPolicy="auto|on|off"
 	 *    horizontalScrollPosition="0"
-	 *    icon="undefined"
-	 *    label=""
+	 *    legendItemClass="<i>No default</i>"
 	 *    verticalLineScrollSize="5"
 	 *    verticalPageScrollSize="0"
 	 *    verticalScrollBar="null"
-	 *    verticalScrollPolicy="auto|on|off"
-	 *    verticalScrollPosition="0"
+	 *    verticalScrollPosition="0"	 *    
 	 * 
 	 *    <strong>Styles</strong>
 	 *    backgroundAlpha="1.0"
@@ -560,12 +628,11 @@ package mx.charts
 	 *    backgroundDisabledColor="undefined"
 	 *    backgroundImage="undefined"
 	 *    backgroundSize="auto" 
-	 *    <i>    For the Application container only,</i> backgroundSize="100%"
 	 *    barColor="undefined"
 	 *    borderColor="0xAAB3B3"
 	 *    borderSides="left top right bottom"
 	 *    borderSkin="mx.skins.halo.HaloBorder"
-	 *    borderStyle="inset"
+	 *    borderStyle="inset|none|solid|outset"
 	 *    borderThickness="1"
 	 *    color="0x0B333C"
 	 *    cornerRadius="0"
@@ -581,36 +648,50 @@ package mx.charts
 	 *    fontStyle="normal"
 	 *    fontThickness="0"
 	 *    fontWeight="normal"
+	 *    horizontalAlign="left|center|right"
+	 *    horizontalGap="<i>8</i>"
 	 *    horizontalScrollBarStyleName="undefined"
+	 *    labelPlacement="right|left|top|bottom"
+	 *    markerHeight="15"
+	 *    markerWidth="10"
 	 *    paddingBottom="0"
 	 *    paddingLeft="0"
 	 *    paddingRight="0"
 	 *    paddingTop="0"
 	 *    shadowDirection="center"
 	 *    shadowDistance="2"
+	 *    stroke="<i>IStroke; no default</i>"
 	 *    textAlign="left"
 	 *    textDecoration="none|underline"
 	 *    textIndent="0"
+	 *    verticalAlign="top|middle|bottom"
+	 *    verticalGap="<i>6</i>"
 	 *    verticalScrollBarStyleName="undefined"
-	 * 
+	 *    
 	 *    <strong>Events</strong>
 	 *    childAdd="<i>No default</i>"
-	 *    childIndexChange="<i>No default</i>"
-	 *    childRemove="<i>No default</i>"
-	 *    dataChange="<i>No default</i>"
-	 *    scroll="<i>No default</i>"
-	 *    &gt;
-	 *      ...
-	 *      <i>child tags</i>
-	 *      ...
-	 *  &lt;/mx:<i>tagname</i>&gt;
+ 	 *    childIndexChange="<i>No default</i>"
+     *    childRemove="<i>No default</i>"
+     *    dataChange="<i>No default</i>"
+	 *    itemClick="<i>Event; no default</i>"
+	 *    itemMouseDown="<i>Event; no default</i>"
+	 *    itemMouseOut="<i>Event; no default</i>"
+	 *    itemMouseOver="<i>Event; no default</i>"
+	 *    itemMouseUp="<i>Event; no default</i>"
+     *    scroll="<i>No default</i>"
+	 *  /&gt;
 	 *  </pre>
+	 *
+	 *  @see mx.charts.LegendItem
+	 *
+	 *  @includeExample examples/PlotChartExample.mxml
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
-	 */
+	 */	
+	 
 	public class Legend extends UIComponent implements IContainer
 		
 	{
