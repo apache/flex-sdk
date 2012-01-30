@@ -37,18 +37,18 @@ import mx.utils.Base64Encoder;
  *  that implements <code>flash.display.IBitmapDrawable</code>,
  *  including Flex UIComponents.
  *
- *  <p>An instance of this class can be sent via RemoteObject
- *  to Adobe's LiveCycle Data Services in order to generate
+ *  <p>An instance of this class can be sent as a RemoteObject
+ *  to Adobe's LiveCycle Data Services to generate
  *  a PDF file of a client-side image.
  *  If you need to specify additional properties of the image
  *  beyond its <code>contentType</code>, <code>width</code>,
- *  and <code>height</code>, you should set name/value pairs
+ *  and <code>height</code> properties, you should set name/value pairs
  *  on the <code>properties</code> object.</p>
  *
  *  <p>In earlier versions of Flex, you set these additional
  *  properties on the ImageSnapshot instance itself.
  *  This class is still dynamic in order to allow that,
- *  but in a future version of Flex it may no longer be dynamic.</p>
+ *  but in a future version of Flex it might no longer be dynamic.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
