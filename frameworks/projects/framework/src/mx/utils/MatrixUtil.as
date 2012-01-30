@@ -1592,6 +1592,8 @@ public final class MatrixUtil
      *  hierarchy. Walk the parent tree manually, calculating the matrix manually.
      *  
      *  @param displayObject Calculate the concatenatedMatrix for this displayObject
+     *  
+     *  @param excludingRootSprite Whether to exclude the root's transformation in the calculations.
      * 
      *  @return The concatenatedMatrix for the displayObject
      * 
@@ -1600,9 +1602,9 @@ public final class MatrixUtil
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static function getConcatenatedMatrix(displayObject:DisplayObject):Matrix
+    public static function getConcatenatedMatrix(displayObject:DisplayObject, excludingRootSprite:Boolean):Matrix
     {
-        return getConcatenatedMatrixHelper(displayObject, false);
+        return getConcatenatedMatrixHelper(displayObject, false, excludingRootSprite);
     }
     
     /**
@@ -1615,6 +1617,8 @@ public final class MatrixUtil
      * 
      *  @param displayObject Calculate the concatenatedMatrix for this displayObject
      * 
+     *  @param excludingRootSprite Whether to exclude the root's transformation in the calculations.
+     * 
      *  @return The concatenatedMatrix for the displayObject
      * 
      *  @langversion 3.0
@@ -1622,15 +1626,15 @@ public final class MatrixUtil
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static function getConcatenatedComputedMatrix(displayObject:DisplayObject):Matrix
+    public static function getConcatenatedComputedMatrix(displayObject:DisplayObject, excludingRootSprite:Boolean):Matrix
     {
-        return getConcatenatedMatrixHelper(displayObject, true);
+        return getConcatenatedMatrixHelper(displayObject, true, excludingRootSprite);
     }
     
     /**
      *  @private 
      */ 
-    private static function getConcatenatedMatrixHelper(displayObject:DisplayObject, useComputedMatrix:Boolean):Matrix
+    private static function getConcatenatedMatrixHelper(displayObject:DisplayObject, useComputedMatrix:Boolean, excludingRootSprite:Boolean):Matrix
     {
         var m:Matrix = new Matrix();
         
@@ -1646,13 +1650,20 @@ public final class MatrixUtil
                 uiComponentClass = Class(ApplicationDomain.currentDomain.getDefinition("mx.core.UIComponent"));
         }
         
+        // Note, root will be "null" if the displayObject is off the display list. In particular,
+        // during start-up, before applicationComplete is dispatched, root will be null.
+        // Note that getConcatenatedMatrixHelper() with excludeRootSprite == true will still work
+        // correctly in those cases as we use ".$parent" to walk up the parent chain and during start-up
+        // $parent will be null for the application before applicationComplete has been dispatched.
+        var root:DisplayObject = displayObject.root;
+        
         if (fakeDollarParent == null)
             fakeDollarParent = new QName(mx_internal, "$parent");
         
         if (useComputedMatrix && computedMatrixProperty == null)
             computedMatrixProperty = new QName(mx_internal, "computedMatrix");
         
-        while (displayObject && displayObject.transform.matrix)
+        while (displayObject && displayObject.transform.matrix && (!excludingRootSprite || displayObject != root))
         {            
             var scrollRect:Rectangle = displayObject.scrollRect;
             if (scrollRect != null)
