@@ -27,6 +27,7 @@ import spark.events.IndexChangeEvent;
 import spark.formatters.DateTimeFormatter;
 import spark.globalization.supportClasses.CalendarDate;
 import spark.globalization.supportClasses.DateTimeFormatterEx;
+import spark.components.calendarClasses.DateSelectorDisplayMode;
 
 use namespace mx_internal;
 
