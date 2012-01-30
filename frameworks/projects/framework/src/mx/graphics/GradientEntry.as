@@ -38,6 +38,11 @@ import mx.events.PropertyChangeEvent;
  *  
  *  @see mx.graphics.LinearGradient 
  *  @see mx.graphics.RadialGradient
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class GradientEntry extends EventDispatcher
 {
@@ -63,6 +68,11 @@ public class GradientEntry extends EventDispatcher
 	 *
 	 *  @param alpha The alpha value for this entry in the gradient. 
 	 *  This parameter is optional. The default value is 1.0.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function GradientEntry(color:uint = 0x000000,
 								  ratio:Number = NaN,
@@ -95,6 +105,11 @@ public class GradientEntry extends EventDispatcher
 	 *  Possible values are 0.0 (invisible) through 1.0 (opaque). 
 	 *  
 	 *  @default 1.0 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get alpha():Number
 	{
@@ -122,6 +137,11 @@ public class GradientEntry extends EventDispatcher
 
 	/**
 	 *  The color value for a gradient fill. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get color():uint
 	{
@@ -152,6 +172,11 @@ public class GradientEntry extends EventDispatcher
 	 *  Flex starts the transition to the associated color. 
 	 *  For example, a ratio of 0.33 means Flex begins the transition
 	 *  to that color 33% of the way through the graphical element. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get ratio():Number
 	{
