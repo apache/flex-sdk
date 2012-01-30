@@ -119,7 +119,7 @@ use namespace mx_internal;
  *      is called to provide a default name.
  *      (For example, ButtonAccImpl implements <code>getName()</code>
  *      to specify that a Button's default name is the label that it displays.)
- *      If not empty, the return value of <code>getName()</code> is added.
+ *      If not empty, the return value of <code>getName()</code> is added.</li>
  *      <li>Otherwise (if <code>getName()</code> returned empty),
  *      if the component's <code>toolTip</code> property is set,
  *      that String is added.</li>
@@ -263,7 +263,7 @@ public class AccImpl extends AccessibilityImplementation
 
         // continue looking up the parent chain
         // until a disabled UIComponent is found
-		// stopping at the root or system manager
+        // stopping at the root or system manager
         while (par && (par is UIComponent && UIComponent(par).enabled) &&
                !(par is ISystemManager) && par != component.root)
         {
@@ -283,7 +283,7 @@ public class AccImpl extends AccessibilityImplementation
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
+     */
     public static function getFormName(component:UIComponent):String
     {
         var formName:String = "";
@@ -299,7 +299,7 @@ public class AccImpl extends AccessibilityImplementation
         var par:DisplayObjectContainer = component.parent; 
 
         // continue looking up the parent chain
-		// until a FormItem is found
+        // until a FormItem is found
         // stopping at the root or system manager
         while (par && !(formItemClass && par is formItemClass) &&
                !(par is ISystemManager) && par != component.root)
@@ -451,7 +451,7 @@ public class AccImpl extends AccessibilityImplementation
     
     /**
      *  Accessibility role of the component being made accessible.
-	 *  
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -682,7 +682,7 @@ public class AccImpl extends AccessibilityImplementation
             case "toolTipChanged":
             {
                 Accessibility.sendEvent(master, 0,
-										AccConst.EVENT_OBJECT_NAMECHANGE);
+                                        AccConst.EVENT_OBJECT_NAMECHANGE);
                 Accessibility.updateProperties();
                 break;
             }
@@ -690,7 +690,7 @@ public class AccImpl extends AccessibilityImplementation
             case "show":
             {
                 Accessibility.sendEvent(master, 0,
-										AccConst.EVENT_OBJECT_SHOW);
+                                        AccConst.EVENT_OBJECT_SHOW);
                 Accessibility.updateProperties();
                 break;
             }
@@ -698,7 +698,7 @@ public class AccImpl extends AccessibilityImplementation
             case "hide":
             {
                 Accessibility.sendEvent(master, 0,
-										AccConst.EVENT_OBJECT_HIDE);
+                                        AccConst.EVENT_OBJECT_HIDE);
                 Accessibility.updateProperties();
                 break;
             }            
