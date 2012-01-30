@@ -14,6 +14,7 @@ package mx.accessibility
 
 import flash.accessibility.Accessibility;
 import flash.events.Event;
+import mx.accessibility.AccConst;
 import mx.collections.CursorBookmark;
 import mx.collections.IViewCursor;
 import mx.controls.listClasses.IListItemRenderer;
@@ -36,52 +37,6 @@ public class ListBaseAccImpl extends AccImpl
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const ROLE_SYSTEM_LISTITEM:uint = 0x22; 
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_INVISIBLE:uint = 0x00008000;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_OFFSCREEN:uint = 0x00010000;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTABLE:uint = 0x00200000;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTED:uint = 0x00000002;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_FOCUS:uint = 0x8005; 
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_SELECTION:uint = 0x8006; 
-	
 	//--------------------------------------------------------------------------
 	//
 	//  Class methods
@@ -142,7 +97,7 @@ public class ListBaseAccImpl extends AccImpl
 	{
 		super(master);
 		
-		role = 0x21; // ROLE_SYSTEM_LIST
+		role = AccConst.ROLE_SYSTEM_LIST;
 	}
 
 	//--------------------------------------------------------------------------
@@ -178,7 +133,7 @@ public class ListBaseAccImpl extends AccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		return childID == 0 ? role : ROLE_SYSTEM_LISTITEM;
+		return childID == 0 ? role : AccConst.ROLE_SYSTEM_LISTITEM;
 	}
 
 	/**
@@ -208,12 +163,12 @@ public class ListBaseAccImpl extends AccImpl
 			if (index < listBase.verticalScrollPosition ||
 				index >= listBase.verticalScrollPosition + listBase.rowCount)
 			{
-				accState |= (STATE_SYSTEM_OFFSCREEN |
-							 STATE_SYSTEM_INVISIBLE);
+				accState |= (AccConst.STATE_SYSTEM_OFFSCREEN |
+							 AccConst.STATE_SYSTEM_INVISIBLE);
 			}
 			else
 			{
-				accState |= STATE_SYSTEM_SELECTABLE;
+				accState |= AccConst.STATE_SYSTEM_SELECTABLE;
 
 				var item:Object = getItemAt(index);
 
@@ -221,7 +176,7 @@ public class ListBaseAccImpl extends AccImpl
 					listBase.itemToItemRenderer(item);
 
 				if (renderer != null && listBase.isItemSelected(renderer.data))
-					accState |= STATE_SYSTEM_SELECTED | STATE_SYSTEM_FOCUSED;
+					accState |= AccConst.STATE_SYSTEM_SELECTED | AccConst.STATE_SYSTEM_FOCUSED;
 			}
 		}
 
@@ -408,10 +363,10 @@ public class ListBaseAccImpl extends AccImpl
 					var childID:uint = index + 1;
 
 					Accessibility.sendEvent(master, childID,
-											EVENT_OBJECT_FOCUS);
+											AccConst.EVENT_OBJECT_FOCUS);
 
 					Accessibility.sendEvent(master, childID,
-											EVENT_OBJECT_SELECTION);
+											AccConst.EVENT_OBJECT_SELECTION);
 				}
 
 				break;
