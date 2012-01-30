@@ -80,6 +80,11 @@ import mx.resources.ResourceManager;
  *  </pre>
  *  
  *  @includeExample examples/DateValidatorExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DateValidator extends Validator
 {
@@ -109,6 +114,11 @@ public class DateValidator extends Validator
 	 *  object for each field examined by the validator. 
 	 *
 	 *  @see mx.validators.ValidationResult
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function validateDate(validator:DateValidator,
 									    value:Object,
@@ -481,6 +491,11 @@ public class DateValidator extends Validator
 	
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DateValidator()
 	{
@@ -583,6 +598,11 @@ public class DateValidator extends Validator
 	 *  the month, day, and year values.
 	 *
 	 *  @default "/\-. "
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get allowedFormatChars():String
 	{
@@ -634,6 +654,11 @@ public class DateValidator extends Validator
 	 *  for the day subfield.
 	 *  If none is specified, use the value specified
 	 *  for the <code>daySource</code> property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get dayListener():IValidatorListener
 	{
@@ -665,6 +690,11 @@ public class DateValidator extends Validator
 	 *  Name of the day property to validate. 
 	 *  This property is optional, but if you specify the
 	 *  <code>daySource</code> property, you should also set this property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var dayProperty:String;
 	
@@ -686,6 +716,11 @@ public class DateValidator extends Validator
 	 *  specify a value for the <code>dayProperty</code> property. 
 	 *  Do not use this property if you set the <code>source</code> 
 	 *  and <code>property</code> properties. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get daySource():Object
 	{
@@ -737,6 +772,11 @@ public class DateValidator extends Validator
 	 *  This String is case-sensitive.
 	 *
 	 *  @default "MM/DD/YYYY"
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get inputFormat():String
 	{
@@ -773,6 +813,11 @@ public class DateValidator extends Validator
 	 *  for the month subfield. 
 	 *  If none is specified, use the value specified
 	 *  for the <code>monthSource</code> property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get monthListener():IValidatorListener
 	{
@@ -804,6 +849,11 @@ public class DateValidator extends Validator
 	 *  Name of the month property to validate. 
 	 *  This property is optional, but if you specify the
 	 *  <code>monthSource</code> property, you should also set this property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var monthProperty:String;
 		
@@ -825,6 +875,11 @@ public class DateValidator extends Validator
 	 *  a value for the <code>monthProperty</code> property. 
 	 *  Do not use this property if you set the <code>source</code> 
 	 *  and <code>property</code> properties. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get monthSource():Object
 	{
@@ -879,6 +934,11 @@ public class DateValidator extends Validator
 	 *  as a Date object. 
 	 *
 	 *  @default true	 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get validateAsString():Object
 	{
@@ -915,6 +975,11 @@ public class DateValidator extends Validator
 	 *  for the year subfield. 
 	 *  If none is specified, use the value specified
 	 *  for the <code>yearSource</code> property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get yearListener():IValidatorListener
 	{
@@ -946,6 +1011,11 @@ public class DateValidator extends Validator
 	 *  Name of the year property to validate. 
 	 *  This property is optional, but if you specify the
 	 *  <code>yearSource</code> property, you should also set this property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	 public var yearProperty:String;
 	
@@ -967,6 +1037,11 @@ public class DateValidator extends Validator
 	 *  a value for the <code>yearProperty</code> property. 
 	 *  Do not use this property if you set the <code>source</code> 
 	 *  and <code>property</code> properties. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get yearSource():Object
 	{
@@ -1023,6 +1098,11 @@ public class DateValidator extends Validator
 	 *  is not in the correct format.
 	 *
 	 *  @default "Configuration error: Incorrect formatting string." 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get formatError():String
 	{
@@ -1063,6 +1143,11 @@ public class DateValidator extends Validator
 	 *  Error message when there are invalid characters in the date.
 	 *
 	 *  @default "Invalid characters in your date."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get invalidCharError():String
 	{
@@ -1103,6 +1188,11 @@ public class DateValidator extends Validator
 	 *  Error message when the day is invalid.
 	 *
 	 *  @default "Enter a valid day for the month." 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get wrongDayError():String
 	{
@@ -1144,6 +1234,11 @@ public class DateValidator extends Validator
 	 *  doesn't match that of the <code>inputFormat</code> property.
 	 *
 	 *  @default "Type the date in the format <i>inputFormat</i>." 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get wrongLengthError():String
 	{
@@ -1184,6 +1279,11 @@ public class DateValidator extends Validator
 	 *  Error message when the month is invalid.
 	 *
 	 *  @default "Enter a month between 1 and 12."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get wrongMonthError():String
 	{
@@ -1224,6 +1324,11 @@ public class DateValidator extends Validator
 	 *  Error message when the year is invalid.
 	 *
 	 *  @default "Enter a year between 0 and 9999."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function get wrongYearError():String
 	{
@@ -1280,6 +1385,11 @@ public class DateValidator extends Validator
      *
 	 *  @return An Array of ValidationResult objects, with one ValidationResult 
 	 *  object for each field examined by the validator. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override protected function doValidation(value:Object):Array
     {
