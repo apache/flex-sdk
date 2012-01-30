@@ -57,6 +57,8 @@ public class TabbedViewNavigatorSkin extends MobileSkin
     // Methods
     //
     //--------------------------------------------------------------------------
+
+    private var _isOverlay:Boolean;
     
     /**
      *  @private
@@ -83,11 +85,12 @@ public class TabbedViewNavigatorSkin extends MobileSkin
     {
         super.commitCurrentState();
         
+        _isOverlay = (currentState.indexOf("Overlay") >= 1);
+        
         // Force a layout pass on the components
         invalidateSize();
         invalidateDisplayList();
     }
-    
     
     /**
      *  @private
@@ -126,30 +129,16 @@ public class TabbedViewNavigatorSkin extends MobileSkin
             tabBar.setLayoutBoundsSize(unscaledWidth, tabBarHeight);
             tabBar.setLayoutBoundsPosition(0, unscaledHeight - tabBarHeight);
             tabBarHeight = tabBar.getLayoutBoundsHeight(); 
+            
+            // backgroundAlpha is not a declared style on ButtonBar
+            // TabbedViewNavigatorButtonBarSkin implements for overlay support
+            var backgroundAlpha:Number = (_isOverlay) ? 0.75 : 1;
+            tabBar.setStyle("backgroundAlpha", backgroundAlpha);
         }
         
-        if (currentState == "portraitAndOverlay" || currentState == "landscapeAndOverlay")
-        {
-            tabBar.alpha = .6;
-            
-            if (contentGroup.includeInLayout)
-            {
-                contentGroup.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
-                contentGroup.setLayoutBoundsPosition(0, 0);
-            }
-        }
-        else
-        {
-            tabBar.alpha = 1.0;
-            
-            if (contentGroup.includeInLayout)
-            {
-                var contentGroupHeight:Number = Math.max(unscaledHeight - tabBarHeight, 0);
-                
-                contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
-                contentGroup.setLayoutBoundsPosition(0, 0);
-            }
-        }
+        var contentGroupHeight:Number = (_isOverlay) ? unscaledHeight : Math.max(unscaledHeight - tabBarHeight, 0);
+        contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
+        contentGroup.setLayoutBoundsPosition(0, 0);
     }
 }
 }
