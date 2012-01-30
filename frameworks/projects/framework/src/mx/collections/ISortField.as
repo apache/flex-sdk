@@ -30,14 +30,11 @@ public interface ISortField
     //--------------------------------------------------------------------------
 
     /**
-     *  This helper property is used internally the Array.sortOn method by
-     *  the <code>Sort</code> class. Other uses of this property are not 
+     *  This helper property is used internally the <code>findItem()</code> and <code>sort()</code> methods. Other uses of this property are not 
      *  supported.
-     *  Return -1 if this ISortField shouldn't be used by the <code>Sort</code>
-     *  class to sort the field.
+     *  Returns -1 if this ISortField shouldn't be used by the <code>Sort</code>
+     *  class to sort the field (there is no compareFunction or no name). Otherwise, returns a bitmask of sort options..
      * 
-     *  
-     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -55,7 +52,7 @@ public interface ISortField
      *
      *  <p><code>function myCompare(a:Object, b:Object):int</code></p>
      *
-     *  <p>This function must return the following values:</p>
+     *  <p>This function returns the following values:</p>
      *
      *   <ul>
      *        <li>-1, if <code>a</code> should appear before <code>b</code> in
@@ -77,7 +74,7 @@ public interface ISortField
      *  Specifies whether this field should be sorted in descending
      *  order.
      *
-     *  <p> The default value is <code>false</code> (ascending).</p>
+     *  <p>The default value is <code>false</code> (ascending).</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -176,7 +173,7 @@ public interface ISortField
      *  If the field was sorted in descending order, for example, sort it
      *  in ascending order.
      *
-     *  <p>Note: an <code>ICollectionView</code> does not automatically 
+     *  <p>NOTE: An <code>ICollectionView</code> does not automatically 
      *  update when the <code>ISortFields</code> are modified; call its 
      *  <code>refresh()</code> method to update the view.</p>
      *
