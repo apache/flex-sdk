@@ -72,6 +72,7 @@ import mx.styles.StyleManager;
 import mx.events.EventListenerRequest;
 import mx.events.InvalidateRequestData;
 import mx.events.InterManagerRequest;
+import mx.events.ResizeEvent;
 import mx.events.SandboxMouseEvent;
 import mx.events.SWFBridgeRequest;
 import mx.events.SWFBridgeEvent;
@@ -81,8 +82,9 @@ import mx.managers.systemClasses.StageEventProxy;
 import mx.managers.systemClasses.PlaceholderData;
 import mx.utils.EventUtil;
 import mx.utils.NameUtil;
+import mx.utils.LoaderUtil;
+import mx.utils.ObjectUtil;
 import mx.utils.SecurityUtil;
-import mx.events.ResizeEvent;
 
 // NOTE: Minimize the non-Flash classes you import here.
 // Any dependencies of SystemManager have to load in frame 1,
@@ -1821,7 +1823,7 @@ public class SystemManager extends MovieClip
 													cdRsls[i]["digests"],
 													cdRsls[i]["types"],
 													cdRsls[i]["isSigned"],
-													this.loaderInfo.url);
+													LoaderUtil.normalizeURL(this.loaderInfo));
 				rslList.push(cdNode);				
 			}
 		}
@@ -1832,7 +1834,7 @@ public class SystemManager extends MovieClip
 			n = rsls.length;
 			for (i = 0; i < n; i++)
 			{
-			    var node:RSLItem = new RSLItem(rsls[i].url, this.loaderInfo.url);
+			    var node:RSLItem = new RSLItem(rsls[i].url, LoaderUtil.normalizeURL(this.loaderInfo));
 				rslList.push(node);
 			}
 		}
@@ -3144,6 +3146,12 @@ public class SystemManager extends MovieClip
 		
 		if (!topLevel)
 		{
+            // We are not top-level and don't have a parent. This can happen
+            // when the application has already been unloaded by the time
+            // we get to this point.
+            if (!parent)
+                return;
+
 			var obj:DisplayObjectContainer = parent.parent;
 
   			// if there is no grandparent at this point, we might have been removed and
@@ -3289,7 +3297,10 @@ public class SystemManager extends MovieClip
                 {
                     // Error #2099: The loading object is not sufficiently loaded to provide this information.
                     // We get this error because an old Event.RESIZE listener with a weak reference
-                    // is being called but the SWF has been unloaded. Just return;
+            // is being called but the SWF has been unloaded.
+            if (!_screen)
+                _screen = new Rectangle();
+                
                     return; 
                 }
                 
