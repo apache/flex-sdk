@@ -262,7 +262,7 @@ use namespace mx_internal;
  *  &lt;mx:SWFLoader
  *    <strong>Properties</strong>
  *    autoLoad="true|false"
- *    loadForCompatibility="true|false"
+ *    loadForCompatibility="false|true"
  *    loaderContext="null"
  *    maintainAspectRatio="true|false"
  *    scaleContent="true|false"
@@ -482,11 +482,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     [Inspectable(defaultValue="false")]
 
     /**
-     *  A flag that indictes whether the content is loaded so it can
-     *  interop with applications built with a different verion of Flex.  
-     *  Compatibility with other Flex Applications is accomplished by loading
-     *  the application into a sibling ApplicationDomain.
-     *  This flag is not respected if the content needs to be loaded into differnt
+     *  A flag that indicates whether the content is loaded so that it can
+     *  interoperate with applications built with a different verion of the Flex compiler.  
+     *  Compatibility with other Flex applications is accomplished by loading
+     *  the application into a sibling (or peer) ApplicationDomain.
+     *  This flag is ignored if the content must be loaded into a different
      *  SecurityDomain.
      *  If <code>true</code>, the content loads into a sibling ApplicationDomain. 
      *  If <code>false</code>, the content loaded into a child ApplicationDomain.
@@ -1095,7 +1095,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     //--------------------------------------------------------------------------
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */    
     public function get swfBridge():IEventDispatcher
     {
@@ -1103,7 +1103,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     }
     
     /**
-     * @inheritdoc
+     * @inheritDoc
      */    
     public function get childAllowsParent():Boolean
     {
@@ -1117,7 +1117,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */    
     public function get parentAllowsChild():Boolean
     {
@@ -1366,7 +1366,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritdoc
+     *  @inheritDoc
      */  
     public function getVisibleApplicationRect(allApplications:Boolean=false):Rectangle
     {
