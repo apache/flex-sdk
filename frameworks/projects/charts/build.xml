@@ -188,6 +188,8 @@
                 <include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${basedir}/charts.css"/>
+			<include-file name="defaults-4.1.0.css" path="${basedir}/charts-4.X.0.css"/>
+			<include-file name="defaults-4.0.0.css" path="${basedir}/charts-4.X.0.css"/>
 			<include-file name="defaults-3.0.0.css" path="${basedir}/charts-3.0.0.css"/>
 			<locale/>
             <accessible>true</accessible>
