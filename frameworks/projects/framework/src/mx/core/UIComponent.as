@@ -2790,6 +2790,9 @@ public class UIComponent extends FlexSprite
         if (!initialized)
             return;
 
+        if (layer && !layer.computedVisibility) 
+            value = false; 
+        
         if ($visible == value)
             return;
 
@@ -2807,17 +2810,41 @@ public class UIComponent extends FlexSprite
     //  alpha
     //----------------------------------
 
+    /**
+     *  @private
+     *  Storage for the alpha property.
+     */
+    private var _alpha:Number = 1.0;
+    
     [Bindable("alphaChanged")]
     [Inspectable(defaultValue="1.0", category="General", verbose="1")]
 
     /**
      *  @private
      */
-    override public function set alpha(value:Number):void
+    override public function get alpha():Number
     {
-        super.alpha = value;
+        // Here we roundtrip alpha in the same manner as the 
+        // player (purposely introducing a rounding error).
+        return int(_alpha * 256.0) / 256.0;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set alpha(value:Number):void
+    { 
+        if (_alpha != value)
+        {
+            _alpha = value;
+        
+            if (layer)
+                value = value * layer.computedAlpha; 
+            
+            $alpha = value;
 
-        dispatchEvent(new Event("alphaChanged"));
+            dispatchEvent(new Event("alphaChanged"));
+        }
     }
 
     //----------------------------------
@@ -2989,12 +3016,76 @@ public class UIComponent extends FlexSprite
         super.filters = clonedFilters;
     }
 
+    //----------------------------------
+    //  layer
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the layer property.
+     */
+    private var _layer:DesignLayer;
+    
+    [Inspectable (environment='none')]
+    
+    /**
+     *  @copy mx.core.IVisualElement#layer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get layer():DesignLayer
+    {
+        return _layer;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set layer(value:DesignLayer):void
+    {
+        if (_layer)
+            _layer.removeEventListener("layerPropertyChange", layer_PropertyChange, false);
+        
+        _layer = value;
+        
+        if (_layer)
+            _layer.addEventListener("layerPropertyChange", layer_PropertyChange, false, 0, true);
+    }
+        
     //--------------------------------------------------------------------------
     //
     //  Properties: Display
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  $alpha
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  This property allows access to the Player's native implementation
+     *  of the 'alpha' property, which can be useful since components
+     *  can override 'alpha' and thereby hide the native implementation.
+     *  Note that this "base property" is final and cannot be overridden,
+     *  so you can count on it to reflect what is happening at the player level.
+     */
+    mx_internal final function get $alpha():Number
+    {
+        return super.alpha;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal final function set $alpha(value:Number):void
+    {
+        super.alpha = value;
+    }
+    
     //----------------------------------
     //  $parent
     //----------------------------------
@@ -10842,6 +10933,32 @@ public class UIComponent extends FlexSprite
             focusObject.visible = false;
     }
 
+    /**
+     *  @private
+     *  Called when our associated layer parent needs to inform us of 
+     *  a change to it's visibility or alpha.
+     */
+    protected function layer_PropertyChange(event:PropertyChangeEvent):void
+    {
+        switch (event.property)
+        {
+            case "visible":
+            {
+                var newValue:Boolean = (event.newValue && _visible);            
+                if (newValue != $visible)
+                    $visible = newValue;
+                break;
+            }
+            case "alpha":
+            {
+                var newAlpha:Number = Number(event.newValue) * _alpha;
+                if (newAlpha != $alpha)
+                    $alpha = newAlpha;
+                break;
+            }
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers: Validation
