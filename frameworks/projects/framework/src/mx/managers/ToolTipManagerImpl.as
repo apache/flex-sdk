@@ -29,6 +29,7 @@ import mx.core.IUIComponent;
 import mx.core.mx_internal;
 import mx.effects.IAbstractEffect;
 import mx.effects.EffectManager;
+import mx.events.DynamicEvent;
 import mx.events.EffectEvent;
 import mx.events.ToolTipEvent;
 import mx.managers.IToolTipManagerClient;
@@ -1241,7 +1242,10 @@ public class ToolTipManagerImpl extends EventDispatcher
             // End any show or hide effects that might be playing on it.
             EffectManager.endEffectsForTarget(currentToolTip);
 
-			if (dispatchEvent(new Event("removeChild", false, true)))
+            var e:DynamicEvent = new DynamicEvent("removeChild", false, true);
+            e.sm = currentToolTip.systemManager;
+            e.toolTip = currentToolTip;
+		    if (dispatchEvent(e))
 			{
 				// Remove it.
 				var sm:ISystemManager = currentToolTip.systemManager as ISystemManager;
@@ -1330,7 +1334,10 @@ public class ToolTipManagerImpl extends EventDispatcher
                                           FlexGlobals.topLevelApplication.systemManager as ISystemManager;
 
 		
-		if (dispatchEvent(new Event("addChild", false, true)))
+        var event:DynamicEvent = new DynamicEvent("addChild", false, true);
+        event.sm = sm;
+        event.toolTip = toolTip;
+		if (dispatchEvent(event))
 		{
 		    sm.topLevelSystemManager.toolTipChildren.addChild(toolTip as DisplayObject);
 		}
@@ -1374,7 +1381,10 @@ public class ToolTipManagerImpl extends EventDispatcher
      */
     public function destroyToolTip(toolTip:IToolTip):void
     {
-		if (dispatchEvent(new Event("removeChild", false, true)))
+        var e:DynamicEvent = new DynamicEvent("removeChild", false, true);
+        e.sm = toolTip.systemManager;
+        e.toolTip = toolTip;
+		if (dispatchEvent(e))
 		{
 			// Remove it.
 			var sm:ISystemManager = toolTip.systemManager as ISystemManager;
