@@ -389,14 +389,12 @@ public class DataGridAccImpl extends ListBaseAccImpl
 	 */
 	override protected function getName(childID:uint):String
 	{
-		var dataGrid:DataGrid = DataGrid(master);
-		// 0 -> DataGrid
-		if (childID == 0 || childID > dataGrid.dataProvider.length)
+		if (childID == 0)
 			return "";
 
-		var name:String;
+		var dataGrid:DataGrid = DataGrid(master);
 
-	
+		var name:String;
 
 		//1 to columnCount * Rows -> ItemRenderers
 		if (childID > 0) // see if this check needs to be given
