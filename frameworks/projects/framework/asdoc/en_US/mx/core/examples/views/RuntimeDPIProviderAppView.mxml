@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" title="HomeView">
+
+    <s:layout>
+        <s:VerticalLayout />
+    </s:layout>
+    
+    <s:Button label="Example Button" />
+    <s:HSlider />
+    <s:List width="100%" height="100%" borderVisible="true">
+        <s:ArrayList>
+            <fx:String>apple</fx:String>
+            <fx:String>banana</fx:String>
+            <fx:String>cherry</fx:String>
+            <fx:String>diagonal</fx:String>
+            <fx:String>ergonomical</fx:String>
+            <fx:String>freedom</fx:String>
+            <fx:String>gorge</fx:String>
+            <fx:String>house</fx:String>
+            <fx:String>ice</fx:String>
+        </s:ArrayList>
+    </s:List>
+</s:View>
