@@ -64,8 +64,8 @@ use namespace mx_internal;
  * 
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class TitleBar extends SkinnableComponent
 {
@@ -95,8 +95,8 @@ public class TitleBar extends SkinnableComponent
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function TitleBar():void
     {
@@ -134,8 +134,8 @@ public class TitleBar extends SkinnableComponent
      *  The skin part that defines the Button control that corresponds to the close button.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     [SkinPart (required="true")]
     public var closeButton:Button;
@@ -148,8 +148,8 @@ public class TitleBar extends SkinnableComponent
      *  The skin part that defines the Button control that corresponds to the maximize button.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     [SkinPart (required="false")]
     public var maximizeButton:Button;
@@ -162,8 +162,8 @@ public class TitleBar extends SkinnableComponent
      *  The skin part that defines the Button control that corresponds to the minimize button.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     [SkinPart (required="false")]
     public var minimizeButton:Button;
@@ -176,8 +176,8 @@ public class TitleBar extends SkinnableComponent
      *  The title icon in the TitleBar.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     [SkinPart (required="false")]
     public var titleIconImage:BitmapImage;
@@ -190,8 +190,8 @@ public class TitleBar extends SkinnableComponent
      *  The skin part that defines the UITextField control that displays the application title text.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     [SkinPart (required="false")]
     public var titleText:SimpleText;
@@ -210,8 +210,8 @@ public class TitleBar extends SkinnableComponent
      *  Storage for the title property.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private var _title:String = "";
 
@@ -227,8 +227,8 @@ public class TitleBar extends SkinnableComponent
      *  @default ""
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get title():String
     {
@@ -269,8 +269,8 @@ public class TitleBar extends SkinnableComponent
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get titleIcon():Class
     {
@@ -297,8 +297,8 @@ public class TitleBar extends SkinnableComponent
      *  The IWindow that owns this TitleBar.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function get window():IWindow
     {
@@ -494,8 +494,8 @@ public class TitleBar extends SkinnableComponent
      *  @param event The event object.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function doubleClickHandler(event:MouseEvent):void
     {
