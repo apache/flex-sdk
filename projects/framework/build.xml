@@ -19,6 +19,8 @@
 
 	<target name="main" depends="clean,compile,en_US,ja_JP" description="Clean build of framework.swc and its English and Japanese resources"/>
 
+	<target name="other.locales" depends="da_DK,de_DE,es_ES,fi_FI,fr_FR,it_IT,ko_KR,nb_NO,nl_NL,pt_BR,sv_SE,zh_CN,zh_TW" description="Build other locale SWCs"/>
+
 	<target name="clean">
 		<delete failonerror="false">
 			<fileset file="${basedir}/bundles.properties"/>
@@ -107,15 +109,93 @@
 
 	<!-- Targets for compiling framework_rb.swc for various locales -->
 	
-	<target name="en_US" description="English resources">
+	<target name="da_DK" description="Danish resources">
+		<antcall target="bundle">
+			<param name="locale" value="da_DK"/>
+		</antcall>
+	</target>
+
+	<target name="de_DE" description="German resources">
+		<antcall target="bundle">
+			<param name="locale" value="de_DE"/>
+		</antcall>
+	</target>
+
+	<target name="en_US" description="American English resources">
 		<antcall target="bundle">
 			<param name="locale" value="en_US"/>
 		</antcall>
 	</target>
 	
+	<target name="es_ES" description="Spanish resources">
+		<antcall target="bundle">
+			<param name="locale" value="es_ES"/>
+		</antcall>
+	</target>
+	
+	<target name="fi_FI" description="Finnish resources">
+		<antcall target="bundle">
+			<param name="locale" value="fi_FI"/>
+		</antcall>
+	</target>
+	
+	<target name="fr_FR" description="French resources">
+		<antcall target="bundle">
+			<param name="locale" value="fr_FR"/>
+		</antcall>
+	</target>
+	
+	<target name="it_IT" description="Italian resources">
+		<antcall target="bundle">
+			<param name="locale" value="it_IT"/>
+		</antcall>
+	</target>
+
 	<target name="ja_JP" description="Japanese resources">
 		<antcall target="bundle">
 			<param name="locale" value="ja_JP"/>
+		</antcall>
+	</target>
+
+	<target name="ko_KR" description="Korean resources">
+		<antcall target="bundle">
+			<param name="locale" value="ko_KR"/>
+		</antcall>
+	</target>
+
+	<target name="nb_NO" description="Norwegian Bokmal resources">
+		<antcall target="bundle">
+			<param name="locale" value="nb_NO"/>
+		</antcall>
+	</target>
+
+	<target name="nl_NL" description="Dutch resources">
+		<antcall target="bundle">
+			<param name="locale" value="nl_NL"/>
+		</antcall>
+	</target>
+
+	<target name="pt_BR" description="Brazilian Portuguese resources">
+		<antcall target="bundle">
+			<param name="locale" value="pt_BR"/>
+		</antcall>
+	</target>
+
+	<target name="sv_SE" description="Swedish resources">
+		<antcall target="bundle">
+			<param name="locale" value="sv_SE"/>
+		</antcall>
+	</target>
+
+	<target name="zh_CN" description="Simplified Chinese resources">
+		<antcall target="bundle">
+			<param name="locale" value="zh_CN"/>
+		</antcall>
+	</target>
+
+	<target name="zh_TW" description="Traditional Chinese resources">
+		<antcall target="bundle">
+			<param name="locale" value="zh_TW"/>
 		</antcall>
 	</target>
 
