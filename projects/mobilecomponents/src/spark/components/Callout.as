@@ -417,30 +417,28 @@ public class Callout extends SkinnablePopUpContainer
         skin.invalidateProperties();
         
         // adjust margins based on arrow direction
-        if (popUpTransition)
+        switch (arrowDirection)
         {
-            switch (arrowDirection)
+            case ArrowDirection.DOWN:
             {
-                case ArrowDirection.DOWN:
-                {
-                    // set the marginBottom to zero to place the arrow adjacent to the keyboard
-                    popUpTransition.marginBottom = 0;
-                    popUpTransition.marginTop = margin;
-                    break;
-                }
-                case ArrowDirection.UP:
-                {
-                    // disable moving when the arrow points up
-                    popUpTransition.moveForSoftKeyboard = false;
-                    popUpTransition.marginBottom = margin;
-                    break;
-                }
-                default:
-                {
-                    popUpTransition.marginBottom = margin;
-                    popUpTransition.marginTop = margin;
-                    break;
-                }
+                // Set the marginBottom to zero to place the arrow adjacent to the keyboard
+                softKeyboardEffectMarginBottom = 0;
+                softKeyboardEffectMarginTop = margin;
+                break;
+            }
+            case ArrowDirection.UP:
+            {
+                // Arrow should already be adjacent to the owner or the top of
+                // the screen.
+                softKeyboardEffectMarginTop = 0;
+                softKeyboardEffectMarginBottom = margin;
+                break;
+            }
+            default:
+            {
+                softKeyboardEffectMarginBottom = margin;
+                softKeyboardEffectMarginTop = margin;
+                break;
             }
         }
         
@@ -494,6 +492,34 @@ public class Callout extends SkinnablePopUpContainer
         }
         
         return _margin;
+    }
+    
+    private var _explicitMoveForSoftKeyboard:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    override public function get moveForSoftKeyboard():Boolean
+    {
+        // If no explicit setting, then automatically disable move when
+        // pointing up towards the owner.
+        if (!_explicitMoveForSoftKeyboard && 
+            (arrowDirection == ArrowDirection.UP))
+        {
+            return false;
+        }
+        
+        return super.moveForSoftKeyboard;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set moveForSoftKeyboard(value:Boolean):void
+    {
+        super.moveForSoftKeyboard = value;
+        
+        _explicitMoveForSoftKeyboard = true;
     }
 
     //--------------------------------------------------------------------------
