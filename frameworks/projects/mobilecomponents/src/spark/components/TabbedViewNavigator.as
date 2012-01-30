@@ -284,7 +284,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  @private
      */ 
-    override public function get exitApplicationOnBackKey():Boolean
+    override mx_internal function get exitApplicationOnBackKey():Boolean
     {
     	if (activeNavigator)
     		return activeNavigator.exitApplicationOnBackKey;
@@ -460,9 +460,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    override public function updatePropertiesForView(view:View):void
+    override public function updateControlsForView(view:View):void
     {
-        super.updatePropertiesForView(view);
+        super.updateControlsForView(view);
         
         if (view)
         {
@@ -671,7 +671,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 
                 if (navigator.activeView)
                 {
-                    updatePropertiesForView(navigator.activeView);
+                    updateControlsForView(navigator.activeView);
                     navigator.activeView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                                                             view_propertyChangeHandler);
                     
