@@ -90,11 +90,11 @@ public class PolarChart extends ChartBase
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false; 
-	
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false; 
+    
     /**
      *  @private
      */
@@ -195,48 +195,48 @@ public class PolarChart extends ChartBase
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var polarChartStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.chartClasses.PolarChart", styleManager);
-		
-		polarChartStyle.defaultFactory = function():void
-		{
-			this.dataTipRenderer = DataTip;
-			this.fill = new SolidColor(0xFFFFFF, 0);
-			this.calloutStroke = new Stroke(0x888888,2);            
-			this.fontSize = 10;
-		}
-		
-		return true;
-	}
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
-	
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var polarChartStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.chartClasses.PolarChart", styleManager);
+        
+        polarChartStyle.defaultFactory = function():void
+        {
+            this.dataTipRenderer = DataTip;
+            this.fill = new SolidColor(0xFFFFFF, 0);
+            this.calloutStroke = new Stroke(0x888888,2);            
+            this.fontSize = 10;
+        }
+        
+        return true;
+    }
+    
+    /**
+     *   A module factory is used as context for using embedded fonts and for finding the style manager that controls the styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
+    
     /**
      *  @inheritDoc
      *  
@@ -253,7 +253,7 @@ public class PolarChart extends ChartBase
         // as they might be using the same axes as the chart's
         if (_axisDirty == true)
         {
-        	var n:int = series.length;
+            var n:int = series.length;
             for (var i:int = 0; i < n; i++)
             {
                 series[i].invalidateProperties();
@@ -362,7 +362,7 @@ public class PolarChart extends ChartBase
         axisLayoutDirty = false;
         advanceEffectState();
     }
-	
+    
     /**
      *  @inheritDoc 
      *  
@@ -569,7 +569,7 @@ public class PolarChart extends ChartBase
         var m:int;
         for (var i:int = 0; i < n; i++)
         {
-        	m = _transforms[i].elements.length;
+            m = _transforms[i].elements.length;
             for (var j:int = 0; j < m; j++)
             {
                 if (_transforms[i].elements[j] is Series && getSeriesTransformState(_transforms[i].elements[j]) == true)
