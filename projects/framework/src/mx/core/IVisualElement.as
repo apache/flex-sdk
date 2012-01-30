@@ -70,7 +70,6 @@ public interface IVisualElement extends ILayoutElement
     function get parent():DisplayObjectContainer;
     
 	/**
-	 * Documentation is not currently available.
      *  Determines the order in which items inside of groups and datagroups 
      *  are rendered. Groups and DataGroups order their items based on their 
      *  layer property, with the lowest layer in the back, and the higher in 
