@@ -76,9 +76,12 @@ use namespace mx_internal;
  */
 [Event(name="removing", type="mx.events.FlexEvent")]
 
-
 /**
- *  
+ *  The View class is the base container class for all Views used by view
+ *  navigators.  The View container extends <code>Group</code> and adds
+ *  additional properties that are used to communicate with it's parent
+ *  navigators' various ui controls.
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
@@ -103,10 +106,6 @@ public class View extends Group implements IDataRenderer
     public function View()
     {
         super();
-        
-        // By default, a view should extend the entire bounds of its parent
-        percentWidth = 100;
-        percentHeight = 100;
     }
     
     //--------------------------------------------------------------------------
@@ -122,11 +121,10 @@ public class View extends Group implements IDataRenderer
     private var _active:Boolean = false;
     
     /**
-     *  Flag indicating whether the current screen is active.  The
-     *  view's navigator will automatically set this flag to true
-     *  or false as its state changes.  This getter will dispatch
-     *  <code>FlexEvent.VIEW_ACTIVATE</code> and <code>FlexEvent.VIEW_DEACTIVATE</code>
-     *  as the value changes.
+     *  Flag indicating whether the current screen is active.  The view's navigator will 
+     *  automatically set this flag to true or false as its state changes.  This getter 
+     *  will dispatch <code>FlexEvent.VIEW_ACTIVATE</code> and 
+     *  <code>FlexEvent.VIEW_DEACTIVATE</code> as the value changes.
      *  
      *  @default false
      * 
@@ -160,22 +158,18 @@ public class View extends Group implements IDataRenderer
     //----------------------------------
     
     /**
-     *  @private
+     *  Determines if the current view can be removed by a navigator.  The default 
+     *  implementation dispatches a <code>FlexEvent.REMOVING</code> event.  If
+     *  preventDefault() is called on the event, this property will return false.
      * 
-     *  Determines if the current view can be removed by
-     *  a navigator.  The default implementation dispatches
-     *  a <code>FlexEvent.REMOVING</code> event.  If
-     *  preventDefault() is called on the event, this property
-     *  will be set to false.
-     * 
-     *  @return Returns true if the screen can be removed
+     *  @return Returns true if the view can be removed
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
-    mx_internal function get canRemove():Boolean
+    public function canRemove():Boolean
     {
         if (hasEventListener(FlexEvent.REMOVING))
         {
@@ -219,17 +213,18 @@ public class View extends Group implements IDataRenderer
         {
             _overlayControls = value;
             
-            if (navigator)
-                navigator.overlayControls = _overlayControls;
+            var changeEvent:PropertyChangeEvent = 
+                PropertyChangeEvent.createUpdateEvent(this, "overlayControls", _overlayControls, value);
+            
+            if (hasEventListener(changeEvent.type))
+                dispatchEvent(changeEvent);
         }
     }
     
     //----------------------------------
     //  desctructionPolicy
     //----------------------------------
-    
-    private var _destructionPolicy:String = "auto";
-    
+    [Inspectable(category="General", enumeration="auto,none", defaultValue="auto")]
     /**
      *  Defines the destruction policy the view's navigator should use
      *  when this view is removed. If set to "auto", the navigator will
@@ -243,24 +238,11 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get destructionPolicy():String
-    {
-        return _destructionPolicy;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set destructionPolicy(value:String):void
-    {
-        _destructionPolicy = value; 
-    }
+    public var destructionPolicy:String = "auto";
     
     //----------------------------------
     //  navigator
     //----------------------------------
-    
-    private var _navigator:ViewNavigator;
     
     [Bindable]
     /**
@@ -271,22 +253,11 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get navigator():ViewNavigator
-    {
-        return _navigator;
-    }
-    
-    public function set navigator(value:ViewNavigator):void
-    {
-        if (_navigator != value)
-            _navigator = value;
-    }
+    public var navigator:ViewNavigator;
     
     //----------------------------------
     //  returnedObject
     //----------------------------------
-    
-    private var _returnedObject:Object;
     
     /**
      *  An object that was returned by the previous view when
@@ -299,25 +270,53 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    [Bindable]
-    public function get returnedObject():Object
-    {
-        return _returnedObject;
-    }
-    
-    /**
-     *  @private
-     */ 
-    public function set returnedObject(value:Object):void
-    {
-        _returnedObject = value;
-    }
+    public var returnedObject:Object;
     
     //--------------------------------------------------------------------------
     //
     //  UI Template Properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  actionBarVisible
+    //----------------------------------
+    private var _actionBarVisible:Boolean = true;
+    
+    /**
+     *  Flag indicating whether a view should show the action bar or not.
+     *  This doesn't necessarily correlate to the visible property of the
+     *  navigator's ActionBar.  In the end, ViewNavigator and the developer
+     *  have the last say as to what's visible.
+     *
+     *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get actionBarVisible():Boolean
+    {
+        return _actionBarVisible;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set actionBarVisible(value:Boolean):void
+    {
+        _actionBarVisible = value;
+        
+        // Immediately request actionBar's visibility be toggled
+        if (active && navigator)
+        {
+            if (_actionBarVisible)
+                navigator.showActionBar();
+            else
+                navigator.hideActionBar();
+        }
+    }
     
     //----------------------------------
     //  actionContent
@@ -346,11 +345,16 @@ public class View extends Group implements IDataRenderer
      */
     public function set actionContent(value:Array):void
     {
-        var changeEvent:PropertyChangeEvent = 
-            PropertyChangeEvent.createUpdateEvent(this, "actionContent", _actionContent, value);
-        
+        var oldValue:Array = _actionContent;
         _actionContent = value;
-        dispatchEvent(changeEvent);
+        
+        if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+        {
+            var changeEvent:PropertyChangeEvent = 
+                PropertyChangeEvent.createUpdateEvent(this, "actionContent", oldValue, _actionContent);
+        
+            dispatchEvent(changeEvent);
+        }
     }
     
     //----------------------------------
@@ -378,11 +382,16 @@ public class View extends Group implements IDataRenderer
      */
     public function set actionLayout(value:LayoutBase):void
     {
-        var changeEvent:PropertyChangeEvent = 
-            PropertyChangeEvent.createUpdateEvent(this, "actionLayout", _actionLayout, value);
-        
+        var oldValue:LayoutBase = value;
         _actionLayout = value;
-        dispatchEvent(changeEvent);
+        
+        if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+        {
+            var changeEvent:PropertyChangeEvent = 
+                PropertyChangeEvent.createUpdateEvent(this, "actionLayout", oldValue, _actionLayout);
+        
+            dispatchEvent(changeEvent);
+        }
     }
     
     //----------------------------------
@@ -412,16 +421,23 @@ public class View extends Group implements IDataRenderer
      */
     public function set navigationContent(value:Array):void
     {
-        var changeEvent:PropertyChangeEvent = 
-            PropertyChangeEvent.createUpdateEvent(this, "navigationContent", _navigationContent, value);
-        
+        var oldValue:Array = _navigationContent;
         _navigationContent = value;
-        dispatchEvent(changeEvent);
+        
+        if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+        {
+            var changeEvent:PropertyChangeEvent = 
+                PropertyChangeEvent.createUpdateEvent(this, "navigationContent", oldValue, _navigationContent);
+        
+            dispatchEvent(changeEvent);
+        }
     }
     
     //----------------------------------
     //  navigationLayout
     //----------------------------------
+    
+    private var _navigationLayout:LayoutBase;
     
     /**
      *  Layout for the ActionBar navigation content group.
@@ -433,8 +449,6 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private var _navigationLayout:LayoutBase;
-    
     public function get navigationLayout():LayoutBase
     {
         return _navigationLayout;
@@ -444,52 +458,19 @@ public class View extends Group implements IDataRenderer
      */
     public function set navigationLayout(value:LayoutBase):void
     {
-        var changeEvent:PropertyChangeEvent = 
-            PropertyChangeEvent.createUpdateEvent(this, "navigationLayout", _navigationLayout, value);
-        
+        var oldValue:LayoutBase = _navigationLayout;
         _navigationLayout = value;
-        dispatchEvent(changeEvent);
+        
+        if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+        {
+            var changeEvent:PropertyChangeEvent = 
+                PropertyChangeEvent.createUpdateEvent(this, "navigationLayout", _navigationLayout, value);
+        
+            dispatchEvent(changeEvent);
+        }
     }
 	
-	//----------------------------------
-	//  actionBarVisible
-	//----------------------------------
-	private var _actionBarVisible:Boolean = true;
-	
-	/**
-	 *  Flag indicating whether a view should show the action bar or not.
-	 *  This doesn't necessarily correlate to the visible property of the
-	 *  navigator's ActionBar.  In the end, ViewNavigator and the developer
-	 *  have the last say as to what's visible.
-	 *
-	 *  @default true
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-	 */
-	public function get actionBarVisible():Boolean
-	{
-		return _actionBarVisible;
-	}
-    
-    /**
-     *  @private
-     */ 
-	public function set actionBarVisible(value:Boolean):void
-	{
-        _actionBarVisible = value;
-		
-		// Immediately request actionBar's visibility be toggled
-		if (active && navigator)
-		{
-			if (_actionBarVisible)
-				navigator.showActionBar();
-			else
-				navigator.hideActionBar();
-		}
-	}
+
     
 	//----------------------------------
 	//  tabBarVisible
@@ -519,15 +500,19 @@ public class View extends Group implements IDataRenderer
      */
 	public function set tabBarVisible(value:Boolean):void
 	{
+        var oldValue:Boolean = _tabBarVisible;
 		_tabBarVisible = value;
 		
 		// Immediately request actionBar's visibility be toggled
 		if (active && navigator)
 		{
-			if (_tabBarVisible)
-				navigator.showTabBar();
-			else
-				navigator.hideTabBar();
+            if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+            {
+                var changeEvent:PropertyChangeEvent = 
+                    PropertyChangeEvent.createUpdateEvent(this, "tabBarVisible", oldValue, value);
+                
+                dispatchEvent(changeEvent);
+            }
 		}
 	}
 	
@@ -550,7 +535,6 @@ public class View extends Group implements IDataRenderer
     {
         return _title;
     }
-    
     /**
      *  @private
      */ 
@@ -558,11 +542,16 @@ public class View extends Group implements IDataRenderer
     {
         if (_title != value)
         {
-            var changeEvent:PropertyChangeEvent = 
-                PropertyChangeEvent.createUpdateEvent(this, "title", _title, value);
-            
+            var oldValue:String = _title;            
             _title = value;
-            dispatchEvent(changeEvent);
+            
+            if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+            {
+                var changeEvent:PropertyChangeEvent = 
+                    PropertyChangeEvent.createUpdateEvent(this, "title", oldValue, _title);
+            
+                dispatchEvent(changeEvent);
+            }
         }
     }
     
@@ -593,11 +582,16 @@ public class View extends Group implements IDataRenderer
      */
     public function set titleContent(value:Array):void
     {
-        var changeEvent:PropertyChangeEvent = 
-            PropertyChangeEvent.createUpdateEvent(this, "titleContent", _titleContent, value);
-        
+        var oldValue:Array = _titleContent;
         _titleContent = value;
-        dispatchEvent(changeEvent);
+        
+        if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+        {
+            var changeEvent:PropertyChangeEvent = 
+                PropertyChangeEvent.createUpdateEvent(this, "titleContent", oldValue, _titleContent);
+            
+            dispatchEvent(changeEvent);
+        }
     }
     
     //----------------------------------
@@ -625,11 +619,16 @@ public class View extends Group implements IDataRenderer
      */
     public function set titleLayout(value:LayoutBase):void
     {
-        var changeEvent:PropertyChangeEvent = 
-            PropertyChangeEvent.createUpdateEvent(this, "titleLayout", _titleLayout, value);
-        
+        var oldValue:LayoutBase = _titleLayout;
         _titleLayout = value;
-        dispatchEvent(changeEvent);
+        
+        if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+        {
+            var changeEvent:PropertyChangeEvent = 
+                PropertyChangeEvent.createUpdateEvent(this, "titleLayout", oldValue, _titleLayout);
+            
+            dispatchEvent(changeEvent);
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -724,25 +723,33 @@ public class View extends Group implements IDataRenderer
     //--------------------------------------------------------------------------
 
     /**
+     *  Responsible for serializes the view's data object when the view is being
+     *  persisted to disk.  The created object should be something that can
+     *  be successfully written to a shared object.  By default, this will return 
+     *  the data object of the view.
+     * 
+     *  @return The serialized data object.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function getPersistenceData():Object
+    public function serializeData():Object
     {
         return data;    
     }
     
     /**
+     *  Deserializes a data object that was saved to disk by the view.  The
+     *  returned object will be the value assigned to the view's data object.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function deserializePersistenceData(value:Object):Object
+    public function deserializePersistedData(value:Object):Object
     {
         return value;
     }
