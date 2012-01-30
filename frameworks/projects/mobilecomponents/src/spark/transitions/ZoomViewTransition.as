@@ -330,8 +330,8 @@ public class ZoomViewTransition extends ViewTransitionBase
         cachedNavigatorGroup.includeInLayout = false;
 
         // On zoom out, place the cachedNavigator above the targetNavigator 
-		var index:int = getComponentChildIndex(targetNavigator, targetNavigator.parent as UIComponent);
-		if (mode == ZoomViewTransitionMode.OUT)
+        var index:int = getComponentChildIndex(targetNavigator, targetNavigator.parent as UIComponent);
+        if (mode == ZoomViewTransitionMode.OUT)
             index++;
         addComponentToContainerAt(cachedNavigatorGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent, index);
 
@@ -360,13 +360,12 @@ public class ZoomViewTransition extends ViewTransitionBase
             endViewProps = {visible:targetNavigator.skin.visible}
             targetNavigator.skin.visible = false;
         }
-        
+
         transitionGroup.validateNow();
-        transitionGroup.x = transitionGroup.y = 0;
 
         // Initialize our target's transform center.
-        transitionGroup.transformX = cachedNavigator.getLayoutBoundsWidth(true) / 2;
-        transitionGroup.transformY = cachedNavigator.getLayoutBoundsHeight(true) / 2;
+        transitionGroup.transformX = cachedNavigator.getLayoutBoundsWidth(true) / 2 + targetNavigator.getLayoutBoundsX(true);
+        transitionGroup.transformY = cachedNavigator.getLayoutBoundsHeight(true) / 2 + targetNavigator.getLayoutBoundsY(true);
         
         // Ensure our alpha is initialized to 0 prior to the start
         // of our transition so that the view isn't displayed briefly
