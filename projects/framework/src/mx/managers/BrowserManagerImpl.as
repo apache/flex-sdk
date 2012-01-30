@@ -16,9 +16,10 @@ import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.external.ExternalInterface;
-import mx.events.BrowserChangeEvent;
+import flash.net.navigateToURL;
+import flash.net.URLRequest;
 import mx.core.ApplicationGlobals;
-import mx.managers.SystemManagerGlobals;
+import mx.events.BrowserChangeEvent;
 
 /**
  *  Dispatched when the fragment property is changed either
@@ -81,6 +82,12 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
     private static var instance:IBrowserManager;
 
     private var _defaultFragment:String = "";
+    
+    private var _browserUserAgent:String;
+    
+    private var _browserPlatform:String;
+    
+    private var _isFirefoxMac:Boolean;
     
     //--------------------------------------------------------------------------
     //
@@ -283,7 +290,7 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
 
         _defaultFragment = defaultFragment;
         _url = ExternalInterface.call("BrowserHistory.getURL");
-    
+        
 		// probably no support in html wrapper
 		if (!_url)
 		{
@@ -291,6 +298,15 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
 			return;
 		}
 
+        _browserUserAgent = ExternalInterface.call("BrowserHistory.getUserAgent");
+        _browserPlatform = ExternalInterface.call("BrowserHistory.getPlatform");
+        
+        // Unlike browser.js we specifically test for the Firefox browser (vs. other
+        // Gecko or Mozilla derivatives), as the bug fix included in this file that
+        // leverages this flag is very specific to Firefox/Mac.
+        _isFirefoxMac = (_browserUserAgent && _browserPlatform && 
+            _browserUserAgent.indexOf("Firefox") > -1 && _browserPlatform.indexOf("Mac") > -1);
+        
         var pos:int = _url.indexOf('#');
         if (pos == -1 || pos == _url.length - 1)
         {
@@ -345,7 +361,19 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
         
         if (dispatchEvent(new BrowserChangeEvent(BrowserChangeEvent.APPLICATION_URL_CHANGE, false, true, _url, lastURL)))
         {
-            ExternalInterface.call("BrowserHistory.setBrowserURL", value, ExternalInterface.objectID);
+            if (!_isFirefoxMac)
+            {
+                ExternalInterface.call("BrowserHistory.setBrowserURL", value, ExternalInterface.objectID);
+            }
+            else
+            {
+                // We need to avoid updating our browser URL with ExternalInterface, when we are 
+                // running within Firefox/Mac.  Player rendering bug logged 2276859. 
+                var urlReq:URLRequest = new URLRequest("javascript:BrowserHistory.setBrowserURL('" + 
+                    value + "','" + ExternalInterface.objectID + "');");
+                navigateToURL( urlReq , "_self" );
+            }
+            
             dispatchEvent(new BrowserChangeEvent(BrowserChangeEvent.URL_CHANGE, false, false, _url, lastURL));
         }
         else
