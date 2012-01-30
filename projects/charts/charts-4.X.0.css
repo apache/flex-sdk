@@ -82,6 +82,25 @@ LegendItem
 
 /*
 //-------------------------------
+//  Legend
+//-------------------------------
+*/
+
+Legend
+{
+	borderStyle: "none";
+	horizontalGap: 20;
+	maintainAspectRatio: true;
+	paddingBottom: 5;
+	paddingLeft: 5;
+	paddingRight: 5;
+	paddingTop: 5;
+	verticalGap: 7;
+}
+
+
+/*
+//-------------------------------
 //  DataTip
 //-------------------------------
 */
