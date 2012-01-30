@@ -350,7 +350,7 @@ public class CSSStyleDeclaration extends EventDispatcher
             }
             else if (selector.kind == CSSSelectorKind.CONDITIONAL_SELECTOR)
             {
-                if (subject != "global")
+                if (subject != "*" && subject != "global")
                 {
                     return true;
                 }
