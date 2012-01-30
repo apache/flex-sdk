@@ -20,6 +20,11 @@ package mx.logging.errors
  *    <li><code>Log.getLogger()</code> if a category specified
  *    is malformed.</li>
  *  </ul>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class InvalidCategoryError extends Error
 {
@@ -35,6 +40,11 @@ public class InvalidCategoryError extends Error
 	 *  Constructor.
 	 *
 	 *  @param message The message that describes this error.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function InvalidCategoryError(message:String)
     {
@@ -52,6 +62,11 @@ public class InvalidCategoryError extends Error
 	 *  
 	 *  @return The message.
 	 *  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function toString():String
     {
