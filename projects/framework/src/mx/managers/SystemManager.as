@@ -249,7 +249,7 @@ public class SystemManager extends MovieClip
 	 *
 	 *  <p>This is the starting point for all Flex applications.
 	 *  This class is set to be the root class of a Flex SWF file.
-	 *  The Player instantiates an instance of this class,
+         *  Flash Player instantiates an instance of this class,
 	 *  causing this constructor to be called.</p>
 	 */
 	public function SystemManager()
@@ -481,6 +481,16 @@ public class SystemManager extends MovieClip
 	 */
 	private var lastFrame:int;
 
+    /** 
+     *  @private
+     *  Map a bridge to a FocusManager. 
+     *  This is only for Focus Managers that are
+     *  not the focus manager for document. Because the bridges are not in document
+     *  they are bridges inside of pop ups. 
+     *  The returned object is an object of type IFocusManager.
+     */
+     private var bridgeToFocusManager:Dictionary;
+      
 	//--------------------------------------------------------------------------
 	//
 	//  Overridden properties: DisplayObject
@@ -1504,12 +1514,12 @@ public class SystemManager extends MovieClip
 			}
 		}
 		
-		if (hasSWFBridges())
+                if (hasSWFBridges() || SystemManagerGlobals.topLevelSystemManagers.length > 1)
 		{
 			var actualType:String = EventUtil.sandboxMouseEventMap[type];
 			if (actualType)
 			{
-				if (getSandboxRoot() == this)
+                                if (getSandboxRoot() == this && eventProxy)
                     super.removeEventListener(actualType, eventProxy.marshalListener,
                             useCapture);
 				if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
@@ -2136,7 +2146,7 @@ public class SystemManager extends MovieClip
      *  A convenience method for determining whether to use the
 	 *  explicit or measured width.
 	 *
-     *  @return A Number which is the <code>explicitWidth</code> if defined,
+     *  @return A Number that is the <code>explicitWidth</code> if defined,
 	 *  or the <code>measuredWidth</code> property if not.
      */
     public function getExplicitOrMeasuredWidth():Number
@@ -2148,7 +2158,7 @@ public class SystemManager extends MovieClip
      *  A convenience method for determining whether to use the
 	 *  explicit or measured height.
 	 *
-     *  @return A Number which is the <code>explicitHeight</code> if defined,
+     *  @return A Number that is the <code>explicitHeight</code> if defined,
 	 *  or the <code>measuredHeight</code> property if not.
      */
     public function getExplicitOrMeasuredHeight():Number
@@ -2406,7 +2416,7 @@ public class SystemManager extends MovieClip
 				return forms[i];
 		}
 		
-		throw new Error();  // shouldn't get here		
+                return null;  // should never get here
 	}
 	
 	
@@ -2707,7 +2717,7 @@ public class SystemManager extends MovieClip
 	}
 	
 	/**
-	 *  Returns <code>true</code> if the given DisplayObject is the 
+         *  Determines if the given DisplayObject is the 
 	 *  top-level window.
 	 *
 	 *  @param object The DisplayObject to test.
@@ -3264,8 +3274,22 @@ public class SystemManager extends MovieClip
 
 		var w:Number;
 		var h:Number;
-		var m:Number = loaderInfo.width;
-		var n:Number = loaderInfo.height;
+                var m:Number;
+                var n:Number;
+                
+                try
+                {
+                    m = loaderInfo.width;
+                    n = loaderInfo.height;
+                }
+                catch (error:Error)
+                {
+                    // Error #2099: The loading object is not sufficiently loaded to provide this information.
+                    // We get this error because an old Event.RESIZE listener with a weak reference
+                    // is being called but the SWF has been unloaded. Just return;
+                    return; 
+                }
+                
         var align:String = StageAlign.TOP_LEFT;
 
         // If we don't have access to the stage, then use the size of 
@@ -3518,6 +3542,13 @@ public class SystemManager extends MovieClip
 	 */
 	private function beforeUnloadHandler(event:Event):void
 	{
+        if (topLevel && stage)
+        {
+            var sandboxRoot:DisplayObject = getSandboxRoot();
+            if (sandboxRoot != this)
+                sandboxRoot.removeEventListener(Event.RESIZE, Stage_resizeHandler);
+        }
+        
 		removeParentBridgeListeners();
 		dispatchEvent(event);
 	}
@@ -3867,7 +3898,7 @@ public class SystemManager extends MovieClip
         
         var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
             
-        if (!preProcessModalWindowRequest(request, this, getSandboxRoot()))
+        if (!preProcessModalWindowRequest(request, getSandboxRoot()))
             return;
                         
         // Ensure a PopUpManager exists and dispatch the request it is
@@ -3893,6 +3924,14 @@ public class SystemManager extends MovieClip
         var rect:Rectangle = Rectangle(request.data);
         var owner:DisplayObject = DisplayObject(swfBridgeGroup.getChildBridgeProvider(request.requestor));
         var localRect:Rectangle;
+        var forwardRequest:Boolean = true;
+        
+        // Check if the request in a pop up. If it is then don't 
+        // forward the request to our parent because we don't want
+        // to reduce the visible rect of the dialog base on the
+        // visible rect of applications in the main app. 
+        if (!DisplayObjectContainer(document).contains(owner))
+            forwardRequest = false;    
         
         if (owner is ISWFLoader)
             localRect = ISWFLoader(owner).getVisibleApplicationRect();
@@ -3908,7 +3947,7 @@ public class SystemManager extends MovieClip
         request.data = rect;
         
         // forward request 
-        if (useSWFBridge())
+        if (forwardRequest && useSWFBridge())
         { 
         var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
             request.requestor = bridge;
@@ -4292,7 +4331,7 @@ public class SystemManager extends MovieClip
 	}
 
 	/**
-	 * Create the requested manager
+         * Create the requested manager.
 	 */
 	private function initManagerHandler(event:Event):void
 	{
@@ -4317,7 +4356,13 @@ public class SystemManager extends MovieClip
 	}
 
 	/**
-	 *  Add child to requested childList
+         *  Adds a child to the requested childList.
+         *  
+         *  @param layer The child list that the child should be added to. The valid choices are 
+         *  "popUpChildren", "cursorChildren", and "toolTipChildren". The choices match the property 
+         *  names of ISystemManager and that is the list where the child is added.
+         *  
+         *  @param child The child to add.
 	 */
 	public function addChildToSandboxRoot(layer:String, child:DisplayObject):void
 	{
@@ -4337,7 +4382,13 @@ public class SystemManager extends MovieClip
 	}
 
 	/**
-	 *  Remove child from requested childList
+         *  Removes a child from the requested childList.
+         *  
+         *  @param layer The child list that the child should be removed from. The valid choices are 
+         *  "popUpChildren", "cursorChildren", and "toolTipChildren". The choices match the property 
+         *  names of ISystemManager and that is the list where the child is removed from.
+         *  
+         *  @param child The child to remove.
 	 */
 	public function removeChildFromSandboxRoot(layer:String, child:DisplayObject):void
 	{
@@ -4358,7 +4409,7 @@ public class SystemManager extends MovieClip
 
 
 	/**
-	 * perform the requested action from a trusted dispatcher
+         * Perform the requested action from a trusted dispatcher.
 	 */
 	private function systemManagerHandler(event:Event):void
 	{
@@ -4367,6 +4418,11 @@ public class SystemManager extends MovieClip
 			event["value"] = currentSandboxEvent == event["value"];
 			return;
 		}
+                else if (event["name"] == "hasSWFBridges")
+                {
+                        event["value"] = hasSWFBridges();
+                        return;
+                }
 
 		// if we are broadcasting messages, ignore the messages
 		// we send to ourselves.
@@ -4408,6 +4464,13 @@ public class SystemManager extends MovieClip
 	    case "getVisibleApplicationRect":
 	        event["value"] = getVisibleApplicationRect(); 
 			break;
+            case "bringToFront":
+            if (event["value"].topMost)
+                popUpChildren.setChildIndex(DisplayObject(event["value"].popUp), popUpChildren.numChildren - 1);
+            else
+                setChildIndex(DisplayObject(event["value"].popUp), numChildren - 1);
+            
+                break;
 		}
 	}
 	
@@ -4663,21 +4726,51 @@ public class SystemManager extends MovieClip
 	 */	
 	public function addChildBridge(bridge:IEventDispatcher, owner:DisplayObject):void
 	{
+            // Is the owner in a pop up? If so let the focus manager manage the
+            // bridge instead of the system manager.
+        var fm:IFocusManager = null;
+        var o:DisplayObject = owner;
+
+        while (o)
+        {
+            if (o is IFocusManagerContainer)
+            {
+                fm = IFocusManagerContainer(o).focusManager;
+                break;
+            }
+
+            o = o.parent;
+        }
+        
+        if (!fm)
+            return;
+            
 		if (!swfBridgeGroup)
 			swfBridgeGroup = new SWFBridgeGroup(this);
 
    		swfBridgeGroup.addChildBridge(bridge, ISWFBridgeProvider(owner));
+        fm.addSWFBridge(bridge, owner);
+        
+        if (!bridgeToFocusManager)
+            bridgeToFocusManager = new Dictionary();
+            
+        bridgeToFocusManager[bridge] = fm;
+
         addChildBridgeListeners(bridge);
-		IFocusManagerContainer(document).focusManager.addSWFBridge(bridge);
 	}
 
 	/**
 	 * Remove a child bridge.
+         *  
+         *  @param bridge The target bridge to remove.
 	 */
 	public function removeChildBridge(bridge:IEventDispatcher):void
 	{
-		IFocusManagerContainer(document).focusManager.removeSWFBridge(bridge);
+        var fm:IFocusManager = IFocusManager(bridgeToFocusManager[bridge]);
+        fm.removeSWFBridge(bridge);
    		swfBridgeGroup.removeChildBridge(bridge);
+
+        delete bridgeToFocusManager[bridge];
         removeChildBridgeListeners(bridge);
 	}
 
@@ -4732,10 +4825,12 @@ public class SystemManager extends MovieClip
 	}
 	
 	/**
-	 * Go up our parent chain to get the top level system manager.
+         *  Go up the parent chain to get the top level system manager.
 	 * 
-	 * returns null if we are not on the display list or we don't have
-	 * access to the top level system manager.
+         *  Returns <code>null</code> if not on the display list or we don't have
+         *  access to the top-level system manager.
+         *  
+         *  @return The root system manager.
 	 */
 	public function getTopLevelRoot():DisplayObject
 	{
@@ -4764,9 +4859,10 @@ public class SystemManager extends MovieClip
 	}
 
 	/**
-	 * Go up our parent chain to get the top level system manager in this 
-	 * SecurityDomain
+         *  Go up the parent chain to get the top level system manager in this 
+         *  SecurityDomain.
 	 * 
+         *  @return The root system manager in this SecurityDomain.
 	 */
 	public function getSandboxRoot():DisplayObject
 	{
@@ -5177,7 +5273,6 @@ public class SystemManager extends MovieClip
      *   no other action is required.
      */ 
     private function preProcessModalWindowRequest(request:SWFBridgeRequest, 
-                                                  sm:ISystemManager,
                                                   sbRoot:DisplayObject):Boolean
     {
         // should we process this message?
@@ -5187,9 +5282,9 @@ public class SystemManager extends MovieClip
             // but don't skip the next one.
             request.data.skip = false;
            
-            if (sm.useSWFBridge())
+            if (useSWFBridge())
             {
-                var bridge:IEventDispatcher = sm.swfBridgeGroup.parentBridge;
+                var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
                 request.requestor = bridge;
                 bridge.dispatchEvent(request);
             }
@@ -5197,26 +5292,31 @@ public class SystemManager extends MovieClip
         }
         
         // if we are not the sandbox root, dispatch the message to the sandbox root.
-        if (sm != sbRoot)
+        if (this != sbRoot)
         {
-            var forwardRequest:Boolean = false;
-
             // convert exclude component into a rectangle and forward to parent bridge.
             if (request.type == SWFBridgeRequest.CREATE_MODAL_WINDOW_REQUEST ||
                 request.type == SWFBridgeRequest.SHOW_MODAL_WINDOW_REQUEST)
             {
-                var exclude:ISWFLoader = sm.swfBridgeGroup.getChildBridgeProvider(request.requestor) 
+                var exclude:ISWFLoader = swfBridgeGroup.getChildBridgeProvider(request.requestor) 
                                                  as ISWFLoader;
+                
+                // find the rectangle of the area to exclude                                                 
+                if (exclude)
+                {                    
                 var excludeRect:Rectangle = ISWFLoader(exclude).getVisibleApplicationRect();
                 request.data.excludeRect = excludeRect;
-                forwardRequest = true;
+
+                    // If the area to exclude is not contain by our document then it is in a 
+                    // pop up. From this point for set the useExclude flag to false to 
+                    // tell our parent not to exclude use from their modal window, only
+                    // the excludeRect we have just calculated.
+                    if (!DisplayObjectContainer(document).contains(DisplayObject(exclude)))
+                        request.data.useExclude = false;  // keep the existing excludeRect
+                }
             }
-            else if (request.type == SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST)
-                forwardRequest = true;
                 
-            if (forwardRequest)
-            {
-                bridge = sm.swfBridgeGroup.parentBridge;
+            bridge = swfBridgeGroup.parentBridge;
                 request.requestor = bridge;
          
                 // The HIDE request does not need to be processed by each
@@ -5227,7 +5327,6 @@ public class SystemManager extends MovieClip
                     bridge.dispatchEvent(request);
                 return false;
             }
-        }
 
         // skip aftering sending the message over a bridge.
         request.data.skip = false;
