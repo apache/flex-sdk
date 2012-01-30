@@ -835,6 +835,19 @@ public class CSSStyleDeclaration extends EventDispatcher
 
     /**
      *  @private
+     * 
+     *  The order of nodes in the prototype chain:
+     * 
+     *  1. parent style default factories
+     *  2. this default factory
+     *  3. parent style factories
+     *  4. parent style overrides
+     *  5. this factory
+     *  6. this overrides
+     * 
+     *  Where a parent style is a style with the same selector as this
+     *  style but in a parent style manager. 
+     * 
      */
     mx_internal function addStyleToProtoChain(chain:Object,
                                          target:DisplayObject,
@@ -843,35 +856,123 @@ public class CSSStyleDeclaration extends EventDispatcher
         var nodeAddedToChain:Boolean = false;
         var originalChain:Object = chain;
         
-        if (filterMap)
-        {
-            chain = {};
-        }
-        
-        // Add parent style to proto chain.
-        // If a styleManger parent does not have a style for a given selector,
-        // then skip that parent and move up to the next parent.
+        // Get a list of  parent style declarations for this selector.
+        var parentStyleDeclarations:Vector.<CSSStyleDeclaration> = new Vector.<CSSStyleDeclaration>();
         var styleParent:IStyleManager2 = styleManager.parent;
         while (styleParent)
         {
             var parentStyle:CSSStyleDeclaration = styleParent.getStyleDeclaration(selectorString);
             if (parentStyle)
-            {
-                chain = parentStyle.addStyleToProtoChain(chain, target, filterMap);
-                break;
-            }
+                parentStyleDeclarations.unshift(parentStyle);
+
             styleParent = styleParent.parent;
         }
+
+        // #1. Add parent's default styles. Topmost parent is added to the chain first.
+        for each (var style:CSSStyleDeclaration in parentStyleDeclarations)
+        {
+            // If there's a defaultFactory for this style sheet,
+            // then add the object it produces to the chain.
+            if (style.defaultFactory != null)
+                chain = style.addDefaultStyleToProtoChain(chain, target, filterMap);
+        }
         
+        // #2. Add this style's defaultFactory to the proto chain.
+        if (defaultFactory != null)
+            chain = addDefaultStyleToProtoChain(chain, target, filterMap);
+
+        // #3 and #4. Add parent's factory styles and overrides.
+        var addedParentStyleToProtoChain:Boolean = false;
+        for each (style in parentStyleDeclarations)
+        {
+            if (style.factory != null || style.overrides != null)
+            {
+                chain = style.addFactoryAndOverrideStylesToProtoChain(chain, target, filterMap);
+                addedParentStyleToProtoChain = true;
+            }
+        }
+        
+        // #5 and #6. Add this factory style and overrides.
+        var inChain:Object = chain;
+        if (factory != null || overrides != null)
+        {
+            chain = addFactoryAndOverrideStylesToProtoChain(chain, target, filterMap);
+            if (inChain != chain)
+                nodeAddedToChain = true;
+        }
+        
+        // Here we check if we need to add an empty node to the chain for clone
+        // purposes. If there are parent nodes between this defaultFactory and 
+        // this factory, then we can't use the defaultFactory node as the clone 
+        // since overrides could get blocked by parent styles.
+        // First we check if we have a defaultFactory and we didn't add a factory
+        // or override node to the chain. If we have a factory or override node
+        // then we will just use that.
+        if (defaultFactory != null && !nodeAddedToChain)
+        {
+            // Now we know we have a default factory node and no factory or override
+            // nodes. We can use the default factory as a clone on the chain if there
+            // are no parent styles below it on the proto chain.
+            // Otherwise create an empty node so overrides and be added later.
+            if (addedParentStyleToProtoChain)
+            {
+                // There are parent styles so create an empty node.
+                var emptyObjectFactory:Function = function():void
+                {
+                };
+                emptyObjectFactory.prototype = chain;
+                chain = new emptyObjectFactory();
+            }
+            
+            nodeAddedToChain = true;
+        }
+        
+        if (nodeAddedToChain)
+            clones[chain] = 1;
+
+        return chain;
+    }
+
+    /**
+     *  @private
+     */
+    mx_internal function addDefaultStyleToProtoChain(chain:Object,
+                                            target:DisplayObject,
+                                            filterMap:Object = null):Object
+    {
         // If there's a defaultFactory for this style sheet,
         // then add the object it produces to the chain.
         if (defaultFactory != null)
         {
+            var originalChain:Object = chain;
+            if (filterMap)
+            {
+                chain = {};
+            }
+            
             defaultFactory.prototype = chain;
             chain = new defaultFactory();
-            nodeAddedToChain = true;
-        }
 
+            if (filterMap)
+                chain = applyFilter(originalChain, chain, filterMap);
+        }
+        
+        return chain;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function addFactoryAndOverrideStylesToProtoChain(chain:Object,
+                                                target:DisplayObject,
+                                                filterMap:Object = null):Object
+    {
+        var originalChain:Object = chain;
+        if (filterMap)
+        {
+            chain = {};
+        }
+        
         // If there's a factory for this style sheet,
         // then add the object it produces to the chain.
         var objectFactory:Object = null;
@@ -880,7 +981,6 @@ public class CSSStyleDeclaration extends EventDispatcher
             objectFactory = new factory();
             factory.prototype = chain;
             chain = new factory();
-            nodeAddedToChain = true;
         }
         
         // If someone has called setStyle() on this CSSStyleDeclaration,
@@ -891,16 +991,15 @@ public class CSSStyleDeclaration extends EventDispatcher
             // Before we add our overrides to the object at the head of
             // the chain, make sure that we added an object at the head
             // of the chain.
-            if (defaultFactory == null && factory == null)
+            if (factory == null)
             {
                 var emptyObjectFactory:Function = function():void
                 {
                 };
                 emptyObjectFactory.prototype = chain;
                 chain = new emptyObjectFactory();
-                nodeAddedToChain = true;
             }
-
+            
             for (var p:String in overrides)
             {
                 if (overrides[p] === undefined)
@@ -912,40 +1011,46 @@ public class CSSStyleDeclaration extends EventDispatcher
 
         if (filterMap)
         {
-            if (nodeAddedToChain)
-            {
-            
-                var filteredChain:Object = {};
-                // Create an object on the head of the chain using the original chain       
-                var filterObjectFactory:Function = function():void
-                {
-                };
-                filterObjectFactory.prototype = originalChain;
-                filteredChain = new filterObjectFactory();
-                
-                for (var i:String in chain)
-                {
-                    if (filterMap[i] != null)
-                    {
-                        filteredChain[filterMap[i]] = chain[i];
-                    }
-                } 
-                
-                chain = filteredChain;
-                chain[FILTERMAP_PROP] = filterMap;
-            }
+            if (factory != null || overrides)
+                chain = applyFilter(originalChain, chain, filterMap);
             else
-            {
                 chain = originalChain;
-            }
         }
-
-        if (nodeAddedToChain)
-            clones[chain] = 1;
-
+        
+        if (factory != null || overrides)
+            clones[chain] = 1;    
+        
         return chain;
     }
 
+    
+    /**
+     *  @private
+     */
+    mx_internal function applyFilter(originalChain:Object, chain:Object, filterMap:Object):Object
+    {
+        var filteredChain:Object = {};
+        // Create an object on the head of the chain using the original chain       
+        var filterObjectFactory:Function = function():void
+        {
+        };
+        filterObjectFactory.prototype = originalChain;
+        filteredChain = new filterObjectFactory();
+        
+        for (var i:String in chain)
+        {
+            if (filterMap[i] != null)
+            {
+                filteredChain[filterMap[i]] = chain[i];
+            }
+        } 
+        
+        chain = filteredChain;
+        chain[FILTERMAP_PROP] = filterMap;
+
+        return chain;
+    }
+    
     /**
      *  @private
      */
