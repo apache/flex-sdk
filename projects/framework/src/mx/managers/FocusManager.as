@@ -1643,7 +1643,22 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     {
         var i:int;
         var o:DisplayObject = DisplayObject(event.target);
+        var focusPaneParent:DisplayObject = focusPane ? focusPane.parent : null;
 
+        // Remove the focusPane to allow the focusOwner to be garbage collected.
+        // Avoid recursion by not processing the removal of the focusPane itself.        
+        if (focusPaneParent && o != focusPane)
+        {
+            if (o is DisplayObjectContainer && 
+                isParent(DisplayObjectContainer(o), focusPane))
+            {
+                if (focusPaneParent is ISystemManager)
+                    ISystemManager(focusPaneParent).focusPane = null;
+                else
+                    IUIComponent(focusPaneParent).focusPane = null;
+            }
+        }
+            
         // trace("FM got added for " + event.target);
 
         if (o is IFocusManagerComponent)
