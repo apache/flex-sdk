@@ -15,7 +15,6 @@ package mx.managers.systemClasses
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
-import flash.events.Event;
 import flash.events.IEventDispatcher;
 
 import mx.core.IFlexDisplayObject;
@@ -30,6 +29,7 @@ import mx.managers.ISystemManager;
 import mx.managers.ISystemManagerChildManager;
 import mx.managers.SystemManager;
 import mx.messaging.config.LoaderConfig;
+import mx.preloaders.Preloader;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 
@@ -59,11 +59,11 @@ public class ChildManager implements ISystemManagerChildManager
 	{
 		super();
 
-		if (systemManager is SystemManager)
+		if (systemManager is ISystemManager)
 		{
-			SystemManager(systemManager).childManager = this;
-			this.systemManager = SystemManager(systemManager);
-			this.systemManager.registerImplementation("mx.managers::ISystemManagerChildManager", this);
+            systemManager["childManager"] = this;
+            this.systemManager = ISystemManager(systemManager);
+            this.systemManager.registerImplementation("mx.managers::ISystemManagerChildManager", this);
 		}
 	}
 
@@ -76,7 +76,7 @@ public class ChildManager implements ISystemManagerChildManager
 	/**
 	 *  @private
 	 */
-	private var systemManager:SystemManager;
+	private var systemManager:ISystemManager;
 
 
 	//--------------------------------------------------------------------------
@@ -94,12 +94,12 @@ public class ChildManager implements ISystemManagerChildManager
 		
 		// non-top level system managers may not be able to reference their parent if
 		// they are a proxy for popups.
-		if (!systemManager.topLevel && systemManager.parent)
+		if (!topLevel && DisplayObject(systemManager).parent)
 		{
 			// non-topLevel SystemManagers are buried by Flash.display.Loader and
 			// other non-framework layers so we have to figure out the nestlevel
 			// by searching up the parent chain.
-			var obj:DisplayObjectContainer = systemManager.parent.parent;
+			var obj:DisplayObjectContainer = DisplayObject(systemManager).parent.parent;
 			while (obj)
 			{
 				if (obj is ILayoutManagerClient)
@@ -110,7 +110,7 @@ public class ChildManager implements ISystemManagerChildManager
 				obj = obj.parent;
 			}
 		}
-		systemManager.nestLevel = newNestLevel;
+		nestLevel = newNestLevel;
 
 		if (child is IUIComponent)
 			IUIComponent(child).systemManager = systemManager;
@@ -130,14 +130,14 @@ public class ChildManager implements ISystemManagerChildManager
 		// The nestLevel setter will recursively set it on any
 		// descendants of the child that exist.
 		if (child is ILayoutManagerClient)
-        	ILayoutManagerClient(child).nestLevel = systemManager.nestLevel + 1;
+        	ILayoutManagerClient(child).nestLevel = nestLevel + 1;
 
 		if (child is InteractiveObject)
-			if (systemManager.doubleClickEnabled)
+			if (InteractiveObject(systemManager).doubleClickEnabled)
 				InteractiveObject(child).doubleClickEnabled = true;
 
 		if (child is IUIComponent)
-			IUIComponent(child).parentChanged(systemManager);
+			IUIComponent(child).parentChanged(DisplayObjectContainer(systemManager));
 
 		// Sets up the inheritingStyles and nonInheritingStyles objects
 		// and their proto chains so that getStyle() works.
@@ -217,7 +217,7 @@ public class ChildManager implements ISystemManagerChildManager
 			if (child)
 				child.regenerateStyleCache(recursive);
 
-			if (systemManager.isTopLevelWindow(DisplayObject(child)))
+			if (isTopLevelWindow(DisplayObject(child)))
 				foundTopLevelWindow = true;
 
 			// Refetch numChildren because notifyStyleChangedInChildren()
@@ -229,8 +229,8 @@ public class ChildManager implements ISystemManagerChildManager
 		// to the child list until late into the startup sequence.
 		// Make sure we call regenerateStyleCache()
 		// on the top level window even if it isn't a child yet.
-		if (!foundTopLevelWindow && systemManager.topLevelWindow is IStyleClient)
-			IStyleClient(systemManager.topLevelWindow).regenerateStyleCache(recursive);
+		if (!foundTopLevelWindow && topLevelWindow is IStyleClient)
+			IStyleClient(topLevelWindow).regenerateStyleCache(recursive);
 	}
 
 	/**
@@ -257,7 +257,7 @@ public class ChildManager implements ISystemManagerChildManager
 				child.notifyStyleChangeInChildren(styleProp, recursive);
 			}
 
-			if (systemManager.isTopLevelWindow(DisplayObject(child)))
+			if (isTopLevelWindow(DisplayObject(child)))
 				foundTopLevelWindow = true;
 
 			// Refetch numChildren because notifyStyleChangedInChildren()
@@ -269,10 +269,10 @@ public class ChildManager implements ISystemManagerChildManager
 		// to the child list until late into the startup sequence.
 		// Make sure we call notifyStyleChangeInChildren()
 		// on the top level window even if it isn't a child yet.
-		if (!foundTopLevelWindow && systemManager.topLevelWindow is IStyleClient)
+		if (!foundTopLevelWindow && topLevelWindow is IStyleClient)
 		{
-			IStyleClient(systemManager.topLevelWindow).styleChanged(styleProp);
-			IStyleClient(systemManager.topLevelWindow).notifyStyleChangeInChildren(
+			IStyleClient(topLevelWindow).styleChanged(styleProp);
+			IStyleClient(topLevelWindow).notifyStyleChangeInChildren(
 				styleProp, recursive);
 		}
 	}
@@ -286,8 +286,8 @@ public class ChildManager implements ISystemManagerChildManager
 	{
 		var app:IUIComponent;
 		// Create a new instance of the toplevel class
-        systemManager.document = app = systemManager.topLevelWindow = IUIComponent(systemManager.create());
-
+        systemManager.document = app = topLevelWindow = IUIComponent(systemManager.create());
+             
 		if (systemManager.document)
 		{
 			// Add listener for the creationComplete event
@@ -312,8 +312,8 @@ public class ChildManager implements ISystemManagerChildManager
 			// Pass the application instance to the preloader.
 			// Note: preloader can be null when the user chooses
 			// Control > Play in the standalone player.
-			if (systemManager.preloader)
-				systemManager.preloader.registerApplication(app);
+			if (preloader)
+				preloader.registerApplication(app);
 						
 			// The Application doesn't get added to the SystemManager in the standard way.
 			// We want to recursively create the entire application subtree and process
@@ -336,9 +336,9 @@ public class ChildManager implements ISystemManagerChildManager
 	 */
 	private function appCreationCompleteHandler(event:FlexEvent):void
 	{
-		if (!systemManager.topLevel && systemManager.parent)
+		if (!topLevel && DisplayObject(systemManager).parent)
 		{
-			var obj:DisplayObjectContainer = systemManager.parent.parent;
+			var obj:DisplayObjectContainer = DisplayObject(systemManager).parent.parent;
 			while (obj)
 			{
 				if (obj is IInvalidating)
@@ -352,6 +352,60 @@ public class ChildManager implements ISystemManagerChildManager
 		}
  	}
 
+    //--------------------------------------------------------------------------
+    //
+    //  Methods to implement SystemManager methods
+    //
+    //  systemManager may be a SystemManager or WindowedSystemManager
+    //  so we use the array access operertor to get at the methods/properties.  
+    //  
+    //--------------------------------------------------------------------------
+
+    private function isTopLevelWindow(object:DisplayObject):Boolean
+    {
+        return systemManager["isTopLevelWindow"](object);
+    }    
+    
+
+    private function get topLevel():Boolean
+    {
+        return systemManager["topLevel"];
+    }    
+    
+    private function set topLevel(topLevel:Boolean):void
+    {
+        systemManager["topLevel"] = topLevel;
+    }    
+
+    private function get topLevelWindow():IUIComponent
+    {
+        return systemManager["topLevelWindow"]; 	
+    }
+    
+    private function set topLevelWindow(window:IUIComponent):void
+    {
+        systemManager["topLevelWindow"] = window;     
+    }
+
+    private function get nestLevel():int
+    {
+        return systemManager["nestLevel"];     
+    }   
+    
+    private function set nestLevel(level:int):void
+    {
+        systemManager["nestLevel"] = level;     
+    }
+
+    private function get preloader():Preloader
+    {
+        return systemManager["preloader"];     
+    }   
+    
+    private function set preloader(preloader:Preloader):void
+    {
+        systemManager["preloader"] = preloader;     
+    } 
 }
 
 }
