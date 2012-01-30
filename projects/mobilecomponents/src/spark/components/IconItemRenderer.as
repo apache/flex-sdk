@@ -18,7 +18,6 @@ import flash.text.TextField;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
-import flash.text.TextLineMetrics;
 
 import mx.controls.listClasses.*;
 import mx.core.IDataRenderer;
@@ -96,7 +95,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  @private
      *  Static icon image cache.  This is the default for iconContentLoader.
      */
-    static private var _imageCache:ContentCache;
+    static mx_internal var _imageCache:ContentCache;
     
     //--------------------------------------------------------------------------
     //
@@ -1147,7 +1146,9 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      */
     override protected function measure():void
     {
-        super.measure();
+        // don't call super.measure() because there's no need to do the work that's
+        // in there--we do it all in here.
+        //super.measure();
         
         // start them at 0, then go through icon, label, and decorator
         // and add to these
@@ -1169,27 +1170,32 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         }
         
         // Text is aligned next to icon
-        var labelLineMetrics:TextLineMetrics;
         var labelWidth:Number = 0;
         var labelHeight:Number = 0;
-        var messageLineMetrics:TextLineMetrics;
         var messageWidth:Number = 0;
         var messageHeight:Number = 0;
         
         if (labelDisplay)
         {
-            labelLineMetrics = measureText(labelText);
+            // reset text if it was truncated before.
+            if (labelDisplay.isTruncated)
+                labelDisplay.text = labelText;
             
-            labelWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
-            labelHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            // commit styles to get an accurate measurement
+            labelDisplay.commitStyles();
+            
+            labelWidth = labelDisplay.textWidth + UITextField.TEXT_WIDTH_PADDING;
+            labelHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
         }
             
         if (messageDisplay)
         {
-            messageLineMetrics = measureMessageText(messageText);
+            // commit styles to get an accurate measurement
+            // FIXME (rfrishbe): should take in to account constrainedWidth here
+            messageDisplay.commitStyles();
             
-            messageWidth = messageLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
-            messageHeight = messageLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            messageWidth = messageDisplay.textWidth + UITextField.TEXT_WIDTH_PADDING;
+            messageHeight = messageDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
         }
 
         var verticalGap:Number = (labelDisplay && messageDisplay) ? getStyle("verticalGap") : 0;
@@ -1325,20 +1331,22 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         
         // calculte the natural height for the label
         var labelTextHeight:Number = 0;
-        var labelLineMetrics:TextLineMetrics;
         
-        if (labelDisplay && labelDisplay.text != "")
+        if (labelDisplay && labelText != "")
         {
+            // reset text if it was truncated before.
+            if (labelDisplay.isTruncated)
+                labelDisplay.text = labelText;
+            
+            // commit styles to get an accurate measurement
             labelDisplay.commitStyles();
-            labelLineMetrics = measureText(labelText);
-            labelTextHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            labelTextHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
         }
         
-        if (messageDisplay && messageDisplay.text != "")
+        if (messageDisplay && messageText != "")
         {
+            // commit styles to get an accurate measurement
             messageDisplay.commitStyles();
-            // no need to measure the text width and height since the measure function only 
-            // take in to account the first line.
         }
         
         // now size and position the elements, 3 different configurations we care about:
@@ -1373,9 +1381,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             labelDisplay.x = Math.round(labelComponentsX);
             labelDisplay.y = Math.round(paddingTop);
             
-            // reset text if it was truncated before.  then attempt to truncate it
-            if (labelDisplay.isTruncated)
-                labelDisplay.text = labelText;
+            // attempt to truncate text
             labelDisplay.truncateToFit();
         }
         
@@ -1387,6 +1393,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             messageHeight = Math.max(viewHeight - labelHeight - verticalGap, 0);
             
             messageDisplay.width = messageWidth;
+            // FIXME (rfrishbe): we should check to see if this causes textHeight to change because then we 
+            // might need to remeasure
             messageDisplay.height = messageHeight;
             
             // FIXME (rfrishbe): figure out if this is right with regards to multi-line text.
@@ -1461,81 +1469,6 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             styleValue = getStyle(styleProp);
         
         return styleValue;
-    }
-    
-    /**
-     *  @private 
-     *  Function to help figure out the sizes of the header and message.  We cannot use 
-     *  UIComponent.measureText() because we are adding a few additional styles 
-     *  to it based on headerStyleName and messageStyleName.
-     */
-    private function measureMessageText(text:String):TextLineMetrics
-    {
-        // Copied from UIComponent.measureText()
-        cachedMessageTextFormat = determineTextFormatWithGetStyleFunction(messageGetStyleFunction, cachedMessageTextFormat);
-        return cachedMessageTextFormat.measureText(text);
-    }
-    
-    /**
-     *  @private 
-     *  Function to help figure out the sizes of the header and message.  We cannot use 
-     *  UIComponent.measureText() because we are adding a few additional styles 
-     *  to it based on headerStyleName and messageStyleName.
-     */
-    private function determineTextFormatWithGetStyleFunction(getStyleFunction:Function, cachedTextFormat:UITextFormat):UITextFormat
-    {
-        // copied and adapted from UIComponent.determineTextFormatFromStyles
-        var textFormat:UITextFormat = cachedTextFormat;
-        
-        if (!textFormat)
-        {
-            var font:String =
-                StringUtil.trimArrayElements(getStyleFunction("fontFamily"), ",");
-            textFormat = new UITextFormat(getNonNullSystemManager(), font);
-            textFormat.moduleFactory = moduleFactory;
-            
-            // Not all flex4 textAlign values are valid so convert to a valid one.
-            var align:String = getStyleFunction("textAlign");
-            if (align == "start") 
-                align = TextFormatAlign.LEFT;
-            else if (align == "end")
-                align = TextFormatAlign.RIGHT;
-            textFormat.align = align; 
-            textFormat.bold = getStyleFunction("fontWeight") == "bold";
-            textFormat.color = enabled ?
-                getStyleFunction("color") :
-                getStyleFunction("disabledColor");
-            textFormat.font = font;
-            textFormat.indent = getStyleFunction("textIndex");
-            textFormat.italic = getStyleFunction("fontStyle") == "italic";
-            textFormat.kerning = getStyleFunction("kerning");
-            textFormat.leading = getStyleFunction("leading");
-            textFormat.leftMargin = getStyleFunction("paddingLeft"); // FIXME (rfrishbe): should these be in here...?
-            textFormat.letterSpacing = getStyleFunction("letterSpacing")
-            textFormat.rightMargin = getStyleFunction("paddingRight");
-            textFormat.size = getStyleFunction("fontSize");
-            textFormat.underline =
-                getStyleFunction("textDecoration") == "underline";
-            
-            textFormat.antiAliasType = getStyleFunction("fontAntiAliasType");
-            textFormat.gridFitType = getStyleFunction("fontGridFitType");
-            textFormat.sharpness = getStyleFunction("fontSharpness");
-            textFormat.thickness = getStyleFunction("fontThickness");
-            
-            //textFormat.useFTE =
-            //    getTextFieldClassName() == "mx.core::UIFTETextField" ||
-            //    getTextInputClassName() == "mx.controls::MXFTETextInput";
-            
-            //if (textFormat.useFTE)
-            //{
-            //    textFormat.direction = getStyleFunction("direction");
-            //    textFormat.locale = getStyleFunction("locale");
-            //}
-            
-            cachedTextFormat = textFormat;
-        }
-        
-        return textFormat;
     }
     
 }
