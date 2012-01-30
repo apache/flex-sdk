@@ -1,4 +1,4 @@
-package flex.geom
+package mx.geom
 {
 	import flash.geom.ColorTransform;
 	import flash.geom.Matrix;
@@ -10,19 +10,19 @@ package flex.geom
 	import flash.events.IEventDispatcher;
 	
 	import mx.events.PropertyChangeEvent;
+	import flash.display.DisplayObject;
 	
 	public class Transform extends flash.geom.Transform implements IEventDispatcher
 	{
 		private var dispatcher:EventDispatcher;
-		private var _shape:Shape;
 		
-		public function Transform()
+		public function Transform(src:DisplayObject = null)
 		{
 			dispatcher = new EventDispatcher();
 			
-			_shape = new Shape();
-			super(_shape);	
-			
+			if(src == null)
+				src = new Shape();
+			super(src);				
 		}
 		
 		[Bindable("propertyChange")]
