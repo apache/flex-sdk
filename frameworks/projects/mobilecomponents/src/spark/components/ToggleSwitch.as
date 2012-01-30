@@ -104,16 +104,18 @@ use namespace mx_internal;
 
 /**
  *  The Spark ToggleSwitch control defines a binary switch that 
- *  can be in the selected or unselected state. 
+ *  can be in the selected or unselected position. 
  *  The ToggleSwitch consists of a thumb skin part that moves between 
  *  the two ends of the track skin part, similar to the Spark Slider control.
  *
- *  <p>Clicking anywhere in the control toggles the state. 
- *  You can also slide the thumb along the track to change state. 
- *  When you release the thumb, the control changes state depending on 
- *  where you released the thumb. 
- *  If you release the thumb when you are over 50% of the way across the track, 
- *  the switch enters the selected state. Otherwise, it enters the unselected state.</p>
+ *  <p>The ToggleSwitch control has two positions: selected and unselected. 
+ *  By default, the label OFF corresponds to the unselected position and ON 
+ *  corresponds to the selected position.</p>
+ *
+ *  <p>Clicking anywhere in the control toggles the position. 
+ *  You can also slide the thumb along the track to change position. 
+ *  When you release the thumb, it moves to the position, selected or unselected, 
+ *  that is closest to the thumb location.</p>
  *
  *  <p>The ToggleSwitch control uses the following default values for 
  *  the unselected and selected labels: OFF (unselected) and ON (selected). 
@@ -121,7 +123,7 @@ use namespace mx_internal;
  *  characteristics of the control.</p>
  *
  *  <p>The following skin class, defined as a subclass of 
- *  spark.skins.mobile.ToggleSwitchSkin, changes the labels to Zero and One:</p>
+ *  spark.skins.mobile.ToggleSwitchSkin, changes the labels to Yes and No:</p>
  *
  *  <pre>
  *  package skins
@@ -136,8 +138,8 @@ use namespace mx_internal;
  *              super();
  *              // Set properties to define the labels 
  *              // for the selected and unselected positions.
- *              selectedLabel="One";
- *              unselectedLabel="Zero"; 
+ *              selectedLabel="Yes";
+ *              unselectedLabel="No"; 
  *          }
  *      }
  *  }
@@ -287,9 +289,9 @@ public class ToggleSwitch extends ToggleButtonBase
     //  selected
     //----------------------------------
     /**
-     *  The current state of the toggle switch.
-     *  A value of <code>false</code> corresponds to the unselected state,
-     *  and a value of <code>1</code> corresponds to the selected state.
+     *  The current position of the toggle switch.
+     *  A value of <code>false</code> corresponds to the unselected position,
+     *  and a value of <code>1</code> corresponds to the selected position.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
