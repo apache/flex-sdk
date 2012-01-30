@@ -27,7 +27,7 @@ import flash.events.IEventDispatcher;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */  
-public interface ISWFBridgeGroup
+public interface ISWFBridgeGroup extends IEventDispatcher
 {
     //--------------------------------------------------------------------------
     //
