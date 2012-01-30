@@ -30,7 +30,10 @@ package mx.core
  */
 public interface IFlexModuleFactory
 {
+    import flash.display.LoaderInfo;    
     import flash.utils.Dictionary;
+
+    import mx.core.RSLData;
     
     //--------------------------------------------------------------------------
     //
@@ -47,9 +50,9 @@ public interface IFlexModuleFactory
      *  by module factory owning the dictionary.
      * 
      *  Information about preloadedRSLs is stored in a Dictionary. The key is
-     *  the RSL's LoaderInfo. The value is an Array of the RSL's RSLData. The
-     *  first element in the array is the primary RSL. The remaining entries
-     *  are failover RSLs.
+     *  the RSL's LoaderInfo. The value is the a Vector of RSLData where the 
+     *  first element is the primaray RSL and the remaining elements are 
+     *  failover RSLs.
      */   
     function get preloadedRSLs():Dictionary;
     
@@ -58,6 +61,22 @@ public interface IFlexModuleFactory
     //  Methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  Adds an RSL to the preloadedRSLs list. This method is called by child
+     *  module factories when they add load an RSL into this module factory's
+     *  application domain.
+     * 
+     *  <p>You do not call this method directly. This method is called by child
+     *  module factories when they add load an RSL into this module factory's
+     *  application domain.</p>
+     *
+     *  @param loaderInfo The loaderInfo of the loaded RSL.
+     *  @param rsl The RSL's configuration information. A Vector of RSLData.
+     *  The first element in the array is the primary RSL. The remaining 
+     *  elements are failover RSLs.
+     */ 
+    function addPreloadedRSL(loaderInfo:LoaderInfo, rsl:Vector.<RSLData>):void;
 
     /**
      *  Calls the <code>Security.allowDomain()</code> method for the SWF associated with this IFlexModuleFactory
