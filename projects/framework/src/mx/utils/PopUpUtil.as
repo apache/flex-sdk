@@ -12,12 +12,20 @@
 package mx.utils
 {
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
+import flash.display.Stage;
+import flash.display.StageDisplayState;
+import flash.geom.ColorTransform;
+import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.IFlexDisplayObject;
-import mx.core.UIComponent;
+import mx.core.ILayoutElement;
+import mx.core.mx_internal;
 import mx.managers.ISystemManager;
+
+use namespace mx_internal;
 
 [ExcludeClass]
 
@@ -159,6 +167,58 @@ public class PopUpUtil
         }
         
         return new Point(x, y);
+    }
+    
+    /**
+     *  Apply transforms from a popUp owner to the popUp.
+     * 
+     *  @param owner Pop-up owner
+     *  @param systemManager The systemManager that defines the SandboxRoot. Typically component.systemManager.
+     *  @param popUp The pop-up to apply the owner's transform to.
+     *  @param popUpPoint Absolute position of the pop-up in the global coordinate space.
+     *  @param colorTransform The owner's color transform
+     */
+    public static function applyPopUpTransform(owner:DisplayObjectContainer,
+                                               colorTransform:ColorTransform,
+                                               systemManager:ISystemManager,
+                                               popUp:IFlexDisplayObject,
+                                               popUpPoint:Point):void
+    {
+        var m:Matrix = MatrixUtil.getConcatenatedMatrix(owner, systemManager.getSandboxRoot());
+        
+        // the transformation doesn't take the fullScreenRect in to account
+        // if we are in fulLScreen mode. This code will throw a RTE if run from inside of a sandbox. 
+        try
+        {
+            var smStage:Stage = systemManager.stage;
+            if (smStage && smStage.displayState != StageDisplayState.NORMAL && smStage.fullScreenSourceRect)
+            {
+                popUpPoint.x += smStage.fullScreenSourceRect.x;
+                popUpPoint.y += smStage.fullScreenSourceRect.y;
+            }
+        }
+        catch (e:Error)
+        {
+            // Ignore the RTE
+        }
+        
+        // Position the popUp. 
+        m.tx = Math.round(popUpPoint.x);
+        m.ty = Math.round(popUpPoint.y);
+        if (popUp is ILayoutElement)
+            ILayoutElement(popUp).setLayoutMatrix(m,false);
+        else if (popUp is DisplayObject)
+            DisplayObject(popUp).transform.matrix = m;
+        
+        // apply the color transformation, but restore alpha value of popup
+        var oldAlpha:Number = DisplayObject(popUp).alpha;
+        var tmpColorTransform:ColorTransform = colorTransform;
+        if (tmpColorTransform != null)
+        {
+            tmpColorTransform.alphaMultiplier = oldAlpha;
+            tmpColorTransform.alphaOffset = 0;
+        }
+        DisplayObject(popUp).transform.colorTransform = tmpColorTransform;
     }
 }
 }
