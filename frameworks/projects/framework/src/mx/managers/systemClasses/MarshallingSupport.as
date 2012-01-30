@@ -373,6 +373,8 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 	private var idToPlaceholder:Object;
 	
 	private var eventProxy:EventProxy;
+    
+    private var eventProxyRefCounts:Object = {};
 
 	//--------------------------------------------------------------------------
 	//
@@ -414,6 +416,10 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 					addEventListenerToOtherSystemManagers(type, otherSystemManagerMouseListener, useCapture, priority, useWeakReference)
 				if (systemManager.getSandboxRoot() == systemManager)
                 {
+                    if (eventProxyRefCounts[actualType] == null)
+                        eventProxyRefCounts[actualType] = 1;                        
+                    else
+                        eventProxyRefCounts[actualType] ++;
                     Object(systemManager).$addEventListener(actualType, eventProxy.marshalListener,
                             useCapture, priority, useWeakReference);
                     if (actualType == MouseEvent.MOUSE_UP)
@@ -469,24 +475,32 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 			{
                 if (systemManager.getSandboxRoot() == systemManager && eventProxy)
                 {
-                    Object(systemManager).$removeEventListener(actualType, eventProxy.marshalListener,
-                            useCapture);
-                    if (actualType == MouseEvent.MOUSE_UP)
+                    if (eventProxyRefCounts[actualType] != null)
+                        eventProxyRefCounts[actualType] --;
+                    if (eventProxyRefCounts[actualType] == null || eventProxyRefCounts[actualType] == 0)
                     {
-                        try
+                        delete eventProxyRefCounts[actualType];                        
+                        Object(systemManager).$removeEventListener(actualType, eventProxy.marshalListener,
+                                useCapture);
+                        if (actualType == MouseEvent.MOUSE_UP)
                         {
-                            if (systemManager.stage)
-                                systemManager.stage.removeEventListener(Event.MOUSE_LEAVE, eventProxy.marshalListener,
-                                    useCapture);
+                            try
+                            {
+                                if (systemManager.stage)
+                                    systemManager.stage.removeEventListener(Event.MOUSE_LEAVE, eventProxy.marshalListener,
+                                        useCapture);
+                            }
+                            catch (e:SecurityError)
+                            {
+                            }
+    			            // Remove both listeners in case the system manager was added
+    			            // or removed from the stage after the listener was added.
+                            Object(systemManager).$removeEventListener(Event.MOUSE_LEAVE, eventProxy.marshalListener,
+                                useCapture);
                         }
-                        catch (e:SecurityError)
-                        {
-                        }
-			            // Remove both listeners in case the system manager was added
-			            // or removed from the stage after the listener was added.
-                        Object(systemManager).$removeEventListener(Event.MOUSE_LEAVE, eventProxy.marshalListener,
-                            useCapture);
                     }
+                    else
+                        return false; // if we didn't actually remove, don't remove on the following lines either
                 }
 				if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
 					removeEventListenerFromOtherSystemManagers(type, otherSystemManagerMouseListener, useCapture);
@@ -516,8 +530,8 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 	{
 		var awm:ActiveWindowManager = 
 			ActiveWindowManager(systemManager.getImplementation("mx.managers::IActiveWindowManager"));
-
 		// trace("SM: activate " + f + " " + forms.length);
+
 		if (awm.form)
 		{
 			if (awm.form != event.form && awm.forms.length > 1)
