@@ -16,15 +16,16 @@ import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
+import flash.system.Capabilities;
 
+import mx.core.DeviceDensity;
 import mx.core.FlexGlobals;
 import mx.core.IFlexDisplayObject;
 import mx.core.ILayoutElement;
 import mx.core.UIComponent;
-import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.utils.ColorUtil;
-import mx.utils.object_proxy;
+import mx.utils.DensityUtil;
 
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.supportClasses.StyleableTextField;
@@ -52,13 +53,6 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     //  Class constants
     //
     //--------------------------------------------------------------------------
-    
-    // FIXME (jasonsj): define enums for PPI
-    public static const PPI160:uint = 160;
-    
-    public static const PPI240:uint = 240;
-    
-    public static const PPI320:uint = 320;
     
     // Used for gradient background
     protected static var matrix:Matrix = new Matrix();
@@ -123,21 +117,29 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     private var _focus:Boolean = false;
     
     //----------------------------------
-    //  targetDensity
+    //  authorDensity
     //----------------------------------
     
     /**
-     * Read-only target PPI of the application.
+     *  Returns the authorDensity of the application. If authorDensity is not
+     *  specified, it is determined from the current screenDPI.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get targetDensity():uint
+    public function get authorDensity():String
     {
-        // FIXME (jasonsj): Hack until scaling is implemented
-        return ("targetPPI" in FlexGlobals.topLevelApplication) ? FlexGlobals.topLevelApplication.targetPPI : 240;
+        if ("authorDensity" in FlexGlobals.topLevelApplication)
+        {
+            var value:String = FlexGlobals.topLevelApplication.authorDensity;
+            
+            if (!value)
+                return value;
+        }
+        
+        return DensityUtil.screenDPIToDeviceDensity(Capabilities.screenDPI);
     }
     
     //----------------------------------
