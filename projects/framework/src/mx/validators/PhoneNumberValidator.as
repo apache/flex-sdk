@@ -16,6 +16,7 @@ import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
+import mx.utils.StringUtil;
 
 [ResourceBundle("validators")]
 
@@ -37,6 +38,7 @@ import mx.resources.ResourceManager;
  *  &lt;mx:PhoneNumberValidator 
  *    allowedFormatChars="()- .+" 
  *    invalidCharError="Your telephone number contains invalid characters."
+ * 	  minDigits="10"
  *    wrongLengthError="Your telephone number must contain at least 10 digits."
  *  /&gt;
  *  </pre>
@@ -98,6 +100,7 @@ public class PhoneNumberValidator extends Validator
 		var digitLen:int = 0;
 		var n:int;
 		var i:int;
+		var minDigits:Number = Number(validator.minDigits);
 		
 		n = allowedFormatChars.length;
 		for (i = 0; i < n; i++)
@@ -124,11 +127,11 @@ public class PhoneNumberValidator extends Validator
 				digitLen++;
 		}
 
-		if (digitLen < 10)
+		if (!isNaN(minDigits) && digitLen < minDigits)
 		{
 			results.push(new ValidationResult(
 				true, baseField, "wrongLength",
-				validator.wrongLengthError));
+				StringUtil.substitute(validator.wrongLengthError, minDigits)));
 			return results;
 		}
 
@@ -220,6 +223,51 @@ public class PhoneNumberValidator extends Validator
 								  "phoneNumberValidatorAllowedFormatChars");
 	}
 
+	//----------------------------------
+    //  minDigits
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the minDigits property.
+     */
+    private var _minDigits:Object;
+    
+    /**
+     *  @private
+     */
+    private var minDigitsOverride:Object;
+    
+    [Inspectable(category="General", defaultValue="null")]
+
+    /** 
+     *  Minimum number of digits for a valid phone number.
+     *  A value of NaN means this property is ignored.
+     *
+     *  @default 10
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get minDigits():Object
+    {
+        return _minDigits;
+    }
+
+    /**
+     *  @private
+     */
+    public function set minDigits(value:Object):void
+    {
+        minDigitsOverride = value;
+
+        _minDigits = value != null ?
+                     Number(value) :
+                     resourceManager.getNumber(
+                         "validators", "minDigitsPNV");
+    }
 	//--------------------------------------------------------------------------
 	//
 	//  Properties: Errors
@@ -330,7 +378,7 @@ public class PhoneNumberValidator extends Validator
 		super.resourcesChanged();
 
 		allowedFormatChars = allowedFormatCharsOverride;
-		
+		minDigits = minDigitsOverride;
 		invalidCharError = invalidCharErrorOverride;
 		wrongLengthError = wrongLengthErrorOverride;
 	}
