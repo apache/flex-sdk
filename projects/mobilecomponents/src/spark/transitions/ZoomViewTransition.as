@@ -28,17 +28,20 @@ import spark.effects.Scale;
 use namespace mx_internal;
 
 /**
- *  The ZoomViewTransition class serves as a zoom in/out transition 
- *  for views.  It performs its transition by zooming out the startView to reveal
- *  the endView, or by zooming in the new endView to cover the startView. 
+ *  The ZoomViewTransition class performs a zoom in or out transition for views.
+ *  It performs its transition by zooming out the existing view to reveal
+ *  the new view, or by zooming in the new view to cover the existing view. 
  * 
- *  The default duration of a ZoomViewTransition is 350ms.  In addition, the 
- *  zoom transition by default transitions the control bar and view content
- *  as one (transitionControlsWithContent = true). There is no default action bar
- *  transition for the ZoomViewTransition.
+ *  <p>The default duration of a ZoomViewTransition is 350ms.  
+ *  Also, by default it transitions the control bar and view content
+ *  as one as if <code>transitionControlsWithContent</code> is  <code>true</code>. </p>
+ *
+ *  <p><strong>Note:</strong>Create and configure view transitions in ActionScript;
+ *  you cannot create them in MXML.</p>
+ *
+ *  @see ZoomViewTransitionMode
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -54,7 +57,6 @@ public class ZoomViewTransition extends ViewTransitionBase
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -124,7 +126,6 @@ public class ZoomViewTransition extends ViewTransitionBase
      *  @default .25
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -153,7 +154,6 @@ public class ZoomViewTransition extends ViewTransitionBase
      *  @default ZoomTransitionMode.OUT
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -177,10 +177,9 @@ public class ZoomViewTransition extends ViewTransitionBase
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -199,10 +198,9 @@ public class ZoomViewTransition extends ViewTransitionBase
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -246,10 +244,9 @@ public class ZoomViewTransition extends ViewTransitionBase
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -305,10 +302,9 @@ public class ZoomViewTransition extends ViewTransitionBase
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
