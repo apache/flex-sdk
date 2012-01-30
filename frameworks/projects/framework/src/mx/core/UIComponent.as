@@ -14,14 +14,14 @@ package mx.core
 
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityProperties;
-import flash.display.BlendMode; 
+import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.display.InteractiveObject;
 import flash.display.Loader;
-import flash.display.Shader; 
+import flash.display.Shader;
 import flash.display.Sprite;
 import flash.display.Stage;
 import flash.events.Event;
@@ -9528,11 +9528,11 @@ public class UIComponent extends FlexSprite
         moveEvent.oldX = oldX;
         moveEvent.oldY = oldY;
         dispatchEvent(moveEvent);
-
+        
         oldX = x;
         oldY = y;
     }
-
+    
     /**
      *  @private
      */
@@ -9542,7 +9542,7 @@ public class UIComponent extends FlexSprite
         resizeEvent.oldWidth = oldWidth;
         resizeEvent.oldHeight = oldHeight;
         dispatchEvent(resizeEvent);
-
+        
         oldWidth = width;
         oldHeight = height;
     }
@@ -11689,7 +11689,7 @@ public class UIComponent extends FlexSprite
      *  where an object wanting to  use the font should be created.
      */
     mx_internal function getFontContext(fontName:String, bold:Boolean,
-                                        italic:Boolean):IFlexModuleFactory
+                                        italic:Boolean, embeddedCff:*=undefined):IFlexModuleFactory
     {
         if (noEmbeddedFonts) 
             return null;
@@ -11697,7 +11697,8 @@ public class UIComponent extends FlexSprite
         var registry:IEmbeddedFontRegistry = embeddedFontRegistry;
 
         return registry ? registry.getAssociatedModuleFactory(
-            fontName, bold, italic, this, moduleFactory) : null;
+            fontName, bold, italic, this, moduleFactory, systemManager,
+            embeddedCff) : null;
     }
 
     /**
@@ -11739,15 +11740,8 @@ public class UIComponent extends FlexSprite
         var bold:Boolean = (fontWeight == "bold");
         var italic:Boolean = (fontStyle == "italic");
 
-        // Save for hasFontContextChanged().
-        oldEmbeddedFontContext = getFontContext(fontName, bold, italic);
-        
-        var moduleContext:IFlexModuleFactory = oldEmbeddedFontContext ?
-                                               oldEmbeddedFontContext :
-                                               moduleFactory;
-                                                    
         var className:String = getQualifiedClassName(classObj);
-
+        
         // If the caller requests a UITextField,
         // we may actually return a UITLFTextField,
         // depending on the version number
@@ -11757,9 +11751,17 @@ public class UIComponent extends FlexSprite
             className = getTextFieldClassName();
             if (className == "mx.core::UIFTETextField")
                 classObj = Class(ApplicationDomain.currentDomain.
-                                                    getDefinition(className));
+                    getDefinition(className));
         }
-                               
+        
+        // Save for hasFontContextChanged().
+        oldEmbeddedFontContext = getFontContext(fontName, bold, italic, 
+            className == "mx.core::UIFTETextField");
+        
+        var moduleContext:IFlexModuleFactory = oldEmbeddedFontContext ?
+                                               oldEmbeddedFontContext :
+                                               moduleFactory;
+        
         // Not in font registry, so create in this font context.
         var obj:Object = createInModuleContext(moduleContext, className);
 
@@ -11770,10 +11772,10 @@ public class UIComponent extends FlexSprite
         // so that it knows what module to use for creating its TextLines.
         if (className == "mx.core::UIFTETextField")
             obj.fontContext = moduleContext;
-
+        
         return obj;
     }
-
+    
     /**
      *  @private
      *  Returns either "mx.core::UITextField" or "mx.core::UIFTETextField",
@@ -11856,7 +11858,8 @@ public class UIComponent extends FlexSprite
         var italic:Boolean = fontStyle == "italic";
         var fontContext:IFlexModuleFactory = noEmbeddedFonts ? null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
-                fontName, bold, italic, this, moduleFactory);
+                fontName, bold, italic, this, moduleFactory,
+                systemManager);
         return fontContext != oldEmbeddedFontContext;
     }
 
