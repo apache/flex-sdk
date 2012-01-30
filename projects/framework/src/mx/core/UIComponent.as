@@ -5741,6 +5741,37 @@ public class UIComponent extends FlexSprite
         setCurrentState(value, true);
     }
 
+    /**
+     *  @private
+     *  Backing variable for currentStateDeferred property
+     */
+    private var _currentStateDeferred:String;
+    
+    /**
+     *  @private
+     *  Version of currentState property that defers setting currentState
+     *  until commitProperties() time. This is used by SetProperty.remove()
+     *  to avoid causing state transitions when currentState is being rolled
+     *  back in a state change operation just to be set immediately after to the
+     *  actual new currentState value. This avoids unnecessary, and sometimes
+     *  incorrect, use of transitions based on this transient state of currentState.
+     */
+    mx_internal function get currentStateDeferred():String
+    {
+        return currentState;
+    }
+
+    /**
+     *  @private
+     */
+    mx_internal function set currentStateDeferred(value:String):void
+    {
+        _currentStateDeferred = value;
+        if (value != null)
+            invalidateProperties();
+    }
+    
+
     //----------------------------------
     //  states
     //----------------------------------
@@ -7452,6 +7483,14 @@ public class UIComponent extends FlexSprite
         }
         else
         {
+            // Handle a deferred state change request.
+            if (_currentStateDeferred != null)
+            {
+                var newState:String = _currentStateDeferred;
+                _currentStateDeferred = null;
+                currentState = newState;
+            }
+
             oldScaleX = scaleX;
             oldScaleY = scaleY;
         }
