@@ -18,11 +18,12 @@ import mx.charts.chartClasses.IAxis;
 import mx.charts.chartClasses.Series;
 import mx.charts.series.BubbleSeries;
 import mx.charts.styles.HaloDefaults;
-import mx.graphics.SolidColor;
-import mx.graphics.Stroke;
-import mx.styles.CSSStyleDeclaration;
 import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
+import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
+import mx.graphics.Stroke;
+import mx.styles.CSSStyleDeclaration;
 
 use namespace mx_internal;
 
@@ -210,27 +211,15 @@ public class BubbleChart extends CartesianChart
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-        
-        var bubbleChartStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.BubbleChart", styleManager);     
-        
-        bubbleChartStyle.defaultFactory = function():void
-        {
-            this.axisColor = 0xD5DEDD;
-            this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;       
-            this.dataTipCalloutStroke = new Stroke(2, 0);
-            this.dataTipRenderer = DataTip;
-            this.fill = new SolidColor(0xFFFFFF, 0);
-            this.calloutStroke = new Stroke(0x888888,2);                        
-            this.fontSize = 10;
-            this.gridLinesStyleName = "bothGridLines";
-            this.maxRadius = 50;
-            this.minRadius = 0;
-            this.textAlign = "left";
-            this.horizontalAxisStyleNames = ["blockNumericAxis"];
-            this.verticalAxisStyleNames = ["blockNumericAxis"];
-        }
-        
+		
+		var bubbleChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.BubbleChart");
+		bubbleChartStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
+		bubbleChartStyle.setStyle("dataTipCalloutStroke", new SolidColorStroke(2,0));
+		bubbleChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+		bubbleChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		bubbleChartStyle.setStyle("horizontalAxisStyleNames", ["blockNumericAxis"]);
+		bubbleChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+		
         return true;
     }
     
