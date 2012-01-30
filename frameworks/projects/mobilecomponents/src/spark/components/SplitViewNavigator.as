@@ -89,12 +89,13 @@ use namespace mx_internal;
  *  flag on the child.  When set, the <code>includeInLayout</code> property
  *  of that child will be set to match.</p>
  *    
- *  <p>SplitViewNavigator lets you  display the first navigator in a Callout component.  
- *  When you call the <code>showFirstViewNavigatorInCallout()</code> method, the
- *  first navigator is displayed in a callout until the
- *  <code>hideViewNavigatorCallout()</code> method is called, or the user
- *  touches outside the bounds of the callout.  
- *  It is important to note that when a navigator is displayed in a callout, 
+ *  <p>SplitViewNavigator lets you  display the first navigator in a 
+ *  popup.  By default, it uses a Callout component.  
+ *  When you call the <code>showFirstViewNavigatorInPopUp()</code> method, the
+ *  first navigator is displayed in a popup until the
+ *  <code>hideViewNavigatorPopUp()</code> method is called, or the user
+ *  touches outside the bounds of the popup.  
+ *  It is important to note that when a navigator is displayed in a popup, 
  *  it is reparented as a child of that container.  
  *  This means that using IVisualElementContainer methods such as
  *  <code>getElementAt()</code> on SplitViewNavigator may not return the 
@@ -102,7 +103,7 @@ use namespace mx_internal;
  *  If you want to access the first or second  navigator, Adobe recommends 
  *  that you use the <code>getViewNavigatorAt()</code>  method.  
  *  This method always returns the correct navigator regardless of whether 
- *  a navigator is in a callout or not.</p>
+ *  a navigator is in a popup or not.</p>
  *
  *  @mxml <p>The <code>&lt;s:SplitViewNavigator&gt;</code> tag inherits all of the tag
  *  attributes of its superclass and adds the following tag attributes:</p>
@@ -120,6 +121,7 @@ use namespace mx_internal;
  *  @see spark.components.TabbedViewNavigator
  *  @see spark.components.Application#aspectRatio
  *  @see spark.components.Callout
+ *  @see spark.components.SkinnablePopUpContainer
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
@@ -153,8 +155,8 @@ public class SplitViewNavigator extends ViewNavigatorBase
     
     [SkinPart(required="false")]
     /**
-     *  The Callout used to display a navigator when 
-     *  <code>showFirstViewNavigatorInCallout()</code> is called.  
+     *  The popUp used to display a navigator when 
+     *  <code>showFirstViewNavigatorInPopUp()</code> is called.  
      *  When creating a custom MXML skin, this component should not be on the display list, 
      *  but instead declared inside a <code>fx:Declarations</code> tag. 
      * 
@@ -162,7 +164,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    public var viewNavigatorCallout:Callout;
+    public var viewNavigatorPopUp:SkinnablePopUpContainer;
     
     //--------------------------------------------------------------------------
     //
@@ -181,15 +183,15 @@ public class SplitViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      *  Stores the original element index of the navigator that is reparented
-     *  into the callout.
+     *  into the popup.
      */
-    private var _calloutNavigatorIndex:int = -1;
+    private var _popUpNavigatorIndex:int = -1;
     
     /**
      *  @private
-     *  A reference to the navigator that is being displayed in the callout 
+     *  A reference to the navigator that is being displayed inside the popUp 
      */
-    private var _calloutNavigator:ViewNavigatorBase = null;
+    private var _popUpNavigator:ViewNavigatorBase = null;
     
     //--------------------------------------------------------------------------
     //
@@ -290,7 +292,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
      */ 
     public function get numViewNavigators():int
     {
-        return _calloutNavigatorIndex == -1 ? numElements : numElements + 1;
+        return _popUpNavigatorIndex == -1 ? numElements : numElements + 1;
     }
     
     //--------------------------------------------------------------------------
@@ -303,11 +305,11 @@ public class SplitViewNavigator extends ViewNavigatorBase
      *  Returns a specific child navigator independent of the container's
      *  child display hierarchy.  
      *  Since a child navigator is not parented by this
-     *  container when visible inside a callout, this method should be used instead of 
+     *  container when visible inside a popup, this method should be used instead of 
      *  <code>getElementAt()</code>.
      * 
-     *  <p>When a callout is open, the navigator at index 0 refers to the
-     *  navigator in the callout.</p> 
+     *  <p>When a popup is open, the navigator at index 0 refers to the
+     *  navigator in the popup.</p> 
      * 
      *  @param index Index of the navigator to retrieve.
      * 
@@ -319,15 +321,15 @@ public class SplitViewNavigator extends ViewNavigatorBase
      */ 
     public function getViewNavigatorAt(index:int):ViewNavigatorBase
     {
-        // If the index is the navigator currently in the callout, return it
-        if (_calloutNavigatorIndex == index)
-            return _calloutNavigator;
+        // If the index is the navigator currently in the popup, return it
+        if (_popUpNavigatorIndex == index)
+            return _popUpNavigator;
         
-        // Since a callout is visible, one of the navigators has been removed
-        // from this display tree.  If the index of the navigator in the callout
+        // Since a popup is visible, one of the navigators has been removed
+        // from this display tree.  If the index of the navigator in the popup
         // is before the passed index, decrement it by 1 so that it reflects 
         // the current indicies of the child navigatos.
-        if (_calloutNavigatorIndex != -1 && _calloutNavigatorIndex < index)
+        if (_popUpNavigatorIndex != -1 && _popUpNavigatorIndex < index)
             index--;
         
         if (index >= numElements)
@@ -337,40 +339,41 @@ public class SplitViewNavigator extends ViewNavigatorBase
     }
     
     /**
-     *  Displays the child navigator at index 0 inside a callout.  
-     *  The navigator is reparented as a child of the callout.
+     *  Displays the child navigator at index 0 inside a popup.  
+     *  The navigator is reparented as a child of the popop.
      * 
      *  <p>Since the navigator is reparented, using <code>getElementAt(0)</code> 
      *  does not return the first navigator, but returns the second.  
      *  Adobe recommends that you use the <code>getViewNavigatorAt()</code>
      *  method to access the navigators.</p>
      * 
-     *  <p>The callout height is fixed by the component but can be changed by
-     *  reskinning or by manually setting the <code>height</code> property on the 
-     *  <code>viewNavigatorCallout</code> skinPart.</p>
+     *  <p>The popup height is not set by this component.  The height will size to
+     *  fit the View currently active in the ViewNavigator.  A height can be set
+     *  by reskinning this component or by manually setting the <code>height</code> 
+     *  property on the <code>viewNavigatorPopUp</code> skinPart.</p>
      * 
-     *  <p>If the callout is already open or the callout skin part does not exist, 
+     *  <p>If the popup is already open or the popup skin part does not exist, 
      *  this method does nothing.</p>
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */ 
-    public function showFirstViewNavigatorInCallout(owner:DisplayObjectContainer):void
+    public function showFirstViewNavigatorInPopUp(owner:DisplayObjectContainer):void
     {
-        showNavigatorAtIndexInCallout(0, owner);
+        showNavigatorAtIndexInPopUp(0, owner);
     }
 
     /**
-     *  Hides the navigator callout if its open.  The navigator that was
-     *  displayed in the callout is reparented as a child of this
+     *  Hides the navigator popup if its open.  The navigator that was
+     *  displayed in the popup is reparented as a child of this
      *  SplitViewNavigator.
      * 
      *  <p>This method is automatically called if the user touches outside 
-     *  of the callout when it is visible.  The navigator inside the callout
-     *  is hidden after the callout closes.</p>
+     *  of the popup when it is visible.  The navigator inside the popup
+     *  is hidden after the popup closes.</p>
      * 
-     *  <p>After closing the callout, the navigator that was shown remains
+     *  <p>After closing the popup, the navigator that was shown remains
      *  invisible unless <code>autoHideFirstViewNavigator</code> is <code>true</code>
      *  and the device orientation is landscape.  
      *  In all other cases, the visibility of the first navigator needs to be set 
@@ -380,14 +383,14 @@ public class SplitViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */ 
-    public function hideViewNavigatorCallout():void
+    public function hideViewNavigatorPopUp():void
     {
-        if (!viewNavigatorCallout|| !viewNavigatorCallout.isOpen)
+        if (!viewNavigatorPopUp|| !viewNavigatorPopUp.isOpen)
             return;
         
-        viewNavigatorCallout.addEventListener(PopUpEvent.CLOSE, navigatorCallout_closeHandler);
-        viewNavigatorCallout.close(true);
-        viewNavigatorCallout.removeEventListener('mouseDownOutside', navigatorCallout_mouseDownOutsideHandler);
+        viewNavigatorPopUp.addEventListener(PopUpEvent.CLOSE, navigatorPopUp_closeHandler);
+        viewNavigatorPopUp.close(true);
+        viewNavigatorPopUp.removeEventListener('mouseDownOutside', navigatorPopUp_mouseDownOutsideHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -398,62 +401,62 @@ public class SplitViewNavigator extends ViewNavigatorBase
     
     /**
      *  @private
-     *  Shows the navigator at the specified index in the callout component.
+     *  Shows the navigator at the specified index in the popup component.
      */ 
-    mx_internal function showNavigatorAtIndexInCallout(index:int, owner:DisplayObjectContainer):void
+    mx_internal function showNavigatorAtIndexInPopUp(index:int, owner:DisplayObjectContainer):void
     {
-        // TODO (chiedozi): Consider replacing the navigator in the callout if
+        // TODO (chiedozi): Consider replacing the navigator in the popup if
         // it is already open.
-        if (index >= numElements || !viewNavigatorCallout|| viewNavigatorCallout.isOpen)
+        if (index >= numElements || !viewNavigatorPopUp|| viewNavigatorPopUp.isOpen)
             return;
         
-        _calloutNavigatorIndex = index;
-        _calloutNavigator = getElementAt(index) as ViewNavigatorBase;
+        _popUpNavigatorIndex = index;
+        _popUpNavigator = getElementAt(index) as ViewNavigatorBase;
         
-        viewNavigatorCallout.addEventListener('mouseDownOutside', navigatorCallout_mouseDownOutsideHandler, false, 0, true);
-        viewNavigatorCallout.addElement(_calloutNavigator);
+        viewNavigatorPopUp.addEventListener('mouseDownOutside', navigatorPopUp_mouseDownOutsideHandler, false, 0, true);
+        viewNavigatorPopUp.addElement(_popUpNavigator);
         
         // Make sure the first navigator is visible
-        _calloutNavigator.visible = true;
+        _popUpNavigator.visible = true;
         
-        // Open the callout
-        viewNavigatorCallout.open(owner, true);
+        // Open the popup
+        viewNavigatorPopUp.open(owner, true);
     }
     
     /**
      *  @private
      */ 
-    private function navigatorCallout_closeHandler(event:PopUpEvent):void
+    private function navigatorPopUp_closeHandler(event:PopUpEvent):void
     {
-        viewNavigatorCallout.removeEventListener(PopUpEvent.CLOSE, navigatorCallout_closeHandler);
+        viewNavigatorPopUp.removeEventListener(PopUpEvent.CLOSE, navigatorPopUp_closeHandler);
         
-        if (_calloutNavigator)
-            restoreNavigatorInCallout();
+        if (_popUpNavigator)
+            restoreNavigatorInPopUp();
         
-        // When an orientation change occurs, the callout's visibility may be set to false.
+        // When an orientation change occurs, the popup's visibility may be set to false.
         // Set it back to true so that it is visible the next time it is opened.
-        viewNavigatorCallout.visible = true;
+        viewNavigatorPopUp.visible = true;
     }
     
     /**
      *  @private
      */ 
-    private function restoreNavigatorInCallout():void
+    private function restoreNavigatorInPopUp():void
     {
         // Restore navigator parent
-        addElementAt(_calloutNavigator, _calloutNavigatorIndex);
+        addElementAt(_popUpNavigator, _popUpNavigatorIndex);
         
-        if (autoHideFirstViewNavigator && _calloutNavigatorIndex == 0)
+        if (autoHideFirstViewNavigator && _popUpNavigatorIndex == 0)
         {
             toggleFirstNavigatorVisibility();
         }
         else
         {
-            _calloutNavigator.visible = false;
+            _popUpNavigator.visible = false;
         }
         
-        _calloutNavigator = null;
-        _calloutNavigatorIndex = -1;
+        _popUpNavigator = null;
+        _popUpNavigatorIndex = -1;
     }
     
     /**
@@ -472,7 +475,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
      */
     private function elementRemoveHandler(event:ElementExistenceEvent):void
     {
-        if (event.element != _calloutNavigator)
+        if (event.element != _popUpNavigator)
         {
             var navigator:ViewNavigatorBase = event.element as ViewNavigatorBase;
             
@@ -499,17 +502,17 @@ public class SplitViewNavigator extends ViewNavigatorBase
         
         if (autoHideFirstViewNavigator)
         {
-            // The navigator in the callout needs to be immediately reparented
+            // The navigator in the popup needs to be immediately reparented
             // when the orientation changes since we don't provide orientation
             // effects.  Because of this, we don't want to see any close
-            // transitions to play on the callout.  Since the transitions are
+            // transitions to play on the popup.  Since the transitions are
             // defined on the skin, there is no way to intercept them, so instead
-            // the callout is hidden.  restoreNavigatorInCallout() will call
+            // the popup is hidden.  restoreNavigatorInPopUp() will call
             // toggleFirstNavigatorVisibility() if needed.
-            if (_calloutNavigator)
+            if (_popUpNavigator)
             {
-                restoreNavigatorInCallout();
-                viewNavigatorCallout.visible = false;
+                restoreNavigatorInPopUp();
+                viewNavigatorPopUp.visible = false;
             }
             else
             {
@@ -517,8 +520,8 @@ public class SplitViewNavigator extends ViewNavigatorBase
             }
         }
         
-        // The navigator callout is always hidden if the orientation changes 
-        hideViewNavigatorCallout();
+        // The navigator popup is always hidden if the orientation changes 
+        hideViewNavigatorPopUp();
     }
     
     /**
@@ -545,9 +548,9 @@ public class SplitViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */
-    private function navigatorCallout_mouseDownOutsideHandler(event:Event):void
+    private function navigatorPopUp_mouseDownOutsideHandler(event:Event):void
     {
-        hideViewNavigatorCallout();
+        hideViewNavigatorPopUp();
     }
     
     /**
@@ -584,8 +587,8 @@ public class SplitViewNavigator extends ViewNavigatorBase
     {
         var navigator:ViewNavigatorBase = event.target as ViewNavigatorBase;
     
-        if (event.type == FlexEvent.HIDE && navigator == _calloutNavigator)
-            hideViewNavigatorCallout();
+        if (event.type == FlexEvent.HIDE && navigator == _popUpNavigator)
+            hideViewNavigatorPopUp();
 
         navigator.includeInLayout = navigator.visible;
     }
@@ -683,13 +686,13 @@ public class SplitViewNavigator extends ViewNavigatorBase
      */ 
     override public function validateNow():void
     {
-        // If a navigator is currently inside a callout, force a validation on it as well.  
+        // If a navigator is currently inside a popup, force a validation on it as well.  
         // This was added because ViewNavigator will call validateNow on its parentNavigator 
-        // when preparing to do a view transition.  Since the callout navigator is no longer 
-        // a child of this SplitViewNavigator, the navigator in the callout isn't validated 
+        // when preparing to do a view transition.  Since the popup navigator is no longer 
+        // a child of this SplitViewNavigator, the navigator in the popup isn't validated 
         // as expected.
-        if (_calloutNavigatorIndex != -1)
-            _calloutNavigator.validateNow();
+        if (_popUpNavigatorIndex != -1)
+            _popUpNavigator.validateNow();
         
         super.validateNow();
     }
