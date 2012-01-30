@@ -21,6 +21,7 @@ import flash.events.EventDispatcher;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.SoftKeyboardEvent;
+import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.system.Capabilities;
@@ -52,6 +53,7 @@ import mx.events.ResizeEvent;
 import mx.managers.FocusManager;
 import mx.managers.SystemManager;
 import mx.managers.systemClasses.ActiveWindowManager;
+import mx.utils.MatrixUtil;
 
 import spark.components.Application;
 import spark.core.IEditableText;
@@ -1864,12 +1866,16 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         {
             if (stageText.stage)
             {
-                var globalTopLeft:Point = parent.localToGlobal(localViewPort.topLeft);
+                // We calculate the parent's concatenated matrix to deal with
+                // issues in the runtime where the concatenated matrix of the
+                // parent is out of sync.  See SDK-31538.
+                var m:Matrix = MatrixUtil.getConcatenatedMatrix(parent, stage);
+                var globalTopLeft:Point = m.transformPoint(localViewPort.topLeft);
 
                 // Transform the bottom-right corner of the local rect
                 // instead of setting width/height to account for any
                 // transformations applied to ancestor objects.
-                var globalBottomRight:Point = parent.localToGlobal(localViewPort.bottomRight);
+                var globalBottomRight:Point = m.transformPoint(localViewPort.bottomRight);
                 var globalRect:Rectangle = new Rectangle();
                 
                 // StageText can't deal with upside-down or mirrored rectangles
