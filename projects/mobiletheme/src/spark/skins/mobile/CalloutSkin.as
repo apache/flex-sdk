@@ -363,11 +363,14 @@ public class CalloutSkin extends MobileSkin
         if (contentBackgroundAppearance == ContentBackgroundAppearance.INSET)
         {
             // create the contentBackgroundGraphic
-            if (contentBackgroundInsetClass && !contentBackgroundGraphic)
+            if (!contentBackgroundGraphic && contentBackgroundInsetClass)
+            {
                 contentBackgroundGraphic = new contentBackgroundInsetClass() as SpriteVisualElement;
-            
-            if (contentBackgroundGraphic)
-                addChildAt(contentBackgroundGraphic, getChildIndex(contentGroup));
+                
+                // with the current skin structure, contentBackgroundGraphic is
+                // always the last child
+                addChild(contentBackgroundGraphic);
+            }
         }
         else if (contentBackgroundGraphic)
         {
