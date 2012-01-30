@@ -33,8 +33,8 @@ import mx.core.ContainerCreationPolicy;
 import mx.core.FlexGlobals;
 import mx.core.IVisualElement;
 import mx.core.IWindow;
-import mx.core.mx_internal;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.events.AIREvent;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
@@ -53,8 +53,8 @@ import mx.managers.systemClasses.ActiveWindowManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
-import spark.components.windowClasses.TitleBar;
 import spark.components.supportClasses.TextBase;
+import spark.components.windowClasses.TitleBar;
 
 use namespace mx_internal;
 
@@ -1334,6 +1334,47 @@ public class Window extends SkinnableContainer implements IWindow
     }
 
     //----------------------------------
+    //  renderMode
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the renderMode property.
+     */
+    private var _renderMode:String = "auto";
+    
+    [Inspectable(category="General", enumeration="auto,cpu,direct")]
+    
+    /**
+     *  Specifies the render mode of the NativeWindow object.
+     *  Constants for the valid values of this property are defined in the NativeWindowRenderMode class
+     *  If not specified, the default value for <code>renderMode</code> is NativeWindowRenderMode.AUTO.
+     *
+     *  <p>This property is read-only after the window has been opened.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get renderMode():String
+    {
+        return _renderMode;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set renderMode(value:String):void
+    {
+        if (!_nativeWindow)
+        {
+            _renderMode = value;
+            
+            invalidateProperties();
+        }
+    }
+    
+    //----------------------------------
     //  resizable
     //----------------------------------
     
@@ -1708,6 +1749,26 @@ public class Window extends SkinnableContainer implements IWindow
         super.createChildren();
     }
     
+    /**
+     *  Creates and fills up the NativeWindowInitOptios used to create
+     *  the internal nativeWindow.
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3.0
+     *  @productversion Flex 4.6
+     */
+    protected function setupWindowInitOptions():NativeWindowInitOptions
+    {
+        var init:NativeWindowInitOptions = new NativeWindowInitOptions();
+        init.maximizable = _maximizable;
+        init.minimizable = _minimizable;
+        init.resizable = _resizable;
+        init.type = _type;
+        init.systemChrome = _systemChrome;
+        init.transparent = _transparent;
+        init.renderMode = _renderMode;
+        return init;        
+    }
 
     /**
      *  @private
@@ -1723,14 +1784,7 @@ public class Window extends SkinnableContainer implements IWindow
             if (moduleFactory == null)
                 moduleFactory = SystemManagerGlobals.topLevelSystemManagers[0];
 
-            var init:NativeWindowInitOptions = new NativeWindowInitOptions();
-            init.maximizable = _maximizable;
-            init.minimizable = _minimizable;
-            init.resizable = _resizable;
-            init.type = _type;
-            init.systemChrome = _systemChrome;
-            init.transparent = _transparent;
-            
+            var init:NativeWindowInitOptions = setupWindowInitOptions();
             _nativeWindow = new NativeWindow(init);
             var sm:WindowedSystemManager = new WindowedSystemManager(this);
             _nativeWindow.stage.addChild(sm);
