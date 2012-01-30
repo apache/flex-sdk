@@ -93,6 +93,7 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
                 
                 layoutGap = 20;
                 minWidth = 64;
+                minHeight = 64;
                 layoutBorderSize = 4;
                 
                 break;
@@ -110,13 +111,14 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
                 
                 layoutGap = 15;
                 minWidth = 48;
+                minHeight = 48;
                 layoutBorderSize = 2;
                 
                 break;
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 upIconClass = spark.skins.mobile160.assets.CheckBox_up;
                 upSelectedIconClass = spark.skins.mobile160.assets.CheckBox_up;
                 downIconClass = spark.skins.mobile160.assets.CheckBox_down;
@@ -128,6 +130,7 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
                 
                 layoutGap = 10;
                 minWidth = 32;
+                minHeight = 32;
                 layoutBorderSize = 2;
                 
                 break;
