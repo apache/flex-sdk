@@ -20,7 +20,7 @@ package spark.components.supportClasses
  *  <code>ViewNavigator.pushView()</code> method.
  * 
  *  @see spark.components.View
- *  @see spark.components.ViewNavigator#pushView
+ *  @see spark.components.ViewNavigator#pushView()
  * 
  *  @langversion 3.0
  *  @playerversion AIR 2.5
@@ -67,7 +67,7 @@ public class ViewReturnObject
      *  The context identifier passed to the popped view when it was pushed
      *  onto the navigation stack.
      * 
-     *  @see spark.components.ViewNavigator#pushView
+     *  @see spark.components.ViewNavigator#pushView()
      * 
      *  @langversion 3.0
      *  @playerversion AIR 2.5
