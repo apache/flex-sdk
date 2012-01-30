@@ -63,6 +63,7 @@ internal class FrameworkClasses
 	import mx.core.DeferredInstanceFromClass; DeferredInstanceFromClass;
 	import mx.core.DeferredInstanceFromFunction; DeferredInstanceFromFunction;
 	import mx.core.DesignLayer; DesignLayer;
+    import mx.core.EmbeddedFontRegistry; EmbeddedFontRegistry;
 	import mx.core.FlexLoader; FlexLoader;
 	import mx.core.FontAsset; FontAsset;
 	import mx.core.IDataRenderer; IDataRenderer;
