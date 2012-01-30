@@ -17,6 +17,7 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 
+import spark.core.ContainerDestructionPolicy;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -141,7 +142,7 @@ public class View extends Group implements IDataRenderer
     /**
      * @private
      */
-    public function set active(value:Boolean) : void
+    mx_internal function setActive(value:Boolean) : void
     {
         if (_active != value)
         {
@@ -229,11 +230,11 @@ public class View extends Group implements IDataRenderer
     //  desctructionPolicy
     //----------------------------------
     
-    [Inspectable(category="General", enumeration="auto,none", defaultValue="auto")]
+    [Inspectable(category="General", enumeration="auto,always,never", defaultValue="auto")]
     /**
      *  Defines the destruction policy the view's navigator should use
      *  when this view is removed. If set to "auto", the navigator will
-     *  destroy the view when it isn't active.  If set to "none", the
+     *  destroy the view when it isn't active.  If set to "never", the
      *  view will be cached in memory.
      * 
      *  @default auto
@@ -243,7 +244,7 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var destructionPolicy:String = "auto";
+    public var destructionPolicy:String = ContainerDestructionPolicy.AUTO;
     
     //----------------------------------
     //  navigator
@@ -251,7 +252,7 @@ public class View extends Group implements IDataRenderer
     
     [Bindable]
     /**
-     * The view's navigator.
+     * The navigator that the view resides in.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
