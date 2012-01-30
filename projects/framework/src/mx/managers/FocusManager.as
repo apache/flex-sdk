@@ -1613,6 +1613,22 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         return Object(form).toString() + ".focusManager";
     }
     
+    /**
+     *  @private
+     * 
+     *  Clear the browser focus component and undo any tab index we may have set.
+     */
+    private function clearBrowserFocusComponent():void
+    {
+        if (browserFocusComponent)
+        {
+            if (browserFocusComponent.tabIndex == LARGE_TAB_INDEX)
+                browserFocusComponent.tabIndex = -1;
+            
+            browserFocusComponent = null;
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1941,6 +1957,10 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         showFocusIndicator = true;
 		focusChanged = false;
 
+        var haveBrowserFocusComponent:Boolean = (browserFocusComponent != null);
+        if (browserFocusComponent)
+            clearBrowserFocusComponent();
+        
         // see if we got here from a tab.  We also need to check for 
         // keyCode == 0 because in IE sometimes the first time you tab 
         // in to the flash player, you get keyCode == 0 instead of TAB.
@@ -1948,13 +1968,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         if ((event.keyCode == Keyboard.TAB || (browserMode && event.keyCode == 0)) 
                 && !event.isDefaultPrevented())
         {
-            if (browserFocusComponent)
+            if (haveBrowserFocusComponent)
             {
-                if (browserFocusComponent.tabIndex == LARGE_TAB_INDEX)
-                    browserFocusComponent.tabIndex = -1;
-
-                browserFocusComponent = null;
-
                 if (hasEventListener("browserFocusComponent"))
 	    			dispatchEvent(new FocusEvent("browserFocusComponent", false, false, InteractiveObject(event.target)));
 				
@@ -2004,6 +2019,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 
         if (browserMode)
         {
+            if (browserFocusComponent)
+                clearBrowserFocusComponent();
+            
             if (event.keyCode == Keyboard.TAB && focusableCandidates.length > 0)
             {
                 // get the object that has the focus
