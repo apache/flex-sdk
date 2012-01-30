@@ -23,6 +23,7 @@ import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
+import mx.validators.IValidator;
 
 //--------------------------------------
 //  Events
@@ -94,7 +95,7 @@ import mx.resources.ResourceManager;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class Validator extends EventDispatcher implements IMXMLObject
+public class Validator extends EventDispatcher implements IMXMLObject,IValidator
 {
     include "../core/Version.as";
 
@@ -157,9 +158,8 @@ public class Validator extends EventDispatcher implements IMXMLObject
         var n:int = validators.length;
         for (var i:int = 0; i < n; i++)
         {
-            var v:Validator = Validator(validators[i]);
-            
-            if (v.enabled)
+            var v:IValidator = validators[i] as IValidator;
+            if (v && v.enabled)
             {
 	            var resultEvent:ValidationResultEvent = v.validate();
 	            
