@@ -12,7 +12,7 @@
     <s:Panel title="WipeUp Effect Example" width="95%" height="95%" >
         <s:VGroup left="20" right="20" top="20" bottom="20">
 
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                 text="Use the WipeUp effect to show or hide the text and image."/>
 
             <mx:Label text="Nokia 9930"
