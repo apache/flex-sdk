@@ -22,6 +22,7 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
+import mx.managers.IFocusManagerComponent;
 import mx.managers.SystemManager;
 import mx.utils.DensityUtil;
 
@@ -59,7 +60,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
-public class ViewNavigatorBase extends SkinnableContainer
+public class ViewNavigatorBase extends SkinnableContainer implements IFocusManagerComponent
 {
     //--------------------------------------------------------------------------
     //
