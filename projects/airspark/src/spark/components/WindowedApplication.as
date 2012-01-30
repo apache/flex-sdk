@@ -388,7 +388,7 @@ use namespace mx_internal;
  *  </pre>
  * 
  *  @see spark.components.Windowed
- *  @see spark.skins.spark.FlexChromeSkin
+ *  @see spark.skins.spark.SparkChromeWindowedApplicationSkin
  *  @see spark.skins.spark.WindowedApplicationSkin
  *  
  *  @langversion 3.0
