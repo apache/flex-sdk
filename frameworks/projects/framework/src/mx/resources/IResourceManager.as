@@ -87,6 +87,11 @@ import flash.system.SecurityDomain;
  *  @see mx.resources.ResourceManager
  *  @see mx.resources.IResourceBundle
  *  @see mx.resources.ResourceBundle
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IResourceManager extends IEventDispatcher
 {
@@ -140,6 +145,11 @@ public interface IResourceManager extends IEventDispatcher
      *
      *  <p>Setting this property causes the ResourceManager to dispatch
      *  a <code>"change"</code> Event.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get localeChain():Array /* of String */;
 
@@ -192,6 +202,11 @@ public interface IResourceManager extends IEventDispatcher
      *
      *  @see mx.events.ResourceEvent
      *  @see mx.resources.IResourceManager#update()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function loadResourceModule(url:String, update:Boolean = true,
                                 applicationDomain:ApplicationDomain = null,
@@ -200,6 +215,11 @@ public interface IResourceManager extends IEventDispatcher
 
     /**
      *  This method has not yet been implemented.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function unloadResourceModule(url:String, update:Boolean = true):void;
 
@@ -209,6 +229,11 @@ public interface IResourceManager extends IEventDispatcher
      *  methods such as <code>getString()</code>.
      *
      *  @param resourceBundle The resource bundle to be added.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function addResourceBundle(resourceBundle:IResourceBundle):void;
     
@@ -222,6 +247,11 @@ public interface IResourceManager extends IEventDispatcher
      *  @param bundleName A bundle name such as <code>"MyResources"</code>.
      *
      *  @see mx.resources.IResourceBundle
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeResourceBundle(locale:String, bundleName:String):void;
     
@@ -234,6 +264,11 @@ public interface IResourceManager extends IEventDispatcher
      *  @param locale A locale string such as <code>"en_US"</code>.
      *
      *  @see mx.resources.IResourceBundle
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeResourceBundlesForLocale(locale:String):void;
     
@@ -252,6 +287,11 @@ public interface IResourceManager extends IEventDispatcher
      *  of a UIComponent, Formatter, or Validator to execute.
      *  Many components implement this method to update
      *  their state based on the latest resources.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function update():void;
 
@@ -262,6 +302,11 @@ public interface IResourceManager extends IEventDispatcher
      *  <p>The order of locales in this array is not specified.</p>
      *
      *  @return An Array of locale Strings.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getLocales():Array /* of String */;
 
@@ -273,6 +318,11 @@ public interface IResourceManager extends IEventDispatcher
      *  <code>Capabilities.languages</code>.
      * 
      *  @return An Array of locale Strings.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getPreferredLocaleChain():Array /* of String */;
 
@@ -288,6 +338,11 @@ public interface IResourceManager extends IEventDispatcher
      *  @return An Array of bundle names.
      *
      *  @see mx.resources.IResourceBundle
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getBundleNamesForLocale(locale:String):Array /* of String */;
 
@@ -305,6 +360,11 @@ public interface IResourceManager extends IEventDispatcher
      *  and <code>bundleName</code> if one exists; otherwise <code>null</code>.
      *
      *  @see mx.resources.IResourceBundle
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getResourceBundle(locale:String,
                                bundleName:String):IResourceBundle;
@@ -321,6 +381,11 @@ public interface IResourceManager extends IEventDispatcher
      *
      *  @return The first ResourceBundle in the <code>localeChain</code>
      *  that contains the specified resource, or <code>null</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function findResourceBundleWithResource(
                         bundleName:String,
@@ -361,6 +426,11 @@ public interface IResourceManager extends IEventDispatcher
      *  @return The resource value, exactly as it is stored
      *  in the <code>content</code> Object,
      *  or <code>undefined</code> if the resource is not found.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getObject(bundleName:String, resourceName:String,
                        locale:String = null):*;
@@ -400,6 +470,11 @@ public interface IResourceManager extends IEventDispatcher
      *
      *  @return The resource value, as a String,
      *  or <code>null</code> if it is not found.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getString(bundleName:String, resourceName:String,
                        parameters:Array = null,
@@ -440,6 +515,11 @@ public interface IResourceManager extends IEventDispatcher
      *
      *  @return The resource value, as an Array of Strings,
      *  or <code>null</code> if it is not found.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getStringArray(bundleName:String,
                             resourceName:String,
@@ -476,6 +556,11 @@ public interface IResourceManager extends IEventDispatcher
      *
      *  @return The resource value, as a Number,
      *  or <code>NaN</code> if it is not found.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getNumber(bundleName:String, resourceName:String,
                        locale:String = null):Number;
@@ -511,6 +596,11 @@ public interface IResourceManager extends IEventDispatcher
      *
      *  @return The resource value, as an int,
      *  or 0 if it is not found.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getInt(bundleName:String, resourceName:String,
                     locale:String = null):int;
@@ -546,6 +636,11 @@ public interface IResourceManager extends IEventDispatcher
      *
      *  @return The resource value, as a uint,
      *  or 0 if it is not found.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getUint(bundleName:String, resourceName:String,
                      locale:String = null):uint;
@@ -576,6 +671,11 @@ public interface IResourceManager extends IEventDispatcher
      *
      *  @return The resource value, as a Boolean,
      *  or <code>false</code> if it is not found.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getBoolean(bundleName:String, resourceName:String,
                         locale:String = null):Boolean;
@@ -615,12 +715,22 @@ public interface IResourceManager extends IEventDispatcher
      *
      *  @return The resource value, as a <code>Class</code>,
      *  or <code>null</code> if it is not found.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getClass(bundleName:String, resourceName:String,
                       locale:String = null):Class;
 
     /**
      *  Used only by classes which implement IFlexModuleFactory.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function installCompiledResourceBundles(
                                 applicationDomain:ApplicationDomain,
@@ -629,6 +739,11 @@ public interface IResourceManager extends IEventDispatcher
 
 	/**
 	 *  Used only by classes which implement IFlexModuleFactory.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     function initializeLocaleChain(compiledLocales:Array):void; 
 }
