@@ -67,11 +67,9 @@ in accordance with the terms of the license agreement accompanying it.
         <s:State name="normal"                          stateGroups="openedGroup"/>
         <s:State name="closed"                          stateGroups="closedGroup"/>
         <s:State name="disabled"                        stateGroups="openedGroup"/>
-        <s:State name="disabledAndClosed"               stateGroups="closedGroup"/>
         <s:State name="normalAndLandscape"              stateGroups="openedGroup, landscapeGroup"/>
         <s:State name="closedAndLandscape"              stateGroups="closedGroup, landscapeGroup"/>
         <s:State name="disabledAndLandscape"            stateGroups="openedGroup, landscapeGroup" />
-        <s:State name="disabledAndClosedAndLandscape"   stateGroups="closedGroup, landscapeGroup"/>
     </s:states>
     
     <s:transitions>
@@ -82,21 +80,7 @@ in accordance with the terms of the license agreement accompanying it.
             </s:Parallel>
         </s:Transition>
         
-        <s:Transition fromState="disabledAndClosed" toState="disabled" autoReverse="true">
-            <s:Parallel>
-                <s:Fade target="{chromeGroup}" duration="150" easer="{new Power(0.5, 3)}" /> 
-                <s:Move target="{chromeGroup}" duration="150" disableLayout="true"  easer="{new Power(0, 5)}"/>
-            </s:Parallel>
-        </s:Transition>
-
         <s:Transition fromState="closedAndLandscape" toState="normalAndLandscape" autoReverse="true">
-            <s:Parallel>
-                <s:Fade target="{chromeGroup}" duration="150" easer="{new Power(0.5, 3)}" /> 
-                <s:Move target="{chromeGroup}" duration="150" disableLayout="true"  easer="{new Power(0, 5)}"/>
-            </s:Parallel>
-        </s:Transition>
-
-        <s:Transition fromState="disabledAndClosedAndLandscape" toState="disabledAndLandscape" autoReverse="true">
             <s:Parallel>
                 <s:Fade target="{chromeGroup}" duration="150" easer="{new Power(0.5, 3)}" /> 
                 <s:Move target="{chromeGroup}" duration="150" disableLayout="true"  easer="{new Power(0, 5)}"/>
@@ -110,21 +94,7 @@ in accordance with the terms of the license agreement accompanying it.
             </s:Parallel>
         </s:Transition>
 
-        <s:Transition fromState="disabled" toState="disabledAndClosed" autoReverse="true">
-            <s:Parallel>
-                <s:Fade target="{chromeGroup}" duration="100"/> 
-                <s:Move target="{chromeGroup}" duration="100" disableLayout="true"/>
-            </s:Parallel>
-        </s:Transition>
-
         <s:Transition fromState="normalAndLandscape" toState="closedAndLandscape" autoReverse="true">
-            <s:Parallel>
-                <s:Fade target="{chromeGroup}" duration="100"/> 
-                <s:Move target="{chromeGroup}" duration="100" disableLayout="true"/>
-            </s:Parallel>
-        </s:Transition>
-
-        <s:Transition fromState="disabledAndLandscape" toState="disabledAndClosedAndLandscape" autoReverse="true">
             <s:Parallel>
                 <s:Fade target="{chromeGroup}" duration="100"/> 
                 <s:Move target="{chromeGroup}" duration="100" disableLayout="true"/>
