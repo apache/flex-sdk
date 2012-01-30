@@ -18,6 +18,7 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.EffectInstance;
 import mx.effects.IEffectInstance;
+import mx.effects.Parallel;
 
 use namespace mx_internal;
 
@@ -428,6 +429,35 @@ public class ParallelInstance extends CompositeEffectInstance
 		}
 		
 	}
+
+    /**
+     * @inheritDoc
+     * 
+     * In a Parallel effect, seek will cause all child effects to seek to
+     * the same <code>seekTime</code>. This may cause child effects to 
+     * lessen their startDelay (if they are currently waiting to be played),
+     * start playing (if the seekTime is greater than their startDelay), or
+     * come to an end (if the seekTime is greater than their startDelay plus
+     * their duration).
+     */
+    override public function seek(seekTime:Number):void
+    {
+        var totalDur:Number = Parallel(effect).compositeDuration;
+        var childSeekTime:Number = (seekTime - startDelay) % (totalDur + repeatDelay);
+        
+        // This will seek in the Parallel's instance
+        super.seek(childSeekTime);
+        playCount = 1 + (seekTime - startDelay) / (totalDur + repeatDelay);
+
+        // Tell all of our children to seek()
+        for (var i:int = 0; i < childSets.length; i++)
+        {
+            var instances:Array = childSets[i];            
+            var m:int = instances.length;
+            for (var j:int = 0; j < m; j++)
+                instances[j].seek(childSeekTime);
+        }
+    }
 }
 
 }
