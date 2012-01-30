@@ -30,9 +30,9 @@
                     close="closeHandler(event);"/>
 
             <s:VGroup width="250">
-                <s:SimpleText width="200" color="blue" text="Select a type of credit card."/>
-                <s:SimpleText id="myLabel" text="You selected:"/>
-                <s:SimpleText id="myData" text="Data:"/>
+                <s:Label width="200" color="blue" text="Select a type of credit card."/>
+                <s:Label id="myLabel" text="You selected:"/>
+                <s:Label id="myData" text="Data:"/>
             </s:VGroup>
         </s:HGroup>
     </s:Panel>
