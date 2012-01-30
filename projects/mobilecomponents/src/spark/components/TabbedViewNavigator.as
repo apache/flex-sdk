@@ -113,7 +113,7 @@ use namespace mx_internal;
  *  This class includes a TabBar control that provides the ability to toggle between
  *  the collection of view navigators.  
  *
- *  <p>The following images shows a TabbedViewNavigator with three sections: 
+ *  <p>The following image shows a TabbedViewNavigator with three sections: 
  *  Employees, Contacts, and Search:</p>
  *
  * <p>
