@@ -10531,16 +10531,13 @@ public class UIComponent extends FlexSprite
      */
     public function getStyle(styleProp:String):*
     {
-        // If our style proto chain hasn't been set up yet, return any locally declared
-        // styles. This way any style set before we are added to the display list
-        // is correctly returned.
-        if (_inheritingStyles == StyleProtoChain.STYLE_UNINITIALIZED)
+        // If a moduleFactory has not be set yet, first check for any deferred
+        // styles. If there are no deferred styles or the styleProp is not in 
+        // the deferred styles, the look in the proto chain.
+        if (!moduleFactory)
         {
-            if (deferredSetStyles)
-                return this.deferredSetStyles[styleProp];
-            
-            if (styleDeclaration)
-                return styleDeclaration.getStyle(styleProp); 
+            if (deferredSetStyles && deferredSetStyles[styleProp] !== undefined)
+                return deferredSetStyles[styleProp];
         }
         
         return styleManager.inheritingStyles[styleProp] ?
