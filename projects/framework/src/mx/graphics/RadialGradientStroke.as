@@ -80,7 +80,6 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
     public function RadialGradientStroke(weight:Number=0, pixelHinting:Boolean=false, scaleMode:String="none", caps:String=null, joints:String=null, miterLimit:Number=0)
     {
         super(weight, pixelHinting, scaleMode, caps, joints, miterLimit);
-        matrix = new Matrix();
     }
     
     //----------------------------------
@@ -186,6 +185,11 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
     }
     
     /**
+     *  @inheritDoc
+     */
+	private static var commonMatrix:Matrix = new Matrix();
+
+    /**
      *  Draws the stroke. 
      *  
      *  @param g The graphics context where the stroke is drawn.
@@ -202,13 +206,13 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
         var bX:Number = !isNaN(x) ? x + rc.left : rc.left;
         var bY:Number = !isNaN(y) ? y + rc.top : rc.top;
         
-        matrix.createGradientBox(w, h, 
+        commonMatrix.createGradientBox(w, h, 
                                  mx_internal::rotationInRadians,
                                  bX, bY);   
                                  
         g.lineGradientStyle(GradientType.RADIAL, mx_internal::colors,
                             mx_internal::alphas, mx_internal::ratios,
-                            matrix, spreadMethod,
+                            commonMatrix, spreadMethod,
                             interpolationMethod, focalPointRatio);                       
     }
     
