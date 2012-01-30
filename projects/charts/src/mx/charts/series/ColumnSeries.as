@@ -15,9 +15,9 @@ package mx.charts.series
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 import flash.display.Sprite;
-import flash.filters.DropShadowFilter;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.system.ApplicationDomain;
 import flash.utils.Dictionary;
 
 import mx.charts.ColumnChart;
@@ -41,9 +41,6 @@ import mx.charts.series.items.ColumnSeriesItem;
 import mx.charts.series.renderData.ColumnSeriesRenderData;
 import mx.charts.styles.HaloDefaults;
 import mx.collections.CursorBookmark;
-import mx.collections.ICollectionView;
-import mx.collections.IViewCursor;
-import mx.controls.Label;
 import mx.core.ClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
@@ -55,7 +52,6 @@ import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.graphics.IFill;
-import mx.graphics.IStroke;
 import mx.graphics.SolidColor;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
@@ -120,6 +116,20 @@ include "../styles/metadata/TextStyles.as"
  */
 [Style(name="labelAlign", type="String", enumeration="top,center,bottom", inherit="no")]
 
+/**
+ *  The class that is used by this component to render labels.
+ *
+ *  <p>It can be set to either the mx.controls.Label class
+ *  or the spark.components.Label class.</p>
+ *
+ *  @default spark.components.Label
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.2
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4
+ */
+[Style(name="labelClass", type="Class", inherit="no")]
 
 /**
  * Determines the position of labels
@@ -246,16 +256,35 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
         _labelLayer = new UIComponent();
         _labelLayer.styleName = this;
         
-        labelCache = new InstanceCache(Label,_labelLayer);
+        labelCache = new InstanceCache(getLabelClass(),_labelLayer);
         labelCache.discard = true;
         labelCache.properties =
         {
-            selectable: false,
             styleName: this
         };
             
         dataTransform = new CartesianTransform();
     }
+	
+	private function getLabelClass():Class
+	{
+		var labelClass:Class = getStyle("labelClass");
+		
+		if(labelClass == null)
+		{
+			try{
+				labelClass = Class(ApplicationDomain.currentDomain.
+					getDefinition("spark.components::Label"));
+			}
+			catch(e:Error)
+			{
+				labelClass = Class(ApplicationDomain.currentDomain.
+					getDefinition("mx.controls::Label"));
+			}
+		}
+		return labelClass;
+	}
+
     
     //--------------------------------------------------------------------------
     //
@@ -2301,15 +2330,15 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
         
         var dataTransform:CartesianTransform=CartesianTransform(dataTransform);
  
-        var label:Label;
+        var label:Object;
         var size:Number = getStyle('fontSize');
         var align:String = getStyle('labelAlign');
         for (var i:int = 0; i < n; i++)
         {
             var v:ColumnSeriesItem =activeCount[i];
             label = labels[i];
-            label.x=v.labelX;
-            label.y=v.labelY;
+            label.x=v.labelX+2;
+            label.y=v.labelY+4;
             label.width=v.labelWidth;
             label.height=v.labelHeight;
             label.setStyle('fontSize',size * renderData.labelScale);
@@ -2366,7 +2395,7 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
         var n:int=activeCount.length;
         labelCache.count = n;
         var labels:Array /* of Label */ = labelCache.instances;
-        var label:Label;
+        var label:Object;
         var size:Number = getStyle('fontSize');
         
         for (var i:int = 0; i < n; i++)
@@ -2374,8 +2403,8 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
             var v:ColumnSeriesItem =activeCount[i];
             label=labels[i];
             
-            label.x=v.labelX;
-            label.y=v.labelY;
+            label.x=v.labelX+2;
+            label.y=v.labelY+4;
             label.width=v.labelWidth;
             label.height=v.labelHeight;
             label.setStyle('fontSize',size * renderData.labelScale);
