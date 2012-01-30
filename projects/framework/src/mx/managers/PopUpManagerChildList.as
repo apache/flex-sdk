@@ -19,6 +19,11 @@ package mx.managers
  *  methods.
  *  
  *  @see PopUpManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class PopUpManagerChildList
 {
@@ -33,6 +38,11 @@ public final class PopUpManagerChildList
 	/**
 	 *  Indicates that the popup is placed in the same child list as the
 	 *  application.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const APPLICATION:String = "application";
 
@@ -40,12 +50,22 @@ public final class PopUpManagerChildList
 	 *  Indicates that the popup is placed in the popup child list
 	 *  which will cause it to float over other popups in the application
 	 *  layer.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const POPUP:String = "popup";
 
 	/**
 	 *  Indicates that the popup is placed in whatever child list the
 	 *  parent component is in.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const PARENT:String = "parent";
 }
