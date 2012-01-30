@@ -152,7 +152,7 @@ public class ViewTransitionBase extends EventDispatcher
      *  Flag set when we've determined that we need to transition the navigator
      *  in its entirety and cannot transition the control bars independently.
      */
-    private var consolidatedTransition:Boolean = false;
+    protected var consolidatedTransition:Boolean = false;
     
     /**
      *  @private
@@ -558,7 +558,8 @@ public class ViewTransitionBase extends EventDispatcher
         // Determine first if we're able to transition our control bars independently
         // of our view content.  If we are, then capture the necessary action bar
         // bitmap snapshots for use later by our default action bar transition.
-        consolidatedTransition = !canTransitionControlBarContent();
+        consolidatedTransition = consolidatedTransition ? 
+			consolidatedTransition : !canTransitionControlBarContent();
 		    
         // Snapshot component parts of action bar in preparation for our 
         // default action bar transition, (if appropriate).
