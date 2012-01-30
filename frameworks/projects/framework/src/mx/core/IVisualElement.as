@@ -233,5 +233,26 @@ public interface IVisualElement extends ILayoutElement
      *  @private
      */
     function set designLayer(value:DesignLayer):void;
+
+    /**
+     *  Defines a set of adjustments that can be applied to the object's 
+     *  transform in a way that is invisible to its parent's layout. 
+     *  For example, if you want a layout to adjust for an object 
+     *  that will be rotated 90 degrees, you set the object's 
+     *  <code>rotation</code> property. If you want the layout to <i>not</i> 
+     *  adjust for the object being rotated, 
+     *  you set its <code>postLayoutTransformOffsets.rotationZ</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get postLayoutTransformOffsets():TransformOffsets;
+    
+    /**
+     * @private
+     */
+    function set postLayoutTransformOffsets(value:TransformOffsets):void;    
 }
 }
