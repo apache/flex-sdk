@@ -16,7 +16,9 @@ import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.TextEvent;
 import flash.geom.Matrix;
+import flash.geom.Matrix3D;
 import flash.geom.Point;
+import flash.geom.Vector3D;
 import flash.text.Font;
 import flash.text.TextField;
 import flash.text.TextFieldType;
@@ -24,9 +26,12 @@ import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.ui.Keyboard;
 
+import mx.core.DesignLayer;
+import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.geom.TransformOffsets;
 import mx.resources.ResourceManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
@@ -71,7 +76,7 @@ use namespace mx_internal;
 //
 // Supported styles: textAlign, fontFamily, fontWeight, "colorName", fontSize, fontStyle, 
 //                   textDecoration, textIndent, leading, letterSpacing
- 
+
 /**
  *  The StyleableTextField class is a text primitive for use in ActionScript
  *  skins and item renderers. It cannot be used in MXML markup and is not
@@ -83,7 +88,7 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 public class StyleableTextField extends TextField 
-    implements IEditableText, ISimpleStyleClient
+    implements IEditableText, ISimpleStyleClient, IVisualElement
 {        
     
     //--------------------------------------------------------------------------
@@ -159,9 +164,9 @@ public class StyleableTextField extends TextField
     
     public function get measuredTextSize():Point
     {
-		// commit style to get an accurate measurement
-		commitStyles();
-		
+        // commit style to get an accurate measurement
+        commitStyles();
+        
         if (!_measuredTextSize)
         {
             _measuredTextSize = new Point();
@@ -277,7 +282,13 @@ public class StyleableTextField extends TextField
      */
     public function get styleName():Object /* UIComponent */
     {
-        return _styleName;
+        if (_styleName)
+            return _styleName;
+        
+        if (parent is IStyleClient)
+            return parent;
+        
+        return null;
     }
     
     /**
@@ -326,7 +337,7 @@ public class StyleableTextField extends TextField
         // TextField's text property can't be set to null.
         if (!value)
             value = "";
-
+        
         super.text = value;
         _isTruncated = false;
         invalidateTextSizeFlag = true;
@@ -334,7 +345,29 @@ public class StyleableTextField extends TextField
         if (hasEventListener(FlexEvent.VALUE_COMMIT))
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
-            
+    
+    //----------------------------------
+    //  $text
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  This property allows access to the Player's native implementation
+     *  of the 'text' property, which can be useful since components
+     *  can override 'text' and thereby hide the native implementation.
+     *  Note that this "base property" is final and cannot be overridden,
+     *  so you can count on it to reflect what is happening at the player level.
+     */
+    mx_internal final function get $text():String
+    {
+        return super.text;
+    }
+    
+    mx_internal final function set $text(value:String):void
+    {
+        super.text = value;
+    }
+    
     //----------------------------------
     //  isTruncated
     //----------------------------------
@@ -563,7 +596,7 @@ public class StyleableTextField extends TextField
     //  IEditableText Methods
     //
     //--------------------------------------------------------------------------        
-
+    
     /**
      *  Scroll so the specified range is in view.
      *  
@@ -653,7 +686,7 @@ public class StyleableTextField extends TextField
     public function selectRange(anchorIndex:int, activeIndex:int):void
     {
         setSelection(Math.min(anchorIndex, activeIndex),
-                     Math.max(anchorIndex, activeIndex));
+            Math.max(anchorIndex, activeIndex));
     }
     
     /**
@@ -668,7 +701,7 @@ public class StyleableTextField extends TextField
     {
         setSelection(0, length);
     }
-     
+    
     /**
      *  Set focus to this text field.
      * 
@@ -680,9 +713,9 @@ public class StyleableTextField extends TextField
     public function setFocus():void
     {
         stage.focus = this;
-		
-		if (editable)
-			requestSoftKeyboard();
+        
+        if (editable)
+            requestSoftKeyboard();
     }
     
     //--------------------------------------------------------------------------
@@ -741,7 +774,7 @@ public class StyleableTextField extends TextField
             // ignore padding in the text...most components deal with it themselves
             //textFormat.leftMargin = getStyle("paddingLeft");
             //textFormat.rightMargin = getStyle("paddingRight");
-
+            
             // Check for embedded fonts
             embedFonts = isFontEmbedded(textFormat);
             
@@ -759,10 +792,11 @@ public class StyleableTextField extends TextField
             }
             
             invalidateStyleFlag = false;
-			
-			// now that we've pushed the new styles in, our size might have 
-			// changed
+            
+            // now that we've pushed the new styles in, our size might have 
+            // changed
             invalidateTextSizeFlag = true;
+            invalidateBaselinePosition = true;
         }
     }
     
@@ -831,9 +865,9 @@ public class StyleableTextField extends TextField
             || styleProp == colorName)
         {
             invalidateStyleFlag = true;
-			
-			// invalidateSizeFlag doesn't get set until commitStyles() when 
-			// the new styles are actually pushed in and the textWidth/textHeight changes
+            
+            // invalidateSizeFlag doesn't get set until commitStyles() when 
+            // the new styles are actually pushed in and the textWidth/textHeight changes
         }
     }
     
@@ -884,6 +918,7 @@ public class StyleableTextField extends TextField
             
             _isTruncated = true;
             invalidateTextSizeFlag = true;
+            invalidateBaselinePosition = true;
             
             // Make sure all text is visible
             scrollH = 0;
@@ -979,15 +1014,583 @@ public class StyleableTextField extends TextField
     
     //--------------------------------------------------------------------------
     //
+    //  IVisualElement implementation
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     * @private
+     */
+    public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean=true):Number
+    {
+        return x;
+    }
+    
+    /**
+     * @private
+     */
+    public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean=true):Number
+    {
+        return y;
+    }
+    
+    /**
+     * @private
+     */
+    public function getLayoutBoundsHeight(postLayoutTransform:Boolean=true):Number
+    {
+        return height;
+    }
+    
+    /**
+     * @private
+     */
+    public function getLayoutBoundsWidth(postLayoutTransform:Boolean=true):Number
+    {
+        return width;
+    }
+    
+    /**
+     * @private
+     */
+    public function getLayoutBoundsX(postLayoutTransform:Boolean=true):Number
+    {
+        return x;
+    }
+    
+    /**
+     * @private
+     */
+    public function getLayoutBoundsY(postLayoutTransform:Boolean=true):Number
+    {
+        return y;
+    }
+    
+    /**
+     * @private
+     */
+    public function getLayoutMatrix():Matrix
+    {
+        return transform.matrix;
+    }
+    
+    /**
+     * @private
+     */
+    public function getLayoutMatrix3D():Matrix3D
+    {
+        return transform.matrix3D;
+    }
+    
+    /**
+     * @private
+     */
+    public function getMaxBoundsHeight(postLayoutTransform:Boolean=true):Number
+    {
+        return UIComponent.DEFAULT_MAX_WIDTH;
+    }
+    
+    /**
+     * @private
+     */
+    public function getMaxBoundsWidth(postLayoutTransform:Boolean=true):Number
+    {
+        return UIComponent.DEFAULT_MAX_WIDTH;
+    }
+    
+    /**
+     * @private
+     */
+    public function getMinBoundsHeight(postLayoutTransform:Boolean=true):Number
+    {
+        return 0;
+    }
+    
+    /**
+     * @private
+     */
+    public function getMinBoundsWidth(postLayoutTransform:Boolean=true):Number
+    {
+        return 0;
+    }
+    
+    /**
+     * @private
+     */
+    public function getPreferredBoundsHeight(postLayoutTransform:Boolean=true):Number
+    {
+        return measuredTextSize.y;
+    }
+    
+    /**
+     * @private
+     */
+    public function getPreferredBoundsWidth(postLayoutTransform:Boolean=true):Number
+    {
+        return measuredTextSize.x;
+    }
+    
+    /**
+     * @private
+     */
+    public function invalidateLayoutDirection():void
+    {
+        // do nothing
+    }
+    
+    /**
+     * @private
+     */
+    public function setEstimatedSize(estimatedWidth:Number=NaN, estimatedHeight:Number=NaN, invalidateSize:Boolean=true):void
+    {
+        // TODO (jasonsj)
+    }
+    
+    /**
+     * @private
+     */
+    public function setLayoutBoundsPosition(x:Number, y:Number, postLayoutTransform:Boolean=true):void
+    {
+        this.x = x;
+        this.y = y;
+    }
+    
+    /**
+     * @private
+     */
+    public function setLayoutBoundsSize(width:Number, height:Number, postLayoutTransform:Boolean=true):void
+    {
+        this.width = width;
+        this.height = height;
+    }
+    
+    /**
+     * @private
+     */
+    public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
+    {
+        // do nothing
+    }
+    
+    /**
+     * @private
+     */
+    public function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void
+    {
+        // do nothing
+    }
+    
+    /**
+     * @private
+     */
+    public function transformAround(transformCenter:Vector3D, scale:Vector3D=null, rotation:Vector3D=null, translation:Vector3D=null, postLayoutScale:Vector3D=null, postLayoutRotation:Vector3D=null, postLayoutTranslation:Vector3D=null, invalidateLayout:Boolean=true):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  layoutDirection
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get layoutDirection():String
+    {
+        return null;
+    }
+    
+    /**
+     * @private
+     */
+    public function set layoutDirection(value:String):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  baseline
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get baseline():Object
+    {
+        return null;
+    }
+    
+    /**
+     * @private
+     */
+    public function set baseline(value:Object):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get baselinePosition():Number
+    {
+        commitStyles();
+        
+        if (invalidateBaselinePosition)
+        {
+            // getLineMetrics() returns strange numbers for an empty string,
+            // so instead we get the metrics for a non-empty string.
+            var isEmpty:Boolean = (text == "");
+            if (isEmpty)
+                super.text = "Wj";
+            
+            _baselinePosition = getLineMetrics(0).ascent;
+            
+            if (isEmpty)
+                super.text = "";
+            
+            // baseline = add top gutter
+            _baselinePosition += (StyleableTextField.TEXT_HEIGHT_PADDING / 2)
+            
+            invalidateBaselinePosition = false;
+        }
+        
+        return _baselinePosition;
+    }
+    
+    //----------------------------------
+    //  bottom
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get bottom():Object
+    {
+        return null;
+    }
+    
+    /**
+     * @private
+     */
+    public function set bottom(value:Object):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  estimatedHeight
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get estimatedHeight():Number
+    {
+        return NaN;
+    }
+    
+    //----------------------------------
+    //  estimatedWidth
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get estimatedWidth():Number
+    {
+        return NaN;
+    }
+    
+    //----------------------------------
+    //  hasLayoutMatrix3D
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get hasLayoutMatrix3D():Boolean
+    {
+        return false;
+    }
+    
+    //----------------------------------
+    //  horizontalCenter
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get horizontalCenter():Object
+    {
+        return null;
+    }
+    
+    /**
+     * @private
+     */
+    public function set horizontalCenter(value:Object):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  includeInLayout
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get includeInLayout():Boolean
+    {
+        return true;
+    }
+    
+    /**
+     * @private
+     */
+    public function set includeInLayout(value:Boolean):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  left
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get left():Object
+    {
+        return null;
+    }
+    
+    /**
+     * @private
+     */
+    public function set left(value:Object):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  percentHeight
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get percentHeight():Number
+    {
+        return NaN;
+    }
+    
+    /**
+     * @private
+     */
+    public function set percentHeight(value:Number):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  percentWidth
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get percentWidth():Number
+    {
+        return NaN;
+    }
+    
+    /**
+     * @private
+     */
+    public function set percentWidth(value:Number):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  right
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get right():Object
+    {
+        return null;
+    }
+    
+    /**
+     * @private
+     */
+    public function set right(value:Object):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  top
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get top():Object
+    {
+        return null;
+    }
+    
+    /**
+     * @private
+     */
+    public function set top(value:Object):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  verticalCenter
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get verticalCenter():Object
+    {
+        return null;
+    }
+    
+    /**
+     * @private
+     */
+    public function set verticalCenter(value:Object):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  depth
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get depth():Number
+    {
+        return 0;
+    }
+    
+    /**
+     * @private
+     */
+    public function set depth(value:Number):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  designLayer
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get designLayer():DesignLayer
+    {
+        return null;
+    }
+    
+    /**
+     * @private
+     */
+    public function set designLayer(value:DesignLayer):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  is3D
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get is3D():Boolean
+    {
+        return false;
+    }
+    
+    //----------------------------------
+    //  owner
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get owner():DisplayObjectContainer
+    {
+        return null;
+    }
+    
+    /**
+     * @private
+     */
+    public function set owner(value:DisplayObjectContainer):void
+    {
+        // do nothing
+    }
+    
+    //----------------------------------
+    //  postLayoutTransformOffsets
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    public function get postLayoutTransformOffsets():TransformOffsets
+    {
+        return null;
+    }
+    
+    /**
+     * @private
+     */
+    public function set postLayoutTransformOffsets(value:TransformOffsets):void
+    {
+        // do nothing
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Variables
     //
-    //--------------------------------------------------------------------------   
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the inline styles on this StyleableTextField instance
+     * 
+     *  There's no real need for _inlineStyleObject because we could 
+     *  just piggy-back off of styleDeclaration (and create a new 
+     *  CSSStyleDeclaration when setStyle() is called, but this is easier 
+     *  and there seems to be less overhead with this approach).
+     */
+    private var _inlineStyleObject:Object;
     
     // Name of the style to use for determining the text color
     mx_internal var colorName:String = "color";
-        
+    
     private static var supportedStyles:String = "textAlign fontFamily fontWeight fontStyle color fontSize textDecoration textIndent leading letterSpacing"
-        
+    
     private var invalidateStyleFlag:Boolean = true;
     
     private static var textFormat:TextFormat = new TextFormat();
@@ -1002,18 +1605,20 @@ public class StyleableTextField extends TextField
      */
     private var invalidateTextSizeFlag:Boolean = false;
     
+    /**
+     *  @private
+     */
     private var _measuredTextSize:Point;
     
     /**
      *  @private
-     *  Storage for the inline styles on this StyleableTextField instance
-     * 
-     *  There's no real need for _inlineStyleObject because we could 
-     *  just piggy-back off of styleDeclaration (and create a new 
-     *  CSSStyleDeclaration when setStyle() is called, but this is easier 
-     *  and there seems to be less overhead with this approach).
      */
-    private var _inlineStyleObject:Object;
+    private var invalidateBaselinePosition:Boolean = true;
+    
+    /**
+     *  @private
+     */
+    private var _baselinePosition:Number;
     
     /**
      *  @private
