@@ -326,7 +326,7 @@ global
     
     ActionBar #titleDisplay
     {
-        fontSize: 18pt;
+        fontSize: 18;
     }
     
     ActionBar.beveled Group#navigationGroup Button
@@ -383,7 +383,7 @@ global
     
     global
     {
-        fontSize: 16pt;
+        fontSize: 16;
         focusThickness: 2;
     }
 }
@@ -406,7 +406,7 @@ global
     
     ActionBar #titleDisplay
     {
-        fontSize: 36pt;
+        fontSize: 36;
     }
     
     ActionBar.beveled Group#navigationGroup Button
@@ -463,6 +463,24 @@ global
     
     global
     {
-        fontSize: 32pt;
+        fontSize: 32;
     }
+}
+
+@media (application-dpi: 160) AND (os-platform:"IOS")
+{
+	TextArea
+	{
+		padding-right: 9.5;
+		leading: 1.5;
+	}
+}
+
+@media (application-dpi: 320) AND (os-platform:"IOS")
+{
+	TextArea
+	{
+		padding-right: 19;
+		leading: 4.5;
+	}
 }
