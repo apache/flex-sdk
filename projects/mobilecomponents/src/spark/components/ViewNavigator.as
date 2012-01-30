@@ -1911,7 +1911,6 @@ public class ViewNavigator extends ViewNavigatorBase
         view.data = viewProxy.data;
         view.percentWidth = view.percentHeight = 100;
         
-        // Update the views orientation state
         addElement(view);
         
         return view;
