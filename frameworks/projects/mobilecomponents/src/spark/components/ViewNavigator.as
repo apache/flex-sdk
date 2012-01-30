@@ -405,6 +405,8 @@ public class ViewNavigator extends ViewNavigatorBase
                 // persistence is enabled.
                 if (canDestroy || clearNavigationStack)
                     destroyViewInstance(navigationStack.topView, !clearNavigationStack);
+				else
+					deactiveView(activeView);
             }
         }
         
@@ -1962,13 +1964,8 @@ public class ViewNavigator extends ViewNavigatorBase
             return;
         
         // Deactivate the view if it is active
-        if (currentView.isActive)
-            currentView.setActive(false);
-        
+		deactiveView(currentView);
         removeElement(currentView);
-        
-        currentView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
-            view_propertyChangeHandler);
         
         // Grab the data from the old view and persist it
         if (lastAction == ViewNavigatorAction.PUSH || forceDataPersist)
@@ -1988,6 +1985,18 @@ public class ViewNavigator extends ViewNavigatorBase
         }
     }
     
+    /**
+     *  @private
+     */
+	private function deactiveView(view:View):void
+	{
+		if (view.isActive)
+			view.setActive(false);
+		
+		view.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+			view_propertyChangeHandler);
+	}
+	
     /**
      *  @private
      */
