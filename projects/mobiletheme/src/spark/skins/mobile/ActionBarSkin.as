@@ -221,12 +221,17 @@ public class ActionBarSkin extends MobileSkin
         titleDisplay = new TitleDisplayComponent();
         titleDisplay.id = "titleDisplay";
         
+        // initialize titleAlign style (center is managed explicitly in layoutContents)
+        var titleAlign:String = getStyle("titleAlign");
+        titleAlign = (titleAlign == "center") ? TextFormatAlign.LEFT : titleAlign;
+        titleDisplay.setStyle("textAlign", titleAlign);
+        
         addChild(navigationGroup);
         addChild(titleGroup);
         addChild(actionGroup);
         addChild(titleDisplay);
     }
-    
+
     /**
      *  @private
      */
@@ -288,23 +293,28 @@ public class ActionBarSkin extends MobileSkin
      */
     override public function styleChanged(styleProp:String):void
     {
-        super.styleChanged(styleProp);
-        
-        if (styleProp == "textAlign")
+        if (titleDisplay)
         {
-            var titleAlign:String = getStyle("textAlign");
+            var allStyles:Boolean = !styleProp || styleProp == "styleName";
             
-            if (titleAlign == "center")
-            { 
-                // If the title align is set to center, the alignment is set to LEFT
-                // so that the skin can manually center the component in layoutContents
-                titleDisplay.setStyle("textAlign", TextFormatAlign.LEFT);
-            }
-            else
+            if (allStyles || (styleProp == "titleAlign"))
             {
-                titleDisplay.setStyle("textAlign", titleAlign);
+                var titleAlign:String = getStyle("titleAlign");
+                
+                if (titleAlign == "center")
+                { 
+                    // If the title align is set to center, the alignment is set to LEFT
+                    // so that the skin can manually center the component in layoutContents
+                    titleDisplay.setStyle("textAlign", TextFormatAlign.LEFT);
+                }
+                else
+                {
+                    titleDisplay.setStyle("textAlign", titleAlign);
+                }
             }
         }
+        
+        super.styleChanged(styleProp);
     }
     
     /**
@@ -569,9 +579,6 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
      */
     override protected function measure():void
     {
-        var textWidth:Number = 0;
-        var textHeight:Number = 0;
-        
         // reset text if it was truncated before.
         if (titleDisplay.isTruncated)
             titleDisplay.text = title;
