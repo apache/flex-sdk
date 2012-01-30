@@ -615,7 +615,7 @@ public class MobileItemRenderer extends UIComponent
         if (!labelDisplay)
         {
             labelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-            labelDisplay.styleProvider = this;
+            labelDisplay.styleName = this;
             labelDisplay.editable = false;
             labelDisplay.selectable = false;
             labelDisplay.multiline = false;
@@ -671,21 +671,6 @@ public class MobileItemRenderer extends UIComponent
         drawBackground(unscaledWidth, unscaledHeight);
         
         layoutContents(unscaledWidth, unscaledHeight);
-    }
-
-    /**
-     *  @private
-     */
-    override public function styleChanged(styleName:String):void
-    {
-        var allStyles:Boolean = !styleName || styleName == "styleName";
-        
-        super.styleChanged(styleName);
-        
-        // pass all style changes to labelTextField.  It will deal with them 
-        // appropriatley and in a performant manner
-        if (labelDisplay)
-            labelDisplay.styleChanged(styleName);
     }
     
     //--------------------------------------------------------------------------
