@@ -22,12 +22,13 @@ import mx.charts.ChartItem;
 import mx.charts.LinearAxis;
 import mx.charts.events.ChartItemEvent;
 import mx.charts.styles.HaloDefaults;
+import mx.core.IFlexModuleFactory;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
 import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -201,18 +202,11 @@ public class PolarChart extends ChartBase
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-        
-        var polarChartStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.chartClasses.PolarChart", styleManager);
-        
-        polarChartStyle.defaultFactory = function():void
-        {
-            this.dataTipRenderer = DataTip;
-            this.fill = new SolidColor(0xFFFFFF, 0);
-            this.calloutStroke = new Stroke(0x888888,2);            
-            this.fontSize = 10;
-        }
-        
+		
+		var polarChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.chartClasses.PolarChart");
+		polarChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+		polarChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2))
+		
         return true;
     }
     
