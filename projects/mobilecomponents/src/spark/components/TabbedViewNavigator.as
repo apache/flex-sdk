@@ -293,21 +293,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     //----------------------------------
-    //  landscapeOrientation
-    //----------------------------------
-    
-    /**
-     *  @private
-     */ 
-    override public function set landscapeOrientation(value:Boolean):void
-    {
-        super.landscapeOrientation = value;
-        
-        if (activeNavigator)
-            activeNavigator.landscapeOrientation = value;
-    }
-    
-    //----------------------------------
     //  maintainNavigationStack
     //----------------------------------
     private var _maintainNavigationStack:Boolean = true;
@@ -396,8 +381,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             for (i = 0; i < value.length; ++i)
             {
                 navigator = _navigators[i];
-                setupNavigator(navigator);
                 addElement(navigator);
+                setupNavigator(navigator);
             }
         }
        
@@ -676,7 +661,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
                 
-                navigator.landscapeOrientation = landscapeOrientation;
                 navigator.setActive(true);
                 navigator.visible = true;
 
