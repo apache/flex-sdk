@@ -363,8 +363,10 @@ public class SpinnerList extends ListBase
 	override protected function dataGroup_rendererAddHandler(event:RendererExistenceEvent):void
 	{
 		super.dataGroup_rendererAddHandler(event);
-		
 		var renderer:IVisualElement = event.renderer;
+		
+		/*if (renderer is IStyleClient)
+			IStyleClient(renderer).styleName = this;*/
 		
 		if (!renderer)
 			return;
@@ -411,13 +413,13 @@ public class SpinnerList extends ListBase
 	 */ 
 	private function updateCompleteHandler(event:FlexEvent):void
 	{
-		if (scrollToSelection)
+		if (scrollToSelection && spinnerLayout)
 		{
 			scrollToSelection = false;
 			scroller.snapElement(spinnerLayout.getUnwrappedElementIndex(selectedIndex), false);
+			
+			removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
 		}
-		
-		removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
 	}
 	
 	/**
