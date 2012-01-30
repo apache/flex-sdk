@@ -16,6 +16,7 @@
 /* Global style declaration */
 global
 {
+    accentColor: #0099FF;
     alignmentBaseline: "useDominantBaseline";
 	backgroundAlpha: 1.0; /* this runs the opacity of nearly every square piece of the components */
 	/* backgroundDisabledColor: #DDDDDD; */
