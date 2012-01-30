@@ -17,6 +17,7 @@ import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 import flash.events.TimerEvent;
 import flash.system.SecurityDomain;
+import flash.utils.getDefinitionByName;
 import flash.utils.Timer;
 import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
@@ -88,6 +89,12 @@ public class ResourceManager
     {
         if (!instance)
         {
+			if (!Singleton.getClass("mx.resources::IResourceManager"))
+				// install ResourceManagerImpl if not registered already
+				Singleton.registerClass("mx.resources::IResourceManager",
+					Class(getDefinitionByName("mx.resources::ResourceManagerImpl")));
+
+
             try
 			{
 				instance = IResourceManager(
