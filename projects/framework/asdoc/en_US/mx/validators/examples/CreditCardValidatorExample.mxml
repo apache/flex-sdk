@@ -1,49 +1,53 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Simple example to demonstrate the CreditCardValidator. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         import mx.controls.Alert;
-    </mx:Script>
+    </fx:Script>
 
-	<!-- Define model for the credit card data. -->
-    <mx:Model id="creditcard">
-        <card>	
-            <cardType>{cardTypeCombo.selectedItem.data}</cardType>
-            <cardNumber>{cardNumberInput.text}</cardNumber>
-        </card>
-    </mx:Model>
+    <fx:Declarations>
+        <!-- Define model for the credit card data. -->
+        <fx:Model id="creditcard">
+            <card>
+                <cardType>{cardTypeCombo.selectedItem.data}</cardType>
+                <cardNumber>{cardNumberInput.text}</cardNumber>
+            </card>
+        </fx:Model>
 
-    <mx:CreditCardValidator id="ccV" 
-        cardTypeSource="{creditcard}" cardTypeProperty="cardType"
-        cardNumberSource="{creditcard}" cardNumberProperty="cardNumber"
-        trigger="{myButton}" triggerEvent="click"
-        cardTypeListener="{cardTypeCombo}"
-        cardNumberListener="{cardNumberInput}"
-        valid="Alert.show('Validation Succeeded!');"/>
-  
-    <mx:Panel title="CreditCardValidator Example" width="75%" height="75%" 
-        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
+        <mx:CreditCardValidator id="ccV" 
+                cardTypeSource="{creditcard}" cardTypeProperty="cardType"
+                cardNumberSource="{creditcard}" cardNumberProperty="cardNumber"
+                trigger="{myButton}" triggerEvent="click"
+                cardTypeListener="{cardTypeCombo}"
+                cardNumberListener="{cardNumberInput}"
+                valid="Alert.show('Validation Succeeded!');"/>
+    </fx:Declarations>
 
-        <mx:Form id="creditCardForm">
-            <mx:FormItem label="Card Type">    
+    <s:Panel title="CreditCardValidator Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <mx:Form id="creditCardForm" left="10" right="10" top="10" bottom="10">
+            <mx:FormItem label="Card Type">
                 <mx:ComboBox id="cardTypeCombo">
                     <mx:dataProvider>
-                        <mx:Object label="American Express" data="American Express"/>
-                        <mx:Object label="Diners Club" data="Diners Club"/>
-                        <mx:Object label="Discover" data="Discover"/>
-                        <mx:Object label="MasterCard" data="MasterCard"/>
-                        <mx:Object label="Visa" data="Visa"/>
+                        <fx:Object label="American Express" data="American Express"/>
+                        <fx:Object label="Diners Club" data="Diners Club"/>
+                        <fx:Object label="Discover" data="Discover"/>
+                        <fx:Object label="MasterCard" data="MasterCard"/>
+                        <fx:Object label="Visa" data="Visa"/>
                     </mx:dataProvider>
                 </mx:ComboBox>
             </mx:FormItem>
             <mx:FormItem label="Credit Card Number">
-                <mx:TextInput id="cardNumberInput"/>
+                <s:TextInput id="cardNumberInput"/>
             </mx:FormItem>
             <mx:FormItem>
-                <mx:Button id="myButton" label="Check Credit"/>
+                <s:Button id="myButton" label="Check Credit"/>
             </mx:FormItem>
-        </mx:Form> 	
-		
-    </mx:Panel>	
-</mx:Application>
+        </mx:Form>
+    </s:Panel>
+
+</s:Application>
