@@ -20,6 +20,11 @@ import flash.utils.ByteArray;
  *  images using Portable Network Graphics (PNG) lossless compression.
  *
  *  <p>For the PNG specification, see http://www.w3.org/TR/PNG/</p>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class PNGEncoder implements IImageEncoder
 {
@@ -45,6 +50,11 @@ public class PNGEncoder implements IImageEncoder
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function PNGEncoder()
     {
@@ -79,6 +89,11 @@ public class PNGEncoder implements IImageEncoder
     /**
      *  The MIME type for the PNG encoded image.
      *  The value is <code>"image/png"</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get contentType():String
     {
@@ -98,6 +113,11 @@ public class PNGEncoder implements IImageEncoder
      *  @param bitmapData The input BitmapData object.
      *
      *  @return Returns a ByteArray object containing PNG-encoded image data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function encode(bitmapData:BitmapData):ByteArray
     {
@@ -128,6 +148,11 @@ public class PNGEncoder implements IImageEncoder
      *  as four bytes in ARGB format.
      *
      *  @return Returns a ByteArray object containing PNG-encoded image data. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function encodeByteArray(byteArray:ByteArray, width:int, height:int,
 									transparent:Boolean = true):ByteArray
