@@ -15,6 +15,8 @@ package mx.effects.effectClasses
 import mx.styles.StyleManager;
 import mx.core.mx_internal;
 
+use namespace mx_internal;
+
 /**
  *  The SetStyleActionInstance class implements the instance class
  *  for the SetStyleAction effect.
@@ -93,7 +95,7 @@ public class SetStyleActionInstance extends ActionEffectInstance
 	 */
 	public function get value():*
 	{
-		if (mx_internal::playReversed)
+		if (playReversed)
 			return getStartValue();
 		else
 			return _value;
