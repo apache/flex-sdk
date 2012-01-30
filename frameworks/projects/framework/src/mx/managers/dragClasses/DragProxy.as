@@ -31,9 +31,9 @@ import mx.effects.Move;
 import mx.effects.Zoom;
 import mx.events.DragEvent;
 import mx.events.EffectEvent;
-import mx.events.SandboxRootDragEvent;
-import mx.events.SandboxRootMouseEvent;
-import mx.events.SandboxRootRequest;
+import mx.events.InterDragManagerEvent;
+import mx.events.SandboxMouseEvent;
+import mx.events.InterManagerRequest;
 import mx.managers.CursorManager;
 import mx.managers.DragManager;
 import mx.managers.ISystemManager;
@@ -100,7 +100,7 @@ public class DragProxy extends UIComponent
 		super.initialize();
 
 		// in case we go offscreen
-		dragInitiator.systemManager.getSandboxRoot().addEventListener(SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, 
+		dragInitiator.systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
 													 mouseLeaveHandler);
 
 		// Make sure someone has focus, otherwise we
@@ -350,12 +350,12 @@ public class DragProxy extends UIComponent
 		else
 		{
 			// wake up all the other DragManagers
-			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.INIT_MANAGER_REQUEST);
-			me.name = "mx.managers.IDragManagerImpl";
+			var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.INIT_MANAGER_REQUEST);
+			me.name = "mx.managers::IDragManager";
 			sandboxRoot.dispatchEvent(me);
 			// bounce this message off the sandbox root and hope
 			// another DragManager picks it up
-			var mde:SandboxRootDragEvent = new SandboxRootDragEvent(SandboxRootDragEvent.DISPATCH_DRAG_EVENT, false, false,
+			var mde:InterDragManagerEvent = new InterDragManagerEvent(InterDragManagerEvent.DISPATCH_DRAG_EVENT, false, false,
 													event.localX,
 													event.localY,
 													event.relatedObject,
@@ -546,7 +546,7 @@ public class DragProxy extends UIComponent
                                keyDownHandler);
 
 		// in case we go offscreen
-		ed.removeEventListener(SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, 
+		ed.removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
 							   mouseLeaveHandler);
 
         ed.removeEventListener(KeyboardEvent.KEY_UP,
