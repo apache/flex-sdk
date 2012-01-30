@@ -16,6 +16,7 @@ import flash.display.LoaderInfo;
 import flash.display.MovieClip;
 import flash.events.ErrorEvent;
 import flash.events.Event;
+import flash.events.IEventDispatcher;
 import flash.events.IOErrorEvent;
 import flash.events.SecurityErrorEvent;
 import flash.events.TimerEvent;
@@ -30,6 +31,7 @@ import mx.core.RSLItem;
 import mx.core.RSLListLoader;
 import mx.events.ModuleEvent;
 import mx.events.Request;
+import mx.events.RSLEvent;
 import mx.managers.SystemManagerGlobals;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
@@ -212,6 +214,13 @@ public class FlexModuleFactory extends MovieClip
      */
     private var resourceBundles:Array;
     
+    /**
+     *  @private
+     *  Array of RSLData objects that represent the list of RSLs this
+     *  module factory is loading.
+     */ 
+    private var rslDataList:Array;
+    
 	//--------------------------------------------------------------------------
 	//
 	//  Properties: IFlexModuleFactory
@@ -235,6 +244,24 @@ public class FlexModuleFactory extends MovieClip
         return null;                
     }
     
+    /**
+     *  @private
+     *  Add an RSL to the preloadedRSLs list. This method is called by child
+     *  module factories when they add load an RSL into this module factory's
+     *  application domain.
+     */ 
+    public function addPreloadedRSL(loaderInfo:LoaderInfo, rsl:Array):void
+    {
+        preloadedRSLs[loaderInfo] = rsl;
+        if (hasEventListener(RSLEvent.RSL_ADD_PRELOADED))
+        {
+            var rslEvent:RSLEvent = new RSLEvent(RSLEvent.RSL_ADD_PRELOADED);
+            rslEvent.loaderInfo = loaderInfo;
+            dispatchEvent(rslEvent);
+        }
+        
+    }
+        
     //--------------------------------------------------------------------------
     //
     //  Methods: IFlexModuleFactory
@@ -487,35 +514,26 @@ public class FlexModuleFactory extends MovieClip
         var cdRsls:Array = info()["cdRsls"];
         
         // Put cross-domain RSL information in the RSL list.
-        var rslList:Array = [];
+        var rslItemList:Array = [];
         var n:int;
         var i:int;
         if (cdRsls && cdRsls.length > 0)
         {
-            var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
-            dispatchEvent(request); 
-            var parentModuleFactory:IFlexModuleFactory = request.value as IFlexModuleFactory;
+            rslDataList = LoaderUtil.processRequiredRSLs(this, cdRsls);
+            
             var normalizedURL:String = LoaderUtil.normalizeURL(this.loaderInfo);
             var crossDomainRSLItem:Class = Class(getDefinitionByName("mx.core::CrossDomainRSLItem"));
-            n = cdRsls.length;
+            n = rslDataList.length;
             for (i = 0; i < n; i++)
             {
-                var rslWithFailoverArray:Array = cdRsls[i];
-                
-                if (parentModuleFactory &&
-                    LoaderUtil.getRSLLoadData(parentModuleFactory, 
-                        cdRsls[i][0]["digest"]))
-                {
-                    continue; // if the rsl is already loaded then skip loading it.                    
-                }
+                var rslWithFailovers:Array = rslDataList[i];
                 
                 // If crossDomainRSLItem is null, then this is a compiler error. It should not be null.
-                var cdNode:Object = new crossDomainRSLItem(rslWithFailoverArray,
+                var cdNode:Object = new crossDomainRSLItem(rslWithFailovers,
                     normalizedURL,
                     this);
-                rslList.push(cdNode);               
+                rslItemList.push(cdNode);               
             }
-            
         }
         
         // Append RSL information in the RSL list.
@@ -530,11 +548,11 @@ public class FlexModuleFactory extends MovieClip
                 var node:RSLItem = new RSLItem(rsls[i].url, 
                                                normalizedURL,
                                                this);
-                rslList.push(node);
+                rslItemList.push(node);
             }
         }
         
-        rslListLoader = new RSLListLoader(rslList);
+        rslListLoader = new RSLListLoader(rslItemList);
     }
     
     /**
@@ -695,9 +713,20 @@ public class FlexModuleFactory extends MovieClip
 	 */
     private function rslCompleteHandler(event:Event):void
     {
-        var rsl:RSLItem = rslListLoader.getItem(rslListLoader.getIndex());
         if (event.target is LoaderInfo)
-            preloadedRSLs[event.target] = rsl.urlRequest.url;
+        {
+            var rslIndex:int = rslListLoader.getIndex();
+            var rsl:Array = rslDataList[rslIndex];
+            var moduleFactory:IFlexModuleFactory = this;
+            if (rsl && rsl[0].moduleFactory)
+                moduleFactory = rsl[0].moduleFactory; 
+            
+            if (moduleFactory == this)
+                preloadedRSLs[event.target] =  rsl;
+            else if ("addPreloadedRSL" in moduleFactory)
+                moduleFactory["addPreloadedRSL"](event.target, rsl);
+        }
+
         update();
     }
 
