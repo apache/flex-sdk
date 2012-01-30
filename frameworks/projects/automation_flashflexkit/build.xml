@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="automation_charts" default="main" basedir=".">
+<project name="automation_flashflexkit" default="main" basedir=".">
 
 	 <property name="FLEX_HOME" location="${basedir}/../../.."/>
 	<property file="${FLEX_HOME}/build.properties"/>
@@ -149,5 +149,4 @@
 			<accessible>true</accessible>
 		</compc>
 	</target>
-	
 </project>
