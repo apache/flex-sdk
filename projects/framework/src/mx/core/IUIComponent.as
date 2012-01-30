@@ -21,6 +21,11 @@ import mx.managers.ISystemManager;
 /**
  *  The IUIComponent interface defines the basic set of APIs
  *  that you must implement to create a child of a Flex container or list.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IUIComponent extends IFlexDisplayObject
 {
@@ -42,6 +47,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  the <code>baseline</code> constraint style.
      *  It is also used to align the label of a FormItem
      *  with the controls in the FormItem.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get baselinePosition():Number;
 
@@ -54,6 +64,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  A reference to the document object associated with this component. 
      *  A document object is an Object at the top of the hierarchy
      *  of a Flex application, MXML component, or ActionScript component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get document():Object
 
@@ -75,6 +90,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  for a container, Flex dims the color of the container and of all
      *  of its children, and blocks user input to the container
      *  and to all of its children.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get enabled():Boolean;
 
@@ -93,6 +113,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  If no height is explicitly specified, the value is <code>NaN</code>.
      *
      *  @see mx.core.UIComponent#explicitHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get explicitHeight():Number;
 
@@ -110,6 +135,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  in pixels, as the component's coordinates. 
      *
      *  @see mx.core.UIComponent#explicitMaxHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get explicitMaxHeight():Number;
 
@@ -122,6 +152,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  in pixels, as the component's coordinates. 
      *
      *  @see mx.core.UIComponent#explicitMaxWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get explicitMaxWidth():Number;
 
@@ -134,6 +169,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  in pixels, as the component's coordinates. 
      *
      *  @see mx.core.UIComponent#explicitMinHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get explicitMinHeight():Number;
 
@@ -146,6 +186,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  in pixels, as the component's coordinates. 
      *
      *  @see mx.core.UIComponent#explicitMinWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get explicitMinWidth():Number;
 
@@ -159,6 +204,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  If no width is explicitly specified, the value is <code>NaN</code>.
      *
      *  @see mx.core.UIComponent#explicitWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get explicitWidth():Number;
 
@@ -178,6 +228,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  not if the component implements the IFocusManagerComponent interface.
      *
      *  @see mx.core.UIComponent#focusPane
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get focusPane():Sprite;
 
@@ -192,6 +247,11 @@ public interface IUIComponent extends IFlexDisplayObject
 
     /**
      *  @copy mx.core.UIComponent#includeInLayout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get includeInLayout():Boolean;
 
@@ -206,6 +266,11 @@ public interface IUIComponent extends IFlexDisplayObject
 
     /**
      *  @copy mx.core.UIComponent#isPopUp
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get isPopUp():Boolean;
 
@@ -223,6 +288,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  in pixels, as the component's coordinates.
      *
      *  @see mx.core.UIComponent#maxHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get maxHeight():Number;
 
@@ -235,6 +305,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  in pixels, as the component's coordinates.
      *
      *  @see mx.core.UIComponent#maxWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get maxWidth():Number;
 
@@ -244,6 +319,11 @@ public interface IUIComponent extends IFlexDisplayObject
 
     /**
      *  @copy mx.core.UIComponent#measuredMinHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get measuredMinHeight():Number;
 
@@ -258,6 +338,11 @@ public interface IUIComponent extends IFlexDisplayObject
 
     /**
      *  @copy mx.core.UIComponent#measuredMinWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get measuredMinWidth():Number;
 
@@ -275,6 +360,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  in pixels, as the component's coordinates. 
      *
      *  @see mx.core.UIComponent#minHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get minHeight():Number;
 
@@ -287,6 +377,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  in pixels, as the component's coordinates. 
      *
      *  @see mx.core.UIComponent#minWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get minWidth():Number;
 
@@ -296,6 +391,11 @@ public interface IUIComponent extends IFlexDisplayObject
 
     /**
      *  @copy mx.core.IVisualElement#owner
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get owner():DisplayObjectContainer;
 
@@ -312,6 +412,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  Number that specifies the height of a component as a 
      *  percentage of its parent's size.
      *  Allowed values are 0 to 100.     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get percentHeight():Number;
 
@@ -328,6 +433,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  Number that specifies the width of a component as a 
      *  percentage of its parent's size.
      *  Allowed values are 0 to 100.     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get percentWidth():Number;
 
@@ -342,6 +452,11 @@ public interface IUIComponent extends IFlexDisplayObject
 
     /**
      *  A reference to the SystemManager object for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get systemManager():ISystemManager;
 
@@ -358,6 +473,11 @@ public interface IUIComponent extends IFlexDisplayObject
      *  Used by EffectManager.
      *  Returns non-null if a component
      *  is not using the EffectManager to execute a Tween.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get tweeningProperties():Array;
 
@@ -376,31 +496,61 @@ public interface IUIComponent extends IFlexDisplayObject
      *  Initialize the object.
      *
      *  @see mx.core.UIComponent#initialize()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function initialize():void;
     
     /**
      *  @copy mx.core.UIComponent#parentChanged()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function parentChanged(p:DisplayObjectContainer):void;
     
     /**
      *  @copy mx.core.UIComponent#getExplicitOrMeasuredWidth()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getExplicitOrMeasuredWidth():Number;
 
     /**
      *  @copy mx.core.UIComponent#getExplicitOrMeasuredHeight()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getExplicitOrMeasuredHeight():Number;
     
     /**
      *  @copy mx.core.UIComponent#setVisible() 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function setVisible(value:Boolean, noEvent:Boolean = false):void;
 
     /**
      *  @copy mx.core.UIComponent#owns() 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function owns(displayObject:DisplayObject):Boolean;
 }
