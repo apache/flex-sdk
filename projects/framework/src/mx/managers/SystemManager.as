@@ -2022,11 +2022,6 @@ public class SystemManager extends MovieClip
             Loader(parent).contentLoaderInfo.applicationDomain :
             info()["currentDomain"] as ApplicationDomain;
 
-        // FIXME (egeorgie): the "screen" that we pass to the preloader
-        // doesn't get the right size here, since stage is not
-        // yet resized at this point if running in AIR on device.
-        // We'll receive a stage resize event before the first enter frame event.
-        
         // Initialize the preloader.
         preloader.initialize(
             usePreloader,
@@ -2035,8 +2030,8 @@ public class SystemManager extends MovieClip
             preloaderBackgroundAlpha,
             preloaderBackgroundImage,
             preloaderBackgroundSize,
-            isStageRoot ? screen.width : loaderInfo.width,
-            isStageRoot ? screen.height : loaderInfo.height,
+            isStageRoot ? stage.stageWidth : loaderInfo.width,
+            isStageRoot ? stage.stageHeight : loaderInfo.height,
             null,
             null,
             rslItemList,
@@ -3480,7 +3475,10 @@ public class SystemManager extends MovieClip
         {
             bounds = getBounds(DisplayObject(this));
         
-            var s:Rectangle = screen;        
+            var sandboxRoot:DisplayObject = getSandboxRoot();
+            var s:Rectangle = screen.clone();
+            s.topLeft = sandboxRoot.localToGlobal(screen.topLeft);
+            s.bottomRight = sandboxRoot.localToGlobal(screen.bottomRight);
             var pt:Point = new Point(Math.max(0, bounds.x), Math.max(0, bounds.y));
             pt = localToGlobal(pt);
             bounds.x = pt.x;
