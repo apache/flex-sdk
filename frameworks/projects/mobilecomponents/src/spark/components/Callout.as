@@ -127,8 +127,6 @@ public class Callout extends SkinnablePopUpContainer
     public function Callout()
     {
         super();
-
-        addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
     }
 
     //--------------------------------------------------------------------------
@@ -201,7 +199,6 @@ public class Callout extends SkinnablePopUpContainer
 
         _horizontalPosition = value;
 
-        invalidateArrowDirection = true;
         invalidatePosition();
     }
 
@@ -279,7 +276,6 @@ public class Callout extends SkinnablePopUpContainer
 
         _verticalPosition = value;
 
-        invalidateArrowDirection = true;
         invalidatePosition();
     }
 
@@ -324,9 +320,13 @@ public class Callout extends SkinnablePopUpContainer
     //  arrowDirection
     //----------------------------------
 
-    private var invalidateArrowDirection:Boolean = true;
-
     private var _arrowDirection:String = ArrowDirection.NONE;
+    
+    /**
+     *  @private
+     *  
+     */
+    private var arrowDirectionAdjusted:Boolean = false;
 
     /**
      *  A read-only property that indicates the direction from the callout
@@ -353,17 +353,23 @@ public class Callout extends SkinnablePopUpContainer
     
     /**
      *  @private
-     *  Dispatch an "arrowDirectionChanged" event when the property is set.
+     *  Invalidate skin when the arrowDirection changes. Dispatches an 
+     *  "arrowDirectionChanged" event when the property is set.
      */
     mx_internal function setArrowDirection(value:String):void
     {
-        if (_arrowDirection != value)
-        {
-            _arrowDirection = value;
-            
-            if (hasEventListener("arrowDirectionChanged"))
-                dispatchEvent(new Event("arrowDirectionChanged"));
-        }
+        if (_arrowDirection == value)
+            return;
+        
+        _arrowDirection = value;
+        
+        // Instead of using skin states for each arrowDirection, the
+        // skin must override commitProperties() and account for
+        // arrowDirection on it's own.
+        skin.invalidateProperties();
+        
+        if (hasEventListener("arrowDirectionChanged"))
+            dispatchEvent(new Event("arrowDirectionChanged"));
     }
     
     //----------------------------------
@@ -429,37 +435,41 @@ public class Callout extends SkinnablePopUpContainer
         
         commitAutoPosition();
 
-        if (arrow && invalidateArrowDirection)
+        if (arrow)
         {
-            // invalidate only when the arrow direction changes
-            var direction:String = determineArrowPosition(actualHorizontalPosition,
-                actualVerticalPosition);
-
-            if (arrowDirection != direction)
+            // arrowDirection can be set in 2 ways: (1) horizontalPostion/verticalPosition
+            // changes and (2) flipping the axis to fit on screen. 
+            if (!arrowDirectionAdjusted)
             {
-                setArrowDirection(direction);
+                // Invalidate only when the arrow direction changes
+                var direction:String = determineArrowPosition(actualHorizontalPosition,
+                    actualVerticalPosition);
                 
-                if (arrow)
-                    arrow.visible = (arrowDirection != ArrowDirection.NONE);
-
-                skin.invalidateProperties();
+                if (arrowDirection != direction)
+                {
+                    setArrowDirection(direction);
+                    
+                    if (arrow)
+                        arrow.visible = (arrowDirection != ArrowDirection.NONE);
+                }
             }
-
-            // Always reposition the arrow when horizontalPosition or verticalPosition
-            // changes. This will reposition the arrow.
-            invalidateDisplayList();
-
-            invalidateArrowDirection = false;
-        }
-        
-        if (isOpen && invalidatePositionFlag)
-        {
-            // reposition while open
-            skin.invalidateProperties();
-            skin.validateNow();
-            positionPopUp();
             
-            invalidatePositionFlag = false;
+            // Callout can be respositioned while open
+            if (isOpen && invalidatePositionFlag)
+            {
+                // Callout size may change due to arrowDirection change.
+                // We must revalidate the skin before repositioning the Callout 
+                invalidateSize();
+                validateNow();
+
+                // Reposition once the Callout has been resized
+                positionPopUp();
+                
+                invalidatePositionFlag = false;
+            }
+            
+            // Always reset the arrow position
+            invalidateDisplayList();
         }
     }
 
@@ -507,25 +517,16 @@ public class Callout extends SkinnablePopUpContainer
      */
     override public function open(owner:DisplayObjectContainer, modal:Boolean=false):void
     {
-        if ((horizontalPosition == CalloutPosition.AUTO) ||
-            (verticalPosition == CalloutPosition.AUTO))
-        {
-            // invalidate the arrow direction before opening
-            // owner position/size changes will affect AUTO positioning
-            invalidateArrowDirection = true;
-            invalidateProperties();
-        }
-        
-        // TODO (jasonsj): sizing enhancements? 
-        // http://bugs.adobe.com/jira/browse/SDK-30838
-        
-        // close the callout when the owner is removed
-        owner.addEventListener(Event.REMOVED_FROM_STAGE, owner_removedFromStage);
+        if (isOpen)
+            return;
 
-        // add to PopUpManager, calls positionPopUp(), and change state
+        // Add to PopUpManager, calls positionPopUp(), and change state
         super.open(owner, modal);
         
-        // re-position the callout when the screen changes
+        // Close the callout when the owner is removed
+        owner.addEventListener(Event.REMOVED_FROM_STAGE, owner_removedFromStage);
+        
+        // Reposition the callout when the screen changes
         var systemManagerParent:SystemManager = this.parent as SystemManager;
         
         if (systemManagerParent)
@@ -537,6 +538,9 @@ public class Callout extends SkinnablePopUpContainer
      */
     override public function close(commit:Boolean=false, data:*=null):void
     {
+        if (!isOpen)
+            return;
+        
         owner.removeEventListener(Event.REMOVED_FROM_STAGE, owner_removedFromStage);
         
         var systemManagerParent:SystemManager = this.parent as SystemManager;
@@ -554,7 +558,7 @@ public class Callout extends SkinnablePopUpContainer
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        // position the arrow
+        // Position the arrow
         updateSkinDisplayList();
     }
 
@@ -564,8 +568,13 @@ public class Callout extends SkinnablePopUpContainer
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     private function invalidatePosition():void
     {
+        arrowDirectionAdjusted = false;
+        
         invalidateProperties();
         
         if (isOpen)
@@ -618,23 +627,23 @@ public class Callout extends SkinnablePopUpContainer
         var arrowX:Number = 0;
         var arrowY:Number = 0;
 
-        // max arrow positions
+        // Max arrow positions
         var maxArrowX:Number = calloutWidth - arrowWidth;
         var maxArrowY:Number = calloutHeight - arrowHeight;
         
-        // find the registration point of the owner
+        // Find the registration point of the owner
         var sandboxRoot:DisplayObject = systemManager.getSandboxRoot();
         var regPoint:Point = owner.localToGlobal(new Point());
         regPoint = sandboxRoot.globalToLocal(regPoint);
 
         if (isArrowVertical)
         {
-            // vertical arrows need horizontal alignment
+            // Vertical arrows need horizontal alignment
             var ownerX:Number = regPoint.x;
             var ownerVisibleWidth:Number = (ownerVisualElement)
                 ? ownerVisualElement.getLayoutBoundsWidth() : owner.width;
 
-            // edge cases when start/end of owner is not visible
+            // Edge cases when start/end of owner is not visible
             if ((ownerX < 0) && (ownerVisibleWidth < screen.width))
                 ownerVisibleWidth = Math.max(ownerVisibleWidth + ownerX, 0);
             else if ((ownerX >= 0) && ((ownerX + ownerVisibleWidth) >= screen.width))
@@ -648,10 +657,10 @@ public class Callout extends SkinnablePopUpContainer
             }
             else // if (calloutWidth > ownerWidth)
             {
-                // center the arrow on the owner
+                // Center the arrow on the owner
                 arrowX = (ownerVisibleWidth - arrowWidth) / 2;
                 
-                // add owner offset
+                // Add owner offset
                 if (ownerX > 0)
                     arrowX += Math.abs(ownerX - getLayoutBoundsX());
             }
@@ -659,18 +668,18 @@ public class Callout extends SkinnablePopUpContainer
             // arrow should not extend past the callout bounds
             arrowX = Math.max(Math.min(maxArrowX, arrowX), 0);
 
-            // move the arrow to the bottom of the callout
+            // Move the arrow to the bottom of the callout
             if (isEndOfCallout)
                 arrowY = calloutHeight - arrowHeight;
         }
         else
         {
-            // horizontal arrows need vertical alignment
+            // Horizontal arrows need vertical alignment
             var ownerY:Number = regPoint.y;
             var ownerVisibleHeight:Number = (ownerVisualElement)
                 ? ownerVisualElement.getLayoutBoundsHeight() : owner.height;
 
-            // edge cases when start/end of owner is not visible
+            // Edge cases when start/end of owner is not visible
             if ((ownerY < 0) && (ownerVisibleHeight < screen.height))
                 ownerVisibleHeight = Math.max(ownerVisibleHeight + ownerY, 0);
             else if ((ownerY >= 0) && ((ownerY + ownerVisibleHeight) >= screen.height))
@@ -684,10 +693,10 @@ public class Callout extends SkinnablePopUpContainer
             }
             else // if (calloutHeight > ownerHeight)
             {
-                // center the arrow on the owner
+                // Center the arrow on the owner
                 arrowY = (ownerVisibleHeight - arrowHeight) / 2;
                 
-                // add owner offset
+                // Add owner offset
                 if (ownerY > 0)
                     arrowY += Math.abs(ownerY - getLayoutBoundsY());
             }
@@ -695,7 +704,7 @@ public class Callout extends SkinnablePopUpContainer
             // arrow should not extend past the callout bounds
             arrowY = Math.max(Math.min(maxArrowY, arrowY), 0);
 
-            // move the arrow to the end of the callout
+            // Move the arrow to the end of the callout
             if (isEndOfCallout)
                 arrowX = calloutWidth - arrowWidth;
         }
@@ -715,13 +724,13 @@ public class Callout extends SkinnablePopUpContainer
                                                screenStart:Number, screenEnd:Number,
                                                revert:Boolean=false):String
     {
-        // skip all adjustments when using AUTO
+        // Skip all adjustments when using AUTO
         if (!position || (position == CalloutPosition.AUTO))
             return null;
         
         var adjustedPosition:String = null;
         
-        // maintain outer/inner positions when flipping to opposite direction
+        // Maintain outer/inner positions when flipping to opposite direction
         switch (position)
         {
             case CalloutPosition.BEFORE:
@@ -741,15 +750,15 @@ public class Callout extends SkinnablePopUpContainer
                     adjustedPosition = CalloutPosition.END;
                 break;
             // case CalloutPosition.MIDDLE:
-            // nudge instead of flipping
+            // Nudge instead of flipping
         }
         
-        // return null to revert the adjusted position
-        // otherwise, return the incoming position
+        // Return null to revert the adjusted position
+        // Otherwise, return the incoming position
         if (revert)
             return (adjustedPosition) ? null : position;
         
-        // adjusted position or null if the callout already fits
+        // Adjusted position or null if the callout already fits
         return adjustedPosition;
     }
     
@@ -816,7 +825,10 @@ public class Callout extends SkinnablePopUpContainer
         }
 
         var oldArrowDirection:String = arrowDirection;
-        var adjustedArrowDirection:String;
+        var actualArrowDirection:String = null;
+        
+        // Reset arrowDirectionAdjusted
+        arrowDirectionAdjusted = false;
 
         // Get the new registration point based on the adjusted position
         if ((adjustedHorizontalPosition != null) || (adjustedVerticalPosition != null))
@@ -827,24 +839,19 @@ public class Callout extends SkinnablePopUpContainer
             var tempVerticalPosition:String = (adjustedVerticalPosition)
                 ? adjustedVerticalPosition : actualVerticalPosition;
 
-            // adjust arrow direction after adjusting position
-            adjustedArrowDirection = determineArrowPosition(tempHorizontalPosition,
+            // Adjust arrow direction after adjusting position
+            actualArrowDirection = determineArrowPosition(tempHorizontalPosition,
                 tempVerticalPosition);
 
-            // invalidate the skin if the arrow direction changed
-            if (arrowDirection != adjustedArrowDirection)
-            {
-                setArrowDirection(adjustedArrowDirection);
+            // All position flips gaurantee an arrowDirection change
+            setArrowDirection(actualArrowDirection);
+            arrowDirectionAdjusted = true;
 
-                if (arrow)
-                    arrow.visible = (arrowDirection != ArrowDirection.NONE);
+            if (arrow)
+                arrow.visible = (arrowDirection != ArrowDirection.NONE);
 
-                skin.invalidateProperties();
-                skin.validateNow();
-
-                // reposition the arrow
-                updateSkinDisplayList();
-            }
+            // Reposition the arrow
+            updateSkinDisplayList();
 
             var adjustedBounds:Rectangle = determinePosition(tempHorizontalPosition,
                 tempVerticalPosition, matrix, adjustedRegPoint);
@@ -869,26 +876,24 @@ public class Callout extends SkinnablePopUpContainer
                 regPoint = adjustedRegPoint;
                 calloutBounds = adjustedBounds;
 
-                // temporarily set actual positions to reposition the arrow
+                // Temporarily set actual positions to reposition the arrow
                 if (adjustedHorizontalPosition)
                     actualHorizontalPosition = adjustedHorizontalPosition;
 
                 if (adjustedVerticalPosition)
                     actualVerticalPosition = adjustedVerticalPosition;
 
-                // reposition the arrow with the new actual position
+                // Reposition the arrow with the new actual position
                 updateSkinDisplayList();
             }
             else
             {
-                // restore previous arrow direction *before* reversing the
+                // Restore previous arrow direction *before* reversing the
                 // adjusted positions
                 setArrowDirection(oldArrowDirection);
+                arrowDirectionAdjusted = false;
 
-                skin.invalidateProperties();
-                skin.validateNow();
-
-                // reposition the arrow to the original position
+                // Reposition the arrow to the original position
                 updateSkinDisplayList();
             }
         }
@@ -899,7 +904,6 @@ public class Callout extends SkinnablePopUpContainer
 
         // If the callout still doesn't fit, then nudge it
         // so it is completely on the screen. Make sure to include scale.
-
         regPoint.y += nudgeToFit(calloutBounds.top, calloutBounds.bottom,
             screen.top + margin, screen.bottom - margin, concatScaleY);
         
@@ -952,7 +956,7 @@ public class Callout extends SkinnablePopUpContainer
         if (!screen || ((horizontalPosition != CalloutPosition.AUTO) &&
             (verticalPosition != CalloutPosition.AUTO)))
         {
-            // use explicit positions instead of AUTO
+            // Use explicit positions instead of AUTO
             actualHorizontalPosition = null;
             actualVerticalPosition = null;
             
@@ -961,7 +965,7 @@ public class Callout extends SkinnablePopUpContainer
 
         var ownerBounds:Rectangle = owner.getBounds(systemManager.getSandboxRoot());
 
-        // use aspect ratio to determine vertical/horizontal preference
+        // Use aspect ratio to determine vertical/horizontal preference
         var isLandscape:Boolean = (screen.width > screen.height);
 
         var spaceLeft:Number = ownerBounds.left;
@@ -972,7 +976,7 @@ public class Callout extends SkinnablePopUpContainer
         var calloutWidth:Number = getLayoutBoundsWidth();
         var calloutHeight:Number = getLayoutBoundsHeight();
 
-        // can the popUp fit in each direction?
+        // Can the popUp fit in each direction?
         spaceLeft -= calloutWidth;
         spaceRight -= calloutWidth;
         spaceTop -= calloutHeight;
@@ -983,7 +987,7 @@ public class Callout extends SkinnablePopUpContainer
 
         if (verticalPosition != CalloutPosition.AUTO)
         {
-            // horizontal auto only
+            // Horizontal auto only
             switch (verticalPosition)
             {
                 case CalloutPosition.START:
@@ -1004,7 +1008,7 @@ public class Callout extends SkinnablePopUpContainer
         }
         else if (horizontalPosition != CalloutPosition.AUTO)
         {
-            // vertical auto only
+            // Vertical auto only
             switch (horizontalPosition)
             {
                 case CalloutPosition.START:
@@ -1029,7 +1033,7 @@ public class Callout extends SkinnablePopUpContainer
 
             if (!canFitHorizontal && !canFitVertical)
             {
-                // edge case where callout doesn't fit in any direction
+                // Edge case where callout doesn't fit in any direction
                 var horizontalSpace:Number = (spaceLeft > spaceRight) ? spaceLeft : spaceRight;
                 var verticalSpace:Number = (spaceTop > spaceBottom) ? spaceTop : spaceBottom;
 
@@ -1037,12 +1041,12 @@ public class Callout extends SkinnablePopUpContainer
             }
             else if (isLandscape)
             {
-                // favor horizontal before/after in landscape
+                // Favor horizontal before/after in landscape
                 useVertical = !canFitHorizontal;
             }
             else
             {
-                // favor vertical before/after in portrait
+                // Favor vertical before/after in portrait
                 useVertical = canFitVertical;
             }
 
@@ -1057,8 +1061,6 @@ public class Callout extends SkinnablePopUpContainer
                 actualVerticalPosition = CalloutPosition.MIDDLE;
             }
         }
-        
-        invalidateArrowDirection = true;
     }
 
     /**
@@ -1066,8 +1068,8 @@ public class Callout extends SkinnablePopUpContainer
      */
     mx_internal function determineArrowPosition(horizontalPos:String, verticalPos:String):String
     {
-        // determine arrow direction, outer positions get priority
-        // corner positions and center show no arrow
+        // Determine arrow direction, outer positions get priority.
+        // Corner positions and center show no arrow
         var direction:String = ArrowDirection.NONE;
 
         if (horizontalPos == CalloutPosition.BEFORE)
@@ -1235,16 +1237,6 @@ public class Callout extends SkinnablePopUpContainer
 
     /**
      *  @private
-     *  Redraw whenever added to the stage to ensure the calculations
-     *  in updateSkinDisplayList() are correct.
-     */
-    private function addedToStageHandler(event:Event):void
-    {
-        updateSkinDisplayList();
-    }
-
-    /**
-     *  @private
      */
     private function arrow_resizeHandler(event:Event):void
     {
@@ -1256,8 +1248,14 @@ public class Callout extends SkinnablePopUpContainer
      */
     private function owner_removedFromStage(event:Event):void
     {
-        if (isOpen)
-            close();
+        if (!isOpen)
+            return;
+        
+        // Hide the callout immediately instead of waiting for the skin
+        // state to transition to "closed"
+        visible = false;
+        
+        close();
     }
     
     /**
@@ -1265,11 +1263,8 @@ public class Callout extends SkinnablePopUpContainer
      */
     private function systemManager_resizeHandler(event:Event):void
     {
-        // screen resize might require a new arrow direction and callout position
+        // Screen resize might require a new arrow direction and callout position
         invalidatePosition();
-        
-        // force a redraw to call positionPopUp()
-        invalidateDisplayList();
     }
 }
 }
