@@ -68,7 +68,7 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @private 
      *  Minimum time for the image to be visible 
      */    
-    private var minimumDisplayTime:int = 1000;  // in ms
+    private var minimumDisplayTime:Number = 1000;  // in ms
     private var checkWaitTime:Boolean = false;  // obey minimumDisplayTime only valid if splashImage is valid
     private var displayTimeStart:int = -1;      // the start time of the image being displayed
     
