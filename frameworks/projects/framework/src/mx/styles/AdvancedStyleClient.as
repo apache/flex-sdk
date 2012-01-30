@@ -34,10 +34,10 @@ import mx.utils.NameUtil;
  *  this object also implements the <code>IFlexModule</code> and
  *  <code>IMXMLObject</code> interfaces. The <code>IMXMLObject</code>
  *  interface contains an <code>initialized</code> method that is called
- *  when the class is instantiated using an mxml declaration.
+ *  when the class is instantiated using an MXML declaration.
  *  The  implementation of the <code>initialized</code> method provided
  *  by this base class will add the class instance to the document object
- *  that contains the mxml declaration. For more details see the description
+ *  that contains the MXML declaration. For more details, see the description
  *  of the <code>initilized</code> method.</p>
  *
  *  @see mx.core.styles.IAdvancedStyleClient
@@ -58,9 +58,9 @@ public class AdvancedStyleClient extends EventDispatcher
      *  Constructor.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function AdvancedStyleClient()
     {
@@ -94,8 +94,8 @@ public class AdvancedStyleClient extends EventDispatcher
      *  The name of the component class.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get className():String
@@ -114,8 +114,8 @@ public class AdvancedStyleClient extends EventDispatcher
      *  style client instance.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get inheritingStyles():Object
@@ -153,9 +153,9 @@ public class AdvancedStyleClient extends EventDispatcher
      *  Developers typically never need to access this property directly.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get nonInheritingStyles():Object
     {
@@ -181,8 +181,8 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @see mx.styles.CSSStyleDeclaration
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     private var _styleDeclarationVar:CSSStyleDeclaration;
@@ -212,9 +212,9 @@ public class AdvancedStyleClient extends EventDispatcher
      *  Returns the StyleManager instance used by this component.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get styleManager():IStyleManager2
     {
@@ -238,45 +238,11 @@ public class AdvancedStyleClient extends EventDispatcher
     [Bindable(style="true")]
 
     /**
-     *  Gets a style property that has been set anywhere in this
-     *  component's style lookup chain.
-     *
-     *  <p>This same method is used to get any kind of style property,
-     *  so the value returned may be a Boolean, String, Number, int,
-     *  uint (for an RGB color), Class (for a skin), or any kind of object.
-     *  Therefore the return type is specified as ~~.</p>
-     *
-     *  <p>If you are getting a particular style property, you will
-     *  know its type and will often want to store the result in a
-     *  variable of that type. You can use either the <code>as</code>
-     *  operator or coercion to do this. For example:</p>
-     *
-     *  <pre>
-     *  var backgroundColor:uint = getStyle("backgroundColor") as int;
-     *
-     *  or
-     *
-     *  var backgroundColor:uint = int(getStyle("backgroundColor"));
-     *  </pre>
-     *
-     *  <p>If the style property has not been set anywhere in the
-     *  style lookup chain, the value returned by the
-     *  <code>getStyle()</code> method is <code>undefined</code>.
-     *  Note that <code>undefined</code> is a special value that is
-     *  not the same as <code>false</code>, the empty String
-     * (<code>""</code>),<code>NaN</code>, 0, or <code>null</code>.
-     *  No valid style value is ever <code>undefined</code>.
-     *  You can use the static method
-     *  <code>StyleManager.isValidStyleValue()</code>
-     *  to test whether the value was set.</p>
-     *
-     *  @param styleProp Name of the style property.
-     *
-     *  @return Style value.
+     *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function getStyle(styleProp:String):*
@@ -296,21 +262,11 @@ public class AdvancedStyleClient extends EventDispatcher
     }
 
     /**
-     *  Sets a style property on this component instance.
-     *
-     *  <p>This can override a style that was set globally.</p>
-     *
-     *  <p>Calling the <code>setStyle()</code> method can result in decreased
-     *  performance.
-     *  Use it only when necessary.</p>
-     *
-     *  @param styleProp Name of the style property.
-     *
-     *  @param newValue New value for the style.
+     *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function setStyle(styleProp:String, newValue:*):void
@@ -331,16 +287,11 @@ public class AdvancedStyleClient extends EventDispatcher
     }
 
     /**
-     *  Deletes a style property from this component instance.
-     *
-     *  <p>This does not necessarily cause the <code>getStyle()</code>
-     *  method to return <code>undefined</code>.</p>
-     *
-     *  @param styleProp Name of the style property.
+     *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function clearStyle(styleProp:String):void
@@ -349,20 +300,11 @@ public class AdvancedStyleClient extends EventDispatcher
     }
 
     /**
-     *  Returns an Array of CSSStyleDeclaration objects for the type
-     *  selector that applies to this component, or <code>null</code>
-     *  if none exist.
-     *
-     *  <p>For example, suppose that component MyButton extends Button.
-     *  This method first looks for a MyButton selector; then, it looks
-     *  for a Button type selector; finally, it looks for a UIComponent
-     *  type selector.</p>
-     *
-     *  @return Array of CSSStyleDeclaration objects.
+     *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function getClassStyleDeclarations():Array
@@ -382,8 +324,8 @@ public class AdvancedStyleClient extends EventDispatcher
      *  children's children.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function notifyStyleChangeInChildren(
@@ -399,8 +341,8 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @param recursive Regenerate the proto chains of the children.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function regenerateStyleCache(recursive:Boolean):void
@@ -415,8 +357,8 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @param effects An Array of Strings of effect names.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function registerEffects(effects:Array /* of String */):void
@@ -442,9 +384,9 @@ public class AdvancedStyleClient extends EventDispatcher
      *  style client have changed.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function styleChanged(styleProp:String):void
     {
@@ -470,24 +412,11 @@ public class AdvancedStyleClient extends EventDispatcher
     [Inspectable(category="General")]
 
     /**
-     *  The class style used by this component. This can be a String,
-     *  CSSStyleDeclaration or an IStyleClient.
-     *
-     *  <p>If this is a String, it is the name of one or more whitespace
-     *  delimited class declarations in an <code>&lt;fx:Style&gt;</code> tag
-     *  or CSS file. You do not include the period in the
-     *  <code>styleName</code>. For example, if you have a class style named
-     *  <code>".bigText"</code>, set the <code>styleName</code> property to
-     *  <code>"bigText"</code> (no period).</p>
-     *
-     *  <p>If this is an IStyleClient, all styles in the
-     *  <code>styleName</code> object are used by this instance.</p>
-     *
-     *  @default null
+     *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get styleName():Object
@@ -529,19 +458,11 @@ public class AdvancedStyleClient extends EventDispatcher
     private var _id:String;
 
     /**
-     *  ID of the component. This value becomes the instance name of the
-     *  object and should not contain any white space or special characters.
-     *  Each component throughout an application should have a unique id.
-     *
-     *  <p>If your application is going to be tested by third party tools,
-     *  give each component a meaningful id. Testing tools use ids to
-     *  represent the control in their scripts and having a meaningful
-     *  name can make scripts more readable. For example, set the
-     *  value of a button to submit_button rather than b1 or button1.</p>
+     *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get id():String
@@ -563,8 +484,8 @@ public class AdvancedStyleClient extends EventDispatcher
      *  advanced style declarations.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get styleParent():IAdvancedStyleClient
@@ -578,22 +499,11 @@ public class AdvancedStyleClient extends EventDispatcher
     }
 
     /**
-     *  Flex calls the <code>stylesInitialized()</code> method when
-     *  the styles for a component are first initialized.
-     *
-     *  <p>This is an advanced method that you might override
-     *  when creating a subclass of UIComponent. Flex guarantees that
-     *  your component's styles are fully initialized before
-     *  the first time your component's <code>measure</code> and
-     *  <code>updateDisplayList</code> methods are called.  For most
-     *  components, that is sufficient. But if you need early access to
-     *  your style values, you can override the stylesInitialized() function
-     *  to access style properties as soon as they are initialized the first
-     *  time.</p>
+     *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function stylesInitialized():void
@@ -604,8 +514,8 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
 
@@ -618,8 +528,8 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
 
@@ -646,8 +556,8 @@ public class AdvancedStyleClient extends EventDispatcher
      *  non-visual style client instance.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get moduleFactory():IFlexModuleFactory
@@ -672,9 +582,9 @@ public class AdvancedStyleClient extends EventDispatcher
      *  component properties specified on the MXML tag have
      *  been initialized.
      *  <p>
-     *  If the document that created this object is a UIComponent,
+     *  If the document that created this object is a <code>UIComponent</code>,
      *  (e.g. Application, Module, etc.) then the UIComponent's
-     *  addStyleClient method will be called to add this object to the
+     *  <code>addStyleClient</code> method will be called to add this object to the
      *  UIComponent's list of non-visual style clients. This allows the
      *  object to inherit styles from the document. </p>
      *
@@ -682,8 +592,8 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @param id The identifier used by the document object to refer to
      *  this object.
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function initialized(document:Object, id:String):void
