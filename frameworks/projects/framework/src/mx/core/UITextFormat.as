@@ -49,7 +49,7 @@ public class UITextFormat extends TextFormat
     //  embeddedFontRegistry
     //----------------------------------
 
-	private static var noEmbeddedFonts:Boolean;
+    private static var noEmbeddedFonts:Boolean;
 
     /**
      *  @private
@@ -70,15 +70,15 @@ public class UITextFormat extends TextFormat
     {
         if (!_embeddedFontRegistry && !noEmbeddedFonts)
         {
-			try
-			{
-				_embeddedFontRegistry = IEmbeddedFontRegistry(
-					Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
-			}
-			catch (e:Error)
-			{
-				noEmbeddedFonts = true;
-			}
+            try
+            {
+                _embeddedFontRegistry = IEmbeddedFontRegistry(
+                    Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+            }
+            catch (e:Error)
+            {
+                noEmbeddedFonts = true;
+            }
         }
 
         return _embeddedFontRegistry;
@@ -279,27 +279,27 @@ public class UITextFormat extends TextFormat
     //  direction
     //----------------------------------
 
-	/**
-	 *  The directionality of the text.
-	 *
-	 *  <p>The allowed values are <code>"ltr"</code> for left-to-right text,
-	 *  as in Latin-style scripts,
-	 *  and <code>"rtl"</code> for right-to-left text,
-	 *  as in Arabic and Hebrew.</p>
-	 *
-	 *  <p>FTE and TLF use this value in their bidirectional text layout algorithm,
-	 *  which maps Unicode character order to glyph order.</p>
-	 * 
-	 *  <p>Note: This style only applies when this UITextFormat
-	 *  is used with a UIFTETextField rather than a UITextField.</p>
-	 *
-	 *  @default null
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     *  The directionality of the text.
+     *
+     *  <p>The allowed values are <code>"ltr"</code> for left-to-right text,
+     *  as in Latin-style scripts,
+     *  and <code>"rtl"</code> for right-to-left text,
+     *  as in Arabic and Hebrew.</p>
+     *
+     *  <p>FTE and TLF use this value in their bidirectional text layout algorithm,
+     *  which maps Unicode character order to glyph order.</p>
+     * 
+     *  <p>Note: This style only applies when this UITextFormat
+     *  is used with a UIFTETextField rather than a UITextField.</p>
+     *
+     *  @default null
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public var direction:String;
     
     //----------------------------------
@@ -339,22 +339,22 @@ public class UITextFormat extends TextFormat
     //  locale
     //----------------------------------
 
-	/**
-	 *  The locale of the text.
-	 * 
-	 *  <p>FTE and TLF use this locale to map Unicode characters
-	 *  to font glyphs and to find fallback fonts.</p>
-	 *
-	 *  <p>Note: This style only applies when this UITextFormat
-	 *  is used with a UIFTETextField rather than a UITextField.</p>
-	 *
-	 *  @default null
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     *  The locale of the text.
+     * 
+     *  <p>FTE and TLF use this locale to map Unicode characters
+     *  to font glyphs and to find fallback fonts.</p>
+     *
+     *  <p>Note: This style only applies when this UITextFormat
+     *  is used with a UIFTETextField rather than a UITextField.</p>
+     *
+     *  @default null
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public var locale:String;
     
     //----------------------------------
@@ -458,6 +458,11 @@ public class UITextFormat extends TextFormat
      *  of the TextField class in the Flash Player.</p>
      * 
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var useFTE:Boolean = false;
 
@@ -533,7 +538,7 @@ public class UITextFormat extends TextFormat
         // the text fields to one per moduleFactory.
         var embeddedFont:Boolean = false;
         var fontModuleFactory:IFlexModuleFactory = (noEmbeddedFonts || !embeddedFontRegistry) ? 
-			null : 
+            null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
                 font, bold, italic, this, moduleFactory, systemManager, useFTE);
 
@@ -564,19 +569,19 @@ public class UITextFormat extends TextFormat
         // Set other properties based on CSS styles.
         if (!useFTE)
         {
-			// These properties do not have meaning in FTETextField,
-			// and have been implemented to return either null or NaN,
-			// so don't try to set them on a FTETextField.
-	        measurementTextField.antiAliasType = antiAliasType;
-	        measurementTextField.gridFitType = gridFitType;
-	        measurementTextField.sharpness = sharpness;
-	        measurementTextField.thickness = thickness;
+            // These properties do not have meaning in FTETextField,
+            // and have been implemented to return either null or NaN,
+            // so don't try to set them on a FTETextField.
+            measurementTextField.antiAliasType = antiAliasType;
+            measurementTextField.gridFitType = gridFitType;
+            measurementTextField.sharpness = sharpness;
+            measurementTextField.thickness = thickness;
         }
         else
         {
-        	// The properties have meaning only on a FTETextField.
-			measurementTextField.direction = direction;
-        	measurementTextField.locale = locale;
+            // The properties have meaning only on a FTETextField.
+            measurementTextField.direction = direction;
+            measurementTextField.locale = locale;
         }
         
         // Set the text to be measured into the TextField.
