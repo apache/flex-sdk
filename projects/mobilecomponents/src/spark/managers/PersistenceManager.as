@@ -30,6 +30,7 @@ package spark.core.managers
             {
                 so = SharedObject.getLocal("FXAppCache");
                 initialized = true;
+				enabled = (so != null);
             }
             catch (e:Error)
             {
@@ -66,13 +67,17 @@ package spark.core.managers
             if (!initialized)
                 initialize();
             
-            so.clear();
-            so.flush();
+			if (enabled)
+			{
+	            so.clear();
+	            so.flush();
+			}
         }
         
         public function flush():void
         {
-            so.flush();
+			if (enabled)
+            	so.flush();
         }
         
     }
