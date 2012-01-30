@@ -523,7 +523,7 @@ package mx.collections
 				return ModifiedCollectionView.REMOVED;
 			if (addedItems[itemWrapper])
 				return ModifiedCollectionView.ADDED;
-			// FIXME (aharui): these won't be quite right yet (won't generate two separate item wrappers for replaced & replacement)
+			// TODO (aharui): these won't be quite right yet (won't generate two separate item wrappers for replaced & replacement)
 			if (replacedItems[itemWrapper])
 				return ModifiedCollectionView.REPLACED;
 			if (replacementItems[itemWrapper])
@@ -917,7 +917,7 @@ package mx.collections
 	    		return itemWrappersByCollectionMod[mod];	
 	    	}
 			
-			// FIXME (aharui): This is kind of a hack...clean up the code to simplify
+			// TODO (aharui): This is kind of a hack...clean up the code to simplify
 			if (mod && (mod.modificationType == CollectionModification.ADD))
 				index = mod.index;
 
