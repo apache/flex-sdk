@@ -35,6 +35,7 @@ import mx.events.SWFBridgeEvent;
 import mx.events.SWFBridgeRequest;
 import mx.core.EventPriority;
 import mx.core.IChildList;
+import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IRawChildrenContainer;
 import mx.core.ISWFBridgeGroup;
@@ -48,7 +49,8 @@ import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerContainer;
 import mx.managers.IMarshalSystemManager;
 import mx.managers.PopUpManagerChildList;
-import mx.managers.SystemManager;
+import mx.managers.ISystemManager;
+import mx.managers.ISystemManagerChildManager;
 import mx.managers.SystemManagerGlobals;
 import mx.managers.SystemManagerProxy;
 import mx.utils.EventUtil;
@@ -89,7 +91,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
          *  Flash Player instantiates an instance of this class,
 	 *  causing this constructor to be called.</p>
 	 */
-	public function MarshallPlan(systemManager:SystemManager = null)
+	public function MarshallPlan(systemManager:ISystemManager = null)
 	{
 		super();
 
@@ -114,6 +116,9 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 		awm.addEventListener("canActivateForm", canActivateFormHandler);
 		awm.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 
+
+		childManager = 
+			ISystemManagerChildManager(systemManager.getImplementation("mx.managers::ISystemManagerChildManager"));
 
 		if (useSWFBridge())
 		{
@@ -169,7 +174,12 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 	/**
 	 *  @private
 	 */
-	private var systemManager:SystemManager;
+	private var systemManager:ISystemManager;
+
+	/**
+	 *  @private
+	 */
+	private var childManager:ISystemManagerChildManager;
 
 
 	//----------------------------------
@@ -197,11 +207,11 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
      */
     mx_internal function get bridgeToFocusManager():Dictionary
     {
-        if (systemManager.topLevel)
+        if (Object(systemManager).mx_internal::topLevel)
             return _bridgeToFocusManager;
         else if (systemManager.topLevelSystemManager)
         {
-            var topMP:MarshallPlan = MarshallPlan(SystemManager(systemManager.topLevelSystemManager).
+            var topMP:MarshallPlan = MarshallPlan(systemManager.topLevelSystemManager.
                         getImplementation("mx.managers::IMarshalSystemManager"));
             return topMP.bridgeToFocusManager;
         }
@@ -210,11 +220,11 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
     
     mx_internal function set bridgeToFocusManager(bridgeToFMDictionary:Dictionary):void
     {
-        if (systemManager.topLevel)
+        if (Object(systemManager).mx_internal::topLevel)
             _bridgeToFocusManager = bridgeToFMDictionary;
         else if (systemManager.topLevelSystemManager)
         {
-            var topMP:MarshallPlan = MarshallPlan(SystemManager(systemManager.topLevelSystemManager).
+            var topMP:MarshallPlan = MarshallPlan(systemManager.topLevelSystemManager.
                         getImplementation("mx.managers::IMarshalSystemManager"));
             topMP.bridgeToFocusManager = bridgeToFMDictionary;
         }
@@ -386,19 +396,19 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 				}
 				else
 				{
-					systemManager.$addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
+                    Object(systemManager).mx_internal::$addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
 				}
 				
 				addEventListenerToSandboxes(type, sandboxMouseListener, useCapture, priority, useWeakReference);
 				if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
 					addEventListenerToOtherSystemManagers(type, otherSystemManagerMouseListener, useCapture, priority, useWeakReference)
 				if (systemManager.getSandboxRoot() == systemManager)
-                    systemManager.$addEventListener(actualType, eventProxy.marshalListener,
+                    Object(systemManager).mx_internal::$addEventListener(actualType, eventProxy.marshalListener,
                             useCapture, priority, useWeakReference);
 				
 				// Set useCapture to false because we will never see an event 
 				// marshalled in the capture phase.
-                systemManager.$addEventListener(type, listener, false, priority, useWeakReference);
+                Object(systemManager).mx_internal::$addEventListener(type, listener, false, priority, useWeakReference);
                 return false;
 			}
 		}
@@ -454,12 +464,12 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 			if (actualType)
 			{
                 if (systemManager.getSandboxRoot() == systemManager && eventProxy)
-                    systemManager.$removeEventListener(actualType, eventProxy.marshalListener,
+                    Object(systemManager).mx_internal::$removeEventListener(actualType, eventProxy.marshalListener,
                             useCapture);
 				if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
 					removeEventListenerFromOtherSystemManagers(type, otherSystemManagerMouseListener, useCapture);
 				removeEventListenerFromSandboxes(type, sandboxMouseListener, useCapture);
-				systemManager.$removeEventListener(type, listener, false);
+                Object(systemManager).mx_internal::$removeEventListener(type, listener, false);
 				return false;
 			}
 		}
@@ -1441,7 +1451,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 	private function setActualSizeRequestHandler(event:Event):void
 	{
 		var eObj:Object = Object(event);
-		systemManager.setActualSize(eObj.data.width, eObj.data.height);
+		IFlexDisplayObject(systemManager).setActualSize(eObj.data.width, eObj.data.height);
 	}
 	
 	/**
@@ -1453,7 +1463,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 	private function getSizeRequestHandler(event:Event):void
 	{
 		var eObj:Object = Object(event);
-		eObj.data = { width: systemManager.measuredWidth, height: systemManager.measuredHeight};					
+		eObj.data = { width: IFlexDisplayObject(systemManager).measuredWidth, height: IFlexDisplayObject(systemManager).measuredHeight};					
 	}
 	
 	/**
@@ -1785,12 +1795,12 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 		}
 		else
 		{
-			systemManager.childManager.addingChild(child);
+			childManager.addingChild(child);
 			var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST);
 			me.name = layer + ".addChild";
 			me.value = child;
 			systemManager.getSandboxRoot().dispatchEvent(me);
-			systemManager.childManager.childAdded(child);
+			childManager.childAdded(child);
 		}
 	}
 
@@ -1811,12 +1821,12 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 		}
 		else
 		{
-			systemManager.childManager.removingChild(child);
+			childManager.removingChild(child);
 			var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST);
 			me.name = layer + ".removeChild";
 			me.value = child;
 			systemManager.getSandboxRoot().dispatchEvent(me);
-			systemManager.childManager.childRemoved(child);
+			childManager.childRemoved(child);
 		}
 	}
 
@@ -1869,7 +1879,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 			event["value"] = systemManager.screen;
 			break;
 		case "application":
-		    event["value"] = systemManager.application;
+		    event["value"] = systemManager.document;
 		    break;
 		case "isTopLevelRoot":
 		    event["value"] = systemManager.isTopLevelRoot();
@@ -1907,7 +1917,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
     	if (sandboxRoot == systemManager)
     		// we don't have access the stage so use the width and
     		// height of the application.
-   			sandboxScreen = new Rectangle(0, 0, systemManager.width, systemManager.height);			
+   			sandboxScreen = new Rectangle(0, 0, IFlexDisplayObject(systemManager).width, IFlexDisplayObject(systemManager).height);			
     	else if (sandboxRoot == systemManager.topLevelSystemManager)
     	{
     		var sm:DisplayObject = DisplayObject(systemManager.topLevelSystemManager);
@@ -2708,7 +2718,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 				}
 				else
 				{
-					systemManager.$addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
+                    Object(systemManager).mx_internal::$addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
 				}
 
                 // add listeners in other sandboxes in capture mode so we don't miss anything
@@ -2725,7 +2735,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
                             false, request.priority, request.useWeakReference);
 				    }
 
-                    systemManager.$addEventListener(actualType, eventProxy.marshalListener,
+                    Object(systemManager).mx_internal::$addEventListener(actualType, eventProxy.marshalListener,
                         true, request.priority, request.useWeakReference);
                 }
 			}
@@ -2746,7 +2756,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
                         systemManager.stage.removeEventListener(actualType, eventProxy.marshalListener);
                     }
 
-                    systemManager.$removeEventListener(actualType, eventProxy.marshalListener, true);
+                    Object(systemManager).mx_internal::$removeEventListener(actualType, eventProxy.marshalListener, true);
                 }
             }
         }		
@@ -2755,10 +2765,10 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 	private function Stage_resizeHandler(event:Event = null):void
 	{	
        	var sandboxScreen:Rectangle = getSandboxScreen();
-		if (!systemManager._screen)
-			systemManager._screen = new Rectangle();
-       	systemManager._screen.width = sandboxScreen.width;
-       	systemManager._screen.height = sandboxScreen.height;
+        if (!Object(systemManager).mx_internal::_screen)
+            Object(systemManager).mx_internal::_screen = new Rectangle();
+       	Object(systemManager).mx_internal::_screen.width = sandboxScreen.width;
+       	Object(systemManager).mx_internal::_screen.height = sandboxScreen.height;
 	}
 
  	/**
