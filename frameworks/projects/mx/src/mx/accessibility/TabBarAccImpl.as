@@ -238,15 +238,9 @@ public class TabBarAccImpl extends AccImpl
 	 */
 	override public function getChildIDArray():Array
 	{
-		var childIDs:Array = [];
-		
 		var n:int = TabBar(master).numChildren;
-		for (var i:int = 0; i < n; i++)
-		{
-			childIDs[i] = i + 1;
-		}
-		
-		return childIDs;
+
+		return createChildIDArray(n);
 	}
 
 	/**
