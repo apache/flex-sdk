@@ -958,6 +958,10 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     
     protected function executeViewChange():void
     {
+        // Private event used for performance tests
+        if (hasEventListener("viewChangeStart"))
+            dispatchEvent(new Event("viewChangeStart"));
+        
         if (selectedSectionChanged)
         {
             commitSelection();
@@ -1002,7 +1006,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         
         // Put this before viewAdded() so another validation pass won't cause this to happen
         currentViewChanged = false; 
-        viewAdded(pendingViewTransition);
+        viewAdded(transitionsEnabled ? pendingViewTransition : null);
         pendingViewTransition = null;
     }
     
@@ -1245,6 +1249,8 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         {
             actionContentInvalidated = true;
             actionGroupLayoutInvalidated = true;
+            navigationContentInvalidated = true;
+            navigationGroupLayoutInvalidated = true;
             titleInvalidated = true;
             titleContentInvalidated = true;
             titleGroupLayoutInvalidated = true;
