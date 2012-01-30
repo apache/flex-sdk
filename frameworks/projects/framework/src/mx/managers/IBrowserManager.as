@@ -107,7 +107,7 @@ public interface IBrowserManager extends IEventDispatcher
      *  Initializes the BrowserManager. The BrowserManager will get the initial URL. If it
      *  has a fragment, it will dispatch a <code>BROWSER_URL_CHANGE</code> event.
      *
-     *  This method sets the value of the <code>Application.application.historyManagementEnabled</code>
+     *  This method sets the value of the <code>ApplicationGlobals.application.historyManagementEnabled</code>
      *  property to <code>false</code> because the HistoryManager generally interferes with your
      *  application's handling of URL fragments.
      *
@@ -121,7 +121,7 @@ public interface IBrowserManager extends IEventDispatcher
      *  prepare the BrowserManager for further calls from the HistoryManager. You cannot use 
      *  the HistoryManager and call the <code>setFragment()</code> method from the application.
      *  As a result, the <code>init()</code> method usually sets 
-     *  the value of the <code>Application.application.historyManagementEnabled</code> property to <code>false</code> to disable
+     *  the value of the <code>ApplicationGlobals.application.historyManagementEnabled</code> property to <code>false</code> to disable
      *  the HistoryManager.
      */
     function initForHistoryManager():void;
