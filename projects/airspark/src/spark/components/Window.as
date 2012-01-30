@@ -1812,37 +1812,6 @@ public class Window extends SkinnableContainer implements IWindow
     /**
      *  @private
      */
-    override public function initialize():void
-    {
-        var sm:ISystemManager = systemManager;
-        if (documentDescriptor)
-        {
-            creationPolicy = documentDescriptor.properties.creationPolicy;
-            if (creationPolicy == null || creationPolicy.length == 0)
-                creationPolicy = ContainerCreationPolicy.AUTO;
-
-            var properties:Object = documentDescriptor.properties;
-
-            if (properties.width != null)
-            {
-                width = properties.width;
-                delete properties.width;
-            }
-            if (properties.height != null)
-            {
-                height = properties.height;
-                delete properties.height;
-            }
-
-            // Flex auto-generated code has already set up events.
-            documentDescriptor.events = null;
-        }
-         super.initialize();
-    }
-
-    /**
-     *  @private
-     */
     override protected function createChildren():void
     {
         // this is to help initialize the stage
