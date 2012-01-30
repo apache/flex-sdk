@@ -442,12 +442,14 @@ public class FlexModuleFactory extends MovieClip implements IFlexModuleFactory
 
 		// If the localeChain wasn't specified in the FlashVars of the SWF's
 		// HTML wrapper, or in the query parameters of the SWF URL,
-		// then set it to the list of compiled locales.
+		// then initialize it to the list of compiled locales,
+        // sorted according to the system's preferred locales as reported by
+        // Capabilities.languages or Capabilities.language.
 		// For example, if the applications was compiled with, say,
-		// -locale=en_US,ja_JP, then set the localeChain to
-		// [ "en_US", "ja_JP" ].
+		// -locale=en_US,ja_JP and Capabilities.languages reports [ "ja-JP" ],
+        // set the localeChain to [ "ja_JP" "en_US" ].
 		if (!resourceManager.localeChain)
-			resourceManager.localeChain = compiledLocales;
+			resourceManager.initializeLocaleChain(compiledLocales);
 	}
 
     /**
