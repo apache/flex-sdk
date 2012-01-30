@@ -2258,7 +2258,18 @@ public dynamic class UIMovieClip extends MovieClip
     private var _visible:Boolean = true;
 
     /**
-     *  @inheritDoc
+     *  Whether or not the display object is visible. 
+     *  Display objects that are not visible are disabled. 
+     *  For example, if <code>visible=false</code> for an InteractiveObject instance, 
+     *  it cannot be clicked. 
+     *
+     *  <p>When setting to <code>true</code>, the object dispatches
+     *  a <code>show</code> event.
+     *  When setting to <code>false</code>, the object dispatches
+     *  a <code>hide</code> event.
+     *  In either case the children of the object does not emit a
+     *  <code>show</code> or <code>hide</code> event unless the object
+     *  has specifically written an implementation to do so.</p>
      */    
     override public function get visible():Boolean
     {
@@ -2869,7 +2880,7 @@ public dynamic class UIMovieClip extends MovieClip
     }
     
     /**
-     *
+     *  @copy mx.core.UIComponent#transformX
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2897,7 +2908,7 @@ public dynamic class UIMovieClip extends MovieClip
     }
 
     /**
-     *
+     *  @copy mx.core.UIComponent#transformY
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2925,7 +2936,7 @@ public dynamic class UIMovieClip extends MovieClip
     }
     
     /**
-     *
+     *  @copy mx.core.UIComponent#transformZ
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2953,7 +2964,7 @@ public dynamic class UIMovieClip extends MovieClip
     }
     
     /**
-     *  @inheritDoc
+     *  @copy mx.core.IFlexDisplayObject#rotation
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -3115,7 +3126,7 @@ public dynamic class UIMovieClip extends MovieClip
     }
     
     /**
-     * @inheritDoc
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -3660,6 +3671,14 @@ public dynamic class UIMovieClip extends MovieClip
         return LayoutElementUIComponentUtils.getPreferredBoundsWidth(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function getPreferredBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
         return LayoutElementUIComponentUtils.getPreferredBoundsHeight(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
@@ -3678,6 +3697,14 @@ public dynamic class UIMovieClip extends MovieClip
         return LayoutElementUIComponentUtils.getMinBoundsWidth(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function getMinBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
         return LayoutElementUIComponentUtils.getMinBoundsHeight(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
@@ -3696,6 +3723,14 @@ public dynamic class UIMovieClip extends MovieClip
         return LayoutElementUIComponentUtils.getMaxBoundsWidth(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function getMaxBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
         return LayoutElementUIComponentUtils.getMaxBoundsHeight(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
@@ -3742,6 +3777,14 @@ public dynamic class UIMovieClip extends MovieClip
         return LayoutElementUIComponentUtils.getLayoutBoundsWidth(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function getLayoutBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
         return LayoutElementUIComponentUtils.getLayoutBoundsHeight(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
@@ -3760,6 +3803,14 @@ public dynamic class UIMovieClip extends MovieClip
         return LayoutElementUIComponentUtils.getLayoutBoundsX(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
         return LayoutElementUIComponentUtils.getLayoutBoundsY(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
@@ -4665,7 +4716,7 @@ public dynamic class UIMovieClip extends MovieClip
     }
     
     /**
-     *  This enter frame handler progresses through transitions
+     *  This enter frame handler progresses through transitions.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
