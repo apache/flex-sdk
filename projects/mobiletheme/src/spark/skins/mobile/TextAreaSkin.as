@@ -192,6 +192,7 @@ public class TextAreaSkin extends TextSkinBase
             scroller = new Scroller();
             scroller.minViewportInset = 0;
             scroller.measuredSizeIncludesScrollBars = false;
+            scroller.ensureFocusedElementIsVisible = false;
             addChild(scroller);
         }
         
