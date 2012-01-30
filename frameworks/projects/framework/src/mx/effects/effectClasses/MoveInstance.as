@@ -52,6 +52,11 @@ import mx.styles.IStyleClient;
  *
  *  @see mx.effects.Move
  *  @see mx.events.TweenEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class MoveInstance extends TweenEffectInstance
 {
@@ -67,6 +72,11 @@ public class MoveInstance extends TweenEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function MoveInstance(target:Object)
 	{
@@ -141,6 +151,11 @@ public class MoveInstance extends TweenEffectInstance
 	/** 
 	 *  Number of pixels to move the components along the x axis.
 	 *  Values can be negative. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var xBy:Number;
 	
@@ -150,6 +165,11 @@ public class MoveInstance extends TweenEffectInstance
 
 	/** 
 	 *  Initial position's x coordinate.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var xFrom:Number;
 	
@@ -159,6 +179,11 @@ public class MoveInstance extends TweenEffectInstance
 
 	/** 
 	 *  Destination position's x coordinate.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var xTo:Number;
 	
@@ -169,6 +194,11 @@ public class MoveInstance extends TweenEffectInstance
 	/** 
 	 *  Number of pixels to move the components along the y axis.
 	 *  Values can be negative. 	
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var yBy:Number;
 
@@ -178,6 +208,11 @@ public class MoveInstance extends TweenEffectInstance
 
 	/**
 	 *  Initial position's y coordinate.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var yFrom:Number;
 	
@@ -187,6 +222,11 @@ public class MoveInstance extends TweenEffectInstance
 
 	/** 
 	 *  Destination position's y coordinate.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var yTo:Number;
 	
