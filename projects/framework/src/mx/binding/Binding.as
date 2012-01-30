@@ -46,6 +46,11 @@ public class Binding
 	 *
      *  @param destString The destination represented as a String.
 	 *  We can then tell the ValidationManager to validate this field.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Binding(document:Object, srcFunc:Function,
 						    destFunc:Function, destString:String)
@@ -167,22 +172,42 @@ public class Binding
     /**
      *  All Bindings hang off of a document for now,
 	 *  but really it's just the root of where these functions live.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var document:Object;
 
 	/**
      *  The function that will return us the value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var srcFunc:Function;
 
 	/**
      *  The function that takes the value and assigns it.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var destFunc:Function;
 
 	/**
      *  The destination represented as a String.
 	 *  This will be used so we can signal validation on a field.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var destString:String;
 
@@ -225,6 +250,11 @@ public class Binding
 	 *  Call the source function and get the value we'll use.
 	 *  Then call the destination function passing the value as an argument.
 	 *  Finally try to validate the destination.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function execute(o:Object = null):void
     {
@@ -415,6 +445,11 @@ public class Binding
     /**
 	 *  This function is called when one of this binding's watchers
 	 *  detects a property change.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public function watcherFired(commitEvent:Boolean, cloneIndex:int):void
     {
