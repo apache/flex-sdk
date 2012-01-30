@@ -48,6 +48,11 @@ use namespace mx_internal;
  *  
  *  @includeExample examples/SpacerExample.mxml
  *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Spacer extends UIComponent
 {
@@ -61,6 +66,11 @@ public class Spacer extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Spacer()
     {
