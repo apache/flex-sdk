@@ -25,6 +25,11 @@ import mx.core.IUIComponent;
  *  keyboard activity (Tab key), and to support a default button.
  *
  *  @see mx.managers.FocusManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IFocusManager
 {
@@ -53,6 +58,11 @@ public interface IFocusManager
      *  <p>The <code>defaultButton</code> must be of class
      *  <code>mx.controls.Button</code> even though this property
      *  is of type <code>IUIComponent</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get defaultButton():IButton;
     
@@ -73,6 +83,11 @@ public interface IFocusManager
      *  set this property to <code>false</code> to disable the Enter
      *  key from dispatching a <code>click</code> event on the
      *  default button, if it exists.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get defaultButtonEnabled():Boolean;
     
@@ -90,6 +105,11 @@ public interface IFocusManager
      *  as the focus moves to those containers.
      *  The Sprite is used as the parent of the visual indicator
      *  that a component has focus.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get focusPane():Sprite;
     
@@ -104,6 +124,11 @@ public interface IFocusManager
 
     /**
      *  The next unique tab index to use in this tab loop.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get nextTabIndex():int;
 
@@ -124,6 +149,11 @@ public interface IFocusManager
      *  the <code>showFocus()</code> and <code>hideFocus()</code> methods
      *  to change this property as those methods also update the
      *  visual indicator that a component has focus.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get showFocusIndicator():Boolean;
     
@@ -145,6 +175,11 @@ public interface IFocusManager
      *  The Stage might return a subcomponent in that component.
      *
      *  @return IFocusManagerComponent object that has focus.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getFocus():IFocusManagerComponent;
 
@@ -153,18 +188,33 @@ public interface IFocusManager
      *  the components visibility, enabled state, or any other conditions.
      *
      *  @param o A component that can receive focus.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function setFocus(o:IFocusManagerComponent):void;
 
     /**
      *  Sets <code>showFocusIndicator</code> to <code>true</code>
      *  and draws the visual focus indicator on the focused object, if any.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function showFocus():void;
 
     /**
      *  Sets <code>showFocusIndicator</code> to <code>false</code>
      *  and removes the visual focus indicator from the focused object, if any.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function hideFocus():void;
 
@@ -176,6 +226,11 @@ public interface IFocusManager
      *  the <code>activate()</code> method on that FocusManager.
      *  The FocusManager that was activated will have its <code>deactivate()</code> method
      *  called prior to the activation of another FocusManager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function activate():void;
 
@@ -187,6 +242,11 @@ public interface IFocusManager
      *  the <code>activate()</code> method on that FocusManager.
      *  The FocusManager that was activated will have its <code>deactivate()</code> method
      *  called prior to the activation of another FocusManager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function deactivate():void;
 
@@ -200,6 +260,11 @@ public interface IFocusManager
      *
      *  @return The IFOcusManagerComponent containing <code>o</code> or 
      *  <code>null</code>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function findFocusManagerComponent(o:InteractiveObject):IFocusManagerComponent;
 
@@ -213,6 +278,11 @@ public interface IFocusManager
      *  as if the Shift-Tab keys were pressed.
      *
      *  @return The component that would receive focus.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getNextFocusManagerComponent(
                             backward:Boolean = false):IFocusManagerComponent;
@@ -239,6 +309,11 @@ public interface IFocusManager
      *  @param fromDisplayObject The starting point from which focus is moved. 
      *  If an object is provided, this overrides the default behavior 
      *  where focus is moved from the object that currently has focus.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function moveFocus(direction:String,
                        fromDisplayObject:DisplayObject = null):void;
@@ -252,6 +327,11 @@ public interface IFocusManager
      * 
      *  @param bridge The bridge to another focus manager.
      *  @param owner The display object that owns the bridge.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function addSWFBridge(bridge:IEventDispatcher, owner:DisplayObject):void
     
@@ -261,6 +341,11 @@ public interface IFocusManager
      *  <code>addSWFBridge</code> is removed.
      * 
      *  @param bridge The bridge to remove.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeSWFBridge(bridge:IEventDispatcher):void
 
