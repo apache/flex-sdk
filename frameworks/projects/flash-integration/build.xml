@@ -17,27 +17,34 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,compile" description="Clean build of FlexComponentBase.swc"/>
+	<target name="main" depends="clean,compile" description="Clean build of flash-integration.swc"/>
 
 	<target name="clean">
 		<delete failonerror="false">
 			<fileset file="${basedir}/bundles.properties"/>
+            <fileset dir="${FLEX_HOME}/frameworks/libs">
+				<include name="flash-integration.swc"/>
+				<include name="flash-integration.swc.incr"/>
+			</fileset>
 			<fileset dir="${basedir}/libs">
-				<include name="FlexComponentBase.swc"/>
+                <include name="flash-integration.swc"/>
+				<include name="flash-integration.swc.incr"/>
+                <!-- TODO (rfrishbe): can remove the latter 2 files at some point in future -->
+                <include name="FlexComponentBase.swc"/>
 				<include name="FlexComponentBase.swc.incr"/>
 			</fileset>
 		</delete>
 	</target>
 
-	<target name="compile" description="Compiles FlexComponentBase.swc">
-		<echo message="Compiling frameworks/projects/flash-integration/libs/FlexComponentBase.swc"/>
+	<target name="compile" description="Compiles flash-integration.swc">
+		<echo message="Compiling frameworks/projects/flash-integration/libs/flash-integration.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 		<!--
 			Link in the classes (and their dependencies) for the MXML tags
 			listed in manifest.xml.
-			Compile against framework source, and link it into FlexComponentBase.swc
+			Compile against framework source, and link it into flash-integration.swc
 			(only a few interfaces will be linked in).
 			Don't put any resources into the SWC.
 			Write a bundle list of referenced resource bundles
@@ -45,7 +52,7 @@
 			(This should be an empty list.)
 		-->
 		<compc fork="true"
-			   output="${basedir}/libs/FlexComponentBase.swc"
+			   output="${FLEX_HOME}/frameworks/libs/flash-integration.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
             <!-- doesn't matter what we put in here as long as it links in the classes.
@@ -64,10 +71,18 @@
 			<accessible>true</accessible>
 			<compute-digest>false</compute-digest>
 		</compc>
+        
+        <!-- need to copy the file produced over so that the MXI 
+             can refer to the flash-integration.swc -->
+        <copy todir="${basedir}/libs">
+			<fileset dir="${FLEX_HOME}/frameworks/libs">
+				<include name="flash-integration.swc"/>
+			</fileset>
+		</copy>
 	</target>
 
 
-	<target name="doc" depends="clean-temp-docs" description="updates FlexComponentBase.swc with asdoc xml">
+	<target name="doc" depends="clean-temp-docs" description="updates flash-integration.swc with asdoc xml">
 		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -106,7 +121,7 @@
 		</asdoc>
 
 		<!-- updates FlexComponentBase.swc with asdoc xml -->
-		<zip destfile="${basedir}/libs/FlexComponentBase.swc" update="true">
+		<zip destfile="${basedir}/libs/flash-integration.swc" update="true">
 		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
 			    <include name="*.*"/>
 				<exclude name="ASDoc_Config.xml"/>
