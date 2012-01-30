@@ -95,6 +95,7 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
                 
                 layoutGap = 20;
                 minWidth = 64;
+                minHeight = 64;
                 
                 break;
             }
@@ -111,6 +112,7 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
                 
                 layoutGap = 15;
                 minWidth = 48;
+                minHeight = 48;
                 
                 break;
             }
@@ -127,6 +129,7 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
                 
                 layoutGap = 10;
                 minWidth = 32;
+                minHeight = 32;
                 
                 break;
             }
