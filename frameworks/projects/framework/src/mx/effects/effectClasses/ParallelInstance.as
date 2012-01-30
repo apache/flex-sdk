@@ -198,9 +198,12 @@ public class ParallelInstance extends CompositeEffectInstance
 	{
 		super.addChildSet(childSet);
 		
-		// Make sure that the Rotate is in the beginning of the array because it needs to be 
-		// before any Move effects
-		if (childSet.length > 0)
+		// Make sure that spark Resize and mx Rotate are in the beginning of the 
+        // array because they need to be before any Move effects
+        // TODO: There is logic at the Animation level to handle processing 
+        // width/height values before any others for any animation frame. We
+        // maybe be able to remove this Resize-reordering logic altogether.
+		if (childSets.length > 1 && childSet.length > 0)
 		{
 			var compChild:CompositeEffectInstance = childSet[0] as CompositeEffectInstance;
 			
@@ -216,8 +219,24 @@ public class ParallelInstance extends CompositeEffectInstance
             if (resizeEffectType && (childSet[0] is resizeEffectType ||
                 (compChild != null && compChild.hasResizeInstance())))
             {
-                // Remove item we just added to the end and place it at the beginning
-                childSets.unshift(childSets.pop());
+                // Remove item we just added to the end and place it at the beginning,
+                // but after any other Resize effects
+                
+                var resizeChildSet:Array = childSets.pop();
+                var insertionIndex:int = 0;
+                for (var i:int = 0; i < childSets.length; ++i)
+                {
+                    var currentChildSet:Array = childSets[i];
+                    var currentChildSetComposite:CompositeEffectInstance = 
+                        currentChildSet[0] as CompositeEffectInstance;
+                    if (!(currentChildSet[0] is resizeEffectType) &&
+                        (!currentChildSetComposite || !currentChildSetComposite.hasResizeInstance()))
+                    {
+                        break;
+                    }
+                    ++insertionIndex;
+                }
+                childSets.splice(insertionIndex, 0, resizeChildSet);
             }
 			// Check if the child is a Rotate and also check if it is a composite effect that has a Rotate
             else if (childSet[0] is RotateInstance || (compChild != null && compChild.hasRotateInstance()))
