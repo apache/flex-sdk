@@ -14,7 +14,6 @@ package spark.components.supportClasses
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -37,6 +36,7 @@ import flashx.textLayout.formats.LineBreak;
 
 import mx.core.DPIClassification;
 import mx.core.FlexGlobals;
+import mx.core.IUIComponent;
 import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -292,7 +292,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     {
         super();
         
-        stageText = new StageText(new StageTextInitOptions(multiline));
+        _multiline = multiline;
+        getStageText(true);
         
         if (!defaultStyles)
         {
@@ -304,16 +305,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             defaultStyles["fontStyle"] = stageText.fontPosture;
             defaultStyles["fontSize"] = stageText.fontSize;
             defaultStyles["color"] = stageText.color;
+            defaultStyles["locale"] = stageText.locale;
         }
         
-        stageText.addEventListener(Event.CHANGE, stageText_changeHandler);
-        stageText.addEventListener(FocusEvent.FOCUS_IN, stageText_focusInHandler);
-        stageText.addEventListener(FocusEvent.FOCUS_OUT, stageText_focusOutHandler);
-        stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, stageText_softKeyboardHandler);
-        stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, stageText_softKeyboardHandler);
-        stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, stageText_softKeyboardHandler);
-        
-        _multiline = multiline;
         _displayAsPassword = stageText.displayAsPassword;
         _maxChars = stageText.maxChars;
         _restrict = stageText.restrict;
@@ -376,6 +370,17 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var _enabled:Boolean = true;
     
     /**
+     *  Storage for the effective enabled property.
+     */
+    private var _effectiveEnabled:Boolean;
+    
+    /**
+     *  Flag indicating that the aggregate enabled states of the StageText's
+     *  ancestors is unknown.
+     */
+    private var invalidateEffectiveEnabledFlag:Boolean = true;
+    
+    /**
      *  @copy mx.core.UIComponent#enabled
      *  
      *  @langversion 3.0
@@ -386,7 +391,36 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     {
         super.enabled = value;
         _enabled = value;
+        invalidateEffectiveEnabledFlag = true;
         invalidateProperties();
+    }
+    
+    private function get effectiveEnabled():Boolean
+    {
+        if (invalidateEffectiveEnabledFlag)
+        {
+            _effectiveEnabled = _enabled;
+            
+            if (_effectiveEnabled)
+            {
+                var ancestor:DisplayObject = parent;
+                
+                while (ancestor != null)
+                {
+                    if (ancestor is IUIComponent && !IUIComponent(ancestor).enabled)
+                    {
+                        _effectiveEnabled = false;
+                        break;
+                    }
+                    
+                    ancestor = ancestor.parent;
+                }
+            }
+            
+            invalidateEffectiveEnabledFlag = false;            
+        }
+        
+        return _effectiveEnabled;
     }
     
     //----------------------------------
@@ -852,9 +886,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     public function get selectionActivePosition():int
     {
-        if (stageText != null)
-            return stageText.selectionActiveIndex;
-        return 0;
+        return stageText ? stageText.selectionActiveIndex : 0;
     }
     
     //----------------------------------
@@ -872,9 +904,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     public function get selectionAnchorPosition():int
     {
-        if (stageText != null)
-            return stageText.selectionAnchorIndex;
-        return 0;
+        return stageText ? stageText.selectionAnchorIndex : 0;
     }
 
     //----------------------------------
@@ -939,6 +969,11 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //----------------------------------
     
     /**
+     *  Storage for the autoCapitalize property.
+     */
+    private var _autoCapitalize:String = AutoCapitalize.NONE;
+    
+    /**
      *  @private
      *  Hint indicating what captialization behavior soft keyboards should use.
      *
@@ -955,26 +990,28 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     public function set autoCapitalize(value:String):void
     {
+        if (value == "")
+            value = AutoCapitalize.NONE;
+        
         if (stageText != null)
-        {
-            if (value == null || value.length == 0)
-                value = AutoCapitalize.NONE;
-            
             stageText.autoCapitalize = value;
-        }
+        
+        _autoCapitalize = value;
     }
     
     public function get autoCapitalize():String
     {
-        if (stageText != null)
-            return stageText.autoCapitalize;
-        
-        return AutoCapitalize.NONE;
+        return stageText ? stageText.autoCapitalize : _autoCapitalize;
     }
     
     //----------------------------------
     //  autoCorrect
     //----------------------------------
+    
+    /**
+     *  Storage for the autoCorrect property.
+     */
+    private var _autoCorrect:Boolean = false;
     
     /**
      *  @private
@@ -987,21 +1024,25 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     public function get autoCorrect():Boolean
     {
-        if (stageText != null)
-            return stageText.autoCorrect;
-        
-        return false;
+        return stageText ? stageText.autoCorrect : _autoCorrect;
     }
     
     public function set autoCorrect(value:Boolean):void
     {
         if (stageText != null)
             stageText.autoCorrect = value;
+        
+        _autoCorrect = value;
     }
     
     //----------------------------------
     //  returnKeyLabel
     //----------------------------------
+    
+    /**
+     *  Storage for the returnKeyLabel property.
+     */
+    private var _returnKeyLabel:String = ReturnKeyLabel.DEFAULT;
     
     /**
      *  @private
@@ -1022,26 +1063,28 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     public function get returnKeyLabel():String
     {
-        if (stageText != null)
-            return stageText.returnKeyLabel;
-        
-        return ReturnKeyLabel.DEFAULT;
+        return stageText ? stageText.returnKeyLabel : _returnKeyLabel;
     }
     
     public function set returnKeyLabel(value:String):void
     {
+        if (value == "")
+            value = ReturnKeyLabel.DEFAULT;
+        
         if (stageText != null)
-        {
-            if (value == null || value.length == 0)
-                value = ReturnKeyLabel.DEFAULT;
-            
             stageText.returnKeyLabel = value;
-        }
+        
+        _returnKeyLabel = value;
     }
     
     //----------------------------------
     //  softKeyboardType
     //----------------------------------
+    
+    /**
+     *  Storage for the softKeyboardType property.
+     */
+    private var _softKeyboardType:String = SoftKeyboardType.DEFAULT;
     
     /**
      *  @private
@@ -1065,21 +1108,18 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     public function get softKeyboardType():String
     {
-        if (stageText != null)
-            return stageText.softKeyboardType;
-        
-        return SoftKeyboardType.DEFAULT;
+        return stageText ? stageText.softKeyboardType : _softKeyboardType;
     }
     
     public function set softKeyboardType(value:String):void
     {
+        if (value == "")
+            value = SoftKeyboardType.DEFAULT;
+        
         if (stageText != null)
-        {
-            if (value == null || value.length == 0)
-                value = SoftKeyboardType.DEFAULT;
-            
             stageText.softKeyboardType = value;
-        }
+        
+        _softKeyboardType = value;
     }
     
     //--------------------------------------------------------------------------
@@ -1118,9 +1158,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */ 
     override public function setFocus():void
     {
-        super.setFocus();
-        if (stageText != null)
-            stageText.assignFocus();
+        if (effectiveEnabled)
+        {
+            super.setFocus();
+            if (stageText != null)
+                stageText.assignFocus();
+        }
     }
     
     /**
@@ -1190,7 +1233,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         super.commitProperties();
 
         if (stageText != null) 
-            stageText.editable = _editable && _enabled;
+            stageText.editable = _editable && effectiveEnabled;
         
         if (invalidateViewPortFlag)
             updateViewPort();
@@ -1217,12 +1260,15 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     public function appendText(text:String):void
     {
-        if (stageText != null)
+        if (stageText != null && text.length > 0)
         {
             if (stageText.text != null)
                 stageText.text += text;
             else
                 stageText.text = text;
+            
+            _text = stageText.text;
+            dispatchEvent(new TextOperationEvent(TextOperationEvent.CHANGE));
         }
     }
     
@@ -1244,7 +1290,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     public function insertText(text:String):void
     {
-        if (stageText == null)
+        if (stageText == null || text.length == 0)
             return;
         
         var origText:String = stageText.text;
@@ -1282,6 +1328,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             newText += origText.substring(endIndex);
         
         stageText.text = newText;
+
+        _text = stageText.text;
+        dispatchEvent(new TextOperationEvent(TextOperationEvent.CHANGE));
     }
     
     /**
@@ -1387,6 +1436,13 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             else
                 stageText.color = defaultStyles["color"];
             
+            var locale:* = getStyle("locale");
+            
+            if (locale != undefined)
+                stageText.locale = locale;
+            else
+                stageText.locale = defaultStyles["locale"];
+            
             invalidateStyleFlag = false;
         }
     }
@@ -1405,7 +1461,10 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (!stageText || !localViewPort || 
             localViewPort.width == 0 || localViewPort.height == 0 ||
             !visible || !calcAncestorsVisible())
-            return null;
+            return null; // The StageText is invisible.
+        
+        if (stageText.viewPort.width == 0 || stageText.viewPort.height == 0)
+            updateViewPort(); // The StageText viewport is stale.
         
         var bitmap:BitmapData = new BitmapData(stageText.viewPort.width, 
             stageText.viewPort.height, true, 0x00FFFFFF);
@@ -1641,6 +1700,61 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         watchedAncestors = newWatchedAncestors;
     }
     
+    private function restoreStageText():void
+    {
+        if (stageText != null)
+        {
+            // This has to happen here instead of waiting for commitProperties
+            // because this will cause stageText.text to get cleared. Subsequent
+            // change events would then copy that cleared text to the _text
+            // storage variable, making the change permanent.
+            stageText.editable = _editable && effectiveEnabled;
+
+            stageText.text = _text;
+            stageText.displayAsPassword = _displayAsPassword;
+            
+            if (_maxChars > 0)
+                stageText.maxChars = _maxChars;
+            
+            if (_restrict != "")
+                stageText.restrict = _restrict;
+            
+            // Soft keyboard hints
+            stageText.autoCapitalize = _autoCapitalize;
+            stageText.autoCorrect = _autoCorrect;
+            stageText.returnKeyLabel = _returnKeyLabel;
+            stageText.softKeyboardType = _softKeyboardType;
+            
+            // Make sure styles are restored
+            invalidateStyleFlag = true;
+            
+            // Make sure viewPort and enabled state are recalculated
+            invalidateViewPortFlag = true;
+            invalidateProperties();
+        }
+    }
+    
+    mx_internal function getStageText(create:Boolean = false):StageText
+    {
+        if (stageText == null && create)
+            stageText = new StageText(new StageTextInitOptions(_multiline));
+        
+        return stageText;
+    }
+    
+    private function registerStageTextListeners():void
+    {
+        if (stageText != null)
+        {
+            stageText.addEventListener(Event.CHANGE, stageText_changeHandler);
+            stageText.addEventListener(FocusEvent.FOCUS_IN, stageText_focusInHandler);
+            stageText.addEventListener(FocusEvent.FOCUS_OUT, stageText_focusOutHandler);
+            stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, stageText_softKeyboardHandler);
+            stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, stageText_softKeyboardHandler);
+            stageText.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, stageText_softKeyboardHandler);
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden event handlers
@@ -1656,7 +1770,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     {
         super.focusInHandler(event);
         
-        if (stageText != null && focusedStageText != stageText)
+        if (stageText != null && focusedStageText != stageText && effectiveEnabled)
             stageText.assignFocus();
     }
     
@@ -1773,16 +1887,22 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             event.bubbles, event.cancelable, this, event.triggerType));
     }
     
+    private function eventTargetsAncestor(event:Event):Boolean
+    {
+        var ancestor:DisplayObject = parent;
+        var target:Object = event.target;
+        
+        while (ancestor != null && ancestor != target)
+            ancestor = ancestor.parent;
+        
+        return ancestor != null;
+    }
+    
     private function stage_effectStartHandler(event:EffectEvent):void
     {
         // An effect is starting, but the effect will only affect the StageText
         // if its target is an ancestor of it.
-        var ancestor:DisplayObjectContainer = parent;
-        
-        while (ancestor != null && ancestor != event.target)
-            ancestor = ancestor.parent;
-        
-        if (ancestor != null)
+        if (eventTargetsAncestor(event))
         {
             // The first effect affecting the StageText that starts causes us
             // to replace the StageText with a bitmap.
@@ -1793,12 +1913,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function stage_effectEndHandler(event:EffectEvent):void
     {
-        var ancestor:DisplayObjectContainer = parent;
-        
-        while (ancestor != null && ancestor != event.target)
-            ancestor = ancestor.parent;
-        
-        if (ancestor != null)
+        if (eventTargetsAncestor(event))
         {
             // The last effect affecting the StageText to end causes us to put
             // the live StageText back and remove the bitmap.
@@ -1807,34 +1922,33 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         }
     }
     
+    private function stage_enabledChangedHandler(event:Event):void
+    {
+        if (eventTargetsAncestor(event))
+        {
+            invalidateEffectiveEnabledFlag = true;
+            invalidateProperties();
+        }
+    }
+    
     private function stage_hierarchyChangedHandler(event:Event):void
     {
         // If an ancestor is added to or removed from the list of this
         // StageText's ancestors, update the list of components we watch for
         // visibility and geometry changes.
-        var target:Object = event.target;
-        var foundTarget:Boolean = false;
-        var ancestor:DisplayObject = this;
-        
-        while (ancestor != null)
-        {
-            if (target == ancestor)
-            {
-                foundTarget = true;
-                break;
-            }
-            
-            ancestor = ancestor.parent;
-        }
-        
-        if (foundTarget)
+        if (eventTargetsAncestor(event))
             updateWatchedAncestors();
     }
     
     private function addedToStageHandler(event:Event):void
     {
+        var needsRestore:Boolean = false;
+        
         if (stageText == null)
-            return;
+        {
+            getStageText(true);
+            needsRestore = true;
+        }
         
         stageText.stage = stage;
         
@@ -1844,10 +1958,17 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         stageText.stage.addEventListener(Event.ADDED, stage_hierarchyChangedHandler, false, 0, true);
         stageText.stage.addEventListener(Event.REMOVED, stage_hierarchyChangedHandler, false, 0, true);
         
+        stageText.stage.addEventListener("enabledChanged", stage_enabledChangedHandler, true, 0, true);
+        
         updateWatchedAncestors();
+        
+        if (needsRestore)
+            restoreStageText();
         
         if (deferredViewPortUpdate)
             updateViewPort();
+        
+        registerStageTextListeners();
     }
     
     private function removedFromStageHandler(event:Event):void
@@ -1861,6 +1982,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         stageText.stage.removeEventListener(Event.ADDED, stage_hierarchyChangedHandler);
         stageText.stage.removeEventListener(Event.REMOVED, stage_hierarchyChangedHandler);
 
+        stageText.stage.removeEventListener("enabledChanged", stage_enabledChangedHandler, true);
+
         stageText.stage = null;
         
         stageText.removeEventListener(Event.CHANGE, stageText_changeHandler);
@@ -1872,6 +1995,13 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
 
         stageText.dispose();
         stageText = null;
+        
+        // This component may be removed from the stage by a Fade effect. In
+        // that case, we will not receive the EFFECT_END event, but should still
+        // reset the effect running state and remove any bitmap representation
+        // of the StageText.
+        disposeProxyImage();
+        numEffectsRunning = 0;
     }
 }
 }
