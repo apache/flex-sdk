@@ -107,7 +107,7 @@ public class StyleProtoChain
         while (className != null &&
                className != "mx.core.UIComponent" &&
                className != "mx.core.UITextField" &&
-               className != "flex.graphics.graphicsClasses.GraphicElement")
+               className != "mx.graphics.graphicsClasses.GraphicElement")
         {
             var s:CSSStyleDeclaration;
             cache = StyleManager.typeSelectorCache[className];
