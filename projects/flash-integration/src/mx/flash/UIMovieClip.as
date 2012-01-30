@@ -2586,6 +2586,65 @@ public dynamic class UIMovieClip extends MovieClip
     }
 
     //----------------------------------
+    //  hasFocusableChildren
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the hasFocusableChildren property.
+     */
+    private var _hasFocusableChildren:Boolean = true;
+
+    [Bindable("hasFocusableChildrenChange")]
+    [Inspectable(defaultValue="true")]
+
+	/**
+	 *  A flag that indicates whether child objects can receive focus
+	 * 
+	 *  <p>This is similar to the <code>tabChildren</code> property
+     *  used by the Flash Player.
+	 * 
+	 *  <p>This is usually <code>false</code> because most components
+     *  either receive focus themselves or delegate focus to a single
+     *  internal sub-component and appear as if the component has
+     *  received focus.  For example, a TextInput contains a focusable
+     *  child RichEditableText control, but while the RichEditableText
+     *  sub-component actually receives focus, it appears as if the
+     *  TextInput has focus.  TextInput sets <code>hasFocusableChildren</code>
+     *  to <code>false</code> because TextInput is considered the
+     *  component that has focus.  Its internal structure is an
+     *  abstraction.</p>
+     *
+	 *  <p>Usually only navigator components like TabNavigator and
+     *  Accordion have this flag set to <code>true</code> because they
+     *  receive focus on Tab but focus goes to components in the child
+     *  containers on further Tabs</p>
+	 *  
+     *  @default true
+     *  
+	 *  @langversion 4.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+    public function get hasFocusableChildren():Boolean
+    {
+        return _hasFocusableChildren;
+    }
+
+    /**
+     *  @private
+     */
+    public function set hasFocusableChildren(value:Boolean):void
+    {
+        if (value != _hasFocusableChildren)
+        {
+            _hasFocusableChildren = value;
+            dispatchEvent(new Event("hasFocusableChildrenChange"));
+        }
+    }
+
+    //----------------------------------
     //  mouseFocusEnabled
     //----------------------------------
 
