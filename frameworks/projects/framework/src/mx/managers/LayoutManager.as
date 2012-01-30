@@ -19,7 +19,9 @@ import flash.events.EventDispatcher;
 
 import mx.core.ILayoutElement;
 import mx.core.UIComponent;
+import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
+import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.managers.layoutClasses.PriorityQueue;
 
@@ -681,7 +683,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	/**
 	 *  @private
 	 */
-	private function doPhasedInstantiation(event:Event = null):void
+	private function doPhasedInstantiation():void
 	{
         var sm:ISystemManager = SystemManagerGlobals.topLevelSystemManagers[0]
 		sm.removeEventListener(Event.ENTER_FRAME, doPhasedInstantiation);
@@ -1024,7 +1026,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 
         var sm:ISystemManager = SystemManagerGlobals.topLevelSystemManagers[0]
 		sm.removeEventListener(Event.ENTER_FRAME, waitAFrame);
-		sm.addEventListener(Event.ENTER_FRAME, doPhasedInstantiation);
+		sm.addEventListener(Event.ENTER_FRAME, doPhasedInstantiationCallback);
         waitedAFrame = true;
 
 		// trace("<<LayoutManager:WaitAFrame");
@@ -1038,12 +1040,12 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 		}
 		else
 		{
-			sm.addEventListener(Event.ENTER_FRAME, doPhasedInstantiation);
+			sm.addEventListener(Event.ENTER_FRAME, doPhasedInstantiationCallback);
 			if (!usePhasedInstantiation)
 			{
 				if (sm && (sm.stage || sm.useSWFBridge()))
 				{
-					sm.addEventListener(Event.RENDER, doPhasedInstantiation);
+					sm.addEventListener(Event.RENDER, doPhasedInstantiationCallback);
 					if (sm.stage)
 						sm.stage.invalidate();
 				}
@@ -1052,6 +1054,35 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 
 		listenersAttached = true;
 	}
+
+    private function doPhasedInstantiationCallback(event:Event):void
+    {
+
+        // At run-time, callLaterDispatcher2() is called
+        // without a surrounding try-catch.
+        if (!UIComponentGlobals.catchCallLaterExceptions)
+        {
+            doPhasedInstantiation();
+        }
+
+        // At design-time, callLaterDispatcher2() is called
+        // with a surrounding try-catch.
+        else
+        {
+            try
+            {
+                doPhasedInstantiation();
+            }
+            catch(e:Error)
+            {
+                var callLaterErrorEvent:DynamicEvent = new DynamicEvent("callLaterError");
+                callLaterErrorEvent.error = e;
+                var sm:ISystemManager = SystemManagerGlobals.topLevelSystemManagers[0]
+                sm.dispatchEvent(callLaterErrorEvent);
+            }
+        }
+    }
+
 }
 
 }
