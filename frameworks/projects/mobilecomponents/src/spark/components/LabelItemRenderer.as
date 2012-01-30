@@ -62,7 +62,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 
 /**
  *  The colors to use for the background of the items in the list. 
- *  The value is an Array of two or more colors. 
+ *  The value is an Array of one or more colors. 
  *  The backgrounds of the list items alternate among the colors in the Array. 
  * 
  *  @default undefined
