@@ -3408,7 +3408,9 @@ public class SystemManager extends MovieClip
 			{
 				var n:int = forms.length;
 				var p:DisplayObject = DisplayObject(event.target);
-                                var isApplication:Boolean = document.rawChildren.contains(p);
+                var isApplication:Boolean = document is IRawChildrenContainer ? 
+                                            IRawChildrenContainer(document).rawChildren.contains(p) :
+                                            document.contains(p);
 				while (p)
 				{
 					for (var i:int = 0; i < n; i++)
