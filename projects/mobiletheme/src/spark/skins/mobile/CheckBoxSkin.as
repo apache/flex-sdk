@@ -95,7 +95,7 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
                 downSymbolIconSelectedClass = spark.skins.mobile320.assets.CheckBox_downSymbolSelected;
                 
                 layoutGap = 20;
-                layoutMeasuredWidth = 64;
+                minWidth = 64;
                 layoutBorderSize = 4;
                 
                 break;
@@ -112,7 +112,7 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
                 downSymbolIconSelectedClass = spark.skins.mobile240.assets.CheckBox_downSymbolSelected;
                 
                 layoutGap = 15;
-                layoutMeasuredWidth = 48;
+                minWidth = 48;
                 layoutBorderSize = 2;
                 
                 break;
@@ -130,7 +130,7 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
                 downSymbolIconSelectedClass = spark.skins.mobile160.assets.CheckBox_downSymbolSelected;
                 
                 layoutGap = 10;
-                layoutMeasuredWidth = 32;
+                minWidth = 32;
                 layoutBorderSize = 2;
                 
                 break;
