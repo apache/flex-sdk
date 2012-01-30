@@ -21,10 +21,14 @@
     <component id="Callout" class="spark.components.Callout"/>
     <component id="CalloutButton" class="spark.components.CalloutButton"/>
     <component id="CrossFadeViewTransition" class="spark.transitions.CrossFadeViewTransition"/>
+    <component id="DateSpinner" class="spark.components.DateSpinner"/>
     <component id="FlipViewTransition" class="spark.transitions.FlipViewTransition"/>
     <component id="IconItemRenderer" class="spark.components.IconItemRenderer"/>
     <component id="LabelItemRenderer" class="spark.components.LabelItemRenderer"/>
     <component id="SlideViewTransition" class="spark.transitions.SlideViewTransition"/>
+    <component id="SpinnerList" class="spark.components.SpinnerList"/>
+    <component id="SpinnerListContainer" class="spark.components.SpinnerListContainer"/>
+    <component id="SpinnerListItemRenderer" class="spark.components.SpinnerListItemRenderer"/>
     <component id="SplashScreenImage" class="spark.preloaders.SplashScreenImage"/>
     <component id="SplashScreenImageSource" class="spark.preloaders.SplashScreenImageSource"/>
     <component id="TabbedViewNavigatorApplication" class="spark.components.TabbedViewNavigatorApplication"/>
