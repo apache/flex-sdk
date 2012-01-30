@@ -22,7 +22,7 @@ package mx.geom
 	use namespace mx_internal;	
 	
 	/**
-	 *  A CompoundTransform represents a 2D or 3D matrix transform. It can be used in the offsets property on a UIComponent or GraphicElement.
+	 *  A CompoundTransform represents a 2D or 3D matrix transform. It can be used in the postLayoutTransformOffsets property on a UIComponent or GraphicElement.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
