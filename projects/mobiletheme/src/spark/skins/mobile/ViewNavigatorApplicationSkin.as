@@ -1,15 +1,45 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2010 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package spark.skins.mobile
 {
 import spark.components.MobileApplication;
 import spark.components.ViewNavigator;
+import spark.skins.MobileSkin;
 
-public class MobileApplicationSkin extends SliderSkin
+/**
+ *  The ActionScript based skin used for MobileApplication.  This
+ *  skin contains a single ViewNavigator that spans the entire
+ *  content area of the application.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+public class MobileApplicationSkin extends MobileSkin
 {
     //--------------------------------------------------------------------------
     //
     //  Constructor
     //
     //--------------------------------------------------------------------------
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function MobileApplicationSkin()
     {
         super();
@@ -17,11 +47,26 @@ public class MobileApplicationSkin extends SliderSkin
     
     //--------------------------------------------------------------------------
     //
-    //  Variables
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     * The navigator for the application
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var navigator:ViewNavigator;
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Properties
     //
     //--------------------------------------------------------------------------
     public var hostComponent:MobileApplication;
-    public var navigator:ViewNavigator;
     
     //--------------------------------------------------------------------------
     //
@@ -30,7 +75,12 @@ public class MobileApplicationSkin extends SliderSkin
     //--------------------------------------------------------------------------
     
     /**
+     *  @private
      * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     override protected function createChildren():void
     {
@@ -39,12 +89,17 @@ public class MobileApplicationSkin extends SliderSkin
     }
     
     /**
+     *  @private
      * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        navigator.setLayoutBoundsPosition(0, 0);
         navigator.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
+        navigator.setLayoutBoundsPosition(0, 0);
     }
 }
 }
