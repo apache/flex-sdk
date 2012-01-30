@@ -57,6 +57,11 @@ public class Binding
         this.destFunc = destFunc;
         this.destString = destString;
 
+        if (this.destFunc == null)
+        {
+            this.destFunc = defaultDestFunc;
+        }
+
         _isEnabled = true;
         isExecuting = false;
         isHandlingEvent = false;
@@ -195,6 +200,25 @@ public class Binding
 	//  Methods
 	//
 	//--------------------------------------------------------------------------
+
+    private function defaultDestFunc(value:Object):void
+    {
+        var chain:Array = destString.split(".");
+        var element:Object = document;
+        var i:uint = 0;
+
+        if (chain[0] == "this")
+        {
+            i++;
+        }
+
+        while (i < (chain.length - 1))
+        {
+            element = element[chain[i++]];
+        }
+
+        element[chain[i]] = value;
+    }
 
     /**
      *  Execute the binding.
