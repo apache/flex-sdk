@@ -13,15 +13,17 @@ package spark.components
 {
 
 /**
- *  The CalloutContentBackgroundAppearance class defines the constants for the
+ *  The ContentBackgroundAppearance class defines the constants for the
  *  allowed values of the <code>contentBackgroundAppearance</code> style of 
  *  Callout.
+ * 
+ *  @see spark.components.Callout#contentBackgroundAppearance
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
  *  @productversion Flex 4.5.2
  */
-public final class CalloutContentBackgroundAppearance
+public final class ContentBackgroundAppearance
 {
     //--------------------------------------------------------------------------
     //
