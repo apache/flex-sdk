@@ -18,11 +18,12 @@ import mx.charts.chartClasses.DataTransform;
 import mx.charts.chartClasses.Series;
 import mx.charts.series.HLOCSeries;
 import mx.charts.styles.HaloDefaults;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -191,25 +192,15 @@ public class HLOCChart extends CartesianChart
     {
         HaloDefaults.init(styleManager);
         
-        var hlocChartStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.HLOCChart", styleManager);
-        
         var hlocChartSeriesStyles:Array /* of Object */ = [];
-        
-        hlocChartStyle.defaultFactory = function():void
-        {
-            this.axisColor = 0xD5DEDD;
-            this.chartSeriesStyles = hlocChartSeriesStyles;     
-            this.columnWidthRatio = 0.65;
-            this.dataTipRenderer = DataTip;
-            this.fill = new SolidColor(0xFFFFFF, 0);
-            this.calloutStroke = new Stroke(0x888888,2);            
-            this.fontSize = 10;
-            this.textAlign = "left";
-            this.horizontalAxisStyleNames = ["blockCategoryAxis"];
-            this.verticalAxisStyleNames = ["blockNumericAxis"];
-        }
-        
+		
+		var hlocChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.HLOCChart");
+		hlocChartStyle.setStyle("chartSeriesStyles", hlocChartSeriesStyles);
+		hlocChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+		hlocChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		hlocChartStyle.setStyle("horizontalAxisStyleNames", ["blockCategoryAxis"]);
+		hlocChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+		
         var n:int = HaloDefaults.defaultColors.length;
         for (var i:int = 0; i < n; i++)
         {
