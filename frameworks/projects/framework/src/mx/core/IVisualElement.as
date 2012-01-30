@@ -11,15 +11,15 @@
 package mx.core
 {
 import flash.display.DisplayObjectContainer;
+import flash.events.IEventDispatcher;
 
-import mx.geom.ITransformable;
 import mx.geom.TransformOffsets;
 
 /**
  *  The IVisualElement interface represents the common methods and properties between UIComponents and
  *  GraphicElements.
  */
-public interface IVisualElement extends ITransformable
+public interface IVisualElement extends IEventDispatcher
 {
 
     /**
