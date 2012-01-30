@@ -2271,10 +2271,10 @@ public class WindowedApplication extends Application implements IWindow
         if (event.target is DisplayObject && event.target != contentGroup)
         {
            var o:DisplayObject = DisplayObject(event.target);
-            while (o != contentGroup && o != this)
+            while (o && o != contentGroup && o != this)
                 o = o.parent;
     
-            if (o == contentGroup)
+            if (o == null || o == contentGroup)
                 return NativeWindowResize.NONE;
         }
             
