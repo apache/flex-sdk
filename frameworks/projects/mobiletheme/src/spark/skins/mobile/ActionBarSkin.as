@@ -152,8 +152,8 @@ public class ActionBarSkin extends MobileSkin
         {
             // use titleLayout for paddingLeft and paddingRight
             var layoutObject:Object = hostComponent.titleLayout;
-            titleWidth = (layoutObject.paddingLeft) ? Number(layoutObject.paddingLeft) : 0
-                + (layoutObject.paddingRight) ? Number(layoutObject.paddingRight) : 0
+            titleWidth = ((layoutObject.paddingLeft) ? Number(layoutObject.paddingLeft) : 0)
+                + ((layoutObject.paddingRight) ? Number(layoutObject.paddingRight) : 0)
                 + titleDisplay.getPreferredBoundsWidth();
             
             titleHeight = titleDisplay.getPreferredBoundsHeight();
