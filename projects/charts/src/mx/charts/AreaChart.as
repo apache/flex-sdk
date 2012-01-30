@@ -216,11 +216,7 @@ public class AreaChart extends CartesianChart
 			this.fill = new SolidColor(0xFFFFFF, 0);
 			this.calloutStroke = new Stroke(0x888888,2);
 			this.fontSize = 10;
-			this.horizontalAxisStyleName = "hangingCategoryAxis";
-			this.secondHorizontalAxisStyleName = "hangingCategoryAxis";
-			this.secondVerticalAxisStyleName = "blockNumericAxis";
 			this.textAlign = "left";
-			this.verticalAxisStyleName = "blockNumericAxis";
 			this.horizontalAxisStyleNames = ["hangingCategoryAxis"];
 			this.verticalAxisStyleNames = ["blockNumericAxis"];
 		}
@@ -315,26 +311,6 @@ public class AreaChart extends CartesianChart
 				return super.applySeriesSet(seriesSet, transform);
 			}
 		}
-	}
-
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden methods: CartesianChart
-    //
-    //--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	override protected function initSecondaryMode():void
-	{
-		super.initSecondaryMode();
-
-		if (!secondVerticalAxis)
-			secondVerticalAxis = new LinearAxis();
-
-		if (!secondVerticalAxisRenderer)
-			secondVerticalAxisRenderer = new AxisRenderer();			
 	}
 }
 
