@@ -24,8 +24,8 @@ import mx.events.TweenEvent;
 use namespace mx_internal;
 
 /**
- *  Tween is the underlying animation class for the effects in Flex 3. As of Flex 4, the new
- *  effects use the new Animation class to provide similar functionality.
+ *  Tween is the underlying animation class for the effects in Flex 3. As of Flex 4, the Spark 
+ *  effects use the spark.effects.animation.Animation class to provide similar functionality.
  */
 [Alternative(replacement="spark.effects.animation.Animation", since="4.0")]
 
