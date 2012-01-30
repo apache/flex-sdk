@@ -53,6 +53,8 @@ import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
 import mx.utils.MatrixUtil;
 
+use namespace mx_internal;
+
 //--------------------------------------
 //  Lifecycle events
 //--------------------------------------
@@ -2540,7 +2542,7 @@ public dynamic class UIMovieClip extends MovieClip
         _toolTip = value;
 
         if (toolTipManager)
-            toolTipManager.mx_internal::registerToolTip(this, oldValue, value);
+            toolTipManager.registerToolTip(this, oldValue, value);
     }
     
     //--------------------------------------------------------------------------
@@ -3348,8 +3350,8 @@ public dynamic class UIMovieClip extends MovieClip
         // Afterwards, we'll reset it to the "user-set" scale.
         var oldScaleX:Number = _layoutFeatures.layoutScaleX;
         var oldScaleY:Number = _layoutFeatures.layoutScaleY;
-        _layoutFeatures.layoutScaleX = _layoutFeatures.layoutScaleX * mx_internal::scaleXDueToSizing;
-        _layoutFeatures.layoutScaleY = _layoutFeatures.layoutScaleY * mx_internal::scaleYDueToSizing;
+        _layoutFeatures.layoutScaleX = _layoutFeatures.layoutScaleX * scaleXDueToSizing;
+        _layoutFeatures.layoutScaleY = _layoutFeatures.layoutScaleY * scaleYDueToSizing;
         
         if(_layoutFeatures.is3D)
         {
@@ -4093,10 +4095,10 @@ public dynamic class UIMovieClip extends MovieClip
         
         // Use scaleX/scaleY to change our size since the new size is based
         // on our measured size, which can be different than our actual size.
-        mx_internal::scaleXDueToSizing = (newWidth / measuredWidth);
-        mx_internal::scaleYDueToSizing = (newHeight / measuredHeight);
-        mx_internal::$scaleX = scaleX*mx_internal::scaleXDueToSizing;
-        mx_internal::$scaleY = scaleY*mx_internal::scaleYDueToSizing;
+        scaleXDueToSizing = (newWidth / measuredWidth);
+        scaleYDueToSizing = (newHeight / measuredHeight);
+        $scaleX = scaleX*scaleXDueToSizing;
+        $scaleY = scaleY*scaleYDueToSizing;
         
         // need to apply this scale if using layout offsets
         invalidateTransform();
@@ -4332,8 +4334,8 @@ public dynamic class UIMovieClip extends MovieClip
         var currentBounds:Rectangle = bounds;
         
         // take secret scale into account as it's our real width/height
-        currentBounds.width *= mx_internal::scaleXDueToSizing;
-        currentBounds.height *= mx_internal::scaleYDueToSizing;
+        currentBounds.width *= scaleXDueToSizing;
+        currentBounds.height *= scaleYDueToSizing;
         
         if (sizeChanged(currentBounds.width, oldWidth) || sizeChanged(currentBounds.height, oldHeight))
         {
