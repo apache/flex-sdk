@@ -120,10 +120,10 @@ public class ButtonSkin extends ButtonSkinBase
         borderClass = getBorderClassForCurrentState();
         
         if (!(bgImg is borderClass))
-        {
             changeFXGSkin = true;
-            invalidateDisplayList();
-        }
+        
+        // update borderClass and background
+        invalidateDisplayList();
     }
      
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
@@ -141,6 +141,7 @@ public class ButtonSkin extends ButtonSkinBase
             
             if (borderClass)
             {
+                // FIXME (jasonsj): cache instead of calling creating for every state change?
                 bgImg = new borderClass();
                 addChildAt(bgImg, 0);
             }
