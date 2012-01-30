@@ -57,10 +57,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 include "../styles/metadata/PaddingStyles.as"
-// FIXME (rfrishbe): make these the new text component supported styles 
-include "../../../../spark/src/spark/styles/metadata/BasicInheritingTextStyles.as"
-include "../../../../spark/src/spark/styles/metadata/AdvancedInheritingTextStyles.as"
-include "../../../../spark/src/spark/styles/metadata/SelectionFormatTextStyles.as"
+include "../styles/metadata/MobileTextFieldTextStyles.as"
 
 /**
  *  The colors to use for the backgrounds of the items in the list. 
@@ -695,7 +692,7 @@ public class MobileItemRenderer extends UIComponent
      *  <p>This method, along with <code>drawBackground()</code>, is called 
      *  by <code>updateDisplayList()</code>.</p>
      * 
-     *  <p>For MobileItemRenderer, this method positions the labelElement.  
+     *  <p>For MobileItemRenderer, this method positions the labelDisplay.  
      *  Subclasses should override this and position their children in here.</p>
      * 
      *  @param unscaledWidth Specifies the width of the component, in pixels,
