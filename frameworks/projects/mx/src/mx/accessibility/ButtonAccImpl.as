@@ -16,6 +16,7 @@ import flash.accessibility.Accessibility;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.ui.Keyboard;
+import mx.accessibility.AccConst;
 import mx.controls.Button;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -35,27 +36,6 @@ public class ButtonAccImpl extends AccImpl
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_PRESSED:uint = 0x00000008;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_NAMECHANGE:uint = 0x800C;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_STATECHANGE:uint = 0x800A;
-	
 	//--------------------------------------------------------------------------
 	//
 	//  Class methods
@@ -116,7 +96,7 @@ public class ButtonAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x2B; // ROLE_SYSTEM_PUSHBUTTON
+		role = AccConst.ROLE_SYSTEM_PUSHBUTTON;
 	}
 
 	//--------------------------------------------------------------------------
@@ -161,7 +141,7 @@ public class ButtonAccImpl extends AccImpl
 		var accState:uint = getState(childID);
 
 		if (Button(master).selected)
-			accState |= STATE_SYSTEM_PRESSED;
+			accState |= AccConst.STATE_SYSTEM_PRESSED;
 
 		return accState;
 	}
@@ -248,14 +228,14 @@ public class ButtonAccImpl extends AccImpl
 		{
 			case "click":
 			{
-				Accessibility.sendEvent(master, 0, EVENT_OBJECT_STATECHANGE);
+				Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_STATECHANGE);
 				Accessibility.updateProperties();
 				break;
 			}
 			
 			case "labelChanged":
 			{
-				Accessibility.sendEvent(master, 0, EVENT_OBJECT_NAMECHANGE);
+				Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_NAMECHANGE);
 				Accessibility.updateProperties();
 				break;
 			}
