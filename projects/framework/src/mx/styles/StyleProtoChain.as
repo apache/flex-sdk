@@ -30,6 +30,7 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.EffectManager;
 import mx.managers.SystemManager;
+import mx.modules.Module;
 import mx.modules.ModuleManager;
 import mx.utils.NameUtil;
 import mx.utils.OrderedObject;
@@ -186,16 +187,28 @@ public class StyleProtoChain
         if (nonInheritChain && nonInheritChain.effects)
             object.registerEffects(nonInheritChain.effects);
 
-        var p:IStyleClient;
+        var p:IStyleClient = null;
         if (object is IVisualElement)
             p = IVisualElement(object).parent as IStyleClient;
-
 
         if (p)
         {
             var inheritChain:Object = p.inheritingStyles;
             if (inheritChain == StyleProtoChain.STYLE_UNINITIALIZED)
                 inheritChain = nonInheritChain;
+
+            // If this object is a module then add its global styles to the 
+            // inheritChain. If we don't have global styles in this style manager
+            // then the user didn't declare a global style in the module and the
+            // compiler didn't add a duplicate default style. In that case don't 
+            // add global styles to the chain because the parent style manager's
+            // global styles are already on the chain.
+            if (object is Module)
+            {
+                styleDeclaration = styleManager.getStyleDeclaration("global");
+                if (styleDeclaration)
+                    inheritChain = styleDeclaration.addStyleToProtoChain(inheritChain, DisplayObject(object));
+            }
         }
         else
         {
