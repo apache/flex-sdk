@@ -18,6 +18,7 @@ import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
@@ -226,8 +227,9 @@ public class ButtonSkinBase extends MobileSkin
         {
             // FIXME (jasonsj): was previously textWidth + UITextField.TEXT_WIDTH_PADDING + 1;
             //                  +1 originates from MX Button without explaination
-            textWidth = labelDisplay.measuredWidth + 1; 
-            textHeight = labelDisplay.measuredHeight;
+            var textSize:Point = labelDisplay.measuredTextSize;
+            textWidth = textSize.x + 1;
+            textHeight = textSize.y;
         }
         else
         {
@@ -314,8 +316,9 @@ public class ButtonSkinBase extends MobileSkin
         {
             // FIXME (jasonsj): was previously textWidth + UITextField.TEXT_WIDTH_PADDING + 1;
             //                  +1 originates from MX Button without explaination
-            textWidth = labelDisplay.measuredWidth + 1;
-            textHeight = labelDisplay.measuredHeight;
+            var textSize:Point = labelDisplay.measuredTextSize;
+            textWidth = textSize.x + 1;
+            textHeight = textSize.y;
         }
         else
         {
