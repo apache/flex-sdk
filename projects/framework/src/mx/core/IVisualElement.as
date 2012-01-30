@@ -12,7 +12,7 @@ package mx.core
 {
 import flash.display.DisplayObjectContainer;
 import flash.events.IEventDispatcher;
-
+import mx.core.DesignLayer;
 import mx.geom.TransformOffsets;
 
 /**
@@ -198,5 +198,23 @@ public interface IVisualElement extends ILayoutElement
      *  @private
      */
     function set y(value:Number):void;
+    
+    /**
+     *  Specifies the runtime DesignLayer associated with
+     *  this visual element if appropriate.  
+     * 
+     *  This property should not be set within MXML directly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get layer():DesignLayer;
+    
+    /**
+     *  @private
+     */
+    function set layer(value:DesignLayer):void;
 }
 }
