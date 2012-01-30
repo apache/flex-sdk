@@ -188,8 +188,8 @@ public class ViewMenuLayout extends LayoutBase
             return;
         
         _requestedMaxColumnCount = value;
-        target.invalidateSize();
-        target.invalidateDisplayList();
+        
+        invalidateTargetSizeAndDisplayList();
     }
     
     private var rowHeight:Number = 0;
