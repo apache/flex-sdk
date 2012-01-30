@@ -122,6 +122,10 @@ package spark.automation.delegates.components
 			)
 				
 				recordAutomatableEvent(event);
+			else	//Pressing any key other than the above keys opens dropDown automatically.
+					// So we need not record the open event in that case as replay of the input character
+					// automatically opens the dropDown 
+				isKeyTypeEvent = true;
 		}
 		
 		/**
