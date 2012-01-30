@@ -15,18 +15,15 @@ package mx.accessibility
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityImplementation;
 import flash.accessibility.AccessibilityProperties;
+import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
+import flash.system.ApplicationDomain;
 
-import mx.accessibility.AccConst;
-import mx.containers.Form;
-import mx.containers.FormHeading;
-import mx.containers.FormItem;
-import mx.controls.Label;
-import mx.core.Container;
+import mx.core.IFlexModuleFactory;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.managers.SystemManager;
+import mx.managers.ISystemManager;
 import mx.resources.ResourceManager;
 import mx.resources.IResourceManager;
 
@@ -55,6 +52,38 @@ public class AccImpl extends AccessibilityImplementation
     //--------------------------------------------------------------------------
 
     /**
+     *  @private
+     *  
+     *  Get the definition of a class, namespace, or function. The defintion is
+     *  obtained from the specified moduleFactory. If there is no moduleFactory,
+     *  then the definition of looked up in ApplicationDomain.currentDomain.
+     * 
+     *  @param name name of the class, namespace, or function to get.
+     *  @param moduleFactory The moduleFactory that specifies the application 
+     *  domain to use to find the name. If moduleFactory is null, then
+     *  ApplicationDomain.currentDomain is used as a fall back.
+     * 
+     *  return a class, namespace, or function. 
+     * 
+     */ 
+    mx_internal static function getDefinition(name:String, moduleFactory:IFlexModuleFactory):Object
+    {
+        var currentDomain:ApplicationDomain;
+        
+        // Use the given module factory to look for the domain. If the module 
+        // factory is null then fall back to Application.currentDomain.
+        if (moduleFactory)
+            currentDomain = moduleFactory.info()["currentDomain"];
+        else
+            currentDomain = ApplicationDomain.currentDomain;
+
+        if (currentDomain.hasDefinition(name))
+            return currentDomain.getDefinition(name);
+        
+        return null;
+    }
+    
+    /**
      *  Method for supporting state Accessibility.
      *  Returns true if an ancestor of the component has enabled set to false.
      */
@@ -63,10 +92,12 @@ public class AccImpl extends AccessibilityImplementation
         // keeping this DisplayObjectContainer since parent returns
         // that as root is not a UIComponent.
         var par:DisplayObjectContainer = component.parent; 
+
         // continue looking up the parent chain
-        // until root (or application) or FormItem is found.
+        // until a disabled UIComponent is found
+		// stopping at the root or system manager
         while (par && (par is UIComponent && UIComponent(par).enabled) &&
-               !(par is SystemManager) && par != component.root)
+               !(par is ISystemManager) && par != component.root)
         {
             par = par.parent;
         }
@@ -90,22 +121,26 @@ public class AccImpl extends AccessibilityImplementation
         var formName:String = "";
         
         // Return nothing if we are a container 
-        if (component is Container)
+        var containerClass:Class = Class(getDefinition("mx.core.Container", component.moduleFactory));
+        if (containerClass && component is containerClass)
             return formName;
 
         // keeping this DisplayObjectContainer since parent returns
         // that as root is not a UIComponent.
+        var formItemClass:Class = Class(getDefinition("mx.containers.FormItem", component.moduleFactory));
         var par:DisplayObjectContainer = component.parent; 
+
         // continue looking up the parent chain
-        // until root (or application) or FormItem is found.
-        while (par && !(par is FormItem) &&
-               !(par is SystemManager) && par != component.root)
+		// until a FormItem is found
+        // stopping at the root or system manager
+        while (par && !(formItemClass && par is formItemClass) &&
+               !(par is ISystemManager) && par != component.root)
         {
             par = par.parent;
         }
 
-        if (par && par is FormItem)
-            formName = updateFormItemString(FormItem(par));
+        if (par && formItemClass && par is formItemClass)
+            formName = updateFormItemString(par);
 
         return formName;
     }
@@ -132,30 +167,35 @@ public class AccImpl extends AccessibilityImplementation
     /**
      *  @private
      *  Method for supporting Form Accessibility.
+     * 
+     *  @param formItem Object of type FormItem. Object is used here to avoid
+     *  linking in FormItem. 
      */
-    private static function updateFormItemString(formItem:FormItem):String
+    private static function updateFormItemString(formItem:Object):String
     {
         var formName:String = "";
         var resourceManager:IResourceManager = ResourceManager.getInstance();
         
+        var formClass:Class = Class(getDefinition("mx.containers.Form", formItem.moduleFactory));
         var form:UIComponent = UIComponent(formItem.parent);
 
         // If we are located within a Form, then look for the first FormHeading
         // that is a sibling that is above us in the parent's child hierarchy
-        if (form is Form)
+        if (formClass && form is formClass)
         {
-            var formItemIndex:int = form.getChildIndex(formItem);
+            var formHeadingClass:Class = Class(getDefinition("mx.containers.FormHeading", formItem.moduleFactory));
+            var formItemIndex:int = form.getChildIndex(DisplayObject(formItem));
             for (var i:int = formItemIndex; i >= 0; i--)
             {
                 var child:UIComponent = UIComponent(form.getChildAt(i));
-                if (child is FormHeading)
+                if (formHeadingClass && child is formHeadingClass)
                 {
                     // Accessible name if it exists, else label text.
-                    if (FormHeading(child).accessibilityProperties)
+                    if (formHeadingClass(child).accessibilityProperties)
                         formName = 
-                        FormHeading(child).accessibilityProperties.name;
+                            formHeadingClass(child).accessibilityProperties.name;
                     if (formName == "") 
-                        formName = FormHeading(child).label;
+                        formName = formHeadingClass(child).label;
                     break;
                 }
             }
