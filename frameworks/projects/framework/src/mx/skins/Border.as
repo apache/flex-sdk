@@ -27,6 +27,11 @@ import mx.core.IBorder;
  *
  *  @tiptext
  *  @helpid 3321
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Border extends ProgrammaticSkin implements IBorder
 {
@@ -40,6 +45,11 @@ public class Border extends ProgrammaticSkin implements IBorder
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function Border()
 	{
@@ -60,6 +70,11 @@ public class Border extends ProgrammaticSkin implements IBorder
 	 *  The thickness of the border edges.
 	 *
 	 *  @return EdgeMetrics with left, top, right, bottom thickness in pixels
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get borderMetrics():EdgeMetrics
 	{
