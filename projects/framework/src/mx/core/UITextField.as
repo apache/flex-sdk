@@ -722,18 +722,19 @@ public class UITextField extends FlexTextField
     }
 
     //----------------------------------
-    //  editable
+    //  enableIME
     //----------------------------------
 
     /**
-     *  Specifies whether the user is allowed to edit the text in this control.
-     *  
+     *  A flag that indicates whether the IME should
+     *  be enabled when the component receives focus.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get editable():Boolean
+    public function get enableIME():Boolean
     {
         return type == TextFieldType.INPUT;
     }
