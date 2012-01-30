@@ -535,6 +535,7 @@ Container
 
 ControlBar
 {
+    borderStyle: "none";
 	disabledOverlayAlpha: 0; 
 	paddingBottom: 11;
 	paddingLeft: 11;
