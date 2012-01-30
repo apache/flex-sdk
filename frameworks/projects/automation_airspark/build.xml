@@ -30,9 +30,6 @@
 				<include-namespaces/>
 				<include-classes/>
 				<source-path path-element="${basedir}/bundles/@{locale}"/>
-				<source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
-				<source-path path-element="${FLEX_HOME}/frameworks/projects/automation_air/src"/>
-				<source-path path-element="${FLEX_HOME}/frameworks/projects/automation_airspark/src"/>
 				<include-libraries/>
 				<library-path/>
 				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
@@ -115,7 +112,6 @@
 			<target-player>10.1</target-player>
 			<include-classes>AutomationAirSparkClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
-			<source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="framework.swc"/>
