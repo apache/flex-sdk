@@ -558,7 +558,11 @@ public class ViewNavigatorBase extends SkinnableContainer
         label = value.label;
         
         var iconClassName:String = value.iconClassName;
-        icon = (iconClassName == "null") ? value.iconStringName : getDefinitionByName(iconClassName) as Class;
+
+        if (iconClassName == null)
+            icon = value.iconStringName;
+        else if (iconClassName != null)
+            icon = getDefinitionByName(iconClassName);
     }
     
     /**
