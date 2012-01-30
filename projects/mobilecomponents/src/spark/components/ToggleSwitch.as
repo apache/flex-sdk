@@ -161,7 +161,6 @@ use namespace mx_internal;
  *  &lt;s:ToggleSwitch
  *   <strong>Properties</strong>
  *    selected="null"
- *    thumbPosition="null"
  * 
  *   <strong>Common Styles</strong>
  *    accentColor="0x3F7FBA"
