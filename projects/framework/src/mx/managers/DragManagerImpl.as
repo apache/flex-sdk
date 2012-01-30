@@ -15,6 +15,7 @@ package mx.managers
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
+import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
@@ -30,11 +31,11 @@ import mx.effects.EffectInstance;
 import mx.effects.Move;
 import mx.effects.Zoom;
 import mx.events.DragEvent;
-import mx.events.InterManagerRequest;
-import mx.events.InterDragManagerEvent;
+import mx.events.Request;
 import mx.managers.ISystemManager;
 import mx.managers.dragClasses.DragProxy;
 import mx.managers.SystemManager;
+import mx.managers.marshalClasses.DragManagerMarshalMixin;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
@@ -45,7 +46,7 @@ use namespace mx_internal;
 /**
  *  @private
  */
-public class DragManagerImpl implements IDragManager
+public class DragManagerImpl extends EventDispatcher implements IDragManager
 {
     include "../core/Version.as";
 
@@ -65,11 +66,23 @@ public class DragManagerImpl implements IDragManager
 	 */
 	private static var instance:IDragManager;
 
+	/**
+	 * @private
+	 * 
+	 * Place to hook in additional classes
+	 */
+	public static var mixins:Array;
+
 	//--------------------------------------------------------------------------
 	//
 	//  Class methods
 	//
 	//--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private static function weakDependency():void { DragManagerMarshalMixin };
 
 	/**
 	 *  @private
@@ -102,29 +115,25 @@ public class DragManagerImpl implements IDragManager
 		if (instance)
 			throw new Error("Instance already exists.");
 			
-		var ed:IEventDispatcher;
-
-		if (!sm.isTopLevelRoot())
+		if (mixins)
 		{
-			sandboxRoot = sm.getSandboxRoot();
-			sandboxRoot.addEventListener(InterDragManagerEvent.DISPATCH_DRAG_EVENT, marshalDispatchEventHandler, false, 0, true);
-		}
-		else
-		{
-			ed = sm;
-			ed.addEventListener(MouseEvent.MOUSE_DOWN, sm_mouseDownHandler, false, 0, true);
-			ed.addEventListener(MouseEvent.MOUSE_UP, sm_mouseUpHandler, false, 0, true);
-			sandboxRoot = sm;
-			sandboxRoot.addEventListener(InterDragManagerEvent.DISPATCH_DRAG_EVENT, marshalDispatchEventHandler, false, 0, true);
+			var n:int = mixins.length;
+			for (var i:int = 0; i < n; i++)
+			{
+				new mixins[i](this);
+			}
 		}
 
-		// trace("creating DragManagerImpl", sm);
-		sandboxRoot.addEventListener(InterManagerRequest.DRAG_MANAGER_REQUEST, marshalDragManagerHandler, false, 0, true);
-		var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
-		me.name = "update";
-		// trace("--->update request for DragManagerImpl", sm);
-		sandboxRoot.dispatchEvent(me);
-		// trace("<---update request for DragManagerImpl", sm);
+		sandboxRoot = sm.getSandboxRoot();
+
+		if (sm.isTopLevelRoot())
+		{
+			sm.addEventListener(MouseEvent.MOUSE_DOWN, sm_mouseDownHandler, false, 0, true);
+			sm.addEventListener(MouseEvent.MOUSE_UP, sm_mouseUpHandler, false, 0, true);
+		}
+
+		dispatchEvent(new Event("initialize"));
+
 	}
 
 	//--------------------------------------------------------------------------
@@ -155,7 +164,7 @@ public class DragManagerImpl implements IDragManager
 	/**
 	 *  @private
 	 */
-	private var bDoingDrag:Boolean = false;
+	public var bDoingDrag:Boolean = false;
 
 	/**
 	 *  @private
@@ -254,25 +263,17 @@ public class DragManagerImpl implements IDragManager
 		}    
 			
 		bDoingDrag = true;
-		var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
-		me.name = "isDragging";
-		me.value = true;
-		// trace("-->dispatch isDragging for DragManagerImpl", sm, true);
-		sandboxRoot.dispatchEvent(me);
-		// trace("<--dispatch isDragging for DragManagerImpl", sm, true);
-		
-		me = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
-		me.name = "mouseShield";
-		me.value = true;
-		// trace("-->dispatch add mouseShield.for DragManagerImpl", sm);
-		sandboxRoot.dispatchEvent(me);
+
+		dispatchEvent(new Event("doDrag"));
 
 		this.dragInitiator = dragInitiator;
 
 		// The drag proxy is a UIComponent with a single child -
 		// an instance of the dragImage.
 		dragProxy = new DragProxy(dragInitiator, dragSource);
-		sm.addChildToSandboxRoot("popUpChildren", dragProxy);	
+
+		if (dispatchEvent(new DragEvent("popUpChildren", false, true, dragProxy)))	
+			sm.popUpChildren.addChild(dragProxy);	
 
 		if (!dragImage)
 		{
@@ -367,16 +368,9 @@ public class DragManagerImpl implements IDragManager
 
 		if (dragProxy)
 			dragProxy.target = target as DisplayObject;
-		else if (isDragging)
-		{
-			var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
-			me.name = "acceptDragDrop";
-			me.value = target;
-			// trace("-->dispatch acceptDragDrop for DragManagerImpl", sm, target);
-			sandboxRoot.dispatchEvent(me);
-			// trace("<--dispatch acceptDragDrop for DragManagerImpl", sm, target);
-		}
-		// trace("<--acceptDragDrop for DragManagerImpl", sm, target);
+
+		dispatchEvent(new Request("acceptDragDrop", false, false, target));
+
 	}
 	
 	/**
@@ -401,16 +395,9 @@ public class DragManagerImpl implements IDragManager
 
 			dragProxy.action = feedback;
 		}
-		else if (isDragging)
-		{
-			var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
-			me.name = "showFeedback";
-			me.value = feedback;
-			// trace("-->dispatch showFeedback for DragManagerImpl", sm, feedback);
-			sandboxRoot.dispatchEvent(me);
-			// trace("<--dispatch showFeedback for DragManagerImpl", sm, feedback);
-		}
-		// trace("<--showFeedback for DragManagerImpl", sm, feedback);
+
+		dispatchEvent(new Request("showFeedback", false, false, feedback));
+
 	}
 	
 	/**
@@ -427,16 +414,12 @@ public class DragManagerImpl implements IDragManager
 	 */
 	public function getFeedback():String
 	{
-		// trace("-->getFeedback for DragManagerImpl", sm);
-		if (!dragProxy && isDragging)
+		var request:Request = new Request("getFeedback", false, true);
+		if (!dispatchEvent(request))
 		{
-			var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
-			me.name = "getFeedback";
-			// trace("-->dispatch getFeedback for DragManagerImpl", sm);
-			sandboxRoot.dispatchEvent(me);
-			// trace("<--dispatch getFeedback for DragManagerImpl", sm);
-			return me.value as String;
+			return request.value as String;
 		}
+
 		// trace("<--getFeedback for DragManagerImpl", sm);
 		return dragProxy ? dragProxy.action : DragManager.NONE;
 	}
@@ -446,39 +429,19 @@ public class DragManagerImpl implements IDragManager
 	 */
 	public function endDrag():void
 	{
-		var me:InterManagerRequest;
-
-		// trace("-->endDrag for DragManagerImpl", sm);
-		if (dragProxy)
+		if (dispatchEvent(new Event("endDrag", false, true)))
 		{
-			sm.removeChildFromSandboxRoot("popUpChildren", dragProxy);	
-			
-			dragProxy.removeChildAt(0);	// The drag image is the only child
-			dragProxy = null;
+			if (dragProxy)
+			{
+				sm.popUpChildren.removeChild(dragProxy);	
+				
+				dragProxy.removeChildAt(0);	// The drag image is the only child
+				dragProxy = null;
+			}
 		}
-		else if (isDragging)
-		{
-			me = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
-			me.name = "endDrag";
-			// trace("-->dispatch endDrag for DragManagerImpl", sm);
-			sandboxRoot.dispatchEvent(me);
-			// trace("<--dispatch endDrag for DragManagerImpl", sm);
-		}
-		me = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
-		me.name = "mouseShield";
-		me.value = false;
-		// trace("-->dispatch remove mouseShield.for DragManagerImpl", sm);
-		sandboxRoot.dispatchEvent(me);
-		
 		dragInitiator = null;
 		bDoingDrag = false;
-		me = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
-		me.name = "isDragging";
-		me.value = false;
-		// trace("-->dispatch isDragging for DragManagerImpl", sm, false);
-		sandboxRoot.dispatchEvent(me);
-		// trace("<--dispatch isDragging for DragManagerImpl", sm, false);
-		// trace("<--endDrag for DragManagerImpl", sm);
+
 	}
 			
 	//--------------------------------------------------------------------------
@@ -503,109 +466,7 @@ public class DragManagerImpl implements IDragManager
 		mouseIsDown = false;
 	}
 
-	/**
-	 *  Marshal dispatchEvents
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	private function marshalDispatchEventHandler(event:Event):void
-	{
-		if (event is InterDragManagerEvent)
-			return;
-
-		var marshalEvent:Object = event;
-
-		var swfRoot:DisplayObject = SystemManager.getSWFRoot(marshalEvent.dropTarget);
-		if (!swfRoot)
-			return;	// doesn't belong to this appdomain
-
-		var dragEvent:DragEvent = new DragEvent(marshalEvent.dragEventType, marshalEvent.bubbles, marshalEvent.cancelable);
-		dragEvent.localX = marshalEvent.localX;
-		dragEvent.localY = marshalEvent.localY;
-		dragEvent.action = marshalEvent.action;
-		dragEvent.ctrlKey = marshalEvent.ctrlKey;
-		dragEvent.altKey = marshalEvent.altKey;
-		dragEvent.shiftKey = marshalEvent.shiftKey;
-		dragEvent.draggedItem = marshalEvent.draggedItem;
-		dragEvent.dragSource = new DragSource();
-		var formats:Array = marshalEvent.dragSource.formats;
-		var n:int = formats.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			// this will call handlers right away, so deferred clipboard will be costly
-			dragEvent.dragSource.addData(marshalEvent.dragSource.dataForFormat(formats[i]), formats[i]);
-		}
-		if (!marshalEvent.dropTarget.dispatchEvent(dragEvent))
-		{
-			event.preventDefault();
-		}
-	}
-
-	/**
-	 *  Marshal dragManager
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	private function marshalDragManagerHandler(event:Event):void
-	{
-		if (event is InterManagerRequest)
-			return;
-
-		var marshalEvent:Object = event;
-		switch (marshalEvent.name)
-		{
-		case "isDragging":
-			// trace("--marshaled isDragging for DragManagerImpl", sm, marshalEvent.value);
-			bDoingDrag = marshalEvent.value;
-			break;
-		case "acceptDragDrop":
-			if (dragProxy)
-			{
-				// trace("--marshaled acceptDragDrop for DragManagerImpl", sm, marshalEvent.value);
-				dragProxy.target = marshalEvent.value;
-			}
-			break;
-		case "showFeedback":
-			if (dragProxy)	// it is our drag
-			{
-				// trace("--marshaled showFeedback for DragManagerImpl", sm, marshalEvent.value);
-				showFeedback(marshalEvent.value);
-			}
-			break;
-		case "getFeedback":
-			if (dragProxy)	// it is our drag
-			{
-				marshalEvent.value = getFeedback();
-				// trace("--marshaled getFeedback for DragManagerImpl", sm, marshalEvent.value);
-			}
-			break;
-		case "endDrag":
-			// trace("--marshaled endDrag for DragManagerImpl", sm, marshalEvent.value);
-			endDrag();
-			break;
-		case "update":
-			// if we own the drag, then redispatch to tell the new guy
-			if (dragProxy && isDragging)
-			{
-				// trace("-->marshaled update for DragManagerImpl", sm);
-				var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.DRAG_MANAGER_REQUEST);
-				me.name = "isDragging";
-				me.value = true;
-				// trace("-->dispatched isDragging for DragManagerImpl", sm, true);
-				sandboxRoot.dispatchEvent(me);
-				// trace("<--dispatched isDragging for DragManagerImpl", sm, true);
-				// trace("<--marshaled update for DragManagerImpl", sm);
-			}
-		}
-	}
 
 }
 
 }
-
