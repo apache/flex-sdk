@@ -13,6 +13,7 @@ package spark.components.supportClasses
 {
 import flash.events.Event;
 import flash.events.KeyboardEvent;
+import flash.events.TextEvent;
 import flash.geom.Rectangle;
 import flash.text.Font;
 import flash.text.TextField;
@@ -104,9 +105,16 @@ public class MobileTextField extends TextField implements IEditableText
     {
         super();
         
+        // RichEditableText is double-clickable by default, so we will be too.
+        doubleClickEnabled = true;
+        
         // Add a high priority change handler so we can capture the event
         // and re-dispatch as a TextOperationEvent
         addEventListener(Event.CHANGE, changeHandler, false, 100);
+        
+        // Add a textInput handler so we can capture and re-dispatch as
+        // a TextOperationEvent "changing" event.
+        addEventListener(TextEvent.TEXT_INPUT, textInputHandler);
         
         // Add a key down listener to listen for enter key
         addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
@@ -681,6 +689,21 @@ public class MobileTextField extends TextField implements IEditableText
         {
             dispatchEvent(new FlexEvent(FlexEvent.ENTER));
         }
+    }
+    
+    /**
+     *  @private
+     */
+    private function textInputHandler(event:TextEvent):void
+    {
+        // Dispatch a "changing" event
+        var e:TextOperationEvent = new TextOperationEvent(TextOperationEvent.CHANGING);
+        var operation:TextInputOperation = new TextInputOperation();
+        operation.text = event.text;
+        e.operation = operation;
+        
+        if (!dispatchEvent(e))
+            event.preventDefault();
     }
     
     //--------------------------------------------------------------------------
