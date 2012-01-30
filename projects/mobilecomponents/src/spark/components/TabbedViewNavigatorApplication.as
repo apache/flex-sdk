@@ -210,9 +210,18 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
 
     /**
      *  @private
+	 *  Activates the current view of the application if one exists.  This
+	 *  method doesn't do anything at initial launch because the activate
+	 *  event isn't dispatched when the application is first launched.  Only
+	 *  the invoke event is.
      */
     private function activateHandler(event:Event):void
     {
+		// Activate the top most view of the navigator if it exists.  Note that
+		// in some launch situations, this will occur before the stage has properly
+		// resized itself.  The orientation state of the view will be manually
+		// updated when the stage RESIZE event is received.  See invokeHandler
+		// and stage_resizeHandler.
 		if (tabbedNavigator && tabbedNavigator.activeView)
 		{
 			if (!tabbedNavigator.activeView.isActive)
@@ -242,7 +251,7 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
         if (tabbedNavigator)
         {
             if (tabbedNavigator.activeView)
-                systemManager.stage.addEventListener(Event.RESIZE, stage_resizeHandler);
+                systemManager.stage.addEventListener(Event.RESIZE, stage_resizeHandler, false, 0, true);
 
             // Set the stage focus to the navigator's active view
             tabbedNavigator.updateFocus();
@@ -257,12 +266,10 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
     private function stage_resizeHandler(event:Event):void
     {
         systemManager.stage.removeEventListener(Event.RESIZE, stage_resizeHandler);
-        
-        // The active view was deactivated when the application was suspended.  We
-        // need to reactivate it here.
-        var view:View = tabbedNavigator.activeView;;
-        if (!view.isActive)
-            view.setActive(true);
+		
+		// Update the orientaion state of the view because at this
+		// point the runtime doesn't dispatch stage orientation events.
+		activeView.updateOrientationState();
     }
     
     /**
