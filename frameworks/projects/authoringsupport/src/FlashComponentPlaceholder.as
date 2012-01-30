@@ -27,7 +27,7 @@ package
 	       	image1.source = _embed_mxml_flash_component_icon_png;
 	       	image1.scaleContent = false;
 	       	image1.percentHeight = 100;
-	       	image1.percentWidth = 100;
+            image1.percentWidth = 100;
 	       	image1.setStyle('horizontalAlign' , 'center');
 	       	image1.setStyle('verticalAlign' , 'middle');
 	       	return image1;			
