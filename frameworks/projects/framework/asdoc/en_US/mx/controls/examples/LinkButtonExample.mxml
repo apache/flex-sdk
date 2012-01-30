@@ -12,7 +12,7 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" 
+            <s:Label width="100%" 
                     text="Select the Halo LinkButton control to open the Alert control."/>
 
             <mx:LinkButton label="LinkButton control" color="#0000FF" fontWeight="bold" 
