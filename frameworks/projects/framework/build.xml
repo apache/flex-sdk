@@ -26,7 +26,7 @@
 
 	<target name="main" depends="clean,compile,en_US" description="Clean build of framework.swc and its English resources"/>
 
-	<target name="other.locales" depends="da_DK,de_DE,es_ES,fi_FI,fr_FR,it_IT,ja_JP,ko_KR,nb_NO,nl_NL,pt_BR,sv_SE,zh_CN,zh_TW" description="Build other locale SWCs"/>
+	<target name="other.locales" depends="da_DK,de_DE,es_ES,fi_FI,fr_FR,it_IT,ja_JP,ko_KR,nb_NO,nl_NL,pt_BR,ru_RU,sv_SE,zh_CN,zh_TW" description="Build other locale SWCs"/>
 
 	<target name="clean">
 		<delete failonerror="false">
@@ -205,7 +205,13 @@
 		</antcall>
 	</target>
 
-	<target name="sv_SE" description="Swedish resources">
+    <target name="ru_RU" description="Swedish resources">
+        <antcall target="bundle">
+            <param name="locale" value="ru_RU"/>
+        </antcall>
+    </target>
+
+    <target name="sv_SE" description="Swedish resources">
 		<antcall target="bundle">
 			<param name="locale" value="sv_SE"/>
 		</antcall>
