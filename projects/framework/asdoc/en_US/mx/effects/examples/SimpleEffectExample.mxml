@@ -1,48 +1,51 @@
 <?xml version="1.0"?>
 <!-- Simple example to demonstrate the Effect class. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
 
             import mx.controls.Alert;
 
-            // Event handler for the effectEnd event.            
+            // Event handler for the effectEnd event.
             private function endEffectHandler():void {
                 Alert.show("Effect Ended!");
             }
 
-            // Event handler for the reset button.            
+            // Event handler for the reset button.
             private function resetHandler():void {
-                expand.end(); 
-                img.width=30; 
-                img.height=60; 
+                expand.end();
+                img.width=30;
+                img.height=60;
                 button1.enabled=true;
             }
         ]]>
-    </mx:Script>
+    </fx:Script>
+
+    <fx:Declarations>
+        <mx:Resize id="expand" target="{img}" widthTo="100" heightTo="200"
+             duration="10000" effectEnd="endEffectHandler();"/>
+    </fx:Declarations>
+
+    <s:Panel title="Resize Effect Example" width="100%" height="100%" >
+        <s:VGroup left="20" right="20" top="20" bottom="20">
+
+            <s:SimpleText width="100%" color="blue"
+                text="Use the Button controls to control the Resize effect."/>
+
+            <mx:Image id="img" width="30" height="60"
+                source="@Embed(source='assets/Nokia_6630.png')"/>
 
 
-    <mx:Resize id="expand" target="{img}" widthTo="100" heightTo="200" 
-        duration="10000" effectEnd="endEffectHandler();"/>
+            <s:Button id="button1" label="Start" click="expand.play(); button1.enabled=false;"/>
+            <s:Button label="Pause" click="expand.pause();"/>
+            <s:Button label="Resume" click="expand.resume();"/>
+            <s:Button label="Reverse" click="expand.reverse();"/>
+            <s:Button label="End" click="expand.end();"/>
+            <s:Button label="Reset" click="resetHandler();"/>
 
-    <mx:Panel title="Resize Effect Example" width="100%" height="100%" 
-        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
-
-        <mx:Text width="100%" color="blue" 
-            text="Use the Button controls to control the Resize effect."/>
-
-        <mx:Image id="img" width="30" height="60"
-            source="@Embed(source='assets/Nokia_6630.png')"/>
-     
-        <mx:ControlBar>
-            <mx:Button id="button1" label="Start" click="expand.play(); button1.enabled=false;"/>
-            <mx:Button label="Pause" click="expand.pause();"/>
-            <mx:Button label="Resume" click="expand.resume();"/>
-            <mx:Button label="Reverse" click="expand.reverse();"/>
-            <mx:Button label="End" click="expand.end();"/>
-            <mx:Button label="Reset" click="resetHandler();"/>
-        </mx:ControlBar>
-        
-    </mx:Panel>
-</mx:Application>
+        </s:VGroup>
+    </s:Panel>
+</s:Application>
