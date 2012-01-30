@@ -1,19 +1,23 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the Spacer control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo Spacer control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Panel id="panel" title="Spacer Control Example" height="75%" width="75%" 
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
-        
-        <mx:Text width="100%" color="blue" 
-            text="The Spacer control pushes the second image to the right edge of the HBox container."/>
+    <s:Panel id="panel"
+            title="Halo Spacer Control Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%" color="blue" 
+                    text="The Halo Spacer control pushes the second image to the right edge of the parent container."/>
 
-        <mx:HBox width="100%">
-            <mx:Image source="@Embed('assets/Nokia_6630.png')"/>
-            <mx:Spacer width="100%"/>
-            <mx:Image source="@Embed('assets/Nokia_6680.png')"/>
-        </mx:HBox>
-       
-    </mx:Panel>
-</mx:Application>   
-       
+            <s:HGroup width="100%">
+                <mx:Image source="@Embed('assets/Nokia_6630.png')"/>
+                <mx:Spacer width="100%"/>
+                <mx:Image source="@Embed('assets/Nokia_6680.png')"/>
+            </s:HGroup>
+        </s:VGroup>
+    </s:Panel>
+
+</s:Application>
