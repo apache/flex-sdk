@@ -60,7 +60,12 @@ public class EmailValidator extends Validator
 	/**
 	 *  @private
 	 */
-	private static const DISALLOWED_CHARS:String =
+	private static const DISALLOWED_LOCALNAME_CHARS:String =
+								"()<>,;:\\\"[] `~!#$%^&*={}|/?'";
+	/**
+	 *  @private
+	 */							
+	private static const DISALLOWED_DOMAIN_CHARS:String =
 								"()<>,;:\\\"[] `~!#$%^&*+={}|/?'";
 	
 	//--------------------------------------------------------------------------
@@ -141,7 +146,7 @@ public class EmailValidator extends Validator
 
 		for (i = 0; i < usernameLen; i++)
 		{
-			if (DISALLOWED_CHARS.indexOf(username.charAt(i)) != -1)
+			if (DISALLOWED_LOCALNAME_CHARS.indexOf(username.charAt(i)) != -1)
 			{
 				results.push(new ValidationResult(
 					true, baseField, "invalidChar",
@@ -210,7 +215,7 @@ public class EmailValidator extends Validator
 			// Check that there are no illegal characters in the domain.
 			for (i = 0; i < domainLen; i++)
 			{
-				if (DISALLOWED_CHARS.indexOf(domain.charAt(i)) != -1)
+				if (DISALLOWED_DOMAIN_CHARS.indexOf(domain.charAt(i)) != -1)
 				{
 					results.push(new ValidationResult(
 						true, baseField, "invalidChar",
