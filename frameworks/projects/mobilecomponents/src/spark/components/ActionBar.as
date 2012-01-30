@@ -522,12 +522,12 @@ public class ActionBar extends SkinnableComponent
      *  in the <code>navigationGroup</code> skin part. 
      *
      *  <p>The location and appearance of the <code>navigationGroup</code> 
-     *  skin part is determined by the skin.
+     *  skin part is determined by the ActionBarSkin class.
      *  The default ActionBarSkin class defines the <code>navigationGroup</code>
      *  to appear to the left of the <code>titleGroup</code> area of the ActionBar.</p>
      * 
-     *  <p>Create a custom skin to change the default location and appearance of
-     *  the <code>navigationGroup</code> skin part.</p>
+     *  <p>Create a custom ActionBarSkin skin class to change the default location 
+     *  and appearance of the <code>navigationGroup</code> skin part.</p>
      *  
      *  @default null
      *
@@ -618,7 +618,7 @@ public class ActionBar extends SkinnableComponent
      *  skin part of the ActionBar control.
      *
      *  <p>The location and appearance of the <code>titleGroup</code> 
-     *  skin part is determined by the skin.
+     *  skin part is determined by the ActionBarSkin class.
      *  The default ActionBarSkin class defines the <code>titleGroup</code>
      *  to appear in the center of the ActionBar,
      *  using the space remaining between <code>navigationGroup</code> 
@@ -628,8 +628,8 @@ public class ActionBar extends SkinnableComponent
      *  <code>titleDisplay</code> skin part, if present, is displayed 
      *  in place of the <code>titleGroup</code> skin part.</p> 
      * 
-     *  <p>Create a custom skin to change the default location and appearance of
-     *  the <code>titleGroup</code> skin part.</p>
+     *  <p>Create a custom ActionBarSkin skin class to change the default 
+     *  location and appearance of the <code>titleGroup</code> skin part.</p>
      *  
      *  @default null
      *
@@ -683,10 +683,9 @@ public class ActionBar extends SkinnableComponent
      *  in place of the <code>titleGroup</code> skin part. 
      *  The <code>titleDisplay</code> skin part is positioned 
      *  in the center of the ActionBar control
-     *  by using the padding specified by the 
-     *  <code>paddingLeft</code> and <code>paddingRight</code> properties 
-     *  of the layout class specified by the 
-     *  <code>titleLayout</code> property.</p>
+     *  by using the <code>paddingLeft</code> and 
+     *  <code>paddingRight</code> properties  of the layout 
+     *  class specified by the <code>titleLayout</code> property.</p>
      *
      *  @default HorizontalLayout
      *  @see #titleContent
@@ -732,12 +731,12 @@ public class ActionBar extends SkinnableComponent
      *  using the <code>actionGroup</code> skin part. 
      * 
      *  <p>The location and appearance of the <code>actionGroup</code> 
-     *  skin part is determined by the skin.
+     *  skin part is determined by the ActionBarSkin class.
      *  The default ActionBarSkin class defines the <code>actionGroup</code>
      *  to appear to the right of the title display area of the ActionBar.</p>
      * 
-     *  <p>Create a custom skin to change the default location and appearance of
-     *  the <code>actionGroup</code> skin part.</p>
+     *  <p>Create a custom ActionBarSkin skin class to change the default location 
+     *  and appearance of the <code>actionGroup</code> skin part.</p>
      *  
      *  @default null
      *
