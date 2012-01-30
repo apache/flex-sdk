@@ -57,8 +57,8 @@
     <s:states>
         <s:State name="normal" />
         <s:State name="disabled" stateGroups="disabledGroup" />
-        <s:State name="normalInactive" stateGroups="inactiveGroup" />
-        <s:State name="disabledInactive" stateGroups="disabledGroup, inactiveGroup" />
+        <s:State name="normalAndInactive" stateGroups="inactiveGroup" />
+        <s:State name="disabledAndInactive" stateGroups="disabledGroup, inactiveGroup" />
     </s:states>
 
     <!-- layer 1: background fill -->
