@@ -679,6 +679,23 @@ public class ListCollectionView extends Proxy
     }
 
     /**
+     * @inheritDoc 
+     */
+    mx_internal function getLocalItemIndex(item:Object):int
+    {
+        var i:int;
+        
+        var len:int = localIndex.length;
+        for (i = 0; i < len; i++)
+        {
+            if (localIndex[i] == item)
+                return i;
+        }
+
+        return -1;
+    }
+
+    /**
      * @private
      */
     private function getFilteredItemIndex(item:Object):int
@@ -1226,7 +1243,14 @@ public class ListCollectionView extends Proxy
             // and only then calling getItemAt.
             if (bm.index < 0 || bm.index >= length || getItemAt(bm.index) != bm.value)
             {
-                bm.index = getItemIndex(bm.value);
+                try
+                {
+                    bm.index = getItemIndex(bm.value);
+                }
+                catch (e:SortError)
+                {
+                    bm.index = getLocalItemIndex(bm.value);
+                }
             }
 
             bm.viewRevision = revision;
@@ -2489,7 +2513,17 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
             case CollectionEventKind.REFRESH:
                 if (!(beforeFirst || afterLast))
                 {
-                    currentIndex = ListCollectionView(view).getItemIndex(currentValue);
+                    try 
+                    {
+                        currentIndex = ListCollectionView(view).getItemIndex(currentValue);
+                    }
+                    catch (e:SortError)
+                    {
+                        if (ListCollectionView(view).sort)
+                        {
+                            currentIndex = ListCollectionView(view).getLocalItemIndex(currentValue);
+                        }
+                    }
                     if (currentIndex == -1)
                     {
                         setCurrent(null);
