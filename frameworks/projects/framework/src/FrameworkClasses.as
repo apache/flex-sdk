@@ -139,6 +139,7 @@ internal class FrameworkClasses
 	import mx.utils.DescribeTypeCache; DescribeTypeCache;
 	import mx.utils.DescribeTypeCacheRecord; DescribeTypeCacheRecord;
 	import mx.utils.DisplayUtil; DisplayUtil;
+	import mx.utils.OrderedObject; OrderedObject;
 	import mx.utils.XMLUtil; XMLUtil;
 	import mx.utils.Base64Decoder; Base64Decoder;
 	import mx.utils.Base64Encoder; Base64Encoder;
