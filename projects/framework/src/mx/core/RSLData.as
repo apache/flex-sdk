@@ -12,7 +12,6 @@
 package mx.core
 {
 
-    
 [ExcludeClass]
     
 /**
@@ -39,7 +38,9 @@ public class RSLData
     public function RSLData(url:String = null, policyFileUrl:String = null, 
                             digest:String = null, hashType:String = null, 
                             isSigned:Boolean = false, 
-                            verifyDigest:Boolean = false)
+                            verifyDigest:Boolean = false,
+                            applicationDomainTarget:String = "default",
+                            moduleFactory:IFlexModuleFactory = null)
     {
         super();
         
@@ -49,6 +50,8 @@ public class RSLData
         this.hashType = hashType;
         this.isSigned = isSigned;
         this.verifyDigest = verifyDigest;
+        this.applicationDomainTarget = applicationDomainTarget;
+        this.moduleFactory = moduleFactory;
     }
     
     //--------------------------------------------------------------------------
@@ -58,27 +61,22 @@ public class RSLData
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  url
-    //----------------------------------
-
-    /**
-     *  @private
-     * 
-     *  Location of the RSL. The URL can be absolute or relative to the 
-     *  application or module. 
-     */
-    public var url:String;
-
-    //----------------------------------
-    //  policy file url
+    //  applicationDomainTarget
     //----------------------------------
     
     /**
      *  @private
      * 
-     *  Location of the policy file.
+     *  The requested application domain to load the RSL into.
+     *  <p>One of the following:
+     *  <ul>
+     *  <li>"default"
+     *  <li>"current"
+     *  <li>"parent"
+     *  <li>"top-level"
+     *  </p>
      */
-    public var policyFileUrl:String;
+    public var applicationDomainTarget:String;
     
     //----------------------------------
     //  digest
@@ -98,8 +96,8 @@ public class RSLData
     /**
      *  @private
      * 
-     *  The type of hash used to create the RSL. This is null for an RSL 
-     *  without a digest.
+     *  The type of hash used to create the RSL digest. This is null for an RSL 
+     *  without a digest. The only supported hash type is SHA256.TYPE_ID.
      */
     public var hashType:String;
     
@@ -115,9 +113,46 @@ public class RSLData
     public var isSigned:Boolean;
     
     //----------------------------------
+    //  moduleFactory
+    //----------------------------------
+    
+    /**
+     *  @private
+     * 
+     *  Non-null if this RSL should be loaded into an application
+     *  domain other than the application domain associated with the
+     *  module factory performing the load. If null, then load into
+     *  the current application domain.
+     */
+    public var moduleFactory:IFlexModuleFactory;
+    
+   //----------------------------------
+    //  policy file url
+    //----------------------------------
+    
+    /**
+     *  @private
+     * 
+     *  Location of the policy file.
+     */
+    public var policyFileUrl:String;
+    
+    //----------------------------------
+    //  url
+    //----------------------------------
+    
+    /**
+     *  @private
+     * 
+     *  Location of the RSL. The URL can be absolute or relative to the 
+     *  application or module. 
+     */
+    public var url:String;
+    
+    //----------------------------------
     //  verifyDigest
     //----------------------------------
-
+    
     /**
      *  @private
      * 
@@ -125,6 +160,6 @@ public class RSLData
      *  False allows the RSL to be loaded without verification.
      */
     public var verifyDigest:Boolean;
-    
+ 
 }
 }
