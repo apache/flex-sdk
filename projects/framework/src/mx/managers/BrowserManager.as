@@ -61,6 +61,9 @@ public class BrowserManager
     /**
      *  Returns the sole instance of this Singleton class;
      *  creates it if it does not already exist.
+     *
+     *  @return Returns the sole instance of this Singleton class;
+     *  creates it if it does not already exist.
      */
     public static function getInstance():IBrowserManager
     {
