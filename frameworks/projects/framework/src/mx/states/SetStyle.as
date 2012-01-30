@@ -15,6 +15,7 @@ package mx.states
 {
 
 import mx.core.UIComponent;
+import mx.core.IDeferredInstance;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
 import mx.core.IFlexModule;
@@ -89,6 +90,10 @@ public class SetStyle extends OverrideBase
      *  @param name The style to set.
      *
      *  @param value The value of the style in the view state.
+     * 
+     *  @param valueFactory An optional write-only property from which to obtain 
+     *  a shared value.  This is primarily used when this override's value is 
+     *  shared by multiple states or state groups.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -98,13 +103,16 @@ public class SetStyle extends OverrideBase
     public function SetStyle(
             target:IStyleClient = null,
             name:String = null,
-            value:Object = null)
+            value:Object = null,
+            valueFactory:IDeferredInstance = null
+    )
     {
         super();
 
         this.target = target;
         this.name = name;
         this.value = value;
+        this.valueFactory = valueFactory;
     }
 
     //--------------------------------------------------------------------------
@@ -223,7 +231,32 @@ public class SetStyle extends OverrideBase
             apply(parentContext);
         }
     }
-
+    
+    //----------------------------------
+    //  valueFactory
+    //----------------------------------
+    
+    /**
+     *  An optional write-only property from which to obtain a shared value.  This 
+     *  is primarily used when this override's value is shared by multiple states 
+     *  or state groups. 
+     *
+     *  @default undefined
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function set valueFactory(factory:IDeferredInstance):void
+    {
+        // We instantiate immediately in order to retain the instantiation
+        // behavior of a typical (unshared) value.  We may later enhance to
+        // allow for deferred instantiation.
+        if (factory)
+            value = factory.getInstance();
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  IOverride methods
