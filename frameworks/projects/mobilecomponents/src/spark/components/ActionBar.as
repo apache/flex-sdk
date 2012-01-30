@@ -359,6 +359,10 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @see View
  *  @see ViewNavigatorApplication
  *  @see spark.skins.mobile.ActionBarSkin
+ *
+ *  @includeExample examples/ActionBarExample2.mxml -noswf
+ *  @includeExample examples/ActionBarExample3.mxml -noswf
+ *  @includeExample examples/ActionBarExampleHomeView.mxml -noswf
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
