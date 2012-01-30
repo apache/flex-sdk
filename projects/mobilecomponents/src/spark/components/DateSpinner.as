@@ -227,7 +227,7 @@ public class DateSpinner extends SkinnableComponent
     private static const PM:String = "pm";
 
     // default min/max date
-    private static const MIN_DATE_DEFAULT:Date = new Date(1601, 0, 1);
+    private static const MIN_DATE_DEFAULT:Date = new Date(DateTimeFormatterEx.MIN_YEAR, 0, 1);
     private static const MAX_DATE_DEFAULT:Date = new Date(9999, 11, 31, 23, 59, 59, 999);
     
     //--------------------------------------------------------------------------
@@ -467,9 +467,7 @@ public class DateSpinner extends SkinnableComponent
     /**
      *  Maximum selectable date; only this date and dates before this date are selectable.
      * 
-     *  @default If maxDate is null, the value defaults to 100 years after
-     *           the currently selected date in DATE mode, and 100 days 
-     *           after the currently selected date in DATE_AND_TIME mode.
+     *  @default If maxDate is null, the value defaults to Dec 31st, 9999.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -509,9 +507,7 @@ public class DateSpinner extends SkinnableComponent
     /**
      *  Minimum selectable date; only this date and dates after this date are selectable.
      * 
-     *  @default If minDate is null, the value defaults to 100 years prior to
-     *           the currently selected date in DATE mode, and 100 days prior
-     *           to the currently selected date in DATE_AND_TIME mode.
+     *  @default If minDate is null, the value defaults to January 1st, 1601.
      *           minDate's year should be greater than or equal to 1601 since
      *           DateTimeFormatter only supports the range from 1601 to 30827.
      *  @langversion 3.0
@@ -732,6 +728,10 @@ public class DateSpinner extends SkinnableComponent
                     _maxDate.time = _minDate.time + MS_IN_DAY; // max date was changed past min
             }
             
+            // make sure there's at least one minuteStepSize between the min and max
+            if ((maxDate.time - minDate.time) < (minuteStepSize * 60 * 1000))
+                maxDate.time = minDate.time + (minuteStepSize * 60 * 1000);
+            
             var origSelectedDate:Date = new Date(_selectedDate.time);
             
             // check minDate <= selectedDate <= maxDate
@@ -752,14 +752,14 @@ public class DateSpinner extends SkinnableComponent
                 // verify minutes are a multiple of minuteStepSize
                 if (minuteList && ((selectedDate.minutes % minuteStepSize) != 0))
                 {
-                    _selectedDate.minutes -= (selectedDate.minutes % minuteStepSize);
+                    // adjust to the closest number evenly disible by minuteStepSize
+                    selectedDate.minutes = Math.round(selectedDate.minutes / minuteStepSize) * minuteStepSize;
                     
-                    // last adjustment to make sure we didn't accidentally go below minDate
+                    // last adjustment to make sure we didn't accidentally go outside of bounds
                     if (selectedDate.time < minDate.time)
                         _selectedDate.minutes += minuteStepSize;
-                    
-                    // make sure to use animation for this
-                    useAnimationToSetSelectedDate = true;
+                    else if (selectedDate.time > maxDate.time)
+                        _selectedDate.minutes -= minuteStepSize;
                 }
                 
                 minuteStepSizeChanged = false;
@@ -1301,6 +1301,7 @@ public class DateSpinner extends SkinnableComponent
         if (monthList && displayMode == DateSelectorDisplayMode.DATE)
         {
             tempDate = new Date(thisDate.time);
+            tempDate.date = 1; // avoid accidental rollover to next month
             
             listData = monthList.dataProvider;
             for (i = 0; i < 12; i++)
