@@ -12,16 +12,15 @@
 package spark.skins.mobile
 {
 import mx.core.IContainerInvalidating;
-import mx.core.IFactory;
 import mx.core.ILayoutElement;
 import mx.core.mx_internal;
 import mx.managers.ILayoutManagerContainerClient;
-use namespace mx_internal;
 
 import spark.components.Group;
 import spark.components.SkinnableContainer;
-import spark.components.View;
 import spark.skins.mobile.supportClasses.MobileSkin;
+
+use namespace mx_internal;
 
 /**
  *  ActionScript-based skin for SkinnableContainer.
