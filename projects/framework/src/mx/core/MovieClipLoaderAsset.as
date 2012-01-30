@@ -257,8 +257,8 @@ public class MovieClipLoaderAsset extends MovieClipAsset
 	{
 		initialized = true;
 		
-		initialWidth = loader.width;
-		initialHeight = loader.height;
+		initialWidth = loader.contentLoaderInfo.width;
+		initialHeight = loader.contentLoaderInfo.height;
 		
 		if (!isNaN(requestedWidth))
 			loader.width = requestedWidth;
