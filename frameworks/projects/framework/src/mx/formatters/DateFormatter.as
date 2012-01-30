@@ -90,6 +90,13 @@ public class DateFormatter extends Formatter
     /**
      *  Converts a date that is formatted as a String into a Date object.
      *  Month and day names must match the names in mx.formatters.DateBase.
+     *
+     *  The hour value in the String must be between 0 and 23, inclusive. 
+     *  The minutes and seconds value must be between 0 and 59, inclusive.
+     *  The following example uses this method to create a Date object:
+     *
+     *  <pre>
+     *  var myDate:Date = DateFormatter.parseDateString("2009-12-02 23:45:30"); </pre>
      *  
      *  @see mx.formatters.DateBase
      * 
