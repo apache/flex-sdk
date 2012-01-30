@@ -1813,8 +1813,10 @@ public class SystemManager extends MovieClip
     {
         if (isStageRoot)
         {
-            _width = stage.stageWidth;
-            _height = stage.stageHeight;
+	        // TODO: Finalize scaling behavior
+            Stage_resizeHandler();
+            // _width = stage.stageWidth;
+            // _height = stage.stageHeight;
         }
         else
         {
@@ -2798,8 +2800,11 @@ public class SystemManager extends MovieClip
         {
             // stageWidth/stageHeight may have changed between initialize() and now,
             // so refresh our _width and _height here. 
-            _width = stage.stageWidth;
-            _height = stage.stageHeight;
+
+            // TODO: finalize scaling behavior
+            Stage_resizeHandler();
+            //_width = stage.stageWidth;
+            //_height = stage.stageHeight;
             
             // Detect and account for special case where our stage in some 
             // contexts has not actually been initialized fully, as is the 
@@ -2973,8 +2978,19 @@ public class SystemManager extends MovieClip
 
         if (isStageRoot)
         {
-            _width = stage.stageWidth;
-            _height = stage.stageHeight;
+            //_width = stage.stageWidth;
+            //_height = stage.stageHeight;
+
+            // TODO: Finalize scaling behavior
+			var scale:Number = 1;
+			
+			// Temporary hack to scale android apps up to 1.5x
+			if (Capabilities.screenDPI >= 240)
+				scale = 1.5;
+			
+			root.scaleX = root.scaleY = scale;
+			_width = stage.stageWidth / scale;
+			_height = stage.stageHeight / scale;
         }
 
         if (event)
