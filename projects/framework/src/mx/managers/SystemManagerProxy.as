@@ -24,10 +24,6 @@ import mx.events.SandboxBridgeEvent;
 import mx.utils.NameUtil;
 import mx.utils.SandboxUtil;
 
-// NOTE: Minimize the non-Flash classes you import here.
-// Any dependencies of SystemManager have to load in frame 1,
-// before the preloader, or anything else, can be displayed.
-
 use namespace mx_internal;
 
 /**
@@ -61,15 +57,29 @@ public class SystemManagerProxy extends SystemManager
 		// We are a proxy for a popup - we are the hightest system manager.
         topLevel = true; 
 		
-        addEventListener("startDragging", startDraggingHandler);
-		addEventListener("stopDragging", stopDraggingHandler);
-		
 		// Capture mouseDown so we can switch top level windows and activate
 		// the right focus manager before the components inside start
 		// processing the event.
 		addEventListener(MouseEvent.MOUSE_DOWN, proxyMouseDownHandler, true); 
 	}
 	
+    //--------------------------------------------------------------------------
+    //
+    //  Overriden properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  screen
+    //----------------------------------
+    /**
+     *  @inheritDoc
+     */
+    override public function get screen():Rectangle
+    {
+        return _systemManager.screen;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -104,14 +114,6 @@ public class SystemManagerProxy extends SystemManager
 	/**
 	 *  @inheritDoc
 	 */
-	override public function get screen():Rectangle
-	{
-		return _systemManager.screen;
-	}
-
-	/**
-	 *  @inheritDoc
-	 */
 	override public function getDefinitionByName(name:String):Object
 	{
 		return _systemManager.getDefinitionByName(name);
@@ -133,23 +135,6 @@ public class SystemManagerProxy extends SystemManager
 		return false; // proxy does not want to use the bridge
 	}	
 	
-    /**
-     *  Override to size mouse catcher to the size fo the system manager
-     *  we are the proxy for.
-     */
-	override mx_internal function resizeMouseCatcher():void
-	{
-		if (mouseCatcher)
-		{
-			var g:Graphics = mouseCatcher.graphics;
-			var screen:Rectangle = SystemManager(_systemManager).screen;
-			g.clear();
-			g.beginFill(0x000000, 0);
-			g.drawRect(0, 0, screen.width, screen.height);
-			g.endFill();
-		}
-	}
-
 	/**
 	 *  @inheritDoc
 	 */
@@ -262,54 +247,6 @@ public class SystemManagerProxy extends SystemManager
         // container we will not be able to activate pop up in this proxy. 
         if (findFocusManagerContainer(this))
             SystemManager(_systemManager).fireActivatedWindowEvent(this);
-    }
-    
-    /**
-     *  @private
-     *  Listens to when our popup has started dragging.
-     *  Expands the mouse catcher to catch all the mouse moves when dragging.
-     */
-    private function startDraggingHandler(event:Event):void
-    {
-        // trace("startDraggingHandler");
-        
-        // Add the mouseCatcher as child 0.
-        if (!mouseCatcher)
-        {
-            mouseCatcher = new FlexSprite();
-            mouseCatcher.name = "mouseCatcher";
-            // Must use addChildAt because a creationComplete handler
-            // can create a dialog and insert it at 0.
-            noTopMostIndex++;
-            $addChildAt(mouseCatcher, 0);   
-            resizeMouseCatcher();
-            if (!topLevel)
-            {
-                mouseCatcher.visible = false;
-                mask = mouseCatcher;
-            }
-        }
-
-        var screen:Rectangle = SystemManager(_systemManager).screen;
-        setActualSize(screen.width, screen.height);
-    }
-    
-    /**
-     *  @private
-     *  Called when dragging has stopped.
-     *  We not reduce the size of the mouse catcher
-     *  so client area may be clicked on.
-     */
-    private function stopDraggingHandler(event:Event):void
-    {
-        // trace("stopDraggingHandler");
-        
-        if (mouseCatcher)
-        {
-            $removeChildAt(0);
-            noTopMostIndex--;
-            mouseCatcher = null;
-        }
     }
 }
 
