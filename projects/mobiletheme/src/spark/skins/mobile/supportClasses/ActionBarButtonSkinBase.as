@@ -49,6 +49,15 @@ public class ActionBarButtonSkinBase extends ButtonSkin
     //  Constructor
     //
     //--------------------------------------------------------------------------
+    /**
+     *  Constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     * 
+     */
     public function ActionBarButtonSkinBase()
     {
         super();
@@ -117,6 +126,9 @@ public class ActionBarButtonSkinBase extends ButtonSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     override protected function measure():void
     {
         super.measure();
