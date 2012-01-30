@@ -12,7 +12,7 @@
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" left="0" right="0" top="0" bottom="0" >
 
     <fx:Metadata>
-      [HostComponent("spark.components.windowClasses.WindowedApplication")]
+      [HostComponent("spark.components.WindowedApplication")]
     </fx:Metadata> 
   
     <s:states>
