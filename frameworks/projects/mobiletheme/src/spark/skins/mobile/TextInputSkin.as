@@ -63,8 +63,8 @@ public class TextInputSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile320.assets.TextInput_border;
                 layoutCornerEllipseSize = 24;
-                layoutMeasuredWidth = 600;
-                layoutMeasuredHeight = 66;
+                minWidth = 600;
+                minHeight = 66;
                 layoutBorderSize = 2;
                 
                 break;
@@ -73,8 +73,8 @@ public class TextInputSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile240.assets.TextInput_border;
                 layoutCornerEllipseSize = 12;
-                layoutMeasuredWidth = 440;
-                layoutMeasuredHeight = 50;
+                minWidth = 440;
+                minHeight = 50;
                 layoutBorderSize = 1;
                 
                 break;
@@ -83,8 +83,8 @@ public class TextInputSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile160.assets.TextInput_border;
                 layoutCornerEllipseSize = 12;
-                layoutMeasuredWidth = 300;
-                layoutMeasuredHeight = 33;
+                minWidth = 300;
+                minHeight = 33;
                 layoutBorderSize = 1;
                 
                 break;
@@ -149,12 +149,8 @@ public class TextInputSkin extends TextSkinBase
             measuredWidth =  (characterWidth * hostComponent.maxChars) + 
                 paddingLeft + paddingRight + StyleableTextField.TEXT_WIDTH_PADDING;
         }
-        else
-        {
-            measuredWidth = layoutMeasuredWidth;
-        }
         
-        measuredHeight = Math.max(paddingTop + textHeight + paddingBottom, layoutMeasuredHeight);
+        measuredHeight = paddingTop + textHeight + paddingBottom;
     }
     
     /**
