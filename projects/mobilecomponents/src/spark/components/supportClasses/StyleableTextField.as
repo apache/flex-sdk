@@ -311,9 +311,9 @@ public class StyleableTextField extends FlexTextField
             }
             
             // Multi-line text enables internal scrolling if we use textHeight. Adding
-            // half of the padding (2 pixels) solves that problem.
+            // leading solves that problem.
             if (numLines > 1)
-                _measuredTextSize.y += TEXT_HEIGHT_PADDING / 2;
+                _measuredTextSize.y += getStyle("leading");
             
             // account for floating point errors to fix accidental clipping
             // or truncation
@@ -1394,7 +1394,7 @@ public class StyleableTextField extends FlexTextField
         var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
         
         if (!(topLevelApp && topLevelApp.isSoftKeyboardActive))
-        event.preventDefault();
+            event.preventDefault();
     }
     
     //--------------------------------------------------------------------------
