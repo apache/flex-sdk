@@ -207,7 +207,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
      */
     mx_internal function get bridgeToFocusManager():Dictionary
     {
-        if (Object(systemManager).mx_internal::topLevel)
+        if (Object(systemManager).topLevel)
             return _bridgeToFocusManager;
         else if (systemManager.topLevelSystemManager)
         {
@@ -220,7 +220,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
     
     mx_internal function set bridgeToFocusManager(bridgeToFMDictionary:Dictionary):void
     {
-        if (Object(systemManager).mx_internal::topLevel)
+        if (Object(systemManager).topLevel)
             _bridgeToFocusManager = bridgeToFMDictionary;
         else if (systemManager.topLevelSystemManager)
         {
@@ -396,19 +396,19 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 				}
 				else
 				{
-                    Object(systemManager).mx_internal::$addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
+                    Object(systemManager).$addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
 				}
 				
 				addEventListenerToSandboxes(type, sandboxMouseListener, useCapture, priority, useWeakReference);
 				if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
 					addEventListenerToOtherSystemManagers(type, otherSystemManagerMouseListener, useCapture, priority, useWeakReference)
 				if (systemManager.getSandboxRoot() == systemManager)
-                    Object(systemManager).mx_internal::$addEventListener(actualType, eventProxy.marshalListener,
+                    Object(systemManager).$addEventListener(actualType, eventProxy.marshalListener,
                             useCapture, priority, useWeakReference);
 				
 				// Set useCapture to false because we will never see an event 
 				// marshalled in the capture phase.
-                Object(systemManager).mx_internal::$addEventListener(type, listener, false, priority, useWeakReference);
+                Object(systemManager).$addEventListener(type, listener, false, priority, useWeakReference);
                 return false;
 			}
 		}
@@ -464,12 +464,12 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 			if (actualType)
 			{
                 if (systemManager.getSandboxRoot() == systemManager && eventProxy)
-                    Object(systemManager).mx_internal::$removeEventListener(actualType, eventProxy.marshalListener,
+                    Object(systemManager).$removeEventListener(actualType, eventProxy.marshalListener,
                             useCapture);
 				if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
 					removeEventListenerFromOtherSystemManagers(type, otherSystemManagerMouseListener, useCapture);
 				removeEventListenerFromSandboxes(type, sandboxMouseListener, useCapture);
-                Object(systemManager).mx_internal::$removeEventListener(type, listener, false);
+                Object(systemManager).$removeEventListener(type, listener, false);
 				return false;
 			}
 		}
@@ -2721,7 +2721,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 				}
 				else
 				{
-                    Object(systemManager).mx_internal::$addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
+                    Object(systemManager).$addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
 				}
 
                 // add listeners in other sandboxes in capture mode so we don't miss anything
@@ -2738,7 +2738,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
                             false, request.priority, request.useWeakReference);
 				    }
 
-                    Object(systemManager).mx_internal::$addEventListener(actualType, eventProxy.marshalListener,
+                    Object(systemManager).$addEventListener(actualType, eventProxy.marshalListener,
                         true, request.priority, request.useWeakReference);
                 }
 			}
@@ -2759,7 +2759,7 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
                         systemManager.stage.removeEventListener(actualType, eventProxy.marshalListener);
                     }
 
-                    Object(systemManager).mx_internal::$removeEventListener(actualType, eventProxy.marshalListener, true);
+                    Object(systemManager).$removeEventListener(actualType, eventProxy.marshalListener, true);
                 }
             }
         }		
@@ -2768,10 +2768,10 @@ public class MarshallPlan implements IMarshalSystemManager, ISWFBridgeProvider
 	private function Stage_resizeHandler(event:Event = null):void
 	{	
        	var sandboxScreen:Rectangle = getSandboxScreen();
-        if (!Object(systemManager).mx_internal::_screen)
-            Object(systemManager).mx_internal::_screen = new Rectangle();
-       	Object(systemManager).mx_internal::_screen.width = sandboxScreen.width;
-       	Object(systemManager).mx_internal::_screen.height = sandboxScreen.height;
+        if (!Object(systemManager)._screen)
+            Object(systemManager)._screen = new Rectangle();
+       	Object(systemManager)._screen.width = sandboxScreen.width;
+       	Object(systemManager)._screen.height = sandboxScreen.height;
 	}
 
  	/**
