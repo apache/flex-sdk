@@ -66,9 +66,15 @@ public class DescribeTypeCache
 
 	/**
 	 *  Calls <code>flash.utils.describeType()</code> for the first time and caches
-     *  the return value so that subsequent calls return faster. 
-     *
-     *  @see flash.utils#describeType() 
+         *  the return value so that subsequent calls return faster. 
+         *
+         *  @param o Can be either a string describing a fully qualified class name or any 
+         *  ActionScript value, including all available ActionScript types, object instances,
+         *  primitive types (such as <code>uint</code>), and class objects.
+         *
+         *  @return The cached record.
+         *
+         *  @see flash.utils#describeType() 
 	 */
 	public static function describeType(o:*):DescribeTypeCacheRecord
 	{
