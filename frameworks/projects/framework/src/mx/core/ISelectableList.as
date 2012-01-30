@@ -15,24 +15,19 @@ import mx.collections.IList;
 
 /**
  *  Dispatched when the selectedIndex property changes.
- *  This may be dispatched as well as a CHANGE event, but
- *  INavigatable listeners need to be sure that a CHANGE
- *  event really does mean that selectedIndex changed
- *  and not that some other key property of the INavigatable
- *  changed.
  *
- *  @eventType mx.events.FlexEvent.NAVIGATION_CHANGE
+ *  @eventType mx.events.IndexChangedEvent.CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="navigationChange")]
+[Event(name="change")]
 
 /**
- *  INavigatable is an interface that indicates that the
- *  implementor is a Navigator and supports a selectedIndex
+ *  ISelectableList is an interface that indicates that the
+ *  implementor is a IList that supports a selectedIndex
  *  property that should be mirrored by a listening object
  *  like a ButtonBar
  *  
@@ -41,11 +36,11 @@ import mx.collections.IList;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public interface INavigatable extends IList
+public interface ISelectableList extends IList
 {
     /**
-     *  The selectedIndex property that selects which
-     *  child the Navigator is viewing.
+     *  The selectedIndex property that indicates the 
+     *  index of a selected IList item.
      */
 	function set selectedIndex(value:int):void;
 	function get selectedIndex():int;
