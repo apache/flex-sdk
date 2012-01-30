@@ -1647,14 +1647,43 @@ public class WindowedApplication extends Application implements IWindow
     {
         super.commitProperties();
 
+        // AIR won't allow you to set the min width greater than the current 
+        // max width (same is true for height). You also can't set the max 
+        // width less than the current min width (same is true for height).
+        // This makes the updating of the new minSize and maxSize a bit tricky.
+        if (minWidthChanged || minHeightChanged || maxWidthChanged || maxHeightChanged)
+        {
+            var minSize:Point = nativeWindow.minSize;
+            var maxSize:Point = nativeWindow.maxSize;
+            var newMinWidth:Number  = minWidthChanged  ? _minWidth  + chromeWidth()  : minSize.x;
+            var newMinHeight:Number = minHeightChanged ? _minHeight + chromeHeight() : minSize.y;
+            var newMaxWidth:Number  = maxWidthChanged  ? _maxWidth  + chromeWidth()  : maxSize.x;
+            var newMaxHeight:Number = maxHeightChanged ? _maxHeight + chromeHeight() : maxSize.y;
+            
+            if (minWidthChanged || minHeightChanged)
+            {
+                // If the new min size is greater than the old max size, then
+                // we need to set the new max size now.
+                if ((maxWidthChanged && newMinWidth > minSize.x) || 
+                    (maxHeightChanged && newMinHeight > minSize.y))
+                {
+                    nativeWindow.maxSize = new Point(newMaxWidth, newMaxHeight);
+                }
+                
+                nativeWindow.minSize = new Point(newMinWidth, newMinHeight);
+            }
+            
+            // Set the max width or height if it is not already set. The max 
+            // width and height could have been set above when setting minSize
+            // but the max size would have been rejected by AIR if it were less
+            // than the old min size.
+            if (newMaxWidth != maxSize.x || newMaxHeight != maxSize.y)
+                nativeWindow.maxSize = new Point(newMaxWidth, newMaxHeight);
+        }
+        
         // minimum width and height
         if (minWidthChanged || minHeightChanged)
         {
-            var newMinWidth:Number = minWidthChanged ? _minWidth + chromeWidth() : nativeWindow.minSize.x;
-            var newMinHeight:Number = minHeightChanged ? _minHeight + chromeHeight() : nativeWindow.minSize.y;
-            
-            nativeWindow.minSize = new Point(newMinWidth, newMinHeight);
-            
             if (minWidthChanged)
             {
                 minWidthChanged = false;
@@ -1674,11 +1703,7 @@ public class WindowedApplication extends Application implements IWindow
         // maximum width and height
         if (maxWidthChanged || maxHeightChanged)
         {
-            var newMaxWidth:Number = maxWidthChanged ? _maxWidth + chromeWidth() : nativeWindow.maxSize.x;
-            var newMaxHeight:Number = maxHeightChanged ? _maxHeight + chromeHeight() : nativeWindow.maxSize.y;
-            
             windowBoundsChanged = true;
-            nativeWindow.maxSize = new Point(newMaxWidth, newMaxHeight);
             
             if (maxWidthChanged)
             {
