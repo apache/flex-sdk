@@ -297,7 +297,7 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected function registerPeristenceClassAliases():void
+    protected function registerPersistenceClassAliases():void
     {
     }
     
@@ -353,7 +353,7 @@ public class MobileApplicationBase extends Application
         
         if (sessionCachingEnabled)
         {
-            registerPeristenceClassAliases();
+            registerPersistenceClassAliases();
             
             persistenceManager = createPersistenceManager();
             persistenceManager.initialize();
