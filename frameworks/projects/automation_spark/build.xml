@@ -60,31 +60,31 @@
 	</macrodef>
 	
 	<target name="main" depends="clean,compile" description="Clean build of automation_spark.swc and en_US">
-		<bundle locale="${locale}"/>
+		<!--<bundle locale="${locale}"/>-->
 	</target>
 	
-	<target name="other.locales" depends="bundles-clean,bundles" description="Build other locale SWCs"/>
+	<!--<target name="other.locales" depends="bundles-clean,bundles" description="Build other locale SWCs"/>-->
 	
 	<!-- This is a private target for building automation_flashflexkit_rb.swc for various locales. -->
 	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
-	<target name="bundles">
-		<bundler locale="da_DK"/><!-- Danish resources -->
-		<bundler locale="de_DE"/><!-- German resources -->
-		<bundler locale="en_US"/><!-- American English resources  -->
-		<bundler locale="es_ES"/><!-- Spanish resources -->
-		<bundler locale="fi_FI"/><!--  Finnish resources-->
-		<bundler locale="fr_FR"/><!-- French resources -->
-		<bundler locale="it_IT"/><!-- Italian resources -->
-		<bundler locale="ja_JP"/><!-- Japanese resources -->
-		<bundler locale="ko_KR"/><!-- Korean resources -->
-		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
-		<bundler locale="nl_NL"/><!-- Dutch resources -->
-		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
-		<bundler locale="ru_RU"/><!-- Swedish resources -->
-		<bundler locale="sv_SE"/><!-- Swedish resources -->
-		<bundler locale="zh_CN"/><!-- Simplified Chinese resources -->
-		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
-	</target>
+	<!--<target name="bundles">
+		<bundler locale="da_DK"/>
+		<bundler locale="de_DE"/>
+		<bundler locale="en_US"/>
+		<bundler locale="es_ES"/>
+		<bundler locale="fi_FI"/>
+		<bundler locale="fr_FR"/>
+		<bundler locale="it_IT"/>
+		<bundler locale="ja_JP"/>
+		<bundler locale="ko_KR"/>
+		<bundler locale="nb_NO"/>
+		<bundler locale="nl_NL"/>
+		<bundler locale="pt_BR"/>
+		<bundler locale="ru_RU"/>
+		<bundler locale="sv_SE"/>
+		<bundler locale="zh_CN"/>
+		<bundler locale="zh_TW"/>
+	</target>-->
 	
 	<target name="compile" description="Compiles automation_spark.swc">
 		<echo message="Compiling frameworks/libs/automation_spark.swc"/>
@@ -157,7 +157,7 @@
 		</asdoc>
 
 		<!-- updates framework.swc with asdoc xml -->
-		<zip destfile="${FLEX_HOME}/frameworks/locale/en_US/automation_spark_rb.swc" update="true">
+		<zip destfile="${FLEX_HOME}/frameworks/libs/automation_spark.swc" update="true">
 		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
 			    <include name="*.*"/>
 				<exclude name="ASDoc_Config.xml"/>
