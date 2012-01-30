@@ -26,16 +26,16 @@ import mx.styles.IStyleClient;
  *  @productversion Flex 4
  */
 public interface ITextInput
-	extends IDataRenderer, IDropInListItemRenderer, IFocusManagerComponent,
-	IFontContextComponent, IIMESupport, IListItemRenderer, IUIComponent, 
+    extends IDataRenderer, IDropInListItemRenderer, IFocusManagerComponent,
+    IFontContextComponent, IIMESupport, IListItemRenderer, IUIComponent, 
     IInvalidating, IStyleClient
 {
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-	
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
     //----------------------------------
     //  selectionActivePosition
     //----------------------------------
@@ -88,8 +88,8 @@ public interface ITextInput
     function get selectionAnchorPosition():int;
 
     //----------------------------------
-	//  editable
-	//----------------------------------
+    //  editable
+    //----------------------------------
 
     /**
      *  Indicates whether the user is allowed to edit the text in this control.
@@ -105,12 +105,12 @@ public interface ITextInput
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	function get editable():Boolean;
-	
-	/**
-	 *  @private
-	 */
-	function set editable(value:Boolean):void;
+    function get editable():Boolean;
+    
+    /**
+     *  @private
+     */
+    function set editable(value:Boolean):void;
 
     //----------------------------------
     //  horizontalScrollPosition
@@ -142,9 +142,9 @@ public interface ITextInput
      */
     function set horizontalScrollPosition(value:Number):void;
 
-	//----------------------------------
-	//  maxChars
-	//----------------------------------
+    //----------------------------------
+    //  maxChars
+    //----------------------------------
 
     /**
      *  Maximum number of characters that users can enter in the text field.
@@ -163,16 +163,16 @@ public interface ITextInput
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	function get maxChars():int;
-	
-	/**
-	 *  @private
-	 */
-	function set maxChars(value:int):void;
+    function get maxChars():int;
+    
+    /**
+     *  @private
+     */
+    function set maxChars(value:int):void;
 
-	//----------------------------------
-	//  mouseChildren
-	//----------------------------------
+    //----------------------------------
+    //  mouseChildren
+    //----------------------------------
 
     /**
      *  @copy flash.display.DisplayObjectContainer#mouseChildren
@@ -182,16 +182,16 @@ public interface ITextInput
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	function get mouseChildren():Boolean;
-	
-	/**
-	 *  @private
-	 */
-	function set mouseChildren(value:Boolean):void;
+    function get mouseChildren():Boolean;
+    
+    /**
+     *  @private
+     */
+    function set mouseChildren(value:Boolean):void;
 
-	//----------------------------------
-	//  mouseEnabled
-	//----------------------------------
+    //----------------------------------
+    //  mouseEnabled
+    //----------------------------------
 
     /**
      *  @copy flash.display.InteractiveObject#mouseEnabled
@@ -201,16 +201,16 @@ public interface ITextInput
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	function get mouseEnabled():Boolean;
-	
-	/**
-	 *  @private
-	 */
-	function set mouseEnabled(value:Boolean):void;
+    function get mouseEnabled():Boolean;
+    
+    /**
+     *  @private
+     */
+    function set mouseEnabled(value:Boolean):void;
 
-	//----------------------------------
-	//  parentDrawsFocus
-	//----------------------------------
+    //----------------------------------
+    //  parentDrawsFocus
+    //----------------------------------
 
     /**
      *  If true, calls to this control's <code>drawFocus()</code> method are forwarded
@@ -225,16 +225,16 @@ public interface ITextInput
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	function get parentDrawsFocus():Boolean;
-	
-	/**
-	 *  @private
-	 */
-	function set parentDrawsFocus(value:Boolean):void;
+    function get parentDrawsFocus():Boolean;
+    
+    /**
+     *  @private
+     */
+    function set parentDrawsFocus(value:Boolean):void;
 
-	//----------------------------------
-	//  restrict
-	//----------------------------------
+    //----------------------------------
+    //  restrict
+    //----------------------------------
 
     /**
      *  Indicates the set of characters that a user can enter into the control. 
@@ -275,35 +275,35 @@ public interface ITextInput
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	function get restrict():String;
-	
-	/**
-	 *  @private
-	 */
-	function set restrict(value:String):void;
+    function get restrict():String;
+    
+    /**
+     *  @private
+     */
+    function set restrict(value:String):void;
 
-	//----------------------------------
-	//  selectable
-	//----------------------------------
+    //----------------------------------
+    //  selectable
+    //----------------------------------
 
-	/**
+    /**
      *  A flag indicating whether the text in the TextInput can be selected.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-	 */
-	function get selectable():Boolean;
-	
-	/**
-	 *  @private
-	 */
-	function set selectable(value:Boolean):void;
+     */
+    function get selectable():Boolean;
+    
+    /**
+     *  @private
+     */
+    function set selectable(value:Boolean):void;
 
-	//----------------------------------
-	//  text
-	//----------------------------------
+    //----------------------------------
+    //  text
+    //----------------------------------
 
     /**
      *  Plain text that appears in the control.
@@ -341,22 +341,24 @@ public interface ITextInput
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	function get text():String;
-	
-	/**
-	 *  @private
-	 */
-	function set text(value:String):void;
+    function get text():String;
+    
+    /**
+     *  @private
+     */
+    function set text(value:String):void;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  Determines whether the border and background of the TextInput are
      *  visible. 
+     *
+     *  @param visible <code>true</code> if visible, and <code>false</code> if not.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -367,6 +369,13 @@ public interface ITextInput
     
     /**
      *  Selects the text in the range specified by the parameters.
+     *
+     *  @param anchorPosition The zero-based character index value 
+     *  of the first character in the current selection.
+     *
+     *  @param activePosition The zero-based index of the position 
+     *  after the last character in the current selection 
+     *  (equivalent to the one-based index of the last character).
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
