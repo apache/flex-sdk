@@ -14,7 +14,7 @@ package mx.effects
 
 import mx.core.mx_internal;
 import mx.effects.effectClasses.DissolveInstance;
-import mx.graphics.RoundedRectangle;
+import mx.geom.RoundedRectangle;
 import mx.styles.StyleManager;
 
 use namespace mx_internal;
