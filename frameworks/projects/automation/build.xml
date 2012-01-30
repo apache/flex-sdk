@@ -112,9 +112,9 @@
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
-				<include name="automation/automation_agent.swc"/>
-				<include name="automation/qtp.swc"/>
-				<include name="automation/qtp_air.swc"/>
+				<include name="automation_agent.swc"/>
+				<include name="qtp.swc"/>
+				<include name="qtp_air.swc"/>
 			</external-library-path>
 			<locale/>
 			<accessible>true</accessible>
