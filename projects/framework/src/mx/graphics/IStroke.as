@@ -96,16 +96,16 @@ public interface IStroke
 	/**
 	 *  Applies the properties to the specified Graphics object.
 	 *   
-	 *  @param g The Graphics object to apply the properties to.
+	 *  @param graphics The Graphics object to apply the properties to.
 	 *  
+	 *  @param bounds The bounds of the shape that the stroke is applied to. 
+	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	function apply(g:Graphics):void;
-	
-	function draw(g:Graphics, rc:Rectangle):void;
+	function apply(graphics:Graphics, bounds:Rectangle = null):void;
 
     /**
      *  Generates a GraphicsStroke object representing 
@@ -121,7 +121,7 @@ public interface IStroke
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	function generateGraphicsStroke(rect:Rectangle):GraphicsStroke; 
+	function createGraphicsStroke(rect:Rectangle):GraphicsStroke; 
 }
 
 }
