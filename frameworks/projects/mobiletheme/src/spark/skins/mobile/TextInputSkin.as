@@ -143,8 +143,10 @@ public class TextInputSkin extends MobileSkin
         textDisplay.commitStyles();
         textDisplay.x = HORIZONTAL_PADDING;
         textDisplay.width = unscaledWidth - (HORIZONTAL_PADDING * 2);
-        textDisplay.y = VERTICAL_PADDING;
-        textDisplay.height = unscaledHeight - (VERTICAL_PADDING * 2);
+		
+		var textHeight:Number = textDisplay.textHeight + TEXT_HEIGHT_PADDING;
+		textDisplay.height = textHeight;
+        textDisplay.y = Math.round((unscaledHeight - textHeight) / 2);
     }
     
     /**
