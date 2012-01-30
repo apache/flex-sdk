@@ -55,7 +55,6 @@ use namespace mx_internal;
 
 /**
  *  
- *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
@@ -64,7 +63,6 @@ use namespace mx_internal;
 [SkinState("portrait")]
 
 /**
- *  
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -75,7 +73,6 @@ use namespace mx_internal;
 
 /**
  *  
- *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
@@ -84,7 +81,6 @@ use namespace mx_internal;
 [SkinState("portraitAndOverlay")]
 
 /**
- *  
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -389,6 +385,38 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             return _sections[selectedIndex];
         
         return null;
+    }
+    
+    //----------------------------------
+    //  landscapeOrientation
+    //----------------------------------
+    
+    private var _landscapeOrientation:Boolean = false;
+    
+    [Bindable]
+    /**
+     * 
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get landscapeOrientation():Boolean
+    {
+        return _landscapeOrientation;
+    }
+    
+    public function set landscapeOrientation(value:Boolean):void
+    {
+        if (value != _landscapeOrientation)
+        {
+            _landscapeOrientation = value;
+            
+            if (activeView)
+                activeView.setCurrentState(activeView.getCurrentViewState(_landscapeOrientation), false);
+        }
     }
     
     //----------------------------------
@@ -1608,7 +1636,8 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             // Grab the views return object and set it on the new view
             if (lastAction == POP_ACTION && activeView)
                 view.returnedObject = activeView.createReturnObject();
-                
+            
+            view.setCurrentState(view.getCurrentViewState(landscapeOrientation), false);
             addElement(view);
         }
         
@@ -1627,9 +1656,9 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      *  @param location int indicating where in the source the item was added.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     private function internalDispatchEvent(kind:String, item:Object = null, location:int = -1):void
     {
@@ -1644,6 +1673,14 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         }
     }
     
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     // Only current because previous views are already persisted
     mx_internal function persistCurrentView():void
     {
@@ -1651,6 +1688,14 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             currentViewData.persistedData = currentViewData.instance.getPersistenceData();
     }
     
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected function viewAdded(transition:IViewTransition = null):void
     {
         var currentView:View;
@@ -1717,11 +1762,32 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         }
     }
 
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     override protected function getCurrentSkinState():String
     {
-        return (_overlayControls) ? "portraitAndOverlay" : "portrait";
+        var finalState:String = (_landscapeOrientation) ? "landscape" : "portrait";
+        
+        if (_overlayControls)
+            finalState += "AndOverlay";
+        
+        return finalState;
     }
     
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected function transitionComplete(event:Event):void
     {
         IViewTransition(event.target).removeEventListener(Event.COMPLETE, transitionComplete);
@@ -1733,6 +1799,14 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         endViewChange();
     }
     
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected function updateActionBarProperties(view:View, forceUpdate:Boolean = false):void
     {
         if (!actionBar || !view)
@@ -1818,8 +1892,13 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     }
     
     /**
-     *
-     */ 
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected function view_propertyChangeHandler(event:PropertyChangeEvent):void
     {
         var property:Object = event.property;
@@ -1846,7 +1925,14 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         }
     }
     
-    
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
