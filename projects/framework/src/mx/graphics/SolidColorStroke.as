@@ -302,7 +302,7 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	private var _miterLimit:Number = 3;
 	
 	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+	[Inspectable(category="General", minValue="0.0", maxValue="255.0")]
 	
 	/**
 	 *  Indicates the limit at which a miter is cut off.
@@ -434,7 +434,7 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	private var _weight:Number;
 
 	[Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
 
 	/**
 	 *  The line weight, in pixels.
