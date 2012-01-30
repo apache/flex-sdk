@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
 //  Copyright 2003-2007 Adobe Systems Incorporated
@@ -226,6 +226,8 @@ public class DragManager
 	 *  drag image. This argument is optional. If omitted, the default alpha
 	 *  value is 0.5. A value of 0.0 indicates that the image is transparent;
 	 *  a value of 1.0 indicates it is fully opaque. 
+         *
+         *  @param allowMove Indicates if a drop target is allowed to move the dragged data.
 	 */
 	public static function doDrag(
 			dragInitiator:IUIComponent, 
