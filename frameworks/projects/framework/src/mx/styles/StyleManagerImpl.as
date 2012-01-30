@@ -64,16 +64,16 @@ public class StyleManagerImpl implements IStyleManager2
      *  The <code>isInheritingTextFormatStyle()</code> method queries this set.
      */
     private static var inheritingTextFormatStyles:Object =
-    {
-        align: true,
-        bold: true,
-        color: true,
-        font: true,
-        indent: true,
-        italic: true,
-        size: true
-    };
-
+        {
+            align: true,
+            bold: true,
+            color: true,
+            font: true,
+            indent: true,
+            italic: true,
+            size: true
+        };
+    
     /**
      *  @private
      *  Set of styles for which setStyle() causes
@@ -82,67 +82,67 @@ public class StyleManagerImpl implements IStyleManager2
      *  and isSizeInvalidatingStyle() queries this set.
      */
     private static var sizeInvalidatingStyles:Object =
-    {
-        alignmentBaseline: true,
-        baselineShift: true,
-        blockProgression: true,
-        borderStyle: true,
-        borderThickness: true,
-        cffHinting: true,
-        columnCount: true,
-        columnGap: true,
-        columnWidth: true,
-        digitCase: true,
-        digitWidth: true,
-        direction: true,
-        dominantBaseline: true,
-        firstBaselineOffset: true,
-        fontAntiAliasType: true,
-        fontFamily: true,
-        fontGridFitType: true,
-        fontLookup: true,
-        fontSharpness: true,
-        fontSize: true,
-        fontStyle: true,
-        fontThickness: true,
-        fontWeight: true,
-        headerHeight: true,
-        horizontalAlign: true,
-        horizontalGap: true,
-        justificationRule: true,
-        justificationStyle: true,
-        kerning: true,
-        leading: true,
-        letterSpacing: true,
-        ligatureLevel: true,
-        lineBreak: true,
-        lineHeight: true,
-        lineThrough: true,
-        locale: true,
-        marginBottom: true,
-        marginLeft: true,
-        marginRight: true,
-        marginTop: true,
-        paddingBottom: true,
-        paddingLeft: true,
-        paddingRight: true,
-        paddingTop: true,
-        renderingMode: true,
-        strokeWidth: true,
-        tabHeight: true,
-        tabWidth: true,
-        textAlign: true,
-        textAlignLast: true,
-        textRotation: true,
-        tracking: true,
-        trackingLeft: true,
-        trackingRight: true,
-        typographicCase: true,
-        verticalAlign: true,
-        verticalGap: true,
-        whitespaceCollapse: true
-    }
-
+        {
+            alignmentBaseline: true,
+            baselineShift: true,
+            blockProgression: true,
+            borderStyle: true,
+            borderThickness: true,
+            cffHinting: true,
+            columnCount: true,
+            columnGap: true,
+            columnWidth: true,
+            digitCase: true,
+            digitWidth: true,
+            direction: true,
+            dominantBaseline: true,
+            firstBaselineOffset: true,
+            fontAntiAliasType: true,
+            fontFamily: true,
+            fontGridFitType: true,
+            fontLookup: true,
+            fontSharpness: true,
+            fontSize: true,
+            fontStyle: true,
+            fontThickness: true,
+            fontWeight: true,
+            headerHeight: true,
+            horizontalAlign: true,
+            horizontalGap: true,
+            justificationRule: true,
+            justificationStyle: true,
+            kerning: true,
+            leading: true,
+            letterSpacing: true,
+            ligatureLevel: true,
+            lineBreak: true,
+            lineHeight: true,
+            lineThrough: true,
+            locale: true,
+            marginBottom: true,
+            marginLeft: true,
+            marginRight: true,
+            marginTop: true,
+            paddingBottom: true,
+            paddingLeft: true,
+            paddingRight: true,
+            paddingTop: true,
+            renderingMode: true,
+            strokeWidth: true,
+            tabHeight: true,
+            tabWidth: true,
+            textAlign: true,
+            textAlignLast: true,
+            textRotation: true,
+            tracking: true,
+            trackingLeft: true,
+            trackingRight: true,
+            typographicCase: true,
+            verticalAlign: true,
+            verticalGap: true,
+            whitespaceCollapse: true
+        }
+    
     /**
      *  @private
      *  Set of styles for which setStyle() causes
@@ -151,16 +151,16 @@ public class StyleManagerImpl implements IStyleManager2
      *  and isParentSizeInvalidatingStyle() queries this set.
      */
     private static var parentSizeInvalidatingStyles:Object =
-    {
-        baseline: true,
-        bottom: true,
-        horizontalCenter: true,
-        left: true,
-        right: true,
-        top: true,
-        verticalCenter: true
-    }
-
+        {
+            baseline: true,
+            bottom: true,
+            horizontalCenter: true,
+            left: true,
+            right: true,
+            top: true,
+            verticalCenter: true
+        }
+    
     /**
      *  @private
      *  Set of styles for which setStyle() causes
@@ -169,16 +169,16 @@ public class StyleManagerImpl implements IStyleManager2
      *  and isParentDisplayListInvalidatingStyle() queries this set.
      */
     private static var parentDisplayListInvalidatingStyles:Object =
-    {
-        baseline: true,
-        bottom: true,
-        horizontalCenter: true,
-        left: true,
-        right: true,
-        top: true,
-        verticalCenter: true
-    }
-
+        {
+            baseline: true,
+            bottom: true,
+            horizontalCenter: true,
+            left: true,
+            right: true,
+            top: true,
+            verticalCenter: true
+        }
+    
     /**
      *  @private
      *  Set of color names.
@@ -192,36 +192,36 @@ public class StyleManagerImpl implements IStyleManager2
      *  in conformance with the CSS spec.
      */
     private static var colorNames:Object =
-    {
-        transparent: "transparent",
-        black: 0x000000,
-        blue: 0x0000FF,
-        green: 0x008000,
-        gray: 0x808080,
-        silver: 0xC0C0C0,
-        lime: 0x00FF00,
-        olive: 0x808000,
-        white: 0xFFFFFF,
-        yellow: 0xFFFF00,
-        maroon: 0x800000,
-        navy: 0x000080,
-        red: 0xFF0000,
-        purple: 0x800080,
-        teal: 0x008080,
-        fuchsia: 0xFF00FF,
-        aqua: 0x00FFFF,
-        magenta: 0xFF00FF,
-        cyan: 0x00FFFF,
-
-        // IMPORTANT: Theme colors must also be updated
-        // in the Flex compiler's CSS parser
-        // (in \src\java\macromedia\css\Descriptor.java)
-        // and possibly other places as well. Grep for them!
-        halogreen: 0x80FF4D,
-        haloblue: 0x009DFF,
-        haloorange: 0xFFB600,
-        halosilver: 0xAECAD9
-    };
+        {
+            transparent: "transparent",
+            black: 0x000000,
+            blue: 0x0000FF,
+            green: 0x008000,
+            gray: 0x808080,
+            silver: 0xC0C0C0,
+            lime: 0x00FF00,
+            olive: 0x808000,
+            white: 0xFFFFFF,
+            yellow: 0xFFFF00,
+            maroon: 0x800000,
+            navy: 0x000080,
+            red: 0xFF0000,
+            purple: 0x800080,
+            teal: 0x008080,
+            fuchsia: 0xFF00FF,
+            aqua: 0x00FFFF,
+            magenta: 0xFF00FF,
+            cyan: 0x00FFFF,
+            
+            // IMPORTANT: Theme colors must also be updated
+            // in the Flex compiler's CSS parser
+            // (in \src\java\macromedia\css\Descriptor.java)
+            // and possibly other places as well. Grep for them!
+            halogreen: 0x80FF4D,
+            haloblue: 0x009DFF,
+            haloorange: 0xFFB600,
+            halosilver: 0xAECAD9
+        };
 
     //--------------------------------------------------------------------------
     //
@@ -245,8 +245,17 @@ public class StyleManagerImpl implements IStyleManager2
     public static function getInstance():IStyleManager2
     {
         if (!instance)
+        {
+            // In Flex 4 each application/module creates its own style manager.
+            // There will be no style manager if the application/module was compiled for 
+            // Flex 3 compatibility. In that case create there will be no instance 
+            // associated with the top-level application so create a new instance.
             instance = IStyleManager2(IFlexModuleFactory(SystemManagerGlobals.topLevelSystemManagers[0]).
                        getImplementation("mx.styles::IStyleManager2"));
+            
+            if (!instance)
+                instance = new StyleManagerImpl(SystemManagerGlobals.topLevelSystemManagers[0]);
+        }
         
         return instance;
     }
@@ -272,7 +281,7 @@ public class StyleManagerImpl implements IStyleManager2
         // get our parent styleManager
         if (moduleFactory is DisplayObject)
         {
-            var request:Request = new Request(Request.GET_FLEX_MODULE_FACTORY_REQUEST);
+            var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
             DisplayObject(moduleFactory).dispatchEvent(request); 
             var moduleFactory:IFlexModuleFactory = request.value as IFlexModuleFactory;
             if (moduleFactory)
@@ -370,6 +379,28 @@ public class StyleManagerImpl implements IStyleManager2
     public function set parent(parent:IStyleManager2):void
     {
         _parent = parent;
+    }
+    
+    //----------------------------------
+    //  qualifiedTypeSelectors
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private static var _qualifiedTypeSelectors:Boolean = true;
+        
+    public function get qualifiedTypeSelectors():Boolean
+    {
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            return false;
+        else
+            return _qualifiedTypeSelectors; 
+    }
+    
+    public function set qualifiedTypeSelectors(value:Boolean):void
+    {
+        _qualifiedTypeSelectors = value;
     }
     
     //----------------------------------
@@ -626,6 +657,47 @@ public class StyleManagerImpl implements IStyleManager2
         return _selectors[selector];
     }
 
+    /** 
+     * Gets a CSSStyleDeclaration object that stores the rules 
+     * for the specified CSS selector. The CSSStyleDeclaration object is the created by merging
+     * the properties of the specified CSS selector of this style manager with all of the parent
+     * style managers.
+     * 
+     * <p>If the <code>selector</code> parameter starts with a period (.), 
+     * the returned CSSStyleDeclaration is a class selector and applies only to those instances 
+     * whose <code>styleName</code> property specifies that selector 
+     * (not including the period). 
+     * For example, the class selector <code>".bigMargins"</code> 
+     * applies to any UIComponent whose <code>styleName</code> 
+     * is <code>"bigMargins"</code>.</p> 
+     * 
+     * <p>If the <code>selector</code> parameter does not start with a period, 
+     * the returned CSSStyleDeclaration is a type selector and applies to all instances 
+     * of that type. 
+     * For example, the type selector <code>"Button"</code> 
+     * applies to all instances of Button and its subclasses.</p> 
+     * 
+     * <p>The <code>global</code> selector is similar to a type selector 
+     * and does not start with a period.</p> 
+     * 
+     * @param selector The name of the CSS selector. 
+     * @param localOnly Controls whether the returned style declaration is the result of merging  
+     * the properties of this and any parent style managers or if the style declaration is only 
+     * from this style manager. 
+     * 
+     * @return The style declaration whose name matches the <code>selector</code> property. 
+     *  
+     * @langversion 3.0 
+     * @playerversion Flash 9 
+     * @playerversion AIR 1.1 
+     * @productversion Flex 4 
+     */     
+    public function getMergedStyleDeclaration(selector:String):CSSStyleDeclaration
+    {
+        // FIXME (dloverin) merge in styles from parent style manager.
+        return getStyleDeclaration(selector);
+    }
+    
     /**
      *  Sets the CSSStyleDeclaration object that stores the rules
      *  for the specified CSS selector.
@@ -1103,7 +1175,7 @@ public class StyleManagerImpl implements IStyleManager2
     public function getColorName(colorName:Object):uint
     {
         var n:Number;
-
+        
         if (colorName is String)
         {
             if (colorName.charAt(0) == "#")
@@ -1112,23 +1184,23 @@ public class StyleManagerImpl implements IStyleManager2
                 n = Number("0x" + colorName.slice(1));
                 return isNaN(n) ? StyleManager.NOT_A_COLOR : uint(n);
             }
-
+            
             if (colorName.charAt(1) == "x" && colorName.charAt(0) == '0')
             {
                 // Map "#77EE11" to 0x77EE11
-                 n = Number(colorName);
+                n = Number(colorName);
                 return isNaN(n) ? StyleManager.NOT_A_COLOR : uint(n);
             }
-
+            
             // Map "red" or "Red" to 0xFF0000;
             // Map "haloGreen" or "HaLoGrEeN" to 0x46FF00.
             var c:* = colorNames[colorName.toLowerCase()];
             if (c === undefined)
                 return StyleManager.NOT_A_COLOR;
-
+            
             return uint(c);
         }
-
+        
         return uint(colorName);
     }
 
@@ -1151,7 +1223,7 @@ public class StyleManagerImpl implements IStyleManager2
     {
         if (!colors)
             return;
-
+        
         var n:int = colors.length;
         for (var i:int = 0; i < n; i++)
         {
@@ -1238,6 +1310,10 @@ public class StyleManagerImpl implements IStyleManager2
             var styleModule:IStyleModule =
                 IStyleModule(moduleEvent.module.factory.create());
             
+            // Register the style module to use this style manager.
+            moduleEvent.module.factory.registerImplementation("mx.styles::IStyleManager2", instance);
+            if ("setStyleDeclarations" in styleModule)
+                styleModule["setStyleDeclarations"](instance);
             styleModules[moduleEvent.module.url].styleModule = styleModule;
             
             if (update)
