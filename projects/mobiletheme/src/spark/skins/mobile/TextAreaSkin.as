@@ -28,7 +28,7 @@ import spark.skins.mobile320.assets.TextInput_border;
 use namespace mx_internal;
 
 /**
- *  Base mobile skin for spark.components.TextArea.
+ *  ActionScript-based skin for TextArea components in mobile applications.
  * 
  * @see spark.components.TextArea
  * 
