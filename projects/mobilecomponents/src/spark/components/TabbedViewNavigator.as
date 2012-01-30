@@ -339,6 +339,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  Each navigator isrepresented as a tab in this components tab bar.
      *  Only one navigator can be active at a time, and can be referenced using
      *  the <code>activeNavigator</code> property.
+	 * 
+	 *  <p>Changing this property will cause all current navigators to be removed
+	 *  and the selected index will be reset to 0. This operation cannot be
+	 *  canceled and is committed immediately.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -389,10 +393,19 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         }
        
         if (value && value.length > 0)
-            selectedIndex = 0;
+		{
+            _selectedIndex = 0;
+		}
         else
-            selectedIndex = NO_PROPOSED_SELECTION;
-        
+		{
+            _selectedIndex = NO_PROPOSED_SELECTION;
+		}
+
+		// The proposed selected index is reset because it is no longer valid
+		// since the array of navigators has changed.
+		_proposedSelectedIndex = NO_PROPOSED_SELECTION;
+		selectedIndexChanged = false;
+		
         // Notify listeners that the collection changed
         internalDispatchEvent(CollectionEventKind.RESET);
     }
@@ -760,7 +773,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             // The animateTabBarVisibility flag is set to true if the
             // hideTabBar() or showTabBar() methods are called with the
             // animate flag set to true
-            if (transitionsEnabled && animateTabBarVisbility)
+            if (!disableNextControlAnimation && transitionsEnabled && animateTabBarVisbility)
             {
                 tabBarProps = {target:tabBar, showing:showingTabBar};
                 tabBarVisibilityEffect = showingTabBar ? 
@@ -778,6 +791,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 
                 if (activeView)
                     activeView.setTabBarVisible(showingTabBar);
+
+				// When this flag is true, the animations should only be disabled for the 
+				// current frame, so reset the flag so animations play on subsequent frames.
+				disableNextControlAnimation = false;
             }
         }
 
