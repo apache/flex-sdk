@@ -27,7 +27,7 @@ use namespace mx_internal;
  *  Tween is the underlying animation class for the effects in Flex 3. As of Flex 4, the new
  *  effects use the new Animation class to provide similar functionality.
  */
-[Alternative(replacement="spark.effects.Animation", since="4.0")]
+[Alternative(replacement="spark.effects.animation.Animation", since="4.0")]
 
 /**
  *  The Tween class defines a tween, a property animation performed
