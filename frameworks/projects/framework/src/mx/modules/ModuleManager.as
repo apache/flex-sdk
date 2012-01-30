@@ -772,9 +772,13 @@ class ModuleInfo extends EventDispatcher
 
         factoryInfo.bytesTotal = loader.contentLoaderInfo.bytesTotal;
 
+        var moduleEvent:ModuleEvent = new ModuleEvent(ModuleEvent.READY);
+        moduleEvent.bytesLoaded = loader.contentLoaderInfo.bytesLoaded;
+        moduleEvent.bytesTotal = loader.contentLoaderInfo.bytesTotal;
+
         clearLoader();
 
-        dispatchEvent(new ModuleEvent(ModuleEvent.READY));
+        dispatchEvent(moduleEvent);
     }
     
     /**
