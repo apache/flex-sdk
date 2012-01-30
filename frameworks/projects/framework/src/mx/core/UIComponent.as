@@ -1724,8 +1724,8 @@ public class UIComponent extends FlexSprite
     
     /**
      *  @private
-     *  hold the setStyles() calls that have been deferred untils a moduleFactory
-     *  is set.
+     *  Temporarily stores the values of styles specified with setStyle() until 
+     *  moduleFactory is set.
      */
     private var deferredSetStyles:Object;
     
@@ -11276,7 +11276,7 @@ public class UIComponent extends FlexSprite
     
     /**
      *  @private
-     *  Set style that were deferred because a module factory was not
+     *  Set styles that were deferred because a module factory was not
      *  set yet.
      */
     private function setDeferredStyles():void
