@@ -460,6 +460,15 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     private var iconChanged:Boolean;
     
     /**
+     *  @private
+     *  The class to use when instantiating the icon for MobileIconItemRenderer.
+     *  This class must extend spark.primitives.BitmapImage.
+     *  This property was added for Design View so they can set this to a special
+     *  subclass of BitmapImage that knows how to load and resolve resources in Design View.
+     */
+    mx_internal var iconDisplayClass:Class = BitmapImage;
+    
+    /**
      *  The bitmap image component used to 
      *  display the icon data of the item renderer.
      * 
@@ -941,7 +950,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                 // need to create it
                 iconDisplayHolder = new Group();
                 
-                iconDisplay = new BitmapImage();
+                iconDisplay = new iconDisplayClass();
                 iconDisplay.left = 0;
                 iconDisplay.right = 0;
                 iconDisplay.top = 0;
