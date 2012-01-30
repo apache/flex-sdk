@@ -37,7 +37,7 @@ public interface ISort
      *  The method used to compare items when sorting.
      *  If you specify this property, Flex ignores any 
      *  <code>compareFunction</code> properties that you specify in the 
-     *  ISortField objects that you use in this class.
+     *  <code>ISortField</code> objects that you use in this class.
      *
      *  <p>The compare function must have the following signature:</p>
      *
@@ -47,21 +47,22 @@ public interface ISort
      *
      *  </code></pre>
      *
-     *  <p>This function must return the following
+     *  <p>This function must return the following value:
      *  <ul>
-     *        <li>-1, if <code>a</code> should appear before <code>b</code> in
-     *        the sorted sequence</li>
-     *        <li>0, if <code>a</code> equals <code>b</code></li>
-     *        <li>1, if <code>a</code> should appear after <code>b</code> in the
-     *        sorted sequence</li>
+     *        <li>-1, if the <code>Object a</code> should appear before the 
+     *        <code>Object b</code> in the sorted sequence</li>
+     *        <li>0, if the <code>Object a</code> equals the 
+     *        <code>Object b</code></li>
+     *        <li>1, if the <code>Object a</code> should appear after the 
+     *        <code>Object b</code> in the sorted sequence</li>
      *  </ul></p>
-     *  <p>To return to the internal comparision function set this value to
+     *  <p>To return to the internal comparision function, set this value to
      *  <code>null</code>.</p>
      *  <p>
      *  The <code>fields</code> array specifies the object fields
      *  to compare.
      *  Typically the algorithm will compare properties until the field list is
-     *  exhausted or a non zero value can be returned.
+     *  exhausted or a non-zero value can be returned.
      *  For example:</p>
      *
      *  <pre><code>
@@ -109,9 +110,9 @@ public interface ISort
      *  field is used in a display.</p>
      *
      *  <p>Alternatively you can specify separate compare functions for each
-     *  sort field by using the ISortField class <code>compareFunction</code>
-     *  property; This way you can use the default comparison for some
-     *  fields and a custom comparison for others.</p>
+     *  sort field by using the <code>ISortField</code> class 
+     *  <code>compareFunction</code> property; This way you can use the default 
+     *  comparison for some fields and a custom comparison for others.</p>
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -122,7 +123,7 @@ public interface ISort
     function set compareFunction(value:Function):void;
 
     /**
-     *  An Array of ISortField objects that specifies the fields to compare.
+     *  An <code>Array</code> of <code>ISortField</code> objects that specifies the fields to compare.
      *  The order of the ISortField objects in the array determines
      *  field priority order when sorting.
      *  The default sort comparator checks the sort fields in array
@@ -147,6 +148,10 @@ public interface ISort
      *  fields listed in the fields property result in an indeterminate or
      *  non-unique sort order; that is, if two or more items have identical
      *  sort field values. An error is thrown if the sort is not unique.
+     *  The sorting logic uses this <code>unique</code> property value only if sort
+     *  field(s) are specified explicitly. If no sort fields are specified
+     *  explicitly, no error is thrown even when there are identical value
+     *  elements.
      *
      *  @default false
      *
@@ -167,13 +172,16 @@ public interface ISort
     /**
      *  Finds the specified object within the specified array (or the insertion
      *  point if asked for), returning the index if found or -1 if not.
-     *  The ListCollectionView class <code>find<i>xxx</i>()</code> methods use
-     *  this method to find the requested item; as a general rule, it is
-     *  easier to use these functions, and not <code>findItem()</code> to find
-     *  data in ListCollectionView-based objects.
+     *  The <code>ListCollectionView</code> class <code>find<i>xxx</i>()</code> 
+     *  methods use this method to find the requested item; as a general rule, 
+     *  it is easier to use these functions, and not <code>findItem()</code> 
+     *  to find data in <code>ListCollectionView</code>-based objects.
      *  You call the <code>findItem()</code> method directly when writing a
-     *  class that supports sorting, such as a new ICollectionView
+     *  class that supports sorting, such as a new <code>ICollectionView</code>
      *  implementation.
+     *  The input items array need to be sorted before calling this function.
+     *  Otherwise this function will not be able to find the specified value
+     *  properly.
      *
      *  @param items the Array within which to search.
      *  @param values Object containing the properties to look for (or
@@ -190,16 +198,25 @@ public interface ISort
      *                and second fields in this parameter, but you cannot
      *                specify  only the first and third fields.
      *  @param mode String containing the type of find to perform.
-     *           Valid values are
-     *                 <ul>
-     *                   <li>ANY_INDEX_MODE</li> Return any position that
-     *                   is valid for the values.
-     *                   <li>FIRST_INDEX_MODE</li> Return the position
-     *                   where the first occurrance of the values is found.
-     *                   <li>LAST_INDEX_MODE</li> Return the position
-     *                   where the
+     *           Valid values are:
+     *             <table>
+     *               <tr>
+     *                 <th>ANY_INDEX_MODE</th> 
+     *                 <th>Return any position that
+     *                   is valid for the values.</th>
+     *               </tr>
+     *               <tr>
+     *                 <th>FIRST_INDEX_MODE</th> 
+     *                 <th>Return the position
+     *                   where the first occurrance of the values is found.</th>
+     *               </tr>
+     *               <tr>
+     *                 <th>LAST_INDEX_MODE</th> 
+     *                 <th>Return the position where the
      *                   last ocurrance of the specified values is found.
-     *                 </ul>
+     *                 </th>
+     *               </tr>
+     *               </table>
      *  @param returnInsertionIndex If the method does not find an item
      *                     identified by the <code>values</code> parameter,
      *                     and this parameter is <code>true</code> the 
@@ -208,11 +225,24 @@ public interface ISort
      *                     that is the point in the sorted order where you
      *                     should insert the item.
      *  @param compareFunction a comparator function to use to find the item.
-     *                 If you do not specify this parameter, the function uses
-     *                 the function determined by the ISort instance's
-     *                 <code>compareFunction</code> property,
+     *                 If you do not specify this parameter or , or if you 
+     *                 provide a <code>null</code> value, 
+     *                 <code>findItem()</code> function uses the
+     *                 compare function determined by the <code>ISort</code>
+     *                 instance's <code>compareFunction</code> property,
      *                 passing in the array of fields determined
-     *                 by the values object and the current SortFields.
+     *                 by the values object and the current 
+     *                 <code>SortFields</code>.
+     *
+     *                 If you provide a non-null value, <code>findItem()</code>
+     *                 function uses it as the compare function.
+     *
+     *                 The signature of the function passed as 
+     *                 <code>compareFunction</code> must be as follows: 
+     *                 <code>function myCompareFunction(a:Object, b:Object):int</code>.
+     *                 Note that there is no third argument unlike the
+     *                 compare function for <code>ISort.compareFunction()</code>
+     *                 property.
      *  @return int The index in the array of the found item.
      *                If the <code>returnInsertionIndex</code> parameter is
      *              <code>false</code> and the item is not found, returns -1.
@@ -221,9 +251,9 @@ public interface ISort
      *                the index of the point in the sorted array where the
      *                values would be inserted.
      *
-     *  @throws SortError If there are any parameter errors, the find critieria is not 
-     *  compatible with the sort or the comparator function for the sort can not be 
-     *  determined.
+     *  @throws SortError If there are any parameter errors,
+     *          the find critieria is not compatible with the sort
+     *          or the comparator function for the sort can not be determined.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -247,7 +277,7 @@ public interface ISort
      *  If the sort uses the default compareFunction, returns
      *  <code>true</code> if the
      *  <code>property</code> parameter specifies a sort field.
-     *  If the sort or any ISortField uses a custom comparator,
+     *  If the sort or any <code>ISortField</code> uses a custom comparator,
      *  there's no way to know, so return <code>true</code>.
      *
      *  @langversion 3.0
@@ -258,13 +288,14 @@ public interface ISort
     function propertyAffectsSort(property:String):Boolean;
 
     /**
-     *  Goes through the <code>fields</code> array and calls reverse() on 
-     *  each of the ISortField objects in the array.
-     *  If the field was descending now it is ascending, and vice versa.
+     *  Goes through the <code>fields</code> array and calls 
+     *  <code>reverse()</code> on each of the <code>ISortField</code> objects in 
+     *  the array. If the field was descending now it is ascending, 
+     *  and vice versa.
      *
-     *  <p>Note: an ICollectionView does not automatically update when the
-     *  objects in the <code>fields</code> array are modified; call 
-     *  its <code>refresh()</code> method to update the view.</p>
+     *  <p>Note: an <code>ICollectionView</code> does not automatically 
+     *  update when the objects in the <code>fields</code> array are modified; 
+     *  call its <code>refresh()</code> method to update the view.</p>
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -278,9 +309,9 @@ public interface ISort
      *  To prevent the array from being modified, create a copy
      *  use the copy in the <code>items</code> parameter.
      *
-     *  <p>Flex ICollectionView implementations call the <code>sort</code>
-     *  method automatically and ensure that the sort is performed on a
-     *  copy of the underlying data.</p>
+     *  <p>Flex <code>ICollectionView</code> implementations call the 
+     *  <code>sort</code> method automatically and ensure that the sort is 
+     *  performed on a copy of the underlying data.</p>
      *
      *  @param items Array of items to sort.
      *
