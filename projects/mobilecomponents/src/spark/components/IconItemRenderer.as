@@ -13,6 +13,7 @@ package spark.components
 {
 import flash.display.DisplayObject;
 import flash.events.TimerEvent;
+import flash.text.TextFieldType;
 import flash.utils.Timer;
 
 import mx.controls.listClasses.*;
@@ -43,8 +44,28 @@ use namespace mx_internal;
 include "../styles/metadata/GapStyles.as"
 
 /**
+ *  The delay value before attempting to load the 
+ *  icon's source if it has not been cached already.
+ * 
+ *  <p>The reason a delay is useful is while scrolling around, you 
+ *  don't necessarily want the image to load up immediately.  Instead, 
+ *  you should wait a certain delay period to make sure the user actually 
+ *  wants to see this item renderer.</p>
+ * 
+ *  @default 500
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="iconDelay", type="Number", format="Time", inherit="no")]
+
+/**
  *  Name of the CSS Style declaration to use for the styles for the
  *  message component.
+ * 
+ *  @default mobileIconItemRendererMessageStyle
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -128,13 +149,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  @private
      *  Static icon image cache.  This is the default for iconContentLoader.
      */
-    static mx_internal var _imageCache:ContentCache;
-    
-    /**
-     *  @private
-     *  Time to wait before setting the source on the iconDisplay and causing a load()
-     */
-    private static const ICON_DELAY_TIME:int = 500;
+    mx_internal static var _imageCache:ContentCache;
     
     //--------------------------------------------------------------------------
     //
@@ -1102,10 +1117,9 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                 messageDisplay.styleChanged("styleName");
         }
         
-        // pass all style changes to labelTextField and messageField
+        // pass all style changes to messageDisplay (labelDisplay
+        // is handled in super.styleChanged())
         // It will deal with them appropriatley and in a performant manner
-        if (labelDisplay)
-            labelDisplay.styleChanged(styleName);
         if (messageDisplay)
             messageDisplay.styleChanged(styleName);
     }
@@ -1403,13 +1417,35 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      */
     private function setIconDisplaySource(source:Object):void
     {
-        // if null, do it synchronously
-        if (source == null)
-            iconDisplay.source = null;
+        var iconDelay:Number = getStyle("iconDelay");
         
-        // don't cancel this load--let it continue if it's the same source
+        // if null or iconDelay == 0, do it synchronously
+        if (source == null || iconDelay == 0)
+        {
+            // stop any asynch operation:
+            if (iconSetterDelayTimer)
+            {
+                iconSetterDelayTimer.stop();
+                iconSetterDelayTimer.reset();
+            }
+            
+            // load it up
+            iconDisplay.source = source;
+            
+            return;
+        }
+        
+        // if it's the same source, don't cancel this load--let it continue 
         if (loadingIconSource == source)
             return;
+        
+        // At this point, we know we can cancel the old asynch operation 
+        // since we're not going to use it anymore
+        if (iconSetterDelayTimer)
+        {
+            iconSetterDelayTimer.stop();
+            iconSetterDelayTimer.reset();
+        }
         
         // check the cache first:
         var contentCache:ContentCache = iconContentLoader as ContentCache;
@@ -1425,13 +1461,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         // otherwise, we need to rely on the timer
         if (!iconSetterDelayTimer)
         {
-            iconSetterDelayTimer = new Timer(ICON_DELAY_TIME, 1);
+            iconSetterDelayTimer = new Timer(iconDelay, 1);
             iconSetterDelayTimer.addEventListener(TimerEvent.TIMER_COMPLETE, iconSetterDelayTimer_timerCompleteHandler);
-        }
-        else
-        {
-            iconSetterDelayTimer.stop();
-            iconSetterDelayTimer.reset();
         }
         
         // this is so we don't display the old data while we're loading
