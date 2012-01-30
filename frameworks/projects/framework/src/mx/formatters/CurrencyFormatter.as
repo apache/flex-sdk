@@ -644,7 +644,24 @@ public class CurrencyFormatter extends Formatter
         // -- value --
 
         if (value is String)
-            value = dataFormatter.parseNumberString(String(value));
+        {
+            var temp_value:String = dataFormatter.parseNumberString(String(value));
+            
+            // If we got 0 back, but string was longer than one character, NumberBase
+            // Chopped our value.  So we need to do some formatting to get our value back
+            // to the way it was.
+            if (temp_value == "0")
+            {
+                var valueArr:Array = value.split(decimalSeparatorFrom);
+                value = valueArr[0];
+                if (valueArr[1] != undefined)
+                    value += "." + valueArr[1];
+                else
+                    value = temp_value;
+            }
+            else
+                value = temp_value;
+        }
 
         if (value === null || isNaN(Number(value)))
         {
@@ -682,7 +699,7 @@ public class CurrencyFormatter extends Formatter
             else
                 numStr = front;
         }
-        else if (Math.abs(numValue) > 0)
+        else if (Math.abs(numValue) >= 0)
         {
         	// if the value is in scientefic notation then the search for '.' 
         	// doesnot give the correct result. Adding one to the value forces 
@@ -694,8 +711,12 @@ public class CurrencyFormatter extends Formatter
 	        	var temp:Number = Math.abs(numValue) + 1;
 	        	numStr = temp.toString();
         	}
-            numStr = decimalSeparatorTo +
-					 numStr.substring(numStr.indexOf(".") + 1);
+        	
+        	// Handle leading zero if we got one give one if not don't
+        	var position:Number = numStr.indexOf(".");
+        	var leading:String = position > 0 ? "0" : "";
+            numStr = leading + decimalSeparatorTo +
+					 numStr.substring(position + 1);
         }
         
         numStr = dataFormatter.formatPrecision(numStr, int(precision));
