@@ -82,7 +82,7 @@ import mx.utils.UIDUtil;
  *  @productversion Flex 4
  */
 public class ArrayList extends EventDispatcher
-	   implements IList, IExternalizable, IPropertyChangeNotifier
+       implements IList, IExternalizable, IPropertyChangeNotifier
 {
     include "../core/Version.as";
 
@@ -103,7 +103,7 @@ public class ArrayList extends EventDispatcher
      */
     public function ArrayList(source:Array = null)
     {
-		super();
+        super();
 
         disableEvents();
         this.source = source;
@@ -123,7 +123,7 @@ public class ArrayList extends EventDispatcher
      */
     private var resourceManager:IResourceManager =
         ResourceManager.getInstance();
-									
+                                    
     /**
      *  @private 
      *  Indicates if events should be dispatched.
@@ -156,10 +156,10 @@ public class ArrayList extends EventDispatcher
      */
     public function get length():int
     {
-    	if (source)
-        	return source.length;
+        if (source)
+            return source.length;
         else
-        	return 0;
+            return 0;
     }
     
     //----------------------------------
@@ -181,7 +181,7 @@ public class ArrayList extends EventDispatcher
      *  <code>theList.source.pop()</code> will not cause <code>CollectionEvents</code> 
      *  to be dispatched.
      *
-	 *  @return An Array that represents the underlying source.
+     *  @return An Array that represents the underlying source.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -215,7 +215,7 @@ public class ArrayList extends EventDispatcher
         if (_dispatchEvents == 0)
         {
            var event:CollectionEvent =
-			new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
            event.kind = CollectionEventKind.RESET;
            dispatchEvent(event);
         }
@@ -243,13 +243,13 @@ public class ArrayList extends EventDispatcher
      */  
     public function get uid():String
     {
-    	return _uid;
+        return _uid;
     }
     
     public function set uid(value:String):void
     {
-    	_uid = value;
-	}
+        _uid = value;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -260,13 +260,13 @@ public class ArrayList extends EventDispatcher
     /**
      *  Get the item at the specified index.
      * 
-     *  @param 	index the index in the list from which to retrieve the item
-     *  @param	prefetch int indicating both the direction and amount of items
-     *			to fetch during the request should the item not be local.
+     *  @param  index the index in the list from which to retrieve the item
+     *  @param  prefetch int indicating both the direction and amount of items
+     *          to fetch during the request should the item not be local.
      *  @return the item at that index, null if there is none
      *  @throws ItemPendingError if the data for that index needs to be 
      *                           loaded from a remote location
-     *  @throws RangeError if the index < 0 or index >= length
+     *  @throws RangeError if the index &lt; 0 or index &gt;= length
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -276,11 +276,11 @@ public class ArrayList extends EventDispatcher
     public function getItemAt(index:int, prefetch:int = 0):Object
     {
         if (index < 0 || index >= length)
-		{
-			var message:String = resourceManager.getString(
-				"collections", "outOfBounds", [ index ]);
-        	throw new RangeError(message);
-		}
+        {
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
+            throw new RangeError(message);
+        }
             
         return source[index];
     }
@@ -290,8 +290,8 @@ public class ArrayList extends EventDispatcher
      *  If an item was already at that index the new item will replace it and it 
      *  will be returned.
      *
-     *  @param 	item the new value for the index
-     *  @param 	index the index at which to place the item
+     *  @param  item the new value for the index
+     *  @param  index the index at which to place the item
      *  @return the item that was replaced, null if none
      *  @throws RangeError if index is less than 0 or greater than or equal to length
      *  
@@ -303,11 +303,11 @@ public class ArrayList extends EventDispatcher
     public function setItemAt(item:Object, index:int):Object
     {
         if (index < 0 || index >= length) 
-		{
-			var message:String = resourceManager.getString(
-				"collections", "outOfBounds", [ index ]);
-        	throw new RangeError(message);
-		}
+        {
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
+            throw new RangeError(message);
+        }
         
         var oldItem:Object = source[index];
         source[index] = item;
@@ -317,35 +317,35 @@ public class ArrayList extends EventDispatcher
         //dispatch the appropriate events 
         if (_dispatchEvents == 0)
         {
-        	var hasCollectionListener:Boolean = 
-        		hasEventListener(CollectionEvent.COLLECTION_CHANGE);
-        	var hasPropertyListener:Boolean = 
-        		hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE);
-        	var updateInfo:PropertyChangeEvent; 
-        	
-        	if (hasCollectionListener || hasPropertyListener)
-        	{
-        		updateInfo = new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
-        		updateInfo.kind = PropertyChangeEventKind.UPDATE;
-            	updateInfo.oldValue = oldItem;
-            	updateInfo.newValue = item;
-            	updateInfo.property = index;
-        	}
-        	
-        	if (hasCollectionListener)
-        	{
-           		var event:CollectionEvent =
-					new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-            	event.kind = CollectionEventKind.REPLACE;
-            	event.location = index;
-            	event.items.push(updateInfo);
-            	dispatchEvent(event);
-         	}
-         	
-         	if (hasPropertyListener)
-         	{
-            	dispatchEvent(updateInfo);
-          	}
+            var hasCollectionListener:Boolean = 
+                hasEventListener(CollectionEvent.COLLECTION_CHANGE);
+            var hasPropertyListener:Boolean = 
+                hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE);
+            var updateInfo:PropertyChangeEvent; 
+            
+            if (hasCollectionListener || hasPropertyListener)
+            {
+                updateInfo = new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+                updateInfo.kind = PropertyChangeEventKind.UPDATE;
+                updateInfo.oldValue = oldItem;
+                updateInfo.newValue = item;
+                updateInfo.property = index;
+            }
+            
+            if (hasCollectionListener)
+            {
+                var event:CollectionEvent =
+                    new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+                event.kind = CollectionEventKind.REPLACE;
+                event.location = index;
+                event.items.push(updateInfo);
+                dispatchEvent(event);
+            }
+            
+            if (hasPropertyListener)
+            {
+                dispatchEvent(updateInfo);
+            }
         }
         return oldItem;    
     }
@@ -382,12 +382,12 @@ public class ArrayList extends EventDispatcher
     public function addItemAt(item:Object, index:int):void
     {
         if (index < 0 || index > length) 
-		{
-			var message:String = resourceManager.getString(
-				"collections", "outOfBounds", [ index ]);
-        	throw new RangeError(message);
-		}
-        	
+        {
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
+            throw new RangeError(message);
+        }
+            
         source.splice(index, 0, item);
 
         startTrackUpdates(item);
@@ -440,14 +440,14 @@ public class ArrayList extends EventDispatcher
      */
     public function getItemIndex(item:Object):int
     {
-    	return ArrayUtil.getItemIndex(item, source);
+        return ArrayUtil.getItemIndex(item, source);
     }
     
     /**
      *  Removes the specified item from this list, should it exist.
      *
-     *	@param	item Object reference to the item that should be removed.
-     *  @return	Boolean indicating if the item was removed.
+     *  @param  item Object reference to the item that should be removed.
+     *  @return Boolean indicating if the item was removed.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -456,12 +456,12 @@ public class ArrayList extends EventDispatcher
      */
     public function removeItem(item:Object):Boolean
     {
-    	var index:int = getItemIndex(item);
-    	var result:Boolean = index >= 0;
-    	if (result)
-    		removeItemAt(index);
+        var index:int = getItemIndex(item);
+        var result:Boolean = index >= 0;
+        if (result)
+            removeItemAt(index);
 
-    	return result;
+        return result;
     }
     
     /**
@@ -470,7 +470,7 @@ public class ArrayList extends EventDispatcher
      *
      *  @param index the index from which to remove the item
      *  @return the item that was removed
-     *  @throws RangeError is index < 0 or index >= length
+     *  @throws RangeError is index &lt; 0 or index &gt;= length
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -480,11 +480,11 @@ public class ArrayList extends EventDispatcher
     public function removeItemAt(index:int):Object
     {
         if (index < 0 || index >= length)
-		{
-			var message:String = resourceManager.getString(
-				"collections", "outOfBounds", [ index ]);
-        	throw new RangeError(message);
-		}
+        {
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
+            throw new RangeError(message);
+        }
 
         var removed:Object = source.splice(index, 1)[0];
         stopTrackUpdates(removed);
@@ -511,7 +511,7 @@ public class ArrayList extends EventDispatcher
             }
 
             source.splice(0, length);
-			internalDispatchEvent(CollectionEventKind.RESET);
+            internalDispatchEvent(CollectionEventKind.RESET);
         }    
     }
     
@@ -524,16 +524,16 @@ public class ArrayList extends EventDispatcher
      *  Otherwise it may choose to simply refresh the whole view.
      *
      *  @param item The item within the view that was updated.
-	 *
+     *
      *  @param property A String, QName, or int
-	 *  specifying the property that was updated.
-	 *
+     *  specifying the property that was updated.
+     *
      *  @param oldValue The old value of that property.
-	 *  (If property was null, this can be the old value of the item.)
-	 *
+     *  (If property was null, this can be the old value of the item.)
+     *
      *  @param newValue The new value of that property.
-	 *  (If property was null, there's no need to specify this
-	 *  as the item is assumed to be the new value.)
+     *  (If property was null, there's no need to specify this
+     *  as the item is assumed to be the new value.)
      *
      *  @see mx.events.CollectionEvent
      *  @see mx.core.IPropertyChangeNotifier
@@ -549,15 +549,15 @@ public class ArrayList extends EventDispatcher
                                  newValue:Object = null):void
     {
         var event:PropertyChangeEvent =
-			new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+            new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
         
-		event.kind = PropertyChangeEventKind.UPDATE;
+        event.kind = PropertyChangeEventKind.UPDATE;
         event.source = item;
         event.property = property;
         event.oldValue = oldValue;
         event.newValue = newValue;
         
-		itemUpdateHandler(event);        
+        itemUpdateHandler(event);        
     }    
     
     /**
@@ -583,7 +583,7 @@ public class ArrayList extends EventDispatcher
      */
     public function readExternal(input:IDataInput):void
     {
-    	source = input.readObject();
+        source = input.readObject();
     }
     
     /**
@@ -592,10 +592,10 @@ public class ArrayList extends EventDispatcher
      */
     public function writeExternal(output:IDataOutput):void
     {
-    	output.writeObject(_source);
+        output.writeObject(_source);
     }
 
-	/**
+    /**
      *  Pretty prints the contents of this ArrayList to a string and returns it.
      *  
      *  @langversion 3.0
@@ -604,12 +604,12 @@ public class ArrayList extends EventDispatcher
      *  @productversion Flex 3
      */
     override public function toString():String
-	{
-		if (source)
-			return source.toString();
-		else
-			return getQualifiedClassName(this);	
-	}	
+    {
+        if (source)
+            return source.toString();
+        else
+            return getQualifiedClassName(this); 
+    }   
     
     //--------------------------------------------------------------------------
     //
@@ -617,78 +617,78 @@ public class ArrayList extends EventDispatcher
     // 
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Enables event dispatch for this list.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	private function enableEvents():void
-	{
-		_dispatchEvents++;
-		if (_dispatchEvents > 0)
-			_dispatchEvents = 0;
-	}
-	
-	/**
-	 *  Disables event dispatch for this list.
-	 *  To re-enable events call enableEvents(), enableEvents() must be called
-	 *  a matching number of times as disableEvents().
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	private function disableEvents():void
-	{
-		_dispatchEvents--;
-	}
-	
-	/**
-	 *  Dispatches a collection event with the specified information.
-	 *
-	 *  @param kind String indicates what the kind property of the event should be
-	 *  @param item Object reference to the item that was added or removed
-	 *  @param location int indicating where in the source the item was added.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	private function internalDispatchEvent(kind:String, item:Object = null, location:int = -1):void
-	{
-    	if (_dispatchEvents == 0)
-    	{
-    		if (hasEventListener(CollectionEvent.COLLECTION_CHANGE))
-    		{
-		        var event:CollectionEvent =
-					new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-		        event.kind = kind;
-		        event.items.push(item);
-		        event.location = location;
-		        dispatchEvent(event);
-		    }
+    /**
+     *  Enables event dispatch for this list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    private function enableEvents():void
+    {
+        _dispatchEvents++;
+        if (_dispatchEvents > 0)
+            _dispatchEvents = 0;
+    }
+    
+    /**
+     *  Disables event dispatch for this list.
+     *  To re-enable events call enableEvents(), enableEvents() must be called
+     *  a matching number of times as disableEvents().
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    private function disableEvents():void
+    {
+        _dispatchEvents--;
+    }
+    
+    /**
+     *  Dispatches a collection event with the specified information.
+     *
+     *  @param kind String indicates what the kind property of the event should be
+     *  @param item Object reference to the item that was added or removed
+     *  @param location int indicating where in the source the item was added.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    private function internalDispatchEvent(kind:String, item:Object = null, location:int = -1):void
+    {
+        if (_dispatchEvents == 0)
+        {
+            if (hasEventListener(CollectionEvent.COLLECTION_CHANGE))
+            {
+                var event:CollectionEvent =
+                    new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+                event.kind = kind;
+                event.items.push(item);
+                event.location = location;
+                dispatchEvent(event);
+            }
 
-	    	// now dispatch a complementary PropertyChangeEvent
-	    	if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE) && 
-	    	   (kind == CollectionEventKind.ADD || kind == CollectionEventKind.REMOVE))
-	    	{
-	    		var objEvent:PropertyChangeEvent =
-					new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
-	    		objEvent.property = location;
-	    		if (kind == CollectionEventKind.ADD)
-	    			objEvent.newValue = item;
-	    		else
-	    			objEvent.oldValue = item;
-	    		dispatchEvent(objEvent);
-	    	}
-	    }
-	}
-	
+            // now dispatch a complementary PropertyChangeEvent
+            if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE) && 
+               (kind == CollectionEventKind.ADD || kind == CollectionEventKind.REMOVE))
+            {
+                var objEvent:PropertyChangeEvent =
+                    new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+                objEvent.property = location;
+                if (kind == CollectionEventKind.ADD)
+                    objEvent.newValue = item;
+                else
+                    objEvent.oldValue = item;
+                dispatchEvent(objEvent);
+            }
+        }
+    }
+    
     /**
      *  Called whenever any of the contained items in the list fire an
      *  ObjectChange event.  
@@ -701,15 +701,15 @@ public class ArrayList extends EventDispatcher
      */    
     protected function itemUpdateHandler(event:PropertyChangeEvent):void
     {
-		internalDispatchEvent(CollectionEventKind.UPDATE, event);
-		// need to dispatch object event now
-    	if (_dispatchEvents == 0 && hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
-    	{
-    		var objEvent:PropertyChangeEvent = PropertyChangeEvent(event.clone());
-    		var index:uint = getItemIndex(event.target);
-    		objEvent.property = index.toString() + "." + event.property;
-    		dispatchEvent(objEvent);
-    	}
+        internalDispatchEvent(CollectionEventKind.UPDATE, event);
+        // need to dispatch object event now
+        if (_dispatchEvents == 0 && hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+        {
+            var objEvent:PropertyChangeEvent = PropertyChangeEvent(event.clone());
+            var index:uint = getItemIndex(event.target);
+            objEvent.property = index.toString() + "." + event.property;
+            dispatchEvent(objEvent);
+        }
     }
     
     /** 
@@ -727,7 +727,7 @@ public class ArrayList extends EventDispatcher
         if (item && (item is IEventDispatcher))
         {
             IEventDispatcher(item).addEventListener(
-				                        PropertyChangeEvent.PROPERTY_CHANGE, 
+                                        PropertyChangeEvent.PROPERTY_CHANGE, 
                                         itemUpdateHandler, false, 0, true);
         }
     }
@@ -747,7 +747,7 @@ public class ArrayList extends EventDispatcher
         if (item && item is IEventDispatcher)
         {
             IEventDispatcher(item).removeEventListener(
-				                        PropertyChangeEvent.PROPERTY_CHANGE, 
+                                        PropertyChangeEvent.PROPERTY_CHANGE, 
                                         itemUpdateHandler);    
         }
     }
