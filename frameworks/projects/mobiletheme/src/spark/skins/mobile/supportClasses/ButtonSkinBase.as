@@ -85,7 +85,7 @@ package spark.skins.mobile.supportClasses
         protected var labelDisplayShadow:MobileTextField;      
         
         // Holds the icon
-        protected var iconDisplay:DisplayObject;
+        protected var iconInstance:DisplayObject;
         
         /**
          *  If true, then create the iconDisplay using the icon style
@@ -146,6 +146,9 @@ package spark.skins.mobile.supportClasses
             
             addChild(labelDisplayShadow);
             addChild(labelDisplay);
+            
+            if (useIconStyle)
+                hostComponent.addEventListener("iconChange", iconChangeHandler);
         }
         
         /**
@@ -154,11 +157,8 @@ package spark.skins.mobile.supportClasses
         override public function styleChanged(styleProp:String):void 
         {    
             if (!styleProp || 
-                styleProp == "styleName" || styleProp == "icon" 
-                || styleProp == "iconPlacement")
+                styleProp == "styleName" || styleProp == "iconPlacement")
             {
-                iconChanged = true;
-                invalidateProperties();
                 invalidateSize();
                 invalidateDisplayList();
             }
@@ -177,19 +177,19 @@ package spark.skins.mobile.supportClasses
             
             if (iconChanged && useIconStyle)
             {
-                if (iconDisplay)
+                if (iconInstance)
                 {
-                    removeChild(iconDisplay);
-                    iconDisplay = null;
+                    removeChild(iconInstance);
+                    iconInstance = null;
                 }
                     
-                var icon:Class = getStyle("icon");
+                var icon:Class = hostComponent.icon;
                 
                 if (icon)
                 {
                     // Should be a bitmap
-                    iconDisplay = new icon();
-                    addChild(iconDisplay);
+                    iconInstance = new icon();
+                    addChild(iconInstance);
                 }
                 
                 iconChanged = false;
@@ -221,8 +221,8 @@ package spark.skins.mobile.supportClasses
                 textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
             }
             
-            var iconWidth:Number = iconDisplay ? iconDisplay.width : 0;
-            var iconHeight:Number = iconDisplay ? iconDisplay.height : 0;
+            var iconWidth:Number = iconInstance ? iconInstance.width : 0;
+            var iconHeight:Number = iconInstance ? iconInstance.height : 0;
             var w:Number = 0;
             var h:Number = 0;
             
@@ -304,10 +304,10 @@ package spark.skins.mobile.supportClasses
             var viewWidth:Number = unscaledWidth;
             var viewHeight:Number = unscaledHeight;
             
-            if (iconDisplay)
+            if (iconInstance)
             {
-                iconWidth = iconDisplay.width;
-                iconHeight = iconDisplay.height;
+                iconWidth = iconInstance.width;
+                iconHeight = iconInstance.height;
             }
             
             if (iconPlacement == IconPlacement.LEFT ||
@@ -428,16 +428,16 @@ package spark.skins.mobile.supportClasses
             if (labelDisplay.isTruncated)
                 labelDisplayShadow.text = labelDisplay.text;
             
-            if (iconDisplay)
+            if (iconInstance)
             {                
-                iconDisplay.x = Math.round(iconX);
-                iconDisplay.y = Math.round(iconY);
+                iconInstance.x = Math.round(iconX);
+                iconInstance.y = Math.round(iconY);
             }        
         }
         
         //--------------------------------------------------------------------------
         //
-        //  Methods
+        //  Event Handlers
         //
         //--------------------------------------------------------------------------
         
@@ -447,6 +447,14 @@ package spark.skins.mobile.supportClasses
         private function labelDisplay_valueCommitHandler(event:FlexEvent):void 
         {
             labelDisplayShadow.text = labelDisplay.text;
+            invalidateSize();
+            invalidateDisplayList();
+        }
+        
+        private function iconChangeHandler(event:Event):void
+        {
+            iconChanged = true;
+            invalidateProperties();
             invalidateSize();
             invalidateDisplayList();
         }
