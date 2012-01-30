@@ -222,6 +222,7 @@ public class MobileTextField extends TextField implements IEditableText
     public function set editable(value:Boolean):void
     {
         type = value ? TextFieldType.INPUT : TextFieldType.DYNAMIC;
+		dispatchEvent(new Event("editableChanged"));
     }
     
     //----------------------------------
@@ -596,8 +597,17 @@ public class MobileTextField extends TextField implements IEditableText
             textFormat.indent = getStyleFunction("textIndent");
             textFormat.leading = getStyleFunction("leading");
             textFormat.letterSpacing = getStyleFunction("letterSpacing");
+			var kerning:* = getStyleFunction("kerning");
+			if (kerning == "auto" || kerning == "on")
+				kerning = true;
+			else if (kerning == "default" || kerning == "off")
+				kerning = false;
+			textFormat.kerning = kerning;
             
-            // do we care abotu kerning, antiAliasType, gridFitType, sharpness, thickness, or leading?
+			antiAliasType = getStyleFunction("fontAntiAliasType");
+			gridFitType = getStyleFunction("fontGridFitType");
+			sharpness = getStyleFunction("fontSharpness");
+			thickness = getStyleFunction("fontThickness");
             
             // ignore padding in the text...most components deal with it themselves
             //textFormat.leftMargin = getStyleFunction("paddingLeft");
@@ -608,6 +618,17 @@ public class MobileTextField extends TextField implements IEditableText
             
             defaultTextFormat = textFormat;
             setTextFormat(textFormat);
+			
+			// If our text is empty we need to force the style changes in order for
+			// textHeight to be valid. Setting the width is sufficient, and should
+			// have minimal overhead since we don't have any text.
+			if (text == "")
+			{
+				// Set the width to the fontSize + padding, which is big enough to hold one
+				// character. 
+				width = textFormat.size + TEXT_WIDTH_PADDING;
+			}
+			
             invalidateStyleFlag = false;
         }
     }
@@ -636,7 +657,8 @@ public class MobileTextField extends TextField implements IEditableText
     
     /**
      *  Truncate text to make it fit horizontally in the area defined for the control, 
-     *  and append an ellipsis, three periods (...), to the text.
+     *  and append an ellipsis, three periods (...), to the text. This function
+	 *  only works for single line text.
      *
      *  @param truncationIndicator The text to be appended after truncation.
      *  If you pass <code>null</code>, a localizable string
@@ -678,6 +700,9 @@ public class MobileTextField extends TextField implements IEditableText
             }
             
             _isTruncated = true;
+			
+			// Make sure all text is visible
+			scrollH = 0;
         }
         
         // Dispatch "isTruncatedChange"
