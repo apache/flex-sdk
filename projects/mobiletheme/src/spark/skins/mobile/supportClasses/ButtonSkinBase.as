@@ -317,7 +317,10 @@ public class ButtonSkinBase extends MobileSkin
         
         h += layoutPaddingTop + adjustablePaddingBottom;
         
-        // minimums
+        // measuredMinHeight for width and height for a square measured minimum size
+        measuredMinWidth = h;
+        measuredMinHeight = h;
+        
         measuredWidth = w
         measuredHeight = h;
     }
