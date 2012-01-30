@@ -247,9 +247,7 @@ public class ViewNavigatorApplicationBase extends Application
     public function get persistenceManager():IPersistenceManager
     {
         if (!_persistenceManager)
-        {
-            _persistenceManager = createPersistenceManager();
-        }
+            initializePersistenceManager();
         
         return _persistenceManager;
     }
@@ -797,10 +795,9 @@ public class ViewNavigatorApplicationBase extends Application
         registerClassAlias("ViewDescriptor", ViewDescriptor);
         registerClassAlias("NavigationStack", NavigationStack);
 
-        // Initialize and load the persisted data.  The persistence manager
-        // will automatically be allocated in the persistenceManager getter
-        // called below
-        persistenceManager.load();
+        // Initialize and load the persisted data.
+        _persistenceManager = createPersistenceManager();
+        _persistenceManager.load();
 
         _persistenceInitialized = true;
     }
