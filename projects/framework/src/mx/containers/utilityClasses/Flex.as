@@ -487,7 +487,7 @@ public class Flex
 		// distribute to them
 		var stillFlexibleComponents:Boolean = true;	
 		
-		while (stillFlexibleComponents && spaceToDistribute > 0)
+		while (stillFlexibleComponents && spaceToDistribute >= 1.0)
 		{
 			// Start optimistically
 			stillFlexibleComponents = false;
@@ -595,7 +595,7 @@ public class Flex
 		// distribute to them
 		var stillFlexibleComponents:Boolean = true;	
 		
-		while (stillFlexibleComponents && spaceToDistribute > 0)
+		while (stillFlexibleComponents && spaceToDistribute >= 1.0)
 		{
 			// Start optimistically
 			stillFlexibleComponents = false;
