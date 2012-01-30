@@ -68,6 +68,11 @@ package mx.core
  *
  *  @see mx.core.IFactory
  *  @see mx.controls.List
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ClassFactory implements IFactory
 {
@@ -84,6 +89,11 @@ public class ClassFactory implements IFactory
      *
      *  @param generator The Class that the <code>newInstance()</code> method uses
 	 *  to generate objects from this factory object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ClassFactory(generator:Class = null)
     {
@@ -105,6 +115,11 @@ public class ClassFactory implements IFactory
     /**
      *  The Class that the <code>newInstance()</code> method uses
 	 *  to generate objects from this factory object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var generator:Class;
 
@@ -124,6 +139,11 @@ public class ClassFactory implements IFactory
 	 *  <code>100</code>.</p>
 	 *
 	 *  @default null
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var properties:Object = null;
 
@@ -141,6 +161,11 @@ public class ClassFactory implements IFactory
 	 *  of the IFactory interface.</p>
 	 *
 	 *  @return The new instance that was created.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function newInstance():*
 	{
