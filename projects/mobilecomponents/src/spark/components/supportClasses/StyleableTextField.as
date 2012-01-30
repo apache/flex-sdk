@@ -943,6 +943,12 @@ public class StyleableTextField extends FlexTextField
         if (stage.focus != this)
             stage.focus = this;
         
+        // Work around a runtime bug where calling setSelection(0,0) doesn't
+        // work if the text field is not in focus. 
+        // This handles the read-only, non-selectable case
+        if (selectable == false)
+            setSelection(0,0);
+        
         if (editable)
             requestSoftKeyboard();
     }
