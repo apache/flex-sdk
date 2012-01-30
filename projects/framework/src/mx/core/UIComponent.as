@@ -827,7 +827,8 @@ include "../styles/metadata/AnchorStyles.as";
 /**
  *  Skin used to draw the focus rectangle.
  *
- *  @default mx.skins.halo.HaloFocusRect
+ *  The default value for Halo components is mx.skins.halo.HaloFocusRect. 
+ *  The default value for Spark components is spark.skins.default.FocusSkin.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -1267,7 +1268,7 @@ public class UIComponent extends FlexSprite
     //  embeddedFontRegistry
     //----------------------------------
 
-	private static var noEmbeddedFonts:Boolean;
+    private static var noEmbeddedFonts:Boolean;
 
     /**
      *  @private
@@ -1288,15 +1289,15 @@ public class UIComponent extends FlexSprite
     {
         if (!_embeddedFontRegistry && !noEmbeddedFonts)
         {
-			try
-			{
-				_embeddedFontRegistry = IEmbeddedFontRegistry(
-					Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
-			}
-			catch (e:Error)
-			{
-				noEmbeddedFonts = true;
-			}
+            try
+            {
+                _embeddedFontRegistry = IEmbeddedFontRegistry(
+                    Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+            }
+            catch (e:Error)
+            {
+                noEmbeddedFonts = true;
+            }
         }
 
         return _embeddedFontRegistry;
@@ -1805,33 +1806,33 @@ public class UIComponent extends FlexSprite
      */
     mx_internal var automaticRadioButtonGroups:Object;
 
-	private var _usingBridge:int = -1;
+    private var _usingBridge:int = -1;
 
-	/**
-	 *  @private
-	 */
-	private function get usingBridge():Boolean
-	{
-		if (_usingBridge == 0) return false;
-		if (_usingBridge == 1) return true;
+    /**
+     *  @private
+     */
+    private function get usingBridge():Boolean
+    {
+        if (_usingBridge == 0) return false;
+        if (_usingBridge == 1) return true;
 
-		if (!_systemManager) return false;
+        if (!_systemManager) return false;
 
-		// no types so no dependencies
-		var mp:Object = _systemManager.getImplementation("mx.managers.IMarshallPlanSystemManager");
-		if (!mp)
-		{
-			_usingBridge = 0;
-			return false;
-		}
-		if (mp.useSWFBridge())
-		{
-			_usingBridge = 1;
-			return true;
-		}
-		_usingBridge = 0;
-		return false;
-	}
+        // no types so no dependencies
+        var mp:Object = _systemManager.getImplementation("mx.managers.IMarshallPlanSystemManager");
+        if (!mp)
+        {
+            _usingBridge = 0;
+            return false;
+        }
+        if (mp.useSWFBridge())
+        {
+            _usingBridge = 1;
+            return true;
+        }
+        _usingBridge = 0;
+        return false;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -10891,13 +10892,13 @@ public class UIComponent extends FlexSprite
     mx_internal function getFontContext(fontName:String, bold:Boolean,
                                         italic:Boolean):IFlexModuleFactory
     {
-		if (noEmbeddedFonts) 
-			return null;
+        if (noEmbeddedFonts) 
+            return null;
 
-		var registry:IEmbeddedFontRegistry = embeddedFontRegistry;
+        var registry:IEmbeddedFontRegistry = embeddedFontRegistry;
 
         return registry ? registry.getAssociatedModuleFactory(
-			fontName, bold, italic, this, moduleFactory) : null;
+            fontName, bold, italic, this, moduleFactory) : null;
     }
 
     /**
@@ -11388,13 +11389,13 @@ public class UIComponent extends FlexSprite
      */
     override public function set transform(value:flash.geom.Transform):void
     {
-    	var m:Matrix = value.matrix;
+        var m:Matrix = value.matrix;
         var m3:Matrix3D =  value.matrix3D;
         var ct:ColorTransform = value.colorTransform;
-    	var pp:PerspectiveProjection = value.perspectiveProjection;
-    	
+        var pp:PerspectiveProjection = value.perspectiveProjection;
+        
         setTransform(value);
-		
+        
         if(m != null)
             setLayoutMatrix(m.clone(), true /*triggerLayoutPass*/);
         else if(m3 != null)
