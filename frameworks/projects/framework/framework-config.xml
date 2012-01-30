@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2010 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<flex-config>
+   <compiler>
+
+		<!-- Conditional compilation for the framework performance instrumentation code. -->
+        <define>
+            <name>CONFIG::performanceInstrumentation</name>
+            <value>false</value>
+        </define>
+
+    </compiler>     
+</flex-config>
