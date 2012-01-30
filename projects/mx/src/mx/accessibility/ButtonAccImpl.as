@@ -128,7 +128,7 @@ public class ButtonAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x2B;
+		role = 0x2B; // ROLE_SYSTEM_PUSHBUTTON
 	}
 
 	//--------------------------------------------------------------------------
