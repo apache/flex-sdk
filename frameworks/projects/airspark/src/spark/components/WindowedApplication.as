@@ -566,7 +566,7 @@ public class WindowedApplication extends Application implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     [SkinPart (required="false")]
     public var statusText:TextGraphicElement;
