@@ -22,11 +22,12 @@ import flash.system.Capabilities;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 
-import mx.controls.Button;
-import spark.components.supportClasses.SkinnableComponent;
 import mx.core.IWindow;
-import spark.primitives.SimpleText;
 import mx.styles.StyleManager;
+
+import spark.components.Button;
+import spark.components.supportClasses.SkinnableComponent;
+import spark.primitives.SimpleText;
 
 /**
  *  The default title bar for a WindowedApplication or a Window.
