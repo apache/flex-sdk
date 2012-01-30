@@ -1164,8 +1164,16 @@ public class ViewTransitionBase extends EventDispatcher
         snapShot.alwaysCreateDisplayObject = true;
         
         // Capture image, with consideration for transform and color matrix.
+        // Return null if an error is thrown.
         var bounds:Rectangle = new Rectangle();
-        snapShot.source = BitmapUtil.getSnapshotWithPadding(target, padding, true, bounds);
+        try
+        {
+            snapShot.source = BitmapUtil.getSnapshotWithPadding(target, padding, true, bounds);
+        }
+        catch (e:SecurityError)
+        {
+            return null;
+        }
         
         // Size and offset snapShot to match our image bounds data.
         snapShot.width = bounds.width;
