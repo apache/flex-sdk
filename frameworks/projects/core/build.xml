@@ -17,8 +17,8 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-    <!-- overriding from build.properties -->
-    <property name="playerglobal.version" value="9"/>  
+    <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
+    <property name="local.playerglobal.version" value="9"/>  
 
 	<target name="main" depends="clean,compile" description="Clean build of flex.swc"/>
 
@@ -56,6 +56,7 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/flex.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
+            <!-- If you change this, update ${local.playerglobal.version} above. -->
             <target-player>9</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-classes>FlexClasses</include-classes>
@@ -63,7 +64,7 @@
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
 			<library-path/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 			</external-library-path>
 			<locale/>
 			<accessible>true</accessible>
