@@ -56,6 +56,9 @@ public class ActionBarSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     mx_internal static const ACTIONBAR_CHROME_COLOR_RATIOS:Array = [0, 80];
     
     //--------------------------------------------------------------------------
@@ -129,6 +132,9 @@ public class ActionBarSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     private var borderSize:uint;
     
     protected var layoutShadowHeight:uint;
@@ -148,12 +154,24 @@ public class ActionBarSkin extends MobileSkin
      */
     public var hostComponent:ActionBar;
     
+    /**
+     *  @private
+     */
     private var _navigationVisible:Boolean = false;
     
+    /**
+     *  @private
+     */
     private var _titleContentVisible:Boolean = false;
     
+    /**
+     *  @private
+     */
     private var _actionVisible:Boolean = false;
     
+    /**
+     *  @private
+     */
     private var border:SpriteVisualElement;
     
     //--------------------------------------------------------------------------
@@ -467,6 +485,9 @@ public class ActionBarSkin extends MobileSkin
         }
     }
     
+    /**
+     *  @private
+     */
     override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.drawBackground(unscaledWidth, unscaledHeight);
