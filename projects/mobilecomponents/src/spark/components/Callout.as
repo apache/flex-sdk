@@ -35,6 +35,28 @@ import mx.utils.PopUpUtil;
 use namespace mx_internal;
 
 //--------------------------------------
+//  Styles
+//--------------------------------------
+
+/**
+ *  Appearance of the contentGroup. Valid MXML values are <code>inset</code>
+ *  <code>flat</code> and <code>transparent</code>.
+ *
+ *  <p>In ActionScript, you can use the following constants
+ *  to set this property:
+ *  <code>CalloutContentBackgroundAppearance.INSET</code>,
+ *  <code>CalloutContentBackgroundAppearance.FLAT</code> and
+ *  <code>CalloutContentBackgroundAppearance.NONE</code>.</p>
+ *
+ *  @default CalloutContentBackgroundAppearance.INSET
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 3
+ *  @productversion Flex 4.5.2
+ */ 
+[Style(name="contentBackgroundAppearance", type="String", enumeration="inset,flat,none", inherit="no")]
+
+//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
@@ -79,6 +101,12 @@ use namespace mx_internal;
  *  and transition to the <code>normal</code> skin state.
  *  To define open and close animations, use a custom skin with transitions between
  *  the <code>closed</code> and <code>normal</code> skin states.</p>
+ * 
+ *  <p>Callout changes the default inheritance behavior seen in Flex components 
+ *  and instead, inherits styles from the top-level application. This prevents
+ *  Callout's contents from unintentionally inheriting styles from an owner
+ *  (i.e. Button or TextInput) where the default appearance was desired and
+ *  expected.</p>
  *
  *  <p>The Callout container has the following default characteristics:</p>
  *     <table class="innertable">
