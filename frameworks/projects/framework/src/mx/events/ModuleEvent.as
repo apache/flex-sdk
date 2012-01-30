@@ -232,6 +232,8 @@ public class ModuleEvent extends ProgressEvent
      *  @param errorText The error message when the event type 
      *  is <code>ModuleEvent.ERROR</code>.
      *
+     *  @param module An instance of an interface for a particular module. .
+     *
      *  @tiptext Constructor for <code>ModuleEvent</code> objects.
      *  
      *  @langversion 3.0
@@ -242,12 +244,12 @@ public class ModuleEvent extends ProgressEvent
     public function ModuleEvent(type:String, bubbles:Boolean = false,
                                 cancelable:Boolean = false,
                                 bytesLoaded:uint = 0, bytesTotal:uint = 0,
-								errorText:String = null, module:IModuleInfo = null)
+                                errorText:String = null, module:IModuleInfo = null)
     {
         super(type, bubbles, cancelable, bytesLoaded, bytesTotal);
 
         this.errorText = errorText;
-		this._module = module;
+        this._module = module;
     }
     
     //--------------------------------------------------------------------------
@@ -275,7 +277,7 @@ public class ModuleEvent extends ProgressEvent
     //  module
     //----------------------------------
 
-	private var _module:IModuleInfo;
+    private var _module:IModuleInfo;
 
     /**
      *  The <code>target</code>, which is an instance of an
@@ -287,10 +289,10 @@ public class ModuleEvent extends ProgressEvent
      *  @productversion Flex 3
      */
     public function get module():IModuleInfo
-	{
-		if (_module) return _module;
-		return target as IModuleInfo;
-	}
+    {
+        if (_module) return _module;
+        return target as IModuleInfo;
+    }
 
     //--------------------------------------------------------------------------
     //
