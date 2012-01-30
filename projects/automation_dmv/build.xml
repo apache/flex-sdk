@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<project name="automation_charts" default="main" basedir=".">
+
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+	<property file="${FLEX_HOME}/build.properties"/>
+	<property name="local.playerglobal.version" value="10"/>
+	<property name="locale" value="en_US"/>
+	
+	<macrodef name="bundle">
+		<attribute name="locale"/>
+		<sequential>
+				<echo message="Compiling frameworks/locale/@{locale}/automation_dmv_rb.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<compc fork="true"
+			   output="${FLEX_HOME}/frameworks/locale/@{locale}/automation_dmv_rb.swc"
+			   locale="@{locale}">
+			<jvmarg line="${compc.jvm.args}"/>
+			<target-player>10</target-player>
+ 			<include-resource-bundles bundle="automation_agent"/>
+			<include-resource-bundles bundle="containers"/>
+			<include-resource-bundles bundle="controls"/>
+			<include-resource-bundles bundle="core"/>
+			<include-resource-bundles bundle="effects"/>
+			<include-resource-bundles bundle="skins"/>
+			<include-resource-bundles bundle="styles"/>
+			<include-namespaces/>
+			<include-classes/>
+			<source-path path-element="${basedir}/bundles/@{locale}"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/automation_dmv/src"/>
+			<include-libraries/>
+			<library-path/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+				<include name="framework.swc"/>
+			</external-library-path>
+		</compc>
+		</sequential>
+	</macrodef>	
+	
+	<macrodef name="fat-swc">
+		<attribute name="locale"/>
+		<sequential>
+			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
+			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/automation_dmv_rb.swc" update="true">
+				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
+					<include name="*.*"/>
+				</zipfileset>
+			</zip>
+			<delete dir="${basedir}/bundles/@{locale}/docs" failonerror="false"/>
+		</sequential>
+	</macrodef>	
+	
+	<macrodef name="bundler">
+		<attribute name="locale"/>
+		<sequential>
+			<bundle locale="@{locale}"/>
+			<fat-swc locale="@{locale}"/>
+		</sequential>
+	</macrodef>
+				
+	<target name="main" depends="clean,compile" description="Clean build of automation_dmv.swc and en_US">
+		<bundle locale="${locale}"/>
+	</target>
+	
+	<target name="other.locales" depends="bundles-clean,bundles" description="Build other locale SWCs"/>
+	
+	<!-- This is a private target for building automation_rb.swc for various locales. -->
+	<!-- The targets below set the 'locale' parameter  -->
+	<target name="bundles">
+		<bundler locale="da_DK"/><!-- Danish resources -->
+		<bundler locale="de_DE"/><!-- German resources -->
+		<bundler locale="en_US"/><!-- American English resources  -->
+		<bundler locale="es_ES"/><!-- Spanish resources -->
+		<bundler locale="fi_FI"/><!--  Finnish resources-->
+		<bundler locale="fr_FR"/><!-- French resources -->
+		<bundler locale="it_IT"/><!-- Italian resources -->
+		<bundler locale="ja_JP"/><!-- Japanese resources -->
+		<bundler locale="ko_KR"/><!-- Korean resources -->
+		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
+		<bundler locale="nl_NL"/><!-- Dutch resources -->
+		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
+		<bundler locale="ru_RU"/><!-- Swedish resources -->
+		<bundler locale="sv_SE"/><!-- Swedish resources -->
+		<bundler locale="zh_CN"/><!-- Simplified Chinese resources -->
+		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
+	</target>
+		
+	<target name="compile" description="Compiles automation_dmv.swc">
+		<echo message="Compiling frameworks/libs/automation_dmv.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<!--
+			Link in the classes (and their dependencies) for the MXML tags
+			listed in this project's manifest.xml.
+			Also link the additional classes (and their dependencies)
+			listed in FrameworkClasses.as,
+			because these aren't referenced by the manifest classes.
+			Keep the standard metadata when compiling.
+			Link in accessibility support.
+			Include the appropriate CSS files and assets in the SWC.
+			Don't include any resources in the SWC.
+			Write a bundle list of referenced resource bundles
+			into the file bundles.properties in this directory.
+		-->
+		
+		<compc fork="true"
+			   output="${FLEX_HOME}/frameworks/libs/automation_dmv.swc">
+			<jvmarg line="${compc.jvm.args}"/>
+			<target-player>10</target-player>
+			<include-classes>AutomationDMVClasses</include-classes>
+			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
+			<library-path/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+				<include name="framework.swc"/>
+				<include name="textLayout.swc"/>
+				<include name="rpc.swc"/>
+				<include name="datavisualization.swc"/>
+				<include name="automation_agent.swc"/>
+				<include name="qtp.swc"/>
+				<include name="qtp_air.swc"/>
+				</external-library-path>
+			<locale/>
+			<accessible>true</accessible>
+		</compc>
+	</target>
+		
+	<target name="doc" depends="clean-temp-docs" description="updates framework.swc with asdoc xml">
+		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx384m">
+	        <os family="windows"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="mac"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="unix"/>
+	    </condition>
+
+		<!-- Call asdoc to generate dita xml files -->
+		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+		    <compiler.source-path path-element="${basedir}/src"/>
+			<doc-classes class="AutomationDMVClasses"/>
+		    <doc-namespaces uri="http://www.adobe.com/2006/mxml"/>
+		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest_automation_dmv.xml"/>
+		    <jvmarg line="${asdoc.jvm.args}"/>
+		</asdoc>
+
+		<!-- updates datavisualization.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/locale/en_US/automation_dmv_rb.swc" update="true">
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+	</target>
+
+	<target name="clean">
+		<delete failonerror="false">
+			<fileset dir="${basedir}" >
+				<include name="bundles.properties"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/libs">
+				<include name="automation_dmv.swc"/>
+				<include name="automation_dmv.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="bundles-clean">
+		<delete failonerror="false">
+			<fileset dir="${FLEX_HOME}/frameworks/locale">
+				<include name="*/automation_dmv_rb.swc"/>
+				<include name="*/automation_dmv_rb.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="clean-temp-docs">
+		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+	</target>
+</project>
