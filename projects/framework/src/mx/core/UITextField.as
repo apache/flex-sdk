@@ -2142,9 +2142,10 @@ public class UITextField extends FlexTextField
         // be called again when parentChanged is called.
         if (!parent)
             return;
-
+        
+        // If mirroring, setting width can change the transform matrix.
         if (!isNaN(explicitWidth) && super.width != explicitWidth)
-            super.width = (explicitWidth > 4) ? explicitWidth : 4;
+            width = (explicitWidth > 4) ? explicitWidth : 4;
 
         if (!isNaN(explicitHeight) && super.height != explicitHeight)
             super.height = explicitHeight;
