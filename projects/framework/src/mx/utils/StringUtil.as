@@ -18,6 +18,11 @@ package mx.utils
  *  You do not create instances of StringUtil;
  *  instead you call methods such as 
  *  the <code>StringUtil.substitute()</code> method.  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class StringUtil
 {
@@ -37,6 +42,11 @@ public class StringUtil
      *
      *  @return Updated String where whitespace was removed from the 
      *  beginning and end. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function trim(str:String):String
     {
@@ -66,6 +76,11 @@ public class StringUtil
      *
      *  @return Updated String where whitespace was removed from the 
      *  beginning and end of each element. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function trimArrayElements(value:String, delimiter:String):String
     {
@@ -96,6 +111,11 @@ public class StringUtil
      *
      *  @return <code>true</code> if the specified string is
      *  a single space, tab, carriage return, newline, or formfeed character.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isWhitespace(character:String):Boolean
     {
@@ -147,6 +167,11 @@ public class StringUtil
      *
      *  // this will output the following string:
      *  // "here is some info '15.4' and true"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function substitute(str:String, ... rest):String
     {
@@ -182,6 +207,11 @@ public class StringUtil
      *  @param n The repeat count.
      *
      *  @result The repeated string.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function repeat(str:String, n:int):String
     {
@@ -209,6 +239,11 @@ public class StringUtil
      *
      *  @result The input string, minus any characters
      *  that are not allowed by the restriction string.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function restrict(str:String, restrict:String):String
 	{
