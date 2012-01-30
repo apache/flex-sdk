@@ -17,7 +17,7 @@ package spark.components
  *  allowed values of the <code>contentBackgroundAppearance</code> style of 
  *  Callout.
  * 
- *  @see spark.components.Callout#contentBackgroundAppearance
+ *  @see spark.components.Callout#style:contentBackgroundAppearance
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
