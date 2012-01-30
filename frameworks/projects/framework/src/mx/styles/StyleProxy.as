@@ -464,6 +464,21 @@ public class StyleProxy implements IAdvancedStyleClient
     {
         return _advancedSource ? _advancedSource.matchesCSSType(cssType) : false;
     }
+
+    /**
+     *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.6
+     */
+    
+    public function hasCSSState():Boolean
+    {
+        return _advancedSource ? _advancedSource.hasCSSState() : false;
+    }    
+
 }
 
 }
