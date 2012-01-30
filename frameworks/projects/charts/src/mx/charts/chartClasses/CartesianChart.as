@@ -1060,7 +1060,9 @@ public class CartesianChart extends ChartBase
             g = displayedSeries[i] as IChartElement;
             if (!g)
                 continue;
-                
+			
+			Series(g).dataTransform = new CartesianTransform();
+			
             Series(g).invalidateProperties();
             
             labelLayer = UIComponent(g.labelContainer);
