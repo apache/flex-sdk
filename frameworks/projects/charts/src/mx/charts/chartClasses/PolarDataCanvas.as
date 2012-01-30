@@ -313,6 +313,9 @@ public class PolarDataCanvas extends ChartElement implements IDataCanvas
         return _totalValue;
     }
     
+    /**
+     * @private
+     */
     public function set totalValue(value:Number):void
     {
         _totalValue = value;
