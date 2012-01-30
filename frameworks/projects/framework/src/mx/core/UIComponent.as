@@ -1934,7 +1934,7 @@ public class UIComponent extends FlexSprite
      */
     override public function get x():Number
     {
-        return (_layoutFeatures == null)? super.x:_layoutFeatures.layoutX;
+        return (_layoutFeatures == null) ? super.x : _layoutFeatures.layoutX;
     }
 
     /**
@@ -1973,7 +1973,7 @@ public class UIComponent extends FlexSprite
      */
     override public function get z():Number
     {
-        return (_layoutFeatures == null)? super.z:_layoutFeatures.layoutZ;
+        return (_layoutFeatures == null) ? super.z : _layoutFeatures.layoutZ;
     }
 
     /**
@@ -2019,7 +2019,7 @@ public class UIComponent extends FlexSprite
      */
     public function get transformX():Number
     {
-        return (_layoutFeatures == null)? 0 : _layoutFeatures.transformX;
+        return (_layoutFeatures == null) ? 0 : _layoutFeatures.transformX;
     }
 
     /**
@@ -2064,7 +2064,7 @@ public class UIComponent extends FlexSprite
      */
     public function get transformY():Number
     {
-        return (_layoutFeatures == null)? 0 : _layoutFeatures.transformY;
+        return (_layoutFeatures == null) ? 0 : _layoutFeatures.transformY;
     }
 
     /**
@@ -2109,7 +2109,7 @@ public class UIComponent extends FlexSprite
      */
     public function get transformZ():Number
     {
-        return (_layoutFeatures == null)? 0:_layoutFeatures.transformZ;
+        return (_layoutFeatures == null) ? 0 : _layoutFeatures.transformZ;
     }
     /**
      *  @private
@@ -2139,7 +2139,7 @@ public class UIComponent extends FlexSprite
     {
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             return super.rotation;
-        return (_layoutFeatures == null)? super.rotation:_layoutFeatures.layoutRotationZ;
+        return (_layoutFeatures == null) ? super.rotation : _layoutFeatures.layoutRotationZ;
     }
 
     /**
@@ -2211,7 +2211,7 @@ public class UIComponent extends FlexSprite
      */
     override public function get rotationX():Number
     {
-        return (_layoutFeatures == null)? super.rotationX:_layoutFeatures.layoutRotationX;
+        return (_layoutFeatures == null) ? super.rotationX : _layoutFeatures.layoutRotationX;
     }
 
     /**
@@ -2245,7 +2245,7 @@ public class UIComponent extends FlexSprite
      */
     override public function get rotationY():Number
     {
-        return (_layoutFeatures == null)? super.rotationY:_layoutFeatures.layoutRotationY;
+        return (_layoutFeatures == null) ? super.rotationY : _layoutFeatures.layoutRotationY;
     }
 
     /**
@@ -2293,7 +2293,7 @@ public class UIComponent extends FlexSprite
      */
     override public function get y():Number
     {
-        return (_layoutFeatures == null)? super.y:_layoutFeatures.layoutY;
+        return (_layoutFeatures == null) ? super.y : _layoutFeatures.layoutY;
     }
 
     /**
@@ -2495,7 +2495,7 @@ public class UIComponent extends FlexSprite
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             return _scaleX;
         else
-            return ((_layoutFeatures == null)? super.scaleX:_layoutFeatures.layoutScaleX);
+            return (_layoutFeatures == null) ? super.scaleX : _layoutFeatures.layoutScaleX;
     }
 
     /**
@@ -2518,7 +2518,7 @@ public class UIComponent extends FlexSprite
         }
         else
         {
-            var prevValue:Number = (_layoutFeatures == null)? scaleX:_layoutFeatures.layoutScaleX;
+            var prevValue:Number = (_layoutFeatures == null) ? scaleX : _layoutFeatures.layoutScaleX;
             if (prevValue == value)
                 return;
             
@@ -2577,7 +2577,7 @@ public class UIComponent extends FlexSprite
             return _scaleY;     
         }
         else
-            return ((_layoutFeatures == null)? super.scaleY:_layoutFeatures.layoutScaleY);
+            return (_layoutFeatures == null) ? super.scaleY : _layoutFeatures.layoutScaleY;
     }
 
     /**
@@ -2601,7 +2601,7 @@ public class UIComponent extends FlexSprite
        }
        else
        {
-            var prevValue:Number = (_layoutFeatures == null)? scaleY:_layoutFeatures.layoutScaleY;
+            var prevValue:Number = (_layoutFeatures == null) ? scaleY : _layoutFeatures.layoutScaleY;
             if (prevValue == value)
                 return;
     
@@ -2652,7 +2652,7 @@ public class UIComponent extends FlexSprite
      */
     override public function get scaleZ():Number
     {
-        return ((_layoutFeatures == null)? super.scaleZ:_layoutFeatures.layoutScaleZ);
+        return (_layoutFeatures == null) ? super.scaleZ : _layoutFeatures.layoutScaleZ;
     }
 
     /**
@@ -11822,15 +11822,16 @@ public class UIComponent extends FlexSprite
 
 
     /**
-     * Initializes the implementation and storage of some of the less frequently used
-     * advanced layout features of a component.  Call this function before attempting to use any of the 
-     * features implemented by the AdvancedLayoutFeatures object.
-     * 
+     *  Initializes the implementation and storage of some of the less frequently
+     *  used advanced layout features of a component.
+     *  
+     *  Call this function before attempting to use any of the features implemented
+     *  by the AdvancedLayoutFeatures object.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function initAdvancedLayoutFeatures():void
     {
@@ -11851,6 +11852,12 @@ public class UIComponent extends FlexSprite
         invalidateTransform();
     }
 
+    /**
+     *  @private
+     *  Helper function to update the storage vairable _transform.
+     *  Also updates the <code>target</code> proeprty of the new and the old
+     *  values.
+     */
     private function setTransform(value:flash.geom.Transform):void
     {
         // Clean up the old transform
@@ -11929,9 +11936,9 @@ public class UIComponent extends FlexSprite
      *  @copy mx.core.ILayoutElement#postLayoutTransformOffsets
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get postLayoutTransformOffsets():TransformOffsets
     {
@@ -11964,9 +11971,9 @@ public class UIComponent extends FlexSprite
      *  component, one will be added automatically.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set maintainProjectionCenter(value:Boolean):void
     {
@@ -11989,9 +11996,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc 
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
     {
@@ -12020,9 +12027,9 @@ public class UIComponent extends FlexSprite
      *  doesn't trigger a layout pass. 
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void
     {
@@ -12042,12 +12049,12 @@ public class UIComponent extends FlexSprite
     private static var xformPt:Point;
 
     /**
-     * @copy mx.core.ILayoutElement#transformAround
+     *  @copy mx.core.ILayoutElement#transformAround
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function transformAround(transformCenter:Vector3D,
                                     scale:Vector3D = null,
@@ -12156,7 +12163,9 @@ public class UIComponent extends FlexSprite
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function transformPointToParent(transformCenter:Vector3D,position:Vector3D,postLayoutPosition:Vector3D):void
+    public function transformPointToParent(transformCenter:Vector3D,
+                                           position:Vector3D, 
+                                           postLayoutPosition:Vector3D):void
     {
         if (_layoutFeatures != null)
         {
@@ -12196,46 +12205,50 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  The transform matrix that is used to calculate a component's layout relative to its siblings. This matrix is defined by
-     *  the component's 3D properties (which include the 2D properties such as <code>x</code>, <code>y</code>, <code>rotation</code>, 
-     *  <code>scaleX</code>, <code>scaleY</code>, <code>transformX</code>, and <code>transformY</code>, as well as <code>rotationX</code>, 
-     *  <code>rotationY</code>, <code>scaleZ</code>, <code>z</code>, and <code>transformZ</code>.
+     *  The transform matrix that is used to calculate a component's layout
+     *  relative to its siblings. This matrix is defined by the component's
+     *  3D properties (which include the 2D properties such as <code>x</code>,
+     *  <code>y</code>, <code>rotation</code>, <code>scaleX</code>,
+     *  <code>scaleY</code>, <code>transformX</code>, and 
+     *  <code>transformY</code>, as well as <code>rotationX</code>, 
+     *  <code>rotationY</code>, <code>scaleZ</code>, <code>z</code>, and
+     *  <code>transformZ</code>.
      *  
      *  <p>Most components do not have any 3D transform properties set on them.</p>
      *  
-     *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
+     *  <p>This layout matrix is combined with the values of the 
+     *  <code>postLayoutTransformOffsets</code> property to determine the
+     *  component's final, computed matrix.</p>
+     * 
+     *  @see #postLayoutTransformOffsets
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set layoutMatrix3D(value:Matrix3D):void
     {
-		if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
-        
-        // layout features will internally make a copy of this matrix rather than
-        // holding onto a reference to it.
-        _layoutFeatures.layoutMatrix3D = value;
-        invalidateTransform();
-        invalidateParentSizeAndDisplayList();
+        setLayoutMatrix3D(value, true /*invalidateLayout*/);
     }
 
+    //----------------------------------
+    //  depth
+    //----------------------------------  
+
     /**
-     * @inheritDoc
+     *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get depth():Number
     {
-        return (_layoutFeatures == null)? 0:_layoutFeatures.depth;
+        return (_layoutFeatures == null) ? 0 : _layoutFeatures.depth;
     }
 
-    [Bindable("layerChange")]
     /**
      * @private
      */
@@ -12247,34 +12260,38 @@ public class UIComponent extends FlexSprite
 			initAdvancedLayoutFeatures();
 
         _layoutFeatures.depth = value;      
-        dispatchEvent(new FlexEvent("layerChange"));
-        if (parent != null && parent is UIComponent)
-            (parent as UIComponent).invalidateLayering();
+        if (parent is UIComponent)
+            UIComponent(parent).invalidateLayering();
     }
 
     /**
-     *  Called by a component's items to indicate that their layer property has changed.
-     *  Note that while this function is defined on UIComponent, it is up to subclasses
-     *  to implement support for complex layering.  By default, only Groups support
+     *  Called by a component's items to indicate that their <code>depth</code>
+     *  property has changed. Note that while this function is defined on
+     *  <code>UIComponent</code>, it is up to subclasses to implement support
+     *  for complex layering.
+     *
+     *  By default, only <code>Group</code> and <code>DataGroup</code> support
      *  arbitrary layering of their children.
+     * 
+     *  @see #depth
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.4
+     *  @productversion Flex 4
      */
     public function invalidateLayering():void
     {
-
     }
 
     /**
-     *  Commits the computed matrix built from the combination of the layout matrix and the transform offsets to the flash displayObject's transform.
+     *  Commits the computed matrix built from the combination of the layout
+     *  matrix and the transform offsets to the flash displayObject's transform.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function applyComputedMatrix():void
     {
@@ -12296,9 +12313,9 @@ public class UIComponent extends FlexSprite
      *  @param stretchY The vertical component of the stretch factor.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function setStretchXY(stretchX:Number, stretchY:Number):void
     {
@@ -12331,9 +12348,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getPreferredBoundsWidth(postLayoutTransform:Boolean=true):Number
     {
@@ -12344,9 +12361,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getPreferredBoundsHeight(postLayoutTransform:Boolean=true):Number
     {
@@ -12357,9 +12374,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getMinBoundsWidth(postLayoutTransform:Boolean=true):Number
     {
@@ -12370,9 +12387,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getMinBoundsHeight(postLayoutTransform:Boolean=true):Number
     {
@@ -12383,9 +12400,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getMaxBoundsWidth(postLayoutTransform:Boolean=true):Number
     {
@@ -12396,9 +12413,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getMaxBoundsHeight(postLayoutTransform:Boolean=true):Number
     {
@@ -12409,9 +12426,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -12423,9 +12440,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -12437,9 +12454,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutBoundsWidth(postLayoutTransform:Boolean=true):Number
     {
@@ -12450,9 +12467,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutBoundsHeight(postLayoutTransform:Boolean=true):Number
     {
@@ -12463,9 +12480,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutBoundsX(postLayoutTransform:Boolean=true):Number
     {
@@ -12476,9 +12493,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutBoundsY(postLayoutTransform:Boolean=true):Number
     {
@@ -12489,9 +12506,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setLayoutBoundsPosition(x:Number, y:Number, postLayoutTransform:Boolean=true):void
     {
@@ -12502,9 +12519,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setLayoutBoundsSize(width:Number,
                                         height:Number,
@@ -12517,9 +12534,9 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutMatrix():Matrix
     {
@@ -12542,9 +12559,35 @@ public class UIComponent extends FlexSprite
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get hasLayoutMatrix3D():Boolean
+    {
+        return _layoutFeatures ? _layoutFeatures.layoutIs3D : false;
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get is3D():Boolean
+    {
+        return _layoutFeatures ? _layoutFeatures.is3D : false;
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutMatrix3D():Matrix3D
     {
