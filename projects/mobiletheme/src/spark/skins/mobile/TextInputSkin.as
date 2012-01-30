@@ -13,6 +13,7 @@ package spark.skins.mobile
 {
 
 import flash.display.DisplayObject;
+import flash.text.TextLineMetrics;
 
 import spark.components.TextInput;
 import spark.components.supportClasses.MobileTextField;
@@ -36,6 +37,8 @@ public class TextInputSkin extends MobileSkin
     //--------------------------------------------------------------------------
     private static const HORIZONTAL_PADDING:int = 8;
     private static const VERTICAL_PADDING:int = 12;
+    private static const TEXT_WIDTH_PADDING:int = 4;
+    private static const TEXT_HEIGHT_PADDING:int = 2;
     
     //--------------------------------------------------------------------------
     //
@@ -99,9 +102,23 @@ public class TextInputSkin extends MobileSkin
     {
         super.measure();
         
-        // TODO: Don't use hard-coded values
-        measuredWidth = 440;
-        measuredHeight = 55;
+        // Use the size of "W" to determine measured size.
+        var textLineMetrics:TextLineMetrics = measureText("W");
+        
+        // Width is based on maxChars (if set), or hard-coded to 440
+        if (hostComponent && hostComponent.maxChars)
+        {
+            // Use the width of "W" and multiply by maxChars
+            measuredWidth = textLineMetrics.width * 
+                hostComponent.maxChars + HORIZONTAL_PADDING * 2 
+                + TEXT_WIDTH_PADDING;
+        }
+        else
+        {
+            measuredWidth = 440;
+        }
+        
+        measuredHeight = textLineMetrics.height + VERTICAL_PADDING * 2 + TEXT_HEIGHT_PADDING;
     }
     
     /**
