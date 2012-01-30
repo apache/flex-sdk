@@ -108,10 +108,10 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     
     /**
      *  @private
-     *  Toggles transparent, centered, hit-area if the unscaled size is less
+     *  Toggles transparent, centered hit-area if the unscaled size is less
      *  than one-quarter inch square. Physical size is based on applicationDPI.
      */
-    mx_internal var useMinimumHitArea:Boolean = false;
+    mx_internal var useMinimumHitArea:Boolean = true;
     
     /**
      *  Specifies a default width. <code>measuredWidth</code> returns this value
