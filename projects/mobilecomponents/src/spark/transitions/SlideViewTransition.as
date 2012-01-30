@@ -305,18 +305,13 @@ public class SlideViewTransition extends ViewTransitionBase
             navigatorProps.tabBarCacheAsBitmap = tabBar.cacheAsBitmap;
         }
         
-        // Save navigator bounds
-        navigatorProps.endViewIncludeInLayout = endView.includeInLayout;
-        
         if (startView)
         {
-            startViewProps = {  includeInLayout: startView.includeInLayout,
-                                visible: startView.visible,
+            startViewProps = {  visible: startView.visible,
                                 cacheAsBitmap: startView.cacheAsBitmap,
                                 opaqueBackground: startView.opaqueBackground };
             
             cachedStartViewGlobalPosition = getTargetNavigatorCoordinates(startView);
-            startView.includeInLayout = false;
         }
     }
     
@@ -352,10 +347,6 @@ public class SlideViewTransition extends ViewTransitionBase
             if (startView.getStyle("backgroundAlpha") >= 1)
                 startView.opaqueBackground = startView.getStyle("backgroundColor");
             
-            // Have the startView included in layout so that SplitViewNavigator knows
-            // how to maintain the layout
-            startView.includeInLayout = true;
-            
             if (startView.contentGroup)
             {
                 startViewProps.cgIncludeInLayout = startView.contentGroup.includeInLayout;
@@ -372,11 +363,9 @@ public class SlideViewTransition extends ViewTransitionBase
         
         if (endView)
         {
-            endViewProps = { includeInLayout:endView.includeInLayout,
-                cacheAsBitmap:endView.cacheAsBitmap,
-                opaqueBackground:endView.opaqueBackground};
+            endViewProps = { cacheAsBitmap:endView.cacheAsBitmap,
+                             opaqueBackground:endView.opaqueBackground};
             
-            endView.includeInLayout = false;
             endView.cacheAsBitmap = true;
 
             // If the endView has an opaque background color, set that as the 
@@ -582,9 +571,6 @@ public class SlideViewTransition extends ViewTransitionBase
 
         if (endView)
         {
-            navigatorProps.endViewIncludeInLayout = endView.includeInLayout;
-            endView.includeInLayout = false;
-            
             navigatorProps.endViewCacheAsBitmap = endView.contentGroup.cacheAsBitmap;
             endView.contentGroup.cacheAsBitmap = true;
         }
@@ -716,7 +702,6 @@ public class SlideViewTransition extends ViewTransitionBase
             
         if (startView)
         {
-            startView.includeInLayout = startViewProps.includeInLayout;
             startView.visible = startViewProps.visible;
             startView.cacheAsBitmap = startViewProps.cacheAsBitmap;
             startView.opaqueBackground = startViewProps.opaqueBackground;
@@ -736,7 +721,6 @@ public class SlideViewTransition extends ViewTransitionBase
             
             if (endView)
             {
-                endView.includeInLayout = endViewProps.includeInLayout;
                 endView.cacheAsBitmap = endViewProps.cacheAsBitmap;
                 endView.opaqueBackground = endViewProps.opaqueBackground;
                 
@@ -773,7 +757,6 @@ public class SlideViewTransition extends ViewTransitionBase
             
             if (endView)
             {
-                endView.includeInLayout = navigatorProps.endViewIncludeInLayout;
                 endView.contentGroup.cacheAsBitmap = navigatorProps.endViewCacheAsBitmap;
             }
             
