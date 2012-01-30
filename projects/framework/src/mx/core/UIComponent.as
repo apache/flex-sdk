@@ -14,6 +14,7 @@ package mx.core
 
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityProperties;
+import flash.system.Capabilities;
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
@@ -1701,15 +1702,19 @@ public class UIComponent extends FlexSprite
      */
     public function get accessibilityEnabled():Boolean
     {
-      return accessibilityProperties ? !accessibilityProperties.silent : true;
+        return accessibilityProperties ? !accessibilityProperties.silent : true;
     }
         
     public function set accessibilityEnabled(value:Boolean):void
     {
-      if (!accessibilityProperties) 
-        accessibilityProperties = new AccessibilityProperties();
-      accessibilityProperties.silent = !value;
-      Accessibility.updateProperties();
+        if (!Capabilities.hasAccessibility)
+            return;
+
+        if (!accessibilityProperties) 
+            accessibilityProperties = new AccessibilityProperties();
+                 
+        accessibilityProperties.silent = !value;
+        Accessibility.updateProperties();
     }
 
     /**
@@ -1730,15 +1735,19 @@ public class UIComponent extends FlexSprite
      */
     public function get accessibilityName():String
     {
-      return accessibilityProperties ? accessibilityProperties.name : "";
+        return accessibilityProperties ? accessibilityProperties.name : "";
     }
     
     public function set accessibilityName(value:String):void 
     {
-      if (!accessibilityProperties)
-        accessibilityProperties = new AccessibilityProperties();
-      accessibilityProperties.name = value;
-      Accessibility.updateProperties();
+        if (!Capabilities.hasAccessibility)
+            return;
+
+        if (!accessibilityProperties)
+            accessibilityProperties = new AccessibilityProperties();
+
+        accessibilityProperties.name = value;
+        Accessibility.updateProperties();
     }
 
     /**
@@ -1759,15 +1768,19 @@ public class UIComponent extends FlexSprite
      */
     public function get accessibilityDescription():String 
     {
-      return accessibilityProperties ? accessibilityProperties.description : "";
+        return accessibilityProperties ? accessibilityProperties.description : "";
     }
 
     public function set accessibilityDescription(value:String):void
     {
-      if (!accessibilityProperties)
-        accessibilityProperties = new AccessibilityProperties();
-      accessibilityProperties.description = value;
-      Accessibility.updateProperties();
+        if (!Capabilities.hasAccessibility)
+            return;
+
+        if (!accessibilityProperties)
+            accessibilityProperties = new AccessibilityProperties();
+
+        accessibilityProperties.description = value;
+        Accessibility.updateProperties();
     }
 
     /**
@@ -1788,18 +1801,22 @@ public class UIComponent extends FlexSprite
      */
     public function get accessibilityShortcut():String
     {
-      return accessibilityProperties ? accessibilityProperties.shortcut : "";
+        return accessibilityProperties ? accessibilityProperties.shortcut : "";
     }
     
     public function set accessibilityShortcut(value:String):void
     {
-      if (!accessibilityProperties)
-        accessibilityProperties = new AccessibilityProperties();
-      accessibilityProperties.shortcut = value;
-      Accessibility.updateProperties();
-    }
+        if (!Capabilities.hasAccessibility)
+            return;
+ 
+        if (!accessibilityProperties)
+                accessibilityProperties = new AccessibilityProperties();
 
-//--------------------------------------------------------------------------
+        accessibilityProperties.shortcut = value;
+        Accessibility.updateProperties();
+     }
+
+    //--------------------------------------------------------------------------
     //
     //  Variables: Invalidation
     //
