@@ -55,6 +55,14 @@ public class TextSkinBase extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Defines the border.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */  
     protected var borderClass:Class;
     
     //--------------------------------------------------------------------------
@@ -63,6 +71,14 @@ public class TextSkinBase extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Defines the corner radius.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */  
     protected var layoutCornerEllipseSize:uint;
     
     protected var layoutBorderSize:uint;
@@ -118,7 +134,7 @@ public class TextSkinBase extends MobileSkin
             textDisplay = StyleableTextField(createInFontContext(StyleableTextField));
             textDisplay.styleName = this;
             textDisplay.editable = true;
-			textDisplay.useTightTextBounds = false;
+            textDisplay.useTightTextBounds = false;
             addChild(textDisplay);
         }
         
@@ -129,13 +145,16 @@ public class TextSkinBase extends MobileSkin
         }
     }
     
+    /**
+     *  @private 
+     */ 
     protected function createPromptDisplay():StyleableTextField
     {
         var prompt:StyleableTextField = StyleableTextField(createInFontContext(StyleableTextField));
         prompt.styleName = this;
         prompt.editable = false;
         prompt.mouseEnabled = false;
-		prompt.useTightTextBounds = false;
+        prompt.useTightTextBounds = false;
         
         return prompt;
     }
@@ -226,6 +245,6 @@ public class TextSkinBase extends MobileSkin
         }
         
         invalidateDisplayList();
-    }	
+    }   
 }
 }
