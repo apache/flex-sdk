@@ -52,7 +52,10 @@ function createFlexContentSymbol() {
 			flexContentSymbol.linkageExportForAS = true;
 			flexContentSymbol.linkageExportInFirstFrame = true;
 			flexContentSymbol.linkageBaseClass = "mx.flash.FlexContentHolder";
-			flexContentSymbol.linkageClassName = "FlexContentHolder";
+			
+			// the randomness gives the classname a unique ID so that a unique class name can 
+			// map to this instance of the FlexContentHolder and multiple swcs can co-exist peacefully
+			flexContentSymbol.linkageClassName = "FlexContentHolder" + Math.random().toString().substring(2);
 
 			return true;
 		}
