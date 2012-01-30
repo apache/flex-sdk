@@ -24,28 +24,22 @@ import flash.display.StageAlign;
 import flash.display.StageQuality;
 import flash.display.StageScaleMode;
 import flash.events.Event;
-import flash.events.EventDispatcher;
 import flash.events.EventPhase;
 import flash.events.FocusEvent;
-import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.system.ApplicationDomain;
-import flash.system.Capabilities;
-import flash.system.Security;
 import flash.text.Font;
 import flash.text.TextFormat;
 import flash.ui.Keyboard;
-import flash.utils.ByteArray;
 import flash.utils.Dictionary;
 import flash.utils.Timer;
 import flash.utils.getQualifiedClassName;
 
 import mx.core.FlexSprite;
-import mx.core.FlexVersion;
 import mx.core.IChildList;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
@@ -60,7 +54,6 @@ import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.events.RSLEvent;
 import mx.events.Request;
-import mx.events.ResizeEvent;
 import mx.events.SandboxMouseEvent;
 import mx.preloaders.Preloader;
 import mx.utils.DensityUtil;
@@ -3549,15 +3542,16 @@ public class SystemManager extends MovieClip
             bounds.width = s.width;
             bounds.height = s.height;
             
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_6)
-            {
-                // softKeyboardRect is in global coordinates.
-                // Keyboard size may change size while active. Listen for
-                // SoftKeyboardEvents on the stage and call 
-                // getVisibleApplicationRect() to get updated visible bounds.
-                var softKeyboardRect:Rectangle = stage.softKeyboardRect;
-                bounds.height = bounds.height - softKeyboardRect.height;
-            }
+            // No backwards compatibility
+            // See https://bugs.adobe.com/jira/browse/SDK-31377
+            // FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_6
+            
+            // softKeyboardRect is in global coordinates.
+            // Keyboard size may change size while active. Listen for
+            // SoftKeyboardEvents on the stage and call 
+            // getVisibleApplicationRect() to get updated visible bounds.
+            var softKeyboardRect:Rectangle = stage.softKeyboardRect;
+            bounds.height = bounds.height - softKeyboardRect.height;
         }
         
 		if (!topLevel)
