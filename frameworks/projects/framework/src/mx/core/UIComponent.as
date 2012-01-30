@@ -14,7 +14,6 @@ package mx.core
 
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityProperties;
-import flash.system.Capabilities;
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
@@ -39,6 +38,7 @@ import flash.geom.Rectangle;
 import flash.geom.Transform;
 import flash.geom.Vector3D;
 import flash.system.ApplicationDomain;
+import flash.system.Capabilities;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 import flash.utils.getQualifiedClassName;
@@ -2160,6 +2160,9 @@ public class UIComponent extends FlexSprite
         }
 
         invalidateProperties();
+        
+        if (parent && parent is UIComponent)
+            UIComponent(parent).childXYChanged();
 
         if (hasEventListener("xChanged"))
             dispatchEvent(new Event("xChanged"));
@@ -2537,6 +2540,9 @@ public class UIComponent extends FlexSprite
             invalidateTransform();
         }
         invalidateProperties();
+
+        if (parent && parent is UIComponent)
+            UIComponent(parent).childXYChanged();
 
         if (hasEventListener("yChanged"))
             dispatchEvent(new Event("yChanged"));
@@ -7840,8 +7846,6 @@ public class UIComponent extends FlexSprite
 
         if (x != oldX || y != oldY)
         {
-            if (parent && parent is UIComponent)
-                UIComponent(parent).childXYChanged();
             dispatchMoveEvent();
         }
 
@@ -12555,8 +12559,18 @@ public class UIComponent extends FlexSprite
                                     translation:Vector3D = null,
                                     postLayoutScale:Vector3D = null,
                                     postLayoutRotation:Vector3D = null,
-                                    postLayoutTranslation:Vector3D = null):void
+                                    postLayoutTranslation:Vector3D = null,
+                                    invalidateLayout:Boolean = true):void
     {
+        // Make sure that no transform setters will trigger parent invalidation.
+        // Reset the flag at the end of the method.
+        var oldIncludeInLayout:Boolean;
+        if (!invalidateLayout)
+        {
+            oldIncludeInLayout = _includeInLayout;
+            _includeInLayout = false;
+        }
+
         // TODO (chaase): Would be nice to put this function in a central place
         // to be used by UIComponent, SpriteVisualElement, UIMovieClip, and
         // GraphicElement, since they all have similar or identical functions
@@ -12591,8 +12605,12 @@ public class UIComponent extends FlexSprite
             _layoutFeatures.transformAround(transformCenter, scale, rotation,
                 translation, postLayoutScale, postLayoutRotation,
                 postLayoutTranslation);
-            invalidateTransform();      
+            invalidateTransform();
+
+            // Will not invalidate parent if we have set _includeInLayout to false
+            // in the beginning of the method
             invalidateParentSizeAndDisplayList();
+
             if (prevX != _layoutFeatures.layoutX)
                 dispatchEvent(new Event("xChanged"));
             if (prevY != _layoutFeatures.layoutY)
@@ -12646,6 +12664,9 @@ public class UIComponent extends FlexSprite
                 }
             }
         }
+        
+        if (!invalidateLayout)
+            _includeInLayout = oldIncludeInLayout;
     }
 
     /**
