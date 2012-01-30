@@ -17,6 +17,11 @@
  *  but for ToolTip controls, the default value is 0.95 and for Alert controls, the default value is 0.9.
  *  
  *  @default 1.0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundAlpha", type="Number", inherit="no")]
 
@@ -43,6 +48,11 @@
  *      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/&gt;
  *  &lt;/mx:<i>Container</i>&gt;</pre>
  *  </p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
@@ -52,6 +62,11 @@
  *  The default value for List controls is <code>0xDDDDDD</code> (light gray).
  *  If a container is disabled, the background is dimmed, and the degree of
  *  dimming is controlled by the <code>disabledOverlayAlpha</code> style.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundDisabledColor", type="uint", format="Color", inherit="yes")]
 
@@ -72,6 +87,11 @@
  *      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/&gt;
  *  &lt;/mx:<i>Container</i>&gt;</pre>
  *  </p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundImage", type="Object", format="File", inherit="no")]
 
@@ -84,6 +104,11 @@
  *  The default for the Application container is <code>100%</code>.
  *  The default value for all other containers is <code>auto</code>, which maintains
  *  the original size of the image.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundSize", type="String", inherit="no")]
 
@@ -91,6 +116,11 @@
  *  Color of the border.
  *  The default value depends on the component class;
  *  if not overridden for the class, the default value is <code>0xB7BABC</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderColor", type="uint", format="Color", inherit="no")]
 
@@ -103,6 +133,11 @@
  *  which shows all four sides.
  *
  *  This style is only used when borderStyle is <code>"solid"</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderSides", type="String", inherit="no")]
 
@@ -114,6 +149,11 @@
  *  To determine the default value for a component, see the default.css file.
  *
  *  @default mx.skins.halo.HaloBorder
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderSkin", type="Class", inherit="no")]
 
@@ -124,6 +164,11 @@
  *  The default value depends on the component class;
  *  if not overridden for the class, the default value is <code>"inset"</code>.
  *  The default value for most Containers is <code>"none"</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderStyle", type="String", enumeration="inset,outset,solid,none", inherit="no")]
 
@@ -132,6 +177,11 @@
  *  Only used when <code>borderStyle</code> is set to <code>"solid"</code>.
  *
  *  @default 1
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderThickness", type="Number", format="Length", inherit="no")]
 
@@ -140,6 +190,11 @@
  *  The default value depends on the component class;
  *  if not overriden for the class, the default value is 0.
  *  The default value for ApplicationControlBar is 5.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="cornerRadius", type="Number", format="Length", inherit="no")]
 
@@ -153,6 +208,11 @@
  *  <code>backgroundColor</code> or <code>backgroundImage</code> properties.
  *  Otherwise, the shadow appears behind the container because
  *  the default background of a container is transparent.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dropShadowEnabled", type="Boolean", inherit="no")]
 
@@ -160,6 +220,11 @@
  *  Color of the drop shadow.
  *
  *  @default 0x000000
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dropShadowColor", type="uint", format="Color", inherit="yes")]
 
@@ -169,6 +234,11 @@
  *  and <code>"right"</code>.
  *
  *  @default "center"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="shadowDirection", type="String", enumeration="left,center,right", inherit="no")]
 
@@ -177,6 +247,11 @@
  *  If the property is set to a negative value, the shadow appears above the component.
  *
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="shadowDistance", type="Number", format="Length", inherit="no")]
 
