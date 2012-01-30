@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark">
+    <fx:Style>
+        <!-- Styling CalloutButton -->
+        @namespace s "library://ns.adobe.com/flex/spark";
+        s|CalloutButton {
+           chromeColor:red;
+           accentColor:blue;
+        } 
+    </fx:Style>
+	<s:HGroup>
+        <s:CalloutButton id="calloutButton" 
+           label="Callout Button" 
+           verticalPosition="before"
+           horizontalPosition="middle" 
+           icon="@Embed('myIcon.png')"
+           emphasized="true">
+            <!-- Setting callout layout to "VerticalLayout" -->
+            <s:calloutLayout>
+                <s:VerticalLayout/>
+            </s:calloutLayout>
+            <!-- Setting a set of components to callout's content as an Array -->
+            <s:calloutContent>
+                <s:Button />
+                <s:Label />
+            </s:calloutContent>
+        </s:CalloutButton>
+    </s:HGroup>
+</s:Application>
