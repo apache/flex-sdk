@@ -86,6 +86,7 @@ import mx.utils.ObjectUtil;
 import mx.utils.StringUtil;
 import mx.validators.IValidatorListener;
 import mx.validators.ValidationResult;
+import mx.geom.TransformOffsets;
 
 use namespace mx_internal;
 
@@ -9542,9 +9543,9 @@ public class UIComponent extends FlexSprite
 			var m:Matrix = _transform.matrix;
 			var m3:Matrix3D =  _transform.matrix3D;
 			if(m != null)
-				matrix = m.clone();
+				layoutMatrix = m.clone();
 			else if(m3 != null)
-				matrix3D = m3.clone();
+				layoutMatrix3D = m3.clone();
 
 			invalidateSize();
     }
@@ -9607,7 +9608,7 @@ public class UIComponent extends FlexSprite
 	/**
 	 * Documentation is not currently available
 	 */
- 	public function set offsets(value:CompoundTransform):void
+ 	public function set offsets(value:TransformOffsets):void
 	{
 		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
 		
@@ -9621,7 +9622,7 @@ public class UIComponent extends FlexSprite
 	/**
 	 * @private
 	 */
-	public function get offsets():CompoundTransform
+	public function get offsets():TransformOffsets
 	{
 		return (_layoutFeatures != null)? _layoutFeatures.offsets:null;
 	}
@@ -9657,7 +9658,7 @@ public class UIComponent extends FlexSprite
 	 * Documentation is not currently available.  the matrix of a component is the transform matrix used to calculate its layout
 	 * relative to its siblings. This matrix is modified by the values of the offset property to determine its final, computed matrix.
 	 */
-	public function get matrix():Matrix
+	public function get layoutMatrix():Matrix
 	{
 		if(_layoutFeatures != null)
 		{
@@ -9672,7 +9673,7 @@ public class UIComponent extends FlexSprite
 	/**
 	 * @private
 	 */
-	public function set matrix(value:Matrix):void
+	public function set layoutMatrix(value:Matrix):void
 	{
 		if(_layoutFeatures == null)
 		{
@@ -9721,7 +9722,7 @@ public class UIComponent extends FlexSprite
 	 * Documentation is not currently available.  the matrix of a component is the transform matrix used to calculate its layout
 	 * relative to its siblings. This matrix is modified by the values of the offset property to determine its final, computed matrix.
 	 */
-	public function set matrix3D(value:Matrix3D):void
+	public function set layoutMatrix3D(value:Matrix3D):void
 	{
 		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
 		_layoutFeatures.layoutMatrix3D = value;
@@ -9732,7 +9733,7 @@ public class UIComponent extends FlexSprite
 	/**
 	 * @private
 	 */
-	public function get matrix3D():Matrix3D
+	public function get layoutMatrix3D():Matrix3D
 	{
 		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
 		return _layoutFeatures.layoutMatrix3D;			
