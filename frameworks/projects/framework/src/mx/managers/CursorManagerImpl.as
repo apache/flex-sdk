@@ -116,7 +116,7 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
 
 		// If available, get soft-link to the RichEditableText class
 		// to use in mouseMoveHandler().
-        // ToDo: revisit the correct way to do this for modules.
+        // FIXME (cframpto): revisit the correct way to do this for modules.
         if (ApplicationDomain.currentDomain.hasDefinition(
 				"spark.components.RichEditableText"))
 		{
