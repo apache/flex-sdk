@@ -1,7 +1,25 @@
 <?xml version="1.0"?>
 
 <componentPackage>
+<component id="Automation" class="mx.automation.Automation"/>
+<component id="AutomationID" class="mx.automation.AutomationID"/>
+<component id="AutomationIDPart" class="mx.automation.AutomationIDPart"/>
+<component id="AutomationError" class="mx.automation.AutomationError"/>
 
+
+<component id="IAutomationClass" class="mx.automation.IAutomationClass"/>
+<component id="IAutomationClass2" class="mx.automation.IAutomationClass2"/>
+<component id="IAutomationEnvironment" class="mx.automation.IAutomationEnvironment"/>
+<component id="IAutomationEventDescriptor" class="mx.automation.IAutomationEventDescriptor"/>
+<component id="IAutomationManager" class="mx.automation.IAutomationManager"/>
+<component id="IAutomationManager2" class="mx.automation.IAutomationManager2"/>
+<component id="IAutomationMethodDescriptor" class="mx.automation.IAutomationMethodDescriptor"/>
+<component id="IAutomationMouseSimulator" class="mx.automation.IAutomationMouseSimulator"/>
+
+<component id="IAutomationObject" class="mx.automation.IAutomationObject"/>
+<component id="IAutomationObjectHelper" class="mx.automation.IAutomationObjectHelper"/>
+<component id="IAutomationPropertyDescriptor" class="mx.automation.IAutomationPropertyDescriptor"/>
+<component id="IAutomationTabularData" class="mx.automation.IAutomationTabularData"/>
 
 
 <component id="TextFieldAutomationHelper" class="mx.automation.delegates.TextFieldAutomationHelper"/>
