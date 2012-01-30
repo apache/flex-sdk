@@ -339,29 +339,22 @@ public class ViewNavigatorBase extends SkinnableContainer
     private var _overlayControls:Boolean = false;
     
     /**
-     *  By default, the TabBar and ActionBar controls of a mobile application define 
-     *  an area that cannot be used by the views of an application. 
-     *  That means your content cannot use the full screen size of the mobile device.
-     *
-     *  <p>If you set the <code>overlayControls</code> property to <code>true</code>, 
-     *  the content area of the application spans the entire width and height of the screen. 
-     *  The ActionBar and TabBar controls hover over the content area with an 
-     *  alpha value of 0.5 so that they are partially transparent.</p>
+     *  @private
+     *  This property controls the overlay state of the navigator.  The
+     *  navigator will properly update this property in the
+     *  updateControlsForView() method with the View.overlayControls
+     *  property.
      * 
-     *  <p>Changing this property results in a skin validation.</p>
-     * 
-     *  @default true
-     *  
      *  @langversion 3.0
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get overlayControls():Boolean
+    mx_internal function get overlayControls():Boolean
     {
         return _overlayControls;
     }
     
-    public function set overlayControls(value:Boolean):void
+    mx_internal function set overlayControls(value:Boolean):void
     {
         if (value != _overlayControls)
         {
@@ -532,6 +525,8 @@ public class ViewNavigatorBase extends SkinnableContainer
      */
     public function updateControlsForView(view:View):void
     {
+        if (parentNavigator)
+            parentNavigator.updateControlsForView(view);
     }
     
     //--------------------------------------------------------------------------
