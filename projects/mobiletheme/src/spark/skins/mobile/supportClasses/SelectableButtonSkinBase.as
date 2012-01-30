@@ -202,7 +202,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
         if (symbolIcon)
         {
             var currentIcon:DisplayObject = getIconDisplay();
-            positionElement(symbolIcon, currentIcon.x, currentIcon.y);
+            setElementPosition(symbolIcon, currentIcon.x, currentIcon.y);
         }
     }
 }
