@@ -303,28 +303,34 @@ public class CSSMergedStyleDeclaration extends CSSStyleDeclaration
             return super.overrides;
         
         var obj:Object;
-        var tempOverrides:Object = null; // collect the overrides before setting
+        var mergedOverrides:Object = null;
+        
         if (style && style.overrides)
         {
+            mergedOverrides = [];
+            
             var childOverrides:Object = style.overrides;
             for (obj in childOverrides)
-                tempOverrides[obj] = childOverrides[obj];            
+                mergedOverrides[obj] = childOverrides[obj];            
         }
         
         if (parentStyle && parentStyle.overrides)
         {
+            if (!mergedOverrides)
+                mergedOverrides = [];
+                
             var parentOverrides:Object = parentStyle.overrides;
             for (obj in parentOverrides)
             {
-                if (tempOverrides[obj] === undefined)
-                    tempOverrides[obj] = parentOverrides[obj];
+                if (mergedOverrides[obj] === undefined)
+                    mergedOverrides[obj] = parentOverrides[obj];
             }
         }
         
-        super.overrides = tempOverrides;        
+        super.overrides = mergedOverrides;        
         updateOverrides = false;
         
-        return tempOverrides;
+        return mergedOverrides;
     }
     
     /**
