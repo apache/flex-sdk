@@ -40,6 +40,7 @@ import flash.system.ApplicationDomain;
 import flash.system.Capabilities;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
+import flash.ui.Keyboard;
 import flash.utils.getQualifiedClassName;
 
 import mx.automation.IAutomationObject;
@@ -9763,7 +9764,63 @@ public class UIComponent extends FlexSprite
     mx_internal function childXYChanged():void
     {
     }
-
+        
+    /**
+     *  @private
+     *  Typically, Keyboard.LEFT means go left, regardless of the 
+     *  layoutDirection, and similiarly for Keyboard.RIGHT.  When 
+     *  layoutDirection="rtl", rather than duplicating lots of code in the
+     *  switch statement of the keyDownHandler, map Keyboard.LEFT to
+     *  Keyboard.RIGHT, and similiarly for Keyboard.RIGHT.  
+     * 
+     *  Optionally, Keyboard.UP and can tied with Keyboard.LEFT and 
+     *  Keyboard.DOWN can be tied with Keyboard.RIGHT since some components 
+     *  do this.
+     * 
+     *  @return keyCode to use for the layoutDirection if always using ltr 
+     *  actions
+     */
+    mx_internal function mapKeycodeForLayoutDirection(
+        event:KeyboardEvent, 
+        mapUpDown:Boolean=false):int
+    {
+        var keyCode:int = event.keyCode;
+        
+        // If rtl layout, left still means left and right still means right so
+        // swap the keys to get the correct action.
+        switch (keyCode)
+        {
+            case Keyboard.DOWN:
+            {
+                // typically, if ltr, the same as RIGHT
+                if (mapUpDown && layoutDirection == "rtl")
+                    keyCode = Keyboard.LEFT;
+                break;
+            }
+            case Keyboard.RIGHT:
+            {
+                if (layoutDirection == "rtl")
+                    keyCode = Keyboard.LEFT;
+                break;
+            }
+            case Keyboard.UP:
+            {
+                // typically, if ltr, the same as LEFT
+                if (mapUpDown && layoutDirection == "rtl")
+                    keyCode = Keyboard.RIGHT;                
+                break;
+            }
+            case Keyboard.LEFT:
+            {
+                if (layoutDirection == "rtl")
+                    keyCode = Keyboard.RIGHT;                
+                break;
+            }
+        }
+        
+        return keyCode;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods: States
