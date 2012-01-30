@@ -108,7 +108,7 @@ public class StyleProtoChain
             var type:String = types[i].toString();
             if (styleManager.hasAdvancedSelectors() && advancedObject != null)
             {
-                var decls:Array = styleManager.getStyleDeclarations(type);
+                var decls:Object = styleManager.getStyleDeclarations(type);
                 if (decls)
                 {
                     var matchingDecls:Array = matchStyleDeclarations(decls, advancedObject);
@@ -124,7 +124,7 @@ public class StyleProtoChain
         }
 
         if (styleManager.hasAdvancedSelectors() && advancedObject != null)
-        {        
+        {                   
             // Advanced selectors may result in more than one match per type so
             // we sort based on specificity, but we preserve the declaration
             // order for equal selectors.
@@ -806,7 +806,7 @@ public class StyleProtoChain
             styleDeclarations = [];
 
         // First, look for universal selectors
-        var universalDecls:Array = styleManager.getStyleDeclarations("*");
+        var universalDecls:Object = styleManager.getStyleDeclarations("*");
         styleDeclarations = matchStyleDeclarations(universalDecls, object).concat(styleDeclarations);
 
         // Next, look for type selectors (includes ActionScript supertype matches)
@@ -905,18 +905,62 @@ public class StyleProtoChain
      *  @return An unsorted Array of matching style declarations for the given
      *  subject.
      */
-    private static function matchStyleDeclarations(declarations:Array,
+    private static function matchStyleDeclarations(declarations:Object,
             object:IAdvancedStyleClient):Array // of CSSStyleDeclaration
     {
         var matchingDecls:Array = [];
-
+        var pseudos:Array = declarations["pseudo"];
+        var classes:Array = declarations["class"];
+        var ids:Array = declarations["id"];
+        var unconditionals:Array = declarations["unconditional"];
+        
+        var decl:CSSStyleDeclaration;
+        
         // Find the subset of declarations that match this component
-        for each (var decl:CSSStyleDeclaration in declarations)
+        for each (decl in unconditionals)
         {
             if (decl.matchesStyleClient(object))
                 matchingDecls.push(decl);
         }
+        
+        if (object.styleName is String)
+        {
+            // Find the subset of declarations that match this component
+            for each (decl in classes)
+            {
+                if (decl.matchesStyleClient(object))
+                    matchingDecls.push(decl);
+            }
+        }
+        
+        if (object.hasCSSState())
+        {
+            // Find the subset of declarations that match this component
+            for each (decl in pseudos)
+            {
+                if (decl.matchesStyleClient(object))
+                    matchingDecls.push(decl);
+            }            
+        }
 
+        if (object.id)
+        {
+            // Find the subset of declarations that match this component
+            for each (decl in ids)
+            {
+                if (decl.matchesStyleClient(object))
+                    matchingDecls.push(decl);
+            }
+        }
+
+        if (matchingDecls.length > 1)
+            matchingDecls.sortOn("selectorIndex", Array.NUMERIC);
+        
+        // if there are declarations from the parent StyleManager, match them in their own
+        // order, then prepend them.  Parent styles go on the chain before child styles.
+        if (declarations.parent)
+            matchingDecls = matchStyleDeclarations(declarations.parent, object).concat(matchingDecls);
+        
         return matchingDecls;
     }
 
