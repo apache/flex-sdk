@@ -12,15 +12,14 @@
 package mx.states 
 {
 import flash.display.DisplayObject;
+
+import mx.collections.IList;
 import mx.components.FxContainer;
 import mx.components.Group;
-import mx.collections.IList;
-import mx.core.Container;
 import mx.core.ContainerCreationPolicy;
+import mx.core.IChildList;
 import mx.core.IDeferredInstance;
 import mx.core.UIComponent;
-import mx.states.IOverride;
-import mx.states.OverrideBase;
 
 [DefaultProperty("itemsFactory")]
 
@@ -384,13 +383,13 @@ public class AddItems extends OverrideBase implements IOverride
         {
             addItemsToContentHolder(dest, localItems);
         }
-        else if (propertyName == null && dest is Container)
+        else if (propertyName == null && dest is IChildList)
         {
-            addItemsToContainer(dest as Container, localItems);
+            addItemsToContainer(dest as IChildList, localItems);
         }
         else if (propertyName != null && !isStyle && dest[propertyName] is IList)
         {
-            addItemsToArrayCollection(dest[propertyName], localItems);
+            addItemsToIList(dest[propertyName], localItems);
         }
         else
         {
@@ -425,14 +424,14 @@ public class AddItems extends OverrideBase implements IOverride
             for (i = 0; i < numAdded; i++)
                 dest.removeItemAt(startIndex);
         }
-        else if (propertyName == null && dest is Container)
+        else if (propertyName == null && dest is IChildList)
         {
             for (i = 0; i < numAdded; i++)
-                Container(dest).removeChildAt(startIndex);
+                IChildList(dest).removeChildAt(startIndex);
         }
         else if (propertyName != null && !isStyle && dest[propertyName] is IList)
         {
-            removeItemsFromArrayCollection(dest[propertyName] as IList);
+            removeItemsFromIList(dest[propertyName] as IList);
         }
         else
         {
@@ -464,8 +463,8 @@ public class AddItems extends OverrideBase implements IOverride
             if (propertyName == null && (dest is Group || dest is FxContainer))
                 return dest.getItemIndex(object);
             
-            if (propertyName == null && dest is Container)
-                return Container(dest).getChildIndex(DisplayObject(object));
+            if (propertyName == null && dest is IChildList)
+                return IChildList(dest).getChildIndex(DisplayObject(object));
     
             if (propertyName != null && !isStyle && dest[propertyName] is IList)
                 return IList(dest[propertyName].list).getItemIndex(object);
@@ -480,7 +479,7 @@ public class AddItems extends OverrideBase implements IOverride
     }
   
     /**
-     * @private
+     * @private 
      * Find the index of the relative object. If relativeTo is an array,
      * search for the first valid item's index.  This is used for stateful
      * documents where one or more relative siblings of the newly inserted
@@ -520,7 +519,7 @@ public class AddItems extends OverrideBase implements IOverride
     /**
      *  @private
      */
-    protected function addItemsToContainer(dest:Container, items:Array):void
+    protected function addItemsToContainer(dest:IChildList, items:Array):void
     {
         if (startIndex == -1)
             startIndex = dest.numChildren;
@@ -548,7 +547,7 @@ public class AddItems extends OverrideBase implements IOverride
     /**
      *  @private
      */
-    protected function addItemsToArrayCollection(list:IList, items:Array):void
+    protected function addItemsToIList(list:IList, items:Array):void
     {       
         if (startIndex == -1)
             startIndex = list.length;
@@ -560,7 +559,7 @@ public class AddItems extends OverrideBase implements IOverride
     /**
      *  @private
      */
-    protected function removeItemsFromArrayCollection(list:IList):void
+    protected function removeItemsFromIList(list:IList):void
     {
         for (var i:int = 0; i < numAdded; i++)
             list.removeItemAt(startIndex);
