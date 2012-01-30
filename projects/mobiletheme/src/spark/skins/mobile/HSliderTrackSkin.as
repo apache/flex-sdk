@@ -14,6 +14,8 @@ package spark.skins.mobile
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 
+import mx.core.DeviceDensity;
+
 import spark.components.Button;
 import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.HSliderTrack;
@@ -50,9 +52,9 @@ public class HSliderTrackSkin extends MobileSkin
         useChromeColor = true;
         
         // set the right assets and dimensions to use based on the screen density
-        switch (targetDensity)
+        switch (authorDensity)
         {
-            case MobileSkin.PPI240:
+            case DeviceDensity.PPI_240:
             {
                 trackWidth = 240;
                 trackHeight = 65;
