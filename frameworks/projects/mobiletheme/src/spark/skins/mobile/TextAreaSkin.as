@@ -194,10 +194,6 @@ public class TextAreaSkin extends TextSkinBase
         // now we need to measure textDisplay's height.  Unfortunately, this is tricky and 
         // is dependent on textDisplay's width
         
-        // if we have an estimated width, use it here.  Otherwise, we'll keep it 
-        // the same width as it was before
-        if (!isNaN(estimatedWidth))
-            textDisplayGroup.width = estimatedWidth;
         
         measuredHeight = Math.max(layoutMeasuredHeight, textDisplay.measuredTextSize.y + paddingTop + paddingBottom);
     }
