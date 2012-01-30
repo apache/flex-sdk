@@ -114,206 +114,206 @@ public class CandlestickChart extends CartesianChart
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class initialization
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class initialization
+    //
+    //--------------------------------------------------------------------------
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private static var INVALIDATING_STYLES:Object =
-	{
-		columnWidthRatio: 1,
-		maxColumnWidth: 1
-	}
+    /**
+     *  @private
+     */
+    private static var INVALIDATING_STYLES:Object =
+    {
+        columnWidthRatio: 1,
+        maxColumnWidth: 1
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function CandlestickChart()
-	{
-		super();
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function CandlestickChart()
+    {
+        super();
 
-		dataTipMode = "single";
-	}
+        dataTipMode = "single";
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false; 
-	
-	/**
-	 *  @private
-	 */
-	private var _perSeriescolumnWidthRatio:Number;
-	
-	/**
-	 *  @private
-	 */
-	private var _perSeriesMaxColumnWidth:Number;
-	
-	/**
-	 *  @private
-	 */
-	private var _leftOffset:Number;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: UIComponent
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false; 
+    
+    /**
+     *  @private
+     */
+    private var _perSeriescolumnWidthRatio:Number;
+    
+    /**
+     *  @private
+     */
+    private var _perSeriesMaxColumnWidth:Number;
+    
+    /**
+     *  @private
+     */
+    private var _leftOffset:Number;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var candlestickChartStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.CandlestickChart", styleManager);
-		
-		var candlestickChartSeriesStyles:Array /* of Object */ = [];
-		
-		candlestickChartStyle.defaultFactory = function():void
-		{
-			this.axisColor = 0xD5DEDD;
-			this.chartSeriesStyles = candlestickChartSeriesStyles;		
-			this.columnWidthRatio = 0.65;
-			this.dataTipRenderer = DataTip;
-			this.fill = new SolidColor(0xFFFFFF, 0);
-			this.calloutStroke = new Stroke(0x888888,2);			
-			this.fontSize = 10;
-			this.textAlign = "left"
-			this.horizontalAxisStyleNames = ["blockCategoryAxis"];
-			this.verticalAxisStyleNames = ["blockNumericAxis"];
-		}
-		
-		var n:int = HaloDefaults.defaultColors.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			var styleName:String = "haloCandlestickSeries" + i;
-			candlestickChartSeriesStyles[i] = styleName;
-			
-			var o:CSSStyleDeclaration =
-				HaloDefaults.createSelector("." + styleName, styleManager);
-			
-			var f:Function = function(o:CSSStyleDeclaration, boxStroke:Stroke,
-									  declineFill:IFill):void
-			{
-				o.defaultFactory = function():void
-				{
-					this.boxStroke = boxStroke;
-					this.declineFill = declineFill;
-				}
-			}
-			
-			f(o, new Stroke(HaloDefaults.defaultColors[i], 0, 1),
-				new SolidColor(HaloDefaults.defaultColors[i]));
-		}
-		
-		return true;
-	}
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
-	
-	/**
-	 *  @private
-	 */
-	override public function styleChanged(styleProp:String):void
-	{
-		if (styleProp == null || INVALIDATING_STYLES[styleProp] != undefined)
-			invalidateSeries();
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var candlestickChartStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.CandlestickChart", styleManager);
+        
+        var candlestickChartSeriesStyles:Array /* of Object */ = [];
+        
+        candlestickChartStyle.defaultFactory = function():void
+        {
+            this.axisColor = 0xD5DEDD;
+            this.chartSeriesStyles = candlestickChartSeriesStyles;      
+            this.columnWidthRatio = 0.65;
+            this.dataTipRenderer = DataTip;
+            this.fill = new SolidColor(0xFFFFFF, 0);
+            this.calloutStroke = new Stroke(0x888888,2);            
+            this.fontSize = 10;
+            this.textAlign = "left"
+            this.horizontalAxisStyleNames = ["blockCategoryAxis"];
+            this.verticalAxisStyleNames = ["blockNumericAxis"];
+        }
+        
+        var n:int = HaloDefaults.defaultColors.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var styleName:String = "haloCandlestickSeries" + i;
+            candlestickChartSeriesStyles[i] = styleName;
+            
+            var o:CSSStyleDeclaration =
+                HaloDefaults.createSelector("." + styleName, styleManager);
+            
+            var f:Function = function(o:CSSStyleDeclaration, boxStroke:Stroke,
+                                      declineFill:IFill):void
+            {
+                o.defaultFactory = function():void
+                {
+                    this.boxStroke = boxStroke;
+                    this.declineFill = declineFill;
+                }
+            }
+            
+            f(o, new Stroke(HaloDefaults.defaultColors[i], 0, 1),
+                new SolidColor(HaloDefaults.defaultColors[i]));
+        }
+        
+        return true;
+    }
+    
+    /**
+     *   A module factory is used as context for using embedded fonts and for finding the style manager that controls the styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        if (styleProp == null || INVALIDATING_STYLES[styleProp] != undefined)
+            invalidateSeries();
 
-		super.styleChanged(styleProp);
-	}
+        super.styleChanged(styleProp);
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: ChartBase
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: ChartBase
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override protected function customizeSeries(seriesGlyph:Series, i:uint):void
-	{
-		var series:CandlestickSeries = seriesGlyph as CandlestickSeries;
-		if (series)
-		{
-			if (!isNaN(_perSeriescolumnWidthRatio))
-				series.columnWidthRatio = _perSeriescolumnWidthRatio;
-			
-			if (!isNaN(_perSeriesMaxColumnWidth))
-				series.maxColumnWidth = _perSeriesMaxColumnWidth;
+    /**
+     *  @private
+     */
+    override protected function customizeSeries(seriesGlyph:Series, i:uint):void
+    {
+        var series:CandlestickSeries = seriesGlyph as CandlestickSeries;
+        if (series)
+        {
+            if (!isNaN(_perSeriescolumnWidthRatio))
+                series.columnWidthRatio = _perSeriescolumnWidthRatio;
+            
+            if (!isNaN(_perSeriesMaxColumnWidth))
+                series.maxColumnWidth = _perSeriesMaxColumnWidth;
 
-			series.offset = _leftOffset + i * _perSeriescolumnWidthRatio;
-		}
-	}
-	
-	/**
-	 *  @private
-	 */
-	override protected function applySeriesSet(seriesSet:Array /* of Series */,
-											   transform:DataTransform):Array /* of Series */
-	{
-			
-		var columnWidthRatio:Number = getStyle("columnWidthRatio");
-		var maxColumnWidth:Number = getStyle("maxColumnWidth");
+            series.offset = _leftOffset + i * _perSeriescolumnWidthRatio;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function applySeriesSet(seriesSet:Array /* of Series */,
+                                               transform:DataTransform):Array /* of Series */
+    {
+            
+        var columnWidthRatio:Number = getStyle("columnWidthRatio");
+        var maxColumnWidth:Number = getStyle("maxColumnWidth");
 
-		_perSeriescolumnWidthRatio = columnWidthRatio / seriesSet.length;
-		_perSeriesMaxColumnWidth = maxColumnWidth / seriesSet.length;
-		
-		_leftOffset = (1 - columnWidthRatio) / 2 +
-					  _perSeriescolumnWidthRatio / 2 - 0.5;
-		
-		return super.applySeriesSet(seriesSet, transform);
-	}			
+        _perSeriescolumnWidthRatio = columnWidthRatio / seriesSet.length;
+        _perSeriesMaxColumnWidth = maxColumnWidth / seriesSet.length;
+        
+        _leftOffset = (1 - columnWidthRatio) / 2 +
+                      _perSeriescolumnWidthRatio / 2 - 0.5;
+        
+        return super.applySeriesSet(seriesSet, transform);
+    }           
 }
 
 }
