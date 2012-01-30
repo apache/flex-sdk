@@ -44,7 +44,8 @@ public class IndexChangedEvent extends Event
      *  The IndexChangedEvent.CHANGE constant defines the value of the 
      *  <code>type</code> property of the event object for a <code>change</code> event,
      *  which indicates that an index has changed, such as when and Accordion control
-     *  changes the displayed panel or a ViewStack changes views.
+     *  changes the displayed panel, a ViewStack changes views or a List-based control 
+     *  changes its selection. 
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -162,47 +163,8 @@ public class IndexChangedEvent extends Event
     public static const HEADER_SHIFT:String = "headerShift";
     
     /**
-     *  The IndexChangedEvent.SELECTION_CHANGED constant defines the value of the 
-     *  <code>type</code> property of the event object for a <code>selectionChanged</code> event,
-     *  which indicates that the current selection has changed. 
-     *
-     *  <p>The properties of the event object have the following values:</p>
-     *  <table class="innertable">
-     *     <tr><th>Property</th><th>Value</th></tr>
-     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
-     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
-     *       event listener that handles the event. For example, if you use 
-     *       <code>myButton.addEventListener()</code> to register an event listener, 
-     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>inputType</code></td><td>Indicates whether this event 
-     *         was caused by a mouse or keyboard interaction.</td></tr>
-     *     <tr><td><code>newIndex</code></td><td>The zero-based index of the 
-     *       selected item.</td></tr>
-     *     <tr><td><code>oldIndex</code></td><td>The zero-based index of the 
-     *       previously selected item.</td></tr>
-     *     <tr><td><code>relatedObject</code></td><td>null</td></tr>
-     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
-     *       it is not always the Object listening for the event. 
-     *       Use the <code>currentTarget</code> property to always access the 
-     *       Object listening for the event.</td></tr>
-     *     <tr><td><code>TriggerEvent</code></td><td>The event that 
-     *        triggered this event.</td></tr>
-     *     <tr><td><code>Type</code></td><td>IndexChangedEvent.HEADER_SHIFT</td></tr>
-     *  </table>
-     *   
-     *  @eventType selectionChanged
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public static const SELECTION_CHANGED:String = "selectionChanged";
-    
-    /**
-     *  The IndexChangedEvent.SELECTION_CHANGING constant defines the value of the 
-     *  <code>type</code> property of the event object for a <code>selectionChanging</code> event,
+     *  The IndexChangedEvent.CHANGING constant defines the value of the 
+     *  <code>type</code> property of the event object for a <code>changing</code> event,
      *  which indicates that the current selection is about to change. 
      *
      *  <p>The properties of the event object have the following values:</p>
@@ -230,18 +192,18 @@ public class IndexChangedEvent extends Event
      *     <tr><td><code>Type</code></td><td>IndexChangedEvent.HEADER_SHIFT</td></tr>
      *  </table>
      *   
-      *  @eventType selectionChanging
+      *  @eventType changing
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static const SELECTION_CHANGING:String = "selectionChanging";
+    public static const CHANGING:String = "changing";
     
     /**
-     *  The IndexChangedEvent.ITEM_FOCUS_CHANGED constant defines the value of the 
-     *  <code>type</code> property of the event object for a <code>itemFocusChanging</code> event,
+     *  The IndexChangedEvent.CARET_CHANGE constant defines the value of the 
+     *  <code>type</code> property of the event object for a <code>caretChange</code> event,
      *  which indicates that the current item in focus is about to change. 
      *
      *  <p>The properties of the event object have the following values:</p>
@@ -269,14 +231,14 @@ public class IndexChangedEvent extends Event
      *     <tr><td><code>Type</code></td><td>IndexChangedEvent.HEADER_SHIFT</td></tr>
      *  </table>
      *   
-      *  @eventType itemFocusChanged
+      *  @eventType caretChange
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static const ITEM_FOCUS_CHANGED:String = "itemFocusChanged";
+    public static const CARET_CHANGE:String = "caretChange";
 
     //--------------------------------------------------------------------------
     //
@@ -315,8 +277,7 @@ public class IndexChangedEvent extends Event
                                       relatedObject:DisplayObject = null,
                                       oldIndex:Number = -1,
                                       newIndex:Number = -1,
-                                      triggerEvent:Event = null, 
-                                      multipleSelectionChange:Boolean = false)
+                                      triggerEvent:Event = null)
     {
         super(type, bubbles, cancelable);
 
