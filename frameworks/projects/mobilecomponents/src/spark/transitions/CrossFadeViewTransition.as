@@ -13,6 +13,7 @@ package spark.transitions
 {
     
 import flash.display.BlendMode;
+import flash.geom.Point;
 
 import mx.core.mx_internal;
 import mx.effects.IEffect;
@@ -100,7 +101,7 @@ public class CrossFadeViewTransition extends ViewTransitionBase
         
         var oldVisibility:Boolean = endView.visible;
         endView.visible = false;
-        cachedNavigator = getSnapshot(targetNavigator, 0);
+        cachedNavigator = getSnapshot(targetNavigator, 0, cachedNavigatorGlobalPosition);
         endView.visible = oldVisibility;
     }
     
@@ -124,9 +125,11 @@ public class CrossFadeViewTransition extends ViewTransitionBase
         addComponentToContainer(transitionGroup, targetNavigator.skin);
         
         // Position our snapshot above endView.
+        transitionGroup.x = 0; 
+        transitionGroup.y = 0;
+        
         cachedNavigator.includeInLayout = false;
-        transitionGroup.addElement(cachedNavigator);
-        transitionGroup.x = transitionGroup.y = 0;
+        addCachedElementToGroup(transitionGroup, cachedNavigator, cachedNavigatorGlobalPosition);
         
         // Ensure that appropriate surfaces are cached and snapshots rendered.
         transitionGroup.validateNow();
