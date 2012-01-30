@@ -747,7 +747,7 @@ include "../styles/metadata/AnchorStyles.as";
  *    automationName="null"
  *    cachePolicy="auto|on|off"
  *    currentState="null"
- *    doubleClickEnabled="true|false"
+ *    doubleClickEnabled="false|true"
  *    enabled="true|false"
  *    explicitHeight="NaN"
  *    explicitMaxHeight="NaN"
@@ -1929,8 +1929,8 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Specifies whether the UIComponent object receives <code>doubleClick</code> events. 
-     *  The default value is <code>true</code>, which means that the UIComponent object 
-     *  receives <code>doubleClick</code> events. 
+     *  The default value is <code>false</code>, which means that the UIComponent object 
+     *  does not receive <code>doubleClick</code> events. 
      *
      *  <p>The <code>mouseEnabled</code> property must also be set to <code>true</code>, 
      *  its default value, for the object to receive <code>doubleClick</code> events.</p>
