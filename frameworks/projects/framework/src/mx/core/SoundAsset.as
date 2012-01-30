@@ -68,6 +68,11 @@ import flash.media.Sound;
  *
  *  <pre>
  *  &lt;mx:SoundEffect id="beepEffect" source="{beepClass}"/&gt;</pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SoundAsset extends Sound implements IFlexAsset
 {
@@ -81,6 +86,11 @@ public class SoundAsset extends Sound implements IFlexAsset
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function SoundAsset()
     {
