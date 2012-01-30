@@ -14,6 +14,7 @@ package mx.resources
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.events.FocusEvent;
 import flash.events.IEventDispatcher;
 import flash.events.TimerEvent;
 import flash.system.ApplicationDomain;
@@ -122,7 +123,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
 
         if (SystemManagerGlobals.topLevelSystemManagers.length)
 		    SystemManagerGlobals.topLevelSystemManagers[0].
-			    addEventListener(FlexEvent.NEW_CHILD_APPLICATION, newChildApplicationHandler, true);
+			    addEventListener(FlexEvent.NEW_CHILD_APPLICATION, newChildApplicationHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -353,15 +354,11 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
         addResourceBundle(resourceBundle);
     }
     
-    // parameter is Event because we can get FlexEvents from other applicationDomains
-	private function newChildApplicationHandler(event:Event):void
+    // FocusEvent is used just so we can add a relatedObject
+	private function newChildApplicationHandler(event:FocusEvent):void
 	{
-        // ignore if from some other ApplicationDomain
-        if (event is FlexEvent)
-        {
-		    var info:Object = event.target.info();
-            processInfo(info);
-        }
+		var info:Object = event.relatedObject["info"]();
+        processInfo(info);
     }
 		
     private function processInfo(info:Object):void
