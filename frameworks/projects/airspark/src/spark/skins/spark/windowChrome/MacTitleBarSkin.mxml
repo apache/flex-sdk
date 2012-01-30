@@ -81,7 +81,7 @@
         -->
         <mx:Spacer minWidth="0" 
             width="{Math.max(0 + titleText.width - titleText.width, 
-                   ((fxComponent.width - titleText.getPreferredBoundsWidth() - 
+                   ((hostComponent.width - titleText.getPreferredBoundsWidth() - 
                    titleIconImage.width - 4 - 5) / 2) - 58)}" />
  
         <!-- title bar icon -->
