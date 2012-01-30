@@ -671,6 +671,7 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  values aren't available yet.   The array will not be updated when the ASyncList replaces
      *  the pending items with actual (or failed) values.
      *  
+     *  @return an array with the same elements as this AsyncListView.
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -689,21 +690,31 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     
  
     /**
-     *  Prints the contents of this view to a string and returns it.
+     *  Returns a string that contains the list's length and the number of pending item requests.  
+     *  This method does not include the list's items, it will not trigger pending requests.
      * 
-     *  @return The contents of this view, in string form.
+     *  @return A brief description of the list.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
+     *  @playerversion Flash 10
      *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function toString():String
     {
-        if (list && Object(list).toString)
-            return Object(list).toString();
+        var s:String = getQualifiedClassName(this);
+
+        if (list)
+        {
+            var nRequests:int = 0;
+            for each (var responder:ListItemResponder in pendingResponders)
+                nRequests += 1;
+            s += " length=" + length + ", " + nRequests + " pending requests";
+        }
         else
-            return getQualifiedClassName(this);
+            s += " no list";
+
+        return s;
     }
 
 }
