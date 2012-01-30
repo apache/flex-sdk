@@ -57,7 +57,8 @@
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
-                <include name="textLayout.swc"/>
+				<include name="mx/mx.swc"/>
+	                  <include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
 			<locale/>
