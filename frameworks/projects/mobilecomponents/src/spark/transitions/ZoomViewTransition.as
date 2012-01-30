@@ -159,6 +159,7 @@ public class ZoomViewTransition extends ViewTransitionBase
     
     private var _mode:String = ZoomViewTransitionMode.OUT;
     
+    [Inspectable(category="General", enumeration="in,out", defaultValue="out")]
     /**
      *  Specifies the type of zoom transition to perform.
      *
