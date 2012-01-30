@@ -402,8 +402,7 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             if (activeView)
             {
-                var canDestroy:Boolean = (activeView.destructionPolicy != ContainerDestructionPolicy.NEVER) && 
-                                         (destructionPolicy != ContainerDestructionPolicy.NEVER);
+                var canDestroy:Boolean = (activeView.destructionPolicy != ContainerDestructionPolicy.NEVER);
                 
                 // If the instance of the view is being destroyed but our navigationStack is
                 // maintained, the active view needs to serialize its data is application
