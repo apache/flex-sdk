@@ -629,7 +629,7 @@ public class ListCollectionView extends Proxy
     public function addAllAt(addList:IList, index:int):void
     {
         var length:int = addList.length;
-        for(var i:int=0; i < length; i++)
+        for (var i:int=0; i < length; i++)
         {
             this.addItemAt(addList.getItemAt(i), i+index);
         }
