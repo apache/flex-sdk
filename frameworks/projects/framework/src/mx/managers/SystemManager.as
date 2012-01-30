@@ -2258,7 +2258,7 @@ public class SystemManager extends MovieClip
 	 *  When this function is called, we know that the application
 	 *  class has been defined and read in by the Player.
 	 */
-	private function docFrameHandler(event:Event = null):void
+	mx_internal function docFrameHandler(event:Event = null):void
 	{
 		// The ResourceManager has already been registered 
 		// by initialize() in frame 1.
