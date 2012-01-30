@@ -50,7 +50,6 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
     public function FlexContentHolder()
     {
         super();
-        trackSizeChanges = false;
         showInAutomationHierarchy = false;
         
         _width = this.width;
