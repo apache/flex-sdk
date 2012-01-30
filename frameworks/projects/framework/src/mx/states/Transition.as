@@ -71,6 +71,11 @@ import mx.effects.IEffect;
  *  @see mx.effects.SetStyleAction
  *
  *  @includeExample examples/TransitionExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Transition
 {
@@ -84,6 +89,11 @@ public class Transition
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function Transition()
 	{
@@ -108,6 +118,11 @@ public class Transition
 	 *  <p>The <code>effect</code> property is the default property of the
 	 *  Transition class. You can omit the <code>&lt;mx:effect&gt;</code> tag 
 	 *  if you use MXML tag syntax.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var effect:IEffect;
 
@@ -125,6 +140,11 @@ public class Transition
      *  which corresponds to the base view state.</p>
      *
      *  @default "&#42;"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public var fromState:String = "*";
 
@@ -142,6 +162,11 @@ public class Transition
      *  which corresponds to the base view state.</p>
      *
      *  @default "&#42;"
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var toState:String = "*";
 	
@@ -172,6 +197,11 @@ public class Transition
      *  transition, then playing the B->C transition will occur.</p>
      * 
      *  @default false 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public var autoReverse:Boolean = false;
 }
