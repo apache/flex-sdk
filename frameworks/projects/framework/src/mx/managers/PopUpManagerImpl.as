@@ -129,9 +129,9 @@ public class PopUpManagerImpl implements IPopUpManager
         
         if (sbRoot == sm)
         {
-            sbRoot.addEventListener(ModalWindowRequest.CREATE, createModalWindowRequestHandler);
-            sbRoot.addEventListener(ModalWindowRequest.SHOW, showModalWindowRequest);
-            sbRoot.addEventListener(ModalWindowRequest.HIDE, hideModalWindowRequest);
+            sbRoot.addEventListener(ModalWindowRequest.CREATE, createModalWindowRequestHandler, false, 0, true);
+            sbRoot.addEventListener(ModalWindowRequest.SHOW, showModalWindowRequest, false, 0, true);
+            sbRoot.addEventListener(ModalWindowRequest.HIDE, hideModalWindowRequest, false, 0, true);
         }
     }
 
