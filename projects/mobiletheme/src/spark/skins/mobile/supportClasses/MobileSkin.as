@@ -54,8 +54,26 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     // Used for gradient background
     protected static var matrix:Matrix = new Matrix();
     
+    /**
+     * An array of color distribution ratios.
+     * This is used in the chrome color fill.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected static const CHROME_COLOR_RATIOS:Array = [0, 127.5];
     
+    /**
+     * An array of alpha values for the corresponding colors in the colors array. 
+     * This is used in the chrome color fill.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected static const CHROME_COLOR_ALPHAS:Array = [1, 1];
     
     private static const DEFAULT_SYMBOL_COLOR_VALUE:uint = 0x00;
@@ -87,12 +105,12 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     //--------------------------------------------------------------------------
     
     /**
-     *  Default width
+     *  The default width of the skin.
      */
     protected var layoutMeasuredWidth:uint = 0;
     
     /**
-     *  Default height
+     *  The default height of the skin.
      */
     protected var layoutMeasuredHeight:uint = 0;
     
@@ -133,7 +151,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     //----------------------------------
     
     /**
-     *  Returns the DPI of the application.
+     *  Returns the DPI of the application. This property can only be set in MXML on the root application.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -215,7 +233,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     /**
      *  Called whenever the currentState changes. Skins should override
      *  this function if they make any appearance changes during 
-     *  a state change
+     *  a state change.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -312,6 +330,8 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  the <code>chromeColor</code> drawn by <code>drawChromeColor</code>.
      * 
      *  The default implementation uses a linear gradient fill.
+     * 
+     *  @param chromeColorGraphics The Graphics object to fill.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -329,6 +349,17 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
         chromeColorGraphics.beginGradientFill(GradientType.LINEAR, colors, CHROME_COLOR_ALPHAS, CHROME_COLOR_RATIOS, matrix);
     }
     
+    /**
+     * Gets the value of the <code>chromeColor</code> style property. If the skin has focus, then this method gets
+     * the value of the <code>focusColor</code> style property.
+     * 
+     *  @return The value of the <code>chromeColor</code> or <code>focusColor</code> style property. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     protected function getChromeColor():uint
     {
         var chromeColorStyle:String = (_focus) ? "focusColor" : "chromeColor";
@@ -339,6 +370,8 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  Uses the skin's Graphics object to draw a shape containing the
      *  <code>chromeColor</code>. Fill parameters are defined by
      *  <code>beginChromeColorFill</code>.
+     * 
+     *  @param chromeColorGraphics The Graphics object on which to draw.
      * 
      *  @param unscaledWidth Specifies the width of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
@@ -403,20 +436,20 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     /**
      *  A helper method to size children elements of this component.
      * 
-     *  <p>This method is the recommended way to size children elements.  You can 
+     *  <p>This method is the recommended way to size children elements. You can 
      *  use this method instead of checking for and using
-     *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
+     *  interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
      *  or StyleableTextField.</p>
      *
-     *  <p>Call this method before calling <code>setElementPosition()</code></p>
+     *  <p>Call this method before calling the <code>setElementPosition()</code> method.</p>
      * 
-     *  @param element The child element to size.  The element could be an 
+     *  @param element The child element to size. The element could be an 
      *  ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
      *  DisplayObject.
      *
-     *  @param x The width of the child.
+     *  @param width The width of the child.
      *
-     *  @param y The height of the child.
+     *  @param height The height of the child.
      *
      *  @see #setElementPosition  
      * 
@@ -446,15 +479,15 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  A helper method to retrieve the preferred width of a child element.
      * 
      *  <p>This method is the recommended way to get a child element's preferred 
-     *  width.  You can use this method instead of checking for and using
+     *  width. You can use this method instead of checking for and using
      *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
      *  or StyleableTextField.</p>
      *
-     *  @param element The child element to retrieve the width for.  The element could  
+     *  @param element The child element to retrieve the width for. The element could  
      *  be an ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
      *  DisplayObject.
      * 
-     *  @param element The child to retrieve the width for
+     *  @return The child element's preferred width.
      *
      *  @see #sizeElement
      *  @see #getElementPreferredHeight  
@@ -488,13 +521,15 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  A helper method to retrieve the preferred height of a child element.
      * 
      *  <p>This method is the recommended way to get a child element's preferred 
-     *  height.  You can use this method instead of checking for and using
+     *  height. You can use this method instead of checking for and using
      *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
      *  or StyleableTextField.</p>
      *
-     *  @param element The child element to retrieve the width for.  The element could  
+     *  @param element The child element to retrieve the height for. The element could  
      *  be an ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
      *  DisplayObject.
+     *
+     *  @return The child element's preferred height.
      *
      *  @see #sizeElement
      *  @see #getElementPreferredWidth 
@@ -525,9 +560,9 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     }
     
     /**
-     *  List of id's of items that should be excluded when rendering the focus ring.
+     *  List of IDs of items that should be excluded when rendering the focus ring.
      *  Only items of type DisplayObject or GraphicElement should be excluded. Items
-     *  of other types will be ignored.
+     *  of other types are ignored.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -547,6 +582,13 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     /**
      *  Called before a bitmap capture is made for this skin. The default implementation
      *  excludes items in the focusSkinExclusions array.
+     * 
+     * @return <code>true</code> if the component needs to be redrawn; otherwise <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function beginHighlightBitmapCapture():Boolean
     {
@@ -624,6 +666,13 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     /**
      *  Called after a bitmap capture is made for this skin. The default implementation 
      *  restores the items in the focusSkinExclusions array.
+     * 
+     * @return <code>true</code> if the component needs to be redrawn; otherwise <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function endHighlightBitmapCapture():Boolean
     {
