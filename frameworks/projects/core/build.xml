@@ -86,6 +86,7 @@
 		    <compiler.source-path path-element="${basedir}/src"/>
 		    <compiler.source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
 		    <doc-classes class="FlexClasses"/>
+		    <jvmarg line="${compc.jvm.args}"/>
 		</asdoc>
 
 		<!-- updates flex.swc with asdoc xml -->
