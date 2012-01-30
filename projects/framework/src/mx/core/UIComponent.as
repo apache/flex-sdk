@@ -4169,8 +4169,11 @@ public class UIComponent extends FlexSprite
         // If my parent hasn't been attached to the display list, then its nestLevel
         // will be zero.  If it tries to set my nestLevel to 1, ignore it.  We'll
         // update nest levels again after the parent is added to the display list.
-        //
+        if (value == 1)
+            return;
+        
         // Also punt if the new value for nestLevel is the same as my current value.
+        // TODO: (aharui) add early exit if nestLevel isn't changing
         if (value > 1 && _nestLevel != value)
         {
             _nestLevel = value;
