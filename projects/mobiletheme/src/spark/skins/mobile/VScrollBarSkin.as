@@ -49,16 +49,17 @@ public class VScrollBarSkin extends MobileSkin
         super();
         
         useChromeColor = true;
-		layoutMeasuredHeight = 20;
-		
-		// Depending on density set our measured width
+        layoutMeasuredHeight = 20;
+        thumbSkinClass = VScrollBarThumbSkin;
+        
+        // Depending on density set our measured width
         switch (applicationDPI)
         {
-			case DPIClassification.DPI_320:
-			{
-				layoutMeasuredWidth = 12;
-				break;
-			}
+            case DPIClassification.DPI_320:
+            {
+                layoutMeasuredWidth = 12;
+                break;
+            }
             case DPIClassification.DPI_240:
             {
                 layoutMeasuredWidth = 9;
@@ -78,11 +79,16 @@ public class VScrollBarSkin extends MobileSkin
     //  Variables
     //
     //--------------------------------------------------------------------------
+    
     /** 
      *  @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
     public var hostComponent:VScrollBar;
-
+    
+    /**
+     *  Skin to use for the thumb Button skin part
+     */
+    protected var thumbSkinClass:Class;
     
     //--------------------------------------------------------------------------
     //
@@ -133,13 +139,13 @@ public class VScrollBarSkin extends MobileSkin
         if (!thumb)
         {
             thumb = new Button();
-            thumb.setStyle("skinClass", spark.skins.mobile.VScrollBarThumbSkin);
+            thumb.setStyle("skinClass", thumbSkinClass);
             thumb.width = layoutMeasuredWidth;
             thumb.height = layoutMeasuredWidth;
             addChild(thumb);
         }
     }
-
+    
     /**
      *  @private 
      */
@@ -148,7 +154,7 @@ public class VScrollBarSkin extends MobileSkin
         measuredWidth = layoutMeasuredWidth;
         measuredHeight = layoutMeasuredHeight;
     }
-
+    
     /**
      *  @private 
      */
