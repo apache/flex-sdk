@@ -1603,9 +1603,12 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
      */  
     private function dispatchInheritingStylesChangeEvent():void
     {
-        var event:Event = new FlexChangeEvent(FlexChangeEvent.STYLE_MANAGER_CHANGE, 
-            false, false, {property: "inheritingStyles"});
-        dispatchEvent(event);
+        if (hasEventListener(FlexChangeEvent.STYLE_MANAGER_CHANGE))
+        {    
+            var event:Event = new FlexChangeEvent(FlexChangeEvent.STYLE_MANAGER_CHANGE, 
+                false, false, {property: "inheritingStyles"});
+            dispatchEvent(event);
+        }
     }
 
     //--------------------------------------------------------------------------
