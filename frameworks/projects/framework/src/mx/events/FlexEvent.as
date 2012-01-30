@@ -888,6 +888,34 @@ public class FlexEvent extends Event
     public static const LOADING:String = "loading";
     
     /**
+     *  The <code>FlexEvent.MENU_KEY_PRESSED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>menuKeyPressed</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>true</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType menuKeyPressed
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static const MENU_KEY_PRESSED:String = "menuKeyPressed";
+    
+    /**
      *  The <code>FlexEvent.MUTED_CHANGE</code> constant defines the value of the 
      *  <code>type</code> property of the event object for a <code>mutedChange</code> event.
      * 
