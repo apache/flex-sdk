@@ -15,20 +15,16 @@ package spark.automation.delegates.components
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.ui.Keyboard;
 	import flash.utils.getTimer;
 	
 	import mx.automation.Automation;
 	import mx.automation.AutomationIDPart;
-	import mx.automation.IAutomationManager2;
 	import mx.automation.IAutomationObject;
 	import mx.automation.IAutomationObjectHelper;
 	import mx.automation.IAutomationTabularData;
-	import mx.automation.delegates.DragManagerAutomationImpl;
-	import mx.automation.events.AutomationRecordEvent;
-	import mx.automation.events.ListItemSelectEvent;
-	import mx.automation.tabularData.DataGridTabularData;
-	import mx.controls.listClasses.IListItemRenderer;
+	import mx.core.IVisualElement;
 	import mx.core.mx_internal;
 	import mx.utils.StringUtil;
 	
@@ -102,9 +98,11 @@ package spark.automation.delegates.components
 			super(obj);
 			updateItemRenderers();
 			obj.addEventListener(Event.ADDED, childAddedHandler, false, 0, true);
-			obj.addEventListener(MouseEvent.CLICK, mouseClickHandler, false, 0 , true);
 			obj.addEventListener(GridEvent.GRID_DOUBLE_CLICK, recordAutomatableEvent, false, 0 , true);
-			obj.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);
+			obj.grid.addEventListener(GridEvent.GRID_MOUSE_UP, gridMouseUpHandler, false, 100, true);
+			obj.addEventListener(GridEvent.SEPARATOR_MOUSE_UP, columnStretchHandler, false, 0, true);
+			obj.addEventListener(GridEvent.GRID_CLICK, gridClickHandler, false, 0 , true);
+			obj.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, false, 0, true);			
 		}
 		
 		
@@ -128,6 +126,8 @@ package spark.automation.delegates.components
 		 * @private
 		 */
 		mx_internal var itemAutomationNameFunction:Function = getItemAutomationValue;
+		
+		private var itemUnderMouse:IGridItemRenderer;
 		
 		
 		//--------------------------------------------------------------------------
@@ -178,8 +178,7 @@ package spark.automation.delegates.components
 			
 			var result:int = listItems.length * grid.columns.length;
 			return result;
-		}
-		
+		}		
 		
 		//--------------------------------------------------------------------------
 		//
@@ -234,7 +233,7 @@ package spark.automation.delegates.components
 		 */
 		protected function recordDGItemSelectEvent(item:IGridItemRenderer,
 												   trigger:Event, 
-												   cacheable:Boolean=true):void
+												   cacheable:Boolean=false):void
 		{
 			var selectionType:String = SparkDataGridItemSelectEvent.SELECT;
 			var keyEvent:KeyboardEvent = trigger as KeyboardEvent;
@@ -268,6 +267,16 @@ package spark.automation.delegates.components
 		
 		/**
 		 * @private
+		 */
+		protected function recordDGHeaderClickEvent(item:IGridItemRenderer,
+												   trigger:Event, 
+												   cacheable:Boolean=false):void
+		{
+			//recordAutomatableEvent(event, cacheable);
+		}
+		
+		/**
+		 * @private
 		 * Plays back MouseEvent.CLICK on the item renderer.
 		 */
 		protected function replayMouseClickOnItem(item:IGridItemRenderer,
@@ -297,7 +306,7 @@ package spark.automation.delegates.components
 		/**
 		 *  @private
 		 */
-		protected function getItemRendererForEvent(lise:ListItemSelectEvent):IGridItemRenderer
+		protected function getItemRendererForEvent(lise:SparkDataGridItemSelectEvent):IGridItemRenderer
 		{
 			var rowIndex:int = lise.itemIndex;
 			//rowIndex = rowIndex < grid.lockedRowCount ? rowIndex : rowIndex - grid.verticalScrollPosition;
@@ -308,7 +317,7 @@ package spark.automation.delegates.components
 		/**
 		 *  @private
 		 */
-		protected function fillItemRendererIndex(item:IListItemRenderer, event:ListItemSelectEvent):void
+		protected function fillItemRendererIndex(item:IGridItemRenderer, event:SparkDataGridItemSelectEvent):void
 		{
 			var listItems:Array = getCompleteRenderersArray();
 			
@@ -359,13 +368,17 @@ package spark.automation.delegates.components
 		{
 			const rowCount:int = grid.dataProvider.length;
 			const columnCount:int = grid.columns.length;
-			const renderers:Array = new Array(rowCount);
-			
+			const renderers:Array = new Array(rowCount+1);
+			renderers[0] = new Array(columnCount);
+			for (var col:int = 0; col < columnCount; col++)
+			{
+				renderers[0][col] = grid.columnHeaderGroup.getHeaderRendererAt(col);
+			}
 			for (var rowIndex:int = 0; rowIndex < rowCount; rowIndex++)
 			{
-				renderers[rowIndex] = new Array(columnCount);
+				renderers[rowIndex+1] = new Array(columnCount);
 				for (var columnIndex:int = 0; columnIndex < columnCount; columnIndex++)
-					renderers[rowIndex][columnIndex] = grid.grid.getItemRendererAt(rowIndex, columnIndex);
+					renderers[rowIndex+1][columnIndex] = grid.grid.getItemRendererAt(rowIndex, columnIndex);
 			}
 			
 			return renderers;
@@ -466,9 +479,10 @@ package spark.automation.delegates.components
 		 */
 		public function getItemAutomationIndex(delegate:IAutomationObject):String
 		{
-			var item:IGridItemRenderer = delegate as IGridItemRenderer;
-			/*if (item == grid.itemEditorInstance && grid.editedItemPosition)
-			item = grid.editedItemRenderer;*/
+			var item:Object = delegate;
+			if (item == grid.itemEditorInstance && grid.editor && 
+				(grid.editor.editorRowIndex >= 0) && (grid.editor.editorColumnIndex >= 0))
+				item = grid.editor.editedItemRenderer;
 			var row:int = item.rowIndex;
 			if(row >= 0 && item.column)
 			{
@@ -485,10 +499,10 @@ package spark.automation.delegates.components
 															useName:Boolean):String
 		{
 			var result:Array = [];
-			var item:IGridItemRenderer = delegate as IGridItemRenderer;
+			var item:Object = delegate;
 			
-			/*if (item == grid.itemEditorInstance)
-			item = grid.editedItemRenderer;*/
+			if (item == grid.itemEditorInstance)
+				item = grid.editor.editedItemRenderer;
 			
 			var row:int = item.rowIndex;
 			var isHeader:Boolean = false;
@@ -508,14 +522,14 @@ package spark.automation.delegates.components
 			row :
 			row - grid.verticalScrollPosition; */           
 			
-			/*if (row >= 0)
+			if (row >= 0)
 			{
-			if (grid.headerVisible)
-			++row;
+				row = row + 1;
 			}
-			else if (isHeader)
-			row = 0;*/
-			
+			else
+			{
+				row = 0;
+			}
 			
 			var listItems:Array = getCompleteRenderersArray();
 			//var listItems:Array = grid.rendererArray; .. changed as above to take care of the
@@ -530,12 +544,12 @@ package spark.automation.delegates.components
 			var validItemRendererFound:Boolean = false;
 			var tabData:IAutomationTabularData = automationTabularData as IAutomationTabularData;
 			var firstVisibleRowIndex:int = tabData.firstVisibleRow;
-			//row = row - firstVisibleRowIndex;
+			
 			for (var col:int = 0; col < listItems[row].length; col++)
 			{
-				var i:IGridItemRenderer = listItems[row][col];
-				/*if(i == grid.editedItemRenderer)
-				i = grid.itemEditorInstance;*/
+				var i:IVisualElement = listItems[row][col];
+				if(i == grid.editor.editedItemRenderer)
+					i = grid.itemEditorInstance;
 				var itemDelegate:IAutomationObject = i as IAutomationObject;
 				var s:String = (useName
 					? itemDelegate.automationName
@@ -604,14 +618,51 @@ package spark.automation.delegates.components
 		/**
 		 *  @private
 		 */
+		override public function createAutomationIDPart(child:IAutomationObject):Object
+		{
+			var help:IAutomationObjectHelper = Automation.automationObjectHelper;
+			return (help
+				? help.helpCreateIDPart(uiAutomationObject, child, itemAutomationNameFunction,
+					getItemAutomationIndex)
+				: null);
+		}
+		
+		/**
+		 *  @private
+		 */
+		override public function createAutomationIDPartWithRequiredProperties(child:IAutomationObject, properties:Array):Object
+		{
+			var help:IAutomationObjectHelper = Automation.automationObjectHelper;
+			return (help
+				? help.helpCreateIDPartWithRequiredProperties(uiAutomationObject, child, properties,itemAutomationNameFunction,
+					getItemAutomationIndex)
+				: null);
+		}
+		
+		/**
+		 *  @private
+		 */
+		override public function resolveAutomationIDPart(part:Object):Array
+		{
+			var help:IAutomationObjectHelper = Automation.automationObjectHelper;
+			return help ? help.helpResolveIDPart(uiAutomationObject, part) : null;
+		}
+		
+		/**
+		 *  @private
+		 */
 		override public function replayAutomatableEvent(interaction:Event):Boolean
 		{
 			var help:IAutomationObjectHelper = Automation.automationObjectHelper;
 			var mouseEvent:MouseEvent;
 			switch (interaction.type)
 			{
-				case MouseEvent.CLICK:
+				case GridEvent.GRID_CLICK:
 				{
+					var colIndex:int = GridEvent(interaction).columnIndex;
+					var rect:Rectangle = grid.columnHeaderGroup.getHeaderBounds(colIndex);
+					MouseEvent(interaction).localX = rect.left + rect.width/2;
+					MouseEvent(interaction).localY = rect.top + rect.height/2;
 					return help.replayClick(grid.columnHeaderGroup, MouseEvent(interaction));
 				}
 				case GridEvent.GRID_DOUBLE_CLICK:
@@ -684,27 +735,41 @@ package spark.automation.delegates.components
 					
 					var c:IListItemRenderer = listItems[0][DataGridEvent(interaction).columnIndex];
 					return help.replayClick(c);
-					}
+					}*/
 					
-					case DataGridEvent.COLUMN_STRETCH:
-					{
-					var s:IFlexDisplayObject = DataGridHeader((grid .dataGridHeader)). getSeparators()[DataGridEvent(interaction).columnIndex];
+				case GridEvent.SEPARATOR_MOUSE_UP:
+				{
+					var s:IGridItemRenderer = grid.columnHeaderGroup.getHeaderRendererAt(GridEvent(interaction).columnIndex);
 					
-					s.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN));
+					//s.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN, true, false, 0, 0));
 					// localX needs to be passed in the constructor
 					// to get stageX value computed.
-					mouseEvent = new MouseEvent(MouseEvent.MOUSE_UP, 
-					true, // bubble 
-					false, // cancellable 
-					DataGridEvent(interaction).localX, 
-					20, // dummy value 
-					uiComponent as InteractiveObject );
-					return help.replayMouseEvent(uiComponent, mouseEvent);
+					mouseEvent = new MouseEvent(MouseEvent.MOUSE_DOWN, true, false, s.width, 10);
+					help.replayMouseEvent(s, mouseEvent);
 					
 					
-					}
+					mouseEvent = new MouseEvent(MouseEvent.MOUSE_MOVE, true, false, GridEvent(interaction).localX, 10);
+					help.replayMouseEvent(grid, mouseEvent);
 					
-					case DataGridEvent.ITEM_EDIT_BEGIN:
+					mouseEvent = new MouseEvent(MouseEvent.MOUSE_UP,
+						true, // bubble 
+						false, // cancellable 
+						GridEvent(interaction).localX, 
+						10 // dummy value
+					);
+					help.replayMouseEvent(grid, mouseEvent);
+					
+					mouseEvent = new MouseEvent(MouseEvent.CLICK,
+						true, // bubble 
+						false, // cancellable 
+						GridEvent(interaction).localX, 
+						10 // dummy value
+					);
+					return help.replayMouseEvent(grid, mouseEvent);
+					
+				}
+					
+					/*case DataGridEvent.ITEM_EDIT_BEGIN:
 					{
 					var de:DataGridEvent = new DataGridEvent(DataGridEvent.ITEM_EDIT_BEGINNING);
 					var input:DataGridEvent = interaction as DataGridEvent;
@@ -713,10 +778,6 @@ package spark.automation.delegates.components
 					de.columnIndex = input.columnIndex;
 					uiComponent.dispatchEvent(de);
 					}*/
-					
-				case ListItemSelectEvent.DESELECT:
-				case ListItemSelectEvent.MULTI_SELECT:
-				case ListItemSelectEvent.SELECT:
 				default:
 				{
 					return super.replayAutomatableEvent(interaction);
@@ -738,12 +799,12 @@ package spark.automation.delegates.components
 			var col:uint = uint(numCols == 0 ? index : index % numCols);
 			var item:IGridItemRenderer = listItems[row][col];
 			
-			/*if (grid.itemEditorInstance &&
-			grid.editedItemPosition &&
-			item == grid.editedItemRenderer)
+			if (grid.itemEditorInstance && grid.editor && 
+				(grid.editor.editorRowIndex >= 0) && (grid.editor.editorColumnIndex >= 0) &&
+				item == grid.editor.editedItemRenderer)
 			{
-			return grid.itemEditorInstance as IAutomationObject;
-			}*/
+				return grid.itemEditorInstance as IAutomationObject;
+			}
 			
 			return  item as IAutomationObject;
 		}
@@ -771,16 +832,16 @@ package spark.automation.delegates.components
 					for (var j:int = 0; j < colCount ; j++)
 					{
 						var item:IGridItemRenderer = listItems[i][j];
-						/*if (item)
-						{*/
-						/*if (grid.itemEditorInstance &&
-						grid.editedItemPosition &&
-						item == grid.editedItemRenderer)
-						
-						childrenList.push(grid.itemEditorInstance as IAutomationObject);
-						else*/
-						childrenList.push(item as IAutomationObject);
-						//}
+						if (item)
+						{
+							if (grid.itemEditorInstance && grid.editor && 
+								(grid.editor.editorRowIndex >= 0) && (grid.editor.editorColumnIndex >= 0) &&
+								item == grid.editor.editedItemRenderer)
+								
+								childrenList.push(grid.itemEditorInstance as IAutomationObject);
+							else
+								childrenList.push(item as IAutomationObject);
+						}
 					}
 				}
 			}
@@ -798,7 +859,7 @@ package spark.automation.delegates.components
 		/**
 		 *  @private
 		 */
-		protected function mouseClickHandler(event:MouseEvent):void
+		protected function gridClickHandler(event:GridEvent):void
 		{
 			if (!Automation.automationManager || !Automation.automationManager.automationEnvironment 
 				|| !Automation.automationManager.recording)
@@ -807,27 +868,48 @@ package spark.automation.delegates.components
 			var locPt:Point = grid.grid.globalToLocal(gbPt);
 			
 			var item:IGridItemRenderer = grid.grid.getItemRendererAt(grid.grid.getRowIndexAt(locPt.x, locPt.y),
-											grid.grid.getColumnIndexAt(locPt.x, locPt.y)) as IGridItemRenderer;
-			if (!item)
+				grid.grid.getColumnIndexAt(locPt.x, locPt.y)) as IGridItemRenderer;
+			if (!item)		//This means user clicked on header
 			{
+				item = grid.columnHeaderGroup.getHeaderRendererAt(event.columnIndex);
 				//DataGrid overrides displayObjectToItemRenderer to return
 				//null if the item is the active item editor, so that's
 				//not a reliable way of determining if the user clicked on a blank
 				//row or now, so use mouseEventToItemRendererOrEditor instead
-				//if (listBase.mouseEventToItemRendererOrEditor(event) == null)
+				//if (grid.mouseEventToItemRendererOrEditor(event) == null)				
 				recordAutomatableEvent(event, true)
 				/*return;*/
-			}
-			else 
+			}			
+		}
+		
+		/**
+		 *  @private
+		 */
+		protected function gridMouseUpHandler(event:GridEvent):void
+		{
+			if (!Automation.automationManager || !Automation.automationManager.automationEnvironment 
+				|| !Automation.automationManager.recording)
+				return;
+			var gbPt:Point = event.target.localToGlobal(new Point(event.localX, event.localY));
+			var locPt:Point = grid.grid.globalToLocal(gbPt);
+			
+			var item:IGridItemRenderer = grid.grid.getItemRendererAt(grid.grid.getRowIndexAt(locPt.x, locPt.y),
+				grid.grid.getColumnIndexAt(locPt.x, locPt.y)) as IGridItemRenderer;
+			if (item && item == itemUnderMouse)
 			{
 				// take the key modifiers from the mouseDown event because
 				// they were used by List for making the selection
-				event.ctrlKey = ctrlKeyDown;
-				event.shiftKey = shiftKeyDown;
-				recordDGItemSelectEvent(item, event);
+				if(event.itemRenderer != item)
+					return;
+				else
+				{
+					event.ctrlKey = ctrlKeyDown;
+					event.shiftKey = shiftKeyDown;
+					recordDGItemSelectEvent(item, event);
+				}
 			}
+			
 		}
-				
 		/**
 		 *  @private
 		 */
@@ -848,6 +930,11 @@ package spark.automation.delegates.components
 		{
 			ctrlKeyDown = event.ctrlKey;
 			shiftKeyDown = event.shiftKey;
+			var gbPt:Point = event.target.localToGlobal(new Point(event.localX, event.localY));
+			var locPt:Point = grid.grid.globalToLocal(gbPt);
+			
+			itemUnderMouse = grid.grid.getItemRendererAt(grid.grid.getRowIndexAt(locPt.x, locPt.y),
+				grid.grid.getColumnIndexAt(locPt.x, locPt.y)) as IGridItemRenderer;
 		}
 		
 		/**
@@ -883,10 +970,10 @@ package spark.automation.delegates.components
 		/**
 		 *  @private
 		 */
-		/*private function columnStretchHandler(event:DataGridEvent):void 
+		private function columnStretchHandler(event:GridEvent):void 
 		{
-		recordAutomatableEvent(event);
-		}*/
+			recordAutomatableEvent(event);
+		}
 		
 		/**
 		 *  @private
