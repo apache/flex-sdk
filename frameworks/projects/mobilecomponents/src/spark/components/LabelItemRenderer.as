@@ -338,26 +338,11 @@ public class LabelItemRenderer extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-		// Copied from UITextField.baselinePosition
-        var tlm:TextLineMetrics;
-        
         // The text styles aren't known until there is a parent.
         if (!parent)
             return NaN;
         
-        // getLineMetrics() returns strange numbers for an empty string,
-        // so instead we get the metrics for a non-empty string.
-        var isEmpty:Boolean = (labelDisplay.text == "");
-        if (isEmpty)
-            labelDisplay.text = "Wj";
-        
-        tlm = labelDisplay.getLineMetrics(0);
-        
-        if (isEmpty)
-            labelDisplay.text = "";
-        
-		// TextFields have 2 pixels of padding all around.
-        return 2 + tlm.ascent;
+        return labelDisplay.baselinePosition;
 	}
     
     //--------------------------------------------------------------------------
