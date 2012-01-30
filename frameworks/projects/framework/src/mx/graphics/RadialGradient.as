@@ -108,6 +108,11 @@ import flash.geom.Rectangle;
  *  @see mx.graphics.GradientEntry
  *  @see mx.graphics.LinearGradient  
  *  @see mx.graphics.IFill
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RadialGradient extends GradientBase implements IFill
 {
@@ -121,6 +126,11 @@ public class RadialGradient extends GradientBase implements IFill
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RadialGradient()
     {
@@ -170,6 +180,11 @@ public class RadialGradient extends GradientBase implements IFill
      *  of the bounding Rectangle.</p>
      *
      *  @default 0.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get focalPointRatio():Number
     {
@@ -202,6 +217,11 @@ public class RadialGradient extends GradientBase implements IFill
     
     /**
      *  The vertical scale of the gradient transform, which defines the height of the (unrotated) gradient
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scaleY():Number
     {
@@ -229,11 +249,21 @@ public class RadialGradient extends GradientBase implements IFill
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	private static var commonMatrix:Matrix = new Matrix();
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function begin(target:Graphics, rc:Rectangle):void
     {
@@ -263,6 +293,11 @@ public class RadialGradient extends GradientBase implements IFill
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function end(target:Graphics):void
     {
