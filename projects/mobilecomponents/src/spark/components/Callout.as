@@ -787,7 +787,7 @@ public class Callout extends SkinnablePopUpContainer
         // and explicit max sizes aren't set, then invalidate size here so that
         // callout's max size is applied.
         if (!canSkipMeasurement() && !isMaxSizeSet)
-            invalidateSize();
+            skin.invalidateSize();
     }
 
     /**
@@ -1628,6 +1628,19 @@ public class Callout extends SkinnablePopUpContainer
      */
     private function systemManager_resizeHandler(event:Event):void
     {
+        // Watch out for explicit sizes temporarily set by a soft keyboard
+        // resize effect. canSkipMeasurement() will return false unless these
+        // values are cleared.
+        if (isSoftKeyboardEffectActive)
+        {
+            // Clear temporary explicit sizes
+            if (!softKeyboardEffectExplicitWidthFlag)
+                width = NaN;
+            
+            if (!softKeyboardEffectExplicitHeightFlag)
+                height = NaN;
+        }
+        
         // Screen resize might require a new arrow direction and callout position
         invalidatePosition();
     }
