@@ -66,7 +66,7 @@ import mx.core.TextFieldFactory;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.messaging.config.LoaderConfig;
-import mx.preloaders.DownloadProgressBar;
+import mx.preloaders.SparkDownloadProgressBar;
 import mx.preloaders.Preloader;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceBundle;
@@ -184,7 +184,7 @@ use namespace mx_internal;
  *
  *  <p>The SystemManager is the first display class created within an application.
  *  It is responsible for creating an <code>mx.preloaders.Preloader</code> that displays and
- *  <code>mx.preloaders.DownloadProgressBar</code> while the application finishes loading,
+ *  <code>mx.preloaders.SparkDownloadProgressBar</code> while the application finishes loading,
  *  then creates the <code>mx.core.Application</code> instance.</p>
  *  
  *  @langversion 3.0
@@ -2031,7 +2031,7 @@ public class SystemManager extends MovieClip
 
         var preloaderDisplayClass:Class = info()["preloader"] as Class;
         if (usePreloader && !preloaderDisplayClass)
-            preloaderDisplayClass = DownloadProgressBar;
+            preloaderDisplayClass = SparkDownloadProgressBar;
 
         // Put cross-domain RSL information in the RSL list.
         var rslList:Array = [];
