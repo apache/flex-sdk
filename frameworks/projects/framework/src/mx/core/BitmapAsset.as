@@ -183,6 +183,29 @@ public class BitmapAsset extends FlexBitmap
     }
     
     //----------------------------------
+    //  y
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  We need to make sure y is saved in our copy of the matrix
+     *  along with the other properties.
+     */
+    override public function set y(value:Number):void
+    {
+        if (mirror)
+        {
+            transform.matrix = origMatrix;
+            super.y = value;
+            validateTransformMatrix();
+        }
+        else
+        {
+            super.y = value;
+        }
+    }
+    
+    //----------------------------------
     //  width
     //----------------------------------
     
