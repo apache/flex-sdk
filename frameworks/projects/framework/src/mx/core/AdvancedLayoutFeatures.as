@@ -621,7 +621,6 @@ package mx.core
 	 */
 	public function set mirror(value:Boolean):void
 	{
-		// FIXME(hmuller) is it safe to short-circuit this?
 		_mirror = value;
 		invalidate();
 	}
