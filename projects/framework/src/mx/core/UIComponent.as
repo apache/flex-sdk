@@ -12200,11 +12200,14 @@ public class UIComponent extends FlexSprite
      */
     public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
     {
+        var previousMatrix:Matrix = _layoutFeatures ? 
+            _layoutFeatures.layoutMatrix : super.transform.matrix;
+                            
         // validateMatrix when switching between 2D/3D, works around player bug
         // see sdk-23421 
         var was3D:Boolean = is3D;
-
         _hasComplexLayoutMatrix = true;
+        
         if (_layoutFeatures == null)
         {
             // flash will make a copy of this on assignment.
@@ -12217,6 +12220,16 @@ public class UIComponent extends FlexSprite
             _layoutFeatures.layoutMatrix = value;
             invalidateTransform();
         }
+        
+        // Early exit if possible. We don't want to invalidate unnecessarily.
+        // We need to do the check here, after our new value has been applied
+        // because our matrix components are rounded upon being applied to a
+        // DisplayObject.
+        if (MatrixUtil.isEqual(previousMatrix, _layoutFeatures ? 
+            _layoutFeatures.layoutMatrix : super.transform.matrix))
+        {    
+            return;
+        } 
         
         invalidateProperties();
 
@@ -12238,6 +12251,10 @@ public class UIComponent extends FlexSprite
      */
     public function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void
     {
+        // Early exit if possible. We don't want to invalidate unnecessarily.
+        if (_layoutFeatures && MatrixUtil.isEqual3D(_layoutFeatures.layoutMatrix3D, value))
+            return;
+        
         // validateMatrix when switching between 2D/3D, works around player bug
         // see sdk-23421 
         var was3D:Boolean = is3D;
