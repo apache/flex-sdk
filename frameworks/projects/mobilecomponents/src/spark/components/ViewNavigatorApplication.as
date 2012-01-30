@@ -133,6 +133,7 @@ public class MobileApplication extends MobileApplicationBase
     //
     //--------------------------------------------------------------------------
     
+    [Bindable]
     [SkinPart(required="false")]
     /**
      *  The main view navigator for the application.  This component is 
