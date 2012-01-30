@@ -82,6 +82,7 @@ import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.ColorUtil;
 import mx.utils.GraphicsUtil;
+import mx.utils.MatrixUtil;
 import mx.utils.NameUtil;
 import mx.utils.StringUtil;
 import mx.validators.IValidatorListener;
@@ -876,7 +877,7 @@ public class UIComponent extends FlexSprite
     IDeferredInstantiationUIComponent, IFlexDisplayObject, IFlexModule,
     IInvalidating, ILayoutManagerClient, IPropertyChangeNotifier,
     IRepeaterClient, IStateClient, IAdvancedStyleClient, IToolTipManagerClient,
-    IUIComponent, IValidatorListener, IVisualElement
+    IUIComponent, IValidatorListener, IVisualElement, ILayoutElement
 {
     include "../core/Version.as";
 
@@ -1387,6 +1388,13 @@ public class UIComponent extends FlexSprite
     /**
      * @private
      *
+     * when true, the transform on this component consists only of translation.  Otherwise, it may be arbitrarily complex.
+     */
+    protected var hasDeltaIdentityTransform:Boolean = true;
+
+    /**
+     * @private
+     *
      * storage for the modified Transform object that can dispatch change events correctly.
      */
     private var _transform:flash.geom.Transform;
@@ -1673,6 +1681,7 @@ public class UIComponent extends FlexSprite
         if (rotation == value)
             return;
 
+   		hasDeltaIdentityTransform = false;
         if(_layoutFeatures == null)
         {
             // clamp the rotation value between -180 and 180.  This is what 
@@ -2012,6 +2021,8 @@ public class UIComponent extends FlexSprite
             if (prevValue == value)
                 return;
     
+    		hasDeltaIdentityTransform = false;
+    		
             // trace("set scaleX:" + this + "value = " + value); 
             if(_layoutFeatures == null)
                 super.scaleX = value;
@@ -2088,6 +2099,7 @@ public class UIComponent extends FlexSprite
             if (prevValue == value)
                 return;
     
+    		hasDeltaIdentityTransform = false;
             if(_layoutFeatures == null)
                 super.scaleY = value;
             else
@@ -9742,6 +9754,8 @@ public class UIComponent extends FlexSprite
     {
         var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
 
+   		hasDeltaIdentityTransform = false;
+   		
         features.layoutScaleX = scaleX;
         features.layoutScaleY = scaleY;
         features.layoutScaleZ = scaleZ;
@@ -9927,6 +9941,7 @@ public class UIComponent extends FlexSprite
      */
     public function set layoutMatrix(value:Matrix):void
     {
+   		hasDeltaIdentityTransform = false;
         if(_layoutFeatures == null)
         {
         	// flash will make a copy of this on assignment.
@@ -9949,6 +9964,7 @@ public class UIComponent extends FlexSprite
      */
     public function setLayoutMatrix(value:Matrix):void
     {
+       	hasDeltaIdentityTransform = false;
         if (_layoutFeatures == null)
         {
             super.transform.matrix = value;
@@ -10103,6 +10119,145 @@ public class UIComponent extends FlexSprite
         {
             super.transform.matrix = _layoutFeatures.computedMatrix;
         }
+    }
+
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+
+
+    //--------------------------------------------------------------------------
+    //
+    //  ILayoutElement
+    //
+    //--------------------------------------------------------------------------
+
+
+    /**
+     *  @inheritDoc
+     */
+    public function getPreferredBoundsWidth(postTransform:Boolean=true):Number
+    {
+    	return LayoutElementUIComponentUtils.getPreferredBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    public function getPreferredBoundsHeight(postTransform:Boolean=true):Number
+    {
+    	return LayoutElementUIComponentUtils.getPreferredBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getMinBoundsWidth(postTransform:Boolean=true):Number
+    {
+    	return LayoutElementUIComponentUtils.getMinBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    public function getMinBoundsHeight(postTransform:Boolean=true):Number
+    {
+    	return LayoutElementUIComponentUtils.getMinBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getMaxBoundsWidth(postTransform:Boolean=true):Number
+    {
+    	return LayoutElementUIComponentUtils.getMaxBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    public function getMaxBoundsHeight(postTransform:Boolean=true):Number
+    {
+    	return LayoutElementUIComponentUtils.getMaxBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getLayoutBoundsWidth(postTransform:Boolean=true):Number
+    {
+    	return LayoutElementUIComponentUtils.getLayoutBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    public function getLayoutBoundsHeight(postTransform:Boolean=true):Number
+    {
+    	return LayoutElementUIComponentUtils.getLayoutBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getLayoutBoundsX(postTransform:Boolean=true):Number
+    {
+    	return LayoutElementUIComponentUtils.getLayoutBoundsX(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    public function getLayoutBoundsY(postTransform:Boolean=true):Number
+    {
+    	return LayoutElementUIComponentUtils.getLayoutBoundsY(this,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function setLayoutBoundsPosition(x:Number, y:Number, postTransform:Boolean=true):void
+    {
+    	LayoutElementUIComponentUtils.setLayoutBoundsPosition(this,x,y,postTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function setLayoutBoundsSize(width:Number = Number.NaN,
+                                  height:Number = Number.NaN,
+                                  postTransform:Boolean=true):void
+    {
+    	LayoutElementUIComponentUtils.setLayoutBoundsSize(this,width,height,postTransform? nonDeltaLayoutMatrix():null);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function getLayoutMatrix():Matrix
+    {
+		return layoutMatrix;
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getLayoutMatrix3D():Matrix3D
+    {
+    	return layoutMatrix3D;
+    }
+
+    protected function nonDeltaLayoutMatrix():Matrix
+    {
+        // TODO EGeorgie: move this to the Group, when we implement ILayoutElement directly
+        // in the base class.
+/*        if (obj is Group &&
+            Group(obj).resizeMode == ResizeMode.SCALE)
+        {
+            // Lose scale and skew:
+            return MatrixUtil.composeMatrix(obj.x, obj.y, 1, 1, obj.rotation,
+                        UIComponent(obj).transformX, UIComponent(obj).transformY);
+        } 
+*/
+        if(hasDeltaIdentityTransform)
+        	return null; 
+        if(_layoutFeatures != null)
+        {
+            return _layoutFeatures.layoutMatrix;            
+        }
+        else
+        {
+            return super.transform.matrix;
+        }
+         		
     }
 
 }
