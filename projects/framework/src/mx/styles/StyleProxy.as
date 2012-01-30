@@ -18,12 +18,13 @@ import mx.core.FlexVersion;
 use namespace mx_internal;
 
 /**
- *  Wraps an object that implements the IStyleClient interface. This interface
- *  supports a <code>filterMap</code> property that contains style-source/style-destination pairs.
+ *  Wraps an object that implements the IAdvancedStyleClient interface. This
+ *  interface supports a <code>filterMap</code> property that contains
+ *  style-source/style-destination pairs.
  * 
- *  @see mx.styles.IStyleClient
+ *  @see mx.styles.IAdvancedStyleClient
  */
-public class StyleProxy implements IStyleClient
+public class StyleProxy implements IAdvancedStyleClient
 {
     include "../core/Version.as";
 
@@ -46,25 +47,13 @@ public class StyleProxy implements IStyleClient
         this.filterMap = filterMap;
         this.source = source;
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
 
-    //----------------------------------
-    //  className
-    //----------------------------------
-
-    /**
-     *  @copy mx.styles.IStyleClient#className
-     */
-    public function get className():String
-    {
-        return _source.className;
-    }
-    
     //----------------------------------
     //  filterMap
     //----------------------------------
@@ -97,7 +86,58 @@ public class StyleProxy implements IStyleClient
     {
         _filterMap = value;
     }
-    
+
+    //----------------------------------
+    //  source
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the source property.
+     */
+    private var _source:IStyleClient;
+
+    /**
+     *  @private
+     */ 
+    private var _advancedSource:IAdvancedStyleClient;
+
+    /**
+     *  The object that implements the IStyleClient interface. This is the object
+     *  that is being proxied.
+     */
+    public function get source():IStyleClient
+    {
+        return _source;
+    }
+
+    /**
+     *  @private
+     */
+    public function set source(value:IStyleClient):void
+    {
+        _source = value;
+        _advancedSource = value as IAdvancedStyleClient;
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties - IStyleClient
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  className
+    //----------------------------------
+
+    /**
+     *  @copy mx.styles.IStyleClient#className
+     */
+    public function get className():String
+    {
+        return _source.className;
+    }
+
     //----------------------------------
     //  inheritingStyles
     //----------------------------------
@@ -117,7 +157,7 @@ public class StyleProxy implements IStyleClient
     {
         // This should never happen 
     }
-    
+
     //----------------------------------
     //  nonInheritingStyles
     //----------------------------------
@@ -131,7 +171,7 @@ public class StyleProxy implements IStyleClient
                _source.nonInheritingStyles :
                null; // This will always need to get reconstructed
     }
-    
+
     /**
      *  @private
      */
@@ -139,34 +179,7 @@ public class StyleProxy implements IStyleClient
     {
         // This should never happen
     }
-    
-    //----------------------------------
-    //  source
-    //----------------------------------
 
-    /**
-     *  @private
-     *  Storage for the filterMap property.
-     */
-    private var _source:IStyleClient;
-    
-    /**
-     *  The object that implements the IStyleClient interface. This is the object
-     *  that is being proxied.
-     */
-    public function get source():IStyleClient
-    {
-        return _source;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set source(value:IStyleClient):void
-    {
-        _source = value;
-    }
-    
     //----------------------------------
     //  styleDeclaration
     //----------------------------------
@@ -178,7 +191,7 @@ public class StyleProxy implements IStyleClient
     {
         return _source.styleDeclaration;
     }
-    
+
     /**
      *  @private
      */
@@ -186,7 +199,7 @@ public class StyleProxy implements IStyleClient
     {
         _source.styleDeclaration = styleDeclaration;
     }
-    
+
     //----------------------------------
     //  styleName
     //----------------------------------
@@ -201,7 +214,7 @@ public class StyleProxy implements IStyleClient
         else
             return _source.styleName;
     }
-    
+
     /**
      *  @private
      */
@@ -209,10 +222,52 @@ public class StyleProxy implements IStyleClient
     {
         _source.styleName = value;
     }
-    
+
     //--------------------------------------------------------------------------
     //
-    //  Methods
+    //  Properties - IAdvancedStyleClient
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  pseudoSelectorState
+    //----------------------------------
+
+    /**
+     *  @copy mx.styles.IAdvancedStyleClient#pseudoSelectorState
+     */
+    public function get pseudoSelectorState():String
+    {
+        return _advancedSource ? _advancedSource.pseudoSelectorState : null;
+    }
+
+    //----------------------------------
+    //  id
+    //----------------------------------
+
+    /**
+     *  @copy mx.styles.IAdvancedStyleClient#id
+     */ 
+    public function get id():String
+    {
+        return _advancedSource ? _advancedSource.id : null;
+    }
+
+    //----------------------------------
+    //  styleParent
+    //----------------------------------
+
+    /**
+     *  @copy mx.styles.IAdvancedStyleClient#styleParent
+     */ 
+    public function get styleParent():IAdvancedStyleClient
+    {
+        return _advancedSource ? _advancedSource.styleParent : null;
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods - ISimpleStyleClient and IStyleClient
     //
     //--------------------------------------------------------------------------
 
@@ -223,7 +278,7 @@ public class StyleProxy implements IStyleClient
     {
         return _source.styleChanged(styleProp);
     }
-    
+
     /**
      *  @copy mx.styles.IStyleClient#getStyle()
      */
@@ -231,7 +286,7 @@ public class StyleProxy implements IStyleClient
     {
         return _source.getStyle(styleProp);
     }
-    
+
     /**
      *  @copy mx.styles.IStyleClient#setStyle()
      */
@@ -239,7 +294,7 @@ public class StyleProxy implements IStyleClient
     {
         _source.setStyle(styleProp, newValue);
     }
-    
+
     /**
      *  @copy mx.styles.IStyleClient#clearStyle()
      */
@@ -247,7 +302,7 @@ public class StyleProxy implements IStyleClient
     {
         _source.clearStyle(styleProp);
     }
-    
+
     /**
      *  @copy mx.styles.IStyleClient#getClassStyleDeclarations()
      */
@@ -255,7 +310,7 @@ public class StyleProxy implements IStyleClient
     {
         return _source.getClassStyleDeclarations();
     }
-    
+
     /**
      *  @copy mx.styles.IStyleClient#notifyStyleChangeInChildren()
      */
@@ -264,7 +319,7 @@ public class StyleProxy implements IStyleClient
     {
         return _source.notifyStyleChangeInChildren(styleProp, recursive);
     }
-    
+
     /**
      *  @copy mx.styles.IStyleClient#regenerateStyleCache()
      */
@@ -273,13 +328,36 @@ public class StyleProxy implements IStyleClient
         _source.regenerateStyleCache(recursive);
         return;
     }
-    
+
     /**
      *  @copy mx.styles.IStyleClient#registerEffects()
      */
     public function registerEffects(effects:Array):void
     {
         return _source.registerEffects(effects);
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods - IAdvancedStyleClient
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @copy mx.styles.IAdvancedStyleClient#isAssignableToType()
+     */ 
+    public function isAssignableToType(type:String):Boolean
+    {
+        return _advancedSource ? _advancedSource.isAssignableToType(type) : false;
+    }
+
+    /**
+     *  @copy mx.styles.IAdvancedStyleClient#applyStateStyles()
+     */
+    public function applyStateStyles(oldState:String, newState:String, recursive:Boolean):void
+    {
+        if (_advancedSource)
+            _advancedSource.applyStateStyles(oldState, newState, recursive);        
     }
 }
 
