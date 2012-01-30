@@ -676,7 +676,54 @@ package mx.automation.delegates.controls
 			return result;
 		}	
 		
+		/**
+		 *  @private
+		 */
+		override public function createAutomationIDPart(child:IAutomationObject):Object
+		{
+			var help:IAutomationObjectHelper = Automation.automationObjectHelper;
+			if(grid.itemEditorInstance == child)
+			{
+				return (help
+					? help.helpCreateIDPart(uiAutomationObject, child)	: null);
+			}
+			else
+			{
+				return (help
+					? help.helpCreateIDPart(uiAutomationObject, child, itemAutomationNameFunction,
+						getItemAutomationIndex)
+					: null);
+			}
+		}
 		
+		/**
+		 *  @private
+		 */
+		override public function createAutomationIDPartWithRequiredProperties(child:IAutomationObject, properties:Array):Object
+		{
+			var help:IAutomationObjectHelper = Automation.automationObjectHelper;
+			if(grid.itemEditorInstance == child)
+			{
+				return (help
+					? help.helpCreateIDPartWithRequiredProperties(uiAutomationObject, child, properties): null);
+			}
+			else
+			{
+				return (help
+					? help.helpCreateIDPartWithRequiredProperties(uiAutomationObject, child, properties,itemAutomationNameFunction,
+						getItemAutomationIndex)
+					: null);
+			}
+		}
+		
+		/**
+		 *  @private
+		 */
+		override public function resolveAutomationIDPart(part:Object):Array
+		{
+			var help:IAutomationObjectHelper = Automation.automationObjectHelper;
+			return help ? help.helpResolveIDPart(uiAutomationObject, part) : null;
+		}
 		
 	}
 }
