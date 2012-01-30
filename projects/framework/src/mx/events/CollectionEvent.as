@@ -19,6 +19,11 @@ import flash.events.Event;
  *  dispatched when the associated collection changes.
  *
  *  @see FlexEvent#CURSOR_UPDATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CollectionEvent extends Event
 {
@@ -65,6 +70,11 @@ public class CollectionEvent extends Event
      *  </table>
      *
      *  @eventType collectionChange
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const COLLECTION_CHANGE:String = "collectionChange";
 
@@ -107,6 +117,11 @@ public class CollectionEvent extends Event
 	 *  affected by the event, as described in the <code>items</code> property.
      *  When the <code>kind</code> is <code>CollectionEventKind.REFRESH</code>
      *  or <code>CollectionEventKind.RESET</code>, this Array has zero length.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function CollectionEvent(type:String, bubbles:Boolean = false,
                                     cancelable:Boolean = false,
@@ -140,6 +155,11 @@ public class CollectionEvent extends Event
      *  @default null
 	 * 
 	 *  @see CollectionEventKind
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var kind:String;
 
@@ -164,6 +184,11 @@ public class CollectionEvent extends Event
      *  @default [ ]
      *
      *  @see PropertyChangeEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var items:Array;
 
@@ -182,6 +207,11 @@ public class CollectionEvent extends Event
      *  @see CollectionEventKind
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var location:int;
 
@@ -195,6 +225,11 @@ public class CollectionEvent extends Event
      *  previous location of the item(s) specified by the <code>items</code> property.
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var oldLocation:int;
 
