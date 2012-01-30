@@ -13,7 +13,6 @@ package mx.styles
 {
 
 import mx.core.mx_internal;
-import mx.core.FlexVersion;
 
 use namespace mx_internal;
 
@@ -89,9 +88,7 @@ public class StyleProxy implements IAdvancedStyleClient
      */
     public function get filterMap():Object
     {
-        return FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ?
-               null :
-               _filterMap;
+        return _filterMap;
     }
     
     /**
@@ -202,9 +199,7 @@ public class StyleProxy implements IAdvancedStyleClient
      */
     public function get nonInheritingStyles():Object
     {
-        return FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ?
-               _source.nonInheritingStyles :
-               null; // This will always need to get reconstructed
+        return null; // This will always need to get reconstructed
     }
 
     /**
