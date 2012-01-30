@@ -1744,7 +1744,6 @@ public class SWFLoader extends UIComponent implements ISWFLoader
 
             contentHolder.x = x;
             contentHolder.y = y;
-
         }
         else
         {
@@ -1764,32 +1763,27 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                     {
                         var sizeSet:Boolean = false;
                         
-                            if (holder.contentLoaderInfo.contentType == "application/x-shockwave-flash")
+                        if (holder.contentLoaderInfo.contentType == "application/x-shockwave-flash")
                         {
-                                                        if (childAllowsParent)
-                                                        {
-                                                                if (holder.content is IFlexDisplayObject)
-                                                                {
-                                                                        IFlexDisplayObject(holder.content).setActualSize(w, h);
-                                                                        sizeSet = true;
-                                                                }
-                                                        }
-                                                        
-                                                        if (!sizeSet) 
-                                                        {
-                                                                if (swfBridge)
-                                                                {
-                                                                        swfBridge.dispatchEvent(new SWFBridgeRequest(SWFBridgeRequest.SET_ACTUAL_SIZE_REQUEST, false, false, null,
-                                                                                                                                                                                { width: w, height: h}));
-                                                                        sizeSet = true;
-                                                                }
-                                                        }                               
+                            if (childAllowsParent)
+                            {
+                                if (holder.content is IFlexDisplayObject)
+                                {
+                                    IFlexDisplayObject(holder.content).setActualSize(w, h);
+                                    sizeSet = true;
+                                }
+                            }
+                            
+                            if (!sizeSet && swfBridge) 
+                            {
+                                swfBridge.dispatchEvent(new SWFBridgeRequest(SWFBridgeRequest.SET_ACTUAL_SIZE_REQUEST, 
+                                                        false, false, null,
+                                                        { width: w, height: h}));
+                                sizeSet = true;
+                            }                               
                         }
-//                        if (holder.content is IFlexDisplayObject)
-//                        {
-//                            IFlexDisplayObject(holder.content).setActualSize(w, h);
-//                        }
-                        else
+
+                        if (!sizeSet)
                         {
                             // Bug 142705 - we can't just set width and height here. If the SWF content
                             // does not fill the stage, the width/height of the content holder is NOT
@@ -1801,15 +1795,12 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                             {
                                 contentHolder.scaleX = w / lInfo.width;
                                 contentHolder.scaleY = h / lInfo.height;
-                                sizeSet = true;
                             }
-                        }
-                        
-                        // set the size of the loader now if we haven't set the content size yet.
-                        if (!sizeSet)
-                        {
-                            contentHolder.width = w;
-                            contentHolder.height = h;
+                            else
+                            {
+                                contentHolder.width = w;
+                                contentHolder.height = h;
+                            }
                         }
                     }
                     else if (childAllowsParent &&
@@ -1826,9 +1817,9 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 }
                 
                 if (!parentAllowsChild)
-                        contentHolder.scrollRect = new Rectangle(0, 0, 
-                                                                                                         w / contentHolder.scaleX, 
-                                                                                                         h / contentHolder.scaleY);
+                    contentHolder.scrollRect = new Rectangle(0, 0, 
+                                                             w / contentHolder.scaleX, 
+                                                             h / contentHolder.scaleY);
             }
             else
             {
