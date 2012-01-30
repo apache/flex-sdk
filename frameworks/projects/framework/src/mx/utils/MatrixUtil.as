@@ -40,6 +40,7 @@ public final class MatrixUtil
     // For use in getConcatenatedMatrix function
     private static var fakeDollarParent:QName;
     private static var uiComponentClass:Class;
+    private static var computedMatrixProperty:QName;
 
     //--------------------------------------------------------------------------
     //
@@ -1395,6 +1396,32 @@ public final class MatrixUtil
         }
         return m;
     }
+    
+    public static function getConcatenatedComputedMatrix(displayObject:DisplayObject):Matrix
+    {
+        var m:Matrix = new Matrix();
+        if (uiComponentClass == null)
+            uiComponentClass = Class(getDefinitionByName("mx.core.UIComponent"));
+        if (fakeDollarParent == null)
+            fakeDollarParent = new QName(mx_internal, "$parent");
+        if (computedMatrixProperty == null)
+            computedMatrixProperty = new QName(mx_internal, "computedMatrix");
+        
+        while (displayObject && displayObject.transform.matrix)
+        {
+            var scrollRect:Rectangle = displayObject.scrollRect;
+            if (scrollRect != null)
+                m.translate(-scrollRect.x, -scrollRect.y);
+            const isUIComponent:Boolean = uiComponentClass && displayObject is uiComponentClass;
+            m.concat((isUIComponent) ? displayObject[computedMatrixProperty] : displayObject.transform.matrix);
+            if (isUIComponent)
+                displayObject = displayObject[fakeDollarParent] as DisplayObject;
+            else
+                displayObject = displayObject.parent as DisplayObject;
+        }
+        return m;
+    }
+    
 }
 
 }
