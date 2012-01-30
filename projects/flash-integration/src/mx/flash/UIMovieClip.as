@@ -3380,8 +3380,18 @@ public dynamic class UIMovieClip extends MovieClip
                                     translation:Vector3D = null,
                                     postLayoutScale:Vector3D = null,
                                     postLayoutRotation:Vector3D = null,
-                                    postLayoutTranslation:Vector3D = null):void
+                                    postLayoutTranslation:Vector3D = null,
+                                    invalidateLayout:Boolean = true):void
     {
+        // Make sure that no transform setters will trigger parent invalidation.
+        // Reset the flag at the end of the method.
+        var oldIncludeInLayout:Boolean;
+        if (!invalidateLayout)
+        {
+            oldIncludeInLayout = _includeInLayout;
+            _includeInLayout = false;
+        }
+        
         if (_layoutFeatures == null)
         {
             // TODO (chaase): should provide a way to return to having no
@@ -3407,6 +3417,9 @@ public dynamic class UIMovieClip extends MovieClip
                 translation, postLayoutScale, postLayoutRotation,
                 postLayoutTranslation);
             invalidateTransform();      
+
+            // Will not invalidate parent if we have set _includeInLayout to false
+            // in the beginning of the method
             invalidateParentSizeAndDisplayList();
         }
         else
@@ -3448,6 +3461,9 @@ public dynamic class UIMovieClip extends MovieClip
                 }
             }
         }
+
+        if (!invalidateLayout)
+            _includeInLayout = oldIncludeInLayout;
     }
     
     /**
