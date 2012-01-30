@@ -167,7 +167,7 @@ public class SlideViewTransition extends ViewTransition
     //
     //--------------------------------------------------------------------------
     
-    [Inspectable(category="General", enumeration="left, right", defaultValue="left")]
+    [Inspectable(category="General", enumeration="left,right", defaultValue="left")]
     /**
      *  The direction of the slide animation.  Can be either "left" or "right".
      * 
