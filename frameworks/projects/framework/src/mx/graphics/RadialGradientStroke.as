@@ -281,20 +281,23 @@ public class RadialGradientStroke extends GradientStroke
      */
     private function calculateTransformationMatrix(rect:Rectangle, matrix:Matrix):void
     {
+    	matrix.identity();
+    	
         if (!compoundTransform)
-        {
+        {   
             var w:Number = !isNaN(scaleX) ? scaleX : rect.width;
-            var h:Number = !isNaN(scaleY) ? scaleY : rect.height;
-            var bX:Number = !isNaN(x) ? x + rect.left : rect.left;
-            var bY:Number = !isNaN(y) ? y + rect.top : rect.top;
-            
-            matrix.createGradientBox(w, h, rotationInRadians,
-                bX, bY);   
+	    	var h:Number = !isNaN(scaleY) ? scaleY : rect.height;
+			var regX:Number = rect.left + (!isNaN(x) ? x : rect.width / 2);
+			var regY:Number = rect.top + (!isNaN(y) ? y : rect.height / 2);
+                
+            matrix.scale (w / GRADIENT_DIMENSION, h / GRADIENT_DIMENSION);
+	        matrix.rotate(!isNaN(mx_internal::_angle) ? 
+											mx_internal::_angle : mx_internal::rotationInRadians);
+	        matrix.translate(regX, regY);	    
         }             
         else
         {
-            matrix.identity();
-            matrix.scale (rect.width / 1638.4, rect.height / 1638.4);
+            matrix.scale (rect.width / GRADIENT_DIMENSION, rect.height / GRADIENT_DIMENSION);
             matrix.translate(rect.left, rect.top);
             matrix.concat(compoundTransform.matrix);
         }   
