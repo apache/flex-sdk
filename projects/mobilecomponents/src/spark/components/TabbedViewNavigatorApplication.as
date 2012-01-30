@@ -59,6 +59,7 @@ public class TabbedMobileApplication extends MobileApplicationBase
     //
     //--------------------------------------------------------------------------
     
+    [Bindable]
     [SkinPart(required="false")]
     /**
      *  The main navigator for the application.
