@@ -28,6 +28,7 @@ global
 	borderSkin: ClassReference("mx.skins.halo.HaloBorder");
 	borderStyle: "inset";
 	borderThickness: 1;
+    breakOpportunity: "auto";
 	buttonColor: #6F7777;
     cffHinting: "horizontalStem";
 	closeDuration: 250;
