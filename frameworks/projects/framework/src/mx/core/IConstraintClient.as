@@ -16,6 +16,11 @@ package mx.core
  *  The IConstraintClient interface defines the interface for components that
  *  support layout constraints. This interface is only used by implementations
  *  of constraint-based layout. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 
 public interface IConstraintClient
@@ -45,6 +50,11 @@ public interface IConstraintClient
      *
      *  @see mx.containers.Canvas
      *  @see mx.containers.Panel
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getConstraintValue(constraintName:String):*;
 
@@ -67,6 +77,11 @@ public interface IConstraintClient
      *
      *  @see mx.containers.Canvas
      *  @see mx.containers.Panel
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function setConstraintValue(constraintName:String, value:*):void;
 }
