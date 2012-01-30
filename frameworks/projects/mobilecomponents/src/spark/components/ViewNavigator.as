@@ -1063,7 +1063,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (transition)
         {
             transition.addEventListener(Event.COMPLETE, transitionComplete);
-            transition.previousView = currentView;
+            transition.currentView = currentView;
             transition.nextView = pendingView;
             transition.navigator = this;
             
