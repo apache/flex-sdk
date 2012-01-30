@@ -70,6 +70,15 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     //  Constructor
     //
     //--------------------------------------------------------------------------
+    /**
+     *  Constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     * 
+     */
     public function MobileSkin()
     {
     }
@@ -113,7 +122,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  @productversion Flex 4.5
      */
     protected var useSymbolColor:Boolean = false;
-	
+    
     private var _focus:Boolean = false;
     
     //----------------------------------
@@ -246,6 +255,9 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
         currentState = stateName;
     }
     
+    /**
+     *  @private
+     */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
@@ -352,327 +364,327 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
         chromeColorGraphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
     }
 
-	/**
-	 *  A helper method to position children elements of this component.
-	 * 
-	 *  <p>This method is the recommended way to position children elements.  You can 
-	 *  use this method instead of checking for and using
-	 *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
-	 *  or StyleableTextField.</p>
-	 * 
-	 *  <p>Call this method after calling <code>setElementSize()</code></p>
-	 *
-	 *  @param element The child element to position.  The element could be an 
-	 *  ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
-	 *  DisplayObject.
-	 *
-	 *  @param x The x-coordinate of the child.
-	 *
-	 *  @param y The y-coordinate of the child.
-	 *
-	 *  @see #setElementSize  
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.1
-	 *  @playerversion AIR 2.5 
-	 *  @productversion Flex 4.5
-	 */
-	protected function setElementPosition(element:Object, x:Number, y:Number):void
-	{
-		if (element is ILayoutElement)
-		{
-			ILayoutElement(element).setLayoutBoundsPosition(x, y, false);
-		}
-		else if (element is IFlexDisplayObject)
-		{
-			IFlexDisplayObject(element).move(x, y);   
-		}
-		else
-		{
-			element.x = x;
-			element.y = y;
-		}
-	}
+    /**
+     *  A helper method to position children elements of this component.
+     * 
+     *  <p>This method is the recommended way to position children elements.  You can 
+     *  use this method instead of checking for and using
+     *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
+     *  or StyleableTextField.</p>
+     * 
+     *  <p>Call this method after calling <code>setElementSize()</code></p>
+     *
+     *  @param element The child element to position.  The element could be an 
+     *  ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
+     *  DisplayObject.
+     *
+     *  @param x The x-coordinate of the child.
+     *
+     *  @param y The y-coordinate of the child.
+     *
+     *  @see #setElementSize  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected function setElementPosition(element:Object, x:Number, y:Number):void
+    {
+        if (element is ILayoutElement)
+        {
+            ILayoutElement(element).setLayoutBoundsPosition(x, y, false);
+        }
+        else if (element is IFlexDisplayObject)
+        {
+            IFlexDisplayObject(element).move(x, y);   
+        }
+        else
+        {
+            element.x = x;
+            element.y = y;
+        }
+    }
 
-	/**
-	 *  A helper method to size children elements of this component.
-	 * 
-	 *  <p>This method is the recommended way to size children elements.  You can 
-	 *  use this method instead of checking for and using
-	 *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
-	 *  or StyleableTextField.</p>
-	 *
-	 *  <p>Call this method before calling <code>setElementPosition()</code></p>
-	 * 
-	 *  @param element The child element to size.  The element could be an 
-	 *  ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
-	 *  DisplayObject.
-	 *
-	 *  @param x The width of the child.
-	 *
-	 *  @param y The height of the child.
-	 *
-	 *  @see #setElementPosition  
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.1
-	 *  @playerversion AIR 2.5 
-	 *  @productversion Flex 4.5
-	 */
-	protected function setElementSize(element:Object, width:Number, height:Number):void
-	{
-		if (element is ILayoutElement)
-		{
-			ILayoutElement(element).setLayoutBoundsSize(width, height, false);
-		}
-		else if (element is IFlexDisplayObject)
-		{
-			IFlexDisplayObject(element).setActualSize(width, height);
-		}
-		else
-		{
-			element.width = width;
-			element.height = height;
-		}
-	}
-	
-	/**
-	 *  A helper method to retrieve the preferred width of a child element.
-	 * 
-	 *  <p>This method is the recommended way to get a child element's preferred 
-	 *  width.  You can use this method instead of checking for and using
-	 *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
-	 *  or StyleableTextField.</p>
-	 *
-	 *  @param element The child element to retrieve the width for.  The element could  
-	 *  be an ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
-	 *  DisplayObject.
-	 * 
-	 *  @param element The child to retrieve the width for
-	 *
-	 *  @see #sizeElement
-	 *  @see #getElementPreferredHeight  
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.1
-	 *  @playerversion AIR 2.5 
-	 *  @productversion Flex 4.5
-	 */
-	protected function getElementPreferredWidth(element:Object):Number
-	{
-		if (element is ILayoutElement)
-		{
-			return ILayoutElement(element).getPreferredBoundsWidth();
-		}
-		else if (element is IFlexDisplayObject)
-		{
-			return IFlexDisplayObject(element).measuredWidth;
-		}
-		else if (element is StyleableTextField)
-		{
-			return StyleableTextField(element).measuredTextSize.x;
-		}
-		else
-		{
-			return element.width;
-		}
-	}
-	
-	/**
-	 *  A helper method to retrieve the preferred height of a child element.
-	 * 
-	 *  <p>This method is the recommended way to get a child element's preferred 
-	 *  height.  You can use this method instead of checking for and using
-	 *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
-	 *  or StyleableTextField.</p>
-	 *
-	 *  @param element The child element to retrieve the width for.  The element could  
-	 *  be an ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
-	 *  DisplayObject.
-	 *
-	 *  @see #sizeElement
-	 *  @see #getElementPreferredWidth 
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.1
-	 *  @playerversion AIR 2.5 
-	 *  @productversion Flex 4.5
-	 */
-	protected function getElementPreferredHeight(element:Object):Number
-	{
-		if (element is ILayoutElement)
-		{
-			return ILayoutElement(element).getPreferredBoundsHeight();
-		}
-		else if (element is IFlexDisplayObject)
-		{
-			return IFlexDisplayObject(element).measuredHeight;
-		}
-		else if (element is StyleableTextField)
-		{
-			return StyleableTextField(element).measuredTextSize.y;
-		}
-		else
-		{
-			return element.height;
-		}
-	}
-	
-	/**
-	 *  List of id's of items that should be excluded when rendering the focus ring.
-	 *  Only items of type DisplayObject or GraphicElement should be excluded. Items
-	 *  of other types will be ignored.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */
-	public function get focusSkinExclusions():Array 
-	{
-		return null;
-	}
-	
-	private static var exclusionAlphaValues:Array;
-	
-	private static var oldContentBackgroundAlpha:Number;
-	private static var contentBackgroundAlphaSetLocally:Boolean;
-	
-	/**
-	 *  Called before a bitmap capture is made for this skin. The default implementation
-	 *  excludes items in the focusSkinExclusions array.
-	 */
-	public function beginHighlightBitmapCapture():Boolean
-	{
-		var exclusions:Array = focusSkinExclusions;
-		if (!exclusions)
-		{
-			if (("hostComponent" in this) && this["hostComponent"] is SkinnableComponent)
-				exclusions = SkinnableComponent(this["hostComponent"]).suggestedFocusSkinExclusions;
-		}
-		var exclusionCount:Number = (exclusions == null) ? 0 : exclusions.length;
-		
-		/* we'll store off the previous alpha of the exclusions so we
-		can restore them when we're done
-		*/
-		exclusionAlphaValues = [];
-		var needRedraw:Boolean = false;
-		
-		for (var i:int = 0; i < exclusionCount; i++)		
-		{
-			// skip if the part isn't there
-			if (!(exclusions[i] in this))
-				continue;
-			
-			var ex:Object = this[exclusions[i]];
-			/* we're going to go under the covers here to try and modify alpha with the least
-			amount of disruption to the component.  For UIComponents, we go to Sprite's alpha property;
-			*/
-			if (ex is UIComponent)
-			{
-				exclusionAlphaValues[i] = (ex as UIComponent).$alpha; 
-				(ex as UIComponent).$alpha = 0;
-			} 
-			else if (ex is DisplayObject)
-			{
-				exclusionAlphaValues[i] = (ex as DisplayObject).alpha; 
-				(ex as DisplayObject).alpha = 0;
-			}
-			else if (ex is IGraphicElement) 
-			{
-				/* if we're lucky, the IGE has its own DisplayObject, and we can just trip its alpha.
-				If not, we're going to have to set it to 0, and force a redraw of the whole component */
-				var ge:IGraphicElement = ex as IGraphicElement;
-				if (ge.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
-				{
-					exclusionAlphaValues[i] = ge.displayObject.alpha;
-					ge.displayObject.alpha = 0;
-				}
-				else
-				{
-					exclusionAlphaValues[i] = ge.alpha;
-					ge.alpha = 0;
-					needRedraw = true;
-				}
-			}
-		}
-		
-		// If we have a mostly-transparent content background, temporarily bump
-		// up the contentBackgroundAlpha so the captured bitmap includes an opaque
-		// snapshot of the background.
-		if (getStyle("contentBackgroundAlpha") < 0.5)
-		{
-			if (styleDeclaration && styleDeclaration.getStyle("contentBackgroundAlpha") !== null)
-				contentBackgroundAlphaSetLocally = true;
-			else
-				contentBackgroundAlphaSetLocally = false;
-			oldContentBackgroundAlpha = getStyle("contentBackgroundAlpha");
-			setStyle("contentBackgroundAlpha", 0.5);
-			needRedraw = true;
-		}
-		
-		/* if we excluded an IGE without its own DO, we need to update the component before grabbing the bitmap */
-		return needRedraw;
-	}
-	
-	/**
-	 *  Called after a bitmap capture is made for this skin. The default implementation 
-	 *  restores the items in the focusSkinExclusions array.
-	 */
-	public function endHighlightBitmapCapture():Boolean
-	{
-		var exclusions:Array = focusSkinExclusions;
-		if (!exclusions)
-		{
-			if (this["hostComponent"] is SkinnableComponent)
-				exclusions = SkinnableComponent(this["hostComponent"]).suggestedFocusSkinExclusions;
-		}
-		var exclusionCount:Number = (exclusions == null) ? 0 : exclusions.length;
-		var needRedraw:Boolean = false;
-		
-		for (var i:int=0; i < exclusionCount; i++)		
-		{
-			// skip if the part isn't there
-			if (!(exclusions[i] in this))
-				continue;
-			
-			var ex:Object = this[exclusions[i]];
-			if (ex is UIComponent)
-			{
-				(ex as UIComponent).$alpha = exclusionAlphaValues[i];
-			} 
-			else if (ex is DisplayObject)
-			{
-				(ex as DisplayObject).alpha = exclusionAlphaValues[i];
-			}
-			else if (ex is IGraphicElement) 
-			{
-				var ge:IGraphicElement = ex as IGraphicElement;
-				if (ge.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
-				{
-					ge.displayObject.alpha = exclusionAlphaValues[i];
-				}
-				else
-				{
-					ge.alpha = exclusionAlphaValues[i];			
-					needRedraw = true;
-				}
-			}
-		}
-		
-		exclusionAlphaValues = null;
+    /**
+     *  A helper method to size children elements of this component.
+     * 
+     *  <p>This method is the recommended way to size children elements.  You can 
+     *  use this method instead of checking for and using
+     *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
+     *  or StyleableTextField.</p>
+     *
+     *  <p>Call this method before calling <code>setElementPosition()</code></p>
+     * 
+     *  @param element The child element to size.  The element could be an 
+     *  ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
+     *  DisplayObject.
+     *
+     *  @param x The width of the child.
+     *
+     *  @param y The height of the child.
+     *
+     *  @see #setElementPosition  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected function setElementSize(element:Object, width:Number, height:Number):void
+    {
+        if (element is ILayoutElement)
+        {
+            ILayoutElement(element).setLayoutBoundsSize(width, height, false);
+        }
+        else if (element is IFlexDisplayObject)
+        {
+            IFlexDisplayObject(element).setActualSize(width, height);
+        }
+        else
+        {
+            element.width = width;
+            element.height = height;
+        }
+    }
+    
+    /**
+     *  A helper method to retrieve the preferred width of a child element.
+     * 
+     *  <p>This method is the recommended way to get a child element's preferred 
+     *  width.  You can use this method instead of checking for and using
+     *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
+     *  or StyleableTextField.</p>
+     *
+     *  @param element The child element to retrieve the width for.  The element could  
+     *  be an ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
+     *  DisplayObject.
+     * 
+     *  @param element The child to retrieve the width for
+     *
+     *  @see #sizeElement
+     *  @see #getElementPreferredHeight  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected function getElementPreferredWidth(element:Object):Number
+    {
+        if (element is ILayoutElement)
+        {
+            return ILayoutElement(element).getPreferredBoundsWidth();
+        }
+        else if (element is IFlexDisplayObject)
+        {
+            return IFlexDisplayObject(element).measuredWidth;
+        }
+        else if (element is StyleableTextField)
+        {
+            return StyleableTextField(element).measuredTextSize.x;
+        }
+        else
+        {
+            return element.width;
+        }
+    }
+    
+    /**
+     *  A helper method to retrieve the preferred height of a child element.
+     * 
+     *  <p>This method is the recommended way to get a child element's preferred 
+     *  height.  You can use this method instead of checking for and using
+     *  various interfaces/classes such as ILayoutElement, IFlexDisplayObject, 
+     *  or StyleableTextField.</p>
+     *
+     *  @param element The child element to retrieve the width for.  The element could  
+     *  be an ILayoutElement, IFlexDisplayObject, StyleableTextField, or a generic 
+     *  DisplayObject.
+     *
+     *  @see #sizeElement
+     *  @see #getElementPreferredWidth 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected function getElementPreferredHeight(element:Object):Number
+    {
+        if (element is ILayoutElement)
+        {
+            return ILayoutElement(element).getPreferredBoundsHeight();
+        }
+        else if (element is IFlexDisplayObject)
+        {
+            return IFlexDisplayObject(element).measuredHeight;
+        }
+        else if (element is StyleableTextField)
+        {
+            return StyleableTextField(element).measuredTextSize.y;
+        }
+        else
+        {
+            return element.height;
+        }
+    }
+    
+    /**
+     *  List of id's of items that should be excluded when rendering the focus ring.
+     *  Only items of type DisplayObject or GraphicElement should be excluded. Items
+     *  of other types will be ignored.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get focusSkinExclusions():Array 
+    {
+        return null;
+    }
+    
+    private static var exclusionAlphaValues:Array;
+    
+    private static var oldContentBackgroundAlpha:Number;
+    private static var contentBackgroundAlphaSetLocally:Boolean;
+    
+    /**
+     *  Called before a bitmap capture is made for this skin. The default implementation
+     *  excludes items in the focusSkinExclusions array.
+     */
+    public function beginHighlightBitmapCapture():Boolean
+    {
+        var exclusions:Array = focusSkinExclusions;
+        if (!exclusions)
+        {
+            if (("hostComponent" in this) && this["hostComponent"] is SkinnableComponent)
+                exclusions = SkinnableComponent(this["hostComponent"]).suggestedFocusSkinExclusions;
+        }
+        var exclusionCount:Number = (exclusions == null) ? 0 : exclusions.length;
+        
+        /* we'll store off the previous alpha of the exclusions so we
+        can restore them when we're done
+        */
+        exclusionAlphaValues = [];
+        var needRedraw:Boolean = false;
+        
+        for (var i:int = 0; i < exclusionCount; i++)        
+        {
+            // skip if the part isn't there
+            if (!(exclusions[i] in this))
+                continue;
+            
+            var ex:Object = this[exclusions[i]];
+            /* we're going to go under the covers here to try and modify alpha with the least
+            amount of disruption to the component.  For UIComponents, we go to Sprite's alpha property;
+            */
+            if (ex is UIComponent)
+            {
+                exclusionAlphaValues[i] = (ex as UIComponent).$alpha; 
+                (ex as UIComponent).$alpha = 0;
+            } 
+            else if (ex is DisplayObject)
+            {
+                exclusionAlphaValues[i] = (ex as DisplayObject).alpha; 
+                (ex as DisplayObject).alpha = 0;
+            }
+            else if (ex is IGraphicElement) 
+            {
+                /* if we're lucky, the IGE has its own DisplayObject, and we can just trip its alpha.
+                If not, we're going to have to set it to 0, and force a redraw of the whole component */
+                var ge:IGraphicElement = ex as IGraphicElement;
+                if (ge.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
+                {
+                    exclusionAlphaValues[i] = ge.displayObject.alpha;
+                    ge.displayObject.alpha = 0;
+                }
+                else
+                {
+                    exclusionAlphaValues[i] = ge.alpha;
+                    ge.alpha = 0;
+                    needRedraw = true;
+                }
+            }
+        }
+        
+        // If we have a mostly-transparent content background, temporarily bump
+        // up the contentBackgroundAlpha so the captured bitmap includes an opaque
+        // snapshot of the background.
+        if (getStyle("contentBackgroundAlpha") < 0.5)
+        {
+            if (styleDeclaration && styleDeclaration.getStyle("contentBackgroundAlpha") !== null)
+                contentBackgroundAlphaSetLocally = true;
+            else
+                contentBackgroundAlphaSetLocally = false;
+            oldContentBackgroundAlpha = getStyle("contentBackgroundAlpha");
+            setStyle("contentBackgroundAlpha", 0.5);
+            needRedraw = true;
+        }
+        
+        /* if we excluded an IGE without its own DO, we need to update the component before grabbing the bitmap */
+        return needRedraw;
+    }
+    
+    /**
+     *  Called after a bitmap capture is made for this skin. The default implementation 
+     *  restores the items in the focusSkinExclusions array.
+     */
+    public function endHighlightBitmapCapture():Boolean
+    {
+        var exclusions:Array = focusSkinExclusions;
+        if (!exclusions)
+        {
+            if (this["hostComponent"] is SkinnableComponent)
+                exclusions = SkinnableComponent(this["hostComponent"]).suggestedFocusSkinExclusions;
+        }
+        var exclusionCount:Number = (exclusions == null) ? 0 : exclusions.length;
+        var needRedraw:Boolean = false;
+        
+        for (var i:int=0; i < exclusionCount; i++)      
+        {
+            // skip if the part isn't there
+            if (!(exclusions[i] in this))
+                continue;
+            
+            var ex:Object = this[exclusions[i]];
+            if (ex is UIComponent)
+            {
+                (ex as UIComponent).$alpha = exclusionAlphaValues[i];
+            } 
+            else if (ex is DisplayObject)
+            {
+                (ex as DisplayObject).alpha = exclusionAlphaValues[i];
+            }
+            else if (ex is IGraphicElement) 
+            {
+                var ge:IGraphicElement = ex as IGraphicElement;
+                if (ge.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
+                {
+                    ge.displayObject.alpha = exclusionAlphaValues[i];
+                }
+                else
+                {
+                    ge.alpha = exclusionAlphaValues[i];         
+                    needRedraw = true;
+                }
+            }
+        }
+        
+        exclusionAlphaValues = null;
 
-		if (!isNaN(oldContentBackgroundAlpha))
-		{
-			if (contentBackgroundAlphaSetLocally)
-				setStyle("contentBackgroundAlpha", oldContentBackgroundAlpha);
-			else
-				clearStyle("contentBackgroundAlpha");
-			needRedraw = true;
-			oldContentBackgroundAlpha = NaN;
-		}
+        if (!isNaN(oldContentBackgroundAlpha))
+        {
+            if (contentBackgroundAlphaSetLocally)
+                setStyle("contentBackgroundAlpha", oldContentBackgroundAlpha);
+            else
+                clearStyle("contentBackgroundAlpha");
+            needRedraw = true;
+            oldContentBackgroundAlpha = NaN;
+        }
 
-		return needRedraw;
-	}
+        return needRedraw;
+    }
 }
 }
