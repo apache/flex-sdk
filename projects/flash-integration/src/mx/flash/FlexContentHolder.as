@@ -21,6 +21,8 @@ import flash.utils.getDefinitionByName;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
 
+use namespace mx_internal;
+
 [ExcludeClass]
 
 /**
@@ -55,7 +57,7 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
         _width = this.width;
         _height = this.height;
         
-        mx_internal::$scaleX = mx_internal::$scaleY = 1;
+        $scaleX = $scaleY = 1;
         
         removeEventListener(Event.ADDED, addedHandler);
         removeEventListener(Event.REMOVED, removedHandler);
@@ -309,7 +311,7 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
                     
                     // set the child's parent to this for now (when initializing styles,
                     // we'll have to do some funky business).
-                    child.mx_internal::_parent = this;
+                    child._parent = this;
                     
                     // Set the nestLevel of the child to be one greater
                     // than the nestLevel of this component.
@@ -319,13 +321,13 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
 
                     // Temporarily set the _parent property of the child to the nearest UIComponent
                     // parent. This allows inheriting styles to be picked up correctly.
-                    child.mx_internal::_parent = uicParent;
+                    child._parent = uicParent;
                     child.regenerateStyleCache(true);
                     child.styleChanged(null);
                     child.notifyStyleChangeInChildren(null, true);
-                    child.mx_internal::initThemeColor();
+                    child.initThemeColor();
                     // Reset the _parent property.
-                    child.mx_internal::_parent = this;
+                    child._parent = this;
 
                     // Inform the component that it's style properties
                     // have been fully initialized. Most components won't care,
@@ -358,8 +360,8 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
         if (!myParent.scaleContentWhenResized)
         {
             // apply the scale to the width/height
-            containerWidth *= myParent.mx_internal::scaleXDueToSizing;
-            containerHeight *= myParent.mx_internal::scaleYDueToSizing;
+            containerWidth *= myParent.scaleXDueToSizing;
+            containerHeight *= myParent.scaleYDueToSizing;
         }
         
         // Size the flex content to what they want to be, 
