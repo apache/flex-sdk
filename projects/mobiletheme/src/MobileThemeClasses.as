@@ -34,6 +34,7 @@ import spark.skins.mobile.MobileApplicationSkin; MobileApplicationSkin;
 import spark.skins.mobile.TabbedMobileApplicationSkin; TabbedMobileApplicationSkin;
 import spark.skins.mobile.TextAreaSkin; TextAreaSkin;
 import spark.skins.mobile.TextInputSkin; TextInputSkin;
+import spark.skins.mobile.SkinnableContainerSkin; SkinnableContainerSkin;
 import spark.skins.mobile.ViewMenuItemSkin; ViewMenuItemSkin;
 import spark.skins.mobile.ViewMenuSkin; ViewMenuSkin;
 import spark.skins.mobile.ViewNavigatorSkin; ViewNavigatorSkin;
