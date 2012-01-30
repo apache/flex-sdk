@@ -70,6 +70,7 @@ import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
 import mx.events.EventListenerRequest;
+import mx.events.FlexChangeEvent;
 import mx.events.InvalidateRequestData;
 import mx.events.InterManagerRequest;
 import mx.events.ResizeEvent;
@@ -482,16 +483,6 @@ public class SystemManager extends MovieClip
 	 */
 	private var lastFrame:int;
 
-    /** 
-     *  @private
-     *  Map a bridge to a FocusManager. 
-     *  This is only for Focus Managers that are
-     *  not the focus manager for document. Because the bridges are not in document
-     *  they are bridges inside of pop ups. 
-     *  The returned object is an object of type IFocusManager.
-     */
-     private var bridgeToFocusManager:Dictionary;
-      
 	//--------------------------------------------------------------------------
 	//
 	//  Overridden properties: DisplayObject
@@ -653,6 +644,48 @@ public class SystemManager extends MovieClip
 		_applicationIndex = value;
 	}
 
+    //----------------------------------
+    //  bridgeToFocusManager
+    //----------------------------------
+    
+    /** 
+     *  @private
+     *  Map a bridge to a FocusManager. 
+     *  This dictionary contains both the focus managers for this document as 
+     *  well as focus managers that are in documents contained inside of pop 
+     *  ups, if the system manager in that pop up requires a bridge to 
+     *  communicate with this system manager. 
+     *  
+     *  The returned object is an object of type IFocusManager.
+     */
+    private var _bridgeToFocusManager:Dictionary;
+
+    /** 
+     *   @private
+     *  
+     *   System Managers in child application domains use their parent's
+     *   bridgeToFocusManager's Dictionary. The swfBridgeGroup property
+     *   is maintained in the same way.
+     */
+    mx_internal function get bridgeToFocusManager():Dictionary
+    {
+        if (topLevel)
+            return _bridgeToFocusManager;
+        else if (topLevelSystemManager)
+            return SystemManager(topLevelSystemManager).bridgeToFocusManager;
+            
+        return null;
+    }
+    
+    mx_internal function set bridgeToFocusManager(bridgeToFMDictionary:Dictionary):void
+    {
+        if (topLevel)
+            _bridgeToFocusManager = bridgeToFMDictionary;
+        else if (topLevelSystemManager)
+            SystemManager(topLevelSystemManager).bridgeToFocusManager = bridgeToFMDictionary;
+                    
+    }
+    
 	//----------------------------------
 	//  cursorChildren
 	//----------------------------------
@@ -1116,26 +1149,26 @@ public class SystemManager extends MovieClip
 	private var _swfBridgeGroup:ISWFBridgeGroup;
 	
 	
-	public function get swfBridgeGroup():ISWFBridgeGroup
-	{
-		if (topLevel)
-			return _swfBridgeGroup;
-		else if (topLevelSystemManager)
-			return topLevelSystemManager.swfBridgeGroup;
-			
-		return null;
-	}
-	
-	public function set swfBridgeGroup(bridgeGroup:ISWFBridgeGroup):void
-	{
-		if (topLevel)
-			_swfBridgeGroup = bridgeGroup;
-		else if (topLevelSystemManager)
-			SystemManager(topLevelSystemManager).swfBridgeGroup = bridgeGroup;
-					
-	}
-	
-	//--------------------------------------------------------------------------
+    public function get swfBridgeGroup():ISWFBridgeGroup
+    {
+        if (topLevel)
+            return _swfBridgeGroup;
+        else if (topLevelSystemManager)
+            return topLevelSystemManager.swfBridgeGroup;
+            
+        return null;
+    }
+    
+    public function set swfBridgeGroup(bridgeGroup:ISWFBridgeGroup):void
+    {
+        if (topLevel)
+            _swfBridgeGroup = bridgeGroup;
+        else if (topLevelSystemManager)
+            SystemManager(topLevelSystemManager).swfBridgeGroup = bridgeGroup;
+                    
+    }
+    	
+ 	//--------------------------------------------------------------------------
 	//  screen
 	//--------------------------------------------------------------------------
 
@@ -4798,6 +4831,9 @@ public class SystemManager extends MovieClip
         bridgeToFocusManager[bridge] = fm;
 
         addChildBridgeListeners(bridge);
+        
+        // dispatch message that we are adding a bridge.
+        dispatchEvent(new FlexChangeEvent(FlexChangeEvent.ADD_CHILD_BRIDGE, false, false, bridge));
 	}
 
 	/**
@@ -4807,6 +4843,9 @@ public class SystemManager extends MovieClip
 	 */
 	public function removeChildBridge(bridge:IEventDispatcher):void
 	{
+        // dispatch message that we are removing a bridge.
+        dispatchEvent(new FlexChangeEvent(FlexChangeEvent.REMOVE_CHILD_BRIDGE, false, false, bridge));
+
         var fm:IFocusManager = IFocusManager(bridgeToFocusManager[bridge]);
         fm.removeSWFBridge(bridge);
    		swfBridgeGroup.removeChildBridge(bridge);
@@ -4952,9 +4991,10 @@ public class SystemManager extends MovieClip
 				parent = parent.parent;				
 			}
 		}
-		catch (error:SecurityError)
+		catch (error:Error)
 		{
-			// don't have access to parent	
+			// Either we don't have security access to a parent or
+			// the swf is unloaded and loaderInfo.childAllowsParent is throwing Error #2099.
 		}		
 		
 		return lastParent != null ? lastParent : DisplayObject(sm);
