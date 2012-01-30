@@ -10068,6 +10068,10 @@ public class UIComponent extends FlexSprite
         return (this is IStateClient2 && (states.length > 0)) ? states[0].name : null;
     }
 
+    // Used by commitCurrentState() to avoid hard-linking against Effect
+    private static var effectType:Class;
+    private static var effectLoaded:Boolean = false;
+
     /**
      *  @private
      *  Commit a pending current state change.
@@ -10082,23 +10086,53 @@ public class UIComponent extends FlexSprite
         var event:StateChangeEvent;
         var oldState:String = _currentState ? _currentState : "";
         var destination:State = getState(requestedCurrentState);
+        var prevTransitionEffect:Object;
+        var tmpPropertyChanges:Array;
+        
+        // First, make sure we've loaded the Effect class - some of the logic 
+        // below requires it
+        if (nextTransition && !effectLoaded)
+        {
+            effectLoaded = true;
+            if (ApplicationDomain.currentDomain.hasDefinition("mx.effects.Effect"))
+                effectType = Class(ApplicationDomain.currentDomain.
+                    getDefinition("mx.effects.Effect"));
+        }
 
         // Stop any transition that may still be playing
         var prevTransitionFraction:Number;
         if (_currentTransition)
         {
-            if (_currentTransition.autoReverse &&
-                transitionFromState == requestedCurrentState &&
-                transitionToState == _currentState)
+            // 'stop' interruptions take precedence over autoReverse behavior
+            if (nextTransition && _currentTransition.interruptionBehavior == "stop")
             {
-                if (_currentTransition.effect.duration == 0)
-                    prevTransitionFraction = 0;
-                else
-                    prevTransitionFraction = 
-                        _currentTransition.effect.playheadTime /
-                        getTotalDuration(_currentTransition.effect);
+                prevTransitionEffect = _currentTransition.effect;
+                prevTransitionEffect.transitionInterruption = true;
+                // This logic stops the effect from applying the end values
+                // so that we can capture the interrupted values correctly
+                // in captureStartValues() below. Save the values in the
+                // tmp variable because stop() clears out propertyChangesArray
+                // from the effect.
+                tmpPropertyChanges = prevTransitionEffect.propertyChangesArray;
+                prevTransitionEffect.applyEndValuesWhenDone = false;
+                prevTransitionEffect.stop();
+                prevTransitionEffect.applyEndValuesWhenDone = true;
             }
-            _currentTransition.effect.end();
+            else
+            {
+                if (_currentTransition.autoReverse &&
+                    transitionFromState == requestedCurrentState &&
+                    transitionToState == _currentState)
+                {
+                    if (_currentTransition.effect.duration == 0)
+                        prevTransitionFraction = 0;
+                    else
+                        prevTransitionFraction = 
+                            _currentTransition.effect.playheadTime /
+                            getTotalDuration(_currentTransition.effect);
+                }
+                _currentTransition.effect.end();
+            }
         }
 
         // Initialize the state we are going to.
@@ -10107,7 +10141,15 @@ public class UIComponent extends FlexSprite
         // Capture transition start values
         if (nextTransition)
             nextTransition.effect.captureStartValues();
-
+        
+        // Now that we've captured the start values, apply the end values of
+        // the effect as normal. This makes sure that objects unaffected by the
+        // next transition have their correct end values from the previous
+        // transition
+        if (tmpPropertyChanges)
+            prevTransitionEffect.applyEndValues(tmpPropertyChanges,
+                prevTransitionEffect.targets);
+        
         // Dispatch currentStateChanging event
         if (hasEventListener(StateChangeEvent.CURRENT_STATE_CHANGING)) 
         {
@@ -10154,6 +10196,11 @@ public class UIComponent extends FlexSprite
             _currentTransition = nextTransition;
             transitionFromState = oldState;
             transitionToState = _currentState;
+            // Tell the effect whether it is running in interruption mode, in which
+            // case it should grab values from the states instead of from current
+            // property values
+            Object(nextTransition.effect).transitionInterruption = 
+                (prevTransitionEffect != null);
             nextTransition.effect.addEventListener(EffectEvent.EFFECT_END, 
                 transition_effectEndHandler);
             nextTransition.effect.play();
