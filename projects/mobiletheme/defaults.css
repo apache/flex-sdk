@@ -276,7 +276,8 @@ global
     borderWeight : 1;
     contentBackgroundColor: #3F3F3F;
     rollOverColor: #CEDBEF;
-    focusColor: #70B2EE;
+    focusColor: #56A6FF;
+    focusThickness: 3;
     symbolColor: #000000;
 	selectionColor: #B2B2B2;
     fontLookup: "embeddedCFF";
