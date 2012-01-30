@@ -19,6 +19,11 @@ import flash.events.MouseEvent;
 /**
  *  The FlexMouseEvent class represents the event object passed to
  *  the event listener for Flex-specific mouse activity.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FlexMouseEvent extends MouseEvent
 {
@@ -79,6 +84,11 @@ public class FlexMouseEvent extends MouseEvent
 	 *  </table>
 	 *
      *  @eventType mouseDownOutside
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const MOUSE_DOWN_OUTSIDE:String = "mouseDownOutside";
 
@@ -132,6 +142,11 @@ public class FlexMouseEvent extends MouseEvent
 	 *  </table>
 	 *
      *  @eventType mouseWheelOutside
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const MOUSE_WHEEL_OUTSIDE:String = "mouseWheelOutside";
 
@@ -168,6 +183,11 @@ public class FlexMouseEvent extends MouseEvent
 	 * 
 	 *  @param delta How many lines should be scrolled for each notch the 
 	 *  user scrolls the mouse wheel.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function FlexMouseEvent(type:String, bubbles:Boolean = false,
 								   cancelable:Boolean = false,
