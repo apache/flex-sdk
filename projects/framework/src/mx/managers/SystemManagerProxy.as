@@ -54,6 +54,11 @@ public class SystemManagerProxy extends SystemManager
          * 
          *  @param systemManager The system manager that this class is a proxy for.
          *  This is the system manager in the same application domain as the popup.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
          */
         public function SystemManagerProxy(systemManager:ISystemManager)
         {
@@ -81,6 +86,11 @@ public class SystemManagerProxy extends SystemManager
     //----------------------------------
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get screen():Rectangle
     {
@@ -97,6 +107,11 @@ public class SystemManagerProxy extends SystemManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get document():Object
     {
@@ -124,6 +139,11 @@ public class SystemManagerProxy extends SystemManager
      *  The SystemManager that is being proxied.
      *  This is the SystemManager of the application that created this proxy
      *  and the pop up window that is a child of this proxy.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
         public function get systemManager():ISystemManager
         {
@@ -138,6 +158,11 @@ public class SystemManagerProxy extends SystemManager
 
         /**
          *  @inheritDoc
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
          */
         override public function getDefinitionByName(name:String):Object
         {
@@ -146,6 +171,11 @@ public class SystemManagerProxy extends SystemManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
         override public function create(... params):Object
         {
@@ -157,6 +187,11 @@ public class SystemManagerProxy extends SystemManager
      * 
      *  @param bridge The bridge used to talk to the parent. 
      *  @param owner The display object that owns the bridge.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     override public function addChildBridge(bridge:IEventDispatcher, owner:DisplayObject):void
     {
@@ -165,6 +200,11 @@ public class SystemManagerProxy extends SystemManager
 
     /**
      *  Remove a child bridge.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function removeChildBridge(bridge:IEventDispatcher):void
     {
@@ -173,6 +213,11 @@ public class SystemManagerProxy extends SystemManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
         override public function useSWFBridge():Boolean
         {
@@ -181,6 +226,11 @@ public class SystemManagerProxy extends SystemManager
         
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, 
                                             priority:int=0, useWeakReference:Boolean=false):void
@@ -191,6 +241,11 @@ public class SystemManagerProxy extends SystemManager
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void 
     {
@@ -200,6 +255,11 @@ public class SystemManagerProxy extends SystemManager
     
         /**
          *  @inheritDoc
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
          */
         override public function activate(f:IFocusManagerContainer):void
         {
@@ -230,6 +290,11 @@ public class SystemManagerProxy extends SystemManager
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
         override public function deactivate(f:IFocusManagerContainer):void
         {
@@ -262,6 +327,11 @@ public class SystemManagerProxy extends SystemManager
      *  @inheritdoc
      * 
      *  proxy to real system manager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     override public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
     {
@@ -288,6 +358,11 @@ public class SystemManagerProxy extends SystemManager
      *  popup window parented by this proxy.
      * 
      *  @param f The top-level window whose FocusManager should be activated.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
         public function activateByProxy(f:IFocusManagerContainer):void
         {
@@ -299,6 +374,11 @@ public class SystemManagerProxy extends SystemManager
      *  parented by this proxy.
      * 
      *  @param f The top-level window whose FocusManager should be deactivated.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
         public function deactivateByProxy(f:IFocusManagerContainer):void
         {
