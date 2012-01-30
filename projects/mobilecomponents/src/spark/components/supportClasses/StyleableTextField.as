@@ -120,6 +120,7 @@ public class MobileTextField extends TextField implements IEditableText
     override public function set text(value:String):void
     {
         super.text = value;
+        _isTruncated = false;
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
             
@@ -467,8 +468,10 @@ public class MobileTextField extends TextField implements IEditableText
             textFormat.indent = styleProvider.getStyle("textIndent");
             textFormat.leading = styleProvider.getStyle("leading");
             textFormat.letterSpacing = styleProvider.getStyle("letterSpacing");
-            textFormat.leftMargin = styleProvider.getStyle("paddingLeft");
-            textFormat.rightMargin = styleProvider.getStyle("paddingRight");
+            
+            // ignore padding in the text...most components deal with it themselves
+            //textFormat.leftMargin = styleProvider.getStyle("paddingLeft");
+            //textFormat.rightMargin = styleProvider.getStyle("paddingRight");
 
             defaultTextFormat = textFormat;
             setTextFormat(textFormat);
