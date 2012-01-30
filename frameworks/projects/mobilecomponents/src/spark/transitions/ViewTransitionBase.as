@@ -1352,7 +1352,7 @@ public class ViewTransitionBase extends EventDispatcher
      * @private
      * Helper method to test whether a component is visible to user.
      */ 
-    protected function componentIsVisible(component:UIComponent):Boolean
+    mx_internal function componentIsVisible(component:UIComponent):Boolean
     {
         return component && component.visible && 
             component.width && component.height && component.alpha;
@@ -1363,7 +1363,7 @@ public class ViewTransitionBase extends EventDispatcher
      *  Helper method to add a UIComponent instance to either an IVisualElementContainer
      *  or DisplayObjectContainer. 
      */ 
-    protected function addComponentToContainerAt(component:UIComponent, 
+    mx_internal function addComponentToContainerAt(component:UIComponent, 
                                                  container:UIComponent, 
                                                  index:int):void
     {
@@ -1378,7 +1378,7 @@ public class ViewTransitionBase extends EventDispatcher
      *  Helper method to add a UIComponent instance to either an IVisualElementContainer
      *  or DisplayObjectContainer.
      */ 
-    protected function addComponentToContainer(component:UIComponent, 
+    mx_internal function addComponentToContainer(component:UIComponent, 
                                                container:UIComponent):void
     {
         if (container is IVisualElementContainer)
@@ -1392,7 +1392,7 @@ public class ViewTransitionBase extends EventDispatcher
      *  Helper method to remove a UIComponent instance from either an IVisualElementContainer
      *  or DisplayObjectContainer.
      */ 
-    protected function removeComponentFromContainer(component:UIComponent, 
+    mx_internal function removeComponentFromContainer(component:UIComponent, 
                                                     container:UIComponent):void
     {
         if (container is IVisualElementContainer)
@@ -1405,7 +1405,7 @@ public class ViewTransitionBase extends EventDispatcher
      *  @private
      *  Helper method to set the child index of the given component.
      */ 
-    protected function setComponentChildIndex(component:UIComponent, 
+    mx_internal function setComponentChildIndex(component:UIComponent, 
                                               container:UIComponent, 
                                               index:int):void
     {
@@ -1447,7 +1447,7 @@ public class ViewTransitionBase extends EventDispatcher
      *  @private
      *  Helper method that returns index of the given component. 
      */
-    protected function getComponentChildIndex(component:UIComponent, container:UIComponent):int
+    mx_internal function getComponentChildIndex(component:UIComponent, container:UIComponent):int
     {
         if (container is IVisualElementContainer)
             return IVisualElementContainer(container).getElementIndex(component);
