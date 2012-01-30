@@ -20,6 +20,7 @@
 	<target name="clean">
 		<delete file="bundles.properties"/>
 		<delete file="${basedir}/libs/FlexComponentBase.swc"/>
+		<delete file="${basedir}/libs/FlexComponentBase.swc.incr"/>
 	</target>
 
 	<target name="compile">
