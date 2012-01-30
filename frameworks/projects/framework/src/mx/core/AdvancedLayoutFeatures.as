@@ -15,6 +15,7 @@ package mx.core
 	import flash.geom.Matrix3D;
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
+	import flash.system.Capabilities;
 	
 	import mx.geom.CompoundTransform;
 	import mx.geom.TransformOffsets;
@@ -128,6 +129,64 @@ package mx.core
 	private static const ZERO_REPLACEMENT_IN_3D:Number = .00000000000001;
 	
 	private static var tempTransformCenter:Vector3D;
+	
+    /**
+     * @private
+     * a pointer to the function we use to transform vectors, to work around a bug
+     * in early versions of the flash player.
+     */
+	private static var transformVector:Function = initTransformVectorFunction;
+
+    /**
+     * @private
+     * an actionscript implementation to transform a vector by a matrix. Bugs in early versions of 
+     * flash 10's implementation of Matrix.transformVector force us to do it ourselves in actionscript. 
+     */
+    private static function pre10_0_22_87_transformVector(m:Matrix3D,v:Vector3D):Vector3D
+    {
+    	var r:Vector.<Number> = m.rawData;
+    	return new Vector3D(
+    		r[0] * v.x + r[4] * v.y + r[8] * v.z + r[12], 
+    		r[1] * v.x + r[5] * v.y + r[9] * v.z + r[13], 
+    		r[2] * v.x + r[6] * v.y + r[10] * v.z + r[14],
+    		1); 
+    }
+
+    /**
+     * @private
+     * a  function to transform vectors using the built in player API, if we're in a late enough player version
+     * that we won't run into bugs.s
+     */
+	private static function nativeTransformVector(m:Matrix3D,v:Vector3D):Vector3D
+	{
+		return m.transformVector(v);
+	}
+	
+    /**
+     * @private
+     * the first time someone calls transformVector, they'll get this function.  It checks the player version,
+     * and if decides which implementation to use based on whether a bug is present or not.
+     */
+	private static function initTransformVectorFunction(m:Matrix3D,v:Vector3D):Vector3D
+	{
+		var canUseNative:Boolean = false;
+		var version:Array = Capabilities.version.split(' ')[1].split(',');
+		if(parseFloat(version[0]) > 10)
+			canUseNative  = true;
+		else if (parseFloat(version[1]) > 0)
+			canUseNative  = true;
+		else if (parseFloat(version[2]) > 22)
+			canUseNative  = true;
+		else if (parseFloat(version[3]) >= 87)
+			canUseNative  = true;
+		if(canUseNative)
+			transformVector = nativeTransformVector;
+		else
+			transformVector = pre10_0_22_87_transformVector;
+		
+		return transformVector(m,v);
+	}
+	
 	
 	//------------------------------------------------------------------------------
 	
@@ -761,9 +820,7 @@ package mx.core
         {
             if (currentPosition != null)
             {
-                var layoutCenterV:Vector3D = 
-                    layoutMatrix3D.transformVector(tempTransformCenter);
-                layoutCenterV.project();
+                var layoutCenterV:Vector3D = transformVector(layoutMatrix3D,tempTransformCenter); 
                 currentPosition.x = layoutCenterV.x;
                 currentPosition.y = layoutCenterV.y;
                 currentPosition.z = layoutCenterV.z;
@@ -771,8 +828,7 @@ package mx.core
             
             if (currentPostLayoutPosition != null)
             {           
-                computedCenterV = computedMatrix3D.transformVector(tempTransformCenter);
-                computedCenterV.project();
+                computedCenterV = transformVector(computedMatrix3D,tempTransformCenter);
                 currentPostLayoutPosition.x = computedCenterV.x;
                 currentPostLayoutPosition.y = computedCenterV.y;
                 currentPostLayoutPosition.z = computedCenterV.z;
@@ -815,9 +871,7 @@ package mx.core
         {
             if (targetPosition != null)
             {
-                var adjustedLayoutCenterV:Vector3D = 
-                    layoutMatrix3D.transformVector(transformCenter);
-                adjustedLayoutCenterV.project();
+                var adjustedLayoutCenterV:Vector3D = transformVector(layoutMatrix3D,transformCenter); 
                 if(adjustedLayoutCenterV.equals(targetPosition) == false)
                 {
                     layout.translateBy(targetPosition.x - adjustedLayoutCenterV.x,
@@ -828,9 +882,7 @@ package mx.core
             }
             if (targetPostLayoutPosition != null && _offsets != null)
             {
-                var adjustedComputedCenterV:Vector3D = 
-                    computedMatrix3D.transformVector(transformCenter);
-                adjustedComputedCenterV.project();
+                var adjustedComputedCenterV:Vector3D = transformVector(computedMatrix3D,transformCenter);
                 if (adjustedComputedCenterV.equals(targetPostLayoutPosition) == false)
                 {
                     offsets.x +=targetPostLayoutPosition.x - adjustedComputedCenterV.x;
@@ -888,34 +940,42 @@ package mx.core
     public function transformAround(transformCenter:Vector3D,
                                     scale:Vector3D,
                                     rotation:Vector3D,
-                                    translation:Vector3D,
+                                    transformCenterPosition:Vector3D,
                                     postLayoutScale:Vector3D = null,
                                     postLayoutRotation:Vector3D = null,
-                                    postLayoutTranslation:Vector3D = null):void
+                                    postLayoutTransformCenterPosition:Vector3D = null):void
     {
         var is3D:Boolean = (scale != null && scale.z != 1) ||
             (rotation != null && ((rotation.x != 0 ) || (rotation.y != 0))) || 
-            (translation != null && translation.z != 0) ||
+            (transformCenterPosition != null && transformCenterPosition.z != 0) ||
             (postLayoutScale != null && postLayoutScale.z != 1) ||
             (postLayoutRotation != null && 
                 (postLayoutRotation.x != 0 || postLayoutRotation.y != 0)) || 
-            (postLayoutTranslation != null && postLayoutTranslation.z != 0);
+            (postLayoutTransformCenterPosition != null && postLayoutTransformCenterPosition.z != 0);
 
         var needOffsets:Boolean = _offsets == null && 
             (postLayoutScale != null || postLayoutRotation != null || 
-                postLayoutTranslation != null);
+                postLayoutTransformCenterPosition != null);
         if(needOffsets)
             _offsets = new TransformOffsets();                                               
                                                         
-        // if transformCener is null, we can just set x/y/z, so we can short circuit this.
+        // if the caller passed in a transformCenterPosition, then we know that the transformCenterPosition they passed in is actually the
+        // target position.  If that's the case, we'll deal with that later. If they passed in null, it means they want 
+        // to keep the transformCenter locked at its current position.  In which case, we need to calculate it.
+        // so we set targetPosition to a temp vector to store the calculated value.
         var targetPosition:Vector3D = 
-            (translation == null) ? 
+            (transformCenterPosition == null) ? 
             staticTranslation:
             null; 
+            
+        // same is true for post layout transform center.
         var postLayoutTargetPosition:Vector3D = 
-            (postLayoutTranslation == null) ? 
+            (postLayoutTransformCenterPosition == null) ? 
             staticOffsetTranslation:
-            null; 
+            null;
+
+		// now if they gave us a non-trivial transform center, and didn't tell us where they want it, 
+		// we need to calculate where it is so that we can make sure we keep it there.             
         if (transformCenter != null && 
             (transformCenter.x != 0 || transformCenter.y != 0 || transformCenter.z != 0) &&
             (targetPosition != null || postLayoutTargetPosition != null))
@@ -923,11 +983,15 @@ package mx.core
             transformPointToParent(is3D, transformCenter, targetPosition,
                 postLayoutTargetPosition);
         }
+        // if targetPosition/postLayoutTargetPosition is null here, it might be because the caller passed in
+        // requested values, so we haven't calculated it yet.  So that means our target position is the values
+        // they passed in.        
         if (targetPosition == null)
-            targetPosition = translation;
+            targetPosition = transformCenterPosition;
         if (postLayoutTargetPosition == null)
-            postLayoutTargetPosition = postLayoutTranslation;
+            postLayoutTargetPosition = postLayoutTransformCenterPosition;
 
+		// now update our transform values.		
         if (rotation != null)
         {
             if (!isNaN(rotation.x))
@@ -959,26 +1023,33 @@ package mx.core
             _offsets.scaleY = postLayoutScale.y;
             _offsets.scaleZ = postLayoutScale.z;
         }
-
+		
+		// if they didn't pass us a transform center, 
+		// then we assume it's the origin. In that case, it's trivially easy
+		// to make sure the origin is at a particular point...we simply set 
+		// the transformCenterPosition portion of our transforms to that point. 
         if (transformCenter == null)
         {
-            if (translation != null)
+            if (transformCenterPosition != null)
             {
-                layout.x = translation.x;
-                layout.y = translation.y;
-                layout.z = translation.z;
+                layout.x = transformCenterPosition.x;
+                layout.y = transformCenterPosition.y;
+                layout.z = transformCenterPosition.z;
             }
-            if (postLayoutTranslation != null)
+            if (postLayoutTransformCenterPosition != null)
             {
-                _offsets.x = postLayoutTranslation.x;
-                _offsets.y = postLayoutTranslation.y;
-                _offsets.z = postLayoutTranslation.z;
+                _offsets.x = postLayoutTransformCenterPosition.x - layout.x;
+                _offsets.y = postLayoutTransformCenterPosition.y - layout.y;
+                _offsets.z = postLayoutTransformCenterPosition.z - layout.z;
             }
         }
         invalidate();
+        
+        // if they did pass in a transform center, go do the adjustments necessary to keep it fixed in place.
         if (transformCenter != null)
             completeTransformCenterAdjustment(is3D, transformCenter, 
                 targetPosition, postLayoutTargetPosition);
+        
         
     }
         
