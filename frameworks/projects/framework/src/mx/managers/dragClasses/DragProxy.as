@@ -427,29 +427,9 @@ public class DragProxy extends UIComponent
 
 		// trace("===>DragProxy:mouseMove");
 		var targetList:Array; /* of DisplayObject */
-		var tlr:IEventDispatcher = systemManager.getTopLevelRoot();
-/*		having trouble with getObjectsUnderPoint.  Some things seem to get in list
-		like cursors that shouldn't.  We roll our own for sandboxed apps and it works
-		better for now.
-		if (tlr)
-			targetList = DisplayObjectContainer(tlr).
-							getObjectsUnderPoint(stagePoint);
-		else
-		{
-*  
-*  @langversion 3.0
-*  @playerversion Flash 9
-*  @playerversion AIR 1.1
-*  @productversion Flex 3
-*/			targetList = [];
-			DragProxy.getObjectsUnderPoint(DisplayObject(sandboxRoot), stagePoint, targetList);
-/*		}
-*  
-*  @langversion 3.0
-*  @playerversion Flash 9
-*  @playerversion AIR 1.1
-*  @productversion Flex 3
-*/
+		targetList = [];
+		DragProxy.getObjectsUnderPoint(DisplayObject(sandboxRoot), stagePoint, targetList);
+
 		var newTarget:DisplayObject = null;
 		// trace("   ", targetList.length, "objects under point");
 		
