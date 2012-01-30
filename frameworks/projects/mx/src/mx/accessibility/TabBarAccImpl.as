@@ -71,11 +71,6 @@ public class TabBarAccImpl extends AccImpl
 	 */
 	private static const EVENT_OBJECT_SELECTION:uint = 0x8006;
 
-	/**
-	 *  @private
-	 */
-	private static const MAX_NUM:uint = 100000;	
-
 	//--------------------------------------------------------------------------
 	//
 	//  Class methods
@@ -185,8 +180,7 @@ public class TabBarAccImpl extends AccImpl
 		{
 			accState = STATE_SYSTEM_SELECTABLE | STATE_SYSTEM_FOCUSABLE;
 
-			var index:int = childID < MAX_NUM ? 
-					childID - 1 : childID - MAX_NUM - 1;
+			var index:int = childID - 1;
 
 			if (index == tabBar.selectedIndex)
 				accState |= STATE_SYSTEM_SELECTED;
@@ -221,13 +215,7 @@ public class TabBarAccImpl extends AccImpl
 	override public function accDoDefaultAction(childID:uint):void
 	{
 		if (childID > 0)
-		{
-			var index:int = childID < MAX_NUM ?
-						    childID - 1 :
-							childID - MAX_NUM - 1;
-
-			TabBar(master).selectButton(index, true);
-		}
+			TabBar(master).selectButton(childID - 1, true);
 	}
 
 	/**
@@ -253,11 +241,7 @@ public class TabBarAccImpl extends AccImpl
 	 */
 	override public function accLocation(childID:uint):*
 	{
-		var index:int = childID < MAX_NUM ?
-						childID - 1 :
-						childID - MAX_NUM - 1;
-
-		return TabBar(master).getChildAt(index);
+		return TabBar(master).getChildAt(childID - 1);
 	}
 
 	/**
@@ -295,21 +279,17 @@ public class TabBarAccImpl extends AccImpl
 		if (childID == 0)
 			return "";
 
-		var name:String;
-
 		var tabBar:TabBar = TabBar(master);
-		// Assuming childID is always ItemID + 1
-		// because getChildIDArray is not always invoked.
-		var index:int = childID < MAX_NUM ?
-						childID - 1 :
-						childID - MAX_NUM - 1;
-		//With new version of JAWS, when we add a new child, we get nonsense number
-		//not caught above. In this case, return last tab.
+		var index:int = childID - 1;
+		
+		// With new version of JAWS, when we add a new child, we get nonsense number
+		// not caught above. In this case, return last tab.
 		if (index > tabBar.numChildren || index < 0)
 			index = tabBar.numChildren -1;
+		
 		var item:Tab = Tab(tabBar.getChildAt(index));
 
-		name = item.label;
+		var name:String = item.label;
 
 		if (index == tabBar.selectedIndex)
 			name += " Tab, Active";
@@ -343,7 +323,7 @@ public class TabBarAccImpl extends AccImpl
 				
 				if (index >= 0)
 				{
-					Accessibility.sendEvent(master, index + MAX_NUM + 1,
+					Accessibility.sendEvent(master, index + 1,
 											EVENT_OBJECT_FOCUS);
 				}
 				break;
