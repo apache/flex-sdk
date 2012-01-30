@@ -462,7 +462,7 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  of the requested item, and the failure "info" object, which is
      *  passed along from the IResponder <code>fault()</code> method.  
      *  In most cases you can ignore the second parameter.
-     *  Shown below is an example implementation of the classback function:</p> 
+     *  Shown below is an example implementation of the callback function:</p> 
      * 
      *  <pre>
      * function createFailedItem(index:int, info:Object):Object
@@ -588,7 +588,18 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      */
     public function get length():int
     {
-        return (list) ? list.length : 0;
+        try
+        {
+            return (list) ? list.length : 0;
+        }
+        catch (ignore:ItemPendingError)
+        {
+            // The mx.data DataList class can throw an IPE here. We ignore it because
+            // when the length is determined, a CollectionChanged event will be
+            // be dispatched.  See handleCollectionChangeEvent().
+        }
+        
+        return 0;
     }
     
     /**
@@ -602,7 +613,18 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     public function addItem(item:Object):void
     {
         if (list)
-            list.addItem(item);
+        {
+            try
+            {
+                list.addItem(item);
+            }
+            catch (ignore:ItemPendingError)
+            {
+                // The mx.data DataList class can throw an IPE here. We ignore it because
+                // when the item is actually added, a CollectionChanged event will be
+                // be dispatched.  See handleCollectionChangeEvent().
+            }            
+        }
     }
     
     /**
@@ -616,7 +638,18 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     public function addItemAt(item:Object, index:int):void
     {
         if (list)
-            list.addItemAt(item, index);
+        {
+            try
+            {
+                list.addItemAt(item, index);
+            }
+            catch (ignore:ItemPendingError)
+            {
+                // The mx.data DataList class can throw an IPE here. We ignore it because
+                // when the item is actually added, a CollectionChanged event will be
+                // be dispatched.  See handleCollectionChangeEvent().
+            }            
+        }
     }
     
     /**
@@ -787,7 +820,19 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
         
         const failedItem:* = failedItems[index];
         const pendingResponder:ListItemResponder = pendingResponders[index];
-        const setItemValue:Object = list.setItemAt(item, index);
+
+        var setItemValue:Object = null;  // return null if IPE
+        try
+        {
+            setItemValue = list.setItemAt(item, index);
+        }
+        catch (ignore:ItemPendingError)
+        {
+            // The mx.data DataList class can throw an IPE here. We ignore it because
+            // when the item is actually changed, a CollectionChanged event will be
+            // be dispatched.  See handleCollectionChangeEvent().
+        }            
+        
         if (failedItem !== undefined)
             return failedItem;
         else
