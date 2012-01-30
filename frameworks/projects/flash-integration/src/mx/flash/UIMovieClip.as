@@ -1583,7 +1583,7 @@ public dynamic class UIMovieClip extends MovieClip
     {
         _explicitMaxWidth = value;
         
-        // !!TODO: invalidate size
+        // FIXME (rfrishbe): invalidate size
     }
 
     //----------------------------------
@@ -2683,7 +2683,7 @@ public dynamic class UIMovieClip extends MovieClip
         dispatchEvent(new FlexEvent("layerChange"));
         if(parent != null && "invalidateLayering" in parent && parent["invalidateLayering"] is Function)
             parent["invalidateLayering"]();
-        // TODO: should be in some interface...
+        // FIXME (rfrishbe): should be in some interface...
     }
     
     /**
