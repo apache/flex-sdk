@@ -14,7 +14,7 @@ package mx.managers
 
 import flash.display.DisplayObject;
 import flash.events.IEventDispatcher;
-import mx.managers.IFocusManager2;
+import mx.managers.IFocusManager;
 import mx.managers.ISystemManager;
 
 /**
@@ -39,12 +39,12 @@ public interface IFocusManagerContainer extends IEventDispatcher
 	 *  The FocusManager for this component. 
 	 *  The FocusManager must be in a <code>focusManager</code> property.
 	 */
-	function get focusManager():IFocusManager2;
+	function get focusManager():IFocusManager;
 	
 	/**
 	 *  @private
 	 */
-	function set focusManager(value:IFocusManager2):void;
+	function set focusManager(value:IFocusManager):void;
 	
 	//----------------------------------
 	//  systemManager
