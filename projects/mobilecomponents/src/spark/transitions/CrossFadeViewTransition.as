@@ -99,7 +99,7 @@ public class CrossFadeViewTransition extends ViewTransitionBase
 		
 		var oldVisibility:Boolean = endView.visible;
 		endView.visible = false;
-		cachedNavigator = getSnapshot(targetNavigator);
+		cachedNavigator = getSnapshot(targetNavigator, 0);
 		endView.visible = oldVisibility;
 	}
 	
