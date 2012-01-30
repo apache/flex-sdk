@@ -23,7 +23,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="backgroundAlpha", type="Number", inherit="no", theme="halo, spark")]
+[Style(name="backgroundAlpha", type="Number", inherit="no", theme="halo, spark, mobile")]
 
 /**
  *  Background color of a component.
@@ -54,4 +54,4 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="halo, spark")]
+[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="halo, spark, mobile")]
