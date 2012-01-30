@@ -931,6 +931,7 @@ public class CSSStyleDeclaration extends EventDispatcher
                 };
                 emptyObjectFactory.prototype = chain;
                 chain = new emptyObjectFactory();
+                emptyObjectFactory.prototype = null;
             }
             
             nodeAddedToChain = true;
@@ -961,6 +962,7 @@ public class CSSStyleDeclaration extends EventDispatcher
             
             defaultFactory.prototype = chain;
             chain = new defaultFactory();
+            defaultFactory.prototype = null;
 
             if (filterMap)
                 chain = applyFilter(originalChain, chain, filterMap);
@@ -990,6 +992,7 @@ public class CSSStyleDeclaration extends EventDispatcher
             objectFactory = new factory();
             factory.prototype = chain;
             chain = new factory();
+            factory.prototype = null;
         }
         
         // If someone has called setStyle() on this CSSStyleDeclaration,
@@ -1007,6 +1010,7 @@ public class CSSStyleDeclaration extends EventDispatcher
                 };
                 emptyObjectFactory.prototype = chain;
                 chain = new emptyObjectFactory();
+                emptyObjectFactory.prototype = null;
             }
             
             for (var p:String in overrides)
@@ -1045,6 +1049,7 @@ public class CSSStyleDeclaration extends EventDispatcher
         };
         filterObjectFactory.prototype = originalChain;
         filteredChain = new filterObjectFactory();
+        filterObjectFactory.prototype = null;
         
         for (var i:String in chain)
         {
