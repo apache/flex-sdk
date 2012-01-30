@@ -418,6 +418,26 @@ public class View extends Group implements IDataRenderer
     }
     
     //----------------------------------
+    //  viewMenuItems
+    //----------------------------------
+    
+    private var _viewMenuItems:Vector.<ViewMenuItem>;
+    
+    /**
+     *  The Vector of ViewMenuItems that are passed to the ViewMenu when
+     *  this View is the active view. 
+     */   
+    public function get viewMenuItems():Vector.<ViewMenuItem>
+    {
+        return _viewMenuItems;
+    }
+    
+    public function set viewMenuItems(value:Vector.<ViewMenuItem>):void
+    {
+        _viewMenuItems = value;
+    }
+    
+    //----------------------------------
     //  navigationContent
     //----------------------------------
     
