@@ -103,8 +103,8 @@ public class ButtonSkin extends ButtonSkinBase
                 layoutPaddingTop = 20;
                 layoutPaddingBottom = 20;
                 layoutBorderSize = 2;
-                minWidth = 64;
-                minHeight = 86;
+                measuredDefaultWidth = 64;
+                measuredDefaultHeight = 86;
                 
                 break;
             }
@@ -120,14 +120,14 @@ public class ButtonSkin extends ButtonSkinBase
                 layoutPaddingTop = 15;
                 layoutPaddingBottom = 15;
                 layoutBorderSize = 1;
-                minWidth = 48;
-                minHeight = 65;
+                measuredDefaultWidth = 48;
+                measuredDefaultHeight = 65;
                 
                 break;
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 upBorderSkin = spark.skins.mobile160.assets.Button_up;
                 downBorderSkin = spark.skins.mobile160.assets.Button_down;
                 
@@ -138,8 +138,8 @@ public class ButtonSkin extends ButtonSkinBase
                 layoutPaddingTop = 10;
                 layoutPaddingBottom = 10;
                 layoutBorderSize = 1;
-                minWidth = 32;
-                minHeight = 43;
+                measuredDefaultWidth = 32;
+                measuredDefaultHeight = 43;
                 
                 break;
             }
