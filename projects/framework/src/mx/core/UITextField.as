@@ -2242,9 +2242,12 @@ public class UITextField extends FlexTextField
         var textAlign:String = getStyle("textAlign");
         // Map new Spark values that might be set in a selector
         // affecting both Halo and Spark components.
-        if (textAlign == "start") 
-            textAlign = TextFormatAlign.LEFT;
+        var direction:String = getStyle("direction");
+        if (textAlign == "start")
+            textAlign = direction == "ltr" ? TextFormatAlign.LEFT : TextFormatAlign.RIGHT;
         else if (textAlign == "end")
+            textAlign = direction == "ltr" ? TextFormatAlign.RIGHT : TextFormatAlign.LEFT;
+        else if (textAlign == "justify" && direction == "rtl")
             textAlign = TextFormatAlign.RIGHT;
         textFormat.align = textAlign; 
         textFormat.bold = getStyle("fontWeight") == "bold";
