@@ -148,7 +148,8 @@ package mx.automation.delegates.flashflexkit
 		//---------------------------------
 		public function get automationEnabled():Boolean
 		{
-			return null;
+			trace("Reading should not be done here");
+			return false;
 		}
 		
 		//---------------------------------
@@ -172,7 +173,8 @@ package mx.automation.delegates.flashflexkit
 		//---------------------------------
 		public function get automationVisible():Boolean
 		{
-			return null;
+			trace("Reading should not be done here");
+			return false;
 		}
 		
 		//----------------------------------
