@@ -1166,9 +1166,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 	                calculateCandidates = true;
     	            // trace("FM added " + o);
     	        }
-                o.addEventListener("tabFocusEnabledChange", tabFocusEnabledChangeHandler);
-                o.addEventListener("tabIndexChange", tabIndexChangeHandler);
    			}
+            o.addEventListener("tabFocusEnabledChange", tabFocusEnabledChangeHandler);
+            o.addEventListener("tabIndexChange", tabIndexChangeHandler);
 
         }
         
@@ -1261,6 +1261,10 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 
     private function isValidFocusCandidate(o:DisplayObject, g:String):Boolean
     {
+        if (o is IFocusManagerComponent)
+            if (!IFocusManagerComponent(o).focusEnabled)
+                return false;
+
         if (!isEnabledAndVisible(o))
             return false;
 
@@ -1635,14 +1639,14 @@ public class FocusManager extends EventDispatcher implements IFocusManager
                         _lastFocus = null;
                     }
                     // trace("FM removed " + o);
-                    o.removeEventListener("tabFocusEnabledChange", tabFocusEnabledChangeHandler);
-                    o.removeEventListener("tabIndexChange", tabIndexChangeHandler);
                     focusableObjects.splice(i, 1);
                     focusableCandidates = [];
                     calculateCandidates = true;                 
                     break;
                 }
             }
+            o.removeEventListener("tabFocusEnabledChange", tabFocusEnabledChangeHandler);
+            o.removeEventListener("tabIndexChange", tabIndexChangeHandler);
         }
         removeFocusables(o, false);
     }
