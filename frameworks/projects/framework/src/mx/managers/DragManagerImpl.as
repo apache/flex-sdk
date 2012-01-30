@@ -317,7 +317,7 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 		dragProxy.allowMove = allowMove;
 		
         // Make sure any scale/rotation from the initiator will be reflected.
-        var concatenatedMatrix:Matrix = MatrixUtil.getConcatenatedMatrix(DisplayObject(dragInitiator));
+        var concatenatedMatrix:Matrix = MatrixUtil.getConcatenatedMatrix(DisplayObject(dragInitiator), true /*excludingRootSprite*/);
         // Zero out the translation part of the matrix, as we're going to 
         // position the dragProxy explicitly further below.        
         concatenatedMatrix.tx = 0;
