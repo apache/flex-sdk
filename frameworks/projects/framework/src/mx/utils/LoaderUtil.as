@@ -17,6 +17,11 @@ import flash.system.Security;
 
   /**
    *  The LoaderUtil class defines a utility method for use with Flex RSLs.
+   *  
+   *  @langversion 3.0
+   *  @playerversion Flash 9
+   *  @playerversion AIR 1.1
+   *  @productversion Flex 3
    */
     public class LoaderUtil
     {
@@ -31,6 +36,11 @@ import flash.system.Security;
      *  @param loaderInfo A LoaderInfo instance.
      *
      *  @return A normalized <code>LoaderInfo.url</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function normalizeURL(loaderInfo:LoaderInfo):String
     {
