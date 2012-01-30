@@ -26,6 +26,11 @@ use namespace mx_internal;
  *  to the flashlog.txt file. The default location of this file is the same directory as 
  *  the mm.cfg file. You can customize the location of this file by using the <code>TraceOutputFileName</code> 
  *  property in the mm.cfg file. You must also set <code>TraceOutputFileEnable</code> to 1 in your mm.cfg file.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TraceTarget extends LineFormattedTarget
 {
@@ -43,6 +48,11 @@ public class TraceTarget extends LineFormattedTarget
      *  <p>Constructs an instance of a logger target that will send
      *  the log data to the global <code>trace()</code> method.
      *  All output will be directed to flashlog.txt by default.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function TraceTarget()
     {
