@@ -20,6 +20,7 @@ import flash.utils.getQualifiedSuperclassName;
 
 import mx.core.FlexGlobals;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
 import mx.core.IInvalidating;
@@ -80,13 +81,7 @@ public class StyleProtoChain
      */
     public static function getClassStyleDeclarations(object:IStyleClient):Array
     {
-        var styleManager:IStyleManager2;
-        
-        if (object is UIComponent)
-            styleManager = UIComponent(object).styleManager;
-        else
-            styleManager = StyleManager.getStyleManager(null);
-        
+        var styleManager:IStyleManager2 = getStyleManager(object);
         var qualified:Boolean = styleManager.qualifiedTypeSelectors;
         var className:String = qualified ? getQualifiedClassName(object) : object.className;
         var advancedObject:IAdvancedStyleClient = object as IAdvancedStyleClient;
@@ -150,13 +145,7 @@ public class StyleProtoChain
      */
     public static function initProtoChain(object:IStyleClient):void
     {
-        var styleManager:IStyleManager2 = null;
-        
-        if (object is UIComponent)
-            styleManager = UIComponent(object).styleManager;
-        else
-            styleManager = StyleManager.getStyleManager(null);
-        
+        var styleManager:IStyleManager2 = getStyleManager(object);
         var n:int;
         var i:int;
 
@@ -339,13 +328,7 @@ public class StyleProtoChain
     public static function initProtoChainForUIComponentStyleName(
                                     obj:IStyleClient):void
     {
-        var styleManager:IStyleManager2;
-        
-        if (obj is UIComponent)
-            styleManager = UIComponent(obj).styleManager;
-        else
-            styleManager = StyleManager.getStyleManager(null);
-        
+        var styleManager:IStyleManager2 = getStyleManager(obj);
         var styleName:IStyleClient = IStyleClient(obj.styleName);
         var target:DisplayObject = obj as DisplayObject;
         
@@ -471,13 +454,7 @@ public class StyleProtoChain
         var styleName:Object = obj.styleName;
         var styleDeclarations:Array;
         var decl:CSSStyleDeclaration;
-        var styleManager:IStyleManager2 = null;
-        
-        if (target is UIComponent)
-            styleManager = UIComponent(target).styleManager;
-    
-        if (!styleManager)
-            styleManager = StyleManager.getStyleManager(null);
+        var styleManager:IStyleManager2 = getStyleManager(target);
         
         // If we have an advanced style client, we handle this separately
         // because of the considerably more complex selector matches...
@@ -672,12 +649,7 @@ public class StyleProtoChain
     public static function setStyle(object:IStyleClient, styleProp:String,
                                     newValue:*):void
     {
-        var styleManager:IStyleManager2;
-        
-        if (object is UIComponent)
-            styleManager = UIComponent(object).styleManager;
-        else
-            styleManager = StyleManager.getStyleManager(null);
+        var styleManager:IStyleManager2 = getStyleManager(object);
         
         if (styleProp == "styleName")
         {
@@ -731,13 +703,8 @@ public class StyleProtoChain
      */
     public static function styleChanged(object:IInvalidating, styleProp:String):void
     {
-        var styleManager:IStyleManager2;
-        
-        if (object is UIComponent)
-            styleManager = UIComponent(object).styleManager;
-        else
-            styleManager = StyleManager.getStyleManager(null);
-        
+        var styleManager:IStyleManager2 = getStyleManager(object);
+       
         // If font changed, then invalidateProperties so
         // we can re-create the text field in commitProperties
         // FIXME (gosmith): Should hasFontContextChanged() be added to IFontContextComponent?
@@ -789,13 +756,7 @@ public class StyleProtoChain
      */
     public static function matchesCSSType(object:IAdvancedStyleClient, cssType:String):Boolean
     {
-        var styleManager:IStyleManager2;
-        
-        if (object is UIComponent)
-            styleManager = UIComponent(object).styleManager;
-        else
-            styleManager = StyleManager.getStyleManager(null);
-        
+        var styleManager:IStyleManager2 = getStyleManager(object);
         var qualified:Boolean = styleManager.qualifiedTypeSelectors;
         var typeHierarchy:OrderedObject = getTypeHierarchy(object, qualified);
         return typeHierarchy.object_proxy::getObjectProperty(cssType) != null;
@@ -817,12 +778,7 @@ public class StyleProtoChain
     public static function getMatchingStyleDeclarations(object:IAdvancedStyleClient,
             styleDeclarations:Array=null):Array // of CSSStyleDeclaration
     {
-        var styleManager:IStyleManager2;
-        
-        if (object is UIComponent)
-            styleManager = UIComponent(object).styleManager;
-        else
-            styleManager = StyleManager.getStyleManager(null);
+        var styleManager:IStyleManager2 = getStyleManager(object);
         
         if (styleDeclarations == null)
             styleDeclarations = [];
@@ -857,13 +813,7 @@ public class StyleProtoChain
      */
     private static function getTypeHierarchy(object:IStyleClient, qualified:Boolean=true):OrderedObject
     {
-        var styleManager:IStyleManager2;
-        
-        if (object is UIComponent)
-            styleManager = UIComponent(object).styleManager;
-        else
-            styleManager = StyleManager.getStyleManager(null);
-        
+        var styleManager:IStyleManager2 = getStyleManager(object);
         var className:String = getQualifiedClassName(object);
         var hierarchy:OrderedObject = styleManager.typeHierarchyCache[className] as OrderedObject;
         if (hierarchy == null)
@@ -984,6 +934,47 @@ public class StyleProtoChain
         }
 
         return decls; 
+    }
+    
+    /**
+     *  @private
+     *  Get the style manager of any object. If the object does not implement IFlexModule or
+     *  is not of type StyleProxy, then the top-level style manager will be returned.
+     * 
+     *  @param object - Typed as Object because various interfaces are passed here.
+     *  @return a style manager, will not be null.
+     */ 
+    private static function getStyleManager(object:Object):IStyleManager2
+    {
+        if (object is IFlexModule)
+            return StyleManager.getStyleManager(IFlexModule(object).moduleFactory);
+        else if (object is StyleProxy)
+            return getStyleManagerFromStyleProxy(StyleProxy(object));
+        else
+            return StyleManager.getStyleManager(null);
+    }
+
+    /**
+     *  @private
+     *  Get the style manager for a given StyleProxy object.
+     * 
+     *  @return a style manager, will not be null.
+     */ 
+    private static function getStyleManagerFromStyleProxy(obj:StyleProxy):IStyleManager2
+    {
+        // StyleProxy's usually have sources that are DisplayObject's, but a StyleProxy can also have 
+        // another StyleProxy as it's source (Example: CalendarLayout's source is a StyleProxy for DateChooser, 
+        // whose style is a StyleProxy for DateField)
+        var curObj:IStyleClient = obj;
+        while (curObj is StyleProxy)
+        {
+            curObj = StyleProxy(curObj).source;
+        }
+
+        if (curObj is IFlexModule)
+            return StyleManager.getStyleManager(IFlexModule(curObj).moduleFactory);
+        
+        return StyleManager.getStyleManager(null);
     }
 }
 
