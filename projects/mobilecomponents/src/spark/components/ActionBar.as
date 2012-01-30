@@ -48,7 +48,7 @@ use namespace mx_internal;
  *  The ActionBar class defines a component that includes title, navigation 
  *  and action content groups. In the context of a ViewNavigator and
  *  MobileApplication, the ActionBar is used as application chrome which
- *  is has content contributed by the active View. ActionBar has limited
+ *  has content contributed by the active View. ActionBar has limited
  *  utility when used otherwise.
  *
  *  @mxml
@@ -69,7 +69,7 @@ use namespace mx_internal;
  * 
  *   <strong>Styles</strong>
  *    backgroundAlpha="1.0"
- *    titleAlign="start"
+ *    titleAlign="left"
  * 
  *  &lt;
  *  </pre>
@@ -275,9 +275,11 @@ public class ActionBar extends SkinnableComponent
      *  ActionBar. The location and appearance of the navigationGroup of the
      *  ActionBar container is determined by the
      *  spark.skins.mobile.ActionBarSkin.
-     *  The default ActionBarSkin class defines the navigationGroup to appear
-     *  to the left of the title display area of the ActionBar.
-     *  Create a custom skin to change the default location and appearance of
+     *  
+     *  <p>The default ActionBarSkin class defines the navigationGroup to appear
+     *  to the left of the titleGroup area of the ActionBar.
+     *  
+     *  <p>Create a custom skin to change the default location and appearance of
      *  the navigationGroup.
      *  
      *  @default null
@@ -363,13 +365,17 @@ public class ActionBar extends SkinnableComponent
      *  The set of components to include in the titleGroup of the
      *  ActionBar. If titleContent is not null, it's visual elements replace
      *  the mxmlContent of titleGroup. If titleContent is null, the
-     *  titleDisplay skin part, if present, replaces the mxmlContent of
-     *  titleGroup.
-     *  The location and appearance of the titleGroup of the ActionBar
-     *  container is determined by the spark.skins.mobile.ActionBarSkin class.
-     *  By default, the ActionBarSkin class defines the titleGroup to appear in
-     *  the center of the ActionBar.
-     *  Create a custom skin to change the default location and appearance of the titleGroup.
+     *  titleDisplay skin part, if present, is displayed in place of the
+     *  titleGroup. 
+     *  
+     *  <p>The location and appearance of the titleGroup of the
+     *  ActionBar container is determined by the
+     *  spark.skins.mobile.ActionBarSkin class. By default, the ActionBarSkin
+     *  class defines the titleGroup to appear in the center of the ActionBar,
+     *  using the space remaining between navigationGroup and actionGroup.
+     *  
+     *  <p>Create a custom skin to change the default location and appearance of
+     *  the titleGroup.
      *  
      *  @default null
      *
@@ -413,9 +419,15 @@ public class ActionBar extends SkinnableComponent
     //---------------------------------- 
     
     /**
-     *  Defines the layout of the titleGroup.
+     *  Defines the layout of titleGroup and titleDisplay.
+     * 
+     *  <p>If titleContent is null, titleDisplay is displayed in place of
+     *  titleGroup. In this case, titleDisplay is positioned with
+     *  padded using paddingLeft and paddingRight properties of
+     *  titleLayout if defined.
      *
      *  @default HorizontalLayout
+     *  @see #titleContent
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -456,9 +468,11 @@ public class ActionBar extends SkinnableComponent
      *  The set of components to include in the actionGroup of the
      *  ActionBar. The location and appearance of the actionGroup of the
      *  ActionBar container is determined by the skin.
-     *  The default ActionBarSkin class defines the actionGroup to appear
+     * 
+     *  <p>The default ActionBarSkin class defines the actionGroup to appear
      *  to the right of the title display area of the ActionBar.
-     *  Create a custom skin to change the default location and appearance of
+     * 
+     *  <p>Create a custom skin to change the default location and appearance of
      *  the actionGroup.
      *  
      *  @default null
