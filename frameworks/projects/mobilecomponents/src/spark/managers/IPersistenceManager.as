@@ -28,32 +28,6 @@ public interface IPersistenceManager
 {
     //--------------------------------------------------------------------------
     //
-    //  Properties
-    //
-    //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  enabled
-    //----------------------------------
-    
-    /**
-     *  Flag indicates whether the manager is enabled.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    function get enabled():Boolean;
-    
-    // TODO (chiedozi): Remove this property, it's not useful
-    /**
-     * @private
-     */
-    function set enabled(value:Boolean):void;
-    
-    //--------------------------------------------------------------------------
-    //
     //  Methods
     //
     //--------------------------------------------------------------------------
