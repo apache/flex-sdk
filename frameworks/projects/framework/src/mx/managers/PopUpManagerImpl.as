@@ -517,14 +517,14 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             else
                 isTopLevelRoot = systemManager.isTopLevelRoot();
                         
-            if (isTopLevelRoot)
+            if (isTopLevelRoot && (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_6))
             {
                 // The sandbox root is the top level root.
                 // The application width is just the screen width.
                 var screen:Rectangle = systemManager.screen;
                 appWidth = screen.width;
                 appHeight = screen.height;
-            }            
+            }
             else
             {
                 rect = systemManager.getVisibleApplicationRect();
