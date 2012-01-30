@@ -12,64 +12,189 @@
 package mx.core
 {
 
+import flash.events.IEventDispatcher;
 import flash.geom.Matrix;
 import flash.geom.Matrix3D;
-import flash.geom.Point;
 
 /**
  *  The ILayoutElement interface is used primarily by the layout classes to query,
  *  size and position the elements of the GroupBase based containers.
  */
-public interface ILayoutElement
+public interface ILayoutElement extends IEventDispatcher
 {
-    /**
-     * @copy mx.core.IVisualElement#left
+/**
+     *  The horizontal distance in pixels from the left edge of the component to the
+     *  anchor target's left edge.
+     *
+     *  By default the anchor target is the the container's content area. In layouts
+     *  with advanced constraints, the target can be a constraint column.
+     *
+     *  Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.
+     *
+     *  To spcify an anchor target, set the property value to a string in the format
+     *  "anchorTargetName:value" e.g. "col1:10".
+     *
+     *  @default null
      */
     function get left():Object;
+    function set left(value:Object):void;
 
     /**
-     * @copy mx.core.IVisualElement#right
+     *  The horizontal distance in pixels from the right edge of the component to the
+     *  anchor target's right edge.
+     *
+     *  By default the anchor target is the the container's content area. In layouts
+     *  with advanced constraints, the target can be a constraint column.
+     *
+     *  Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.
+     *
+     *  To spcify an anchor target, set the property value to a string in the format
+     *  "anchorTargetName:value" e.g. "col1:10".
+     *
+     *  @default null
      */
     function get right():Object;
+    function set right(value:Object):void;
 
     /**
-     * @copy mx.core.IVisualElement#top
+     *  The vertical distance in pixels from the top edge of the component to the
+     *  anchor target's top edge.
+     *
+     *  By default the anchor target is the the container's content area. In layouts
+     *  with advanced constraints, the target can be a constraint row.
+     *
+     *  Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.
+     *
+     *  To spcify an anchor target, set the property value to a string in the format
+     *  "anchorTargetName:value" e.g. "row1:10".
+     *
+     *  @default null
      */
     function get top():Object;
+    function set top(value:Object):void;
 
     /**
-     * @copy mx.core.IVisualElement#bottom
+     *  The vertical distance in pixels from the bottom edge of the component to the
+     *  anchor target's bottom edge.
+     *
+     *  By default the anchor target is the the container's content area. In layouts
+     *  with advanced constraints, the target can be a constraint row.
+     *
+     *  Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.
+     *
+     *  To spcify an anchor target, set the property value to a string in the format
+     *  "anchorTargetName:value" e.g. "row1:10".
+     *
+     *  @default null
      */
     function get bottom():Object;
+    function set bottom(value:Object):void;
 
     /**
-     * @copy mx.core.IVisualElement#horizontalCenter
+     *  The horizontal distance in pixels from the center of the component to the
+     *  center of the anchor target's content area.
+     *
+     *  The default anchor target is the container itself.
+     *
+     *  In layouts with advanced constraints, the anchor target can be a constraint column.
+     *  Then the content area is the space between the preceeding column
+     *  (or container side) and the target column.
+     *
+     *  Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.
+     *
+     *  To specify an anchor target, set the property value to a string in the format
+     *  "constraintColumnId:value" e.g. "col1:10".
+     *
+     *  @default null
      */
     function get horizontalCenter():Object;
+    function set horizontalCenter(value:Object):void;
 
     /**
-     * @copy mx.core.IVisualElement#verticalCenter
+     *  The vertical distance in pixels from the center of the component to the
+     *  center of the anchor target's content area.
+     *
+     *  The default anchor target is the container itself.
+     *
+     *  In layouts with advanced constraints, the anchor target can be a constraint row.
+     *  Then the content area is the space between the preceeding row
+     *  (or container side) and the target row.
+     *
+     *  Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.
+     *
+     *  To specify an anchor target, set the property value to a string in the format
+     *  "constraintColumnId:value" e.g. "row1:10".
+     *
+     *  @default null
      */
     function get verticalCenter():Object;
+    function set verticalCenter(value:Object):void;
 
     /**
-     * @copy mx.core.IVisualElement#baseline
+     *  The vertical distance in pixels from the anchor target to
+     *  the control's baseline position.
+     *
+     *  By default the anchor target is the the top edge of the container's
+     *  content area. In layouts with advanced constraints, the target can be
+     *  a constraint row.
+     *
+     *  Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.
+     *
+     *  To spcify an anchor target, set the property value to a string in the format
+     *  "anchorTargetName:value" e.g. "row1:10".
+     *
+     *  @default null
      */
     function get baseline():Object;
+    function set baseline(value:Object):void;
 
     /**
-     * @copy mx.core.IVisualElement#percentWidth
+     *  Number that specifies the width of a component as a percentage
+     *  of its parent's size. Allowed values are 0-100.
+     *  Setting the <code>width</code> or <code>explicitWidth</code> properties
+     *  resets this property to NaN.
+     *
+     *  <p>This property returns a numeric value only if the property was
+     *  previously set; it does not reflect the exact size of the component
+     *  in percent.</p>
+     *
+     *  @default NaN
      */
     function get percentWidth():Number;
+    function set percentWidth(value:Number):void;
 
     /**
-     * @copy mx.core.IVisualElement#percentHeight
+     *  Number that specifies the height of a component as a percentage
+     *  of its parent's size. Allowed values are 0-100.
+     *  Setting the <code>height</code> or <code>explicitHeight</code> properties
+     *  resets this property to NaN.
+     *
+     *  <p>This property returns a numeric value only if the property was
+     *  previously set; it does not reflect the exact size of the component
+     *  in percent.</p>
+     *
+     *  @default NaN
      */
     function get percentHeight():Number;
+    function set percentHeight(value:Number):void;
  
     /**
-     *  Indicates whether the layout should ignore this element or not.
-     */     
+     *  Specifies whether this component is included in the layout of the
+     *  parent container.
+     *  If <code>true</code>, the object is included in its parent container's
+     *  layout.  If <code>false</code>, the object is positioned by its parent
+     *  container as per its layout rules, but it is ignored for the purpose of
+     *  computing the position of the next child.
+     *
+     *  @default true
+     */   
     function get includeInLayout():Boolean;
     
     /**
