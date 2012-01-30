@@ -15,7 +15,7 @@ package spark.skins.mobile
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 
-import mx.core.DeviceDensity;
+import mx.core.DPIClassification;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
@@ -68,9 +68,9 @@ public class ButtonSkin extends ButtonSkinBase
         
         useChromeColor = true;
         
-        switch (authorDensity)
+        switch (applicationDPI)
         {
-            case DeviceDensity.PPI_320:
+            case DPIClassification.DPI_320:
             {
                 upBorderSkin = spark.skins.mobile320.assets.Button_up;
                 downBorderSkin = spark.skins.mobile320.assets.Button_down;
@@ -87,7 +87,7 @@ public class ButtonSkin extends ButtonSkinBase
                 
                 break;
             }
-            case DeviceDensity.PPI_240:
+            case DPIClassification.DPI_240:
             {
                 upBorderSkin = spark.skins.mobile240.assets.Button_up;
                 downBorderSkin = spark.skins.mobile240.assets.Button_down;
