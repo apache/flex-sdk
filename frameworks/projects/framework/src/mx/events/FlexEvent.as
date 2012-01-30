@@ -17,6 +17,11 @@ import flash.events.Event;
 /**
  *  The FlexEvent class represents the event object passed to
  *  the event listener for many Flex events.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FlexEvent extends Event
 {
@@ -48,6 +53,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType add
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ADD:String = "add";
 
@@ -71,6 +81,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType applicationComplete
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const APPLICATION_COMPLETE:String = "applicationComplete";
 
@@ -94,6 +109,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType buttonDown
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const BUTTON_DOWN:String = "buttonDown";
 
@@ -117,6 +137,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType creationComplete
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CREATION_COMPLETE:String = "creationComplete";
 
@@ -140,6 +165,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType deferredContentCreate
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CONTENT_CREATION_COMPLETE:String = "contentCreationComplete";
 
@@ -164,6 +194,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType cursorUpdate
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CURSOR_UPDATE:String = "cursorUpdate";
 
@@ -187,6 +222,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType dataChange
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DATA_CHANGE:String = "dataChange";
 
@@ -210,6 +250,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType enter
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ENTER:String = "enter";
 
@@ -223,6 +268,11 @@ public class FlexEvent extends Event
      *  The listener should expect to receive Event.ENTER_FRAME events.
      * 
      *  @eventType flexEventEnterFrame
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ENTER_FRAME:String = "flexEventEnterFrame";
 
@@ -246,6 +296,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType enterState
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ENTER_STATE:String = "enterState";
 
@@ -269,6 +324,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType exitState
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const EXIT_STATE:String = "exitState";
 
@@ -292,6 +352,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType hide
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const HIDE:String = "hide";
 
@@ -315,6 +380,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType idle
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const IDLE:String = "idle";
 
@@ -358,6 +428,11 @@ public class FlexEvent extends Event
      *
      *  @see mx.preloaders.DownloadProgressBar
      *  @eventType initComplete
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const INIT_COMPLETE:String = "initComplete";
 
@@ -388,6 +463,11 @@ public class FlexEvent extends Event
      *
      *  @see mx.preloaders.DownloadProgressBar
      *  @eventType initProgress
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const INIT_PROGRESS:String = "initProgress";
 
@@ -411,6 +491,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType initialize
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const INITIALIZE:String = "initialize";
 
@@ -434,6 +519,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType invalid
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const INVALID:String = "invalid";
 
@@ -458,6 +548,11 @@ public class FlexEvent extends Event
      *
      *  @eventType loading
      *  @see mx.modules.ModuleLoader
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const LOADING:String = "loading";
 
@@ -481,6 +576,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType preinitialize
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const PREINITIALIZE:String = "preinitialize";
 
@@ -499,6 +599,11 @@ public class FlexEvent extends Event
      *  listener function should expect to receive Event.RENDER events.
      * 
      *  @eventType flexEventRender
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const RENDER:String = "flexEventRender";
 
@@ -522,6 +627,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType remove
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const REMOVE:String = "remove";
 
@@ -545,6 +655,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType repeat
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const REPEAT:String = "repeat";
 
@@ -568,6 +683,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType repeatEnd
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const REPEAT_END:String = "repeatEnd";
 
@@ -591,6 +711,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType repeatStart
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const REPEAT_START:String = "repeatStart";
 
@@ -614,6 +739,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType deferredContentCreate
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const SELECTION_CHANGE:String = "selectionChange";
 
@@ -637,6 +767,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType show
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const SHOW:String = "show";
 
@@ -660,6 +795,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType transformChange
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const TRANSFORM_CHANGE:String = "transformChange";
 
@@ -683,6 +823,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType updateComplete
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const UPDATE_COMPLETE:String = "updateComplete";
 
@@ -707,6 +852,11 @@ public class FlexEvent extends Event
      *
      *  @eventType urlChanged
      *  @see mx.modules.ModuleLoader
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const URL_CHANGED:String = "urlChanged";
 
@@ -730,6 +880,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType valid
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const VALID:String = "valid";
 
@@ -754,6 +909,11 @@ public class FlexEvent extends Event
      *  </table>
      *
      *  @eventType valueCommit
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const VALUE_COMMIT:String = "valueCommit";
 
@@ -773,6 +933,11 @@ public class FlexEvent extends Event
      *
      *  @param cancelable Specifies whether the behavior
      *  associated with the event can be prevented.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FlexEvent(type:String, bubbles:Boolean = false,
                               cancelable:Boolean = false)
