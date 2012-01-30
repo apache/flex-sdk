@@ -264,6 +264,7 @@ public class SlideViewTransition extends ViewTransitionBase
         // Initialize the property bag used to save some of our
         // properties that are then restored after the transition is over.
         navigatorProps = new Object(); 
+        navigatorProps.initialHeight = navigator.height;
         
         // Determine if we will be animating the tabBar as part of the
         // transition
@@ -307,10 +308,14 @@ public class SlideViewTransition extends ViewTransitionBase
         
         if (startView)
         {
-            startViewProps = {  visible: startView.visible,
+            startViewProps = {  includeInLayout: startView.includeInLayout,
+                                visible: startView.visible,
                                 cacheAsBitmap: startView.cacheAsBitmap,
                                 opaqueBackground: startView.opaqueBackground };
             
+            // Remove the startView from layout so that it doesn't resize as the 
+            // contentGroups of each navigator is resized
+            startView.includeInLayout = false;
             cachedStartViewGlobalPosition = getTargetNavigatorCoordinates(startView);
         }
     }
@@ -702,6 +707,7 @@ public class SlideViewTransition extends ViewTransitionBase
             
         if (startView)
         {
+            startView.includeInLayout = startViewProps.includeInLayout;
             startView.visible = startViewProps.visible;
             startView.cacheAsBitmap = startViewProps.cacheAsBitmap;
             startView.opaqueBackground = startViewProps.opaqueBackground;
@@ -823,15 +829,21 @@ public class SlideViewTransition extends ViewTransitionBase
      *  An mx_internal method was created to avoid any issues that may arise by
      *  adding this functionality in the Flex 4.5.1 dot release.  Developers
      *  can override this method to do nothing to revert to previous implementations.
+     *  This method was added to support clipping of Views during a view transition.
      */
     // TODO (chiedozi): Eventually get rid of this method
     mx_internal function applyScrollRect():void
     {
-        // The scrollRect is only set if the navigator doesn't have one
+        // When the initial view of the animation has tabBarVisible set to false,
+        // and the end view has it set to true, the height of the navigator
+        // will be altered to fit the actionBar.  Since the startView is not included in
+        // layout, its height will actually be larger than the navigator's.  To prevent
+        // the start view from being incorrectly clipped, the scrollRect's height
+        // is set to the maximum of the navigator's initial and current height.
         if (!navigator.scrollRect)
         {
             navigatorProps.scrollRectSet = true;
-            navigator.scrollRect = new Rectangle(0, 0, navigator.width, navigator.height);
+            navigator.scrollRect = new Rectangle(0, 0, navigator.width, Math.max(navigator.height, navigatorProps.initialHeight));
         }
     }
 }
