@@ -162,6 +162,8 @@ public class FocusManager implements IFocusManager
 		       	if (bridge)
 	    	   	{
 	       			bridge.addEventListener(SWFBridgeRequest.MOVE_FOCUS_REQUEST, focusRequestMoveHandler);
+                    bridge.addEventListener(SWFBridgeRequest.SET_SHOW_FOCUS_INDICATOR_REQUEST, 
+                                            setShowFocusIndicatorRequestHandler);
 	       		}
 	    
 	   			// add listener activate/deactivate requests
@@ -173,7 +175,7 @@ public class FocusManager implements IFocusManager
 			   				    		    bridgeEventActivateHandler);
 	   			}
 	   			
-	   			// listen when the contain has been added to the stage so we can add the focusable
+	   			// listen when the container has been added to the stage so we can add the focusable
 	   			// children
 	   			container.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			}
@@ -305,7 +307,12 @@ public class FocusManager implements IFocusManager
      */
     public function set showFocusIndicator(value:Boolean):void
     {
+        var changed:Boolean = _showFocusIndicator != value;
+        
         _showFocusIndicator = value;
+        
+        if (changed && !popup && form.systemManager.swfBridgeGroup)
+            dispatchSetShowFocusIndicatorRequest(value, null);
     }
 
     //----------------------------------
@@ -833,7 +840,7 @@ public class FocusManager implements IFocusManager
     /**
      *  @private
      */
-    private function sortByTabIndex(a:IFocusManagerComponent, b:IFocusManagerComponent):int
+    private function sortByTabIndex(a:InteractiveObject, b:InteractiveObject):int
     {
         var aa:int = a.tabIndex;
         var bb:int = b.tabIndex;
@@ -859,11 +866,12 @@ public class FocusManager implements IFocusManager
         var n:int = focusableObjects.length;
         for (var i:int = 0; i < n; i++)
         {
-            var c:IFocusManagerComponent = focusableObjects[i];
-            if (c.tabIndex && !isNaN(Number(c.tabIndex)))
+            var c:IFocusManagerComponent = focusableObjects[i] as IFocusManagerComponent;
+            if ((c && c.tabIndex && !isNaN(Number(c.tabIndex))) ||
+                 focusableObjects[i] is ISWFLoader)
             {
                 // if we get here, it is a candidate
-                focusableCandidates.push(c);
+                focusableCandidates.push(focusableObjects[i]);
             }
         }
         
@@ -1054,21 +1062,6 @@ public class FocusManager implements IFocusManager
         // trace("<<addFocusables " + o);
     }
 
-
-	/**
-	 * @private
-	 * 
-	 * Test if the display object has a focus manager bridge.
-	 */ 
-	private function hasFocusManagerBridge(o:DisplayObject):Boolean
-	{
-		if (o is ISWFLoader &&
-			ISWFLoader(o).swfBridge != null)
-			return true;
-			
-		return false;
-	}
-	
     /**
      *  @private
      *  is it really tabbable?
@@ -1221,12 +1214,10 @@ public class FocusManager implements IFocusManager
 		focusChanged = false;
 		if (o)
 		{
-			// VERSION_SKEW
 			if (o is ISWFLoader && ISWFLoader(o).swfBridge)
 			{
 				// send message to child swf to move focus.
 				// trace("pass focus from " + this.form.systemManager.loaderInfo.url + " to " + DisplayObject(o).loaderInfo.url);
-
 	    		var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.MOVE_FOCUS_REQUEST, 
 	    													false, true, null,
 	    													shiftKey ? FocusRequestDirection.BOTTOM : 
@@ -1826,7 +1817,7 @@ public class FocusManager implements IFocusManager
 
         lastAction = "MOUSEDOWN";
 
-		fireActivatedFocusManagerEvent(null);
+		dispatchActivatedFocusManagerEvent(null);
 		
 		lastActiveFocusManager = this;
 		
@@ -1850,8 +1841,6 @@ public class FocusManager implements IFocusManager
 			return;
 		}
 
-		// make sure we are activate.
-//		internalActivate(); 
 		focusSetLocally = false;
 					
     	var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
@@ -1888,7 +1877,7 @@ public class FocusManager implements IFocusManager
 	  	}
 	  	
 		if (focusSetLocally)
-			fireActivatedFocusManagerEvent(null);
+			dispatchActivatedFocusManagerEvent(null);
     }
 
     private function focusRequestActivateHandler(event:Event):void
@@ -1918,8 +1907,27 @@ public class FocusManager implements IFocusManager
 		lastActiveFocusManager = null;
 		_lastFocus = null;
 
-		fireActivatedFocusManagerEvent(eObj);			
+		dispatchActivatedFocusManagerEvent(eObj);			
 	}
+
+    /**
+     *  @private
+     * 
+     *  A request across a bridge from another FocusManager to change the 
+     *  value of the setShowFocusIndicator property.
+     */
+    private function setShowFocusIndicatorRequestHandler(event:Event):void
+    {
+        // ignore messages we send to ourselves.
+        if (event is SWFBridgeRequest)
+            return;
+
+        var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
+        _showFocusIndicator = request.data;
+        
+        // relay the message to parent and children
+        dispatchSetShowFocusIndicatorRequest(_showFocusIndicator, IEventDispatcher(event.target));
+    }
 
 	/**
 	 * This is called on the top-level focus manager and the parent focus
@@ -1952,7 +1960,9 @@ public class FocusManager implements IFocusManager
 
 		bridgedFocusManagers[bridge] = 1;			
    		bridge.addEventListener(SWFBridgeRequest.MOVE_FOCUS_REQUEST, focusRequestMoveHandler);
-   		bridge.addEventListener(SWFBridgeEvent.BRIDGE_FOCUS_MANAGER_ACTIVATE, 
+        bridge.addEventListener(SWFBridgeRequest.SET_SHOW_FOCUS_INDICATOR_REQUEST, 
+                                setShowFocusIndicatorRequestHandler);
+  		bridge.addEventListener(SWFBridgeEvent.BRIDGE_FOCUS_MANAGER_ACTIVATE, 
    				    		    bridgeEventActivateHandler);
 	}
 	
@@ -1978,7 +1988,9 @@ public class FocusManager implements IFocusManager
 	    	throw new Error();		// should never get here.
 
    		bridge.removeEventListener(SWFBridgeRequest.MOVE_FOCUS_REQUEST, focusRequestMoveHandler);
-   		bridge.removeEventListener(SWFBridgeEvent.BRIDGE_FOCUS_MANAGER_ACTIVATE, 
+        bridge.removeEventListener(SWFBridgeRequest.SET_SHOW_FOCUS_INDICATOR_REQUEST, 
+                                    setShowFocusIndicatorRequestHandler);
+  		bridge.removeEventListener(SWFBridgeEvent.BRIDGE_FOCUS_MANAGER_ACTIVATE, 
    					    		    bridgeEventActivateHandler);
 		if (bridgedFocusManagers)			
 			delete bridgedFocusManagers[bridge];
@@ -2000,8 +2012,6 @@ public class FocusManager implements IFocusManager
 	}   
 
 	/**
-	 * @return true if the focus manager contains any focus manager
-	 * 		   bridges.
 	 */
 	private function removeFromParentBridge(event:Event):void
 	{
@@ -2017,6 +2027,8 @@ public class FocusManager implements IFocusManager
 		    if (bridge)
 	    	{
 	       		bridge.removeEventListener(SWFBridgeRequest.MOVE_FOCUS_REQUEST, focusRequestMoveHandler);
+                bridge.removeEventListener(SWFBridgeRequest.SET_SHOW_FOCUS_INDICATOR_REQUEST, 
+                                           setShowFocusIndicatorRequestHandler);
 	       	}
 	
 	   		// add listener activate/deactivate requests
@@ -2035,9 +2047,9 @@ public class FocusManager implements IFocusManager
 	 * 
 	 *  Send a message to the parent to move focus a component in the parent.
 	 *  
-	 * @param shiftKey - if true move focus to a component 
+	 *  @param shiftKey - if true move focus to a component 
 	 * 
-	 * @return true if focus moved to parent, false otherwise.
+	 *  @return true if focus moved to parent, false otherwise.
 	 */    
     private function moveFocusToParent(shiftKey:Boolean):Boolean
     {
@@ -2056,10 +2068,10 @@ public class FocusManager implements IFocusManager
     }
     
     /**
-    * Get the bridge to the parent focus manager.
-    * 
-    * @return parent bridge or null if there is no parent bridge.
-    */ 
+     *  Get the bridge to the parent focus manager.
+     * 
+     *  @return parent bridge or null if there is no parent bridge.
+     */ 
     private function getParentBridge():IEventDispatcher
     {
     	var sm:ISystemManager = _form.systemManager;
@@ -2068,16 +2080,35 @@ public class FocusManager implements IFocusManager
     		
 		return null;		
     }
+
+
+    /**
+     *  @private
+     *   
+     *  Send a request for all other focus managers to update
+     *  their ShowFocusIndicator property.
+     */
+    private function dispatchSetShowFocusIndicatorRequest(value:Boolean, skip:IEventDispatcher):void
+    {    
+        var request:SWFBridgeRequest = new SWFBridgeRequest(
+                                            SWFBridgeRequest.SET_SHOW_FOCUS_INDICATOR_REQUEST,
+                                            false,
+                                            false,
+                                            null,   // bridge is set before it is dispatched
+                                            value);
+        var sm:ISystemManager = form.systemManager;
+        sm.dispatchEventFromSWFBridges(request, skip);
+    }
     
 	/**
-	 * @private
+	 *  @private
 	 * 
-	 * Broadcast an ACTIVATED_FOCUS_MANAGER message.
+	 *  Broadcast an ACTIVATED_FOCUS_MANAGER message.
 	 * 
-	 * @param eObj if a SandboxBridgeEvent, then propagate the message,
+	 *  @param eObj if a SandboxBridgeEvent, then propagate the message,
 	 * 			   if null, start a new message.
 	 */
-	private function fireActivatedFocusManagerEvent(eObj:Object):void
+	private function dispatchActivatedFocusManagerEvent(eObj:Object):void
 	{
 		// If in a popup, then don't send this message to non-popup 
 		// focus managers that are part of the application.
@@ -2094,7 +2125,7 @@ public class FocusManager implements IFocusManager
 //			active.	       	
 //	       	if (lastActiveFocusManager == this)
 //	       	{
-//	       		// trace("FM: fireActivatedFocusManagerEvent already active, skipping messages");
+//	       		// trace("FM: dispatchActivatedFocusManagerEvent already active, skipping messages");
 //	       		return;		// already active
 //	       	}
 	       		
