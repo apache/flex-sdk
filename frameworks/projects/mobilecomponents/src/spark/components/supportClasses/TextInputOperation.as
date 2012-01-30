@@ -15,7 +15,7 @@ import flashx.textLayout.operations.FlowOperation;
 
 /**
  *  The TextInputOperation class represents a text input operation.
- *  This class is only used by MobileTextField when sending the
+ *  This class is only used by StyleableTextField when sending the
  *  CHANGING event. 
  *  
  *  @langversion 3.0
