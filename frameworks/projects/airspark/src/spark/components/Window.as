@@ -1362,7 +1362,9 @@ public class Window extends SkinnableContainer implements IWindow
      *  <p>On Mac OS X a window with <code>systemChrome</code>
      *  set to <code>"standard"</code>
      *  always has an operating system gripper, so this property is ignored
-     *  in that case.</p>
+     *  in that case.
+     *  On other systems, the gripper button only appears when using 
+     *  the Flex Chrome, not the system chrome.</p>
      *
      *  @default true
      *  
@@ -1410,6 +1412,10 @@ public class Window extends SkinnableContainer implements IWindow
 
     /**
      *  If <code>true</code>, the status bar is visible.
+     *
+     *  <p>The status bar only appears when you use Flex chrome or 
+     *  when you use the WindowedApplicationSkin class as the skin
+     *  for the WindowedApplication.</p>
      *
      *  @default true
      *  
