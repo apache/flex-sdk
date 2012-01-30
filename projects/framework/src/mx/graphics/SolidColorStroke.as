@@ -61,7 +61,7 @@ import mx.events.PropertyChangeEvent;
  *    joints="round|bevel|miter"
  *    miterLimit="3"
  *    pixelHinting="false|true"
- *    scaleMode="normal|none|noScale|vertical"
+ *    scaleMode="normal|none|horizontal|vertical"
  *    weight="1 (<i>in most cases</i>)"
  *  /&gt;
  *  </pre>
