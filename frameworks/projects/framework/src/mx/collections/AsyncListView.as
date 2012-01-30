@@ -38,24 +38,26 @@ use namespace mx_internal;  // for mx_internal functions pendingItemSucceeded,Fa
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
 /**
- *  A wrapper for IList implementations that handles ItemPendingErrors
- *  thrown by <code>getItemAt()</code>, <code>removeItemAt()</code>, 
- *  and <code>toArray()</code>.
+ *  The AsyncListView class is an implementation of the IList interface 
+ *  that handles ItemPendingErrors errors 
+ *  thrown by the <code>getItemAt()</code>, <code>removeItemAt()</code>, 
+ *  and <code>toArray()</code> methods.
  * 
- *  <p>The getItemAt() method handles ItemPendingErrors by returning a provisional 
+ *  <p>The <code>getItemAt()</code> method handles ItemPendingErrors by returning a provisional 
  *  "pending" item until the underlying request succeeds or fails.  The provisional
- *  item is produced by calling <code>createPendingItemFunction</code>.  If the request
- *  succeeds, the actual item replaces the provisional one, and if it fails 
- *  the provisional item is replaced by with the item returned by calling
- *  <code>createFailedItemFunction</code>.</p>
+ *  item is produced by calling the function specified by the <code>createPendingItemFunction</code>
+ *  property. .  If the request
+ *  succeeds, the actual item replaces the provisional one.
+ *  If it fails,  the provisional item is replaced with the item returned by calling
+ *  the function specified by the <code>createFailedItemFunction</code> property.</p>
  * 
  *  <p>This class delegates the IList methods and properties to its <code>list</code>.
  *  If a list isn't specified, methods that mutate the collection are no-ops, 
- *  and methods that query the collection return an "empty" value like null or zero
+ *  and methods that query the collection return an empty value, such as null or zero
  *  as appropriate.</p>
  * 
  *  <p>This class is intended to be used with Spark components based on DataGroup,
- *  like List and ComboBox, which don't provide intrinsic support for 
+ *  such as List and ComboBox. The Spark classes do not provide intrinsic support for 
  *  ItemPendingError handling.</p>
  * 
  *  <p>AsyncListView does not support re-insertion of pending or failed items.  Once 
@@ -64,22 +66,36 @@ use namespace mx_internal;  // for mx_internal functions pendingItemSucceeded,Fa
  *  an ASyncListView that contains pending or failed items, is not supported because 
  *  these operations remove and then re-insert list items.</p>
  * 
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:AsyncListView&gt;</code> tag inherits all the attributes of its
+ *  superclass, and adds the following attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:AsyncListView
+ *  <b>Properties</b>
+ *    createFailedItemFunction="null"
+ *    createPendingItemFunction="null"
+ *    list="null"
+ *  /&gt;
+ *  </pre>
+ * 
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class AsyncListView extends OnDemandEventDispatcher implements IList
 {
     /**
-     *  AsyncListView constructor.
+     *  Constructor.
      *
      *  @param list Initial value of the list property, the IList we're delegating to.
-     *  
+     * 
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function AsyncListView(list:IList = null)
     {
@@ -103,19 +119,19 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     [Bindable("listChanged")]
     
     /**
-     *  The IList that this collection view "wraps", i.e. the object to which all of 
-     *  the IList metods are delegated.
+     *  The IList object that this collection wraps. That means the object to which all of 
+     *  the IList methods are delegated.
      * 
-     *  <p>If this property is null, the IList mutation methods, like <code>setItemAt()</code>,
-     *  are no-ops and the IList query methods, like <code>getItemAt()</code> return, null
+     *  <p>If this property is null, the IList mutation methods, such as <code>setItemAt()</code>,
+     *  are no-ops. The IList query methods, such <code>getItemAt()</code>, return null
      *  or zero (-1 for <code>getItemIndex()</code>), as appropriate.</p>
      * 
      *  @default null  
-     *  
+     * 
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get list():IList
     {
@@ -373,15 +389,18 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     }
     
     /**
-     *   A function that's used to create a provisional item when
-     *   the initial request causes an <code>ItemPendingError</code> to be thrown.
-     *   If the request eventually succeeds, the provisional item is automatically
-     *   replaced by the actual item.  If the request fails, then the item is replaced
-     *   with one created with the <code>createFailedItemFunction</code>.
+     *  A callback function used to create a provisional item when
+     *  the initial request causes an <code>ItemPendingError</code> to be thrown.
+     *  If the request eventually succeeds, the provisional item is automatically
+     *  replaced by the actual item.  If the request fails, then the item is replaced
+     *  with one created with the callback function specified by the 
+     *  <code>createFailedItemFunction</code> property.
      *  
-     *   <p>The value of this property must be a function with two parameters, the index
-     *   of the requested dataProvider item, and the ItemPendingError itself.  In most
-     *   cases second parameter can be ignored, e.g.: 
+     *  <p>The value of this property must be a function with two parameters: the index
+     *  of the requested data provider item, and the ItemPendingError itself. In most
+     *  cases, the second parameter can be ignored.
+     *  The following example shows an implementation of the callback function:
+     *
      *   <pre>
      * function createPendingItem(index:int, ipe:ItemPendingError):Object
      * {
@@ -391,13 +410,18 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *   </p>
      * 
      *  <p>Setting this property does not affect provisional pending items that were already
-     *  created.  Setting this property to null will prevent provisional pending items 
+     *  created.  Setting this property to null prevents provisional pending items 
      *  from being created.</p>
      * 
      *  @default A function that unconditionally returns null. 
-     *  @see #getItemAt
-     *  @see createFailedItemFunction
+     *  @see #getItemAt()
+     *  @see #createFailedItemFunction
      *  @see mx.collections.errors.ItemPendingError
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get createPendingItemFunction():Function
     {
@@ -428,16 +452,18 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     }
     
     /**
-     *  A function that's used to create a substitute item when
+     *  A callback function used to create a substitute item when
      *  a request which had caused an <code>ItemPendingError</code> to be thrown, 
      *  subsequently fails.  The existing item, typically a pending item created
-     *  with the value of <code>createPendingItemFunction()</code>, is replaced
-     *  with the failed item.
+     *  by the callback function specified by the <code>createPendingItemFunction()</code> property, 
+     *  is replaced with the failed item.
      *  
-     *  <p>The value of this property must be a function with two parameters, the index
+     *  <p>The value of this property must be a function with two parameters: the index
      *  of the requested item, and the failure "info" object, which is
-     *  passed along from the IResponder fault() method.  In most cases second parameter 
-     *  can be ignored, e.g.:</p> 
+     *  passed along from the IResponder <code>fault()</code> method.  
+     *  In most cases you can ignore the second parameter.
+     *  Shown below is an example implementation of the classback function:</p> 
+     * 
      *  <pre>
      * function createFailedItem(index:int, info:Object):Object
      * {
@@ -447,13 +473,18 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  
      * 
      *  <p>Setting this property does not affect failed items that were already
-     *  created.  Setting this property to null will prevent failed items from being created.
+     *  created.  Setting this property to null prevents failed items from being created.
      *  </p>
      * 
      *  @default A function that unconditionally returns null. 
-     *  @see #getItemAt
-     *  @see createPendingItemFunction
+     *  @see #getItemAt()
+     *  @see #createPendingItemFunction
      *  @see mx.rpc.IResponder#fault
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get createFailedItemFunction():Function
     {
@@ -551,9 +582,9 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get length():int
     {
@@ -564,9 +595,9 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function addItem(item:Object):void
     {
@@ -578,9 +609,9 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function addItemAt(item:Object, index:int):void
     {
@@ -592,7 +623,7 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  Returns the value of <code>list.getItemAt(index)</code>.
      * 
      *  <p>This method catches ItemPendingErrors (IPEs) generated as a consequence of 
-     *  calling getItemAt().  If an IPE is thrown, an <code>IResponder</code> is added to
+     *  calling <code>getItemAt()</code>.  If an IPE is thrown, an <code>IResponder</code> is added to
      *  the IPE and a provisional "pending" item, created with the 
      *  <code>createPendingItemFunction</code> is returned.   If the underlying request
      *  eventually succeeds, the pending item is replaced with the real item.  If it fails,
@@ -600,19 +631,23 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  <code>createFailedItemFunction</code>.</p>
      * 
      *  @param index The list index from which to retrieve the item.
+     *
      *  @param prefetch An <code>int</code> indicating both the direction
      *    and number of items to fetch during the request if the item is not local.
+     * 
      *  @throws RangeError if <code>index &lt; 0</code> or <code>index >= length</code>.
+     * 
      *  @return The list item at the specified index.
-     *  @see createPendingItemFunction
-     *  @see createFailedItemFunction
+     * 
+     *  @see #createPendingItemFunction
+     *  @see #createFailedItemFunction
      *  @see mx.collections.errors.ItemPendingError
      *  @see mx.rpc.IResponder 
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getItemAt(index:int, prefetch:int=0):Object
     {
@@ -648,9 +683,9 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getItemIndex(item:Object):int
     {
@@ -668,9 +703,9 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function itemUpdated(item:Object, property:Object=null, oldValue:Object=null, newValue:Object=null):void
     {
@@ -682,9 +717,9 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function removeAll():void
     {
@@ -694,22 +729,24 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     
     /**
      *  Removes the actual or pending item at the specified index and returns it.
-     *  All items whose index is greater than the specified index are shifted 
-     *  to the left.
+     *  All items whose index is greater than the specified index  
+     *  have their index reduced by 1.
      * 
-     *  <p>If there isn't an actual or pending item at the specified index, for
-     *  example because a call to getItemAt(index) hasn't caused the data to be 
-     *  paged in, then the underlying <code>list</code> may throw an IPE.  The 
-     *  implementation ignores the IPE and returns null.</p>
+     *  <p>If there is no actual or pending item at the specified index, for
+     *  example because a call to <code>getItemAt(index)</code> hasn't caused the data to be 
+     *  paged in, then the underlying <code>list</code> may throw an ItemPendingError.  
+     *  The  implementation ignores the ItemPendingError and returns null.</p>
      *
      *  @param index The list index from which to retrieve the item.
+     *
      *  @throws RangeError if <code>index &lt; 0</code> or <code>index >= length</code>.
+     *
      *  @return The item that was removed or null.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function removeItemAt(index:int):Object
     {
@@ -739,9 +776,9 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setItemAt(item:Object, index:int):Object
     {
@@ -759,15 +796,16 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     
     /**
      *  Returns an array with the same elements as this AsyncListView.  The array is initialized
-     *  by retrieving each item with getItemAt(), so pending items will be substituted where actual
-     *  values aren't available yet.   The array will not be updated when the ASyncList replaces
+     *  by retrieving each item with <code>getItemAt()</code>, so pending items are substituted where actual
+     *  values aren't available yet.   The array will not be updated when the AsyncListView replaces
      *  the pending items with actual (or failed) values.
      *  
      *  @return an array with the same elements as this AsyncListView.
+     *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function toArray():Array
     {
@@ -783,13 +821,13 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
  
     /**
      *  Returns a string that contains the list's length and the number of pending item requests.  
-     *  This method does not include the list's items, it will not trigger pending requests.
+     *  It does not trigger pending requests.
      * 
      *  @return A brief description of the list.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
     public function toString():String
