@@ -528,7 +528,7 @@ public class CurrencyFormatter extends Formatter
 		_useNegativeSign = value != null ?
 						   Boolean(value) :
 						   resourceManager.getBoolean(
-						       "formatters", "useNegativeSign");
+						       "formatters", "useNegativeSignInCurrency");
 	}
 
 	//----------------------------------
