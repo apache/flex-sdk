@@ -52,7 +52,7 @@ public class LayoutElementUIComponentUtils
         {
             // We are already taking scale into account from the transform,
             // so adjust here since IUIComponent mixes it with width/height
-            result /= obj.scaleX;
+            result = (obj.scaleX == 0) ? 0 : result / obj.scaleX;
         }
         return result;
     }
@@ -76,7 +76,7 @@ public class LayoutElementUIComponentUtils
         {
             // We are already taking scale into account from the transform,
             // so adjust here since IUIComponent mixes it with width/height
-            result /= obj.scaleY;
+            result = (obj.scaleY == 0) ? 0 : result / obj.scaleY;
         }
         return result;
     }
@@ -101,7 +101,7 @@ public class LayoutElementUIComponentUtils
         {
             // We are already taking scale into account from the transform,
             // so adjust here since IUIComponent mixes it with width/height
-            minWidth /= obj.scaleX;
+            minWidth = (obj.scaleX == 0) ? 0 : minWidth / obj.scaleX;
         }
         return minWidth;
     }
@@ -126,7 +126,7 @@ public class LayoutElementUIComponentUtils
         {
             // We are already taking scale into account from the transform,
             // so adjust here since IUIComponent mixes it with width/height
-            minHeight /= obj.scaleY;
+            minHeight = (obj.scaleY == 0) ? 0 : minHeight / obj.scaleY;
         }
         return minHeight;
     }
@@ -144,7 +144,7 @@ public class LayoutElementUIComponentUtils
         {
             // We are already taking scale into account from the transform,
             // so adjust here since IUIComponent mixes it with width/height
-            maxWidth /= obj.scaleX;
+            maxWidth = (obj.scaleX == 0) ? 0 : maxWidth / obj.scaleX;
         }
         return maxWidth;
     }
@@ -162,7 +162,7 @@ public class LayoutElementUIComponentUtils
         {
             // We are already taking scale into account from the transform,
             // so adjust here since IUIComponent mixes it with width/height
-            maxHeight /= obj.scaleY;
+            maxHeight = (obj.scaleY == 0) ? 0 : maxHeight / obj.scaleY;
         }
         return maxHeight;
     }
@@ -340,7 +340,7 @@ public class LayoutElementUIComponentUtils
         {
             // We are already taking scale into account from the transform,
             // so adjust here since IUIComponent mixes it with width/height
-            width /= obj.scaleX;
+            width = (obj.scaleX == 0) ? 0 : width / obj.scaleX;
         }
 
         if (transformMatrix)
@@ -350,7 +350,7 @@ public class LayoutElementUIComponentUtils
             {
                 // We are already taking scale into account from the transform,
                 // so adjust here since IUIComponent mixes it with width/height
-                height /= obj.scaleY;
+                height = (obj.scaleY == 0) ? 0 : height / obj.scaleY;
             }
             
             // By default the IUIComponent's registration point is the same
@@ -369,7 +369,7 @@ public class LayoutElementUIComponentUtils
         {
             // We are already taking scale into account from the transform,
             // so adjust here since IUIComponent mixes it with width/height
-            height /= obj.scaleY;
+            height = (obj.scaleY == 0) ? 0 : height / obj.scaleY;
         }
 
         if (transformMatrix)
@@ -379,7 +379,7 @@ public class LayoutElementUIComponentUtils
             {
                 // We are already taking scale into account from the transform,
                 // so adjust here since IUIComponent mixes it with width/height
-                width /= obj.scaleX;
+                width = (obj.scaleX == 0) ? 0 : width / obj.scaleX;
             }
             
             // By default the IUIComponent's registration point is the same
@@ -410,8 +410,8 @@ public class LayoutElementUIComponentUtils
 
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
         {
-            width /= obj.scaleX;
-            height /= obj.scaleY;
+            width = (obj.scaleX == 0) ? 0 : width / obj.scaleX;
+            height = (obj.scaleY == 0) ? 0 : height / obj.scaleY;
         }
         
 		// We are already taking scale into account from the transform,
@@ -434,8 +434,8 @@ public class LayoutElementUIComponentUtils
 
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
         {
-            width /= obj.scaleX;
-            height /= obj.scaleY;
+            width = (obj.scaleX == 0) ? 0 : width / obj.scaleX;
+            height = (obj.scaleY == 0) ? 0 : height / obj.scaleY;
         }
         
         // We are already taking scale into account from the transform,
@@ -459,9 +459,9 @@ public class LayoutElementUIComponentUtils
     {
         if (transformMatrix)
         {
-        	//race("Setting actual position to " + x + "," + y);
-        	//race("\tcurrent x/y is " + obj.x + "," + obj.y); 
-        	//race("\tcurrent actual position is " + actualPosition.x + "," + actualPosition.y);
+            //race("Setting actual position to " + x + "," + y);
+            //race("\tcurrent x/y is " + obj.x + "," + obj.y); 
+            //race("\tcurrent actual position is " + actualPosition.x + "," + actualPosition.y);
             x = x - getLayoutBoundsX(obj,transformMatrix) + obj.x;
             y = y - getLayoutBoundsY(obj,transformMatrix) + obj.y;
         }
