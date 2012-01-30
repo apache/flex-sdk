@@ -52,6 +52,11 @@ public class StringFormatter
 	 *  value: anything, tokenInfo: {token: id, begin: start, end: finish}.
 	 *  This method must return a String representation of value
 	 *  for the specified <code>tokenInfo</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function StringFormatter(format:String, tokens:String,
 									extractTokenFunc:Function)
@@ -96,6 +101,11 @@ public class StringFormatter
 	 *  @param value String to be formatted.
 	 *
 	 *  @return Formatted String.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function formatValue(value:Object):String
 	{
