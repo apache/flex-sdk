@@ -317,7 +317,9 @@ public class MenuBarAccImpl extends AccImpl
 	{
 		if (childID == 0)
 			return "";
+
 		var menuBar:MenuBar = MenuBar(master);
+
 		var index:int = childID - 1;
 		
 		if (menuBar.menuBarItems && menuBar.menuBarItems.length > index)
@@ -325,6 +327,7 @@ public class MenuBarAccImpl extends AccImpl
 			if (menuBar.menuBarItems[index] && menuBar.menuBarItems[index].data)
 				return menuBar.itemToLabel(menuBar.menuBarItems[index].data);
 		}
+
 		return "";
 	}
 
