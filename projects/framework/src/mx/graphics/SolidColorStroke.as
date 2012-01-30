@@ -119,7 +119,7 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  The default value is <code>JointStyle.ROUND</code>.
 	 *
 	 *  @param miterLimit Indicates the limit at which a miter is cut off.
-	 *  Valid values range from 0 to 255.
+	 *  Valid values range from 1 to 255.
 	 *  The default value is 3.
 	 *  
 	 *  @langversion 3.0
@@ -305,11 +305,11 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	private var _miterLimit:Number = 3;
 	
 	[Bindable("propertyChange")]
-	[Inspectable(category="General", minValue="0.0", maxValue="255.0")]
+	[Inspectable(category="General", minValue="1.0", maxValue="255.0")]
 	
 	/**
 	 *  Indicates the limit at which a miter is cut off.
-	 *  Valid values range from 0 to 255.
+	 *  Valid values range from 1 to 255.
 	 *  
 	 *  @default 3
 	 *  
