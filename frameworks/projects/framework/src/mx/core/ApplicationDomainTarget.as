@@ -12,18 +12,17 @@
 package mx.core
 {
 
-[ExcludeClass]
-    
 /**
- *  Values for the supported kinds of application domain targets. Each
- *  target specifies a relative application domain that is resolved at
- *  runtime.
+ *  The ApplicationDomainTarget class defines the possible values for the 
+ *  <code>applicationDomainTarget</code> property of the <code>RSLData</code>
+ *  class. Each application domain target specifies a relative application 
+ *  domain that is resolved at runtime.
  *
  *  @see mx.core.RSLData
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
+ *  @playerversion Flash 10.2
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 public final class ApplicationDomainTarget
@@ -45,8 +44,8 @@ public final class ApplicationDomainTarget
      *  the application domain of the module factory loading the RSL.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const DEFAULT:String = "default";
@@ -55,8 +54,8 @@ public final class ApplicationDomainTarget
      *  The application domain of the current module factory.
      *   
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const CURRENT:String = "current";
@@ -65,8 +64,8 @@ public final class ApplicationDomainTarget
      *  The application domain of the parent module factory.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const PARENT:String = "parent";
@@ -75,8 +74,8 @@ public final class ApplicationDomainTarget
      *  The application domain of the top-level module factory.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const TOP_LEVEL:String = "top-level";
