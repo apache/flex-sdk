@@ -9,12 +9,13 @@ import flash.events.Event;
 import flash.events.StageOrientationEvent;
 import flash.geom.Matrix;
 import flash.system.Capabilities;
-import flash.text.TextField;
+import flash.system.System;
 import flash.utils.getTimer;
 
 import mx.events.FlexEvent;
 import mx.managers.SystemManager;
 import mx.preloaders.IPreloaderDisplay;
+import mx.preloaders.Preloader;
 
 /**
  *  The SplashScreen class is the default preloader for Mobile Flex applications.
@@ -61,7 +62,6 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @private
      *  The resize mode for the splash image
      */
-    // FIXME (egeorgie): string constants?
     private var scaleMode:String = "none";      // One of "none", "stretch", "letterbox" and "zoom".
 
     /**
@@ -72,10 +72,6 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
     private var checkWaitTime:Boolean = false;  // obey minimumDisplayTime only valid if splashImage is valid
     private var displayTimeStart:int = -1;      // the start time of the image being displayed
     
-    // FIXME (egeorgie): remove debugging code
-    private var textField:TextField;
-    private static var count:int = 0;
-
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -298,15 +294,6 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
             if (checkWaitTime)
                 this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 
-            // FIXME (egeorgie): remove debug code
-            {
-                textField = new TextField();
-                textField.width = 100;
-                textField.height = 100;
-                textField.textColor = 0xFF0000;
-                addChild(textField);
-            }
-
             this.stage.addEventListener(Event.RESIZE, Stage_resizeHandler, false /*useCapture*/, 0, true /*useWeakReference*/);
             this.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, Stage_resizeHandler, false /*useCapture*/, 0, true /*useWeakReference*/)
             
@@ -345,7 +332,6 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
 
         // Current stage orientation
         var orientation:String = stage.deviceOrientation;
-        textField.text = orientation + " " + count++;
 
         // DPI scaling factor of the stage
         // FIXME (egeorgie): get this number from the SystemManager?
@@ -422,11 +408,6 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
             case StageOrientation.UPSIDE_DOWN: 
                 rotation = Math.PI; // 180
             break;
-            
-            // FIXME (egeorgie): remove debug code
-            default:
-                rotation = 12;
-            break;
         }
 
         // Move center to (0,0):
@@ -466,9 +447,9 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
         if (checkWaitTime && currentDisplayTime < minimumDisplayTime)
             this.addEventListener(Event.ENTER_FRAME, initCompleteEnterFrameHandler);
         else        
-            dispatchEvent(new Event(Event.COMPLETE));
+            dispatchComplete();
     }
-    
+
     /**
      *  @private
      *  If the application is ready before the preloader minimumDisplayTime,
@@ -480,9 +461,24 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
     {
         if (currentDisplayTime <= minimumDisplayTime)
             return;
-        
+
+        dispatchComplete();
+    }
+
+    private function dispatchComplete():void
+    {
+        // Clean-up all listeners
+        var preloader:Preloader = this.parent as Preloader;
+        preloader.removeEventListener(FlexEvent.INIT_COMPLETE, preloader_initCompleteHandler, false /*useCapture*/);
         this.removeEventListener(Event.ENTER_FRAME, initCompleteEnterFrameHandler);
-        dispatchEvent(new Event(Event.COMPLETE)); 
+        this.removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+
+        // Even though we have weak listeners, remove them since this object is not going to be destroyed until GC runs,
+        // which means we could receive Stage events even if we're off-stage.
+        this.stage.removeEventListener(Event.RESIZE, Stage_resizeHandler, false /*useCapture*/);
+        this.stage.removeEventListener(StageOrientationEvent.ORIENTATION_CHANGE, Stage_resizeHandler, false);
+
+        dispatchEvent(new Event(Event.COMPLETE));
     }
 }
 }
