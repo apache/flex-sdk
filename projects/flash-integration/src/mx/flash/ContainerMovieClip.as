@@ -13,10 +13,12 @@ package mx.flash
 {
 
 import flash.display.DisplayObjectContainer;
-import flash.display.MovieClip;
+import flash.events.Event;
 import flash.events.FocusEvent;
+import flash.geom.Rectangle;
 
 import mx.core.IUIComponent;
+import mx.core.mx_internal;
 
 [DefaultProperty("content")]
 
@@ -83,7 +85,6 @@ public dynamic class ContainerMovieClip extends UIMovieClip
     //  Properties
     //
     //--------------------------------------------------------------------------
-
    
     //----------------------------------
     //  contentHolder
@@ -184,12 +185,156 @@ public dynamic class ContainerMovieClip extends UIMovieClip
             _content = value;
         }
     }
+    
+    //----------------------------------
+    //  fillContentToSize
+    //----------------------------------
+    
+    private var _fillContentToSize:Boolean = false;
+    
+    /**
+     *  Whether the flex content is sized to be the same size as the flash 
+     *  container.
+     * 
+     *  <p>There is no layout system for the Flash container.  By default the
+     *  flex content is sized normally.  However, if you set this flag to true, 
+     *  the flex content will be sized to 100% of the size of the flash
+     *  container.</p>
+     *
+     *  @default false
+     */
+    public function get fillContentToSize():Boolean
+    {
+        return _fillContentToSize;
+    }
+        
+   /**
+    *  @private
+    */
+    public function set fillContentToSize(value:Boolean):void
+    {
+        _fillContentToSize = value;
+        
+        sizeContentHolder();
+    }
+    
+    //----------------------------------
+    //  scaleContent
+    //----------------------------------
+    
+    private var _scaleContent:Boolean = false;
+    
+    /**
+     *  Whether the scale of the container due to sizing 
+     *  affects the scale of the flex content.
+     * 
+     *  <p>When Flash components are resized, they scale up or down to their new size.
+     *  However, this means their children are also scaled up or down.  By setting this 
+     *  flag to false, the children are inversely scaled when the container is resized.</p>
+     * 
+     *  <p>Note: When the container is scaled direclty (through scaleX or scaleY), the 
+     *  content will also be scaled accordingly.  This only affects scaling of the 
+     *  container due to sizing.</p>
+     *
+     *  @default false
+     */
+    public function get scaleContent():Boolean
+    {
+        return _scaleContent;
+    }
+        
+   /**
+    *  @private
+    */
+    public function set scaleContent(value:Boolean):void
+    {
+        _scaleContent = value;
+        
+        sizeContentHolder();
+    }
 
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
+    
+   /**
+    *  @private
+    */
+    override public function setActualSize(newWidth:Number, newHeight:Number):void
+    {
+        super.setActualSize(newWidth, newHeight);
+        
+        sizeContentHolder();
+    }
+    
+    /**
+     *  @private
+     * 
+     *  Sizes the contentHolder and sets the scale of the contentHolder
+     *  according to applyInverseScaleToContent.
+     */
+    protected function sizeContentHolder():void
+    {
+        if (contentHolderObj)
+        {
+            // secretScale is the amount we scaled by to change the width and height
+            var secretScaleX:Number = mx_internal::$scaleX/scaleX;
+            var secretScaleY:Number = mx_internal::$scaleY/scaleY;
+            
+            // width and height are what we actually want our content
+            // to fill up, but it doesn't take in to account our secretScale.
+            if (!scaleContent)
+            {
+                // apply inverse of the scale and set the width/height normally
+                contentHolderObj.scaleX = 1/secretScaleX;
+                contentHolderObj.scaleY = 1/secretScaleY;
+                
+                contentHolderObj.setActualSize(width, height);
+            }
+            else
+            {
+                // apply the scale to the width/height
+                contentHolderObj.scaleX = 1;
+                contentHolderObj.scaleY = 1;
+                
+                contentHolderObj.setActualSize(width / secretScaleX, 
+                                               height / secretScaleY);
+            }
+        }
+    }
+    
+    override protected function get bounds():Rectangle
+    {
+        if (!trackSizeChanges)
+            return super.bounds;
+        
+        // we don't want our bounds to include the bounds of our child
+        // otherwise we can get into a scenario where we're telling our
+        // child to be width, height from setActualSize above and they are 
+        // actually a bit bigger due to drawing outside the lines.
+        // then when we get bounds next time, we're also a tad bigger, 
+        // and this goes on and on in this fashion until we're infinitely large
+        var contentHolderIndex:int = -1;
+        var myContentHolder:FlexContentHolder;
+        
+        if (contentHolderObj && contentHolderObj.parent == this)
+        {
+            myContentHolder = contentHolderObj;
+            contentHolderIndex = getChildIndex(contentHolderObj);
+            removeChild(contentHolderObj);
+        }
+        
+       var myBounds:Rectangle = super.bounds;
+        
+        if (myContentHolder)
+        {
+            addChildAt(myContentHolder, contentHolderIndex);
+        }
+        
+        return myBounds;
+    }
 
    /**
     *  @private
