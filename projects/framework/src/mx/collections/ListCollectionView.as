@@ -647,7 +647,7 @@ public class ListCollectionView extends Proxy
     {
         var i:int;
         
-        if (sort)
+        if (localIndex && sort)
         {
             var startIndex:int = sort.findItem(localIndex, item, Sort.FIRST_INDEX_MODE);
             if (startIndex == -1)
@@ -662,7 +662,7 @@ public class ListCollectionView extends Proxy
 
             return -1;
         }
-        else if (filterFunction != null)
+        else if (localIndex && filterFunction != null)
         {
             var len:int = localIndex.length;
             for (i = 0; i < len; i++)
@@ -1156,7 +1156,7 @@ public class ListCollectionView extends Proxy
      */
     mx_internal function findItem(values:Object, mode:String, insertIndex:Boolean = false):int
     {
-        if (!sort)
+        if (!sort || !localIndex)
         {
             var message:String = resourceManager.getString(
                 "collections", "itemNotFound");
