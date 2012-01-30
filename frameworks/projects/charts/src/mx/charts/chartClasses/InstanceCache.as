@@ -17,6 +17,7 @@ import flash.text.TextFormat;
 import mx.core.ClassFactory;
 import mx.core.ContextualClassFactory;
 import mx.core.IFactory;
+import mx.core.IFlexModuleFactory;
 import mx.core.IUITextField;
 
 /**
@@ -55,7 +56,7 @@ public class InstanceCache
      *  @productversion Flex 3
      */
     public function InstanceCache(type:Object, parent:Object = null,
-                                  insertPosition:int = -1)
+                                  insertPosition:int = -1, moduleFactory:IFlexModuleFactory = null)
     {
         super();
 
@@ -68,7 +69,7 @@ public class InstanceCache
         else if (type is Class)
         {
             _class = Class(type);
-            _factory = new ContextualClassFactory(Class(type));
+            _factory = new ContextualClassFactory(Class(type), moduleFactory);
         }
 
         _insertPosition = insertPosition;
