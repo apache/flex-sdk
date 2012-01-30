@@ -55,12 +55,14 @@ public class ViewNavigatorSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
-    // FIXME (chiedozi): ASDOC propeties
-    
-    // Responsible for storing the views
+    /**
+     *  @copy spark.components.SkinnableContainer#contentGroup
+     */
     public var contentGroup:Group;
     
-    // The action bar to use for the navigator
+    /**
+     *  @copy spark.components.ViewNavigator#actionBar
+     */ 
     public var actionBar:ActionBar;
     
     //--------------------------------------------------------------------------
@@ -68,7 +70,7 @@ public class ViewNavigatorSkin extends MobileSkin
     //  Overridden properties
     //
     //--------------------------------------------------------------------------
-    // TODO (chiedozi): ASDOC
+
     /** 
      *  @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
@@ -119,6 +121,9 @@ public class ViewNavigatorSkin extends MobileSkin
         }
     }
     
+    /**
+     *  @private
+     */ 
     override protected function commitCurrentState():void
     {
         super.commitCurrentState();
