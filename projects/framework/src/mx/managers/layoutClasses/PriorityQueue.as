@@ -59,7 +59,7 @@ public class PriorityQueue
     /**
      *  @private
      */
-    private var arrayOfDictionaries:Array = [];
+    private var priorityBins:Array = [];
 
     /**
      *  @private
@@ -72,12 +72,6 @@ public class PriorityQueue
      *  The largest occupied index in arrayOfDictionaries.
      */
     private var maxPriority:int = -1;
-
-    /**
-     *  @private
-     *  Used to keep track of change deltas.
-     */
-    public var generation:int = 0;
     
     //--------------------------------------------------------------------------
     //
@@ -90,22 +84,6 @@ public class PriorityQueue
      */
     public function addObject(obj:Object, priority:int):void
     {       
-        // If no hash exists for the specified priority, create one.
-        if (!arrayOfDictionaries[priority])
-        {
-            arrayOfDictionaries[priority] = new Object;
-            arrayOfDictionaries[priority].length = 0;
-            arrayOfDictionaries[priority].items = new Dictionary(false);
-        }
-
-        // If we don't already hold the obj in the specified hash, add it
-        // and update our item count.
-        if (arrayOfDictionaries[priority].items[obj] == null)
-        { 
-            arrayOfDictionaries[priority].items[obj] = true;
-            arrayOfDictionaries[priority].length++;
-        }
-       
         // Update our min and max priorities.
         if (maxPriority < minPriority)
         {
@@ -118,9 +96,28 @@ public class PriorityQueue
             if (priority > maxPriority)
                 maxPriority = priority;
         }
+            
+        var bin:PriorityBin = priorityBins[priority];
         
-        // Update our changelist id since we've added an item.
-        generation++;
+        if (!bin)
+        {
+            // If no hash exists for the specified priority, create one.
+            bin = new PriorityBin();
+            priorityBins[priority] = bin;
+            bin.items[obj] = true;
+            bin.length++;
+        }
+        else
+        {
+            // If we don't already hold the obj in the specified hash, add it
+            // and update our item count.
+            if (bin.items[obj] == null)
+            { 
+                bin.items[obj] = true;
+                bin.length++;
+            }
+        }
+        
     }
 
     /**
@@ -132,31 +129,32 @@ public class PriorityQueue
 
         if (minPriority <= maxPriority)
         {
-            while (!arrayOfDictionaries[maxPriority] || 
-                   arrayOfDictionaries[maxPriority].length == 0)
+            var bin:PriorityBin = priorityBins[maxPriority];
+            while (!bin || bin.length == 0)
             {
                 maxPriority--;
                 if (maxPriority < minPriority)
                     return null;
+                bin = priorityBins[maxPriority];
             }
         
             // Remove the item with largest priority from our priority queue.
             // Must use a for loop here since we're removing a specific item
             // from a 'Dictionary' (no means of directly indexing).
-            for (var key:Object in arrayOfDictionaries[maxPriority].items )
+            for (var key:Object in bin.items )
             {
                 obj = key;
-                removeChild(ILayoutManagerClient(key),maxPriority);
+                removeChild(ILayoutManagerClient(key), maxPriority);
                 break;
             }
 
             // Update maxPriority if applicable.
-            while (!arrayOfDictionaries[maxPriority] || 
-                   arrayOfDictionaries[maxPriority].length == 0)
+            while (!bin || bin.length == 0)
             {
                 maxPriority--;
                 if (maxPriority < minPriority)
                     break;
+                bin = priorityBins[maxPriority];
             }
             
         }
@@ -174,7 +172,8 @@ public class PriorityQueue
 
         while (min <= max)
         {
-            if (arrayOfDictionaries[max] && arrayOfDictionaries[max].length > 0)
+            var bin:PriorityBin = priorityBins[max];
+            if (bin && bin.length > 0)
             {
                 if (max == client.nestLevel)
                 {
@@ -182,7 +181,7 @@ public class PriorityQueue
                     // client, no need to search the entire list, just check to see
                     // if the client exists in the queue (it would be the only item
                     // at that nestLevel).
-                    if (arrayOfDictionaries[max].items[client])
+                    if (bin.items[client])
                     {
                         removeChild(ILayoutManagerClient(client), max);
                         return client;
@@ -190,7 +189,7 @@ public class PriorityQueue
                 }
                 else
                 {
-                    for (var key:Object in arrayOfDictionaries[max].items )
+                    for (var key:Object in bin.items )
                     {
                         if ((key is DisplayObject) && contains(DisplayObject(client), DisplayObject(key)))
                         {
@@ -224,31 +223,32 @@ public class PriorityQueue
 
         if (minPriority <= maxPriority)
         {
-            while (!arrayOfDictionaries[minPriority] || 
-                   arrayOfDictionaries[minPriority].length == 0)
+            var bin:PriorityBin = priorityBins[minPriority];
+            while (!bin || bin.length == 0)
             {
                 minPriority++;
                 if (minPriority > maxPriority)
                     return null;
+                bin = priorityBins[minPriority];
             }           
 
             // Remove the item with smallest priority from our priority queue.
             // Must use a for loop here since we're removing a specific item
             // from a 'Dictionary' (no means of directly indexing).
-            for (var key:Object in arrayOfDictionaries[minPriority].items )
+            for (var key:Object in bin.items )
             {
                 obj = key;
-                removeChild(ILayoutManagerClient(key),minPriority);
+                removeChild(ILayoutManagerClient(key), minPriority);
                 break;
             }
 
             // Update minPriority if applicable.
-            while (!arrayOfDictionaries[minPriority] || 
-                   arrayOfDictionaries[minPriority].length == 0)
+            while (!bin || bin.length == 0)
             {
                 minPriority++;
                 if (minPriority > maxPriority)
                     break;
+                bin = priorityBins[minPriority];
             }           
         }
 
@@ -264,7 +264,8 @@ public class PriorityQueue
 
         while (min <= maxPriority)
         {
-            if (arrayOfDictionaries[min] &&  arrayOfDictionaries[min].length > 0)
+            var bin:PriorityBin = priorityBins[min];
+            if (bin && bin.length > 0)
             {   
                 if (min == client.nestLevel)
                 {
@@ -272,7 +273,7 @@ public class PriorityQueue
                     // client, no need to search the entire list, just check to see
                     // if the client exists in the queue (it would be the only item
                     // at that nestLevel).
-                    if (arrayOfDictionaries[min].items[client])
+                    if (bin.items[client])
                     {
                         removeChild(ILayoutManagerClient(client), min);
                         return client;
@@ -280,7 +281,7 @@ public class PriorityQueue
                 }
                 else
                 {
-                    for (var key:Object in arrayOfDictionaries[min].items)
+                    for (var key:Object in bin.items)
                     {
                         if ((key is DisplayObject) && contains(DisplayObject(client), DisplayObject(key)))
                         {
@@ -311,15 +312,11 @@ public class PriorityQueue
     public function removeChild(client:ILayoutManagerClient, level:int=-1):Object
     {
         var priority:int = (level >= 0) ? level : client.nestLevel;
-        if (arrayOfDictionaries[priority] &&
-            arrayOfDictionaries[priority].items[client] != null)
+        var bin:PriorityBin = priorityBins[priority];
+        if (bin && bin.items[client] != null)
         {
-            delete arrayOfDictionaries[priority].items[client];
-            arrayOfDictionaries[priority].length--;
-            
-            // Update our changelist id since we've removed an item.
-            generation++;
-            
+            delete bin.items[client];
+            bin.length--;
             return client;
         }
         return null;
@@ -330,10 +327,9 @@ public class PriorityQueue
      */
     public function removeAll():void
     {
-        arrayOfDictionaries.splice(0);
+        priorityBins.length = 0;
         minPriority = 0;
         maxPriority = -1;
-        generation += 1;
     }
 
     /**
@@ -373,7 +369,7 @@ public class PriorityQueue
         var i:int = Math.max(minPriority, level);
         for (; i <= maxPriority; i++)
         {
-            var obj:Object = arrayOfDictionaries[i];
+            var obj:PriorityBin = priorityBins[i];
             if (obj)
             {
                 var items:Dictionary = obj.items;
@@ -399,7 +395,11 @@ public class PriorityQueue
      */
     private function addDictionary(d:Dictionary, length:int, priority:int):void
     {
-        arrayOfDictionaries[priority] = { length: length, items: d };
+        var bin:PriorityBin = new PriorityBin();
+        bin.length = length;
+        bin.items = d;
+        priorityBins[priority] = bin;
+            
         // Update our min and max priorities.
         if (maxPriority < minPriority)
         {
@@ -415,4 +415,17 @@ public class PriorityQueue
     }
 }
 
+}
+
+import flash.utils.Dictionary;
+
+/**
+ *  Represents one priority bucket of entries.
+ *  @private
+ */
+class PriorityBin 
+{
+    public var length:int;
+    public var items:Dictionary = new Dictionary();
+    
 }
