@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- LuminosityMaskShader.mxml -->
+<s:Application name="LuminosityMaskShader"
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <fx:Script>
+    <![CDATA[
+    
+         //function to set mask and maskType
+         private function setMask(): void
+         {
+             group2.mask = rectMask;
+             group2.maskType = "luminosity";
+         }
+    ]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+        <s:Group id="rectMask" blendMode="normal" x="10"  y="20">
+	    <s:Ellipse width="170" height="220">
+	        <s:fill>
+	            <s:SolidColor color="0x33CC99" />
+	        </s:fill>
+	    </s:Ellipse>
+        </s:Group> 
+    </fx:Declarations>
+    
+    <s:Panel title="LuminosityMaskShader Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+
+        <s:Group id="group2" horizontalCenter="0" y="10">
+	    <s:BitmapImage source="@Embed('ks5792.jpg')" />
+        </s:Group>
+        <s:Button label="Apply Luminosity mask" click="setMask()" 
+            x="15" y="265" />
+    </s:Panel>
+
+</s:Application>
