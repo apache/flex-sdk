@@ -87,7 +87,7 @@ public class SystemManagerProxy extends SystemManager
 
     //--------------------------------------------------------------------------
     //
-    //  Overriden properties
+    //  Overridden properties
     //
     //--------------------------------------------------------------------------
 
