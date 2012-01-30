@@ -145,7 +145,7 @@ use namespace mx_internal;
 /**
  *  The name of the class to use as the SWFLoader skin if the control cannot load
  *  the content.
- *  @default BrokenImageSkin
+ *  The default value is the "__brokenImage" symbol in the Assets.swf file.
  */
 [Style(name="brokenImageSkin", type="Class", inherit="no")]
 
@@ -256,7 +256,7 @@ use namespace mx_internal;
  *  
  *    <strong>Styles</strong>
  *    brokenImageBorderSkin="BrokenImageBorderSkin"
- *    brokenImageSkin="BrokenImageSkin"
+ *    brokenImageSkin="<i>'__brokenImage' symbol in Assets.swf</i>"
  *    horizontalAlign="left|center|right"
  *    verticalAlign="top|middle|bottom"
  *  
