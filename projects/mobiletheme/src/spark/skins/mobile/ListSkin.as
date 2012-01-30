@@ -157,13 +157,6 @@ public class ListSkin extends MobileSkin
         measuredHeight = scroller.getPreferredBoundsHeight();
     }
     
-    
-    /**
-     *  FIXME (mcho)
-     *  Need to override ValidateEstimatedSizesOfChild
-     */
-    
-    
     /**
      *  @private 
      */
