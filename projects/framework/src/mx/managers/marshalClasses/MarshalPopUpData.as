@@ -24,6 +24,8 @@ import mx.events.SandboxMouseEvent;
 import mx.managers.ISystemManager;
 import mx.managers.PopUpData;
 
+use namespace mx_internal;
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Helper class: MarshalPopUpData
@@ -166,7 +168,7 @@ public class MarshalPopUpData extends PopUpData
             modalWindow.x = s.x;
             modalWindow.y = s.y;
             if (modalMask)
-                PopUpManagerMarshalMixin.mx_internal::updateModalMask(systemManager, modalWindow, 
+                PopUpManagerMarshalMixin.updateModalMask(systemManager, modalWindow, 
                                                               exclude, excludeRect, modalMask);    
         }
     }
