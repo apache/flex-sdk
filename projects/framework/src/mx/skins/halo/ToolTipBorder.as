@@ -150,8 +150,6 @@ public class ToolTipBorder extends RectangularBorder
 		var backgroundAlpha:Number= getStyle("backgroundAlpha");
 		var borderColor:uint = getStyle("borderColor");
 		var cornerRadius:Number = getStyle("cornerRadius");
-		var shadowColor:uint = getStyle("shadowColor");
-		var shadowAlpha:Number = 0.1;
 
 		var g:Graphics = graphics;
 		g.clear();
