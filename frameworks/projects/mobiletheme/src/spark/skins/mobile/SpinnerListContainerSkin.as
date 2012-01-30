@@ -283,6 +283,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 		measuredHeight = contentH + borderThickness * 2;
         
         measuredMinHeight = selectionIndicatorHeight + borderThickness * 4;
+        minHeight = measuredMinHeight;
 	}
 		
 	override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
