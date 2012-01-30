@@ -1444,7 +1444,7 @@ public class StyleableTextField extends FlexTextField
         if (useTightTextBounds)
         {
             // return the text field width without the left and right gutters
-            return width - StyleableTextField.TEXT_WIDTH_PADDING;
+            return width - StyleableTextField.TEXT_GUTTER * 2;
         }
         else
         {
@@ -1461,7 +1461,7 @@ public class StyleableTextField extends FlexTextField
         {
             // return the x position of the text within the text field.  we calculate this value
             // using text field's x, offset by the left gutter
-            return x + StyleableTextField.TEXT_LEFT_GUTTER;
+            return x + StyleableTextField.TEXT_GUTTER;
         }
         else
         {
@@ -1561,7 +1561,7 @@ public class StyleableTextField extends FlexTextField
         if (useTightTextBounds)
         {
             // The measuredTextSize without the left and right gutters
-            return measuredTextSize.x - StyleableTextField.TEXT_WIDTH_PADDING;
+            return measuredTextSize.x - StyleableTextField.TEXT_GUTTER * 2;
         }
         else
         {
@@ -1585,7 +1585,7 @@ public class StyleableTextField extends FlexTextField
         if (useTightTextBounds)
         {
             // offset the positions by the left gutters and the top offset
-            this.x = x - StyleableTextField.TEXT_LEFT_GUTTER;
+            this.x = x - StyleableTextField.TEXT_GUTTER;
             this.y = y - tightTextTopOffset;
         }
         else
@@ -2174,10 +2174,10 @@ public class StyleableTextField extends FlexTextField
     
     /**
      *  @private
-     *  The width of the left gutter between the edge of the text field 
+     *  The width of the gutter between the edge of the text field 
      *  and the text. 
      */
-    mx_internal static const TEXT_LEFT_GUTTER:int = 2;
+    mx_internal static const TEXT_GUTTER:int = 2;
     
     /**
      *  @private
