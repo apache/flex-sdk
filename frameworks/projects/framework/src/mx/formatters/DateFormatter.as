@@ -108,6 +108,11 @@ public class DateFormatter extends Formatter
         var count:int = 0;
         var len:int = str.length;
         
+        // Strip out the Timezone. It is not used by the DateFormatter
+        var timezoneRegEx:RegExp = /(GMT|UTC)-\d\d\d\d/ig;
+        
+        str = str.replace(timezoneRegEx, "");
+        
         while (count < len)
         {
             letter = str.charAt(count);
