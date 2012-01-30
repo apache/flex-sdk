@@ -17,10 +17,10 @@ import flash.events.Event;
 import flash.events.IEventDispatcher;
 import flash.events.IOErrorEvent;
 import flash.events.ProgressEvent;
+import flash.system.ApplicationDomain;
 import mx.events.ResourceEvent;
 import mx.events.RSLEvent;
 import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
 
 [ExcludeClass]
 
@@ -44,6 +44,17 @@ public class ResourceModuleRSLItem extends RSLItem
 
 	//--------------------------------------------------------------------------
 	//
+	//  Class variables
+	//
+	//--------------------------------------------------------------------------
+
+    /**
+	 *  @private
+     */	
+	public static var resourceManager:IResourceManager;
+
+	//--------------------------------------------------------------------------
+	//
 	//  Constructor
 	//
 	//--------------------------------------------------------------------------
@@ -51,10 +62,19 @@ public class ResourceModuleRSLItem extends RSLItem
     /**
 	 *  @private
      */	
-	public function ResourceModuleRSLItem(url:String)
+	public function ResourceModuleRSLItem(url:String, appDomain:ApplicationDomain)
 	{
 		super(url);
+		this.appDomain = appDomain;
 	}
+
+	//--------------------------------------------------------------------------
+	//
+	//  Variables
+	//
+	//--------------------------------------------------------------------------
+
+	private var appDomain:ApplicationDomain;
 
 	//--------------------------------------------------------------------------
 	//
@@ -93,7 +113,20 @@ public class ResourceModuleRSLItem extends RSLItem
 	    chainedSecurityErrorHandler = securityErrorHandler;
 	    chainedRSLErrorHandler = rslErrorHandler;
 	    
-		var resourceManager:IResourceManager = ResourceManager.getInstance();
+		if (!resourceManager)
+		{
+			// do this to prevent dependency on ResourceManager
+			if (appDomain.hasDefinition("mx.resources::ResourceManager"))
+			{
+				var resourceManagerClass:Class = 
+					Class(appDomain.getDefinition("mx.resources::ResourceManager"));
+				resourceManager = 
+					IResourceManager(resourceManagerClass["getInstance"]());
+			}
+			else
+				return;
+		}
+
 		
 		var eventDispatcher:IEventDispatcher =
 			resourceManager.loadResourceModule(url);
