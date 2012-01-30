@@ -171,6 +171,7 @@ public class FlipViewTransition extends ViewTransitionBase
     
     private var _direction:String = ViewTransitionDirection.LEFT;
     
+    [Inspectable(category="General", enumeration="left,right,up,down", defaultValue="left")]
     /**
      *  Specifies the direction of flip transition.
      *
@@ -201,6 +202,7 @@ public class FlipViewTransition extends ViewTransitionBase
     
     private var _mode:String = FlipViewTransitionMode.CARD;
     
+    [Inspectable(category="General", enumeration="card,cube", defaultValue="card")]
     /**
      *  Specifies the type of flip transition to perform.
      *
