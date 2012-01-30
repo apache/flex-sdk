@@ -22,6 +22,7 @@ import flash.geom.Point;
 
 import mx.core.DragSource;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
 import mx.core.IUIComponent;
 import mx.core.UIComponentGlobals;
@@ -29,7 +30,9 @@ import mx.core.mx_internal;
 import mx.events.DragEvent;
 import mx.events.Request;
 import mx.managers.dragClasses.DragProxy;
+import mx.modules.IModule;
 import mx.styles.CSSStyleDeclaration;
+import mx.styles.IStyleManager2;
 import mx.styles.StyleManager;
 import mx.utils.MatrixUtil;
 
@@ -273,8 +276,7 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 		{
 			// No drag image specified, use default
 			var dragManagerStyleDeclaration:CSSStyleDeclaration =
-				StyleManager.getStyleManager(sm as IFlexModuleFactory).
-                getMergedStyleDeclaration("mx.managers.DragManager");
+                getStyleManager(dragInitiator).getMergedStyleDeclaration("mx.managers.DragManager");
 			var dragImageClass:Class =
 				dragManagerStyleDeclaration.getStyle("defaultDragImageSkin");
 			dragImage = new dragImageClass();
@@ -467,7 +469,22 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 		bDoingDrag = false;
 
 	}
-			
+
+    /**
+     *  @private
+     */
+    static private function getStyleManager(dragInitiator:IUIComponent):IStyleManager2
+    {
+        // If the dragInitiator has a styleManager, use that one.
+        // In a situation where a main application that loads a module with drag initiator,
+        // the main application may not link in the DragManager and appropriate styles.
+        // We want to use the styles of the module of the dragInitiator. See SDK-24324.
+        if (dragInitiator is IFlexModule)
+            return StyleManager.getStyleManager(IFlexModule(dragInitiator).moduleFactory);
+        
+        return StyleManager.getStyleManager(sm as IFlexModuleFactory);
+    }
+
 	//--------------------------------------------------------------------------
 	//
 	//  Event handlers
