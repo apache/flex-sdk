@@ -18,6 +18,7 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import mx.events.SandboxMouseEvent;
 import mx.utils.EventUtil;
+import mx.managers.IMarshalSystemManager;
 import mx.managers.ISystemManager;
 
 [ExcludeClass]
@@ -28,6 +29,7 @@ import mx.managers.ISystemManager;
  */
 public class EventProxy extends EventDispatcher
 {
+    private var marshalSystemManager:IMarshalSystemManager;
     private var systemManager:ISystemManager;
 
     public function EventProxy(systemManager:ISystemManager)
@@ -43,7 +45,10 @@ public class EventProxy extends EventDispatcher
             var mme:SandboxMouseEvent= new SandboxMouseEvent(EventUtil.mouseEventMap[event.type],
                 false, false, me.ctrlKey, me.altKey, me.shiftKey, me.buttonDown);
             // trace(">>marshalListener", systemManager, mme.type);
-            systemManager.dispatchEventFromSWFBridges(mme, null, true, true);
+            if (!marshalSystemManager)
+                marshalSystemManager = 
+			        IMarshalSystemManager(systemManager.getImplementation("mx.managers::IMarshalSystemManager"));
+            marshalSystemManager.dispatchEventFromSWFBridges(mme, null, true, true);
             // trace("<<marshalListener", systemManager);
         }
     }
