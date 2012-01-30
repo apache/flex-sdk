@@ -214,11 +214,11 @@ public interface IVisualElement extends ILayoutElement
      *  layer changes, the element must then compute its own effective visibility 
      *  (or alpha) and apply it accordingly.</p>
      *
-     *  <p>The <code>layer</code> property is not used for z-order control, 
-     *  please @see #depth.</p>
-     *
      *  <p>This property should not be set within MXML directly.</p>
-     *    
+     *  
+     *  <p>The <code>layer</code> property is not used for z-order control</p>
+     *
+     *  @see #depth
      *  @default null
      *  
      *  @langversion 3.0
