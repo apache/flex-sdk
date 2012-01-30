@@ -74,6 +74,16 @@ public class AccImpl extends AccessibilityImplementation
      */
     private static const EVENT_OBJECT_NAMECHANGE:uint = 0x800C;
     
+    /**
+     *  @private
+     */
+    private static const EVENT_OBJECT_SHOW:uint = 0x8002;
+
+    /**
+     *  @private
+     */
+    private static const EVENT_OBJECT_HIDE:uint = 0x8003;
+
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -187,7 +197,8 @@ public class AccImpl extends AccessibilityImplementation
         stub = false;
         
         // Hook in UIComponentAccProps setup here!
-        master.accessibilityProperties = new AccessibilityProperties();
+        if (!master.accessibilityProperties)
+            master.accessibilityProperties = new AccessibilityProperties();
         
         // Hookup events to listen for
         var events:Array = eventsToHandle;
@@ -245,7 +256,7 @@ public class AccImpl extends AccessibilityImplementation
      */
     protected function get eventsToHandle():Array
     {
-        return [ "errorStringChanged", "toolTipChanged" ];
+        return [ "errorStringChanged", "toolTipChanged", "show", "hide" ];
     }
     
     //--------------------------------------------------------------------------
@@ -433,6 +444,18 @@ public class AccImpl extends AccessibilityImplementation
             case "toolTipChanged":
             {
                 Accessibility.sendEvent(master, 0, EVENT_OBJECT_NAMECHANGE);
+                Accessibility.updateProperties();
+                break;
+            }
+            case "show":
+            {
+                Accessibility.sendEvent(master, 0, EVENT_OBJECT_SHOW);
+                Accessibility.updateProperties();
+                break;
+            }
+            case "hide":
+            {
+                Accessibility.sendEvent(master, 0, EVENT_OBJECT_HIDE);
                 Accessibility.updateProperties();
                 break;
             }
