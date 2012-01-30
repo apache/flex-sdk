@@ -141,8 +141,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     private static const NO_ACTION:int = -1;
     private static const PUSH_ACTION:int = 0;
     private static const POP_ACTION:int = 1;
-    private static const REPLACE_ACTION:int = 2;
-    private static const CHANGE_SECTION_ACTION:int = 3;
+    private static const CHANGE_SECTION_ACTION:int = 2;
     
     //--------------------------------------------------------------------------
     //
@@ -570,21 +569,6 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             currentViewChanged = true;
             invalidateProperties();
         }
-    }
-    
-    public function replaceCurrentView(viewFactory:Class,
-                                       initializationData:Object = null,
-                                       transition:ViewTransition = null):void
-    {
-        if (!canRemoveCurrentView())
-            return;
-        
-        if (currentSection.length > 0)
-            currentSection.pop();
-        
-        pushView(viewFactory, initializationData, transition);
-        
-        lastAction = REPLACE_ACTION;
     }
     
     //--------------------------------------------------------------------------
