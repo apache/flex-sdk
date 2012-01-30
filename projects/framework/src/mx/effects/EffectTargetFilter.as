@@ -193,7 +193,7 @@ public class EffectTargetFilter
      *  @param target The target of the EffectInstance that calls this function. If an 
      *  effect has multiple targets, this function is called once per target.
      *
-     *  @return <code>true</code>, if the target should be included in the effect; 
+     *  @return Returna <code>true</code>, if the target should be included in the effect; 
      *  otherwise returns <code>false</code>.
      */
     public function filterInstance(propChanges:Array, semanticsProvider:IEffectTargetHost, 
