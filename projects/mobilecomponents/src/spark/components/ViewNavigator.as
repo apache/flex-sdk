@@ -1128,22 +1128,22 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (view == null)
         {
             actionBar.actionContent = actionContent;
-            actionBar.actionGroupLayout = actionGroupLayout;
+            actionBar.actionLayout = actionGroupLayout;
             actionBar.navigationContent = navigationContent;
-            actionBar.navigationGroupLayout = navigationGroupLayout;
+            actionBar.navigationLayout = navigationGroupLayout;
             actionBar.title = title;
             actionBar.titleContent = titleContent;
-            actionBar.titleGroupLayout = titleGroupLayout;
+            actionBar.titleLayout = titleGroupLayout;
         }
         else if (forceUpdate)
         {
             actionBar.actionContent = view && view.actionContent ? view.actionContent : actionContent;
-            actionBar.actionGroupLayout = view && view.actionGroupLayout ? view.actionGroupLayout : actionGroupLayout;
+            actionBar.actionLayout = view && view.actionGroupLayout ? view.actionGroupLayout : actionGroupLayout;
             actionBar.navigationContent = view && view.navigationContent ? view.navigationContent : navigationContent;
-            actionBar.navigationGroupLayout = view && view.navigationGroupLayout ? view.navigationGroupLayout : navigationGroupLayout;
+            actionBar.navigationLayout = view && view.navigationGroupLayout ? view.navigationGroupLayout : navigationGroupLayout;
             actionBar.title = view && view.title ? view.title : title;
             actionBar.titleContent = view && view.titleContent ? view.titleContent : titleContent;
-            actionBar.titleGroupLayout = view && view.titleGroupLayout ? view.titleGroupLayout : titleGroupLayout;
+            actionBar.titleLayout = view && view.titleGroupLayout ? view.titleGroupLayout : titleGroupLayout;
             
             actionContentInvalidated = false;
             actionGroupLayoutInvalidated = false;
@@ -1164,7 +1164,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             
             if (actionGroupLayoutInvalidated)
             {
-                actionBar.actionGroupLayout = view && view.actionGroupLayout ? 
+                actionBar.actionLayout = view && view.actionGroupLayout ? 
                     view.actionGroupLayout : actionGroupLayout;
                 actionGroupLayoutInvalidated = false;
             }
@@ -1178,7 +1178,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             
             if (navigationGroupLayoutInvalidated)
             {
-                actionBar.navigationGroupLayout = view && view.navigationGroupLayout ? 
+                actionBar.navigationLayout = view && view.navigationGroupLayout ? 
                     view.navigationGroupLayout : navigationGroupLayout;
                 navigationGroupLayoutInvalidated = false;
             }
@@ -1198,7 +1198,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             
             if (titleGroupLayoutInvalidated)
             {
-                actionBar.titleGroupLayout = view && view.titleGroupLayout ? 
+                actionBar.titleLayout = view && view.titleGroupLayout ? 
                     view.titleGroupLayout : titleGroupLayout;
                 titleGroupLayoutInvalidated = false;
             }        
