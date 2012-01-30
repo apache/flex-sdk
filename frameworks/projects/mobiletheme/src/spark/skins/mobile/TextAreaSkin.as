@@ -90,7 +90,7 @@ public class TextAreaSkin extends TextSkinBase
      *  @private
      *  Default verticalAlign="top"
      */
-    override mx_internal function getTextTop(unscaledHeight:Number, paddingTop:Number):Number
+    override mx_internal function getTextTop(unscaledHeight:Number, paddingTop:Number, paddingBottom:Number):Number
     {
         return paddingTop;
     }
