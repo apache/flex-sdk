@@ -37,6 +37,7 @@ import mx.events.MarshalEvent;
 import mx.managers.CursorManager;
 import mx.managers.DragManager;
 import mx.managers.ISystemManager2;
+import mx.managers.SystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
@@ -344,7 +345,7 @@ public class DragProxy extends UIComponent
 		// in untrusted mode, the mouse events shouldn't work so we shouldn't be here
 
 		// same domain
-		if (isSameSandbox(target))
+		if (isSameOrChildApplicationDomain(target))
 			target.dispatchEvent(event);
 		else
 		{
@@ -359,19 +360,10 @@ public class DragProxy extends UIComponent
 		}
 	}
 
-	private function isSameSandbox(target:Object):Boolean
+	private function isSameOrChildApplicationDomain(target:Object):Boolean
 	{
-		var ad:ApplicationDomain = ApplicationDomain.currentDomain;
-
-		var cn:String = getQualifiedClassName(target);
-
-		if (ad.hasDefinition(cn))
-		{
-			var c:Class = Class(ad.getDefinition(cn));
-			if (target is c)
-				return true;
-		}
-		return false;
+		var swfRoot:DisplayObject = SystemManager.getSWFRoot(target);
+		return (swfRoot != null);
 	}
 
     /**
