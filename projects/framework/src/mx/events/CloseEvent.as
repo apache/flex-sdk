@@ -19,6 +19,11 @@ import flash.events.Event;
  *  such as the Alert control.
  *
  *  @see mx.controls.Alert
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CloseEvent extends Event
 {
@@ -53,6 +58,11 @@ public class CloseEvent extends Event
      *  </table>
      *
      *  @eventType close
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CLOSE:String = "close";
 
@@ -73,6 +83,11 @@ public class CloseEvent extends Event
      *
      *  @param detail Value of the detail property; identifies the button in the popped up
      *  control that was clicked.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function CloseEvent(type:String, bubbles:Boolean = false,
                                cancelable:Boolean = false, detail:int = -1)
@@ -102,6 +117,11 @@ public class CloseEvent extends Event
      *    <li><code>Alert.OK</code></li>
      *    <li><code>Alert.CANCEL</code></li>
      *  </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var detail:int;
 
