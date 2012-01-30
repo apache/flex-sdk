@@ -52,8 +52,7 @@ import mx.events.PropertyChangeEventKind;
 import mx.events.ResizeEvent;
 import mx.events.StateChangeEvent;
 import mx.events.ValidationResultEvent;
-import mx.filters.BaseFilter;
-import mx.filters.IBitmapFilter;
+import mx.filters.IFlexBitmapFilter;
 import mx.geom.CompoundTransform;
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
@@ -2437,7 +2436,7 @@ public class UIComponent extends FlexSprite
             {
                 e = _filters[i] as IEventDispatcher;
                 if (e)
-                    e.removeEventListener(BaseFilter.CHANGE, filterChangeHandler);
+                    e.removeEventListener(Event.CHANGE, filterChangeHandler);
             }
         }
 
@@ -2449,12 +2448,12 @@ public class UIComponent extends FlexSprite
             n = _filters.length;
             for (i = 0; i < n; i++)
             {
-                if (_filters[i] is IBitmapFilter)
+                if (_filters[i] is IFlexBitmapFilter)
                 {
                     e = _filters[i] as IEventDispatcher;
                     if (e)
-                        e.addEventListener(BaseFilter.CHANGE, filterChangeHandler);
-                    clonedFilters.push(IBitmapFilter(_filters[i]).clone());
+                        e.addEventListener(Event.CHANGE, filterChangeHandler);
+                    clonedFilters.push(IFlexBitmapFilter(_filters[i]).createBitmapFilter());
                 }
                 else
                 {
