@@ -269,11 +269,9 @@ public class ViewNavigatorApplicationBase extends Application
      *  When the application is relaunched, this data is automatically read from 
      *  the persistence store and applied to the application's navigator.
      * 
-     *  <p>When enabled, the application version and the time the persistence data was 
-     *  generated are also be added to the persistence object.  
+     *  <p>When enabled, the application version will be added to the persistence object.  
      *  You can access this information by using the persistence manager's 
-     *  <code>getProperty()</code> method and specifying either 
-     *  the <code>applicationVersion</code> or <code>timestamp</code> key.</p>
+     *  <code>getProperty()</code> method and ask for the <code>versionNumber</code> key.
      * 
      *  <p>When the persistence object is being created, the application dispatches
      *  a cancelable <code>FlexEvent.NAVIGATOR_STATE_SAVING</code> event when the process
@@ -460,9 +458,8 @@ public class ViewNavigatorApplicationBase extends Application
      *  Responsible for persisting the application state to the persistence manager.
      *  This method is called automatically when <code>persistNavigatorState</code>
      *  is set to <code>true</code>.  
-     *  By default, this method saves the application version 
-     *  and the time the persistence object was created to the <code>timestamp</code> and 
-     *  <code>applicationVersion</code> keys of the PersistenceManager object.
+     *  By default, this method saves the application version in the 
+     *  <code>versionNumber</code> key of the PersistenceManager object.
      * 
      *  <p>This method is only called if the <code>FlexEvent.NAVIGATOR_STATE_SAVING</code>
      *  event is not canceled.</p>
