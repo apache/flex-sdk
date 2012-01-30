@@ -21,9 +21,9 @@ import mx.geom.TransformOffsets;
  *  laid out and displayed in a Spark application.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public interface IVisualElement extends ILayoutElement
 {
@@ -43,9 +43,9 @@ public interface IVisualElement extends ILayoutElement
      *  <p>The default value is the value of the <code>parent</code> property.</p>
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get owner():DisplayObjectContainer;
     
@@ -63,9 +63,9 @@ public interface IVisualElement extends ILayoutElement
      *  property to reference the object to which they belong.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get parent():DisplayObjectContainer;
     
@@ -80,9 +80,9 @@ public interface IVisualElement extends ILayoutElement
      *  @default 0
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function set layer(value:Number):void;
     
@@ -103,9 +103,9 @@ public interface IVisualElement extends ILayoutElement
      *  <p>Each component should override this property.</p>
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get baselinePosition():Number;
     
@@ -128,9 +128,9 @@ public interface IVisualElement extends ILayoutElement
      *  @see ILayoutElement#includeInLayout
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get visible():Boolean;
     
@@ -150,6 +150,11 @@ public interface IVisualElement extends ILayoutElement
      *  property, the the mirror property will be set to true.
      *  
      *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get dir():String;
     function set dir(value:String):void;
@@ -167,6 +172,11 @@ public interface IVisualElement extends ILayoutElement
      *  not intended to be set directly.
      * 
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get mirror():Boolean;
     function set mirror(value:Boolean):void;    
