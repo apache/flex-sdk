@@ -34,6 +34,11 @@ use namespace mx_internal;
  *  been interrupted by a call to the <code>end()</code> method.
  *
  *  @eventType mx.events.EffectEvent.EFFECT_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="effectEnd", type="mx.events.EffectEvent")]
 
@@ -47,6 +52,11 @@ use namespace mx_internal;
  *  end state.
  *
  *  @eventType mx.events.EffectEvent.EFFECT_STOP
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="effectStop", type="mx.events.EffectEvent")]
 
@@ -54,6 +64,11 @@ use namespace mx_internal;
  *  Dispatched when the effect starts playing.
  *
  *  @eventType mx.events.EffectEvent.EFFECT_START
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="effectStart", type="mx.events.EffectEvent")]
 
@@ -98,6 +113,11 @@ use namespace mx_internal;
  *  @see mx.effects.EffectInstance
  * 
  *  @includeExample examples/SimpleEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Effect extends EventDispatcher implements IEffect
 {
@@ -184,6 +204,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  </ul>
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Effect(target:Object = null)
     {
@@ -215,6 +240,11 @@ public class Effect extends EventDispatcher implements IEffect
      * state, as opposed to leaving values as set by the effect itself.
      * 
      * @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var applyTransitionEndProperties:Boolean = 
         (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0) ? 
@@ -273,6 +303,11 @@ public class Effect extends EventDispatcher implements IEffect
 
     /**
      *  @copy mx.effects.IEffect#className
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get className():String
     {
@@ -291,6 +326,11 @@ public class Effect extends EventDispatcher implements IEffect
         
     /**
      *  @copy mx.effects.IEffect#customFilter
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get customFilter():EffectTargetFilter
     {
@@ -325,6 +365,11 @@ public class Effect extends EventDispatcher implements IEffect
     
     /** 
      *  @copy mx.effects.IEffect#duration
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get duration():Number
     {
@@ -360,6 +405,11 @@ public class Effect extends EventDispatcher implements IEffect
     
     /**
      *  @copy mx.effects.IEffect#effectTargetHost
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get effectTargetHost():IEffectTargetHost
     {
@@ -389,6 +439,11 @@ public class Effect extends EventDispatcher implements IEffect
 	 *  normal effects.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var endValuesCaptured:Boolean = false;
 
@@ -406,6 +461,11 @@ public class Effect extends EventDispatcher implements IEffect
      
     /**
      *  @copy mx.effects.IEffect#filter
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get filter():String
     {
@@ -510,6 +570,11 @@ public class Effect extends EventDispatcher implements IEffect
 
     /**
      *  @copy mx.effects.IEffect#hideFocusRing
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get hideFocusRing():Boolean
     {
@@ -534,6 +599,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  
      *  <p>All subclasses of the Effect class must set this property 
      *  in their constructor.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public var instanceClass:Class = IEffectInstance;
 
@@ -544,6 +614,11 @@ public class Effect extends EventDispatcher implements IEffect
 
     /**
      *  @copy mx.effects.IEffect#isPlaying
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get isPlaying():Boolean
     {
@@ -564,6 +639,11 @@ public class Effect extends EventDispatcher implements IEffect
 
     /**
      *  @copy mx.effects.IEffect#perElementOffset
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get perElementOffset():Number
 	{
@@ -590,6 +670,11 @@ public class Effect extends EventDispatcher implements IEffect
         
     /**
      *  @copy mx.effects.IEffect#relevantProperties
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get relevantProperties():Array /* of String */
     {
@@ -619,6 +704,11 @@ public class Effect extends EventDispatcher implements IEffect
         
     /**
      *  @copy mx.effects.IEffect#relevantStyles
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get relevantStyles():Array /* of String */
     {
@@ -647,6 +737,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  until stopped by a call to the <code>end()</code> method.
      *
      *  @default 1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var repeatCount:int = 1;
         
@@ -662,6 +757,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  Possible values are any integer greater than or equal to 0.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var repeatDelay:int = 0;
 
@@ -680,6 +780,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  to the first time the effect is played.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var startDelay:int = 0;
 
@@ -709,6 +814,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  </ul>
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var suspendBackgroundProcessing:Boolean = false;
 
@@ -719,6 +829,11 @@ public class Effect extends EventDispatcher implements IEffect
 
     /** 
      *  @copy mx.effects.IEffect#target
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get target():Object
     {
@@ -754,6 +869,11 @@ public class Effect extends EventDispatcher implements IEffect
 
     /**
      *  @copy mx.effects.IEffect#targets
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get targets():Array
     {
@@ -789,6 +909,11 @@ public class Effect extends EventDispatcher implements IEffect
     
     /**
      *  @copy mx.effects.IEffect#triggerEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get triggerEvent():Event
 	{
@@ -821,6 +946,11 @@ public class Effect extends EventDispatcher implements IEffect
      * effect.
      * 
      * @see #duration
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function seek(seekTime:Number):void
     {
@@ -856,6 +986,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  This property has a value between 0 and the actual duration 
      *  (which includes the value of the <code>startDelay</code>, 
      *  <code>repeatCount</code>, and <code>repeatDelay</code> properties).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get playheadTime():Number 
     {
@@ -869,6 +1004,11 @@ public class Effect extends EventDispatcher implements IEffect
 
     /**
      *  @copy mx.effects.IEffect#getAffectedProperties()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getAffectedProperties():Array /* of String */
     {
@@ -878,6 +1018,11 @@ public class Effect extends EventDispatcher implements IEffect
     
     /**
      *  @copy mx.effects.IEffect#createInstances()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createInstances(targets:Array = null):Array /* of EffectInstance */
     {
@@ -909,6 +1054,11 @@ public class Effect extends EventDispatcher implements IEffect
 
     /**
      *  @copy mx.effects.IEffect#createInstance()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createInstance(target:Object = null):IEffectInstance
     {       
@@ -970,6 +1120,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  In your override, you must call <code>super.initInstance()</code>. </p>
      *
      *  @param EffectInstance The effect instance to initialize.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function initInstance(instance:IEffectInstance):void
     {
@@ -986,6 +1141,11 @@ public class Effect extends EventDispatcher implements IEffect
     
     /**
      *  @copy mx.effects.IEffect#deleteInstance()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function deleteInstance(instance:IEffectInstance):void
     {
@@ -1006,6 +1166,11 @@ public class Effect extends EventDispatcher implements IEffect
 
     /**
      *  @copy mx.effects.IEffect#play()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function play(targets:Array = null,
                          playReversedFromEnd:Boolean = false):
@@ -1056,6 +1221,11 @@ public class Effect extends EventDispatcher implements IEffect
     
     /**
      *  @copy mx.effects.IEffect#pause()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function pause():void
     {   
@@ -1073,6 +1243,11 @@ public class Effect extends EventDispatcher implements IEffect
 
     /**
      *  @copy mx.effects.IEffect#stop()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function stop():void
     {   
@@ -1087,6 +1262,11 @@ public class Effect extends EventDispatcher implements IEffect
     
     /**
      *  @copy mx.effects.IEffect#resume()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function resume():void
     {
@@ -1103,6 +1283,11 @@ public class Effect extends EventDispatcher implements IEffect
         
     /**
      *  @copy mx.effects.IEffect#reverse()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function reverse():void
     {
@@ -1118,6 +1303,11 @@ public class Effect extends EventDispatcher implements IEffect
     
     /**
      *  @copy mx.effects.IEffect#end()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function end(effectInstance:IEffectInstance = null):void
     {
@@ -1146,6 +1336,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  @param targ The effect target.
      *
      *  @return Returns <code>true</code> if the effect instance should play.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function filterInstance(propChanges:Array, target:Object):Boolean 
     {
@@ -1157,6 +1352,11 @@ public class Effect extends EventDispatcher implements IEffect
     
     /**
      *  @copy mx.effects.IEffect#captureStartValues()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function captureStartValues():void
     {       
@@ -1172,6 +1372,11 @@ public class Effect extends EventDispatcher implements IEffect
 
     /**
      *  @copy mx.effects.IEffect#captureMoreStartValues()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function captureMoreStartValues(targets:Array):void
     {       
@@ -1187,6 +1392,11 @@ public class Effect extends EventDispatcher implements IEffect
     
     /**
      *  @copy mx.effects.IEffect#captureEndValues()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function captureEndValues():void
     {
@@ -1295,6 +1505,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  @param property The target property.
      *
      *  @return The value of the target property. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getValueFromTarget(target:Object, property:String):*
     {
@@ -1450,6 +1665,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  @param props Array of Objects, where each Array element contains a 
      *  <code>start</code> and <code>end</code> Object
      *  for the properties that the effect is monitoring. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function applyValueToTarget(target:Object, property:String, 
                                           value:*, props:Object):void
@@ -1498,6 +1718,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  If you override this method, ensure that you call the super method. 
      *
      *  @param event An event object of type EffectEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function effectStartHandler(event:EffectEvent):void 
     {
@@ -1510,6 +1735,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  If you override this method, ensure that you call the super method.
      *
      *  @param event An event object of type EffectEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function effectStopHandler(event:EffectEvent):void
     {
@@ -1524,6 +1754,11 @@ public class Effect extends EventDispatcher implements IEffect
      *  If you override this method, ensure that you call the super method.
      *
      *  @param event An event object of type EffectEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function effectEndHandler(event:EffectEvent):void 
     {
