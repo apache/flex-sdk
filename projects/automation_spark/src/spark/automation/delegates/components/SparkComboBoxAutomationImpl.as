@@ -84,9 +84,14 @@ package spark.automation.delegates.components
 		public function SparkComboBoxAutomationImpl(obj:spark.components.ComboBox)
 		{
 			super(obj);
-			obj.textInput.addEventListener(KeyboardEvent.KEY_DOWN, textKeyDownHandler, false, 0 , true);
-			obj.textInput.addEventListener(AutomationRecordEvent.RECORD,
-				textInput_recordHandler, false, 0, true)
+			
+		}
+		
+		override protected function componentInitialized():void 
+		{
+			sparkComboBox.textInput.addEventListener(KeyboardEvent.KEY_DOWN, textKeyDownHandler, false, 0 , true);
+			sparkComboBox.textInput.addEventListener(AutomationRecordEvent.RECORD,
+				textInput_recordHandler, false, 0, true);
 		}
 		
 		/**
