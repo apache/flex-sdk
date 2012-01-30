@@ -325,7 +325,9 @@ public class ParallelInstance extends CompositeEffectInstance
 	 *  For SequenceInstance, it plays the next effect.
 	 *  In ParallelInstance, it keeps track of all the 
 	 *  effects until all of them have finished playing. 
-	 *  If you create a subclass of CompositeEffect, you must implement this method. 
+	 *  If you create a subclass of CompositeEffect, you must implement this method.
+         *
+         * @param childEffect A child effect that has finished. 
 	 */
 	override protected function onEffectEnd(childEffect:IEffectInstance):void
 	{
