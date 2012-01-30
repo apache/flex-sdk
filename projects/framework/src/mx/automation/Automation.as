@@ -24,6 +24,11 @@ use namespace mx_internal;
 
 /**
  * The Automation class defines the entry point for the Flex Automation framework.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Automation
 {
@@ -56,6 +61,11 @@ public class Automation
     
     /**
      * The IAutomationManager instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get automationManager():IAutomationManager
     {
@@ -82,6 +92,11 @@ public class Automation
     
     /**
      * The available IAutomationObjectHelper instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get automationObjectHelper():IAutomationObjectHelper
     {
@@ -94,6 +109,11 @@ public class Automation
 
     /**
      * Contains <code>true</code> if the automation module has been initialized.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get initialized():Boolean
     {
@@ -111,6 +131,11 @@ public class Automation
         
     /**
      * The currently active mouse simulator.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get mouseSimulator():IAutomationMouseSimulator
     {
@@ -137,6 +162,11 @@ public class Automation
      *  @param compClass The component class. 
      * 
      *  @param delegateClass The delegate class associated with the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function registerDelegateClass(compClass:Class, delegateClass:Class):void
     {
