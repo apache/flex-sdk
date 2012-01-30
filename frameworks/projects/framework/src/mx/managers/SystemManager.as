@@ -3229,6 +3229,7 @@ public class SystemManager extends MovieClip
             // This listener is intended to run before any other KeyboardEvent listeners
             // so that it can redispatch a cancelable=true copy of the event. 
             addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true, 1000);
+            addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, true, 1000);
         }
 
         var docFrame:int = (totalFrames == 1)? 0 : 1;
@@ -3438,6 +3439,18 @@ public class SystemManager extends MovieClip
                 }
             }
         }
+    }
+    
+    private function mouseWheelHandler(e:MouseEvent):void
+    {
+    	if (!e.cancelable)
+    	{
+    		e.stopImmediatePropagation();
+    		var cancelableEvent:MouseEvent = 
+    			new MouseEvent(e.type, e.bubbles, true, e.localX, e.localY, e.relatedObject, 
+    						   e.ctrlKey, e.altKey, e.shiftKey, e.buttonDown, e.delta);
+    		e.target.dispatchEvent(cancelableEvent);			   
+    	}
     }
 
     private function installCompiledResourceBundles():void
