@@ -528,10 +528,11 @@ public class ViewNavigatorApplicationBase extends Application
         // We need to listen to different events on desktop and mobile because
         // on desktop, the deactivate event is dispatched whenever the window loses
         // focus.  This could cause persistence to run when the developer doesn't
-        // expect it to on desktop.
+        // expect it to on desktop.  So our solution temporarily is to assume that
+        // if the os string contains Windows or Mac, assume we are running on desktop.
         var os:String = Capabilities.os;
         
-        // FIXME (chiedozi): enumerate all possible os values
+        // TODO (chiedozi): Try to find a better workaround for this
         if (os.indexOf("Windows") != -1 || os.indexOf("Mac OS") != -1)
             NativeApplication.nativeApplication.
                 addEventListener(Event.EXITING, deactivateHandler);
