@@ -1983,6 +1983,7 @@ public class UIComponent extends FlexSprite
 		   		_layoutFeatures.layoutScaleX = value;
 		   	}
 	   		invalidateTransform();
+	   		invalidateProperties();
 	
 	        // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
 	        // and scaleX is changing we need to invalidate parent size and display list
@@ -2063,6 +2064,8 @@ public class UIComponent extends FlexSprite
 		   		_layoutFeatures.layoutScaleY = value;
 		   	}
 	   		invalidateTransform();
+	   		invalidateProperties();
+
             // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
             // and scaleX is changing we need to invalidate parent size and display list
             // since we are not going to detect a change in measured sizes during measure.
@@ -5871,15 +5874,6 @@ public class UIComponent extends FlexSprite
 			{
 				UIComponentGlobals.layoutManager.invalidateDisplayList(this);
 			}
-		}
-		else
-		{
-			//esg: if we don't have advanced layout features allocated, we won't
-			// need or get a call to validateDisplayList. But we do want an updateComplete event
-			// to fire, so instead we'll do an invalidateProperties(); 
-			// TODO esg: can we optimize away this invalidateProperties, so it doesn't fire
-			// on every transform update?
-			invalidateProperties();
 		}
 	}
 
