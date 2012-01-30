@@ -37,7 +37,9 @@ import spark.skins.mobile320.assets.CheckBox_upSymbol;
 import spark.skins.mobile320.assets.CheckBox_upSymbolSelected;
 
 /**
- *  Actionscript based skin for CheckBox on mobile applications. 
+ *  ActionScript-based skin for CheckBox components in mobile applications. 
+ * 
+ *  @see spark.components.CheckBox
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
