@@ -163,12 +163,12 @@ public class CandlestickSeries extends HLOCSeriesBase
     //
     //--------------------------------------------------------------------------
     
-    /**
-     *  @private
-     */
-    private var _moduleFactoryInitialized:Boolean = false; 
+	/**
+	 *  @private
+	 */
+	private var _moduleFactoryInitialized:Boolean = false; 
 
-    /**
+	/**
      * @private
      */
     private var _localFills:Array /* of IFill */;
@@ -242,7 +242,7 @@ public class CandlestickSeries extends HLOCSeriesBase
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function get fillFunction():Function
+	public function get fillFunction():Function
     {
         return _fillFunction;
     }
@@ -250,7 +250,7 @@ public class CandlestickSeries extends HLOCSeriesBase
     /**
      * @private
      */
-    public function set fillFunction(value:Function):void
+   	public function set fillFunction(value:Function):void
     {
         if (value==_fillFunction)
             return;
@@ -271,128 +271,110 @@ public class CandlestickSeries extends HLOCSeriesBase
     //
     //--------------------------------------------------------------------------   
     
-    /**
-     *  @private
-     */
-    private function initStyles():Boolean
-    {
-        HaloDefaults.init(styleManager);
-        
-        var candlestickSeriesStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.series.CandlestickSeries", styleManager);       
-        
-        candlestickSeriesStyle.defaultFactory = function():void
-        {
-            this.boxStroke = new Stroke(0, 0);
-            this.declineFill = new SolidColor(0);
-            this.fill = new SolidColor(0xFFFFFF);
-            this.fills = [];
-            this.itemRenderer = new ClassFactory(CandlestickItemRenderer);
-            this.stroke = new Stroke(0, 0);
-        }
-        
-        return true;
-    }
+	/**
+	 *  @private
+	 */
+	private function initStyles():Boolean
+	{
+		HaloDefaults.init(styleManager);
+		
+		var candlestickSeriesStyle:CSSStyleDeclaration =
+			HaloDefaults.createSelector("mx.charts.series.CandlestickSeries", styleManager);       
+		
+		candlestickSeriesStyle.defaultFactory = function():void
+		{
+			this.boxStroke = new Stroke(0, 0);
+			this.declineFill = new SolidColor(0);
+			this.fill = new SolidColor(0xFFFFFF);
+			this.fills = [];
+			this.itemRenderer = new ClassFactory(CandlestickItemRenderer);
+			this.stroke = new Stroke(0, 0);
+		}
+		
+		return true;
+	}
 
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    override public function set moduleFactory(factory:IFlexModuleFactory):void
-    {
-        super.moduleFactory = factory;
-        
-        if (_moduleFactoryInitialized)
-            return;
-        
-        _moduleFactoryInitialized = true;
-        
-        // our style settings
-        initStyles();
-    }
-    
+	
+	/**
+	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	override public function set moduleFactory(factory:IFlexModuleFactory):void
+	{
+		super.moduleFactory = factory;
+		
+		if (_moduleFactoryInitialized)
+			return;
+		
+		_moduleFactoryInitialized = true;
+		
+		// our style settings
+		initStyles();
+	}
+	
     /**
      *  @private
      */
     override public function getAllDataPoints():Array /* of HitData */
     {
-        if (!_renderData)
-            return [];
-        if (!(_renderData.filteredCache))
-            return [];
-        
-        var itemArr:Array /* of CandlestickSeriesItem */ = [];
-        if (chart && chart.dataTipItemsSet && dataTipItems)
-            itemArr = dataTipItems;
-        else if (chart && chart.showAllDataTips && _renderData.filteredCache)
-            itemArr = _renderData.filteredCache;
-        else
-            itemArr = [];
-        
-        var n:uint = itemArr.length;
-        var i:uint;
-        var result:Array /* of HitData */ = [];
-        
-        for (i = 0; i < n; i++)
+    	if (!_renderData)
+    		return [];
+    	if (!(_renderData.filteredCache))
+    		return [];
+    	
+    	var itemArr:Array /* of CandlestickSeriesItem */ = [];
+    	if (chart && chart.dataTipItemsSet && dataTipItems)
+    		itemArr = dataTipItems;
+    	else if (chart && chart.showAllDataTips && _renderData.filteredCache)
+    		itemArr = _renderData.filteredCache;
+    	else
+    		itemArr = [];
+    	
+    	var n:uint = itemArr.length;
+    	var i:uint;
+    	var result:Array /* of HitData */ = [];
+    	
+    	for (i = 0; i < n; i++)
         {
             var v:HLOCSeriesItem = itemArr[i];
             if (_renderData.filteredCache.indexOf(v) == -1)
             {
-                var itemExists:Boolean = false;
-                var m:int  = _renderData.filteredCache.length;
-                for (var j:int = 0; j < m; j++)
-                {
-                    if (v.item == _renderData.filteredCache[j].item)
-                    {   
-                        v = _renderData.filteredCache[j];
-                        itemExists = true;
-                        break;
-                    }
-                }
-                if (!itemExists)
-                    continue;
+            	var itemExists:Boolean = false;
+            	var m:int  = _renderData.filteredCache.length;
+            	for (var j:int = 0; j < m; j++)
+            	{
+            		if (v.item == _renderData.filteredCache[j].item)
+            		{	
+            			v = _renderData.filteredCache[j];
+            			itemExists = true;
+            			break;
+            		}
+            	}
+            	if (!itemExists)
+            		continue;
             }
             if (v)
-            {
-                var ypos:Number = (v.open + v.close)/2;
-                var id:uint = v.index;
-                var hd:HitData = new HitData(createDataID(id),Math.sqrt(0),v.x + _renderData.renderedXOffset,ypos,v);
-                var f:Object = getStyle("declineFill");
+        	{
+            	var ypos:Number = (v.open + v.close)/2;
+            	var id:uint = v.index;
+            	var hd:HitData = new HitData(createDataID(id),Math.sqrt(0),v.x + _renderData.renderedXOffset,ypos,v);
+            	var f:Object = getStyle("declineFill");
             
-                hd.contextColor = GraphicsUtilities.colorFromFill(HLOCSeriesItem(hd.chartItem).fill);
+           	 	hd.contextColor = GraphicsUtilities.colorFromFill(HLOCSeriesItem(hd.chartItem).fill);
             
-                hd.dataTipFunction = formatDataTip;
-                result.push(hd);
-            }
+            	hd.dataTipFunction = formatDataTip;
+            	result.push(hd);
+        	}
         }
         return result;
     }
     
     /* 
-     *  Returns a HitData object describing the nearest data point
-     *  to the coordinates passed to the method.
-     *  The <code>x</code> and <code>y</code> arguments
-     *  should be values in the Element's coordinate system.
-     *  This method aheres to the limits specified by the
-     *  <code>sensitivity2</code> parameter
-     *  when looking for nearby data points.
-     *
-     *  @param x The x coordinate relative to the ChartBase object.
-     *
-     *  @param y The y coordinate relative to the ChartBase object.
-     *  
-     *  @param sensitivity The maximum distance from the data point that the
-     *  x/y coordinate location can be.
-     *
-     *  @return A HitData object describing the nearest data point
-     *  within <code>sensitivity</code> pixels.
-     *
-     *  @see mx.charts.HitData
+     *  @copy mx.charts.chartClasses.IChartElement#findDataPoints()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -472,9 +454,9 @@ public class CandlestickSeries extends HLOCSeriesBase
     {
         _localFills = getStyle('fills');
         if (_localFills != null)
-            _fillCount = _localFills.length;
+        	_fillCount = _localFills.length;
         else
-            _fillCount = 0;
+        	_fillCount = 0;
         super.stylesInitialized();
     }
     
@@ -489,9 +471,9 @@ public class CandlestickSeries extends HLOCSeriesBase
         {
             _localFills = getStyle('fills');
             if (_localFills != null)
-                _fillCount = _localFills.length;
-            else
-                _fillCount = 0;                
+        		_fillCount = _localFills.length;
+        	else
+        		_fillCount = 0;                
             invalidateDisplayList();
             legendDataChanged();
         }
@@ -516,15 +498,15 @@ public class CandlestickSeries extends HLOCSeriesBase
         var b:Number;
         
         if(dataTransform && dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) is NumericAxis &&
-            (dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")
+        	(dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS) as NumericAxis).direction == "inverted")
         {
-            a = item.open;
-            b = item.close;
+        	a = item.open;
+        	b = item.close;
         }
         else
         {
-            a = item.close;
-            b = item.open;
+        	a = item.close;
+        	b = item.open;
         }
         if (a > b)
             return(GraphicsUtilities.fillFromStyle(getStyle("declineFill")));
