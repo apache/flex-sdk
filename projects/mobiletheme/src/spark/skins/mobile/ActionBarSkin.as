@@ -271,7 +271,7 @@ public class ActionBarSkin extends MobileSkin
         colors[2] = ColorUtil.adjustBrightness2(chromeColor, -20);
         
         graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
-        graphics.drawRect(0, 1, unscaledWidth, unscaledHeight - 1);
+        graphics.drawRect(0, 1, unscaledWidth, unscaledHeight);
         graphics.endFill();
     }
 }
