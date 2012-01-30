@@ -930,11 +930,14 @@ public class Window extends SkinnableContainer implements IWindow
      */ 
     override public function get visible():Boolean
     {
-        if (!nativeWindow.closed)
-            return _nativeWindow.visible;
-        else
+        if (nativeWindow && nativeWindow.closed)
             return false;
+        if (nativeWindow)
+            return nativeWindow.visible;
+        else
+            return _nativeWindowVisible;
     }
+    
     /**
      *  @private
      */
@@ -964,8 +967,8 @@ public class Window extends SkinnableContainer implements IWindow
                 else
                 {
                     _nativeWindow.visible = value;
-                    dispatchEvent(e);
                 }
+                dispatchEvent(e);
             }
         }
     }
@@ -2279,9 +2282,9 @@ public class Window extends SkinnableContainer implements IWindow
      */
     private function hideEffectEndHandler(event:Event):void
     {
-        _nativeWindow.visible = false;
-        
-        dispatchEvent(new FlexEvent(FlexEvent.HIDE));
+        if (!_nativeWindow.closed)
+            _nativeWindow.visible = false;
+        removeEventListener(EffectEvent.EFFECT_END, hideEffectEndHandler);
     }
 
     /**
