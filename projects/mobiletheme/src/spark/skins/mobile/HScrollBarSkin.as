@@ -13,11 +13,12 @@ package spark.skins.mobile
 {
 
 import mx.core.DPIClassification;
+import mx.core.mx_internal;
 
 import spark.components.Button;
 import spark.components.HScrollBar;
 import spark.skins.mobile.supportClasses.MobileSkin;
-import mx.core.mx_internal;
+
 use namespace mx_internal;
 
 /**
@@ -28,7 +29,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5 
  *  @productversion Flex 4.5
  */
- public class HScrollBarSkin extends MobileSkin 
+public class HScrollBarSkin extends MobileSkin 
 {   
     //--------------------------------------------------------------------------
     //
@@ -48,25 +49,25 @@ use namespace mx_internal;
         super();
         
         useChromeColor = true;
-
-		layoutMeasuredWidth = 20;
+        
+        minWidth = 20;
         thumbSkinClass = HScrollBarThumbSkin;
         var paddingBottom:int;
         var paddingHorizontal:int;
-		
-		// Depending on density set our measured height
+        
+        // Depending on density set our measured height
         switch (applicationDPI)
         {
-			case DPIClassification.DPI_320:
-			{
-				layoutMeasuredHeight = 12;   
+            case DPIClassification.DPI_320:
+            {
+                minHeight = 12;   
                 paddingBottom = HScrollBarThumbSkin.PADDING_BOTTOM_320DPI;
                 paddingHorizontal = HScrollBarThumbSkin.PADDING_HORIZONTAL_320DPI;
-				break;
-			}
+                break;
+            }
             case DPIClassification.DPI_240:
             {
-                layoutMeasuredHeight = 9;   
+                minHeight = 9;   
                 paddingBottom = HScrollBarThumbSkin.PADDING_BOTTOM_240DPI;
                 paddingHorizontal = HScrollBarThumbSkin.PADDING_HORIZONTAL_240DPI;
                 break;
@@ -74,16 +75,16 @@ use namespace mx_internal;
             default:
             {
                 // default PPI160
-                layoutMeasuredHeight = 6;              
+                minHeight = 6;              
                 paddingBottom = HScrollBarThumbSkin.PADDING_BOTTOM_DEFAULTDPI;
                 paddingHorizontal = HScrollBarThumbSkin.PADDING_HORIZONTAL_DEFAULTDPI;
                 break;
             }
         }
-
+        
         // The minimum width is set such that, at it's smallest size, the thumb appears
         // as wide as it is high.
-        minThumbWidth = (layoutMeasuredHeight - paddingBottom) + (paddingHorizontal * 2);   
+        minThumbWidth = (minHeight - paddingBottom) + (paddingHorizontal * 2);   
     }
     
     //--------------------------------------------------------------------------
@@ -100,7 +101,7 @@ use namespace mx_internal;
      *  @private 
      */
     private var minThumbWidth:Number;
-
+    
     /**
      *  Skin to use for the thumb Button skin part
      */
@@ -148,8 +149,8 @@ use namespace mx_internal;
             // We don't want a visible track so we set the skin to MobileSkin
             track = new Button();
             track.setStyle("skinClass", spark.skins.mobile.supportClasses.MobileSkin);
-            track.width = layoutMeasuredWidth;
-            track.height = layoutMeasuredHeight;
+            track.width = minWidth;
+            track.height = minHeight;
             addChild(track);
         }
         
@@ -158,19 +159,10 @@ use namespace mx_internal;
             thumb = new Button();
             thumb.minWidth = minThumbWidth;
             thumb.setStyle("skinClass", thumbSkinClass);
-            thumb.width = layoutMeasuredHeight;
-            thumb.height = layoutMeasuredHeight;
+            thumb.width = minHeight;
+            thumb.height = minHeight;
             addChild(thumb);
         }
-    }
-    
-    /**
-     *  @private 
-     */
-    override protected function measure():void
-    {
-        measuredWidth = layoutMeasuredWidth;
-        measuredHeight = layoutMeasuredHeight;
     }
     
     /**
