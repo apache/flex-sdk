@@ -17,6 +17,7 @@ import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 import flash.events.TimerEvent;
 import flash.system.ApplicationDomain;
+import flash.system.Capabilities;
 import flash.system.SecurityDomain;
 import flash.utils.Timer;
 import mx.core.IFlexModuleFactory;
@@ -320,6 +321,15 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     }
     
     /**
+	 *  @copy mx.resources.IResourceManager#initializeLocaleChain()
+	 */
+	public function initializeLocaleChain(compiledLocales:Array):void
+    {
+        localeChain = LocaleSorter.sortLocalesByPreference(
+            compiledLocales, getSystemPreferredLocales(), null, true);
+    }
+
+    /**
      *  @copy mx.resources.IResourceManager#loadResourceModule()
      */
     public function loadResourceModule(url:String, updateFlag:Boolean = true,
@@ -479,6 +489,15 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
             locales.push(p);
         }
         return locales;
+    }
+
+	/**
+     *  @copy mx.resources.IResourceManager#getPreferredLocaleChain()
+     */
+    public function getPreferredLocaleChain():Array /* of String */
+    {
+        return LocaleSorter.sortLocalesByPreference(
+            getLocales(), getSystemPreferredLocales(), null, true);
     }
     
     /**
@@ -719,6 +738,23 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
             applicationDomain, locales, bundleNames);
 
         localeChain = locales;
+    }
+    
+    /**
+     *  @private
+     */  
+    private function getSystemPreferredLocales():Array /* of String */
+    {
+    	var systemPreferences:Array;
+        
+        // Capabilities.languages was added in AIR 1.1,
+        // so this API may not exist.
+        if (Capabilities["languages"])
+        	systemPreferences = Capabilities["languages"];
+        else
+        	systemPreferences = [ Capabilities.language ];
+
+        return systemPreferences;
     }
     
     /**
