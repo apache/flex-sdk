@@ -229,17 +229,26 @@ use namespace mx_internal;
 [Style(name="fontWeight", type="String", enumeration="normal,bold", inherit="yes")]
 
 /**
+ *  @copy spark.components.supportClasses.SkinnableTextBase#style:locale
+ *
+ *  @langversion 3.0
+ *  @playerversion AIR 3.0
+ *  @productversion Flex 4.5.2
+ */
+[Style(name="locale", type="String", inherit="yes")]
+
+/**
  *  Alignment of text within a container.
- *  Possible values are <code>"left"</code>, <code>"right"</code>,
- *  or <code>"center"</code>.
+ *  Possible values are <code>"start"</code>, <code>"end"</code>, <code>"left"</code>, 
+ *  <code>"right"</code>, or <code>"center"</code>.
  * 
- *  @default "left"
+ *  @default "start"
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3.0
  *  @productversion Flex 4.5.2
  */
-[Style(name="textAlign", type="String", enumeration="left,center,right", inherit="yes")]
+[Style(name="textAlign", type="String", enumeration="start,end,left,right,center", inherit="yes")]
 
 /**
  *  The StyleableStageText class is a text primitive for use in ActionScript
@@ -253,7 +262,15 @@ use namespace mx_internal;
  *  text entry assistance.  
  *  This class can also be used on desktop platforms where it behaves as a wrapper around TextField.
  *  </p>
- *     
+ * 
+ *  <li>The padding around native text controls may be different than the padding around 
+ *  TextField controls.</li>
+ * 
+ *  <p>Similiar to other native applications, when you tap outside of the native text field, the 
+ *  text field gives up focus and the soft keyboard goes away.  
+ *  This differs from when you tap outside of a TextField and the focus stays in the TextField and 
+ *  the soft keyboard remains visible.</p>
+ * 
  *  <p><b>Limitation of StageText-based controls:</b>
  *  <ul>
  *  <li>Native text input fields cannot be clipped by other Flex content and are rendered in a 
@@ -263,28 +280,19 @@ use namespace mx_internal;
  *  Flex popups and drop-downs will also be obscured by any visible native text fields. 
  *  Finally, native text fields' relative z-order cannot be controlled by the application.</li>
  * 
- *  <li>StageText uses a native text control both for text display and text entry. 
- *  These native controls do not support embedded fonts.</li>
+ *  <li>The native controls do not support embedded fonts.</li>
  * 
- *  <li>The padding around native text controls may be different than the padding around 
- *  TextField controls.</li>
+ *  <li>Links and html markup are not supported.</li>
  * 
- *  <li>StageText does not support links or html markup. Only plain text is supported.</li>
+ *  <li><code>text</code> is always selectable.</li>
  * 
- *  <li>StageText <code>text</code> is always selectable.</li>
+ *  <li>Fractional alpha values are not supported.</li>
  * 
- *  <li>StageText does not support fractional alpha values.</li>
- * 
- *  <li>StageText does not dispatch keyboard events for most keys.
+ *  <li>Keyboard events are not dispatched for most keys.
  *  This means that the tab key will not dispatch keyDown or keyUp events so focus
  *  cannot be removed from a StageText-based control with the tab key.</li>
  * 
  *  <li>StageText is currently not capable of measuring text.</li>
- * 
- *  <li>Similiar to other native applications, when you tap outside of the native text field, the 
- *  text field gives up focus and the soft keyboard goes away.  
- *  This differs from when you tap outside of a TextField and the focus stays in the TextField and 
- *  the soft keyboard remains visible.</li>
  * 
  *  <li>At this time StageText does not support programmatic control of scroll position. </li>
  * 
@@ -308,7 +316,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //
     //--------------------------------------------------------------------------
     
-    private static var supportedStyles:String = "textAlign fontFamily fontWeight fontStyle fontSize color";
+    private static var supportedStyles:String = "textAlign fontFamily fontWeight fontStyle fontSize color locale";
     
     /**
      *  StageText does not support setting its style-like properties to null or
