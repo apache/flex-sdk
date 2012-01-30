@@ -204,6 +204,18 @@ SkinnableContainer
     skinClass: ClassReference("spark.skins.spark.SkinnableContainerSkin");
 }
 
+SkinnableTextBase:normalWithPrompt 
+{
+    color: #BABABA;
+    fontStyle: normal;
+}
+
+SkinnableTextBase:disabledWithPrompt 
+{
+    color: #BABABA;
+    fontStyle: normal;
+}
+
 Spinner
 {
     skinClass: ClassReference("spark.skins.spark.SpinnerSkin");    
@@ -222,19 +234,19 @@ TabbedViewNavigator
 
 TextArea
 {
-    paddingBottom: 3;
-    paddingLeft: 3;
-    paddingRight: 3;
-    paddingTop: 5;
+    paddingBottom: 9;
+    paddingLeft: 8;
+    paddingRight: 8;
+    paddingTop: 9;
 	skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
 }
 
 TextInput
 {
-    paddingBottom: 3;
-    paddingLeft: 3;
-    paddingRight: 3;
-    paddingTop: 5;
+    paddingBottom: 9;
+    paddingLeft: 8;
+    paddingRight: 8;
+    paddingTop: 9;
 	skinClass: ClassReference("spark.skins.mobile.TextInputSkin");
 }
 
