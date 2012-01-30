@@ -17,7 +17,7 @@ import flash.events.Event;
 import flash.text.TextLineMetrics;
 
 import spark.components.TextInput;
-import spark.components.supportClasses.MobileTextField;
+import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.assets.TextInput_border;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
@@ -65,7 +65,7 @@ public class TextInputSkin extends MobileSkin
     /**
      *  textDisplay skin part.
      */
-    public var textDisplay:MobileTextField;
+    public var textDisplay:StyleableTextField;
     
     /**
      *  @private
@@ -90,7 +90,7 @@ public class TextInputSkin extends MobileSkin
         border = new TextInput_border;
         addChild(border);
         
-        textDisplay = MobileTextField(createInFontContext(MobileTextField));
+        textDisplay = StyleableTextField(createInFontContext(StyleableTextField));
         textDisplay.styleProvider = this;
         textDisplay.editable = true;
 		textDisplay.addEventListener("editableChanged", editableChangedHandler);
