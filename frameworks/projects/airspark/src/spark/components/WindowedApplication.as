@@ -316,7 +316,7 @@ use namespace mx_internal;
  *  The WindowedApplication defines the application container
  *  that you use to create Flex applications for AIR applications.
  *
- *  <p>The WindowedApplication serves two roles. It is a replacement for the &lt;mx:FxApplication&gt;
+ *  <p>The WindowedApplication serves two roles. It is a replacement for the &lt;mx:WindowedApplication&gt;
  *  tag, functioning as the entry point to a Flex-based AIR application. In addition,
  *  as a container the WindowedApplication defines the layout of the initial window
  *  of a Flex AIR application -- any visual controls defined in the WindowedApplication
