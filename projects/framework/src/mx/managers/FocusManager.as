@@ -442,6 +442,12 @@ public class FocusManager implements IFocusManager
     public function set defaultButtonEnabled(value:Boolean):void
     {
         _defaultButtonEnabled = value;
+        
+        // Synchronize with the new value. We ensure that our 
+        // default button is de-emphasized if defaultButtonEnabled
+        // is false.
+        if (defButton)
+            defButton.emphasized = value;
     }
     
     //----------------------------------
@@ -625,7 +631,7 @@ public class FocusManager implements IFocusManager
                 if (target is IButton && target != _defaultButton 
                     && !(target is IToggleButton))
                     _defaultButton.emphasized = false;
-                else 
+                else if (_defaultButtonEnabled)
                     _defaultButton.emphasized = true;
             }
  
