@@ -16,6 +16,9 @@ import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
+import mx.core.mx_internal;
+
+use namespace mx_internal;
 
 /**
  *  The RadialGradient class lets you specify a gradual color transition 
@@ -201,8 +204,7 @@ public class RadialGradient extends GradientBase implements IFill
         {
             _focalPointRatio = value;
             
-            mx_internal::dispatchGradientChangedEvent("focalPointRatio",
-                                                      oldValue, value);
+            dispatchGradientChangedEvent("focalPointRatio", oldValue, value);
         }
     }
     
@@ -250,7 +252,7 @@ public class RadialGradient extends GradientBase implements IFill
     	if (value != oldValue && !compoundTransform)
     	{
     		_scaleY = value;
-    		mx_internal::dispatchGradientChangedEvent("scaleY", oldValue, value);
+    		dispatchGradientChangedEvent("scaleY", oldValue, value);
     	}
     }
     
@@ -290,8 +292,7 @@ public class RadialGradient extends GradientBase implements IFill
 		if (!compoundTransform)
 		{
 	        commonMatrix.scale (w / GRADIENT_DIMENSION, h / GRADIENT_DIMENSION);
-	        commonMatrix.rotate(!isNaN(mx_internal::_angle) ? 
-											mx_internal::_angle : mx_internal::rotationInRadians);
+	        commonMatrix.rotate(!isNaN(_angle) ? _angle : rotationInRadians);
 	        commonMatrix.translate(regX, regY);						
 		}
 	 	else
@@ -301,9 +302,8 @@ public class RadialGradient extends GradientBase implements IFill
 	 		commonMatrix.concat(compoundTransform.matrix);
 	 	}
 	  		  	
-        target.beginGradientFill(GradientType.RADIAL, mx_internal::colors,
-								 mx_internal::alphas, mx_internal::ratios,
-								 commonMatrix, spreadMethod, interpolationMethod, focalPointRatio);      
+        target.beginGradientFill(GradientType.RADIAL, colors, alphas, ratios,
+            commonMatrix, spreadMethod, interpolationMethod, focalPointRatio);      
     }
 
     /**
