@@ -291,7 +291,7 @@ public class UITextFormat extends TextFormat
 	 *  which maps Unicode character order to glyph order.</p>
 	 * 
 	 *  <p>Note: This style only applies when this UITextFormat
-	 *  is used with a UITLFTextField rather than a UITextField.</p>
+	 *  is used with a UIFTETextField rather than a UITextField.</p>
 	 *
 	 *  @default null
 	 *
@@ -346,7 +346,7 @@ public class UITextFormat extends TextFormat
 	 *  to font glyphs and to find fallback fonts.</p>
 	 *
 	 *  <p>Note: This style only applies when this UITextFormat
-	 *  is used with a UITLFTextField rather than a UITextField.</p>
+	 *  is used with a UIFTETextField rather than a UITextField.</p>
 	 *
 	 *  @default null
 	 *
@@ -445,7 +445,7 @@ public class UITextFormat extends TextFormat
     public var thickness:Number;
     
     //----------------------------------
-    //  useTLF
+    //  useFTE
     //----------------------------------
     
     /**
@@ -453,13 +453,13 @@ public class UITextFormat extends TextFormat
      *  and <code>measureHTMLText()</code> methods do text measurement.
      * 
      *  <p>If <code>true</code>, they use an offscreen instance
-     *  of the TLFTextField class in the Text Layout Framework.
+     *  of the FTETextField class in the Text Layout Framework.
      *  If <code>false</code>, they use an offscreen instance
      *  of the TextField class in the Flash Player.</p>
      * 
      *  @default false
      */
-    public var useTLF:Boolean = false;
+    public var useFTE:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -545,9 +545,9 @@ public class UITextFormat extends TextFormat
             fontModuleFactory = systemManager;
         }
         
-        var measurementTextField:Object /* either TextField or TLFTextField */ =
-            useTLF ?
-            textFieldFactory.createTLFTextField(fontModuleFactory) :
+        var measurementTextField:Object /* either TextField or FTETextField */ =
+            useFTE ?
+            textFieldFactory.createFTETextField(fontModuleFactory) :
             textFieldFactory.createTextField(fontModuleFactory);
         
         // Clear any old text from the TextField.
@@ -571,11 +571,11 @@ public class UITextFormat extends TextFormat
         }
 
         // Set other properties based on CSS styles.
-        if (!useTLF)
+        if (!useFTE)
         {
-			// These properties do not have meaning in TLFTextField,
+			// These properties do not have meaning in FTETextField,
 			// and have been implemented to return either null or NaN,
-			// so don't try to set them on a TLFTextField.
+			// so don't try to set them on a FTETextField.
 	        measurementTextField.antiAliasType = antiAliasType;
 	        measurementTextField.gridFitType = gridFitType;
 	        measurementTextField.sharpness = sharpness;
@@ -583,7 +583,7 @@ public class UITextFormat extends TextFormat
         }
         else
         {
-        	// The properties have meaning only on a TLFTextField.
+        	// The properties have meaning only on a FTETextField.
 			measurementTextField.direction = direction;
         	measurementTextField.locale = locale;
         }
