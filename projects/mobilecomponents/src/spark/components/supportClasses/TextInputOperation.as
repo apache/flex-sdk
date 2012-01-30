@@ -31,6 +31,13 @@ public class TextInputOperation extends FlowOperation
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function TextInputOperation():void
     {
         super(null);
