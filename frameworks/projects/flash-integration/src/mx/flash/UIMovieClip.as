@@ -2602,7 +2602,7 @@ public dynamic class UIMovieClip extends MovieClip
      *  A flag that indicates whether child objects can receive focus
      * 
      *  <p>This is similar to the <code>tabChildren</code> property
-     *  used by the Flash Player.
+     *  used by the Flash Player.</p>
      * 
      *  <p>This is usually <code>false</code> because most components
      *  either receive focus themselves or delegate focus to a single
