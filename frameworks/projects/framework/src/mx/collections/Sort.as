@@ -94,6 +94,11 @@ use namespace mx_internal;
  *
  *  @see mx.collections.ICollectionView
  *  @See SortField
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Sort extends EventDispatcher
 {
@@ -107,16 +112,31 @@ public class Sort extends EventDispatcher
 
     /**
      *  When executing a find return the index any matching item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ANY_INDEX_MODE:String = "any";
 
     /**
      *  When executing a find return the index for the first matching item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const FIRST_INDEX_MODE:String = "first";
 
     /**
      *  When executing a find return the index for the last matching item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const LAST_INDEX_MODE:String = "last";
 
@@ -130,6 +150,11 @@ public class Sort extends EventDispatcher
      *  Constructor.
      *
      *  <p>Creates a new Sort with no fields set and no custom comparator.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Sort()
     {
@@ -247,6 +272,11 @@ public class Sort extends EventDispatcher
      *  field by using the SortField class <code>compare</code> property;
      *  This way you can use the default comparison for some fields and a custom
      *  comparison for others.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get compareFunction():Function
     {
@@ -291,6 +321,16 @@ public class Sort extends EventDispatcher
      *  @default null
      * 
      *  @see SortField
+
+     *  
+
+     *  @langversion 3.0
+
+     *  @playerversion Flash 9
+
+     *  @playerversion AIR 1.1
+
+     *  @productversion Flex 3
 
      */
     public function get fields():Array
@@ -337,6 +377,11 @@ public class Sort extends EventDispatcher
      *  sort field values.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get unique():Boolean
     {
@@ -411,6 +456,11 @@ public class Sort extends EventDispatcher
     *              <code>true</code> and the item is not found, returns
     *                the index of the point in the sorted array where the values
     *              would be inserted.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function findItem(items:Array,
                              values:Object,
@@ -619,6 +669,11 @@ public class Sort extends EventDispatcher
      *  <code>property</code> parameter specifies a sort field.
      *  If the sort or any SortField uses a custom comparator,
      * there's no way to know, so return <code>true</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function propertyAffectsSort(property:String):Boolean
     {
@@ -641,6 +696,11 @@ public class Sort extends EventDispatcher
      * <p>Note: an ICollectionView does not automatically update when the
      * SortFields are modified; call its <code>refresh()</code> method to
      * update the view.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function reverse():void
     {
@@ -664,6 +724,11 @@ public class Sort extends EventDispatcher
      *  underlying data.</p>
      *
      *  @param items Array of items to sort.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function sort(items:Array):void
     {
@@ -843,6 +908,11 @@ public class Sort extends EventDispatcher
      * If the sort does not have any sort fields nor a custom comparator
      * just use an empty SortField object and have it use its default
      * logic.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function noFieldsCompare(a:Object, b:Object, fields:Array = null):int
     {
