@@ -21,6 +21,11 @@ import mx.utils.NameUtil;
  *  It overrides the <code>toString()</code> method
  *  to return a string indicating the location of the object
  *  within the hierarchy of DisplayObjects in the application.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FlexSprite extends Sprite
 {
@@ -45,6 +50,11 @@ public class FlexSprite extends Sprite
 	 *
 	 *  @see flash.display.DisplayObject#name
 	 *  @see mx.utils.NameUtil#createUniqueName()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FlexSprite()
 	{
@@ -88,6 +98,11 @@ public class FlexSprite extends Sprite
 	 *
 	 *  @see flash.display.DisplayObject#name
 	 *  @see mx.utils.NameUtil#displayObjectToString()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function toString():String
 	{
