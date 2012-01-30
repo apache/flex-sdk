@@ -877,20 +877,13 @@ public class LineSeries extends Series
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-        
-        var seriesStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.series.LineSeries", styleManager);   
-        
-        seriesStyle.defaultFactory = function():void
-        {
-            this.adjustedRadius = 2;
-            this.fill = new SolidColor(0xFFFFFF);
-            this.lineSegmentRenderer = new ClassFactory(LineRenderer);
-            this.lineStroke = new Stroke(0, 3);
-            this.radius = 4;
-            this.fills = [];
-        }
-        
+		
+		var lineSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.LineSeries");
+		lineSeriesStyle.setStyle("lineSegmentRenderer", new ClassFactory(LineRenderer));
+		lineSeriesStyle.setStyle("fill", new SolidColor(0xFFFFFF));
+		lineSeriesStyle.setStyle("fills", []);
+		lineSeriesStyle.setStyle("lineStroke", new SolidColorStroke(0,3));
+		
         return true;
     }
     
