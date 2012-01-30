@@ -20,6 +20,11 @@ import flash.events.IEventDispatcher;
  *  application in AIR, or by setting the property programmatically.
  *
  *  @eventType flash.events.Event.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="flash.events.Event")]
 
@@ -28,6 +33,11 @@ import flash.events.IEventDispatcher;
  *  by the browser.
  *
  *  @eventType mx.events.BrowserChangeEvent.BROWSER_URL_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="browserURLChange", type="mx.events.BrowserChangeEvent")]
 
@@ -36,6 +46,11 @@ import flash.events.IEventDispatcher;
  *  by the application.
  *
  *  @eventType mx.events.BrowserChangeEvent.URL_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="urlChange", type="mx.events.BrowserChangeEvent")]
 
@@ -46,6 +61,11 @@ import flash.events.IEventDispatcher;
  *  which is accessed with the <code>BrowserManager.getInstance()</code> method.
  * 
  *  @see mx.managers.BrowserManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IBrowserManager extends IEventDispatcher
 {
@@ -53,23 +73,43 @@ public interface IBrowserManager extends IEventDispatcher
     /**
      *  The portion of current URL before the '#' as it appears 
      *  in the browser address bar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get base():String;
 
     /**
      *  The portion of current URL after the '#' as it appears 
      *  in the browser address bar. Use the <code>setURLFragment()</code> method to change this value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get fragment():String;
 
     /**
      *  The title of the application as it should appear in the
      *  browser history.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get title():String;
 
     /**
      *  The current URL as it appears in the browser address bar.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get url():String;
 
@@ -92,6 +132,11 @@ public interface IBrowserManager extends IEventDispatcher
      *  is cancelled, the <code>setBrowserURL()</code> method will not be called.</p>
      *
      * @param value The new fragment to use after the '#' in the URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function setFragment(value:String):void;
 
@@ -100,6 +145,11 @@ public interface IBrowserManager extends IEventDispatcher
      *  This method does not affect the browser's history.
      *
      * @param value The new title to use in the browser's title bar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function setTitle(value:String):void;
 
@@ -113,6 +163,11 @@ public interface IBrowserManager extends IEventDispatcher
      *
      *  @param defaultFragment The fragment to use if no fragment is in the initial URL.
      *  @param defaultTitle The title to use if no fragment is in the initial URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function init(value:String = null, title:String = null):void;
 
@@ -123,6 +178,11 @@ public interface IBrowserManager extends IEventDispatcher
      *  As a result, the <code>init()</code> method usually sets 
      *  the value of the <code>ApplicationGlobals.application.historyManagementEnabled</code> property to <code>false</code> to disable
      *  the HistoryManager.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function initForHistoryManager():void;
 }
