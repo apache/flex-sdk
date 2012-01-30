@@ -1,14 +1,18 @@
 <?xml version="1.0"?>
-<!-- Main application to print a DataGrid control on multiple pages. -->
+<!-- Main application to print a Halo DataGrid control on multiple pages. -->
+<s:Application name="PrintDataGridExample.mxml"
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo"
+        initialize="initData();">
 
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" initialize="initData();">
-
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
 
         import mx.printing.*;
         import mx.collections.ArrayCollection;
         import FormPrintView;
+        import mx.core.FlexGlobals;
 
         // Declare variables and initialize simple variables.
         [Bindable]
@@ -25,11 +29,9 @@
 
         // Fill the dgProvider ArrayCollection with the specified items.
         public function setdgProvider(items:int):void {
-
             prodIndex=1;
             dgProvider.removeAll();
-            for (var z:int=0; z<items; z++)
-            {
+            for (var z:int=0; z<items; z++) {
                 var prod1:Object = {};
                 prod1.Qty = prodIndex * 7;
                 prod1.Index = prodIndex++;
@@ -40,12 +42,11 @@
 
         // The function to print the output.
         public function doPrint():void {
-
             var printJob:FlexPrintJob = new FlexPrintJob();
             if (printJob.start()) {
                 // Create a FormPrintView control as a child of the current view.
                 var thePrintView:FormPrintView = new FormPrintView();
-               Application.application.addChild(thePrintView);
+                FlexGlobals.topLevelApplication.addElement(thePrintView);
 
                 //Set the print view properties.
                 thePrintView.width=printJob.pageWidth;
@@ -58,35 +59,29 @@
                 thePrintView.showPage("single");
                 // If the print image's data grid can hold all the provider's rows,
                 // add the page to the print job.
-                if(!thePrintView.myDataGrid.validNextPage)
-                {
+                if (!thePrintView.myDataGrid.validNextPage)  {
                     printJob.addObject(thePrintView);
                 }
                 // Otherwise, the job requires multiple pages.
-                else
-                {
+                else {
                     // Create the first page and add it to the print job.
                     thePrintView.showPage("first");
                     printJob.addObject(thePrintView);
                     thePrintView.pageNumber++;
                     // Loop through the following code until all pages are queued.
-                    while(true)
-                    {
+                    while (true) {
                         // Move the next page of data to the top of the print grid.
                         thePrintView.myDataGrid.nextPage();
                         thePrintView.showPage("last");
                         // If the page holds the remaining data, or if the last page
                         // was completely filled by the last grid data, queue it for printing.
                         // Test if there is data for another PrintDataGrid page.
-                        if(!thePrintView.myDataGrid.validNextPage)
-                        {
+                        if (!thePrintView.myDataGrid.validNextPage) {
                             // This is the last page; queue it and exit the print loop.
                             printJob.addObject(thePrintView);
                             break;
-                        }
-                        else
-                        // This is not the last page. Queue a middle page.
-                        {
+                        } else {
+                            // This is not the last page. Queue a middle page.
                             thePrintView.showPage("middle");
                             printJob.addObject(thePrintView);
                             thePrintView.pageNumber++;
@@ -94,32 +89,35 @@
                     }
                 }
                 // All pages are queued; remove the FormPrintView control to free memory.
-                Application.application.removeChild(thePrintView);
+                FlexGlobals.topLevelApplication.removeElement(thePrintView);
             }
             // Send the job to the printer.
             printJob.send();
         }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:Panel title="DataGrid Printing Example" height="75%" width="75%"
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+    <s:Panel title="DataGrid Printing Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <mx:DataGrid id="myDataGrid" dataProvider="{dgProvider}">
+                <mx:columns>
+                    <mx:DataGridColumn dataField="Index"/>
+                    <mx:DataGridColumn dataField="Qty"/>
+                </mx:columns>
+            </mx:DataGrid>
 
-        <mx:DataGrid id="myDataGrid" dataProvider="{dgProvider}">
-            <mx:columns>
-                <mx:DataGridColumn dataField="Index"/>
-                <mx:DataGridColumn dataField="Qty"/>
-            </mx:columns>
-        </mx:DataGrid>
+            <s:SimpleText width="100%" color="blue"
+                text="Specify the number of lines and click Fill Grid first. Then you can click Print."/>
 
-        <mx:Text width="100%" color="blue"
-            text="Specify the number of lines and click Fill Grid first. Then you can click Print."/>
+            <s:TextInput id="dataItems" text="35"/>
 
-        <mx:TextInput id="dataItems" text="35"/>
+            <s:HGroup>
+                <s:Button id="setDP" label="Fill Grid" click="setdgProvider(int(dataItems.text));"/>
+                <s:Button id="printDG" label="Print" click="doPrint();"/>
+            </s:HGroup>
+        </s:VGroup>
+    </s:Panel>
 
-        <mx:HBox>
-            <mx:Button id="setDP" label="Fill Grid" click="setdgProvider(int(dataItems.text));"/>
-            <mx:Button id="printDG" label="Print" click="doPrint();"/>
-        </mx:HBox>
-    </mx:Panel>
-</mx:Application>
+</s:Application>
