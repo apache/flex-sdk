@@ -628,7 +628,7 @@ public final class MatrixUtil
                 if (actualSize1 && actualSize2)
                 {
                     // Pick a solution
-                    actualSize = ((actualSize1.x * actualSize1.y) > (actualSize2.x * actualSize1.y)) ? actualSize1 : actualSize2;
+                    actualSize = ((actualSize1.x * actualSize1.y) > (actualSize2.x * actualSize2.y)) ? actualSize1 : actualSize2;
                 }
                 else if (actualSize1)
                 {
