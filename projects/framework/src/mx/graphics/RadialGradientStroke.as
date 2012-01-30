@@ -62,16 +62,16 @@ public class RadialGradientStroke extends GradientStroke
      *  A <code>null</code> value is equivalent to
      *  <code>CapsStyle.ROUND</code>.
      *  This parameter is optional,
-     *  with a default value of <code>null</code>. 
+     *  with a default value of <code>CapsStyle.ROUND</code>. 
      *
      *  @param joints A value from the JointStyle class
      *  that specifies the type of joint appearance used at angles.
      *  Valid values are <code>JointStyle.BEVEL</code>,
      *  <code>JointStyle.MITER</code>, and <code>JointStyle.ROUND</code>.
      *  A <code>null</code> value is equivalent to
-     *  <code>JoinStyle.ROUND</code>.
+     *  <code>JointStyle.ROUND</code>.
      *  This parameter is optional,
-     *  with a default value of <code>null</code>. 
+     *  with a default value of <code>JointStyle.ROUND</code>. 
      *
      *  @param miterLimit A number that indicates the limit
      *  at which a miter is cut off. 
@@ -85,7 +85,7 @@ public class RadialGradientStroke extends GradientStroke
      *  For example, with a <code>miterLimit</code> factor of 2.5 and a 
      *  <code>thickness</code> of 10 pixels, the miter is cut off at 25 pixels. 
      *  This parameter is optional,
-     *  with a default value of <code>0</code>.
+     *  with a default value of <code>3</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -95,9 +95,9 @@ public class RadialGradientStroke extends GradientStroke
     public function RadialGradientStroke(weight:Number = 1,
                                          pixelHinting:Boolean = false,
                                          scaleMode:String = "normal",
-                                         caps:String = null,
-                                         joints:String = null,
-                                         miterLimit:Number = 0)
+                                         caps:String = "round",
+                                         joints:String = "round",
+                                         miterLimit:Number = 3)
     {
         super(weight, pixelHinting, scaleMode, caps, joints, miterLimit);
     }
