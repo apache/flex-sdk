@@ -54,6 +54,8 @@ public class ChangeWatcher
      *  You can use the use the <code>reset()</code> method to change
      *  the value of the <code>host</code> argument after creating
      *  the ChangeWatcher instance.
+     *  The <code>host</code> maintains a list of <code>handlers</code> to invoke 
+     *  when <code>prop</code> changes.
      *
      *  @param chain A value specifying the property or chain to be watched.
      *  Legal values are:
@@ -106,8 +108,8 @@ public class ChangeWatcher
      *  such as modifications in a text field prior to confirmation.
      *
      *  @param useWeakReference (default = false) Determines whether
-     *  the reference to the host is strong or weak. A strong
-     *  reference (the default) prevents the host from being
+     *  the reference to <code>handler</code> is strong or weak. A strong
+     *  reference (the default) prevents <code>handler</code> from being
      *  garbage-collected. A weak reference does not.
      *
      *  @return The ChangeWatcher instance, if at least one property name has
@@ -389,10 +391,13 @@ public class ChangeWatcher
     //----------------------------------
 
     /**
-     *  (default = false) Determines whether the reference to the host
-     *  is strong or weak. A strong reference (the default) prevents
-     *  the host from being garbage-collected. A weak reference does
-     *  not.
+     *  Determines whether the reference to <code>handler</code>
+     *  is strong or weak. 
+     *  A strong reference (the default) prevents
+     *  <code>handler</code> from being garbage-collected. 
+     *  A weak reference does not.
+     *
+     *  @default false 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
