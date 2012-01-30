@@ -679,7 +679,14 @@ public class LabelItemRenderer extends UIComponent
 	//  Protected Properties 
 	//
 	//--------------------------------------------------------------------------
-	// Enforced minimum height of the item renderer
+	/**
+	 *  Minimum height of the item renderer
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5
+	 *  @productversion Flex 4.5
+	 */
 	protected var itemMinimumHeight:uint = 0;
 	
 	
@@ -729,10 +736,8 @@ public class LabelItemRenderer extends UIComponent
             // Text respects padding right, left, top, and bottom
 			labelDisplay.commitStyles();
             measuredWidth = labelDisplay.measuredTextSize.x + horizontalPadding;
-			
-			// FIXME mcho: use a baselineShift style
-			var textShift:Number = 3;
-            measuredHeight = labelDisplay.getLineMetrics(0).ascent - textShift + verticalPadding;
+			// We only care about the "real" ascent
+            measuredHeight = labelDisplay.textTopToLastBaselineHeight + verticalPadding; 
 		}
         
         // enforce minimum height 
@@ -795,8 +800,6 @@ public class LabelItemRenderer extends UIComponent
                                       unscaledHeight:Number):void
     {
         // figure out backgroundColor
-		// FIXME mcho: need to define a style to use for background color. Right now
-		// we hard code to white
         var backgroundColor:uint;
         var drawBackground:Boolean = true;
         var downColor:* = getStyle("downColor");
@@ -951,7 +954,7 @@ public class LabelItemRenderer extends UIComponent
         if (!labelDisplay)
             return;
         
-        var paddingLeft:Number   = getStyle("paddingLeft");
+        var paddingLeft:Number   = getStyle("paddingLeft") - StyleableTextField.TEXT_WIDTH_PADDING/2;
         var paddingRight:Number  = getStyle("paddingRight");
         var paddingTop:Number    = getStyle("paddingTop");
         var paddingBottom:Number = getStyle("paddingBottom");
@@ -986,11 +989,11 @@ public class LabelItemRenderer extends UIComponent
         }
 	
 		setElementSize(labelDisplay, labelWidth, labelHeight);    
-		
-		// FIXME mcho: use a baselineShift style
-		var metrics:TextLineMetrics = labelDisplay.getLineMetrics(0);
-		var textShift:Number = 3;
-		var labelY:Number = Math.round(vAlign * (viewHeight - (metrics.ascent - textShift))) - StyleableTextField.TEXT_HEIGHT_PADDING/2 - textShift + paddingTop;
+				
+		// We want to center using the "real" ascent
+		var labelY:Number = Math.round(vAlign * (viewHeight - labelDisplay.textTopToLastBaselineHeight))  + paddingTop;
+		// Make sure to offset by the distance to the text field's top edge
+		labelY -= labelDisplay.textTopOffset;
 		setElementPosition(labelDisplay, paddingLeft, labelY);
 
         // attempt to truncate the text now that we have its official width
