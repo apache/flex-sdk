@@ -243,6 +243,11 @@ SpinnerListItemRenderer
 	textAlign : "left";
 }
 
+SplitViewNavigator
+{
+	skinClass: ClassReference("spark.skins.mobile.SplitViewNavigatorSkin");
+}
+
 TabbedViewNavigatorApplication
 {
     backgroundColor: #FFFFFF;
