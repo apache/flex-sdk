@@ -370,6 +370,11 @@ public class SetProperty extends OverrideBase
 	
 	        // Set new value
 	        setPropertyValue(obj, propName, newValue, oldValue);
+            
+            // Disable bindings for the base property if appropriate. If the binding
+            // fires while our override is applied, the correct value will automatically
+            // be applied when the binding is later enabled.
+            enableBindings(obj, propName, false);
         }
         else if (!applied)
         {
@@ -415,6 +420,11 @@ public class SetProperty extends OverrideBase
 	        // Restore the old value
 	        setPropertyValue(obj, propName, oldValue, oldValue);
 	
+            // Re-enable bindings for the base property if appropriate. If the binding
+            // fired while our override was applied, the current value will automatically
+            // be applied once enabled.
+            enableBindings(obj, propName);
+            
 	        // Restore related value, if needed
 	        if (relatedProps)
 	        {
