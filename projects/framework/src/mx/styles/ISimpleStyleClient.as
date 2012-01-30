@@ -22,6 +22,11 @@ package mx.styles
  *
  *  @see mx.styles.IStyleClient
  *  @see mx.styles.CSSStyleDeclaration
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface ISimpleStyleClient
 {
@@ -46,6 +51,11 @@ public interface ISimpleStyleClient
      *
      *    <li>UIComponent. The object that implements this interface inherits all the style values from the referenced UIComponent.</li>
      *  </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get styleName():Object
 
@@ -64,6 +74,11 @@ public interface ISimpleStyleClient
      *  Called when the value of a style property is changed. 
      *
      *  @param styleProp The name of the style property that changed.    
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function styleChanged(styleProp:String):void;
 }
