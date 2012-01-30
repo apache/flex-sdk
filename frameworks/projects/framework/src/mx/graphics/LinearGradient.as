@@ -103,6 +103,11 @@ import flash.geom.Rectangle;
  *  @see mx.graphics.GradientEntry
  *  @see mx.graphics.RadialGradient 
  *  @see mx.graphics.IFill
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class LinearGradient extends GradientBase implements IFill
 {
@@ -116,6 +121,11 @@ public class LinearGradient extends GradientBase implements IFill
 
  	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function LinearGradient()
  	{
@@ -130,11 +140,21 @@ public class LinearGradient extends GradientBase implements IFill
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	private static var commonMatrix:Matrix = new Matrix();
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function begin(target:Graphics, rc:Rectangle):void
 	{
@@ -215,6 +235,11 @@ public class LinearGradient extends GradientBase implements IFill
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function end(target:Graphics):void
 	{
