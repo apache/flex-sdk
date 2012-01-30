@@ -655,6 +655,11 @@ public class FlipViewTransition extends ViewTransitionBase
         // Initialize temporaries based on our currently flip direction.
         initTransitionParameters(targetNavigator.width, targetNavigator.height);
         
+        // Since we are using it to host our transition group, ensure the 
+        // parent of our targetNavigator is fully validated, when its not 
+        // our transition goes haywire because our bounds are wrong.
+        UIComponent(targetNavigator.parent).validateNow();
+        
         // Add a temporary group to contain our snapshot view of the navigator
         // while we animate.
         transitionGroup = new Group();
