@@ -59,6 +59,11 @@ public class DragProxy extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DragProxy(dragInitiator:IUIComponent,
 							  dragSource:DragSource)
@@ -429,9 +434,19 @@ public class DragProxy extends UIComponent
 							getObjectsUnderPoint(stagePoint);
 		else
 		{
+*  
+*  @langversion 3.0
+*  @playerversion Flash 9
+*  @playerversion AIR 1.1
+*  @productversion Flex 3
 */			targetList = [];
 			DragProxy.getObjectsUnderPoint(DisplayObject(sandboxRoot), stagePoint, targetList);
 /*		}
+*  
+*  @langversion 3.0
+*  @playerversion Flash 9
+*  @playerversion AIR 1.1
+*  @productversion Flex 3
 */
 		var newTarget:DisplayObject = null;
 		// trace("   ", targetList.length, "objects under point");
@@ -654,6 +669,11 @@ public class DragProxy extends UIComponent
 
 	/**
 	 *  Player doesn't handle this correctly so we have to do it ourselves
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private static function getObjectsUnderPoint(obj:DisplayObject, pt:Point, arr:Array):void
 	{
