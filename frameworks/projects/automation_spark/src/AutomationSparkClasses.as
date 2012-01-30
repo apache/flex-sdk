@@ -50,6 +50,8 @@ package
 		import spark.automation.delegates.components.SparkVideoPlayerAutomationImpl;SparkVideoPlayerAutomationImpl;
 		import spark.automation.delegates.components.SparkRichEditableTextAutomationImpl;SparkRichEditableTextAutomationImpl;
 
+		import spark.automation.delegates.components.gridClasses.SparkGridItemRendererAutomationImpl;SparkGridItemRendererAutomationImpl;
+		
 		import spark.automation.delegates.components.mediaClasses.SparkMuteButtonAutomationImpl;SparkMuteButtonAutomationImpl;
 		import spark.automation.delegates.components.mediaClasses.SparkVolumeBarAutomationImpl;SparkVolumeBarAutomationImpl;
 		
@@ -68,8 +70,10 @@ package
 	
 		import spark.automation.delegates.skins.spark.SparkDefaultComplexItemRendererAutomationImpl;SparkDefaultComplexItemRendererAutomationImpl;
 		import spark.automation.delegates.skins.spark.SparkDefaultGridItemRendererAutomationImpl;SparkDefaultGridItemRendererAutomationImpl;
+		import spark.automation.delegates.skins.spark.SparkDefaultGridHeaderRendererAutomationImpl;SparkDefaultGridHeaderRendererAutomationImpl;
 		import spark.automation.delegates.skins.spark.SparkDefaultItemRendererAutomationImpl;SparkDefaultItemRendererAutomationImpl;
-		
+		import spark.automation.delegates.skins.spark.SparkUITextFieldGridItemRendererAutomationImpl;SparkUITextFieldGridItemRendererAutomationImpl;
+
 		import spark.automation.tabularData.SkinnableContainerTabularData;SkinnableContainerTabularData;
 		import spark.automation.tabularData.SparkDataGridTabularData;SparkDataGridTabularData;
 		
