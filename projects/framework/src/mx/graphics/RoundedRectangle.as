@@ -11,6 +11,8 @@
 
 package mx.graphics
 {
+	
+[Deprecated(replacement="mx.geom.RoundedRectangle", since="4.0")] 
 
 import flash.geom.Rectangle;
 
