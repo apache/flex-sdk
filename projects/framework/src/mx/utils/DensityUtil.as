@@ -54,10 +54,7 @@ public class DensityUtil
         if (!runtimeDPIProviderClass)
             runtimeDPIProviderClass = RuntimeDPIProvider;
         
-        var instance:RuntimeDPIProvider = (new runtimeDPIProviderClass()) as RuntimeDPIProvider;
-        if (!instance)
-            return NaN;
-        
+        var instance:RuntimeDPIProvider = RuntimeDPIProvider(new runtimeDPIProviderClass());
         runtimeDPI = instance.runtimeDPI;
         
         return runtimeDPI;
@@ -90,5 +87,4 @@ public class DensityUtil
         return targetDPI / sourceDPI;
     }
 }
-
 }
