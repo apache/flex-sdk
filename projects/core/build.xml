@@ -13,19 +13,58 @@
 
 <project name="flex" default="main" basedir=".">
 
-	<property file="build.properties"/>
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+
+	<property file="${FLEX_HOME}/build.properties"/>
 
 	<target name="main" depends="clean,compile" description="Clean build of flex.swc"/>
 
 	<target name="clean">
-		<delete file="bundles.properties"/>
-		<delete file="${frameworks.dir}/libs/flex.swc"/>
-		<delete file="${frameworks.dir}/libs/flex.swc.incr"/>
+		<delete failonerror="false">
+			<fileset file="${basedir}/bundles.properties"/>
+			<fileset dir="${FLEX_HOME}/frameworks/libs">
+				<include name="flex.swc"/>
+				<include name="flex.swc.incr"/>
+			</fileset>
+		</delete>
 	</target>
 
-	<target name="compile">
+	<target name="compile" description="Compiles flex.swc">
 		<echo message="Compiling frameworks/libs/flex.swc"/>
-		<ant dir="${frameworks.dir}" target="compc"/>
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<!--
+			flex.swc contains a subset of the classes in framework.swc;
+			only very core classes required to support MXML should be part
+			of flex.swc, for use by developers who don't need the entire framework.
+			Therefore this project does not have its own source
+			and instead finds the source files inside the project for framework.swc.
+			This project has no MXML tags and therefore no manifest.
+			Link in the classes (and their dependencies)
+			listed in FlexClasses.as.
+			Keep the standard metadata when compiling.
+			Link in accessibility support.
+			Don't include any resources in the SWC. (The classes don't require any.)
+			Write a bundle list of referenced resource bundles
+			into the file bundles.properties in this directory.
+			(This should be an empty list.)
+		-->
+		<compc output="${FLEX_HOME}/frameworks/libs/flex.swc"
+			   resource-bundle-list="${basedir}/bundles.properties">
+			<include-classes>FlexClasses</include-classes>
+			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
+			<library-path/>
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+				<include name="player/playerglobal.swc"/>
+			</external-library-path>
+			<locale/>
+			<accessible>true</accessible>
+			<keep-as3-metadata name="Bindable"/>
+			<keep-as3-metadata name="Managed"/>
+			<keep-as3-metadata name="ChangeEvent"/>
+			<keep-as3-metadata name="NonCommittingChangeEvent"/>
+			<keep-as3-metadata name="Transient"/>
+		</compc>
 	</target>
 
 </project>
