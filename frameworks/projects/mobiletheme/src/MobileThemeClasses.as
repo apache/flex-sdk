@@ -47,6 +47,7 @@ import spark.skins.mobile.TextAreaSkin; TextAreaSkin;
 import spark.skins.mobile.TextAreaHScrollBarSkin; TextAreaHScrollBarSkin;
 import spark.skins.mobile.TextAreaVScrollBarSkin; TextAreaVScrollBarSkin;
 import spark.skins.mobile.TextInputSkin; TextInputSkin;
+import spark.skins.mobile.ToggleSwitchSkin; ToggleSwitchSkin;
 import spark.skins.mobile.TransparentActionButtonSkin; TransparentActionButtonSkin;
 import spark.skins.mobile.TransparentNavigationButtonSkin; TransparentNavigationButtonSkin;
 import spark.skins.mobile.ViewMenuItemSkin; ViewMenuItemSkin;
