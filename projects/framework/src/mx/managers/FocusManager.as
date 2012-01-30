@@ -27,9 +27,9 @@ import flash.text.TextField;
 import flash.ui.Keyboard;
 import flash.utils.Dictionary;
 
-import mx.controls.Alert;
 import mx.core.Application;
 import mx.core.FlexSprite;
+import mx.core.IApplicationLoader;
 import mx.core.IButton;
 import mx.core.IChildList;
 import mx.core.IRawChildrenContainer;
@@ -38,11 +38,8 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.FocusRequest;
 import mx.events.SandboxBridgeEvent;
-import mx.events.ShowAlertRequest;
-import mx.managers.IFocusManagerBridge;
 import mx.managers.ISystemManager2;
 import mx.sandbox.ISandboxBridgeGroup;
-import mx.sandbox.ISandboxBridgeProvider;
 import mx.utils.DisplayUtil;
 
 use namespace mx_internal;
@@ -781,7 +778,7 @@ public class FocusManager implements IFocusManager2
 	        while (o)
 	        {
 	            if ((o is IFocusManagerComponent && IFocusManagerComponent(o).focusEnabled) ||
-	            	 o is IFocusManagerBridge)
+	            	 o is IApplicationLoader)
 	                return o;
 	            
 	            o = o.parent;
@@ -1077,8 +1074,8 @@ public class FocusManager implements IFocusManager2
 	 */ 
 	private function hasFocusManagerBridge(o:DisplayObject):Boolean
 	{
-		if (o is IFocusManagerBridge &&
-			IFocusManagerBridge(o).sandboxBridge != null)
+		if (o is IApplicationLoader &&
+			IApplicationLoader(o).sandboxBridge != null)
 			return true;
 			
 		return false;
@@ -1237,7 +1234,7 @@ public class FocusManager implements IFocusManager2
 		if (o)
 		{
 			// VERSION_SKEW
-			if (o is IFocusManagerBridge && IFocusManagerBridge(o).sandboxBridge)
+			if (o is IApplicationLoader && IApplicationLoader(o).sandboxBridge)
 			{
 				// send message to child swf to move focus.
 				// trace("pass focus from " + this.form.systemManager.loaderInfo.url + " to " + DisplayObject(o).loaderInfo.url);
@@ -1246,7 +1243,7 @@ public class FocusManager implements IFocusManager2
 	    													false, true,
 	    													shiftKey ? FocusRequest.BOTTOM : 
 																	   FocusRequest.TOP);
-				var sandboxBridge:IEventDispatcher = IFocusManagerBridge(o).sandboxBridge;
+				var sandboxBridge:IEventDispatcher = IApplicationLoader(o).sandboxBridge;
 				if (sandboxBridge)
     				focusChanged = !sandboxBridge.dispatchEvent(request);
 			}
@@ -1415,9 +1412,9 @@ public class FocusManager implements IFocusManager2
 
 			// if we cross a boundry into a bridged application, then return null so
 			// the target is only processed at the lowest level
-			if (o.parent is IFocusManagerBridge)
+			if (o.parent is IApplicationLoader)
 			{
-				if (IFocusManagerBridge(o.parent).sandboxBridge)
+				if (IApplicationLoader(o.parent).sandboxBridge)
 					return null; 
 			}
             o = o.parent;
@@ -1649,8 +1646,6 @@ public class FocusManager implements IFocusManager2
      */
     private function mouseFocusChangeHandler(event:FocusEvent):void
     {
-    	// TODODJL: This handler doesn't seem to do anything.
-    	
     	// trace("FocusManager: mouseFocusChangeHandler " + event);
         if (event.relatedObject is TextField)
         {
@@ -1660,7 +1655,8 @@ public class FocusManager implements IFocusManager2
                 return; // pass it on
             }
         }
-
+        
+        event.preventDefault();
     }
 
     /**
@@ -1939,34 +1935,6 @@ public class FocusManager implements IFocusManager2
 		fireActivatedFocusManagerEvent(eObj);			
 	}
 
-
-	/**
-	 * @private
-	 * 
-	 * Message from a child system manager requesting an alert dialog be 
-	 * displayed.
-	 * 
-	 * Added here from SystemManager to avoid linking UIComponent into SystemManager.
-	 */ 
-	private function showAlertRequestHandler(event:Event):void
-	{
-		var eObj:Object = Object(event);
-		
-		// go up to the root to display the message
-        var sm:ISystemManager2 = ISystemManager2(form.systemManager);
-		if (sm.sandboxBridgeGroup.parentBridge)
-		{
-			sm.sandboxBridgeGroup.parentBridge.dispatchEvent(event);
-			return;
-		}
-		
-		eObj.alertComponent = Alert.show(eObj.text, eObj.title, eObj.flags, eObj.parent, 
-				   					eObj.closeHandler, eObj.iconClass, eObj.defaultButtonFlag);
-	}
-
-
-
-
 	/**
 	 * This is called on the top-level focus manager and the parent focus
 	 * manager for each new bridge of focusable content created. 
@@ -2000,8 +1968,6 @@ public class FocusManager implements IFocusManager2
    		bridge.addEventListener(FocusRequest.MOVE, focusRequestMoveHandler);
    		bridge.addEventListener(SandboxBridgeEvent.ACTIVATED_FOCUS_MANAGER, 
    				    		    bridgeEventActivateHandler);
-		bridge.addEventListener(ShowAlertRequest.SHOW, showAlertRequestHandler, false);
-
 	}
 	
 	/**
@@ -2028,8 +1994,6 @@ public class FocusManager implements IFocusManager2
    		bridge.removeEventListener(FocusRequest.MOVE, focusRequestMoveHandler);
    		bridge.removeEventListener(SandboxBridgeEvent.ACTIVATED_FOCUS_MANAGER, 
    					    		    bridgeEventActivateHandler);
-		bridge.addEventListener(ShowAlertRequest.SHOW, showAlertRequestHandler, false);
-
 		if (bridgedFocusManagers)			
 			delete bridgedFocusManagers[bridge];
 		
