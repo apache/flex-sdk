@@ -150,6 +150,21 @@ include "../styles/metadata/MobileTextFieldTextStyles.as"
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark,mobile")]
 // FIXME (rfrishbe): should we add chromeColor and other inheriting styles?
 
+/**
+ *  The vertical alignment of the content when it does not have
+ *  a one-to-one aspect ratio.
+ *  Possible values are <code>"top"</code>, <code>"middle"</code>,
+ *  and <code>"bottom"</code>.
+ *  
+ *  @default "center"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="verticalAlign", type="String", enumeration="bottom,middle,top", inherit="no")]
+
 //--------------------------------------
 //  Excluded APIs
 //--------------------------------------
@@ -733,9 +748,18 @@ public class MobileItemRenderer extends UIComponent
             var viewHeight:Number =  unscaledHeight - getStyle("paddingTop") - getStyle("paddingBottom");
             var labelHeight:Number = Math.max(Math.min(viewHeight, textHeight), 0);
             
-            // label is positioned after the padding on the left.  vertically aligned center
+            // label is positioned after the padding on the left.  look at verticalAlign to see
+            // what to do vertically.
             var labelX:Number = getStyle("paddingLeft");
-            var labelY:Number = getStyle("paddingTop") + (viewHeight - labelHeight)/2;
+            var labelY:Number;
+            if (getStyle("verticalAlign") == "top")
+                labelY = getStyle("paddingTop");
+            else if (getStyle("verticalAlign") == "bottom")
+                labelY = getStyle("paddingTop") + viewHeight - labelHeight;
+            else //if (getStyle("verticalAlign") == "middle")
+                labelY = getStyle("paddingTop") + Math.round((viewHeight - labelHeight)/2);
+            // made "middle" last even though it's most likely so it is the default and if someone 
+            // types "center", then it will still vertically center itself.
             
             labelDisplay.commitStyles();
                 
