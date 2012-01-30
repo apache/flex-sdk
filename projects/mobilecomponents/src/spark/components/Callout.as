@@ -23,6 +23,7 @@ import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.LayoutDirection;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.ResizeEvent;
@@ -318,7 +319,11 @@ public class Callout extends SkinnablePopUpContainer
     override protected function positionPopUp():void
     {
         var popUpPoint:Point = calculatePopUpPosition();
-        PopUpUtil.applyPopUpTransform(owner, systemManager, this, popUpPoint);
+        var ownerComponent:UIComponent = owner as UIComponent;
+        var concatenatedColorTransform:ColorTransform = ownerComponent.$transform.concatenatedColorTransform;
+        
+        PopUpUtil.applyPopUpTransform(owner, concatenatedColorTransform, 
+                                      systemManager, this, popUpPoint);
     }
     
     /**
@@ -428,25 +433,8 @@ public class Callout extends SkinnablePopUpContainer
             }
             else // if (calloutWidth > ownerWidth)
             {
-                if ((arrowWidth >= ownerWidth) && !isMiddlePosition)
-                {
-                    arrowX = (isStartPosition) ? 0 : calloutWidth - arrowWidth;
-                }
-                else
-                {
-                    if (isMiddlePosition)
-                    {
-                        // center on the callout
-                        arrowX = (calloutWidth - arrowWidth) / 2;
-                    }
-                    else
-                    {
-                        arrowX = (ownerWidth - arrowWidth) / 2;
-                        
-                        if (isEndPosition)
-                            arrowX += (calloutWidth - ownerWidth);
-                    }
-                }
+                // center the arrow on the owner
+                arrowX = Math.max((ownerWidth - arrowWidth) / 2, 0);
             }
             
             // move the arrow to the end of the callout
