@@ -62,11 +62,6 @@ import mx.events.SandboxMouseEvent;
 import mx.preloaders.Preloader;
 import mx.utils.LoaderUtil;
 
-CONFIG::performanceInstrumentation
-{
-import mx.utils.PerfUtil;
-}
-
 // NOTE: Minimize the non-Flash classes you import here.
 // Any dependencies of SystemManager have to load in frame 1,
 // before the preloader, or anything else, can be displayed.
@@ -226,7 +221,9 @@ public class SystemManager extends MovieClip
     {
         CONFIG::performanceInstrumentation
         {
-            PerfUtil.getInstance().startSampling("Application Startup", true /*absoluteTime*/);
+            var perfUtil:mx.utils.PerfUtil = mx.utils.PerfUtil.getInstance();
+            perfUtil.startSampling("Application Startup", true /*absoluteTime*/);
+            perfUtil.markTime("SystemManager c-tor");
         }
 
         super();
@@ -274,7 +271,18 @@ public class SystemManager extends MovieClip
 
         if (currentFrame + 1 <= framesLoaded)
         {
+            CONFIG::performanceInstrumentation
+            {
+                var perfUtil:mx.utils.PerfUtil = mx.utils.PerfUtil.getInstance();
+                perfUtil.markTime("SystemManager.nextFrame().start");
+            }
+
             nextFrame();
+
+            CONFIG::performanceInstrumentation
+            {
+                perfUtil.markTime("SystemManager.nextFrame().end");
+            }
         }
         else
         {
@@ -2388,6 +2396,12 @@ public class SystemManager extends MovieClip
      */
     private function initHandler(event:Event):void
     {
+        CONFIG::performanceInstrumentation
+        {
+            var perfUtil:mx.utils.PerfUtil = mx.utils.PerfUtil.getInstance();
+            perfUtil.markTime("SystemManager.initHandler().start");
+        }
+        
         // we can still be the top level root if we can access our
         // parent and get a positive response to the query or
         // or there is not a listener for the new application event
@@ -2442,7 +2456,11 @@ public class SystemManager extends MovieClip
         */
 
         initialize();
-        
+
+        CONFIG::performanceInstrumentation
+        {
+            perfUtil.markTime("SystemManager.initHandler().end");
+        }
     }
 
     private function docFrameListener(event:Event):void
@@ -2523,7 +2541,9 @@ public class SystemManager extends MovieClip
 
         CONFIG::performanceInstrumentation
         {
-            PerfUtil.getInstance().finishSampling("Application Startup");
+            var perfUtil:mx.utils.PerfUtil = mx.utils.PerfUtil.getInstance();
+            perfUtil.markTime("APPLICATION_COMPLETE");
+            perfUtil.finishSampling("Application Startup");
         }
 
         // Dispatch the applicationComplete event from the Application
@@ -2579,6 +2599,12 @@ public class SystemManager extends MovieClip
         if (document)
             return;
 
+        CONFIG::performanceInstrumentation
+        {
+            var perfUtil:mx.utils.PerfUtil = mx.utils.PerfUtil.getInstance();
+            perfUtil.markTime("SystemManager.kickOff().start");
+        }
+        
         if (!isTopLevel())
             SystemManagerGlobals.topLevelSystemManagers[0].
                 // dispatch a FocusEvent so we can pass ourselves along
@@ -2645,9 +2671,19 @@ public class SystemManager extends MovieClip
             var n:int = mixinList.length;
             for (var i:int = 0; i < n; ++i)
             {
+                CONFIG::performanceInstrumentation
+                {
+                    var token:int = perfUtil.markStart();
+                }
+                
                 // trace("initializing mixin " + mixinList[i]);
                 var c:Class = Class(getDefinitionByName(mixinList[i]));
                 c["init"](this);
+
+                CONFIG::performanceInstrumentation
+                {
+                    perfUtil.markEnd(mixinList[i], token);
+                }
             }
         }
         
@@ -2662,6 +2698,12 @@ public class SystemManager extends MovieClip
         if (c)
         {
             registerImplementation("mx.managers::IMarshalSystemManager", new c(this));
+        }
+
+        CONFIG::performanceInstrumentation
+        {
+            // Finish here, since initializeTopLevelWidnow is instrumented separately???
+            perfUtil.markTime("SystemManager.kickOff().end");
         }
 
         initializeTopLevelWindow(null);
