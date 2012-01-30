@@ -50,6 +50,7 @@ import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
 import mx.core.IRawChildrenContainer;
 import mx.core.IUIComponent;
+import mx.core.RSLData;
 import mx.core.RSLItem;
 import mx.core.Singleton;
 import mx.core.mx_internal;
@@ -454,6 +455,13 @@ public class SystemManager extends MovieClip
      */
     public var _resourceBundles:Array;
 
+    /**
+     *  @private
+     *  Array of RSLData objects that represent the list of RSLs this
+     *  module factory is loading.
+     */ 
+    private var rslDataList:Array;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: DisplayObject
@@ -1029,16 +1037,42 @@ public class SystemManager extends MovieClip
     //----------------------------------
     
     /**
-     *  The RSLs loaded by this SystemManager before the application 
-     *  starts. RSLs loaded by the application are not included in this list.
+     *  The RSLs loaded by this SystemManager or FlexModuleFactory before the
+     *  application starts. RSLs loaded by the application are not included in 
+     *  this list. This dictionary may also include RSLs loaded into this 
+     *  module factory's application domain by other modules or 
+     *  sub-applications. 
      * 
      *  Information about preloadedRSLs is stored in a Dictionary. The key is
-     *  the RSL's LoaderInfo. The value is the url the RSL was loaded from.
+     *  the RSL's LoaderInfo. The value is the RSL's RSLData.
      */
     public function  get preloadedRSLs():Dictionary
     {
         // Overridden by compiler generate code.
         return null;                
+    }
+    
+    /**
+     *  @private
+     *  Add an RSL to the preloadedRSLs list. This method is called by child
+     *  module factories when they add load an RSL into this module factory's
+     *  application domain.
+     * 
+     *  @param loaderInfo The loaderInfo of the loaded RSL.
+     *  @param rsl The rsl configuration information. An array of RSLData.
+     *  The first element in the array is the primary RSL. The remaining 
+     *  elements are failover RSLs.
+     */ 
+    public function addPreloadedRSL(loaderInfo:LoaderInfo, rsl:Array):void
+    {
+        preloadedRSLs[loaderInfo] = rsl;
+        if (hasEventListener(RSLEvent.RSL_ADD_PRELOADED))
+        {
+            var rslEvent:RSLEvent = new RSLEvent(RSLEvent.RSL_ADD_PRELOADED);
+            rslEvent.loaderInfo = loaderInfo;
+            dispatchEvent(rslEvent);
+        }
+        
     }
     
     //----------------------------------
@@ -1897,38 +1931,28 @@ public class SystemManager extends MovieClip
         var preloaderDisplayClass:Class = info()["preloader"] as Class;
 
         // Put cross-domain RSL information in the RSL list.
-        var rslList:Array = [];
+        var rslItemList:Array = [];
         var n:int;
         var i:int;
         if (cdRsls && cdRsls.length > 0)
         {
-            var parentModuleFactory:IFlexModuleFactory = null;
-            if (!isTopLevel())
-            {
-                var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
-                dispatchEvent(request); 
-                parentModuleFactory = request.value as IFlexModuleFactory;
-            }
+            if (isTopLevel())
+                rslDataList = cdRsls;
+            else
+                rslDataList = LoaderUtil.processRequiredRSLs(this, cdRsls);
             
             var normalizedURL:String = LoaderUtil.normalizeURL(this.loaderInfo);
             var crossDomainRSLItem:Class = Class(getDefinitionByName("mx.core::CrossDomainRSLItem"));
-            n = cdRsls.length;
+            n = rslDataList.length;
             for (i = 0; i < n; i++)
             {
-                var rslWithFailoverArray:Array = cdRsls[i];
+                var rslWithFailovers:Array = rslDataList[i];
 
-                if (parentModuleFactory &&
-                    LoaderUtil.getRSLLoadData(parentModuleFactory, 
-                                              cdRsls[i][0]["digest"]))
-                {
-                    continue; // if the rsl is already loaded then skip loading it.                    
-                }
-              
                 // If crossDomainRSLItem is null, then this is a compiler error. It should not be null.
-                var cdNode:Object = new crossDomainRSLItem(rslWithFailoverArray,
+                var cdNode:Object = new crossDomainRSLItem(rslWithFailovers,
                                                     normalizedURL,
                                                     this);
-                rslList.push(cdNode);               
+                rslItemList.push(cdNode);               
             }
         }
 
@@ -1944,7 +1968,7 @@ public class SystemManager extends MovieClip
                 var node:RSLItem = new RSLItem(rsls[i].url, 
                                                normalizedURL,
                                                this);
-                rslList.push(node);
+                rslItemList.push(node);
             }
         }
 
@@ -1972,7 +1996,7 @@ public class SystemManager extends MovieClip
             isStageRoot ? stage.stageHeight : loaderInfo.height,
             null,
             null,
-            rslList,
+            rslItemList,
             resourceModuleURLs,
             domain);
     }
@@ -2565,8 +2589,18 @@ public class SystemManager extends MovieClip
      */
     private function preloader_rslCompleteHandler(event:RSLEvent):void
     {
-        if (event.loaderInfo)
-            preloadedRSLs[event.loaderInfo] = event.url.url;
+        if (!event.isResourceModule && event.loaderInfo)
+        {
+            var rsl:Array = rslDataList[event.rslIndex];
+            var moduleFactory:IFlexModuleFactory = this;
+            if (rsl && rsl[0].moduleFactory)
+                moduleFactory = rsl[0].moduleFactory; 
+
+            if (moduleFactory == this)
+                preloadedRSLs[event.loaderInfo] =  rsl;
+            else if ("addPreloadedRSL" in moduleFactory)
+                moduleFactory["addPreloadedRSL"](event.loaderInfo, rsl);
+        }
     }
     
     /**
