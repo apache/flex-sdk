@@ -91,178 +91,178 @@ public class PieChart extends PolarChart
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class initialization
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class initialization
+    //
+    //--------------------------------------------------------------------------
 
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function PieChart()
-	{
-		super();
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function PieChart()
+    {
+        super();
 
-		dataTipMode = "single";
-		
-		var aa:LinearAxis = new LinearAxis();
-		aa.minimum = 0;
-		aa.maximum = 100;
-		angularAxis = aa;
-	}
+        dataTipMode = "single";
+        
+        var aa:LinearAxis = new LinearAxis();
+        aa.minimum = 0;
+        aa.maximum = 100;
+        angularAxis = aa;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false; 
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false; 
 
-	
-	/**
-	 *  @private
-	 */
-	private var _seriesWidth:Number;
-	
-	/**
-	 *  @private
-	 */
-	private var _innerRadius:Number;
+    
+    /**
+     *  @private
+     */
+    private var _seriesWidth:Number;
+    
+    /**
+     *  @private
+     */
+    private var _innerRadius:Number;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  legendData
-	//----------------------------------
+    //----------------------------------
+    //  legendData
+    //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	override public function get legendData():Array /* of LegendData */
-	{
-		var keyItems:Array /* of LegendData */ = [];
+    /**
+     *  @private
+     */
+    override public function get legendData():Array /* of LegendData */
+    {
+        var keyItems:Array /* of LegendData */ = [];
 
-		if (series.length > 0)
-			keyItems = [ series[0].legendData ];
+        if (series.length > 0)
+            keyItems = [ series[0].legendData ];
 
-		return keyItems;
-	}
+        return keyItems;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: UIComponent
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var pieChartStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.PieChart", styleManager);
-		
-		pieChartStyle.defaultFactory = function():void
-		{
-			this.dataTipRenderer = DataTip;
-			this.fill = new SolidColor(0xFFFFFF, 0);
-			this.calloutStroke = new Stroke(0x888888,2);			
-			this.fontSize = 10;
-			this.innerRadius = 0;
-			this.textAlign = "left";
-		}
-		
-		return true;
-	}
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
-	
-	/**
-	 *  @private
-	 */
-	override public function styleChanged(styleProp:String):void
-	{
-		if (styleProp == null || styleProp == "innerRadius")
-			invalidateSeries();
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var pieChartStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.PieChart", styleManager);
+        
+        pieChartStyle.defaultFactory = function():void
+        {
+            this.dataTipRenderer = DataTip;
+            this.fill = new SolidColor(0xFFFFFF, 0);
+            this.calloutStroke = new Stroke(0x888888,2);            
+            this.fontSize = 10;
+            this.innerRadius = 0;
+            this.textAlign = "left";
+        }
+        
+        return true;
+    }
+    
+    /**
+     *   A module factory is used as context for using embedded fonts and for finding the style manager that controls the styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        if (styleProp == null || styleProp == "innerRadius")
+            invalidateSeries();
 
-		super.styleChanged(styleProp);
-	}
+        super.styleChanged(styleProp);
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: ChartBase
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: ChartBase
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override protected function customizeSeries(seriesGlyph:Series, i:uint):void
-	{
-		if (seriesGlyph is PieSeries)
-		{
-			PieSeries(seriesGlyph).setStyle("innerRadius",
-											_innerRadius + i * _seriesWidth);
+    /**
+     *  @private
+     */
+    override protected function customizeSeries(seriesGlyph:Series, i:uint):void
+    {
+        if (seriesGlyph is PieSeries)
+        {
+            PieSeries(seriesGlyph).setStyle("innerRadius",
+                                            _innerRadius + i * _seriesWidth);
 
-			PieSeries(seriesGlyph).outerRadius =
-				_innerRadius + (i + 1) *_seriesWidth;
-		}
-	}
+            PieSeries(seriesGlyph).outerRadius =
+                _innerRadius + (i + 1) *_seriesWidth;
+        }
+    }
 
-	/**
-	 *  @private
-	 */
-	override protected function applySeriesSet(seriesSet:Array /* of Series */,
-											   transform:DataTransform):Array /* of Series */
-	{
-		_innerRadius = getStyle("innerRadius");
-		_innerRadius = isNaN(_innerRadius) ? 0 : _innerRadius;
-		_seriesWidth = (1 - _innerRadius) / seriesSet.length;
+    /**
+     *  @private
+     */
+    override protected function applySeriesSet(seriesSet:Array /* of Series */,
+                                               transform:DataTransform):Array /* of Series */
+    {
+        _innerRadius = getStyle("innerRadius");
+        _innerRadius = isNaN(_innerRadius) ? 0 : _innerRadius;
+        _seriesWidth = (1 - _innerRadius) / seriesSet.length;
 
-		return super.applySeriesSet(seriesSet, transform);
-	}
+        return super.applySeriesSet(seriesSet, transform);
+    }
 }
 
 }
