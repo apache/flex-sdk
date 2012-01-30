@@ -92,24 +92,6 @@ public interface IVisualElement extends ILayoutElement
     function get layer():Number;
 
     /**
-     *  The y-coordinate of the baseline
-     *  of the first line of text of the component.
-     *
-     *  <p>This property is used to implement
-     *  the <code>baseline</code> constraint style.
-     *  It is also used to align the label of a FormItem
-     *  with the controls in the FormItem.</p>
-     *
-     *  <p>Each component should override this property.</p>
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    function get baselinePosition():Number;
-    
-    /**
      *  Controls the visibility of this visual element. If <code>true</code>,
      *  the object is visible.
      * 
