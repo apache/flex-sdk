@@ -163,8 +163,18 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	public static function registerFonts(fonts:Object,
 										 moduleFactory:IFlexModuleFactory):void
 	{
-		var fontRegistry:IEmbeddedFontRegistry = IEmbeddedFontRegistry(
+		var fontRegistry:IEmbeddedFontRegistry;
+        try
+        {
+            fontRegistry = IEmbeddedFontRegistry(
 			Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+        }
+        catch (e:Error)
+        {
+            Singleton.registerClass("mx.core::IEmbeddedFontRegistry", EmbeddedFontRegistry);
+            fontRegistry = IEmbeddedFontRegistry(
+			Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+        }
 		
 		// Loop thru all the font objects and put them in the registry
 		for (var f:Object in fonts)
@@ -332,6 +342,18 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 			font = new EmbeddedFont(fontName, bold, italic);
 			cachedFontsForObjects[object] = font;
 		}
+        else
+        {
+            // replace if not the same
+            if (font.fontName != fontName ||
+                font.bold != bold ||
+                font.italic != italic)
+            {
+			    font = new EmbeddedFont(fontName, bold, italic);
+			    cachedFontsForObjects[object] = font;
+            }
+
+        }
 
 		var fontDictionary:Dictionary = fonts[createFontKey(font)];
 		if (fontDictionary)
