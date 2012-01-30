@@ -1,0 +1,202 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2011 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+package spark.components.calendarClasses
+{
+import spark.collections.OnDemandDataProvider;
+import spark.globalization.supportClasses.DateTimeFormatterEx;
+
+[ExcludeClass]
+
+/**
+ *  Helper class for creating a dynamic date range for DateSpinner in DATE_AND_TIME
+ *  mode. Using this class instead of generating all the dates statically avoids
+ *  the cost of applying DateTimeFormatter.format() to every date.
+ *   
+ *  @langversion 3.0
+ *  @playerversion AIR 3
+ *  @productversion Flex 4.5.2
+ */
+public class DateAndTimeProvider extends OnDemandDataProvider
+{
+    //----------------------------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //----------------------------------------------------------------------------------------------
+    
+    // number of milliseconds in a day
+    private static const MS_IN_DAY:Number = 1000 * 60 * 60 * 24;
+    
+    // default date range if min/max are not specified
+    private static const DEFAULT_RANGE_SIZE:int = 730;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    /**
+     *  Construct a DATE_AND_TIME range for DateSpinner from the start to
+     *  end dates, inclusive. Locale is used to generate the appropriate
+     *  labels.
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    public function DateAndTimeProvider(locale:String, start:Date, end:Date, 
+                                        today:Date = null, todayAccentColor:uint = 0)
+    {
+        if (start == null)
+        {
+            start = new Date();
+            start.date -= DEFAULT_RANGE_SIZE / 2;
+        }
+        
+        if (end == null)
+        {
+            end = new Date();
+            end.date += DEFAULT_RANGE_SIZE / 2;
+        }
+        
+        // we only count days; reset clocks so there are no rounding errors
+        startDate = new Date(start.time);
+        endDate = new Date(end.time);
+        
+        // note: set hours to 11 to avoid being near day boundaries that can
+        // cause repeat days due to daylight savings time
+        startDate.hours = 11;
+        startDate.minutes = 0;
+        startDate.seconds = 0;
+        startDate.milliseconds = 0;
+        endDate.hours = 11;
+        endDate.minutes = 0;
+        endDate.seconds = 0;
+        endDate.milliseconds = 0;
+        
+        // calculate how many days there are between the two
+        // +1 because we need to include both start and end dates
+        _length = ((endDate.time - startDate.time) / MS_IN_DAY) + 1;
+        
+        formatter = new DateTimeFormatterEx();
+        formatter.setStyle("locale", locale);
+        formatter.dateTimeSkeletonPattern = DateTimeFormatterEx.DATESTYLE_MMMEEEd;
+        
+        todayDate = today;
+        accentColor = todayAccentColor;
+    }
+    
+    //----------------------------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //----------------------------------------------------------------------------------------------
+    
+    // TODO: look at storing these as ms values instead of Date objects, and create one Date object to use for Date math
+    
+    // start of the date range
+    private var startDate:Date;
+    
+    // end of the date range
+    private var endDate:Date;
+    
+    private var todayDate:Date;
+    
+    // color to apply as accent color for dates that match today's date
+    private var accentColor:uint;
+    
+    // formatter to use in localizing the date labels
+    private var formatter:DateTimeFormatterEx;
+    
+    //----------------------------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //----------------------------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  length
+    //----------------------------------
+    
+    private var _length:int;
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    override public function get length():int
+    {
+        return _length;
+    }
+    
+    //----------------------------------------------------------------------------------------------
+    //
+    //  Overridden Methods
+    //
+    //----------------------------------------------------------------------------------------------
+
+    /**
+     *  @inheritDoc
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    override public function getItemAt(index:int, prefetch:int=0):Object
+    {
+        // calc date you want from index
+        var d:Date = new Date(startDate.time + index * MS_IN_DAY);
+
+        // generate the appropriate object
+        var item:Object = { label:formatter.format(d), data:d.time };
+        
+        if (todayDate)
+        {
+            if (d.getFullYear() == todayDate.getFullYear() && 
+                d.getMonth() == todayDate.getMonth() &&
+                d.getDate() == todayDate.getDate())
+            {
+                item["accentColor"] = accentColor;
+            }
+        }
+        
+        return item;
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    override public function getItemIndex(item:Object):int
+    {
+        if (!isNaN(item.data))
+        {   
+            // set firstDate's hour/min/second to the same values
+            var dateObj:Date = new Date(item.data);
+            dateObj.hours = startDate.hours;
+            dateObj.minutes = startDate.minutes;
+            dateObj.seconds = startDate.seconds;
+            dateObj.milliseconds = startDate.milliseconds;
+            
+            if (dateObj.time >= startDate.time && dateObj.time <= endDate.time)
+                return Math.round((dateObj.time - startDate.time) / MS_IN_DAY);
+        }
+        
+        return -1;
+    }
+}
+}
