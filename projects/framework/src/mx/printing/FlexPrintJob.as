@@ -19,6 +19,7 @@ import flash.display.Stage;
 import flash.geom.Rectangle;
 import flash.printing.PrintJob;
 import flash.printing.PrintJobOptions;
+import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
 import mx.core.UIComponent;
@@ -310,6 +311,11 @@ public class FlexPrintJob
 
             objWidth = obj.measuredWidth;
             objHeight = obj.measuredHeight;
+			if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+			{
+				objWidth *= obj.scaleX;
+				objHeight *= obj.scaleY;
+			}
         }
         else
         {
@@ -330,6 +336,11 @@ public class FlexPrintJob
             
             objWidth = obj.getExplicitOrMeasuredWidth();
             objHeight = obj.getExplicitOrMeasuredHeight();
+			if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+			{
+				objWidth *= obj.scaleX;
+				objHeight *= obj.scaleY;
+			}
         }
 
         var widthRatio:Number = _pageWidth/objWidth;
@@ -378,6 +389,11 @@ public class FlexPrintJob
         {
             objWidth = obj.getExplicitOrMeasuredWidth();
             objHeight = obj.getExplicitOrMeasuredHeight();
+			if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+			{
+				objWidth *= obj.scaleX;
+				objHeight *= obj.scaleY;
+			}
         }
 
         // Find the number of pages required in vertical and horizontal.
