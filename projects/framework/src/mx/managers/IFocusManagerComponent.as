@@ -51,7 +51,7 @@ public interface IFocusManagerComponent
 	 *  on the child component.</p>
 	 * 
 	 *  <p>This will cause the FocusManager to ignore this component
-	 *  and not monitor it for changes to the <code>tabEnabled</code>,
+	 *  and not monitor it for changes to the <code>tabFocusEnabled</code>,
 	 *  <code>hasFocusableChildren</code>, and <code>mouseFocusEnabled</code> properties.
 	 *  This also means you cannot change this value after
 	 *  <code>addChild()</code> and expect the FocusManager to notice.</p>
@@ -129,7 +129,7 @@ public interface IFocusManagerComponent
 	function get mouseFocusEnabled():Boolean;
 
 	//----------------------------------
-	//  tabEnabled
+	//  tabFocusEnabled
 	//----------------------------------
 
 	/**
@@ -137,21 +137,23 @@ public interface IFocusManagerComponent
 	 *  moves focus to this component.
 	 *  Even if <code>false</code>, you can still be given focus
 	 *  by being selected with the mouse or via a call to
-	 *  <code>setFocus()</code>
+	 *  <code>setFocus()</code>.  This property replaces 
+     *  InteractiveObject.tabEnabled which must be set to true
+     *  in Flex apps.
 	 *  
 	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
-	function get tabEnabled():Boolean;
+	function get tabFocusEnabled():Boolean;
 
 	//----------------------------------
 	//  tabIndex
 	//----------------------------------
 
 	/**
-	 *  If <code>tabEnabled</code>, the order in which the component receives focus.
+	 *  If <code>tabFocusEnabled</code>, the order in which the component receives focus.
 	 *  If -1, then the component receives focus based on z-order.
 	 *  
 	 *  @langversion 3.0
