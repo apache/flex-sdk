@@ -460,6 +460,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  Note that class selectors are prepended with a period.
      *  
      *  @return An array of all of the selectors
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get selectors():Array
     {
@@ -474,6 +479,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  Determines whether any of the selectors registered with the style
      *  manager have been advanced selectors (descendant selector, id selector,
      *  non-global class selector, pseudo selector).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function hasAdvancedSelectors():Boolean
     {
@@ -498,6 +508,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  @param update Set to <code>true</code> to force an immediate update of
      *  the styles. Set to <code>false</code> to avoid an immediate update of
      *  the styles in the application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addStyleDeclaration(styleDeclaration:CSSStyleDeclaration,
             update:Boolean=false):void
@@ -552,6 +567,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  is the right most simple type selector in a selector chain.
      * 
      *  @param subject The subject of the style declarations.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function getStyleDeclarations(subject:String):Array // Array of CSSStyleDeclaration
     {
@@ -595,6 +615,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  @param selector The name of the CSS selector.
      *
      *  @return The style declaration whose name matches the <code>selector</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getStyleDeclaration(selector:String):CSSStyleDeclaration
     {
@@ -638,6 +663,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  Set to <code>false</code> to avoid an immediate update of the styles in the application.
      *  The styles will be updated the next time this method or the <code>clearStyleDeclaration()</code> method
      *  is called with the <code>update</code> property set to <code>true</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setStyleDeclaration(
                                 selector:String,
@@ -667,6 +697,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  Set to <code>false</code> to avoid an immediate update of the styles in the application.
      *  The styles will be updated the next time this method or the <code>setStyleDeclaration()</code> method is
      *  called with the <code>update</code> property set to <code>true</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function clearStyleDeclaration(selector:String,
                                                  update:Boolean):void
@@ -756,6 +791,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  already used becomes inheriting.</p>
      *
      *  @param styleName The name of the style that is added to the list of styles that can inherit values.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerInheritingStyle(styleName:String):void
     {
@@ -768,6 +808,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  @param styleName The name of the style that you test to see if it is inheriting.
      *
      *  @return Returns <code>true</code> if the specified style is inheriting.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isInheritingStyle(styleName:String):Boolean
     {
@@ -781,6 +826,11 @@ public class StyleManagerImpl implements IStyleManager3
      *
      *  @return Returns <code>true</code> if the specified TextFormat style
      *  is inheriting.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isInheritingTextFormatStyle(styleName:String):Boolean
     {
@@ -795,6 +845,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  to make its measured size get recalculated later.
      *
      *  @param styleName The name of the style that you add to the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerSizeInvalidatingStyle(styleName:String):void
     {
@@ -812,6 +867,11 @@ public class StyleManagerImpl implements IStyleManager3
      *
      *  @return Returns <code>true</code> if the specified style is one
      *  which may affect the measured size of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isSizeInvalidatingStyle(styleName:String):Boolean
     {
@@ -827,6 +887,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  later.</p>
      *
      *  @param styleName The name of the style to register.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerParentSizeInvalidatingStyle(styleName:String):void
     {
@@ -846,6 +911,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  @return Returns <code>true</code> if the specified style is one
      *  which may affect the measured size of the component's
      *  parent container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isParentSizeInvalidatingStyle(styleName:String):Boolean
     {
@@ -860,6 +930,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  parent container to make it redraw and/or relayout its children.
      *
      *  @param styleName The name of the style to register.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerParentDisplayListInvalidatingStyle(
                                 styleName:String):void
@@ -880,6 +955,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  @return Returns <code>true</code> if the specified style is one
      *  which may affect the appearance or layout of the component's
      *  parent container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isParentDisplayListInvalidatingStyle(
                                 styleName:String):Boolean
@@ -894,6 +974,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  If you later access this color name, the value is not case-sensitive.
      *
      *  @param colorValue Color value, for example, 0x0000FF.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerColorName(colorName:String, colorValue:uint):void
     {
@@ -908,6 +993,11 @@ public class StyleManagerImpl implements IStyleManager3
      *
      *  @return Returns <code>true</code> if <code>colorName</code> is an alias
      *  for a color.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isColorName(colorName:String):Boolean
     {
@@ -937,6 +1027,11 @@ public class StyleManagerImpl implements IStyleManager3
      *
      *  @return Returns a uint that represents the color value or <code>NOT_A_COLOR</code>
      *  if the value of the <code>colorName</code> property is not an alias for a color.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getColorName(colorName:Object):uint
     {
@@ -979,6 +1074,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  such as <code>"#FF0000"</code>..
      *
      *  @param colors An Array of color names.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getColorNames(colors:Array /* of Number or String */):void
     {
@@ -1015,6 +1115,11 @@ public class StyleManagerImpl implements IStyleManager3
      *  to this method, it returns <code>true</code> if the style
      *  was set and <code>false</code> if it was not set.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isValidStyleValue(value:*):Boolean
     {
@@ -1047,6 +1152,11 @@ public class StyleManagerImpl implements IStyleManager3
      *          StyleEvent.ERROR.
      *
      *  @see flash.system.SecurityDomain
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function loadStyleDeclarations2(
 						url:String, update:Boolean = true,
@@ -1124,6 +1234,11 @@ public class StyleManagerImpl implements IStyleManager3
      *
      *  @param update If true, all the DisplayList trees will be updated.
      *         The default is true.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function unloadStyleDeclarations(
                                 url:String, update:Boolean = true):void
@@ -1176,6 +1291,11 @@ class StyleEventDispatcher extends EventDispatcher
 
     /**
      *  Constructor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function StyleEventDispatcher(moduleInfo:IModuleInfo)
     {
@@ -1251,6 +1371,11 @@ class StyleModuleInfo
 
     /**
      *  Constructor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function StyleModuleInfo(module:IModuleInfo,
                                     readyHandler:Function,
