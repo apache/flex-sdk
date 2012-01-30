@@ -307,7 +307,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *         of the action area.</p></li>
  *  </ul>
  *
- *  <p>The following images shows the ActionBar with a home button in the navigation area, 
+ *  <p>The following image shows the ActionBar with a home button in the navigation area, 
  *  a text input control in the title area, and a search button in the action area:</p>
  *
  * <p>
