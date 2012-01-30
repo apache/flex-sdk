@@ -20,6 +20,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.geom.Utils3D;
 import flash.geom.Vector3D;
+import flash.system.ApplicationDomain;
 import flash.utils.getDefinitionByName;
 
 [ExcludeClass]
@@ -40,6 +41,8 @@ public final class MatrixUtil
     // For use in getConcatenatedMatrix function
     private static var fakeDollarParent:QName;
     private static var uiComponentClass:Class;
+    private static var usesMarshalling:Object;
+    private static var lastModuleFactory:Object;
     private static var computedMatrixProperty:QName;
 
     //--------------------------------------------------------------------------
@@ -1374,46 +1377,100 @@ public final class MatrixUtil
      *  Workaround for player's concatenatedMatrix being wrong in some situations, such
      *  as when there is a filter or a scrollRect somewhere in the object's container 
      *  hierarchy. Walk the parent tree manually, calculating the matrix manually.
+     *  
+     *  @param displayObject Calculate the concatenatedMatrix for this displayObject
+     * 
+     *  @return The concatenatedMatrix for the displayObject
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function getConcatenatedMatrix(displayObject:DisplayObject):Matrix
     {
+        return getConcatenatedMatrixHelper(displayObject, false);
+    }
+    
+    /**
+     *  Workaround for player's concatenatedMatrix being wrong in some situations, such
+     *  as when there is a filter or a scrollRect somewhere in the object's container 
+     *  hierarchy. Walk the parent tree manually, calculating the matrix manually.
+     *  
+     *  This function differs from getConcatenatedMatrix in that it combines the 
+     *  computedMatrix of each ancestor. The computedMatrix includes transform offsets.     
+     * 
+     *  @param displayObject Calculate the concatenatedMatrix for this displayObject
+     * 
+     *  @return The concatenatedMatrix for the displayObject
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static function getConcatenatedComputedMatrix(displayObject:DisplayObject):Matrix
+    {
+        return getConcatenatedMatrixHelper(displayObject, true);
+    }
+    
+    /**
+     *  @private 
+     */ 
+    private static function getConcatenatedMatrixHelper(displayObject:DisplayObject, useComputedMatrix:Boolean):Matrix
+    {
         var m:Matrix = new Matrix();
-        if (uiComponentClass == null)
-			uiComponentClass = Class(getDefinitionByName("mx.core.UIComponent"));
+        
+        // This check should be made once per top-level ApplicationDomain
+        if (usesMarshalling == null)
+        {
+            // Check if marshalling support has been turned on
+            usesMarshalling = ApplicationDomain.currentDomain.hasDefinition("mx.managers.systemClasses.MarshallingSupport");
+            
+            // If we aren't using marshalling, then we only have one ApplicationDomain and thus one class
+            // definition for UIComponent
+            if (!usesMarshalling && ApplicationDomain.currentDomain.hasDefinition("mx.core.UIComponent"))
+                uiComponentClass = Class(ApplicationDomain.currentDomain.getDefinition("mx.core.UIComponent"));
+        }
+        
         if (fakeDollarParent == null)
             fakeDollarParent = new QName(mx_internal, "$parent");
         
-        while (displayObject && displayObject.transform.matrix)
-        {
-            var scrollRect:Rectangle = displayObject.scrollRect;
-            if (scrollRect != null)
-                m.translate(-scrollRect.x, -scrollRect.y);
-            m.concat(displayObject.transform.matrix);
-            if (uiComponentClass && displayObject is uiComponentClass)
-                displayObject = displayObject[fakeDollarParent] as DisplayObject;
-            else
-                displayObject = displayObject.parent as DisplayObject;
-        }
-        return m;
-    }
-    
-    public static function getConcatenatedComputedMatrix(displayObject:DisplayObject):Matrix
-    {
-        var m:Matrix = new Matrix();
-        if (uiComponentClass == null)
-            uiComponentClass = Class(getDefinitionByName("mx.core.UIComponent"));
-        if (fakeDollarParent == null)
-            fakeDollarParent = new QName(mx_internal, "$parent");
-        if (computedMatrixProperty == null)
+        if (useComputedMatrix && computedMatrixProperty == null)
             computedMatrixProperty = new QName(mx_internal, "computedMatrix");
         
         while (displayObject && displayObject.transform.matrix)
-        {
+        {            
             var scrollRect:Rectangle = displayObject.scrollRect;
             if (scrollRect != null)
                 m.translate(-scrollRect.x, -scrollRect.y);
-            const isUIComponent:Boolean = uiComponentClass && displayObject is uiComponentClass;
-            m.concat((isUIComponent) ? displayObject[computedMatrixProperty] : displayObject.transform.matrix);
+                        
+            // If we are using marshalling, we can have multiple class definitions of UIComponent
+            if (usesMarshalling && "moduleFactory" in displayObject)
+            {
+                var moduleFactory:Object = displayObject["moduleFactory"];
+                // If the module factory has changed, then we are in a different ApplicationDomain
+                if (moduleFactory && moduleFactory !== lastModuleFactory && "info" in moduleFactory)
+                {
+                    var appDomain:ApplicationDomain;
+                    
+                    appDomain = moduleFactory["info"]()["currentDomain"];
+                    // Get the class definition for UIComponent in the current ApplicationDomain
+                    if (appDomain && appDomain.hasDefinition("mx.core.UIComponent"))
+                        uiComponentClass = Class(appDomain.getDefinition("mx.core.UIComponent"));
+                    
+                    lastModuleFactory = moduleFactory;
+                }
+            }
+            
+            var isUIComponent:Boolean = uiComponentClass && displayObject is uiComponentClass;
+            
+            if (useComputedMatrix && isUIComponent)
+                m.concat(displayObject[computedMatrixProperty]);
+            else
+                m.concat(displayObject.transform.matrix);
+            
+            // Try to access $parent, which is the true display list parent
             if (isUIComponent)
                 displayObject = displayObject[fakeDollarParent] as DisplayObject;
             else
