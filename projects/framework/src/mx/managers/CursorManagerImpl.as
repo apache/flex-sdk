@@ -36,6 +36,7 @@ import mx.core.IUIComponent;
 import mx.events.Request;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
+import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -551,7 +552,8 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
 	    		return;
 
         var cursorManagerStyleDeclaration:CSSStyleDeclaration =
-            StyleManager.getStyleDeclaration("mx.managers.CursorManager");
+            StyleManager.getStyleManager(systemManager as IFlexModuleFactory).
+            getStyleDeclaration("mx.managers.CursorManager");
         
         var busyCursorClass:Class =
             cursorManagerStyleDeclaration.getStyle("busyCursor");
