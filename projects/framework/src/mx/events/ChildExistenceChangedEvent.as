@@ -18,6 +18,11 @@ import flash.events.Event;
 /**
  *  Represents events that are dispatched when a the child of a control
  *  is created or destroyed. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ChildExistenceChangedEvent extends Event
 {
@@ -52,6 +57,11 @@ public class ChildExistenceChangedEvent extends Event
 	 *  </table>
 	 *
      *  @eventType childAdd
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const CHILD_ADD:String = "childAdd";
 
@@ -78,6 +88,11 @@ public class ChildExistenceChangedEvent extends Event
 	 *  </table>
 	 *
      *  @eventType childRemove
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const CHILD_REMOVE:String = "childRemove";
 	
@@ -104,6 +119,11 @@ public class ChildExistenceChangedEvent extends Event
 	 *  </table>
 	 *
      *  @eventType overlayCreated
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const OVERLAY_CREATED:String = "overlayCreated";
 
@@ -123,6 +143,11 @@ public class ChildExistenceChangedEvent extends Event
 	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
 	 *
 	 *  @param relatedObject Reference to the child object that was created or destroyed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ChildExistenceChangedEvent(
 								type:String, bubbles:Boolean = false,
@@ -146,6 +171,11 @@ public class ChildExistenceChangedEvent extends Event
 
 	/**
 	 *  Reference to the child object that was created or destroyed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var relatedObject:DisplayObject;
 
