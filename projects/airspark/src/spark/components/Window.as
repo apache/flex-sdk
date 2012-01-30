@@ -87,7 +87,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="applicationActivate", type="mx.events.AIREvent")]
 
@@ -98,7 +98,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="applicationDeactivate", type="mx.events.AIREvent")]
 
@@ -109,7 +109,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="windowActivate", type="mx.events.AIREvent")]
 
@@ -120,7 +120,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="windowDeactivate", type="mx.events.AIREvent")]
 
@@ -133,7 +133,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="close", type="flash.events.Event")]
 
@@ -147,7 +147,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="closing", type="flash.events.Event")]
 
@@ -159,7 +159,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="displayStateChange", type="flash.events.NativeWindowDisplayStateEvent")]
 
@@ -171,7 +171,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="displayStateChanging", type="flash.events.NativeWindowDisplayStateEvent")]
 
@@ -183,7 +183,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="moving", type="flash.events.NativeWindowBoundsEvent")]
 
@@ -194,7 +194,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="networkChange", type="flash.events.Event")]
 
@@ -206,7 +206,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="resizing", type="flash.events.NativeWindowBoundsEvent")]
 
@@ -218,7 +218,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="windowComplete", type="mx.events.AIREvent")]
 
@@ -229,7 +229,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="windowMove", type="mx.events.FlexNativeWindowBoundsEvent")]
 
@@ -240,7 +240,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Event(name="windowResize", type="mx.events.FlexNativeWindowBoundsEvent")]
 
@@ -253,7 +253,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Effect(name="closeEffect", event="windowClose")]
 
@@ -262,7 +262,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Effect(name="minimizeEffect", event="windowMinimize")]
 
@@ -271,7 +271,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Effect(name="unminimizeEffect", event="windowUnminimize")]
 
@@ -317,7 +317,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 [Frame(factoryClass="mx.managers.WindowedSystemManager")]
 
@@ -423,7 +423,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
- *  @productversion Flex 3
+ *  @productversion Flex 4
  */
 public class Window extends SkinnableContainer implements IWindow
 {
@@ -465,7 +465,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public static function getWindow(component:UIComponent):IWindow
     {
@@ -486,7 +486,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function Window()
     {
@@ -634,7 +634,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     [SkinPart (required="false")]
     public var statusText:TextGraphicElement;
@@ -735,7 +735,7 @@ public class Window extends SkinnableContainer implements IWindow
      * 
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     override public function set maxHeight(value:Number):void
     {
@@ -783,7 +783,7 @@ public class Window extends SkinnableContainer implements IWindow
      * 
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     override public function set maxWidth(value:Number):void
     {
@@ -819,7 +819,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     override public function get minHeight():Number
     {
@@ -867,7 +867,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     override public function get minWidth():Number
     {
@@ -911,7 +911,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */ 
     override public function get visible():Boolean
     {
@@ -1020,7 +1020,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get alwaysInFront():Boolean
     {
@@ -1124,7 +1124,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get closed():Boolean
     {
@@ -1198,7 +1198,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get maximizable():Boolean
     {
@@ -1237,7 +1237,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     override public function get cursorManager():ICursorManager
     {
@@ -1265,7 +1265,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function set menu(value:FlexNativeMenu):void
     {
@@ -1290,7 +1290,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get minimizable():Boolean
     {
@@ -1319,7 +1319,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get nativeWindow():NativeWindow
     {
@@ -1346,7 +1346,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get resizable():Boolean
     {
@@ -1376,7 +1376,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     private var _showStatusBar:Boolean = true;
 
@@ -1396,7 +1396,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get showStatusBar():Boolean
     {
@@ -1442,7 +1442,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get status():String
     {
@@ -1488,7 +1488,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get systemChrome():String
     {
@@ -1533,7 +1533,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get title():String
     {
@@ -1579,7 +1579,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get titleIcon():Class
     {
@@ -1620,7 +1620,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get transparent():Boolean
     {
@@ -1664,7 +1664,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function get type():String
     {
@@ -1951,7 +1951,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function close():void
     {
@@ -1976,10 +1976,10 @@ public class Window extends SkinnableContainer implements IWindow
         if (sm.isTopLevel())
         {
             focusManager = new FocusManager(this);
-			var awm:IActiveWindowManager = 
-				IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
-			if (awm)
-           		awm.activate(this);
+            var awm:IActiveWindowManager = 
+                IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
+            if (awm)
+                awm.activate(this);
             else
                 focusManager.activate();
             _cursorManager = new CursorManagerImpl(sm);
@@ -1991,7 +1991,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function maximize():void
     {
@@ -2018,7 +2018,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function minimize():void
     {
@@ -2043,7 +2043,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function restore():void
     {
@@ -2079,7 +2079,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function activate():void
     {
@@ -2096,7 +2096,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function open(openWindowActive:Boolean = true):void
     {
@@ -2118,7 +2118,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function orderInBackOf(window:IWindow):Boolean
     {
@@ -2141,7 +2141,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function orderInFrontOf(window:IWindow):Boolean
     {
@@ -2159,7 +2159,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function orderToBack():Boolean
     {
@@ -2177,7 +2177,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
     public function orderToFront():Boolean
     {
