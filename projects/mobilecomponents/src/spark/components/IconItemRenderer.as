@@ -1742,10 +1742,6 @@ public class IconItemRenderer extends LabelItemRenderer
         var messageWidth:Number = 0;
         var messageHeight:Number = 0;
 		
-		// FIXME mcho: use a baselineShift style
-		var labelShift:Number = 3;
-		var messageShift:Number = 4;
-
         if (hasLabel)
         {
             // reset text if it was truncated before.
@@ -1753,7 +1749,7 @@ public class IconItemRenderer extends LabelItemRenderer
                 labelDisplay.text = labelText;
             
             labelWidth = getElementPreferredWidth(labelDisplay);
-            labelHeight = labelDisplay.getLineMetrics(0).ascent - labelShift;
+            labelHeight = labelDisplay.textTopToLastBaselineHeight;
         }
         
         if (hasMessage)
@@ -1767,9 +1763,7 @@ public class IconItemRenderer extends LabelItemRenderer
                 
 			var metrics:TextLineMetrics = messageDisplay.getLineMetrics(0);
             messageWidth = getElementPreferredWidth(messageDisplay);
-            messageHeight = messageDisplay.measuredTextSize.y - StyleableTextField.TEXT_HEIGHT_PADDING - metrics.descent - messageShift;	
-			if (messageDisplay.numLines == 1) // account for the extra leading on single line text
-				messageHeight -= metrics.leading;
+            messageHeight = messageDisplay.textTopToLastBaselineHeight; 
         }
         
         myMeasuredWidth += Math.max(labelWidth, messageWidth);
@@ -1926,7 +1920,7 @@ public class IconItemRenderer extends LabelItemRenderer
         if (decoratorDisplay)
             labelComponentsViewWidth -= horizontalGap;
         
-        var labelComponentsX:Number = paddingLeft;
+        var labelComponentsX:Number = paddingLeft - StyleableTextField.TEXT_WIDTH_PADDING/2;
         if (iconDisplay)
             labelComponentsX += iconWidth + horizontalGap;
         
@@ -1987,7 +1981,6 @@ public class IconItemRenderer extends LabelItemRenderer
 
 			messageHeight = messageDisplay.measuredTextSize.y;
             setElementSize(messageDisplay, messageWidth, messageHeight);
-            messageHeight = Math.max(0, Math.min(messageHeight, getElementPreferredHeight(messageDisplay)));
             
             // since it's multi-line, no need to truncate
             //if (messageDisplay.isTruncated)
@@ -1999,25 +1992,23 @@ public class IconItemRenderer extends LabelItemRenderer
 		var totalHeight:Number = 0;
 		var labelComponentsY:Number = 0; 
 
+		// Heights used in our alignment calculations.  We only care about the "real" ascent 
 		var labelAlignmentHeight:Number = 0; 
-		var messageAlignmentHeight:Number = 0;
+		var messageAlignmentHeight:Number = 0; 
 		
-		// FIXME mcho: use a baselineShift style
+		// FIXME mcho:  add ascentShift style
 		var labelShift:Number = 3;
 		var messageShift:Number = 4;
 		
 		if (hasLabel)
-			labelAlignmentHeight = labelDisplay.getLineMetrics(0).ascent - labelShift;
+			labelAlignmentHeight = labelDisplay.textTopToLastBaselineHeight;
 		if (hasMessage)
-		{
-			var metrics:TextLineMetrics = messageDisplay.getLineMetrics(0);
-			messageAlignmentHeight = messageDisplay.measuredTextSize.y - StyleableTextField.TEXT_HEIGHT_PADDING - metrics.descent - messageShift;	
-			if (messageDisplay.numLines == 1) // account for the extra leading on single line text
-				messageAlignmentHeight -= metrics.leading;
-		}
+			messageAlignmentHeight = messageDisplay.textTopToLastBaselineHeight;
+
 		totalHeight = labelAlignmentHeight + messageAlignmentHeight + verticalGap;			
-		labelComponentsY = Math.round(vAlign * (viewHeight - totalHeight)) - StyleableTextField.TEXT_HEIGHT_PADDING/2 - 
-			(hasLabel ? labelShift : messageShift) + paddingTop;
+		labelComponentsY = Math.round(vAlign * (viewHeight - totalHeight)) + paddingTop;
+		// Make sure to offset by distance to the text field's top edge
+		labelComponentsY -= (hasLabel ? labelDisplay.textTopOffset : messageDisplay.textTopOffset);
 
 		if (labelDisplay)
 			setElementPosition(labelDisplay, labelComponentsX, labelComponentsY);
