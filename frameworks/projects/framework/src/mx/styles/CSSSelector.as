@@ -36,7 +36,7 @@ public class CSSSelector
      * 
      *  @param subject The plain representation of this selector without
      *  conditions or ancestors. This is typically a fully-qualified class name; for example,
-     *  "spark.components.Button".
+     *  "spark.components.Button". You can use "*" to match all components or "global" for a global selector.
      *  
      *  @param conditions  An optional Array of objects of type CSSCondition that is used to match a
      *  subset of component instances. Currently only a single or a pair of
