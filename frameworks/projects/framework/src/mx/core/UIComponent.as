@@ -2305,10 +2305,10 @@ public class UIComponent extends FlexSprite
         while (o)
         {
             if (o is IUIComponent && "cursorManager" in o)
-			{
-				var cm:ICursorManager = o["cursorManager"];
+            {
+                var cm:ICursorManager = o["cursorManager"];
                 return cm;
-			}
+            }
 
             o = o.parent;
         }
@@ -3142,9 +3142,12 @@ public class UIComponent extends FlexSprite
     [Inspectable(defaultValue="true")]
 
     /**
-     *  Indicates whether the component can receive focus when clicked on.
+     *  Indicates whether the component can receive focus when tabbed to.
+     *  You can set <code>focusEnabled</code> to <code>false</code> 
+     *  when a UIComponent is used as a subcomponent of another component 
+     *  so that the outer component becomes the focusable entity.
      *  If this property is <code>false</code>, focus will be transferred to
-     *  the first parent that is <code>mouseFocusEnable</code> 
+     *  the first parent that has <code>focusEnable</code> 
      *  set to <code>true</code>.
      *  
      *  @default true
@@ -3179,6 +3182,9 @@ public class UIComponent extends FlexSprite
      *  If <code>false</code>, focus will be transferred to
      *  the first parent that is <code>mouseFocusEnable</code> 
      *  set to <code>true</code>.
+     *  For example, you can set this property to <code>false</code> 
+     *  on a Button control so that you can use the Tab key to move focus 
+     *  to the control, but not have the control get focus when you click on it.
      *
      *  @default true
      */
