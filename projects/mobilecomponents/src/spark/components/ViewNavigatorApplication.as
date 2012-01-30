@@ -647,7 +647,7 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
         
         if (viewMenuOpen)
             viewMenuOpen = false;
-        else
+        else if (navigator)
             navigator.backKeyUpHandler();
     }
     
@@ -658,7 +658,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
     {
         super.saveNavigatorState();
 
-        // TODO (chiedozi): Rename save to maybe get?
         if (navigator)
             persistenceManager.setProperty("navigatorState", navigator.saveViewData());
     }
@@ -668,8 +667,6 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
      */
     override protected function loadNavigatorState():void
     {
-        // TODO (chiedozi): Figure out how to refactor this into base class.  Need navigator
-        // to be a part of the base class
         super.loadNavigatorState();
         
         var savedState:Object = persistenceManager.getProperty("navigatorState");
