@@ -152,7 +152,7 @@ public class SolidColor extends EventDispatcher implements IFill
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public function begin(target:Graphics, rc:Rectangle):void
+	public function begin(target:Graphics, bounds:Rectangle):void
 	{
 		target.beginFill(color, alpha);
 	}
