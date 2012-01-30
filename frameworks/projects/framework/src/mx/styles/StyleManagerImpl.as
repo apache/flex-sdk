@@ -494,13 +494,6 @@ public class StyleManagerImpl implements IStyleManager2
      */
     public function initProtoChainRoots():void
     {
-		// Prior to version 3, textDecoration and leading were not inheriting styles
-		if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-		{
-			delete _inheritingStyles["textDecoration"];
-			delete _inheritingStyles["leading"];
-		}
-
 		if (!stylesRoot)
 		{
 			if (_selectors["global"] != null)
