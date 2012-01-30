@@ -14,18 +14,15 @@ package mx.geom
 	import flash.geom.Matrix3D;
 	import __AS3__.vec.Vector;
 	import flash.geom.Vector3D;
-	import flash.events.EventDispatcher;
 	import flash.events.Event;
-	import mx.core.mx_internal;
 	import mx.geom.ITransformable;
 	import mx.core.AdvancedLayoutFeatures;
 	import flash.geom.Point;
-	use namespace mx_internal;	
 	
 	/**
 	 *  A CompoundTransform represents a 2D or 3D matrix transform. It can be used in the offsets property on a UIComponent or GraphicElement.
 	 */
-	public class CompoundTransform extends EventDispatcher implements ITransformable
+	public class CompoundTransform
 	{
     //--------------------------------------------------------------------------
     //
@@ -59,17 +56,6 @@ package mx.geom
 	private var _transformX:Number = 0;
 	private var _transformY:Number = 0;
 	private var _transformZ:Number = 0;
-
-	mx_internal var dispatchChangeEvents:Boolean = true;
-	
-    /**
-     * @private
-     * a flag for use by the owning object indicating whether the owning object has a pending update
-     * to its matrix.  If this is false, the CompoundTransform will notify the owning object of any changes
-     * to its transform properties. Otherwise, it assumes the owner has already taken appropriate action. 
-     * it is the owner's responsibility to set this flag.
-     */
-	mx_internal var updatePending:Boolean = false;
 		
 	
     /**
@@ -105,16 +91,16 @@ package mx.geom
      * constants to indicate which form of a transform -- the properties, matrix, or matrix3D -- is
      *  'the source of truth.'   
      */
-	mx_internal static const SOURCE_NONE:uint				= 0;
-	mx_internal static const SOURCE_PROPERTIES:uint			= 1;
-	mx_internal static const SOURCE_MATRIX:uint 			= 2;
-	mx_internal static const SOURCE_MATRIX3D:uint 			= 3;
+	public static const SOURCE_NONE:uint				= 0;
+	public static const SOURCE_PROPERTIES:uint			= 1;
+	public static const SOURCE_MATRIX:uint 			= 2;
+	public static const SOURCE_MATRIX3D:uint 			= 3;
 	
     /**
      * @private
      * indicates the 'source of truth' for the transform.  
      */
-	mx_internal var sourceOfTruth:uint = SOURCE_NONE;
+	public var sourceOfTruth:uint = SOURCE_NONE;
 	
     /**
      * @private
@@ -144,10 +130,6 @@ package mx.geom
 
 	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
 
-    /**
-     * @private
-     */
-	mx_internal var owner:AdvancedLayoutFeatures;
 	//----------------------------------------------------------------------------
 	
 	/**
@@ -386,7 +368,7 @@ package mx.geom
 	 * @private
 	 * returns true if the transform has 3D values.
 	 */
-	mx_internal function get is3D():Boolean
+	public function get is3D():Boolean
 	{
 		if((_flags & M3D_FLAGS_VALID) == 0)
 			update3DFlags();
@@ -398,7 +380,7 @@ package mx.geom
 	 * @private
 	 * the transformX of the transform
 	 */
-	mx_internal function set transformX(value:Number):void
+	public function set transformX(value:Number):void
 	{
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
 		if(value == _transformX)
@@ -410,7 +392,7 @@ package mx.geom
     /**
      * @private
      */
-	mx_internal function get transformX():Number
+	public function get transformX():Number
 	{
 		return _transformX;
 	}
@@ -420,7 +402,7 @@ package mx.geom
 	 * @private
 	 * the transformY of the transform
 	 */
-	mx_internal function set transformY(value:Number):void
+	public function set transformY(value:Number):void
 	{
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
 		if(value == _transformY)
@@ -432,7 +414,7 @@ package mx.geom
     /**
      * @private
      */
-	mx_internal function get transformY():Number
+	public function get transformY():Number
 	{
 		return _transformY;
 	}
@@ -441,7 +423,7 @@ package mx.geom
 	 * @private
 	 * the transformZ of the transform
 	 */
-	mx_internal function set transformZ(value:Number):void
+	public function set transformZ(value:Number):void
 	{
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
 		if(value == _transformZ)
@@ -453,7 +435,7 @@ package mx.geom
     /**
      * @private
      */
-	mx_internal function get transformZ():Number
+	public function get transformZ():Number
 	{
 		return _transformZ;
 	}
@@ -469,7 +451,7 @@ package mx.geom
      * @param dispatchChangeEvent - if true, the CompoundTransform will dispatch a change indicating that its underlying transforms
      * have been modified. 
   	 */
-	private function invalidate(reason:uint,affects3D:Boolean,dispatchChangeEvent:Boolean = true):void
+	private function invalidate(reason:uint,affects3D:Boolean):void
 	{
 		//race("invalidating: " + reason);
 		switch(reason)
@@ -496,14 +478,6 @@ package mx.geom
 		if(affects3D)
 			_flags &= ~M3D_FLAGS_VALID;
 			
-		if(updatePending)
-		{
-			//race("\t** Aready invalid, aborting");
-			return;
-		}
-		
-		if(dispatchChangeEvents && dispatchChangeEvent)
-			dispatchEvent(new Event(Event.CHANGE));	
 	}
 	
 	private static const EPSILON:Number = .0001;
@@ -547,7 +521,7 @@ package mx.geom
 	}
 	
 	
-	mx_internal function translateBy(x:Number,y:Number,z:Number = 0):void
+	public function translateBy(x:Number,y:Number,z:Number = 0):void
 	{
 		if(_flags & MATRIX_VALID)
 		{
@@ -763,32 +737,5 @@ package mx.geom
 		invalidate(INVALIDATE_FROM_MATRIX3D,true);
 	}
 
-	public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
-	{
-		if(owner != null)
-		{
-			var is3D:Boolean = ((!isNaN(rx) && rx != 0) || (!isNaN(ry) && ry != 0) || (!isNaN(sz) && sz != 1));
-			var token:* = owner.prepareForTransformCenterAdjustment(false,is3D,tx,ty,tz);
-
-			if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-			
-			if(!isNaN(rx))
-				_rotationX = rx;
-			if(!isNaN(ry))
-				_rotationY = ry;
-			if(!isNaN(rz))
-				_rotationZ = rz;
-			if(!isNaN(sx))
-				_scaleX = sx;
-			if(!isNaN(sx))
-				_scaleY = sy;
-			if(!isNaN(sz))
-				_scaleZ = sz;			
-	
-			invalidate(INVALIDATE_FROM_PROPERTY,is3D);
-			owner.completeTransformCenterAdjustment(token,is3D);
-		}
-		// TODO: support transformAround when we don't have an owner.
-	}
 }
 }
