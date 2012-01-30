@@ -46,6 +46,11 @@ import mx.effects.effectClasses.FadeInstance;
  *  @see mx.effects.effectClasses.FadeInstance
  *
  *  @includeExample examples/FadeEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Fade extends TweenEffect
 {
@@ -72,6 +77,11 @@ public class Fade extends TweenEffect
      *  Constructor.
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Fade(target:Object = null)
     {
@@ -101,6 +111,11 @@ public class Fade extends TweenEffect
      *  <code>alpha</code> property.
      *  If the effect causes the target component to appear,
      *  the default value is 0.0.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var alphaFrom:Number;
     
@@ -119,6 +134,11 @@ public class Fade extends TweenEffect
      *  If the effect causes the target component to appear,
      *  the default value is the current value of the target's
      *  <code>alpha</code> property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var alphaTo:Number;
     
