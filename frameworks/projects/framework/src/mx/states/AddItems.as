@@ -14,8 +14,7 @@ package mx.states
 import flash.display.DisplayObject;
 import mx.components.FxContainer;
 import mx.components.Group;
-import mx.collections.ArrayCollection;
-import mx.collections.ArrayList;
+import mx.collections.IList;
 import mx.core.Container;
 import mx.core.ContainerCreationPolicy;
 import mx.core.IDeferredInstance;
@@ -389,7 +388,7 @@ public class AddItems extends OverrideBase implements IOverride
         {
             addItemsToContainer(dest as Container, localItems);
         }
-        else if (propertyName != null && !isStyle && dest[propertyName] is ArrayCollection)
+        else if (propertyName != null && !isStyle && dest[propertyName] is IList)
         {
             addItemsToArrayCollection(dest[propertyName], localItems);
         }
@@ -431,9 +430,9 @@ public class AddItems extends OverrideBase implements IOverride
             for (i = 0; i < numAdded; i++)
                 Container(dest).removeChildAt(startIndex);
         }
-        else if (propertyName != null && !isStyle && dest[propertyName] is ArrayCollection)
+        else if (propertyName != null && !isStyle && dest[propertyName] is IList)
         {
-            removeItemsFromArrayCollection(dest[propertyName] as ArrayCollection);
+            removeItemsFromArrayCollection(dest[propertyName] as IList);
         }
         else
         {
@@ -468,8 +467,8 @@ public class AddItems extends OverrideBase implements IOverride
             if (propertyName == null && dest is Container)
                 return Container(dest).getChildIndex(DisplayObject(object));
     
-            if (propertyName != null && !isStyle && dest[propertyName] is ArrayCollection)
-                return ArrayList(dest[propertyName].list).getItemIndex(object);
+            if (propertyName != null && !isStyle && dest[propertyName] is IList)
+                return IList(dest[propertyName].list).getItemIndex(object);
                 
             if (propertyName != null && isStyle)
                 return dest.getStyle(propertyName).indexOf(object);
@@ -549,10 +548,8 @@ public class AddItems extends OverrideBase implements IOverride
     /**
      *  @private
      */
-    protected function addItemsToArrayCollection(dest:ArrayCollection, items:Array):void
+    protected function addItemsToArrayCollection(list:IList, items:Array):void
     {       
-        var list:ArrayList = ArrayList(dest.list);
-        
         if (startIndex == -1)
             startIndex = list.length;
         
@@ -563,10 +560,8 @@ public class AddItems extends OverrideBase implements IOverride
     /**
      *  @private
      */
-    protected function removeItemsFromArrayCollection(dest:ArrayCollection):void
+    protected function removeItemsFromArrayCollection(list:IList):void
     {
-        var list:ArrayList = ArrayList(dest.list);
-        
         for (var i:int = 0; i < numAdded; i++)
             list.removeItemAt(startIndex);
         
