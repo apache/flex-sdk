@@ -15,6 +15,7 @@ package mx.effects
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.utils.getQualifiedClassName;
+
 import mx.core.IFlexDisplayObject;
 import mx.core.mx_internal;
 import mx.effects.effectClasses.AddRemoveEffectTargetFilter;
@@ -916,6 +917,10 @@ public class Effect extends EventDispatcher implements IEffect
             
             applyStartValues(mx_internal::propertyChangesArray,
                              this.targets);
+
+            // Revalidate after applying the start values, to get everything
+            // back the way it should be before starting the animation
+            LayoutManager.getInstance().validateNow();
         }
         
         var newInstances:Array = createInstances(targets);
@@ -1233,6 +1238,7 @@ public class Effect extends EventDispatcher implements IEffect
         }
     }
     
+    
     /**
      *  Used internally by the Effect infrastructure.
      *  If <code>captureStartValues()</code> has been called,
@@ -1321,7 +1327,7 @@ public class Effect extends EventDispatcher implements IEffect
      *  @param event An event object of type EffectEvent.
      */
     protected function effectEndHandler(event:EffectEvent):void 
-    {   
+    {
         var instance:IEffectInstance = IEffectInstance(event.effectInstance);
         
         deleteInstance(instance);
