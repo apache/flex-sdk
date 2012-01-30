@@ -18,11 +18,23 @@ import mx.core.DeviceDensity;
 
 import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
 import spark.skins.mobile160.assets.CheckBox_down;
-import spark.skins.mobile160.assets.CheckBox_symbol;
+import spark.skins.mobile160.assets.CheckBox_downSymbol;
+import spark.skins.mobile160.assets.CheckBox_downSymbolSelected;
 import spark.skins.mobile160.assets.CheckBox_up;
+import spark.skins.mobile160.assets.CheckBox_upSymbol;
+import spark.skins.mobile160.assets.CheckBox_upSymbolSelected;
 import spark.skins.mobile240.assets.CheckBox_down;
-import spark.skins.mobile240.assets.CheckBox_symbol;
+import spark.skins.mobile240.assets.CheckBox_downSymbol;
+import spark.skins.mobile240.assets.CheckBox_downSymbolSelected;
 import spark.skins.mobile240.assets.CheckBox_up;
+import spark.skins.mobile240.assets.CheckBox_upSymbol;
+import spark.skins.mobile240.assets.CheckBox_upSymbolSelected;
+import spark.skins.mobile320.assets.CheckBox_down;
+import spark.skins.mobile320.assets.CheckBox_downSymbol;
+import spark.skins.mobile320.assets.CheckBox_downSymbolSelected;
+import spark.skins.mobile320.assets.CheckBox_up;
+import spark.skins.mobile320.assets.CheckBox_upSymbol;
+import spark.skins.mobile320.assets.CheckBox_upSymbolSelected;
 
 /**
  *  Actionscript based skin for CheckBox on mobile applications. 
@@ -54,41 +66,62 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
         
         useChromeColor = true;
         
+        layoutPaddingLeft = 0;
+        layoutPaddingRight = 0;
+        layoutPaddingTop = 0;
+        layoutPaddingBottom = 0;
+        
         switch (authorDensity)
         {
+            case DeviceDensity.PPI_320:
+            {
+                upIconClass = spark.skins.mobile320.assets.CheckBox_up;
+                upSelectedIconClass = spark.skins.mobile320.assets.CheckBox_up;
+                downIconClass = spark.skins.mobile320.assets.CheckBox_down;
+                downSelectedIconClass = spark.skins.mobile320.assets.CheckBox_down;
+                upSymbolIconClass = spark.skins.mobile320.assets.CheckBox_upSymbol;
+                upSymbolIconSelectedClass = spark.skins.mobile320.assets.CheckBox_upSymbolSelected;
+                downSymbolIconClass = spark.skins.mobile320.assets.CheckBox_downSymbol;
+                downSymbolIconSelectedClass = spark.skins.mobile320.assets.CheckBox_downSymbolSelected;
+                
+                layoutGap = 20;
+                layoutMeasuredWidth = 64;
+                layoutBorderSize = 4;
+                
+                break;
+            }
             case DeviceDensity.PPI_240:
             {
                 upIconClass = spark.skins.mobile240.assets.CheckBox_up;
                 upSelectedIconClass = spark.skins.mobile240.assets.CheckBox_up;
                 downIconClass = spark.skins.mobile240.assets.CheckBox_down;
                 downSelectedIconClass = spark.skins.mobile240.assets.CheckBox_down;
-                symbolIconClass = spark.skins.mobile240.assets.CheckBox_symbol;
+                upSymbolIconClass = spark.skins.mobile240.assets.CheckBox_upSymbol;
+                upSymbolIconSelectedClass = spark.skins.mobile240.assets.CheckBox_upSymbolSelected;
+                downSymbolIconClass = spark.skins.mobile240.assets.CheckBox_downSymbol;
+                downSymbolIconSelectedClass = spark.skins.mobile240.assets.CheckBox_downSymbolSelected;
                 
                 layoutGap = 15;
-                layoutPaddingLeft = 15;
-                layoutPaddingRight = 15;
-                layoutPaddingTop = 15;
-                layoutPaddingBottom = 15;
                 layoutMeasuredWidth = 48;
+                layoutBorderSize = 2;
                 
                 break;
             }
             default:
             {
-                // TODO (jasonsj): 160ppi XD spec
                 // default PPI160
-                upIconClass = spark.skins.mobile160.assets.CheckBox_up; 
+                upIconClass = spark.skins.mobile160.assets.CheckBox_up;
                 upSelectedIconClass = spark.skins.mobile160.assets.CheckBox_up;
                 downIconClass = spark.skins.mobile160.assets.CheckBox_down;
                 downSelectedIconClass = spark.skins.mobile160.assets.CheckBox_down;
-                symbolIconClass = spark.skins.mobile160.assets.CheckBox_symbol;
+                upSymbolIconClass = spark.skins.mobile160.assets.CheckBox_upSymbol;
+                upSymbolIconSelectedClass = spark.skins.mobile160.assets.CheckBox_upSymbolSelected;
+                downSymbolIconClass = spark.skins.mobile160.assets.CheckBox_downSymbol;
+                downSymbolIconSelectedClass = spark.skins.mobile160.assets.CheckBox_downSymbolSelected;
                 
-                layoutGap = 15;
-                layoutPaddingLeft = 15;
-                layoutPaddingRight = 15;
-                layoutPaddingTop = 15;
-                layoutPaddingBottom = 15;
-                layoutMeasuredWidth = 48;
+                layoutGap = 10;
+                layoutMeasuredWidth = 32;
+                layoutBorderSize = 2;
                 
                 break;
             }
@@ -110,8 +143,12 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
     {
         // get the size and position of iconDisplay
         var currentIcon:DisplayObject = getIconDisplay();
-        // TODO (jasonsj): layout variables for chrome color shape
-        chromeColorGraphics.drawRoundRect(currentIcon.x + 2, currentIcon.y + 2, currentIcon.width - 4, currentIcon.height - 4, 4, 4);
+        var widthAdjustment:Number = layoutBorderSize * 2;
+        
+        chromeColorGraphics.drawRoundRect(currentIcon.x + layoutBorderSize,
+            currentIcon.y + layoutBorderSize,
+            currentIcon.width - widthAdjustment,
+            currentIcon.height - widthAdjustment, layoutBorderSize, layoutBorderSize);
     }
     
     override public function get focusSkinExclusions():Array 
