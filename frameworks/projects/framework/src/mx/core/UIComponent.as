@@ -32,6 +32,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.geom.Transform;
 import flash.geom.Vector3D;
+import flash.system.ApplicationDomain;
 import flash.text.TextLineMetrics;
 import flash.utils.getQualifiedClassName;
 
@@ -55,6 +56,7 @@ import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.geom.CompoundTransform;
 import mx.geom.Transform;
+import mx.geom.TransformOffsets;
 import mx.graphics.RoundedRectangle;
 import mx.managers.CursorManager;
 import mx.managers.ICursorManager;
@@ -84,7 +86,6 @@ import mx.utils.NameUtil;
 import mx.utils.StringUtil;
 import mx.validators.IValidatorListener;
 import mx.validators.ValidationResult;
-import mx.geom.TransformOffsets;
 
 use namespace mx_internal;
 
@@ -444,6 +445,20 @@ use namespace mx_internal;
  *  @eventType mx.events.EffectEvent.EFFECT_START
  */
 [Event(name="effectStart", type="mx.events.EffectEvent")]
+
+/**
+ *  Dispatched after an effect is stopped, which happens
+ *  only by a call to <code>stop()</code> on the effect.
+ *
+ *  <p>The effect will then dispatch the EFFECT_END event
+ *  as the effect finishes. The purpose of the EFFECT_STOP
+ *  event is to let listeners know that the effect came to
+ *  a premature end, rather than ending naturally or as a 
+ *  result of a call to <code>end()</code>.
+ *
+ *  @eventType mx.events.EffectEvent.EFFECT_STOP
+ */
+[Event(name="effectStop", type="mx.events.EffectEvent")]
 
 /**
  *  Dispatched after an effect ends.
@@ -1117,6 +1132,16 @@ public class UIComponent extends FlexSprite
      */
     private var hasFocusRect:Boolean = false;
 
+    /**
+     * @private
+     * These variables cache the transition state from/to information for
+     * the transition currently running. This information is used when
+     * determining what to do with a new transition that interrupts the
+     * running transition.
+     */
+    private var transitionFromState:String;
+    private var transitionToState:String;
+    
 
     //--------------------------------------------------------------------------
     //
@@ -4670,9 +4695,9 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @private
-     *  Transition effect currently playing.
+     *  Transition currently playing.
      */
-    private var _currentTransitionEffect:IEffect;
+    private var _currentTransition:Transition;
 
     private var _transitions:Array /* of Transition */ = [];
 
@@ -7656,7 +7681,7 @@ public class UIComponent extends FlexSprite
      */
     private function commitCurrentState():void
     {
-        var transition:IEffect =
+        var nextTransition:Transition =
             playStateTransition ?
             getTransition(_currentState, requestedCurrentState) :
             null;
@@ -7667,28 +7692,29 @@ public class UIComponent extends FlexSprite
 
         // Stop any transition that may still be playing
         var prevTransitionFraction:Number;
-        if (_currentTransitionEffect)
+        if (_currentTransition)
         {
-            if (_currentTransitionEffect.autoReverse &&
-                _currentTransitionEffect.fromState == requestedCurrentState &&
-                _currentTransitionEffect.toState == _currentState)
+            if (_currentTransition.autoReverse &&
+                transitionFromState == requestedCurrentState &&
+                transitionToState == _currentState &&
+                "playheadTime" in _currentTransition.effect)
             {
-                if (_currentTransitionEffect.duration == 0)
+                if (_currentTransition.effect.duration == 0)
                     prevTransitionFraction = 0;
                 else
                     prevTransitionFraction = 
-                        _currentTransitionEffect.playheadTime /
-                        _currentTransitionEffect.duration;
+                        _currentTransition.effect["playheadTime"] /
+                        getTotalDuration(_currentTransition.effect);
             }
-            _currentTransitionEffect.end();
+            _currentTransition.effect.end();
         }
 
         // Initialize the state we are going to.
         initializeState(requestedCurrentState);
 
         // Capture transition start values
-        if (transition)
-            transition.captureStartValues();
+        if (nextTransition)
+            nextTransition.effect.captureStartValues();
 
         // Dispatch currentStateChanging event
         event = new StateChangeEvent(StateChangeEvent.CURRENT_STATE_CHANGING);
@@ -7721,26 +7747,72 @@ public class UIComponent extends FlexSprite
         event.newState = _currentState ? _currentState : "";
         dispatchEvent(event);
 
-        if (transition)
+        if (nextTransition)
         {
             // Force a validation before playing the transition effect
             UIComponentGlobals.layoutManager.validateNow();
-            _currentTransitionEffect = transition;
-            transition.addEventListener(EffectEvent.EFFECT_END, transition_effectEndHandler);
-            transition.fromState = oldState;
-            transition.toState = _currentState;
-            transition.play();
-            if (!isNaN(prevTransitionFraction) && transition.duration != 0)
-                transition.seek((1 - prevTransitionFraction) * transition.duration);
+            _currentTransition = nextTransition;
+            transitionFromState = oldState;
+            transitionToState = _currentState;
+            nextTransition.effect.addEventListener(EffectEvent.EFFECT_END, 
+                transition_effectEndHandler);
+            nextTransition.effect.play();
+            if (!isNaN(prevTransitionFraction) && 
+                nextTransition.effect.duration != 0 &&
+                "seek" in nextTransition.effect)
+                nextTransition.effect["seek"]((1 - prevTransitionFraction) * 
+                    getTotalDuration(nextTransition.effect));
         }
     }
 
+    // Used by getTotalDuration() to avoid hard-linking against
+    // CompositeEffect
+    private static var compositeEffectType:Class;
+    private static var compositeEffectLoaded:Boolean = false;
+    
+    /**
+     * @private
+     * returns the 'total' duration of an effect. This value
+     * takes into account any startDelay and repetition data.
+     * For CompositeEffect objects, it also accounts for the
+     * total duration of that effect's children.
+     */
+    private function getTotalDuration(effect:IEffect):Number
+    {
+        // TODO (chaase): we should add timing properties to some
+        // interface to avoid these hacks
+        var duration:Number = 0;
+        var effectObj:Object = Object(effect);
+        if (!compositeEffectLoaded)
+        {
+            compositeEffectLoaded = true;
+            if (ApplicationDomain.currentDomain.hasDefinition("mx.effects.CompositeEffect"))
+                compositeEffectType = Class(ApplicationDomain.currentDomain.
+                getDefinition("mx.effects.CompositeEffect"));
+        }
+        if (compositeEffectType && (effect is compositeEffectType))
+            duration = effectObj.compositeDuration;
+        else
+            duration = effect.duration;
+        var repeatDelay:int = ("repeatDelay" in effect) ?
+            effectObj.repeatDelay : 0;
+        var repeatCount:int = ("repeatCount" in effect) ?
+            effectObj.repeatCount : 0;
+        var startDelay:int = ("startDelay" in effect) ?
+            effectObj.startDelay : 0;
+        // Now add in startDelay/repeat info
+        duration = 
+            duration * repeatCount +
+            (repeatDelay * (repeatCount - 1)) +
+            startDelay;
+        return duration;
+    }
     /**
      *  @private
      */
     private function transition_effectEndHandler(event:EffectEvent):void
     {
-        _currentTransitionEffect = null;
+        _currentTransition = null;
     }
 
     /**
@@ -7923,9 +7995,9 @@ public class UIComponent extends FlexSprite
      *  @private
      *  Find the appropriate transition to play between two states.
      */
-    private function getTransition(oldState:String, newState:String):IEffect
+    private function getTransition(oldState:String, newState:String):Transition
     {
-        var result:IEffect = null;      // Current candidate
+        var result:Transition = null;   // Current candidate
         var priority:int = 0;           // Priority     fromState   toState
                                         //    1             *           *
                                         //    2           match         *
@@ -7947,22 +8019,22 @@ public class UIComponent extends FlexSprite
 
             if (t.fromState == "*" && t.toState == "*" && priority < 1)
             {
-                result = t.effect;
+                result = t;
                 priority = 1;
             }
             else if (t.fromState == oldState && t.toState == "*" && priority < 2)
             {
-                result = t.effect;
+                result = t;
                 priority = 2;
             }
             else if (t.fromState == "*" && t.toState == newState && priority < 3)
             {
-                result = t.effect;
+                result = t;
                 priority = 3;
             }
             else if (t.fromState == oldState && t.toState == newState && priority < 4)
             {
-                result = t.effect;
+                result = t;
                 priority = 4;
 
                 // Can't get any higher than this, let's go.
