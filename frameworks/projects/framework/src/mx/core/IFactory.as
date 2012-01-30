@@ -24,6 +24,11 @@ package mx.core
  *  the cells for a particular column of the DataGrid.</p>
  *
  *  @see mx.core.ClassFactory
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IFactory
 {
@@ -38,6 +43,11 @@ public interface IFactory
 	 *  implements IFactory).
 	 *
 	 *  @return The newly created instance.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function newInstance():*;
 }
