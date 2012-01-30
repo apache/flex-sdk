@@ -17,6 +17,7 @@ import flash.events.Event;
 import flash.geom.Matrix3D;
 import flash.geom.PerspectiveProjection;
 import flash.geom.Point;
+import flash.geom.Vector3D;
 
 import mx.core.FlexGlobals;
 import mx.core.ILayoutElement;
@@ -27,6 +28,7 @@ import mx.effects.IEffect;
 import mx.effects.Parallel;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
+import mx.geom.TransformOffsets;
 import mx.managers.SystemManager;
 
 import spark.components.Application;
@@ -416,30 +418,6 @@ public class FlipViewTransition extends ViewTransitionBase
         var vector:Vector.<MotionPath> = new Vector.<MotionPath>();
         vector.push(new SimpleMotionPath(animatedProperty, 0, directionModifier * 180));
         
-        // Creation motion path for the target's z property.
-        var mp:MotionPath = new MotionPath("z");
-        vector.push(mp);
-        
-        // Generate key frames for the z animation
-        var keyframes:Vector.<Keyframe> = new Vector.<Keyframe>();
-        
-        var keyFrame:Keyframe = new Keyframe();
-        keyFrame.time = 0;
-        keyFrame.value = 0;
-        keyframes.push(keyFrame);
-        
-        keyFrame = new Keyframe();
-        keyFrame.time = duration / 2;
-        keyFrame.value = width / 2;
-        keyframes.push(keyFrame);
-        
-        keyFrame = new Keyframe();
-        keyFrame.time = duration;
-        keyFrame.value = 0;
-        keyframes.push(keyFrame);
-        
-        mp.keyframes = keyframes;
-        
         // Configure the remainder of our animation parameters and install
         // an update listener so that we can hide the old view once it's out
         // of view.
@@ -477,6 +455,39 @@ public class FlipViewTransition extends ViewTransitionBase
                 
                 cachedNavigator.displayObject.visible = false;
             }
+        }
+
+        if (mode == FlipViewTransitionMode.CARD)
+        {
+            var topRight:Vector3D = new Vector3D(viewWidth, 0, 0);
+            var bottomLeft:Vector3D = new Vector3D(0, viewHeight, 0);
+                
+            var matrix:Matrix3D = new Matrix3D();
+            matrix.identity();
+            
+            if (vertical)
+            {
+            	// Flipping around X axis
+                matrix.appendTranslation(0, -viewHeight/2, 0);
+                matrix.appendRotation(transitionGroup.rotationX, new Vector3D(1, 0, 0));
+                matrix.appendTranslation(0, viewHeight/2, 0);
+                
+            }
+            else
+            {
+            	// Flipping around Y axis
+                matrix.appendTranslation(-viewWidth/2, 0, 0);
+                matrix.appendRotation(transitionGroup.rotationY, new Vector3D(0, 1, 0));
+                matrix.appendTranslation(viewWidth/2, 0, 0);
+            }
+            
+            var newTopRight:Vector3D = matrix.transformVector(topRight);
+            var newBottomLeft:Vector3D = matrix.transformVector(bottomLeft);
+            
+            if (!transitionGroup.postLayoutTransformOffsets)
+                transitionGroup.postLayoutTransformOffsets = new TransformOffsets();
+            
+            transitionGroup.postLayoutTransformOffsets.z = -Math.min(newTopRight.z, newBottomLeft.z);    
         }
         
         // Ensure transform matrix is updated even when layout is disabled.
