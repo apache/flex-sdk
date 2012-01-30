@@ -27,7 +27,7 @@
       @see spark.components.Window
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-             xmlns:mx="library://ns.adobe.com/flex/halo" 
+             xmlns:fb="http://ns.adobe.com/fb/2009" xmlns:mx="library://ns.adobe.com/flex/halo" 
              minHeight="24" >
 
     <fx:Metadata>
@@ -37,17 +37,29 @@
       [HostComponent("spark.components.windowClasses.TitleBar")]
     </fx:Metadata> 
   
-      <fx:Script>
+    <fx:Script fb:stylingSupport="true">
         /*  Define the skin elements that should not be colorized. 
          *  Exclude the titleBar and scroller because they are SparkSkins and we 
          *  don't want to colorize them twice.
          */
         static private const exclusions:Array = ["titleIconImage", "titleText"];
+        
         /**
-         *  @inheritDoc
+         * @private
          */
         override public function get colorizeExclusions():Array {return exclusions;}
-
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        } 
+    </fx:Script>
+    
+    <fx:Script>
         /**
          *  Override to keep the spacer's width up-to-date.
          */ 
