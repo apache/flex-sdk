@@ -4233,13 +4233,13 @@ public class UIComponent extends FlexSprite
     [Bindable("hasFocusableChildrenChange")]
     [Inspectable(defaultValue="false")]
 
-	/**
-	 *  A flag that indicates whether child objects can receive focus
-	 * 
-	 *  <p>This is similar to the <code>tabChildren</code> property
+    /**
+     *  A flag that indicates whether child objects can receive focus
+     * 
+     *  <p>This is similar to the <code>tabChildren</code> property
      *  used by Flash Player.</p>
-	 * 
-	 *  <p>This is usually <code>false</code> because most components
+     * 
+     *  <p>This is usually <code>false</code> because most components
      *  either receive focus themselves or delegate focus to a single
      *  internal sub-component and appear as if the component has
      *  received focus. For example, a TextInput contains a focusable
@@ -4250,18 +4250,18 @@ public class UIComponent extends FlexSprite
      *  component that has focus. Its internal structure is an
      *  abstraction.</p>
      *
-	 *  <p>Usually only navigator components like TabNavigator and
+     *  <p>Usually only navigator components like TabNavigator and
      *  Accordion have this flag set to <code>true</code> because they
      *  receive focus on Tab but focus goes to components in the child
      *  containers on further Tabs.</p>
-	 *  
+     *  
      *  @default false
      *  
-	 *  @langversion 4.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+     *  @langversion 4.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function get hasFocusableChildren():Boolean
     {
         return _hasFocusableChildren;
@@ -11179,6 +11179,22 @@ public class UIComponent extends FlexSprite
             return automationDelegate.createAutomationIDPart(child);
         return null;
     }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function createAutomationIDPartWithRequiredProperties(child:IAutomationObject, 
+                                                                 properties:Array):Object
+    {
+        if (automationDelegate)
+            return automationDelegate.createAutomationIDPartWithRequiredProperties(child, properties);
+        return null;
+    }
 
     /**
      *  @inheritDoc
@@ -11207,6 +11223,21 @@ public class UIComponent extends FlexSprite
     {
         if (automationDelegate)
             return automationDelegate.getAutomationChildAt(index);
+        return null;
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function getAutomationChildren():Array
+    {
+        if (automationDelegate)
+            return automationDelegate.getAutomationChildren();
         return null;
     }
 
