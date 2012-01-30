@@ -425,7 +425,7 @@ use namespace mx_internal;
  */
 public class WindowedApplication extends Application implements IWindow
 {
-    include "../../mx/core/Version.as";
+    include "../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
