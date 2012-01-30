@@ -1,14 +1,18 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the VRule control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo VRule control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-   <mx:Panel title="VRule Control Example" id="myPanel" horizontalAlign="center" 
-       paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
-      
-      <mx:VRule rollOverEffect="WipeUp" strokeWidth="1" strokeColor="red"/>        
-      <mx:Label width="100%" color="blue" 
-          text="Move mouse over VRule control to redraw it."/>
-    
-   </mx:Panel>
-</mx:Application>
-       
+    <s:Panel id="myPanel"
+            title="Halo VRule Control Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <mx:VRule rollOverEffect="WipeUp" strokeWidth="1" strokeColor="red"/>
+            <s:SimpleText width="100%" color="blue" 
+                    text="Move mouse over the Halo VRule control to redraw it."/>
+        </s:VGroup>
+   </s:Panel>
+
+</s:Application>
