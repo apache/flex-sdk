@@ -17,6 +17,7 @@ import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 import flash.events.EventDispatcher;
+import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -72,10 +73,13 @@ public class BitmapFill extends EventDispatcher implements IFill
 	
 	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
 	private static var transformMatrix:Matrix = new Matrix();
-    private var nonRepeatSource:BitmapData;
+    private var nonRepeatAlphaSource:BitmapData;
+    
     private var regenerateNonRepeatSource:Boolean = true;
     private var lastBoundsWidth:Number = 0;
     private var lastBoundsHeight:Number = 0;
+    private var applyAlphaMultiplier:Boolean = false;
+    private var nonRepeatSourceCreated:Boolean = false;
     
 	//--------------------------------------------------------------------------
 	//
@@ -83,6 +87,30 @@ public class BitmapFill extends EventDispatcher implements IFill
 	//
 	//--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  alpha
+    //----------------------------------
+    
+    private var _alpha:Number = 1;
+        
+    public function get alpha():Number
+    {
+        return _alpha;
+    }
+    
+    public function set alpha(value:Number):void
+    {
+        if (_alpha == value)
+            return;
+        
+        var oldValue:Number = _alpha;
+        
+        _alpha = value;
+        
+        applyAlphaMultiplier = true;
+        dispatchFillChangedEvent("alpha", oldValue, value);
+    }
+    
     //----------------------------------
     //  compoundTransform
     //----------------------------------
@@ -568,9 +596,22 @@ public class BitmapFill extends EventDispatcher implements IFill
 				bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height, true, 0);
 				bitmapData.draw(tmpSprite, new Matrix());
 			}
+            
+            // If the bitmapData isn't transparent (ex. JPEG), then copy it into a transparent bitmapData
+            if (!bitmapData.transparent)
+            {
+                // TODO (jszeto) : Dispose of this bitmap when we no longer need it
+                var transparentBitmap:BitmapData = new BitmapData(bitmapData.width, bitmapData.height, true);
+                transparentBitmap.draw(bitmapData);
+                _source = transparentBitmap;
+            }
+            else
+            {
+	
+			    _source = bitmapData;
+            }
 			
-			_source = bitmapData;
-			
+            applyAlphaMultiplier = true;
 			dispatchFillChangedEvent("source", oldValue, bitmapData);
         }
 	}
@@ -780,10 +821,15 @@ public class BitmapFill extends EventDispatcher implements IFill
 		if (!source)
 			return;        
         
+        // If we need to apply the alpha, we need to make another clone. So dispose of the old one.
+        if (nonRepeatAlphaSource && applyAlphaMultiplier)
+        {
+            nonRepeatAlphaSource.dispose();
+            nonRepeatAlphaSource = null;
+        }
+        
         var sourceAsBitmapData:BitmapData = source as BitmapData;
-        
         var repeatFill:Boolean = (resizeMode == BitmapResizeMode.REPEAT);  
-        
         
         if (compoundTransform)
         {
@@ -803,7 +849,7 @@ public class BitmapFill extends EventDispatcher implements IFill
             transformMatrix.rotate(rotation * RADIANS_PER_DEGREES);
             transformMatrix.translate(x + bounds.left + transformX, y + bounds.top + transformY);
         }
-
+        
         // If repeat is true, resizeMode is repeat, or if the source bitmap size  
         // equals or exceeds the bounds, just use the source bitmap
         if (repeatFill || 
@@ -813,8 +859,14 @@ public class BitmapFill extends EventDispatcher implements IFill
              bounds.width <= sourceAsBitmapData.width && 
              bounds.height <= sourceAsBitmapData.height))
         {
-            if (nonRepeatSource)
-                nonRepeatSource.dispose();
+            if (nonRepeatAlphaSource && nonRepeatSourceCreated)
+            {
+                nonRepeatAlphaSource.dispose();
+                nonRepeatAlphaSource = null;
+                applyAlphaMultiplier = alpha != 1;
+            }
+            
+            nonRepeatSourceCreated = false;
         }
         else if (resizeMode == BitmapResizeMode.NOSCALE)
         {
@@ -825,8 +877,8 @@ public class BitmapFill extends EventDispatcher implements IFill
                 lastBoundsHeight != bounds.height)
             {
                 // Release the old bitmap data
-                if (nonRepeatSource)
-                    nonRepeatSource.dispose();
+                if (nonRepeatAlphaSource)
+                    nonRepeatAlphaSource.dispose();
                 
                 var bitmapTopLeft:Point = new Point();
                 // We want the top left corner of the bitmap to be at (0,0) when we copy it. 
@@ -853,8 +905,8 @@ public class BitmapFill extends EventDispatcher implements IFill
                 
                 // Draw the transformed bitmapData into a new bitmapData that is the size of the bounds
                 // This will prevent the edge pixels getting repeated to fill the empty space
-                nonRepeatSource = new BitmapData(newW, newY, true, 0xFFFFFF);
-                nonRepeatSource.draw(sourceAsBitmapData, transformMatrix);
+                nonRepeatAlphaSource = new BitmapData(newW, newY, true, 0xFFFFFF);
+                nonRepeatAlphaSource.draw(sourceAsBitmapData, transformMatrix);
                 
                 // The transform matrix has already been applied to the source, so just use identity
                 // for the beginBitmapFill call
@@ -864,10 +916,32 @@ public class BitmapFill extends EventDispatcher implements IFill
                 // Save off the bounds so we can compare it the next time this function is called
                 lastBoundsWidth = bounds.width;
                 lastBoundsHeight = bounds.height;
-            }
-            
-            sourceAsBitmapData = nonRepeatSource;
+                
+                nonRepeatSourceCreated = true;
+                
+                // Reapply the alpha if alpha is not 1.
+                applyAlphaMultiplier = alpha != 1;
+            }   
         }
+        
+        // Apply the alpha to a clone of the source. We don't want to modify the actual source because applying the alpha 
+        // will modify the source and we have no way to restore the source back its original alpha value. 
+        if (applyAlphaMultiplier)
+        {
+            // Clone the bitmapData if we didn't already make a copy for NOSCALE mode
+            if (!nonRepeatAlphaSource)
+                nonRepeatAlphaSource = sourceAsBitmapData.clone();
+            
+            var ct:ColorTransform = new ColorTransform();
+            ct.alphaMultiplier = alpha;
+            
+            nonRepeatAlphaSource.colorTransform(new Rectangle(0, 0, nonRepeatAlphaSource.width, nonRepeatAlphaSource.height), ct);
+            applyAlphaMultiplier = false;
+        }
+        
+        // If we have a nonRepeatAlphaSource, then use it. Otherwise, we just use the source. 
+        if (nonRepeatAlphaSource)
+            sourceAsBitmapData = nonRepeatAlphaSource;
         
 		target.beginBitmapFill(sourceAsBitmapData, transformMatrix, repeatFill, smooth);
 	}
