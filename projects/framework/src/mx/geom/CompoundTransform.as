@@ -749,8 +749,9 @@ package mx.geom
 		}
 		else
 		{
-			_matrix3D.identity();	
-			_matrix3D.append(v);			
+			_matrix3D.identity();
+			if (v)
+				_matrix3D.append(v);			
 		}
 		invalidate(INVALIDATE_FROM_MATRIX3D,true);
 	}
