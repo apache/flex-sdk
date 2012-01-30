@@ -364,7 +364,7 @@ public class Effect extends EventDispatcher implements IEffect
 	 */
 	mx_internal var durationExplicitlySet:Boolean = false;
 
-    [Inspectable(category="General", defaultValue="500")]
+    [Inspectable(category="General", defaultValue="500", minValue="0.0")]
     
     /** 
      *  @copy mx.effects.IEffect#duration
@@ -638,7 +638,7 @@ public class Effect extends EventDispatcher implements IEffect
 	 */
 	private var _perElementOffset:Number = 0;
 
-    [Inspectable(defaultValue="0", category="General", verbose="0")]
+    [Inspectable(defaultValue="0", category="General", verbose="0", minValue="0.0")]
 
     /**
      *  @copy mx.effects.IEffect#perElementOffset
@@ -730,7 +730,7 @@ public class Effect extends EventDispatcher implements IEffect
     //  repeatCount
     //----------------------------------
 
-    [Inspectable(category="General", defaultValue="1")]
+    [Inspectable(category="General", defaultValue="1", minValue="0")]
 
     /**
      *  Number of times to repeat the effect.
@@ -753,7 +753,7 @@ public class Effect extends EventDispatcher implements IEffect
     //  repeatDelay
     //----------------------------------
 
-    [Inspectable(category="General", defaultValue="0")]
+    [Inspectable(category="General", defaultValue="0", minValue="0")]
 
     /**
      *  Amount of time, in milliseconds, to wait before repeating the effect.
@@ -773,7 +773,7 @@ public class Effect extends EventDispatcher implements IEffect
     //  startDelay
     //----------------------------------
 
-    [Inspectable(category="General", defaultValue="0")]
+    [Inspectable(category="General", defaultValue="0", minValue="0")]
 
     /**
      *  Amount of time, in milliseconds, to wait before starting the effect.
@@ -943,6 +943,8 @@ public class Effect extends EventDispatcher implements IEffect
      * instead.
      */
     private var _playheadTime:Number = 0;
+    
+    [Inspectable(minValue="0.0")]        
     
     /**
      *  Current time position of the effect.
