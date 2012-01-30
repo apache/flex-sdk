@@ -535,14 +535,17 @@ public class MobileItemRenderer extends UIComponent
     {
         super.measure();
         
-        var labelLineMetrics:TextLineMetrics = measureText(labelDisplay.text);
-        
-        // Text respects padding right, left, top, and bottom
-        measuredWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
-        measuredWidth += getStyle("paddingLeft") + getStyle("paddingRight");
-        
-        measuredHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
-        measuredHeight += getStyle("paddingTop") + getStyle("paddingBottom");
+        if (labelDisplay)
+        {
+            var labelLineMetrics:TextLineMetrics = measureText(labelDisplay.text);
+            
+            // Text respects padding right, left, top, and bottom
+            measuredWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
+            measuredWidth += getStyle("paddingLeft") + getStyle("paddingRight");
+            
+            measuredHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            measuredHeight += getStyle("paddingTop") + getStyle("paddingBottom");
+        }
         
         // minimum height of 80 pixels
         measuredHeight = Math.max(measuredHeight, 80);
@@ -711,49 +714,44 @@ public class MobileItemRenderer extends UIComponent
     protected function layoutContents(unscaledWidth:Number, 
                                       unscaledHeight:Number):void
     {
-        // measure the label component
-        var textWidth:Number = 0;
-        var textHeight:Number = 0;
-        var labelLineMetrics:TextLineMetrics;
-        
-        if (label != "")
+        if (labelDisplay)
         {
-            labelLineMetrics = measureText(label);
-            textWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
-            textHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
-        }
-        else
-        {
-            labelLineMetrics = measureText("Wj");
-            // don't measured textWidth because that's what we do in Button, and it 
-            // causes bugs if we do measure it in this case.  We only measure "Wj" for 
-            // height purposes.
-            textHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
-        }
-        
-        // text should take up the rest of the space
-        var viewWidth:Number = unscaledWidth - getStyle("paddingLeft") + getStyle("paddingRight");
-        var labelWidth:Number = Math.max(Math.min(viewWidth, textWidth), 0);
-        
-        var viewHeight:Number =  unscaledHeight - getStyle("paddingTop") - getStyle("paddingBottom");
-        var labelHeight:Number = Math.max(Math.min(viewHeight, textHeight), 0);
-        
-        // label is positioned after the padding on the left.  vertically aligned center
-        var labelX:Number = getStyle("paddingLeft");
-        var labelY:Number = getStyle("paddingTop") + (viewHeight - labelHeight)/2;
-        
-        labelDisplay.commitStyles();
+            // measure the label component
+            var textWidth:Number = 0;
+            var textHeight:Number = 0;
+            var labelLineMetrics:TextLineMetrics;
             
-        labelDisplay.width = labelWidth;
-        labelDisplay.height = labelHeight;
-        
-        labelDisplay.x = Math.round(labelX);
-        labelDisplay.y = Math.round(labelY);
-        
-        // reset text if it was truncated before.  then attempt to truncate it
-        if (labelDisplay.isTruncated)
-            labelDisplay.text = label;
-        labelDisplay.truncateToFit();
+            if (label != "")
+            {
+                labelLineMetrics = measureText(label);
+                textWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
+                textHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            }
+            
+            // text should take up the rest of the space
+            var viewWidth:Number = unscaledWidth - getStyle("paddingLeft") + getStyle("paddingRight");
+            var labelWidth:Number = Math.max(Math.min(viewWidth, textWidth), 0);
+            
+            var viewHeight:Number =  unscaledHeight - getStyle("paddingTop") - getStyle("paddingBottom");
+            var labelHeight:Number = Math.max(Math.min(viewHeight, textHeight), 0);
+            
+            // label is positioned after the padding on the left.  vertically aligned center
+            var labelX:Number = getStyle("paddingLeft");
+            var labelY:Number = getStyle("paddingTop") + (viewHeight - labelHeight)/2;
+            
+            labelDisplay.commitStyles();
+                
+            labelDisplay.width = labelWidth;
+            labelDisplay.height = labelHeight;
+            
+            labelDisplay.x = Math.round(labelX);
+            labelDisplay.y = Math.round(labelY);
+            
+            // reset text if it was truncated before.  then attempt to truncate it
+            if (labelDisplay.isTruncated)
+                labelDisplay.text = label;
+            labelDisplay.truncateToFit();
+        }
     }
     
     //--------------------------------------------------------------------------
