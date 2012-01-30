@@ -746,9 +746,15 @@ public final class AccConst
 	public static const STATE_SYSTEM_PROTECTED:uint = 0x20000000;
 
 	/**
+	 *  An MSAA state flag indicating that the object
+	 *  has a pop-up menu (MSAA 2.0).
+	 */
+	public static const STATE_SYSTEM_HASPOPUP:uint = 0x40000000;
+
+	/**
 	 *  A bitmask representing all valid MSAA state flags.
 	 */
-	public static const STATE_SYSTEM_VALID:uint = 0x3fffffff;
+	public static const STATE_SYSTEM_VALID:uint = 0x7fffffff;
 
 	//--------------------------------------
 	//  MSAA system events
