@@ -94,6 +94,60 @@ public class Parallel extends CompositeEffect
 
 		instanceClass = ParallelInstance;
 	}
+
+    /**
+     * @inheritDoc
+     * 
+     * Parallel calculates this number to be the duration of each
+     * child effect played at the same time, so the compositeDuration
+     * will be equal to the duration of the child effect with the
+     * longest duration (including the startDelay and repetition data 
+     * of that effect).
+     */
+    override public function get compositeDuration():Number
+    {
+        var parallelDuration:Number = 0;
+        for (var i:int = 0; i < children.length; ++i)
+        {
+            var childDuration:Number;
+            var child:Effect = Effect(children[i]);
+            if (child is CompositeEffect)
+                childDuration = CompositeEffect(child).compositeDuration;
+            else
+                childDuration = child.duration;
+            childDuration = 
+                childDuration * child.repeatCount +
+                (child.repeatDelay * (child.repeatCount - 1)) +
+                child.startDelay;
+            parallelDuration = Math.max(parallelDuration, childDuration);
+        }
+        return parallelDuration;
+    }
+
+    // Note that we implement seek() in the instance class for Sequence,
+    // but in the factory class for Parallel. This is because we can do
+    // it at the factory level for Parallel, but for Sequence we need
+    // extra functionality that is only available in the instance class.
+    /**
+     * @inheritDoc
+     * 
+     * In a Parallel effect, seek will cause all child effects to seek to
+     * the same <code>seekTime</code>. This may cause child effects to 
+     * lessen their startDelay (if they are currently waiting to be played),
+     * start playing (if the seekTime is greater than their startDelay), or
+     * come to an end (if the seekTime is greater than their startDelay plus
+     * their duration).
+     */
+    override public function seek(seekTime:Number):void
+    {
+        // This will seek in the Parallel's instance
+        super.seek(seekTime);
+        // Tell all of our active children to seek()        
+        for (var i:int = 0; i < children.length; i++)
+        {
+            children[i].seek(seekTime);
+        }
+    }
 }
 
 }
