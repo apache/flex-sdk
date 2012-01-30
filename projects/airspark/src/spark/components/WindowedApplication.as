@@ -30,10 +30,10 @@ import flash.events.NativeWindowDisplayStateEvent;
 import flash.filesystem.File;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.system.ApplicationDomain;
 
 import mx.controls.Alert;
 import mx.controls.FlexNativeMenu;
-import mx.controls.HTML;
 import mx.core.IVisualElement;
 import mx.core.IWindow;
 import mx.core.mx_internal;
@@ -1858,6 +1858,21 @@ public class WindowedApplication extends Application implements IWindow
      */
     override protected function menuItemSelectHandler(event:Event):void
     {
+        const applicationDomain:ApplicationDomain = ApplicationDomain.currentDomain;
+        var htmlClass:Class = null;
+        
+        if (applicationDomain.hasDefinition("mx.controls::HTML"))
+            htmlClass = applicationDomain.getDefinition("mx.controls::HTML") as Class;
+
+        // If the HTML component is not compiled into this application, then
+        // fallback to the Spark Application behavior. The Spark Application
+        // launches view source in the browser.
+        if (!htmlClass)
+        {
+            super.menuItemSelectHandler(event);
+            return;
+        }
+        
         const vsLoc:File = File.applicationDirectory.resolvePath(viewSourceURL);
         if (vsLoc.exists)
         {
@@ -1873,8 +1888,9 @@ public class WindowedApplication extends Application implements IWindow
             
             const winX:int = (screenWidth - winWidth) / 2;
             const winY:int = (screenHeight - winHeight) / 2;
-            
-            const html:HTML = new HTML();
+
+                
+            const html:Object = new htmlClass;
             {
                 html.width  = winWidth;
                 html.height = winHeight;
@@ -1904,7 +1920,7 @@ public class WindowedApplication extends Application implements IWindow
             
             // make it so
             win.open();
-            win.contentGroup.addElement(html);
+            win.contentGroup.addElement(IVisualElement(html));
 
             // links should open in the system web browser (e.g. the .zip links)
             html.htmlLoader.navigateInSystemBrowser = true;
@@ -2754,7 +2770,7 @@ public class WindowedApplication extends Application implements IWindow
      *  @private
      *  Returns a Function handler that resizes the view source HTML component with the stage.
      */
-    private function viewSourceResizeHandler(html:HTML):Function
+    private function viewSourceResizeHandler(html:Object):Function
     {
         return function (e:FlexNativeWindowBoundsEvent):void
         {
