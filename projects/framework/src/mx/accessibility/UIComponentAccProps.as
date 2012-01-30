@@ -22,10 +22,10 @@ import mx.containers.FormItem;
 import mx.controls.FormItemLabel;
 import mx.controls.Label;
 import mx.controls.scrollClasses.ScrollBar;
-import mx.core.Application;
 import mx.core.Container;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.managers.SystemManager;
 
 use namespace mx_internal;
 
@@ -116,7 +116,7 @@ public class UIComponentAccImpl extends AccessibilityProperties
         // continue looking up the parent chain
         // until root (or application) or FormItem is found.
         while (par && !(par is FormItem) &&
-               !(par is Application) && par != component.root)
+               !(par is SystemManager) && par != component.root)
         {
             par = par.parent;
         }
