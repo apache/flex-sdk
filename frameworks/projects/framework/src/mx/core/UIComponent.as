@@ -920,18 +920,6 @@ public class UIComponent extends FlexSprite
      */
     public static const DEFAULT_MAX_HEIGHT:Number = 10000;
 
-    /**
-     *  @private
-     *  The inheritingStyles and nonInheritingStyles properties
-     *  are initialized to this empty Object.
-     *  This allows the getStyle() and getStyle()
-     *  methods to simply access inheritingStyles[] and nonInheritingStyles[]
-     *  without needing to first check whether those objects exist.
-     *  If they were simply initialized to {}, we couldn't determine
-     *  whether the style chain has already been built or not.
-     */
-    mx_internal static var STYLE_UNINITIALIZED:Object = {};
-
     //--------------------------------------------------------------------------
     //
     //  Class mixins
@@ -2901,7 +2889,7 @@ public class UIComponent extends FlexSprite
      *  @private
      *  Storage for the inheritingStyles property.
      */
-    private var _inheritingStyles:Object = UIComponent.STYLE_UNINITIALIZED;
+    private var _inheritingStyles:Object = StyleManager.STYLE_UNINITIALIZED;
     
     [Inspectable(environment="none")]
 
@@ -2934,7 +2922,7 @@ public class UIComponent extends FlexSprite
      *  @private
      *  Storage for the nonInheritingStyles property.
      */
-    private var _nonInheritingStyles:Object = UIComponent.STYLE_UNINITIALIZED;
+    private var _nonInheritingStyles:Object = StyleManager.STYLE_UNINITIALIZED;
 
     [Inspectable(environment="none")]
 
@@ -4523,7 +4511,7 @@ public class UIComponent extends FlexSprite
         // initialized and we haven't yet generated the proto chain.
         // To avoid redundant work, don't bother to create
         // the proto chain here.
-        if (inheritingStyles == UIComponent.STYLE_UNINITIALIZED)
+        if (inheritingStyles == StyleManager.STYLE_UNINITIALIZED)
             return;
 
         regenerateStyleCache(true);
@@ -7475,7 +7463,7 @@ public class UIComponent extends FlexSprite
         if (p)
         {
             var inheritChain:Object = p.inheritingStyles;
-            if (inheritChain == UIComponent.STYLE_UNINITIALIZED)
+            if (inheritChain == StyleManager.STYLE_UNINITIALIZED)
                 inheritChain = nonInheritChain;
         }
         else
@@ -7694,7 +7682,7 @@ public class UIComponent extends FlexSprite
                 // Does this object already have a proto chain? 
                 // If not, there's no need to regenerate a new one.
                 if (IStyleClient(child).inheritingStyles !=
-                    UIComponent.STYLE_UNINITIALIZED)
+                    StyleManager.STYLE_UNINITIALIZED)
                 {
                     IStyleClient(child).regenerateStyleCache(recursive);
                 }
@@ -7788,7 +7776,7 @@ public class UIComponent extends FlexSprite
         var isInheritingStyle:Boolean =
             StyleManager.isInheritingStyle(styleProp);
         var isProtoChainInitialized:Boolean =
-            inheritingStyles != UIComponent.STYLE_UNINITIALIZED;
+            inheritingStyles != StyleManager.STYLE_UNINITIALIZED;
         var valueChanged:Boolean = getStyle(styleProp) != newValue;
         
         if (!_styleDeclaration)
