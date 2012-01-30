@@ -15,10 +15,8 @@ package mx.core
 import flash.display.BitmapData;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
-import flash.geom.Matrix;
-
-import mx.core.AdvancedLayoutFeatures;
-import mx.utils.MatrixUtil;
+import flash.geom.Point;
+import flash.system.ApplicationDomain;
 
 /**
  *  BitmapAsset is a subclass of the flash.display.Bitmap class
@@ -100,6 +98,11 @@ public class BitmapAsset extends FlexBitmap
 {
     include "../core/Version.as";
 
+    // Softlink FlexVersion and MatrixUtil to remove dependencies of embeds on
+    // framework classes. This helps to reduce swf size in AS-only projects.
+    private static var FlexVersionClass:Class;
+    private static var MatrixUtilClass:Class;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -127,7 +130,14 @@ public class BitmapAsset extends FlexBitmap
     {
         super(bitmapData, pixelSnapping, smoothing);
         
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        if (FlexVersionClass == null)
+        {
+            var appDomain:ApplicationDomain = ApplicationDomain.currentDomain;
+            if (appDomain.hasDefinition("mx.core::FlexVersion"))
+                FlexVersionClass = Class(appDomain.getDefinition("mx.core::FlexVersion"));
+        }
+        
+        if (FlexVersionClass && FlexVersionClass["compatibilityVersion"] >= FlexVersionClass["VERSION_4_0"])
             this.addEventListener(Event.ADDED, addedHandler);
     }
 
@@ -136,8 +146,11 @@ public class BitmapAsset extends FlexBitmap
     //  Variables
     //
     //--------------------------------------------------------------------------
-    
-    private var layoutFeatures:AdvancedLayoutFeatures;
+
+    // Softlink AdvancedLayoutFeatures to remove dependencies of embeds on
+    // framework classes. This helps to reduce swf size in AS-only projects.
+    private var layoutFeaturesClass:Class;
+    private var layoutFeatures:IAssetLayoutFeatures;
     
     //--------------------------------------------------------------------------
     //
@@ -249,9 +262,15 @@ public class BitmapAsset extends FlexBitmap
      */
     override public function get width():Number
     {
+        if (layoutFeatures == null)
+            return super.width;
+        
         // Return bounding box width in mirroring case
-        return (layoutFeatures == null) ? super.width :
-               MatrixUtil.transformSize(layoutFeatures.layoutWidth, _height, transform.matrix).x;
+        var p:Point;
+        if (MatrixUtilClass != null)
+            p = MatrixUtilClass["transformSize"](layoutFeatures.layoutWidth, _height, transform.matrix);
+        
+        return p ? p.x : super.width;
     }
     
     /**
@@ -288,9 +307,16 @@ public class BitmapAsset extends FlexBitmap
      */
     override public function get height():Number
     {
+        
+        if (layoutFeatures == null)
+            return super.height;
+        
         // Return bounding box height in mirroring case
-        return (layoutFeatures == null) ? super.height :
-               MatrixUtil.transformSize(layoutFeatures.layoutWidth, _height, transform.matrix).y;
+        var p:Point;
+        if (MatrixUtilClass != null)
+            p = MatrixUtilClass["transformSize"](layoutFeatures.layoutWidth, _height, transform.matrix);
+        
+        return p ? p.y : super.height;
     }
     
     /**
@@ -532,7 +558,9 @@ public class BitmapAsset extends FlexBitmap
     //  layoutDirection
     //----------------------------------
     
-    private var _layoutDirection:String = LayoutDirection.LTR;
+    // Use "ltr" instead of LayoutDirection.LTR to avoid depending
+    // on that framework class.
+    private var _layoutDirection:String = "ltr";
     
     [Inspectable(category="General", enumeration="ltr,rtl")]
     
@@ -631,8 +659,11 @@ public class BitmapAsset extends FlexBitmap
                 if (mirror && layoutFeatures == null)
                 {
                     initAdvancedLayoutFeatures();
-                    layoutFeatures.mirror = mirror;
-                    validateTransformMatrix();
+                    if (layoutFeatures != null)
+                    {
+                        layoutFeatures.mirror = mirror;
+                        validateTransformMatrix();
+                    }
                 }
                 else if (!mirror && layoutFeatures)
                 {
@@ -692,20 +723,39 @@ public class BitmapAsset extends FlexBitmap
      */
     private function initAdvancedLayoutFeatures():void
     {
-        var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
+        // Get AdvancedLayoutFeatures if it exists.
+        if (layoutFeaturesClass == null)
+        {
+            var appDomain:ApplicationDomain = ApplicationDomain.currentDomain;
+            
+            if (appDomain.hasDefinition("mx.core::AdvancedLayoutFeatures"))
+                layoutFeaturesClass = Class(appDomain.getDefinition("mx.core::AdvancedLayoutFeatures"));
+            
+            // Get MatrixUtil class if it exists
+            if (MatrixUtilClass == null)
+            {
+                if (appDomain.hasDefinition("mx.utils::MatrixUtil"))
+                    MatrixUtilClass = Class(appDomain.getDefinition("mx.utils::MatrixUtil"));
+            }
+        }
         
-        features.layoutScaleX = scaleX;
-        features.layoutScaleY = scaleY;
-        features.layoutScaleZ = scaleZ;
-        features.layoutRotationX = rotationX;
-        features.layoutRotationY = rotationY;
-        features.layoutRotationZ = rotation;
-        features.layoutX = x;
-        features.layoutY = y;
-        features.layoutZ = z;
-        features.layoutWidth = width;  // for the mirror transform
-        _height = height;  // for backing storage
-        layoutFeatures = features;
+        if (layoutFeaturesClass != null)
+        {
+            var features:IAssetLayoutFeatures = new layoutFeaturesClass();
+            
+            features.layoutScaleX = scaleX;
+            features.layoutScaleY = scaleY;
+            features.layoutScaleZ = scaleZ;
+            features.layoutRotationX = rotationX;
+            features.layoutRotationY = rotationY;
+            features.layoutRotationZ = rotation;
+            features.layoutX = x;
+            features.layoutY = y;
+            features.layoutZ = z;
+            features.layoutWidth = width;  // for the mirror transform
+            _height = height;  // for backing storage
+            layoutFeatures = features;
+        }
     }
     
     /**
