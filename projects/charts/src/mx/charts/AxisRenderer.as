@@ -3127,7 +3127,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
 					if(sparkLabelClass && ldi.instance is sparkLabelClass && layoutDirection == LayoutDirection.RTL)
 					{
 						ldi.instance.x = ldi.instance.x - ldi.width;
-						ldi.instance.y = ldi.instance.y - ldi.width;
+						ldi.instance.y = labelY;
 					}
                 }
                 
