@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    firstView="views.ViewNavigatorExampleHomeView">
+    
+    <fx:Script>
+        <![CDATA[
+            // Call ViewNavigator.popToFirstView() when the user clicks the Home button.
+            protected function button1_clickHandler(event:MouseEvent):void {
+                navigator.popToFirstView();
+            }
+        ]]>
+    </fx:Script>
+    
+    <s:navigationContent>
+        <s:Button icon="@Embed(source='assets/Home.png')"
+            click="button1_clickHandler(event);"/>
+    </s:navigationContent>
+
+</s:ViewNavigatorApplication>
