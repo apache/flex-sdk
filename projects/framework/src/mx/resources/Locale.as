@@ -62,6 +62,8 @@ public class Locale
      *  resources.</p>
      * 
      *  @param sm The current SystemManager.
+     *
+     *  @return Returns a Locale object.
      */
     public static function getCurrent(sm:ISystemManager):Locale
     {
@@ -146,7 +148,6 @@ public class Locale
     /**
      *  The language code of this Locale instance. [Read-Only]
      *
-     *  @example
      *  <pre>
      *  var locale:Locale = new Locale("en_US_MAC");
      *  trace(locale.language); // outputs "en"
@@ -172,7 +173,6 @@ public class Locale
     /**
      *  The country code of this Locale instance. [Read-Only]
      *
-     *  @example
      *  <pre>
      *  var locale:Locale = new Locale("en_US_MAC");
      *  trace(locale.country); // outputs "US"
@@ -198,7 +198,6 @@ public class Locale
     /**
      *  The variant part of this Locale instance. [Read-Only]
      *
-     *  @example
      *  <pre>
      *  var locale:Locale = new Locale("en_US_MAC");
      *  trace(locale.variant); // outputs "MAC"
@@ -223,6 +222,9 @@ public class Locale
      *  var locale:Locale = new Locale("en_US_MAC");
      *  trace(locale.toString()); // outputs "en_US_MAC"
      *  </pre>
+     *
+     *  @return Returns the locale String that was used to
+     *  construct this Locale instance.
      */   
     public function toString():String
     {
