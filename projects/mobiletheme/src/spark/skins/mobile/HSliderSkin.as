@@ -21,16 +21,16 @@ import spark.components.HSlider;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
- *  Actionscript based skin for HSlider on mobile applications.
+ *  ActionScript-based skin for HSlider controls in mobile applications.
  * 
- *  The base Flex implementation creates an HSlider with fixed height
+ *  <p>The base Flex implementation creates an HSlider with fixed height
  *  and variable width with a fixed-size thumb. As the height of the
  *  HSlider component increases, the vertical dimensions of the visible HSlider remain
- *  the same, and the HSlider stays vertically centered.
+ *  the same, and the HSlider stays vertically centered.</p>
  * 
- *  The thumb and track implementations can be customized by subclassing
+ *  <p>The thumb and track implementations can be customized by subclassing
  *  this skin class and overriding the thumbSkinClass, trackSkinClass,
- *  and/or dataTipClass variables as necessary.
+ *  and/or dataTipClass variables as necessary.</p>
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
