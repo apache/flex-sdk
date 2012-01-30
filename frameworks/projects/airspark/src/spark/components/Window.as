@@ -53,7 +53,7 @@ import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
 import spark.components.windowClasses.TitleBar;
-import spark.primitives.supportClasses.TextGraphicElement;
+import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal;
 
@@ -630,7 +630,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @productversion Flex 4
      */
     [SkinPart (required="false")]
-    public var statusText:TextGraphicElement;
+    public var statusText:TextBase;
     
     //----------------------------------
     //  titleBar
