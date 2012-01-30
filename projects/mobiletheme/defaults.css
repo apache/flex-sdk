@@ -278,7 +278,8 @@ TextArea
     paddingLeft: 9;
     paddingRight: 9;
     paddingTop: 9;
-    skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
+    showPromptWhenFocused: true;
+    skinClass: ClassReference("spark.skins.mobile.StageTextAreaSkin");
 }
 
 TextArea VScrollBar
@@ -297,7 +298,8 @@ TextInput
     paddingLeft: 9;
     paddingRight: 9;
     paddingTop: 9;
-    skinClass: ClassReference("spark.skins.mobile.TextInputSkin");
+    showPromptWhenFocused: true;
+    skinClass: ClassReference("spark.skins.mobile.StageTextInputSkin");
 }
 
 ToggleSwitch
