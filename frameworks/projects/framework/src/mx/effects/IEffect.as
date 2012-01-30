@@ -223,7 +223,7 @@ public interface IEffect extends IAbstractEffect
      *  The effect target is responsible for the hiding the focus ring. 
      *  Subclasses of the UIComponent class hide the focus ring automatically. 
      *  If the effect target is not a subclass of the UIComponent class,
-     *  you must add functionality to it to hide the focus ring.
+     *  add functionality to it to hide the focus ring.
      *
      *  <p>Set this property to <code>true</code>
      *  to hide the focus ring during the effect.</p>
@@ -429,12 +429,12 @@ public interface IEffect extends IAbstractEffect
 
     /**
      *  Returns an Array of Strings, where each String is the name
-     *  of a property that is changed by this effect.
+     *  of a property changed by this effect.
      *  For example, the Move effect returns an Array that contains
      *  <code>"x"</code> and <code>"y"</code>.
      *
      *  <p>Every subclass of Effect must implement this method.
-     *  The method is used by the EffectManager 
+     *  The EffectManager uses this method 
      *  to ensure that no two effects are trying to animate
      *  the same property of the same object at the same time.</p>
      *
@@ -480,7 +480,7 @@ public interface IEffect extends IAbstractEffect
      * 
      *  <p>Calling the <code>createInstance()</code> method 
      *  does not play the effect.
-     *  You must call the <code>startEffect()</code> method
+     *  Call the <code>startEffect()</code> method
      *  on the returned effect instance. </p>
      *
      *  <p>This function is automatically called by the 
@@ -559,7 +559,7 @@ public interface IEffect extends IAbstractEffect
      *  <p>For mask effects, the mask is not removed automatically
      *  when the effect is stopped.
      *  Running further mask effects on the same target(s)
-     *  without first removing the mask may produce unexpected results.</p>
+     *  without first removing the mask can produce unexpected results.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -652,10 +652,10 @@ public interface IEffect extends IAbstractEffect
      *  Captures the current values of the relevant properties
      *  of an additional set of targets
      * 
-     *  <p>This function is used by Flex when a data change
+     *  <p>Flex uses this function when a data change
      *  effect is run.</p>
      * 
-     *  @param targets Array of targets for which values will be captured
+     *  @param targets Array of targets for which values are captured
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
