@@ -109,6 +109,14 @@ public class TextAreaSkin extends TextSkinBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Scroller skin part.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */ 
     public var scroller:Scroller;
     
     //--------------------------------------------------------------------------
@@ -167,7 +175,7 @@ public class TextAreaSkin extends TextSkinBase
             textDisplay.editable = true;
             textDisplay.lineBreak = getStyle("lineBreak");
             textDisplay.useTightTextBounds = false;
-			textDisplay.scrollToRangeDelegate = scrollToRange;
+            textDisplay.scrollToRangeDelegate = scrollToRange;
             
             // on iOS, resize the TextField and let the native control handle scrolling
             _isIOS = (Capabilities.version.indexOf("IOS") == 0);
@@ -180,11 +188,11 @@ public class TextAreaSkin extends TextSkinBase
             textDisplay.addEventListener(Event.SCROLL, textDisplay_scrollHandler);
             textDisplay.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, textDisplay_softKeyboardActivateHandler);
             
-			textDisplay.left = getStyle("paddingLeft");
-			textDisplay.top = getStyle("paddingTop");
-			textDisplay.right = getStyle("paddingRight");
-			textDisplay.bottom = getStyle("paddingBottom");
-			
+            textDisplay.left = getStyle("paddingLeft");
+            textDisplay.top = getStyle("paddingTop");
+            textDisplay.right = getStyle("paddingRight");
+            textDisplay.bottom = getStyle("paddingBottom");
+            
             // wrap StyleableTextComponent in Group for viewport
             textDisplayGroup = new Group();
             textDisplayGroup.clipAndEnableScrolling = true;
@@ -197,7 +205,7 @@ public class TextAreaSkin extends TextSkinBase
             scroller.minViewportInset = 0;
             scroller.measuredSizeIncludesScrollBars = false;
             scroller.ensureElementIsVisibleForSoftKeyboard = false;
-			
+            
             addChild(scroller);
         }
         
@@ -254,19 +262,22 @@ public class TextAreaSkin extends TextSkinBase
         // Use the old textDisplay width as an estimte for the new one.  
         // If we are wrong, we'll find out in updateDisplayList()
         textDisplay.commitStyles();
-		
-		// Clear min sizes first.
-		textDisplay.minWidth = textDisplay.minHeight = NaN;
-		
-		// If lineBreak == explicit, always use NaN for estimated width
-		if (getStyle("lineBreak") == "explicit")
-			textDisplayEstimatedWidth = NaN;
-		
+        
+        // Clear min sizes first.
+        textDisplay.minWidth = textDisplay.minHeight = NaN;
+        
+        // If lineBreak == explicit, always use NaN for estimated width
+        if (getStyle("lineBreak") == "explicit")
+            textDisplayEstimatedWidth = NaN;
+        
         setElementSize(textDisplay, textDisplayEstimatedWidth, NaN);
         
         measuredHeight = getElementPreferredHeight(textDisplay) + paddingTop + paddingBottom;
     }
     
+    /**
+     *  @private
+     */
     override protected function layoutContents(unscaledWidth:Number, 
                                                unscaledHeight:Number):void
     {
@@ -283,7 +294,7 @@ public class TextAreaSkin extends TextSkinBase
         setElementPosition(scroller, 0, 0);
         
         // position & size the text
-		var explicitLineBreak:Boolean = getStyle("lineBreak") == "explicit";
+        var explicitLineBreak:Boolean = getStyle("lineBreak") == "explicit";
         var paddingLeft:Number = getStyle("paddingLeft");
         var paddingRight:Number = getStyle("paddingRight");
         var paddingTop:Number = getStyle("paddingTop");
@@ -292,7 +303,7 @@ public class TextAreaSkin extends TextSkinBase
         var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
         var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
         var textHeight:Number = unscaledTextHeight;
-		var textWidth:Number = explicitLineBreak ? textDisplay.measuredTextSize.x : unscaledTextWidth;
+        var textWidth:Number = explicitLineBreak ? textDisplay.measuredTextSize.x : unscaledTextWidth;
         
         // grab old measured textDisplay height before resizing it
         var oldPreferredTextHeight:Number = getElementPreferredHeight(textDisplay);
@@ -327,11 +338,11 @@ public class TextAreaSkin extends TextSkinBase
         // set the height to oldTextHeight.  If the height's actually wrong, 
         // we'll invalidateSize() and go through this layout pass again anyways
         setElementSize(textDisplay, textWidth, textHeight);
-		
-		// Set minWidth/Height on the text so the textDisplayGroup sizes accordingly
-		textDisplay.minWidth = textWidth;
-		textDisplay.minHeight = textHeight;
-		textDisplayGroup.invalidateDisplayList();
+        
+        // Set minWidth/Height on the text so the textDisplayGroup sizes accordingly
+        textDisplay.minWidth = textWidth;
+        textDisplay.minHeight = textHeight;
+        textDisplayGroup.invalidateDisplayList();
         
         // grab new measured textDisplay height after the textDisplay has taken its final width
         var newPreferredTextHeight:Number = getElementPreferredHeight(textDisplay);
@@ -354,11 +365,11 @@ public class TextAreaSkin extends TextSkinBase
             // getCharBoundaries() returns null for new lines
             if (!caretBounds)
             {
-				// temporarily insert a character at the caretIndex
-				textDisplay.replaceText(charIndex, charIndex, "W");
-				caretBounds = textDisplay.getCharBoundaries(charIndex);
-				lineIndex = textDisplay.getLineIndexOfChar(charIndex);
-				textDisplay.replaceText(charIndex, charIndex + 1, "");   
+                // temporarily insert a character at the caretIndex
+                textDisplay.replaceText(charIndex, charIndex, "W");
+                caretBounds = textDisplay.getCharBoundaries(charIndex);
+                lineIndex = textDisplay.getLineIndexOfChar(charIndex);
+                textDisplay.replaceText(charIndex, charIndex + 1, "");   
             }
            
             if (caretBounds)
@@ -436,29 +447,29 @@ public class TextAreaSkin extends TextSkinBase
 
             invalidateCaretPosition = false;
         }
-		
-		// Make sure final scroll position is valid
-		snapTextScrollPosition();
+        
+        // Make sure final scroll position is valid
+        snapTextScrollPosition();
     }
 
-	/**
-	 *  @private
-	 *  Make sure the scroll positions are valid, and adjust if needed.
-	 */
-	private function snapTextScrollPosition():void
-	{
-		var maxHsp:Number = textDisplayGroup.contentWidth > textDisplayGroup.width ? 
-			textDisplayGroup.contentWidth-textDisplayGroup.width : 0; 
-		textDisplayGroup.horizontalScrollPosition = 
-			Math.min(Math.max(0,textDisplayGroup.horizontalScrollPosition),maxHsp);
-		
-		var maxVsp:Number = textDisplayGroup.contentHeight > textDisplayGroup.height ? 
-			textDisplayGroup.contentHeight-textDisplayGroup.height : 0; 
+    /**
+     *  @private
+     *  Make sure the scroll positions are valid, and adjust if needed.
+     */
+    private function snapTextScrollPosition():void
+    {
+        var maxHsp:Number = textDisplayGroup.contentWidth > textDisplayGroup.width ? 
+            textDisplayGroup.contentWidth-textDisplayGroup.width : 0; 
+        textDisplayGroup.horizontalScrollPosition = 
+            Math.min(Math.max(0,textDisplayGroup.horizontalScrollPosition),maxHsp);
+        
+        var maxVsp:Number = textDisplayGroup.contentHeight > textDisplayGroup.height ? 
+            textDisplayGroup.contentHeight-textDisplayGroup.height : 0; 
         
         textDisplayGroup.verticalScrollPosition = 
-			Math.min(Math.max(0,textDisplayGroup.verticalScrollPosition),maxVsp);
- 	}
-	
+            Math.min(Math.max(0,textDisplayGroup.verticalScrollPosition),maxVsp);
+    }
+    
     /**
      *  @private
      *  Get the bounds of the caret
@@ -494,25 +505,25 @@ public class TextAreaSkin extends TextSkinBase
         }
     }
     
-	/**
-	 *  @private
-	 */
-	private function scrollToRange(anchorPosition:int, activePosition:int):void
-	{
-		var pos:int = Math.min(anchorPosition, activePosition);
-		var bounds:Rectangle = textDisplay.getCharBoundaries(pos);
-		var vsp:int = textDisplayGroup.verticalScrollPosition;
-		var paddingTop:Number = getStyle("paddingTop");
-		var paddingBottom:Number = getStyle("paddingBottom");
-		
-		if (bounds && (bounds.top < vsp - paddingTop || 
-			 bounds.bottom > vsp + unscaledHeight - paddingTop - paddingBottom))
-		{
-			textDisplayGroup.verticalScrollPosition = bounds.top + paddingTop;
-			snapTextScrollPosition();
-		}
-	}
-	
+    /**
+     *  @private
+     */
+    private function scrollToRange(anchorPosition:int, activePosition:int):void
+    {
+        var pos:int = Math.min(anchorPosition, activePosition);
+        var bounds:Rectangle = textDisplay.getCharBoundaries(pos);
+        var vsp:int = textDisplayGroup.verticalScrollPosition;
+        var paddingTop:Number = getStyle("paddingTop");
+        var paddingBottom:Number = getStyle("paddingBottom");
+        
+        if (bounds && (bounds.top < vsp - paddingTop || 
+             bounds.bottom > vsp + unscaledHeight - paddingTop - paddingBottom))
+        {
+            textDisplayGroup.verticalScrollPosition = bounds.top + paddingTop;
+            snapTextScrollPosition();
+        }
+    }
+    
     /**
      *  @private
      *  Handle size and caret position changes that occur when text content
@@ -528,9 +539,9 @@ public class TextAreaSkin extends TextSkinBase
         // the text width is different and we aren't word wrapping
         if (tH != lastTextHeight || ( explicitLineBreak && tW != lastTextWidth))
         {
-    		invalidateSize();
-	        invalidateDisplayList();
-	        invalidateCaretPosition = true;   
+            invalidateSize();
+            invalidateDisplayList();
+            invalidateCaretPosition = true;   
         }
         
         lastTextHeight = tH;
@@ -570,13 +581,13 @@ public class TextAreaSkin extends TextSkinBase
             invalidateDisplayList();
             invalidateCaretPosition = true;
         }
-		
-		// Change event is not always sent when delete key is pressed, so
-		// invalidate the size here
-		if (event.keyCode == Keyboard.BACKSPACE)
-		{
-			invalidateSize();
-		}
+        
+        // Change event is not always sent when delete key is pressed, so
+        // invalidate the size here
+        if (event.keyCode == Keyboard.BACKSPACE)
+        {
+            invalidateSize();
+        }
     }
     
     /**
@@ -620,18 +631,18 @@ public class TextAreaSkin extends TextSkinBase
         // propogate styleChanged explicitly to textDisplay
         if (textDisplay)
             textDisplay.styleChanged(styleProp);
-		
-		// Check for padding style changes
-		if (!styleProp || styleProp == "styleName" || styleProp.indexOf("padding") >= 0)
-		{
-			if (textDisplay)
-			{
-				textDisplay.left = getStyle("paddingLeft");
-				textDisplay.top = getStyle("paddingTop");
-				textDisplay.right = getStyle("paddingRight");
-				textDisplay.bottom = getStyle("paddingBottom");
-			}
-		}
+        
+        // Check for padding style changes
+        if (!styleProp || styleProp == "styleName" || styleProp.indexOf("padding") >= 0)
+        {
+            if (textDisplay)
+            {
+                textDisplay.left = getStyle("paddingLeft");
+                textDisplay.top = getStyle("paddingTop");
+                textDisplay.right = getStyle("paddingRight");
+                textDisplay.bottom = getStyle("paddingBottom");
+            }
+        }
     }
 }
 }
