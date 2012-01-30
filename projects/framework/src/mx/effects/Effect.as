@@ -1809,6 +1809,8 @@ public class Effect extends EventDispatcher implements IEffect
         var instance:IEffectInstance = IEffectInstance(event.effectInstance);
         
         deleteInstance(instance);
+        propertyChangesArray = null;
+        applyEndValuesWhenDone = false;
 
         dispatchEvent(event);
 
