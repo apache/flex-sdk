@@ -28,7 +28,7 @@
     <s:Panel title="Zoom Effect Example" width="95%" height="95%" >
         <s:VGroup left="20" right="20" top="20" bottom="20">
 
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                 text="Move the mouse over the image to enlarge it. Move the mouse off of the image to shrink it."/>
 
             <mx:Image id="img"
