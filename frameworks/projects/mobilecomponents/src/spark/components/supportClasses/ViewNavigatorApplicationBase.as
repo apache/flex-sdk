@@ -337,9 +337,9 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    public function get canCancelBackKeyBehavior():Boolean
+    public function get exitApplicationOnBackKey():Boolean
     {
-        return false;   
+        return true;   
     }
     
     /**
@@ -442,7 +442,7 @@ public class MobileApplicationBase extends Application
         {
             backKeyEventPreventDefaulted = event.isDefaultPrevented();
             
-            if (canCancelBackKeyBehavior)
+            if (!exitApplicationOnBackKey)
                 event.preventDefault();
         }
         else if (key == Keyboard.MENU)
@@ -469,7 +469,7 @@ public class MobileApplicationBase extends Application
         
         // The backKeyEventPreventDefaulted key is always set in the
         // deviceKeyDownHandler method and so doesn't need to be reset.
-        if (key == Keyboard.BACK && !backKeyEventPreventDefaulted && canCancelBackKeyBehavior)
+        if (key == Keyboard.BACK && !backKeyEventPreventDefaulted && !exitApplicationOnBackKey)
             backKeyHandler();
         else if (key == Keyboard.MENU && !menuKeyEventPreventDefaulted)
             menuKeyHandler(event);
