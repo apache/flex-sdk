@@ -772,14 +772,124 @@ public final class AccConst
 
 	/**
 	 *  An MSAA state flag indicating that the object
-	 *  has a pop-up menu (MSAA 2.0).
+	 *  has a pop-up menu. (MSAA 2.0)
 	 */
 	public static const STATE_SYSTEM_HASPOPUP:uint = 0x40000000;
 
 	/**
 	 *  A bitmask representing all valid MSAA state flags.
 	 */
-	public static const STATE_SYSTEM_VALID:uint = 0x7fffffff;
+	public static const STATE_SYSTEM_VALID:uint = 0x7FFFFFFF;
+
+	//--------------------------------------
+	//  MSAA selection flags
+	//--------------------------------------
+
+	/**
+	 *  A constant representing the absence of any MSAA selection flags.
+	 */
+	public static const SELFLAG_NONE:uint = 0;
+
+	/**
+	 *  An MSAA selection flag that sets the focus to the object
+	 *  and makes it the selection anchor.
+	 *
+	 *  <p>Used by itself, this flag does not alter the selection,
+	 *  and its behavior is similar to moving the focus manually
+	 *  by pressing the arrow keys while holding down the CTRL key
+	 *  in Windows Explorer or in any multiple-selection list box.</p>
+	 *
+	 *  <p>With objects that have the state STATE_SYSTEM_MULTISELECTABLE,
+	 *  SELFLAG_TAKEFOCUS can be combined with the following values:
+	 *  <ul>
+	 *    <li>SELFLAG_TAKESELECTION</li>
+	 *    <li>SELFLAG_EXTENDSELECTION</li>
+	 *    <li>SELFLAG_ADDSELECTION</li>
+	 *    <li>SELFLAG_REMOVESELECTION</li>
+	 *    <li>SELFLAG_ADDSELECTION | SELFLAG_EXTENDSELECTION</li>
+	 *    <li>SELFLAG_REMOVESELECTION | SELFLAG_EXTENDSELECTION</li>
+	 *  </ul></p>
+	 */
+	public static const SELFLAG_TAKEFOCUS:uint = 0x1;
+
+	/**
+	 *  An MSAA selection flag that selects the object
+	 *  and removes the selection from all other objects in the container.
+	 *
+	 *  <p>This flag does not change the focus or the selection anchor
+	 *  unless it is combined with SELFLAG_TAKEFOCUS.
+	 *  The behavior of SELFLAG_TAKESELECTION | SELFLAG_TAKEFOCUS
+	 *  is equivalent to single-clicking an item in Windows Explorer.</p>
+	 *
+	 *  <p>This flag must not be combined with the following flags:
+	 *  <ul>
+	 *    <li>SELFLAG_ADDSELECTION</li>
+	 *    <li>SELFLAG_REMOVESELECTION</li>
+	 *    <li>SELFLAG_EXTENDSELECTION</li>
+	 *  </ul></p>
+	 */
+	public static const SELFLAG_TAKESELECTION:uint = 0x2;
+
+	/**
+	 *  An MSAA selection flag that alters the selection
+	 *  so that all objects between the selection anchor
+	 *  and this object take on the anchor object's selection state.
+	 *
+	 *  <p>That is, if the anchor object is not selected,
+	 *  the objects are removed from the selection;
+	 *  if the anchor object is selected,
+	 *  the selection is extended to include this object
+	 *  and all the objects in between.
+	 *  You can set the selection state by combining this flag with
+	 *  SELFLAG_ADDSELECTION or SELFLAG_REMOVESELECTION.</p>
+	 *
+	 *  <p>This flag does not change the focus or the selection anchor
+	 *  unless it is combined with SELFLAG_TAKEFOCUS.
+	 *  The behavior of SELFLAG_EXTENDSELECTION | SELFLAG_TAKEFOCUS
+	 *  is equivalent to addding an item to a selection manually
+	 *  by holding down the SHIFT key and clicking an unselected object
+	 *  in Windows Explorer.</p>
+	 *
+	 *  <p>This flag may not be combined with SELFLAG_TAKESELECTION.</p>
+	 */
+	public static const SELFLAG_EXTENDSELECTION:uint = 0x4;
+
+	/**
+	 *  An MSAA selection flag that adds the object to the current selection,
+	 *  possibly resulting in a noncontiguous selection.
+	 *
+	 *  <p>This flag does not change the focus or the selection anchor
+	 *  unless it is combined with SELFLAG_TAKEFOCUS.
+	 *  The behavior of SELFLAG_ADDSELECTION | SELFLAG_TAKEFOCUS
+	 *  is equivalent to adding an item to a selection manually
+	 *  by holding down the CTRL key and clicking an unselected object
+	 *  in Windows Explorer.</p>
+	 *
+	 *  <p>This flag may not be combined with SELFLAG_REMOVESELECTION
+	 *  or with SELFLAG_TAKESELECTION.</p>
+	 */
+	public static const SELFLAG_ADDSELECTION:uint = 0x8;
+
+	/**
+	 *  An MSAA selection flag that removes the object from the current
+	 *  selection, possibly resulting in a noncontiguous selection.
+	 *
+	 *  <p>This flag does not change the focus or the selection anchor
+	 *  unless it is combined with SELFLAG_TAKEFOCUS.
+	 *  The behavior of SELFLAG_REMOVESELECTION | SELFLAG_TAKEFOCUS
+	 *  is equivalent to removing an item from a selection manually
+	 *  by holding down the CTRL key while clicking a selected object
+	 *  in Windows Explorer.</p>
+	 *
+	 *  <p>This flag may not be combined with SELFLAG_ADDSELECTION
+	 *  or with SELFLAG_TAKESELECTION.</p>
+	 */
+	public static const SELFLAG_REMOVESELECTION:uint = 0x10;
+
+	/**
+	 *  A bitmask representing all valid MSAA selection flags.
+	 */
+	public static const SELFLAG_VALID:uint = 0x1F;
 
 	//--------------------------------------
 	//  MSAA system events
@@ -1256,6 +1366,33 @@ public final class AccConst
 	 *  for their accessible objects.</p>
 	 */
 	public static const EVENT_OBJECT_ACCELERATORCHANGE:uint = 0x8012;
+
+	/**
+	 *  An MSAA event indicating that an object has been invoked;
+	 *  for example, the user has clicked a button. (MSAA 2.0)
+	 */
+	public static const EVENT_OBJECT_INVOKED:uint = 0x8013;
+
+	/**
+	 *  An MSAA event indicating that an object's text selection has changed.
+	 *  (MSAA 2.0)
+	 */
+	public static const EVENT_OBJECT_TEXTSELECTIONCHANGED:uint = 0x8014;
+
+	/**
+	 *  An MSAA event indicating that the scrolling of a window object
+	 *  has ended. (MSAA 2.0)
+	 *
+	 *  <p>Unlike the similar event (EVENT_SYSTEM_SCROLLEND),
+	 *  this event will be associated with the scrolling window itself.
+	 *  There is no difference between horizontal or vertical scrolling.</p>
+	 *
+	 *  <p>This event should be posted whenever scroll action is completed,
+	 *  including when it is scrolled by scroll bars, mouse wheel,
+	 *  or keyboard navigations.</p>
+	 */
+	public static const EVENT_OBJECT_CONTENTSCROLLED:uint = 0x8015;
+
 }
 
 }
