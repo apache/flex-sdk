@@ -295,8 +295,8 @@ public class SlideViewTransition extends ViewTransition
         if (!fullScreenAnimation)
         {
             fullScreenAnimation = cachedActionBar && 
-                                  (actionBar.height != cachedActionBar.height) ||
-                                  (actionBar.width != cachedActionBar.width);
+                                  ((actionBar.height != cachedActionBar.height) ||
+                                   (actionBar.width != cachedActionBar.width));
         }
             
         // Create the animation
