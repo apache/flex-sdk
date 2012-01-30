@@ -32,6 +32,11 @@ public interface IEmbeddedFontRegistry
      *  @param font Describes attributes of the font to register.
 	 *
      *  @param moduleFactory The moduleFactory where the font is embedded.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	function registerFont(font:EmbeddedFont,
 						  moduleFactory:IFlexModuleFactory):void;
@@ -45,6 +50,11 @@ public interface IEmbeddedFontRegistry
      *  @param font Describes attributes of the font to register.
 	 *
      *  @param moduleFactory moduleFactory where the font is embedded.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	function deregisterFont(font:EmbeddedFont,
 							moduleFactory:IFlexModuleFactory):void;
@@ -66,6 +76,11 @@ public interface IEmbeddedFontRegistry
      *  @return moduleFactory that can be used to create an object
 	 *  in the context of the font. 
      *  null if the font is not found in the registry.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	function getAssociatedModuleFactory(
 					font:EmbeddedFont,
@@ -79,6 +94,11 @@ public interface IEmbeddedFontRegistry
      *  @return Array of EmbeddedFont objects.
 	 *  Fonts that have been registered multiple times will appear
 	 *  multiple times in the array.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */		
 	function getFonts():Array;
 }
