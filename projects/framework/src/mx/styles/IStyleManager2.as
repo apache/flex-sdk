@@ -192,6 +192,14 @@ public interface IStyleManager2 extends IStyleManager
 				url:String, update:Boolean = true,
 				applicationDomain:ApplicationDomain = null,
 				securityDomain:SecurityDomain = null):IEventDispatcher;
+    
+    /**
+     *  @private
+     *  Used in media query handling.
+     *  @param value normalized media query string
+     *  @returns true if valid media
+     */
+    function acceptMediaList(value:String):Boolean;
 }
 
 }
