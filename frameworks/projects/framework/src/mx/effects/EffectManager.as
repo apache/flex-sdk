@@ -184,11 +184,11 @@ public class EffectManager extends EventDispatcher
     {
         // Iterate through the array backward, because calling end()
         // may cause the element to be removed from the array.
-        var n:int = mx_internal::effectsPlaying.length;
+        var n:int = effectsPlaying.length;
         for (var i:int = n - 1; i >= 0; i--)
         {
             var otherInst:EffectInstance =
-                mx_internal::effectsPlaying[i].instance;
+                effectsPlaying[i].instance;
             if (otherInst.target == target)
                 otherInst.end();
         }       
@@ -207,7 +207,7 @@ public class EffectManager extends EventDispatcher
         if (eventName != null && eventName != "")
         {
             target.addEventListener(eventName,
-                                    EffectManager.mx_internal::eventHandler,
+                                    EffectManager.eventHandler,
                                     false, EventPriority.EFFECT);
         }
     }
@@ -568,12 +568,12 @@ public class EffectManager extends EventDispatcher
                 {
                     return;
                 }
-                else if (UIComponent(eventObj.target).mx_internal::isEffectStarted)
+                else if (UIComponent(eventObj.target).isEffectStarted)
                 {
-                    for (var i:int = 0; i < UIComponent(eventObj.target).mx_internal::_effectsStarted.length; i++)
+                    for (var i:int = 0; i < UIComponent(eventObj.target)._effectsStarted.length; i++)
                     {
                         // Don't allow removedEffect to trigger more than one effect at a time
-                        if (UIComponent(eventObj.target).mx_internal::_effectsStarted[i].triggerEvent.type == Event.REMOVED)
+                        if (UIComponent(eventObj.target)._effectsStarted[i].triggerEvent.type == Event.REMOVED)
                             return;
                     }
                 }
@@ -613,7 +613,7 @@ public class EffectManager extends EventDispatcher
     private static function createAndPlayEffect(eventObj:Event, target:Object):void
     {
                 
-        var effectInst:Effect = mx_internal::createEffectForType(target, eventObj.type);
+        var effectInst:Effect = createEffectForType(target, eventObj.type);
         if (!effectInst)
             return;
         
@@ -682,13 +682,13 @@ public class EffectManager extends EventDispatcher
         // then finish the other effect before starting this new one.
         //
         if (effectInst.target is UIComponent &&
-            UIComponent(effectInst.target).mx_internal::isEffectStarted)
+            UIComponent(effectInst.target).isEffectStarted)
         {
             var affectedProps:Array = effectInst.getAffectedProperties();
             for (i = 0; i < affectedProps.length; i++)
             {
                 var runningInstances:Array =
-                    effectInst.target.mx_internal::getEffectsForProperty(affectedProps[i]);
+                    effectInst.target.getEffectsForProperty(affectedProps[i]);
                 if (runningInstances.length > 0) 
                 {
                     if (eventObj.type == ResizeEvent.RESIZE)
@@ -697,11 +697,11 @@ public class EffectManager extends EventDispatcher
                     for (j = 0; j < runningInstances.length; j++)
                     {
                         var otherInst:EffectInstance = runningInstances[j];
-                        if (eventObj.type == FlexEvent.SHOW && otherInst.mx_internal::hideOnEffectEnd)
+                        if (eventObj.type == FlexEvent.SHOW && otherInst.hideOnEffectEnd)
                         {
                             otherInst.target.removeEventListener(
                                 FlexEvent.SHOW, otherInst.eventHandler);
-                            otherInst.mx_internal::hideOnEffectEnd = false;
+                            otherInst.hideOnEffectEnd = false;
                             
                         }
 
@@ -740,7 +740,7 @@ public class EffectManager extends EventDispatcher
         // onEffectEnd handler will remove this effect from the effectsPlaying
         // array.
         effectInst.addEventListener(EffectEvent.EFFECT_END,
-                                    EffectManager.mx_internal::effectEndHandler);
+                                    EffectManager.effectEndHandler);
     
         lastEffectCreated = effectInst;
 
@@ -748,7 +748,7 @@ public class EffectManager extends EventDispatcher
         n = instances.length;
         for (i = 0; i < n; i++)
         {
-            mx_internal::effectsPlaying.push(
+            effectsPlaying.push(
                 new EffectNode(effectInst, instances[i]));
         }
         
@@ -782,12 +782,12 @@ public class EffectManager extends EventDispatcher
         // This function is called when an effect, which was started
         // earlier by this effect manager, finishes playing.  Remove
         // this effect from the "effectPlaying" list
-        var n:int = mx_internal::effectsPlaying.length;
+        var n:int = effectsPlaying.length;
         for (var i:int = n - 1; i >= 0; i--)
         {
-            if (mx_internal::effectsPlaying[i].instance == effectInst)
+            if (effectsPlaying[i].instance == effectInst)
             {
-                mx_internal::effectsPlaying.splice(i, 1);
+                effectsPlaying.splice(i, 1);
                 break;
             }
         }
