@@ -43,6 +43,30 @@
          */
         override public function get colorizeExclusions():Array {return exclusions;}
 
+        /**
+         *  Override to keep the spacer's width up-to-date.
+         */ 
+        override protected function updateDisplayList(unscaledWidth:Number,
+                                                   unscaledHeight:Number):void
+        {
+            /** Spacer. Create enough space move the titleIcon and titleText to the
+             *  right so they are centered.
+             *  "0 + titleText.width - titleText.width" is a trick so binding will call
+             *  us when the titleText changes width. We can't use titleText.width in the 
+             *  expression because its width is 100% percent, which is not the measured size of
+             *  the text (the size includes layout space). We call getPreferredBoundsWidth()
+             *  to get the actual size of the text. 
+             
+             *  In the below formula:
+             *  4 = 2 (left margin) + 2 (right margin)
+             *  5 = gap between the titleIcon and the titleText
+             *  58 = 2 (left margin) + 4 * 5 (four gaps of 5 pixels) + 3 * 12 (three images, each 12 pixels wide)
+             */
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+            spacer.width = Math.max(0, ((hostComponent.width - titleText.getPreferredBoundsWidth() - 
+                   titleIconImage.width - 4 - 5) / 2) - 58);
+        }
     </fx:Script>
     
     <s:states>
@@ -109,21 +133,8 @@
                         
         <!-- Spacer. Create enough space move the titleIcon and titleText to the
              right so they are centered.
-             "0 + titleText.width - titleText.width" is a trick so binding will call
-             us when the titleText changes width. We can't use titleText.width in the 
-             expression because its width is 100% percent, which is not the measured size of
-             the text (the size includes layout space). We call getPreferredBoundsWidth()
-             to get the actual size of the text. 
-             
-             In the below formula:
-             4 = 2 (left margin) + 2 (right margin)
-             5 = gap between the titleIcon and the titleText
-             58 = 2 (left margin) + 4 * 5 (four gaps of 5 pixels) + 3 * 12 (three images, each 12 pixels wide)
         -->
-        <mx:Spacer minWidth="0" 
-            width="{Math.max(0 + titleText.width - titleText.width, 
-                   ((hostComponent.width - titleText.getPreferredBoundsWidth() - 
-                   titleIconImage.width - 4 - 5) / 2) - 58)}" />
+        <mx:Spacer id="spacer" minWidth="0" /> 
  
         <!-- title bar icon -->
         <!--- Defines the image for the icon in the title bar. -->
@@ -131,7 +142,7 @@
         
         <!-- title -->
         <!--- Defines the SimpleText control for displaying the title text in the title bar. -->
-        <s:SimpleText id="titleText" minWidth="64" fontSize="9" color="#585858" maxDisplayedLines="1" width="100%" />
+        <s:SimpleText id="titleText" minWidth="0" fontSize="9" color="#585858" maxDisplayedLines="1" width="100%" />
     </s:Group>
 
 </s:SparkSkin>
