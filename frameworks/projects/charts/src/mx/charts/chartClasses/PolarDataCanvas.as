@@ -7,10 +7,6 @@
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
 //  in accordance with the terms of the license agreement accompanying it.
 //
-//  Adobe Patent or Adobe Patent Pending Invention Included Within this File
-//  Adobe patent application tracking B503, entitled Charting Data Graphics - 
-//  graphics drawing API that allows to draw in data space, inventors Ely Greenfield.
-//  AdobePatentID="B503"
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
