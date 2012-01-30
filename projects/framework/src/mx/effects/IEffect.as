@@ -280,7 +280,7 @@ public interface IEffect extends IAbstractEffect
     //----------------------------------
 
     /** 
-     *  The UIComponent object to which this effect is applied.
+     *  The object to which this effect is applied.
      *  When an effect is triggered by an effect trigger, 
      *  the <code>target</code> property is automatically set to be 
      *  the object that triggers the effect.
@@ -297,7 +297,7 @@ public interface IEffect extends IAbstractEffect
     //----------------------------------
 
     /**
-     *  An Array of UIComponent objects that are targets for the effect.
+     *  An Array of objects that are targets for the effect.
      *  When the effect is playing, it performs the effect on each target
      *  in parallel. 
      *  Setting the <code>target</code> property replaces all objects
