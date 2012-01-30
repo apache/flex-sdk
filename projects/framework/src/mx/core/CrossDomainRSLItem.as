@@ -99,7 +99,7 @@ public class CrossDomainRSLItem extends RSLItem
                              rootURL:String = null,
                              moduleFactory:IFlexModuleFactory = null)
     {
-        super(rsls[0].url, rootURL, moduleFactory);
+        super(rsls[0].rslURL, rootURL, moduleFactory);
 
         this.rsls = rsls;
         
@@ -192,7 +192,7 @@ public class CrossDomainRSLItem extends RSLItem
 */
 
         var rslData:RSLData = currentRSLData;
-        urlRequest = new URLRequest(LoaderUtil.createAbsoluteURL(rootURL, rslData.url));
+        urlRequest = new URLRequest(LoaderUtil.createAbsoluteURL(rootURL, rslData.rslURL));
         
         var loader:URLLoader = new URLLoader();
         loader.dataFormat = URLLoaderDataFormat.BINARY;
@@ -211,9 +211,9 @@ public class CrossDomainRSLItem extends RSLItem
         loader.addEventListener(
             SecurityErrorEvent.SECURITY_ERROR, itemErrorHandler);
 
-        if (rslData.policyFileUrl != "")
+        if (rslData.policyFileURL != "")
         {
-            Security.loadPolicyFile(rslData.policyFileUrl);
+            Security.loadPolicyFile(rslData.policyFileURL);
         }
         
         if (rslData.isSigned)
@@ -273,13 +273,9 @@ public class CrossDomainRSLItem extends RSLItem
         
         context.securityDomain = null;
         
-        // If the AIR flag is available then set it to true so we can
-        // load the RSL without a security error.
-        if ("allowLoadBytesCodeExecution" in context)
-        {
-            context["allowLoadBytesCodeExecution"] = true;
-        }   
-        
+        // Set the allowCodeImport flag so we can load the RSL without a security error.
+        context.allowCodeImport = true;
+
         // verify the digest, if any, is correct
         if (rslData.digest != null && rslData.verifyDigest)
         {
@@ -361,10 +357,10 @@ public class CrossDomainRSLItem extends RSLItem
         // try to load the failover from the same node again
         if (urlIndex < rsls.length)
         {
-            trace("Failed to load RSL " + currentRSLData.url);
-            trace("Failing over to RSL " + RSLData(rsls[urlIndex+1]).url);
+            trace("Failed to load RSL " + currentRSLData.rslURL);
+            trace("Failing over to RSL " + RSLData(rsls[urlIndex+1]).rslURL);
             urlIndex++;        // move to failover url
-            url = currentRSLData.url;
+            url = currentRSLData.rslURL;
             load(chainedProgressHandler,
                  chainedCompleteHandler,
                  chainedIOErrorHandler,
@@ -372,8 +368,6 @@ public class CrossDomainRSLItem extends RSLItem
                  chainedRSLErrorHandler);    
         }
     }
-    
-
 
     //--------------------------------------------------------------------------
     //
