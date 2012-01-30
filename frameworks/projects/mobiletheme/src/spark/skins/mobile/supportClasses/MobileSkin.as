@@ -33,7 +33,6 @@ import spark.skins.IHighlightBitmapCaptureClient;
 use namespace mx_internal;
 
 // FIXME (jasonsj): do we need blendMode handling like Group?
-// FIXME (jasonsj): B-feature for IFocusColorSkin may be removed
 /**
  *  ActionScript-based skin for mobile applications. This skin is the 
  *  base class for all of the ActionScript mobile skins. As an optimization, 
@@ -44,7 +43,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5 
  *  @productversion Flex 4.5
  */
-public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureClient /*, IFocusColorSkin*/
+public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureClient
 {
     //--------------------------------------------------------------------------
     //
@@ -133,8 +132,6 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      */
     protected var useSymbolColor:Boolean = false;
     
-    private var _focus:Boolean = false;
-    
     //----------------------------------
     //  applicationDPI
     //----------------------------------
@@ -196,29 +193,6 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
         }
     }
     
-    // FIXME (jasonsj): B-feature for IFocusColorSkin may be removed    
-    public function get isFocusColorSupported():Boolean
-    {
-        return true;
-    }
-    
-    // FIXME (jasonsj): B-feature for IFocusColorSkin may be removed
-    public function get useFocusColor():Boolean
-    {
-        return _focus;
-    }
-    
-    // FIXME (jasonsj): B-feature for IFocusColorSkin may be removed
-    public function set useFocusColor(value:Boolean):void
-    {
-        if (_focus != value)
-        {
-            _focus = value;
-            invalidateDisplayList();
-        }
-    }
-    
-    
     /**
      *  Called whenever the currentState changes. Skins should override
      *  this function if they make any appearance changes during 
@@ -263,7 +237,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        if (useChromeColor || _focus)
+        if (useChromeColor)
         {
             graphics.clear();
             
@@ -371,10 +345,9 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     }
     
     /**
-     * Gets the value of the <code>chromeColor</code> style property. If the skin has focus, then this method gets
-     * the value of the <code>focusColor</code> style property.
+     *  Gets the value of the <code>chromeColor</code> style property.
      * 
-     *  @return The value of the <code>chromeColor</code> or <code>focusColor</code> style property. 
+     *  @return The value of the <code>chromeColor</code> style property. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -383,8 +356,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      */
     protected function getChromeColor():uint
     {
-        var chromeColorStyle:String = (_focus) ? "focusColor" : "chromeColor";
-        return getStyle(chromeColorStyle);
+        return getStyle("chromeColor");
     }
     
     /**
