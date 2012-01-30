@@ -119,6 +119,12 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  * <p>The DateSpinner control can display the date, the time, or the date and time, based on the 
  *  value of the <code>displayMode</code> property.</p>
  * 
+ *  <p>The following images shows the three modes of the DateSpinner control:</p>
+ *
+ * <p>
+ *  <img src="../../images/date_spinner_types.png" alt="DateSpinner types"/>
+ * </p>
+ * 
  *  <p>The UI for the control is made up of a series of SpinnerList controls wrapped inside
  *  a SpinnerListContainer that show the
  *  currently-selected date. Through touch or mouse interaction, users
@@ -146,6 +152,9 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  </pre>
  * 
  *  @see spark.components.SpinnerList
+ *  @see spark.components.calendarClasses.DateSpinnerItemRenderer
+ *  @see spark.skins.mobile.DateSpinnerSkin
+ * 
  *  @includeExample examples/DateSpinnerExample.mxml -noswf
  * 
  *  @langversion 3.0
@@ -162,7 +171,7 @@ public class DateSpinner extends SkinnableComponent
     //--------------------------------------------------------------------------
     
     /**
-     *  Constant for specifying to createDateItemList() that the list is for showing
+     *  Specifies to the <code>createDateItemList()</code> method that the list is for showing
      *  years.
      * 
      *  @langversion 3.0
@@ -172,7 +181,7 @@ public class DateSpinner extends SkinnableComponent
     protected static const YEAR_ITEM:String = "yearItem";
 
     /**
-     *  Constant for specifying to createDateItemList() that the list is for showing
+     *  Specifies to the <code>createDateItemList()</code> method that the list is for showing
      *  months.
      * 
      *  @langversion 3.0
@@ -182,7 +191,7 @@ public class DateSpinner extends SkinnableComponent
     protected static const MONTH_ITEM:String = "monthItem";
 
     /**
-     *  Constant for specifying to createDateItemList() that the list is for showing
+     *  Specifies to the <code>createDateItemList()</code> method that the list is for showing
      *  dates of the month or year.
      * 
      *  @langversion 3.0
@@ -192,7 +201,7 @@ public class DateSpinner extends SkinnableComponent
     protected static const DATE_ITEM:String = "dateItem";
     
     /**
-     *  Constant for specifying to createDateItemList() that the list is for showing
+     *  Specifies to the <code>createDateItemList()</code> method that the list is for showing
      *  hours.
      * 
      *  @langversion 3.0
@@ -202,7 +211,7 @@ public class DateSpinner extends SkinnableComponent
     protected static const HOUR_ITEM:String = "hourItem";
     
     /**
-     *  Constant for specifying to createDateItemList() that the list is for showing
+     *  Specifies to the <code>createDateItemList()</code> method that the list is for showing
      *  minutes.
      * 
      *  @langversion 3.0
@@ -212,7 +221,7 @@ public class DateSpinner extends SkinnableComponent
     protected static const MINUTE_ITEM:String = "minuteItem";
     
     /**
-     *  Constant for specifying to createDateItemList() that the list is for showing
+     *  Specifies to the <code>createDateItemList()</code> method that the list is for showing
      *  meridian options.
      * 
      *  @langversion 3.0
@@ -309,7 +318,7 @@ public class DateSpinner extends SkinnableComponent
     [SkinPart]
     /**
      *  The default factory for creating SpinnerList interfaces for all fields.
-     *  This is used by the createDateItemList() method.
+     *  This is used by the <code>createDateItemList()</code> method.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -319,7 +328,7 @@ public class DateSpinner extends SkinnableComponent
     
     [SkinPart] 
     /**
-     *  The container for the date part lists
+     *  The container for the date part lists.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -334,7 +343,7 @@ public class DateSpinner extends SkinnableComponent
     //--------------------------------------------------------------------------
     
     /**
-     *  The SpinnerList showing the year field of the date.
+     *  The SpinnerList that shows the year field of the date.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -343,7 +352,7 @@ public class DateSpinner extends SkinnableComponent
     protected var yearList:SpinnerList;
 
     /**
-     *  The SpinnerList showing the month field of the date.
+     *  The SpinnerList that shows the month field of the date.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -352,7 +361,7 @@ public class DateSpinner extends SkinnableComponent
     protected var monthList:SpinnerList;
     
     /**
-     *  The SpinnerList showing the date field of the date.
+     *  The SpinnerList that shows the date field of the date.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -361,7 +370,7 @@ public class DateSpinner extends SkinnableComponent
     protected var dateList:SpinnerList;
     
     /**
-     *  The SpinnerList showing the hour field of the date.
+     *  The SpinnerList that shows the hour field of the date.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -370,7 +379,7 @@ public class DateSpinner extends SkinnableComponent
     protected var hourList:SpinnerList;
     
     /**
-     *  The SpinnerList showing the minutes field of the date.
+     *  The SpinnerList that shows the minutes field of the date.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -379,7 +388,7 @@ public class DateSpinner extends SkinnableComponent
     protected var minuteList:SpinnerList;
     
     /**
-     *  The SpinnerList showing the meridian field (AM/PM) of the date.
+     *  The SpinnerList that shows the meridian field (AM/PM) of the date.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -476,7 +485,7 @@ public class DateSpinner extends SkinnableComponent
      *  internally, so modifications to these will not be reflected in the
      *  DateSpinner.</p>
      * 
-     *  @default If maxDate is null, the value defaults to Dec 31st, 9999.
+     *  @default Dec 31st, 9999
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -527,9 +536,10 @@ public class DateSpinner extends SkinnableComponent
      *  internally, so modifications to these will not be reflected in the
      *  DateSpinner.</p>
      * 
-     *  @default If minDate is null, the value defaults to January 1st, 1601.
-     *           minDate's year should be greater than or equal to 1601 since
-     *           DateTimeFormatter only supports the range from 1601 to 30827
+     *  <p>The value of the minDate property's year must be greater than or equal to 1601 because
+     *  the DateTimeFormatter class supports only the range from 1601 to 30827.</p>
+     * 
+     *  @default January 1st, 1601
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
@@ -626,7 +636,7 @@ public class DateSpinner extends SkinnableComponent
      *  DateSpinner. To modify the DateSpinner's date, get and modify the
      *  current selectedDate and then re-set the selectedDate.</p>
      *
-     *  @default Current date when the DateSpinner was instantiated
+     *  @default the current date
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -702,6 +712,9 @@ public class DateSpinner extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     override protected function attachSkin():void
     {
         super.attachSkin();
@@ -711,6 +724,9 @@ public class DateSpinner extends SkinnableComponent
         invalidateProperties();
     }    
 
+    /**
+     *  @private
+     */
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -848,6 +864,9 @@ public class DateSpinner extends SkinnableComponent
         useAnimationToSetSelectedDate = false;
     }
     
+    /**
+     *  @private
+     */
     override public function styleChanged(styleProp:String):void
     {
         super.styleChanged(styleProp);
@@ -885,13 +904,14 @@ public class DateSpinner extends SkinnableComponent
      *  Create a list object for the specified date part.
      * 
      *  @param datePart Use date part constants, e.g. YEAR_ITEM.
-	 *  @param itemIndex index of the date part in the overall list container
-	 *  @param itemCount number of date parts being shown
+     *  @param itemIndex Index of the date part in the overall list container.
+     *  @param itemCount Number of date parts being shown.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      * 
+     *  @return A SpinnerList that contains the part.
      */
     protected function createDateItemList(datePart:String, itemIndex:int, itemCount:int):SpinnerList
     {
