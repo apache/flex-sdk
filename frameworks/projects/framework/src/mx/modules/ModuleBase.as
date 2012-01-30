@@ -29,7 +29,7 @@ import flash.events.EventDispatcher;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class ModuleBase extends EventDispatcher
+public class ModuleBase extends EventDispatcher implements IModule
 {
     include "../core/Version.as";
 }
