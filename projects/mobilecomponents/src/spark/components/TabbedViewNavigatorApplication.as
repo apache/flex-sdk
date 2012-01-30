@@ -50,6 +50,7 @@ public class TabbedMobileApplication extends MobileApplicationBase
      *  @private
      */
     private static const NAVIGATORS_PROPERTY_FLAG:uint = 1 << 0;
+    private static const MAINTAIN_NAVIGATION_STACK_PROPERTY_FLAG:uint = 1 << 1;
 
     //--------------------------------------------------------------------------
     //
@@ -123,9 +124,12 @@ public class TabbedMobileApplication extends MobileApplicationBase
     /**
      *  @private
      */ 
-    override public function get canCancelBackKeyBehavior():Boolean
+    override public function get exitApplicationOnBackKey():Boolean
     {
-        return navigator && navigator.canCancelBackKeyBehavior;
+    	if (navigator)
+    		return navigator.exitApplicationOnBackKey;
+    	
+        return super.exitApplicationOnBackKey;
     }
     
     //----------------------------------
@@ -197,6 +201,48 @@ public class TabbedMobileApplication extends MobileApplicationBase
         }
         else
             navigatorProperties.navigators = value;
+    }
+    
+    //----------------------------------
+    //  maintainNavigationStack
+    //----------------------------------
+    /**
+     *  This property indicates whether the navigation stack of the view
+     *  should remain intact when the navigator is deactivated by its
+     *  parent navigator.  If set to true, when reactivated the view history
+     *  will remain the same.  If false, the navigator will display the
+     *  first view in its navigation stack.
+     * 
+     *  @default true
+     *  
+     *  @see spark.components.TabbedViewNavigator
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get maintainNavigationStack():Boolean
+    {
+        if (navigator)
+            return navigator.maintainNavigationStack;
+        else
+            return navigatorProperties.maintainNavigationStack;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set maintainNavigationStack(value:Boolean):void
+    {
+        if (navigator)
+        {
+            navigator.maintainNavigationStack = value;
+            navigatorProperties = BitFlagUtil.update(navigatorProperties as uint,
+                MAINTAIN_NAVIGATION_STACK_PROPERTY_FLAG, true);
+        }
+        else
+            navigatorProperties.maintainNavigationStack = value;
     }
     
     //--------------------------------------------------------------------------
@@ -318,6 +364,13 @@ public class TabbedMobileApplication extends MobileApplicationBase
                     NAVIGATORS_PROPERTY_FLAG, true);
             }
             
+            if (navigatorProperties.maintainNavigationStack !== undefined)
+            {
+                navigator.maintainNavigationStack = navigatorProperties.maintainNavigationStack;
+                newNavigatorProperties = BitFlagUtil.update(newNavigatorProperties, 
+                    MAINTAIN_NAVIGATION_STACK_PROPERTY_FLAG, true);
+            }
+            
             // Set the stage focus to the navigator
             systemManager.stage.focus = navigator;
         }
@@ -332,8 +385,10 @@ public class TabbedMobileApplication extends MobileApplicationBase
         
         if (instance == navigator)
         {
+        	// FIXME (chiedozi): maintainNavigationStack check ISSET
             // Always want to save the navigation stack
-            navigatorProperties = {navigators:navigator.navigators};
+            navigatorProperties = {navigators:navigator.navigators,
+                                   maintainNavigationStack:navigator.maintainNavigationStack};
         }
     }
 }
