@@ -45,6 +45,7 @@ use namespace mx_internal;
  *  @see spark.components.ViewMenu
  *  @see spark.layouts.ViewMenuLayout
  *  @see spark.components.supportClasses.ViewNavigatorApplicationBase
+ *  @see spark.skins.mobile.ViewMenuItemSkin
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
