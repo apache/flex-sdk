@@ -6404,7 +6404,13 @@ public class UIComponent extends FlexSprite
      */
     public function set currentState(value:String):void
     {
-        setCurrentState(value, true);
+        // We have a deferred state change currently queued up, let's override
+        // the originally requested state with the newly requested. Otherwise
+        // we'll synchronously assign our new state.
+        if (_currentStateDeferred != null) 
+            _currentStateDeferred = value;
+        else
+            setCurrentState(value, true);
     }
 
     /**
