@@ -112,6 +112,13 @@ use namespace mx_internal;
  *  By default, the label OFF corresponds to the unselected position and ON 
  *  corresponds to the selected position.</p>
  *
+ *  <p>The following images shows a ToggleSwitch control. 
+ *  The labels below the control show the current switch label and position:</p>
+ *
+ * <p>
+ *  <img src="../../images/ts_toggleSwitch_ts.png" alt="Toggle switch" />
+ * </p>
+ *
  *  <p>Clicking anywhere in the control toggles the position. 
  *  You can also slide the thumb along the track to change position. 
  *  When you release the thumb, it moves to the position, selected or unselected, 
