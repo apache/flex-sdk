@@ -11,7 +11,7 @@
 
 package mx.core
 {
-import flash.events.IEventDispatcher;
+
 
 /**
  *  Documentation is not currently available.
@@ -38,7 +38,7 @@ public interface IVisualElementContainer
      * 
      *  @throws RangeError If the index position does not exist in the child list.
      */ 
-    function getElementAt(index:int):Object
+    function getElementAt(index:int):IVisualElement
     
     //----------------------------------
     //  Visual Element addition
@@ -63,7 +63,7 @@ public interface IVisualElementContainer
      * 
      *  @throws ArgumentError If the element is the same as the visual container.
      */   
-    function addElement(element:Object):Object;
+    function addElement(element:IVisualElement):IVisualElement;
     
     /**
      *  Adds a visual element to this visual container. The element is 
@@ -91,7 +91,7 @@ public interface IVisualElementContainer
      * 
      *  @throws RangeError If the index position does not exist in the child list.
      */
-    function addElementAt(element:Object, index:int):Object;
+    function addElementAt(element:IVisualElement, index:int):IVisualElement;
     
     //----------------------------------
     //  Visual Element removal
@@ -109,7 +109,7 @@ public interface IVisualElementContainer
      *  @throws ArgumentError If the element parameter is not a child of 
      *  this visual container.
      */
-    function removeElement(element:Object):Object;
+    function removeElement(element:IVisualElement):IVisualElement;
     
     /**
      *  Removes a visual element from the specified index position 
@@ -121,7 +121,7 @@ public interface IVisualElementContainer
      * 
      *  @throws RangeError If the index does not exist in the child list.
      */
-    function removeElementAt(index:int):Object;
+    function removeElementAt(index:int):IVisualElement;
     
     //----------------------------------
     //  Visual Element index
@@ -136,7 +136,7 @@ public interface IVisualElementContainer
      * 
      *  @throws ArgumentError If the element is not a child of this visual container.
      */ 
-    function getElementIndex(element:Object):int;
+    function getElementIndex(element:IVisualElement):int;
     
     /**
      *  Changes the position of an existing visual element in the visual container.
@@ -161,7 +161,7 @@ public interface IVisualElementContainer
      *  @throws ArgumentError - If the element parameter is not a child 
      *  of this visual container.
      */
-    function setElementIndex(element:Object, index:int):void;
+    function setElementIndex(element:IVisualElement, index:int):void;
     
     //----------------------------------
     //  Visual Element swapping
@@ -174,7 +174,7 @@ public interface IVisualElementContainer
      *  @param element1 The first visual element.
      *  @param element2 The second visual element.
      */
-    function swapElements(element1 :Object, element2 :Object):void;
+    function swapElements(element1:IVisualElement, element2:IVisualElement):void;
     
     /**
      *  Swaps the visual elements at the two specified index 
