@@ -12,7 +12,7 @@
 package spark.skins.mobile
 {
 
-import mx.core.DeviceDensity;
+import mx.core.DPIClassification;
 
 import spark.components.Button;
 import spark.components.HScrollBar;
@@ -49,9 +49,9 @@ import spark.skins.mobile.supportClasses.MobileSkin;
         useChromeColor = true;
         
         // Depending on density set our measured width and height
-        switch (authorDensity)
+        switch (applicationDPI)
         {
-            case DeviceDensity.PPI_240:
+            case DPIClassification.DPI_240:
             {
                 layoutMeasuredWidth = 40;
                 layoutMeasuredHeight = 9;
