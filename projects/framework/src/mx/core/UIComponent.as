@@ -8398,17 +8398,6 @@ public class UIComponent extends FlexSprite
             if (!indices)
             {
                 parentDocument[id] = this;
-                
-                // TODO: Determine if we want "idAssigned" to be an event or
-                // callback function. If this is changed, it alse needs to be
-                // updated in:
-                // modules/compiler/src/java/flex2/compiler/mxml/rep/init/ValueInitializer.java
-                var e:PropertyChangeEvent = new PropertyChangeEvent("idAssigned");
-                e.source = parentDocument;
-                e.property = id;
-                e.oldValue = null;
-                e.newValue = this;
-                parentDocument.dispatchEvent(e);
             }
             else
             {
