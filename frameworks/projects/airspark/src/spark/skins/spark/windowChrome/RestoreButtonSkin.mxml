@@ -17,7 +17,8 @@
         <s:State name="up" />
         <s:State name="over" />
         <s:State name="down" />
-    </s:states>
+        <s:State name="disabled" />
+</s:states>
     
     <s:BitmapImage source="@Embed('../../../../assets/win_restore_up.png')" includeIn="up" left="0" verticalCenter="0" />
     
