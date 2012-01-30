@@ -36,6 +36,8 @@ import mx.core.DesignLayer;
 import mx.core.IConstraintClient;
 import mx.core.IDeferredInstantiationUIComponent;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModule;
+import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IStateClient;
@@ -594,7 +596,7 @@ use namespace mx_internal;
 public dynamic class UIMovieClip extends MovieClip 
     implements IDeferredInstantiationUIComponent, IToolTipManagerClient, 
     IStateClient, IFocusManagerComponent, IConstraintClient, IAutomationObject, 
-    IVisualElement, ILayoutElement
+    IVisualElement, ILayoutElement, IFlexModule
 {
     //--------------------------------------------------------------------------
     //
@@ -2013,6 +2015,54 @@ public dynamic class UIMovieClip extends MovieClip
         explicitMinWidth = value;
     }
 
+    //----------------------------------
+    //  moduleFactory
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the moduleFactory property.
+     */
+    private var _moduleFactory:IFlexModuleFactory;
+    
+    [Inspectable(environment="none")]
+    
+    /**
+     *  A module factory is used as context for using embeded fonts and for
+     *  finding the style manager that controls the styles for this 
+     *  component. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function get moduleFactory():IFlexModuleFactory
+    {
+        return _moduleFactory;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        var n:int = numChildren;
+        for (var i:int = 0; i < n; i++)
+        {
+            var child:IFlexModule = getChildAt(i) as IFlexModule;
+            if (!child)
+                continue;
+            
+            if (child.moduleFactory == null || child.moduleFactory == _moduleFactory)
+            {
+                child.moduleFactory = factory;
+            }
+        }
+        
+        _moduleFactory = factory;
+    }
+    
     //----------------------------------
     //  owner
     //----------------------------------
