@@ -89,10 +89,11 @@ public class BindingUtils
      *  Typically these tags are used to indicate fine-grained value changes, 
      *  such as modifications in a text field prior to confirmation.
      *
-     *  @param useWeakReference (default = false) Determines whether
+     *  @param useWeakReference Determines whether
      *  the reference to the host is strong or weak. A strong
      *  reference (the default) prevents the host from being
      *  garbage-collected. A weak reference does not.
+     *  Added for Flex 4.
      *
      *  @return A ChangeWatcher instance, if at least one property name has
      *  been specified to the <code>chain</code> argument; null otherwise. 
@@ -152,10 +153,11 @@ public class BindingUtils
      *  called only on committing change events.
      *  See the <code>bindProperty()</code> method for more information.
      *
-     *  @param useWeakReference (default = false) Determines whether
+     *  @param useWeakReference Determines whether
      *  the reference to the host is strong or weak. A strong
      *  reference (the default) prevents the host from being
      *  garbage-collected. A weak reference does not.
+     *  Added for Flex 4.
      *
      *  @return A ChangeWatcher instance, if at least one property name
      *  has been  specified to the <code>chain</code> argument; null otherwise. 
