@@ -103,10 +103,23 @@ public class ViewNavigatorApplicationSkin extends MobileSkin
     }
     
     /**
+     *  @private 
+     */ 
+    override protected function measure():void
+    {        
+        super.measure();
+        
+        measuredWidth = navigator.getPreferredBoundsWidth();
+        measuredHeight = navigator.getPreferredBoundsHeight();
+    }
+    
+    /**
      *  @private
      */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        super.layoutContents(unscaledWidth, unscaledHeight);
+        
         navigator.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
         navigator.setLayoutBoundsPosition(0, 0);
     }
