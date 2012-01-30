@@ -132,7 +132,7 @@ public class TweenEffectInstance extends EffectInstance
 	override public function get playheadTime():Number
 	{
 		if (tween)
-			return tween.mx_internal::playheadTime + super.playheadTime;
+			return tween.playheadTime + super.playheadTime;
 		else
 			return 0;
 	}
@@ -426,7 +426,7 @@ public class TweenEffectInstance extends EffectInstance
 
 		tween = null;
 
-		if (mx_internal::needToLayout)
+		if (needToLayout)
 			UIComponentGlobals.layoutManager.validateNow();
 		
 		// Notify the object that created this effect (either the
