@@ -296,6 +296,11 @@ public class SetEventHandler extends OverrideBase
                     
                     installedHandlers[obj][name] = handlerFunction;
                 }
+                
+                // Disable bindings for the base event handler if appropriate. If the binding
+                // fires while our override is applied, the correct value will automatically
+                // be applied when the binding is later enabled.
+                enableBindings(obj, name, false);
             }
         }
         else if (!applied)
@@ -351,6 +356,11 @@ public class SetEventHandler extends OverrideBase
 	            if (deleteObj)
 	                delete installedHandlers[obj];
 	        }
+            
+            // Re-enable bindings for the base event handler if appropriate. If the binding
+            // fired while our override was applied, the current value will automatically
+            // be applied once enabled.
+            enableBindings(obj, name);
         }
         else
         {
