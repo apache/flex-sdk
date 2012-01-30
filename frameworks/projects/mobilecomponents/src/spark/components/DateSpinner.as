@@ -470,6 +470,11 @@ public class DateSpinner extends SkinnableComponent
     /**
      *  Maximum selectable date; only this date and dates before this date are selectable.
      * 
+     *  <p>Note that the Date object returned by the getter is a copy of 
+     *  the internal Date, and the one provided to the setter is copied
+     *  internally, so modifications to these will not be reflected in the
+     *  DateSpinner.</p>
+     * 
      *  @default If maxDate is null, the value defaults to Dec 31st, 9999.
      * 
      *  @langversion 3.0
@@ -478,7 +483,7 @@ public class DateSpinner extends SkinnableComponent
      */
     public function get maxDate():Date
     {
-        return _maxDate != null ? _maxDate : MAX_DATE_DEFAULT;
+        return _maxDate != null ? new Date(_maxDate.time) : new Date(MAX_DATE_DEFAULT.time);
     }
     
     /**
@@ -490,7 +495,7 @@ public class DateSpinner extends SkinnableComponent
             || (_maxDate == null && value == null))
             return;
 
-        _maxDate = value;
+        _maxDate = new Date(value.time);
         populateYearDataProvider = true;
         populateDateDataProvider = true;
         maxDateChanged = true;
@@ -509,6 +514,11 @@ public class DateSpinner extends SkinnableComponent
     /**
      *  Minimum selectable date; only this date and dates after this date are selectable.
      * 
+     *  <p>Note that the Date object returned by the getter is a copy of 
+     *  the internal Date, and the one provided to the setter is copied
+     *  internally, so modifications to these will not be reflected in the
+     *  DateSpinner.</p>
+     * 
      *  @default If minDate is null, the value defaults to January 1st, 1601.
      *           minDate's year should be greater than or equal to 1601 since
      *           DateTimeFormatter only supports the range from 1601 to 30827
@@ -518,7 +528,7 @@ public class DateSpinner extends SkinnableComponent
      */
     public function get minDate():Date
     {
-        return _minDate != null ? _minDate : MIN_DATE_DEFAULT;
+        return _minDate != null ? new Date(_minDate.time) : new Date(MIN_DATE_DEFAULT.time);
     }
     
     /**
@@ -530,7 +540,7 @@ public class DateSpinner extends SkinnableComponent
             || (_minDate == null && value == null))
             return;
         
-        _minDate = value;
+        _minDate = new Date(value.time);
         populateYearDataProvider = true;
         populateDateDataProvider = true;
         minDateChanged = true;
@@ -593,6 +603,12 @@ public class DateSpinner extends SkinnableComponent
     [Bindable(event="valueCommit")]
     /**
      *  Date that is currently selected in the DateSpinner control.
+     * 
+     *  <p>Note that the Date object returned by the getter is a copy of 
+     *  the internal Date, and the one provided to the setter is copied
+     *  internally, so modifications to these will not be reflected in the
+     *  DateSpinner. To modify the DateSpinner's date, get and modify the
+     *  current selectedDate and then re-set the selectedDate.</p>
      *
      *  @default Current date when the DateSpinner was instantiated.
      * 
@@ -603,7 +619,7 @@ public class DateSpinner extends SkinnableComponent
      */
     public function get selectedDate():Date
     {
-        return _selectedDate;
+        return new Date(_selectedDate.time);
     }
     
     /**
@@ -619,11 +635,11 @@ public class DateSpinner extends SkinnableComponent
         if (value.time == _selectedDate.time)
             return;
         
-        _selectedDate = value;
+        _selectedDate = new Date(value.time);
         syncSelectedDate = true;
         
         dispatchValueCommitEvent = true;
-
+        
         invalidateProperties();
     }
     
@@ -656,11 +672,14 @@ public class DateSpinner extends SkinnableComponent
     private static function get todayDate():Date
     {
         if (_todayDate != null)
-            return _todayDate;
+        {
+            // use a copy, not the original that was passed in
+            return new Date(_todayDate.time);
+        }
         
         return new Date();
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
