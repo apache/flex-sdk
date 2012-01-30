@@ -9,6 +9,7 @@ import spark.components.Label;
 import spark.layouts.HorizontalAlign;
 import spark.layouts.HorizontalLayout;
 import spark.layouts.VerticalAlign;
+import spark.primitives.Graphic;
 
 public class ActionBarSkin extends SliderSkin
 {
@@ -19,6 +20,8 @@ public class ActionBarSkin extends SliderSkin
     public var titleGroup:Group;
     public var actionGroup:Group;
     public var titleDisplay:Label;
+    private var highlight:Sprite;
+    private var border:Sprite;
     
     public function ActionBarSkin()
     {
@@ -29,6 +32,12 @@ public class ActionBarSkin extends SliderSkin
     {
         backgroundFill = new Sprite();
         addChild(backgroundFill);
+        
+        highlight = new ActionBarHighlight();
+        addChild(highlight);
+        
+        border = new ActionBarBorder();
+        addChild(border);
         
         navigationGroup = new Group();
         var hLayout:HorizontalLayout = new HorizontalLayout();
@@ -43,7 +52,7 @@ public class ActionBarSkin extends SliderSkin
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
         hLayout.verticalAlign = VerticalAlign.CONTENT_JUSTIFY;
         hLayout.gap = 0;
-        hLayout.paddingLeft = 4;
+        hLayout.paddingLeft = 10;
         titleGroup.layout = hLayout;
         titleGroup.clipAndEnableScrolling = true;
         addChild(titleGroup);
@@ -57,8 +66,9 @@ public class ActionBarSkin extends SliderSkin
         addChild(actionGroup);
         
         titleDisplay = new Label();
-        titleDisplay.setStyle("fontSize", "20");
+        titleDisplay.setStyle("fontSize", "18");
         titleDisplay.setStyle("verticalAlign", "middle");
+        titleDisplay.setStyle("color", "0xFFFFFF");
     }
     
     override protected function measure():void
@@ -70,6 +80,12 @@ public class ActionBarSkin extends SliderSkin
     
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        border.width = unscaledWidth;
+        border.height = unscaledHeight;
+        
+        highlight.width = unscaledWidth;
+        highlight.height = unscaledHeight;
+        
         var left:Number = 0;
         var right:Number = unscaledWidth;
         
