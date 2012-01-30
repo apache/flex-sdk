@@ -1861,7 +1861,7 @@ public class WindowedApplication extends Application implements IWindow
         const vsLoc:File = File.applicationDirectory.resolvePath(viewSourceURL);
         if (vsLoc.exists)
         {
-            const screenRect:Rectangle = Screen.mainScreen.visibleBounds;
+            const screenRect:Rectangle = flash.display.Screen.mainScreen.visibleBounds;
             const screenWidth:int = screenRect.width;
             const screenHeight:int = screenRect.height;
 
