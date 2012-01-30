@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2006-2007 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<project name="flex" default="main" basedir=".">
+
+	<property file="build.properties"/>
+
+	<target name="main" depends="clean,compile" description="Clean build of flex.swc"/>
+
+	<target name="clean">
+		<delete file="bundles.properties"/>
+		<delete file="${frameworks.dir}/libs/flex.swc"/>
+	</target>
+
+	<target name="compile">
+		<echo message="Compiling frameworks/libs/flex.swc"/>
+		<ant dir="${frameworks.dir}" target="compc"/>
+	</target>
+
+</project>
