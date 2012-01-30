@@ -15,6 +15,7 @@ package
 	import mx.controls.Image;
 	import mx.flash.ContainerMovieClip;
 	
+	[IconFile("flash_container_icon_small.png")]
 	public class FlashContainerPlaceholder extends ContainerMovieClip
 	{
 		protected var image1:Image;
