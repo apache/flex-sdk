@@ -48,7 +48,11 @@
 			   output="${basedir}/libs/FlexComponentBase.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
-            <include-classes>FlashIntegrationClasses</include-classes>
+            <!-- doesn't matter what we put in here as long as it links in the classes.
+                Flash Authoring ignores this and the namespace it's mapped too...
+                it just needs to be linked through a manifest file -->
+            <namespace uri="http://www.adobe.com/someNonSensicalURI" manifest="${basedir}/manifest.xml"/>
+			<include-namespaces uri="http://www.adobe.com/someNonSensicalURI"/>
 			<source-path path-element="${basedir}/src"/>
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
 			<library-path/>
