@@ -622,7 +622,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             // trace("FM " + this + " setting last focus " + target);
             _lastFocus = findFocusManagerComponent(InteractiveObject(target));
             
-            if (Capabilities.hasIME)
+            /*
+			if (Capabilities.hasIME)
             {
                 var usesIME:Boolean;
                 if (_lastFocus is IIMESupport)
@@ -633,6 +634,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
                 }
                 IME.enabled = usesIME;
             }
+			*/
             
 			// handle default button here
 			// we can't check for Button because of cross-versioning so
