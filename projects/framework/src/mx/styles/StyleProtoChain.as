@@ -80,7 +80,14 @@ public class StyleProtoChain
      */
     public static function getClassStyleDeclarations(object:IStyleClient):Array
     {
-        var qualified:Boolean = StyleManager.qualifiedTypeSelectors;
+        var styleManager:IStyleManager2;
+        
+        if (object is UIComponent)
+            styleManager = UIComponent(object).styleManager;
+        else
+            styleManager = StyleManager.getStyleManager(null);
+        
+        var qualified:Boolean = styleManager.qualifiedTypeSelectors;
         var className:String = qualified ? getQualifiedClassName(object) : object.className;
         var advancedObject:IAdvancedStyleClient = object as IAdvancedStyleClient;
 
@@ -89,9 +96,9 @@ public class StyleProtoChain
         var typeCount:int = types.length;
         var classDecls:Array = null;
 
-        if (!StyleManager.hasAdvancedSelectors())
+        if (!styleManager.hasAdvancedSelectors())
         {
-            classDecls = StyleManager.typeSelectorCache[className];
+            classDecls = styleManager.typeSelectorCache[className];
             if (classDecls)
                 return classDecls;
         }
@@ -103,9 +110,9 @@ public class StyleProtoChain
         for (var i:int = typeCount - 1; i >= 0; i--)
         {
             var type:String = types[i].toString();
-            if (StyleManager.hasAdvancedSelectors() && advancedObject != null)
+            if (styleManager.hasAdvancedSelectors() && advancedObject != null)
             {
-                var decls:Array = StyleManager.getStyleDeclarations(type);
+                var decls:Array = styleManager.getStyleDeclarations(type);
                 if (decls)
                 {
                     var matchingDecls:Array = matchStyleDeclarations(decls, advancedObject);
@@ -114,13 +121,13 @@ public class StyleProtoChain
             }
             else
             {
-                var decl:CSSStyleDeclaration = StyleManager.getStyleDeclaration(type);
+                var decl:CSSStyleDeclaration = styleManager.getStyleDeclaration(type);
                 if (decl)
                     classDecls.push(decl);
             }
         }
 
-        if (StyleManager.hasAdvancedSelectors() && advancedObject != null)
+        if (styleManager.hasAdvancedSelectors() && advancedObject != null)
         {        
             // Advanced selectors may result in more than one match per type so
             // we sort based on specificity, but we preserve the declaration
@@ -130,7 +137,7 @@ public class StyleProtoChain
         else
         {
             // Cache the simple type declarations for this class 
-            StyleManager.typeSelectorCache[className] = classDecls;
+            styleManager.typeSelectorCache[className] = classDecls;
         }
 
         return classDecls;
@@ -143,6 +150,13 @@ public class StyleProtoChain
      */
     public static function initProtoChain(object:IStyleClient):void
     {
+        var styleManager:IStyleManager2 = null;
+        
+        if (object is UIComponent)
+            styleManager = UIComponent(object).styleManager;
+        else
+            styleManager = StyleManager.getStyleManager(null);
+        
         var n:int;
         var i:int;
 
@@ -178,7 +192,7 @@ public class StyleProtoChain
         // by getting the tail of the proto chain, which is:
         //  - for non-inheriting styles, the global style sheet
         //  - for inheriting styles, my parent's style object
-        var nonInheritChain:Object = StyleManager.stylesRoot;
+        var nonInheritChain:Object = styleManager.stylesRoot;
 
         if (nonInheritChain && nonInheritChain.effects)
             object.registerEffects(nonInheritChain.effects);
@@ -213,7 +227,7 @@ public class StyleProtoChain
             }
             else
             {
-                inheritChain = StyleManager.stylesRoot;
+                inheritChain = styleManager.stylesRoot;
             }
         }
 
@@ -221,7 +235,7 @@ public class StyleProtoChain
 
         // If we have an advanced style client, we handle this separately
         // because of the considerably more complex selector matches...
-        if (StyleManager.hasAdvancedSelectors() && advancedObject != null)
+        if (styleManager.hasAdvancedSelectors() && advancedObject != null)
         {
             styleDeclarations = getMatchingStyleDeclarations(advancedObject, universalSelectors);
 
@@ -248,7 +262,7 @@ public class StyleProtoChain
                 {
                     if (styleNames[i].length)
                     {
-                        styleDeclaration = StyleManager.getStyleDeclaration("." + styleNames[i]);
+                        styleDeclaration = styleManager.getStyleDeclaration("." + styleNames[i]);
                         if (styleDeclaration)
                             universalSelectors.push(styleDeclaration);
                     }
@@ -325,6 +339,13 @@ public class StyleProtoChain
     public static function initProtoChainForUIComponentStyleName(
                                     obj:IStyleClient):void
     {
+        var styleManager:IStyleManager2;
+        
+        if (obj is UIComponent)
+            styleManager = UIComponent(obj).styleManager;
+        else
+            styleManager = StyleManager.getStyleManager(null);
+        
         var styleName:IStyleClient = IStyleClient(obj.styleName);
         var target:DisplayObject = obj as DisplayObject;
         
@@ -334,7 +355,7 @@ public class StyleProtoChain
         if (!nonInheritChain ||
             nonInheritChain == StyleProtoChain.STYLE_UNINITIALIZED)
         {
-            nonInheritChain = StyleManager.stylesRoot;
+            nonInheritChain = styleManager.stylesRoot;
 
             if (nonInheritChain.effects)
                 obj.registerEffects(nonInheritChain.effects);
@@ -344,7 +365,7 @@ public class StyleProtoChain
         if (!inheritChain ||
             inheritChain == StyleProtoChain.STYLE_UNINITIALIZED)
         {
-            inheritChain = StyleManager.stylesRoot;
+            inheritChain = styleManager.stylesRoot;
         }
 
         // If there's no type selector on this object, then we can collapse
@@ -450,10 +471,17 @@ public class StyleProtoChain
         var styleName:Object = obj.styleName;
         var styleDeclarations:Array;
         var decl:CSSStyleDeclaration;
-
+        var styleManager:IStyleManager2 = null;
+        
+        if (obj is UIComponent)
+            styleManager = UIComponent(obj).styleManager;
+    
+        if (!styleManager)
+            styleManager = StyleManager.getStyleManager(null);
+        
         // If we have an advanced style client, we handle this separately
         // because of the considerably more complex selector matches...
-        if (StyleManager.hasAdvancedSelectors() && advancedObject != null)
+        if (advancedObject != null && styleManager.hasAdvancedSelectors())
         {
             // Handle special case of styleName as a CSSStyleDeclaration
             if (styleName is CSSStyleDeclaration)
@@ -529,7 +557,7 @@ public class StyleProtoChain
                     {
                         if (styleNames[c].length)
                         {
-                            styleDeclarations.push(StyleManager.getStyleDeclaration("." + styleNames[c]));
+                            styleDeclarations.push(styleManager.getStyleDeclaration("." + styleNames[c]));
                         }
                     }
                 }
@@ -561,6 +589,7 @@ public class StyleProtoChain
     {
         // TextFields never have any inline styles or type selector, so
         // this is an optimized version of the initObject function (above)
+        var styleManager:IStyleManager2 = StyleManager.getStyleManager(obj.moduleFactory);
         var styleName:Object = obj.styleName;
         var classSelectors:Array = [];
         
@@ -578,7 +607,7 @@ public class StyleProtoChain
                     obj.inheritingStyles =
                         IStyleClient(styleName).inheritingStyles;
                         
-                    obj.nonInheritingStyles = addProperties(StyleManager.stylesRoot, IStyleClient(styleName), false);
+                    obj.nonInheritingStyles = addProperties(styleManager.stylesRoot, IStyleClient(styleName), false);
                     
                     return;
                 }
@@ -601,7 +630,7 @@ public class StyleProtoChain
                 for (var c:int=0; c < styleNames.length; c++)
                 {
                     if (styleNames[c].length) {
-                        classSelectors.push(StyleManager.getStyleDeclaration("." + 
+                        classSelectors.push(styleManager.getStyleDeclaration("." + 
                             styleNames[c]));
                     }
                 }    
@@ -613,9 +642,9 @@ public class StyleProtoChain
         //  - for non-inheriting styles, the global style sheet
         //  - for inheriting styles, my parent's style object
         var inheritChain:Object = IStyleClient(obj.parent).inheritingStyles;
-        var nonInheritChain:Object = StyleManager.stylesRoot;
+        var nonInheritChain:Object = styleManager.stylesRoot;
         if (!inheritChain)
-            inheritChain = StyleManager.stylesRoot;
+            inheritChain = styleManager.stylesRoot;
                 
         // Next are the class selectors
         for (var i:int = 0; i < classSelectors.length; i++)
@@ -643,6 +672,13 @@ public class StyleProtoChain
     public static function setStyle(object:IStyleClient, styleProp:String,
                                     newValue:*):void
     {
+        var styleManager:IStyleManager2;
+        
+        if (object is UIComponent)
+            styleManager = UIComponent(object).styleManager;
+        else
+            styleManager = StyleManager.getStyleManager(null);
+        
         if (styleProp == "styleName")
         {
             // Let the setter handle this one, see UIComponent.
@@ -659,7 +695,7 @@ public class StyleProtoChain
         // then regenerate its proto chain
         // (and the proto chains of its descendants).
         var isInheritingStyle:Boolean =
-            StyleManager.isInheritingStyle(styleProp);
+            styleManager.isInheritingStyle(styleProp);
         var isProtoChainInitialized:Boolean =
             object.inheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED;
         var valueChanged:Boolean = object.getStyle(styleProp) != newValue;
@@ -695,6 +731,13 @@ public class StyleProtoChain
      */
     public static function styleChanged(object:IInvalidating, styleProp:String):void
     {
+        var styleManager:IStyleManager2;
+        
+        if (object is UIComponent)
+            styleManager = UIComponent(object).styleManager;
+        else
+            styleManager = StyleManager.getStyleManager(null);
+        
         // If font changed, then invalidateProperties so
         // we can re-create the text field in commitProperties
         // FIXME (gosmith): Should hasFontContextChanged() be added to IFontContextComponent?
@@ -709,7 +752,7 @@ public class StyleProtoChain
         // that is known to affect layout.
         if (!styleProp ||
             styleProp == "styleName" ||
-            StyleManager.isSizeInvalidatingStyle(styleProp))
+            styleManager.isSizeInvalidatingStyle(styleProp))
         {
             // This style property change may affect the layout of this
             // object. Signal the LayoutManager to re-measure the object.
@@ -733,10 +776,10 @@ public class StyleProtoChain
 
         if (parent)
         {
-            if (styleProp == "styleName" || StyleManager.isParentSizeInvalidatingStyle(styleProp))
+            if (styleProp == "styleName" || styleManager.isParentSizeInvalidatingStyle(styleProp))
                 parent.invalidateSize();
 
-            if (styleProp == "styleName" || StyleManager.isParentDisplayListInvalidatingStyle(styleProp))
+            if (styleProp == "styleName" || styleManager.isParentDisplayListInvalidatingStyle(styleProp))
                 parent.invalidateDisplayList();
         }
     }
@@ -746,7 +789,14 @@ public class StyleProtoChain
      */
     public static function matchesCSSType(object:IAdvancedStyleClient, cssType:String):Boolean
     {
-        var qualified:Boolean = StyleManager.qualifiedTypeSelectors;
+        var styleManager:IStyleManager2;
+        
+        if (object is UIComponent)
+            styleManager = UIComponent(object).styleManager;
+        else
+            styleManager = StyleManager.getStyleManager(null);
+        
+        var qualified:Boolean = styleManager.qualifiedTypeSelectors;
         var typeHierarchy:OrderedObject = getTypeHierarchy(object, qualified);
         return typeHierarchy.object_proxy::getObjectProperty(cssType) != null;
     }
@@ -767,11 +817,18 @@ public class StyleProtoChain
     public static function getMatchingStyleDeclarations(object:IAdvancedStyleClient,
             styleDeclarations:Array=null):Array // of CSSStyleDeclaration
     {
+        var styleManager:IStyleManager2;
+        
+        if (object is UIComponent)
+            styleManager = UIComponent(object).styleManager;
+        else
+            styleManager = StyleManager.getStyleManager(null);
+        
         if (styleDeclarations == null)
             styleDeclarations = [];
 
         // First, look for universal selectors
-        var universalDecls:Array = StyleManager.getStyleDeclarations("*");
+        var universalDecls:Array = styleManager.getStyleDeclarations("*");
         styleDeclarations = matchStyleDeclarations(universalDecls, object).concat(styleDeclarations);
 
         // Next, look for type selectors (includes ActionScript supertype matches)
@@ -800,8 +857,15 @@ public class StyleProtoChain
      */
     private static function getTypeHierarchy(object:IStyleClient, qualified:Boolean=true):OrderedObject
     {
+        var styleManager:IStyleManager2;
+        
+        if (object is UIComponent)
+            styleManager = UIComponent(object).styleManager;
+        else
+            styleManager = StyleManager.getStyleManager(null);
+        
         var className:String = getQualifiedClassName(object);
-        var hierarchy:OrderedObject = StyleManager.typeHierarchyCache[className] as OrderedObject;
+        var hierarchy:OrderedObject = styleManager.typeHierarchyCache[className] as OrderedObject;
         if (hierarchy == null)
         {
             hierarchy = new OrderedObject();
@@ -820,7 +884,7 @@ public class StyleProtoChain
                 myApplicationDomain = myRoot.loaderInfo.applicationDomain;
             }
 
-            StyleManager.typeHierarchyCache[className] = hierarchy;
+            styleManager.typeHierarchyCache[className] = hierarchy;
             while (!isStopClass(className))
             {
                 try
