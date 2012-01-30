@@ -53,7 +53,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */ 
 [Style(name="contentBackgroundAppearance", type="String", enumeration="inset,flat,none", inherit="no")]
 
@@ -148,7 +148,7 @@ use namespace mx_internal;
  *
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class Callout extends SkinnablePopUpContainer
 {
@@ -172,7 +172,7 @@ public class Callout extends SkinnablePopUpContainer
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function Callout()
     {
@@ -194,7 +194,7 @@ public class Callout extends SkinnablePopUpContainer
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var arrow:UIComponent;
     
@@ -232,7 +232,7 @@ public class Callout extends SkinnablePopUpContainer
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get horizontalPosition():String
     {
@@ -271,7 +271,7 @@ public class Callout extends SkinnablePopUpContainer
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected function get actualHorizontalPosition():String
     {
@@ -309,7 +309,7 @@ public class Callout extends SkinnablePopUpContainer
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get verticalPosition():String
     {
@@ -348,7 +348,7 @@ public class Callout extends SkinnablePopUpContainer
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected function get actualVerticalPosition():String
     {
@@ -394,7 +394,7 @@ public class Callout extends SkinnablePopUpContainer
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get arrowDirection():String
     {
@@ -703,7 +703,7 @@ public class Callout extends SkinnablePopUpContainer
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected function updateSkinDisplayList():void
     {
