@@ -1055,8 +1055,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         var a:DisplayObject = DisplayObject(aa);
         var b:DisplayObject = DisplayObject(bb);
 
-		// FIXME (egreenfi):  If a component lives inside of a group, we care about not its display object index, but
-		// its index within the group.
+		// TODO (egreenfi):  If a component lives inside of a group, we care about not its display object index, but
+		// its index within the group. See SDK-25144
 		
         while (a != DisplayObject(form) && a.parent)
         {
