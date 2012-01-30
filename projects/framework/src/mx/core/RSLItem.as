@@ -27,6 +27,7 @@ import flash.system.SecurityDomain;
 import flash.utils.ByteArray;
 
 import mx.events.RSLEvent;
+import mx.utils.LoaderUtil;
 
 [ExcludeClass]
 
@@ -74,6 +75,18 @@ public class RSLItem
      */
     public var loaded:uint = 0;
 
+    //----------------------------------
+    //  rootURL
+    //----------------------------------
+
+    /**
+     *  @private
+     * 
+     *  Provides the url used to locate relative RSL urls.
+     */ 
+    public var rootURL:String;
+        
+
     //--------------------------------------------------------------------------
     //
     //  Variables
@@ -84,7 +97,7 @@ public class RSLItem
      *  @private
      */
     protected var url:String;
-    
+
     /**
      *  @private
      */
@@ -117,12 +130,15 @@ public class RSLItem
      *  Create a RSLItem with a given URL.
      * 
      *  @param url location of RSL to load
+     *  
+     *  @param rootURL provides the url used to locate relative RSL urls. 
      */
-    public function RSLItem(url:String)
+    public function RSLItem(url:String, rootURL:String = null)
     {
         super();
 
         this.url = url;
+        this.rootURL = rootURL;
     }
                     
     //--------------------------------------------------------------------------
@@ -165,7 +181,7 @@ public class RSLItem
         
         var loader:Loader = new Loader();               
         var loaderContext:LoaderContext = new LoaderContext();
-        urlRequest = new URLRequest(url);
+        urlRequest = new URLRequest(LoaderUtil.createAbsoluteURL(rootURL, url));
                     
         // The RSLItem needs to listen to certain events.
 
