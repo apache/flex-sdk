@@ -886,7 +886,7 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function deserializePersistedData(value:Object):Object
+    public function deserializeData(value:Object):Object
     {
         return value;
     }
