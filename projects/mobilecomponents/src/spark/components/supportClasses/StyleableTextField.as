@@ -207,12 +207,13 @@ public class StyleableTextField extends FlexTextField
     }
     
     /**
-     *
-     *  @langversion 3.0
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
+     *  Used in place of TextField#textWidth and TextField#textHeight to
+     *  provide consistent size values when accounting for player scaling
+     *  and presence on the stage. Accounts for textIndent and TextField
+     *  gutters.
      */
-    public function get measuredTextSize():Point
+    mx_internal function get measuredTextSize():Point
     {
         // commit style to get an accurate measurement
         commitStyles();
