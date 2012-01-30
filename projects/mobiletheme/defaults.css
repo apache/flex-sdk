@@ -270,10 +270,10 @@ ViewMenuItem
     backgroundColor : #F7F7F7;
     color : #000000;
     iconPlacement : "top";
-    paddingBottom: 10;
-    paddingLeft: 15;
-    paddingRight: 15;
-    paddingTop: 10;
+    paddingBottom: 8;
+    paddingLeft: 8;
+    paddingRight: 8;
+    paddingTop: 8;
     selectionColor : #00FF00;
     skinClass : ClassReference("spark.skins.mobile.ViewMenuItemSkin");
     textAlign : "center";
