@@ -36,6 +36,8 @@ public class LogLogger extends EventDispatcher implements ILogger
 
 	/**
 	 *  Constructor.
+         *
+         *  @param category The category for which this log sends messages.
 	 */
 	public function LogLogger(category:String)
 	{
