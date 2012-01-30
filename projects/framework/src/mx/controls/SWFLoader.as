@@ -320,6 +320,7 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
         tabEnabled = false;
 
         addEventListener(FlexEvent.INITIALIZE, initializeHandler);
+        addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 
         showInAutomationHierarchy = false;
     }
@@ -1890,6 +1891,13 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
             if (_autoLoad)
                 load(_source);
         }
+	}
+
+    /**
+     *  @private
+     */
+    private function addedToStageHandler(event:Event):void
+    {
         ISystemManager2(systemManager).getSandboxRoot().addEventListener(MarshalEvent.DRAG_MANAGER, 
                 mouseShieldHandler, false, 0, true);
     }
