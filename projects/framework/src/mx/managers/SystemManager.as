@@ -162,658 +162,658 @@ use namespace mx_internal;
  *  @productversion Flex 3
  */
 public class SystemManager extends MovieClip
-						   implements IChildList, IFlexDisplayObject,
-						   IFlexModuleFactory, ISystemManager
+                           implements IChildList, IFlexDisplayObject,
+                           IFlexModuleFactory, ISystemManager
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  The number of milliseconds that must pass without any user activity
-	 *  before SystemManager starts dispatching 'idle' events.
-	 */
-	private static const IDLE_THRESHOLD:Number = 1000;
+    /**
+     *  @private
+     *  The number of milliseconds that must pass without any user activity
+     *  before SystemManager starts dispatching 'idle' events.
+     */
+    private static const IDLE_THRESHOLD:Number = 1000;
 
-	/**
-	 *  @private
-	 *  The number of milliseconds between each 'idle' event.
-	 */
-	private static const IDLE_INTERVAL:Number = 100;
+    /**
+     *  @private
+     *  The number of milliseconds between each 'idle' event.
+     */
+    private static const IDLE_INTERVAL:Number = 100;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  An array of SystemManager instances loaded as child app domains
-	 */
-	mx_internal static var allSystemManagers:Dictionary = new Dictionary(true);
+    /**
+     *  @private
+     *  An array of SystemManager instances loaded as child app domains
+     */
+    mx_internal static var allSystemManagers:Dictionary = new Dictionary(true);
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  <p>This is the starting point for all Flex applications.
-	 *  This class is set to be the root class of a Flex SWF file.
+    /**
+     *  Constructor.
+     *
+     *  <p>This is the starting point for all Flex applications.
+     *  This class is set to be the root class of a Flex SWF file.
          *  Flash Player instantiates an instance of this class,
-	 *  causing this constructor to be called.</p>
+     *  causing this constructor to be called.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function SystemManager()
-	{
-		super();
+     */
+    public function SystemManager()
+    {
+        super();
 
-		// Loaded SWFs don't get a stage right away
-		// and shouldn't override the main SWF's setting anyway.
-		if (stage)
-		{
-			stage.scaleMode = StageScaleMode.NO_SCALE;
-			stage.align = StageAlign.TOP_LEFT;
-		}
+        // Loaded SWFs don't get a stage right away
+        // and shouldn't override the main SWF's setting anyway.
+        if (stage)
+        {
+            stage.scaleMode = StageScaleMode.NO_SCALE;
+            stage.align = StageAlign.TOP_LEFT;
+        }
 
-		// If we don't have a stage then we are not top-level,
-		// unless there are no other top-level managers, in which
-		// case we got loaded by a non-Flex shell or are sandboxed.
-		if (SystemManagerGlobals.topLevelSystemManagers.length > 0 && !stage)
-			topLevel = false;
+        // If we don't have a stage then we are not top-level,
+        // unless there are no other top-level managers, in which
+        // case we got loaded by a non-Flex shell or are sandboxed.
+        if (SystemManagerGlobals.topLevelSystemManagers.length > 0 && !stage)
+            topLevel = false;
 
-		if (!stage)
-			isStageRoot = false;
+        if (!stage)
+            isStageRoot = false;
 
-		if (topLevel)
-			SystemManagerGlobals.topLevelSystemManagers.push(this);
+        if (topLevel)
+            SystemManagerGlobals.topLevelSystemManagers.push(this);
 
-		// Make sure to stop the playhead on the current frame.
-		stop();
+        // Make sure to stop the playhead on the current frame.
+        stop();
 
-		// Add safeguard in case bug 129782 shows up again.
-		if (topLevel && currentFrame != 1)
-		{
-			throw new Error("The SystemManager constructor was called when the currentFrame was at " + currentFrame +
-							" Please add this SWF to bug 129782.");
-		}
+        // Add safeguard in case bug 129782 shows up again.
+        if (topLevel && currentFrame != 1)
+        {
+            throw new Error("The SystemManager constructor was called when the currentFrame was at " + currentFrame +
+                            " Please add this SWF to bug 129782.");
+        }
 
-		// Listen for the last frame (param is 0-indexed) to be executed.
-		//addFrameScript(totalFrames - 1, frameEndHandler);
+        // Listen for the last frame (param is 0-indexed) to be executed.
+        //addFrameScript(totalFrames - 1, frameEndHandler);
 
-		if (root && root.loaderInfo)
-			root.loaderInfo.addEventListener(Event.INIT, initHandler);
-			
-	}
+        if (root && root.loaderInfo)
+            root.loaderInfo.addEventListener(Event.INIT, initHandler);
+            
+    }
 
-	
-	
+    
+    
     /**
-	 *  @private
-	 */
+     *  @private
+     */
     private function deferredNextFrame():void
     {
         if (currentFrame + 1 > totalFrames)
             return;
 
         if (currentFrame + 1 <= framesLoaded)
-		{
+        {
             nextFrame();
-		}
+        }
         else
         {
             // Next frame isn't baked yet, so we'll check back...
-    		nextFrameTimer = new Timer(100);
-		    nextFrameTimer.addEventListener(TimerEvent.TIMER,
-											nextFrameTimerHandler);
-		    nextFrameTimer.start();
+            nextFrameTimer = new Timer(100);
+            nextFrameTimer.addEventListener(TimerEvent.TIMER,
+                                            nextFrameTimerHandler);
+            nextFrameTimer.start();
         }
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Whether we are in the top-level list or not;
-	 *  top-level means we are the highest level SystemManager
-	 *  for this stage.
-	 */
-	mx_internal var topLevel:Boolean = true;
-
-	/**
+    /**
      *  @private
-	 * 
-	 * true if redipatching a resize event.
-	 */
-	private var isDispatchingResizeEvent:Boolean;
-	
-	/**
-	 *  @private
-	 *  Whether we are the stage root or not.
-	 *  We are only the stage root if we were the root
-	 *  of the first SWF that got loaded by the player.
-	 *  Otherwise we could be top level but not stage root
-	 *  if we are loaded by some other non-Flex shell
-	 *  or are sandboxed.
-	 */
-	mx_internal var isStageRoot:Boolean = true;
+     *  Whether we are in the top-level list or not;
+     *  top-level means we are the highest level SystemManager
+     *  for this stage.
+     */
+    mx_internal var topLevel:Boolean = true;
 
-	/**
-	 *  @private
-	 *  Whether we are the first SWF loaded into a bootstrap
-	 *  and therefore, the topLevelRoot
-	 */
-	mx_internal var isBootstrapRoot:Boolean = false;
+    /**
+     *  @private
+     * 
+     * true if redipatching a resize event.
+     */
+    private var isDispatchingResizeEvent:Boolean;
+    
+    /**
+     *  @private
+     *  Whether we are the stage root or not.
+     *  We are only the stage root if we were the root
+     *  of the first SWF that got loaded by the player.
+     *  Otherwise we could be top level but not stage root
+     *  if we are loaded by some other non-Flex shell
+     *  or are sandboxed.
+     */
+    mx_internal var isStageRoot:Boolean = true;
 
-	/**
-	 *  @private
-	 *  If we're not top level, then we delegate many things
-	 *  to the top level SystemManager.
-	 */
-	private var _topLevelSystemManager:ISystemManager;
+    /**
+     *  @private
+     *  Whether we are the first SWF loaded into a bootstrap
+     *  and therefore, the topLevelRoot
+     */
+    mx_internal var isBootstrapRoot:Boolean = false;
 
-	/**
-	 *  @private
-	 *  The childAdded/removed code
-	 */
-	mx_internal var childManager:ISystemManagerChildManager;
+    /**
+     *  @private
+     *  If we're not top level, then we delegate many things
+     *  to the top level SystemManager.
+     */
+    private var _topLevelSystemManager:ISystemManager;
 
-	/**
-	 * cached value of the stage.
+    /**
+     *  @private
+     *  The childAdded/removed code
+     */
+    mx_internal var childManager:ISystemManagerChildManager;
+
+    /**
+     * cached value of the stage.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	private var _stage:Stage;
-	
-	/**
-	 *  Depth of this object in the containment hierarchy.
-	 *  This number is used by the measurement and layout code.
+     */
+    private var _stage:Stage;
+    
+    /**
+     *  Depth of this object in the containment hierarchy.
+     *  This number is used by the measurement and layout code.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	mx_internal var nestLevel:int = 0;
-
-	/**
-	 *  @private
-	 *  A reference to the preloader.
-	 */
-	mx_internal var preloader:Preloader;
-
-	/**
-	 *  @private
-	 *  The mouseCatcher is the 0th child of the SystemManager,
-	 *  behind the application, which is child 1.
-	 *  It is the same size as the stage and is filled with
-	 *  transparent pixels; i.e., they've been drawn, but with alpha 0.
-	 *
-	 *  Its purpose is to make every part of the stage
-	 *  able to detect the mouse.
-	 *  For example, a Button puts a mouseUp handler on the SystemManager
-	 *  in order to capture mouseUp events that occur outside the Button.
-	 *  But if the children of the SystemManager don't have "drawn-on"
-	 *  pixels everywhere, the player won't dispatch the mouseUp.
-	 *  We can't simply fill the SystemManager itself with
-	 *  transparent pixels, because the player's pixel detection
-	 *  logic doesn't look at pixels drawn into the root DisplayObject.
-	 *
-	 *  Here is an example of what would happen without the mouseCatcher:
-	 *  Run a fixed-size Application (e.g. width="600" height="600")
-	 *  in the standalone player. Make the player window larger
-	 *  to reveal part of the stage. Press a Button, drag off it
-	 *  into the stage area, and release the mouse button.
-	 *  Without the mouseCatcher, the Button wouldn't return to its "up" state.
-	 */
-	private var mouseCatcher:Sprite;
-
-	/**
-	 *  @private
-	 *  The top level window.
-	 */
-	mx_internal var topLevelWindow:IUIComponent;
-
-	/**
-	 *  @private
-	 *  Number of frames since the last mouse or key activity.
-	 */
-	mx_internal var idleCounter:int = 0;
-
-	/**
-	 *  @private
-	 *  The Timer used to determine when to dispatch idle events.
-	 */
-	private var idleTimer:Timer;
+     */
+    mx_internal var nestLevel:int = 0;
 
     /**
-	 *  @private
-	 *  A timer used when it is necessary to wait before incrementing the frame
-	 */
-	private var nextFrameTimer:Timer = null;
+     *  @private
+     *  A reference to the preloader.
+     */
+    mx_internal var preloader:Preloader;
 
     /**
-	 *  @private
-	 *  Track which frame was last processed
-	 */
-	private var lastFrame:int;
+     *  @private
+     *  The mouseCatcher is the 0th child of the SystemManager,
+     *  behind the application, which is child 1.
+     *  It is the same size as the stage and is filled with
+     *  transparent pixels; i.e., they've been drawn, but with alpha 0.
+     *
+     *  Its purpose is to make every part of the stage
+     *  able to detect the mouse.
+     *  For example, a Button puts a mouseUp handler on the SystemManager
+     *  in order to capture mouseUp events that occur outside the Button.
+     *  But if the children of the SystemManager don't have "drawn-on"
+     *  pixels everywhere, the player won't dispatch the mouseUp.
+     *  We can't simply fill the SystemManager itself with
+     *  transparent pixels, because the player's pixel detection
+     *  logic doesn't look at pixels drawn into the root DisplayObject.
+     *
+     *  Here is an example of what would happen without the mouseCatcher:
+     *  Run a fixed-size Application (e.g. width="600" height="600")
+     *  in the standalone player. Make the player window larger
+     *  to reveal part of the stage. Press a Button, drag off it
+     *  into the stage area, and release the mouse button.
+     *  Without the mouseCatcher, the Button wouldn't return to its "up" state.
+     */
+    private var mouseCatcher:Sprite;
 
-	/**
-	 *  @private
-	 *  A boolean as to whether we've seen COMPLETE event from preloader
-	 */
-	private var readyForKickOff:Boolean;
+    /**
+     *  @private
+     *  The top level window.
+     */
+    mx_internal var topLevelWindow:IUIComponent;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties: DisplayObject
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  @private
+     *  Number of frames since the last mouse or key activity.
+     */
+    mx_internal var idleCounter:int = 0;
+
+    /**
+     *  @private
+     *  The Timer used to determine when to dispatch idle events.
+     */
+    private var idleTimer:Timer;
+
+    /**
+     *  @private
+     *  A timer used when it is necessary to wait before incrementing the frame
+     */
+    private var nextFrameTimer:Timer = null;
+
+    /**
+     *  @private
+     *  Track which frame was last processed
+     */
+    private var lastFrame:int;
+
+    /**
+     *  @private
+     *  A boolean as to whether we've seen COMPLETE event from preloader
+     */
+    private var readyForKickOff:Boolean;
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties: DisplayObject
+    //
+    //--------------------------------------------------------------------------
 
     //----------------------------------
     //  height
     //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _height:Number;
+    /**
+     *  @private
+     */
+    private var _height:Number;
 
-	/**
-	 *  The height of this object.  For the SystemManager
-	 *  this should always be the width of the stage unless the application was loaded
-	 *  into another application.  If the application was not loaded
-	 *  into another application, setting this value has no effect.
+    /**
+     *  The height of this object.  For the SystemManager
+     *  this should always be the width of the stage unless the application was loaded
+     *  into another application.  If the application was not loaded
+     *  into another application, setting this value has no effect.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	override public function get height():Number
-	{
-		return _height;
-	}
+     */
+    override public function get height():Number
+    {
+        return _height;
+    }
 
-	//----------------------------------
-	//  stage
-	//----------------------------------
+    //----------------------------------
+    //  stage
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  get the main stage if we're loaded into another swf in the same sandbox
-	 */
-	override public function get stage():Stage
-	{
-		if (_stage)
-			return _stage;
-			
-		var s:Stage = super.stage;
-		if (s)
-		{
-			_stage = s;
-			return s;
-		}
+    /**
+     *  @private
+     *  get the main stage if we're loaded into another swf in the same sandbox
+     */
+    override public function get stage():Stage
+    {
+        if (_stage)
+            return _stage;
+            
+        var s:Stage = super.stage;
+        if (s)
+        {
+            _stage = s;
+            return s;
+        }
 
-		if (!topLevel && _topLevelSystemManager)
-		{
-			_stage = _topLevelSystemManager.stage; 
-			return _stage;
-		}
+        if (!topLevel && _topLevelSystemManager)
+        {
+            _stage = _topLevelSystemManager.stage; 
+            return _stage;
+        }
 
-		// Case for version skew, we are a top level system manager, but
-		// a child of the top level root system manager and we have access 
-		// to the stage. 
-		if (!isStageRoot && topLevel)
-		{
-			var root:DisplayObject = getTopLevelRoot();
-			if (root)
-			{
-				_stage = root.stage;
-				return _stage;
-			}
-		}
+        // Case for version skew, we are a top level system manager, but
+        // a child of the top level root system manager and we have access 
+        // to the stage. 
+        if (!isStageRoot && topLevel)
+        {
+            var root:DisplayObject = getTopLevelRoot();
+            if (root)
+            {
+                _stage = root.stage;
+                return _stage;
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
     //----------------------------------
     //  width
     //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _width:Number;
+    /**
+     *  @private
+     */
+    private var _width:Number;
 
-	/**
-	 *  The width of this object.  For the SystemManager
-	 *  this should always be the width of the stage unless the application was loaded
-	 *  into another application.  If the application was not loaded
-	 *  into another application, setting this value will have no effect.
+    /**
+     *  The width of this object.  For the SystemManager
+     *  this should always be the width of the stage unless the application was loaded
+     *  into another application.  If the application was not loaded
+     *  into another application, setting this value will have no effect.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	override public function get width():Number
-	{
-		return _width;
-	}
+     */
+    override public function get width():Number
+    {
+        return _width;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties: DisplayObjectContainer
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties: DisplayObjectContainer
+    //
+    //--------------------------------------------------------------------------
 
     //----------------------------------
     //  numChildren
     //----------------------------------
 
-	/**
-	 *  The number of non-floating windows.  This is the main application window
-	 *  plus any other windows added to the SystemManager that are not popups,
-	 *  tooltips or cursors.
+    /**
+     *  The number of non-floating windows.  This is the main application window
+     *  plus any other windows added to the SystemManager that are not popups,
+     *  tooltips or cursors.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	override public function get numChildren():int
-	{
-		return noTopMostIndex - applicationIndex;
-	}
+     */
+    override public function get numChildren():int
+    {
+        return noTopMostIndex - applicationIndex;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
     //----------------------------------
     //  application
     //----------------------------------
 
-	/**
-	 *  The application parented by this SystemManager.
-	 *  SystemManagers create an instance of an Application
-	 *  even if they are loaded into another Application.
-	 *  Thus, this may not match mx.core.Application.application
-	 *  if the SWF has been loaded into another application.
-	 *  <p>Note that this property is not typed as mx.core.Application
-	 *  because of load-time performance considerations
-	 *  but can be coerced into an mx.core.Application.</p>
+    /**
+     *  The application parented by this SystemManager.
+     *  SystemManagers create an instance of an Application
+     *  even if they are loaded into another Application.
+     *  Thus, this may not match mx.core.Application.application
+     *  if the SWF has been loaded into another application.
+     *  <p>Note that this property is not typed as mx.core.Application
+     *  because of load-time performance considerations
+     *  but can be coerced into an mx.core.Application.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get application():IUIComponent
-	{
-		return IUIComponent(_document);
-	}
+     */
+    public function get application():IUIComponent
+    {
+        return IUIComponent(_document);
+    }
 
-	//----------------------------------
-	//  applicationIndex
-	//----------------------------------
+    //----------------------------------
+    //  applicationIndex
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the applicationIndex property.
-	 */
-	private var _applicationIndex:int = 1;
+    /**
+     *  @private
+     *  Storage for the applicationIndex property.
+     */
+    private var _applicationIndex:int = 1;
 
-	/**
-	 *  @private
-	 *  The index of the main mx.core.Application window, which is
-	 *  effectively its z-order.
-	 */
-	mx_internal function get applicationIndex():int
-	{
-		return _applicationIndex;
-	}
+    /**
+     *  @private
+     *  The index of the main mx.core.Application window, which is
+     *  effectively its z-order.
+     */
+    mx_internal function get applicationIndex():int
+    {
+        return _applicationIndex;
+    }
 
-	/**
-	 *  @private
-	 */
-	mx_internal function set applicationIndex(value:int):void
-	{
-		_applicationIndex = value;
-	}
+    /**
+     *  @private
+     */
+    mx_internal function set applicationIndex(value:int):void
+    {
+        _applicationIndex = value;
+    }
 
     
     //----------------------------------
-	//  cursorChildren
-	//----------------------------------
+    //  cursorChildren
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the cursorChildren property.
-	 */
-	private var _cursorChildren:SystemChildrenList;
+    /**
+     *  @private
+     *  Storage for the cursorChildren property.
+     */
+    private var _cursorChildren:SystemChildrenList;
 
-	/**
-	 *  @inheritDoc
+    /**
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get cursorChildren():IChildList
-	{
-		if (!topLevel)
-			return _topLevelSystemManager.cursorChildren;
+     */
+    public function get cursorChildren():IChildList
+    {
+        if (!topLevel)
+            return _topLevelSystemManager.cursorChildren;
 
-		if (!_cursorChildren)
-		{
-			_cursorChildren = new SystemChildrenList(this,
-				new QName(mx_internal, "toolTipIndex"),
-				new QName(mx_internal, "cursorIndex"));
-		}
+        if (!_cursorChildren)
+        {
+            _cursorChildren = new SystemChildrenList(this,
+                new QName(mx_internal, "toolTipIndex"),
+                new QName(mx_internal, "cursorIndex"));
+        }
 
-		return _cursorChildren;
-	}
+        return _cursorChildren;
+    }
 
-	//----------------------------------
-	//  cursorIndex
-	//----------------------------------
+    //----------------------------------
+    //  cursorIndex
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the toolTipIndex property.
-	 */
-	private var _cursorIndex:int = 0;
+    /**
+     *  @private
+     *  Storage for the toolTipIndex property.
+     */
+    private var _cursorIndex:int = 0;
 
-	/**
-	 *  @private
-	 *  The index of the highest child that is a cursor.
-	 */
-	mx_internal function get cursorIndex():int
-	{
-		return _cursorIndex;
-	}
+    /**
+     *  @private
+     *  The index of the highest child that is a cursor.
+     */
+    mx_internal function get cursorIndex():int
+    {
+        return _cursorIndex;
+    }
 
-	/**
-	 *  @private
-	 */
-	mx_internal function set cursorIndex(value:int):void
-	{
-		var delta:int = value - _cursorIndex;
-		_cursorIndex = value;
-	}
+    /**
+     *  @private
+     */
+    mx_internal function set cursorIndex(value:int):void
+    {
+        var delta:int = value - _cursorIndex;
+        _cursorIndex = value;
+    }
 
     //----------------------------------
     //  document
     //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the document property.
-	 */
-	private var _document:Object;
+    /**
+     *  @private
+     *  Storage for the document property.
+     */
+    private var _document:Object;
 
-	/**
-	 *  @inheritDoc
+    /**
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get document():Object
-	{
-		return _document;
-	}
+     */
+    public function get document():Object
+    {
+        return _document;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set document(value:Object):void
-	{
-		_document = value;
-	}
+    /**
+     *  @private
+     */
+    public function set document(value:Object):void
+    {
+        _document = value;
+    }
 
-	//----------------------------------
-	//  embeddedFontList
-	//----------------------------------
+    //----------------------------------
+    //  embeddedFontList
+    //----------------------------------
 
-   	/**
-   	 *  @private
-   	 *  Storage for the fontList property.
-   	 */
-   	private var _fontList:Object = null;
+    /**
+     *  @private
+     *  Storage for the fontList property.
+     */
+    private var _fontList:Object = null;
 
-	/**
-	 *  A table of embedded fonts in this application.  The 
-	 *  object is a table indexed by the font name.
+    /**
+     *  A table of embedded fonts in this application.  The 
+     *  object is a table indexed by the font name.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get embeddedFontList():Object
-	{
-	    if (_fontList == null)
-	    {
+     */
+    public function get embeddedFontList():Object
+    {
+        if (_fontList == null)
+        {
             _fontList = {};
 
             var o:Object = info()["fonts"];
 
-			var p:String;
+            var p:String;
 
             for (p in o)
-         	{
+            {
                 _fontList[p] = o[p];
             }
 
             // FIXME (aharui): font rules across SWF boundaries have not been finalized!
 
-			// Top level systemManager may not be defined if SWF is loaded
-			// as a background image in download progress bar.
-      		if (!topLevel && _topLevelSystemManager)                   
-   		    {
-		        var fl:Object = _topLevelSystemManager.embeddedFontList;
-			    for (p in fl)
-			    {
-			        _fontList[p] = fl[p];
-			    }
-		    }
-		}
+            // Top level systemManager may not be defined if SWF is loaded
+            // as a background image in download progress bar.
+            if (!topLevel && _topLevelSystemManager)                   
+            {
+                var fl:Object = _topLevelSystemManager.embeddedFontList;
+                for (p in fl)
+                {
+                    _fontList[p] = fl[p];
+                }
+            }
+        }
 
-		return _fontList;
-	}
+        return _fontList;
+    }
 
     //----------------------------------
     //  explicitHeight
     //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _explicitHeight:Number;
+    /**
+     *  @private
+     */
+    private var _explicitHeight:Number;
 
-	/**
-	 *  The explicit width of this object.  For the SystemManager
-	 *  this should always be NaN unless the application was loaded
-	 *  into another application.  If the application was not loaded
-	 *  into another application, setting this value has no effect.
+    /**
+     *  The explicit width of this object.  For the SystemManager
+     *  this should always be NaN unless the application was loaded
+     *  into another application.  If the application was not loaded
+     *  into another application, setting this value has no effect.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get explicitHeight():Number
-	{
-		return _explicitHeight;
-	}
+     */
+    public function get explicitHeight():Number
+    {
+        return _explicitHeight;
+    }
 
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     public function set explicitHeight(value:Number):void
     {
         _explicitHeight = value;
-	}
+    }
 
     //----------------------------------
     //  explicitWidth
     //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _explicitWidth:Number;
+    /**
+     *  @private
+     */
+    private var _explicitWidth:Number;
 
-	/**
-	 *  The explicit width of this object.  For the SystemManager
-	 *  this should always be NaN unless the application was loaded
-	 *  into another application.  If the application was not loaded
-	 *  into another application, setting this value has no effect.
+    /**
+     *  The explicit width of this object.  For the SystemManager
+     *  this should always be NaN unless the application was loaded
+     *  into another application.  If the application was not loaded
+     *  into another application, setting this value has no effect.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get explicitWidth():Number
-	{
-		return _explicitWidth;
-	}
+     */
+    public function get explicitWidth():Number
+    {
+        return _explicitWidth;
+    }
 
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     public function set explicitWidth(value:Number):void
     {
         _explicitWidth = value;
-	}
+    }
 
     //----------------------------------
     //  focusPane
@@ -824,20 +824,20 @@ public class SystemManager extends MovieClip
      */
     private var _focusPane:Sprite;
 
-	/**
+    /**
      *  @copy mx.core.UIComponent#focusPane
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
+     */
     public function get focusPane():Sprite
-	{
-		return _focusPane;
-	}
+    {
+        return _focusPane;
+    }
 
-	/**
+    /**
      *  @private
      */
     public function set focusPane(value:Sprite):void
@@ -847,7 +847,7 @@ public class SystemManager extends MovieClip
             addChild(value);
 
             value.x = 0;
-			value.y = 0;
+            value.y = 0;
             value.scrollRect = null;
 
             _focusPane = value;
@@ -860,107 +860,107 @@ public class SystemManager extends MovieClip
         }
     }
 
-	//----------------------------------
+    //----------------------------------
     //  isProxy
     //----------------------------------
 
-	/**
-	 *  True if SystemManager is a proxy and not a root class
-	 */
-	public function get isProxy():Boolean
-	{
-		return false;
-	}
+    /**
+     *  True if SystemManager is a proxy and not a root class
+     */
+    public function get isProxy():Boolean
+    {
+        return false;
+    }
 
     //----------------------------------
     //  measuredHeight
     //----------------------------------
 
-	/**
-	 *  The measuredHeight is the explicit or measuredHeight of 
-	 *  the main mx.core.Application window
-	 *  or the starting height of the SWF if the main window 
-	 *  has not yet been created or does not exist.
+    /**
+     *  The measuredHeight is the explicit or measuredHeight of 
+     *  the main mx.core.Application window
+     *  or the starting height of the SWF if the main window 
+     *  has not yet been created or does not exist.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get measuredHeight():Number
-	{
-		return topLevelWindow ?
-			   topLevelWindow.getExplicitOrMeasuredHeight() :
-			   loaderInfo.height;
-	}
+     */
+    public function get measuredHeight():Number
+    {
+        return topLevelWindow ?
+               topLevelWindow.getExplicitOrMeasuredHeight() :
+               loaderInfo.height;
+    }
 
     //----------------------------------
     //  measuredWidth
     //----------------------------------
 
-	/**
-	 *  The measuredWidth is the explicit or measuredWidth of 
-	 *  the main mx.core.Application window,
-	 *  or the starting width of the SWF if the main window 
-	 *  has not yet been created or does not exist.
+    /**
+     *  The measuredWidth is the explicit or measuredWidth of 
+     *  the main mx.core.Application window,
+     *  or the starting width of the SWF if the main window 
+     *  has not yet been created or does not exist.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get measuredWidth():Number
-	{
-		return topLevelWindow ?
-			   topLevelWindow.getExplicitOrMeasuredWidth() :
-			   loaderInfo.width;
-	}
+     */
+    public function get measuredWidth():Number
+    {
+        return topLevelWindow ?
+               topLevelWindow.getExplicitOrMeasuredWidth() :
+               loaderInfo.width;
+    }
 
-	//----------------------------------
-	//  noTopMostIndex
-	//----------------------------------
+    //----------------------------------
+    //  noTopMostIndex
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the noTopMostIndex property.
-	 */
-	private var _noTopMostIndex:int = 0;
+    /**
+     *  @private
+     *  Storage for the noTopMostIndex property.
+     */
+    private var _noTopMostIndex:int = 0;
 
-	/**
-	 *  @private
-	 *  The index of the highest child that isn't a topmost/popup window
-	 */
-	mx_internal function get noTopMostIndex():int
-	{
-		return _noTopMostIndex;
-	}
+    /**
+     *  @private
+     *  The index of the highest child that isn't a topmost/popup window
+     */
+    mx_internal function get noTopMostIndex():int
+    {
+        return _noTopMostIndex;
+    }
 
-	/**
-	 *  @private
-	 */
-	mx_internal function set noTopMostIndex(value:int):void
-	{
-		var delta:int = value - _noTopMostIndex;
-		_noTopMostIndex = value;
-		topMostIndex += delta;
-	}
+    /**
+     *  @private
+     */
+    mx_internal function set noTopMostIndex(value:int):void
+    {
+        var delta:int = value - _noTopMostIndex;
+        _noTopMostIndex = value;
+        topMostIndex += delta;
+    }
 
-	//----------------------------------
-	//  $numChildren
-	//----------------------------------
+    //----------------------------------
+    //  $numChildren
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  This property allows access to the Player's native implementation
-	 *  of the numChildren property, which can be useful since components
-	 *  can override numChildren and thereby hide the native implementation.
-	 *  Note that this "base property" is final and cannot be overridden,
-	 *  so you can count on it to reflect what is happening at the player level.
-	 */
-	mx_internal final function get $numChildren():int
-	{
-		return super.numChildren;
-	}
+    /**
+     *  @private
+     *  This property allows access to the Player's native implementation
+     *  of the numChildren property, which can be useful since components
+     *  can override numChildren and thereby hide the native implementation.
+     *  Note that this "base property" is final and cannot be overridden,
+     *  so you can count on it to reflect what is happening at the player level.
+     */
+    mx_internal final function get $numChildren():int
+    {
+        return super.numChildren;
+    }
 
     //----------------------------------
     //  numModalWindows
@@ -1017,301 +1017,301 @@ public class SystemManager extends MovieClip
     //  preloaderBackgroundAlpha
     //----------------------------------
 
-	/**
-	 *	The background alpha used by the child of the preloader.
+    /**
+     *  The background alpha used by the child of the preloader.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get preloaderBackgroundAlpha():Number
-	{
+     */
+    public function get preloaderBackgroundAlpha():Number
+    {
         return info()["backgroundAlpha"];
-	}
+    }
 
     //----------------------------------
     //  preloaderBackgroundColor
     //----------------------------------
 
-	/**
-	 *	The background color used by the child of the preloader.
+    /**
+     *  The background color used by the child of the preloader.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get preloaderBackgroundColor():uint
-	{
-		var value:* = info()["backgroundColor"];
-		if (value == undefined)
-			return 0xFFFFFFFF;
-		else
-			return value;
-	}
+     */
+    public function get preloaderBackgroundColor():uint
+    {
+        var value:* = info()["backgroundColor"];
+        if (value == undefined)
+            return 0xFFFFFFFF;
+        else
+            return value;
+    }
 
     //----------------------------------
     //  preloaderBackgroundImage
     //----------------------------------
 
-	/**
-	 *	The background color used by the child of the preloader.
+    /**
+     *  The background color used by the child of the preloader.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get preloaderBackgroundImage():Object
-	{
+     */
+    public function get preloaderBackgroundImage():Object
+    {
         return info()["backgroundImage"];
-	}
+    }
 
-	//----------------------------------
+    //----------------------------------
     //  preloaderBackgroundSize
     //----------------------------------
 
-	/**
-	 *	The background size used by the child of the preloader.
+    /**
+     *  The background size used by the child of the preloader.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get preloaderBackgroundSize():String
-	{
+     */
+    public function get preloaderBackgroundSize():String
+    {
         return info()["backgroundSize"];
-	}
+    }
 
-	//----------------------------------
-	//  popUpChildren
-	//----------------------------------
+    //----------------------------------
+    //  popUpChildren
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the popUpChildren property.
-	 */
-	private var _popUpChildren:SystemChildrenList;
+    /**
+     *  @private
+     *  Storage for the popUpChildren property.
+     */
+    private var _popUpChildren:SystemChildrenList;
 
-	/**
-	 *  @inheritDoc
+    /**
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get popUpChildren():IChildList
-	{
-		if (!topLevel)
-			return _topLevelSystemManager.popUpChildren;
+     */
+    public function get popUpChildren():IChildList
+    {
+        if (!topLevel)
+            return _topLevelSystemManager.popUpChildren;
 
-		if (!_popUpChildren)
-		{
-			_popUpChildren = new SystemChildrenList(this,
-				new QName(mx_internal, "noTopMostIndex"),
-				new QName(mx_internal, "topMostIndex"));
-		}
+        if (!_popUpChildren)
+        {
+            _popUpChildren = new SystemChildrenList(this,
+                new QName(mx_internal, "noTopMostIndex"),
+                new QName(mx_internal, "topMostIndex"));
+        }
 
-		return _popUpChildren;
-	}
+        return _popUpChildren;
+    }
 
-	//----------------------------------
-	//  rawChildren
-	//----------------------------------
+    //----------------------------------
+    //  rawChildren
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the rawChildren property.
-	 */
-	private var _rawChildren:SystemRawChildrenList;
+    /**
+     *  @private
+     *  Storage for the rawChildren property.
+     */
+    private var _rawChildren:SystemRawChildrenList;
 
-	/**
-	 *  @inheritDoc
+    /**
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get rawChildren():IChildList
-	{
-		//if (!topLevel)
-		//	return _topLevelSystemManager.rawChildren;
+     */
+    public function get rawChildren():IChildList
+    {
+        //if (!topLevel)
+        //  return _topLevelSystemManager.rawChildren;
 
-		if (!_rawChildren)
-			_rawChildren = new SystemRawChildrenList(this);
+        if (!_rawChildren)
+            _rawChildren = new SystemRawChildrenList(this);
 
-		return _rawChildren;
-	}
+        return _rawChildren;
+    }
 
-	//--------------------------------------------------------------------------
-	//  screen
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //  screen
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the screen property.
-	 */
-	mx_internal var _screen:Rectangle;
+    /**
+     *  @private
+     *  Storage for the screen property.
+     */
+    mx_internal var _screen:Rectangle;
 
-	/**
-	 *  @inheritDoc
+    /**
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get screen():Rectangle
-	{
-		if (!_screen)
-			Stage_resizeHandler();
+     */
+    public function get screen():Rectangle
+    {
+        if (!_screen)
+            Stage_resizeHandler();
 
-		if (!isStageRoot)
-		{
-			Stage_resizeHandler();
-		}
-		return _screen;
-	}
+        if (!isStageRoot)
+        {
+            Stage_resizeHandler();
+        }
+        return _screen;
+    }
 
-	//----------------------------------
-	//  toolTipChildren
-	//----------------------------------
+    //----------------------------------
+    //  toolTipChildren
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the toolTipChildren property.
-	 */
-	private var _toolTipChildren:SystemChildrenList;
+    /**
+     *  @private
+     *  Storage for the toolTipChildren property.
+     */
+    private var _toolTipChildren:SystemChildrenList;
 
-	/**
-	 *  @inheritDoc
+    /**
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get toolTipChildren():IChildList
-	{
-		if (!topLevel)
-			return _topLevelSystemManager.toolTipChildren;
+     */
+    public function get toolTipChildren():IChildList
+    {
+        if (!topLevel)
+            return _topLevelSystemManager.toolTipChildren;
 
-		if (!_toolTipChildren)
-		{
-			_toolTipChildren = new SystemChildrenList(this,
-				new QName(mx_internal, "topMostIndex"),
-				new QName(mx_internal, "toolTipIndex"));
-		}
+        if (!_toolTipChildren)
+        {
+            _toolTipChildren = new SystemChildrenList(this,
+                new QName(mx_internal, "topMostIndex"),
+                new QName(mx_internal, "toolTipIndex"));
+        }
 
-		return _toolTipChildren;
-	}
+        return _toolTipChildren;
+    }
 
-	//----------------------------------
-	//  toolTipIndex
-	//----------------------------------
+    //----------------------------------
+    //  toolTipIndex
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the toolTipIndex property.
-	 */
-	private var _toolTipIndex:int = 0;
+    /**
+     *  @private
+     *  Storage for the toolTipIndex property.
+     */
+    private var _toolTipIndex:int = 0;
 
-	/**
-	 *  @private
-	 *  The index of the highest child that is a tooltip
-	 */
-	mx_internal function get toolTipIndex():int
-	{
-		return _toolTipIndex;
-	}
+    /**
+     *  @private
+     *  The index of the highest child that is a tooltip
+     */
+    mx_internal function get toolTipIndex():int
+    {
+        return _toolTipIndex;
+    }
 
-	/**
-	 *  @private
-	 */
-	mx_internal function set toolTipIndex(value:int):void
-	{
-		var delta:int = value - _toolTipIndex;
-		_toolTipIndex = value;
-		cursorIndex += delta;
-	}
+    /**
+     *  @private
+     */
+    mx_internal function set toolTipIndex(value:int):void
+    {
+        var delta:int = value - _toolTipIndex;
+        _toolTipIndex = value;
+        cursorIndex += delta;
+    }
 
-	//----------------------------------
-	//  topLevelSystemManager
-	//----------------------------------
+    //----------------------------------
+    //  topLevelSystemManager
+    //----------------------------------
 
-	/**
-	 *  Returns the SystemManager responsible for the application window.  This will be
-	 *  the same SystemManager unless this application has been loaded into another
-	 *  application.
+    /**
+     *  Returns the SystemManager responsible for the application window.  This will be
+     *  the same SystemManager unless this application has been loaded into another
+     *  application.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function get topLevelSystemManager():ISystemManager
-	{
-		if (topLevel)
-			return this;
+     */
+    public function get topLevelSystemManager():ISystemManager
+    {
+        if (topLevel)
+            return this;
 
-		return _topLevelSystemManager;
-	}
+        return _topLevelSystemManager;
+    }
 
-	//----------------------------------
-	//  topMostIndex
-	//----------------------------------
+    //----------------------------------
+    //  topMostIndex
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the topMostIndex property.
-	 */
-	private var _topMostIndex:int = 0;
+    /**
+     *  @private
+     *  Storage for the topMostIndex property.
+     */
+    private var _topMostIndex:int = 0;
 
-	/**
-	 *  @private
-	 *  The index of the highest child that is a topmost/popup window
-	 */
-	mx_internal function get topMostIndex():int
-	{
-		return _topMostIndex;
-	}
+    /**
+     *  @private
+     *  The index of the highest child that is a topmost/popup window
+     */
+    mx_internal function get topMostIndex():int
+    {
+        return _topMostIndex;
+    }
 
-	mx_internal function set topMostIndex(value:int):void
-	{
-		var delta:int = value - _topMostIndex;
-		_topMostIndex = value;
-		toolTipIndex += delta;
-	}
+    mx_internal function set topMostIndex(value:int):void
+    {
+        var delta:int = value - _topMostIndex;
+        _topMostIndex = value;
+        toolTipIndex += delta;
+    }
 
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: EventDispatcher
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: EventDispatcher
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  allows marshal implementation to add events
+    /**
+     *  @private
+     *  allows marshal implementation to add events
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	mx_internal final function $addEventListener(type:String, listener:Function,
-											  useCapture:Boolean = false,
-											  priority:int = 0,
-											  useWeakReference:Boolean = false):void
-	{	
-		super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-	}
+     */
+    mx_internal final function $addEventListener(type:String, listener:Function,
+                                              useCapture:Boolean = false,
+                                              priority:int = 0,
+                                              useWeakReference:Boolean = false):void
+    {   
+        super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+    }
 
-	/**
+    /**
      * @inheritDoc
      *  
      *  @langversion 3.0
@@ -1357,30 +1357,30 @@ public class SystemManager extends MovieClip
 
     /**
      * @private
-	 *  Only create idle events if someone is listening.
-	 */
-	override public function addEventListener(type:String, listener:Function,
-											  useCapture:Boolean = false,
-											  priority:int = 0,
-											  useWeakReference:Boolean = false):void
-	{
-		if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN 
-				|| type == Event.ACTIVATE || type == Event.DEACTIVATE)
-		{
-			// also listen to stage if allowed
-			try
-			{
-				if (stage)
-				{
+     *  Only create idle events if someone is listening.
+     */
+    override public function addEventListener(type:String, listener:Function,
+                                              useCapture:Boolean = false,
+                                              priority:int = 0,
+                                              useWeakReference:Boolean = false):void
+    {
+        if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN 
+                || type == Event.ACTIVATE || type == Event.DEACTIVATE)
+        {
+            // also listen to stage if allowed
+            try
+            {
+                if (stage)
+                {
                     // Use weak listener because we don't always know when we
                     // no longer need this listener
-					stage.addEventListener(type, stageEventHandler, false, 0, true);
-				}
-			}
-			catch (error:SecurityError)
-			{
-			}
-		}
+                    stage.addEventListener(type, stageEventHandler, false, 0, true);
+                }
+            }
+            catch (error:SecurityError)
+            {
+            }
+        }
 
         if (hasEventListener("addEventListener"))
         {
@@ -1390,8 +1390,8 @@ public class SystemManager extends MovieClip
             request.useCapture = useCapture;
             request.priority = priority;
             request.useWeakReference = useWeakReference;
-		    if (!dispatchEvent(request))
-			    return;
+            if (!dispatchEvent(request))
+                return;
         }
 
         if (type == SandboxMouseEvent.MOUSE_UP_SOMEWHERE)
@@ -1401,151 +1401,151 @@ public class SystemManager extends MovieClip
             // no longer need this listener
             try
             {
-			    if (stage)
-			    {
-				    stage.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler, false, 0, true);
+                if (stage)
+                {
+                    stage.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler, false, 0, true);
                 }
                 else
                 {
-					super.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler, false, 0, true);
+                    super.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler, false, 0, true);
                 }
-			}
-			catch (error:SecurityError)
-			{
-				super.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler, false, 0, true);
-			}
+            }
+            catch (error:SecurityError)
+            {
+                super.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler, false, 0, true);
+            }
         }
-		
-		// These two events will dispatched to applications in sandboxes.
-		if (type == FlexEvent.RENDER || type == FlexEvent.ENTER_FRAME)
-		{
-			if (type == FlexEvent.RENDER)
-				type = Event.RENDER;
-			else
-				type = Event.ENTER_FRAME;
-				
-			try
-			{
-				if (stage)
-					stage.addEventListener(type, listener, useCapture, priority, useWeakReference);
-				else
-					super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-			}
-			catch (error:SecurityError)
-			{
-				super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-			}
-		
-			if (stage && type == Event.RENDER)
-				stage.invalidate();
+        
+        // These two events will dispatched to applications in sandboxes.
+        if (type == FlexEvent.RENDER || type == FlexEvent.ENTER_FRAME)
+        {
+            if (type == FlexEvent.RENDER)
+                type = Event.RENDER;
+            else
+                type = Event.ENTER_FRAME;
+                
+            try
+            {
+                if (stage)
+                    stage.addEventListener(type, listener, useCapture, priority, useWeakReference);
+                else
+                    super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+            }
+            catch (error:SecurityError)
+            {
+                super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+            }
+        
+            if (stage && type == Event.RENDER)
+                stage.invalidate();
 
-			return;
-		}
+            return;
+        }
 
-		// When the first listener registers for 'idle' events,
-		// create a Timer that will fire every IDLE_INTERVAL.
-		if (type == FlexEvent.IDLE && !idleTimer)
-		{
-			idleTimer = new Timer(IDLE_INTERVAL);
-			idleTimer.addEventListener(TimerEvent.TIMER,
-									   idleTimer_timerHandler);
-			idleTimer.start();
+        // When the first listener registers for 'idle' events,
+        // create a Timer that will fire every IDLE_INTERVAL.
+        if (type == FlexEvent.IDLE && !idleTimer)
+        {
+            idleTimer = new Timer(IDLE_INTERVAL);
+            idleTimer.addEventListener(TimerEvent.TIMER,
+                                       idleTimer_timerHandler);
+            idleTimer.start();
 
-			// Make sure we get all activity
-			// in case someone calls stopPropagation().
-			addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
-			addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
-		}
+            // Make sure we get all activity
+            // in case someone calls stopPropagation().
+            addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
+            addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
+        }
 
-		super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-	}
+        super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+    }
 
-	/**
-	 *  @private
-	 */
-	mx_internal final function $removeEventListener(type:String, listener:Function,
-												 useCapture:Boolean = false):void
-	{
-		super.removeEventListener(type, listener, useCapture);
-	}
+    /**
+     *  @private
+     */
+    mx_internal final function $removeEventListener(type:String, listener:Function,
+                                                 useCapture:Boolean = false):void
+    {
+        super.removeEventListener(type, listener, useCapture);
+    }
     
-	/**
-	 *  @private
-	 */
-	override public function removeEventListener(type:String, listener:Function,
-												 useCapture:Boolean = false):void
-	{
+    /**
+     *  @private
+     */
+    override public function removeEventListener(type:String, listener:Function,
+                                                 useCapture:Boolean = false):void
+    {
         if (hasEventListener("removeEventListener"))
         {
             var request:DynamicEvent = new DynamicEvent("removeEventListener", false, true);
             request.eventType = type;
             request.listener = listener;
             request.useCapture = useCapture;
-		    if (!dispatchEvent(request))
-			    return;
+            if (!dispatchEvent(request))
+                return;
         }
 
-		// These two events will dispatched to applications in sandboxes.
-		if (type == FlexEvent.RENDER || type == FlexEvent.ENTER_FRAME)
-		{
-			if (type == FlexEvent.RENDER)
-				type = Event.RENDER;
-			else
-				type = Event.ENTER_FRAME;
-				
-			try
-			{
-				if (stage)
-					stage.removeEventListener(type, listener, useCapture);
-			}
-			catch (error:SecurityError)
-			{
-			}
-			// Remove both listeners in case the system manager was added
-			// or removed from the stage after the listener was added.
-			super.removeEventListener(type, listener, useCapture);
-		
-			return;
-		}
+        // These two events will dispatched to applications in sandboxes.
+        if (type == FlexEvent.RENDER || type == FlexEvent.ENTER_FRAME)
+        {
+            if (type == FlexEvent.RENDER)
+                type = Event.RENDER;
+            else
+                type = Event.ENTER_FRAME;
+                
+            try
+            {
+                if (stage)
+                    stage.removeEventListener(type, listener, useCapture);
+            }
+            catch (error:SecurityError)
+            {
+            }
+            // Remove both listeners in case the system manager was added
+            // or removed from the stage after the listener was added.
+            super.removeEventListener(type, listener, useCapture);
+        
+            return;
+        }
 
-		// When the last listener unregisters for 'idle' events,
-		// stop and release the Timer.
-		if (type == FlexEvent.IDLE)
-		{
-			super.removeEventListener(type, listener, useCapture);
+        // When the last listener unregisters for 'idle' events,
+        // stop and release the Timer.
+        if (type == FlexEvent.IDLE)
+        {
+            super.removeEventListener(type, listener, useCapture);
 
-			if (!hasEventListener(FlexEvent.IDLE) && idleTimer)
-			{
-				idleTimer.stop();
-				idleTimer = null;
+            if (!hasEventListener(FlexEvent.IDLE) && idleTimer)
+            {
+                idleTimer.stop();
+                idleTimer = null;
 
-				removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
-				removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-			}
-		}
+                removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
+                removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+            }
+        }
         else
         {
             super.removeEventListener(type, listener, useCapture);
         }
 
-		if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN 
-				|| type == Event.ACTIVATE || type == Event.DEACTIVATE)
-		{
+        if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN 
+                || type == Event.ACTIVATE || type == Event.DEACTIVATE)
+        {
             if (!hasEventListener(type))
             {
-			    // also listen to stage if allowed
-			    try
-			    {
-				    if (stage)
-				    {
-					    stage.removeEventListener(type, stageEventHandler, false);
-				    }
-			    }
-			    catch (error:SecurityError)
-			    {
-			    }
+                // also listen to stage if allowed
+                try
+                {
+                    if (stage)
+                    {
+                        stage.removeEventListener(type, stageEventHandler, false);
+                    }
+                }
+                catch (error:SecurityError)
+                {
+                }
             }
-		}
+        }
 
         if (type == SandboxMouseEvent.MOUSE_UP_SOMEWHERE)
         {
@@ -1554,253 +1554,253 @@ public class SystemManager extends MovieClip
                 // nobody wants this event any more for now
                 try
                 {
-			        if (stage)
-			        {
-				        stage.removeEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
+                    if (stage)
+                    {
+                        stage.removeEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
                     }
-			    }
-			    catch (error:SecurityError)
-			    {
-			    }
-			    // Remove both listeners in case the system manager was added
-			    // or removed from the stage after the listener was added.
-			    super.removeEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
+                }
+                catch (error:SecurityError)
+                {
+                }
+                // Remove both listeners in case the system manager was added
+                // or removed from the stage after the listener was added.
+                super.removeEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
             }
         }
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: DisplayObjectContainer
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: DisplayObjectContainer
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override public function addChild(child:DisplayObject):DisplayObject
-	{
+    /**
+     *  @private
+     */
+    override public function addChild(child:DisplayObject):DisplayObject
+    {
         var addIndex:int = numChildren;
         if (child.parent == this)
             addIndex--;
 
         return addChildAt(child, addIndex);
-	}
+    }
 
-	/**
-	 *  @private
-	 */
-	override public function addChildAt(child:DisplayObject,
-										index:int):DisplayObject
-	{
+    /**
+     *  @private
+     */
+    override public function addChildAt(child:DisplayObject,
+                                        index:int):DisplayObject
+    {
         // Adjust the partition indexes before the 
         // "added" event is dispatched.
-		noTopMostIndex++;
+        noTopMostIndex++;
 
         var oldParent:DisplayObjectContainer = child.parent;
         if (oldParent)
             oldParent.removeChild(child);
         
-		return rawChildren_addChildAt(child, applicationIndex + index);
-	}
+        return rawChildren_addChildAt(child, applicationIndex + index);
+    }
 
-	/**
-	 *  @private
-	 * 
-	 * Used by SystemManagerProxy to add a mouse catcher as a child.
-	 */ 
-	mx_internal final function $addChildAt(child:DisplayObject,
-										index:int):DisplayObject
-	{
-		return super.addChildAt(child, index);
-	}
+    /**
+     *  @private
+     * 
+     * Used by SystemManagerProxy to add a mouse catcher as a child.
+     */ 
+    mx_internal final function $addChildAt(child:DisplayObject,
+                                        index:int):DisplayObject
+    {
+        return super.addChildAt(child, index);
+    }
 
-	/**
-	 *  @private
-	 * 
-	 *  Companion to $addChildAt.
-	 */
-	mx_internal final function $removeChildAt(index:int):DisplayObject
-	{
-		return super.removeChildAt(index);
-	}
+    /**
+     *  @private
+     * 
+     *  Companion to $addChildAt.
+     */
+    mx_internal final function $removeChildAt(index:int):DisplayObject
+    {
+        return super.removeChildAt(index);
+    }
 
 
-	/**
-	 *  @private
-	 */
-	override public function removeChild(child:DisplayObject):DisplayObject
-	{
-		// Adjust the partition indexes
-		// before the "removed" event is dispatched.
-		noTopMostIndex--;
+    /**
+     *  @private
+     */
+    override public function removeChild(child:DisplayObject):DisplayObject
+    {
+        // Adjust the partition indexes
+        // before the "removed" event is dispatched.
+        noTopMostIndex--;
 
-		return rawChildren_removeChild(child);
-	}
+        return rawChildren_removeChild(child);
+    }
 
-	/**
-	 *  @private
-	 */
-	override public function removeChildAt(index:int):DisplayObject
-	{
-		// Adjust the partition indexes
-		// before the "removed" event is dispatched.
-		noTopMostIndex--;
+    /**
+     *  @private
+     */
+    override public function removeChildAt(index:int):DisplayObject
+    {
+        // Adjust the partition indexes
+        // before the "removed" event is dispatched.
+        noTopMostIndex--;
 
-		return rawChildren_removeChildAt(applicationIndex + index);
-	}
+        return rawChildren_removeChildAt(applicationIndex + index);
+    }
 
-	/**
-	 *  @private
-	 */
-  	override public function getChildAt(index:int):DisplayObject
-	{
-		return super.getChildAt(applicationIndex + index)
-	}
+    /**
+     *  @private
+     */
+    override public function getChildAt(index:int):DisplayObject
+    {
+        return super.getChildAt(applicationIndex + index)
+    }
 
-	/**
-	 *  @private
-	 */
-  	override public function getChildByName(name:String):DisplayObject
-  	{
-		return super.getChildByName(name);
-  	}
+    /**
+     *  @private
+     */
+    override public function getChildByName(name:String):DisplayObject
+    {
+        return super.getChildByName(name);
+    }
 
-	/**
-	 *  @private
-	 */
-  	override public function getChildIndex(child:DisplayObject):int
-	{
-		return super.getChildIndex(child) - applicationIndex;
-	}
+    /**
+     *  @private
+     */
+    override public function getChildIndex(child:DisplayObject):int
+    {
+        return super.getChildIndex(child) - applicationIndex;
+    }
 
-	/**
-	 *  @private
-	 */
-	override public function setChildIndex(child:DisplayObject, newIndex:int):void
-	{
-		super.setChildIndex(child, applicationIndex + newIndex)
-	}
+    /**
+     *  @private
+     */
+    override public function setChildIndex(child:DisplayObject, newIndex:int):void
+    {
+        super.setChildIndex(child, applicationIndex + newIndex)
+    }
 
-	/**
-	 *  @private
-	 */
-	override public function getObjectsUnderPoint(point:Point):Array
-	{
-		var children:Array = [];
+    /**
+     *  @private
+     */
+    override public function getObjectsUnderPoint(point:Point):Array
+    {
+        var children:Array = [];
 
-		// Get all the children that aren't tooltips and cursors.
-		var n:int = topMostIndex;
-		for (var i:int = 0; i < n; i++)
-		{
-			var child:DisplayObject = super.getChildAt(i);
-			if (child is DisplayObjectContainer)
-			{
-				var temp:Array =
-					DisplayObjectContainer(child).getObjectsUnderPoint(point);
+        // Get all the children that aren't tooltips and cursors.
+        var n:int = topMostIndex;
+        for (var i:int = 0; i < n; i++)
+        {
+            var child:DisplayObject = super.getChildAt(i);
+            if (child is DisplayObjectContainer)
+            {
+                var temp:Array =
+                    DisplayObjectContainer(child).getObjectsUnderPoint(point);
 
-				if (temp)
-					children = children.concat(temp);
-			}
-		}
+                if (temp)
+                    children = children.concat(temp);
+            }
+        }
 
-		return children;
-	}
+        return children;
+    }
 
-	/**
-	 *  @private
-	 */
-	override public function contains(child:DisplayObject):Boolean
-	{
-		if (super.contains(child))
-		{
-			if (child.parent == this)
-			{
-				var childIndex:int = super.getChildIndex(child);
-				if (childIndex < noTopMostIndex)
-					return true;
-			}
-			else
-			{
-				for (var i:int = 0; i < noTopMostIndex; i++)
-				{
-					var myChild:DisplayObject = super.getChildAt(i);
-					if (myChild is IRawChildrenContainer)
-					{
-						if (IRawChildrenContainer(myChild).rawChildren.contains(child))
-							return true;
-					}
-					if (myChild is DisplayObjectContainer)
-					{
-						if (DisplayObjectContainer(myChild).contains(child))
-							return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
+    /**
+     *  @private
+     */
+    override public function contains(child:DisplayObject):Boolean
+    {
+        if (super.contains(child))
+        {
+            if (child.parent == this)
+            {
+                var childIndex:int = super.getChildIndex(child);
+                if (childIndex < noTopMostIndex)
+                    return true;
+            }
+            else
+            {
+                for (var i:int = 0; i < noTopMostIndex; i++)
+                {
+                    var myChild:DisplayObject = super.getChildAt(i);
+                    if (myChild is IRawChildrenContainer)
+                    {
+                        if (IRawChildrenContainer(myChild).rawChildren.contains(child))
+                            return true;
+                    }
+                    if (myChild is DisplayObjectContainer)
+                    {
+                        if (DisplayObjectContainer(myChild).contains(child))
+                            return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
-	//--------------------------------------------------------------------------
-	//
+    //--------------------------------------------------------------------------
+    //
     //  Methods: IFlexModuleFactory
     //
     //--------------------------------------------------------------------------
 
     /**
-   	 *  @private
-	 *  This method is overridden in the autogenerated subclass.
-	 *  It is part of TLF's ISWFContext interface.
-	 *  Although this class does not declare that it implements this interface,
-	 *  the autogenerated subclass does.
-   	 */
+     *  @private
+     *  This method is overridden in the autogenerated subclass.
+     *  It is part of TLF's ISWFContext interface.
+     *  Although this class does not declare that it implements this interface,
+     *  the autogenerated subclass does.
+     */
     public function callInContext(fn:Function, thisArg:Object,
-								  argArray:Array, returns:Boolean = true):*
+                                  argArray:Array, returns:Boolean = true):*
     {
         return undefined;
     }
 
     /**
      *  A factory method that requests an instance of a
-	 *  definition known to the module.
-	 * 
-	 *  You can provide an optional set of parameters to let building
-	 *  factories change what they create based on the
-	 *  input. Passing null indicates that the default definition
-	 *  is created, if possible. 
-	 *
-	 *  This method is overridden in the autogenerated subclass.
-	 *
+     *  definition known to the module.
+     * 
+     *  You can provide an optional set of parameters to let building
+     *  factories change what they create based on the
+     *  input. Passing null indicates that the default definition
+     *  is created, if possible. 
+     *
+     *  This method is overridden in the autogenerated subclass.
+     *
      *  @param params An optional list of arguments. You can pass
-	 *  any number of arguments, which are then stored in an Array
-	 *  called <code>parameters</code>. 
-	 *
+     *  any number of arguments, which are then stored in an Array
+     *  called <code>parameters</code>. 
+     *
      *  @return An instance of the module, or <code>null</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function create(... params):Object
-	{
-	    var mainClassName:String = info()["mainClassName"];
+     */
+    public function create(... params):Object
+    {
+        var mainClassName:String = info()["mainClassName"];
 
-		if (mainClassName == null)
-	    {
+        if (mainClassName == null)
+        {
             var url:String = loaderInfo.loaderURL;
             var dot:int = url.lastIndexOf(".");
             var slash:int = url.lastIndexOf("/");
             mainClassName = url.substring(slash + 1, dot);
-	    }
+        }
 
-		var mainClass:Class = Class(getDefinitionByName(mainClassName));
-		
-		return mainClass ? new mainClass() : null;
-	}
+        var mainClass:Class = Class(getDefinitionByName(mainClassName));
+        
+        return mainClass ? new mainClass() : null;
+    }
 
-	/**
-	 *  @private
+    /**
+     *  @private
      */
     public function info():Object
     {
@@ -1815,233 +1815,233 @@ public class SystemManager extends MovieClip
 
     /**
      *  @private
-	 *  Creates an instance of the preloader, adds it as a child, and runs it.
-	 *  This is needed by FlexBuilder. Do not modify this function.
-	 */
-	mx_internal function initialize():void
-	{
-		if (isStageRoot)
-		{
-			_width = stage.stageWidth;
-			_height = stage.stageHeight;
-		}
-		else
-		{
-			_width = loaderInfo.width;
-			_height = loaderInfo.height;
-		}
+     *  Creates an instance of the preloader, adds it as a child, and runs it.
+     *  This is needed by Flash Builder. Do not modify this function.
+     */
+    mx_internal function initialize():void
+    {
+        if (isStageRoot)
+        {
+            _width = stage.stageWidth;
+            _height = stage.stageHeight;
+        }
+        else
+        {
+            _width = loaderInfo.width;
+            _height = loaderInfo.height;
+        }
 
-		// Create an instance of the preloader and add it to the stage
-		preloader = new Preloader();
+        // Create an instance of the preloader and add it to the stage
+        preloader = new Preloader();
 
-		// Listen for preloader events
-		// preloader notifes when it is ok to go to frame2
-		preloader.addEventListener(FlexEvent.PRELOADER_DOC_FRAME_READY,
-								   preloader_preloaderDocFrameReadyHandler);
-		// wait for a complete event.  This gives the preloader
-		// a chance to load resource modules before
-		// everything really gets kicked off
-		preloader.addEventListener(Event.COMPLETE,
-								   preloader_completeHandler);
-		// when the app is fully backed remove the preloader and show the app
-		preloader.addEventListener(FlexEvent.PRELOADER_DONE,
-								   preloader_preloaderDoneHandler);
+        // Listen for preloader events
+        // preloader notifes when it is ok to go to frame2
+        preloader.addEventListener(FlexEvent.PRELOADER_DOC_FRAME_READY,
+                                   preloader_preloaderDocFrameReadyHandler);
+        // wait for a complete event.  This gives the preloader
+        // a chance to load resource modules before
+        // everything really gets kicked off
+        preloader.addEventListener(Event.COMPLETE,
+                                   preloader_completeHandler);
+        // when the app is fully backed remove the preloader and show the app
+        preloader.addEventListener(FlexEvent.PRELOADER_DONE,
+                                   preloader_preloaderDoneHandler);
         preloader.addEventListener(RSLEvent.RSL_COMPLETE, 
                                    preloader_rslCompleteHandler);
 
-		// Add the preloader as a child.  Use backing variable because when loaded
-		// we redirect public API to parent systemmanager
-		if (!_popUpChildren)
-		{
-			_popUpChildren = new SystemChildrenList(
-				this, new QName(mx_internal, "noTopMostIndex"), new QName(mx_internal, "topMostIndex"));
-		}
-		_popUpChildren.addChild(preloader);
+        // Add the preloader as a child.  Use backing variable because when loaded
+        // we redirect public API to parent systemmanager
+        if (!_popUpChildren)
+        {
+            _popUpChildren = new SystemChildrenList(
+                this, new QName(mx_internal, "noTopMostIndex"), new QName(mx_internal, "topMostIndex"));
+        }
+        _popUpChildren.addChild(preloader);
 
-		var rsls:Array = info()["rsls"];
-		var cdRsls:Array = info()["cdRsls"];
-		var usePreloader:Boolean = true;
+        var rsls:Array = info()["rsls"];
+        var cdRsls:Array = info()["cdRsls"];
+        var usePreloader:Boolean = true;
         if (info()["usePreloader"] != undefined)
             usePreloader = info()["usePreloader"];
 
-		var preloaderDisplayClass:Class = info()["preloader"] as Class;
+        var preloaderDisplayClass:Class = info()["preloader"] as Class;
 
         // Put cross-domain RSL information in the RSL list.
         var rslList:Array = [];
         var n:int;
         var i:int;
-		if (cdRsls && cdRsls.length > 0)
-		{
-			var crossDomainRSLItem:Class = Class(getDefinitionByName("mx.core::CrossDomainRSLItem"));
-			n = cdRsls.length;
-			for (i = 0; i < n; i++)
-			{
-				// If crossDomainRSLItem is null, then this is a compiler error. It should not be null.
-				var cdNode:Object = new crossDomainRSLItem(cdRsls[i]["rsls"],
-													cdRsls[i]["policyFiles"],
-													cdRsls[i]["digests"],
-													cdRsls[i]["types"],
-													cdRsls[i]["isSigned"],
+        if (cdRsls && cdRsls.length > 0)
+        {
+            var crossDomainRSLItem:Class = Class(getDefinitionByName("mx.core::CrossDomainRSLItem"));
+            n = cdRsls.length;
+            for (i = 0; i < n; i++)
+            {
+                // If crossDomainRSLItem is null, then this is a compiler error. It should not be null.
+                var cdNode:Object = new crossDomainRSLItem(cdRsls[i]["rsls"],
+                                                    cdRsls[i]["policyFiles"],
+                                                    cdRsls[i]["digests"],
+                                                    cdRsls[i]["types"],
+                                                    cdRsls[i]["isSigned"],
                                                     LoaderUtil.normalizeURL(this.loaderInfo));
-				rslList.push(cdNode);				
-			}
-		}
+                rslList.push(cdNode);               
+            }
+        }
 
-		// Append RSL information in the RSL list.
-		if (rsls != null && rsls.length > 0)
-		{
-			n = rsls.length;
-			for (i = 0; i < n; i++)
-			{
+        // Append RSL information in the RSL list.
+        if (rsls != null && rsls.length > 0)
+        {
+            n = rsls.length;
+            for (i = 0; i < n; i++)
+            {
                 var node:RSLItem = new RSLItem(rsls[i].url, LoaderUtil.normalizeURL(this.loaderInfo));
-				rslList.push(node);
-			}
-		}
+                rslList.push(node);
+            }
+        }
 
-		// They can also specify a comma-separated list of URLs
-		// for resource modules to be preloaded during frame 1.
-		var resourceModuleURLList:String =
-			loaderInfo.parameters["resourceModuleURLs"];
-		var resourceModuleURLs:Array =
-			resourceModuleURLList ? resourceModuleURLList.split(",") : null;
+        // They can also specify a comma-separated list of URLs
+        // for resource modules to be preloaded during frame 1.
+        var resourceModuleURLList:String =
+            loaderInfo.parameters["resourceModuleURLs"];
+        var resourceModuleURLs:Array =
+            resourceModuleURLList ? resourceModuleURLList.split(",") : null;
 
-		var domain:ApplicationDomain =
-			!topLevel && parent is Loader ?
-			Loader(parent).contentLoaderInfo.applicationDomain :
+        var domain:ApplicationDomain =
+            !topLevel && parent is Loader ?
+            Loader(parent).contentLoaderInfo.applicationDomain :
             info()["currentDomain"] as ApplicationDomain;
 
-		// Initialize the preloader.
-		preloader.initialize(
-			usePreloader,
-			preloaderDisplayClass,
-			preloaderBackgroundColor,
-			preloaderBackgroundAlpha,
-			preloaderBackgroundImage,
-			preloaderBackgroundSize,
-			isStageRoot ? stage.stageWidth : loaderInfo.width,
-			isStageRoot ? stage.stageHeight : loaderInfo.height,
-		    null,
-			null,
-			rslList,
-			resourceModuleURLs,
-			domain);
-	}
+        // Initialize the preloader.
+        preloader.initialize(
+            usePreloader,
+            preloaderDisplayClass,
+            preloaderBackgroundColor,
+            preloaderBackgroundAlpha,
+            preloaderBackgroundImage,
+            preloaderBackgroundSize,
+            isStageRoot ? stage.stageWidth : loaderInfo.width,
+            isStageRoot ? stage.stageHeight : loaderInfo.height,
+            null,
+            null,
+            rslList,
+            resourceModuleURLs,
+            domain);
+    }
 
 
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods: Support for rawChildren access
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: Support for rawChildren access
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	mx_internal function rawChildren_addChild(child:DisplayObject):DisplayObject
-	{
-		childManager.addingChild(child);
+    /**
+     *  @private
+     */
+    mx_internal function rawChildren_addChild(child:DisplayObject):DisplayObject
+    {
+        childManager.addingChild(child);
 
-		super.addChild(child);
+        super.addChild(child);
 
-		childManager.childAdded(child); // calls child.createChildren()
+        childManager.childAdded(child); // calls child.createChildren()
 
-		return child;
-	}
+        return child;
+    }
 
-	/**
-	 *  @private
-	 */
-	mx_internal function rawChildren_addChildAt(child:DisplayObject,
-												index:int):DisplayObject
-	{
-		// preloader goes through here before childManager is set up
-		if (childManager) 
-			childManager.addingChild(child);
+    /**
+     *  @private
+     */
+    mx_internal function rawChildren_addChildAt(child:DisplayObject,
+                                                index:int):DisplayObject
+    {
+        // preloader goes through here before childManager is set up
+        if (childManager) 
+            childManager.addingChild(child);
 
-		super.addChildAt(child, index);
+        super.addChildAt(child, index);
 
-		if (childManager) 
-			childManager.childAdded(child); // calls child.createChildren()
+        if (childManager) 
+            childManager.childAdded(child); // calls child.createChildren()
 
-		return child;
-	}
+        return child;
+    }
 
-	/**
-	 *  @private
-	 */
-	mx_internal function rawChildren_removeChild(child:DisplayObject):DisplayObject
-	{
-		childManager.removingChild(child);
-		super.removeChild(child);
-		childManager.childRemoved(child);
+    /**
+     *  @private
+     */
+    mx_internal function rawChildren_removeChild(child:DisplayObject):DisplayObject
+    {
+        childManager.removingChild(child);
+        super.removeChild(child);
+        childManager.childRemoved(child);
 
-		return child;
-	}
+        return child;
+    }
 
-	/**
-	 *  @private
-	 */
-	mx_internal function rawChildren_removeChildAt(index:int):DisplayObject
-	{
-		var child:DisplayObject = super.getChildAt(index);
+    /**
+     *  @private
+     */
+    mx_internal function rawChildren_removeChildAt(index:int):DisplayObject
+    {
+        var child:DisplayObject = super.getChildAt(index);
 
-		childManager.removingChild(child);
+        childManager.removingChild(child);
 
-		super.removeChildAt(index);
+        super.removeChildAt(index);
 
-		childManager.childRemoved(child);
+        childManager.childRemoved(child);
 
-		return child;
-	}
+        return child;
+    }
 
-	/**
-	 *  @private
-	 */
-  	mx_internal function rawChildren_getChildAt(index:int):DisplayObject
-	{
-		return super.getChildAt(index);
-	}
+    /**
+     *  @private
+     */
+    mx_internal function rawChildren_getChildAt(index:int):DisplayObject
+    {
+        return super.getChildAt(index);
+    }
 
-	/**
-	 *  @private
-	 */
-  	mx_internal function rawChildren_getChildByName(name:String):DisplayObject
-  	{
-		return super.getChildByName(name);
-  	}
+    /**
+     *  @private
+     */
+    mx_internal function rawChildren_getChildByName(name:String):DisplayObject
+    {
+        return super.getChildByName(name);
+    }
 
-	/**
-	 *  @private
-	 */
-  	mx_internal function rawChildren_getChildIndex(child:DisplayObject):int
-	{
-		return super.getChildIndex(child);
-	}
+    /**
+     *  @private
+     */
+    mx_internal function rawChildren_getChildIndex(child:DisplayObject):int
+    {
+        return super.getChildIndex(child);
+    }
 
-	/**
-	 *  @private
-	 */
-	mx_internal function rawChildren_setChildIndex(child:DisplayObject, newIndex:int):void
-	{
-		super.setChildIndex(child, newIndex);
-	}
+    /**
+     *  @private
+     */
+    mx_internal function rawChildren_setChildIndex(child:DisplayObject, newIndex:int):void
+    {
+        super.setChildIndex(child, newIndex);
+    }
 
-	/**
-	 *  @private
-	 */
-	mx_internal function rawChildren_getObjectsUnderPoint(pt:Point):Array
-	{
-		return super.getObjectsUnderPoint(pt);
-	}
+    /**
+     *  @private
+     */
+    mx_internal function rawChildren_getObjectsUnderPoint(pt:Point):Array
+    {
+        return super.getObjectsUnderPoint(pt);
+    }
 
-	/**
-	 *  @private
-	 */
-	mx_internal function rawChildren_contains(child:DisplayObject):Boolean
-	{
-		return super.contains(child);
-	}
+    /**
+     *  @private
+     */
+    mx_internal function rawChildren_contains(child:DisplayObject):Boolean
+    {
+        return super.contains(child);
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -2070,17 +2070,17 @@ public class SystemManager extends MovieClip
     }
 
     //--------------------------------------------------------------------------
-	//
-	//  Methods: Measurement and Layout
-	//
-	//--------------------------------------------------------------------------
+    //
+    //  Methods: Measurement and Layout
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  A convenience method for determining whether to use the
-	 *  explicit or measured width.
-	 *
+     *  explicit or measured width.
+     *
      *  @return A Number that is the <code>explicitWidth</code> if defined,
-	 *  or the <code>measuredWidth</code> property if not.
+     *  or the <code>measuredWidth</code> property if not.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -2089,15 +2089,15 @@ public class SystemManager extends MovieClip
      */
     public function getExplicitOrMeasuredWidth():Number
     {
-		return !isNaN(explicitWidth) ? explicitWidth : measuredWidth;
+        return !isNaN(explicitWidth) ? explicitWidth : measuredWidth;
     }
 
     /**
      *  A convenience method for determining whether to use the
-	 *  explicit or measured height.
-	 *
+     *  explicit or measured height.
+     *
      *  @return A Number that is the <code>explicitHeight</code> if defined,
-	 *  or the <code>measuredHeight</code> property if not.
+     *  or the <code>measuredHeight</code> property if not.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -2106,188 +2106,188 @@ public class SystemManager extends MovieClip
      */
     public function getExplicitOrMeasuredHeight():Number
     {
-		return !isNaN(explicitHeight) ? explicitHeight : measuredHeight;
+        return !isNaN(explicitHeight) ? explicitHeight : measuredHeight;
     }
 
-	/**
-	 *  Calling the <code>move()</code> method
-	 *  has no effect as it is directly mapped
-	 *  to the application window or the loader.
-	 *
-	 *  @param x The new x coordinate.
-	 *
-	 *  @param y The new y coordinate.
+    /**
+     *  Calling the <code>move()</code> method
+     *  has no effect as it is directly mapped
+     *  to the application window or the loader.
+     *
+     *  @param x The new x coordinate.
+     *
+     *  @param y The new y coordinate.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function move(x:Number, y:Number):void
-	{
-	}
+     */
+    public function move(x:Number, y:Number):void
+    {
+    }
 
-	/**
-	 *  Calling the <code>setActualSize()</code> method
-	 *  has no effect if it is directly mapped
-	 *  to the application window and if it is the top-level window.
-	 *  Otherwise attempts to resize itself, clipping children if needed.
-	 *
-	 *  @param newWidth The new width.
-	 *
-	 *  @param newHeight The new height.
+    /**
+     *  Calling the <code>setActualSize()</code> method
+     *  has no effect if it is directly mapped
+     *  to the application window and if it is the top-level window.
+     *  Otherwise attempts to resize itself, clipping children if needed.
+     *
+     *  @param newWidth The new width.
+     *
+     *  @param newHeight The new height.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function setActualSize(newWidth:Number, newHeight:Number):void
-	{
-		if (isStageRoot) return;
+     */
+    public function setActualSize(newWidth:Number, newHeight:Number):void
+    {
+        if (isStageRoot) return;
 
-		// mouseCatcher is a mask if not stage root
+        // mouseCatcher is a mask if not stage root
         // sometimes it is not in sync so we always
         // sync it up
-		if (mouseCatcher)
-		{
-			mouseCatcher.width = newWidth;
-			mouseCatcher.height = newHeight;
-		}
+        if (mouseCatcher)
+        {
+            mouseCatcher.width = newWidth;
+            mouseCatcher.height = newHeight;
+        }
 
         if (_width != newWidth || _height != newHeight)
         {
-		    _width = newWidth;
-		    _height = newHeight;
+            _width = newWidth;
+            _height = newHeight;
 
-		    dispatchEvent(new Event(Event.RESIZE));
+            dispatchEvent(new Event(Event.RESIZE));
         }
-	}
+    }
 
 
 
     //--------------------------------------------------------------------------
     //
-	//  Methods: Other
-	//
-	//--------------------------------------------------------------------------
+    //  Methods: Other
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @inheritDoc
+    /**
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function getDefinitionByName(name:String):Object
-	{
-		var domain:ApplicationDomain =
-			!topLevel && parent is Loader ?
-			Loader(parent).contentLoaderInfo.applicationDomain :
+     */
+    public function getDefinitionByName(name:String):Object
+    {
+        var domain:ApplicationDomain =
+            !topLevel && parent is Loader ?
+            Loader(parent).contentLoaderInfo.applicationDomain :
             info()["currentDomain"] as ApplicationDomain;
 
-		//trace("SysMgr.getDefinitionByName domain",domain,"currentDomain",info()["currentDomain"]);	
-			
+        //trace("SysMgr.getDefinitionByName domain",domain,"currentDomain",info()["currentDomain"]);    
+            
         var definition:Object;
 
         if (domain.hasDefinition(name))
-		{
-			definition = domain.getDefinition(name);
-			//trace("SysMgr.getDefinitionByName got definition",definition,"name",name);
-		}
+        {
+            definition = domain.getDefinition(name);
+            //trace("SysMgr.getDefinitionByName got definition",definition,"name",name);
+        }
 
-		return definition;
-	}
+        return definition;
+    }
 
-	/**
-	 *  Returns the root DisplayObject of the SWF that contains the code
-	 *  for the given object.
-	 *
-	 *  @param object Any Object. 
-	 * 
-	 *  @return The root DisplayObject
+    /**
+     *  Returns the root DisplayObject of the SWF that contains the code
+     *  for the given object.
+     *
+     *  @param object Any Object. 
+     * 
+     *  @return The root DisplayObject
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public static function getSWFRoot(object:Object):DisplayObject
-	{
-		var className:String = getQualifiedClassName(object);
+     */
+    public static function getSWFRoot(object:Object):DisplayObject
+    {
+        var className:String = getQualifiedClassName(object);
 
-		for (var p:* in allSystemManagers)
-		{
-			var sm:ISystemManager = p as ISystemManager;
-			var domain:ApplicationDomain = sm.loaderInfo.applicationDomain;
-			try
-			{
-				var cls:Class = Class(domain.getDefinition(className));
-				if (object is cls)
-					return sm as DisplayObject;
-			}
-			catch(e:Error)
-			{
-			}
-		}
-		return null;
-	}
-	
-	/**
-	 *  @inheritDoc
+        for (var p:* in allSystemManagers)
+        {
+            var sm:ISystemManager = p as ISystemManager;
+            var domain:ApplicationDomain = sm.loaderInfo.applicationDomain;
+            try
+            {
+                var cls:Class = Class(domain.getDefinition(className));
+                if (object is cls)
+                    return sm as DisplayObject;
+            }
+            catch(e:Error)
+            {
+            }
+        }
+        return null;
+    }
+    
+    /**
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function isTopLevel():Boolean
-	{
-		return topLevel;
-	}
+     */
+    public function isTopLevel():Boolean
+    {
+        return topLevel;
+    }
 
-	/**
-	 * @inheritDoc
+    /**
+     * @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */	
-	public function isTopLevelRoot():Boolean
-	{
-		return isStageRoot || isBootstrapRoot;
-	}
-	
-	/**
+     */ 
+    public function isTopLevelRoot():Boolean
+    {
+        return isStageRoot || isBootstrapRoot;
+    }
+    
+    /**
          *  Determines if the given DisplayObject is the 
-	 *  top-level window.
-	 *
-	 *  @param object The DisplayObject to test.
-	 *
-	 *  @return <code>true</code> if the given DisplayObject is the 
-	 *  top-level window.
+     *  top-level window.
+     *
+     *  @param object The DisplayObject to test.
+     *
+     *  @return <code>true</code> if the given DisplayObject is the 
+     *  top-level window.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function isTopLevelWindow(object:DisplayObject):Boolean
-	{
-		return object is IUIComponent &&
-			   IUIComponent(object) == topLevelWindow;
-	}
+     */
+    public function isTopLevelWindow(object:DisplayObject):Boolean
+    {
+        return object is IUIComponent &&
+               IUIComponent(object) == topLevelWindow;
+    }
 
-	/**
-	 *  @inheritDoc
+    /**
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
+     */
     public function isFontFaceEmbedded(textFormat:TextFormat):Boolean
     {
         var fontName:String = textFormat.font;
@@ -2315,9 +2315,9 @@ public class SystemManager extends MovieClip
             }
         }
 
-		if (!fontName ||
-			!embeddedFontList ||
-			!embeddedFontList[fontName])
+        if (!fontName ||
+            !embeddedFontList ||
+            !embeddedFontList[fontName])
         {
             return false;
         }
@@ -2329,42 +2329,42 @@ public class SystemManager extends MovieClip
                  (!bold && !italic && !info.regular));
     }
 
-	/**
-	 *  @private
-	 *  Makes the mouseCatcher the same size as the stage,
-	 *  filling it with transparent pixels.
-	 */
-	private function resizeMouseCatcher():void
-	{
-		if (mouseCatcher)
-		{
-			try
-			{
-			var g:Graphics = mouseCatcher.graphics;
-			var s:Rectangle = screen;
-			g.clear();
-			g.beginFill(0x000000, 0);
-			g.drawRect(0, 0, s.width, s.height);
-			g.endFill();
-			}
-			catch (e:SecurityError)
-			{
-				// trace("resizeMouseCatcher: ignoring security error " + e);
-			}
-		}
-	}
+    /**
+     *  @private
+     *  Makes the mouseCatcher the same size as the stage,
+     *  filling it with transparent pixels.
+     */
+    private function resizeMouseCatcher():void
+    {
+        if (mouseCatcher)
+        {
+            try
+            {
+            var g:Graphics = mouseCatcher.graphics;
+            var s:Rectangle = screen;
+            g.clear();
+            g.beginFill(0x000000, 0);
+            g.drawRect(0, 0, s.width, s.height);
+            g.endFill();
+            }
+            catch (e:SecurityError)
+            {
+                // trace("resizeMouseCatcher: ignoring security error " + e);
+            }
+        }
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Event handlers
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private function initHandler(event:Event):void
-	{
+    /**
+     *  @private
+     */
+    private function initHandler(event:Event):void
+    {
         // we can still be the top level root if we can access our
         // parent and get a positive response to the query or
         // or there is not a listener for the new application event
@@ -2386,13 +2386,13 @@ public class SystemManager extends MovieClip
             }
         }
 
-		allSystemManagers[this] = this.loaderInfo.url;
-	    root.loaderInfo.removeEventListener(Event.INIT, initHandler);
+        allSystemManagers[this] = this.loaderInfo.url;
+        root.loaderInfo.removeEventListener(Event.INIT, initHandler);
 
-		if (!SystemManagerGlobals.info)
-			SystemManagerGlobals.info = info();
-		if (!SystemManagerGlobals.parameters)
-			SystemManagerGlobals.parameters = loaderInfo.parameters;
+        if (!SystemManagerGlobals.info)
+            SystemManagerGlobals.info = info();
+        if (!SystemManagerGlobals.parameters)
+            SystemManagerGlobals.parameters = loaderInfo.parameters;
 
         // This listener is intended to run before any other KeyboardEvent listeners
         // so that it can redispatch a cancelable=true copy of the event. 
@@ -2408,102 +2408,102 @@ public class SystemManager extends MovieClip
         }
 
         var docFrame:int = (totalFrames == 1)? 0 : 1;
-		addEventListener(Event.ENTER_FRAME, docFrameListener);
+        addEventListener(Event.ENTER_FRAME, docFrameListener);
 
-		/*
+        /*
         addFrameScript(docFrame, docFrameHandler);
-	    for (var f:int = docFrame + 1; f < totalFrames; ++f)
-	    {
-		    addFrameScript(f, extraFrameHandler);
-		}
-		*/
+        for (var f:int = docFrame + 1; f < totalFrames; ++f)
+        {
+            addFrameScript(f, extraFrameHandler);
+        }
+        */
 
-	    initialize();
-	    
-	}
+        initialize();
+        
+    }
 
-	private function docFrameListener(event:Event):void
-	{
-		if (currentFrame == 2)
-		{
-			removeEventListener(Event.ENTER_FRAME, docFrameListener);
-			if (totalFrames > 2)
-				addEventListener(Event.ENTER_FRAME, extraFrameListener);
+    private function docFrameListener(event:Event):void
+    {
+        if (currentFrame == 2)
+        {
+            removeEventListener(Event.ENTER_FRAME, docFrameListener);
+            if (totalFrames > 2)
+                addEventListener(Event.ENTER_FRAME, extraFrameListener);
 
-			docFrameHandler();
-		}
-	}
+            docFrameHandler();
+        }
+    }
 
-	private function extraFrameListener(event:Event):void
-	{
-		if (lastFrame == currentFrame)
-			return;
+    private function extraFrameListener(event:Event):void
+    {
+        if (lastFrame == currentFrame)
+            return;
 
-		lastFrame = currentFrame;
+        lastFrame = currentFrame;
 
-		if (currentFrame + 1 > totalFrames)
-			removeEventListener(Event.ENTER_FRAME, extraFrameListener);
+        if (currentFrame + 1 > totalFrames)
+            removeEventListener(Event.ENTER_FRAME, extraFrameListener);
 
-		extraFrameHandler();
-	}
+        extraFrameHandler();
+    }
 
-	/**
-	 *  @private
-	 *  Once the swf has been fully downloaded,
-	 *  advance the playhead to the next frame.
-	 *  This will cause the framescript to run, which runs frameEndHandler().
-	 */
-	private function preloader_preloaderDocFrameReadyHandler(event:Event):void
-	{
-		// Advance the next frame
-		preloader.removeEventListener(FlexEvent.PRELOADER_DOC_FRAME_READY,
-									  preloader_preloaderDocFrameReadyHandler);
+    /**
+     *  @private
+     *  Once the swf has been fully downloaded,
+     *  advance the playhead to the next frame.
+     *  This will cause the framescript to run, which runs frameEndHandler().
+     */
+    private function preloader_preloaderDocFrameReadyHandler(event:Event):void
+    {
+        // Advance the next frame
+        preloader.removeEventListener(FlexEvent.PRELOADER_DOC_FRAME_READY,
+                                      preloader_preloaderDocFrameReadyHandler);
 
         deferredNextFrame();
-	}
+    }
 
-	/**
-	 *  @private
-	 *  Remove the preloader and add the application as a child.
-	 */
-	private function preloader_preloaderDoneHandler(event:Event):void
-	{
-		var app:IUIComponent = topLevelWindow;
+    /**
+     *  @private
+     *  Remove the preloader and add the application as a child.
+     */
+    private function preloader_preloaderDoneHandler(event:Event):void
+    {
+        var app:IUIComponent = topLevelWindow;
 
-		// Once the preloader dispatches the PRELOADER_DONE event, remove the preloader
-		// and add the application as the child
-		preloader.removeEventListener(FlexEvent.PRELOADER_DONE,
-									  preloader_preloaderDoneHandler);
+        // Once the preloader dispatches the PRELOADER_DONE event, remove the preloader
+        // and add the application as the child
+        preloader.removeEventListener(FlexEvent.PRELOADER_DONE,
+                                      preloader_preloaderDoneHandler);
         preloader.removeEventListener(RSLEvent.RSL_COMPLETE, 
                                       preloader_rslCompleteHandler);
 
-		_popUpChildren.removeChild(preloader);
+        _popUpChildren.removeChild(preloader);
         preloader = null;
 
-		// Add the mouseCatcher as child 0.
-		mouseCatcher = new FlexSprite();
-		mouseCatcher.name = "mouseCatcher";
-		// Must use addChildAt because a creationComplete handler can create a
-		// dialog and insert it at 0.
-		noTopMostIndex++;
-		super.addChildAt(mouseCatcher, 0);	
-		resizeMouseCatcher();
-		if (!topLevel)
-		{
-			mouseCatcher.visible = false;
-			mask = mouseCatcher;
-		}
+        // Add the mouseCatcher as child 0.
+        mouseCatcher = new FlexSprite();
+        mouseCatcher.name = "mouseCatcher";
+        // Must use addChildAt because a creationComplete handler can create a
+        // dialog and insert it at 0.
+        noTopMostIndex++;
+        super.addChildAt(mouseCatcher, 0);  
+        resizeMouseCatcher();
+        if (!topLevel)
+        {
+            mouseCatcher.visible = false;
+            mask = mouseCatcher;
+        }
 
-		// Add the application as child 1.
-		noTopMostIndex++;
-		super.addChildAt(DisplayObject(app), 1);
-		
-		// Dispatch the applicationComplete event from the Application
-		// and then agaom from the SystemManager
-		// (so that loading apps know we're done).
-		app.dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_COMPLETE));
-		dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_COMPLETE));
-	}
+        // Add the application as child 1.
+        noTopMostIndex++;
+        super.addChildAt(DisplayObject(app), 1);
+        
+        // Dispatch the applicationComplete event from the Application
+        // and then agaom from the SystemManager
+        // (so that loading apps know we're done).
+        app.dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_COMPLETE));
+        dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_COMPLETE));
+    }
 
     /**
      *  @private
@@ -2516,79 +2516,79 @@ public class SystemManager extends MovieClip
     }
     
     /**
-	 *  @private
-	 *  This is attached as the framescript at the end of frame 2.
-	 *  When this function is called, we know that the application
-	 *  class has been defined and read in by the Player.
-	 */
-	mx_internal function docFrameHandler(event:Event = null):void
-	{
+     *  @private
+     *  This is attached as the framescript at the end of frame 2.
+     *  When this function is called, we know that the application
+     *  class has been defined and read in by the Player.
+     */
+    mx_internal function docFrameHandler(event:Event = null):void
+    {
         
-		if (readyForKickOff)
-			kickOff();
-	}
+        if (readyForKickOff)
+            kickOff();
+    }
 
-	/**
-	 *  @private
-	 *  kick off if we're ready
-	 */
-	mx_internal function preloader_completeHandler(event:Event):void
-	{
-		preloader.removeEventListener(Event.COMPLETE,
-								   preloader_completeHandler);
-		readyForKickOff = true;
-		if (currentFrame >= 2)
-			kickOff();
-	}   
+    /**
+     *  @private
+     *  kick off if we're ready
+     */
+    mx_internal function preloader_completeHandler(event:Event):void
+    {
+        preloader.removeEventListener(Event.COMPLETE,
+                                   preloader_completeHandler);
+        readyForKickOff = true;
+        if (currentFrame >= 2)
+            kickOff();
+    }   
 
-	/**
-	 *  @private
-	 *  kick off 
-	 */
-	mx_internal function kickOff():void
-	{
-		// already been here
-		if (document)
-			return;
+    /**
+     *  @private
+     *  kick off 
+     */
+    mx_internal function kickOff():void
+    {
+        // already been here
+        if (document)
+            return;
 
         if (!isTopLevel())
             SystemManagerGlobals.topLevelSystemManagers[0].
                 // dispatch a FocusEvent so we can pass ourselves along
                 dispatchEvent(new FocusEvent(FlexEvent.NEW_CHILD_APPLICATION, false, false, this));
 
-		// Generated code will bring in EmbeddedFontRegistry
-		Singleton.registerClass("mx.core::IEmbeddedFontRegistry",
-				Class(getDefinitionByName("mx.core::EmbeddedFontRegistry")));
-				
+        // Generated code will bring in EmbeddedFontRegistry
+        Singleton.registerClass("mx.core::IEmbeddedFontRegistry",
+                Class(getDefinitionByName("mx.core::EmbeddedFontRegistry")));
+                
 
         Singleton.registerClass("mx.styles::IStyleManager2",
             Class(getDefinitionByName("mx.styles::StyleManagerImpl")));
 
         // Register other singleton classes.
-		// Note: getDefinitionByName() will return null
-		// if the class can't be found.
+        // Note: getDefinitionByName() will return null
+        // if the class can't be found.
 
-		Singleton.registerClass("mx.managers::IBrowserManager",
-			Class(getDefinitionByName("mx.managers::BrowserManagerImpl")));
+        Singleton.registerClass("mx.managers::IBrowserManager",
+            Class(getDefinitionByName("mx.managers::BrowserManagerImpl")));
 
-		Singleton.registerClass("mx.managers::ICursorManager",
-			Class(getDefinitionByName("mx.managers::CursorManagerImpl")));
+        Singleton.registerClass("mx.managers::ICursorManager",
+            Class(getDefinitionByName("mx.managers::CursorManagerImpl")));
 
-		Singleton.registerClass("mx.managers::IHistoryManager",
-			Class(getDefinitionByName("mx.managers::HistoryManagerImpl")));
+        Singleton.registerClass("mx.managers::IHistoryManager",
+            Class(getDefinitionByName("mx.managers::HistoryManagerImpl")));
 
-		Singleton.registerClass("mx.managers::ILayoutManager",
-			Class(getDefinitionByName("mx.managers::LayoutManager")));
+        Singleton.registerClass("mx.managers::ILayoutManager",
+            Class(getDefinitionByName("mx.managers::LayoutManager")));
 
-		Singleton.registerClass("mx.managers::IPopUpManager",
-			Class(getDefinitionByName("mx.managers::PopUpManagerImpl")));
+        Singleton.registerClass("mx.managers::IPopUpManager",
+            Class(getDefinitionByName("mx.managers::PopUpManagerImpl")));
 
-		Singleton.registerClass("mx.managers::IToolTipManager2",
-			Class(getDefinitionByName("mx.managers::ToolTipManagerImpl")));
+        Singleton.registerClass("mx.managers::IToolTipManager2",
+            Class(getDefinitionByName("mx.managers::ToolTipManagerImpl")));
 
         var dragManagerClass:Class = null;
-				
-			// Make this call to create a new instance of the DragManager singleton. 
+                
+            // Make this call to create a new instance of the DragManager singleton. 
         // Try to link in the NativeDragManager first. This will allow the  
         // application to receive NativeDragEvents that originate from the
         // desktop.  If it can't be found, then we're 
@@ -2605,27 +2605,27 @@ public class SystemManager extends MovieClip
             Class(getDefinitionByName("mx.core::TextFieldFactory")));
 
         var mixinList:Array = info()["mixins"];
-		if (mixinList && mixinList.length > 0)
-		{
-		    var n:int = mixinList.length;
-			for (var i:int = 0; i < n; ++i)
-		    {
-		        // trace("initializing mixin " + mixinList[i]);
-		        var c:Class = Class(getDefinitionByName(mixinList[i]));
-		        c["init"](this);
-		    }
+        if (mixinList && mixinList.length > 0)
+        {
+            var n:int = mixinList.length;
+            for (var i:int = 0; i < n; ++i)
+            {
+                // trace("initializing mixin " + mixinList[i]);
+                var c:Class = Class(getDefinitionByName(mixinList[i]));
+                c["init"](this);
+            }
         }
         
-		c = Singleton.getClass("mx.managers::IActiveWindowManager");
-		if (c)
-		{
+        c = Singleton.getClass("mx.managers::IActiveWindowManager");
+        if (c)
+        {
             registerImplementation("mx.managers::IActiveWindowManager", new c(this));
         }
 
         // depends on having IActiveWindowManager installed first
-		c = Singleton.getClass("mx.managers::IMarshalSystemManager");
-		if (c)
-		{
+        c = Singleton.getClass("mx.managers::IMarshalSystemManager");
+        if (c)
+        {
             registerImplementation("mx.managers::IMarshalSystemManager", new c(this));
         }
 
@@ -2675,48 +2675,48 @@ public class SystemManager extends MovieClip
     
     private function mouseWheelHandler(e:MouseEvent):void
     {
-    	if (!e.cancelable)
-    	{
-    		e.stopImmediatePropagation();
-    		var cancelableEvent:MouseEvent = 
-    			new MouseEvent(e.type, e.bubbles, true, e.localX, e.localY, e.relatedObject, 
-    						   e.ctrlKey, e.altKey, e.shiftKey, e.buttonDown, e.delta);
-    		e.target.dispatchEvent(cancelableEvent);			   
-    	}
+        if (!e.cancelable)
+        {
+            e.stopImmediatePropagation();
+            var cancelableEvent:MouseEvent = 
+                new MouseEvent(e.type, e.bubbles, true, e.localX, e.localY, e.relatedObject, 
+                               e.ctrlKey, e.altKey, e.shiftKey, e.buttonDown, e.delta);
+            e.target.dispatchEvent(cancelableEvent);               
+        }
     }
 
-	private function extraFrameHandler(event:Event = null):void
-	{
-	    var frameList:Object = info()["frames"];
+    private function extraFrameHandler(event:Event = null):void
+    {
+        var frameList:Object = info()["frames"];
                         
-	    if (frameList && frameList[currentLabel])
+        if (frameList && frameList[currentLabel])
         {
-	        var c:Class = Class(getDefinitionByName(frameList[currentLabel]));
-	        c["frame"](this);
+            var c:Class = Class(getDefinitionByName(frameList[currentLabel]));
+            c["frame"](this);
         }
 
-	    deferredNextFrame();
-	}
+        deferredNextFrame();
+    }
     
     /**
-	 *  @private
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	private function nextFrameTimerHandler(event:TimerEvent):void
-	{
-	    if (currentFrame + 1 <= framesLoaded)
+     */
+    private function nextFrameTimerHandler(event:TimerEvent):void
+    {
+        if (currentFrame + 1 <= framesLoaded)
         {
-	        nextFrame();
+            nextFrame();
             nextFrameTimer.removeEventListener(TimerEvent.TIMER, nextFrameTimerHandler);
-        	// stop the timer
-        	nextFrameTimer.reset();
+            // stop the timer
+            nextFrameTimer.reset();
                 }
             }
-	
+    
 
     /**
      *  @private
@@ -2868,13 +2868,13 @@ public class SystemManager extends MovieClip
     }
 
     /**
-	 *  @private
-	 *  Keep track of the size and position of the stage.
-	 */
-	private function Stage_resizeHandler(event:Event = null):void
-	{	
-		if (isDispatchingResizeEvent)
-			return;
+     *  @private
+     *  Keep track of the size and position of the stage.
+     */
+    private function Stage_resizeHandler(event:Event = null):void
+    {   
+        if (isDispatchingResizeEvent)
+            return;
 
         var w:Number = 0;
         var h:Number = 0;
@@ -2905,10 +2905,10 @@ public class SystemManager extends MovieClip
         {
             if (stage)
             {
-				w = stage.stageWidth;
-				h = stage.stageHeight;
+                w = stage.stageWidth;
+                h = stage.stageHeight;
                 align = stage.align;
-	        }
+            }
         }
         catch (error:SecurityError)
         {
@@ -2923,152 +2923,152 @@ public class SystemManager extends MovieClip
             }
         }
         
-		var x:Number = (m - w) / 2;
-		var y:Number = (n - h) / 2;
-		
-		if (align == StageAlign.TOP)
-		{
-			y = 0;
-		}
-		else if (align == StageAlign.BOTTOM)
-		{
-			y = n - h;
-		}
-		else if (align == StageAlign.LEFT)
-		{
-			x = 0;
-		}
-		else if (align == StageAlign.RIGHT)
-		{
-			x = m - w;
-		}
-		else if (align == StageAlign.TOP_LEFT || align == "LT") // player bug 125020
-		{
-			y = 0;
-			x = 0;
-		}
-		else if (align == StageAlign.TOP_RIGHT)
-		{
-			y = 0;
-			x = m - w;
-		}
-		else if (align == StageAlign.BOTTOM_LEFT)
-		{
-			y = n - h;
-			x = 0;
-		}
-		else if (align == StageAlign.BOTTOM_RIGHT)
-		{
-			y = n - h;
-			x = m - w;
-		}
-		
-		if (!_screen)
-			_screen = new Rectangle();
-		_screen.x = x;
-		_screen.y = y;
-		_screen.width = w;
-		_screen.height = h;
+        var x:Number = (m - w) / 2;
+        var y:Number = (n - h) / 2;
+        
+        if (align == StageAlign.TOP)
+        {
+            y = 0;
+        }
+        else if (align == StageAlign.BOTTOM)
+        {
+            y = n - h;
+        }
+        else if (align == StageAlign.LEFT)
+        {
+            x = 0;
+        }
+        else if (align == StageAlign.RIGHT)
+        {
+            x = m - w;
+        }
+        else if (align == StageAlign.TOP_LEFT || align == "LT") // player bug 125020
+        {
+            y = 0;
+            x = 0;
+        }
+        else if (align == StageAlign.TOP_RIGHT)
+        {
+            y = 0;
+            x = m - w;
+        }
+        else if (align == StageAlign.BOTTOM_LEFT)
+        {
+            y = n - h;
+            x = 0;
+        }
+        else if (align == StageAlign.BOTTOM_RIGHT)
+        {
+            y = n - h;
+            x = m - w;
+        }
+        
+        if (!_screen)
+            _screen = new Rectangle();
+        _screen.x = x;
+        _screen.y = y;
+        _screen.width = w;
+        _screen.height = h;
 
-		if (isStageRoot)
-		{
-			_width = stage.stageWidth;
-			_height = stage.stageHeight;
-		}
+        if (isStageRoot)
+        {
+            _width = stage.stageWidth;
+            _height = stage.stageHeight;
+        }
 
-		if (event)
-		{
-			resizeMouseCatcher();
-			isDispatchingResizeEvent = true;
-			dispatchEvent(event);
-			isDispatchingResizeEvent = false;
-		}
-	}
+        if (event)
+        {
+            resizeMouseCatcher();
+            isDispatchingResizeEvent = true;
+            dispatchEvent(event);
+            isDispatchingResizeEvent = false;
+        }
+    }
 
-	/**
+    /**
      *  @private
-	 * 
-	 * Get the index of an object in a given child list.
-	 * 
-	 * @return index of f in childList, -1 if f is not in childList.
-	 */ 
-	private static function getChildListIndex(childList:IChildList, f:Object):int
-	{
-		var index:int = -1;
-		try
-		{
-			index = childList.getChildIndex(DisplayObject(f)); 
-		}
-		catch (e:ArgumentError)
-		{
-			// index has been preset to -1 so just continue.	
-		}
-		
-		return index; 
-	}
+     * 
+     * Get the index of an object in a given child list.
+     * 
+     * @return index of f in childList, -1 if f is not in childList.
+     */ 
+    private static function getChildListIndex(childList:IChildList, f:Object):int
+    {
+        var index:int = -1;
+        try
+        {
+            index = childList.getChildIndex(DisplayObject(f)); 
+        }
+        catch (e:ArgumentError)
+        {
+            // index has been preset to -1 so just continue.    
+        }
+        
+        return index; 
+    }
 
-	/**
-	 *  @private
-	 *  Track mouse moves in order to determine idle
-	 */
-	private function mouseMoveHandler(event:MouseEvent):void
-	{
-		// Reset the idle counter.
-		idleCounter = 0;
-	}
+    /**
+     *  @private
+     *  Track mouse moves in order to determine idle
+     */
+    private function mouseMoveHandler(event:MouseEvent):void
+    {
+        // Reset the idle counter.
+        idleCounter = 0;
+    }
 
-	/**
-	 *  @private
-	 *  Track mouse moves in order to determine idle.
-	 */
-	private function mouseUpHandler(event:MouseEvent):void
-	{
-		// Reset the idle counter.
-		idleCounter = 0;
-	}
+    /**
+     *  @private
+     *  Track mouse moves in order to determine idle.
+     */
+    private function mouseUpHandler(event:MouseEvent):void
+    {
+        // Reset the idle counter.
+        idleCounter = 0;
+    }
 
-	/**
-	 *  @private
-	 *  Called every IDLE_INTERVAL after the first listener
-	 *  registers for 'idle' events.
-	 *  After IDLE_THRESHOLD goes by without any user activity,
-	 *  we dispatch an 'idle' event.
-	 */
-	private function idleTimer_timerHandler(event:TimerEvent):void
-	{
-		idleCounter++;
+    /**
+     *  @private
+     *  Called every IDLE_INTERVAL after the first listener
+     *  registers for 'idle' events.
+     *  After IDLE_THRESHOLD goes by without any user activity,
+     *  we dispatch an 'idle' event.
+     */
+    private function idleTimer_timerHandler(event:TimerEvent):void
+    {
+        idleCounter++;
 
-		if (idleCounter * IDLE_INTERVAL > IDLE_THRESHOLD)
-			dispatchEvent(new FlexEvent(FlexEvent.IDLE));
-	}
+        if (idleCounter * IDLE_INTERVAL > IDLE_THRESHOLD)
+            dispatchEvent(new FlexEvent(FlexEvent.IDLE));
+    }
 
-	
     
-	// fake out mouseX/mouseY
-	mx_internal var _mouseX:*;
-	mx_internal var _mouseY:*;
+    
+    // fake out mouseX/mouseY
+    mx_internal var _mouseX:*;
+    mx_internal var _mouseY:*;
 
 
-	/**
-	 *  @private
-	 */
-	override public function get mouseX():Number
-	{
-		if (_mouseX === undefined)
-			return super.mouseX;
-		return _mouseX;
-	}
+    /**
+     *  @private
+     */
+    override public function get mouseX():Number
+    {
+        if (_mouseX === undefined)
+            return super.mouseX;
+        return _mouseX;
+    }
 
-	/**
-	 *  @private
-	 */
-	override public function get mouseY():Number
-	{
-		if (_mouseY === undefined)
-			return super.mouseY;
-		return _mouseY;
-	}
-	
+    /**
+     *  @private
+     */
+    override public function get mouseY():Number
+    {
+        if (_mouseY === undefined)
+            return super.mouseY;
+        return _mouseY;
+    }
+    
     
     private function getTopLevelSystemManager(parent:DisplayObject):ISystemManager
     {
@@ -3091,29 +3091,29 @@ public class SystemManager extends MovieClip
     }
 
     /**
-	 * Override parent property to handle the case where the parent is in
-	 * a differnt sandbox. If the parent is in the same sandbox it is returned.
-	 * If the parent is in a diffent sandbox, then null is returned.
-	 * 
+     * Override parent property to handle the case where the parent is in
+     * a differnt sandbox. If the parent is in the same sandbox it is returned.
+     * If the parent is in a diffent sandbox, then null is returned.
+     * 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */	
-	override public function get parent():DisplayObjectContainer
-	{
-		try
-		{
-			return super.parent;
-		}	
-		catch (e:SecurityError) 
-		{
-			// trace("parent: ignoring security error");
-		}
-		
-		return null;
-	}
+     */ 
+    override public function get parent():DisplayObjectContainer
+    {
+        try
+        {
+            return super.parent;
+        }   
+        catch (e:SecurityError) 
+        {
+            // trace("parent: ignoring security error");
+        }
+        
+        return null;
+    }
 
     
     /**
@@ -3128,80 +3128,80 @@ public class SystemManager extends MovieClip
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function getTopLevelRoot():DisplayObject
-	{
-		// work our say up the parent chain to the root. This way we
-		// don't have to rely on this object being added to the stage.
-		try
-		{
-			var sm:ISystemManager = this;
-			if (sm.topLevelSystemManager)
-				sm = sm.topLevelSystemManager;
-			var parent:DisplayObject = DisplayObject(sm).parent;
+     */
+    public function getTopLevelRoot():DisplayObject
+    {
+        // work our say up the parent chain to the root. This way we
+        // don't have to rely on this object being added to the stage.
+        try
+        {
+            var sm:ISystemManager = this;
+            if (sm.topLevelSystemManager)
+                sm = sm.topLevelSystemManager;
+            var parent:DisplayObject = DisplayObject(sm).parent;
             var lastParent:DisplayObject = DisplayObject(sm);
-			while (parent)
-			{
-				if (parent is Stage)
-					return lastParent;
-				lastParent = parent; 
-				parent = parent.parent;				
-			}
-		}
-		catch (error:SecurityError)
-		{
-		}		
-		
-		return null;
-	}
+            while (parent)
+            {
+                if (parent is Stage)
+                    return lastParent;
+                lastParent = parent; 
+                parent = parent.parent;             
+            }
+        }
+        catch (error:SecurityError)
+        {
+        }       
+        
+        return null;
+    }
 
-	/**
+    /**
      *  Go up the parent chain to get the top level system manager in this 
      *  SecurityDomain.
-	 * 
+     * 
      *  @return The root system manager in this SecurityDomain.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
-	 */
-	public function getSandboxRoot():DisplayObject
-	{
-		// work our say up the parent chain to the root. This way we
-		// don't have to rely on this object being added to the stage.
-		var sm:ISystemManager = this;
+     */
+    public function getSandboxRoot():DisplayObject
+    {
+        // work our say up the parent chain to the root. This way we
+        // don't have to rely on this object being added to the stage.
+        var sm:ISystemManager = this;
 
-		try
-		{
-			if (sm.topLevelSystemManager)
-				sm = sm.topLevelSystemManager;
-			var parent:DisplayObject = DisplayObject(sm).parent;
+        try
+        {
+            if (sm.topLevelSystemManager)
+                sm = sm.topLevelSystemManager;
+            var parent:DisplayObject = DisplayObject(sm).parent;
             if (parent is Stage)
                 return DisplayObject(sm);
             // test to see if parent is a Bootstrap
             if (parent && !parent.dispatchEvent(new Event("mx.managers.SystemManager.isBootstrapRoot", false, true)))
                 return this;
             var lastParent:DisplayObject = this;
-			while (parent)
-			{
-				if (parent is Stage)
-					return lastParent;
-				// test to see if parent is a Bootstrap
-				if (!parent.dispatchEvent(new Event("mx.managers.SystemManager.isBootstrapRoot", false, true)))
-					return lastParent;
-					
-			    // Test if the childAllowsParent so we know there is mutual trust between
-			    // the sandbox root and this sm.
-			    // The parentAllowsChild is taken care of by the player because it returns null
-			    // for the parent if we do not have access.
-				if (parent is Loader)
-				{
-				    var loader:Loader = Loader(parent);
-				    var loaderInfo:LoaderInfo = loader.contentLoaderInfo;
-				    if (!loaderInfo.childAllowsParent)
-				        return loaderInfo.content;
-				}
+            while (parent)
+            {
+                if (parent is Stage)
+                    return lastParent;
+                // test to see if parent is a Bootstrap
+                if (!parent.dispatchEvent(new Event("mx.managers.SystemManager.isBootstrapRoot", false, true)))
+                    return lastParent;
+                    
+                // Test if the childAllowsParent so we know there is mutual trust between
+                // the sandbox root and this sm.
+                // The parentAllowsChild is taken care of by the player because it returns null
+                // for the parent if we do not have access.
+                if (parent is Loader)
+                {
+                    var loader:Loader = Loader(parent);
+                    var loaderInfo:LoaderInfo = loader.contentLoaderInfo;
+                    if (!loaderInfo.childAllowsParent)
+                        return loaderInfo.content;
+                }
                 
                 // If an object is listening for system manager request we assume it is a sandbox
                 // root. If not, don't assign lastParent to this parent because it may be a
@@ -3210,56 +3210,56 @@ public class SystemManager extends MovieClip
 
                 if (parent.hasEventListener("systemManagerRequest" 
                             ))
-				lastParent = parent; 
-				parent = parent.parent;				
-			}
-		}
+                lastParent = parent; 
+                parent = parent.parent;             
+            }
+        }
         catch (error:Error)
-		{
+        {
             // Either we don't have security access to a parent or
             // the swf is unloaded and loaderInfo.childAllowsParent is throwing Error #2099.
-		}		
-		
-		return lastParent != null ? lastParent : DisplayObject(sm);
-	}
+        }       
+        
+        return lastParent != null ? lastParent : DisplayObject(sm);
+    }
     
     /**
      * @private
-	 *  A map of fully-qualified interface names,
-	 *  such as "mx.managers::IPopUpManager",
-	 *  to instances,
+     *  A map of fully-qualified interface names,
+     *  such as "mx.managers::IPopUpManager",
+     *  to instances,
      */
     private var implMap:Object = {};
         
     /**
      * @private
-	 *  Adds an interface-name-to-implementation-class mapping to the registry,
-	 *  if a class hasn't already been registered for the specified interface.
-	 *  The class must implement a getInstance() method which returns
-	 *  its singleton instance.
+     *  Adds an interface-name-to-implementation-class mapping to the registry,
+     *  if a class hasn't already been registered for the specified interface.
+     *  The class must implement a getInstance() method which returns
+     *  its singleton instance.
      */
     public function registerImplementation(interfaceName:String,
-										 impl:Object):void
+                                         impl:Object):void
     {
         var c:Object = implMap[interfaceName];
-		if (!c)
+        if (!c)
             implMap[interfaceName] = impl;
     }
         
     /**
      * @private
-	 *  Returns the singleton instance of the implementation class
-	 *  that was registered for the specified interface,
-	 *  by looking up the class in the registry
-	 *  and calling its getInstance() method.
+     *  Returns the singleton instance of the implementation class
+     *  that was registered for the specified interface,
+     *  by looking up the class in the registry
+     *  and calling its getInstance() method.
      * 
-	 *  This method should not be called at static initialization time,
-	 *  because the factory class may not have called registerClass() yet.
+     *  This method should not be called at static initialization time,
+     *  because the factory class may not have called registerClass() yet.
      */
     public function getImplementation(interfaceName:String):Object
     {
         var c:Object = implMap[interfaceName];
-		return c;
+        return c;
     }
 
     /**
@@ -3274,9 +3274,9 @@ public class SystemManager extends MovieClip
     {
         if (hasEventListener("getVisibleApplicationRect"))
         {
-		    var request:Request = new Request("getVisibleApplicationRect", false, true);
-		    if (!dispatchEvent(request)) 
-			    return Rectangle(request.value);
+            var request:Request = new Request("getVisibleApplicationRect", false, true);
+            if (!dispatchEvent(request)) 
+                return Rectangle(request.value);
         }
         
         if (!bounds)
@@ -3307,9 +3307,9 @@ public class SystemManager extends MovieClip
     {
         if (hasEventListener("deployMouseShields"))
         {
-		    var dynamicEvent:DynamicEvent = new DynamicEvent("deployMouseShields");
-		    dynamicEvent.deploy = deploy;
-		    dispatchEvent(dynamicEvent);
+            var dynamicEvent:DynamicEvent = new DynamicEvent("deployMouseShields");
+            dynamicEvent.deploy = deploy;
+            dispatchEvent(dynamicEvent);
         }
     }
 
