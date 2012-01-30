@@ -1035,6 +1035,9 @@ public class FocusManager implements IFocusManager
     /**
      *  Returns a String representation of the component hosting the FocusManager object, 
      *  with the String <code>".focusManager"</code> appended to the end of the String.
+     *
+     *  @return Returns a String representation of the component hosting the FocusManager object, 
+     *  with the String <code>".focusManager"</code> appended to the end of the String.
      */
     public function toString():String
     {
