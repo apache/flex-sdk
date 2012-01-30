@@ -24,7 +24,7 @@ import spark.components.View;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
- *  Actionscript based skin for SkinnableContainer.
+ *  ActionScript-based skin for SkinnableContainer.
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10.1
@@ -118,7 +118,7 @@ public class SkinnableContainerSkin extends MobileSkin
         measuredWidth = contentGroup.getPreferredBoundsWidth();
         measuredHeight = contentGroup.getPreferredBoundsHeight();
     }
-	
+    
     /**
      *  @private
      */
