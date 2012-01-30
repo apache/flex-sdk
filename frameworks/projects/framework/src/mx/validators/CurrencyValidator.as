@@ -347,6 +347,20 @@ public class CurrencyValidator extends Validator
                     input = left + right;
                 }
             }
+			
+            // Translate the value back into standard english
+            // If the decimalSeperator is not '.' we need to change it to '.' 
+            // so that the number casting will work properly
+            if (validator.decimalSeparator != '.')
+            {
+                var dIndex:int = input.indexOf( validator.decimalSeparator );
+                if (dIndex != -1)
+                { 
+                    var dLeft:String = input.substring(0, dIndex);
+                    var dRight:String = input.substring(dIndex + 1);
+                    input = dLeft + '.' + dRight;
+                }
+            }
 
             // Check bounds
 
