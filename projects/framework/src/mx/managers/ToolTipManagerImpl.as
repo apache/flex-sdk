@@ -1342,7 +1342,11 @@ public class ToolTipManagerImpl extends EventDispatcher
                                           context.systemManager as ISystemManager:
                                           FlexGlobals.topLevelApplication.systemManager as ISystemManager;
 
-		
+        if (context is IFlexModule)
+            toolTip.moduleFactory = IFlexModule(context).moduleFactory;
+        else
+            toolTip.moduleFactory = sm;
+        
         var e:DynamicEvent;
         if (hasEventListener("addChild"))
         {
