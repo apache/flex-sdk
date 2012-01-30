@@ -3052,7 +3052,11 @@ public class UIComponent extends FlexSprite
         _layer = value;
         
         if (_layer)
+        {
             _layer.addEventListener("layerPropertyChange", layer_PropertyChange, false, 0, true);
+            $alpha = _alpha * _layer.computedAlpha;
+            $visible = _visible && _layer.computedVisibility;
+        }
     }
         
     //--------------------------------------------------------------------------
@@ -10958,14 +10962,14 @@ public class UIComponent extends FlexSprite
     {
         switch (event.property)
         {
-            case "visible":
+            case "computedVisibility":
             {
                 var newValue:Boolean = (event.newValue && _visible);            
                 if (newValue != $visible)
                     $visible = newValue;
                 break;
             }
-            case "alpha":
+            case "computedAlpha":
             {
                 var newAlpha:Number = Number(event.newValue) * _alpha;
                 if (newAlpha != $alpha)
