@@ -810,8 +810,9 @@ public class View extends Group implements IDataRenderer
     {
     	super.initialize();
     
+        // Create a weak listener so stage doesn't hold a reference to the view
         systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
-            stage_orientationChangeHandler);
+            stage_orientationChangeHandler, false, 0, true);
         
         setCurrentState(getCurrentViewState(), false);
     }
