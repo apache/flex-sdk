@@ -17,7 +17,9 @@ import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.FocusEvent;
+import flash.system.ApplicationDomain;
 import flash.utils.Dictionary;
+
 import mx.core.ApplicationGlobals;
 import mx.core.EventPriority;
 import mx.core.IDeferredInstantiationUIComponent;
@@ -240,10 +242,19 @@ public class EffectManager extends EventDispatcher
 		{
 		}
 		
-		var effectClass:Class =
-			Class(target.systemManager.getDefinitionByName(
-											"mx.effects." + value));
-		
+        var effectClass:Class;      
+        if (target is UIComponent && target.moduleFactory)
+        {
+            // only UIComponents have moduleFactories
+            var appDomain:ApplicationDomain = 
+                target.moduleFactory.info()["currentDomain"];
+            if (appDomain.hasDefinition("mx.effects." + value))
+                effectClass = Class(appDomain.getDefinition("mx.effects." + value));
+        }
+        if (!effectClass)
+            effectClass = Class(target.systemManager.getDefinitionByName(
+                "mx.effects." + value));
+
 		if (effectClass)
 			return new effectClass(target);
 		
