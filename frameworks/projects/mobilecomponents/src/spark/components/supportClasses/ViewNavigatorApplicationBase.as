@@ -80,7 +80,25 @@ public class MobileApplicationBase extends Application
     //  Properties
     //
     //--------------------------------------------------------------------------
-
+    
+    //----------------------------------
+    //  landscapeOrientation
+    //----------------------------------
+    
+    /**
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    // TODO (chiedozi): Do we need to support unknown orientation?
+    public function get landscapeOrientation():Boolean
+    {
+        return systemManager.stage.deviceOrientation == StageOrientation.ROTATED_LEFT ||
+            systemManager.stage.deviceOrientation == StageOrientation.ROTATED_RIGHT;
+    }
+    
     //----------------------------------
     //  persistenceManager
     //----------------------------------
@@ -102,11 +120,8 @@ public class MobileApplicationBase extends Application
         if (value == _persistenceManager)
             return;
         
-        if (_persistenceManager && _persistenceManager.enabled)
-        {
+        if (_persistenceManager)
             _persistenceManager.flush();
-            _persistenceManager.enabled = false;
-        }
         
         _persistenceManager = value;
     }
@@ -146,7 +161,7 @@ public class MobileApplicationBase extends Application
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected function addApplicationListeners():void
+    private function addApplicationListeners():void
     {
         // Add device event listeners
         systemManager.stage.addEventListener(KeyboardEvent.KEY_DOWN, deviceKeyDownHandler);
@@ -270,7 +285,7 @@ public class MobileApplicationBase extends Application
         var ns:Namespace = appDescriptor.namespace();
         
         // TODO (chiedozi): See if reserving these keys is bad
-        persistenceManager.setProperty("timestamp", new Date().getMilliseconds());
+        persistenceManager.setProperty("timestamp", new Date().getTime());
         persistenceManager.setProperty("applicationVersion", 
                                         appDescriptor.ns::versionNumber.toString());
     }
@@ -298,27 +313,9 @@ public class MobileApplicationBase extends Application
     }
     
     /**
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
      */ 
-    // TODO (chiedozi): Do we need to support unknown orientation?
-    public function get landscapeOrientation():Boolean
-    {
-        return systemManager.stage.deviceOrientation == StageOrientation.ROTATED_LEFT ||
-            systemManager.stage.deviceOrientation == StageOrientation.ROTATED_RIGHT;
-    }
-    
-    /**
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */ 
-    protected function deviceKeyDownHandler(event:KeyboardEvent):void
+    private function deviceKeyDownHandler(event:KeyboardEvent):void
     {
         var key:uint = event.keyCode;
         
@@ -329,13 +326,9 @@ public class MobileApplicationBase extends Application
     }
     
     /**
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
      */ 
-    protected function deviceKeyUpHandler(event:KeyboardEvent):void
+    private function deviceKeyUpHandler(event:KeyboardEvent):void
     {
         var key:uint = event.keyCode;
         
