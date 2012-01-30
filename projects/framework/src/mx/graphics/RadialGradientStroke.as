@@ -16,6 +16,11 @@ import flash.geom.Matrix;
  *  @see mx.graphics.GradientEntry
  *  @see mx.graphics.RadialGradient 
  *  @see flash.display.Graphics
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RadialGradientStroke extends GradientStroke implements IStroke
 {
@@ -76,6 +81,11 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
      *  <code>thickness</code> of 10 pixels, the miter is cut off at 25 pixels. 
      *  This parameter is optional,
      *  with a default value of <code>0</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RadialGradientStroke(weight:Number = 1,
                                          pixelHinting:Boolean = false,
@@ -124,6 +134,11 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
      *  of the bounding Rectangle.</p>
      *
      *  @default 0.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get focalPointRatio():Number
     {
@@ -156,6 +171,11 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
     
     /**
      *  The vertical scale of the gradient transform, which defines the height of the (unrotated) gradient
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scaleY():Number
     {
@@ -191,6 +211,11 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	private static var commonMatrix:Matrix = new Matrix();
 
@@ -200,6 +225,11 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
      *  @param g The graphics context where the stroke is drawn.
      *  
      *  @param rc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function draw(g:Graphics, rc:Rectangle):void
     {
