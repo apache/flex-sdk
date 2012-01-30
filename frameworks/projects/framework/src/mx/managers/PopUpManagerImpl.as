@@ -45,18 +45,16 @@ import mx.effects.Fade;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
-import mx.events.ModalWindowRequest;
-import mx.events.PopUpRequest;
-import mx.events.SizeRequest;
+import mx.events.MoveEvent;
+import mx.events.SWFBridgeRequest;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
 import mx.managers.SystemManagerProxy;
 import mx.styles.IStyleClient;
 import mx.utils.NameUtil;
-import mx.events.ModalWindowRequest;
-import mx.events.SandboxRootRequest;
+import mx.events.InterManagerRequest;
 import mx.core.UIComponent;
-import mx.events.SandboxRootMouseEvent;
+import mx.events.SandboxMouseEvent;
 
 use namespace mx_internal;
 
@@ -124,9 +122,9 @@ public class PopUpManagerImpl implements IPopUpManager
         
         var sm:ISystemManager = ISystemManager(SystemManagerGlobals.topLevelSystemManagers[0]);
         
-        sm.addEventListener(ModalWindowRequest.CREATE_MODAL_WINDOW_REQUEST, createModalWindowRequestHandler, false, 0, true);
-        sm.addEventListener(ModalWindowRequest.SHOW_MODAL_WINDOW_REQUEST, showModalWindowRequest, false, 0, true);
-        sm.addEventListener(ModalWindowRequest.HIDE_MODAL_WINDOW_REQUEST, hideModalWindowRequest, false, 0, true);
+        sm.addEventListener(SWFBridgeRequest.CREATE_MODAL_WINDOW_REQUEST, createModalWindowRequestHandler, false, 0, true);
+        sm.addEventListener(SWFBridgeRequest.SHOW_MODAL_WINDOW_REQUEST, showModalWindowRequest, false, 0, true);
+        sm.addEventListener(SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST, hideModalWindowRequest, false, 0, true);
     }
 
     //--------------------------------------------------------------------------
@@ -281,17 +279,17 @@ public class PopUpManagerImpl implements IPopUpManager
 		// added to the top-level system manager's children, not
 		// the popup itself.
 		var sbRoot:DisplayObject = sm.getSandboxRoot();
-		var request:PopUpRequest = null;
+		var request:SWFBridgeRequest = null;
 		if (sm.useSWFBridge())
 		{
 			if (sbRoot != sm)
 			{
 				smp = new SystemManagerProxy(sm);
-				request = new PopUpRequest(PopUpRequest.ADD_POP_UP_REQUEST, false, false,
-										  DisplayObject(smp),
-										  parent,
-										  modal,
-										  childList);
+				request = new SWFBridgeRequest(SWFBridgeRequest.ADD_POP_UP_REQUEST, false, false, null,
+													{ window: DisplayObject(smp),
+														parent: parent,
+														modal: modal,
+														childList: childList});
 				request.requestor = sm.swfBridgeGroup.parentBridge;
 				sm.swfBridgeGroup.parentBridge.dispatchEvent(request);
 			}
@@ -335,9 +333,9 @@ public class PopUpManagerImpl implements IPopUpManager
 		// is hosting the popup.
 		if (!sm.isTopLevelRoot() && sbRoot && sm == sbRoot)
 		{
-			request = new PopUpRequest(PopUpRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, false, false, DisplayObject(window));
+			request = new SWFBridgeRequest(SWFBridgeRequest.ADD_POP_UP_PLACE_HOLDER_REQUEST, false, false, null, { window: DisplayObject(window)});
 			request.requestor = sm.swfBridgeGroup.parentBridge;
-			request.placeHolderId = NameUtil.displayObjectToString(DisplayObject(window));
+			request.data.placeHolderId = NameUtil.displayObjectToString(DisplayObject(window));
 			sm.dispatchEvent(request);
 		} 
 		
@@ -460,7 +458,7 @@ public class PopUpManagerImpl implements IPopUpManager
             // Otherwise the alert will float over the entire application.
             if (systemManager != sbRoot)
             {
-                var request:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.SYSTEM_MANAGER_REQUEST, false, false,
+                var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, false, false,
                                                             "isTopLevelRoot");
                 sbRoot.dispatchEvent(request);
                 isTopLevelRoot = Boolean(request.value);
@@ -480,7 +478,7 @@ public class PopUpManagerImpl implements IPopUpManager
             {
                 if (systemManager != sbRoot)
                 {
-                    request = new SandboxRootRequest(SandboxRootRequest.SYSTEM_MANAGER_REQUEST, false, false,
+                    request = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, false, false,
                                             "getVisibleApplicationRect"); 
                     sbRoot.dispatchEvent(request);
                     rect = Rectangle(request.value);
@@ -681,6 +679,11 @@ public class PopUpManagerImpl implements IPopUpManager
             updateModalMask(realSm, modalWindow, o.exclude, o.excludeRect, o.modalMask);    
             modalWindow.mask = o.modalMask;
             childrenList.addChild(o.modalMask);
+            
+            // update the modal window mask when the size or position of the area 
+            // we are excluding changes.
+            o.exclude.addEventListener(Event.RESIZE, o.resizeHandler);
+            o.exclude.addEventListener(MoveEvent.MOVE, o.resizeHandler);
         }
         
         // a modal mousedownoutside handler just dispatches the event
@@ -714,7 +717,7 @@ public class PopUpManagerImpl implements IPopUpManager
                 o.modalTransparencyBlur = popupStyleClient.getStyle("modalTransparencyBlur");
             }
 
-            dispatchModalWindowRequest(ModalWindowRequest.CREATE_MODAL_WINDOW_REQUEST, realSm, sbRoot, o, visibleFlag);
+            dispatchModalWindowRequest(SWFBridgeRequest.CREATE_MODAL_WINDOW_REQUEST, realSm, sbRoot, o, visibleFlag);
         }            
     }
     
@@ -729,23 +732,22 @@ public class PopUpManagerImpl implements IPopUpManager
         // then we don't need to send a modal request. 
         if (!o.isRemoteModalWindow && sm != sbRoot)
         {
-            var request:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.SYSTEM_MANAGER_REQUEST, false, false,
+            var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, false, false,
                                                         "isTopLevelRoot");
             sbRoot.dispatchEvent(request);
             if (Boolean(request.value))
                 return;
         }
-        var modalRequest:ModalWindowRequest = new ModalWindowRequest(type, false, false,
-                                                                 !o.isRemoteModalWindow && sm != sbRoot,     
-                                                                 visibleFlag,
-                                                                 false,
-                                                                 o.modalTransparencyDuration,
-                                                                 o.modalTransparency,
-                                                                 o.modalTransparencyColor,
-                                                                 o.modalTransparencyBlur);
+        var modalRequest:SWFBridgeRequest = new SWFBridgeRequest(type, false, false, null,
+												{ skip: !o.isRemoteModalWindow && sm != sbRoot,     
+													show: visibleFlag,
+													remove: false,
+													transparencyDuration: o.modalTransparencyDuration,
+													transparency: o.modalTransparency,
+													transparencyColor: o.modalTransparencyColor,
+													transparencyBlur: o.modalTransparencyBlur});
         var bridge:IEventDispatcher = sm.swfBridgeGroup.parentBridge;; 
         modalRequest.requestor = bridge;
-        modalRequest.data = null;
         bridge.dispatchEvent(modalRequest);
     }
     
@@ -892,7 +894,7 @@ public class PopUpManagerImpl implements IPopUpManager
         showModalWindowInternal(o, duration, alpha, transparencyColor, blurAmount, sm, sbRoot);
         
         if (sendRequest && sm.useSWFBridge())
-            dispatchModalWindowRequest(ModalWindowRequest.SHOW_MODAL_WINDOW_REQUEST, sm, sbRoot, o, true);
+            dispatchModalWindowRequest(SWFBridgeRequest.SHOW_MODAL_WINDOW_REQUEST, sm, sbRoot, o, true);
     }
     
     /**
@@ -943,7 +945,7 @@ public class PopUpManagerImpl implements IPopUpManager
                 
                 if (sm != sbRoot)
                 {
-                    var applicationRequest:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.SYSTEM_MANAGER_REQUEST,
+                    var applicationRequest:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST,
                                                                        false, false,
                                                                        "application",
                                                                        sbRootApp);
@@ -978,6 +980,12 @@ public class PopUpManagerImpl implements IPopUpManager
      */
     private function hideModalWindow(o:PopUpData, destroy:Boolean = false):void
     {
+        if (destroy && o.exclude)
+        {
+            o.exclude.removeEventListener(Event.RESIZE, o.resizeHandler);
+            o.exclude.removeEventListener(MoveEvent.MOVE, o.resizeHandler);
+        }
+
         const popUpStyleClient:IStyleClient = o.owner as IStyleClient;
 
         var duration:Number = 0;
@@ -1031,17 +1039,17 @@ public class PopUpManagerImpl implements IPopUpManager
             // then we don't need to send a modal request. 
             if (!o.isRemoteModalWindow && sm != sbRoot)
             {
-                var request:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.SYSTEM_MANAGER_REQUEST, false, false,
+                var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, false, false,
                                                             "isTopLevelRoot");
                 sbRoot.dispatchEvent(request);
                 if (Boolean(request.value))
                     return;
             }
             
-            var modalRequest:ModalWindowRequest = new ModalWindowRequest(ModalWindowRequest.HIDE_MODAL_WINDOW_REQUEST, false, false,
-                                                                         !o.isRemoteModalWindow && sm != sbRoot, 
-                                                                         false,
-                                                                         destroy);
+            var modalRequest:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.HIDE_MODAL_WINDOW_REQUEST, false, false, null,
+														{ skip: !o.isRemoteModalWindow && sm != sbRoot, 
+															show: false,
+															remove: destroy});
             var bridge:IEventDispatcher = sm.swfBridgeGroup.parentBridge;
             var target:IEventDispatcher;
             modalRequest.requestor = bridge;
@@ -1101,8 +1109,8 @@ public class PopUpManagerImpl implements IPopUpManager
             sbRoot.addEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
         }
         
-        sbRoot.addEventListener(SandboxRootMouseEvent.MOUSE_DOWN_SOMEWHERE,  o.marshalMouseOutsideHandler);
-        sbRoot.addEventListener(SandboxRootMouseEvent.MOUSE_WHEEL_SOMEWHERE, o.marshalMouseOutsideHandler, true);
+        sbRoot.addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE,  o.marshalMouseOutsideHandler);
+        sbRoot.addEventListener(SandboxMouseEvent.MOUSE_WHEEL_SOMEWHERE, o.marshalMouseOutsideHandler, true);
     }
     
     /**
@@ -1123,8 +1131,8 @@ public class PopUpManagerImpl implements IPopUpManager
             sbRoot.removeEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
         }
 
-        sbRoot.removeEventListener(SandboxRootMouseEvent.MOUSE_DOWN_SOMEWHERE,  o.marshalMouseOutsideHandler);
-        sbRoot.removeEventListener(SandboxRootMouseEvent.MOUSE_WHEEL_SOMEWHERE, o.marshalMouseOutsideHandler, true);
+        sbRoot.removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE,  o.marshalMouseOutsideHandler);
+        sbRoot.removeEventListener(SandboxMouseEvent.MOUSE_WHEEL_SOMEWHERE, o.marshalMouseOutsideHandler, true);
     }
 
     //--------------------------------------------------------------------------
@@ -1188,12 +1196,12 @@ public class PopUpManagerImpl implements IPopUpManager
      */ 
     private function createModalWindowRequestHandler(event:Event):void
     {
-        var request:ModalWindowRequest;
+        var request:SWFBridgeRequest;
 
-        if (event is ModalWindowRequest)
-            request = ModalWindowRequest(event);
+        if (event is SWFBridgeRequest)
+            request = SWFBridgeRequest(event);
         else
-            request = ModalWindowRequest.marshal(event);
+            request = SWFBridgeRequest.marshal(event);
 
         var sm:ISystemManager = getTopLevelSystemManager(DisplayObject(ApplicationGlobals.application));
         var sbRoot:DisplayObject = sm.getSandboxRoot();
@@ -1202,26 +1210,26 @@ public class PopUpManagerImpl implements IPopUpManager
         var popUpData:PopUpData = new PopUpData();
         popUpData.isRemoteModalWindow = true;
         popUpData.systemManager = sm;
-        popUpData.modalTransparency = request.transparency;
+        popUpData.modalTransparency = request.data.transparency;
         
         // disable blur because we can mask the application and blur is not
         // working if we blur the modalWindow.
         popUpData.modalTransparencyBlur = 0; //request.transparencyBlur;
-        popUpData.modalTransparencyColor = request.transparencyColor;
-        popUpData.modalTransparencyDuration = request.transparencyDuration;
+        popUpData.modalTransparencyColor = request.data.transparencyColor;
+        popUpData.modalTransparencyDuration = request.data.transparencyDuration;
 
         // Get the SWFLoader to exclude.
         // The requestor may be a real SWFLoader or a sandbox bridge that 
         // requires a look up to get the SWFLoader. 
         popUpData.exclude = sm.swfBridgeGroup.getChildBridgeProvider(request.requestor) as IUIComponent;
-        popUpData.excludeRect = Rectangle(request.data);
+        popUpData.excludeRect = Rectangle(request.data.excludeRect);
         
         if (!popupInfo)
             popupInfo = [];
 
         popupInfo.push(popUpData);
         
-        createModalWindow(null, popUpData, sm.popUpChildren, request.show, sm, sbRoot);
+        createModalWindow(null, popUpData, sm.popUpChildren, request.data.show, sm, sbRoot);
     }
     
     /**
@@ -1231,12 +1239,12 @@ public class PopUpManagerImpl implements IPopUpManager
      */ 
     private function showModalWindowRequest(event:Event):void
     {
-        var request:ModalWindowRequest = ModalWindowRequest.marshal(event);
+        var request:SWFBridgeRequest = SWFBridgeRequest.marshal(event);
 
-        if (event is ModalWindowRequest)
-            request = ModalWindowRequest(event);
+        if (event is SWFBridgeRequest)
+            request = SWFBridgeRequest(event);
         else
-            request = ModalWindowRequest.marshal(event);
+            request = SWFBridgeRequest.marshal(event);
 
         var sm:ISystemManager = getTopLevelSystemManager(DisplayObject(ApplicationGlobals.application));
         var sbRoot:DisplayObject = sm.getSandboxRoot();
@@ -1246,13 +1254,13 @@ public class PopUpManagerImpl implements IPopUpManager
         // parent and popup window.
         var popUpData:PopUpData = findHighestRemoteModalPopupInfo();
         popUpData.excludeRect = Rectangle(request.data);
-        popUpData.modalTransparency = request.transparency;
+        popUpData.modalTransparency = request.data.transparency;
         
         // disable blur because we can mask the application and blur is not
         // working if we blur the modalWindow.
         popUpData.modalTransparencyBlur = 0; //request.transparencyBlur;
-        popUpData.modalTransparencyColor = request.transparencyColor;
-        popUpData.modalTransparencyDuration = request.transparencyDuration;
+        popUpData.modalTransparencyColor = request.data.transparencyColor;
+        popUpData.modalTransparencyDuration = request.data.transparencyDuration;
 
         if (popUpData.owner || popUpData.parent)
             throw new Error();              // not popUpData for a modal window
@@ -1267,15 +1275,15 @@ public class PopUpManagerImpl implements IPopUpManager
      */ 
     private function hideModalWindowRequest(event:Event):void
     {
-        var request:ModalWindowRequest;
+        var request:SWFBridgeRequest;
         
         // If the event is redispatched from the SystemManger it will be
         // marshalled. If the PopUpManager dispatches the event using
         // the sandbox root it will come here directly.
-        if (event is ModalWindowRequest)
-            request = ModalWindowRequest(event);
+        if (event is SWFBridgeRequest)
+            request = SWFBridgeRequest(event);
         else
-            request = ModalWindowRequest.marshal(event);
+            request = SWFBridgeRequest.marshal(event);
 
         var sm:ISystemManager = getTopLevelSystemManager(DisplayObject(ApplicationGlobals.application));
         var sbRoot:DisplayObject = sm.getSandboxRoot();
@@ -1287,10 +1295,10 @@ public class PopUpManagerImpl implements IPopUpManager
         if (!popUpData || popUpData.owner || popUpData.parent)
             throw new Error();              // not popUpData for a modal window
                     
-        hideModalWindow(popUpData, request.remove);
+        hideModalWindow(popUpData, request.data.remove);
         
         // handle removing popup window 
-        if (request.remove)
+        if (request.data.remove)
         {
             popupInfo.splice(popupInfo.indexOf(popUpData), 1);
             sm.numModalWindows--;
@@ -1339,10 +1347,10 @@ public class PopUpManagerImpl implements IPopUpManager
 				if (sm is SystemManagerProxy)
 				{
 					var parentBridge:IEventDispatcher = realSm.swfBridgeGroup.parentBridge;
-					var request:PopUpRequest = new PopUpRequest(PopUpRequest.REMOVE_POP_UP_REQUEST, false, false,
-													DisplayObject(sm),
-													o.parent,
-													o.modalWindow != null);
+					var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.REMOVE_POP_UP_REQUEST, false, false, null,
+																		{ window: DisplayObject(sm),
+																			parent:	o.parent,
+																			modal: o.modalWindow != null});
 					request.requestor = parentBridge;
 					parentBridge.dispatchEvent(request);
 				}
@@ -1350,10 +1358,10 @@ public class PopUpManagerImpl implements IPopUpManager
 				{
 					// Must be locally hosted popup.
 					// We need to remove the placeholder at the top level root
-					request = new PopUpRequest(PopUpRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, false, false,
-											   DisplayObject(popUp));
+					request = new SWFBridgeRequest(SWFBridgeRequest.REMOVE_POP_UP_PLACE_HOLDER_REQUEST, false, false, null,
+																	{ window: DisplayObject(popUp)});
 					request.requestor = sm.swfBridgeGroup.parentBridge;
-					request.placeHolderId = NameUtil.displayObjectToString(DisplayObject(popUp));
+					request.data.placeHolderId = NameUtil.displayObjectToString(DisplayObject(popUp));
 					sm.dispatchEvent(request);
 				}                    
 
@@ -1570,7 +1578,7 @@ import flash.geom.Point;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
 import mx.effects.Effect;
-import mx.events.SandboxRootMouseEvent;
+import mx.events.SandboxMouseEvent;
 import mx.managers.ISystemManager;
 import mx.managers.PopUpManagerImpl;
 
@@ -1748,8 +1756,8 @@ class PopUpData
      */
     public function marshalMouseOutsideHandler(event:Event):void
     {
-        if (!(event is SandboxRootMouseEvent))
-            event = SandboxRootMouseEvent.marshal(event);
+        if (!(event is SandboxMouseEvent))
+            event = SandboxMouseEvent.marshal(event);
             
         if (owner)
             owner.dispatchEvent(event);
@@ -1761,8 +1769,6 @@ class PopUpData
      */
     public function resizeHandler(event:Event):void
     {
-        var s:Rectangle = ISystemManager(event.target).screen;  
-        
         // Resize the modal window if either the popup or the modal window are on the
         // same stage as the resize event target.
         // A modal window may have no popup in the case where the popup originated
@@ -1770,6 +1776,8 @@ class PopUpData
         if ((owner && owner.stage == DisplayObject(event.target).stage) ||
             (modalWindow && modalWindow.stage == DisplayObject(event.target).stage))
         {
+            var s:Rectangle = systemManager.screen;  
+        
             modalWindow.width = s.width;
             modalWindow.height = s.height;
             modalWindow.x = s.x;
