@@ -279,6 +279,18 @@ public class AccImpl extends AccessibilityImplementation
 		return [];
 	}
 	
+	/**
+	 *  @private
+	 *  IAccessible method for giving focus to a child item in the component
+	 *  (but not to the component itself; accSelect() is never called
+	 *  with a childID of 0).
+	 *  Even though this method does nothing, without it the Player
+	 *  causes an IAccessible "Member not found" error.
+	 */
+	override public function accSelect(selFlag:uint, childID:uint):void
+	{
+	}
+
 	//--------------------------------------------------------------------------
 	//
 	//  Methods
