@@ -129,6 +129,39 @@ include "../styles/metadata/GapStyles.as"
  *     &lt;/s:List&gt;
  *  </pre>
  *
+ *  @mxml
+ *  
+ *  <p>The <code>&lt;s:IconItemRenderer&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;s:IconItemRenderer
+ *   <strong>Properties</strong>
+ *    decoratorClass=""
+ *    decoratorDisplay="null"
+ *    iconContentLoader="<i>See property description</i>"
+ *    iconField="null"
+ *    iconFillMode=""scale
+ *    iconFunction="null"
+ *    iconHeight="NaN"
+ *    iconScaleMode="stretch"
+ *    iconWidth="NaN"
+ *    label=""
+ *    labelField="null"
+ *    labelFunction="null"
+ *    loadingIconClass="null"
+ *    messageDisplay="StyleableTextField"
+ *    messageField="null"
+ *    messageFunction="null"
+ * 
+ *   <strong>Common Styles</strong>
+ *    horizontalGap="8"
+ *    iconDelay="500"
+ *    messageStyleName="iconItemRendererMessageStyle"
+ *    verticalGap="6"
+ *  &gt;
+ *  </pre>
+ *
  *  @see spark.components.List
  *  @see mx.core.IDataRenderer
  *  @see spark.components.IItemRenderer
@@ -271,8 +304,7 @@ public class IconItemRenderer extends LabelItemRenderer
      *  then use the <code>label</code> property that gets 
      *  pushed in from the list control. 
      *  However if <code>labelField</code> is explicitly set to 
-     *  <code>""</code> (the empty string),
-     *  then no label appears.</p>
+     *  <code>""</code> (the empty string), then no label appears.</p>
      * 
      *  @inheritDoc
      * 
@@ -287,9 +319,9 @@ public class IconItemRenderer extends LabelItemRenderer
      */
     override public function set label(value:String):void
     {
-		if (value == label)
-			return;
-		
+        if (value == label)
+            return;
+        
         super.label = value;
         
         labelChanged = true;
@@ -360,6 +392,8 @@ public class IconItemRenderer extends LabelItemRenderer
     /**
      *  The display object component used to 
      *  display the decorator for this item renderer.
+     *
+     *  @default null
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -554,11 +588,6 @@ public class IconItemRenderer extends LabelItemRenderer
     /**
      *  The bitmap image component used to 
      *  display the icon data of the item renderer.
-     * 
-     *  <p>Because IconItemRenderer implements ISharedDisplayObject 
-     *  and IGraphicElementContainer, we don't need to wrap iconDisplay 
-     *  in a Group; however, it does require a little more work when instantiating 
-     *  and destroying iconDisplay.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -817,49 +846,49 @@ public class IconItemRenderer extends LabelItemRenderer
         invalidateSize();
         invalidateDisplayList();
     }
-	
-	//----------------------------------
-	//  loadingIconClass
-	//----------------------------------
-	
-	/**
-	 *  @private 
-	 */ 
-	private var _loadingIconClass:Class;
-	
-	/**
-	 *  The icon asset to use while an externally loaded asset is
-	 *  being downloaded.
-	 *
-	 *  @default null
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */
-	public function get loadingIconClass():Class
-	{
-		return _loadingIconClass;
-	}
-	
-	/**
-	 *  @private
-	 */ 
-	public function set loadingIconClass(value:Class):void
-	{
-		if (value == _loadingIconClass)
-			return;
-		
-		_loadingIconClass = value;
-		
-		iconChanged = true;
-		invalidateProperties();
-		
-		// clear clearOnLoad if necessary
-		if (iconDisplay)
-			iconDisplay.clearOnLoad = (loadingIconClass == null);
-	}
+    
+    //----------------------------------
+    //  loadingIconClass
+    //----------------------------------
+    
+    /**
+     *  @private 
+     */ 
+    private var _loadingIconClass:Class;
+    
+    /**
+     *  The icon asset to use while an externally loaded asset is
+     *  being downloaded.
+     *
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get loadingIconClass():Class
+    {
+        return _loadingIconClass;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set loadingIconClass(value:Class):void
+    {
+        if (value == _loadingIconClass)
+            return;
+        
+        _loadingIconClass = value;
+        
+        iconChanged = true;
+        invalidateProperties();
+        
+        // clear clearOnLoad if necessary
+        if (iconDisplay)
+            iconDisplay.clearOnLoad = (loadingIconClass == null);
+    }
     
     //----------------------------------
     //  messageField
@@ -1458,62 +1487,62 @@ public class IconItemRenderer extends LabelItemRenderer
         removeChild(labelDisplay);
         labelDisplay = null;
     }
-	
-	/**
-	 *  @private
-	 */
-	private function loadExternalImage(source:Object, iconDelay:Number):void
-	{
-		// set iconDisplay's source now to either loadingIconClass 
-		// or null (if no loadingIconClass).  this is so we don't display the old 
-		// data while we're loading.
-		iconDisplay.source = loadingIconClass;
-		
-		// while we're loading,if loadingIconClass is set, 
-		// we'll keep that image up while we're loading
-		// the external content
-		iconDisplay.clearOnLoad = (loadingIconClass == null);
+    
+    /**
+     *  @private
+     */
+    private function loadExternalImage(source:Object, iconDelay:Number):void
+    {
+        // set iconDisplay's source now to either loadingIconClass 
+        // or null (if no loadingIconClass).  this is so we don't display the old 
+        // data while we're loading.
+        iconDisplay.source = loadingIconClass;
+        
+        // while we're loading,if loadingIconClass is set, 
+        // we'll keep that image up while we're loading
+        // the external content
+        iconDisplay.clearOnLoad = (loadingIconClass == null);
 
-		if (iconDelay > 0)
-		{
-			// set what we're gonna load and start the timer
-			iconSourceToLoad = source;
-			
-			if (!iconSetterDelayTimer)
-			{
-				iconSetterDelayTimer = new Timer(iconDelay, 1);
-				iconSetterDelayTimer.addEventListener(TimerEvent.TIMER_COMPLETE, iconSetterDelayTimer_timerCompleteHandler);
-			}
-			
-			iconSetterDelayTimer.start();
-		}
-		else // iconDelay == 0
-		{
-			// load up the image immediately
-			
-			// need to call validateProperties because we need this loadingIconClass
-			// to actually get loaded up since we set iconDisplay.source to a remote 
-			// image on the next line.  BitmapImage doesn't actually attempt to load 
-			// up the image (even if it's a locally embedded asset) until commitProperties()
-			iconDisplay.validateProperties();
-			
-			iconDisplay.source = source;
-		}
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function stopLoadingExternalImage():void
-	{
-		// stop any asynch operation:
-		if (iconSetterDelayTimer)
-		{
-			iconSourceToLoad = null
-			iconSetterDelayTimer.stop();
-			iconSetterDelayTimer.reset();
-		}
-	}
+        if (iconDelay > 0)
+        {
+            // set what we're gonna load and start the timer
+            iconSourceToLoad = source;
+            
+            if (!iconSetterDelayTimer)
+            {
+                iconSetterDelayTimer = new Timer(iconDelay, 1);
+                iconSetterDelayTimer.addEventListener(TimerEvent.TIMER_COMPLETE, iconSetterDelayTimer_timerCompleteHandler);
+            }
+            
+            iconSetterDelayTimer.start();
+        }
+        else // iconDelay == 0
+        {
+            // load up the image immediately
+            
+            // need to call validateProperties because we need this loadingIconClass
+            // to actually get loaded up since we set iconDisplay.source to a remote 
+            // image on the next line.  BitmapImage doesn't actually attempt to load 
+            // up the image (even if it's a locally embedded asset) until commitProperties()
+            iconDisplay.validateProperties();
+            
+            iconDisplay.source = source;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function stopLoadingExternalImage():void
+    {
+        // stop any asynch operation:
+        if (iconSetterDelayTimer)
+        {
+            iconSourceToLoad = null
+            iconSetterDelayTimer.stop();
+            iconSetterDelayTimer.reset();
+        }
+    }
     
     /**
      *  @private
@@ -1530,8 +1559,8 @@ public class IconItemRenderer extends LabelItemRenderer
         {
             stopLoadingExternalImage();
 
-			// load it up
-        	iconDisplay.source = source;
+            // load it up
+            iconDisplay.source = source;
             
             return;
         }
@@ -1542,7 +1571,7 @@ public class IconItemRenderer extends LabelItemRenderer
         
         // At this point, we know we can cancel the old asynch operation 
         // since we're not going to use it anymore
-		stopLoadingExternalImage();
+        stopLoadingExternalImage();
         
         // we know we're loading external content, check the cache first:
         var contentCache:ContentCache = iconContentLoader as ContentCache;
@@ -1555,8 +1584,8 @@ public class IconItemRenderer extends LabelItemRenderer
             }
         }
         
-		// otherwise, we need to load an external asset and use a Timer
-		loadExternalImage(source, iconDelay);
+        // otherwise, we need to load an external asset and use a Timer
+        loadExternalImage(source, iconDelay);
     }
     
     /**
