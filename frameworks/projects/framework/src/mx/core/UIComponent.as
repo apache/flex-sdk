@@ -100,6 +100,11 @@ use namespace mx_internal;
  *  <code>rawChildren.addChildAt()</code> method, the event is not dispatched.
  *
  *  @eventType mx.events.FlexEvent.ADD
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="add", type="mx.events.FlexEvent")]
 
@@ -111,6 +116,11 @@ use namespace mx_internal;
  *  the component may not be visible even though it has been drawn.</p>
  *
  *  @eventType mx.events.FlexEvent.CREATION_COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="creationComplete", type="mx.events.FlexEvent")]
 
@@ -124,6 +134,11 @@ use namespace mx_internal;
  *  been measured and layed out.</p>
  *
  *  @eventType mx.events.FlexEvent.UPDATE_COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="updateComplete", type="mx.events.FlexEvent")]
 
@@ -131,6 +146,11 @@ use namespace mx_internal;
  *  Dispatched when an object's state changes from visible to invisible.
  *
  *  @eventType mx.events.FlexEvent.HIDE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="hide", type="mx.events.FlexEvent")]
 
@@ -143,6 +163,11 @@ use namespace mx_internal;
  *  <code>creationComplete</code> event is dispatched.</p>
  *
  *  @eventType mx.events.FlexEvent.INITIALIZE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="initialize", type="mx.events.FlexEvent")]
 
@@ -171,6 +196,11 @@ use namespace mx_internal;
  *  until after the property changes.</p>
  *
  *  @eventType mx.events.MoveEvent.MOVE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="move", type="mx.events.MoveEvent")]
 
@@ -185,6 +215,11 @@ use namespace mx_internal;
  *  have not yet been created.
  *
  *  @eventType mx.events.FlexEvent.PREINITIALIZE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="preinitialize", type="mx.events.FlexEvent")]
 
@@ -196,6 +231,11 @@ use namespace mx_internal;
  *  <code>rawChildren.removeChildAt()</code> method, the event is not dispatched.
  *
  *  @eventType mx.events.FlexEvent.REMOVE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="remove", type="mx.events.FlexEvent")]
 
@@ -222,6 +262,11 @@ use namespace mx_internal;
  *  dispatched until after the property changes.</p>
  *
  *  @eventType mx.events.ResizeEvent.RESIZE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="resize", type="mx.events.ResizeEvent")]
 
@@ -229,6 +274,11 @@ use namespace mx_internal;
  *  Dispatched when an object's state changes from invisible to visible.
  *
  *  @eventType mx.events.FlexEvent.SHOW
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="show", type="mx.events.FlexEvent")]
 
@@ -241,6 +291,11 @@ use namespace mx_internal;
  *  when the user clicks outside it.
  *
  *  @eventType mx.events.FlexMouseEvent.MOUSE_DOWN_OUTSIDE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="mouseDownOutside", type="mx.events.FlexMouseEvent")]
 
@@ -249,6 +304,11 @@ use namespace mx_internal;
  *  when the user scrolls the mouse wheel outside it.
  *
  *  @eventType mx.events.FlexMouseEvent.MOUSE_WHEEL_OUTSIDE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="mouseWheelOutside", type="mx.events.FlexMouseEvent")]
 
@@ -267,6 +327,11 @@ use namespace mx_internal;
  *  property in a <code>valueCommit</code> event handler. </p>
  *
  *  @eventType mx.events.FlexEvent.VALUE_COMMIT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="valueCommit", type="mx.events.FlexEvent")]
 
@@ -275,6 +340,11 @@ use namespace mx_internal;
  *  and the validation failed.
  *
  *  @eventType mx.events.FlexEvent.INVALID
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="invalid", type="mx.events.FlexEvent")]
 
@@ -283,6 +353,11 @@ use namespace mx_internal;
  *  and the validation succeeded.
  *
  *  @eventType mx.events.FlexEvent.VALID
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="valid", type="mx.events.FlexEvent")]
 
@@ -338,6 +413,11 @@ use namespace mx_internal;
  *  @see mx.managers.DragManager
  *
  *  @eventType mx.events.DragEvent.DRAG_ENTER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dragEnter", type="mx.events.DragEvent")]
 
@@ -370,6 +450,11 @@ use namespace mx_internal;
  *  @see mx.managers.DragManager
  *
  *  @eventType mx.events.DragEvent.DRAG_OVER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dragOver", type="mx.events.DragEvent")]
 
@@ -382,6 +467,11 @@ use namespace mx_internal;
  *  <code>dragEnter</code> or <code>dragOver</code> event.</p>
  *
  *  @eventType mx.events.DragEvent.DRAG_EXIT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dragExit", type="mx.events.DragEvent")]
 
@@ -396,6 +486,11 @@ use namespace mx_internal;
  *  it prevents the drop.</p>
  *
  *  @eventType mx.events.DragEvent.DRAG_DROP
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dragDrop", type="mx.events.DragEvent")]
 
@@ -417,6 +512,11 @@ use namespace mx_internal;
  *  it prevents the drop.</p>
  *
  *  @eventType mx.events.DragEvent.DRAG_COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dragComplete", type="mx.events.DragEvent")]
 
@@ -428,6 +528,11 @@ use namespace mx_internal;
  *  use the <code>mouseDown</code> or <code>mouseMove</code> event.
  *
  *  @eventType mx.events.DragEvent.DRAG_START
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dragStart", type="mx.events.DragEvent")]
 
@@ -442,6 +547,11 @@ use namespace mx_internal;
  *  until after this event is fired.</p>
  *
  *  @eventType mx.events.EffectEvent.EFFECT_START
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="effectStart", type="mx.events.EffectEvent")]
 
@@ -456,6 +566,11 @@ use namespace mx_internal;
  *  result of a call to <code>end()</code>.</p>
  *
  *  @eventType mx.events.EffectEvent.EFFECT_STOP
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="effectStop", type="mx.events.EffectEvent")]
 
@@ -470,6 +585,11 @@ use namespace mx_internal;
  *  changes have been rendered onscreen.</p>
  *
  *  @eventType mx.events.EffectEvent.EFFECT_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="effectEnd", type="mx.events.EffectEvent")]
 
@@ -483,6 +603,11 @@ use namespace mx_internal;
  *  but before the view state changes.
  *
  *  @eventType mx.events.StateChangeEvent.CURRENT_STATE_CHANGING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="currentStateChanging", type="mx.events.StateChangeEvent")]
 
@@ -490,6 +615,11 @@ use namespace mx_internal;
  *  Dispatched after the view state has changed.
  *
  *  @eventType mx.events.StateChangeEvent.CURRENT_STATE_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="currentStateChange", type="mx.events.StateChangeEvent")]
 
@@ -497,6 +627,11 @@ use namespace mx_internal;
  *  Dispatched after the component has entered a view state.
  *
  *  @eventType mx.events.FlexEvent.ENTER_STATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="enterState", type="mx.events.FlexEvent")]
 
@@ -504,6 +639,11 @@ use namespace mx_internal;
  *  Dispatched just before the component exits a view state.
  *
  *  @eventType mx.events.FlexEvent.EXIT_STATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="exitState", type="mx.events.FlexEvent")]
 
@@ -527,6 +667,11 @@ use namespace mx_internal;
  *  and <code>toolTipEnd</code>.</p>
  *
  *  @eventType mx.events.ToolTipEvent.TOOL_TIP_CREATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="toolTipCreate", type="mx.events.ToolTipEvent")]
 
@@ -544,6 +689,11 @@ use namespace mx_internal;
  *  and <code>toolTipEnd</code>.</p>
  *
  *  @eventType mx.events.ToolTipEvent.TOOL_TIP_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="toolTipEnd", type="mx.events.ToolTipEvent")]
 
@@ -560,6 +710,11 @@ use namespace mx_internal;
  *  and <code>toolTipEnd</code>.</p>
  *
  *  @eventType mx.events.ToolTipEvent.TOOL_TIP_HIDE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="toolTipHide", type="mx.events.ToolTipEvent")]
 
@@ -577,6 +732,11 @@ use namespace mx_internal;
  *  and <code>toolTipEnd</code>.</p>
  *
  *  @eventType mx.events.ToolTipEvent.TOOL_TIP_SHOW
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="toolTipShow", type="mx.events.ToolTipEvent")]
 
@@ -593,6 +753,11 @@ use namespace mx_internal;
  *  and <code>toolTipEnd</code>.</p>
  *
  *  @eventType mx.events.ToolTipEvent.TOOL_TIP_SHOWN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="toolTipShown", type="mx.events.ToolTipEvent")]
 
@@ -606,6 +771,11 @@ use namespace mx_internal;
  *  and <code>toolTipEnd</code>.</p>
  *
  *  @eventType mx.events.ToolTipEvent.TOOL_TIP_START
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="toolTipStart", type="mx.events.ToolTipEvent")]
 
@@ -621,6 +791,11 @@ include "../styles/metadata/AnchorStyles.as";
  *  <code>errorColor</code> on a validation failure.
  *
  *  @default 0xFF0000
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="errorColor", type="uint", format="Color", inherit="yes")]
 
@@ -630,6 +805,11 @@ include "../styles/metadata/AnchorStyles.as";
  *  of the flash.display.DisplayObject class.
  *
  *  @default "normal"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="focusBlendMode", type="String", inherit="no")]
 
@@ -637,6 +817,11 @@ include "../styles/metadata/AnchorStyles.as";
  *  Skin used to draw the focus rectangle.
  *
  *  @default mx.skins.halo.HaloFocusRect
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="focusSkin", type="Class", inherit="no")]
 
@@ -644,6 +829,11 @@ include "../styles/metadata/AnchorStyles.as";
  *  Thickness, in pixels, of the focus rectangle outline.
  *
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="focusThickness", type="Number", format="Length", inherit="no")]
 
@@ -660,6 +850,11 @@ include "../styles/metadata/AnchorStyles.as";
  *  <code>themeColor</code> value.</p>
  *
  *  @default "haloBlue"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="themeColor", type="uint", format="Color", inherit="yes")]
 
@@ -669,66 +864,131 @@ include "../styles/metadata/AnchorStyles.as";
 
 /**
  *  Played when the component is created.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="creationCompleteEffect", event="creationComplete")]
 
 /**
  *  Played when the component is moved.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="moveEffect", event="move")]
 
 /**
  *  Played when the component is resized.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="resizeEffect", event="resize")]
 
 /**
  *  Played when the component becomes visible.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="showEffect", event="show")]
 
 /**
  *  Played when the component becomes invisible.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="hideEffect", event="hide")]
 
 /**
  *  Played when the user presses the mouse button while over the component.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="mouseDownEffect", event="mouseDown")]
 
 /**
  *  Played when the user releases the mouse button while over the component.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="mouseUpEffect", event="mouseUp")]
 
 /**
  *  Played when the user rolls the mouse over the component.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="rollOverEffect", event="rollOver")]
 
 /**
  *  Played when the user rolls the mouse so it is no longer over the component.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="rollOutEffect", event="rollOut")]
 
 /**
  *  Played when the component gains keyboard focus.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="focusInEffect", event="focusIn")]
 
 /**
  *  Played when the component loses keyboard focus.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="focusOutEffect", event="focusOut")]
 
 /**
  *  Played when the component is added as a child to a Container.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="addedEffect", event="added")]
 
 /**
  *  Played when the component is removed from a Container.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="removedEffect", event="removed")]
 
@@ -869,6 +1129,11 @@ include "../styles/metadata/AnchorStyles.as";
  *  </pre>
  *
  *  @see mx.core.UIComponent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class UIComponent extends FlexSprite
     implements IAutomationObject, IChildList, IConstraintClient,
@@ -891,6 +1156,11 @@ public class UIComponent extends FlexSprite
      *  have to pick a number that looks reasonable.
      *
      *  @default 160
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DEFAULT_MEASURED_WIDTH:Number = 160;
 
@@ -900,6 +1170,11 @@ public class UIComponent extends FlexSprite
      *  have to pick a number that looks reasonable.
      *
      *  @default 40
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DEFAULT_MEASURED_MIN_WIDTH:Number = 40;
 
@@ -909,6 +1184,11 @@ public class UIComponent extends FlexSprite
      *  have to pick a number that looks reasonable.
      *
      *  @default 22
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DEFAULT_MEASURED_HEIGHT:Number = 22;
 
@@ -918,6 +1198,11 @@ public class UIComponent extends FlexSprite
      *  have to pick a number that looks reasonable.
      *
      *  @default 22
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DEFAULT_MEASURED_MIN_HEIGHT:Number = 22;
 
@@ -925,6 +1210,11 @@ public class UIComponent extends FlexSprite
      *  The default value for the <code>maxWidth</code> property.
      *
      *  @default 10000
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DEFAULT_MAX_WIDTH:Number = 10000;
     // When changing this constant, make sure you change
@@ -934,6 +1224,11 @@ public class UIComponent extends FlexSprite
      *  The default value for the <code>maxHeight</code> property.
      *
      *  @default 10000
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DEFAULT_MAX_HEIGHT:Number = 10000;
     // When changing this constant, make sure you change
@@ -1020,6 +1315,11 @@ public class UIComponent extends FlexSprite
      *  and <code>resumeBackgroundProcessing()</code>, because these
      *  methods actually increment and decrement a counter
      *  which determines whether background processing occurs.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function suspendBackgroundProcessing():void
     {
@@ -1033,6 +1333,11 @@ public class UIComponent extends FlexSprite
      *
      *  <p>Refer to the description of
      *  <code>suspendBackgroundProcessing()</code> for more information.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function resumeBackgroundProcessing():void
     {
@@ -1059,6 +1364,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function UIComponent()
     {
@@ -1167,6 +1477,11 @@ public class UIComponent extends FlexSprite
     /**
      *  A flag that determines if an object has been through all three phases
      *  of layout: commitment, measurement, and layout (provided that any were required).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get initialized():Boolean
     {
@@ -1218,6 +1533,11 @@ public class UIComponent extends FlexSprite
      *  <p>For classes that are not containers, which do not have descriptors,
      *  it is set to <code>true</code> after the <code>createChildren()</code>
      *  method creates any internal component children.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get processedDescriptors():Boolean
     {
@@ -1250,6 +1570,11 @@ public class UIComponent extends FlexSprite
     /**
      *  A flag that determines if an object has been through all three phases
      *  of layout validation (provided that any were required).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get updateCompletePendingFlag():Boolean
     {
@@ -1484,6 +1809,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get owner():DisplayObjectContainer
     {
@@ -1516,6 +1846,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get parent():DisplayObjectContainer
     {
@@ -1554,6 +1889,11 @@ public class UIComponent extends FlexSprite
      *  container because the default value is 0.</p>
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get x():Number
     {
@@ -1588,6 +1928,11 @@ public class UIComponent extends FlexSprite
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get z():Number
     {
@@ -1612,6 +1957,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get transformX():Number
     {
@@ -1635,6 +1985,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get transformY():Number
     {
@@ -1658,6 +2013,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get transformZ():Number
     {
@@ -1679,6 +2039,11 @@ public class UIComponent extends FlexSprite
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get rotation():Number
     {
@@ -1733,6 +2098,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get rotationZ():Number
     {
@@ -1753,6 +2123,11 @@ public class UIComponent extends FlexSprite
      * 360 to obtain a value within the range.
      * 
      * This property is ignored during calculation by any of Flex's 2D layouts. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get rotationX():Number
     {
@@ -1782,6 +2157,11 @@ public class UIComponent extends FlexSprite
      * 360 to obtain a value within the range.
      * 
      * This property is ignored during calculation by any of Flex's 2D layouts. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get rotationY():Number
     {
@@ -1825,6 +2205,11 @@ public class UIComponent extends FlexSprite
      *  container because the default value is 0.</p>
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get y():Number
     {
@@ -1889,6 +2274,11 @@ public class UIComponent extends FlexSprite
      *  Thus a 100 pixel wide component with a <code>scaleX</code>
      *  of 2 will take 100 pixels in the parent, but will
      *  internally think it is 50 pixels wide.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get width():Number
     {
@@ -1956,6 +2346,11 @@ public class UIComponent extends FlexSprite
      *  Thus a 100 pixel high component with a <code>scaleY</code>
      *  of 200 will take 100 pixels in the parent, but will
      *  internally think it is 50 pixels high.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get height():Number
     {
@@ -2008,6 +2403,11 @@ public class UIComponent extends FlexSprite
      *  the <code>visible</code> property to <code>false</code> to hide the component.</p>
      *
      *  @default 1.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     
     override public function get scaleX():Number
@@ -2084,6 +2484,11 @@ public class UIComponent extends FlexSprite
      *  the <code>visible</code> property to <code>false</code> to hide the component.</p>
      *
      *  @default 1.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get scaleY():Number
     {
@@ -2158,6 +2563,11 @@ public class UIComponent extends FlexSprite
      *  <p>This property is ignored during calculation by any of Flex's 2D layouts. </p>
      *
      *  @default 1.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get scaleZ():Number
     {
@@ -2185,6 +2595,11 @@ public class UIComponent extends FlexSprite
      *  can override <code>scaleX</code> and thereby hide the native implementation.
      *  Note that this "base property" is final and cannot be overridden,
      *  so you can count on it to reflect what is happening at the player level.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal final function get $scaleX():Number
     {
@@ -2202,6 +2617,11 @@ public class UIComponent extends FlexSprite
      *  can override <code>scaleY</code> and thereby hide the native implementation.
      *  Note that this "base property" is final and cannot be overridden,
      *  so you can count on it to reflect what is happening at the player level.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal final function get $scaleY():Number
     {
@@ -2237,6 +2657,11 @@ public class UIComponent extends FlexSprite
      *  In either case the children of the object will not emit a
      *  <code>show</code> or <code>hide</code> event unless the object
      *  has specifically written an implementation to do so.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get visible():Boolean
     {
@@ -2263,6 +2688,11 @@ public class UIComponent extends FlexSprite
      *  If <code>false</code>, dispatch a <code>show</code> event when
      *  the component becomes visible, and a <code>hide</code> event when
      *  the component becomes invisible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setVisible(value:Boolean,
                                noEvent:Boolean = false):void
@@ -2317,6 +2747,11 @@ public class UIComponent extends FlexSprite
      *  its default value, for the object to receive <code>doubleClick</code> events.</p>
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get doubleClickEnabled():Boolean
     {
@@ -2360,6 +2795,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @copy mx.core.IUIComponent#enabled
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get enabled():Boolean
     {
@@ -2619,6 +3059,11 @@ public class UIComponent extends FlexSprite
      *  corner of the component's content, and include all of the component's
      *  content area, including any regions that are currently clipped and must
      *  be accessed by scrolling the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get contentMouseX():Number
     {
@@ -2635,6 +3080,11 @@ public class UIComponent extends FlexSprite
      *  corner of the component's content, and include all of the component's
      *  content area, including any regions that are currently clipped and must
      *  be accessed by scrolling the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get contentMouseY():Number
     {
@@ -2658,6 +3108,11 @@ public class UIComponent extends FlexSprite
      *  <p>Used to alert the EffectManager that certain properties of this object
      *  are being tweened, so that the EffectManger doesn't attempt to animate
      *  the same properties.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get tweeningProperties():Array
     {
@@ -2687,6 +3142,11 @@ public class UIComponent extends FlexSprite
      *  and its peers.
      *  Each top-level window has its own instance of a CursorManager;
      *  To make sure you're talking to the right one, use this method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get cursorManager():ICursorManager
     {
@@ -2724,6 +3184,11 @@ public class UIComponent extends FlexSprite
      *  Each popup has its own focus loop and therefore its own instance
      *  of a FocusManager.
      *  To make sure you're talking to the right one, use this method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get focusManager():IFocusManager
     {
@@ -2774,6 +3239,11 @@ public class UIComponent extends FlexSprite
      *  all of the application's localized resources.
      *  This is a singleton instance which implements
      *  the IResourceManager interface.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get resourceManager():IResourceManager
     {
@@ -2803,6 +3273,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Returns the SystemManager object used by this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get systemManager():ISystemManager
     {
@@ -2898,6 +3373,11 @@ public class UIComponent extends FlexSprite
      *  Depth of this object in the containment hierarchy.
      *  This number is used by the measurement and layout code.
      *  The value is 0 if this component is not on the DisplayList.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nestLevel():int
     {
@@ -2971,6 +3451,11 @@ public class UIComponent extends FlexSprite
      *  was not created from a descriptor, this property is null.
      *
      *  @see mx.core.UIComponentDescriptor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get descriptor():UIComponentDescriptor
     {
@@ -3009,6 +3494,11 @@ public class UIComponent extends FlexSprite
      *  A reference to the document object associated with this UIComponent.
      *  A document object is an Object at the top of the hierarchy of a
      *  Flex application, MXML component, or AS component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get document():Object
     {
@@ -3019,6 +3509,11 @@ public class UIComponent extends FlexSprite
      *  A reference to the document object associated with this UIComponent.
      *  A document object is an Object at the top of the hierarchy of a
      *  Flex application, MXML component, or AS component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set document(value:Object):void
     {
@@ -3090,6 +3585,11 @@ public class UIComponent extends FlexSprite
      *  a meaningful id. Testing tools use ids to represent the control in their scripts and
      *  having a meaningful name can make scripts more readable. For example, set the
      *  value of a button to submit_button rather than b1 or button1.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get id():String
     {
@@ -3112,6 +3612,11 @@ public class UIComponent extends FlexSprite
      *  Determines whether this UIComponent instance is a document object,
      *  that is, whether it is at the top of the hierarchy of a Flex
      *  application, MXML component, or ActionScript component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get isDocument():Boolean
     {
@@ -3138,6 +3643,11 @@ public class UIComponent extends FlexSprite
      *  <code>parentDocument</code> property.
      *  You can access the top-level application using the
      *  <code>application</code> property of the Application class.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     /*
      *  Note:
@@ -3151,6 +3661,11 @@ public class UIComponent extends FlexSprite
      *     MyApplication(paentApplication).myAppMethod().
      *  Therefore we decided to dispense with strict typing for
      *  'parentApplication'.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get parentApplication():Object
     {
@@ -3197,6 +3712,11 @@ public class UIComponent extends FlexSprite
      *  <code>parentDocument.parentDocument</code>, and so on.
      *  It is typed as Object so that authors can access properties
      *  and methods on ancestor document objects without casting.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get parentDocument():Object
     {
@@ -3225,6 +3745,11 @@ public class UIComponent extends FlexSprite
     /**
      *  Returns an object that contains the size and position of the base
      *  drawing surface for this object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get screen():Rectangle
     {
@@ -3254,6 +3779,11 @@ public class UIComponent extends FlexSprite
     /**
      *  The moduleFactory that is used to create TextFields in the correct SWF context. This is necessary so that
      *  embedded fonts will work.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get moduleFactory():IFlexModuleFactory
     {
@@ -3306,6 +3836,11 @@ public class UIComponent extends FlexSprite
      *  prototype-linked chain.
      *  This object is set up by <code>initProtoChain()</code>.
      *  Developers typically never need to access this property directly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get inheritingStyles():Object
     {
@@ -3340,6 +3875,11 @@ public class UIComponent extends FlexSprite
      *  prototype-linked chain.
      *  This object is set up by <code>initProtoChain()</code>.
      *  Developers typically never need to access this property directly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nonInheritingStyles():Object
     {
@@ -3372,6 +3912,11 @@ public class UIComponent extends FlexSprite
      *  the <code>setStyle()</code> method
      *  is called on this component to set an inheriting style.
      *  Developers typically never need to access this property directly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get styleDeclaration():CSSStyleDeclaration
     {
@@ -3425,6 +3970,11 @@ public class UIComponent extends FlexSprite
      *  </ul></p>
      *
      *  @default UIComponentCachePolicy.AUTO
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get cachePolicy():String
     {
@@ -3466,6 +4016,11 @@ public class UIComponent extends FlexSprite
      *  If <code>cachePolicy</code> is <code>UIComponentCachePolicy.AUTO</code>,
      *  then <code>cacheHeuristic</code>
      *  is used to control the object's <code>cacheAsBitmap</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set cacheHeuristic(value:Boolean):void
     {
@@ -3501,6 +4056,11 @@ public class UIComponent extends FlexSprite
     /**
      *  The focus pane associated with this object.
      *  An object has a focus pane when one of its children has focus.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get focusPane():Sprite
     {
@@ -3553,6 +4113,11 @@ public class UIComponent extends FlexSprite
      *  set to <code>true</code>.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get focusEnabled():Boolean
     {
@@ -3589,6 +4154,11 @@ public class UIComponent extends FlexSprite
      *  to the control, but not have the control get focus when you click on it.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get mouseFocusEnabled():Boolean
     {
@@ -3624,6 +4194,11 @@ public class UIComponent extends FlexSprite
     /**
      *  The default minimum width of the component, in pixels.
      *  This value is set by the <code>measure()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredMinWidth():Number
     {
@@ -3653,6 +4228,11 @@ public class UIComponent extends FlexSprite
     /**
      *  The default minimum height of the component, in pixels.
      *  This value is set by the <code>measure()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredMinHeight():Number
     {
@@ -3682,6 +4262,11 @@ public class UIComponent extends FlexSprite
     /**
      *  The default width of the component, in pixels.
      *  This value is set by the <code>measure()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredWidth():Number
     {
@@ -3711,6 +4296,11 @@ public class UIComponent extends FlexSprite
     /**
      *  The default height of the component, in pixels.
      *  This value is set by the <code>measure()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredHeight():Number
     {
@@ -3755,6 +4345,11 @@ public class UIComponent extends FlexSprite
      *  in percent.</p>
      *
      *  <p>This property is always set to NaN for the UITextField control.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get percentWidth():Number
     {
@@ -3801,6 +4396,11 @@ public class UIComponent extends FlexSprite
      *  in percent.</p>
      *
      *  <p>This property is always set to NaN for the UITextField control.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get percentHeight():Number
     {
@@ -3854,6 +4454,11 @@ public class UIComponent extends FlexSprite
      *  Because the value is in component coordinates,
      *  the true <code>minWidth</code> with respect to its parent
      *  is affected by the <code>scaleX</code> property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minWidth():Number
     {
@@ -3905,6 +4510,11 @@ public class UIComponent extends FlexSprite
      *  Because the value is in component coordinates,
      *  the true <code>minHeight</code> with respect to its parent
      *  is affected by the <code>scaleY</code> property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minHeight():Number
     {
@@ -3963,6 +4573,11 @@ public class UIComponent extends FlexSprite
      *  <code>UIComponent.DEFAULT_MAX_WIDTH</code>.</p>
      *
      *  @default 10000
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxWidth():Number
     {
@@ -4020,6 +4635,11 @@ public class UIComponent extends FlexSprite
      *  <code>UIComponent.DEFAULT_MAX_HEIGHT</code>.</p>
      *
      *  @default 10000
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxHeight():Number
     {
@@ -4077,6 +4697,11 @@ public class UIComponent extends FlexSprite
      *  is affected by the <code>scaleX</code> property.</p>
      *
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitMinWidth():Number
     {
@@ -4139,6 +4764,11 @@ public class UIComponent extends FlexSprite
      *  is affected by the <code>scaleY</code> property.</p>
      *
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitMinHeight():Number
     {
@@ -4204,6 +4834,11 @@ public class UIComponent extends FlexSprite
      *  <code>UIComponent.DEFAULT_MAX_WIDTH</code>.</p>
      *
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitMaxWidth():Number
     {
@@ -4269,6 +4904,11 @@ public class UIComponent extends FlexSprite
      *  <code>UIComponent.DEFAULT_MAX_HEIGHT</code>.</p>
      *
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitMaxHeight():Number
     {
@@ -4322,6 +4962,11 @@ public class UIComponent extends FlexSprite
      *  is affected by the <code>scaleX</code> property.</p>
      *  <p>Setting the <code>width</code> property also sets this property to
      *  the specified width value.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitWidth():Number
     {
@@ -4379,6 +5024,11 @@ public class UIComponent extends FlexSprite
      *  is affected by the <code>scaleY</code> property.</p>
      *  <p>Setting the <code>height</code> property also sets this property to
      *  the specified height value.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitHeight():Number
     {
@@ -4422,6 +5072,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get includeInLayout():Boolean
     {
@@ -4461,6 +5116,11 @@ public class UIComponent extends FlexSprite
     /**
      *  The index of a repeated component.
      *  If the component is not within a Repeater, the value is -1.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get instanceIndex():int
     {
@@ -4489,6 +5149,11 @@ public class UIComponent extends FlexSprite
      *  The first element corresponds to the outermost Repeater.
      *  For example, if the id is "b" and instanceIndices is [2,4],
      *  you would reference it on the parent document as b[2][4].
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get instanceIndices():Array
     {
@@ -4518,6 +5183,11 @@ public class UIComponent extends FlexSprite
      *
      *  <p>The property is set to <code>null</code> when this UIComponent
      *  is not created by a Repeater.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get repeater():IRepeater
     {
@@ -4543,6 +5213,11 @@ public class UIComponent extends FlexSprite
      *  The Array is empty unless this UIComponent is within
      *  one or more Repeaters.
      *  The first element corresponds to the outermost Repeater object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get repeaters():Array
     {
@@ -4572,6 +5247,11 @@ public class UIComponent extends FlexSprite
      *
      *  <p>This property is set to -1 when this UIComponent is
      *  not created by a Repeater.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get repeaterIndex():int
     {
@@ -4607,6 +5287,11 @@ public class UIComponent extends FlexSprite
      *  if the <code>startingIndex</code> property of any of the Repeaters is not 0.
      *  For example, even if a Repeater starts at <code>dataProvider[4]</code>,
      *  the document reference of the first repeated object is b[0], not b[4].</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get repeaterIndices():Array
     {
@@ -4673,6 +5358,11 @@ public class UIComponent extends FlexSprite
      *  applying a transition.</p>
      *
      *  @see #setCurrentState()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currentState():String
     {
@@ -4701,6 +5391,11 @@ public class UIComponent extends FlexSprite
      *  You can specify the <code>states</code> property only on the root
      *  of the application or on the root tag of an MXML component.
      *  The compiler generates an error if you specify it on any other control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get states():Array
     {
@@ -4735,6 +5430,11 @@ public class UIComponent extends FlexSprite
      *  set of effects to play when a view state change occurs.
      *
      *  @see mx.states.Transition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get transitions():Array
     {
@@ -4760,6 +5460,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get baselinePosition():Number
     {
@@ -4798,6 +5503,11 @@ public class UIComponent extends FlexSprite
      *  If you need the package name as well, call the
      *  <code>getQualifiedClassName()</code> method in the flash.utils package.
      *  It will return a string such as <code>"mx.controls::Button"</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get className():String
     {
@@ -4811,6 +5521,11 @@ public class UIComponent extends FlexSprite
     /**
      *  The list of effects that are currently playing on the component,
      *  as an Array of EffectInstance instances.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get activeEffects():Array
     {
@@ -4831,6 +5546,11 @@ public class UIComponent extends FlexSprite
      *  The context menu for this UIComponent.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get flexContextMenu():IFlexContextMenu
     {
@@ -4876,6 +5596,11 @@ public class UIComponent extends FlexSprite
      *  <code>styleName</code> object are used by this component.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get styleName():Object /* String, CSSStyleDeclaration, or UIComponent */
     {
@@ -4925,6 +5650,11 @@ public class UIComponent extends FlexSprite
      *  Text to display in the ToolTip.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get toolTip():String
     {
@@ -4967,6 +5697,11 @@ public class UIComponent extends FlexSprite
      *
      *  @see IUID
      *  @see mx.utils.UIDUtil
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get uid():String
     {
@@ -5023,6 +5758,11 @@ public class UIComponent extends FlexSprite
     /**
      *  Set to <code>true</code> by the PopUpManager to indicate
      *  that component has been popped up.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get isPopUp():Boolean
     {
@@ -5050,6 +5790,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  The delegate object that handles the automation-related functionality.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get automationDelegate():Object
     {
@@ -5076,6 +5821,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get automationName():String
     {
@@ -5097,6 +5847,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @copy mx.automation.IAutomationObject#automationValue
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get automationValue():Array
     {
@@ -5118,6 +5873,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showInAutomationHierarchy():Boolean
     {
@@ -5173,6 +5933,11 @@ public class UIComponent extends FlexSprite
      *  <p>Note that writing a value to the <code>errorString</code> property
      *  does not trigger the valid or invalid events; it only changes the border
      *  color and displays the validation error message.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get errorString():String
     {
@@ -5248,6 +6013,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Used by a validator to associate a subfield with this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get validationSubField():String
     {
@@ -5501,6 +6271,11 @@ public class UIComponent extends FlexSprite
      *  Developers typically never need to call this method.
      *
      *  @param p The parent of this UIComponent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function parentChanged(p:DisplayObjectContainer):void
     {
@@ -5700,6 +6475,11 @@ public class UIComponent extends FlexSprite
      *
      *  <p>If you are writing a component, you should not need
      *  to override this method.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialize():void
     {
@@ -5738,6 +6518,11 @@ public class UIComponent extends FlexSprite
      *  the <code>initialize</code> event.
      *  If you are writing a component, you should not need
      *  to override this method.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function initializationComplete():void
     {
@@ -5753,6 +6538,11 @@ public class UIComponent extends FlexSprite
      *  Each subclass that supports accessibility must override this method
      *  because the hook-in process uses a different static variable
      *  in each subclass.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function initializeAccessibility():void
     {
@@ -5778,6 +6568,11 @@ public class UIComponent extends FlexSprite
      *
      *  @param parent The parent object containing the Repeater that created
      *  this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initializeRepeaterArrays(parent:IRepeaterClient):void
     {
@@ -5811,6 +6606,11 @@ public class UIComponent extends FlexSprite
      *  <p>You do not call this method directly. Flex calls the
      *  <code>createChildren()</code> method in response to the call to
      *  the <code>addChild()</code> method to add the component to its parent. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function createChildren():void
     {
@@ -5820,6 +6620,11 @@ public class UIComponent extends FlexSprite
      *  Performs any final processing after child objects are created.
      *  This is an advanced method that you might override
      *  when creating a subclass of UIComponent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function childrenCreated():void
     {
@@ -5851,6 +6656,11 @@ public class UIComponent extends FlexSprite
      *  <p>Invalidation methods rarely get called.
      *  In general, setting a property on a component automatically
      *  calls the appropriate invalidation method.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function invalidateProperties():void
     {
@@ -5879,6 +6689,11 @@ public class UIComponent extends FlexSprite
      *  <p>Invalidation methods rarely get called.
      *  In general, setting a property on a component automatically
      *  calls the appropriate invalidation method.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function invalidateSize():void
     {
@@ -5894,6 +6709,11 @@ public class UIComponent extends FlexSprite
     /**
      *  Helper method to invalidate parent size and display list if
      *  this object affects its layout (includeInLayout is true).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function invalidateParentSizeAndDisplayList():void
     {
@@ -5924,6 +6744,11 @@ public class UIComponent extends FlexSprite
      *  <p>Invalidation methods rarely get called.
      *  In general, setting a property on a component automatically
      *  calls the appropriate invalidation method.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function invalidateDisplayList():void
     {
@@ -5983,6 +6808,11 @@ public class UIComponent extends FlexSprite
      *  components, that is sufficient. But if you need early access to
      *  your style values, you can override the stylesInitialized() function
      *  to access style properties as soon as they are initialized the first time.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function stylesInitialized():void
     {
@@ -6007,6 +6837,11 @@ public class UIComponent extends FlexSprite
      *
      *  @param styleProp The name of the style property, or null if all styles for this
      *  component have changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function styleChanged(styleProp:String):void
     {
@@ -6024,6 +6859,11 @@ public class UIComponent extends FlexSprite
      *  Delaying the processing prevents it from being repeated
      *  multiple times if the script sets the <code>width</code> property more than once.
      *  This method lets you manually override this behavior.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function validateNow():void
     {
@@ -6083,6 +6923,11 @@ public class UIComponent extends FlexSprite
      *
      *  @param args Array of Objects that represent the arguments to pass to the method.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function callLater(method:Function,
                               args:Array /* of Object */ = null):void
@@ -6150,6 +6995,11 @@ public class UIComponent extends FlexSprite
      *  by calling the <code>commitProperties()</code> method.
      *  In general, subclassers should
      *  override the <code>commitProperties()</code> method and not this method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function validateProperties():void
     {
@@ -6180,6 +7030,11 @@ public class UIComponent extends FlexSprite
      *  and <code>horizontalScrollPosition</code> properties.
      *  It is often best at startup time to process all of these
      *  properties at one time to avoid duplicating work.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function commitProperties():void
     {
@@ -6243,6 +7098,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function validateSize(recursive:Boolean = false):void
     {
@@ -6275,6 +7135,11 @@ public class UIComponent extends FlexSprite
      *  measure(). For example this is usually true when both explicitWidth and
      *  explicitHeight are set. For path, this is true when the bounds of the path
      *  have not changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function skipMeasure():Boolean
     {
@@ -6479,6 +7344,11 @@ public class UIComponent extends FlexSprite
      *  sets <code>measuredWidth</code>, <code>measuredHeight</code>,
      *  <code>measuredMinWidth</code>, and <code>measuredMinHeight</code>
      *  to <code>0</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function measure():void
     {
@@ -6543,6 +7413,11 @@ public class UIComponent extends FlexSprite
      *
      *  @return A Number which is explicitWidth if defined
      *  or measuredWidth if not.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getExplicitOrMeasuredWidth():Number
     {
@@ -6555,6 +7430,11 @@ public class UIComponent extends FlexSprite
      *
      *  @return A Number which is explicitHeight if defined
      *  or measuredHeight if not.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getExplicitOrMeasuredHeight():Number
     {
@@ -6569,6 +7449,11 @@ public class UIComponent extends FlexSprite
      *  as an argument to <code>updateDisplayList()</code>.
      *
      *  @return A Number which is unscaled width of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get unscaledWidth():Number
     {
@@ -6589,6 +7474,11 @@ public class UIComponent extends FlexSprite
      *
      *  Setting this sets the width of the component as desired
      *  before any transformation is applied.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function setUnscaledWidth(value:Number):void
     {
@@ -6619,6 +7509,11 @@ public class UIComponent extends FlexSprite
      *  as an argument to <code>updateDisplayList()</code>.
      *
      *  @return A Number which is unscaled height of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get unscaledHeight():Number
     {
@@ -6639,6 +7534,11 @@ public class UIComponent extends FlexSprite
      *
      *  Setting this sets the height of the component as desired
      *  before any transformation is applied.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function setUnscaledHeight(value:Number):void
     {
@@ -6669,6 +7569,11 @@ public class UIComponent extends FlexSprite
      *  @param text A String specifying the text to measure.
      *
      *  @return A TextLineMetrics object containing the text measurements.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function measureText(text:String):TextLineMetrics
     {
@@ -6685,6 +7590,11 @@ public class UIComponent extends FlexSprite
      *  @param text A String specifying the HTML text to measure.
      *
      *  @return A TextLineMetrics object containing the text measurements.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function measureHTMLText(htmlText:String):TextLineMetrics
     {
@@ -6727,6 +7637,11 @@ public class UIComponent extends FlexSprite
     }
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function validateDisplayList():void
     {
@@ -6806,6 +7721,11 @@ public class UIComponent extends FlexSprite
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function updateDisplayList(unscaledWidth:Number,
                                         unscaledHeight:Number):void
@@ -6828,6 +7748,11 @@ public class UIComponent extends FlexSprite
      *  ConstraintColumn. For example, a value of "cc1:10" specifies a
      *  value of 10 for the ConstraintColumn that has the
      *  <code>id</code> "cc1."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getConstraintValue(constraintName:String):*
     {
@@ -6850,6 +7775,11 @@ public class UIComponent extends FlexSprite
      *  example, a value of "cc1:10" specifies a value of 10 for the
      *  ConstraintColumn that has the <code>id</code> "cc1."
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setConstraintValue(constraintName:String, value:*):void
     {
@@ -6860,6 +7790,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get left():Object
     {
@@ -6874,6 +7809,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get right():Object
     {
@@ -6888,6 +7828,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get top():Object
     {
@@ -6902,6 +7847,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bottom():Object
     {
@@ -6916,6 +7866,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get horizontalCenter():Object
     {
@@ -6930,6 +7885,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get verticalCenter():Object
     {
@@ -6944,6 +7904,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get baseline():Object
     {
@@ -6982,6 +7947,11 @@ public class UIComponent extends FlexSprite
      *  @param height The height of the gradient, in pixels.
      *
      *  @return The Matrix for the horizontal gradient.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function horizontalGradientMatrix(x:Number, y:Number,
                                              width:Number,
@@ -7012,6 +7982,11 @@ public class UIComponent extends FlexSprite
      *  @param height The height of the gradient, in pixels.
      *
      *  @return The Matrix for the vertical gradient.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function verticalGradientMatrix(x:Number, y:Number,
                                            width:Number,
@@ -7023,6 +7998,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @copy mx.skins.ProgrammaticSkin#drawRoundRect()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function drawRoundRect(x:Number, y:Number, w:Number, h:Number,
                                   r:Object = null, c:Object = null,
@@ -7155,6 +8135,11 @@ public class UIComponent extends FlexSprite
       *  @param x Left position of the component within its parent.
       *
       *  @param y Top position of the component within its parent.
+      *  
+      *  @langversion 3.0
+      *  @playerversion Flash 9
+      *  @playerversion AIR 1.1
+      *  @productversion Flex 3
       */
     public function move(x:Number, y:Number):void
     {
@@ -7203,6 +8188,11 @@ public class UIComponent extends FlexSprite
      *  @param w Width of the object.
      *
      *  @param h Height of the object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setActualSize(w:Number, h:Number):void
     {
@@ -7255,6 +8245,11 @@ public class UIComponent extends FlexSprite
      *  @return A Point object with coordinates relative to the Stage.
      *
      *  @see #globalToContent()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function contentToGlobal(point:Point):Point
     {
@@ -7279,6 +8274,11 @@ public class UIComponent extends FlexSprite
      *  @return Point A Point object with coordinates relative to the component.
      *
      *  @see #contentToGlobal()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function globalToContent(point:Point):Point
     {
@@ -7303,6 +8303,11 @@ public class UIComponent extends FlexSprite
      *  local coordinate system.
      *
      *  @see #contentToGlobal()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function contentToLocal(point:Point):Point
     {
@@ -7327,6 +8332,11 @@ public class UIComponent extends FlexSprite
      *  content coordinate system.
      *
      *  @see #contentToLocal()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function localToContent(point:Point):Point
     {
@@ -7350,6 +8360,11 @@ public class UIComponent extends FlexSprite
      *  <code>focusManager.focus</code> property.
      *
      *  @return Object that has focus.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getFocus():InteractiveObject
     {
@@ -7370,6 +8385,11 @@ public class UIComponent extends FlexSprite
      *  <p><b>Note:</b> Only the TextInput and TextArea controls show a highlight
      *  when this method sets the focus.
      *  All controls show a highlight when the user tabs to the control.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setFocus():void
     {
@@ -7419,6 +8439,11 @@ public class UIComponent extends FlexSprite
      *
      *  @param isFocused Determines if the focus indicator should be displayed. Set to
      *  <code>true</code> to display the focus indicator. Set to <code>false</code> to hide it.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function drawFocus(isFocused:Boolean):void
     {
@@ -7507,6 +8532,11 @@ public class UIComponent extends FlexSprite
      *
      *  @param The component whose focus rectangle to modify.
      *  If omitted, the default value is this UIComponent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function adjustFocusRect(obj:DisplayObject = null):void
     {
@@ -7605,6 +8635,11 @@ public class UIComponent extends FlexSprite
      *  @param oldValue Old value of the property.
      *
      *  @param value New value of the property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function dispatchPropertyChangeEvent(prop:String, oldValue:*,
                                                    value:*):void
@@ -7656,6 +8691,11 @@ public class UIComponent extends FlexSprite
      *  the appropriate transition when the view state changes.
      *
      *  @see #currentState
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setCurrentState(stateName:String,
                                     playTransition:Boolean = true):void
@@ -8108,6 +9148,11 @@ public class UIComponent extends FlexSprite
      *  A component's parent is used to evalate descendant selectors. A parent
      *  must also be an IAdvancedStyleClient to participate in advanced style
      *  declarations.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get styleParent():IAdvancedStyleClient
     {
@@ -8119,6 +9164,11 @@ public class UIComponent extends FlexSprite
      *  of a matching CSS pseudo-selector for the current state, the style
      *  cache needs to be regenerated for this instance and, potentially all
      *  children, if the recursive param is set to true.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function applyStateStyles(oldState:String, newState:String, recursive:Boolean):void
     {
@@ -8136,6 +9186,11 @@ public class UIComponent extends FlexSprite
     /**
      *  Determins whether the current state of this component matches a
      *  CSS pseudo-selector.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isPseudoSelectorMatch(pseudoState:String):Boolean
     {
@@ -8145,6 +9200,11 @@ public class UIComponent extends FlexSprite
     /**
      *  Determines whether this component can be considered assignable to the
      *  given type. This is used to determine matching advanced CSS styles.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function isTypeSelectorMatch(type:String):Boolean
     {
@@ -8172,6 +9232,11 @@ public class UIComponent extends FlexSprite
      *  (The superclass chain is considered to stop at UIComponent, not Object.)
      *
      *  @return An Array of type selectors for this UIComponent instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getClassStyleDeclarations():Array
     {
@@ -8208,6 +9273,11 @@ public class UIComponent extends FlexSprite
      *
      *  @param recursive Recursively regenerates the style cache for
      *  all children of this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function regenerateStyleCache(recursive:Boolean):void
     {
@@ -8280,6 +9350,11 @@ public class UIComponent extends FlexSprite
      *  @param styleProp Name of the style property.
      *
      *  @return Style value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getStyle(styleProp:String):*
     {
@@ -8300,6 +9375,11 @@ public class UIComponent extends FlexSprite
      *  @param styleProp Name of the style property.
      *
      *  @param newValue New value for the style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setStyle(styleProp:String, newValue:*):void
     {
@@ -8313,6 +9393,11 @@ public class UIComponent extends FlexSprite
      *  to return <code>undefined</code>.</p>
      *
      *  @param styleProp The name of the style property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function clearStyle(styleProp:String):void
     {
@@ -8326,6 +9411,11 @@ public class UIComponent extends FlexSprite
      *  @param styleProp String specifying the name of the style property.
      *
      *  @param recursive Recursivly notify all children of this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function notifyStyleChangeInChildren(
                         styleProp:String, recursive:Boolean):void
@@ -8478,6 +9568,11 @@ public class UIComponent extends FlexSprite
      *
      *  @return UITextFormat object corresponding to the text styles
      *  for this UIComponent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function determineTextFormatFromStyles():UITextFormat
     {
@@ -8545,6 +9640,11 @@ public class UIComponent extends FlexSprite
      *  scenarios, is anticipated for updater 1.
      *
      *  @param recurse Recursively execute bindings for children of this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function executeBindings(recurse:Boolean = false):void
     {
@@ -8564,6 +9664,11 @@ public class UIComponent extends FlexSprite
      *  You typically never need to call this method.
      *
      *  @param effects The names of the effect events.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerEffects(effects:Array /* of String */):void
     {
@@ -8628,6 +9733,11 @@ public class UIComponent extends FlexSprite
      *  This is an internal method used by the Flex framework
      *  to support the Dissolve effect.
      *  You should not need to call it or override it.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function attachOverlay():void
     {
@@ -8699,6 +9809,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Contains <code>true</code> if an effect is currently playing on the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _isEffectStarted:Boolean = false;
     mx_internal function get isEffectStarted():Boolean
@@ -8719,6 +9834,11 @@ public class UIComponent extends FlexSprite
      *  to restore the modification when the effect ends.
      *
      *  @param effectInst The effect instance object playing on the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function effectStarted(effectInst:IEffectInstance):void
     {
@@ -8756,6 +9876,11 @@ public class UIComponent extends FlexSprite
      *  or perform some other action when the effect ends.
      *
      *  @param effectInst The effect instance object playing on the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function effectFinished(effectInst:IEffectInstance):void
     {
@@ -8769,6 +9894,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Ends all currently playing effects on the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function endEffectsStarted():void
     {
@@ -8857,6 +9987,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createReferenceOnParentDocument(
                         parentDocument:IFlexDisplayObject):void
@@ -8901,6 +10036,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function deleteReferenceOnParentDocument(
                                 parentDocument:IFlexDisplayObject):void
@@ -8972,6 +10112,11 @@ public class UIComponent extends FlexSprite
      *  counting from the outermost one, starting at 0.
      *
      *  @return The requested repeater item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getRepeaterItem(whichRepeater:int = -1):Object
     {
@@ -9007,6 +10152,11 @@ public class UIComponent extends FlexSprite
      *  <p>Subclasses should override this method and, after calling
      *  <code>super.resourcesChanged()</code>, do whatever is appropriate
      *  in response to having new resource values.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function resourcesChanged():void
     {
@@ -9034,6 +10184,11 @@ public class UIComponent extends FlexSprite
      *  to restore it to its previous state.
      *
      *  @see mx.printing.FlexPrintJob
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function prepareToPrint(target:IFlexDisplayObject):Object
     {
@@ -9054,6 +10209,11 @@ public class UIComponent extends FlexSprite
      *  It may be the current component or one of its children.
      *
      *  @see mx.printing.FlexPrintJob
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function finishPrint(obj:Object, target:IFlexDisplayObject):void
     {
@@ -9183,6 +10343,11 @@ public class UIComponent extends FlexSprite
      *  If you override this method, make sure to call the base class version.
      *
      *  @param event The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function keyDownHandler(event:KeyboardEvent):void
     {
@@ -9194,6 +10359,11 @@ public class UIComponent extends FlexSprite
      *  If you override this method, make sure to call the base class version.
      *
      *  @param event The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function keyUpHandler(event:KeyboardEvent):void
     {
@@ -9208,6 +10378,11 @@ public class UIComponent extends FlexSprite
      *  that can receive focus.
      *
      *  @return Returns <code>true</code> if the UITextField object has focus.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function isOurFocus(target:DisplayObject):Boolean
     {
@@ -9219,6 +10394,11 @@ public class UIComponent extends FlexSprite
      *  If you override this method, make sure to call the base class version.
      *
      *  @param event The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function focusInHandler(event:FocusEvent):void
     {
@@ -9237,6 +10417,11 @@ public class UIComponent extends FlexSprite
      *  If you override this method, make sure to call the base class version.
      *
      *  @param event The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function focusOutHandler(event:FocusEvent):void
     {
@@ -9395,6 +10580,11 @@ public class UIComponent extends FlexSprite
      *  @param event The event object for the validation.
      *
      *  @see mx.events.ValidationResultEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function validationResultHandler(event:ValidationResultEvent):void
     {
@@ -9491,6 +10681,11 @@ public class UIComponent extends FlexSprite
      *  @param child A UIComponent.
      *
      *  @return <code>true</code> if the child is parented or owned by this UIComponent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function owns(child:DisplayObject):Boolean
     {
@@ -9591,6 +10786,11 @@ public class UIComponent extends FlexSprite
      *  of the SWF owning the embedded font.
      *  If this object is not using an embedded font,
      *  the class is created in the context of this object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function createInFontContext(classObj:Class):Object
     {
@@ -9631,6 +10831,11 @@ public class UIComponent extends FlexSprite
      *  @param className The name of the class to create.
      *
      *  @return The object created in the context of the moduleFactory.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function createInModuleContext(moduleFactory:IFlexModuleFactory,
                                              className:String):Object
@@ -9674,6 +10879,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createAutomationIDPart(child:IAutomationObject):Object
     {
@@ -9684,6 +10894,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function resolveAutomationIDPart(criteria:Object):Array
     {
@@ -9694,6 +10909,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getAutomationChildAt(index:int):IAutomationObject
     {
@@ -9704,6 +10924,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get numAutomationChildren():int
     {
@@ -9714,6 +10939,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get automationTabularData():Object
     {
@@ -9724,6 +10954,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function replayAutomatableEvent(event:Event):Boolean
     {
@@ -9813,6 +11048,11 @@ public class UIComponent extends FlexSprite
      *  @return A value of <code>true</code> if the event was successfully dispatched.
      *  A value of <code>false</code> indicates failure or that
      *  the <code>preventDefault()</code> method was called on the event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function dispatchEvent(event:Event):Boolean
     {
@@ -9851,6 +11091,11 @@ public class UIComponent extends FlexSprite
      * advanced layout features of a component.  Call this function before attempting to use any of the 
      * features implemented by the AdvancedLayoutFeatures object.
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function initAdvancedLayoutFeatures():void
     {
@@ -9911,6 +11156,11 @@ public class UIComponent extends FlexSprite
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get transform():flash.geom.Transform
     {
@@ -9964,6 +11214,11 @@ public class UIComponent extends FlexSprite
      *  for a component that will be rotated 90 degrees, you set the component's <code>rotation</code> property. 
      *  If you want the layout to <i>not</i> adjust for the component being rotated, you set its <code>offsets.rotationZ</code> 
      *  property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set offsets(value:TransformOffsets):void
     {
@@ -9993,6 +11248,11 @@ public class UIComponent extends FlexSprite
      *  When true, the component will keep its projection matrix centered on the
      *  middle of its bounding box.  If no projection matrix is defined on the
      *  component, one will be added automatically.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set maintainProjectionCenter(value:Boolean):void
     {
@@ -10013,6 +11273,11 @@ public class UIComponent extends FlexSprite
     
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setLayoutMatrix(value:Matrix, triggerLayout:Boolean):void
     {
@@ -10039,6 +11304,11 @@ public class UIComponent extends FlexSprite
     /**
      *  Similarly to the layoutMatrix3D property, sets the layout Matrix3D, but
      *  doesn't trigger a layout pass. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setLayoutMatrix3D(value:Matrix3D, triggerLayout:Boolean):void
     {
@@ -10062,6 +11332,11 @@ public class UIComponent extends FlexSprite
      * @param rx,ry,rz the new values for the rotation of the transform
      * @param sx,sy,sz the new values for the scale of the transform
      * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
     {
@@ -10103,6 +11378,11 @@ public class UIComponent extends FlexSprite
      *  <p>Most components do not have any 3D transform properties set on them.</p>
      *  
      *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set layoutMatrix3D(value:Matrix3D):void
     {
@@ -10117,6 +11397,11 @@ public class UIComponent extends FlexSprite
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get layer():Number
     {
@@ -10143,6 +11428,11 @@ public class UIComponent extends FlexSprite
      *  Note that while this function is defined on UIComponent, it is up to subclasses
      *  to implement support for complex layering.  By default, only Groups support
      *  arbitrary layering of their children.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function invalidateLayering():void
     {
@@ -10151,6 +11441,11 @@ public class UIComponent extends FlexSprite
 
     /**
      * Commits the computed matrix built from the combination of the layout matrix and the transform offsets to the flash displayObject's transform.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function applyComputedMatrix():void
     {
@@ -10182,6 +11477,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getPreferredBoundsWidth(postTransform:Boolean=true):Number
     {
@@ -10195,6 +11495,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getMinBoundsWidth(postTransform:Boolean=true):Number
     {
@@ -10208,6 +11513,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getMaxBoundsWidth(postTransform:Boolean=true):Number
     {
@@ -10221,6 +11531,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getLayoutBoundsWidth(postTransform:Boolean=true):Number
     {
@@ -10234,6 +11549,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getLayoutBoundsX(postTransform:Boolean=true):Number
     {
@@ -10247,6 +11567,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setLayoutBoundsPosition(x:Number, y:Number, postTransform:Boolean=true):void
     {
@@ -10255,6 +11580,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setLayoutBoundsSize(width:Number = Number.NaN,
                                   height:Number = Number.NaN,
@@ -10265,6 +11595,11 @@ public class UIComponent extends FlexSprite
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getLayoutMatrix():Matrix
     {
@@ -10285,6 +11620,11 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getLayoutMatrix3D():Matrix3D
     {
@@ -10308,6 +11648,11 @@ public class UIComponent extends FlexSprite
             return MatrixUtil.composeMatrix(obj.x, obj.y, 1, 1, obj.rotation,
                         UIComponent(obj).transformX, UIComponent(obj).transformY);
         } 
+*  
+*  @langversion 3.0
+*  @playerversion Flash 9
+*  @playerversion AIR 1.1
+*  @productversion Flex 3
 */
         if (hasDeltaIdentityTransform)
             return null; 
@@ -10346,6 +11691,11 @@ class MethodQueueElement
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function MethodQueueElement(method:Function,
                                        args:Array /* of Object */ = null)
@@ -10368,6 +11718,11 @@ class MethodQueueElement
 
     /**
      *  A reference to the method to be called.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var method:Function;
 
@@ -10377,6 +11732,11 @@ class MethodQueueElement
 
     /**
      *  The arguments to be passed to the method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var args:Array /* of Object */;
 }
