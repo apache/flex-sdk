@@ -565,7 +565,7 @@ public class TextAreaSkin extends TextSkinBase
                 // Dispatch an event for an ancestor Scroller
                 // It will scroll the TextArea so the caret is in view
                 convertBoundsToLocal(caretBounds);
-                if (caretBounds.bottom != oldCaretBounds.bottom || caretBounds.top != oldCaretBounds.top)
+                if (oldCaretBounds == null || caretBounds.bottom != oldCaretBounds.bottom || caretBounds.top != oldCaretBounds.top)
                 {
                     //trace("TAS.layoutContents send caret CHANGE");
                     dispatchEvent(new CaretBoundsChangeEvent(CaretBoundsChangeEvent.CARET_BOUNDS_CHANGE,true,true,oldCaretBounds,caretBounds));
@@ -754,7 +754,7 @@ public class TextAreaSkin extends TextSkinBase
             
             if (oldCaretBounds != newCaretBounds)
             {
-                //trace("TAS.SK ACTIVATE",keyboardRect,"dispatch caret CHANGE");
+                //trace("TAS.SK ACTIVATE",keyboardRect,"dispatch caret CHANGE","newCaretBounds",newCaretBounds);
                 dispatchEvent(new CaretBoundsChangeEvent(CaretBoundsChangeEvent.CARET_BOUNDS_CHANGE,true,true,oldCaretBounds,newCaretBounds));
                 oldCaretBounds = newCaretBounds;
             }
