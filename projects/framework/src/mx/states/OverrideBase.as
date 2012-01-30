@@ -197,10 +197,10 @@ public class OverrideBase extends OnDemandEventDispatcher implements IOverride
         if (isBaseValueDataBound && target && parent && property)
         {
             var document:Object = target.hasOwnProperty("document") ? target.document : null;
-            document = !document && parent.hasOwnProperty("document") ? parent.document : null;
+            document = !document && parent.hasOwnProperty("document") ? parent.document : document;
             
             var name:String = target.hasOwnProperty("id") ? target.id : null;
-            name = !name && target.hasOwnProperty("name") ? target.name : null;
+            name = !name && target.hasOwnProperty("name") ? target.name : name;
             
             if (document && name)
             {
