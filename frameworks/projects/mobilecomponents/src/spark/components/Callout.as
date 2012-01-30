@@ -528,9 +528,6 @@ public class Callout extends SkinnablePopUpContainer
         // Add to PopUpManager, calls positionPopUp(), and change state
         super.open(owner, modal);
         
-        // Close the callout when the owner is removed
-        owner.addEventListener(Event.REMOVED_FROM_STAGE, owner_removedFromStage);
-        
         // Reposition the callout when the screen changes
         var systemManagerParent:SystemManager = this.parent as SystemManager;
         
@@ -545,8 +542,6 @@ public class Callout extends SkinnablePopUpContainer
     {
         if (!isOpen)
             return;
-        
-        owner.removeEventListener(Event.REMOVED_FROM_STAGE, owner_removedFromStage);
         
         var systemManagerParent:SystemManager = this.parent as SystemManager;
         
@@ -1246,21 +1241,6 @@ public class Callout extends SkinnablePopUpContainer
     private function arrow_resizeHandler(event:Event):void
     {
         updateSkinDisplayList();
-    }
-    
-    /**
-     *  @private
-     */
-    private function owner_removedFromStage(event:Event):void
-    {
-        if (!isOpen)
-            return;
-        
-        // Hide the callout immediately instead of waiting for the skin
-        // state to transition to "closed"
-        visible = false;
-        
-        close();
     }
     
     /**
