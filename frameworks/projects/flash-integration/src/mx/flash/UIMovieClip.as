@@ -947,7 +947,7 @@ public dynamic class UIMovieClip extends MovieClip
      */
     override public function get z():Number
     {
-        return (_layoutFeatures == null)? super.z:_layoutFeatures.layoutZ;
+        return (_layoutFeatures == null) ? super.z : _layoutFeatures.layoutZ;
     }
 
     /**
@@ -2482,7 +2482,7 @@ public dynamic class UIMovieClip extends MovieClip
         // if it's been set, layoutFeatures won't be null.  Otherwise, return 1 as
         // super.scaleX might be some other value since we change the width/height 
         // through scaling
-        return ((_layoutFeatures == null)? 1:_layoutFeatures.layoutScaleY);
+        return (_layoutFeatures == null) ? 1 : _layoutFeatures.layoutScaleY;
     }
     
     override public function set scaleY(value:Number):void
@@ -2569,7 +2569,7 @@ public dynamic class UIMovieClip extends MovieClip
      *  @default 1.0
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
+     *  @playerversion Flash 10
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
@@ -2853,24 +2853,18 @@ public dynamic class UIMovieClip extends MovieClip
     }
     
     /**
-     * Determines the order in which items inside of groups are rendered. Groups order their items based on their layer property, with the lowest layer
-     * in the back, and the higher in the front.  items with the same layer value will appear in the order they are added to the Groups item list.
-     * 
-     * defaults to 0
-     * 
-     * @default 0
-     *  
+     *  @inheritDoc
+     *    
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get depth():Number
     {
-        return (_layoutFeatures == null)? 0:_layoutFeatures.depth;
+        return (_layoutFeatures == null) ? 0 : _layoutFeatures.depth;
     }
 
-    [Bindable("layerChange")]
     /**
      * @private
      */
@@ -2882,7 +2876,6 @@ public dynamic class UIMovieClip extends MovieClip
 			initAdvancedLayoutFeatures();
 		
         _layoutFeatures.depth = value;      
-        dispatchEvent(new FlexEvent("layerChange"));
         if (parent != null && "invalidateLayering" in parent && parent["invalidateLayering"] is Function)
             parent["invalidateLayering"]();
         // FIXME (rfrishbe): should be in some interface...
@@ -2892,13 +2885,13 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get transformX():Number
     {
-        return (_layoutFeatures == null)? 0:_layoutFeatures.transformX;
+        return (_layoutFeatures == null) ? 0 : _layoutFeatures.transformX;
     }
     /**
      *  @private
@@ -2920,13 +2913,13 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get transformY():Number
     {
-        return (_layoutFeatures == null)? 0:_layoutFeatures.transformY;
+        return (_layoutFeatures == null) ? 0 : _layoutFeatures.transformY;
     }
     /**
      *  @private
@@ -2948,13 +2941,13 @@ public dynamic class UIMovieClip extends MovieClip
      *
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get transformZ():Number
     {
-        return (_layoutFeatures == null)? 0:_layoutFeatures.transformZ;
+        return (_layoutFeatures == null) ? 0 : _layoutFeatures.transformZ;
     }
     /**
      *  @private
@@ -2982,7 +2975,7 @@ public dynamic class UIMovieClip extends MovieClip
      */
     override public function get rotation():Number
     {
-        return (_layoutFeatures == null)? super.rotation:_layoutFeatures.layoutRotationZ;
+        return (_layoutFeatures == null) ? super.rotation : _layoutFeatures.layoutRotationZ;
     }
 
     /**
@@ -3103,9 +3096,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  property.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
@@ -3203,9 +3196,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  component, one will be added automatically.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set maintainProjectionCenter(value:Boolean):void
     {
@@ -3228,9 +3221,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutMatrix():Matrix
     {
@@ -3253,9 +3246,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  @inheritDoc 
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
     {
@@ -3283,9 +3276,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutMatrix3D():Matrix3D
     {
@@ -3297,14 +3290,40 @@ public dynamic class UIMovieClip extends MovieClip
         // we hand out a clone.
         return _layoutFeatures.layoutMatrix3D.clone();          
     }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get hasLayoutMatrix3D():Boolean
+    {
+        return _layoutFeatures ? _layoutFeatures.layoutIs3D : false;
+    }
 
     /**
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get is3D():Boolean
+    {
+        return _layoutFeatures ? _layoutFeatures.is3D : false;
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void
     {
@@ -3351,9 +3370,9 @@ public dynamic class UIMovieClip extends MovieClip
      * @param transformCenter the point, in the component's own coordinates, to keep fixed relative to its parent.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function transformAround(transformCenter:Vector3D,
                                     scale:Vector3D = null,
@@ -3549,9 +3568,9 @@ public dynamic class UIMovieClip extends MovieClip
      * Commits the computed matrix built from the combination of the layout matrix and the transform offsets to the flash displayObject's transform.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function applyComputedMatrix():void
     {
@@ -3606,9 +3625,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getPreferredBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
@@ -3624,9 +3643,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getMinBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
@@ -3642,9 +3661,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getMaxBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
@@ -3660,9 +3679,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -3674,9 +3693,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -3688,9 +3707,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
@@ -3706,9 +3725,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
@@ -3724,9 +3743,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setLayoutBoundsPosition(x:Number, y:Number, postLayoutTransform:Boolean = true):void
     {
@@ -3737,9 +3756,9 @@ public dynamic class UIMovieClip extends MovieClip
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setLayoutBoundsSize(width:Number,
                                         height:Number,
