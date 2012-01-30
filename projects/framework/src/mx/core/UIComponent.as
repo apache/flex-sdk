@@ -41,6 +41,7 @@ import flash.system.Capabilities;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 import flash.ui.Keyboard;
+import flash.utils.Dictionary;
 import flash.utils.getQualifiedClassName;
 
 import mx.automation.IAutomationObject;
@@ -4592,21 +4593,19 @@ public class UIComponent extends FlexSprite
 
         if (advanceStyleClientChildren != null)
         {
-            var nAdvanceStyleChildern:int = advanceStyleClientChildren.length;
-            for (var j:int = 0; j < nAdvanceStyleChildern; j++)
+            for (var styleClient:Object in advanceStyleClientChildren)
             {
-                var iAdvanceStyleClientChild:IFlexModule = advanceStyleClientChildren[j] as IFlexModule;
-                if (!iAdvanceStyleClientChild)
-                    continue;
-
-                if (iAdvanceStyleClientChild.moduleFactory == null 
-                    || iAdvanceStyleClientChild.moduleFactory == _moduleFactory)
+                var iAdvanceStyleClientChild:IFlexModule = styleClient
+                    as IFlexModule;
+                
+                if (iAdvanceStyleClientChild && 
+                    (iAdvanceStyleClientChild.moduleFactory == null 
+                        || iAdvanceStyleClientChild.moduleFactory == _moduleFactory))
                 {
                     iAdvanceStyleClientChild.moduleFactory = factory;
                 }
             }
         }
-
         _moduleFactory = factory;
 
         setDeferredStyles();
@@ -10978,19 +10977,20 @@ public class UIComponent extends FlexSprite
         // Call this method on each non-visual StyleClient
         if (advanceStyleClientChildren != null)
         {
-            var nAdvanceStyleChildern:int = advanceStyleClientChildren.length;
-            for (var j:int = 0; j < nAdvanceStyleChildern; j++)
+            for (var styleClient:Object in advanceStyleClientChildren)
             {
-                if (advanceStyleClientChildren[j].inheritingStyles !=
+                var iAdvanceStyleClientChild:IAdvancedStyleClient = styleClient
+                    as IAdvancedStyleClient;
+                
+                if (iAdvanceStyleClientChild && 
+                    iAdvanceStyleClientChild.inheritingStyles !=
                     StyleProtoChain.STYLE_UNINITIALIZED)
                 {
-                    advanceStyleClientChildren[j].regenerateStyleCache(recursive);
+                    iAdvanceStyleClientChild.regenerateStyleCache(recursive);
                 }
             }
         }
-
     }
-
     /**
      *  This method is called when a state changes to check whether
      *  state-specific styles apply to this component. If there is a chance
@@ -11154,7 +11154,7 @@ public class UIComponent extends FlexSprite
     /**
      *  @private
      */
-    protected var advanceStyleClientChildren:Vector.<IAdvancedStyleClient> = null;
+    mx_internal var advanceStyleClientChildren:Dictionary = null;
 
     /**
      *  Adds a non-visual style client to this component instance. Once 
@@ -11197,16 +11197,17 @@ public class UIComponent extends FlexSprite
                 var parentComponent:UIComponent = styleClient.styleParent as UIComponent;
                 if (parentComponent)
                     parentComponent.removeStyleClient(styleClient);
-               }
-
-                if (advanceStyleClientChildren == null)
-                advanceStyleClientChildren = new Vector.<IAdvancedStyleClient>();
-
-            advanceStyleClientChildren.push(styleClient);
+            }
+            // Create a dictionary with weak references to the key
+            if (advanceStyleClientChildren == null)
+                advanceStyleClientChildren = new Dictionary(true);
+            // Add the styleClient as a key in the dictionary. 
+            // The value assigned to this key entry is currently not used.
+            advanceStyleClientChildren[styleClient] = true;  
             styleClient.styleParent=this;
-
+            
             styleClient.regenerateStyleCache(true);
-
+            
             styleClient.styleChanged(null);
         }
         else
@@ -11245,17 +11246,16 @@ public class UIComponent extends FlexSprite
      */
     public function removeStyleClient(styleClient:IAdvancedStyleClient):void
     {
-        if(advanceStyleClientChildren && advanceStyleClientChildren.length != 0)
+        if(advanceStyleClientChildren && 
+            advanceStyleClientChildren[styleClient])
         {
-            var i:int = advanceStyleClientChildren.indexOf(styleClient);
-            if(i!=-1) {
-                advanceStyleClientChildren.splice(i, 1);
-                styleClient.styleParent = null;
-
-                styleClient.regenerateStyleCache(true);
-
-                styleClient.styleChanged(null);
-            }
+            delete advanceStyleClientChildren[styleClient];
+            
+            styleClient.styleParent = null;
+            
+            styleClient.regenerateStyleCache(true);
+            
+            styleClient.styleChanged(null);
         }
     }
     
@@ -11297,17 +11297,17 @@ public class UIComponent extends FlexSprite
 
         if (advanceStyleClientChildren != null)
         {
-            var nAdvanceStyleClientChildern:int = advanceStyleClientChildren.length;
-            for (var j:int = 0; j < nAdvanceStyleClientChildern; j++)
+            for (var styleClient:Object in advanceStyleClientChildren)
             {
-                var iAdvanceStyleClientChild:IAdvancedStyleClient = advanceStyleClientChildren[j];
-
+                var iAdvanceStyleClientChild:IAdvancedStyleClient = styleClient
+                    as IAdvancedStyleClient;
+                
                 if (iAdvanceStyleClientChild)
                 {
                     iAdvanceStyleClientChild.styleChanged(styleProp);
                 }
             }
-        }        
+        }
     }
 
     /**
