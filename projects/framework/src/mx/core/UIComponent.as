@@ -66,7 +66,6 @@ import mx.managers.IFocusManagerContainer;
 import mx.managers.ILayoutManagerClient;
 import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
-import mx.managers.LayoutManager;
 import mx.managers.SystemManager;
 import mx.managers.SystemManagerGlobals;
 import mx.managers.SystemManagerProxy;
@@ -9050,8 +9049,8 @@ public class UIComponent extends FlexSprite
         removeState(_currentState, commonBaseState);
         _currentState = requestedCurrentState;
 
-        // Update state specific styles
-        applyStateStyles(oldState, _currentState, true);
+        // Check for state specific styles
+        stateChanged(oldState, _currentState, true);
 
         // If we're going back to the base state, dispatch an
         // enter state event, otherwise apply the state.
@@ -9375,9 +9374,10 @@ public class UIComponent extends FlexSprite
     //--------------------------------------------------------------------------
 
     /**
-     *  @private
+     *  The state to be used when matching CSS pseudo-selectors. By default
+     *  this is the currentState.
      */ 
-    public function get pseudoSelectorState():String
+    protected function get currentCSSState():String
     {
         return currentState;
     }
@@ -9398,30 +9398,6 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  Apply state-specific styles to this component. If there is a chance
-     *  of a matching CSS pseudo-selector for the current state, the style
-     *  cache needs to be regenerated for this instance and, potentially all
-     *  children, if the recursive param is set to true.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function applyStateStyles(oldState:String, newState:String, recursive:Boolean):void
-    {
-        if (pseudoSelectorState && oldState != newState &&
-               (StyleManager.hasPseudoSelector(oldState) ||
-                StyleManager.hasPseudoSelector(newState)))
-        {
-            regenerateStyleCache(recursive);
-            initThemeColor();
-            styleChanged(null);
-            notifyStyleChangeInChildren(null, recursive);
-        }
-    }
-
-    /**
      *  Determins whether the current state of this component matches a
      *  CSS pseudo-selector.
      *  
@@ -9430,23 +9406,23 @@ public class UIComponent extends FlexSprite
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function isPseudoSelectorMatch(pseudoState:String):Boolean
+    public function matchesCSSState(cssState:String):Boolean
     {
-        return pseudoSelectorState == pseudoState;
+        return currentCSSState == cssState;
     }
 
     /**
-     *  Determines whether this component can be considered assignable to the
-     *  given type. This is used to determine matching advanced CSS styles.
+     *  Determines whether this component is assignable to the given CSS type.
+     *  This is used to determine matching advanced CSS styles.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */ 
-    public function isTypeSelectorMatch(type:String):Boolean
+    public function matchesCSSType(cssType:String):Boolean
     {
-        return StyleProtoChain.isTypeSelectorMatch(this, type);
+        return StyleProtoChain.matchesCSSType(this, cssType);
     }
 
     /**
@@ -9551,6 +9527,31 @@ public class UIComponent extends FlexSprite
                 if (IUITextField(child).inheritingStyles)
                     StyleProtoChain.initTextField(IUITextField(child));
             }
+        }
+    }
+
+    /**
+     *  This method is called when a state changes to check whether
+     *  state-specific styles apply to this component. If there is a chance
+     *  of a matching CSS pseudo-selector for the current state, the style
+     *  cache needs to be regenerated for this instance and, potentially all
+     *  children, if the recursive param is set to true.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function stateChanged(oldState:String, newState:String, recursive:Boolean):void
+    {
+        if (currentCSSState && oldState != newState &&
+               (StyleManager.hasPseudoCondition(oldState) ||
+                StyleManager.hasPseudoCondition(newState)))
+        {
+            regenerateStyleCache(recursive);
+            initThemeColor();
+            styleChanged(null);
+            notifyStyleChangeInChildren(null, recursive);
         }
     }
 
@@ -9862,6 +9863,7 @@ public class UIComponent extends FlexSprite
 
         return textFormat;
     }
+
 
     //--------------------------------------------------------------------------
     //
