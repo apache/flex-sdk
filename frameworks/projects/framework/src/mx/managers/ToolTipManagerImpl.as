@@ -22,7 +22,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.Timer;
 import mx.controls.ToolTip;
-import mx.core.ApplicationGlobals;
+import mx.core.FlexGlobals;
 import mx.core.IInvalidating;
 import mx.core.IToolTip;
 import mx.core.IUIComponent;
@@ -1328,7 +1328,7 @@ public class ToolTipManagerImpl extends EventDispatcher
 
         var sm:ISystemManager = context ?
                                           context.systemManager as ISystemManager:
-                                          ApplicationGlobals.application.systemManager as ISystemManager;
+                                          FlexGlobals.topLevelApplication.systemManager as ISystemManager;
        	sm.topLevelSystemManager.addChildToSandboxRoot("toolTipChildren", toolTip as DisplayObject);
 
         if (errorTipBorderStyle)
