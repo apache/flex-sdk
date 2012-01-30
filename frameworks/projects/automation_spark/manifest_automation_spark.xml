@@ -35,7 +35,8 @@
 <component id="SparkListAutomationImpl"  class="spark.automation.delegates.components.SparkListAutomationImpl"/>             
 <component id="SparkTextInputAutomationImpl"  class="spark.automation.delegates.components.SparkTextInputAutomationImpl"/>
 <component id="SparkNumericStepperAutomationImpl"  class="spark.automation.delegates.components.SparkNumericStepperAutomationImpl"/>   
-<component id="SparkPanelAutomationImpl"  class="spark.automation.delegates.components.SparkPanelAutomationImpl"/>         
+<component id="SparkPanelAutomationImpl"  class="spark.automation.delegates.components.SparkPanelAutomationImpl"/>
+<component id="SparkPopUpAnchorAutomationImpl" class="spark.automation.delegates.components.SparkPopUpAnchorAutomationImpl"/>         
 
 <component id="SparkGridItemRendererAutomationImpl"  class="spark.automation.delegates.components.gridClasses.SparkGridItemRendererAutomationImpl"/>  
 
