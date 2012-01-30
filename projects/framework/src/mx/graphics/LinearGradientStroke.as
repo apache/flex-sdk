@@ -12,14 +12,14 @@
 package mx.graphics
 {
  
+import flash.display.GradientType;
 import flash.display.Graphics;
-import flash.display.GraphicsGradientFill; 
+import flash.display.GraphicsGradientFill;
 import flash.display.GraphicsStroke;
-import flash.display.GradientType;  
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
 
-import mx.core.mx_internal; 
+import mx.core.mx_internal;
 
 use namespace mx_internal; 
 
@@ -120,7 +120,60 @@ public class LinearGradientStroke extends GradientStroke
     {
         super(weight, pixelHinting, scaleMode, caps, joints, miterLimit);
     }
-     
+
+	//--------------------------------------------------------------------------
+	//
+	//  Properties
+	//
+	//--------------------------------------------------------------------------
+
+    //----------------------------------
+	//  matrix
+	//----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set matrix(value:Matrix):void
+    {
+    	scaleX = NaN;
+    	super.matrix = value;
+    }
+
+	//----------------------------------
+    //  scaleX
+    //----------------------------------
+    
+    private var _scaleX:Number;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  The horizontal scale of the gradient transform, which defines the width of the (unrotated) gradient
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get scaleX():Number
+    {
+        return _scaleX; 
+    }
+    
+    /**
+     *  @private
+     */
+    public function set scaleX(value:Number):void
+    {
+        var oldValue:Number = _scaleX;
+        if (value != oldValue && !compoundTransform)
+        {
+            _scaleX = value;
+            dispatchGradientChangedEvent("scaleX", oldValue, value);
+        }
+    }     
     
     //--------------------------------------------------------------------------
     //
@@ -138,39 +191,20 @@ public class LinearGradientStroke extends GradientStroke
      */
     private static var commonMatrix:Matrix = new Matrix();
 
-    [Deprecated(replacement="LinearGradientStroke.draw()")]
     /**
-     *  Applies the properties to the specified Graphics object.
-     *  
-     *  @param g The Graphics object to which the LinearGradientStroke styles
-     *  are applied.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @inheritdoc
      */
-    override public function apply(g:Graphics):void
-    {
-        g.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
-                    caps, joints, miterLimit);
-               
-        g.lineGradientStyle(GradientType.LINEAR, colors,
-                            alphas, ratios, null /* matrix */, 
-                            spreadMethod, interpolationMethod);
-    }
-    
-    /**
-     *  @private
-     */
-    override public function draw(g:Graphics, rc:Rectangle):void
-    {
-        g.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
+    override public function apply(graphics:Graphics, bounds:Rectangle = null):void
+	{
+		commonMatrix.identity();
+		
+        graphics.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
                     caps, joints, miterLimit);
         
-        calculateTransformationMatrix(rc, commonMatrix); 
+        if (bounds)
+        	calculateTransformationMatrix(bounds, commonMatrix); 
         
-        g.lineGradientStyle(GradientType.LINEAR, colors,
+        graphics.lineGradientStyle(GradientType.LINEAR, colors,
                             alphas, ratios,
                             commonMatrix, spreadMethod,
                             interpolationMethod);                        
@@ -179,17 +213,17 @@ public class LinearGradientStroke extends GradientStroke
     /**
      *  @private
      */
-    override public function generateGraphicsStroke(rect:Rectangle):GraphicsStroke
+    override public function createGraphicsStroke(bounds:Rectangle):GraphicsStroke
     {
         // The parent class sets the gradient stroke properties common to 
         // LinearGradientStroke and RadialGradientStroke 
-        var graphicsStroke:GraphicsStroke = super.generateGraphicsStroke(rect); 
+        var graphicsStroke:GraphicsStroke = super.createGraphicsStroke(bounds); 
         
         if (graphicsStroke)
         {
             // Set other properties specific to this LinearGradientStroke  
             GraphicsGradientFill(graphicsStroke.fill).type = GradientType.LINEAR; 
-            calculateTransformationMatrix(rect, commonMatrix);
+            calculateTransformationMatrix(bounds, commonMatrix);
             GraphicsGradientFill(graphicsStroke.fill).matrix = commonMatrix; 
         }
         
