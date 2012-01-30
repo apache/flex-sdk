@@ -762,7 +762,7 @@ public class StyleManagerImpl implements IStyleManager2
         {
         	// Type as Object to avoid dependency on SystemManager or WindowedSystemManager
             var sm:ISystemManager = sms[i];
-			var cm:Object = sm.getImplementation("mx.managers.ISystemManagerChildManager");
+			var cm:Object = sm.getImplementation("mx.managers::ISystemManagerChildManager");
             Object(cm).regenerateStyleCache(true);
             Object(cm).notifyStyleChangeInChildren(null, true);
         }
