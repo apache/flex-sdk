@@ -18,13 +18,7 @@
 			   locale="@{locale}">
 			<jvmarg line="${compc.jvm.args}"/>
 			<target-player>10</target-player>
- 			<include-resource-bundles bundle="automation_agent"/>
-			<include-resource-bundles bundle="containers"/>
-			<include-resource-bundles bundle="controls"/>
-			<include-resource-bundles bundle="core"/>
-			<include-resource-bundles bundle="effects"/>
-			<include-resource-bundles bundle="skins"/>
-			<include-resource-bundles bundle="styles"/>
+ 			
 			<include-namespaces/>
 			<include-classes/>
 			<source-path path-element="${basedir}/bundles/@{locale}"/>
@@ -88,7 +82,7 @@
 	</target>-->
 		
 	<target name="compile" description="Compiles automation_dmv.swc">
-		<echo message="Compiling frameworks/libs/automation_dmv.swc"/>
+		<echo message="Compiling frameworks/libs/automation/automation_dmv.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -107,7 +101,7 @@
 		-->
 		
 		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/libs/automation_dmv.swc">
+			   output="${FLEX_HOME}/frameworks/libs/automation/automation_dmv.swc">
 			<jvmarg line="${compc.jvm.args}"/>
 			<target-player>10</target-player>
 			<include-classes>AutomationDMVClasses</include-classes>
@@ -120,9 +114,9 @@
 				<include name="textLayout.swc"/>
 				<include name="rpc.swc"/>
 				<include name="datavisualization.swc"/>
-				<include name="automation_agent.swc"/>
-				<include name="qtp.swc"/>
-				<include name="qtp_air.swc"/>
+				<include name="automation/automation_agent.swc"/>
+				<include name="automation/qtp.swc"/>
+				<include name="automation/qtp_air.swc"/>
 				</external-library-path>
 			<locale/>
 			<accessible>true</accessible>
@@ -170,6 +164,10 @@
 		<delete failonerror="false">
 			<fileset dir="${basedir}" >
 				<include name="bundles.properties"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/libs/automation">
+				<include name="automation_dmv.swc"/>
+				<include name="automation_dmv.swc.incr"/>
 			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
 				<include name="automation_dmv.swc"/>
