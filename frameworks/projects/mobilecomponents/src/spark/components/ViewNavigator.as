@@ -178,9 +178,6 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     [SkinPart(required="false")]
     public var actionBar:ActionBar;
     
-    [SkinPart(required="false")]
-    public var viewContainer:Group;
-    
     //--------------------------------------------------------------------------
     //
     // Variables
@@ -376,6 +373,9 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      */
     public function set sections(value:Vector.<ViewNavigatorSection>):void
     {
+		currentViewChanged = true;
+		selectedSectionChanged = true;
+		
         if (value)
         {
             _sections = value.concat();
@@ -387,12 +387,14 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             selectedIndex = -1;
         }
         
-        currentViewChanged = true;
-        selectedSectionChanged = true;
-        invalidateProperties();
-        
-        if (tabBar)
-            tabBar.visible = tabBar.includeInLayout = (_sections != null && _sections.length > 1);
+		internalDispatchEvent(CollectionEventKind.RESET);
+		
+		if (tabBar)
+			tabBar.visible = tabBar.includeInLayout = (_sections != null && _sections.length > 1);
+		
+		// Changing the section always forces a validation to happened immediately
+		if (initialized)
+        	validateNow();
     }
     
     
@@ -439,7 +441,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             throw new RangeError(message);
         }
         
-        if (value == selectedIndex)
+        if (!selectedSectionChanged && value == selectedIndex)
             return;
         
         
@@ -1084,6 +1086,10 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         // Run transition
         if (transition)
         {
+            // Notify listeners that a new view has been successfully added to the stage
+            if (hasEventListener(ViewNavigatorEvent.VIEW_TRANSITION_START))
+                dispatchEvent(new ViewNavigatorEvent(ViewNavigatorEvent.VIEW_TRANSITION_START, false, false, pendingView, transition));
+            
             transition.play();
         }
         else
@@ -1100,6 +1106,10 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     protected function transitionComplete(event:Event):void
     {
         ViewTransition(event.target).removeEventListener(Event.COMPLETE, transitionComplete);
+        
+        // Notify listeners that a new view has been successfully added to the stage
+        if (hasEventListener(ViewNavigatorEvent.VIEW_TRANSITION_END))
+            dispatchEvent(new ViewNavigatorEvent(ViewNavigatorEvent.VIEW_TRANSITION_END, false, false));
         
         endViewChange();
     }
