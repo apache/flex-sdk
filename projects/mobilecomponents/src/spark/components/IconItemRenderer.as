@@ -14,11 +14,13 @@ package spark.components
 import flash.display.DisplayObject;
 import flash.events.TimerEvent;
 import flash.net.URLRequest;
+import flash.system.Capabilities;
 import flash.text.TextFieldType;
 import flash.text.TextLineMetrics;
 import flash.utils.Timer;
 
 import mx.controls.listClasses.*;
+import mx.core.FlexGlobals;
 import mx.core.DPIClassification;
 import mx.core.IFlexDisplayObject;
 import mx.core.IVisualElement;
@@ -29,6 +31,7 @@ import mx.core.mx_internal;
 import mx.graphics.BitmapFillMode;
 import mx.graphics.BitmapScaleMode;
 import mx.styles.CSSStyleDeclaration;
+import mx.utils.DensityUtil;
 
 import spark.components.supportClasses.StyleableTextField;
 import spark.core.ContentCache;
@@ -38,6 +41,7 @@ import spark.core.IGraphicElement;
 import spark.core.IGraphicElementContainer;
 import spark.core.ISharedDisplayObject;
 import spark.primitives.BitmapImage;
+import spark.utils.MultiDPIBitmapSource;
 
 use namespace mx_internal;
 
@@ -309,6 +313,27 @@ public class IconItemRenderer extends LabelItemRenderer
      */
     private var oldUnscaledWidth:Number;
     
+    /**
+     *  @private
+     *  Since decoratorDisplay is a GraphicElement, we have to call its lifecycle methods 
+     *  directly.
+     */
+    private var decoratorNeedsValidateProperties:Boolean = false;
+    
+    /**
+     *  @private
+     *  Since decoratorDisplay is a GraphicElement, we have to call its lifecycle methods 
+     *  directly.
+     */
+    private var decoratorNeedsValidateSize:Boolean = false;
+    
+    /**
+     *  @private
+     *  Since decoratorDisplay is a GraphicElement, we have to call help assign 
+     *  its display object
+     */
+    private var decoratorNeedsDisplayObjectAssignment:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Public Properties: Overridden
@@ -412,12 +437,21 @@ public class IconItemRenderer extends LabelItemRenderer
     /**
      *  @private 
      */ 
-    private var _decoratorClass:Class;
+    private var _decoratorClass:Object;
     
     /**
      *  @private 
      */ 
     private var decoratorClassChanged:Boolean;
+    
+    /**
+     *  @private
+     *  The class to use when instantiating the decorator for IconItemRenderer.
+     *  This class must extend spark.primitives.BitmapImage.
+     *  This property was added for Design View so they can set this to a special
+     *  subclass of BitmapImage that knows how to load and resolve resources in Design View.
+     */
+    mx_internal var decoratorDisplayClass:Class = BitmapImage;
     
     /**
      *  The display object component used to 
@@ -430,7 +464,7 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected var decoratorDisplay:DisplayObject;
+    protected var decoratorDisplay:BitmapImage;
     
     /**
      *  The decorator icon that appears on the right side 
@@ -439,6 +473,9 @@ public class IconItemRenderer extends LabelItemRenderer
      *  <p>The decorator icon ignores the <code>verticalAlign</code> style
      *  and is always centered vertically.</p>
      *
+     *  <p>The decorator icon is expected to be an embedded asset.  There can
+     *  be performance degradation if using external assets.</p>
+     *
      *  @default "" 
      * 
      *  @langversion 3.0
@@ -446,7 +483,7 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5   
      */
-    public function get decoratorClass():Class
+    public function get decoratorClass():Object
     {
         return _decoratorClass;
     }
@@ -454,7 +491,7 @@ public class IconItemRenderer extends LabelItemRenderer
     /**
      *  @private
      */ 
-    public function set decoratorClass(value:Class):void
+    public function set decoratorClass(value:Object):void
     {
         if (value == _decoratorClass)
             return;
@@ -890,7 +927,7 @@ public class IconItemRenderer extends LabelItemRenderer
     /**
      *  @private 
      */ 
-    private var _loadingIconClass:Class;
+    private var _loadingIconClass:Object;
     
     /**
      *  The icon asset to use while an externally loaded asset is
@@ -903,7 +940,7 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get loadingIconClass():Class
+    public function get loadingIconClass():Object
     {
         return _loadingIconClass;
     }
@@ -911,7 +948,7 @@ public class IconItemRenderer extends LabelItemRenderer
     /**
      *  @private
      */ 
-    public function set loadingIconClass(value:Class):void
+    public function set loadingIconClass(value:Object):void
     {
         if (value == _loadingIconClass)
             return;
@@ -1100,9 +1137,12 @@ public class IconItemRenderer extends LabelItemRenderer
      */
     public function invalidateGraphicElementSharing(element:IGraphicElement):void
     {
-        // since the only graphic element is hooked up to drawing with the background,
+        // since the only graphic elements are hooked up to drawing with the background,
         // just invalidate display list
-        iconNeedsDisplayObjectAssignment = true;
+        if (element == iconDisplay)
+            iconNeedsDisplayObjectAssignment = true;
+        else if (element == decoratorDisplay)
+            decoratorNeedsDisplayObjectAssignment = true;
         invalidateProperties();
     }
     
@@ -1124,7 +1164,10 @@ public class IconItemRenderer extends LabelItemRenderer
      */
     public function invalidateGraphicElementProperties(element:IGraphicElement):void
     {
-        iconNeedsValidateProperties = true;
+        if (element == iconDisplay)
+            iconNeedsValidateProperties = true;
+        else if (element == decoratorDisplay)
+            decoratorNeedsValidateProperties = true;
         invalidateProperties();
     }
     
@@ -1146,7 +1189,10 @@ public class IconItemRenderer extends LabelItemRenderer
      */
     public function invalidateGraphicElementSize(element:IGraphicElement):void
     {
-        iconNeedsValidateSize = true;
+        if (element == iconDisplay)
+            iconNeedsValidateSize = true;
+        else if (element == decoratorDisplay)
+            decoratorNeedsValidateSize = true;
         invalidateSize();
     }
     
@@ -1231,24 +1277,41 @@ public class IconItemRenderer extends LabelItemRenderer
      */
     override protected function commitProperties():void
     {
+        var oldDisplayObject:DisplayObject;
+        
         super.commitProperties();
         
         if (decoratorClassChanged)
         {
             decoratorClassChanged = false;
             
-            // if there's an old one, remove it
-            if (decoratorDisplay)
+            // let's see if we need to create or remove it
+            if (decoratorClass && !decoratorDisplay)
             {
-                removeChild(decoratorDisplay);
-                decoratorDisplay = null;
+                // need to create it
+                
+                decoratorDisplay = new decoratorDisplayClass();
+                decoratorDisplay.parentChanged(this);
+                decoratorDisplay.source = decoratorClass;
+                
+                decoratorNeedsDisplayObjectAssignment = true;
             }
-            
-            // if we need to create it, do it here
-            if (decoratorClass)
+            else if (!decoratorClass && decoratorDisplay)
             {
-                decoratorDisplay = new _decoratorClass();
-                addChild(decoratorDisplay);
+                // need to remove the display object
+                oldDisplayObject = decoratorDisplay.displayObject;
+                if (oldDisplayObject)
+                { 
+                    // If the element created the display object
+                    if (iconDisplay.displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT &&
+                        oldDisplayObject.parent == this)
+                    {
+                        removeChild(oldDisplayObject);
+                    }
+                }
+                
+                decoratorDisplay.parentChanged(null);
+                decoratorDisplay = null;
             }
             
             invalidateSize();
@@ -1282,7 +1345,7 @@ public class IconItemRenderer extends LabelItemRenderer
             else if (!(iconField || (iconFunction != null)) && iconDisplay)
             {
                 // need to remove the display object
-                var oldDisplayObject:DisplayObject = iconDisplay.displayObject;
+                oldDisplayObject = iconDisplay.displayObject;
                 if (oldDisplayObject)
                 { 
                     // If the element created the display object
@@ -1465,43 +1528,65 @@ public class IconItemRenderer extends LabelItemRenderer
         if (iconNeedsDisplayObjectAssignment)
         {
             iconNeedsDisplayObjectAssignment = false;
-            if (iconDisplay)
-            {
-                // try using this display object first
-                if (iconDisplay.setSharedDisplayObject(this))
-                {
-                    iconDisplay.displayObjectSharingMode = DisplayObjectSharingMode.USES_SHARED_OBJECT;
-                }
-                else
-                {
-                    // if we can't use this as the display object, then let's see if 
-                    // the icon already has and owns a display object
-                    var ownsDisplayObject:Boolean = (iconDisplay.displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT);
-                    
-                    // If the element doesn't have a DisplayObject or it doesn't own
-                    // the DisplayObject it currently has, then create a new one
-                    var displayObject:DisplayObject = iconDisplay.displayObject;
-                    if (!ownsDisplayObject || !displayObject)
-                        displayObject = iconDisplay.createDisplayObject();
-                    
-                    // Add the display object as a child
-                    // Check displayObject for null, some graphic elements
-                    // may choose not to create a DisplayObject during this pass.
-                    if (displayObject)
-                        addChild(displayObject);
-                    
-                    iconDisplay.displayObjectSharingMode = DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT;
-                }
-            }
-                
+            assignDisplayObject(iconDisplay);
         }
         
+        if (decoratorNeedsDisplayObjectAssignment)
+        {
+            decoratorNeedsDisplayObjectAssignment = false;
+            assignDisplayObject(decoratorDisplay);
+        }
+        
+        // FIXME (rfrishbe): Move the graphic element validations from commitProperties() 
+        // and udl() in to the validateXXX() methods. 
         if (iconNeedsValidateProperties)
         {
-            iconNeedsDisplayObjectAssignment = false;
+            iconNeedsValidateProperties = false;
             if (iconDisplay)
                 iconDisplay.validateProperties();
         }
+        
+        if (decoratorNeedsValidateProperties)
+        {
+            decoratorNeedsValidateProperties = false;
+            if (decoratorDisplay)
+                decoratorDisplay.validateProperties();
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function assignDisplayObject(bitmapImage:BitmapImage):void
+    {
+        if (bitmapImage)
+        {
+            // try using this display object first
+            if (bitmapImage.setSharedDisplayObject(this))
+            {
+                bitmapImage.displayObjectSharingMode = DisplayObjectSharingMode.USES_SHARED_OBJECT;
+            }
+            else
+            {
+                // if we can't use this as the display object, then let's see if 
+                // the icon already has and owns a display object
+                var ownsDisplayObject:Boolean = (bitmapImage.displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT);
+                
+                // If the element doesn't have a DisplayObject or it doesn't own
+                // the DisplayObject it currently has, then create a new one
+                var displayObject:DisplayObject = bitmapImage.displayObject;
+                if (!ownsDisplayObject || !displayObject)
+                    displayObject = bitmapImage.createDisplayObject();
+                
+                // Add the display object as a child
+                // Check displayObject for null, some graphic elements
+                // may choose not to create a DisplayObject during this pass.
+                if (displayObject)
+                    addChild(displayObject);
+                
+                bitmapImage.displayObjectSharingMode = DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT;
+            }
+        }        
     }
     
     /**
@@ -1594,6 +1679,22 @@ public class IconItemRenderer extends LabelItemRenderer
         
         // if not a string or URL request (or null), load it up immediately
         var isExternalSource:Boolean = (source is String || source is URLRequest);
+        if (!isExternalSource)
+        {
+            // get the icon source to find out if it is external or not
+            if (source is MultiDPIBitmapSource)
+            {
+                var app:Object = FlexGlobals.topLevelApplication;
+                var dpi:int;
+                if ("runtimeDPI" in app)
+                    dpi = app["runtimeDPI"];
+                else
+                    dpi = DensityUtil.classifyDPI(Capabilities.screenDPI);
+                
+                var multiSource:Object = MultiDPIBitmapSource(source).getSource(dpi);  
+                isExternalSource = (multiSource is String || multiSource is URLRequest);
+            }
+        }        
         
         // if null or embedded asset do it synchronously
         if (!isExternalSource)
@@ -1659,6 +1760,13 @@ public class IconItemRenderer extends LabelItemRenderer
             iconNeedsValidateSize = false;
             if (iconDisplay)
                 iconDisplay.validateSize();
+        }
+        
+        if (decoratorNeedsValidateSize)
+        {
+            decoratorNeedsValidateSize = false;
+            if (decoratorDisplay)
+                decoratorDisplay.validateSize();
         }
         
         super.validateSize(recursive);
@@ -2005,6 +2113,22 @@ public class IconItemRenderer extends LabelItemRenderer
         {
             ISharedDisplayObject(iconDisplay.displayObject).redrawRequested = false;
             iconDisplay.validateDisplayList();
+            // if decoratorDisplay is also using this displayObject than validate
+            // decoratorDisplay as well
+            if (decoratorDisplay && 
+                decoratorDisplay.displayObject is ISharedDisplayObject && 
+                decoratorDisplay.displayObject == iconDisplay.displayObject)
+                decoratorDisplay.validateDisplayList();
+        }
+        
+        // check just for decoratorDisplay in case it has a different displayObject
+        // than iconDisplay
+        if (decoratorDisplay && 
+            decoratorDisplay.displayObject is ISharedDisplayObject && 
+            ISharedDisplayObject(decoratorDisplay.displayObject).redrawRequested)
+        {
+            ISharedDisplayObject(decoratorDisplay.displayObject).redrawRequested = false;
+            decoratorDisplay.validateDisplayList();
         }
     }
     
