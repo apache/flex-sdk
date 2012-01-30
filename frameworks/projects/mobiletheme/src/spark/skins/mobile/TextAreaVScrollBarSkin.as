@@ -33,7 +33,7 @@ public class TextAreaVScrollBarSkin extends VScrollBarSkin
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 minWidth = 9;
                 paddingRight = TextAreaVScrollBarThumbSkin.PADDING_RIGHT_DEFAULTDPI;
                 paddingVertical = TextAreaVScrollBarThumbSkin.PADDING_VERTICAL_DEFAULTDPI;
