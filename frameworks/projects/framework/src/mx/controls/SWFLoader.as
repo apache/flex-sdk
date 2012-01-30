@@ -52,6 +52,7 @@ import mx.events.SWFBridgeRequest;
 import mx.managers.CursorManager;
 import mx.managers.IMarshalSystemManager;
 import mx.managers.ISystemManager;
+import mx.managers.SystemManager;
 import mx.managers.SystemManagerGlobals;
 import mx.styles.ISimpleStyleClient;
 import mx.utils.LoaderUtil;
