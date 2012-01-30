@@ -20,6 +20,11 @@ import flash.events.ProgressEvent;
  *  class when a style SWF is being downloaded.
  *
  *  @see mx.styles.StyleManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class StyleEvent extends ProgressEvent
 {
@@ -53,6 +58,11 @@ public class StyleEvent extends ProgressEvent
      *  </table>
      *
      *  @eventType styleComplete
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const COMPLETE:String = "complete";
     
@@ -80,6 +90,11 @@ public class StyleEvent extends ProgressEvent
      *  </table>
      *
      *  @eventType styleError
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ERROR:String = "error";
 
@@ -107,6 +122,11 @@ public class StyleEvent extends ProgressEvent
      *  </table>
      *
      *  @eventType styleProgress
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const PROGRESS:String = "progress"; 
     
@@ -141,6 +161,11 @@ public class StyleEvent extends ProgressEvent
 	 *  when type is StyleEvent.ERROR.
      *
      *  @tiptext Constructor for <code>StyleEvent</code> objects.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function StyleEvent(type:String, bubbles:Boolean = false,
                                cancelable:Boolean = false,
@@ -165,6 +190,11 @@ public class StyleEvent extends ProgressEvent
     /**
      *  The error message if the <code>type</code> is <code>ERROR</code>;
 	 *  otherwise, it is <code>null</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var errorText:String;
     
