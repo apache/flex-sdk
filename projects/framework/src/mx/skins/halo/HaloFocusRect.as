@@ -153,7 +153,8 @@ public class HaloFocusRect extends ProgrammaticSkin implements IStyleClient
 		var g:Graphics = graphics;
 		g.clear();
 		
-		blendMode = focusBlendMode;
+		if (focusBlendMode)
+		    blendMode = focusBlendMode;
 		
 		if (focusRoundedCorners != "tl tr bl br" && cornerRadius > 0)
 		{
