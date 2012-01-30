@@ -2255,7 +2255,7 @@ public class UIComponent extends FlexSprite
         if (!_systemManager) return false;
 
         // no types so no dependencies
-        var mp:Object = _systemManager.getImplementation("mx.managers.IMarshallPlanSystemManager");
+        var mp:Object = _systemManager.getImplementation("mx.managers::IMarshalSystemManager");
         if (!mp)
         {
             _usingBridge = 0;
