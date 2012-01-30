@@ -236,7 +236,7 @@ public class RSLEvent extends ProgressEvent
 	 */
 	public var errorText:String;
 	
-	//----------------------------------
+    //----------------------------------
 	//  isResourceModule
 	//----------------------------------
 
