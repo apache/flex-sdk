@@ -127,6 +127,8 @@ package mx.core
 
 	private static const ZERO_REPLACEMENT_IN_3D:Number = .00000000000001;
 	
+	private static var tempTransformCenter:Vector3D;
+	
 	//------------------------------------------------------------------------------
 	
     /**
@@ -700,10 +702,6 @@ package mx.core
 	}
 	
 	
-	
-	
-
-	
 	/**
 	 * @private
 	 * convenience function for building a 2D matrix from the convenience properties 
@@ -748,194 +746,252 @@ package mx.core
 						
 
 	/**
-	 * @private
-	 * call when you're about to change the transform, and when complete you want to keep a particular point fixed in its parent coordinate space.
-	 */
-	public function prepareForTransformCenterAdjustment(affectLayout:Boolean,propertyIs3D:Boolean,tx:Number = NaN,ty:Number = NaN,tz:Number = NaN):Object
-	{
-		var computedCenterV:Vector3D;
-		var computedCenterP:Point;
-		var token:Object = {};
-		
-		if(isNaN(tx))
-			tx = layout.transformX;
-		if(isNaN(ty))
-			ty = layout.transformY;
-		if(isNaN(tz))
-			tz = layout.transformZ;
-				
-		var needAdjustment:Boolean = (tx != 0 || ty != 0 || tz != 0);
-		
-		if(needAdjustment == false)
-		{
-			return null;		
-		}
-
-		if (is3D || propertyIs3D) 
-		{
-			var centerV:Vector3D = new Vector3D(tx,ty,tz);
-			if(affectLayout)
-			{
-				var layoutCenterV:Vector3D = layoutMatrix3D.transformVector(centerV);
-				layoutCenterV.project();
-				token.layout = layoutCenterV;
-			} 
-			
-			if(_offsets != null)
-			{			
-				computedCenterV = computedMatrix3D.transformVector(centerV);
-				computedCenterV.project();
-				token.offset = computedCenterV;
-			}
-			token.center = centerV;
-		}
-		else
-		{
-			var centerP:Point = new Point(tx,ty);
-			if(affectLayout)
-				token.layout = layoutMatrix.transformPoint(centerP);
-
-			if(_offsets != null)
-				token.offset = computedMatrix.transformPoint(centerP);
-			token.center = centerP;
-		}
-		return token;
-	}
-
-	/**
-	 * @private
-	 * call when you've changed the inputs to the computed transform to make any adjustments to keep a particular point fixed in parent coordinates.
-	 */
-	public function completeTransformCenterAdjustment(token:Object,changeIs3D:Boolean):void
-	{
-		if(token == null)
-			return;
-			
-		var computedCenterV:Vector3D;
-		var computedCenterP:Point;
-		var layoutCenterV:Vector3D;
-		var layoutCenterP:Point;
-		
-		if(is3D || changeIs3D)
-		{
-			var centerV:Vector3D = token.center;
-			computedCenterV = token.offset;
-			layoutCenterV = token.layout;
-			if(layoutCenterV != null)
-			{
-				var adjustedLayoutCenterV:Vector3D = layoutMatrix3D.transformVector(centerV);
-				adjustedLayoutCenterV.project();
-				if(adjustedLayoutCenterV.equals(layoutCenterV) == false)
-				{
-					layout.translateBy(layoutCenterV.x - adjustedLayoutCenterV.x,
-								layoutCenterV.y - adjustedLayoutCenterV.y,	
-								layoutCenterV.z - adjustedLayoutCenterV.z
-								);
-					invalidate(); 
-				}		
-			}
-			if(computedCenterV != null)
-			{
-				var adjustedComputedCenterV:Vector3D = computedMatrix3D.transformVector(centerV);
-				adjustedComputedCenterV.project();
-				if(adjustedComputedCenterV.equals(computedCenterV) == false)
-				{
-					offsets.x +=computedCenterV.x - adjustedComputedCenterV.x;
-					offsets.y += computedCenterV.y - adjustedComputedCenterV.y;
-					offsets.z += computedCenterV.z - adjustedComputedCenterV.z;
-					invalidate(); 
-				}		
-			}
-		}
-		else
-		{
-			var centerP:Point = token.center;
-			computedCenterP = token.offset;
-			layoutCenterP = token.layout;
-			if(layoutCenterP != null)
-			{
-				var adjustedLayoutCenterP:Point = layoutMatrix.transformPoint(centerP);
-				if(adjustedLayoutCenterP.equals(layoutCenterP) == false)
-				{
-					layout.translateBy(layoutCenterP.x - adjustedLayoutCenterP.x,
-								layoutCenterP.y - adjustedLayoutCenterP.y,
-								0
-								);
-					invalidate(); 
-				}		
-			}
-			
-			if(computedCenterP != null)
-			{			
-				var adjustedComputedCenterP:Point = computedMatrix.transformPoint(centerP);
-				if(adjustedComputedCenterP.equals(computedCenterP) == false)
-				{
-					_offsets.x += computedCenterP.x - adjustedComputedCenterP.x;
-				    _offsets.y += computedCenterP.y - adjustedComputedCenterP.y;
-					invalidate(); 
-				}		
-			}
-		}
-	}	
-	
-	/**
-	 * A utility method to update the rotation and scale of the transform while keeping a particular point, specified in the component's own coordinate space, 
-	 * fixed in the parent's coordinate space.  This function will assign the rotation and scale values provided, then update the x/y/z properties
-	 * as necessary to keep tx/ty/tz fixed.
+	 * A utility method to update the rotation and scale of the transform 
+	 * while keeping a particular point, specified in the component's 
+	 * own coordinate space, fixed in the parent's coordinate space.  
+	 * This function will assign the rotation and scale values provided, 
+	 * then update the x/y/z properties as necessary to keep tx/ty/tz fixed.
 	 * @param rx,ry,rz the new values for the rotation of the transform
 	 * @param sx,sy,sz the new values for the scale of the transform
-	 * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
-	 * affectLayout: whether the rotation and scale should be applied to the layout transform or the offsets.  Note that the offsets might be updated
-	 * even when the new values are being applied to the layout.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+	 * @param tx,ty,tz the point, in the component's own coordinates, 
+	 * to keep fixed relative to its parent.
 	 */
-	public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number,affectLayout:Boolean = true):void
-	{
-		var is3D:Boolean = ((!isNaN(rx) && rx != 0) || (!isNaN(ry) && ry != 0) || (!isNaN(sz) && sz != 1));
-		
-		var token:Object = prepareForTransformCenterAdjustment(affectLayout,is3D,tx,ty,tz);
-		if(affectLayout)
-		{
-			if(!isNaN(rx))
-				layout.rotationX = rx;
-			if(!isNaN(ry))
-				layout.rotationY = ry;
-			if(!isNaN(rz))
-				layout.rotationZ = rz;
-			if(!isNaN(sx))
-				layout.scaleX = sx;
-			if(!isNaN(sx))
-				layout.scaleY = sy;
-			if(!isNaN(sz))
-				layout.scaleZ = sz;			
-		}
-		else
-		{
-			if(_offsets == null)
-				offsets = new TransformOffsets();
-				
-			if(!isNaN(rx))
-				_offsets.rotationX = rx;
-			if(!isNaN(ry))
-				_offsets.rotationY = ry;
-			if(!isNaN(rz))
-				_offsets.rotationZ = rz;
-			if(!isNaN(sx))
-				_offsets.scaleX = sx;
-			if(!isNaN(sx))
-				_offsets.scaleY = sy;
-			if(!isNaN(sz))
-				_offsets.scaleZ = sz;			
-		}
-		invalidate();
-		completeTransformCenterAdjustment(token,is3D);
-		
-	}
-		
+    public function transformPointToParent(propertyIs3D:Boolean,
+        transformCenter:Vector3D, currentPosition:Vector3D,
+        currentPostLayoutPosition:Vector3D):void
+    {
+        var computedCenterV:Vector3D;
+        var token:Object = {};
+        tempTransformCenter = 
+            transformCenter ?
+            transformCenter :
+            new Vector3D();
+                
+        if (is3D || propertyIs3D) 
+        {
+            if (currentPosition != null)
+            {
+                var layoutCenterV:Vector3D = 
+                    layoutMatrix3D.transformVector(tempTransformCenter);
+                layoutCenterV.project();
+                currentPosition.x = layoutCenterV.x;
+                currentPosition.y = layoutCenterV.y;
+                currentPosition.z = layoutCenterV.z;
+            } 
+            
+            if (currentPostLayoutPosition != null && _offsets != null)
+            {           
+                computedCenterV = computedMatrix3D.transformVector(tempTransformCenter);
+                computedCenterV.project();
+                currentPostLayoutPosition.x = computedCenterV.x;
+                currentPostLayoutPosition.y = computedCenterV.y;
+                currentPostLayoutPosition.z = computedCenterV.z;
+            }
+        }
+        else
+        {
+            var centerP:Point = new Point(tempTransformCenter.x, 
+                tempTransformCenter.y);
+            if (currentPosition != null)
+            {
+            
+                var currentPositionPt:Point = layoutMatrix.transformPoint(centerP);
+                currentPostLayoutPosition.x = currentPositionPt.x;
+                currentPostLayoutPosition.y = currentPositionPt.y;
+                currentPostLayoutPosition.z = 0;
+            }
+            
+            if (currentPostLayoutPosition != null && _offsets != null)
+            {
+                currentPositionPt = computedMatrix.transformPoint(centerP);
+                currentPostLayoutPosition.x = currentPositionPt.x;
+                currentPostLayoutPosition.y = currentPositionPt.y;
+                currentPostLayoutPosition.z = 0;
+            }
+        }
+    }
+
+    /**
+     * @private
+     * call when you've changed the inputs to the computed transform to make 
+     * any adjustments to keep a particular point fixed in parent coordinates.
+     */
+    private function completeTransformCenterAdjustment(changeIs3D:Boolean, 
+        transformCenter:Vector3D, targetPosition:Vector3D,
+        targetPostLayoutPosition:Vector3D):void
+    {
+        
+        if (is3D || changeIs3D)
+        {
+            if (targetPosition != null)
+            {
+                var adjustedLayoutCenterV:Vector3D = 
+                    layoutMatrix3D.transformVector(transformCenter);
+                adjustedLayoutCenterV.project();
+                if(adjustedLayoutCenterV.equals(targetPosition) == false)
+                {
+                    layout.translateBy(targetPosition.x - adjustedLayoutCenterV.x,
+                        targetPosition.y - adjustedLayoutCenterV.y, 
+                        targetPosition.z - adjustedLayoutCenterV.z);
+                    invalidate(); 
+                }       
+            }
+            if (targetPostLayoutPosition != null && _offsets != null)
+            {
+                var adjustedComputedCenterV:Vector3D = 
+                    computedMatrix3D.transformVector(transformCenter);
+                adjustedComputedCenterV.project();
+                if (adjustedComputedCenterV.equals(targetPostLayoutPosition) == false)
+                {
+                    offsets.x +=targetPostLayoutPosition.x - adjustedComputedCenterV.x;
+                    offsets.y += targetPostLayoutPosition.y - adjustedComputedCenterV.y;
+                    offsets.z += targetPostLayoutPosition.z - adjustedComputedCenterV.z;
+                    invalidate(); 
+                }       
+            }
+        }
+        else
+        {
+            var transformCenterP:Point = new Point(transformCenter.x,transformCenter.y);
+            if (targetPosition != null)
+            {
+                var currentPositionP:Point = layoutMatrix.transformPoint(transformCenterP);
+                if (currentPositionP.x != targetPosition.x || 
+                    currentPositionP.y != targetPosition.y)
+                {
+                    layout.translateBy(targetPosition.x - currentPositionP.x,
+                        targetPosition.y - currentPositionP.y, 0);
+                    invalidate(); 
+                }       
+            }
+            
+            if (targetPostLayoutPosition != null && _offsets != null)
+            {           
+                var currentPostLayoutPosition:Point = 
+                    computedMatrix.transformPoint(transformCenterP);
+                if (currentPostLayoutPosition.x != targetPostLayoutPosition.x || 
+                    currentPostLayoutPosition.y != targetPostLayoutPosition.y)
+                {
+                    _offsets.x += targetPostLayoutPosition.x - currentPostLayoutPosition.x;
+                    _offsets.y += targetPostLayoutPosition.y - currentPostLayoutPosition.y;
+                    invalidate(); 
+                }       
+            }
+        }
+    }   
+    
+    private static var staticTranslation:Vector3D = new Vector3D();
+    private static var staticOffsetTranslation:Vector3D = new Vector3D();
+    
+    /**
+     * A utility method to update the rotation and scale of the transform 
+     * while keeping a particular point, specified in the component's own 
+     * coordinate space, fixed in the parent's coordinate space.  This 
+     * function will assign the rotation and scale values provided, then 
+     * update the x/y/z properties as necessary to keep tx/ty/tz fixed.
+     * @param transformCenter the point, in the component's own coordinates, 
+     * to keep fixed relative to its parent.
+     * @param rotation the new values for the rotation of the transform
+     * @param scale the new values for the scale of the transform
+     * @param translation the new values for the translation of the transform
+     */
+    public function transformAround(transformCenter:Vector3D,
+                                    scale:Vector3D,
+                                    rotation:Vector3D,
+                                    translation:Vector3D,
+                                    postLayoutScale:Vector3D = null,
+                                    postLayoutRotation:Vector3D = null,
+                                    postLayoutTranslation:Vector3D = null):void
+    {
+        var is3D:Boolean = (scale != null && scale.z != 1) ||
+            (rotation != null && ((rotation.x != 0 ) || (rotation.y != 0))) || 
+            (translation != null && translation.z != 0) ||
+            (postLayoutScale != null && postLayoutScale.z != 1) ||
+            (postLayoutRotation != null && 
+                (postLayoutRotation.x != 0 || postLayoutRotation.y != 0)) || 
+            (postLayoutTranslation != null && postLayoutTranslation.z != 0);
+
+        var needOffsets:Boolean = _offsets == null && 
+            (postLayoutScale != null || postLayoutRotation != null || 
+                postLayoutTranslation != null);
+        if(needOffsets)
+            _offsets = new TransformOffsets();                                               
+                                                        
+        // if transformCener is null, we can just set x/y/z, so we can short circuit this.
+        var targetPosition:Vector3D = 
+            (translation == null) ? 
+            staticTranslation:
+            null; 
+        var postLayoutTargetPosition:Vector3D = 
+            (postLayoutTranslation == null) ? 
+            staticOffsetTranslation:
+            null; 
+        if (transformCenter != null && 
+            (transformCenter.x != 0 || transformCenter.y != 0 || transformCenter.z != 0) &&
+            (targetPosition != null || postLayoutTargetPosition != null))
+        {           
+            transformPointToParent(is3D, transformCenter, targetPosition,
+                postLayoutTargetPosition);
+        }
+        if (targetPosition == null)
+            targetPosition = translation;
+        if (postLayoutTargetPosition == null)
+            postLayoutTargetPosition = postLayoutTranslation;
+
+        if (rotation != null)
+        {
+            if (!isNaN(rotation.x))
+                layout.rotationX = rotation.x;
+            if (!isNaN(rotation.y))
+                layout.rotationY = rotation.y;
+            if (!isNaN(rotation.z))
+                layout.rotationZ = rotation.z;
+        }
+        if (scale != null)
+        {           
+            if (!isNaN(scale.x))
+                layout.scaleX = scale.x;
+            if (!isNaN(scale.y))
+                layout.scaleY = scale.y;
+            if (!isNaN(scale.z))
+                layout.scaleZ = scale.z;
+        }
+
+        if (postLayoutRotation != null)
+        {           
+            _offsets.rotationX = postLayoutRotation.x;
+            _offsets.rotationY = postLayoutRotation.y;
+            _offsets.rotationZ = postLayoutRotation.z;
+        }
+        if (postLayoutScale != null)
+        {           
+            _offsets.scaleX = postLayoutScale.x;
+            _offsets.scaleY = postLayoutScale.y;
+            _offsets.scaleZ = postLayoutScale.z;
+        }
+
+        if (transformCenter == null)
+        {
+            if (translation != null)
+            {
+                layout.x = translation.x;
+                layout.y = translation.y;
+                layout.z = translation.z;
+            }
+            if (postLayoutTranslation != null)
+            {
+                _offsets.x = postLayoutTranslation.x;
+                _offsets.y = postLayoutTranslation.y;
+                _offsets.z = postLayoutTranslation.z;
+            }
+        }
+        invalidate();
+        if (transformCenter != null)
+            completeTransformCenterAdjustment(is3D, transformCenter, 
+                targetPosition, postLayoutTargetPosition);
+        
+    }
+        
 }
 }
 
