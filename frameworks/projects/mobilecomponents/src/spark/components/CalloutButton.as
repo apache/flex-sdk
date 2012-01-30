@@ -140,6 +140,8 @@ use namespace mx_internal;
  *  @see spark.components.Callout
  *  @see spark.components.Button
  *  @see spark.components.supportClasses.DropDownController
+ *
+ *  @includeExample examples/CalloutButtonExample.mxml -noswf
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
@@ -553,6 +555,9 @@ public class CalloutButton extends Button
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     override protected function attachSkin():void
     {
         super.attachSkin();
