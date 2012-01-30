@@ -2735,6 +2735,24 @@ public class SystemManager extends MovieClip
 				 !info.regular));
     }
 
+    /**
+     *  @private
+     *  
+     *  Dispatch an invalidate request to invalidate the size and
+     *  display list of the parent application.
+     */     
+    private function dispatchInvalidateRequest():void
+    {
+        var bridge:IEventDispatcher = sandboxBridgeGroup.parentBridge;
+        var request:SandboxBridgeRequest = new SandboxBridgeRequest(
+                                                    SandboxBridgeRequest.INVALIDATE,
+                                                    false, false,
+                                                    bridge,
+                                                    SandboxBridgeRequest.INVALIDATE_SIZE |
+                                                    SandboxBridgeRequest.INVALIDATE_DISPLAY_LIST);
+         bridge.dispatchEvent(request);
+    }
+    
 	/**
 	 *  @private
 	 *  Makes the mouseCatcher the same size as the stage,
@@ -3169,8 +3187,11 @@ public class SystemManager extends MovieClip
 				obj = obj.parent;
 			}
 		}
+ 
+		if (topLevel && useBridge())
+		   dispatchInvalidateRequest();
 	}
-	
+
 	/**
 	 *  @private
 	 *  Keep track of the size and position of the stage.
@@ -3776,7 +3797,7 @@ public class SystemManager extends MovieClip
         var request:ModalWindowRequest = ModalWindowRequest.marshal(event);
         dispatchEvent(request);
     }
-    
+
 	//--------------------------------------------------------------------------
 	//
 	//  Sandbox Event handlers for messages from parent
@@ -3803,8 +3824,8 @@ public class SystemManager extends MovieClip
 	private function getSizeRequestHandler(event:Event):void
 	{
 		var eObj:Object = Object(event);
-		eObj.width = width;
-		eObj.height = height;					
+		eObj.width = measuredWidth;
+		eObj.height = measuredHeight;					
 	}
 	
 	/**
@@ -4325,7 +4346,6 @@ public class SystemManager extends MovieClip
         bridge.addEventListener(ModalWindowRequest.CREATE, modalWindowRequestHandler);
         bridge.addEventListener(ModalWindowRequest.SHOW, modalWindowRequestHandler);
         bridge.addEventListener(ModalWindowRequest.HIDE, modalWindowRequestHandler);
-
 	}
 
 	/**
