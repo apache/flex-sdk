@@ -20,11 +20,14 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
+
 import mx.charts.HitData;
 import mx.charts.chartClasses.DataDescription;
 import mx.charts.chartClasses.GraphicsUtilities;
+import mx.charts.chartClasses.IAxis;
 import mx.charts.chartClasses.InstanceCache;
 import mx.charts.chartClasses.LegendData;
+import mx.charts.chartClasses.PolarChart;
 import mx.charts.chartClasses.PolarTransform;
 import mx.charts.chartClasses.Series;
 import mx.charts.renderers.WedgeItemRenderer;
@@ -37,7 +40,9 @@ import mx.core.ContextualClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.IUITextField;
+import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
@@ -47,9 +52,6 @@ import mx.graphics.SolidColor;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
-import mx.charts.chartClasses.PolarChart;
-import mx.charts.chartClasses.IAxis;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -1892,7 +1894,7 @@ public class PieSeries extends Series
         // the flash player screws up display of device fonts at very small point sizes...it blows out to large sizes instead. So if it looks
         // like fonts will be displayed at a tiny point size, just don't show them at all.
         var actualScale:Number;
-		if(chart && chart.layoutDirection == "rtl")
+		if(chart && chart.layoutDirection == LayoutDirection.RTL)
 			actualScale = r1.x - r2.x;
 		else
 			actualScale = r2.x - r1.x;
