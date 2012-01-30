@@ -29,7 +29,8 @@ import flash.display.Loader;
 use namespace mx_internal;
 
   /**
-   *  The LoaderUtil class defines a utility method for use with Flex RSLs.
+   *  The LoaderUtil class defines utility methods for use with Flex RSLs and
+   *  generic Loader instances.
    *  
    *  @langversion 3.0
    *  @playerversion Flash 9
@@ -338,6 +339,99 @@ use namespace mx_internal;
         
         return rslsToLoad;
     }
+    
+    /**
+     * @private
+     * Test whether a url is on the local filesystem. We can only
+     * really tell this with URLs that begin with "file:" or a
+     * Windows-style drive notation such as "C:". This fails some
+     * cases like the "/" notation on Mac/Unix.
+     * 
+     * @param url
+     * the url to check against
+     * 
+     * @return
+     * true if url is local, false if not or unable to determine
+     **/
+    mx_internal static function isLocal(url:String):Boolean 
+    {
+        return (url.indexOf("file:") == 0 || url.indexOf(":") == 1);
+    }
+    
+    /**
+     * @private
+     * Currently (FP 10.x) the ActiveX player (Explorer on Windows) does not
+     * handle encoded URIs containing UTF-8 on the local filesystem, but
+     * it does handle those same URIs unencoded. The plug-in requires
+     * encoded URIs.
+     * 
+     * @param url
+     * url to properly encode, may be fully or partially encoded with encodeURI
+     * 
+     * @param local
+     * true indicates the url is on the local filesystem
+     * 
+     * @return
+     * encoded url that may be loaded with a URLRequest
+     **/
+    mx_internal static function OSToPlayerURI(url:String, local:Boolean):String 
+    {
+        
+        // First strip off the search string and any url fragments so
+        // they will not be decoded/encoded.
+        // Next decode the url.
+        // Before returning the decoded or encoded string add the search
+        // string and url fragment back.
+        var searchStringIndex:int;
+        var fragmentUrlIndex:int;
+        var decoded:String = url;
+        
+        if ((searchStringIndex = decoded.indexOf("?")) != -1 )
+        {
+            decoded = decoded.substring(0, searchStringIndex);
+        }
+        
+        if ((fragmentUrlIndex = decoded.indexOf("#")) != -1 )
+            decoded = decoded.substring(0, fragmentUrlIndex);
+        
+        try
+        {
+            // decode the url
+            decoded = decodeURI(decoded);
+        }
+        catch (e:Error)
+        {
+            // malformed url, but some are legal on the file system
+        }
+        
+        // create the string to hold the the search string url fragments.
+        var extraString:String = null;
+        if (searchStringIndex != -1 || fragmentUrlIndex != -1)
+        {
+            var index:int = searchStringIndex;
+            
+            if (searchStringIndex == -1 || 
+                (fragmentUrlIndex != -1 && fragmentUrlIndex < searchStringIndex))
+            {
+                index = fragmentUrlIndex;
+            }
+            
+            extraString = url.substr(index);
+        }
+        
+        if (local && flash.system.Capabilities.playerType == "ActiveX")
+        {
+            if (extraString)
+                return decoded + extraString;
+            else 
+                return decoded;
+        }
+        
+        if (extraString)
+            return encodeURI(decoded) + extraString;
+        else
+            return encodeURI(decoded);            
+    }
 
     /**
      *  @private
@@ -554,6 +648,6 @@ use namespace mx_internal;
         var protocolIndex:int = url.indexOf("://");
         return url.substring(0,protocolIndex + 3) + url.substring(index + 12);
     }
-
+    
     }
 }
