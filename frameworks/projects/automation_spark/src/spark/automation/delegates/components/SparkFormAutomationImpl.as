@@ -12,6 +12,8 @@
 package spark.automation.delegates.components
 {
 	import flash.display.DisplayObject;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import mx.automation.Automation;
 	
@@ -74,7 +76,38 @@ package spark.automation.delegates.components
 		public function SparkFormAutomationImpl(obj:spark.components.Form)
 		{
 			super(obj);
-			recordClick = true;
+			recordClick = true; 
+		}
+		
+		/**
+		 *  @private
+		 */
+		private function get form():spark.components.Form
+		{
+			return uiComponent as spark.components.Form;
+		}
+		
+		/**
+		 *  @private
+		 */
+		override protected function clickHandler(event:MouseEvent):void
+		{
+			if(isEventTargetApplicabale(event))
+			{
+				//var mouseEvent:MouseEvent = new MouseEvent(MouseEvent.CLICK);
+				recordAutomatableEvent(event);
+			}
+		}
+		
+		/**
+		 *  @private
+		 */
+		private function isEventTargetApplicabale(event:Event):Boolean
+		{
+			// we decide to continue with the mouse events when they are 
+			// on the same container group  
+			
+			return (event.target == form.skin || event.target == form.contentGroup);
 		}
 	}
 }
