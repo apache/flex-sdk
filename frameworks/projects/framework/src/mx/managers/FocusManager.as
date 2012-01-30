@@ -132,7 +132,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 
 		this.popup = popup;
 
-        IMEEnabled = Capabilities.os.substring(0, 3) != "Mac";
+        IMEEnabled = true;
         browserMode = Capabilities.playerType == "ActiveX" && !popup;
         desktopMode = Capabilities.playerType == "Desktop" && !popup;
         // Flash main windows come up activated, AIR main windows don't
@@ -221,7 +221,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
      * @private
      * 
      * True if this focus manager will try to enable/disable the IME based on
-     * whether the focused control uses IME.
+     * whether the focused control uses IME.  Leaving this as a backdoor just in case.
      * 
      */
     mx_internal var IMEEnabled:Boolean;
