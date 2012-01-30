@@ -15,6 +15,11 @@ package mx.logging
 /**
  *  All logger target implementations within the logging framework
  *  must implement this interface.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface ILoggingTarget 
 {
@@ -58,6 +63,11 @@ public interface ILoggingTarget
      *  traceLogger.filters = [ "mx.rpc.~~", "mx.messaging.~~" ];
      *  Log.addTarget(traceLogger);
      *  </pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get filters():Array;
     
@@ -94,6 +104,11 @@ public interface ILoggingTarget
      *    <li><code>LogEventLevel.ALL</code> intended to force a target to
      *    process all messages.</li>
      *  </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get level():int;
 
@@ -116,6 +131,11 @@ public interface ILoggingTarget
      *  and should not be called by you directly.</p>
      *  
      *  @param logger The ILogger that this target listens to.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function addLogger(logger:ILogger):void;
 
@@ -126,6 +146,11 @@ public interface ILoggingTarget
      *  and should not be called by you directly.</p>
      *
      *  @param logger The ILogger that this target ignores.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeLogger(logger:ILogger):void;
 }
