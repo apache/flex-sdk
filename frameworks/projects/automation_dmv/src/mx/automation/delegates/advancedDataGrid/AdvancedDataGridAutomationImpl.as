@@ -532,10 +532,12 @@ package mx.automation.delegates.advancedDataGrid
 				{
 					// inedx is valid
 					var listItems:Array = grid1.rendererArray;
+					var item:IListItemRenderer;
+					var itemDelegate:IAutomationObject;
 					if ((listItems[newRowIndex] as Array).length > columIndex)
 					{
-						var item:IListItemRenderer = listItems[newRowIndex][columIndex];
-						var itemDelegate:IAutomationObject = item as IAutomationObject;
+						item = listItems[newRowIndex][columIndex];
+						itemDelegate = item as IAutomationObject;
 						val= (itemDelegate.automationName);
 					}
 					else
@@ -544,11 +546,11 @@ package mx.automation.delegates.advancedDataGrid
 						posChanged = true;
 						var currentHScrollpos:Number = grid1.horizontalScrollPosition;
 						var newColIndex:int = columIndex-currentHScrollpos;
-						var listItems:Array = grid1.rendererArray;
+						listItems = grid1.rendererArray;
 						if ((listItems[newRowIndex] as Array).length > newColIndex)
 						{
-							var item:IListItemRenderer = listItems[newRowIndex][newColIndex];
-							var itemDelegate:IAutomationObject = item as IAutomationObject;
+							item = listItems[newRowIndex][newColIndex];
+							itemDelegate = item as IAutomationObject;
 							val= (itemDelegate.automationName);
 						}
 					}
