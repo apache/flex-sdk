@@ -225,9 +225,9 @@ public interface IAutomationObject
      *  @productversion Flex 3
      */
     function createAutomationIDPart(child:IAutomationObject):Object;
-	
+    
     /**
-     *  Returns a set of properties as automation ID that identify the child within
+     *  Returns a set of properties as automation IDs that identify the child within
      *  this container.  These values should not change during the
      *  lifespan of the application
      * 
@@ -276,7 +276,7 @@ public interface IAutomationObject
      *  @productversion Flex 3
      */
     function getAutomationChildAt(index:int):IAutomationObject;
-	
+    
     /**
      *  Provides the automation object list .  This list
      *  does not include any children that are composites.
