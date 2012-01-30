@@ -23,6 +23,10 @@ import flash.geom.Vector3D;
 import flash.system.ApplicationDomain;
 import flash.utils.getDefinitionByName;
 
+import mx.core.mx_internal;
+
+use namespace mx_internal;
+    
 [ExcludeClass]
 
 /**
@@ -35,6 +39,8 @@ public final class MatrixUtil
     include "../core/Version.as";
 
 	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
+    mx_internal static var SOLUTION_TOLERANCE:Number = 0.1;
+    mx_internal static var MIN_MAX_TOLERANCE:Number = 0.1;
 	
 	private static var staticPoint:Point = new Point();
 
@@ -73,7 +79,7 @@ public final class MatrixUtil
 	}
 	
 	/**
-	 *  Retunrns a static Point object with the result.
+	 *  Returns a static Point object with the result.
 	 *  If matrix is null, point is untransformed. 
 	 */
 	public static function transformPoint(x:Number, y:Number, m:Matrix):Point
@@ -584,14 +590,19 @@ public final class MatrixUtil
         if (isNaN(width) && isNaN(height))
             return new Point(preferredWidth, preferredHeight);
         
-        const tolerance:Number = .01;
+        // Allow for precision errors by including tolerance for certain values.
+        const newMinWidth:Number = (minWidth < MIN_MAX_TOLERANCE) ? 0 : minWidth - MIN_MAX_TOLERANCE;
+        const newMinHeight:Number = (minHeight < MIN_MAX_TOLERANCE) ? 0 : minHeight - MIN_MAX_TOLERANCE;
+        const newMaxWidth:Number = maxWidth + MIN_MAX_TOLERANCE;
+        const newMaxHeight:Number = maxHeight + MIN_MAX_TOLERANCE;
+        
         var actualSize:Point;
         
         if (!isNaN(width) && !isNaN(height))
         {
             actualSize = calcUBoundsToFitTBounds(width, height, matrix,
-                                                 minWidth, minHeight, 
-                                                 maxWidth, maxHeight); 
+                                                 newMinWidth, newMinHeight, 
+                                                 newMaxWidth, newMaxHeight); 
             
             // If we couldn't fit in both dimensions, try to fit only one and
             // don't stick out of the other
@@ -601,14 +612,14 @@ public final class MatrixUtil
                 actualSize1 = fitTBoundsWidth(width, matrix,
                                               explicitWidth, explicitHeight,
                                               preferredWidth, preferredHeight,
-                                              minWidth, minHeight,
-                                              maxWidth, maxHeight);
+                                              newMinWidth, newMinHeight, 
+                                              newMaxWidth, newMaxHeight);
 
                 // If we fit the width, but not the height.
                 if (actualSize1)
                 {
                     var fitHeight:Number = transformSize(actualSize1.x, actualSize1.y, matrix).y;
-                    if (fitHeight - tolerance > height)
+                    if (fitHeight - SOLUTION_TOLERANCE > height)
                         actualSize1 = null;
                 }
 
@@ -616,14 +627,14 @@ public final class MatrixUtil
                 actualSize2 = fitTBoundsHeight(height, matrix,
                                                explicitWidth, explicitHeight,
                                                preferredWidth, preferredHeight,
-                                               minWidth, minHeight,
-                                               maxWidth, maxHeight);
+                                               newMinWidth, newMinHeight, 
+                                               newMaxWidth, newMaxHeight); 
 
                 // If we fit the height, but not the width
                 if (actualSize2)
                 {
                     var fitWidth:Number = transformSize(actualSize2.x, actualSize2.y, matrix).x;
-                    if (fitWidth - tolerance > width)
+                    if (fitWidth - SOLUTION_TOLERANCE > width)
                         actualSize2 = null;
                 }
                 
@@ -648,16 +659,16 @@ public final class MatrixUtil
             return fitTBoundsWidth(width, matrix,
                                    explicitWidth, explicitHeight,
                                    preferredWidth, preferredHeight,
-                                   minWidth, minHeight,
-                                   maxWidth, maxHeight);
+                                   newMinWidth, newMinHeight, 
+                                   newMaxWidth, newMaxHeight); 
         }
         else
         {
             return fitTBoundsHeight(height, matrix,
                                     explicitWidth, explicitHeight,
                                     preferredWidth, preferredHeight,
-                                    minWidth, minHeight,
-                                    maxWidth, maxHeight);
+                                    newMinWidth, newMinHeight, 
+                                    newMaxWidth, newMaxHeight); 
         }
     }
     
