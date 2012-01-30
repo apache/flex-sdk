@@ -31,13 +31,32 @@ use namespace mx_internal;
 
 /**
  *  The ViewNavigatorBase class defines the base class logic and
- *  interface used by view navigators.  This class contains
- *  methods and properties related to view management, as well
- *  as integration points with ViewNavigatorApplicationBase application
+ *  interface used by view navigators.  
+ *  This class contains methods and properties related to view management, 
+ *  as well as integration points with ViewNavigatorApplicationBase application
  *  classes.
+ *
+ *  @mxml <p>The <code>&lt;s:ViewNavigatorBase&gt;</code> tag inherits 
+ *  all of the tag attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:ViewNavigatorBase
+ *    <strong>Properties</strong>
+ *    destructionPolicy="auto"
+ *    icon="null"
+ *    label="null"
+ *    overlayControls="true"
+ *    transitionsEnabled="true"
+ *  /&gt;
+ *  </pre>
  * 
  *  @see spark.components.ViewNavigator
  *  @see spark.components.ViewNavigatorApplication
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */ 
 public class ViewNavigatorBase extends SkinnableContainer
 {
@@ -64,24 +83,24 @@ public class ViewNavigatorBase extends SkinnableContainer
         _navigationStack = new NavigationStack();
     }
 
-	//--------------------------------------------------------------------------
-	//
-	// Variables
-	// 
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 *  This private variable is used to indicate that the navigator shouldn't play
-	 *  the pending visibility animation for the chrome components that it controls
-	 *  (e.g, ActionBar and TabBar).  This flag is set to true when the stage changes
-	 *  orientation.  This allows the framework to prevent the hide/show animation 
-	 *  from playing when the controls are hidden in either landscape or portrait.
-	 * 
-	 *  See SDK-28541 for more information.
-	 */
-	mx_internal var disableNextControlAnimation:Boolean = false;
-	
+    //--------------------------------------------------------------------------
+    //
+    // Variables
+    // 
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  This private variable is used to indicate that the navigator shouldn't play
+     *  the pending visibility animation for the chrome components that it controls
+     *  (e.g, ActionBar and TabBar).  This flag is set to true when the stage changes
+     *  orientation.  This allows the framework to prevent the hide/show animation 
+     *  from playing when the controls are hidden in either landscape or portrait.
+     * 
+     *  See SDK-28541 for more information.
+     */
+    mx_internal var disableNextControlAnimation:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     // Properties
@@ -95,13 +114,13 @@ public class ViewNavigatorBase extends SkinnableContainer
     private var _active:Boolean = true;
     
     /**
-     *  Flag indicating whether the navigator is active.  The parent navigator
-     *  will automatically set this flag to true or false as its state changes.
+     *  Set to <code>true</code> when this navigator is active.  
+     *  The parent navigator automatically sets this flag its state changes.
      *  
      *  @default true
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -134,8 +153,8 @@ public class ViewNavigatorBase extends SkinnableContainer
     //----------------------------------
     
     /**
-     *  The currently active view of the navigator.  Only one view can
-     *  be active at a time.
+     *  The currently active view of the navigator.  
+     *  Only one view can be active at a time.
      *
      *  @default null
      * 
@@ -166,7 +185,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @default true
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -183,14 +202,17 @@ public class ViewNavigatorBase extends SkinnableContainer
     
     [Inspectable(category="General", enumeration="auto,never", defaultValue="auto")]
     /**
-     *  Sets the destructionPolicy for the navigator.  This property determines
-     *  if the contents of the navigator should be destroyed when the navigator
-     *  is deactivated by another component, such as TabbedViewNavigator.
+     *  Sets the destruction policy for the view navigator.  
+     *  If set to <code>auto</code>, the default, the contents of the view navigator 
+     *  are destroyed when the navigator is deactivated by another component.
+     *  If set to <code>never</code>, the navigator is never destroyed.
      * 
      *  @default auto
+     *
+     *  @see spark.core.ContainerDestructionPolicy
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -214,13 +236,13 @@ public class ViewNavigatorBase extends SkinnableContainer
     private var _icon:Class;
     
     /**
-     *  Returns the icon that should be used when this navigator is represented
+     *  The icon used when this navigator is represented
      *  by a visual component.
      * 
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -257,12 +279,12 @@ public class ViewNavigatorBase extends SkinnableContainer
     
     [Bindable]
     /**
-     *  The label to be used when this stack is represented by a visual component.
+     *  The label used when this navigator is represented by a visual component.
      * 
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -320,6 +342,9 @@ public class ViewNavigatorBase extends SkinnableContainer
     //  navigationStack
     //----------------------------------
     
+    /**
+     *  @private
+     */ 
     protected var _navigationStack:NavigationStack;
     
     /**
@@ -352,17 +377,21 @@ public class ViewNavigatorBase extends SkinnableContainer
     private var _overlayControls:Boolean = false;
     
     /**
-     *  Flag indicates how the navigator's ui controls should be
-     *  laid out in relation to the active view.  If true, the view
-     *  will extend the entire content area of the component, and the
-     *  ui controls will hover on top.
+     *  By default, the TabBar and ActionBar controls of a mobile application define 
+     *  an area that cannot be used by the views of an application. 
+     *  That means your content cannot use the full screen size of the mobile device.
+     *
+     *  <p>If you set the <code>overlayControls</code> property to <code>true</code>, 
+     *  the content area of the application spans the entire width and height of the screen. 
+     *  The ActionBar and TabBar controls hover over the content area with an 
+     *  alpha value of 0.5 so that they are partially transparent.</p>
      * 
-     *  <p>Changing this property will result in a skin validation.</p>
+     *  <p>Changing this property results in a skin validation.</p>
      * 
      *  @default true
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -397,7 +426,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -421,14 +450,14 @@ public class ViewNavigatorBase extends SkinnableContainer
     private var _transitionsEnabled:Boolean = true;
     
     /**
-     *  Flag indicating whether transitions are played by the 
-     *  navigator when a view changes or when the actionBar or tab bar 
-     *  visibility changes.
+     *  Set to <code>true</code> to enable view transitions 
+     *  when a view changes, or when the ActionBar control or 
+     *  TabBar control visibility changes.
      * 
      *  @default true
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -455,7 +484,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -470,15 +499,16 @@ public class ViewNavigatorBase extends SkinnableContainer
     }
     
     /**
-     *  This method is responsible for serializing all data related to
+     *  Serializes all data related to
      *  the navigator's children into an object that can be saved
-     *  by the persistence manager.  This object will be sent to the
-     *  restoreViewData method when the navigator is reinstantiated.
+     *  by the persistence manager.  
+     *  This returned object is passed to the <code>restoreViewData()</code> 
+     *  method when the navigator is reinstantiated.
      * 
      *  @return The object that represents the navigators state
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -488,14 +518,15 @@ public class ViewNavigatorBase extends SkinnableContainer
     }
     
     /**
-     *  This method is responsible for restoring the navigator's view
-     *  data based on the object that is passed in.
+     *  Restores the state of a navigator's view 
+     *  from the <code>value</code> argument.
+     *  The object passed as the <code>value</code> argument is 
+     *  created by a call to the <code>saveViewData()</code> method.
      * 
-     *  @param value The saved object that should be used to restore
-     *  the navigators state
+     *  @param value The object used to restore the navigators state.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -509,13 +540,13 @@ public class ViewNavigatorBase extends SkinnableContainer
     }
     
     /**
-     *  This method updates various properties of the navigator when a
+     *  Updates various properties of the navigator when a
      *  new view is added and activated.
      * 
-     *  @param view The view that was added
+     *  @param view The view that was added.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -534,7 +565,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  class, this method is called when the back device key is pressed.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -551,7 +582,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @return Returns true if the screen can be removed
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -590,7 +621,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      */ 
     mx_internal function stage_orientationChangeHandler(event:StageOrientationEvent):void
     {
-		disableNextControlAnimation = true;
+        disableNextControlAnimation = true;
         invalidateSkinState();
     }
     
