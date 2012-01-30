@@ -263,12 +263,20 @@ public class SlideViewTransition extends ViewTransition
                 }
             }
         }
+
+        // Temporarily hide the the next view so that it isn't included in the cached bitmap
+        // of the current navigator state
+        var oldVisibility:Boolean = nextView.visible;
+        nextView.visible = false;
         
         // Always generate a bitmap representation of the navigator because
         // we can't determine if it will be a full screen animation at this point.
         // The acitonBar's dimensions can change between now and play() since a
         // validation pass will run.
         cachedNavigator = generateBitmap(targetNavigator);
+        
+        // Restore the visibility of the next view
+        nextView.visible = oldVisibility;
     }
     
     /**
@@ -382,6 +390,9 @@ public class SlideViewTransition extends ViewTransition
         
         if (fullScreenAnimation)
         {
+            // Restore the visibility of the current view
+            currentView.visible = true;
+            
             if (cachedNavigator)
                 removeComponentFromContainerSkin(cachedNavigator, targetNavigator.skin);
             
