@@ -18,8 +18,6 @@
 <componentPackage>
     <component id="ActionBar" class="spark.components.ActionBar"/>
     <component id="BusyIndicator" class="spark.components.BusyIndicator"/>
-    <component id="Callout" class="spark.components.Callout"/>
-    <component id="CalloutButton" class="spark.components.CalloutButton"/>
     <component id="CrossFadeViewTransition" class="spark.transitions.CrossFadeViewTransition"/>
     <component id="FlipViewTransition" class="spark.transitions.FlipViewTransition"/>
     <component id="IconItemRenderer" class="spark.components.IconItemRenderer"/>
