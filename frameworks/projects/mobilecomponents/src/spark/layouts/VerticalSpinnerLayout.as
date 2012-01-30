@@ -482,21 +482,20 @@ public class VerticalSpinnerLayout extends VerticalLayout
     
     // Helper function to return whether an element is enabled or not
     private function isElementEnabled(element:Object):Boolean
-    {
-        // Element is false if it was a simple type and didn't survive the 
-        // casting as an object
-        try
+    {       
+        var result:Boolean = true;
+        
+        // If data is a String or other primitive, this call will fail
+        try 
         {
-            if (!element || element["_enabled_"] == undefined || element["_enabled_"] == true)
-                return true;
+            result = element["_enabled_"] == undefined || element["_enabled_"];
         }
         catch (e:Error)
         {
             
         }
-       
         
-        return false;
+        return result;
     }
 }
 }
