@@ -11,16 +11,18 @@
 
 package spark.components
 {
+import flash.display.GradientType;
 import flash.events.Event;
+import flash.geom.Matrix;
 import flash.text.TextLineMetrics;
 
 import mx.controls.listClasses.*;
+import mx.core.DPIClassification;
+import mx.core.FlexGlobals;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.ILayoutElement;
-import mx.core.IUIComponent;
 import mx.core.UIComponent;
-import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
@@ -285,6 +287,26 @@ public class LabelItemRenderer extends UIComponent
     {
         super();
         
+		switch (applicationDPI)
+		{
+			case DPIClassification.DPI_320:
+			{
+				itemMiniumumHeight = 88;
+				break;
+			}
+			case DPIClassification.DPI_240:
+			{
+				itemMiniumumHeight = 66;
+				break;
+			}
+			default:
+			{
+				// default PPI160
+				itemMiniumumHeight = 44;
+				break;
+			}
+		}
+		
         interactionStateDetector = new InteractionStateDetector(this);
         interactionStateDetector.addEventListener(Event.CHANGE, interactionStateDetector_changeHandler);
     }
@@ -316,7 +338,7 @@ public class LabelItemRenderer extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-        // Copied from UITextField.baselinePosition
+		// Copied from UITextField.baselinePosition
         var tlm:TextLineMetrics;
         
         // The text styles aren't known until there is a parent.
@@ -334,9 +356,9 @@ public class LabelItemRenderer extends UIComponent
         if (isEmpty)
             labelDisplay.text = "";
         
-        // TextFields have 2 pixels of padding all around.
+		// TextFields have 2 pixels of padding all around.
         return 2 + tlm.ascent;
-    }
+	}
     
     //--------------------------------------------------------------------------
     //
@@ -643,6 +665,33 @@ public class LabelItemRenderer extends UIComponent
         _dragging = value;
     }
     
+	
+	//----------------------------------
+	//  authorDensity
+	//----------------------------------
+	/**
+	 *  Returns the DPI of the application.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5
+	 *  @productversion Flex 4.5
+	 */
+	public function get applicationDPI():int
+	{
+		return FlexGlobals.topLevelApplication.applicationDPI;
+	}
+	
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Protected Properties 
+	//
+	//--------------------------------------------------------------------------
+	// Enforced minimum height of the item renderer
+	protected var itemMiniumumHeight:uint = 0;
+	
+	
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: UIComponent
@@ -687,15 +736,20 @@ public class LabelItemRenderer extends UIComponent
             var verticalPadding:Number = getStyle("paddingTop") + getStyle("paddingBottom");
             
             // Text respects padding right, left, top, and bottom
-            measuredWidth = getElementPreferredWidth(labelDisplay) + horizontalPadding;
-            measuredHeight = getElementPreferredHeight(labelDisplay) + verticalPadding;
-        }
+			labelDisplay.commitStyles();
+			var metrics:TextLineMetrics = labelDisplay.getLineMetrics(0);
+            measuredWidth = labelDisplay.measuredTextSize.x + horizontalPadding;
+			
+			// We need the ascent that doesn't include the "slop"
+			var realAscent:Number = metrics.ascent - 2;
+            measuredHeight = realAscent + verticalPadding;
+		}
         
-        // minimum height of 80 pixels
-        measuredHeight = Math.max(measuredHeight, 80);
+        // enforce minimum height 
+        measuredHeight = Math.max(measuredHeight, itemMiniumumHeight);
         
         measuredMinWidth = 0;
-        measuredMinHeight = 80;
+        measuredMinHeight = itemMiniumumHeight;
     }
     
     /**
@@ -798,21 +852,76 @@ public class LabelItemRenderer extends UIComponent
         // the reason why we draw it in the case of drawBackground == 0 is for
         // mouse hit testing purposes
         graphics.beginFill(backgroundColor, drawBackground ? 1 : 0);
-        graphics.lineStyle();
-        graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-        graphics.endFill();
-        
-        // FIXME (rfrishbe): separators should be stylable
-        // draw seperators: two lines
-        // 1 pixel from bottom
-        graphics.lineStyle(1, 0x1C1C1C);
-        graphics.moveTo(0, unscaledHeight-1);
-        graphics.lineTo(unscaledWidth, unscaledHeight-1);
-        
-        // line on the bottom
-        graphics.lineStyle(1, 0x606060);
-        graphics.moveTo(0, unscaledHeight);
-        graphics.lineTo(unscaledWidth, unscaledHeight);
+		graphics.lineStyle();
+		graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+		graphics.endFill();
+		
+		var topSeparatorColor:uint;
+		var topSeparatorAlpha:Number;
+		var bottomSeparatorColor:uint;
+		var bottomSeparatorAlpha:Number;
+		
+		// Selected and down states have a gradient overlay as well
+		// as different separators colors/alphas
+		if (selected || down)
+		{
+			var colors:Array = [0x000000, 0x000000 ];
+			var alphas:Array = [.2, 0];
+			var ratios:Array = [0, 255];
+			var matrix:Matrix = new Matrix();
+			
+			// gradient overlay
+			matrix.createGradientBox(unscaledWidth, unscaledHeight, Math.PI / 2, 0, 0 );
+			graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
+			graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+			graphics.endFill();
+			
+			// separator props - dark lines on the top and the bottom
+			topSeparatorColor = 0x000000;
+			topSeparatorAlpha = .3;
+			bottomSeparatorColor = 0x000000;
+			bottomSeparatorAlpha = .3;
+		}
+		else
+		{
+			// default look:  separators are a highlight on the top and 
+			// shadow on the bottom
+			topSeparatorColor = 0xFFFFFF;
+			topSeparatorAlpha = .25;
+			bottomSeparatorColor = 0x000000;
+			bottomSeparatorAlpha = .2;
+		}
+		
+		// draw separators
+		graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
+		graphics.drawRect(0, 0, unscaledWidth, 1);
+		graphics.endFill();
+		
+		graphics.beginFill(bottomSeparatorColor, bottomSeparatorAlpha);
+		graphics.drawRect(0, unscaledHeight - 1, unscaledWidth, 1);
+		graphics.endFill();
+		
+		
+		// add extra separators to the first and last items so that 
+		// the list looks correct during the scrolling bounce/pull effect
+		// top
+		if (itemIndex == 0)
+		{
+			graphics.beginFill(bottomSeparatorColor, bottomSeparatorAlpha);
+			graphics.drawRect(0, -1, unscaledWidth, 1);
+			graphics.endFill();	
+		}
+		
+		// bottom
+		var dataGroup:DataGroup = parent as DataGroup;
+		if (dataGroup && itemIndex == dataGroup.numElements - 1)
+		{
+			graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
+			graphics.drawRect(0, unscaledHeight, unscaledWidth, 1);
+			graphics.endFill();	
+		}
+		
+
     }
     
     /**
@@ -849,16 +958,6 @@ public class LabelItemRenderer extends UIComponent
         var paddingBottom:Number = getStyle("paddingBottom");
         var verticalAlign:String = getStyle("verticalAlign");
 
-        var vAlign:Number;
-        if (verticalAlign == "top")
-            vAlign = 0;
-        else if (verticalAlign == "bottom")
-            vAlign = 1;
-        else // if (verticalAlign == "middle")
-            vAlign = 0.5;
-        // made "middle" last even though it's most likely so it is the default and if someone 
-        // types "center", then it will still vertically center itself.
-
         var viewWidth:Number  = unscaledWidth  - paddingLeft - paddingRight;
         var viewHeight:Number = unscaledHeight - paddingTop  - paddingBottom;
 
@@ -872,18 +971,36 @@ public class LabelItemRenderer extends UIComponent
             // reset text if it was truncated before.
             if (labelDisplay.isTruncated)
                 labelDisplay.text = label;
-            textHeight = getElementPreferredHeight(labelDisplay);
+		
+			textHeight = labelDisplay.measuredTextSize.y;
         }
 
+		var metrics:TextLineMetrics = labelDisplay.getLineMetrics(0);
+
+		var ascentDelta:Number = textHeight - (metrics.ascent - 2); // We need the ascent that doesn't include the "slop"
+		
         // text should take up the rest of the space width-wise, but only let it take up
         // its measured textHeight so we can position it later based on verticalAlign
         var labelWidth:Number = Math.max(viewWidth, 0);
-        var labelHeight:Number = Math.max(Math.min(viewHeight, textHeight), 0);
+        var labelHeight:Number = Math.max(Math.min(viewHeight + ascentDelta, textHeight), 0);
         setElementSize(labelDisplay, labelWidth, labelHeight);    
-        
-        var labelY:Number = Math.round(vAlign * (viewHeight - labelHeight)) + paddingTop;
-        setElementPosition(labelDisplay, paddingLeft, labelY);
+   
+		var labelY:Number = 0;
 
+		// Vertical align is calcuated differently for top/bottom/middle. To get as accurate as possible we
+		// want to avoid calculations using the slop.  We only use it when we absolutely need it when
+		// verticalAlign == "top".  
+		if (verticalAlign == "top")
+			labelY = paddingTop - (StyleableTextField.TEXT_HEIGHT_PADDING/2 + 3); // accounts for gutter and slop
+		else if (verticalAlign == "bottom")
+			labelY = viewHeight - (metrics.ascent + StyleableTextField.TEXT_HEIGHT_PADDING/2) + paddingTop; //viewHeight - (labelHeight - metrics.descent - metrics.leading) + paddingTop;
+		else // if (verticalAlign == "middle")
+			labelY = Math.round(.5 * (viewHeight - (textHeight - metrics.descent + StyleableTextField.TEXT_HEIGHT_PADDING))) + paddingTop;	
+		// made "middle" last even though it's most likely so it is the default and if someone 
+		// types "center", then it will still vertically center itself.
+
+		setElementPosition(labelDisplay, paddingLeft, labelY);
+		
         // attempt to truncate the text now that we have its official width
         labelDisplay.truncateToFit();
     }
