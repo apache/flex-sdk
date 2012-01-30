@@ -44,6 +44,7 @@ global
     digitCase: "default";
     digitWidth: "default";
     direction: "ltr";
+    disabledAlpha: 0.5;
 	disabledColor: #AAB3B3;
 	disabledIconColor: #999999;
     dominantBaseline: "auto";
