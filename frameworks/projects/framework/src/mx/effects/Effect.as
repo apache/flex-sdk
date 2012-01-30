@@ -1309,12 +1309,9 @@ public class Effect extends EventDispatcher implements IEffect
                 m = relevantStyles.length;
                 for (j = 0; j < m; j++)
                 {
-                    trace("relevantStyles[j] = " + relevantStyles[j]);
                     if (relevantStyles[j] in propChanges[i].end &&
                         target is IStyleClient)
                     {
-                        trace("AnimProp: style, value = " + relevantStyles[j] + ", " +
-                            propChanges[i].end[relevantStyles[j]]);
                         target.setStyle(relevantStyles[j], propChanges[i].end[relevantStyles[j]]);
                     }
                 }
