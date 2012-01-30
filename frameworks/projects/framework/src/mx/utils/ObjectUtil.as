@@ -158,7 +158,7 @@ public class ObjectUtil
      */    
     private static function cloneInternal(result:Object, value:Object):void
     {
-		if (value && value.hasOwnProperty("uid"))
+        if (value && value.hasOwnProperty("uid"))
             result.uid = value.uid;
 
         var classInfo:Object = getClassInfo(value);
@@ -1152,7 +1152,11 @@ public class ObjectUtil
     }
 
     /**
-     *  Returns true if the object is an instance of a dynamic class.
+     *  Returns <code>true</code> if the object is an instance of a dynamic class.
+     *
+     *  @param obj The object.
+     *
+     *  @return <code>true</code> if the object is an instance of a dynamic class.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
