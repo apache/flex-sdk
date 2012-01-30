@@ -387,9 +387,12 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  Determines whether the selector chain for this style declaration makes
      *  use of a pseudo selector.
      */  
-    public function isPseudoSelector():Boolean
+    public function getPseudoSelector():String
     {
-        return selector != null && selector.isPseudoSelector();
+        if (selector != null)
+            return selector.getPseudoSelector();
+
+        return null;
     }
 
     /**
