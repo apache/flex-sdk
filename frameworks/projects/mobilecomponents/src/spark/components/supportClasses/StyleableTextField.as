@@ -11,11 +11,12 @@
 
 package spark.components.supportClasses
 {
+import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.TextEvent;
 import flash.geom.Matrix;
-import flash.geom.Rectangle;
+import flash.geom.Point;
 import flash.text.Font;
 import flash.text.TextField;
 import flash.text.TextFieldType;
@@ -23,17 +24,13 @@ import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.ui.Keyboard;
 
-import mx.core.UITextField;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.resources.ResourceManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
-import mx.styles.IStyleManager2;
-import mx.styles.StyleManager;
-import mx.styles.StyleProtoChain;
-import mx.utils.NameUtil;
 
 import spark.core.IEditableText;
 import spark.events.TextOperationEvent;
@@ -159,42 +156,64 @@ public class StyleableTextField extends TextField
     //
     //--------------------------------------------------------------------------
     
-    //----------------------------------
-    //  measuredWidth
-    //----------------------------------
-    
-    public function get measuredWidth():Number
+    public function get measuredTextSize():Point
     {
-        // If we use device fonts, then the unscaled width is 
-        // textWidth * scaleX / scaleY
+        if (!_measuredTextSize)
+        {
+            _measuredTextSize = new Point();
+            invalidateTextSizeFlag = true;
+        }
         
-        var textIndent:Number = getStyle("textIndent");
+        if (invalidateTextSizeFlag)
+        {
+            // size always includes textIndent and TextField gutters
+            var textIndent:Number = getStyle("textIndent");
+            const m:Matrix = transform.concatenatedMatrix;
+            
+            // short circuit scaling workaround if off stage, using embedded fonts, or no scaling
+            if (!stage || embedFonts || (m.a == 1 && m.d == 1))
+            {
+                _measuredTextSize.x = textWidth + textIndent + TEXT_WIDTH_PADDING
+                _measuredTextSize.y = textHeight + TEXT_HEIGHT_PADDING;
+                
+                return _measuredTextSize;
+            }
+            
+            // when scaling, remove/add to stage for consistent measurement
+            var originalParent:DisplayObjectContainer = parent;
+            var index:int = parent.getChildIndex(this);
+            
+            // remove from display list
+            if (originalParent is UIComponent)
+                UIComponent(originalParent).$removeChild(this);
+            else
+                originalParent.removeChild(this);
+            
+            _measuredTextSize.x = textWidth + textIndent + TEXT_WIDTH_PADDING
+            _measuredTextSize.y = textHeight + TEXT_HEIGHT_PADDING;
+            
+            // add to display list
+            if (originalParent is UIComponent)
+                UIComponent(originalParent).$addChildAt(this, index);
+            else
+                originalParent.addChildAt(this, index);
+            
+            // If we use device fonts, then the unscaled sizes are
+            // textWidth * scaleX / scaleY
+            // textHeight * scaleX / scaleY 
+            if (m.a != m.d)
+            {
+                var scaleFactor:Number = (m.a / m.d);
+                
+                // textIndent and gutter are also scaled
+                _measuredTextSize.x = Math.abs(_measuredTextSize.x * scaleFactor);
+                _measuredTextSize.y = Math.abs(_measuredTextSize.y * scaleFactor);
+            }
+            
+            invalidateTextSizeFlag = false;
+        }
         
-        if (!stage || embedFonts)
-            return textWidth + textIndent + TEXT_WIDTH_PADDING;
-        
-        const m:Matrix = transform.concatenatedMatrix;
-        
-        // textIndent is also scaled
-        return Math.abs(((textWidth + textIndent) * m.a / m.d)) + TEXT_WIDTH_PADDING;
-    }
-    
-    //----------------------------------
-    //  measuredHeight
-    //----------------------------------
-    
-    public function get measuredHeight():Number
-    {
-        // If we use device fonts, then the unscaled height is 
-        // textHeight * scaleX / scaleY
-        
-        if (!stage || embedFonts)
-            return textHeight + TEXT_HEIGHT_PADDING;
-        
-        const m:Matrix = transform.concatenatedMatrix;
-        
-        // FIXME (jasonsj): gutter appears to scale as well. update UITextField measuredHeight?
-        return Math.abs((textHeight * m.a / m.d)) + TEXT_HEIGHT_PADDING;
+        return _measuredTextSize;
     }
     
     //----------------------------------
@@ -306,6 +325,7 @@ public class StyleableTextField extends TextField
 
         super.text = value;
         _isTruncated = false;
+        invalidateTextSizeFlag = true;
         
         if (hasEventListener(FlexEvent.VALUE_COMMIT))
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
@@ -585,6 +605,7 @@ public class StyleableTextField extends TextField
     {
         replaceText(selectionAnchorPosition, selectionActivePosition, text);
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+        invalidateTextSizeFlag = true;
     }
     
     /**
@@ -606,6 +627,7 @@ public class StyleableTextField extends TextField
     {
         super.appendText(text);
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+        invalidateTextSizeFlag = true;
     }
     
     /**
@@ -730,6 +752,7 @@ public class StyleableTextField extends TextField
             }
             
             invalidateStyleFlag = false;
+            invalidateTextSizeFlag = true;
         }
     }
     
@@ -847,6 +870,7 @@ public class StyleableTextField extends TextField
             }
             
             _isTruncated = true;
+            invalidateTextSizeFlag = true;
             
             // Make sure all text is visible
             scrollH = 0;
@@ -898,6 +922,8 @@ public class StyleableTextField extends TextField
     {
         if (!(event is TextOperationEvent))
         {
+            invalidateTextSizeFlag = true;
+            
             var newEvent:TextOperationEvent = new TextOperationEvent(event.type);
             
             // stop immediate propagation of the old event
@@ -948,10 +974,22 @@ public class StyleableTextField extends TextField
     mx_internal var colorName:String = "color";
         
     private static var supportedStyles:String = "textAlign fontFamily fontWeight fontStyle color fontSize textDecoration textIndent leading letterSpacing"
+        
     private var invalidateStyleFlag:Boolean = true;
+    
     private static var textFormat:TextFormat = new TextFormat();
+    
     private var _isTruncated:Boolean = false;
+    
     private static var embeddedFonts:Array;
+    
+    /**
+     *  @private
+     *  Whether this StyleableTextField needs to be measure its unscaled size
+     */
+    private var invalidateTextSizeFlag:Boolean = false;
+    
+    private var _measuredTextSize:Point;
     
     /**
      *  @private
