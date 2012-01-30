@@ -11986,23 +11986,8 @@ public class UIComponent extends FlexSprite
 
     protected function nonDeltaLayoutMatrix():Matrix
     {
-        // TODO EGeorgie: move this to the Group, when we implement ILayoutElement directly
-        // in the base class.
-/*        if (obj is Group &&
-            Group(obj).resizeMode == ResizeMode.SCALE)
-        {
-            // Lose scale and skew:
-            return MatrixUtil.composeMatrix(obj.x, obj.y, 1, 1, obj.rotation,
-                        UIComponent(obj).transformX, UIComponent(obj).transformY);
-        } 
-*  
-*  @langversion 3.0
-*  @playerversion Flash 9
-*  @playerversion AIR 1.1
-*  @productversion Flex 3
-*/
         if (hasDeltaIdentityTransform)
-            return null; 
+            return null;
         if (_layoutFeatures != null)
         {
             return _layoutFeatures.layoutMatrix;            
@@ -12011,7 +11996,6 @@ public class UIComponent extends FlexSprite
         {
             return super.transform.matrix;
         }
-                
     }
 
 }
