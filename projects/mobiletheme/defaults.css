@@ -270,6 +270,16 @@ TextInput
     skinClass: ClassReference("spark.skins.mobile.TextInputSkin");
 }
 
+ToggleSwitch
+{
+    accentColor: #3F7FBA;
+    color: #FFFFFF;
+    fontSize: 27;
+    skinClass: ClassReference("spark.skins.mobile.ToggleSwitchSkin");
+    textShadowAlpha: 1;
+    textShadowColor: #000000;
+}
+
 View
 {
     backgroundColor: #FFFFFF;
@@ -422,6 +432,11 @@ global
         fontSize: 14;
     }
     
+    ToggleSwitch
+    {
+        fontSize: 18;
+    }
+    
     global
     {
         fontSize: 16;
@@ -505,6 +520,11 @@ global
     TabbedViewNavigator #tabBar
     {
         fontSize: 28;
+    }
+    
+    ToggleSwitch
+    {
+        fontSize: 36;
     }
     
     global
