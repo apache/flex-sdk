@@ -22,6 +22,7 @@ import flash.geom.Rectangle;
 import flash.utils.getDefinitionByName;
 
 import mx.events.PropertyChangeEvent;
+import mx.geom.CompoundTransform;
 
 
 /** 
@@ -68,13 +69,78 @@ public class BitmapFill extends EventDispatcher implements IFill
 	//--------------------------------------------------------------------------
 	
 	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
-	
+	private static var transformMatrix:Matrix = new Matrix();
+    
+    
 	//--------------------------------------------------------------------------
 	//
 	//  Properties
 	//
 	//--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  compoundTransform
+    //----------------------------------
+    
+    protected var compoundTransform:CompoundTransform;        
+    
+    //----------------------------------
+    //  matrix
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  By default, the LinearGradientStroke defines a transition
+     *  from left to right across the control. 
+     *  Use the <code>rotation</code> property to control the transition direction. 
+     *  For example, a value of 180.0 causes the transition
+     *  to occur from right to left, rather than from left to right.
+     *
+     *  @default 0.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get matrix():Matrix
+    {
+        return compoundTransform ? compoundTransform.matrix : null;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set matrix(value:Matrix):void
+    {
+        var oldValue:Matrix = matrix;
+        
+        var oldX:Number = x;
+        var oldY:Number = y;
+        var oldRotation:Number = rotation;
+        var oldScaleX:Number = scaleX;
+        var oldScaleY:Number = scaleY;
+        
+        if (value == null)
+        {
+            compoundTransform = null;
+        }	
+        else
+        {
+            // Create the transform if none exists. 
+            if(compoundTransform == null)
+                compoundTransform = new CompoundTransform();
+            compoundTransform.matrix = value; // CompoundTransform will create a clone
+            
+            dispatchFillChangedEvent("x", oldX, compoundTransform.x);
+            dispatchFillChangedEvent("y", oldY, compoundTransform.y);
+            dispatchFillChangedEvent("scaleX", oldScaleX, compoundTransform.scaleX);
+            dispatchFillChangedEvent("scaleY", oldScaleY, compoundTransform.scaleY);
+            dispatchFillChangedEvent("rotation", oldRotation, compoundTransform.rotationZ);
+        }
+    }
+    
 	//----------------------------------
 	//  originX
 	//----------------------------------
@@ -259,17 +325,21 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function get rotation():Number
 	{
-		return _rotation;
+        return compoundTransform ? compoundTransform.rotationZ : _rotation;
 	}
 	
 	public function set rotation(value:Number):void
-	{
-		var oldValue:Number = _rotation;
-		if (value != oldValue)
-		{
-			_rotation = value;
-			dispatchFillChangedEvent("rotation", oldValue, value);
-		}
+	{      
+        if (value != rotation)
+        {
+            var oldValue:Number = rotation;
+            
+            if (compoundTransform)
+                compoundTransform.rotationZ = value;
+            else
+                _rotation = value;   
+            dispatchFillChangedEvent("rotation", oldValue, value);
+        }
 	}
 
 	//----------------------------------
@@ -295,15 +365,22 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function get scaleX():Number
 	{
-		return _scaleX;
+        return compoundTransform ? compoundTransform.scaleX : _scaleX;
 	}
 	
+    /**
+     *  @private
+     */  
 	public function set scaleX(value:Number):void
 	{
-		var oldValue:Number = _scaleX;
-		if (value != oldValue)
+		if (value != scaleX)
 		{
-			_scaleX = value;
+            var oldValue:Number = scaleX;
+            
+            if (compoundTransform)
+                compoundTransform.scaleX = value;
+            else
+			    _scaleX = value;
 			dispatchFillChangedEvent("scaleX", oldValue, value);
 		}
 	}
@@ -331,17 +408,24 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function get scaleY():Number
 	{
-		return _scaleY;
+        return compoundTransform ? compoundTransform.scaleY : _scaleY;
 	}
 	
+    /**
+     *  @private
+     */ 
 	public function set scaleY(value:Number):void
 	{
-		var oldValue:Number = _scaleY;
-		if (value != oldValue)
-		{
-			_scaleY = value;
-			dispatchFillChangedEvent("scaleY", oldValue, value);
-		}
+        if (value != scaleY)
+        {
+            var oldValue:Number = scaleY;
+            
+            if (compoundTransform)
+                compoundTransform.scaleY = value;
+            else
+                _scaleY = value;
+            dispatchFillChangedEvent("scaleY", oldValue, value);
+        }
 	}
 
 	//----------------------------------
@@ -489,7 +573,7 @@ public class BitmapFill extends EventDispatcher implements IFill
      */
     public function get transformX():Number
     {
-        return _transformX;
+        return compoundTransform ? compoundTransform.transformX : _transformX;
     }
 
     /**
@@ -497,11 +581,16 @@ public class BitmapFill extends EventDispatcher implements IFill
      */
     public function set transformX(value:Number):void
     {
-        if (_transformX == value)
+        if (transformX == value)
             return;
+                
+        var oldValue:Number = transformX;   
         
-        var oldValue:Number = _transformX;    
-        _transformX = value;
+        if (compoundTransform)
+            compoundTransform.transformX = value;
+        else
+            _transformX = value;
+        
         dispatchFillChangedEvent("transformX", oldValue, value);
     }
 
@@ -523,7 +612,7 @@ public class BitmapFill extends EventDispatcher implements IFill
      */
     public function get transformY():Number
     {
-        return _transformY;
+        return compoundTransform ? compoundTransform.transformY : _transformY;
     }
 
     /**
@@ -531,11 +620,16 @@ public class BitmapFill extends EventDispatcher implements IFill
      */
     public function set transformY(value:Number):void
     {
-        if (_transformY == value)
+        if (transformY == value)
             return;
         
-        var oldValue:Number = _transformY;    
-        _transformY = value;
+        var oldValue:Number = transformY;    
+        
+        if (compoundTransform)
+            compoundTransform.transformY = value;
+        else
+            _transformY = value;
+        
         dispatchFillChangedEvent("transformY", oldValue, value);
     }
 
@@ -559,7 +653,7 @@ public class BitmapFill extends EventDispatcher implements IFill
      */
     public function get x():Number
     {
-    	return _x;	
+        return compoundTransform ? compoundTransform.x : _x;	
     }
     
 	/**
@@ -567,12 +661,15 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
     public function set x(value:Number):void
     {
-    	var oldValue:Number = _x;
-    	if (value != oldValue)
-    	{
-    		_x = value;
-    		dispatchFillChangedEvent("x", oldValue, value);
-    	}
+        var oldValue:Number = x;
+        if (value != oldValue)
+        {
+            if (compoundTransform)
+                compoundTransform.x = value; 
+            else
+                _x = value;
+            dispatchFillChangedEvent("x", oldValue, value);
+        }
     }
     
     //----------------------------------
@@ -594,7 +691,7 @@ public class BitmapFill extends EventDispatcher implements IFill
      */
     public function get y():Number
     {
-    	return _y;	
+        return compoundTransform ? compoundTransform.y : _y;	
     }
     
     /**
@@ -602,12 +699,16 @@ public class BitmapFill extends EventDispatcher implements IFill
      */
     public function set y(value:Number):void
     {
-    	var oldValue:Number = _y;
-    	if (value != oldValue)
-    	{
-    		_y = value;
-    		dispatchFillChangedEvent("y", oldValue, value);
-    	}
+        var oldValue:Number = y;
+        if (value != oldValue)
+        {
+            if (compoundTransform)
+                compoundTransform.y = value;
+            else
+                _y = value;                
+            
+            dispatchFillChangedEvent("y", oldValue, value);
+        }
     }
 
 	//--------------------------------------------------------------------------
@@ -623,14 +724,21 @@ public class BitmapFill extends EventDispatcher implements IFill
 	{		
 		if (!source)
 			return;
-				
-		var matrix:Matrix = new Matrix();
-		matrix.translate(-transformX, -transformY);
-		matrix.scale(scaleX, scaleY);
-		matrix.rotate(rotation * RADIANS_PER_DEGREES);
-		matrix.translate(x + bounds.left + transformX, y + bounds.top + transformY);
-	
-		target.beginBitmapFill(source as BitmapData, matrix, repeat, smooth);
+		
+        if (compoundTransform)
+        {
+            transformMatrix = compoundTransform.matrix;
+            transformMatrix.translate(bounds.left, bounds.top);
+        }
+        else
+        {
+            transformMatrix.identity();
+            transformMatrix.translate(-transformX, -transformY);
+            transformMatrix.scale(scaleX, scaleY);
+            transformMatrix.rotate(rotation * RADIANS_PER_DEGREES);
+            transformMatrix.translate(x + bounds.left + transformX, y + bounds.top + transformY);
+        }
+		target.beginBitmapFill(source as BitmapData, transformMatrix, repeat, smooth);
 	}
 	
 	/**
