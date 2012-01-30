@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-// TODO (chiedozi): Make private talk to QE
+
 package spark.components.supportClasses
 {    
 import flash.utils.IDataInput;
