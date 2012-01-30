@@ -523,9 +523,10 @@ public class ViewNavigatorApplicationBase extends Application
      */ 
     private function addApplicationListeners():void
     {
-        // Add device event listeners
-        systemManager.stage.addEventListener(KeyboardEvent.KEY_DOWN, deviceKeyDownHandler);
-        systemManager.stage.addEventListener(KeyboardEvent.KEY_UP, deviceKeyUpHandler);
+		// Listen for keyboard events at a lower priority so that developers
+		// can cancel the default behavior
+        systemManager.stage.addEventListener(KeyboardEvent.KEY_DOWN, deviceKeyDownHandler, false, -1);
+        systemManager.stage.addEventListener(KeyboardEvent.KEY_UP, deviceKeyUpHandler, false, -1);
         systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, orientationChangeHandler);
         NativeApplication.nativeApplication.addEventListener(InvokeEvent.INVOKE, invokeHandler);
         NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, activateHandler);
