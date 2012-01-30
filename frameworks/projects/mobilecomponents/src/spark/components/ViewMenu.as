@@ -322,7 +322,7 @@ public class ViewMenu extends SkinnablePopUpContainer
         event.preventDefault(); 
         
         // Entering the caret state with the Ctrl key down 
-        // FIXME (rfrishbe): shouldn't just check interactionMode but should depend on 
+        // TODO (rfrishbe): shouldn't just check interactionMode but should depend on 
         // either the platform or whether it was a 5-way button or whether 
         // soem other keyboardSelection style.
         if (event.ctrlKey || getStyle("interactionMode") == InteractionMode.TOUCH)
