@@ -18,7 +18,6 @@ package spark.components.supportClasses
      *  @see spark.events.ViewNavigatorEvent
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -34,7 +33,6 @@ package spark.components.supportClasses
          *  Constant indicating that no action was performed by the navigator.
          *  
          *  @langversion 3.0
-         *  @playerversion Flash 10
          *  @playerversion AIR 2.5
          *  @productversion Flex 4.5
          */
@@ -45,7 +43,6 @@ package spark.components.supportClasses
          *  to a navigator.
          * 
          *  @langversion 3.0
-         *  @playerversion Flash 10
          *  @playerversion AIR 2.5
          *  @productversion Flex 4.5
          */
@@ -56,7 +53,6 @@ package spark.components.supportClasses
          *  removed from the navigator.
          * 
          *  @langversion 3.0
-         *  @playerversion Flash 10
          *  @playerversion AIR 2.5
          *  @productversion Flex 4.5
          */
@@ -67,7 +63,6 @@ package spark.components.supportClasses
          *  were removed from the navigator.
          * 
          *  @langversion 3.0
-         *  @playerversion Flash 10
          *  @playerversion AIR 2.5
          *  @productversion Flex 4.5
          */
@@ -78,7 +73,6 @@ package spark.components.supportClasses
          *  first view are removed from the navigator.
          * 
          *  @langversion 3.0
-         *  @playerversion Flash 10
          *  @playerversion AIR 2.5
          *  @productversion Flex 4.5
          */
@@ -89,7 +83,6 @@ package spark.components.supportClasses
          *  is replaced with another.
          *  
          *  @langversion 3.0
-         *  @playerversion Flash 10
          *  @playerversion AIR 2.5
          *  @productversion Flex 4.5
          */
