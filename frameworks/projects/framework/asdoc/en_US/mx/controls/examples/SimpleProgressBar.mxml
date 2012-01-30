@@ -1,40 +1,40 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the ProgressBar control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo ProgressBar control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-           
-          private var j:uint=10;
-          
-          // Event handler function to set the value of the 
-          // ProgressBar control.
-          private function runit():void
-          {
-    	      if(j<=100)
-    	      {
-    	         bar.setProgress(j,100);
-        		 bar.label= "CurrentProgress" + " " + j + "%";
-        		 j+=10;
-    	      }
-    	      if(j>100)
-    	      {
-        		 j=0;
-              }
-          }
+            private var j:uint = 0;
+
+            // Event handler function to set the value of the 
+            // Halo ProgressBar control.
+            private function runit():void
+            {
+                if (j < 100) {
+                    j += 10;
+                } else if (j >= 100) {
+                    j = 0;
+                }
+                bar.setProgress(j, 100);
+                bar.label = "Current Progress: " + j + "%";
+            }
         ]]>    
-    </mx:Script>
+    </fx:Script>
 
-    <mx:Panel title="ProgressBar Control Example" height="75%" width="75%" 
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+    <s:Panel title="Halo ProgressBar Control Example"
+            width="75%" height="75%"  
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%" color="blue"
+                    text="Click the button to increment the progress bar." />
+            <s:Button id="Speed" label="Run" click="runit();"/>
 
-        <mx:Label width="100%" color="blue"
-            text="Click the button to increment the progress bar." />
-        <mx:Button id="Speed" label="Run" click="runit();"/>
-            
-        <mx:ProgressBar id="bar" labelPlacement="bottom" themeColor="#F20D7A"
-            minimum="0" visible="true" maximum="100" label="CurrentProgress 0%" 
-            direction="right" mode="manual" width="100%"/>
+            <mx:ProgressBar id="bar" labelPlacement="bottom" baseColor="red"
+                    minimum="0" visible="true" maximum="100" label="CurrentProgress 0%" 
+                    direction="right" mode="manual" width="100%"/>
+        </s:VGroup>
+    </s:Panel>
 
-    </mx:Panel>
-</mx:Application>       
+</s:Application>
