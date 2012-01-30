@@ -13,7 +13,7 @@ package spark.skins.mobile
 {
 import flash.events.Event;
 
-import mx.core.DeviceDensity;
+import mx.core.DPIClassification;
 import mx.core.mx_internal;
 
 import spark.components.TextInput;
@@ -57,9 +57,9 @@ public class TextInputSkin extends TextSkinBase
         
         useChromeColor = false;
         
-        switch (authorDensity)
+        switch (applicationDPI)
         {
-            case DeviceDensity.PPI_320:
+            case DPIClassification.DPI_320:
             {
                 borderClass = spark.skins.mobile320.assets.TextInput_border;
                 layoutCornerEllipseSize = 24;
@@ -69,7 +69,7 @@ public class TextInputSkin extends TextSkinBase
                 
                 break;
             }
-            case DeviceDensity.PPI_240:
+            case DPIClassification.DPI_240:
             {
                 borderClass = spark.skins.mobile240.assets.TextInput_border;
                 layoutCornerEllipseSize = 12;
