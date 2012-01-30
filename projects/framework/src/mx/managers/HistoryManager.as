@@ -57,6 +57,11 @@ use namespace mx_internal;
  *
  *  @see mx.managers.BrowserManager
  *  @see mx.managers.IHistoryManagerClient
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class HistoryManager
 {
@@ -115,6 +120,11 @@ public class HistoryManager
      *  main application, usually from an <code>initialize</code> event handler on the application.
      *
      *  @param sm SystemManager for this application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function initialize(sm:ISystemManager):void
     {
@@ -128,6 +138,11 @@ public class HistoryManager
      *  @param obj Object to register.
      *
      *  @see mx.managers.IHistoryManagerClient
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static function register(obj:IHistoryManagerClient):void
     {
@@ -138,6 +153,11 @@ public class HistoryManager
      *  Unregisters an object with the HistoryManager.
      *
      *  @param obj Object to unregister.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function unregister(obj:IHistoryManagerClient):void
     {
@@ -151,6 +171,11 @@ public class HistoryManager
      *  If you registered an interface with the HistoryManager,
      *  you are responsible for calling the <code>save()</code> method
      *  when the application state changes.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static function save():void
     {
