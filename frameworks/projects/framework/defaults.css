@@ -1185,10 +1185,10 @@ ProgressBar
 {
 	barSkin: ClassReference("mx.skins.spark.ProgressBarSkin");
 	fontWeight: "bold";
-	indeterminateMoveInterval: 28;
-	indeterminateSkin: ClassReference("mx.skins.halo.ProgressIndeterminateSkin");
+	indeterminateMoveInterval: 14;
+	indeterminateSkin: ClassReference("mx.skins.spark.ProgressIndeterminateSkin");
     leading: 0;
-    maskSkin: ClassReference("mx.skins.halo.ProgressMaskSkin");
+    maskSkin: ClassReference("mx.skins.spark.ProgressMaskSkin");
 	trackColors: #E7E7E7, #FFFFFF;
 	trackSkin: ClassReference("mx.skins.spark.ProgressBarTrackSkin");
 }
@@ -1322,7 +1322,7 @@ Slider
 	tickOffset: -6;
 	tickThickness: 1;
 	trackColors: #E7E7E7, #E7E7E7;
-	trackHighlightSkin: ClassReference("mx.skins.halo.SliderHighlightSkin");
+	trackHighlightSkin: ClassReference("mx.skins.spark.SliderTrackHighlightSkin");
 	trackSkin: ClassReference("mx.skins.spark.SliderTrackSkin");
 }
 
