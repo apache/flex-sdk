@@ -60,6 +60,8 @@ public class TextAreaSkin extends TextSkinBase
     {
         super.createChildren();
         
+        textDisplay.multiline = true;
+        textDisplay.wordWrap = true;
         textDisplay.addEventListener(Event.CHANGE, textDisplay_changeHandler);
         textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, textDisplay_changeHandler);
     }
