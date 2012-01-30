@@ -2253,10 +2253,12 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 	
     public function getVisibleApplicationRectHandler(event:Request):void
     {
+		var skipToSandboxRoot:Boolean = event.value.skipToSandboxRoot;
+		
         var sbRoot:DisplayObject = systemManager.getSandboxRoot();
         var screen:Rectangle;
 
-        if (systemManager != sbRoot)
+        if (skipToSandboxRoot && systemManager != sbRoot)
         {
             var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
                                     false, false,
@@ -2269,7 +2271,7 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
         }
         else
         {
-            event.value = getVisibleApplicationRect(event.value as Rectangle);
+            event.value = getVisibleApplicationRect(event.value.bounds as Rectangle);
             event.preventDefault();
         }
 
@@ -2304,6 +2306,16 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
             bridge.dispatchEvent(bridgeRequest);
             bounds = Rectangle(bridgeRequest.data);
         }
+		else if (!systemManager.isTopLevel())
+		{
+			var obj:DisplayObjectContainer = DisplayObject(systemManager).parent.parent;
+			
+			if ("getVisibleApplicationRect" in obj)
+			{
+				var visibleRect:Rectangle = obj["getVisibleApplicationRect"](true);
+				bounds = bounds.intersection(visibleRect);
+			}
+		}
         
         return bounds;
     }
