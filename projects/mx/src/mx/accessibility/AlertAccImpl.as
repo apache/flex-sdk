@@ -15,6 +15,7 @@ package mx.accessibility
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityProperties;
 import flash.events.Event;
+import mx.accessibility.AccConst;
 import mx.controls.Alert;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -96,7 +97,7 @@ public class AlertAccImpl extends TitleWindowAccImpl
 	{
 		super(master);
 		
-		role = 0x08; // ROLE_SYSTEM_ALERT
+		role = AccConst.ROLE_SYSTEM_ALERT;
 	}
 
 	//--------------------------------------------------------------------------
@@ -168,15 +169,15 @@ public class AlertAccImpl extends TitleWindowAccImpl
 
 				Accessibility.updateProperties();
 
-				Accessibility.sendEvent(titleBar,0,0x0011); // DialogEnd
-				Accessibility.sendEvent(titleBar,0,0x8004); // ObjectReorder
-				Accessibility.sendEvent(titleBar,0,0x8001); // ObjectDestroyed
-				Accessibility.sendEvent(titleBar,0,0x800B); // LocationChanged
-				Accessibility.sendEvent(titleBar,0,0x800F); // ParentChanged
-				Accessibility.sendEvent(titleBar,0,0x0003); // ObjectHide
-				Accessibility.sendEvent(titleBar,0,0x0003); // ForegroundChanged
+				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_SYSTEM_DIALOGEND);
+				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_OBJECT_REORDER);
+				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_OBJECT_DESTROY);
+				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_OBJECT_LOCATIONCHANGE);
+				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_OBJECT_PARENTCHANGE);
+				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_OBJECT_HIDE);
+				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_SYSTEM_FOREGROUND);
 				if (SystemManager(master.parent).stage.focus)
-					Accessibility.sendEvent(SystemManager(master.parent).stage.focus,0,0x8005); // Focus
+					Accessibility.sendEvent(SystemManager(master.parent).stage.focus,0,AccConst.EVENT_OBJECT_FOCUS);
 
 				break;
 			}
@@ -202,15 +203,15 @@ public class AlertAccImpl extends TitleWindowAccImpl
 
 				Accessibility.updateProperties();
 
-				Accessibility.sendEvent(titleBar, 0, 0x0010); // DialogStart
-				Accessibility.sendEvent(titleBar, 0, 0x8004); // ObjectReorder
-				Accessibility.sendEvent(titleBar, 0, 0x8000); // ObjectCreated
-				Accessibility.sendEvent(titleBar, 0, 0x800B); // LocationChanged
-				Accessibility.sendEvent(titleBar, 0, 0x800F); // ParentChanged
-				Accessibility.sendEvent(titleBar, 0, 0x0002); // ObjectShow
-				Accessibility.sendEvent(titleBar, 0, 0x0003); // ForegroundChanged
-				Accessibility.sendEvent(titleBar, 0, 0x8005); // Focus
-				Accessibility.sendEvent(Alert(master).alertForm.defaultButton, 0, 0x8005); // Focus
+				Accessibility.sendEvent(titleBar, 0, AccConst.EVENT_SYSTEM_DIALOGSTART);
+				Accessibility.sendEvent(titleBar, 0, AccConst.EVENT_OBJECT_REORDER);
+				Accessibility.sendEvent(titleBar, 0, AccConst.EVENT_OBJECT_CREATE);
+				Accessibility.sendEvent(titleBar, 0, AccConst.EVENT_OBJECT_LOCATIONCHANGE);
+				Accessibility.sendEvent(titleBar, 0, AccConst.EVENT_OBJECT_PARENTCHANGE);
+				Accessibility.sendEvent(titleBar, 0, AccConst.EVENT_OBJECT_SHOW);
+				Accessibility.sendEvent(titleBar, 0, AccConst.EVENT_SYSTEM_FOREGROUND);
+				Accessibility.sendEvent(titleBar, 0, AccConst.EVENT_OBJECT_FOCUS);
+				Accessibility.sendEvent(Alert(master).alertForm.defaultButton, 0, AccConst.EVENT_OBJECT_FOCUS);
 
 				break;
 			}
