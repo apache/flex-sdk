@@ -13,7 +13,7 @@ package mx.events
 /**
  *  The InvalidateRequestData class defines constants for the values 
  *  of the <code>data</code> property of a SWFBridgeRequest object when
- *  
+ *  used with the <code>SWFBridgeRequest.INVALIDATE_REQUEST</code> request.
  */
 public final class InvalidateRequestData
 {
