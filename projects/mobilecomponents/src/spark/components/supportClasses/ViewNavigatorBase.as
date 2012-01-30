@@ -138,15 +138,7 @@ public class ViewNavigatorBase extends SkinnableContainer
     mx_internal function setActive(value:Boolean, clearNavigationStack:Boolean = false):void
     {
         if (_active != value)
-        {
             _active = value;
-            
-            if (clearNavigationStack)
-                _navigationStack.popToFirstView();
-            
-            if (activeView)
-                activeView.setActive(value);
-        }
     }
 
     //----------------------------------
