@@ -36,6 +36,7 @@ import flash.utils.Dictionary;
 
 import mx.core.DesignLayer;
 import mx.core.FlexGlobals;
+import mx.core.FlexTextField;
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
@@ -109,7 +110,7 @@ include "../../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-public class StyleableTextField extends TextField
+public class StyleableTextField extends FlexTextField
     implements IEditableText, ISimpleStyleClient, IVisualElement
 {
     
