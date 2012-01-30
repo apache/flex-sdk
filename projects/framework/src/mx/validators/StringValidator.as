@@ -38,6 +38,11 @@ import mx.utils.StringUtil;
  *  </pre>
  *  
  *  @includeExample examples/StringValidatorExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class StringValidator extends Validator
 {
@@ -67,6 +72,11 @@ public class StringValidator extends Validator
 	 *  ValidationResult  object for each field examined by the validator. 
 	 *
 	 *  @see mx.validators.ValidationResult
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function validateString(validator:StringValidator,
 										  value:Object,
@@ -107,6 +117,11 @@ public class StringValidator extends Validator
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function StringValidator()
 	{
@@ -141,6 +156,11 @@ public class StringValidator extends Validator
 	 *  A value of NaN means this property is ignored.
 	 *
 	 *  @default NaN
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get maxLength():Object
 	{
@@ -182,6 +202,11 @@ public class StringValidator extends Validator
 	 *  A value of NaN means this property is ignored.
 	 *
 	 *  @default NaN
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get minLength():Object
 	{
@@ -229,6 +254,11 @@ public class StringValidator extends Validator
 	 *  than the <code>maxLength</code> property.
 	 *
 	 *  @default "This string is longer than the maximum allowed length. This must be less than {0} characters long."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get tooLongError():String 
 	{
@@ -270,6 +300,11 @@ public class StringValidator extends Validator
 	 *  than the <code>minLength</code> property.
 	 *
 	 *  @default "This string is shorter than the minimum allowed length. This must be at least {0} characters long."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get tooShortError():String 
 	{
@@ -321,6 +356,11 @@ public class StringValidator extends Validator
      *
 	 *  @return An Array of ValidationResult objects, with one ValidationResult 
 	 *  object for each field examined by the validator. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override protected function doValidation(value:Object):Array
     {
