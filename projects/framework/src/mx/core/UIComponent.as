@@ -1992,12 +1992,18 @@ public class UIComponent extends FlexSprite
     {
         if (z == value)
             return;
+
+        // validateMatrix when switching between 2D/3D, works around player bug
+        // see sdk-23421 
+        var was3D:Boolean = is3D;
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
 
         _layoutFeatures.layoutZ = value;
         invalidateTransform();
         invalidateProperties();
+        if (was3D != is3D)
+            validateMatrix();
         dispatchEvent(new Event("zChanged"));
     }
 
@@ -2231,12 +2237,17 @@ public class UIComponent extends FlexSprite
         if (rotationX == value)
             return;
 
+        // validateMatrix when switching between 2D/3D, works around player bug
+        // see sdk-23421 
+        var was3D:Boolean = is3D;
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
         _layoutFeatures.layoutRotationX = value;
         invalidateTransform();
         invalidateProperties();
         invalidateParentSizeAndDisplayList();
+        if (was3D != is3D)
+            validateMatrix();
     }
 
     /**
@@ -2265,12 +2276,17 @@ public class UIComponent extends FlexSprite
         if (rotationY == value)
             return;
 
+        // validateMatrix when switching between 2D/3D, works around player bug
+        // see sdk-23421 
+        var was3D:Boolean = is3D;
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
         _layoutFeatures.layoutRotationY = value;
         invalidateTransform();
         invalidateProperties();
         invalidateParentSizeAndDisplayList();
+        if (was3D != is3D)
+            validateMatrix();
     }
                                 
     //----------------------------------
@@ -2671,6 +2687,10 @@ public class UIComponent extends FlexSprite
     {
         if (scaleZ == value)
             return;
+
+        // validateMatrix when switching between 2D/3D, works around player bug
+        // see sdk-23421 
+        var was3D:Boolean = is3D;
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
 
@@ -2679,6 +2699,8 @@ public class UIComponent extends FlexSprite
         invalidateTransform();
         invalidateProperties();
         invalidateParentSizeAndDisplayList();
+        if (was3D != is3D)
+            validateMatrix();
         dispatchEvent(new Event("scaleZChanged"));
     }
 
@@ -11943,6 +11965,10 @@ public class UIComponent extends FlexSprite
         var ct:ColorTransform = value.colorTransform;
         var pp:PerspectiveProjection = value.perspectiveProjection;
         
+        // validateMatrix when switching between 2D/3D, works around player bug
+        // see sdk-23421 
+        var was3D:Boolean = is3D;
+
         var mxTransform:mx.geom.Transform = value as mx.geom.Transform;
         if (mxTransform)
         {
@@ -11964,6 +11990,8 @@ public class UIComponent extends FlexSprite
         super.transform.perspectiveProjection = pp;
         if (maintainProjectionCenter)
             invalidateDisplayList(); 
+        if (was3D != is3D)
+            validateMatrix();
     }
     
     /**
@@ -11984,6 +12012,10 @@ public class UIComponent extends FlexSprite
      */
     public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
+        // validateMatrix when switching between 2D/3D, works around player bug
+        // see sdk-23421 
+        var was3D:Boolean = is3D;
+
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
         
@@ -11992,6 +12024,8 @@ public class UIComponent extends FlexSprite
         _layoutFeatures.postLayoutTransformOffsets = value;
         if (_layoutFeatures.postLayoutTransformOffsets != null)
             _layoutFeatures.postLayoutTransformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+        if (was3D != is3D)
+            validateMatrix();
     }
 
     /**
@@ -12036,6 +12070,10 @@ public class UIComponent extends FlexSprite
      */
     public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
     {
+        // validateMatrix when switching between 2D/3D, works around player bug
+        // see sdk-23421 
+        var was3D:Boolean = is3D;
+
         _hasComplexLayoutMatrix = true;
         if (_layoutFeatures == null)
         {
@@ -12054,6 +12092,9 @@ public class UIComponent extends FlexSprite
 
         if (invalidateLayout)
             invalidateParentSizeAndDisplayList();
+
+        if (was3D != is3D)
+            validateMatrix();
     }
 
     /**
@@ -12067,6 +12108,10 @@ public class UIComponent extends FlexSprite
      */
     public function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void
     {
+        // validateMatrix when switching between 2D/3D, works around player bug
+        // see sdk-23421 
+        var was3D:Boolean = is3D;
+
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
         // layout features will internally make a copy of this matrix rather than
@@ -12078,6 +12123,9 @@ public class UIComponent extends FlexSprite
 
         if (invalidateLayout)
             invalidateParentSizeAndDisplayList();
+
+        if (was3D != is3D)
+            validateMatrix();
     }
 
     private static var xformPt:Point;
