@@ -19,6 +19,7 @@ package spark.automation.delegates.components.supportClasses
 	import flash.utils.getTimer;
 	
 	import mx.automation.Automation;
+	import mx.automation.AutomationConstants;
 	import mx.automation.IAutomationObject;
 	import mx.automation.IAutomationObjectHelper;
 	import mx.automation.events.AutomationRecordEvent;
@@ -201,7 +202,7 @@ package spark.automation.delegates.components.supportClasses
 		
 		override public function getAutomationChildAt(index:int):IAutomationObject
 		{
-			trace("SparkDropDownListBase - We should not have getAutomationChildAt()");
+			Automation.automationDebugTracer.traceMessage("SparkDropDownListBaseAutomationImpl", "getAutomationChildAt()", AutomationConstants.invalidMethodCall);
 			var scrollBarCount:int = 0;
 			if(sparkDropDownListBase.dropDown)
 			{
