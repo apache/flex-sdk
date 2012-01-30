@@ -1273,6 +1273,8 @@ public class SystemManager extends MovieClip
 	private var idToPlaceholder:Object;
 	
 	private var eventProxy:EventProxy;
+	private var weakReferenceProxies:Dictionary = new Dictionary(true);
+	private var strongReferenceProxies:Dictionary = new Dictionary(false);
 
 	//--------------------------------------------------------------------------
 	//
@@ -1316,6 +1318,26 @@ public class SystemManager extends MovieClip
 				stage.invalidate();
 
 			return;
+		}
+
+		if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN)
+		{
+			// also listen to stage if allowed
+			try
+			{
+				if (stage)
+				{
+					var newListener:StageEventProxy = new StageEventProxy(listener);
+					stage.addEventListener(type, newListener.stageListener, false, priority, useWeakReference);
+					if (useWeakReference)
+						weakReferenceProxies[listener] = newListener;
+					else
+						strongReferenceProxies[listener] = newListener;
+				}
+			}
+			catch (error:SecurityError)
+			{
+			}
 		}
 		
 		if (hasSandboxBridges())
@@ -1392,6 +1414,29 @@ public class SystemManager extends MovieClip
 			}
 		
 			return;
+		}
+
+		if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN)
+		{
+			// also listen to stage if allowed
+			try
+			{
+				if (stage)
+				{
+					var newListener:StageEventProxy = weakReferenceProxies[listener];
+					if (!newListener)
+					{
+						newListener = strongReferenceProxies[listener];
+						if (newListener)
+							delete strongReferenceProxies[listener];
+					}
+					if (newListener)
+						stage.removeEventListener(type, newListener.stageListener, false);
+				}
+			}
+			catch (error:SecurityError)
+			{
+			}
 		}
 
 		if (hasSandboxBridges())
@@ -2766,7 +2811,7 @@ public class SystemManager extends MovieClip
 
 		// every SM has to have this listener in case it is the SM for some child AD that contains a manager
 		// and the parent ADs don't have that manager.
-		loaderInfo.sharedEvents.addEventListener(MarshalEvent.INIT_MANAGER, initManagerHandler, false, 0, true);
+		getSandboxRoot().addEventListener(MarshalEvent.INIT_MANAGER, initManagerHandler, false, 0, true);
 		// once managers get initialized, they bounce things off the sandbox root
 		if (getSandboxRoot() == this)
 		{
@@ -2950,12 +2995,14 @@ public class SystemManager extends MovieClip
 
 		// If the localeChain wasn't specified in the FlashVars of the SWF's
 		// HTML wrapper, or in the query parameters of the SWF URL,
-		// then set it to the list of compiled locales.
+		// then initialize it to the list of compiled locales,
+        // sorted according to the system's preferred locales as reported by
+        // Capabilities.languages or Capabilities.language.
 		// For example, if the applications was compiled with, say,
-		// -locale=en_US,ja_JP, then set the localeChain to
-		// [ "en_US", "ja_JP" ].
+		// -locale=en_US,ja_JP and Capabilities.languages reports [ "ja-JP" ],
+        // set the localeChain to [ "ja_JP" "en_US" ].
 		if (!resourceManager.localeChain)
-			resourceManager.localeChain = compiledLocales;
+			resourceManager.initializeLocaleChain(compiledLocales);
 	}
 
 	private function extraFrameHandler(event:Event = null):void
@@ -4075,6 +4122,12 @@ public class SystemManager extends MovieClip
 	 */
 	private function systemManagerHandler(event:Event):void
 	{
+		if (event["name"] == "sameSandbox")
+		{
+			event["value"] = currentSandboxEvent == event["value"];
+			return;
+		}
+
 		// if we are broadcasting messages, ignore the messages
 		// we send to ourselves.
 		if (event is MarshalEvent)
@@ -4102,9 +4155,6 @@ public class SystemManager extends MovieClip
 			break;
 		case "toolTipChildren.removeChild":
 			toolTipChildren.removeChild(event["value"]);
-			break;
-		case "sameSandbox":
-			event["value"] = currentSandboxEvent == event["value"];
 			break;
 		case "screen":
 			event["value"] = screen;
@@ -4670,7 +4720,7 @@ public class SystemManager extends MovieClip
 	public function dispatchEventToSandboxes(event:Event, skip:IEventDispatcher = null, trackClones:Boolean = false):void
 	{
 		var clone:Event;
-		trace(">>dispatchEventToSandboxes", this, event.type);
+		// trace(">>dispatchEventToSandboxes", this, event.type);
 		clone = event.clone();
 		if (trackClones)
 			currentSandboxEvent = clone;
@@ -4685,7 +4735,7 @@ public class SystemManager extends MovieClip
 		{
 			if (children[i] != skip)
 			{
-				trace("send to child", i, event.type);
+				// trace("send to child", i, event.type);
 				clone = event.clone();
 				if (trackClones)
 					currentSandboxEvent = clone;
@@ -4694,16 +4744,16 @@ public class SystemManager extends MovieClip
 		}
 		currentSandboxEvent = null;
 
-		trace("<<dispatchEventToSandboxes", this, event.type);
+		// trace("<<dispatchEventToSandboxes", this, event.type);
 	}
 
 	/**
-	 * request the parent to add and event listener.
+	 * request the parent to add an event listener.
 	 */
 	private function addEventListenerToSandboxes(type:String, listener:Function, useCapture:Boolean = false, 
 				priority:int=0, useWeakReference:Boolean=false, skip:IEventDispatcher = null):void
 	{
-		trace(">>addEventListenerToSandboxes", this, type);
+		// trace(">>addEventListenerToSandboxes", this, type);
 
 		var request:EventListenerRequest = new EventListenerRequest(EventListenerRequest.ADD,
 													type, 
@@ -4725,7 +4775,7 @@ public class SystemManager extends MovieClip
 		}
 		
 		dispatchEventToSandboxes(request, skip);
-		trace("<<addEventListenerToSandboxes", this, type);
+		// trace("<<addEventListenerToSandboxes", this, type);
 	}
 
 	/**
@@ -4733,7 +4783,7 @@ public class SystemManager extends MovieClip
 	 */	
 	private function removeEventListenerFromSandboxes(type:String, listener:Function, useCapture:Boolean = false):void 
 	{
-		trace(">>removeEventListenerToSandboxes", this, type);
+		// trace(">>removeEventListenerToSandboxes", this, type);
 		var request:EventListenerRequest = new EventListenerRequest(EventListenerRequest.REMOVE,
 																				type, 
 																				useCapture);
@@ -4748,12 +4798,12 @@ public class SystemManager extends MovieClip
 		}
 		
 		dispatchEventToSandboxes(request);
-		trace("<<removeEventListenerToSandboxes", this, type);
+		// trace("<<removeEventListenerToSandboxes", this, type);
 	}
 
 	private function sandboxMouseListener(event:Event):void
 	{
-		trace("sandboxMouseListener", this);
+		// trace("sandboxMouseListener", this);
 		if (event is MarshalMouseEvent)
 			return;
 
@@ -4780,17 +4830,18 @@ public class SystemManager extends MovieClip
 			if (!eventProxy)
 				eventProxy = new EventProxy(this);
 			
-			trace(">>eventListenerRequestHandler", this, eventObj.userType);
+			// trace(">>eventListenerRequestHandler", this, eventObj.userType);
 
 			var actualType:String = EventUtil.marshalMouseEventMap[eventObj.userType];
 			if (actualType)
 			{
 				addEventListenerToSandboxes(eventObj.userType, sandboxMouseListener,
 							eventObj.useCapture, eventObj.priority, eventObj.useWeakReference, event.target as IEventDispatcher);
-				super.addEventListener(actualType, eventProxy.marshalListener,
+				if (getSandboxRoot() == this)
+					super.addEventListener(actualType, eventProxy.marshalListener,
 							eventObj.useCapture, eventObj.priority, eventObj.useWeakReference);
 			}
-			trace("<<eventListenerRequestHandler", this, eventObj.userType);
+			// trace("<<eventListenerRequestHandler", this, eventObj.userType);
 		}
 	}
 }
@@ -4860,10 +4911,33 @@ class EventProxy extends EventDispatcher
 			var me:MouseEvent = event as MouseEvent;;
 			var mme:MarshalMouseEvent = new MarshalMouseEvent(EventUtil.mouseEventMap[event.type],
 				false, false, me.ctrlKey, me.altKey, me.shiftKey, me.buttonDown);
-			trace(">>marshalListener", systemManager, mme.type);
+			// trace(">>marshalListener", systemManager, mme.type);
 			systemManager.dispatchEventToSandboxes(mme, null, true);
-			trace("<<marshalListener", systemManager);
+			// trace("<<marshalListener", systemManager);
 		}
+	}
+
+}
+
+import flash.display.Stage;
+import flash.events.MouseEvent;
+
+/**
+ * An object that filters stage
+ */
+class StageEventProxy
+{
+	private var listener:Function;
+
+	public function StageEventProxy(listener:Function)
+	{
+		this.listener = listener;
+	}
+
+	public function stageListener(event:MouseEvent):void
+	{
+		if (event.target is Stage)
+			listener(event);
 	}
 
 }
