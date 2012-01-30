@@ -295,15 +295,7 @@ public interface IUIComponent extends IFlexDisplayObject
     //----------------------------------
 
     /**
-     *  Typically the parent container of this component. 
-     *  However, if this is a popup component, the owner is 
-     *  the component that popped it up.  
-     *  For example, the owner of a dropdown list of a ComboBox control
-     *  is the ComboBox control itself.
-     *  This property is not managed by Flex, but 
-     *  by each component. 
-     *  Therefore, if you popup a component,
-     *  you should set this property accordingly.
+     *  @copy mx.core.IVisualItem#owner
      */
     function get owner():DisplayObjectContainer;
 
