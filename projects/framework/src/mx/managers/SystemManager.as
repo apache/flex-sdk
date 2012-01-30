@@ -1348,7 +1348,10 @@ public class SystemManager extends MovieClip
 			if (actualType)
 			{
 				addEventListenerToSandboxes(type, sandboxMouseListener, useCapture, priority, useWeakReference);
-				super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+				
+				// Set useCapture to false because we will never see an event 
+				// marshalled in the capture phase.
+                super.addEventListener(type, listener, false, priority, useWeakReference);
 				return;
 			}
 		}
@@ -1445,7 +1448,7 @@ public class SystemManager extends MovieClip
 			if (actualType)
 			{
 				removeEventListenerFromSandboxes(type, sandboxMouseListener, useCapture);
-				super.removeEventListener(type, listener, useCapture);
+				super.removeEventListener(type, listener, false);
 				return;
 			}
 		}
@@ -3454,27 +3457,6 @@ public class SystemManager extends MovieClip
 	/**
 	 * @private
 	 * 
-	 * Sets the size of the stage on behalf of another system manager.
-	 */
-	private function setStageSizeRequestHandler(event:Event):void
-	{
-		var eObj:Object = Object(event);
-		
-		try
-		{
-			stage.width = eObj.width;
-			stage.height = eObj.height;
-		}
-		catch (e:SecurityError)
-		{
-			if (sandboxBridgeGroup)
-				sandboxBridgeGroup.parentBridge.dispatchEvent(event);
-		}
-	}
-
-	/**
-	 * @private
-	 * 
 	 * Add a popup request handler for domain local request and 
 	 * remote domain requests.
 	 */
@@ -4580,7 +4562,10 @@ public class SystemManager extends MovieClip
 		{
 			try
 			{
-				if (root.loaderInfo.parentAllowsChild)
+			    // check if the loader info is valid.
+			    root.loaderInfo.parentAllowsChild;
+			    
+				if (canAccessParent() && accessibleFromParent())
 				{
 					try
 					{
@@ -4653,12 +4638,12 @@ public class SystemManager extends MovieClip
 			if (sm.topLevelSystemManager)
 				sm = ISystemManager2(sm.topLevelSystemManager);
 			var parent:DisplayObject = DisplayObject(sm).parent;
-			if (parent is Stage)
-				return DisplayObject(sm);
-			// test to see if parent is a Bootstrap
-			if (parent && !parent.dispatchEvent(new Event("mx.managers.SystemManager.isBootstrapRoot", false, true)))
-				return this;
-			var lastParent:DisplayObject = parent;
+            if (parent is Stage)
+                return DisplayObject(sm);
+            // test to see if parent is a Bootstrap
+            if (parent && !parent.dispatchEvent(new Event("mx.managers.SystemManager.isBootstrapRoot", false, true)))
+                return this;
+  			var lastParent:DisplayObject = parent;
 			while (parent)
 			{
 				if (parent is Stage)
@@ -4666,6 +4651,18 @@ public class SystemManager extends MovieClip
 				// test to see if parent is a Bootstrap
 				if (!parent.dispatchEvent(new Event("mx.managers.SystemManager.isBootstrapRoot", false, true)))
 					return lastParent;
+					
+			    // Test if the childAllowsParent so we know there is mutual trust between
+			    // the sandbox root and this sm.
+			    // The parentAllowsChild is taken care of by the player because it returns null
+			    // for the parent if we do not have access.
+				if (parent is Loader)
+				{
+				    var loader:Loader = Loader(parent);
+				    var loaderInfo:LoaderInfo = loader.contentLoaderInfo;
+				    if (!loaderInfo.childAllowsParent)
+				        return loaderInfo.content;
+				}
 				lastParent = parent; 
 				parent = parent.parent;				
 			}
@@ -4896,14 +4893,14 @@ public class SystemManager extends MovieClip
 		var parentBridge:IEventDispatcher = sandboxBridgeGroup.parentBridge;
 		if (parentBridge)
 		{
-			parentBridge.addEventListener(type, listener, useCapture, priority, useWeakReference);			
+			parentBridge.addEventListener(type, listener, false, priority, useWeakReference);			
 		}
 		
 		var children:Array = sandboxBridgeGroup.getChildBridges();
 		for (var i:int; i < children.length; i++)
 		{
 		 	var childBridge:IEventDispatcher = IEventDispatcher(children[i]);
-			childBridge.addEventListener(type, listener, useCapture, priority, useWeakReference);			
+			childBridge.addEventListener(type, listener, false, priority, useWeakReference);			
 		}
 		
 		dispatchEventToSandboxes(request, skip);
@@ -4913,7 +4910,9 @@ public class SystemManager extends MovieClip
 	/**
 	 * request the parent to remove an event listener.
 	 */	
-	private function removeEventListenerFromSandboxes(type:String, listener:Function, useCapture:Boolean = false):void 
+	private function removeEventListenerFromSandboxes(type:String, listener:Function, 
+	                                                  useCapture:Boolean = false,
+	                                                  skip:IEventDispatcher = null):void 
 	{
 		// trace(">>removeEventListenerToSandboxes", this, type);
 		var request:EventListenerRequest = new EventListenerRequest(EventListenerRequest.REMOVE,
@@ -4929,7 +4928,7 @@ public class SystemManager extends MovieClip
 			IEventDispatcher(children[i]).removeEventListener(type, listener, useCapture);			
 		}
 		
-		dispatchEventToSandboxes(request);
+		dispatchEventToSandboxes(request, skip);
 		// trace("<<removeEventListenerToSandboxes", this, type);
 	}
 
@@ -5025,15 +5024,16 @@ public class SystemManager extends MovieClip
 		if (event is EventListenerRequest)
 			return;
 
+        var actualType:String;
 		var eventObj:Object = event;
 		if (event.type == EventListenerRequest.ADD)
 		{
 			if (!eventProxy)
 				eventProxy = new EventProxy(this);
 			
-			// trace(">>eventListenerRequestHandler", this, eventObj.userType);
+			// trace(">>eventListenerRequestHandler ADD ", this, eventObj.userType);
 
-			var actualType:String = EventUtil.marshalMouseEventMap[eventObj.userType];
+			actualType = EventUtil.marshalMouseEventMap[eventObj.userType];
 			if (actualType)
 			{
 				addEventListenerToSandboxes(eventObj.userType, sandboxMouseListener,
@@ -5042,8 +5042,22 @@ public class SystemManager extends MovieClip
 					super.addEventListener(actualType, eventProxy.marshalListener,
 							eventObj.useCapture, eventObj.priority, eventObj.useWeakReference);
 			}
-			// trace("<<eventListenerRequestHandler", this, eventObj.userType);
+			// trace("<<eventListenerRequestHandler ADD ", this, eventObj.userType);
 		}
+		else if (event.type == EventListenerRequest.REMOVE)
+        {
+            // trace(">>eventListenerRequestHandler REMOVE ", this, eventObj.userType);
+            actualType = EventUtil.marshalMouseEventMap[eventObj.userType];
+            if (actualType)
+            {
+                removeEventListenerFromSandboxes(eventObj.userType, sandboxMouseListener,
+                            eventObj.useCapture, event.target as IEventDispatcher);
+                if (getSandboxRoot() == this)
+                    super.removeEventListener(actualType, eventProxy.marshalListener,
+                            eventObj.useCapture);
+            }
+            // trace("<<eventListenerRequestHandler REMOVE ", this, eventObj.userType);
+        }		
 	}
 }
 
