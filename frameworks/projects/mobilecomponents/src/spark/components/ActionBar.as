@@ -1,3 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2010 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package spark.components
 {
 import flash.events.Event;
@@ -23,6 +34,11 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 [Style(name="backgroundAlpha", type="Number", inherit="no")]
+
+// FIXME (jasonsj): text styles for titleDisplay?
+//include "../../styles/metadata/BasicInheritingTextStyles.as"
+//include "../../styles/metadata/AdvancedInheritingTextStyles.as"
+//include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  The ActionBar class defines a component that includes title, navigation 
@@ -125,7 +141,6 @@ public class ActionBar extends SkinnableComponent
     public function ActionBar()
     {
         super();
-        _titleChanged = false;
     }
     
     //--------------------------------------------------------------------------
@@ -211,7 +226,6 @@ public class ActionBar extends SkinnableComponent
     //----------------------------------
     
     private var _title:String = "";
-    private var _titleChanged:Boolean;
     
     [Bindable]
     
@@ -380,17 +394,10 @@ public class ActionBar extends SkinnableComponent
     {
         if (titleGroup)
         {
-            _titleChanged = true;
-            
             if (value)
-            {
                 titleGroup.mxmlContent = value;
-            }
             else
-            {
                 titleGroup.mxmlContent = titleDisplay ? [titleDisplay] : null;
-                invalidateProperties();
-            }
             
             contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX] = 
                 BitFlagUtil.update(contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX] as uint,
@@ -533,23 +540,6 @@ public class ActionBar extends SkinnableComponent
     /**
      *  @private
      */
-    override protected function commitProperties():void
-    {
-        super.commitProperties();
-        
-        if (titleDisplay && _titleChanged)
-        {
-            _titleChanged = false;
-            
-            titleDisplay.includeInLayout = (title != "" && title != null);
-            if (!BitFlagUtil.isSet(contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX], CONTENT_PROPERTY_FLAG))
-                titleDisplay.text = title;
-        }
-    }
-    
-    /**
-     *  @private
-     */
     override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
@@ -561,11 +551,15 @@ public class ActionBar extends SkinnableComponent
         if (instance == navigationGroup)
         {
             group = navigationGroup;
+			// FIXME (jasonsj): do we need to set ID for CSS selectors to work
+			//group.id = "navigationGroup";
             index = NAVIGATION_GROUP_PROPERTIES_INDEX;
         }
         else if (instance == titleGroup)
         {
             group = titleGroup;
+			// FIXME (jasonsj): do we need to set ID for CSS selectors to work
+			//group.id = "titleGroup";
             index = TITLE_GROUP_PROPERTIES_INDEX;
             
             // use titleContent if provided
@@ -573,15 +567,13 @@ public class ActionBar extends SkinnableComponent
             
             // if no titleContent, use titleDisplay
             if (defaultContent == null)
-            {
                 defaultContent = (titleDisplay) ? [titleDisplay] : null;
-            }
-            
-            _titleChanged = true;
         }
         else if (instance == actionGroup)
         {
             group = actionGroup;
+			// FIXME (jasonsj): do we need to set ID for CSS selectors to work
+			//group.id = "actionGroup";
             index = ACTION_GROUP_PROPERTIES_INDEX;
         }
         else if (instance == titleDisplay)
