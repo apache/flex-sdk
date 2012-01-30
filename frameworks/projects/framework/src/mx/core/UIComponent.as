@@ -8324,8 +8324,12 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Measures the specified text, assuming that it is displayed
-     *  in a single-line UITextField using a UITextFormat
-     *  determined by the styles of this UIComponent.
+     *  in a single-line UITextField (or UIFTETextField) using a UITextFormat
+     *  determined by the styles of this UIComponent.  Does not 
+     *  work for Spark components since they don't use UITextField
+     *  (or UIFTETextField).  To measure text in Spark components, 
+     *  get the measurements of a spark.components.Label 
+     *  or spark.components.RichText
      *
      *  @param text A String specifying the text to measure.
      *
