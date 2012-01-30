@@ -114,50 +114,6 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="gutterTop", type="Number", format="Length", inherit="no")]
 
 /**
- *  The class selector that defines the style properties
- *  for the horizontal axis.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="horizontalAxisStyleName", type="String", inherit="no", deprecatedReplacement="horizontalAxisStyleNames")]
-
-/**
- *  The class selector that defines the style properties
- *  for the second horizontal axis.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="secondHorizontalAxisStyleName", type="String", inherit="no", deprecatedReplacement="horizontalAxisStyleNames")]
-
-/**
- *  The class selector that defines the style properties
- *  for the second vertical axis.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="secondVerticalAxisStyleName", type="String", inherit="no", deprecatedReplacement="verticalAxisStyleNames")]
-
-/**
- *  The class selector that defines the style properties
- *  for the vertical axis.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="verticalAxisStyleName", type="String", inherit="no", deprecatedReplacement="verticalAxisStyleNames")]
-
-/**
  *  An array of class selectors that define the style properties
  *  for horizontal axes.
  *  
@@ -255,8 +211,7 @@ public class CartesianChart extends ChartBase
         horizontalAxis = new LinearAxis();
         verticalAxis = new LinearAxis();
         
-        _series2 = _userSeries2 = [];
-        transforms = [new CartesianTransform()];
+        _transforms = [new CartesianTransform()];
         
         var gridLines:GridLines = new GridLines();
         backgroundElements = [ gridLines ];
@@ -387,11 +342,6 @@ public class CartesianChart extends ChartBase
         if (_verticalAxisRenderer)
             _verticalAxisRenderer.chartStateChanged(oldState, value);
 
-        if (_secondHorizontalAxisRenderer)
-            _secondHorizontalAxisRenderer.chartStateChanged(oldState, value);
-        if (_secondVerticalAxisRenderer)
-            _secondVerticalAxisRenderer.chartStateChanged(oldState, value);
-            
         var n:uint = _horizontalAxisRenderers.length;
         
         
@@ -555,8 +505,8 @@ public class CartesianChart extends ChartBase
     private var _horizontalAxisRenderer:IAxisRenderer;
     
     [Inspectable(category="Data")]
-    [Deprecated(replacement="CartesianChart.horizontalAxisRenderers")]    
     /**
+	 *  @private
      *  Specifies how data appears along the x-axis of a chart.
      *  Use the AxisRenderer class to define the properties
      *  for horizontalAxisRenderer as a child tag in MXML
@@ -567,7 +517,7 @@ public class CartesianChart extends ChartBase
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function get horizontalAxisRenderer():IAxisRenderer
+    mx_internal function get horizontalAxisRenderer():IAxisRenderer
     {
         return _horizontalAxisRenderer;
     }
@@ -575,7 +525,7 @@ public class CartesianChart extends ChartBase
     /**
      *  @private
      */
-    public function set horizontalAxisRenderer(value:IAxisRenderer):void
+    mx_internal function set horizontalAxisRenderer(value:IAxisRenderer):void
     {
         if (_horizontalAxisRenderer)
         {
@@ -657,322 +607,6 @@ public class CartesianChart extends ChartBase
         invalidateChildOrder();
         invalidateProperties();
     }
-
-    //----------------------------------
-    //  secondDataProvider
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the secondDataProvider property.
-     */
-    private var _secondDataProvider:ICollectionView;
-
-    [Inspectable(category="Data")]
-    [Deprecated(replacement="CartesianChart.dataProvider")]    
-    /**
-     *  The second data provider for this chart.
-     *  The second data provider is typically rendered by a second series.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function get secondDataProvider():Object
-    {
-        return _secondDataProvider;
-    }
-
-    /**
-     *  @private
-     */
-    public function set secondDataProvider(value:Object):void
-    {
-        if (value is Array)
-        {
-            value = new ArrayCollection(value as Array);
-        }
-        else if (value is ICollectionView)
-        {
-        }
-        else if (value is IList)
-        {
-            value = new ListCollectionView(value as IList);
-        }
-        else if (value is XMLList)
-        {
-            value = new XMLListCollection(XMLList(value));
-        }
-        else if (value != null)
-        {
-            value = new ArrayCollection([ value ]);
-        }
-        else
-        {
-            value = new ArrayCollection();
-        }
-        
-        _secondDataProvider = ICollectionView(value);
-
-        if (!_bDualMode)
-            initSecondaryMode();
-
-        invalidateData();
-    }
-
-    //----------------------------------
-    //  secondHorizontalAxis
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the secondHorizontalAxis property.
-     */
-    private var _secondHorizontalAxis:IAxis;
-    
-    [Inspectable(category="Data")]
-    [Deprecated(replacement="horizontalAxis in individual series")]    
-    /**
-     *  Defines the labels, tick marks, and data position
-     *  for items on the y-axis.
-     *  Use either the LinearAxis class or the CategoryAxis class
-     *  to set the properties of the horizontal axis as a child tag in MXML
-     *  or create a LinearAxis or CategoryAxis object in ActionScript.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function get secondHorizontalAxis():IAxis
-    {
-        return _secondHorizontalAxis;
-    }
-
-    /**
-     *  @private
-     */
-    public function set secondHorizontalAxis(value:IAxis):void
-    {
-        _secondHorizontalAxis = value;
-
-        if (!_bDualMode)
-            initSecondaryMode();
-
-        _bAxesRenderersDirty = true;
-        invalidateData();
-        invalidateProperties();
-    }
-    
-    //----------------------------------
-    //  secondHorizontalAxisRenderer
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the secondHorizontalAxisRenderer property.
-     */
-    private var _secondHorizontalAxisRenderer:IAxisRenderer;
-    
-    [Inspectable(category="Data")]
-    [Deprecated(replacement="CartesianChart.horizontalAxisRenderers")]    
-    /**
-     *  Specifies how data appears along the y-axis of a chart.
-     *  Use the AxisRenderer class to set the properties
-     *  for verticalAxisRenderer as a child tag in MXML
-     *  or create an AxisRenderer object in ActionScript.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function get secondHorizontalAxisRenderer():IAxisRenderer
-    {
-        return _secondHorizontalAxisRenderer;
-    }
-
-    /**
-     *  @private
-     */
-    public function set secondHorizontalAxisRenderer(value:IAxisRenderer):void
-    {
-        if (_secondHorizontalAxisRenderer)
-        {
-            if (DisplayObject(_secondHorizontalAxisRenderer).parent == this)
-                removeChild(DisplayObject(_secondHorizontalAxisRenderer));
-            _secondHorizontalAxisRenderer.otherAxes = null;
-        }
-        _secondHorizontalAxisRenderer = value;
-
-        if (!_bDualMode)
-            initSecondaryMode();
-
-        _secondHorizontalAxisRenderer.horizontal = true;
-        
-        if (_secondHorizontalAxisRenderer.axis)
-            secondHorizontalAxis = _secondHorizontalAxisRenderer.axis;
-        
-        _bAxesRenderersDirty = true;
-        _bAxisStylesDirty=true;
-        
-        invalidateChildOrder();
-        invalidateProperties();
-    }
-
-    //----------------------------------
-    //  secondSeries
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the secondSeries property.
-     */
-    private var _series2:Array /* of Series */;
-    
-    /**
-     *  @private
-     */
-    private var _userSeries2:Array /* of Series */;
-    
-    [Deprecated(replacement="ChartBase.series")]
-    [Inspectable(category="Data", arrayType="mx.charts.chartClasses.Series")]
-    /**
-     *  An array of Series objects that define the secondary chart data.
-     *  Secondary Series are displayed in the same data area as the primary 
-     *  chart series, but are typically rendered with different scales and axes.  
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function get secondSeries():Array /* of Series */
-    {
-        return _series2;
-    }
-
-    /**
-     *  @private
-     */
-    public function set secondSeries(value:Array /* of Series */):void
-    {
-
-        value = value == null ? [] : value;
-        _userSeries2 = value;
-        
-        var n:int = value.length;
-        for (var i:int = 0; i < n; ++i)
-        {
-            if (value[i] is Series)
-            {
-                (value[i] as Series).owner = this;                
-            }
-        }
-        
-        if (!_bDualMode)
-            initSecondaryMode();
-
-        invalidateSeries();
-        invalidateData();
-
-        legendDataChanged();
-    }
-
-    //----------------------------------
-    //  secondVerticalAxis
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the secondVerticalAxis property.
-     */
-    private var _secondVerticalAxis:IAxis;
-    
-    [Inspectable(category="Data")]
-    [Deprecated(replacement="verticalAxis in individual series")]
-    /**
-     *  The second vertical axis definition for this chart.
-     *  This class is typically used to render the axis for a secondSeries.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function get secondVerticalAxis():IAxis
-    {
-        return _secondVerticalAxis;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set secondVerticalAxis(value:IAxis):void
-    {
-        _secondVerticalAxis = value;
-
-        if (!_bDualMode)
-            initSecondaryMode();
-
-        _bAxesRenderersDirty = true;
-        invalidateData();
-        invalidateProperties();
-    }
-
-    //----------------------------------
-    //  secondVerticalAxisRenderer
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the secondVerticalAxisRenderer property.
-     */
-    private var _secondVerticalAxisRenderer:IAxisRenderer;
-    
-    [Inspectable(category="Data")]
-    [Deprecated(replacement="CartesianChart.verticalAxisRenderers")]
-    
-    /**
-     *  Defines the labels, tick marks, and data position
-     *  for items on the x-axis.
-     *  Use either the LinearAxis class or the CategoryAxis class
-     *  to set the properties of the horizontal axis as a child tag in MXML
-     *  or create a LinearAxis or CategoryAxis object in ActionScript.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function get secondVerticalAxisRenderer():IAxisRenderer
-    {
-        return _secondVerticalAxisRenderer;
-    }
-
-    /**
-     *  @private
-     */
-    public function set secondVerticalAxisRenderer(value:IAxisRenderer):void
-    {
-
-        if (_secondVerticalAxisRenderer)
-            if (DisplayObject(_secondVerticalAxisRenderer).parent == this)
-                removeChild(DisplayObject(_secondVerticalAxisRenderer));
-
-        _secondVerticalAxisRenderer = value;
-        
-        if (_secondVerticalAxisRenderer.axis)
-            secondVerticalAxis = _secondVerticalAxisRenderer.axis;
-            
-        _secondVerticalAxisRenderer.horizontal = false;
-        _bAxisStylesDirty=true;
-        _bAxesRenderersDirty = true;
-        
-        invalidateChildOrder();
-        invalidateProperties();
-    }
     
     //----------------------------------
     //  verticalAxis
@@ -1046,9 +680,8 @@ public class CartesianChart extends ChartBase
     private var _verticalAxisRenderer:IAxisRenderer;
     
     [Inspectable(category="Data")]
-    [Deprecated(replacement="CartesianChart.verticalAxisRenderers")]
-
-    /**
+    
+	/**
      *  Specifies how data appears along the y-axis of a chart.
      *  Use the AxisRenderer class to set the properties
      *  for verticalAxisRenderer as a child tag in MXM
@@ -1059,7 +692,7 @@ public class CartesianChart extends ChartBase
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function get verticalAxisRenderer():IAxisRenderer
+    mx_internal function get verticalAxisRenderer():IAxisRenderer
     {
         return _verticalAxisRenderer;
     }
@@ -1067,7 +700,7 @@ public class CartesianChart extends ChartBase
     /**
      *  @private
      */
-    public function set verticalAxisRenderer(value:IAxisRenderer):void
+    mx_internal function set verticalAxisRenderer(value:IAxisRenderer):void
     {
         if (_verticalAxisRenderer)
             if (DisplayObject(_verticalAxisRenderer).parent == this)
@@ -1163,10 +796,6 @@ public class CartesianChart extends ChartBase
 			this.fill = new SolidColor(0xFFFFFF, 0);
 			this.calloutStroke = new Stroke(0x888888,2);            
 			this.fontSize = 10;
-			this.horizontalAxisStyleName = "blockCategoryAxis";
-			this.secondHorizontalAxisStyleName = "blockCategoryAxis";
-			this.secondVerticalAxisStyleName = "blockNumericAxis";
-			this.verticalAxisStyleName = "blockNumericAxis";
 			this.horizontalAxisStyleNames = ["blockCategoryAxis"];
 			this.verticalAxisStyleNames = ["blockNumericAxis"];
 		}
@@ -1230,12 +859,6 @@ public class CartesianChart extends ChartBase
             
             if (_verticalAxisRenderer)
                 addChild(DisplayObject(_verticalAxisRenderer));
-            
-            if (_secondHorizontalAxisRenderer)
-                addChild(DisplayObject(_secondHorizontalAxisRenderer));
-            
-            if (_secondVerticalAxisRenderer)
-                addChild(DisplayObject(_secondVerticalAxisRenderer));
 
             invalidateDisplayList();
 
@@ -1246,21 +869,6 @@ public class CartesianChart extends ChartBase
                 
                 CartesianTransform(_transforms[0]).setAxis(
                     CartesianTransform.VERTICAL_AXIS, _verticalAxis);
-
-                if (_transforms.length > 1)
-                {
-                    CartesianTransform(_transforms[1]).setAxis(
-                        CartesianTransform.HORIZONTAL_AXIS,
-                        _secondHorizontalAxis == null ?
-                        _horizontalAxis :
-                        _secondHorizontalAxis);
-                    
-                    CartesianTransform(_transforms[1]).setAxis(
-                        CartesianTransform.VERTICAL_AXIS,
-                        _secondVerticalAxis == null ?
-                        _verticalAxis :
-                        _secondVerticalAxis);
-                }
             }
 
             if (_horizontalAxisRenderer)
@@ -1268,21 +876,6 @@ public class CartesianChart extends ChartBase
             if (_verticalAxisRenderer)
                 _verticalAxisRenderer.axis = _verticalAxis;
                 
-            if (_secondHorizontalAxisRenderer)
-            {
-                _secondHorizontalAxisRenderer.axis = _secondHorizontalAxis == null ?
-                                                _horizontalAxis :
-                                                _secondHorizontalAxis;
-            }
-
-            if (_secondVerticalAxisRenderer)
-            {
-                if (!_secondVerticalAxis)
-                    _secondVerticalAxisRenderer.axis = _verticalAxis;
-                else
-                    _secondVerticalAxisRenderer.axis = _secondVerticalAxis;
-            }
-            
             updateMultipleAxesRenderers();
             
             // now if the series is using the same axis as charts, its datatransform needs to have 
@@ -1299,16 +892,6 @@ public class CartesianChart extends ChartBase
                 g.invalidateProperties();           
             }
         
-            n = _series2.length;
-            for (i = 0; i < n; i++) 
-            {
-                g = _series2[i];
-                if (!g)
-                    continue;
-                    
-                g.invalidateProperties();           
-            }
-            
             n = annotationElements.length;
             for (i = 0; i < n; i++)
             {
@@ -1337,24 +920,13 @@ public class CartesianChart extends ChartBase
             if (_horizontalAxisRenderer && _horizontalAxisRenderer is DualStyleObject)
             {
                 DualStyleObject(_horizontalAxisRenderer).internalStyleName =
-                    getStyle("horizontalAxisStyleName");
+                    getStyle("horizontalAxisStyleNames")[0];
             }
 
             if (_verticalAxisRenderer && _verticalAxisRenderer is DualStyleObject)
             {
                 DualStyleObject(_verticalAxisRenderer).internalStyleName =
-                    getStyle("verticalAxisStyleName");                  
-            }
-
-            if (_secondHorizontalAxisRenderer && _secondHorizontalAxisRenderer is DualStyleObject)
-            {
-                DualStyleObject(_secondHorizontalAxisRenderer).internalStyleName =
-                    getStyle("secondHorizontalAxisStyleName");
-            }
-            if (_secondVerticalAxisRenderer && _secondVerticalAxisRenderer is DualStyleObject)
-            {
-                DualStyleObject(_secondVerticalAxisRenderer).internalStyleName =
-                    getStyle("secondVerticalAxisStyleName");
+                    getStyle("verticalAxisStyleNames")[0];                  
             }
 
             updateMultipleAxesStyles();
@@ -1403,38 +975,6 @@ public class CartesianChart extends ChartBase
      */
     override public function styleChanged(styleProp:String):void
     {
-        if (styleProp == null ||
-            _horizontalAxisRenderer &&
-            styleProp == "horizontalAxisStyleName")
-        {
-            _bAxisStylesDirty = true;
-            invalidateDisplayList();
-        }
-
-        if (styleProp == null ||
-            _verticalAxisRenderer &&
-            styleProp == "verticalAxisStyleName")
-        {
-            _bAxisStylesDirty = true;
-            invalidateDisplayList();
-        }
-
-        if (styleProp == null ||
-            _secondHorizontalAxisRenderer &&
-            styleProp == "secondHorizontalAxisStyleName")
-        {
-            _bAxisStylesDirty = true;
-            invalidateDisplayList();
-        }
-
-        if (styleProp == null ||
-            _secondVerticalAxisRenderer &&
-            styleProp == "secondVerticalAxisStyleName")
-        {
-            _bAxisStylesDirty = true;
-            invalidateDisplayList();
-        }
-
         if (_defaultGridLines && styleProp == "gridLinesStyleName")
         {
             _bgridLinesStyleNameDirty = true;
@@ -1486,9 +1026,6 @@ public class CartesianChart extends ChartBase
     {
         if (dataProvider != null)
             applyDataProvider(ICollectionView(dataProvider),_transforms[0]);
-
-        if (_secondDataProvider != null && _transforms.length >= 2)
-            applyDataProvider(_secondDataProvider,_transforms[1]);
             
     }
 
@@ -1503,9 +1040,6 @@ public class CartesianChart extends ChartBase
     override mx_internal function updateSeries():void
     {
         var displayedSeries:Array /* of Series */ = applySeriesSet(series,_transforms[0]);
-        
-        if (_userSeries2 != null && _transforms.length >= 2) 
-            _series2 = applySeriesSet(_userSeries2,_transforms[1]);
 
         var i:int;
         var len:int = displayedSeries ? displayedSeries.length : 0;
@@ -1523,29 +1057,12 @@ public class CartesianChart extends ChartBase
         addElements(displayedSeries,_transforms[0], _seriesFilterer);
         allElements = allElements.concat(displayedSeries);
         
-        addElements(_series2,_transforms[1], _seriesFilterer);
-        allElements = allElements.concat(_series2);
-
         labelElements = [];
         
         var n:int = displayedSeries.length;
         for (i = 0; i < n; i++) 
         {
             g = displayedSeries[i] as IChartElement;
-            if (!g)
-                continue;
-                
-            Series(g).invalidateProperties();
-            
-            labelLayer = UIComponent(g.labelContainer);
-            if (labelLayer) 
-                labelElements.push(labelLayer);             
-        }
-        
-        n = _series2.length;
-        for (i = 0; i < n; i++) 
-        {
-            g = _series2[i] as IChartElement;
             if (!g)
                 continue;
                 
@@ -1565,13 +1082,7 @@ public class CartesianChart extends ChartBase
         _transforms[0].elements = annotationElements.concat(displayedSeries).
                                         concat(backgroundElements);
         
-        if (_transforms.length >= 2)
-            _transforms[1].elements = _series2;
-
         _allSeries = findSeriesObjects(series);
-        if (secondSeries)
-            _allSeries = _allSeries.concat(findSeriesObjects(secondSeries));
-        
         invalidateData();
         invalidateSeriesStyles();
     }
@@ -1592,12 +1103,6 @@ public class CartesianChart extends ChartBase
         if (_verticalAxisRenderer)
             setChildIndex(DisplayObject(_verticalAxisRenderer), nextIndex++);
 
-        if (_secondHorizontalAxisRenderer)
-            setChildIndex(DisplayObject(_secondHorizontalAxisRenderer), nextIndex++);
-        
-        if (_secondVerticalAxisRenderer)
-            setChildIndex(DisplayObject(_secondVerticalAxisRenderer), nextIndex++);
-        
         var n: int = _horizontalAxisRenderers.length;
         for (var i:int = 0; i < n; i++)
         {
@@ -1612,58 +1117,7 @@ public class CartesianChart extends ChartBase
         return nextIndex;
     }
 
-    [Deprecated(replacement="IChartElement2.dataToLocal()")]   
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    override public function dataToLocal(... dataValues):Point
-    {
-        var data:Object = {};
-        var da:Array = [ data ];
-        var n:int = dataValues.length;
-        
-        if (n > 0)
-        {
-            data["d0"] = dataValues[0];
-            _transforms[0].getAxis(CartesianTransform.HORIZONTAL_AXIS).
-                mapCache(da, "d0", "v0");
-        }
-        
-        if (n > 1)
-        {
-            data["d1"] = dataValues[1];
-            _transforms[0].getAxis(CartesianTransform.VERTICAL_AXIS).
-                mapCache(da, "d1", "v1");           
-        }
-
-        _transforms[0].transformCache(da,"v0","s0","v1","s1");
-        
-        return new Point(data.s0 + _transformBounds.left,
-                         data.s1 + _transformBounds.top);
-    }
-
-    [Deprecated(replacement="IChartElement2.localToData()")]
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    override public function localToData(v:Point):Array /* of Object */
-    {
-        var values:Array /* of Object */ = _transforms[0].invertTransform(
-                                            v.x - _transformBounds.left,
-                                            v.y - _transformBounds.top);
-        return values;
-    }
-
+    
     /**
      *  @inheritDoc
      *  
@@ -1901,12 +1355,6 @@ public class CartesianChart extends ChartBase
         if (_verticalAxisRenderer)
             measuredMinWidth = _verticalAxisRenderer.minWidth + 40;
         
-        if (_secondHorizontalAxisRenderer)
-            measuredMinHeight += _secondHorizontalAxisRenderer.minHeight;
-            
-        if (_secondVerticalAxisRenderer)
-            measuredMinWidth += _secondVerticalAxisRenderer.minWidth;
-        
         var n:int = _horizontalAxisRenderers.length;
         for (var i:int = 0; i < n; i++)
         {
@@ -2014,24 +1462,6 @@ public class CartesianChart extends ChartBase
             _verticalAxisRenderers[i].move(paddingLeft, paddingTop);
         }
         
-        if (_secondHorizontalAxisRenderer)
-        {
-            _secondHorizontalAxisRenderer.setActualSize(
-                unscaledWidth - paddingLeft - paddingRight,
-                unscaledHeight - paddingTop - paddingBottom);
-
-            _secondHorizontalAxisRenderer.move(paddingLeft, paddingTop);
-        }
-        
-        if (_secondVerticalAxisRenderer)
-        {
-            _secondVerticalAxisRenderer.setActualSize(
-                unscaledWidth - paddingLeft - paddingRight,
-                unscaledHeight - paddingTop - paddingBottom);
-
-            _secondVerticalAxisRenderer.move(paddingLeft, paddingTop);
-        }
-        
         // Fallback to the previous algorithm
         if (vLen == 0 && hLen == 0)
         {
@@ -2040,48 +1470,6 @@ public class CartesianChart extends ChartBase
                 
             if (_verticalAxisRenderer.placement == "")
                 _verticalAxisRenderer.placement = "left";
-                
-            if (_secondHorizontalAxisRenderer)
-            {
-                // Make sure their placement aligns.
-                var harPlacement:String = _horizontalAxisRenderer.placement;
-                switch (harPlacement)
-                {
-                    case "left":
-                    case "bottom":
-                    {
-                        _secondHorizontalAxisRenderer.placement = "right";
-                        break;
-                    }
-                    case "top":
-                    case "right":
-                    {
-                        _secondHorizontalAxisRenderer.placement = "left";
-                        break;
-                    }
-                }
-            }
-            
-            if (_secondVerticalAxisRenderer)
-            {
-                // Make sure their placement aligns.
-                var varPlacement:String = _verticalAxisRenderer.placement;
-                switch (varPlacement)
-                {
-                    case "left":
-                    case "bottom":
-                    {
-                        _secondVerticalAxisRenderer.placement = "top";
-                        break;
-                    }
-                    case "top":
-                    case "right":
-                    {
-                        _secondVerticalAxisRenderer.placement = "bottom";
-                        break;
-                    }
-                }
-            }
     
             _computedGutters = new Rectangle();
             if (gutterLeft != null)
@@ -2107,38 +1495,17 @@ public class CartesianChart extends ChartBase
     
             var otherAxes:Array /* of AxisRenderer */ = [];
             otherAxes.push(_verticalAxisRenderer);
-            if (_secondVerticalAxisRenderer)
-                otherAxes.push(_secondVerticalAxisRenderer);
-                
+                  
             _horizontalAxisRenderer.otherAxes = otherAxes;
-            if (_secondHorizontalAxisRenderer)
-                _secondHorizontalAxisRenderer.otherAxes = otherAxes;
                 
             _computedGutters = _verticalAxisRenderer.adjustGutters(
                                     _computedGutters, adjustable);
-                
-            if (_secondVerticalAxisRenderer)
-            {
-                _computedGutters= _secondVerticalAxisRenderer.adjustGutters(
-                                        _computedGutters, adjustable);
-            }
-    
-            if (_secondHorizontalAxisRenderer)
-            {
-                _computedGutters= _secondHorizontalAxisRenderer.adjustGutters(
-                                        _computedGutters, adjustable);
-            }
     
             _computedGutters = _horizontalAxisRenderer.adjustGutters(
                                         _computedGutters, adjustable);
     
             _verticalAxisRenderer.gutters = _computedGutters;
             
-            if (_secondVerticalAxisRenderer)
-                _secondVerticalAxisRenderer.gutters = _computedGutters;
-            
-            if (_secondHorizontalAxisRenderer)
-                _secondHorizontalAxisRenderer.gutters = _computedGutters;
         }
         else // the new algo for calculating the gutters
         {                       
@@ -2499,26 +1866,6 @@ public class CartesianChart extends ChartBase
                     emptyverticalRenderers.push(_verticalAxisRenderer);
         }
         
-        if (_secondHorizontalAxisRenderer)
-        {
-            if (_secondHorizontalAxisRenderer.placement == "bottom")
-                _bottomRenderers.push(_secondHorizontalAxisRenderer);
-            else if (_secondHorizontalAxisRenderer.placement == "top")
-                    _topRenderers.push(_secondHorizontalAxisRenderer);
-                 else
-                    emptyhorizontalRenderers.push(_secondHorizontalAxisRenderer);
-        }
-        
-        if (_secondVerticalAxisRenderer)
-        {
-            if (_secondVerticalAxisRenderer.placement == "left")
-                _leftRenderers.push(_secondVerticalAxisRenderer);
-            else if (_secondVerticalAxisRenderer.placement == "right")
-                    _rightRenderers.push(_secondVerticalAxisRenderer);
-                 else
-                    emptyverticalRenderers.push(_secondVerticalAxisRenderer);
-        }
-        
         // Adjust the placements
         
         leftLen = _leftRenderers.length;
@@ -2643,76 +1990,6 @@ public class CartesianChart extends ChartBase
     {
         adjustAxesPlacements();
         invalidateDisplayList();
-    }
-        
-    /**
-     *  Initializes the chart for displaying a second series.
-     *  This function is called automatically whenever any of the secondary
-     *  properties, such as <code>secondSeries</code> or
-     *  <code>secondHorizontalAxis</code>, are set.
-     *  Specific chart subtypes override this method
-     *  to initialize default secondary values.
-     *  Column charts, for example, initialize a separate secondary vertical
-     *  axis, but leave the primary and secondary horizontal axes linked.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */ 
-    protected function initSecondaryMode():void
-    {
-        _bDualMode = true;
-
-        transforms = [ _transforms[0], new CartesianTransform() ];
-    }
-
-    [Deprecated(replacement="Series.getAxis()")]     
-    /**
-     *  Retrieves the axis instance for a particular secondary dimension
-     *  of the chart.
-     *  This is a low level accessor.
-     *  You typically retrieve the axis directly through a named property
-     *  (such as the <code>secondHorizontalAxis</code> or
-     *  <code>secondVerticalAxis</code> property).
-     *  
-     *  @param dimension The dimension whose axis is responsible
-     *  for transforming the data.
-     *  
-     *  @return The instance of the specified axis.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function getSecondAxis(dimension:String):IAxis
-    {
-        return transforms[0].getAxis(dimension);
-    }
-
-    [Deprecated(replacement="Series.getAxis()")]
-    /**
-     *  Assigns an axis instance to a particular secondary dimension
-     *  of the chart.
-     *  This is a low level accessor.
-     *  You typically set the axis directly through a named property
-     *  (such as the <code>secondHorizontalAxis</code> or
-     *  <code>secondVerticalAxis</code> property).
-     *  
-     *  @param dimension The dimension whose axis is responsible
-     *  for transforming the data.
-     *  
-     *  @param value The axis instance to assign.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */     
-    public function setSecondAxis(dimension:String, value:IAxis):void
-    {
-        transforms[0].setAxis(dimension, value);
     }
     
     mx_internal function measureLabels():Object
