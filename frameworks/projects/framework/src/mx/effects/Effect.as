@@ -1517,6 +1517,7 @@ public class Effect extends EventDispatcher implements IEffect
      */
     protected function effectStopHandler(event:EffectEvent):void
     {
+        dispatchEvent(event);
         // We use this event to determine whether we should set final
         // state values in the ensuing endHandler() call
         effectStopped = true;
