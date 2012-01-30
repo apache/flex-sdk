@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Simple example to demonstrate the NumberValidator. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         import mx.controls.Alert;
-    </mx:Script>
+    </fx:Script>
 
-    <mx:NumberValidator source="{age}" property="text" integerError="Enter Integer value"
-        minValue="18" maxValue="50" domain="int" 
-        trigger="{myButton}" triggerEvent="click"
-        valid="Alert.show('Validation Succeeded!');"/>
+    <fx:Declarations>
+        <mx:NumberValidator source="{age}" property="text" integerError="Enter Integer value"
+                minValue="18" maxValue="50" domain="int" 
+                trigger="{myButton}" triggerEvent="click"
+                valid="Alert.show('Validation Succeeded!');"
+                invalid="Alert.show('Validation failed!');"/>
+    </fx:Declarations>
 
-    <mx:Panel title="NumberValidator Example" width="75%" height="75%" 
-        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
-
-        <mx:Form>
-            <mx:FormItem label="Enter an age between 18 and 50: ">
-                <mx:TextInput id="age" width="100%"/>
+    <s:Panel title="NumberValidator Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <mx:Form left="10" right="10" top="10" bottom="10">
+            <mx:FormItem label="Enter an age between 18 and 50:">
+                <s:TextInput id="age" width="100%"/>
             </mx:FormItem>
-
             <mx:FormItem >
-                <mx:Button id="myButton" label="Validate" />
+                <s:Button id="myButton" label="Validate" />
             </mx:FormItem>
         </mx:Form>
-    </mx:Panel>
-</mx:Application>
+    </s:Panel>
+
+</s:Application>
