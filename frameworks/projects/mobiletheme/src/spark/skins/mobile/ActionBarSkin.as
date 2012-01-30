@@ -15,6 +15,7 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.text.TextLineMetrics;
 
+import mx.core.FlexGlobals;
 import mx.core.ILayoutElement;
 import mx.core.UIComponent;
 import mx.core.UITextField;
@@ -68,8 +69,11 @@ public class ActionBarSkin extends MobileSkin
     public var navigationGroup:Group;
     public var titleGroup:Group;
     public var actionGroup:Group;
-    public var titleDisplay:IDisplayText;
+    public var titleDisplay:TitleDisplayComponent;
     private var border:SpriteVisualElement;
+    
+    // FIXME (jasonsj): pending mobile styling spec
+    private static const TITLE_PADDING:Number = 25;
     
     //--------------------------------------------------------------------------
     //
@@ -95,9 +99,10 @@ public class ActionBarSkin extends MobileSkin
         titleGroup = new Group();
         hLayout = new HorizontalLayout();
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
-        hLayout.verticalAlign = VerticalAlign.MIDDLE;
+        hLayout.verticalAlign = VerticalAlign.JUSTIFY;
         hLayout.gap = 0;
-        hLayout.paddingLeft = hLayout.paddingRight = 15;
+        hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = 
+            hLayout.paddingBottom = 0;
         titleGroup.layout = hLayout;
         addChild(titleGroup);
         
@@ -115,6 +120,7 @@ public class ActionBarSkin extends MobileSkin
         titleDisplayComp.percentWidth = 100;
         titleDisplayComp.styleName = this;
         titleDisplay = titleDisplayComp;
+        addChild(titleDisplayComp);
         
         initializeStyles();
     }
@@ -185,12 +191,44 @@ public class ActionBarSkin extends MobileSkin
             actionGroup.setLayoutBoundsPosition(right, 1); // top border
         }
         
-        var titleGroupWidth:Number = right - left;
-        if (titleGroupWidth < 0)
-            titleGroupWidth = 0;
+        var titleCompWidth:Number = right - left;
+        if (titleCompWidth < 0)
+            titleCompWidth = 0;
         
-        titleGroup.setLayoutBoundsSize(titleGroupWidth, unscaledHeight);
-        titleGroup.setLayoutBoundsPosition(left, 1);
+        if (titleGroup.numElements > 0 && titleGroup.includeInLayout)
+        {
+            titleGroup.setLayoutBoundsSize(titleCompWidth, unscaledHeight);
+            titleGroup.setLayoutBoundsPosition(left, 1);
+            
+            titleDisplay.visible = false;
+            titleGroup.visible = true;
+        }
+        else
+        {
+            var titleX:Number = left + TITLE_PADDING;
+            var titleY:Number = 0;
+            
+            // FIXME (jasonsj): pending mobile styling spec
+            // paddingLeft, paddingRight
+            titleCompWidth -= TITLE_PADDING * 2;
+            
+            if (FlexGlobals.topLevelApplication.getStyle("titleAlign") == "center")
+            {
+                // horizontalAlign=center
+                titleCompWidth = titleDisplay.getExplicitOrMeasuredWidth();
+                titleX = Math.floor((unscaledWidth / 2) - (titleCompWidth / 2));
+            }
+            
+            // verticalAlign=center
+            var titleHeight:Number = titleDisplay.getExplicitOrMeasuredHeight();
+            titleY = Math.floor((unscaledHeight / 2) - (titleHeight / 2));
+            
+            titleDisplay.setLayoutBoundsSize(titleCompWidth, titleHeight);
+            titleDisplay.setLayoutBoundsPosition(titleX, titleY + 1); // +1 FXG border
+            
+            titleDisplay.visible = true;
+            titleGroup.visible = false;
+        }
         
         // Draw background
         graphics.clear();
@@ -229,26 +267,16 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
     private var title:String;
     private var titleChanged:Boolean;
     
-    // FIXME (jasonsj): padding styles
-    private var paddingLeft:int = 15;
-    private var paddingRight:int = 15;
-    private var paddingTop:int = 15;
-    private var paddingBottom:int = 15;
-    
     public function TitleDisplayComponent()
     {
         super();
-		title = "";
-        
-        // FIXME (jasonsj): mobile styling spec
-        setStyle("fontSize", 32);
-        setStyle("fontWeight", "bold");
-        setStyle("textAlign", "left");
-        setStyle("textShadowColor", 0x000000);
+        title = "";
     }
     
     override protected function createChildren():void
     {
+        super.createChildren();
+        
         // FIXME (jasonsj): pending mobile styling spec:
         //                  drop shadow style
         //                  textAlign
@@ -328,10 +356,7 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         
         textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
         
-        // FIXME (jasonsj): pending mobile styling spec: vertical center
         titleDisplay.commitStyles();
-        titleDisplay.x = 0;
-        titleDisplay.y = Math.floor((unscaledHeight / 2) - (textHeight / 2)); // centered
         titleDisplay.width = unscaledWidth;
         titleDisplay.height = unscaledHeight;
         
@@ -341,7 +366,6 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         titleDisplay.truncateToFit();
         
         titleDisplayShadow.commitStyles();
-        titleDisplayShadow.x = 0;
         titleDisplayShadow.y = titleDisplay.y + 1; // 90 degree drop shadow
         titleDisplayShadow.width = unscaledWidth;
         titleDisplayShadow.height = unscaledHeight;
