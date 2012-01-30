@@ -13147,6 +13147,9 @@ public class UIComponent extends FlexSprite
         return _layoutFeatures.layoutMatrix3D.clone();          
     }
 
+    /**
+     *  @private
+     */
     protected function nonDeltaLayoutMatrix():Matrix
     {
         if (!hasComplexLayoutMatrix)
