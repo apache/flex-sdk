@@ -39,7 +39,9 @@ import mx.core.EventPriority;
 import mx.core.FlexShape;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.IUIComponent;
+import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.Parallel;
@@ -54,7 +56,6 @@ import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ILayoutManagerClient;
 import mx.styles.CSSStyleDeclaration;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -3803,7 +3804,10 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
                 pts.x = tipData.px;
                 pts.y = tipData.py;
                 localPts = globalToLocal(pts);
-                tipData.tip.move(localPts.x, localPts.y);
+                if(layoutDirection == LayoutDirection.RTL)
+					tipData.tip.move(localPts.x - tipData.width, localPts.y);
+				else
+					tipData.tip.move(localPts.x, localPts.y);
               
                 if (showTarget)
                 {   
@@ -3823,8 +3827,16 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
                             }
                             else
                             {
-                                g.moveTo(localPts.x + tipData.width,
+                                if(layoutDirection == LayoutDirection.RTL)
+								{
+									g.moveTo(localPts.x - tipData.width,
                                          localPts.y + tipData.height / 2);
+								}
+								else
+								{
+									g.moveTo(localPts.x + tipData.width,
+										localPts.y + tipData.height / 2);
+								}
                                 g.lineTo(tipData.x,
                                          localPts.y + tipData.height / 2);
                                 g.lineTo(tipData.x, tipData.y);
@@ -3982,9 +3994,16 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
                                       splitPoint +
                                       (pRight.length - pLeft.length));
             }
-
-            pLeft = pLeft.concat(sortList.slice(0, splitPoint));
-            pRight = pRight.concat(sortList.slice(splitPoint, sortList.length));
+			if(sortList.length == 1 && layoutDirection == LayoutDirection.RTL)
+			{
+				pRight = pRight.concat(sortList.slice(0, splitPoint));
+				pLeft = pLeft.concat(sortList.slice(splitPoint, sortList.length));
+			}
+			else
+			{
+				pLeft = pLeft.concat(sortList.slice(0, splitPoint));
+				pRight = pRight.concat(sortList.slice(splitPoint, sortList.length));
+			}
         }
                 
         pRight.sortOn("gy");
@@ -4179,6 +4198,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
 				var chartLocalPts:Point = globalToLocal(pts);
 				
 				tipData.tip.move(localPts.x, localPts.y);
+				
 				if (showTarget)
                 {   
                     if (len > 1)
@@ -4197,8 +4217,16 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
                             }
                             else
                             {
-                                g.moveTo(chartLocalPts.x + tipData.width,
-                                         chartLocalPts.y + tipData.height / 2);
+								if(layoutDirection == LayoutDirection.RTL)
+								{
+									g.moveTo(chartLocalPts.x - tipData.width,
+										chartLocalPts.y + tipData.height / 2);
+								}
+								else
+								{
+									g.moveTo(chartLocalPts.x + tipData.width,
+										chartLocalPts.y + tipData.height / 2);
+								}
                                 g.lineTo(tipData.x,
                                          chartLocalPts.y + tipData.height / 2);
                                 g.lineTo(tipData.x, tipData.y);
