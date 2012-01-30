@@ -29,9 +29,22 @@ use namespace mx_internal;
 
 /**
  *  Default skin for ViewMenuItem. Supports a label, icon and iconPlacement and draws a background.   
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5 
+ *  @productversion Flex 4.5
  */ 
 public class ViewMenuItemSkin extends ButtonSkin
 {
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function ViewMenuItemSkin()
     {
         super();
@@ -50,7 +63,7 @@ public class ViewMenuItemSkin extends ButtonSkin
                 layoutPaddingRight = 12;
                 layoutPaddingTop = 12;
                 layoutPaddingBottom = 12;
-                layoutBorderSize = 2;	
+                layoutBorderSize = 2;   
                 
                 
                 break;
@@ -100,6 +113,9 @@ public class ViewMenuItemSkin extends ButtonSkin
      */ 
     protected var showsCaretBorderSkin:Class;
     
+    /**
+     *  @private
+     */
     override protected function getBorderClassForCurrentState():Class
     {
         var borderClass:Class = super.getBorderClassForCurrentState();
