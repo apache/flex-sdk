@@ -205,7 +205,7 @@ public class SystemManagerProxy extends SystemManager
 									  _systemManager.sandboxBridgeGroup.parentBridge : null;
 		if (bridge)
 		{
-			var mutualTrust:Boolean = SandboxUtil.mutualTrustWithParent(_systemManager);
+			var mutualTrust:Boolean = SandboxUtil.hasMutualTrustWithParent(_systemManager);
 			var bridgeEvent:SandboxBridgeEvent = new SandboxBridgeEvent(SandboxBridgeEvent.ACTIVATE_WINDOW,
 																		false,
 																		false,
@@ -224,7 +224,7 @@ public class SystemManagerProxy extends SystemManager
 		var bridge:IEventDispatcher = sm.sandboxBridgeGroup ? sm.sandboxBridgeGroup.parentBridge : null;
 		if (bridge)
 		{
-			var mutualTrust:Boolean = SandboxUtil.mutualTrustWithParent(_systemManager);
+			var mutualTrust:Boolean = SandboxUtil.hasMutualTrustWithParent(_systemManager);
 			var bridgeEvent:SandboxBridgeEvent = new SandboxBridgeEvent(SandboxBridgeEvent.DEACTIVATE_WINDOW,
 																	    false, 
 																	    false,
