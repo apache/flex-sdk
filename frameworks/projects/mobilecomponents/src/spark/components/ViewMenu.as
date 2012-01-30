@@ -252,25 +252,6 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
         if (!items || !layout || event.isDefaultPrevented() || isMouseDown)
             return;
         
-        // 1. Was the space bar hit? 
-        // Hitting the space bar means the current caret item, 
-        // that is the item currently in focus, is being 
-        // selected. 
-        if (event.keyCode == Keyboard.SPACE)
-        {
-            selectItemAt(caretIndex); 
-            event.preventDefault();
-            return; 
-        }
-        
-        // FIXME (rfrishbe): hack for 5-way
-        if (getStyle("interactionMode") == InteractionMode.TOUCH && event.keyCode == Keyboard.ENTER)
-        {
-            selectItemAt(caretIndex); 
-            event.preventDefault();
-            return; 
-        }
-        
         // 3. Was a navigation key hit (like an arrow key,
         // or Shift+arrow key)?  
         // Delegate to the layout to interpret the navigation
@@ -372,6 +353,9 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
         
         var item:ViewMenuItem = ViewMenuItem(getElementAt(index));
         item.showsCaret = showsCaret;
+        
+        if (showsCaret)
+            item.setFocus();
     }
     
     //--------------------------------------------------------------------------
