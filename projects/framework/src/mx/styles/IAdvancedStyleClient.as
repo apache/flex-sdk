@@ -15,6 +15,11 @@ package mx.styles
 /**
  *  This interface describes the advanced propeties that a component must
  *  implement to fully participate in the advanced style subsystem.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IAdvancedStyleClient extends IStyleClient
 {
@@ -30,6 +35,11 @@ public interface IAdvancedStyleClient extends IStyleClient
 
     /**
      *  The identity of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     function get id():String;
 
@@ -39,6 +49,11 @@ public interface IAdvancedStyleClient extends IStyleClient
 
     /**
      *  The parent of this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     function get styleParent():IAdvancedStyleClient;
 
@@ -55,17 +70,32 @@ public interface IAdvancedStyleClient extends IStyleClient
      * 
      *  Note Spark components use their skin state as the pseudo state, where
      *  as Halo components use their currentState property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function isPseudoSelectorMatch(pseudoState:String):Boolean;
 
     /**
      *  Determines whether this instance is the same as - or is a subclass of -
      *  the given type.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     function isTypeSelectorMatch(type:String):Boolean;
 
     /**
      *   Apply state specific styles.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function applyStateStyles(oldState:String, newState:String, recursive:Boolean):void;
 }
