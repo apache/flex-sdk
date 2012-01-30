@@ -47,48 +47,6 @@ public class Locale
 
     //--------------------------------------------------------------------------
     //
-    //  Class methods
-    //
-    //--------------------------------------------------------------------------
-
-    [Deprecated(replacement="ResourceManager.localeChain", since="3.0")]
-    
-    /**
-     *  Returns a Locale object, if you compiled your application 
-     *  for a single locale. Otherwise, it returns <code>null</code>.
-     *  
-     *  <p>This method has been deprecated because the Flex framework
-     *  now supports having resource bundles for multiple locales
-     *  in the same application.
-     *  You can use the <code>getLocale()</code> method of IResourceManager
-     *  to find out which locales the ResourceManager has resource bundles for.
-     *  You can use the <code>localeChain</code> property of IResourceManager
-     *  to determine which locales the ResourceManager searches for
-     *  resources.</p>
-     * 
-     *  @param sm The current SystemManager.
-     *
-     *  @return Returns a Locale object.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public static function getCurrent(sm:ISystemManager):Locale
-    {
-        if (!currentLocale)
-        {
-            var compiledLocales:Array = sm.info()["compiledLocales"];
-            if (compiledLocales != null && compiledLocales.length == 1)
-                currentLocale = new Locale(compiledLocales[0]);
-        }
-
-        return currentLocale;
-    }
-
-    //--------------------------------------------------------------------------
-    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
