@@ -47,7 +47,6 @@ import mx.events.ModalWindowRequest;
 import mx.events.PopUpRequest;
 import mx.events.SandboxBridgeEvent;
 import mx.events.SandboxBridgeRequest;
-import mx.events.ShowAlertRequest;
 import mx.events.SizeRequest;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
@@ -58,6 +57,7 @@ import mx.events.ModalWindowRequest;
 import mx.events.MarshalEvent;
 import mx.core.UIComponent;
 import mx.events.MarshalMouseEvent;
+import mx.core.IApplicationLoader;
 
 use namespace mx_internal;
 
@@ -258,8 +258,13 @@ public class PopUpManagerImpl implements IPopUpManager
 
         if (!sm)
         {
-            //trace("error: popup root was not SystemManager");
-            return; // and maybe a nice error message
+            // check if parent is our sandbox root
+            sm = ISystemManager2(SystemManagerGlobals.topLevelSystemManagers[0]);
+            if (sm.getSandboxRoot() != parent)
+            {
+                //trace("error: popup root was not SystemManager");
+                return; // and maybe a nice error message
+            }
         }
 
 		var smp:ISystemManager2 = sm;
@@ -268,11 +273,10 @@ public class PopUpManagerImpl implements IPopUpManager
 		// the popup. The System Manager Proxy is the display object
 		// added to the top-level system manager's children, not
 		// the popup itself.
-		var sbRoot:DisplayObject = null;
+		var sbRoot:DisplayObject = sm.getSandboxRoot();
 		var request:PopUpRequest = null;
 		if (sm.useBridge())
 		{
-			sbRoot = sm.getSandboxRoot();
 			if (sbRoot != sm)
 			{
 				smp = new SystemManagerProxy(sm);
@@ -357,8 +361,8 @@ public class PopUpManagerImpl implements IPopUpManager
             o._mouseDownOutsideHandler  = nonmodalMouseDownOutsideHandler;
             o._mouseWheelOutsideHandler = nonmodalMouseWheelOutsideHandler;
 
-            sm.addEventListener(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
-            sm.addEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
+            sbRoot.addEventListener(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
+            sbRoot.addEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
             
 //            SystemManager(smp).addEventListenerToStage(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
 //            SystemManager(smp).addEventListenerToStage(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
@@ -366,8 +370,8 @@ public class PopUpManagerImpl implements IPopUpManager
             window.visible = visibleFlag;
         }
         
-        sm.addEventListener(MarshalMouseEvent.MOUSE_DOWN,  o.marshalMouseOutsideHandler);
-        sm.addEventListener(MarshalMouseEvent.MOUSE_WHEEL, o.marshalMouseOutsideHandler, true);
+        sbRoot.addEventListener(MarshalMouseEvent.MOUSE_DOWN,  o.marshalMouseOutsideHandler);
+        sbRoot.addEventListener(MarshalMouseEvent.MOUSE_WHEEL, o.marshalMouseOutsideHandler, true);
 
         // Listen for unload so we know to kill the window (and the modalWindow if modal)
         // this handles _all_ cleanup
@@ -430,11 +434,85 @@ public class PopUpManagerImpl implements IPopUpManager
         const o:PopUpData = findPopupInfoByOwner(popUp);
         if (o && o.parent)
         {
-            var pt:Point = new Point(0, 0);
+            var systemManager:ISystemManager2 = o.systemManager;
+            var x:Number;
+            var y:Number;
+            var appWidth:Number;
+            var appHeight:Number;
+            var parentWidth:Number;
+            var parentHeight:Number;
+            var s:Rectangle;            // the screen
+            var rect:Rectangle
+            var clippingOffset:Point = new Point();
+            var pt:Point;
+            var isTopLevelRoot:Boolean;
+            var sbRoot:DisplayObject = ISystemManager2(systemManager).getSandboxRoot();
+                                                         
+            // Only need to calc the visible rect when the sandbox root is an untrusted application.
+            // Otherwise the alert will float over the entire application.
+            if (systemManager != sbRoot)
+            {
+                var request:MarshalEvent = new MarshalEvent(MarshalEvent.SYSTEM_MANAGER, false, false,
+                                                            "isTopLevelRoot");
+                sbRoot.dispatchEvent(request);
+                isTopLevelRoot = Boolean(request.value);
+            }
+            else
+                isTopLevelRoot = systemManager.isTopLevelRoot();
+                        
+            if (isTopLevelRoot)
+            {
+                // The sandbox root is the top level root.
+                // The application width is just the screen width.
+                s = systemManager.screen;
+                appWidth = s.width;
+                appHeight = s.height;
+            }            
+            else
+            {
+                if (systemManager != sbRoot)
+                {
+                    request = new MarshalEvent(MarshalEvent.SYSTEM_MANAGER, false, false,
+                                            "getVisibleApplicationRect"); 
+                    sbRoot.dispatchEvent(request);
+                    rect = Rectangle(request.value);
+                }
+                else
+                    rect = ISystemManager2(systemManager).getVisibleApplicationRect();
+            
+                // Offset the top, left of the window to bring it into view.        
+                clippingOffset = new Point(rect.x, rect.y);
+                clippingOffset = DisplayObject(systemManager).globalToLocal(clippingOffset);
+                appWidth = rect.width;
+                appHeight = rect.height;
+            } 
+
+            // If parent is a UIComponent, check for clipping between
+            // the object and its SystemManager
+            if (o.parent is UIComponent)
+            {
+                rect = UIComponent(o.parent).getVisibleRect();
+                var offset:Point = o.parent.globalToLocal(rect.topLeft);
+                clippingOffset.x += offset.x;
+                clippingOffset.y += offset.y;
+                parentWidth = rect.width;
+                parentHeight = rect.height;              
+            }   
+            else
+            {          
+                parentWidth = o.parent.width;
+                parentHeight = o.parent.height;
+            }
+
+            // The appWidth may smaller than parentWidth if the application is
+            // clipped by the parent application.
+            x = Math.max(0, (Math.min(appWidth, parentWidth) - popUp.width) / 2);
+            y = Math.max(0, (Math.min(appHeight, parentHeight) - popUp.height) / 2);
+            
+            pt = new Point(clippingOffset.x, clippingOffset.y);
             pt = o.parent.localToGlobal(pt);
             pt = popUp.parent.globalToLocal(pt);
-            popUp.move(Math.round((o.parent.width - popUp.width) / 2) + pt.x,
-                       Math.round((o.parent.height - popUp.height) / 2) + pt.y);
+            popUp.move(Math.round(x) + pt.x, Math.round(y) + pt.y);
         }
     }
 
@@ -643,6 +721,16 @@ public class PopUpManagerImpl implements IPopUpManager
                                                 o:PopUpData,
                                                 visibleFlag:Boolean):void
     {
+        // if our first target is a sandbox root that is the top level root,
+        // then we don't need to send a modal request. 
+        if (!o.isRemoteModalWindow && sm != sbRoot)
+        {
+            var request:MarshalEvent = new MarshalEvent(MarshalEvent.SYSTEM_MANAGER, false, false,
+                                                        "isTopLevelRoot");
+            sbRoot.dispatchEvent(request);
+            if (Boolean(request.value))
+                return;
+        }
         var modalRequest:ModalWindowRequest = new ModalWindowRequest(type,
                                                                  !o.isRemoteModalWindow && sm != sbRoot,     
                                                                  visibleFlag,
@@ -668,6 +756,8 @@ public class PopUpManagerImpl implements IPopUpManager
      *  @param sm The system manager that hosts the modal window
      *  @param modalWindow The base area of the mask
      *  @param exclude The area to exlude from the mask, may be null.
+     *  @param excludeRect An optionally rectangle that is included in the area
+     *  to exclude. The rectangle is in global coordinates.
      *  @param mask A non-null sprite. The mask is rewritten for each call.
      * 
      */  
@@ -679,16 +769,23 @@ public class PopUpManagerImpl implements IPopUpManager
     {
         var modalBounds:Rectangle = modalWindow.getBounds(DisplayObject(sm));
         var excludeBounds:Rectangle;
-        
-        if (exclude is UIComponent)
-            excludeBounds = UIComponent(exclude).getVisibleRect(DisplayObject(sm));
+        var pt:Point;
+                
+        if (exclude is IApplicationLoader)
+        {
+            excludeBounds = IApplicationLoader(exclude).getVisibleApplicationRect();
+            pt = new Point(excludeBounds.x, excludeBounds.y);
+            pt = DisplayObject(sm).globalToLocal(pt);
+            excludeBounds.x = pt.x;
+            excludeBounds.y = pt.y;    
+        }
         else 
             excludeBounds = DisplayObject(exclude).getBounds(DisplayObject(sm));
         
         // apply excludeRect to the result
         if (excludeRect)
         {
-            var pt:Point = new Point(excludeRect.x, excludeRect.y);
+            pt = new Point(excludeRect.x, excludeRect.y);
             pt = DisplayObject(sm).globalToLocal(pt);
             var rect:Rectangle = new Rectangle(pt.x, pt.y, excludeRect.width, excludeRect.height);
             excludeBounds = excludeBounds.intersection(rect);
@@ -947,20 +1044,27 @@ public class PopUpManagerImpl implements IPopUpManager
         if (sm.useBridge())
         {
             var sbRoot:DisplayObject = sm.getSandboxRoot();
+            
+            // if our first target is a sandbox root that is the top level root,
+            // then we don't need to send a modal request. 
+            if (!o.isRemoteModalWindow && sm != sbRoot)
+            {
+                var request:MarshalEvent = new MarshalEvent(MarshalEvent.SYSTEM_MANAGER, false, false,
+                                                            "isTopLevelRoot");
+                sbRoot.dispatchEvent(request);
+                if (Boolean(request.value))
+                    return;
+            }
+            
             var modalRequest:ModalWindowRequest = new ModalWindowRequest(ModalWindowRequest.HIDE,
                                                                          !o.isRemoteModalWindow && sm != sbRoot, 
+                                                                         false,
                                                                          destroy);
             var bridge:IEventDispatcher = sm.sandboxBridgeGroup.parentBridge;
             var target:IEventDispatcher;
-             
             modalRequest.requestor = bridge;
 
-            if (sm == sbRoot)
-                target = sm.sandboxBridgeGroup.parentBridge;
-            else
-                target = sbRoot;
-                
-            target.dispatchEvent(modalRequest);
+            bridge.dispatchEvent(modalRequest);
         }
 
     }
@@ -997,72 +1101,6 @@ public class PopUpManagerImpl implements IPopUpManager
         return null;
     }
 
-
-    /**
-     *   @private
-     * 
-     *   @return true if the message should be processed, false if it has
-     *           been forwarded and no other action is required.
-     */ 
-    private function preProcessModalWindowRequest(request:ModalWindowRequest, 
-                                                  sm:ISystemManager2,
-                                                  sbRoot:DisplayObject):Boolean
-    {
-        // should we process this message?
-        if (request.skip)
-        {
-            // skipping this sandbox, 
-            // but don't skip the next one.
-            request.skip = false;
-           
-            if (sm.useBridge())
-            {
-                var bridge:IEventDispatcher = sm.sandboxBridgeGroup.parentBridge;
-                request.requestor = bridge;
-                bridge.dispatchEvent(request);
-            }
-            return false;
-        }
-        
-        // if we are not the sandbox root, dispatch the message to the sandbox root.
-        if (sm != sbRoot)
-        {
-            var forwardRequest:Boolean = false;
-
-            // convert exclude component into a rectangle and forward to parent bridge.
-            if (request.type == ModalWindowRequest.CREATE ||
-                request.type == ModalWindowRequest.SHOW)
-            {
-                var exclude:IUIComponent = sm.sandboxBridgeGroup.getChildBridgeOwner(request.requestor) as IUIComponent;
-                var excludeRect:Rectangle = UIComponent(exclude).getVisibleRect(DisplayObject(sm));
-                var pt:Point = (DisplayObject(sm).localToGlobal(excludeRect.topLeft));
-                excludeRect.x = pt.x;
-                excludeRect.y = pt.y;
-                request.data = excludeRect;
-                forwardRequest = true;
-            }
-            else if (request.type == ModalWindowRequest.HIDE)
-                forwardRequest = true;
-                
-            if (forwardRequest)
-            {
-                bridge = sm.sandboxBridgeGroup.parentBridge;
-                request.requestor = bridge;
-                request.skip = false;
-         
-                // The HIDE request does not need to be processed by each
-                // application, so dispatch it directly to the sandbox root.       
-                if (request.type == ModalWindowRequest.HIDE)
-                    sbRoot.dispatchEvent(request);
-                else 
-                    bridge.dispatchEvent(request);
-                return false;
-            }
-        }
-        
-        return true;
-    }    
-    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1086,9 +1124,6 @@ public class PopUpManagerImpl implements IPopUpManager
         var sm:ISystemManager2 = getTopLevelSystemManager(DisplayObject(ApplicationGlobals.application));
         var sbRoot:DisplayObject = sm.getSandboxRoot();
 
-        if (!preProcessModalWindowRequest(request, sm, sbRoot))
-            return;
-            
         // process the message
         var popUpData:PopUpData = new PopUpData();
         popUpData.isRemoteModalWindow = true;
@@ -1132,9 +1167,6 @@ public class PopUpManagerImpl implements IPopUpManager
         var sm:ISystemManager2 = getTopLevelSystemManager(DisplayObject(ApplicationGlobals.application));
         var sbRoot:DisplayObject = sm.getSandboxRoot();
         
-        if (!preProcessModalWindowRequest(request, sm, sbRoot))
-            return;
-            
         // the highest popUpData in the list is the most recent modal window.
         // sanity check that the popupdata is really a modal window with a null
         // parent and popup window.
@@ -1173,9 +1205,6 @@ public class PopUpManagerImpl implements IPopUpManager
 
         var sm:ISystemManager2 = getTopLevelSystemManager(DisplayObject(ApplicationGlobals.application));
         var sbRoot:DisplayObject = sm.getSandboxRoot();
-        
-        if (!preProcessModalWindowRequest(request, sm, sbRoot))
-            return;
         
         // the highest popUpData in the list is the most recent modal window.
         // sanity check that the popupdata is really a modal window with a null
@@ -1648,8 +1677,11 @@ class PopUpData
     /**
      *  @private
      */
-    public function marshalMouseOutsideHandler(event:MarshalMouseEvent):void
+    public function marshalMouseOutsideHandler(event:Event):void
     {
+        if (!(event is MarshalMouseEvent))
+            event = MarshalMouseEvent.marshal(event);
+            
         if (owner)
             owner.dispatchEvent(event);
     }
