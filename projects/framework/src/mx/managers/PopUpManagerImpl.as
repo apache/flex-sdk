@@ -35,6 +35,7 @@ import mx.core.FlexSprite;
 import mx.core.IChildList;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
+import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
 import mx.core.ISWFLoader;
 import mx.core.IUIComponent;
@@ -267,6 +268,9 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
      *  <code>PopUpManagerChildList.POPUP</code>, 
      *  or <code>PopUpManagerChildList.PARENT</code> (default).
      *
+     *  @param moduleFactory The moduleFactory where this pop-up should look for
+     *  its embedded fonts and style manager.
+     * 
      *  @see PopUpManagerChildList
      *  
      *  @langversion 3.0
@@ -277,7 +281,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
     public function addPopUp(window:IFlexDisplayObject,
                              parent:DisplayObject,
                              modal:Boolean = false,
-                             childList:String = null):void
+                             childList:String = null,
+                             moduleFactory:IFlexModuleFactory = null):void
     {
         // trace("POPUP: window is " + window);
         // All popups go on the local root.
@@ -290,10 +295,14 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
               IUIComponent(window).document == null)
               IUIComponent(window).document = IUIComponent(parent).document;
 
-        if (parent is IUIComponent && IUIComponent(parent).document is IFlexModule &&
-              window is UIComponent && UIComponent(window).moduleFactory == null)
-              UIComponent(window).moduleFactory = IFlexModule(IUIComponent(parent).document).moduleFactory;
-
+        if (window is IFlexModule && IFlexModule(window).moduleFactory == null)
+        {
+            if (moduleFactory) 
+                IFlexModule(window).moduleFactory = moduleFactory;
+            else if (parent is IUIComponent && IUIComponent(parent).document is IFlexModule)
+                IFlexModule(window).moduleFactory = IFlexModule(IUIComponent(parent).document).moduleFactory;
+        }
+        
         var sm:ISystemManager = getTopLevelSystemManager(parent);
         var children:IChildList;
         var topMost:Boolean;
