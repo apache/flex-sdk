@@ -44,6 +44,11 @@ use namespace mx_internal;
  *  @see mx.effects.SetPropertyAction
  *
  *  @includeExample examples/StatesExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SetProperty extends OverrideBase implements IOverride
 {
@@ -94,6 +99,11 @@ public class SetProperty extends OverrideBase implements IOverride
      *  @param name The property to set.
      *
      *  @param value The value of the property in the view state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function SetProperty(target:Object = null, name:String = null,
                                 value:* = undefined)
@@ -152,6 +162,11 @@ public class SetProperty extends OverrideBase implements IOverride
      *  You must set this property, either in 
      *  the SetProperty constructor or by setting
      *  the property value directly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var name:String;
 
@@ -167,6 +182,11 @@ public class SetProperty extends OverrideBase implements IOverride
      *  immediate parent of the State object.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var target:Object;
 
@@ -186,6 +206,11 @@ public class SetProperty extends OverrideBase implements IOverride
      *  The new value for the property.
      *
      *  @default undefined
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get value():*
     {
@@ -216,6 +241,11 @@ public class SetProperty extends OverrideBase implements IOverride
      *  IOverride interface method; this class implements it as an empty method.
      * 
      *  @copy IOverride#initialize()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialize():void
     {
@@ -223,6 +253,11 @@ public class SetProperty extends OverrideBase implements IOverride
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function apply(parent:UIComponent):void
     {   
@@ -285,6 +320,11 @@ public class SetProperty extends OverrideBase implements IOverride
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function remove(parent:UIComponent):void
     {   
