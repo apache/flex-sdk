@@ -12,9 +12,11 @@
 package spark.effects
 {
 import flash.display.BitmapData;
+import flash.display.DisplayObject;
 
 import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.effects.IEffect;
 import mx.effects.Parallel;
 import mx.events.EffectEvent;
@@ -29,6 +31,8 @@ import spark.components.supportClasses.ViewNavigatorBase;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.effects.easing.Sine;
+
+use namespace mx_internal;
 
 /**
  * 
@@ -242,8 +246,12 @@ public class SlideViewTransition extends ViewTransition
                     cachedActionBar = generateBitmap(actionBar);
                     
                     // This transition was designed to always animate the title content
-                    if (actionBar.titleGroup)
+                    if (actionBar.titleGroup && actionBar.titleGroup.visible)
                         cachedTitleGroup = generateBitmap(actionBar.titleGroup);
+                    else if (actionBar.titleDisplay
+                        && (actionBar.titleDisplay is UIComponent)
+                        && UIComponent(actionBar.titleDisplay).visible)
+                        cachedTitleGroup = generateBitmap(UIComponent(actionBar.titleDisplay));
                     
                     // If the actionContent will change prepare a bitmap image of the group
                     if (currentView.actionContent != nextView.actionContent)
@@ -406,8 +414,13 @@ public class SlideViewTransition extends ViewTransition
                 nextViewProps = null;
             }
             
-            if (actionBar.titleGroup)
+            if (actionBar.titleGroup && actionBar.titleGroup.visible)
                 actionBar.titleGroup.cacheAsBitmap = false;
+            
+            if (actionBar.titleDisplay
+                && (actionBar.titleDisplay is DisplayObject)
+                && DisplayObject(actionBar.titleDisplay).visible)
+                DisplayObject(actionBar.titleDisplay).cacheAsBitmap = false;
             
             if (cachedTitleGroup)
                 removeComponentFromContainerSkin(cachedTitleGroup, actionBar.skin);
@@ -469,7 +482,8 @@ public class SlideViewTransition extends ViewTransition
         var animatedProperty:String;
         
         var actionBarSkin:UIComponent = actionBar.skin;
-        var titleGroup:Group = actionBar.titleGroup;
+        var titleGroup:UIComponent = (actionBar.titleGroup.visible)
+            ? actionBar.titleGroup : UIComponent(actionBar.titleDisplay);
         
         var fadeOutTargets:Array = new Array();
         var fadeInTargets:Array = new Array();
