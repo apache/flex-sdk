@@ -104,6 +104,8 @@ public class CompositeEffect extends Effect
         super(target);
         
         instanceClass = CompositeEffectInstance;
+        
+        mx_internal::applyTransitionEndProperties = true;
     }   
     
     //--------------------------------------------------------------------------
@@ -353,6 +355,31 @@ public class CompositeEffect extends Effect
         }
     }
 
+    /**
+     *  @private
+     */
+    override mx_internal function applyEndValues(propChanges:Array,
+                                              targets:Array):void
+    {
+        var n:int = children.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var child:Effect = children[i];
+            
+            var childTargets:Array = child.targets.length > 0 ?
+                                     child.targets :
+                                     targets;
+            
+            if (child.mx_internal::filterObject == null &&
+                mx_internal::filterObject)
+            {
+                child.mx_internal::filterObject = mx_internal::filterObject;
+            }
+            
+            child.applyEndValues(propChanges, childTargets);
+        }
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -405,7 +432,7 @@ public class CompositeEffect extends Effect
                 for (j = 0; j < m; j++)
                 {
                     if (childTargets[j] != null) // Don't include null targets
-                        results[childTargets[j].toString()] = childTargets[j];
+                        resultsArray.push(childTargets[j]);
                 }
             }   
             else if (child.targets != null)
@@ -414,7 +441,7 @@ public class CompositeEffect extends Effect
                 for (j = 0; j < m; j++)
                 {
                     if (child.targets[j] != null) // Don't include null targets
-                        results[child.targets[j].toString()] = child.targets[j];
+                        resultsArray.push(child.targets[j]);
                 }
             }
         }
@@ -424,13 +451,7 @@ public class CompositeEffect extends Effect
         for (i = 0; i < n; i++)
         {
             if (targets[i] != null) // Don't include null targets
-                results[targets[i].toString()] = targets[i];
-        }
-        
-        // Return the results as an array.
-        for (var p:String in results)
-        {
-            resultsArray.push(results[p]);
+                resultsArray.push(targets[i]);
         }
         
         return resultsArray;
