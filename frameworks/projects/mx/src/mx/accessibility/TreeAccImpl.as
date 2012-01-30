@@ -168,7 +168,7 @@ public class TreeAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x23;
+		role = 0x23; // ROLE_SYSTEM_OUTLINE
 	}
 
 	//--------------------------------------------------------------------------
@@ -205,10 +205,7 @@ public class TreeAccImpl extends AccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		if (childID == 0)
-			return role;
-
-		return ROLE_SYSTEM_OUTLINEITEM;
+		return childID == 0 ? role : ROLE_SYSTEM_OUTLINEITEM;
 	}
 
 	/**
@@ -379,6 +376,7 @@ public class TreeAccImpl extends AccImpl
 				childIDs[i] = i + 1;
 			}
 		}
+
 		return childIDs;
 	}
 	
