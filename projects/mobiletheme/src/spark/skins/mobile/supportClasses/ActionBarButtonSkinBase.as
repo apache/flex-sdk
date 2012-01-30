@@ -16,7 +16,9 @@ import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.geom.Matrix;
 
+import mx.core.DeviceDensity;
 import mx.utils.ColorUtil;
+
 import spark.skins.mobile.ButtonSkin;
 
 /**
@@ -52,9 +54,9 @@ public class ActionBarButtonSkinBase extends ButtonSkin
     {
         super();
         
-        switch (targetDensity)
+        switch (authorDensity)
         {
-            case MobileSkin.PPI240:
+            case DeviceDensity.PPI_240:
             {
                 layoutBorderSize = 1;
                 layoutPaddingTop = 8;
