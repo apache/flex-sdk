@@ -1766,7 +1766,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         
 		// Update tabBar visibility
 		if (tabBar && sections.length > 1 && pendingView)
-			tabBar.visible = tabBar.includeInLayout = pendingView.showTabBar;
+			tabBar.visible = tabBar.includeInLayout = pendingView.tabBarVisible;
 			
         if (pendingView.overlayControls != overlayControls)
         {
@@ -1864,7 +1864,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             actionBar.title = view && view.title ? view.title : title;
             actionBar.titleContent = view && view.titleContent ? view.titleContent : titleContent;
             actionBar.titleLayout = view && view.titleGroupLayout ? view.titleGroupLayout : titleGroupLayout;
-			actionBar.visible = actionBar.includeInLayout = view && view.showActionBar;
+			actionBar.visible = actionBar.includeInLayout = view && view.actionBarVisible;
 			
             clearActionBarInvalidationFlags();
         }
@@ -1918,7 +1918,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
                 titleGroupLayoutInvalidated = false;
             }
 			
-			actionBar.visible = actionBar.includeInLayout = view && view.showActionBar;
+			actionBar.visible = actionBar.includeInLayout = view && view.actionBarVisible;
         }
     }
     
