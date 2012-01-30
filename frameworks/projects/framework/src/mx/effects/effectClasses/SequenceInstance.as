@@ -172,7 +172,7 @@ public class SequenceInstance extends CompositeEffectInstance
         * to the one we should be playing. Play it and set playheadTime
         * appropriately
         */
-        var i:int, j:int, k:int;
+        var i:int, j:int, k:int, l:int;
         var compositeDur:Number = Sequence(effect).compositeDuration;
         var firstCycleDur:Number = compositeDur + startDelay + repeatDelay;
         var laterCycleDur:Number = compositeDur + repeatDelay;
@@ -208,13 +208,15 @@ public class SequenceInstance extends CompositeEffectInstance
             
             // Step through the child effects in the sequence until we find the
             // set that the requested playheadTime is in
-            for (i = 0; i < activeEffectQueue.length; ++i)
+            var activeLength:Number = activeEffectQueue.length;
+            for (i = 0; i < activeLength; ++i)
             {
+                var setToCompare:int = playReversed ? (activeLength - 1 - i) : i;
                 // temp holder for instances that we fast-forward or rewind
                 var childEffectInstances:Array;
                 // start/end times of current child effect we're looking at
                 var startTime:Number = cumulativeDuration;
-                var endTime:Number = cumulativeDuration + childSets[i][0].actualDuration;
+                var endTime:Number = cumulativeDuration + childSets[setToCompare][0].actualDuration;
                 cumulativeDuration = endTime;
                 
                 // If iterationPlayheadTime is in between the start and end time for this
@@ -227,37 +229,65 @@ public class SequenceInstance extends CompositeEffectInstance
                     endEffectCalled = true;
 
                     // We're already playing the effect we should seek into
-                    if (currentSetIndex == i)
+                    if (currentSetIndex == setToCompare)
                     {
                         // Since we're already playing the right effect, just seek
                         for (j = 0; j < currentSet.length; j++)
                             currentSet[j].playheadTime = (iterationPlayheadTime - startTime);
                     }
-                    else if (i < currentSetIndex)
+                    else if (setToCompare < currentSetIndex)
                     {
-                        // We're currently playing a child effect later than the one we
-                        // should seek into. First, rewind and stop the current effect
-                        for (j = 0; j < currentSet.length; j++)
+                        if (playReversed)
                         {
-                            currentSet[j].playheadTime = 0;
-                            currentSet[j].stop();
-                        }
-                        // Next, play(), then stop() the previous effects back to
-                        // the one we want. This will cause these effects to set
-                        // values for their target properties at the start
-                        // of their animations, which is what we want when seeking
-                       // backwards
-                        for (j = currentSetIndex - 1; j > i; --j)
-                        {
-                            childEffectInstances = activeEffectQueue[j];
-                            for (k = 0; k < childEffectInstances.length; k++)
+                            // We're currently playing a child effect later than the one we
+                            // should seek into. First, rewind and stop the current effect
+                            for (j = 0; j < currentSet.length; j++)
+                                currentSet[j].end();
+                            // Next, play(), then stop() the previous effects back to
+                            // the one we want. This will cause these effects to set
+                            // values for their target properties at the start
+                            // of their animations, which is what we want when seeking
+                            // backwards
+                            // Next, play/end all child effects before the one we want
+                            // This will set the animated properties to their end values.
+                            for (j = currentSetIndex - 1; j > setToCompare; --j)
                             {
-                                childEffectInstances[k].play();
-                                childEffectInstances[k].stop();
+                                childEffectInstances = activeEffectQueue[j];
+                                for (k = 0; k < childEffectInstances.length; k++)
+                                {
+                                    if (playReversed)
+                                        childEffectInstances[k].playReversed = true;
+                                    childEffectInstances[k].play();
+                                    childEffectInstances[k].end();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // We're currently playing a child effect later than the one we
+                            // should seek into. First, rewind and stop the current effect
+                            for (j = 0; j < currentSet.length; j++)
+                            {
+                                currentSet[j].playheadTime = 0;
+                                currentSet[j].stop();
+                            }
+                            // Next, play(), then stop() the previous effects back to
+                            // the one we want. This will cause these effects to set
+                            // values for their target properties at the start
+                            // of their animations, which is what we want when seeking
+                           // backwards
+                            for (j = currentSetIndex - 1; j > setToCompare; --j)
+                            {
+                                childEffectInstances = activeEffectQueue[j];
+                                for (k = 0; k < childEffectInstances.length; k++)
+                                {
+                                    childEffectInstances[k].play();
+                                    childEffectInstances[k].stop();
+                                }
                             }
                         }
                         // Now, play the right effect and seek into it
-                        currentSetIndex = i;
+                        currentSetIndex = setToCompare;
                         playCurrentChildSet();
                         for (k = 0; k < currentSet.length; k++)
                         {
@@ -265,29 +295,53 @@ public class SequenceInstance extends CompositeEffectInstance
                             if (isPaused)
                                 currentSet[k].pause();
                         }
-                        break;
+                        //break;
                     }
-                    else // i > currentSetIndex
+                    else // setToCompare > currentSetIndex
                     {
-                        // We need to seek into a child effect later than the
-                        // one we're currently playing. First, end the current effect.
-                        var currentEffectInstances:Array = currentSet.concat();
-                        for (j = 0; j < currentEffectInstances.length; j++)
-                            currentEffectInstances[j].end();
-                        
-                        // Next, play/end all child effects before the one we want
-                        // This will set the animated properties to their end values.
-                        for (k = currentSetIndex + 1; k < i; k++)
+                        if (playReversed)
                         {
-                            childEffectInstances = activeEffectQueue[k];                          
-                            for (var l:int = 0; l < childEffectInstances.length; l++)
+                            // We're currently playing a child effect later than the one we
+                            // should seek into. First, rewind and stop the current effect
+                            for (j = 0; j < currentSet.length; j++)
                             {
-                                childEffectInstances[l].play();
-                                childEffectInstances[l].end();
+                                currentSet[j].playheadTime = 0;
+                                currentSet[j].stop();
+                            }
+                            // Next, play/end all child effects before the one we want
+                            // This will set the animated properties to their end values.
+                            for (k = currentSetIndex + 1; k < setToCompare; k++)
+                            {
+                                childEffectInstances = activeEffectQueue[k];                          
+                                for (l = 0; l < childEffectInstances.length; l++)
+                                {
+                                    childEffectInstances[l].playheadTime = 0;
+                                    childEffectInstances[l].stop();
+                                }
+                            }                            
+                        }
+                        else
+                        {
+                            // We need to seek into a child effect later than the
+                            // one we're currently playing. First, end the current effect.
+                            var currentEffectInstances:Array = currentSet.concat();
+                            for (j = 0; j < currentEffectInstances.length; j++)
+                                currentEffectInstances[j].end();
+                            
+                            // Next, play/end all child effects before the one we want
+                            // This will set the animated properties to their end values.
+                            for (k = currentSetIndex + 1; k < setToCompare; k++)
+                            {
+                                childEffectInstances = activeEffectQueue[k];                          
+                                for (l = 0; l < childEffectInstances.length; l++)
+                                {
+                                    childEffectInstances[l].play();
+                                    childEffectInstances[l].end();
+                                }
                             }
                         }
                         // Finally, set the current child effect and seek into it
-                        currentSetIndex = i;
+                        currentSetIndex = setToCompare;
                         playCurrentChildSet();
                         for (k = 0; k < currentSet.length; k++)
                         {
