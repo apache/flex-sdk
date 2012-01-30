@@ -285,13 +285,13 @@ public class PopUpManagerImpl implements IPopUpManager
 			if (sbRoot != sm)
 			{
 				smp = new SystemManagerProxy(sm);
-				request = new SWFBridgeRequest(SWFBridgeRequest.ADD_POP_UP_REQUEST, false, false, null,
+				request = new SWFBridgeRequest(SWFBridgeRequest.ADD_POP_UP_REQUEST, false, false,
+				                                    sm.swfBridgeGroup.parentBridge,
 													{ window: DisplayObject(smp),
 														parent: parent,
 														modal: modal,
 														childList: childList});
-				request.requestor = sm.swfBridgeGroup.parentBridge;
-				sm.swfBridgeGroup.parentBridge.dispatchEvent(request);
+				sbRoot.dispatchEvent(request);
 			}
 			else 
 				smp = sm;		// host w/o system manager proxy.
@@ -384,9 +384,8 @@ public class PopUpManagerImpl implements IPopUpManager
         if (window is IFocusManagerContainer && visibleFlag)
         {
          	if (smp.useSWFBridge())
-         		// Send event to parent the window was "activate".
          		// We want the top-level root to activate the window.
-         		SystemManager(smp).fireActivatedWindowEvent(DisplayObject(window));
+         		SystemManager(smp).dispatchActivatedWindowEvent(DisplayObject(window));
          	else
             	smp.activate(IFocusManagerContainer(window));
         }
@@ -1347,12 +1346,12 @@ public class PopUpManagerImpl implements IPopUpManager
 				if (sm is SystemManagerProxy)
 				{
 					var parentBridge:IEventDispatcher = realSm.swfBridgeGroup.parentBridge;
-					var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.REMOVE_POP_UP_REQUEST, false, false, null,
-																		{ window: DisplayObject(sm),
-																			parent:	o.parent,
-																			modal: o.modalWindow != null});
-					request.requestor = parentBridge;
-					parentBridge.dispatchEvent(request);
+					var request:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.REMOVE_POP_UP_REQUEST, false, false,
+  					                                    parentBridge,
+        												{ window: DisplayObject(sm),
+        												  parent:	o.parent,
+        												  modal: o.modalWindow != null});
+					realSm.getSandboxRoot().dispatchEvent(request);
 				}
 				else if (sm.useSWFBridge())
 				{
