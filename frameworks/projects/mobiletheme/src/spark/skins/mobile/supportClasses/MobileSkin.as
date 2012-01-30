@@ -52,19 +52,21 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     
     /**
      *  @private
-     *  Use for TODO
+     *  Dark <code>chromeColor</code> used in ViewNavigator and
+     *  TabbedViewNavigator "chrome" elements: ActionBar and
+     *  TabbedViewNavigator#tabBar.
      */
     mx_internal static const MOBILE_THEME_DARK_COLOR:uint = 0x484848;
     
     /**
      *  @private
-     *  Use for TODO
+     *  Default <code>chromeColor</code> for the mobile theme.
      */
     mx_internal static const MOBILE_THEME_LIGHT_COLOR:uint = 0xCCCCCC;
     
     /**
      *  @private
-     *  Use for TODO
+     *  Default symbol color for <code>symbolColor</code> style.
      */
     mx_internal static const DEFAULT_SYMBOL_COLOR_VALUE:uint = 0x00;
     
@@ -103,6 +105,34 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  @productversion Flex 4.5
      */
     protected var useSymbolColor:Boolean = false;
+    
+    /**
+     *  Specifies a default width. <code>measuredWidth</code> returns this value
+     *  when the computed <code>measuredWidth</code> is less than
+     *  <code>measuredDefaultWidth</code>.
+     *
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected var measuredDefaultWidth:Number = 0;
+    
+    /**
+     *  Specifies a default height. <code>measuredHeight</code> returns this value
+     *  when the computed <code>measuredHeight</code> is less than
+     *  <code>measuredDefaultHeight</code>.
+     *
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected var measuredDefaultHeight:Number = 0;
     
     //----------------------------------
     //  colorMatrix
@@ -234,6 +264,22 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
                                              playTransition:Boolean = true):void
     {
         currentState = stateName;
+    }
+    
+    /**
+     *  @private
+     */ 
+    override public function get measuredWidth():Number
+    {
+        return Math.max(super.measuredWidth, measuredDefaultWidth);
+    }
+    
+    /**
+     *  @private
+     */ 
+    override public function get measuredHeight():Number
+    {
+        return Math.max(super.measuredHeight, measuredDefaultHeight);
     }
     
     /**
