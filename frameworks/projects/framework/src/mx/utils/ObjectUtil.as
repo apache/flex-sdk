@@ -683,7 +683,7 @@ public class ObjectUtil
 
             case "xml":
             {
-                return value.toString();
+                return value.toXMLString();
             }
 
             default:
