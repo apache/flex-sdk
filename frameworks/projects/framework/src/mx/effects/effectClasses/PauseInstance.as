@@ -105,7 +105,8 @@ public class PauseInstance extends TweenEffectInstance
             eventSource.addEventListener(eventName, eventHandler);
         }
 
-        tween = createTween(this, 0, 0, duration);
+        if (duration >= 0)
+            tween = createTween(this, 0, 0, duration);
     }
     
     //--------------------------------------------------------------------------
@@ -120,7 +121,19 @@ public class PauseInstance extends TweenEffectInstance
      */
     private function eventHandler(event:Event):void
     {
-        end();
+        if (duration >= 0)
+        {
+            // Non-negative duration means we must have started
+            // a tween; let it end normally
+            end();
+        }
+        else
+        {
+            // We didn't start a tween, so finish the effect manually
+            if (eventSource)
+                eventSource.removeEventListener(eventName, eventHandler);
+            finishRepeat();
+        }
     }
 
     /**
@@ -131,9 +144,9 @@ public class PauseInstance extends TweenEffectInstance
      */
     override public function onTweenEnd(value:Object):void 
     {
-        super.onTweenEnd(value);
         if (eventSource)
             eventSource.removeEventListener(eventName, eventHandler);
+        super.onTweenEnd(value);
     }
 }
 
