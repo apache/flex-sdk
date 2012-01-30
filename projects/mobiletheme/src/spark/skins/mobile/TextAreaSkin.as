@@ -14,12 +14,12 @@ package spark.skins.mobile
 
 import flash.events.Event;
 
+import mx.core.DeviceDensity;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
 import spark.components.TextArea;
-import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile.supportClasses.TextSkinBase;
 import spark.skins.mobile160.assets.TextInput_border;
 import spark.skins.mobile240.assets.TextInput_border;
@@ -48,9 +48,9 @@ public class TextAreaSkin extends TextSkinBase
         
         useChromeColor = false;
         
-        switch (targetDensity)
+        switch (authorDensity)
         {
-            case MobileSkin.PPI240:
+            case DeviceDensity.PPI_240:
             {
                 borderClass = spark.skins.mobile240.assets.TextInput_border;
                 layoutCornerEllipseSize = 16;
