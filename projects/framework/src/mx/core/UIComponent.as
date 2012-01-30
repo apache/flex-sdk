@@ -853,7 +853,7 @@ include "../styles/metadata/AnchorStyles.as";
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="focusThickness", type="Number", format="Length", inherit="no")]
+[Style(name="focusThickness", type="Number", format="Length", inherit="no", minValue="0.0")]
 
 /**
  *  Theme color of a component. This property controls the appearance of highlights,
@@ -2975,7 +2975,7 @@ public class UIComponent extends FlexSprite
     private var _alpha:Number = 1.0;
     
     [Bindable("alphaChanged")]
-    [Inspectable(defaultValue="1.0", category="General", verbose="1")]
+    [Inspectable(defaultValue="1.0", category="General", verbose="1", minValue="0.0", maxValue="1.0")]
 
     /**
      *  @private
