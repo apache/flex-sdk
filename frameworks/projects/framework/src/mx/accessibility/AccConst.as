@@ -511,6 +511,31 @@ public final class AccConst
 	 */
 	public static const ROLE_SYSTEM_CLOCK:uint = 0x3D;
 
+	/**
+	 *  An MSAA role indicating that
+	 *  The object represents a button on a toolbar that has a drop-down
+	 *  list icon directly adjacent to the button.
+	 */
+	public static const ROLE_SYSTEM_SPLITBUTTON:uint = 0x3E;
+
+	/**
+	 *  An MSAA role indicating that
+	 *  the object represents an edit control designed for an Internet
+	 *  Protocol (IP) address. The edit control is divided into sections
+	 *  for the different parts of the IP address.
+	 */
+	public static const ROLE_SYSTEM_IPADDRESS:uint = 0x3F;
+
+	/**
+	 *  An MSAA role indicating that
+	 *  the object represents items that navigate like an outline item.
+	 *  You can use the up and down arrows to move through the outline.
+	 *  However, instead of expanding and collapsing the menus by using
+	 *  left and right arrow keys, these menus expand or collapse when
+	 *  the space bar or enter key is pressed and the item has focus.
+	 */
+	public static const ROLE_SYSTEM_OUTLINEBUTTON:uint = 0x40;
+
 	//--------------------------------------
 	//  MSAA states
 	//--------------------------------------
