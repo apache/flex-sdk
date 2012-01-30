@@ -14,7 +14,9 @@ package spark.transitions
     
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.events.EventDispatcher;
+import flash.geom.Matrix;
 import flash.geom.Rectangle;
 
 import mx.core.IVisualElement;
@@ -311,7 +313,7 @@ public class ViewTransitionBase extends EventDispatcher
     {
         _endView = value;
     }
-    
+        
     //----------------------------------
     //  navigator
     //----------------------------------
@@ -1124,9 +1126,12 @@ public class ViewTransitionBase extends EventDispatcher
     /**
      *  Helper method used to render snap shots of on screen elements in 
      *  preparation for transitioning.  The bitmap is returned in the form
-     *  of a BitmapImage.
+     *  of a BitmapImage.  The BitmapImage's transform is adjusted so that
+     *  the bitmap matches the target.
      * 
      *  @param target Display object to capture.
+     *  @param padding Paddig around the object to be included in the BitmapImage.
+     * 
      *  @return BitmapImage representation of the target.
      * 
      *  @langversion 3.0
@@ -1134,7 +1139,7 @@ public class ViewTransitionBase extends EventDispatcher
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected function getSnapshot(target:UIComponent):BitmapImage
+    protected function getSnapshot(target:UIComponent, padding:int = 4):BitmapImage
     {       
         var snapShot:BitmapImage = new BitmapImage();
         
@@ -1144,14 +1149,25 @@ public class ViewTransitionBase extends EventDispatcher
         
         // Capture image, with consideration for transform and color matrix.
         var bounds:Rectangle = new Rectangle();
-        snapShot.source = BitmapUtil.getSnapshot(target, bounds, true);
+        snapShot.source = BitmapUtil.getSnapshotWithPadding(target, padding, true, bounds);
         
         // Size and offset snapShot to match our image bounds data.
         snapShot.width = bounds.width;
         snapShot.height = bounds.height;
-        snapShot.x = target.x + bounds.left;
-        snapShot.y = target.y + bounds.top;
-        
+
+        var m:Matrix = new Matrix();
+        m.translate(bounds.left, bounds.top);
+
+        // Apply target's inverse concatenated matrix:
+        var parent:DisplayObjectContainer = target.parent;
+        if (parent)
+        {
+            var inverted:Matrix = parent.transform.concatenatedMatrix.clone();
+            inverted.invert();
+            m.concat(inverted);
+        }
+        snapShot.setLayoutMatrix(m, false);
+
         // Exclude from layout.
         snapShot.includeInLayout = false;
         
