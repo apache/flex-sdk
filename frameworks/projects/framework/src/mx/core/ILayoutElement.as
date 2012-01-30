@@ -290,15 +290,8 @@ public interface ILayoutElement extends IEventDispatcher
     function set percentHeight(value:Number):void;
  
     /**
-     *  Specifies whether this component is included in the layout of the
-     *  parent container.
-     *  If <code>true</code>, the object is included in its parent container's
-     *  layout.  If <code>false</code>, the object is positioned by its parent
-     *  container as per its layout rules, but it is ignored for the purpose of
-     *  computing the position of the next child.
+     *  @copy mx.core.UIComponent#includeInLayout
      *
-     *  @default true
-     *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
