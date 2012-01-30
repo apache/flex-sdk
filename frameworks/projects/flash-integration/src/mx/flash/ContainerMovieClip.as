@@ -12,8 +12,12 @@
 package mx.flash
 {
 
+import flash.display.BitmapData;
+import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.FocusEvent;
+import flash.geom.ColorTransform;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.IUIComponent;
@@ -97,6 +101,48 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  bounds
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Need to override here to set the scaleX and scaleY of the contentHolderObj.
+     */
+    override protected function get bounds():Rectangle
+    {
+        // not calling super.bounds but the functionality is copied here.
+        
+        // if we have a bounding box, use that.  With a bounding box, 
+        // this bounds getter might get called frequently.
+        if (boundingBoxName && boundingBoxName != "" 
+            && boundingBoxName in this && this[boundingBoxName])
+        {
+            return this[boundingBoxName].getBounds(this);
+        }
+        
+        // otherwise we need to change the scaleX and scaleY of the contentHolderObj so that we don't 
+        // take the contentHolderObj into account at all
+        if (contentHolderObj)
+        {
+            var oldScaleX:Number = contentHolderObj.mx_internal::$scaleX;
+            var oldScaleY:Number = contentHolderObj.mx_internal::$scaleY;
+            
+            contentHolderObj.mx_internal::$scaleX = 0.001;
+            contentHolderObj.mx_internal::$scaleY = 0.001;
+        }
+        
+        var bounds:Rectangle = getBounds(this);
+        
+        if (contentHolderObj)
+        {
+            contentHolderObj.mx_internal::$scaleX = oldScaleX;
+            contentHolderObj.mx_internal::$scaleY = oldScaleY;
+        }
+        
+        return bounds;
+    }
    
     //----------------------------------
     //  contentHolder
@@ -204,48 +250,10 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
     }
     
     //----------------------------------
-    //  fillContentToSize
+    //  scaleContentWhenResized
     //----------------------------------
     
-    private var _fillContentToSize:Boolean = false;
-    
-    [Inspectable(category="General", enumeration="false,true", defaultValue="false")]
-    /**
-     *  Whether the flex content is sized to be the same size as the flash 
-     *  container.
-     * 
-     *  <p>There is no layout system for the Flash container.  By default the
-     *  flex content is sized normally.  However, if you set this flag to true, 
-     *  the flex content will be sized to 100% of the size of the flash
-     *  container.</p>
-     *
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get fillContentToSize():Boolean
-    {
-        return _fillContentToSize;
-    }
-        
-   /**
-    *  @private
-    */
-    public function set fillContentToSize(value:Boolean):void
-    {
-        _fillContentToSize = value;
-        
-        sizeContentHolder();
-    }
-    
-    //----------------------------------
-    //  scaleContent
-    //----------------------------------
-    
-    private var _scaleContent:Boolean = false;
+    private var _scaleContentWhenResized:Boolean = false;
     
     [Inspectable(category="General", enumeration="false,true", defaultValue="false")]
     /**
@@ -267,17 +275,17 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get scaleContent():Boolean
+    public function get scaleContentWhenResized():Boolean
     {
-        return _scaleContent;
+        return _scaleContentWhenResized;
     }
         
    /**
     *  @private
     */
-    public function set scaleContent(value:Boolean):void
+    public function set scaleContentWhenResized(value:Boolean):void
     {
-        _scaleContent = value;
+        _scaleContentWhenResized = value;
         
         if (initialized)
             sizeContentHolder();
@@ -309,17 +317,13 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
     {
         if (contentHolderObj)
         {
-            // secretScale is the amount we scaled by to change the width and height
-            var secretScaleX:Number = mx_internal::$scaleX/scaleX;
-            var secretScaleY:Number = mx_internal::$scaleY/scaleY;
-
             // width and height are what we actually want our content
             // to fill up, but it doesn't take in to account our secretScale.
-            if (!scaleContent)
+            if (!scaleContentWhenResized)
             {
                 // apply inverse of the scale
-                contentHolderObj.scaleX = 1/secretScaleX;
-                contentHolderObj.scaleY = 1/secretScaleY;
+                contentHolderObj.scaleX = 1/mx_internal::scaleXDueToSizing;
+                contentHolderObj.scaleY = 1/mx_internal::scaleYDueToSizing;
             }
             else
             {
