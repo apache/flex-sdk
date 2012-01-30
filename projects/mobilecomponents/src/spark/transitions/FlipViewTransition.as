@@ -342,6 +342,11 @@ public class FlipViewTransition extends ViewTransitionBase
         // transitionGroup, and parent our view elements.
         setupConsolidatedTransition();
                         
+        // Capture original targetNavigator x and y coordinates before
+        // alignCardFaces changes them
+        navigatorProps.x = targetNavigator.x;
+        navigatorProps.y = targetNavigator.y;
+        
         // Align underside 'face' of our card.
         alignCardFaces(targetNavigator);
                         
@@ -367,6 +372,15 @@ public class FlipViewTransition extends ViewTransitionBase
         // Now offset our transform center as appropriate for the transition direction
         transitionGroup.transformX = viewWidth / 2;
         transitionGroup.transformY = viewHeight / 2;
+        
+        // If we are doing a consolidate flip effect, the transform center needs
+        // to be translated by the parents x and y since the transition group is not
+        // the view but the navigators parent
+        if (consolidatedTransition)
+        {
+            transitionGroup.transformX += navigatorProps.x;
+            transitionGroup.transformY += navigatorProps.y;
+        }
                 
         // Validate our transition group prior to the start of our animation.
         transitionGroup.validateNow();
@@ -587,6 +601,15 @@ public class FlipViewTransition extends ViewTransitionBase
         transitionGroup.y = viewHeight / 2;
         transitionGroup.z = vertical ? (viewHeight / 2) : (viewWidth / 2);
         
+		// If we are doing a consolidated effect, we need to shift the transition
+		// group over by the x and y position of the targetNavigator because
+        // the transitionGroup will be the view's parent and not the view
+		if (consolidatedTransition)
+		{
+			transitionGroup.x += targetNavigator.x;
+			transitionGroup.y += targetNavigator.y;
+		}
+		
         // Position the 'faces' of our cube.
         if (vertical)
         {
@@ -695,8 +718,6 @@ public class FlipViewTransition extends ViewTransitionBase
         // while we animate.
         transitionGroup = new Group();
         transitionGroup.includeInLayout = false;
-        transitionGroup.x = 0; 
-        transitionGroup.y = 0;
 
         // Add the transition group at the same index of the target navigator
         addComponentToContainerAt(transitionGroup, DisplayObject(targetNavigator).parent as UIComponent, navigatorProps.childIndex);
@@ -704,9 +725,6 @@ public class FlipViewTransition extends ViewTransitionBase
         transitionGroup.addElement(targetNavigator);
         cachedNavigator.includeInLayout = false;
         addCachedElementToGroup(transitionGroup, cachedNavigator, cachedNavigatorGlobalPosition);
-        
-        transitionGroup.width = cachedNavigator.width;
-        transitionGroup.height = cachedNavigator.height;
         
         // Save our end view's transform matrix.
         savedEndMatrix = targetNavigator.transform.matrix3D;
