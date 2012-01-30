@@ -181,6 +181,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  that was most recently under the mouse.
      *  During much of the tool tip life cycle this property
      *  has the same value as the <code>currentTarget</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var previousTarget:DisplayObject;
 
@@ -202,6 +207,11 @@ public class ToolTipManagerImpl extends EventDispatcher
     /**
      *  The UIComponent that is currently displaying a ToolTip,
      *  or <code>null</code> if none is.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currentTarget():DisplayObject
     {
@@ -228,6 +238,11 @@ public class ToolTipManagerImpl extends EventDispatcher
     /**
      *  The ToolTip object that is currently visible,
      *  or <code>null</code> if none is shown.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currentToolTip():IToolTip
     {
@@ -263,6 +278,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  If <code>false</code>, no ToolTips will be shown.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get enabled():Boolean 
     {
@@ -296,6 +316,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  such as moving the mouse off of the component.
      *
      *  @default 10000
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get hideDelay():Number 
     {
@@ -327,6 +352,11 @@ public class ToolTipManagerImpl extends EventDispatcher
 	 *  as they may not be supportable in different versions</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get hideEffect():IAbstractEffect
     {
@@ -366,6 +396,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  descriptions of their functionality.</p>
      *
      *  @default 100
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scrubDelay():Number 
     {
@@ -396,6 +431,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  To make the ToolTip appear instantly, set <code>showDelay</code> to 0.
      *
      *  @default 500
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showDelay():Number 
     {
@@ -427,6 +467,11 @@ public class ToolTipManagerImpl extends EventDispatcher
 	 *  as they may not be supportable in different versions</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showEffect():IAbstractEffect
     {
@@ -459,6 +504,11 @@ public class ToolTipManagerImpl extends EventDispatcher
 	 *  for objects within themselves</p>
      *
      *  @default mx.controls.ToolTip
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get toolTipClass():Class 
     {
@@ -532,6 +582,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  @param newToolTip The new text to display in the ToolTip.
      *  If null, no ToolTip will be displayed when the mouse hovers
      *  over the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerToolTip(target:DisplayObject,
                                     oldToolTip:String,
@@ -580,6 +635,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  @param newErrorString The new text to display in the error tip.
      *  If null, no error tip will be displayed when the mouse hovers
      *  over the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerErrorString(target:DisplayObject,
                                         oldErrorString:String,
@@ -665,6 +725,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  If not, it removes the old ToolTip and displays the new one.</p>
      *
      *  @param displayObject The UIComponent or UITextField that is currently under the mouse.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function checkIfTargetChanged(displayObject:DisplayObject):void
     {
@@ -686,6 +751,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  with a <code>toolTip</code> or <code>errorString</code> property.
      *  Treats an empty string as a valid <code>toolTip</code> property.
      *  Sets the <code>currentTarget</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function findTarget(displayObject:DisplayObject):void
     {
@@ -731,6 +801,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  Removes any ToolTip that is currently displayed and displays
      *  the ToolTip for the UIComponent that is currently under the mouse
      *  pointer, as determined by the <code>currentTarget</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function targetChanged():void
     {
@@ -812,6 +887,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  <code>currentToolTip</code> property.
      *  It then uses addChild() to add this ToolTip to the
      *  SystemManager's toolTips layer.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function createTip():void
     {
@@ -853,6 +933,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *
      *  <p>This method also makes the ToolTip the appropriate
      *  size for the text that it needs to display.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function initializeTip():void
     {
@@ -913,6 +998,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  <p>If a normal ToolTip is being displayed, this method positions
      *  its upper-left corner near the lower-right of the arrow cursor.
      *  This method ensures that the ToolTip is completely in view.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function positionTip():void
     {
@@ -1040,6 +1130,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  particular object's ToolTip just before it becomes visible.
      *  It then makes the ToolTip visible, which triggers
      *  the ToolTipManager's <code>showEffect</code> if one is specified.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function showTip():void
     {
@@ -1074,6 +1169,11 @@ public class ToolTipManagerImpl extends EventDispatcher
 
     /**
      *  Hides the current ToolTip.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function hideTip():void
     {
@@ -1118,6 +1218,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  Removes any currently visible ToolTip.
      *  If the ToolTip is starting to show or hide, this method
      *  removes the ToolTip immediately without completing the effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function reset():void
     {
@@ -1209,6 +1314,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *
      *  @return The newly created ToolTip.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createToolTip(text:String, x:Number, y:Number,
                                          errorTipBorderStyle:String = null,
@@ -1252,6 +1362,11 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  <code>currentToolTip</code>.</p>
      *
      *  @param toolTip The ToolTip instance to destroy.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function destroyToolTip(toolTip:IToolTip):void
     {
@@ -1435,6 +1550,11 @@ public class ToolTipManagerImpl extends EventDispatcher
 
 	/**
 	 *  Marshal dragManager
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function marshalToolTipManagerHandler(event:Event):void
 	{
