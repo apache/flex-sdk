@@ -36,7 +36,7 @@ public class DateAndTimeProvider extends OnDemandDataProvider
     private static const MS_IN_DAY:Number = 1000 * 60 * 60 * 24;
     
     // default min/max date
-    private static const MIN_DATE_DEFAULT:Date = new Date(1601, 0, 1);
+    private static const MIN_DATE_DEFAULT:Date = new Date(DateTimeFormatterEx.MIN_YEAR, 0, 1);
     private static const MAX_DATE_DEFAULT:Date = new Date(9999, 11, 31, 23, 59, 59, 999);
     
     //--------------------------------------------------------------------------
@@ -175,17 +175,23 @@ public class DateAndTimeProvider extends OnDemandDataProvider
      */
     override public function getItemIndex(item:Object):int
     {
-        if (!isNaN(item.data))
-        {   
-            // set firstDate's hour/min/second to the same values
-            var dateObj:Date = new Date(item.data);
-            dateObj.hours = startDate.hours;
-            dateObj.minutes = startDate.minutes;
-            dateObj.seconds = startDate.seconds;
-            dateObj.milliseconds = startDate.milliseconds;
-            
-            if (dateObj.time >= startDate.time && dateObj.time <= endDate.time)
-                return Math.round((dateObj.time - startDate.time) / MS_IN_DAY);
+        try
+        {
+            if (!isNaN(item.data))
+            {   
+                // set firstDate's hour/min/second to the same values
+                var dateObj:Date = new Date(item.data);
+                dateObj.hours = startDate.hours;
+                dateObj.minutes = startDate.minutes;
+                dateObj.seconds = startDate.seconds;
+                dateObj.milliseconds = startDate.milliseconds;
+                
+                if (dateObj.time >= startDate.time && dateObj.time <= endDate.time)
+                    return Math.round((dateObj.time - startDate.time) / MS_IN_DAY);
+            }            
+        } 
+        catch(error:Error) 
+        {
         }
         
         return -1;
