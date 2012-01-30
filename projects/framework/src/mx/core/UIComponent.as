@@ -8885,6 +8885,14 @@ public class UIComponent extends FlexSprite
     }
 
     /**
+     *  @inheritDoc 
+     */
+    public function hasState(stateName:String):Boolean
+    {
+        return (getState(stateName, false) != null); 
+    }
+
+    /**
      *  @private
      *  Returns true if the passed in state name is the 'base' state, which
      *  is currently defined as null or ""
@@ -9047,7 +9055,7 @@ public class UIComponent extends FlexSprite
      *  Returns the state with the specified name, or null if it doesn't exist.
      *  If multiple states have the same name the first one will be returned.
      */
-    private function getState(stateName:String):State
+    private function getState(stateName:String, throwOnUndefined:Boolean=true):State
     {
         if (!states || isBaseState(stateName))
             return null;
@@ -9059,11 +9067,13 @@ public class UIComponent extends FlexSprite
             if (states[i].name == stateName)
                 return states[i];
         }
-
-        var message:String = resourceManager.getString(
-            "core", "stateUndefined", [ stateName ]);
-        throw new ArgumentError(message);
-
+        
+        if (throwOnUndefined)
+        {
+            var message:String = resourceManager.getString(
+                "core", "stateUndefined", [ stateName ]);
+            throw new ArgumentError(message);
+        }
         return null;
     }
 
