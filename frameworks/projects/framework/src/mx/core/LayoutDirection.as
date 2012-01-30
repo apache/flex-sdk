@@ -14,7 +14,7 @@ package mx.core
     /**
      *  The LayoutDirection class defines the constant values
      *  for the <code>layoutDirection</code> style of an IStyleClient and the 
-     *  <code>layoutDirection</code> property of an IVisualElement.
+     *  <code>layoutDirection</code> property of an ILayoutDirectionElement.
      *  
      *  Left-to-right layoutDirection is typically used with Latin-style 
      *  scripts. Right-to-left layoutDirection is used with scripts such as 
@@ -23,11 +23,11 @@ package mx.core
      *  If an IStyleClient, set the layoutDirection style to undefined to
      *  inherit the layoutDirection from its ancestor.
      * 
-     *  If an IVisualElement, set the layoutDirection property to null to
+     *  If an ILayoutDirectionElement, set the layoutDirection property to null to
      *  inherit the layoutDirection from its ancestor.
      * 
      *  @see mx.styles.IStyleClient
-     *  @see mx.core.IVisualElement
+     *  @see mx.core.ILayoutDirectionElement
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
