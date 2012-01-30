@@ -246,8 +246,7 @@ public class SlideViewTransition extends ViewTransitionBase
         {
             // Animate the tabBar if its overlayControls or visible property is toggled.
             animateTabBar = startView.overlayControls != endView.overlayControls ||
-                            startView.tabBarVisible != endView.tabBarVisible ||
-                            mode == SlideViewTransitionMode.COVER;
+                            startView.tabBarVisible != endView.tabBarVisible;
         }
         
         // Snapshot the entire navigator or actionBar depending on the mode.
@@ -437,7 +436,7 @@ public class SlideViewTransition extends ViewTransitionBase
         
         // Add the necessary views to the slide targets array.  When in PUSH mode,
         // both start and end views are added.
-        if (startView && mode != SlideViewTransitionMode.COVER)
+        if (startView && mode == SlideViewTransitionMode.PUSH)
             slideTargets.push(startView);
         
         if (mode != SlideViewTransitionMode.UNCOVER)
@@ -453,6 +452,17 @@ public class SlideViewTransition extends ViewTransitionBase
             // the cover effect.
             addComponentToContainerAt(transitionGroup, targetNavigator.skin, 0);
             transitionGroup.addElement(cachedNavigator);
+        }
+        else if (mode == SlideViewTransitionMode.UNCOVER)
+        {
+            // When doing an uncover transition, we want the real tabBar to be under the cached
+            // bitmap of the original navigator when the tabBar visibility or overlayControls
+            // mode changes.  When the tabBar isn't animating, we want the image to animate
+            // underneath the real tabBar.
+            if (animateTabBar)
+                addComponentToContainer(transitionGroup, targetNavigator.skin);
+            else
+                addComponentToContainer(transitionGroup, navigator.skin);
         }
         else
         {
@@ -529,20 +539,24 @@ public class SlideViewTransition extends ViewTransitionBase
             
             if (animateTabBar)
             {
-                if (mode != SlideViewTransitionMode.UNCOVER)
-                    slideTargets.push(tabBar);
-                
                 navigatorProps.tabBarIncludeInLayout = tabBar.includeInLayout;
                 tabBar.includeInLayout = false;
                 
-                if (cachedTabBar)
+                if (mode != SlideViewTransitionMode.UNCOVER)
                 {
-                    // Need to removed the 4 pixel buffer
-                    cachedTabBar.x = tabBar.x - actionBarBitmapPadding;
-                    cachedTabBar.y = tabBar.y - actionBarBitmapPadding;
+                    slideTargets.push(tabBar);
                     
-                    cachedTabBar.includeInLayout = false;
-                    transitionGroup.addElement(cachedTabBar);
+                    // When Uncovering, the cachedTabBar is not needed because the transition
+                    // animates a cachedBitamp
+                    if (cachedTabBar)
+                    {
+                        // Need to removed the 4 pixel buffer
+                        cachedTabBar.x = tabBar.x - actionBarBitmapPadding;
+                        cachedTabBar.y = tabBar.y - actionBarBitmapPadding;
+                    
+                        cachedTabBar.includeInLayout = false;
+                        transitionGroup.addElement(cachedTabBar);
+                    }
                 }
             }
         }
@@ -607,7 +621,7 @@ public class SlideViewTransition extends ViewTransitionBase
         if (cachedActionBar && mode != SlideViewTransitionMode.COVER)
             slideTargets.push(cachedActionBar.displayObject);
         
-        if (cachedTabBar && mode != SlideViewTransitionMode.COVER)
+        if (cachedTabBar && mode == SlideViewTransitionMode.PUSH)
             slideTargets.push(cachedTabBar.displayObject);
         
         if (cachedNavigator && mode == SlideViewTransitionMode.UNCOVER)
@@ -701,7 +715,20 @@ public class SlideViewTransition extends ViewTransitionBase
             navigator.contentGroup.includeInLayout = navigatorProps.navigatorContentGroupIncludeInLayout;
             
             if (transitionGroup)
-                removeComponentFromContainer(transitionGroup, targetNavigator.skin);
+            {
+                if (mode == SlideViewTransitionMode.UNCOVER)
+                {
+                    if (animateTabBar)
+                        removeComponentFromContainer(transitionGroup, targetNavigator.skin);
+                    else
+                        removeComponentFromContainer(transitionGroup, navigator.skin);
+                        
+                }
+                else
+                {
+                    removeComponentFromContainer(transitionGroup, targetNavigator.skin);
+                }
+            }
         }
 
         transitionGroup = null;
