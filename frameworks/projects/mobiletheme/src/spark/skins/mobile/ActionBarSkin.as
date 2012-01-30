@@ -34,9 +34,14 @@ import spark.skins.mobile320.assets.ActionBarBackground;
 use namespace mx_internal;
 
 /**
- *  The default skin class for the Spark ActionBar component in mobile applications.  
+ *  The default skin class for the Spark ActionBar component in mobile
+ *  applications.
  *  
  *  @see spark.components.ActionBar
+ *  @see spark.skins.mobile.NavigationButtonSkin
+ *  @see spark.skins.mobile.NavigationBackButtonSkin
+ *  @see spark.skins.mobile.ActionButtonSkin
+ *  @see spark.skins.mobile.ActionRoundedButtonSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -431,8 +436,7 @@ public class ActionBarSkin extends MobileSkin
         var backgroundAlphaValue:Number = getStyle("backgroundAlpha");
         var colors:Array = [];
         
-        // apply alpha to border and chromeColor
-        border.alpha = backgroundAlphaValue;
+        // apply alpha to chromeColor fill only
         var backgroundAlphas:Array = [backgroundAlphaValue, backgroundAlphaValue];
         
         // exclude top and bottom 1px borders
