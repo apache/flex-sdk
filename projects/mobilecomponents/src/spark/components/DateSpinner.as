@@ -146,6 +146,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  </pre>
  * 
  *  @see spark.components.SpinnerList
+ *  @includeExample examples/DateSpinnerExample.mxml -noswf
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
