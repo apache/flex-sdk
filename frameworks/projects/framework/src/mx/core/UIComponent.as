@@ -11783,6 +11783,14 @@ public class UIComponent extends FlexSprite
         }
     }
 
+    /**
+     *  FIXME (chaase) : FLEXDOCS-1031
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function transformPointToParent(transformCenter:Vector3D,position:Vector3D,postLayoutPosition:Vector3D):void
     {
         if (_layoutFeatures != null)
