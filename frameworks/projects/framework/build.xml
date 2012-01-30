@@ -237,7 +237,7 @@
 
 		<!-- Call asdoc to generate dita xml files -->
 		<exec executable="${FLEX_HOME}/bin/${asdocexe}" failonerror="true">
-			<arg line="-doc-classes FrameworkClasses -doc-namespaces http://www.adobe.com/2006/mxml -namespace http://www.adobe.com/2006/mxml ${basedir}/manifest.xml -sp ${basedir}/src -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
+			<arg line="-doc-classes FrameworkClasses -lenient=true -doc-namespaces http://www.adobe.com/2006/mxml -namespace http://www.adobe.com/2006/mxml ${basedir}/manifest.xml -sp ${basedir}/src -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
 		</exec>
 
 		<!-- updates framework.swc with asdoc xml -->
