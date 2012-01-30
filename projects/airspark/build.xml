@@ -1,0 +1,330 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2006-2007 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<project name="airspark" default="main" basedir=".">
+
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+
+    <property file="${FLEX_HOME}/build.properties"/>
+
+    <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
+    <property name="local.playerglobal.version" value="10"/>
+
+	<target name="main" depends="clean,compile,en_US" description="Clean build of airspark.swc and its English resources"/>
+
+	<target name="other.locales" depends="da_DK,de_DE,es_ES,fi_FI,fr_FR,it_IT,ja_JP,ko_KR,nb_NO,nl_NL,pt_BR,ru_RU,sv_SE,zh_CN,zh_TW" description="Build other locale SWCs"/>
+
+	<target name="clean">
+		<delete failonerror="false">
+			<fileset file="${basedir}/bundles.properties"/>
+			<fileset dir="${FLEX_HOME}/frameworks/libs/air">
+				<include name="airspark.swc"/>
+				<include name="airspark.swc.incr"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/locale">
+				<include name="*/airspark_rb.swc"/>
+				<include name="*/airspark_rb.swc.incr"/>
+			</fileset>
+			<!-- airspark.swc was mistakenly being compiled into this directory for awhile. -->
+			<!-- This can eventually be removed. -->
+			<fileset dir="${FLEX_HOME}/frameworks/libs">
+				<include name="airspark.swc"/>
+				<include name="airspark.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="compile" description="Compiles airspark.swc">
+		<echo message="Compiling frameworks/libs/air/airspark.swc"/>
+
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<!--
+			Link in the classes (and their dependencies) for the MXML tags
+			listed in this project's manifest.xml.
+			Also link the additional classes (and their dependencies)
+			listed in AIRSparkClasses.as,
+			because these aren't referenced by the manifest classes.
+			Compile against framework.swc, but don't link it into airspark.swc.
+			Link in accessibility support.
+			Include the appropriate CSS files and assets in the SWC.
+			Don't include any resources in the SWC.
+			Write a bundle list of referenced resource bundles
+			into the file bundles.properties in this directory.
+		-->
+		<compc fork="true" enable-swc-version-filtering="false"
+			   output="${FLEX_HOME}/frameworks/libs/air/airspark.swc"
+			   resource-bundle-list="${basedir}/bundles.properties">
+            <!-- If you change this, update ${local.playerglobal.version} above. -->
+		    <target-player>10</target-player>
+			<jvmarg line="${compc.jvm.args}"/>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest.xml"/>
+			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
+			<include-classes>AIRSparkClasses</include-classes>
+			<source-path path-element="${basedir}/src"/>
+			<library-path/>
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+				<include name="air/airglobal.swc"/>
+				<include name="air/airframework.swc"/>
+				<include name="framework.swc"/>
+				<include name="spark.swc"/>
+	                  <include name="textLayout.swc"/>
+			</external-library-path>
+			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
+			<locale/>
+		        <keep-as3-metadata name="SkinPart"/>
+		        <accessible>true</accessible>
+		</compc>
+	</target>
+
+	<!-- This is a private target for building airspark_rb.swc for various locales. -->
+	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
+	<target name="bundle">
+		<echo message="Compiling frameworks/locale/${locale}/airspark_rb.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<compc fork="true"
+			   output="${FLEX_HOME}/frameworks/locale/${locale}/airspark_rb.swc"
+			   locale="${locale}">
+            <!-- If you change this, update ${local.playerglobal.version} above. -->
+			<target-player>10</target-player>
+			<jvmarg line="${compc.jvm.args}"/>
+			<include-resource-bundles bundle="SharedResources"/>
+			<include-resource-bundles bundle="collections"/>
+			<include-resource-bundles bundle="containers"/>
+			<include-resource-bundles bundle="controls"/>
+			<include-resource-bundles bundle="core"/>
+			<include-resource-bundles bundle="effects"/>
+			<include-resource-bundles bundle="formatters"/>
+			<include-resource-bundles bundle="skins"/>
+			<include-resource-bundles bundle="styles"/>
+			<include-namespaces/>
+			<include-classes/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/${locale}"/>
+			<include-libraries/>
+			<library-path/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+			</external-library-path>
+		</compc>
+	</target>
+	 
+	<!-- updates airspark_rb.swc with asdoc xml -->
+	<target name="fat-swc">
+		<mkdir dir="${basedir}/bundles/${locale}/docs" />
+        <zip destfile="${FLEX_HOME}/frameworks/locale/${locale}/airspark_rb.swc" update="true">
+            <zipfileset dir="${basedir}/bundles/${locale}/docs" prefix="docs">
+                <include name="*.*"/>
+            </zipfileset>
+        </zip>
+	</target>
+	
+	<!-- Targets for compiling airspark_rb.swc for various locales -->
+
+	<target name="da_DK" description="Danish resources">
+		<antcall target="bundle">
+			<param name="locale" value="da_DK"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="da_DK"/>
+		</antcall>
+	</target>
+
+	<target name="de_DE" description="German resources">
+		<antcall target="bundle">
+			<param name="locale" value="de_DE"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="de_DE"/>
+		</antcall>
+	</target>
+
+	<target name="en_US" description="American English resources">
+		<antcall target="bundle">
+			<param name="locale" value="en_US"/>
+		</antcall>
+	</target>
+
+	<target name="es_ES" description="Spanish resources">
+		<antcall target="bundle">
+			<param name="locale" value="es_ES"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="es_ES"/>
+		</antcall>
+	</target>
+
+	<target name="fi_FI" description="Finnish resources">
+		<antcall target="bundle">
+			<param name="locale" value="fi_FI"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="fi_FI"/>
+		</antcall>
+	</target>
+
+	<target name="fr_FR" description="French resources">
+		<antcall target="bundle">
+			<param name="locale" value="fr_FR"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="fr_FR"/>
+		</antcall>
+	</target>
+
+	<target name="it_IT" description="Italian resources">
+		<antcall target="bundle">
+			<param name="locale" value="it_IT"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="it_IT"/>
+		</antcall>
+	</target>
+
+	<target name="ja_JP" description="Japanese resources">
+		<antcall target="bundle">
+			<param name="locale" value="ja_JP"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="ja_JP"/>
+		</antcall>
+	</target>
+
+	<target name="ko_KR" description="Korean resources">
+		<antcall target="bundle">
+			<param name="locale" value="ko_KR"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="ko_KR"/>
+		</antcall>
+	</target>
+
+	<target name="nb_NO" description="Norwegian Bokmal resources">
+		<antcall target="bundle">
+			<param name="locale" value="nb_NO"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="nb_NO"/>
+		</antcall>
+	</target>
+
+	<target name="nl_NL" description="Dutch resources">
+		<antcall target="bundle">
+			<param name="locale" value="nl_NL"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="nl_NL"/>
+		</antcall>
+	</target>
+
+	<target name="pt_BR" description="Brazilian Portuguese resources">
+		<antcall target="bundle">
+			<param name="locale" value="pt_BR"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="pt_BR"/>
+		</antcall>
+	</target>
+
+    <target name="ru_RU" description="Swedish resources">
+        <antcall target="bundle">
+            <param name="locale" value="ru_RU"/>
+        </antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="ru_RU"/>
+		</antcall>
+    </target>
+
+    <target name="sv_SE" description="Swedish resources">
+		<antcall target="bundle">
+			<param name="locale" value="sv_SE"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="sv_SE"/>
+		</antcall>
+	</target>
+
+	<target name="zh_CN" description="Simplified Chinese resources">
+		<antcall target="bundle">
+			<param name="locale" value="zh_CN"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="zh_CN"/>
+		</antcall>
+	</target>
+
+	<target name="zh_TW" description="Traditional Chinese resources">
+		<antcall target="bundle">
+			<param name="locale" value="zh_TW"/>
+		</antcall>
+		<antcall target="fat-swc">
+			<param name="locale" value="zh_TW"/>
+		</antcall>
+	</target>
+
+	<target name="doc" depends="clean-temp-docs" description="updates airspark.swc with asdoc xml">
+		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx384m">
+	        <os family="windows"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="mac"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="unix"/>
+	    </condition>
+
+		<!-- Call asdoc to generate dita xml files -->
+		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true" >
+		    <compiler.source-path path-element="${basedir}/src"/>
+		    <doc-classes class="AIRSparkClasses"/>
+		    <external-library-path dir="${FLEX_HOME}/frameworks/libs/air">
+		    	<include name="airglobal.swc" />
+		    	<include name="airframework.swc" />
+		    </external-library-path>
+		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+		    	<include name="framework.swc" />
+          		<include name="spark.swc" />
+          		<include name="textLayout.swc" />
+			</external-library-path>
+
+		    <library-path/>
+
+            <namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest.xml"/>
+			<doc-namespaces uri="library://ns.adobe.com/flex/spark"/>
+
+      <jvmarg line="${asdoc.jvm.args}"/>
+		</asdoc>
+
+		<!-- updates airspark.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/locale/en_US/airspark_rb.swc" update="true">
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+	</target>
+
+	<target name="clean-temp-docs">
+		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+	</target>
+</project>
