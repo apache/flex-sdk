@@ -13,15 +13,15 @@ package
 {
 import flash.display.Shape;
 
-import mx.containers.Canvas;
-import mx.controls.Image;
+import mx.controls.SWFLoader;
+import mx.core.UIComponent;
 import mx.flash.ContainerMovieClip;
 import mx.flash.FlexContentHolder;
 
 [IconFile("flash_container_icon_small.png")]
 public class FlashContainerPlaceholder extends ContainerMovieClip
 {
-    protected var image1:Image;
+    protected var image1:SWFLoader;
     
     public function FlashContainerPlaceholder()
     {
@@ -37,28 +37,21 @@ public class FlashContainerPlaceholder extends ContainerMovieClip
 
         var fch:FlexContentHolder = new MyFlexContentHolder();
         
-        var canvas1:Canvas = new Canvas();
-        canvas1.horizontalScrollPolicy = "off";
-        canvas1.verticalScrollPolicy = "off";
-        canvas1.setStyle('borderStyle', 'solid');
-        canvas1.setStyle('borderThickness', '2');
-        canvas1.setStyle('borderColor', '0xCCCCCC');
-        canvas1.percentHeight = 100;
-        canvas1.percentWidth = 100;
-        canvas1.addChild(createImage());
+        var imageHolder:UIComponent = new SimpleUIComponentContainer();
+		imageHolder.percentHeight = 100;
+		imageHolder.percentWidth = 100;
+		imageHolder.addChild(createImage());
 
         this.addChild(fch);
         
-        this.content = canvas1;            
+        this.content = imageHolder;
     }
     
-    protected function createImage():Image
+    protected function createImage():SWFLoader
     {
-        image1 = new Image();
+        image1 = new SWFLoader();
         image1.source = _embed_mxml_flash_container_icon_png;
         image1.scaleContent = false;
-        image1.percentHeight = 100;
-        image1.percentWidth = 100;
         image1.setStyle('horizontalAlign' , 'center');
         image1.setStyle('verticalAlign' , 'middle');
         return image1;            
@@ -79,4 +72,42 @@ public class FlashContainerPlaceholder extends ContainerMovieClip
     [Embed(source='flash_container_icon.png')]
     private var _embed_mxml_flash_container_icon_png:Class;
 }
+
+}
+import mx.core.UIComponent;
+
+class SimpleUIComponentContainer extends UIComponent
+{
+	override protected function measure():void
+	{
+		super.measure();
+		
+		// we know we always have one child and it should take up the whole width/height
+		var child:UIComponent = UIComponent(getChildAt(0));
+		
+		measuredWidth = child.getPreferredBoundsWidth();
+		measuredHeight = child.getPreferredBoundsHeight();
+	}
+	
+	override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+	{
+		graphics.clear();
+		
+		super.updateDisplayList(unscaledWidth, unscaledHeight);
+		
+		// draw border
+		graphics.lineStyle(2, 0xCCCCCC);
+		graphics.beginFill(0x000000, 0); // transparent fill for hit testing
+		graphics.drawRect(1, 1, unscaledWidth - 2, unscaledHeight - 2); // adjust for stroke
+		graphics.endFill();
+		
+		// position the one child.  we know we always have
+		// only one child, and it's a SWFLoader.  To center it, 
+		// we just need to set the width/height to take up the whole 
+		// thing...the centering will happen inside of SWFLoader
+		var child:UIComponent = UIComponent(getChildAt(0));
+
+		child.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
+		child.setLayoutBoundsPosition(0, 0);
+	}
 }
