@@ -401,8 +401,9 @@ package mx.automation.delegates.advancedDataGrid
 			
 			if (newRowIndex >= view.length)
 			{
-				trace ("Invalid Row Index : " + String(rowIndex) + " - Total Row Count : " 
-					+ String (grid1.maxVerticalScrollPosition + view.length));
+				var message:String = "Invalid Row Index : " + String(rowIndex) + " - Total Row Count : " 
+					+ String (grid1.maxVerticalScrollPosition + view.length);
+				Automation.automationDebugTracer.traceMessage("AdvancedDataGridAutomationImpl","isGroupeditem()",message);
 			}
 			else
 			{
@@ -462,8 +463,9 @@ package mx.automation.delegates.advancedDataGrid
 			
 			if (newRowIndex >= view.length)
 			{
-				trace ("Invalid Row Index : " + String(rowIndex) + " - Total Row Count : " 
-					+ String (grid1.maxVerticalScrollPosition + view.length));
+				var message:String = "Invalid Row Index : " + String(rowIndex) + " - Total Row Count : " 
+					+ String (grid1.maxVerticalScrollPosition + view.length);
+				Automation.automationDebugTracer.traceMessage("AdvancedDataGridAutomationImpl","getGroupedItemChildrenCount()",message);
 			}
 			else
 			{
@@ -576,8 +578,9 @@ package mx.automation.delegates.advancedDataGrid
 			// check whether the requried row Index is visible
 			if (newRowIndex >= grid1.rowCount)
 			{
-				trace( "Invalid Row Index : " + String(rowIndex) + " - Total Row Count : " 
-					+ String (grid1.maxVerticalScrollPosition + grid1.rowCount));
+				var message:String = "Invalid Row Index : " + String(rowIndex) + " - Total Row Count : " 
+					+ String (grid1.maxVerticalScrollPosition + grid1.rowCount);
+				Automation.automationDebugTracer.traceMessage("AdvancedDataGridAutomationImpl","getRowData()",message);
 				
 			}
 			else
