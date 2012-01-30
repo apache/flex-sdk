@@ -27,6 +27,8 @@ import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.managers.ILayoutManagerClient;
 
+use namespace mx_internal;
+
 [DefaultProperty("content")]
 
 /**
@@ -130,19 +132,19 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
         // take the contentHolderObj into account at all
         if (contentHolderObj)
         {
-            var oldScaleX:Number = contentHolderObj.mx_internal::$scaleX;
-            var oldScaleY:Number = contentHolderObj.mx_internal::$scaleY;
+            var oldScaleX:Number = contentHolderObj.$scaleX;
+            var oldScaleY:Number = contentHolderObj.$scaleY;
             
-            contentHolderObj.mx_internal::$scaleX = 0.001;
-            contentHolderObj.mx_internal::$scaleY = 0.001;
+            contentHolderObj.$scaleX = 0.001;
+            contentHolderObj.$scaleY = 0.001;
         }
         
         var bounds:Rectangle = getBounds(this);
         
         if (contentHolderObj)
         {
-            contentHolderObj.mx_internal::$scaleX = oldScaleX;
-            contentHolderObj.mx_internal::$scaleY = oldScaleY;
+            contentHolderObj.$scaleX = oldScaleX;
+            contentHolderObj.$scaleY = oldScaleY;
         }
         
         return bounds;
@@ -326,8 +328,8 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
             if (!scaleContentWhenResized)
             {
                 // apply inverse of the scale
-                contentHolderObj.scaleX = 1/mx_internal::scaleXDueToSizing;
-                contentHolderObj.scaleY = 1/mx_internal::scaleYDueToSizing;
+                contentHolderObj.scaleX = 1/scaleXDueToSizing;
+                contentHolderObj.scaleY = 1/scaleYDueToSizing;
             }
             else
             {
