@@ -4660,7 +4660,11 @@ public class UIComponent extends FlexSprite
      *  the first parent that has <code>focusEnable</code>
      *  set to <code>true</code>.
      *
-     *  @default true
+     *  <p>The default value is <code>true</code>, except for the 
+     *  spark.components.Scroller component. 
+     *  For that component, the default value is <code>false</code>.</p>
+     *
+     *  @see spark.components.Scroller
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -4717,8 +4721,12 @@ public class UIComponent extends FlexSprite
      *  Accordion, have this flag set to <code>true</code> because they
      *  receive focus on Tab but focus goes to components in the child
      *  containers on further Tabs.</p>
-     *  
-     *  @default false
+     *
+     *  <p>The default value is <code>false</code>, except for the 
+     *  spark.components.Scroller component. 
+     *  For that component, the default value is <code>true</code>.</p>
+     *
+     *  @see spark.components.Scroller
      *  
      *  @langversion 4.0
      *  @playerversion Flash 10
