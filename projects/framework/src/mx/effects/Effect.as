@@ -1387,8 +1387,9 @@ public class Effect extends EventDispatcher implements IEffect
             // make temporary PropertyChangesArray
             var additionalPropertyChangesArray:Array = captureValues(null, true);
             
-            propertyChangesArray = 
-                propertyChangesArray.concat(additionalPropertyChangesArray);
+            propertyChangesArray = (propertyChangesArray != null) ?
+                propertyChangesArray.concat(additionalPropertyChangesArray) :
+                additionalPropertyChangesArray;
         }
     }
     
