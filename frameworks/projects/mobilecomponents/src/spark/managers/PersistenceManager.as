@@ -15,21 +15,20 @@ import flash.net.SharedObject;
     
 /**
  *  The PersistenceManager class is a basic persistence manager that 
- *  is backed by a shared object.  When initialized, it loads a
- *  shared object that matches its id.  If one is not found, one will
- *  be created.
+ *  is backed by a local shared object named FxAppCache.  
+ *  When initialized, it loads a local shared object that matches its id.  
+ *  If a local shared object is not found, it is created.
  * 
- *  <p>When storing values in the manager, it is important that all
- *  values can be properly be written to a shared object.  Complex
- *  objects that store classes or non-standard flash primitives 
+ *  <p>When storing values using the manager, it is important that all
+ *  values can be properly be written to a shared object.  
+ *  Complex objects that store classes or non-standard flash primitives 
  *  must implement flash.net.IExternalizable interface to work properly.
- *  Saving incompatible objects will not cause an RTE, but create
- *  undefined behavior when read from disk.</p>
+ *  Saving incompatible objects does not cause an RTE, but creates
+ *  undefined behavior when the data is read back.</p>
  *
  *  @see flash.net.IExternalizable
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -53,7 +52,6 @@ public class PersistenceManager implements IPersistenceManager
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -90,7 +88,6 @@ public class PersistenceManager implements IPersistenceManager
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -116,7 +113,6 @@ public class PersistenceManager implements IPersistenceManager
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -135,7 +131,6 @@ public class PersistenceManager implements IPersistenceManager
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -156,7 +151,6 @@ public class PersistenceManager implements IPersistenceManager
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -175,7 +169,6 @@ public class PersistenceManager implements IPersistenceManager
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
