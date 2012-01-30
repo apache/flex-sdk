@@ -415,9 +415,7 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  * 
- *  @see spark.components.Windowed
- *  @see spark.skins.spark.SparkChromeWindowedApplicationSkin
- *  @see spark.skins.spark.WindowedApplicationSkin
+ *  @see spark.components.Window
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
