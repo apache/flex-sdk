@@ -46,6 +46,7 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.InterManagerRequest;
 import mx.events.InvalidateRequestData;
+import mx.events.Request;
 import mx.events.SWFBridgeEvent;
 import mx.events.SWFBridgeRequest;
 import mx.managers.CursorManager;
@@ -2266,7 +2267,16 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         
         // if we are loading a swf listen of a message if it ends up needing to
         // use a sandbox bridge to communicate.
-        addInitSystemManagerCompleteListener(LoaderInfo(event.target).loader.contentLoaderInfo);
+        var loaderInfo:LoaderInfo = LoaderInfo(event.target);
+        addInitSystemManagerCompleteListener(loaderInfo.loader.contentLoaderInfo);
+        
+        if (loaderInfo.parentAllowsChild && loaderInfo.childAllowsParent 
+            && loaderInfo.loader.content)
+        {
+            loaderInfo.content.addEventListener(Request.GET_FLEX_MODULE_FACTORY_REQUEST, 
+                                            loader_content_getFlexModuleFactoryRequestHandler);            
+        }
+
     }
 
 
@@ -2403,10 +2413,32 @@ public class SWFLoader extends UIComponent implements ISWFLoader
         }
 
         if (contentHolder is Loader)
-                        removeInitSystemManagerCompleteListener(Loader(contentHolder).contentLoaderInfo);
+        {
+            var contentLoaderInfo:LoaderInfo = Loader(contentHolder).contentLoaderInfo
+            removeInitSystemManagerCompleteListener(contentLoaderInfo);
 
+            if (contentLoaderInfo.parentAllowsChild && contentLoaderInfo.childAllowsParent 
+                && contentLoaderInfo.loader.content)
+            {
+                contentLoaderInfo.content.removeEventListener(Request.GET_FLEX_MODULE_FACTORY_REQUEST, 
+                    loader_content_getFlexModuleFactoryRequestHandler);            
+            }
+        }
+        
     }
 
+    /**
+     *  @private
+     * 
+     *  @param request Use type Event instead of Request because the event may be send from
+     *  another ApplicationDomain (A.2).
+     */
+    public function loader_content_getFlexModuleFactoryRequestHandler(request:Event):void
+    {
+        if ("value" in request)
+            request["value"] = moduleFactory;
+    }
+    
     /**
      *      @private
      * 
@@ -2436,7 +2468,8 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                                invalidateRequestHandler);
         }
     }
-        
+      
+    
     /**
      *  @private
      * 
