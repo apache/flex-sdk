@@ -29,12 +29,18 @@ import spark.effects.animation.SimpleMotionPath;
 use namespace mx_internal;
     
 /**
- *  The SlideViewTransition class serves as a simple slide transition for 
- *  views.  The slide transition supports several modes (push, cover, and
+ *  The SlideViewTransition class performs a simple slide transition for views.
+ *  The existing view slides out as the new view slides in.
+ *  The slide transition supports several modes (push, cover, and
  *  uncover) as well as an optional direction (up, down, left, or right).
+ *
+ *  <p><strong>Note:</strong>Create and configure view transitions in ActionScript;
+ *  you cannot create them in MXML.</p>
+ *
+ *  @see SlideViewTransitionMode
+ *  @see ViewTransitionDirection
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -50,7 +56,6 @@ public class SlideViewTransition extends ViewTransitionBase
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -109,7 +114,6 @@ public class SlideViewTransition extends ViewTransitionBase
      *  @default ViewTransitionDirection.LEFT
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -138,7 +142,6 @@ public class SlideViewTransition extends ViewTransitionBase
      *  @default SlideViewTransitionMode.PUSH
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -162,10 +165,9 @@ public class SlideViewTransition extends ViewTransitionBase
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -185,10 +187,9 @@ public class SlideViewTransition extends ViewTransitionBase
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -287,7 +288,7 @@ public class SlideViewTransition extends ViewTransitionBase
         var animation:Move = new Move();
         animation.targets = slideTargets;
         animation.duration = duration;
-		animation.easer = easer;
+        animation.easer = easer;
         if (verticalTransition)
             animation.yBy = slideDistance + slideOffset;
         else
@@ -296,10 +297,9 @@ public class SlideViewTransition extends ViewTransitionBase
     }
         
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -405,7 +405,7 @@ public class SlideViewTransition extends ViewTransitionBase
                 slideDistance = -targetNavigator.width;
                 break;
         }
-         				
+                        
         // Position the control bars prior to our transition.
         
         if (targetNavigator == parentNavigator)
@@ -443,10 +443,9 @@ public class SlideViewTransition extends ViewTransitionBase
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -518,10 +517,9 @@ public class SlideViewTransition extends ViewTransitionBase
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
