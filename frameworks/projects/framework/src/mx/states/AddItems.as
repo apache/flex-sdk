@@ -5,6 +5,8 @@
 //  restrictions on such code as contained in the End User License Agreement
 //  accompanying this product.
 //
+//  AdobePatentID="B770"
+//
 ////////////////////////////////////////////////////////////////////////////////
 
 package flex.states 
