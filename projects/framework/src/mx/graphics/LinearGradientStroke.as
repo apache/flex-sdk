@@ -241,26 +241,93 @@ public class LinearGradientStroke extends GradientStroke
      *  Calculates this LinearGradientStroke's transformation matrix.  
      */
     private function calculateTransformationMatrix(targetBounds:Rectangle, matrix:Matrix, targetOrigin:Point):void
-    {
+    {        
+        matrix.identity();
+        
         if (!compoundTransform)
         {
-            var w:Number = !isNaN(scaleX) ? scaleX : targetBounds.width;            
-            var bX:Number = !isNaN(x) ? x + targetOrigin.x : targetBounds.left;
-            var bY:Number = !isNaN(y) ? y + targetOrigin.y : targetBounds.top;
-                        
-            matrix.createGradientBox(w, targetBounds.height, 
-                                    !isNaN(_angle) ? 
-                                        _angle : rotationInRadians,
-                                     bX, bY);   
+            var tx:Number = x;
+            var ty:Number = y;
+            var length:Number = scaleX;
+            
+            if (isNaN(length))
+            {
+                // Figure out the two sides
+                if (rotation % 90 != 0)
+                {			
+                    // Normalize angles with absolute value > 360 
+                    var normalizedAngle:Number = rotation % 360;
+                    // Normalize negative angles
+                    if (normalizedAngle < 0)
+                        normalizedAngle += 360;
+                    
+                    // Angles wrap at 180
+                    normalizedAngle %= 180;
+                    
+                    // Angles > 90 get mirrored
+                    if (normalizedAngle > 90)
+                        normalizedAngle = 180 - normalizedAngle;
+                    
+                    var side:Number = targetBounds.width;
+                    // Get the hypotenuse of the largest triangle that can fit in the bounds
+                    var hypotenuse:Number = Math.sqrt(targetBounds.width * targetBounds.width + targetBounds.height * targetBounds.height);
+                    // Get the angle of that largest triangle
+                    var hypotenuseAngle:Number =  Math.acos(targetBounds.width / hypotenuse) * 180 / Math.PI;
+                    
+                    // If the angle is larger than the hypotenuse angle, then use the height 
+                    // as the adjacent side of the triangle
+                    if (normalizedAngle > hypotenuseAngle)
+                    {
+                        normalizedAngle = 90 - normalizedAngle;
+                        side = targetBounds.height;
+                    }
+                    
+                    // Solve for the hypotenuse given an adjacent side and an angle. 
+                    length = side / Math.cos(normalizedAngle / 180 * Math.PI);
+                }
+                else 
+                {
+                    // Use either width or height based on the rotation
+                    length = (rotation % 180) == 0 ? targetBounds.width : targetBounds.height;
+                }
+            }
+            
+            // If only x or y is defined, force the other to be set to 0
+            if (!isNaN(tx) && isNaN(ty))
+                ty = 0;
+            else if (isNaN(tx) && !isNaN(ty))
+                tx = 0;
+            
+            // If x and y are specified, then move the gradient so that the
+            // top left corner is at 0,0
+            if (!isNaN(tx) && !isNaN(ty))
+                matrix.translate(GRADIENT_DIMENSION / 2, GRADIENT_DIMENSION / 2); // 1638.4 / 2
+            
+            // Force the length to a minimum of 2. Values of 0 or 1 have undesired behavior	
+            length = Math.max(length, 2);
+            
+            // Scale the gradient in the x direction. The natural size is 1638.4px. No need
+            // to scale the y direction because it is infinite
+            matrix.scale (length / GRADIENT_DIMENSION, 1 / GRADIENT_DIMENSION);
+            
+            matrix.rotate (!isNaN(_angle) ? _angle : rotationInRadians);
+            if (isNaN(tx))
+                tx = targetBounds.left + targetBounds.width / 2;
+            else
+                tx += targetOrigin.x;
+            if (isNaN(ty))
+                ty = targetBounds.top + targetBounds.height / 2;
+            else
+                ty += targetOrigin.y;
+            matrix.translate(tx, ty);	
         }
         else
-        {            
-            matrix.identity(); 
+        {
             matrix.translate(GRADIENT_DIMENSION / 2, GRADIENT_DIMENSION / 2);
             matrix.scale(1 / GRADIENT_DIMENSION, 1 / GRADIENT_DIMENSION);
             matrix.concat(compoundTransform.matrix);
             matrix.translate(targetOrigin.x, targetOrigin.y);
-        }
+        }			 	
     }
     
 }
