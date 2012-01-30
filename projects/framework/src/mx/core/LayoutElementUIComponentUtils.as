@@ -408,6 +408,13 @@ public class LayoutElementUIComponentUtils
             if (isNaN(height))
                 height = getPreferredUBoundsHeight(obj);
     
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            {
+                // We are already taking scale into account from the transform,
+                // so adjust here since IUIComponent mixes it with width/height
+                width *= obj.scaleX;
+                height *= obj.scaleY;
+            }
             obj.setActualSize(width, height);
             return;
         }
