@@ -27,6 +27,11 @@ use namespace mx_internal;
  *  UIComponentAccProps is a subclass of AccessibilityProperties
  *  for use by various UIComponents.
  *  It is used to provide accessibility to Form, ToolTip, and Error ToolTip.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class UIComponentAccProps extends AccessibilityProperties
 {
@@ -46,6 +51,11 @@ public class UIComponentAccProps extends AccessibilityProperties
 	 *  Afterwards, when instances of UIComponent are initialized,
 	 *  their <code>accessibilityProperties</code> property
 	 *  will be set to an instance of this class.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function enableAccessibility():void
     {
@@ -77,6 +87,11 @@ public class UIComponentAccProps extends AccessibilityProperties
      *
      *  @param master The UIComponent instance that this
      *  AccessibilityProperties instance is making accessible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function UIComponentAccProps(component:UIComponent)
     {
@@ -163,6 +178,11 @@ public class UIComponentAccProps extends AccessibilityProperties
 
     /**
      *  A reference to the UIComponent itself.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var master:UIComponent;
     
@@ -176,6 +196,11 @@ public class UIComponentAccProps extends AccessibilityProperties
      *  Generic event handler.
      *  All UIComponentAccProps subclasses must implement this
      *  to listen for events from its master component. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function eventHandler(event:Event):void
     {
