@@ -62,7 +62,7 @@ public interface ISWFBridgeGroup
     function addChildBridge(bridge:IEventDispatcher, bridgeProvider:ISWFBridgeProvider):void;
     
     /**
-     *  Removes The child bridge.
+     *  Removes the child bridge.
      * 
      *  @param bridge The bridge to remove.
      */
@@ -91,6 +91,8 @@ public interface ISWFBridgeGroup
     
     /**
      *  Tests if the given bridge is one of the sandbox bridges in this group.
+     *  
+     *  @param bridge The bridge to test.
      * 
      *  @return <code>true</code> if the handle is found; otherwise <code>false</code>.
      */
