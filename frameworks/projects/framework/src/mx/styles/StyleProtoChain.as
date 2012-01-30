@@ -65,7 +65,7 @@ public class StyleProtoChain
         // Push items onto the proto chain in reverse order, beginning with
         // 6) Follow the usual search path for the styleName object
         var nonInheritChain:Object = styleName.nonInheritingStyles;
-        if (!nonInheritChain || nonInheritChain == UIComponent.STYLE_UNINITIALIZED)
+        if (!nonInheritChain || nonInheritChain == StyleManager.STYLE_UNINITIALIZED)
         {
             nonInheritChain = StyleManager.stylesRoot;
 
@@ -74,7 +74,7 @@ public class StyleProtoChain
         }
 
         var inheritChain:Object = styleName.inheritingStyles;
-        if (!inheritChain || inheritChain == UIComponent.STYLE_UNINITIALIZED)
+        if (!inheritChain || inheritChain == StyleManager.STYLE_UNINITIALIZED)
             inheritChain = StyleManager.stylesRoot;
 
         // If there's no type selector on this object, then we can collapse
