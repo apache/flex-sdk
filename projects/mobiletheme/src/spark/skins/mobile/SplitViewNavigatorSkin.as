@@ -90,7 +90,11 @@ public class SplitViewNavigatorSkin extends MobileSkin
     {
         // Create the layout for the content group
         var hLayout:HorizontalLayout = new HorizontalLayout();
-        hLayout.gap = 0;
+        
+        // A gap of 1 is used to reveal a thin line of the background between
+        // each child navigator.  This serves as a divider.  To change the look
+        // of the divider, change the backgroundColor style.
+        hLayout.gap = 1;
         
         // Create the contentGroup
         contentGroup = new Group();
@@ -126,6 +130,18 @@ public class SplitViewNavigatorSkin extends MobileSkin
 
         contentGroup.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
         contentGroup.setLayoutBoundsPosition(0, 0);
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        // Background is used to draw the divider between each navigator
+        var color:uint = getStyle("backgroundColor");
+        graphics.beginFill(color);
+        graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+        graphics.endFill();
     }
 }
 }
