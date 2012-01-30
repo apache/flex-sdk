@@ -457,7 +457,7 @@ public class NumberFormatter extends Formatter
         _useNegativeSign = value != null ?
                            Boolean(value) :
                            resourceManager.getBoolean(
-                               "formatters", "useNegativeSign");
+                               "formatters", "useNegativeSignInNumber");
     }
 
     //----------------------------------
