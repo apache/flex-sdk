@@ -214,7 +214,18 @@ public interface IResourceManager extends IEventDispatcher
                                 IEventDispatcher;
 
     /**
-     *  This method has not yet been implemented.
+     *  Begins unloading a loaded resource module.
+     * 
+     *  <p>When the module is unloaded, its resource bundles
+     *  are removed from the ResourceManager, but the <code>localeChain</code>
+     *  is left unchanged.
+     *  If the <code>update</code> parameter is <code>true</code>,
+     *  the <code>update()</code> method will be called.</p>
+     * 
+     *  @param url The URL that was used to load the resource module.
+     *
+     *  @param update Whether to call
+     *  the <code>update()</code> method when the module finishes unloading.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
