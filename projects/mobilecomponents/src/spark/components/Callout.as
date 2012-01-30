@@ -897,12 +897,12 @@ public class Callout extends SkinnablePopUpContainer
         if (screen)
         {
             adjustedHorizontalPosition = adjustCalloutPosition(
-                horizontalPosition,
+                actualHorizontalPosition,
                 calloutBounds.left, calloutBounds.right,
                 screen.left, screen.right);
 
             adjustedVerticalPosition = adjustCalloutPosition(
-                verticalPosition,
+                actualVerticalPosition,
                 calloutBounds.top, calloutBounds.bottom,
                 screen.top, screen.bottom);
         }
@@ -987,11 +987,57 @@ public class Callout extends SkinnablePopUpContainer
 
         // If the callout still doesn't fit, then nudge it
         // so it is completely on the screen. Make sure to include scale.
+        var screenTop:Number = screen.top;
+        var screenBottom:Number = screen.bottom;
+        var screenLeft:Number = screen.left;
+        var screenRight:Number = screen.right;
+        
+        // Allow zero margin on the the side with the arrow
+        switch (arrowDirection)
+        {
+            case ArrowDirection.UP:
+            {
+                screenBottom -= margin;
+                screenLeft += margin;
+                screenRight -= margin
+                break;
+            }
+            case ArrowDirection.DOWN:
+            {
+                screenTop += margin;
+                screenLeft += margin;
+                screenRight -= margin
+                break;
+            }
+            case ArrowDirection.LEFT:
+            {
+                screenTop += margin;
+                screenBottom -= margin;
+                screenRight -= margin
+                break;
+            }
+            case ArrowDirection.RIGHT:
+            {
+                screenTop += margin;
+                screenBottom -= margin;
+                screenLeft += margin;
+                break;
+            }
+            default:
+            {
+                screenTop += margin;
+                screenBottom -= margin;
+                screenLeft += margin;
+                screenRight -= margin
+                break;
+            }
+        }
+        
         regPoint.y += nudgeToFit(calloutBounds.top, calloutBounds.bottom,
-            screen.top + margin, screen.bottom - margin, concatScaleY);
+            screenTop, screenBottom, concatScaleY);
         
         regPoint.x += nudgeToFit(calloutBounds.left, calloutBounds.right,
-            screen.left + margin, screen.right - margin, concatScaleX);
+            screenLeft, screenRight, concatScaleX);
 
         // Compute the stage coordinates of the upper,left corner of the PopUp, taking
         // the postTransformOffsets - which include mirroring - into account.
@@ -1056,15 +1102,6 @@ public class Callout extends SkinnablePopUpContainer
         var spaceTop:Number = ownerBounds.top;
         var spaceBottom:Number = screen.height - ownerBounds.bottom;
 
-        var calloutWidth:Number = getLayoutBoundsWidth();
-        var calloutHeight:Number = getLayoutBoundsHeight();
-
-        // Can the popUp fit in each direction?
-        spaceLeft -= calloutWidth;
-        spaceRight -= calloutWidth;
-        spaceTop -= calloutHeight;
-        spaceBottom -= calloutHeight;
-
         var canFitVertical:Boolean = ((spaceTop > 0) || (spaceBottom > 0));
         var canFitHorizontal:Boolean = ((spaceLeft > 0) || (spaceRight > 0));
 
@@ -1113,14 +1150,17 @@ public class Callout extends SkinnablePopUpContainer
         else // if ((verticalPosition == CalloutPosition.AUTO) && (horizontalPosition == CalloutPosition.AUTO))
         {
             var useVertical:Boolean = true;
+            var useInterior:Boolean = false;
 
             if (!canFitHorizontal && !canFitVertical)
             {
-                // Edge case where callout doesn't fit in any direction
-                var horizontalSpace:Number = (spaceLeft > spaceRight) ? spaceLeft : spaceRight;
-                var verticalSpace:Number = (spaceTop > spaceBottom) ? spaceTop : spaceBottom;
-
-                useVertical = (verticalSpace > horizontalSpace);
+                // Edge case where callout doesn't fit in any direction.
+                // Choose position based on aspect ratio
+                useVertical = !isLandscape;
+                
+                // Only use interior positions when no space is available
+                useInterior = (spaceTop <= 0) && (spaceBottom <= 0) &&
+                              (spaceLeft <= 0) && (spaceRight <= 0);
             }
             else if (isLandscape)
             {
@@ -1132,15 +1172,18 @@ public class Callout extends SkinnablePopUpContainer
                 // Favor vertical before/after in portrait
                 useVertical = canFitVertical;
             }
+            
+            var startPos:String = (useInterior) ? CalloutPosition.START : CalloutPosition.BEFORE;
+            var endPos:String = (useInterior) ? CalloutPosition.END : CalloutPosition.AFTER;
 
             if (useVertical)
             {
                 actualHorizontalPosition = CalloutPosition.MIDDLE;
-                actualVerticalPosition = (spaceBottom > spaceTop) ? CalloutPosition.AFTER : CalloutPosition.BEFORE;
+                actualVerticalPosition = (spaceBottom > spaceTop) ? endPos : startPos;
             }
             else
             {
-                actualHorizontalPosition = (spaceRight > spaceLeft) ? CalloutPosition.AFTER : CalloutPosition.BEFORE;
+                actualHorizontalPosition = (spaceRight > spaceLeft) ? endPos : startPos;
                 actualVerticalPosition = CalloutPosition.MIDDLE;
             }
         }
