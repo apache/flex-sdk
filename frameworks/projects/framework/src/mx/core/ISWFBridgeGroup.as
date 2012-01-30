@@ -21,6 +21,11 @@ import flash.events.IEventDispatcher;
  *  This application can not share memory with, or can not have access to, 
  *  the other applications in the group, but uses the bridge
  *  to communicate with these applications.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public interface ISWFBridgeGroup
 {
@@ -37,6 +42,11 @@ public interface ISWFBridgeGroup
     /**
      *  The bridge that is used to communicate
      *  with this group's parent application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get parentBridge():IEventDispatcher;
     
@@ -58,6 +68,11 @@ public interface ISWFBridgeGroup
      * 
      *  @param bridgeProvider The DisplayObject that loaded the content
      *  represented by the bridge. Usually this is will be an instance of the SWFLoader class.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function addChildBridge(bridge:IEventDispatcher, bridgeProvider:ISWFBridgeProvider):void;
     
@@ -65,6 +80,11 @@ public interface ISWFBridgeGroup
      *  Removes the child bridge.
      * 
      *  @param bridge The bridge to remove.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeChildBridge(bridge:IEventDispatcher):void;
     
@@ -78,6 +98,11 @@ public interface ISWFBridgeGroup
      *  @param bridge The target bridge.
      * 
      *  @return The object that loaded the child. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getChildBridgeProvider(bridge:IEventDispatcher):ISWFBridgeProvider;
 
@@ -86,6 +111,11 @@ public interface ISWFBridgeGroup
      * 
      *  @return An array of all the child bridges in this group.
      *  Each object in the array is of type <code>IEventDispatcher</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getChildBridges():Array /* of IEventDispatcher */;
     
@@ -95,6 +125,11 @@ public interface ISWFBridgeGroup
      *  @param bridge The bridge to test.
      * 
      *  @return <code>true</code> if the handle is found; otherwise <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function containsBridge(bridge:IEventDispatcher):Boolean;
 }
