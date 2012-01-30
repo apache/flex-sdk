@@ -256,21 +256,19 @@ public class CrossDomainRSLItem extends RSLItem
         // load the bytes into the current application domain.
         loadBytesLoader = new Loader();
         var context:LoaderContext = new LoaderContext();
-        
-        if (moduleFactory != null)
-            context.applicationDomain = moduleFactory.info()["currentDomain"];    
-        else 
-            context.applicationDomain = ApplicationDomain.currentDomain;
-        
-        // TODO (dloverin): For now, load all RSLs into the top-level application
-        // domain. Remove this code once we have cooperative loading implemented. 
-        while (context.applicationDomain && context.applicationDomain.parentDomain)
+        var rslData:RSLData = currentRSLData;
+
+        if (rslData.moduleFactory)
         {
-            // Don't load an RSL into a bootstrap application domain.
-            if (!context.applicationDomain.parentDomain.hasDefinition("mx.managers::SystemManager"))
-                break;
-            
-            context.applicationDomain = context.applicationDomain.parentDomain;
+            context.applicationDomain = rslData.moduleFactory.info()["currentDomain"];            
+        }
+        else if (moduleFactory)
+        {
+            context.applicationDomain = moduleFactory.info()["currentDomain"];
+        }
+        else
+        {
+            context.applicationDomain = ApplicationDomain.currentDomain;
         }
         
         context.securityDomain = null;
@@ -283,7 +281,6 @@ public class CrossDomainRSLItem extends RSLItem
         }   
         
         // verify the digest, if any, is correct
-        var rslData:RSLData = currentRSLData;
         if (rslData.digest != null && rslData.verifyDigest)
         {
             var verifiedDigest:Boolean = false;
