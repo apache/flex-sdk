@@ -13,7 +13,6 @@ package mx.preloaders
 {
 
 import flash.display.DisplayObject;
-import flash.display.Loader;
 import flash.display.LoaderInfo;
 import flash.display.MovieClip;
 import flash.display.Sprite;
@@ -22,20 +21,18 @@ import flash.events.Event;
 import flash.events.IEventDispatcher;
 import flash.events.IOErrorEvent;
 import flash.events.ProgressEvent;
-import flash.events.SecurityErrorEvent;
 import flash.events.TimerEvent;
-import flash.net.URLLoader;
-import flash.net.URLLoaderDataFormat;
-import flash.net.URLRequest;
 import flash.system.ApplicationDomain;
 import flash.utils.Timer;
 
-import mx.core.mx_internal;
-import mx.core.ResourceModuleRSLItem;
 import mx.core.RSLItem;
 import mx.core.RSLListLoader;
+import mx.core.ResourceModuleRSLItem;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.RSLEvent;
+
+use namespace mx_internal;
 
 /**
  *  The Preloader class is used by the SystemManager to monitor
@@ -275,11 +272,11 @@ public class Preloader extends Sprite
 		if (rslListLoader.getItemCount() > 0)
 		{
 			// Start loading the RSLs.
-			rslListLoader.load(mx_internal::rslProgressHandler,
-							   mx_internal::rslCompleteHandler,
-							   mx_internal::rslErrorHandler,
-							   mx_internal::rslErrorHandler,
-							   mx_internal::rslErrorHandler);
+			rslListLoader.load(rslProgressHandler,
+							   rslCompleteHandler,
+							   rslErrorHandler,
+							   rslErrorHandler,
+							   rslErrorHandler);
 			loadingRSLs = true;
 		}
 		else if (resourceModuleListLoader && resourceModuleListLoader.getItemCount() > 0)
@@ -288,11 +285,11 @@ public class Preloader extends Sprite
 			{
 				rslListLoader = resourceModuleListLoader;
 				// Start loading the resourceModules
-				rslListLoader.load(mx_internal::rslProgressHandler,
-								   mx_internal::rslCompleteHandler,
-								   mx_internal::rslErrorHandler,
-								   mx_internal::rslErrorHandler,
-								   mx_internal::rslErrorHandler);
+				rslListLoader.load(rslProgressHandler,
+								   rslCompleteHandler,
+								   rslErrorHandler,
+								   rslErrorHandler,
+								   rslErrorHandler);
 			}
 			else
 			{
@@ -471,11 +468,11 @@ public class Preloader extends Sprite
 				rslListLoader = resourceModuleListLoader;
 				rslDone = false;
 				// Start loading the resourceModules
-				rslListLoader.load(mx_internal::rslProgressHandler,
-								   mx_internal::rslCompleteHandler,
-								   mx_internal::rslErrorHandler,
-								   mx_internal::rslErrorHandler,
-								   mx_internal::rslErrorHandler);
+				rslListLoader.load(rslProgressHandler,
+								   rslCompleteHandler,
+								   rslErrorHandler,
+								   rslErrorHandler,
+								   rslErrorHandler);
 			}
 		}
 
@@ -499,11 +496,11 @@ public class Preloader extends Sprite
 					rslListLoader = resourceModuleListLoader;
 					rslDone = false;
 					// Start loading the resourceModules
-					rslListLoader.load(mx_internal::rslProgressHandler,
-									   mx_internal::rslCompleteHandler,
-									   mx_internal::rslErrorHandler,
-									   mx_internal::rslErrorHandler,
-									   mx_internal::rslErrorHandler);
+					rslListLoader.load(rslProgressHandler,
+									   rslCompleteHandler,
+									   rslErrorHandler,
+									   rslErrorHandler,
+									   rslErrorHandler);
 					return;
 				}
 			}
