@@ -180,7 +180,7 @@ public class SlideViewTransition extends ViewTransitionBase
         // Snapshot the entire navigator.
         var oldVisibility:Boolean = endView.visible;
         endView.visible = false;
-        cachedNavigator = getSnapshot(targetNavigator);
+        cachedNavigator = getSnapshot(targetNavigator, 0);
         endView.visible = oldVisibility;
     }
     
