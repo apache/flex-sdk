@@ -21,6 +21,11 @@
  *  <code>layout</code> property set to <code>absolute</code>.</p> 
  * 
  *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="baseline", type="String", inherit="no")]
 
@@ -36,6 +41,11 @@
  *  <code>layout</code> property set to <code>absolute</code>.</p> 
  * 
  *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="bottom", type="String", inherit="no")]
 
@@ -51,6 +61,11 @@
  *  <code>layout</code> property set to <code>absolute</code>.</p> 
  * 
  *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalCenter", type="String", inherit="no")]
 
@@ -66,6 +81,11 @@
  *  <code>layout</code> property set to <code>absolute</code>.</p> 
  * 
  *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="left", type="String", inherit="no")]
 
@@ -81,6 +101,11 @@
  *  <code>layout</code> property set to <code>absolute</code>.</p> 
  * 
  *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="right", type="String", inherit="no")]
 
@@ -96,6 +121,11 @@
  *  <code>layout</code> property set to <code>absolute</code>.</p> 
  * 
  *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="top", type="String", inherit="no")]
 
@@ -111,5 +141,10 @@
  *  <code>layout</code> property set to <code>absolute</code>.</p> 
  * 
  *  <p>The default value is <code>undefined</code>, which means it is not set.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalCenter", type="String", inherit="no")]
