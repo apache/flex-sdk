@@ -16,6 +16,7 @@ import flash.display.Graphics;
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
 
+import spark.components.IconPlacement;
 import spark.skins.mobile.assets.ViewMenuItem_down;
 import spark.skins.mobile.assets.ViewMenuItem_showsCaret;
 import spark.skins.mobile.assets.ViewMenuItem_up;
@@ -44,13 +45,13 @@ public class ViewMenuItemSkin extends ButtonSkin
                 downBorderSkin = spark.skins.mobile320.assets.ViewMenuItem_down;
                 showsCaretBorderSkin = spark.skins.mobile320.assets.ViewMenuItem_showsCaret;
                 
-				layoutGap = 12;
-				layoutPaddingLeft = 12;
-				layoutPaddingRight = 12;
-				layoutPaddingTop = 12;
-                layoutPaddingBottom = 3;
-				layoutBorderSize = 2;	
-				
+                layoutGap = 12;
+                layoutPaddingLeft = 12;
+                layoutPaddingRight = 12;
+                layoutPaddingTop = 12;
+                layoutPaddingBottom = 12;
+                layoutBorderSize = 2;	
+                
                 
                 break;
             }
@@ -60,15 +61,15 @@ public class ViewMenuItemSkin extends ButtonSkin
                 downBorderSkin = spark.skins.mobile.assets.ViewMenuItem_down;
                 showsCaretBorderSkin = spark.skins.mobile.assets.ViewMenuItem_showsCaret;
                 
-				layoutGap = 8;
-				layoutPaddingLeft = 8;
-				layoutPaddingRight = 8;
-				layoutPaddingTop = 8;
-                layoutPaddingBottom = 1;
-				layoutBorderSize = 1;
-
+                layoutGap = 8;  // FIXME (jasonsj): should be 9?
+                layoutPaddingLeft = 8;
+                layoutPaddingRight = 8;
+                layoutPaddingTop = 8;
+                layoutPaddingBottom = 8;
+                layoutBorderSize = 1;
+                
                 break;
-            
+                
             }
             default:
             {
@@ -76,12 +77,12 @@ public class ViewMenuItemSkin extends ButtonSkin
                 downBorderSkin = spark.skins.mobile.assets.ViewMenuItem_down;
                 showsCaretBorderSkin = spark.skins.mobile.assets.ViewMenuItem_showsCaret; 
                 
-				layoutGap = 6;
-				layoutPaddingLeft = 6;
-				layoutPaddingRight = 6;
-				layoutPaddingTop = 6;
-                layoutPaddingBottom = 1;
-				layoutBorderSize = 1;
+                layoutGap = 6;
+                layoutPaddingLeft = 6;
+                layoutPaddingRight = 6;
+                layoutPaddingTop = 6;
+                layoutPaddingBottom = 6;
+                layoutBorderSize = 1;
             }
         }
         
@@ -98,7 +99,7 @@ public class ViewMenuItemSkin extends ButtonSkin
      *  @default Button_down
      */ 
     protected var showsCaretBorderSkin:Class;
-   
+    
     override protected function getBorderClassForCurrentState():Class
     {
         var borderClass:Class = super.getBorderClassForCurrentState();
@@ -108,32 +109,46 @@ public class ViewMenuItemSkin extends ButtonSkin
         
         return borderClass;
     }
-     
-    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
+    
+    /**
+     *  @private
+     */
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        var iconPlacement:String = getStyle("iconPlacement");
+        useCenterAlignment = (iconPlacement == IconPlacement.LEFT)
+            || (iconPlacement == IconPlacement.RIGHT);
+        
+        super.layoutContents(unscaledWidth, unscaledHeight);
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        // omit call to super.drawBackground(), drawRect instead
+        
         if (currentState == "showsCaret" || currentState == "down")
         {
-            chromeColorGraphics.beginFill(getStyle("focusColor"));
+            graphics.beginFill(getStyle("focusColor"));
         }
         else
         {
-            matrix.createGradientBox(unscaledWidth, 
-                                     unscaledHeight, 
-                                     Math.PI / 2, 0, 0);
+            colorMatrix.createGradientBox(unscaledWidth, 
+                unscaledHeight, 
+                Math.PI / 2, 0, 0);
             var chromeColor:uint = getStyle("chromeColor");
             
-            chromeColorGraphics.beginGradientFill(GradientType.LINEAR,
-                                                  [chromeColor, chromeColor],
-                                                  [0.9, 0.95],
-                                                  [0, 255],
-                                                  matrix);
+            graphics.beginGradientFill(GradientType.LINEAR,
+                [chromeColor, chromeColor],
+                [0.9, 0.95],
+                [0, 255],
+                colorMatrix);
         }
-    }
-    
-    override protected function drawChromeColor(chromeColorGraphics:Graphics, 
-                                                unscaledWidth:Number, unscaledHeight:Number):void
-    {
-            chromeColorGraphics.drawRect(0,0,unscaledWidth,unscaledHeight);
+        
+        graphics.drawRect(0,0,unscaledWidth,unscaledHeight);
+        graphics.endFill();
     }
 }
 }
