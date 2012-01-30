@@ -1711,13 +1711,13 @@ public class ViewNavigator extends ViewNavigatorBase
         // If there is no focus or the item that had focus isn't 
         // on the display list anymore, update the focus to be
         // the active view or the view navigator
-        var stage:Stage = systemManager.stage;
-        if (!stage.focus || !stage.focus.stage || stage.focus == this)
+        var focusedObject:Object = focusManager.getFocus();
+        if (!focusedObject || !focusedObject.stage || focusedObject == this)
         {
             if (activeView)
-                stage.focus = activeView;
+                focusManager.setFocus(activeView);
             else
-                stage.focus = this;
+                focusManager.setFocus(this);
         }
         
         // Clear the returned object
