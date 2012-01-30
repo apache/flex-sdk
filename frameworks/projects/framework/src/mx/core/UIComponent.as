@@ -827,7 +827,7 @@ include "../styles/metadata/AnchorStyles.as";
  *  Skin used to draw the focus rectangle.
  *
  *  The default value for Halo components is mx.skins.halo.HaloFocusRect. 
- *  The default value for Spark components is spark.skins.default.FocusSkin.
+ *  The default value for Spark components is spark.skins.spark.FocusSkin.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
