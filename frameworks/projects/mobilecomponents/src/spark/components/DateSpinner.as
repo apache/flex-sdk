@@ -37,6 +37,8 @@ import spark.globalization.supportClasses.DateTimeFormatterEx;
 
 use namespace mx_internal;
 
+[Exclude(name="textAlign", kind="style")]
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -248,9 +250,6 @@ public class DateSpinner extends SkinnableComponent
     public function DateSpinner()
     {
         super();
-        
-        // TODO: the DateTimeFormatter should use the same styles as this DateSpinner
-        // dateTimeFormatter.styleParent = this;
     }
     
     //--------------------------------------------------------------------------
@@ -506,13 +505,12 @@ public class DateSpinner extends SkinnableComponent
     
     private var minDateChanged:Boolean = false;
     
-    // TODO: add reference after the global team adds the doc
     /**
      *  Minimum selectable date; only this date and dates after this date are selectable.
      * 
      *  @default If minDate is null, the value defaults to January 1st, 1601.
      *           minDate's year should be greater than or equal to 1601 since
-     *           DateTimeFormatter only supports the range from 1601 to 30827.
+     *           DateTimeFormatter only supports the range from 1601 to 30827
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
@@ -1274,7 +1272,6 @@ public class DateSpinner extends SkinnableComponent
         }
         if (hourList)
         {
-            // TODO: double-check the math
             newIndex = use24HourTime ? selectedDate.hours : (selectedDate.hours + 11) % 12;
             goToIndex(hourList, newIndex, useAnimation);
         }
