@@ -17,15 +17,27 @@
 
 ActionBar
 {
+    chromeColor: #CCCCCC; /*TODO (jasonsj) REMOVE*/
     skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
+}
+
+/*TODO (jasonsj) REMOVE*/
+ActionBar Button
+{
+    color: #000000;
 }
 
 ActionBar #titleDisplay
 {
-    color: #FFFFFF;
-    fontSize: 30;
+    fontSize: 28;
     fontWeight: bold;
-    textShadowColor: #000000;
+    color: #333333;
+    textShadowColor: #FFFFFF;
+}
+
+ActionBar Button:down
+{
+    chromeColor: #70B2EE;
 }
 
 ActionBar Group#navigationGroup Button
@@ -40,7 +52,7 @@ ActionBar Group#actionGroup Button
 
 Application
 {
-    backgroundColor: #464646;
+    backgroundColor: #464646; /*TODO (jasonsj) #FFFFFF*/
     skinClass: ClassReference("spark.skins.spark.ApplicationSkin");
 }
 
@@ -119,7 +131,7 @@ List
 
 MobileApplication
 {
-    backgroundColor: #484848;
+    backgroundColor: #484848;/*TODO (jasonsj) #FFFFFF*/
     skinClass: ClassReference("spark.skins.mobile.MobileApplicationSkin");
 }
 
@@ -206,7 +218,7 @@ Spinner
 
 TabbedMobileApplication
 {
-    backgroundColor: #464646;
+    backgroundColor: #464646;/*TODO (jasonsj) #FFFFFF*/
     skinClass: ClassReference("spark.skins.mobile.TabbedMobileApplicationSkin");
 }
 
@@ -308,10 +320,10 @@ global
     /* color: #000000; */
     backgroundAlpha : 1;
     backgroundImageFillMode : "scale";
-    chromeColor: #464646;
+    chromeColor: #464646;/*TODO (jasonsj) #CCCCCC*/
     borderVisible : true;
     borderWeight : 1;
-    contentBackgroundColor: #3F3F3F;
+    contentBackgroundColor: #3F3F3F;/*TODO (jasonsj) #FFFFFF*/
     rollOverColor: #CEDBEF;
     focusColor: #56A6FF;
     focusThickness: 3;
@@ -320,7 +332,7 @@ global
     fontLookup: "embeddedCFF";
     fontFamily: "_sans";
     fontSize: 24;
-    color: #FFFFFF;
+    color: #FFFFFF;/*TODO (jasonsj) #000000*/
     
     /* Behaviors */
     autoThumbVisibility: true;
