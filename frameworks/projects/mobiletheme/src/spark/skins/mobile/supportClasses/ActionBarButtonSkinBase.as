@@ -16,7 +16,7 @@ import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.geom.Matrix;
 
-import mx.core.DeviceDensity;
+import mx.core.DPIClassification;
 import mx.core.mx_internal;
 import mx.utils.ColorUtil;
 
@@ -64,9 +64,9 @@ public class ActionBarButtonSkinBase extends ButtonSkin
     {
         super();
         
-        switch (authorDensity)
+        switch (applicationDPI)
         {
-            case DeviceDensity.PPI_320:
+            case DPIClassification.DPI_320:
             {
                 layoutBorderSize = 1;
                 layoutPaddingTop = 12;
@@ -78,7 +78,7 @@ public class ActionBarButtonSkinBase extends ButtonSkin
                 
                 break;
             }
-            case DeviceDensity.PPI_240:
+            case DPIClassification.DPI_240:
             {
                 layoutBorderSize = 1;
                 layoutPaddingTop = 9;
