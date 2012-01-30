@@ -753,7 +753,7 @@ public class DateSpinner extends SkinnableComponent
             if (minuteStepSizeChanged)
             {
                 // verify minutes are a multiple of minuteStepSize
-                if (minuteList && ((selectedDate.minutes % minuteStepSize) != 0))
+                if ((selectedDate.minutes % minuteStepSize) != 0)
                 {
                     // adjust to the closest number evenly disible by minuteStepSize
                     selectedDate.minutes = Math.round(selectedDate.minutes / minuteStepSize) * minuteStepSize;
