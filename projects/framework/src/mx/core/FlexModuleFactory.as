@@ -21,8 +21,11 @@ import flash.events.TimerEvent;
 import flash.system.ApplicationDomain;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
+import flash.text.engine.TextBlock;
+import flash.text.engine.TextLine;
 import flash.utils.Timer;
 import flash.utils.getDefinitionByName;
+import flashx.textLayout.elements.ITextLineCreator;
 import mx.core.RSLItem;
 import mx.core.RSLListLoader;
 import mx.events.ModuleEvent;
@@ -34,7 +37,7 @@ import mx.resources.ResourceManager;
 /**
  *  @private
  */
-public class FlexModuleFactory extends MovieClip implements IFlexModuleFactory
+public class FlexModuleFactory extends MovieClip implements IFlexModuleFactory, ITextLineCreator
 {
 	include "../core/Version.as";
 
@@ -207,6 +210,22 @@ public class FlexModuleFactory extends MovieClip implements IFlexModuleFactory
 	//  Methods
 	//
 	//--------------------------------------------------------------------------
+
+  	/**
+	 *  Implementation of ITextLineCreator.createTextLine 
+   	 */
+    public function createTextLine(textBlock:TextBlock, previousLine:TextLine=null, width:Number=1000000, lineOffset:Number=0.0, fitSomething:Boolean=false):TextLine
+    {
+	    return textBlock.createTextLine(previousLine, width, lineOffset, fitSomething);
+    }
+
+  	/**
+	 *  Implementation of ITextLineCreator.recreateTextLine 
+   	 */
+    public function recreateTextLine(textBlock:TextBlock, textLine:TextLine, previousLine:TextLine=null, width:Number=1000000, lineOffset:Number=0.0, fitSomething:Boolean=false):TextLine
+    {
+	    return textBlock["recreateTextLine"] ? textBlock["recreateTextLine"](textLine, previousLine, width, lineOffset, fitSomething) : null;
+    }
 
   	/**
    	 *  @private
