@@ -581,8 +581,9 @@ public class ViewNavigatorBase extends SkinnableContainer
     {
         super.initialize();
         
+        // Add weak listener so stage doesn't hold a reference to the navigator
         systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
-            stage_orientationChangeHandler);
+            stage_orientationChangeHandler, false, 0, true);
     }
 }
 }
