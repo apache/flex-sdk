@@ -2469,10 +2469,10 @@ public class WindowedApplication extends Application implements IWindow
      *  @productversion Flex 4
      */
     protected function mouseDownHandler(event:MouseEvent):void
-    {
+    {   
         if (event.target == gripper)
         {
-            startResize(NativeWindowResize.BOTTOM_RIGHT);
+            startResize(layoutDirection == "rtl" ? NativeWindowResize.BOTTOM_LEFT : NativeWindowResize.BOTTOM_RIGHT);
             event.stopPropagation();
             return;
         }
