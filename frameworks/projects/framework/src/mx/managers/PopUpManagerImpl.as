@@ -408,6 +408,11 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             }
         }
         
+        // The layout direction may have changed since last time the
+        // popup was opened so need to reinit mirroring fields.
+        if (window is ILayoutDirectionElement)
+            ILayoutDirectionElement(window).invalidateLayoutDirection();
+
         if (modal)
         {
             // create a modal window shield which blocks input and sets up mouseDownOutside logic
