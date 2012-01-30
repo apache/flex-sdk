@@ -13,7 +13,7 @@ package mx.styles
 {
 
 /**
- * Simple interface that defines an <code>unload()</code> method.
+ * Simple interface to manipulate style modules.
  * You can cast an object to an IStyleModule type so that there is no dependency on the StyleModule
  * type in the loading application.
  *  
@@ -32,7 +32,7 @@ public interface IStyleModule
 
     /**
      *  Creates and sets style declarations from the styles modules into the given
-     *  style manager.
+     *  style manager. This should be called after the style modules is created.
      *  
      *  @param styleManager The style manager where the style declarations will be 
      *  loaded into. The style declarations will be created relative to the this 
