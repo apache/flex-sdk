@@ -720,7 +720,7 @@ public class StyleProtoChain
        
         // If font changed, then invalidateProperties so
         // we can re-create the text field in commitProperties
-        // FIXME (gosmith): Should hasFontContextChanged() be added to IFontContextComponent?
+        // TODO (gosmith): Should hasFontContextChanged() be added to IFontContextComponent?
         if (object is IFontContextComponent &&
             "hasFontContextChanged" in object &&
             object["hasFontContextChanged"]())
@@ -739,7 +739,7 @@ public class StyleProtoChain
             object.invalidateSize();
         }
 
-        // FIXME (gosmith): Should initThemeColor() be in some interface?
+        // TODO (gosmith): Should initThemeColor() be in some interface?
         if (!styleProp || 
             styleProp == "styleName" ||
             styleProp == "themeColor")
