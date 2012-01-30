@@ -807,6 +807,7 @@ public class ViewTransitionBase extends EventDispatcher
             return null;
         
         transitionGroup = new Group();
+        transitionGroup.autoLayout = false;
         transitionGroup.includeInLayout = false;
         addComponentToContainer(transitionGroup, actionBarSkin);
         transitionGroup.width = actionBar.width;
