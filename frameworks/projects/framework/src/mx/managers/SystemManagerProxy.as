@@ -163,25 +163,6 @@ public class SystemManagerProxy extends SystemManager
 		}
 	}
 
-    /**
-     *  @inheritDoc
-     */
-	override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, 
-											priority:int=0, useWeakReference:Boolean=false):void
-	{
-		super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-		_systemManager.addEventListener(type, listener, useCapture, priority, useWeakReference);
-	}
-	
-    /**
-     *  @inheritDoc
-     */
-	override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void 
-	{
-		super.removeEventListener(type, listener, useCapture);
-		_systemManager.removeEventListener(type, listener, useCapture);		
-	}
-	
 	/**
 	 *  @inheritDoc
 	 */
