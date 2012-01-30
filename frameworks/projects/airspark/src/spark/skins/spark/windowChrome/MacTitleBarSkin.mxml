@@ -116,7 +116,7 @@
 
         <!-- close button -->
         <!--- 
-            By default, the button uses the spark.skins.spark.windowChrome.MacMinimizeButtonSkin class
+            By default, the button uses the spark.skins.spark.windowChrome.MacCloseButtonSkin class
             to define the skin for the close button.
         
             @copy spark.components.windowClasses.TitleBar#closeButton
@@ -142,7 +142,7 @@
         
         <!-- maximize button -->
         <!--- 
-            By default, the button uses the spark.skins.spark.windowChrome.MacMinimizeButtonSkin class
+            By default, the button uses the spark.skins.spark.windowChrome.MacMaximizeButtonSkin class
             to define the skin for the maximized button.
             
             @copy spark.components.windowClasses.TitleBar#maximizeButton
