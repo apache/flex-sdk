@@ -11313,7 +11313,7 @@ public class UIComponent extends FlexSprite
     /**
      *  @private
      */
-    private var advanceStyleClientChildren:Vector.<IAdvancedStyleClient> = null;
+    protected var advanceStyleClientChildren:Vector.<IAdvancedStyleClient> = null;
 
     /**
      *  Adds a non-visual style client to this component instance. Once 
