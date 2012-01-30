@@ -40,16 +40,16 @@ public class ActionBarSkin extends SliderSkin
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
         hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
-		hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10;
+        hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10;
         navigationGroup.layout = hLayout;
         addChild(navigationGroup);
         
         titleGroup = new Group();
         hLayout = new HorizontalLayout();
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
-		hLayout.verticalAlign = VerticalAlign.MIDDLE;
+        hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
-		hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10;
+        hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10;
         titleGroup.layout = hLayout;
         titleGroup.clipAndEnableScrolling = true;
         addChild(titleGroup);
@@ -57,9 +57,9 @@ public class ActionBarSkin extends SliderSkin
         actionGroup = new Group();
         hLayout = new HorizontalLayout();
         hLayout.horizontalAlign = HorizontalAlign.RIGHT;
-		hLayout.verticalAlign = VerticalAlign.MIDDLE;
+        hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
-		hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10;
+        hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10;
         actionGroup.layout = hLayout;
         addChild(actionGroup);
         
@@ -67,7 +67,7 @@ public class ActionBarSkin extends SliderSkin
         titleDisplay.setStyle("fontSize", "18");
         titleDisplay.setStyle("verticalAlign", "middle");
         titleDisplay.setStyle("color", "0xFFFFFF");
-		titleDisplay.setStyle("fontWeight", "bold");
+        titleDisplay.setStyle("fontWeight", "bold");
     }
     
     override protected function measure():void
@@ -86,8 +86,9 @@ public class ActionBarSkin extends SliderSkin
         var right:Number = unscaledWidth;
         
         // Position groups
-		// FIXME (chiedozi): Prevent measurements from being negative.  Figure out
-		// minimums for each group.
+        // FIXME (chiedozi): Prevent measurements from being negative.  Figure out
+        // minimums for each group.
+        // FIXME (jasonsj): Why are we checking includeInLayout
         if (navigationGroup.numElements > 0 && navigationGroup.includeInLayout)
         {
             left += navigationGroup.measuredWidth;
@@ -101,10 +102,10 @@ public class ActionBarSkin extends SliderSkin
             actionGroup.setLayoutBoundsSize(unscaledWidth - right, unscaledHeight);
         }
         
-		var titleGroupWidth:Number = right - left;
-		if (titleGroupWidth < 0)
-			titleGroupWidth = 0;
-		
+        var titleGroupWidth:Number = right - left;
+        if (titleGroupWidth < 0)
+        	titleGroupWidth = 0;
+        
         titleGroup.setLayoutBoundsPosition(left, 0);
         titleGroup.setLayoutBoundsSize(titleGroupWidth, unscaledHeight);
         
