@@ -10,14 +10,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 package mx.geom
 {
+	import __AS3__.vec.Vector;
+	
+	import flash.events.Event;
 	import flash.geom.Matrix;
 	import flash.geom.Matrix3D;
-	import __AS3__.vec.Vector;
-	import flash.geom.Vector3D;
-	import flash.events.Event;
-	import mx.geom.ITransformable;
-	import mx.core.AdvancedLayoutFeatures;
 	import flash.geom.Point;
+	import flash.geom.Vector3D;
+	
+	import mx.core.AdvancedLayoutFeatures;
 	
 	/**
 	 *  A CompoundTransform represents a 2D or 3D matrix transform.  A compound transform represents a matrix that can be queried or set either as a 2D matrix,
@@ -92,7 +93,6 @@ package mx.geom
      * constants to indicate which form of a transform -- the properties, matrix, or matrix3D -- is
      *  'the source of truth.'   
      */
-	public static const SOURCE_NONE:uint				= 0;
 	public static const SOURCE_PROPERTIES:uint			= 1;
 	public static const SOURCE_MATRIX:uint 			= 2;
 	public static const SOURCE_MATRIX3D:uint 			= 3;
@@ -101,7 +101,7 @@ package mx.geom
      * @private
      * indicates the 'source of truth' for the transform.  
      */
-	public var sourceOfTruth:uint = SOURCE_NONE;
+	public var sourceOfTruth:uint = SOURCE_PROPERTIES;
 	
     /**
      * @private
@@ -505,8 +505,13 @@ package mx.geom
 					matrixIs3D = false;
 					break;
 				case SOURCE_MATRIX3D:
-					matrixIs3D = true;
-					break;					
+					var rawData:Vector.<Number> = _matrix3D.rawData;					
+					matrixIs3D = (rawData[2] != 0 ||		// rotation y 
+									rawData[6] != 0 || 		// rotation x
+									rawData[8] !=0 || 		// rotation y
+									rawData[10] != 1 || 	// scalez / rotation x / rotation y
+									rawData[14] != 0);		// translation z
+					break;								
 			}
 
 			if(matrixIs3D)
