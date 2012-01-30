@@ -1060,15 +1060,11 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
         systemManager.removeEventListener(Event.ENTER_FRAME, doPhasedInstantiationCallback);
         systemManager.removeEventListener(Event.RENDER, doPhasedInstantiationCallback);
 
-        // At run-time, callLaterDispatcher2() is called
-        // without a surrounding try-catch.
         if (!UIComponentGlobals.catchCallLaterExceptions)
         {
             doPhasedInstantiation();
         }
 
-        // At design-time, callLaterDispatcher2() is called
-        // with a surrounding try-catch.
         else
         {
             try
@@ -1077,8 +1073,10 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
             }
             catch(e:Error)
             {
+                // Dispatch a callLaterError dynamic event for Design View. 
                 var callLaterErrorEvent:DynamicEvent = new DynamicEvent("callLaterError");
                 callLaterErrorEvent.error = e;
+                callLaterErrorEvent.source = this; 
                 systemManager.dispatchEvent(callLaterErrorEvent);
             }
         }
