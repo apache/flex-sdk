@@ -18,6 +18,11 @@ import mx.core.ISWFBridgeProvider;
 
 /**
  *  Utilities for working with security-related issues.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SecurityUtil
 {
@@ -35,6 +40,11 @@ public class SecurityUtil
 	 *  @param bp The provider of the bridge that connects the two applications.
 	 * 
 	 *  @return <code>true</code> if there is mutual trust; otherwise <code>false</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */ 
 	public static function hasMutualTrustBetweenParentAndChild(bp:ISWFBridgeProvider):Boolean
 	{
