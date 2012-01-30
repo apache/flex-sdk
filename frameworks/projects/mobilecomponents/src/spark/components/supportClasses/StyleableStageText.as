@@ -40,6 +40,7 @@ import flashx.textLayout.formats.LineBreak;
 
 import mx.core.DPIClassification;
 import mx.core.FlexGlobals;
+import mx.core.IRawChildrenContainer;
 import mx.core.IUIComponent;
 import mx.core.LayoutDirection;
 import mx.core.UIComponent;
@@ -1302,18 +1303,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */ 
     override public function setFocus():void
     {
-        if (effectiveEnabled)
-        {
-            if (stageText != null)
-            {
-                // If alwaysShowProxyImage is set, don't dispose the image.
-                // We shouldn't get here in this case; this is just a backstop.
-                if (!alwaysShowProxyImage)
-                    disposeProxyImage();
-                
-                stageText.assignFocus();
-            }
-        }
+        // Do not set focus if the StageText is invisible (it has been replaced
+        // by a proxy image). This component may be in a form that is lower in
+        // z-order than the topmost form and we cannot allow the StageText,
+        // which cannot clip, to appear above the topmost form.
+        if (effectiveEnabled && stageText != null && stageText.visible)
+            stageText.assignFocus();
     }
     
     /**
@@ -1392,8 +1387,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             
             // If this is a new StageText created while a popup is already open,
             // a proxy image needs to be created for it.
-            if (awm)
-                updateProxyImageForForm(awm.form);            
+            updateProxyImageForTopmostForm();
         }
         
         updateProxyImage();
@@ -1732,6 +1726,54 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     }
     
     /**
+     *  Iterate through the forms tracked by ActiveWindowManager and return the
+     *  one that is highest in z-order.
+     */
+    private function findTopmostForm():Object
+    {
+        if (!awm)
+            return null;
+        
+        var form:Object = awm.form;
+        var formIndex:int = getFormIndex(form);
+        
+        for each (var otherForm:Object in awm.forms)
+        {
+            var otherIndex:int = getFormIndex(otherForm);
+            
+            if (otherIndex > formIndex)
+            {
+                form = otherForm;
+                formIndex = otherIndex;
+            }
+        }
+        
+        return form;
+    }
+    
+    /**
+     *  Determine an index for the given form that may be used to determine the
+     *  relative z-orders of forms.
+     */
+    private function getFormIndex(form:Object):int
+    {
+        return form is DisplayObject ?
+            systemManager.rawChildren.getChildIndex(form as DisplayObject) :
+            -1;
+    }
+    
+    /**
+     *  Determine whether the given form is an application. This is the same
+     *  check as is used by ActiveWindowManager.
+     */
+    private function isFormApplication(form:DisplayObject):Boolean
+    {
+        return systemManager.document is IRawChildrenContainer ? 
+            IRawChildrenContainer(systemManager.document).rawChildren.contains(form) :
+            systemManager.document.contains(form);
+    }
+    
+    /**
      *  Replace the existing proxy image representing this StageText with a new
      *  one. Call this whenever the StageText's properties, contents, or
      *  geometry changes. This does nothing if there is no proxy image, so it is
@@ -1770,6 +1812,11 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         }
     }
     
+    /**
+     *  If this component is part of the form that is active, remove the proxy
+     *  bitmap (if present) and show the StageText. Otherwise, create or update
+     *  the proxy bitmap and hide the StageText.
+     */
     private function updateProxyImageForForm(form:Object):void
     {
         if (form && form.hasOwnProperty("focusManager"))
@@ -1780,6 +1827,24 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             else if (!alwaysShowProxyImage)
                 disposeProxyImage();
         }
+    }
+    
+    /**
+     *  Find the topmost form in z-order and show the StageText if this is a
+     *  child of that form. Otherwise, create or update the proxy bitmap and
+     *  hide the StageText.
+     */
+    private function updateProxyImageForTopmostForm():void
+    {
+        if (!awm)
+            return;
+            
+        var form:Object = awm.form;
+        
+        if (!(form is DisplayObject) || isFormApplication(form as DisplayObject))
+            form = findTopmostForm();
+        
+        updateProxyImageForForm(form);
     }
     
     /**
@@ -2078,17 +2143,17 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function awm_activatedFormHandler(event:DynamicEvent):void
     {
-        var form:Object = event.hasOwnProperty("form") ? event.form : null;
-        // Both the activatedForm and deactivatedForm events pass the form that
-        // is becoming active as the "form" property.
-        updateProxyImageForForm(form);
+        updateProxyImageForTopmostForm();
     }
     
     private function awm_deactivatedFormHandler(event:DynamicEvent):void
     {
+        // When the ActiveWindowManager dispatches the deactivatedForm event,
+        // its internal list of forms has not been updated yet. So, determining
+        // the topmost form from that list will fail and find the old topmost
+        // form (the one that is going away). Always assume that the form passed
+        // as the event property will be the new topmost form.
         var form:Object = event.hasOwnProperty("form") ? event.form : null;
-        // Both the activatedForm and deactivatedForm events pass the form that
-        // is becoming active as the "form" property.
         updateProxyImageForForm(form);
     }
     
@@ -2197,7 +2262,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 // The effect may have played while a popup is open. If so, we
                 // need to make sure the proxy image stays.
                 if (awm)
-                    updateProxyImageForForm(awm.form);
+                    updateProxyImageForTopmostForm();
                 else
                     disposeProxyImage();
             }
