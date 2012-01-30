@@ -45,7 +45,7 @@ public interface IFlexModuleFactory
      *  Information about preloadedRSLs is stored in a Dictionary. The key is
      *  the RSL's LoaderInfo. The value is the url the RSL was loaded from.
      */   
-    function  get preloadedRSLs():Dictionary;
+    function get preloadedRSLs():Dictionary;
     
     //--------------------------------------------------------------------------
     //
@@ -109,6 +109,18 @@ public interface IFlexModuleFactory
     function create(... parameters):Object;
 
     /**
+     *  Get the implementation for an interface.
+     *  Similar to Singleton.getInstance, but per-
+     *  IFlexModuleFactory.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    function getImplementation(interfaceName:String):Object;
+    
+    /**
      *  Returns a block of key/value pairs
      *  that hold static data known to the module.
      *  This method always succeeds, but can return an empty object.
@@ -134,6 +146,20 @@ public interface IFlexModuleFactory
      *  @productversion Flex 3
      */
     function info():Object;
+    
+    /**
+     *  Register an implementation for an interface.
+     *  Similar to Singleton.registerClass, but per-
+     *  IFlexModuleFactory, and takes an instance not a class.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    function registerImplementation(interfaceName:String,
+                                    impl:Object):void;
+    
 }
 
 }
