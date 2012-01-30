@@ -62,6 +62,18 @@ public interface IEmbeddedFontRegistry
 							moduleFactory:IFlexModuleFactory):void;
 
     /**
+     *  Returns true if the embedded font with the given characteristics is
+     *  in the <code>moduleFactory</code>, otherwise returns false.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function isFontRegistered(font:EmbeddedFont,
+                              moduleFactory:IFlexModuleFactory):Boolean;
+
+    /**
      *  Finds the <code>moduleFactory</code> associated with a font.
      *
      *  <p>The <code>moduleFactory</code> is used to resolve the case
