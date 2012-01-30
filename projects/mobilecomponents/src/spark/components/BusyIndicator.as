@@ -439,7 +439,7 @@ public class BusyIndicator extends UIComponent
        
         spinnerDiameter = diameter;
     
-        drawSpinnerChildren();
+        drawSpinner();
         
         if (isRotating)
             startRotation();
@@ -448,9 +448,9 @@ public class BusyIndicator extends UIComponent
     /**
      *  @private
      * 
-     *  Draw the twelve spokes of the children.
+     *  Draw the spinner using the graphics property of this component.
      */ 
-    mx_internal function drawSpinnerChildren():void 
+    mx_internal function drawSpinner():void 
     {
         
         var spokeColor:uint = getStyle("symbolColor");
