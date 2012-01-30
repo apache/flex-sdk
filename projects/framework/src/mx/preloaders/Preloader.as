@@ -398,7 +398,8 @@ public class Preloader extends Sprite
 		rslEvent.isResourceModule = (rslListLoader == resourceModuleListLoader);
 		rslEvent.bytesLoaded = item.total;
 		rslEvent.bytesTotal = item.total;
-		rslEvent.rslIndex = index;
+        rslEvent.loaderInfo = LoaderInfo(event.target);
+        rslEvent.rslIndex = index;
 		rslEvent.rslTotal = rslListLoader.getItemCount();
 		rslEvent.url = item.urlRequest;
 		dispatchEvent(rslEvent);
