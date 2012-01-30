@@ -145,7 +145,7 @@ package mx.automation.codec
 							"(" + ao[i].automationName + ")\n";
 					}
 					
-					trace(message);
+					Automation.automationDebugTracer.traceMessage("AutomationObjectPropertyCodec","decode",message);
 				}
 			}
 			
