@@ -9,11 +9,14 @@
 
 -->
 <!--- The default skin class for the title bar of the Spark WindowedApplication component
-      and Spark Window component for an Apple Macintosh when you use Flex chrome.  
-      The Flex chrome is defined by the FlexChromeSkin skin class 
+      and Spark Window component for an Apple Macintosh when you use Flex chrome. 
+      The title bar skin includes the close, minimize, and maximize buttons, the 
+      title icon, and the title text.
+      
+      <p>The Flex chrome is defined by the FlexChromeSkin skin class 
       in the spark.skins.default package. 
       To use the Flex chrome, set <code>systemChrome</code> to "none" in the application's .xml file,
-      and set the <code>skinClass</code> style to spark.skins.default.FlexChromeSkin. 
+      and set the <code>skinClass</code> style to spark.skins.default.FlexChromeSkin. </p>
 
       @see spark.components.WindowedApplication
       @see spark.components.Window
@@ -53,6 +56,7 @@
     <!--- Defines the background color of the skin. -->
     <s:Rect id="background" left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2" >
         <s:fill>
+            <!--- @private -->
             <s:LinearGradient id="bgFill" rotation="90">
                 <s:GradientEntry color="0xFFFFFF" />
                 <s:GradientEntry color="0xBABABA" />
