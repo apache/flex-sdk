@@ -17,6 +17,11 @@ package mx.controls
  *  of the ProgressBar class.
  *
  *  @see mx.controls.ProgressBar
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class ProgressBarMode
 {
@@ -32,6 +37,11 @@ public final class ProgressBarMode
 	 *  The control specified by the <code>source</code> property must
 	 *  dispatch <code>progress</code> and <code>completed</code> events. 
 	 *  The ProgressBar uses these events to update its status.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const EVENT:String = "event";
 
@@ -41,6 +51,11 @@ public final class ProgressBarMode
 	 *  properties and use the <code>setProgress()</code> method
 	 *  to specify the status. This mode is often used when the
 	 *  <code>indeterminate</code> property is <code>true</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const MANUAL:String = "manual";
 
@@ -49,6 +64,11 @@ public final class ProgressBarMode
 	 *  exposes the <code>getBytesLoaded()</code> and
 	 *  <code>getBytesTotal()</code> methods.  The ProgressBar control
 	 *  calls these methods to update its status.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const POLLED:String = "polled";
 }
