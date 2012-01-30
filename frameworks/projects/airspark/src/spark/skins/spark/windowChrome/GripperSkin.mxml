@@ -43,7 +43,7 @@
         </s:fill>
     </s:Rect>
     
-    <s:BitmapImage source="@Embed('../../../../../assets/gripper_up.png')" right="0" bottom="0" verticalCenter="0" resizeMode="noScale"/>
+    <s:BitmapImage source="@Embed('../../../../../assets/gripper_up.png')" right="0" bottom="0" verticalCenter="0" fillMode="clip"/>
     
 </s:Skin>
     
