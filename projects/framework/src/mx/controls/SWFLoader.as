@@ -1109,6 +1109,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  If <code>false</code>, the content isn't smoothed. 
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get smoothBitmapContent():Boolean
     {
@@ -2705,6 +2710,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     }
     
     /**
+     *  @private
      *  The default handler for the <code>MouseEvent.CLICK</code> event.
      *
      *  @param The event object.
