@@ -8945,8 +8945,11 @@ public class UIComponent extends FlexSprite
 
         if (UIComponentGlobals.nextFocusObject)
             return UIComponentGlobals.nextFocusObject;
-
-        return sm.stage.focus;
+        
+        if (sm.stage)
+            return sm.stage.focus;
+        
+        return null;
     }
 
     /**
