@@ -1,6 +1,15 @@
 package mx.graphics
 {
+import flash.display.CapsStyle; 
+import flash.display.Graphics;
+import flash.display.GraphicsGradientFill; 
+import flash.display.GraphicsStroke;
+import flash.display.JointStyle;  
+import flash.geom.Rectangle;
+    
 import mx.core.mx_internal;
+
+use namespace mx_internal; 
 
 /**
  *  The GradientStroke class lets you specify a gradient filled stroke.
@@ -16,7 +25,7 @@ import mx.core.mx_internal;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class GradientStroke extends GradientBase
+public class GradientStroke extends GradientBase implements IStroke 
 {
     /**
      *  Constructor.
@@ -408,6 +417,74 @@ public class GradientStroke extends GradientBase
             mx_internal::dispatchGradientChangedEvent(
                                 "weight", oldValue, value);
         }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Applies the properties to the specified Graphics object.
+     *  
+     *  @param g The Graphics object to which the LinearGradientStroke styles
+     *  are applied.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function apply(g:Graphics):void
+    {
+        // Sub-classes must implement 
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function draw(g:Graphics, rc:Rectangle):void
+    {
+       // Sub-classes must implement                     
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function generateGraphicsStroke(rc:Rectangle):GraphicsStroke
+    {
+        // Construct a new GraphicsStroke object and set all of 
+        // its properties to match the gradient stroke's 
+        // properties
+        var graphicsStroke:GraphicsStroke = new GraphicsStroke(); 
+        graphicsStroke.thickness = weight; 
+        graphicsStroke.miterLimit = miterLimit; 
+        graphicsStroke.pixelHinting = pixelHinting;
+        graphicsStroke.scaleMode = scaleMode;   
+        
+        // Remove this check when SDK-18373 is fixed 
+        graphicsStroke.joints = (!joints) ? JointStyle.ROUND : joints;
+            
+        // There is a bug in Drawing API-2 where if no caps is 
+        // specified, a value of 'none' is used instead of 'round'
+        graphicsStroke.caps = (!caps) ? CapsStyle.ROUND : caps; 
+        
+        // Create the GraphicsGradientFill matching the 
+        // gradient stroke's properties and set that as the 
+        // fill for the GraphicsStroke object  
+        var graphicsGradientFill:GraphicsGradientFill = 
+            new GraphicsGradientFill();
+        
+        graphicsGradientFill.colors = colors;  
+        graphicsGradientFill.alphas = alphas;
+        graphicsGradientFill.ratios = ratios;
+        graphicsGradientFill.spreadMethod = spreadMethod;
+        graphicsGradientFill.interpolationMethod = interpolationMethod;  
+        
+        graphicsStroke.fill = graphicsGradientFill;
+        
+        return graphicsStroke; 
     }
     
 }
