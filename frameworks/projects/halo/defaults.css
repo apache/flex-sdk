@@ -481,8 +481,9 @@ ComboBox
 	dropdownStyleName: "comboDropdown";
 /*	editableDisabledSkin: null
 	editableDownSkin: null
-	editableOverSkin: null
-	editableUpSkin: null */
+	editableOverSkin: null */
+	editableSkin: ClassReference(null);
+/*	editableUpSkin: null */
 	fontWeight: "bold";
 	leading: 0;
 /*	overSkin: null */
