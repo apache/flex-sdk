@@ -17,6 +17,7 @@ import mx.core.mx_internal;
 import mx.effects.Effect;
 import mx.effects.EffectInstance;
 import mx.effects.IEffectInstance;
+import mx.effects.Sequence;
 import mx.effects.Tween;
 
 use namespace mx_internal;
@@ -142,7 +143,11 @@ public class SequenceInstance extends CompositeEffectInstance
      */
     override public function set playheadTime(value:Number):void
     {
-        /**
+        var prevPlayheadTime:Number = playheadTime;
+        // Seek in the SequenceInstance itself, which advances the
+        // Tween timer running on the effect
+        super.playheadTime = value;
+        /*
         * Behavior of this command depends on what state we're in:
         * - if we're in a startDelay, then cut down the playheadTime by
         * the amount of time we have left to sleep
@@ -163,15 +168,35 @@ public class SequenceInstance extends CompositeEffectInstance
         *   the beginning (playing effects with no duration or skipping,
         *   then playing and setting the appropriate playheadTime for 
         *   the correct child effect)
-        *  
-        *  @langversion 3.0
-        *  @playerversion Flash 9
-        *  @playerversion AIR 1.1
-        *  @productversion Flex 3
         */
-        // FIXME (chaase): handle startDelay     
+        var compositeDur:Number = Sequence(effect).compositeDuration;
+        var firstCycleDur:Number = compositeDur + startDelay + repeatDelay;
+        var laterCycleDur:Number = compositeDur + repeatDelay;
+        // totalDur is only sensible/used when repeatCount != 0
+        var totalDur:Number = firstCycleDur + laterCycleDur * (repeatCount - 1);
+        var childPlayheadTime:Number;
+        if (value <= firstCycleDur)
+        {
+            childPlayheadTime = Math.min(value - startDelay, compositeDur);
+            playCount = 1;
+        }
+        else
+        {
+            if (value >= totalDur && repeatCount != 0)
+            {
+                childPlayheadTime = compositeDur;
+                playCount = repeatCount;
+            }
+            else
+            {
+                var valueAfterFirstCycle:Number = value - firstCycleDur;
+                childPlayheadTime = valueAfterFirstCycle % laterCycleDur;
+                childPlayheadTime = Math.min(childPlayheadTime, compositeDur);
+                playCount = 1 + valueAfterFirstCycle / laterCycleDur;
+            }
+        }
         
-        if (value < playheadTime)
+        if (childPlayheadTime < prevPlayheadTime)
         {
             // FIXME (chaase): Handle seeking back in time
             // idea: Maybe once we get playing a sequence in reverse
@@ -189,7 +214,9 @@ public class SequenceInstance extends CompositeEffectInstance
             {
                 // If we end up skipping past all child effects, then 
                 // finish this Sequence effect when we're done
-                var finishWhenDone:Boolean = true;
+                var finishWhenDone:Boolean = repeatCount == 0 ? 
+                    false :
+                    value >= totalDur;
                 var cumulativeDuration:Number = 0;
                 for (var i:int = 0; i < activeEffectQueue.length; ++i)
                 {
@@ -197,7 +224,7 @@ public class SequenceInstance extends CompositeEffectInstance
                     var startTime:Number = cumulativeDuration;
                     var endTime:Number = cumulativeDuration + 
                         instances[0].actualDuration;
-                    if (value < endTime)
+                    if (childPlayheadTime < endTime)
                     {
                         finishWhenDone = false;
                         // These are the effects that should be active
@@ -208,7 +235,7 @@ public class SequenceInstance extends CompositeEffectInstance
                             playCurrentChildSet();
                         }
                         for (var k:int = 0; k < instances.length; k++)
-                            instances[k].playheadTime = (value - startTime);
+                            instances[k].playheadTime = (childPlayheadTime - startTime);
                         break;
                         // otherwise, skip to the next instance
                     }
@@ -255,9 +282,6 @@ public class SequenceInstance extends CompositeEffectInstance
                     
             }
         }
-        // Seek in the SequenceInstance itself, which advances the
-        // Tween timer running on the effect
-        super.playheadTime = value;
     }
 
     
@@ -337,11 +361,14 @@ public class SequenceInstance extends CompositeEffectInstance
             activeEffectQueue = null;
             
             // Call stop on the currently playing set
-            var currentInstances:Array = queueCopy[currentSetIndex];
-            var currentCount:int = currentInstances.length;
-            
-            for (var i:int = 0; i < currentCount; i++)
-                currentInstances[i].stop();
+            if (currentInstances)
+            {
+                var currentInstances:Array = queueCopy[currentSetIndex];
+                var currentCount:int = currentInstances.length;
+                
+                for (var i:int = 0; i < currentCount; i++)
+                    currentInstances[i].stop();
+            }
 
             // For instances that have yet to run, we will delete them
             // without dispatching events.
@@ -478,10 +505,6 @@ public class SequenceInstance extends CompositeEffectInstance
         if (Object(childEffect).suspendBackgroundProcessing)
             UIComponent.resumeBackgroundProcessing();
         
-        // See endEffect, above.
-        if (endEffectCalled)
-            return; 
-        
         for (var i:int = 0; i < currentSet.length; i++)
         {
             if (childEffect == currentSet[i])
@@ -490,6 +513,10 @@ public class SequenceInstance extends CompositeEffectInstance
                 break;
             }
         }   
+        
+        // See endEffect, above.
+        if (endEffectCalled)
+            return; 
         
         if (currentSet.length == 0)
         {
