@@ -262,7 +262,7 @@ public class ConstraintColumn extends EventDispatcher implements IMXMLObject
     		{
     			_width = value;
                 if (!isNaN(_width))
-                    mx_internal::contentSize = false;
+                    contentSize = false;
     			if (container)
     			{
     				container.invalidateSize();
@@ -361,7 +361,7 @@ public class ConstraintColumn extends EventDispatcher implements IMXMLObject
 
         _percentWidth = value;
         if (!isNaN(_percentWidth))
-            mx_internal::contentSize = false;
+            contentSize = false;
         
         if (container)
         {
@@ -424,7 +424,7 @@ public class ConstraintColumn extends EventDispatcher implements IMXMLObject
     {
 		this.id = id;
 		if (!this.width && !this.percentWidth)
-			mx_internal::contentSize = true;
+			contentSize = true;
     }
     
 	/**
