@@ -185,8 +185,20 @@ public class ZipCodeValidator extends Validator
             }
         }
         
+        // Find out if the ZIP code contains any letters.
+        var containsLetters:Boolean = false;
+        for (i = 0; i < len; i++)
+        {
+            if (ROMAN_LETTERS.indexOf(zip.charAt(i)) != -1)
+            {
+                containsLetters = true;
+                break;
+            }
+        }
+        
         // do an initial check on the length
-        if ((len < 5 || len > 10) || (len == 8))
+        if ((len < 5 || len > 10) || (len == 8) || 
+            (!containsLetters && (len == 6 || len == 7)))
         {
             // it's the wrong length for either a US or Canadian zip
             results.push(new ValidationResult(
@@ -200,7 +212,7 @@ public class ZipCodeValidator extends Validator
         {
             case DOMAIN_US:
             {
-                if (validator.validateUSCode(zip) == false)
+                if (validator.validateUSCode(zip, containsLetters) == false)
                 {
                     results.push(new ValidationResult(
                             true, baseField, "wrongUSFormat",
@@ -212,7 +224,7 @@ public class ZipCodeValidator extends Validator
             
             case DOMAIN_CANADA:
             {
-                if (validator.validateCACode(zip) == false)
+                if (validator.validateCACode(zip, containsLetters) == false)
                 {
                     results.push(new ValidationResult(
                         true, baseField, "wrongCAFormat",
@@ -225,31 +237,33 @@ public class ZipCodeValidator extends Validator
             case DOMAIN_US_OR_CANADA:
             {
                 
-                var usValid:Boolean = true;
-                var caValid:Boolean = true;
-                
+                var valid:Boolean = true;
                 var validationResult:ValidationResult;
                 
-                if (validator.validateUSCode(zip) == false)
+                if (len == 5 || len == 9 || len == 10) // US
                 {
-                     validationResult = new ValidationResult(
+                    if (validator.validateUSCode(zip, containsLetters) == false)
+                    {
+                        validationResult = new ValidationResult(
                             true, baseField, "wrongUSFormat",
                             validator.wrongUSFormatError);
                             
-                    usValid = false;
+                        valid = false;
+                    }
                 }
-                
-                if (validator.validateCACode(zip) == false)
+                else // CA
                 {
-                    validationResult = new ValidationResult(
-                        true, baseField, "wrongCAFormat",
-                        validator.wrongCAFormatError);
+                    if (validator.validateCACode(zip, containsLetters) == false)
+                    {
+                        validationResult = new ValidationResult(
+                            true, baseField, "wrongCAFormat",
+                            validator.wrongCAFormatError);
                     
-                    caValid = false;
+                        valid = false;
+                    }
                 }
                 
-                // if these are both false, then we definitely have the wrong format
-                if (usValid == false && caValid == false)
+                if (!valid)
                 {         
                     results.push(validationResult);
                     return results;
@@ -264,22 +278,11 @@ public class ZipCodeValidator extends Validator
     /**
      *  @private
      */
-    private function validateUSCode (zip:String):Boolean
+    private function validateUSCode (zip:String, containsLetters:Boolean):Boolean
     {
         var len:int = zip.length;
-        
-        // Find out if the ZIP code contains any letters.
-        var containsLetters:Boolean = false;
-        for (i = 0; i < len; i++)
-        {
-            if (ROMAN_LETTERS.indexOf(zip.charAt(i)) != -1)
-            {
-                containsLetters = true;
-                break;
-            }
-        }
-        
-        if (!(len == 5 || len == 9 || len == 10) || containsLetters) // checking the length
+                
+        if (containsLetters) 
         {
             return false;
         }
@@ -323,23 +326,12 @@ public class ZipCodeValidator extends Validator
     /**
      *  @private
      */
-    private function validateCACode (zip:String):Boolean
+    private function validateCACode (zip:String, containsLetters:Boolean):Boolean
     {
         var len:int = zip.length;
         
-        // Find out if the ZIP code contains any letters.
-        var containsLetters:Boolean = false;
-        for (i = 0; i < len; i++)
-        {
-            if (ROMAN_LETTERS.indexOf(zip.charAt(i)) != -1)
-            {
-                containsLetters = true;
-                break;
-            }
-        }
-        
         // check the basics
-        if (!(containsLetters && (len == 6 || len == 7)))
+        if (!containsLetters)
         {
             return false;
         }
@@ -752,3 +744,4 @@ public class ZipCodeValidator extends Validator
 }
 
 }
+
