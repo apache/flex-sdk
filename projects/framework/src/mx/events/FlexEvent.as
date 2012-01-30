@@ -237,9 +237,6 @@ public class FlexEvent extends Event
     /**
      *  The <code>FlexEvent.CREATION_COMPLETE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>creationComplete</code> event.
-     * 
-     * <p>This event will only be dispatched when there are one or more relevant listeners 
-     * attached to the dispatching object.</p>
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -668,9 +665,6 @@ public class FlexEvent extends Event
     /**
      *  The <code>FlexEvent.INITIALIZE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>initialize</code> event.
-     *
-     * <p>This event will only be dispatched when there are one or more relevant listeners 
-     * attached to the dispatching object.</p>
      * 
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -789,9 +783,6 @@ public class FlexEvent extends Event
     /**
      *  The <code>FlexEvent.PREINITIALIZE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>preinitialize</code> event.
-     *
-     * <p>This event will only be dispatched when there are one or more relevant listeners 
-     * attached to the dispatching object.</p>
      * 
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
