@@ -60,11 +60,7 @@ include "../styles/metadata/PaddingStyles.as"
 include "../styles/metadata/StyleableTextFieldTextStyles.as"
 
 /**
- *  The colors to use for the background of the items in the list. 
- *  The value is an Array of one or more colors. 
- *  The backgrounds of the list items alternate among the colors in the Array. 
- * 
- *  @default undefined
+ *  @copy spark.components.supportClasses.GroupBase#style:alternatingItemColors
  * 
  *  @langversion 3.0
  *  @playerversion AIR 2.5
@@ -73,7 +69,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
- *  The main color for a component. 
+ *  @copy spark.components.supportClasses.GroupBase#style:chromeColor
  *   
  *  @default 0xCCCCCC
  *  
@@ -84,15 +80,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [Style(name="chromeColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
- *  The color of the background of an item renderer when the item is being pressed down.
- * 
- *  <p>If <code>downColor</code> is set to <code>undefined</code>, 
- *  <code>downColor</code> is not used.</p>
- * 
- *  <p>The default value in the 
- *  Spark theme is <code>undefined</code>.  
- *  The default value in the 
- *  Mobile theme is <code>0xB2B2B2</code>.</p>
+ *  @copy spark.components.supportClasses.GroupBase#style:downColor
  *   
  *  @langversion 3.0
  *  @playerversion AIR 2.5
@@ -101,9 +89,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [Style(name="downColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
- *  Color of focus ring when the component is in focus.
- *   
- *  @default 0x70B2EE
+ *  @copy spark.components.supportClasses.GroupBase#style:focusColor
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
@@ -136,9 +122,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
 /**
- *  The color of the background of an item renderer when the user rolls over it.
- *   
- *  @default 0xCEDBEF
+ *  @copy spark.components.supportClasses.GroupBase#style:rollOverColor
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
@@ -147,9 +131,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  The color of the background of an item renderer when the user selects it.
- *   
- *  @default 0xB2B2B2
+ *  @copy spark.components.List#style:selectionColor
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
@@ -158,11 +140,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  Color of any symbol of a component. 
- *  Examples include the check mark of a CheckBox or
- *  the arrow of a scroll button.
- *   
- *  @default 0x000000
+ *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
  * 
  *  @langversion 3.0
  *  @playerversion AIR 2.5
