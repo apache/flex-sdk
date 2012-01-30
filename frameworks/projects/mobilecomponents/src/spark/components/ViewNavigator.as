@@ -39,12 +39,14 @@ import spark.effects.Animate;
 import spark.effects.Fade;
 import spark.effects.Move;
 import spark.effects.Resize;
-import spark.effects.SlideViewTransition;
-import spark.effects.ViewTransition;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.events.IndexChangeEvent;
 import spark.layouts.supportClasses.LayoutBase;
+import spark.transitions.SlideViewTransition;
+import spark.transitions.SlideViewTransitionMode;
+import spark.transitions.ViewTransitionBase;
+import spark.transitions.ViewTransitionDirection;
 
 use namespace mx_internal;
 
@@ -118,7 +120,7 @@ use namespace mx_internal;
  *  
  *  @see spark.components.View
  *  @see spark.components.ActionBar
- *  @see spark.effects.ViewTransition
+ *  @see spark.effects.ViewTransitionBase
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -143,7 +145,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  The animation duration used when running a default view transition.
      */     
-    private static const DEFAULT_VIEW_TRANSITION_DURATION:Number = 300;
+    private static const DEFAULT_VIEW_TRANSITION_DURATION:Number = 250;
     
     //--------------------------------------------------------------------------
     //
@@ -163,8 +165,16 @@ public class ViewNavigator extends ViewNavigatorBase
     {
         super();
         
-        defaultPushTransition = new SlideViewTransition(DEFAULT_VIEW_TRANSITION_DURATION, SlideViewTransition.SLIDE_LEFT);
-        defaultPopTransition = new SlideViewTransition(DEFAULT_VIEW_TRANSITION_DURATION, SlideViewTransition.SLIDE_RIGHT);
+        // Default view transitions
+		var slideLeft:SlideViewTransition = new SlideViewTransition();
+		slideLeft.duration = DEFAULT_VIEW_TRANSITION_DURATION;
+		slideLeft.direction = ViewTransitionDirection.LEFT;
+		defaultPushTransition = slideLeft;
+		
+		var slideRight:SlideViewTransition = new SlideViewTransition();
+		slideRight.duration = DEFAULT_VIEW_TRANSITION_DURATION;
+		slideRight.direction = ViewTransitionDirection.RIGHT;
+		defaultPopTransition = slideRight;
     }
     
     //--------------------------------------------------------------------------
@@ -188,28 +198,6 @@ public class ViewNavigator extends ViewNavigatorBase
     *  @productversion Flex 4
     */
     public var actionBar:ActionBar;
-
-    /**
-     *  An internal property that defines the default transition to play when
-     *  a view is pushed onto the navigation stack. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    mx_internal var defaultPushTransition:ViewTransition;
-    
-    /**
-     *  An internal property that defines the default transition to play when
-     *  a view is popped off the navigation stack. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    mx_internal var defaultPopTransition:ViewTransition;
     
     //--------------------------------------------------------------------------
     //
@@ -232,7 +220,7 @@ public class ViewNavigator extends ViewNavigatorBase
      */ 
     private function get actionBarPropertyInvalidated():Boolean
     {
-        return 	actionContentInvalidated ||
+        return  actionContentInvalidated ||
                 actionLayoutInvalidated ||
                 navigationContentInvalidated ||
                 navigationLayoutInvalidated ||
@@ -283,7 +271,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  a different view. 
      */
     mx_internal var viewChangeRequested:Boolean = false;
-	
+    
     /**
      *  @private
      */ 
@@ -320,17 +308,17 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  The transition to play when the pending view is activated.
      */ 
-    private var pendingViewTransition:ViewTransition = null;
+    private var pendingViewTransition:ViewTransitionBase = null;
     
-	/**
-	 *  @private
-	 *  A variable used to store the trantiion to play after a
-	 *  validation pass.  This needs to be a different variable than
-	 *  pendingViewTransition because the pending transition can
-	 *  change as push and pops come in.
-	 */
-	private var finalViewTransition:ViewTransition;
-	
+    /**
+     *  @private
+     *  A variable used to store the transition to play after a
+     *  validation pass.  This needs to be a different variable than
+     *  pendingViewTransition because the pending transition can
+     *  change as push and pops come in.
+     */
+    mx_internal var activeTransition:ViewTransitionBase;
+    
     /**
      *  @private
      *  This flag is set to true if a navigation operation, e.g., pushView()
@@ -454,6 +442,66 @@ public class ViewNavigator extends ViewNavigatorBase
             
         return null;
     }
+    
+    //---------------------------------
+    // defaultPushTransition
+    //---------------------------------
+    
+    private var _defaultPushTransition:ViewTransitionBase;
+        
+    
+    /**
+     *  Specifies the default view transition for push navigation operations.
+     *
+     *  @default new SlideViewTransition()
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get defaultPushTransition():ViewTransitionBase
+    {
+        return _defaultPushTransition;
+    }
+    
+    /**
+     * @private
+     */
+    public function set defaultPushTransition(value:ViewTransitionBase):void
+    {
+        _defaultPushTransition = value;
+    }
+    
+    //---------------------------------
+    // defaultPopTransition
+    //---------------------------------
+    
+    private var _defaultPopTransition:ViewTransitionBase;
+    
+    /**
+     *  Specifies the default view transition for pop navigation operations.
+     *
+     *  @default new SlideViewTransition()
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get defaultPopTransition():ViewTransitionBase
+    {
+        return _defaultPopTransition;
+    }
+    
+    /**
+     * @private
+     */
+    public function set defaultPopTransition(value:ViewTransitionBase):void
+    {
+        _defaultPopTransition = value;
+    }
+
     
     //----------------------------------
     //  firstView
@@ -854,7 +902,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function popAll(transition:ViewTransition = null):void
+    public function popAll(transition:ViewTransitionBase = null):void
     {
         if (navigationStack.length == 0 || !canRemoveCurrentView())
             return;
@@ -872,7 +920,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
-    public function popView(transition:ViewTransition = null):void
+    public function popView(transition:ViewTransitionBase = null):void
     {
         if (navigationStack.length == 0 || !canRemoveCurrentView())
             return;
@@ -890,7 +938,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function popToFirstView(transition:ViewTransition = null):void
+    public function popToFirstView(transition:ViewTransitionBase = null):void
     {
         if (navigationStack.length < 2 || !canRemoveCurrentView())
             return;
@@ -916,7 +964,7 @@ public class ViewNavigator extends ViewNavigatorBase
     public function pushView(viewClass:Class, 
                              data:Object = null,
                              context:Object = null,
-                             transition:ViewTransition = null):void
+                             transition:ViewTransitionBase = null):void
     {
         if (viewClass == null || !canRemoveCurrentView())
             return;
@@ -942,7 +990,7 @@ public class ViewNavigator extends ViewNavigatorBase
     public function replaceView(viewClass:Class,
                                 data:Object = null,
                                 context:Object = null,
-                                transition:ViewTransition = null):void
+                                transition:ViewTransitionBase = null):void
     {
         if (viewClass == null || !canRemoveCurrentView())
             return;
@@ -960,8 +1008,8 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-	public function showActionBar(animate:Boolean = true):void
-	{
+    public function showActionBar(animate:Boolean = true):void
+    {
         if (!actionBar)
             return;
         
@@ -970,7 +1018,7 @@ public class ViewNavigator extends ViewNavigatorBase
         actionBarVisibilityInvalidated = true;
         
         invalidateProperties();
-	}
+    }
     
     /**
      *  Hides the action bar.
@@ -982,8 +1030,8 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-	public function hideActionBar(animate:Boolean = true):void
-	{	
+    public function hideActionBar(animate:Boolean = true):void
+    {   
         if (!actionBar)
             return;
         
@@ -992,14 +1040,14 @@ public class ViewNavigator extends ViewNavigatorBase
         actionBarVisibilityInvalidated = true;
         
         invalidateProperties();
-	}
-	
+    }
+    
     //--------------------------------------------------------------------------
     //
     // Protected Methods
     // 
     //--------------------------------------------------------------------------
-	
+    
     /**
      *  @private
      *  Initializes the view change process by disabling inputs on the
@@ -1093,10 +1141,10 @@ public class ViewNavigator extends ViewNavigatorBase
         // of commitViewChange if the current view has changed because they must take
         // part in transitions. If the view change is processed during this validation,
         // the following flags will be false.
-		if (actionBarPropertyInvalidated)
+        if (actionBarPropertyInvalidated)
             updateControlsForView(activeView);
-			
-		if (actionBarVisibilityInvalidated)
+            
+        if (actionBarVisibilityInvalidated)
             commitVisibilityChanges();
     }
     
@@ -1140,7 +1188,7 @@ public class ViewNavigator extends ViewNavigatorBase
                                     viewClass:Class = null, 
                                     data:Object = null, 
                                     context:Object = null,
-                                    transition:ViewTransition = null):void
+                                    transition:ViewTransitionBase = null):void
     {
         // ViewNavigator does not allow a push or replace operation to occur
         // without the viewClass factory object defined.
@@ -1243,9 +1291,9 @@ public class ViewNavigator extends ViewNavigatorBase
     private function executeAction(action:String, viewClass:Class = null, 
                                    data:Object = null,
                                    context:Object = null,
-                                   transition:ViewTransition = null):void
+                                   transition:ViewTransitionBase = null):void
     {
-        var defaultTransition:ViewTransition;
+        var defaultTransition:ViewTransitionBase;
         
         lastAction = action;
         
@@ -1367,6 +1415,7 @@ public class ViewNavigator extends ViewNavigatorBase
                                                 
                 actionBarVisibilityEffect.addEventListener(EffectEvent.EFFECT_END, 
                     visibilityAnimation_completeHandler);
+				
                 actionBarVisibilityEffect.play();
             }
             else
@@ -1417,13 +1466,13 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */   
-	private function createActionBarVisibilityEffect():IEffect
-	{
-		var effect:IEffect;
-		var finalEffect:Parallel = new Parallel();
+    private function createActionBarVisibilityEffect():IEffect
+    {
+        var effect:IEffect;
+        var finalEffect:Parallel = new Parallel();
         
         // Grab initial values
-		actionBarProps = { target:actionBar, start:captureAnimationValues(actionBar) };
+        actionBarProps = { target:actionBar, start:captureAnimationValues(actionBar) };
         contentGroupProps = { target:contentGroup, start:captureAnimationValues(contentGroup) };
         
         // Update actionBar layout properties
@@ -1432,10 +1481,10 @@ public class ViewNavigator extends ViewNavigatorBase
         
         // Calculate final positions.  This method will force a validation
         calculateFinalUIPositions();
-		
+        
         // The actionbar will be visible if we are animating it
-		if (actionBar.visible)
-		{
+        if (actionBar.visible)
+        {
             var animate:Animate = new Animate();
             animate.target = actionBar;
             animate.duration = ACTION_BAR_ANIMATION_DURATION;
@@ -1449,15 +1498,15 @@ public class ViewNavigator extends ViewNavigatorBase
             effect.target = actionBar;
             
             finalEffect.addChild(effect);
-		}
-		
+        }
+        
         effect = createContentVisibilityEffect(actionBar.visible, contentGroupProps);
         effect.target = contentGroup;
         
-		finalEffect.addChild(effect);
-		
+        finalEffect.addChild(effect);
+        
         return finalEffect;
-	}
+    }
 
     /**
      *  @private
@@ -1585,24 +1634,24 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-	private function visibilityAnimation_completeHandler(event:EffectEvent):void
-	{
-        // Update the actionBar visibility and includeInLayout flags		
-		actionBar.visible = actionBar.includeInLayout = !actionBarProps.start.visible;
-		
+    private function visibilityAnimation_completeHandler(event:EffectEvent):void
+    {
+        // Update the actionBar visibility and includeInLayout flags        
+        actionBar.visible = actionBar.includeInLayout = !actionBarProps.start.visible;
+        
         // Restore includeInLayout and cacheAsBitmap properties for each component
         actionBar.cacheAsBitmap = actionBarProps.start.cacheAsBitmap;
-		contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
-		contentGroup.cacheAsBitmap = contentGroupProps.start.cacheAsBitmap;
-		
+        contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
+        contentGroup.cacheAsBitmap = contentGroupProps.start.cacheAsBitmap;
+        
         // Clear flags and temporary properties
-		actionBarVisibilityEffect = null;
-		actionBarProps = null;
-		contentGroupProps = null;
-		actionBarVisibilityInvalidated = false;
+        actionBarVisibilityEffect = null;
+        actionBarProps = null;
+        contentGroupProps = null;
+        actionBarVisibilityInvalidated = false;
         
         event.target.removeEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
-	}
+    }
     
     /**
      *  @private
@@ -1932,7 +1981,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function viewAdded(transition:ViewTransition = null):void
+    private function viewAdded(transition:ViewTransitionBase = null):void
     {
         var currentView:View;
         var pendingView:View;
@@ -1959,9 +2008,9 @@ public class ViewNavigator extends ViewNavigatorBase
         
         if (transition)
         {
-            transition.addEventListener(Event.COMPLETE, transitionComplete);
-            transition.currentView = currentView;
-            transition.nextView = pendingView;
+            transition.addEventListener(FlexEvent.TRANSITION_END, transitionComplete);
+            transition.startView = currentView;
+            transition.endView = pendingView;
             transition.navigator = this;
             
             // Give the transition a chance to prepare before the view updates
@@ -1971,7 +2020,7 @@ public class ViewNavigator extends ViewNavigatorBase
         // This event is dispatched here to allow developers to incorporate
         // length specific changes into the view navigator transitions
         if (hasEventListener("lengthChanged"))
-	        dispatchEvent(new Event("lengthChanged"));
+            dispatchEvent(new Event("lengthChanged"));
         
         // Invalidate the actionBar properties
         if (actionBar)
@@ -1986,7 +2035,7 @@ public class ViewNavigator extends ViewNavigatorBase
         // Need to force state change by calling validate properties again
         if (overlayControls != pendingView.overlayControls)
         {
-		    overlayControls = pendingView.overlayControls;
+            overlayControls = pendingView.overlayControls;
             
             // We need to force a commitProperties on the SkinnableComponent so that
             // state changes are validated this frame.
@@ -2005,15 +2054,16 @@ public class ViewNavigator extends ViewNavigatorBase
                 validateNow();
         }
         
-        // Run transition a frame later so that the overhead of creating the view
-		// and the time the player takes to render isn't included in the duration.
-		// See SDK-27793.
         if (transition)
         {
-			transition.prepareFinalState();
-			finalViewTransition = transition;
-			
-			addEventListener(Event.ENTER_FRAME, startViewTransition);
+            transition.captureEndValues();
+            transition.prepareForPlay();
+			activeTransition = transition;
+            
+            // Run transition a frame later so that the overhead of creating the view
+            // and the time the player takes to render isn't included in the duration.
+            // See SDK-27793.
+            addEventListener(Event.ENTER_FRAME, startViewTransition);
         }
         else
         {
@@ -2021,26 +2071,26 @@ public class ViewNavigator extends ViewNavigatorBase
         }
     }
 
-	/**
-	 *  @private
-	 *  Starts the view transition.
-	 */
-	private function startViewTransition(event:Event):void
-	{
-		removeEventListener(Event.ENTER_FRAME, startViewTransition);
-		
-//        CONFIG::performanceInstrumentation
-		{
-			if (hasEventListener("transitionStart"))
-				dispatchEvent(new Event("transitionStart", false, false));
-		}
-		
-		finalViewTransition.play();
-	}
-	
     /**
      *  @private
-     *  Called when a transition dispatches a COMPLETE event.
+     *  Starts the view transition.
+     */
+    private function startViewTransition(event:Event):void
+    {
+        removeEventListener(Event.ENTER_FRAME, startViewTransition);
+        
+//        CONFIG::performanceInstrumentation
+        {
+            if (hasEventListener(FlexEvent.TRANSITION_START))
+                dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_START, false, false));
+        }
+        
+		activeTransition.play();
+    }
+    
+    /**
+     *  @private
+     *  Called when a transition dispatches an FlexEvent.TRANSITION_END event.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -2049,15 +2099,12 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     private function transitionComplete(event:Event):void
     {
-        ViewTransition(event.target).removeEventListener(Event.COMPLETE, transitionComplete);
+        ViewTransitionBase(event.target).removeEventListener(FlexEvent.TRANSITION_END, transitionComplete);
         
-//        CONFIG::performanceInstrumentation
-        {
-            if (hasEventListener("transitionEnd"))
-               dispatchEvent(new Event("transitionEnd", false, false));
-        }
-        
-		finalViewTransition = null;
+        if (hasEventListener(FlexEvent.TRANSITION_END))
+            dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_END, false, false));
+
+		activeTransition = null;
         navigatorActionCommitted();
     }
     
@@ -2070,7 +2117,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @productversion Flex 4.5
      */
     override mx_internal function backKeyUpHandler():void
-    {
+    { 
         if (activeView && !activeView.backKeyHandledByView())
             popView();
     }
@@ -2151,8 +2198,8 @@ public class ViewNavigator extends ViewNavigatorBase
                     view.titleLayout : titleLayout;
                 titleLayoutInvalidated = false;
             }
-			
-			actionBar.visible = actionBar.includeInLayout = view && view.actionBarVisible;
+            
+            actionBar.visible = actionBar.includeInLayout = view && view.actionBarVisible;
             actionBarVisibilityInvalidated = false;
         }
     }
@@ -2182,10 +2229,10 @@ public class ViewNavigator extends ViewNavigatorBase
                 actionContentInvalidated = true;
             else if (property == "actionLayout")
                 actionLayoutInvalidated  = true;
-			else if (property == "navigationContent")
-				navigationContentInvalidated = true;
-			else if (property == "navigationLayout")
-				navigationLayoutInvalidated  = true;
+            else if (property == "navigationContent")
+                navigationContentInvalidated = true;
+            else if (property == "navigationLayout")
+                navigationLayoutInvalidated  = true;
             else if (property == "overlayControls")
             {
                 overlayControls = event.newValue;
