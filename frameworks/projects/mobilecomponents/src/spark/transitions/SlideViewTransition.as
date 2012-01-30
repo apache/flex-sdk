@@ -265,6 +265,8 @@ public class SlideViewTransition extends ViewTransitionBase
         // properties that are then restored after the transition is over.
         navigatorProps = new Object(); 
         
+        // Determine if we will be animating the tabBar as part of the
+        // transition
         animateTabBar = false;
         
         if (tabBar && startView)
@@ -274,13 +276,16 @@ public class SlideViewTransition extends ViewTransitionBase
                             startView.tabBarVisible != endView.tabBarVisible;
         }
         
-        // Snapshot the entire navigator or actionBar depending on the mode.
+        // Generate initial bitmaps for the transition.  If the transition will be
+        // a push type, we only need to cache the actionBar as we will animate the
+        // views in manually.  If its cover or uncover, an entire image of the navigator
+        // is needed.
         if (mode != SlideViewTransitionMode.PUSH)
         {
             var oldVisibility:Boolean = endView.visible;
             endView.visible = false;
             
-            if (targetNavigator is TabbedViewNavigator && !animateTabBar)
+            if (tabBar && !animateTabBar)
                 cachedNavigator = getSnapshot(targetNavigator.contentGroup, 0, cachedNavigatorGlobalPosition);
             else                
                 cachedNavigator = getSnapshot(targetNavigator, 0, cachedNavigatorGlobalPosition);
@@ -292,10 +297,10 @@ public class SlideViewTransition extends ViewTransitionBase
             cachedActionBar = getSnapshot(navigator.actionBar, 4, cachedActionBarGlobalPosition);
         }
         
-        // Cache the tab bar bitmap and location
+        // If the tabBar exists, a bitmap image of it is created
         if (tabBar)
         {
-            cachedTabBar = getSnapshot(TabbedViewNavigator(targetNavigator).tabBar, 4, cachedTabBarGlobalPosition);
+            cachedTabBar = getSnapshot(TabbedViewNavigator(parentNavigator).tabBar, 4, cachedTabBarGlobalPosition);
             navigatorProps.tabBarIncludeInLayout = tabBar.includeInLayout;
             navigatorProps.tabBarCacheAsBitmap = tabBar.cacheAsBitmap;
         }
@@ -340,6 +345,10 @@ public class SlideViewTransition extends ViewTransitionBase
             startViewProps.y = startView.y;
             
             startView.cacheAsBitmap = true;
+            
+            // Have the startView included in layout so that SplitViewNavigator knows
+            // how to maintain the layout
+            startView.includeInLayout = true;
             
             if (startView.contentGroup)
             {
@@ -473,7 +482,7 @@ public class SlideViewTransition extends ViewTransitionBase
         
         // Check if the navigator is a child of TabbedViewNavigator, if so
         // remove the contentGroup from layout.
-        if (targetNavigator != navigator)
+        if (tabBar)
         {
             navigatorProps.topNavigatorContentGroupIncludeInLayout = targetNavigator.contentGroup.includeInLayout;
             targetNavigator.contentGroup.includeInLayout = false;
@@ -742,6 +751,7 @@ public class SlideViewTransition extends ViewTransitionBase
             {
                 tabBar.includeInLayout = navigatorProps.tabBarIncludeInLayout;
                 tabBar.cacheAsBitmap = navigatorProps.tabBarCacheAsBitmap;
+                targetNavigator.contentGroup.includeInLayout = navigatorProps.topNavigatorContentGroupIncludeInLayout;
             }
 
             if (actionBar)
@@ -761,9 +771,6 @@ public class SlideViewTransition extends ViewTransitionBase
                 endView.includeInLayout = navigatorProps.endViewIncludeInLayout;
                 endView.contentGroup.cacheAsBitmap = navigatorProps.endViewCacheAsBitmap;
             }
-            
-            if (targetNavigator != navigator)
-                targetNavigator.contentGroup.includeInLayout = navigatorProps.topNavigatorContentGroupIncludeInLayout;
             
             navigator.contentGroup.includeInLayout = navigatorProps.navigatorContentGroupIncludeInLayout;
             
