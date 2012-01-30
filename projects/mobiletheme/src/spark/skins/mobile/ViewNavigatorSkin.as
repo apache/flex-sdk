@@ -22,7 +22,7 @@ import spark.components.ViewNavigator;
 import spark.effects.ViewTransition;
 import spark.effects.Move;
 import spark.effects.SlideViewTransition;
-import spark.skins.MobileSkin;
+import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
  *  The ActionScript based skin for view navigators in mobile
@@ -31,8 +31,8 @@ import spark.skins.MobileSkin;
  *  This skin also supports navigator overlay modes.
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.5
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5 
  *  @productversion Flex 4.5
  */
 public class ViewNavigatorSkin extends MobileSkin
@@ -98,11 +98,6 @@ public class ViewNavigatorSkin extends MobileSkin
     
     /**
      *  @private
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
      */
     override protected function createChildren():void
     {
@@ -123,11 +118,6 @@ public class ViewNavigatorSkin extends MobileSkin
      *  @private
      *  When the current state is set, need to invalidate the display list
      *  so that a validation pass runs. 
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
      */
     override public function set currentState(value:String):void
     {
@@ -141,6 +131,9 @@ public class ViewNavigatorSkin extends MobileSkin
         }
     }
     
+    /**
+     *  @private 
+     */ 
     override protected function measure():void
     {
         super.measure();
@@ -162,11 +155,6 @@ public class ViewNavigatorSkin extends MobileSkin
     
     /**
      *  @private
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
