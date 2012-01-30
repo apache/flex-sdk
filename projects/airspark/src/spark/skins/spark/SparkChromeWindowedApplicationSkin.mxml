@@ -121,7 +121,7 @@
             <!-- status text -->
             <!--- Defines the SimpleText control for the text in the status bar. -->
             <s:SimpleText id="statusText" top="2" bottom="2" left="10" right="10" verticalAlign="middle" 
-                fontSize="10" color="0x585858" width="100%" truncation="1" />
+                fontSize="10" color="0x585858" width="100%" maxDisplayedLines="1" />
                     
         </s:Group> 
 
