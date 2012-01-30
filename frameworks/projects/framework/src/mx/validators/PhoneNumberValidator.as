@@ -42,6 +42,11 @@ import mx.resources.ResourceManager;
  *  </pre>
  *  
  *  @includeExample examples/PhoneNumberValidatorExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class PhoneNumberValidator extends Validator
 {
@@ -71,6 +76,11 @@ public class PhoneNumberValidator extends Validator
 	 *  object for each field examined by the validator. 
 	 *
 	 *  @see mx.validators.ValidationResult
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function validatePhoneNumber(validator:PhoneNumberValidator,
 											   value:Object,
@@ -133,6 +143,11 @@ public class PhoneNumberValidator extends Validator
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function PhoneNumberValidator()
 	{
@@ -166,6 +181,11 @@ public class PhoneNumberValidator extends Validator
 	 *  The set of allowable formatting characters.
 	 *
 	 *  @default "()- .+"
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get allowedFormatChars():String
 	{
@@ -227,6 +247,11 @@ public class PhoneNumberValidator extends Validator
 	 *  Error message when the value contains invalid characters.
 	 *
 	 *  @default "Your telephone number contains invalid characters."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get invalidCharError():String
 	{
@@ -267,6 +292,11 @@ public class PhoneNumberValidator extends Validator
 	 *  Error message when the value has fewer than 10 digits.
 	 *
 	 *  @default "Your telephone number must contain at least 10 digits."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get wrongLengthError():String
 	{
@@ -317,6 +347,11 @@ public class PhoneNumberValidator extends Validator
      *
 	 *  @return An Array of ValidationResult objects, with one ValidationResult 
 	 *  object for each field examined by the validator. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override protected function doValidation(value:Object):Array
     {
