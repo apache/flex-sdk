@@ -22,6 +22,11 @@ import mx.managers.ISystemManager;
  *  containers implement to host a FocusManager.
  *  The PopUpManager automatically installs a FocusManager
  *  in any IFocusManagerContainer it pops up.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IFocusManagerContainer extends IEventDispatcher 
 {
@@ -38,6 +43,11 @@ public interface IFocusManagerContainer extends IEventDispatcher
 	/**
 	 *  The FocusManager for this component. 
 	 *  The FocusManager must be in a <code>focusManager</code> property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get focusManager():IFocusManager;
 	
@@ -52,6 +62,11 @@ public interface IFocusManagerContainer extends IEventDispatcher
 
 	/**
 	 *  @copy mx.core.UIComponent#systemManager
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get systemManager():ISystemManager;
 
@@ -71,6 +86,11 @@ public interface IFocusManagerContainer extends IEventDispatcher
 	 *
 	 *  @return <code>true</code> if the child object is a child of the container 
 	 *  or the container itself; otherwise <code>false</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function contains(child:DisplayObject):Boolean;
 }
