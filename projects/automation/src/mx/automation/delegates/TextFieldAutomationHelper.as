@@ -219,7 +219,7 @@ package mx.automation.delegates
 			{
 				//We are here in cases where selectionBeginIndex, selectionEndIndex or caretIndex is not implemented. 
 				//Ex: FTETextField. It does not support selection.
-				trace(e.message);
+				Automation.automationDebugTracer.traceMessage("TextFieldAutomationHelper","captureSelection()",e.message);
 				currentSelection = [0, 0];
 			}
 			
