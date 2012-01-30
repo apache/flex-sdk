@@ -15,7 +15,7 @@ package mx.core
 import flash.events.IEventDispatcher;
     
 /**
- *  An implementor of ISWFProvider provides a bridge
+ *  An implementor of ISWFBridgeProvider provides a bridge
  *  to an application in a different security sandbox
  *  or to an application that was compiled with a different version
  *  of the Flex compiler and is running in a separate ApplicationDomain. 
