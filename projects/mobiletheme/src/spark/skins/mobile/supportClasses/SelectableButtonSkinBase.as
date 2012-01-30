@@ -32,6 +32,8 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
         paddingRight = 15;
         paddingTop = 15;
         paddingBottom = 15;
+        
+        useIconStyle = false;
     }
     
     
