@@ -63,7 +63,7 @@ public class FlexEvent extends Event
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static const ACTIVATE:String = "activate";
+    public static const VIEW_ACTIVATE:String = "viewActivate";
     
     /**
      *  The <code>FlexEvent.ADD</code> constant defines the value of the
