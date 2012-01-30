@@ -17,10 +17,11 @@ package mx.automation.delegates
 	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
-	import flash.utils.*; 
+	import flash.utils.*;
 	
 	import mx.automation.Automation;
 	import mx.automation.AutomationHelper;
+	import mx.automation.AutomationManager;
 	import mx.automation.IAutomationManager;
 	import mx.automation.IAutomationObject;
 	import mx.automation.IAutomationObjectHelper;
@@ -35,9 +36,9 @@ package mx.automation.delegates
 	import mx.events.DragEvent;
 	import mx.events.InterManagerRequest;
 	import mx.managers.DragManager;
+	import mx.managers.IMarshalSystemManager;
 	import mx.managers.ISystemManager;
 	import mx.managers.dragClasses.DragProxy;
-	import mx.automation.AutomationManager;
 	
 	// for air
 	
@@ -109,8 +110,11 @@ package mx.automation.delegates
 		public function DragManagerAutomationImpl(proxy:UIComponent)
 		{
 			super(proxy);
-			if(sm.getSandboxRoot() == sm)
-				Automation.automationManager2.storeDragProxy(proxy);
+			//if(sm.getSandboxRoot() == sm) 
+			/* This check is not needed because, though we store the proxy in the root, we can trigger 
+			the storage from any sub application. But while retrieving, we should ask only the root app
+			to give the proxy. http://bugs.adobe.com/jira/browse/FLEXENT-1244*/
+			Automation.automationManager2.storeDragProxy(proxy);
 		}
 		
 		//--------------------------------------------------------------------------
@@ -871,6 +875,7 @@ package mx.automation.delegates
 					if (rootSm )
 					{
 						rootSm.addEventListener(MarshalledAutomationEvent.DRAG_DROP_PROXY_RETRIEVE_REPLY, proxyRetrieveReplyHandler);
+						
 						var dragProxyRetrievalRequestMarshalEvent:MarshalledAutomationEvent
 						= new MarshalledAutomationEvent(MarshalledAutomationEvent.DRAG_DROP_PROXY_RETRIEVE_REQUEST);
 						_inDragProxyRequestProcessing = true;		
