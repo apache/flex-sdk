@@ -29,10 +29,13 @@ import flash.utils.getDefinitionByName;
 import mx.core.RSLItem;
 import mx.core.RSLListLoader;
 import mx.events.ModuleEvent;
+import mx.events.Request;
 import mx.managers.SystemManagerGlobals;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.utils.LoaderUtil;
+
+use namespace mx_internal;
 
 [ExcludeClass]
 
@@ -477,22 +480,28 @@ public class FlexModuleFactory extends MovieClip
         var i:int;
         if (cdRsls && cdRsls.length > 0)
         {
+            var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
+            dispatchEvent(request); 
+            var parentModuleFactory:IFlexModuleFactory = request.value as IFlexModuleFactory;
             var normalizedURL:String = LoaderUtil.normalizeURL(this.loaderInfo);
             var crossDomainRSLItem:Class = Class(getDefinitionByName("mx.core::CrossDomainRSLItem"));
             n = cdRsls.length;
             for (i = 0; i < n; i++)
             {
+                var rslWithFailoverArray:Array = cdRsls[i];
+                
+                if (parentModuleFactory &&
+                    LoaderUtil.getRSLLoadData(parentModuleFactory, 
+                        cdRsls[i][0]["digest"]))
+                {
+                    continue; // if the rsl is already loaded then skip loading it.                    
+                }
+                
                 // If crossDomainRSLItem is null, then this is a compiler error. It should not be null.
-                var cdNode:Object = new crossDomainRSLItem(
-                    cdRsls[i]["rsls"],
-                    cdRsls[i]["policyFiles"],
-                    cdRsls[i]["digests"],
-                    cdRsls[i]["types"],
-                    cdRsls[i]["isSigned"],
+                var cdNode:Object = new crossDomainRSLItem(rslWithFailoverArray,
                     normalizedURL,
                     this);
-                
-                rslList.push(cdNode);				
+                rslList.push(cdNode);               
             }
             
         }
