@@ -12,12 +12,10 @@
 package spark.skins.mobile
 {
 import flash.display.DisplayObject;
-import flash.display.Graphics;
 
 import mx.core.DPIClassification;
 
 import spark.components.Button;
-import spark.primitives.Graphic;
 import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.HSliderThumb_normal;
 import spark.skins.mobile160.assets.HSliderThumb_pressed;
@@ -57,8 +55,6 @@ public class HSliderThumbSkin extends MobileSkin
     public function HSliderThumbSkin()
     {
         super();
-        
-        useChromeColor = true;
         
         // set the right assets and dimensions to use based on the screen density
         switch (applicationDPI)
@@ -341,31 +337,30 @@ public class HSliderThumbSkin extends MobileSkin
     /**
      *  @private 
      */ 
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        super.layoutContents(unscaledWidth, unscaledHeight);
+        
         setElementSize(currentThumbSkin, unscaledWidth, unscaledHeight);
         setElementPosition(currentThumbSkin, 0, 0)
-        
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
-        // put in a larger hit zone than the thumb
-        var g:Graphics = graphics;
-        g.beginFill(0xffffff, 0);
-        g.drawRect(-hitZoneOffset, -hitZoneOffset, hitZoneSideLength, hitZoneSideLength);
-        g.endFill();
     }
     
     /**
      *  @private 
      */ 
-    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        var chromeColor:uint = getChromeColor();
-        chromeColorGraphics.beginFill(chromeColor, 1);
-        
-        chromeColorGraphics.drawEllipse(chromeColorEllipseX, chromeColorEllipseY,
+        super.drawBackground(unscaledWidth, unscaledHeight);
+
+        graphics.beginFill(getStyle("chromeColor"));
+        graphics.drawEllipse(chromeColorEllipseX, chromeColorEllipseY,
             chromeColorEllipseWidth, chromeColorEllipseHeight);
-        chromeColorGraphics.endFill();
+        graphics.endFill();
+        
+        // put in a larger hit zone than the thumb
+        graphics.beginFill(0xffffff, 0);
+        graphics.drawRect(-hitZoneOffset, -hitZoneOffset, hitZoneSideLength, hitZoneSideLength);
+        graphics.endFill();
     }
 }
 }
