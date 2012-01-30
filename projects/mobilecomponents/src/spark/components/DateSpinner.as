@@ -464,7 +464,7 @@ public class DateSpinner extends SkinnableComponent
     //  maxDate
     //----------------------------------
     
-    private var _maxDate:Date;
+    private var _maxDate:Date = new Date(MAX_DATE_DEFAULT.time);
     
     private var maxDateChanged:Boolean = false;
     
@@ -484,7 +484,7 @@ public class DateSpinner extends SkinnableComponent
      */
     public function get maxDate():Date
     {
-        return _maxDate != null ? new Date(_maxDate.time) : new Date(MAX_DATE_DEFAULT.time);
+        return new Date(_maxDate.time);
     }
     
     /**
@@ -492,14 +492,21 @@ public class DateSpinner extends SkinnableComponent
      */     
     public function set maxDate(value:Date):void
     {
+        // don't allow minDate to be outside of the defaults
+        if (value && 
+            (value.time < MIN_DATE_DEFAULT.time || value.time > MAX_DATE_DEFAULT.time))
+            value = null;
+        
+        // ignore if no change
         if ((_maxDate && value && _maxDate.time == value.time)
             || (_maxDate == null && value == null))
             return;
 
-        _maxDate = value != null ? new Date(value.time) : value;
+        _maxDate = new Date(value != null ? value.time : MAX_DATE_DEFAULT.time);
         populateYearDataProvider = true;
         populateDateDataProvider = true;
         maxDateChanged = true;
+        syncSelectedDate = true;
         
         invalidateProperties();
     }
@@ -508,7 +515,7 @@ public class DateSpinner extends SkinnableComponent
     //  minDate
     //----------------------------------
     
-    private var _minDate:Date;
+    private var _minDate:Date = new Date(MIN_DATE_DEFAULT.time);
     
     private var minDateChanged:Boolean = false;
     
@@ -529,7 +536,7 @@ public class DateSpinner extends SkinnableComponent
      */
     public function get minDate():Date
     {
-        return _minDate != null ? new Date(_minDate.time) : new Date(MIN_DATE_DEFAULT.time);
+        return new Date(_minDate.time);
     }
     
     /**
@@ -537,14 +544,21 @@ public class DateSpinner extends SkinnableComponent
      */     
     public function set minDate(value:Date):void
     {
+        // don't allow minDate to be outside of the defaults
+        if (value && 
+            (value.time < MIN_DATE_DEFAULT.time || value.time > MAX_DATE_DEFAULT.time))
+            value = null;
+        
+        // ignore if no change
         if ((_minDate && value && _minDate.time == value.time)
             || (_minDate == null && value == null))
             return;
         
-        _minDate = value != null ? new Date(value.time) : value;
+        _minDate = new Date(value != null ? value.time : MIN_DATE_DEFAULT.time);
         populateYearDataProvider = true;
         populateDateDataProvider = true;
-        minDateChanged = true;
+        minDateChanged = true;        
+        syncSelectedDate = true;
         
         invalidateProperties();
     }
@@ -589,6 +603,7 @@ public class DateSpinner extends SkinnableComponent
         _minuteStepSize = value;
         minuteStepSizeChanged = true;
         populateMinuteDataProvider = true;
+        syncSelectedDate = true;
         
         invalidateProperties();
     }
@@ -718,6 +733,10 @@ public class DateSpinner extends SkinnableComponent
             refreshDateTimeFormatter = false;
         }
         
+        // stop any animations if we might be resetting the visible values
+        if (syncSelectedDate)
+            stopAllAnimations();
+        
         // ==================================================
         // switch out lists if the display mode changed
         
@@ -740,7 +759,7 @@ public class DateSpinner extends SkinnableComponent
         if (minDateChanged || maxDateChanged || syncSelectedDate || minuteStepSizeChanged)
         {        
             // check min <= max
-            if (minDate.time > maxDate.time)
+            if (_minDate.time > _maxDate.time)
             {
                 // note assumption here that we're not using the defaults since they
                 // should always maintain minDate < maxDate integrity
@@ -753,19 +772,19 @@ public class DateSpinner extends SkinnableComponent
             }
             
             // make sure there's at least one minuteStepSize between the min and max
-            if ((maxDate.time - minDate.time) < (minuteStepSize * 60 * 1000))
-                maxDate.time = minDate.time + (minuteStepSize * 60 * 1000);
+            if ((_maxDate.time - _minDate.time) < (minuteStepSize * 60 * 1000))
+                _maxDate.time = _minDate.time + (minuteStepSize * 60 * 1000);
             
             var origSelectedDate:Date = new Date(_selectedDate.time);
             
             // check minDate <= selectedDate <= maxDate
-            if (!selectedDate || selectedDate.time < minDate.time)
+            if (!_selectedDate || _selectedDate.time < _minDate.time)
             {
-                _selectedDate = new Date(minDate.time);
+                _selectedDate = new Date(_minDate.time);
             }
-            else if (selectedDate.time > maxDate.time)
+            else if (_selectedDate.time > _maxDate.time)
             {
-                _selectedDate = new Date(maxDate.time);
+                _selectedDate = new Date(_maxDate.time);
             }
             
             minDateChanged = false;
@@ -774,15 +793,15 @@ public class DateSpinner extends SkinnableComponent
             if (minuteStepSizeChanged)
             {
                 // verify minutes are a multiple of minuteStepSize
-                if ((selectedDate.minutes % minuteStepSize) != 0)
+                if ((_selectedDate.minutes % minuteStepSize) != 0)
                 {
                     // adjust to the closest number evenly disible by minuteStepSize
-                    selectedDate.minutes = Math.round(selectedDate.minutes / minuteStepSize) * minuteStepSize;
+                    _selectedDate.minutes = Math.round(_selectedDate.minutes / minuteStepSize) * minuteStepSize;
                     
                     // last adjustment to make sure we didn't accidentally go outside of bounds
-                    if (selectedDate.time < minDate.time)
+                    if (_selectedDate.time < _minDate.time)
                         _selectedDate.minutes += minuteStepSize;
-                    else if (selectedDate.time > maxDate.time)
+                    else if (_selectedDate.time > _maxDate.time)
                         _selectedDate.minutes -= minuteStepSize;
                 }
                 
@@ -792,9 +811,7 @@ public class DateSpinner extends SkinnableComponent
             if (origSelectedDate.time != _selectedDate.time)
                 dispatchValueCommitEvent = true;
 
-            disableInvalidSpinnerValues(selectedDate);
-            
-            syncSelectedDate = true;
+            disableInvalidSpinnerValues(_selectedDate);
         }
         
         // ==================================================
@@ -1013,8 +1030,8 @@ public class DateSpinner extends SkinnableComponent
         // populate lists that are being shown
         if (yearList && populateYearDataProvider)
         {
-            yearList.dataProvider = new YearProvider(localeStr, minDate.fullYear,
-                maxDate.fullYear, today);
+            yearList.dataProvider = new YearProvider(localeStr, _minDate.fullYear,
+                _maxDate.fullYear, today);
             
             // set size to longest string
             if (!longestYearItem)
@@ -1037,7 +1054,7 @@ public class DateSpinner extends SkinnableComponent
         {
             if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
             {
-                dateList.dataProvider = new DateAndTimeProvider(localeStr, minDate, maxDate,
+                dateList.dataProvider = new DateAndTimeProvider(localeStr, _minDate, _maxDate,
                     today);
                 
                 // set size to longest string
@@ -1276,38 +1293,38 @@ public class DateSpinner extends SkinnableComponent
         if (yearList)
         {
             dateTimeFormatter.dateTimePattern = dateTimeFormatterEx.getYearPattern();
-            newIndex = yearList.dataProvider.getItemIndex( generateDateItemObject(dateTimeFormatter.format(selectedDate), selectedDate.fullYear) );
+            newIndex = yearList.dataProvider.getItemIndex( generateDateItemObject(dateTimeFormatter.format(_selectedDate), _selectedDate.fullYear) );
             goToIndex(yearList, newIndex, useAnimation);
         }
         
         if (monthList)
-            goToIndex(monthList, selectedDate.month, useAnimation);
+            goToIndex(monthList, _selectedDate.month, useAnimation);
         
         if (dateList)
         {
             if (displayMode == DateSelectorDisplayMode.DATE)
             {
-                goToIndex(dateList, selectedDate.date - 1, useAnimation);
+                goToIndex(dateList, _selectedDate.date - 1, useAnimation);
             }
             else // DATE_AND_TIME mode
             {
-                newIndex = dateList.dataProvider.getItemIndex( generateDateItemObject(dayMonthDateFormatter.format(selectedDate), selectedDate.time) );
+                newIndex = dateList.dataProvider.getItemIndex( generateDateItemObject(dayMonthDateFormatter.format(_selectedDate), _selectedDate.time) );
                 goToIndex(dateList, newIndex, useAnimation);
             }
         }
         if (hourList)
         {
-            newIndex = use24HourTime ? selectedDate.hours : (selectedDate.hours + 11) % 12;
+            newIndex = use24HourTime ? _selectedDate.hours : (_selectedDate.hours + 11) % 12;
             goToIndex(hourList, newIndex, useAnimation);
         }
         if (minuteList)
         {
-            newIndex = findDateItemIndexInDataProvider(selectedDate.minutes, minuteList.dataProvider);
+            newIndex = findDateItemIndexInDataProvider(_selectedDate.minutes, minuteList.dataProvider);
             goToIndex(minuteList, newIndex, useAnimation);
         }
         if (!use24HourTime && meridianList)
         {
-            newIndex = selectedDate.hours < 12 ? 0 : 1;
+            newIndex = _selectedDate.hours < 12 ? 0 : 1;
             goToIndex(meridianList, newIndex, useAnimation);
         }
     }
@@ -1335,10 +1352,10 @@ public class DateSpinner extends SkinnableComponent
                 var numDaysInMonth:int = cd.numDaysInMonth;
                 var listLength:int = listData.length;
                 
-                var minMonthMatch:Boolean = (tempDate.fullYear == minDate.fullYear
-                    && tempDate.month == minDate.month);
-                var maxMonthMatch:Boolean = (tempDate.fullYear == maxDate.fullYear
-                    && tempDate.month == maxDate.month);
+                var minMonthMatch:Boolean = (tempDate.fullYear == _minDate.fullYear
+                    && tempDate.month == _minDate.month);
+                var maxMonthMatch:Boolean = (tempDate.fullYear == _maxDate.fullYear
+                    && tempDate.month == _maxDate.month);
                 
                 for (var i:int = 0; i < listLength; i++)
                 {
@@ -1352,9 +1369,9 @@ public class DateSpinner extends SkinnableComponent
                         // test for outside min/max range
                         tempDate.date = curObj.data;
                         
-                        if (minMonthMatch && tempDate.date < minDate.date)
+                        if (minMonthMatch && tempDate.date < _minDate.date)
                             newEnabledValue = false;
-                        if (maxMonthMatch && tempDate.date > maxDate.date)
+                        if (maxMonthMatch && tempDate.date > _maxDate.date)
                             newEnabledValue = false;
                     }
                     
@@ -1382,10 +1399,10 @@ public class DateSpinner extends SkinnableComponent
                 newEnabledValue = true;
                 
                 tempDate.month = i;
-                if ((tempDate.fullYear == minDate.fullYear
-                    && tempDate.month < minDate.month) ||
-                    (tempDate.fullYear == maxDate.fullYear
-                        && tempDate.month > maxDate.month))
+                if ((tempDate.fullYear == _minDate.fullYear
+                    && tempDate.month < _minDate.month) ||
+                    (tempDate.fullYear == _maxDate.fullYear
+                        && tempDate.month > _maxDate.month))
                     newEnabledValue = false;
                 
                 curObj = listData[i];
@@ -1406,12 +1423,12 @@ public class DateSpinner extends SkinnableComponent
             listData = hourList.dataProvider;
             listLength = listData.length;
             
-            var minDateMatch:Boolean = (tempDate.fullYear == minDate.fullYear
-                && tempDate.month == minDate.month
-                && tempDate.date == minDate.date);
-            var maxDateMatch:Boolean = (tempDate.fullYear == maxDate.fullYear
-                && tempDate.month == maxDate.month
-                && tempDate.date == maxDate.date);
+            var minDateMatch:Boolean = (tempDate.fullYear == _minDate.fullYear
+                && tempDate.month == _minDate.month
+                && tempDate.date == _minDate.date);
+            var maxDateMatch:Boolean = (tempDate.fullYear == _maxDate.fullYear
+                && tempDate.month == _maxDate.month
+                && tempDate.date == _maxDate.date);
             
             for (i = 0; i < listLength; i++)
             {
@@ -1420,14 +1437,14 @@ public class DateSpinner extends SkinnableComponent
                 newEnabledValue = true;
                  
                 if (!use24HourTime)
-                    tempDate.hours = (i + 1) % 12 + ((selectedDate.hours >= 12)? 12 : 0);
+                    tempDate.hours = (i + 1) % 12 + ((_selectedDate.hours >= 12)? 12 : 0);
                 else
                     tempDate.hours = i;
                 
-                if (minDateMatch && tempDate.hours < minDate.hours)
+                if (minDateMatch && tempDate.hours < _minDate.hours)
                     newEnabledValue = false;
                 
-                if (maxDateMatch && tempDate.hours > maxDate.hours)
+                if (maxDateMatch && tempDate.hours > _maxDate.hours)
                     newEnabledValue = false;
                 
                 if (curObj[SpinnerList.ENABLED_PROPERTY_NAME] != newEnabledValue)
@@ -1446,14 +1463,14 @@ public class DateSpinner extends SkinnableComponent
             listData = minuteList.dataProvider;
             listLength = listData.length;
             
-            var minHourMatch:Boolean = (tempDate.fullYear == minDate.fullYear
-                && tempDate.month == minDate.month
-                && tempDate.date == minDate.date
-                && tempDate.hours == minDate.hours);
-            var maxHourMatch:Boolean = (tempDate.fullYear == maxDate.fullYear
-                && tempDate.month == maxDate.month
-                && tempDate.date == maxDate.date
-                && tempDate.hours == maxDate.hours);
+            var minHourMatch:Boolean = (tempDate.fullYear == _minDate.fullYear
+                && tempDate.month == _minDate.month
+                && tempDate.date == _minDate.date
+                && tempDate.hours == _minDate.hours);
+            var maxHourMatch:Boolean = (tempDate.fullYear == _maxDate.fullYear
+                && tempDate.month == _maxDate.month
+                && tempDate.date == _maxDate.date
+                && tempDate.hours == _maxDate.hours);
             
             for (i = 0; i < listLength; i++)
             {
@@ -1463,10 +1480,10 @@ public class DateSpinner extends SkinnableComponent
                 
                 tempDate.minutes = curObj.data;
                
-                if (minHourMatch && tempDate.minutes < minDate.minutes)
+                if (minHourMatch && tempDate.minutes < _minDate.minutes)
                     newEnabledValue = false;
                 
-                if (maxHourMatch && tempDate.minutes > maxDate.minutes)
+                if (maxHourMatch && tempDate.minutes > _maxDate.minutes)
                     newEnabledValue = false;
                 
                 if (curObj[SpinnerList.ENABLED_PROPERTY_NAME] != newEnabledValue)
@@ -1780,6 +1797,21 @@ public class DateSpinner extends SkinnableComponent
         }
     }
     
+    private function stopAllAnimations():void
+    {
+        if (spinnersAnimating)
+        {
+            var len:int = listContainer.numElements;
+            for (var i:int = 0; i < len; i++)
+            {
+                var list:SpinnerList = listContainer.getElementAt(i) as SpinnerList;
+                // return true as soon as we have one list still in touch interaction
+                if (list && list.scroller && list.scroller.inTouchInteraction)
+                    list.scroller.stopAnimations();
+            }       
+        }
+    }
+    
     //----------------------------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1799,7 +1831,7 @@ public class DateSpinner extends SkinnableComponent
         }
         
         // start with the previous selectedDate
-        var newDate:Date = new Date(selectedDate.time);
+        var newDate:Date = new Date(_selectedDate.time);
 
         var tempDate:Date;
         var cd:CalendarDate;
@@ -1821,7 +1853,7 @@ public class DateSpinner extends SkinnableComponent
                     // rollback date if past end of month
                     if (dateList)
                     {
-                        tempDate = new Date(selectedDate.fullYear, newValue.data, 1);
+                        tempDate = new Date(_selectedDate.fullYear, newValue.data, 1);
                         cd = new CalendarDate(tempDate);
                         if (dateList.selectedItem.data > cd.numDaysInMonth)
                         {
@@ -1849,7 +1881,7 @@ public class DateSpinner extends SkinnableComponent
                     // rollback date if past end of month
                     if (dateList)
                     {
-                        tempDate = new Date(newValue.data, selectedDate.month, 1);
+                        tempDate = new Date(newValue.data, _selectedDate.month, 1);
                         cd = new CalendarDate(tempDate);
                         if (dateList.selectedItem.data > cd.numDaysInMonth)
                         {
