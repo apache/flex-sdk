@@ -843,7 +843,7 @@ public class CursorManagerImpl implements ICursorManager
         
         var isInputTextField:Boolean = 
             (target is TextField && target.type == TextFieldType.INPUT) ||
-                (textViewClass && target is textViewClass && target["selectable"]);
+                (textViewClass && target is textViewClass && (target["editable"] || target["selectable"]));
         
         // Do target test.
         if (!overTextField && isInputTextField)
