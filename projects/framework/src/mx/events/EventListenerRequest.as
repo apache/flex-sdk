@@ -23,6 +23,11 @@ import flash.events.Event;
  *  SystemManager picks up the event and redispatches it from itself.
  *  In general, this request is generated because some other code called
  *  the <code>addEventListener()</code> method for one of the approved events on its SystemManager.
+ *
+ *  This request is also dispatched by SystemManager to allow the marshal implementation
+ *  to handle adding or removing listeners differently.  When dispatched by the
+ *  SystemManager, the listener property is non-null;
+ *  
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -85,6 +90,7 @@ public class EventListenerRequest extends SWFBridgeRequest
 
 		return new EventListenerRequest(eventObj.type, eventObj.bubbles,
 										eventObj.cancelable, eventObj.eventType,
+										eventObj.listener,
                                         eventObj.useCapture, eventObj.priority,
                                         eventObj.useWeakReference); 
 	}
@@ -123,6 +129,7 @@ public class EventListenerRequest extends SWFBridgeRequest
 	public function EventListenerRequest(type:String, bubbles:Boolean = false, 
 										 cancelable:Boolean = true,
 								         eventType:String = null,
+										 listener:Function = null,
 								         useCapture:Boolean = false,
 								         priority:int = 0, 
 								         useWeakReference:Boolean = false)
@@ -131,6 +138,7 @@ public class EventListenerRequest extends SWFBridgeRequest
 		super(type, false, false);
 
 		_eventType = eventType;
+		_listener = listener;
 		_useCapture = useCapture;
 		_priority = priority;
 		_useWeakReference = useWeakReference;
@@ -217,6 +225,25 @@ public class EventListenerRequest extends SWFBridgeRequest
 	}
 	
 	//----------------------------------
+	//  listener
+	//----------------------------------
+
+	/**
+     *  @private
+     */
+    private var _listener:Function;
+	
+	/**
+	 *  The method or function to call
+     *
+	 *  @see flash.events.IEventDispatcher#addEventListener
+	 */
+	public function get listener():Function
+	{
+		return _listener;
+	}
+	
+	//----------------------------------
 	//  useWeakReference
 	//----------------------------------
 
@@ -253,7 +280,7 @@ public class EventListenerRequest extends SWFBridgeRequest
 	override public function clone():Event
 	{
 		return new EventListenerRequest(type, bubbles, cancelable,
-										eventType, useCapture,
+										eventType, listener, useCapture,
                                         priority, useWeakReference); 
 	}
 }
