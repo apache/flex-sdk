@@ -1,3 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2010 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package spark.skins.mobile
 {
 import mx.states.State;
@@ -6,7 +17,7 @@ import spark.components.ButtonBar;
 import spark.components.Group;
 import spark.components.TabbedViewNavigator;
 import spark.components.supportClasses.ButtonBarBase;
-import spark.skins.MobileSkin;
+import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.spark.ButtonBarSkin;
 
 public class TabbedViewNavigatorSkin extends MobileSkin
@@ -46,11 +57,7 @@ public class TabbedViewNavigatorSkin extends MobileSkin
     //--------------------------------------------------------------------------
     
     /**
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
      */
     override protected function createChildren():void
     {
@@ -68,12 +75,7 @@ public class TabbedViewNavigatorSkin extends MobileSkin
     }
     
     /**
-     * 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
      */
     override public function set currentState(value:String):void
     {
@@ -88,11 +90,7 @@ public class TabbedViewNavigatorSkin extends MobileSkin
     }
     
     /**
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
      */
     override protected function measure():void
     {
@@ -114,11 +112,7 @@ public class TabbedViewNavigatorSkin extends MobileSkin
     }
     
     /**
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
