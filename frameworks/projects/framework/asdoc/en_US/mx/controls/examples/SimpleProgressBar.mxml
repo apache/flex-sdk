@@ -31,7 +31,7 @@
                     text="Click the button to increment the progress bar." />
             <s:Button id="Speed" label="Run" click="runit();"/>
 
-            <mx:ProgressBar id="bar" labelPlacement="bottom" baseColor="red"
+            <mx:ProgressBar id="bar" labelPlacement="bottom" chromeColor="red"
                     minimum="0" visible="true" maximum="100" label="CurrentProgress 0%" 
                     direction="right" mode="manual" width="100%"/>
         </s:VGroup>
