@@ -1647,7 +1647,7 @@ public class UIComponent extends FlexSprite
     }
 
 	/**
-	 * Documentation is not currently available
+	 * @inheritDoc
 	 */
 	override public function get rotation():Number
 	{
@@ -1690,9 +1690,9 @@ public class UIComponent extends FlexSprite
    		invalidateParentSizeAndDisplayList();
     }
 
-	/**
-	 * Documentation is not currently available
-	 */
+    /**
+     *  @inheritDoc
+     */
 	override public function get rotationZ():Number
 	{
 		return rotation;
@@ -1706,7 +1706,12 @@ public class UIComponent extends FlexSprite
     }
 
 	/**
-	 * Documentation is not currently available
+	 * Indicates the x-axis rotation of the DisplayObject instance, in degrees, from its original orientation 
+	 * relative to the 3D parent container. Values from 0 to 180 represent clockwise rotation; values 
+	 * from 0 to -180 represent counterclockwise rotation. Values outside this range are added to or subtracted from 
+	 * 360 to obtain a value within the range.
+	 * 
+	 * This property is ignored during calculation by any of Flex's 2D layouts. 
 	 */
     override public function get rotationX():Number
     {
@@ -1728,7 +1733,12 @@ public class UIComponent extends FlexSprite
     }
 
 	/**
-	 * Documentation is not currently available
+	 * Indicates the y-axis rotation of the DisplayObject instance, in degrees, from its original orientation 
+	 * relative to the 3D parent container. Values from 0 to 180 represent clockwise rotation; values 
+	 * from 0 to -180 represent counterclockwise rotation. Values outside this range are added to or subtracted from 
+	 * 360 to obtain a value within the range.
+	 * 
+	 * This property is ignored during calculation by any of Flex's 2D layouts. 
 	 */
     override public function get rotationY():Number
     {
@@ -2100,9 +2110,20 @@ public class UIComponent extends FlexSprite
 
     [Bindable("scaleZChanged")]
     [Inspectable(category="Size", defaultValue="1.0")]
-	/**
-	 * Documentation is not currently available
-	 */
+    /**
+     *  Number that specifies the scaling factor along the z axis.
+     *
+     *  A scaling along the z axis will not affect a typical component, which lies flat
+     *  in the z=0 plane.  components with children that have 3D transforms applied, or 
+     *  components with a non-zero transformZ, will be affected.
+     *  
+     *  <p>The default value is 1.0, which means that the object
+     *  is not scaled.
+     * 
+	 * This property is ignored during calculation by any of Flex's 2D layouts. 
+     *
+     *  @default 1.0
+     */
     override public function get scaleZ():Number
     {
     	return ((_layoutFeatures == null)? super.scaleZ:_layoutFeatures.layoutScaleZ);
@@ -9619,7 +9640,10 @@ public class UIComponent extends FlexSprite
 
 
 	/**
-	 * Documentation is not currently available
+	 * Initializes the implementation and storage of some of the less frequently used
+	 * advanced layout features of a component.  Call this function before attempting to use any of the 
+	 * features implemented by the AdvancedLayoutFeatures object.
+	 * 
 	 */
 	protected function initAdvancedLayoutFeatures():void
 	{
@@ -9681,7 +9705,7 @@ public class UIComponent extends FlexSprite
     }
 
 	/**
-	 * Documentation is not currently available
+	 * @inheritDoc
 	 */
     override public function get transform():flash.geom.Transform
     {
@@ -9692,6 +9716,9 @@ public class UIComponent extends FlexSprite
     	return _transform;
     }
 
+	/**
+	 * @private
+	 */
     override public function set transform(value:flash.geom.Transform):void
     {
     	setTransform(value);
@@ -9726,9 +9753,13 @@ public class UIComponent extends FlexSprite
         }
     }
 	
-	/**
-	 * Documentation is not currently available
-	 */
+    /**
+     *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
+     *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
+     *  for a component that will be rotated 90 degrees, you set the component's <code>rotation</code> property. 
+     *  If you want the layout to <i>not</i> adjust for the component being rotated, you set its <code>offsets.rotationZ</code> 
+     *  property.
+     */
  	public function set offsets(value:TransformOffsets):void
 	{
 		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
@@ -9755,7 +9786,8 @@ public class UIComponent extends FlexSprite
 	private var _maintainProjectionCenter:Boolean = false;
 	
 	/**
-	 * Documentation is not currently available
+	 * When true, the component will keep its projection matrix centered on the middle of its bounding box.  If no projection matrix is defined
+	 * on the component, one will be added automatically.
 	 */
 	public function set maintainProjectionCenter(value:Boolean):void
 	{
@@ -9775,10 +9807,12 @@ public class UIComponent extends FlexSprite
 	}
 
 	
-	/**
-	 * Documentation is not currently available.  the matrix of a component is the transform matrix used to calculate its layout
-	 * relative to its siblings. This matrix is modified by the values of the offset property to determine its final, computed matrix.
-	 */
+    /**
+     *  The transform matrix that is used to calculate the component's layout relative to its siblings. This matrix
+     *  is defined by the component's 2D properties such as <code>x</code>, <code>y</code>, <code>rotation</code>, 
+     *  <code>scaleX</code>, <code>scaleY</code>, <code>transformX</code>, and <code>transformY</code>.
+     *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
+     */
 	public function get layoutMatrix():Matrix
 	{
 		if(_layoutFeatures != null)
@@ -9808,6 +9842,15 @@ public class UIComponent extends FlexSprite
 	   		invalidateParentSizeAndDisplayList();
   		}
 	}
+
+	/**
+	 * A utility method to update the rotation and scale of the transform while keeping a particular point, specified in the component's own coordinate space, 
+	 * fixed in the parent's coordinate space.  This function will assign the rotation and scale values provided, then update the x/y/z properties
+	 * as necessary to keep tx/ty/tz fixed.
+	 * @param rx,ry,rz the new values for the rotation of the transform
+	 * @param sx,sy,sz the new values for the scale of the transform
+	 * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
+	 */
 	public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
 	{
 		if(_layoutFeatures == null && (
@@ -9839,10 +9882,16 @@ public class UIComponent extends FlexSprite
 		}
 	}
 
-	/**
-	 * Documentation is not currently available.  the matrix of a component is the transform matrix used to calculate its layout
-	 * relative to its siblings. This matrix is modified by the values of the offset property to determine its final, computed matrix.
-	 */
+    /**
+     *  The transform matrix that is used to calculate a component's layout relative to its siblings. This matrix is defined by
+     *  the component's 3D properties (which include the 2D properties such as <code>x</code>, <code>y</code>, <code>rotation</code>, 
+     *  <code>scaleX</code>, <code>scaleY</code>, <code>transformX</code>, and <code>transformY</code>, as well as <code>rotationX</code>, 
+     *  <code>rotationY</code>, <code>scaleZ</code>, <code>z</code>, and <code>transformZ</code>.
+     *  
+     *  <p>Most components do not have any 3D transform properties set on them.</p>
+     *  
+     *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
+     */
 	public function set layoutMatrix3D(value:Matrix3D):void
 	{
 		if(_layoutFeatures == null) initAdvancedLayoutFeatures();
@@ -9862,7 +9911,12 @@ public class UIComponent extends FlexSprite
 
 
 	/**
-	 * Documentation is not currently available
+	 * Determines the order in which items inside of groups are rendered. Groups order their items based on their layer property, with the lowest layer
+	 * in the back, and the higher in the front.  items with the same layer value will appear in the order they are added to the Groups item list.
+	 * 
+	 * defaults to 0
+	 * 
+	 * @default 0
 	 */
 	public function get layer():Number
 	{
@@ -9885,7 +9939,10 @@ public class UIComponent extends FlexSprite
 	}
 
 	/**
-	 * Documentation is not currently available.
+     *  Called by a component's items to indicate that their layer property has changed.
+     *  Note that while this function is defined on UIComponent, it is up to subclasses
+     *  to implement support for complex layering.  By default, only Groups support
+     *  arbitrary layering of their children.
 	 */
     public function invalidateLayering():void
     {
@@ -9893,8 +9950,7 @@ public class UIComponent extends FlexSprite
     }
 
 	/**
-	 * Documentation is not currently available.
-	 * Commits the computed transform stored in the xformOffsets object to the flash displayObject's transform.
+	 * Commits the computed matrix built from the combination of the layout matrix and the transform offsets to the flash displayObject's transform.
 	 */
 	protected function applyComputedTransform():void
 	{
