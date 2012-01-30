@@ -1,12 +1,24 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2010 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package spark.skins.mobile
 {
 
 import spark.components.Button;
 import spark.components.HScrollBar;
-import spark.skins.MobileSkin;
+import spark.skins.mobile.supportClasses.MobileSkin;
 
 
-public class HScrollBarSkin extends MobileSkin {
+public class HScrollBarSkin extends MobileSkin 
+{
     
     public function HScrollBarSkin()
     {
