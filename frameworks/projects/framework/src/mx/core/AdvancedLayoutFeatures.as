@@ -129,7 +129,7 @@ package mx.core
 
     private static const ZERO_REPLACEMENT_IN_3D:Number = .00000000000001;
     
-    private static var tempTransformCenter:Vector3D;
+    private static var tempLocalPosition:Vector3D;
     
     /**
      * @private
@@ -796,17 +796,20 @@ package mx.core
                         
 
     /**
-     *  FIXME (chaase) : FLEXDOCS-1031
+     * A utility method to transform a point specified in the local
+     * coordinates of this object to its location in the object's parent's 
+     * coordinates. The pre-layout and post-layout result will be set on 
+     * the <code>position</code> and <code>postLayoutPosition</code>
+     * parameters, if they are non-null.
      * 
-     *  A utility method to update the rotation and scale of the transform 
-     * while keeping a particular point, specified in the component's 
-     * own coordinate space, fixed in the parent's coordinate space.  
-     * This function will assign the rotation and scale values provided, 
-     * then update the x/y/z properties as necessary to keep tx/ty/tz fixed.
-     * @param rx,ry,rz the new values for the rotation of the transform
-     * @param sx,sy,sz the new values for the scale of the transform
-     * @param tx,ty,tz the point, in the component's own coordinates, 
-     * to keep fixed relative to its parent.
+     * @param propertyIs3D A boolean reflecting whether the calculation needs
+     * to take into account the 3D matrix of the object.
+     * @param localPoint The point to be transformed, specified in the
+     * local coordinates of the object.
+     * @position A Vector3D point that will hold the pre-layout
+     * result. If null, the parameter is ignored.
+     * @postLayoutPosition A Vector3D point that will hold the post-layout
+     * result. If null, the parameter is ignored.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -814,53 +817,52 @@ package mx.core
      *  @productversion Flex 4
      */
     public function transformPointToParent(propertyIs3D:Boolean,
-        transformCenter:Vector3D, currentPosition:Vector3D,
-        currentPostLayoutPosition:Vector3D):void
+        localPosition:Vector3D, position:Vector3D,
+        postLayoutPosition:Vector3D):void
     {
-        var computedCenterV:Vector3D;
-        var token:Object = {};
-        tempTransformCenter = 
-            transformCenter ?
-            transformCenter :
+        var transformedV:Vector3D;
+        var transformedP:Point;
+        tempLocalPosition = 
+            localPosition ?
+            localPosition :
             new Vector3D();
                 
         if (is3D || propertyIs3D) 
         {
-            if (currentPosition != null)
+            if (position != null)
             {
-                var layoutCenterV:Vector3D = transformVector(layoutMatrix3D,tempTransformCenter); 
-                currentPosition.x = layoutCenterV.x;
-                currentPosition.y = layoutCenterV.y;
-                currentPosition.z = layoutCenterV.z;
+                transformedV = transformVector(layoutMatrix3D, tempLocalPosition); 
+                position.x = transformedV.x;
+                position.y = transformedV.y;
+                position.z = transformedV.z;
             } 
             
-            if (currentPostLayoutPosition != null)
+            if (postLayoutPosition != null)
             {           
-                computedCenterV = transformVector(computedMatrix3D,tempTransformCenter);
-                currentPostLayoutPosition.x = computedCenterV.x;
-                currentPostLayoutPosition.y = computedCenterV.y;
-                currentPostLayoutPosition.z = computedCenterV.z;
+                transformedV = transformVector(computedMatrix3D, tempLocalPosition);
+                postLayoutPosition.x = transformedV.x;
+                postLayoutPosition.y = transformedV.y;
+                postLayoutPosition.z = transformedV.z;
             }
         }
         else
         {
-            var centerP:Point = new Point(tempTransformCenter.x, 
-                tempTransformCenter.y);
-            if (currentPosition != null)
+            var localP:Point = new Point(tempLocalPosition.x, 
+                tempLocalPosition.y);
+            if (position != null)
             {
-            
-                var currentPositionPt:Point = layoutMatrix.transformPoint(centerP);
-                currentPosition.x = currentPositionPt.x;
-                currentPosition.y = currentPositionPt.y;
-                currentPosition.z = 0;
+                transformedP = layoutMatrix.transformPoint(localP);
+                position.x = transformedP.x;
+                position.y = transformedP.y;
+                position.z = 0;
             }
             
-            if (currentPostLayoutPosition != null)
+            if (postLayoutPosition != null)
             {
-                currentPositionPt = computedMatrix.transformPoint(centerP);
-                currentPostLayoutPosition.x = currentPositionPt.x;
-                currentPostLayoutPosition.y = currentPositionPt.y;
-                currentPostLayoutPosition.z = 0;
+                transformedP = computedMatrix.transformPoint(localP);
+                postLayoutPosition.x = transformedP.x;
+                postLayoutPosition.y = transformedP.y;
+                postLayoutPosition.z = 0;
             }
         }
     }
