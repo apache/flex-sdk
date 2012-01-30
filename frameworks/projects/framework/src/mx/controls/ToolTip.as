@@ -53,6 +53,7 @@ use namespace mx_internal;
     textDecoration
 */
 
+include "../styles/metadata/BackgroundStyles.as"
 include "../styles/metadata/BorderStyles.as"
 include "../styles/metadata/LeadingStyle.as"
 include "../styles/metadata/PaddingStyles.as"
