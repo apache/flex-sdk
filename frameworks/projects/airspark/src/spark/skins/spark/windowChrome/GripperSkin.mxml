@@ -17,6 +17,7 @@
         <s:State name="up" />
         <s:State name="over" />
         <s:State name="down" />
+        <s:State name="disabled" />
     </s:states>
     
     <s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0">
