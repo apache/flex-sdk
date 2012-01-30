@@ -24,6 +24,7 @@ ActionBar #titleDisplay
 {
     fontSize: 28;
     fontWeight: bold;
+    textShadowAlpha: .45;
 }
 
 ActionBar Button:down
@@ -340,7 +341,7 @@ global
     fontSize: 24;
     color: #000000;
     textShadowColor: #FFFFFF;
-    textShadowAlpha: .45;
+    textShadowAlpha: .55;
     
     /* Behaviors */
     autoThumbVisibility: true;
