@@ -386,9 +386,9 @@ public class SequenceInstance extends CompositeEffectInstance
             activeEffectQueue = null;
             
             // Call stop on the currently playing set
+            var currentInstances:Array = queueCopy[currentSetIndex];
             if (currentInstances)
             {
-                var currentInstances:Array = queueCopy[currentSetIndex];
                 var currentCount:int = currentInstances.length;
                 
                 for (var i:int = 0; i < currentCount; i++)
