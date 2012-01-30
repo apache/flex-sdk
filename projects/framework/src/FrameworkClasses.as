@@ -143,6 +143,7 @@ internal class FrameworkClasses
 	import mx.utils.XMLUtil; XMLUtil;
 	import mx.utils.Base64Decoder; Base64Decoder;
 	import mx.utils.Base64Encoder; Base64Encoder;
+	import mx.utils.BitFlagUtil; BitFlagUtil;
 	import mx.utils.OnDemandEventDispatcher; OnDemandEventDispatcher;
 	import mx.validators.Validator; Validator;
 	// Maintain alphabetical order
