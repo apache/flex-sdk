@@ -206,10 +206,10 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
      */
     public function get duration():Number
     {
-        if (!mx_internal::durationExplicitlySet &&
-            mx_internal::parentCompositeEffectInstance)
+        if (!durationExplicitlySet &&
+            parentCompositeEffectInstance)
         {
-            return mx_internal::parentCompositeEffectInstance.duration;
+            return parentCompositeEffectInstance.duration;
         }
         else
         {
@@ -222,7 +222,7 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
      */
     public function set duration(value:Number):void
     {
-        mx_internal::durationExplicitlySet = true;
+        durationExplicitlySet = true;
         _duration = value;
     }
 
@@ -619,7 +619,7 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
             case "resizeStart":
             case "resizeEnd":
             {
-                if (!mx_internal::durationExplicitlySet)
+                if (!durationExplicitlySet)
                     duration = 250;
                 break;
             }
