@@ -375,13 +375,13 @@ use namespace mx_internal;
  *    alwaysInFront="false"
  *    backgroundColor="white"
  *    colorCorrection="default"
- *    maxHeight="10000"
+ *    maxHeight="2880 less the height of the system chrome"
  *    maximizable="true"
- *    maxWidth="10000"
+ *    maxWidth="2880 less the width of the system chrome"
  *    menu="<i>null</i>"
- *    minHeight="0"
+ *    minHeight="dependent on the operating system and the AIR systemChrome setting"
  *    minimizable="true"
- *    minWidth="0"
+ *    minWidth="dependent on the operating system and the AIR systemChrome setting"
  *    resizable="true"
  *    showStatusBar="true"
  *    status=""
@@ -564,11 +564,6 @@ public class Window extends SkinnableContainer implements IWindow
      *  @private
      */
     private var prevY:Number;
-
-    /**
-     *  @private
-     */
-    private var resizeHandlerAdded:Boolean = false;
 
     /**
      *  @private
@@ -2252,19 +2247,6 @@ public class Window extends SkinnableContainer implements IWindow
     
     /**
      *  @private
-     *  Starts a system move.
-     */
-    private function startMove(event:MouseEvent):void
-    {
-        addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
-        addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-
-        prevX = event.stageX;
-        prevY = event.stageY;
-    }
-
-    /**
-     *  @private
      *  Starts a system resize.
      */
     private function startResize(start:String):void
@@ -2420,96 +2402,6 @@ public class Window extends SkinnableContainer implements IWindow
     }
 
     /**
-     *  @private
-     */
-    private function closeButton_clickHandler(event:Event):void
-    {
-        if (!nativeWindow.closed)
-            stage.nativeWindow.close();
-    }
-
-    /**
-     *  @private
-     *  Triggered by a resize event of the stage.
-     *  Sets the new width and height.
-     *  After the SystemManager performs its function,
-     *  it is only necessary to notify the children of the change.
-     */
-    private function resizeHandler(event:Event):void
-    {
-        // When user has not specified any width/height,
-        // application assumes the size of the stage.
-        // If developer has specified width/height,
-        // the application will not resize.
-        // If developer has specified percent width/height,
-        // application will resize to the required value
-        // based on the current stage width/height.
-        // If developer has specified min/max values,
-        // then application will not resize beyond those values.
-
-        var w:Number;
-        var h:Number
-
-        if (resizeWidth)
-        {
-            if (isNaN(percentWidth))
-            {
-                w = DisplayObject(systemManager).width;
-            }
-            else
-            {
-                super.percentWidth = Math.max(percentWidth, 0);
-                super.percentWidth = Math.min(percentWidth, 100);
-                w = percentWidth*screen.width/100;
-            }
-
-            if (!isNaN(explicitMaxWidth))
-                w = Math.min(w, explicitMaxWidth);
-
-            if (!isNaN(explicitMinWidth))
-                w = Math.max(w, explicitMinWidth);
-        }
-        else
-        {
-            w = width;
-        }
-
-        if (resizeHeight)
-        {
-            if (isNaN(percentHeight))
-            {
-                h = DisplayObject(systemManager).height;
-            }
-            else
-            {
-                super.percentHeight = Math.max(percentHeight, 0);
-                super.percentHeight = Math.min(percentHeight, 100);
-                h = percentHeight*screen.height/100;
-            }
-
-            if (!isNaN(explicitMaxHeight))
-                h = Math.min(h, explicitMaxHeight);
-
-            if (!isNaN(explicitMinHeight))
-                h = Math.max(h, explicitMinHeight);
-        }
-        else
-        {
-            h = height;
-        }
-
-        if (w != width || h != height)
-        {
-            invalidateProperties();
-            invalidateSize();
-        }
-
-        setActualSize(w, h);
-
-        invalidateDisplayList();
-    }
-
-    /**
      *   @private
      *  
      *   Perform a hit test to determine if an edge or corner of the application
@@ -2615,24 +2507,6 @@ public class Window extends SkinnableContainer implements IWindow
         systemManager.stage.nativeWindow.addEventListener(
             NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE,
             window_displayStateChangeHandler);
-    }
-
-    /**
-     *  @private
-     */
-    private function mouseMoveHandler(event:MouseEvent):void
-    {
-        stage.nativeWindow.x += event.stageX - prevX;
-        stage.nativeWindow.y += event.stageY - prevY;
-    }
-
-    /**
-     *  @private
-     */
-    private function mouseUpHandler(event:MouseEvent):void
-    {
-        removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
-        removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
     }
 
     /**
