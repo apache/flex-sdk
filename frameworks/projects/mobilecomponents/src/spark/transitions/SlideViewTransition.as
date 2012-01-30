@@ -246,11 +246,12 @@ public class SlideViewTransition extends ViewTransitionBase
         {
             // Animate the tabBar if its overlayControls or visible property is toggled.
             animateTabBar = startView.overlayControls != endView.overlayControls ||
-                            startView.tabBarVisible != endView.tabBarVisible;
+                            startView.tabBarVisible != endView.tabBarVisible ||
+                            mode == SlideViewTransitionMode.COVER;
         }
         
         // Snapshot the entire navigator or actionBar depending on the mode.
-        if (mode == SlideViewTransitionMode.UNCOVER)
+        if (mode != SlideViewTransitionMode.PUSH)
         {
             var oldVisibility:Boolean = endView.visible;
             endView.visible = false;
@@ -446,10 +447,12 @@ public class SlideViewTransition extends ViewTransitionBase
         // transition mode (cover vs. uncover for instance).
         if (mode == SlideViewTransitionMode.COVER)
         {
-            // Add the transition group on top of the contentGroup.  It's important that its placed on
-            // top so that alpha characteristics of the cached ActionBar are shown properly
-            var childIndex:uint = targetNavigator.skin.getChildIndex(targetNavigator.contentGroup);
-            addComponentToContainerAt(transitionGroup, targetNavigator.skin, childIndex + 1);
+            // When doing a cover animation, the transition group is added to the bottom
+            // of the main navigator's skin with a bitmap image of the previous state.  The
+            // end view and ui controls will then animate on top of this image to create
+            // the cover effect.
+            addComponentToContainerAt(transitionGroup, targetNavigator.skin, 0);
+            transitionGroup.addElement(cachedNavigator);
         }
         else
         {
@@ -469,7 +472,14 @@ public class SlideViewTransition extends ViewTransitionBase
             actionBar.cacheAsBitmap = true;
         }
         
-        if (startView)
+        if (mode == SlideViewTransitionMode.COVER)
+        {
+            // Hide the start view since we have a cached image of the initial
+            // navigator state.
+            startViewProps = {visible: startView.visible};
+            startView.visible = false;
+        }
+        else if (startView)
         {
             // Store the position of the startView
             navigatorProps.startViewX = startView.x;
@@ -655,6 +665,11 @@ public class SlideViewTransition extends ViewTransitionBase
         else
         {
 
+            if (startView && mode == SlideViewTransitionMode.COVER)
+            {
+                startView.visible = startViewProps.visible;
+            }
+            
             if (tabBar)
             {
                 tabBar.includeInLayout = navigatorProps.tabBarIncludeInLayout;
