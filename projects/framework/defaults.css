@@ -484,7 +484,6 @@ ComboBox
 
 List.comboDropdown
 {
-	cornerRadius: 0;
 	dropShadowVisible: true;
 	fontWeight: "normal";
 	leading: 0;
