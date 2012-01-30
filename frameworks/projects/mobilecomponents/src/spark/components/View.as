@@ -11,11 +11,15 @@
 
 package spark.components
 {
+import flash.events.StageOrientationEvent;
+
+import mx.core.FlexGlobals;
 import mx.core.IDataRenderer;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
+import mx.managers.SystemManager;
 
 import spark.core.ContainerDestructionPolicy;
 import spark.events.ViewNavigatorEvent;
@@ -767,17 +771,49 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function getCurrentViewState(landscape:Boolean):String
+    public function getCurrentViewState():String
     {
-        if (!landscape && hasState("portrait"))
-            return "portrait";
+        var aspectRatio:String = FlexGlobals.topLevelApplication.aspectRatio;
         
-        if (landscape && hasState("landscape"))
-            return "landscape";
+        if (hasState(aspectRatio))
+            return aspectRatio;
         
         // If the appropriate state for the orientation of the device
         // isn't defined, return the current state
         return currentState;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Private Methods
+    //
+    //--------------------------------------------------------------------------
+    /**
+     *  @private
+     */ 
+    private function stage_orientationChangeHandler(event:StageOrientationEvent):void
+    {
+        setCurrentState(getCurrentViewState(), false);    
+    }
+    
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */ 
+    override public function initialize():void
+    {
+    	super.initialize();
+    
+        systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
+            stage_orientationChangeHandler);
+        
+        setCurrentState(getCurrentViewState(), false);
     }
     
     //--------------------------------------------------------------------------
