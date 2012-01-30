@@ -1982,7 +1982,8 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  If the item can not be found no change to the current location will be
      *  made.
      *  <code>findAny()</code> can only be called on sorted views, if the view
-     *  isn't sorted a <code>CursorError</code> will be thrown.
+     *  isn't sorted, or items in the view do not contain properties used
+     *  to compute the sort order, a <code>CursorError</code> will be thrown.
      *  <p>
      *  If the associated collection is remote, and not all of the items have
      *  been cached locally this method will begin an asynchronous fetch from the
@@ -2042,7 +2043,8 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  If the item can not be found no change to the current location will be
      *  made.
      *  <code>findFirst()</code> can only be called on sorted views, if the view
-     *  isn't sorted a <code>CursorError</code> will be thrown.
+     *  isn't sorted, or items in the view do not contain properties used
+     *  to compute the sort order, a <code>CursorError</code> will be thrown.
      *  <p>
      *  If the associated collection is remote, and not all of the items have been
      *  cached locally this method will begin an asynchronous fetch from the
@@ -2099,7 +2101,8 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  If the item can not be found no change to the current location will be
      *  made.
      *  <code>findLast()</code> can only be called on sorted views, if the view
-     *  isn't sorted a <code>CursorError</code> will be thrown.
+     *  isn't sorted, or items in the view do not contain properties used
+     *  to compute the sort order, a <code>CursorError</code> will be thrown.
      *  <p>
      *  If the associated collection is remote, and not all of the items have been
      *  cached locally this method will begin an asynchronous fetch from the
