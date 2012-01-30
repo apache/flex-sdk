@@ -29,6 +29,11 @@ import mx.rpc.IResponder;
  *
  *  @see mx.collections.ItemResponder
  *  @see mx.rpc.IResponder
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ItemPendingError extends Error
 {
@@ -47,6 +52,11 @@ public class ItemPendingError extends Error
 	 *  for an item that isn't local.</p>
 	 *
 	 *  @param message A message providing information about the error cause.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ItemPendingError(message:String)
     {
@@ -71,6 +81,11 @@ public class ItemPendingError extends Error
     /**
      *  An array of IResponder handlers that will be called when
      *  the asynchronous request completes.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get responders():Array
 	{
@@ -92,6 +107,11 @@ public class ItemPendingError extends Error
 	 * 
 	 *  @see	mx.rpc.IResponder
 	 *  @see	mx.collections.ItemResponder
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function addResponder(responder:IResponder):void
 	{
