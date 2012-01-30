@@ -4430,9 +4430,9 @@ public class UIComponent extends FlexSprite
      *  The class style used by this component. This can be a String, CSSStyleDeclaration
      *  or an IStyleClient. 
      *
-     *  <p>If this is a String, it is the name of a class declaration
-     *  in an <code>mx:Style</code> tag or CSS file. You do not include the period in 
-     *  the <code>styleName</code>. For example, if you have a class style named <code>".bigText"</code>,
+     *  <p>If this is a String, it is the name of one or more whitespace delimited class
+     *  declarations in an <code>mx:Style</code> tag or CSS file. You do not include the period
+     *  in the <code>styleName</code>. For example, if you have a class style named <code>".bigText"</code>,
      *  set the <code>styleName</code> property to <code>"bigText"</code> (no period).</p>
      *
      *  <p>If this is an IStyleClient (typically a UIComponent), all styles in the
@@ -7286,16 +7286,14 @@ public class UIComponent extends FlexSprite
     //  Note that initProtoChain is 99% copied into DataGridItemRenderer
     mx_internal function initProtoChain():void
     {
-        //trace("initProtoChain", name);
-
-        var classSelector:CSSStyleDeclaration;
+        var classSelectors:Array = [];
 
         if (styleName)
         {
             if (styleName is CSSStyleDeclaration)
             {
                 // Get the style sheet referenced by the styleName property
-                classSelector = CSSStyleDeclaration(styleName);
+                classSelectors.push(CSSStyleDeclaration(styleName));
             }
             else if (styleName is IFlexDisplayObject || styleName is IStyleClient)
             {
@@ -7306,9 +7304,15 @@ public class UIComponent extends FlexSprite
             }
             else if (styleName is String)
             {
-                // Get the style sheet referenced by the styleName property
-                classSelector =
-                    StyleManager.getStyleDeclaration("." + styleName);
+                // Get the style sheets referenced by the styleName property             
+                var styleNames:Array = styleName.split(/\s+/);
+                for (var c:int=0; c < styleNames.length; c++)
+                {
+                    if (styleNames[c].length) {
+                        classSelectors.push(StyleManager.getStyleDeclaration("." + 
+                            styleNames[c]));
+                    }
+                }
             }
         }
 
@@ -7318,10 +7322,10 @@ public class UIComponent extends FlexSprite
         //  - for non-inheriting styles, the global style sheet
         //  - for inheriting styles, my parent's style object
         var nonInheritChain:Object = StyleManager.stylesRoot;
-        
+
         if (nonInheritChain && nonInheritChain.effects)
             registerEffects(nonInheritChain.effects);
-        
+
         var p:IStyleClient = parent as IStyleClient;
         if (p)
         {
@@ -7336,7 +7340,8 @@ public class UIComponent extends FlexSprite
             // set on Application.
             if (isPopUp)
             {
-                if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0 && _owner && _owner is IStyleClient)
+                if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0 && 
+                        _owner && _owner is IStyleClient)
                     inheritChain = IStyleClient(_owner).inheritingStyles;
                 else
                     inheritChain = ApplicationGlobals.application.inheritingStyles;
@@ -7357,20 +7362,21 @@ public class UIComponent extends FlexSprite
 
             nonInheritChain =
                 typeSelector.addStyleToProtoChain(nonInheritChain, this);
-            
+
             if (typeSelector.effects)
                 registerEffects(typeSelector.effects);
         }
 
-        // Next is the class selector
-        if (classSelector)
+        // Next are the class selectors
+        for (i = 0; i < classSelectors.length; i++)
         {
+            var classSelector:CSSStyleDeclaration = classSelectors[i];
             inheritChain =
                 classSelector.addStyleToProtoChain(inheritChain, this);
 
             nonInheritChain =
                 classSelector.addStyleToProtoChain(nonInheritChain, this);
-            
+
             if (classSelector.effects)
                 registerEffects(classSelector.effects);
         }
