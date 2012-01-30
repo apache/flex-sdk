@@ -1401,17 +1401,6 @@ public dynamic class UIMovieClip extends MovieClip
     /**
      *  Executes the data bindings into this UIComponent object.
      *
-     *  Workaround for MXML container/bindings problem (177074):
-     *  override Container.executeBindings() to prefer descriptor.document over parentDocument in the
-     *  call to BindingManager.executeBindings().
-     *
-     *  This should always provide the correct behavior for instances created by descriptor, and will
-     *  provide the original behavior for procedurally-created instances. (The bug may or may not appear
-     *  in the latter case.)
-     *
-     *  A more complete fix, guaranteeing correct behavior in both non-DI and reparented-component
-     *  scenarios, is anticipated for updater 1.
-     *
      *  @param recurse Recursively execute bindings for children of this component.
      *  
      *  @langversion 3.0
@@ -2960,13 +2949,13 @@ public dynamic class UIMovieClip extends MovieClip
      */
     override public function set transform(value:flash.geom.Transform):void
     {
-    	var m:Matrix = value.matrix;
+        var m:Matrix = value.matrix;
         var m3:Matrix3D =  value.matrix3D;
         var ct:ColorTransform = value.colorTransform;
-    	var pp:PerspectiveProjection = value.perspectiveProjection;
-    	
+        var pp:PerspectiveProjection = value.perspectiveProjection;
+        
         setTransform(value);
-		
+        
         if(m != null)
             setLayoutMatrix(m.clone(), true /*triggerLayoutPass*/);
         else if(m3 != null)
@@ -3120,12 +3109,12 @@ public dynamic class UIMovieClip extends MovieClip
         // Clean up the old transform
         var oldTransform:mx.geom.Transform = _transform as mx.geom.Transform;
         if (oldTransform)
-        	oldTransform.target = null;
+            oldTransform.target = null;
 
         var newTransform:mx.geom.Transform = value as mx.geom.Transform;
 
         if (newTransform)
-        	newTransform.target = this;
+            newTransform.target = this;
 
         _transform = value;
     }
