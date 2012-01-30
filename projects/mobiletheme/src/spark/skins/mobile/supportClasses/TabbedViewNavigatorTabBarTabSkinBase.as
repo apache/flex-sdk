@@ -68,7 +68,7 @@ public class TabbedViewNavigatorTabBarTabSkinBase extends ButtonBarButtonSkinBas
                 layoutPaddingLeft = 12;
                 layoutPaddingRight = 12;
                 layoutGap = 10;
-                minHeight = 102; // FIXME (jasonsj): remove and suggest icon size?
+                measuredDefaultHeight = 102;
                 
                 break;
             }
@@ -80,20 +80,20 @@ public class TabbedViewNavigatorTabBarTabSkinBase extends ButtonBarButtonSkinBas
                 layoutPaddingLeft = 9;
                 layoutPaddingRight = 9;
                 layoutGap = 7;
-                minHeight = 76; // FIXME (jasonsj): remove and suggest icon size?
+                measuredDefaultHeight = 76;
                 
                 break;
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 layoutBorderSize = 1;
                 layoutPaddingTop = 6;
                 layoutPaddingBottom = 6;
                 layoutPaddingLeft = 6;
                 layoutPaddingRight = 6;
                 layoutGap = 5;
-                minHeight = 51; // FIXME (jasonsj): remove and suggest icon size?
+                measuredDefaultHeight = 51;
                 
                 break;
             }
