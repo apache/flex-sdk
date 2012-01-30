@@ -121,7 +121,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
         // Draw the contentBackgroundColor
         graphics.clear();
         graphics.beginFill(getStyle("contentBackgroundColor"), getStyle("contentBackgroundAlpha"));
-        graphics.drawRoundRect(2, 2, unscaledWidth - 4, unscaledHeight - 4, 4, 4);
+    	graphics.drawRoundRect(2, 2, unscaledWidth - 4, unscaledHeight - 4, 4, 4);
         graphics.endFill();
         
         // position & size border
@@ -146,6 +146,19 @@ import spark.skins.mobile.supportClasses.MobileSkin;
             textDisplay.styleChanged(styleProp);
         super.styleChanged(styleProp);
     }
+	
+	/**
+	 *  @private
+	 */
+	override protected function commitCurrentState():void
+	{
+		super.commitCurrentState();
+		
+		if (currentState == "normal")
+			alpha = 1;
+		else
+			alpha = 0.5;
+	}
     
     /**
      *  @private
