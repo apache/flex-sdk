@@ -14,6 +14,7 @@ package spark.preloaders
     
 import flash.display.DisplayObject;
 import flash.display.Sprite;
+import flash.display.StageAspectRatio;
 import flash.display.StageOrientation;
 import flash.events.Event;
 import flash.events.StageOrientationEvent;
@@ -209,16 +210,6 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  autoAlign
-    //----------------------------------    
-    /**
-     *  @private
-     *  Flag determines whether the SplashScreen attempts to auto orient the
-     *  splash screen image that is displayed.
-     */ 
-    mx_internal var autoAlign:Boolean = true;
-    
-    //----------------------------------
     //  preloader
     //----------------------------------
     
@@ -305,11 +296,6 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      */
     public function initialize():void
     {
-        // autoAlign is disabled on iOS devices since the stage's width and height
-        // are properly provided at start up.  See SDK-30261.
-        if (Capabilities.version.indexOf("IOS") == 0)
-            autoAlign = false;
-        
         // The preloader parameters are in the SystemManager's info() object
         var sysManager:SystemManager = this.parent.loaderInfo.content as SystemManager;
         if (!sysManager)
@@ -334,7 +320,7 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    mx_internal function getImageClass(dpi:Number, portraitOrientation:Boolean):Class
+    mx_internal function getImageClass(dpi:Number, aspectRatio:String):Class
     {
         if ("splashScreenImage" in info)
             return info["splashScreenImage"]; 
@@ -351,9 +337,8 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
         
         // Capture device dpi and orientation
         var dpi:Number = dpiProvider.runtimeDPI;
-        var portraitOrientation:Boolean = stage.stageWidth < stage.stageHeight;
-        
-        var imageClass:Class = getImageClass(dpi, portraitOrientation);
+        var aspectRatio:String = (stage.stageWidth < stage.stageHeight) ? StageAspectRatio.PORTRAIT : StageAspectRatio.LANDSCAPE;
+        var imageClass:Class = getImageClass(dpi, aspectRatio);
         
         // The SplashImageClass will only be set if a splash screen image has
         // already be generated.  If the desired imageClass differs from the
@@ -431,20 +416,8 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
         var dpiScale:Number = this.root.scaleX;
 
         // Get stage dimensions at default orientation
-        var stageWidth:Number;
-        var stageHeight:Number;
-        
-        if (autoAlign && (orientation == StageOrientation.ROTATED_LEFT ||
-            orientation == StageOrientation.ROTATED_RIGHT))
-        {
-            stageWidth = stage.stageHeight / dpiScale;
-            stageHeight = stage.stageWidth / dpiScale;
-        }
-        else
-        {
-            stageWidth = stage.stageWidth / dpiScale;
-            stageHeight = stage.stageHeight / dpiScale;
-        }
+        var stageWidth:Number = stage.stageWidth / dpiScale;
+        var stageHeight:Number = stage.stageHeight / dpiScale;
 
         // The image dimensions
         var width:Number = splashImageWidth;
@@ -482,43 +455,11 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
             m.scale(scaleX, scaleY);
         }
 
-        // Rotate to keep aligned with StageOrientation.DEFAULT
-        var rotation:Number = 0;
-        
-        if (autoAlign)
-        {
-            switch (stage.orientation)
-            {
-                case StageOrientation.UNKNOWN:
-                case StageOrientation.DEFAULT:
-                    rotation = 0;
-                break;
-
-                case StageOrientation.ROTATED_RIGHT: 
-                    rotation = Math.PI * 1.5; // 270
-                break;
-            
-                case StageOrientation.ROTATED_LEFT: 
-                    rotation = Math.PI * 0.5; // 90
-                break;
-
-                case StageOrientation.UPSIDE_DOWN: 
-                    rotation = Math.PI; // 180
-                break;
-            }
-        }
-
         // Move center to (0,0):
         m.translate(-width / 2, -height / 2);
 
-        // Rotate around center (0,0)
-        if (rotation != 0)
-            m.rotate(rotation);
-
         // Align center of image (0,0) to center of stage: 
-        var stageWidthAfterOrientationAndDPI:Number = stage.stageWidth / dpiScale;
-        var stageHeightAfterOrientationAndDPI:Number = stage.stageHeight / dpiScale;
-        m.translate(stageWidthAfterOrientationAndDPI / 2, stageHeightAfterOrientationAndDPI / 2);
+        m.translate(stageWidth / 2, stageHeight / 2);
 
         // Apply matrix
         splashImage.transform.matrix = m;
