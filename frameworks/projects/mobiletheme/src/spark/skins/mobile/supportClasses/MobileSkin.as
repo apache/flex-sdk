@@ -247,6 +247,10 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  MobileSkin does not use states. Skins should override this function
      *  to return false for states that are not implemented.
      * 
+     * @param stateName The state name.
+     * 
+     * @return false for states that are not implemented.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5 
@@ -574,7 +578,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
         {
             return IFlexDisplayObject(element).measuredHeight;
         }
-		else
+        else
         {
             return element.height;
         }
