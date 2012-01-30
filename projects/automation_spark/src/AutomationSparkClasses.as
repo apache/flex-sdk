@@ -27,6 +27,7 @@ package
 		import spark.automation.delegates.components.SparkButtonBarButtonAutomationImpl;SparkButtonBarButtonAutomationImpl;
 		import spark.automation.delegates.components.SparkCheckBoxAutomationImpl;SparkCheckBoxAutomationImpl;
 		import spark.automation.delegates.components.SparkComboBoxAutomationImpl;SparkComboBoxAutomationImpl;
+		import spark.automation.delegates.components.SparkDataGroupAutomationImpl;SparkDataGroupAutomationImpl;
 		import spark.automation.delegates.components.SparkDropDownListAutomationImpl;SparkDropDownListAutomationImpl;
 		import spark.automation.delegates.components.SparkGroupAutomationImpl;SparkGroupAutomationImpl;
 		import spark.automation.delegates.components.SparkLabelAutomationImpl;SparkLabelAutomationImpl;
@@ -38,8 +39,8 @@ package
 		import spark.automation.delegates.components.SparkSkinnableContainerAutomationImpl;SparkSkinnableContainerAutomationImpl;
 		import spark.automation.delegates.components.SparkSpinnerAutomationImpl;SparkSpinnerAutomationImpl;
 		import spark.automation.delegates.components.SparkTabBarAutomationImpl;SparkTabBarAutomationImpl;
-		import spark.automation.delegates.components.SprakTextAreaAutomationImpl;SprakTextAreaAutomationImpl;
-		import spark.automation.delegates.components.SprakTextInputAutomationImpl;SprakTextInputAutomationImpl;
+		import spark.automation.delegates.components.SparkTextAreaAutomationImpl;SparkTextAreaAutomationImpl;
+		import spark.automation.delegates.components.SparkTextInputAutomationImpl;SparkTextInputAutomationImpl;
 		import spark.automation.delegates.components.SparkTileGroupAutomationImpl;SparkTileGroupAutomationImpl;
 		import spark.automation.delegates.components.SparkTitleWindowAutomationImpl;SparkTitleWindowAutomationImpl;
 		import spark.automation.delegates.components.SparkVideoPlayerAutomationImpl;SparkVideoPlayerAutomationImpl;
@@ -58,9 +59,10 @@ package
 		import spark.automation.delegates.components.supportClasses.SparkSkinnableComponentAutomationImpl;SparkSkinnableComponentAutomationImpl;
 		import spark.automation.delegates.components.supportClasses.SparkSliderBaseAutomationImpl;SparkSliderBaseAutomationImpl;
 		import spark.automation.delegates.components.supportClasses.SparkToggleButtonBaseAutomationImpl;SparkToggleButtonBaseAutomationImpl;
-		import spark.automation.delegates.components.supportClasses.SprakSkinnableTextBaseAutomationImpl;SprakSkinnableTextBaseAutomationImpl;
+		import spark.automation.delegates.components.supportClasses.SparkSkinnableTextBaseAutomationImpl;SparkSkinnableTextBaseAutomationImpl;
 	
 		import spark.automation.delegates.components.SparkRichEditableTextAutomationImpl;SparkRichEditableTextAutomationImpl;
+		import spark.automation.delegates.skins.spark.SparkDefaultComplexItemRendererAutomationImpl;SparkDefaultComplexItemRendererAutomationImpl;
 		import spark.automation.delegates.skins.spark.SparkDefaultItemRendererAutomationImpl;SparkDefaultItemRendererAutomationImpl;
 		import spark.automation.tabularData.SkinnableContainerTabularData;SkinnableContainerTabularData;
 		
