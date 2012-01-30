@@ -55,6 +55,8 @@ public class RSLEvent extends ProgressEvent
      *       <code>myButton.addEventListener()</code> to register an event listener, 
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
      *     <tr><td><code>errorText</code></td><td>Empty</td></tr>
+     *     <tr><td><code>isResourceModule</code></td><td>True if we loaded a resourceModule
+	 *        instead of an RSL</td></tr>
      *     <tr><td><code>rslIndex</code></td><td>The index number of the RSL 
      *       currently being downloaded. </td></tr>
      *     <tr><td><code>rslTotal</code></td><td>The total number of RSLs 
@@ -93,6 +95,8 @@ public class RSLEvent extends ProgressEvent
      *       <code>myButton.addEventListener()</code> to register an event listener, 
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
      *     <tr><td><code>errorText</code></td>An error message.<td></td></tr>
+     *     <tr><td><code>isResourceModule</code></td><td>True if we loaded a resourceModule
+	 *        instead of an RSL</td></tr>
      *     <tr><td><code>rslIndex</code></td><td>The index number of the RSL 
      *       currently being downloaded. </td></tr>
      *     <tr><td><code>rslTotal</code></td><td>The total number of RSLs 
@@ -131,6 +135,8 @@ public class RSLEvent extends ProgressEvent
      *       <code>myButton.addEventListener()</code> to register an event listener, 
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
      *     <tr><td><code>errorText</code></td>Empty<td></td></tr>
+     *     <tr><td><code>isResourceModule</code></td><td>True if we loaded a resourceModule
+	 *        instead of an RSL</td></tr>
      *     <tr><td><code>rslIndex</code></td><td>The index number of the RSL 
      *       currently being downloaded. </td></tr>
      *     <tr><td><code>rslTotal</code></td><td>The total number of RSLs 
@@ -184,6 +190,8 @@ public class RSLEvent extends ProgressEvent
 	 *
 	 *  @param errorText The error message of the error when type is RSLEvent.RSL_ERROR.
 	 *
+	 *  @param isResourceModule True if the event occurred when loading a ResourceModule.
+	 *
 	 *  @tiptext Constructor for <code>RSLEvent</code> objects.
 	 *  
 	 *  @langversion 3.0
@@ -195,7 +203,8 @@ public class RSLEvent extends ProgressEvent
 							 cancelable:Boolean = false,
 							 bytesLoaded:int = -1, bytesTotal:int = -1,
 							 rslIndex:int = -1, rslTotal:int = -1,
-							 url:URLRequest = null, errorText:String = null)
+							 url:URLRequest = null, errorText:String = null,
+							 isResourceModule:Boolean = false)
 	{
 		super(type, bubbles, cancelable, bytesLoaded, bytesTotal);
 		
@@ -203,6 +212,7 @@ public class RSLEvent extends ProgressEvent
 		this.rslTotal = rslTotal;
 		this.url = url;
 		this.errorText = errorText;
+		this.isResourceModule = isResourceModule;
 	}
 	
 	//--------------------------------------------------------------------------
@@ -226,6 +236,15 @@ public class RSLEvent extends ProgressEvent
 	public var errorText:String;
 	
 	//----------------------------------
+	//  isResourceModule
+	//----------------------------------
+
+	/**
+	 *  True if the event is for loading a resourceModule instead of an RSL
+	 */
+	public var isResourceModule:Boolean;
+	
+	//----------------------------------
 	//  rslIndex
 	//----------------------------------
 
@@ -239,7 +258,7 @@ public class RSLEvent extends ProgressEvent
 	 *  @productversion Flex 3
 	 */
 	public var rslIndex:int;
-	
+
 	//----------------------------------
 	//  rslTotal
 	//----------------------------------
@@ -282,7 +301,7 @@ public class RSLEvent extends ProgressEvent
 	{
 		return new RSLEvent(type, bubbles, cancelable,
 							bytesLoaded, bytesTotal, rslIndex,
-							rslTotal, url, errorText);
+							rslTotal, url, errorText, isResourceModule);
 	}
 }
 
