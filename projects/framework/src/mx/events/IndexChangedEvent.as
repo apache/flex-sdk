@@ -140,6 +140,24 @@ public class IndexChangedEvent extends Event
      *  @eventType headerShift
      */
     public static const HEADER_SHIFT:String = "headerShift";
+    
+    /**
+     *  The IndexChangedEvent.SELECTION_CHANGED constant defines the value of the 
+     *  <code>type</code> property of the event object for a <code>selectionChanged</code> event,
+     *  which indicates that the current selection has changed. 
+     *   
+     *  @eventType selectionChanged
+     */
+    public static const SELECTION_CHANGED:String = "selectionChanged";
+    
+    /**
+     *  The IndexChangedEvent.SELECTION_CHANGING constant defines the value of the 
+     *  <code>type</code> property of the event object for a <code>selectionChanging</code> event,
+     *  which indicates that the current selection is about to change. 
+     *   
+     *  @eventType selectionChanging
+     */
+    public static const SELECTION_CHANGING:String = "selectionChanging";
 
     //--------------------------------------------------------------------------
     //
