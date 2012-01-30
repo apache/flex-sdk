@@ -218,40 +218,6 @@ public class ComboBaseAccImpl extends AccImpl
 
 	//--------------------------------------------------------------------------
 	//
-	//  Overridden methods: AccImpl
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 *  method for returning the name of the ComboBase
-	 *  For children items, it would add m of n string to the name.
-	 *  ComboBase should return the name specified in the AccessibilityProperties.
-	 *
-	 *  @param childID uint
-	 *
-	 *  @return Name String
-	 */
-	override protected function getName(childID:uint):String
-	{
-		if (childID == 0)
-			return "";
-
-		var comboBase:ComboBase = ComboBase(master);
-		var iterator:IViewCursor = comboBase.collectionIterator;
-		iterator.seek(CursorBookmark.FIRST, childID - 1);
-		var item:Object = iterator.current;
-		
-		var mofn:String = " " + childID + " of " + comboBase.dataProvider.length;
-		
-		if (typeof(item) != "object")
-			return item + mofn;
-		
-		return !item.label ? item.data + mofn : item.label + mofn;
-	}
-
-	//--------------------------------------------------------------------------
-	//
 	//  Overridden event handlers: AccImpl
 	//
 	//--------------------------------------------------------------------------
