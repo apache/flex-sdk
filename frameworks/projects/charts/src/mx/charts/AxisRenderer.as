@@ -1807,8 +1807,6 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                 base = n - 1;
                 dir = -1;
             }
-            var firstIntervalLabel:Object;
-            var lastIntervalLabel:Object;
                             
             for (var i:int = 1; i < n; i++)
             {
@@ -1826,8 +1824,6 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                     if (skipCount > maxSkipCount)
                     {
                         maxSkipCount = skipCount;
-                        firstIntervalLabel = prevLabel;
-                        lastIntervalLabel = _labels[base + dir * (i - 1)];
                     }                       
                     skipCount = 0;
                     prevLabel = thisLabel;
@@ -1837,10 +1833,8 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
             if (skipCount > maxSkipCount)
             {
                 maxSkipCount = skipCount;
-                firstIntervalLabel = prevLabel;
-                lastIntervalLabel = _labels[base + dir * (i - 1)];
             }     
-            lastLabel = _labels[maxSkipCount + 1];
+            lastLabel = prevLabel;
         }
         	
         else
