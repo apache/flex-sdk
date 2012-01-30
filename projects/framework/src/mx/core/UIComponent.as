@@ -6678,10 +6678,10 @@ public class UIComponent extends FlexSprite
     private var lastUnscaledHeight:Number;
 
     /**
-     *  @inheritDoc
+     *  @private
      */
-    public function validateDisplayList():void
-    {
+	protected function validateTransform():void
+	{
         if(_layoutFeatures != null && _layoutFeatures.updatePending == true)
         {
             applyComputedTransform();
@@ -6695,6 +6695,14 @@ public class UIComponent extends FlexSprite
                 pmatrix.projectionCenter = new Point(unscaledWidth/2,unscaledHeight/2);
             }
         }
+	}
+    /**
+     *  @inheritDoc
+     */
+    public function validateDisplayList():void
+    {
+    	validateTransform();
+    	
         if (invalidateDisplayListFlag)
         {
             // Check if our parent is the top level system manager
