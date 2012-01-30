@@ -18,6 +18,7 @@ import flash.accessibility.AccessibilityProperties;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 
+import mx.accessibility.AccConst;
 import mx.containers.Form;
 import mx.containers.FormHeading;
 import mx.containers.FormItem;
@@ -37,51 +38,15 @@ use namespace mx_internal;
  *  The AccImpl class is Flex's base class for implementing accessibility
  *  in UIComponents.
  *  It is a subclass of the Flash Player's AccessibilityImplementation class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */ 
 public class AccImpl extends AccessibilityImplementation
 {
     include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_NORMAL:uint = 0x00000000;
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_FOCUSABLE:uint = 0x00100000;
-    
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-    
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_UNAVAILABLE:uint = 0x00000001;
-    
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_NAMECHANGE:uint = 0x800C;
-    
-    /**
-     *  @private
-     */
-    public static const EVENT_OBJECT_SHOW:uint = 0x8002;
-    
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_HIDE:uint = 0x8003;
         
     //--------------------------------------------------------------------------
     //
@@ -91,7 +56,12 @@ public class AccImpl extends AccessibilityImplementation
 
     /**
      *  Method for supporting Form Accessibility.
-     */
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+	 */
     public static function getFormName(component:UIComponent):String
     {
         var formName:String = "";
@@ -197,6 +167,11 @@ public class AccImpl extends AccessibilityImplementation
      *
      *  @param master The UIComponent instance that this AccImpl instance
      *  is making accessible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function AccImpl(master:UIComponent)
     {
@@ -231,11 +206,21 @@ public class AccImpl extends AccessibilityImplementation
     /**
      *  A reference to the UIComponent instance that this AccImpl instance
      *  is making accessible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var master:UIComponent;
     
     /**
      *  Accessibility role of the component being made accessible.
+	 *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var role:uint;
     
@@ -248,6 +233,11 @@ public class AccImpl extends AccessibilityImplementation
     /**
      *  All subclasses must override this function by returning an array
      *  of strings of the events to listen for.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get eventsToHandle():Array
     {
@@ -357,6 +347,11 @@ public class AccImpl extends AccessibilityImplementation
      *  Returns the name of the accessible component.
      *  All subclasses must implement this
      *  instead of implementing get_accName().
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getName(childID:uint):String
     {
@@ -365,22 +360,27 @@ public class AccImpl extends AccessibilityImplementation
     
     /**
      *  Utility method to determine state of the accessible component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getState(childID:uint):uint
     {
-        var accState:uint = STATE_SYSTEM_NORMAL;
+        var accState:uint = AccConst.STATE_SYSTEM_NORMAL;
         
         if (!UIComponent(master).enabled)
         {
-            accState &= ~STATE_SYSTEM_FOCUSABLE;
-            accState |= STATE_SYSTEM_UNAVAILABLE;
+            accState &= ~AccConst.STATE_SYSTEM_FOCUSABLE;
+            accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
         }
         else
         {
-            accState |= STATE_SYSTEM_FOCUSABLE
+            accState |= AccConst.STATE_SYSTEM_FOCUSABLE
         
             if (UIComponent(master) == UIComponent(master).getFocus())
-                accState |= STATE_SYSTEM_FOCUSED;
+                accState |= AccConst.STATE_SYSTEM_FOCUSED;
         }
 
         return accState;
@@ -424,6 +424,11 @@ public class AccImpl extends AccessibilityImplementation
      *  Generic event handler.
      *  All AccImpl subclasses must implement this
      *  to listen for events from its master component. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function eventHandler(event:Event):void
     {
@@ -441,21 +446,24 @@ public class AccImpl extends AccessibilityImplementation
             case "errorStringChanged":
             case "toolTipChanged":
             {
-                Accessibility.sendEvent(master, 0, EVENT_OBJECT_NAMECHANGE);
+                Accessibility.sendEvent(master, 0,
+										AccConst.EVENT_OBJECT_NAMECHANGE);
                 Accessibility.updateProperties();
                 break;
             }
 
             case "show":
             {
-                Accessibility.sendEvent(master, 0, EVENT_OBJECT_SHOW);
+                Accessibility.sendEvent(master, 0,
+										AccConst.EVENT_OBJECT_SHOW);
                 Accessibility.updateProperties();
                 break;
             }
 
             case "hide":
             {
-                Accessibility.sendEvent(master, 0, EVENT_OBJECT_HIDE);
+                Accessibility.sendEvent(master, 0,
+										AccConst.EVENT_OBJECT_HIDE);
                 Accessibility.updateProperties();
                 break;
             }            
