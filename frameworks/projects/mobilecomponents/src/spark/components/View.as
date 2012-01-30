@@ -59,6 +59,20 @@ use namespace mx_internal;
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
 /**
+ *  Dispatched when the menu key is pressed when a view exists inside
+ *  a mobile application.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ * 
+ *  @eventType mx.events.FlexEvent.MENU_KEY_PRESSED
+ * 
+ */
+[Event(name="menuKeyPressed", type="mx.events.FlexEvent")]
+
+/**
  *  Dispatched when the current view has been activated.
  * 
  *  @eventType mx.events.ViewNavigatorEvent.VIEW_ACTIVATE
@@ -210,11 +224,29 @@ public class View extends Group implements IDataRenderer
     /**
      *  @private
      */ 
-    mx_internal function backKeyHandler():Boolean
+    mx_internal function backKeyHandledByView():Boolean
     {
         if (hasEventListener(FlexEvent.BACK_KEY_PRESSED))
         {
             var event:FlexEvent = new FlexEvent(FlexEvent.BACK_KEY_PRESSED, false, true);
+            var eventCanceled:Boolean = !dispatchEvent(event);
+            
+            // If the event was canceled, that means the application
+            // is doing its own custom logic for the back key
+            return eventCanceled;
+        }
+        
+        return false;
+    }
+    
+    /**
+     *  @private
+     */ 
+    mx_internal function menuKeyHandledByView():Boolean
+    {
+        if (hasEventListener(FlexEvent.MENU_KEY_PRESSED))
+        {
+            var event:FlexEvent = new FlexEvent(FlexEvent.MENU_KEY_PRESSED, false, true);
             var eventCanceled:Boolean = !dispatchEvent(event);
             
             // If the event was canceled, that means the application
@@ -761,10 +793,13 @@ public class View extends Group implements IDataRenderer
     }
     
     /**
-     *  Returns the state the view should be in based on the orientation
-     *  of the device.
+     *  Checks the aspect ratio of the stage and returns the proper state
+     *  that the View should change to.  The possible values are either "portrait"
+     *  or "landscape".  The state is only changed if the desired state exists
+     *  on the View. If it does not, this method will return the component's
+     *  current state.
      * 
-     *  @return A String specifying the name of the state to apply to the screen. 
+     *  @return A String specifying the name of the state to apply to the view. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -793,7 +828,8 @@ public class View extends Group implements IDataRenderer
      */ 
     private function stage_orientationChangeHandler(event:StageOrientationEvent):void
     {
-        setCurrentState(getCurrentViewState(), false);    
+        if (isActive)
+        	setCurrentState(getCurrentViewState(), false);
     }
     
     
