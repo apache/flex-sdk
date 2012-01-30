@@ -13,9 +13,11 @@ package spark.components
 {
 
 /**
- *  Enumeration of horizontal and vertical positions of the Callout component
+ *  The CalloutPosition calss defines the enumeration of 
+ *  horizontal and vertical positions of the Callout component
  *  relative to the owner.
  * 
+ *  @see spark.components.Callout
  *  @see spark.components.Callout#horizontalPosition
  *  @see spark.components.Callout#verticalPosition
  * 
