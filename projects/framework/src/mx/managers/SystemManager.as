@@ -1320,7 +1320,8 @@ public class SystemManager extends MovieClip
 			return;
 		}
 
-		if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN)
+		if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN 
+				|| type == Event.ACTIVATE || type == Event.DEACTIVATE)
 		{
 			// also listen to stage if allowed
 			try
@@ -1416,7 +1417,8 @@ public class SystemManager extends MovieClip
 			return;
 		}
 
-		if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN)
+		if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN 
+				|| type == Event.ACTIVATE || type == Event.DEACTIVATE)
 		{
 			// also listen to stage if allowed
 			try
@@ -4810,6 +4812,9 @@ public class SystemManager extends MovieClip
 		var marshaledEvent:Event = MarshalMouseEvent.marshal(event);
 		dispatchEventToSandboxes(marshaledEvent, event.target as IEventDispatcher);
 
+		// ask the sandbox root if it was the original dispatcher of this event
+		// if it was then don't dispatch to ourselves because we could have
+		// got this event by listening to sandboxRoot ourselves.
 		var me:MarshalEvent = new MarshalEvent(MarshalEvent.SYSTEM_MANAGER);
 		me.name = "sameSandbox";
 		me.value = event;
@@ -4934,7 +4939,7 @@ class StageEventProxy
 		this.listener = listener;
 	}
 
-	public function stageListener(event:MouseEvent):void
+	public function stageListener(event:Event):void
 	{
 		if (event.target is Stage)
 			listener(event);
