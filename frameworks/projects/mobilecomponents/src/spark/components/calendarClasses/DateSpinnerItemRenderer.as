@@ -24,6 +24,8 @@ use namespace mx_internal;
  *  for a DateSpinner control in the mobile theme.  
  *  This is a simple item renderer with a single text component.
  * 
+ * @see spark.components.DateSpinner
+ * 
  *  @langversion 3.0
  *  @playerversion AIR 3
  *  @productversion Flex 4.6
@@ -57,7 +59,7 @@ public class DateSpinnerItemRenderer extends SpinnerListItemRenderer
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -87,7 +89,7 @@ public class DateSpinnerItemRenderer extends SpinnerListItemRenderer
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -113,7 +115,7 @@ public class DateSpinnerItemRenderer extends SpinnerListItemRenderer
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
