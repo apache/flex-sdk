@@ -333,9 +333,9 @@ public class RadialGradient extends GradientBase implements IFill
 		}
 	 	else
 	 	{
-	 		commonMatrix.scale (bounds.width / GRADIENT_DIMENSION, bounds.height / GRADIENT_DIMENSION);
-	 		commonMatrix.translate(bounds.left, bounds.top);
-	 		commonMatrix.concat(compoundTransform.matrix);
+            commonMatrix.scale(1 / GRADIENT_DIMENSION, 1 / GRADIENT_DIMENSION);
+            commonMatrix.concat(compoundTransform.matrix);
+            commonMatrix.translate(bounds.left, bounds.top);	
 	 	}
 	  		  	
         target.beginGradientFill(GradientType.RADIAL, colors, alphas, ratios,
