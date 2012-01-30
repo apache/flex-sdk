@@ -170,7 +170,7 @@ public class BeveledBackButtonSkin extends ButtonSkin
     override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
         // omit call to super.drawBackground(), apply tint instead and don't draw fill
-        var chromeColor:uint = getStyle("chromeColor");
+        var chromeColor:uint = getStyle(fillColorStyleName);
         
         if (colorized || (chromeColor != MobileSkin.MOBILE_THEME_DARK_COLOR))
         {
