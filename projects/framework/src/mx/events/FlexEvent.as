@@ -776,66 +776,6 @@ public class FlexEvent extends Event
     public static const LOADING:String = "loading";
     
     /**
-     *  The <code>FlexEvent.MEASURED_SIZE_PRELIMINARY</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>measuredSizePreliminary</code> event.
-     *  This event is dispatched during measure() if the measurements will be later changed
-     *  by other conditions like the arrival of asynchronous network data.
-     * 
-     *  <p>The properties of the event object have the following values:</p>
-     *  <table class="innertable">
-     *     <tr><th>Property</th><th>Value</th></tr>
-     *     <tr><td><code>bubbles</code></td><td>true</td></tr>
-     *     <tr><td><code>cancelable</code></td><td>true</td></tr>
-     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
-     *       event listener that handles the event. For example, if you use
-     *       <code>myButton.addEventListener()</code> to register an event listener,
-     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
-     *       it is not always the Object listening for the event.
-     *       Use the <code>currentTarget</code> property to always access the
-     *       Object listening for the event.</td></tr>
-     *  </table>
-     *
-     *  @eventType measuredSizePreliminary
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public static const MEASURED_SIZE_PRELIMINARY:String = "measuredSizePreliminary";
-    
-    /**
-     *  The <code>FlexEvent.MEASURED_SIZE_FINAL</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>measuredSizeFinal</code> event.
-     *  This event is only dispatched by components that have previously dispatched a
-     *  <code>FlexEvent.MEASURED_SIZE_PRELIMINARY</code> event.
-     *
-     *  <p>The properties of the event object have the following values:</p>
-     *  <table class="innertable">
-     *     <tr><th>Property</th><th>Value</th></tr>
-     *     <tr><td><code>bubbles</code></td><td>true</td></tr>
-     *     <tr><td><code>cancelable</code></td><td>true</td></tr>
-     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
-     *       event listener that handles the event. For example, if you use
-     *       <code>myButton.addEventListener()</code> to register an event listener,
-     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
-     *       it is not always the Object listening for the event.
-     *       Use the <code>currentTarget</code> property to always access the
-     *       Object listening for the event.</td></tr>
-     *  </table>
-     *
-     *  @eventType measuredSizeFinal
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public static const MEASURED_SIZE_FINAL:String = "measuredSizeFinal";
-    
-    /**
      *  The <code>FlexEvent.MENU_KEY_PRESSED</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>menuKeyPressed</code> event.
      *
