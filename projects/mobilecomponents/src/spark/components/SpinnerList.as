@@ -20,6 +20,7 @@ import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
+import mx.events.ResizeEvent;
 import mx.events.SandboxMouseEvent;
 import mx.events.TouchInteractionEvent;
 import mx.states.OverrideBase;
@@ -48,7 +49,6 @@ use namespace mx_internal;
 	
 TODO
 	Prevent the changing event from getting dispatched
-	Support interrupting animateToSelectedIndex (listen for touchStart and kill the animation)
 */
 
 /**
@@ -73,12 +73,13 @@ public class SpinnerList extends ListBase
 		super();
 		
 		addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END, touchInteractionEnd);
+        addEventListener(ResizeEvent.RESIZE, resizeHandler);
 		
 		super.requireSelection = true;
 		
 		useVirtualLayout = true;
 	}
-	
+        
 	//--------------------------------------------------------------------------
 	//
 	//  Variables
@@ -252,20 +253,6 @@ public class SpinnerList extends ListBase
 		return result;
 	}
 	
-	override mx_internal function measureSizes():Boolean
-	{
-		var changeSize:Boolean = super.measureSizes();
-		
-		if (changeSize && !scrollToSelection)
-		{
-			// If the size has changed, then recenter the selectedItem 
-			scrollToSelection = true;
-			addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
-		}
-		
-		return changeSize;
-	}
-	
 	override protected function partAdded(partName:String, instance:Object):void
 	{
 		super.partAdded(partName, instance);
@@ -339,6 +326,15 @@ public class SpinnerList extends ListBase
 	//
 	//-------------------------------------------------------------------------- 
 	
+    protected function resizeHandler(event:ResizeEvent):void
+    {
+        if ((event.oldWidth != width || event.oldHeight != height) && !scrollToSelection)
+        {
+            scrollToSelection = true;
+            addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
+        }
+    }
+    
 	private function touchInteractionEnd(event:TouchInteractionEvent):void
 	{
 		// Commit the center item as the selectedItem when the scroll has completed
@@ -440,7 +436,5 @@ public class SpinnerList extends ListBase
 		forceNoWrapElements = spinnerLayout.forceNoWrapElements;
 		wrapElementsChanged = true;
 	}
-	
-	
 }
 }
