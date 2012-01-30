@@ -35,6 +35,11 @@ public class XMLWatcher extends Watcher implements IXMLNotifiable
 
     /**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function XMLWatcher(propertyName:String, listeners:Array)
     {
@@ -51,6 +56,11 @@ public class XMLWatcher extends Watcher implements IXMLNotifiable
 
 	/**
      *  The parent object of this property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var parentObj:Object;
 
@@ -66,11 +76,21 @@ public class XMLWatcher extends Watcher implements IXMLNotifiable
 
 	/**
      *  Storage for the propertyName property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _propertyName:String;
 
     /**
      *  The name of the property this Watcher is watching.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get propertyName():String
     {
@@ -85,6 +105,11 @@ public class XMLWatcher extends Watcher implements IXMLNotifiable
 
     /**
      *  If the parent has changed we need to update ourselves
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function updateParent(parent:Object):void
     {
@@ -120,6 +145,11 @@ public class XMLWatcher extends Watcher implements IXMLNotifiable
     /**
      *  Gets the actual property then updates
 	 *  the Watcher's children appropriately.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function updateProperty():void
     {
