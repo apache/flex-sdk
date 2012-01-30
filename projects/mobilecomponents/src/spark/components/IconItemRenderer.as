@@ -253,7 +253,7 @@ public class IconItemRenderer extends LabelItemRenderer
      *  <p>We can't just use labelDisplay.text because it may contain 
      *  a truncated value.</p>
      */
-    private var labelText:String = "";
+    mx_internal var labelText:String = "";
     
     /**
      *  @private
@@ -267,7 +267,7 @@ public class IconItemRenderer extends LabelItemRenderer
      *  how we deal with labels, so we still keep this "extra"
      *  variable around even though technically it's not needed).</p>
      */
-    private var messageText:String = "";
+    mx_internal var messageText:String = "";
     
     /**
      *  @private
@@ -312,7 +312,7 @@ public class IconItemRenderer extends LabelItemRenderer
      * 
      *  In the constructor, this is actually set based on the DPI.
      */
-    private var oldUnscaledWidth:Number;
+    mx_internal var oldUnscaledWidth:Number;
     
     /**
      *  @private
