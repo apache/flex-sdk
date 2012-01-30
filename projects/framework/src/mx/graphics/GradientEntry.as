@@ -60,8 +60,8 @@ public class GradientEntry extends EventDispatcher
 	 *  @param color The color for this gradient entry.
 	 *  The default value is 0x000000 (black).
 	 *
-	 *  @param ratio Where in the graphical element to start
-	 *  the transition to the associated color.
+	 *  @param ratio Where in the graphical element the associated color is 
+     *  sampled at 100%.
 	 *  Flex uniformly spaces any GradientEntries
 	 *  with missing ratio values.
 	 *  The default value is NaN.
@@ -169,7 +169,7 @@ public class GradientEntry extends EventDispatcher
 
 	/**
 	 *  Where in the graphical element, as a percentage from 0.0 to 1.0,
-	 *  Flex starts the transition to the associated color. 
+	 *  Flex samples the associated color at 100%. 
 	 *  For example, a ratio of 0.33 means Flex begins the transition
 	 *  to that color 33% of the way through the graphical element. 
 	 *  
