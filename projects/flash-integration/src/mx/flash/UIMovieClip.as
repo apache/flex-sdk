@@ -624,8 +624,11 @@ public dynamic class UIMovieClip extends MovieClip
         // to the stage
         addEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
         
-        if (currentLabel && currentLabel.indexOf(":") < 0 && currentLabel != _currentState)
-            _currentState = currentLabel;
+        // we want to set currentState initially by checking the currentLabel, but we 
+        // defer this so that if curentState is set explicitely, 
+        // we do a goToAndStop() instead of short-circuiting the currentState 
+        // setter at "if (value == _currentState)"
+        addEventListener(Event.ENTER_FRAME, setUpFirstCurrentState);
     }
     
     //--------------------------------------------------------------------------
@@ -4692,8 +4695,20 @@ public dynamic class UIMovieClip extends MovieClip
     protected function autoUpdateCurrentStateEnterFrameHandler(event:Event):void
     {
         // Check for the current state.  This is really only checked for if 
-        // trackStateChanged == true.  This is so that if we magically land 
+        // autoUpdateCurrentState == true.  This is so that if we magically land 
         // on a "foo" labelled frame, we return "foo" as the currentState.
+        if (currentLabel && currentLabel.indexOf(":") < 0 && currentLabel != _currentState)
+            _currentState = currentLabel;
+    }
+        
+    /**
+     *  @private
+     *  Sets up the current state the very first time.  This will only run once.
+     */
+    private function setUpFirstCurrentState(event:Event):void
+    {
+        // only run this code the very first time.
+        removeEventListener(Event.ENTER_FRAME, setUpFirstCurrentState);
         if (currentLabel && currentLabel.indexOf(":") < 0 && currentLabel != _currentState)
             _currentState = currentLabel;
     }
