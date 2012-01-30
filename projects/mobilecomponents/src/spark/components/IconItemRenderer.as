@@ -171,6 +171,7 @@ include "../styles/metadata/GapStyles.as"
  *  @see spark.components.IItemRenderer
  *  @see spark.components.supportClasses.ItemRenderer
  *  @see spark.components.LabelItemRenderer
+ *  @includeExample examples/IconItemRendererExample.mxml -noswf
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
