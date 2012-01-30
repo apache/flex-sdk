@@ -13,6 +13,7 @@ import mx.controls.listClasses.*;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
+import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.InteractionMode;
 import mx.core.UIComponent;
@@ -732,55 +733,54 @@ public class MobileItemRenderer extends UIComponent
     protected function layoutContents(unscaledWidth:Number, 
                                       unscaledHeight:Number):void
     {
-        if (labelDisplay)
+        if (!labelDisplay)
+            return;
+        
+        var paddingLeft:Number   = getStyle("paddingLeft");
+        var paddingRight:Number  = getStyle("paddingRight");
+        var paddingTop:Number    = getStyle("paddingTop");
+        var paddingBottom:Number = getStyle("paddingBottom");
+        var verticalAlign:String = getStyle("verticalAlign");
+
+        var vAlign:Number;
+        if (verticalAlign == "top")
+            vAlign = 0;
+        else if (verticalAlign == "bottom")
+            vAlign = 1;
+        else // if (verticalAlign == "middle")
+            vAlign = 0.5;
+        // made "middle" last even though it's most likely so it is the default and if someone 
+        // types "center", then it will still vertically center itself.
+
+        var viewWidth:Number  = unscaledWidth  - paddingLeft - paddingRight;
+        var viewHeight:Number = unscaledHeight - paddingTop  - paddingBottom;
+
+        // measure the label component
+        var textHeight:Number = 0;
+
+        if (label != "")
         {
-            // measure the label component
-            var textHeight:Number = 0;
-            
+            labelDisplay.commitStyles();
+
             // reset text if it was truncated before.
             if (labelDisplay.isTruncated)
                 labelDisplay.text = label;
-            
-            if (label != "")
-            {
-                labelDisplay.commitStyles();
-                textHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
-            }
-            
-            // text should take up the rest of the space width-wise, but only let it take up
-            // its measured textHeight so we can position it later based on verticalAlign
-            var viewWidth:Number = unscaledWidth - getStyle("paddingLeft") - getStyle("paddingRight");
-            var labelWidth:Number = Math.max(viewWidth, 0);
-            
-            var viewHeight:Number =  unscaledHeight - getStyle("paddingTop") - getStyle("paddingBottom");
-            var labelHeight:Number = Math.max(Math.min(viewHeight, textHeight), 0);
-            
-            // label is positioned after the padding on the left.  look at verticalAlign to see
-            // what to do vertically.
-            var labelX:Number = getStyle("paddingLeft");
-            var labelY:Number;
-            if (getStyle("verticalAlign") == "top")
-                labelY = getStyle("paddingTop");
-            else if (getStyle("verticalAlign") == "bottom")
-                labelY = getStyle("paddingTop") + viewHeight - labelHeight;
-            else //if (getStyle("verticalAlign") == "middle")
-                labelY = getStyle("paddingTop") + Math.round((viewHeight - labelHeight)/2);
-            // made "middle" last even though it's most likely so it is the default and if someone 
-            // types "center", then it will still vertically center itself.
-            
-            labelDisplay.commitStyles();
-                
-            labelDisplay.width = labelWidth;
-            labelDisplay.height = labelHeight;
-            
-            labelDisplay.x = Math.round(labelX);
-            labelDisplay.y = Math.round(labelY);
-            
-            // attempt to truncate the text now that we have its official width
-            labelDisplay.truncateToFit();
+            textHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
         }
+
+        // text should take up the rest of the space width-wise, but only let it take up
+        // its measured textHeight so we can position it later based on verticalAlign
+        var labelWidth:Number = Math.max(viewWidth, 0);
+        var labelHeight:Number = Math.max(Math.min(viewHeight, textHeight), 0);
+        resizeElement(labelDisplay, labelWidth, labelHeight);    
+        
+        var labelY:Number = Math.round(vAlign * (viewHeight - labelHeight)) + paddingTop;
+        positionElement(labelDisplay, paddingLeft, labelY);
+
+        // attempt to truncate the text now that we have its official width
+        labelDisplay.truncateToFit();
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Event handling
@@ -856,5 +856,64 @@ public class MobileItemRenderer extends UIComponent
         invalidateDisplayList();
     }
     
+    /**
+     *  A helper method for positioning skin parts.
+     * 
+     *  Developers can use this method instead of checking for and using
+     *  various interfaces such as ILayoutElement, IFlexDisplayObject, etc.
+     *
+     *  @see #resizeElement  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected function positionElement(part:Object, x:Number, y:Number):void
+    {
+        if (part is ILayoutElement)
+        {
+            ILayoutElement(part).setLayoutBoundsPosition(x, y, false);
+        }
+        else if (part is IFlexDisplayObject)
+        {
+            IFlexDisplayObject(part).move(x, y);   
+        }
+        else
+        {
+            part.x = x;
+            part.y = y;
+        }
+    }
+    
+    /**
+     *  A helper method for resizing skin parts.
+     * 
+     *  Developers can use this method instead of checking for and using
+     *  various interfaces such as ILayoutElement, IFlexDisplayObject, etc.
+     *
+     *  @see #positionElement  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected function resizeElement(part:Object, width:Number, height:Number):void
+    {
+        if (part is ILayoutElement)
+        {
+            ILayoutElement(part).setLayoutBoundsSize(width, height, false);
+        }
+        else if (part is IFlexDisplayObject)
+        {
+            IFlexDisplayObject(part).setActualSize(width, height);
+        }
+        else
+        {
+            part.width = width;
+            part.height = height;
+        }
+    }
 }
 }
