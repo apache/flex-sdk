@@ -588,25 +588,9 @@ public class Window extends SkinnableContainer implements IWindow
     //
     //--------------------------------------------------------------------------
 
-    /**
-     *  The SkinPart that displays the border.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    [SkinPart (required = "false")]
-    public var border:Group;
-
-    /**
-     *  The SkinPart that contains the titlebar, the content, and the status bar.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    [SkinPart (required = "false")]
-    public var chromeAndContent:Group;
+    //----------------------------------
+    //  gripper
+    //----------------------------------
 
     /**
      *  A skin part that defines the gripper button used to resize the window. 
@@ -618,6 +602,10 @@ public class Window extends SkinnableContainer implements IWindow
      */
     [SkinPart (required="false")]
     public var gripper:Button;
+
+    //----------------------------------
+    //  statusBar
+    //----------------------------------
 
     /**
      *  The SkinPart that displays the status bar.
@@ -643,6 +631,10 @@ public class Window extends SkinnableContainer implements IWindow
     [SkinPart (required="false")]
     public var statusText:SimpleText;
     
+    //----------------------------------
+    //  titleBar
+    //----------------------------------
+
     /**
      *  The UIComponent that displays the title bar.
      *  
@@ -652,6 +644,10 @@ public class Window extends SkinnableContainer implements IWindow
      */
     [SkinPart (required="false")]
     public var titleBar:TitleBar;
+
+    //----------------------------------
+    //  titleBarBackgroundRect
+    //----------------------------------
 
     /**
      *  The background behind the title bar. A white background
@@ -665,7 +661,6 @@ public class Window extends SkinnableContainer implements IWindow
      */
     [SkinPart (required="false")]
     public var titleBarBackgroundRect:Rect;
-
 
     //--------------------------------------------------------------------------
     //
@@ -1820,11 +1815,6 @@ public class Window extends SkinnableContainer implements IWindow
         {
             gripper.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
         }
-        else if (instance == border)
-        {
-        	// listen for mouse hits so we can reside the window
-            border.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-        }
     }
     
     /**
@@ -1837,11 +1827,6 @@ public class Window extends SkinnableContainer implements IWindow
         if (instance == gripper)
         {
             gripper.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-        }
-        else if (instance == border)
-        {
-        	// listen for mouse hits so we can reside the window
-            border.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
         }
     }
 
