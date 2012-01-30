@@ -1517,7 +1517,7 @@ public dynamic class UIMovieClip extends MovieClip
     //  document
     //----------------------------------
 
-    private var _document:Object;
+    mx_internal var _document:Object;
     
     /**
      *  @copy mx.core.IUIComponent#document
