@@ -172,6 +172,140 @@ public class StringUtil
 
         return str;
     }
+
+    /**
+     *  Returns a string consisting of a specified string
+     *  concatenated with itself a specified number of times.
+     *
+     *  @param str The string to be repeated.
+     *
+     *  @param n The repeat count.
+     *
+     *  @result The repeated string.
+     */
+    public static function repeat(str:String, n:int):String
+    {
+        if (n == 0)
+            return "";
+
+        var s:String = str;
+        for (var i:int = 1; i < n; i++)
+        {
+            s += str;
+        }
+        return s;
+    }
+
+    /**
+     *  Removes "unallowed" characters from a string.
+     *  A "restriction string" such as <code>"A-Z0-9"</code>
+     *  is used to specify which characters are allowed.
+     *  This method uses the same logic as the <code>restrict</code>
+     *  property of TextField.
+     *
+     *  @param str The input string.
+     *
+     *  @param restrict The restriction string.
+     *
+     *  @result The input string, minus any characters
+     *  that are not allowed by the restriction string.
+     */
+    public static function restrict(str:String, restrict:String):String
+	{
+		// A null 'restrict' string means all characters are allowed.
+        if (restrict == null)
+			return str;
+			
+		// An empty 'restrict' string means no characters are allowed.
+        if (restrict == "")
+			return "";
+			
+		// Otherwise, we need to test each character in 'str'
+        // to determine whether the 'restrict' string allows it.
+        var charCodes:Array = [];
+		
+		var n:int = str.length;
+		for (var i:int = 0; i < n; i++)
+		{
+			var charCode:uint = str.charCodeAt(i);
+			if (testCharacter(charCode, restrict))
+				charCodes.push(charCode);
+		}
+		
+		return String.fromCharCode.apply(null, charCodes);
+	}
+							
+	/**
+     *  @private
+     *  Helper method used by restrict() to test each character
+     *  in the input string against the restriction string.
+     *  The logic in this method implements the same algorithm
+     *  as in TextField's 'restrict' property (which is quirky,
+     *  such as how it handles a '-' at the beginning of the
+     *  restriction string).
+     */
+    private static function testCharacter(charCode:uint,
+                                          restrict:String):Boolean
+	{
+		var allowIt:Boolean = false;
+		
+		var inBackSlash:Boolean = false;
+		var inRange:Boolean = false;
+		var setFlag:Boolean = true;
+		var lastCode:uint = 0;
+						
+		var n:int = restrict.length;
+		var code:uint;
+		
+		if (n > 0)
+		{
+			code = restrict.charCodeAt(0);
+			if (code == 94) // caret
+				allowIt = true;
+		}
+		
+		for (var i:int = 0; i < n; i++)
+		{
+			code = restrict.charCodeAt(i)
+			
+			var acceptCode:Boolean = false;
+			if (!inBackSlash)
+			{
+				if (code == 45) // hyphen
+					inRange = true;
+				else if (code == 94) // caret
+					setFlag = !setFlag;
+				else if (code == 92) // backslash
+					inBackSlash = true;
+				else
+					acceptCode = true;
+			}
+			else
+			{
+				acceptCode = true;
+				inBackSlash = false;
+			}
+			
+			if (acceptCode)
+			{
+				if (inRange)
+				{
+					if (lastCode <= charCode && charCode <= code)
+						allowIt = setFlag;
+					inRange = false;
+					lastCode = 0;
+				}
+				else
+				{
+					if (charCode == code)
+						allowIt = setFlag;
+					lastCode = code;
+				}
+			}
+		}
+		
+		return allowIt;
+	}
 }
 
 }
