@@ -1169,7 +1169,10 @@ public class ObjectUtil
                             if (existing is Array)
                                 existingArray = existing as Array;
                             else
-                                existingArray = [];
+                            {
+                                existingArray = [existing];
+                                delete metadata[mdName];
+                            }
                             existingArray.push(value);
                             existing = existingArray;
                         }
