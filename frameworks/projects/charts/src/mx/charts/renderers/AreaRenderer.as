@@ -14,11 +14,12 @@ package mx.charts.renderers
 
 import flash.display.Graphics;
 import flash.geom.Rectangle;
+
 import mx.charts.chartClasses.GraphicsUtilities;
 import mx.core.IDataRenderer;
 import mx.graphics.IFill;
 import mx.graphics.IStroke;
-import mx.graphics.Stroke;
+import mx.graphics.SolidColorStroke;
 import mx.skins.ProgrammaticSkin;
 
 /**
@@ -46,7 +47,7 @@ public class AreaRenderer extends ProgrammaticSkin implements IDataRenderer
 	/**
 	 *  @private
 	 */
-	private static var noStroke:Stroke = new Stroke(0, 0, 0);
+	private static var noStroke:SolidColorStroke = new SolidColorStroke(0, 0, 0);
 
     //--------------------------------------------------------------------------
     //
