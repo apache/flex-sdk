@@ -5881,9 +5881,6 @@ public class UIComponent extends FlexSprite
      */
     public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            return NaN;
-
         if (!validateBaselinePosition())
             return NaN;
 
