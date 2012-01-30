@@ -69,7 +69,7 @@ public class ImageSkin extends MobileSkin
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 imageInvalidClass = spark.skins.mobile160.assets.ImageInvalid;
                 break;
             }
