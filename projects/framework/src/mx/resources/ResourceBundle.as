@@ -31,6 +31,11 @@ import mx.utils.StringUtil;
  *  
  *  @see mx.resources.IResourceBundle
  *  @see mx.resources.IResourceManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ResourceBundle implements IResourceBundle
 {
@@ -91,6 +96,11 @@ public class ResourceBundle implements IResourceBundle
      *  @param currentDomain The ApplicationDomain that the resource bundle is in.
      * 
      *  @return The resource bundle that matches the specified name and domain.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getResourceBundle(
                                 baseName:String,
@@ -170,6 +180,11 @@ public class ResourceBundle implements IResourceBundle
      *
      *  @param bundleName A name that identifies this bundle,
      *  such as <code>"MyResources"</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ResourceBundle(locale:String = null,
                                    bundleName:String = null)
@@ -208,6 +223,11 @@ public class ResourceBundle implements IResourceBundle
 
     /**
      *  @copy mx.resources.IResourceBundle#bundleName
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */     
     public function get bundleName():String
     {
@@ -226,6 +246,11 @@ public class ResourceBundle implements IResourceBundle
 
     /**
      *  @copy mx.resources.IResourceBundle#content
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */     
     public function get content():Object
     {
@@ -244,6 +269,11 @@ public class ResourceBundle implements IResourceBundle
 
     /**
      *  @copy mx.resources.IResourceBundle#locale
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */     
     public function get locale():String
     {
@@ -266,6 +296,11 @@ public class ResourceBundle implements IResourceBundle
      *  you can set the key-value pairs on the <code>content</code> object.</p>
      *  
      *  @return The Object that contains key-value pairs for the bundle's resources.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getContent():Object
     {
@@ -298,6 +333,11 @@ public class ResourceBundle implements IResourceBundle
      *  This parameter is optional; its default value is <code>true</code>.
      *
      *  @return The value of the specified resource, as a Boolean.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function getBoolean(key:String, defaultValue:Boolean = true):Boolean
     {
@@ -333,6 +373,11 @@ public class ResourceBundle implements IResourceBundle
      *  @param key A String identifying a resource in this ResourceBundle.
      *
      *  @return The value of the specified resource, as a Number.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */        
     public function getNumber(key:String):Number
     {
@@ -360,6 +405,11 @@ public class ResourceBundle implements IResourceBundle
      *  @param key A String identifying a resource in this ResourceBundle.
      *
      *  @return The value of the specified resource, as a String.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */        
     public function getString(key:String):String
     {
@@ -394,6 +444,11 @@ public class ResourceBundle implements IResourceBundle
      *
      *  @return The value of the specified resource,
      *  as an Array of Strings.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getStringArray(key:String):Array
     {
@@ -430,6 +485,11 @@ public class ResourceBundle implements IResourceBundle
      *  @param key A String identifying a resource in this ResourceBundle.
      *
      *  @return An Object that is the value of the specified resource.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */        
     public function getObject(key:String):Object
     {
