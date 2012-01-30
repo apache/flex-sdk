@@ -15,18 +15,21 @@ package mx.automation.delegates.core
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.system.ApplicationDomain;
 	
 	import mx.automation.Automation;
+	import mx.automation.AutomationHelper;
 	import mx.automation.IAutomationObject;
 	import mx.automation.IAutomationObjectHelper;
 	import mx.automation.tabularData.ContainerTabularData;
 	import mx.core.Application;
 	import mx.core.Container;
 	import mx.core.EventPriority;
+	import mx.core.mx_internal;
 	import mx.events.ScrollEvent;
 	import mx.events.ScrollEventDetail;
 	import mx.events.ScrollEventDirection;
-	import mx.core.mx_internal;
+
 	use namespace mx_internal;
 	
 	
@@ -276,7 +279,28 @@ package mx.automation.delegates.core
 				n = tempArray1.length;
 				for(i = 0; i < n ; i++)
 				{
-					childList.push(tempArray1[i]);
+					var obj:Object = tempArray1[i];
+					// Here if we are getting spark scrollers, we need to add the viewport's children 
+					// as the actual children instead of the scroller. Before that we need to check if
+					// spark classes are present. We should not add spark dependency for this class because
+					// this class is intended to be used in MX only work flows as well.
+					if(AutomationHelper.isRequiredSparkClassPresent())
+					{
+						var sparkScroller:Class = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Scroller"));
+						if(obj is sparkScroller)					
+						{
+							if(obj.viewport is IAutomationObject)
+								childList.push(obj.viewport);
+							if(obj.horizontalScrollBar)
+								childList.push(obj.horizontalScrollBar);
+							if(obj.verticalScrollBar)
+								childList.push(obj.verticalScrollBar);
+						}
+						else
+							childList.push(obj);
+					}
+					else
+						childList.push(obj);
 				}
 			}
 			
