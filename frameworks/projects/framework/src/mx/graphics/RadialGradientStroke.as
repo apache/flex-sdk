@@ -159,6 +159,19 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
                                                       oldValue, value);
         }
     }
+
+    //----------------------------------
+	//  matrix
+	//----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set matrix(value:Matrix):void
+    {
+    	scaleY = NaN;
+    	super.matrix = value;
+    }
     
     //----------------------------------
     //  scaleY
@@ -188,7 +201,7 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
     public function set scaleY(value:Number):void
     {
         var oldValue:Number = _scaleY;
-        if (value != oldValue)
+        if (value != oldValue && !compoundTransform)
         {
             _scaleY = value;
             mx_internal::dispatchGradientChangedEvent("scaleY", oldValue, value);
@@ -236,15 +249,25 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
         g.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
                     caps, joints, miterLimit);
         
-        var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
-        var h:Number = !isNaN(scaleY) ? scaleY : rc.height;
-        var bX:Number = !isNaN(x) ? x + rc.left : rc.left;
-        var bY:Number = !isNaN(y) ? y + rc.top : rc.top;
-        
-        commonMatrix.createGradientBox(w, h, 
-                                 mx_internal::rotationInRadians,
-                                 bX, bY);   
-                                 
+        if (!compoundTransform)
+        {
+	        var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
+	        var h:Number = !isNaN(scaleY) ? scaleY : rc.height;
+	        var bX:Number = !isNaN(x) ? x + rc.left : rc.left;
+	        var bY:Number = !isNaN(y) ? y + rc.top : rc.top;
+	        
+	        commonMatrix.createGradientBox(w, h, 
+	                                 mx_internal::rotationInRadians,
+	                                 bX, bY);   
+        }             
+        else
+        {
+        	commonMatrix.identity();
+        	commonMatrix.scale (rc.width / 1638.4, rc.height / 1638.4);
+	 		commonMatrix.translate(rc.left, rc.top);
+	 		commonMatrix.concat(compoundTransform.matrix);
+        }   
+                 
         g.lineGradientStyle(GradientType.RADIAL, mx_internal::colors,
                             mx_internal::alphas, mx_internal::ratios,
                             commonMatrix, spreadMethod,
