@@ -16,14 +16,12 @@ import flash.desktop.DockIcon;
 import flash.desktop.NativeApplication;
 import flash.desktop.SystemTrayIcon;
 import flash.display.DisplayObject;
-import flash.display.Graphics;
 import flash.display.NativeWindow;
 import flash.display.NativeWindowDisplayState;
 import flash.display.NativeWindowResize;
 import flash.display.NativeWindowSystemChrome;
 import flash.display.NativeWindowType;
 import flash.display.Screen;
-import flash.display.Sprite;
 import flash.display.StageDisplayState;
 import flash.events.Event;
 import flash.events.FullScreenEvent;
@@ -34,31 +32,21 @@ import flash.events.NativeWindowDisplayStateEvent;
 import flash.filesystem.File;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.system.Capabilities;
 
 import mx.controls.Alert;
 import mx.controls.FlexNativeMenu;
 import mx.controls.HTML;
 import mx.core.IWindow;
 import mx.core.mx_internal;
-import mx.core.Window;
-import mx.core.windowClasses.StatusBar;
 import mx.events.AIREvent;
 import mx.events.FlexEvent;
 import mx.events.FlexNativeWindowBoundsEvent;
 import mx.managers.DragManager;
 import mx.managers.NativeDragManagerImpl;
-import mx.styles.CSSStyleDeclaration;
-import mx.styles.StyleManager;
-import mx.styles.StyleProxy;
 
-import spark.components.Application;
-import spark.components.Button;
-import spark.components.Group;
-import spark.primitives.SimpleText;
 import spark.components.windowClasses.TitleBar;
-
-use namespace mx_internal;
+import spark.primitives.Rect;
+import spark.primitives.SimpleText;
 
 //--------------------------------------
 //  Events
@@ -279,17 +267,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Normal status using FlexChrome
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("flexChrome")]
-
-/**
- *  normal status using SystemChrome
+ *  The application is enabled and active.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -297,6 +275,35 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 [SkinState("normal")]
+
+/**
+ *  The application is disabled and active.
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("disabled")]
+
+/**
+ *  The application is enabled and inactive.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("normalActive")]
+
+/**
+ *  The application is disabled and inactive.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("disabledInactive")]
 
 //--------------------------------------
 //  Other metadata
@@ -314,6 +321,11 @@ use namespace mx_internal;
  *  of a Flex AIR application -- any visual controls defined in the WindowedApplication
  *  become the content of the initial window loaded by the AIR application.</p>
  *
+ *  <p>A WindowedApplication is the top-level application of a Flex-based AIR application. It is not
+ *  designed to be loaded by other Flex applications. If a WindowedApplication needs to load other
+ *  applications, use the Application class as container for those applications. If other windows
+ *  are required, use the Window class as a container for those windows.</p>
+ *  
  *  <p>Note that because
  *  the WindowedApplication only represents the visual content of a single window, and not
  *  all the windows in a multi-window application, a WindowedApplication instance only dispatches
@@ -376,17 +388,6 @@ use namespace mx_internal;
 public class WindowedApplication extends Application implements IWindow
 {
     include "../../mx/core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private static const MOUSE_SLACK:Number = 5;
 
     //--------------------------------------------------------------------------
     //
@@ -459,11 +460,6 @@ public class WindowedApplication extends Application implements IWindow
     /**
      *  @private
      */
-    private var gripperHit:Sprite;
-
-    /**
-     *  @private
-     */
     private var initialInvokes:Array;
 
     /**
@@ -527,6 +523,10 @@ public class WindowedApplication extends Application implements IWindow
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  gripper
+    //----------------------------------
+
     /**
      *  A skin part that defines the gripper button used to resize the window. 
      *  
@@ -537,6 +537,10 @@ public class WindowedApplication extends Application implements IWindow
      */
     [SkinPart (required="false")]
     public var gripper:Button;
+
+    //----------------------------------
+    //  statusBar
+    //----------------------------------
 
     /**
      *  The SkinPart that displays the status bar.
@@ -571,6 +575,19 @@ public class WindowedApplication extends Application implements IWindow
      */
     [SkinPart (required="false")]
     public var titleBar:TitleBar;
+
+    /**
+     *  The background behind the title bar. A white background
+     *  is placed behind the title bar because the title bar has
+     *  its alpha property set to 0.5 when the application is 
+     *  inactive.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    [SkinPart (required="false")]
+    public var titleBarBackgroundRect:Rect;
 
     //--------------------------------------------------------------------------
     //
@@ -1184,6 +1201,23 @@ public class WindowedApplication extends Application implements IWindow
         return nativeWindow.resizable;
     }
 
+
+    //---------------------------------
+    //  resizeAffordance
+    //---------------------------------
+
+    /**
+     *  Provides a margin of error around the application's border so a resize
+     *  and be more easily started. A click on the application is considered a
+     *  click on the application's border if the click occurs with the resizeAffordance
+     *  number of pixels from the outside edge of the application's window.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var resizeAffordance:Number = 6;
+    
     //----------------------------------
     //  nativeApplication
     //----------------------------------
@@ -1475,6 +1509,7 @@ public class WindowedApplication extends Application implements IWindow
     {
         return _title;
     }
+    
     /**
      *  @private
      */
@@ -1494,17 +1529,6 @@ public class WindowedApplication extends Application implements IWindow
     //  titleIcon
     //----------------------------------
 
-    /**
-     *  @private
-     *  A reference to this container's title icon.
-     */
-    private var _titleIcon:Class;
-
-    /**
-     *  @private
-     */
-    private var titleIconChanged:Boolean = false;
-        
     [Bindable("titleIconChanged")]
 
     /**
@@ -1518,7 +1542,10 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function get titleIcon():Class
     {
-        return _titleIcon;
+        if (titleBar == null)
+            return null;
+
+        return titleBar.titleIcon;
     }
 
     /**
@@ -1526,8 +1553,10 @@ public class WindowedApplication extends Application implements IWindow
      */
     public function set titleIcon(value:Class):void
     {
-        _titleIcon = value;
-        titleIconChanged = true;
+        if (titleBar == null)
+            return;
+    
+        titleBar.titleIcon = value;
 
         invalidateProperties();
         invalidateSize();
@@ -1641,8 +1670,8 @@ public class WindowedApplication extends Application implements IWindow
 
         if (boundsChanged)
         {       
-            systemManager.stage.stageWidth = _width = _bounds.width;
-            systemManager.stage.stageHeight = _height =  _bounds.height;
+            systemManager.stage.stageWidth = mx_internal::_width = _bounds.width;
+            systemManager.stage.stageHeight = mx_internal::_height =  _bounds.height;
             boundsChanged = false;
             
             // don't know whether height or width changed
@@ -1652,8 +1681,8 @@ public class WindowedApplication extends Application implements IWindow
 
         if (windowBoundsChanged)
         {
-            _bounds.width = _width = systemManager.stage.stageWidth;
-            _bounds.height = _height = systemManager.stage.stageHeight;
+            _bounds.width = mx_internal::_width = systemManager.stage.stageWidth;
+            _bounds.height = mx_internal::_height = systemManager.stage.stageHeight;
             windowBoundsChanged = false;
             
             // don't know whether height or width changed
@@ -1690,6 +1719,13 @@ public class WindowedApplication extends Application implements IWindow
                 titleBar.visible = _showTitleBar;
                 titleBar.includeInLayout = _showTitleBar;
             }
+            
+            if (titleBarBackgroundRect)
+            {
+                titleBarBackgroundRect.visible = _showTitleBar;
+                titleBarBackgroundRect.includeInLayout = _showTitleBar;
+            }
+            
             showTitleBarChanged = false;
         }
 
@@ -1722,10 +1758,8 @@ public class WindowedApplication extends Application implements IWindow
         if (showGripperChanged)
         {
             if (gripper)
-            {
                 gripper.visible = _showGripper;
-                gripperHit.visible = _showGripper;
-            }
+
             showGripperChanged = false;
         }
 
@@ -1821,7 +1855,7 @@ public class WindowedApplication extends Application implements IWindow
 
     //--------------------------------------------------------------------------
     //
-    //  Overridden methods
+    //  Overridden methods: SkinnableContainer
     //
     //--------------------------------------------------------------------------
     
@@ -1830,13 +1864,19 @@ public class WindowedApplication extends Application implements IWindow
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
+        super.partAdded(partName, instance);
+        
         if (instance == titleBar)
         {
+            if (!nativeWindow.closed)
+                systemManager.stage.nativeWindow.title = _title;
             titleBar.title = _title;
+            titleChanged = false;
         }
         else if (instance == statusText)
         {
-            statusText.text = status;    
+            statusText.text = status;
+            statusChanged = false;    
         }
         else if (instance == gripper)
         {
@@ -1849,6 +1889,8 @@ public class WindowedApplication extends Application implements IWindow
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
+        super.partRemoved(partName, instance);
+        
         if (instance == gripper)
         {
             gripper.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
@@ -2072,7 +2114,7 @@ public class WindowedApplication extends Application implements IWindow
             return false;
      }
      
-    //--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
     //
     // Skin states support
     //
@@ -2083,7 +2125,7 @@ public class WindowedApplication extends Application implements IWindow
      *  Button component could return the String "up", "down", "over", or "disabled" 
      *  to specify the state.
      * 
-     *  <p>A subclass of FxComponent must override this method to return a value.</p>
+     *  <p>A subclass of SkinnableComponent must override this method to return a value.</p>
      * 
      *  @return A string specifying the name of the state to apply to the skin.
      *  
@@ -2094,12 +2136,15 @@ public class WindowedApplication extends Application implements IWindow
      */
     override protected function getCurrentSkinState():String 
     {
-        if (nativeWindow.systemChrome == "none")
-        {
-            return "flexChrome";
-        }
-        
-        return "normal";
+
+        if (nativeWindow.closed)
+            return "disabled";
+
+        if (nativeWindow.active)
+            return enabled ? "normal" : "disabledActive";
+        else
+            return enabled ? "normalInactive" : "disabledInactive";
+
     }    
     
     /**
@@ -2142,6 +2187,76 @@ public class WindowedApplication extends Application implements IWindow
         if (!nativeWindow.closed)
             if (nativeWindow.resizable)
                 stage.nativeWindow.startResize(start);
+    }
+    
+    
+    /**
+     *   @private
+     *  
+     *   Perform a hit test to determine if an edge or corner of the application
+     *   was clicked.
+     * 
+     *   @param event The mouse event to hit test.
+     *  
+     *   @return If an edge or corner was click return one of the constants from
+     *   the NativeWindowResize to indicate the edit or corner that was clicked. If
+     *   no edge or corner were clicked then return NativeWindowResize.NONE.
+     */
+    private function hitTestResizeEdge(event:MouseEvent):String
+    {
+        // If we clicked on a child of the contentGroup, then don't resize
+        if (event.target is DisplayObject && event.target != contentGroup)
+        {
+           var o:DisplayObject = DisplayObject(event.target);
+            while (o != contentGroup && o != this)
+                o = o.parent;
+    
+            if (o == contentGroup)
+                return NativeWindowResize.NONE;
+        }
+            
+        var hitTestResults:String = NativeWindowResize.NONE;
+        var borderWidth:int = resizeAffordance;           
+        var cornerSize:int = resizeAffordance * 2;
+        
+        if (event.stageY < borderWidth)
+        {
+            if (event.stageX < cornerSize)
+                hitTestResults = NativeWindowResize.TOP_LEFT;
+            else if (event.stageX > width - cornerSize)
+                hitTestResults = NativeWindowResize.TOP_RIGHT;
+            else
+                hitTestResults = NativeWindowResize.TOP;
+        }
+        else if (event.stageY > (height - borderWidth))
+        {
+            if (event.stageX < cornerSize)
+                hitTestResults = NativeWindowResize.BOTTOM_LEFT;
+            else if (event.stageX > width - cornerSize)
+                hitTestResults = NativeWindowResize.BOTTOM_RIGHT;
+            else
+                hitTestResults = NativeWindowResize.BOTTOM;
+        }
+        else if (event.stageX < borderWidth )
+        {
+            if (event.stageY < cornerSize)
+                hitTestResults = NativeWindowResize.TOP_LEFT;
+            else if (event.stageY > height - cornerSize)
+                hitTestResults = NativeWindowResize.BOTTOM_LEFT;
+            else
+                hitTestResults = NativeWindowResize.LEFT;
+        }
+        else if (event.stageX > width - borderWidth)
+        {
+            if (event.stageY < cornerSize)
+                hitTestResults = NativeWindowResize.TOP_RIGHT;
+            else if (event.stageY > height - cornerSize)
+                hitTestResults = NativeWindowResize.BOTTOM_RIGHT;
+            else
+                hitTestResults = NativeWindowResize.RIGHT;
+        }
+    
+        return hitTestResults;
     }
 
     //--------------------------------------------------------------------------
@@ -2311,49 +2426,11 @@ public class WindowedApplication extends Application implements IWindow
         }
         else
         {
-            var dragWidth:int = Number(getStyle("borderThickness")) + 6;
-            var cornerSize:int = 12;
-            // we short the top a little
-
-            if (event.stageY < Number(getStyle("borderThickness")))
+            var edgeOrCorner:String = hitTestResizeEdge(event);
+            if (edgeOrCorner != NativeWindowResize.NONE)
             {
-                if (event.stageX < cornerSize)
-                    startResize(NativeWindowResize.TOP_LEFT);
-                else if (event.stageX > width - cornerSize)
-                    startResize(NativeWindowResize.TOP_RIGHT);
-                else
-                    startResize(NativeWindowResize.TOP);
-            }
-
-            else if (event.stageY > (height - dragWidth))
-            {
-                if (event.stageX < cornerSize)
-                     startResize(NativeWindowResize.BOTTOM_LEFT);
-                else if (event.stageX > width - cornerSize)
-                    startResize(NativeWindowResize.BOTTOM_RIGHT);
-                else
-                    startResize(NativeWindowResize.BOTTOM);
-            }
-
-            else if (event.stageX < dragWidth )
-            {
-                if (event.stageY < cornerSize)
-                    startResize(NativeWindowResize.TOP_LEFT);
-                else if (event.stageY > height - cornerSize)
-                    startResize(NativeWindowResize.BOTTOM_LEFT);
-                else
-                    startResize(NativeWindowResize.LEFT);
+                startResize(edgeOrCorner);
                 event.stopPropagation();
-            }
-
-            else if (event.stageX > width - dragWidth)
-            {
-                if (event.stageY < cornerSize)
-                    startResize(NativeWindowResize.TOP_RIGHT);
-                else if (event.stageY > height - cornerSize)
-                    startResize(NativeWindowResize.BOTTOM_RIGHT);
-                else
-                    startResize(NativeWindowResize.RIGHT);
             }
         }
     }
@@ -2603,6 +2680,8 @@ public class WindowedApplication extends Application implements IWindow
     private function nativeWindow_activateHandler(event:Event):void
     {
         dispatchEvent(new AIREvent(AIREvent.WINDOW_ACTIVATE));
+
+        invalidateSkinState();
     }
 
     /**
@@ -2611,6 +2690,8 @@ public class WindowedApplication extends Application implements IWindow
     private function nativeWindow_deactivateHandler(event:Event):void
     {
         dispatchEvent(new AIREvent(AIREvent.WINDOW_DEACTIVATE));
+
+        invalidateSkinState();
     }
     
     /**
