@@ -338,8 +338,6 @@ use namespace mx_internal;
 //  Other metadata
 //--------------------------------------
 
-[AccessibilityClass(implementation="spark.accessibility.WindowedApplicationAccImpl")]
-
 [ResourceBundle("core")]
 
 /**
@@ -426,18 +424,6 @@ use namespace mx_internal;
 public class WindowedApplication extends Application implements IWindow
 {
     include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class mixins
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Placeholder for mixin by WindowedApplicationAccImpl.
-     */
-    mx_internal static var createAccessibilityImplementation:Function;
 
     //--------------------------------------------------------------------------
     //
@@ -1653,15 +1639,6 @@ public class WindowedApplication extends Application implements IWindow
     //
     //--------------------------------------------------------------------------
     
-    /**
-     *  @private
-     */
-    override protected function initializeAccessibility():void
-    {
-        if (WindowedApplication.createAccessibilityImplementation != null)
-            WindowedApplication.createAccessibilityImplementation(this);
-    }
-
     /**
      *  @private
      */
