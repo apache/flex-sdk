@@ -97,7 +97,7 @@ public class PNGEncoder implements IImageEncoder
      *
      *  @param bitmapData The input BitmapData object.
      *
-     *  @returns A ByteArray object containing PNG-encoded image data.
+     *  @return Returns a ByteArray object containing PNG-encoded image data.
      */
     public function encode(bitmapData:BitmapData):ByteArray
     {
@@ -127,7 +127,7 @@ public class PNGEncoder implements IImageEncoder
 	 *  is ignored but you still must represent each pixel 
      *  as four bytes in ARGB format.
      *
-     *  @returns A ByteArray object containing PNG-encoded image data. 
+     *  @return Returns a ByteArray object containing PNG-encoded image data. 
      */
     public function encodeByteArray(byteArray:ByteArray, width:int, height:int,
 									transparent:Boolean = true):ByteArray
