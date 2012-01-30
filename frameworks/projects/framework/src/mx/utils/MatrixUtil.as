@@ -41,9 +41,11 @@ public final class MatrixUtil
     // For use in getConcatenatedMatrix function
     private static var fakeDollarParent:QName;
     private static var uiComponentClass:Class;
+    private static var uiMovieClipClass:Class;
     private static var usesMarshalling:Object;
     private static var lastModuleFactory:Object;
     private static var computedMatrixProperty:QName;
+    private static var $transformProperty:QName;
 
     //--------------------------------------------------------------------------
     //
@@ -1648,6 +1650,9 @@ public final class MatrixUtil
             // definition for UIComponent
             if (!usesMarshalling && ApplicationDomain.currentDomain.hasDefinition("mx.core.UIComponent"))
                 uiComponentClass = Class(ApplicationDomain.currentDomain.getDefinition("mx.core.UIComponent"));
+            // same thing for UIMovieClip
+            if (!usesMarshalling && ApplicationDomain.currentDomain.hasDefinition("mx.flash.UIMovieClip"))
+                uiMovieClipClass = Class(ApplicationDomain.currentDomain.getDefinition("mx.flash.UIMovieClip"));
         }
         
         // Note, root will be "null" if the displayObject is off the display list. In particular,
@@ -1662,6 +1667,9 @@ public final class MatrixUtil
         
         if (useComputedMatrix && computedMatrixProperty == null)
             computedMatrixProperty = new QName(mx_internal, "computedMatrix");
+        
+        if ($transformProperty == null)
+            $transformProperty = new QName(mx_internal, "$transform");
         
         while (displayObject && displayObject.transform.matrix && (!excludingRootSprite || displayObject != root))
         {            
@@ -1682,15 +1690,21 @@ public final class MatrixUtil
                     // Get the class definition for UIComponent in the current ApplicationDomain
                     if (appDomain && appDomain.hasDefinition("mx.core.UIComponent"))
                         uiComponentClass = Class(appDomain.getDefinition("mx.core.UIComponent"));
+                    // same thing for UIMovieClip
+                    if (appDomain && appDomain.hasDefinition("mx.flash.UIMovieClip"))
+                        uiMovieClipClass = Class(appDomain.getDefinition("mx.flash.UIMovieClip"));
                     
                     lastModuleFactory = moduleFactory;
                 }
             }
             
             var isUIComponent:Boolean = uiComponentClass && displayObject is uiComponentClass;
+            var isUIMovieClip:Boolean = uiMovieClipClass && displayObject is uiMovieClipClass;
             
             if (useComputedMatrix && isUIComponent)
                 m.concat(displayObject[computedMatrixProperty]);
+            else if (isUIMovieClip)
+                m.concat(displayObject[$transformProperty].matrix);
             else
                 m.concat(displayObject.transform.matrix);
             
