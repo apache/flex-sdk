@@ -200,6 +200,18 @@ public class FlexModuleFactory extends MovieClip
 	 */
 	private var errorMessage:String = null;
 
+    /**
+     *  @private
+     * 
+     *  This exists only to provide a reference to this 
+     *  module's resource bundles. This module is opting
+     *  into referencing its own resource bundles so the
+     *  ResourceManager does not need to do it. This 
+     *  arrangement keeps the ResourceManager from pinning
+     *  the module in memory.
+     */
+    private var resourceBundles:Array;
+    
 	//--------------------------------------------------------------------------
 	//
 	//  Properties: IFlexModuleFactory
@@ -593,7 +605,7 @@ public class FlexModuleFactory extends MovieClip
 		if (currentFrame < totalFrames)
             deferredNextFrame();
     }
-
+    
     /**
 	 *  @private
 	 */
@@ -615,8 +627,8 @@ public class FlexModuleFactory extends MovieClip
 		var resourceManager:IResourceManager =
 			ResourceManager.getInstance();
 		
-		resourceManager.installCompiledResourceBundles(
-			applicationDomain, compiledLocales, compiledResourceBundleNames);
+		resourceBundles = resourceManager.installCompiledResourceBundles(
+			applicationDomain, compiledLocales, compiledResourceBundleNames, true);
 
 		// If the localeChain wasn't specified in the FlashVars of the SWF's
 		// HTML wrapper, or in the query parameters of the SWF URL,
