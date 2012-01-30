@@ -507,7 +507,10 @@ class ModuleInfo extends EventDispatcher
             try
             {
                 if (loader.content)
+                {
                     loader.content.removeEventListener("ready", readyHandler);
+                    loader.content.removeEventListener("error", moduleErrorHandler);
+                }
             }
             catch(error:Error)
             {
@@ -633,6 +636,7 @@ class ModuleInfo extends EventDispatcher
         }
 
         loader.content.addEventListener("ready", readyHandler);
+        loader.content.addEventListener("error", moduleErrorHandler);
 
         try
         {
@@ -705,6 +709,29 @@ class ModuleInfo extends EventDispatcher
 
         dispatchEvent(new ModuleEvent(ModuleEvent.READY));
     }
+    
+    /**
+     *  @private
+     */
+    public function moduleErrorHandler(event:Event):void
+    {
+        //trace("Error: child load of " + _url + ");
+
+        _ready = true;
+
+        factoryInfo.bytesTotal = loader.contentLoaderInfo.bytesTotal;
+
+        clearLoader();
+
+        var errorEvent:ModuleEvent;
+        
+        if (event is ModuleEvent)
+            errorEvent = ModuleEvent(event);
+        else
+            errorEvent = new ModuleEvent(ModuleEvent.ERROR);
+             
+        dispatchEvent(errorEvent);
+    }    
 }
 
 ////////////////////////////////////////////////////////////////////////////////
