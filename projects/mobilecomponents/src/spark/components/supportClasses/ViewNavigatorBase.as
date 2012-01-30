@@ -111,7 +111,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get active() : Boolean
+    public function get active():Boolean
     {
         return _active;
     }
@@ -119,7 +119,7 @@ public class ViewNavigatorBase extends SkinnableContainer
     /**
      * @private
      */
-    public function set active(value:Boolean) : void
+    public function set active(value:Boolean):void
     {
         if (_active != value)
         {
@@ -380,6 +380,24 @@ public class ViewNavigatorBase extends SkinnableContainer
      */
     public function backKeyHandler():void
     {
+    }
+    
+    /**
+     *  This method checks if the current view can be removed
+     *  from the display list.
+     * 
+     *  @return Returns true if the screen can be removed
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function canRemoveCurrentView():Boolean
+    {
+    	// This is a method instead of a property because the default
+    	// implementation in ViewNavigator has a side effect
+        return true;
     }
     
     /**
