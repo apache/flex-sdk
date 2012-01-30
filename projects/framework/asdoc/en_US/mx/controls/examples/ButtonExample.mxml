@@ -21,7 +21,7 @@
             horizontalCenter="0" verticalCenter="0">
         <s:HGroup left="10" right="10" top="10" bottom="10">
             <s:VGroup>
-                <s:SimpleText width="100%" color="blue"
+                <s:Label width="100%" color="blue"
                         text="Select a Halo Button control."/>
     
                  <!-- The button can contain an image, as in the "Button with Icon" button -->
