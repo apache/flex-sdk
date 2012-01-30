@@ -14,7 +14,7 @@ package spark.automation.events
 	
 	import flash.events.Event;
 	
-	import spark.components.IGridItemRenderer;
+	import spark.components.gridClasses.IGridItemRenderer;
 	
 	/**
 	 *  The SparkDataGridItemSelectEvent class represents event objects that are dispatched 
