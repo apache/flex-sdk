@@ -14,6 +14,7 @@ package spark.skins.mobile
     
 import flash.display.DisplayObject;
 import flash.display.GradientType;
+import flash.display.Graphics;
 import flash.geom.Matrix;
 
 import mx.core.mx_internal;
@@ -44,7 +45,10 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 public class ButtonSkin extends ButtonSkinBase
-{	
+{
+    private static const CORNER_ELLIPSE_SIZE:uint = 20;
+    
+    private static const BOTTOM_BORDER_SHADOW:uint = 1;
     
     //--------------------------------------------------------------------------
     //
@@ -56,6 +60,7 @@ public class ButtonSkin extends ButtonSkinBase
         super();
         upBorderSkin = Button_up;
         downBorderSkin = Button_down;
+        useChromeColor = true;
     }
     
     //--------------------------------------------------------------------------
@@ -66,13 +71,8 @@ public class ButtonSkin extends ButtonSkinBase
     private var bgImg:DisplayObject;
     
     private var changeFXGSkin:Boolean = false;
+    
     private var borderClass:Class;
-    
-    private static var matrix:Matrix = new Matrix();
-    
-    // Used for gradient background
-    private static const alphas:Array = [1, 1, 1];
-    private static const ratios:Array = [0, 127.5, 255];
     
     //--------------------------------------------------------------------------
     //
@@ -151,8 +151,6 @@ public class ButtonSkin extends ButtonSkinBase
         {
             layoutBorder(bgImg, unscaledWidth, unscaledHeight);
         }
-        
-        drawBackground(unscaledWidth, unscaledHeight);
                     
         // The label and icon should be placed on top of the FXG skins
         super.updateDisplayList(unscaledWidth, unscaledHeight);
@@ -172,33 +170,10 @@ public class ButtonSkin extends ButtonSkinBase
         positionPart(bgImg, 0, 0);
     }
     
-    /**
-     *  Draws the background of the skin. Override this function to change the background. 
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5 
-     *  @productversion Flex 4.5
-     */ 
-    protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
     {
-        var colors:Array = [];
-        
-        graphics.clear();
-        
-        // Draw the gradient background
-        matrix.createGradientBox(unscaledWidth - 1, unscaledHeight - 1, Math.PI / 2, 0, 0);
-        var chromeColor:uint = getStyle("chromeColor");
-        colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
-        colors[1] = chromeColor;
-        colors[2] = ColorUtil.adjustBrightness2(chromeColor, -20);
-        
-        graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
-        
-        // Draw the background rectangle within the border, so the corners of the rect don't 
-        // spill over into the rounded corners of the Button
-        graphics.drawRect(1, 1, unscaledWidth - 1, unscaledHeight - 1);
-        graphics.endFill();
+        // bottom line is a shadow
+        chromeColorGraphics.drawRoundRect(0, 0, unscaledWidth, unscaledHeight - BOTTOM_BORDER_SHADOW, CORNER_ELLIPSE_SIZE, CORNER_ELLIPSE_SIZE);
     }
     
     /**
