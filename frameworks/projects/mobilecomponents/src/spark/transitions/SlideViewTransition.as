@@ -311,10 +311,10 @@ public class SlideViewTransition extends ViewTransitionBase
         
         var slideTargets:Array = new Array();
         
-        if (!(mode == SlideViewTransitionMode.COVER))
+        if (cachedNavigator && mode != SlideViewTransitionMode.COVER)
             slideTargets.push(cachedNavigator);
         
-        if (!(mode == SlideViewTransitionMode.UNCOVER))
+        if (mode != SlideViewTransitionMode.UNCOVER)
             slideTargets.push(targetNavigator.contentGroup);
 
         navigatorProps.contentGroupIncludeInLayout = targetNavigator.contentGroup.includeInLayout;
@@ -349,7 +349,7 @@ public class SlideViewTransition extends ViewTransitionBase
         {
             if (actionBar)
             {
-                if (!(mode == SlideViewTransitionMode.UNCOVER))
+                if (mode != SlideViewTransitionMode.UNCOVER)
                     slideTargets.push(actionBar);
                 
                 navigatorProps.actionBarIncludeInLayout = actionBar.includeInLayout;
