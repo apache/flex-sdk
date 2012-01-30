@@ -21,7 +21,7 @@ package mx.graphics
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public final class BitmapResizeMode
+public final class BitmapFillMode
 {
     /**
      *  The bitmap ends at the edge of the region.
@@ -31,7 +31,7 @@ public final class BitmapResizeMode
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static const NOSCALE:String = "noScale";
+    public static const CLIP:String = "clip";
 
     /**
      *  The bitmap is repeated to fill the region.
