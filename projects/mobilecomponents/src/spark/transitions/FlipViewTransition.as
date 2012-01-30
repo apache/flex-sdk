@@ -653,7 +653,7 @@ public class FlipViewTransition extends ViewTransitionBase
         startView.includeInLayout = false;
         
         // Disable end view layout.
-        endViewProps = { includeInLayout:endView.includeInLayout }; 
+        endViewProps = { includeInLayout:endView.includeInLayout, usesAdvancedLayout:(endView._layoutFeatures != null) }; 
         endView.includeInLayout = false;
         
         // Save our end view's transform matrix.
@@ -710,6 +710,7 @@ public class FlipViewTransition extends ViewTransitionBase
                 
         // Disable layout for our targetNavigator temporarily.
         navigatorProps.targetNavigatorIncludeInLayout = targetNavigator.includeInLayout;
+        navigatorProps.usesAdvancedLayout = (targetNavigator._layoutFeatures != null);
         targetNavigator.includeInLayout = false;
     }
 
@@ -817,6 +818,11 @@ public class FlipViewTransition extends ViewTransitionBase
             if (endView)
             {
                 endView.includeInLayout = endViewProps.includeInLayout;
+                
+                // Restore the end view to normal layout mode if if 
+                // that's the mode it was in before the transition.
+                if (!endViewProps.usesAdvancedLayout)
+                    endView.clearAdvancedLayoutFeatures();
                 endViewProps = null;
             }
         }
@@ -832,6 +838,11 @@ public class FlipViewTransition extends ViewTransitionBase
             
             // Restore targetNavigator properties.
             targetNavigator.includeInLayout = navigatorProps.targetNavigatorIncludeInLayout;
+
+            // Restore the target navigator to normal layout mode if 
+            // that's the mode it was in before the transition.
+            if (!navigatorProps.usesAdvancedLayout)
+                targetNavigator.clearAdvancedLayoutFeatures();
         }
 
         transitionGroup = null;
