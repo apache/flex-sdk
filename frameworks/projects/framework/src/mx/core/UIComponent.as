@@ -7836,6 +7836,25 @@ public class UIComponent extends FlexSprite
     //--------------------------------------------------------------------------
 
     /**
+     *  A component's parent is used to evalate descendant selectors. A parent
+     *  must also be an IAdvancedStyleClient to participate in advanced style
+     *  declarations.
+     */ 
+    public function get styleParent():IAdvancedStyleClient
+    {
+        return parent as IAdvancedStyleClient;
+    }
+
+    /**
+     *  Determines whether this component can be considered assignable to the
+     *  given type. This is used to determine matching advanced CSS styles.
+     */ 
+    public function isAssignableToType(type:String):Boolean
+    {
+        return StyleProtoChain.isAssignableToType(this, type);
+    }
+
+    /**
      *  @private
      *  Sets up the inheritingStyles and nonInheritingStyles objects
      *  and their proto chains so that getStyle() can work.
@@ -7860,16 +7879,6 @@ public class UIComponent extends FlexSprite
     public function getClassStyleDeclarations():Array
     {
         return StyleProtoChain.getClassStyleDeclarations(this);
-    }
-
-    /**
-     *  A component's parent is used to evalate descendant selectors. A parent
-     *  must also be an IAdvancedStyleClient to participate in advanced style
-     *  declarations.
-     */ 
-    public function get styleParent():IAdvancedStyleClient
-    {
-        return parent as IAdvancedStyleClient;
     }
 
     /**
