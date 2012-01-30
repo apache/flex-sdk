@@ -82,6 +82,9 @@ use namespace mx_internal;
      *  to remove the appended text, if present. 
      *  Classes accessing <code>LoaderInfo.url</code> should call this method 
      *  to normalize the URL before using it.
+     *  This method also encodes the url by calling the encodeURI() method
+     *  on it. If you want the unencoded url, you must call unencodeURI() on
+     *  the results.
      *
      *  @param loaderInfo A LoaderInfo instance.
      *
@@ -110,7 +113,7 @@ use namespace mx_internal;
             }
         }
         
-        return url;
+        return encodeURI(url);
     }
 
     /**
