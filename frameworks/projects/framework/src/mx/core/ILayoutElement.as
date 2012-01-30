@@ -32,13 +32,13 @@ public interface ILayoutElement extends IEventDispatcher
      *  The horizontal distance in pixels from the left edge of the component to the
      *  anchor target's left edge.
      *
-     *  By default the anchor target is the the container's content area. In layouts
+     *  By default the anchor target is the container's content area. In layouts
      *  with advanced constraints, the target can be a constraint column.
      *
      *  Setting the property to a number or to a numerical string like "10"
      *  specifies use of the default anchor target.
      *
-     *  To spcify an anchor target, set the property value to a string in the format
+     *  To specify an anchor target, set the property value to a string in the format
      *  "anchorTargetName:value" e.g. "col1:10".
      *
      *  @default null
@@ -59,13 +59,13 @@ public interface ILayoutElement extends IEventDispatcher
      *  The horizontal distance in pixels from the right edge of the component to the
      *  anchor target's right edge.
      *
-     *  By default the anchor target is the the container's content area. In layouts
+     *  By default the anchor target is the container's content area. In layouts
      *  with advanced constraints, the target can be a constraint column.
      *
      *  Setting the property to a number or to a numerical string like "10"
      *  specifies use of the default anchor target.
      *
-     *  To spcify an anchor target, set the property value to a string in the format
+     *  To specify an anchor target, set the property value to a string in the format
      *  "anchorTargetName:value" e.g. "col1:10".
      *
      *  @default null
@@ -86,13 +86,13 @@ public interface ILayoutElement extends IEventDispatcher
      *  The vertical distance in pixels from the top edge of the component to the
      *  anchor target's top edge.
      *
-     *  By default the anchor target is the the container's content area. In layouts
+     *  By default the anchor target is the container's content area. In layouts
      *  with advanced constraints, the target can be a constraint row.
      *
      *  Setting the property to a number or to a numerical string like "10"
      *  specifies use of the default anchor target.
      *
-     *  To spcify an anchor target, set the property value to a string in the format
+     *  To specify an anchor target, set the property value to a string in the format
      *  "anchorTargetName:value" e.g. "row1:10".
      *
      *  @default null
@@ -113,13 +113,13 @@ public interface ILayoutElement extends IEventDispatcher
      *  The vertical distance in pixels from the bottom edge of the component to the
      *  anchor target's bottom edge.
      *
-     *  By default the anchor target is the the container's content area. In layouts
+     *  By default the anchor target is the container's content area. In layouts
      *  with advanced constraints, the target can be a constraint row.
      *
      *  Setting the property to a number or to a numerical string like "10"
      *  specifies use of the default anchor target.
      *
-     *  To spcify an anchor target, set the property value to a string in the format
+     *  To specify an anchor target, set the property value to a string in the format
      *  "anchorTargetName:value" e.g. "row1:10".
      *
      *  @default null
@@ -143,7 +143,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  The default anchor target is the container itself.
      *
      *  In layouts with advanced constraints, the anchor target can be a constraint column.
-     *  Then the content area is the space between the preceeding column
+     *  Then the content area is the space between the preceding column
      *  (or container side) and the target column.
      *
      *  Setting the property to a number or to a numerical string like "10"
@@ -173,7 +173,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  The default anchor target is the container itself.
      *
      *  In layouts with advanced constraints, the anchor target can be a constraint row.
-     *  Then the content area is the space between the preceeding row
+     *  Then the content area is the space between the preceding row
      *  (or container side) and the target row.
      *
      *  Setting the property to a number or to a numerical string like "10"
@@ -200,14 +200,14 @@ public interface ILayoutElement extends IEventDispatcher
      *  The vertical distance in pixels from the anchor target to
      *  the control's baseline position.
      *
-     *  By default the anchor target is the the top edge of the container's
+     *  By default the anchor target is the top edge of the container's
      *  content area. In layouts with advanced constraints, the target can be
      *  a constraint row.
      *
      *  Setting the property to a number or to a numerical string like "10"
      *  specifies use of the default anchor target.
      *
-     *  To spcify an anchor target, set the property value to a string in the format
+     *  To specify an anchor target, set the property value to a string in the format
      *  "anchorTargetName:value" e.g. "row1:10".
      *
      *  @default null
@@ -310,7 +310,7 @@ public interface ILayoutElement extends IEventDispatcher
      * 
      *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  the element's bounding box width.  Bounding box is in element's parent
-     *  coordinate space and is calculated from  the element's perferred size and
+     *  coordinate space and is calculated from  the element's preferred size and
      *  layout transform matrix.
      *
      *  @return Returns the element's preferred width.  Preferred width is
@@ -333,7 +333,7 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  the element's bounding box height.  Bounding box is in element's parent
-     *  coordinate space and is calculated from  the element's perferred size and
+     *  coordinate space and is calculated from  the element's preferred size and
      *  layout transform matrix.
      *
      *  @return Returns the element's preferred height.  Preferred height is
@@ -431,7 +431,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  Returns the x coordinate of the element's bounds at the specified element size.
      * 
      *  This method is typically used by layouts during measure() to predict what
-     *  the element position will be, if the element is resized to particular dimesions.
+     *  the element position will be, if the element is resized to particular dimensions.
      * 
      *  @param width The element's bounds width, or NaN to use the preferred width.
      *  @param height The element's bounds height, or NaN to use the preferred height.
@@ -456,7 +456,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  Returns the y coordinate of the element's bounds at the specified element size.
      * 
      *  This method is typically used by layouts during measure() to predict what
-     *  the element position will be, if the element is resized to particular dimesions.
+     *  the element position will be, if the element is resized to particular dimensions.
      * 
      *  @param width The element's bounds width, or NaN to use the preferred width.
      *  @param height The element's bounds height, or NaN to use the preferred height.
