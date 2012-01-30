@@ -144,6 +144,10 @@ public class GradientBase extends EventDispatcher
     //  compoundTransform
     //----------------------------------
     
+    /**
+     *  Holds the matrix and the convenience transform properties (<code>x</code>, <code>y</code>, and <code>rotation</code>).
+     *  The compoundTransform is only created when the <code>matrix</code> property is set. 
+     */
     protected var compoundTransform:CompoundTransform;
 
 	//----------------------------------
@@ -246,13 +250,29 @@ public class GradientBase extends EventDispatcher
     [Inspectable(category="General")]
 
     /**
-     *  By default, the LinearGradientStroke defines a transition
+     *  An array of values used for matrix transformation.
+     * 
+     *  <p>The gradient <code>scaleX</code> and <code>scaleY</code> properties represent pixels while the Matrix scale properties represent multipliers. 
+     *  Thus they are not compatible. 
+     *  Another difference is the most of the transform properties (<code>x</code>, <code>y</code>, <code>scaleX</code>, and <code>scaleY</code>) 
+     *  support NaN values while the matrix does not. A NaN value means that the gradient will choose an appropriate value.</p>
+     *  
+     *  <p>The <code>scaleX</code> and <code>scaleY</code> properties can not be represented by the matrix. 
+     *  Once the matrix is set, <code>scaleX</code> and <code>scaleY</code> can no longer be set. 
+     *  Also, <code>x</code> and <code>y</code> can not be set to NaN. 
+     *  The matrix can be set back to null which also resets all of the convenience transform properties back to their default values.</p>
+     *  
+     *  <p>If the matrix is set, then the gradient draw logic will scale the gradient to fit the bounds of the graphic element. 
+     *  It will then position the gradient in the upper left corner of the graphic element. 
+     *  Finally, it will apply the matrix transformations.</p>
+    
+     *  <p>By default, the LinearGradientStroke defines a transition
      *  from left to right across the control. 
      *  Use the <code>rotation</code> property to control the transition direction. 
      *  For example, a value of 180.0 causes the transition
-     *  to occur from right to left, rather than from left to right.
+     *  to occur from right to left, rather than from left to right.</p>
      *
-     *  @default 0.0
+     *  @default null
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
