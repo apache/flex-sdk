@@ -20,6 +20,11 @@ package mx.formatters
  *
  *  @see mx.formatters.NumberFormatter
  *  @see mx.formatters.NumberBaseRoundType
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class NumberBase
 {
@@ -45,6 +50,11 @@ public class NumberBase
 	 *
 	 *  @param thousandsSeparatorTo Character to use
 	 *  as the thousands separator in the output String.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function NumberBase(decimalSeparatorFrom:String = ".",
 							   thousandsSeparatorFrom:String = ",",
@@ -76,6 +86,11 @@ public class NumberBase
 	 *  when parsing an input String.
 	 *  
 	 *  @default "."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var decimalSeparatorFrom:String;
 
@@ -88,6 +103,11 @@ public class NumberBase
 	 *  when outputting formatted decimal numbers.
 	 *  
 	 *  @default "."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var decimalSeparatorTo:String;
 
@@ -98,6 +118,11 @@ public class NumberBase
 	/**
 	 *  If <code>true</code>, the format succeeded,
 	 *  otherwise it is <code>false</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var isValid:Boolean = false;
 
@@ -110,6 +135,11 @@ public class NumberBase
 	 *  in the input String.
 	 *  
 	 *  @default ","
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var thousandsSeparatorFrom:String;
 
@@ -122,6 +152,11 @@ public class NumberBase
 	 *  in the output String.
 	 *  
 	 *  @default ","
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var thousandsSeparatorTo:String;
 
@@ -145,6 +180,11 @@ public class NumberBase
 	 *  @return Formatted number.
 	 *
 	 *  @see mx.formatters.NumberBaseRoundType
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function formatRounding(value:String, roundType:String):String
 	{
@@ -190,6 +230,11 @@ public class NumberBase
 	 *  @return Formatted number.
 	 *
 	 *  @see mx.formatters.NumberBaseRoundType
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function formatRoundingWithPrecision(value:String, roundType:String,
 												precision:int):String
@@ -255,6 +300,11 @@ public class NumberBase
 	 *
 	 *  @return String representation of the input where "." is replaced
 	 *  with the decimal formatting character.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function formatDecimal(value:String):String
 	{
@@ -270,6 +320,11 @@ public class NumberBase
 	 *  @param value Value to be formatted.
 	 *
 	 *  @return Formatted number.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function formatThousands(value:String):String
 	{
@@ -322,6 +377,11 @@ public class NumberBase
 	 *  @param precision Number of decimal points to use.
 	 *
 	 *  @return Formatted number.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function formatPrecision(value:String, precision:int):String
 	{
@@ -362,6 +422,11 @@ public class NumberBase
 	 *  If <code>false</code>, use parentheses ().
 	 *
 	 *  @return Formatted number.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function formatNegative(value:String, useSign:Boolean):String
 	{
@@ -394,6 +459,11 @@ public class NumberBase
 	 *  @param str String to parse for the numeric value.
 	 *
 	 *  @return Value, which can be a decimal.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function parseNumberString(str:String):String
 	{
