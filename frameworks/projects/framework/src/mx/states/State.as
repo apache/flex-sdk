@@ -86,7 +86,7 @@ use namespace mx_internal;
  */
 public class State extends EventDispatcher
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -94,13 +94,19 @@ public class State extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 */
-	public function State()
-	{
-		super();
-	}
+    /**
+     *  Constructor.
+     */
+    public function State(properties:Object=null)
+    {
+        super();
+        
+        // Initialize from object if provided.
+        for (var p:String in properties)
+        {
+            this[p] = properties[p];
+        }
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -108,11 +114,11 @@ public class State extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Initialized flag
-	 */
-	private var initialized:Boolean = false;
+    /**
+     *  @private
+     *  Initialized flag
+     */
+    private var initialized:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -121,64 +127,76 @@ public class State extends EventDispatcher
     //--------------------------------------------------------------------------
 
     //----------------------------------
-	//  basedOn
+    //  basedOn
     //----------------------------------
 
-	[Inspectable(category="General")]
+    [Inspectable(category="General")]
 
-	/**
-	 *  The name of the view state upon which this view state is based, or
-	 *  <code>null</code> if this view state is not based on a named view state.
-	 *  If this value is <code>null</code>, the view state is based on a root
-	 *  state that consists of the properties, styles, event handlers, and
-	 *  children that you define for a component without using a State class.
-	 *
-	 *  @default null
-	 */
-	public var basedOn:String;
+    /**
+     *  The name of the view state upon which this view state is based, or
+     *  <code>null</code> if this view state is not based on a named view state.
+     *  If this value is <code>null</code>, the view state is based on a root
+     *  state that consists of the properties, styles, event handlers, and
+     *  children that you define for a component without using a State class.
+     *
+     *  @default null
+     */
+    public var basedOn:String;
 
     //----------------------------------
-	//  name
+    //  name
     //----------------------------------
 
-	[Inspectable(category="General")]
+    [Inspectable(category="General")]
 
     /**
      *  The name of the view state.
-	 *  State names must be unique for a given component.
-	 *  This property must be set.
+     *  State names must be unique for a given component.
+     *  This property must be set.
      */
-	public var name:String;
+    public var name:String;
 
     //----------------------------------
-	//  overrides
+    //  overrides
     //----------------------------------
 
-	[ArrayElementType("mx.states.IOverride")]
-	[Inspectable(category="General")]
+    [ArrayElementType("mx.states.IOverride")]
+    [Inspectable(category="General")]
 
-	/**
-	 *  The overrides for this view state, as an Array of objects that implement
-	 *  the IOverride interface. These overrides are applied in order when the
-	 *  state is entered, and removed in reverse order when the state is exited.
-	 *
-	 *  <p>The following Flex classes implement the IOverride interface and let you
-	 *  define the view state characteristics:</p>
-	 *  <ul>
-	 * 		<li>AddChild</li>
-	 * 		<li>RemoveChild</li>
-	 * 		<li>SetEventHandler</li>
-	 * 		<li>SetProperty</li>
-	 * 		<li>SetStyle</li>
-	 *  </ul>
-	 *
-	 *  <p>The <code>overrides</code> property is the default property of the
-	 *  State class. You can omit the <code>&lt;mx:overrides&gt;</code> tag
-	 *  and its child <code>&lt;mx:Array&gt;</code>tag if you use MXML tag
-	 *  syntax to define the overrides.</p>
-	 */
-	public var overrides:Array /* of IOverride */ = [];
+    /**
+     *  The overrides for this view state, as an Array of objects that implement
+     *  the IOverride interface. These overrides are applied in order when the
+     *  state is entered, and removed in reverse order when the state is exited.
+     *
+     *  <p>The following Flex classes implement the IOverride interface and let you
+     *  define the view state characteristics:</p>
+     *  <ul>
+     *      <li>AddChild</li>
+     *      <li>RemoveChild</li>
+     *      <li>SetEventHandler</li>
+     *      <li>SetProperty</li>
+     *      <li>SetStyle</li>
+     *  </ul>
+     *
+     *  <p>The <code>overrides</code> property is the default property of the
+     *  State class. You can omit the <code>&lt;mx:overrides&gt;</code> tag
+     *  and its child <code>&lt;mx:Array&gt;</code>tag if you use MXML tag
+     *  syntax to define the overrides.</p>
+     */
+    public var overrides:Array /* of IOverride */ = [];
 
+    //----------------------------------
+    //  stateGroups
+    //----------------------------------
+
+    [ArrayElementType("String")]
+    [Inspectable(category="General")]
+
+    /**
+     *  The state groups that this view state belongs to as an array of String.
+     */
+    public var stateGroups:Array /* of String */ = [];
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -191,33 +209,33 @@ public class State extends EventDispatcher
      */
     mx_internal function initialize():void
     {
-    	if (!initialized)
-    	{
-    		initialized = true;
-    		for (var i:int = 0; i < overrides.length; i++)
-    		{
-    			IOverride(overrides[i]).initialize();
-    		}
-    	}
+        if (!initialized)
+        {
+            initialized = true;
+            for (var i:int = 0; i < overrides.length; i++)
+            {
+                IOverride(overrides[i]).initialize();
+            }
+        }
     }
 
     /**
      *  @private
      *  Dispatches the "enterState" event.
      */
-	mx_internal function dispatchEnterState():void
-	{
-		dispatchEvent(new FlexEvent(FlexEvent.ENTER_STATE));
-	}
+    mx_internal function dispatchEnterState():void
+    {
+        dispatchEvent(new FlexEvent(FlexEvent.ENTER_STATE));
+    }
 
     /**
      *  @private
      *  Dispatches the "exitState" event.
      */
-	mx_internal function dispatchExitState():void
-	{
-		dispatchEvent(new FlexEvent(FlexEvent.EXIT_STATE));
-	}
+    mx_internal function dispatchExitState():void
+    {
+        dispatchEvent(new FlexEvent(FlexEvent.EXIT_STATE));
+    }
 }
 
 }
