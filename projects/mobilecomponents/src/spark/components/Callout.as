@@ -69,7 +69,7 @@ use namespace mx_internal;
  *  Callout also adds an optional <code>arrow</code> skin part that visually
  *  displays the direction toward the owner.
  *
- *  <p>The following images shows a Callout container labeled 'Settings':</p>
+ *  <p>The following image shows a Callout container labeled 'Settings':</p>
  *
  * <p>
  *  <img src="../../images/ca_calloutViewNav_ca.png" alt="Callout container" />
