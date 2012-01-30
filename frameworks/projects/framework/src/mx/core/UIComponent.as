@@ -7062,7 +7062,7 @@ public class UIComponent extends FlexSprite
      */
     private function setBorderColorForErrorString():void
     {
-        var showErrorSkin:Boolean = getStyle("showErrorSkin");
+        var showErrorSkin:Boolean = FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0 || getStyle("showErrorSkin");
         
         if (showErrorSkin)
         {
@@ -8326,7 +8326,7 @@ public class UIComponent extends FlexSprite
         if (errorStringChanged)
         {
             errorStringChanged = false;          
-            if (getStyle("showErrorTip"))
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0 || getStyle("showErrorTip"))
                 ToolTipManager.registerErrorString(this, oldErrorString, errorString);
             
             setBorderColorForErrorString();
@@ -10077,7 +10077,8 @@ public class UIComponent extends FlexSprite
         if (focusObj)
         {
             var rectCol:Number;
-            if (errorString && errorString != "" && getStyle("showErrorSkin"))
+            var showErrorSkin:Boolean = FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0 || getStyle("showErrorSkin");
+            if (errorString && errorString != "" && showErrorSkin)
                 rectCol = getStyle("errorColor");
             else if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
                 rectCol = getStyle("themeColor");
