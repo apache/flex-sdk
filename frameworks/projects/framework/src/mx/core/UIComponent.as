@@ -6152,6 +6152,18 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @private
+     *  Individual error messages from validators
+     */
+    private var errorArray:Array;
+        
+    /**
+     *  @private
+     *  Array of validators who gave error messages
+     */
+    private var errorObjectArray:Array;
+    
+    /**
+     *  @private
      *  Flag set when error string changes.
      */
     private var errorStringChanged:Boolean = false;
@@ -10987,13 +10999,23 @@ public class UIComponent extends FlexSprite
      */
     public function validationResultHandler(event:ValidationResultEvent):void
     {
+        if (errorObjectArray === null)
+        {
+            errorObjectArray = new Array();
+            errorArray = new Array();
+        }
+        
+    	var validatorIndex:int = errorObjectArray.indexOf(event.target);
         // If we are valid, then clear the error string
         if (event.type == ValidationResultEvent.VALID)
         {
-            if (errorString != "")
+            if (validatorIndex != -1)
             {
-                errorString = "";
-                dispatchEvent(new FlexEvent(FlexEvent.VALID));
+            	errorObjectArray.splice(validatorIndex, 1);
+            	errorArray.splice(validatorIndex, 1);
+                errorString = errorArray.join("\n");
+            	if (errorArray.length == 0)
+                	dispatchEvent(new FlexEvent(FlexEvent.VALID));
             }
         }
         else // If we get an invalid event
@@ -11016,11 +11038,14 @@ public class UIComponent extends FlexSprite
                         }
                         else
                         {
-                            if (errorString != "")
-                            {
-                                errorString = "";
-                                dispatchEvent(new FlexEvent(FlexEvent.VALID));
-                            }
+				            if (validatorIndex != -1)
+				            {
+				            	errorObjectArray.splice(validatorIndex, 1);
+				            	errorArray.splice(validatorIndex, 1);
+				                errorString = errorArray.join("\n");
+				            	if (errorArray.length == 0)
+				                	dispatchEvent(new FlexEvent(FlexEvent.VALID));
+				            }
                         }
                         break;
                     }
@@ -11031,9 +11056,17 @@ public class UIComponent extends FlexSprite
                 msg = event.results[0].errorMessage;
             }
 
-            if (msg && errorString != msg)
+            if (msg && validatorIndex != -1 && errorArray[validatorIndex] != msg)
             {
-                errorString = msg;
+                errorArray[validatorIndex] = msg;
+                errorString = errorArray.join("\n");
+                dispatchEvent(new FlexEvent(FlexEvent.INVALID));
+            }
+            else if (msg && validatorIndex == -1)
+            {
+            	errorObjectArray.push(event.target);
+            	errorArray.push(msg);
+                errorString = errorArray.join("\n");
                 dispatchEvent(new FlexEvent(FlexEvent.INVALID));
             }
         }
