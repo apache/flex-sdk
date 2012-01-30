@@ -24,8 +24,8 @@ package spark.automation.tabularData
 	
 	import spark.automation.delegates.components.SparkDataGridAutomationImpl;
 	import spark.components.DataGrid;
-	import spark.components.IGridItemRenderer;
-	import spark.components.supportClasses.GridColumn;
+	import spark.components.gridClasses.IGridItemRenderer;
+	import spark.components.gridClasses.GridColumn;
 	
 	use namespace mx_internal;
 	
