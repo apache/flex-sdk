@@ -214,6 +214,9 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
      *  <code>PopUpManagerChildList.POPUP</code>, 
      *  or <code>PopUpManagerChildList.PARENT</code> (default).
      *
+     *  @param moduleFactory The moduleFactory where this pop-up should look for
+     *  its embedded fonts and style manager.
+     *
      *  @return Reference to new top-level window.
      *
      *  @see PopUpManagerChildList
@@ -226,10 +229,11 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
     public function createPopUp(parent:DisplayObject,
                                 className:Class,
                                 modal:Boolean = false,
-                                childList:String = null):IFlexDisplayObject
+                                childList:String = null,
+                                moduleFactory:IFlexModuleFactory = null):IFlexDisplayObject
     {   
         const window:IUIComponent = new className();
-        addPopUp(window, parent, modal, childList);
+        addPopUp(window, parent, modal, childList, moduleFactory);
         return window;
     }
     
