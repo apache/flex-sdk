@@ -17,7 +17,6 @@ import spark.components.supportClasses.ViewNavigatorSection;
 import spark.effects.SlideViewTransition;
 import spark.effects.ViewTransition;
 import spark.events.IndexChangeEvent;
-import spark.events.ViewNavigatorEvent;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -50,32 +49,6 @@ use namespace mx_internal;
  * 
  */
 [Event(name="valueCommit", type="mx.events.FlexEvent")]
-
-/**
- *  Dispatched when a new view has been added to the display
- *  list.
- * 
- *  @eventType spark.events.ViewNavigatorEvent.VIEW_ADD
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Event(name="viewAdd", type="spark.events.ViewNavigatorEvent")]
-
-/**
- *  Dispatched when a view has been removed from the display
- *  list.
- * 
- *  @eventType spark.events.ViewNavigatorEvent.VIEW_REMOVE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Event(name="viewRemove", type="spark.events.ViewNavigatorEvent")]
 
 //--------------------------------------
 //  SkinStates
@@ -906,10 +879,6 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
                 currentViewData.persistedData = currentView.getPersistenceData();
             }
             
-            // Notify listeners that the current view will be removed
-            if (hasEventListener(ViewNavigatorEvent.VIEW_REMOVE))
-                dispatchEvent(new ViewNavigatorEvent(ViewNavigatorEvent.VIEW_REMOVE, false, false, currentView));
-            
             // Check if we can delete the reference for the view instance
             if (lastAction == POP_ACTION || currentView.destructionPolicy == "auto")
             {
@@ -994,13 +963,6 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             view.navigator = this;
             view.data = pendingViewData.data;
             
-            // TODO: I Needed an event that occurred before view was added to the display list
-            // so that I could change its orientation state in MobileApplication.  Otherwise, it would
-            // happen later.  Would it be a problem if this happened on viewAdded?
-            // Notify listeners that a new view has been successfully initialized but not added to stage
-            if (hasEventListener(ViewNavigatorEvent.VIEW_INITIALIZED))
-                dispatchEvent(new ViewNavigatorEvent(ViewNavigatorEvent.VIEW_INITIALIZED, false, false, view, pendingViewTransition));
-            
             addElement(view);
         }
         
@@ -1080,10 +1042,6 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (actionBar)
             updateActionBarProperties(pendingView, true);
         
-        // Notify listeners that a new view has been successfully added to the stage
-        if (hasEventListener(ViewNavigatorEvent.VIEW_ADD))
-            dispatchEvent(new ViewNavigatorEvent(ViewNavigatorEvent.VIEW_ADD, false, false, pendingView, transition));
-        
         // Need to validate my children now to prevent flicker when no transition,
         // or so sizes can be measured before transition
         validateNow();
@@ -1092,8 +1050,8 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (transition)
         {
             // Notify listeners that a new view has been successfully added to the stage
-            if (hasEventListener(ViewNavigatorEvent.VIEW_TRANSITION_START))
-                dispatchEvent(new ViewNavigatorEvent(ViewNavigatorEvent.VIEW_TRANSITION_START, false, false, pendingView, transition));
+            if (hasEventListener("transitionStart"))
+                dispatchEvent(new Event("transitionStart", false, false));
             
             transition.play();
         }
@@ -1113,8 +1071,8 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         ViewTransition(event.target).removeEventListener(Event.COMPLETE, transitionComplete);
         
         // Notify listeners that a new view has been successfully added to the stage
-        if (hasEventListener(ViewNavigatorEvent.VIEW_TRANSITION_END))
-            dispatchEvent(new ViewNavigatorEvent(ViewNavigatorEvent.VIEW_TRANSITION_END, false, false));
+        if (hasEventListener("transitionEnd"))
+            dispatchEvent(new Event("transitionEnd", false, false));
         
         endViewChange();
     }
