@@ -558,17 +558,6 @@ public class MobileApplication extends MobileApplicationBase
     /**
      *  @private
      */ 
-    override protected function orientationChangeHandler(event:StageOrientationEvent):void
-    {
-        super.orientationChangeHandler(event);
-        
-        if (navigator)
-            navigator.landscapeOrientation = landscapeOrientation;
-    }
-    
-    /**
-     *  @private
-     */ 
     override protected function persistApplicationState():void
     {
         super.persistApplicationState();
@@ -675,7 +664,6 @@ public class MobileApplication extends MobileApplicationBase
             navigator.firstView = firstView;
             navigator.firstViewData = firstViewData;
             navigator.navigationStack = navigationStack;
-            navigator.landscapeOrientation = landscapeOrientation;
             
             // Set the stage focus to the navigator
             systemManager.stage.focus = navigator;
