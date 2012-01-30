@@ -55,8 +55,6 @@ public class TextInputSkin extends TextSkinBase
     {
         super();
         
-        useChromeColor = false;
-        
         switch (applicationDPI)
         {
             case DPIClassification.DPI_320:
@@ -164,6 +162,45 @@ public class TextInputSkin extends TextSkinBase
         }
         
         measuredHeight = paddingTop + textHeight + paddingBottom;
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function layoutContents(unscaledWidth:Number, 
+                                               unscaledHeight:Number):void
+    {
+        super.layoutContents(unscaledWidth, unscaledHeight);
+        
+        // position & size border
+        if (border)
+        {
+            setElementSize(border, unscaledWidth, unscaledHeight);
+            setElementPosition(border, 0, 0);
+        }
+        
+        // position & size the text
+        var paddingLeft:Number = getStyle("paddingLeft");
+        var paddingRight:Number = getStyle("paddingRight");
+        var paddingTop:Number = getStyle("paddingTop");
+        var paddingBottom:Number = getStyle("paddingBottom");
+        
+        var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
+        var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
+        
+        if (textDisplay)
+        {
+            textDisplay.commitStyles();
+            setElementSize(textDisplay, unscaledTextWidth, unscaledTextHeight);
+            setElementPosition(textDisplay, paddingLeft, paddingTop);
+        }
+        
+        if (promptDisplay)
+        {
+            promptDisplay.commitStyles();
+            setElementSize(promptDisplay, unscaledTextWidth, unscaledTextHeight);
+            setElementPosition(promptDisplay, paddingLeft, paddingTop);
+        }
     }
     
     /**
