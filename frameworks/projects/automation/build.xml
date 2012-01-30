@@ -3,7 +3,7 @@
 
     <property name="FLEX_HOME" location="${basedir}/../../.."/>
 	<property file="${FLEX_HOME}/build.properties"/>
-	<property name="local.playerglobal.version" value="10.2"/>
+	<property name="local.playerglobal.version" value="10.3"/>
 	<property name="locale" value="en_US"/>
 	
 	<macrodef name="bundle">
@@ -17,7 +17,7 @@
 				   output="${FLEX_HOME}/frameworks/locale/@{locale}/automation_rb.swc"
 				   locale="@{locale}">
 				<jvmarg line="${compc.jvm.args}"/>
-				<target-player>10.2</target-player>
+				<target-player>10.3</target-player>
 				<include-resource-bundles bundle="automation"/>
 				<include-namespaces/>
 				<include-classes/>
@@ -143,7 +143,7 @@
 			   output="${FLEX_HOME}/frameworks/libs/automation/automation.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
-			<target-player>10.2</target-player>
+			<target-player>10.3</target-player>
 			<include-classes>AutomationClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
