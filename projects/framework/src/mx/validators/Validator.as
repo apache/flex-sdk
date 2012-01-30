@@ -32,6 +32,11 @@ import mx.resources.ResourceManager;
  *  Dispatched when validation succeeds.
  *
  *  @eventType mx.events.ValidationResultEvent.VALID 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="valid", type="mx.events.ValidationResultEvent")]
 
@@ -39,6 +44,11 @@ import mx.resources.ResourceManager;
  *  Dispatched when validation fails.
  *
  *  @eventType mx.events.ValidationResultEvent.INVALID 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="invalid", type="mx.events.ValidationResultEvent")]
 
@@ -78,6 +88,11 @@ import mx.resources.ResourceManager;
  *  @see mx.validators.RegExpValidationResult
  *
  *  @includeExample examples/SimpleValidatorExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Validator extends EventDispatcher implements IMXMLObject
 {
@@ -92,12 +107,22 @@ public class Validator extends EventDispatcher implements IMXMLObject
     /**
      *  A string containing the upper- and lower-case letters
      *  of the Roman alphabet  ("A" through "Z" and "a" through "z").
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected static const ROMAN_LETTERS:String =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     /**
      *  A String containing the decimal digits 0 through 9.    
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     protected static const DECIMAL_DIGITS:String = "0123456789";
     
@@ -119,6 +144,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  contains one ValidationResultEvent object for each validator
      *  that failed. 
      *  The Array is empty if all validators succeed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function validateAll(validators:Array):Array
     {   
@@ -218,6 +248,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Validator()
     {
@@ -257,6 +292,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  Contains the trigger object, if any,
      *  or the source object. Used to determine the listener object
      *  for the <code>triggerEvent</code>. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get actualTrigger():IEventDispatcher
     {
@@ -277,6 +317,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  Contains an Array of listener objects, if any,  
      *  or the source object. Used to determine which object
      *  to notify about the validation result.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get actualListeners():Array
     {
@@ -310,6 +355,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  and the <code>validate()</code> method returns null.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get enabled():Boolean
     {
@@ -346,6 +396,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  displays an error message for a failure,
      *  or hides any existing error message for a successful validation.</p>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      
     /* This behavior has been removed.
@@ -356,6 +411,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  <p>Specifying <code>this</code> causes the validation error
      *  to propagate to the Application object, 
      *  and displays an Alert box containing the validation error message.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get listener():Object
     {
@@ -392,6 +452,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  you should set a value for this property as well.
      *  
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get property():String
     {
@@ -417,6 +482,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  value causes a validation error. 
      *  
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var required:Boolean = true;
     
@@ -439,6 +509,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
 	
     /**
      *  @copy mx.core.UIComponent#resourceManager
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get resourceManager():IResourceManager
     {
@@ -470,6 +545,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  The <code>source</code> property is optional.
      *  
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get source():Object
     {
@@ -518,6 +598,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  <p>Subclasses of the Validator class that 
      *  validate multiple data fields (like CreditCardValidator and DateValidator)
      *  should assign this property in their constructor. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var subFields:Array = [];
 
@@ -538,6 +623,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  If omitted, by default Flex uses the value of the <code>source</code> property.
      *  When the <code>trigger</code> dispatches a <code>triggerEvent</code>,
      *  validation executes. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get trigger():IEventDispatcher
     {
@@ -575,6 +665,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  or when a property value is changed programmatically.
      *  If you want a validator to ignore all events,
      *  set <code>triggerEvent</code> to the empty string ("").
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get triggerEvent():String
     {
@@ -622,6 +717,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  <code>required</code> property is <code>true</code>. 
      *  
      *  @default "This field is required."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get requiredFieldError():String
     {
@@ -654,6 +754,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
       *  @param document The MXML document containing this Validator.
       *
       *  @param id Ignored.
+      *  
+      *  @langversion 3.0
+      *  @playerversion Flash 9
+      *  @playerversion AIR 1.1
+      *  @productversion Flex 3
       */
      public function initialized(document:Object, id:String):void
      {
@@ -680,6 +785,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  <p>Subclasses should override this method and, after calling
      *  <code>super.resourcesChanged()</code>, do whatever is appropriate
      *  in response to having new resource values.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function resourcesChanged():void
     {
@@ -712,6 +822,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  and then the <code>addListenerHandler()</code> method if 
      *  the value of one of their listeners or sources changes. 
      *  The CreditCardValidator and DateValidator classes use this function internally. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function addListenerHandler():void
     {
@@ -741,6 +856,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  <code>addListenerHandler</code> method if 
      *  the value of one of their listeners or sources changes. 
      *  The CreditCardValidator and DateValidator classes use this function internally. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function removeListenerHandler():void
     {
@@ -768,6 +888,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  @param value The value to test.
      *
      *  @return <code>true</code> if <code>value</code> is not null.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function isRealValue(value:Object):Boolean
     {
@@ -801,6 +926,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *
      *  @see mx.events.ValidationResultEvent
      *  @see mx.validators.ValidationResult
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function validate(
                         value:Object = null,
@@ -835,6 +965,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  to access the values from multiple subfields. 
      *
      *  @return The Object to validate.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function getValueFromSource():Object
     {
@@ -907,6 +1042,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  by the validator that failed validation.
      *
      *  @see mx.validators.ValidationResult
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function doValidation(value:Object):Array
     {
@@ -959,6 +1099,11 @@ public class Validator extends EventDispatcher implements IMXMLObject
      *  @param errorResults Array of ValidationResult objects.
      * 
      *  @return The ValidationResultEvent returned by the <code>validate()</code> method. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function handleResults(errorResults:Array):ValidationResultEvent
     {
