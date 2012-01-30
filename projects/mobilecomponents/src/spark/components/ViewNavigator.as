@@ -12,7 +12,7 @@ import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
 import mx.resources.ResourceManager;
 
-import spark.components.supportClasses.ViewData;
+import spark.components.supportClasses.ViewHistoryData;
 import spark.components.supportClasses.ViewNavigatorSection;
 import spark.effects.SlideViewTransition;
 import spark.effects.ViewTransition;
@@ -160,7 +160,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     /**
      *
      */
-    private var currentViewData:ViewData = null;
+    private var currentViewData:ViewHistoryData = null;
     
     /**
      *
@@ -191,7 +191,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     /**
      *
      */ 
-    private var pendingViewData:ViewData = null;
+    private var pendingViewData:ViewHistoryData = null;
     
     /**
      *
@@ -526,13 +526,10 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         
         lastAction = PUSH_ACTION;
         
-        var newViewData:ViewData = new ViewData();
-        newViewData.data = initializationData;
-        newViewData.factory = viewFactory;
         pendingViewTransition = transition ? transition : 
             new SlideViewTransition(400, SlideViewTransition.SLIDE_LEFT);
         
-        currentSection.push(newViewData);
+        currentSection.push(viewFactory, initializationData);
         currentViewChanged = true;
         
         if (viewChanging)
@@ -818,15 +815,15 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     {
         // If the sections property is not set by this point, ViewNavigator will
         // create a default section to be used by the navigator, and initialize it
-        // with the rootView and initialData defined by the application
+        // with the firstView and firstViewData defined by the application
         if (sections == null || sections.length == 0)
         {
-            // TODO: ViewNavigator should have a rootView and rootData convenience property
+            // TODO: ViewNavigator should have a firstView and rootData convenience property
             // Create the empty screen stack and initialize it with the
-            // desired rootView and initial data
+            // desired firstView and initial data
             var section:ViewNavigatorSection = new ViewNavigatorSection();
-            section.rootView = null;
-            section.initialData = null;
+            section.firstView = null;
+            section.firstViewData = null;
             
             // Set the stacks of the navigator
             var newSections:Vector.<ViewNavigatorSection> = Vector.<ViewNavigatorSection>([section]);
@@ -851,7 +848,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         
         // Check if we need to push the root view
         if (currentSection && currentSection.length == 0)
-            currentSection.push(new ViewData(currentSection.rootView, currentSection.initialData));
+            currentSection.push(currentSection.firstView, currentSection.firstViewData);
         
         return true;
     }
@@ -940,7 +937,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         beginViewChange();
         
         if (currentSection)
-            pendingViewData = currentSection.top;
+            pendingViewData = currentSection.topView;
         
         if (pendingViewData && pendingViewData.factory != null)
         {
