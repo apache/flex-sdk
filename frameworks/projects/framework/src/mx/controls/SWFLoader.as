@@ -37,6 +37,7 @@ import flash.utils.ByteArray;
 
 import mx.core.FlexGlobals;
 import mx.core.FlexLoader;
+import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.ISWFLoader;
@@ -1834,23 +1835,38 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 lc = new LoaderContext();
                 _loaderContext = lc;
                 
-                // To get a peer application domain (relative to framework classes), 
+                var currentDomain:ApplicationDomain;
+                
+                // Try to use the application domain of this component from 
+                // the moduleFactory. If we don't have a moduleFactory then 
+                // fallback to using ApplicationDomain.currentDomain which 
+                // could give us a parent ApplicationDomain of where the first
+                // SWFLoader was used. If no SWFLoaders were used by parent
+                // applications or modules then ApplicationDomain.currentDomain
+                // will be correct.
+                if (moduleFactory &&
+                    FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+                    currentDomain = moduleFactory.info()["currentDomain"];
+                else
+                    currentDomain = ApplicationDomain.currentDomain;
+
+                 // To get a peer application domain (relative to framework classes), 
                 // get the topmost parent domain of the current domain. This
                 // will either be the application domain of the 
                 // bootstrap loader (non-framework classes), or null. Either way we get
-                // an application domain free of framework classes. 
+                // an application domain free of framework classes.
                 if (loadForCompatibility) 
                 {
                     // the AD.currentDomain.parentDomain could be null, 
                     // the domain of the top-level system manager, or
                     // the bootstrap loader. The bootstrap loader will always be topmost
                     // if it is present.
-                    var currentDomain:ApplicationDomain = ApplicationDomain.currentDomain.parentDomain;
+                    var appDomain:ApplicationDomain = currentDomain.parentDomain;
                     var topmostDomain:ApplicationDomain = null;
-                    while (currentDomain)
+                    while (appDomain)
                     {
-                        topmostDomain = currentDomain;
-                        currentDomain = currentDomain.parentDomain;
+                        topmostDomain = appDomain;
+                        appDomain = appDomain.parentDomain;
                     }
                     lc.applicationDomain = new ApplicationDomain(topmostDomain);
                 }
@@ -1864,7 +1880,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                     attemptingChildAppDomain = true;
                     // assume the best, which is that it is in the same domain and
                     // we can make it a child app domain.
-                    lc.applicationDomain = new ApplicationDomain(ApplicationDomain.currentDomain);
+                    lc.applicationDomain = new ApplicationDomain(currentDomain);
                 }
             }
 
