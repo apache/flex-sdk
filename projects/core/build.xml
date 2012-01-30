@@ -31,6 +31,8 @@
 
 	<target name="compile" description="Compiles flex.swc">
 		<echo message="Compiling frameworks/libs/flex.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 		<!--
 			flex.swc contains a subset of the classes in framework.swc;
