@@ -304,7 +304,7 @@ public class FlexVersion
     /** 
      *  @private
      *  A back door for changing the compatibility version.
-     *  This is provided for FlexBuilder's Design View,
+     *  This is provided for Flash Builder's Design View,
      *  which needs to be able to change compatibility mode. 
      *  In general, we won't support late changes to compatibility, 
      *  because the framework won't watch for changes.  
