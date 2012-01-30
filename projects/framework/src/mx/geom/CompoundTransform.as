@@ -19,6 +19,7 @@ package mx.geom
 	import mx.core.mx_internal;
 	import mx.geom.ITransformable;
 	import mx.core.AdvancedLayoutFeatures;
+	import flash.geom.Point;
 	use namespace mx_internal;	
 	
 	/**
@@ -375,7 +376,6 @@ package mx.geom
      */
 	mx_internal function get transformX():Number
 	{
-		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
 		return _transformX;
 	}
 
@@ -398,7 +398,6 @@ package mx.geom
      */
 	mx_internal function get transformY():Number
 	{
-		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
 		return _transformY;
 	}
 	//------------------------------------------------------------------------------
@@ -420,7 +419,6 @@ package mx.geom
      */
 	mx_internal function get transformZ():Number
 	{
-		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
 		return _transformZ;
 	}
 
@@ -592,7 +590,7 @@ package mx.geom
 	 * @private
 	 * a utility function for decomposing a matrix into its component scale, rotation, and translation parts.
 	 */	
-	private function decomposeMatrix(v:Vector.<Number>,m:Matrix):void
+	private function decomposeMatrix(v:Vector.<Number>,m:Matrix,transformX:Number,transformY:Number):void
 	{
 	    // else decompose matrix.  Don't use MatrixDecompose(), it can return erronous values
 	    //   when negative scales (and therefore skews) are in use.
@@ -618,9 +616,19 @@ package mx.geom
 	          Vy = -Vy;
 	    }
 	 
-	    v[2] = Math.atan2( Uy, Ux ) / RADIANS_PER_DEGREES;     
-	    v[0] = m.tx;
-	    v[1] = m.ty;
+	    v[2] = Math.atan2( Uy, Ux ) / RADIANS_PER_DEGREES;
+	    
+	    if(transformX != 0 || transformY != 0)     
+	    {
+	    	var postTransformCenter:Point = m.transformPoint(new Point(transformX,transformY));
+	    	v[0] = postTransformCenter.x - transformX;
+	    	v[1] = postTransformCenter.y - transformY;
+	    }
+	    else
+	    {
+		    v[0] = m.tx;
+		    v[1] = m.ty;
+		}
 	}
 	
 	/**
@@ -631,25 +639,34 @@ package mx.geom
 	 * recently set
 	 */
 	private function validatePropertiesFromMatrix():void
-	{
-	    
+	{	    
 	    if(sourceOfTruth == SOURCE_MATRIX3D)
 	    {
 	    	var result:Vector.<Vector3D> = _matrix3D.decompose();
-	    	_x = result[0].x;
-	    	_y = result[0].y;
-	    	_z = result[0].z;
-	    	_rotationX = result[1].x;
-	    	_rotationY = result[1].y;
-	    	_rotationZ = result[1].z;
+	    	_rotationX = result[1].x / RADIANS_PER_DEGREES;
+	    	_rotationY = result[1].y / RADIANS_PER_DEGREES;
+	    	_rotationZ = result[1].z / RADIANS_PER_DEGREES;
 	    	_scaleX = result[2].x;
 	    	_scaleY = result[2].y;
 	    	_scaleZ = result[2].z;
-	    	_transformX = _transformY = _transformZ = 0;
+
+			if(_transformX != 0 || _transformY != 0 || _transformZ != 0)
+			{
+				var postTransformTCenter:Vector3D = _matrix3D.transformVector(new Vector3D(_transformX,_transformY,_transformZ));
+		    	_x = postTransformTCenter.x - _transformX;
+	    		_y = postTransformTCenter.y - _transformY;
+	    		_z = postTransformTCenter.z - _transformZ;
+			}
+			else
+			{
+		    	_x = result[0].x;
+		    	_y = result[0].y;
+	    		_z = result[0].z;
+	  		}
 	    }                        
 	    else if(sourceOfTruth == SOURCE_MATRIX)
 	    {
-	    	decomposeMatrix(decomposition,_matrix);
+	    	decomposeMatrix(decomposition,_matrix,_transformX,_transformY);
 	    	_x = decomposition[0];
 	    	_y = decomposition[1];
 	    	_z = 0;
@@ -659,7 +676,6 @@ package mx.geom
 	    	_scaleX = decomposition[3];
 	    	_scaleY = decomposition[4];
 	    	_scaleZ = 1;
-	    	_transformX = _transformY = _transformZ = 0;
 	    }
 	    _flags |= PROPERTIES_VALID;
 		
