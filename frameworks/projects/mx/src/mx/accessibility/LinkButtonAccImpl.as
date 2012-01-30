@@ -102,7 +102,7 @@ public class LinkButtonAccImpl extends ButtonAccImpl
 	{
 		super(master);
 		
-		role = 0x1E;
+		role = 0x1E; // ROLE_SYSTEM_LINK
 	}
 	
 	//--------------------------------------------------------------------------
