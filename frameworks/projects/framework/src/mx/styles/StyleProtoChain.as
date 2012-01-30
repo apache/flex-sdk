@@ -25,7 +25,7 @@ import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
 import mx.core.IInvalidating;
 import mx.core.IUITextField;
-import mx.core.IVisualItem;
+import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.effects.EffectManager;
@@ -196,8 +196,8 @@ public class StyleProtoChain
             object.registerEffects(nonInheritChain.effects);
 
         var p:IStyleClient;
-        if (object is IVisualItem)
-            p = IVisualItem(object).parent as IStyleClient;
+        if (object is IVisualElement)
+            p = IVisualElement(object).parent as IStyleClient;
 
 
         if (p)
