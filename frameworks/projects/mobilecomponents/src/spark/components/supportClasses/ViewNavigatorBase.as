@@ -591,6 +591,8 @@ public class ViewNavigatorBase extends SkinnableContainer
                                 height:component.height,
                                 explicitWidth:component.explicitWidth,
                                 explicitHeight:component.explicitHeight,
+                                percentWidth:component.percentWidth,
+                                percentHeight:component.percentHeight,
                                 visible: component.visible,
                                 includeInLayout: component.includeInLayout,
                                 cacheAsBitmap: component.cacheAsBitmap };
