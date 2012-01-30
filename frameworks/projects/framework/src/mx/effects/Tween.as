@@ -683,7 +683,7 @@ public class Tween extends EventDispatcher
 
     /**
      *  Stops the tween, ending it without dispatching an event or calling
-     *  endFunction or <code>onTweenEnd()</code>. 
+     *  the Tween's endFunction or <code>onTweenEnd()</code>. 
      */
     public function stop():void
     {
