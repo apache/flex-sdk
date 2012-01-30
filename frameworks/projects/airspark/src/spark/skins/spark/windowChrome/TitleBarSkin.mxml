@@ -77,7 +77,7 @@
 
         <!-- title bar icon -->
         <!--- Defines the image for the icon in the title bar. -->
-        <s:BitmapImage id="titleIconImage" minWidth="0" repeat="false"/>
+        <s:BitmapImage id="titleIconImage" minWidth="0" resizeMode="noScale"/>
         
         <!-- title -->
         <!--- Defines the SimpleText control for displaying the title text in the title bar. -->
