@@ -47,7 +47,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="accentColor", type="uint", format="Color", inherit="yes")]
 
@@ -64,7 +64,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="slideDuration", type="Number", format="Time", inherit="no")]
 
@@ -75,7 +75,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="textShadowAlpha", type="Number", inherit="yes", minValue="0.0", maxValue="1.0", theme="mobile")]
 
@@ -86,7 +86,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="textShadowColor", type="uint", format="Color", inherit="yes", theme="mobile")]
 
@@ -168,7 +168,7 @@ use namespace mx_internal;
  *
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  * 
  *  @includeExample examples/ToggleSwitchExample.mxml -noswf
  *
@@ -200,7 +200,7 @@ public class ToggleSwitch extends ToggleButtonBase
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function ToggleSwitch()
     {
@@ -263,7 +263,7 @@ public class ToggleSwitch extends ToggleButtonBase
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public var thumb:IVisualElement;
     
@@ -275,7 +275,7 @@ public class ToggleSwitch extends ToggleButtonBase
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var track:IVisualElement;
     
@@ -295,7 +295,7 @@ public class ToggleSwitch extends ToggleButtonBase
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     override public function set selected(value:Boolean):void 
     {
@@ -357,7 +357,7 @@ public class ToggleSwitch extends ToggleButtonBase
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function get thumbPosition():Number 
     {
