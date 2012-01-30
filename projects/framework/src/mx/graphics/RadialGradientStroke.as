@@ -166,6 +166,7 @@ public class RadialGradientStroke extends GradientStroke
     }
 
     //----------------------------------
+
 	//  matrix
 	//----------------------------------
     
@@ -174,8 +175,44 @@ public class RadialGradientStroke extends GradientStroke
      */
     override public function set matrix(value:Matrix):void
     {
+    	scaleX = NaN;
     	scaleY = NaN;
     	super.matrix = value;
+    }
+
+    //----------------------------------
+    //  scaleX
+    //----------------------------------
+    
+    private var _scaleX:Number;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  The horizontal scale of the gradient transform, which defines the width of the (unrotated) gradient
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get scaleX():Number
+    {
+        return _scaleX; 
+    }
+    
+    /**
+     *  @private
+     */
+    public function set scaleX(value:Number):void
+    {
+        var oldValue:Number = _scaleX;
+        if (value != oldValue && !compoundTransform)
+        {
+            _scaleX = value;
+            dispatchGradientChangedEvent("scaleX", oldValue, value);
+        }
     }
     
     //----------------------------------
@@ -220,14 +257,6 @@ public class RadialGradientStroke extends GradientStroke
     //--------------------------------------------------------------------------
     
     /**
-     *  @private
-     */
-    override public function apply(g:Graphics):void
-    {
-        // No-op. Need to deprecate. Was never implemented for this class
-    }
-    
-    /**
      *  @inheritDoc
      *  
      *  @langversion 3.0
@@ -240,14 +269,17 @@ public class RadialGradientStroke extends GradientStroke
     /**
      *  @private 
      */
-    override public function draw(g:Graphics, rc:Rectangle):void
+    override public function apply(graphics:Graphics, bounds:Rectangle = null):void
     {
-        g.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
+    	commonMatrix.identity();
+    	
+        graphics.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
                     caps, joints, miterLimit);
         
-        calculateTransformationMatrix(rc, commonMatrix); 
-                 
-        g.lineGradientStyle(GradientType.RADIAL, colors,
+        if (bounds)
+        	calculateTransformationMatrix(bounds, commonMatrix); 
+	        
+        graphics.lineGradientStyle(GradientType.RADIAL, colors,
                             alphas, ratios, commonMatrix, 
                             spreadMethod, interpolationMethod, 
                             focalPointRatio);                       
@@ -256,17 +288,17 @@ public class RadialGradientStroke extends GradientStroke
     /**
      *  @private
      */
-    override public function generateGraphicsStroke(rect:Rectangle):GraphicsStroke
+    override public function createGraphicsStroke(bounds:Rectangle):GraphicsStroke
     {
         // The parent class sets the gradient stroke properties common to 
         // LinearGradientStroke and RadialGradientStroke 
-        var graphicsStroke:GraphicsStroke = super.generateGraphicsStroke(rect);
+        var graphicsStroke:GraphicsStroke = super.createGraphicsStroke(bounds);
          
         if (graphicsStroke)
         {
             // Set other properties specific to this RadialGradientStroke  
             GraphicsGradientFill(graphicsStroke.fill).type = GradientType.RADIAL; 
-            calculateTransformationMatrix(rect, commonMatrix);
+            calculateTransformationMatrix(bounds, commonMatrix);
             GraphicsGradientFill(graphicsStroke.fill).matrix = commonMatrix; 
             GraphicsGradientFill(graphicsStroke.fill).focalPointRatio = focalPointRatio;
             
