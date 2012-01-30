@@ -83,7 +83,8 @@ internal class FrameworkClasses
 	import mx.modules.ModuleBase; ModuleBase;
 	import mx.modules.ModuleLoader; ModuleLoader;
 	import mx.modules.ModuleManager; ModuleManager;
-	import mx.preloaders.DownloadProgressBar; DownloadProgressBar;
+    import mx.preloaders.DownloadProgressBar; DownloadProgressBar;
+    import mx.preloaders.SparkDownloadProgressBar; SparkDownloadProgressBar;
 	import mx.printing.FlexPrintJob; FlexPrintJob;
 	import mx.resources.Locale; Locale;
 	import mx.rpc.IResponder; IResponder;
