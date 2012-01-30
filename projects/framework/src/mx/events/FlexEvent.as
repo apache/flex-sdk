@@ -883,6 +883,39 @@ public class FlexEvent extends Event
     public static const PRELOADER_DOC_FRAME_READY:String = "preloaderDocFrameReady";
 
     /**
+     *  The <code>FlexEvent.READY</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>ready</code> 
+     *  event.  This event is dispatched by the BitmapImage and spark Image
+     *  classes to denote that the assigned image source has fully loaded.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     * 
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>returnValue</code></td><td>null</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myImage.addEventListener()</code> to register an event listener, 
+     *       myImage is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *       it is not always the Object listening for the event. 
+     *       Use the <code>currentTarget</code> property to always access the 
+     *       Object listening for the event.</td></tr>
+     *     <tr><td><code>Type</code></td><td>FlexEvent.READY</td></tr>
+     *  </table>
+     *
+     *  @eventType ready
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
+     */
+    public static const READY:String = "ready";
+    
+    /**
      *  The <code>FlexEvent.REMOVING</code> constant defines the value of the
      *  <code>type</code> property of the event object for an <code>removing</code> 
      *  event.  This event is dispatched when a screen is about to be replaced by
