@@ -250,7 +250,8 @@ public class ViewNavigator extends ViewNavigatorBase
                 navigationLayoutInvalidated ||
                 titleInvalidated ||
                 titleContentInvalidated ||
-                titleLayoutInvalidated;
+                titleLayoutInvalidated ||
+                overlayControlsInvalidated;
     }
     
     /**
@@ -316,6 +317,11 @@ public class ViewNavigator extends ViewNavigatorBase
      *  restored after a view transition.
      */
     private var explicitMouseChildren:Boolean;
+    
+    /**
+     *  @private
+     */ 
+    private var overlayControlsInvalidated:Boolean = false;
     
     /**
      *  @private
@@ -1173,6 +1179,7 @@ public class ViewNavigator extends ViewNavigatorBase
         titleInvalidated = false;
         titleContentInvalidated = false;
         titleLayoutInvalidated = false;
+        overlayControlsInvalidated = false;
     }
     
     /**
@@ -1184,8 +1191,6 @@ public class ViewNavigator extends ViewNavigatorBase
      */ 
     override protected function commitProperties():void
     {
-        super.commitProperties();
-        
         if (!isActive)
             return;
         
@@ -1221,6 +1226,11 @@ public class ViewNavigator extends ViewNavigatorBase
         // so that animations run again.
         if (disableNextControlAnimation)
             disableNextControlAnimation = false;
+        
+        // Call base class' commitProperties after the above so that state changes
+        // as a result of overlayControls are caught.  This is okay because
+        // this method doesn't rely on any properties from the base class.
+        super.commitProperties();
     }
     
     /**
@@ -1412,12 +1422,13 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     private function invalidateActionBarProperties():void
     {
-        actionContentInvalidated =
-        actionLayoutInvalidated =
-        navigationContentInvalidated =
-        navigationLayoutInvalidated =
-        titleInvalidated =
-        titleContentInvalidated =
+        actionContentInvalidated = true;
+        actionLayoutInvalidated = true;
+        navigationContentInvalidated = true;
+        navigationLayoutInvalidated = true;
+        titleInvalidated = true;
+        titleContentInvalidated = true;
+        overlayControlsInvalidated = true;
         titleLayoutInvalidated = true;
         
         invalidateProperties();
@@ -2059,19 +2070,6 @@ public class ViewNavigator extends ViewNavigatorBase
             updateControlsForView(pendingView);
         }
         
-        if (parentNavigator)
-            parentNavigator.updateControlsForView(pendingView);
-        
-        // Need to force state change by calling validate properties again
-        if (overlayControls != pendingView.overlayControls)
-        {
-            overlayControls = pendingView.overlayControls;
-            
-            // We need to force a commitProperties on the SkinnableComponent so that
-            // state changes are validated this frame.
-            super.commitProperties();
-        }
-        
         // Only force validation for the navigator if initialized to avoid
         // validation from occurring with wrong measured dimensions
         if (initialized)
@@ -2171,6 +2169,7 @@ public class ViewNavigator extends ViewNavigatorBase
             actionBar.title = title;
             actionBar.titleContent = titleContent;
             actionBar.titleLayout = titleLayout;
+            overlayControls = false;
         }
         else
         {
@@ -2222,6 +2221,10 @@ public class ViewNavigator extends ViewNavigatorBase
                 titleLayoutInvalidated = false;
             }
             
+            // Need to force state change by calling validate properties again
+            if (overlayControlsInvalidated)
+                overlayControls = view.overlayControls;
+            
             actionBar.visible = actionBar.includeInLayout = view && view.actionBarVisible;
             actionBarVisibilityInvalidated = false;
         }
@@ -2241,6 +2244,8 @@ public class ViewNavigator extends ViewNavigatorBase
         // Check for actionBar related property changes
         if (actionBar)
         {
+            var propertyInvalidated:Boolean = true;
+            
             if (property == "title")
                 titleInvalidated = true;
             else if (property == "titleContent")
@@ -2255,11 +2260,16 @@ public class ViewNavigator extends ViewNavigatorBase
                 navigationContentInvalidated = true;
             else if (property == "navigationLayout")
                 navigationLayoutInvalidated  = true;
-            else if (property == "overlayControls")
-            {
-                overlayControls = event.newValue;
-            }
-                
+            else
+                propertyInvalidated = false;
+        
+            if (propertyInvalidated)
+                invalidateProperties();
+        }
+        
+        if (property == "overlayControls")
+        {
+            overlayControlsInvalidated = true;
             invalidateProperties();
         }
     }
