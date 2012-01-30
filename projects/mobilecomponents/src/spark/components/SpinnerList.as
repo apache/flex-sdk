@@ -58,7 +58,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */ 
 public class SpinnerList extends ListBase
 {	
@@ -67,7 +67,7 @@ public class SpinnerList extends ListBase
 	 *        
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */ 
 	public function SpinnerList()
 	{
@@ -116,7 +116,7 @@ public class SpinnerList extends ListBase
 	 * 
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */
 	public var scroller:Scroller;	
 	
@@ -139,7 +139,7 @@ public class SpinnerList extends ListBase
 	 *       
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 * 
 	 *  @default true
 	 */
