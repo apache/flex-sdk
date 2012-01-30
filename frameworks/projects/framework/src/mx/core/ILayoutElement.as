@@ -224,6 +224,24 @@ public interface ILayoutElement extends IEventDispatcher
     function set baseline(value:Object):void;
 
     /**
+     *  The y-coordinate of the baseline
+     *  of the first line of text of the component.
+     *
+     *  <p>This property is used to implement
+     *  the <code>baseline</code> constraint style.
+     *  It is also used to align the label of a FormItem
+     *  with the controls in the FormItem.</p>
+     *
+     *  <p>Each component should override this property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get baselinePosition():Number;
+    
+    /**
      *  Number that specifies the width of a component as a percentage
      *  of its parent's size. Allowed values are 0-100.
      *  Setting the <code>width</code> or <code>explicitWidth</code> properties
@@ -298,7 +316,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  usually based on the default element size and any explicit overrides.
      *  For UIComponent this is the same as getExplicitOrMeasuredWidth().
      * 
-     *  @param postTransform When postTransform is true the method returns
+     *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  the element's bounding box width.  Bounding box is in element's parent
      *  coordinate space and is calculated from  the element's perferred size and
      *  layout transform matrix.
@@ -312,14 +330,14 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function getPreferredBoundsWidth(postTransform:Boolean=true):Number;
+    function getPreferredBoundsWidth(postLayoutTransform:Boolean = true):Number;
 
     /**
      *  @return Returns the element's preferred height.  Preferred height is
      *  usually based on the default element size and any explicit overrides.
      *  For UIComponent this is the same as getExplicitOrMeasuredHeight().
      *
-     *  @param postTransform When postTransform is true the method returns
+     *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  the element's bounding box height.  Bounding box is in element's parent
      *  coordinate space and is calculated from  the element's perferred size and
      *  layout transform matrix.
@@ -333,12 +351,12 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function getPreferredBoundsHeight(postTransform:Boolean=true):Number;
+    function getPreferredBoundsHeight(postLayoutTransform:Boolean = true):Number;
 
     /**
      *  Returns the element's minimum width.
      * 
-     *  @param postTransform When postTransform is true the method returns
+     *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  the element's bounding box width. Bounding box is in element's parent
      *  coordinate space and is calculated from the element's minimum size and
      *  layout transform matrix.
@@ -352,12 +370,12 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function getMinBoundsWidth(postTransform:Boolean=true):Number;
+    function getMinBoundsWidth(postLayoutTransform:Boolean = true):Number;
 
     /**
      *  Returns the element's minimum height.
      * 
-     *  @param postTransform When postTransform is true the method returns
+     *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  the element's bounding box height. Bounding box is in element's parent
      *  coordinate space and is calculated from the element's minimum size and
      *  layout transform matrix.
@@ -371,12 +389,12 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function getMinBoundsHeight(postTransform:Boolean=true):Number;
+    function getMinBoundsHeight(postLayoutTransform:Boolean = true):Number;
 
     /**
      *  Returns the element's maximum width.
      * 
-     *  @param postTransform When postTransform is true the method returns
+     *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  the element's bounding box width. Bounding box is in element's parent
      *  coordinate space and is calculated from the element's maximum size and
      *  layout transform matrix.
@@ -390,12 +408,12 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function getMaxBoundsWidth(postTransform:Boolean=true):Number;
+    function getMaxBoundsWidth(postLayoutTransform:Boolean = true):Number;
 
     /**
      *  Returns the element's maximum height.
      * 
-     *  @param postTransform When postTransform is true the method returns
+     *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  the element's bounding box height. Bounding box is in element's parent
      *  coordinate space and is calculated from the element's maximum size and
      *  layout transform matrix.
@@ -409,7 +427,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function getMaxBoundsHeight(postTransform:Boolean=true):Number;
+    function getMaxBoundsHeight(postLayoutTransform:Boolean = true):Number;
     
     /**
      *  Returns the x coordinate of the element's bounds at the specified element size.
@@ -419,7 +437,7 @@ public interface ILayoutElement extends IEventDispatcher
      * 
      *  @param width The element's bounds width, or NaN to use the preferred width.
      *  @param height The element's bounds height, or NaN to use the preferred height.
-     *  @param postTransform When postTransform is true the method returns
+     *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  x coordinate of the element's bounding box top-left corner.
      *  Bounding box is in element's parent coordinate space and is calculated
      *  from the specified bounds size, layout position and layout transform matrix.
@@ -434,7 +452,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function getBoundsXAtSize(width:Number, height:Number, postTransform:Boolean = true):Number;
+    function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number;
 
     /**
      *  Returns the y coordinate of the element's bounds at the specified element size.
@@ -444,7 +462,7 @@ public interface ILayoutElement extends IEventDispatcher
      * 
      *  @param width The element's bounds width, or NaN to use the preferred width.
      *  @param height The element's bounds height, or NaN to use the preferred height.
-     *  @param postTransform When postTransform is true the method returns
+     *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  y coordinate of the element's bounding box top-left corner.
      *  Bounding box is in element's parent coordinate space and is calculated
      *  from the specified bounds size, layout position and layout transform matrix.
@@ -459,13 +477,13 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function getBoundsYAtSize(width:Number, height:Number, postTransform:Boolean = true):Number;
+    function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number;
     
     /**
      *  Returns the element's layout width. This is the size that the element uses
      *  to draw on screen.
      *
-     *  @param postTransform When postTransform is true the method returns
+     *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  the element's bounding box width. Bounding box is in element's parent
      *  coordinate space and is calculated from the element's layout size and
      *  layout transform matrix.
@@ -479,13 +497,13 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function getLayoutBoundsWidth(postTransform:Boolean=true):Number;
+    function getLayoutBoundsWidth(postLayoutTransform:Boolean = true):Number;
 
     /**
      *  Returns the element's layout height. This is the size that the element uses
      *  to draw on screen.
      *
-     *  @param postTransform When postTransform is true the method returns
+     *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  the element's bounding box width. Bounding box is in element's parent
      *  coordinate space and is calculated from the element's layout size and
      *  layout transform matrix.
@@ -499,12 +517,12 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function getLayoutBoundsHeight(postTransform:Boolean=true):Number;
+    function getLayoutBoundsHeight(postLayoutTransform:Boolean = true):Number;
     
     /**
      *  Returns the x coordinate that the element uses to draw on screen.
      *
-     *  @param postTransform When postTransform is true the method returns
+     *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  x coordinate of the element's bounding box top-left corner.
      *  Bounding box is in element's parent coordinate space and is calculated
      *  from the element's layout size, layout position and layout transform matrix.
@@ -518,12 +536,12 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function getLayoutBoundsX(postTransform:Boolean=true):Number;
+    function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number;
 
     /**
      *  Returns the y coordinate that the element uses to draw on screen.
      *
-     *  @param postTransform When postTransform is true the method returns
+     *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  y coordinate of the element's bounding box top-left corner.
      *  Bounding box is in element's parent coordinate space and is calculated
      *  from the element's layout size, layout position and layout transform matrix.
@@ -537,12 +555,12 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function getLayoutBoundsY(postTransform:Boolean=true):Number;
+    function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number;
 
     /**
      *  Sets the coordinates that the element uses to draw on screen.
      *
-     *  @param postTransform When postTransform is true, the element is positioned
+     *  @param postLayoutTransform When postLayoutTransform is true, the element is positioned
      *  in such a way that the top-left corner of its bounding box is (x, y).
      *  Bounding box is in element's parent coordinate space and is calculated
      *  from the element's layout size, layout position and layout transform matrix.
@@ -559,7 +577,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function setLayoutBoundsPosition(x:Number, y:Number, postTransform:Boolean=true):void;
+    function setLayoutBoundsPosition(x:Number, y:Number, postLayoutTransform:Boolean = true):void;
 
     /**
      *  Sets the layout size to the specified dimensions.  This is the size that
@@ -582,7 +600,7 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @param height The target height.
      *
-     *  @param postTransform When postTransform is true, the specified dimensions
+     *  @param postLayoutTransform When postLayoutTransform is true, the specified dimensions
      *  are those of the element's bounding box.
      *  Bounding box is in element's parent coordinate space and is calculated
      *  from the element's layout size, layout position and layout transform matrix.
@@ -596,9 +614,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function setLayoutBoundsSize(width:Number = Number.NaN,
-                           height:Number = Number.NaN,
-                           postTransform:Boolean=true):void;
+    function setLayoutBoundsSize(width:Number,
+                                 height:Number,
+                                 postLayoutTransform:Boolean = true):void;
 
     /**
      *  Returns the transform matrix that is used to calculate the component's
@@ -648,11 +666,11 @@ public interface ILayoutElement extends IEventDispatcher
      *  Layouts that calculate the transform matrix explicitly typically call
      *  this method and work with sizes in child coordinates.
      *  Layouts calling this method pass <code>false</code>
-     *  to <code>triggerLayout</code> so that a subsequent layout pass is not
+     *  to <code>invalidateLayout</code> so that a subsequent layout pass is not
      *  triggered.</p>
      * 
      *  <p>Developers that call this method directly typically pass <code>true</code>
-     *  to <code>triggerLayout</code> so that the parent container is notified that
+     *  to <code>invalidateLayout</code> so that the parent container is notified that
      *  it needs to re-layout the children.</p>
      * 
      *  @see #getLayoutMatrix
@@ -666,7 +684,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function setLayoutMatrix(m:Matrix, triggerLayout:Boolean):void;
+    function setLayoutMatrix(m:Matrix, invalidateLayout:Boolean):void;
 
     /**
      *  Returns the layout transform Matrix3D for this element.
@@ -717,11 +735,11 @@ public interface ILayoutElement extends IEventDispatcher
      *  Layouts that calculate the transform matrix explicitly typically call
      *  this method and work with sizes in child coordinates.
      *  Layouts calling this method pass <code>false</code>
-     *  to <code>triggerLayout</code> so that a subsequent layout pass is not
+     *  to <code>invalidateLayout</code> so that a subsequent layout pass is not
      *  triggered.</p>
      * 
      *  <p>Developers that call this method directly typically pass <code>true</code>
-     *  to <code>triggerLayout</code> so that the parent container is notified that
+     *  to <code>invalidateLayout</code> so that the parent container is notified that
      *  it needs to re-layout the children.</p>
      * 
      *  @see #getLayoutMatrix
@@ -735,7 +753,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function setLayoutMatrix3D(m:Matrix3D, triggerLayout:Boolean):void;
+    function setLayoutMatrix3D(m:Matrix3D, invalidateLayout:Boolean):void;
 }
 
 }
