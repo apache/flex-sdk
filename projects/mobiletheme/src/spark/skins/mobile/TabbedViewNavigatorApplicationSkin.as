@@ -13,7 +13,7 @@ package spark.skins.mobile
 {
 import spark.components.TabbedMobileApplication;
 import spark.components.TabbedViewNavigator;
-import spark.skins.MobileSkin;
+import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
  *  The ActionScript based skin used for TabbedMobileApplication.  
@@ -21,8 +21,8 @@ import spark.skins.MobileSkin;
  *  entire content area of the application.
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.5
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5 
  *  @productversion Flex 4.5
  */
 public class TabbedMobileApplicationSkin extends MobileSkin
