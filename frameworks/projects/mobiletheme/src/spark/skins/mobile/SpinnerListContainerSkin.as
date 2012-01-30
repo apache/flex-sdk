@@ -66,7 +66,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 				
 				cornerRadius = 10;
 				borderThickness = 2;
-				selectionIndicatorHeight = 120;
+				selectionIndicatorHeight = 96;
 				break;
 			}
 			case DPIClassification.DPI_240:
@@ -77,7 +77,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 				
 				cornerRadius = 8;
 				borderThickness = 1;
-				selectionIndicatorHeight = 90;
+				selectionIndicatorHeight = 72;
 				break;
 			}
 			default: // default DPI_160
@@ -88,7 +88,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 			
 				cornerRadius = 5;
 				borderThickness = 1;
-				selectionIndicatorHeight = 60;
+				selectionIndicatorHeight = 48;
 				
 				break;
 			}
@@ -277,17 +277,17 @@ public class SpinnerListContainerSkin extends MobileSkin
 		var contentW:Number = contentGroup.getPreferredBoundsWidth();
 		var contentH:Number = contentGroup.getPreferredBoundsHeight();
 		
-		// TODO (jszeto) Figure out min size behavior
 		measuredWidth = measuredMinWidth = contentW + borderThickness * 2;
-		measuredHeight = measuredMinHeight = contentH + borderThickness * 2;
+		measuredHeight = contentH + borderThickness * 2;
+        
+        measuredMinHeight = selectionIndicatorHeight + borderThickness * 4;
 	}
 		
 	override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
 	{
 		super.layoutContents(unscaledWidth, unscaledHeight);
-		
-		var contentW:Number = contentGroup.getPreferredBoundsWidth();
-		var contentH:Number = contentGroup.getPreferredBoundsHeight();
+		        
+        unscaledHeight = Math.max(unscaledHeight, selectionIndicatorHeight + borderThickness * 4);
 		
 		setElementSize(contentGroup, unscaledWidth - borderThickness * 2, unscaledHeight - borderThickness * 2);
         setElementPosition(contentGroup, borderThickness, borderThickness);
