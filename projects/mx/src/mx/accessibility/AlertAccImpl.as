@@ -15,11 +15,12 @@ package mx.accessibility
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityProperties;
 import flash.events.Event;
+
 import mx.accessibility.AccConst;
 import mx.controls.Alert;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.managers.SystemManager;
+import mx.managers.ISystemManager;
 
 use namespace mx_internal;
 
@@ -157,6 +158,7 @@ public class AlertAccImpl extends TitleWindowAccImpl
 		// that all accessible UIComponents understand.
 		$eventHandler(event);
 				
+		const systemManager:ISystemManager = ISystemManager(master.parent);
 		var titleBar:UIComponent;
 		
 		switch (event.type)
@@ -165,7 +167,7 @@ public class AlertAccImpl extends TitleWindowAccImpl
 			{
 				titleBar = Alert(master).getTitleBar();
 
-				SystemManager(master.parent).document.accessibilityProperties.silent = false;
+				systemManager.document.accessibilityProperties.silent = false;
 
 				Accessibility.updateProperties();
 
@@ -176,21 +178,19 @@ public class AlertAccImpl extends TitleWindowAccImpl
 				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_OBJECT_PARENTCHANGE);
 				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_OBJECT_HIDE);
 				Accessibility.sendEvent(titleBar,0,AccConst.EVENT_SYSTEM_FOREGROUND);
-				if (SystemManager(master.parent).stage.focus)
-					Accessibility.sendEvent(SystemManager(master.parent).stage.focus,0,AccConst.EVENT_OBJECT_FOCUS);
+				if (systemManager.stage.focus)
+					Accessibility.sendEvent(systemManager.stage.focus,0,AccConst.EVENT_OBJECT_FOCUS);
 
 				break;
 			}
 
 			case "creationComplete":
 			{
-				if (!SystemManager(master.parent).document.accessibilityProperties)
+				if (!systemManager.document.accessibilityProperties)
 				{
-					SystemManager(master.parent).document.accessibilityProperties =
-						new AccessibilityProperties();
+					systemManager.document.accessibilityProperties = new AccessibilityProperties();
 				}
-				SystemManager(master.parent).document.accessibilityProperties.
-					silent = true;
+				systemManager.document.accessibilityProperties.silent = true;
 
 				master.$visible = true;
 
