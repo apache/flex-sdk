@@ -1,4 +1,4 @@
-package flex.filters
+package mx.filters
 {
 	import flash.filters.BitmapFilter;
 	
