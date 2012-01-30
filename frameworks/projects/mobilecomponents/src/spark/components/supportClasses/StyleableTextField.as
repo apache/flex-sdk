@@ -1394,7 +1394,7 @@ public class StyleableTextField extends FlexTextField
         var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
         
         if (!(topLevelApp && topLevelApp.isSoftKeyboardActive))
-            event.preventDefault();
+        event.preventDefault();
     }
     
     //--------------------------------------------------------------------------
@@ -1461,7 +1461,7 @@ public class StyleableTextField extends FlexTextField
         {
             // return the x position of the text within the text field.  we calculate this value
             // using text field's x, offset by the left gutter
-            return x + StyleableTextField.TEXT_WIDTH_PADDING/2;
+            return x + StyleableTextField.TEXT_LEFT_GUTTER;
         }
         else
         {
@@ -1585,7 +1585,7 @@ public class StyleableTextField extends FlexTextField
         if (useTightTextBounds)
         {
             // offset the positions by the left gutters and the top offset
-            this.x = x - StyleableTextField.TEXT_WIDTH_PADDING/2;
+            this.x = x - StyleableTextField.TEXT_LEFT_GUTTER;
             this.y = y - tightTextTopOffset;
         }
         else
@@ -2171,6 +2171,13 @@ public class StyleableTextField extends FlexTextField
      *  of a TextField that can display the text without clipping.
      */
     mx_internal static const TEXT_WIDTH_PADDING:int = 5;
+    
+    /**
+     *  @private
+     *  The width of the left gutter between the edge of the text field 
+     *  and the text. 
+     */
+    mx_internal static const TEXT_LEFT_GUTTER:int = 2;
     
     /**
      *  @private
