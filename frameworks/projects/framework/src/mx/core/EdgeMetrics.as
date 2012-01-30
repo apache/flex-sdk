@@ -45,6 +45,11 @@ package mx.core
  *  @see mx.core.Container
  *  @see mx.skins.Border
  *  @see mx.containers.Panel
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class EdgeMetrics
 {
@@ -60,6 +65,11 @@ public class EdgeMetrics
 	 *  An EdgeMetrics object with a value of zero for its
 	 *  <code>left</code>, <code>top</code>, <code>right</code>,
 	 *  and <code>bottom</code> properties.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const EMPTY:EdgeMetrics = new EdgeMetrics(0, 0, 0, 0);
 
@@ -79,6 +89,11 @@ public class EdgeMetrics
 	 *  @param right The width, in pixels, of the right edge region.
 	 *
 	 *  @param bottom The height, in pixels, of the bottom edge region.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function EdgeMetrics(left:Number = 0, top:Number = 0,
 								right:Number = 0, bottom:Number = 0)
@@ -103,6 +118,11 @@ public class EdgeMetrics
 
 	/**
 	 *  The height, in pixels, of the bottom edge region.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var bottom:Number;
 
@@ -112,6 +132,11 @@ public class EdgeMetrics
 
 	/**
 	 *  The width, in pixels, of the left edge region.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var left:Number;
 
@@ -121,6 +146,11 @@ public class EdgeMetrics
 
 	/**
 	 *  The width, in pixels, of the right edge region.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var right:Number;
 
@@ -130,6 +160,11 @@ public class EdgeMetrics
 
 	/**
 	 *  The height, in pixels, of the top edge region.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var top:Number;
 
@@ -141,6 +176,11 @@ public class EdgeMetrics
 
 	/**
 	 *  Returns a copy of this EdgeMetrics object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function clone():EdgeMetrics
 	{
