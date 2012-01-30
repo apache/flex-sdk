@@ -113,7 +113,7 @@ public class CheckBoxAccImpl extends ButtonAccImpl
 	{
 		super(master);
 
-		role = 0x2C;
+		role = 0x2C; // ROLE_SYSTEM_CHECKBUTTON
 	}
 
 	//--------------------------------------------------------------------------
