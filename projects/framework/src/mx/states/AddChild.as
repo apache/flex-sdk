@@ -13,14 +13,15 @@ package mx.states
 {
 
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import mx.containers.ApplicationControlBar;
 import mx.containers.ControlBar;
 import mx.containers.Panel;
 import mx.core.Application;
 import mx.core.ContainerCreationPolicy;
 import mx.core.IDeferredInstance;
-import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.core.UIComponent;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
@@ -79,7 +80,7 @@ use namespace mx_internal;
  *
  *  @includeExample examples/StatesExample.mxml
  */
- public class AddChild implements IOverride
+ public class AddChild extends OverrideBase implements IOverride
 {
     include "../core/Version.as";
 
@@ -221,7 +222,7 @@ use namespace mx_internal;
      *  property, or <code>&lt;mx:states&gt;</code>tag that specifies the State
      *  object.
      */
-    public var relativeTo:UIComponent;
+    public var relativeTo:Object;
 
     //------------------------------------
     //  target
@@ -352,12 +353,12 @@ use namespace mx_internal;
      */
     public function apply(parent:UIComponent):void
     {
-        var obj:UIComponent = relativeTo ? relativeTo : parent;
+        var obj:* = relativeTo = getOverrideContext(relativeTo, parent);
 
         added = false;
 
-        // Early exit if child is null
-        if (!target)
+        // Early exit if child is null or not a valid container.
+        if (!target || !(obj is DisplayObjectContainer))
             return;
 
         // Can't reparent. Must remove before adding.
@@ -421,9 +422,9 @@ use namespace mx_internal;
      */
     public function remove(parent:UIComponent):void
     {
-        var obj:UIComponent = relativeTo ? relativeTo : parent;
-
-        if (!added)
+        var obj:* = getOverrideContext(relativeTo, parent);
+        
+        if (!added || !(obj is DisplayObjectContainer))
             return;
 
         switch (position)
