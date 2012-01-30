@@ -22,12 +22,12 @@ ActionBar
 
 ActionBar Group#actionGroup Button
 {
-	skinClass: ClassReference("spark.skins.mobile.ActionBarActionButtonSkin");
+	skinClass: ClassReference("spark.skins.mobile.ActionButtonSkin");
 }
 
 ActionBar Group#navigationGroup Button
 {
-	skinClass: ClassReference("spark.skins.mobile.ActionBarNavigationButtonSkin");
+	skinClass: ClassReference("spark.skins.mobile.NavigationButtonSkin");
 }
 
 Application
@@ -60,9 +60,13 @@ ButtonBar
     skinClass: ClassReference("spark.skins.spark.ButtonBarSkin");
 }
 
+ButtonBase
+{
+    iconPlacement : "left";
+}
+
 CheckBox
 {
-    labelPlacement : "left";
     skinClass : ClassReference("spark.skins.mobile.CheckBoxSkin");
 }
 
@@ -157,7 +161,6 @@ Panel
 
 RadioButton
 {
-    labelPlacement : "left";
     skinClass : ClassReference("spark.skins.mobile.RadioButtonSkin");
 }
 
