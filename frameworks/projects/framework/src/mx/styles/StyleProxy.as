@@ -230,18 +230,6 @@ public class StyleProxy implements IAdvancedStyleClient
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  pseudoSelectorState
-    //----------------------------------
-
-    /**
-     *  @copy mx.styles.IAdvancedStyleClient#pseudoSelectorState
-     */
-    public function get pseudoSelectorState():String
-    {
-        return _advancedSource ? _advancedSource.pseudoSelectorState : null;
-    }
-
-    //----------------------------------
     //  id
     //----------------------------------
 
@@ -344,11 +332,19 @@ public class StyleProxy implements IAdvancedStyleClient
     //--------------------------------------------------------------------------
 
     /**
-     *  @copy mx.styles.IAdvancedStyleClient#isAssignableToType()
-     */ 
-    public function isAssignableToType(type:String):Boolean
+     *  @copy mx.styles.IAdvancedStyleClient#isPseudoSelectorMatch()
+     */
+    public function isPseudoSelectorMatch(pseudoState:String):Boolean
     {
-        return _advancedSource ? _advancedSource.isAssignableToType(type) : false;
+        return _advancedSource ? _advancedSource.isPseudoSelectorMatch(pseudoState) : false;
+    }
+
+    /**
+     *  @copy mx.styles.IAdvancedStyleClient#isTypeSelectorMatch()
+     */ 
+    public function isTypeSelectorMatch(type:String):Boolean
+    {
+        return _advancedSource ? _advancedSource.isTypeSelectorMatch(type) : false;
     }
 
     /**
