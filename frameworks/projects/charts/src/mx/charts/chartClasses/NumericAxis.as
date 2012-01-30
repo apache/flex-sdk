@@ -655,9 +655,10 @@ public class NumericAxis extends AxisBase implements IAxis
         _cachedDataDescriptions = null;
         _regenerateAutoValues = true;           
 
+		dispatchEvent(new Event("mappingChange"));
+		
         if (isNaN(assignedMinimum) || isNaN(assignedMaximum))
         {
-            dispatchEvent(new Event("mappingChange"));
             dispatchEvent(new Event("axisChange"));
         }
     }
