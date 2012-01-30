@@ -77,6 +77,19 @@ public class MobileApplicationBase extends Application
     
     //--------------------------------------------------------------------------
     //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  This flag indicates when a user has called preventDefault on the
+     *  KeyboardEvent dispatched when the back key is pressed.
+     */
+    private var backKeyEventPreventDefaulted:Boolean = false;
+    
+    //--------------------------------------------------------------------------
+    //
     //  Properties
     //
     //--------------------------------------------------------------------------
@@ -321,8 +334,13 @@ public class MobileApplicationBase extends Application
         
         // We want to prevent the default down behavior for back key if 
         // the navigator has a view to pop back to
-        if (key == Keyboard.BACK && canCancelBackKeyBehavior)
-            event.preventDefault();
+        if (key == Keyboard.BACK)
+        {
+            backKeyEventPreventDefaulted = event.isDefaultPrevented();
+            
+            if (canCancelBackKeyBehavior)
+                event.preventDefault();
+        }
     }
     
     /**
@@ -331,8 +349,15 @@ public class MobileApplicationBase extends Application
     private function deviceKeyUpHandler(event:KeyboardEvent):void
     {
         var key:uint = event.keyCode;
+
+        // If preventDefault() wasn't called on the initial keyDown event
+        // and the application thinks it can cancel the native back behavior,
+        // call the backKeyHandler() method.  Otherwise, the runtime will
+        // handle the back key function.
         
-        if (key == Keyboard.BACK && canCancelBackKeyBehavior)
+        // The backKeyEventPreventDefaulted key is always set in the
+        // deviceKeyDownHandler method and so doesn't need to be reset.
+        if (key == Keyboard.BACK && !backKeyEventPreventDefaulted && canCancelBackKeyBehavior)
             backKeyHandler();
     }
     
