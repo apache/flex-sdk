@@ -101,11 +101,11 @@ global
 	paddingLeft: 0;
 	paddingRight: 0;
 	paddingTop: 0;
-	roundedBottomCorners: true;
     renderingMode: "cff";
 	repeatDelay: 500;
 	repeatInterval: 35;
 	rollOverColor: #B2E1FF;
+	roundedBottomCorners: true;
 	selectionColor: #7FCEFF;
 	selectionDisabledColor: #DDDDDD;
 	selectionDuration: 250;
