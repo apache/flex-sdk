@@ -39,6 +39,7 @@ package
 		import spark.automation.delegates.components.SparkNavigatorContentAutomationImpl;SparkNavigatorContentAutomationImpl;
 		import spark.automation.delegates.components.SparkNumericStepperAutomationImpl;SparkNumericStepperAutomationImpl;
 		import spark.automation.delegates.components.SparkPanelAutomationImpl;SparkPanelAutomationImpl;
+		import spark.automation.delegates.components.SparkPopUpAnchorAutomationImpl;SparkPopUpAnchorAutomationImpl;
 		import spark.automation.delegates.components.SparkRadioButtonAutomationImpl;SparkRadioButtonAutomationImpl;
 		import spark.automation.delegates.components.SparkSkinnableContainerAutomationImpl;SparkSkinnableContainerAutomationImpl;
 		import spark.automation.delegates.components.SparkSkinnableDataContainerAutomationImpl;SparkSkinnableDataContainerAutomationImpl;
