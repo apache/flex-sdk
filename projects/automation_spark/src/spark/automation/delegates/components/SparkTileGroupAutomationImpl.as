@@ -11,65 +11,75 @@
 
 package spark.automation.delegates.components
 {
-	import flash.display.DisplayObject;
-	
-	import mx.automation.Automation;
-	import mx.core.mx_internal;
-	
-	import spark.components.TileGroup;
-	
-	use namespace mx_internal;
-	
-	[Mixin]
-	
-	/**
-	 * 
-	 *  Defines methods and properties required to perform instrumentation for the 
-	 *  TileGroup control.
-	 * 
-	 *  @see spark.components.TileGroup 
-	 *
-	 */
-	public class SparkTileGroupAutomationImpl extends SparkGroupAutomationImpl
-	{
-		include "../../../core/Version.as";
-		
-		//--------------------------------------------------------------------------
-		//
-		//  Class methods
-		//
-		//--------------------------------------------------------------------------
-		
-		/**
-		 *  Registers the delegate class for a component class with automation manager.
-		 *  
-		 *  @param root The SystemManger of the application.
-		 */
-		public static function init(root:DisplayObject):void
-		{
-			Automation.registerDelegateClass(spark.components.TileGroup, SparkGroupAutomationImpl);
-		}   
-		
-		//--------------------------------------------------------------------------
-		//
-		//  Constructor
-		//
-		//--------------------------------------------------------------------------
-		
-		/**
-		 *  Constructor.
-		 * @param obj ButtonBar object to be automated.     
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion Flash 9
-		 *  @playerversion AIR 1.1
-		 *  @productversion Flex 4
-		 */
-		public function SparkTileGroupAutomationImpl(obj:spark.components.TileGroup)
-		{
-			super(obj);
-		}
-		
-		
-	}
+    import flash.display.DisplayObject;
+    
+    import mx.automation.Automation;
+    import mx.core.mx_internal;
+    
+    import spark.components.TileGroup;
+    
+    use namespace mx_internal;
+    
+    [Mixin]
+    
+    /**
+     * 
+     *  Defines methods and properties required to perform instrumentation for the 
+     *  TileGroup control.
+     * 
+     *  @see spark.components.TileGroup 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     *
+     */
+    public class SparkTileGroupAutomationImpl extends SparkGroupAutomationImpl
+    {
+        include "../../../core/Version.as";
+        
+        //--------------------------------------------------------------------------
+        //
+        //  Class methods
+        //
+        //--------------------------------------------------------------------------
+        
+        /**
+         *  Registers the delegate class for a component class with automation manager.
+         *  
+         *  @param root The SystemManger of the application.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */
+        public static function init(root:DisplayObject):void
+        {
+            Automation.registerDelegateClass(spark.components.TileGroup, SparkGroupAutomationImpl);
+        }   
+        
+        //--------------------------------------------------------------------------
+        //
+        //  Constructor
+        //
+        //--------------------------------------------------------------------------
+        
+        /**
+         *  Constructor.
+         * @param obj ButtonBar object to be automated.     
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */
+        public function SparkTileGroupAutomationImpl(obj:spark.components.TileGroup)
+        {
+            super(obj);
+        }
+        
+        
+    }
 }
