@@ -82,6 +82,8 @@ public class Move extends TweenEffect
      *  @private
      */
     private static var AFFECTED_PROPERTIES:Array = [ "x", "y" ];
+    private static var RELEVANT_STYLES:Array = 
+        ["left", "right", "top", "bottom", "horizontalCenter", "verticalCenter"];
 
     //--------------------------------------------------------------------------
     //
@@ -187,6 +189,14 @@ public class Move extends TweenEffect
     override public function getAffectedProperties():Array /* of String */
     {
         return AFFECTED_PROPERTIES;
+    }   
+
+    /**
+     *  @private
+     */
+    override public function get relevantStyles():Array /* of String */
+    {
+        return RELEVANT_STYLES;
     }   
 
     /**
