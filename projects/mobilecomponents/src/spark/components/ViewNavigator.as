@@ -12,6 +12,7 @@
 package spark.components
 {
 import flash.events.Event;
+import flash.net.registerClassAlias;
 
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
@@ -164,6 +165,13 @@ public class ViewNavigator extends ViewNavigatorBase
      */     
     private static const DEFAULT_VIEW_TRANSITION_DURATION:Number = 300;
     
+    /**
+     *  @private
+     *  Flag indicating whether the classes required for the PersistenceManager
+     *  have been registered with the player.
+     */
+    private static var classAliasesRegistered:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -180,6 +188,16 @@ public class ViewNavigator extends ViewNavigatorBase
     public function ViewNavigator()
     {
         super();
+        
+        if (!classAliasesRegistered)
+        {
+            // Register aliases for custom classes that will be written to
+            // persistence store by navigator
+            registerClassAlias("ViewDescriptor", ViewDescriptor);
+            registerClassAlias("NavigationStack", NavigationStack);
+            
+            classAliasesRegistered = true;
+        }
         
         // Default view transitions
         var slideLeft:SlideViewTransition = new SlideViewTransition();
