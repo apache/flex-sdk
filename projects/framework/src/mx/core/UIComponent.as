@@ -7604,9 +7604,12 @@ public class UIComponent extends FlexSprite
         // set the _layoutFeatures.mirror flag.  Similarly, if mirroring isn't 
         // required, then clear the _layoutFeatures.mirror flag.
         
+        // Use "ltr" string here rather than LayoutDirection.LTR because the
+        // string is inlined and the constant is like a variable reference.
+        
         const mirror:Boolean = (parentElt) 
             ? (parentElt.layoutDirection != thisLayoutDirection)
-            : (LayoutDirection.LTR != thisLayoutDirection);
+            : ("ltr" != thisLayoutDirection);
       
         if ((_layoutFeatures) ? (mirror != _layoutFeatures.mirror) : mirror)
         {
