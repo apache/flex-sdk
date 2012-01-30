@@ -21,6 +21,11 @@ import flash.geom.Rectangle;
  *
  *  @see mx.controls.ToolTip
  *  @see mx.managers.ToolTipManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IToolTip extends IUIComponent
 {
@@ -37,6 +42,11 @@ public interface IToolTip extends IUIComponent
 	/**
 	 *  A Rectangle that specifies the size and position
 	 *  of the base drawing surface for this tooltip.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get screen():Rectangle;
 
@@ -46,6 +56,11 @@ public interface IToolTip extends IUIComponent
 
 	/**
 	 *  The text that appears in the tooltip.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get text():String;
 	
