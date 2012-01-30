@@ -134,17 +134,17 @@ public class LinearGradient extends GradientBase implements IFill
 	public function begin(target:Graphics, rc:Rectangle):void
 	{
 		var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
-		var tx:Number = !isNaN(x) ? x : 0;
-		var ty:Number = !isNaN(y) ? y : 0;
-					
+		var tx:Number = !isNaN(x) ? x + rc.left : rc.left;
+		var ty:Number = !isNaN(y) ? y + rc.top : rc.top;
+		
 		matrix.createGradientBox(w, rc.height, 
 								!isNaN(mx_internal::_angle) ? 
 									mx_internal::_angle : mx_internal::rotationInRadians,
 								 tx, ty);
-
+								 
 		target.beginGradientFill(GradientType.LINEAR, mx_internal::colors,
 								 mx_internal::alphas, mx_internal::ratios,
-								 matrix, spreadMethod, interpolationMethod);		
+								 matrix, spreadMethod, interpolationMethod);	
 	}
 
 	/**
