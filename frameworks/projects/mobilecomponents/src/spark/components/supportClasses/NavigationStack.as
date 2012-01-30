@@ -158,30 +158,30 @@ public class ViewNavigatorSection implements IExternalizable
     }
     
     //----------------------------------
-    //  rootScreen
+    //  rootView
     //----------------------------------
     /**
      *  @private
-     *  The backing variable for the rootScreen property.
+     *  The backing variable for the rootView property.
      */
-    private var _rootScreen:Class;
+    private var _rootView:Class;
     
     /**
      *  This property is the object to use to initialize the root screen
      *  of the stack.  This can be a Class, instance or Factory that creates
      *  an object that extends <code>Screen</code>.
      */
-    public function get rootScreen():Class
+    public function get rootView():Class
     {
-        return _rootScreen;
+        return _rootView;
     }
     
     /**
      * @private
      */
-    public function set rootScreen(value:Class):void
+    public function set rootView(value:Class):void
     {
-        _rootScreen = value;
+        _rootView = value;
     }
     
     //----------------------------------
@@ -259,7 +259,7 @@ public class ViewNavigatorSection implements IExternalizable
         output.writeObject(label);
         output.writeObject(_source);
         output.writeObject(getQualifiedClassName(icon));
-        output.writeObject(getQualifiedClassName(rootScreen));
+        output.writeObject(getQualifiedClassName(rootView));
     }
     
     public function readExternal(input:IDataInput):void 
@@ -272,7 +272,7 @@ public class ViewNavigatorSection implements IExternalizable
         icon = (className == "null") ? null : getDefinitionByName(className) as Class;
         
         className = input.readObject();
-        rootScreen = (className == "null") ? null : getDefinitionByName(className) as Class;
+        rootView = (className == "null") ? null : getDefinitionByName(className) as Class;
     }
 }
 }
