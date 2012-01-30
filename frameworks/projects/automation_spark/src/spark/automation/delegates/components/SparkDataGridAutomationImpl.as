@@ -917,7 +917,7 @@ package spark.automation.delegates.components
 			{
 				// take the key modifiers from the mouseDown event because
 				// they were used by List for making the selection
-				if(event.itemRenderer != item)
+				if(event.itemRenderer != item || (grid.editor && item == grid.editor.editedItemRenderer))
 					return;
 				else
 				{
