@@ -32,7 +32,7 @@ public interface IFlexModuleFactory
 {
     import flash.display.LoaderInfo;    
     import flash.utils.Dictionary;
-
+    
     import mx.core.RSLData;
     
     //--------------------------------------------------------------------------
@@ -40,6 +40,36 @@ public interface IFlexModuleFactory
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  Controls whether the domains allowed by calls to <code>allowDomain()</code>
+     *  are also allowed by RSLs loaded after the call. Additional RSLs
+     *  may be loaded into this module factory by sub-applications or modules.
+     *
+     *  @default true
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.6
+     *  @productversion Flex 4.5
+     */   
+    function get allowDomainsInNewRSLs():Boolean;
+    function set allowDomainsInNewRSLs(value:Boolean):void;
+    
+    /**
+     *  Controls whether the domains allowed by calls to <code>allowInsecureDomain()
+     *  </code> are also allowed by RSLs loaded after the call. Additional RSLs 
+     *  may be added to this module factory by sub-applications or modules.
+     *
+     *  @default true
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.6
+     *  @productversion Flex 4.5
+     */   
+    function get allowInsecureDomainsInNewRSLs():Boolean;
+    function set allowInsecureDomainsInNewRSLs(value:Boolean):void;
     
     /**
      *  The RSLs loaded by this SystemManager or FlexModuleFactory before the
@@ -51,8 +81,13 @@ public interface IFlexModuleFactory
      * 
      *  Information about preloadedRSLs is stored in a Dictionary. The key is
      *  the RSL's LoaderInfo. The value is the a Vector of RSLData where the 
-     *  first element is the primaray RSL and the remaining elements are 
+     *  first element is the primary RSL and the remaining elements are 
      *  failover RSLs.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 3
      */   
     function get preloadedRSLs():Dictionary;
     
@@ -61,12 +96,12 @@ public interface IFlexModuleFactory
     //  Methods
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  Adds an RSL to the preloadedRSLs list. This method is called by child
      *  module factories when they add load an RSL into this module factory's
      *  application domain.
-     * 
+     *
      *  <p>You do not call this method directly. This method is called by child
      *  module factories when they add load an RSL into this module factory's
      *  application domain.</p>
@@ -75,20 +110,42 @@ public interface IFlexModuleFactory
      *  @param rsl The RSL's configuration information. A Vector of RSLData.
      *  The first element in the array is the primary RSL. The remaining 
      *  elements are failover RSLs.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.6
+     *  @productversion Flex 4.5
      */ 
     function addPreloadedRSL(loaderInfo:LoaderInfo, rsl:Vector.<RSLData>):void;
-
+    
     /**
-     *  Calls the <code>Security.allowDomain()</code> method for the SWF associated with this IFlexModuleFactory
-     *  plus all the SWFs assocatiated with RSLs preloaded by this IFlexModuleFactory.
+     *  Calls the <code>Security.allowDomain()</code> method for the SWF 
+     *  associated with this IFlexModuleFactory plus all the SWFs associated
+     *  with RSLs preloaded by this IFlexModuleFactory. RSLs loaded after this
+     *  call will, by default, allow the same domains as have been allowed by
+     *  previous calls to this method. This behavior is controlled by the <code>
+     *  allowDomainsInNewRSLs</code> property.
      * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.6
+     *  @productversion Flex 4.5
      */  
     function allowDomain(... domains):void;
     
     /**
-     *  Calls the <code>Security.allowInsecureDomain()</code> method for the SWF associated with this IFlexModuleFactory
-     *  plus all the SWFs assocatiated with RSLs preLoaded by this IFlexModuleFactory.
+     *  Calls the <code>Security.allowInsecureDomain()</code> method for the 
+     *  SWF associated with this IFlexModuleFactory
+     *  plus all the SWFs associated with RSLs preloaded by this 
+     *  IFlexModuleFactory. RSLs loaded after this call will, by default, 
+     *  allow the same domains as have been allowed by
+     *  previous calls to this method. This behavior is controlled by the <code>
+     *  allowInsecureDomainsInNewRSLs</code> property.
      * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.6
+     *  @productversion Flex 4.5
      */  
     function allowInsecureDomain(... domains):void;
     
@@ -103,15 +160,15 @@ public interface IFlexModuleFactory
      *  @return Whatever the function returns, if anything.
      *  
      *  @see Function.apply
-	 *
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     function callInContext(fn:Function, thisArg:Object,
-						   argArray:Array, returns:Boolean = true):*;
-
+                           argArray:Array, returns:Boolean = true):*;
+    
     /**
      *  A factory method that requests
      *  an instance of a definition known to the module.
@@ -133,7 +190,7 @@ public interface IFlexModuleFactory
      *  @productversion Flex 3
      */
     function create(... parameters):Object;
-
+    
     /**
      *  Get the implementation for an interface.
      *  Similar to <code>Singleton.getInstance()</code> method, but per-
