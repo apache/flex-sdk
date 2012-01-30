@@ -261,6 +261,24 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
     /**
      *  @private
      *  Set of styles for which setStyle() causes
+     *  invalidateEstimatedSizesOfChildren() to be called on the component's parent.
+     *  The method registerParentEstimatedSizeInvalidatingStyle() adds to this set
+     *  and isParentEstimatedSizeInvalidatingStyle() queries this set.
+     */
+    private var parentEstimatedSizeInvalidatingStyles:Object =
+        {
+            baseline: true,
+            bottom: true,
+            horizontalCenter: true,
+            left: true,
+            right: true,
+            top: true,
+            verticalCenter: true
+        }
+        
+    /**
+     *  @private
+     *  Set of styles for which setStyle() causes
      *  invalidateDisplayList() to be called on the component's parent.
      *  The method registerParentDisplayListInvalidatingStyle() adds to this set
      *  and isParentDisplayListInvalidatingStyle() queries this set.
@@ -1234,6 +1252,58 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
         return false;
     }
 
+    /**
+     *  Adds to the list of styles which may require a recalculation
+     *  of the contraints based on the parent container.
+     *  <p>When one of these styles is set with <code>setStyle()</code>,
+     *  the <code>invalidateEstimatedSizesOfChildren()</code> 
+     *  method is called on the component's
+     *  parent container to make the estimated sizes get recalculated
+     *  later.</p>
+     *
+     *  @param styleName The name of the style to register.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function registerParentEstimatedSizeInvalidatingStyle(styleName:String):void
+    {
+        parentEstimatedSizeInvalidatingStyles[styleName] = true;
+    }
+    
+    /**
+     *  Tests to see if the style changes the estimated size based on a component's parent container.
+     *
+     *  <p>When one of these styles is set with <code>setStyle()</code>,
+     *  the <code>invalidateEstimatedSizesOfChildren()</code> 
+     *  method is called on the component's
+     *  parent container to make the estimated sizes get recalculated
+     *  later.</p>
+     *
+     *  @param styleName The name of the style to test.
+     *
+     *  @return Returns <code>true</code> if the specified style is one
+     *  which may affect the estimated size of the component's
+     *  parent container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function isParentEstimatedSizeInvalidatingStyle(styleName:String):Boolean
+    {
+        if (parentEstimatedSizeInvalidatingStyles[styleName] == true)
+            return true;
+        
+        if (parent && parent.isParentEstimatedSizeInvalidatingStyle(styleName))
+            return true;
+        
+        return false;
+    }
+    
     /**
      *  Adds to the list of styles which may affect the appearance
      *  or layout of the component's parent container.
