@@ -186,6 +186,7 @@
 				<include name="air/airframework.swc"/>
 				<include name="framework.swc"/>
 				<include name="spark.swc"/>
+				<include name="textLayout.swc"/>
 			</external-library-path>
 			<locale/>
 		        <keep-as3-metadata name="SkinPart"/>
