@@ -403,12 +403,7 @@ public class PolarDataCanvas extends ChartElement implements IDataCanvas
     }
     
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @private
      */
     override protected function commitProperties():void
     {
@@ -1310,6 +1305,8 @@ public class PolarDataCanvas extends ChartElement implements IDataCanvas
      *  This function triggers calls to the <code>updateMapping()</code>
      *  and <code>updateTransform()</code> methods on the next call
      *  to the <code>commitProperties()</code> method.
+     * 
+     *  @param invalid <code>true</code> if the data has changed.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
