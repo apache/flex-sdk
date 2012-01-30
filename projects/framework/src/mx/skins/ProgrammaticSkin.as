@@ -15,6 +15,7 @@ package mx.skins
 import flash.display.Graphics;
 import flash.display.Shape;
 import flash.geom.Matrix;
+import flash.utils.getDefinitionByName;
 
 import mx.core.FlexShape;
 import mx.core.IFlexModule;
@@ -60,7 +61,13 @@ public class ProgrammaticSkin extends FlexShape
 	 *  Set by horizontalGradientMatrix() or verticalGradientMatrix().
 	 */
 	private static var tempMatrix:Matrix = new Matrix();
-	
+
+    /**
+     *  @private
+     *  Soft link to UIComponent. Cache the class for performance.
+     */
+    private static var uiComponentClass:Class;
+
 	//--------------------------------------------------------------------------
 	//
 	//  Constructor
@@ -640,11 +647,10 @@ public class ProgrammaticSkin extends FlexShape
      */     
     protected function get styleManager():IStyleManager2
     {
-        // FIXME: (dloverin) Linking in UIComponent causes some resource bundle
-        // tests that use non-enUS locales because the SDK is only built
-        // with the enUS locale.
-        //if (styleName is UIComponent)
-        if ("styleManager" in styleName) 
+        if (uiComponentClass == null)
+            uiComponentClass = Class(getDefinitionByName("mx.core.UIComponent"));
+        
+        if (styleName is uiComponentClass) 
             return styleName.styleManager;
         else
             return StyleManager.getStyleManager(null);
