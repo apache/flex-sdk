@@ -2102,7 +2102,7 @@ public class SystemManager extends MovieClip
 	 *  Returns <code>true</code> if the given DisplayObject is the 
 	 *  top-level window.
 	 *
-	 *  @param object 
+	 *  @param object The DisplayObject to test.
 	 *
 	 *  @return <code>true</code> if the given DisplayObject is the 
 	 *  top-level window.
