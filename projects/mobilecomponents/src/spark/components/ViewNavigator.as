@@ -378,8 +378,11 @@ public class ViewNavigator extends ViewNavigatorBase
                 var canDestroy:Boolean = (activeView.destructionPolicy != ContainerDestructionPolicy.NEVER) && 
                                          (destructionPolicy != ContainerDestructionPolicy.NEVER);
                 
+				// If the instance of the view is being destroyed but our navigationStack is
+				// maintained, the active view needs to serialize its data is application
+				// persistence is enabled.
                 if (canDestroy || clearNavigationStack)
-                    destroyViewInstance(navigationStack.topView);
+                    destroyViewInstance(navigationStack.topView, !clearNavigationStack);
             }
         }
         
@@ -1915,7 +1918,7 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */ 
-    private function destroyViewInstance(viewProxy:ViewDescriptor):void
+    private function destroyViewInstance(viewProxy:ViewDescriptor, forceDataPersist:Boolean = false):void
     {
         var currentView:View = viewProxy.instance;
         
@@ -1932,7 +1935,7 @@ public class ViewNavigator extends ViewNavigatorBase
             view_propertyChangeHandler);
         
         // Grab the data from the old view and persist it
-        if (lastAction == ViewNavigatorAction.PUSH)
+        if (lastAction == ViewNavigatorAction.PUSH || forceDataPersist)
         {
             viewProxy.data = currentView.data;
             viewProxy.persistenceData = currentView.serializeData();
