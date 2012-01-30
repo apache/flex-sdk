@@ -18,7 +18,7 @@ import flash.events.EventDispatcher;
 import flash.external.ExternalInterface;
 import flash.net.navigateToURL;
 import flash.net.URLRequest;
-import mx.core.ApplicationGlobals;
+import mx.core.FlexGlobals;
 import mx.events.BrowserChangeEvent;
 
 /**
@@ -309,8 +309,8 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
      */
     public function init(defaultFragment:String = "", defaultTitle:String = ""):void
     {
-        if ("historyManagementEnabled" in ApplicationGlobals.application)
-		  ApplicationGlobals.application.historyManagementEnabled = false;
+        if ("historyManagementEnabled" in FlexGlobals.topLevelApplication)
+		  FlexGlobals.topLevelApplication.historyManagementEnabled = false;
 
 		setup(defaultFragment, defaultTitle);
 	}
@@ -320,7 +320,7 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
 	 *  prepare the BrowserManager for further calls from the HistoryManager.  Use
 	 *  of HistoryManager and setFragment calls from the application is
 	 *  not supported, so the init() method sets 
-	 *  ApplicationGlobals.application.historyManagementEnabled to false to disable
+	 *  FlexGlobals.topLevelApplication.historyManagementEnabled to false to disable
 	 *  the HistoryManager
      *  
      *  @langversion 3.0
