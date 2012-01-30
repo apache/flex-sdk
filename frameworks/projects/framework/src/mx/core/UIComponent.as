@@ -10172,11 +10172,11 @@ public class UIComponent extends FlexSprite
             textFormat.sharpness = _inheritingStyles.fontSharpness;
             textFormat.thickness = _inheritingStyles.fontThickness;
             
-            textFormat.useTLF =
-                getTextFieldClassName() == "mx.core::UITLFTextField" ||
-                getTextInputClassName() == "mx.controls::TLFTextInput";
+            textFormat.useFTE =
+                getTextFieldClassName() == "mx.core::UIFTETextField" ||
+                getTextInputClassName() == "mx.controls::MXFTETextInput";
 
-            if (textFormat.useTLF)
+            if (textFormat.useFTE)
             {
                 textFormat.direction = _inheritingStyles.direction;
                 textFormat.locale = _inheritingStyles.locale;
@@ -11415,7 +11415,7 @@ public class UIComponent extends FlexSprite
         if (className == "mx.core::UITextField")
         {
             className = getTextFieldClassName();
-            if (className == "mx.core::UITLFTextField")
+            if (className == "mx.core::UIFTETextField")
                 classObj = Class(ApplicationDomain.currentDomain.
                                                     getDefinition(className));
         }
@@ -11428,7 +11428,7 @@ public class UIComponent extends FlexSprite
 
         // If we just created a UITLFTextField, set its textLineCreator property
         // so that it knows what module to use for creating its TextLines.
-        if (className == "mx.core::UITLFTextField")
+        if (className == "mx.core::UIFTETextField")
             obj.textLineCreator = moduleContext;
 
         return obj;
@@ -11436,7 +11436,7 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @private
-     *  Returns either "mx.core::UITextField" or "mx.core::UITLFTextField",
+     *  Returns either "mx.core::UITextField" or "mx.core::UIFTETextField",
      *  based on the version number and the textFieldClass style.
      */
     private function getTextFieldClassName():String
@@ -11451,7 +11451,7 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @private
-     *  Returns either "mx.core::TextInput" or "mx.core::TLFTextInput",
+     *  Returns either "mx.core::TextInput" or "mx.core::MXFTETextInput",
      *  based on the version number and the textInputClass style.
      */
     private function getTextInputClassName():String
