@@ -113,6 +113,17 @@
 [Style(name="backgroundSize", type="String", inherit="no", theme="halo")]
 
 /**
+ *  Alpha of the border.
+ *  @default 1
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="borderAlpha", type="Number", inherit="no", theme="spark")]
+
+/**
  *  Color of the border.
  *  The default value depends on the component class;
  *  if not overridden for the class, the default value is <code>0xB7BABC</code>.
@@ -122,7 +133,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="halo")]
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="halo, spark")]
 
 /**
  *  Bounding box sides.
@@ -186,6 +197,18 @@
 [Style(name="borderThickness", type="Number", format="Length", inherit="no", theme="halo")]
 
 /**
+ *  Visibility of the border.
+ *
+ *  @default 1
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="borderVisible", type="Boolean", inherit="no", theme="spark")]
+
+/**
  *  Radius of component corners.
  *  The default value depends on the component class;
  *  if not overriden for the class, the default value is 0.
@@ -196,7 +219,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo")]
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo, spark")]
 
 /**
  *  Boolean property that specifies whether the component has a visible
