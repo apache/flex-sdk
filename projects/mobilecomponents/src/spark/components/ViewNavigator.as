@@ -3,6 +3,7 @@ package spark.components
 import flash.events.Event;
 
 import mx.core.ISelectableList;
+import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
@@ -18,6 +19,7 @@ import spark.effects.ViewTransition;
 import spark.events.IndexChangeEvent;
 import spark.events.NavigatorEvent;
 import spark.events.ViewNavigatorEvent;
+import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
 
@@ -142,6 +144,84 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     // Variables
     // 
     //--------------------------------------------------------------------------
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    
+    /**
+     *  Default ActionBar action content when not supplied by a View.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var actionContent:Array;
+    
+    /**
+     *  Defines the default layout for the ActionBar actionContent.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var actionLayout:LayoutBase;
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    
+    /**
+     *  Default ActionBar title content when not supplied by a View.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var titleContent:Array;
+    
+    /**
+     *  Defines the default layout for the ActionBar titleContent.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var titleLayout:LayoutBase;
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    
+    /**
+     *  Default ActionBar navigation content when not supplied by a View.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var navigationContent:Array;
+    
+    /**
+     *  Defines the default layout for the ActionBar navigationContent.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var navigationLayout:LayoutBase;
     
     /**
      *
@@ -721,13 +801,15 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (transition)
         {
             transition.addEventListener(Event.COMPLETE, transitionComplete);
-            transition.currentView = currentView;
+            transition.previousView = currentView;
             transition.nextView = pendingView;
             transition.navigator = this;
             
             // Give the transition a chance to prepare before the view updates
             transition.prepare();
         }
+        
+        updateActionBar(currentView, pendingView);
         
         // Notify listeners that a new view has been successfully added to the stage
         if (hasEventListener(ViewNavigatorEvent.VIEW_ADD))
@@ -746,6 +828,34 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         {
             endViewChange();
         }
+    }
+    
+    protected function updateActionBar(currentView:View, pendingView:View):void
+    {
+        if (!actionBar)
+            return;
+        
+        // TODO: setup data binding from active view to ActionBar
+        // TODO: allow MobileApplication and/or ViewNavigator to define default ActionBar content
+        actionBar.title = pendingView.title;
+        
+        var content:Array = pendingView.titleContent;
+        var contentLayout:LayoutBase = (pendingView.titleLayout) ? pendingView.titleLayout : this.titleLayout;
+        
+        actionBar.titleContent = (content) ? content : this.titleContent;
+        actionBar.titleLayout = contentLayout;
+        
+        content = pendingView.navigationContent;
+        contentLayout = (pendingView.navigationLayout) ? pendingView.navigationLayout : this.navigationLayout;
+        
+        actionBar.navigationContent = (content) ? content : this.navigationContent;
+        actionBar.navigationLayout = navigationLayout;
+        
+        content = pendingView.actionContent;
+        contentLayout = (pendingView.actionLayout) ? pendingView.actionLayout : this.actionLayout;
+        
+        actionBar.actionContent = (content) ? content : this.actionContent;
+        actionBar.actionLayout = actionLayout;
     }
     
     protected function transitionComplete(event:Event):void
