@@ -943,6 +943,18 @@ public class Window extends SkinnableContainer implements IWindow
      */
     override public function set visible(value:Boolean):void
     {
+        setVisible(value);
+    }
+    
+    /**
+     *  @private
+     *  We override setVisible because there's the flash display object concept 
+     *  of visibility and also the nativeWindow concept of visibility.
+     */
+    override public function setVisible(value:Boolean,
+                               noEvent:Boolean = false):void
+    {
+        // first handle the native window stuff
         if (!_nativeWindow)
         {
             _nativeWindowVisible = value;
@@ -950,27 +962,22 @@ public class Window extends SkinnableContainer implements IWindow
         }
         else if (!_nativeWindow.closed)
         {
-            var e:FlexEvent;
             if (value)
             {
                 _nativeWindow.visible = value;
-                e = new FlexEvent(FlexEvent.SHOW);
-                dispatchEvent(e);
             }
             else
             {
-                e = new FlexEvent(FlexEvent.HIDE);
-                if (getStyle("hideEffect"))
-                {
+                // in the conditions below we will play an effect
+                if (getStyle("hideEffect") && initialized && $visible != value)
                     addEventListener(EffectEvent.EFFECT_END, hideEffectEndHandler);
-                }
                 else
-                {
                     _nativeWindow.visible = value;
-                }
-                dispatchEvent(e);
             }
         }
+        
+        // now call super.setVisible
+        super.setVisible(value, noEvent);
     }
     
     //----------------------------------
