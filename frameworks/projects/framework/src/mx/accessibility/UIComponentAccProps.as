@@ -15,9 +15,9 @@ package mx.accessibility
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityProperties;
 import flash.events.Event;
+import flash.system.ApplicationDomain;
+
 import mx.accessibility.AccImpl;
-import mx.controls.FormItemLabel;
-import mx.controls.scrollClasses.ScrollBar;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -117,11 +117,15 @@ public class UIComponentAccProps extends AccessibilityProperties
                 shortcut = component.accessibilityProperties.shortcut;
         }
         
-        if (master is ScrollBar)
+        var scrollBarClass:Class = Class(AccImpl.getDefinition("mx.controls.scrollClasses.ScrollBar", master.moduleFactory));        
+        if (scrollBarClass && master is scrollBarClass)
         {
             silent = true;
+            return;
         }
-        else if (master is FormItemLabel)
+
+        var formItemLabelClass:Class = Class(AccImpl.getDefinition("mx.controls.FormItemLabel", master.moduleFactory));        
+        if (formItemLabelClass && master is formItemLabelClass)
         {
             name = AccImpl.getFormName(master);
             silent = true;
