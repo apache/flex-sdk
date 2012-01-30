@@ -42,7 +42,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  *
  *  @see spark.components.ToggleSwitch 
  */
@@ -58,7 +58,7 @@ public class ToggleSwitchSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      **/
     public function ToggleSwitchSkin()
     {
@@ -121,7 +121,7 @@ public class ToggleSwitchSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var layoutThumbWidth:Number;
     
@@ -130,7 +130,7 @@ public class ToggleSwitchSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var layoutThumbHeight:Number;
     
@@ -139,7 +139,7 @@ public class ToggleSwitchSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var layoutCornerEllipseSize:Number;
     
@@ -148,7 +148,7 @@ public class ToggleSwitchSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var layoutStrokeWeight:Number;
     
@@ -157,7 +157,7 @@ public class ToggleSwitchSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var layoutBorderSize:Number;
     
@@ -166,7 +166,7 @@ public class ToggleSwitchSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var layoutInnerPadding:Number;
     
@@ -175,7 +175,7 @@ public class ToggleSwitchSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var layoutOuterPadding:Number;
     
@@ -184,7 +184,7 @@ public class ToggleSwitchSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var layoutTextShadowOffset:Number;
     
@@ -194,7 +194,7 @@ public class ToggleSwitchSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var selectedLabelDisplay:LabelDisplayComponent;
     
@@ -204,7 +204,7 @@ public class ToggleSwitchSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var unselectedLabelDisplay:LabelDisplayComponent;
     
@@ -244,7 +244,7 @@ public class ToggleSwitchSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var thumb:IVisualElement;
     
@@ -253,7 +253,7 @@ public class ToggleSwitchSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var track:IVisualElement;
     
@@ -324,7 +324,7 @@ public class ToggleSwitchSkin extends MobileSkin
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected function get selectedLabel():String 
     {
@@ -347,7 +347,7 @@ public class ToggleSwitchSkin extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected function get unselectedLabel():String 
     {
