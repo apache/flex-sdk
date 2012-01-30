@@ -41,6 +41,14 @@ public class DateSpinnerItemRenderer extends SpinnerListItemRenderer
 	{
 		super();
 	}
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+
+    private var _colorName:String = "color";
 	
 	//--------------------------------------------------------------------------
 	//
@@ -64,32 +72,50 @@ public class DateSpinnerItemRenderer extends SpinnerListItemRenderer
 		
 		return result;
 	}
-	
+    
 	//--------------------------------------------------------------------------
 	//
 	//  Overridden Methods
 	//
 	//--------------------------------------------------------------------------
-	
-	override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
-	{
-        var colorName:String = "color";
-        
+    
+    override public function set data(value:Object):void
+    {
+        super.data = value;
+
         try
         {
             if (data["_emphasized_"] != undefined)
-                colorName = "accentColor"; // highlighted item
+                _colorName = "accentColor"; // highlighted item
         }
         catch (e:Error)
         {
             // Do nothing
         }
         
-        labelDisplay.colorName = colorName;
-        labelDisplay.alpha = enabled ? 1 : .5;
-		
-		// We call the super at the end because it commits the labelDisplay styles. 
-		super.layoutContents(unscaledWidth, unscaledHeight);
-	}
+        setTextProperties();
+    }
+    
+    override protected function createChildren():void
+    {
+        super.createChildren();
+        
+        setTextProperties();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    private function setTextProperties():void
+    {
+        if (labelDisplay)
+        {
+            labelDisplay.colorName = _colorName;
+            labelDisplay.alpha = enabled ? 1 : .5;
+        }        
+    }
 }
 }
