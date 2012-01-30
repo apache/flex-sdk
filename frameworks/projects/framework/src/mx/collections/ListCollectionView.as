@@ -1284,6 +1284,12 @@ public class ListCollectionView extends Proxy
                     addItemsToView(event.items, event.location);
                 break;
 
+                case CollectionEventKind.MOVE:
+                    var n:int = event.items.length;
+                    for (var i:int = 0; i < n; i++)
+                        moveItemInView(event.items[i]);                        
+                break;
+                
                 case CollectionEventKind.RESET:
                     reset();
                 break;
