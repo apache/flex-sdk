@@ -30,10 +30,10 @@ import mx.core.IUIComponent;
 import mx.managers.ISystemManager;
 
 /**
- *  The PostScaleAdapter class is used as a compatibility layer for Flex3 classes that 
- *  rely on width, height, min, max, explicit, measured, etc. properties to be
- *  post-scale. This is useful since in Flex4 and going forward the properties are
- *  pre-scale.
+ *  The PostScaleAdapter class is used as a compatibility layer for Flex 3 classes that 
+ *  rely on width, height, min, max, explicit, measured, and other properties to be
+ *  determined after scaling is applied. 
+ *  This is useful since in Flex 4, the properties are calculated before scaling is applied.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -674,42 +674,25 @@ public class PostScaleAdapter implements IUIComponent,
     }
 
     
-	//--------------------------------------------------------------------------
-	//
-	//
+    //--------------------------------------------------------------------------
+    //
+    //
     // IFlexDisplayObject
-	//
-	//
-	//--------------------------------------------------------------------------
+    //
+    //
+    //--------------------------------------------------------------------------
     
     
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
 
-	//----------------------------------
-	//  measuredHeight
-	//----------------------------------
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-	public function get measuredHeight():Number
-	{
-	    return obj.measuredHeight * Math.abs(obj.scaleY);
-	}
-
-	//----------------------------------
-	//  measuredWidth
-	//----------------------------------
+    //----------------------------------
+    //  measuredHeight
+    //----------------------------------
 
     /**
      *  @inheritDoc
@@ -719,17 +702,14 @@ public class PostScaleAdapter implements IUIComponent,
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function get measuredWidth():Number
-	{
-	    return obj.measuredWidth * Math.abs(obj.scaleX);
-	}
+    public function get measuredHeight():Number
+    {
+        return obj.measuredHeight * Math.abs(obj.scaleY);
+    }
 
-
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //----------------------------------
+    //  measuredWidth
+    //----------------------------------
 
     /**
      *  @inheritDoc
@@ -739,10 +719,17 @@ public class PostScaleAdapter implements IUIComponent,
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function move(x:Number, y:Number):void
-	{
-	    obj.move(x, y);
-	}
+    public function get measuredWidth():Number
+    {
+        return obj.measuredWidth * Math.abs(obj.scaleX);
+    }
+
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  @inheritDoc
@@ -752,19 +739,32 @@ public class PostScaleAdapter implements IUIComponent,
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function setActualSize(newWidth:Number, newHeight:Number):void
-	{
-	    obj.setActualSize(newWidth / Math.abs(obj.scaleX), newHeight / Math.abs(obj.scaleY));
-	}
+    public function move(x:Number, y:Number):void
+    {
+        obj.move(x, y);
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function setActualSize(newWidth:Number, newHeight:Number):void
+    {
+        obj.setActualSize(newWidth / Math.abs(obj.scaleX), newHeight / Math.abs(obj.scaleY));
+    }
 
 
-	//--------------------------------------------------------------------------
-	//
-	//
+    //--------------------------------------------------------------------------
+    //
+    //
     // IDisplayObject
-	//
-	//
-	//--------------------------------------------------------------------------
+    //
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  @inheritDoc
@@ -1210,13 +1210,13 @@ public class PostScaleAdapter implements IUIComponent,
     }
     
 
-	//--------------------------------------------------------------------------
-	//
-	//
+    //--------------------------------------------------------------------------
+    //
+    //
     // IEventDispatcher
-	//
-	//
-	//--------------------------------------------------------------------------
+    //
+    //
+    //--------------------------------------------------------------------------
     
     
     public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
@@ -1242,13 +1242,13 @@ public class PostScaleAdapter implements IUIComponent,
     } 
 
 
-	//--------------------------------------------------------------------------
-	//
-	//
+    //--------------------------------------------------------------------------
+    //
+    //
     // IConstraintClient
-	//
-	//
-	//--------------------------------------------------------------------------
+    //
+    //
+    //--------------------------------------------------------------------------
 
     
     //--------------------------------------------------------------------------
@@ -1296,34 +1296,20 @@ public class PostScaleAdapter implements IUIComponent,
             throw new Error("PostScaleAdapter can't set constraint value, underlying object is not an IConstraintClient");
     }
     
-	//--------------------------------------------------------------------------
-	//
-	//
+    //--------------------------------------------------------------------------
+    //
+    //
     // IInvalidating
-	//
-	//
-	//--------------------------------------------------------------------------
+    //
+    //
+    //--------------------------------------------------------------------------
 
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-	public function invalidateProperties():void
-	{
-	    if (obj is IInvalidating)
-	        IInvalidating(obj).invalidateProperties();
-	}
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  @inheritDoc
@@ -1333,11 +1319,11 @@ public class PostScaleAdapter implements IUIComponent,
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function invalidateSize():void
-	{
-	    if (obj is IInvalidating)
-	        IInvalidating(obj).invalidateSize();
-	}
+    public function invalidateProperties():void
+    {
+        if (obj is IInvalidating)
+            IInvalidating(obj).invalidateProperties();
+    }
 
     /**
      *  @inheritDoc
@@ -1347,11 +1333,25 @@ public class PostScaleAdapter implements IUIComponent,
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function invalidateDisplayList():void
-	{
-	    if (obj is IInvalidating)
-	        IInvalidating(obj).invalidateDisplayList();
-	}
+    public function invalidateSize():void
+    {
+        if (obj is IInvalidating)
+            IInvalidating(obj).invalidateSize();
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function invalidateDisplayList():void
+    {
+        if (obj is IInvalidating)
+            IInvalidating(obj).invalidateDisplayList();
+    }
 
     /**
      *  @inheritDoc
