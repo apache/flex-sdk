@@ -638,7 +638,15 @@ public class StyleableTextField extends FlexTextField
     
     public function set editable(value:Boolean):void
     {
+        if (value == editable)
+            return;
+        
         type = value ? TextFieldType.INPUT : TextFieldType.DYNAMIC;
+        
+        // changing editability, changes size
+        invalidateTightTextHeight = true;
+        invalidateTextSizeFlag = true;
+        
         dispatchEvent(new Event("editableChanged"));
     }
     
@@ -950,7 +958,11 @@ public class StyleableTextField extends FlexTextField
      */
     public function setFocus():void
     {
-        stage.focus = this;
+        // if we already have the focus, no need to set it again.
+        // if we do indeed set it again, we might end up scrolling the 
+        // TextField when we don't want that to happen (SDK-29453)
+        if (stage.focus != this)
+            stage.focus = this;
         
         if (editable)
             requestSoftKeyboard();
