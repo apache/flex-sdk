@@ -19,6 +19,11 @@ package mx.validators
  *  property.
  *
  *  @see mx.validators.CreditCardValidator
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class CreditCardValidatorCardType
 {
@@ -32,26 +37,51 @@ public final class CreditCardValidatorCardType
 		
 	/**
 	 *  Specifies the card type as MasterCard.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const MASTER_CARD:String = "MasterCard"
 	
 	/**
 	 *  Specifies the card type as Visa.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const VISA:String = "Visa";
 	
 	/**
 	 *  Specifies the card type as American Express.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const AMERICAN_EXPRESS:String = "American Express";
 	
 	/**
 	 *  Specifies the card type as Discover.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const DISCOVER:String = "Discover";
 	
 	/**
 	 *  Specifies the card type as Diners Club.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const DINERS_CLUB:String = "Diners Club";
 }
