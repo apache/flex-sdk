@@ -160,7 +160,9 @@ public class ConstraintColumn extends EventDispatcher implements IMXMLObject
      */
     public function get maxWidth():Number
     {
-        return _explicitMaxWidth;
+        // Since ConstraintColumn doesn't have a measuredMaxWidth, we explictly return
+        // the default value of 10000 when no maxWidth is set.
+        return (!isNaN(_explicitMaxWidth)) ? _explicitMaxWidth : 10000;
     }
 
     /**
@@ -203,7 +205,9 @@ public class ConstraintColumn extends EventDispatcher implements IMXMLObject
      */
     public function get minWidth():Number
     {
-        return _explicitMinWidth;
+        // Since ConstraintColumn doesn't have a measuredMinWidth, we explictly return
+        // the default value of 0 when no minWidth is set.
+        return (!isNaN(_explicitMinWidth)) ? _explicitMinWidth : 0;
     }
 
     /**
