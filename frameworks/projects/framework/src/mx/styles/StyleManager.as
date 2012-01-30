@@ -178,35 +178,6 @@ public class StyleManager
     /**
      *  @private
      */
-    private static var _qualifiedTypeSelectors:Boolean = true;
-
-    /**
-     *  @private
-     *  Qualified type selectors were added in Flex 4 to support styling
-     *  components with the same local name, e.g. 'spark.components.Button'.
-     *  Prior to this type selectors were always unqualified class names  e.g.
-     *  'Button'. To ease migration of Flex 3 application, this property can
-     *  control whether CSS type selectors must be fully qualified class names
-     *  when the compatibility version is 4 or later.
-     */
-    [Deprecated(replacement="IStyleManager2.qualifiedTypeSelectors on a style manager instance",
-                since="4.0")]   
-    mx_internal static function get qualifiedTypeSelectors():Boolean
-    {
-        return impl.qualifiedTypeSelectors;
-    }
-    
-    /**
-     *  @private
-     */
-    mx_internal static function set qualifiedTypeSelectors(value:Boolean):void
-    {
-        impl.qualifiedTypeSelectors = value;
-    }
-
-    /**
-     *  @private
-     */
     [Deprecated(replacement="IStyleManager2.typeHierarchyCache on a style manager instance",
                 since="4.0")]   
     mx_internal static function get typeHierarchyCache():Object
@@ -261,62 +232,6 @@ public class StyleManager
     public static function get selectors():Array
     {
         return impl.selectors;
-    }
-
-    /**
-     *  @private 
-     *  Determines whether any of the selectors declared a pseudo selector
-     *  for the given state. This is used to avoid unnecessary style
-     *  regeneration between state changes.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    [Deprecated(replacement="IStyleManager2.hasPseudoCondition on a style manager instance",
-                since="4.0")]   
-    mx_internal static function hasPseudoCondition(value:String):Boolean
-    {
-        return impl.hasPseudoCondition(value);
-    }
-
-    /**
-     *  @private
-     *  Determines whether any of the selectors registered with the style
-     *  manager have been advanced selectors (descendant selector, id selector,
-     *  non-global class selector, or pseudo selector).
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    [Deprecated(replacement="IStyleManager2.hasAdvancedSelectors on a style manager instance",
-                since="4.0")]   
-    mx_internal static function hasAdvancedSelectors():Boolean
-    {
-        return impl.hasAdvancedSelectors();
-    }
-
-    /**
-     *  @private
-     *  Gets the list of style declarations for the given subject. The subject
-     *  is the right most simple type selector in a potential selector chain.
-     * 
-     *  @param subject The style subject.
-     *  @return Array of StyleDeclarations for this subject.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    [Deprecated(replacement="IStyleManager2.getStyleDeclarations on a style manager instance",
-                since="4.0")]   
-    mx_internal static function getStyleDeclarations(subject:String):Array
-    {
-        return impl.getStyleDeclarations(subject);
     }
 
     /**
