@@ -19,7 +19,6 @@ import flash.utils.getQualifiedClassName;
 import flash.utils.getQualifiedSuperclassName;
 
 import mx.core.FlexGlobals;
-import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
@@ -203,8 +202,7 @@ public class StyleProtoChain
             if (uicObject && uicObject.isPopUp)
             {
                 var owner:DisplayObjectContainer = uicObject._owner;
-                if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0 && 
-                    owner && owner is IStyleClient)
+                if (owner && owner is IStyleClient)
                 {
                     inheritChain = IStyleClient(owner).inheritingStyles;
                 }
