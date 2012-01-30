@@ -728,16 +728,18 @@ public class SystemManager extends MovieClip
      * 
      *  Returns 1.0 when there is no scaling.
      * 
-     *  @see spark.components.Application#authorDensity
+     *  @see spark.components.Application#applicationDPI
      *  @see mx.core.DensityUtil
+     * 
+     *  @private
      */
-    public function get densityScale():Number
+    mx_internal function get densityScale():Number
     {
         if (isNaN(_densityScale))
         {    
-            var authorDensity:String = info()["authorDensity"];
-            var deviceDensity:String = DensityUtil.screenDPIToDeviceDensity(flash.system.Capabilities.screenDPI);
-            _densityScale = DensityUtil.getDensityScale(authorDensity, deviceDensity);
+            var applicationDPI:int = info()["applicationDPI"];
+            var deviceDensity:int = DensityUtil.classifyDPI(flash.system.Capabilities.screenDPI);
+            _densityScale = DensityUtil.getDPIScale(applicationDPI, deviceDensity);
             if (isNaN(_densityScale))
                 _densityScale = 1;
         }
