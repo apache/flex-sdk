@@ -2565,7 +2565,8 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @private
-     *  Storage for the width property.
+     *  Storage for the width property. This should not be used to set the
+     *  width because it bypasses the mirroring transform in the setter.
      */
     mx_internal var _width:Number;
 
@@ -7609,6 +7610,8 @@ public class UIComponent extends FlexSprite
             if (_layoutFeatures == null)
                 initAdvancedLayoutFeatures();
             _layoutFeatures.mirror = mirror;
+            // width may have already been set
+            _layoutFeatures.layoutWidth = _width;
             invalidateTransform();
         }
         
@@ -9297,7 +9300,7 @@ public class UIComponent extends FlexSprite
         {
             _width = w;
 			if(_layoutFeatures)
-			{
+            {
 				_layoutFeatures.layoutWidth = w;  // for the mirror transform
 				invalidateTransform();
 			}			
