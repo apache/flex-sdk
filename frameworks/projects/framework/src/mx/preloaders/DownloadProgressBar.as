@@ -1436,7 +1436,7 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 
 		label = "RSL Error " + (event.rslIndex + 1) + " of " + event.rslTotal;
 		
-		var errorField:ErrorField = new ErrorField(this.parent);
+		var errorField:ErrorField = new ErrorField(this);
 		errorField.show(event.errorText);
 	}
 	
@@ -1531,6 +1531,7 @@ import flash.system.Capabilities;
 import flash.text.TextFieldAutoSize;
 import flash.display.DisplayObjectContainer;
 import flash.display.Stage;
+import mx.preloaders.DownloadProgressBar;
 
 
 	//--------------------------------------------------------------------------
@@ -1547,7 +1548,7 @@ import flash.display.Stage;
  */
 class ErrorField extends Sprite
 {
-    private var parentContainer:DisplayObjectContainer;
+    private var downloadProgressBar:DownloadProgressBar;
     private const MIN_WIDTH_INCHES:int = 2;                    // min width of error message in inches
     private const MAX_WIDTH_INCHES:int = 6;                    // max width of error message in inches
     private const TEXT_MARGIN_PX:int = 10;
@@ -1577,10 +1578,10 @@ class ErrorField extends Sprite
    * 
    * @param - parent - parent of the error field.
    */ 
-    public function ErrorField(parent:DisplayObjectContainer)
+    public function ErrorField(downloadProgressBar:DownloadProgressBar)
     {
     	super();
-        this.parentContainer = parent;
+        this.downloadProgressBar = downloadProgressBar;
     }
     
     
@@ -1594,7 +1595,8 @@ class ErrorField extends Sprite
     	if (errorText == null || errorText.length == 0)
     		return;
     		
-        var stage:Stage = parentContainer.stage;
+        var screenWidth:Number = downloadProgressBar.stageWidth;
+        var screenHeight:Number = downloadProgressBar.stageHeight;
         
         // create the text field for the message and 
         // add it to the parent.
@@ -1607,14 +1609,14 @@ class ErrorField extends Sprite
      	textField.defaultTextFormat = labelFormat;
         textField.text = errorText;
 
-        textField.width = Math.max(MIN_WIDTH_INCHES * Capabilities.screenDPI, stage.stageWidth - (TEXT_MARGIN_PX * 2));
+        textField.width = Math.max(MIN_WIDTH_INCHES * Capabilities.screenDPI, screenWidth - (TEXT_MARGIN_PX * 2));
         textField.width = Math.min(MAX_WIDTH_INCHES * Capabilities.screenDPI, textField.width);
-        textField.y = Math.max(0, stage.stageHeight - TEXT_MARGIN_PX - textField.height);
+        textField.y = Math.max(0, screenHeight - TEXT_MARGIN_PX - textField.height);
         
         // center field horizontally
-        textField.x = (stage.stageWidth - textField.width) / 2;
+        textField.x = (screenWidth - textField.width) / 2;
         
-        parentContainer.addChild(this);
+        downloadProgressBar.parent.addChild(this);
         this.addChild(textField);
                 
     }
