@@ -236,11 +236,12 @@ public interface IVisualElement extends ILayoutElement
     /**
      *  Defines a set of adjustments that can be applied to the object's 
      *  transform in a way that is invisible to its parent's layout. 
-     *  For example, if you want a layout to adjust for an object 
-     *  that will be rotated 90 degrees, you set the object's 
+     *  
+     *  <p>For example, if you want a layout to adjust for an object 
+     *  that is rotated 90 degrees, set the object's 
      *  <code>rotation</code> property. If you want the layout to <i>not</i> 
      *  adjust for the object being rotated, 
-     *  you set its <code>postLayoutTransformOffsets.rotationZ</code> property.
+     *  set its <code>postLayoutTransformOffsets.rotationZ</code> property.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -255,7 +256,8 @@ public interface IVisualElement extends ILayoutElement
     function set postLayoutTransformOffsets(value:TransformOffsets):void;
     
     /**
-     *  True, when the element is in 3D. The element can be in 3D either because
+     *  Contains <code>true</code>, when the element is in 3D. 
+     *  The element can be in 3D either because
      *  it has 3D transform properties or it has 3D post layout transform offsets or both.
      *
      *  @see #postLayoutTransformOffsets
