@@ -272,6 +272,8 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *
 	 *  The Rectangle object contains <code>x</code>, <code>y</code>,
 	 *  <code>width</code>, and <code>height</code> properties.
+     * 
+     *  The Rectangle is in sandbox root coordinates.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
