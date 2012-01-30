@@ -69,14 +69,18 @@ import mx.effects.EffectInstance;
 	/**
 	 *  Subclasses implement this method to save the starting state
 	 *  before the effect plays.
+	 *
+	 *  @return Returns the starting state value.
 	 */
 	protected function saveStartValue():*
 	{
 	}
 	
 	/**
-	 *  Used internally to retrieve the values saved by 
-	 *  the <code>saveStartValue()</code> method.
+	 *  Returns the starting state value that was saved by the
+	 *  <code>saveStartValue()</code> method.
+	 *
+	 *  @return Returns the starting state value.
 	 */
 	protected function getStartValue():*
 	{
