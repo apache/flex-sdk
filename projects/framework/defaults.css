@@ -83,8 +83,7 @@ global
     justificationStyle: "pushInKinsoku";
 	kerning: false;
 	leading: 2;
-    leadingBasis: "auto";
-    leadingDirection: "auto";
+    leadingModel: "auto";
     ligatureLevel: "common";
 	letterSpacing: 0;
     lineBreak: "toFit";
