@@ -15,6 +15,11 @@ package mx.core
 /**
  *  The IRepeater interface defines the APIs for Repeater
  *  public APIs of the Repeater object.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IRepeater
 {
@@ -31,6 +36,11 @@ public interface IRepeater
     /**
      *  The container that contains this Repeater,
 	 *  and in which it will create its children.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get container():IContainer;
 
@@ -44,6 +54,11 @@ public interface IRepeater
      *  <p>If the Repeater reaches the end of the data provider while
 	 *  executing, the number of times it actually executes will be less
 	 *  that the requested count.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get count():int;
     
@@ -72,6 +87,11 @@ public interface IRepeater
 	 *  @see mx.core.UIComponent#repeaterIndices
 	 *  @see mx.core.UIComponent#instanceIndex
 	 *  @see mx.core.UIComponent#instanceIndices
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get currentIndex():int;
 
@@ -90,6 +110,11 @@ public interface IRepeater
 	 *  <code>dataProvider</code> item from which it was created.</p>
 	 *
 	 *  @see mx.core.UIComponent#getRepeaterItem()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get currentItem():Object;
 
@@ -118,6 +143,11 @@ public interface IRepeater
      *
      *  <p>You must specify a value for the <code>dataProvider</code> property 
      *  or the Repeater component will not execute.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get dataProvider():Object;
     
@@ -154,6 +184,11 @@ public interface IRepeater
 	 *  For example, if the previously created children have state
 	 *  information such as text typed in by a user, then this
 	 *  state will not get reset when the children are recycled.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get recycleChildren():Boolean;
     
@@ -169,6 +204,11 @@ public interface IRepeater
     /**
      *  The index into the <code>dataProvider</code> at which this Repeater
      *  starts creating children.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get startingIndex():int;
     
@@ -194,6 +234,11 @@ public interface IRepeater
 	 *
      *  @param recurse A Boolean flag indicating whether this Repeater
 	 *  should create all descendants of its children.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function initializeRepeater(container:IContainer, recurse:Boolean):void;
         
@@ -203,6 +248,11 @@ public interface IRepeater
 	 *
 	 *  <p>This method is called by the Flex framework.
 	 *  Developers should not need to call it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function executeChildBindings():void;
 }
