@@ -128,7 +128,7 @@ public interface IFlexModuleFactory
      *
      *  @param domains One or more strings or URLRequest objects that name 
      *  the domains from which you want to allow access. 
-     *  You can specify the special domain "*" to allow access from all domains. 
+     *  You can specify the special domain "&#42;" to allow access from all domains. 
      *
      *  @see flash.system.Security#allowDomain()
      * 
@@ -150,7 +150,7 @@ public interface IFlexModuleFactory
      *
      *  @param domains One or more strings or URLRequest objects that name 
      *  the domains from which you want to allow access. 
-     *  You can specify the special domain "*" to allow access from all domains. 
+     *  You can specify the special domain "&#42;" to allow access from all domains. 
      *
      *  @see flash.system.Security#allowInsecureDomain()
      * 
