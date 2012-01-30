@@ -55,6 +55,11 @@ import mx.styles.ISimpleStyleClient;
  *  a new data and optional <code>listData</code> property.
  *  Therefore in your implementation you must make sure that component
  *  properties are not assumed to contain their initial, or default values.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IListItemRenderer extends IDataRenderer, IEventDispatcher,
 										   IFlexDisplayObject,
