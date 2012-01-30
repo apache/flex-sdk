@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2008 Adobe Systems Incorporated
+//  Copyright 2010 Adobe Systems Incorporated
 //  All Rights Reserved.
 //
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
@@ -16,14 +16,14 @@ import flash.events.Event;
 
 import spark.components.TextArea;
 import spark.components.supportClasses.MobileTextField;
-import spark.skins.MobileSkin;
+import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
  *  Actionscript based skin for mobile text input. 
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5 
  *  @productversion Flex 4.5
  */
  public class TextAreaSkin extends MobileSkin 
