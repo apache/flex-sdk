@@ -18,7 +18,7 @@
 	<property file="${FLEX_HOME}/build.properties"/>
 
     <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
-    <property name="local.playerglobal.version" value="10"/>
+    <property name="local.playerglobal.version" value="10.0"/>
 
 	<target name="main" depends="clean,compile" description="Clean build of flex.swc"/>
 
