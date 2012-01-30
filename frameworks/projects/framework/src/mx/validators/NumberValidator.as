@@ -17,6 +17,7 @@ import mx.managers.SystemManager;
 
 [ResourceBundle("validators")]
 
+[Alternative(replacement="spark.validators.NumberValidator", since="4.5")]
 /**
  *  The NumberValidator class ensures that a String represents a valid number.
  *  It can ensure that the input falls within a given range
