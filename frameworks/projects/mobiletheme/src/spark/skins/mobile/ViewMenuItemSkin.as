@@ -3,16 +3,16 @@ package spark.skins.mobile
 import flash.display.GradientType;
 import flash.display.Graphics;
 
-import mx.core.DeviceDensity;
+import mx.core.DPIClassification;
 import mx.core.mx_internal;
 
 import spark.skins.mobile.assets.ViewMenuItem_down;
 import spark.skins.mobile.assets.ViewMenuItem_showsCaret;
 import spark.skins.mobile.assets.ViewMenuItem_up;
+import spark.skins.mobile.supportClasses.ButtonSkinBase;
 import spark.skins.mobile320.assets.ViewMenuItem_down;
 import spark.skins.mobile320.assets.ViewMenuItem_showsCaret;
 import spark.skins.mobile320.assets.ViewMenuItem_up;
-import spark.skins.mobile.supportClasses.ButtonSkinBase;
 
 use namespace mx_internal;
 
@@ -25,9 +25,9 @@ public class ViewMenuItemSkin extends ButtonSkin
     {
         super();
         
-        switch (authorDensity)
+        switch (applicationDPI)
         {
-            case DeviceDensity.PPI_320:
+            case DPIClassification.DPI_320:
             {
                 
                 upBorderSkin = spark.skins.mobile320.assets.ViewMenuItem_up;
@@ -39,7 +39,7 @@ public class ViewMenuItemSkin extends ButtonSkin
                 
                 break;
             }
-            case DeviceDensity.PPI_240:
+            case DPIClassification.DPI_240:
             {   
                 upBorderSkin = spark.skins.mobile.assets.ViewMenuItem_up;
                 downBorderSkin = spark.skins.mobile.assets.ViewMenuItem_down;
