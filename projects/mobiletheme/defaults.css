@@ -227,7 +227,8 @@ SkinnableTextBase:disabledWithPrompt
 
 SpinnerList
 {
-	skinClass: ClassReference("spark.skins.mobile.SpinnerListSkin");    
+	skinClass: ClassReference("spark.skins.mobile.SpinnerListSkin");
+    fontSize : 27;
 }
 
 SpinnerListContainer
@@ -241,7 +242,7 @@ SpinnerListItemRenderer
 	paddingBottom : 18;
 	paddingLeft : 16;
 	paddingRight : 16;
-	fontSize : 27;
+	
 }
 
 SplitViewNavigator
@@ -446,13 +447,17 @@ global
         paddingTop: 16;
     }
     
+    SpinnerList
+    {
+        fontSize : 18;
+    }
+    
 	SpinnerListItemRenderer
 	{
 		paddingTop : 12;
 		paddingBottom : 12;
 		paddingLeft : 8;
 		paddingRight : 8;
-		fontSize : 18;
 	}
 	
     TextArea
@@ -545,13 +550,17 @@ global
         paddingTop: 32;  
     }
     
+    SpinnerList
+    {
+        fontSize : 36;
+    }
+    
 	SpinnerListItemRenderer
 	{
 		paddingTop : 24;
 		paddingBottom : 24;
 		paddingLeft : 24;
 		paddingRight : 24;
-		fontSize : 36;
 	}
 	
     TextArea
