@@ -993,6 +993,7 @@ ListBase
 
 Menu
 {
+	backgroundAlpha: 1.0;
 	borderStyle: "menuBorder";
 	branchDisabledIcon: Embed(source="Assets.swf",symbol="MenuBranchDisabled");
 	branchIcon: Embed(source="Assets.swf",symbol="MenuBranchEnabled");
