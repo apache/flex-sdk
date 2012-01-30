@@ -637,16 +637,3 @@ global
         paddingRight: 3;
     }
 }
-
-@media (os-platform:"AND")
-{
-    TextArea
-    {
-        skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
-    }
-    
-    TextInput
-    {
-        skinClass: ClassReference("spark.skins.mobile.TextInputSkin");
-    }
-}
