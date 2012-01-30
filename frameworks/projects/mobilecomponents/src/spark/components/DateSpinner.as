@@ -611,7 +611,7 @@ public class DateSpinner extends SkinnableComponent
      *  DateSpinner. To modify the DateSpinner's date, get and modify the
      *  current selectedDate and then re-set the selectedDate.</p>
      *
-     *  @default Current date when the DateSpinner was instantiated.
+     *  @default Current date when the DateSpinner was instantiated
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
