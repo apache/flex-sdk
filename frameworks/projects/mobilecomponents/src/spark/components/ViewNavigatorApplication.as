@@ -13,6 +13,7 @@ package spark.components
 {
 import flash.events.Event;
 import flash.events.InvokeEvent;
+import flash.events.KeyboardEvent;
 import flash.events.StageOrientationEvent;
 import flash.net.registerClassAlias;
 
@@ -639,9 +640,9 @@ public class MobileApplication extends MobileApplicationBase
     /**
      *  @private
      */ 
-    override protected function backKeyHandler():void
+    override protected function backKeyHandler(event:KeyboardEvent):void
     {
-        super.backKeyHandler();
+        super.backKeyHandler(event);
         
         if (viewMenuOpen)
             viewMenuOpen = false;
