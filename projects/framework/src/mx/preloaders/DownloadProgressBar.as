@@ -1682,9 +1682,16 @@ public class DownloadProgressBar extends Sprite implements IPreloaderDisplay
 	}
 	
 	/**
-	 *  @private
+     *  Event listener for the <code>FlexEvent.INIT_COMPLETE</code> event. 
+     *
+     *  @param event The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
 	 */
-	private function initCompleteHandler(event:Event):void
+	protected function initCompleteHandler(event:Event):void
 	{
 		var elapsedTime:int = getTimer() - _displayTime;
 		
