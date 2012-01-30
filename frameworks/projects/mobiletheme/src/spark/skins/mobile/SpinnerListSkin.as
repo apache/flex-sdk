@@ -182,7 +182,7 @@ public class SpinnerListSkin extends MobileSkin
 		if (styleProp != "color" && styleProp != "accentColor")
         {
             if (dataGroup)
-                dataGroup.resetTypicalLayoutElement();
+                dataGroup.invalidateTypicalItemRenderer();
         }
         
         super.styleChanged(styleProp);
