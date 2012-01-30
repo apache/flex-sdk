@@ -1922,7 +1922,6 @@ public class IconItemRenderer extends LabelItemRenderer
             // Use the old unscaledWidth width as an estimte for the new one.  
             // If we are wrong, we'll find out in updateDisplayList()
             
-            // FIXME (rfrishbe) in justify layout, we can guess better than this our first time around...
             var messageDisplayEstimatedWidth:Number = oldUnscaledWidth - paddingAndGapWidth - myIconWidth - decoratorWidth;
             
             setElementSize(messageDisplay, messageDisplayEstimatedWidth, NaN);
