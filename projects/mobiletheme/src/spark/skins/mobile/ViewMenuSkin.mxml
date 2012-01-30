@@ -34,7 +34,7 @@ in accordance with the terms of the license agreement accompanying it.
     
     <fx:Script fb:purpose="styling">
         <![CDATA[
-            import mx.core.DeviceDensity;
+            import mx.core.DPIClassification;
             import mx.core.FlexGlobals;
             import mx.core.IVisualElement;
             import mx.core.UIComponent;
@@ -54,24 +54,16 @@ in accordance with the terms of the license agreement accompanying it.
                 super.initializationComplete();
             }
                 
-            public function get authorDensity():String
+            public function get applicationDPI():int
             {
-                if ("authorDensity" in FlexGlobals.topLevelApplication)
-                {
-                    var value:String = FlexGlobals.topLevelApplication.authorDensity;
-                    
-                    if (value)
-                        return value;
-                }
-                
-                return DensityUtil.screenDPIToDeviceDensity(Capabilities.screenDPI);
+                return FlexGlobals.topLevelApplication.applicationDPI;
             }
             
             override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
             {
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
                 
-                var strokeWeight:Number = authorDensity == DeviceDensity.PPI_320 ? 2 : 1;
+                var strokeWeight:Number = (applicationDPI == DPIClassification.DPI_320) ? 2 : 1;
                 
                 dividerStroke.weight = strokeWeight;
                 background.top = strokeWeight;
