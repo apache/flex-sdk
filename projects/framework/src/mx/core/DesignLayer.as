@@ -38,7 +38,7 @@ package mx.core
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public class DesignLayer extends EventDispatcher
+    public class DesignLayer extends EventDispatcher implements IMXMLObject
     {
         //--------------------------------------------------------------------------
         //
@@ -399,6 +399,19 @@ package mx.core
                 layerChildren[index] : null;
         }
         
+        /**
+         *  @inheritDoc
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */
+        public function initialized(document:Object, id:String):void
+        {
+            this.id = id;
+        }
+
         /**
          *  Removes a DesignLayer child from this layer.
          *
