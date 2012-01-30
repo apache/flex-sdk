@@ -385,7 +385,6 @@ public class ToggleSwitchSkin extends MobileSkin
         drawMask(calculatedContentWidth, calculatedContentHeight);
         
         // simulate outer stroke using a larger filled rounded rect
-        graphics.clear();
         graphics.beginFill(0xffffff, 0.3);
         graphics.drawRoundRect(0, (calculatedContentHeight - layoutThumbHeight) / 2, 
             calculatedContentWidth + 2 * layoutBorderSize, 
