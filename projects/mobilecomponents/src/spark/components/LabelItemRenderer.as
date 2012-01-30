@@ -188,8 +188,7 @@ include "../styles/metadata/MobileTextFieldTextStyles.as"
  *  a field of the data item to display in the MobileTextField control.</p>
  *
  *  <p>To create a custom item renderer for use on mobile devices, 
- *  Adobe recommends that you use 
- *  spark.components.MobileIconItemRenderer or 
+ *  Adobe recommends that you 
  *  create a new ActionScript item renderer that extends 
  *  this class.</p>
  *
