@@ -30,7 +30,30 @@ use namespace mx_internal;
 [DefaultProperty("navigationStack")]
 
 /**
+ *  MobileApplication is an application class meant to provide a simple
+ *  framework for applications that employ a view-based navigation model.
+ *  When used, this class functions as the main entry point for the application
+ *  and provides support for hardware device keys, orientation detection and
+ *  application session persistence.
  * 
+ *  <p>A view=based navigation model is characterized by a user interface
+ *  where the end user navigates between a series of full screen views in
+ *  response to user interaction.  This is a paradigm commonly used by
+ *  mobile applications and is accomplished through the use of a built in
+ *  <code>ViewNavigator</code> that lives in the application's skin.</p>
+ * 
+ *  <p>The <code>firstView</code> property can be used to define
+ *  what View should be displayed first when the application is
+ *  initialized.</p>
+ * 
+ *  <p>Unlike Application, MobileApplication is not meant to accept
+ *  UIComponents has children.  Instead, all visual components should
+ *  children of the various views managed by the application.</p>
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class MobileApplication extends MobileApplicationBase
 {
@@ -90,6 +113,14 @@ public class MobileApplication extends MobileApplicationBase
     //  Constructor
     //
     //--------------------------------------------------------------------------
+    /**
+     *  Constructor.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function MobileApplication()
     {
         super();
@@ -118,6 +149,7 @@ public class MobileApplication extends MobileApplicationBase
     
     /**
      *  @private
+     *  Proxy setter for the view navigator's navigationStack property.
      */
     private function get navigationStack():NavigationStack
     {
@@ -164,6 +196,28 @@ public class MobileApplication extends MobileApplicationBase
     //--------------------------------------------------------------------------
     
     //----------------------------------
+    //  actionBar
+    //----------------------------------
+    
+    /**
+     *  Provides access to the main navigator's actionBar
+     *  if one exists.  This property will only be valid after the 
+     *  navigator has been added to the display list.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    public function get actionBar():ActionBar
+    {
+        if (navigator)
+            return navigator.actionBar;
+        
+        return null;
+    }
+    
+    //----------------------------------
     //  exitApplicationOnBackKey
     //----------------------------------
     /**
@@ -189,8 +243,17 @@ public class MobileApplication extends MobileApplicationBase
     private var _firstViewData:Object;
     
     /**
-     * This is the initialization data to pass to the
-     * root screen when it is created.
+     *  This is the initialization data to pass to the
+     *  first view when it is created.  This object will need to be set
+     *  before the first initialization pass for it to be considered
+     *  by the view navigator.
+     * 
+     *  @default null
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get firstViewData():Object
     {
@@ -215,8 +278,14 @@ public class MobileApplication extends MobileApplicationBase
     private var _firstView:Class;
     
     /**
-     *  This property is the object to use to initialize the first view
-     *  of the stack.
+     *  The class used to create the first view of the view navigator.
+     *  This property must be set before the first initialization pass
+     *  it to be considered by the application's navigator.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get firstView():Class
     {
@@ -243,10 +312,14 @@ public class MobileApplication extends MobileApplicationBase
     
     [ArrayElementType("mx.core.IVisualElement")]
     /**
-     *  Array of visual elements that are used as the ActionBar's
-     *  actionContent when this view is active.
+     *  The default array of visual elements that are used as the 
+     *  ActionBar's actionContent when the current view does not
+     *  define one.
      *
      *  @default null
+     * 
+     *  @see spark.components.View#actionContent
+     *  @see spark.components.ViewNavigator#actionContent
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -281,10 +354,14 @@ public class MobileApplication extends MobileApplicationBase
     //----------------------------------
     
     /**
-     *  Layout for the ActionBar's action content group.
+     *  The default layout to apply to the ActionBar's action content 
+     *  container when the current view does not define one.
      *
      *  @default null
      *  
+     *  @see spark.components.View#actionLayout
+     *  @see spark.components.ViewNavigator#actionLayout
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -317,14 +394,17 @@ public class MobileApplication extends MobileApplicationBase
     //  navigationContent
     //----------------------------------
     
-    
     [ArrayElementType("mx.core.IVisualElement")]
     /**
-     *  Array of visual elements that are used as the ActionBar's
-     *  navigationContent when this view is active.
+     *  The default array of visual elements that are used as the 
+     *  ActionBar's navigation content when the current view doesn't
+     *  define any.
      *
      *  @default null
      *  
+     *  @see spark.components.View#navigationContent
+     *  @see spark.components.ViewNavigator#navigationContent
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -358,10 +438,14 @@ public class MobileApplication extends MobileApplicationBase
     //----------------------------------
     
     /**
-     *  Layout for the ActionBar navigation content group.
+     *  The default layout for the ActionBar navigation content container
+     *  when the active view doesn't define one.
      *
      *  @default null
      *  
+     *  @see spark.components.View#navigationLayout
+     *  @see spark.components.ViewNavigator#navigationLayout
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -397,10 +481,13 @@ public class MobileApplication extends MobileApplicationBase
     [Bindable]
     /**
      *  The default title that should be used by the ActionBar if the
-     *  view doesn't provide one.
+     *  active view doesn't provide one.
      *
      *  @default null
      *  
+     *  @see spark.components.View#title
+     *  @see spark.components.ViewNavigator#title
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
@@ -435,11 +522,15 @@ public class MobileApplication extends MobileApplicationBase
     
     [ArrayElementType("mx.core.IVisualElement")]
     /**
-     *  Array of visual elements that are used as the ActionBar's
-     *  titleContent when this view is active.
+     *  The default array of visual elements that are used as the 
+     *  ActionBar's title content when the active view doesn't define
+     *  one.
      *
      *  @default null
      *  
+     *  @see spark.components.View#titleContent
+     *  @see spark.components.ViewNavigator#titleContent
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -473,9 +564,13 @@ public class MobileApplication extends MobileApplicationBase
     //----------------------------------
     
     /**
-     *  Layout for the ActionBar's titleContent group.
+     *  The default layout for the ActionBar's title content container
+     *  when the active view doesn't define one.
      *
      *  @default null
+     * 
+     *  @see spark.components.View#titleLayout
+     *  @see spark.components.ViewNavigator#titleLayout
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
