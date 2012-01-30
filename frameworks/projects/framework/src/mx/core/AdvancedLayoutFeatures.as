@@ -220,7 +220,7 @@ package mx.core
      */
 	public function get transformY():Number
 	{
-		return layout.transformX;
+		return layout.transformY;
 	}
 	
     /**
@@ -389,6 +389,7 @@ package mx.core
 		invalidate();
 	}
 	
+	
     /**
      * @private
      */
@@ -417,8 +418,7 @@ package mx.core
 	{
 		return layout.matrix3D;
 	}
-		
-
+	
 	/**
 	 * @private
 	 * returns true if the computed transform has 3D values.
