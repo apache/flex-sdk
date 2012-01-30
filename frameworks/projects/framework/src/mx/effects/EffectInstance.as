@@ -14,6 +14,7 @@ package mx.effects
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.events.IEventDispatcher;
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 import flash.utils.getQualifiedClassName;
@@ -579,7 +580,7 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
         
         dispatchEvent(new EffectEvent(EffectEvent.EFFECT_START, false, false, this));
         
-        if (target)
+        if (target && (target is IEventDispatcher))
 		{
             target.dispatchEvent(new EffectEvent(EffectEvent.EFFECT_START, false, false, this));
 		}
@@ -650,7 +651,7 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
         dispatchEvent(new EffectEvent(EffectEvent.EFFECT_END,
                                      false, false, this));
         
-        if (target)
+        if (target && (target is IEventDispatcher))
         {
             target.dispatchEvent(new EffectEvent(EffectEvent.EFFECT_END,
                                                  false, false, this));
