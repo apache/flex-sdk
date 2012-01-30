@@ -33,7 +33,7 @@
       
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-    alpha.disabledGroup="0.5" >
+    xmlns:fb="http://ns.adobe.com/fb/2009" alpha.disabledGroup="0.5" >
 
     <fx:Metadata>
       /**
@@ -47,7 +47,7 @@
       [HostComponent("Object")]
     </fx:Metadata>
 
-    <fx:Script>
+    <fx:Script fb:stylingSupport="true">
         /*  Define the skin elements that should not be colorized. 
          *  For WindowedApplication, border and status bar background are colorized,
          *  but the content area and status text are not. 
@@ -60,15 +60,30 @@
          * @productversion Flex 4 
          */
         static private const exclusions:Array = ["backgroundRect", "contentGroup", "statusText"];
+        
         /**
-         *  @inheritDoc
-         * 
-         * @langversion 3.0
-         * @playerversion Flash 10
-         * @playerversion AIR 1.5
-         * @productversion Flex 4 
+         * @private
          */
         override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        } 
+        
+        /**
+         *  @private
+         */
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
+        {
+            backgroundFill.color = getStyle("backgroundColor");
+            backgroundFill.alpha = getStyle("backgroundAlpha");
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
     </fx:Script>
     
      <s:states>
@@ -83,7 +98,7 @@
     <s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0" >
         <s:fill>
             <!--- @private -->
-            <s:SolidColor color="{getStyle('backgroundColor')}" alpha="{getStyle('backgroundAlpha')}" />
+            <s:SolidColor id="backgroundFill" />
         </s:fill>
     </s:Rect>
 
