@@ -103,7 +103,6 @@ package mx.core
         private var _parent:DesignLayer;
         
         /**
-         *  @private
          *  This layer's parent layer. 
          *  
          *  @default null
@@ -113,15 +112,24 @@ package mx.core
          *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
-        protected function get parent():DesignLayer
+        public function get parent():DesignLayer
         {
             return _parent;
         }
         
         /**
          *  @private
+         *  Called when a DesignLayer instance is added to or removed from a parent.
+         *  Developers typically never need to call this method.
+         *
+         *  @param p The new parent layer of this DesignLayer instance.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
          */
-        protected function set parent(value:DesignLayer):void
+        protected function parentChanged(value:DesignLayer):void
         {
             _parent = value;
             effectiveVisibilityChanged(_visible);
@@ -150,7 +158,7 @@ package mx.core
          *  The visibility for this design layer instance.
          *
          *  <p>When updated, the appropriate change event for <code>effectiveVisibility</code> 
-         *  will be dispatched to all <code>layerPropertyChange</code> listeners for 
+         *  will be dispatched to all <code>layerPropertyChange<code> listeners for 
          *  this layer, as well as those of affected descendant layers if any.</p>
          *
          *  @default true
@@ -351,7 +359,7 @@ package mx.core
          */
         public function addLayer(value:DesignLayer):void
         {
-            value.parent = this;
+            value.parentChanged(this);
             layerChildren.push(value);
         }
         
