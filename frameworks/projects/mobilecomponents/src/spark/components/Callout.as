@@ -261,7 +261,7 @@ public class Callout extends SkinnablePopUpContainer
      * 
      *  <p>Update this property in <code>commitProperties()</code> when the
      *  explicit <code>horizontalPosition</code> is CalloutPosition.AUTO. 
-     *  This property must be updated in <code>positionPopUp()</code>
+     *  This property must be updated in <code>updatePopUpPosition()</code>
      *  when attempting to reposition the Callout.</p> 
      *  
      *  <p>Subclasses should read this property when computing the <code>arrowDirection</code>,
@@ -338,7 +338,7 @@ public class Callout extends SkinnablePopUpContainer
      * 
      *  <p>Update this property in <code>commitProperties()</code> when the
      *  explicit <code>verticalPosition</code> is CalloutPosition.AUTO. 
-     *  This property must be updated in <code>positionPopUp()</code>
+     *  This property must be updated in <code>updatePopUpPosition()</code>
      *  when attempting to reposition the Callout.</p> 
      *  
      *  <p>Subclasses should read this property when computing the <code>arrowDirection</code>,
@@ -415,6 +415,34 @@ public class Callout extends SkinnablePopUpContainer
         // skin must override commitProperties() and account for
         // arrowDirection on it's own.
         skin.invalidateProperties();
+        
+        // adjust margins based on arrow direction
+        if (popUpTransition)
+        {
+            switch (arrowDirection)
+            {
+                case ArrowDirection.DOWN:
+                {
+                    // set the marginBottom to zero to place the arrow adjacent to the keyboard
+                    popUpTransition.marginBottom = 0;
+                    popUpTransition.marginTop = margin;
+                    break;
+                }
+                case ArrowDirection.UP:
+                {
+                    // disable moving when the arrow points up
+                    popUpTransition.moveForSoftKeyboard = false;
+                    popUpTransition.marginBottom = margin;
+                    break;
+                }
+                default:
+                {
+                    popUpTransition.marginBottom = margin;
+                    popUpTransition.marginTop = margin;
+                    break;
+                }
+            }
+        }
         
         if (hasEventListener("arrowDirectionChanged"))
             dispatchEvent(new Event("arrowDirectionChanged"));
@@ -511,7 +539,7 @@ public class Callout extends SkinnablePopUpContainer
                 validateNow();
 
                 // Reposition once the Callout has been resized
-                positionPopUp();
+                updatePopUpPosition();
                 
                 invalidatePositionFlag = false;
             }
@@ -524,8 +552,11 @@ public class Callout extends SkinnablePopUpContainer
     /**
      * @private
      */
-    override protected function positionPopUp():void
+    override public function updatePopUpPosition():void
     {
+        if (!owner)
+            return;
+        
         var popUpPoint:Point = calculatePopUpPosition();
         var ownerComponent:UIComponent = owner as UIComponent;
         var concatenatedColorTransform:ColorTransform = 
@@ -568,7 +599,7 @@ public class Callout extends SkinnablePopUpContainer
         if (isOpen)
             return;
 
-        // Add to PopUpManager, calls positionPopUp(), and change state
+        // Add to PopUpManager, calls updatePopUpPosition(), and change state
         super.open(owner, modal);
         
         // Reposition the callout when the screen changes
@@ -979,7 +1010,7 @@ public class Callout extends SkinnablePopUpContainer
      *  Callout, use <code>actualHorizontalPosition</code> and
      *  <code>actualVerticalPosition</code> to compute
      *  <code>arrowDirection</code> and positioning in
-     *  <code>positionPopUp()</code> and <code>updateSkinDisplayList()</code>.
+     *  <code>updatePopUpPosition()</code> and <code>updateSkinDisplayList()</code>.
      *
      *  <p>The default implementation chooses "outer" positions for the callout
      *  such that the owner is not obscured. Horizontal/Vertical orientation
