@@ -790,6 +790,11 @@ public class StyleableTextField extends TextField
     override public function appendText(text:String):void
     {
         super.appendText(text);
+		
+		// Make sure insertion point is at the end of the text
+		var textLength:int = this.text.length;
+		setSelection(textLength, textLength);
+		
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         invalidateTextSizeFlag = true;
 		invalidateTightTextHeight = true;
