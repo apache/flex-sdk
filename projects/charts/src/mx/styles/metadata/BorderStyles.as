@@ -1,26 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
-//
-//  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2005-2007 Adobe Systems Incorporated
-//  All Rights Reserved.
-//
-//  NOTICE: Adobe permits you to use, modify, and distribute this file
-//  in accordance with the terms of the license agreement accompanying it.
-//
-////////////////////////////////////////////////////////////////////////////////
 
-/**
- *  Background color of the component when it is disabled.
- *  The global default value is <code>undefined</code>.
- *  The default value for List controls is <code>0xDDDDDD</code> (light gray).
- *  If a container is disabled, the background is dimmed, and the degree of
- *  dimming is controlled by the <code>disabledOverlayAlpha</code> style.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
 [Style(name="backgroundDisabledColor", type="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
