@@ -16,19 +16,26 @@ import flash.events.Event;
 import flash.geom.Point;
 
 /**
- *  Represents event objects that are involved with touch scrolling.
+ *  GestureCaptureEvents are used to coordinate gestures recognition and response 
+ *  among different components.  
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class TouchScrollEvent extends Event
+public class GestureCaptureEvent extends Event
 {
     
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+    
     /**
-     *  The <code>TouchScrollEvent.TOUCH_SCROLL_STARTING</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>touchScrollStarting</code> event.
+     *  The <code>GestureCaptureEvent.GESTURE_CAPTURE_STARTING</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>gestureCaptureStarting</code> event.
      *
      *	<p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -39,26 +46,28 @@ public class TouchScrollEvent extends Event
      *       event listener that handles the event. For example, if you use
      *       <code>myButton.addEventListener()</code> to register an event listener,
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>scrollingObject</code></td><td>The object that owns this particular 
-     *       scroll gesture</td></tr>
+     *     <tr><td><code>reason</code></td><td>The reason for the gesture capture event.  See 
+     *       <code>mx.events.GestureCaptureReason</code>.</td></tr>
+     *     <tr><td><code>relatedObject</code></td><td>The object associated with this gesture capture event.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
      *       it is not always the Object listening for the event.
      *       Use the <code>currentTarget</code> property to always access the
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType touchScrollStarting
+     *  @eventType gestureCaptureStarting
+     *  @see mx.events.GestureCaptureReason
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public static const TOUCH_SCROLL_STARTING:String = "touchScrollStarting";
+    public static const GESTURE_CAPTURE_STARTING:String = "gestureCaptureStarting";
     
     /**
-     *  The <code>TouchScrollEvent.TOUCH_SCROLL_START</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>touchScrollStart</code> event.
+     *  The <code>GestureCaptureEvent.GESTURE_CAPTURE_START</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>gestureCaptureStart</code> event.
      *
      *	<p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -69,26 +78,28 @@ public class TouchScrollEvent extends Event
      *       event listener that handles the event. For example, if you use
      *       <code>myButton.addEventListener()</code> to register an event listener,
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>scrollingObject</code></td><td>The object that owns this particular 
-     *       scroll gesture</td></tr>
+     *     <tr><td><code>reason</code></td><td>The reason for the gesture capture event.  See 
+     *       <code>mx.events.GestureCaptureReason</code>.</td></tr>
+     *     <tr><td><code>relatedObject</code></td><td>The object associated with this gesture capture event.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
      *       it is not always the Object listening for the event.
      *       Use the <code>currentTarget</code> property to always access the
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType touchScrollStart
+     *  @eventType gestureCaptureStart
+     *  @see mx.events.GestureCaptureReason
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public static const TOUCH_SCROLL_START:String = "touchScrollStart";
+    public static const GESTURE_CAPTURE_START:String = "gestureCaptureStart";
     
     /**
-     *  The <code>TouchScrollEvent.TOUCH_SCROLL_DRAG</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>touchScrollDrag</code> event.
+     *  The <code>GestureCaptureEvent.GESTURE_CAPTURE_END</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>gestureCaptureEnd</code> event.
      *
      *	<p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -99,94 +110,30 @@ public class TouchScrollEvent extends Event
      *       event listener that handles the event. For example, if you use
      *       <code>myButton.addEventListener()</code> to register an event listener,
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>dragX</code></td><td>The number of pixels dragged in the x-axis since the 
-     *       gesture has started</td></tr>
-     *     <tr><td><code>dragY</code></td><td>The number of pixels dragged in the y-axis since the 
-     *       gesture has started</td></tr>
-     *     <tr><td><code>scrollingObject</code></td><td>The object that owns this particular 
-     *       scroll gesture</td></tr>
+     *     <tr><td><code>reason</code></td><td>The reason for the gesture capture event.  See 
+     *       <code>mx.events.GestureCaptureReason</code>.</td></tr>
+     *     <tr><td><code>relatedObject</code></td><td>The object associated with this gesture capture event.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
      *       it is not always the Object listening for the event.
      *       Use the <code>currentTarget</code> property to always access the
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType touchScrollDrag
+     *  @eventType gestureCaptureEnd
+     *  @see mx.events.GestureCaptureReason
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public static const TOUCH_SCROLL_DRAG:String = "touchScrollDrag";
+    public static const GESTURE_CAPTURE_END:String = "gestureCaptureEnd";
     
-    /**
-     *  The <code>TouchScrollEvent.TOUCH_SCROLL_THROW</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>touchScrollThrow</code> event.
-     *
-     *	<p>The properties of the event object have the following values:</p>
-     *  <table class="innertable">
-     *     <tr><th>Property</th><th>Value</th></tr>
-     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
-     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
-     *       event listener that handles the event. For example, if you use
-     *       <code>myButton.addEventListener()</code> to register an event listener,
-     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>scrollingObject</code></td><td>The object that owns this particular 
-     *       scroll gesture</td></tr>
-     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
-     *       it is not always the Object listening for the event.
-     *       Use the <code>currentTarget</code> property to always access the
-     *       Object listening for the event.</td></tr>
-     *     <tr><td><code>velocityX</code></td><td>The velocity (pixels/msec) the user threw the list 
-     *       in the x-axis</td></tr>
-     *     <tr><td><code>velocityY</code></td><td>The velocity (pixels/msec) the user threw the list 
-     *       in the y-axis</td></tr>
-     *  </table>
-     *
-     *  @eventType touchScrollThrow
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public static const TOUCH_SCROLL_THROW:String = "touchScrollThrow";
-    
-    // FIXME (rfrishbe): Make this public and document it or make it internal
-    public static const TOUCH_SCROLL_THROW_ANIMATION_END:String = "touchScrollThrowAnimationEnd";
-    
-    /**
-     *  The <code>TouchScrollEvent.TOUCH_SCROLL_END</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>touchScrollEnd</code> event.
-     *
-     *	<p>The properties of the event object have the following values:</p>
-     *  <table class="innertable">
-     *     <tr><th>Property</th><th>Value</th></tr>
-     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
-     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
-     *       event listener that handles the event. For example, if you use
-     *       <code>myButton.addEventListener()</code> to register an event listener,
-     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>scrollingObject</code></td><td>The object that owns this particular 
-     *       scroll gesture</td></tr>
-     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
-     *       it is not always the Object listening for the event.
-     *       Use the <code>currentTarget</code> property to always access the
-     *       Object listening for the event.</td></tr>
-     *  </table>
-     *
-     *  @eventType touchScrollStart
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public static const TOUCH_SCROLL_END:String = "touchScrollEnd";
-    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
     
     /**
      *  Constructor.
@@ -204,99 +151,63 @@ public class TouchScrollEvent extends Event
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function TouchScrollEvent(type:String, bubbles:Boolean = false,
-                                     cancelable:Boolean = false)
+    public function GestureCaptureEvent(type:String, bubbles:Boolean = false,
+                                        cancelable:Boolean = false)
     {
         super(type, bubbles, cancelable);
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
     //----------------------------------
-    //  dragX
+    //  reason
     //----------------------------------
     
     /**
-     *  The number of pixels dragged in the x-axis since the 
-     *  gesture has started
+     *  The reason for this geture capture event.
+     * 
+     *  @see mx.events.GestureCaptureReason
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var dragX:Number;
+    public var reason:String;
     
     //----------------------------------
-    //  dragY
+    //  relatedObject
     //----------------------------------
     
     /**
-     *  The number of pixels dragged in the y-axis since the 
-     *  gesture has started
+     *  The object attempting to capture this user gesture.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var dragY:Number;
+    public var relatedObject:Object;
     
-    //----------------------------------
-    //  scrollingObject
-    //----------------------------------
-    
-    /**
-     *  The object that owns this particular 
-     *  scroll gesture
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var scrollingObject:DisplayObject;
-    
-    //----------------------------------
-    //  velocityX
-    //----------------------------------
-    
-    /**
-     *  The velocity (pixels/msec) the user threw the list 
-     *  in the x-axis
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var velocityX:Number;
-    
-    //----------------------------------
-    //  velocityY
-    //----------------------------------
-    
-    /**
-     *  The velocity (pixels/msec) the user threw the list 
-     *  in the y-axis
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var velocityY:Number;
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Methods
+    //
+    //--------------------------------------------------------------------------
     
     /**
      *  @private
      */
     override public function clone():Event
     {
-        var clonedEvent:TouchScrollEvent = new TouchScrollEvent(type, bubbles, cancelable);
+        var clonedEvent:GestureCaptureEvent = new GestureCaptureEvent(type, bubbles, cancelable);
         
-        clonedEvent.dragX = dragX;
-        clonedEvent.dragY = dragY;
-        clonedEvent.velocityX = velocityX;
-        clonedEvent.velocityY = velocityY;
-        clonedEvent.scrollingObject = scrollingObject;
+        clonedEvent.reason = reason;
+        clonedEvent.relatedObject = relatedObject;
         
         return clonedEvent;
     }
