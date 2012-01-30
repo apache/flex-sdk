@@ -508,6 +508,63 @@ package mx.core
 		invalidate();		
 	}
 	
+    //----------------------------------
+    //  layoutWidth
+    //----------------------------------
+
+    private var _layoutWidth:Number;
+    
+    /**
+     *  @default 0
+     */
+    public function get layoutWidth():Number
+    {
+        return _layoutWidth;
+    }
+
+    /**
+     *  @private
+     */
+    public function set layoutWidth(value:Number):void
+    {
+        if (value == _layoutWidth)
+            return;
+        _layoutWidth = value;
+        invalidate();
+    }
+    
+    //----------------------------------
+    //  mirror
+    //----------------------------------
+
+    private var _mirror:Boolean;
+    
+    /**
+     *  If true the X axis is scaled by -1 and the x coordinate of the origin
+     *  is translated by the component's width.  
+     * 
+     *  The net effect of this "mirror" transform is to flip the direction 
+     *  that the X axis increases in without changing the layout element's 
+     *  location relative to the parent's origin.
+     * 
+     *  @default false
+     */
+    public function get mirror():Boolean
+    {
+        return _mirror;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set mirror(value:Boolean):void
+    {
+        if (value == _mirror)
+            return;         
+        _mirror = value;
+        invalidate();
+    }
+	
 	//------------------------------------------------------------------------------
 	
 	/**
@@ -539,7 +596,7 @@ package mx.core
 		if(_flags & COMPUTED_MATRIX_VALID)
 			return _computedMatrix;
 	
-		if(offsets == null)
+		if(!offsets && !mirror)
 		{
 			return layout.matrix;
 		}			
@@ -549,12 +606,32 @@ package mx.core
 			m = _computedMatrix = new Matrix();
 		else
 			m.identity();
-
-			build2DMatrix(m,layout.transformX,layout.transformY,
-						  layout.scaleX * offsets.scaleX,layout.scaleY * offsets.scaleY,
-						  layout.rotationZ + offsets.rotationZ,
-						  layout.x + offsets.x,layout.y + offsets.y);					
-	
+			
+        var tx:Number = layout.transformX;
+        var ty:Number = layout.transformY;
+        var sx:Number = layout.scaleX;
+        var sy:Number = layout.scaleY;
+        var rz:Number = layout.rotationZ;
+        var x:Number = layout.x;
+        var y:Number = layout.y;
+        
+        if (mirror)
+        {
+            sx *= -1;
+            x += layoutWidth;
+        }
+        
+        if (offsets)
+        {
+            sx *= offsets.scaleX;
+            sy *= offsets.scaleY;
+            rz += offsets.rotationZ;
+            x += offsets.x;
+            y += offsets.y;
+        }
+        
+        build2DMatrix(m, tx, ty, sx, sy, rz, x, y);
+        
 		_flags |= COMPUTED_MATRIX_VALID;
 		return m;
 	}
@@ -573,7 +650,7 @@ package mx.core
 			return _computedMatrix3D;
 	
 	
-		if(offsets == null)
+		if(!offsets && !mirror)
 		{
 			return layout.matrix3D;
 		}
@@ -583,13 +660,41 @@ package mx.core
 			m = _computedMatrix3D = new Matrix3D();
 		else
 			m.identity();
-	
-	
-		build3DMatrix(m,layout.transformX,layout.transformY,layout.transformZ,					  
-				  layout.scaleX*offsets.scaleX,layout.scaleY*offsets.scaleY,layout.scaleZ*offsets.scaleZ,
-				  layout.rotationX+offsets.rotationX,layout.rotationY+offsets.rotationY,layout.rotationZ+offsets.rotationZ,
-				  layout.x+offsets.x,layout.y+offsets.y,layout.z+offsets.z);
-	
+			
+        var tx:Number = layout.transformX;
+        var ty:Number = layout.transformY;
+        var tz:Number = layout.transformZ;
+        var sx:Number = layout.scaleX;
+        var sy:Number = layout.scaleY;
+        var sz:Number = layout.scaleZ;
+        var rx:Number = layout.rotationX;
+        var ry:Number = layout.rotationY;
+        var rz:Number = layout.rotationZ;
+        var x:Number = layout.x;
+        var y:Number = layout.y;
+        var z:Number = layout.z;
+        
+        if (mirror)
+        {
+            sx *= -1;
+            x += layoutWidth;
+        }
+        
+        if (offsets)
+        {
+            sx *= offsets.scaleX;
+            sy *= offsets.scaleY;
+            sz *= offsets.scaleZ;
+            rx += offsets.rotationX;
+            ry += offsets.rotationY;
+            rz += offsets.rotationZ;
+            x += offsets.x;
+            y += offsets.y;
+            z += offsets.z;
+        }
+			
+		build3DMatrix(m, tx, ty, tz, sx, sy, sz, rx, ry, rz, x, y, z);	
+
 		_flags |= COMPUTED_MATRIX3D_VALID;
 		return m;			
 	}
