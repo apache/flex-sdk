@@ -170,7 +170,11 @@ public class AccImpl extends AccessibilityImplementation
         // Accessible name if it exists, else label text.
         var f:String = "";
         if (formItem.accessibilityProperties)
+        {
             f = formItem.accessibilityProperties.name
+            if (formItem.itemLabel && formItem.itemLabel.accessibilityEnabled)
+                formItem.itemLabel.accessibilityEnabled = false;
+        }
         if (f == "")
             f = formItem.label;
             
