@@ -13,30 +13,24 @@ package mx.managers
 {
 
 import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
-import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
+import flash.geom.Matrix;
 import flash.geom.Point;
-import flash.system.ApplicationDomain;
 
 import mx.core.DragSource;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
-import mx.effects.EffectInstance;
-import mx.effects.Move;
-import mx.effects.Zoom;
 import mx.events.DragEvent;
 import mx.events.Request;
-import mx.managers.ISystemManager;
 import mx.managers.dragClasses.DragProxy;
-import mx.managers.SystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
+import mx.utils.MatrixUtil;
 
 use namespace mx_internal;
 
@@ -311,7 +305,22 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 
 		dragProxy.allowMove = allowMove;
 		
-		var nonNullTarget:Object = mouseEvent.target;
+        // Make sure any scale/rotation from the initiator will be reflected.
+        var concatenatedMatrix:Matrix = MatrixUtil.getConcatenatedMatrix(DisplayObject(dragInitiator));
+        // Zero out the translation part of the matrix, as we're going to 
+        // position the dragProxy explicitly further below.
+        concatenatedMatrix.tx = 0;
+        concatenatedMatrix.ty = 0;
+        // Combine with the matrix of the dragImage if it has any.
+        var m:Matrix = dragImage.transform.matrix;
+        if (m)
+        {
+            concatenatedMatrix.concat(dragImage.transform.matrix);
+            dragImage.transform.matrix = concatenatedMatrix;
+        }
+        
+        // Find mouse coordinates in global space
+        var nonNullTarget:Object = mouseEvent.target;
 		if (nonNullTarget == null)
 			nonNullTarget = dragInitiator;
 		
@@ -321,16 +330,17 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 		var mouseX:Number = point.x;
 		var mouseY:Number = point.y;
 
-		// Set dragProxy.offset to the mouse offset within the drag proxy.
-		var proxyOrigin:Point = DisplayObject(nonNullTarget).localToGlobal(
-						new Point(mouseEvent.localX, mouseEvent.localY));
-		proxyOrigin = DisplayObject(dragInitiator).globalToLocal(proxyOrigin);
-		dragProxy.xOffset = proxyOrigin.x + xOffset;
-		dragProxy.yOffset = proxyOrigin.y + yOffset;
-		
-		// Call onMouseMove to setup initial position of drag proxy and cursor.
-		dragProxy.x = mouseX - dragProxy.xOffset;
-		dragProxy.y = mouseY - dragProxy.yOffset;
+        // Find the proxy origin in global space
+        var proxyOrigin:Point = DisplayObject(dragInitiator).localToGlobal(new Point(-xOffset, -yOffset));
+        proxyOrigin = DisplayObject(sandboxRoot).globalToLocal(proxyOrigin);
+        
+        // Set dragProxy.offset to the mouse offset within the drag proxy.
+        dragProxy.xOffset = mouseX - proxyOrigin.x;
+        dragProxy.yOffset = mouseY - proxyOrigin.y;
+        
+        // Setup the initial position of the drag proxy.
+        dragProxy.x = proxyOrigin.x;
+        dragProxy.y = proxyOrigin.y;
 		
 		// Remember the starting location of the drag proxy so it can be
 		// "snapped" back if the drop was refused.
