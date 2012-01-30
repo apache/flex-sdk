@@ -111,7 +111,7 @@ public class BaseListData extends EventDispatcher
     //  columnIndex
     //----------------------------------
 
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
      *  The index of the column of the List-based control relative 
@@ -129,7 +129,7 @@ public class BaseListData extends EventDispatcher
     //  label
     //----------------------------------
 
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
      *  The textual representation of the item data, based on the list class's
@@ -146,7 +146,7 @@ public class BaseListData extends EventDispatcher
     //  owner
     //----------------------------------
 
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
      *  A reference to the list object that owns this item.
@@ -166,7 +166,7 @@ public class BaseListData extends EventDispatcher
     //  rowIndex
     //----------------------------------
 	
-    [Bindable("dataChange")]
+    [Bindable("__NoChangeEvent__")]
 
     /**
      *  The index of the row of the DataGrid, List, or Tree control relative 
@@ -196,7 +196,7 @@ public class BaseListData extends EventDispatcher
      */
     private var _uid:String;
 
-	[Bindable("dataChange")]
+	[Bindable("__NoChangeEvent__")]
 
     /**
      *  The unique identifier for this item.
