@@ -174,7 +174,7 @@ public class TextFieldFactory implements ITextFieldFactory
 			if (moduleFactory)
 			{
 				tlfTextField = moduleFactory.create(
-					"flashx.textLayout.controls.TLFTextField");
+					"mx.core.TLFTextField");
                 tlfTextField.textLineCreator = moduleFactory;
 			}			
 			
