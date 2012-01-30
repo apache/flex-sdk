@@ -774,9 +774,8 @@ public class LabelItemRenderer extends UIComponent
      *  <p>This method, along with <code>layoutContents()</code>, is called 
      *  by the <code>updateDisplayList()</code> method.</p>
      * 
-     *  <p>This method draws the background, the outline, 
-     *  and the separators for this item renderer.  It knows how to appropriately 
-     *  handle the selected, down, or caretted states.  
+     *  <p>This method draws the background and the outline for this item renderer.  
+     *  It knows how to appropriately handle the selected, down, or caretted states.  
      *  However, when <code>alternatingItemColors</code> is set to <code>undefined</code>, 
      *  the default background is transparent.
      *  Override this method to change the appearance of the background of 
@@ -851,11 +850,6 @@ public class LabelItemRenderer extends UIComponent
         graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
         graphics.endFill();
         
-        var topSeparatorColor:uint;
-        var topSeparatorAlpha:Number;
-        var bottomSeparatorColor:uint;
-        var bottomSeparatorAlpha:Number;
-        
         // Selected and down states have a gradient overlay as well
         // as different separators colors/alphas
         if (selected || down)
@@ -878,6 +872,40 @@ public class LabelItemRenderer extends UIComponent
 			opaqueBackgroundColor = backgroundColor;
 		}
 
+        // Draw the separator for the item renderer
+        drawBorder(unscaledWidth, unscaledHeight);
+        
+		opaqueBackground = opaqueBackgroundColor;
+    }
+    
+    /**
+     *  Renders the border for the item renderer.
+     * 
+     *  <p>This method is called by <code>drawBackground</code> after the 
+     *  background has been rendered.</p>
+     * 
+     *  <p>Override this method to change the appearance of the separator or 
+     *  border of the item renderer.</p>
+     * 
+     *  @param unscaledWidth Specifies the width of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleX</code> property of the component.
+     *
+     *  @param unscaledHeight Specifies the height of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleY</code> property of the component.
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3.0
+     *  @productversion Flex 4.5.2
+     */ 
+    protected function drawBorder(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        var topSeparatorColor:uint;
+        var topSeparatorAlpha:Number;
+        var bottomSeparatorColor:uint;
+        var bottomSeparatorAlpha:Number;
+        
         // separators are a highlight on the top and shadow on the bottom
         topSeparatorColor = 0xFFFFFF;
         topSeparatorAlpha = .3;
@@ -919,8 +947,6 @@ public class LabelItemRenderer extends UIComponent
             graphics.drawRect(0, unscaledHeight + 1, unscaledWidth, 1);
             graphics.endFill(); 
         }
-        
-		opaqueBackground = opaqueBackgroundColor;
     }
     
     /**
