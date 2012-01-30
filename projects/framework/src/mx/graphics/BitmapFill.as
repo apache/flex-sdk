@@ -127,8 +127,18 @@ public class BitmapFill extends EventDispatcher implements IFill
         var oldValue:Number = _alpha;
         
         _alpha = value;
-        
+             
         applyAlphaMultiplier = true;
+        
+        if (_bitmapData && !_bitmapData.transparent && _alpha < 1 && oldValue == 1)
+        {
+            // If alpha is not opaque, then reapply the source because we might need 
+            // to clone it. 
+            var s:Object = _source;
+            _source = null;
+            source = s;
+        }
+        
         dispatchFillChangedEvent("alpha", oldValue, value);
     }
     
@@ -616,10 +626,10 @@ public class BitmapFill extends EventDispatcher implements IFill
                 bitmapCreated = true;
 			}
             
-            // If the bitmapData isn't transparent (ex. JPEG), then copy it into a transparent bitmapData
-            if (bitmapData && !bitmapData.transparent)
+            // If the bitmapData isn't transparent (ex. JPEG) and alpha != 1, 
+            // then copy it into a transparent bitmapData
+            if (bitmapData && !bitmapData.transparent && alpha != 1)
             {
-                // FIXME (jszeto) : Only clone this if alpha is not 1. Dispose of this bitmap when we no longer need it
                 var transparentBitmap:BitmapData = new BitmapData(bitmapData.width, bitmapData.height, true);
                 transparentBitmap.draw(bitmapData);
                 bitmapCreated = true;
