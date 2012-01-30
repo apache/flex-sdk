@@ -13,6 +13,7 @@ package spark.components
 {
 import flash.events.Event;
 import flash.events.InvokeEvent;
+import flash.events.KeyboardEvent;
 import flash.events.StageOrientationEvent;
 import flash.net.registerClassAlias;
 
@@ -284,7 +285,7 @@ public class TabbedMobileApplication extends MobileApplicationBase
     /**
      *  @private
      */ 
-    override protected function backKeyHandler():void
+    override protected function backKeyHandler(event:KeyboardEvent):void
     {
         if (navigator)
             navigator.backKeyHandler();
