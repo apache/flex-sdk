@@ -25,7 +25,12 @@ package mx.core
 [Event(name="contentCreationComplete", type="mx.events.FlexEvent")]
 
 /**
- *  Documentation is not currently available.
+ *  The IDeferredContentOwner interface defines the properties and methods
+ *  for deferred instantiation.
+ * 
+ *  @see spark.components.SkinnableContainer
+ *  @see mx.core.Container
+ *  @see mx.core.INavigatorContent
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
