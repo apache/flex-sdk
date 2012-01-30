@@ -88,6 +88,7 @@
 		    </external-library-path>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">
 		    	<include name="framework.swc" />
+		    	<include name="textLayout.swc" />
 		    </external-library-path>
 
 		    <library-path/>
