@@ -435,6 +435,25 @@ public class SystemManager extends MovieClip
      */
     private var readyForKickOff:Boolean;
 
+    /**
+     *  @private
+     * 
+     *  This variable exists only to provide a reference to this 
+     *  app's resource bundles. This application is opting
+     *  into referencing its own resource bundles so the
+     *  ResourceManager does not need to do it. This 
+     *  arrangement keeps the ResourceManager from pinning
+     *  the application in memory. 
+     * 
+     *  If this is the main app, then this variable will be null.
+     *  If this is a sub-app then ResourceManagerImpl set 
+     *  this variable to the apps resource bundles. This variable 
+     *  is public so it is visible to ResourceManagerImpl but starts
+     *  with an underscore to hint that it is an implementation detail 
+     *  and should not be relied on. 
+     */
+    public var _resourceBundles:Array;
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: DisplayObject
