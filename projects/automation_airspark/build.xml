@@ -38,6 +38,7 @@
 				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
 					<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 					<include name="framework.swc"/>
+   					<include name="mx/mx.swc"/>
 				</external-library-path>
 			</compc>
 		</sequential>
@@ -118,6 +119,7 @@
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="framework.swc"/>
+		    <include name="mx/mx.swc"/>
 				<include name="spark.swc"/>
                 <include name="textLayout.swc"/>
 				<include name="air/airglobal.swc"/>
@@ -162,6 +164,7 @@
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="framework.swc"/>
+				<include name="mx/mx.swc"/>
 				<include name="spark.swc"/>
                 <include name="textLayout.swc"/>
 				<include name="air/airglobal.swc"/>
