@@ -22,6 +22,7 @@ import spark.components.ViewNavigator;
 import spark.components.supportClasses.ButtonBarBase;
 import spark.components.supportClasses.ViewNavigatorBase;
 import spark.effects.Animate;
+import spark.effects.Move;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 
@@ -66,18 +67,29 @@ public class SlideViewTransition extends ViewTransitionBase
     
     /**
      *  @private
+     *  Property bag used to save any start view properties that 
+     *  are then restored after the transition is complete.
      */
-    private var currentViewProps:Object;
+    private var startViewProps:Object;
+    
+    /**
+     *  @private
+     *  Property bag used to save any end view properties that 
+     *  are then restored after the transition is complete.
+     */
+    private var endViewProps:Object;
+    
+    /**
+     *  @private
+     *  Property bag used to save any navigator centric properties that 
+     *  are then restored after the transition is complete.
+     */
+    private var navigatorProps:Object;
     
     /**
      *  @private
      */
-    private var nextViewProps:Object;
-	
-	/**
-	 *  @private
-	 */
-	private var transitionGroup:Group;
+    private var transitionGroup:Group;
     
     //--------------------------------------------------------------------------
     //
@@ -161,6 +173,11 @@ public class SlideViewTransition extends ViewTransitionBase
     {
         super.captureStartValues();
         
+        // Initialize the property bag used to save some of our
+        // properties that are then restored after the transition is over.
+        navigatorProps = new Object(); 
+        
+        // Snapshot the entire navigator.
         var oldVisibility:Boolean = endView.visible;
         endView.visible = false;
         cachedNavigator = getSnapshot(targetNavigator);
@@ -176,16 +193,16 @@ public class SlideViewTransition extends ViewTransitionBase
      *  @productversion Flex 4.5
      */
     override protected function createViewEffect():IEffect
-    {	
-		// Prepare our start and end views by positioning them prior to 
-		// the start of our transition, ensuring that they are cached as 
-		// surfaces, and adjust z-order if necessary.
-		
-		var slideTargets:Array = new Array();
-		
+    {   
+        // Prepare our start and end views by positioning them prior to 
+        // the start of our transition, ensuring that they are cached as 
+        // surfaces, and adjust z-order if necessary.
+
+        var slideTargets:Array = new Array();
+        
         if (startView)
         {
-            currentViewProps = { includeInLayout:startView.includeInLayout,
+            startViewProps = { includeInLayout:startView.includeInLayout,
                 cacheAsBitmap:startView.cacheAsBitmap };
             
             startView.includeInLayout = false;
@@ -197,7 +214,7 @@ public class SlideViewTransition extends ViewTransitionBase
         
         if (endView)
         {
-            nextViewProps = { includeInLayout:endView.includeInLayout,
+            endViewProps = { includeInLayout:endView.includeInLayout,
                 cacheAsBitmap:endView.cacheAsBitmap };
             
             endView.includeInLayout = false;
@@ -207,7 +224,7 @@ public class SlideViewTransition extends ViewTransitionBase
                 slideTargets.push(endView);
             
             if (mode == SlideViewTransitionMode.UNCOVER)
-				setComponentChildIndex(endView, navigator, 0);  
+                setComponentChildIndex(endView, navigator, 0);  
         }
         
         var slideDistance:Number;
@@ -244,19 +261,19 @@ public class SlideViewTransition extends ViewTransitionBase
                 break;
         }
         
-		// Position the end view prior to start of transition.
+        // Position the end view prior to start of transition.
         if (!(mode == SlideViewTransitionMode.UNCOVER))
             endView[animatedProperty] = -slideDistance - slideOffset;
         
-		// Construction animation sequence.
-        var animation:Animate = new Animate();
-        var vector:Vector.<MotionPath> = new Vector.<MotionPath>();
-        vector.push(new SimpleMotionPath(animatedProperty, null, null, slideDistance + slideOffset));
-        animation.motionPaths = vector;
-        animation.easer = easer;
+        // Construction animation sequence.
+        var animation:Move = new Move();
         animation.targets = slideTargets;
         animation.duration = duration;
-        
+		animation.easer = easer;
+        if (verticalTransition)
+            animation.yBy = slideDistance + slideOffset;
+        else
+            animation.xBy = slideDistance + slideOffset;
         return animation;
     }
         
@@ -270,32 +287,36 @@ public class SlideViewTransition extends ViewTransitionBase
      */
     override protected function createConsolidatedEffect():IEffect
     {        
-		// Prepare our start and end view elements by positioning them prior to 
-		// the start of our transition, ensuring that they are cached as 
-		// surfaces, and adjust z-order if necessary.
-		
-		var slideTargets:Array = new Array();
-		
+        // Prepare our start and end view elements by positioning them prior to 
+        // the start of our transition, ensuring that they are cached as 
+        // surfaces, and adjust z-order if necessary.
+        
+        var slideTargets:Array = new Array();
+        
         if (!(mode == SlideViewTransitionMode.COVER))
             slideTargets.push(cachedNavigator);
         
         if (!(mode == SlideViewTransitionMode.UNCOVER))
             slideTargets.push(targetNavigator.contentGroup);
 
+        navigatorProps.contentGroupIncludeInLayout = targetNavigator.contentGroup.includeInLayout;
         targetNavigator.contentGroup.includeInLayout = false;
+        
+        navigatorProps.contentGroupCacheAsBitmap = targetNavigator.contentGroup.cacheAsBitmap;
+        targetNavigator.contentGroup.cacheAsBitmap = true;
         
         transitionGroup = new Group();
         transitionGroup.includeInLayout=false;
         
-		// Ensure the views are in the right stacking order based on our
-		// transition mode (cover vs. uncover for instance).
+        // Ensure the views are in the right stacking order based on our
+        // transition mode (cover vs. uncover for instance).
         if (mode == SlideViewTransitionMode.COVER)
-		{
-			var childIndex:uint = targetNavigator.skin.getChildIndex(targetNavigator.contentGroup);
-		    addComponentToContainerAt(transitionGroup, targetNavigator.skin, childIndex);
-		}
+        {
+            var childIndex:uint = targetNavigator.skin.getChildIndex(targetNavigator.contentGroup);
+            addComponentToContainerAt(transitionGroup, targetNavigator.skin, childIndex);
+        }
         else
-			addComponentToContainer(transitionGroup, targetNavigator.skin);
+            addComponentToContainer(transitionGroup, targetNavigator.skin);
         
         if (targetNavigator is TabbedViewNavigator)
         {
@@ -305,6 +326,7 @@ public class SlideViewTransition extends ViewTransitionBase
             {
                 if (!(mode == SlideViewTransitionMode.UNCOVER))
                     slideTargets.push(tabBar);
+                navigatorProps.tabBarIncludeInLayout = tabBar.includeInLayout;
                 tabBar.includeInLayout = false;
             }
         }
@@ -314,13 +336,13 @@ public class SlideViewTransition extends ViewTransitionBase
             {
                 if (!(mode == SlideViewTransitionMode.UNCOVER))
                     slideTargets.push(actionBar);
+                navigatorProps.actionBarIncludeInLayout = actionBar.includeInLayout;
                 actionBar.includeInLayout = false;
             }
         }
         
         if (cachedNavigator)
         {
-            cachedNavigator.x = cachedNavigator.y = 0;
             cachedNavigator.includeInLayout = false;
             transitionGroup.addElement(cachedNavigator);
         }
@@ -329,7 +351,7 @@ public class SlideViewTransition extends ViewTransitionBase
         var animatedProperty:String;
         var verticalTransition:Boolean;
         
-		// Predetermine slide direction and distance.
+        // Predetermine slide direction and distance.
         switch (direction)
         {           
             case ViewTransitionDirection.RIGHT:
@@ -356,8 +378,8 @@ public class SlideViewTransition extends ViewTransitionBase
                 break;
         }
          
-		// Position the control bars prior to our transition.
-		
+        // Position the control bars prior to our transition.
+        
         if (targetNavigator == parentNavigator)
         {
             if (targetNavigator is TabbedViewNavigator)
@@ -377,10 +399,10 @@ public class SlideViewTransition extends ViewTransitionBase
         if (!(mode == SlideViewTransitionMode.UNCOVER))
            targetNavigator.contentGroup[animatedProperty] = -slideDistance + targetNavigator.contentGroup[animatedProperty];
                 
-		// Validate to ensure our snapshots are rendered.
+        // Validate to ensure our snapshots are rendered.
         transitionGroup.validateNow();
         
-		// Construction animation sequence.
+        // Construction animation sequence.
         var animation:Animate = new Animate();
         var vector:Vector.<MotionPath> = new Vector.<MotionPath>();
         vector.push(new SimpleMotionPath(animatedProperty, null, null, slideDistance));
@@ -402,9 +424,45 @@ public class SlideViewTransition extends ViewTransitionBase
      */
     override protected function cleanUp():void
     {
-        if (transitionGroup)
-			removeComponentFromContainer(transitionGroup, targetNavigator.skin);
+        // Restore original saved properties for includeInLayout and cacheAsBitmap.
+        if (!consolidatedTransition)
+        {
+            if (startView)
+            {
+                startView.includeInLayout = startViewProps.includeInLayout;
+                startView.cacheAsBitmap = startViewProps.cacheAsBitmap;
+                startViewProps = null;
+            }
+            
+            if (endView)
+            {
+                endView.includeInLayout = endViewProps.includeInLayout;
+                endView.cacheAsBitmap = endViewProps.cacheAsBitmap;
+                endViewProps = null;
+            }
+        }
+        else
+        {
+            if (targetNavigator is TabbedViewNavigator)
+            {
+                var tabBar:ButtonBarBase = TabbedViewNavigator(targetNavigator).tabBar;
+                
+                if (tabBar)
+                    tabBar.includeInLayout = navigatorProps.tabBarIncludeInLayout;
+            }
+            else if (targetNavigator is ViewNavigator)
+            {
+                if (actionBar)
+                    actionBar.includeInLayout = navigatorProps.actionBarIncludeInLayout;
+            }
+            
+            if (transitionGroup)
+                removeComponentFromContainer(transitionGroup, targetNavigator.skin);
         
+            targetNavigator.contentGroup.includeInLayout = navigatorProps.contentGroupIncludeInLayout;
+            targetNavigator.contentGroup.cacheAsBitmap = navigatorProps.contentGroupCacheAsBitmap;
+        }
+
         transitionGroup = null;
         cachedNavigator = null;
         
