@@ -10,8 +10,10 @@ import mx.effects.Parallel;
 import mx.events.EffectEvent;
 
 import spark.components.ActionBar;
+import spark.components.ButtonBar;
 import spark.components.Group;
 import spark.components.Image;
+import spark.components.supportClasses.OverlayDepth;
 import spark.effects.Fade;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
@@ -58,10 +60,14 @@ public class SlideViewTransition extends ViewTransition
     private var actionBarWasVisible:Boolean;
     private var contentGroupY:Number;
     
+    private var tabBar:ButtonBar;
+    private var tabBarWasVisible:Boolean;
+    
     private var cachedActionBar:Image;
     private var cachedActionGroup:Image;
     private var cachedTitleGroup:Image;
     private var cachedNavigationGroup:Image;
+    private var cachedTabBar:Image;
     
     /**
      * The following properties keep track of the include in layout
@@ -91,6 +97,7 @@ public class SlideViewTransition extends ViewTransition
     override public function prepare():void
     {
         actionBar = navigator.actionBar;
+        tabBar = navigator.tabBar;
         contentGroupY = navigator.contentGroup.y;
         
         if (currentView)
@@ -99,7 +106,8 @@ public class SlideViewTransition extends ViewTransition
         if (nextView)
             nextView.cacheAsBitmap = true;
         
-        if (actionBar && actionBarVisible)
+        actionBarWasVisible = componentIsVisible(actionBar);
+        if (actionBar && actionBarWasVisible)
         {
             // Always generate titleContent and actionBar caches
             cachedActionBar = generateBitmap(actionBar);
@@ -129,8 +137,16 @@ public class SlideViewTransition extends ViewTransition
                 if (cachedNavigationGroup)
                     cachedNavigationGroup.cacheAsBitmap = true;
             }
-            
-            actionBarWasVisible = actionBarVisible;
+        }
+        
+        if (tabBar)
+        {
+            tabBarWasVisible = componentIsVisible(tabBar);
+            if (tabBarWasVisible != nextView.showTabBar ||
+                nextView.overlayControls != currentView.overlayControls)
+            {
+                cachedTabBar = generateBitmap(tabBar);
+            }
         }
     }
     
@@ -163,9 +179,10 @@ public class SlideViewTransition extends ViewTransition
         // or sliding in a new one
         if (actionBar)
         {
-            if (actionBarWasVisible && actionBarVisible && 
+            if (actionBarWasVisible && componentIsVisible(actionBar) && cachedActionBar &&
                 actionBar.height == cachedActionBar.height &&
-                actionBar.width == cachedActionBar.width)
+                actionBar.width == cachedActionBar.width &&
+                currentView.overlayControls == nextView.overlayControls)
             {
                 doInternalActionBarAnimation = true;
                 appendActionBarAnimations(effect);
@@ -181,8 +198,8 @@ public class SlideViewTransition extends ViewTransition
                     
                     if (navigator.skin is IVisualElementContainer)
                     {
-                        IVisualElementContainer(navigator.skin).addElement(cachedActionBar);
-                        cachedActionBar.includeInLayout = false;
+                        cachedActionBar.depth = IVisualElementContainer(navigator.skin).numElements - 1;
+                        IVisualElementContainer(navigator.skin).addElementAt(cachedActionBar, IVisualElementContainer(navigator.skin).numElements - 1);
                     }
                     else
                         navigator.skin.addChild(cachedActionBar);
@@ -190,7 +207,7 @@ public class SlideViewTransition extends ViewTransition
                     targets.push(cachedActionBar);
                 }
                 
-                if (actionBarVisible)
+                if (componentIsVisible(actionBar))
                     targets.push(actionBar);
             }
             
@@ -203,18 +220,38 @@ public class SlideViewTransition extends ViewTransition
             contentGroupExplicitIncludeInLayout = navigator.contentGroup.includeInLayout;
             navigator.contentGroup.includeInLayout = false;
         }
-        
-        if (navigator.tabBar)
+		
+        if (tabBar)
         {
-            tabBarExplicitIncludeInLayout = navigator.tabBar.includeInLayout;
-            navigator.tabBar.includeInLayout = false;
+            tabBarExplicitIncludeInLayout = tabBar.includeInLayout;
+            tabBar.includeInLayout = false;
+            
+            if (cachedTabBar)
+            {
+                if (navigator.skin is IVisualElementContainer)
+                {
+                    cachedTabBar.depth = IVisualElementContainer(navigator.skin).numElements - 1;
+                    IVisualElementContainer(navigator.skin).addElementAt(cachedTabBar, IVisualElementContainer(navigator.skin).numElements - 1);
+                }
+                else
+                    navigator.skin.addChild(cachedTabBar);
+                
+                targets.push(cachedTabBar);
+                tabBar.x = (direction == SLIDE_LEFT) ? navigator.width : -navigator.width;
+                targets.push(tabBar);
+            }
+            else if (tabBarWasVisible != tabBar.visible)
+            {
+                tabBar.x = (direction == SLIDE_LEFT) ? navigator.width : -navigator.width;
+                targets.push(tabBar);
+            }
         }
-        
-        // Create view animations
-        effect.addChild(createViewAnimations(targets));
-        effect.addEventListener(EffectEvent.EFFECT_END, transitionComplete);
-        
-        effect.play();
+		
+		// Create view animations
+		effect.addChild(createViewAnimations(targets));
+		effect.addEventListener(EffectEvent.EFFECT_END, transitionComplete);
+		
+		effect.play();
     }
     
     /**
@@ -252,6 +289,8 @@ public class SlideViewTransition extends ViewTransition
                     IVisualElementContainer(actionBar.skin).removeElement(cachedTitleGroup);
                 else
                     actionBar.skin.removeChild(cachedTitleGroup);
+                
+                cachedTitleGroup = null;
             }
             
             if (cachedNavigationGroup)
@@ -262,6 +301,7 @@ public class SlideViewTransition extends ViewTransition
                     actionBar.skin.removeChild(cachedNavigationGroup);
                 
                 actionBar.navigationGroup.cacheAsBitmap = false;
+                cachedNavigationGroup = null;
             }
             
             if (cachedActionGroup)
@@ -272,6 +312,7 @@ public class SlideViewTransition extends ViewTransition
                     actionBar.skin.removeChild(cachedActionGroup);
                 
                 actionBar.actionGroup.cacheAsBitmap = false;
+                cachedActionGroup = null;
             }
         }
         else
@@ -282,13 +323,29 @@ public class SlideViewTransition extends ViewTransition
                     IVisualElementContainer(navigator.skin).removeElement(cachedActionBar)
                 else
                     navigator.skin.removeChild(cachedActionBar);
+                
+                cachedActionBar = null;
             }
+        }
+        
+        if (cachedTabBar)
+        {
+            if (navigator.skin is IVisualElementContainer)
+                IVisualElementContainer(navigator.skin).removeElement(cachedTabBar);
+            else
+                navigator.skin.removeChild(cachedTabBar);
+            
+            cachedTabBar = null;
         }
         
         // Remove items from layout
         navigator.contentGroup.includeInLayout = contentGroupExplicitIncludeInLayout;
-        navigator.actionBar.includeInLayout = actionBarExplicitIncludeInLayout;
-        navigator.tabBar.includeInLayout = tabBarExplicitIncludeInLayout;
+        
+        if (actionBar)
+            navigator.actionBar.includeInLayout = actionBarExplicitIncludeInLayout;
+        
+        if (tabBar)
+            tabBar.includeInLayout = tabBarExplicitIncludeInLayout;
         
         super.transitionComplete(event);
     }
@@ -385,7 +442,7 @@ public class SlideViewTransition extends ViewTransition
         var fadeOut:Fade = new Fade();
         fadeOut.alphaFrom = 1;
         fadeOut.alphaTo = 0;
-        fadeOut.duration = duration * .7;
+		fadeOut.duration = duration * .7;
         fadeOut.targets = fadeOutTargets;
         
         if (cachedTitleGroup)
@@ -441,7 +498,7 @@ public class SlideViewTransition extends ViewTransition
                 effect.xBy = -navigator.width;
                 nextView.x = navigator.width;
                 
-                if (!doInternalActionBarAnimation && actionBarVisible)
+                if (!doInternalActionBarAnimation && componentIsVisible(actionBar))
                     actionBar.x = navigator.width;
                 break;
             
@@ -449,7 +506,7 @@ public class SlideViewTransition extends ViewTransition
                 effect.xBy = navigator.width;
                 nextView.x = -navigator.width;
                 
-                if (!doInternalActionBarAnimation && actionBarVisible)
+                if (!doInternalActionBarAnimation && componentIsVisible(actionBar))
                     actionBar.x = -navigator.width;
                 break;
         }
@@ -483,6 +540,7 @@ public class SlideViewTransition extends ViewTransition
         
         image.x = component.x;
         image.y = component.y;
+        image.alpha = component.alpha;
         
         return image;
     }
@@ -493,9 +551,9 @@ public class SlideViewTransition extends ViewTransition
      * Convenience property to determine whether the action bar is 
      * visible. 
      */
-    private function get actionBarVisible():Boolean
+    private function componentIsVisible(component:UIComponent):Boolean
     {
-        return actionBar.visible && actionBar.width > 0 && actionBar.height > 0;
+        return component.visible && component.width > 0 && component.height > 0;
     }
 }
 }
