@@ -22,6 +22,11 @@ import flash.events.IEventDispatcher;
  *  This interface lets a caller get a bridge to that application.
  *  Once the caller has the bridge, it can then dispatch events
  *  to the application.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */ 
 public interface ISWFBridgeProvider
 {
@@ -39,6 +44,11 @@ public interface ISWFBridgeProvider
      *  A bridge to the application that is associated with the implementor of this 
      *  interface. The IEventDispatcher that can be used to send events to an 
      *  application in a different ApplicationDomain or a different sandbox.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get swfBridge():IEventDispatcher;
     
@@ -47,6 +57,11 @@ public interface ISWFBridgeProvider
      *  to messages that originate in the child.
      * 
      *  <code>true</code> if access if allowed; otherwise <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     function get childAllowsParent():Boolean;
     
@@ -55,6 +70,11 @@ public interface ISWFBridgeProvider
      *  to messages that originate in the parent.
      * 
      *  <code>true</code> if access if allowed; otherwise <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     function get parentAllowsChild():Boolean;
 }
