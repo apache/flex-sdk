@@ -64,6 +64,9 @@ use namespace mx_internal;
 //--------------------------------------
 //  Styles
 //--------------------------------------
+
+include "../styles/metadata/StyleableTextFieldTextStyles.as"
+
 /**
  *  The locale of the component. Controls how dates are formatted, e.g. in what order the fields
  *  are listed and what additional date-related characters are shown if any. Uses standard locale
