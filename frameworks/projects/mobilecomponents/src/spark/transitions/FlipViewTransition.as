@@ -597,8 +597,8 @@ public class FlipViewTransition extends ViewTransitionBase
     private function alignCubeFaces(startFace:Object, endFace:Object):void
     {
         // Position the xform center of outer transitionGroup.
-        transitionGroup.x = viewWidth / 2;
-        transitionGroup.y = viewHeight / 2;
+        transitionGroup.x += viewWidth / 2;
+        transitionGroup.y += viewHeight / 2;
         transitionGroup.z = vertical ? (viewHeight / 2) : (viewWidth / 2);
         
         // Position the 'faces' of our cube.
