@@ -394,12 +394,17 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
     function removeChildBridge(bridge:IEventDispatcher):void;
     
 	/**
-	 *  dispatch the event to all sandboxes except the specified one
+	 *  Dispatch a message to all parent and child applications in this SystemManager's SWF bridge group, regardless of
+	 *  whether they are in the same SecurityDomain or not. You can optionally exclude an application with this method's parameters.
 	 *
-     *  @param event Event to dispatch
-     *  @param skip IEventDispatcher to not dispatch from
-     *  @param trackClones Whether to keep a reference to the events as they are dispatched
-     *  @param toOtherSystemManagers Whether to dispatch to other top level SystemManagers
+     	 *  @param event The event to dispatch.
+     	 *  
+     	 *  @param skip Specifies an IEventDispatcher that you do not want to dispatch a message to. This is typically used to skip the
+     	 *  IEventDispatcher that originated the event.
+	 * 
+     	 *  @param trackClones Whether to keep a reference to the events as they are dispatched.
+     	 *  
+     	 *  @param toOtherSystemManagers Whether to dispatch the event to other top-level SystemManagers in AIR.
 	 */
 	function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, trackClones:Boolean = false, toOtherSystemManagers:Boolean = false):void
 
