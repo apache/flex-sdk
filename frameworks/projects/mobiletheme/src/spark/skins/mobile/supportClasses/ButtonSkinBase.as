@@ -99,7 +99,7 @@ public class ButtonSkinBase extends MobileSkin
      */
     public var labelDisplay:StyleableTextField;
     
-    protected var labelDisplayShadow:StyleableTextField;      
+    public var labelDisplayShadow:StyleableTextField;      
     
     /**
      *  If true, then create the iconDisplay using the icon style
