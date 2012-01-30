@@ -234,10 +234,9 @@ public class EffectTargetFilter
     public function filterInstance(propChanges:Array, semanticsProvider:IEffectTargetHost, 
                                    target:Object):Boolean
     {
-        // FIXME (chaase): For better performance, 
         if (filterFunction.length == 2)
             return filterFunction(propChanges, target);
-        else // if (filterFunction.length == 3)
+        else
             return filterFunction(propChanges, semanticsProvider, target);
     }                                   
 
