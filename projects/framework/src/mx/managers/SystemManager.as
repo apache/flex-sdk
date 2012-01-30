@@ -1142,7 +1142,6 @@ public class SystemManager extends MovieClip
 		if (!_screen)
 			Stage_resizeHandler();
 
-		// VERSION_SKEW
 		if (!isStageRoot)
 		{
 			Stage_resizeHandler();
@@ -1301,16 +1300,6 @@ public class SystemManager extends MovieClip
         return false;   // assume the worst
     }
 
-
-	// VERSION_SKEW
-	/**
-	 * @private
-	 * 
-	 * true if dispatching a mouse bridge event. We don't want to 
-	 * handle our own event.
-	 */
-	private var isDispatchingBridgeMouseEvent:Boolean;
-	
 	/**
 	 * @private
 	 * 
@@ -1356,13 +1345,10 @@ public class SystemManager extends MovieClip
 				
 			try
 			{
-				// TODODJL: problem loading untrusted children, stage is null and we don't 
-				// add the listener we wanted.
 				if (stage)
 					stage.addEventListener(type, listener, useCapture, priority, useWeakReference);
 				else
 					super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-				
 			}
 			catch (error:SecurityError)
 			{
@@ -1479,9 +1465,11 @@ public class SystemManager extends MovieClip
 				
 			try
 			{
+			    // Remove both listeners in case the system manager was added
+			    // or removed from the stage after the listener was added.
 				if (stage)
 					stage.removeEventListener(type, listener, useCapture);
-				else
+
 					super.removeEventListener(type, listener, useCapture);
 			}
 			catch (error:SecurityError)
@@ -2801,7 +2789,6 @@ public class SystemManager extends MovieClip
 	{
 		if (mouseCatcher)
 		{
-			// VERSION_SKEW
 			try
 			{
 			var g:Graphics = mouseCatcher.graphics;
@@ -2810,7 +2797,6 @@ public class SystemManager extends MovieClip
 			g.beginFill(0x000000, 0);
 			g.drawRect(0, 0, s.width, s.height);
 			g.endFill();
-				
 			}
 			catch (e:SecurityError)
 			{
@@ -2877,6 +2863,10 @@ public class SystemManager extends MovieClip
 		if (getSandboxRoot() == this)
 		{
 			addEventListener(InterManagerRequest.SYSTEM_MANAGER_REQUEST, systemManagerHandler);
+			addEventListener(InterManagerRequest.DRAG_MANAGER_REQUEST, multiWindowRedispatcher);
+			// listened for w/o use of constants because of dependency issues
+			//addEventListener(InterDragManagerEvent.DISPATCH_DRAG_EVENT, multiWindowRedispatcher);
+			addEventListener("dispatchDragEvent", multiWindowRedispatcher);
 
             addEventListener(SWFBridgeRequest.ADD_POP_UP_REQUEST, addPopupRequestHandler);
             addEventListener(SWFBridgeRequest.REMOVE_POP_UP_REQUEST, removePopupRequestHandler);
@@ -3276,13 +3266,16 @@ public class SystemManager extends MovieClip
 		var h:Number;
 		var m:Number = loaderInfo.width;
 		var n:Number = loaderInfo.height;
+        var align:String = StageAlign.TOP_LEFT;
 
-        // if we don't have access to the stage, when use the size of 
-        // the sandbox root.                        
+        // If we don't have access to the stage, then use the size of 
+        // the sandbox root and align to StageAlign.TOP_LEFT.                        
         try 
         {
             w = stage.stageWidth;
             h = stage.stageHeight;
+            if (stage)
+                align = stage.align;
         }
         catch (error:SecurityError)
         {
@@ -3294,9 +3287,6 @@ public class SystemManager extends MovieClip
 		var x:Number = (m - w) / 2;
 		var y:Number = (n - h) / 2;
 		
-		// TODODJL: if not stage root defaulting to top,left.
-		var align:String = isStageRoot ? stage.align : StageAlign.TOP_LEFT;
-
 		if (align == StageAlign.TOP)
 		{
 			y = 0;
@@ -3566,7 +3556,8 @@ public class SystemManager extends MovieClip
 		// popup, then don't host the pop up.
 		if (event.target != this)
 		{
-		var bridgeProvider:ISWFBridgeProvider = swfBridgeGroup.getChildBridgeProvider(popUpRequest.requestor);
+    		var bridgeProvider:ISWFBridgeProvider = swfBridgeGroup.getChildBridgeProvider(
+    		                                        IEventDispatcher(event.target));
 		if (!SecurityUtil.hasMutualTrustBetweenParentAndChild(bridgeProvider))
 		{
 			return;
@@ -4290,10 +4281,25 @@ public class SystemManager extends MovieClip
 	}
 
 	/**
+	 * redispatch certian events to other top-level windows
+	 */
+	private function multiWindowRedispatcher(event:Event):void
+	{
+		if (!dispatchingToSystemManagers)
+		{
+			dispatchEventToOtherSystemManagers(event);
+		}
+	}
+
+	/**
 	 * Create the requested manager
 	 */
 	private function initManagerHandler(event:Event):void
 	{
+		if (!dispatchingToSystemManagers)
+		{
+			dispatchEventToOtherSystemManagers(event);
+		}
 		// if we are broadcasting messages, ignore the messages
 		// we send to ourselves.
 		if (event is InterManagerRequest)
@@ -4991,13 +4997,7 @@ public class SystemManager extends MovieClip
 
 	private var dispatchingToSystemManagers:Boolean = false;
 
-	/**
-	 *  @inheritDoc
-	 */
-	public function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, 
-						trackClones:Boolean = false, toOtherSystemManagers:Boolean = false):void
-	{
-		if (toOtherSystemManagers)
+	private function dispatchEventToOtherSystemManagers(event:Event):void
 		{
 			dispatchingToSystemManagers = true;
 			var arr:Array = SystemManagerGlobals.topLevelSystemManagers;
@@ -5012,6 +5012,17 @@ public class SystemManager extends MovieClip
 			dispatchingToSystemManagers = false;
 		}
 
+	/**
+	 *  @inheritDoc
+	 */
+	public function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, 
+						trackClones:Boolean = false, toOtherSystemManagers:Boolean = false):void
+	{
+		if (toOtherSystemManagers)
+		{
+			dispatchEventToOtherSystemManagers(event);
+		}
+
 		if (!swfBridgeGroup)
 			return;
 
@@ -5023,11 +5034,15 @@ public class SystemManager extends MovieClip
 		var parentBridge:IEventDispatcher = swfBridgeGroup.parentBridge;
 		if (parentBridge && parentBridge != skip)
 		{
+		    // Ensure the requestor property has the correct bridge.
+            if (clone is SWFBridgeRequest)
+                SWFBridgeRequest(clone).requestor = parentBridge;
+                
 			parentBridge.dispatchEvent(clone);
 		}
 		
 		var children:Array = swfBridgeGroup.getChildBridges();
-		for (i = 0; i < children.length; i++)
+		for (var i:int = 0; i < children.length; i++)
 		{
 			if (children[i] != skip)
 			{
@@ -5035,7 +5050,11 @@ public class SystemManager extends MovieClip
 				clone = event.clone();
 				if (trackClones)
 					currentSandboxEvent = clone;
-			    // TODODJL: could be sharing parentBridge with children
+    
+                // Ensure the requestor property has the correct bridge.
+    	        if (clone is SWFBridgeRequest)
+                    SWFBridgeRequest(clone).requestor = IEventDispatcher(children[i]);
+
 				IEventDispatcher(children[i]).dispatchEvent(clone);
 			}
 		}
@@ -5283,13 +5302,22 @@ public class SystemManager extends MovieClip
 					super.addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
 				}
 
+                // add listeners in other sandboxes in capture mode so we don't miss anything
 				addEventListenerToSandboxes(request.eventType, sandboxMouseListener,
-							request.useCapture, request.priority, request.useWeakReference, event.target as IEventDispatcher);
+							true, request.priority, request.useWeakReference, event.target as IEventDispatcher);
 				addEventListenerToOtherSystemManagers(request.eventType, otherSystemManagerMouseListener, 
-							request.useCapture, request.priority, request.useWeakReference);
+							true, request.priority, request.useWeakReference);
 				if (getSandboxRoot() == this)
+				{
+				    if (isTopLevelRoot() && actualType == MouseEvent.MOUSE_UP)
+				    {
+				        stage.addEventListener(actualType, eventProxy.marshalListener,
+                            false, request.priority, request.useWeakReference);
+				    }
+
                     super.addEventListener(actualType, eventProxy.marshalListener,
-                            request.useCapture, request.priority, request.useWeakReference);
+                        true, request.priority, request.useWeakReference);
+                }
 			}
 		}
 		else if (event.type == EventListenerRequest.REMOVE_EVENT_LISTENER_REQUEST)
@@ -5297,12 +5325,18 @@ public class SystemManager extends MovieClip
             actualType = EventUtil.sandboxMouseEventMap[request.eventType];
             if (actualType)
             {
-				removeEventListenerFromOtherSystemManagers(request.eventType, otherSystemManagerMouseListener, request.useCapture);
+				removeEventListenerFromOtherSystemManagers(request.eventType, otherSystemManagerMouseListener, true);
                 removeEventListenerFromSandboxes(request.eventType, sandboxMouseListener,
-                            request.useCapture, event.target as IEventDispatcher);
+                            true, event.target as IEventDispatcher);
                 if (getSandboxRoot() == this)
-                    super.removeEventListener(actualType, eventProxy.marshalListener,
-                            request.useCapture);
+                {
+                    if (isTopLevelRoot() && actualType == MouseEvent.MOUSE_UP)
+                    {
+                        stage.removeEventListener(actualType, eventProxy.marshalListener);
+                    }
+
+                    super.removeEventListener(actualType, eventProxy.marshalListener, true);
+                }
             }
         }		
 	}
