@@ -365,9 +365,6 @@ public class SpinnerList extends ListBase
 		super.dataGroup_rendererAddHandler(event);
 		var renderer:IVisualElement = event.renderer;
 		
-		/*if (renderer is IStyleClient)
-			IStyleClient(renderer).styleName = this;*/
-		
 		if (!renderer)
 			return;
 		
