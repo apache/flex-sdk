@@ -460,9 +460,9 @@ class ModuleInfo extends EventDispatcher
             applicationDomain :
             new ApplicationDomain(ApplicationDomain.currentDomain);
 
-        c.securityDomain = securityDomain;
-        if (securityDomain == null && Security.sandboxType == Security.REMOTE)
-            c.securityDomain = SecurityDomain.currentDomain;
+        // setting securityDomain is not allowed on non-REMOTE sandboxes
+        if (securityDomain != null && Security.sandboxType == Security.REMOTE)
+            c.securityDomain = securityDomain;
 
         loader = new Loader();
 
