@@ -16,9 +16,11 @@ import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.supportClasses.StageTextSkinBase;
 
 /**
- *  ActionScript-based skin for TextInput controls in mobile applications. 
+ *  ActionScript-based skin for TextInput controls in mobile applications that uses a
+ *  StyleableStageText class for the text input. 
  * 
  *  @see spark.components.TextInput
+ *  @see spark.components.supportClasses.StyleableStageText
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0 
