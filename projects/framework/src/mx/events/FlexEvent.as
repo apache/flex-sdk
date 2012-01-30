@@ -263,6 +263,34 @@ public class FlexEvent extends Event
     public static const BUTTON_DOWN:String = "buttonDown";
     
     /**
+     *  The <code>FlexEvent.BACK_KEY_PRESSED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>backKeyPressed</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>true</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType backKeyPressed
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static const BACK_KEY_PRESSED:String = "backKeyPressed";
+    
+    /**
      *  The <code>FlexEvent.CHANGE_END</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>changeEnd</code> event.
      *
@@ -964,40 +992,6 @@ public class FlexEvent extends Event
     public static const READY:String = "ready";
     
     /**
-     *  The <code>FlexEvent.REMOVING</code> constant defines the value of the
-     *  <code>type</code> property of the event object for an <code>removing</code> 
-     *  event.  This event is dispatched when a screen is about to be replaced by
-     *  another screen through a navigator action.  If <code>preventDefault()</code>
-     *  is called on this event, the view removal will be canceled.
-     *
-     *  <p>The properties of the event object have the following values:</p>
-     * 
-     *  <table class="innertable">
-     *     <tr><th>Property</th><th>Value</th></tr>
-     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
-     *     <tr><td><code>cancelable</code></td><td>true</td></tr>
-     *     <tr><td><code>returnValue</code></td><td>null</td></tr>
-     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
-     *       event listener that handles the event. For example, if you use 
-     *       <code>myButton.addEventListener()</code> to register an event listener, 
-     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
-     *       it is not always the Object listening for the event. 
-     *       Use the <code>currentTarget</code> property to always access the 
-     *       Object listening for the event.</td></tr>
-     *     <tr><td><code>Type</code></td><td>FlexEvent.SCREEN_REMOVING</td></tr>
-     *  </table>
-     *
-     *  @eventType removing
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public static const REMOVING:String = "removing";
-    
-    /**
      *  The <code>FlexEvent.RENDER</code> constant defines the value of the
      *  <code>type</code> property of the event object for an <code>Event.RENDER</code> event.
      *
@@ -1330,70 +1324,6 @@ public class FlexEvent extends Event
      *  @productversion Flex 3
      */
     public static const VALUE_COMMIT:String = "valueCommit";
-	
-	/**
-	 *  The <code>FlexEvent.VIEW_ACTIVATE</code> constant defines the value of the
-	 *  <code>type</code> property of the event object for an <code>viewActivate</code> 
-	 *  event.  This event is dispatched when a component is activated.
-	 *
-	 *  <p>The properties of the event object have the following values:</p>
-	 * 
-	 *  <table class="innertable">
-	 *     <tr><th>Property</th><th>Value</th></tr>
-	 *     <tr><td><code>bubbles</code></td><td>false</td></tr>
-	 *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-	 *     <tr><td><code>returnValue</code></td><td>null</td></tr>
-	 *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
-	 *       event listener that handles the event. For example, if you use 
-	 *       <code>myButton.addEventListener()</code> to register an event listener, 
-	 *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-	 *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
-	 *       it is not always the Object listening for the event. 
-	 *       Use the <code>currentTarget</code> property to always access the 
-	 *       Object listening for the event.</td></tr>
-	 *     <tr><td><code>Type</code></td><td>FlexEvent.VIEW_ACTIVATE</td></tr>
-	 *  </table>
-	 *
-	 *  @eventType activate
-	 *  
-	 *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-	 */
-	public static const VIEW_ACTIVATE:String = "viewActivate";
-	
-	/**
-	 *  The <code>FlexEvent.VIEW_DEACTIVATE</code> constant defines the value of the
-	 *  <code>type</code> property of the event object for an <code>viewDeactivate</code> 
-	 *  event.  This event is dispatched when a component is deactivated.
-	 *
-	 *  <p>The properties of the event object have the following values:</p>
-	 * 
-	 *  <table class="innertable">
-	 *     <tr><th>Property</th><th>Value</th></tr>
-	 *     <tr><td><code>bubbles</code></td><td>false</td></tr>
-	 *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-	 *     <tr><td><code>returnValue</code></td><td>null</td></tr>
-	 *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
-	 *       event listener that handles the event. For example, if you use 
-	 *       <code>myButton.addEventListener()</code> to register an event listener, 
-	 *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-	 *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
-	 *       it is not always the Object listening for the event. 
-	 *       Use the <code>currentTarget</code> property to always access the 
-	 *       Object listening for the event.</td></tr>
-	 *     <tr><td><code>Type</code></td><td>FlexEvent.VIEW_DEACTIVATE</td></tr>
-	 *  </table>
-	 *
-	 *  @eventType deactivate
-	 *  
-	 *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-	 */
-	public static const VIEW_DEACTIVATE:String = "viewDeactivate";
 
     //--------------------------------------------------------------------------
     //
