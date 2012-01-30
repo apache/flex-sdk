@@ -343,7 +343,7 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
         // If we have a dynamic source, call its method to get the appropriate class
         return dynamicSource ? dynamicSource.getImageClass(aspectRatio, dpi, resolution) : sourceClass; 
     }
-
+    
     private function prepareSplashScreen():void
     {
         // Grab the application's dpi provider class.  If one doesn't exist,
@@ -461,6 +461,15 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
             case "stretch":
                 scaleX = stageWidth / width;
                 scaleY = stageHeight / height;
+            break;
+
+            case "none":
+                // SDK-30984: undo application's dpi scaling if we have a dynamic SplashScreen source
+                if (dynamicSource)
+                {
+                    scaleX = 1 / dpiScale;
+                    scaleY = 1 / dpiScale;
+                }
             break;
         }
         
