@@ -24,6 +24,8 @@ public class ViewMenuItemSkin extends ButtonSkin
         upBorderSkin = ViewMenuItem_up;
         downBorderSkin = ViewMenuItem_down;
         showsCaretBorderSkin = ViewMenuItem_showsCaret; 
+        
+        layoutPaddingBottom = 8;
     }
     
     /**
@@ -61,7 +63,7 @@ public class ViewMenuItemSkin extends ButtonSkin
             
             chromeColorGraphics.beginGradientFill(GradientType.LINEAR,
                                                   [chromeColor, chromeColor],
-                                                  [0.8, 0.9],
+                                                  [0.85, .95],
                                                   [0, 255],
                                                   matrix);
         }
