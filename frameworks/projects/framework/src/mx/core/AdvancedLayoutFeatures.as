@@ -12,11 +12,9 @@ package mx.core
 {
 	import flash.geom.Matrix;
 	import flash.geom.Matrix3D;
-	import __AS3__.vec.Vector;
-	import flash.geom.Vector3D;
-	import mx.geom.ITransformable;
-	import flash.events.Event;
     import flash.geom.Point;
+	import flash.geom.Vector3D;
+	import flash.events.Event;
 	import mx.geom.CompoundTransform;
 	import mx.geom.TransformOffsets;
 	use namespace mx_internal;	
