@@ -3319,7 +3319,7 @@ public class SystemManager extends MovieClip
 				var p:DisplayObject = DisplayObject(event.target);
 				var isApplication:Boolean = document is IRawChildrenContainer ? 
 											IRawChildrenContainer(document).rawChildren.contains(p) :
-											document.children.contains(p);
+											document.contains(p);
 				while (p)
 				{
 					for (var i:int = 0; i < n; i++)
