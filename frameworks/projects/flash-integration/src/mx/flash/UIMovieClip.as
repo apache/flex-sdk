@@ -2480,29 +2480,6 @@ public dynamic class UIMovieClip extends MovieClip
     {
         super.scaleX = value;
     }
-    
-    /**
-     *  @private
-     */
-    private var _scaleXDueToSizing:Number = 1;
-    
-    /**
-     *  The scaleX of the component due to resizing.
-     *
-     *  @private
-     */
-    mx_internal function get scaleXDueToSizing():Number
-    {
-        return _scaleXDueToSizing;
-    }
-    
-    /**
-     *  @private
-     */
-    mx_internal function set scaleXDueToSizing(value:Number):void
-    {
-        _scaleXDueToSizing = value;
-    }
 
     //----------------------------------
     //  scaleY
@@ -2558,14 +2535,14 @@ public dynamic class UIMovieClip extends MovieClip
         invalidateParentSizeAndDisplayList();
     }
     
-    /**
-     *  The actual scaleY of the component.  Because scaling is used
-     *  to resize the component, this is considerred an internal 
-     *  implementation detail, whereas scaleY is the user-set scale
-     *  of the component.
-     *
-     *  @private
-     */
+     /**
+      *  The actual scaleY of the component.  Because scaling is used
+      *  to resize the component, this is considerred an internal 
+      *  implementation detail, whereas scaleY is the user-set scale
+      *  of the component.
+      *
+      *  @private
+      */
     mx_internal function get $scaleY():Number
     {
         return super.scaleY;
@@ -2577,29 +2554,6 @@ public dynamic class UIMovieClip extends MovieClip
     mx_internal function set $scaleY(value:Number):void
     {
         super.scaleY = value;
-    }
-    
-    /**
-     *  @private
-     */
-    private var _scaleYDueToSizing:Number = 1;
-    
-    /**
-     *  The scaleX of the component due to resizing.
-     *
-     *  @private
-     */
-    mx_internal function get scaleYDueToSizing():Number
-    {
-        return _scaleYDueToSizing;
-    }
-    
-    /**
-     *  @private
-     */
-    mx_internal function set scaleYDueToSizing(value:Number):void
-    {
-        _scaleYDueToSizing = value;
     }
 
     //----------------------------------
@@ -3591,7 +3545,7 @@ public dynamic class UIMovieClip extends MovieClip
      *
      * storage for advanced layout and transform properties.
      */
-    private var _layoutFeatures:AdvancedLayoutFeatures;
+    mx_internal var _layoutFeatures:AdvancedLayoutFeatures;
     
 	/**
 	 *  @private
@@ -3663,14 +3617,6 @@ public dynamic class UIMovieClip extends MovieClip
     {
         _layoutFeatures.updatePending = false;
         
-        // need to set the scale to the "real scale" (the user-set 
-        // scale + the scale needed for sizing) to get a real matrix.
-        // Afterwards, we'll reset it to the "user-set" scale.
-        var oldScaleX:Number = _layoutFeatures.layoutScaleX;
-        var oldScaleY:Number = _layoutFeatures.layoutScaleY;
-        _layoutFeatures.layoutScaleX = _layoutFeatures.layoutScaleX * scaleXDueToSizing;
-        _layoutFeatures.layoutScaleY = _layoutFeatures.layoutScaleY * scaleYDueToSizing;
-        
         if (_layoutFeatures.is3D)
         {
             super.transform.matrix3D = _layoutFeatures.computedMatrix3D;
@@ -3679,9 +3625,6 @@ public dynamic class UIMovieClip extends MovieClip
         {
             super.transform.matrix = _layoutFeatures.computedMatrix;
         }
-        
-        _layoutFeatures.layoutScaleX = oldScaleX;
-        _layoutFeatures.layoutScaleY = oldScaleY;
     }
     
     private function applyPerspectiveProjection():void
@@ -4424,13 +4367,22 @@ public dynamic class UIMovieClip extends MovieClip
         
         // Use scaleX/scaleY to change our size since the new size is based
         // on our measured size, which can be different than our actual size.
-        scaleXDueToSizing = (newWidth / measuredWidth);
-        scaleYDueToSizing = (newHeight / measuredHeight);
-        $scaleX = scaleX*scaleXDueToSizing;
-        $scaleY = scaleY*scaleYDueToSizing;
+        var widthScale:Number = (newWidth / measuredWidth);
+        var heightScale:Number = (newHeight / measuredHeight);
         
-        // need to apply this scale if using layout offsets
-        invalidateTransform();
+        // if we need to scale due to sizing differences or if we might've scaled before, 
+        // then we need to set _layoutFeatures.stretchX/stretchY
+        if (widthScale != 1 || heightScale != 1 || _layoutFeatures != null)
+        {
+            if (_layoutFeatures == null)
+                initAdvancedLayoutFeatures();
+            
+            _layoutFeatures.stretchX = widthScale;
+            _layoutFeatures.stretchY = heightScale;
+            
+            // need to apply this scale if using layout offsets
+            invalidateTransform();
+        }
         
         if (sizeChanged(width, oldWidth) || sizeChanged(height, oldHeight))
             dispatchResizeEvent();
@@ -4666,8 +4618,11 @@ public dynamic class UIMovieClip extends MovieClip
         var currentBounds:Rectangle = bounds;
         
         // take secret scale into account as it's our real width/height
-        currentBounds.width *= scaleXDueToSizing;
-        currentBounds.height *= scaleYDueToSizing;
+        if (_layoutFeatures != null)
+        {
+            currentBounds.width *= _layoutFeatures.stretchX;
+            currentBounds.height *= _layoutFeatures.stretchY;
+        }
         
         if (sizeChanged(currentBounds.width, oldWidth) || sizeChanged(currentBounds.height, oldHeight))
         {
