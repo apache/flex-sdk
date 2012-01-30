@@ -12,7 +12,6 @@
 package mx.accessibility
 {
 
-import mx.accessibility.AccConst;
 import mx.controls.List;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
