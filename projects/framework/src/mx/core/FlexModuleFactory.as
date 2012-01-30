@@ -217,9 +217,10 @@ public class FlexModuleFactory extends MovieClip
     /**
      *  @private
      *  Array of RSLData objects that represent the list of RSLs this
-     *  module factory is loading.
+     *  module factory is loading. Each element of the Array is an 
+     *  Array of RSLData.
      */ 
-    private var rslDataList:Array;
+    private var rslDataList:Array
     
 	//--------------------------------------------------------------------------
 	//
@@ -232,11 +233,8 @@ public class FlexModuleFactory extends MovieClip
     //----------------------------------
     
     /**
-     *  The RSLs loaded by this FlexModuleFactory before the application 
-     *  starts. RSLs loaded by the application are not included in this list.
-     * 
-     *  Information about preloadedRSLs is stored in a Dictionary. The key is
-     *  the RSL's LoaderInfo. The value is the url the RSL was loaded from.
+     *  @inheritDoc 
+     *  
      */
     public function  get preloadedRSLs():Dictionary
     {
@@ -245,12 +243,14 @@ public class FlexModuleFactory extends MovieClip
     }
     
     /**
-     *  @private
-     *  Add an RSL to the preloadedRSLs list. This method is called by child
-     *  module factories when they add load an RSL into this module factory's
-     *  application domain.
+     *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
      */ 
-    public function addPreloadedRSL(loaderInfo:LoaderInfo, rsl:Array):void
+    public function addPreloadedRSL(loaderInfo:LoaderInfo, rsl:Vector.<RSLData>):void
     {
         preloadedRSLs[loaderInfo] = rsl;
         if (hasEventListener(RSLEvent.RSL_ADD_PRELOADED))
@@ -716,15 +716,15 @@ public class FlexModuleFactory extends MovieClip
         if (event.target is LoaderInfo)
         {
             var rslIndex:int = rslListLoader.getIndex();
-            var rsl:Array = rslDataList[rslIndex];
+            var rsl:Vector.<RSLData> = Vector.<RSLData>(rslDataList[rslIndex]);
             var moduleFactory:IFlexModuleFactory = this;
             if (rsl && rsl[0].moduleFactory)
                 moduleFactory = rsl[0].moduleFactory; 
             
             if (moduleFactory == this)
                 preloadedRSLs[event.target] =  rsl;
-            else if ("addPreloadedRSL" in moduleFactory)
-                moduleFactory["addPreloadedRSL"](event.target, rsl);
+            else 
+                moduleFactory.addPreloadedRSL(LoaderInfo(event.target), rsl);
         }
 
         update();
