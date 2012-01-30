@@ -33,7 +33,7 @@ public class TextAreaHScrollBarSkin extends HScrollBarSkin
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 minHeight = 9;
                 paddingBottom = TextAreaHScrollBarThumbSkin.PADDING_BOTTOM_DEFAULTDPI;
                 paddingHorizontal = TextAreaHScrollBarThumbSkin.PADDING_HORIZONTAL_DEFAULTDPI;
