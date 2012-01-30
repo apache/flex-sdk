@@ -32,6 +32,7 @@ import mx.core.EventPriority;
 import mx.core.FlexGlobals;
 import mx.core.FlexSprite;
 import mx.core.mx_internal;
+import mx.core.ISystemCursorClient;
 import mx.core.IUIComponent;
 import mx.events.Request;
 import mx.styles.CSSStyleDeclaration;
@@ -113,17 +114,6 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
 				new mixins[i](this);
 		
 			}
-		}
-
-		// If available, get soft-link to the RichEditableText class
-		// to use in mouseMoveHandler().
-        // FIXME (cframpto): revisit the correct way to do this for modules.
-        if (ApplicationDomain.currentDomain.hasDefinition(
-				"spark.components.RichEditableText"))
-		{
-            richEditableTextClass = 
-				Class(ApplicationDomain.currentDomain.getDefinition(
-					"spark.components.RichEditableText"));
 		}
     }
 
@@ -225,12 +215,6 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
      *  @private
      */
     private var sourceArray:Array = [];
-
-    /**
-     *  @private
-     *  Soft-link to RichEditableText class object, if available.
-     */
-    private var richEditableTextClass:Class;
 
     //--------------------------------------------------------------------------
     //
@@ -889,7 +873,8 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
         
         var isInputTextField:Boolean = 
             (target is TextField && target.type == TextFieldType.INPUT) ||
-                (richEditableTextClass && target is richEditableTextClass && (target["editable"] || target["selectable"]));
+                (target is ISystemCursorClient && 
+                    ISystemCursorClient(target).showSystemCursor);
         
         // Do target test.
         if (!overTextField && isInputTextField)
