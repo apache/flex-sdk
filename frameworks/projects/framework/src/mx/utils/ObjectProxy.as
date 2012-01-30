@@ -620,6 +620,26 @@ public dynamic class ObjectProxy extends Proxy
      *  <code>addEventListener()</code> in the 
      *  flash.events.EventDispatcher class.
      *
+     *  @param type The type of event.
+     *  
+     *  @param listener The listener function that processes the event. This function must accept
+     *  an Event object as its only parameter and must return nothing.
+     *  
+     *  @param useCapture Determines whether the listener works in the capture phase or the 
+     *  target and bubbling phases. If <code>useCapture</code> is set to <code>true</code>, 
+     *  the listener processes the event only during the capture phase and not in the 
+     *  target or bubbling phase. If <code>useCapture</code> is <code>false</code>, the
+     *  listener processes the event only during the target or bubbling phase. To listen for
+     *  the event in all three phases, call <code>addEventListener</code> twice, once with 
+     *  <code>useCapture</code> set to <code>true</code>, then again with
+     *  <code>useCapture</code> set to <code>false</code>.
+     * 
+     *  @param priority The priority level of the event listener. 
+     * 
+     *  @param useWeakReference Determines whether the reference to the listener is strong or
+     *  weak. A strong reference (the default) prevents your listener from being garbage-collected.
+     *  A weak reference does not. 
+     *
      *  @see flash.events.EventDispatcher#addEventListener()
      *  
      *  @langversion 3.0
