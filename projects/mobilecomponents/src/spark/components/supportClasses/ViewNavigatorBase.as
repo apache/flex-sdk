@@ -29,10 +29,6 @@ import spark.events.DisplayLayerObjectExistenceEvent;
 
 use namespace mx_internal;
 
-//--------------------------------------
-//  Events
-//--------------------------------------
-
 /**
  *  The ViewNavigatorBase class defines the base class logic and
  *  interface used by view navigators.  This class contains
