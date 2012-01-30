@@ -212,13 +212,16 @@ public class View extends Group implements IDataRenderer
     {
         if (_overlayControls != value)
         {
+            var oldValue:Boolean = _overlayControls;
             _overlayControls = value;
             
-            var changeEvent:PropertyChangeEvent = 
-                PropertyChangeEvent.createUpdateEvent(this, "overlayControls", _overlayControls, value);
+            if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+            {
+                var changeEvent:PropertyChangeEvent = 
+                PropertyChangeEvent.createUpdateEvent(this, "overlayControls", oldValue, _overlayControls);
             
-            if (hasEventListener(changeEvent.type))
                 dispatchEvent(changeEvent);
+            }
         }
     }
     
