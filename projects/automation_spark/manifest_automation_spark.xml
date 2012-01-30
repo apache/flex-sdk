@@ -18,6 +18,7 @@
 <component id="SparkScrollerAutomationImpl"  class="spark.automation.delegates.components.SparkScrollerAutomationImpl"/>
 <component id="SparkButtonBarButtonAutomationImpl"  class="spark.automation.delegates.components.SparkButtonBarButtonAutomationImpl"/> 
 <component id="SparkSkinnableContainerAutomationImpl"  class="spark.automation.delegates.components.SparkSkinnableContainerAutomationImpl"/>
+<component id="SparkSkinnableDataContainerAutomationImpl"  class="spark.automation.delegates.components.SparkSkinnableDataContainerAutomationImpl"/>
 <component id="SparkCheckBoxAutomationImpl"  class="spark.automation.delegates.components.SparkCheckBoxAutomationImpl"/>         
 <component id="SparkSpinnerAutomationImpl"  class="spark.automation.delegates.components.SparkSpinnerAutomationImpl"/>
 <component id="SparkDataGroupAutomationImpl"  class="spark.automation.delegates.components.SparkDataGroupAutomationImpl"/>            
@@ -65,6 +66,7 @@
 <component id="RichEditableTextTabularData"  class="spark.automation.tabularData.RichEditableTextTabularData"/>    
 <component id="SparkListBaseTabularData"  class="spark.automation.tabularData.SparkListBaseTabularData"/>
 <component id="SkinnableContainerTabularData"  class="spark.automation.tabularData.SkinnableContainerTabularData"/>
+<component id="SkinnableDataContainerTabularData"  class="spark.automation.tabularData.SkinnableDataContainerTabularData"/>
 <component id="SparkDataGridTabularData"  class="spark.automation.tabularData.SparkDataGridTabularData"/>
 
 
