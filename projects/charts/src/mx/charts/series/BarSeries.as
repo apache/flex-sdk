@@ -118,7 +118,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="labelAlign", type="String", enumeration="left, center, right", inherit="no")]
+[Style(name="labelAlign", type="String", enumeration="left,center,right", inherit="no")]
 
 /**
  * Determines the position of labels
@@ -1092,26 +1092,14 @@ public class BarSeries extends Series implements IStackable2, IBar
         {
             if (!_horizontalAxis)
             {
-                if (c.secondSeries.indexOf(this) != -1 && c.secondHorizontalAxis)
-                {
-                    if (dataTransform.axes[CartesianTransform.HORIZONTAL_AXIS] != c.secondHorizontalAxis)
-                        CartesianTransform(dataTransform).setAxis(
-                            CartesianTransform.HORIZONTAL_AXIS,c.secondHorizontalAxis);
-                }
-                else if (dataTransform.axes[CartesianTransform.HORIZONTAL_AXIS] != c.horizontalAxis)
+                if (dataTransform.axes[CartesianTransform.HORIZONTAL_AXIS] != c.horizontalAxis)
                         CartesianTransform(dataTransform).setAxis(
                             CartesianTransform.HORIZONTAL_AXIS,c.horizontalAxis);
             }
                             
             if (!_verticalAxis)
             {
-                if (c.secondSeries.indexOf(this) != -1 && c.secondVerticalAxis)
-                {
-                    if (dataTransform.axes[CartesianTransform.VERTICAL_AXIS] != c.secondVerticalAxis)
-                        CartesianTransform(dataTransform).setAxis(
-                            CartesianTransform.VERTICAL_AXIS,c.secondVerticalAxis);
-                }
-                else if (dataTransform.axes[CartesianTransform.VERTICAL_AXIS] != c.verticalAxis)
+                if (dataTransform.axes[CartesianTransform.VERTICAL_AXIS] != c.verticalAxis)
                         CartesianTransform(dataTransform).setAxis(
                             CartesianTransform.VERTICAL_AXIS, c.verticalAxis);
             }
@@ -2049,12 +2037,6 @@ public class BarSeries extends Series implements IStackable2, IBar
                     allSeriesTransform = false;
             }
         
-            n = cChart.secondSeries.length;
-            for (i = 0; i < n; i++)
-            {
-                if (cChart.getSeriesTransformState(cChart.secondSeries[i]))
-                    allSeriesTransform = false;
-            }
             if (allSeriesTransform)
                 cChart.measureLabels();
         }   
