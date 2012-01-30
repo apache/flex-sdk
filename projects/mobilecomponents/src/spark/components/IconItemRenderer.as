@@ -252,6 +252,11 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      */
     override public function set data(value:Object):void
     {
+		// FIXME (rfrishbe): early return if the data object has not changed. 
+		// This should be removed when SDK-28656 is fixed.
+		if (data == value)
+			return;
+		
         super.data = value;
         
         iconChanged = true;
