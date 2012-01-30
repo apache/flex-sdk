@@ -308,6 +308,15 @@ use namespace mx_internal;
                     var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
                     DisplayObject(currentModuleFactory).dispatchEvent(request); 
                     currentModuleFactory = request.value as IFlexModuleFactory;
+                    
+                    // If we couldn't get the parent module factory, then we 
+                    // will have to load into the highest application domain
+                    // that is available. We won't be able to get a parent 
+                    // if a module was loaded without specifying a parent 
+                    // module factory.
+                    if (!currentModuleFactory)
+                        break;
+                    
                     if (currentModuleFactory != topLevelModuleFactory)
                         moduleFactories.push(currentModuleFactory);
                     
