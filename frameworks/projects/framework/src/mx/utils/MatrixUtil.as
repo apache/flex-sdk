@@ -664,8 +664,14 @@ public final class MatrixUtil
         //
         // Since we're matching height we only care about (2) 
 
-        const b:Number = matrix.b;
-        const d:Number = matrix.d;
+        var b:Number = matrix.b;
+        var d:Number = matrix.d;
+        
+        // If components are very close to zero, zero them out to handle the special cases
+        if (-1.0e-9 < b && b < +1.0e-9)
+            b = 0;
+        if (-1.0e-9 < d && d < +1.0e-9)
+            d = 0;
 
         // Handle special cases first
         if (b == 0)
@@ -827,8 +833,14 @@ public final class MatrixUtil
         //
         // Since we're matching width we only care about (1) 
 
-        const a:Number = matrix.a;
-        const c:Number = matrix.c;
+        var a:Number = matrix.a;
+        var c:Number = matrix.c;
+        
+        // If components are very close to zero, zero them out to handle the special cases
+        if (-1.0e-9 < a && a < +1.0e-9)
+            a = 0;
+        if (-1.0e-9 < c && c < +1.0e-9)
+            c = 0;
 
         // Handle special cases first
         if (a == 0)
@@ -1125,10 +1137,20 @@ public final class MatrixUtil
         // (2) h = abs( bx + d1y )
         // 
 
-        const a:Number = matrix.a;
-        const b:Number = matrix.b;
-        const c:Number = matrix.c;
-        const d:Number = matrix.d;
+        var a:Number = matrix.a;
+        var b:Number = matrix.b;
+        var c:Number = matrix.c;
+        var d:Number = matrix.d;
+        
+        // If components are very close to zero, zero them out to handle the special cases
+        if (-1.0e-9 < a && a < +1.0e-9)
+            a = 0;
+        if (-1.0e-9 < b && b < +1.0e-9)
+            b = 0;
+        if (-1.0e-9 < c && c < +1.0e-9)
+            c = 0;
+        if (-1.0e-9 < d && d < +1.0e-9)
+            d = 0;
 
         // Handle special cases.
         if (b == 0 && c == 0)
@@ -1147,7 +1169,7 @@ public final class MatrixUtil
         {
             // No solution in the following cases since the matrix collapses
             // all points into a line.
-            if (b == 0 || c==0)
+            if (b == 0 || c == 0)
                return null;
 
             // (1) w = abs( ax + cy ) <=> w = abs( cy ) <=> w = abs(c)y
