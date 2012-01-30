@@ -120,9 +120,11 @@ public class Base64Encoder
 
     /**
      * Encodes the characters of a String in Base64 and adds the result to
-     * an internal buffer. Subsequent calls to this method add on to the
+     * an internal buffer. Strings must be in ASCII format. 
+     * 
+     * <p>Subsequent calls to this method add on to the
      * internal buffer. After all data have been encoded, call
-     * <code>toString()</code> to obtain a Base64 encoded String.
+     * <code>toString()</code> to obtain a Base64 encoded String.</p>
      * 
      * @param data The String to encode.
      * @param offset The character position from which to start encoding.
