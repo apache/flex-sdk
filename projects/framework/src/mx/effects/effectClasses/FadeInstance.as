@@ -41,6 +41,11 @@ import mx.events.FlexEvent;
  *
  *  @see mx.effects.Fade
  *  @see mx.events.TweenEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class FadeInstance extends TweenEffectInstance
 {
@@ -56,6 +61,11 @@ public class FadeInstance extends TweenEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function FadeInstance(target:Object)
 	{
@@ -92,6 +102,11 @@ public class FadeInstance extends TweenEffectInstance
 	/** 
 	 *  Initial transparency level between 0.0 and 1.0, 
 	 *  where 0.0 means transparent and 1.0 means fully opaque. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var alphaFrom:Number;
 	
@@ -102,6 +117,11 @@ public class FadeInstance extends TweenEffectInstance
 	/** 
 	 *  Final transparency level between 0.0 and 1.0, 
 	 *  where 0.0 means transparent and 1.0 means fully opaque.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var alphaTo:Number;
 	
