@@ -18,6 +18,7 @@ import flash.events.Event;
 import flash.geom.Matrix;
 
 import mx.core.AdvancedLayoutFeatures;
+import mx.utils.MatrixUtil;
 
 /**
  *  BitmapAsset is a subclass of the flash.display.Bitmap class
@@ -248,7 +249,9 @@ public class BitmapAsset extends FlexBitmap
      */
     override public function get width():Number
     {
-        return (layoutFeatures == null) ? super.width : layoutFeatures.layoutWidth;
+        // Return bounding box width in mirroring case
+        return (layoutFeatures == null) ? super.width :
+               MatrixUtil.transformSize(layoutFeatures.layoutWidth, _height, transform.matrix).x;
     }
     
     /**
@@ -285,7 +288,9 @@ public class BitmapAsset extends FlexBitmap
      */
     override public function get height():Number
     {
-        return (layoutFeatures == null) ? super.height : _height;
+        // Return bounding box height in mirroring case
+        return (layoutFeatures == null) ? super.height :
+               MatrixUtil.transformSize(layoutFeatures.layoutWidth, _height, transform.matrix).y;
     }
     
     /**
@@ -408,7 +413,18 @@ public class BitmapAsset extends FlexBitmap
      */
     override public function set rotation(value:Number):void
     {
-        rotationZ = value;
+        if (rotation == value)
+            return;
+        
+        if (layoutFeatures == null)
+        {
+            super.rotation = value;
+        }
+        else
+        {
+            layoutFeatures.layoutRotationZ = value;
+            validateTransformMatrix();
+        }
     }
     
     //----------------------------------
@@ -438,7 +454,7 @@ public class BitmapAsset extends FlexBitmap
         else
         {
             layoutFeatures.layoutScaleX = value;
-            layoutFeatures.layoutWidth = value * measuredWidth;
+            layoutFeatures.layoutWidth = Math.abs(value) * measuredWidth;
             validateTransformMatrix();
         }
     }
@@ -470,7 +486,7 @@ public class BitmapAsset extends FlexBitmap
         else
         {
             layoutFeatures.layoutScaleY = value;
-            _height = value * measuredHeight;
+            _height = Math.abs(value) * measuredHeight;
             validateTransformMatrix();
         }
     }
