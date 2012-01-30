@@ -303,8 +303,11 @@ public class LinearGradientStroke extends GradientStroke
             if (!isNaN(tx) && !isNaN(ty))
                 matrix.translate(GRADIENT_DIMENSION / 2, GRADIENT_DIMENSION / 2); // 1638.4 / 2
             
-            // Force the length to a minimum of 2. Values of 0 or 1 have undesired behavior	
-            length = Math.max(length, 2);
+			// Force the length to a absolute minimum of 2. Values of 0, 1, or -1 have undesired behavior	
+			if (length >= 0 && length < 2)
+				length = 2;
+			else if (length < 0 && length > -2)
+				length = -2;
             
             // Scale the gradient in the x direction. The natural size is 1638.4px. No need
             // to scale the y direction because it is infinite
