@@ -25,9 +25,10 @@ import mx.events.PropertyChangeEventKind;
 import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.ButtonBarBase;
-import spark.components.supportClasses.NavigationStack;
 import spark.components.supportClasses.ViewNavigatorBase;
-import spark.effects.Move;
+import spark.effects.Animate;
+import spark.effects.animation.MotionPath;
+import spark.effects.animation.SimpleMotionPath;
 import spark.events.ElementExistenceEvent;
 import spark.events.IndexChangeEvent;
 
@@ -136,6 +137,14 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @private
      */ 
     private var contentGroupProps:Object;
+    
+    /**
+     *  @private 
+     *  Determines if a changing event has already been dispatched.
+     *  This was introduced to prevent the IndexChangeEvent from
+     *  dispatching twice when the tabBar selection changes.
+     */
+    private var changingEventDispatched:Boolean = false;
     
     /**
      *  @private
@@ -411,6 +420,14 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     /**
      *  @private
+     */
+    override public function canRemoveCurrentView():Boolean
+    {
+        return (activeNavigator && activeNavigator.canRemoveCurrentView());
+    }
+    
+    /**
+     *  @private
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -419,7 +436,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */    
     protected function captureAnimationValues(component:UIComponent):Object
     {
-        var values:Object = {   y:component.y, 
+        var values:Object = {   x:component.x,
+                                y:component.y,
+                                width:component.width,
+                                height:component.height,
                                 visible: component.visible,
                                 includeInLayout: component.includeInLayout,
                                 cacheAsBitmap: component.cacheAsBitmap };
@@ -460,12 +480,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             if (_selectedIndex > -1)
             {
                 navigator = navigators[_selectedIndex];
-                navigator.active = true;
-                navigator.landscapeOrientation = landscapeOrientation;
                 
-                addElement(navigator);
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
+                
+                navigator.active = true;
+                navigator.landscapeOrientation = landscapeOrientation;
+                addElement(navigator);
                 
                 UIComponent(navigator).invalidateProperties();
             }
@@ -492,13 +513,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         if (hasEventListener(FlexEvent.VALUE_COMMIT))
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
-        
-        var currentStack:NavigationStack = null; 
-        if (_selectedIndex > -1)
-            currentStack = navigators[_selectedIndex].navigationStack;
-
-        // FIXME (chiedozi): When a selection changes, old navigator should
-        // destory its current view
     }    
     
     /**
@@ -511,16 +525,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function commitVisibilityChanges():void
+    private function commitVisibilityChanges():void
     {
         // Can't change the visibility during a view transition
-        // FIXME (chiedozi): Shouldn't be able to do this if the child view
-        // is animating
-//        if (viewChanging)
-//        {
-//            tabBarVisibilityInvalidated = false;
-//            return;
-//        }
+        // FIXME (chiedozi): Shouldn't be able to do this if the child view is animating
         
         // If an animation is running, end it
         if (tabBarVisibilityEffect)
@@ -547,18 +555,18 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function createTabBarVisibilityEffect(hiding:Boolean, props:Object):IEffect
+    private function createTabBarVisibilityEffect(hiding:Boolean, props:Object):IEffect
     {
-        var effect:Move = new Move();
-        
-        effect.target = tabBar;
-        effect.yFrom = props.start.y;
-        effect.yTo = props.end.y;
+        var animate:Animate = new Animate();
+        animate.target = tabBar;
+        animate.duration = getStyle("animationDuration");
+        animate.motionPaths = new Vector.<MotionPath>();
+        animate.motionPaths.push(new SimpleMotionPath("y", props.start.y, props.end.y));
         
         tabBar.includeInLayout = false;
         tabBar.cacheAsBitmap = true;
         
-        return effect;
+        return animate;
     }
     
     /**
@@ -593,59 +601,67 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             finalEffect.addChild(effect);
         }
         
-        var moveEffect:Move = new Move();
-        moveEffect.target = contentGroup;
-        moveEffect.yFrom = contentGroupProps.start.y;
-        moveEffect.yTo = contentGroup.y;
+        var animate:Animate = new Animate();
+        animate.target = contentGroup;
+        animate.duration = getStyle("animationDuration");
+        animate.motionPaths = new Vector.<MotionPath>();
+        animate.motionPaths.push(new SimpleMotionPath("y", contentGroupProps.start.y, 
+                                                           contentGroupProps.end.y));
+        animate.motionPaths.push(new SimpleMotionPath("height", contentGroupProps.start.height, 
+                                                                contentGroupProps.end.height));
+ 
         contentGroup.includeInLayout = false;
-        contentGroup.cacheAsBitmap = true;
-        finalEffect.addChild(moveEffect);
+        contentGroup.cacheAsBitmap = true;  
         
-        finalEffect.duration = 250;
+        finalEffect.addChild(animate);
+        finalEffect.duration = getStyle("animationDuration");
         return finalEffect;
     }
     
     /**
      *  @private
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
      */
     private function navigator_elementAddHandler(event:ElementExistenceEvent):void
     {
-        event.element.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
+        event.element.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+                                                view_propertyChangeHandler);
     }
     
     /**
      *  @private
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
      */
     private function navigator_elementRemoveHandler(event:ElementExistenceEvent):void
     {
-        event.element.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
+        event.element.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+                                                view_propertyChangeHandler);
     }
     
     /**
      *  @private
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
         
-        // If the actionBar changes, need to reset the properties on it
         if (instance == tabBar)
+        {
             tabBar.dataProvider = this;
+            tabBar.addEventListener(IndexChangeEvent.CHANGING, tabBar_indexChanging);
+        }
+    }
+    
+    /**
+     *  @private
+     */ 
+    override protected function partRemoved(partName:String, instance:Object):void
+    {
+        super.partRemoved(partName, instance);
+        
+        if (instance == tabBar)
+        {
+            tabBar.dataProvider = null;
+            tabBar.removeEventListener(IndexChangeEvent.CHANGING, tabBar_indexChanging);
+        }
     }
     
     /**
@@ -694,6 +710,16 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         }
         
         return savedData;
+    }
+    
+    /**
+     *  @private
+     *  Determines if the selection of the tab bar can change.
+     */ 
+    private function tabBar_indexChanging(event:IndexChangeEvent):void
+    {
+        if (!indexCanChange(event.newIndex))
+            event.preventDefault();
     }
     
     /**
@@ -790,8 +816,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     // TODO (chiedozi): Follow ListBase setSelectedIndex pattern
     public function set selectedIndex(value:int):void
     {
-        var cancelIndexChange:Boolean = false;
-        
         if (value < -1 || value >= length) 
         {
             var message:String = ResourceManager.getInstance().getString(
@@ -802,26 +826,18 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         if (!selectedNavigatorChanged && value == selectedIndex)
             return;
         
-        // FIXME (chiedozi): Need to be able to cancel this event
-//        if (activeView && !canRemoveCurrentView())
-//            cancelIndexChange = true;
-        
-        if (initialized)
+        // TODO (chiedozi): Add comment about how you can be in here via progromattic setting 
+        // of selectedIndex through a tab navigator change and how the changingEventDispatched 
+        // is the gating factor there
+        if (initialized && !changingEventDispatched)
         {
-            if (hasEventListener(IndexChangeEvent.CHANGING))
-            {
-                var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGING, false, true);
-                e.oldIndex = _selectedIndex;
-                e.newIndex = value;
-                
-                if (!dispatchEvent(e))
-                    cancelIndexChange = true;
-            }
-            
             // If the active view's REMOVING event or the navigator's
             // CHANGING event was canceled, prevent the index change
-            if (cancelIndexChange)
+            if (!indexCanChange(value))
             {
+                if (tabBar)
+                    tabBar.selectedIndex = _selectedIndex;
+                
                 _proposedSelectedIndex = NO_PROPOSED_SELECTION;
                 return;
             }
@@ -830,7 +846,33 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         _proposedSelectedIndex = value;
         selectedNavigatorChanged = true;
         
+        changingEventDispatched = false;
         invalidateProperties();
+    }
+    
+    /**
+     *  @private
+     *  This method determines the navigator can change its selected index.
+     *  This function will be called if the selection changed on the
+     *  tab bar, or if the selectedIndex property has changed.
+     */ 
+    private function indexCanChange(proposedSelection:int):Boolean
+    {
+        changingEventDispatched = true;
+        if (!canRemoveCurrentView())
+            return false;
+        
+        if (hasEventListener(IndexChangeEvent.CHANGING))
+        {
+            var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGING, false, true);
+            e.oldIndex = _selectedIndex;
+            e.newIndex = proposedSelection;
+            
+            if (!dispatchEvent(e))
+                return false;
+        }
+        
+        return true;
     }
     
     //----------------------------------
