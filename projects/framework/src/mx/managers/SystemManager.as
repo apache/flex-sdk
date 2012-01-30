@@ -3060,10 +3060,6 @@ public class SystemManager extends MovieClip
             // TODO: Finalize scaling behavior
             var scale:Number = 1;
 
-            // Temporary hack to scale android apps up to 1.5x
-            if (Capabilities.screenDPI >= 240)
-                scale = 1.5;
-
             root.scaleX = root.scaleY = scale;
             _width = stage.stageWidth / scale;
             _height = stage.stageHeight / scale;
