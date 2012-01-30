@@ -21,6 +21,11 @@ package mx.controls
  *  @see mx.controls.CheckBox
  *  @see mx.controls.LinkButton
  *  @see mx.controls.RadioButton
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class ButtonLabelPlacement
 {
@@ -34,21 +39,41 @@ public final class ButtonLabelPlacement
 
 	/**
 	 *  Specifies that the label appears below the icon.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const BOTTOM:String = "bottom";
 	
 	/**
 	 *  Specifies that the label appears to the left of the icon.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const LEFT:String = "left";
 	
 	/**
 	 *  Specifies that the label appears to the right of the icon.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const RIGHT:String = "right";
 	
 	/**
 	 *  Specifies that the label appears above the icon.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const TOP:String = "top";
 }
