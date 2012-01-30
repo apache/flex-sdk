@@ -52,7 +52,8 @@ ButtonBar
 
 CheckBox
 {
-    skinClass: ClassReference("spark.skins.spark.CheckBoxSkin");
+    labelPlacement : "left";
+    skinClass : ClassReference("spark.skins.mobile.CheckBoxSkin");
 }
 
 ComboBox
@@ -116,7 +117,8 @@ Panel
 
 RadioButton
 {
-	skinClass: ClassReference("spark.skins.spark.RadioButtonSkin");
+    labelPlacement : "left";
+    skinClass : ClassReference("spark.skins.mobile.RadioButtonSkin");
 }
 
 Scroller
