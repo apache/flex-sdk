@@ -149,6 +149,7 @@
 
 /**
  *  Offset of first line of text from the left side of the container, in pixels.
+ *  This property cannot be a negative number when used with the mobile theme.
  * 
  *  @default 0
  *  
