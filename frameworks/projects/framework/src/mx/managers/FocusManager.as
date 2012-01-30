@@ -990,7 +990,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     
     private function isEnabledAndVisible(o:DisplayObject):Boolean
     {
-        var formParent:DisplayObjectContainer = DisplayObject(form).parent;
+        var formParent:DisplayObjectContainer = DisplayObjectContainer(form);
         
         while (o != formParent)
         {
