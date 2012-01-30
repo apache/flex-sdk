@@ -9213,16 +9213,16 @@ public class UIComponent extends FlexSprite
      *  the parent.
      * 
      *  @return a <code>Rectangle</code> including the visible portion of the this 
-     *  object. The rectangle is in the coordinate system relative to the
-     *  <code>stopParent</code> parameter.
+     *  object. The rectangle is in global coordinates.
      */  
-    public function getVisibleRect(targetParent:DisplayObject):Rectangle
+    public function getVisibleRect(targetParent:DisplayObject = null):Rectangle
     {
         if (!targetParent)
             targetParent = DisplayObject(systemManager);
             
         var pt:Point = new Point(x, y);
-        pt = $parent.localToGlobal(pt);
+        var thisParent:DisplayObject = $parent ? $parent : parent;
+        pt = thisParent.localToGlobal(pt);
         
         // bounds of this object to return. Keep in global coordinates
         // until the end and set back to targetParent coordinates.
@@ -9233,11 +9233,16 @@ public class UIComponent extends FlexSprite
         do
         {
             if (current is UIComponent)
-                current = UIComponent(current).$parent;
+            {
+                if (UIComponent(current).$parent)
+                    current = UIComponent(current).$parent;
+                else 
+                    current = UIComponent(current).parent;
+            }
             else
                 current = current.parent;
                 
-            if (current.scrollRect)
+            if (current && current.scrollRect)
             {
                 // clip the bounds by the scroll rect
                 currentRect = current.scrollRect.clone();
@@ -9246,12 +9251,8 @@ public class UIComponent extends FlexSprite
                 currentRect.y = pt.y;
                 bounds = bounds.intersection(currentRect);
             }
-        } while (current != targetParent); 
+        } while (current && current != targetParent); 
 
-        // convert the rect relative to the stop parent
-        pt = targetParent.globalToLocal(bounds.topLeft);
-        bounds.x = pt.x;
-        bounds.y = pt.y;
         return bounds;       
     }
 
