@@ -17,9 +17,13 @@
 
 ActionBar
 {
+	color: #FFFFFF;
+	verticalAlign: "middle";
+	fontSize: 30;
+	fontWeight: bold;
+	textAlign: left;
+	textShadowColor: #000000;
     skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
-    color: #FFFFFF;
-    verticalAlign: "middle";
 }
 
 ActionBar Group#navigationGroup Button
