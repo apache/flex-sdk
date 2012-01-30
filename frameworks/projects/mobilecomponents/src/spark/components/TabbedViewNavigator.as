@@ -9,6 +9,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+// TODO (chiedozi): TabbedViewNavigator should override setActive and activate
+// the correct ViewNavigator.
 package spark.components
 {
 import flash.events.Event;
@@ -699,11 +701,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 {
                     navigator.activeView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                                                             view_propertyChangeHandler);
-                    
-                    // Force the stage focus to be the activated view
-                    systemManager.stage.focus = activeView;
                 }
-                
             }
 
             selectedIndexAdjusted = false;
