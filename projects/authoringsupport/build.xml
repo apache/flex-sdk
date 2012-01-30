@@ -46,7 +46,6 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/utilities.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
-            <!-- If you change this, update ${local.playerglobal.version} above. -->
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-classes>UtilitiesClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
@@ -84,7 +83,7 @@
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" >
 		    <compiler.source-path path-element="${basedir}/src"/>
 		    <doc-classes class="UtilitiesClasses"/>
-		    <external-library-path dir="${FLEX_HOME}/frameworks/libs/player/${local.playerglobal.version}">
+		    <external-library-path dir="${FLEX_HOME}/frameworks/libs/player/${global.playerglobal.version}">
 		    	<include name="playerglobal.swc" />
 		    </external-library-path>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">
