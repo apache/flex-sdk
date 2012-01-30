@@ -5852,7 +5852,7 @@ public class UIComponent extends FlexSprite
      *  to check if its parent's layoutDirection has changed, see commitProperties().
      *  The flag is cleared in validateDisplayList().
      */
-    private var oldLayoutDirection:String = null;
+    mx_internal var oldLayoutDirection:String = LayoutDirection.LTR;
         
     /**
      *  @inheritDoc
