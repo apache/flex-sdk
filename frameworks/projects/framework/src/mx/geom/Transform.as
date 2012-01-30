@@ -1,93 +1,253 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2008 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package mx.geom
 {
-	import flash.geom.ColorTransform;
-	import flash.geom.Matrix;
-	import flash.geom.Rectangle;
-	import flash.geom.Transform;
-	import flash.display.Shape;
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.events.IEventDispatcher;
-	
-	import mx.events.PropertyChangeEvent;
-	import flash.display.DisplayObject;
-	import flash.geom.PerspectiveProjection;
-	import mx.core.IInvalidating;
-	
-	
-	public class Transform extends flash.geom.Transform implements IEventDispatcher
-	{
-		private var dispatcher:EventDispatcher;
-		
-		public function Transform(src:DisplayObject = null)
-		{
-			dispatcher = new EventDispatcher();
-			
-			if(src == null)
-				src = new Shape();
-			super(src);		
-		}
+import flash.display.DisplayObject;
+import flash.display.Shape;
+import flash.geom.ColorTransform;
+import flash.geom.Matrix;
+import flash.geom.Matrix3D;
+import flash.geom.PerspectiveProjection;
+import flash.geom.Rectangle;
+import flash.geom.Transform;
 
-		[Bindable("propertyChange")]
-		override public function set matrix(value:Matrix):void
-		{
-			var oldMatrix:Matrix = super.matrix;
-			super.matrix = value;	
-			
-			dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "matrix", oldMatrix, value));
+import mx.core.ILayoutElement;
+import mx.core.IVisualElement;
+import mx.core.UIComponent;
+import mx.core.mx_internal;
 
-		}
-		
-		[Bindable("propertyChange")]
-		override public function set perspectiveProjection(value:PerspectiveProjection):void
-		{
-			var oldValue:PerspectiveProjection = super.perspectiveProjection;
-			super.perspectiveProjection = value;	
-			
-			dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "perspectiveProjection", oldValue, value));
-		}
-		
-		
-		[Bindable("propertyChange")]
-		override public function set colorTransform(value:ColorTransform):void
-		{
-			var oldColorTransform:ColorTransform = super.colorTransform;
-			super.colorTransform = value;
-			
-			dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "colorTransform", oldColorTransform, value));
-		}
-		
-		//--------------------------------------------------------------------------
-		//
-		//  IEventDispatcher properties and methods
-		//
-		//--------------------------------------------------------------------------
-		public function addEventListener(type:String, listener:Function, 
-										 useCapture:Boolean = false, priority:int = 0, 
-										 useWeakReference:Boolean = false):void 
-		{
-			return dispatcher.addEventListener(type, listener, useCapture, priority, 
-										useWeakReference);
-		}
-		
-		public function dispatchEvent(event:Event):Boolean
-		{
-			 return dispatcher.dispatchEvent(event);
-		}
-		
-		public function hasEventListener(type:String):Boolean
-		{
-			return dispatcher.hasEventListener(type);
-		} 
-		
-		public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
-		{
-			return dispatcher.removeEventListener(type, listener, useCapture);
-		}
-		
-		public function willTrigger(type:String):Boolean
-		{
-			return dispatcher.willTrigger(type);
-		}  
+use namespace mx_internal;
+	
+/**
+ *  TODO  
+ * 
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */	
+public class Transform extends flash.geom.Transform
+{
+	/**
+	 *  TODO  
+	 * 
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */		
+	public function Transform(src:DisplayObject = null)
+	{		
+		if(src == null)
+			src = new Shape();
+		super(src);		
 	}
+	
+	//--------------------------------------------------------------------------
+    //
+    //  Overridden flash.geom.Transform Properties
+    //
+    //--------------------------------------------------------------------------
+
+	/**
+	 *  @private
+	 */ 
+	override public function set colorTransform(value:ColorTransform):void
+	{
+		if (target is UIComponent)
+			UIComponent(target).$transform.colorTransform = value;
+		else if (target && "$transform" in target) // UIMovieClip
+			target["$transform"]["colorTransform"] = value;
+		else if (target && "setColorTransform" in target)
+			target["setColorTransform"](value);			
+		else
+			super.colorTransform = value;
+	}
+	
+	/**
+	 *  @private
+	 */ 	
+	override public function get colorTransform():ColorTransform
+	{
+		if (target is UIComponent)
+			return UIComponent(target).$transform.colorTransform;
+		else if (target && "$transform" in target) // UIMovieClip	
+			return target["$transform"]["colorTransform"];
+		else if (target && "displayObject" in target && target["displayObject"] != null)
+			return target["displayObject"]["transform"]["colorTransform"];
+		else
+			return super.colorTransform;	
+	}
+	
+	/**
+	 *  @private
+	 */ 	
+	override public function get concatenatedColorTransform():ColorTransform
+	{
+		if (target is UIComponent)
+			return UIComponent(target).$transform.concatenatedColorTransform;
+		else if (target && "$transform" in target) // UIMovieClip
+			return target["$transform"]["concatenatedColorTransform"];
+		else if (target && "displayObject" in target && target["displayObject"] != null)
+			return target["displayObject"]["transform"]["concatenatedColorTransform"];
+		else
+			return super.concatenatedColorTransform;	
+	}
+
+	/**
+	 *  @private
+	 */ 	
+	override public function get concatenatedMatrix():Matrix
+	{
+		if (target is UIComponent)
+			return UIComponent(target).$transform.concatenatedMatrix;
+		else if (target && "$transform" in target) // UIMovieClip
+			return target["$transform"]["concatenatedMatrix"];
+		else if (target && "displayObject" in target && target["displayObject"] != null)
+			return target["displayObject"]["transform"]["concatenatedMatrix"];
+		else
+			return super.concatenatedMatrix;
+	}
+
+	/**
+	 *  @private
+	 */ 
+	override public function set matrix(value:Matrix):void
+	{
+		if (target is ILayoutElement)
+			ILayoutElement(target).setLayoutMatrix(value, true);
+		else 
+			super.matrix = value;
+	}
+
+	/**
+	 *  @private
+	 */ 	
+	override public function get matrix():Matrix
+	{
+		if (target is ILayoutElement)
+			return ILayoutElement(target).getLayoutMatrix();
+		else
+			return super.matrix;
+	}
+	
+	/*override public function set matrix3D(value:Matrix3D):void 
+	{
+		if (target is ILayoutElement)
+			ILayoutElement(target).setLayoutMatrix3D(value, true);
+		else 
+			super.matrix3D = value;
+	}*/
+
+	/**
+	 *  @private
+	 */ 	
+	override public function get matrix3D():Matrix3D
+	{
+		if (target is ILayoutElement)
+			return ILayoutElement(target).getLayoutMatrix3D();
+		else
+			return super.matrix3D;
+	}
+
+	/**
+	 *  @private
+	 */ 	
+	override public function set perspectiveProjection(value:PerspectiveProjection):void
+	{
+		// TODO!!! jszeto
+		var oldValue:PerspectiveProjection = super.perspectiveProjection;
+		super.perspectiveProjection = value;	
+		
+	}
+
+	/**
+	 *  @private
+	 */ 	
+	override public function get perspectiveProjection():PerspectiveProjection
+	{
+		if (target is UIComponent)
+			return UIComponent(target).$transform.perspectiveProjection;
+		else if (target && "$transform" in target) // UIMovieClip
+			return target["$transform"]["perspectiveProjection"];
+		else if (target && "displayObject" in target && target["displayObject"] != null)
+			return target["displayObject"]["transform"]["perspectiveProjection"];
+		else
+			return super.perspectiveProjection;	
+	}
+	
+	/**
+	 *  @private
+	 */ 	
+	override public function get pixelBounds():Rectangle
+	{
+		if (target is UIComponent)
+			return UIComponent(target).$transform.pixelBounds;
+		else if (target && "$transform" in target) // UIMovieClip
+			return target["$transform"]["pixelBounds"];
+		else if (target && "displayObject" in target && target["displayObject"] != null)
+			return target["displayObject"]["transform"]["pixelBounds"];
+		else
+			return super.pixelBounds;
+	}
+	
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------	
+	
+	private var _target:IVisualElement;
+
+	/**
+	 *  TODO
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */ 	
+	public function set target(value:IVisualElement):void
+	{
+		if (value !== _target)
+			_target = value;
+	}
+	
+	/**
+	 *  @private
+	 */ 
+	public function get target():IVisualElement
+	{
+		return _target;
+	}
+	
+	//--------------------------------------------------------------------------
+    //
+    //  Overridden flash.geom.Transform Methods
+    //
+    //--------------------------------------------------------------------------
+
+	override public function getRelativeMatrix3D(relativeTo:DisplayObject):Matrix3D
+	{
+		if (target is UIComponent)
+			return UIComponent(target).$transform.getRelativeMatrix3D(relativeTo);
+		else if (target && "$transform" in target) // UIMovieClip
+			return target["$transform"]["getRelativeMatrix3D"](relativeTo);
+		else if (target && "displayObject" in target && target["displayObject"] != null)
+			return target["displayObject"]["transform"]["getRelativeMatrix3D"](relativeTo);
+		else
+			return super.getRelativeMatrix3D(relativeTo);
+	}
+}
 }
