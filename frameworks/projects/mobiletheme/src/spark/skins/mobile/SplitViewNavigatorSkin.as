@@ -17,6 +17,9 @@ import spark.components.SplitViewNavigator;
 import spark.layouts.HorizontalLayout;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
+import mx.core.mx_internal;
+use namespace mx_internal;
+
 /**
  *  The default skin for the SplitViewNavigator component.  This skin is
  *  chromeless and doesn't draw a background, border or separator.  It
@@ -105,9 +108,6 @@ public class SplitViewNavigatorSkin extends MobileSkin
         // Create the callout but don't add it to display list
         viewNavigatorCallout = new Callout();
         viewNavigatorCallout.id = "viewNavigatorCallout";
-        
-        // TODO (jasonsj): move sizing to SplitViewNavigator?
-        viewNavigatorCallout.height = 500;
     }
     
     /**
@@ -130,6 +130,10 @@ public class SplitViewNavigatorSkin extends MobileSkin
 
         contentGroup.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
         contentGroup.setLayoutBoundsPosition(0, 0);
+
+        // Set the maximum height of the callout to be equal to the dimensions of the SplitViewNavigator
+        viewNavigatorCallout.maxWidth = unscaledWidth - (viewNavigatorCallout.margin * 2);
+        viewNavigatorCallout.maxHeight = unscaledHeight - (viewNavigatorCallout.margin * 2);
     }
     
     /**
