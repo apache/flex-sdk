@@ -11,9 +11,11 @@
 package spark.components
 {
 import flash.events.Event;
+import flash.utils.getTimer;
 
 import mx.collections.ArrayCollection;
 import mx.collections.IList;
+import mx.collections.ISort;
 import mx.core.ClassFactory;
 import mx.core.IFactory;
 import mx.core.IVisualElementContainer;
@@ -22,9 +24,14 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.resources.Locale;
 
+import spark.accessibility.ListAccImpl;
+import spark.collections.Sort;
+import spark.collections.SortField;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.events.IndexChangeEvent;
 import spark.formatters.DateTimeFormatter;
+import spark.globalization.supportClasses.CalendarDate;
+import spark.globalization.supportClasses.DateTimeFormatterEx;
 
 use namespace mx_internal;
 
@@ -177,6 +184,14 @@ public class DateSpinner extends SkinnableComponent
     
     private static const MS_IN_DAY:Number = 1000 * 60 * 60 * 24;
     
+    // choosing January 1980 to guarantee 31 days in the month
+    private static const JAN1980_IN_MS:Number = 315561660000;
+    
+    // meridian
+    private static const AM:String = "am";
+    private static const PM:String = "pm";
+    
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -213,8 +228,13 @@ public class DateSpinner extends SkinnableComponent
     private var populateMeridianDataProvider:Boolean = true;
     
     private var refreshDateTimeFormatter:Boolean = true;
+    
+    // the internal DateTimeFormatter that provdies a set of extended functionalities
+    private var dateTimeFormatterEx:DateTimeFormatterEx = new DateTimeFormatterEx();
+    
     private var dateTimeFormatter:DateTimeFormatter = new DateTimeFormatter();
     
+    private var dateObj:Date = new Date();
     private var use24HourTime:Boolean;
     
     //--------------------------------------------------------------------------
@@ -544,10 +564,35 @@ public class DateSpinner extends SkinnableComponent
     {
         super.commitProperties();
         
-        use24HourTime = false; // TODO: determine 24-hour time here from Masa's libraries
-        
         var listsCreated:Boolean = false;
         
+        // TODO: CHECK ON THIS ASSUMPTION
+        // TODO: Jason says this is wrong; just use styleName = DateSpinner to link styles
+        //       but having trouble getting that to work
+        var localeStr:String = getStyle("locale");
+        if (refreshDateTimeFormatter)
+        {
+            if (localeStr)
+            {
+                dateTimeFormatterEx.setStyle("locale", localeStr);
+                dateTimeFormatter.setStyle("locale", localeStr);
+            }
+            else
+            {
+                dateTimeFormatterEx.clearStyle("locale");
+                dateTimeFormatter.clearStyle("locale");
+            }
+            
+            use24HourTime = dateTimeFormatterEx.getUse24HourFlag();
+            refreshDateTimeFormatter = false;
+        }
+        
+        // an array of the list and position objects that will be sorted by position
+        var fieldPositionObjArray:ArrayCollection = new ArrayCollection();
+        var listSort:ISort = new Sort();
+        listSort.fields = [new SortField("position")];
+        fieldPositionObjArray.sort = listSort;
+
         // ==================================================
         // switch out lists if the display mode changed
         if (displayModeChanged)
@@ -557,87 +602,113 @@ public class DateSpinner extends SkinnableComponent
             // need to be (re)created
             cleanContainer();
             
+            var fieldPosition:int = 0;
+            var listItem:Object;
+            var tempList:SpinnerList;
+            var numItems:int;
+            
             // configure the correct lists to use
             if (displayMode == DateSelectorDisplayMode.TIME ||
                 displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
             {
-                // number of items shown depends on 24 hour time, e.g. meridian list
-                var numItems:int = use24HourTime ? 2 : 3;
-                var fieldPosition:int = 0;
+                fieldPositionObjArray.addItem(generateFieldPositionObject(HOUR_ITEM, dateTimeFormatterEx.getHourPosition()));
+                fieldPositionObjArray.addItem(generateFieldPositionObject(MINUTE_ITEM, dateTimeFormatterEx.getMinutePosition()));
                 
                 if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
-                {
-                    // add date field first; increases the number of lists to show
-                    numItems = use24HourTime ? 3 : 4;
-                    
-                    dateList = createDateItemList(DATE_ITEM, fieldPosition++, numItems);
-                    dateList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
-                    dateList.wrapElements = false;
-                    listContainer.addElement(dateList);
-                }
-                
-                // create components for hours and minutes
-                hourList = createDateItemList(HOUR_ITEM, fieldPosition++, numItems); // TODO: ordinal from locale?
-                hourList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
-                listContainer.addElement(hourList);
-                
-                minuteList = createDateItemList(MINUTE_ITEM, fieldPosition++, numItems); // TODO: ordinal from locale?
-                minuteList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
-                listContainer.addElement(minuteList);
+                    fieldPositionObjArray.addItem(generateFieldPositionObject(DATE_ITEM, dateTimeFormatterEx.getMonthPosition()));
                 
                 if (!use24HourTime)
+                    fieldPositionObjArray.addItem(generateFieldPositionObject(MERIDIAN_ITEM, dateTimeFormatterEx.getAmPmPosition()));
+                
+                // sort fieldPosition objects by position               
+                fieldPositionObjArray.refresh();
+                
+                numItems = fieldPositionObjArray.length;
+                
+                for each (listItem in fieldPositionObjArray)
                 {
-                    meridianList = createDateItemList(MERIDIAN_ITEM, fieldPosition++, numItems); // TODO: ordinal from locale?
-                    meridianList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
-                    listContainer.addElement(meridianList);
+                    switch(listItem.dateItem)
+                    {
+                        case HOUR_ITEM:
+                        {
+                            hourList = createDateItemList(HOUR_ITEM, fieldPosition++, numItems);
+                            tempList = hourList;
+                            break;
+                        }
+                        case MINUTE_ITEM:
+                        {
+                            minuteList = createDateItemList(MINUTE_ITEM, fieldPosition++, numItems);
+                            tempList = minuteList;
+                            break;
+                        }
+                        case MERIDIAN_ITEM:
+                        {
+                            meridianList = createDateItemList(MERIDIAN_ITEM, fieldPosition++, numItems);
+                            tempList = meridianList;
+                            break;
+                        }	
+                        case DATE_ITEM:
+                        {
+                            dateList = createDateItemList(DATE_ITEM, fieldPosition++, numItems);
+                            tempList = dateList;
+                            break;
+                        }
+                    }
+                    tempList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
+                    listContainer.addElement(tempList);
                 }
             }
             else // default case: DATE mode
             {
-                // create components
-                monthList = createDateItemList(MONTH_ITEM, 0, 3); // TODO: ordinal from locale
-                dateList = createDateItemList(DATE_ITEM, 1, 3); // TODO: ordinal from locale
-                yearList = createDateItemList(YEAR_ITEM, 2, 3); // TODO: ordinal from locale
+                fieldPositionObjArray.addItem(generateFieldPositionObject(MONTH_ITEM, dateTimeFormatterEx.getMonthPosition()));
+                fieldPositionObjArray.addItem(generateFieldPositionObject(DATE_ITEM, dateTimeFormatterEx.getDayOfMonthPosition()));
+                fieldPositionObjArray.addItem(generateFieldPositionObject(YEAR_ITEM, dateTimeFormatterEx.getYearPosition()));
+
+                // sort fieldPosition objects by position 
+                fieldPositionObjArray.refresh();
                 
+                numItems = fieldPositionObjArray.length;
+                
+                for each (listItem in fieldPositionObjArray)
+                {
+                    switch(listItem.dateItem)
+                    {
+                        case MONTH_ITEM:
+                        {
+                            monthList = createDateItemList(MONTH_ITEM, fieldPosition++, numItems);
+                            tempList = monthList;
+                            break;
+                        }
+                        case DATE_ITEM:
+                        {
+                            dateList = createDateItemList(DATE_ITEM, fieldPosition++, numItems);
+                            tempList = dateList;
+                            break;
+                        }
+                        case YEAR_ITEM:
+                        {
+                            yearList = createDateItemList(YEAR_ITEM, fieldPosition++, numItems);
+                            tempList = yearList;
+                            break;
+                        }	
+                    }
+                    tempList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
+                    listContainer.addElement(tempList);
+                }
                 // set item renderers prototype
-                //                yearList.itemRenderer = new ClassFactory(DefaultDateSpinnnerItemRendererThingy);
-                
-                // add listeners
-                monthList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
-                dateList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
-                yearList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
-                
-                // TODO: determine order from locale -- use addElementAt(...)
-                listContainer.addElement(monthList);
-                listContainer.addElement(dateList);
-                listContainer.addElement(yearList);
+                // yearList.itemRenderer = new ClassFactory(DefaultDateSpinnnerItemRendererThingy);
             }
-            
             displayModeChanged = false;
             listsCreated = true;
         }
+
+        // ==================================================
+        var today:Date = new Date();
         
-        // ==============================
-        
-        // TODO: CHECK ON THIS ASSUMPTION
-        // TODO: Jason says this is wrong; just use styleName = DateSpinner to link styles
-        //       but having trouble getting that to work
-        var localeStr:String = getStyle("locale");
-        if (refreshDateTimeFormatter)
-        {
-            if (localeStr)
-                dateTimeFormatter.setStyle("locale", localeStr);
-            else
-                dateTimeFormatter.clearStyle("locale");
-            
-            refreshDateTimeFormatter = false;
-        }
-      
-		// ==================================================
         // populate lists that are being shown
         if (yearList && populateYearDataProvider)
         {
-            yearList.dataProvider = generateYears();
+            yearList.dataProvider = generateYears(today);
             //			yearList.dataProvider = new YearRangeList(localeStr, minDate.fullYear, maxDate.fullYear);
             populateYearDataProvider = false;
             
@@ -645,7 +716,7 @@ public class DateSpinner extends SkinnableComponent
         }
         if (monthList && populateMonthDataProvider)
         {
-            monthList.dataProvider = generateMonths();
+            monthList.dataProvider = generateMonths(today);
             populateMonthDataProvider = false;
             
             // set size
@@ -656,14 +727,14 @@ public class DateSpinner extends SkinnableComponent
             if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
             {
                 dateList.dataProvider = new DateAndTimeRangeList(minDate, maxDate,
-                    localeStr, new Date(), getStyle("accentColor"));
+                    localeStr, today, getStyle("accentColor"));
                 
                 // set size to longest string
-                dateList.typicalItem = {label:"Wed May 31"}; // TODO: localize? better way to do this? add a dot? ask Masa
+                dateList.typicalItem = dateList.dataProvider.getItemAt(0); // TODO: localize? better way to do this? add a dot? ask Masa
             }
             else
             {
-                dateList.dataProvider = generateMonthOfDates();
+                dateList.dataProvider = generateMonthOfDates(today);
                 
                 // set size to width of longest visible value
                 dateList.typicalItem = getLongestLabel(dateList.dataProvider);
@@ -685,9 +756,8 @@ public class DateSpinner extends SkinnableComponent
         }
         if (meridianList && populateMeridianDataProvider)
         {
-            // TODO: replace with localized version, probably break out into function
-            var amObject:Object = generateDateItemObject("AM", "am");
-            var pmObject:Object = generateDateItemObject("PM", "pm");
+            var amObject:Object = generateAmPm(AM);
+            var pmObject:Object = generateAmPm(PM);
             meridianList.dataProvider = new ArrayCollection([amObject, pmObject]);
             meridianList.typicalItem = getLongestLabel(meridianList.dataProvider);
             populateMeridianDataProvider = false;
@@ -833,7 +903,13 @@ public class DateSpinner extends SkinnableComponent
      */
     protected function createDateItemList(datePart:String, itemIndex:int, itemCount:int):SpinnerList
     {
+        // itemIndex and itemCount not used yet; will be used when localization support
+        // is put in place, e.g.
+        // if itemIndex == 0, align as first column,
+        // if itemIndex == itemCount - 1, align as last column
+        
         var s:SpinnerList = SpinnerList(createDynamicPartInstance("dateItemList"));
+        //		s.itemRenderer = // ...;
         return s;
     }
     
@@ -846,22 +922,20 @@ public class DateSpinner extends SkinnableComponent
     }
     
     // generate objects to populate a SpinnerList with years
-    private function generateYears():IList
+    private function generateYears(today:Date):IList
     {
         var ac:ArrayCollection = new ArrayCollection();
+        var todayYear:int = today.getFullYear();
         
-        var dtf:DateTimeFormatter = dateTimeFormatter;
-        dtf.dateTimePattern = "yyyy"; // TODO: this will need to be localized
-        var d:Date = new Date(0);
-		var today:Date = new Date();
-		
+        dateTimeFormatter.dateTimePattern = dateTimeFormatterEx.getYearPattern();
+        
         for (var i:Number = minDate.fullYear; i <= maxDate.fullYear; i++)
         {
-            d.fullYear = i;
-            var item:Object = generateDateItemObject(dtf.format(d), i);
+            dateObj.fullYear = i;
+            var item:Object = generateDateItemObject(dateTimeFormatter.format(dateObj), i);
 			
-			if(i == today.getFullYear())
-				item["accentColor"] = getStyle("accentColor");
+            if (i == todayYear)
+                item["accentColor"] = getStyle("accentColor");
 			
             ac.addItem(item);
         }
@@ -870,23 +944,19 @@ public class DateSpinner extends SkinnableComponent
     }
     
     // generate objects to populate a SpinnerList with months
-    private function generateMonths():IList
+    private function generateMonths(today:Date):IList
     {
         var ac:ArrayCollection = new ArrayCollection();
+        var todayMonth:int = today.getMonth();
         
-        var dtf:DateTimeFormatter = dateTimeFormatter;
-        dtf.dateTimePattern = "MMMM";
+        var monthNames:Vector.<String> = dateTimeFormatterEx.getMonthNames();
         
-        var d:Date = new Date(1980, 0, 1, 0, 1);
-		var today:Date = new Date();
-		 
         for (var i:Number = 0; i < 12; i++)
         {
-            d.month = i;
-            var item:Object = generateDateItemObject(dtf.format(d), i);
-			
-			if(i == today.getMonth())
-				item["accentColor"] = getStyle("accentColor");
+            var item:Object = generateDateItemObject(monthNames[i], i);
+            
+            if (i == todayMonth)
+                item["accentColor"] = getStyle("accentColor");
 				
             ac.addItem(item);
         }
@@ -895,24 +965,23 @@ public class DateSpinner extends SkinnableComponent
     }
     
     // generate objects to populate a SpinnerList with dates, e.g. "1, 2, 3, ... 31"
-    private function generateMonthOfDates():IList
+    private function generateMonthOfDates(today:Date):IList
     {
         var ac:ArrayCollection = new ArrayCollection();
+        var todayDate:int = today.getDate();
         
-        var dtf:DateTimeFormatter = dateTimeFormatter;
-        dtf.dateTimePattern = "d";
+        dateTimeFormatter.dateTimePattern = dateTimeFormatterEx.getDayOfMonthPattern();
         
-        // choosing January 1980 to guarantee 31 days in the month
-        var d:Date = new Date(1980, 0, 1, 0, 1, 0, 0);
-		var today:Date = new Date();
-		 
+        // guarantee 31 days in the month
+        dateObj.time = JAN1980_IN_MS;
+        
         for (var i:int = 1; i <= 31; i++)
         {
-            d.date = i;
-            var item:Object = generateDateItemObject(dtf.format(d), i);
-			
-			if(i == today.getDate())
-				item["accentColor"] = getStyle("accentColor");
+            dateObj.date = i;
+            var item:Object = generateDateItemObject(dateTimeFormatter.format(dateObj), i);
+
+			if (i == todayDate)
+                item["accentColor"] = getStyle("accentColor");
 		
             ac.addItem(item);
         }
@@ -928,10 +997,12 @@ public class DateSpinner extends SkinnableComponent
         var minHour:int = use24HourTime ? 0 : 1;
         var maxHour:int = use24HourTime ? 23 : 12;
         
+        dateTimeFormatter.dateTimePattern = dateTimeFormatterEx.getHourPattern();
+        
         for (var i:int = minHour; i <= maxHour; i++)
         {
-            // TODO: localize?
-            ac.addItem( generateDateItemObject(String(i), i) );
+            dateObj.hours = i;
+            ac.addItem( generateDateItemObject(dateTimeFormatter.format(dateObj), i) );
         }
         
         return ac;
@@ -941,13 +1012,24 @@ public class DateSpinner extends SkinnableComponent
     {
         var ac:ArrayCollection = new ArrayCollection();
         
+        dateTimeFormatter.dateTimePattern = dateTimeFormatterEx.getMinutePattern();
+        
         for (var i:int = 0; i <= 59; i += minuteStepSize)
         {
-            // TODO: localize?
-            ac.addItem( generateDateItemObject(i < 10 ? "0" + i : String(i), i));
+        	dateObj.minutes = i;
+            ac.addItem( generateDateItemObject(dateTimeFormatter.format(dateObj), i) );
         }
         
         return ac;
+    }
+    
+    private function generateAmPm(value:String):Object
+    {
+        dateTimeFormatter.dateTimePattern = dateTimeFormatterEx.getAmPmPattern();
+        
+        dateObj.hours = (value == AM)? 1 : 13;
+        
+        return generateDateItemObject(dateTimeFormatter.format(dateObj), value);
     }
 
     // TODO: possibly optimize usages and remove this function
@@ -1031,7 +1113,7 @@ public class DateSpinner extends SkinnableComponent
                     if (curObj.enabled != newEnabledValue)
                     {
                         var o:Object = generateDateItemObject(curObj.label, curObj.data, newEnabledValue);
-						o["accentColor"] = curObj["accentColor"];
+                        o["accentColor"] = curObj["accentColor"];
                         listData[i] = o;
                     }
                 }
@@ -1059,7 +1141,7 @@ public class DateSpinner extends SkinnableComponent
                 if (curObj.enabled != newEnabledValue)
                 {
                     o = {data:curObj.data, label:curObj.label, enabled:newEnabledValue};
-					o["accentColor"] = curObj["accentColor"];
+                    o["accentColor"] = curObj["accentColor"];
                     listData[i] = o;
                 }
             }
@@ -1125,6 +1207,13 @@ public class DateSpinner extends SkinnableComponent
     private function generateDateItemObject(label:String, data:*, enabled:Boolean = true):Object
     {
         var obj:Object = { label:label, data:data, enabled:enabled };
+        return obj;
+    }
+
+    // generate the fieldPosition object that contains the date part name and position based on locale
+    private function generateFieldPositionObject(datePart:String, position:int):Object
+    {
+        var obj:Object = { dateItem:datePart, position:position };
         return obj;
     }
   
