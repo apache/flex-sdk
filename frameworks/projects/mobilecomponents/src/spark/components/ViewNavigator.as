@@ -346,18 +346,6 @@ public class ViewNavigator extends ViewNavigatorBase
     
     /**
      *  @private
-     *  This flag is set to true if a navigation operation, e.g., pushView()
-     *  is called during a transition.  If so, another validation pass is
-     *  run after the transition is complete.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    private var revalidateWhenComplete:Boolean = false;
-    
-    /**
-     *  @private
      */
     private var showingActionBar:Boolean;
     
@@ -1307,9 +1295,18 @@ public class ViewNavigator extends ViewNavigatorBase
                 return;
         }
         
-        // If the action queue doesn't exist, create it
+        // Navigation operations are not committed immediately to allow the UI
+        // to update before beginning the creation process.  When an action is
+        // queued for the first time, we add an enter frame listener.
         if (delayedNavigationActions.length == 0)
-            addEventListener(Event.ENTER_FRAME, executeDelayedActions);
+        {
+            // If the navigator is currently in the process of switching views,
+            // the queued actions will automatically be run later in
+            // navigatorActionCommitted() when the transition is complete.
+            // So there is no need to add the ENTER_FRAME listener.
+            if (!viewChanging)
+                addEventListener(Event.ENTER_FRAME, executeDelayedActions);
+        }
         
         delayedNavigationActions.push({action:action, viewClass:viewClass, 
             data:data, transition:transition, context:context});
@@ -1321,17 +1318,16 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      *  Executes all the navigation operations that have been queued
-     *  by the navigation methods (e.g., popView, pushView).  
-
-     *  @param transition The view transition to play
+     *  by the navigation methods (e.g., popView, pushView).
      * 
      *  @langversion 3.0
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */  
-    private function executeDelayedActions(event:Event):void
+    private function executeDelayedActions(event:Event = null):void
     {
-        removeEventListener(Event.ENTER_FRAME, executeDelayedActions);
+        if (event)
+            removeEventListener(Event.ENTER_FRAME, executeDelayedActions);
    
         if (delayedNavigationActions.length == 0)
             return;
@@ -1346,6 +1342,9 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         
         delayedNavigationActions.length = 0;
+
+        viewChangeRequested = true;
+        invalidateProperties();
     }
     
     /**
@@ -1403,42 +1402,11 @@ public class ViewNavigator extends ViewNavigatorBase
             {
                 navigationStack.clear();
             }
-            
-            // If the currentView navigation data object is the same as the
-            // new one, the activeView doesn't need to be changed.  This can
-            // happen if a pushView() is followed immediately by a popView().
-            if (navigationStack.topView == currentViewDescriptor)
-            {
-                if (viewChanging)
-                {
-                    revalidateWhenComplete = false;
-                }
-                else
-                {
-                    viewChangeRequested = false;    
-                }
-                
-                lastAction = ViewNavigatorAction.NONE;
-                return;
-            }
         }
         
         pendingViewTransition = transition;
         if (pendingViewTransition == null)
             pendingViewTransition = defaultTransition;
-
-        // If a new view is in the process of being activated, we set the
-        // revalidateWhenComplete flag to true so that the navigator knows
-        // to apply this action after the previous one completes.
-        if (viewChanging)
-        {
-            revalidateWhenComplete = true;
-        }
-        else
-        {
-            viewChangeRequested = true;
-            invalidateProperties();
-        }
     }
     
     /**
@@ -1774,10 +1742,9 @@ public class ViewNavigator extends ViewNavigatorBase
         // The revalidateWhenComplete flag will be true in this case and will
         // force another validation to commit that change.  If the flag is
         // false, we can end the validation process.
-        if (revalidateWhenComplete)
+        if (delayedNavigationActions.length > 0)
         {
-            revalidateWhenComplete = false;
-            viewChangeRequested = true;
+            executeDelayedActions();
             commitNavigatorAction();
         }
         else
@@ -1838,12 +1805,15 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     protected function commitNavigatorAction():void
     {
+        if (!isActive)
+        {
+            viewChangeRequested = false;
+            return;
+        }
+        
         // Private event
         if (hasEventListener("viewChangeStart"))
             dispatchEvent(new Event("viewChangeStart"));
-        
-        if (!isActive)
-            return;
         
         // If a ui control is animating, force it to end
         if (actionBarVisibilityEffect)
