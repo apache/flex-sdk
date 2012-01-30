@@ -13,13 +13,10 @@ package spark.skins.mobile
 {
 
 import flash.display.DisplayObject;
-import flash.display.GradientType;
 import flash.display.Graphics;
 
-import mx.utils.ColorUtil;
+import mx.core.DeviceDensity;
 
-import spark.core.SpriteVisualElement;
-import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
 import spark.skins.mobile160.assets.RadioButton_down;
 import spark.skins.mobile160.assets.RadioButton_downSelected;
@@ -62,9 +59,9 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
         
         useChromeColor = true;
         
-        switch (targetDensity)
+        switch (authorDensity)
         {
-            case MobileSkin.PPI240:
+            case DeviceDensity.PPI_240:
             {
                 upIconClass = spark.skins.mobile240.assets.RadioButton_up;
                 upSelectedIconClass = spark.skins.mobile240.assets.RadioButton_upSelected;
