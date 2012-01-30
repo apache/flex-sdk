@@ -21,6 +21,11 @@ use namespace object_proxy;
 /**
  *  OrderedObject acts as a wrapper to Object to preserve the ordering of the
  *  properties as they are added. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */ 
 public dynamic class OrderedObject extends flash.utils.Proxy
 {
@@ -34,6 +39,11 @@ public dynamic class OrderedObject extends flash.utils.Proxy
      * Constructor.
      *
      * @param item An Object containing name/value pairs.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function OrderedObject(item:Object=null)
     {
@@ -54,6 +64,11 @@ public dynamic class OrderedObject extends flash.utils.Proxy
 
     /**
      *  Contains a list of all of the property names for the proxied object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     object_proxy var propertyList:Array;
 
@@ -69,6 +84,11 @@ public dynamic class OrderedObject extends flash.utils.Proxy
 
     /**
      *  Storage for the object property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _item:Object;
 
@@ -86,6 +106,11 @@ public dynamic class OrderedObject extends flash.utils.Proxy
      *  <code>localName</code> property.
      *
      *  @return The value of the property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override flash_proxy function getProperty(name:*):*
     {
@@ -105,6 +130,11 @@ public dynamic class OrderedObject extends flash.utils.Proxy
      *  @param rest An array specifying the arguments to the called method.
      *
      *  @return The return value of the called method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override flash_proxy function callProperty(name:*, ... rest):*
     {
@@ -119,6 +149,11 @@ public dynamic class OrderedObject extends flash.utils.Proxy
      *  inspecting the <code>localName</code> property.
      *
      *  @return A Boolean indicating if the property was deleted.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override flash_proxy function deleteProperty(name:*):Boolean
     {
@@ -152,6 +187,11 @@ public dynamic class OrderedObject extends flash.utils.Proxy
      *  <code>false</code>.
      *
      *  @see flash.utils.Proxy#hasProperty()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override flash_proxy function hasProperty(name:*):Boolean
     {
@@ -167,6 +207,11 @@ public dynamic class OrderedObject extends flash.utils.Proxy
      *  @return The property's name.
      *
      *  @see flash.utils.Proxy#nextName()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override flash_proxy function nextName(index:int):String
     {
@@ -178,6 +223,11 @@ public dynamic class OrderedObject extends flash.utils.Proxy
      *  flash.utils.Proxy.
      *
      *  @see flash.utils.Proxy#nextNameIndex()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override flash_proxy function nextNameIndex(index:int):int
     {        
@@ -200,6 +250,11 @@ public dynamic class OrderedObject extends flash.utils.Proxy
      *  @return The property's value.
      *
      *  @see flash.utils.Proxy#nextValue()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override flash_proxy function nextValue(index:int):*
     {
@@ -213,6 +268,11 @@ public dynamic class OrderedObject extends flash.utils.Proxy
      *  updated on the proxied object.
      *
      *  @param value Value that should be set on the proxied object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override flash_proxy function setProperty(name:*, value:*):void
     {
