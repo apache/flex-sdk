@@ -102,8 +102,35 @@ public class EffectManager extends EventDispatcher
 
     /**
      *  @private
+     *  Weak backing storage for the lastEffectCreated instance.  
      */
-    mx_internal static var lastEffectCreated:Effect;
+    private static var weakKeys:Dictionary;
+ 
+    /**
+     *  @private
+     *  This internal property is currently only used by the ViewStack 
+     *  component in order to coordinate the hideEffect completion with
+     *  ViewStack change logic.  It would be best to find a better way 
+     *  to do this (localized to ViewStack) in the future however.
+     */
+    mx_internal static function set lastEffectCreated(effect:Effect):void
+    {
+        // We just regenerate our dictionary instead of finding and deleting 
+        // the previous key.  Faster.
+        weakKeys = new Dictionary(true);
+        weakKeys[effect] = true;
+    }
+       
+    /**
+     *  @private
+     */
+    mx_internal static function get lastEffectCreated():Effect
+    {
+        for( var item:* in weakKeys ) 
+            return item;
+            
+        return null;
+    }
 
     /**
      *  @private
