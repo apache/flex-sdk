@@ -22,6 +22,7 @@
 	<macrodef name="bundle">
 		<attribute name="locale"/>
 			<sequential>
+				<copy file="${basedir}/bundles/en_US/empty.properties" tofile="${basedir}/bundles/@{locale}/empty.properties"/>
 				<echo message="Compiling frameworks/locale/@{locale}/flash-integration_rb.swc"/>
 				<!-- Load the <compc> task. We can't do this at the <project> level -->
 				<!-- because targets that run before flexTasks.jar gets built would fail. -->
@@ -48,7 +49,7 @@
 						<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 					</external-library-path>
 				</compc>
-		</sequential>
+			</sequential>
 	</macrodef>	
 	
 	<macrodef name="fat-swc">
@@ -60,7 +61,6 @@
 					<include name="*.*"/>
 				</zipfileset>
 			</zip>
-			<delete dir="${basedir}/bundles/@{locale}/docs" failonerror="false"/>
 		</sequential>
 	</macrodef>	
 
@@ -76,15 +76,19 @@
 		<bundle locale="${locale}"/>
 	</target>
 	
-	<target name="other.locales" depends="bundles-clean,bundles" description="Build other locale SWCs"/>
+	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
 	
 	<!-- This is a private target for building automation_flashflexkit_rb.swc for various locales. -->
 	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
 	<target name="bundles">
-		<bundler locale="en_US"/><!-- American English resources  -->
+		<bundler locale="de_DE"/><!-- German resources  -->
+		<bundler locale="fr_FR"/><!-- French resources  -->
+		<bundler locale="ja_JP"/><!-- Japanese resources  -->
+		<bundler locale="ru_RU"/><!-- Russian resources  -->
+		<bundler locale="zh_CN"/><!-- Simplified Chinese resources -->
 	</target>
 
-	<target name="clean">
+	<target name="clean" depends="bundles-clean">
 		<delete failonerror="false">
 			<fileset file="${basedir}/bundles.properties"/>
             <fileset dir="${basedir}/libs">
