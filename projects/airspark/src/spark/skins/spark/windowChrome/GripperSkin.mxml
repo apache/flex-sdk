@@ -38,7 +38,7 @@
         </s:fill>
     </s:Rect>
     
-    <s:BitmapImage source="@Embed('../../../../assets/gripper_up.png')" right="0" bottom="0" verticalCenter="0" />
+    <s:BitmapImage source="@Embed('../../../../../assets/gripper_up.png')" right="0" bottom="0" verticalCenter="0" />
     
 </s:Skin>
     
