@@ -188,18 +188,22 @@ public class TextInputSkin extends TextSkinBase
         var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
         var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
         
+        // default vertical positioning is ascent centered
+        var textHeight:Number = getElementPreferredHeight(textDisplay);
+        var textY:Number = Math.round(0.5 * (unscaledTextHeight - textHeight)) + paddingTop;
+
         if (textDisplay)
         {
             textDisplay.commitStyles();
             setElementSize(textDisplay, unscaledTextWidth, unscaledTextHeight);
-            setElementPosition(textDisplay, paddingLeft, paddingTop);
+            setElementPosition(textDisplay, paddingLeft, textY);
         }
         
         if (promptDisplay)
         {
             promptDisplay.commitStyles();
             setElementSize(promptDisplay, unscaledTextWidth, unscaledTextHeight);
-            setElementPosition(promptDisplay, paddingLeft, paddingTop);
+            setElementPosition(promptDisplay, paddingLeft, textY);
         }
     }
     
