@@ -460,7 +460,7 @@ public class AddItems extends OverrideBase implements IOverride
     {
         try
         {
-            if (propertyName == null && (dest is IVisualElementContainer))
+            if ((propertyName == null || propertyName == "mxmlContent") && (dest is IVisualElementContainer))
                 return IVisualElementContainer(dest).getElementIndex(object as IVisualElement);
             
             if (propertyName == null && dest is IChildList)
