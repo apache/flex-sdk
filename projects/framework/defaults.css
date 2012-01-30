@@ -29,7 +29,7 @@ global
   	borderCapColor: #919999;
 	borderColor: #696969;
 	borderSides: "left top right bottom";
-    borderSkin: ClassReference("mx.skins.spark.BorderSkin");
+    /*borderSkin: ClassReference("mx.skins.spark.BorderSkin");*/
 	borderStyle: "inset";
 	borderThickness: 1;
     borderVisible: true;
@@ -88,6 +88,7 @@ global
     inactiveTextSelectionColor: #E8E8E8;
 	indentation: 17;
 	indicatorGap: 14;
+    inputMode: "mouse";
     justificationRule: "auto";
     justificationStyle: "auto";
 	kerning: "default";
