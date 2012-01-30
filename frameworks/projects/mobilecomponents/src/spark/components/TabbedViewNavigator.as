@@ -288,10 +288,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */ 
     override mx_internal function get exitApplicationOnBackKey():Boolean
     {
-    	if (activeNavigator)
-    		return activeNavigator.exitApplicationOnBackKey;
+        if (activeNavigator)
+            return activeNavigator.exitApplicationOnBackKey;
 
-    	return super.exitApplicationOnBackKey;
+        return super.exitApplicationOnBackKey;
     }
     
     //----------------------------------
@@ -1559,9 +1559,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  assigned.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     private function startTrackingUpdates(item:Object):void
     {
@@ -1580,9 +1580,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  source is assigned.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     private function stopTrackingUpdates(item:Object):void
     {
