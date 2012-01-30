@@ -1632,7 +1632,7 @@ public class IconItemRenderer extends LabelItemRenderer
         if (oldDisplayObject)
         { 
             // If the element created the display object
-            if (iconDisplay.displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT &&
+            if (decoratorDisplay.displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT &&
                 oldDisplayObject.parent == this)
             {
                 removeChild(oldDisplayObject);
