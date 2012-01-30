@@ -28,6 +28,11 @@ package mx.core
  * 
  *  @see mx.states.AddItems
  *  @see mx.core.IDeferredInstance
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public interface ITransientDeferredInstance extends IDeferredInstance
 {
@@ -40,6 +45,11 @@ public interface ITransientDeferredInstance extends IDeferredInstance
     /**
      *  Resets the state of our factory to its initial state, clearing any
      *  references to the cached instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function reset():void;
 }
