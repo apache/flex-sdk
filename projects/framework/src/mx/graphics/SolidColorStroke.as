@@ -179,6 +179,9 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 		return _alpha;
 	}
 	
+    /**
+     *  @private
+     */
 	public function set alpha(value:Number):void
 	{
 		var oldValue:Number = _alpha;
