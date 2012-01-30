@@ -223,9 +223,6 @@ use namespace mx_internal;
  *  In all other situations, the <code>move</code> event is not dispatched
  *  until after the property changes.</p>
  *
- *  <p>This event will only be dispatched when there are one or more 
- *  relevant listeners attached to the dispatching object.</p>
- *
  *  @eventType mx.events.MoveEvent.MOVE
  *  
  *  @langversion 3.0
@@ -298,9 +295,6 @@ use namespace mx_internal;
  *
  *  <p>The <code>resize</code> event is not
  *  dispatched until after the property changes.</p>
- *
- *  <p>This event will only be dispatched when there are one or more 
- *  relevant listeners attached to the dispatching object.</p>
  *
  *  @eventType mx.events.ResizeEvent.RESIZE
  *  
@@ -9598,14 +9592,11 @@ public class UIComponent extends FlexSprite
      */
     private function dispatchMoveEvent():void
     {
-        if (hasEventListener(MoveEvent.MOVE))
-        {
-            var moveEvent:MoveEvent = new MoveEvent(MoveEvent.MOVE);
-            moveEvent.oldX = oldX;
-            moveEvent.oldY = oldY;
-            dispatchEvent(moveEvent);
-        }
-        
+        var moveEvent:MoveEvent = new MoveEvent(MoveEvent.MOVE);
+        moveEvent.oldX = oldX;
+        moveEvent.oldY = oldY;
+        dispatchEvent(moveEvent);
+
         oldX = x;
         oldY = y;
     }
@@ -9615,13 +9606,10 @@ public class UIComponent extends FlexSprite
      */
     private function dispatchResizeEvent():void
     {
-        if (hasEventListener(ResizeEvent.RESIZE))
-        {
-            var resizeEvent:ResizeEvent = new ResizeEvent(ResizeEvent.RESIZE);
-            resizeEvent.oldWidth = oldWidth;
-            resizeEvent.oldHeight = oldHeight;
-            dispatchEvent(resizeEvent);
-        }
+        var resizeEvent:ResizeEvent = new ResizeEvent(ResizeEvent.RESIZE);
+        resizeEvent.oldWidth = oldWidth;
+        resizeEvent.oldHeight = oldHeight;
+        dispatchEvent(resizeEvent);
         
         oldWidth = width;
         oldHeight = height;
