@@ -37,7 +37,6 @@ import flash.utils.ByteArray;
 
 import mx.core.FlexGlobals;
 import mx.core.FlexLoader;
-import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.ISWFLoader;
 import mx.core.IUIComponent;
@@ -486,29 +485,6 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      *  as the gc parameter.
      */
     private var unloadAndStopGC:Boolean;
-
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden properties
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  baselinePosition
-    //----------------------------------
-
-    /**
-     *  @private
-     *  The baselinePosition of a SWFLoader is calculated
-     *  the same as for a generic UIComponent.
-     */
-    override public function get baselinePosition():Number
-    {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            return 0;
-
-        return super.baselinePosition;
-    }
 
     //--------------------------------------------------------------------------
     //
