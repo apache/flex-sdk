@@ -8,7 +8,7 @@ import flash.utils.getQualifiedClassName;
 
 import spark.components.View;
 
-public class ViewData implements IExternalizable
+public class ViewHistoryData implements IExternalizable
 {
     //--------------------------------------------------------------------------
     //
@@ -24,7 +24,7 @@ public class ViewData implements IExternalizable
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function ViewData(factory:Class = null, data:Object = null, instance:View = null)
+    public function ViewHistoryData(factory:Class = null, data:Object = null, instance:View = null)
     {
         this.factory = factory;
         this.data = data;
