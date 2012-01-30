@@ -162,8 +162,10 @@ public class SliderAccImpl extends AccImpl
 	public function SliderAccImpl(master:UIComponent)
 	{
 		super(master);
+
+		role = 0x33; // ROLE_SYSTEM_SLIDER
+
 		master.addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
-		role = 0x33;
 	}
 	
 	//--------------------------------------------------------------------------
@@ -216,7 +218,9 @@ public class SliderAccImpl extends AccImpl
 	override public function get_accValue(childID:uint):String
 	{
 		var val:Number = Slider(master).values[Math.max(childID - 1, 0)];
-		val = (val -  Slider(master).minimum)/(Slider(master).maximum - Slider(master).minimum) * 100;
+
+		val = (val -  Slider(master).minimum) /
+			  (Slider(master).maximum - Slider(master).minimum) * 100;
 		
 		return String(val) + " percent";
 	}
@@ -233,7 +237,10 @@ public class SliderAccImpl extends AccImpl
 		
 		var n:Number = Slider(master).thumbCount;
 		for (var i:int = 0; i < n; i++)
+		{
 			childIDs[i] = i + 1;
+		}
+
 		return childIDs;
 	}
 	/**
