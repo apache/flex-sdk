@@ -84,6 +84,11 @@ public interface IVisualElement extends ITransformable
      */
      function get offsets():TransformOffsets;
      function set offsets(value:TransformOffsets):void;
+     
+    /**
+     * Documentation is not currently available.
+     */
+     function get baselinePosition():Number;
 
     /**
      *  The horizontal distance in pixels from the left edge of the component to the
