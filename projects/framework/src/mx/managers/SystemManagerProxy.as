@@ -104,6 +104,14 @@ public class SystemManagerProxy extends SystemManager
 	/**
 	 *  @inheritDoc
 	 */
+	override public function get screen():Rectangle
+	{
+		return _systemManager.screen;
+	}
+
+	/**
+	 *  @inheritDoc
+	 */
 	override public function getDefinitionByName(name:String):Object
 	{
 		return _systemManager.getDefinitionByName(name);
