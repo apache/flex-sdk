@@ -72,20 +72,6 @@ ActionBar.beveled Group#actionGroup Button
     skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
 }
 
-Application
-{
-    backgroundColor: #FFFFFF;
-    skinClass: ClassReference("spark.skins.spark.ApplicationSkin");
-}
-
-BorderContainer
-{
-    backgroundColor: #FFFFFF;
-    borderStyle : "solid"; 
-    cornerRadius: 0;
-    skinClass: ClassReference("spark.skins.spark.BorderContainerSkin");
-}
-
 BusyIndicator
 {
     rotationInterval: 50;
@@ -118,21 +104,6 @@ CheckBox
     skinClass: ClassReference("spark.skins.mobile.CheckBoxSkin");
 }
 
-ComboBox
-{
-    dropShadowVisible: true;
-    paddingBottom: 3;
-    paddingLeft: 3;
-    paddingRight: 3;
-    paddingTop: 5;
-    skinClass: ClassReference("spark.skins.spark.ComboBoxSkin");
-}
-
-DropDownList
-{
-    skinClass: ClassReference("spark.skins.spark.DropDownListSkin");
-}
-
 HScrollBar
 {
     skinClass: ClassReference("spark.skins.mobile.HScrollBarSkin");
@@ -145,12 +116,12 @@ HSlider
 
 IconItemRenderer
 {
-	paddingBottom: 12;
-	paddingTop: 12;
-	horizontalGap: 10;
-	verticalGap: 9;
-	iconDelay: 500;
-	messageStyleName: "iconItemRendererMessageStyle";
+    paddingBottom: 12;
+    paddingTop: 12;
+    horizontalGap: 10;
+    verticalGap: 9;
+    iconDelay: 500;
+    messageStyleName: "iconItemRendererMessageStyle";
 }
 
 .iconItemRendererMessageStyle
@@ -182,27 +153,7 @@ List
     borderColor: #000000;
     borderAlpha: 1;
     verticalScrollPolicy: on;
-	borderVisible: false;
-}
-
-MuteButton
-{
-    skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.MuteButtonSkin");
-}
-
-NumericStepper
-{
-    skinClass: ClassReference("spark.skins.spark.NumericStepperSkin");
-}
-
-Panel
-{
-    backgroundColor: #FFFFFF;
-    borderAlpha: 0.5;
-    borderColor: 0;
-    cornerRadius: 0;
-    dropShadowVisible: true;
-    skinClass: ClassReference("spark.skins.spark.PanelSkin");
+    borderVisible: false;
 }
 
 RadioButton
@@ -213,23 +164,6 @@ RadioButton
 Scroller
 {
     touchDelay: 100;
-    skinClass: ClassReference("spark.skins.spark.ScrollerSkin");
-}
-
-ScrubBar
-{
-    skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.ScrubBarSkin");
-}
-
-SkinnableDataContainer
-{
-    skinClass: ClassReference("spark.skins.spark.SkinnableDataContainerSkin");
-}
-
-SkinnableComponent
-{
-    errorSkin: ClassReference("spark.skins.spark.ErrorSkin");
-    focusSkin: ClassReference("spark.skins.spark.FocusSkin");
 }
 
 SkinnableContainer
@@ -240,19 +174,12 @@ SkinnableContainer
 
 SkinnableTextBase:normalWithPrompt 
 {
-    color: #BABABA;
     fontStyle: normal;
 }
 
 SkinnableTextBase:disabledWithPrompt 
 {
-    color: #BABABA;
     fontStyle: normal;
-}
-
-Spinner
-{
-    skinClass: ClassReference("spark.skins.spark.SpinnerSkin");    
 }
 
 TabbedViewNavigatorApplication
@@ -307,26 +234,6 @@ TextInput
     skinClass: ClassReference("spark.skins.mobile.TextInputSkin");
 }
 
-TitleWindow
-{
-    borderAlpha: 0.8;
-    borderColor: 0;
-    cornerRadius: 0;
-    dropShadowVisible: true;
-    skinClass: ClassReference("spark.skins.spark.TitleWindowSkin");
-}
-
-ToggleButton
-{
-    skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
-}
-
-VideoPlayer
-{
-    dropShadowVisible: true;
-    skinClass: ClassReference("spark.skins.spark.VideoPlayerSkin");
-}
-
 View
 {
     backgroundColor: #FFFFFF;
@@ -360,19 +267,9 @@ ViewNavigatorApplication
     skinClass: ClassReference("spark.skins.mobile.ViewNavigatorApplicationSkin");
 }
 
-VolumeBar
-{
-    skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.VolumeBarSkin");
-}
-
 VScrollBar
 {
     skinClass: ClassReference("spark.skins.mobile.VScrollBarSkin");
-}
-
-VSlider
-{
-    skinClass: ClassReference("spark.skins.spark.VSliderSkin");
 }
 
 global
@@ -380,7 +277,7 @@ global
     /* framework styles */
     modalTransparency: 0;
     modalTransparencyBlur: 0;
-
+    
     /* Looks */
     backgroundAlpha : 1;
     backgroundImageFillMode : "scale";
@@ -388,9 +285,9 @@ global
     borderWeight : 1;
     contentBackgroundColor: #F0F0F0;
     downColor: #E0E0E0; /* set in here and not in framework's default.css because it only is really applicable for touch interactions*/
-	selectionColor: #E0E0E0;
-	alternatingItemColors: #FFFFFF;
-	focusThickness: 3;
+    selectionColor: #E0E0E0;
+    alternatingItemColors: #FFFFFF;
+    focusThickness: 3;
     symbolColor: #000000;
     fontLookup: "embeddedCFF";
     fontFamily: "_sans";
@@ -431,7 +328,7 @@ global
     {
         fontSize: 18pt;
     }
-
+    
     ActionBar.beveled Group#navigationGroup Button
     {
         fontSize: 12;
@@ -442,20 +339,19 @@ global
         fontSize: 12;
     }
     
-	IconItemRenderer
-	{
-		paddingBottom: 8;
-		paddingTop: 8;
-		horizontalGap: 8;
-		verticalGap: 6;
-	}
-
-	.iconItemRendererMessageStyle
-	{
-		fontSize: 14;
-	}
-
-
+    IconItemRenderer
+    {
+        paddingBottom: 8;
+        paddingTop: 8;
+        horizontalGap: 8;
+        verticalGap: 6;
+    }
+    
+    .iconItemRendererMessageStyle
+    {
+        fontSize: 14;
+    }
+    
     LabelItemRenderer
     {
         paddingBottom: 16;
@@ -463,7 +359,7 @@ global
         paddingRight: 10;
         paddingTop: 16;
     }
-
+    
     TextArea
     {
         paddingBottom: 6;
@@ -512,7 +408,7 @@ global
     {
         fontSize: 36pt;
     }
-
+    
     ActionBar.beveled Group#navigationGroup Button
     {
         fontSize: 24;
@@ -523,19 +419,19 @@ global
         fontSize: 24;
     }
     
-	IconItemRenderer
-	{
-		paddingBottom: 16;
-		paddingTop: 16;
-		horizontalGap: 16;
-		verticalGap: 12;
-	}
-
-	.iconItemRendererMessageStyle
-	{
-		fontSize: 26;
-	}
-
+    IconItemRenderer
+    {
+        paddingBottom: 16;
+        paddingTop: 16;
+        horizontalGap: 16;
+        verticalGap: 12;
+    }
+    
+    .iconItemRendererMessageStyle
+    {
+        fontSize: 26;
+    }
+    
     LabelItemRenderer
     {
         paddingBottom: 32;
@@ -543,7 +439,7 @@ global
         paddingRight: 20;
         paddingTop: 32;  
     }
-
+    
     TextArea
     {
         paddingBottom: 12;
@@ -559,7 +455,7 @@ global
         paddingRight: 12;
         paddingTop: 12;
     }
-
+    
     TabbedViewNavigator #tabBar
     {
         fontSize: 28;
