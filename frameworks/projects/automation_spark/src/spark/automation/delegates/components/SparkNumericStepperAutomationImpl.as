@@ -122,7 +122,8 @@ package spark.automation.delegates.components
 		 */
 		override public function get automationValue():Array
 		{
-			return [ ns.value.toString() ];
+			//return [ ns.value.toString() ];
+			return super.automationValue;
 			
 		}
 		
