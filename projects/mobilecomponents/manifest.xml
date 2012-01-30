@@ -19,7 +19,7 @@
     <component id="ActionBar" class="spark.components.ActionBar"/>
     <component id="MobileItemRenderer" class="spark.components.MobileItemRenderer"/>
     <component id="MobileIconItemRenderer" class="spark.components.MobileIconItemRenderer"/>
-    <component id="SlideViewTransition" class="spark.effects.SlideViewTransition"/>
+    <component id="SlideViewTransition" class="spark.transitions.SlideViewTransition"/>
     <component id="TabbedViewNavigatorApplication" class="spark.components.TabbedViewNavigatorApplication"/>
     <component id="TabbedViewNavigator" class="spark.components.TabbedViewNavigator"/>
     <component id="View" class="spark.components.View"/>
