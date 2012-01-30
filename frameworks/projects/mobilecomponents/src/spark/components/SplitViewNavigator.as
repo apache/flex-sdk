@@ -422,9 +422,8 @@ public class SplitViewNavigator extends ViewNavigatorBase
         // to a correct state.
         ViewTransitionBase.endTransitions();
         
-        viewNavigatorPopUp.addEventListener(PopUpEvent.CLOSE, navigatorPopUp_closeHandler);
+        // Cleanup handled by navigatorPopUp_closeHandler
         viewNavigatorPopUp.close(true);
-        viewNavigatorPopUp.removeEventListener('mouseDownOutside', navigatorPopUp_mouseDownOutsideHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -466,6 +465,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
             _popUpNavigator.percentHeight = 100;
         
         viewNavigatorPopUp.addEventListener(PopUpEvent.OPEN, viewNavigatorPopUp_openHandler);
+        viewNavigatorPopUp.addEventListener(PopUpEvent.CLOSE, navigatorPopUp_closeHandler);
         viewNavigatorPopUp.addEventListener('mouseDownOutside', navigatorPopUp_mouseDownOutsideHandler, false, 0, true);
         viewNavigatorPopUp.addElement(_popUpNavigator);
         
@@ -502,6 +502,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
     private function navigatorPopUp_closeHandler(event:PopUpEvent):void
     {
         viewNavigatorPopUp.removeEventListener(PopUpEvent.CLOSE, navigatorPopUp_closeHandler);
+        viewNavigatorPopUp.removeEventListener('mouseDownOutside', navigatorPopUp_mouseDownOutsideHandler);
         
         if (_popUpNavigator)
             restoreNavigatorInPopUp();
