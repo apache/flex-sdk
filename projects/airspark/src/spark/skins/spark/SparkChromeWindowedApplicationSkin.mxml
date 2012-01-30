@@ -8,17 +8,37 @@
       in accordance with the terms of the license agreement accompanying it.
 
 -->
+<!--- A skin class for the Spark WindowedApplication component. 
+      This class defines the Flex chrome which includes a border, status bar, 
+      gripper button, title bar, and title bar buttons.
+      
+      <p>You can either use  system chrome, the FlexChromSkin class, or 
+      the WindowedApplicationSkin class to define the appearance of 
+      the WindowedApplication and Window containers. 
+      To use the FlexChromSkin class with the WindowedApplication container, 
+      set <code>systemChrome</code> to "none" 
+      in the application's .xml file, and set the <code>skinClass</code> style to
+      spark.skins.default.FlexChromSkin. 
+      To use the FlexChromSkin class with the Window container, 
+      set the <code>Window.systemChrome</code> property to "none", 
+      and set the <code>skinClass</code> style to
+      spark.skins.default.FlexChromSkin.</p>
 
+      @see spark.components.WindowedApplication
+-->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
     alpha.disabledGroup="0.5" >
 
     <fx:Metadata>
+      /**
+       *  The host component of this skin.
+       */
       [HostComponent("Object")]
     </fx:Metadata>
 
     <fx:Script>
         /*  Define the skin elements that should not be colorized. 
-         *  For WindowedApplication, border and status bar backround are colorized,
+         *  For WindowedApplication, border and status bar background are colorized,
          *  but the content area and status text are not. 
          *  Exclude the titleBar because it is a SparkSkin and we 
          *  don't want to colorize it twice.
@@ -42,15 +62,19 @@
     </s:states>
 
     <!-- layer 1: background fill -->
+    <!--- Defines the background color of the skin. -->
     <s:Rect id="backgroundRect" left="1" right="1" top="1" bottom="1" >
         <s:fill>
+            <!--- @private -->
             <s:SolidColor id="bgFill" color="{hostComponent.backgroundColor as uint}" />
         </s:fill>
     </s:Rect>
 
     <!-- title bar background fill for when the title bar is inactive -->
+    <!--- Defines the background color of the title bar. -->
     <s:Rect id="titleBarBackgroundRect" left="0" right="0" top="0" height="24" visible="{titleBar.visible}" >
         <s:fill>
+            <!--- @private -->
             <s:SolidColor id="titleBarBgFill" color="0xFFFFFF" />
         </s:fill>
     </s:Rect>
@@ -63,12 +87,15 @@
         </s:layout>
     
         <!-- title bar to display when not using 'systemChrome' -->
+        <!--- Defines the TitleBar container for the title bar, button,s and icon. -->
         <s:TitleBar id="titleBar" width="100%" height="24" alpha.inactiveGroup="0.5" />
         
         <!-- content -->
+        <!--- Defines the Group container where the content children get pushed into and laid out. -->
         <s:Group id="contentGroup" width="100%" height="100%" minHeight="0" minWidth="0"/>
         
         <!-- status bar -->
+        <!--- Defines the Group container for the status bar. -->
         <s:Group id="statusBar" width="100%" minHeight="24" >
         
             <!-- status bar fill -->
@@ -92,6 +119,7 @@
             </s:Rect>
         
             <!-- status text -->
+            <!--- Defines the SimpleText control for the text in the status bar. -->
             <s:SimpleText id="statusText" top="2" bottom="2" left="10" right="10" verticalAlign="middle" 
                 fontSize="10" color="0x585858" width="100%" truncation="1" />
                     
@@ -100,11 +128,19 @@
     </s:Group>
     
     <!-- layer 3: gripper -->
+    <!--- 
+        Defines the Button control for the gripper button. 
+        By default, the button uses the spark.skins.default.GripperSkin class
+        to define the skin for the gripper button.
+            
+        @see spark.skins.default.GripperSkin 
+    -->
     <s:Button id="gripper" right="3" bottom="3" skinClass="spark.skins.default.GripperSkin" /> 
 
     <!-- layer 4: border -->
     
     <!-- background of border for when it is alpha=0.5 -->
+    <!--- Defines the background color of the border. -->
     <s:Group id="borderBgFill" left="0" right="0" top="0" bottom="0" >
         <s:Rect left="0" right="0" top="0" bottom="0">
             <s:stroke>
