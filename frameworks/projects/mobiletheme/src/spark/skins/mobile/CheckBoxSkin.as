@@ -12,7 +12,6 @@
 package spark.skins.mobile
 {
 import flash.display.DisplayObject;
-import flash.display.Graphics;
 
 import mx.core.DPIClassification;
 
@@ -73,8 +72,6 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
     public function CheckBoxSkin()
     {
         super();
-        
-        useChromeColor = true;
         
         layoutPaddingLeft = 0;
         layoutPaddingRight = 0;
@@ -149,19 +146,24 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
      *  CheckBox <code>chromeColor</code> is drawn to match the FXG rectangle
      *  shape and position.
      */
-    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        // super draws a transparent hit zone
+        super.drawBackground(unscaledWidth, unscaledHeight);
+
         // get the size and position of iconDisplay
         var currentIcon:DisplayObject = getIconDisplay();
         var widthAdjustment:Number = layoutBorderSize * 2;
         
-        chromeColorGraphics.drawRoundRect(currentIcon.x + layoutBorderSize,
+        graphics.beginFill(getStyle("chromeColor"));
+        graphics.drawRoundRect(currentIcon.x + layoutBorderSize,
             currentIcon.y + layoutBorderSize,
             currentIcon.width - widthAdjustment,
             currentIcon.height - widthAdjustment, layoutBorderSize, layoutBorderSize);
+        graphics.endFill();
     }
     
-    override public function get focusSkinExclusions():Array 
+    override protected function get focusSkinExclusions():Array 
     {
         return exclusions;
     }
