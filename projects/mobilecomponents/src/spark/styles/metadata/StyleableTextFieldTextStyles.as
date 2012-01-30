@@ -88,8 +88,7 @@
 /**
  *  Additional vertical space between lines of text.
  *
- *  <p>The default value is 2.</p>
- *  <p>The default value for the ComboBox control is 0.</p>
+ *  <p>The default value is 0.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
