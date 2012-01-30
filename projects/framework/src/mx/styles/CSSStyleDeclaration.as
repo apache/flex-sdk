@@ -559,13 +559,13 @@ public class CSSStyleDeclaration extends EventDispatcher
         
         if (newValue !== undefined) // must be !==
         {
-            mx_internal::setStyle(styleProp, newValue);
+            setLocalStyle(styleProp, newValue);
         }
         else
         {
             if (newValue == oldValue)
                 return;
-            mx_internal::setStyle(styleProp, newValue);
+            setLocalStyle(styleProp, newValue);
         }
 
         var sms:Array = SystemManagerGlobals.topLevelSystemManagers;
@@ -610,7 +610,7 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  Setting a style property to the value <code>undefined</code>
      *  is the same as calling <code>clearStyle()</code>.
      */
-    mx_internal function setStyle(styleProp:String, value:*):void
+    mx_internal function setLocalStyle(styleProp:String, value:*):void
     {
         // If setting to undefined, clear the style attribute.
         if (value === undefined) // must use ===
