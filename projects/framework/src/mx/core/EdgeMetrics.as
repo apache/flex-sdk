@@ -53,139 +53,141 @@ package mx.core
  */
 public class EdgeMetrics
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  An EdgeMetrics object with a value of zero for its
-	 *  <code>left</code>, <code>top</code>, <code>right</code>,
-	 *  and <code>bottom</code> properties.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static const EMPTY:EdgeMetrics = new EdgeMetrics(0, 0, 0, 0);
+    /**
+     *  An EdgeMetrics object with a value of zero for its
+     *  <code>left</code>, <code>top</code>, <code>right</code>,
+     *  and <code>bottom</code> properties.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const EMPTY:EdgeMetrics = new EdgeMetrics(0, 0, 0, 0);
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  @param left The width, in pixels, of the left edge region.
-	 *
-	 *  @param top The height, in pixels, of the top edge region.
-	 *
-	 *  @param right The width, in pixels, of the right edge region.
-	 *
-	 *  @param bottom The height, in pixels, of the bottom edge region.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function EdgeMetrics(left:Number = 0, top:Number = 0,
-								right:Number = 0, bottom:Number = 0)
-	{
-		super();
+    /**
+     *  Constructor.
+     *
+     *  @param left The width, in pixels, of the left edge region.
+     *
+     *  @param top The height, in pixels, of the top edge region.
+     *
+     *  @param right The width, in pixels, of the right edge region.
+     *
+     *  @param bottom The height, in pixels, of the bottom edge region.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function EdgeMetrics(left:Number = 0, top:Number = 0,
+                                right:Number = 0, bottom:Number = 0)
+    {
+        super();
 
-		this.left = left;
-		this.top = top;
-		this.right = right;
-		this.bottom = bottom;
-	}
+        this.left = left;
+        this.top = top;
+        this.right = right;
+        this.bottom = bottom;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  bottom
-	//----------------------------------
+    //----------------------------------
+    //  bottom
+    //----------------------------------
 
-	/**
-	 *  The height, in pixels, of the bottom edge region.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var bottom:Number;
+    /**
+     *  The height, in pixels, of the bottom edge region.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var bottom:Number;
 
-	//----------------------------------
-	//  left
-	//----------------------------------
+    //----------------------------------
+    //  left
+    //----------------------------------
 
-	/**
-	 *  The width, in pixels, of the left edge region.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var left:Number;
+    /**
+     *  The width, in pixels, of the left edge region.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var left:Number;
 
-	//----------------------------------
-	//  right
-	//----------------------------------
+    //----------------------------------
+    //  right
+    //----------------------------------
 
-	/**
-	 *  The width, in pixels, of the right edge region.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var right:Number;
+    /**
+     *  The width, in pixels, of the right edge region.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var right:Number;
 
-	//----------------------------------
-	//  top
-	//----------------------------------
+    //----------------------------------
+    //  top
+    //----------------------------------
 
-	/**
-	 *  The height, in pixels, of the top edge region.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var top:Number;
+    /**
+     *  The height, in pixels, of the top edge region.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var top:Number;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Returns a copy of this EdgeMetrics object.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function clone():EdgeMetrics
-	{
-		return new EdgeMetrics(left, top, right, bottom);
-	}
+    /**
+     *  Returns a copy of this EdgeMetrics object.
+     *
+     *  @return A copy of this EdgeMetrics object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function clone():EdgeMetrics
+    {
+        return new EdgeMetrics(left, top, right, bottom);
+    }
 }
 
 }
