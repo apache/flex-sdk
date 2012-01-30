@@ -597,6 +597,6 @@
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function set useRichTextClipboard(value:Boolean):void;
     function get useRichTextClipboard():Boolean;
+    function set useRichTextClipboard(value:Boolean):void;
 
