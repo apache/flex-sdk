@@ -96,7 +96,8 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the component is added to a container as a content child
- *  by using the <code>addChild()</code> or <code>addChildAt()</code> method.
+ *  by using the <code>addChild()</code>, <code>addChildAt()</code>, 
+ *  <code>addElement()</code>, or <code>addElementAt()</code> method.
  *  If the component is added to the container as a noncontent child by
  *  using the <code>rawChildren.addChild()</code> or
  *  <code>rawChildren.addChildAt()</code> method, the event is not dispatched.
@@ -227,7 +228,8 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the component is removed from a container as a content child
- *  by using the <code>removeChild()</code> or <code>removeChildAt()</code> method.
+ *  by using the <code>removeChild()</code>, <code>removeChildAt()</code>,
+ *  <code>removeElement()</code>, or <code>removeElementAt()</code> method.
  *  If the component is removed from the container as a noncontent child by
  *  using the <code>rawChildren.removeChild()</code> or
  *  <code>rawChildren.removeChildAt()</code> method, the event is not dispatched.
@@ -2118,8 +2120,8 @@ public class UIComponent extends FlexSprite
     {
         if (transformZ == value)
             return;
-		if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
 
         _layoutFeatures.transformZ = value;
         invalidateTransform();
@@ -2205,8 +2207,8 @@ public class UIComponent extends FlexSprite
      * This property is ignored during calculation by any of Flex's 2D layouts. 
      *  
      *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     override public function get rotationX():Number
@@ -2666,10 +2668,10 @@ public class UIComponent extends FlexSprite
             initAdvancedLayoutFeatures();
 
         _hasComplexLayoutMatrix = true;
-		_layoutFeatures.layoutScaleZ = value;
+        _layoutFeatures.layoutScaleZ = value;
         invalidateTransform();
         invalidateProperties();
-		invalidateParentSizeAndDisplayList();
+        invalidateParentSizeAndDisplayList();
         dispatchEvent(new Event("scaleZChanged"));
     }
 
@@ -10175,12 +10177,12 @@ public class UIComponent extends FlexSprite
                 getTextInputClassName() == "mx.controls::TLFTextInput";
 
             if (textFormat.useTLF)
-			{
-				textFormat.direction = _inheritingStyles.direction;
-				textFormat.locale = _inheritingStyles.locale;
-			}
-			
-			cachedTextFormat = textFormat;
+            {
+                textFormat.direction = _inheritingStyles.direction;
+                textFormat.locale = _inheritingStyles.locale;
+            }
+            
+            cachedTextFormat = textFormat;
         }
 
         return textFormat;
@@ -11185,17 +11187,17 @@ public class UIComponent extends FlexSprite
             errorArray = new Array();
         }
         
-    	var validatorIndex:int = errorObjectArray.indexOf(event.target);
+        var validatorIndex:int = errorObjectArray.indexOf(event.target);
         // If we are valid, then clear the error string
         if (event.type == ValidationResultEvent.VALID)
         {
             if (validatorIndex != -1)
             {
-            	errorObjectArray.splice(validatorIndex, 1);
-            	errorArray.splice(validatorIndex, 1);
+                errorObjectArray.splice(validatorIndex, 1);
+                errorArray.splice(validatorIndex, 1);
                 errorString = errorArray.join("\n");
-            	if (errorArray.length == 0)
-                	dispatchEvent(new FlexEvent(FlexEvent.VALID));
+                if (errorArray.length == 0)
+                    dispatchEvent(new FlexEvent(FlexEvent.VALID));
             }
         }
         else // If we get an invalid event
@@ -11218,14 +11220,14 @@ public class UIComponent extends FlexSprite
                         }
                         else
                         {
-				            if (validatorIndex != -1)
-				            {
-				            	errorObjectArray.splice(validatorIndex, 1);
-				            	errorArray.splice(validatorIndex, 1);
-				                errorString = errorArray.join("\n");
-				            	if (errorArray.length == 0)
-				                	dispatchEvent(new FlexEvent(FlexEvent.VALID));
-				            }
+                            if (validatorIndex != -1)
+                            {
+                                errorObjectArray.splice(validatorIndex, 1);
+                                errorArray.splice(validatorIndex, 1);
+                                errorString = errorArray.join("\n");
+                                if (errorArray.length == 0)
+                                    dispatchEvent(new FlexEvent(FlexEvent.VALID));
+                            }
                         }
                         break;
                     }
@@ -11244,8 +11246,8 @@ public class UIComponent extends FlexSprite
             }
             else if (msg && validatorIndex == -1)
             {
-            	errorObjectArray.push(event.target);
-            	errorArray.push(msg);
+                errorObjectArray.push(event.target);
+                errorArray.push(msg);
                 errorString = errorArray.join("\n");
                 dispatchEvent(new FlexEvent(FlexEvent.INVALID));
             }
@@ -11419,7 +11421,7 @@ public class UIComponent extends FlexSprite
         // If we just created a UITLFTextField, set its textLineCreator property
         // so that it knows what module to use for creating its TextLines.
         if (className == "mx.core::UITLFTextField")
-        	obj.textLineCreator = moduleContext;
+            obj.textLineCreator = moduleContext;
 
         if (obj == null)
             obj = new classObj();
@@ -12256,8 +12258,8 @@ public class UIComponent extends FlexSprite
     {
         if (value == depth)
             return;
-		if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
 
         _layoutFeatures.depth = value;      
         if (parent is UIComponent)
