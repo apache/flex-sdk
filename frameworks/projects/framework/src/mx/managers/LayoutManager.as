@@ -27,9 +27,8 @@ import mx.managers.layoutClasses.PriorityQueue;
 
 CONFIG::performanceInstrumentation
 {
-import mx.utils.PerfUtil;
+import mx.utils.PerfUtil; 
 }
-
 
 use namespace mx_internal;
 
@@ -581,7 +580,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 
             CONFIG::performanceInstrumentation
             {
-                var perfId:int = perfUtil.markStart();
+                var token:int = perfUtil.markStart();
             }
             
             obj.validateProperties();
@@ -593,7 +592,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
             
             CONFIG::performanceInstrumentation
             {
-                PerfUtil.getInstance().markEnd(Object(obj).toString() + ".validateProperties()", perfId, 2 /*tolerance*/);
+                perfUtil.markEnd(Object(obj).toString() + ".validateProperties()", token, 2 /*tolerance*/);
             }
 
             // Once we start, don't stop.
@@ -632,6 +631,11 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
     private function validateSize():void
     {
         // trace("--- LayoutManager: validateSize --->");
+        CONFIG::performanceInstrumentation
+        {
+            var perfUtil:PerfUtil = PerfUtil.getInstance();
+            perfUtil.markTime("validateSize().start");
+        }
 
         var obj:ILayoutManagerClient = ILayoutManagerClient(invalidateSizeQueue.removeLargest());
         while (obj)
@@ -657,6 +661,10 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
             invalidateSizeFlag = false;
         }
 
+        CONFIG::performanceInstrumentation
+        {
+            perfUtil.markTime("validateSize().end");
+        }
         // trace("<--- LayoutManager: validateSize ---");
     }
 
@@ -679,6 +687,12 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
     private function validateDisplayList():void
     {
         // trace("--- LayoutManager: validateDisplayList --->");        
+        CONFIG::performanceInstrumentation
+        {
+            var perfUtil:PerfUtil = PerfUtil.getInstance();
+            perfUtil.markTime("validateDisplayList().start");
+        }
+
         var obj:ILayoutManagerClient = ILayoutManagerClient(invalidateDisplayListQueue.removeSmallest());
         while (obj)
         {
@@ -705,6 +719,10 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
             invalidateDisplayListFlag = false;
         }
 
+        CONFIG::performanceInstrumentation
+        {
+            perfUtil.markTime("validateDisplayList().end");
+        }
         // trace("<--- LayoutManager: validateDisplayList ---");
     }
 
@@ -851,6 +869,12 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
      */
     public function validateClient(target:ILayoutManagerClient, skipDisplayList:Boolean = false):void
     {
+        CONFIG::performanceInstrumentation
+        {
+            var perfUtil:PerfUtil = PerfUtil.getInstance();
+            var token:int = perfUtil.markStart();
+        }
+
         var obj:ILayoutManagerClient;
         var i:int = 0;
         var done:Boolean = false;
@@ -1020,6 +1044,10 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
             }
         }
 
+        CONFIG::performanceInstrumentation
+        {
+            perfUtil.markEnd("validateClient(" + target + ")", token, 2 /*tolerance*/);
+        }
         // trace("<--- LayoutManager: validateClient --- target = " + target);
     }
 
