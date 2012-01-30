@@ -1207,7 +1207,7 @@ include "../styles/metadata/AnchorStyles.as";
  */
 public class UIComponent extends FlexSprite
     implements IAutomationObject, IChildList, IConstraintClient,
-    IDeferredInstantiationUIComponent, IFlexDisplayObject, IFlexModule, IID,
+    IDeferredInstantiationUIComponent, IFlexDisplayObject, IFlexModule,
     IInvalidating, ILayoutManagerClient, IPropertyChangeNotifier,
     IRepeaterClient, IStateClient, IAdvancedStyleClient, IToolTipManagerClient,
     IUIComponent, IValidatorListener, IVisualElement
