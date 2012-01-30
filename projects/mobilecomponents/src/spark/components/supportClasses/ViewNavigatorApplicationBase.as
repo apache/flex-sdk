@@ -12,7 +12,9 @@
 package spark.components.supportClasses
 {
 import flash.desktop.NativeApplication;
+import flash.display.Graphics;
 import flash.display.InteractiveObject;
+import flash.display.Sprite;
 import flash.display.StageOrientation;
 import flash.events.Event;
 import flash.events.InvokeEvent;
@@ -33,9 +35,9 @@ import spark.components.Application;
 import spark.components.View;
 import spark.components.ViewMenu;
 import spark.components.ViewMenuItem;
+import spark.events.PopUpEvent;
 import spark.managers.IPersistenceManager;
 import spark.managers.PersistenceManager;
-import spark.events.PopUpEvent;
 
 [Exclude(name="controlBarContent", kind="property")]
 [Exclude(name="controlBarGroup", kind="property")]
@@ -186,6 +188,11 @@ public class ViewNavigatorApplicationBase extends Application
      *  KeyboardEvent dispatched when the menu key is pressed.
      */
     private var menuKeyEventPreventDefaulted:Boolean = false;
+    
+    /**
+     *  @private
+     */ 
+    private var mouseShield:Sprite;
     
     //--------------------------------------------------------------------------
     //
@@ -577,7 +584,7 @@ public class ViewNavigatorApplicationBase extends Application
     {
         viewMenuOpen = false;
     }
-    
+        
     /**
      *  @private
      */ 
@@ -603,6 +610,8 @@ public class ViewNavigatorApplicationBase extends Application
             addEventListener(ResizeEvent.RESIZE, resizeHandler);
         }
         
+        // Block interaction with the rest of the application
+        attachMouseShield();
         currentViewMenu.open(this, false /*modal*/);
     }
 
@@ -612,7 +621,10 @@ public class ViewNavigatorApplicationBase extends Application
     private function closeViewMenu():void
     {
         if (currentViewMenu)
+        {
             currentViewMenu.close();
+            removeMouseShield();
+        }
     }
     
     /**
@@ -659,6 +671,39 @@ public class ViewNavigatorApplicationBase extends Application
         currentViewMenu.width = getLayoutBoundsWidth();
         currentViewMenu.height = getLayoutBoundsHeight();
         currentViewMenu.invalidateSkinState();
+    }
+    
+    /**
+     *  @private
+     *  Attaches a mouseShield to prevent interaction with the rest of the 
+     *  application while the menu is open
+     */ 
+    mx_internal function attachMouseShield():void
+    {
+        if (skin)
+        {
+            mouseShield = new Sprite();
+            
+            var g:Graphics = mouseShield.graphics;
+            g.beginFill(0,0);
+            g.drawRect(0,0,getLayoutBoundsWidth(), getLayoutBoundsHeight());
+            g.endFill();
+            
+            skin.addChild(mouseShield);
+        }
+    }
+    
+    /**
+     *  @private
+     *  Removes the mouseShield
+     */ 
+    mx_internal function removeMouseShield():void
+    {
+        if (mouseShield && skin)
+        {
+            skin.removeChild(mouseShield);
+            mouseShield = null;
+        }
     }
     
     //--------------------------------------------------------------------------
