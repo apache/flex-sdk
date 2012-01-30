@@ -121,7 +121,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class View extends Group implements IDataRenderer
+public class View extends SkinnableContainer implements IDataRenderer
 {
     //--------------------------------------------------------------------------
     //
