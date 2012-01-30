@@ -26,7 +26,7 @@ import flash.net.SharedObject;
  *  Saving incompatible objects does not cause an RTE, but creates
  *  undefined behavior when the data is read back.</p>
  *
- *  @see flash.net.IExternalizable
+ *  @see flash.utils.IExternalizable
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
