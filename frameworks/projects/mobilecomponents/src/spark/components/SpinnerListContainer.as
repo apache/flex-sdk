@@ -15,6 +15,7 @@ package spark.components
  *  The SpinnerListContainerSkin displays a frame, shadow gradients and a selection indicator.   
  *       
  * @see spark.components.SpinnerList
+ * @see spark.skins.mobile.SpinnerListContainerSkin
  * 
  *  @includeExample examples/SpinnerListExample.mxml -noswf
  *  @includeExample examples/SpinnerListContainerExample.mxml -noswf
