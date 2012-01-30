@@ -848,6 +848,19 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
                                 styleDeclaration:CSSStyleDeclaration,
                                 update:Boolean):void
     {
+        // For Flex 3 and earlier, if we were passed a selector with a package
+        // name, such as "mx.controls.Button", strip off the package name
+        // leaving just "Button" and look for that type selector.
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+        {
+            if (selector.charAt(0) != ".")
+            {
+                var index:int = selector.lastIndexOf(".");
+                if (index != -1)
+                    selector = selector.substr(index + 1);
+            }
+        }
+
         // Populate the selectors Array for this style declaration
         styleDeclaration.selectorRefCount++;
         _selectors[selector] = styleDeclaration;
