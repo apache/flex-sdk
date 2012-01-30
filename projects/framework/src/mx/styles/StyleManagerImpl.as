@@ -29,7 +29,6 @@ import mx.modules.ModuleManager
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.IStyleModule;
-import mx.utils.OrderedObject;
 
 use namespace mx_internal;
 
@@ -509,16 +508,15 @@ public class StyleManagerImpl implements IStyleManager3
         var selectorKey:String = styleDeclaration.selectorString;
         if (subject != null)
         {
-            var declarations:OrderedObject = _subjects[subject];
+            var declarations:Array = _subjects[subject] as Array;
             if (declarations == null)
             {
-                declarations = new OrderedObject();
-                declarations[selectorKey] = styleDeclaration;
+                declarations = [styleDeclaration];
                 _subjects[subject] = declarations;
             }
             else
             {
-                declarations[selectorKey] = styleDeclaration;
+                declarations.push(styleDeclaration);
             }
         }
 
@@ -555,19 +553,22 @@ public class StyleManagerImpl implements IStyleManager3
      * 
      *  @param subject The subject of the style declarations.
      */ 
-    public function getStyleDeclarations(subject:String):Object // Map of selector String, CSSStyleDeclaration
+    public function getStyleDeclarations(subject:String):Array // Array of CSSStyleDeclaration
     {
-        // If we were passed a subject with a package name,
-        // such as "mx.controls.Button", strip off the package name
+        // For Flex 3 and earlier, if we were passed a subject with a package
+        // name, such as "mx.controls.Button", strip off the package name
         // leaving just "Button" and look for that subject.
-        if (subject.charAt(0) != ".")
-        {
-            var index:int = subject.lastIndexOf(".");
-            if (index != -1)
-                subject = subject.substr(index + 1);
-        }
+        //if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+        //{
+            if (subject.charAt(0) != ".")
+            {
+                var index:int = subject.lastIndexOf(".");
+                if (index != -1)
+                    subject = subject.substr(index + 1);
+            }
+        //}
 
-        return _subjects[subject];
+        return _subjects[subject] as Array;
     }
 
     /**
@@ -676,26 +677,50 @@ public class StyleManagerImpl implements IStyleManager3
         if (styleDeclaration && styleDeclaration.selectorRefCount > 0)
             styleDeclaration.selectorRefCount--;
 
+        // Clear out legacy selectors map
         delete _selectors[selector];
 
-        // Clear out matching decls from our selectors by subject
-        var decls:Object;
+        // Clear out matching decls from our selectors stored by subject
+        var decls:Array;
+        var i:int;
+        var decl:CSSStyleDeclaration;
+
         if (styleDeclaration && styleDeclaration.subject)
         {
             decls = _subjects[styleDeclaration.subject];
             if (decls)
-                delete decls[selector];
+            {
+                for (i = 0; i < decls.length; i++)
+                {
+                    decl = decls[i];
+                    if (decl && decl.selectorString == selector)
+                        delete decls[i];
+                }
+            }
         }
         else
         {
+            // Without a subject, we start searching all declarations for this
+            // selector, clear out matching selectors if found and then assume
+            // this we can limit our search to this subject and stop looking.
+            var matchingSubject:Boolean = false;
             for each (decls in _subjects)
             {
-                 styleDeclaration = decls[selector];
-                 if (styleDeclaration)
-                 { 
-                     delete decls[selector];
-                     break;
-                 }
+                if (decls)
+                {
+                    for (i = 0; i < decls.length; i++)
+                    {
+                        decl = decls[i];
+                        if (decl && decl.selectorString == selector)
+                        {
+                            matchingSubject = true;
+                            delete decls[i];
+                        }
+                    }
+
+                    if (matchingSubject)
+                        break;
+                }
             }
         }
 
