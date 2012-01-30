@@ -41,10 +41,12 @@ import mx.events.WindowExistenceEvent;
 import mx.managers.CursorManagerImpl;
 import mx.managers.DragManager;
 import mx.managers.FocusManager;
+import mx.managers.IActiveWindowManager;
 import mx.managers.ICursorManager;
 import mx.managers.ISystemManager;
 import mx.managers.NativeDragManagerImpl;
 import mx.managers.WindowedSystemManager;
+import mx.managers.systemClasses.ActiveWindowManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
@@ -430,6 +432,11 @@ public class Window extends SkinnableContainer implements IWindow
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
+    private static function weakDependency():void { ActiveWindowManager };
+    
     /**
      *  Returns the Window to which a component is parented.
      *
@@ -2062,7 +2069,12 @@ public class Window extends SkinnableContainer implements IWindow
         if (sm.isTopLevel())
         {
             focusManager = new FocusManager(this);
-            sm.activate(this);
+			var awm:IActiveWindowManager = 
+				IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
+			if (awm)
+           		awm.activate(this);
+            else
+                focusManager.activate();
             _cursorManager = new CursorManagerImpl(sm);
         }
     }
