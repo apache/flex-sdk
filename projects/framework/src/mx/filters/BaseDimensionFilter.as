@@ -21,6 +21,11 @@ public class BaseDimensionFilter extends BaseFilter
 	 *  or less means that the original image is copied as is. The default 
 	 *  value is 4. Values that are a power of 2 (such as 2, 4, 8, 16, and 32) 
 	 *  are optimized to render more quickly than other values.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get blurX():Number
 	{
@@ -47,6 +52,11 @@ public class BaseDimensionFilter extends BaseFilter
 	 *  or less means that the original image is copied as is. The default 
 	 *  value is 4. Values that are a power of 2 (such as 2, 4, 8, 16, and 32)
 	 *  are optimized to render more quickly than other values.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get blurY():Number
 	{
@@ -73,6 +83,11 @@ public class BaseDimensionFilter extends BaseFilter
 	 *  makes the object's fill transparent and reveals the background color 
 	 *  of the document. The value true specifies a knockout effect; the 
 	 *  default value is false (no knockout effect).
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get knockout():Boolean
 	{
@@ -107,6 +122,11 @@ public class BaseDimensionFilter extends BaseFilter
 	 *  Instead of increasing the value of quality, you can often get a similar 
 	 *  effect, and with faster rendering, by simply increasing the values of 
 	 *  the blurX and blurY properties.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get quality():int
 	{
@@ -133,6 +153,11 @@ public class BaseDimensionFilter extends BaseFilter
 	 *  color is imprinted and the stronger the contrast between the glow and 
 	 *  the background. Valid values are 0 to 255. A value of 0 means that the 
 	 *  filter is not applied. The default value is 1. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get strength():Number
 	{
