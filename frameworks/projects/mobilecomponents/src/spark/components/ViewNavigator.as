@@ -31,6 +31,7 @@ import spark.components.supportClasses.ViewNavigatorBase;
 import spark.components.supportClasses.ViewReturnObject;
 import spark.core.ContainerDestructionPolicy;
 import spark.effects.Animate;
+import spark.effects.animation.Animation;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.layouts.supportClasses.LayoutBase;
@@ -2093,9 +2094,8 @@ public class ViewNavigator extends ViewNavigatorBase
             activeTransition.captureEndValues();
             activeTransition.prepareForPlay();
             
-            // Run transition a frame later so that the overhead of creating the view
-            // and the time the player takes to render isn't included in the duration.
-            // See SDK-27793.
+            // Wait a frame so that any queued work can be completed by the framework
+            // and runtime before the transition starts.
             addEventListener(Event.ENTER_FRAME, startViewTransition);
         }
         else
@@ -2111,7 +2111,12 @@ public class ViewNavigator extends ViewNavigatorBase
     private function startViewTransition(event:Event):void
     {
         removeEventListener(Event.ENTER_FRAME, startViewTransition);
-
+        
+        // Force the master clock of the animation engine to update its
+        // current time so that the overhead of creating the view and preparing
+        // the transition is not included in our animation interpolation.
+        // See SDK-27793
+        Animation.pulse();
         activeTransition.play();
         
         if (hasEventListener(FlexEvent.TRANSITION_START))
