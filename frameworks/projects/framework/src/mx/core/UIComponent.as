@@ -12,6 +12,8 @@
 package mx.core
 {
 
+import flash.accessibility.Accessibility;
+import flash.accessibility.AccessibilityProperties;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.GradientType;
@@ -37,8 +39,6 @@ import flash.system.ApplicationDomain;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 import flash.utils.getQualifiedClassName;
-import flash.accessibility.Accessibility;
-import flash.accessibility.AccessibilityProperties;
 
 import mx.automation.IAutomationObject;
 import mx.binding.BindingManager;
@@ -1460,7 +1460,7 @@ public class UIComponent extends FlexSprite
      *  hold the setStyles() calls that have been deferred untils a moduleFactory
      *  is set.
      */
-    private var deferredSetStyles:Array;
+    private var deferredSetStyles:Object;
     
     /**
      *  @private
@@ -10082,6 +10082,18 @@ public class UIComponent extends FlexSprite
      */
     public function getStyle(styleProp:String):*
     {
+        // If our style proto chain hasn't been set up yet, return any locally declared
+        // styles. This way any style set before we are added to the display list
+        // is correctly returned.
+        if (_inheritingStyles == StyleProtoChain.STYLE_UNINITIALIZED)
+        {
+            if (deferredSetStyles)
+                return this.deferredSetStyles[styleProp];
+            
+            if (styleDeclaration)
+                return styleDeclaration.getStyle(styleProp); 
+        }
+        
         return styleManager.inheritingStyles[styleProp] ?
                _inheritingStyles[styleProp] :
                _nonInheritingStyles[styleProp];
@@ -10115,9 +10127,8 @@ public class UIComponent extends FlexSprite
         else
         {
             if (!deferredSetStyles)
-                deferredSetStyles = [];
-            deferredSetStyles.push(styleProp);
-            deferredSetStyles.push(newValue);
+                deferredSetStyles = new Object();
+            deferredSetStyles[styleProp] = newValue;
         }   
     }
 
@@ -10132,18 +10143,8 @@ public class UIComponent extends FlexSprite
         if (!deferredSetStyles)
             return;
         
-        var styleProp:String;
-        var newValue:*;
-        
-        var n:int = deferredSetStyles.length;
-        var i:int = 0;
-        while (i < n)
-        {
-            styleProp = deferredSetStyles[i++];
-            newValue = deferredSetStyles[i++];
-
-            StyleProtoChain.setStyle(this, styleProp, newValue);
-        }
+        for (var styleProp:String in deferredSetStyles)
+            StyleProtoChain.setStyle(this, styleProp, deferredSetStyles[styleProp]);
         
         deferredSetStyles = null;
     }
