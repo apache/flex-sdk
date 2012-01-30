@@ -5026,14 +5026,14 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
         var dragSource:DragSource = new DragSource();
 
         addDragData(dragSource);
-        
-        var proxyOrigin:Point = event.target.localToGlobal(
+		
+		var proxyOrigin:Point = event.target.localToGlobal(
 						new Point(event.localX, event.localY));
 		proxyOrigin = globalToLocal(proxyOrigin);
 		
 		var xOffset:Number;
 		if(layoutDirection == LayoutDirection.RTL)
-			xOffset = - (proxyOrigin.x + event.localX);
+			xOffset = - (proxyOrigin.x - event.localX - width);
 		else
 			xOffset = - (proxyOrigin.x - event.localX);
 		var yOffset:Number = - (proxyOrigin.y - event.localY);
