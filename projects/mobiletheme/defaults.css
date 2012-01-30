@@ -99,6 +99,17 @@ ButtonBase
     iconPlacement: "left";
 }
 
+Callout
+{
+    backgroundColor: #484848;
+    skinClass: ClassReference("spark.skins.mobile.CalloutSkin");
+}
+
+CalloutButton
+{
+    skinClass: ClassReference("spark.skins.mobile.CalloutButtonSkin");
+}
+
 CheckBox
 {
     skinClass: ClassReference("spark.skins.mobile.CheckBoxSkin");
