@@ -528,14 +528,68 @@ public class Callout extends SkinnablePopUpContainer
         
         _explicitMoveForSoftKeyboard = true;
     }
+    
+    //----------------------------------
+    //  calloutMaxWidth
+    //----------------------------------
+    
+    private var _calloutMaxWidth:Number = NaN;
+    
+    /**
+     *  @private
+     */
+    mx_internal function get calloutMaxWidth():Number
+    {
+        return _calloutMaxWidth;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function set calloutMaxWidth(value:Number):void
+    {
+        if (_calloutMaxWidth == value)
+            return;
+        
+        _calloutMaxWidth = value;
+        
+        invalidateMaxSize();
+    }
+
+    
+    //----------------------------------
+    //  calloutMaxHeight
+    //----------------------------------
+    
+    private var _calloutMaxHeight:Number = NaN;
+    
+    /**
+     *  @private
+     */
+    mx_internal function get calloutMaxHeight():Number
+    {
+        return _calloutMaxHeight;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function set calloutMaxHeight(value:Number):void
+    {
+        if (_calloutMaxHeight == value)
+            return;
+        
+        _calloutMaxHeight = value;
+        
+        invalidateMaxSize();
+    }
+
 
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-    
-    private var calloutMaxWidth:Number = NaN;
     
     /**
      *  @private
@@ -547,8 +601,6 @@ public class Callout extends SkinnablePopUpContainer
         
         return calloutMaxWidth;
     }
-    
-    private var calloutMaxHeight:Number = NaN;
     
     /**
      *  @private
@@ -574,10 +626,6 @@ public class Callout extends SkinnablePopUpContainer
         // Compute max size based on actual positions
         commitMaxSize();
         
-        // Invalidate skin size to use calloutMaxWidth and calloutMaxHeight
-        if (!isMaxSizeSet)
-            skin.invalidateSize();
-
         if (arrow)
         {
             // arrowDirection can be set in 2 ways: (1) horizontalPostion/verticalPosition
@@ -720,6 +768,21 @@ public class Callout extends SkinnablePopUpContainer
         
         if (isOpen)
             invalidatePositionFlag = true;
+    }
+    
+    /**
+     *  @private
+     *  Force a new measurement when callout should use it's screen-constrained
+     *  max size.
+     */
+    private function invalidateMaxSize():void
+    {
+        // calloutMaxWidth and calloutMaxHeight don't invalidate 
+        // explicitMaxWidth or explicitMaxHeight. If callout's max size changes
+        // and explicit max sizes aren't set, then invalidate size here so that
+        // callout's max size is applied.
+        if (!canSkipMeasurement() && !isMaxSizeSet)
+            invalidateSize();
     }
 
     /**
@@ -1290,6 +1353,18 @@ public class Callout extends SkinnablePopUpContainer
     
     /**
      *  @private
+     *  Return the original height if the soft keyboard is active. This height
+     *  is used to stabilize AUTO positioning so that the position is based
+     *  on the original height of the Callout instead of a possibly shorter
+     *  height due to soft keyboard effects.
+     */
+    mx_internal function get calloutHeight():Number
+    {
+        return (isSoftKeyboardEffectActive) ? softKeyboardEffectCachedHeight : getLayoutBoundsHeight();
+    }
+    
+    /**
+     *  @private
      *  Compute max width and max height. Uses the the owner and screen bounds 
      *  as well as preferred positions to determine max width and max height  
      *  for all possible exterior and interior positions.
@@ -1301,13 +1376,15 @@ public class Callout extends SkinnablePopUpContainer
         var ownerRight:Number = ownerBounds.right;
         var ownerTop:Number = ownerBounds.top;
         var ownerBottom:Number = ownerBounds.bottom;
+        var maxW:Number;
+        var maxH:Number;
         
         switch (actualHorizontalPosition)
         {
             case CalloutPosition.MIDDLE:
             {
                 // Callout matches screen width
-                calloutMaxWidth = screen.width - (margin * 2);
+                maxW = screen.width - (margin * 2);
                 break;
             }
             case CalloutPosition.START:
@@ -1322,7 +1399,7 @@ public class Callout extends SkinnablePopUpContainer
             default:
             {
                 // Maximum is the larger of the actual position or flipped position
-                calloutMaxWidth = Math.max(ownerLeft, screen.right - ownerRight) - margin;
+                maxW = Math.max(ownerLeft, screen.right - ownerRight) - margin;
                 break;
             }
         }
@@ -1330,15 +1407,15 @@ public class Callout extends SkinnablePopUpContainer
         // If preferred position was AUTO, then allow maxWidth to grow to
         // fit the interior position if the owner is wide
         if ((horizontalPosition == CalloutPosition.AUTO) &&
-            (ownerBounds.width > calloutMaxWidth))
-            calloutMaxWidth += ownerBounds.width;
+            (ownerBounds.width > maxW))
+            maxW += ownerBounds.width;
         
         switch (actualVerticalPosition)
         {
             case CalloutPosition.MIDDLE:
             {
                 // Callout matches screen height
-                calloutMaxHeight = screen.height - (margin * 2);
+                maxH = screen.height - (margin * 2);
                 break;
             }
             case CalloutPosition.START:
@@ -1353,7 +1430,7 @@ public class Callout extends SkinnablePopUpContainer
             default:
             {
                 // Maximum is the larger of the actual position or flipped position
-                calloutMaxHeight = Math.max(ownerTop, screen.bottom - ownerBottom) - margin;
+                maxH = Math.max(ownerTop, screen.bottom - ownerBottom) - margin;
                 break;
             }
         }
@@ -1361,8 +1438,11 @@ public class Callout extends SkinnablePopUpContainer
         // If preferred position was AUTO, then allow maxHeight to grow to
         // fit the interior position if the owner is tall
         if ((verticalPosition == CalloutPosition.AUTO) && 
-            (ownerBounds.height > calloutMaxHeight))
-            calloutMaxHeight += ownerBounds.height;
+            (ownerBounds.height > maxH))
+            maxH += ownerBounds.height;
+        
+        calloutMaxWidth = maxW;
+        calloutMaxHeight = maxH;
     }
 
     /**
@@ -1431,7 +1511,7 @@ public class Callout extends SkinnablePopUpContainer
         var ownerWidth:Number = (ownerVisualElement) ? ownerVisualElement.getLayoutBoundsWidth() : owner.width;
         var ownerHeight:Number = (ownerVisualElement) ? ownerVisualElement.getLayoutBoundsHeight() : owner.height;
         var calloutWidth:Number = getLayoutBoundsWidth();
-        var calloutHeight:Number = getLayoutBoundsHeight();
+        var calloutHeight:Number = this.calloutHeight;
 
         switch (horizontalPos)
         {
