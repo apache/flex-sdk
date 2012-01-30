@@ -13,8 +13,12 @@ package mx.graphics
 {
 
 /**
- *  An enum of the scale modes that determine how a BitmapImage
- *  scales image content when fillMode is set to BitmapImage.SCALE.
+ *  The BitmapScaleMode class defines an enumeration for the scale modes 
+ *  that determine how a BitmapImage scales image content when 
+ *  <code>fillMode</code> is set to <code>mx.graphics.BitmapFillMode.SCALE</code>.
+ *
+ *  @see spark.components.Image#scaleMode
+ *  @see spark.primitives.BitmapImage#scaleMode
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
