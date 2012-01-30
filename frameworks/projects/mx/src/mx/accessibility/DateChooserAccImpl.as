@@ -251,6 +251,10 @@ public class DateChooserAccImpl extends AccImpl
 	 */
 	override protected function eventHandler(event:Event):void
 	{
+		// Let AccImpl class handle the events
+		// that all accessible UIComponents understand.
+		$eventHandler(event);
+
 		var dateChooser:DateChooser = DateChooser(master);
 
 		var randomDate:int = dateChooser.displayedMonth + dateChooser.displayedYear;
