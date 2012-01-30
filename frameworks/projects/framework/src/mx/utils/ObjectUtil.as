@@ -158,7 +158,9 @@ public class ObjectUtil
      */    
     private static function cloneInternal(result:Object, value:Object):void
     {
-        result.uid = value.uid;
+		if (value && value.hasOwnProperty("uid"))
+            result.uid = value.uid;
+
         var classInfo:Object = getClassInfo(value);
         var v:Object;
         for each (var p:* in classInfo.properties) 
