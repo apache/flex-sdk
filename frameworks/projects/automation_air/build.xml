@@ -124,9 +124,9 @@
 				<include name="air/airspark.swc"/>
 				<include name="automation/automation.swc"/>
 				<include name="automation/automation_spark.swc"/>
-				<include name="automation/automation_agent.swc"/>
-				<include name="automation/qtp.swc"/>
-				<include name="automation/qtp_air.swc"/>
+				<include name="automation_agent.swc"/>
+				<include name="qtp.swc"/>
+				<include name="qtp_air.swc"/>
 			</external-library-path>
 			<locale/>
 			<accessible>true</accessible>
@@ -167,9 +167,9 @@
 				<include name="air/airspark.swc"/>
 				<include name="automation/automation.swc"/>
 				<include name="automation/automation_spark.swc"/>
-				<include name="automation/automation_agent.swc"/>
-				<include name="automation/qtp.swc"/>
-				<include name="automation/qtp_air.swc"/>
+				<include name="automation_agent.swc"/>
+				<include name="qtp.swc"/>
+				<include name="qtp_air.swc"/>
 			</external-library-path>
 		</asdoc>
 
