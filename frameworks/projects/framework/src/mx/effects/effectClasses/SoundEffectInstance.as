@@ -22,6 +22,8 @@ import mx.core.mx_internal;
 import mx.effects.EffectInstance;
 import mx.effects.Tween;
 
+use namespace mx_internal;
+
 /**
  *  The SoundEffectInstance class implements the instance class
  *  for the SoundEffect effect.
@@ -462,8 +464,8 @@ public class SoundEffectInstance extends EffectInstance
             if (volumeEasingFunction != null)
                 volumeTween.easingFunction = volumeEasingFunction;
             
-            volumeTween.setTweenHandlers(mx_internal::onVolumeTweenUpdate,
-                                         mx_internal::onVolumeTweenEnd);
+            volumeTween.setTweenHandlers(onVolumeTweenUpdate,
+                                         onVolumeTweenEnd);
             
             tweenCount++;
         }
@@ -482,8 +484,8 @@ public class SoundEffectInstance extends EffectInstance
             if (panEasingFunction != null)
                 panTween.easingFunction = panEasingFunction;
             
-            panTween.setTweenHandlers(mx_internal::onPanTweenUpdate,
-                                      mx_internal::onPanTweenEnd);
+            panTween.setTweenHandlers(onPanTweenUpdate,
+                                      onPanTweenEnd);
             
             tweenCount++;
         }
@@ -606,7 +608,7 @@ public class SoundEffectInstance extends EffectInstance
      */
     mx_internal function onVolumeTweenEnd(value:Object):void
     {
-        mx_internal::onVolumeTweenUpdate(value);
+        onVolumeTweenUpdate(value);
         
         finishTween();
     }
@@ -627,7 +629,7 @@ public class SoundEffectInstance extends EffectInstance
      */
     mx_internal function onPanTweenEnd(value:Object):void
     {
-        mx_internal::onPanTweenUpdate(value);
+        onPanTweenUpdate(value);
         
         finishTween();
     }
