@@ -13,6 +13,7 @@
 // the correct ViewNavigator.
 package spark.components
 {
+import flash.display.Stage;
 import flash.events.Event;
 import flash.events.IEventDispatcher;
 import flash.events.MouseEvent;
@@ -713,6 +714,18 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 {
                     navigator.activeView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                                                             view_propertyChangeHandler);
+                }
+                
+                // If there is no focus or the item that had focus isn't 
+                // on the display list anymore, update the focus to be
+                // the active view or the view navigator
+                var focusedObject:Object = focusManager.getFocus();
+                if (!focusedObject || !focusedObject.stage || focusedObject == this)
+                {
+                    if (activeView)
+                        focusManager.setFocus(activeView);
+                    else
+                        focusManager.setFocus(this);
                 }
             }
 
