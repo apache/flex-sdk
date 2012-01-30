@@ -16,6 +16,8 @@ import mx.core.mx_internal;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
 
+use namespace mx_internal;
+
 [ResourceBundle("SharedResources")]
 
 /**
@@ -163,10 +165,10 @@ public class DateFormatter extends Formatter
 
                 // Allow for an exact match
                 // or a match to the first 3 letters as a prefix.
-                var n:int = DateBase.mx_internal::defaultStringKey.length;
+                var n:int = DateBase.defaultStringKey.length;
                 for (var i:int = 0; i < n; i++)
                 {
-                    var s:String = String(DateBase.mx_internal::defaultStringKey[i]);
+                    var s:String = String(DateBase.defaultStringKey[i]);
                     if (s.toLowerCase() == word.toLowerCase() ||
                         s.toLowerCase().substr(0,3) == word.toLowerCase())
                     {
@@ -615,7 +617,7 @@ public class DateFormatter extends Formatter
 
         var dataFormatter:StringFormatter = new StringFormatter(
             formatString, VALID_PATTERN_CHARS,
-            DateBase.mx_internal::extractTokenDate);
+            DateBase.extractTokenDate);
 
         return dataFormatter.formatValue(value);
     }
