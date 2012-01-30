@@ -144,6 +144,8 @@ use namespace mx_internal;
  *  @see spark.components.ContentBackgroundAppearance
  *  @see spark.components.CalloutPosition
  *
+ *  @includeExample examples/CalloutExample.mxml -noswf
+ *
  *  @langversion 3.0
  *  @playerversion AIR 3
  *  @productversion Flex 4.5.2
