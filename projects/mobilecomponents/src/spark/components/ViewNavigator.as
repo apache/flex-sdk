@@ -1724,6 +1724,10 @@ public class ViewNavigator extends ViewNavigatorBase
             view = createViewInstance(currentViewData);
             view.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
         }
+        
+        // Cancel any view change requests that occurred prior to this call
+        // since the top most view was just created.
+        viewChangeRequested = false;
     }
     
     /**
