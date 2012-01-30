@@ -11,13 +11,16 @@
 
 package spark.skins.mobile
 {
+import flash.display.GradientType;
 import flash.events.Event;
+import flash.geom.Matrix;
 import flash.text.TextLineMetrics;
 
 import mx.core.ILayoutElement;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
+import mx.utils.ColorUtil;
 
 import spark.components.ActionBar;
 import spark.components.Group;
@@ -75,6 +78,10 @@ public class ActionBarSkin extends MobileSkin
     
     // FIXME (jasonsj): pending mobile styling spec
     private static const TITLE_PADDING:Number = 25;
+    
+    private static var matrix:Matrix = new Matrix();
+    
+    private static const ratios:Array = [0, 127.5, 255];
     
     //--------------------------------------------------------------------------
     //
@@ -249,11 +256,22 @@ public class ActionBarSkin extends MobileSkin
             }
         }
         
-        // Draw background
         graphics.clear();
-        graphics.beginFill(getStyle("chromeColor"),
-            getStyle("backgroundAlpha"));
-        graphics.drawRect(0, 1, unscaledWidth, unscaledHeight);
+        
+        // Draw the gradient background
+        var chromeColor:uint = getStyle("chromeColor");
+        var alpha:uint = getStyle("backgroundAlpha");
+        var alphas:Array = [alpha, alpha, alpha];
+        var colors:Array = [];
+        
+        matrix.createGradientBox(unscaledWidth, unscaledHeight - 1, Math.PI / 2, 0, 0);
+        
+        colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
+        colors[1] = chromeColor;
+        colors[2] = ColorUtil.adjustBrightness2(chromeColor, -20);
+        
+        graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
+        graphics.drawRect(0, 1, unscaledWidth, unscaledHeight - 1);
         graphics.endFill();
     }
 }
