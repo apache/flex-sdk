@@ -67,7 +67,7 @@ public class ViewNavigatorSkin extends SliderSkin
     	
         tabBar = new ButtonBar();
         tabBar.requireSelection = true;
-        tabBar.height = 40;
+        tabBar.height = 80;
         
         actionBar = new ActionBar();
         
@@ -108,7 +108,6 @@ public class ViewNavigatorSkin extends SliderSkin
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         var top:Number = 0;
-        var bottom:Number = unscaledHeight;
         var componentHeight:Number;
         
         if (tabBar.includeInLayout)
@@ -150,7 +149,7 @@ public class ViewNavigatorSkin extends SliderSkin
             
     		if (contentGroup.includeInLayout)
     		{
-    			var contentGroupHeight:Number = bottom - top;
+    			var contentGroupHeight:Number = unscaledHeight - top;
     			
     			if (contentGroupHeight < contentGroup.minHeight)
     				contentGroupHeight = contentGroup.minHeight;
