@@ -12,8 +12,6 @@
 package mx.core
 {
 
-import __AS3__.vec.Vector;
-
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.GradientType;
@@ -6797,6 +6795,104 @@ public class UIComponent extends FlexSprite
     public function setConstraintValue(constraintName:String, value:*):void
     {
         setStyle(constraintName, value);
+    }
+    
+    [Inspectable(category="General")]
+
+    /**
+     *  @inheritDoc
+     */
+    public function get left():Object
+    {
+        return getConstraintValue("left");
+    }
+    public function set left(value:Object):void
+    {
+        setConstraintValue("left", value != null ? value : undefined);
+    }
+
+    [Inspectable(category="General")]
+
+    /**
+     *  @inheritDoc
+     */
+    public function get right():Object
+    {
+        return getConstraintValue("right");
+    }
+    public function set right(value:Object):void
+    {
+        setConstraintValue("right", value != null ? value : undefined);
+    }
+
+    [Inspectable(category="General")]
+
+    /**
+     *  @inheritDoc
+     */
+    public function get top():Object
+    {
+        return getConstraintValue("top");
+    }
+    public function set top(value:Object):void
+    {
+        setConstraintValue("top", value != null ? value : undefined);
+    }
+
+    [Inspectable(category="General")]
+
+    /**
+     *  @inheritDoc
+     */
+    public function get bottom():Object
+    {
+        return getConstraintValue("bottom");
+    }
+    public function set bottom(value:Object):void
+    {
+        setConstraintValue("bottom", value != null ? value : undefined);
+    }
+
+    [Inspectable(category="General")]
+
+    /**
+     *  @inheritDoc
+     */
+    public function get horizontalCenter():Object
+    {
+        return getConstraintValue("horizontalCenter");
+    }
+    public function set horizontalCenter(value:Object):void
+    {
+        setConstraintValue("horizontalCenter", value != null ? value : undefined);
+    }
+
+    [Inspectable(category="General")]
+
+    /**
+     *  @inheritDoc
+     */
+    public function get verticalCenter():Object
+    {
+        return getConstraintValue("verticalCenter");
+    }
+    public function set verticalCenter(value:Object):void
+    {
+        setConstraintValue("verticalCenter", value != null ? value : undefined);
+    }
+
+    [Inspectable(category="General")]
+
+    /**
+     *  @inheritDoc
+     */
+    public function get baseline():Object
+    {
+        return getConstraintValue("baseline");
+    }
+    public function set baseline(value:Object):void
+    {
+        setConstraintValue("baseline", value != null ? value : undefined);
     }
 
     //--------------------------------------------------------------------------
