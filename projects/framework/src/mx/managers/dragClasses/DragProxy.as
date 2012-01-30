@@ -661,14 +661,8 @@ public class DragProxy extends UIComponent
 		if (!obj.visible)
 			return;
 
-		try
-		{
-			if (!obj[$visible])
-				return;
-		}
-		catch (e:Error)
-		{
-		}
+        if ((obj is UIComponent) && !UIComponent(obj).$visible)
+			return;
 
 		if (obj.hitTestPoint(pt.x, pt.y, true))
 		{
@@ -720,7 +714,6 @@ public class DragProxy extends UIComponent
 		}
 	}
 
-	private static var $visible:QName = new QName(mx_internal, "$visible");
 }
 
 }
