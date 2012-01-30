@@ -331,7 +331,9 @@ public class SlideViewTransition extends ViewTransitionBase
         if (startView)
         {
             startViewProps = { includeInLayout:startView.includeInLayout,
-                cacheAsBitmap:startView.cacheAsBitmap };
+                               cacheAsBitmap:startView.cacheAsBitmap,
+                               x:startView.x,
+                               y:startView.y};
             
             startView.includeInLayout = false;
             startView.cacheAsBitmap = true;
@@ -590,15 +592,15 @@ public class SlideViewTransition extends ViewTransitionBase
                 {
                     slideTargets.push(tabBar);
                 
-                // When Uncovering, the cachedTabBar is not needed because the transition
-                // animates a cachedBitamp
-                if (cachedTabBar)
-                {
-                    cachedTabBar.includeInLayout = false;
-                    addCachedElementToGroup(transitionGroup, cachedTabBar, cachedTabBarGlobalPosition);
+                    // When Uncovering, the cachedTabBar is not needed because the transition
+                    // animates a cachedBitamp
+                    if (cachedTabBar)
+                    {
+                        cachedTabBar.includeInLayout = false;
+                        addCachedElementToGroup(transitionGroup, cachedTabBar, cachedTabBarGlobalPosition);
+                    }
                 }
             }
-        }
         }
         
         var slideDistance:Number;
@@ -697,6 +699,8 @@ public class SlideViewTransition extends ViewTransitionBase
             {
                 startView.includeInLayout = startViewProps.includeInLayout;
                 startView.cacheAsBitmap = startViewProps.cacheAsBitmap;
+                startView.x = startViewProps.x;
+                startView.y = startViewProps.y;
                 
                 if (startView.contentGroup)
                 {
