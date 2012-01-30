@@ -125,64 +125,14 @@ public class RadialGradient extends GradientBase implements IFill
     public function RadialGradient()
     {
         super();
+        matrix = new Matrix();
     }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private var matrix:Matrix = new Matrix();
         
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  angle
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the angle property.
-     */
-    private var _rotation:Number = 0.0;
-
-    [Bindable("propertyChange")]
-    [Inspectable(category="General")]
-    
-    /**
-     *  Sets the location of the start of the radial fill.
-     *
-     *  <p>Use the <code>focalPointRatio</code> property in conjunction
-     *  with this property to adjust the location and distance
-     *  from the center point of the bounding Rectangle to the focal point.</p>
-     * 
-     *  <p>Valid values are from 0.0 to 360.0.</p>
-     *  
-     *  @default 0
-     */
-    public function get angle():Number
-    {
-        return _rotation / Math.PI * 180;
-    }
-
-    /**
-     *  @private 
-     */
-    public function set angle(value:Number):void
-    {
-        var oldValue:Number = _rotation;
-        _rotation = value / 180 * Math.PI;
-        
-        mx_internal::dispatchGradientChangedEvent("angle", oldValue, _rotation);
-    }
 
     //----------------------------------
     //  focalPointRatio
@@ -242,6 +192,36 @@ public class RadialGradient extends GradientBase implements IFill
         }
     }
     
+    //----------------------------------
+	//  scaleY
+	//----------------------------------
+	
+    private var _scaleY:Number;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  The vertical scale of the gradient transform, which defines the height of the (unrotated) gradient
+     */
+    public function get scaleY():Number
+    {
+    	return _scaleY;	
+    }
+    
+	/**
+	 *  @private
+	 */
+    public function set scaleY(value:Number):void
+    {
+    	var oldValue:Number = _scaleY;
+    	if (value != oldValue)
+    	{
+    		_scaleY = value;
+    		mx_internal::dispatchGradientChangedEvent("scaleY", oldValue, value);
+    	}
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -253,12 +233,22 @@ public class RadialGradient extends GradientBase implements IFill
      */
     public function begin(target:Graphics, rc:Rectangle):void
     {
-        matrix.createGradientBox(rc.width, rc.height, _rotation,
-                                 rc.left, rc.top);
+    	var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
+    	var h:Number = !isNaN(scaleY) ? scaleY : rc.height;
+		var tx:Number = !isNaN(x) ? x : rc.width / 2;
+		var ty:Number = !isNaN(y) ? y : rc.height / 2;
+				
+		tx -= w / 2;
+		ty -= h / 2;		
+				
+        matrix.createGradientBox(w, h, 
+								!isNaN(mx_internal::_angle) ? 
+									mx_internal::_angle : mx_internal::rotationInRadians,
+								 tx, ty);
             
         target.beginGradientFill(GradientType.RADIAL, mx_internal::colors,
-                                 mx_internal::alphas, mx_internal::ratios,
-                                 matrix, null, null, focalPointRatio);      
+								 mx_internal::alphas, mx_internal::ratios,
+								 matrix, spreadMethod, interpolationMethod, focalPointRatio);      
     }
 
     /**
