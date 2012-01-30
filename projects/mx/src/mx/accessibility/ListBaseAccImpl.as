@@ -26,6 +26,11 @@ use namespace mx_internal;
 /**
  *  ListBaseAccImpl is a subclass of AccessibilityImplementation
  *  which implements accessibility for the ListBase class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ListBaseAccImpl extends AccImpl
 {
@@ -91,6 +96,11 @@ public class ListBaseAccImpl extends AccImpl
 	 *  Afterwards, when instances of ListBase are initialized,
 	 *  their <code>accessibilityImplementation</code> property
 	 *  will be set to an instance of this class.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function enableAccessibility():void
 	{
@@ -122,6 +132,11 @@ public class ListBaseAccImpl extends AccImpl
 	 *
 	 *  @param master The UIComponent instance that this AccImpl instance
 	 *  is making accessible.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ListBaseAccImpl(master:UIComponent)
 	{
