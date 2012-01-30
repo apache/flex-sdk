@@ -24,6 +24,11 @@ import mx.core.mx_internal;
  *  yourself.
  *
  *  @see mx.effects.Pause
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class PauseInstance extends TweenEffectInstance
 {
@@ -40,6 +45,11 @@ public class PauseInstance extends TweenEffectInstance
      *
      *  @param target This argument is ignored by the Pause effect.
      *  It is included for consistency with other effects.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function PauseInstance(target:Object)
     {
@@ -55,6 +65,11 @@ public class PauseInstance extends TweenEffectInstance
     /**
      * We cache the source for the event "eventName" to remove
      * the listener for it when the effect ends.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var eventSource:IEventDispatcher;
 
@@ -82,6 +97,11 @@ public class PauseInstance extends TweenEffectInstance
      * 
      * <p>This property is optional; the default
      * action is to play without waiting for any event.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var eventName:String
 
@@ -118,6 +138,11 @@ public class PauseInstance extends TweenEffectInstance
     /**
      * This function is called by the target if the named event
      * is dispatched before the duration expires.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function eventHandler(event:Event):void
     {
