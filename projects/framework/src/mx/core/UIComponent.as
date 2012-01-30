@@ -1763,20 +1763,20 @@ public class UIComponent extends FlexSprite
      *  @private
      *  Sprite used to display an overlay.
      */
-    mx_internal var overlay:UIComponent;
+    mx_internal var effectOverlay:UIComponent;
 
     /**
      *  @private
      *  Color used for overlay.
      */
-    mx_internal var overlayColor:uint;
+    mx_internal var effectOverlayColor:uint;
 
     /**
      *  @private
      *  Counter to keep track of the number of current users
      *  of the overlay.
      */
-    mx_internal var overlayReferenceCount:int = 0;
+    mx_internal var effectOverlayReferenceCount:int = 0;
 
     //--------------------------------------------------------------------------
     //
@@ -6472,7 +6472,7 @@ public class UIComponent extends FlexSprite
             formerParent.removeChild(child);
 
         // If there is an overlay, place the child underneath it.
-        var index:int = overlayReferenceCount && child != overlay ?
+        var index:int = effectOverlayReferenceCount && child != effectOverlay ?
                         Math.max(0, super.numChildren - 1) :
                         super.numChildren;
 
@@ -6512,7 +6512,7 @@ public class UIComponent extends FlexSprite
             formerParent.removeChild(child);
 
         // If there is an overlay, place the child underneath it.
-        if (overlayReferenceCount && child != overlay)
+        if (effectOverlayReferenceCount && child != effectOverlay)
              index = Math.min(index, Math.max(0, super.numChildren - 1));
 
         addingChild(child);
@@ -6561,7 +6561,7 @@ public class UIComponent extends FlexSprite
                                            newIndex:int):void
     {
         // Place the child underneath the overlay.
-        if (overlayReferenceCount && child != overlay)
+        if (effectOverlayReferenceCount && child != effectOverlay)
             newIndex = Math.min(newIndex, Math.max(0, super.numChildren - 2));
 
         super.setChildIndex(child, newIndex);
@@ -10304,35 +10304,35 @@ public class UIComponent extends FlexSprite
     mx_internal function addOverlay(color:uint,
                                targetArea:RoundedRectangle = null):void
     {
-        if (!overlay)
+        if (!effectOverlay)
         {
-            overlayColor = color;
-            overlay = new UIComponent();
-            overlay.name = "overlay";
+            effectOverlayColor = color;
+			effectOverlay = new UIComponent();
+			effectOverlay.name = "overlay";
             // Have to set visibility immediately
             // to make sure we avoid flicker
-            overlay.$visible = true;
+			effectOverlay.$visible = true;
 
-            fillOverlay(overlay, color, targetArea);
+            fillOverlay(effectOverlay, color, targetArea);
 
             attachOverlay();
 
             if (!targetArea)
                 addEventListener(ResizeEvent.RESIZE, overlay_resizeHandler);
 
-            overlay.x = 0;
-            overlay.y = 0;
+			effectOverlay.x = 0;
+			effectOverlay.y = 0;
 
             invalidateDisplayList();
 
-            overlayReferenceCount = 1;
+            effectOverlayReferenceCount = 1;
         }
         else
         {
-            overlayReferenceCount++;
+            effectOverlayReferenceCount++;
         }
 
-        dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.OVERLAY_CREATED, true, false, overlay));
+        dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.OVERLAY_CREATED, true, false, effectOverlay));
     }
 
     /**
@@ -10347,7 +10347,7 @@ public class UIComponent extends FlexSprite
      */
     protected function attachOverlay():void
     {
-        addChild(overlay);
+        addChild(effectOverlay);
     }
 
     /**
@@ -10383,14 +10383,14 @@ public class UIComponent extends FlexSprite
      */
     mx_internal function removeOverlay():void
     {
-        if (overlayReferenceCount > 0 && --overlayReferenceCount == 0 && overlay)
+        if (effectOverlayReferenceCount > 0 && --effectOverlayReferenceCount == 0 && effectOverlay)
         {
             removeEventListener(ResizeEvent.RESIZE, overlay_resizeHandler);
 
             if (super.getChildByName("overlay"))
-                $removeChild(overlay);
+                $removeChild(effectOverlay);
 
-            overlay = null;
+			effectOverlay = null;
         }
     }
     /**
@@ -10400,7 +10400,7 @@ public class UIComponent extends FlexSprite
      */
     private function overlay_resizeHandler(event:Event):void
     {
-        fillOverlay(overlay, overlayColor, null);
+        fillOverlay(effectOverlay, effectOverlayColor, null);
     }
 
     /**
