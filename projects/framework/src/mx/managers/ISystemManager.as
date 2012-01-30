@@ -435,31 +435,6 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
     function getSandboxRoot():DisplayObject;
 
     /**
-     *  Register an implementation for an interface.
-	 *  Similar to Singleton.registerClass, but per-
-	 *  ISystemManager, and takes an instance not a class
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    function registerImplementation(interfaceName:String,
-										 impl:Object):void;
-
-    /**
-     *  Get the implementation for an interface.
-	 *  Similar to Singleton.getInstance, but per-
-	 *  ISystemManager
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-	function getImplementation(interfaceName:String):Object;
-
-    /**
      *  Get the bounds of the loaded application that are visible to the user
      *  on the screen.
      * 
