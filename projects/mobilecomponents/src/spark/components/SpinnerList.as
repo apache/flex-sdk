@@ -33,6 +33,8 @@ import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
 
+[Exclude(name="accentColor", kind="style")]
+[Exclude(name="chromeColor", kind="style")]
 [Exclude(name="layout", kind="property")]
 [Exclude(name="requireSelection", kind="property")]
 [Exclude(name="changing", kind="event")]
@@ -326,7 +328,7 @@ public class SpinnerList extends ListBase
 	//
 	//-------------------------------------------------------------------------- 
 	
-    protected function resizeHandler(event:ResizeEvent):void
+    private function resizeHandler(event:ResizeEvent):void
     {
         if ((event.oldWidth != width || event.oldHeight != height) && !scrollToSelection)
         {
