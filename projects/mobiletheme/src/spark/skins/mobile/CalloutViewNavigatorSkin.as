@@ -12,12 +12,11 @@
 package spark.skins.mobile
 {
 
+import flash.display.Graphics;
+
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
 
-import spark.components.ActionBar;
-import spark.components.Group;
-import spark.components.ViewNavigator;
 import spark.core.SpriteVisualElement;
 import spark.skins.mobile160.assets.CalloutContentBackground;
 import spark.skins.mobile240.assets.CalloutContentBackground;
@@ -60,14 +59,14 @@ public class CalloutViewNavigatorSkin extends ViewNavigatorSkin
             {
                 contentBackgroundClass = spark.skins.mobile320.assets.CalloutContentBackground;
                 contentCornerRadius = 10;
-                gap = 20;
+                gap = 16;
                 break;
             }
             case DPIClassification.DPI_240:
             {
                 contentBackgroundClass = spark.skins.mobile240.assets.CalloutContentBackground;
                 contentCornerRadius = 7;
-                gap = 15;
+                gap = 12;
                 break;
             }
             default:
@@ -75,7 +74,7 @@ public class CalloutViewNavigatorSkin extends ViewNavigatorSkin
                 // default DPI_160
                 contentBackgroundClass = spark.skins.mobile160.assets.CalloutContentBackground;
                 contentCornerRadius = 5;
-                gap = 10;
+                gap = 8;
                 break;
             }
         }
@@ -101,6 +100,8 @@ public class CalloutViewNavigatorSkin extends ViewNavigatorSkin
     
     mx_internal var contentCornerRadius:Number;
     
+    private var contentMask:SpriteVisualElement;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -112,10 +113,15 @@ public class CalloutViewNavigatorSkin extends ViewNavigatorSkin
      */ 
     override protected function createChildren():void
     {
+        super.createChildren();
+        
+        // mask the ViewNavigator contentGroup
+        contentMask = new SpriteVisualElement();
+        contentGroup.mask = contentMask;
+        
+        // contentBackground shadow is layered above the contentGroup
         contentBackgroundGraphic = new contentBackgroundClass() as SpriteVisualElement;
         addChild(contentBackgroundGraphic);
-        
-        super.createChildren();
     }
     
     /**
@@ -164,13 +170,15 @@ public class CalloutViewNavigatorSkin extends ViewNavigatorSkin
             actionBarHeight = actionBar.getLayoutBoundsHeight();
         }
         
+        // If the hostComponent is in overlay mode, the contentGroup extends
+        // the entire bounds of the navigator and the alpha for the action 
+        // bar changes
+        // If this changes, also update validateEstimatedSizesOfChild
+        var contentGroupHeight:Number = 0;
+        
         if (contentGroup.includeInLayout)
         {
-            // If the hostComponent is in overlay mode, the contentGroup extends
-            // the entire bounds of the navigator and the alpha for the action 
-            // bar changes
-            // If this changes, also update validateEstimatedSizesOfChild
-            var contentGroupHeight:Number = Math.max(unscaledHeight - actionBarHeight - gap, 0);
+            contentGroupHeight = Math.max(unscaledHeight - actionBarHeight - gap, 0);
             
             setElementSize(contentGroup, unscaledWidth, contentGroupHeight);
             setElementPosition(contentGroup, 0, actionBarHeight + gap);
@@ -178,6 +186,9 @@ public class CalloutViewNavigatorSkin extends ViewNavigatorSkin
             setElementSize(contentBackgroundGraphic, unscaledWidth, contentGroupHeight);
             setElementPosition(contentBackgroundGraphic, 0, actionBarHeight + gap);
         }
+        
+        setElementSize(contentMask, unscaledWidth, contentGroupHeight);
+        setElementPosition(contentBackgroundGraphic, 0, actionBarHeight + gap);
     }
     
     /**
@@ -191,16 +202,29 @@ public class CalloutViewNavigatorSkin extends ViewNavigatorSkin
         // the shading and highlight are drawn in FXG
         var contentEllipseSize:Number = contentCornerRadius * 2;
         var contentBackgroundAlpha:Number = getStyle("contentBackgroundAlpha");
+        var contentWidth:Number = contentGroup.getLayoutBoundsWidth();
+        var contentHeight:Number = contentGroup.getLayoutBoundsHeight();
         
         graphics.beginFill(getStyle("contentBackgroundColor"),
             contentBackgroundAlpha);
         graphics.drawRoundRect(contentBackgroundGraphic.getLayoutBoundsX(),
             contentBackgroundGraphic.getLayoutBoundsY(),
-            contentBackgroundGraphic.getLayoutBoundsWidth(),
-            contentBackgroundGraphic.getLayoutBoundsHeight(),
+            contentWidth,
+            contentHeight,
             contentEllipseSize,
             contentEllipseSize);
         graphics.endFill();
+        
+        if (contentMask)
+        {
+            // content mask in contentGroup coordinate space
+            var maskGraphics:Graphics = contentMask.graphics;
+            maskGraphics.clear();
+            maskGraphics.beginFill(0, 1);
+            maskGraphics.drawRoundRect(0, 0, contentWidth, contentHeight,
+                contentEllipseSize, contentEllipseSize);
+            maskGraphics.endFill();
+        }
         
         contentBackgroundGraphic.alpha = contentBackgroundAlpha;
     }
