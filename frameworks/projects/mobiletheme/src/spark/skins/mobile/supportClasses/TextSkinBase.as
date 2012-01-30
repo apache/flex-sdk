@@ -35,6 +35,15 @@ public class TextSkinBase extends MobileSkin
     //  Constructor
     //
     //--------------------------------------------------------------------------
+    /**
+     *  Constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     * 
+     */
     public function TextSkinBase()
     {
         super();
@@ -170,7 +179,7 @@ public class TextSkinBase extends MobileSkin
     }
     
     /**
-     *  Renders a background for the skin
+     *  Renders a background for the skin.
      * 
      *  <p>This method, along with <code>layoutContents()</code>, is called 
      *  by the <code>updateDisplayList()</code> method.</p>
@@ -202,7 +211,7 @@ public class TextSkinBase extends MobileSkin
     }
     
     /**
-     *  Positions the children for this skin
+     *  Positions the children for this skin.
      * 
      *  <p>This method, along with <code>drawBackground()</code>, is called 
      *  by the <code>updateDisplayList()</code> method.</p>
