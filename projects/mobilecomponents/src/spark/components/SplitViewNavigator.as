@@ -329,6 +329,12 @@ public class SplitViewNavigator extends ViewNavigatorBase
      *  of the callout when it is visible.  The navigator inside the callout
      *  will be invisible after the callout is closed.</p>
      * 
+     *  <p>After closing the callout, the navigator that was shown will remain
+     *  invisible unless <code>autoHideFirstViewNavigator</code> is <code>true</code>
+     *  and the device orientation is landscape.  In all other cases, the
+     *  visibility of the first navigator will need to be set to <code>true</code>
+     *  to make it visible again.</p>
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
