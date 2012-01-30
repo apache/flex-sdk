@@ -11,7 +11,11 @@
 
 package spark.components
 {
+import flash.events.Event;
+import flash.events.IEventDispatcher;
+
 import mx.core.ISelectableList;
+import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.IEffect;
@@ -22,6 +26,7 @@ import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
+import mx.managers.LayoutManager;
 import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.ButtonBarBase;
@@ -56,7 +61,31 @@ use namespace mx_internal;
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
 /**
+ *  Dispatched when a child ViewNavigator has completed a view change
+ *  process.  If a transition is played, this method is dispatched
+ *  after the animation completes.
+ * 
+ *  @eventType flash.events.Event
  *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+ // FIXME (chiedozi): PARB
+[Event(name="complete", type="flash.events.Event")]
+
+/**
+ *  Dispatched when the navigator's selected index has changed.  When
+ *  this event is dispatched, the selectedIndex and activeNavigator
+ *  properties will be referencing the newly selected navigator.
+ * 
+ *  @eventType mx.events.FlexEvent 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="valueCommit", type="mx.events.FlexEvent")]
 
@@ -103,6 +132,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     public function TabbedViewNavigator()
     {
         super();
+        
+        navigators = new Vector.<ViewNavigatorBase>();
     }
     
     //--------------------------------------------------------------------------
@@ -148,13 +179,28 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     /**
      *  @private
-     */
-    private var tabBarVisibilityEffect:IEffect;
+     */ 
+    private var dataProviderChanged:Boolean = false;
     
     /**
      *  @private
      */
-    private var selectedNavigatorChanged:Boolean = false;
+    private var selectedIndexChanged:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var selectedIndexAdjusted:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var showingTabBar:Boolean;
+    
+    /**
+     *  @private
+     */
+    private var tabBarVisibilityEffect:IEffect;
     
     /**
      *  @private
@@ -164,12 +210,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  @private
      */    
-    private var tabBarVisibilityInvalidated:Boolean = false;
-
-    /**
-     *  @private
-     */    
-    public var transitionsEnabled:Boolean = true;
+    private var tabBarVisibilityChanged:Boolean = false;
     
     //--------------------------------------------------------------------------
     //
@@ -259,27 +300,48 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  @private
      */ 
+    // FIXME (chiedozi): Part of restructuring setSelectedIndex and adjustIndex
     public function set navigators(value:Vector.<ViewNavigatorBase>):void
     {
         var i:int;
+        var navigator:ViewNavigatorBase;
         
+        // These flags are updated at the beginning of the method so
+        // that the selectedIndex setter doesn't ignore passed in value
+        dataProviderChanged = true;
+        invalidateProperties();
+        
+        // Clean up and remove all the previous navigators from the display list
         if (_navigators)
         {
             for (i = 0; i < _navigators.length; ++i)
-                _navigators[i].parentNavigator = null;
+            {
+                navigator = _navigators[i];
+                
+                cleanUpNavigator(navigator);
+                removeElement(navigator);
+            }
         }
         
-        _navigators = value;   
+        _navigators = value ? value.concat() : null;
         
         if (value)
         {
             for (i = 0; i < value.length; ++i)
-                _navigators[i].parentNavigator = this;
-            
-            selectedIndex = 0;
+            {
+                navigator = _navigators[i];
+                setupNavigator(navigator);
+                addElement(navigator);
+            }
         }
+       
+        if (value && value.length > 0)
+            selectedIndex = 0;
+        else
+            selectedIndex = NO_PROPOSED_SELECTION;
         
-        selectedNavigatorChanged = true;
+        // Notify listeners that the collection changed
+        internalDispatchEvent(CollectionEventKind.RESET);
     }
     
     //--------------------------------------------------------------------------
@@ -300,16 +362,14 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     public function hideTabBar(animate:Boolean = true):void
     {	
-        if (tabBar && tabBar.visible)
-        {
-            animateTabBarVisbility = animate;
-            tabBarVisibilityInvalidated = true;
-            invalidateProperties();
-        }
-        else
-        {
-            tabBarVisibilityInvalidated = false;
-        }
+        if (!tabBar)
+            return;
+        
+        showingTabBar = false;
+        animateTabBarVisbility = animate;
+        tabBarVisibilityChanged = true;
+        
+        invalidateProperties();
     }
     
     /**
@@ -324,16 +384,14 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     public function showTabBar(animate:Boolean = true):void
     {
-        if (tabBar && navigators.length > 1 && !tabBar.visible)
-        {
-            animateTabBarVisbility = animate;
-            tabBarVisibilityInvalidated = true;
-            invalidateProperties();
-        }
-        else
-        {
-            tabBarVisibilityInvalidated = false;
-        }
+        if (!tabBar)
+            return;
+        
+        showingTabBar = true;
+        animateTabBarVisbility = animate;
+        tabBarVisibilityChanged = true;
+        
+        invalidateProperties();
     }
     
     /**
@@ -353,9 +411,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         }
         else
         {
-            tabBar.visible = tabBar.includeInLayout = false;
+            // If the current view is null, the tab bar is shown so that the
+            // user still has a ui for changing the selected tab.
+            tabBar.visible = tabBar.includeInLayout = true;
             overlayControls = false;
         }
+
+        tabBarVisibilityChanged = false;
     }
     
     //--------------------------------------------------------------------------
@@ -391,13 +453,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             animateTabBarUp = tabBar.y <= contentGroup.y;
         
         // Need to validate to capture final positions and sizes of skin parts
-        validateNow();
+        LayoutManager.getInstance().validateNow();
         
         // This will store the final location and sizes of the components
         tabBarProps.end = captureAnimationValues(tabBar);
         contentGroupProps.end = captureAnimationValues(contentGroup);
         
-        if (tabBarVisibilityInvalidated)
+        if (tabBarVisibilityChanged)
         {
             if (animateTabBarUp)
             {
@@ -413,8 +475,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 else
                     tabBarProps.start.y = this.height;
             }
-            
-            tabBar.visible = true;
         }
     }
     
@@ -423,7 +483,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     override public function canRemoveCurrentView():Boolean
     {
-        return (activeNavigator && activeNavigator.canRemoveCurrentView());
+        return (!activeNavigator || activeNavigator.canRemoveCurrentView());
     }
     
     /**
@@ -449,6 +509,41 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      
     /**
      *  @private
+     */ 
+    private function setupNavigator(navigator:ViewNavigatorBase):void
+    {
+        navigator.parentNavigator = this;
+        navigator.visible = false;
+        
+        startTrackingUpdates(navigator);
+    }
+    
+    /**
+     *  @private
+     */ 
+    private function cleanUpNavigator(navigator:ViewNavigatorBase):void
+    {
+        navigator.parentNavigator = null;
+        
+        if (navigator.active)
+            navigator.active = false;
+
+        if (navigator.activeView)
+        {
+            navigator.activeView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+                view_propertyChangeHandler);
+        }
+        
+        navigator.removeEventListener(ElementExistenceEvent.ELEMENT_ADD, 
+            navigator_elementAddHandler);
+        navigator.removeEventListener(ElementExistenceEvent.ELEMENT_REMOVE, 
+            navigator_elementRemoveHandler);
+        
+        stopTrackingUpdates(navigator);
+    }
+    
+    /**
+     *  @private
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -459,42 +554,56 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         super.commitProperties();
         
-        // FIXME (chiedozi): Should cancel any queue view changes 
-        // of the active view.
-        if (selectedNavigatorChanged)
+        // FIXME (chiedozi): Should cancel any queued view changes of the active view navigator.
+        if (selectedIndexChanged || dataProviderChanged)
         {
             var navigator:ViewNavigatorBase;
-            
-            if (_selectedIndex != -1)
+
+            // If the data provider has changed, the navigator elements have
+            // already been removed, so the following code doesn't need to run
+            if (!selectedIndexAdjusted && !dataProviderChanged && _selectedIndex >= 0)
             {
                 navigator = navigators[_selectedIndex];
                 navigator.active = false;
-                removeElement(navigator);
+                navigator.visible = false;
                 
+                if (navigator.activeView)
+                    navigator.activeView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+                                                                view_propertyChangeHandler);
+                
+                navigator.removeEventListener(Event.COMPLETE, navigator_completeHandler);
                 navigator.removeEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
                 navigator.removeEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
             }
             
             commitSelection();
             
-            if (_selectedIndex > -1)
+            if (_selectedIndex >= 0)
             {
                 navigator = navigators[_selectedIndex];
                 
+                navigator.addEventListener(Event.COMPLETE, navigator_completeHandler);
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
                 
-                navigator.active = true;
                 navigator.landscapeOrientation = landscapeOrientation;
-                addElement(navigator);
+                navigator.active = true;
+                navigator.visible = true;
                 
-                UIComponent(navigator).invalidateProperties();
+                if (navigator.activeView)
+                {
+                    updatePropertiesForView(navigator.activeView);
+                    navigator.activeView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+                                                            view_propertyChangeHandler);
+                }
             }
             
-            selectedNavigatorChanged = false;
+            selectedIndexAdjusted = false;
+            dataProviderChanged = false;
+            selectedIndexChanged = false;
         }
         
-        if (tabBarVisibilityInvalidated)
+        if (tabBarVisibilityChanged)
             commitVisibilityChanges();
     }
     
@@ -534,18 +643,28 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         if (tabBarVisibilityEffect)
             tabBarVisibilityEffect.end();
         
-        if (transitionsEnabled && animateTabBarVisbility)
+        // Change the visibility of the tabBar if the desired state
+        // is different than the current state
+        if (tabBar && showingTabBar != tabBar.visible)
         {
-            tabBarVisibilityEffect = createVisibilityAnimation();
-            tabBarVisibilityEffect.addEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
-            tabBarVisibilityEffect.play();
+            // The animateTabBarVisibility flag is set to true if the
+            // hideTabBar() or showTabBar() methods are called with the
+            // animate flag set to true
+            if (transitionsEnabled && animateTabBarVisbility)
+            {
+                tabBarVisibilityEffect = createVisibilityAnimation();
+                tabBarVisibilityEffect.addEventListener(EffectEvent.EFFECT_END, 
+                    visibilityAnimation_completeHandler);
+                tabBarVisibilityEffect.play();
+            }
+            else
+            {
+                // Since the visibility is not being animated, toggle the state
+                tabBar.visible = tabBar.includeInLayout = showingTabBar;
+            }
         }
-        else
-        {
-            if (tabBarVisibilityInvalidated)
-                tabBar.visible = tabBar.includeInLayout = !tabBar.visible;
-            tabBarVisibilityInvalidated = false;
-        }
+
+        tabBarVisibilityChanged = false;
     }
     
     /**
@@ -586,20 +705,15 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         contentGroupProps = { start:captureAnimationValues(contentGroup) };
         
         // Update actionBar layout properties
-        if (tabBarVisibilityInvalidated)
-            tabBar.visible = tabBar.includeInLayout = !tabBarProps.start.visible;
+        tabBar.visible = tabBar.includeInLayout = showingTabBar;
         
         // Calculate final positions.  This method will force a validation
         calculateFinalUIPositions();
         
-        // The actionbar will be visible if we are animating it
-        if (tabBar.visible)
-        {
-            effect = createTabBarVisibilityEffect(tabBar.visible, tabBarProps);
-            effect.target = tabBar;
-            
-            finalEffect.addChild(effect);
-        }
+        effect = createTabBarVisibilityEffect(tabBar.visible, tabBarProps);
+        effect.target = tabBar;
+        tabBar.visible = true;
+        finalEffect.addChild(effect);
         
         var animate:Animate = new Animate();
         animate.target = contentGroup;
@@ -620,6 +734,16 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     /**
      *  @private
+     *  Redispatches the child navigators COMPLETE event.
+     */ 
+    private function navigator_completeHandler(event:Event):void
+    {
+        if (hasEventListener(Event.COMPLETE))
+            dispatchEvent(event);
+    }
+    
+    /**
+     *  @private
      */
     private function navigator_elementAddHandler(event:ElementExistenceEvent):void
     {
@@ -634,6 +758,15 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         event.element.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                                                 view_propertyChangeHandler);
+    }
+    
+    /**
+     *  @private
+     *  Dispatched when a property on a child navigator changed.
+     */ 
+    private function navigator_propertyChangeHandler(event:PropertyChangeEvent):void
+    {
+        itemUpdated(event.target, event.property, event.oldValue, event.newValue);
     }
     
     /**
@@ -756,23 +889,16 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     private function visibilityAnimation_completeHandler(event:EffectEvent):void
     {
         event.target.removeEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
-        
-        if (tabBarVisibilityInvalidated)
-            tabBar.visible = tabBar.includeInLayout = !tabBarProps.start.visible;
-        else
-            tabBar.includeInLayout = tabBarProps.start.includeInLayout;
-        
-        // Restore includeInLayout and cacheAsBitmap properties for each component
-        contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
-        
+
+        tabBar.visible = tabBar.includeInLayout = tabBarProps.end.visible;
         tabBar.cacheAsBitmap = tabBarProps.start.cacheAsBitmap;
+        
+        contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
         contentGroup.cacheAsBitmap = contentGroupProps.start.cacheAsBitmap;
         
         tabBarVisibilityEffect = null;
         tabBarProps = null;
         contentGroupProps = null;
-        
-        tabBarVisibilityInvalidated = false;
     }
     
     //--------------------------------------------------------------------------
@@ -800,7 +926,28 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     [Bindable("change")]
     [Bindable("valueCommit")]    
     /**
-     *  @private
+     *  The 0-based index of the selected navigator, or -1 if no item is selected.
+     *  Setting the <code>selectedIndex</code> property deselects the currently selected
+     *  navigator and selects the navigator at the specified index.
+     *
+     *  <p>The value is always between -1 and (<code>navigators.length</code> - 1). 
+     *  If items at a lower index than <code>selectedIndex</code> are 
+     *  removed from the component, the selected index is adjusted downward
+     *  accordingly.</p>
+     *
+     *  <p>If the selected item is removed, the selected index is set to:</p>
+     *
+     *  <ul>
+     *    <li>-1 if there are no remaining items.</li>
+     *    <li><code>selectedIndex</code> - 1 if there is at least one item.</li>
+     *  </ul>
+     *
+     *  @default -1
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get selectedIndex():int
     {
@@ -813,7 +960,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      * @private
      */
-    // TODO (chiedozi): Follow ListBase setSelectedIndex pattern
+    // FIXME (chiedozi): Follow ListBase setSelectedIndex pattern
     public function set selectedIndex(value:int):void
     {
         if (value < -1 || value >= length) 
@@ -823,7 +970,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             throw new RangeError(message);
         }
         
-        if (!selectedNavigatorChanged && value == selectedIndex)
+        if (!dataProviderChanged && value == selectedIndex)
             return;
         
         // TODO (chiedozi): Add comment about how you can be in here via progromattic setting 
@@ -835,18 +982,15 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             // CHANGING event was canceled, prevent the index change
             if (!indexCanChange(value))
             {
-                if (tabBar)
-                    tabBar.selectedIndex = _selectedIndex;
-                
                 _proposedSelectedIndex = NO_PROPOSED_SELECTION;
                 return;
             }
         }
         
         _proposedSelectedIndex = value;
-        selectedNavigatorChanged = true;
-        
+        selectedIndexChanged = true;
         changingEventDispatched = false;
+        
         invalidateProperties();
     }
     
@@ -880,7 +1024,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     //----------------------------------
     
     /**
-     *  @private
+     *  Returns the number of child navigators being managed by the 
+     *  this component.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get length():int
     {
@@ -891,26 +1041,40 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  @private
+     *  Add the specified item to the end of the list.  Equivalent to 
+     *  addItemAt(item, length); 
+     * 
+     *  @param item The item to add.  Must extend <code>ViewNavigatorBase</code>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function addItem(item:Object):void
     {
-        if (!(item is ViewNavigatorBase)) 
-            throw new Error("You can only add ViewNavigatorBase objects");
-        
-        ViewNavigatorBase(item).parentNavigator = parentNavigator ? parentNavigator : this;
-        
-        _navigators.push(item);
-        internalDispatchEvent(CollectionEventKind.ADD, item, _navigators.length - 1);
+        addItemAt(item, length);
     }
     
     /**
-     *  @private
+     *  Add the item at the specified index.  
+     *  Any item that was after this index is moved out by one.  
+     * 
+     *  @param item the item to place at the index.  Must extend <code>ViewNavigatorBase</code>
+     *  @param index the index at which to place the item
+     *  @throws RangeError if index is less than 0 or greater than the length
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
+    // FIXME (chiedozi): Do a separate code path.  Should only dispatch value_commit.
     public function addItemAt(item:Object, index:int):void
     {
+        // FIXME (chiedozi): Resource manager
         if (!(item is ViewNavigatorBase)) 
-            throw new Error("You can only add ViewNavigators");
+            throw new Error("Objects added to TabbedViewNavigator must extend ViewNavigatorBase.");
         
         if (index < 0 || index > length) 
         {
@@ -919,13 +1083,41 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             throw new RangeError(message);
         }
         
-        ViewNavigatorBase(item).parentNavigator = parentNavigator ? parentNavigator : this;
-        _navigators.splice(index, 0, item);
+        navigators.splice(index, 0, item);
+                    
+        setupNavigator(ViewNavigatorBase(item));
+        addElementAt(ViewNavigatorBase(item), index);
+        
+        // FIXME (chiedozi): I feel that this is wrong, shouldn't dispatch this before
+        // updating my selection
         internalDispatchEvent(CollectionEventKind.ADD, item, index);
+        
+        // FIXME (chiedozi): When there is no selectedIndex, this call results in
+        // selectedIndex being called 3 times...
+        if (selectedIndex == NO_PROPOSED_SELECTION)
+        {
+            selectedIndex = 0;
+        }
+        else if (index <= selectedIndex)
+        {
+            selectedIndex++;
+            selectedIndexAdjusted = true;
+        }
     }
     
     /**
-     *  @private
+     *  Get the navigator object at the specified index.
+     * 
+     *  @param  index the index in the list from which to retrieve the item
+     *  @param  prefetch int indicating both the direction and amount of items
+     *          to fetch during the request should the item not be local.
+     *  @return the navigator at that index, null if there is none
+     *  @throws RangeError if the index &lt; 0 or index &gt;= length
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function getItemAt(index:int, prefetch:int = 0):Object
     {
@@ -936,39 +1128,111 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             throw new RangeError(message);
         }
         
-        return _navigators[index];
+        return navigators[index];
     }
     
     /**
-     *  @private
+     *  Return the index of the navigator if it is in the list such that
+     *  getItemAt(index) == item.  
+     *  Note that in this implementation the search is linear and is therefore 
+     *  O(n).
+     * 
+     *  @param item the navigator to find
+     *  @return the index of the navigator, -1 if the item is not in the list.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function getItemIndex(item:Object):int
     {
-        return _navigators.indexOf(item);
+        return navigators.indexOf(item);
     }
     
     /**
-     *  This method is not supported by ViewNavigator.  Any changes
-     *  made to individual views inside a <code>NavigationStack</code>
-     *  are ignored.
+     *  Notify external components that a property on a navigator has
+     *  been updated.
+     *
+     *  @param item The navigator that was updated.
+     *
+     *  @param property A String, QName, or int
+     *  specifying the property that was updated.
+     *
+     *  @param oldValue The old value of that property.
+     *  (If property was null, this can be the old value of the item.)
+     *
+     *  @param newValue The new value of that property.
+     *  (If property was null, there's no need to specify this
+     *  as the item is assumed to be the new value.)
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function itemUpdated(item:Object, property:Object = null, 
                                 oldValue:Object = null, 
                                 newValue:Object = null):void
     {
+        // FIXME (chiedozi): For some reason this gets dispatched twice
+        var event:PropertyChangeEvent =
+            new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+        
+        event.kind = PropertyChangeEventKind.UPDATE;
+        event.source = item;
+        event.property = property;
+        event.oldValue = oldValue;
+        event.newValue = newValue;
+        
+        internalDispatchEvent(CollectionEventKind.UPDATE, event);
     }
     
     /**
-     *  @private
+     *  Remove all child navigators from the navigator.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function removeAll():void
     {
-        _navigators.length = 0;
+        var item:IVisualElement;
+        var len:int = length;
+        
+        // Deactive the active navigator and its view
+        if (activeNavigator)
+            activeNavigator.active = false;
+        
+        for (var i:int = 0; i < len; i++)
+        {
+            item = _navigators[i];
+            cleanUpNavigator(ViewNavigatorBase(item));
+            removeElement(item);
+        }
+        
+        navigators.length = 0;
+        selectedIndex = NO_PROPOSED_SELECTION;
+        dataProviderChanged = true;
+        
+        invalidateProperties();
+        
         internalDispatchEvent(CollectionEventKind.RESET);
     }
     
     /**
-     *  @private
+     *  Remove the navigator at the specified index and return it.  
+     *  Any items that were after this index are now one index earlier.
+     *
+     *  @param index The index from which to remove the item.
+     *  @return The item that was removed.
+     *  @throws RangeError if index &lt; 0 or index &gt;= length.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function removeItemAt(index:int):Object
     {
@@ -979,19 +1243,42 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             throw new RangeError(message);
         }
         
+        if (index <= selectedIndex)
+        {
+            selectedIndex--;
+            selectedIndexAdjusted = true;
+        }
+        
         var removed:Object = _navigators.splice(index, 1)[0];
+
+        cleanUpNavigator(ViewNavigatorBase(removed));
+        removeElement(IVisualElement(removed));
+                
         internalDispatchEvent(CollectionEventKind.REMOVE, removed, index);
         
         return removed;
     }
     
     /**
-     *  @private
+     *  Place the navigator at the specified index.  
+     *  If an item was already at that index the new item will replace it and it 
+     *  will be returned.
+     *
+     *  @param  item the navigator to place at the index
+     *  @param  index the index at which to place the navigator
+     *  @return the navigator that was replaced, null if none
+     *  @throws RangeError if index is less than 0 or greater than or equal to length
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function setItemAt(item:Object, index:int):Object
     {
+        // FIXME (chiedozi): Resource manager
         if (!(item is ViewNavigator)) 
-            throw new Error("You can only add NavigationStack to a ViewNavigator");
+            throw new Error("Objects added to TabbedViewNavigator must extend ViewNavigatorBase.");
         
         if (index < 0 || index >= length) 
         {
@@ -1002,6 +1289,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         var oldItem:Object = _navigators[index];
         _navigators[index] = item as ViewNavigatorBase;
+        
+        cleanUpNavigator(ViewNavigatorBase(oldItem));
+        setupNavigator(ViewNavigatorBase(item));
         
         if (hasEventListener(CollectionEvent.COLLECTION_CHANGE))
         {
@@ -1020,7 +1310,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  @private
+     *  Return an Array that is populated in the same order as the IList
+     *  implementation.  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function toArray():Array
     {
@@ -1058,6 +1354,64 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             event.items.push(item);
             event.location = location;
             dispatchEvent(event);
+        }
+        
+        // now dispatch a complementary PropertyChangeEvent
+        if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE) && 
+            (kind == CollectionEventKind.ADD || kind == CollectionEventKind.REMOVE))
+        {
+            var objEvent:PropertyChangeEvent =
+                new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+            
+            objEvent.property = location;
+            if (kind == CollectionEventKind.ADD)
+                objEvent.newValue = item;
+            else
+                objEvent.oldValue = item;
+            
+            dispatchEvent(objEvent);
+        }
+    }
+    
+    /** 
+     *  @private
+     *  If the item is an IEventDispatcher watch it for updates.  
+     *  This is called by addItemAt and when the source is initially
+     *  assigned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    private function startTrackingUpdates(item:Object):void
+    {
+        if (item && (item is IEventDispatcher))
+        {
+            IEventDispatcher(item).addEventListener(
+                PropertyChangeEvent.PROPERTY_CHANGE, 
+                navigator_propertyChangeHandler, false, 0, true);
+        }
+    }
+    
+    /** 
+     *  @private
+     *  If the item is an IEventDispatcher stop watching it for updates.
+     *  This is called by removeItemAt, removeAll, and before a new
+     *  source is assigned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    private function stopTrackingUpdates(item:Object):void
+    {
+        if (item && item is IEventDispatcher)
+        {
+            IEventDispatcher(item).removeEventListener(
+                PropertyChangeEvent.PROPERTY_CHANGE, 
+                navigator_propertyChangeHandler);    
         }
     }
 }
