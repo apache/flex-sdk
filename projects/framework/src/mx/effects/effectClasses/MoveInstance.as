@@ -21,6 +21,8 @@ import mx.effects.EffectManager;
 import mx.events.MoveEvent;
 import mx.styles.IStyleClient;
 
+use namespace mx_internal;
+
 /**
  *  The MoveInstance class implements the instance class
  *  for the Move effect.
@@ -270,7 +272,7 @@ public class MoveInstance extends TweenEffectInstance
 		super.play();
 		
 		// Try to cache the target as a bitmap.
-		EffectManager.mx_internal::startBitmapEffect(IUIComponent(target));
+		EffectManager.startBitmapEffect(IUIComponent(target));
 
 		// The user may have supplied some combination of xFrom, xTo, and xBy.
 		// If either xFrom or xTo is not explicitly defined, calculate its
@@ -329,12 +331,12 @@ public class MoveInstance extends TweenEffectInstance
 				yFrom + target.height > b || yTo + target.height > b)
 			{
 				forceClipping = true;
-				p.mx_internal::forceClipping = true;
+				p.forceClipping = true;
 			}
 		
 		}
 		
-		mx_internal::applyTweenStartValues();
+		applyTweenStartValues();
 		
 		if (target is IStyleClient)
 		{
@@ -404,7 +406,7 @@ public class MoveInstance extends TweenEffectInstance
 					value[1] < t || value[1] + target.height > b)
 				{
 					forceClipping = true;
-					p.mx_internal::forceClipping = true;
+					p.forceClipping = true;
 				}
 			}
 		}
@@ -418,7 +420,7 @@ public class MoveInstance extends TweenEffectInstance
 	 */
 	override public function onTweenEnd(value:Object):void
 	{	
-		EffectManager.mx_internal::endBitmapEffect(IUIComponent(target));
+		EffectManager.endBitmapEffect(IUIComponent(target));
 		
 		if (left != undefined)
 			target.setStyle("left", left);
@@ -450,7 +452,7 @@ public class MoveInstance extends TweenEffectInstance
 			if (p) 
 			{
 				forceClipping = false;
-				p.mx_internal::forceClipping = false;
+				p.forceClipping = false;
 			}
 		}	
 		
