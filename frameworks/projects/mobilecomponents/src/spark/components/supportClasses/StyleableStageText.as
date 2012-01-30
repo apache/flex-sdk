@@ -2560,6 +2560,14 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function stageText_completeHandler(event:Event):void
     {
+        // Since Android devices update their text asynchronously,
+        // there may be situations where a complete event is received
+        // during a transition.  If one is received, we reset the
+        // ignoreProxyUpdatesDuringTransition flag so that updateProxyImage()
+        // method recreates the bitmap representing the text.
+        if (!completeEventPending && !isDesktop && isAndroid && viewTransitionRunning)
+            ignoreProxyUpdatesDuringTransition = false;
+            
         completeEventPending = false;
         updateProxyImage();
         
