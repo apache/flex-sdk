@@ -53,7 +53,7 @@ use namespace mx_internal;
  *  
  *  <pre>
  *  &lt;mx:DateFormatter
- *    formatString="Y|M|D|A|E|H|J|K|L|N|S"
+ *    formatString="Y|M|D|A|E|H|J|K|L|N|S|Q"
  *   /> 
  *  </pre>
  *  
@@ -79,7 +79,7 @@ public class DateFormatter extends Formatter
     /**
      *  @private    
      */
-    private static const VALID_PATTERN_CHARS:String = "Y,M,D,A,E,H,J,K,L,N,S";
+    private static const VALID_PATTERN_CHARS:String = "Y,M,D,A,E,H,J,K,L,N,S,Q";
     
     //--------------------------------------------------------------------------
     //
@@ -121,7 +121,7 @@ public class DateFormatter extends Formatter
         var len:int = str.length;
         
         // Strip out the Timezone. It is not used by the DateFormatter
-        var timezoneRegEx:RegExp = /(GMT|UTC)-\d\d\d\d/ig;
+        var timezoneRegEx:RegExp = /(GMT|UTC)((\+|-)\d\d\d\d )?/ig;
         
         str = str.replace(timezoneRegEx, "");
         
@@ -477,6 +477,16 @@ public class DateFormatter extends Formatter
      *        </ul></td>
      *    </tr>
      *    <tr>
+     *      <td>Q</td>
+     *      <td>Millisecond in second
+     * 
+     *        <p>Example:</p>
+     *        <ul>
+     *          <li>QQ = 78</li>
+     *          <li>QQQ = 078</li>
+     *        </ul></td>
+     *    </tr>
+     *    <tr>
      *      <td>Other text</td>
      *      <td>You can add other text into the pattern string to further 
      *        format the string. You can use punctuation, numbers, 
@@ -485,7 +495,7 @@ public class DateFormatter extends Formatter
      * 
      *        <p>Example:</p>
      *        <ul>
-     *          <li>EEEE, MMM. D, YYYY at L:NN A = Tuesday, Sept. 8, 2005 at 1:26 PM</li>
+     *          <li>EEEE, MMM. D, YYYY at L:NN:QQQ A = Tuesday, Sept. 8, 2005 at 1:26:012 PM</li>
      *        </ul></td>
      *    </tr>
      *  </table>
