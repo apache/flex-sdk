@@ -1,6 +1,9 @@
 package mx.utils
 {
+import flash.display.DisplayObject;
 import flash.utils.getTimer;
+
+import mx.core.UIComponent;
 
 CONFIG::performanceInstrumentation
 public final class PerfUtil
@@ -101,7 +104,7 @@ public final class PerfUtil
 	 *  @param tolerance Tolerance in miliseconds. If the event took less than the tolerance,
 	 *  it will be omitted from the log.
 	 */
-	public function markEnd(name:String, token:int, tolerance:int = 0):void
+	public function markEnd(name:String, token:int, tolerance:int = 0, idObject:Object = null):void
 	{
 		if (startSamplingCount <= 0 || token < 0 )
 			return;
@@ -121,6 +124,14 @@ public final class PerfUtil
 				timeVector[token] = IGNORE; 
 			return;
 		}
+        
+        if (idObject)
+        {
+            if (idObject is DisplayObject)
+                name = (idObject as DisplayObject).name + name;
+            else
+                name = idObject.toString() + name;
+        }
 		
 		idVector[token] = name; // Fix the start id
 		idVector.push(name);
