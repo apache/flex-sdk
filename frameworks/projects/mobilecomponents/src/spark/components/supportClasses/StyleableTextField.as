@@ -1444,7 +1444,7 @@ public class StyleableTextField extends FlexTextField
         if (useTightTextBounds)
         {
             // return the text field width without the left and right gutters
-            return width - StyleableTextField.TEXT_WIDTH_PADDING;
+            return width - StyleableTextField.TEXT_GUTTER * 2;
         }
         else
         {
@@ -1561,7 +1561,7 @@ public class StyleableTextField extends FlexTextField
         if (useTightTextBounds)
         {
             // The measuredTextSize without the left and right gutters
-            return measuredTextSize.x - StyleableTextField.TEXT_WIDTH_PADDING;
+            return measuredTextSize.x - StyleableTextField.TEXT_GUTTER * 2;
         }
         else
         {
