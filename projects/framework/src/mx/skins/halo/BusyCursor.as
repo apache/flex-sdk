@@ -46,6 +46,11 @@ public class BusyCursor extends FlexSprite
 	/**
 	 *  Constructor.
 	 *  
+     *  @param styleManager - The style manager associated with the object creating
+     *  the cursor. The style manager is used to get the style declaration of the 
+     *  cursor manager which determines the class used for the busy cursor. 
+     *  If styleManager is null, the top-level style manager will be used.
+     * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
@@ -59,7 +64,7 @@ public class BusyCursor extends FlexSprite
             styleManager = StyleManager.getStyleManager(null);
         
 		var cursorManagerStyleDeclaration:CSSStyleDeclaration =
-			styleManager.getStyleDeclaration("mx.managers.CursorManager");
+			styleManager.getMergedStyleDeclaration("mx.managers.CursorManager");
 		
 		var cursorClass:Class =
 			cursorManagerStyleDeclaration.getStyle("busyCursorBackground");
