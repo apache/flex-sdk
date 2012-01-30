@@ -29,6 +29,11 @@ import mx.resources.ResourceManager;
  *  Dispatched when the sound file finishes loading.
  *
  *  @eventType flash.events.Event.COMPLETE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="complete", type="flash.events.Event")]
 
@@ -36,6 +41,11 @@ import mx.resources.ResourceManager;
  *  Dispatched when ID3 data is available for an MP3 sound file.
  *
  *  @eventType flash.events.Event.ID3
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="id3", type="flash.events.Event")]
 
@@ -43,6 +53,11 @@ import mx.resources.ResourceManager;
  *  Dispatched when an error occurs during the loading of the sound file.
  *
  *  @eventType flash.events.IOErrorEvent.IO_ERROR 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="ioError", type="flash.events.IOErrorEvent")]
 
@@ -56,6 +71,11 @@ import mx.resources.ResourceManager;
  *  without any <code>progress</code> events being dispatched.</p>
  *
  *  @eventType flash.events.ProgressEvent.PROGRESS 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="progress", type="flash.events.ProgressEvent")]
 
@@ -106,6 +126,11 @@ import mx.resources.ResourceManager;
  *  @see flash.media.Sound
  *
  *  @includeExample examples/SoundEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SoundEffect extends Effect
 {
@@ -121,6 +146,11 @@ public class SoundEffect extends Effect
      *  Constructor.
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function SoundEffect(target:Object = null)
     {
@@ -170,6 +200,11 @@ public class SoundEffect extends Effect
      *  when the <code>source</code> has been specified.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get autoLoad():Boolean
     {
@@ -200,6 +235,11 @@ public class SoundEffect extends Effect
      *  and before resuming playback after a network stall.
      *
      *  @default 1000
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var bufferTime:Number = 1000;
     
@@ -209,6 +249,11 @@ public class SoundEffect extends Effect
 
     /**
      *  This property is <code>true</code> if the MP3 has been loaded. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get isLoading():Boolean
     {
@@ -238,6 +283,11 @@ public class SoundEffect extends Effect
      *  at least once, the sound does not loop.</p>
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var loops:int = 0;
     
@@ -249,6 +299,11 @@ public class SoundEffect extends Effect
      *  The easing function for the pan effect.
      *  Use this function to interpolate between the values
      *  of <code>panFrom</code> and <code>panTo</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var panEasingFunction:Function;
     
@@ -265,6 +320,11 @@ public class SoundEffect extends Effect
      *  evenly between the two channels.
      *
      *  @default 0.0     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var panFrom:Number;
     
@@ -281,6 +341,11 @@ public class SoundEffect extends Effect
      *  between the two channels.
      *
      *  @default 0.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var panTo:Number;
     
@@ -295,6 +360,11 @@ public class SoundEffect extends Effect
     
     /**
      *  The Sound object that the MP3 file has been loaded into. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get sound():Sound
     {
@@ -318,6 +388,11 @@ public class SoundEffect extends Effect
      *  If you have already embedded the MP3 file, using the <code>Embed</code> keyword, 
      *  you can pass the Class object of the MP3 file to the <code>source</code> property. 
      *  Otherwise, specify the full URL to the MP3 file.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get source():Object
     {
@@ -379,6 +454,11 @@ public class SoundEffect extends Effect
      *  at which playback should start.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var startTime:Number = 0;
     
@@ -396,6 +476,11 @@ public class SoundEffect extends Effect
      *  after the MP3 finishes playing or looping.
      *
      *  @default true    
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var useDuration:Boolean = true;
     
@@ -407,6 +492,11 @@ public class SoundEffect extends Effect
      *  The easing function for the volume effect.
      *  This function is used to interpolate between the values
      *  of <code>volumeFrom</code> and <code>volumeTo</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var volumeEasingFunction:Function;
     
@@ -421,6 +511,11 @@ public class SoundEffect extends Effect
      *  Value can range from 0.0 to 1.0.
      *
      *  @default 1   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var volumeFrom:Number;
     
@@ -435,6 +530,11 @@ public class SoundEffect extends Effect
      *  Value can range from 0.0 to 1.0.
      *
      *  @default 1   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var volumeTo:Number;
     
@@ -475,6 +575,11 @@ public class SoundEffect extends Effect
 
     /**
      *  Loads the MP3 if the <code>source</code> property points to a URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function load():void
     {
@@ -518,6 +623,11 @@ public class SoundEffect extends Effect
 
     /**
      *  Just act as a proxy for all events from the sound.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function soundEventHandler(event:Event):void
     {
