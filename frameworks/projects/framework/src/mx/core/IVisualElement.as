@@ -11,6 +11,8 @@
 package mx.core
 {
 	import mx.geom.ITransformable;
+	import flash.geom.Matrix;
+    import flash.geom.Matrix3D;
 	
 /**
  *  The IVisualItem interface represents the common methods and properties between UIComponents and
@@ -23,5 +25,11 @@ package mx.core
 		 */
 		function set layer(value:Number):void;
 		function get layer():Number;
+		
+        function get layoutMatrix():Matrix;
+        function set layoutMatrix(value:Matrix):void;
+
+        function get layoutMatrix3D():Matrix3D;
+        function set layoutMatrix3D(value:Matrix3D):void;
 	}
 }
