@@ -25,6 +25,11 @@ import mx.collections.IList;
  *  You do not create instances of ObjectUtil;
  *  instead you simply call static methods such as the 
  *  <code>ObjectUtil.isSimple()</code> method.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ObjectUtil
 {
@@ -32,6 +37,11 @@ public class ObjectUtil
     
     /**
     *  Array of properties to exclude from debugging output.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     private static var defaultToStringExcludes:Array = ["password", "credentials"];
 
@@ -73,6 +83,11 @@ public class ObjectUtil
      *  @return Return 0 if a and b are null, NaN, or equal. 
      *  Return 1 if a is null or greater than b. 
      *  Return -1 if b is null or greater than a. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function compare(a:Object, b:Object, depth:int = -1):int
     {
@@ -93,6 +108,11 @@ public class ObjectUtil
      *  @param value Object that should be copied.
      * 
      *  @return Copy of the specified Object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static function copy(value:Object):Object
     {
@@ -120,6 +140,11 @@ public class ObjectUtil
      *
      *  @return <code>true</code> if the object specified
      *  is one of the types above; <code>false</code> otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isSimple(value:Object):Boolean
     {
@@ -154,6 +179,11 @@ public class ObjectUtil
      *  -1 if only <code>b</code> is a NaN.
      *  -1 if <code>a</code> is less than <code>b</code>.
      *  1 if <code>a</code> is greater than <code>b</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function numericCompare(a:Number, b:Number):int
     {
@@ -190,6 +220,11 @@ public class ObjectUtil
      *  -1 if only <code>b</code> is null.
      *  -1 if <code>a</code> precedes <code>b</code>.
      *  1 if <code>b</code> precedes <code>a</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function stringCompare(a:String, b:String,
                                          caseInsensitive:Boolean = false):int
@@ -235,6 +270,11 @@ public class ObjectUtil
      *  (or <code>b</code> is <code>null</code>);
      *  1 if <code>a</code> is after <code>b</code>
      *  (or <code>a</code> is <code>null</code>).     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function dateCompare(a:Date, b:Date):int
     {
@@ -428,6 +468,11 @@ public class ObjectUtil
      *     num = 2
      * 
      * </pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function toString(value:Object, 
                                     namespaceURIs:Array = null, 
@@ -800,6 +845,11 @@ public class ObjectUtil
      *    <li><code>properties</code>: Sorted list of the property names of the specified object,
      *    or references to the original key if the specified object is a Dictionary</li>
      *  </ul>
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public static function getClassInfo(obj:Object,
                                         excludes:Array = null,
@@ -1038,6 +1088,11 @@ public class ObjectUtil
      * @param excludes If any properties need to be excluded when generating class info. (Optional)
      * @param options If any options flags need to changed when generating class info. (Optional)
      * @return true if the property has the specified metadata.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function hasMetadata(obj:Object, 
                 propName:String, 
