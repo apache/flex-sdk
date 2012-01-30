@@ -21,6 +21,7 @@ import mx.events.PropertyChangeEvent;
 import spark.components.SkinnableContainer;
 import spark.components.View;
 import spark.events.DisplayLayerObjectExistenceEvent;
+import spark.core.ContainerDestructionPolicy;
 
 use namespace mx_internal;
 
@@ -119,15 +120,17 @@ public class ViewNavigatorBase extends SkinnableContainer
     
     /**
      * @private
+     * Setting the active state is hidden and should be managed my
+     * the components that manage navigators.
      */
-    public function set active(value:Boolean):void
+    mx_internal function setActive(value:Boolean):void
     {
         if (_active != value)
         {
             _active = value;
             
             if (activeView)
-                activeView.active = value;
+                activeView.setActive(value);
             
             var eventName:String = _active ? FlexEvent.NAVIGATOR_ACTIVATE : 
                                              FlexEvent.NAVIGATOR_DEACTIVATE;
@@ -181,6 +184,37 @@ public class ViewNavigatorBase extends SkinnableContainer
     public function get canCancelBackKeyBehavior():Boolean
     {
         return false;
+    }
+    
+    //----------------------------------
+    //  destructionPolicy
+    //----------------------------------
+    
+    private var _destructionPolicy:String = ContainerDestructionPolicy.AUTO;
+    
+    /**
+     *  Sets the destructionPolicy for the navigator.  This property determines
+     *  if the contents of the navigator should be destroyed when the navigator
+     *  is deactivated by another component, such as TabbedViewNavigator.
+     * 
+     *  @default auto
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    public function get destructionPolicy():String
+    {
+        return _destructionPolicy;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set destructionPolicy(value:String):void
+    {
+        _destructionPolicy = value;
     }
     
     //----------------------------------
@@ -454,6 +488,17 @@ public class ViewNavigatorBase extends SkinnableContainer
     	// This is a method instead of a property because the default
     	// implementation in ViewNavigator has a side effect
         return true;
+    }
+    
+    /**
+     *  @private
+     *  Creates the top view of the navigator and adds it to the
+     *  display list.  This method is used when the navigator exists
+     *  inside a TabbedViewNavigator.
+     */ 
+    mx_internal function createTopView():void
+    {
+        // Override in sub class
     }
     
     /**
