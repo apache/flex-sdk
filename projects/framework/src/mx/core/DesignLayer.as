@@ -12,13 +12,12 @@
 package mx.core
 {
     import flash.events.EventDispatcher;
-    
     import mx.events.PropertyChangeEvent;
     import mx.events.PropertyChangeEventKind;
         
     /**
-     *  Dispatched by the layer when either computedVisibility or 
-     *  computedAlpha changes.
+     *  Dispatched by the layer when either <code>effectiveVisibility</code> or 
+     *  <code>effectiveAlpha</code> changes.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -28,11 +27,11 @@ package mx.core
     [Event(name="layerPropertyChange", type="mx.events.PropertyChangeEvent")]
     
     /**
-     *  The DesignLayer class represents a "visibility group" that can be associated
+     *  The DesignLayer class represents a visibility group that can be associated
      *  with one or more IVisualElement instances at runtime.  
      * 
-     *  DesignLayer instances support a visible and alpha property that when set will
-     *  propagate to the assocaited layer children.
+     *  DesignLayer instances support a <code>visible</code> and alpha property 
+     *  that when set will propagate to the associated layer children.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -63,21 +62,45 @@ package mx.core
         //----------------------------------
         //  id
         //----------------------------------
+
+        /**
+         *  @private
+         *  Storage for id property.
+         */
+        private var _id:String;
         
         /**
-         *  ID of the layer component. This value becomes the instance name of the layer
-         *  and as such, should not contain any white space or special characters. 
+         *  ID of the layer component. This value becomes the instance name of the 
+         *  layer and as such, should not contain any white space or special 
+         *  characters. 
          * 
          *  @langversion 3.0
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
-        public var id:String;
+        public function get id():String
+        {
+            return _id;
+        }
+        
+        /**
+         *  @private
+         */
+        public function set id(value:String):void
+        {
+            _id = value;
+        }
         
         //----------------------------------
         //  parent
         //----------------------------------
+
+        /**
+         *  @private
+         *  Storage for parent property.
+         */
+        private var _parent:DesignLayer;
         
         /**
          *  @private
@@ -90,7 +113,20 @@ package mx.core
          *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
-        protected var parent:DesignLayer;
+        protected function get parent():DesignLayer
+        {
+            return _parent;
+        }
+        
+        /**
+         *  @private
+         */
+        protected function set parent(value:DesignLayer):void
+        {
+            _parent = value;
+            effectiveVisibilityChanged(_visible);
+            effectiveAlphaChanged(_alpha);
+        }
         
         //----------------------------------
         //  layerChildren
@@ -113,10 +149,9 @@ package mx.core
         /**
          *  The visibility for this design layer instance.
          *
-         *  When updated, the appropriate change event for 
-         *  computedVisibility will be dispatched to all layerPropertyChange
-         *  listeners for this layer, as well as those of affected
-         *  descendant layers if any.
+         *  <p>When updated, the appropriate change event for <code>effectiveVisibility</code> 
+         *  will be dispatched to all <code>layerPropertyChange<code> listeners for 
+         *  this layer, as well as those of affected descendant layers if any.</p>
          *
          *  @default true
          * 
@@ -138,18 +173,17 @@ package mx.core
             if (_visible != value)
             {
                 _visible = value;
-                computedVisibilityChanged(computedVisibility);
+                effectiveVisibilityChanged(effectiveVisibility);
             }
         }
         
         //----------------------------------
-        //  computedVisibility
+        //  effectiveVisibility
         //----------------------------------
         
         /**
-         *  Returns the effective visibility of this design layer
-         *  (which considers the visibility of this layer as well as
-         *  any ancestor layers).  
+         *  Returns the effective visibility of this design layer (which considers 
+         *  the visibility of this layer as well as any ancestor layers).  
          * 
          *  @default true
          * 
@@ -158,7 +192,7 @@ package mx.core
          *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */   
-        public function get computedVisibility():Boolean
+        public function get effectiveVisibility():Boolean
         {
             var isVisible:Boolean = _visible;
             var currentLayer:DesignLayer = this;
@@ -172,15 +206,14 @@ package mx.core
         
         /**
          * @private
-         * Used to notify the visual elements associated with this layer
-         * that the computed visiblity has changed.  Dispatches a 
-         * "layerPropertyChange" event with property field set to 
-         * "computedVisibility".
+         * Used to notify the visual elements associated with this layer that the 
+         * effective visiblity has changed.  Dispatches a <code>layerPropertyChange</code> 
+         * event with property field set to "effectiveVisibility".
          */  
-        protected function computedVisibilityChanged(value:Boolean):void
+        protected function effectiveVisibilityChanged(value:Boolean):void
         {
             dispatchEvent(new PropertyChangeEvent("layerPropertyChange", false, 
-                false, PropertyChangeEventKind.UPDATE, "computedVisibility", !value, value));
+                false, PropertyChangeEventKind.UPDATE, "effectiveVisibility", !value, value));
             
             for (var i:int = 0; i < layerChildren.length; i++)
             {
@@ -190,7 +223,7 @@ package mx.core
                 // those that aren't don't really care about their layer parents
                 // visibility.
                 if (layerChild.visible)
-                    layerChild.computedVisibilityChanged(value);
+                    layerChild.effectiveVisibilityChanged(value);
             }
         }
         
@@ -206,10 +239,9 @@ package mx.core
         /**
          *  The alpha for this design layer instance.
          *
-         *  When updated, the appropriate change event for 
-         *  computedAlpha will be dispatched to all layerPropertyChange
-         *  listeners for this layer, as well as those of affected
-         *  descendant layers if any.
+         *  <p>When updated, the appropriate change event for <code>effectiveAlpha</code> 
+         *  will be dispatched to all <code>layerPropertyChange</code> listeners 
+         *  for this layer, as well as those of affected descendant layers if any.</p>
          *
          *  @default 1.0
          * 
@@ -232,17 +264,17 @@ package mx.core
             {
                 var oldAlpha:Number = _alpha;
                 _alpha = value;
-                computedAlphaChanged(oldAlpha);
+                effectiveAlphaChanged(oldAlpha);
             }
         }
         
         //----------------------------------
-        //  computedAlpha
+        //  effectiveAlpha
         //----------------------------------
         
         /**
          *  Property that returns the effective alpha of this design layer
-         *  (which considers the alpha of this multiplied with the alpha of 
+         *  (which considers the alpha of this layer multiplied with the alpha of 
          *  any ancestor layers).  
          * 
          *  @default 1.0
@@ -252,7 +284,7 @@ package mx.core
          *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */ 
-        public function get computedAlpha():Number
+        public function get effectiveAlpha():Number
         {
             var currentAlpha:Number = _alpha;
             var currentLayer:DesignLayer = this;
@@ -266,19 +298,19 @@ package mx.core
         
         /**
          * @private
-         * Used to notify the visual elements associated with this layer
-         * that the computed alpha has changed.  Dispatches a "layerPropertyChange"
-         * event with the property field set to "computedAlpha".
+         * Used to notify the visual elements associated with this layer that the 
+         * effective alpha has changed.  Dispatches a <code>layerPropertyChange</code> 
+         * event with the property field set to "effectiveAlpha".
          */  
-        protected function computedAlphaChanged(oldAlpha:Number):void
+        protected function effectiveAlphaChanged(oldAlpha:Number):void
         {
             dispatchEvent(new PropertyChangeEvent("layerPropertyChange", false, 
-                false, PropertyChangeEventKind.UPDATE, "computedAlpha", oldAlpha, computedAlpha));
+                false, PropertyChangeEventKind.UPDATE, "effectiveAlpha", oldAlpha, effectiveAlpha));
             
             for (var i:int = 0; i < layerChildren.length; i++)
             {
                 var layerChild:DesignLayer = layerChildren[i];
-                layerChild.computedAlphaChanged(layerChild.alpha);
+                layerChild.effectiveAlphaChanged(layerChild.alpha);
             }
         }
  
@@ -287,7 +319,7 @@ package mx.core
         //----------------------------------
         
         /**
-         *  The number of DesignLayer children immediately parented by this layer.
+         *  The number of DesignLayer children directly parented by this layer.
          *
          *  @default 0
          * 
@@ -326,11 +358,15 @@ package mx.core
         /**
          *  Returns the DesignLayer child at the specified index.
          *
+         *  <p>Note that the order of DesignLayer children is insignificant.
+         *  The <code>getLayerAt</code> method is meant to be used in 
+         *  conjunction with numLayers to iterate over the child list.</p> 
+         *
          *  @param index The 0-based index of a DesignLayer child.
          *
          *  @return The specified DesignLayer child if index is between
-         *  0 and <code>numLayers</code> - 1.  Returns
-         *  <code>null</code> if the index is invalid.
+         *  0 and <code>numLayers</code> - 1.  Returns <code>null</code> 
+         *  if the index is invalid.
          * 
          *  @see numLayers
          * 
