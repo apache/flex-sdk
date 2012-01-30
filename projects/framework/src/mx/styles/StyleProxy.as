@@ -426,7 +426,21 @@ public class StyleProxy implements IAdvancedStyleClient
     //
     //--------------------------------------------------------------------------
 
-    /**
+	/**
+	 *  @copy mx.styles.IAdvancedStyleClient#stylesInitialized()
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function stylesInitialized():void
+	{
+		if (_advancedSource)
+			_advancedSource.stylesInitialized();
+	}
+	
+	/**
      *  @copy mx.styles.IAdvancedStyleClient#matchesCSSState()
      *  
      *  @langversion 3.0
