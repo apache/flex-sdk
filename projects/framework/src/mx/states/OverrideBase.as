@@ -13,9 +13,11 @@ package mx.states
 {
 	
 import flash.events.EventDispatcher;
-import mx.core.UIComponent;
 
-public class OverrideBase extends EventDispatcher
+import mx.core.UIComponent;
+import mx.utils.OnDemandEventDispatcher;
+
+public class OverrideBase extends OnDemandEventDispatcher
 {
 	//--------------------------------------------------------------------------
     //
