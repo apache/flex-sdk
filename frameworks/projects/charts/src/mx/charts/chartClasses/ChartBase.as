@@ -36,6 +36,7 @@ import mx.collections.ListCollectionView;
 import mx.collections.XMLListCollection;
 import mx.core.DragSource;
 import mx.core.EventPriority;
+import mx.core.FlexGlobals;
 import mx.core.FlexShape;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
@@ -55,6 +56,7 @@ import mx.graphics.Stroke;
 import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ILayoutManagerClient;
+import mx.managers.ISystemManager;
 import mx.styles.CSSStyleDeclaration;
 
 use namespace mx_internal;
@@ -3785,9 +3787,38 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
 
             if (tipInstance is ILayoutManagerClient)
                 ILayoutManagerClient (tipInstance).validateSize();
-            
-            data = new TipPositionData(tipInstance, hitData,
-                                       localPts.x, localPts.y, pts.x, pts.y);
+			try					//if mx.managers.systemClasses.MarshallingSupport class is found,
+								// marshalling support is enabled and localToGlobal does not give
+								// expected result because current sub application becomes top level
+								// In such cases, sub-application's offset needs to be subtracted
+								// from obtained localToGlobal values.
+								// http://bugs.adobe.com/jira/browse/FLEXDMV-2536
+			{
+				var marshallingClass:Class;
+				var sm:ISystemManager = this.systemManager;
+				if(sm)
+					marshallingClass = Class(sm.getDefinitionByName("mx.managers.systemClasses.MarshallingSupport"));
+				else
+					marshallingClass = Class(getDefinitionByName("mx.managers.systemClasses.MarshallingSupport"));
+					
+				if(marshallingClass)
+				{
+					var appOffset:Point = FlexGlobals.topLevelApplication.localToGlobal(new Point(0,0));
+					data = new TipPositionData(tipInstance, hitData,
+						localPts.x, localPts.y, pts.x - appOffset.x, pts.y - appOffset.y);						
+				}
+				else
+				{
+					data = new TipPositionData(tipInstance, hitData,
+						localPts.x, localPts.y, pts.x, pts.y);
+				}
+			}
+			catch (e:Error)			//mx.managers.systemClasses.MarshallingSupport class is not found
+									// means marshalling is not enabled and so we revert to normal logic.
+			{
+				data = new TipPositionData(tipInstance, hitData,
+					localPts.x, localPts.y, pts.x, pts.y);
+			}            
                         
             if (data.gy - dataTipVOffset - tipInstance.measuredHeight > 0)
                 data.py = data.gy - dataTipVOffset - tipInstance.measuredHeight;
