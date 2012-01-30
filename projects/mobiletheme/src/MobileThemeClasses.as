@@ -29,6 +29,8 @@ import spark.skins.mobile.HScrollBarSkin; spark.skins.mobile.HScrollBarSkin;
 import spark.skins.mobile.ListSkin; spark.skins.mobile.ListSkin;
 import spark.skins.mobile.MobileApplicationSkin; MobileApplicationSkin;
 import spark.skins.mobile.SliderSkin; SliderSkin;
+import spark.skins.mobile.TextAreaSkin; TextAreaSkin;
+import spark.skins.mobile.TextInputSkin; TextInputSkin;
 import spark.skins.mobile.ViewNavigatorSkin; ViewNavigatorSkin;
 import spark.skins.mobile.VScrollBarSkin; spark.skins.mobile.VScrollBarSkin;
 }
