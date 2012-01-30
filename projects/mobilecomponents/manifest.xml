@@ -22,7 +22,9 @@
     <component id="MobileItemRenderer" class="spark.components.MobileItemRenderer"/>
     <component id="MobileIconItemRenderer" class="spark.components.MobileIconItemRenderer"/>
     <component id="SlideViewTransition" class="spark.effects.SlideViewTransition"/>
+    <component id="TabbedMobileApplication" class="spark.components.TabbedMobileApplication"/>
+    <component id="TabbedViewNavigator" class="spark.components.TabbedViewNavigator"/>
     <component id="View" class="spark.components.View"/>
+    <component id="ViewNavigatorBase" class="spark.components.supportClasses.ViewNavigatorBase"/>
     <component id="ViewNavigator" class="spark.components.ViewNavigator"/>
-    <component id="ViewNavigatorSection" class="spark.components.supportClasses.ViewNavigatorSection"/>
 </componentPackage>
