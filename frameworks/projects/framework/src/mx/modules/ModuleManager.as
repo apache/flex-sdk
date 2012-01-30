@@ -24,6 +24,11 @@ import mx.core.IFlexModuleFactory;
  *  Clients can register event handlers and then call the 
  *  <code>load()</code> method, which dispatches events when the factory is ready
  *  (or immediately, if it was already loaded).
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ModuleManager
 {
@@ -43,6 +48,11 @@ public class ModuleManager
      *  @param url A URL that represents the location of the module.
      *  
      *  @return The IModuleInfo interface associated with a particular URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getModule(url:String):IModuleInfo
     {
@@ -57,6 +67,11 @@ public class ModuleManager
      * 
      *  @return Returns the IFlexModuleFactory implementation, or <code>null</code>
      *  if the object type cannot be created from the factory.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getAssociatedFactory(
                                 object:Object):IFlexModuleFactory
@@ -121,6 +136,11 @@ class ModuleManagerImpl extends EventDispatcher
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ModuleManagerImpl()
     {
@@ -217,6 +237,11 @@ class ModuleInfo extends EventDispatcher
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ModuleInfo(url:String)
     {
@@ -796,6 +821,11 @@ class FactoryInfo
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FactoryInfo()
     {
@@ -858,6 +888,11 @@ class ModuleInfoProxy extends EventDispatcher implements IModuleInfo
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ModuleInfoProxy(info:ModuleInfo)
     {
