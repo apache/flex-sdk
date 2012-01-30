@@ -17,6 +17,7 @@ import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.text.TextField;
+import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
@@ -718,6 +719,23 @@ public class UITextField extends FlexTextField
     public function set document(value:Object):void
     {
         _document = value;
+    }
+
+    //----------------------------------
+    //  editable
+    //----------------------------------
+
+	/**
+     *  Specifies whether the user is allowed to edit the text in this control.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+    public function get editable():Boolean
+    {
+        return type == TextFieldType.INPUT;
     }
 
     //----------------------------------
