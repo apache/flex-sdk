@@ -117,6 +117,49 @@ public class ParallelInstance extends CompositeEffectInstance
         return _duration;
     }
 	
+
+    //----------------------------------
+    //  playheadTime
+    //----------------------------------
+
+    /**
+     * @inheritDoc
+     * 
+     * In a Parallel effect, setting <code>playheadTime</code> 
+     * will cause all child effects to go to that same
+     * <code>playheadTime</code>. This may cause child effects to 
+     * lessen their <code>startDelay</code> (if they are currently 
+     * waiting to be played), start playing (if the 
+     * <code>playheadTime</code> is greater than their 
+     * <code>startDelay</code>), or end (if the <code>playheadTime</code> 
+     * is greater than their <code>startDelay</code> plus
+     * their <code>duration</code>).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set playheadTime(value:Number):void
+    {
+        var totalDur:Number = Parallel(effect).compositeDuration;
+        var childPlayheadTime:Number = 
+            (value - startDelay) % (totalDur + repeatDelay);
+        
+        // This will seek in the Parallel's instance
+        super.playheadTime = childPlayheadTime;
+        playCount = 1 + (value - startDelay) / (totalDur + repeatDelay);
+
+        // Tell all of our children to set their playheadTime
+        for (var i:int = 0; i < childSets.length; i++)
+        {
+            var instances:Array = childSets[i];            
+            var m:int = instances.length;
+            for (var j:int = 0; j < m; j++)
+                instances[j].playheadTime = childPlayheadTime;
+        }
+    }
+
 	//--------------------------------------------------------------------------
 	//
 	//  Overridden methods
@@ -450,39 +493,6 @@ public class ParallelInstance extends CompositeEffectInstance
 		
 	}
 
-    /**
-     * @inheritDoc
-     * 
-     * In a Parallel effect, seek will cause all child effects to seek to
-     * the same <code>seekTime</code>. This may cause child effects to 
-     * lessen their startDelay (if they are currently waiting to be played),
-     * start playing (if the seekTime is greater than their startDelay), or
-     * come to an end (if the seekTime is greater than their startDelay plus
-     * their duration).
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    override public function seek(seekTime:Number):void
-    {
-        var totalDur:Number = Parallel(effect).compositeDuration;
-        var childSeekTime:Number = (seekTime - startDelay) % (totalDur + repeatDelay);
-        
-        // This will seek in the Parallel's instance
-        super.seek(childSeekTime);
-        playCount = 1 + (seekTime - startDelay) / (totalDur + repeatDelay);
-
-        // Tell all of our children to seek()
-        for (var i:int = 0; i < childSets.length; i++)
-        {
-            var instances:Array = childSets[i];            
-            var m:int = instances.length;
-            for (var j:int = 0; j < m; j++)
-                instances[j].seek(childSeekTime);
-        }
-    }
 }
 
 }
