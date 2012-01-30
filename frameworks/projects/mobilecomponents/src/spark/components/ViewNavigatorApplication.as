@@ -681,15 +681,9 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
         {
             if (navigator.activeView)
                 systemManager.stage.addEventListener(Event.RESIZE, stage_resizeHandler);
-        }
-        
-        // Set the stage focus to the navigator's active view
-        if (systemManager.stage.focus == null && navigator)
-        {
-            if (navigator.activeView)
-                systemManager.stage.focus = navigator.activeView;
-            else
-                systemManager.stage.focus = navigator;
+
+            // Set the stage focus to the navigator's active view
+            navigator.updateFocus();
         }
     }
     
