@@ -12,6 +12,8 @@
 package mx.managers
 {
 
+import flash.accessibility.Accessibility;
+import flash.accessibility.AccessibilityProperties;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
@@ -23,6 +25,7 @@ import flash.events.EventDispatcher;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.system.Capabilities;
 
 import mx.automation.IAutomationObject;
 import mx.core.FlexGlobals;
@@ -396,7 +399,11 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         
         if (modal)
         {
-            // create a modal window shield which blocks input and sets up mouseDownOutside logic
+			// handles accessibility for modal popUps.
+			if(Capabilities.hasAccessibility && Accessibility.active)
+				window.addEventListener(FlexEvent.CREATION_COMPLETE, modalPopUpCreationCompleteHandler, false, 0, true);
+
+			// create a modal window shield which blocks input and sets up mouseDownOutside logic
             createModalWindow(parent, o, children, visibleFlag, smp, smp.getSandboxRoot());
         }
         else
@@ -1021,22 +1028,33 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 		    dispatchEvent(dynamicEvent);
         }
     }
-    
-    /**
-     *  @private
-     *  Returns the PopUpData (or null) for a given popupInfo.owner
-     */
-    private function findPopupInfoByOwner(owner:Object):PopUpData
-    {
-        const n:int = popupInfo.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            var o:PopUpData = popupInfo[i];
-            if (o.owner == owner)
-                return o;
-        }
-        return null;
-    }
+
+	/**
+	 *  @private
+	 *  Returns the index position of the PopUpData in the popupInfo array (or -1) 
+	 *  for a given popupInfo.owner
+	 */
+	private function findPopupInfoIndexByOwner(owner:Object):int
+	{
+		const n:int = popupInfo.length;
+		for (var i:int = 0; i < n; i++)
+		{
+			var o:PopUpData = popupInfo[i];
+			if (o.owner == owner)
+				return i;
+		}
+		return -1;
+	}
+	
+	/**
+	 *  @private
+	 *  Returns the PopUpData (or null) for a given popupInfo.owner
+	 */
+	private function findPopupInfoByOwner(owner:Object):PopUpData
+	{
+		var index:int = findPopupInfoIndexByOwner(owner);
+		return index > -1 ? popupInfo[index] : null;
+	}
 
     /**
      *  @private
@@ -1199,8 +1217,11 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
                 // modal
                 if (modalWindow)
                 {
-                    // clean up all handlers
-                    sm.removeEventListener(Event.RESIZE, o.resizeHandler);
+					// restore accessibility to document
+					removeModalPopUpAccessibility(popUp);
+					
+					// clean up all handlers
+					sm.removeEventListener(Event.RESIZE, o.resizeHandler);
                     
                     popUp.removeEventListener(FlexEvent.SHOW, popupShowHandler);
                     popUp.removeEventListener(FlexEvent.HIDE, popupHideHandler);
@@ -1384,6 +1405,145 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         event.relatedObject = InteractiveObject(evt.target);
         owner.dispatchEvent(event);
     }
+
+	/**
+	 * @private
+	 * This method handles the creation of a modal popUp
+	 */
+	private function modalPopUpCreationCompleteHandler(event:FlexEvent):void
+	{
+		event.target.removeEventListener(FlexEvent.CREATION_COMPLETE, modalPopUpCreationCompleteHandler);
+		
+		addModalPopUpAccessibility(event.currentTarget as DisplayObject);			
+	}
+	
+	/**
+	 * @private 
+	 * This method handles the creation of a modal popUp when assistive 
+	 * technology is active, by silencing the content of the top-level document.
+	 */
+	private function addModalPopUpAccessibility(popUp:DisplayObject):Boolean
+	{		
+		if (Capabilities.hasAccessibility && Accessibility.active) 
+		{	
+			const p:PopUpData = findPopupInfoByOwner(popUp);
+			
+			if (p)	
+			{
+				const n:int = popupInfo.length;
+				for (var i:int = 0; i < n; i++)
+				{
+					var o:PopUpData = popupInfo[i];
+					if (o && o != p)
+					{
+						o.owner.accessibilityProperties.silent	= true;
+					}
+				}
+				
+				var sbRoot:Object = p.systemManager.getSandboxRoot(); // getTopLevelSystemManager(p.parent);
+				
+				if (!sbRoot.document.accessibilityProperties)
+					sbRoot.document.accessibilityProperties = new AccessibilityProperties();
+					
+				// This hides top-level document content from assistive technology.	
+				sbRoot.document.accessibilityProperties.silent = true;
+				
+				Accessibility.updateProperties();
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @private
+	 * This method handles the removal of a modal popUp when assistive technology is active, 
+	 * by exposing the content of the top-level document.
+	 * 
+	 * @return 
+	 */
+	private function removeModalPopUpAccessibility(popUp:DisplayObject):Boolean
+	{
+		if (Capabilities.hasAccessibility && Accessibility.active) 
+		{			
+			const p:PopUpData = findPopupInfoByOwner(popUp);
+			
+			if (p)	
+			{	
+				handleAccessibilityForNestedPopups(popUp);
+				
+				if (!popupInfo.length)
+				{
+					var sbRoot:Object = p.systemManager.getSandboxRoot();
+					sbRoot.document.accessibilityProperties.silent = false;
+				}
+				
+				Accessibility.updateProperties();	
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @private
+	 * This method handles accessibility for nested popUps. 
+	 * If this method is called from outside removeModalPopUpAccessibility, 
+	 * it is mandatory to invoke Accessibility.updateProperties() to communicate 
+	 * the individual popup's accessibilityProperties change to the screen reader.
+	 * 
+	 * <p>This method should only come into play with modal popUps, in which case it will
+	 * either expose accessibility of a modal popUp underneath the popUp being closed 
+	 * without exposing the underlying content, or continue exposing accessibility 
+	 * of popUps until there are no more to expose.</p>
+	 */ 
+	private function handleAccessibilityForNestedPopups(popUpBeingVisited:DisplayObject):void
+	{
+		if (!popUpBeingVisited)
+			return;
+		
+		var index:int = findPopupInfoIndexByOwner(popUpBeingVisited);
+		var popupData:PopUpData = index > -1 ? popupInfo[index] : null;
+		var underneathPopUpData:PopUpData;
+		
+		
+		if (index == 0)
+		{	
+			var sm:ISystemManager = getTopLevelSystemManager(popupData.parent);
+			
+			if (sm) 
+			{
+				// If this is the only popUp, we should expose accessibility 
+				// of the top-level system manager's document
+				sm.document.accessibilityProperties.silent = false;
+				
+				// We should also expose accessibility 
+				// of the sandbox root's document.
+				var sbRoot:Object = sm.getSandboxRoot();				
+				sbRoot.document.accessibilityProperties.silent = false;
+			}
+		}
+		else if (index > 0)
+		{
+			// If more than one popUp is open, we should expose accessibility 
+			// of the underlying popUp
+			underneathPopUpData = popupInfo[index - 1];
+			
+			underneathPopUpData.owner.accessibilityProperties.silent = false;
+			
+			// All the nested popUp's AccessibilityProperties 
+			// changes should be handled by a single 
+			// Accessibility.updateProperties 
+			// call in removeModalPopUpAccessibility.
+			
+			// If the underlying popUp is modal, we should stop recursing.
+			if (underneathPopUpData.modalWindow)
+				return;
+			
+			
+			handleAccessibilityForNestedPopups(underneathPopUpData.owner);
+		}
+	}
 
 }
 
