@@ -17,7 +17,6 @@ import flash.display.Sprite;
 import mx.core.DPIClassification;
 
 import spark.components.Group;
-import spark.components.HGroup;
 import spark.components.SpinnerListContainer;
 import spark.layouts.HorizontalLayout;
 import spark.skins.mobile.supportClasses.MobileSkin;
@@ -67,7 +66,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 				
 				cornerRadius = 10;
 				borderThickness = 2;
-				selectionIndicatorHeight = 80;
+				selectionIndicatorHeight = 120;
 				break;
 			}
 			case DPIClassification.DPI_240:
@@ -78,7 +77,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 				
 				cornerRadius = 8;
 				borderThickness = 1;
-				selectionIndicatorHeight = 60;
+				selectionIndicatorHeight = 90;
 				break;
 			}
 			default: // default DPI_160
@@ -89,7 +88,7 @@ public class SpinnerListContainerSkin extends MobileSkin
 			
 				cornerRadius = 5;
 				borderThickness = 1;
-				selectionIndicatorHeight = 40;
+				selectionIndicatorHeight = 60;
 				
 				break;
 			}
