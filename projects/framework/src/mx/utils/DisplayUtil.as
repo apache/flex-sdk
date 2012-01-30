@@ -22,6 +22,11 @@ import mx.core.IRawChildrenContainer;
  *  You do not create instances of the DisplayUtil class;
  *  instead you call static methods such as the 
  *  <code>DisplayUtil.walkDisplayObjects()</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DisplayUtil
 {
@@ -39,6 +44,11 @@ public class DisplayUtil
 	 *  
 	 *  @param displayObject The target DisplayObject.
 	 *  @param callbackFunction The method to call on each node in the specified DisplayObject's tree. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function walkDisplayObjects(displayObject:DisplayObject,
 											  callbackFunction:Function):void
